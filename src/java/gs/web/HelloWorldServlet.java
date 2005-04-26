@@ -11,7 +11,7 @@ import java.util.Date;
  * for testing the sanity of your web application configuration.
  *
  * @author <a href="trajano@yahoo.com">Archimedes Trajano</a>
- * @version $Id: HelloWorldServlet.java,v 1.1 2005/04/26 03:54:06 apeterson Exp $
+ * @version $Id: HelloWorldServlet.java,v 1.3 2005/04/26 21:24:12 apeterson Exp $
  * @web.servlet name="HelloWorld"
  * @web.servlet-mapping url-pattern="/HelloWorld"
  */
