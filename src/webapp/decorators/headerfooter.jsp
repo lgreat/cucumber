@@ -1,3 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ taglib
     uri="http://www.opensymphony.com/sitemesh/decorator"
     prefix="decorator" %>
@@ -7,40 +10,38 @@
       My Site -
       <decorator:title default="Welcome!" />
     </title>
-    <base href="http://localhost:8080/gs-web/" />
-    <link rel="stylesheet" href="css/gs.css">
+    <base href="http://localhost:8080/gs-web/" ></base>
+<%--        <base href="http://tmauder.dev.greatschools.net/testview/" ></base>--%>
+    <link rel="stylesheet" href="css/spp2.css"></link>
     <decorator:head />
   </head>
   <body>
-    <table>
-      <tr>
-        <td>
-              		<table cellspacing="0" cellpadding="0" width="750" align="left" valign="top" border="0">
-              			<tr>
-              				<td width="750" height="80" align="left" valign="top"><img src="images/header_logo.gif" width="201" height="80" border="0" alt="GreatSchools.net"><img src="images/pixel.gif" width="304" height="80" border="0" alt="">
-              				</td>
-              			</tr>
 
-              			<tr>
-              				<td bgcolor="#003399" width="750" height="19" align="left" valign="top"><img src="images/pixel.gif" width=1 height=19 border=0 alt=""></td>
-              			</tr>
-              		</table>
+ <table id="header" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><img src="images/conv_top_sm.jpg" alt="Moving? Choosing a new School? GreatSchools Insider can help." width="380" height="70" /></td>
+    <td width="300" align="right" valign="middle"><img src="images/GS_logo.gif" alt="GreatSchools.net logo" hspace="15" border="0" /></td>
+  </tr>
+</table>
 
-        </td>
-      </tr>
-      <tr>
-        <td><decorator:body /></td>
-      </tr>
-      <tr>
-        <td>
+ <div class="wizard"><div class="wizard2"><div class="wizard3"><div class="wizard4"><div class="pad">
+
+ <decorator:body />
+
+</div></div></div></div></div>
+
 <h5 class="ncopy">GreatSchools.net
 Elementary, middle and high school information for public, private and charter schools nationwide.</h5>
-
-	&#169;1998-2005 GreatSchools Inc. All Rights Reserved. <a href="/">Home</a> | <a href="/cgi-bin/static/terms.html/ca">Terms of Use</a><br>
-	<img src="images/pixel.gif" width="1" height="24" border="0" alt=""><br>
-</td>
-      </tr>
-    </table>
+<h6>&#169;1998-2005 GreatSchools Inc. All Rights Reserved. <a href="/">Home</a>
+| <a href="http://greatschools.net/cgi-bin/static/terms.html/ca">Terms of Use</a></h6>
+    <p>
+     <a href="http://validator.w3.org/check?uri=referer"><img
+          src="http://www.w3.org/Icons/valid-xhtml10"
+          alt="Valid XHTML 1.0!" height="31" width="88"  border="0" /></a> <a href="http://www.springframework.org/"
+title="Spring - java/j2ee Application Framework"><img
+src="http://www.springframework.org/buttons/spring_80x15.png"
+width="80" height="15" border="0" alt="Spring Framework" /></a>
+</p>
   </body>
 </html>
 

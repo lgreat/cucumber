@@ -1,135 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<html
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
     xmlns="http://www.w3c.org/1999/xhtml"
-    xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
     >
+    <html>
 
-    <jsp:output doctype-root-element="html"
-        doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-        doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+        <jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-    <jsp:directive.page contentType="text/html"/>
+        <jsp:directive.page contentType="text/html"/>
 
-    <head>
-        <link rel="text/javascript" href="js/gen_validatorv2.js"></link>
-    </head>
-
-
-    <body>
-
-        <!--<spring:bind path="command">-->
-        <!--        <c:forEach items="${status.errorMessages}" var="error">-->
-        <!--        Error code: <c:out value="${error}"/><br />-->
-        <!--        </c:forEach>-->
-        <!--    </spring:bind>-->
-        <!--<spring:bind path="command.*">-->
-        <!--        <c:forEach items="${status.errorMessages}" var="error">-->
-        <!--        Error code: <c:out value="${error}"/><br />-->
-        <!--        </c:forEach>-->
-        <!--    </spring:bind>-->
+        <head>
+            <link rel="text/javascript" href="js/gen_validatorv2.js"></link>
+        </head>
 
 
-        <form action="http://localhost:8080/gs-web/payment.page" name="myform" method="POST">
-            <table width="100%" border="0" cellpadding="0" cellspacing="0" id="main">
-                <tr valign="top">
-                    <td width="50%">
-                        <img src="images/conv_pic2.gif" alt="photo of family"
-                            width="170" height="237" vspace="2" border="0"/>
-                    </td>
-                    <td width="50%">
-                        <div class="formrow">
-                            <span class="label">Email address</span>
-                            <input type="text" id="email" size="20"/>
-                        </div>
+        <body>
 
-                        <!--                        <spring:bind path="email">-->
-                        <!--                            <span class="label">Email address</span>-->
-                        <!--                            <input-->
-                        <!--                                type="text"-->
-                        <!--                                value=""-->
-                        <!--                                name="" />-->
-                        <!--                            <c:out value="${status.expression}"/>/-->
-                        <!--                            <c:out value="${status.value}"/>-->
-                        <!--                                <c:if test="${status.error}">-->
-                        <!--                                    Error codes:-->
-                        <!--                                    <c:forEach items="${status.errorMessages}">-->
-                        <!--                                        <c:out value="${error}"/>-->
-                        <!--                                    </c:forEach>-->
-                        <!--                                </c:if>-->
-                        <!--                        </spring:bind>-->
+            <!--<spring:bind path="command">-->
+            <!--        <c:forEach items="${status.errorMessages}" var="error">-->
+            <!--        Error code: <c:out value="${error}"/><br />-->
+            <!--        </c:forEach>-->
+            <!--    </spring:bind>-->
+            <!--<spring:bind path="command.*">-->
+            <!--        <c:forEach items="${status.errorMessages}" var="error">-->
+            <!--        Error code: <c:out value="${error}"/><br />-->
+            <!--        </c:forEach>-->
+            <!--    </spring:bind>-->
 
-                        <div class="formrow">
-                            <span class="label">First Name</span>
-                            <input type="text" id="firstName" size="20"/>
-                        </div>
-                        <div class="formrow">
-                            <span class="label">Last Name</span>
-                            <input type="text" id="lastName" size="20"/>
-                        </div>
-                        <div class="formrow">
-                            <span class="label">Address</span>
-                            <input type="text" id="address" size="20"/>
-                        </div>
 
-                        <div class="formrow">
-                            <span class="label">City</span>
-                            <input type="text" id="city" size="20"/>
-                        </div>
-                        <div class="formrow">
-                            <span class="label">State</span>
-                            <input type="text" id="state" size="2" maxlength="2"/>
-                        </div>
-                        <div class="formrow">
-                            <span class="label">Zip - 5 digits</span>
-                            <input type="text" id="zip" size="5"/>
-                        </div>
+            <form action="http://localhost:8080/gs-web/payment.page" name="myform" method="POST">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" id="main">
+                    <tr valign="top">
+                        <td width="50%">
+                            <img src="images/conv_pic2.gif" alt="photo of family"
+                                width="170" height="237" vspace="2" border="0"/>
+                        </td>
+                        <td width="50%">
 
-                        <div class="formrow">
-                            <span class="label">Credit Card Type</span>
-                            <select id="creditCardType">
-                                <option selected="selected">Visa</option>
-                                <option>Mastercard</option>
-                                <option>American Express</option>
-                            </select>
-                        </div>
-                        <div class="formrow">
-                            <span class="label">Credit Card Number</span>
-                            <input type="text" id="creditCardNumber" size="12"/>
+                            <div class="formrow">
+                                <span class="label">Email address</span>
+                                <jsp:element name="input">
+                                    <jsp:attribute name="type">text</jsp:attribute>
+                                    <jsp:attribute name="id">command.email</jsp:attribute>
+                                    <jsp:attribute name="value">
+                                        <c:out value="${command.email}"/>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="size">20</jsp:attribute>
+                                </jsp:element>
+                            </div>
 
-                        </div>
-                        <div class="formrow">
-                            <span class="label">Expiration (MM/YY)</span>
-                            <input type="text" id="expirationMonth" size="2" maxlength="2"/>
+                            <div class="formrow">
+                                <span class="label">First Name</span>
+                                <jsp:element name="input">
+                                    <jsp:attribute name="type">text</jsp:attribute>
+                                    <jsp:attribute name="id">command.firstName</jsp:attribute>
+                                    <jsp:attribute name="value">
+                                        <c:out value="${command.firstName}"/>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="size">20</jsp:attribute>
+                                </jsp:element>
+                            </div>
+
+                            <div class="formrow">
+                                <span class="label">Last Name</span>
+                                <jsp:element name="input">
+                                    <jsp:attribute name="type">text</jsp:attribute>
+                                    <jsp:attribute name="id">command.lastName</jsp:attribute>
+                                    <jsp:attribute name="value">
+                                        <c:out value="${command.lastName}"/>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="size">20</jsp:attribute>
+                                </jsp:element>
+                            </div>
+
+                            <div class="formrow">
+                                <span class="label">Address</span>
+                                <input type="text" id="address" size="20"/>
+                            </div>
+
+                            <div class="formrow">
+                                <span class="label">City</span>
+                                <input type="text" id="city" size="20"/>
+                            </div>
+                            <div class="formrow">
+                                <span class="label">State</span>
+                                <jsp:element name="input">
+                                    <jsp:attribute name="type">text</jsp:attribute>
+                                    <jsp:attribute name="id">command.state</jsp:attribute>
+                                    <jsp:attribute name="value">
+                                        <c:out value="${command.state}"/>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="size">2</jsp:attribute>
+                                    <jsp:attribute name="maxlength">2</jsp:attribute>
+                                </jsp:element>
+                            </div>
+                            <div class="formrow">
+                                <span class="label">Zip - 5 digits</span>
+                                <input type="text" id="zip" size="5"/>
+                            </div>
+
+                            <div class="formrow">
+                                <span class="label">Credit Card Type</span>
+                                <select id="creditCardType">
+                                    <option selected="selected">Visa</option>
+                                    <option>Mastercard</option>
+                                    <option>American Express</option>
+                                </select>
+                            </div>
+                            <div class="formrow">
+                                <span class="label">Credit Card Number</span>
+                                <jsp:element name="input">
+                                    <jsp:attribute name="type">text</jsp:attribute>
+                                    <jsp:attribute name="id">command.creditCardNumber</jsp:attribute>
+                                    <jsp:attribute name="value">
+                                        <c:out value="${command.creditCardNumber}"/>
+                                    </jsp:attribute>
+                                    <jsp:attribute name="size">12</jsp:attribute>
+                                </jsp:element>
+                            </div>
+
+                            <div class="formrow">
+                                <span class="label">Expiration (MM/YY)</span>
+                                <input type="text" id="expirationMonth" size="2" maxlength="2"/>
 /
-                            <input type="text" id="expirationYear" size="2"/>
-                        </div>
-                        <div class="formrow">
-                            <input id="agree" type="checkbox" value="x"></input>I agree to subscriber agreement
-                            <a href="http://www.greatschools.net/content/insider/subscriber.html"
-                                target="issues"
-                                onclick="window.open('','issues','width=400,height=300,scrollbars=yes')">Read It</a>
-                        </div>
+                                <input type="text" id="expirationYear" size="2"/>
+                            </div>
+                            <div class="formrow">
+                                <input id="agree" type="checkbox" value="x"></input>I agree to subscriber agreement
+                                <a href="http://www.greatschools.net/content/insider/subscriber.html"
+                                    target="issues"
+                                    onclick="window.open('','issues','width=400,height=300,scrollbars=yes')">Read It</a>
+                            </div>
 
-                    </td>
-                </tr>
-            </table>
-
-
-            <table width="100%" border="0" cellpadding="0" cellspacing="0" id="footer">
-                <tr>
-                    <td width="50%"><!--&nbsp;--></td>
-                    <td width="50%" align="right">
-                        <input type="submit" value="Submit"/>
-                    </td>
-                </tr>
-
-            </table>
-        </form>
+                        </td>
+                    </tr>
+                </table>
 
 
-        <script language="JavaScript" type="text/javascript">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" id="footer">
+                    <tr>
+                        <td width="50%"><!--&nbsp;--></td>
+                        <td width="50%" align="right">
+                            <input type="submit" value="Submit"/>
+                        </td>
+                    </tr>
+
+                </table>
+            </form>
+
+
+            <script language="JavaScript" type="text/javascript">
 //You should create the validator only after the definition of the HTML form
   var frmvalidator  = new Validator("myform");
   frmvalidator.addValidation("firstName","req","Please enter your first name");
@@ -147,6 +170,7 @@
   frmvalidator.addValidation("expirationMonth","numeric");
   frmvalidator.addValidation("expirationYear","req","Please enter the expiration year");
   frmvalidator.addValidation("expirationYear","numeric");
-        </script>
-    </body>
-</html>
+            </script>
+        </body>
+    </html>
+</jsp:root>

@@ -4,6 +4,49 @@
     xmlns="http://java.sun.com/xml/ns/j2ee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    <!--
+      - Loads the root application context of this web app at startup,
+      - by default from "/WEB-INF/applicationContext.xml".
+        - Note that it is preferable to use ContextLoaderListener in a servlet container
+        - that follows the Servlet 2.4 initialization order (most Servlet 2.3 containers do).
+        -
+      - Use WebApplicationContextUtils.getWebApplicationContext(servletContext)
+      - to access it anywhere in the web application, outside of the framework.
+      -
+      - The root context is the parent of all servlet-specific contexts.
+      - This means that its beans are automatically available in these child contexts,
+      - both for getBean(name) calls and (external) bean references.
+        -->
+    <servlet>
+        <servlet-name>context</servlet-name>
+        <servlet-class>org.springframework.web.context.ContextLoaderServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <!--
+      - Location of the XML file that defines the root application context.
+      - Applied by ContextLoaderServlet.
+      -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:gs/data/applicationContext-data.xml  classpath:gs/data/dao/hibernate/applicationContext-hibernate.xml /WEB-INF/applicationContext.xml
+        </param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>pages</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>pages</servlet-name>
+        <url-pattern>*.page</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>payment.page</welcome-file>
+    </welcome-file-list>
 
     <filter>
         <filter-name>sitemesh</filter-name>

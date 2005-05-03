@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--
+  - Application context definition for "springapp" DispatcherServlet.
+  -->
+
+<beans>
+
+
+    <bean name="/payment.page"
+        class="gs.web.PaymentController">
+        <!-- /cgi-bin/site/signup.cgi/CA -->
+        <property name="commandClass">
+            <value>gs.web.PaymentCommand</value>
+        </property>
+        <property name="bindOnNewForm">
+            <value>true</value>
+        </property>
+        <property name="formView">
+            <value>signup</value>
+        </property>
+        <property name="successView">
+            <value>thankyou</value>
+        </property>
+    </bean>
+
+    <!--    <bean id="signonController" class="org.springframework.web.servlet.mvc.SimpleFormController">-->
+    <!--        <property name="validator">-->
+    <!--            <ref bean="accountValidator"/>-->
+    <!--        </property>-->
+    <!--        <property name="successView">-->
+    <!--            <value>index</value>-->
+    <!--        </property>-->
+    <!--    </bean>-->
+
+
+    <!--    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">-->
+    <!--        <property name="mappings">-->
+    <!--            <props>-->
+    <!--                <prop key="/payment.page">signonController</prop>-->
+    <!--                <prop key="/thankyou.page">signonController</prop>-->
+    <!--            </props>-->
+    <!--        </property>-->
+    <!--        <property name="urlMap">-->
+    <!--            <map>-->
+    <!--                <entry key="/signup.page">-->
+    <!--                    <ref local="signonController"/>-->
+    <!--                </entry>-->
+    <!--            </map>-->
+    <!--        </property>-->
+    <!--    </bean>-->
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--        <property name="viewClass">-->
+        <!--            <value>org.springframework.web.servlet.view.JstlView</value>-->
+        <!--        </property>-->
+        <property name="prefix">
+            <value>/WEB-INF/page/</value>
+        </property>
+        <property name="suffix">
+            <value>.jspx</value>
+        </property>
+    </bean>
+    <!---->
+    <!--    <bean id="accontValidator" class="gs.web.AccountValidator"></bean>-->
+
+</beans>
