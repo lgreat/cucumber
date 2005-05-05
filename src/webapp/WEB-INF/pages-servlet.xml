@@ -6,6 +6,11 @@
   -->
 
 <beans>
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename">
+            <value>app</value>
+        </property>
+    </bean>
 
 
     <bean name="/payment.page"
@@ -13,6 +18,9 @@
         <!-- /cgi-bin/site/signup.cgi/CA -->
         <property name="commandClass">
             <value>gs.web.PaymentCommand</value>
+        </property>
+        <property name="commandName">
+            <value>f</value>
         </property>
         <property name="bindOnNewForm">
             <value>true</value>
@@ -23,6 +31,19 @@
         <property name="successView">
             <value>thankyou</value>
         </property>
+        <property name="transactionAuthorizer">
+            <ref bean="transactionAuthorizer"/>
+        </property>
+        <property name="validator">
+            <ref bean="paymentValidator"/>
+        </property>
+        <!--        <property name="userDao">-->
+        <!--            <ref bean="userDao"/>-->
+        <!--        </property>-->
+        <!--        <property name="subscriptionDao">-->
+        <!--            <ref bean="subscriptionDao"/>-->
+        <!--        </property>-->
+
     </bean>
 
     <!--    <bean id="signonController" class="org.springframework.web.servlet.mvc.SimpleFormController">-->
@@ -63,6 +84,6 @@
         </property>
     </bean>
     <!---->
-    <!--    <bean id="accontValidator" class="gs.web.AccountValidator"></bean>-->
+    <bean id="paymentValidator" class="gs.web.PaymentValidator"></bean>
 
 </beans>

@@ -3,10 +3,20 @@
 <beans>
     <bean id="propertyConfigurer"
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <description>Override because couldn't get other property file read.</description>
         <property name="locations">
             <list>
                 <value>file:/Users/apeterson/dev/GSData/database.properties</value>
             </list>
+        </property>
+    </bean>
+
+
+    <bean id="transactionAuthorizer"
+        class="gs.data.payment.VerisignAuthorizer">
+        <description>An object that can authorize a credit card transaction for a certain amount.</description>
+        <property name="hostAddress">
+            <value>test-payflow.verisign.com</value>
         </property>
     </bean>
 </beans>

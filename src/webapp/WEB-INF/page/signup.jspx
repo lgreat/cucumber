@@ -3,6 +3,7 @@
     xmlns="http://www.w3c.org/1999/xhtml"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:spring="http://www.springframework.org/tags"
     >
     <html>
 
@@ -18,123 +19,143 @@
 
 
         <body>
+            <h1>State</h1>
 
-            <!--<spring:bind path="command">-->
-            <!--        <c:forEach items="${status.errorMessages}" var="error">-->
-            <!--        Error code: <c:out value="${error}"/><br />-->
-            <!--        </c:forEach>-->
-            <!--    </spring:bind>-->
-            <!--<spring:bind path="command.*">-->
-            <!--        <c:forEach items="${status.errorMessages}" var="error">-->
-            <!--        Error code: <c:out value="${error}"/><br />-->
-            <!--        </c:forEach>-->
-            <!--    </spring:bind>-->
+            <spring:bind path="f.user.address.stateAbbreviation">
+                <c:forEach items="${status.errorMessages}" var="error">
+                    <!--			Error code: <c:out value="${error}"/><br />-->
+			Error code: ${error}
+                    <br/>
+                </c:forEach>
+            </spring:bind>
+            <h1>All of them</h1>
+            <spring:bind path="f.*">
+                <c:forEach items="${status.errorMessages}" var="error">
+                    <!--        Error code: <c:out value="${error}"/><br />-->
+			Error code: ${error}
+                    <br/>
+                </c:forEach>
+            </spring:bind>
+            <c:forEach items="${command.status.errorMessages}" var="error">
+                    Error code:
+                <c:out value="${error}"/>
+                <br/>
+            </c:forEach>
+            <!--                    <c:forEach items="${command.*.status.errorMessages}" var="error">-->
+            <!--                    Error code: <c:out value="${error}"/><br />-->
+            <!--                    </c:forEach>-->
 
 
             <form action="http://localhost:8080/gs-web/payment.page" name="myform" method="POST">
+                <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="header">
+                    <tr>
+                        <td align="center" width="30%">
+                            <img src="images/pixel.gif" alt=""/>
+                        </td>
+                        <td align="center" width="*" nowrap="nowrap" id="active">Step 1:
+                            <br/>
+                  Register and Pay
+                        </td>
+                        <td align="center">
+                            <img src="images/wizard_dottedarrow.gif" width="100" height="10" alt="arrow"/>
+                        </td>
+                        <td align="center" nowrap="nowrap">Step 2:
+                            <br/>
+                  Get Started
+                        </td>
+                        <td align="center" width="30%">
+                            <img src="images/pixel.gif" alt=""/>
+                        </td>
+                    </tr>
+                </table>
                 <table width="100%" border="0" cellpadding="0" cellspacing="0" id="main">
                     <tr valign="top">
-                        <td width="50%">
-                            <img src="images/conv_pic2.gif" alt="photo of family"
-                                width="170" height="237" vspace="2" border="0"/>
+                        <td width="41%"> Receive unlimited access for one year to all
+                  subscription content for $16.95.
+                            <center>
+                                <img src="images/conv_pic2.gif" alt="photo of family" width="210" height="293" vspace="8" border="0"/>
+                            </center>
+                            <b>Please note:</b> You will have access to subscription content
+                for all states in which it is available, currently including:
+                ${subscriptionStates}. Information about
+                private schools is very limited in all states.
                         </td>
-                        <td width="50%">
-
-                            <div class="formrow">
-                                <span class="label">Email address</span>
-                                <jsp:element name="input">
-                                    <jsp:attribute name="type">text</jsp:attribute>
-                                    <jsp:attribute name="id">command.email</jsp:attribute>
-                                    <jsp:attribute name="value">
-                                        <c:out value="${command.email}"/>
-                                    </jsp:attribute>
-                                    <jsp:attribute name="size">20</jsp:attribute>
-                                </jsp:element>
+                        <!--<td width="41%" valign="middle">
+                            <div class="error">
+                            sdfsdf sdf sdfsdfsdf sdfsdf sdfsdfsdf sdfsdfs sdfs dfsdfsdfsdf sdfsd fsdfsdf
                             </div>
-
+                        </td>-->
+                        <td width="59%">
+                            <b>Signing up is easy. First, enter your personal
+                information</b>
                             <div class="formrow">
                                 <span class="label">First Name</span>
-                                <jsp:element name="input">
-                                    <jsp:attribute name="type">text</jsp:attribute>
-                                    <jsp:attribute name="id">command.firstName</jsp:attribute>
-                                    <jsp:attribute name="value">
-                                        <c:out value="${command.firstName}"/>
-                                    </jsp:attribute>
-                                    <jsp:attribute name="size">20</jsp:attribute>
-                                </jsp:element>
+                                <input name="user.firstName" type="text" id="firstName" size="20" value="${f.user.firstName}"/>
                             </div>
-
                             <div class="formrow">
                                 <span class="label">Last Name</span>
-                                <jsp:element name="input">
-                                    <jsp:attribute name="type">text</jsp:attribute>
-                                    <jsp:attribute name="id">command.lastName</jsp:attribute>
-                                    <jsp:attribute name="value">
-                                        <c:out value="${command.lastName}"/>
-                                    </jsp:attribute>
-                                    <jsp:attribute name="size">20</jsp:attribute>
-                                </jsp:element>
+                                <input name="user.lastName" type="text" id="lastName" size="20" value="${f.user.lastName}"/>
                             </div>
-
                             <div class="formrow">
                                 <span class="label">Address</span>
-                                <input type="text" id="address" size="20"/>
+                                <input name="user.address.street" type="text" id="address" size="20" value="${f.user.address.street}"/>
                             </div>
-
+                            <!--                            <div class="formrowoptional">-->
+                            <!--                                <span class="label">Address 2 (optional)</span>-->
+                            <!--                                <input name="Address" type="text" id="Address" size="20"/>-->
+                            <!--                            </div>-->
                             <div class="formrow">
                                 <span class="label">City</span>
-                                <input type="text" id="city" size="20"/>
+                                <input name="user.address.city" type="text" id="city" size="20" value="${f.user.address.city}"/>
                             </div>
                             <div class="formrow">
                                 <span class="label">State</span>
-                                <jsp:element name="input">
-                                    <jsp:attribute name="type">text</jsp:attribute>
-                                    <jsp:attribute name="id">command.state</jsp:attribute>
-                                    <jsp:attribute name="value">
-                                        <c:out value="${command.state}"/>
-                                    </jsp:attribute>
-                                    <jsp:attribute name="size">2</jsp:attribute>
-                                    <jsp:attribute name="maxlength">2</jsp:attribute>
-                                </jsp:element>
+                                <input name="user.address.stateAbbreviation" type="text" id="state" size="2" maxlength="2" value="${f.user.address.stateAbbreviation}"/>
                             </div>
                             <div class="formrow">
                                 <span class="label">Zip - 5 digits</span>
-                                <input type="text" id="zip" size="5"/>
+                                <input name="user.address.zip" type="text" id="zip" size="20" value="${f.user.address.zip}"/>
                             </div>
-
+                            <div class="formrow">
+                                <span class="label">Email address</span>
+                                <input name="user.email" type="text" id="email" size="20" value="${f.user.email}"/>
+                                <br/>
+                                <br/>
+                            </div>
+                            <b>Then, review and agree to the terms of the subscriber agreement</b>
+                            <div class="formrow">
+                                <span class="label">
+                                    <input name="agree" type="checkbox" value="x"/>
+                                </span>
+                                <span class="labelright">I agree to the terms of the
+                                    <a href="http://www.greatschools.net/content/insider/subscriber.html"
+                                        target="issues"
+                                        onclick="window.open('','issues','width=400,height=300,scrollbars=yes')">subscriber agreement</a>
+                                </span>
+                                <br/>
+                                <br/>
+                            </div>
+                            <b>Finally, enter your payment information</b>
                             <div class="formrow">
                                 <span class="label">Credit Card Type</span>
-                                <select id="creditCardType">
-                                    <option selected="selected">Visa</option>
-                                    <option>Mastercard</option>
-                                    <option>American Express</option>
+                                <select name="creditCardType" id="creditCardType">
+                                    <option selected="${f.creditCardType == 'visa' ? 'checked' : ''}" value="visa">Visa</option>
+                                    <option selected="${f.creditCardType == 'mc' ? 'checked' : ''}" value="mc">Mastercard</option>
+                                    <option selected="${f.creditCardType == 'amex' ? 'checked' : ''}" value="amex">American Express</option>
+                                    <!--                                    <option>Discover</option>-->
+                                    <!--                                    <option>Diners Club</option>-->
                                 </select>
                             </div>
                             <div class="formrow">
                                 <span class="label">Credit Card Number</span>
-                                <jsp:element name="input">
-                                    <jsp:attribute name="type">text</jsp:attribute>
-                                    <jsp:attribute name="id">command.creditCardNumber</jsp:attribute>
-                                    <jsp:attribute name="value">
-                                        <c:out value="${command.creditCardNumber}"/>
-                                    </jsp:attribute>
-                                    <jsp:attribute name="size">12</jsp:attribute>
-                                </jsp:element>
+                                <input name="creditCardNumber" type="text" id="creditCardNumber" size="20" value="${f.creditCardNumber}"/>
                             </div>
-
                             <div class="formrow">
                                 <span class="label">Expiration (MM/YY)</span>
-                                <input type="text" id="expirationMonth" size="2" maxlength="2"/>
+                                <input type="text" name="expirationMonth" size="2" maxlength="2" value="${f.expirationMonth}"/>
 /
-                                <input type="text" id="expirationYear" size="2"/>
+                                <input type="text" name="expirationYear" size="2" value="${f.expirationYear}"/>
                             </div>
-                            <div class="formrow">
-                                <input id="agree" type="checkbox" value="x"></input>I agree to subscriber agreement
-                                <a href="http://www.greatschools.net/content/insider/subscriber.html"
-                                    target="issues"
-                                    onclick="window.open('','issues','width=400,height=300,scrollbars=yes')">Read It</a>
-                            </div>
-
                         </td>
                     </tr>
                 </table>
@@ -142,13 +163,15 @@
 
                 <table width="100%" border="0" cellpadding="0" cellspacing="0" id="footer">
                     <tr>
-                        <td width="50%"><!--&nbsp;--></td>
+                        <td width="50%">
+                            <img src="images/pixel.gif" alt=""/>
+                        </td>
                         <td width="50%" align="right">
-                            <input type="submit" value="Submit"/>
+                            <input name="Submit" type="submit" id="Submit" value="Submit"/>
                         </td>
                     </tr>
-
                 </table>
+
             </form>
 
 

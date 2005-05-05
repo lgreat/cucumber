@@ -1,9 +1,10 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PaymentCommand.java,v 1.1 2005/05/03 01:38:30 apeterson Exp $
+ * $Id: PaymentCommand.java,v 1.2 2005/05/05 02:15:40 apeterson Exp $
  */
 package gs.web;
 
+import gs.data.community.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -15,74 +16,16 @@ import org.apache.commons.logging.LogFactory;
 public class PaymentCommand {
 
     private Log _log = LogFactory.getLog(PaymentCommand.class);
-    private String _email;
-    private String _firstName;
-    private String _lastName;
-    private String _address;
-    private String _city;
-    private String _state;
-    private String _zip;
-    private String _creditCardType;
+
+    private String _creditCardType = "visa";
     private String _creditCardNumber;
-    private int _expirationMonth;
-    private int _expirationYear;
+    private String _expirationMonth;
+    private String _expirationYear;
     private String _agree;
+    private final User _user = new User();
 
-
-    public String getEmail() {
-        return _email;
-    }
-
-    public void setEmail(String email) {
-        _email = email;
-    }
-
-    public String getFirstName() {
-        return _firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        _firstName = firstName;
-    }
-
-    public String getLastName() {
-        return _lastName;
-    }
-
-    public void setLastName(String lastName) {
-        _lastName = lastName;
-    }
-
-    public String getAddress() {
-        return _address;
-    }
-
-    public void setAddress(String address) {
-        _address = address;
-    }
-
-    public String getCity() {
-        return _city;
-    }
-
-    public void setCity(String city) {
-        _city = city;
-    }
-
-    public String getState() {
-        return _state;
-    }
-
-    public void setState(String state) {
-        _state = state;
-    }
-
-    public String getZip() {
-        return _zip;
-    }
-
-    public void setZip(String zip) {
-        _zip = zip;
+    public User getUser() {
+        return _user;
     }
 
     public String getCreditCardType() {
@@ -101,19 +44,19 @@ public class PaymentCommand {
         _creditCardNumber = creditCardNumber;
     }
 
-    public int getExpirationMonth() {
+    public String getExpirationMonth() {
         return _expirationMonth;
     }
 
-    public void setExpirationMonth(int expirationMonth) {
+    public void setExpirationMonth(String expirationMonth) {
         _expirationMonth = expirationMonth;
     }
 
-    public int getExpirationYear() {
+    public String getExpirationYear() {
         return _expirationYear;
     }
 
-    public void setExpirationYear(int expirationYear) {
+    public void setExpirationYear(String expirationYear) {
         _expirationYear = expirationYear;
     }
 
