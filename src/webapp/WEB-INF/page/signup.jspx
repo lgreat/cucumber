@@ -21,7 +21,7 @@
         <body>
             <h1>State</h1>
 
-            <spring:bind path="f.user.address.stateAbbreviation">
+            <spring:bind path="signup.user.address.stateAbbreviation">
                 <c:forEach items="${status.errorMessages}" var="error">
                     <!--			Error code: <c:out value="${error}"/><br />-->
 			Error code: ${error}
@@ -29,7 +29,7 @@
                 </c:forEach>
             </spring:bind>
             <h1>All of them</h1>
-            <spring:bind path="f.*">
+            <spring:bind path="signup.*">
                 <c:forEach items="${status.errorMessages}" var="error">
                     <!--        Error code: <c:out value="${error}"/><br />-->
 			Error code: ${error}
@@ -46,7 +46,7 @@
             <!--                    </c:forEach>-->
 
 
-            <form action="http://localhost:8080/gs-web/payment.page" name="myform" method="POST">
+            <form action="payment.page" name="payment" method="POST">
                 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="header">
                     <tr>
                         <td align="center" width="30%">
@@ -90,15 +90,15 @@
                 information</b>
                             <div class="formrow">
                                 <span class="label">First Name</span>
-                                <input name="user.firstName" type="text" id="firstName" size="20" value="${f.user.firstName}"/>
+                                <input name="user.firstName" type="text" id="firstName" size="20" value="${signup.user.firstName}"/>
                             </div>
                             <div class="formrow">
                                 <span class="label">Last Name</span>
-                                <input name="user.lastName" type="text" id="lastName" size="20" value="${f.user.lastName}"/>
+                                <input name="user.lastName" type="text" id="lastName" size="20" value="${signup.user.lastName}"/>
                             </div>
                             <div class="formrow">
                                 <span class="label">Address</span>
-                                <input name="user.address.street" type="text" id="address" size="20" value="${f.user.address.street}"/>
+                                <input name="user.address.street" type="text" id="address" size="20" value="${signup.user.address.street}"/>
                             </div>
                             <!--                            <div class="formrowoptional">-->
                             <!--                                <span class="label">Address 2 (optional)</span>-->
@@ -106,19 +106,19 @@
                             <!--                            </div>-->
                             <div class="formrow">
                                 <span class="label">City</span>
-                                <input name="user.address.city" type="text" id="city" size="20" value="${f.user.address.city}"/>
+                                <input name="user.address.city" type="text" id="city" size="20" value="${signup.user.address.city}"/>
                             </div>
                             <div class="formrow">
                                 <span class="label">State</span>
-                                <input name="user.address.stateAbbreviation" type="text" id="state" size="2" maxlength="2" value="${f.user.address.stateAbbreviation}"/>
+                                <input name="user.address.stateAbbreviation" type="text" id="state" size="2" maxlength="2" value="${signup.user.address.stateAbbreviation}"/>
                             </div>
                             <div class="formrow">
                                 <span class="label">Zip - 5 digits</span>
-                                <input name="user.address.zip" type="text" id="zip" size="20" value="${f.user.address.zip}"/>
+                                <input name="user.address.zip" type="text" id="zip" size="20" value="${signup.user.address.zip}"/>
                             </div>
                             <div class="formrow">
                                 <span class="label">Email address</span>
-                                <input name="user.email" type="text" id="email" size="20" value="${f.user.email}"/>
+                                <input name="user.email" type="text" id="email" size="20" value="${signup.user.email}"/>
                                 <br/>
                                 <br/>
                             </div>
@@ -139,22 +139,22 @@
                             <div class="formrow">
                                 <span class="label">Credit Card Type</span>
                                 <select name="creditCardType" id="creditCardType">
-                                    <option selected="${f.creditCardType == 'visa' ? 'checked' : ''}" value="visa">Visa</option>
-                                    <option selected="${f.creditCardType == 'mc' ? 'checked' : ''}" value="mc">Mastercard</option>
-                                    <option selected="${f.creditCardType == 'amex' ? 'checked' : ''}" value="amex">American Express</option>
+                                    <option selected="${signup.creditCardType == 'visa' ? 'checked' : ''}" value="visa">Visa</option>
+                                    <option selected="${signup.creditCardType == 'mc' ? 'checked' : ''}" value="mc">Mastercard</option>
+                                    <option selected="${signup.creditCardType == 'amex' ? 'checked' : ''}" value="amex">American Express</option>
                                     <!--                                    <option>Discover</option>-->
                                     <!--                                    <option>Diners Club</option>-->
                                 </select>
                             </div>
                             <div class="formrow">
                                 <span class="label">Credit Card Number</span>
-                                <input name="creditCardNumber" type="text" id="creditCardNumber" size="20" value="${f.creditCardNumber}"/>
+                                <input name="creditCardNumber" type="text" id="creditCardNumber" size="20" value="${signup.creditCardNumber}"/>
                             </div>
                             <div class="formrow">
                                 <span class="label">Expiration (MM/YY)</span>
-                                <input type="text" name="expirationMonth" size="2" maxlength="2" value="${f.expirationMonth}"/>
+                                <input type="text" name="expirationMonth" size="2" maxlength="2" value="${signup.expirationMonth}"/>
 /
-                                <input type="text" name="expirationYear" size="2" value="${f.expirationYear}"/>
+                                <input type="text" name="expirationYear" size="2" value="${signup.expirationYear}"/>
                             </div>
                         </td>
                     </tr>

@@ -15,13 +15,14 @@ Keep in mind:
 make all pages XML (tags balanced, lower-case, etc.)
 </li>
 <li>
-you can develop pages within this hierarchy, creating
+Til, you can develop pages within this hierarchy, creating
 local image, css and js directories if you want.
 </li>
 <li>
 Use "java-friendly" names for input fields. These start with
 a lowercase letter and use initial caps within. For example,
-"userEmailAddress" or "subscriptionNumber".
+"userEmailAddress" or "subscriptionNumber". These will probably
+get changed when we merge the file into Java.
 </li>
 <li>use "id" on any significant element. Follow the "java-friendly"
 convention above. This will make java coding and testing easier.
@@ -37,27 +38,29 @@ Files that are ready to go should following these conventions:
 </p>
 <ol>
 <li>put images, javascripts and other required resources in
-the appropriate folders parallel to this directory. Therefore,
-use webapp/images and webapp/js and webapp/css.
+the appropriate folders inside the "webapp/res" folder,
+parallel to this directory. Therefore,
+use webapp/res/img and webapp/res/js and webapp/res/css.
 
 </li>
 <li>
-use the <base> tag to point to the "webapp" folder
+use the <base> tag to point to the "webapp" folder to make
+sure your page works. See verisign1.htm to see it work.
 
 </li>
 <li>
 make sure it looks right in this context.
-
+</li>
+<li>
+tell the programmer it's ready to go.
 </li>
 
 </ol>
 <p>
-
 Til is responsible for getting all the resources into the right
 folders outside of this folder.
-   </p>
-   <p>
-Programmers will be responsible for moving the Html page. Be
+Programmers will be responsible for moving the Html page into the
+Java context. Be
 aware that this may involve breaking up the page
 into components.
 </p>

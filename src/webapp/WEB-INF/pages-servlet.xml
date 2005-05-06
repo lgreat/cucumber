@@ -20,7 +20,7 @@
             <value>gs.web.PaymentCommand</value>
         </property>
         <property name="commandName">
-            <value>f</value>
+            <value>signup</value>
         </property>
         <property name="bindOnNewForm">
             <value>true</value>
