@@ -1,14 +1,14 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeCommand.java,v 1.1 2005/05/11 01:16:54 apeterson Exp $
+ * $Id: SubscribeCommand.java,v 1.2 2005/05/11 22:48:37 apeterson Exp $
  */
 package gs.web;
 
 import gs.data.community.Subscription;
 import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
-import gs.data.payment.CreditCardInfo;
 import gs.data.state.State;
+import gs.data.util.Price;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -21,18 +21,27 @@ public class SubscribeCommand {
 
     private Log _log = LogFactory.getLog(SubscribeCommand.class);
 
+    private final User _user;
+    private final SubscriptionProduct _subscriptionProduct;
+    private final Price _subscriptionPrice;
+
+    private String _creditCardNumber;
     private String _creditCardType = "visa";
     private String _expirationMonth;
     private String _expirationYear;
     private String _agree;
-    private final User _user = new User();
-    private final CreditCardInfo _card = new CreditCardInfo();
-    private SubscriptionProduct _subscriptionProduct;
     private Subscription _subscription;
     private State _state;
+    private String _host;
 
     private String _url;
     private String _urlLabel;
+
+    public SubscribeCommand(User user, SubscriptionProduct subscriptionProduct, Price subscriptionPrice) {
+        _user = user;
+        _subscriptionProduct = subscriptionProduct;
+        _subscriptionPrice = subscriptionPrice;
+    }
 
     public User getUser() {
         return _user;
@@ -47,11 +56,11 @@ public class SubscribeCommand {
     }
 
     public String getCreditCardNumber() {
-        return _card.getNumber();
+        return _creditCardNumber;
     }
 
     public void setCreditCardNumber(String creditCardNumber) {
-        _card.setNumber(creditCardNumber);
+        _creditCardNumber = creditCardNumber;
     }
 
     public String getExpirationMonth() {
@@ -60,7 +69,6 @@ public class SubscribeCommand {
 
     public void setExpirationMonth(String expirationMonth) {
         _expirationMonth = expirationMonth;
-        _card.setExpirationMonth(Integer.parseInt(expirationMonth));
     }
 
     public String getExpirationYear() {
@@ -69,7 +77,6 @@ public class SubscribeCommand {
 
     public void setExpirationYear(String expirationYear) {
         _expirationYear = expirationYear;
-        _card.setExpirationYear(Integer.parseInt(expirationYear));
     }
 
     public String getAgree() {
@@ -78,14 +85,6 @@ public class SubscribeCommand {
 
     public void setAgree(String agree) {
         _agree = agree;
-    }
-
-    public CreditCardInfo getCard() {
-        return _card;
-    }
-
-    public void setSubscriptionProduct(SubscriptionProduct oneYearSub) {
-        _subscriptionProduct = oneYearSub;
     }
 
     public SubscriptionProduct getSubscriptionProduct() {
@@ -122,5 +121,21 @@ public class SubscribeCommand {
 
     public void setState(State state) {
         _state = state;
+    }
+
+    public String getSubscriptionPrice() {
+        return _subscriptionPrice.asString();
+    }
+
+    public Price getPrice() {
+        return _subscriptionPrice;
+    }
+
+    public String getHost() {
+        return _host;
+    }
+
+    public void setHost(String host) {
+        _host = host;
     }
 }

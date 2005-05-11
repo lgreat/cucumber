@@ -65,7 +65,7 @@
                                         <br/>
 
                                         <br/>
-        ${subscriptionPrice} has been charged to your
+        ${subCmd.subscriptionPrice} has been charged to your
               credit card on ${subCmd.subscription.updated}. Your subscription runs through
               ${subCmd.subscription.expires}. We look forward to serving you.
                                         <br/>
@@ -77,28 +77,30 @@
                                     <td width="69%">
                                         <b>Start using the service now</b>
                                         <br/>
-                            You are currently signed in. Here's some quick links
-                            to get you started [same links as on state home]:
+                            Here's some quick links
+                            to get you started:
                                         <ul>
                                             <li>
-                                                <a href="#">CA School Choice Options</a>
+                                                <a href="http:${subCmd.host}/cgi-bin/site/help_for_parents.cgi/${subCmd.state}">
+                                                    ${subCmd.state} School Choice Options
+                                                </a>
                                             </li>
                                             <li>
-                                                <a href="#">Top-Rated Public Schools</a>
+                                                <a href="http:${subCmd.host}/cgi-bin/site/rank_overview.cgi/${subCmd.state}">Top-Rated Public Schools</a>
                                             </li>
                                             <li>
-                                                <a href="#">1-to-5 Star Ratings</a>
+                                                <a href="http:${subCmd.host}/cgi-bin/site/ratingsrch/${subCmd.state}">1-to-5 Star Ratings</a>
                                             </li>
                                             <li>
-                                                <a href="#">Parent Ratings and Reviews</a>
+                                                <a href="http:${subCmd.host}/cgi-bin/site/commentsrch/${subCmd.state}">Parent Ratings and Reviews</a>
                                             </li>
                                             <li>
-                                                <a href="#">Yellow Flag Alerts</a>
+                                                <a href="http:${subCmd.host}/cgi-bin/site/ratingsrch/${subCmd.state}">Yellow Flag Alerts</a>
                                             </li>
                                         </ul>
 
         Or, return to the
-                                        <a href="/modperl/$STATE">GreatSchools home page</a>.
+                                        <a href="http:${subCmd.host}/modperl/${subCmd.state}">GreatSchools home page</a>.
                                         <br/>
                                         <br/>
                                         <b>Additional information</b>
@@ -148,6 +150,7 @@
         Elementary, middle and high school information for public, private and charter schools nationwide.</h5>
         <h6>&#169;1998-2005 GreatSchools Inc. All Rights Reserved.
             <a href="/">Home</a>
+
             <a href="http://greatschools.net/cgi-bin/static/terms.html/ca">Terms of Use</a>
         </h6>
 

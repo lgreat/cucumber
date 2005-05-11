@@ -258,6 +258,12 @@ border:0px;
 background: transparent url("images/submit.gif") no-repeat;
 }
 
+div.errors {
+    background-color: #ffeeee;
+    border:2px solid red;
+    padding: 5px;
+}
+
 div.error {
     color: red;
     font-weight:bold;

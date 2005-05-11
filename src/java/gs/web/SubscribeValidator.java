@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeValidator.java,v 1.1 2005/05/11 01:16:54 apeterson Exp $
+ * $Id: SubscribeValidator.java,v 1.2 2005/05/11 22:48:37 apeterson Exp $
  */
 package gs.web;
 
@@ -29,10 +29,17 @@ public class SubscribeValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "user.address.state", "error_field_required", new String[]{"State"}, "{0} is required.");
         ValidationUtils.rejectIfEmpty(errors, "user.address.street", "error_field_required", new String[]{"Street"}, "{0} is required.");
         ValidationUtils.rejectIfEmpty(errors, "user.address.city", "error_field_required", new String[]{"City"}, "{0} is required.");
-        ValidationUtils.rejectIfEmpty(errors, "user.address.zip", "error_field_required", new String[]{"Zip"}, "{0} is required.");
 
 
-        Object value = errors.getFieldValue("user.email");
+        Object value = errors.getFieldValue("user.address.zip");
+        if (value == null || // empty or null
+                (value.toString().length() != 5 && value.toString().length() != 9) || // wrong length
+                !StringUtils.isNumeric(value.toString())
+        ) {
+            errors.rejectValue("user.address.zip", "error_zip_format", null, "The zip code must be a five digit number.");
+        }
+
+        value = errors.getFieldValue("user.email");
         if (value == null ||
                 StringUtils.countMatches(value.toString(), "@") != 1 ||
                 StringUtils.countMatches(value.toString(), ".") < 1
@@ -40,12 +47,12 @@ public class SubscribeValidator implements Validator {
             errors.rejectValue("user.email", "error_email_address_format", null, "Email address is required and must be 'name@company.org'.");
         }
 
-        value = errors.getFieldValue("card.number");
+        value = errors.getFieldValue("creditCardNumber");
         if (value == null ||
                 value.toString().length() != 16 ||
                 !StringUtils.isNumeric(value.toString())
         ) {
-            errors.rejectValue("card.number", "error_credit_card_format", null, "Credit card number must be 16 digits.");
+            errors.rejectValue("creditCardNumber", "error_credit_card_format", null, "Credit card number must be 16 digits.");
         }
 
         ValidationUtils.rejectIfEmpty(errors, "expirationMonth", "error_field_required", new String[]{"Expiration month"}, "{0} is required.");

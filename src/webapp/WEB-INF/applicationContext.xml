@@ -18,11 +18,4 @@
     <!--    </bean>-->
     <!---->
     <!---->
-    <bean id="transactionAuthorizer"
-        class="gs.data.payment.VerisignAuthorizer">
-        <description>An object that can authorize a credit card transaction for a certain amount.</description>
-        <property name="hostAddress">
-            <value>test-payflow.verisign.com</value>
-        </property>
-    </bean>
 </beans>

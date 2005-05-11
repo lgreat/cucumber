@@ -66,8 +66,19 @@
                                     <table width="100%" border="0" cellpadding="0" cellspacing="0" id="main">
                                         <tr valign="top">
                                             <td width="41%">
+                                                <spring:bind path="subCmd">
+                                                    <c:if test="${status.error}">
+                                                        <div class="errors">
+                                                            <c:forEach items="${status.errorMessages}" var="error">
+                                                                <div class="error">
+                                                                    <c:out value="${error}" escapeXml="false"/>
+                                                                </div>
+                                                            </c:forEach>
+                                                        </div>
+                                                    </c:if>
+                                                </spring:bind>
                                         Receive unlimited access for one year to all
-                                        subscription content for ${subscriptionPrice}.
+                                        subscription content for ${subCmd.subscriptionPrice}.
                                                 <div style="align:center">
                                                     <img src="res/img/conv_pic2.gif" alt="photo of family" width="210" height="293" vspace="8" border="0"/>
                                                 </div>
@@ -84,17 +95,22 @@
                                                 <div class="formrow">
                                                     <spring:bind path="subCmd.state">
                                                         <input name="${status.expression}"
-                                                            type="text"
+                                                            type="hidden"
                                                             value="${status.value}"/>
                                                     </spring:bind>
                                                     <spring:bind path="subCmd.url">
                                                         <input name="${status.expression}"
-                                                            type="text"
+                                                            type="hidden"
                                                             value="${status.value}"/>
                                                     </spring:bind>
                                                     <spring:bind path="subCmd.urlLabel">
                                                         <input name="${status.expression}"
-                                                            type="text"
+                                                            type="hidden"
+                                                            value="${status.value}"/>
+                                                    </spring:bind>
+                                                    <spring:bind path="subCmd.host">
+                                                        <input name="${status.expression}"
+                                                            type="hidden"
                                                             value="${status.value}"/>
                                                     </spring:bind>
                                                 </div>
@@ -222,7 +238,14 @@
                                                 <div class="formrow">
                                                     <spring:bind path="subCmd.agree">
                                                         <span class="label">
-                                                            <input name="${status.expression}" type="checkbox" value="x" checked="${status.value == 'x' ? 'checked' : ''}"/>
+                                                            <jsp:element name="input">
+                                                                <jsp:attribute name="name">${status.expression}</jsp:attribute>
+                                                                <jsp:attribute name="type">checkbox</jsp:attribute>
+                                                                <jsp:attribute name="value">x</jsp:attribute>
+                                                                <!-- <c:if test="${status.value == 'x'}">
+                                                                     <jsp:attribute name="checked">checked</jsp:attribute>
+                                                                 </c:if>-->
+                                                            </jsp:element>
                                                         </span>
                                                         <span class="labelright">I agree to the terms of the
                                                             <a href="http://www.greatschools.net/content/insider/subscriber.html"
@@ -261,7 +284,7 @@
 
                                                 <div class="formrow">
                                                     <span class="label">Credit Card Number</span>
-                                                    <spring:bind path="subCmd.card.number">
+                                                    <spring:bind path="subCmd.creditCardNumber">
                                                         <input name="${status.expression}"
                                                             type="text"
                                                             maxLength="16"
@@ -323,7 +346,8 @@
                                                 <img src="res/img/pixel.gif" alt=""/>
                                             </td>
                                             <td width="50%" align="right">
-                                                <input name="Submit" type="submit" id="Submit" value="Submit"/>
+                                                <input name="Submit" type="submit" id="Submit" value="Submit"
+                                                    onClick="this.value='Processing...';this.enabled='false'"/>
                                             </td>
                                         </tr>
                                     </table>
