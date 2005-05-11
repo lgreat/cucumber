@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
-    <bean id="propertyConfigurer"
-        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <description>Override because couldn't get other property file read.</description>
-        <property name="locations">
-            <list>
-                <value>file:/Users/apeterson/dev/GSData/database.properties</value>
-            </list>
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename">
+            <value>app</value>
         </property>
     </bean>
 
-
+    <!--    <bean id="propertyConfigurer"-->
+    <!--        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+    <!--        <description>Override because couldn't get other property file read.</description>-->
+    <!--        <property name="locations">-->
+    <!--            <list>-->
+    <!--                <value>file:/Users/apeterson/dev/GSData/database.properties</value>-->
+    <!--            </list>-->
+    <!--        </property>-->
+    <!--    </bean>-->
+    <!---->
+    <!---->
     <bean id="transactionAuthorizer"
         class="gs.data.payment.VerisignAuthorizer">
         <description>An object that can authorize a credit card transaction for a certain amount.</description>

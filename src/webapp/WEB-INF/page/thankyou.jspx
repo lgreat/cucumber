@@ -13,15 +13,18 @@
     <jsp:directive.page contentType="text/html"/>
 
     <head>
+        <c:url value="/index.page" var="basepath"/>
+        <base href="${basepath}"></base>
+        <link rel="stylesheet" href="res/css/spp2.css"></link>
     </head>
     <body>
-        <table id="header" width="100%" border="0" cellspacing="0" cellpadding="0" onload="loadit();">
+        <table id="header" width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <td>
-                    <img src="images/conv_top_sm.jpg" alt="Moving? Choosing a new School? GreatSchools Insider can help." width="380" height="70"/>
+                    <img src="res/img/conv_top_sm.jpg" alt="Moving? Choosing a new School? GreatSchools Insider can help." width="380" height="70"/>
                 </td>
                 <td width="300" align="right" valign="middle">
-                    <img src="images/GS_logo.gif" alt="GreatSchools.net logo" hspace="15" border="0"/>
+                    <img src="res/img/GS_logo.gif" alt="GreatSchools.net logo" hspace="15" border="0"/>
                 </td>
 
             </tr>
@@ -41,7 +44,7 @@
                           Register and Pay
                                     </td>
                                     <td align="center">
-                                        <img src="images/wizard_dottedarrow.gif" width="100" height="10" alt="arrow"/>
+                                        <img src="res/img/wizard_dottedarrow.gif" width="100" height="10" alt="arrow"/>
                                     </td>
 
                                     <td align="center" nowrap="nowrap" id="active">Step 2:
@@ -57,17 +60,17 @@
                                 <tr valign="top">
 
                                     <td width="31%">
-                                        <h3>Thank you, ${command.user.firstName} ${command.user.lastName}, for subscribing to [GreatSchools
-              Insider].</h3>
+                                        <h3>Thank you, ${subCmd.user.firstName} ${subCmd.user.lastName}, for subscribing to
+    ${subCmd.subscription.product.longName}.</h3>
                                         <br/>
 
                                         <br/>
-        [first time cost or renewal cost] has been charged to your
-              credit card on [sign up date] April 28, 2005. Your subscription runs through
-              [expiration date] April 27, 2006. We look forward to serving you.
+        ${subscriptionPrice} has been charged to your
+              credit card on ${subCmd.subscription.updated}. Your subscription runs through
+              ${subCmd.subscription.expires}. We look forward to serving you.
                                         <br/>
                                         <br/>
-                          Shortly, you will receive a confirmation email at ${command.user.email}.
+                          Shortly, you will receive a confirmation email at ${subCmd.user.email}.
                           You can also print this screen as your receipt.
                                     </td>
 
@@ -101,7 +104,7 @@
                                         <b>Additional information</b>
                                         <br/>
               To sign in on future visits, you will need only to enter your email address:
-                                        <b>${command.user.firstName}</b>
+                                        <b>${subCmd.user.email}</b>
                                         <br/>
                                         <br/>
               For questions, comments or suggestions regarding [GreatSchools Insider]
@@ -139,6 +142,15 @@
                 </div>
             </div>
         </div>
+
+
+        <h5 class="ncopy">GreatSchools.net
+        Elementary, middle and high school information for public, private and charter schools nationwide.</h5>
+        <h6>&#169;1998-2005 GreatSchools Inc. All Rights Reserved.
+            <a href="/">Home</a>
+            <a href="http://greatschools.net/cgi-bin/static/terms.html/ca">Terms of Use</a>
+        </h6>
+
 
     </body>
 </html>

@@ -12,7 +12,7 @@
     </title>
     <base href="http://localhost:8080/gs-web/" ></base>
 <%--        <base href="http://tmauder.dev.greatschools.net/testview/" ></base>--%>
-    <link rel="stylesheet" href="css/spp2.css"></link>
+    <link rel="stylesheet" href="res/css/spp2.css"></link>
     <decorator:head />
   </head>
   <body>

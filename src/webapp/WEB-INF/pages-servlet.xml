@@ -6,45 +6,34 @@
   -->
 
 <beans>
-    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basename">
-            <value>app</value>
-        </property>
-    </bean>
 
-
-    <bean name="/payment.page"
-        class="gs.web.PaymentController">
+    <bean name="/subscribe.page"
+        class="gs.web.SubscribeController">
         <!-- /cgi-bin/site/signup.cgi/CA -->
-        <property name="commandClass">
-            <value>gs.web.PaymentCommand</value>
-        </property>
         <property name="commandName">
-            <value>signup</value>
+            <value>subCmd</value>
         </property>
         <property name="bindOnNewForm">
             <value>true</value>
         </property>
         <property name="formView">
-            <value>signup</value>
+            <value>subscribe</value>
         </property>
         <property name="successView">
             <value>thankyou</value>
         </property>
-        <property name="transactionAuthorizer">
-            <ref bean="transactionAuthorizer"/>
-        </property>
         <property name="validator">
-            <ref bean="paymentValidator"/>
+            <ref bean="subscribeValidator"/>
         </property>
-        <!--        <property name="userDao">-->
-        <!--            <ref bean="userDao"/>-->
-        <!--        </property>-->
-        <!--        <property name="subscriptionDao">-->
-        <!--            <ref bean="subscriptionDao"/>-->
-        <!--        </property>-->
+        <property name="purchaser">
+            <ref bean="purchaser"/>
+        </property>
+        <property name="userDao">
+            <ref bean="userDao"/>
+        </property>
 
     </bean>
+    <bean id="subscribeValidator" class="gs.web.SubscribeValidator"></bean>
 
     <!--    <bean id="signonController" class="org.springframework.web.servlet.mvc.SimpleFormController">-->
     <!--        <property name="validator">-->
@@ -73,9 +62,9 @@
     <!--    </bean>-->
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <!--        <property name="viewClass">-->
-        <!--            <value>org.springframework.web.servlet.view.JstlView</value>-->
-        <!--        </property>-->
+        <property name="viewClass">
+            <value>org.springframework.web.servlet.view.JstlView</value>
+        </property>
         <property name="prefix">
             <value>/WEB-INF/page/</value>
         </property>
@@ -84,6 +73,5 @@
         </property>
     </bean>
     <!---->
-    <bean id="paymentValidator" class="gs.web.PaymentValidator"></bean>
 
 </beans>

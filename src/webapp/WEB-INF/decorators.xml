@@ -1,5 +1,5 @@
  <decorators>
-     <decorator name="headerfooter" page="/decorators/headerfooter.jsp">
+     <decorator name="headerfooter" page="/decorator/headerfooter.jsp">
          <pattern>/*.page</pattern>
      </decorator>
  </decorators>
