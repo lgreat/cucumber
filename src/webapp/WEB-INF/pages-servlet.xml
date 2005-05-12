@@ -73,5 +73,15 @@
         </property>
     </bean>
     <!---->
+    <!--    <bean id="customEditorConfigurer"-->
+    <!--        class="org.springframework.beans.factory.config.CustomEditorConfigurer">-->
+    <!--        <property name="customEditors">-->
+    <!--            <map>-->
+    <!--                <entry key="java.util.Date">-->
+    <!--                    <bean class="gs.web.MyCustomDateEditor"></bean>-->
+    <!--                </entry>-->
+    <!--            </map>-->
+    <!--        </property>-->
+    <!--    </bean>-->
 
 </beans>

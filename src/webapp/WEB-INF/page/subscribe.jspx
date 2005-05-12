@@ -40,7 +40,6 @@
                         <div class="wizard4">
                             <div class="pad">
 
-
                                 <form action="subscribe.page" id="subscribe" method="POST">
                                     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="header">
                                         <tr>
@@ -68,52 +67,50 @@
                                             <td width="41%">
                                                 <spring:bind path="subCmd">
                                                     <c:if test="${status.error}">
-                                                        <div class="errors">
-                                                            <c:forEach items="${status.errorMessages}" var="error">
-                                                                <div class="error">
-                                                                    <c:out value="${error}" escapeXml="false"/>
-                                                                </div>
-                                                            </c:forEach>
-                                                        </div>
+                                                        <c:forEach items="${status.errorMessages}" var="error">
+                                                            <div class="error">
+                                                                <c:out value="${error}" escapeXml="false"/>
+                                                            </div>
+                                                        </c:forEach>
                                                     </c:if>
-                                                </spring:bind>
+                                                    <c:if test="${!status.error}">
                                         Receive unlimited access for one year to all
                                         subscription content for ${subCmd.subscriptionPrice}.
-                                                <div style="align:center">
-                                                    <img src="res/img/conv_pic2.gif" alt="photo of family" width="210" height="293" vspace="8" border="0"/>
-                                                </div>
-                                                <b>Please note:</b> You will have access to subscription content
+                                                        <div style="align:center">
+                                                            <img src="res/img/conv_pic2.gif" alt="photo of family" width="210" height="293" vspace="8" border="0"/>
+                                                        </div>
+                                                        <b>Please note:</b> You will have access to subscription content
                 for all states in which it is available, currently including:
                 ${subscriptionStates}. Information about
                 private schools is very limited in all states.
+                                                    </c:if>
+                                                </spring:bind>
                                             </td>
                                             <td width="59%">
                                                 <b>Signing up is easy. First, enter your personal
                 information</b>
 
 
-                                                <div class="formrow">
-                                                    <spring:bind path="subCmd.state">
-                                                        <input name="${status.expression}"
-                                                            type="hidden"
-                                                            value="${status.value}"/>
-                                                    </spring:bind>
-                                                    <spring:bind path="subCmd.url">
-                                                        <input name="${status.expression}"
-                                                            type="hidden"
-                                                            value="${status.value}"/>
-                                                    </spring:bind>
-                                                    <spring:bind path="subCmd.urlLabel">
-                                                        <input name="${status.expression}"
-                                                            type="hidden"
-                                                            value="${status.value}"/>
-                                                    </spring:bind>
-                                                    <spring:bind path="subCmd.host">
-                                                        <input name="${status.expression}"
-                                                            type="hidden"
-                                                            value="${status.value}"/>
-                                                    </spring:bind>
-                                                </div>
+                                                <spring:bind path="subCmd.state">
+                                                    <input name="${status.expression}"
+                                                        type="hidden"
+                                                        value="${status.value}"/>
+                                                </spring:bind>
+                                                <spring:bind path="subCmd.url">
+                                                    <input name="${status.expression}"
+                                                        type="hidden"
+                                                        value="${status.value}"/>
+                                                </spring:bind>
+                                                <spring:bind path="subCmd.urlLabel">
+                                                    <input name="${status.expression}"
+                                                        type="hidden"
+                                                        value="${status.value}"/>
+                                                </spring:bind>
+                                                <spring:bind path="subCmd.host">
+                                                    <input name="${status.expression}"
+                                                        type="hidden"
+                                                        value="${status.value}"/>
+                                                </spring:bind>
 
                                                 <div class="formrow">
                                                     <span class="label">First Name</span>
@@ -335,6 +332,19 @@
                                                         </c:if>
                                                     </spring:bind>
                                                 </div>
+
+                                                <spring:bind path="subCmd">
+                                                    <c:if test="${status.error}">
+                                                        <div class="formrow">
+                                                            <span class="label">Amount</span>
+                                                            <input
+                                                                disabled="true"
+                                                                readonly="true"
+                                                                type="text"
+                                                                value="${subCmd.subscriptionPrice}"/>
+                                                        </div>
+                                                    </c:if>
+                                                </spring:bind>
                                             </td>
                                         </tr>
                                     </table>
@@ -356,23 +366,22 @@
 
                                 <![CDATA[
         <script language="JavaScript" type="text/javascript">
-//You should create the validator only after the definition of the HTML form
-  var frmvalidator  = new Validator("myform");
-  frmvalidator.addValidation("firstName","req","Please enter your first name");
-  frmvalidator.addValidation("lastName","req","Please enter your last name");
-  frmvalidator.addValidation("address","req","Please enter your address");
-  frmvalidator.addValidation("city","req","Please enter your City");
-  frmvalidator.addValidation("state","req","Please enter your state");
-  frmvalidator.addValidation("zip","req","Please enter your ZIP code");
-  frmvalidator.addValidation("email","req","Please enter your email address");
-  frmvalidator.addValidation("email","email");
-  frmvalidator.addValidation("creditCardType","dontselect=0");
-  frmvalidator.addValidation("creditCardNumber","req","Please enter your card number");
-  frmvalidator.addValidation("creditCardNumber","numeric");
-  frmvalidator.addValidation("expirationMonth","req","Please enter the expiration month");
-  frmvalidator.addValidation("expirationMonth","numeric");
-  frmvalidator.addValidation("expirationYear","req","Please enter the expiration year");
-  frmvalidator.addValidation("expirationYear","numeric");
+  var frmvalidator  = new Validator("subscribe");
+  frmvalidator.addValidation("subCmd.firstName","req","Please enter your first name");
+  frmvalidator.addValidation("subCmd.lastName","req","Please enter your last name");
+  frmvalidator.addValidation("subCmd.address.street","req","Please enter your address");
+  frmvalidator.addValidation("subCmd.address.city","req","Please enter your City");
+  frmvalidator.addValidation("subCmd.address.state","req","Please enter your state");
+  frmvalidator.addValidation("subCmd.address.zip","req","Please enter your ZIP code");
+  frmvalidator.addValidation("subCmd.email","req","Please enter your email address");
+  frmvalidator.addValidation("subCmd.email","email");
+  frmvalidator.addValidation("subCmd.creditCardType","dontselect=0");
+  frmvalidator.addValidation("subCmd.creditCardNumber","req","Please enter your card number");
+  frmvalidator.addValidation("subCmd.creditCardNumber","numeric");
+  frmvalidator.addValidation("subCmd.expirationMonth","req","Please enter the expiration month");
+  frmvalidator.addValidation("subCmd.expirationMonth","numeric");
+  frmvalidator.addValidation("subCmd.expirationYear","req","Please enter the expiration year");
+  frmvalidator.addValidation("subCmd.expirationYear","numeric");
         </script>
                                                                                     ]]>
 
@@ -387,7 +396,7 @@
             <h5 class="ncopy">GreatSchools.net
             Elementary, middle and high school information for public, private and charter schools nationwide.</h5>
             <h6>&#169;1998-2005 GreatSchools Inc. All Rights Reserved.
-                <a href="/">Home</a>
+                <a href="http://greatschools.net/">Home</a>
             |
                 <a href="http://greatschools.net/cgi-bin/static/terms.html/ca">Terms of Use</a>
             </h6>

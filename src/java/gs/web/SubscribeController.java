@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.2 2005/05/11 22:48:37 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.3 2005/05/12 01:23:02 apeterson Exp $
  */
 package gs.web;
 
@@ -87,7 +87,6 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         }
 
         return command;
-
     }
 
     protected Map referenceData(HttpServletRequest httpServletRequest, Object o, Errors errors) throws Exception {
