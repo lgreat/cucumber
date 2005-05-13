@@ -13,8 +13,6 @@
     <jsp:directive.page contentType="text/html"/>
 
     <head>
-        <c:url value="/index.page" var="basepath"/>
-        <base href="${basepath}"></base>
         <link rel="stylesheet" href="res/css/spp2.css"></link>
     </head>
     <body>
@@ -60,17 +58,17 @@
                                 <tr valign="top">
 
                                     <td width="31%">
-                                        <h3>Thank you, ${subCmd.user.firstName} ${subCmd.user.lastName}, for subscribing to
-    ${subCmd.subscription.product.longName}.</h3>
+                                        <h3>Thank you, ${param.firstName} ${param.lastName}, for subscribing to
+    ${param.longName}.</h3>
                                         <br/>
 
                                         <br/>
-        ${subCmd.subscriptionPrice} has been charged to your
-              credit card on ${subCmd.subscription.updated}. Your subscription runs through
-              ${subCmd.subscription.expires}. We look forward to serving you.
+        ${param.price} has been charged to your
+              credit card on ${param.updated}. Your subscription runs through
+              ${param.expires}. We look forward to serving you.
                                         <br/>
                                         <br/>
-                          Shortly, you will receive a confirmation email at ${subCmd.user.email}.
+                          Shortly, you will receive a confirmation email at ${param.email}.
                           You can also print this screen as your receipt.
                                     </td>
 
@@ -81,35 +79,35 @@
                             to get you started:
                                         <ul>
                                             <li>
-                                                <a href="http://${subCmd.host}/cgi-bin/site/help_for_parents.cgi/${subCmd.state}">
-                                                    ${subCmd.state} School Choice Options
+                                                <a href="http://${param.host}/cgi-bin/site/help_for_parents.cgi/${param.state}">
+                                                    ${param.state} School Choice Options
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="http://${subCmd.host}/cgi-bin/site/rank_overview.cgi/${subCmd.state}">Top-Rated Public Schools</a>
+                                                <a href="http://${param.host}/cgi-bin/site/rank_overview.cgi/${param.state}">Top-Rated Public Schools</a>
                                             </li>
                                             <li>
-                                                <a href="http://${subCmd.host}/cgi-bin/site/ratingsrch/${subCmd.state}">1-to-5 Star Ratings</a>
+                                                <a href="http://${param.host}/cgi-bin/site/ratingsrch/${param.state}">1-to-5 Star Ratings</a>
                                             </li>
                                             <li>
-                                                <a href="http://${subCmd.host}/cgi-bin/site/commentsrch/${subCmd.state}">Parent Ratings and Reviews</a>
+                                                <a href="http://${param.host}/cgi-bin/site/commentsrch/${param.state}">Parent Ratings and Reviews</a>
                                             </li>
                                             <li>
-                                                <a href="http://${subCmd.host}/cgi-bin/site/ratingsrch/${subCmd.state}">Yellow Flag Alerts</a>
+                                                <a href="http://${param.host}/cgi-bin/site/ratingsrch/${param.state}">Yellow Flag Alerts</a>
                                             </li>
                                         </ul>
 
         Or, return to the
-                                        <a href="http://${subCmd.host}/modperl/${subCmd.state}">GreatSchools home page</a>.
+                                        <a href="http://${param.host}/modperl/${param.state}">GreatSchools home page</a>.
                                         <br/>
                                         <br/>
                                         <b>Additional information</b>
                                         <br/>
               To sign in on future visits, you will need only to enter your email address:
-                                        <b>${subCmd.user.email}</b>
+                                        <b>${param.email}</b>
                                         <br/>
                                         <br/>
-              For questions, comments or suggestions regarding [GreatSchools Insider]
+              For questions, comments or suggestions regarding ${param.longName}
               simply email us at
                                         <a href="mailto:customerservice@greatschools.net">customerservice@greatschools.net</a>.
                                         <blockquote>GreatSchools, Inc.

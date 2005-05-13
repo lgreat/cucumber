@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.3 2005/05/12 01:23:02 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.4 2005/05/13 17:40:06 apeterson Exp $
  */
 package gs.web;
 
@@ -14,6 +14,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.TransformerException;
@@ -24,18 +26,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The purpose is ...
- * TODO
- * authorize transaction
- * remember "nextUrl" attribute send in, and send the user there on completion.
- * accept "email" passed in.
- *
  * @author Andrew J. Peterson <mailto:apeterson@greatschools.net>
  */
 public class SubscribeController extends org.springframework.web.servlet.mvc.SimpleFormController {
     private static Log _log = LogFactory.getLog(SubscribeController.class);
 
-    private Purchaser _purchaser;
+    private PurchaseManager _purchaseManager;
     private IUserDao _userDao;
 
     private static final String HOST_PARAM = "host";
@@ -57,7 +53,7 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
 
 
         final SubscriptionProduct product = SubscriptionProduct.ONE_YEAR_SUB;
-        final Price price = _purchaser.getSubscriptionPrice(user, product);
+        final Price price = _purchaseManager.getSubscriptionPrice(user, product);
 
 
         SubscribeCommand command = new SubscribeCommand(user, product, price);
@@ -79,6 +75,8 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         String paramHost = httpServletRequest.getParameter(HOST_PARAM);
         if (!StringUtils.isEmpty(paramHost)) {
             command.setHost(paramHost);
+        } else {
+            command.setHost("greatschools.net");
         }
 
         String paramUrlLabel = httpServletRequest.getParameter(URL_LABEL_PARAM);
@@ -118,24 +116,27 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         SubscribeCommand command = (SubscribeCommand) o;
 
         User user = command.getUser();
+        boolean updateUserInfo = false; // Do we need to update the user's information?
 
         // If there's already a user in the datbase, use it.
         if (user.getId() == null) {
             // getId() should always be null, but in case the code above changes, check first.
             final User existingUser = _userDao.getUserFromEmailIfExists(user.getEmail());
             if (existingUser != null) {
-                // TODO Todd do we want to update this?
-                existingUser.setFirstName(user.getFirstName());
-                existingUser.setLastName(user.getLastName());
-                existingUser.getAddress().setStreet(user.getAddress().getStreet());
-                existingUser.getAddress().setCity(user.getAddress().getCity());
-                existingUser.getAddress().setState(user.getAddress().getState());
-                existingUser.getAddress().setZip(user.getAddress().getZip());
-                _userDao.saveUser(existingUser);
+                updateUserInfo = true;
+                // We set this flag and only update if the transaction goes through.
+                // The thought was to prevent some bogus screwing around from updating what
+                // information we have.
                 user = existingUser;
             } else {
                 _userDao.saveUser(user);
             }
+        }
+
+        // If for some reason we didn't get a state when the user entered the page,
+        // we default to their home, credit card state.
+        if (command.getState() == null) {
+            command.setState(user.getState());
         }
 
 
@@ -154,19 +155,33 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         // Make the purchase. Throws an exception if the purchase doesn't go through.
         Subscription subscription = null;
         try {
-            subscription = _purchaser.purchaseSubscription(user,
+            subscription = _purchaseManager.purchaseSubscription(user,
                     command.getSubscriptionProduct(),
                     command.getState(),
                     cardInfo);
-        } catch (IPurchaser.AuthorizationException e) {
+        } catch (PurchaseManager.AuthorizationException e) {
             be.reject("param0", new Object[]{e.getMessage()}, "Credit card authorization failed.");
             return; // PREMATURE EXIT
         }
 
+        _log.info("User " + user.getEmail() + " bought a subscription for " + cardInfo.getTransactionAmount());
         command.setSubscription(subscription);
 
+        // If the transaction goes through, update the user's information in the DB.
+        if (updateUserInfo) {
+            User enteredUser = command.getUser();
+            final User existingUser = _userDao.getUserFromEmailIfExists(enteredUser.getEmail());
+            existingUser.setFirstName(enteredUser.getFirstName());
+            existingUser.setLastName(enteredUser.getLastName());
+            existingUser.getAddress().setStreet(enteredUser.getAddress().getStreet());
+            existingUser.getAddress().setCity(enteredUser.getAddress().getCity());
+            existingUser.getAddress().setState(enteredUser.getAddress().getState());
+            existingUser.getAddress().setZip(enteredUser.getAddress().getZip());
+            _userDao.saveUser(existingUser);
+        }
+
         try {
-            _purchaser.sendSubscriptionThankYouEmail(subscription);
+            _purchaseManager.sendSubscriptionThankYouEmail(subscription);
         } catch (TransformerException e) {
             // ignore for now -- error was logged
         } catch (IOException e) {
@@ -174,12 +189,36 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         }
     }
 
-    public Purchaser getPurchaser() {
-        return _purchaser;
+    protected ModelAndView onSubmit(Object o) throws Exception {
+        // Override the standard behavior so that the user sees a different URL
+        // in their browser, and if they hit "refresh", it doesn't resubmit their form.
+
+        final RedirectView redirectView = new RedirectView("/thankyou.page");
+        redirectView.setContextRelative(true);
+
+        // URL looks something like:
+        // ...thankyou.page?state=CA&email=ndp%40mac.com&price=%2416.95&longName=THISTHING&firstName=Andy&lastName=P.&host=gw.net&expires=Feb+1+2005&updated=Mar+3
+
+        SubscribeCommand command = (SubscribeCommand) o;
+        redirectView.addStaticAttribute("state", command.getState());
+        redirectView.addStaticAttribute("email", command.getUser().getEmail());
+        redirectView.addStaticAttribute("firstName", command.getUser().getFirstName());
+        redirectView.addStaticAttribute("lastName", command.getUser().getLastName());
+        redirectView.addStaticAttribute("price", command.getSubscriptionPrice());
+        redirectView.addStaticAttribute("longName", command.getSubscriptionProduct().getLongName());
+        redirectView.addStaticAttribute("expires", command.getSubscription().getExpires());
+        redirectView.addStaticAttribute("updated", command.getSubscription().getUpdated());
+        redirectView.addStaticAttribute("host", command.getHost());
+
+        return new ModelAndView(redirectView);
     }
 
-    public void setPurchaser(Purchaser purchaser) {
-        _purchaser = purchaser;
+    public PurchaseManager getPurchaseManager() {
+        return _purchaseManager;
+    }
+
+    public void setPurchaseManager(PurchaseManager purchaseManager) {
+        _purchaseManager = purchaseManager;
     }
 
     public IUserDao getUserDao() {

@@ -8,7 +8,8 @@
 <beans>
 
     <bean name="/subscribe.page"
-        class="gs.web.SubscribeController">
+        class="gs.web.SubscribeController"
+        autowire="byName">
         <!-- /cgi-bin/site/signup.cgi/CA -->
         <property name="commandName">
             <value>subCmd</value>
@@ -20,46 +21,21 @@
             <value>subscribe</value>
         </property>
         <property name="successView">
-            <value>thankyou</value>
+            <value>redirected to /thankyou.page to prevent multiple submits</value>
         </property>
         <property name="validator">
             <ref bean="subscribeValidator"/>
         </property>
-        <property name="purchaser">
-            <ref bean="purchaser"/>
-        </property>
-        <property name="userDao">
-            <ref bean="userDao"/>
-        </property>
-
     </bean>
+
+    <bean name="/thankyou.page"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>thankyou</value>
+        </property>
+    </bean>
+
     <bean id="subscribeValidator" class="gs.web.SubscribeValidator"></bean>
-
-    <!--    <bean id="signonController" class="org.springframework.web.servlet.mvc.SimpleFormController">-->
-    <!--        <property name="validator">-->
-    <!--            <ref bean="accountValidator"/>-->
-    <!--        </property>-->
-    <!--        <property name="successView">-->
-    <!--            <value>index</value>-->
-    <!--        </property>-->
-    <!--    </bean>-->
-
-
-    <!--    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">-->
-    <!--        <property name="mappings">-->
-    <!--            <props>-->
-    <!--                <prop key="/payment.page">signonController</prop>-->
-    <!--                <prop key="/thankyou.page">signonController</prop>-->
-    <!--            </props>-->
-    <!--        </property>-->
-    <!--        <property name="urlMap">-->
-    <!--            <map>-->
-    <!--                <entry key="/signup.page">-->
-    <!--                    <ref local="signonController"/>-->
-    <!--                </entry>-->
-    <!--            </map>-->
-    <!--        </property>-->
-    <!--    </bean>-->
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass">

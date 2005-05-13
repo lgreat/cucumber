@@ -52,7 +52,7 @@ table.rollmenu {
 	}
 
 html>body table.rollmenu {width: 100%;}
-table.rollmenu td {//border-left: 1px solid #D1CAFF;
+table.rollmenu td {/*border-left: 1px solid #D1CAFF;*/
 	width: 10%;
     margin: 0;
     padding: 0;
@@ -206,7 +206,7 @@ padding-left:6px;
 
 #header td {
 font-weight:bold;
-color:#999; // NDP 5/05
+color:#999; /* NDP 5/05 */
 border-bottom:1px solid #AAA;
 padding-bottom:4px;
 }
@@ -259,11 +259,10 @@ background: transparent url("res/img/submit.gif") no-repeat;
 }
 
 .error {
-margin:20px;
-color: #009900;
+margin:8px 20px 20px 20px;
+padding: 5px;
 width:80%;
-font-weight:bold;
-font-size:110%;
-border: 1px solid #009900;
-padding: 10px;
+color: #aa0000;
+background-color: #ffeeee;
+border: 1px solid #990000;
 }

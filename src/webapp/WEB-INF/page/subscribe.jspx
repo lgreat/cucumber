@@ -5,7 +5,7 @@
     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
     xmlns:spring="http://www.springframework.org/tags"
     >
-    <html>
+    <html lang="en">
 
         <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -15,15 +15,22 @@
 
         <head>
             <c:url value="/index.page" var="basepath"/>
-            <base href="${basepath}"></base>
+
+            <![CDATA[
+            <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
             <link rel="stylesheet" href="res/css/spp2.css"></link>
-            <link rel="text/javascript" href="res/js/gen_validatorv2.js"></link>
+            <script
+                type="text/javascript"
+                language="JavaScript"
+                src="res/js/gen_validatorv2.js">
+            </script>
+            ]]>
         </head>
 
 
         <body>
 
-            <table id="header" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <table id="header1" width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td>
                         <img src="res/img/conv_top_sm.jpg" alt="Moving? Choosing a new School? GreatSchools Insider can help." width="380" height="70"/>
@@ -39,8 +46,8 @@
                     <div class="wizard3">
                         <div class="wizard4">
                             <div class="pad">
-
-                                <form action="subscribe.page" id="subscribe" method="POST">
+                                <c:url value="/subscribe.page" var="form_submit"/>
+                                <form action="${form_submit}" id="subscribe" name="subscribe" method="post">
                                     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="header">
                                         <tr>
                                             <td align="center" width="30%">
@@ -115,7 +122,9 @@
                                                 <div class="formrow">
                                                     <span class="label">First Name</span>
                                                     <spring:bind path="subCmd.user.firstName">
-                                                        <input name="${status.expression}"
+                                                        <input
+                                                            id="firstName"
+                                                            name="${status.expression}"
                                                             type="text"
                                                             size="20"
                                                             value="${status.value}"/>
@@ -132,7 +141,8 @@
                                                 <div class="formrow">
                                                     <span class="label">Last Name</span>
                                                     <spring:bind path="subCmd.user.lastName">
-                                                        <input name="${status.expression}"
+                                                        <input id="lastName"
+                                                            name="${status.expression}"
                                                             type="text"
                                                             size="20"
                                                             value="${status.value}"/>
@@ -149,7 +159,8 @@
                                                 <div class="formrow">
                                                     <span class="label">Street Address</span>
                                                     <spring:bind path="subCmd.user.address.street">
-                                                        <input name="${status.expression}"
+                                                        <input id="street"
+                                                            name="${status.expression}"
                                                             type="text"
                                                             size="20"
                                                             value="${status.value}"/>
@@ -166,7 +177,8 @@
                                                 <div class="formrow">
                                                     <span class="label">City</span>
                                                     <spring:bind path="subCmd.user.address.city">
-                                                        <input name="${status.expression}"
+                                                        <input id="city"
+                                                            name="${status.expression}"
                                                             type="text"
                                                             size="20"
                                                             value="${status.value}"/>
@@ -183,7 +195,8 @@
                                                 <div class="formrow">
                                                     <span class="label">State</span>
                                                     <spring:bind path="subCmd.user.address.state">
-                                                        <input name="${status.expression}"
+                                                        <input id="state"
+                                                            name="${status.expression}"
                                                             type="text"
                                                             size="20"
                                                             value="${status.value}"/>
@@ -200,7 +213,8 @@
                                                 <div class="formrow">
                                                     <span class="label">Zip - 5 digits</span>
                                                     <spring:bind path="subCmd.user.address.zip">
-                                                        <input name="${status.expression}"
+                                                        <input id="zip"
+                                                            name="${status.expression}"
                                                             type="text"
                                                             size="20"
                                                             value="${status.value}"/>
@@ -217,7 +231,8 @@
                                                 <div class="formrow">
                                                     <span class="label">Email address</span>
                                                     <spring:bind path="subCmd.user.email">
-                                                        <input name="${status.expression}"
+                                                        <input id="email"
+                                                            name="${status.expression}"
                                                             type="text"
                                                             size="20"
                                                             value="${status.value}"/>
@@ -236,6 +251,7 @@
                                                     <spring:bind path="subCmd.agree">
                                                         <span class="label">
                                                             <jsp:element name="input">
+                                                                <jsp:attribute name="id">${status.expression}</jsp:attribute>
                                                                 <jsp:attribute name="name">${status.expression}</jsp:attribute>
                                                                 <jsp:attribute name="type">checkbox</jsp:attribute>
                                                                 <jsp:attribute name="value">x</jsp:attribute>
@@ -264,10 +280,32 @@
                                                 <div class="formrow">
                                                     <span class="label">Credit Card Type</span>
                                                     <spring:bind path="subCmd.creditCardType">
-                                                        <select name="${status.expression}">
-                                                            <option selected="${status.value == 'visa' ? 'checked' : ''}" value="visa">Visa</option>
-                                                            <option selected="${status.value == 'mc' ? 'checked' : ''}" value="mc">Mastercard</option>
-                                                            <option selected="${status.value == 'amex' ? 'checked' : ''}" value="amex">American Express</option>
+                                                        <select id="creditCardType"
+                                                            name="${status.expression}">
+                                                            <c:choose>
+                                                                <c:when test="${status.value == 'visa' || status.value == ''}">
+                                                                    <option value="visa" selected="selected">Visa</option>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <option value="visa">Visa</option>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                            <c:choose>
+                                                                <c:when test="${status.value == 'mc'}">
+                                                                    <option value="mc" selected="selected">Mastercard</option>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <option value="mc">Mastercard</option>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                            <c:choose>
+                                                                <c:when test="${status.value == 'amex'}">
+                                                                    <option value="amex" selected="selected">American Express</option>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <option value="amex">American Express</option>
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                         </select>
                                                         <c:if test="${status.error}">
                                                             <c:forEach items="${status.errorMessages}" var="error">
@@ -282,9 +320,10 @@
                                                 <div class="formrow">
                                                     <span class="label">Credit Card Number</span>
                                                     <spring:bind path="subCmd.creditCardNumber">
-                                                        <input name="${status.expression}"
+                                                        <input id="creditCardNumber"
+                                                            name="${status.expression}"
                                                             type="text"
-                                                            maxLength="16"
+                                                            maxlength="16"
                                                             size="20"
                                                             value="${status.value}"/>
                                                         <c:if test="${status.error}">
@@ -300,14 +339,16 @@
                                                 <div class="formrow">
                                                     <span class="label">Expiration (MM/YY)</span>
                                                     <spring:bind path="subCmd.expirationMonth">
-                                                        <input name="${status.expression}"
+                                                        <input id="expirationMonth"
+                                                            name="${status.expression}"
                                                             type="text"
                                                             size="2" maxlength="2"
                                                             value="${status.value}"/>
                                                     </spring:bind>
                                     /
                                                     <spring:bind path="subCmd.expirationYear">
-                                                        <input name="${status.expression}"
+                                                        <input id="expirationYear"
+                                                            name="${status.expression}"
                                                             type="text"
                                                             size="4" maxlength="4"
                                                             value="${status.value}"/>
@@ -357,7 +398,7 @@
                                             </td>
                                             <td width="50%" align="right">
                                                 <input name="Submit" type="submit" id="Submit" value="Submit"
-                                                    onClick="this.value='Processing...';this.enabled='false'"/>
+                                                    onclick="this.value='Processing...';this.enabled='false'"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -366,22 +407,21 @@
 
                                 <![CDATA[
         <script language="JavaScript" type="text/javascript">
-  var frmvalidator  = new Validator("subscribe");
-  frmvalidator.addValidation("subCmd.firstName","req","Please enter your first name");
-  frmvalidator.addValidation("subCmd.lastName","req","Please enter your last name");
-  frmvalidator.addValidation("subCmd.address.street","req","Please enter your address");
-  frmvalidator.addValidation("subCmd.address.city","req","Please enter your City");
-  frmvalidator.addValidation("subCmd.address.state","req","Please enter your state");
-  frmvalidator.addValidation("subCmd.address.zip","req","Please enter your ZIP code");
-  frmvalidator.addValidation("subCmd.email","req","Please enter your email address");
-  frmvalidator.addValidation("subCmd.email","email");
-  frmvalidator.addValidation("subCmd.creditCardType","dontselect=0");
-  frmvalidator.addValidation("subCmd.creditCardNumber","req","Please enter your card number");
-  frmvalidator.addValidation("subCmd.creditCardNumber","numeric");
-  frmvalidator.addValidation("subCmd.expirationMonth","req","Please enter the expiration month");
-  frmvalidator.addValidation("subCmd.expirationMonth","numeric");
-  frmvalidator.addValidation("subCmd.expirationYear","req","Please enter the expiration year");
-  frmvalidator.addValidation("subCmd.expirationYear","numeric");
+  var v  = new Validator("subscribe");
+  v.addValidation("firstName","req","Please enter your first name");
+  v.addValidation("lastName","req","Please enter your last name");
+  v.addValidation("street","req","Please enter your address");
+  v.addValidation("city","req","Please enter your City");
+  v.addValidation("state","req","Please enter your state");
+  v.addValidation("zip","req","Please enter your ZIP code");
+  v.addValidation("email","req","Please enter your email address");
+  v.addValidation("email","email");
+  v.addValidation("creditCardNumber","req","Please enter your card number");
+  v.addValidation("creditCardNumber","numeric");
+  v.addValidation("expirationMonth","req","Please enter the expiration month");
+  v.addValidation("expirationMonth","numeric");
+  v.addValidation("expirationYear","req","Please enter the expiration year");
+  v.addValidation("expirationYear","numeric");
         </script>
                                                                                     ]]>
 
