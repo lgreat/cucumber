@@ -14,8 +14,6 @@
         <jsp:directive.page contentType="text/html"/>
 
         <head>
-            <c:url value="/index.page" var="basepath"/>
-
             <![CDATA[
             <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
             <link rel="stylesheet" href="res/css/spp2.css"></link>
@@ -25,6 +23,7 @@
                 src="res/js/gen_validatorv2.js">
             </script>
             ]]>
+            <title>Subscribe to ${subCmd.subscriptionProduct.longName}</title>
         </head>
 
 
@@ -440,6 +439,28 @@
             |
                 <a href="http://greatschools.net/cgi-bin/static/terms.html/ca">Terms of Use</a>
             </h6>
+            <script language="javascript" type="text/javascript">
+                <!--
+                var fc_content='${subCmd.host}/${subCmd.state}/conversion/subscribe/-/-/-/-';
+                -->
+            </script>
+            <!-- Fireclick Web Analytics - COPYRIGHT 1999-2005 - Please do not modify this code-->
+            <script language="javascript" type="text/javascript">
+                <!--
+                function handle(){return true;}
+                window.onerror=handle;
+                var fc_host='www.greatschools.net';
+                document.write('<scr'+'ipt '
+                +'src="'+((location.protocol=='http:')?'http:':'https:')
+                +'//a248.e.akamai.net/f/248/5462/3h/hints.netflame.cc/service/sc'+'ript/'+fc_host+'"></scr'+'ipt>');
+                function fcce(){if (typeof(fcnf)!="undefined") fcnf();}
+                var fcfn=window.onload;
+                function fcco(){window.setTimeout("fcce();", 100);fcfn();}
+                window.onload= null==fcfn ? fcce:fcco;
+                // -->
+            </script>
+
+
         </body>
     </html>
 </jsp:root>
