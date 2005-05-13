@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.4 2005/05/13 17:40:06 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.5 2005/05/13 21:28:10 apeterson Exp $
  */
 package gs.web;
 
@@ -16,10 +16,13 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.util.CookieGenerator;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -189,6 +192,22 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         }
     }
 
+    protected ModelAndView onSubmit(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, BindException e) throws Exception {
+
+        // Add the appropriate cookie to log the user in.
+        CookieGenerator cookieGenerator = new CookieGenerator();
+        cookieGenerator.setCookieDomain("greatschools.net");
+        cookieGenerator.setCookieMaxAge(-1);
+        cookieGenerator.setCookieName("MEMBER");
+        cookieGenerator.setCookiePath("/");
+
+        SubscribeCommand command = (SubscribeCommand) o;
+        cookieGenerator.addCookie(httpServletResponse, command.getSubscription().getUser().getId().toString());
+
+
+        return super.onSubmit(httpServletRequest, httpServletResponse, o, e);
+    }
+
     protected ModelAndView onSubmit(Object o) throws Exception {
         // Override the standard behavior so that the user sees a different URL
         // in their browser, and if they hit "refresh", it doesn't resubmit their form.
@@ -198,6 +217,7 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
 
         // URL looks something like:
         // ...thankyou.page?state=CA&email=ndp%40mac.com&price=%2416.95&longName=THISTHING&firstName=Andy&lastName=P.&host=gw.net&expires=Feb+1+2005&updated=Mar+3
+        SimpleDateFormat df = new SimpleDateFormat("MMMMM d, yyyy");
 
         SubscribeCommand command = (SubscribeCommand) o;
         redirectView.addStaticAttribute("state", command.getState());
@@ -206,9 +226,10 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         redirectView.addStaticAttribute("lastName", command.getUser().getLastName());
         redirectView.addStaticAttribute("price", command.getSubscriptionPrice());
         redirectView.addStaticAttribute("longName", command.getSubscriptionProduct().getLongName());
-        redirectView.addStaticAttribute("expires", command.getSubscription().getExpires());
-        redirectView.addStaticAttribute("updated", command.getSubscription().getUpdated());
+        redirectView.addStaticAttribute("expires", df.format(command.getSubscription().getExpires()));
+        redirectView.addStaticAttribute("updated", df.format(command.getSubscription().getUpdated()));
         redirectView.addStaticAttribute("host", command.getHost());
+        redirectView.addStaticAttribute("memberId", command.getSubscription().getUser().getId().toString());
 
         return new ModelAndView(redirectView);
     }

@@ -80,6 +80,7 @@
                                         <td width="69%">
                                             <b>Start using the service now</b>
                                             <br/>
+                            You are currently signed in.
                             Here's some quick links
                             to get you started:
                                             <ul>
@@ -92,18 +93,18 @@
                                                     <a href="http://${param.host}/cgi-bin/site/rank_overview.cgi/${param.state}">Top-Rated Public Schools</a>
                                                 </li>
                                                 <li>
-                                                    <a href="http://${param.host}/cgi-bin/site/ratingsrch/${param.state}">1-to-5 Star Ratings</a>
+                                                    <a href="http://${param.host}/cgi-bin/ratingsrch/${param.state}">1-to-5 Star Ratings</a>
                                                 </li>
                                                 <li>
-                                                    <a href="http://${param.host}/cgi-bin/site/commentsrch/${param.state}">Parent Ratings and Reviews</a>
+                                                    <a href="http://${param.host}/cgi-bin/commentsrch/${param.state}">Parent Ratings and Reviews</a>
                                                 </li>
                                                 <li>
-                                                    <a href="http://${param.host}/cgi-bin/site/ratingsrch/${param.state}">Yellow Flag Alerts</a>
+                                                    <a href="http://${param.host}/cgi-bin/ratingsrch/${param.state}">Yellow Flag Alerts</a>
                                                 </li>
                                             </ul>
 
         Or, return to the
-                                            <a href="http://${param.host}/modperl/${param.state}">GreatSchools home page</a>.
+                                            <a href="http://${param.host}/modperl/go/${param.state}">GreatSchools home page</a>.
                                             <br/>
                                             <br/>
                                             <b>Additional information</b>

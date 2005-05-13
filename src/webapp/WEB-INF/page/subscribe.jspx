@@ -46,7 +46,8 @@
                         <div class="wizard4">
                             <div class="pad">
                                 <c:url value="/subscribe.page" var="form_submit"/>
-                                <form action="${form_submit}" id="subscribe" name="subscribe" method="post">
+                                <form action="${form_submit}" id="subscribe" name="subscribe" method="post"
+                                    onsubmit="var s=getDocumentById('submit');s.setValue('Processing...');s.enabled=false">
                                     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="header">
                                         <tr>
                                             <td align="center" width="30%">
@@ -396,8 +397,7 @@
                                                 <img src="res/img/pixel.gif" alt=""/>
                                             </td>
                                             <td width="50%" align="right">
-                                                <input name="Submit" type="submit" id="Submit" value="Submit"
-                                                    onclick="this.value='Processing...';this.enabled='false'"/>
+                                                <input name="Submit" type="submit" id="Submit" value="Submit"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -421,6 +421,7 @@
   v.addValidation("expirationMonth","numeric");
   v.addValidation("expirationYear","req","Please enter the expiration year");
   v.addValidation("expirationYear","numeric");
+  v.set_addnl_vfunction("document.getElementById("submit").
         </script>
                                                                                     ]]>
 
