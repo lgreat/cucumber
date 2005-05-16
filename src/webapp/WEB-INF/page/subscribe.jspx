@@ -84,7 +84,7 @@
                                         Receive unlimited access for one year to all
                                         subscription content for ${subCmd.subscriptionPrice}.
                                                         <div style="align:center">
-                                                            <img src="res/img/conv_pic2.gif" alt="photo of family" width="210" height="293" vspace="8" border="0"/>
+                                                            <img src="res/img/conv_pic2.gif" alt="photo of family" width="165" height="230" vspace="8" border="0"/>
                                                         </div>
                                                         <b>Please note:</b> You will have access to subscription content
                 for all states in which it is available, currently including:
@@ -421,7 +421,6 @@
   v.addValidation("expirationMonth","numeric");
   v.addValidation("expirationYear","req","Please enter the expiration year");
   v.addValidation("expirationYear","numeric");
-  v.set_addnl_vfunction("document.getElementById("submit").
         </script>
                                                                                     ]]>
 

@@ -4,21 +4,21 @@ width:97%;margin:10px;padding:10px;font-family: Arial, Helvetica, sans-serif;bac
 }
 .wrap0 {
 float:left;
-background:url(res/img/shadow.gif) right bottom no-repeat;
+background:url(../img/shadow.gif) right bottom no-repeat;
 }
 .wrap1 {
-background:url(res/img/shadow180.gif) no-repeat;
+background:url(../img/shadow180.gif) no-repeat;
 }
 .wrap2 {
-background:url(res/img/corner_bl.gif) -16px 100% no-repeat;
+background:url(../img/corner_bl.gif) -16px 100% no-repeat;
 }
 .wrap3 {
 padding:4px 6px 6px 4px;
-background:url(res/img/corner_tr.gif) 100% -16px no-repeat;
+background:url(../img/corner_tr.gif) 100% -16px no-repeat;
 }
 
 .box {background-color: #FFFFF4;
-	background-image: url(res/img/box_bg.gif);
+	background-image: url(../img/box_bg.gif);
 	background-repeat: repeat-x;
 	background-position: top;
 	border:1px solid;border-color:#ddd #999 #999 #ccc;
@@ -29,10 +29,10 @@ background:url(res/img/corner_tr.gif) 100% -16px no-repeat;
 
 div.roundbox {background-color: #dbe4e2;height:100%;}
 div.roundbox table.main {padding: 8px 8px 8px 8px;height:100%;} /* T R B L */
-div.roundbox_tl {background: url(res/img/roundbox_tl.gif) no-repeat top left;}
-div.roundbox_tr {background: url(res/img/roundbox_tr.gif) no-repeat top right;}
-div.roundbox_bl {background: url(res/img/roundbox_bl.gif) no-repeat bottom left;}
-div.roundbox_br {background: url(res/img/roundbox_br.gif) no-repeat bottom right;}
+div.roundbox_tl {background: url(../img/roundbox_tl.gif) no-repeat top left;}
+div.roundbox_tr {background: url(../img/roundbox_tr.gif) no-repeat top right;}
+div.roundbox_bl {background: url(../img/roundbox_bl.gif) no-repeat bottom left;}
+div.roundbox_br {background: url(../img/roundbox_br.gif) no-repeat bottom right;}
 
 .small {
 font-size:80%;
@@ -56,7 +56,7 @@ table.rollmenu td {/*border-left: 1px solid #D1CAFF;*/
 	width: 10%;
     margin: 0;
     padding: 0;
-	background-image: url(res/img/bgtab_blue.gif);
+	background-image: url(../img/bgtab_blue.gif);
 	background-repeat: repeat-x;
 	background-position: bottom;
 	}
@@ -87,17 +87,17 @@ table.rollmenu a:hover {
 	color: #000;
     text-decoration: none;
     background-color: #D1CAFF;
-	background-image: url(res/img/bgtab_hilite.gif);
+	background-image: url(../img/bgtab_hilite.gif);
 	background-repeat: repeat-x;
 	background-position: bottom;}
 html>body table.rollmenu a#active {color: #000;
     background-color: #D1CAFF;
-	background-image: url(res/img/bgtab_hilite.gif);
+	background-image: url(../img/bgtab_hilite.gif);
 	background-repeat: repeat-x;
 	background-position: bottom;text-decoration:none;}
 table.rollmenu a#active {color: #000;
     background-color: #D1CAFF;
-	background-image: url(res/img/bgtab_hilite.gif);
+	background-image: url(../img/bgtab_hilite.gif);
 	background-repeat: repeat-x;
 	background-position: bottom;text-decoration:none;}
 table.rollmenu td#active {border-left: 0px;}
@@ -132,7 +132,7 @@ table#box_ad td {
 text-align:center;
 font-size:10px;
 }
-ul.arrow {list-style-image: url("res/img/arrow_orange.gif"); padding:0px;}
+ul.arrow {list-style-image: url("../img/arrow_orange.gif"); padding:0px;}
 ul.arrow li {line-height:170%;font-size:80%;padding-bottom:10px;line-height:115%;}
 ul.arrow li a {color:#00F;}
 ul.arrow li a:hover {color:#FF6600;}
@@ -185,22 +185,22 @@ padding-left:4px;
 table.module1 td a {line-height:140%;white-space:nowrap;}
 table.module1 td a:hover {color: #CCC;}
 
-td#insiderbug {background: url(res/img/insider_leftBG.gif) top left no-repeat;
+td#insiderbug {background: url(../img/insider_leftBG.gif) top left no-repeat;
 font-size:10px;
 padding-left:6px;
 }
 td#insiderbug b {font-size:12px;}
-td#outsiderbug {background: url(res/img/insider_leftBG.gif) top left no-repeat;
+td#outsiderbug {background: url(../img/insider_leftBG.gif) top left no-repeat;
 font-size:11px;
 line-height:10px;
 padding-left:6px;
 }
 
 /* =================== wizard */
-.wizard {background: url(res/img/innershadow_box_ul.gif) no-repeat top left #FaFaFa;}
-.wizard2 {background: url(res/img/innershadow_box_lr.gif) no-repeat bottom right;}
-.wizard3 {background: url(res/img/innershadow_box_ur.gif) no-repeat top right;}
-.wizard4 {background: url(res/img/innershadow_box_ll.gif) no-repeat bottom left;}
+.wizard {background: url(../img/innershadow_box_ul.gif) no-repeat top left #FaFaFa;}
+.wizard2 {background: url(../img/innershadow_box_lr.gif) no-repeat bottom right;}
+.wizard3 {background: url(../img/innershadow_box_ur.gif) no-repeat top right;}
+.wizard4 {background: url(../img/innershadow_box_ll.gif) no-repeat bottom left;}
 .pad {padding:7px 7px 7px 10px;}
 
 
@@ -255,7 +255,7 @@ font-weight:bold;
 height:30px;
 width:90px;
 border:0px;
-background: transparent url("res/img/submit.gif") no-repeat;
+background: transparent url("../img/submit.gif") no-repeat;
 }
 
 .error {
