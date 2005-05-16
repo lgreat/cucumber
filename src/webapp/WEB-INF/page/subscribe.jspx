@@ -4,6 +4,7 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
     xmlns:spring="http://www.springframework.org/tags"
+    xmlns:layout="urn:jsptagdir:/WEB-INF/tags/layout"
     >
     <html lang="en">
 
@@ -40,371 +41,367 @@
                 </tr>
             </table>
 
-            <div class="wizard">
-                <div class="wizard2">
-                    <div class="wizard3">
-                        <div class="wizard4">
-                            <div class="pad">
-                                <c:url value="/subscribe.page" var="form_submit"/>
-                                <form action="${form_submit}" id="subscribe" name="subscribe" method="post"
-                                    onsubmit="var s=getDocumentById('submit');s.setValue('Processing...');s.enabled=false">
-                                    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="header">
-                                        <tr>
-                                            <td align="center" width="30%">
-                                                <img src="res/img/pixel.gif" alt=""/>
-                                            </td>
-                                            <td align="center" width="*" nowrap="nowrap" id="active">Step 1:
-                                                <br/>
+            <layout:wizard>
+                <c:url value="/subscribe.page" var="form_submit"/>
+                <form action="${form_submit}" id="subscribe" name="subscribe" method="post"
+                    onsubmit="var s=getDocumentById('submit');s.setValue('Processing...');s.enabled=false">
+                    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="header">
+                        <tr>
+                            <td align="center" width="30%">
+                                <img src="res/img/pixel.gif" alt=""/>
+                            </td>
+                            <td align="center" width="*" nowrap="nowrap" id="active">Step 1:
+                                <br/>
                   Register and Pay
-                                            </td>
-                                            <td align="center">
-                                                <img src="res/img/wizard_dottedarrow.gif" width="100" height="10" alt="arrow"/>
-                                            </td>
-                                            <td align="center" nowrap="nowrap">Step 2:
-                                                <br/>
+                            </td>
+                            <td align="center">
+                                <img src="res/img/wizard_dottedarrow.gif" width="100" height="10" alt="arrow"/>
+                            </td>
+                            <td align="center" nowrap="nowrap">Step 2:
+                                <br/>
                   Get Started
-                                            </td>
-                                            <td align="center" width="30%">
-                                                <img src="res/img/pixel.gif" alt=""/>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" id="main">
-                                        <tr valign="top">
-                                            <td width="41%">
-                                                <spring:bind path="subCmd">
-                                                    <c:if test="${status.error}">
-                                                        <c:forEach items="${status.errorMessages}" var="error">
-                                                            <div class="error">
-                                                                <c:out value="${error}" escapeXml="false"/>
-                                                            </div>
-                                                        </c:forEach>
-                                                    </c:if>
-                                                    <c:if test="${!status.error}">
+                            </td>
+                            <td align="center" width="30%">
+                                <img src="res/img/pixel.gif" alt=""/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" id="main">
+                        <tr valign="top">
+                            <td width="41%">
+                                <spring:bind path="subCmd">
+                                    <c:if test="${status.error}">
+                                        <c:forEach items="${status.errorMessages}" var="error">
+                                            <div class="error">
+                                                <c:out value="${error}" escapeXml="false"/>
+                                            </div>
+                                        </c:forEach>
+                                    </c:if>
+                                    <c:if test="${!status.error}">
                                         Receive unlimited access for one year to all
                                         subscription content for ${subCmd.subscriptionPrice}.
-                                                        <div style="align:center">
-                                                            <img src="res/img/conv_pic2.gif" alt="photo of family" width="165" height="230" vspace="8" border="0"/>
-                                                        </div>
-                                                        <b>Please note:</b> You will have access to subscription content
+                                        <div style="align:center">
+                                            <img src="res/img/conv_pic2.gif" alt="photo of family" width="165" height="230" vspace="8" border="0"/>
+                                        </div>
+                                        <b>Please note:</b> You will have access to subscription content
                 for all states in which it is available, currently including:
                 ${subscriptionStates}. Information about
                 private schools is very limited in all states.
-                                                    </c:if>
-                                                </spring:bind>
-                                            </td>
-                                            <td width="59%">
-                                                <b>Signing up is easy. First, enter your personal
+                                    </c:if>
+                                </spring:bind>
+                            </td>
+                            <td width="59%">
+                                <b>Signing up is easy. First, enter your personal
                 information</b>
 
 
-                                                <spring:bind path="subCmd.state">
-                                                    <input name="${status.expression}"
-                                                        type="hidden"
-                                                        value="${status.value}"/>
-                                                </spring:bind>
-                                                <spring:bind path="subCmd.url">
-                                                    <input name="${status.expression}"
-                                                        type="hidden"
-                                                        value="${status.value}"/>
-                                                </spring:bind>
-                                                <spring:bind path="subCmd.urlLabel">
-                                                    <input name="${status.expression}"
-                                                        type="hidden"
-                                                        value="${status.value}"/>
-                                                </spring:bind>
-                                                <spring:bind path="subCmd.host">
-                                                    <input name="${status.expression}"
-                                                        type="hidden"
-                                                        value="${status.value}"/>
-                                                </spring:bind>
+                                <spring:bind path="subCmd.state">
+                                    <input name="${status.expression}"
+                                        type="hidden"
+                                        value="${status.value}"/>
+                                </spring:bind>
+                                <spring:bind path="subCmd.url">
+                                    <input name="${status.expression}"
+                                        type="hidden"
+                                        value="${status.value}"/>
+                                </spring:bind>
+                                <spring:bind path="subCmd.urlLabel">
+                                    <input name="${status.expression}"
+                                        type="hidden"
+                                        value="${status.value}"/>
+                                </spring:bind>
+                                <spring:bind path="subCmd.host">
+                                    <input name="${status.expression}"
+                                        type="hidden"
+                                        value="${status.value}"/>
+                                </spring:bind>
 
-                                                <div class="formrow">
-                                                    <span class="label">First Name</span>
-                                                    <spring:bind path="subCmd.user.firstName">
-                                                        <input
-                                                            id="firstName"
-                                                            name="${status.expression}"
-                                                            type="text"
-                                                            size="20"
-                                                            value="${status.value}"/>
-                                                        <c:if test="${status.error}">
-                                                            <c:forEach items="${status.errorMessages}" var="error">
-                                                                <div class="error">
-                                                                    <c:out value="${error}" escapeXml="false"/>
-                                                                </div>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                    </spring:bind>
+                                <div class="formrow">
+                                    <span class="label">First Name</span>
+                                    <spring:bind path="subCmd.user.firstName">
+                                        <input
+                                            id="firstName"
+                                            name="${status.expression}"
+                                            type="text"
+                                            size="20"
+                                            value="${status.value}"/>
+                                        <c:if test="${status.error}">
+                                            <c:forEach items="${status.errorMessages}" var="error">
+                                                <div class="error">
+                                                    <c:out value="${error}" escapeXml="false"/>
                                                 </div>
+                                            </c:forEach>
+                                        </c:if>
+                                    </spring:bind>
+                                </div>
 
-                                                <div class="formrow">
-                                                    <span class="label">Last Name</span>
-                                                    <spring:bind path="subCmd.user.lastName">
-                                                        <input id="lastName"
-                                                            name="${status.expression}"
-                                                            type="text"
-                                                            size="20"
-                                                            value="${status.value}"/>
-                                                        <c:if test="${status.error}">
-                                                            <c:forEach items="${status.errorMessages}" var="error">
-                                                                <div class="error">
-                                                                    <c:out value="${error}" escapeXml="false"/>
-                                                                </div>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                    </spring:bind>
+                                <div class="formrow">
+                                    <span class="label">Last Name</span>
+                                    <spring:bind path="subCmd.user.lastName">
+                                        <input id="lastName"
+                                            name="${status.expression}"
+                                            type="text"
+                                            size="20"
+                                            value="${status.value}"/>
+                                        <c:if test="${status.error}">
+                                            <c:forEach items="${status.errorMessages}" var="error">
+                                                <div class="error">
+                                                    <c:out value="${error}" escapeXml="false"/>
                                                 </div>
+                                            </c:forEach>
+                                        </c:if>
+                                    </spring:bind>
+                                </div>
 
-                                                <div class="formrow">
-                                                    <span class="label">Street Address</span>
-                                                    <spring:bind path="subCmd.user.address.street">
-                                                        <input id="street"
-                                                            name="${status.expression}"
-                                                            type="text"
-                                                            size="20"
-                                                            value="${status.value}"/>
-                                                        <c:if test="${status.error}">
-                                                            <c:forEach items="${status.errorMessages}" var="error">
-                                                                <div class="error">
-                                                                    <c:out value="${error}" escapeXml="false"/>
-                                                                </div>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                    </spring:bind>
+                                <div class="formrow">
+                                    <span class="label">Street Address</span>
+                                    <spring:bind path="subCmd.user.address.street">
+                                        <input id="street"
+                                            name="${status.expression}"
+                                            type="text"
+                                            size="20"
+                                            value="${status.value}"/>
+                                        <c:if test="${status.error}">
+                                            <c:forEach items="${status.errorMessages}" var="error">
+                                                <div class="error">
+                                                    <c:out value="${error}" escapeXml="false"/>
                                                 </div>
+                                            </c:forEach>
+                                        </c:if>
+                                    </spring:bind>
+                                </div>
 
-                                                <div class="formrow">
-                                                    <span class="label">City</span>
-                                                    <spring:bind path="subCmd.user.address.city">
-                                                        <input id="city"
-                                                            name="${status.expression}"
-                                                            type="text"
-                                                            size="20"
-                                                            value="${status.value}"/>
-                                                        <c:if test="${status.error}">
-                                                            <c:forEach items="${status.errorMessages}" var="error">
-                                                                <div class="error">
-                                                                    <c:out value="${error}" escapeXml="false"/>
-                                                                </div>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                    </spring:bind>
+                                <div class="formrow">
+                                    <span class="label">City</span>
+                                    <spring:bind path="subCmd.user.address.city">
+                                        <input id="city"
+                                            name="${status.expression}"
+                                            type="text"
+                                            size="20"
+                                            value="${status.value}"/>
+                                        <c:if test="${status.error}">
+                                            <c:forEach items="${status.errorMessages}" var="error">
+                                                <div class="error">
+                                                    <c:out value="${error}" escapeXml="false"/>
                                                 </div>
+                                            </c:forEach>
+                                        </c:if>
+                                    </spring:bind>
+                                </div>
 
-                                                <div class="formrow">
-                                                    <span class="label">State</span>
-                                                    <spring:bind path="subCmd.user.address.state">
-                                                        <input id="state"
-                                                            name="${status.expression}"
-                                                            type="text"
-                                                            size="20"
-                                                            value="${status.value}"/>
-                                                        <c:if test="${status.error}">
-                                                            <c:forEach items="${status.errorMessages}" var="error">
-                                                                <div class="error">
-                                                                    <c:out value="${error}" escapeXml="false"/>
-                                                                </div>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                    </spring:bind>
+                                <div class="formrow">
+                                    <span class="label">State</span>
+                                    <spring:bind path="subCmd.user.address.state">
+                                        <input id="state"
+                                            name="${status.expression}"
+                                            type="text"
+                                            size="20"
+                                            value="${status.value}"/>
+                                        <c:if test="${status.error}">
+                                            <c:forEach items="${status.errorMessages}" var="error">
+                                                <div class="error">
+                                                    <c:out value="${error}" escapeXml="false"/>
                                                 </div>
+                                            </c:forEach>
+                                        </c:if>
+                                    </spring:bind>
+                                </div>
 
-                                                <div class="formrow">
-                                                    <span class="label">Zip - 5 digits</span>
-                                                    <spring:bind path="subCmd.user.address.zip">
-                                                        <input id="zip"
-                                                            name="${status.expression}"
-                                                            type="text"
-                                                            size="20"
-                                                            value="${status.value}"/>
-                                                        <c:if test="${status.error}">
-                                                            <c:forEach items="${status.errorMessages}" var="error">
-                                                                <div class="error">
-                                                                    <c:out value="${error}" escapeXml="false"/>
-                                                                </div>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                    </spring:bind>
+                                <div class="formrow">
+                                    <span class="label">Zip - 5 digits</span>
+                                    <spring:bind path="subCmd.user.address.zip">
+                                        <input id="zip"
+                                            name="${status.expression}"
+                                            type="text"
+                                            size="20"
+                                            value="${status.value}"/>
+                                        <c:if test="${status.error}">
+                                            <c:forEach items="${status.errorMessages}" var="error">
+                                                <div class="error">
+                                                    <c:out value="${error}" escapeXml="false"/>
                                                 </div>
+                                            </c:forEach>
+                                        </c:if>
+                                    </spring:bind>
+                                </div>
 
-                                                <div class="formrow">
-                                                    <span class="label">Email address</span>
-                                                    <spring:bind path="subCmd.user.email">
-                                                        <input id="email"
-                                                            name="${status.expression}"
-                                                            type="text"
-                                                            size="20"
-                                                            value="${status.value}"/>
-                                                        <c:if test="${status.error}">
-                                                            <c:forEach items="${status.errorMessages}" var="error">
-                                                                <div class="error">
-                                                                    <c:out value="${error}" escapeXml="false"/>
-                                                                </div>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                    </spring:bind>
+                                <div class="formrow">
+                                    <span class="label">Email address</span>
+                                    <spring:bind path="subCmd.user.email">
+                                        <input id="email"
+                                            name="${status.expression}"
+                                            type="text"
+                                            size="20"
+                                            value="${status.value}"/>
+                                        <c:if test="${status.error}">
+                                            <c:forEach items="${status.errorMessages}" var="error">
+                                                <div class="error">
+                                                    <c:out value="${error}" escapeXml="false"/>
                                                 </div>
+                                            </c:forEach>
+                                        </c:if>
+                                    </spring:bind>
+                                </div>
 
-                                                <b>Then, review and agree to the terms of the subscriber agreement</b>
-                                                <div class="formrow">
-                                                    <spring:bind path="subCmd.agree">
-                                                        <span class="label">
-                                                            <jsp:element name="input">
-                                                                <jsp:attribute name="id">${status.expression}</jsp:attribute>
-                                                                <jsp:attribute name="name">${status.expression}</jsp:attribute>
-                                                                <jsp:attribute name="type">checkbox</jsp:attribute>
-                                                                <jsp:attribute name="value">x</jsp:attribute>
-                                                                <!-- <c:if test="${status.value == 'x'}">
-                                                                     <jsp:attribute name="checked">checked</jsp:attribute>
-                                                                 </c:if>-->
-                                                            </jsp:element>
-                                                        </span>
-                                                        <span class="labelright">I agree to the terms of the
-                                                            <a href="http://www.greatschools.net/content/insider/subscriber.html"
-                                                                target="issues"
-                                                                onclick="window.open('','issues','width=400,height=300,scrollbars=yes')">subscriber agreement</a>
-                                                        </span>
-                                                        <c:if test="${status.error}">
-                                                            <c:forEach items="${status.errorMessages}" var="error">
-                                                                <div class="error">
-                                                                    <c:out value="${error}" escapeXml="false"/>
-                                                                </div>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                    </spring:bind>
-                                                    <br/>
-                                                    <br/>
+                                <b>Then, review and agree to the terms of the subscriber agreement</b>
+                                <div class="formrow">
+                                    <spring:bind path="subCmd.agree">
+                                        <span class="label">
+                                            <jsp:element name="input">
+                                                <jsp:attribute name="id">${status.expression}</jsp:attribute>
+                                                <jsp:attribute name="name">${status.expression}</jsp:attribute>
+                                                <jsp:attribute name="type">checkbox</jsp:attribute>
+                                                <jsp:attribute name="value">x</jsp:attribute>
+                                                <!-- <c:if test="${status.value == 'x'}">
+                                                     <jsp:attribute name="checked">checked</jsp:attribute>
+                                                 </c:if>-->
+                                            </jsp:element>
+                                        </span>
+                                        <span class="labelright">I agree to the terms of the
+                                            <a href="http://www.greatschools.net/content/insider/subscriber.html"
+                                                target="issues"
+                                                onclick="window.open('','issues','width=400,height=300,scrollbars=yes')">subscriber agreement</a>
+                                        </span>
+                                        <c:if test="${status.error}">
+                                            <c:forEach items="${status.errorMessages}" var="error">
+                                                <div class="error">
+                                                    <c:out value="${error}" escapeXml="false"/>
                                                 </div>
-                                                <b>Finally, enter your payment information</b>
-                                                <div class="formrow">
-                                                    <span class="label">Credit Card Type</span>
-                                                    <spring:bind path="subCmd.creditCardType">
-                                                        <select id="creditCardType"
-                                                            name="${status.expression}">
-                                                            <c:choose>
-                                                                <c:when test="${status.value == 'visa' || status.value == ''}">
-                                                                    <option value="visa" selected="selected">Visa</option>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <option value="visa">Visa</option>
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                            <c:choose>
-                                                                <c:when test="${status.value == 'mc'}">
-                                                                    <option value="mc" selected="selected">Mastercard</option>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <option value="mc">Mastercard</option>
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                            <c:choose>
-                                                                <c:when test="${status.value == 'amex'}">
-                                                                    <option value="amex" selected="selected">American Express</option>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <option value="amex">American Express</option>
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                        </select>
-                                                        <c:if test="${status.error}">
-                                                            <c:forEach items="${status.errorMessages}" var="error">
-                                                                <div class="error">
-                                                                    <c:out value="${error}" escapeXml="false"/>
-                                                                </div>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                    </spring:bind>
+                                            </c:forEach>
+                                        </c:if>
+                                    </spring:bind>
+                                    <br/>
+                                    <br/>
+                                </div>
+                                <b>Finally, enter your payment information</b>
+                                <div class="formrow">
+                                    <span class="label">Credit Card Type</span>
+                                    <spring:bind path="subCmd.creditCardType">
+                                        <select id="creditCardType"
+                                            name="${status.expression}">
+                                            <c:choose>
+                                                <c:when test="${status.value == 'visa' || status.value == ''}">
+                                                    <option value="visa" selected="selected">Visa</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="visa">Visa</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <c:choose>
+                                                <c:when test="${status.value == 'mc'}">
+                                                    <option value="mc" selected="selected">Mastercard</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="mc">Mastercard</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <c:choose>
+                                                <c:when test="${status.value == 'amex'}">
+                                                    <option value="amex" selected="selected">American Express</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="amex">American Express</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </select>
+                                        <c:if test="${status.error}">
+                                            <c:forEach items="${status.errorMessages}" var="error">
+                                                <div class="error">
+                                                    <c:out value="${error}" escapeXml="false"/>
                                                 </div>
+                                            </c:forEach>
+                                        </c:if>
+                                    </spring:bind>
+                                </div>
 
-                                                <div class="formrow">
-                                                    <span class="label">Credit Card Number</span>
-                                                    <spring:bind path="subCmd.creditCardNumber">
-                                                        <input id="creditCardNumber"
-                                                            name="${status.expression}"
-                                                            type="text"
-                                                            maxlength="16"
-                                                            size="20"
-                                                            value="${status.value}"/>
-                                                        <c:if test="${status.error}">
-                                                            <c:forEach items="${status.errorMessages}" var="error">
-                                                                <div class="error">
-                                                                    <c:out value="${error}" escapeXml="false"/>
-                                                                </div>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                    </spring:bind>
+                                <div class="formrow">
+                                    <span class="label">Credit Card Number</span>
+                                    <spring:bind path="subCmd.creditCardNumber">
+                                        <input id="creditCardNumber"
+                                            name="${status.expression}"
+                                            type="text"
+                                            maxlength="16"
+                                            size="20"
+                                            value="${status.value}"/>
+                                        <c:if test="${status.error}">
+                                            <c:forEach items="${status.errorMessages}" var="error">
+                                                <div class="error">
+                                                    <c:out value="${error}" escapeXml="false"/>
                                                 </div>
+                                            </c:forEach>
+                                        </c:if>
+                                    </spring:bind>
+                                </div>
 
-                                                <div class="formrow">
-                                                    <span class="label">Expiration (MM/YY)</span>
-                                                    <spring:bind path="subCmd.expirationMonth">
-                                                        <input id="expirationMonth"
-                                                            name="${status.expression}"
-                                                            type="text"
-                                                            size="2" maxlength="2"
-                                                            value="${status.value}"/>
-                                                    </spring:bind>
+                                <div class="formrow">
+                                    <span class="label">Expiration (MM/YY)</span>
+                                    <spring:bind path="subCmd.expirationMonth">
+                                        <input id="expirationMonth"
+                                            name="${status.expression}"
+                                            type="text"
+                                            size="2" maxlength="2"
+                                            value="${status.value}"/>
+                                    </spring:bind>
                                     /
-                                                    <spring:bind path="subCmd.expirationYear">
-                                                        <input id="expirationYear"
-                                                            name="${status.expression}"
-                                                            type="text"
-                                                            size="4" maxlength="4"
-                                                            value="${status.value}"/>
-                                                    </spring:bind>
+                                    <spring:bind path="subCmd.expirationYear">
+                                        <input id="expirationYear"
+                                            name="${status.expression}"
+                                            type="text"
+                                            size="4" maxlength="4"
+                                            value="${status.value}"/>
+                                    </spring:bind>
 
-                                                    <spring:bind path="subCmd.expirationMonth">
-                                                        <c:if test="${status.error}">
-                                                            <c:forEach items="${status.errorMessages}" var="error">
-                                                                <div class="error">
-                                                                    <c:out value="${error}" escapeXml="false"/>
-                                                                </div>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                    </spring:bind>
-                                                    <spring:bind path="subCmd.expirationYear">
-                                                        <c:if test="${status.error}">
-                                                            <c:forEach items="${status.errorMessages}" var="error">
-                                                                <div class="error">
-                                                                    <c:out value="${error}" escapeXml="false"/>
-                                                                </div>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                    </spring:bind>
+                                    <spring:bind path="subCmd.expirationMonth">
+                                        <c:if test="${status.error}">
+                                            <c:forEach items="${status.errorMessages}" var="error">
+                                                <div class="error">
+                                                    <c:out value="${error}" escapeXml="false"/>
                                                 </div>
+                                            </c:forEach>
+                                        </c:if>
+                                    </spring:bind>
+                                    <spring:bind path="subCmd.expirationYear">
+                                        <c:if test="${status.error}">
+                                            <c:forEach items="${status.errorMessages}" var="error">
+                                                <div class="error">
+                                                    <c:out value="${error}" escapeXml="false"/>
+                                                </div>
+                                            </c:forEach>
+                                        </c:if>
+                                    </spring:bind>
+                                </div>
 
-                                                <spring:bind path="subCmd">
-                                                    <c:if test="${status.error}">
-                                                        <div class="formrow">
-                                                            <span class="label">Amount</span>
-                                                            <input
-                                                                disabled="true"
-                                                                readonly="true"
-                                                                type="text"
-                                                                value="${subCmd.subscriptionPrice}"/>
-                                                        </div>
-                                                    </c:if>
-                                                </spring:bind>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                <spring:bind path="subCmd">
+                                    <c:if test="${status.error}">
+                                        <div class="formrow">
+                                            <span class="label">Amount</span>
+                                            <input
+                                                disabled="true"
+                                                readonly="true"
+                                                type="text"
+                                                value="${subCmd.subscriptionPrice}"/>
+                                        </div>
+                                    </c:if>
+                                </spring:bind>
+                            </td>
+                        </tr>
+                    </table>
 
 
-                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" id="footer">
-                                        <tr>
-                                            <td width="50%">
-                                                <img src="res/img/pixel.gif" alt=""/>
-                                            </td>
-                                            <td width="50%" align="right">
-                                                <input name="Submit" type="submit" id="Submit" value="Submit"/>
-                                            </td>
-                                        </tr>
-                                    </table>
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" id="footer">
+                        <tr>
+                            <td width="50%">
+                                <img src="res/img/pixel.gif" alt=""/>
+                            </td>
+                            <td width="50%" align="right">
+                                <input name="Submit" type="submit" id="Submit" value="Submit"/>
+                            </td>
+                        </tr>
+                    </table>
 
-                                </form>
+                </form>
 
-                                <![CDATA[
+                <![CDATA[
         <script language="JavaScript" type="text/javascript">
   var v  = new Validator("subscribe");
   v.addValidation("firstName","req","Please enter your first name");
@@ -425,20 +422,9 @@
                                                                                     ]]>
 
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </layout:wizard>
 
-
-            <h5 class="ncopy">GreatSchools.net
-            Elementary, middle and high school information for public, private and charter schools nationwide.</h5>
-            <h6>&#169;1998-2005 GreatSchools Inc. All Rights Reserved.
-                <a href="http://greatschools.net/">Home</a>
-            |
-                <a href="http://greatschools.net/cgi-bin/static/terms.html/ca">Terms of Use</a>
-            </h6>
+            <layout:copyright/>
             <script language="javascript" type="text/javascript">
                 <!--
                 var fc_content='${subCmd.host}/${subCmd.state}/conversion/subscribe/-/-/-/-';
