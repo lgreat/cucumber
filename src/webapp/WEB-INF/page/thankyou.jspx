@@ -86,9 +86,11 @@
                                 <li>
                                     <a href="http://${param.host}/cgi-bin/commentsrch/${param.state}">Parent Ratings and Reviews</a>
                                 </li>
-                                <li>
-                                    <a href="http://${param.host}/cgi-bin/ratingsrch/${param.state}">Yellow Flag Alerts</a>
-                                </li>
+                                <c:if test="${not empty(param.hasYellowFlags)}">
+                                    <li>
+                                        <a href="http://${param.host}/cgi-bin/ratingsrch/${param.state}">Yellow Flag Alerts</a>
+                                    </li>
+                                </c:if>
                             </ul>
 
         Or, return to the

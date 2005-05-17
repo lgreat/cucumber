@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.5 2005/05/13 21:28:10 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.6 2005/05/17 19:19:34 apeterson Exp $
  */
 package gs.web;
 
@@ -121,20 +121,22 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         User user = command.getUser();
         boolean updateUserInfo = false; // Do we need to update the user's information?
 
-        // If there's already a user in the datbase, use it.
-        if (user.getId() == null) {
-            // getId() should always be null, but in case the code above changes, check first.
-            final User existingUser = _userDao.getUserFromEmailIfExists(user.getEmail());
-            if (existingUser != null) {
-                updateUserInfo = true;
-                // We set this flag and only update if the transaction goes through.
-                // The thought was to prevent some bogus screwing around from updating what
-                // information we have.
-                user = existingUser;
-            } else {
-                _userDao.saveUser(user);
-            }
+        // getId() should always be null, but in case the code above changes, check first.
+        final User existingUser = _userDao.getUserFromEmailIfExists(user.getEmail());
+        if (existingUser != null) {
+            updateUserInfo = true;
+            // We set this flag and only update if the transaction goes through.
+            // The thought was to prevent some bogus screwing around from updating what
+            // information we have.
+            existingUser.setFirstName(user.getFirstName());
+            existingUser.setLastName(user.getLastName());
+            existingUser.getAddress().setStreet(user.getAddress().getStreet());
+            existingUser.getAddress().setCity(user.getAddress().getCity());
+            existingUser.getAddress().setState(user.getAddress().getState());
+            existingUser.getAddress().setZip(user.getAddress().getZip());
+            user = existingUser;
         }
+        _userDao.saveUser(user);
 
         // If for some reason we didn't get a state when the user entered the page,
         // we default to their home, credit card state.
@@ -167,21 +169,9 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
             return; // PREMATURE EXIT
         }
 
-        _log.info("User " + user.getEmail() + " bought a subscription for " + cardInfo.getTransactionAmount());
+        _log.info("User " + user.getEmail() + " whose name is " + user.getFirstName() + " " +
+                user.getLastName() + ", and he/she bought a subscription for " + cardInfo.getTransactionAmount());
         command.setSubscription(subscription);
-
-        // If the transaction goes through, update the user's information in the DB.
-        if (updateUserInfo) {
-            User enteredUser = command.getUser();
-            final User existingUser = _userDao.getUserFromEmailIfExists(enteredUser.getEmail());
-            existingUser.setFirstName(enteredUser.getFirstName());
-            existingUser.setLastName(enteredUser.getLastName());
-            existingUser.getAddress().setStreet(enteredUser.getAddress().getStreet());
-            existingUser.getAddress().setCity(enteredUser.getAddress().getCity());
-            existingUser.getAddress().setState(enteredUser.getAddress().getState());
-            existingUser.getAddress().setZip(enteredUser.getAddress().getZip());
-            _userDao.saveUser(existingUser);
-        }
 
         try {
             _purchaseManager.sendSubscriptionThankYouEmail(subscription);
@@ -229,6 +219,9 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         redirectView.addStaticAttribute("expires", df.format(command.getSubscription().getExpires()));
         redirectView.addStaticAttribute("updated", df.format(command.getSubscription().getUpdated()));
         redirectView.addStaticAttribute("host", command.getHost());
+        if (!State.PA.equals(command.getState())) {
+            redirectView.addStaticAttribute("hasYellowFlags", "1");
+        }
         redirectView.addStaticAttribute("memberId", command.getSubscription().getUser().getId().toString());
 
         return new ModelAndView(redirectView);

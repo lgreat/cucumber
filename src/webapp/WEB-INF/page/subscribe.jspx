@@ -238,15 +238,21 @@
                                 <div class="formrow">
                                     <spring:bind path="subCmd.agree">
                                         <span class="label">
-                                            <jsp:element name="input">
-                                                <jsp:attribute name="id">${status.expression}</jsp:attribute>
-                                                <jsp:attribute name="name">${status.expression}</jsp:attribute>
-                                                <jsp:attribute name="type">checkbox</jsp:attribute>
-                                                <jsp:attribute name="value">x</jsp:attribute>
-                                                <!-- <c:if test="${status.value == 'x'}">
-                                                     <jsp:attribute name="checked">checked</jsp:attribute>
-                                                 </c:if>-->
-                                            </jsp:element>
+                                            <c:choose>
+                                                <c:when test="${status.value == 'x'}">
+                                                    <input id="${status.expression}"
+                                                        name="${status.expression}"
+                                                        type="checkbox"
+                                                        value="x"
+                                                        checked="checked"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input id="${status.expression}"
+                                                        name="${status.expression}"
+                                                        type="checkbox"
+                                                        value="x"/>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </span>
                                         <span class="labelright">I agree to the terms of the
                                             <a href="http://www.greatschools.net/content/insider/subscriber.html"
@@ -265,6 +271,8 @@
                                     <br/>
                                 </div>
                                 <b>Finally, enter your payment information</b>
+                                <br/>
+                                ${subCmd.subscriptionPrice} will be charged to your credit card.
                                 <div class="formrow">
                                     <span class="label">Credit Card Type</span>
                                     <spring:bind path="subCmd.creditCardType">
@@ -361,19 +369,6 @@
                                         </c:if>
                                     </spring:bind>
                                 </div>
-
-                                <spring:bind path="subCmd">
-                                    <c:if test="${status.error}">
-                                        <div class="formrow">
-                                            <span class="label">Amount</span>
-                                            <input
-                                                disabled="true"
-                                                readonly="true"
-                                                type="text"
-                                                value="${subCmd.subscriptionPrice}"/>
-                                        </div>
-                                    </c:if>
-                                </spring:bind>
                             </td>
                         </tr>
                     </table>
