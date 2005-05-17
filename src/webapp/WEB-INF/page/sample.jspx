@@ -20,6 +20,11 @@
         <link rel="stylesheet" href="res/css/spp2.css"></link>
             ]]>
             <title>Sample Page</title>
+            <style type="text/css">
+                td {
+                  vertical-align: top;
+                }
+            </style>
         </head>
         <body>
             <table width="98%" style="vertical-align: top">
@@ -31,6 +36,11 @@
                 <tr>
                     <td colspan="4">
                         <jsp:include page="/header/moveChoose.module"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <jsp:include page="/searchBox.module"/>
                     </td>
                 </tr>
                 <tr>

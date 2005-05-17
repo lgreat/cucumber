@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.6 2005/05/17 19:19:34 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.7 2005/05/17 22:40:59 apeterson Exp $
  */
 package gs.web;
 
@@ -36,24 +36,33 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
 
     private PurchaseManager _purchaseManager;
     private IUserDao _userDao;
+    private ISubscriptionDao _subscriptionDao;
 
     private static final String HOST_PARAM = "host";
     private static final String EMAIL_PARAM = "email";
     private static final String STATE_PARAM = "state";
     private static final String URL_PARAM = "url";
     private static final String URL_LABEL_PARAM = "urlLabel";
+    private static final String RENEW_PARAM = "renew"; // boolean set if the user is attempting renewal
 
 
     protected Object formBackingObject(HttpServletRequest httpServletRequest) throws Exception {
 
         // Suck the information out of the URL, if available.
-        User user = new User();
+        User user;
         String paramEmail = httpServletRequest.getParameter(EMAIL_PARAM);
         if (!StringUtils.isEmpty(paramEmail)) {
-            user.setEmail(paramEmail);
             _log.debug("formBackingObject: found user in params: " + paramEmail);
+            User existingUser = _userDao.getUserFromEmailIfExists(paramEmail);
+            if (existingUser != null) {
+                user = existingUser;
+            } else {
+                user = new User();
+                user.setEmail(paramEmail);
+            }
+        } else {
+            user = new User();
         }
-
 
         final SubscriptionProduct product = SubscriptionProduct.ONE_YEAR_SUB;
         final Price price = _purchaseManager.getSubscriptionPrice(user, product);
@@ -61,6 +70,11 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
 
         SubscribeCommand command = new SubscribeCommand(user, product, price);
         _log.debug("formBackingObject: created command");
+
+
+        if (!StringUtils.isEmpty(httpServletRequest.getParameter(RENEW_PARAM))) {
+            command.setTryingToRenew(true);
+        }
 
 
         String paramStateStr = httpServletRequest.getParameter(STATE_PARAM);
@@ -104,6 +118,17 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         Map map = new HashMap();
         map.put("subscriptionStates", sb.toString());
 
+        SubscribeCommand command = (SubscribeCommand) o;
+        if (command.isTryingToRenew() &&
+                !_subscriptionDao.isUserSubscribed(command.getUser(), command.getSubscriptionProduct())) {
+
+            String message = "The membership for the email address " +
+                    command.getUser().getEmail() +
+                    " has already expired. Annual membership renewal is only " +
+                    command.getPrice().asString();
+
+            errors.reject("param0", new Object[]{message}, "Membership expired.");
+        }
         return map;
     }
 
@@ -121,13 +146,13 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         User user = command.getUser();
         boolean updateUserInfo = false; // Do we need to update the user's information?
 
-        // getId() should always be null, but in case the code above changes, check first.
+// getId() should always be null, but in case the code above changes, check first.
         final User existingUser = _userDao.getUserFromEmailIfExists(user.getEmail());
         if (existingUser != null) {
             updateUserInfo = true;
-            // We set this flag and only update if the transaction goes through.
-            // The thought was to prevent some bogus screwing around from updating what
-            // information we have.
+// We set this flag and only update if the transaction goes through.
+// The thought was to prevent some bogus screwing around from updating what
+// information we have.
             existingUser.setFirstName(user.getFirstName());
             existingUser.setLastName(user.getLastName());
             existingUser.getAddress().setStreet(user.getAddress().getStreet());
@@ -138,16 +163,16 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         }
         _userDao.saveUser(user);
 
-        // If for some reason we didn't get a state when the user entered the page,
-        // we default to their home, credit card state.
+// If for some reason we didn't get a state when the user entered the page,
+// we default to their home, credit card state.
         if (command.getState() == null) {
             command.setState(user.getState());
         }
 
 
-        // Transfer the credit card expiration date into the CreditCardInfo object.
-        // We don't expose this in the command to prevent hacking. Alternatively,
-        // you could specify read-only parameters via config.
+// Transfer the credit card expiration date into the CreditCardInfo object.
+// We don't expose this in the command to prevent hacking. Alternatively,
+// you could specify read-only parameters via config.
         CreditCardInfo cardInfo = new CreditCardInfo();
         cardInfo.setTransactionAmount(command.getPrice());
         cardInfo.setNumber(command.getCreditCardNumber());
@@ -157,7 +182,7 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         cardInfo.setZip(user.getAddress().getZip());
         cardInfo.setUserEmail(user.getEmail());
 
-        // Make the purchase. Throws an exception if the purchase doesn't go through.
+// Make the purchase. Throws an exception if the purchase doesn't go through.
         Subscription subscription = null;
         try {
             subscription = _purchaseManager.purchaseSubscription(user,
@@ -176,9 +201,9 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         try {
             _purchaseManager.sendSubscriptionThankYouEmail(subscription);
         } catch (TransformerException e) {
-            // ignore for now -- error was logged
+// ignore for now -- error was logged
         } catch (IOException e) {
-            // ignore for now -- error was logged
+// ignore for now -- error was logged
         }
     }
 
@@ -199,14 +224,14 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
     }
 
     protected ModelAndView onSubmit(Object o) throws Exception {
-        // Override the standard behavior so that the user sees a different URL
-        // in their browser, and if they hit "refresh", it doesn't resubmit their form.
+// Override the standard behavior so that the user sees a different URL
+// in their browser, and if they hit "refresh", it doesn't resubmit their form.
 
         final RedirectView redirectView = new RedirectView("/thankyou.page");
         redirectView.setContextRelative(true);
 
-        // URL looks something like:
-        // ...thankyou.page?state=CA&email=ndp%40mac.com&price=%2416.95&longName=THISTHING&firstName=Andy&lastName=P.&host=gw.net&expires=Feb+1+2005&updated=Mar+3
+// URL looks something like:
+// ...thankyou.page?state=CA&email=ndp%40mac.com&price=%2416.95&longName=THISTHING&firstName=Andy&lastName=P.&host=gw.net&expires=Feb+1+2005&updated=Mar+3
         SimpleDateFormat df = new SimpleDateFormat("MMMMM d, yyyy");
 
         SubscribeCommand command = (SubscribeCommand) o;
@@ -243,4 +268,11 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         _userDao = userDao;
     }
 
+    public ISubscriptionDao getSubscriptionDao() {
+        return _subscriptionDao;
+    }
+
+    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
+        _subscriptionDao = subscriptionDao;
+    }
 }

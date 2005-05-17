@@ -6,12 +6,6 @@
     xmlns:spring="http://www.springframework.org/tags"
     xmlns:layout="urn:jsptagdir:/WEB-INF/tags/layout"
     >
-    <jsp:output doctype-root-element="html"
-        doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-        doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
-
-    <jsp:directive.page contentType="text/html"/>
-
     <div id="developmentCredits">
         <a href="http://validator.w3.org/check?uri=referer">
             <img

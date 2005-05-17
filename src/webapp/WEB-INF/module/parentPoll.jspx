@@ -7,22 +7,16 @@
     xmlns:layout="urn:jsptagdir:/WEB-INF/tags/layout"
     >
 
-    <div id="parentPoll" name="poll" class="tease">
+    <div id="parentPoll" class="tease">
         <h1>May Parent Poll</h1>
         <!-- Set height of IFRAME to 370 to deal with laptops -->
-        <IFRAME
-            name="wgpoll"
+        <iframe
+            style="border: 0px solid white; margin: 0; height: 370; width: 180"
             src="http://poll.websitegear.com/iframepoll.asp?pollID=7064"
-            align="center"
-            width="180"
-            height="370"
-            frameborder="no"
-            border="0"
-            marginwidth="0"
-            marginheight="0"
+            align="middle"
             scrolling="no">
             <a href="http://www.websitegear.com">WebsiteGear Web Poll</a>: Requires newer web browser to view.
-        </IFRAME>
+        </iframe>
         <h2>
             <a href="http://greatschools.net/cgi-bin/static/poll_results.tmpl/AZ">View Previous Polls</a>
         </h2>

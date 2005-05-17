@@ -10,7 +10,7 @@
     <div id="parentReviewTease" class="tease">
         <h1>Parent Reviews</h1>
 
-        <p valign="top" class="module1_body">
+        <p class="module1_body" style="vertical-align: top">
             <b>The Inside Scoop from Parents:</b>
         </p>
         <ul>
@@ -20,10 +20,8 @@
         <p>
 This school has 3 reviews available.
             <a href="http://greatschools.net/modperl/parents/az/548">Read the reviews</a>
-
-            <h6>subscribers only</h6>
         </p>
-
+        <h6>subscribers only</h6>
     </div>
 
 </jsp:root>

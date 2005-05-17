@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeCommand.java,v 1.2 2005/05/11 22:48:37 apeterson Exp $
+ * $Id: SubscribeCommand.java,v 1.3 2005/05/17 22:40:59 apeterson Exp $
  */
 package gs.web;
 
@@ -36,6 +36,7 @@ public class SubscribeCommand {
 
     private String _url;
     private String _urlLabel;
+    private boolean _tryingToRenew;
 
     public SubscribeCommand(User user, SubscriptionProduct subscriptionProduct, Price subscriptionPrice) {
         _user = user;
@@ -137,5 +138,13 @@ public class SubscribeCommand {
 
     public void setHost(String host) {
         _host = host;
+    }
+
+    public void setTryingToRenew(boolean b) {
+        _tryingToRenew = b;
+    }
+
+    public boolean isTryingToRenew() {
+        return _tryingToRenew;
     }
 }
