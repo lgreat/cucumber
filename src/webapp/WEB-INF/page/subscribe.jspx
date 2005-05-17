@@ -30,16 +30,7 @@
 
         <body>
 
-            <table id="header1" width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td>
-                        <img src="res/img/conv_top_sm.jpg" alt="Moving? Choosing a new School? GreatSchools Insider can help." width="380" height="70"/>
-                    </td>
-                    <td width="300" align="right" valign="middle">
-                        <img src="res/img/GS_logo.gif" alt="GreatSchools.net logo" hspace="15" border="0"/>
-                    </td>
-                </tr>
-            </table>
+            <jsp:include page="/header/moveChoose.module"/>
 
             <layout:wizard>
                 <c:url value="/subscribe.page" var="form_submit"/>
@@ -424,7 +415,8 @@
 
             </layout:wizard>
 
-            <layout:copyright/>
+            <jsp:include page="/footer/copyright.module"/>
+
             <script language="javascript" type="text/javascript">
                 <!--
                 var fc_content='${subCmd.host}/${subCmd.state}/conversion/subscribe/-/-/-/-';

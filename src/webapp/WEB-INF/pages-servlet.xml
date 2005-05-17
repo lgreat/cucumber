@@ -42,6 +42,13 @@
         </property>
     </bean>
 
+    <bean name="/sample.page"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>sample</value>
+        </property>
+    </bean>
+
     <bean id="subscribeValidator" class="gs.web.SubscribeValidator"></bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

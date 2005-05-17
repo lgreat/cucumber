@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+    xmlns="http://www.w3c.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:layout="urn:jsptagdir:/WEB-INF/tags/layout"
+    >
+    <html lang="en">
+
+        <jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+        <jsp:directive.page contentType="text/html"/>
+
+        <head>
+            <![CDATA[
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+        <link rel="stylesheet" href="res/css/spp2.css"></link>
+            ]]>
+            <title>Sample Page</title>
+        </head>
+        <body>
+            <table width="98%" style="vertical-align: top">
+                <tr>
+                    <td colspan="4" align="right">
+                        <jsp:include page="/featured.module"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <jsp:include page="/header/moveChoose.module"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" width="50%">
+                        <jsp:include page="/basicSchoolInformation.module"/>
+                    </td>
+                    <td width="25%">
+                        <jsp:include page="/parentReviewTease.module"/>
+                    </td>
+                    <td width="25%">
+                        <jsp:include page="/principalViewTease.module"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <jsp:include page="/parentPoll.module"/>
+                    </td>
+                    <td colspan="3">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <jsp:include page="/footer/copyright.module"/>
+                        <jsp:include page="/footer/developmentCredits.module"/>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+        </body>
+    </html>
+</jsp:root>
+

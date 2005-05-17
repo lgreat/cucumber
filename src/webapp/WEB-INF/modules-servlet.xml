@@ -2,4 +2,73 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
+
+    <bean name="/featured.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/featured</value>
+        </property>
+    </bean>
+
+    <bean name="/parentPoll.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/parentPoll</value>
+        </property>
+    </bean>
+
+    <bean name="/basicSchoolInformation.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/basicSchoolInformation</value>
+        </property>
+    </bean>
+
+    <bean name="/principalViewTease.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/principalViewTease</value>
+        </property>
+    </bean>
+
+    <bean name="/parentReviewTease.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/parentReviewTease</value>
+        </property>
+    </bean>
+
+    <bean name="/header/moveChoose.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/header/moveChoose</value>
+        </property>
+    </bean>
+
+    <bean name="/footer/copyright.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/footer/copyright</value>
+        </property>
+    </bean>
+
+    <bean name="/footer/developmentCredits.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/footer/developmentCredits</value>
+        </property>
+    </bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass">
+            <value>org.springframework.web.servlet.view.JstlView</value>
+        </property>
+        <property name="prefix">
+            <value>/WEB-INF/module/</value>
+        </property>
+        <property name="suffix">
+            <value>.jspx</value>
+        </property>
+    </bean>
+
 </beans>
