@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeValidator.java,v 1.2 2005/05/11 22:48:37 apeterson Exp $
+ * $Id: SubscribeValidator.java,v 1.3 2005/05/17 18:00:14 apeterson Exp $
  */
 package gs.web;
 
@@ -49,10 +49,11 @@ public class SubscribeValidator implements Validator {
 
         value = errors.getFieldValue("creditCardNumber");
         if (value == null ||
-                value.toString().length() != 16 ||
+                value.toString().length() < 15 ||
+                value.toString().length() > 16 ||
                 !StringUtils.isNumeric(value.toString())
         ) {
-            errors.rejectValue("creditCardNumber", "error_credit_card_format", null, "Credit card number must be 16 digits.");
+            errors.rejectValue("creditCardNumber", "error_credit_card_format", null, "Credit card number invalid.");
         }
 
         ValidationUtils.rejectIfEmpty(errors, "expirationMonth", "error_field_required", new String[]{"Expiration month"}, "{0} is required.");
