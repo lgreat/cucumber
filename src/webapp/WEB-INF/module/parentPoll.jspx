@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+    xmlns="http://www.w3c.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:layout="urn:jsptagdir:/WEB-INF/tags/layout"
+    >
+
+    <div id="parentPoll" name="poll" class="tease">
+        <h1>May Parent Poll</h1>
+        <!-- Set height of IFRAME to 370 to deal with laptops -->
+        <IFRAME
+            name="wgpoll"
+            src="http://poll.websitegear.com/iframepoll.asp?pollID=7064"
+            align="center"
+            width="180"
+            height="370"
+            frameborder="no"
+            border="0"
+            marginwidth="0"
+            marginheight="0"
+            scrolling="no">
+            <a href="http://www.websitegear.com">WebsiteGear Web Poll</a>: Requires newer web browser to view.
+        </IFRAME>
+        <h2>
+            <a href="http://greatschools.net/cgi-bin/static/poll_results.tmpl/AZ">View Previous Polls</a>
+        </h2>
+    </div>
+
+</jsp:root>

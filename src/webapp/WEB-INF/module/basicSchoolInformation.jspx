@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+    xmlns="http://www.w3c.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:layout="urn:jsptagdir:/WEB-INF/tags/layout"
+    >
+
+    <div id="basicSchoolInformation" class="tease">
+        <h1>Basic School Information</h1>
+        <h2>
+            <a href="#">Test Scores</a>
+        </h2>
+        <p>State standardized test results for this school</p>
+
+        <h2>
+            <a href="#">Teacher Stats</a>
+        </h2>
+        <p>Teacher stats in relation to classroom environment</p>
+
+        <h2>
+            <a href="#">Student Stats</a>
+        </h2>
+        <p>Facts about student ethnicity, economic level and more</p>
+
+        <h2>
+            <a href="#">Email updates about this school</a>
+        </h2>
+        <p>Get the latest school data and learn what it means</p>
+
+    </div>
+
+</jsp:root>
+

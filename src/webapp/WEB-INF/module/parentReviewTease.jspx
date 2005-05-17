@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+    xmlns="http://www.w3c.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:layout="urn:jsptagdir:/WEB-INF/tags/layout"
+    >
+
+    <div id="parentReviewTease" class="tease">
+        <h1>Parent Reviews</h1>
+
+        <p valign="top" class="module1_body">
+            <b>The Inside Scoop from Parents:</b>
+        </p>
+        <ul>
+            <li>This has been a very good school academmically speaking...</li>
+            <li>The afterschool dance class...</li>
+        </ul>
+        <p>
+This school has 3 reviews available.
+            <a href="http://greatschools.net/modperl/parents/az/548">Read the reviews</a>
+
+            <h6>subscribers only</h6>
+        </p>
+
+    </div>
+
+</jsp:root>
+
