@@ -49,6 +49,20 @@
         </property>
     </bean>
 
+    <bean name="/insider.page"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>insider/landing</value>
+        </property>
+    </bean>
+
+    <bean name="/fiveStepsPopup.page"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>fiveStepsPopup</value>
+        </property>
+    </bean>
+
     <bean id="subscribeValidator" class="gs.web.SubscribeValidator"></bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

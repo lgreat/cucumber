@@ -17,6 +17,13 @@
         </property>
     </bean>
 
+    <bean name="/loginBox.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/loginBox</value>
+        </property>
+    </bean>
+
     <bean name="/parentPoll.module"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">

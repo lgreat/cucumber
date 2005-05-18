@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+    xmlns="http://www.w3c.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:layout="urn:jsptagdir:/WEB-INF/tags/layout"
+    >
+
+    <div id="loginBox">
+        Email:
+        <form id="searchForm" method="get" action="sample.page"
+            style="margin: 0; padding: 0">
+            <input type="text"
+                name="email"
+                size="20"
+                maxlength="255"
+                value="email"
+                onclick="this.value=''"
+                onfocus="this.className='focus'"
+                onblur="this.className=''"/>
+            <input type="submit" value="Login"/>
+        </form>
+    </div>
+
+</jsp:root>
+

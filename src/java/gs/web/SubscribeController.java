@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.7 2005/05/17 22:40:59 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.8 2005/05/18 20:25:26 apeterson Exp $
  */
 package gs.web;
 
@@ -178,9 +178,6 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         cardInfo.setNumber(command.getCreditCardNumber());
         cardInfo.setExpirationMonth(Integer.parseInt(command.getExpirationMonth()));
         cardInfo.setExpirationYear(Integer.parseInt(command.getExpirationYear()));
-        cardInfo.setStreet(user.getAddress().getStreet());
-        cardInfo.setZip(user.getAddress().getZip());
-        cardInfo.setUserEmail(user.getEmail());
 
 // Make the purchase. Throws an exception if the purchase doesn't go through.
         Subscription subscription = null;

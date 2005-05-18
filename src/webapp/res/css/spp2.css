@@ -425,3 +425,14 @@ margin-top: -2px;
 }
 
 
+
+div#loginBox {
+font-size:11px;
+color: #777;
+font-weight: normal;
+text-align: right;
+}
+
+div#loginBox>form {
+display: inline;
+}

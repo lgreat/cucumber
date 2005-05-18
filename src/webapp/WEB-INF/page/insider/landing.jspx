@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+    xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+    xmlns="http://www.w3c.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:layout="urn:jsptagdir:/WEB-INF/tags/layout"
+    >
+    <html lang="en">
+
+        <jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+        <jsp:directive.page contentType="text/html"/>
+
+        <head>
+            <![CDATA[
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+        <link rel="stylesheet" href="res/css/spp2.css"></link>
+            ]]>
+            <title>GreatSchools Insider</title>
+        </head>
+        <body>
+            <jsp:include page="/header/moveChoose.module"/>
+            <layout:wizard>
+                <h1>5 Steps to Choosing a Great School for Your Child</h1>
+                <p>
+Welcome, alingane@greatschools.net.  Use these links to get started or to continue your school selection process.
+                </p>
+
+                <h2>1. Consider your needs</h2>
+Rank your priorities for your child and family as you begin your school search.
+
+First, get a quick primer to organize your thoughts
+Choosing a School: Considering Your Child's Needs
+Choosing a School: Considering Family Needs and Values
+
+Then, use these printable worksheet to rank your priorities
+Child Quick Think: What Strengths, Challenges and Other Characteristics Stand Out About Your Child?
+Family Quick Think: What Values, Needs, Strengths and Challenges Stand Out About Your Family?
+Imagining Your Ideal School: An Exercise for Setting Priorities
+
+
+                <h2>2. Understand your options</h2>
+Learn what school choices you really have, and understand more about each: public, private, charter; district transfers; and more.
+
+Review these first
+Get the Best Education for Your Child in California
+School Choice in California: An Overview of Your Options
+
+Then, read more about what interests you most
+Enrolling in Kindergarten in California: What You Need To Know
+Interdistrict and Intradistrict Transfers in California: Options Beyond Your Neighborhood School
+Private vs. Public Schools: What's the Difference?
+Frequently Asked Questions About Private Schools
+Charter Schools Offer an Array of Choices
+Online Resources for Charter Schools
+Homeschooling: Key Facts and Resources
+What No Child Left Behind Means for Your Child
+
+
+                <h2>3. Narrow the field</h2>
+Use interactive search to identify an area, or to focus in on the schools that match your priorities for your child and family.
+
+Top-rated schools - http://www.greatschools.net/cgi-bin/site/rank_overview.cgi/ca
+See which schools get four or five stars based on test scores and/or [dynamic per state] student-teacher ratio.
+
+My School List - http://www.greatschools.net/cgi-bin/msl_confirm/CA
+Save your potential matches for quick access to on future visits to GreatSchools.net.
+
+Compare schools - http://www.greatschools.net/cgi-bin/cs_where/CA
+Compare schools based on criteria that matter most to you.
+Line up schools side by side to compare their one- to five- star ratings [dynamic, don�t include in PA] and to see which have yellow flag alerts highlighting areas of potential concern.
+
+                <h2>4. Dig into the details</h2>
+Analyze key information about each school: exclusive ratings, real parents� reviews, and possible areas of concerns highlighted with yellow flag alerts.
+[in PA this should read:  Analyze key information about each school including exclusive ratings and real parents� reviews.]
+
+Start with schools you�ve saved to My School List.
+
+Or, look up school information by individual school:
+One-to-Five Star Ratings - http://www.greatschools.net/cgi-bin/ratingsrch/CA
+Parent Reviews - http://www.greatschools.net/cgi-bin/commentsrch/CA
+Yellow Flag Alerts - http://www.greatschools.net/cgi-bin/ratingsrch/CA [dynamic, don�t include in PA]
+
+
+                <h2>5. Visit and select schools</h2>
+No amount of research can replace an in-person visit to the schools you're considering.  Make sure you get the most out of each school visit by targeting what questions to ask and what to look for with these printable worksheets.
+
+Start here:
+The School Visit: Things to Look For, Questions to Ask
+How Safe Is Your School?
+
+Document specific questions about individual schools based on your research with these printable worksheets:
+The Elementary School Visit::  A Step by Step Guide:  http://www.greatschools.net/pdf/schq_visit_elem.pdf
+The Middle School Visit::  A Step by Step Guide:  http://www.greatschools.net/pdf/schq_visit_middle.pdf
+The High School Visit::  A Step by Step Guide:  http://www.greatschools.net/pdf/schq_visit_high.pdf
+
+Then read these
+Enrolling in Kindergarten in California: What You Need To Know
+Making the Transition: 10 Tips for Adjusting to a New School
+            </layout:wizard>
+
+            <jsp:include page="/footer/copyright.module"/>
+
+        </body>
+    </html>
+</jsp:root>
+

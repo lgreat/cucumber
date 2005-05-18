@@ -29,36 +29,44 @@
         <body>
             <table width="98%" style="vertical-align: top">
                 <tr>
-                    <td colspan="4" align="right">
+                    <td colspan="3" align="right">
                         <jsp:include page="/featured.module"/>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4">
+                    <td colspan="3">
                         <jsp:include page="/header/moveChoose.module"/>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4">
+                    <td>
                         <jsp:include page="/searchBox.module"/>
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+                        <jsp:include page="/loginBox.module"/>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2" width="50%">
+                    <td colspan="2" width="66%" rowspan="2">
                         <jsp:include page="/basicSchoolInformation.module"/>
                     </td>
-                    <td width="25%">
+                    <td width="33%">
                         <jsp:include page="/parentReviewTease.module"/>
                     </td>
-                    <td width="25%">
+                </tr>
+                <tr>
+                    <td width="33%">
                         <jsp:include page="/principalViewTease.module"/>
                     </td>
                 </tr>
                 <tr>
+                    <td colspan="2">
+                    </td>
                     <td>
                         <jsp:include page="/parentPoll.module"/>
-                    </td>
-                    <td colspan="3">
                     </td>
                 </tr>
                 <tr>
