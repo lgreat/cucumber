@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+    xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+    xmlns="http://www.w3c.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:layout="urn:jsptagdir:/WEB-INF/tags/gsml"
+    >
+    <html lang="en">
+
+        <jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+        <jsp:directive.page contentType="text/html"/>
+
+        <head>
+            <![CDATA[
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+        <link rel="stylesheet" href="res/css/spp2.css"></link>
+            ]]>
+            <title>GreatSchools Premium Content</title>
+        </head>
+        <body>
+            <jsp:include page="/header/moveChoose.module"/>
+            <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="wall">
+                <tr>
+                    <td colspan="2" id="tease">
+                        <h1>Parent Reviews</h1>
+
+                        <p class="module1_body" style="vertical-align: top">
+                            <b>The Inside Scoop from Parents:</b>
+                        </p>
+                        <ul>
+                            <li>This has been a very good school academically speaking...</li>
+                            <li>The afterschool dance class...</li>
+                        </ul>
+                        <br/>
+                        <br/>
+                        <h2>Parent Reviews are premium content. You must log in to continue.</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" nowrap="nowrap">
+                        <div id="membership">
+                            <!--                            <p> Not a member yet?-->
+                            <!--                            </p>-->
+                            <h1>Become a GreatSchools Insider</h1>
+                            <p>Join now to get access to</p>
+                            <ul>
+                                <li>School Choice Options</li>
+                                <li>Top-Rated Public Schools</li>
+                                <li>1-to-5 Star Ratings</li>
+                                <li>Parent Ratings and Reviews</li>
+                                <li>Yellow Flag Alerts</li>
+                                <li>Patented 5-step process for choosing a great school</li>
+                            </ul>
+                            <p>It's only $16.95 for a whole year.
+                                <br/>That's less than $1.50 per month.
+                            </p>
+                            <a href="subscribe.page">Sign Me Up</a>
+                            <a href="fiveStepsPopup.page" target="subscribeInfo">Learn More</a>
+                            <a href="give1get1.page">Try For Free</a>
+                            <h6>
+                                Try for free goes to Give 1 Get One explanation -- ed.
+                            </h6>
+
+                        </div>
+                    </td>
+                    <td id="login">
+                        <div>
+                            <!--                            <p> Already a member?-->
+                            <!--                            </p>-->
+                            <h1>Log In Now</h1>
+                            <c:if test="${!empty(param.loginError)}">
+                                <div class="error">
+                                      ${param.loginError}
+                                </div>
+                            </c:if>
+                            <p>Email Address:
+                                <input type="text" length="20"/>
+                                <a href="wall.page?loginError=Unknown+email+address.+Try+again.">Log In</a>
+                            </p>
+
+                            <h6>
+                                This should take you back to what you were trying to do, such as Parent Reviews, Top-Rated schools, or an Article -- ed.
+                            </h6>
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+
+            <jsp:include page="/footer/copyright.module"/>
+
+
+        </body>
+    </html>
+</jsp:root>
+

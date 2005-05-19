@@ -56,6 +56,13 @@
         </property>
     </bean>
 
+    <bean name="/wall.page"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>wall</value>
+        </property>
+    </bean>
+
     <bean name="/fiveStepsPopup.page"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">

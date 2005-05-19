@@ -24,6 +24,13 @@
         </property>
     </bean>
 
+    <bean name="/googleAds.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/googleAds</value>
+        </property>
+    </bean>
+
     <bean name="/parentPoll.module"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">

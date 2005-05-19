@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.8 2005/05/18 20:25:26 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.9 2005/05/19 21:34:34 apeterson Exp $
  */
 package gs.web;
 
@@ -23,10 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Andrew J. Peterson <mailto:apeterson@greatschools.net>
@@ -65,7 +62,7 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         }
 
         final SubscriptionProduct product = SubscriptionProduct.ONE_YEAR_SUB;
-        final Price price = _purchaseManager.getSubscriptionPrice(user, product);
+        final Price price = _purchaseManager.getSubscriptionPrice(user, product, new Date());
 
 
         SubscribeCommand command = new SubscribeCommand(user, product, price);
@@ -120,7 +117,7 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
 
         SubscribeCommand command = (SubscribeCommand) o;
         if (command.isTryingToRenew() &&
-                !_subscriptionDao.isUserSubscribed(command.getUser(), command.getSubscriptionProduct())) {
+                !_subscriptionDao.isUserSubscribed(command.getUser(), command.getSubscriptionProduct(), new Date())) {
 
             String message = "The membership for the email address " +
                     command.getUser().getEmail() +
