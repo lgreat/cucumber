@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.9 2005/05/19 21:34:34 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.10 2005/05/19 22:55:27 apeterson Exp $
  */
 package gs.web;
 
@@ -193,7 +193,7 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         command.setSubscription(subscription);
 
         try {
-            _purchaseManager.sendSubscriptionThankYouEmail(subscription);
+            _purchaseManager.sendSubscriptionThankYouEmail(subscription, command.getPrice());
         } catch (TransformerException e) {
 // ignore for now -- error was logged
         } catch (IOException e) {
