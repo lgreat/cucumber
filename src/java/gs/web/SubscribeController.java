@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.10 2005/05/19 22:55:27 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.11 2005/05/20 00:33:08 apeterson Exp $
  */
 package gs.web;
 
@@ -90,7 +90,7 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         if (!StringUtils.isEmpty(paramHost)) {
             command.setHost(paramHost);
         } else {
-            command.setHost("greatschools.net");
+            command.setHost("www.greatschools.net");
         }
 
         String paramUrlLabel = httpServletRequest.getParameter(URL_LABEL_PARAM);

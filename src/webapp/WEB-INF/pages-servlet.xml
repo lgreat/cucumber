@@ -17,6 +17,9 @@
         <property name="bindOnNewForm">
             <value>true</value>
         </property>
+        <property name="sessionForm">
+            <value>true</value>
+        </property>
         <property name="formView">
             <value>subscribe</value>
         </property>
