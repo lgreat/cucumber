@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.11 2005/05/20 00:33:08 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.12 2005/05/26 17:10:26 apeterson Exp $
  */
 package gs.web;
 
@@ -126,6 +126,21 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
 
             errors.reject("param0", new Object[]{message}, "Membership expired.");
         }
+
+        // TEMPORARY...
+        // Put the subscription state in, if we have it.
+        State s = command.getState();
+        if (s == null) {
+            s = command.getUser().getState();
+        }
+        if (s == null) {
+            s = State.CA;
+        }
+        map.put("siteState", s);
+
+        // TEMPORARY...
+        map.put("siteHost", command.getHost());
+
         return map;
     }
 

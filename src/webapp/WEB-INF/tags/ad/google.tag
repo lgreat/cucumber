@@ -2,7 +2,6 @@
 <jsp:directive.tag body-content="empty"/>
 
 <div id="googleAds" class="ad">
-    <![CDATA[
     <script type="text/javascript">
         <!--
     google_ad_client = "pub-9662012843341888";
@@ -19,5 +18,4 @@
     <script type="text/javascript"
         src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
     </script>
-    ]]>
 </div>

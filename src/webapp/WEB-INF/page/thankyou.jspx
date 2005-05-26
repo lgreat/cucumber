@@ -135,7 +135,17 @@
                 </table>
             </gsml:wizard>
 
-            <jsp:include page="/footer/copyright.module"/>
+            <!--jsp:include page="/footer/copyright.module"/-->
+            <div id="copyright">
+                <h5 class="ncopy">GreatSchools.net
+                    Elementary, middle and high school information for public, private and charter schools nationwide.</h5>
+                <h6>&#169;1998-2005 GreatSchools Inc. All Rights Reserved.
+                    <a href="http://${param.host}/">Home</a>
+                    |
+                    <a href="http://${param.host}/cgi-bin/static/terms.html/${param.state}">Terms of Use</a>
+                </h6>
+            </div>
+
 
             <script language="javascript" type="text/javascript">
                 <!--

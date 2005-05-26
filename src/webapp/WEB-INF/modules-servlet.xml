@@ -17,6 +17,34 @@
         </property>
     </bean>
 
+    <bean name="/path1.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/path1</value>
+        </property>
+    </bean>
+
+    <bean name="/path2.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/path2</value>
+        </property>
+    </bean>
+
+    <bean name="/path3.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/path3</value>
+        </property>
+    </bean>
+
+    <bean name="/search.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/search</value>
+        </property>
+    </bean>
+
     <bean name="/loginBox.module"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
@@ -63,6 +91,13 @@
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/header/moveChoose</value>
+        </property>
+    </bean>
+
+    <bean name="/header/overview.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/header/overview</value>
         </property>
     </bean>
 

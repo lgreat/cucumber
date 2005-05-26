@@ -78,13 +78,13 @@
                 </tr>
             </table>
             <br/>
-            <script type="text/javascript">
-      function expireSession() {
-        window.location = "expired.page";
-      }
-      setTimeout('expireSession()',
-                <%= request.getSession(). getMaxInactiveInterval() * 1000 %>);
-            </script>
+            <!--            <script type="text/javascript">-->
+            <!--      function expireSession() {-->
+            <!--        window.location = "expired.page";-->
+            <!--      }-->
+            <!--      setTimeout('expireSession()',-->
+            <!--                <%= request.getSession(). getMaxInactiveInterval() * 1000 %>);-->
+            <!--            </script>-->
         </body>
     </html>
 </jsp:root>

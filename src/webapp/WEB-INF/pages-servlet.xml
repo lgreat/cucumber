@@ -52,6 +52,13 @@
         </property>
     </bean>
 
+    <bean name="/overview.page"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>overview</value>
+        </property>
+    </bean>
+
     <bean name="/insider.page"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
@@ -63,6 +70,13 @@
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>wall</value>
+        </property>
+    </bean>
+
+    <bean name="/path1.page"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>path1</value>
         </property>
     </bean>
 
