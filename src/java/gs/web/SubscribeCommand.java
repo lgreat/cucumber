@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeCommand.java,v 1.5 2005/06/01 22:01:26 apeterson Exp $
+ * $Id: SubscribeCommand.java,v 1.6 2005/06/01 22:02:34 apeterson Exp $
  */
 package gs.web;
 
@@ -9,8 +9,6 @@ import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
 import gs.data.state.State;
 import gs.data.util.Price;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import java.io.Serializable;
 
@@ -21,7 +19,7 @@ import java.io.Serializable;
  */
 public class SubscribeCommand implements Serializable {
 
-    private transient Log _log = LogFactory.getLog(SubscribeCommand.class);
+    //private transient Log _log = LogFactory.getLog(SubscribeCommand.class);
 
     private final User _user;
     private final SubscriptionProduct _subscriptionProduct;
