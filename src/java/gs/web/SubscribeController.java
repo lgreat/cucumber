@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.12 2005/05/26 17:10:26 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.13 2005/06/01 21:51:13 apeterson Exp $
  */
 package gs.web;
 
@@ -253,7 +253,7 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         redirectView.addStaticAttribute("expires", df.format(command.getSubscription().getExpires()));
         redirectView.addStaticAttribute("updated", df.format(command.getSubscription().getUpdated()));
         redirectView.addStaticAttribute("host", command.getHost());
-        if (!State.PA.equals(command.getState())) {
+        if (command.getState().isYellowFlagState()) {
             redirectView.addStaticAttribute("hasYellowFlags", "1");
         }
         redirectView.addStaticAttribute("memberId", command.getSubscription().getUser().getId().toString());
