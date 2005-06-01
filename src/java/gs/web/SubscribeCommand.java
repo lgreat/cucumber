@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeCommand.java,v 1.3 2005/05/17 22:40:59 apeterson Exp $
+ * $Id: SubscribeCommand.java,v 1.4 2005/06/01 21:50:35 apeterson Exp $
  */
 package gs.web;
 
@@ -12,14 +12,16 @@ import gs.data.util.Price;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.io.Serializable;
+
 /**
  * The purpose is ...
  *
  * @author Andrew J. Peterson <mailto:apeterson@greatschools.net>
  */
-public class SubscribeCommand {
+public class SubscribeCommand implements Serializable {
 
-    private Log _log = LogFactory.getLog(SubscribeCommand.class);
+    private transient Log _log = LogFactory.getLog(SubscribeCommand.class);
 
     private final User _user;
     private final SubscriptionProduct _subscriptionProduct;
