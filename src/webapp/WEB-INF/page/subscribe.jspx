@@ -34,8 +34,12 @@
 
             <gsml:wizard>
                 <c:url value="/subscribe.page" var="form_submit"/>
-                <form action="${form_submit}" id="subscribe" name="subscribe" method="post"
-                    onsubmit="var s=getDocumentById('submit');s.setValue('Processing...');s.enabled=false">
+                <form action="${form_submit}"
+                    id="subscribe"
+                    name="subscribe"
+                    method="post"
+                    onsubmit="var s=getElementById('Submit');s.value='Processing...';s.disabled=true;s.enabled=false; return true;"
+                    >
                     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="header">
                         <tr>
                             <td align="center" width="30%">
@@ -388,7 +392,9 @@
                 </form>
 
                 <![CDATA[
+                <!--
         <script language="JavaScript" type="text/javascript">
+        /*
   var v  = new Validator("subscribe");
   v.addValidation("firstName","req","Please enter your first name");
   v.addValidation("lastName","req","Please enter your last name");
@@ -404,7 +410,9 @@
   v.addValidation("expirationMonth","numeric");
   v.addValidation("expirationYear","req","Please enter the expiration year");
   v.addValidation("expirationYear","numeric");
+  */
         </script>
+        -->
                                                                                     ]]>
 
 
