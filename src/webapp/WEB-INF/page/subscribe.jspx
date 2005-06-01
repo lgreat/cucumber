@@ -26,8 +26,6 @@
             ]]>
             <title>Subscribe to ${subCmd.subscriptionProduct.longName}</title>
         </head>
-
-
         <body>
 
             <jsp:include page="/header/moveChoose.module"/>

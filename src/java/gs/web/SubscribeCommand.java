@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeCommand.java,v 1.4 2005/06/01 21:50:35 apeterson Exp $
+ * $Id: SubscribeCommand.java,v 1.5 2005/06/01 22:01:26 apeterson Exp $
  */
 package gs.web;
 
@@ -15,7 +15,7 @@ import org.apache.commons.logging.LogFactory;
 import java.io.Serializable;
 
 /**
- * The purpose is ...
+ * Value object to hold the data for managing a subscription purchase.
  *
  * @author Andrew J. Peterson <mailto:apeterson@greatschools.net>
  */

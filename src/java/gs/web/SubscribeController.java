@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.13 2005/06/01 21:51:13 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.14 2005/06/01 21:58:43 apeterson Exp $
  */
 package gs.web;
 
@@ -49,7 +49,7 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         User user;
         String paramEmail = httpServletRequest.getParameter(EMAIL_PARAM);
         if (!StringUtils.isEmpty(paramEmail)) {
-            _log.debug("formBackingObject: found user in params: " + paramEmail);
+            _log.debug("found user in params: " + paramEmail);
             User existingUser = _userDao.getUserFromEmailIfExists(paramEmail);
             if (existingUser != null) {
                 user = existingUser;
@@ -64,21 +64,18 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         final SubscriptionProduct product = SubscriptionProduct.ONE_YEAR_SUB;
         final Price price = _purchaseManager.getSubscriptionPrice(user, product, new Date());
 
-
         SubscribeCommand command = new SubscribeCommand(user, product, price);
-        _log.debug("formBackingObject: created command");
-
+        _log.debug("created command");
 
         if (!StringUtils.isEmpty(httpServletRequest.getParameter(RENEW_PARAM))) {
             command.setTryingToRenew(true);
         }
 
-
         String paramStateStr = httpServletRequest.getParameter(STATE_PARAM);
         if (!StringUtils.isEmpty(paramStateStr)) {
             State s = StateUtil.getState(paramStateStr);
             command.setState(s);
-            _log.debug("formBackingObject: found state in params: " + paramEmail);
+            _log.debug("found state in params: " + paramEmail);
         }
 
         String paramUrl = httpServletRequest.getParameter(URL_PARAM);
