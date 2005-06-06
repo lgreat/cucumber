@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeCommand.java,v 1.6 2005/06/01 22:02:34 apeterson Exp $
+ * $Id: SubscribeCommand.java,v 1.1 2005/06/06 18:03:38 apeterson Exp $
  */
-package gs.web;
+package gs.web.community;
 
 import gs.data.community.Subscription;
 import gs.data.community.SubscriptionProduct;

@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.14 2005/06/01 21:58:43 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.1 2005/06/06 18:03:38 apeterson Exp $
  */
-package gs.web;
+package gs.web.community;
 
 import gs.data.community.*;
 import gs.data.payment.CreditCardInfo;

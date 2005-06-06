@@ -31,6 +31,27 @@
             <jsp:include page="/header/moveChoose.module"/>
 
             <gsml:wizard>
+                <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="header">
+                    <tr>
+                        <td align="center" width="30%">
+                            <img src="res/img/pixel.gif" alt=""/>
+                        </td>
+                        <td align="center" width="*" nowrap="nowrap" id="active">Step 1:
+                            <br/>
+                  Register and Pay
+                        </td>
+                        <td align="center">
+                            <img src="res/img/wizard_dottedarrow.gif" width="100" height="10" alt="arrow"/>
+                        </td>
+                        <td align="center" nowrap="nowrap">Step 2:
+                            <br/>
+                  Get Started
+                        </td>
+                        <td align="center" width="30%">
+                            <img src="res/img/pixel.gif" alt=""/>
+                        </td>
+                    </tr>
+                </table>
                 <c:url value="/subscribe.page" var="form_submit"/>
                 <form action="${form_submit}"
                     id="subscribe"
@@ -38,27 +59,6 @@
                     method="post"
                     onsubmit="var s=getElementById('Submit');s.value='Processing...';s.disabled=true;s.enabled=false; return true;"
                     >
-                    <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="header">
-                        <tr>
-                            <td align="center" width="30%">
-                                <img src="res/img/pixel.gif" alt=""/>
-                            </td>
-                            <td align="center" width="*" nowrap="nowrap" id="active">Step 1:
-                                <br/>
-                  Register and Pay
-                            </td>
-                            <td align="center">
-                                <img src="res/img/wizard_dottedarrow.gif" width="100" height="10" alt="arrow"/>
-                            </td>
-                            <td align="center" nowrap="nowrap">Step 2:
-                                <br/>
-                  Get Started
-                            </td>
-                            <td align="center" width="30%">
-                                <img src="res/img/pixel.gif" alt=""/>
-                            </td>
-                        </tr>
-                    </table>
                     <table width="100%" border="0" cellpadding="0" cellspacing="0" id="main">
                         <tr valign="top">
                             <td width="41%">

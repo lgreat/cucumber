@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeValidator.java,v 1.3 2005/05/17 18:00:14 apeterson Exp $
+ * $Id: SubscribeValidator.java,v 1.1 2005/06/06 18:03:38 apeterson Exp $
  */
-package gs.web;
+package gs.web.community;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.Errors;

@@ -8,7 +8,7 @@
 <beans>
 
     <bean name="/subscribe.page"
-        class="gs.web.SubscribeController"
+        class="gs.web.community.SubscribeController"
         autowire="byName">
         <!-- /cgi-bin/site/signup.cgi/CA -->
         <property name="commandName">
@@ -21,7 +21,7 @@
             <value>true</value>
         </property>
         <property name="formView">
-            <value>subscribe</value>
+            <value>community/subscribe</value>
         </property>
         <property name="successView">
             <value>redirected to /thankyou.page to prevent multiple submits</value>
@@ -34,7 +34,7 @@
     <bean name="/thankyou.page"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>thankyou</value>
+            <value>community/thankyou</value>
         </property>
     </bean>
 
@@ -80,14 +80,14 @@
         </property>
     </bean>
 
-    <bean name="/fiveStepsPopup.page"
+    <bean name="/fiveSteps.page"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>fiveStepsPopup</value>
+            <value>fiveSteps</value>
         </property>
     </bean>
 
-    <bean id="subscribeValidator" class="gs.web.SubscribeValidator"></bean>
+    <bean id="subscribeValidator" class="gs.web.community.SubscribeValidator"></bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass">
