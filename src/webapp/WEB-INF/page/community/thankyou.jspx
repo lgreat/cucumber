@@ -73,28 +73,28 @@
                             to get you started:
                             <ul>
                                 <li>
-                                    <a href="http://${param.host}/cgi-bin/site/help_for_parents.cgi/${param.state}">
-                                                    ${param.state} School Choice Options
+                                    <a href="http://${sessionScope.context.hostName}/cgi-bin/site/help_for_parents.cgi/${sessionScope.context.stateOrDefault.abbreviation}">
+                                                    ${sessionScope.context.stateOrDefault.abbreviation} School Choice Options
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="http://${param.host}/cgi-bin/site/rank_overview.cgi/${param.state}">Top-Rated Public Schools</a>
+                                    <a href="http://${sessionScope.context.hostName}/cgi-bin/site/rank_overview.cgi/${sessionScope.context.stateOrDefault.abbreviation}">Top-Rated Public Schools</a>
                                 </li>
                                 <li>
-                                    <a href="http://${param.host}/cgi-bin/ratingsrch/${param.state}">1-to-5 Star Ratings</a>
+                                    <a href="http://${sessionScope.context.hostName}/cgi-bin/ratingsrch/${sessionScope.context.stateOrDefault.abbreviation}">1-to-5 Star Ratings</a>
                                 </li>
                                 <li>
-                                    <a href="http://${param.host}/cgi-bin/commentsrch/${param.state}">Parent Ratings and Reviews</a>
+                                    <a href="http://${sessionScope.context.hostName}/cgi-bin/commentsrch/${sessionScope.context.stateOrDefault.abbreviation}">Parent Ratings and Reviews</a>
                                 </li>
                                 <c:if test="${not empty(param.hasYellowFlags)}">
                                     <li>
-                                        <a href="http://${param.host}/cgi-bin/ratingsrch/${param.state}">Yellow Flag Alerts</a>
+                                        <a href="http://${sessionScope.context.hostName}/cgi-bin/ratingsrch/${sessionScope.context.stateOrDefault.abbreviation}">Yellow Flag Alerts</a>
                                     </li>
                                 </c:if>
                             </ul>
 
         Or, return to the
-                            <a href="http://${param.host}/modperl/go/${param.state}">GreatSchools home page</a>.
+                            <a href="http://${sessionScope.context.hostName}/modperl/go/${sessionScope.context.stateOrDefault.abbreviation}">GreatSchools home page</a>.
                             <br/>
                             <br/>
                             <b>Additional information</b>
@@ -140,16 +140,16 @@
                 <h5 class="ncopy">GreatSchools.net
                     Elementary, middle and high school information for public, private and charter schools nationwide.</h5>
                 <h6>&#169;1998-2005 GreatSchools Inc. All Rights Reserved.
-                    <a href="http://${param.host}/">Home</a>
+                    <a href="http://${sessionScope.context.hostName}/">Home</a>
                     |
-                    <a href="http://${param.host}/cgi-bin/static/terms.html/${param.state}">Terms of Use</a>
+                    <a href="http://${sessionScope.context.hostName}/cgi-bin/static/terms.html/${sessionScope.context.stateOrDefault.abbreviation}">Terms of Use</a>
                 </h6>
             </div>
 
 
             <script language="javascript" type="text/javascript">
                 <!--
-                var fc_content='${param.host}/${param.state}/conversion/subscribe/-/-/-/-';
+                var fc_content='${sessionScope.context.hostName}/${sessionScope.context.stateOrDefault.abbreviation}/conversion/subscribe/-/-/-/-';
                 var fc_track='paid';
                -->
             </script>

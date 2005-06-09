@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <jsp:root
     xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
     xmlns="http://www.w3c.org/1999/xhtml"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
     xmlns:spring="http://www.springframework.org/tags"
-    xmlns:layout="urn:jsptagdir:/WEB-INF/tags/gsml"
+    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
     >
-    <html lang="en">
+    <html xml:lang="en">
 
         <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -18,92 +17,402 @@
         <head>
             <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
-        <link rel="stylesheet" href="res/css/spp2.css"></link>
             ]]>
             <title>GreatSchools Insider</title>
+            <style type="text/css">
+            body {
+            background-color:#FFF;
+            font-family: Arial, Sans;
+            padding: 0px 0px 0px 0px;
+            margin: 0px 0px 0px 0px;
+            width: 100%;
+            height:100%;
+            }
+            h3 {
+            font-size:110%;
+            padding: 5px 0px 10px 0px;
+            margin: 0px 0px 0px 0px;
+            }
+            #header div.column1 {
+            float:left;
+            padding: 0px 20px 0px 10px;
+            }
+            #header div.column2 {
+            position:absolute; left: 250px; top: 10px;
+            }
+            #header div.column3 {
+            float:right;
+            font-size:70%;
+            padding: 10px 10px 0px 0px;
+            }
+
+            #main div.column1 {
+            position:absolute;
+            left: 0px;
+            top: 100px;
+            width:250px;
+            }
+            #main div.column2 {
+            position:absolute;
+            left: 250px;
+            top: 100px;
+            background-color: #eee;
+            width:60%;
+            height:78%;
+            overflow:auto;
+            padding: 0 20px 0 10px;
+            border: 1px solid black;
+            border-width: 1px 2px 2px 1px;
+            border-color: #aaa #ccc #ccc #aaa;
+            }
+
+            div.panel {
+            position:absolute;
+            width:90%;
+            font-size:90%;
+            line-height:100%;
+            }
+            #nav {
+            padding: 0px 10px 0px 10px;
+            vertical-align:middle;
+            line-height:160%;
+            color: #00F;
+            font-weight:bold;
+            }
+            #nav a {
+            color: #00F;
+            }
+
+            #footer {
+            position:absolute; left: 0px; top: 96%;
+            padding: 0px 25px 0px 0px;
+            font-size:90%;
+            }
+            .pdf {
+                float: right;
+                width: 32px;
+                padding: 0 10px 0 30px;
+            }
+
+            a>img {
+                 border: 0
+            }
+
+            h4 {
+                font-size: 100%;
+                margin: 0 0 0 0;
+            }
+
+
+            div.column2 div.panel li {
+                padding: 0 0 4px 0;
+            }
+            div.column2 div.panel a {
+                text-decoration: underline;
+                color: blue;
+            }
+            div.column2 div.panel a:hover {
+                text-decoration: underline;
+            }
+            /**/
+#main h3 {
+width: 100%;
+color: #f60;
+background-color: #fff;
+text-align: center;
+padding: 10px 0 7px 0;
+margin: 10px 0 0 0;
+font-size:  120%;
+text-transform: uppercase;
+border: 1px solid #ddd;
+border-bottom: 1px solid #fff;
+border-right: 1px solid #fff;
+            }
+.pdfs {
+font-style: italic;
+border: 1px solid #ddd;
+padding: 8px 3px 0px 3px;
+background-color: #fff;
+margin-bottom: 10px;
+}
+
+#footer h5, #footer h6 {
+margin: 0;
+padding: 0 0 0 10px;
+}
+/* layout */
+#footer {
+   top: 94%;
+}
+#main div.column2 {
+            height:74%;
+}
+ /**/
+
+            </style>
         </head>
         <body>
-            <jsp:include page="/header/moveChoose.module"/>
-            <layout:wizard>
-                <h1>5 Steps to Choosing a Great School for Your Child</h1>
-                <p>
-Welcome, alingane@greatschools.net.  Use these links to get started or to continue your school selection process.
-                </p>
+            <div id="header">
+                <div class="column1">
+                    <img src="res/img/GS_logo.gif" alt="GreatSchools.net logo" width="200" height="81"/>
+                </div>
 
-                <h2>1. Consider your needs</h2>
-Rank your priorities for your child and family as you begin your school search.
+                <div class="column2">
+                    <h3>
+5 Steps to Choosing a Great School for Your Child</h3>
+                    <p>
+Welcome, ${sessionScope.context.user.firstName} ${sessionScope.context.user.lastName},
+                        <br/>
+    Use these links to get started or continue your school selection process.
+                    </p>
+                </div>
+                <div class="column3">
+                                               ${sessionScope.context.user.email}
+                    <br/>
+Not you?
+                    <a href="">Sign out</a>
+                </div>
+            </div>
 
-First, get a quick primer to organize your thoughts
-Choosing a School: Considering Your Child's Needs
-Choosing a School: Considering Family Needs and Values
+            <div id="main">
 
-Then, use these printable worksheet to rank your priorities
-Child Quick Think: What Strengths, Challenges and Other Characteristics Stand Out About Your Child?
-Family Quick Think: What Values, Needs, Strengths and Challenges Stand Out About Your Family?
-Imagining Your Ideal School: An Exercise for Setting Priorities
+                <div class="column1">
+                    <div id="nav">
+                        <div>1.
+                            <a href="#step1">Consider your needs</a>
+                        </div>
+                        <div>2.
+                            <a href="#step2">Understand your options</a>
+                        </div>
+                        <div>3.
+                            <a href="#step3">Narrow the field</a>
+                        </div>
+                        <div>4.
+                            <a href="#step4">Dig into the details</a>
+                        </div>
+                        <div>5.
+                            <a href="#step5">Visit and select schools</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column2">
+                    <div class="panel">
+
+                        <h3>
+             1. Consider your needs
+                            <![CDATA[<a name="step1"> </a>]]>
+                        </h3>
+                        <p> Rank your priorities for your child and family as you begin your school
+        search.
+                            <br/>
+      First, get a quick primer to organize your thoughts:
+                        </p>
+                        <ul>
+                            <gsml:articleLinkLi articleId="308"/>
+                            <gsml:articleLinkLi articleId="307"/>
+                        </ul>
+                        <br/>
+                        <div class="pdfs">
+                            <a href="#getacro">
+                                <img class="pdf" src="res/img/adobe/pdficon.gif" alt="PDF Format"/>
+                            </a>
+
+      Then, use these printable worksheets to rank your priorities
+                            <ul>
+                                <li>
+                                    <a href="http://${sessionScope.context.hostName}/pdf/articles/picky/ChildQuickThink.pdf">Child Quick Think: What Strengths, Challenges and Other Characteristics
+      Stand Out About Your Child?</a>
+                                </li>
+                                <li>
+                                    <a href="http://${sessionScope.context.hostName}/pdf/articles/picky/FamilyQuickThink.pdf">Family Quick Think: What Values, Needs, Strengths and Challenges
+      Stand Out About Your Family?</a>
+                                </li>
+                                <li>
+                                    <a href="http://${sessionScope.context.hostName}/pdf/choosing_imagine.pdf">Imagining Your Ideal School: An Exercise for Setting Priorities</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <h3>
+2. Understand your options
+                            <![CDATA[<a name="step2"> </a>]]>
+                        </h3>
+                        <p>
+Learn what school choices you really have, and understand more about each: public,
+      private, charter; district transfers; and more.</p>
+                        <p>Review this first:      </p>
+                        <ul>
+                            <gsml:articleLinkLi articleId="96"/>
+                        </ul>
+                        <p>Then, read more about what interests you most:</p>
+                        <ul>
+                            <gsml:articleLinkLi articleId="249"/>
+
+                            <gsml:articleLinkLi articleId="239"/>
+                            <gsml:articleLinkLi articleId="252"/>
+                            <gsml:articleLinkLi articleId="220"/>
+
+                            <gsml:articleLinkLi articleId="51"/>
+                            <gsml:articleLinkLi articleId="225"/>
+
+                            <gsml:articleLinkLi articleId="197"/>
+                            <gsml:articleLinkLi articleId="246"/>
+                            <gsml:articleLinkLi articleId="241"/>
+                            <gsml:articleLinkLi articleId="92"/>
+
+                            <gsml:articleLinkLi articleId="306"/>
+                            <gsml:articleLinkLi articleId="293"/>
+                            <gsml:articleLinkLi articleId="302"/>
+
+                            <gsml:articleLinkLi articleId="188"/>
+                            <gsml:articleLinkLi articleId="205"/>
+                        </ul>
 
 
-                <h2>2. Understand your options</h2>
-Learn what school choices you really have, and understand more about each: public, private, charter; district transfers; and more.
+                        <h3>
+3. Narrow the field
+                            <![CDATA[<a name="step3"> </a>]]>
+                        </h3>
 
-Review these first
-Get the Best Education for Your Child in California
-School Choice in California: An Overview of Your Options
+                        <p>
+Use interactive search to identify an area, or to focus in on the schools that
+      match your priorities for your child and family.
+                        </p>
 
-Then, read more about what interests you most
-Enrolling in Kindergarten in California: What You Need To Know
-Interdistrict and Intradistrict Transfers in California: Options Beyond Your Neighborhood School
-Private vs. Public Schools: What's the Difference?
-Frequently Asked Questions About Private Schools
-Charter Schools Offer an Array of Choices
-Online Resources for Charter Schools
-Homeschooling: Key Facts and Resources
-What No Child Left Behind Means for Your Child
-
-
-                <h2>3. Narrow the field</h2>
-Use interactive search to identify an area, or to focus in on the schools that match your priorities for your child and family.
-
-Top-rated schools - http://www.greatschools.net/cgi-bin/site/rank_overview.cgi/ca
-See which schools get four or five stars based on test scores and/or [dynamic per state] student-teacher ratio.
-
-My School List - http://www.greatschools.net/cgi-bin/msl_confirm/CA
+                        <h4>
+                            <a href="http://${sessionScope.context.hostName}/cgi-bin/site/rank_overview.cgi/${sessionScope.context.stateOrDefault.abbreviation}">Top-rated
+      schools</a>
+                        </h4>
+                        <ul>
+                            <li>
+See which schools get four or five stars based on our exclusive ratings.
+                            </li>
+                        </ul>
+                        <h4>
+                            <a href="http://${sessionScope.context.hostName}/cgi-bin/msl_confirm/${sessionScope.context.stateOrDefault.abbreviation}">My School List
+                            </a>
+                        </h4>
+                        <ul>
+                            <li>
 Save your potential matches for quick access to on future visits to GreatSchools.net.
-
-Compare schools - http://www.greatschools.net/cgi-bin/cs_where/CA
+                            </li>
+                        </ul>
+                        <h4>
+                            <a href="http://${sessionScope.context.hostName}/cgi-bin/cs_where/${sessionScope.context.stateOrDefault.abbreviation}">Compare schools</a>
+                        </h4>
+                        <ul>
+                            <li>
 Compare schools based on criteria that matter most to you.
-Line up schools side by side to compare their one- to five- star ratings [dynamic, don�t include in PA] and to see which have yellow flag alerts highlighting areas of potential concern.
-
-                <h2>4. Dig into the details</h2>
-Analyze key information about each school: exclusive ratings, real parents� reviews, and possible areas of concerns highlighted with yellow flag alerts.
-[in PA this should read:  Analyze key information about each school including exclusive ratings and real parents� reviews.]
-
-Start with schools you�ve saved to My School List.
-
-Or, look up school information by individual school:
-One-to-Five Star Ratings - http://www.greatschools.net/cgi-bin/ratingsrch/CA
-Parent Reviews - http://www.greatschools.net/cgi-bin/commentsrch/CA
-Yellow Flag Alerts - http://www.greatschools.net/cgi-bin/ratingsrch/CA [dynamic, don�t include in PA]
+                            </li>
+                            <li>
+Line up schools side by side to compare their one- to five- star ratings
+                                <c:if test="${sessionScope.context.state.yellowFlagState}">
+and to see which have yellow flag alerts highlighting
+areas of potential concern</c:if>.
+                            </li>
+                        </ul>
 
 
-                <h2>5. Visit and select schools</h2>
-No amount of research can replace an in-person visit to the schools you're considering.  Make sure you get the most out of each school visit by targeting what questions to ask and what to look for with these printable worksheets.
+                        <h3>
+	  4. Dig into the details
+                            <![CDATA[<a name="step4"> </a>]]>
+                        </h3>
+                        <p>
+                            <c:choose>
+                                <c:when test="${sessionScope.context.state.yellowFlagState}">
+                        Analyze key information about each school: exclusive ratings, real parents'
+      reviews, and possible areas of concerns highlighted with yellow flag alerts.
+                                </c:when>
+                                <c:otherwise>
+Analyze key information about each school including
+      exclusive ratings and real parents' reviews.
+                                </c:otherwise>
+                            </c:choose>
+                        </p>
+                        <p>
+Start with schools you've saved to
+                            <a href="http://${sessionScope.context.hostName}/cgi-bin/msl_confirm/${sessionScope.context.stateOrDefault.abbreviation}">My&#160;School&#160;List</a>.
+                        </p>
+                        <p>Or, look up school information by individual school:
+                        </p>
+                        <ul>
+                            <li>
+                                <a href="http://${sessionScope.context.hostName}/cgi-bin/ratingsrch/${sessionScope.context.stateOrDefault.abbreviation}">One-to-Five
+        Star Ratings</a>
+                            </li>
+                            <li>
+                                <a href="http://${sessionScope.context.hostName}/cgi-bin/commentsrch/${sessionScope.context.stateOrDefault.abbreviation}">Parent Reviews</a>
+                            </li>
+                            <c:if test="${sessionScope.context.state.yellowFlagState}">
+                                <li>
+                                    <a href="http://${sessionScope.context.hostName}/cgi-bin/ratingsrch/${sessionScope.context.stateOrDefault.abbreviation}">Yellow Flag Alerts</a>
+                                </li>
+                            </c:if>
+                        </ul>
 
-Start here:
-The School Visit: Things to Look For, Questions to Ask
-How Safe Is Your School?
+                        <h3>
+		5. Visit and select schools
+                            <![CDATA[<a name="step5"> </a>]]>
+                        </h3>
+No amount of research can replace an in-person visit to the schools you're considering.
+Make sure you get the most out of each school visit by targeting what questions
+to ask and what to look for.
+                        <p>Start here:</p>
+                        <ul>
+                            <gsml:articleLinkLi articleId="48"/>
+                            <gsml:articleLinkLi articleId="20"/>
+                        </ul>
+                        <div class="pdfs">
+                            <a href="#getacro">
+                                <img class="pdf" src="res/img/adobe/pdficon.gif" alt="PDF Format"/>
+                            </a>
+        Document specific questions about individual schools based on your research
+        with these printable worksheets:
+                            <ul>
+                                <li>
+                                    <a href="http://${sessionScope.context.hostName}/pdf/schq_visit_elem.pdf">The Elementary
+        School Visit: A Step by Step Guide</a>
+                                </li>
+                                <li>
+                                    <a href="http://${sessionScope.context.hostName}/pdf/schq_visit_middle.pdf">The Middle
+        School Visit: A Step by Step Guide</a>
+                                </li>
+                                <li>
+                                    <a href="http://${sessionScope.context.hostName}/pdf/schq_visit_high.pdf">The High
+         School Visit: A Step by Step Guide</a>
 
-Document specific questions about individual schools based on your research with these printable worksheets:
-The Elementary School Visit::  A Step by Step Guide:  http://www.greatschools.net/pdf/schq_visit_elem.pdf
-The Middle School Visit::  A Step by Step Guide:  http://www.greatschools.net/pdf/schq_visit_middle.pdf
-The High School Visit::  A Step by Step Guide:  http://www.greatschools.net/pdf/schq_visit_high.pdf
+                                </li>
+                            </ul>
+                        </div>
+        Then read these:
+                        <ul>
+                            <gsml:articleLinkLi articleId="249"/>
+                            <gsml:articleLinkLi articleId="60"/>
+                        </ul>
 
-Then read these
-Enrolling in Kindergarten in California: What You Need To Know
-Making the Transition: 10 Tips for Adjusting to a New School
-            </layout:wizard>
+                        <![CDATA[<div style="height:100px;"></div>]]>
+                        <hr/>
+                        Our worksheets are in PDF format. Go
+                        <a href="http://www.adobe.com/products/acrobat/readermain.html" target="_blank">here</a> to get the Adobe Acrobat Reader:
+                        <br/>
+                        <br/>
+                        <a name="getacro"
+                            style="border: 0"
+                            href="http://www.adobe.com/products/acrobat/readermain.html" target="_blank">
+                            <img src="res/img/adobe/getacro.gif" alt="Get Adobe Acrobat"/>
+                        </a>
 
-            <jsp:include page="/footer/copyright.module"/>
+                        <![CDATA[<div style="height:200px;"></div>]]>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="footer">
+                <jsp:include page="/footer/copyright.module"/>
+            </div>
+
 
         </body>
     </html>

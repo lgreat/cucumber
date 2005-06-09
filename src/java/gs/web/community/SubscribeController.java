@@ -1,14 +1,15 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.1 2005/06/06 18:03:38 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.2 2005/06/09 21:34:25 apeterson Exp $
  */
 package gs.web.community;
 
 import gs.data.community.*;
 import gs.data.payment.CreditCardInfo;
 import gs.data.state.State;
-import gs.data.state.StateUtil;
+import gs.data.state.StateManager;
 import gs.data.util.Price;
+import gs.web.SessionContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,10 +35,9 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
     private PurchaseManager _purchaseManager;
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
+    private StateManager _stateManager;
 
-    private static final String HOST_PARAM = "host";
     private static final String EMAIL_PARAM = "email";
-    private static final String STATE_PARAM = "state";
     private static final String URL_PARAM = "url";
     private static final String URL_LABEL_PARAM = "urlLabel";
     private static final String RENEW_PARAM = "renew"; // boolean set if the user is attempting renewal
@@ -71,24 +71,24 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
             command.setTryingToRenew(true);
         }
 
-        String paramStateStr = httpServletRequest.getParameter(STATE_PARAM);
-        if (!StringUtils.isEmpty(paramStateStr)) {
-            State s = StateUtil.getState(paramStateStr);
-            command.setState(s);
-            _log.debug("found state in params: " + paramEmail);
+        SessionContext sessionContext = SessionContext.getInstance(httpServletRequest);
+
+        // Force a state into the session
+        if (sessionContext.getState() == null) {
+            if (user.getState() != null) {
+                sessionContext.setState(user.getState());
+            } else {
+                sessionContext.setState(State.CA);
+            }
         }
+        command.setState(sessionContext.getState());
 
         String paramUrl = httpServletRequest.getParameter(URL_PARAM);
         if (!StringUtils.isEmpty(paramUrl)) {
             command.setUrl(paramUrl);
         }
 
-        String paramHost = httpServletRequest.getParameter(HOST_PARAM);
-        if (!StringUtils.isEmpty(paramHost)) {
-            command.setHost(paramHost);
-        } else {
-            command.setHost("www.greatschools.net");
-        }
+        command.setHost(sessionContext.getHostName());
 
         String paramUrlLabel = httpServletRequest.getParameter(URL_LABEL_PARAM);
         if (!StringUtils.isEmpty(paramUrlLabel)) {
@@ -99,7 +99,7 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
     }
 
     protected Map referenceData(HttpServletRequest httpServletRequest, Object o, Errors errors) throws Exception {
-        List subStates = StateUtil.getSubscriptionStates();
+        List subStates = _stateManager.getSubscriptionStates();
         StringBuffer sb = new StringBuffer(subStates.size() * 4);
         for (Iterator iter = subStates.iterator(); iter.hasNext();) {
             State s = (State) iter.next();
@@ -123,20 +123,6 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
 
             errors.reject("param0", new Object[]{message}, "Membership expired.");
         }
-
-        // TEMPORARY...
-        // Put the subscription state in, if we have it.
-        State s = command.getState();
-        if (s == null) {
-            s = command.getUser().getState();
-        }
-        if (s == null) {
-            s = State.CA;
-        }
-        map.put("siteState", s);
-
-        // TEMPORARY...
-        map.put("siteHost", command.getHost());
 
         return map;
     }
@@ -214,7 +200,15 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
     }
 
     protected ModelAndView onSubmit(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, BindException e) throws Exception {
+        SubscribeCommand command = (SubscribeCommand) o;
+        final User user = command.getSubscription().getUser();
 
+        addLoggedInCookie(user, httpServletResponse);
+
+        return super.onSubmit(httpServletRequest, httpServletResponse, o, e);
+    }
+
+    private void addLoggedInCookie(final User user, HttpServletResponse httpServletResponse) {
         // Add the appropriate cookie to log the user in.
         CookieGenerator cookieGenerator = new CookieGenerator();
         cookieGenerator.setCookieDomain("greatschools.net");
@@ -222,11 +216,7 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         cookieGenerator.setCookieName("MEMBER");
         cookieGenerator.setCookiePath("/");
 
-        SubscribeCommand command = (SubscribeCommand) o;
-        cookieGenerator.addCookie(httpServletResponse, command.getSubscription().getUser().getId().toString());
-
-
-        return super.onSubmit(httpServletRequest, httpServletResponse, o, e);
+        cookieGenerator.addCookie(httpServletResponse, user.getId().toString());
     }
 
     protected ModelAndView onSubmit(Object o) throws Exception {
@@ -280,5 +270,13 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
 
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
         _subscriptionDao = subscriptionDao;
+    }
+
+    public StateManager getStateManager() {
+        return _stateManager;
+    }
+
+    public void setStateManager(StateManager stateManager) {
+        _stateManager = stateManager;
     }
 }

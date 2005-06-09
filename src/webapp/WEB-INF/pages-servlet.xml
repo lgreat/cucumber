@@ -6,6 +6,32 @@
   -->
 
 <beans>
+    <bean name="defaultHandlerMapping"
+        class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
+        <property name="interceptors">
+            <list>
+                <ref local="sessionContextInterceptor"/>
+                <!--                <ref local="insiderOnlyInterceptor"/>-->
+            </list>
+        </property>
+    </bean>
+
+    <bean id="sessionContextInterceptor"
+        class="gs.web.SessionContextInterceptor"
+        autowire="byName">
+    </bean>
+
+    <!--    <bean id="insiderOnlyInterceptor"-->
+    <!--        class="gs.web.community.InsiderOnlyInterceptor"-->
+    <!--        autowire="byName">-->
+    <!--    </bean>-->
+
+    <!-- factory bean for user session information -->
+    <bean id="sessionContext"
+        class="gs.web.SessionContext"
+        autowire="byName"
+        singleton="false">
+    </bean>
 
     <bean name="/subscribe.page"
         class="gs.web.community.SubscribeController"
@@ -83,7 +109,7 @@
     <bean name="/fiveSteps.page"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>fiveSteps</value>
+            <value>houseAd/insiderFiveSteps</value>
         </property>
     </bean>
 
