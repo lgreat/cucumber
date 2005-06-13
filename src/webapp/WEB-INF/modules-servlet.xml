@@ -3,10 +3,10 @@
 
 <beans>
 
-    <bean name="/featured.module"
+    <bean name="/tease/featured.module"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>/featured</value>
+            <value>/tease/featured</value>
         </property>
     </bean>
 
@@ -52,13 +52,6 @@
         </property>
     </bean>
 
-    <bean name="/googleAds.module"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>/googleAds</value>
-        </property>
-    </bean>
-
     <bean name="/parentPoll.module"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
@@ -66,24 +59,24 @@
         </property>
     </bean>
 
-    <bean name="/basicSchoolInformation.module"
+    <bean name="/tease/basicSchoolInformation.module"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>/basicSchoolInformation</value>
+            <value>/tease/basicSchoolInformation</value>
         </property>
     </bean>
 
-    <bean name="/principalViewTease.module"
+    <bean name="/tease/principalView.module"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>/principalViewTease</value>
+            <value>/tease/principalView</value>
         </property>
     </bean>
 
-    <bean name="/parentReviewTease.module"
+    <bean name="/tease/parentReview.module"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>/parentReviewTease</value>
+            <value>/tease/parentReview</value>
         </property>
     </bean>
 
