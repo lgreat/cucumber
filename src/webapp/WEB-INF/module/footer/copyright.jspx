@@ -13,8 +13,6 @@
             <a href="http://${sessionScope.context.hostName}/">Home</a>
             |
             <a href="http://${sessionScope.context.hostName}/cgi-bin/static/terms.html/${sessionScope.context.stateOrDefault.abbreviation}">Terms of Use</a>
-            |
-            <a href="http://${sessionScope.context.hostName}/cgi-bin/feedback_faq/${sessionScope.context.stateOrDefault.abbreviation}?fbtype=subentry">Contact Customer Support</a>
         </h6>
     </div>
 </jsp:root>
