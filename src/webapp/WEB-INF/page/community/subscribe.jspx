@@ -18,11 +18,6 @@
             <![CDATA[
             <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
             <link rel="stylesheet" href="res/css/spp2.css"></link>
-            <script
-                type="text/javascript"
-                language="JavaScript"
-                src="res/js/gen_validatorv2.js">
-            </script>
             ]]>
             <title>Subscribe to ${subCmd.subscriptionProduct.longName}</title>
         </head>
@@ -47,8 +42,10 @@
                             <br/>
                   Get Started
                         </td>
-                        <td align="center" width="30%">
-                            <img src="res/img/pixel.gif" alt=""/>
+                        <td style="text-align: right; vertical-align: top; font-size: 80%" width="30%">
+            Contact
+                            <br/>
+                            <a href="mailto:customersupport@greatschools.net">Customer Support</a>
                         </td>
                     </tr>
                 </table>
@@ -389,56 +386,11 @@
 
                 </form>
 
-                <![CDATA[
-                <!--
-        <script language="JavaScript" type="text/javascript">
-        /*
-  var v  = new Validator("subscribe");
-  v.addValidation("firstName","req","Please enter your first name");
-  v.addValidation("lastName","req","Please enter your last name");
-  v.addValidation("street","req","Please enter your address");
-  v.addValidation("city","req","Please enter your City");
-  v.addValidation("state","req","Please enter your state");
-  v.addValidation("zip","req","Please enter your ZIP code");
-  v.addValidation("email","req","Please enter your email address");
-  v.addValidation("email","email");
-  v.addValidation("creditCardNumber","req","Please enter your card number");
-  v.addValidation("creditCardNumber","numeric");
-  v.addValidation("expirationMonth","req","Please enter the expiration month");
-  v.addValidation("expirationMonth","numeric");
-  v.addValidation("expirationYear","req","Please enter the expiration year");
-  v.addValidation("expirationYear","numeric");
-  */
-        </script>
-        -->
-                                                                                    ]]>
-
-
             </gsml:wizard>
 
             <jsp:include page="/footer/copyright.module"/>
 
-            <script language="javascript" type="text/javascript">
-                <!--
-                var fc_content='${subCmd.host}/${subCmd.state}/conversion/subscribe/-/-/-/-';
-                -->
-            </script>
-            <!-- Fireclick Web Analytics - COPYRIGHT 1999-2005 - Please do not modify this code-->
-            <script language="javascript" type="text/javascript">
-                <!--
-                function handle(){return true;}
-                window.onerror=handle;
-                var fc_host='www.greatschools.net';
-                document.write('<scr'+'ipt '
-                +'src="'+((location.protocol=='http:')?'http:':'https:')
-                +'//a248.e.akamai.net/f/248/5462/3h/hints.netflame.cc/service/sc'+'ript/'+fc_host+'"></scr'+'ipt>');
-                function fcce(){if (typeof(fcnf)!="undefined") fcnf();}
-                var fcfn=window.onload;
-                function fcco(){window.setTimeout("fcce();", 100);fcfn();}
-                window.onload= null==fcfn ? fcce:fcco;
-                // -->
-            </script>
-
+            <gsml:fireclick pageType="conversion" pageName="subscribe"/>
 
         </body>
     </html>

@@ -42,8 +42,10 @@
                             <br/>
                           Get Started
                         </td>
-                        <td align="center" width="30%">
-                            <img src="res/img/pixel.gif" alt=""/>
+                        <td style="text-align: right; vertical-align: top; font-size: 80%" width="30%">
+            Contact
+                            <br/>
+                            <a href="http://${sessionScope.context.hostName}/cgi-bin/feedback_faq/${sessionScope.context.stateOrDefault.abbreviation}?fbtype=subentry">Customer Support</a>
                         </td>
                     </tr>
                 </table>
@@ -136,38 +138,10 @@
             </gsml:wizard>
 
             <!--jsp:include page="/footer/copyright.module"/-->
-            <div id="copyright">
-                <h5 class="ncopy">GreatSchools.net
-                    Elementary, middle and high school information for public, private and charter schools nationwide.</h5>
-                <h6>&#169;1998-2005 GreatSchools Inc. All Rights Reserved.
-                    <a href="http://${sessionScope.context.hostName}/">Home</a>
-                    |
-                    <a href="http://${sessionScope.context.hostName}/cgi-bin/static/terms.html/${sessionScope.context.stateOrDefault.abbreviation}">Terms of Use</a>
-                </h6>
-            </div>
+            <jsp:include page="/footer/copyright.module"/>
 
-
-            <script language="javascript" type="text/javascript">
-                <!--
-                var fc_content='${sessionScope.context.hostName}/${sessionScope.context.stateOrDefault.abbreviation}/conversion/subscribe/-/-/-/-';
-                var fc_track='paid';
-               -->
-            </script>
-            <!-- Fireclick Web Analytics - COPYRIGHT 1999-2005 - Please do not modify this code-->
-            <script language="javascript" type="text/javascript">
-                <!--
-                function handle(){return true;}
-                window.onerror=handle;
-                var fc_host='www.greatschools.net';
-                document.write('<scr'+'ipt '
-                +'src="'+((location.protocol=='http:')?'http:':'https:')
-                +'//a248.e.akamai.net/f/248/5462/3h/hints.netflame.cc/service/sc'+'ript/'+fc_host+'"></scr'+'ipt>');
-                function fcce(){if (typeof(fcnf)!="undefined") fcnf();}
-                var fcfn=window.onload;
-                function fcco(){window.setTimeout("fcce();", 100);fcfn();}
-                window.onload= null==fcfn ? fcce:fcco;
-                // -->
-            </script>
+            <gsml:fireclick pageType="conversion" pageName="subscribe"
+                extraJavascriptVariable="var fc_track='paid';"/>
 
         </body>
     </html>

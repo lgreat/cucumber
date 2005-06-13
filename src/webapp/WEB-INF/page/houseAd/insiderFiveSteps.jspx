@@ -7,52 +7,472 @@
     xmlns:spring="http://www.springframework.org/tags"
     xmlns:layout="urn:jsptagdir:/WEB-INF/tags/gsml"
     >
+    <jsp:output doctype-root-element="html"
+        doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+        doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <jsp:directive.page contentType="text/html"/>
     <html lang="en">
-
-        <jsp:output doctype-root-element="html"
-            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
-
-        <jsp:directive.page contentType="text/html"/>
-
         <head>
             <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
-        <link rel="stylesheet" href="res/css/spp2.css"></link>
-            ]]>
-            <title>GreatSchools Insider</title>
+        <script type="text/javascript">
+        var currentPanel;
+        var numTabs = 6; //total number of tabs
+        function showPanel(panelNum){
+            document.getElementById('nav0').src = 'res/img/nav_0.gif';
+            document.getElementById('panel0').style.visibility = 'hidden';
+            document.getElementById('nav1').src = 'res/img/nav_1.gif';
+            document.getElementById('panel1').style.visibility = 'hidden';
+            document.getElementById('nav2').src = 'res/img/nav_2.gif';
+            document.getElementById('panel2').style.visibility = 'hidden';
+            document.getElementById('nav3').src = 'res/img/nav_3.gif';
+            document.getElementById('panel3').style.visibility = 'hidden';
+            document.getElementById('nav4').src = 'res/img/nav_4.gif';
+            document.getElementById('panel4').style.visibility = 'hidden';
+            document.getElementById('nav5').src = 'res/img/nav_5.gif';
+            document.getElementById('panel5').style.visibility = 'hidden';
+            document.getElementById('panel'+panelNum).style.visibility = 'visible';
+            document.getElementById('nav'+panelNum).src = 'res/img/nav_'+panelNum+'.ro.gif';
+            currentPanel = panelNum;
+        }
+
+        function nexter(){
+        if (currentPanel != 0) {
+            currentPanel--;
+            showPanel(currentPanel);
+        }
+        }
+        function prever(){
+        if (currentPanel != numTabs - 1) {
+            currentPanel++;
+            showPanel(currentPanel);
+        }
+        }
+
+        function showdesc(desc,number) {
+        document.getElementById("screenshot"+number).innerHTML = desc;
+        }
+        </script>
+        ]]>
+
+
+            <title>GreatSchools Insider: Five Steps to Choosing a Great School</title>
+            <style type="text/css" media="screen">
+    body {
+    background-color:#FFF;
+    font-family: Arial, Sans;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    width: 100%;
+    height:100%;
+    }
+    h3 {
+    font-size:110%;
+    padding: 5px 0px 10px 0px;
+    margin: 0px 0px 0px 0px;
+    }
+    #header div.column1 {
+    position:absolute; top: 6px;
+    padding: 0px 20px 0px 10px;
+    }
+    #header div.column2 {
+    position:absolute; left: 30%; top: 20px;
+    }
+    #header div.column3 {
+    float:right;
+    font-size:70%;
+    padding: 10px 10px 0px 0px;
+    }
+
+    #main div.column1 {
+    position:absolute; top: 70px;
+    background-color: #B6B6F8;
+    width:786px;
+    height:262px;
+    overflow:hidden;
+    background: url(res/img/bg_shadowbox1.gif) top left no-repeat;
+    }
+    div.panel {
+    visibility: hidden;
+    position:absolute;
+    padding: 10px 0 0 15px;
+    width:786px;
+    height:262px;
+    font-size:100%;
+    line-height:110%;
+    overflow:auto;
+    }
+    #nav {
+    position:absolute; top: 332px;
+    }
+    #footer div.column1 {
+    position:absolute; top: 390px;
+    width:786px;
+    background: url(res/img/bg_shadowbox2top.gif) top left no-repeat;
+    }
+    .quote {
+    font-style: italic;
+    padding: 0px 10px 0px 10px;
+    display:block;
+    font-size:80%;
+    }
+    ul.arrow {list-style-image:  url(res/img/arrow_orange.gif);
+    margin:0px 0px 0px 10px;
+    padding:10px 0px 10px 5px;
+    line-height:130%;
+    }
+    ul.arrow li {font-size:90%;padding-bottom:4px;}
+    .joinfloat {
+    /* background: url(/images/cp_corners_bg_round.gif) top left no-repeat; */
+    border-left: 1px solid #999;
+    padding: 10px 10px 10px 10px;
+    margin: 0px 0px 0px 0px;
+    font-size:80%;
+    line-height:100%;
+    width:260px;
+    height: auto;
+    float: right;
+    }
+    .byline {
+    text-align:right;
+    padding-bottom:30px;
+    }
+    a.button {
+    display:block;
+    background: url(/images/cp_btn.gif) no-repeat;
+    font-weight:bold;
+    font-size:13px;
+    padding: 8px 0px 0px 13px;
+    }
+    div#panel0 a, strong {
+    font-size:16px;
+    padding: 4px 0px 10px 10px;
+    line-height:18px;
+    font-weight:bold;
+    text-decoration:none;
+    }
+    a {
+    color: #00F;
+    }
+    a:hover, .nohover: {
+    color: #FFF;
+    }
+    .screenshot0, .screenshot1, .screenshot2, .screenshot3, .screenshot4, .screenshot5 {
+    float:right;
+    margin: 0px 0px 0px 0px;
+    width:280px;
+    float: right;
+    }
+    #panel0 {
+    font-size:100%;
+    line-height:110%;
+    }
+    #screenshot0 {
+    float:right;
+    width:390px;
+    }
+    .starttour {
+    font-weight:bold;
+    margin-left:60px;
+    }
+            </style>
         </head>
-        <body>
-            <jsp:include page="/header/moveChoose.module"/>
-            <layout:wizard>
-                <h1>5 Steps to Choosing a Great School for Your Child</h1>
-                <p>
-Welcome, alingane@greatschools.net.  Use these links to get started or to continue your school selection process.
-                </p>
+        <body onload="showPanel(0)">
+            <table width="786" align="center">
+                <tr>
+                    <td>
 
-                <h2>1. Consider your needs</h2>
-Rank your priorities for your child and family as you begin your school search.
+                        <div id="header">
+                            <div class="column1">
+                                <img src="res/img/logo_mini.gif" alt="GreatSchools.net Logo" width="140" height="50"/>
+                            </div>
+                            <div class="column2">Already a subscriber?
+                                <form method="post" action="http://${sessionScope.context.hostName}/cgi-bin/membership/${sessionScope.context.stateOrDefault.abbreviation}">
+                                    <input name="email" type="text" value="" size="20"/>
+                                    &nbsp;&nbsp;
+                                    <input style="width: 50px; height: 20px; background-image: url(res/img/btn_signin.gif)"
+                                        alt="Sign In" type="submit"></input>
+                                </form>
+                            </div>
+                            <div class="column3">Contact
+                                <br/>
+                                <a class="nohover" href="mailto:customersupport@greatschools.net">Customer Support</a>
+                            </div>
+                        </div>
 
+                        <div id="main">
+                            <div class="column1">
+                                <!-- ========================= main ========= -->
+                                <div id="panel0" class="panel">
+                                    <img src="res/img/title_firsthead.gif" alt="Want the right school for your child?" width="444" height="31"/>
+                                    <br/>
+                                    <br/>
+                                    <div class="screenshot0" id="screenshot0">
+                                        <img src="res/img/screenshot_1.gif" alt="screenshot" border="0" width="390" height="150"/>
+                                        <br/>
+                                        <a href="https://secure.greatschools.net/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;host=${sessionScope.context.hostName}">                                            >
+                                            <img src="res/img/btn_getunlimitedaccessnow.gif" alt="Join now for just $16.95" vspace="5" hspace="45" align="right"/>
+                                        </a>
+                                    </div>
+                More than 2 million parents turn to us every month for help choosing
+                and evaluating schools. Get the best of our expertise with time-saving
+                content and features.
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <b>Preview the Five Steps
+                                        <br/>
+                to Choosing a Great School:
+                                        <a href="javascript:showPanel(1);">Start
+                Tour</a>.
+                                    </b>
+                                </div>
+                                <div id="panel1" class="panel">
+                                    <div class="screenshot1" id="screenshot1">
+                                        <img src="res/img/screenshot12.gif" alt="screenshot1" border="0" width="260" height="200"/>
+                                        <br/>
+                                        <a href="https://secure.greatschools.net/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;host=${sessionScope.context.hostName}">                                            >
+                                            <img src="res/img/btn_getunlimitedaccessnow.gif" alt="Join now for just $16.95" vspace="5" hspace="45" align="right"/>
+                                        </a>
+                                    </div>
+                                    <h3>STEP 1: What is your child's learning style? What family needs
+                  and values are most important? </h3>
+                Schools are not one size fits all! Clarify what to look for in a school
+                with these primers and printable worksheets written by experts.
+                                    <ul class="arrow">
+                                        <li>
+                                            <a href="javascript:showdesc('&lt;img src=res/img/screenshot12.gif border=0 width=260 height=200/>&lt;br />&lt;img src=res/img/btn_getunlimitedaccessnow.gif alt=Get unlimited access now vspace=5 hspace=45 align=right />
+                                                                               ',1);">Choosing a School: Consider Your Child's Needs</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:showdesc('&lt;img src=res/img/screenshot10.gif border=0 width=260 height=200/>&lt;br />&lt;img src=res/img/btn_getunlimitedaccessnow.gif alt=Get unlimited access now vspace=5 hspace=45 align=right />
+                                                                               ',1);">Choosing a School: Consider Your Family Needs and Values</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:showdesc('&lt;img src=res/img/screenshot9.gif border=0 width=260 height=200/>&lt;br />&lt;img src=res/img/btn_getunlimitedaccessnow.gif alt=Get unlimited access now vspace=5 hspace=45 align=right />
+                                                                               ',1);">Imagining Your Ideal School: An Exercise for Setting Priorities</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="panel2" class="panel">
+                                    <div class="screenshot2" id="screenshot2">
+                                        <img src="res/img/screenshot8.gif" alt="screenshot" border="0" width="260" height="200"/>
+                                        <br/>
+                                        <a href="https://secure.greatschools.net/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;host=${sessionScope.context.hostName}">                                            >
+                                            <img src="res/img/btn_getunlimitedaccessnow.gif" alt="Join now for just $16.95" vspace="5" hspace="45" align="right"/>
+                                        </a>
+                                    </div>
+                                    <h3> STEP 2: What choices do you really have? What are the pros and
+                  cons of each one?</h3>
+                Make sense of the different options with advice from our experts.
+                                    <ul class="arrow">
+                                        <li>
+                                            <a href="javascript:showdesc('&lt;img src=res/img/screenshot8.gif border=0 width=260 height=200/>&lt;br />&lt;img src=res/img/btn_getunlimitedaccessnow.gif alt=Get unlimited access now vspace=5 hspace=45 align=right />
+                                                                               ',2);">Choosing a School in California: An Overview of Your Options</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:showdesc('&lt;img src=res/img/screenshot7.gif border=0 width=260 height=200/>&lt;br />&lt;img src=res/img/btn_getunlimitedaccessnow.gif alt=Get unlimited access now vspace=5 hspace=45 align=right />
+                                                                               ',2);">Interdistrict and Intradistrict Transfers in California: Options
+                    Beyond Your Neighborhood School </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:showdesc('&lt;img src=res/img/screenshot6.gif border=0 width=260 height=200/>&lt;br />&lt;img src=res/img/btn_getunlimitedaccessnow.gif alt=Get unlimited access now vspace=5 hspace=45 align=right />
+                                                                               ',2);">Private vs. Public Schools: What's the Difference? </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:showdesc('&lt;img src=res/img/screenshot5.gif border=0 width=260 height=200/>&lt;br />&lt;img src=res/img/btn_getunlimitedaccessnow.gif alt=Get unlimited access now vspace=5 hspace=45 align=right />
+                                                                               ',2);">Charter Schools Offer an Array of Choices </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:showdesc('&lt;img src=res/img/screenshot4.gif border=0 width=260 height=200/>&lt;br />&lt;img src=res/img/btn_getunlimitedaccessnow.gif alt=Get unlimited access now vspace=5 hspace=45 align=right />
+                                                                               ',2);">Enrolling in Kindergarten in California: What You Need To Know
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="panel3" class="panel">
+                                    <div class="screenshot3" id="screenshot3">
+                                        <br/>
+                                        <br/>
+                                        <img src="res/img/step3_scorerating.jpg" alt="screenshot" border="0" width="260"/>
+                                        <br/>
+                                        <a href="https://secure.greatschools.net/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;host=${sessionScope.context.hostName}">                                            >
+                                            <img src="res/img/btn_getunlimitedaccessnow.gif" alt="Join now for just $16.95" vspace="5" hspace="45" align="right"/>
+                                        </a>
+                                    </div>
+                                    <h3> STEP 3: Need help identifying which public schools match your
+                  priorities for your child and family?</h3>
+                Use these interactive tools to narrow down your list of possible schools.
+                                    <ul class="arrow">
+                                        <li> Focus on
+                                            <a href="javascript:showdesc('
+                                                                     &lt;br>&lt;br>&lt;img src=res/img/step3_scorerating.jpg width=260 border=0>&lt;br />&lt;img src=res/img/btn_getunlimitedaccessnow.gif alt=Get unlimited access now vspace=5 hspace=45 align=right />
+                                                                               ',3);">top-rated public schools</a> by geographic area
+                                        </li>
+                                        <li> Then
+                                            <a href="javascript:showdesc('
+                                                                     &lt;br>&lt;br>&lt;img src=res/img/comparelist.gif width=260 border=0>&lt;br />&lt;img src=res/img/btn_getunlimitedaccessnow.gif alt=Get unlimited access now vspace=5 hspace=45 align=right />
+                                                                               ',3);">compare schools</a> side-by-side
+                                        </li>
+                                        <li> Create your personalized "
+                                            <a href="javascript:showdesc('
+                                                                     &lt;img src=res/img/step3_msl.gif width=260 border=0>&lt;br />&lt;img src=res/img/btn_getunlimitedaccessnow.gif alt=Get unlimited access now vspace=5 hspace=45 align=right />
+                                                                               ',3);">My School List</a>" once you've hand-picked schools for further
+                    consideration
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="panel4" class="panel">
+                                    <div class="screenshot4" id="screenshot4">
+                                        <img src="res/img/parentratings.gif" alt="screenshot" border="0" width="260" height="200"/>
+                                        <br/>
+                                        <a href="https://secure.greatschools.net/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;host=${sessionScope.context.hostName}">                                            >
+                                            <img src="res/img/btn_getunlimitedaccessnow.gif" alt="Join now for just $16.95" vspace="5" hspace="45" align="right"/>
+                                        </a>
+                                    </div>
+                                    <h3> STEP 4: What are the schools on my list really like? </h3>
+                Dig into the details of each school. We've crunched the numbers to
+                help you interpret the data, plus real parents have shared their opinions.
+                                    <ul class="arrow">
+                                        <li>
+                                            <a href="javascript:showdesc('&lt;img src=res/img/parentratings.gif border=0 width=260 height=200/>&lt;br />&lt;img src=res/img/btn_getunlimitedaccessnow.gif alt=Get unlimited access now vspace=5 hspace=45 align=right />
+                                                                               ',4);">One -to Five-Star Ratings</a>
+                                        </li>
+                                        <c:if test="${sessionScope.context.state.yellowFlagState}">
+                                            <li>
+                                                <a href="javascript:showdesc('&lt;img src=res/img/yellowflags.gif border=0 width=260 height=200/>&lt;br />&lt;img src=res/img/btn_getunlimitedaccessnow.gif alt=Get unlimited access now vspace=5 hspace=45 align=right />
+                                                                                   ',4);">Yellow Flag Alerts</a>
+                                            </li>
+                                        </c:if>
+                                        <li>
+                                            <a href="javascript:showdesc('&lt;img src=res/img/parentreview.gif border=0 width=260 height=200/>&lt;br />&lt;img src=res/img/btn_getunlimitedaccessnow.gif alt=Get unlimited access now vspace=5 hspace=45 align=right />
+                                                                               ',4);">Ratings and reviews from real parents</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:showdesc('&lt;img src=res/img/contactinfo.gif border=0 width=260 height=200/>&lt;br />&lt;img src=res/img/btn_getunlimitedaccessnow.gif alt=Get unlimited access now vspace=5 hspace=45 align=right />
+                                                                               ',4);">Get contact information to arrange for school visits</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="panel5" class="panel">
+                                    <div class="screenshot5" id="screenshot5">
+                                        <img src="res/img/screenshot3.gif" alt="screenshot" border="0" width="260" height="200"/>
+                                        <br/>
+                                        <a href="https://secure.greatschools.net/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;host=${sessionScope.context.hostName}">                                            >
+                                            <img src="res/img/btn_getunlimitedaccessnow.gif" alt="Join now for just $16.95" vspace="5" hspace="45" align="right"/>
+                                        </a>
+                                    </div>
+                                    <h3>STEP 5: What should I look for when I visit schools?</h3>
+                No amount of research can take the place of a school visit. We'll
+                help you prepare for it. Expert advice and printable worksheets ensure
+                that you ask the questions that matter most.
+                                    <ul class="arrow">
+                                        <li>
+                                            <a href="javascript:showdesc('&lt;img src=res/img/screenshot3.gif border=0 width=260 height=200/>&lt;br />&lt;img src=res/img/btn_getunlimitedaccessnow.gif alt=Get unlimited access now vspace=5 hspace=45 align=right />
+                                                                               ',5);">The School Visit: Things to Look For, Questions to Ask</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:showdesc('&lt;img src=res/img/screenshot2.gif border=0 width=260 height=200/>&lt;br />&lt;img src=res/img/btn_getunlimitedaccessnow.gif alt=Get unlimited access now vspace=5 hspace=45 align=right />
+                                                                               ',5);">The School Visit: A Step by Step Guide</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:showdesc('&lt;img src=res/img/screenshot1.gif border=0 width=260 height=200/>&lt;br />&lt;img src=res/img/btn_getunlimitedaccessnow.gif alt=Get unlimited access now vspace=5 hspace=45 align=right />
+                                                                               ',5);">Enrolling in Kindergarten: What You Need To Know</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- ================ end main =========== -->
+                            </div>
+                        </div>
+                        <div id="nav">
+                            <table width="786" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td>
+                                        <a href="javascript:showPanel(0);">
+                                            <img id="nav0" src="res/img/nav_0.gif" width="185" height="39" border="0" alt="Demo Overview"/>
+                                        </a>
+                                    </td>
+                                    <td width="100%" style="background-image:url(res/img/nav_bg.gif)" align="center">
+                                        <a
+                                            href="javascript:showPanel(1);">
+                                            <img id="nav1" src="res/img/nav_1.gif" border="0" alt="Step 1"/>
+                                        </a>
+                                        <a
+                                            href="javascript:showPanel(2);">
+                                            <img id="nav2" src="res/img/nav_2.gif" border="0" alt="Step 2"/>
+                                        </a>
+                                        <a
+                                            href="javascript:showPanel(3);">
+                                            <img id="nav3" src="res/img/nav_3.gif" border="0" alt="Step 3"/>
+                                        </a>
+                                        <a
+                                            href="javascript:showPanel(4);">
+                                            <img id="nav4" src="res/img/nav_4.gif" border="0" alt="Step 4"/>
+                                        </a>
+                                        <a
+                                            href="javascript:showPanel(5);">
+                                            <img id="nav5" src="res/img/nav_5.gif" border="0" alt="Step 5"/>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="javascript:nexter();">
+                                            <img onmouseover="this.src='res/img/nav_leftarrow.ro.gif';" onmouseout="this.src='res/img/nav_leftarrow.gif';" src="res/img/nav_leftarrow.gif" border="0" alt="Previous Step"/>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="javascript:prever();">
+                                            <img onmouseover="this.src='res/img/nav_rightarrow.ro.gif';" onmouseout="this.src='res/img/nav_rightarrow.gif';" src="res/img/nav_rightarrow.gif" border="0" alt="Next Step"/>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="footer">
+                            <div class="column1">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td style="padding: 15px 20px 0px 15px;font-size: 90%;">
+                                            <img src="res/img/title_seconthead.gif" alt="FREE access to one school of your choice" width="493" height="21"/>
+                                            <br/>
+                    Help other parents learn about your child's school by writing
+                    a brief review. In return, you'll be able to access one school's
+                    premium ratings and reviews.
+                                            <ul class="arrow">
+                                                <li>Take 3 minutes to [review your child's school]. </li>
+                                                <li>Hit "submit."</li>
+                                                <li>Select one school of your choice to see exclusive content.</li>
+                                            </ul>
+                                        </td>
+                                        <td width="260">
+                                            <div class="joinfloat">
+                                                <b>Not ready to join?</b>
+                                                <br/>
+                                                <a href="http://${sessionScope.context.hostName}/cgi-bin/site/findschool2review.cgi/${sessionScope.context.stateOrDefault.abbreviation}/">
+                                                    <img src="res/img/btn_seeoneschoolforfree.gif" alt="See one school for FREE" vspace="5" hspace="10"/>
+                                                </a>
+                                                <br/>
+                                                <small>
+                                                    <del>Already signed up to access this
+                                                        <br/>
+                      school's profile for free?
+                                                        <a href="#">Click here</a>.
+                                                    </del>
+                                                </small>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <img src="res/img/bg_shadowbox2bottom.gif" border="0" alt=""/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
 
-                <h2>2. Understand your options</h2>
-Learn what school choices you really have, and understand more about each: public, private, charter; district transfers; and more.
-
-
-                <h2>3. Narrow the field</h2>
-Use interactive search to identify an area, or to focus in on the schools that match your priorities for your child and family.
-
-
-                <h2>4. Dig into the details</h2>
-Analyze key information about each school: exclusive ratings, real parents? reviews, and possible areas of concerns highlighted with yellow flag alerts.
-[in PA this should read:  Analyze key information about each school including exclusive ratings and real parents? reviews.]
-
-
-                <h2>5. Visit and select schools</h2>
-No amount of research can replace an in-person visit to the schools you're considering.  Make sure you get the most out of each school visit by targeting what questions to ask and what to look for with these printable worksheets.
-
-            </layout:wizard>
-
-            <jsp:include page="/footer/copyright.module"/>
+                    </td>
+                </tr>
+            </table>
 
         </body>
     </html>
