@@ -108,7 +108,7 @@ function getJoinNow() {
     }
     #header div.column2,
     #header div.column3 {
-    font-size:70%;
+    font-size:80%;
     padding: 10px 10px 0px 0px;
     }
 #header div.column2 input {
@@ -203,7 +203,7 @@ font-size:100%;
     margin-left:60px;
     }
                 a>img {
-                border:0;
+                border-width:0;
                 }
             a {
             color: #039;
@@ -226,10 +226,11 @@ font-size:100%;
                                     <td>
                                         <form method="post" action="http://${sessionScope.context.hostName}/cgi-bin/membership/${sessionScope.context.stateOrDefault.abbreviation}">
                                             <div class="column2">Already a subscriber?
+                                                <br/>
                                                 <input name="email" type="text" value="your username" size="20" onfocus="this.value='';"/>
-                                                &#160;&#160;
-                                                <input style="width: 50px; height: 20px; background-image: url(res/img/5steps/btn_signin.gif)"
-                                                    alt="Sign In" type="submit" value=""></input>
+                                                &#160;
+                                                <input style="width: 50px; height: 20px;"
+                                                    alt="Sign In" type="submit" value="Sign In"></input>
                                             </div>
                                         </form>
                                     </td>
@@ -245,6 +246,15 @@ font-size:100%;
 
                         <div id="main">
                             <div class="column1">
+                                <a
+                                    href="https://secure.greatschools.net/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;amp;host=${sessionScope.context.hostName}"
+                                    style="position: absolute; bottom: 5px; right: 50px; z-index: 100"
+                                    >
+                                    <img src="res/img/5steps/btn_getunlimitedaccessnow.gif"
+                                        alt="Join now for just $16.95"
+                                        border="0"
+                                        />
+                                </a>
                                 <!-- ========================= main ========= -->
                                 <div id="panel0" class="panel">
                                     <img src="res/img/5steps/title_firsthead.gif" alt="Want the right school for your child?" width="444" height="31"/>
@@ -274,10 +284,6 @@ font-size:100%;
                                 <div id="panel1" class="panel">
                                     <div class="screenshot" id="screenshot1">
                                         <img src="res/img/5steps/screenshot12.gif" alt="screenshot" border="0" width="260" height="200"/>
-                                        <br/>
-                                        <a href="https://secure.greatschools.net/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;amp;host=${sessionScope.context.hostName}">
-                                            <img src="res/img/5steps/btn_getunlimitedaccessnow.gif" alt="Join now for just $16.95" vspace="5" hspace="45" align="right"/>
-                                        </a>
                                     </div>
                                     <h3>STEP 1: What is your child's learning style? What family needs
                                     and values are most important? </h3>
@@ -309,10 +315,10 @@ font-size:100%;
                                   Make sense of the different options with advice from our experts.
                                     <ul class="arrow">
                                         <li>
-                                            <a href="javascript:showImage('screenshot8.gif',2)">Choosing a School in California: An Overview of Your Options</a>
+                                            <a href="javascript:showImage('screenshot8.gif',2)">Choosing a School in ${sessionScope.context.stateOrDefault.longName}: An Overview of Your Options</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:showImage('screenshot7.gif',2)">Interdistrict and Intradistrict Transfers in California: Options
+                                            <a href="javascript:showImage('screenshot7.gif',2)">Interdistrict and Intradistrict Transfers in ${sessionScope.context.stateOrDefault.longName}: Options
                                       Beyond Your Neighborhood School </a>
                                         </li>
                                         <li>
@@ -322,7 +328,7 @@ font-size:100%;
                                             <a href="javascript:showImage('screenshot5.gif',2)">Charter Schools Offer an Array of Choices </a>
                                         </li>
                                         <li>
-                                            <a href="javascript:showImage('screenshot4.gif',2)">Enrolling in Kindergarten in California: What You Need To Know
+                                            <a href="javascript:showImage('screenshot4.gif',2)">Enrolling in Kindergarten in ${sessionScope.context.stateOrDefault.longName}: What You Need To Know
                                             </a>
                                         </li>
                                     </ul>
