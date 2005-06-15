@@ -38,9 +38,7 @@
     function handle(){return true;}
     window.onerror=handle;
     var fc_host='www.greatschools.net';
-    document.write('
-    <scr'+' ipt '
-        +' src="'+((location.protocol=='http:')?'http:':'https:')
+    document.write('<scr'+' ipt '+' src="'+((location.protocol=='http:')?'http:':'https:')
        +'//a248.e.akamai.net/f/248/5462/3h/hints.netflame.cc/service/sc'+'ript/'+fc_host+'"></scr'+'ipt>');
     function fcce(){if (typeof(fcnf)!="undefined") fcnf();}
     var fcfn=window.onload;
