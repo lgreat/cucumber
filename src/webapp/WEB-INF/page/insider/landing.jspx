@@ -447,6 +447,7 @@ to ask and what to look for.
                 <jsp:include page="/footer/copyright.module"/>
             </div>
 
+            <gsml:fireclick pageType="home" pageName="five steps"/>
 
         </body>
     </html>

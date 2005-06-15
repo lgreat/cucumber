@@ -473,6 +473,7 @@ font-size:100%;
                     </td>
                 </tr>
             </table>
+            <gsml:fireclick pageType="conversion" pageName="five steps"/>
 
         </body>
     </html>
