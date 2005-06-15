@@ -5,7 +5,7 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
     xmlns:spring="http://www.springframework.org/tags"
-    xmlns:layout="urn:jsptagdir:/WEB-INF/tags/gsml"
+    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
     >
     <jsp:output doctype-root-element="html"
         doctype-public="-//W3C//DTD XHTML 1.1 Transitional//EN"
@@ -243,7 +243,7 @@ font-size:100%;
                         <div id="main">
                             <div class="column1">
                                 <a
-                                    href="https://secure.greatschools.net/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;amp;host=${sessionScope.context.hostName}"
+                                    href="https://${sessionScope.context.secureHostName}/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;amp;host=${sessionScope.context.hostName}"
                                     style="position: absolute; bottom: 5px; right: 50px; z-index: 100"
                                     >
                                     <img src="res/img/5steps/btn_getunlimitedaccessnow.gif"

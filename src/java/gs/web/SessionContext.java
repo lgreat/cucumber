@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.1 2005/06/09 21:34:25 apeterson Exp $
+ * $Id: SessionContext.java,v 1.2 2005/06/15 17:16:24 apeterson Exp $
  */
 package gs.web;
 
@@ -135,6 +135,18 @@ public class SessionContext {
 
     public String getHostName() {
         return _hostName == null ? "www.greatschools.net" : _hostName;
+    }
+
+    public String getSecureHostName() {
+        String sHost = "secure.greatschools.net";
+
+        if (StringUtils.contains(_hostName, "dev.greatschools.net")) {
+            sHost = "secure.dev.greatschools.net";
+        } else if (StringUtils.equalsIgnoreCase(_hostName, "staging.greatschools.net")) {
+            sHost = "secure.staging.greatschools.net";
+        }
+
+        return sHost;
     }
 
     public IUserDao getUserDao() {
