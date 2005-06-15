@@ -8,7 +8,7 @@
     xmlns:layout="urn:jsptagdir:/WEB-INF/tags/gsml"
     >
     <jsp:output doctype-root-element="html"
-        doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+        doctype-public="-//W3C//DTD XHTML 1.1 Transitional//EN"
         doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <jsp:directive.page contentType="text/html"/>
     <html lang="en">
@@ -61,8 +61,7 @@ function showImage(image,number) {
      		" border=0" +
      		" width=260" +
      		" height=200" +
-     		"/><br />" +
-             getJoinNow();
+     		"/>";
 	showdesc(innerHtml, number);
 }
 
@@ -73,15 +72,10 @@ function showBrBrImage(image,number) {
              " src='res/img/5steps/"+image+"'" +
      		" border=0" +
      		" width=260" +
-     		"/><br \/>" +
-     		getJoinNow();
+     		"/>";
 	showdesc(innerHtml, number);
 }
 
-function getJoinNow() {
-    var s = '<a href="https://secure.greatschools.net/subscribe.page?state=]]>${sessionScope.context.stateOrDefault.abbreviation}<![CDATA[&host=]]>${sessionScope.context.hostName}<![CDATA["><img src="res/img/5steps/btn_getunlimitedaccessnow.gif" alt="Join now for just $16.95" vspace="5" hspace="45" align="right"/></a>';
-    return s;
-}
 
         </script>
         ]]>
@@ -106,11 +100,14 @@ function getJoinNow() {
     position:absolute; top: 6px;
     padding: 0px 20px 0px 10px;
     }
-    #header div.column2,
-    #header div.column3 {
-    font-size:80%;
-    padding: 10px 10px 0px 0px;
-    }
+#header div.column2 {
+font-size:80%;
+padding: 10px 10px 0px 0px;
+}
+#header div.column3 {
+font-size:70%;
+padding: 10px 10px 0px 0px;
+}
 #header div.column2 input {
 font-size:100%;
 }
@@ -186,7 +183,7 @@ font-size:100%;
     }
     .screenshot {
     float:right;
-    margin: 0px 0px 0px 0px;
+    margin: 0px 10px 0px 0px;
     width:280px;
     float: right;
     }
@@ -229,8 +226,7 @@ font-size:100%;
                                                 <br/>
                                                 <input name="email" type="text" value="your username" size="20" onfocus="this.value='';"/>
                                                 &#160;
-                                                <input style="width: 50px; height: 20px;"
-                                                    alt="Sign In" type="submit" value="Sign In"></input>
+                                                <input type="image" value="submit" src="res/img/5steps/btn_signin.gif" alt="Sign In"/>
                                             </div>
                                         </form>
                                     </td>
@@ -262,11 +258,6 @@ font-size:100%;
                                     <br/>
                                     <div class="screenshot" id="screenshot0">
                                         <img src="res/img/5steps/screenshot_1.gif" alt="screenshot" border="0" width="390" height="150"/>
-                                        <br/>
-                                        <a href="https://secure.greatschools.net/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;amp;host=${sessionScope.context.hostName}">
-                                            <img src="res/img/5steps/btn_getunlimitedaccessnow.gif" alt="Join now for just $16.95" vspace="5" hspace="45" align="right"/>
-                                        </a>
-
                                     </div>
                                   More than 2 million parents turn to us every month for help choosing
                                   and evaluating schools. Get the best of our expertise with time-saving
@@ -304,11 +295,6 @@ font-size:100%;
                                 <div id="panel2" class="panel">
                                     <div class="screenshot" id="screenshot2">
                                         <img src="res/img/5steps/screenshot8.gif" alt="screenshot" border="0" width="260" height="200"/>
-                                        <br/>
-                                        <a href="https://secure.greatschools.net/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;amp;host=${sessionScope.context.hostName}">
-                                            <img src="res/img/5steps/btn_getunlimitedaccessnow.gif" alt="Join now for just $16.95" vspace="5" hspace="45" align="right"/>
-                                        </a>
-
                                     </div>
                                     <h3> STEP 2: What choices do you really have? What are the pros and
                                     cons of each one?</h3>
@@ -338,11 +324,6 @@ font-size:100%;
                                         <br/>
                                         <br/>
                                         <img src="res/img/5steps/step3_scorerating.jpg" alt="screenshot" border="0" width="260"/>
-                                        <br/>
-                                        <a href="https://secure.greatschools.net/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;amp;host=${sessionScope.context.hostName}">
-                                            <img src="res/img/5steps/btn_getunlimitedaccessnow.gif" alt="Join now for just $16.95" vspace="5" hspace="45" align="right"/>
-                                        </a>
-
                                     </div>
                                     <h3> STEP 3: Need help identifying which public schools match your
                                     priorities for your child and family?</h3>
@@ -364,11 +345,6 @@ font-size:100%;
                                 <div id="panel4" class="panel">
                                     <div class="screenshot" id="screenshot4">
                                         <img src="res/img/5steps/parentratings.gif" alt="screenshot" border="0" width="260" height="200"/>
-                                        <br/>
-                                        <a href="https://secure.greatschools.net/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;amp;host=${sessionScope.context.hostName}">
-                                            <img src="res/img/5steps/btn_getunlimitedaccessnow.gif" alt="Join now for just $16.95" vspace="5" hspace="45" align="right"/>
-                                        </a>
-
                                     </div>
                                     <h3> STEP 4: What are the schools on my list really like? </h3>
                                   Dig into the details of each school. We've crunched the numbers to
@@ -393,11 +369,6 @@ font-size:100%;
                                 <div id="panel5" class="panel">
                                     <div class="screenshot" id="screenshot5">
                                         <img src="res/img/5steps/screenshot3.gif" alt="screenshot" border="0" width="260" height="200"/>
-                                        <br/>
-                                        <a href="https://secure.greatschools.net/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;amp;host=${sessionScope.context.hostName}">
-                                            <img src="res/img/5steps/btn_getunlimitedaccessnow.gif" alt="Join now for just $16.95" vspace="5" hspace="45" align="right"/>
-                                        </a>
-
                                     </div>
                                     <h3>STEP 5: What should I look for when I visit schools?</h3>
                                   No amount of research can take the place of a school visit. We'll
@@ -474,10 +445,9 @@ font-size:100%;
                                             <ul class="arrow">
                                                 <li>Take 3 minutes to review
                                                     <a href="http://${sessionScope.context.hostName}/cgi-bin/site/findschool2review.cgi/${sessionScope.context.stateOrDefault.abbreviation}/">
-                                                    your child's school
-                                                    </a>
+                                                    your child's school</a>.
                                                 </li>
-                                                <li>Hit "submit."</li>
+                                                <li>Hit "Submit."</li>
                                                 <li>Select one school of your choice to see exclusive content.</li>
                                             </ul>
                                         </td>
@@ -486,7 +456,7 @@ font-size:100%;
                                                 <b>Not ready to join?</b>
                                                 <br/>
                                                 <a href="http://${sessionScope.context.hostName}/cgi-bin/site/findschool2review.cgi/${sessionScope.context.stateOrDefault.abbreviation}/">
-                                                    <img src="res/img/5steps/btn_seeoneschoolforfree.gif" alt="See one school for FREE" vspace="5" hspace="10"/>
+                                                    <img src="res/img/5steps/btn_seeoneschoolforfree.gif" alt="See one school for FREE" vspace="5" hspace="10" border="0"/>
                                                 </a>
                                             </div>
                                         </td>
