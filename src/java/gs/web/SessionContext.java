@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.2 2005/06/15 17:16:24 apeterson Exp $
+ * $Id: SessionContext.java,v 1.3 2005/06/17 21:38:59 apeterson Exp $
  */
 package gs.web;
 
@@ -71,20 +71,30 @@ public class SessionContext {
      * for "standard" request processing to be done.
      */
     public void setRequest(HttpServletRequest httpServletRequest) {
+
         // Find the cookie that pertains to the user
-        if (_user == null) {
-            // we probably don't need to do this every time, but for now
-            // while we are jumping back and forth with the perl code, we do.
-            Cookie[] cookies = httpServletRequest.getCookies();
-            if (cookies != null) {
-                for (int i = 0; i < cookies.length; i++) {
-                    Cookie thisCookie = cookies[i];
-                    if ("MEMBER".equals(thisCookie.getName())) {
-                        String id = thisCookie.getValue();
-                        User user = _userDao.getUserFromId(new Long(id));
-                        _user = user;
-                    }
+        // We don't need to do this every time, but for now
+        // while we are jumping back and forth with the perl code, we do.
+        // Doing it every time is really special-case code for Priya's QA scenarios;
+        // sign in, visit java page, sign out (perl), and then return to java
+        // page. It  used to think you were still signed in.
+        Long cookieId = null;
+        Cookie[] cookies = httpServletRequest.getCookies();
+        if (cookies != null) {
+            for (int i = 0; i < cookies.length; i++) {
+                Cookie thisCookie = cookies[i];
+                if ("MEMBER".equals(thisCookie.getName())) {
+                    String id = thisCookie.getValue();
+                    cookieId = new Long(id);
                 }
+            }
+        }
+
+        if (cookieId != null) {
+            // No previous login information or different user.
+            if (_user == null || !_user.getId().equals(cookieId)) {
+                User user = _userDao.getUserFromId(cookieId);
+                _user = user;
             }
         }
 
