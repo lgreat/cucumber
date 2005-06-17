@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.2 2005/06/09 21:34:25 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.3 2005/06/17 21:39:15 apeterson Exp $
  */
 package gs.web.community;
 
@@ -236,6 +236,7 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         redirectView.addStaticAttribute("firstName", command.getUser().getFirstName());
         redirectView.addStaticAttribute("lastName", command.getUser().getLastName());
         redirectView.addStaticAttribute("price", command.getSubscriptionPrice());
+        redirectView.addStaticAttribute("priceCents", Integer.toString(command.getPrice().asCents()));
         redirectView.addStaticAttribute("longName", command.getSubscriptionProduct().getLongName());
         redirectView.addStaticAttribute("expires", df.format(command.getSubscription().getExpires()));
         redirectView.addStaticAttribute("updated", df.format(command.getSubscription().getUpdated()));

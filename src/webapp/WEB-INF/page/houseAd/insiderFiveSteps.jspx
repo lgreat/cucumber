@@ -473,8 +473,8 @@ font-size:100%;
                     </td>
                 </tr>
             </table>
-            <gsml:fireclick pageType="conversion" pageName="five steps"/>
-
+            <gsml:fireclick pageType="conversion" pageName="five steps"
+                extraJavascriptVariable="var fc_track='view';var fc_prod_view='GreatSchools Insider';" />
         </body>
     </html>
 </jsp:root>

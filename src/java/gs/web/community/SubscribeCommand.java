@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeCommand.java,v 1.1 2005/06/06 18:03:38 apeterson Exp $
+ * $Id: SubscribeCommand.java,v 1.2 2005/06/17 21:39:20 apeterson Exp $
  */
 package gs.web.community;
 
@@ -130,6 +130,10 @@ public class SubscribeCommand implements Serializable {
 
     public Price getPrice() {
         return _subscriptionPrice;
+    }
+
+    public int getPriceAsCents() {
+        return _subscriptionPrice.asCents();
     }
 
     public String getHost() {

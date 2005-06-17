@@ -76,41 +76,6 @@
                             <p>Or, return to the
                                 <a href="http://${sessionScope.context.hostName}/modperl/go/${sessionScope.context.stateOrDefault.abbreviation}">GreatSchools home page</a>.
                             </p>
-
-                            <!--                            <b>Start using the service now</b>-->
-                            <!--                            <br/>-->
-                            <!--                            You are currently signed in.-->
-                            <!--                            <br/>-->
-                            <!--                             Start using the service now:-->
-                            <!--                            <br/>-->
-                            <!--                            <br/>-->
-                            <!--                            Here's some quick links-->
-                            <!--                            to get you started:-->
-                            <!--                            <ul>-->
-                            <!--                                <li>-->
-                            <!--                                    <a href="http://${sessionScope.context.hostName}/cgi-bin/site/help_for_parents.cgi/${sessionScope.context.stateOrDefault.abbreviation}">-->
-                            <!--                                                    ${sessionScope.context.stateOrDefault.abbreviation} School Choice Options-->
-                            <!--                                    </a>-->
-                            <!--                                </li>-->
-                            <!--                                <li>-->
-                            <!--                                    <a href="http://${sessionScope.context.hostName}/cgi-bin/site/rank_overview.cgi/${sessionScope.context.stateOrDefault.abbreviation}">Top-Rated Public Schools</a>-->
-                            <!--                                </li>-->
-                            <!--                                <li>-->
-                            <!--                                    <a href="http://${sessionScope.context.hostName}/cgi-bin/ratingsrch/${sessionScope.context.stateOrDefault.abbreviation}">1-to-5 Star Ratings</a>-->
-                            <!--                                </li>-->
-                            <!--                                <li>-->
-                            <!--                                    <a href="http://${sessionScope.context.hostName}/cgi-bin/commentsrch/${sessionScope.context.stateOrDefault.abbreviation}">Parent Ratings and Reviews</a>-->
-                            <!--                                </li>-->
-                            <!--                                <c:if test="${not empty(param.hasYellowFlags)}">-->
-                            <!--                                    <li>-->
-                            <!--                                        <a href="http://${sessionScope.context.hostName}/cgi-bin/ratingsrch/${sessionScope.context.stateOrDefault.abbreviation}">Yellow Flag Alerts</a>-->
-                            <!--                                    </li>-->
-                            <!--                                </c:if>-->
-                            <!--                            </ul>-->
-
-                            <!--        Or, return to the-->
-                            <!--                            <a href="http://${sessionScope.context.hostName}/modperl/go/${sessionScope.context.stateOrDefault.abbreviation}">GreatSchools home page</a>.-->
-                            <!--                            <br/>-->
                             <br/>
                             <b>Additional information</b>
                             <br/>
@@ -150,12 +115,10 @@
                 </table>
             </gsml:wizard>
 
-            <!--jsp:include page="/footer/copyright.module"/-->
             <jsp:include page="/footer/copyright.module"/>
 
-            <gsml:fireclick pageType="conversion" pageName="subscribe"
-                extraJavascriptVariable="var fc_track='paid';"/>
-
+            <gsml:fireclick pageType="conversion" pageName="confirmation"
+                extraJavascriptVariable="var fc_track='confirmation';var fc_prod_buy='${param.longName}?1?${param.priceCents}';var fc_order='${param.priceCents}';"/>
         </body>
     </html>
 </jsp:root>
