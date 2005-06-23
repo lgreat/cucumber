@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.3 2005/06/17 21:39:15 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.4 2005/06/23 16:34:46 apeterson Exp $
  */
 package gs.web.community;
 
@@ -139,15 +139,13 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         SubscribeCommand command = (SubscribeCommand) o;
 
         User user = command.getUser();
-        boolean updateUserInfo = false; // Do we need to update the user's information?
+        // getId() should always be null, but in case the code above changes, check first.
 
-// getId() should always be null, but in case the code above changes, check first.
         final User existingUser = _userDao.getUserFromEmailIfExists(user.getEmail());
         if (existingUser != null) {
-            updateUserInfo = true;
-// We set this flag and only update if the transaction goes through.
-// The thought was to prevent some bogus screwing around from updating what
-// information we have.
+            // We set this flag and only update if the transaction goes through.
+            // The thought was to prevent some bogus screwing around from updating what
+            // information we have.
             existingUser.setFirstName(user.getFirstName());
             existingUser.setLastName(user.getLastName());
             existingUser.getAddress().setStreet(user.getAddress().getStreet());
@@ -156,26 +154,26 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
             existingUser.getAddress().setZip(user.getAddress().getZip());
             user = existingUser;
         }
-        _userDao.saveUser(user);
 
-// If for some reason we didn't get a state when the user entered the page,
-// we default to their home, credit card state.
+        // If for some reason we didn't get a state when the user entered the page,
+        // we default to their home, credit card state.
         if (command.getState() == null) {
             command.setState(user.getState());
         }
 
 
-// Transfer the credit card expiration date into the CreditCardInfo object.
-// We don't expose this in the command to prevent hacking. Alternatively,
-// you could specify read-only parameters via config.
+        // Transfer the credit card expiration date into the CreditCardInfo object.
+        // We don't expose this in the command to prevent hacking. Alternatively,
+        // you could specify read-only parameters via config.
         CreditCardInfo cardInfo = new CreditCardInfo();
         cardInfo.setTransactionAmount(command.getPrice());
         cardInfo.setNumber(command.getCreditCardNumber());
         cardInfo.setExpirationMonth(Integer.parseInt(command.getExpirationMonth()));
         cardInfo.setExpirationYear(Integer.parseInt(command.getExpirationYear()));
 
-// Make the purchase. Throws an exception if the purchase doesn't go through.
+        // Make the purchase. Throws an exception if the purchase doesn't go through.
         Subscription subscription = null;
+        _userDao.saveUser(user);
         try {
             subscription = _purchaseManager.purchaseSubscription(user,
                     command.getSubscriptionProduct(),
