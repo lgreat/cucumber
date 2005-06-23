@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.4 2005/06/23 16:34:46 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.5 2005/06/23 17:46:41 apeterson Exp $
  */
 package gs.web.community;
 
@@ -13,6 +13,10 @@ import gs.web.SessionContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,12 +34,13 @@ import java.util.*;
  * @author Andrew J. Peterson <mailto:apeterson@greatschools.net>
  */
 public class SubscribeController extends org.springframework.web.servlet.mvc.SimpleFormController {
-    private static Log _log = LogFactory.getLog(SubscribeController.class);
+    private static final Log _log = LogFactory.getLog(SubscribeController.class);
 
     private PurchaseManager _purchaseManager;
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
     private StateManager _stateManager;
+    private PlatformTransactionManager _transactionManager;
 
     private static final String EMAIL_PARAM = "email";
     private static final String URL_PARAM = "url";
@@ -128,7 +133,9 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
     }
 
 
-    protected void onBindAndValidate(HttpServletRequest httpServletRequest, Object o, BindException be)
+    protected void onBindAndValidate(final HttpServletRequest httpServletRequest,
+                                     final Object o,
+                                     final BindException be)
             throws Exception {
         // This method gets called whether
         // there are errors or not. Don't bother proceeding if there are errors.
@@ -136,8 +143,17 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
             return;
         }
 
-        SubscribeCommand command = (SubscribeCommand) o;
+        final SubscribeCommand command = (SubscribeCommand) o;
 
+        TransactionTemplate template = new TransactionTemplate(_transactionManager);
+        template.execute(new TransactionCallbackWithoutResult() {
+            protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
+                makePurchase(command, be);
+            }
+        });
+    }
+
+    private void makePurchase(SubscribeCommand command, BindException be) {
         User user = command.getUser();
         // getId() should always be null, but in case the code above changes, check first.
 
@@ -277,5 +293,13 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
 
     public void setStateManager(StateManager stateManager) {
         _stateManager = stateManager;
+    }
+
+    public PlatformTransactionManager getTransactionManager() {
+        return _transactionManager;
+    }
+
+    public void setTransactionManager(PlatformTransactionManager transactionManager) {
+        _transactionManager = transactionManager;
     }
 }
