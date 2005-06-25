@@ -7,7 +7,7 @@ Also, make sure your tomcat has the admin user with password gsadmin.
 2. To deploy without running unit tests:
 
 maven -Dmaven.test.skip=true tomcat:install 
-(or tomcat:reload or tomcat:uninstall)
+(or tomcat:reload or tomcat:remove)
 
 3. To deploy, you'll need to have the certificates installed on your system.
 
