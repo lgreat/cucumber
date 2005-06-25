@@ -9,6 +9,9 @@ Also, make sure your tomcat has the admin user with password gsadmin.
 maven -Dmaven.test.skip=true tomcat:install 
 (or tomcat:reload or tomcat:remove)
 
+Note: runinng tomcat:install also copies CVS files over to target/gs-web/ so that you can
+edit JSP files in the exploded war without redeploying.
+
 3. To deploy, you'll need to have the certificates installed on your system.
 
 Currently it's in this folder:

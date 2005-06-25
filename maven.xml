@@ -7,9 +7,24 @@
  -->
 
 <project xmlns:j="jelly:core" xmlns:ant="jelly:ant" default="war">
-  <preGoal name="java:compile">
-    <mkdir dir="${maven.build.dir}/xdoclet/webdoclet/WEB-INF" />
-  	<attainGoal name="xdoclet:webdoclet" />
-  </preGoal>
+
+    <preGoal name="java:compile">
+        <mkdir dir="${maven.war.webapp.dir}/WEB-INF"/>
+        <attainGoal name="xdoclet:webdoclet"/>
+    </preGoal>
+
+    <!-- Copy CVS files over to exploded war so designers can edit real-time and commit -->
+    <preGoal name="tomcat:install">
+        <attainGoal name="add-cvs-to-exploded-war"/>
+    </preGoal>
+
+    <goal name="add-cvs-to-exploded-war"
+        description="Adds CVS files to exploded WAR to allow inline JSP editing">
+        <copy todir="${maven.war.webapp.dir}">
+            <fileset dir="${maven.src.dir}/webapp"
+                includes="**/CVS/*" defaultexcludes="no"/>
+        </copy>
+    </goal>
+
 </project>
 
