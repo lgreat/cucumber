@@ -10,7 +10,7 @@
         <h5 class="ncopy">GreatSchools.net
             Elementary, middle and high school information for public, private and charter schools nationwide.</h5>
         <h6>&#169;1998-2005 GreatSchools Inc. All Rights Reserved.
-            <a href="http://${sessionScope.context.hostName}/">Home</a>
+            <a href="http://${sessionScope.context.hostName}/modperl/go/${sessionScope.context.stateOrDefault.abbreviation}/">Home</a>
             |
             <a href="http://${sessionScope.context.hostName}/cgi-bin/static/terms.html/${sessionScope.context.stateOrDefault.abbreviation}">Terms of Use</a>
         </h6>

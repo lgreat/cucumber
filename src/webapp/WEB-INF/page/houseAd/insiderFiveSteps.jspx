@@ -224,7 +224,7 @@ font-size:100%;
                                         <form method="post" action="http://${sessionScope.context.hostName}/cgi-bin/membership/${sessionScope.context.stateOrDefault.abbreviation}">
                                             <div class="column2">Already a subscriber?
                                                 <br/>
-                                                <input name="email" type="text" value="your username" size="20" onfocus="this.value='';"/>
+                                                <input name="email" type="text" value="Enter your username" size="20" onfocus="this.value='';"/>
                                                 &#160;
                                                 <input type="image" value="submit" src="res/img/5steps/btn_signin.gif" alt="Sign In"/>
                                             </div>

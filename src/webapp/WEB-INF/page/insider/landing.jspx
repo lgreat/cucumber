@@ -182,7 +182,9 @@ padding: 0 0 0 10px;
         <body>
             <div id="header">
                 <div class="column1">
-                    <img src="res/img/GS_logo.gif" alt="GreatSchools.net logo" width="200" height="81"/>
+                    <a
+                        href="http://${sessionScope.context.hostName}/modperl/go/${sessionScope.context.stateOrDefault.abbreviation}/"
+                        ><img src="res/img/GS_logo.gif" alt="GreatSchools.net logo" width="200" height="81" border="0"/></a>
                 </div>
 
                 <div class="column2">
