@@ -2,3 +2,4 @@ gs-web.iml
 gs-web.ipr
 gs-web.iws
 target
+build.properties
