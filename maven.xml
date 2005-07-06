@@ -14,7 +14,7 @@
     </preGoal>
 
     <!-- Copy CVS files over to exploded war so designers can edit real-time and commit -->
-    <preGoal name="tomcat:install">
+    <preGoal name="war:webapp">
         <attainGoal name="add-cvs-to-exploded-war"/>
     </preGoal>
 
