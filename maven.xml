@@ -13,18 +13,5 @@
         <attainGoal name="xdoclet:webdoclet"/>
     </preGoal>
 
-    <!-- Copy CVS files over to exploded war so designers can edit real-time and commit -->
-    <preGoal name="war:webapp">
-        <attainGoal name="add-cvs-to-exploded-war"/>
-    </preGoal>
-
-    <goal name="add-cvs-to-exploded-war"
-        description="Adds CVS files to exploded WAR to allow inline JSP editing">
-        <copy todir="${maven.war.webapp.dir}">
-            <fileset dir="${maven.src.dir}/webapp"
-                includes="**/CVS/*" defaultexcludes="no"/>
-        </copy>
-    </goal>
-
 </project>
 
