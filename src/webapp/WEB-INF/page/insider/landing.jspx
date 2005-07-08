@@ -184,7 +184,9 @@ padding: 0 0 0 10px;
                 <div class="column1">
                     <a
                         href="http://${sessionScope.context.hostName}/modperl/go/${sessionScope.context.stateOrDefault.abbreviation}/"
-                        ><img src="res/img/GS_logo.gif" alt="GreatSchools.net logo" width="200" height="81" border="0"/></a>
+                        >
+                        <img src="res/img/GS_logo.gif" alt="GreatSchools.net logo" width="200" height="81" border="0"/>
+                    </a>
                 </div>
 
                 <div class="column2">
@@ -321,7 +323,7 @@ Use interactive search to identify an area, or to focus in on the schools that
                         </h4>
                         <ul>
                             <li>
-See which schools get four or five stars based on our exclusive ratings.
+See which schools rank highest based on our exclusive ratings.
                             </li>
                         </ul>
                         <h4>
@@ -341,7 +343,8 @@ Save your potential matches for quick access to on future visits to GreatSchools
 Compare schools based on criteria that matter most to you.
                             </li>
                             <li>
-Line up schools side by side to compare their one- to five- star ratings<c:if test="${sessionScope.context.state.yellowFlagState}">
+Line up schools side by side to compare their ratings
+                                <c:if test="${sessionScope.context.state.yellowFlagState}">
 and to see which have yellow flag alerts highlighting
 areas of potential concern</c:if>.
                             </li>
@@ -372,8 +375,7 @@ Start with schools you've saved to
                         </p>
                         <ul>
                             <li>
-                                <a href="http://${sessionScope.context.hostName}/cgi-bin/ratingsrch/${sessionScope.context.stateOrDefault.abbreviation}">One-to-Five
-        Star Ratings</a>
+                                <a href="http://${sessionScope.context.hostName}/cgi-bin/ratingsrch/${sessionScope.context.stateOrDefault.abbreviation}">Exclusive GreatSchools Ratings</a>
                             </li>
                             <li>
                                 <a href="http://${sessionScope.context.hostName}/cgi-bin/commentsrch/${sessionScope.context.stateOrDefault.abbreviation}">Parent Reviews</a>
