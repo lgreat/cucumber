@@ -351,7 +351,7 @@ font-size:100%;
                                   help you interpret the data, plus real parents have shared their opinions.
                                     <ul class="arrow">
                                         <li>
-                                            <a href="javascript:showImage('parentratings.gif',4)">Exclusive Greatschools Ratings</a>
+                                            <a href="javascript:showImage('parentratings.gif',4)">Exclusive GreatSchools Ratings</a>
                                         </li>
                                         <c:if test="${sessionScope.context.state.yellowFlagState}">
                                             <li>
