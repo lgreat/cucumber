@@ -17,9 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
- * Controller for showing the build version and database connectivity check
+ * Controller for showing the build _versionProperties and database connectivity check
  */
 public class MonitorController implements Controller {
 
@@ -45,14 +46,18 @@ public class MonitorController implements Controller {
      */
     private IPartitionDao _partitionDao;
 
+    /**
+     * The version of GSWeb
+     */
+    private Properties _versionProperties;
+
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         Map model = new HashMap();
 
-        // Get the version
-        String version = "0.1 Test";
-        model.put("version", version);
+        // Set the version
+        model.put("version", _versionProperties.getProperty("gsweb.buildtime"));
 
         // Test reading and writing to the main gs_school database
         boolean mainReadWrite = false;
@@ -113,5 +118,11 @@ public class MonitorController implements Controller {
         this._viewName = viewName;
     }
 
+    public Properties getVersionProperties() {
+        return _versionProperties;
+    }
 
+    public void setVersionProperties(Properties versionProperties) {
+        this._versionProperties = versionProperties;
+    }
 }

@@ -11,6 +11,7 @@
     <preGoal name="java:compile">
         <mkdir dir="${maven.war.webapp.dir}/WEB-INF"/>
         <attainGoal name="xdoclet:webdoclet"/>
+        <attainGoal name="create-build-version"/>
     </preGoal>
 
     <!-- Copy the Spring XML config files to the test dir for BaseTestCase -->
@@ -21,6 +22,13 @@
             </fileset>
         </copy>
     </preGoal>
+
+    <!-- Create a version.properties file with the build info -->
+    <goal name="create-build-version">
+        <ant:propertyfile file="${maven.build.dest}/version.properties">
+            <entry key="gsweb.buildtime" type="date" default="now"/>
+        </ant:propertyfile>
+    </goal>
 
 </project>
 

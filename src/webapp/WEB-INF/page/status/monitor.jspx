@@ -53,7 +53,7 @@
             <!-- Opted for a table instead of pure CSS since this truly is a table -->
             <table class="statusbox">
                 <tr>
-                    <td class="statustitle">GSWeb version</td>
+                    <td class="statustitle">GSWeb build date/time (PST)</td>
                     <td class="statusvalue" colspan="2"><c:out value="${version}"/></td>
                 </tr>
                 <tr>

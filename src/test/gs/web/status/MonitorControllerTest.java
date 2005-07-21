@@ -17,7 +17,6 @@ public class MonitorControllerTest extends BaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         _controller = (MonitorController) _sApplicationContext.getBean(MonitorController.BEAN_ID);
-
     }
 
     /**

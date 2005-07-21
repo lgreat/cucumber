@@ -121,6 +121,13 @@
         </property>
     </bean>
 
+    <bean id="versionProperties"
+        class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location">
+            <value>classpath:version.properties</value>
+        </property>
+    </bean>
+
     <bean id="subscribeValidator" class="gs.web.community.SubscribeValidator"></bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
