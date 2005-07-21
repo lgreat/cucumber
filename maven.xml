@@ -13,5 +13,14 @@
         <attainGoal name="xdoclet:webdoclet"/>
     </preGoal>
 
+    <!-- Copy the Spring XML config files to the test dir for BaseTestCase -->
+    <preGoal name="test:test">
+        <copy todir="${maven.test.dest}">
+            <fileset dir="${maven.src.dir}/webapp/WEB-INF">
+                <include name="**/*.xml"/>
+            </fileset>
+        </copy>
+    </preGoal>
+
 </project>
 

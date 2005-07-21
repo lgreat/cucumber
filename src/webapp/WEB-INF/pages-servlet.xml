@@ -113,6 +113,14 @@
         </property>
     </bean>
 
+    <!-- Status monitor to verify that database access is working and build version -->
+    <bean name="/status/monitor.page"
+        class="gs.web.status.MonitorController" autowire="byName">
+        <property name="viewName">
+            <value>status/monitor</value>
+        </property>
+    </bean>
+
     <bean id="subscribeValidator" class="gs.web.community.SubscribeValidator"></bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
