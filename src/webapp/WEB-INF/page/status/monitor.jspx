@@ -19,10 +19,55 @@
             <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
             ]]>
-            <title>GreatSchools GSWeb Monitoring Page</title>
+            <title>GreatSchools GSWeb Status Page</title>
+             <style type="text/css">
+                body {
+                    text-align: center;
+                }
+                h1 {
+                    font-family: Georgia, serif;
+                    font-variant: small-caps;
+                    font-size: 12pt;
+                }
+                .statusbox {
+                    width: 500px;
+                    border: thin dashed black;
+                    padding: 10px;
+                    background: #E8E8E8;
+                    margin: 0 auto;
+                }
+                .statustitle {
+                    text-align: left;
+                    color: #333399;
+                }
+                .statusvalue {
+                    text-align: left;
+                    text-transform: capitalize;
+                    color: #AA3333;
+                }
+            </style>
         </head>
         <body>
-            Hello
+            <h1>GSWeb Status Page</h1>
+
+            <!-- Opted for a table instead of pure CSS since this truly is a table -->
+            <table class="statusbox">
+                <tr>
+                    <td class="statustitle">GSWeb version</td>
+                    <td class="statusvalue" colspan="2"><c:out value="${version}"/></td>
+                </tr>
+                <tr>
+                    <td class="statustitle">Main database read/write test</td>
+                    <td class="statusvalue"><c:out value="${mainReadWrite}"/></td>
+                    <td class="statuserror"><c:out value="${mainError}"/></td>
+                </tr>
+                <tr>
+                    <td class="statustitle">State database read/write test</td>
+                    <td class="statusvalue"><c:out value="${stateReadWrite}"/></td>
+                    <td class="statuserror"><c:out value="${stateError}"/></td>
+                </tr>
+            </table>
+
         </body>
     </html>
 </jsp:root>
