@@ -59,6 +59,17 @@ public class MonitorController implements Controller {
         // Set the version
         model.put("version", _versionProperties.getProperty("gsweb.buildtime"));
 
+        // Set the hostname
+        String hostname = "Unable to resolve hostname";
+        try {
+            java.net.InetAddress localMachine =
+                    java.net.InetAddress.getLocalHost();
+            hostname = localMachine.getHostName();
+        } catch (java.net.UnknownHostException e) {
+            // No need to do anything
+        }
+        model.put("hostname", hostname);
+
         // Test reading and writing to the main gs_school database
         boolean mainReadWrite = false;
         String mainError = "";

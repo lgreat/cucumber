@@ -29,6 +29,7 @@ public class MonitorControllerTest extends BaseTestCase {
         Map model = mv.getModel();
         assertNotNull(model);
         assertTrue(((String) model.get("version")).length() > 0);
+        assertTrue(((String) model.get("hostname")).length() > 0);
         assertTrue(((Boolean) model.get("mainReadWrite")).booleanValue());
         assertEquals(model.get("mainError"), "");
         assertTrue(((Boolean) model.get("stateReadWrite")).booleanValue());

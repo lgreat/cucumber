@@ -57,6 +57,10 @@
                     <td class="statusvalue" colspan="2"><c:out value="${version}"/></td>
                 </tr>
                 <tr>
+                    <td class="statustitle">Tomcat host serving request</td>
+                    <td class="statusvalue" colspan="2"><c:out value="${hostname}"/></td>
+                </tr>
+                <tr>
                     <td class="statustitle">Main database read/write test</td>
                     <td class="statusvalue"><c:out value="${mainReadWrite}"/></td>
                     <td class="statuserror"><c:out value="${mainError}"/></td>
