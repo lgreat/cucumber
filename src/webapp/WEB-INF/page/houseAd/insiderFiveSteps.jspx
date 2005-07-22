@@ -233,7 +233,7 @@ font-size:100%;
                                     <td style="text-align: right">
                                         <div class="column3">Contact
                                             <br/>
-                                            <a class="nohover" href="mailto:customersupport@greatschools.net">Customer Support</a>
+                                            <a class="nohover" href="http://${sessionScope.context.hostName}/cgi-bin/feedback_faq/${sessionScope.context.stateOrDefault.abbreviation}?fbtype=subentry">Customer Support</a>
                                         </div>
                                     </td>
                                 </tr>
