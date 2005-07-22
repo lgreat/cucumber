@@ -99,6 +99,14 @@
             <url>http://xdoclet.sf.net/</url>
         </dependency>
 
+        <dependency>
+            <groupId>displaytag</groupId>
+            <artifactId>displaytag</artifactId>
+            <version>1.0</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
 
         <!-- HttpUnit dependencies -->
         <dependency>
