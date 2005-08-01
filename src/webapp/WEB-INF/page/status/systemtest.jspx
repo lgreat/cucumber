@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+    xmlns="http://www.w3c.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+    xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+    >
+    <html lang="en">
+
+        <jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+        <jsp:directive.page contentType="text/html"/>
+
+        <head>
+
+<script language="javascript" type="text/javascript">
+
+    function showFeed() {
+        var output = document.getElementById('output');
+        //clear output div
+        while(output.hasChildNodes()){
+            output.removeChild(output.childNodes[0]);
+        }
+        //append new htmlfragment
+        output.appendChild("this is some text");
+    }
+
+function getHtmlFragment(xmlUrl, xslUrl) {
+    var xslStylesheet;
+    var xsltProcessor = new XSLTProcessor();
+
+    //load the xml file
+    var xmlSource = getResponseXml(xmlUrl).responseXML;
+
+    //load the xsl file into the xslt Processor
+    xslStylesheet = getResponseXml(xslUrl).responseXML;
+    xsltProcessor.importStylesheet(xslStylesheet);
+
+    return xsltProcessor.transformToFragment(xmlSource, document);
+}
+
+function getResponseXml(xmlUrl) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", xmlUrl, false);
+    xmlHttp.send(null);
+    return xmlHttp;
+}
+
+</script>
+
+            <![CDATA[
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+            ]]>
+            <title>GreatSchools GSWeb System Test Page</title>
+             <style type="text/css">
+                body {
+                    text-align: center;
+                }
+                h1 {
+                    font-family: Georgia, serif;
+                    font-variant: small-caps;
+                    font-size: 12pt;
+                }
+
+                #output {
+                    background: #eee;
+                    border: 1px dotted #ccc;
+                    height: 300px;
+                    overflow: auto;
+                    width: 400px
+                }
+
+                .statusbox {
+                    width: 500px;
+                    border: thin dashed black;
+                    padding: 10px;
+                    background: #E8E8E8;
+                    margin: 0 auto;
+                }
+                .statustitle {
+                    text-align: left;
+                    color: #333399;
+                }
+                .statusvalue {
+                    text-align: left;
+                    text-transform: capitalize;
+                    color: #AA3333;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>GSWeb System Tests Page</h1>
+
+            <table class="statusbox">
+                <tr>
+                    <td class="statustitle" colspan="2" rowspan="1">
+                         Start Logging Test:
+                        <form action="post">
+                            <input type="submit" value="Start" />
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="statustitle">Log4j Level: </td>
+                    <td class="statusvalue" colspan="2"><c:out value="Level Test"/></td>
+                </tr>
+                <tr>
+                    <td class="statustitle">Logfile: </td>
+                    <td class="statusvalue" colspan="2"><c:out value="File Path"/></td>
+                </tr>
+                <tr>
+                    <td class="statustitle">Logfile Test: </td>
+                    <td class="statusvalue" colspan="2"><c:out value="File Test"/></td>
+                </tr>
+                <tr>
+                    <td class="statustitle">Email Log Test: </td>
+                    <td class="statusvalue"><c:out value="Email Test"/></td>
+                </tr>
+            </table>
+            <a href="" onclick="showFeed ();">Run Logging Test</a>
+            <div id="output"></div>
+        </body>
+    </html>
+</jsp:root>
+
