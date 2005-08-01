@@ -57,6 +57,13 @@
         </property>
     </bean>
 
+	<bean name="/search.page" class="gs.web.search.SearchController"
+          autowire="byName">
+        <property name="searcher">
+            <ref bean="searcher" />
+        </property>
+    </bean>
+
     <bean name="/thankyou.page"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
@@ -121,6 +128,7 @@
         </property>
     </bean>
 
+
     <bean id="versionProperties"
         class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="location">
@@ -152,5 +160,6 @@
     <!--            </map>-->
     <!--        </property>-->
     <!--    </bean>-->
+
 
 </beans>

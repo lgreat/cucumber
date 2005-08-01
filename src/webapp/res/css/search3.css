@@ -1,0 +1,37 @@
+searchresultset {
+    border : dashed thin blue
+    padding : 3mm
+}
+
+div.searchresult {
+    border-bottom : dotted thin black;
+    padding-bottom : 2mm;
+    margin-bottom : 3mm
+}
+
+.schoolname {
+   color : blue
+}
+
+.address {
+    color : gray;
+}
+
+.rating {
+   position : relative;
+   right : auto
+}
+
+.headline {
+   color : blue;
+   position : relative;
+   left : auto
+}
+
+.abstract {
+}
+
+.highlight {
+    font-weight : 800
+}
+

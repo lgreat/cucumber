@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+    xmlns="http://www.w3c.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+    >
+    <html lang="en">
+
+        <jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+        <jsp:directive.page contentType="text/html"/>
+
+        <head>
+
+
+            <![CDATA[
+            <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+            <link rel="stylesheet" href="res/css/spp2.css"></link>
+            ]]>
+
+            <c:choose>
+                <c:when test="${param.style == 2}">
+                    <![CDATA[
+            <link rel="stylesheet" href="res/css/search2.css"></link>
+            ]]>
+                </c:when>
+                <c:when test="${param.style == 3}">
+                    <![CDATA[
+            <link rel="stylesheet" href="res/css/search3.css"></link>
+            ]]>
+                </c:when>
+                <c:when test="${param.style == 4}">
+                    <![CDATA[
+            <link rel="stylesheet" href="res/css/search4.css"></link>
+            ]]>
+                </c:when>
+                <c:otherwise>
+                    <![CDATA[
+                    <link rel="stylesheet" href="res/css/search1.css"></link>
+                    ]]>
+                </c:otherwise>
+            </c:choose>
+
+            <title>Search</title>
+        </head>
+        <body>
+            <style type="text/css">
+                a.s {
+                    padding-right : 3mm
+                }
+            </style>
+
+            <c:choose>
+                <c:when test="${param.style == 2}">
+                    <style type="text/css">
+                       #two { font-weight : bold }
+                    </style>
+                 </c:when>
+                <c:when test="${param.style == 3}">
+                    <style type="text/css">
+                       #three { font-weight : bold }
+                    </style>
+                 </c:when>
+                <c:when test="${param.style == 4}">
+                    <STYLE type="text/css">
+                        #four { font-weight : bold }
+                    </STYLE>
+                 </c:when>
+                <c:otherwise>
+                    <STYLE type="text/css">
+                       #one { font-weight : bold }
+                    </STYLE>
+                 </c:otherwise>
+            </c:choose>
+
+            <a id="one" class="s"   href="/gs-web/search.page?style=1">&#032;&#032;Style 1</a>
+            <a id="two" class="s"   href="/gs-web/search.page?style=2">&#032;&#032;Style 2</a>
+            <a id="three" class="s" href="/gs-web/search.page?style=3">&#032;&#032;Style 3</a>
+            <a id="four"  class="s" href="/gs-web/search.page?style=4">&#032;&#032;Style 4</a>
+            <hr/>
+
+            <table>
+                <tr>
+                   <div id="searchBox">
+                       <form id="searchForm" method="get"
+                                style="margin: 0; padding: 0">
+                             <td>
+                                 <input type="text"
+                                        id="q"
+                                        name="q"
+                                        size="30"
+                                        maxlength="255"
+                                        value="${param.q}"
+                                        onfocus="this.className='focus'"
+                                        onblur="this.className=''"/>
+                                 </td>
+                           <c:if test="${param.style == 3}">
+                              <td>
+                                <select>
+                                    <option selected="true">All GS.net</option>
+                                    <option>Schools</option>
+                                    <option>Cities and Districts</option>
+                                    <option>Articles</option>
+                                    <option>Parent Reviews</option>
+                                </select>
+                              </td>
+                           </c:if>
+                               <td>
+                                   <input type="submit" value="Go"/>
+                               </td>
+                           <c:if test="${param.style == 2}">
+                              <td>
+                                <input TYPE="radio" name="searchType" value="" />All GS.net
+                                <input TYPE="radio" name="searchType" value="article" /> Articles
+                                <input type="radio" name="searchType" value="school" /> Schools
+                              </td>
+                           </c:if>
+                            </form>
+                        </div>
+
+                </tr>
+            </table>
+            <hr/>
+            <jsp:useBean id="dt" class="gs.data.search.SearchResult"/>
+            <jsp:setProperty name="dt" property="type" value="bar"/>
+
+           <!-- <c:if test="${not empty param.q}"> -->
+            <c:if test="true">
+                Matches for query:
+                <b>
+                    <c:out value="${param.q}"/>
+                </b>
+                <ol class="searchresultset">
+                    <jsp:param name="type" value=""/>
+                    <c:forEach items="${results}" var="result">
+                        <c:if test="${dt.type != result.type}">
+                            <h2>
+                                <c:out value="${result.type}"/>s
+                            </h2>
+                            <jsp:setProperty name="dt" property="type"
+                                value="${result.type}"/>
+                            <hr/>
+                        </c:if>
+                        <div class="searchresult">
+                            <li>
+
+                                 <span class="headline">
+                                <c:if test="${result.type == 'school'}">
+                                    <![CDATA[<a href="http://www.greatschools.net/modperl/browse_school/ca/]]>
+                                    <c:out value="${result.id}"/>
+                                    <![CDATA["> ]]>
+                                </c:if>
+                                        <c:out value="${result.headline}"
+                                            escapeXml="false"/>
+                                <c:if test="${result.type == 'school'}">
+                                    <![CDATA[</a> ]]>
+                                </c:if>
+                                    </span>
+
+                                <c:if test="${result.context != null}">
+                                    <span class="abstract">
+                                        <br/><c:out value="${result.context}"
+                                            escapeXml="false"/>
+                                    </span>
+                                </c:if>
+
+                                <c:if test="${result.type == 'school'}">
+                                    <span class="rating">
+                                        <img src="res/img/star.gif" />
+                                        <img src="res/img/star.gif" />
+                                        <img src="res/img/star.gif" />
+                                        <img src="res/img/star.gif" />
+                                        <img src="res/img/star.gif" />
+                                    </span>  <br/>
+                                    <span class="address">
+                                        <c:out value="${result.address}" />
+                                    </span>
+                                </c:if>
+                            </li>
+                        </div>
+                    </c:forEach>
+                </ol>
+            </c:if>
+        </body>
+    </html>
+</jsp:root>
