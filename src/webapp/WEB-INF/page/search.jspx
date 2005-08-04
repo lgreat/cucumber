@@ -3,6 +3,7 @@
     xmlns="http://www.w3c.org/1999/xhtml"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
     xmlns:spring="http://www.springframework.org/tags"
     xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
     >
@@ -16,24 +17,23 @@
 
         <head>
 
-
             <![CDATA[
             <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
             <link rel="stylesheet" href="res/css/spp2.css"></link>
             ]]>
 
             <c:choose>
-                <c:when test="${param.style == 2}">
+                <c:when test="${param.s == 2}">
                     <![CDATA[
             <link rel="stylesheet" href="res/css/search2.css"></link>
             ]]>
                 </c:when>
-                <c:when test="${param.style == 3}">
+                <c:when test="${param.s == 3}">
                     <![CDATA[
             <link rel="stylesheet" href="res/css/search3.css"></link>
             ]]>
                 </c:when>
-                <c:when test="${param.style == 4}">
+                <c:when test="${param.s == 4}">
                     <![CDATA[
             <link rel="stylesheet" href="res/css/search4.css"></link>
             ]]>
@@ -46,26 +46,44 @@
             </c:choose>
 
             <title>Search</title>
+
         </head>
         <body>
             <style type="text/css">
                 a.s {
                     padding-right : 3mm
                 }
+                table {
+                    border: solid thin gray;
+                    padding-top: 1mm;
+                    padding-bottom: 1mm;
+                    padding-left: 1mm;
+                    padding-right: 4mm;
+                    background-color:#EEFFFF;
+                }
+                .message {
+                    padding-left: 3mm;
+                    padding-right: 3mm
+                }
+
+                #one {
+                    padding-left: 5mm;
+                }
+
             </style>
 
             <c:choose>
-                <c:when test="${param.style == 2}">
+                <c:when test="${param.s == 2}">
                     <style type="text/css">
                        #two { font-weight : bold }
                     </style>
                  </c:when>
-                <c:when test="${param.style == 3}">
+                <c:when test="${param.s == 3}">
                     <style type="text/css">
                        #three { font-weight : bold }
                     </style>
                  </c:when>
-                <c:when test="${param.style == 4}">
+                <c:when test="${param.s == 4}">
                     <STYLE type="text/css">
                         #four { font-weight : bold }
                     </STYLE>
@@ -77,17 +95,39 @@
                  </c:otherwise>
             </c:choose>
 
-            <a id="one" class="s"   href="/gs-web/search.page?style=1">&#032;&#032;Style 1</a>
-            <a id="two" class="s"   href="/gs-web/search.page?style=2">&#032;&#032;Style 2</a>
-            <a id="three" class="s" href="/gs-web/search.page?style=3">&#032;&#032;Style 3</a>
-            <a id="four"  class="s" href="/gs-web/search.page?style=4">&#032;&#032;Style 4</a>
-            <hr/>
 
-            <table>
-                <tr>
-                   <div id="searchBox">
-                       <form id="searchForm" method="get"
+            <form id="searchForm" method="get"
                                 style="margin: 0; padding: 0">
+                <span class="message">
+                    <c:out value="Location Awareness: "/>
+                </span>
+                <select name="l">
+
+                    <![CDATA[<option ]]>
+                    <c:out value="${param.l == 'none' ? 'selected ' : ''}"/>
+                     <![CDATA[value='none'>None</option>]]>
+
+                    <![CDATA[<option ]]>
+                    <c:out value="${param.l == 'CA' ? 'selected ' : ''}"/>
+                     <![CDATA[value='CA'>California</option>]]>
+
+                    <![CDATA[<option ]]>
+                    <c:out value="${param.l == 'NY' ? 'selected ' : ''}"/>
+                     <![CDATA[value='NY'>New York State</option>]]>
+                </select>
+
+                <a id="one"   class="s"  href="/gs-web/search.page?s=1">&#032;&#032;Style 1</a>
+                <a id="two"   class="s"  href="/gs-web/search.page?s=2">&#032;&#032;Style 2</a>
+                <a id="three" class="s"  href="/gs-web/search.page?s=3">&#032;&#032;Style 3</a>
+                <a id="four"  class="s"  href="/gs-web/search.page?s=4">&#032;&#032;Style 4</a>
+                <hr/>
+                <br/>
+                <table>
+                <tr>
+                     <td><span class="message">Search:</span></td>
+                     <div id="searchBox">
+                       <!--<form id="searchForm" method="get"
+                                style="margin: 0; padding: 0">-->
                              <td>
                                  <input type="text"
                                         id="q"
@@ -98,42 +138,54 @@
                                         onfocus="this.className='focus'"
                                         onblur="this.className=''"/>
                                  </td>
-                           <c:if test="${param.style == 3}">
+                           <c:if test="${param.s == 3}">
                               <td>
                                 <select>
-                                    <option selected="true">All GS.net</option>
-                                    <option>Schools</option>
-                                    <option>Cities and Districts</option>
-                                    <option>Articles</option>
-                                    <option>Parent Reviews</option>
+                                    <option name="c" value="all" selected="selected">All GS.net</option>
+                                    <option name="c" value="school">Schools</option>
+                                    <option name="c" value="area">Cities and Districts</option>
+                                    <option name="c" value="article">Articles</option>
+                                    <option name="c" value="review">Parent Reviews</option>
                                 </select>
                               </td>
                            </c:if>
                                <td>
                                    <input type="submit" value="Go"/>
                                </td>
-                           <c:if test="${param.style == 2}">
+                           <c:if test="${param.s == 2}">
                               <td>
-                                <input TYPE="radio" name="searchType" value="" />All GS.net
-                                <input TYPE="radio" name="searchType" value="article" /> Articles
-                                <input type="radio" name="searchType" value="school" /> Schools
+                                <span id="rButton">
+                                <input class="rButton" TYPE="radio" name="c" value="all" />All GS.net
+                                <input class="rButton" TYPE="radio" name="c" value="article" /> Articles
+                                <input class="rButton" type="radio" name="c" value="school" /> Schools
+                                 </span>
                               </td>
                            </c:if>
-                            </form>
-                        </div>
 
+                        </div>
                 </tr>
             </table>
-            <hr/>
+
+                <input type="hidden" name="s" value="${param.s}" />
+            </form>
+
+
+            <c:if test="${param.q != null}">
+                <span class="message">
+                     ${fn:length(results)}
+                      Matches for query:
+                    <b>
+                        <c:out value="${param.q}"/>
+                    </b>
+                </span>
+            </c:if>
+
             <jsp:useBean id="dt" class="gs.data.search.SearchResult"/>
             <jsp:setProperty name="dt" property="type" value="bar"/>
 
            <!-- <c:if test="${not empty param.q}"> -->
             <c:if test="true">
-                Matches for query:
-                <b>
-                    <c:out value="${param.q}"/>
-                </b>
+
                 <ol class="searchresultset">
                     <jsp:param name="type" value=""/>
                     <c:forEach items="${results}" var="result">
