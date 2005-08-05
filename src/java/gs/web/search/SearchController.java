@@ -12,6 +12,10 @@ import gs.data.search.*;
 import gs.data.state.State;
 import gs.web.SessionContext;
 
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  *         <p/>
@@ -19,6 +23,7 @@ import gs.web.SessionContext;
  *         <ul>
  *         <li>c :  constraint</li>
  *         <li>l :  location - CA, NY, WA, etc.</li>
+ *         <li>p :  page</li>
  *         <li>q :  query string</li>
  *         <li>s :  style</li>
  *         </ul>
@@ -35,6 +40,9 @@ public class SearchController extends AbstractController {
             throws Exception {
 
         SearchResultSet resultSet = null;
+        Map model =  new HashMap ();
+        //List resultSet = null;
+
         String queryString = request.getParameter("q");
 
         if (queryString != null && !queryString.equals("")) {
@@ -82,12 +90,30 @@ public class SearchController extends AbstractController {
                     }
                 }
             }
+
+            // now deal with p - the page parameter.
+            int page = 1;
+            String p = request.getParameter("p");
+            if (p != null) {
+                try {
+                    page = Integer.parseInt (p);
+                } catch (Exception e) {
+                    // ignore this and just assume the page is 1.
+                }
+            }
             _log.info("full query: " + queryBuffer.toString ());
 
-            resultSet = _searcher.search(queryBuffer.toString ());
+            resultSet = _searcher.search(queryBuffer.toString (), page);
+
+            System.out.println ("sysout list " + resultSet.getList ().size ());
+            _log.debug ("log list size: " + resultSet.getList ());
+            
+            model.put ("hits", resultSet.getList ());
+            model.put ("total", new Integer (resultSet.getTotalResults()));
         }
 
-        return new ModelAndView("search", "results", resultSet);
+        //return new ModelAndView("search", "results", resultSet);
+        return new ModelAndView("search", "results", model);
     }
 
     public Searcher getSearcher() {

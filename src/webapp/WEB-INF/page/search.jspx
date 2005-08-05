@@ -7,6 +7,8 @@
     xmlns:spring="http://www.springframework.org/tags"
     xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
     >
+
+
     <html lang="en">
 
         <jsp:output doctype-root-element="html"
@@ -95,9 +97,7 @@
                  </c:otherwise>
             </c:choose>
 
-
-            <form id="searchForm" method="get"
-                                style="margin: 0; padding: 0">
+            <form id="searchForm" method="get" style="margin: 0; padding: 0">
                 <span class="message">
                     <c:out value="Location Awareness: "/>
                 </span>
@@ -140,12 +140,19 @@
                                  </td>
                            <c:if test="${param.s == 3}">
                               <td>
-                                <select>
-                                    <option name="c" value="all" selected="selected">All GS.net</option>
-                                    <option name="c" value="school">Schools</option>
-                                    <option name="c" value="area">Cities and Districts</option>
-                                    <option name="c" value="article">Articles</option>
-                                    <option name="c" value="review">Parent Reviews</option>
+                                <select name="c">
+                                    <![CDATA[<option name="c" ]]>
+                                    <c:out value="${param.c == 'all' ? 'selected ' : ''}"/>
+                                    <![CDATA[ value='all'>All GS.net</option>]]>
+                                    <![CDATA[<option name="c" ]]>
+                                    <c:out value="${param.c == 'school' ? 'selected ' : ''}"/>
+                                    <![CDATA[ value='school'>Schools</option>]]>
+                                    <![CDATA[<option name="c" ]]>
+                                    <c:out value="${param.c == 'area' ? 'selected ' : ''}"/>
+                                    <![CDATA[ value='area'>Cities and Districts</option>]]>
+                                    <![CDATA[<option name="c" ]]>
+                                    <c:out value="${param.c == 'article' ? 'selected ' : ''}"/>
+                                    <![CDATA[ value='article'>Articles</option>]]>
                                 </select>
                               </td>
                            </c:if>
@@ -154,10 +161,16 @@
                                </td>
                            <c:if test="${param.s == 2}">
                               <td>
-                                <span id="rButton">
-                                <input class="rButton" TYPE="radio" name="c" value="all" />All GS.net
-                                <input class="rButton" TYPE="radio" name="c" value="article" /> Articles
-                                <input class="rButton" type="radio" name="c" value="school" /> Schools
+                                <span id="radio">
+                                    <![CDATA[<input class="rButton" id="r1" ]]>
+                                    <c:out value="${param.c == 'all' ? ' checked ' : ''}"/>
+                                    <![CDATA[type="radio" name="c" value="all" />All GS.net]]>
+                                    <![CDATA[<input class="rButton" id="r2" ]]>
+                                    <c:out value="${param.c == 'article' ? ' checked ' : ''}"/>
+                                    <![CDATA[type="radio" name="c" value="article" /> Articles]]>
+                                    <![CDATA[<input class="rButton" id="r3"]]>
+                                    <c:out value="${param.c == 'school' ? ' checked ' : ''}"/>
+                                    <![CDATA[type="radio" name="c" value="school" /> Schools]]>
                                  </span>
                               </td>
                            </c:if>
@@ -169,10 +182,10 @@
                 <input type="hidden" name="s" value="${param.s}" />
             </form>
 
-
             <c:if test="${param.q != null}">
                 <span class="message">
-                     ${fn:length(results)}
+                     <!-- ${fn:length(results.hits)} -->
+                    ${results.total}
                       Matches for query:
                     <b>
                         <c:out value="${param.q}"/>
@@ -183,12 +196,15 @@
             <jsp:useBean id="dt" class="gs.data.search.SearchResult"/>
             <jsp:setProperty name="dt" property="type" value="bar"/>
 
-           <!-- <c:if test="${not empty param.q}"> -->
-            <c:if test="true">
+            <!-- begin the result set area -->
 
+           <c:if test="${not empty param.q}">
                 <ol class="searchresultset">
                     <jsp:param name="type" value=""/>
-                    <c:forEach items="${results}" var="result">
+
+                    <h1>hits:<c:out value="${fn:length(results.hits)}"/></h1>
+
+                    <c:forEach items="${results.hits}" var="result">
                         <c:if test="${dt.type != result.type}">
                             <h2>
                                 <c:out value="${result.type}"/>s
