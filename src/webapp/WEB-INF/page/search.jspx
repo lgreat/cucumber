@@ -18,32 +18,25 @@
         <jsp:directive.page contentType="text/html"/>
 
         <head>
-
-            <![CDATA[
-            <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
-            <link rel="stylesheet" href="res/css/spp2.css"></link>
-            ]]>
+            <![CDATA[<meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+            <link rel="stylesheet" href="res/css/spp2.css"></link>]]>
 
             <c:choose>
-                <c:when test="${param.s == 2}">
+                <c:when test="${param.s == '2'}">
                     <![CDATA[
-            <link rel="stylesheet" href="res/css/search2.css"></link>
-            ]]>
+            <link rel="stylesheet" href="res/css/search2.css"></link>]]>
                 </c:when>
-                <c:when test="${param.s == 3}">
+                <c:when test="${param.s == '3'}">
                     <![CDATA[
-            <link rel="stylesheet" href="res/css/search3.css"></link>
-            ]]>
+            <link rel="stylesheet" href="res/css/search3.css"></link>]]>
                 </c:when>
-                <c:when test="${param.s == 4}">
+                <c:when test="${param.s == '4'}">
                     <![CDATA[
-            <link rel="stylesheet" href="res/css/search4.css"></link>
-            ]]>
+            <link rel="stylesheet" href="res/css/search4.css"></link>]]>
                 </c:when>
                 <c:otherwise>
                     <![CDATA[
-                    <link rel="stylesheet" href="res/css/search1.css"></link>
-                    ]]>
+                    <link rel="stylesheet" href="res/css/search1.css"></link>]]>
                 </c:otherwise>
             </c:choose>
 
@@ -65,7 +58,7 @@
                 }
                 .message {
                     padding-left: 3mm;
-                    padding-right: 3mm
+                    padding-right: 3mm;
                 }
 
                 #one {
@@ -75,17 +68,17 @@
             </style>
 
             <c:choose>
-                <c:when test="${param.s == 2}">
+                <c:when test="${param.s == '2'}">
                     <style type="text/css">
                        #two { font-weight : bold }
                     </style>
                  </c:when>
-                <c:when test="${param.s == 3}">
+                <c:when test="${param.s == '3'}">
                     <style type="text/css">
                        #three { font-weight : bold }
                     </style>
                  </c:when>
-                <c:when test="${param.s == 4}">
+                <c:when test="${param.s == '4'}">
                     <STYLE type="text/css">
                         #four { font-weight : bold }
                     </STYLE>
@@ -138,7 +131,7 @@
                                         onfocus="this.className='focus'"
                                         onblur="this.className=''"/>
                                  </td>
-                           <c:if test="${param.s == 3}">
+                           <c:if test="${param.s == '3'}">
                               <td>
                                 <select name="c">
                                     <![CDATA[<option name="c" ]]>
@@ -159,19 +152,21 @@
                                <td>
                                    <input type="submit" value="Go"/>
                                </td>
-                           <c:if test="${param.s == 2}">
+                           <c:if test="${param.s == '2'}">
                               <td>
-                                <span id="radio">
+                                   <span class="radio">
                                     <![CDATA[<input class="rButton" id="r1" ]]>
                                     <c:out value="${param.c == 'all' ? ' checked ' : ''}"/>
                                     <![CDATA[type="radio" name="c" value="all" />All GS.net]]>
+                                    </span><span class="radio">
                                     <![CDATA[<input class="rButton" id="r2" ]]>
                                     <c:out value="${param.c == 'article' ? ' checked ' : ''}"/>
                                     <![CDATA[type="radio" name="c" value="article" /> Articles]]>
+                                    </span><span class="radio">
                                     <![CDATA[<input class="rButton" id="r3"]]>
                                     <c:out value="${param.c == 'school' ? ' checked ' : ''}"/>
                                     <![CDATA[type="radio" name="c" value="school" /> Schools]]>
-                                 </span>
+                                    </span>
                               </td>
                            </c:if>
 
@@ -202,29 +197,33 @@
                 <ol class="searchresultset">
                     <jsp:param name="type" value=""/>
 
-                    <h1>hits:<c:out value="${fn:length(results.hits)}"/></h1>
-
                     <c:forEach items="${results.hits}" var="result">
                         <c:if test="${dt.type != result.type}">
                             <h2>
                                 <c:out value="${result.type}"/>s
                             </h2>
+                            <![CDATA[</ol><ol class="searchresultset">]]>
                             <jsp:setProperty name="dt" property="type"
                                 value="${result.type}"/>
                             <hr/>
                         </c:if>
                         <div class="searchresult">
                             <li>
-
                                  <span class="headline">
                                 <c:if test="${result.type == 'school'}">
                                     <![CDATA[<a href="http://www.greatschools.net/modperl/browse_school/ca/]]>
                                     <c:out value="${result.id}"/>
                                     <![CDATA["> ]]>
                                 </c:if>
-                                        <c:out value="${result.headline}"
-                                            escapeXml="false"/>
-                                <c:if test="${result.type == 'school'}">
+
+                                <c:if test="${result.type == 'article'}">
+                                    <![CDATA[<a href="http://www.greatschools.net/cgi-bin/showarticle/ca/]]>
+                                    <c:out value="${result.id}"/>
+                                    <![CDATA["> ]]>
+                                </c:if>
+
+                                      <c:out value="${result.headline}" escapeXml="false"/>
+                                <c:if test="${result.type == 'school' || result.type == 'article'}">
                                     <![CDATA[</a> ]]>
                                 </c:if>
                                     </span>
