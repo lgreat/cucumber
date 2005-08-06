@@ -125,7 +125,7 @@
                                  <input type="text"
                                         id="q"
                                         name="q"
-                                        size="30"
+                                        size="40"
                                         maxlength="255"
                                         value="${param.q}"
                                         onfocus="this.className='focus'"
