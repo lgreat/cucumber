@@ -62,7 +62,13 @@
         <property name="searcher">
             <ref bean="searcher" />
         </property>
+        <property name="resultsPager">
+            <ref bean="resultsPager"/>
+        </property>
     </bean>
+
+    <bean name="resultsPager" class="gs.web.search.ResultsPager"
+          autowire="byName" />
 
     <bean name="/thankyou.page"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">

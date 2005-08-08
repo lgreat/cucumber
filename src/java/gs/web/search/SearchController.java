@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
+import org.apache.lucene.search.Hits;
 import gs.data.search.*;
 import gs.data.state.State;
 import gs.web.SessionContext;
@@ -34,6 +35,7 @@ public class SearchController extends AbstractController {
     private static Log _log = LogFactory.getLog(SearchController.class);
     private Searcher _searcher;
     private SessionContext _sessionContext;
+    private ResultsPager _resultsPager;
 
     public ModelAndView handleRequestInternal(HttpServletRequest request,
                                               HttpServletResponse response)
@@ -80,6 +82,7 @@ public class SearchController extends AbstractController {
             // now handle search constraints. only deal with this if the
             // type: field has not be used in the query
             // todo: this will break if someone types a query like:  foo AND "type:" OR bar
+            /*
             if (queryString.indexOf("type:") == -1) {
                 String constraint = request.getParameter("c");
                 if (constraint != null) {
@@ -89,6 +92,13 @@ public class SearchController extends AbstractController {
                         queryBuffer.insert(0, "type:school AND ");
                     }
                 }
+            }
+            */
+
+            int pageSize = 5;
+            String constraint = request.getParameter("c");
+            if (constraint != null && !constraint.equals("all")) {
+                pageSize = 10;
             }
 
             // now deal with p - the page parameter.
@@ -110,6 +120,16 @@ public class SearchController extends AbstractController {
             
             model.put ("hits", resultSet.getList ());
             model.put ("total", new Integer (resultSet.getTotalResults()));
+
+            // experimental
+            Hits hits = _searcher.basicSearch(queryBuffer.toString ());
+            //ResultsPager pager = new ResultsPager(hits);
+            _resultsPager.setHits(hits);
+            model.put("articlesTotal", new Integer(_resultsPager.getArticlesTotal()));
+            model.put("articles", _resultsPager.getArticles (page, pageSize));
+            model.put("schoolsTotal", new Integer(_resultsPager.getSchoolsTotal()));
+            model.put("schools", _resultsPager.getSchools(page, pageSize));
+            model.put("pageSize", new Integer(pageSize));
         }
 
         //return new ModelAndView("search", "results", resultSet);
@@ -122,5 +142,9 @@ public class SearchController extends AbstractController {
 
     public void setSearcher(Searcher searcher) {
         _searcher = searcher;
+    }
+
+    public void setResultsPager(ResultsPager pager) {
+        _resultsPager = pager;
     }
 }
