@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.5 2005/06/23 17:46:41 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.6 2005/08/08 17:51:22 thuss Exp $
  */
 package gs.web.community;
 
@@ -70,7 +70,6 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         final Price price = _purchaseManager.getSubscriptionPrice(user, product, new Date());
 
         SubscribeCommand command = new SubscribeCommand(user, product, price);
-        _log.debug("created command");
 
         if (!StringUtils.isEmpty(httpServletRequest.getParameter(RENEW_PARAM))) {
             command.setTryingToRenew(true);
@@ -83,6 +82,8 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
             if (user.getState() != null) {
                 sessionContext.setState(user.getState());
             } else {
+                _log.error("Setting state to be CA because " + httpServletRequest.getParameter("state") +
+                    " is not a recognized subscription state");
                 sessionContext.setState(State.CA);
             }
         }
