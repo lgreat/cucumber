@@ -134,12 +134,12 @@
 
         <![CDATA[<option ]]>
         <c:out value="${param.l == 'NY' ? 'selected ' : ''}"/>
-        <![CDATA[value='NY'>New York State</option>]]>
+        <![CDATA[value='NY'>New York</option>]]>
     </select>
 
-    <a id="one" class="s" href="/gs-web/search.page?s=1">&#032;&#032;Style 1</a>
-    <a id="two" class="s" href="/gs-web/search.page?s=2">&#032;&#032;Style 2</a>
-    <a id="three" class="s" href="/gs-web/search.page?s=3">&#032;&#032;Style
+    <a id="one" class="s" href="/search.page?s=1">&#032;&#032;Style 1</a>
+    <a id="two" class="s" href="/search.page?s=2">&#032;&#032;Style 2</a>
+    <a id="three" class="s" href="/search.page?s=3">&#032;&#032;Style
         3</a>
 
     <hr/>
