@@ -1,17 +1,16 @@
 package gs.web.search;
 
 import org.apache.lucene.document.Document;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Bishop
- * Date: Aug 6, 2005
- * Time: 9:49:44 AM
- * // todo: this is a temporary class - to be replace in ResultPager by Dao implementation ck.
+ * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class ArticleResult {
 
     private Document _doc;
+    private static final Log _log = LogFactory.getLog(ArticleResult.class);
 
     public ArticleResult(Document doc) {
         _doc = doc;
@@ -27,5 +26,16 @@ public class ArticleResult {
 
     public String getAbstract() {
         return _doc.get("abstract");
+    }
+
+    public String getInsider() {
+        String isInsider = "false";
+        String insider = _doc.get("insider");
+        if (insider != null) {
+            if (insider.equals("true")) {
+                isInsider = "true";
+            }
+        }
+        return isInsider;
     }
 }

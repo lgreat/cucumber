@@ -43,7 +43,6 @@ public class SearchController extends AbstractController {
 
         SearchResultSet resultSet = null;
         Map model =  new HashMap ();
-        //List resultSet = null;
 
         String queryString = request.getParameter("q");
 
@@ -113,17 +112,9 @@ public class SearchController extends AbstractController {
             }
             _log.info("full query: " + queryBuffer.toString ());
 
-            resultSet = _searcher.search(queryBuffer.toString (), page);
-
-            System.out.println ("sysout list " + resultSet.getList ().size ());
-            _log.debug ("log list size: " + resultSet.getList ());
-            
-            model.put ("hits", resultSet.getList ());
-            model.put ("total", new Integer (resultSet.getTotalResults()));
-
-            // experimental
             Hits hits = _searcher.basicSearch(queryBuffer.toString ());
-            //ResultsPager pager = new ResultsPager(hits);
+            //model.put ("hits", resultSet.getList ());
+            //model.put ("total", new Integer (resultSet.getTotalResults()));
             _resultsPager.setHits(hits);
             model.put("articlesTotal", new Integer(_resultsPager.getArticlesTotal()));
             model.put("articles", _resultsPager.getArticles (page, pageSize));
@@ -132,7 +123,6 @@ public class SearchController extends AbstractController {
             model.put("pageSize", new Integer(pageSize));
         }
 
-        //return new ModelAndView("search", "results", resultSet);
         return new ModelAndView("search", "results", model);
     }
 

@@ -95,18 +95,8 @@ public class ResultsPager {
                         Document doc = _hits.doc(i);
                         String type = doc.get("type");
                         if (type.equals("school")) {
-                            String s = doc.get("state");
-                            State state = _stateManager.getState(s);
-                            if(state != null) {
-                                String id = doc.get("id");
-                                if (id != null) {
-                                    School school = _schoolDao.getSchoolById(state, Long.valueOf(id));
-                                    if (school != null) {
-                                        _schools.add(school);
-                                    } else {
-                                        _log.warn ("Got a null school from ISchoolDao!");
-                                    }
-                                }
+                            if ("true".equals(doc.get("active"))) {
+                                _schools.add(new SchoolResult(doc));
                             }
                         } else if (type.equals("article")) {
                             _articles.add(new ArticleResult(doc));

@@ -219,47 +219,45 @@ a.p {
                    <span class="resultHeading">Schools</span>
 
                    <c:choose>
-                   <c:when test="${results.schoolsTotal > 0}">
-                   Results
-                   <c:out value="${((param.p == null || param.p le 1) ? 0 : (param.p-1) * results.pageSize)+1}" /> -
+                       <c:when test="${results.schoolsTotal > 0}">
+                           Results
+                           <c:out value="${((empty param.p || param.p le 1) ? 0 : (param.p-1) * results.pageSize)+1}" /> -
 
-                   <c:choose>
-                       <c:when test="${(((param.p == null || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize) le results.schoolsTotal}">
-                            <c:out value="${((param.p == null || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize}"/>
+                           <c:choose>
+                               <c:when test="${(((empty param.p || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize) le results.schoolsTotal}">
+                                   <c:out value="${((empty param.p || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize}"/>
+                               </c:when>
+                               <c:otherwise>
+                                   <c:out value="${results.schoolsTotal}" />
+                               </c:otherwise>
+                           </c:choose>
+                           of <c:out value="${results.schoolsTotal}"/>
+                           <c:if test="${results.schoolsTotal > results.pageSize}">
+                               <c:choose>
+                                   <c:when test="${param.c == 'school'}">
+                                       <span class="pageLinks">
+                                           Page
+                                           <c:forEach begin="1" end="${(results.schoolsTotal / results.pageSize) + ((results.schoolsTotal % results.pageSize) > 0 ? 1 : 0)}" var="index">
+                                               <c:if test="${index lt 11}">
+                                                   <a class="p" href="/gs-web/search.page?q=${param.q}&amp;c=school&amp;s=${param.s}&amp;p=${index}">${index}</a>
+                                               </c:if>
+                                           </c:forEach>
+                                       </span>
+                                   </c:when>
+                                   <c:otherwise>
+                                       <span class="more">
+                                           <a href="/gs-web/search.page?q=${param.q}&amp;c=school&amp;s=${param.s}&amp;p=1">more >></a>
+                                       </span>
+                                   </c:otherwise>
+                               </c:choose>
+                           </c:if>
                        </c:when>
                        <c:otherwise>
-                           <c:out value="${results.schoolsTotal}" />
+                           <c:out value="No schools found for query: ${param.q}" />
                        </c:otherwise>
                    </c:choose>
-
-                            of <c:out value="${results.schoolsTotal}"/>
-                    <c:if test="${results.schoolsTotal > results.pageSize}">
-                    <c:choose>
-                        <c:when test="${param.c == 'school'}">
-                              <span class="pageLinks">
-                              Page
-                            <c:forEach begin="1" end="${(results.schoolsTotal / results.pageSize) + ((results.schoolsTotal % results.pageSize) > 0 ? 1 : 0)}" var="index">
-                                <c:if test="${index lt 11}">
-                                    <a class="p" href="/gs-web/search.page?q=${param.q}&amp;c=school&amp;s=${param.s}&amp;p=${index}">${index}</a>
-                                </c:if>
-                            </c:forEach>
-                            </span>
-                        </c:when>
-                        <c:otherwise>
-                            <span class="more">
-                            <a href="/gs-web/search.page?q=${param.q}&amp;c=school&amp;s=${param.s}&amp;p=1">more >></a>
-                            </span>
-                        </c:otherwise>
-                    </c:choose>
-                    </c:if>
-                    </c:when>
-                    <c:otherwise>
-
-                        <c:out value="No schools found for query: ${param.q}" />
-                    </c:otherwise>
-                    </c:choose>
-                    <br/>
-                    <hr/>
+                   <br/>
+                   <hr/>
 
                     <c:forEach items="${results.schools}" var="school">
                         <div class="schoolResult"></div>
@@ -268,7 +266,7 @@ a.p {
                         <![CDATA["> ]]>
                         <c:out value="${school.name}" escapeXml="false"/>
                         <![CDATA[</a>]]> <br/>
-                        <span class="address">${school.physicalAddress}</span>
+                        <span class="address">${school.address}</span>
                     </c:forEach>
                </c:if>
 
@@ -325,6 +323,9 @@ a.p {
                            <c:out value="${article.title}" escapeXml="false"/>
                            <![CDATA[</a>]]><br/>
                            <span class="abstract"><c:out value="${article.abstract}" escapeXml="false"/></span>
+                           <c:if test="${article.insider}">
+                               <img src="res/img/star.gif" />
+                           </c:if>
                        </div>
                     </c:forEach>
                </c:if>

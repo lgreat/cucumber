@@ -1,8 +1,3 @@
-searchresultset {
-    border : dashed thin blue
-    padding : 3mm
-}
-
 div.searchresult {
     border-bottom : dotted thin black;
     padding-bottom : 2mm;
@@ -14,7 +9,6 @@ div.searchresult {
 }
 
 .address {
-    color : gray;
 }
 
 .rating {
