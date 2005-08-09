@@ -29,7 +29,9 @@ public class SystemTestController implements Controller {
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        _indexer.index(_indexDir);
+        if (request.getParameter("start") != null) {
+            _indexer.index(_indexDir);
+        }
         return new ModelAndView ("/status/systemtest");
     }
 

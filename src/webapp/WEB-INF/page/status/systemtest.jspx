@@ -29,7 +29,7 @@
 
     Reindex data. This deletes any existing indexes!
     <form action="/gs-web/status/systemtest.page" method="post">
-        <input type="submit" value="Start"/>
+        <input type="submit" name="start" value="start"/>
     </form>
 
     </body>
