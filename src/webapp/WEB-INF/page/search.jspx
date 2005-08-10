@@ -123,7 +123,7 @@
             </c:choose>
 
             <form id="searchForm" method="get" style="margin: 0; padding: 0">
-
+                <div style="float: right"><a href="mailto:chriskimm@greatschools.net?subject=GS Search">Bugs/Comments</a></div>
                 <span class="message">
                     <c:out value="Location Awareness: "/>
                 </span>
@@ -141,6 +141,7 @@
                     <c:out value="${param.l == 'NY' ? 'selected ' : ''}"/>
                     <![CDATA[value='NY'>New York</option>]]>
                 </select>
+
 
                 <a id="one" class="s" href="/search.page?s=1">&#032;&#032;Style 1</a>
                 <a id="two" class="s" href="/search.page?s=2">&#032;&#032;Style 2</a>
