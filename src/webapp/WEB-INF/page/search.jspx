@@ -139,8 +139,7 @@
 
     <a id="one" class="s" href="/search.page?s=1">&#032;&#032;Style 1</a>
     <a id="two" class="s" href="/search.page?s=2">&#032;&#032;Style 2</a>
-    <a id="three" class="s" href="/search.page?s=3">&#032;&#032;Style
-        3</a>
+    <a id="three" class="s" href="/search.page?s=3">&#032;&#032;Style 3</a>
 
     <hr/>
     <img src="res/img/header_logo.gif" alt="GreatSchools.net" border="0"
@@ -249,14 +248,14 @@
                                                       var="index">
                                                <c:if test="${index lt 11}">
                                                    <a class="p"
-                                                      href="/gs-web/search.page?q=${param.q}&amp;c=school&amp;s=${param.s}&amp;p=${index}">${index}</a>
+                                                      href="/search.page?q=${param.q}&amp;c=school&amp;s=${param.s}&amp;p=${index}">${index}</a>
                                                </c:if>
                                            </c:forEach>
                                        </span>
                     </c:when>
                     <c:otherwise>
                         <span class="more">
-                                           <a href="/gs-web/search.page?q=${param.q}&amp;c=school&amp;s=${param.s}&amp;p=1">more
+                                           <a href="/search.page?q=${param.q}&amp;c=school&amp;s=${param.s}&amp;p=1">more
                                                >></a>
                                        </span>
                     </c:otherwise>
@@ -310,14 +309,14 @@
                                        var="index">
                                 <c:if test="${index lt 11}">
                                     <a class="p"
-                                       href="/gs-web/search.page?q=${param.q}&amp;c=${param.c}&amp;s=${param.s}&amp;p=${index}"> ${index}</a>
+                                       href="/search.page?q=${param.q}&amp;c=${param.c}&amp;s=${param.s}&amp;p=${index}"> ${index}</a>
                                 </c:if>
                             </c:forEach>
                             </span>
                 </c:when>
                 <c:otherwise>
                     <span class="more">
-                            <a href="/gs-web/search.page?q=${param.q}&amp;c=article&amp;s=${param.s}&amp;p=1">more
+                            <a href="/search.page?q=${param.q}&amp;c=article&amp;s=${param.s}&amp;p=1">more
                                 >></a>
                             </span>
                 </c:otherwise>

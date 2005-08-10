@@ -54,7 +54,6 @@ public class SearchController extends AbstractController {
             HttpSession session = request.getSession(true);
 
             _sessionContext = SessionContext.getInstance(request);
-
             /**
              * I'm splitting the setting and reading of location because in a
              * production system, the location might be set somewhere else.
