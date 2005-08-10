@@ -1,47 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-          xmlns="http://www.w3c.org/1999/xhtml"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:spring="http://www.springframework.org/tags"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-        >
+    xmlns="http://www.w3c.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+    >
 
-<html lang="en">
-<jsp:output doctype-root-element="html"
+    <html lang="en">
+        <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-<jsp:directive.page contentType="text/html"/>
+        <jsp:directive.page contentType="text/html"/>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
-    <c:choose>
-        <c:when test="${param.s == '2'}">
-            <link rel="stylesheet" href="res/css/search2.css"></link>
-        </c:when>
-        <c:when test="${param.s == '3'}">
-            <link rel="stylesheet" href="res/css/search3.css"></link>
-        </c:when>
-        <c:when test="${param.s == '4'}">
-            <link rel="stylesheet" href="res/css/search4.css"></link>
-        </c:when>
-        <c:otherwise>
-            <link rel="stylesheet" href="res/css/search1.css"></link>
-        </c:otherwise>
-    </c:choose>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+            <c:choose>
+                <c:when test="${param.s == '2'}">
+                    <link rel="stylesheet" href="res/css/search2.css"></link>
+                </c:when>
+                <c:when test="${param.s == '3'}">
+                    <link rel="stylesheet" href="res/css/search3.css"></link>
+                </c:when>
+                <c:when test="${param.s == '4'}">
+                    <link rel="stylesheet" href="res/css/search4.css"></link>
+                </c:when>
+                <c:otherwise>
+                    <link rel="stylesheet" href="res/css/search1.css"></link>
+                </c:otherwise>
+            </c:choose>
 
-    <title>Search</title>
+            <title>Search</title>
 
-</head>
+        </head>
 
-<body>
-<style type="text/css">
+        <body>
+            <style type="text/css">
 
     a.s {
         padding-left: 3mm;
         padding-top: 3mm;
+    }
+
+    #currentPage {
+        font-weight: bold;
+        font-size: larger;
     }
 
     #controls {
@@ -88,264 +93,319 @@
         padding-left: 10mm
     }
 
-</style>
+            </style>
 
-<c:choose>
-    <c:when test="${param.s == '2'}">
-        <style type="text/css">
+            <c:choose>
+                <c:when test="${param.s == '2'}">
+                    <style type="text/css">
             #two {
                 font-weight: bold
             }
-        </style>
-    </c:when>
-    <c:when test="${param.s == '3'}">
-        <style type="text/css">
+                    </style>
+                </c:when>
+                <c:when test="${param.s == '3'}">
+                    <style type="text/css">
             #three {
                 font-weight: bold
             }
-        </style>
-    </c:when>
-    <c:when test="${param.s == '4'}">
-        <STYLE type="text/css">
+                    </style>
+                </c:when>
+                <c:when test="${param.s == '4'}">
+                    <STYLE type="text/css">
             #four { font-weight : bold }
-        </STYLE>
-    </c:when>
-    <c:otherwise>
-        <STYLE type="text/css">
+                    </STYLE>
+                </c:when>
+                <c:otherwise>
+                    <STYLE type="text/css">
             #one { font-weight : bold }
-        </STYLE>
-    </c:otherwise>
-</c:choose>
+                    </STYLE>
+                </c:otherwise>
+            </c:choose>
 
-<form id="searchForm" method="get" style="margin: 0; padding: 0">
+            <form id="searchForm" method="get" style="margin: 0; padding: 0">
 
-    <span class="message">
+                <span class="message">
                     <c:out value="Location Awareness: "/>
                 </span>
-    <select name="l">
+                <select name="l">
 
-        <![CDATA[<option ]]>
-        <c:out value="${param.l == 'none' ? 'selected ' : ''}"/>
-        <![CDATA[value='none'>None</option>]]>
+                    <![CDATA[<option ]]>
+                    <c:out value="${param.l == 'none' ? 'selected ' : ''}"/>
+                    <![CDATA[value='none'>None</option>]]>
 
-        <![CDATA[<option ]]>
-        <c:out value="${param.l == 'CA' ? 'selected ' : ''}"/>
-        <![CDATA[value='CA'>California</option>]]>
+                    <![CDATA[<option ]]>
+                    <c:out value="${param.l == 'CA' ? 'selected ' : ''}"/>
+                    <![CDATA[value='CA'>California</option>]]>
 
-        <![CDATA[<option ]]>
-        <c:out value="${param.l == 'NY' ? 'selected ' : ''}"/>
-        <![CDATA[value='NY'>New York</option>]]>
-    </select>
+                    <![CDATA[<option ]]>
+                    <c:out value="${param.l == 'NY' ? 'selected ' : ''}"/>
+                    <![CDATA[value='NY'>New York</option>]]>
+                </select>
 
-    <a id="one" class="s" href="/search.page?s=1">&#032;&#032;Style 1</a>
-    <a id="two" class="s" href="/search.page?s=2">&#032;&#032;Style 2</a>
-    <a id="three" class="s" href="/search.page?s=3">&#032;&#032;Style 3</a>
+                <a id="one" class="s" href="/search.page?s=1">&#032;&#032;Style 1</a>
+                <a id="two" class="s" href="/search.page?s=2">&#032;&#032;Style 2</a>
+                <a id="three" class="s" href="/search.page?s=3">&#032;&#032;Style 3</a>
 
-    <hr/>
-    <img src="res/img/header_logo.gif" alt="GreatSchools.net" border="0"
-         height="80" width="201"/>
-    <table>
-        <tr>
-            <td>
-                <table id="searchFields">
+                <hr/>
+                <img src="res/img/header_logo.gif" alt="GreatSchools.net" border="0"
+                    height="80" width="201"/>
+                <table>
                     <tr>
-                        <td><span class="message">Search:</span></td>
                         <td>
-                            <input type="text"
-                                   id="q"
-                                   name="q"
-                                   size="40"
-                                   maxlength="255"
-                                   value="${not empty param.q ? param.q : ''}"
-                                   onfocus="this.className='focus'"
-                                   onblur="this.className=''"/>
+                            <table id="searchFields">
+                                <tr>
+                                    <td>
+                                        <span class="message">Search:</span>
+                                    </td>
+                                    <td>
+                                        <input type="text"
+                                            id="q"
+                                            name="q"
+                                            size="40"
+                                            maxlength="255"
+                                            value="${not empty param.q ? param.q : ''}"
+                                            onfocus="this.className='focus'"
+                                            onblur="this.className=''"/>
+                                    </td>
+                                    <c:if test="${param.s == '3'}">
+                                        <td>
+                                            <select name="c">
+                                                <![CDATA[<option name="c" ]]>
+                                                <c:out value="${param.c == 'all' ? 'selected ' : ''}"/>
+                                                <![CDATA[ value='all'>All GS.net</option>]]>
+                                                <![CDATA[<option name="c" ]]>
+                                                <c:out value="${param.c == 'school' ? 'selected ' : ''}"/>
+                                                <![CDATA[ value='school'>Schools</option>]]>
+                                                <!--
+                                                <![CDATA[<option name="c" ]]>
+                                                <c:out value="${param.c == 'area' ? 'selected ' : ''}"/>
+                                                <![CDATA[ value='area'>Cities and Districts</option>]]>
+                                                -->
+                                                <![CDATA[<option name="c" ]]>
+                                                <c:out value="${param.c == 'article' ? 'selected ' : ''}"/>
+                                                <![CDATA[ value='article'>Articles</option>]]>
+                                            </select>
+                                        </td>
+                                    </c:if>
+                                    <td>
+                                        <input type="submit" value=" Go "/>
+                                    </td>
+                                    <c:if test="${param.s == '2'}">
+                                        <td>
+                                            <span class="radio">
+                                                <![CDATA[<input class="rButton" id="r1" ]]>
+                                                <c:out value="${param.c == 'all' ? ' checked ' : ''}"/>
+                                                <![CDATA[type="radio" name="c" value="all" />All GS.net]]>
+                                            </span>
+                                            <span class="radio">
+                                                <![CDATA[<input class="rButton" id="r2" ]]>
+                                                <c:out value="${param.c == 'article' ? ' checked ' : ''}"/>
+                                                <![CDATA[type="radio" name="c" value="article" /> Articles]]>
+                                            </span>
+                                            <span class="radio">
+                                                <![CDATA[<input class="rButton" id="r3"]]>
+                                                <c:out value="${param.c == 'school' ? ' checked ' : ''}"/>
+                                                <![CDATA[type="radio" name="c" value="school" /> Schools]]>
+                                            </span>
+                                        </td>
+                                    </c:if>
+
+                                </tr>
+                            </table>
                         </td>
-                        <c:if test="${param.s == '3'}">
-                            <td>
-                                <select name="c">
-                                    <![CDATA[<option name="c" ]]>
-                                    <c:out value="${param.c == 'all' ? 'selected ' : ''}"/>
-                                    <![CDATA[ value='all'>All GS.net</option>]]>
-                                    <![CDATA[<option name="c" ]]>
-                                    <c:out value="${param.c == 'school' ? 'selected ' : ''}"/>
-                                    <![CDATA[ value='school'>Schools</option>]]>
-                                    <!--
-                                    <![CDATA[<option name="c" ]]>
-                                    <c:out value="${param.c == 'area' ? 'selected ' : ''}"/>
-                                    <![CDATA[ value='area'>Cities and Districts</option>]]>
-                                    -->
-                                    <![CDATA[<option name="c" ]]>
-                                    <c:out value="${param.c == 'article' ? 'selected ' : ''}"/>
-                                    <![CDATA[ value='article'>Articles</option>]]>
-                                </select>
-                            </td>
-                        </c:if>
-                        <td>
-                            <input type="submit" value=" Go "/>
-                        </td>
-                        <c:if test="${param.s == '2'}">
-                            <td>
-                                <span class="radio">
-                                    <![CDATA[<input class="rButton" id="r1" ]]>
-                                    <c:out value="${param.c == 'all' ? ' checked ' : ''}"/>
-                                    <![CDATA[type="radio" name="c" value="all" />All GS.net]]>
-                                    </span><span class="radio">
-                                    <![CDATA[<input class="rButton" id="r2" ]]>
-                                    <c:out value="${param.c == 'article' ? ' checked ' : ''}"/>
-                                    <![CDATA[type="radio" name="c" value="article" /> Articles]]>
-                                    </span><span class="radio">
-                                    <![CDATA[<input class="rButton" id="r3"]]>
-                                    <c:out value="${param.c == 'school' ? ' checked ' : ''}"/>
-                                    <![CDATA[type="radio" name="c" value="school" /> Schools]]>
-                                    </span>
-                            </td>
-                        </c:if>
+
 
                     </tr>
                 </table>
-            </td>
+
+                <input type="hidden" name="s" value="${param.s}"/>
+            </form>
+
+            <jsp:useBean id="dt" class="gs.data.search.SearchResult"/>
+            <jsp:setProperty name="dt" property="type" value="bar"/>
 
 
-        </tr>
-    </table>
+            <!-- begin the result set area -->
+            <br/>
+            <br/>
+            <c:if test="${not empty param.q}">
 
-    <input type="hidden" name="s" value="${param.s}"/>
-</form>
+                <c:if test="${empty param.c || param.c == 'all' || param.c == 'school'}">
+                    <br/>
+                    <span class="resultHeading">Schools</span>
 
-<jsp:useBean id="dt" class="gs.data.search.SearchResult"/>
-<jsp:setProperty name="dt" property="type" value="bar"/>
-
-<!-- begin the result set area -->
-<br/><br/>
-<c:if test="${not empty param.q}">
-
-<c:if test="${empty param.c || param.c == 'all' || param.c == 'school'}">
-    <br/>
-    <span class="resultHeading">Schools</span>
-
-    <c:choose>
-        <c:when test="${results.schoolsTotal > 0}">
+                    <c:choose>
+                        <c:when test="${results.schoolsTotal > 0}">
             Results
-            <c:out value="${((empty param.p || param.p le 1) ? 0 : (param.p-1) * results.pageSize)+1}"/>
+                            <c:out value="${((empty param.p || param.p le 1) ? 0 : (param.p-1) * results.pageSize)+1}"/>
             -
 
-            <c:choose>
-                <c:when test="${(((empty param.p || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize) le results.schoolsTotal}">
-                    <c:out value="${((empty param.p || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize}"/>
-                </c:when>
-                <c:otherwise>
-                    <c:out value="${results.schoolsTotal}"/>
-                </c:otherwise>
-            </c:choose>
-            of <c:out value="${results.schoolsTotal}"/>
-            <c:if test="${results.schoolsTotal > results.pageSize}">
-                <c:choose>
-                    <c:when test="${param.c == 'school'}">
-                        <span class="pageLinks">
+                            <c:choose>
+                                <c:when test="${(((empty param.p || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize) le results.schoolsTotal}">
+                                    <c:out value="${((empty param.p || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:out value="${results.schoolsTotal}"/>
+                                </c:otherwise>
+                            </c:choose>
+            of
+                            <c:out value="${results.schoolsTotal}"/>
+                            <c:if test="${results.schoolsTotal > results.pageSize}">
+                                <c:choose>
+                                    <c:when test="${param.c == 'school'}">
+
+            <search:pageLinks total="${results.schoolsTotal}"
+                                page="${param.p}"
+                                query="${param.q}"
+                                constraint="${param.c}"
+                                style="${param.s}"
+                                pageSize="${results.pageSize}"/>
+
+<!--
+
+                                        <span class="pageLinks">
                                            Page
-                                           <c:forEach begin="1"
-                                                      end="${(results.schoolsTotal / results.pageSize) + ((results.schoolsTotal % results.pageSize) > 0 ? 1 : 0)}"
-                                                      var="index">
-                                               <c:if test="${index lt 11}">
-                                                   <a class="p"
-                                                      href="/search.page?q=${param.q}&amp;c=school&amp;s=${param.s}&amp;p=${index}">${index}</a>
-                                               </c:if>
-                                           </c:forEach>
-                                       </span>
-                    </c:when>
-                    <c:otherwise>
-                        <span class="more">
-                                           <a href="/search.page?q=${param.q}&amp;c=school&amp;s=${param.s}&amp;p=1">more
+                                            <c:forEach begin="1"
+                                                end="${(results.schoolsTotal / results.pageSize) + ((results.schoolsTotal % results.pageSize) > 0 ? 1 : 0)}"
+                                                var="index">
+                                                <c:if test="${index lt 11}">
+                                                    <a class="p"
+                                                        href="/search.page?q=${param.q}&amp;c=school&amp;s=${param.s}&amp;p=${index}">${index}</a>
+                                                </c:if>
+                                            </c:forEach>
+                                        </span>
+-->
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="more">
+                                            <a href="/search.page?q=${param.q}&amp;c=school&amp;s=${param.s}&amp;p=1">more
                                                >></a>
-                                       </span>
-                    </c:otherwise>
-                </c:choose>
-            </c:if>
-        </c:when>
-        <c:otherwise>
-            <c:out value="No schools found for query: ${param.q}"/>
-        </c:otherwise>
-    </c:choose>
-    <br/>
-    <hr/>
+                                        </span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:if>
+                        </c:when>
+                        <c:otherwise>
+                            <c:out value="No schools found for query: ${param.q}"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <br/>
+                    <hr/>
 
-    <c:forEach items="${results.schools}" var="school">
-        <div class="schoolResult"></div>
-        <![CDATA[<a href="http://www.greatschools.net/modperl/browse_school/ca/]]>
-        <c:out value="${school.id}"/>
-        <![CDATA["> ]]>
-        <c:out value="${school.name}" escapeXml="false"/>
-        <![CDATA[</a>]]> <br/>
-        <span class="address">${school.address}</span>
-    </c:forEach>
-</c:if>
+                    <c:forEach items="${results.schools}" var="school">
+                        <div class="schoolResult"></div>
+                        <![CDATA[<a href="http://www.greatschools.net/modperl/browse_school/ca/]]>
+                        <c:out value="${school.id}"/>
+                        <![CDATA["> ]]>
+                        <c:out value="${school.name}" escapeXml="false"/>
+                        <![CDATA[</a>]]>
+                        <br/>
+                        <span class="address">${school.address}</span>
+                    </c:forEach>
+                </c:if>
 
-<c:if test="${(empty param.c) || (param.c == 'all') || (param.c == 'article')}">
-    <br/><br/>
-    <span class="resultHeading">Articles</span>
-    <c:choose>
-        <c:when test="${results.articlesTotal > 0}">
+                <c:if test="${(empty param.c) || (param.c == 'all') || (param.c == 'article')}">
+                    <br/>
+                    <br/>
+                    <span class="resultHeading">Articles</span>
+                    <c:choose>
+                        <c:when test="${results.articlesTotal > 0}">
 
             Results
-            <c:out value="${((param.p == null || param.p le 1) ? 0 : (param.p-1) * results.pageSize)+1}"/>
+                            <c:out value="${((param.p == null || param.p le 1) ? 0 : (param.p-1) * results.pageSize)+1}"/>
             -
 
-            <c:choose>
-                <c:when test="${(((param.p == null || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize) le results.articlesTotal}">
-                    <c:out value="${((param.p == null || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize}"/>
-                </c:when>
-                <c:otherwise>
-                    <c:out value="${results.articlesTotal}"/>
-                </c:otherwise>
-            </c:choose>
+                            <c:choose>
+                                <c:when test="${(((param.p == null || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize) le results.articlesTotal}">
+                                    <c:out value="${((param.p == null || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:out value="${results.articlesTotal}"/>
+                                </c:otherwise>
+                            </c:choose>
 
-            of <c:out value="${results.articlesTotal}"/>
-            <c:choose>
-                <c:when test="${param.c == 'article'}">
-                    <span class="pageLinks">
-                            Page:
-                            <c:forEach begin="1"
-                                       end="${(results.articlesTotal / results.pageSize) + ((results.articlesTotal % results.pageSize) > 0 ? 1 : 0)}"
-                                       var="index">
-                                <c:if test="${index lt 11}">
-                                    <a class="p"
-                                       href="/search.page?q=${param.q}&amp;c=${param.c}&amp;s=${param.s}&amp;p=${index}"> ${index}</a>
-                                </c:if>
-                            </c:forEach>
+            of
+                            <c:out value="${results.articlesTotal}"/>
+
+                            <c:choose>
+                                <c:when test="${param.c == 'article'}">
+
+            <search:pageLinks total="${results.articlesTotal}"
+                                page="${param.p}"
+                                query="${param.q}"
+                                constraint="${param.c}"
+                                style="${param.s}"
+                                pageSize="${results.pageSize}"/>
+
+<!--
+                                    <span class="pageLinks">
+                                        Page:
+                                        <c:set var="maxPages"/>
+
+                                        <c:if test="${param.p gt 1}">
+                                            <a class="p"
+                                               href="/search.page?q=${param.q}&amp;c=${param.c}&amp;s=${param.s}&amp;p=${param.p-1}">&lt;&lt;</a>
+                                        </c:if>
+                                        <c:set var="counter" value="1"/>
+                                        <c:forEach begin="${param.p le 10 ? 1 : param.p-5}"
+                                            end="${(results.articlesTotal / results.pageSize) + ((results.articlesTotal % results.pageSize) > 0 ? 1 : 0)}"
+                                            var="index">
+
+                                            <c:if test="${counter lt 11}">
+                                                <c:if test="${param.p == index}">
+                                                    <c:set var="tick" value="currentPage"/>
+                                                </c:if>
+                                                <span id="${tick}">
+                                                <a class="p"
+                                                    href="/search.page?q=${param.q}&amp;c=${param.c}&amp;s=${param.s}&amp;p=${index}"> ${index}</a>
+                                                </span>
+                                                <c:set var="tick" value=""/>
+                                                <c:set var="counter" value="${counter+1}"/>
+                                            </c:if>
+                                            <c:set var="maxPages" value="${index}"/>
+                                        </c:forEach>
+                                        <c:if test="${param.p lt maxPages}">
+                                            <a class="p"
+                                               href="/search.page?q=${param.q}&amp;c=${param.c}&amp;s=${param.s}&amp;p=${param.p+1}">&gt;&gt;</a>
+                                        </c:if>
+                                    </span>
+-->
+                                </c:when>
+
+                                <c:otherwise>
+                                    <span class="more">
+                                        <a href="/search.page?q=${param.q}&amp;c=article&amp;s=${param.s}&amp;p=1">more >></a>
+                                    </span>
+                                </c:otherwise>
+                            </c:choose>
+
+                        </c:when>
+                        <c:otherwise>
+                            <c:out value="No articles found for query: ${param.q}"/>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <br/>
+                    <hr/>
+                    <c:forEach items="${results.articles}" var="article">
+                        <div class="articleResult">
+                            <![CDATA[<a href="http://www.greatschools.net/cgi-bin/showarticle/ca/]]>
+                            <c:out value="${article.id}"/>
+                            <![CDATA["> ]]>
+                            <c:out value="${article.title}" escapeXml="false"/>
+                            <![CDATA[</a>]]>
+                            <br/>
+                            <span class="abstract">
+                                <c:out value="${article.abstract}"
+                                    escapeXml="false"/>
                             </span>
-                </c:when>
-                <c:otherwise>
-                    <span class="more">
-                            <a href="/search.page?q=${param.q}&amp;c=article&amp;s=${param.s}&amp;p=1">more
-                                >></a>
-                            </span>
-                </c:otherwise>
-            </c:choose>
-
-        </c:when>
-        <c:otherwise>
-            <c:out value="No articles found for query: ${param.q}"/>
-        </c:otherwise>
-    </c:choose>
-
-    <br/>
-    <hr/>
-    <c:forEach items="${results.articles}" var="article">
-        <div class="articleResult">
-            <![CDATA[<a href="http://www.greatschools.net/cgi-bin/showarticle/ca/]]>
-            <c:out value="${article.id}"/>
-            <![CDATA["> ]]>
-            <c:out value="${article.title}" escapeXml="false"/>
-            <![CDATA[</a>]]><br/>
-            <span class="abstract"><c:out value="${article.abstract}"
-                                          escapeXml="false"/></span>
-            <c:if test="${article.insider}">
-                <img src="res/img/star.gif"/>
+                            <c:if test="${article.insider}">
+                                <img src="res/img/star.gif"/>
+                            </c:if>
+                        </div>
+                    </c:forEach>
+                </c:if>
             </c:if>
-        </div>
-    </c:forEach>
-</c:if>
-</c:if>
-</body>
-</html>
+        </body>
+    </html>
 </jsp:root>
