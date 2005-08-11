@@ -124,6 +124,7 @@
 
             <form id="searchForm" method="get" style="margin: 0; padding: 0">
                 <div style="float: right"><a href="mailto:chriskimm@greatschools.net?subject=GS Search">Bugs/Comments</a></div>
+                <c:if test="${param.s != '4'}">
                 <span class="message">
                     <c:out value="Location Awareness: "/>
                 </span>
@@ -141,11 +142,12 @@
                     <c:out value="${param.l == 'NY' ? 'selected ' : ''}"/>
                     <![CDATA[value='NY'>New York</option>]]>
                 </select>
-
+                </c:if>
 
                 <a id="one" class="s" href="/search.page?s=1">&#032;&#032;Style 1</a>
                 <a id="two" class="s" href="/search.page?s=2">&#032;&#032;Style 2</a>
                 <a id="three" class="s" href="/search.page?s=3">&#032;&#032;Style 3</a>
+                <a id="three" class="s" href="/search.page?s=4">&#032;&#032;Style 4</a>
 
                 <hr/>
                 <img src="res/img/header_logo.gif" alt="GreatSchools.net" border="0"
@@ -177,21 +179,44 @@
                                                 <![CDATA[<option name="c" ]]>
                                                 <c:out value="${param.c == 'school' ? 'selected ' : ''}"/>
                                                 <![CDATA[ value='school'>Schools</option>]]>
-                                                <!--
-                                                <![CDATA[<option name="c" ]]>
-                                                <c:out value="${param.c == 'area' ? 'selected ' : ''}"/>
-                                                <![CDATA[ value='area'>Cities and Districts</option>]]>
-                                                -->
                                                 <![CDATA[<option name="c" ]]>
                                                 <c:out value="${param.c == 'article' ? 'selected ' : ''}"/>
                                                 <![CDATA[ value='article'>Articles</option>]]>
                                             </select>
                                         </td>
                                     </c:if>
+
+                                    <c:if test="${param.s == '4'}">
+                                        <td>
+                                            <span style="margin-left:3mm; margin-right:2mm" >In:</span>
+                                            <jsp:useBean id="states" class="gs.data.state.StateManager"/>
+                                            <select name="l">
+                                                 <option name="l" value="all"></option>
+                                                <c:forEach items="${states.iterator}" var="state">
+                                                    <![CDATA[<option name="l" ]]>
+                                                    <c:if test="${param.l == state}">
+                                                        selected
+                                                    </c:if>
+                                                    <![CDATA[ value=']]>
+                                                    <c:out value="${state}" />
+                                                    <![CDATA['>]]>
+                                                    <c:out value="${state.abbreviation}"/>
+                                                    <![CDATA[</option>]]>
+                                                </c:forEach>
+                                            </select>
+                                        </td>
+                                    </c:if>
+
                                     <td>
                                         <input type="submit" value=" Go "/>
                                     </td>
-                                    <c:if test="${param.s == '2'}">
+                                    <c:if test="${param.s == '2' || param.s == '4'}">
+
+                                        <c:if test="${param.s == '4'}">
+                                          <![CDATA[<tr>]]>
+                                             <td></td>
+
+                                        </c:if>
                                         <td>
                                             <span class="radio">
                                                 <![CDATA[<input class="rButton" id="r1" ]]>
@@ -209,8 +234,12 @@
                                                 <![CDATA[type="radio" name="c" value="school" /> Schools]]>
                                             </span>
                                         </td>
+                                        <c:if test="${param.s == '4'}">
+                                            <td></td>
+                                            <td></td>
+                                            <![CDATA[</tr>]]>
+                                        </c:if>
                                     </c:if>
-
                                 </tr>
                             </table>
                         </td>
@@ -260,7 +289,7 @@
                                 query="${param.q}"
                                 constraint="${param.c}"
                                 style="${param.s}"
-                                pageSize="${results.pageSize}"/>
+                                pageSize="${results.pageSlize}"/>
 
 <!--
 

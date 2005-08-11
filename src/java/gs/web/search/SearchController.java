@@ -11,6 +11,7 @@ import org.apache.commons.logging.Log;
 import org.apache.lucene.search.Hits;
 import gs.data.search.*;
 import gs.data.state.State;
+import gs.data.state.StateManager;
 import gs.web.SessionContext;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class SearchController extends AbstractController {
     private Searcher _searcher;
     private SessionContext _sessionContext;
     private ResultsPager _resultsPager;
+    private StateManager _stateManager;
 
     public ModelAndView handleRequestInternal(HttpServletRequest request,
                                               HttpServletResponse response)
@@ -54,44 +56,18 @@ public class SearchController extends AbstractController {
             HttpSession session = request.getSession(true);
 
             _sessionContext = SessionContext.getInstance(request);
-            /**
-             * I'm splitting the setting and reading of location because in a
-             * production system, the location might be set somewhere else.
-             */
+
             String location = request.getParameter("l");
+            State state = null;
             if (location != null) {
-                _log.debug("location is: " + location);
-                if (location.equals("CA")) {
-                    _sessionContext.setState(State.CA);
-                } else if (location.equals("NY")) {
-                    _sessionContext.setState(State.NY);
-                } else {
-                    _sessionContext.setState(null);
+                state = _stateManager.getState(location);
+                if (state != null) {
+                    queryBuffer.append(" AND state:");
+                    queryBuffer.append(state.getAbbreviation());
                 }
             }
+            _sessionContext.setState(state);
 
-            State state = _sessionContext.getState();
-            if (state != null) {
-                _log.debug("state: " + state.getLongName());
-                queryBuffer.append(" AND state:");
-                queryBuffer.append(state.getAbbreviation());
-            }
-
-            // now handle search constraints. only deal with this if the
-            // type: field has not be used in the query
-            // todo: this will break if someone types a query like:  foo AND "type:" OR bar
-            /*
-            if (queryString.indexOf("type:") == -1) {
-                String constraint = request.getParameter("c");
-                if (constraint != null) {
-                    if (constraint.equals("article")) {
-                        queryBuffer.insert(0, "type:article AND ");
-                    } else if (constraint.equals("school")) {
-                        queryBuffer.insert(0, "type:school AND ");
-                    }
-                }
-            }
-            */
 
             int pageSize = 5;
             String constraint = request.getParameter("c");
@@ -112,8 +88,6 @@ public class SearchController extends AbstractController {
             _log.info("full query: " + queryBuffer.toString ());
 
             Hits hits = _searcher.basicSearch(queryBuffer.toString ());
-            //model.put ("hits", resultSet.getList ());
-            //model.put ("total", new Integer (resultSet.getTotalResults()));
             _resultsPager.setHits(hits);
             model.put("articlesTotal", new Integer(_resultsPager.getArticlesTotal()));
             model.put("articles", _resultsPager.getArticles (page, pageSize));
@@ -135,5 +109,9 @@ public class SearchController extends AbstractController {
 
     public void setResultsPager(ResultsPager pager) {
         _resultsPager = pager;
+    }
+
+    public void setStateManager(StateManager stateManager) {
+        _stateManager = stateManager;
     }
 }
