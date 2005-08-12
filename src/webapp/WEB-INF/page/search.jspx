@@ -192,7 +192,7 @@
 
                                     <c:if test="${param.s == '4'}">
                                         <td>
-                                            <span style="margin-left:3mm; margin-right:2mm" >In:</span>
+                                            <span style="margin-left:3mm; margin-right:2mm" >in:</span>
                                             <jsp:useBean id="states" class="gs.data.state.StateManager"/>
                                             <select name="l">
                                                  <option name="l" value="all"></option>
