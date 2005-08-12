@@ -35,6 +35,7 @@ public class SearchController extends AbstractController {
     public static final String BEAN_ID = "/search.page";
     private static Log _log = LogFactory.getLog(SearchController.class);
     private Searcher _searcher;
+    private SpellCheckSearcher _spellCheckSearcher;
     private SessionContext _sessionContext;
     private ResultsPager _resultsPager;
     private StateManager _stateManager;
@@ -43,7 +44,6 @@ public class SearchController extends AbstractController {
                                               HttpServletResponse response)
             throws Exception {
 
-        SearchResultSet resultSet = null;
         Map model =  new HashMap ();
 
         String queryString = request.getParameter("q");
@@ -87,8 +87,11 @@ public class SearchController extends AbstractController {
             }
             _log.info("full query: " + queryBuffer.toString ());
 
-            Hits hits = _searcher.basicSearch(queryBuffer.toString ());
-            _resultsPager.setHits(hits);
+            //Hits hits = _searcher.basicSearch(queryBuffer.toString ());
+            SearchResult sr = _spellCheckSearcher.search(queryBuffer.toString ());
+
+            _resultsPager.setHits(sr.getHits());
+            model.put("suggestedQuery", sr.getSuggestedQueryString());
             model.put("articlesTotal", new Integer(_resultsPager.getArticlesTotal()));
             model.put("articles", _resultsPager.getArticles (page, pageSize));
             model.put("schoolsTotal", new Integer(_resultsPager.getSchoolsTotal()));
@@ -113,5 +116,9 @@ public class SearchController extends AbstractController {
 
     public void setStateManager(StateManager stateManager) {
         _stateManager = stateManager;
+    }
+
+    public void setSpellCheckSearcher(SpellCheckSearcher spellCheckSearcher) {
+        _spellCheckSearcher = spellCheckSearcher;
     }
 }

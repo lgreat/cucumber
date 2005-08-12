@@ -65,6 +65,9 @@
         <property name="resultsPager">
             <ref bean="resultsPager"/>
         </property>
+        <property name="spellCheckSearcher">
+            <ref bean="spellCheckSearcher"/>
+        </property>
     </bean>
 
     <bean name="resultsPager" class="gs.web.search.ResultsPager"

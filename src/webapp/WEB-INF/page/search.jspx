@@ -93,6 +93,10 @@
         padding-left: 10mm
     }
 
+    #suggestion {
+        font-style: italic;
+        font-weight: bold;
+    }
             </style>
 
             <c:choose>
@@ -251,12 +255,18 @@
                 <input type="hidden" name="s" value="${param.s}"/>
             </form>
 
-            <jsp:useBean id="dt" class="gs.data.search.SearchResult"/>
-            <jsp:setProperty name="dt" property="type" value="bar"/>
-
-
             <!-- begin the result set area -->
             <br/>
+
+            <c:if test="${not empty results.suggestedQuery}">
+                Do you mean:
+                <span id="suggestion">
+                    <a href="/search.page?q=${results.suggestedQuery}&amp;c=${param.c}&amp;s=${param.s}">
+                    <c:out value="${results.suggestedQuery}"/>
+                    </a>
+                </span>
+            </c:if>
+
             <br/>
             <c:if test="${not empty param.q}">
 
@@ -289,22 +299,8 @@
                                 query="${param.q}"
                                 constraint="${param.c}"
                                 style="${param.s}"
-                                pageSize="${results.pageSlize}"/>
+                                pageSize="${results.pageSize}"/>
 
-<!--
-
-                                        <span class="pageLinks">
-                                           Page
-                                            <c:forEach begin="1"
-                                                end="${(results.schoolsTotal / results.pageSize) + ((results.schoolsTotal % results.pageSize) > 0 ? 1 : 0)}"
-                                                var="index">
-                                                <c:if test="${index lt 11}">
-                                                    <a class="p"
-                                                        href="/search.page?q=${param.q}&amp;c=school&amp;s=${param.s}&amp;p=${index}">${index}</a>
-                                                </c:if>
-                                            </c:forEach>
-                                        </span>
--->
                                     </c:when>
                                     <c:otherwise>
                                         <span class="more">
@@ -367,39 +363,6 @@
                                 style="${param.s}"
                                 pageSize="${results.pageSize}"/>
 
-<!--
-                                    <span class="pageLinks">
-                                        Page:
-                                        <c:set var="maxPages"/>
-
-                                        <c:if test="${param.p gt 1}">
-                                            <a class="p"
-                                               href="/search.page?q=${param.q}&amp;c=${param.c}&amp;s=${param.s}&amp;p=${param.p-1}">&lt;&lt;</a>
-                                        </c:if>
-                                        <c:set var="counter" value="1"/>
-                                        <c:forEach begin="${param.p le 10 ? 1 : param.p-5}"
-                                            end="${(results.articlesTotal / results.pageSize) + ((results.articlesTotal % results.pageSize) > 0 ? 1 : 0)}"
-                                            var="index">
-
-                                            <c:if test="${counter lt 11}">
-                                                <c:if test="${param.p == index}">
-                                                    <c:set var="tick" value="currentPage"/>
-                                                </c:if>
-                                                <span id="${tick}">
-                                                <a class="p"
-                                                    href="/search.page?q=${param.q}&amp;c=${param.c}&amp;s=${param.s}&amp;p=${index}"> ${index}</a>
-                                                </span>
-                                                <c:set var="tick" value=""/>
-                                                <c:set var="counter" value="${counter+1}"/>
-                                            </c:if>
-                                            <c:set var="maxPages" value="${index}"/>
-                                        </c:forEach>
-                                        <c:if test="${param.p lt maxPages}">
-                                            <a class="p"
-                                               href="/search.page?q=${param.q}&amp;c=${param.c}&amp;s=${param.s}&amp;p=${param.p+1}">&gt;&gt;</a>
-                                        </c:if>
-                                    </span>
--->
                                 </c:when>
 
                                 <c:otherwise>
