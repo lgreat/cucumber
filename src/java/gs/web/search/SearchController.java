@@ -45,15 +45,12 @@ public class SearchController extends AbstractController {
             throws Exception {
 
         Map model =  new HashMap ();
-
         String queryString = request.getParameter("q");
 
         if (queryString != null && !queryString.equals("")) {
 
             StringBuffer queryBuffer = new StringBuffer();
             queryBuffer.append(queryString);
-
-            HttpSession session = request.getSession(true);
 
             _sessionContext = SessionContext.getInstance(request);
 
@@ -68,14 +65,7 @@ public class SearchController extends AbstractController {
             }
             _sessionContext.setState(state);
 
-
-            int pageSize = 5;
-            String constraint = request.getParameter("c");
-            if (constraint != null && !constraint.equals("all")) {
-                pageSize = 10;
-            }
-
-            // now deal with p - the page parameter.
+            // deal with p - the page parameter.
             int page = 1;
             String p = request.getParameter("p");
             if (p != null) {
@@ -85,17 +75,47 @@ public class SearchController extends AbstractController {
                     // ignore this and just assume the page is 1.
                 }
             }
-            _log.info("full query: " + queryBuffer.toString ());
 
-            //Hits hits = _searcher.basicSearch(queryBuffer.toString ());
-            SearchResult sr = _spellCheckSearcher.search(queryBuffer.toString ());
+            int pageSize = 3;
+            String suggestion = null;
 
-            _resultsPager.setHits(sr.getHits());
-            model.put("suggestedQuery", sr.getSuggestedQueryString());
+            String constraint = request.getParameter("c");
+            String qString = queryBuffer.toString();
+            if (constraint != null && !constraint.equals("all")) {
+                pageSize = 10;
+                StringBuffer clone = new StringBuffer (qString);
+                clone.append(" AND type:");
+                clone.append(constraint);
+                DecoratedHits dh = _spellCheckSearcher.search(clone.toString ());
+                if (dh != null) {
+                    _resultsPager.setArticles (dh.getHits());
+                    suggestion = dh.getSuggestedQueryString();
+                }
+            } else {
+                StringBuffer schoolClone = new StringBuffer (qString);
+                schoolClone.append (" AND type:school");
+                DecoratedHits schoolDH = _spellCheckSearcher.search(schoolClone.toString ());
+                _resultsPager.setSchools (schoolDH.getHits());
+                suggestion = schoolDH.getSuggestedQueryString();
+
+                StringBuffer articleClone = new StringBuffer (qString);
+                articleClone.append (" AND type:article");
+                DecoratedHits articleDH = _spellCheckSearcher.search(articleClone.toString ());
+                _resultsPager.setArticles (articleDH.getHits());
+
+                StringBuffer districtClone = new StringBuffer (qString);
+                districtClone.append (" AND type:district");
+                DecoratedHits districtDH = _spellCheckSearcher.search(districtClone.toString ());
+                _resultsPager.setDistricts(districtDH.getHits());
+            }
+
+            model.put("suggestedQuery", suggestion);
             model.put("articlesTotal", new Integer(_resultsPager.getArticlesTotal()));
             model.put("articles", _resultsPager.getArticles (page, pageSize));
             model.put("schoolsTotal", new Integer(_resultsPager.getSchoolsTotal()));
             model.put("schools", _resultsPager.getSchools(page, pageSize));
+            model.put("districtsTotal", new Integer(_resultsPager.getDistrictsTotal()));
+            model.put("districts", _resultsPager.getDistricts(page, pageSize));
             model.put("pageSize", new Integer(pageSize));
         }
 

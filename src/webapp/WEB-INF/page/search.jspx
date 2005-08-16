@@ -73,11 +73,7 @@
         font-weight: bold;
     }
 
-    .articleResult {
-        padding-top: 3mm;
-    }
-
-    .schoolResult {
+    .searchResult {
         padding-top: 3mm;
     }
 
@@ -186,6 +182,9 @@
                                                 <![CDATA[<option name="c" ]]>
                                                 <c:out value="${param.c == 'article' ? 'selected ' : ''}"/>
                                                 <![CDATA[ value='article'>Articles</option>]]>
+                                                <![CDATA[<option name="c" ]]>
+                                                <c:out value="${param.c == 'district' ? 'selected ' : ''}"/>
+                                                <![CDATA[ value='district'>Districts</option>]]>
                                             </select>
                                         </td>
                                     </c:if>
@@ -221,7 +220,7 @@
                                              <td></td>
 
                                         </c:if>
-                                        <td>
+n                                        <td>
                                             <span class="radio">
                                                 <![CDATA[<input class="rButton" id="r1" ]]>
                                                 <c:out value="${param.c == 'all' ? ' checked ' : ''}"/>
@@ -256,9 +255,10 @@
             </form>
 
             <!-- begin the result set area -->
-            <br/>
+
 
             <c:if test="${not empty results.suggestedQuery}">
+                <br/>
                 Do you mean:
                 <span id="suggestion">
                     <a href="/search.page?q=${results.suggestedQuery}&amp;c=${param.c}&amp;s=${param.s}">
@@ -291,24 +291,26 @@
             of
                             <c:out value="${results.schoolsTotal}"/>
                             <c:if test="${results.schoolsTotal > results.pageSize}">
+                            <!--
                                 <c:choose>
                                     <c:when test="${param.c == 'school'}">
-
+                                -->
             <search:pageLinks total="${results.schoolsTotal}"
                                 page="${param.p}"
                                 query="${param.q}"
                                 constraint="${param.c}"
                                 style="${param.s}"
-                                pageSize="${results.pageSize}"/>
+                                pageSize="${results.pageSize}"
+                                type="school"/>  <!--
 
                                     </c:when>
                                     <c:otherwise>
                                         <span class="more">
-                                            <a href="/search.page?q=${param.q}&amp;c=school&amp;s=${param.s}&amp;p=1">more
-                                               >></a>
+                                            <a href="/search.page?q=${param.q}&amp;c=school&amp;s=${param.s}&amp;p=1">more >></a>
                                         </span>
                                     </c:otherwise>
                                 </c:choose>
+                                -->
                             </c:if>
                         </c:when>
                         <c:otherwise>
@@ -319,7 +321,7 @@
                     <hr/>
 
                     <c:forEach items="${results.schools}" var="school">
-                        <div class="schoolResult"></div>
+                        <div class="searchResult"></div>
                         <![CDATA[<a href="http://www.greatschools.net/modperl/browse_school/ca/]]>
                         <c:out value="${school.id}"/>
                         <![CDATA["> ]]>
@@ -351,17 +353,18 @@
                             </c:choose>
 
             of
-                            <c:out value="${results.articlesTotal}"/>
+                            <c:out value="${results.articlesTotal}"/> <!--
 
                             <c:choose>
                                 <c:when test="${param.c == 'article'}">
-
+                                                                          -->
             <search:pageLinks total="${results.articlesTotal}"
                                 page="${param.p}"
                                 query="${param.q}"
                                 constraint="${param.c}"
                                 style="${param.s}"
-                                pageSize="${results.pageSize}"/>
+                                pageSize="${results.pageSize}"
+                                type="article"/>             <!--
 
                                 </c:when>
 
@@ -371,7 +374,7 @@
                                     </span>
                                 </c:otherwise>
                             </c:choose>
-
+                                                                                 -->
                         </c:when>
                         <c:otherwise>
                             <c:out value="No articles found for query: ${param.q}"/>
@@ -381,7 +384,7 @@
                     <br/>
                     <hr/>
                     <c:forEach items="${results.articles}" var="article">
-                        <div class="articleResult">
+                        <div class="searchResult">
                             <![CDATA[<a href="http://www.greatschools.net/cgi-bin/showarticle/ca/]]>
                             <c:out value="${article.id}"/>
                             <![CDATA["> ]]>
@@ -395,6 +398,67 @@
                             <c:if test="${article.insider}">
                                 <img src="res/img/star.gif"/>
                             </c:if>
+                        </div>
+                    </c:forEach>
+                </c:if>
+
+                <c:if test="${(empty param.c) || (param.c == 'all') || (param.c == 'district')}">
+                    <br/>
+                    <span class="resultHeading">Districts</span>
+                    <c:choose>
+
+                        <c:when test="${results.districtsTotal > 0}">
+
+            Results
+                            <c:out value="${((param.p == null || param.p le 1) ? 0 : (param.p-1) * results.pageSize)+1}"/>
+            -
+
+                            <c:choose>
+
+                                <c:when test="${(((param.p == null || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize) le results.districtsTotal}">
+                                    <c:out value="${((param.p == null || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize}"/>
+                                </c:when>
+
+                                <c:otherwise>
+                                    <c:out value="${results.districtsTotal}"/>
+                                </c:otherwise>
+
+                            </c:choose>
+
+            of
+                            <c:out value="${results.districtsTotal}"/>
+
+                            
+                                    <search:pageLinks total="${results.districtsTotal}"
+                                                      page="${param.p}"
+                                                      query="${param.q}"
+                                                      constraint="${param.c}"
+                                                      style="${param.s}"
+                                                      pageSize="${results.pageSize}"
+                                                      type="district"/>
+
+                        </c:when>
+                        <c:otherwise>
+                            <c:out value="No districts found for query: ${param.q}"/>
+                        </c:otherwise>
+
+                    </c:choose>
+                    <br/>
+                    <hr/>
+
+                    <c:forEach items="${results.districts}" var="district">
+                        <div class="searchResult">
+                            <div style="float: right"><c:out value="${district.phone}" escapeXml="false"/></div>
+                            <![CDATA[<a href="http://www.greatschools.net/cgi-bin/]]>
+                            <c:out value="${district.state}"/>
+                            <![CDATA[/district_profile/]]>
+                            <c:out value="${district.id}"/>
+                            <![CDATA["> ]]>
+                            <c:out value="${district.name}" escapeXml="false"/>
+                            <![CDATA[</a>]]><br/>
+                            <c:out value="${district.address2}" escapeXml="false"/>
+
+                            <br/>
                         </div>
                     </c:forEach>
                 </c:if>

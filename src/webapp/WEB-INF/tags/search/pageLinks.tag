@@ -5,8 +5,14 @@
 <jsp:directive.attribute name="constraint" required="true"/>
 <jsp:directive.attribute name="style" required="true"/>
 <jsp:directive.attribute name="pageSize" required="true"/>
+<jsp:directive.attribute name="type" required="true"/>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<c:if test="${(total + 0) gt (pageSize + 0)}">
+<c:choose>
+
+    <c:when test="${param.c == type}">
 
     <span class="pageLinks">
                                         Page:
@@ -39,3 +45,11 @@
                 href="/search.page?q=${query}&amp;c=${constraint}&amp;s=${style}&amp;p=${page+1}">&gt;&gt;</a>
         </c:if>
     </span>
+    </c:when>
+    <c:otherwise>
+    <span class="more">
+        <a href="/search.page?q=${query}&amp;c=${type}&amp;s=${style}&amp;p=1">more >></a>
+    </span>
+    </c:otherwise>
+</c:choose>
+</c:if>
