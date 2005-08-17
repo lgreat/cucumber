@@ -2,19 +2,16 @@ package gs.web.search;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
-import org.apache.lucene.search.Hits;
 import gs.data.search.*;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.SessionContext;
 
-import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -34,11 +31,10 @@ public class SearchController extends AbstractController {
 
     public static final String BEAN_ID = "/search.page";
     private static Log _log = LogFactory.getLog(SearchController.class);
-    private Searcher _searcher;
     private SpellCheckSearcher _spellCheckSearcher;
-    private SessionContext _sessionContext;
     private ResultsPager _resultsPager;
     private StateManager _stateManager;
+    private int pageSize = 3;
 
     public ModelAndView handleRequestInternal(HttpServletRequest request,
                                               HttpServletResponse response)
@@ -47,12 +43,12 @@ public class SearchController extends AbstractController {
         Map model =  new HashMap ();
         String queryString = request.getParameter("q");
 
+        _log.info("Search query:" + queryString);
+
         if (queryString != null && !queryString.equals("")) {
 
             StringBuffer queryBuffer = new StringBuffer();
             queryBuffer.append(queryString);
-
-            _sessionContext = SessionContext.getInstance(request);
 
             String location = request.getParameter("l");
             State state = null;
@@ -63,7 +59,6 @@ public class SearchController extends AbstractController {
                     queryBuffer.append(state.getAbbreviation());
                 }
             }
-            _sessionContext.setState(state);
 
             // deal with p - the page parameter.
             int page = 1;
@@ -76,11 +71,10 @@ public class SearchController extends AbstractController {
                 }
             }
 
-            int pageSize = 3;
             String suggestion = null;
-
             String constraint = request.getParameter("c");
             String qString = queryBuffer.toString();
+
             if (constraint != null && !constraint.equals("all")) {
                 pageSize = 10;
                 StringBuffer clone = new StringBuffer (qString);
@@ -92,21 +86,23 @@ public class SearchController extends AbstractController {
                     suggestion = dh.getSuggestedQueryString();
                 }
             } else {
-                StringBuffer schoolClone = new StringBuffer (qString);
-                schoolClone.append (" AND type:school");
-                DecoratedHits schoolDH = _spellCheckSearcher.search(schoolClone.toString ());
-                _resultsPager.setSchools (schoolDH.getHits());
-                suggestion = schoolDH.getSuggestedQueryString();
-
-                StringBuffer articleClone = new StringBuffer (qString);
-                articleClone.append (" AND type:article");
-                DecoratedHits articleDH = _spellCheckSearcher.search(articleClone.toString ());
-                _resultsPager.setArticles (articleDH.getHits());
-
-                StringBuffer districtClone = new StringBuffer (qString);
-                districtClone.append (" AND type:district");
-                DecoratedHits districtDH = _spellCheckSearcher.search(districtClone.toString ());
-                _resultsPager.setDistricts(districtDH.getHits());
+                String[] types = {"school", "article", "district"};
+                for (int i = 0; i < types.length; i++) {
+                    StringBuffer clone = new StringBuffer (qString);
+                    clone.append (" AND type:");
+                    clone.append (types[i]);
+                    DecoratedHits dh = _spellCheckSearcher.search(clone.toString ());
+                    if (dh != null) {
+                        if (types[i].equals("school")) {
+                            _resultsPager.setSchools (dh.getHits());
+                            suggestion = dh.getSuggestedQueryString();
+                        } else if (types[i].equals("article")) {
+                            _resultsPager.setArticles (dh.getHits());
+                        } else {
+                            _resultsPager.setDistricts (dh.getHits());
+                        }
+                    }
+                }
             }
 
             model.put("suggestedQuery", suggestion);
@@ -120,14 +116,6 @@ public class SearchController extends AbstractController {
         }
 
         return new ModelAndView("search", "results", model);
-    }
-
-    public Searcher getSearcher() {
-        return _searcher;
-    }
-
-    public void setSearcher(Searcher searcher) {
-        _searcher = searcher;
     }
 
     public void setResultsPager(ResultsPager pager) {

@@ -59,15 +59,7 @@ public class SearchResult {
      * @return The 2-letter state abreviation lowercased
      */
     public String getState () {
-        String state = _doc.get("state");
-        if (state != null) {
-            state = state.toLowerCase();
-        }
-        return state;
-    }
-
-    public String getAddress2() {
-        return getDocument().get("address");
+        return _doc.get("state");
     }
 
     public String getPhone() {

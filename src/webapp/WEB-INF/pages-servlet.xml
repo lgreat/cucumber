@@ -59,9 +59,6 @@
 
 	<bean name="/search.page" class="gs.web.search.SearchController"
           autowire="byName">
-        <property name="searcher">
-            <ref bean="searcher" />
-        </property>
         <property name="resultsPager">
             <ref bean="resultsPager"/>
         </property>
