@@ -87,6 +87,7 @@ public class SearchController extends AbstractController {
                 }
             } else {
                 String[] types = {"school", "article", "district"};
+                pageSize = 3;
                 for (int i = 0; i < types.length; i++) {
                     StringBuffer clone = new StringBuffer (qString);
                     clone.append (" AND type:");
