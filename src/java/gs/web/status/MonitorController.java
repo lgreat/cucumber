@@ -54,6 +54,21 @@ public class MonitorController implements Controller {
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // This tests the logging system.  Doing it this way seems a lot simpler
+        // than creating a FormController, etc.
+        if (request != null) {
+            String method = request.getMethod();
+            if (method != null && method.equalsIgnoreCase("POST")) {
+                String logMessage = request.getParameter("logmessage");
+                _log.debug(logMessage);
+                _log.trace(logMessage);
+                _log.info(logMessage);
+                _log.warn(logMessage);
+                _log.error(logMessage);
+                _log.fatal(logMessage);
+            }
+        }
+
         Map model = new HashMap();
 
         // Set the version

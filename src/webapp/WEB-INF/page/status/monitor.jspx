@@ -72,6 +72,17 @@
                 </tr>
             </table>
 
+            <br/>
+
+            <table class="statusbox">
+                <form action="/status/monitor.page" method="post">
+                    <tr>
+                        <td class="statustitle">Trigger test log message: </td>
+                        <td><input type="text" name="logmessage" size="30"/></td>
+                        <td><input type="submit" value="log it!"/></td>
+                    </tr>
+                </form>
+            </table>
         </body>
     </html>
 </jsp:root>
