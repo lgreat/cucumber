@@ -82,7 +82,14 @@ public class SearchController extends AbstractController {
                 clone.append(constraint);
                 DecoratedHits dh = _spellCheckSearcher.search(clone.toString ());
                 if (dh != null) {
-                    _resultsPager.setArticles (dh.getHits());
+                    if (constraint.equals("school")) {
+                        _resultsPager.setSchools (dh.getHits());
+
+                    } else if (constraint.equals("article")) {
+                        _resultsPager.setArticles (dh.getHits());
+                    } else {
+                        _resultsPager.setDistricts (dh.getHits());
+                    }
                     suggestion = dh.getSuggestedQueryString();
                 }
             } else {
