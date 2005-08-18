@@ -109,6 +109,15 @@
             </properties>
         </dependency>
 
+        <dependency>
+            <groupId>spring</groupId>
+            <artifactId>spring-mock</artifactId>
+            <version>1.0.2</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+
         <!-- HttpUnit dependencies -->
         <dependency>
             <groupId>httpunit</groupId>

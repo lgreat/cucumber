@@ -10,13 +10,16 @@ import org.apache.commons.logging.Log;
 import gs.data.search.*;
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.web.SessionContext;
 
 import java.util.Map;
 import java.util.HashMap;
 
 /**
- * @author Chris Kimm <mailto:chriskimm@greatschools.net>
+ * This controller handles all search requests.
+ * Search results are returned in paged form with single-type pages having 10
+ * results and mixed-type pages having 3 results.  Multiple mixed-type pages
+ * can be delivered in the model.
+ *
  *         <p/>
  *         Parameters used in this page:
  *         <ul>
@@ -26,6 +29,8 @@ import java.util.HashMap;
  *         <li>q :  query string</li>
  *         <li>s :  style</li>
  *         </ul>
+ *
+ * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class SearchController extends AbstractController {
 
@@ -36,6 +41,18 @@ public class SearchController extends AbstractController {
     private StateManager _stateManager;
     private int pageSize = 3;
 
+    /**
+     * Though this message throws <code>Exception</code>, it should swallow most
+     * (all?) searching errors while just logging appropriately and returning
+     * no results to the user.  Search/Query/Parsing errors are meaningless to
+     * most users and should be handled internally.
+     *
+     * @param request
+     * @param response
+     * @return a <code>ModelAndView</code> which contains Map containting
+     *         search results and attendant parameters as the model.
+     * @throws Exception
+     */
     public ModelAndView handleRequestInternal(HttpServletRequest request,
                                               HttpServletResponse response)
             throws Exception {
@@ -81,6 +98,7 @@ public class SearchController extends AbstractController {
                 clone.append(" AND type:");
                 clone.append(constraint);
                 DecoratedHits dh = _spellCheckSearcher.search(clone.toString ());
+
                 if (dh != null) {
                     if (constraint.equals("school")) {
                         _resultsPager.setSchools (dh.getHits());
@@ -126,14 +144,26 @@ public class SearchController extends AbstractController {
         return new ModelAndView("search", "results", model);
     }
 
+    /**
+     * A setter for Spring
+     * @param pager
+     */
     public void setResultsPager(ResultsPager pager) {
         _resultsPager = pager;
     }
 
+    /**
+     * A setter for Spring
+     * @param stateManager
+     */
     public void setStateManager(StateManager stateManager) {
         _stateManager = stateManager;
     }
 
+    /**
+     * A setter for Spring
+     * @param spellCheckSearcher
+     */
     public void setSpellCheckSearcher(SpellCheckSearcher spellCheckSearcher) {
         _spellCheckSearcher = spellCheckSearcher;
     }

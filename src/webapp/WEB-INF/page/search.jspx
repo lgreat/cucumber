@@ -268,7 +268,7 @@
                     <br/>
                     <span class="resultHeading">Schools</span>
 
-                            <search:pageLinks total="${results.schoolsTotal}"
+                            <search:resultsHeader total="${results.schoolsTotal}"
                                 page="${param.p}"
                                 query="${param.q}"
                                 constraint="${param.c}"
@@ -296,24 +296,15 @@
                     <br/>
                     <br/>
                     <span class="resultHeading">Articles</span>
-                    <!--
-                    <c:choose>
-                        <c:when test="${results.articlesTotal > 0}">
-                        -->
-                            <search:pageLinks total="${results.articlesTotal}"
+
+                            <search:resultsHeader total="${results.articlesTotal}"
                                 page="${param.p}"
                                 query="${param.q}"
                                 constraint="${param.c}"
                                 style="${param.s}"
                                 pageSize="${results.pageSize}"
                                 type="article"/>
-                           <!--
-                        </c:when>
-                        <c:otherwise>
-                            <c:out value="No articles found for query: ${param.q}"/>
-                        </c:otherwise>
-                    </c:choose>
-                               -->
+
                     <br/>
                     <hr/>
                     <c:forEach items="${results.articles}" var="article">
@@ -338,25 +329,15 @@
                 <c:if test="${(empty param.c) || (param.c == 'all') || (param.c == 'district')}">
                     <br/>
                     <span class="resultHeading">Districts</span>
-<!--
-                    <c:choose>
-                        <c:when test="${results.districtsTotal > 0}">
-    -->
-                            <search:pageLinks total="${results.districtsTotal}"
+
+                            <search:resultsHeader total="${results.districtsTotal}"
                                 page="${param.p}"
                                 query="${param.q}"
                                 constraint="${param.c}"
                                 style="${param.s}"
                                 pageSize="${results.pageSize}"
                                 type="district"/>
-       <!--
-                        </c:when>
-                        <c:otherwise>
-                            <c:out value="No districts found for query: ${param.q}"/>
-                        </c:otherwise>
 
-                    </c:choose>
-                    -->
                     <br/>
                     <hr/>
 
