@@ -18,27 +18,18 @@
 
         <head>
             <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
-            <c:choose>
-                <c:when test="${param.s == '2'}">
-                    <link rel="stylesheet" href="res/css/search2.css"></link>
-                </c:when>
-                <c:when test="${param.s == '3'}">
-                    <link rel="stylesheet" href="res/css/search3.css"></link>
-                </c:when>
-                <c:when test="${param.s == '4'}">
-                    <link rel="stylesheet" href="res/css/search4.css"></link>
-                </c:when>
-                <c:otherwise>
-                    <link rel="stylesheet" href="res/css/search1.css"></link>
-                </c:otherwise>
-            </c:choose>
-
             <title>Search</title>
 
-        </head>
-
-        <body>
             <style type="text/css">
+    div.searchresult {
+        border-bottom : dotted thin black;
+        padding-bottom : 2mm;
+        margin-bottom : 3mm
+    }
+
+    .highlight {
+        font-weight : 800
+    }
 
     a.s {
         padding-left: 3mm;
@@ -95,164 +86,166 @@
         font-weight: bold;
     }
             </style>
+        </head>
+
+        <body>
 
             <c:choose>
                 <c:when test="${param.s == '2'}">
                     <style type="text/css">
-            #two {
-                font-weight: bold
-            }
+                        #two { font-weight: bold }
                     </style>
                 </c:when>
                 <c:when test="${param.s == '3'}">
                     <style type="text/css">
-            #three {
-                font-weight: bold
-            }
+                        #three { font-weight: bold }
                     </style>
                 </c:when>
                 <c:when test="${param.s == '4'}">
                     <STYLE type="text/css">
-            #four { font-weight : bold }
+                        #four { font-weight : bold }
                     </STYLE>
                 </c:when>
                 <c:otherwise>
                     <STYLE type="text/css">
-            #one { font-weight : bold }
+                        #one { font-weight : bold }
                     </STYLE>
                 </c:otherwise>
             </c:choose>
 
             <form id="searchForm" method="get" style="margin: 0; padding: 0">
-                <div style="float: right"><a href="mailto:chriskimm@greatschools.net?subject=GS Search">Bugs/Comments</a></div>
+                <div style="float: right">
+                    <a href="mailto:chriskimm@greatschools.net?subject=GS Search">Bugs/Comments</a>
+                </div>
                 <c:if test="${param.s != '4'}">
-                <span class="message">
-                    <c:out value="Location Awareness: "/>
-                </span>
-                <select name="l">
+                    <span class="message">
+                        <c:out value="Location Awareness: "/>
+                    </span>
+                    <select name="l">
 
-                    <![CDATA[<option ]]>
-                    <c:out value="${param.l == 'none' ? 'selected ' : ''}"/>
-                    <![CDATA[value='none'>None</option>]]>
+                        <![CDATA[<option ]]>
+                        <c:out value="${param.l == 'none' ? 'selected ' : ''}"/>
+                        <![CDATA[value='none'>None</option>]]>
 
-                    <![CDATA[<option ]]>
-                    <c:out value="${param.l == 'CA' ? 'selected ' : ''}"/>
-                    <![CDATA[value='CA'>California</option>]]>
+                        <![CDATA[<option ]]>
+                        <c:out value="${param.l == 'CA' ? 'selected ' : ''}"/>
+                        <![CDATA[value='CA'>California</option>]]>
 
-                    <![CDATA[<option ]]>
-                    <c:out value="${param.l == 'NY' ? 'selected ' : ''}"/>
-                    <![CDATA[value='NY'>New York</option>]]>
-                </select>
+                        <![CDATA[<option ]]>
+                        <c:out value="${param.l == 'NY' ? 'selected ' : ''}"/>
+                        <![CDATA[value='NY'>New York</option>]]>
+                    </select>
                 </c:if>
 
-                <a id="one" class="s" href="/search.page?s=1">&#032;&#032;Style 1</a>
-                <a id="two" class="s" href="/search.page?s=2">&#032;&#032;Style 2</a>
-                <a id="three" class="s" href="/search.page?s=3">&#032;&#032;Style 3</a>
-                <a id="three" class="s" href="/search.page?s=4">&#032;&#032;Style 4</a>
+                <a id="one" class="s" href="/search.page?s=1">Style 1</a>
+                <a id="two" class="s" href="/search.page?s=2">Style 2</a>
+                <a id="three" class="s" href="/search.page?s=3">Style 3</a>
+                <a id="three" class="s" href="/search.page?s=4">Style 4</a>
 
                 <hr/>
-                <img src="res/img/header_logo.gif" alt="GreatSchools.net" border="0"
-                    height="80" width="201"/>
-                <table>
+                <img src="res/img/header_logo.gif"
+                    alt="GreatSchools.net"
+                    border="0"
+                    height="80"
+                    width="201"/>
+
+                <!-- Search Control Begin -->
+
+                <table id="searchFields">
                     <tr>
                         <td>
-                            <table id="searchFields">
-                                <tr>
-                                    <td>
-                                        <span class="message">Search:</span>
-                                    </td>
-                                    <td>
-                                        <input type="text"
-                                            id="q"
-                                            name="q"
-                                            size="40"
-                                            maxlength="255"
-                                            value="${not empty param.q ? param.q : ''}"
-                                            onfocus="this.className='focus'"
-                                            onblur="this.className=''"/>
-                                    </td>
-                                    <c:if test="${param.s == '3'}">
-                                        <td>
-                                            <select name="c">
-                                                <![CDATA[<option name="c" ]]>
-                                                <c:out value="${param.c == 'all' ? 'selected ' : ''}"/>
-                                                <![CDATA[ value='all'>All GS.net</option>]]>
-                                                <![CDATA[<option name="c" ]]>
-                                                <c:out value="${param.c == 'school' ? 'selected ' : ''}"/>
-                                                <![CDATA[ value='school'>Schools</option>]]>
-                                                <![CDATA[<option name="c" ]]>
-                                                <c:out value="${param.c == 'article' ? 'selected ' : ''}"/>
-                                                <![CDATA[ value='article'>Articles</option>]]>
-                                                <![CDATA[<option name="c" ]]>
-                                                <c:out value="${param.c == 'district' ? 'selected ' : ''}"/>
-                                                <![CDATA[ value='district'>Districts</option>]]>
-                                            </select>
-                                        </td>
-                                    </c:if>
-
-                                    <c:if test="${param.s == '4'}">
-                                        <td>
-                                            <span style="margin-left:3mm; margin-right:2mm" >in:</span>
-                                            <jsp:useBean id="states" class="gs.data.state.StateManager"/>
-                                            <select name="l">
-                                                 <option name="l" value="all"></option>
-                                                <c:forEach items="${states.iterator}" var="state">
-                                                    <![CDATA[<option name="l" ]]>
-                                                    <c:if test="${param.l == state}">
-                                                        selected
-                                                    </c:if>
-                                                    <![CDATA[ value=']]>
-                                                    <c:out value="${state}" />
-                                                    <![CDATA['>]]>
-                                                    <c:out value="${state.abbreviation}"/>
-                                                    <![CDATA[</option>]]>
-                                                </c:forEach>
-                                            </select>
-                                        </td>
-                                    </c:if>
-
-                                    <td>
-                                        <input type="submit" value=" Go "/>
-                                    </td>
-                                    <c:if test="${param.s == '2' || param.s == '4'}">
-
-                                        <c:if test="${param.s == '4'}">
-                                          <![CDATA[<tr>]]>
-                                             <td></td>
-
-                                        </c:if>
-                                        <td>
-                                            <span class="radio">
-                                                <![CDATA[<input class="rButton" id="r1" ]]>
-                                                <c:out value="${param.c == 'all' ? ' checked ' : ''}"/>
-                                                <![CDATA[type="radio" name="c" value="all" />All GS.net]]>
-                                            </span>
-                                            <span class="radio">
-                                                <![CDATA[<input class="rButton" id="r2" ]]>
-                                                <c:out value="${param.c == 'article' ? ' checked ' : ''}"/>
-                                                <![CDATA[type="radio" name="c" value="article" /> Articles]]>
-                                            </span>
-                                            <span class="radio">
-                                                <![CDATA[<input class="rButton" id="r3"]]>
-                                                <c:out value="${param.c == 'school' ? ' checked ' : ''}"/>
-                                                <![CDATA[type="radio" name="c" value="school" /> Schools]]>
-                                            </span>
-                                        </td>
-                                        <c:if test="${param.s == '4'}">
-                                            <td></td>
-                                            <td></td>
-                                            <![CDATA[</tr>]]>
-                                        </c:if>
-                                    </c:if>
-                                </tr>
-                            </table>
+                            <span class="message">Search:</span>
                         </td>
+                        <td>
+                            <input type="text"
+                                id="q"
+                                name="q"
+                                size="40"
+                                maxlength="255"
+                                value="${not empty param.q ? param.q : ''}"
+                                onfocus="this.className='focus'"
+                                onblur="this.className=''"/>
+                        </td>
+                        <c:if test="${param.s == '3'}">
+                            <td>
+                                <select name="c">
+                                    <![CDATA[<option name="c" ]]>
+                                    <c:out value="${param.c == 'all' ? 'selected ' : ''}"/>
+                                    <![CDATA[ value='all'>All GS.net</option>]]>
+                                    <![CDATA[<option name="c" ]]>
+                                    <c:out value="${param.c == 'school' ? 'selected ' : ''}"/>
+                                    <![CDATA[ value='school'>Schools</option>]]>
+                                    <![CDATA[<option name="c" ]]>
+                                    <c:out value="${param.c == 'article' ? 'selected ' : ''}"/>
+                                    <![CDATA[ value='article'>Articles</option>]]>
+                                    <![CDATA[<option name="c" ]]>
+                                    <c:out value="${param.c == 'district' ? 'selected ' : ''}"/>
+                                    <![CDATA[ value='district'>Districts</option>]]>
+                                </select>
+                            </td>
+                        </c:if>
 
+                        <c:if test="${param.s == '4'}">
+                            <td>
+                                <span style="margin-left:3mm; margin-right:2mm">in:</span>
+                                <jsp:useBean id="states" class="gs.data.state.StateManager"/>
+                                <select name="l">
+                                    <option name="l" value="all"></option>
+                                    <c:forEach items="${states.iterator}" var="state">
+                                        <![CDATA[<option name="l" ]]>
+                                        <c:if test="${param.l == state}">
+                                                        selected
+                                        </c:if>
+                                        <![CDATA[ value=']]>
+                                        <c:out value="${state}"/>
+                                        <![CDATA['>]]>
+                                        <c:out value="${state.abbreviation}"/>
+                                        <![CDATA[</option>]]>
+                                    </c:forEach>
+                                </select>
+                            </td>
+                        </c:if>
 
+                        <td>
+                            <input type="submit" value=" Go "/>
+                        </td>
+                        <c:if test="${param.s == '2' || param.s == '4'}">
+
+                            <c:if test="${param.s == '4'}">
+                                <![CDATA[<tr>]]>
+                                <td></td>
+
+                            </c:if>
+                            <td>
+                                <span class="radio">
+                                    <![CDATA[<input class="rButton" id="r1" ]]>
+                                    <c:out value="${param.c == 'all' ? ' checked ' : ''}"/>
+                                    <![CDATA[type="radio" name="c" value="all" />All GS.net]]>
+                                </span>
+                                <span class="radio">
+                                    <![CDATA[<input class="rButton" id="r2" ]]>
+                                    <c:out value="${param.c == 'article' ? ' checked ' : ''}"/>
+                                    <![CDATA[type="radio" name="c" value="article" /> Articles]]>
+                                </span>
+                                <span class="radio">
+                                    <![CDATA[<input class="rButton" id="r3"]]>
+                                    <c:out value="${param.c == 'school' ? ' checked ' : ''}"/>
+                                    <![CDATA[type="radio" name="c" value="school" /> Schools]]>
+                                </span>
+                            </td>
+                            <c:if test="${param.s == '4'}">
+                                <td></td>
+                                <td></td>
+                                <![CDATA[</tr>]]>
+                            </c:if>
+                        </c:if>
                     </tr>
                 </table>
 
                 <input type="hidden" name="s" value="${param.s}"/>
+
+                <!-- Search Control Ends -->
+
             </form>
 
             <!-- begin the result set area -->
@@ -263,7 +256,7 @@
                 Do you mean:
                 <span id="suggestion">
                     <a href="/search.page?q=${results.suggestedQuery}&amp;c=${param.c}&amp;s=${param.s}">
-                    <c:out value="${results.suggestedQuery}"/>
+                        <c:out value="${results.suggestedQuery}"/>
                     </a>
                 </span>
             </c:if>
@@ -275,25 +268,7 @@
                     <br/>
                     <span class="resultHeading">Schools</span>
 
-                    <c:choose>
-                        <c:when test="${results.schoolsTotal > 0}">
-            Results
-                            <c:out value="${((empty param.p || param.p le 1) ? 0 : (param.p-1) * results.pageSize)+1}"/>
-            -
-
-                            <c:choose>
-                                <c:when test="${(((empty param.p || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize) le results.schoolsTotal}">
-                                    <c:out value="${((empty param.p || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize}"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:out value="${results.schoolsTotal}"/>
-                                </c:otherwise>
-                            </c:choose>
-            of
-                            <c:out value="${results.schoolsTotal}"/>
-                            <c:if test="${results.schoolsTotal > results.pageSize}">
-
-            <search:pageLinks total="${results.schoolsTotal}"
+                            <search:pageLinks total="${results.schoolsTotal}"
                                 page="${param.p}"
                                 query="${param.q}"
                                 constraint="${param.c}"
@@ -301,12 +276,6 @@
                                 pageSize="${results.pageSize}"
                                 type="school"/>
 
-                            </c:if>
-                        </c:when>
-                        <c:otherwise>
-                            <c:out value="No schools found for query: ${param.q}"/>
-                        </c:otherwise>
-                    </c:choose>
                     <br/>
                     <hr/>
 
@@ -327,39 +296,24 @@
                     <br/>
                     <br/>
                     <span class="resultHeading">Articles</span>
+                    <!--
                     <c:choose>
                         <c:when test="${results.articlesTotal > 0}">
-
-            Results
-                            <c:out value="${((param.p == null || param.p le 1) ? 0 : (param.p-1) * results.pageSize)+1}"/>
-            -
-
-                            <c:choose>
-                                <c:when test="${(((param.p == null || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize) le results.articlesTotal}">
-                                    <c:out value="${((param.p == null || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize}"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:out value="${results.articlesTotal}"/>
-                                </c:otherwise>
-                            </c:choose>
-
-            of
-                            <c:out value="${results.articlesTotal}"/>
-
-            <search:pageLinks total="${results.articlesTotal}"
+                        -->
+                            <search:pageLinks total="${results.articlesTotal}"
                                 page="${param.p}"
                                 query="${param.q}"
                                 constraint="${param.c}"
                                 style="${param.s}"
                                 pageSize="${results.pageSize}"
                                 type="article"/>
-
+                           <!--
                         </c:when>
                         <c:otherwise>
                             <c:out value="No articles found for query: ${param.q}"/>
                         </c:otherwise>
                     </c:choose>
-
+                               -->
                     <br/>
                     <hr/>
                     <c:forEach items="${results.articles}" var="article">
@@ -384,57 +338,41 @@
                 <c:if test="${(empty param.c) || (param.c == 'all') || (param.c == 'district')}">
                     <br/>
                     <span class="resultHeading">Districts</span>
+<!--
                     <c:choose>
-
                         <c:when test="${results.districtsTotal > 0}">
-
-            Results
-                            <c:out value="${((param.p == null || param.p le 1) ? 0 : (param.p-1) * results.pageSize)+1}"/>
-            -
-
-                            <c:choose>
-
-                                <c:when test="${(((param.p == null || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize) le results.districtsTotal}">
-                                    <c:out value="${((param.p == null || param.p le 1) ? 0 : (param.p-1) * results.pageSize) + results.pageSize}"/>
-                                </c:when>
-
-                                <c:otherwise>
-                                    <c:out value="${results.districtsTotal}"/>
-                                </c:otherwise>
-
-                            </c:choose>
-
-            of
-                            <c:out value="${results.districtsTotal}"/>
-
-                            
-                                    <search:pageLinks total="${results.districtsTotal}"
-                                                      page="${param.p}"
-                                                      query="${param.q}"
-                                                      constraint="${param.c}"
-                                                      style="${param.s}"
-                                                      pageSize="${results.pageSize}"
-                                                      type="district"/>
-
+    -->
+                            <search:pageLinks total="${results.districtsTotal}"
+                                page="${param.p}"
+                                query="${param.q}"
+                                constraint="${param.c}"
+                                style="${param.s}"
+                                pageSize="${results.pageSize}"
+                                type="district"/>
+       <!--
                         </c:when>
                         <c:otherwise>
                             <c:out value="No districts found for query: ${param.q}"/>
                         </c:otherwise>
 
                     </c:choose>
+                    -->
                     <br/>
                     <hr/>
 
                     <c:forEach items="${results.districts}" var="district">
                         <div class="searchResult">
-                            <div style="float: right"><c:out value="${district.phone}" escapeXml="false"/></div>
+                            <div style="float: right">
+                                <c:out value="${district.phone}" escapeXml="false"/>
+                            </div>
                             <![CDATA[<a href="http://www.greatschools.net/cgi-bin/]]>
                             <c:out value="${gsweb:toLowercase(district.state)}"/>
                             <![CDATA[/district_profile/]]>
                             <c:out value="${district.id}"/>
                             <![CDATA["> ]]>
                             <c:out value="${district.name}" escapeXml="false"/>
-                            <![CDATA[</a>]]><br/>
+                            <![CDATA[</a>]]>
+                            <br/>
                             <c:out value="${district.address}" escapeXml="false"/>
 
                             <br/>
