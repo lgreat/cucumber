@@ -91,6 +91,13 @@
         </property>
     </bean>
 
+    <bean name="/searchtest.page"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>searchtest</value>
+        </property>
+    </bean>
+
     <bean name="/overview.page"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">

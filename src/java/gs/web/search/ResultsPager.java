@@ -9,16 +9,13 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.IOException;
 
-import gs.data.school.ISchoolDao;
-import gs.data.school.School;
-import gs.data.content.IArticleDao;
 import gs.data.state.StateManager;
-import gs.data.state.State;
+import gs.web.search.SearchResult;
 
 /**
  * This class handles the organization of <code>Hits</code> into
  * page-ready parcels that can be retrieved using the <code>getPage(..)</code>
- * method.   
+ * method.
  * @author Chris Kimm<mailto:chriskimm@greatschools.net>
  */
 public class ResultsPager {
@@ -117,3 +114,29 @@ public class ResultsPager {
         _stateManager = stateManager;
     }
 }
+
+
+/**
+ queryString (String)
+ analyzer (Analyzer)
+ abstract (String)
+
+        Query query = QueryParser.parse(queryString, "text", analyzer);
+
+        Hits hits = searcher.search(query, new Sort("type", true));
+
+        QueryScorer scorer = new QueryScorer(query);
+        SimpleHTMLFormatter formatter =
+                new SimpleHTMLFormatter("<span class=\"highlight\">", "</span>");
+        Highlighter highlighter = new Highlighter(formatter, scorer);
+        Fragmenter fragmenter = new NonFragmenter();
+        highlighter.setTextFragmenter(fragmenter);
+
+        if (abs != null) {
+            TokenStream stream = new SimpleAnalyzer().tokenStream("abstract", new StringReader(abs));
+            String formattedAbs = highlighter.getBestFragment(stream, abs);
+            if (formattedAbs != null && !formattedAbs.equalsIgnoreCase("")) {
+                abs = formattedAbs;
+            }
+        }
+ */

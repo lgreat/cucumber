@@ -80,6 +80,13 @@
         </property>
     </bean>
 
+    <bean name="/search/schoolsTable.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/search/schoolsTable</value>
+        </property>
+    </bean>
+
     <bean name="/header/moveChoose.module"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
