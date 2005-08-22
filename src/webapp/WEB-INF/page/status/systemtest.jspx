@@ -31,7 +31,9 @@
     <form action="/status/systemtest.page" method="post">
         <input type="submit" name="start" value="start"/>
     </form>
-
+    <c:if test="${!empty time}">
+        <c:out value="indexing took ${time} seconds"/> 
+    </c:if>
     </body>
     </html>
 </jsp:root>

@@ -24,12 +24,17 @@ public class SystemTestController implements Controller {
     private Indexer _indexer;
     private static Log log = LogFactory.getLog(SystemTestController.class);
 
+    String time = null;
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getParameter("start") != null) {
+            long start = System.currentTimeMillis();
             _indexer.index(_indexDir.getMainDirectory(), _indexDir.getSpellCheckDirectory());
+            long end = System.currentTimeMillis();
+            long t = (end-start)/1000;
+            time = String.valueOf(t);
         }
-        return new ModelAndView ("/status/systemtest");
+        return new ModelAndView ("/status/systemtest", "time", time);
     }
 
     public void setIndexer(Indexer indexer) {
