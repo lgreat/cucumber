@@ -27,7 +27,7 @@
     required="false"/>
 
 <script language="javascript" type="text/javascript">
-    var fc_content='${sessionScope.context.hostName}/${empty(state) ? sessionScope.context.stateOrDefault.abbreviation : state}/${empty(pageType) ?
+    var fc_content='${sessionScope.context.hostName}/${empty(state) ? sessionScope.context.stateOrDefault.abbreviationLowerCase : state}/${empty(pageType) ?
     "-" : pageType}/${pageName}/${empty(id) ?
     "-" : id}/${empty(schoolType) ?
     "-" : schoolType}/${empty(schoolLevel) ?
