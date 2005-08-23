@@ -30,5 +30,16 @@
         </ant:propertyfile>
     </goal>
 
+    <goal name="cruisecontrol">
+        <attainGoal name="clean"/>
+        <attainGoal name="site"/>
+        <!-- avoid running tests again -->
+        <j:if test="${maven.test.failure}">
+            <fail message="There were test failures."/>
+        </j:if>
+        <j:set var="maven.test.skip" value="true"/>
+        <attainGoal name="war"/>
+        <j:set var="maven.test.skip" value="false"/>
+    </goal>
 </project>
 
