@@ -31,7 +31,7 @@ public class SystemTestController implements Controller {
             long start = System.currentTimeMillis();
             _indexer.index(_indexDir.getMainDirectory(), _indexDir.getSpellCheckDirectory());
             long end = System.currentTimeMillis();
-            long t = (end-start)/1000;
+            long t = (end-start)/1000/60;
             time = String.valueOf(t);
         }
         return new ModelAndView ("/status/systemtest", "time", time);
