@@ -27,19 +27,19 @@
     }
 
     List list = new ArrayList ();
-    list.add (new T());
-    list.add (new T());
-    list.add (new T());
+    list.add("foo");
+    list.add("flam");
+    list.add("bam");
     request.setAttribute("results", list);
 </jsp:scriptlet>
 
 
 <display:table name="requestScope.results" />
-
+<!--
 <display:table name="requestScope.results" export="true" id="row" requestURI="MyAction.do">
     <display:column sortable="true" title="ID"> <c:out value="flip"/>
     </display:column>
 </display:table>
-
+-->
 
 </jsp:root>

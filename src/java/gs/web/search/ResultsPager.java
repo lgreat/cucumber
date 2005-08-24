@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.io.IOException;
 
 import gs.data.state.StateManager;
-import gs.web.search.SearchResult;
 
 /**
  * This class handles the organization of <code>Hits</code> into
@@ -23,7 +22,7 @@ public class ResultsPager {
     private Hits _schoolHits;
     private Hits _articleHits;
     private Hits _districtHits;
-
+    private String _query;
     private StateManager _stateManager;
 
     private static final Log _log = LogFactory.getLog(ResultsPager.class);
@@ -97,7 +96,7 @@ public class ResultsPager {
             try {
                 for (int i = startIndex; i < endIndex; i++) {
                     Document d = hits.doc(i);
-                    searchResults.add(new SearchResult(d));
+                    searchResults.add(new SearchResult(d, _query));
                 }
             } catch (IOException e) {
                 // todo
@@ -113,30 +112,14 @@ public class ResultsPager {
     public void setStateManager(StateManager stateManager) {
         _stateManager = stateManager;
     }
+
+    /**
+     * This is the query string that created the results loaded by this
+     * pager.
+     * @param query
+     */
+    public void setQuery(String q) {
+        _query = q;
+    }
 }
 
-
-/**
- queryString (String)
- analyzer (Analyzer)
- abstract (String)
-
-        Query query = QueryParser.parse(queryString, "text", analyzer);
-
-        Hits hits = searcher.search(query, new Sort("type", true));
-
-        QueryScorer scorer = new QueryScorer(query);
-        SimpleHTMLFormatter formatter =
-                new SimpleHTMLFormatter("<span class=\"highlight\">", "</span>");
-        Highlighter highlighter = new Highlighter(formatter, scorer);
-        Fragmenter fragmenter = new NonFragmenter();
-        highlighter.setTextFragmenter(fragmenter);
-
-        if (abs != null) {
-            TokenStream stream = new SimpleAnalyzer().tokenStream("abstract", new StringReader(abs));
-            String formattedAbs = highlighter.getBestFragment(stream, abs);
-            if (formattedAbs != null && !formattedAbs.equalsIgnoreCase("")) {
-                abs = formattedAbs;
-            }
-        }
- */

@@ -1,8 +1,7 @@
 package gs.web.search;
 
 import org.apache.lucene.document.Document;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
+import gs.data.search.highlight.TextHighlighter;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -11,13 +10,24 @@ public class SearchResult {
 
     private String _address;
     private Document _doc;
+    private String _query;
+    private boolean _highlight = true;
 
     public SearchResult(Document doc) {
         _doc = doc;
     }
 
+    public SearchResult(Document doc, String query) {
+        _doc = doc;
+        _query = query;
+    }
+
     public String getName() {
-        return _doc.get("name");
+        String name = _doc.get("name");
+        if (_highlight) {
+            name = TextHighlighter.highlight(name, _query, "name");
+        }
+        return name;
     }
 
     public String getId() {
@@ -36,6 +46,11 @@ public class SearchResult {
             addressBuffer.append(_doc.get("zip"));
             _address = addressBuffer.toString ();
         }
+
+        if (_highlight) {
+            return TextHighlighter.highlight(_address, _query, "address");
+        }
+
         return _address;
     }
 
@@ -67,11 +82,30 @@ public class SearchResult {
     }
 
     public String getTitle() {
-        return _doc.get("title");
+        String title = _doc.get("title");
+        if (_highlight) {
+               title = TextHighlighter.highlight(title, _query, "title");
+        }
+        return title;
     }
 
     public String getAbstract() {
-        return _doc.get("abstract");
+        String abs = _doc.get("abstract");
+        if (_highlight) {
+               abs = TextHighlighter.highlight(abs, _query, "abstract");
+        }
+        return abs;
     }
 
+    public String getSchoolType() {
+        return _doc.get("schooltype");
+    }
+
+    /**
+     * Turns highlighing on or off.  On by default.
+     * @param h
+     */
+    public void setHighlight(boolean h) {
+        _highlight = h;
+    }
 }

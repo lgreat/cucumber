@@ -19,16 +19,16 @@ import java.util.HashMap;
  * Search results are returned in paged form with single-type pages having 10
  * results and mixed-type pages having 3 results.  Multiple mixed-type pages
  * can be delivered in the model.
- *
- *         <p/>
- *         Parameters used in this page:
- *         <ul>
- *         <li>c :  constraint</li>
- *         <li>l :  location - CA, NY, WA, etc.</li>
- *         <li>p :  page</li>
- *         <li>q :  query string</li>
- *         <li>s :  style</li>
- *         </ul>
+ * <p/>
+ * <p/>
+ * Parameters used in this page:
+ * <ul>
+ * <li>c :  constraint</li>
+ * <li>l :  location - CA, NY, WA, etc.</li>
+ * <li>p :  page</li>
+ * <li>q :  query string</li>
+ * <li>s :  style</li>
+ * </ul>
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
@@ -57,7 +57,7 @@ public class SearchController extends AbstractController {
                                               HttpServletResponse response)
             throws Exception {
 
-        Map model =  new HashMap ();
+        Map model = new HashMap();
         String queryString = request.getParameter("q");
 
         _log.info("Search query:" + queryString);
@@ -82,7 +82,7 @@ public class SearchController extends AbstractController {
             String p = request.getParameter("p");
             if (p != null) {
                 try {
-                    page = Integer.parseInt (p);
+                    page = Integer.parseInt(p);
                 } catch (Exception e) {
                     // ignore this and just assume the page is 1.
                 }
@@ -92,21 +92,23 @@ public class SearchController extends AbstractController {
             String constraint = request.getParameter("c");
             String qString = queryBuffer.toString();
 
-            if (constraint != null && !constraint.equals("all")) {
+
+            if (constraint != null && !constraint.equals("all") && !constraint.equals("")) {
                 pageSize = 10;
-                StringBuffer clone = new StringBuffer (qString);
+                StringBuffer clone = new StringBuffer(qString);
                 clone.append(" AND type:");
                 clone.append(constraint);
-                DecoratedHits dh = _spellCheckSearcher.search(clone.toString ());
+                _log.debug("clone.toString(): " + clone.toString());
+                DecoratedHits dh = _spellCheckSearcher.search(clone.toString(), queryString);
 
                 if (dh != null) {
                     if (constraint.equals("school")) {
-                        _resultsPager.setSchools (dh.getHits());
+                        _resultsPager.setSchools(dh.getHits());
 
                     } else if (constraint.equals("article")) {
-                        _resultsPager.setArticles (dh.getHits());
+                        _resultsPager.setArticles(dh.getHits());
                     } else {
-                        _resultsPager.setDistricts (dh.getHits());
+                        _resultsPager.setDistricts(dh.getHits());
                     }
                     suggestion = dh.getSuggestedQueryString();
                 }
@@ -114,26 +116,30 @@ public class SearchController extends AbstractController {
                 String[] types = {"school", "article", "district"};
                 pageSize = 3;
                 for (int i = 0; i < types.length; i++) {
-                    StringBuffer clone = new StringBuffer (qString);
-                    clone.append (" AND type:");
-                    clone.append (types[i]);
-                    DecoratedHits dh = _spellCheckSearcher.search(clone.toString ());
+                    StringBuffer clone = new StringBuffer(qString);
+                    clone.append(" AND type:");
+                    clone.append(types[i]);
+                    DecoratedHits dh = _spellCheckSearcher.search(clone.toString(), queryString);
+
+
                     if (dh != null) {
+                        suggestion = dh.getSuggestedQueryString();
                         if (types[i].equals("school")) {
-                            _resultsPager.setSchools (dh.getHits());
-                            suggestion = dh.getSuggestedQueryString();
+                            _resultsPager.setSchools(dh.getHits());
                         } else if (types[i].equals("article")) {
-                            _resultsPager.setArticles (dh.getHits());
+                            _resultsPager.setArticles(dh.getHits());
                         } else {
-                            _resultsPager.setDistricts (dh.getHits());
+                            _resultsPager.setDistricts(dh.getHits());
                         }
                     }
                 }
             }
 
+            _resultsPager.setQuery(qString);
+
             model.put("suggestedQuery", suggestion);
             model.put("articlesTotal", new Integer(_resultsPager.getArticlesTotal()));
-            model.put("articles", _resultsPager.getArticles (page, pageSize));
+            model.put("articles", _resultsPager.getArticles(page, pageSize));
             model.put("schoolsTotal", new Integer(_resultsPager.getSchoolsTotal()));
             model.put("schools", _resultsPager.getSchools(page, pageSize));
             model.put("districtsTotal", new Integer(_resultsPager.getDistrictsTotal()));
@@ -146,6 +152,7 @@ public class SearchController extends AbstractController {
 
     /**
      * A setter for Spring
+     *
      * @param pager
      */
     public void setResultsPager(ResultsPager pager) {
@@ -154,6 +161,7 @@ public class SearchController extends AbstractController {
 
     /**
      * A setter for Spring
+     *
      * @param stateManager
      */
     public void setStateManager(StateManager stateManager) {
@@ -162,6 +170,7 @@ public class SearchController extends AbstractController {
 
     /**
      * A setter for Spring
+     *
      * @param spellCheckSearcher
      */
     public void setSpellCheckSearcher(SpellCheckSearcher spellCheckSearcher) {

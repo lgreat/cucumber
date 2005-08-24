@@ -6,6 +6,7 @@
     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
     xmlns:spring="http://www.springframework.org/tags"
     xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+    xmlns:display="urn:jsptld:http://displaytag.sf.net"
     xmlns:gsweb="gstaglib"
     >
 
@@ -21,14 +22,29 @@
             <title>Search</title>
 
             <style type="text/css">
-    div.searchresult {
-        border-bottom : dotted thin black;
-        padding-bottom : 2mm;
-        margin-bottom : 3mm
+
+    table.resultstable {
+        margin-left: 150px;
+        margin-right:150px;
+    }
+
+    table.resultstable.tr {
+
     }
 
     .highlight {
         font-weight : 800
+    }
+
+    #summarybox {
+        position: absolute;
+        right:10px;
+        top:150px;
+        padding-left:3mm;
+        padding-top:1mm;
+        padding-bottom:1mm;
+        background:#fff;
+        border: dotted thin black;
     }
 
     a.s {
@@ -69,6 +85,10 @@
         padding-top: 3mm;
     }
 
+    tr.odd {
+        background-color: #fff;
+    }
+        
     .pageLinks {
         padding-left: 10mm
     }
@@ -250,10 +270,26 @@
 
             <!-- begin the result set area -->
 
+	<div id="summarybox">
+        <table>
+            <tr>
+                <td><c:out value="Schools: ${results.schoolsTotal}"/></td>
+                <td><c:out value="Districts: ${results.districtsTotal}"/></td>
+            </tr>
+            <tr>
+                <td><c:out value="Private Schools: xxxx"/></td>
+                <td><c:out value="Cities/Metro Areas: xxxx"/></td>
+            </tr>
+            <tr>
+                <td><c:out value="Charter Schools: xxxx"/></td>
+                <td><c:out value="Articles: ${results.articlesTotal}"/></td>
+            </tr>
+        </table>
+    </div>
             <br/>
             <c:if test="${not empty results.suggestedQuery}">
 
-                Do you mean:
+                Did you mean:
                 <span id="suggestion">
                     <a href="/search.page?q=${results.suggestedQuery}&amp;c=${param.c}&amp;s=${param.s}">
                         <c:out value="${results.suggestedQuery}"/>
@@ -279,17 +315,70 @@
                     <br/>
                     <hr/>
 
-                    <c:forEach items="${results.schools}" var="school">
-                        <div class="searchResult"></div>
-                        <![CDATA[<a href="http://www.greatschools.net/modperl/browse_school/]]>
-                        <c:out value="${gsweb:toLowercase(school.state)}/"/>
-                        <c:out value="${school.id}"/>
-                        <![CDATA["> ]]>
-                        <c:out value="${school.name}" escapeXml="false"/>
-                        <![CDATA[</a>]]>
-                        <br/>
-                        <span class="address">${school.address}</span>
-                    </c:forEach>
+                    <c:choose>
+                        <c:when test="${results.pageSize > 5}" >
+
+                            <gsweb:schooltable schools="${results.schools}"/>
+
+                            <!--
+                             <table class="resultstable">
+                                 <tr>
+                                     <td>School</td>
+                                     <td>Type</td>
+                                     <td>Level</td>
+                                     <td>Parent Reviews</td>
+                                 </tr>
+                                 <c:forEach items="${results.schools}" var="school">
+                                 <tr>
+                                 <div class="searchresult">
+                                     <td>
+                                     <span class="schoolname">
+                                     <![CDATA[<a href="http://www.greatschools.net/modperl/browse_school/]]>
+                                     <c:out value="${gsweb:toLowercase(school.state)}/"/>
+                                     <c:out value="${school.id}"/>
+                                     <![CDATA["> ]]>
+                                     <c:out value="${school.name}" escapeXml="false"/>
+                                     <![CDATA[</a>]]>
+                                     </span>     <br/>
+                                     <span class="address">${school.address}</span>
+                                     </td>
+
+                                    <td>
+                                     <span class="schooltype">${school.schoolType}</span>
+                                     </td>
+                                     <td>
+                                      Public/Private
+                                     </td>
+                                     <td>
+                                     stars here..
+                                     </td>
+                                 </div>
+                                 </tr>
+                             </c:forEach>
+                             </table>
+                             -->
+                        </c:when>
+                        <c:otherwise>
+
+                             <c:forEach items="${results.schools}" var="school">
+
+                                 <div class="searchresult">
+                                     <span class="schoolname">
+                                     <![CDATA[<a href="http://www.greatschools.net/modperl/browse_school/]]>
+                                     <c:out value="${gsweb:toLowercase(school.state)}/"/>
+                                     <c:out value="${school.id}"/>
+                                     <![CDATA["> ]]>
+                                     <c:out value="${school.name}" escapeXml="false"/>
+                                     <![CDATA[</a>]]>
+                                     </span>     <br/>
+                                     <span class="address">${school.address}</span>
+                                     <span class="schooltype">${school.schoolType}</span>
+                                 </div>
+
+                             </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+
                 </c:if>
 
                 <c:if test="${(empty param.c) || (param.c == 'all') || (param.c == 'article')}">

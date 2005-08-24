@@ -14,5 +14,15 @@
         <function-signature>java.lang.String toLowercase(java.lang.String)</function-signature>
     </function>
 
+    <tag>
+        <name>schooltable</name>
+        <tag-class>gs.web.search.SchoolTableTagHandler</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>schools</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
 </taglib>
 

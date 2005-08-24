@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.3 2005/06/17 21:38:59 apeterson Exp $
+ * $Id: SessionContext.java,v 1.4 2005/08/24 23:02:47 chriskimm Exp $
  */
 package gs.web;
 
@@ -9,9 +9,16 @@ import gs.data.community.User;
 import gs.data.content.IArticleDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.data.school.ISchoolDao;
+import gs.data.school.census.ICensusValueDao;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.beans.BeansException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +29,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Andrew J. Peterson <mailto:apeterson@greatschools.net>
  */
-public class SessionContext {
+public class SessionContext implements ApplicationContextAware {
 
     public static final String BEAN_ID = "sessionContext";
 
@@ -37,12 +44,16 @@ public class SessionContext {
     private IUserDao _userDao;
     private StateManager _stateManager;
     private IArticleDao _articleDao;
+    private ISchoolDao _schoolDao;
+    private ICensusValueDao _censusValueDao;
 
     private static final Log _log = LogFactory.getLog(SessionContextInterceptor.class);
 
     private String _hostName;
     private User _user;
     private State _state;
+
+    private ApplicationContext _applicationContext;
 
     /**
      * Accessor
@@ -123,6 +134,10 @@ public class SessionContext {
     }
 
 
+    public ApplicationContext getApplicationContext() {
+        return _applicationContext;
+    }
+
     public User getUser() {
         return _user;
     }
@@ -181,5 +196,26 @@ public class SessionContext {
 
     public void setArticleDao(IArticleDao articleDao) {
         _articleDao = articleDao;
+    }
+
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
+    }
+
+    public ICensusValueDao getCensusValueDao() {
+        return _censusValueDao;
+    }
+
+    public void setCensusValueDao(ICensusValueDao censusValueDao) {
+        _censusValueDao = censusValueDao;
+    }
+
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        _applicationContext = applicationContext;
     }
 }
