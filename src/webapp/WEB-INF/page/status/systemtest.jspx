@@ -32,7 +32,7 @@
         <input type="submit" name="start" value="start"/>
     </form>
     <c:if test="${!empty time}">
-        <c:out value="indexing took ${time} minutes"/> 
+        <c:out value="Indexing time ${time}"/> 
     </c:if>
     </body>
     </html>

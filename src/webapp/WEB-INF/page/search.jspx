@@ -21,15 +21,12 @@
             <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
             <title>Search</title>
 
+            <link rel="stylesheet" href="res/css/schools.css"/>
             <style type="text/css">
 
     table.resultstable {
         margin-left: 150px;
         margin-right:150px;
-    }
-
-    table.resultstable.tr {
-
     }
 
     .highlight {
@@ -52,14 +49,14 @@
         padding-top: 3mm;
     }
 
+    #debug {
+        margin-left:10mm;
+        margin-right:10mm;
+    }
+
     #currentPage {
         font-weight: bold;
         font-size: larger;
-    }
-
-    #controls {
-        padding-right: 3mm;
-        border: dotted thin gray;
     }
 
     #searchFields {
@@ -161,6 +158,15 @@
                 <a id="two" class="s" href="/search.page?s=2">Style 2</a>
                 <a id="three" class="s" href="/search.page?s=3">Style 3</a>
                 <a id="three" class="s" href="/search.page?s=4">Style 4</a>
+
+                <select id="debug" name="debug">
+                    <option value="f">Debug Off</option>
+                    <option value="t">Debug On</option>
+                </select>
+
+                <c:if test="${not empty results.queryTime}">
+                    <c:out value="${results.queryTime} ms" />
+                </c:if>
 
                 <hr/>
                 <img src="res/img/header_logo.gif"
@@ -317,13 +323,11 @@
                     <br/>
                     <hr/>
 
-                    <!--
                     <c:choose>
                         <c:when test="${results.pageSize > 5}" >
                             <gsweb:schooltable schools="${results.schools}"/>
                         </c:when>
                         <c:otherwise>
-                        -->
                              <c:forEach items="${results.schools}" var="school">
                                  <div class="searchresult">
                                      <span class="schoolname">
@@ -337,10 +341,9 @@
                                      <span class="address">${school.address}</span>
                                  </div>
                              </c:forEach>
-                        <!--
+
                         </c:otherwise>
                     </c:choose>
-                        -->
                 </c:if>
 
                 <c:if test="${(empty param.c) || (param.c == 'all') || (param.c == 'article')}">

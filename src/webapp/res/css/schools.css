@@ -1,0 +1,41 @@
+#schools {
+border: 1px solid #ddd;
+}
+#schools th {
+background-color: #999;
+color: #fff;
+font-size: 80%;
+text-transform: uppercase;
+padding: 8px 2px 4px 2px;
+vertical-align: bottom;
+}
+#schools td>h3 {
+ padding: 2px;
+ margin: 0;
+ font-size: 1em;
+}
+#schools td>h3>a {
+text-decoration: none;
+color: #038;
+}
+#schools td>h3>a:hover {
+text-decoration: underline;
+}
+#schools td>address {
+ margin-top: -.8em;
+}
+#schools td {
+ padding: 3px;
+ background-color: #eee;
+}
+
+#schools tr.odd td {
+ background-color: #fff;
+}
+#schools tr:hover td {
+background-color: #e8e8e8;
+}
+
+#schools td.lc {
+ text-transform: uppercase;
+}

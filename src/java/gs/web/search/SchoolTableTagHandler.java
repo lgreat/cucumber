@@ -63,7 +63,7 @@ public class SchoolTableTagHandler extends SimpleTagSupport {
         if (_schools != null) {
             JspWriter out = getJspContext().getOut();
 
-            out.println("<table id=\"schoolstable\">");
+            out.println("<table id=\"schools\" cellpadding=\"0\" cellspacing=\"0\">");
             out.println("<tr>");
             out.println("<th>School</th>");
             out.println("<th>Type</th>");

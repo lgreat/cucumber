@@ -62,6 +62,7 @@ public class SearchController extends AbstractController {
 
         _log.info("Search query:" + queryString);
 
+        // If there is no query string, there's nothing to do.
         if (queryString != null && !queryString.equals("")) {
 
             StringBuffer queryBuffer = new StringBuffer();
@@ -92,6 +93,7 @@ public class SearchController extends AbstractController {
             String constraint = request.getParameter("c");
             String qString = queryBuffer.toString();
 
+            long start = System.currentTimeMillis();
 
             if (constraint != null && !constraint.equals("all") && !constraint.equals("")) {
                 pageSize = 10;
@@ -145,6 +147,10 @@ public class SearchController extends AbstractController {
             model.put("districtsTotal", new Integer(_resultsPager.getDistrictsTotal()));
             model.put("districts", _resultsPager.getDistricts(page, pageSize));
             model.put("pageSize", new Integer(pageSize));
+
+            long end = System.currentTimeMillis();
+            long time = end - start;
+            model.put("queryTime", String.valueOf(time));
         }
 
         return new ModelAndView("search", "results", model);
