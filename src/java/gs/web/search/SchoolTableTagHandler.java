@@ -81,7 +81,7 @@ public class SchoolTableTagHandler extends SimpleTagSupport {
                 SearchResult sr = (SearchResult) _schools.get(i);
 
                 boolean odd = true;
-                if (i%2 == 0) {
+                if (i % 2 == 0) {
                     odd = false;
                 }
 
@@ -95,25 +95,28 @@ public class SchoolTableTagHandler extends SimpleTagSupport {
                 out.println("<td>");
 
                 if (school != null) {
+
                     SchoolCensusInfo sci = _censusValueDao.getSchoolCensusInfo(school);
 
                     out.print("<h3><a href=\"http://www.greatschools.net/modperl/browse_school/");
                     out.print(school.getState().getAbbreviationLowerCase());
                     out.print("/");
                     out.print(school.getId().toString());
-                    out.println ("\">");
+                    out.println("\">");
                     out.println(school.getName());
                     out.println("</a></h3>");
                     out.println("<br/>");
-                    out.println(school.getPhysicalAddress().toString());
+                    out.print("<address>");
+                    out.print(school.getPhysicalAddress().toString());
+                    out.println("</address>");
                     out.println("</td><td class=\"st\">");
                     out.println(school.getType().getSchoolTypeName());
                     out.println("</td>");
                     out.println("<td class=\"lc\">");
                     out.println(school.getLevelCodeAsString());
                     out.println("</td>");
-                    out.println ("<td>N.I.Y.</td>");
-                    out.println ("<td>N.I.Y.</td>");
+                    out.println("<td>N.I.Y.</td>");
+                    out.println("<td>N.I.Y.</td>");
                     out.print("<td class=\"cs\">");
                     out.print(sci.getStudentTeacherRatio());
                     out.println("</td>");
@@ -121,7 +124,7 @@ public class SchoolTableTagHandler extends SimpleTagSupport {
                     out.print(sci.getEnrollment());
                     out.println("</td>");
                     out.print("<td>");
-                    out.print ("N.I.Y.");
+                    out.print("N.I.Y.");
                 } else {
                     out.println("school is null!");
                     out.println("</td>");

@@ -88,7 +88,7 @@
     tr.odd {
         background-color: #fff;
     }
-        
+
     .pageLinks {
         padding-left: 10mm
     }
@@ -270,25 +270,27 @@
 
             <!-- begin the result set area -->
 
-	<div id="summarybox">
-        <table>
-            <tr>
-                <td><c:out value="Schools: ${results.schoolsTotal}"/></td>
-                <td><c:out value="Districts: ${results.districtsTotal}"/></td>
-            </tr>
-            <tr>
-                <td><c:out value="Private Schools: xxxx"/></td>
-                <td><c:out value="Cities/Metro Areas: xxxx"/></td>
-            </tr>
-            <tr>
-                <td><c:out value="Charter Schools: xxxx"/></td>
-                <td><c:out value="Articles: ${results.articlesTotal}"/></td>
-            </tr>
-        </table>
-    </div>
+            <c:if test="${not empty results}">
+            <div id="summarybox">
+                <table>
+                    <tr>
+                    <td><c:out value="Schools: ${results.schoolsTotal}"/></td>
+                    <td><c:out value="Districts: ${results.districtsTotal}"/></td>
+                    </tr>
+                     <tr>
+                     <td><c:out value="Private Schools: xxxx"/></td>
+                     <td><c:out value="Cities/Metro Areas: xxxx"/></td>
+                     </tr>
+                     <tr>
+                         <td><c:out value="Charter Schools: xxxx"/></td>
+                         <td><c:out value="Articles: ${results.articlesTotal}"/></td>
+                     </tr>
+                  </table>
+               </div>
+            </c:if>
             <br/>
-            <c:if test="${not empty results.suggestedQuery}">
 
+            <c:if test="${not empty results.suggestedQuery}">
                 Did you mean:
                 <span id="suggestion">
                     <a href="/search.page?q=${results.suggestedQuery}&amp;c=${param.c}&amp;s=${param.s}">
@@ -372,7 +374,6 @@
                                      <![CDATA[</a>]]>
                                      </span>     <br/>
                                      <span class="address">${school.address}</span>
-                                     <span class="schooltype">${school.schoolType}</span>
                                  </div>
 
                              </c:forEach>
