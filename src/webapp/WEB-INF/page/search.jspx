@@ -271,22 +271,22 @@
             <!-- begin the result set area -->
 
             <c:if test="${not empty results}">
-            <div id="summarybox">
-                <table>
-                    <tr>
-                    <td><c:out value="Schools: ${results.schoolsTotal}"/></td>
-                    <td><c:out value="Districts: ${results.districtsTotal}"/></td>
-                    </tr>
-                     <tr>
-                     <td><c:out value="Private Schools: xxxx"/></td>
-                     <td><c:out value="Cities/Metro Areas: xxxx"/></td>
-                     </tr>
-                     <tr>
-                         <td><c:out value="Charter Schools: xxxx"/></td>
-                         <td><c:out value="Articles: ${results.articlesTotal}"/></td>
-                     </tr>
-                  </table>
-               </div>
+                <div id="summarybox">
+                    <table>
+                        <tr>
+                            <td><c:out value="Schools: ${results.schoolsTotal}"/></td>
+                            <td><c:out value="Districts: ${results.districtsTotal}"/></td>
+                        </tr>
+                        <tr>
+                            <td><c:out value="Private Schools: xxxx"/></td>
+                            <td><c:out value="Cities/Metro Areas: xxxx"/></td>
+                        </tr>
+                        <tr>
+                            <td><c:out value="Charter Schools: xxxx"/></td>
+                            <td><c:out value="Articles: ${results.articlesTotal}"/></td>
+                        </tr>
+                    </table>
+                </div>
             </c:if>
             <br/>
 
@@ -317,53 +317,14 @@
                     <br/>
                     <hr/>
 
+                    <!--
                     <c:choose>
                         <c:when test="${results.pageSize > 5}" >
-
                             <gsweb:schooltable schools="${results.schools}"/>
-
-                            <!--
-                             <table class="resultstable">
-                                 <tr>
-                                     <td>School</td>
-                                     <td>Type</td>
-                                     <td>Level</td>
-                                     <td>Parent Reviews</td>
-                                 </tr>
-                                 <c:forEach items="${results.schools}" var="school">
-                                 <tr>
-                                 <div class="searchresult">
-                                     <td>
-                                     <span class="schoolname">
-                                     <![CDATA[<a href="http://www.greatschools.net/modperl/browse_school/]]>
-                                     <c:out value="${gsweb:toLowercase(school.state)}/"/>
-                                     <c:out value="${school.id}"/>
-                                     <![CDATA["> ]]>
-                                     <c:out value="${school.name}" escapeXml="false"/>
-                                     <![CDATA[</a>]]>
-                                     </span>     <br/>
-                                     <span class="address">${school.address}</span>
-                                     </td>
-
-                                    <td>
-                                     <span class="schooltype">${school.schoolType}</span>
-                                     </td>
-                                     <td>
-                                      Public/Private
-                                     </td>
-                                     <td>
-                                     stars here..
-                                     </td>
-                                 </div>
-                                 </tr>
-                             </c:forEach>
-                             </table>
-                             -->
                         </c:when>
                         <c:otherwise>
-
+                        -->
                              <c:forEach items="${results.schools}" var="school">
-
                                  <div class="searchresult">
                                      <span class="schoolname">
                                      <![CDATA[<a href="http://www.greatschools.net/modperl/browse_school/]]>
@@ -375,11 +336,11 @@
                                      </span>     <br/>
                                      <span class="address">${school.address}</span>
                                  </div>
-
                              </c:forEach>
+                        <!--
                         </c:otherwise>
                     </c:choose>
-
+                        -->
                 </c:if>
 
                 <c:if test="${(empty param.c) || (param.c == 'all') || (param.c == 'article')}">
