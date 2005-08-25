@@ -2,8 +2,6 @@ package gs.web.search;
 
 import gs.data.school.School;
 import gs.data.school.ISchoolDao;
-import gs.data.school.census.ICensusValueDao;
-import gs.data.school.census.SchoolCensusInfo;
 import gs.data.state.StateManager;
 import gs.data.state.State;
 import gs.web.SessionContext;
@@ -27,7 +25,6 @@ public class SchoolTableTagHandler extends SimpleTagSupport {
 
     private List _schools = null;
     private ISchoolDao _schoolDao;
-    private ICensusValueDao _censusValueDao;
     private StateManager _stateManager;
     private static final Log _log = LogFactory.getLog(SchoolTableTagHandler.class);
 
@@ -45,7 +42,6 @@ public class SchoolTableTagHandler extends SimpleTagSupport {
                     SessionContext sc = (SessionContext) jspContext.getAttribute(SessionContext.SESSION_ATTRIBUTE_NAME, PageContext.SESSION_SCOPE);
                     if (sc != null) {
                         _schoolDao = sc.getSchoolDao();
-                        _censusValueDao = sc.getCensusValueDao();
                     }
                 }
             }
@@ -96,8 +92,6 @@ public class SchoolTableTagHandler extends SimpleTagSupport {
 
                 if (school != null) {
 
-                    SchoolCensusInfo sci = _censusValueDao.getSchoolCensusInfo(school);
-
                     out.print("<h3><a href=\"http://www.greatschools.net/modperl/browse_school/");
                     out.print(school.getState().getAbbreviationLowerCase());
                     out.print("/");
@@ -118,10 +112,12 @@ public class SchoolTableTagHandler extends SimpleTagSupport {
                     out.println("<td>N.I.Y.</td>");
                     out.println("<td>N.I.Y.</td>");
                     out.print("<td class=\"cs\">");
-                    out.print(sci.getStudentTeacherRatio());
+                    //out.print(school.getClassSize());
+                    out.print("N.I.Y.");
                     out.println("</td>");
                     out.print("<td class=\"en\">");
-                    out.print(sci.getEnrollment());
+                    //out.print(school.getEnrollment());
+                    out.print("N.I.Y.");
                     out.println("</td>");
                     out.print("<td>");
                     out.print("N.I.Y.");

@@ -284,11 +284,11 @@
                             <td><c:out value="Districts: ${results.districtsTotal}"/></td>
                         </tr>
                         <tr>
-                            <td><c:out value="Private Schools: xxxx"/></td>
-                            <td><c:out value="Cities/Metro Areas: xxxx"/></td>
+                            <td><c:out value="Private Schools: N.I.Y"/></td>
+                            <td><c:out value="Cities/Metro Areas: N.I.Y"/></td>
                         </tr>
                         <tr>
-                            <td><c:out value="Charter Schools: xxxx"/></td>
+                            <td><c:out value="Charter Schools: N.I.Y"/></td>
                             <td><c:out value="Articles: ${results.articlesTotal}"/></td>
                         </tr>
                     </table>
