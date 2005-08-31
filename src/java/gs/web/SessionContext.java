@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.4 2005/08/24 23:02:47 chriskimm Exp $
+ * $Id: SessionContext.java,v 1.5 2005/08/31 20:55:22 apeterson Exp $
  */
 package gs.web;
 
@@ -89,14 +89,15 @@ public class SessionContext implements ApplicationContextAware {
         // Doing it every time is really special-case code for Priya's QA scenarios;
         // sign in, visit java page, sign out (perl), and then return to java
         // page. It  used to think you were still signed in.
-        Long cookieId = null;
+        // TODO make sure nobody can change IDs surreptitiously.
+        Integer cookieId = null;
         Cookie[] cookies = httpServletRequest.getCookies();
         if (cookies != null) {
             for (int i = 0; i < cookies.length; i++) {
                 Cookie thisCookie = cookies[i];
                 if ("MEMBER".equals(thisCookie.getName())) {
                     String id = thisCookie.getValue();
-                    cookieId = new Long(id);
+                    cookieId = new Integer(id);
                 }
             }
         }
