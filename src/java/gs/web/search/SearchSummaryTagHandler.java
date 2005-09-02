@@ -124,7 +124,9 @@ public class SearchSummaryTagHandler extends SimpleTagSupport {
 
         public void collect(int id, float score) {
             total++;
+            _log.debug("debug 1................");
             if (getSearcher().getPublicSchoolBits().get(id)) {
+                _log.debug("incrementing public school................");
                 pubSchools++;
             } else if (getSearcher().getPrivateSchoolBits().get(id)) {
                 priSchools++;
