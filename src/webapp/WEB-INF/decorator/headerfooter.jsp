@@ -26,7 +26,7 @@
 
  <div class="wizard"><div class="wizard2"><div class="wizard3"><div class="wizard4"><div class="pad">
 
- <decorator:body />
+<decorator:body />
 
 </div></div></div></div></div>
 

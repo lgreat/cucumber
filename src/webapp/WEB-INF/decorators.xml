@@ -1,5 +1,8 @@
- <decorators>
-     <decorator name="headerfooter" page="/decorator/headerfooter.jsp">
-         <pattern>/*.page</pattern>
-     </decorator>
- </decorators>
+<decorators defaultdir="/WEB-INF/decorator">
+    <!--<decorator name="headerfooter" page="headerfooter.jsp">-->
+        <!--<pattern>/*.page</pattern>-->
+    <!--</decorator>-->
+    <decorator name="perlWrapper" page="perlWrapper.jsp">
+        <!--<pattern>/status/monitor.page</pattern>-->
+    </decorator>
+</decorators>
