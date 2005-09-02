@@ -102,10 +102,29 @@
         font-style: italic;
         font-weight: bold;
     }
+
+   .block {
+      display:block;
+   margin-right:70px;
+}
+.results_overview {
+    margin-left:70px;
+    margin-right:70px;
+    font-weight:bold;
+    border-bottom:1px solid #999;
+    }
+
+.results_overview_link {margin-top:5px;}
+
             </style>
+
+    <script>
+        function gfoc() {document.sf.q.focus();}
+    </script>
+
         </head>
 
-        <body>
+        <body onLoad="gfoc()" >
 
             <c:choose>
                 <c:when test="${param.s == '2'}">
@@ -130,7 +149,7 @@
                 </c:otherwise>
             </c:choose>
 
-            <form id="searchForm" method="get" style="margin: 0; padding: 0">
+            <form id="searchForm" name="sf" method="get" style="margin: 0; padding: 0">
                 <div style="float: right">
                     <a href="mailto:chriskimm@greatschools.net?subject=GS Search">Bugs/Comments</a>
                 </div>
@@ -211,12 +230,12 @@
                             </td>
                         </c:if>
 
-                        <c:if test="${param.s == '4'}">
+                        <c:if test="${param.s != '5'}">
                             <td>
                                 <span style="margin-left:3mm; margin-right:2mm">in:</span>
                                 <jsp:useBean id="states" class="gs.data.state.StateManager"/>
                                 <select name="l">
-                                    <option name="l" value="all"></option>
+                                    <option name="l" value="all">State</option>
                                     <c:forEach items="${states.iterator}" var="state">
                                         <![CDATA[<option name="l" ]]>
                                         <c:if test="${param.l == state}">
@@ -258,6 +277,7 @@
                                     <c:out value="${param.c == 'school' ? ' checked ' : ''}"/>
                                     <![CDATA[type="radio" name="c" value="school" /> Schools]]>
                                 </span>
+
                             </td>
                             <c:if test="${param.s == '4'}">
                                 <td></td>
@@ -276,7 +296,11 @@
 
             <!-- begin the result set area -->
 
+
+
             <c:if test="${not empty results}">
+                <gsweb:searchsummary query="${param.q}"/>
+                <!--
                 <div id="summarybox">
                     <table>
                         <tr>
@@ -293,6 +317,7 @@
                         </tr>
                     </table>
                 </div>
+                -->
             </c:if>
             <br/>
 
@@ -318,15 +343,21 @@
                                 constraint="${param.c}"
                                 style="${param.s}"
                                 pageSize="${results.pageSize}"
-                                type="school"/>
+                                type="school"
+                                sort="${param.sort}"
+                                r="${param.r}"/>
 
                     <br/>
                     <hr/>
 
                     <c:choose>
                         <c:when test="${results.pageSize > 5}" >
-                            <gsweb:schooltable schools="${results.schools}"/>
+                            <gsweb:schooltable schools="${results.schools}"
+                                               query="${param.q}"
+                                               sortColumn="${param.sort}"
+                                               reverse="${param.r}"/>
                         </c:when>
+
                         <c:otherwise>
                              <c:forEach items="${results.schools}" var="school">
                                  <div class="searchresult">
@@ -383,7 +414,6 @@
                 <c:if test="${(empty param.c) || (param.c == 'all') || (param.c == 'district')}">
                     <br/>
                     <span class="resultHeading">Districts</span>
-
                             <search:resultsHeader total="${results.districtsTotal}"
                                 page="${param.p}"
                                 query="${param.q}"
@@ -400,16 +430,63 @@
                             <div style="float: right">
                                 <c:out value="${district.phone}" escapeXml="false"/>
                             </div>
-                            <![CDATA[<a href="http://www.greatschools.net/cgi-bin/]]>
-                            <c:out value="${gsweb:toLowercase(district.state)}"/>
-                            <![CDATA[/district_profile/]]>
-                            <c:out value="${district.id}"/>
+                            <![CDATA[<a href="http://www.greatschools.net/modperl/browse_district/]]>
+                            <c:out value="${district.id}/${gsweb:toLowercase(district.state)}"/>
+
                             <![CDATA["> ]]>
                             <c:out value="${district.name}" escapeXml="false"/>
                             <![CDATA[</a>]]>
                             <br/>
                             <c:out value="${district.address}" escapeXml="false"/>
 
+                            <br/>
+                        </div>
+                    </c:forEach>
+                </c:if>
+
+
+                <c:if test="${(empty param.c) || (param.c == 'all') || (param.c == 'city')}">
+                    <br/>
+                    <span class="resultHeading">Cites</span>
+
+                            <search:resultsHeader total="${results.citiesTotal}"
+                                page="${param.p}"
+                                query="${param.q}"
+                                constraint="${param.c}"
+                                style="${param.s}"
+                                pageSize="${results.pageSize}"
+                                type="city"/>
+
+                    <br/>
+                    <hr/>
+
+                    <c:forEach items="${results.cities}" var="city">
+                        <div class="searchResult">
+                            <a class="city" href="/search.page?c=school&amp;q=type:school+city:${city.cityName}&amp;s=${style}">
+                            <c:out value="${city.cityAndState}" escapeXml="false"/>
+                            </a>
+                            <br/>
+                        </div>
+                    </c:forEach>
+                </c:if>
+
+                <c:if test="${(empty param.c) || (param.c == 'all') || (param.c == 'term')}">
+                    <br/>
+                    <span class="resultHeading">Glossary Terms</span>
+                            <search:resultsHeader total="${results.termsTotal}"
+                                page="${param.p}"
+                                query="${param.q}"
+                                constraint="${param.c}"
+                                style="${param.s}"
+                                pageSize="${results.pageSize}"
+                                type="term"/>
+                    <br/>
+                    <hr/>
+
+                    <c:forEach items="${results.terms}" var="term">
+                        <div class="searchResult">
+                            <a href="http://www.greatschools.net/cgi-bin/glossary_single/ca//?id=${term.id}"><c:out value="${term.term}" escapeXml="false"/></a><br/>
+                            <c:out value="${term.definition}" escapeXml="false"/>
                             <br/>
                         </div>
                     </c:forEach>

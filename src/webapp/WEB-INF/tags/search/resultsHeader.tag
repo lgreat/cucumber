@@ -6,15 +6,18 @@
 <jsp:directive.attribute name="style" required="true"/>
 <jsp:directive.attribute name="pageSize" required="true"/>
 <jsp:directive.attribute name="type" required="true"/>
+<jsp:directive.attribute name="sort" required="false"/>
+<jsp:directive.attribute name="r" required="false"/>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+    <c:set var="sortParam" value="sort=${sort}&amp;r=${r}" />
 
     <c:choose>
         <c:when test="${total > 0}">
-Results
+            Results
             <c:out value="${((empty page || page le 1) ? 0 : (page-1) * pageSize)+1}"/>
--
+            -
             <c:choose>
                 <c:when test="${(((empty page || page le 1) ? 0 : (page-1) * pageSize) + pageSize) le total}">
                     <c:out value="${((empty page || page le 1) ? 0 : (page-1) * pageSize) + pageSize}"/>
@@ -23,7 +26,7 @@ Results
                     <c:out value="${total}"/>
                 </c:otherwise>
             </c:choose>
-of
+            of
             <c:out value="${total}"/>
 
             <c:if test="${(total + 0) gt (pageSize + 0)}">
@@ -37,7 +40,7 @@ of
 
                             <c:if test="${page gt 1}">
                                 <a class="p"
-                                    href="/search.page?q=${query}&amp;c=${constraint}&amp;s=${style}&amp;p=${page-1}">&lt;&lt;</a>
+                                    href="/search.page?q=${query}&amp;c=${constraint}&amp;${sortParam}&amp;s=${style}&amp;p=${page-1}">&lt;&lt;</a>
                             </c:if>
                             <c:set var="counter" value="1"/>
                             <c:forEach begin="${page le 10 ? 1 : page-5}"
@@ -50,7 +53,7 @@ of
                                     </c:if>
                                     <span id="${tick}">
                                         <a class="p"
-                                            href="/search.page?q=${query}&amp;c=${constraint}&amp;s=${style}&amp;p=${index}"> ${index}</a>
+                                            href="/search.page?q=${query}&amp;c=${constraint}&amp;${sortParam}&amp;s=${style}&amp;p=${index}"> ${index}</a>
                                     </span>
                                     <c:set var="tick" value=""/>
                                     <c:set var="counter" value="${counter+1}"/>

@@ -67,6 +67,10 @@
         </property>
     </bean>
 
+    <bean name="/compareSchools.page" class="gs.web.school.CompareSchoolsController"
+            autowire="byName">
+    </bean>
+    
     <bean name="resultsPager" class="gs.web.search.ResultsPager"
           autowire="byName" />
 
@@ -141,7 +145,7 @@
         </property>
     </bean>
 
-    <!-- Status monitor to verify that database access is working and build version -->
+    <!-- This page allows the search indexes to be rebuilt. -->
     <bean name="/status/systemtest.page"
         class="gs.web.status.SystemTestController" autowire="byName">
     </bean>

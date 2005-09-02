@@ -89,6 +89,14 @@ public class SearchResult {
         return title;
     }
 
+    public String getCityName() {
+        return _doc.get("cityname");
+    }
+
+    public String getCityAndState() {
+        return _doc.get("citystate");
+    }
+    
     public String getAbstract() {
         String abs = _doc.get("abstract");
         if (_highlight) {
@@ -107,5 +115,13 @@ public class SearchResult {
      */
     public void setHighlight(boolean h) {
         _highlight = h;
+    }
+
+    public String getTerm() {
+        return _doc.get("term");
+    }
+
+    public String getDefinition() {
+        return _doc.get("definition");
     }
 }

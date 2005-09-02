@@ -39,3 +39,7 @@ background-color: #e8e8e8;
 #schools td.lc {
  text-transform: uppercase;
 }
+
+#schools tr.schoolfooter {
+   background-color: #fff;
+}

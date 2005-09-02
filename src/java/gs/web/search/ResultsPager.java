@@ -22,10 +22,12 @@ public class ResultsPager {
     private Hits _schoolHits;
     private Hits _articleHits;
     private Hits _districtHits;
+    private Hits _termHits;
+    private Hits _cityHits;
     private String _query;
     private StateManager _stateManager;
 
-    private static final Log _log = LogFactory.getLog(ResultsPager.class);
+    //private static final Log _log = LogFactory.getLog(ResultsPager.class);
 
     public ResultsPager() {
     }
@@ -67,6 +69,32 @@ public class ResultsPager {
     public int getDistrictsTotal() {
         if (_districtHits == null) return 0;
         return _districtHits.length();
+    }
+
+    public void setCities(Hits hits) {
+        _cityHits = hits;
+    }
+
+    public List getCities(int page, int pageSize) {
+        return getPage(_cityHits, page, pageSize);
+    }
+
+    public int getCitiesTotal() {
+        if (_cityHits == null) return 0;
+        return _cityHits.length();
+    }
+
+    public void setTerms(Hits hits) {
+        _termHits = hits;
+    }
+
+    public List getTerms(int page, int pageSize) {
+        return getPage(_termHits, page, pageSize);
+    }
+
+    public int getTermsTotal() {
+        if (_termHits == null) return 0;
+        return _termHits.length();
     }
 
     /**
@@ -116,7 +144,7 @@ public class ResultsPager {
     /**
      * This is the query string that created the results loaded by this
      * pager.
-     * @param query
+     * @param q
      */
     public void setQuery(String q) {
         _query = q;

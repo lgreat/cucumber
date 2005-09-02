@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
+import org.apache.lucene.search.Sort;
 import gs.data.search.*;
 import gs.data.state.State;
 import gs.data.state.StateManager;
@@ -93,6 +94,17 @@ public class SearchController extends AbstractController {
             String constraint = request.getParameter("c");
             String qString = queryBuffer.toString();
 
+            String sortParam = request.getParameter("sort");
+            Sort sort = null;
+            if (sortParam != null) {
+                String reverseParam = request.getParameter("r");
+                boolean reverse = false;
+                if (reverseParam != null && reverseParam.equals ("t")) {
+                    reverse = true;
+                }
+                sort = new Sort(sortParam, reverse);
+            }
+
             long start = System.currentTimeMillis();
 
             if (constraint != null && !constraint.equals("all") && !constraint.equals("")) {
@@ -101,21 +113,24 @@ public class SearchController extends AbstractController {
                 clone.append(" AND type:");
                 clone.append(constraint);
                 _log.debug("clone.toString(): " + clone.toString());
-                DecoratedHits dh = _spellCheckSearcher.search(clone.toString(), queryString);
+                DecoratedHits dh = _spellCheckSearcher.search(clone.toString(), queryString, sort);
 
                 if (dh != null) {
                     if (constraint.equals("school")) {
                         _resultsPager.setSchools(dh.getHits());
-
                     } else if (constraint.equals("article")) {
                         _resultsPager.setArticles(dh.getHits());
+                    } else if (constraint.equals("city")) {
+                        _resultsPager.setCities(dh.getHits());
+                    } else if (constraint.equals("terms")) {
+                        _resultsPager.setTerms(dh.getHits());
                     } else {
                         _resultsPager.setDistricts(dh.getHits());
                     }
                     suggestion = dh.getSuggestedQueryString();
                 }
             } else {
-                String[] types = {"school", "article", "district"};
+                String[] types = {"school", "article", "district", "city", "term"};
                 pageSize = 3;
                 for (int i = 0; i < types.length; i++) {
                     StringBuffer clone = new StringBuffer(qString);
@@ -130,6 +145,10 @@ public class SearchController extends AbstractController {
                             _resultsPager.setSchools(dh.getHits());
                         } else if (types[i].equals("article")) {
                             _resultsPager.setArticles(dh.getHits());
+                        } else if (types[i].equals("city")) {
+                            _resultsPager.setCities(dh.getHits());
+                        } else if (types[i].equals("term")) {
+                            _resultsPager.setTerms(dh.getHits());
                         } else {
                             _resultsPager.setDistricts(dh.getHits());
                         }
@@ -146,6 +165,10 @@ public class SearchController extends AbstractController {
             model.put("schools", _resultsPager.getSchools(page, pageSize));
             model.put("districtsTotal", new Integer(_resultsPager.getDistrictsTotal()));
             model.put("districts", _resultsPager.getDistricts(page, pageSize));
+            model.put("citiesTotal", new Integer(_resultsPager.getCitiesTotal()));
+            model.put("cities", _resultsPager.getCities(page, pageSize));
+            model.put("termsTotal", new Integer(_resultsPager.getTermsTotal()));
+            model.put("terms", _resultsPager.getTerms(page, pageSize));
             model.put("pageSize", new Integer(pageSize));
 
             long end = System.currentTimeMillis();
