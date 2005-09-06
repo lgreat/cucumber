@@ -47,6 +47,10 @@ public class SearchSummaryTagHandler extends SimpleTagSupport {
         return _searcher;
     }
 
+    // No need to do this every time...
+    private static String aStart = "<a href=\"/search.page?q=";
+    private static String aEnd = "class=\"block results_overview_link\">";
+
     public void doTag() throws IOException {
 
         _groupingHitCollector.reset();
@@ -67,37 +71,59 @@ public class SearchSummaryTagHandler extends SimpleTagSupport {
         out.println("</div>");
         out.println("<div style=\"margin-left:70px;\">");
         out.println("<div style=\"float:right;\">");
-        out.println("<a href=\"#\" class=\"block results_overview_link\">");
 
+        out.print(aStart);
+        out.print(_query);
+        out.print("&c=district\"");
+        out.print(aEnd);
         out.print("Districts: ");
         out.print(_groupingHitCollector.getDistricts());
         out.println("</a>");
 
-        out.println("<a href=\"#\" class=\"block results_overview_link\">");
-
+        out.print(aStart);
+        out.print(_query);
+        out.print("&c=city\"");
+        out.print(aEnd);
         out.print("Cities: ");
-        out.println(_groupingHitCollector.getCities());
+        out.print(_groupingHitCollector.getCities());
         out.println("</a>");
 
-        out.print("<a href=\"#\" class=\"block results_overview_link\">");
-
-        out.println("Topics: ");
-        out.println(_groupingHitCollector.getArticles());
+        out.print(aStart);
+        out.print(_query);
+        out.print("&c=article\"");
+        out.print(aEnd);
+        out.print("Topics: ");
+        out.print(_groupingHitCollector.getArticles());
         out.println("</a>");
         out.println("</div>");
 
-        out.println("<a href=\"#\" class=\"block results_overview_link\">");
-        out.println("Elementary Schools: ");
-        out.println(_groupingHitCollector.getElementarySchools());
+        out.print(aStart);
+        out.print(_query);
+        out.print(" AND gradelevel:e");
+        out.print("&c=school\"");
+        out.print(aEnd);
+        out.print("Elementary Schools: ");
+        out.print(_groupingHitCollector.getElementarySchools());
         out.println("</a>");
-        out.println("<a href=\"#\" class=\"block results_overview_link\">");
+
+        out.print(aStart);
+        out.print(_query);
+        out.print(" AND gradelevel:m");
+        out.print("&c=school\"");
+        out.print(aEnd);
         out.println("Middle Schools: ");
         out.println(_groupingHitCollector.getMiddleSchools());
-        out.println("</a><a href=\"#\" class=\"block results_overview_link\">");
+        out.println("</a>");
+
+        out.print(aStart);
+        out.print(_query);
+        out.print(" AND gradelevel:h");
+        out.print("&c=school\"");
+        out.print(aEnd);
         out.println("High Schools: ");
         out.println(_groupingHitCollector.getHighSchools());
-
         out.println("</a>");
+
         out.println("</div>");
 
         /*
@@ -124,10 +150,8 @@ public class SearchSummaryTagHandler extends SimpleTagSupport {
 
         public void collect(int id, float score) {
             total++;
-            _log.debug("debug 1................");
-            if (getSearcher().getPublicSchoolBits().get(id)) {
-                _log.debug("incrementing public school................");
-                pubSchools++;
+             if (getSearcher().getPublicSchoolBits().get(id)) {
+                 pubSchools++;
             } else if (getSearcher().getPrivateSchoolBits().get(id)) {
                 priSchools++;
             } else if (getSearcher().getCharterSchoolBits().get(id)) {

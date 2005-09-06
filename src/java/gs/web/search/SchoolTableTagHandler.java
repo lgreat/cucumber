@@ -203,7 +203,7 @@ public class SchoolTableTagHandler extends SimpleTagSupport {
         try {
             State state = _stateManager.getState(sr.getState());
             if (state != null) {
-                school = getSchoolDao().getSchoolById(state, Long.valueOf(sr.getId()));
+                school = getSchoolDao().getSchoolById(state, Integer.valueOf(sr.getId()));
             }
         } catch (Exception e) {
             _log.warn("error retrieving school: ", e);

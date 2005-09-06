@@ -2,6 +2,7 @@ package gs.web.search;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -11,9 +12,11 @@ import org.apache.lucene.search.Sort;
 import gs.data.search.*;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.web.SessionContext;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Enumeration;
 
 /**
  * This controller handles all search requests.
@@ -25,7 +28,7 @@ import java.util.HashMap;
  * Parameters used in this page:
  * <ul>
  * <li>c :  constraint</li>
- * <li>l :  location - CA, NY, WA, etc.</li>
+ * <li>st : state - CA, NY, WA, etc.</li>
  * <li>p :  page</li>
  * <li>q :  query string</li>
  * <li>s :  style</li>
@@ -41,6 +44,7 @@ public class SearchController extends AbstractController {
     private ResultsPager _resultsPager;
     private StateManager _stateManager;
     private int pageSize = 3;
+    private static String STATE = "state";
 
     /**
      * Though this message throws <code>Exception</code>, it should swallow most
@@ -61,6 +65,20 @@ public class SearchController extends AbstractController {
         Map model = new HashMap();
         String queryString = request.getParameter("q");
 
+        State contextState = null;
+        SessionContext context = SessionContext.getInstance(request);
+        if (context != null) {
+            contextState = context.getState();
+            HttpSession session = request.getSession(true);
+            session.setAttribute (STATE, contextState);
+        }
+
+        HttpSession session = request.getSession(true);
+        Enumeration en =  session.getAttributeNames();
+        for ( ; en.hasMoreElements() ;) {
+            System.out.println("attribute: " + en.nextElement());
+
+        }
         _log.info("Search query:" + queryString);
 
         // If there is no query string, there's nothing to do.
@@ -69,7 +87,8 @@ public class SearchController extends AbstractController {
             StringBuffer queryBuffer = new StringBuffer();
             queryBuffer.append(queryString);
 
-            String location = request.getParameter("l");
+            /*
+            String location = request.getParameter("st");
             State state = null;
             if (location != null) {
                 state = _stateManager.getState(location);
@@ -77,6 +96,11 @@ public class SearchController extends AbstractController {
                     queryBuffer.append(" AND state:");
                     queryBuffer.append(state.getAbbreviation());
                 }
+            }
+              */
+            if (contextState != null) {
+                queryBuffer.append(" AND state:");
+                queryBuffer.append(contextState.getAbbreviation());
             }
 
             // deal with p - the page parameter.
@@ -137,7 +161,6 @@ public class SearchController extends AbstractController {
                     clone.append(" AND type:");
                     clone.append(types[i]);
                     DecoratedHits dh = _spellCheckSearcher.search(clone.toString(), queryString);
-
 
                     if (dh != null) {
                         suggestion = dh.getSuggestedQueryString();

@@ -124,6 +124,8 @@
 
         </head>
 
+        <jsp:useBean id="states" class="gs.data.state.StateManager"/>
+
         <body onLoad="gfoc()" >
 
             <c:choose>
@@ -153,24 +155,26 @@
                 <div style="float: right">
                     <a href="mailto:chriskimm@greatschools.net?subject=GS Search">Bugs/Comments</a>
                 </div>
-                <c:if test="${param.s != '4'}">
+                <c:if test="${param.s != '4' and param.s != '1'}">
                     <span class="message">
                         <c:out value="Location Awareness: "/>
                     </span>
-                    <select name="l">
 
-                        <![CDATA[<option ]]>
-                        <c:out value="${param.l == 'none' ? 'selected ' : ''}"/>
-                        <![CDATA[value='none'>None</option>]]>
-
-                        <![CDATA[<option ]]>
-                        <c:out value="${param.l == 'CA' ? 'selected ' : ''}"/>
-                        <![CDATA[value='CA'>California</option>]]>
-
-                        <![CDATA[<option ]]>
-                        <c:out value="${param.l == 'NY' ? 'selected ' : ''}"/>
-                        <![CDATA[value='NY'>New York</option>]]>
+                    <select name="state">
+                        <option name="state" value="all">none</option>
+                        <c:forEach items="${states.iterator}" var="state">
+                            <![CDATA[<option name="state" ]]>
+                            <c:if test="${param.st == state}">
+                                selected
+                            </c:if>
+                            <![CDATA[ value=']]>
+                            <c:out value="${state}"/>
+                            <![CDATA['>]]>
+                            <c:out value="${state.abbreviation}"/>
+                            <![CDATA[</option>]]>
+                        </c:forEach>
                     </select>
+
                 </c:if>
 
                 <a id="one" class="s" href="/search.page?s=1">Style 1</a>
@@ -233,12 +237,12 @@
                         <c:if test="${param.s != '5'}">
                             <td>
                                 <span style="margin-left:3mm; margin-right:2mm">in:</span>
-                                <jsp:useBean id="states" class="gs.data.state.StateManager"/>
-                                <select name="l">
-                                    <option name="l" value="all">State</option>
+
+                                <select name="state">
+                                    <option name="state" value="all">State</option>
                                     <c:forEach items="${states.iterator}" var="state">
-                                        <![CDATA[<option name="l" ]]>
-                                        <c:if test="${param.l == state}">
+                                        <![CDATA[<option name="state" ]]>
+                                        <c:if test="${param.st == state}">
                                                         selected
                                         </c:if>
                                         <![CDATA[ value=']]>
