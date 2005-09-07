@@ -6,7 +6,7 @@
     gs.data.content.IArticleDao dao = context.getArticleDao();
     boolean isAvailable = dao.isArticleInState(articleId, state);
     if (isAvailable) {
-        String title = dao.getTitleFromId(new Long(articleId), state);
+        String title = dao.getTitleFromId(new Integer(articleId), state);
 </jsp:scriptlet>
 <li>
     <a href="http://${context.hostName}/cgi-bin/showarticle/${context.stateOrDefault.abbreviation}/${articleId}/">
