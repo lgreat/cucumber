@@ -7,7 +7,7 @@
 
 <beans>
     <bean name="defaultHandlerMapping"
-        class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
+          class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
         <property name="interceptors">
             <list>
                 <ref local="sessionContextInterceptor"/>
@@ -17,8 +17,8 @@
     </bean>
 
     <bean id="sessionContextInterceptor"
-        class="gs.web.SessionContextInterceptor"
-        autowire="byName">
+          class="gs.web.SessionContextInterceptor"
+          autowire="byName">
     </bean>
 
     <!--    <bean id="insiderOnlyInterceptor"-->
@@ -28,15 +28,17 @@
 
     <!-- factory bean for user session information -->
     <bean id="sessionContext"
-        class="gs.web.SessionContext"
-        autowire="byName"
-        singleton="false">
+          class="gs.web.SessionContext"
+          autowire="byName"
+          singleton="false">
     </bean>
 
+    <!-- WEB PAGE DEFINITIONS BEGIN -->
+
+    <!-- Insider begin -->
     <bean name="/subscribe.page"
-        class="gs.web.community.SubscribeController"
-        autowire="byName">
-        <!-- /cgi-bin/site/signup.cgi/CA -->
+          class="gs.web.community.SubscribeController"
+          autowire="byName">
         <property name="commandName">
             <value>subCmd</value>
         </property>
@@ -57,7 +59,32 @@
         </property>
     </bean>
 
-	<bean name="/search.page" class="gs.web.search.SearchController"
+    <bean id="subscribeValidator" class="gs.web.community.SubscribeValidator"></bean>
+
+    <bean name="/thankyou.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>community/thankyou</value>
+        </property>
+    </bean>
+
+    <bean name="/insider.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>insider/landing</value>
+        </property>
+    </bean>
+
+    <bean name="/fiveSteps.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>houseAd/insiderFiveSteps</value>
+        </property>
+    </bean>
+    <!-- Insider end -->
+
+    <!-- Search begin -->
+    <bean name="/search.page" class="gs.web.search.SearchController"
           autowire="byName">
         <property name="resultsPager">
             <ref bean="resultsPager"/>
@@ -67,97 +94,58 @@
         </property>
     </bean>
 
-    <bean name="/compareSchools.page" class="gs.web.school.CompareSchoolsController"
-            autowire="byName">
-    </bean>
-    
     <bean name="resultsPager" class="gs.web.search.ResultsPager"
-          autowire="byName" />
+          autowire="byName"/>
 
-    <bean name="/thankyou.page"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>community/thankyou</value>
+    <!-- This page allows the search indexes to be rebuilt. -->
+    <bean name="/status/systemtest.page"
+          class="gs.web.status.SystemTestController" autowire="byName">
+    </bean>
+
+    <bean id="versionProperties"
+          class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location">
+            <value>classpath:version.properties</value>
         </property>
     </bean>
+    <!-- Search end -->
+
+    <!-- Status begin -->
+    <!-- Status monitor to verify that database access is working and build version -->
+    <bean name="/status/monitor.page"
+          class="gs.web.status.MonitorController" autowire="byName">
+        <property name="viewName">
+            <value>status/monitor</value>
+        </property>
+    </bean>
+    <!-- Status end -->
 
     <bean name="/sorry.page"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>fatalError</value>
         </property>
     </bean>
 
     <bean name="/sample.page"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>sample</value>
         </property>
     </bean>
 
-    <bean name="/searchtest.page"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>searchtest</value>
-        </property>
-    </bean>
-
-    <bean name="/overview.page"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>overview</value>
-        </property>
-    </bean>
-
-    <bean name="/insider.page"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>insider/landing</value>
-        </property>
+    <bean name="/compareSchools.page" class="gs.web.school.CompareSchoolsController"
+          autowire="byName">
     </bean>
 
     <bean name="/wall.page"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>wall</value>
         </property>
     </bean>
 
-    <bean name="/path1.page"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>path1</value>
-        </property>
-    </bean>
-
-    <bean name="/fiveSteps.page"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>houseAd/insiderFiveSteps</value>
-        </property>
-    </bean>
-
-    <!-- Status monitor to verify that database access is working and build version -->
-    <bean name="/status/monitor.page"
-        class="gs.web.status.MonitorController" autowire="byName">
-        <property name="viewName">
-            <value>status/monitor</value>
-        </property>
-    </bean>
-
-    <!-- This page allows the search indexes to be rebuilt. -->
-    <bean name="/status/systemtest.page"
-        class="gs.web.status.SystemTestController" autowire="byName">
-    </bean>
-
-    <bean id="versionProperties"
-        class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="location">
-            <value>classpath:version.properties</value>
-        </property>
-    </bean>
-
-    <bean id="subscribeValidator" class="gs.web.community.SubscribeValidator"></bean>
+    <!-- WEB PAGE DEFINITIONS END -->
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass">

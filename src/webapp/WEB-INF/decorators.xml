@@ -1,8 +1,33 @@
 <decorators defaultdir="/WEB-INF/decorator">
+    <!--
+        NOTE: excludes have precendence over decorator patterns, so if a pattern is
+        matched in both places, it will not be decorated
+    -->
+
     <!--<decorator name="headerfooter" page="headerfooter.jsp">-->
-        <!--<pattern>/*.page</pattern>-->
+    <!--<pattern>/*.page</pattern>-->
     <!--</decorator>-->
+    
     <decorator name="perlWrapper" page="perlWrapper.jsp">
-        <!--<pattern>/status/monitor.page</pattern>-->
+        <!-- <pattern>/status/monitor.page</pattern> -->
     </decorator>
+
+    <!-- We have to explicitly exclude due to a Sitemesh 2.2.1 bug that truncates the closing html tag -->
+    <excludes>
+        <!-- Regularly used pages that shouldn't be decorated -->
+        <pattern>*/fiveSteps.page*</pattern>
+        <pattern>*/insider.page*</pattern>
+        <pattern>*/subscribe.page*</pattern>
+        <pattern>*/thankyou.page*</pattern>
+        <pattern>*/monitor.page*</pattern>
+        <pattern>*/search.page*</pattern>
+
+        <!-- Inhouse test pages -->
+        <pattern>*/sorry.page*</pattern>
+        <pattern>*/compareSchools.page*</pattern>
+        <pattern>*/sample.page*</pattern>
+        <pattern>*/wall.page*</pattern>
+    </excludes>
+
+
 </decorators>
