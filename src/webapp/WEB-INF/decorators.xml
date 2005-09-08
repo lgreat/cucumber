@@ -7,9 +7,13 @@
     <!--<decorator name="headerfooter" page="headerfooter.jsp">-->
     <!--<pattern>/*.page</pattern>-->
     <!--</decorator>-->
-    
+
     <decorator name="perlWrapper" page="perlWrapper.jsp">
         <!-- <pattern>/status/monitor.page</pattern> -->
+    </decorator>
+
+    <decorator name="cobrandHeaderGsFooter" page="cobrandHeaderGsFooter.jspx">
+        <pattern>/search.page</pattern>
     </decorator>
 
     <!-- We have to explicitly exclude due to a Sitemesh 2.2.1 bug that truncates the closing html tag -->
@@ -20,7 +24,7 @@
         <pattern>*/subscribe.page*</pattern>
         <pattern>*/thankyou.page*</pattern>
         <pattern>*/monitor.page*</pattern>
-        <pattern>*/search.page*</pattern>
+        <!--<pattern>*/search.page*</pattern>-->
 
         <!-- Inhouse test pages -->
         <pattern>*/sorry.page*</pattern>
