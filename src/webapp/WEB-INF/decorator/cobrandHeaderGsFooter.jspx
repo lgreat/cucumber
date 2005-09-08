@@ -20,11 +20,19 @@
 
     <body>
 
-    <p/>COBRAND HEADER WILL GO HERE IF ON COBRAND<p/>
+    <p/>
+    <div id="cobrandheader">
+        COBRAND HEADER WILL GO HERE IF ON COBRAND
+    </div>
+    <p/>
 
     <decorator:body/>
 
-    <p/>GS SEARCH ENGINE FOOTER WILL GO HERE<p/>
+    <p/>
+    <div id="footer">
+        GS SEARCH ENGINE FOOTER WILL GO HERE
+    </div>
+    <p/>
 
     </body>
     </html>
