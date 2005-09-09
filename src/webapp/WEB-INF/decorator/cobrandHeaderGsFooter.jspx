@@ -4,6 +4,7 @@
         xmlns="http://www.w3c.org/1999/xhtml"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator"
+        xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         >
     <html lang="en">
     <jsp:output doctype-root-element="html"
@@ -21,17 +22,27 @@
     <body>
 
     <p/>
-    <div id="cobrandheader">
+
+    <div id="headerCobrand">
         COBRAND HEADER WILL GO HERE IF ON COBRAND
     </div>
+
     <p/>
 
     <decorator:body/>
 
     <p/>
+
     <div id="footer">
-        GS SEARCH ENGINE FOOTER WILL GO HERE
+        <div id="footerAd">
+            <ad:google728x90/>
+        </div>
+
+        <div id="footerSe">
+            GS SEARCH ENGINE FOOTER WILL GO HERE
+        </div>
     </div>
+
     <p/>
 
     </body>
