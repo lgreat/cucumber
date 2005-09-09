@@ -97,8 +97,20 @@
     <bean name="resultsPager" class="gs.web.search.ResultsPager"
           autowire="byName"/>
 
+    <!-- These beans control access to searchmanager.page -->
+    <bean id="loginValidator" class="gs.web.status.LoginValidator"/>
+    <bean name="/status/login.page"
+          class="gs.web.status.LoginController" autowire="byName">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>identity</value></property>
+        <property name="commandClass"><value>gs.web.status.Identity</value></property>
+        <property name="validator"><ref bean="loginValidator"/></property>
+        <property name="formView"><value>status/login</value></property>
+        <property name="successView"><value>/status/searchmanager.page</value></property>
+    </bean>
+
     <!-- This page allows the search indexes to be rebuilt. -->
-    <bean name="/status/systemtest.page"
+    <bean name="/status/searchmanager.page"
           class="gs.web.status.SearchManagerController" autowire="byName">
     </bean>
 

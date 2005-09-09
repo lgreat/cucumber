@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        >
+    <html lang="en">
+
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+
+    <head>
+        <meta http-equiv="Content-Type"
+              content="text/html;charset=utf-8"></meta>
+        <title>GS Search Manager Login Page</title>
+    </head>
+
+    <body>
+    <h1>GS Search Manager Login Page</h1>
+
+
+    <form method="post">
+        <input type="hidden" name="origURL"/>
+        <table width="25%" border="1">
+            <tr>
+                <td align="center" bgcolor="lightblue">Log on</td>
+            </tr>
+            <tr>
+                <td>
+                    <table border="0" width="100%">
+                        <tr>
+                            <td width="33%" align="right">Username: </td>
+                            <td width="66%" align="left">
+                                <spring:bind path="identity.username">
+                                    <input type="text"
+                                           name="username"
+                                           value="${status.value}"/>
+                                </spring:bind>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center">
+                                <spring:hasBindErrors name="identity">
+                                    <font color="red"><c:out value="${status.errorMessage}"/>
+                                    </font>
+                                </spring:hasBindErrors>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="33%" align="right">Password: </td>
+                            <td width="66%" align="left">
+                                <spring:bind path="identity.password">
+                                    <input type="password" name="password"/>
+                                </spring:bind>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center">
+                                <spring:hasBindErrors name="identity">
+                                    <font color="red"><c:out value="${status.errorMessage}"/>
+                                    </font>
+                                </spring:hasBindErrors>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" colspan="2">
+                                <input type="submit" alignment="center"
+                                       value="Logon"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+        </table>
+
+    </form>
+
+
+    <br/>
+
+    <br/>
+    </body>
+    </html>
+</jsp:root>
+

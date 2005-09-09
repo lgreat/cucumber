@@ -28,7 +28,7 @@
     <h1>GSWeb Search System Control Page</h1>
 
     Reindex data. This deletes any existing indexes!
-    <form action="/status/systemtest.page" method="post">
+    <form action="/status/searchmanager.page" method="post">
         <input type="submit" name="start" value="start"/>
     </form>
     <c:if test="${!empty time}">

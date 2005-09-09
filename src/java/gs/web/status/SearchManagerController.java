@@ -2,6 +2,7 @@ package gs.web.status;
 
 import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -27,7 +28,18 @@ public class SearchManagerController implements Controller {
     String time = null;
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+
+        Identity ident = (Identity)request.getAttribute("identity");
+        if (ident == null) {
+            log.debug("ident is null");
+            //return new ModelAndView (new RedirectView("login.page"));
+        } else {
+            log.debug("ident: " + ident.getUsername());
+        }
+
         if (request.getParameter("start") != null) {
+
             long start = System.currentTimeMillis();
             _indexer.index(_indexDir.getMainDirectory(), _indexDir.getSpellCheckDirectory());
             long end = System.currentTimeMillis();
@@ -40,7 +52,7 @@ public class SearchManagerController implements Controller {
             buf.append(String.valueOf(seconds));
             time = buf.toString();
         }
-        return new ModelAndView ("/status/systemtest", "time", time);
+        return new ModelAndView ("status/searchmanager", "time", time);
     }
 
     public void setIndexer(Indexer indexer) {

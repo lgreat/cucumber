@@ -154,14 +154,16 @@
                 <a id="one" class="s" href="/search.page?s=1">Style 1</a>
                 <a id="two" class="s" href="/search.page?s=2">Style 2</a>
                 <a id="three" class="s" href="/search.page?s=3">Style 3</a>
-                <a id="three" class="s" href="/search.page?s=4">Style 4</a>
+                <a id="four" class="s" href="/search.page?s=4">Style 4</a>
 
+                <!--
                 <select id="debug" name="debug">
                     <option value="f">Debug Off</option>
                     <option value="t">Debug On</option>
                 </select>
+                -->
 
-                <c:if test="${param.s != '1' and param.s != ''}">
+                <c:if test="${param.s != '1' and not empty param.s}">
                     <span class="message">
                         <c:out value="Location Awareness: "/>
                     </span>
@@ -217,7 +219,7 @@
                             </td>
                         </c:if>
 
-                        <c:if test="${param.s == '1' || param.s == ''}">
+                        <c:if test="${param.s == '1' || empty param.s}">
                             <td>
                                 <span style="margin-left:3mm; margin-right:2mm">in:</span>
                                 <gsml:stateSelector/>
