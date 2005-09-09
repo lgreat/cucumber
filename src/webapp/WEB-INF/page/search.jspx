@@ -6,7 +6,7 @@
     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
     xmlns:spring="http://www.springframework.org/tags"
     xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
-    xmlns:display="urn:jsptld:http://displaytag.sf.net"
+    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
     xmlns:gsweb="gstaglib"
     >
 
@@ -104,17 +104,13 @@
     }
 
    .block {
-      display:block;
-   margin-right:70px;
-}
-.results_overview {
-    margin-left:70px;
-    margin-right:70px;
-    font-weight:bold;
-    border-bottom:1px solid #999;
-    }
+       display:block;
+       margin-right:70px;
+   }
 
-.results_overview_link {margin-top:5px;}
+    .results_overview_link {
+        margin-top:5px;
+    }
 
             </style>
 
@@ -123,8 +119,6 @@
     </script>
 
         </head>
-
-        <jsp:useBean id="states" class="gs.data.state.StateManager"/>
 
         <body onLoad="gfoc()" >
 
@@ -155,27 +149,7 @@
                 <div style="float: right">
                     <a href="mailto:chriskimm@greatschools.net?subject=GS Search">Bugs/Comments</a>
                 </div>
-                <c:if test="${param.s != '4' and param.s != '1'}">
-                    <span class="message">
-                        <c:out value="Location Awareness: "/>
-                    </span>
 
-                    <select name="state">
-                        <option name="state" value="all">none</option>
-                        <c:forEach items="${states.iterator}" var="state">
-                            <![CDATA[<option name="state" ]]>
-                            <c:if test="${param.st == state}">
-                                selected
-                            </c:if>
-                            <![CDATA[ value=']]>
-                            <c:out value="${state}"/>
-                            <![CDATA['>]]>
-                            <c:out value="${state.abbreviation}"/>
-                            <![CDATA[</option>]]>
-                        </c:forEach>
-                    </select>
-
-                </c:if>
 
                 <a id="one" class="s" href="/search.page?s=1">Style 1</a>
                 <a id="two" class="s" href="/search.page?s=2">Style 2</a>
@@ -187,8 +161,17 @@
                     <option value="t">Debug On</option>
                 </select>
 
+                <c:if test="${param.s != '1' and param.s != ''}">
+                    <span class="message">
+                        <c:out value="Location Awareness: "/>
+                    </span>
+                    <gsml:stateSelector/>
+                </c:if>
+
                 <c:if test="${not empty results.queryTime}">
-                    <c:out value="${results.queryTime} ms" />
+                    <span style="margin-left:1cm">
+                    <c:out value="search time: ${results.queryTime} ms" />
+                    </span>
                 </c:if>
 
                 <hr/>
@@ -234,31 +217,17 @@
                             </td>
                         </c:if>
 
-                        <c:if test="${param.s != '5'}">
+                        <c:if test="${param.s == '1' || param.s == ''}">
                             <td>
                                 <span style="margin-left:3mm; margin-right:2mm">in:</span>
-
-                                <select name="state">
-                                    <option name="state" value="all">State</option>
-                                    <c:forEach items="${states.iterator}" var="state">
-                                        <![CDATA[<option name="state" ]]>
-                                        <c:if test="${param.st == state}">
-                                                        selected
-                                        </c:if>
-                                        <![CDATA[ value=']]>
-                                        <c:out value="${state}"/>
-                                        <![CDATA['>]]>
-                                        <c:out value="${state.abbreviation}"/>
-                                        <![CDATA[</option>]]>
-                                    </c:forEach>
-                                </select>
+                                <gsml:stateSelector/>
                             </td>
                         </c:if>
 
                         <td>
                             <input type="submit" value=" Go "/>
                         </td>
-                        <c:if test="${param.s == '2' || param.s == '4'}">
+                        <c:if test="${param.s == '4'}">
 
                             <c:if test="${param.s == '4'}">
                                 <![CDATA[<tr>]]>
@@ -300,36 +269,18 @@
 
             <!-- begin the result set area -->
 
-
-
             <c:if test="${not empty results}">
-                <gsweb:searchsummary query="${param.q}"/>
-                <!--
-                <div id="summarybox">
-                    <table>
-                        <tr>
-                            <td><c:out value="Schools: ${results.schoolsTotal}"/></td>
-                            <td><c:out value="Districts: ${results.districtsTotal}"/></td>
-                        </tr>
-                        <tr>
-                            <td><c:out value="Private Schools: N.I.Y"/></td>
-                            <td><c:out value="Cities/Metro Areas: N.I.Y"/></td>
-                        </tr>
-                        <tr>
-                            <td><c:out value="Charter Schools: N.I.Y"/></td>
-                            <td><c:out value="Articles: ${results.articlesTotal}"/></td>
-                        </tr>
-                    </table>
-                </div>
-                -->
+                <br/>
+                <gsweb:searchsummary query="${param.q}"
+                                     schoolsTotal="${results.schoolsTotal}"/>
             </c:if>
             <br/>
 
-            <c:if test="${not empty results.suggestedQuery}">
+            <c:if test="${not empty results.suggestion}">
                 Did you mean:
                 <span id="suggestion">
-                    <a href="/search.page?q=${results.suggestedQuery}&amp;c=${param.c}&amp;s=${param.s}">
-                        <c:out value="${results.suggestedQuery}"/>
+                    <a href="/search.page?q=${results.suggestion}&amp;c=${param.c}&amp;s=${param.s}">
+                        <c:out value="${results.suggestion}"/>
                     </a>
                 </span>
             </c:if>
@@ -401,7 +352,7 @@
                             <![CDATA[<a href="http://www.greatschools.net/cgi-bin/showarticle/ca/]]>
                             <c:out value="${article.id}"/>
                             <![CDATA["> ]]>
-                            <c:out value="${article.title}" escapeXml="false"/>
+                            <gsweb:longstate text="${article.title}" />
                             <![CDATA[</a>]]>
                             <br/>
                             <span class="abstract">

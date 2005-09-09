@@ -1,9 +1,13 @@
 package gs.web.search;
 
 import gs.web.BaseTestCase;
+import gs.data.search.SpellCheckSearcher;
+import gs.data.search.Searcher;
+import gs.data.search.IndexDir;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.apache.lucene.store.RAMDirectory;
 
 import java.util.Map;
 
@@ -16,6 +20,13 @@ public class SearchControllerTest extends BaseTestCase {
 
     protected void setUp () throws Exception {
         super.setUp ();
+        /*
+        sc = new SearchController();
+        IndexDir indexDir = new IndexDir(new RAMDirectory(), new RAMDirectory());
+        Searcher searcher = new Searcher(indexDir);
+        SpellCheckSearcher scs = new SpellCheckSearcher(searcher);
+        sc.setSpellCheckSearcher(scs);
+        */
         sc = (SearchController)_sApplicationContext.getBean(SearchController.BEAN_ID);
     }
 

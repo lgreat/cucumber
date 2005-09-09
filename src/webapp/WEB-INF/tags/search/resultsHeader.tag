@@ -75,7 +75,7 @@
             </c:if>
         </c:when>
         <c:otherwise>
-            <c:out value="No ${type}s found for query: "/>
+            <c:out value="No ${type == 'city' ? 'citie' : type}s found for query: "/>
             <span style="font-weight:bold; font-style:italic">
                 <c:out value="${query}"/>
             </span>

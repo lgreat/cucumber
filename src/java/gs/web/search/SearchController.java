@@ -42,7 +42,6 @@ public class SearchController extends AbstractController {
     private static Log _log = LogFactory.getLog(SearchController.class);
     private SpellCheckSearcher _spellCheckSearcher;
     private ResultsPager _resultsPager;
-    private StateManager _stateManager;
     private int pageSize = 3;
     private static String STATE = "state";
 
@@ -73,13 +72,7 @@ public class SearchController extends AbstractController {
             session.setAttribute (STATE, contextState);
         }
 
-        HttpSession session = request.getSession(true);
-        Enumeration en =  session.getAttributeNames();
-        for ( ; en.hasMoreElements() ;) {
-            System.out.println("attribute: " + en.nextElement());
-
-        }
-        _log.info("Search query:" + queryString);
+        //_log.info("Search query:" + queryString);
 
         // If there is no query string, there's nothing to do.
         if (queryString != null && !queryString.equals("")) {
@@ -87,17 +80,6 @@ public class SearchController extends AbstractController {
             StringBuffer queryBuffer = new StringBuffer();
             queryBuffer.append(queryString);
 
-            /*
-            String location = request.getParameter("st");
-            State state = null;
-            if (location != null) {
-                state = _stateManager.getState(location);
-                if (state != null) {
-                    queryBuffer.append(" AND state:");
-                    queryBuffer.append(state.getAbbreviation());
-                }
-            }
-              */
             if (contextState != null) {
                 queryBuffer.append(" AND state:");
                 queryBuffer.append(contextState.getAbbreviation());
@@ -152,6 +134,7 @@ public class SearchController extends AbstractController {
                         _resultsPager.setDistricts(dh.getHits());
                     }
                     suggestion = dh.getSuggestedQueryString();
+                    //model.put("totalResults", String.valueOf(dh.getHits().length()));
                 }
             } else {
                 String[] types = {"school", "article", "district", "city", "term"};
@@ -161,6 +144,7 @@ public class SearchController extends AbstractController {
                     clone.append(" AND type:");
                     clone.append(types[i]);
                     DecoratedHits dh = _spellCheckSearcher.search(clone.toString(), queryString);
+                    //model.put("totalResults", String.valueOf(dh.getHits().length()));
 
                     if (dh != null) {
                         suggestion = dh.getSuggestedQueryString();
@@ -181,7 +165,21 @@ public class SearchController extends AbstractController {
 
             _resultsPager.setQuery(qString);
 
-            model.put("suggestedQuery", suggestion);
+            suggestion = (String)_spellCheckSearcher.getSuggestion("name", queryString);
+            if (suggestion == null) {
+                suggestion = (String)_spellCheckSearcher.getSuggestion("title", queryString);
+            }
+            if (suggestion == null) {
+                suggestion = (String)_spellCheckSearcher.getSuggestion("cityname", queryString);
+            }
+
+
+            if (suggestion != null) {
+                suggestion = suggestion.replaceAll("\\+", "");
+            }
+
+            model.put("suggestion", suggestion);
+
             model.put("articlesTotal", new Integer(_resultsPager.getArticlesTotal()));
             model.put("articles", _resultsPager.getArticles(page, pageSize));
             model.put("schoolsTotal", new Integer(_resultsPager.getSchoolsTotal()));
@@ -209,15 +207,6 @@ public class SearchController extends AbstractController {
      */
     public void setResultsPager(ResultsPager pager) {
         _resultsPager = pager;
-    }
-
-    /**
-     * A setter for Spring
-     *
-     * @param stateManager
-     */
-    public void setStateManager(StateManager stateManager) {
-        _stateManager = stateManager;
     }
 
     /**

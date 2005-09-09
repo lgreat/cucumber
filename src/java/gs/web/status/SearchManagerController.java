@@ -17,12 +17,12 @@ import java.io.IOException;
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class SystemTestController implements Controller {
+public class SearchManagerController implements Controller {
 
     public static final String BEAN_ID = "/status/systemtest.page";
     private IndexDir _indexDir;
     private Indexer _indexer;
-    private static Log log = LogFactory.getLog(SystemTestController.class);
+    private static Log log = LogFactory.getLog(SearchManagerController.class);
 
     String time = null;
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)

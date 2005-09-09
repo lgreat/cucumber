@@ -15,6 +15,17 @@
     </function>
 
     <tag>
+        <name>longstate</name>
+        <tag-class>gs.web.state.LongstateTagHandler</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>text</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
         <name>schooltable</name>
         <tag-class>gs.web.search.SchoolTableTagHandler</tag-class>
         <body-content>empty</body-content>
@@ -46,6 +57,11 @@
         <body-content>empty</body-content>
         <attribute>
             <name>query</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>schoolsTotal</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

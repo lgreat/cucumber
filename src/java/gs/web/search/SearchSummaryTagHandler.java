@@ -8,7 +8,6 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.PageContext;
 import java.io.IOException;
-import java.util.BitSet;
 
 import org.springframework.context.ApplicationContext;
 import org.apache.log4j.Logger;
@@ -21,12 +20,44 @@ public class SearchSummaryTagHandler extends SimpleTagSupport {
     public static final String BEAN_ID = "searchSummaryTagHandler";
     private Searcher _searcher;
     private String _query;
+    private int _schoolsTotal = 0;
     private GroupingHitCollector _groupingHitCollector;
     private static final Logger _log = Logger.getLogger(SearchSummaryTagHandler.class);
+
+    private static String aStart = "<a href=\"/search.page?q=";
+    private static String frag1;
+    private static String frag2 = "</td></tr><tr><td class=\"col2\">";
+    private static String frag3;
+
+    static {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("<table id=\"resultoverview\" class=\"bottomalign\" border=0 cellspacing=0 cellpadding=0 width=100%\">");
+        buffer.append("<tr><td class=\"TL\"></td>");
+        buffer.append("<td class=\"T\"></td>");
+        buffer.append("<td class=\"TR\"></td>");
+        buffer.append("</tr><tr><td class=\"L\"></td>");
+        buffer.append("<td class=\"C\">");
+        buffer.append("<table class=\"columns\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><tr>");
+        buffer.append("<td class=\"col1\" rowspan=\"2\">");
+        buffer.append("<img src=\"res/img/search/icon_resultoverview.gif\" /></td>");
+        buffer.append("<td class=\"title\" colspan=\"2\">Results: ");
+        frag1 = buffer.toString();
+
+        buffer.delete(0, buffer.length());
+        buffer.append("</td></tr></table></td>");
+        buffer.append("<td class=\"R\"></td></tr><tr>");
+        buffer.append("<td class=\"BL\"></td><td class=\"B\"></td>");
+        buffer.append("<td class=\"BR\"></td></tr></table>");
+        frag3 = buffer.toString();
+    }
 
     public void setQuery(String q) {
         _query = q;
         _groupingHitCollector = new GroupingHitCollector();
+    }
+
+    public void setSchoolsTotal(int count) {
+        _schoolsTotal = count;
     }
 
     private Searcher getSearcher() {
@@ -47,10 +78,6 @@ public class SearchSummaryTagHandler extends SimpleTagSupport {
         return _searcher;
     }
 
-    // No need to do this every time...
-    private static String aStart = "<a href=\"/search.page?q=";
-    private static String aEnd = "class=\"block results_overview_link\">";
-
     public void doTag() throws IOException {
 
         _groupingHitCollector.reset();
@@ -58,80 +85,44 @@ public class SearchSummaryTagHandler extends SimpleTagSupport {
 
         JspWriter out = getJspContext().getOut();
 
-        /*
-        out.println("<table id=\"results_overview\" cellpadding=\"0\" cellspacing=\"0\">");
-        out.println("<tr><td class=\"TL\"></td><td class=\"T\"></td><td class=\"TR\"></td>");
-        out.println("</tr><tr><td class=\"L\"></td><td class=\"C\">");
-        */
 
-        out.print("<img style=\"position:absolute;left:10;top:20;\"");
-        out.println("src=\"images/icon_resultoverview_60x60.gif\" />");
-        out.println("<div class=\"results_overview\">Results: ");
-        out.println(_groupingHitCollector.total);
-        out.println("</div>");
-        out.println("<div style=\"margin-left:70px;\">");
-        out.println("<div style=\"float:right;\">");
+        out.println("<link rel=\"stylesheet\" href=\"res/css/search.css\" type=\"text/css\" media=\"screen\"/>");
+
+        out.println(frag1);
+        out.println(_schoolsTotal +
+                _groupingHitCollector.getArticles() +
+                _groupingHitCollector.getCities() +
+                _groupingHitCollector.getDistricts());
+        out.println(frag2);
 
         out.print(aStart);
         out.print(_query);
-        out.print("&c=district\"");
-        out.print(aEnd);
-        out.print("Districts: ");
-        out.print(_groupingHitCollector.getDistricts());
+        out.print("&c=school\">Schools: ");
+        out.print(_schoolsTotal);
         out.println("</a>");
 
         out.print(aStart);
         out.print(_query);
-        out.print("&c=city\"");
-        out.print(aEnd);
-        out.print("Cities: ");
+        out.print("&c=article\">Topics: ");
+        out.print(_groupingHitCollector.getArticles());
+        out.println("</a>");
+
+        out.println("</td><td class=\"col3\">");
+
+        out.print(aStart);
+        out.print(_query);
+        out.print("&c=city\">Cities: ");
         out.print(_groupingHitCollector.getCities());
         out.println("</a>");
 
         out.print(aStart);
         out.print(_query);
-        out.print("&c=article\"");
-        out.print(aEnd);
-        out.print("Topics: ");
-        out.print(_groupingHitCollector.getArticles());
-        out.println("</a>");
-        out.println("</div>");
-
-        out.print(aStart);
-        out.print(_query);
-        out.print(" AND gradelevel:e");
-        out.print("&c=school\"");
-        out.print(aEnd);
-        out.print("Elementary Schools: ");
-        out.print(_groupingHitCollector.getElementarySchools());
+        out.print("&c=district\">Districts: ");
+        out.print(_groupingHitCollector.getDistricts());
         out.println("</a>");
 
-        out.print(aStart);
-        out.print(_query);
-        out.print(" AND gradelevel:m");
-        out.print("&c=school\"");
-        out.print(aEnd);
-        out.println("Middle Schools: ");
-        out.println(_groupingHitCollector.getMiddleSchools());
-        out.println("</a>");
+        out.println (frag3);
 
-        out.print(aStart);
-        out.print(_query);
-        out.print(" AND gradelevel:h");
-        out.print("&c=school\"");
-        out.print(aEnd);
-        out.println("High Schools: ");
-        out.println(_groupingHitCollector.getHighSchools());
-        out.println("</a>");
-
-        out.println("</div>");
-
-        /*
-        out.println("</td><td class=\"R\"></td></tr><tr>");
-        out.println("<td class=\"BL\"></td><td class=\"B\"></td>");
-        out.println("<td class=\"BR\"></td>");
-        out.println("</tr></table>");
-          */
     }
 
 

@@ -134,8 +134,14 @@
         </property>
     </bean>
 
+<<<<<<< pages-servlet.xml
+    <!-- This page allows the search indexes to be rebuilt. -->
+    <bean name="/status/systemtest.page"
+        class="gs.web.status.SearchManagerController" autowire="byName">
+=======
     <bean name="/compareSchools.page" class="gs.web.school.CompareSchoolsController"
           autowire="byName">
+>>>>>>> 1.24
     </bean>
 
     <bean name="/wall.page"
