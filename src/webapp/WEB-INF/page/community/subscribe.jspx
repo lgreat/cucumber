@@ -388,7 +388,9 @@
                 </form>
 
             </gsml:wizard>
-
+			<![CDATA[
+			<script src="https://seal.verisign.com/getseal?host_name=secure.greatschools.net&size=S&use_flash=YES&use_transparent=YES&lang=en"></script>
+            ]]>
             <jsp:include page="/footer/copyright.module"/>
 
             <gsml:fireclick pageType="conversion" pageName="subscribe"
