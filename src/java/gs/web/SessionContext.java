@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.7 2005/09/15 20:48:05 thuss Exp $
+ * $Id: SessionContext.java,v 1.8 2005/09/15 20:58:00 thuss Exp $
  */
 package gs.web;
 
@@ -16,8 +16,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.beans.BeansException;
 
 import javax.servlet.http.Cookie;
@@ -64,16 +62,12 @@ public class SessionContext implements ApplicationContextAware {
      * Accessor
      */
     public static SessionContext getInstance(HttpSession session) {
-        SessionContext sessionContext =
-                (SessionContext) session.getAttribute(SESSION_ATTRIBUTE_NAME);
-        return sessionContext;
+        return (SessionContext) session.getAttribute(SESSION_ATTRIBUTE_NAME);
     }
 
     public static SessionContext getInstance(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        SessionContext sessionContext =
-                (SessionContext) session.getAttribute(SESSION_ATTRIBUTE_NAME);
-        return sessionContext;
+        return (SessionContext) session.getAttribute(SESSION_ATTRIBUTE_NAME);
     }
 
 
@@ -110,8 +104,7 @@ public class SessionContext implements ApplicationContextAware {
         if (cookieId != null) {
             // No previous login information or different user.
             if (_user == null || !_user.getId().equals(cookieId)) {
-                User user = _userDao.getUserFromId(cookieId);
-                _user = user;
+                _user = _userDao.getUserFromId(cookieId);
             }
         }
 
@@ -188,7 +181,7 @@ public class SessionContext implements ApplicationContextAware {
             // sfgate.dev.greatschools.net
             host = _cobrand + "." + host;
             // azcentral.www.greatschools.net -> azcentral.greatschools.net
-            host.replaceFirst(".www.", ".");
+            host = host.replaceFirst(".www.", ".");
         }
         return host;
     }

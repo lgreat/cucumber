@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+    <c:if test="${sessionScope.context.cobrand}">
+        <div id="headerCobrand">
+            <c:import url="http://${sessionScope.context.hostName}/templates/local/nav/topnav.insrt"/>
+        </div>
+    </c:if>
+</jsp:root>
