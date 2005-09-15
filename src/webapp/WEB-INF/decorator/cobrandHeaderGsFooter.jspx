@@ -16,6 +16,9 @@
         <title>
             <decorator:title default="REPLACE THIS REPLACE THIS REPLACE THIS REPLACE THIS"/>
         </title>
+        <c:url value="/" var="basepath"/>
+        <base href="${basepath}"></base>
+        <link rel="stylesheet" href="res/css/global.css"></link>
         <decorator:head/>
     </head>
 
@@ -23,8 +26,8 @@
 
     <p/>
 
-    <div id="headerCobrand">
-        COBRAND HEADER WILL GO HERE IF ON COBRAND
+    <div id="header">
+        <jsp:include page="/header/cobrand.module"/>
     </div>
 
     <p/>
@@ -38,9 +41,7 @@
             <ad:google728x90/>
         </div>
 
-        <div id="footerSe">
-            GS SEARCH ENGINE FOOTER WILL GO HERE
-        </div>
+        <jsp:include page="/footer/searchEngine.module"/>
     </div>
 
     <p/>
