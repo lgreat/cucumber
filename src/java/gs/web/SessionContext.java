@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.6 2005/09/15 19:16:01 thuss Exp $
+ * $Id: SessionContext.java,v 1.7 2005/09/15 20:48:05 thuss Exp $
  */
 package gs.web;
 
@@ -52,8 +52,9 @@ public class SessionContext implements ApplicationContextAware {
 
     private static final Log _log = LogFactory.getLog(SessionContextInterceptor.class);
 
-    private String _hostName;
+    /** The name of the cobrand (sfgate, azcentral, dps, etc...) or null */
     private String _cobrand;
+    private String _hostName;
     private User _user;
     private State _state;
 
@@ -129,6 +130,9 @@ public class SessionContext implements ApplicationContextAware {
         String paramCobrand = httpServletRequest.getParameter(COBRAND_PARAM);
         if (!StringUtils.isEmpty(paramCobrand)) {
             _cobrand = paramCobrand;
+        } else if (isCobrand()) {
+            String sHostName = getHostName();
+            _cobrand = sHostName.substring(1, sHostName.indexOf("."));
         }
 
         // Set state, or change, if necessary
@@ -170,6 +174,10 @@ public class SessionContext implements ApplicationContextAware {
         _state = state;
     }
 
+     public String getCobrand() {
+        return _cobrand;
+    }
+
     public String getHostName() {
         String host = _hostName;
         // If it's a developers workstation, else it's a dev,staging, or live
@@ -191,14 +199,28 @@ public class SessionContext implements ApplicationContextAware {
      * @return true if it's a cobrand
      */
     public boolean isCobrand() {
-        boolean cobrand = true;
+        boolean sCobrand = true;
         if (_cobrand == null &&
                 (getHostName().startsWith("www") ||
                         getHostName().startsWith("staging") ||
                         getHostName().startsWith("dev"))) {
-            cobrand = false;
+            sCobrand = false;
         }
-        return cobrand;
+        return sCobrand;
+    }
+
+    /**
+     * Determine if this site should be ad free
+     *
+     * @return true if it's ad free
+     */
+    public boolean isAdFree() {
+        boolean sAdFree = false;
+        if (_cobrand != null &&
+                (_cobrand.matches("mcguire|framed|number1expert"))) {
+            sAdFree = true;
+        }
+        return sAdFree;
     }
 
     public String getSecureHostName() {
