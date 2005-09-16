@@ -78,8 +78,8 @@
         <filter-name>sitemesh</filter-name>
         <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
         <!--<init-param>-->
-            <!--<param-name>debug.pagewriter</param-name>-->
-            <!--<param-value>true</param-value>-->
+        <!--<param-name>debug.pagewriter</param-name>-->
+        <!--<param-value>true</param-value>-->
         <!--</init-param>-->
     </filter>
 
@@ -94,4 +94,15 @@
             <is-xml>true</is-xml>
         </jsp-property-group>
     </jsp-config>
+
+    <!--
+        Cleanup code to help release resources so hot-redeploys work
+         http://opensource2.atlassian.com/confluence/spring/pages/viewpage.action?pageId=2669
+    -->
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>gs.web.util.UndeployCleanupListener</listener-class>
+    </listener>
 </web-app>

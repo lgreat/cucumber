@@ -1,7 +1,8 @@
 <jsp:directive.tag body-content="empty"/>
-
-<div id="googleAds" class="ad">
-    <script type="text/javascript"><!--
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:if test="${!sessionScope.context.adFree}">
+    <div id="googleAds" class="ad">
+        <script type="text/javascript"><!--
     google_ad_client = "pub-9662012843341888";
     google_ad_width = 728;
     google_ad_height = 90;
@@ -13,8 +14,9 @@
     google_color_url = "008000";
     google_color_text = "6F6F6F";
     //--></script>
-    <script
-        type="text/javascript"
-        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-    </script>
-</div>
+        <script
+                type="text/javascript"
+                src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+        </script>
+    </div>
+</c:if>
