@@ -31,7 +31,6 @@ public class SessionContextTest extends TestCase {
     }
 
     public void testHostCobrandUrlOnLiveSite() {
-        // Try developer workstation scenario
         MockHttpServletRequest request = new MockHttpServletRequest();
         SessionContext ctx = new SessionContext();
         ctx.setStateManager(new StateManager());
@@ -48,6 +47,16 @@ public class SessionContextTest extends TestCase {
         request.addParameter("state", "wy");
         ctx.updateFromParams(request);
         assertTrue(ctx.getState().equals(State.WY));
+
+        // Now try a non-standard URL cobrand such as babycenter
+        request = new MockHttpServletRequest();
+        ctx = new SessionContext();
+        ctx.setStateManager(new StateManager());
+        request.setServerName("greatschools.babycenter.com");
+        ctx.updateFromParams(request);
+        assertEquals("greatschools.babycenter.com", ctx.getHostName());
+        assertTrue(!ctx.isAdFree());
+        assertTrue(ctx.isCobrand());
     }
 
     public void testHostMainUrlOnLiveSiteWithCobrandParameter() {
