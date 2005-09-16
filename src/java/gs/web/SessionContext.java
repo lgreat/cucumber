@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.8 2005/09/15 20:58:00 thuss Exp $
+ * $Id: SessionContext.java,v 1.9 2005/09/16 02:35:30 thuss Exp $
  */
 package gs.web;
 
@@ -50,7 +50,9 @@ public class SessionContext implements ApplicationContextAware {
 
     private static final Log _log = LogFactory.getLog(SessionContextInterceptor.class);
 
-    /** The name of the cobrand (sfgate, azcentral, dps, etc...) or null */
+    /**
+     * The name of the cobrand (sfgate, azcentral, dps, etc...) or null
+     */
     private String _cobrand;
     private String _hostName;
     private User _user;
@@ -113,6 +115,7 @@ public class SessionContext implements ApplicationContextAware {
 
 
     public void updateFromParams(HttpServletRequest httpServletRequest) {
+        // Get the real hostname or see if it's been overridden
         String paramHost = httpServletRequest.getParameter(HOST_PARAM);
         if (!StringUtils.isEmpty(paramHost)) {
             _hostName = paramHost;
@@ -120,12 +123,13 @@ public class SessionContext implements ApplicationContextAware {
             _hostName = httpServletRequest.getServerName();
         }
 
+        // Determine if this is a cobrand
         String paramCobrand = httpServletRequest.getParameter(COBRAND_PARAM);
         if (!StringUtils.isEmpty(paramCobrand)) {
             _cobrand = paramCobrand;
         } else if (isCobrand()) {
             String sHostName = getHostName();
-            _cobrand = sHostName.substring(1, sHostName.indexOf("."));
+            _cobrand = sHostName.substring(0, sHostName.indexOf("."));
         }
 
         // Set state, or change, if necessary
@@ -167,18 +171,23 @@ public class SessionContext implements ApplicationContextAware {
         _state = state;
     }
 
-     public String getCobrand() {
+    public String getCobrand() {
         return _cobrand;
     }
 
     public String getHostName() {
         String host = _hostName;
-        // If it's a developers workstation, else it's a dev,staging, or live
+        // If it's a developers workstation
         if (StringUtils.contains(_hostName, "localhost")) {
             String dev = "dev.greatschools.net";
             host = (_cobrand == null) ? dev : _cobrand + "." + dev;
-        } else if (_cobrand != null) {
-            // sfgate.dev.greatschools.net
+            // Else if it's the main website but with the cobrand parameter passed
+            // then we return the full cobrand URL
+        } else if (_cobrand != null &&
+                (_hostName.startsWith("www") ||
+                        _hostName.startsWith("staging") ||
+                        _hostName.startsWith("dev"))) {
+            // dev.greatschools.net?cobrand=sfgate -> sfgate.dev.greatschools.net
             host = _cobrand + "." + host;
             // azcentral.www.greatschools.net -> azcentral.greatschools.net
             host = host.replaceFirst(".www.", ".");
