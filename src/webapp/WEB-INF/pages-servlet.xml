@@ -132,6 +132,14 @@
     </bean>
     <!-- Status end -->
 
+    <bean name="/content/allArticles.page"
+        class="gs.web.content.AllArticlesController"
+        autowire="byName">
+        <property name="viewName">
+            <value>content/allArticles</value>
+        </property>
+    </bean>
+
     <bean name="/sorry.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">

@@ -9,7 +9,7 @@
     <!--</decorator>-->
 
     <decorator name="perlWrapper" page="perlWrapper.jsp">
-        <!-- <pattern>/status/monitor.page</pattern> -->
+        <pattern>/content/allArticles.page</pattern>
     </decorator>
 
     <decorator name="cobrandHeaderGsFooter" page="cobrandHeaderGsFooter.jspx">
