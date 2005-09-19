@@ -12,4 +12,17 @@ public class UtilTest extends TestCase {
         String outString = Util.toLowercase(capString);
         assertEquals(lowerString, outString);
     }
+
+    public void testOddOrEven() {
+        Integer testNum = null;
+        try {
+            Util.oddOrEven(testNum);
+            fail("Should have thrown an NPE");
+        } catch (NullPointerException e) {            
+        }
+        testNum = new Integer(1);
+        assertEquals("odd", Util.oddOrEven(testNum));
+        testNum = new Integer(2);
+        assertEquals("even", Util.oddOrEven(testNum));
+    }
 }
