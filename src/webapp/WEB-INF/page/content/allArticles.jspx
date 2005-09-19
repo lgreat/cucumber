@@ -50,7 +50,7 @@
    	        <td align="center">
                 <c:if test="${sessionScope.context.state.subscriptionState}">
                     <div id="toolsmenu">
-                        <span class="rlbcopy">Subscription Content:<br/>Your School Choice Options<br/><a href="/cgi-bin/conversion/ca"><img src="/images/learn_more_btn.gif" width="88" height="20" border="0" vspace="3" /></a></span>
+                        <span class="rlbcopy">Subscription Content:<br/>Your School Choice Options<br/><a href="/cgi-bin/conversion/ca"><img src="res/img/learn_more_btn.gif" width="88" height="20" border="0" vspace="3" /></a></span>
                         <hr noshade="true" size="1" />
                             <c:forEach items="${insider_articles}" var="article">
                                 <br/><img src="res/img/st_icon.gif" border="0" /> <span class ="rcopy"> <a href="http://${sessionScope.context.hostName}/cgi-bin/showarticle/${sessionScope.context.stateOrDefault.abbreviation}/${article.id}" target="article"><span class="rlcopy"><gsweb:longstate text="${article.title}" /></span></a></span>
