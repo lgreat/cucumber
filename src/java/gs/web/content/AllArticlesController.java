@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AllArticlesController.java,v 1.1 2005/09/17 00:25:58 dlee Exp $
+ * $Id: AllArticlesController.java,v 1.2 2005/09/19 05:30:44 dlee Exp $
  */
 package gs.web.content;
 
@@ -51,7 +51,7 @@ public class AllArticlesController extends AbstractController {
         ArticleCategory articleCategory = null;
         Map catMap = new LinkedHashMap();
         Map sccMap = new LinkedHashMap();
-
+        List insiderArticles = new ArrayList();
         Map model = new HashMap();
 
 
@@ -67,6 +67,10 @@ public class AllArticlesController extends AbstractController {
         for (int i=0; i < articles.size(); i++) {
             article = (Article) articles.get(i);
             categories  = _articleManager.getCategories(article.getCategory());
+
+            if (article.isInsider()) {
+                insiderArticles.add(article);
+            }
 
             for (int j=0; j < categories.size(); j++) {
                 articleCategory = (ArticleCategory) categories.get(j);
@@ -84,6 +88,7 @@ public class AllArticlesController extends AbstractController {
 
         model.put("categories", catMap);
         model.put("scc_categories", sccMap);
+        model.put("insider_articles", insiderArticles);
         model.put("num_categories", String.valueOf(catMap.size()+sccMap.size()));
         model.put("index", new Integer(0));
 
