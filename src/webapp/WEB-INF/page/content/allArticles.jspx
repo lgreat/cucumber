@@ -81,8 +81,10 @@
                             <c:forEach items="${category.value}" var="article">
                                 <div class="articleLink">
                                     <a href="http://${sessionScope.context.hostName}/cgi-bin/showarticle/${sessionScope.context.stateOrDefault.abbreviation}/${article.id}" target="article">
-                                        <c:if test="${article.insider}">
-                                            <img src="/res/img/st_icon.gif" border="0" />
+                                        <c:if test="${sessionScope.context.state.subscriptionState}">
+                                            <c:if test="${article.insider}">
+                                                <img src="/res/img/st_icon.gif" border="0" />
+                                            </c:if>
                                         </c:if>
                                         <gsweb:longstate text="${article.title}" />
                                     </a>
@@ -107,8 +109,10 @@
                     <c:forEach items="${category.value}" var="article">
                         <div class="articleLink">
                             <a href="http://${sessionScope.context.hostName}/cgi-bin/showarticle/${sessionScope.context.stateOrDefault.abbreviation}/${article.id}" target="article">
-                                <c:if test="${article.insider}">
-                                    <img src="/res/img/st_icon.gif"/>
+                                <c:if test="${sessionScope.context.state.subscriptionState}">
+                                    <c:if test="${article.insider}">
+                                        <img src="/res/img/st_icon.gif" border="0" />
+                                    </c:if>
                                 </c:if>
                                 <gsweb:longstate text="${article.title}" />
                             </a>
