@@ -91,4 +91,23 @@ public class SessionContextTest extends TestCase {
         assertTrue(ctx.isCobrand());
         assertEquals(ctx.getCobrand(), "azcentral");
     }
+
+    public void testIsYahooCobrand() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        SessionContext ctx = new SessionContext();
+        request.setServerName("yahoo.greatschools.net");
+        ctx.updateFromParams(request);
+        assertEquals(ctx.getHostName(), "yahoo.greatschools.net");
+        assertTrue(!ctx.isAdFree());
+        assertTrue(ctx.isCobrand());
+        assertTrue(ctx.isYahooCobrand());
+
+        request.setServerName("yahooed.greatschools.net");
+        ctx.updateFromParams(request);
+        assertEquals(ctx.getHostName(), "yahooed.greatschools.net");
+        assertTrue(!ctx.isAdFree());
+        assertTrue(ctx.isCobrand());
+        assertTrue(ctx.isYahooCobrand());
+    }
+
 }
