@@ -72,5 +72,22 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+
+    <tag>
+        <name>articlelink</name>
+        <tag-class>gs.web.content.ArticleLinkTagHandler</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>article</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>windowName</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
 </taglib>
 
