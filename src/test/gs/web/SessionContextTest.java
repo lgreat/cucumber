@@ -21,6 +21,7 @@ public class SessionContextTest extends TestCase {
         assertEquals(ctx.getHostName(), "dev.greatschools.net");
         assertTrue(!ctx.isAdFree());
         assertTrue(!ctx.isCobrand());
+        assertTrue(!ctx.isYahooCobrand());
 
         // Add the cobrand parameter
         request.addParameter("cobrand", "number1expert");
@@ -28,6 +29,11 @@ public class SessionContextTest extends TestCase {
         assertEquals("number1expert.dev.greatschools.net", ctx.getHostName());
         assertTrue(ctx.isAdFree());
         assertTrue(ctx.isCobrand());
+
+        request.addParameter("cobrand", "yahoo");
+        ctx.updateFromParams(request);
+        assertTrue(ctx.isYahooCobrand());
+
     }
 
     public void testHostCobrandUrlOnLiveSite() {
