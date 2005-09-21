@@ -1,9 +1,10 @@
 package gs.web.search;
 
 import gs.data.search.Searcher;
+import gs.data.state.State;
 import gs.web.SessionContext;
+import gs.web.jsp.BaseTagHandler;
 
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.PageContext;
@@ -15,14 +16,24 @@ import org.apache.log4j.Logger;
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class SearchSummaryTagHandler extends SimpleTagSupport {
+public class SearchSummaryTagHandler extends BaseTagHandler {
 
     public static final String BEAN_ID = "searchSummaryTagHandler";
     private Searcher _searcher;
     private String _query;
     private int _schoolsTotal = 0;
+    private String _constraint = null;
     private GroupingHitCollector _groupingHitCollector;
     private static final Logger _log = Logger.getLogger(SearchSummaryTagHandler.class);
+
+    // String constants:
+    private static String VIEW_ALL = "View All Results";
+    private static String CITIES = "Cities: ";
+    private static String SCHOOLS = "Schools: ";
+    private static String ARTICLES = "Articles: ";
+    private static String TERMS = "Glossary Terms: ";
+    private static String DISTRICTS = "Districts: ";
+
 
     private static String aStart = "<a href=\"/search.page?q=";
     private static String frag1;
@@ -31,12 +42,7 @@ public class SearchSummaryTagHandler extends SimpleTagSupport {
 
     static {
         StringBuffer buffer = new StringBuffer();
-        buffer.append("<table id=\"resultoverview\" class=\"bottomalign\" border=0 cellspacing=0 cellpadding=0 width=100%\">");
-        buffer.append("<tr><td class=\"TL\"></td>");
-        buffer.append("<td class=\"T\"></td>");
-        buffer.append("<td class=\"TR\"></td>");
-        buffer.append("</tr><tr><td class=\"L\"></td>");
-        buffer.append("<td class=\"C\">");
+
         buffer.append("<table class=\"columns\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><tr>");
         buffer.append("<td class=\"col1\" rowspan=\"2\">");
         buffer.append("<img src=\"res/img/search/icon_resultoverview.gif\" /></td>");
@@ -44,16 +50,23 @@ public class SearchSummaryTagHandler extends SimpleTagSupport {
         frag1 = buffer.toString();
 
         buffer.delete(0, buffer.length());
-        buffer.append("</td></tr></table></td>");
-        buffer.append("<td class=\"R\"></td></tr><tr>");
-        buffer.append("<td class=\"BL\"></td><td class=\"B\"></td>");
-        buffer.append("<td class=\"BR\"></td></tr></table>");
+        buffer.append("</td></tr></table>");
         frag3 = buffer.toString();
     }
 
     public void setQuery(String q) {
         _query = q;
         _groupingHitCollector = new GroupingHitCollector();
+    }
+
+    /**
+     * This is called setConstrain (with no ending t) instead of setConstraint
+     * because constraint appears to be a reserved work in the jsp world.
+     *
+     * @param c
+     */
+    public void setConstrain(String c) {
+        _constraint = c;
     }
 
     public void setSchoolsTotal(int count) {
@@ -78,51 +91,144 @@ public class SearchSummaryTagHandler extends SimpleTagSupport {
         return _searcher;
     }
 
+    /*
+    private String getStateParam() {
+        String param = "all";
+        State s = getState();
+        if (s != null) {
+            param = s.getAbbreviation();
+        }
+        return param;
+    }
+    */
+
     public void doTag() throws IOException {
 
         _groupingHitCollector.reset();
-        getSearcher().basicSearch(_query, null, _groupingHitCollector);
+
+        State s = getState();
+        if (s != null) {
+            if (_query.indexOf("state:") == -1) {
+                StringBuffer buffer = new StringBuffer(_query);
+                buffer.append(" AND state:");
+                buffer.append(s.getAbbreviation());
+                _query = buffer.toString();
+            }
+        }
+
+        getSearcher().search(_query, null, _groupingHitCollector, null);
 
         JspWriter out = getJspContext().getOut();
 
+        out.println("<link rel=\"stylesheet\" href=\"res/css/searchsummary.css\" type=\"text/css\" media=\"screen\"/>");
 
-        out.println("<link rel=\"stylesheet\" href=\"res/css/search.css\" type=\"text/css\" media=\"screen\"/>");
-
-        out.println(frag1);
-        out.println(_schoolsTotal +
+        int total = _schoolsTotal +
                 _groupingHitCollector.getArticles() +
                 _groupingHitCollector.getCities() +
-                _groupingHitCollector.getDistricts());
-        out.println(frag2);
+                _groupingHitCollector.getDistricts();
 
-        out.print(aStart);
-        out.print(_query);
-        out.print("&c=school\">Schools: ");
-        out.print(_schoolsTotal);
-        out.println("</a>");
+        if (total > 0) {
 
-        out.print(aStart);
-        out.print(_query);
-        out.print("&c=article\">Topics: ");
-        out.print(_groupingHitCollector.getArticles());
-        out.println("</a>");
 
-        out.println("</td><td class=\"col3\">");
+            out.println(frag1);
+            out.println(total);
+            out.println(frag2);
 
-        out.print(aStart);
-        out.print(_query);
-        out.print("&c=city\">Cities: ");
-        out.print(_groupingHitCollector.getCities());
-        out.println("</a>");
 
-        out.print(aStart);
-        out.print(_query);
-        out.print("&c=district\">Districts: ");
-        out.print(_groupingHitCollector.getDistricts());
-        out.println("</a>");
+            if (_constraint != null && _constraint.equals("school")) {
+                out.print("<span class=\"active\">");
+                out.print(SCHOOLS);
+                out.print(_schoolsTotal);
+                out.println("</span>");
+            } else {
+                out.print(aStart);
+                out.print(_query);
+                out.print("&c=school\">");
+                out.print(SCHOOLS);
+                out.print(_schoolsTotal);
+                out.println("</a>");
+            }
 
-        out.println (frag3);
+            if (_constraint != null && _constraint.equals("article")) {
+                out.print("<span class=\"active\">");
+                out.print(ARTICLES);
+                out.print(_groupingHitCollector.getArticles());
+                out.println("</span>");
+            } else {
+                out.print(aStart);
+                out.print(_query);
+                out.print("&c=article\">");
+                out.print(ARTICLES);
+                out.print(_groupingHitCollector.getArticles());
+                out.println("</a>");
+            }
 
+            if (_constraint != null && _constraint.equals("term")) {
+                out.print("<span class=\"active\">");
+                out.print(TERMS);
+                out.print(_groupingHitCollector.getTerms());
+                out.println("</span>");
+            } else {
+                out.print(aStart);
+                out.print(_query);
+                out.print("&c=term\">");
+                out.print(TERMS);
+                out.print(_groupingHitCollector.getTerms());
+                out.println("</a>");
+            }
+
+            out.println("</td><td class=\"col3\">");
+
+            if (_constraint == null || _constraint.equals("") || _constraint.equals("all")) {
+                out.print("<span class=\"active\">");
+                out.print(VIEW_ALL);
+                out.println("</span>");
+            } else {
+                out.print(aStart);
+                out.print(_query);
+                out.print("&c=all\">");
+                out.print(VIEW_ALL);
+                out.println("</a>");
+            }
+
+            if (_constraint != null && _constraint.equals("city")) {
+                out.print("<span class=\"active\">");
+                out.print(CITIES);
+                out.print(_groupingHitCollector.getCities());
+                out.println("</span>");
+            } else {
+                out.print(aStart);
+                out.print(_query);
+                out.print("&c=city\">");
+                out.print(CITIES);
+                out.print(_groupingHitCollector.getCities());
+                out.println("</a>");
+            }
+
+            if (_constraint != null && _constraint.equals("district")) {
+                out.print("<span class=\"active\">");
+                out.print(DISTRICTS);
+                out.print(_groupingHitCollector.getDistricts());
+                out.println("</span>");
+            } else {
+                out.print(aStart);
+                out.print(_query);
+                out.print("&c=district\">");
+                out.print(DISTRICTS);
+                out.print(_groupingHitCollector.getDistricts());
+                out.println("</a>");
+            }
+
+            out.println(frag3);
+        } else {
+            out.println("<table class=\"columns\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><tr>");
+            out.println("<td class=\"col1\" rowspan=\"2\">");
+            out.println("<img src=\"res/img/search/icon_error1.gif\" /></td>");
+            out.print("<td class=\"errormessage\">Your search for <b>\"");
+            out.print(_query);
+            out.println("\"</b> did not return any results.<br/>Please try again.");
+            out.println("</td></tr></table>");
+        }
     }
 
 
@@ -138,11 +244,12 @@ public class SearchSummaryTagHandler extends SimpleTagSupport {
         int districts = 0;
         int articles = 0;
         int cities = 0;
+        int terms = 0;
 
         public void collect(int id, float score) {
             total++;
-             if (getSearcher().getPublicSchoolBits().get(id)) {
-                 pubSchools++;
+            if (getSearcher().getPublicSchoolBits().get(id)) {
+                pubSchools++;
             } else if (getSearcher().getPrivateSchoolBits().get(id)) {
                 priSchools++;
             } else if (getSearcher().getCharterSchoolBits().get(id)) {
@@ -172,6 +279,10 @@ public class SearchSummaryTagHandler extends SimpleTagSupport {
             if (getSearcher().getCityBits().get(id)) {
                 cities++;
             }
+
+            if (getSearcher().getGlossaryTermBits().get(id)) {
+                terms++;
+            }
         }
 
         public void reset() {
@@ -185,6 +296,7 @@ public class SearchSummaryTagHandler extends SimpleTagSupport {
             districts = 0;
             cities = 0;
             articles = 0;
+            terms = 0;
         }
 
         public int getElementarySchools() {
@@ -221,6 +333,10 @@ public class SearchSummaryTagHandler extends SimpleTagSupport {
 
         public int getCities() {
             return cities;
+        }
+
+        public int getTerms() {
+            return terms;
         }
     }
 }

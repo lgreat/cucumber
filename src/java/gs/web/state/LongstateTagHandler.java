@@ -21,7 +21,7 @@ public class LongstateTagHandler extends SimpleTagSupport {
 
     public void doTag() throws IOException {
 
-JspContext jspContext = getJspContext();
+        JspContext jspContext = getJspContext();
 
         String stateString = " your state ";
 

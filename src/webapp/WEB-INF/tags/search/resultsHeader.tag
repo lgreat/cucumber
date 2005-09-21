@@ -31,11 +31,9 @@
 
             <c:if test="${(total + 0) gt (pageSize + 0)}">
                 <c:choose>
-
                     <c:when test="${param.c == type}">
-
                         <span class="pageLinks">
-                                        Page:
+                                Page:
                             <c:set var="maxPages"/>
 
                             <c:if test="${page gt 1}">

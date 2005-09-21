@@ -1,0 +1,17 @@
+table#resultoverview {margin:0px 0px 0px 0px;width:100%;}
+table#resultoverview .TL, table#resultoverview .TR, table#resultoverview .BL, table#resultoverview .BR { width:10px; height:10px; background:no-repeat; }
+table#resultoverview td.TL {background:  url(../img/search/border_shade3_TL.gif) left top; }
+table#resultoverview td.T {background:  url(../img/search/border_shade3_T.gif) top repeat-x;}
+table#resultoverview td.TR {background:  url(../img/search/border_shade3_TR.gif) top right;}
+table#resultoverview td.L {background:  url(../img/search/border_shade3_L.gif) left repeat-y;}
+table#resultoverview td.C {background:  url(../img/search/border_shade3_BG.gif); padding: 0px 0px 0px 0px;vertical-align:top;}
+table#resultoverview td.R {background:  url(../img/search/border_shade3_R.gif) right repeat-y;}
+table#resultoverview td.BL {background:  url(../img/search/border_shade3_BL.gif) left bottom;}
+table#resultoverview td.B {background:  url(../img/search/border_shade3_B.gif) bottom repeat-x;}
+table#resultoverview td.BR {background:  url(../img/search/border_shade3_BR.gif) bottom right;}
+table#resultoverview table.columns {width:100%;}
+table#resultoverview .title {font-weight:bold;border-bottom:1px solid #CCC;}
+table#resultoverview table.columns td.col1 {text-align:center;}
+table#resultoverview table.columns td.col2 {padding:5px 0px 0px 0px;vertical-align:top;}
+table#resultoverview table.columns td.col3 {padding:5px 0px 0px 0px; width:25%;vertical-align:top;}
+table#resultoverview table.columns td a {display:block;white-space: nowrap;}

@@ -1,454 +1,192 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-    xmlns="http://www.w3c.org/1999/xhtml"
-    xmlns:c="http://java.sun.com/jsp/jstl/core"
-    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-    xmlns:spring="http://www.springframework.org/tags"
-    xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
-    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-    xmlns:gsweb="gstaglib"
-    >
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib">
 
-    <html lang="en">
-        <jsp:output doctype-root-element="html"
+<html lang="en">
+<jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-        <jsp:directive.page contentType="text/html"/>
+<jsp:directive.page contentType="text/html"/>
 
-        <head>
-            <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
-            <title>Search</title>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+    <title>Search</title>
 
-            <link rel="stylesheet" href="res/css/schools.css"/>
-            <style type="text/css">
+    <link rel="stylesheet" href="res/css/search2.css" type="text/css"
+          media="screen"/>
 
-    table.resultstable {
-        margin-left: 150px;
-        margin-right:150px;
-    }
+    <style type="text/css">
 
-    .highlight {
-        font-weight : 800
-    }
+        .highlight {
+            font-weight: 800
+        }
 
-    #summarybox {
-        position: absolute;
-        right:10px;
-        top:150px;
-        padding-left:3mm;
-        padding-top:1mm;
-        padding-bottom:1mm;
-        background:#fff;
-        border: dotted thin black;
-    }
+        a.s {
+            padding-left: 3mm;
+            padding-top: 3mm;
+        }
 
-    a.s {
-        padding-left: 3mm;
-        padding-top: 3mm;
-    }
+        #currentPage {
+            font-weight: bold;
+            font-size: larger;
+        }
 
-    #debug {
-        margin-left:10mm;
-        margin-right:10mm;
-    }
+        #searchFields {
+            border: solid thin gray;
+            padding-top: 1mm;
+            padding-bottom: 1mm;
+            padding-left: 1mm;
+            padding-right: 4mm;
+            background-color: #EEFFFF;
+        }
 
-    #currentPage {
-        font-weight: bold;
-        font-size: larger;
-    }
+        .message {
+            padding-left: 3mm;
+            padding-right: 3mm;
+        }
 
-    #searchFields {
-        border: solid thin gray;
-        padding-top: 1mm;
-        padding-bottom: 1mm;
-        padding-left: 1mm;
-        padding-right: 4mm;
-        background-color: #EEFFFF;
-    }
+        a.p {
+            padding-left: 1mm;
+        }
 
-    .message {
-        padding-left: 3mm;
-        padding-right: 3mm;
-    }
+        #suggestion {
+            font-style: italic;
+            font-weight: bold;
+        }
 
-    .resultHeading {
-        padding-right: 5mm;
-        font-weight: bold;
-    }
+    </style>
+</head>
 
-    .searchResult {
-        padding-top: 3mm;
-    }
+<body onload="document.sf.q.focus()">
+    <div style="float: right; padding-right:5mm">
+        <a href="mailto:chriskimm@greatschools.net?subject=GS Search">Bugs/Comments</a>
+    </div>
 
-    tr.odd {
-        background-color: #fff;
-    }
+    <span style="padding-left:5mm">
+            <jsp:scriptlet>
+                gs.web.SessionContext context = gs.web.SessionContext.getInstance(session);
+                gs.data.state.State state = context.getState();
+                out.print("State: ");
+                if (state == null) {
+                    out.println("none");
+                } else {
+                    out.println(state.getLongName());
+                }
+            </jsp:scriptlet>
+    </span>
 
-    .pageLinks {
-        padding-left: 10mm
-    }
-
-    a.p {
-        padding-left: 1mm;
-    }
-
-    .more {
-        padding-left: 10mm
-    }
-
-    #suggestion {
-        font-style: italic;
-        font-weight: bold;
-    }
-
-   .block {
-       display:block;
-       margin-right:70px;
-   }
-
-    .results_overview_link {
-        margin-top:5px;
-    }
-
-            </style>
-
-    <script>
-        function gfoc() {document.sf.q.focus();}
-    </script>
-
-        </head>
-
-        <body onLoad="gfoc()" >
-
-            <c:choose>
-                <c:when test="${param.s == '2'}">
-                    <style type="text/css">
-                        #two { font-weight: bold }
-                    </style>
-                </c:when>
-                <c:when test="${param.s == '3'}">
-                    <style type="text/css">
-                        #three { font-weight: bold }
-                    </style>
-                </c:when>
-                <c:when test="${param.s == '4'}">
-                    <STYLE type="text/css">
-                        #four { font-weight : bold }
-                    </STYLE>
-                </c:when>
-                <c:otherwise>
-                    <STYLE type="text/css">
-                        #one { font-weight : bold }
-                    </STYLE>
-                </c:otherwise>
-            </c:choose>
-
-            <form id="searchForm" name="sf" method="get" style="margin: 0; padding: 0">
-                <div style="float: right">
-                    <a href="mailto:chriskimm@greatschools.net?subject=GS Search">Bugs/Comments</a>
-                </div>
-
-
-                <a id="one" class="s" href="/search.page?s=1">Style 1</a>
-                <a id="two" class="s" href="/search.page?s=2">Style 2</a>
-                <a id="three" class="s" href="/search.page?s=3">Style 3</a>
-                <a id="four" class="s" href="/search.page?s=4">Style 4</a>
-
-                <!--
-                <select id="debug" name="debug">
-                    <option value="f">Debug Off</option>
-                    <option value="t">Debug On</option>
-                </select>
-                -->
-
-                <c:if test="${param.s != '1' and not empty param.s}">
-                    <span class="message">
-                        <c:out value="Location Awareness: "/>
+<c:if test="${not empty results.queryTime}">
+    <span style="margin-left:1cm">
+                    <c:out value="search time: ${results.queryTime} ms"/>
                     </span>
-                    <gsml:stateSelector/>
-                </c:if>
+</c:if>
 
-                <c:if test="${not empty results.queryTime}">
-                    <span style="margin-left:1cm">
-                    <c:out value="search time: ${results.queryTime} ms" />
-                    </span>
-                </c:if>
+<br/><hr/>
+<img src="res/img/header_logo.gif"
+     alt="GreatSchools.net"
+     border="0"
+     height="80"
+     width="201"/>
 
-                <hr/>
-                <img src="res/img/header_logo.gif"
-                    alt="GreatSchools.net"
-                    border="0"
-                    height="80"
-                    width="201"/>
+<search:searchControl/>
 
-                <!-- Search Control Begin -->
+<!-- begin the result set area -->
+<c:if test="${not empty results}">
+    <br/>
+    <gsml:decorator id="resultoverview">
+        <gsweb:searchsummary query="${param.q}"
+                             schoolsTotal="${results.schoolsTotal}"
+                             constrain="${param.c}"/>
+    </gsml:decorator>
+<br/>
 
-                <table id="searchFields">
-                    <tr>
-                        <td>
-                            <span class="message">Search:</span>
-                        </td>
-                        <td>
-                            <input type="text"
-                                id="q"
-                                name="q"
-                                size="40"
-                                maxlength="255"
-                                value="${not empty param.q ? param.q : ''}"
-                                onfocus="this.className='focus'"
-                                onblur="this.className=''"/>
-                        </td>
-                        <c:if test="${param.s == '3'}">
-                            <td>
-                                <select name="c">
-                                    <![CDATA[<option name="c" ]]>
-                                    <c:out value="${param.c == 'all' ? 'selected ' : ''}"/>
-                                    <![CDATA[ value='all'>All GS.net</option>]]>
-                                    <![CDATA[<option name="c" ]]>
-                                    <c:out value="${param.c == 'school' ? 'selected ' : ''}"/>
-                                    <![CDATA[ value='school'>Schools</option>]]>
-                                    <![CDATA[<option name="c" ]]>
-                                    <c:out value="${param.c == 'article' ? 'selected ' : ''}"/>
-                                    <![CDATA[ value='article'>Articles</option>]]>
-                                    <![CDATA[<option name="c" ]]>
-                                    <c:out value="${param.c == 'district' ? 'selected ' : ''}"/>
-                                    <![CDATA[ value='district'>Districts</option>]]>
-                                </select>
-                            </td>
-                        </c:if>
-
-                        <c:if test="${param.s == '1' || empty param.s}">
-                            <td>
-                                <span style="margin-left:3mm; margin-right:2mm">in:</span>
-                                <gsml:stateSelector/>
-                            </td>
-                        </c:if>
-
-                        <td>
-                            <input type="submit" value=" Go "/>
-                        </td>
-                        <c:if test="${param.s == '4'}">
-
-                            <c:if test="${param.s == '4'}">
-                                <![CDATA[<tr>]]>
-                                <td></td>
-
-                            </c:if>
-                            <td>
-                                <span class="radio">
-                                    <![CDATA[<input class="rButton" id="r1" ]]>
-                                    <c:out value="${param.c == 'all' ? ' checked ' : ''}"/>
-                                    <![CDATA[type="radio" name="c" value="all" />All GS.net]]>
-                                </span>
-                                <span class="radio">
-                                    <![CDATA[<input class="rButton" id="r2" ]]>
-                                    <c:out value="${param.c == 'article' ? ' checked ' : ''}"/>
-                                    <![CDATA[type="radio" name="c" value="article" /> Articles]]>
-                                </span>
-                                <span class="radio">
-                                    <![CDATA[<input class="rButton" id="r3"]]>
-                                    <c:out value="${param.c == 'school' ? ' checked ' : ''}"/>
-                                    <![CDATA[type="radio" name="c" value="school" /> Schools]]>
-                                </span>
-
-                            </td>
-                            <c:if test="${param.s == '4'}">
-                                <td></td>
-                                <td></td>
-                                <![CDATA[</tr>]]>
-                            </c:if>
-                        </c:if>
-                    </tr>
-                </table>
-
-                <input type="hidden" name="s" value="${param.s}"/>
-
-                <!-- Search Control Ends -->
-
-            </form>
-
-            <!-- begin the result set area -->
-
-            <c:if test="${not empty results}">
-                <br/>
-                <gsweb:searchsummary query="${param.q}"
-                                     schoolsTotal="${results.schoolsTotal}"/>
-            </c:if>
-            <br/>
-
-            <c:if test="${not empty results.suggestion}">
-                Did you mean:
-                <span id="suggestion">
+    <!--
+    TODO: FIX - DO NOT REMOVE!!!
+    <c:if test="${not empty results.suggestion}">
+        Did you mean:
+        <span id="suggestion">
                     <a href="/search.page?q=${results.suggestion}&amp;c=${param.c}&amp;s=${param.s}">
                         <c:out value="${results.suggestion}"/>
                     </a>
                 </span>
-            </c:if>
+    </c:if>
+    <br/>
+    -->
 
-            <br/>
-            <c:if test="${not empty param.q}">
+    <c:choose>
+        <c:when test="${param.c == 'school'}">
+            <gsml:decorator id="main">
+                <gsweb:schooltable schools="${results.schools}"
+                                   query="${param.q}"
+                                   sortColumn="${param.sort}"
+                                   reverse="${param.r}"
+                                   total="${results.schoolsTotal}"
+                                   page="${param.p}"/>
+            </gsml:decorator>
+        </c:when>
 
-                <c:if test="${empty param.c || param.c == 'all' || param.c == 'school'}">
-                    <br/>
-                    <span class="resultHeading">Schools</span>
+        <c:when test="${param.c == 'article'}">
+            <gsml:decorator id="main">
+                <gsweb:articletable articles="${results.articles}"
+                                    query="${param.q}"
+                                    sortColumn="${param.sort}"
+                                    reverse="${param.r}"
+                                    total="${results.articlesTotal}"
+                                    page="${param.p}"/>
+            </gsml:decorator>
+        </c:when>
 
-                            <search:resultsHeader total="${results.schoolsTotal}"
-                                page="${param.p}"
-                                query="${param.q}"
-                                constraint="${param.c}"
-                                style="${param.s}"
-                                pageSize="${results.pageSize}"
-                                type="school"
-                                sort="${param.sort}"
-                                r="${param.r}"/>
+        <c:when test="${param.c == 'city'}">
+            <gsml:decorator id="main">
+                <gsweb:citydistricttable results="${results.cities}"
+                                         type="city"
+                                         query="${param.q}"
+                                         sortColumn="${param.sort}"
+                                         reverse="${param.r}"
+                                         total="${results.citiesTotal}"
+                                         page="${param.p}"/>
+            </gsml:decorator>
+        </c:when>
 
-                    <br/>
-                    <hr/>
+        <c:when test="${param.c == 'district'}">
+            <gsml:decorator id="main">
+                <gsweb:citydistricttable results="${results.districts}"
+                                         type="district"
+                                         query="${param.q}"
+                                         sortColumn="${param.sort}"
+                                         reverse="${param.r}"
+                                         total="${results.districtsTotal}"
+                                         page="${param.p}"/>
+            </gsml:decorator>
+        </c:when>
 
-                    <c:choose>
-                        <c:when test="${results.pageSize > 5}" >
-                            <gsweb:schooltable schools="${results.schools}"
-                                               query="${param.q}"
-                                               sortColumn="${param.sort}"
-                                               reverse="${param.r}"/>
-                        </c:when>
+        <c:when test="${param.c == 'term'}">
+            <gsml:decorator id="main">
+                <gsweb:termtable results="${results.terms}"
+                                 query="${param.q}"
+                                 sortColumn="${param.sort}"
+                                 reverse="${param.r}"
+                                 total="${results.termsTotal}"
+                                 page="${param.p}"/>
+            </gsml:decorator>
+        </c:when>
 
-                        <c:otherwise>
-                             <c:forEach items="${results.schools}" var="school">
-                                 <div class="searchresult">
-                                     <span class="schoolname">
-                                     <![CDATA[<a href="http://www.greatschools.net/modperl/browse_school/]]>
-                                     <c:out value="${gsweb:toLowercase(school.state)}/"/>
-                                     <c:out value="${school.id}"/>
-                                     <![CDATA["> ]]>
-                                     <c:out value="${school.name}" escapeXml="false"/>
-                                     <![CDATA[</a>]]>
-                                     </span>     <br/>
-                                     <span class="address">${school.address}</span>
-                                 </div>
-                             </c:forEach>
-
-                        </c:otherwise>
-                    </c:choose>
-                </c:if>
-
-                <c:if test="${(empty param.c) || (param.c == 'all') || (param.c == 'article')}">
-                    <br/>
-                    <br/>
-                    <span class="resultHeading">Articles</span>
-
-                            <search:resultsHeader total="${results.articlesTotal}"
-                                page="${param.p}"
-                                query="${param.q}"
-                                constraint="${param.c}"
-                                style="${param.s}"
-                                pageSize="${results.pageSize}"
-                                type="article"/>
-
-                    <br/>
-                    <hr/>
-                    <c:forEach items="${results.articles}" var="article">
-                        <div class="searchResult">
-                            <![CDATA[<a href="http://www.greatschools.net/cgi-bin/showarticle/ca/]]>
-                            <c:out value="${article.id}"/>
-                            <![CDATA["> ]]>
-                            <gsweb:longstate text="${article.title}" />
-                            <![CDATA[</a>]]>
-                            <br/>
-                            <span class="abstract">
-                                <c:out value="${article.abstract}"
-                                    escapeXml="false"/>
-                            </span>
-                            <c:if test="${article.insider}">
-                                <img src="res/img/star.gif"/>
-                            </c:if>
-                        </div>
-                    </c:forEach>
-                </c:if>
-
-                <c:if test="${(empty param.c) || (param.c == 'all') || (param.c == 'district')}">
-                    <br/>
-                    <span class="resultHeading">Districts</span>
-                            <search:resultsHeader total="${results.districtsTotal}"
-                                page="${param.p}"
-                                query="${param.q}"
-                                constraint="${param.c}"
-                                style="${param.s}"
-                                pageSize="${results.pageSize}"
-                                type="district"/>
-
-                    <br/>
-                    <hr/>
-
-                    <c:forEach items="${results.districts}" var="district">
-                        <div class="searchResult">
-                            <div style="float: right">
-                                <c:out value="${district.phone}" escapeXml="false"/>
-                            </div>
-                            <![CDATA[<a href="http://www.greatschools.net/modperl/browse_district/]]>
-                            <c:out value="${district.id}/${gsweb:toLowercase(district.state)}"/>
-
-                            <![CDATA["> ]]>
-                            <c:out value="${district.name}" escapeXml="false"/>
-                            <![CDATA[</a>]]>
-                            <br/>
-                            <c:out value="${district.address}" escapeXml="false"/>
-
-                            <br/>
-                        </div>
-                    </c:forEach>
-                </c:if>
-
-
-                <c:if test="${(empty param.c) || (param.c == 'all') || (param.c == 'city')}">
-                    <br/>
-                    <span class="resultHeading">Cites</span>
-
-                            <search:resultsHeader total="${results.citiesTotal}"
-                                page="${param.p}"
-                                query="${param.q}"
-                                constraint="${param.c}"
-                                style="${param.s}"
-                                pageSize="${results.pageSize}"
-                                type="city"/>
-
-                    <br/>
-                    <hr/>
-
-                    <c:forEach items="${results.cities}" var="city">
-                        <div class="searchResult">
-                            <a class="city" href="/search.page?c=school&amp;q=type:school+city:${city.cityName}&amp;s=${style}">
-                            <c:out value="${city.cityAndState}" escapeXml="false"/>
-                            </a>
-                            <br/>
-                        </div>
-                    </c:forEach>
-                </c:if>
-
-                <c:if test="${(empty param.c) || (param.c == 'all') || (param.c == 'term')}">
-                    <br/>
-                    <span class="resultHeading">Glossary Terms</span>
-                            <search:resultsHeader total="${results.termsTotal}"
-                                page="${param.p}"
-                                query="${param.q}"
-                                constraint="${param.c}"
-                                style="${param.s}"
-                                pageSize="${results.pageSize}"
-                                type="term"/>
-                    <br/>
-                    <hr/>
-
-                    <c:forEach items="${results.terms}" var="term">
-                        <div class="searchResult">
-                            <a href="http://www.greatschools.net/cgi-bin/glossary_single/ca//?id=${term.id}"><c:out value="${term.term}" escapeXml="false"/></a><br/>
-                            <c:out value="${term.definition}" escapeXml="false"/>
-                            <br/>
-                        </div>
-                    </c:forEach>
-                </c:if>
-            </c:if>
-        </body>
-    </html>
+        <c:otherwise>
+            <gsml:decorator id="main">
+                <gsweb:mixedresults query="${param.q}" results="${results}"/>
+            </gsml:decorator>
+        </c:otherwise>
+    </c:choose>
+</c:if>
+<br/>
+</body>
+</html>
 </jsp:root>

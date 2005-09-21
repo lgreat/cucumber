@@ -2,7 +2,6 @@ package gs.web.search;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -11,12 +10,10 @@ import org.apache.commons.logging.Log;
 import org.apache.lucene.search.Sort;
 import gs.data.search.*;
 import gs.data.state.State;
-import gs.data.state.StateManager;
 import gs.web.SessionContext;
 
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Enumeration;
 
 /**
  * This controller handles all search requests.
@@ -32,6 +29,8 @@ import java.util.Enumeration;
  * <li>p :  page</li>
  * <li>q :  query string</li>
  * <li>s :  style</li>
+ * <li>sort :  sort column</li>
+ * <li>r :  sort reverse? (t/f)</li>
  * </ul>
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -43,7 +42,6 @@ public class SearchController extends AbstractController {
     private SpellCheckSearcher _spellCheckSearcher;
     private ResultsPager _resultsPager;
     private int pageSize = 3;
-    private static String STATE = "state";
 
     /**
      * Though this message throws <code>Exception</code>, it should swallow most
@@ -66,10 +64,11 @@ public class SearchController extends AbstractController {
 
         State contextState = null;
         SessionContext context = SessionContext.getInstance(request);
+
         if (context != null) {
             contextState = context.getState();
-            HttpSession session = request.getSession(true);
-            session.setAttribute (STATE, contextState);
+            //HttpSession session = request.getSession(true);
+            //session.setAttribute ("state", contextState);
         }
 
         //_log.info("Search query:" + queryString);
@@ -144,7 +143,6 @@ public class SearchController extends AbstractController {
                     clone.append(" AND type:");
                     clone.append(types[i]);
                     DecoratedHits dh = _spellCheckSearcher.search(clone.toString(), queryString);
-                    //model.put("totalResults", String.valueOf(dh.getHits().length()));
 
                     if (dh != null) {
                         suggestion = dh.getSuggestedQueryString();

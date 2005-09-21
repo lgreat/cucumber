@@ -2,6 +2,7 @@ package gs.web.search;
 
 import org.apache.lucene.document.Document;
 import gs.data.search.highlight.TextHighlighter;
+import gs.data.search.IndexField;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -96,7 +97,7 @@ public class SearchResult {
     public String getCityAndState() {
         return _doc.get("citystate");
     }
-    
+
     public String getAbstract() {
         String abs = _doc.get("abstract");
         if (_highlight) {
@@ -123,5 +124,14 @@ public class SearchResult {
 
     public String getDefinition() {
         return _doc.get("definition");
+    }
+
+    public int getSchools() {
+        int count = 0;
+        String schools = _doc.get(IndexField.SCHOOLS);
+        if (schools != null) {
+            count = Integer.parseInt(schools);
+        }
+        return count;
     }
 }

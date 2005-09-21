@@ -2,8 +2,6 @@ package gs.web.search;
 
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.document.Document;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import java.util.List;
 import java.util.ArrayList;
