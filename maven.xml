@@ -10,7 +10,7 @@
 
     <preGoal name="java:compile">
         <mkdir dir="${maven.war.webapp.dir}/WEB-INF"/>
-        <attainGoal name="xdoclet:webdoclet"/>
+        <!-- <attainGoal name="xdoclet2:run"/> -->
         <attainGoal name="create-build-version"/>
     </preGoal>
 
