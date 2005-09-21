@@ -108,27 +108,15 @@
         </dependency>
 
         <!-- XDoclet dependencies -->
-        <dependency>
-            <id>xdoclet</id>
-            <version>1.2</version>
-        </dependency>
-
         <!--<dependency>-->
-            <!--<groupId>xdoclet</groupId>-->
-            <!--<artifactId>xdoclet-web-module</artifactId>-->
-            <!--<version>1.2</version>-->
-            <!--<url>http://xdoclet.sf.net/</url>-->
+            <!--<groupId>xdoclet-plugins</groupId>-->
+            <!--<artifactId>xdoclet-plugin-web</artifactId>-->
+            <!--<version>1.0.2</version>-->
+            <!--<url>http://xdoclet.codehaus.org</url>-->
+            <!--<properties>-->
+                <!--<xdoclet.dependency>true</xdoclet.dependency>-->
+            <!--</properties>-->
         <!--</dependency>-->
-
-        <dependency>
-            <groupId>xdoclet-plugins</groupId>
-            <artifactId>xdoclet-plugin-web</artifactId>
-            <version>1.0.2</version>
-            <url>http://xdoclet.codehaus.org</url>
-            <properties>
-                <xdoclet.dependency>true</xdoclet.dependency>
-            </properties>
-        </dependency>
 
         <dependency>
             <groupId>displaytag</groupId>
