@@ -29,7 +29,8 @@
                 color: #000000;
             }
 
-            .category {font-size: 12px; padding-left: 20px; padding-bottom: 10px; width: 50%;}
+            .category {font-size: 12px; padding-left: 20px; padding-bottom: 10px; width: 60%;}
+            .categoryName {font-family: arial; font-size: 12px; font-style: normal; color: #000000;}
             .subCategory {font-size: 12px; padding-left: 20px; padding-bottom: 10px;}
             .categorySection {font-size: 12px; padding-left: 20px;}
             .articleLink {padding: 5px;}
@@ -53,8 +54,11 @@
                     </div>
                 </c:if>
                 <img src="/images/p.gif" height="5"/><br/>
-   	            <div id="squareadvert"><script language="javascript">document.write(adboxhead());</script>
-                    <table cellpadding="0" cellspacing="0"><tr><td><ad:x40/></td></tr></table>
+   	            <div id="squareadvert">
+                    <center>
+                        <script language="javascript">document.write(adboxhead());</script>
+                        <table cellpadding="0" cellspacing="0"><tr><td><ad:x40/></td></tr></table>
+                    </center>
    	            </div>
    	        </td>
         </tr>
@@ -62,16 +66,16 @@
    </div>
 
     <span class="header">All Articles</span>
+        <br/><br/>
     <div class="category">
-        <span class="categoryName"><a href="javascript:showSection(-1);">School Choice Center</a></span>
+        <a href="javascript:showSection(-1);"><span class="categoryName">School Choice Center</span></a>
         <div id="articlelist-1">
             <c:forEach items="${scc_categories}" var="category">
                 <c:if test="${!empty category.value}">
                     <div class="subCategory">
-                        <span class="categoryName">
-                            <a href="javascript:showSection(${index});">
-                            <c:out value="${category.key.categoryName}"/></a>
-                        </span>
+                        <a href="javascript:showSection(${index});">
+                            <span class="categoryName"><c:out value="${category.key.categoryName}"/></span>
+                        </a>
                         <div id="articlelist${index}" class="categorySection">
                             <c:forEach items="${category.value}" var="article">
                                 <div class="articleLink">
@@ -89,10 +93,8 @@
     <c:forEach items="${categories}" var="category">
         <c:if test="${!empty category.value}">
             <div class="category">
-                <span class="categoryName">
-                    <a href="javascript:showSection(${index});">
-                    <c:out value="${category.key.categoryName}"/></a>
-                </span>
+                    <a href="javascript:showSection(${index});"><span class="categoryName">
+                    <c:out value="${category.key.categoryName}"/></span></a>
                 <div id="articlelist${index}" class="categorySection">
                     <c:forEach items="${category.value}" var="article">
                         <div class="articleLink">
