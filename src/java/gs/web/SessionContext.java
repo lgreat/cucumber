@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.11 2005/09/21 17:47:06 dlee Exp $
+ * $Id: SessionContext.java,v 1.12 2005/09/21 19:05:30 dlee Exp $
  */
 package gs.web;
 
@@ -228,7 +228,7 @@ public class SessionContext implements ApplicationContextAware {
     public boolean isYahooCobrand() {
         boolean sYahooCobrand = false;
         if (_cobrand != null &&
-                (_cobrand.matches("yahoo"))) {
+                (_cobrand.matches("yahoo|yahooed"))) {
             sYahooCobrand = true;
         }
         return sYahooCobrand;
