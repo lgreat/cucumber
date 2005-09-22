@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.12 2005/09/21 19:05:30 dlee Exp $
+ * $Id: SessionContext.java,v 1.13 2005/09/22 00:50:06 thuss Exp $
  */
 package gs.web;
 
@@ -130,7 +130,8 @@ public class SessionContext implements ApplicationContextAware {
         } else if (!(_hostName.startsWith("www") ||
                 _hostName.startsWith("staging") ||
                 _hostName.startsWith("dev") ||
-                _hostName.startsWith("localhost"))) {
+                _hostName.startsWith("localhost") ||
+                _hostName.indexOf(".") < 0)) {
             _cobrand = _hostName.substring(0, _hostName.indexOf("."));
         }
 
@@ -223,6 +224,7 @@ public class SessionContext implements ApplicationContextAware {
     /**
      * Is this the yahoo cobrand?
      * yahoo cobrands are yahooed and yahoo
+     *
      * @return
      */
     public boolean isYahooCobrand() {

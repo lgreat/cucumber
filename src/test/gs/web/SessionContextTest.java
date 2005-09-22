@@ -110,4 +110,15 @@ public class SessionContextTest extends TestCase {
         assertTrue(ctx.isYahooCobrand());
     }
 
+    public void testHostWithoutPeriod() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        SessionContext ctx = new SessionContext();
+        request.setServerName("maddy");
+        ctx.updateFromParams(request);
+        assertEquals(ctx.getHostName(), "maddy");
+        assertTrue(!ctx.isAdFree());
+        assertTrue(!ctx.isCobrand());
+        assertTrue(!ctx.isYahooCobrand());
+    }
+
 }
