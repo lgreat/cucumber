@@ -71,7 +71,7 @@
     <bean name="/insider.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>insider/landing</value>
+            <value>subscribe/landing</value>
         </property>
     </bean>
 
