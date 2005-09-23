@@ -8,6 +8,8 @@
 
 <decorator:usePage id="smPage"/>
 <%
+    SessionContext ctx = SessionContext.getInstance(request);
+
     // Determine if we're on a server or a developers workstation with no perl
     String serverName = request.getServerName();
     boolean developerWorkstation = false;
@@ -24,10 +26,10 @@
 
     // The page for the c:import to use
     String wrapperStyle = smPage.getProperty("meta.wrapperstyle");
-    SessionContext ctx = SessionContext.getInstance(request);
     State state = ctx.getStateOrDefault();
+    String memberParam = (ctx.getUser() != null)?"?member=" + ctx.getUser().getId():"";
     String javaWrapperUrl = "http://" + serverName + "/modperl/javawrapper/" +
-        state.getAbbreviation() + "/" + wrapperStyle;
+        state.getAbbreviation() + "/" + wrapperStyle + memberParam;
     pageContext.setAttribute("javaWrapperUrl", javaWrapperUrl, PageContext.REQUEST_SCOPE);
 %>
 <c:import url="${javaWrapperUrl}" var="ctmpl"/>
