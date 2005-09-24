@@ -2,6 +2,7 @@ package gs.web.search;
 
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.document.Document;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -24,8 +25,7 @@ public class ResultsPager {
     private Hits _cityHits;
     private String _query;
     private StateManager _stateManager;
-
-    //private static final Log _log = LogFactory.getLog(ResultsPager.class);
+    private static final Logger _log = Logger.getLogger(ResultsPager.class);
 
     public ResultsPager() {
     }
@@ -125,7 +125,7 @@ public class ResultsPager {
                     searchResults.add(new SearchResult(d, _query));
                 }
             } catch (IOException e) {
-                // todo
+                _log.warn(e);
             }
         }
         return searchResults;

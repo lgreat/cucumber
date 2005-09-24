@@ -24,6 +24,7 @@ public class CompareSchoolsControllerTest extends BaseTestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         String[] stateIds = {"ca1", "ca2", "ca3"};
         request.addParameter("ids", stateIds);
+        request.setAttribute("compare.x", "1234");
         ModelAndView mav = controller.handleRequestInternal(request, (HttpServletResponse)null);
         // todo
     }
@@ -32,6 +33,7 @@ public class CompareSchoolsControllerTest extends BaseTestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         String[] stateIds = {"ca1", "ca2", "ca3"};
         request.addParameter("ids", stateIds);
+        request.addParameter("compare.x", "1234");
         ModelAndView mav = controller.handleRequestInternal(request, (HttpServletResponse)null);
         RedirectView view = (RedirectView)mav.getView();
         System.out.println ("url: " + view.getUrl());
@@ -39,6 +41,10 @@ public class CompareSchoolsControllerTest extends BaseTestCase {
     }
 
     public void testCompareWithoutStateMixedIds() {
+        // todo
+    }
+
+    public void testConfirm() {
         // todo
     }
 }

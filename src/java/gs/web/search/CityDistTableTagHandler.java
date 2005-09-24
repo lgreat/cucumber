@@ -33,6 +33,7 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
             out.println("<table class=\"school_results_only\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
             if (results.size() > 0) {
                 out.print("<tr><th class=\"result_title\" width=\"1\">&nbsp;</th><th class=\"left\">");
+
                 if (_type != null && _type.equals("city")) {
                     out.print("City Name");
                 } else {
@@ -101,7 +102,14 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
 
                 writePageNumbers(out);
             } else {
-                out.println("<tr><th class=\"left result_title\">No results found</div></th></tr>");
+                String type = "districts";
+                if (_type != null && _type.equals("city")) {
+                    type = "cities";
+                }
+
+                out.print("<tr><th class=\"left result_title\">No ");
+                out.print(type);
+                out.println(" found</div></th></tr>");
                 out.println("<tr><td valign=\"top\" height=\"100\">");
             }
             out.println("</td></tr></table>");

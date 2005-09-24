@@ -22,7 +22,11 @@
         <decorator:head/>
     </head>
 
-    <body>
+    <c:set var="onLoadScript">
+        <decorator:getProperty property="meta.onload" default="" />
+    </c:set>
+
+    <body onload="${onLoadScript}">
 
     <p/>
 

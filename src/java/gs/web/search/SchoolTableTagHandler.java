@@ -4,6 +4,7 @@ import gs.data.school.School;
 import gs.data.state.State;
 
 import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.JspException;
 import java.io.IOException;
 import java.util.List;
 
@@ -33,12 +34,10 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
     }
 
     public void doTag() throws IOException {
-        long start = System.currentTimeMillis();
 
         if (_schools != null) {
 
             JspWriter out = getJspContext().getOut();
-
 
             out.println("<form action=\"compareSchools.page\">");
             out.println("<table class=\"columns\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">");
@@ -89,7 +88,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                     out.println("<td>");
 
                     out.print("<a href=\"http://www.greatschools.net/modperl/browse_school/");
-                    out.print(school.getState().getAbbreviationLowerCase());
+                    out.print(school.getState().getAbbreviation());
                     out.print("/");
                     out.print(school.getId().toString());
                     out.println("\">");
@@ -99,8 +98,12 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                     out.print(school.getPhysicalAddress().toString());
                     out.println("<br/>");
 
-                    //out.print(school.getDistrict().getName());
-                    out.print("District not implemented yet");
+                    try {
+                        out.print(school.getDistrict().getName());
+                    } catch (Exception e) {
+                        _log.warn(e);
+                    }
+
                     out.println("</td>");
                     out.println("<td align=\"center\">");
                     out.println(school.getType().getSchoolTypeName());
@@ -113,6 +116,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 }
                 out.print("<tr class=\"last_row\"><td colspan=\"5\">");
 
+                /** Uncomment this to add "browse all" functionality
                 State s = getState();
                 if (s != null) {
                     out.print("<ul><li class=\"viewall\">");
@@ -123,27 +127,26 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                     out.print(s.getLongName());
                     out.println(" schools</a></li></ul>");
                 }
+                */
 
                 out.println("</td></tr></table>");
                 out.println("<table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"><tr>");
                 out.println("<td>");
 
-                out.println("<input style=\"display:block\" type=\"image\" src=\"res/img/search/btn_old_comparechecked_167x21.gif\" alt=\"Submit Form\">");
-                out.println("<input style=\"display:block\" type=\"image\" src=\"res/img/search/btn_old_savechecked2msl_193x21.gif\" alt=\"Submit Form\">");
+                out.println("<input style=\"display:block\" type=\"image\" name=\"compare\" src=\"res/img/search/btn_old_comparechecked_167x21.gif\" alt=\"Submit Form\">");
+                out.println("<input style=\"display:block\" type=\"image\" name=\"save\" src=\"res/img/search/btn_old_savechecked2msl_193x21.gif\" alt=\"Submit Form\">");
 
                 out.println("</td><td class=\"results_pagenav\">");
 
                 writePageNumbers(out);
 
             } else {
-                out.println("<tr><th class=\"left result_title\">No results found</div></th></tr>");
+                out.println("<tr><th class=\"left result_title\">No schools found</div></th></tr>");
                 out.println("<tr><td valign=\"top\" height=\"100\">");
             }
             out.println("</td></tr></table>");
             out.println("</td></tr></table>");
             out.println("</form>");
         }
-        long end = System.currentTimeMillis();
-        _log.debug("SchoolTableTagHandler.doTag takes: " + (end - start) + " milliseconds");
     }
 }
