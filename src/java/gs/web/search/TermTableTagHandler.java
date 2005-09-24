@@ -66,7 +66,7 @@ public class TermTableTagHandler extends ResultsTableTagHandler {
                 out.println("<td class=\"results_pagenav\">");
                 writePageNumbers(out);
             } else {
-                out.println("<tr><th class=\"left result_title\">No results found</div></th></tr>");
+                out.println("<tr><th class=\"left result_title\">No glossary terms found</div></th></tr>");
                 out.println("<tr><td valign=\"top\" height=\"100\">");
             }
             out.println("</td></tr></table>");

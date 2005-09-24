@@ -10,11 +10,14 @@ import javax.servlet.jsp.PageContext;
 import java.io.IOException;
 
 /**
+ * This tag replaces the $LONGSTATE text from a string and replaces it with
+ * the current state or appriate text.
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class LongstateTagHandler extends SimpleTagSupport {
 
     private String _text;
+
     public void setText(String text) {
         _text = text;
     }
@@ -22,7 +25,6 @@ public class LongstateTagHandler extends SimpleTagSupport {
     public void doTag() throws IOException {
 
         JspContext jspContext = getJspContext();
-
         String stateString = " your state ";
 
         if (jspContext != null) {
@@ -35,9 +37,10 @@ public class LongstateTagHandler extends SimpleTagSupport {
             }
         }
 
-        String outString = _text.replace('$', ' ');
-        outString = outString.replaceAll("LONGSTATE", stateString);
+        //String outString = _text.replace('$', ' ');
+        //outString = outString.replaceAll("LONGSTATE", stateString);
         JspWriter out = getJspContext().getOut();
-        out.print(outString);
+        out.print(_text.replaceAll("\\$LONGSTATE", stateString));
+        //out.print(outString);
     }
 }

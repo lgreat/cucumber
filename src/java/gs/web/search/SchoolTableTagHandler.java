@@ -1,10 +1,8 @@
 package gs.web.search;
 
 import gs.data.school.School;
-import gs.data.state.State;
 
 import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.JspException;
 import java.io.IOException;
 import java.util.List;
 

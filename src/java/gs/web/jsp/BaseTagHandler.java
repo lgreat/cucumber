@@ -42,7 +42,6 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
     }
 
     protected School getSchool(SearchResult sr) {
-        long start = System.currentTimeMillis();
         School school = null;
         try {
             State state = _stateManager.getState(sr.getState());
@@ -52,8 +51,6 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
         } catch (Exception e) {
             _log.warn("error retrieving school: ", e);
         }
-        long end = System.currentTimeMillis();
-        _log.debug("SchoolTableTagHandler.getSchool takes: " + (end-start) + " milliseconds");
         return school;
     }
 

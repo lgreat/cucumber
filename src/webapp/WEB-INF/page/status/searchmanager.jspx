@@ -7,6 +7,10 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         >
+    <c:if test="${sessionScope.authenticated == null}">
+        <jsp:forward page="login.jspx" />
+    </c:if>
+
     <html lang="en">
 
     <jsp:output doctype-root-element="html"
@@ -30,6 +34,7 @@
     Reindex data. This deletes any existing indexes!
     <form action="/status/searchmanager.page" method="post">
         <input type="submit" name="start" value="start"/>
+        <input type="submit" name="logout" value="logout"/>
     </form>
     <c:if test="${!empty time}">
         <c:out value="Indexing time ${time}"/> 

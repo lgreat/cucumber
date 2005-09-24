@@ -8,7 +8,7 @@
 %>
 
 <form id="searchForm" name="sf" method="get" style="margin: 0; padding: 0">
-    <table id="searchFields">
+    <table style="width:100%">
         <tr>
             <td>
                 <span class="message">Search:</span>
@@ -17,7 +17,8 @@
                 <input type="text"
                     id="q"
                     name="q"
-                    size="40"
+                    style="width:95%"
+                    size="50"
                     maxlength="255"
                     value="${not empty param.q ? param.q : ''}"
                     onfocus="this.className='focus'"
@@ -31,13 +32,8 @@
       <% } %>
 
             <td>
-                <input type="submit" value=" Go "/>
-            </td>
+                <input type="image" src="res/img/search/new_go_blue.gif" value=" Go "/>
+             </td>
         </tr>
     </table>
-    <%-- !--<input name="state" type="hidden" value="${param.state}"/>
-    <% if (state != null) { %>
-        <input name="statefoo" type="hidden" value="${state.abbreviation}"/>
-    <% } %>
-    --%>
 </form>

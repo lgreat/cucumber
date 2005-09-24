@@ -41,7 +41,7 @@ public class SearchController extends AbstractController {
     private static Log _log = LogFactory.getLog(SearchController.class);
     private SpellCheckSearcher _spellCheckSearcher;
     private ResultsPager _resultsPager;
-    private int pageSize = 3;
+    private int pageSize = 10;
 
     /**
      * Though this message throws <code>Exception</code>, it should swallow most
@@ -59,6 +59,8 @@ public class SearchController extends AbstractController {
                                               HttpServletResponse response)
             throws Exception {
 
+        long start = System.currentTimeMillis();
+
         Map model = new HashMap();
         String queryString = request.getParameter("q");
 
@@ -67,8 +69,6 @@ public class SearchController extends AbstractController {
 
         if (context != null) {
             contextState = context.getState();
-            //HttpSession session = request.getSession(true);
-            //session.setAttribute ("state", contextState);
         }
 
         //_log.info("Search query:" + queryString);
@@ -110,8 +110,6 @@ public class SearchController extends AbstractController {
                 sort = new Sort(sortParam, reverse);
             }
 
-            long start = System.currentTimeMillis();
-
             if (constraint != null && !constraint.equals("all") && !constraint.equals("")) {
                 pageSize = 10;
                 StringBuffer clone = new StringBuffer(qString);
@@ -133,7 +131,6 @@ public class SearchController extends AbstractController {
                         _resultsPager.setDistricts(dh.getHits());
                     }
                     suggestion = dh.getSuggestedQueryString();
-                    //model.put("totalResults", String.valueOf(dh.getHits().length()));
                 }
             } else {
                 String[] types = {"school", "article", "district", "city", "term"};

@@ -91,17 +91,6 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
         return _searcher;
     }
 
-    /*
-    private String getStateParam() {
-        String param = "all";
-        State s = getState();
-        if (s != null) {
-            param = s.getAbbreviation();
-        }
-        return param;
-    }
-    */
-
     public void doTag() throws IOException {
 
         _groupingHitCollector.reset();
@@ -128,7 +117,6 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
                 _groupingHitCollector.getDistricts();
 
         if (total > 0) {
-
 
             out.println(frag1);
             out.println(total);
@@ -231,8 +219,7 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
         }
     }
 
-
-    class GroupingHitCollector extends org.apache.lucene.search.HitCollector {
+    static class GroupingHitCollector extends org.apache.lucene.search.HitCollector {
 
         int total = 0;
         int pubSchools = 0;
@@ -248,39 +235,39 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
 
         public void collect(int id, float score) {
             total++;
-            if (getSearcher().getPublicSchoolBits().get(id)) {
+            if (Searcher.publicSchoolBits.get(id)) {
                 pubSchools++;
-            } else if (getSearcher().getPrivateSchoolBits().get(id)) {
+            } else if (Searcher.privateSchoolBits.get(id)) {
                 priSchools++;
-            } else if (getSearcher().getCharterSchoolBits().get(id)) {
+            } else if (Searcher.charterSchoolBits.get(id)) {
                 chaSchools++;
             }
 
-            if (getSearcher().getElementarySchoolBits().get(id)) {
+            if (Searcher.elementarySchoolBits.get(id)) {
                 elementarySchools++;
             }
 
-            if (getSearcher().getMiddleSchoolBits().get(id)) {
+            if (Searcher.middleSchoolBits.get(id)) {
                 middleSchools++;
             }
 
-            if (getSearcher().getHighSchoolBits().get(id)) {
+            if (Searcher.highSchoolBits.get(id)) {
                 highSchools++;
             }
 
-            if (getSearcher().getDistrictBits().get(id)) {
+            if (Searcher.districtBits.get(id)) {
                 districts++;
             }
 
-            if (getSearcher().getArticleBits().get(id)) {
+            if (Searcher.articleBits.get(id)) {
                 articles++;
             }
 
-            if (getSearcher().getCityBits().get(id)) {
+            if (Searcher.cityBits.get(id)) {
                 cities++;
             }
 
-            if (getSearcher().getGlossaryTermBits().get(id)) {
+            if (Searcher.glossaryTermBits.get(id)) {
                 terms++;
             }
         }
