@@ -25,11 +25,18 @@ public class ResultsPager {
     private Hits _cityHits;
     private String _query;
     private StateManager _stateManager;
+    public static final int MIXED  = 0;
+    public static final int SINGLE = 1;
+    private int _pageStyle = MIXED; // DEFAULT
+
     private static final Logger _log = Logger.getLogger(ResultsPager.class);
 
     public ResultsPager() {
     }
 
+    public void setPageStyle(int style) {
+        _pageStyle = style;
+    }
     public void setArticles(Hits hits) {
         _articleHits = hits;
     }

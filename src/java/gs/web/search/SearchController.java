@@ -42,6 +42,7 @@ public class SearchController extends AbstractController {
     private SpellCheckSearcher _spellCheckSearcher;
     private ResultsPager _resultsPager;
     private int pageSize = 10;
+    private boolean SUGGEST = true;
 
     /**
      * Though this message throws <code>Exception</code>, it should swallow most
@@ -130,7 +131,6 @@ public class SearchController extends AbstractController {
                     } else {
                         _resultsPager.setDistricts(dh.getHits());
                     }
-                    suggestion = dh.getSuggestedQueryString();
                 }
             } else {
                 String[] types = {"school", "article", "district", "city", "term"};
@@ -142,7 +142,6 @@ public class SearchController extends AbstractController {
                     DecoratedHits dh = _spellCheckSearcher.search(clone.toString(), queryString);
 
                     if (dh != null) {
-                        suggestion = dh.getSuggestedQueryString();
                         if (types[i].equals("school")) {
                             _resultsPager.setSchools(dh.getHits());
                         } else if (types[i].equals("article")) {
@@ -160,20 +159,23 @@ public class SearchController extends AbstractController {
 
             _resultsPager.setQuery(qString);
 
-            suggestion = (String)_spellCheckSearcher.getSuggestion("name", queryString);
-            if (suggestion == null) {
-                suggestion = (String)_spellCheckSearcher.getSuggestion("title", queryString);
-            }
-            if (suggestion == null) {
-                suggestion = (String)_spellCheckSearcher.getSuggestion("cityname", queryString);
-            }
+            if (SUGGEST) {
+                suggestion = (String)_spellCheckSearcher.getSuggestion("name", queryString);
 
+                if (suggestion == null) {
+                    suggestion = (String)_spellCheckSearcher.getSuggestion("title", queryString);
+                }
+                
+                if (suggestion == null) {
+                    suggestion = (String)_spellCheckSearcher.getSuggestion("cityname", queryString);
+                }
 
-            if (suggestion != null) {
-                suggestion = suggestion.replaceAll("\\+", "");
+                if (suggestion != null) {
+                    suggestion = suggestion.replaceAll("\\+", "");
+                }
+
+                model.put("suggestion", suggestion);
             }
-
-            model.put("suggestion", suggestion);
 
             model.put("articlesTotal", new Integer(_resultsPager.getArticlesTotal()));
             model.put("articles", _resultsPager.getArticles(page, pageSize));
