@@ -191,18 +191,13 @@ padding: 0 0 0 10px;
 
                 <div class="column2">
                     <h3>
-5 Steps to Choosing a Great School for Your Child</h3>
+Get the most out of GreatSchools Insider</h3>
                     <p>
-Welcome ${sessionScope.context.user.email},
-                        <br/>
-    Use these links to get started or continue your school selection process.
+Here's a way that you can use GreatSchools Insider during your school selection process.
                     </p>
                 </div>
                 <div class="column3">
-                                               ${sessionScope.context.user.email}
-                    <br/>
-Not you?
-                    <a href="http://${sessionScope.context.hostName}/cgi-bin/logout/${sessionScope.context.stateOrDefault.abbreviation}/">Sign out</a>
+                    If you are not <a href="http://${sessionScope.context.hostName}/cgi-bin/logout/${sessionScope.context.stateOrDefault.abbreviation}/">${sessionScope.context.user.email}</a>
                     <br/>
                     <a
                         href="http://${sessionScope.context.hostName}/cgi-bin/feedback_faq/${sessionScope.context.stateOrDefault.abbreviation}?fbtype=subentry"
