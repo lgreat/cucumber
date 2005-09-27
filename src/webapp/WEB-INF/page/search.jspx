@@ -73,7 +73,7 @@
         <tr>
           <td class="left">
             <div class="verticalcontainer">
-              <a href="#">
+              <a href="http://www.greatschools.net/">
                 <img src="res/img/search/GS_logo_160x60.gif" alt="logo" width="160" height="60" style="padding-left:6px;" />
               </a>
               <div class="bottomalign">
@@ -104,6 +104,7 @@
 
 <!--<c:if test="${not empty results}">-->
 
+    <!--
     <c:if test="${not empty results.suggestion}">
         Did you mean:
         <span id="suggestion">
@@ -112,6 +113,7 @@
             </a>
         </span>
     </c:if>
+    -->
 
     <br/>
 

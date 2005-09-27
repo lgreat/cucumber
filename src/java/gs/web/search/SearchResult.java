@@ -91,11 +91,21 @@ public class SearchResult {
     }
 
     public String getCityName() {
-        return _doc.get("cityname");
+        //return _doc.get("cityname");
+        String city = _doc.get("cityname");
+        if (_highlight) {
+               city = TextHighlighter.highlight(city, _query, "cityname");
+        }
+        return city;
     }
 
     public String getCityAndState() {
-        return _doc.get("citystate");
+        //return _doc.get("citystate");
+        String cityAndState = _doc.get("citystate");
+        if (_highlight) {
+               cityAndState = TextHighlighter.highlight(cityAndState, _query, "citystate");
+        }
+        return cityAndState;
     }
 
     public String getAbstract() {
@@ -119,7 +129,12 @@ public class SearchResult {
     }
 
     public String getTerm() {
-        return _doc.get("term");
+        //return _doc.get("term");
+        String term = _doc.get("term");
+        if (_highlight) {
+               term = TextHighlighter.highlight(term, _query, "term");
+        }
+        return term;
     }
 
     public String getDefinition() {
