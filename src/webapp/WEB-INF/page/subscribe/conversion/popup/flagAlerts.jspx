@@ -22,7 +22,7 @@
         <conv:header title="Flag Alerts">
         </conv:header>
 
-        <conv:main imageName="" imageHeight="" imageWidth="">
+        <conv:main imageName="flagalerts.gif" imageHeight="200" imageWidth="300">
             GreatSchools has done the research for you. Find out if
             particular schools you're interested in are flagged for
             potential areas of concern.

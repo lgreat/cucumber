@@ -8,8 +8,8 @@
     >
     <div id="copyright">
         <h5 class="ncopy">
-            GreatSchools.net is an independent, nonprofit organization committed to providing you with information
-            and tools to choose schools, support your children's education, and improve schools in your community.
+            GreatSchools.net is an independent, nonprofit organization committed to providing parents with information
+            and tools to choose schools, support their children's education, and improve schools in their community.
         </h5>
         <h6>&#169;1998-2005 GreatSchools Inc. All Rights Reserved.
             <a href="http://${sessionScope.context.hostName}/modperl/go/${sessionScope.context.stateOrDefault.abbreviation}/">Home</a>
