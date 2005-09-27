@@ -42,6 +42,8 @@ public class SearchController extends AbstractController {
     private SpellCheckSearcher _spellCheckSearcher;
     private ResultsPager _resultsPager;
     private int pageSize = 10;
+    private int schoolsPageSize = 10;
+    
     private boolean SUGGEST = true;
 
     /**
@@ -113,6 +115,7 @@ public class SearchController extends AbstractController {
 
             if (constraint != null && !constraint.equals("all") && !constraint.equals("")) {
                 pageSize = 10;
+                schoolsPageSize = 10;
                 StringBuffer clone = new StringBuffer(qString);
                 clone.append(" AND type:");
                 clone.append(constraint);
@@ -135,6 +138,7 @@ public class SearchController extends AbstractController {
             } else {
                 String[] types = {"school", "article", "district", "city", "term"};
                 pageSize = 3;
+                schoolsPageSize = 6;
                 for (int i = 0; i < types.length; i++) {
                     StringBuffer clone = new StringBuffer(qString);
                     clone.append(" AND type:");
@@ -165,7 +169,7 @@ public class SearchController extends AbstractController {
                 if (suggestion == null) {
                     suggestion = (String)_spellCheckSearcher.getSuggestion("title", queryString);
                 }
-                
+
                 if (suggestion == null) {
                     suggestion = (String)_spellCheckSearcher.getSuggestion("cityname", queryString);
                 }
@@ -180,7 +184,7 @@ public class SearchController extends AbstractController {
             model.put("articlesTotal", new Integer(_resultsPager.getArticlesTotal()));
             model.put("articles", _resultsPager.getArticles(page, pageSize));
             model.put("schoolsTotal", new Integer(_resultsPager.getSchoolsTotal()));
-            model.put("schools", _resultsPager.getSchools(page, pageSize));
+            model.put("schools", _resultsPager.getSchools(page, schoolsPageSize));
             model.put("districtsTotal", new Integer(_resultsPager.getDistrictsTotal()));
             model.put("districts", _resultsPager.getDistricts(page, pageSize));
             model.put("citiesTotal", new Integer(_resultsPager.getCitiesTotal()));
@@ -188,6 +192,7 @@ public class SearchController extends AbstractController {
             model.put("termsTotal", new Integer(_resultsPager.getTermsTotal()));
             model.put("terms", _resultsPager.getTerms(page, pageSize));
             model.put("pageSize", new Integer(pageSize));
+            model.put("pager", _resultsPager);
 
             long end = System.currentTimeMillis();
             long time = end - start;

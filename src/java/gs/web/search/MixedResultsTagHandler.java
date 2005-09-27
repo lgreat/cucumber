@@ -28,10 +28,9 @@ public class MixedResultsTagHandler extends BaseTagHandler {
     public static final String BEAN_ID = "MixedResultsTagHandler";
     private Map _results = null;
     private String _query = "";
+    private ResultsPager _pager;
 
-    static String startHtml
-    ,
-    endHtml;
+    static String startHtml, endHtml;
 
     static {
         StringBuffer buffer = new StringBuffer();

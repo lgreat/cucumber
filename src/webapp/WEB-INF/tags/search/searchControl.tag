@@ -28,23 +28,28 @@
              </td>
         </tr>
         <tr>
-      <% if (state == null) { %>
-        <td class="label">
-            <!--<span style="margin-left:3mm; margin-right:2mm">in:</span>-->
-            <gsml:stateSelector/>
-        </td>
-      <% } %>
-        <td>
-            <a href="">Search near address</a>
+
+            <td class="label">
+                <% if (state == null) { %>
+                   Location:
+            </td>
+            <td>
+                <gsml:stateSelector/>
+
+            <% } else { %>
+                </td>
+                <td>
+                <% } %>
+            <a href="http://www.greatschools.net/cgi-bin/template_plain/advanced/<% if (state != null) { out.print(state.getAbbreviation() + "/"); } %>">Search near address</a>
         </td>
         </tr>
-        <% if (state != null) { %>
+        <% if (state != null) {  %>
             <tr>
-                <td><span class="message">Browse</span></td>
+                <td class="label">Browse:</td>
                 <td>
-                    <a href="" class="pad">All Articles</a>
-                    <a href="" class="pad">All Cities</a>
-                    <a href="" class="pad">All Districts</a>
+                    <a href="http://www.greatschools.net/content/allArticles.page?state=<% out.print(state.getAbbreviation()); %>" class="pad">All Articles</a>
+                    <a href="http://www.greatschools.net/modperl/citylist/<% out.print(state.getAbbreviation()); %>/" class="pad">All Cities</a>
+                    <a href="http://www.greatschools.net/modperl/distlist/<% out.print(state.getAbbreviation()); %>" class="pad">All Districts</a>
                 </td>
             </tr>
         <% } %>
