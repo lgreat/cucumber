@@ -77,7 +77,7 @@
                                                     <td bgcolor="#FFFFFF"></td>
                                                     <td bgcolor="#FFFFFF">
                                                         <b>GreatSchools Insider</b><br/>makes it easy to choose a new school for your child.<br/><br/>
-                                                        <center><a href="https://${sessionScope.context.secureHostName}/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;amp;host=${sessionScope.context.hostName}"><img src="/res/img/subscribe/conversion/join_price_btn.gif" width="189" height="20" border="0" vspace="2"/></a></center>
+                                                        <center><a href="https://${sessionScope.context.secureHostName}/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;amp;host=${sessionScope.context.hostName}"><img src="/res/img/subscribe/conversion/popup/join_price_btn.gif" width="189" height="20" border="0" vspace="2"/></a></center>
                                                     </td>
                                                     <td bgcolor="#FFFFFF"></td>
                                                     <td width="10"></td>
