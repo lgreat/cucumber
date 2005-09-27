@@ -53,13 +53,12 @@
                     <tr valign="top">
 
                         <td width="31%">
-                            <h3>Thank you, ${param.firstName} ${param.lastName}, for subscribing to
-    ${param.longName}.</h3>
+                            <h3>Welcome to GreatSchools!</h3>
                             <br/>
 
                             <br/>
         ${param.price} has been charged to your
-              credit card on ${param.updated}. Your subscription runs through
+              credit card on ${param.updated}. Your membership runs through
               ${param.expires}. We look forward to serving you.
                             <br/>
                             <br/>
@@ -73,11 +72,6 @@
                                 <a href="http://${sessionScope.context.hostName}/insider.page?state=${sessionScope.context.stateOrDefault.abbreviation}">Start using the service now</a>.
                             </p>
                             <p/>
-                            <p>Or, return to the
-                                <a href="http://${sessionScope.context.hostName}/modperl/go/${sessionScope.context.stateOrDefault.abbreviation}">GreatSchools home page</a>.
-                            </p>
-                            <br/>
-                            <b>Additional information</b>
                             <br/>
               To sign in on future visits, you will need only to enter your email address:
                             <b>${param.email}</b>
@@ -89,7 +83,7 @@
                             <blockquote>GreatSchools, Inc.
                                 <br/>
 
-        Subscription Services
+        Member Services
                                 <br/>
         301 Howard Street, Suite 1440
                                 <br/>

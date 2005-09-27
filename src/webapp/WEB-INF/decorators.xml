@@ -31,6 +31,7 @@
         <pattern>*/compareSchools.page*</pattern>
         <pattern>*/sample.page*</pattern>
         <pattern>*/wall.page*</pattern>
+        <pattern>*/subscribe/conversion/*</pattern>
     </excludes>
 
 

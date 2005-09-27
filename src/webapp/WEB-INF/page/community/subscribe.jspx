@@ -33,7 +33,7 @@
                         </td>
                         <td align="center" width="*" nowrap="nowrap" id="active">Step 1:
                             <br/>
-                  Register and Pay
+                  Become a member
                         </td>
                         <td align="center">
                             <img src="res/img/wizard_dottedarrow.gif" width="100" height="10" alt="arrow"/>
@@ -69,20 +69,20 @@
                                         </c:forEach>
                                     </c:if>
                                     <c:if test="${!status.error}">
-                                        Receive unlimited access for one year to all
-                                        subscription content for ${subCmd.subscriptionPrice}.
+                                        An annual membership fee of ${subCmd.subscriptionPrice} gives you
+                                        unlimited access to all exclusive membership content.
                                         <div style="align:center">
                                             <img src="res/img/conv_pic2.gif" alt="photo of family" width="165" height="230" vspace="8" border="0"/>
                                         </div>
-                                        <b>Please note:</b> You will have access to subscription content
-                for all states in which it is available, currently including:
+                                        <b>Please note:</b> Membership content
+                is available for the following states:
                 ${subscriptionStates}. Information about
                 private schools is very limited in all states.
                                     </c:if>
                                 </spring:bind>
                             </td>
                             <td width="59%">
-                                <b>Signing up is easy. First, enter your personal
+                                <b>Becoming a member is easy. First, enter your personal
                 information</b>
 
 
@@ -234,7 +234,7 @@
                                     </spring:bind>
                                 </div>
 
-                                <b>Then, review and agree to the terms of the subscriber agreement</b>
+                                <b>Review and agree to the terms of the member agreement</b>
                                 <div class="formrow">
                                     <spring:bind path="subCmd.agree">
                                         <span class="label">
@@ -257,7 +257,7 @@
                                         <span class="labelright">I agree to the terms of the
                                             <a href="http://www.greatschools.net/content/insider/subscriber.html"
                                                 target="issues"
-                                                onclick="window.open('','issues','width=400,height=300,scrollbars=yes')">subscriber agreement</a>
+                                                onclick="window.open('','issues','width=400,height=300,scrollbars=yes')">member agreement</a>
                                         </span>
                                         <c:if test="${status.error}">
                                             <c:forEach items="${status.errorMessages}" var="error">
@@ -270,7 +270,7 @@
                                     <br/>
                                     <br/>
                                 </div>
-                                <b>Finally, enter your payment information</b>
+                                <b>Enter your payment information</b>
                                 <br/>
                                 ${subCmd.subscriptionPrice} will be charged to your credit card.
                                 <div class="formrow">

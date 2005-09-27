@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        >
+<html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+    <head>
+        <title>GreatSchools Insider Membership Benefits</title>
+        <link rel="stylesheet" type="text/css" href="/res/css/subscribe/conversion/cp_styles.css"/>
+        <script language="javascript" type="text/javascript"  src="/res/js/popup.js"></script>
+        <gsml:fireclick pageType="conversion" pageName="home" />
+    </head>
+
+    <body bgcolor="ffffff" marginwidth="0" marginheight="0">
+
+        <table id="header" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td><a href="javascript:history.back();">&lt;&lt; Back</a></td>
+                <td align="right">Already a member? <a href="http://${sessionScope.context.hostName}/cgi-bin/site/signin.cgi/${sessionScope.context.stateOrDefault.abbreviation}/">Sign in</a></td>
+            </tr>
+            <tr>
+                <td><a href="/modperl/go/${sessionScope.context.stateOrDefault.abbreviation}"><img src="/res/img/subscribe/conversion/gs_bug.gif" alt="GreatSchools" width="223" height="73" vspace="5" border="0"/></a></td>
+                <td><img src="/res/img/subscribe/conversion/conv_top.gif" alt="Moving? Choosing a new School? GreatSchools Insider can help" width="505" height="73"/></td>
+            </tr>
+        </table>
+
+        <table id="middle" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="100%">
+                    <table id="box" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#dbe4e2">
+                        <tr>
+                            <td><img src="/res/img/subscribe/conversion/corner_green_ul.gif" width="10" heigt="10"/></td>
+                            <td></td>
+                            <td><img src="/res/img/subscribe/conversion/corner_green_ur.gif" width="10" height="10"/></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td width="100%">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td colspan="2" valign="bottom" class="bodycopy">
+                                            <h4>GreatSchools Insider helps millions of parents just like you evaluate and choose public
+                                                and charter schools for their children.  Become a member today!
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bodycopy" width="100%" valign="bottom">
+                                            <ul class="arrow">
+                                                <li><a type="popup" href="/subscribe/conversion/popup/schoolChoiceOptions.page?state=${sessionScope.context.stateOrDefault.abbreviation}">School Choice Options</a> &#151; Learn how school choice works in the area you're researching.</li>
+                                                <li><a type="popup" href="/subscribe/conversion/popup/topRatedSchools.page?state=${sessionScope.context.stateOrDefault.abbreviation}">Top-Rated Schools</a> &#151; Start your search here to narrow your list.</li>
+                                                <li><a type="popup" href="/subscribe/conversion/popup/ratings.page?state=${sessionScope.context.stateOrDefault.abbreviation}">GreatSchools Ratings</a> &#151; Quickly understand how public and charter schools stack up with our exclusive rating system.</li>
+                                                <li><a type="popup" href="/subscribe/conversion/popup/flagAlerts.page?state=${sessionScope.context.stateOrDefault.abbreviation}">Flag Alerts</a> &#151; See if schools you're considering are flagged with areas of possible concern.</li>
+                                                <li><a type="popup" href="/subscribe/conversion/popup/compareSchools.page?state=${sessionScope.context.stateOrDefault.abbreviation}">Compare Schools</a> &#151; Look at schools side-by-side and compare them based on GreatSchools ratings and flag alerts as well as other criteria including academic performance, teacher qualifications, and student data.</li>
+				                            </ul>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <table id="signupbuttons" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td valign="top" bgcolor="#FFFFFF"><img src="/res/img/subscribe/conversion/corner_whiteONgreen_ul.gif" width="10" height="10"/></td>
+                                                    <td bgcolor="#FFFFFF"></td>
+                                                    <td align="right" valign="top" bgcolor="#FFFFFF"><img src="/res/img/subscribe/conversion/corner_whiteONgreen_ur.gif" width="10" height="10"/></td>
+                                                    <td width="10"></td>
+                                                    <td valign="top" bgcolor="#FFFFFF"><img src="/res/img/subscribe/conversion/corner_whiteONgreen_ul.gif" width="10" height="10"/></td>
+                                                    <td bgcolor="#FFFFFF"></td>
+                                                    <td align="right" valign="top" bgcolor="#FFFFFF"><img src="/res/img/subscribe/conversion/corner_whiteONgreen_ur.gif" width="10" height="10"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td bgcolor="#FFFFFF"></td>
+                                                    <td bgcolor="#FFFFFF">
+                                                        <b>GreatSchools Insider</b><br/>makes it easy to choose a new school for your child.<br/><br/>
+                                                        <center><a href="https://${sessionScope.context.secureHostName}/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;amp;host=${sessionScope.context.hostName}"><img src="/res/img/subscribe/conversion/join_price_btn.gif" width="189" height="20" border="0" vspace="2"/></a></center>
+                                                    </td>
+                                                    <td bgcolor="#FFFFFF"></td>
+                                                    <td width="10"></td>
+                                                    <td bgcolor="#FFFFFF"></td>
+                                                    <td bgcolor="#FFFFFF">
+                                                        <strong>Not ready to become a member?</strong><br/>
+                                                        Help other parents by providing a review of a school you know.  In return, view one member-exclusive school profile for free.<br/>
+                                                        <center><br/><a href="http://${sessionScope.context.hostName}/cgi-bin/site/findschool2review.cgi/${sessionScope.context.stateOrDefault.abbreviation}/"><img src="/res/img/subscribe/conversion/try_sm_btn.gif" width="114" height="20" border="0" vspace="2"/></a></center>
+                                                    </td>
+                                                    <td bgcolor="#FFFFFF"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="bottom" bgcolor="#FFFFFF"><img src="/res/img/subscribe/conversion/corner_whiteONgreen_ll.gif" width="10" height="10"/></td>
+                                                    <td bgcolor="#FFFFFF"></td>
+                                                    <td align="right" valign="bottom" bgcolor="#FFFFFF"><img src="/res/img/subscribe/conversion/corner_whiteONgreen_lr.gif" width="10" height="10"/></td>
+                                                    <td width="10"></td>
+                                                    <td valign="bottom" bgcolor="#FFFFFF"><img src="/res/img/subscribe/conversion/corner_whiteONgreen_ll.gif" width="10" height="10"/></td>
+                                                    <td bgcolor="#FFFFFF"></td>
+                                                    <td align="right" valign="bottom" bgcolor="#FFFFFF"><img src="/res/img/subscribe/conversion/corner_whiteONgreen_lr.gif" width="10" height="10"/></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td align="right" valign="bottom"><img src="/res/img/subscribe/conversion/conv_pic.gif" width="200" height="314" border="0"/></td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><img src="/res/img/subscribe/conversion/corner_green_ll.gif" width="10" height="10"/></td>
+                            <td></td>
+                            <td><img src="/res/img/subscribe/conversion/corner_green_lr.gif" width="10" height="10"/></td>
+                        </tr>
+                    </table>
+                </td>
+                <td valign="top">
+	                <center>
+	                    <a href="https://${sessionScope.context.secureHostName}/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;amp;host=${sessionScope.context.hostName}"><img src="/res/img/subscribe/conversion/join_now_btn.gif" alt="Join Now" width="150" height="20" vspace="2" border="0"/></a><br/>
+                        <br/>
+                        <a href="http://${sessionScope.context.hostName}/cgi-bin/site/findschool2review.cgi/${sessionScope.context.stateOrDefault.abbreviation}/"><img src="/res/img/subscribe/conversion/try_it_btn.gif" alt="Try GreatSchools Insider for free" width="150" height="20" vspace="2" border="0"/></a>
+	                </center>
+                    <div class="quote">
+                        "This subscription has given me information needed to determine what schools will be acceptable for my child."
+                    </div>
+                    <div class="quotee">-Parent</div>
+			        <div class="quote">
+                        "Education is THE most important thing I can provide for my Child. I literally spent almost two weeks researching this site to find schools. This website provided me with the tools I needed."
+                    </div>
+                    <div class="quotee">-Parent</div>
+			        <div class="quote">
+                        "This service was key in making our decision on which city to move to within the communiting area of my new job. Thanks much."
+                    </div>
+                    <div class="quotee">-Parent</div>
+	            </td>
+            </tr>
+            <tr>
+                <td><br/><a href="javascript:history.back();">&lt;&lt; Back</a></td>
+                <td align="right"></td>
+            </tr>
+        </table>
+    </body>
+</html>
+</jsp:root>

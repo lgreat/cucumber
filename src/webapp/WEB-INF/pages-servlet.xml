@@ -165,6 +165,50 @@
         </property>
     </bean>
 
+    <!--Begin conversion pages -->
+    <bean name="/subscribe/conversion/conversion.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>subscribe/conversion/conversion</value>
+        </property>
+    </bean>
+
+    <bean name="/subscribe/conversion/popup/schoolChoiceOptions.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>subscribe/conversion/popup/schoolChoiceOptions</value>
+        </property>
+    </bean>
+
+    <bean name="/subscribe/conversion/popup/topRatedSchools.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>subscribe/conversion/popup/topRatedSchools</value>
+        </property>
+    </bean>
+
+    <bean name="/subscribe/conversion/popup/ratings.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>subscribe/conversion/popup/ratings</value>
+        </property>
+    </bean>
+
+    <bean name="/subscribe/conversion/popup/flagAlerts.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>subscribe/conversion/popup/flagAlerts</value>
+        </property>
+    </bean>
+
+    <bean name="/subscribe/conversion/popup/compareSchools.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>subscribe/conversion/popup/compareSchools</value>
+        </property>
+    </bean>
+    <!-- End Conversion pages -->
+
     <!-- WEB PAGE DEFINITIONS END -->
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
