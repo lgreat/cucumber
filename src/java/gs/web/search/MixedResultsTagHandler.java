@@ -1,6 +1,7 @@
 package gs.web.search;
 
 import gs.data.school.School;
+import gs.data.search.highlight.TextHighlighter;
 import gs.web.jsp.BaseTagHandler;
 
 import javax.servlet.jsp.JspWriter;
@@ -95,9 +96,12 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print("/");
                 out.print(school_.getId().toString());
                 out.print("\">");
-                out.print(school_.getName());
+                out.print(TextHighlighter.highlight(school_.getName(), _query, "name"));
+
+                //out.print(school_.getName());
                 out.println("</a><address>");
-                out.println(school_.getPhysicalAddress().toString());
+                //out.println(school_.getPhysicalAddress().toString());
+                out.println(TextHighlighter.highlight(school_.getPhysicalAddress().toString(), _query, "address"));
                 out.println("</address></li>");
             }
 
@@ -124,7 +128,10 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             for (int i = 0; i < cities.size(); i++) {
                 SearchResult sr = (SearchResult) cities.get(i);
                 out.println("<li><a href=\"#\">");
-                out.println(sr.getCityName());
+
+                out.print(TextHighlighter.highlight(sr.getCityName(), _query, "city"));
+
+                //out.println(sr.getCityName());
                 out.print(" (");
                 out.print(sr.getSchools());
                 out.print(")");
