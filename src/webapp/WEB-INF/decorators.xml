@@ -12,10 +12,12 @@
         <pattern>/content/allArticles.page</pattern>
     </decorator>
 
+    <!--
     <decorator name="cobrandHeaderGsFooter" page="cobrandHeaderGsFooter.jspx">
         <pattern>/search.page</pattern>
     </decorator>
-
+    -->
+    
     <!-- We have to explicitly exclude due to a Sitemesh 2.2.1 bug that truncates the closing html tag -->
     <excludes>
         <!-- Regularly used pages that shouldn't be decorated -->
