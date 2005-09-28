@@ -43,14 +43,15 @@ public class ArticleTableTagHandler extends ResultsTableTagHandler {
                     out.println("<td width=\"1\">&nbsp;</td>");
                     out.println("<td><b>");
                     out.print("<a href=\"http://www.greatschools.net/cgi-bin/showarticle/");
-                    out.print(article.getState());
+                    out.print(getState().getAbbreviationLowerCase());
                     out.print("/");
                     out.print(article.getId());
                     out.print("\">");
                     out.println(escapleLongstate(article.getTitle()));
                     out.println("</b></a><br/>");
                     out.println(article.getAbstract());
-                    out.println("</td><td class=\"icons\">NEW</td>");
+                    out.println("</td><td></td>");
+                    //out.println("</td><td class=\"icons\">NEW</td>");
                     out.println("</tr>");
                 }
                 out.println("<tr class=\"last_row\"><td colspan=\"5\"><ul>");

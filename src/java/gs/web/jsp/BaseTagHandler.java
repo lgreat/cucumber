@@ -73,13 +73,16 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
      */
     protected State getState() {
         JspContext jspContext = getJspContext();
-        State s = null;
+        State state = State.CA;
         if (jspContext != null) {
             SessionContext sc = (SessionContext) jspContext.getAttribute(SessionContext.SESSION_ATTRIBUTE_NAME, PageContext.SESSION_SCOPE);
             if (sc != null) {
-                s = sc.getState();
+                State s = sc.getState();
+                if (s != null) {
+                    state = s;
+                }
             }
         }
-        return s;
+        return state;
     }
 }

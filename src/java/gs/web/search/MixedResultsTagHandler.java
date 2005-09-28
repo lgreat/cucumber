@@ -126,11 +126,10 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             out.println("<ul>");
             for (int i = 0; i < cities.size(); i++) {
                 SearchResult sr = (SearchResult) cities.get(i);
-                out.println("<li><a href=\"#\">");
-
+                out.print("<li><a href=\"/search.page?c=school&q=");
+                out.print(sr.getCityName());
+                out.print("\">");
                 out.print(TextHighlighter.highlight(sr.getCityName(), _query, "city"));
-
-                //out.println(sr.getCityName());
                 out.print(" (");
                 out.print(sr.getSchools());
                 out.print(")");
@@ -196,7 +195,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 SearchResult sr = (SearchResult) articles.get(i);
                 out.println("<li>");
                 out.print("<a href=\"http://www.greatschools.net/cgi-bin/showarticle/");
-                out.print(sr.getState());
+                out.print(getState().getAbbreviationLowerCase());
                 out.print("/");
                 out.print(sr.getId());
                 out.print("\">");
