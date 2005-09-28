@@ -23,235 +23,166 @@
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
             ]]>
             <title>GreatSchools Insider</title>
-            <style type="text/css">
-            body {
-            background-color:#FFF;
-            font-family: Arial, Sans;
-            padding: 0px 0px 0px 0px;
-            margin: 0px 0px 0px 0px;
-            width: 100%;
-            height:100%;
-            }
-            h3 {
-            font-size:110%;
-            padding: 5px 0px 10px 0px;
-            margin: 0px 0px 0px 0px;
-            }
-            #header div.column1 {
-            float:left;
-            padding: 0px 20px 0px 10px;
-            }
-            #header div.column2 {
-            position:absolute; left: 250px; top: 10px;
-            }
-            #header div.column3 {
-            float:right;
-            font-size:70%;
-            padding: 10px 10px 0px 0px;
-            }
+ <![CDATA[
+ <style type="text/css">
+ <!--
+table.box_shado1 td.TL {background:  url(/res/img/box/box_shado1_TL.gif) no-repeat left top;}
+table.box_shado1 td.T {background:  url(/res/img/box/box_shado1_T.gif) top repeat-x;}
+table.box_shado1 td.TR {background:  url(/res/img/box/box_shado1_TR.gif) top right no-repeat;}
+table.box_shado1 td.TR_black {background:  url(/res/img/box/box_shado1_TR_black.gif) top right no-repeat;}
+table.box_shado1 td.L {background:  url(/res/img/box/box_shado1_L.gif) left repeat-y;}
+table.box_shado1 td.C_sponsor {padding: 0px 0px 0px 0px;}
+table.box_shado1 td.C {padding: 0px 0px 0px 0px;background:  url(/res/img/box/title_bar.gif) 0px 20px no-repeat;}
+table.box_shado1 td.R {background:  url(/res/img/box/box_shado1_R.gif) right repeat-y;}
+table.box_shado1 td.BL {background:  url(/res/img/box/box_shado1_BL.gif) no-repeat left bottom;}
+table.box_shado1 td.B {background:  url(/res/img/box/box_shado1_B.gif) bottom repeat-x;}
+table.box_shado1 td.BR {background:  url(/res/img/box/box_shado1_BR.gif) bottom right no-repeat;}
+td {font-family: Arial;}
+.greybg {background-color: #CCC;}
+a:hover {color:#000;}
+h3 {font-size:16px; color:#339; height:23px; font-weight:bold;}
+.body H4 {font-size:14px; color:#339; font-weight:bold;padding-bottom:0; margin-bottom:0;}
+.body {font-face: Arial; font-size:80%; line-height:110%;}
+.white {color: #FFF;}
+.grey {color: #666;}
+.smaller {font-size:80%;}
+table.smaller {font-size:90%;}
+.bold {font-weight:bold;}
+.italic {font-style: italic;}
+.white_smaller_bold_pad {color: #FFF;font-size:80%;font-weight:bold;padding:3px 15px 4px 5px;}
+.introcopy {line-height:100%;font-size:80%; padding:10px 5px 10px 0px;
+background:#EEE;}
+table.box_shado1 td.L_intro {background: #EEE url(/res/img/box/box_shado1_L.gif) left repeat-y;}
+.toc {padding:5px 0px 5px 5px;font-size:12px;line-height:24px;font-weight:bold;}
+.pad{padding:3px 15px 4px 5px;}
+div.title_bar {position:absolute; width:591px; height:5px; left:-11px; top:20px;
+background:  url(/res/img/box/title_bar.gif) top no-repeat;overflow:hidden;}
+table.calloutbox {width:40%;}
+table.calloutbox tr td { padding: 3px 3px 3px 3px; font-size:80%; }
+td {text-align:left;}
+img {border:0;}
+-->
+</style>
+]]>
+</head>
 
-            #main div.column1 {
-            position:absolute;
-            left: 0px;
-            top: 110px;
-            width:250px;
-            }
-            #main div.column2 {
-            position:absolute;
-            left: 250px;
-            top: 110px;
-            background-color: #eee;
-            width:60%;
-            height:78%;
-            overflow:auto;
-            padding: 0 20px 0 10px;
-            border: 1px solid black;
-            border-width: 1px 2px 2px 1px;
-            border-color: #aaa #ccc #ccc #aaa;
-            }
-
-            div.panel {
-            position:absolute;
-            width:90%;
-            font-size:90%;
-            line-height:100%;
-            }
-            #nav {
-            padding: 0px 10px 0px 10px;
-            vertical-align:middle;
-            line-height:160%;
-color: #039;
-            font-weight:bold;
-            }
-            #nav a {
-            color: #039;
-            }
-
-            #footer {
-            position:absolute; left: 0px; top: 96%;
-            padding: 0px 25px 0px 0px;
-            font-size:90%;
-            }
-            .pdf {
-                float: right;
-                width: 32px;
-                padding: 0 10px 0 30px;
-border: 0;
-            }
-
-            a>img {
-                 border: 0
-            }
-
-            h4 {
-                font-size: 100%;
-                margin: 0 0 0 0;
-            }
-
-
-            div.column2 div.panel li {
-                padding: 0 0 4px 0;
-            }
-            div.column2 div.panel a {
-                text-decoration: underline;
-color: #039;
-            }
-            div.column2 div.panel a:hover {
-                text-decoration: underline;
-            }
-            /**/
-#main h3 {
-width: 100%;
-color: #f60;
-background-color: #eee;
-text-align: left;
-padding: 10px 0 7px 0;
-margin: 20px 0 0 0;
-font-size:  120%;
-border: 0px solid #555;
-border-bottom: 1px solid #666;
-text-transform: uppercase;
-            }
-
-#footer h5, #footer h6 {
-margin: 0;
-padding: 0 0 0 10px;
-}
-/* layout */
-#footer {
-   top: 94%;
-}
-#main div.column2 {
-            height:74%;
-}
-            /**/
-#main h3 {
-width: 100%;
-color: #f60;
-background-color: #eee;
-text-align: left;
-padding: 10px 0 7px 0;
-margin: 20px 0 0 0;
-font-size:  120%;
-border: 0px solid #555;
-border-bottom: 1px solid #666;
-text-transform: uppercase;
-            }
-.pdfs {
-border: 0px solid #ddd;
-background-color: #eee;
-margin-bottom: 10px;
-padding: 8px 3px 0px 3px;
-}
-
-#footer h5, #footer h6 {
-margin: 0;
-padding: 0 0 0 10px;
-}
-/* layout */
-#footer {
-   top: 94%;
-}
-#main div.column2 {
-            height:74%;
-}
- /**/
-
-            </style>
-        </head>
-        <body>
-            <div id="header">
-                <div class="column1">
-                    <a
-                        href="http://${sessionScope.context.hostName}/modperl/go/${sessionScope.context.stateOrDefault.abbreviation}/"
-                        >
-                        <img src="res/img/GS_logo.gif" alt="GreatSchools.net logo" width="200" height="81" border="0"/>
-                    </a>
-                </div>
-
-                <div class="column2">
-                    <h3>
-Get the most out of GreatSchools Insider</h3>
-                    <p>
-Here's a way that you can use GreatSchools Insider during your school selection process.
-                    </p>
-                </div>
-                <div class="column3">
-                    If you are not <a href="http://${sessionScope.context.hostName}/cgi-bin/logout/${sessionScope.context.stateOrDefault.abbreviation}/">${sessionScope.context.user.email}</a>
-                    <br/>
-                    <a
-                        href="http://${sessionScope.context.hostName}/cgi-bin/feedback_faq/${sessionScope.context.stateOrDefault.abbreviation}?fbtype=subentry"
-                        >Contact Customer Support</a>
-
-                </div>
-            </div>
-
-            <div id="main">
-
-                <div class="column1">
-                    <div id="nav">
-                        <div>1.
-                            <a href="#step1">Consider your needs</a>
-                        </div>
-                        <div>2.
-                            <a href="#step2">Understand your options</a>
-                        </div>
-                        <div>3.
-                            <a href="#step3">Narrow the field</a>
-                        </div>
-                        <div>4.
-                            <a href="#step4">Dig into the details</a>
-                        </div>
-                        <div>5.
-                            <a href="#step5">Visit and select schools</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="column2">
-                    <div class="panel">
-
-                        <h3>
-             1. Consider your needs
-                            <![CDATA[<a name="step1"> </a>]]>
-                        </h3>
-                        <p> Rank your priorities for your child and family as you begin your school
-        search.
-                            <br/>
-      First, get a quick primer to organize your thoughts:
-                        </p>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<table width="100%" border="0"  cellpadding="0" cellspacing="0" bgcolor="#3B468F">
+  <tr>
+    <td valign="top"><center>
+	
+	
+	
+	
+	
+	
+	
+	
+	<table width="600" border="0" align="center" cellpadding="0" cellspacing="0" class="box_shado1" bgcolor="#FFFFFF">
+        <tr> 
+          <td width="15" height="15" class="TL"></td>
+          <td colspan="2" class="T"></td>
+          <td width="15" height="15" class="TR"></td>
+        </tr>
+        <tr> 
+          <td width="15" class="L"></td>
+          <td class="C"><img src="/res/img/box/logo.gif" width="100" height="40"/></td>
+          <td class="C" align="right" style="text-align:right;"><img src="/res/img/box/PA_1stGrade.gif" width="260" height="40"/></td>
+          <td width="15" class="R"></td>
+        </tr>
+      </table>
+	  <table width="600" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          <td bgcolor="#666666"> <table width="380" border="0" cellpadding="0" cellspacing="0" class="box_shado1">
+              <tr> 
+                <td width="10" class="L"><img src="/res/img/box/spacer.gif" width="1" height="1"/></td>
+                <td class="white_smaller_bold_pad">Get the most out of GreatSchools Insider</td>
+              </tr>
+            </table>
+			</td>
+          <td bgcolor="#FF6600"><table width="220" border="0" cellpadding="0" cellspacing="0" class="box_shado1">
+              <tr> 
+                <td class="white_smaller_bold_pad"><i>Table of contents:</i></td>
+                <td width="10" class="R"><img src="/res/img/box/spacer.gif" width="1" height="1"/></td>
+              </tr>
+            </table></td>
+        </tr>
+      </table>
+      <table width="600" border="0" align="center" cellpadding="0" cellspacing="0" class="box_shado1" bgcolor="#FFFFFF">
+        <tr> 
+          <td width="15" class="L_intro"></td>
+          <td width="365" valign="top" bgcolor="#EEEEEE" style="padding-top:10px;font-size:12px;">
+		  <b>Here's a way that you can use GreatSchools Insider during your school selection process.
+</b><br />
+ </td>
+          <td width="205" valign="top" class="C toc">
+<div style="padding:5px 0px 0px 10px;">1. <a href="#step1">Consider your needs</a><br/>
+2. <a href="#step2">Understand your options</a><br/>
+3. <a href="#step3">Narrow the field</a><br/>
+4. <a href="#step4">Dig into the details</a><br/>
+5. <a href="#step5">Visit and select schools</a><br/>
+<br/>
+If you are not <a href="http://${sessionScope.context.hostName}/cgi-bin/logout/${sessionScope. context. stateOrDefault. abbreviation}/">${sessionScope. 
+                    context.user.email}</a> <br/>
+<a href="http://${sessionScope.context.hostName}/cgi-bin/feedback_faq/${sessionScope.context.stateOrDefault.abbreviation}?fbtype=subentry">Contact Customer Support</a>
+</div>
+</td>
+          <td width="15" class="R"></td>
+        </tr>
+        <tr> 
+          <td width="15" height="15" class="BL"></td>
+          <td colspan="2" class="B"></td>
+          <td width="15" height="15" class="BR"></td>
+        </tr>
+      </table>
+	  
+	  
+	  
+	  
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+      
+	  <a name="step1"></a> 
+      <table width="600" border="0"  cellpadding="0" cellspacing="0" class="box_shado1" bgcolor="#FFFFFF">
+        <tr> 
+          <td width="15" height="15" class="TL"></td>
+          <td class="T"></td>
+          <td width="15" height="15" class="TR"></td>
+        </tr>
+        <tr> 
+          <td width="15" class="L"></td>
+          <td class="C"><h3>Consider your needs</h3>
+            
+            <div class="body"> 
+              <!-- here goes the H4 if used-->
+              <b>What math concepts will my <b>first-grader </b> learn ?</b><br/>
+Rank your priorities for your child and family as you begin your school search.
+<br/>
+First, get a quick primer to organize your thoughts:
                         <ul>
                             <gsml:articleLinkLi articleId="308"/>
                             <gsml:articleLinkLi articleId="307"/>
                         </ul>
-                        <br/>
-                        <div class="pdfs">
-                            <a href="#getacro">
-                                <img class="pdf" src="res/img/adobe/pdficon.gif" alt="PDF Format"/>
-                            </a>
-
-      Then, use these printable worksheets to rank your priorities
-                            <ul>
+<a href="#getacro">
+<img class="pdf" src="/res/img/adobe/pdficon.gif" alt="PDF Format"/>
+</a>
+Then, use these printable worksheets to rank your priorities.
+<ul>
                                 <li>
                                     <a href="http://${sessionScope.context.hostName}/pdf/articles/picky/ChildQuickThink.pdf">Child Quick Think: What Strengths, Challenges and Other Characteristics
       Stand Out About Your Child?</a>
@@ -264,21 +195,44 @@ Here's a way that you can use GreatSchools Insider during your school selection 
                                     <a href="http://${sessionScope.context.hostName}/pdf/choosing_imagine.pdf">Imagining Your Ideal School: An Exercise for Setting Priorities</a>
                                 </li>
                             </ul>
-
-                        </div>
-                        <h3>
-2. Understand your options
-                            <![CDATA[<a name="step2"> </a>]]>
-                        </h3>
-                        <p>
+							 <br />
+<br />
+            <a style="float:right;padding-right:10px;" href="#top">back to top</a></div></td>
+          <td width="15" class="R"></td>
+        </tr>
+        <tr> 
+          <td width="15" height="15" class="BL"></td>
+          <td class="B"></td>
+          <td width="15" height="15" class="BR"></td>
+        </tr>
+      </table>
+	  
+	  
+	  
+  
+      
+	  <a name="step2"></a> 
+      <table width="600" border="0"  cellpadding="0" cellspacing="0" class="box_shado1" bgcolor="#FFFFFF">
+        <tr> 
+          <td width="15" height="15" class="TL"></td>
+          <td class="T"></td>
+          <td width="15" height="15" class="TR"></td>
+        </tr>
+        <tr> 
+          <td width="15" class="L"></td>
+          <td class="C"><h3>Understand your options</h3>
+            
+            <div class="body"> 
+              <!-- here goes the H4 if used-->
 Learn what school choices you really have, and understand more about each: public,
-      private, charter; district transfers; and more.</p>
-                        <p>Review this first:      </p>
-                        <ul>
-                            <gsml:articleLinkLi articleId="96"/>
-                        </ul>
-                        <p>Then, read more about what interests you most:</p>
-                        <ul>
+      private, charter; district transfers; and more.<br />
+<br />
+Review this first:
+<ul>
+<gsml:articleLinkLi articleId="96"/>
+</ul>
+Then, read more about what inte/rests you most:
+<ul>
                             <gsml:articleLinkLi articleId="249"/>
 
                             <gsml:articleLinkLi articleId="239"/>
@@ -302,17 +256,37 @@ Learn what school choices you really have, and understand more about each: publi
                         </ul>
 
 
-                        <h3>
-3. Narrow the field
-                            <![CDATA[<a name="step3"> </a>]]>
-                        </h3>
-
-                        <p>
+<br />
+<br />
+            <a style="float:right;padding-right:10px;" href="#top">back to top</a></div></td>
+          <td width="15" class="R"></td>
+        </tr>
+        <tr> 
+          <td width="15" height="15" class="BL"></td>
+          <td class="B"></td>
+          <td width="15" height="15" class="BR"></td>
+        </tr>
+      </table>
+	  
+	    
+      
+	  <a name="step3"></a> 
+      <table width="600" border="0"  cellpadding="0" cellspacing="0" class="box_shado1" bgcolor="#FFFFFF">
+        <tr> 
+          <td width="15" height="15" class="TL"></td>
+          <td class="T"></td>
+          <td width="15" height="15" class="TR"></td>
+        </tr>
+        <tr> 
+          <td width="15" class="L"></td>
+          <td class="C"><h3>Narrow the field</h3>
+            
+            <div class="body"> 
+              <!-- here goes the H4 if used-->
 Use interactive search to identify an area, or to focus in on the schools that
       match your priorities for your child and family.
-                        </p>
-
-                        <h4>
+<br/>
+First, get a quick primer to organize your thoughts:                       <h4>
                             <a href="http://${sessionScope.context.hostName}/cgi-bin/site/rank_overview.cgi/${sessionScope.context.stateOrDefault.abbreviation}">Top-rated
       schools</a>
                         </h4>
@@ -344,14 +318,34 @@ and to see which have yellow flag alerts highlighting
 areas of potential concern</c:if>.
                             </li>
                         </ul>
-
-
-                        <h3>
-	  4. Dig into the details
-                            <![CDATA[<a name="step4"> </a>]]>
-                        </h3>
-                        <p>
-                            <c:choose>
+							 <br />
+<br />
+            <a style="float:right;padding-right:10px;" href="#top">back to top</a></div></td>
+          <td width="15" class="R"></td>
+        </tr>
+        <tr> 
+          <td width="15" height="15" class="BL"></td>
+          <td class="B"></td>
+          <td width="15" height="15" class="BR"></td>
+        </tr>
+      </table>
+	  
+	    
+      
+	  <a name="step4"></a> 
+      <table width="600" border="0"  cellpadding="0" cellspacing="0" class="box_shado1" bgcolor="#FFFFFF">
+        <tr> 
+          <td width="15" height="15" class="TL"></td>
+          <td class="T"></td>
+          <td width="15" height="15" class="TR"></td>
+        </tr>
+        <tr> 
+          <td width="15" class="L"></td>
+          <td class="C"><h3>Dig into the details</h3>
+            
+            <div class="body"> 
+              <!-- here goes the H4 if used-->
+ <c:choose>
                                 <c:when test="${sessionScope.context.state.yellowFlagState}">
                         Analyze key information about each school: exclusive ratings, real parents'
       reviews, and possible areas of concerns highlighted with yellow flag alerts.
@@ -361,14 +355,14 @@ Analyze key information about each school including
       exclusive ratings and real parents' reviews.
                                 </c:otherwise>
                             </c:choose>
-                        </p>
-                        <p>
-Start with schools you've saved to
-                            <a href="http://${sessionScope.context.hostName}/cgi-bin/msl_confirm/${sessionScope.context.stateOrDefault.abbreviation}">My&#160;School&#160;List</a>.
-                        </p>
-                        <p>Or, look up school information by individual school:
-                        </p>
-                        <ul>
+<br />
+<br />
+Start with schools you've saved to 
+<a href="http://${sessionScope.context.hostName}/cgi-bin/msl_confirm/${sessionScope.context.stateOrDefault.abbreviation}">My&#160;School&#160;List</a>.
+<br />
+<br />
+Or, look up school information by individual school:
+<ul>
                             <li>
                                 <a href="http://${sessionScope.context.hostName}/cgi-bin/ratingsrch/${sessionScope.context.stateOrDefault.abbreviation}">Exclusive GreatSchools Ratings</a>
                             </li>
@@ -381,25 +375,49 @@ Start with schools you've saved to
                                 </li>
                             </c:if>
                         </ul>
-
-                        <h3>
-		5. Visit and select schools
-                            <![CDATA[<a name="step5"> </a>]]>
-                        </h3>
-No amount of research can replace an in-person visit to the schools you're considering.
+							 <br />
+<br />
+            <a style="float:right;padding-right:10px;" href="#top">back to top</a></div></td>
+          <td width="15" class="R"></td>
+        </tr>
+        <tr> 
+          <td width="15" height="15" class="BL"></td>
+          <td class="B"></td>
+          <td width="15" height="15" class="BR"></td>
+        </tr>
+      </table>
+	  
+	    
+      
+	  <a name="step5"></a> 
+      <table width="600" border="0"  cellpadding="0" cellspacing="0" class="box_shado1" bgcolor="#FFFFFF">
+        <tr> 
+          <td width="15" height="15" class="TL"></td>
+          <td class="T"></td>
+          <td width="15" height="15" class="TR"></td>
+        </tr>
+        <tr> 
+          <td width="15" class="L"></td>
+          <td class="C"><h3>Visit and select schools</h3>
+            
+            <div class="body"> 
+              <!-- here goes the H4 if used-->
+No amount of /research can replace an in-person visit to the schools you're considering.
 Make sure you get the most out of each school visit by targeting what questions
 to ask and what to look for.
-                        <p>Start here:</p>
+<br />
+<br />
+Start here:
                         <ul>
                             <gsml:articleLinkLi articleId="48"/>
                         </ul>
-                        <div class="pdfs">
+                   
                             <a href="#getacro">
-                                <img class="pdf" src="res/img/adobe/pdficon.gif" alt="PDF Format"/>
+                                <img class="pdf" src="/res/img/adobe/pdficon.gif" alt="PDF Format"/>
                             </a>
-        Document specific questions about individual schools based on your research
+        Document specific questions about individual schools based on your /research
         with these printable worksheets:
-                            <ul>
+  <ul>
                                 <li>
                                     <a href="http://${sessionScope.context.hostName}/pdf/schq_visit_elem.pdf">The Elementary
         School Visit: A Step by Step Guide</a>
@@ -414,16 +432,15 @@ to ask and what to look for.
 
                                 </li>
                             </ul>
-                        </div>
         Then read these:
                         <ul>
                             <gsml:articleLinkLi articleId="249"/>
                             <gsml:articleLinkLi articleId="60"/>
                             <gsml:articleLinkLi articleId="20"/>
                         </ul>
-
-                        <![CDATA[<div style="height:100px;"></div>]]>
-                        <hr/>
+						
+						
+                        <hr size="1" color="#CCCCCC"/>
                         Our worksheets are in PDF format. Go
                         <a href="http://www.adobe.com/products/acrobat/readermain.html"
                             target="_blank">here</a> to get the Adobe Acrobat Reader:
@@ -432,15 +449,27 @@ to ask and what to look for.
                         <a name="getacro"
                             style="border: 0"
                             href="http://www.adobe.com/products/acrobat/readermain.html" target="_blank">
-                            <img src="res/img/adobe/getacro.gif" alt="Get Adobe Acrobat" style="border:0"/>
+                            <img src="/res/img/adobe/getacro.gif" alt="Get Adobe Acrobat" style="border:0"/>
                         </a>
-
-                        <![CDATA[<div style="height:200px;"></div>]]>
-                    </div>
-                </div>
-
-            </div>
-
+							 <br />
+<br />
+            <a style="float:right;padding-right:10px;" href="#top">back to top</a></div></td>
+          <td width="15" class="R"></td>
+        </tr>
+        <tr> 
+          <td width="15" height="15" class="BL"></td>
+          <td class="B"></td>
+          <td width="15" height="15" class="BR"></td>
+        </tr>
+      </table>
+</center>
+	  
+	  	  
+	  
+	  
+    </td>
+  </tr>
+</table>
             <div id="footer">
                 <jsp:include page="/footer/copyright.module"/>
             </div>
@@ -450,4 +479,20 @@ to ask and what to look for.
         </body>
     </html>
 </jsp:root>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
