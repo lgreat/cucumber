@@ -56,13 +56,6 @@
                 }
             </jsp:scriptlet>
     </span>
-
-<c:if test="${not empty results.queryTime}">
-    <span style="margin-left:1cm">
-                    <c:out value="search time: ${results.queryTime} ms"/>
-                    </span>
-</c:if>
-
 <br/><hr/>
 -->
 

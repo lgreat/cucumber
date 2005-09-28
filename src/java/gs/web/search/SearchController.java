@@ -192,12 +192,10 @@ public class SearchController extends AbstractController {
             model.put("terms", _resultsPager.getTerms(page, pageSize));
             model.put("pageSize", new Integer(pageSize));
             model.put("pager", _resultsPager);
-
-            long end = System.currentTimeMillis();
-            long time = end - start;
-            model.put("queryTime", String.valueOf(time));
         }
-
+        long end = System.currentTimeMillis();
+        long time = end - start;
+        _log.info("handled search request for " + queryString + " in " + time + " ms");
         return new ModelAndView("search", "results", model);
     }
 
