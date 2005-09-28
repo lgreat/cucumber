@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.1 2005/09/21 00:29:32 dlee Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.2 2005/09/28 22:26:03 wbeck Exp $
  */
 package gs.web.content;
 
@@ -35,11 +35,21 @@ public class ArticleLinkTagHandler extends SimpleTagSupport {
             if (sc != null) {
                 State s = sc.getStateOrDefault();
 
+                if (_article.isSpanish() && _article.isNew()) {
+                    articleLink.append("<img src=\"/res/img/content/nuevo.jpg\">&nbsp;");
+                }
+                else if (_article.isNew()) {
+                    articleLink.append("<img src=\"/res/img/content/new.jpg\">&nbsp;");
+
+                }
+
                 if (s.isSubscriptionState() && _article.isInsider()) {
                     articleLink.append("<img src=\"/res/img/st_icon.gif\" border=\"0\" /><a href=\"/cgi-bin/showpartarticle/");
                 } else {
                     articleLink.append("<a href=\"/cgi-bin/showarticle/");
                 }
+
+
 
                 String title = _article.getTitle();
                 title = title.replaceAll("\\$LONGSTATE",s.getLongName());
