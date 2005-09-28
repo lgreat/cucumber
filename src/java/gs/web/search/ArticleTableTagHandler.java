@@ -37,13 +37,15 @@ public class ArticleTableTagHandler extends ResultsTableTagHandler {
                 out.println("<th class=\"result_title\" width=\"1\">&nbsp;</th>");
                 out.println("</tr>");
 
+                State s = getStateOrDefault();
+
                 for (int i = 0; i < _articles.size(); i++) {
                     SearchResult article = (SearchResult) _articles.get(i);
                     out.println("<tr class=\"result_row\">");
                     out.println("<td width=\"1\">&nbsp;</td>");
                     out.println("<td><b>");
                     out.print("<a href=\"http://www.greatschools.net/cgi-bin/showarticle/");
-                    out.print(getState().getAbbreviationLowerCase());
+                    out.print(s.getAbbreviationLowerCase());
                     out.print("/");
                     out.print(article.getId());
                     out.print("\">");
@@ -56,12 +58,9 @@ public class ArticleTableTagHandler extends ResultsTableTagHandler {
                 }
                 out.println("<tr class=\"last_row\"><td colspan=\"5\"><ul>");
                 out.print("<li class=\"viewall\"><a href=\"http://www.greatschools.net/cgi-bin/site/help_for_parents.cgi/");
-                State s = getState();
-                if (s != null) {
-                    out.print(s.getAbbreviation());
-                } else {
-                    out.print("CA");
-                }
+
+                out.print(s.getAbbreviation());
+
                 out.print("\">Browse all Articles</a></li></ul></td></tr>");
 
 

@@ -62,15 +62,8 @@ public class SearchController extends AbstractController {
         long start = System.currentTimeMillis();
 
         Map model = new HashMap();
+
         String queryString = request.getParameter("q");
-
-        State contextState = null;
-        SessionContext context = SessionContext.getInstance(request);
-
-        if (context != null) {
-            contextState = context.getState();
-        }
-
         _log.info("Search query:" + queryString);
 
         // If there is no query string, there's nothing to do.
@@ -78,6 +71,13 @@ public class SearchController extends AbstractController {
 
             StringBuffer queryBuffer = new StringBuffer();
             queryBuffer.append(queryString);
+
+            State contextState = null;
+            SessionContext context = SessionContext.getInstance(request);
+
+            if (context != null) {
+                contextState = context.getState();
+            }
 
             if (contextState != null) {
                 queryBuffer.append(" AND state:");
@@ -114,8 +114,8 @@ public class SearchController extends AbstractController {
             int schoolsPageSize = 10;
 
             if (constraint != null && !constraint.equals("all") && !constraint.equals("")) {
-                pageSize = 10;
-                schoolsPageSize = 10;
+                //pageSize = 10;
+                //schoolsPageSize = 10;
                 StringBuffer clone = new StringBuffer(qString);
                 clone.append(" AND type:");
                 clone.append(constraint);

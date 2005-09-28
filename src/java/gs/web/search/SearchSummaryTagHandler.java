@@ -95,17 +95,18 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
 
         _groupingHitCollector.reset();
 
+        String queryIncludingState = _query;
         State s = getState();
         if (s != null) {
             if (_query.indexOf("state:") == -1) {
                 StringBuffer buffer = new StringBuffer(_query);
                 buffer.append(" AND state:");
                 buffer.append(s.getAbbreviation());
-                _query = buffer.toString();
+                queryIncludingState = buffer.toString();
             }
         }
 
-        getSearcher().search(_query, null, _groupingHitCollector, null);
+        getSearcher().search(queryIncludingState, null, _groupingHitCollector, null);
 
         JspWriter out = getJspContext().getOut();
 
@@ -131,6 +132,8 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             } else {
                 out.print(aStart);
                 out.print(_query);
+                out.print("&state=");
+                out.print(getStateParam());
                 out.print("&c=school\">");
                 out.print(SCHOOLS);
                 out.print(_schoolsTotal);
@@ -145,6 +148,8 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             } else {
                 out.print(aStart);
                 out.print(_query);
+                out.print("&state=");
+                out.print(getStateParam());
                 out.print("&c=article\">");
                 out.print(ARTICLES);
                 out.print(_groupingHitCollector.getArticles());
@@ -159,6 +164,8 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             } else {
                 out.print(aStart);
                 out.print(_query);
+                out.print("&state=");
+                out.print(getStateParam());
                 out.print("&c=term\">");
                 out.print(TERMS);
                 out.print(_groupingHitCollector.getTerms());
@@ -174,6 +181,8 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             } else {
                 out.print(aStart);
                 out.print(_query);
+                out.print("&state=");
+                out.print(getStateParam());
                 out.print("&c=all\">");
                 out.print(VIEW_ALL);
                 out.println("</a>");
@@ -187,6 +196,8 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             } else {
                 out.print(aStart);
                 out.print(_query);
+                out.print("&state=");
+                out.print(getStateParam());
                 out.print("&c=city\">");
                 out.print(CITIES);
                 out.print(_groupingHitCollector.getCities());
@@ -201,6 +212,8 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             } else {
                 out.print(aStart);
                 out.print(_query);
+                out.print("&state=");
+                out.print(getStateParam());
                 out.print("&c=district\">");
                 out.print(DISTRICTS);
                 out.print(_groupingHitCollector.getDistricts());
@@ -217,6 +230,15 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             out.println("\"</b> did not return any results.<br/>Please try again.");
             out.println("</td></tr></table>");
         }
+    }
+
+    private String getStateParam() {
+        String param = "all";
+        State s = getState();
+        if (s != null) {
+            param = s.getAbbreviationLowerCase();
+        }
+        return param;
     }
 
     static class GroupingHitCollector extends org.apache.lucene.search.HitCollector {

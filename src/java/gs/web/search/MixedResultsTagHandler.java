@@ -195,7 +195,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 SearchResult sr = (SearchResult) articles.get(i);
                 out.println("<li>");
                 out.print("<a href=\"http://www.greatschools.net/cgi-bin/showarticle/");
-                out.print(getState().getAbbreviationLowerCase());
+                out.print(getStateOrDefault().getAbbreviationLowerCase());
                 out.print("/");
                 out.print(sr.getId());
                 out.print("\">");

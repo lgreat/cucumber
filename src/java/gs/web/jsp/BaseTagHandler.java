@@ -73,7 +73,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
      */
     protected State getState() {
         JspContext jspContext = getJspContext();
-        State state = State.CA;
+        State state = null; //State.CA;
         if (jspContext != null) {
             SessionContext sc = (SessionContext) jspContext.getAttribute(SessionContext.SESSION_ATTRIBUTE_NAME, PageContext.SESSION_SCOPE);
             if (sc != null) {
@@ -84,5 +84,16 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
             }
         }
         return state;
+    }
+
+    /**
+     * @return a non-null <code>State</code> object.
+     */
+    protected State getStateOrDefault() {
+        State s = getState();
+        if (s == null) {
+            s = State.CA;
+        }
+        return s;
     }
 }
