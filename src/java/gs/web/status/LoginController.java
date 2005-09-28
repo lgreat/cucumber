@@ -4,6 +4,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.validation.BindException;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletContext;
@@ -18,6 +19,8 @@ import javax.servlet.http.HttpSession;
  */
 public class LoginController extends SimpleFormController {
 
+    private static final Logger _log = Logger.getLogger(LoginController.class);
+
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
                                  Object command,
@@ -25,8 +28,9 @@ public class LoginController extends SimpleFormController {
 
         HttpSession session = request.getSession(true);
         Identity ident = (Identity)command;
+        _log.info("setting login identity: " + ident.toString());
         session.setAttribute("identity", ident);
-
+        
         return new ModelAndView(new RedirectView(getSuccessView()));
     }
 }

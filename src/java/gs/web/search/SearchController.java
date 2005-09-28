@@ -5,9 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
 import org.apache.lucene.search.Sort;
+import org.apache.log4j.Logger;
 import gs.data.search.*;
 import gs.data.state.State;
 import gs.web.SessionContext;
@@ -38,12 +37,10 @@ import java.util.HashMap;
 public class SearchController extends AbstractController {
 
     public static final String BEAN_ID = "/search.page";
-    private static Log _log = LogFactory.getLog(SearchController.class);
+    private static Logger _log = Logger.getLogger(SearchController.class);
     private SpellCheckSearcher _spellCheckSearcher;
     private ResultsPager _resultsPager;
-    private int pageSize = 10;
-    private int schoolsPageSize = 10;
-    
+
     private boolean SUGGEST = true;
 
     /**
@@ -74,7 +71,7 @@ public class SearchController extends AbstractController {
             contextState = context.getState();
         }
 
-        //_log.info("Search query:" + queryString);
+        _log.info("Search query:" + queryString);
 
         // If there is no query string, there's nothing to do.
         if (queryString != null && !queryString.equals("")) {
@@ -113,13 +110,15 @@ public class SearchController extends AbstractController {
                 sort = new Sort(sortParam, reverse);
             }
 
+            int pageSize = 10;
+            int schoolsPageSize = 10;
+
             if (constraint != null && !constraint.equals("all") && !constraint.equals("")) {
                 pageSize = 10;
                 schoolsPageSize = 10;
                 StringBuffer clone = new StringBuffer(qString);
                 clone.append(" AND type:");
                 clone.append(constraint);
-                _log.debug("clone.toString(): " + clone.toString());
                 DecoratedHits dh = _spellCheckSearcher.search(clone.toString(), queryString, sort);
 
                 if (dh != null) {

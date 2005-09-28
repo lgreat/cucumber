@@ -23,4 +23,8 @@ public class Identity {
     public void setPassword(String password) {
         _password = password;
     }
+
+    public String toString() {
+        return _username;
+    }
 }
