@@ -1,4 +1,4 @@
-table#resultoverview {position:absolute;bottom:0px;margin:0px 0px 0px 0px;width:99%;}
+table#resultoverview {position:absolute;bottom:0px;margin:0px 0px 0px 0px;width:100%;}
 table#resultoverview .TL, table#resultoverview .TR, table#resultoverview .BL, table#resultoverview .BR { width:10px; height:10px; background:no-repeat; }
 table#resultoverview td.TL {background:  url(../img/search/border_shade3_TL.gif) left top; }
 table#resultoverview td.T {background:  url(../img/search/border_shade3_T.gif) top repeat-x;}
