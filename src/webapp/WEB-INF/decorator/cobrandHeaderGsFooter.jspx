@@ -11,16 +11,12 @@
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <jsp:directive.page contentType="text/html"/>
-
+    <c:url value="/" var="basepath"/>
     <head>
         <title>
             <decorator:title default="REPLACE THIS REPLACE THIS REPLACE THIS REPLACE THIS"/>
         </title>
-        <!--
-        <c:url value="/" var="basepath"/>
-        <base href="${basepath}"></base>
-        -->
-        <link rel="stylesheet" href="res/css/global.css"></link>
+        <link rel="stylesheet" href="${basepath}res/css/global.css"></link>
         <decorator:head/>
     </head>
 
