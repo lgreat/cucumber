@@ -16,8 +16,8 @@
         <title>
             <decorator:title default="REPLACE THIS REPLACE THIS REPLACE THIS REPLACE THIS"/>
         </title>
-        <c:url var="global.css" value="res/css/global.css"/>
-        <link rel="stylesheet" href="${global.css}"></link>
+        <c:url var="globalcss" value="/res/css/global.css"/>
+        <link rel="stylesheet" href="${globalcss}"></link>
         <decorator:head/>
     </head>
 

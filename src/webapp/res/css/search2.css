@@ -15,7 +15,7 @@ ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input, addre
 
 table#header {width:100%;margin: 0px 0px 0px 0px;}
 table#header td.left {width:180px;}
-div.verticalcontainer {position:relative;height:250px;}
+div.verticalcontainer {position:relative;height:270px;}
 table#header td.stretchycolumn {padding: 0px 6px 0px 6px;height:250px;}
 td.label {width:70px;color:#666;vertical-align:top;}
 .checkbox {padding:0;margin:0; font-size:90%;}

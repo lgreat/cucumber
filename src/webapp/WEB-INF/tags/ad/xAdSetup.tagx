@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib">
+    <jsp:directive.tag body-content="empty"/>
+    <jsp:directive.attribute name="page" type="java.lang.String" required="true"/>
+    <jsp:directive.attribute name="ads" type="java.lang.String" required="true"/>
+        <c:if test="${!sessionScope.context.adFree}">
+            <c:if test="${!sessionScope.context.yahooCobrand}">
+                <!-- OAS SETUP begin -->
+                <SCRIPT LANGUAGE="JavaScript">
+                    //configuration
+                    OAS_url = 'http://oascentral.greatschools.net/RealMedia/ads/';
+                    OAS_sitepage = 'www/${gsweb:toLowercase(sessionScope.context.state.abbreviation)}/${page}';
+                    OAS_listpos = '${ads}';
+                    OAS_query = 'state=${gsweb:toLowercase(sessionScope.context.state.abbreviation)}';
+                    OAS_target = '_top';
+                    //end of configuration
+                    OAS_version = 10;
+                    OAS_rn = '001234567890'; OAS_rns = '1234567890';
+                    OAS_rn = new String (Math.random()); OAS_rns = OAS_rn.substring (2, 11);
+                    function OAS_NORMAL(pos) {
+                      document.write('<A HREF="' + OAS_url + 'click_nx.ads/' + OAS_sitepage + '/1' + OAS_rns + '@' + OAS_listpos + '!' + pos + '?' + OAS_query + '" TARGET="' + OAS_target + '">');
+                      document.write('<IMG SRC="' + OAS_url + 'adstream_nx.ads/' + OAS_sitepage + '/1' + OAS_rns + '@' + OAS_listpos + '!' + pos + '?' + OAS_query + '" BORDER="0" /></A>');
+                    }
+                </SCRIPT>
+                <SCRIPT LANGUAGE="JavaScript1.1">
+                  <![CDATA[
+                  OAS_version = 11;
+                  if (navigator.userAgent.indexOf('Mozilla/3') != -1 || navigator.userAgent.indexOf('Mozilla/4.0 WebTV') != -1)
+                    OAS_version = 10;
+                  if (OAS_version >= 11)
+                    document.write('<SCR' + 'IPT LANGUAGE=JavaScript1.1 SRC="' + OAS_url + 'adstream_mjx.ads/' + OAS_sitepage + '/1' + OAS_rns + '@' + OAS_listpos + '?' + OAS_query + '"><\/SCRIPT>');
+                  ]]>
+                </SCRIPT>
+                <SCRIPT LANGUAGE="JavaScript">
+                    document.write('');
+                    function OAS_AD(pos) {
+                      if (OAS_version >= 11)
+                        OAS_RICH(pos);
+                      else
+                        OAS_NORMAL(pos);
+                    }
+                </SCRIPT>
+            </c:if>
+        </c:if>
+</jsp:root>

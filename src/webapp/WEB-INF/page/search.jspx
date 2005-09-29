@@ -6,6 +6,7 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:spring="http://www.springframework.org/tags"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:gsweb="gstaglib">
 
@@ -39,6 +40,7 @@
 <meta name="onload" content="document.sf.q.focus()" />
 
 <body onload="document.sf.q.focus()">
+<ad:xAdSetup page="search" ads="x40" />
 <!--
     <div style="float: right; padding-right:5mm">
         <a href="mailto:chriskimm@greatschools.net?subject=GS Search">Bugs/Comments</a>
@@ -66,7 +68,7 @@
         <tr>
           <td class="left">
             <div class="verticalcontainer">
-              <a href="http://www.greatschools.net/">
+              <a href="/">
                 <img src="res/img/search/GS_logo_160x60.gif" alt="logo" width="160" height="60" style="padding-left:6px;" />
               </a>
               <div class="bottomalign">
@@ -77,7 +79,7 @@
               </div>
             </div>
           </td>
-          <td class="stretchycolumn" valign="bottom">
+          <td class="stretchycolumn">
           <div class="verticalcontainer">
                 <search:searchControl/>
 
@@ -90,7 +92,7 @@
               </div>
           </td>
           <td width="200">
-              <a href="#"><img src="res/img/search/ad.gif" alt="ad" width="300" height="250" /></a>
+              <ad:x40/>
           </td>
         </tr>
       </table>

@@ -7,7 +7,7 @@
     gs.data.state.State state = context.getState();
 %>
 
-<form id="searchForm" name="sf" method="get" style="margin: 0; padding: 0" action="/search.page">
+<form id="searchForm" name="sf" method="get" style="margin: 0; padding: 0" action="${basepath}search.page">
     <table style="width:100%">
         <tr>
             <td class="label" width="90">Keywords:</td>
