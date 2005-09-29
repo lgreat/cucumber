@@ -96,10 +96,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print(school_.getId().toString());
                 out.print("\">");
                 out.print(TextHighlighter.highlight(school_.getName(), _query, "name"));
-
-                //out.print(school_.getName());
                 out.println("</a><address>");
-                //out.println(school_.getPhysicalAddress().toString());
                 out.println(TextHighlighter.highlight(school_.getPhysicalAddress().toString(), _query, "address"));
                 out.println("</address></li>");
             }
@@ -129,7 +126,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print("<li><a href=\"/search.page?c=school&q=");
                 out.print(sr.getCityName());
                 out.print("\">");
-                out.print(TextHighlighter.highlight(sr.getCityName(), _query, "city"));
+                out.print(TextHighlighter.highlight(sr.getCityName(), _query, "cityname"));
                 out.print(" (");
                 out.print(sr.getSchools());
                 out.print(")");
@@ -167,6 +164,8 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print(sr.getState());
                 out.print("\">");
                 out.print(sr.getName());
+                out.print(", ");
+                out.print(sr.getState());
                 out.print(" (");
                 out.print(sr.getSchools());
                 out.print(")");

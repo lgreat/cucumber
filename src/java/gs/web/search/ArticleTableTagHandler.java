@@ -57,10 +57,9 @@ public class ArticleTableTagHandler extends ResultsTableTagHandler {
                     out.println("</tr>");
                 }
                 out.println("<tr class=\"last_row\"><td colspan=\"5\"><ul>");
-                out.print("<li class=\"viewall\"><a href=\"http://www.greatschools.net/cgi-bin/site/help_for_parents.cgi/");
-
+                //out.print("<li class=\"viewall\"><a href=\"http://www.greatschools.net/cgi-bin/site/help_for_parents.cgi/");
+                out.print("<li class=\"viewall\"><a href=\"http://www.greatschools.net/content/allArticles.page?state=");
                 out.print(s.getAbbreviation());
-
                 out.print("\">Browse all Articles</a></li></ul></td></tr>");
 
 

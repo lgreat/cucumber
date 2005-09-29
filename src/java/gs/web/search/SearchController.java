@@ -114,8 +114,6 @@ public class SearchController extends AbstractController {
             int schoolsPageSize = 10;
 
             if (constraint != null && !constraint.equals("all") && !constraint.equals("")) {
-                //pageSize = 10;
-                //schoolsPageSize = 10;
                 StringBuffer clone = new StringBuffer(qString);
                 clone.append(" AND type:");
                 clone.append(constraint);

@@ -77,17 +77,17 @@
               </div>
             </div>
           </td>
-          <td class="stretchycolumn">
-            <div class="verticalcontainer">
+          <td class="stretchycolumn" valign="bottom">
+          <div class="verticalcontainer">
                 <search:searchControl/>
-                <br/>
+
                 <gsml:decorator id="resultoverview">
                     <gsweb:searchsummary query="${param.q}"
                                          schoolsTotal="${results.schoolsTotal}"
                                          constrain="${param.c}"/>
                 </gsml:decorator>
-                <br/>
-            </div>
+
+              </div>
           </td>
           <td width="200">
               <a href="#"><img src="res/img/search/ad.gif" alt="ad" width="300" height="250" /></a>

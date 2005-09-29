@@ -91,12 +91,7 @@ public class SearchResult {
     }
 
     public String getCityName() {
-        //return _doc.get("cityname");
-        String city = _doc.get("cityname");
-        if (_highlight) {
-               city = TextHighlighter.highlight(city, _query, "cityname");
-        }
-        return city;
+        return _doc.get("cityname");        
     }
 
     public String getCityAndState() {
