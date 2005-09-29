@@ -12,12 +12,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
+import java.net.InetAddress;
 
 /**
  * Controller for showing the build _versionProperties and database connectivity check
@@ -116,6 +116,9 @@ public class MonitorController implements Controller {
         }
         model.put("stateReadWrite", new Boolean(stateReadWrite));
         model.put("stateError", stateError);
+        if (request != null) {
+            model.put("environment", getEnvironmentMap(request.getSession().getServletContext()));
+        }
 
         return new ModelAndView(_viewName, model);
     }
@@ -150,5 +153,33 @@ public class MonitorController implements Controller {
 
     public void setVersionProperties(Properties versionProperties) {
         this._versionProperties = versionProperties;
+    }
+
+    private Map getEnvironmentMap(ServletContext context) {
+
+        Properties props = System.getProperties();
+        Map env = new TreeMap();
+        /*
+        if (context != null) {
+            Enumeration en = context.getAttributeNames();
+            while(en.hasMoreElements()) {
+                env.put(en.nextElement(), context.getAttribute((String)en.nextElement()));
+            }
+        }
+        */
+
+        env.put("Java Version", props.getProperty("java.vm.version"));
+        StringBuffer osBuffer = new StringBuffer (props.getProperty("os.name"));
+        osBuffer.append(" ");
+        osBuffer.append(props.getProperty("os.version"));
+        env.put("Operating System", osBuffer.toString());
+
+        Runtime rt = Runtime.getRuntime();
+        env.put("memory - total", new Long(rt.totalMemory()));
+        env.put("memory - max", new Long(rt.maxMemory()));
+        env.put("memory - free", new Long(rt.freeMemory()));
+
+
+        return env;
     }
 }

@@ -79,6 +79,25 @@
     <br/>
 
     <table class="statusbox">
+
+        <tr>
+            <td>Environment Properties</td>
+        </tr>
+        <c:forEach items="${environment}" var="item">
+            <tr>
+                <td class="statustitle">
+                    <c:out value="${item.key}"/>
+                </td>
+                <td class="statusvalue">
+                    <c:out value="${item.value}"/>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+
+    <br/>
+
+    <table class="statusbox">
         <form action="/status/monitor.page" method="post">
             <tr>
                 <td class="statustitle">Trigger test log message: </td>
