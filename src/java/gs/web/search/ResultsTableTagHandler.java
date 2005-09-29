@@ -13,7 +13,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
 
     private int _total = 0;
     private int _page = 0;
-    private String _queryString = null;
+    protected String _queryString = null;
     protected int PAGE_SIZE = 10;
     private String _sortColumn = null;
     private boolean _reverse = false;

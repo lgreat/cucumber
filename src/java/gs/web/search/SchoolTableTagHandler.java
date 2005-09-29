@@ -1,6 +1,7 @@
 package gs.web.search;
 
 import gs.data.school.School;
+import gs.data.search.highlight.TextHighlighter;
 
 import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
@@ -19,9 +20,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
     public static final String BEAN_ID = "schoolTableTagHandler";
 
     private List _schools = null;
-
     private static final Log _log = LogFactory.getLog(SchoolTableTagHandler.class);
-
 
     public void setSchools(List sList) {
         _schools = sList;
@@ -91,8 +90,9 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                     out.print(school.getId().toString());
                     out.println("\">");
 
-                    out.println(school.getName());
-                    out.println("</b></a><br/>");
+                    out.print(TextHighlighter.highlight(school.getName(), getQueryString(), "name"));
+                    //out.println(school.getName());
+                    out.println("</a><br/>");
                     out.print(school.getPhysicalAddress().toString());
                     out.println("<br/>");
 

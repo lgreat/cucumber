@@ -23,13 +23,13 @@ import java.util.HashMap;
  * <p/>
  * Parameters used in this page:
  * <ul>
- * <li>c :  constraint</li>
- * <li>st : state - CA, NY, WA, etc.</li>
- * <li>p :  page</li>
- * <li>q :  query string</li>
- * <li>s :  style</li>
+ * <li>c    :  constraint</li>
+ * <li>st   : state - CA, NY, WA, etc.</li>
+ * <li>p    :  page</li>
+ * <li>q    :  query string</li>
+ * <li>s    :  style</li>
  * <li>sort :  sort column</li>
- * <li>r :  sort reverse? (t/f)</li>
+ * <li>r    :  sort reverse? (t/f)</li>
  * </ul>
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -117,7 +117,9 @@ public class SearchController extends AbstractController {
                 StringBuffer clone = new StringBuffer(qString);
                 clone.append(" AND type:");
                 clone.append(constraint);
-                DecoratedHits dh = _spellCheckSearcher.search(clone.toString(), queryString, sort);
+                DecoratedHits dh =
+                    _spellCheckSearcher.search(clone.toString(),
+                                               queryString, sort);
 
                 if (dh != null) {
                     if (constraint.equals("school")) {

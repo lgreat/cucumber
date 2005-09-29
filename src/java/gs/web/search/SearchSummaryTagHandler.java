@@ -125,10 +125,10 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
 
 
             if (_constraint != null && _constraint.equals("school")) {
-                out.print("<span class=\"active\">");
+                out.print("<a class=\"active\">");
                 out.print(SCHOOLS);
                 out.print(_schoolsTotal);
-                out.println("</span>");
+                out.println("</a>");
             } else {
                 out.print(aStart);
                 out.print(_query);
@@ -141,10 +141,10 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             }
 
             if (_constraint != null && _constraint.equals("article")) {
-                out.print("<span class=\"active\">");
+                out.print("<a class=\"active\">");
                 out.print(ARTICLES);
                 out.print(_groupingHitCollector.getArticles());
-                out.println("</span>");
+                out.println("</a>");
             } else {
                 out.print(aStart);
                 out.print(_query);
@@ -157,10 +157,10 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             }
 
             if (_constraint != null && _constraint.equals("term")) {
-                out.print("<span class=\"active\">");
+                out.print("<a class=\"active\">");
                 out.print(TERMS);
                 out.print(_groupingHitCollector.getTerms());
-                out.println("</span>");
+                out.println("</a>");
             } else {
                 out.print(aStart);
                 out.print(_query);
@@ -174,10 +174,11 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
 
             out.println("</td><td class=\"col3\">");
 
-            if (_constraint == null || _constraint.equals("") || _constraint.equals("all")) {
-                out.print("<span class=\"active\">");
+            if (_constraint == null || _constraint.equals("") ||
+                _constraint.equals("all")) {
+                out.print("<a class=\"active\">");
                 out.print(VIEW_ALL);
-                out.println("</span>");
+                out.println("</a>");
             } else {
                 out.print(aStart);
                 out.print(_query);
@@ -189,10 +190,10 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             }
 
             if (_constraint != null && _constraint.equals("city")) {
-                out.print("<span class=\"active\">");
+                out.print("<a class=\"active\">");
                 out.print(CITIES);
                 out.print(_groupingHitCollector.getCities());
-                out.println("</span>");
+                out.println("</a>");
             } else {
                 out.print(aStart);
                 out.print(_query);
@@ -205,10 +206,10 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             }
 
             if (_constraint != null && _constraint.equals("district")) {
-                out.print("<span class=\"active\">");
+                out.print("<a class=\"active\">");
                 out.print(DISTRICTS);
                 out.print(_groupingHitCollector.getDistricts());
-                out.println("</span>");
+                out.println("</a>");
             } else {
                 out.print(aStart);
                 out.print(_query);

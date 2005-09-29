@@ -16,8 +16,10 @@
         <title>
             <decorator:title default="REPLACE THIS REPLACE THIS REPLACE THIS REPLACE THIS"/>
         </title>
+        <!--
         <c:url value="/" var="basepath"/>
         <base href="${basepath}"></base>
+        -->
         <link rel="stylesheet" href="res/css/global.css"></link>
         <decorator:head/>
     </head>
