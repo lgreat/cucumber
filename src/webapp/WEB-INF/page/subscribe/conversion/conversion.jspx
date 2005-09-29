@@ -14,7 +14,9 @@
         <title>GreatSchools Insider Membership Benefits</title>
         <link rel="stylesheet" type="text/css" href="/res/css/subscribe/conversion/cp_styles.css"/>
         <script language="javascript" type="text/javascript"  src="/res/js/popup.js"></script>
-        <gsml:fireclick pageType="conversion" pageName="home" />
+        <gsml:fireclick pageType="conversion" pageName="home"
+            extraJavascriptVariable="var fc_track='view';var fc_prod_view='GreatSchools Insider';"/>
+
     </head>
 
     <body bgcolor="ffffff" marginwidth="0" marginheight="0">
@@ -53,11 +55,11 @@
                                     <tr>
                                         <td class="bodycopy" width="100%" valign="bottom">
                                             <ul class="arrow">
-                                                <li><a type="popup" href="/subscribe/conversion/popup/schoolChoiceOptions.page?state=${sessionScope.context.stateOrDefault.abbreviation}">School Choice Options</a> &#151; Learn how school choice works in the area you're researching.</li>
-                                                <li><a type="popup" href="/subscribe/conversion/popup/topRatedSchools.page?state=${sessionScope.context.stateOrDefault.abbreviation}">Top-Rated Schools</a> &#151; Start your search here to narrow your list.</li>
-                                                <li><a type="popup" href="/subscribe/conversion/popup/ratings.page?state=${sessionScope.context.stateOrDefault.abbreviation}">GreatSchools Ratings</a> &#151; Quickly understand how public and charter schools stack up with our exclusive rating system.</li>
-                                                <li><a type="popup" href="/subscribe/conversion/popup/flagAlerts.page?state=${sessionScope.context.stateOrDefault.abbreviation}">Flag Alerts</a> &#151; See if schools you're considering are flagged with areas of possible concern.</li>
-                                                <li><a type="popup" href="/subscribe/conversion/popup/compareSchools.page?state=${sessionScope.context.stateOrDefault.abbreviation}">Compare Schools</a> &#151; Look at schools side-by-side and compare them based on GreatSchools ratings and flag alerts as well as other criteria including academic performance, teacher qualifications, and student data.</li>
+                                                <li><a type="popup" href="/subscribe/conversion/popup/schoolChoiceOptions.page?state=${sessionScope.context.stateOrDefault.abbreviation}">School Choice Options</a> Learn how school choice works in the area you're researching.</li>
+                                                <li><a type="popup" href="/subscribe/conversion/popup/topRatedSchools.page?state=${sessionScope.context.stateOrDefault.abbreviation}">Top-Rated Schools</a> Start your search here to narrow your list.</li>
+                                                <li><a type="popup" href="/subscribe/conversion/popup/ratings.page?state=${sessionScope.context.stateOrDefault.abbreviation}">GreatSchools Ratings</a> Quickly understand how public and charter schools stack up with our exclusive rating system.</li>
+                                                <li><a type="popup" href="/subscribe/conversion/popup/flagAlerts.page?state=${sessionScope.context.stateOrDefault.abbreviation}">Flag Alerts</a> See if schools you're considering are flagged with areas of possible concern.</li>
+                                                <li><a type="popup" href="/subscribe/conversion/popup/compareSchools.page?state=${sessionScope.context.stateOrDefault.abbreviation}">Compare Schools</a> Look at schools side-by-side and compare them based on GreatSchools ratings and flag alerts as well as other criteria including academic performance, teacher qualifications, and student data.</li>
 				                            </ul>
                                             <br/>
                                             <br/>
