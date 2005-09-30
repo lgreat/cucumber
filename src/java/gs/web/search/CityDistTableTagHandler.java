@@ -1,6 +1,7 @@
 package gs.web.search;
 
 import gs.data.state.State;
+import gs.data.search.highlight.TextHighlighter;
 
 import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
@@ -54,7 +55,8 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
                         out.print(result.getCityName());
                         out.print("\">");
                         out.print("<b>");
-                        out.print(result.getCityAndState());
+                        out.print(TextHighlighter.highlight(result.getCityAndState(), getQueryString(), "address"));
+                        out.print("</b></a>");
                     } else {
                         out.print("<a href=\"http://www.greatschools.net/modperl/browse_district/");
                         out.print(result.getId());
@@ -62,9 +64,13 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
                         out.print(result.getState());
                         out.print("\"><b>");
                         out.println(result.getName());
+                        out.print("</b></a>");
+                        out.print("<address>");
+                        out.print(result.getCityAndState());
+                        out.print("</address>");
                     }
 
-                    out.print("</b></a></td>");
+                    out.print("</td>");
                     out.print("<td align=\"center\">");
                     out.print(result.getSchools());
                     out.println("</td></tr>");

@@ -6,7 +6,7 @@
       action="/search.page">
     <table style="width:100%">
         <tr>
-            <td class="label" width="90">Keywords:</td>
+            <td class="label" width="90">Search:</td>
             <td>
                 <input type="text"
                        id="q"
@@ -25,37 +25,30 @@
             </td>
         </tr>
         <tr>
-            <c:choose>
-               <c:when test="${empty param.state || param.state == 'all'}">
-                  <td class="label">
-                     Location:
-                  </td>
-                  <td>
-                     <gsml:stateSelector/>
-                      <a href="http://www.greatschools.net/cgi-bin/template_plain/advanced/">Search near address</a>
-                  </td>
 
-               </c:when>
-               <c:otherwise>
-                  <td><input type="hidden" name="state" value="${param.state}"/></td>
-                  <td>
-                    <a href="http://www.greatschools.net/cgi-bin/template_plain/advanced/${param.state}">Search near address</a>
-                  </td>
-                   <tr>
-                       <td class="label">Browse:</td>
-                       <td>
-                           <a href="http://www.greatschools.net/content/allArticles.page?state=${param.state}"
-                              class="pad">All Articles</a>
-                           <a href="http://www.greatschools.net/modperl/citylist/${param.state}/"
-                              class="pad">All Cities</a>
-                           <a href="http://www.greatschools.net/modperl/distlist/${param.state}"
-                              class="pad">All Districts</a>
-                       </td>
-                   </tr>
+            <td class="label">
+                State:
+            </td>
+            <td>
+                <gsml:stateSelector/>
+                <a href="http://www.greatschools.net/cgi-bin/template_plain/advanced/">Search near address</a>
+            </td>
 
-
-               </c:otherwise>
-            </c:choose>
+            <c:if test="${not empty param.state && param.state != 'all'}">
+                <td>
+                </td>
+                <tr>
+                    <td class="label">Browse:</td>
+                    <td>
+                        <a href="http://www.greatschools.net/content/allArticles.page?state=${param.state}"
+                           class="pad">All Articles</a>
+                        <a href="http://www.greatschools.net/modperl/citylist/${param.state}/"
+                           class="pad">All Cities</a>
+                        <a href="http://www.greatschools.net/modperl/distlist/${param.state}"
+                           class="pad">All Districts</a>
+                    </td>
+                </tr>
+            </c:if>
         </tr>
 
     </table>

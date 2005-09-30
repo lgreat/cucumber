@@ -143,8 +143,8 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print(TextHighlighter.highlight(sr.getCityName(), _query, "cityname"));
                 out.print(" (");
                 out.print(sr.getSchools());
-                out.print(")");
-                out.println("</a></li>");
+                out.print(")</a>");
+                out.println("</li>");
             }
             int citiesCount = ((Integer) _results.get("citiesTotal")).intValue();
             if (citiesCount > CITIES_MAX) {
@@ -182,8 +182,11 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print(sr.getState());
                 out.print(" (");
                 out.print(sr.getSchools());
-                out.print(")");
-                out.println("</a></li>");
+                out.print(")</a>");
+                out.print("<address>");
+                out.print(TextHighlighter.highlight(sr.getCityAndState(), _query, "address"));
+                out.println("</address>");
+                out.println("</li>");
             }
             int districtsCount = ((Integer) _results.get("districtsTotal")).intValue();
             if (districtsCount > DISTRICTS_MAX) {

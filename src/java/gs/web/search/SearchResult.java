@@ -95,10 +95,16 @@ public class SearchResult {
     }
 
     public String getCityAndState() {
-        //return _doc.get("citystate");
         String cityAndState = _doc.get("citystate");
-        if (_highlight) {
-               cityAndState = TextHighlighter.highlight(cityAndState, _query, "citystate");
+        if (cityAndState == null || "".equals(cityAndState)) {
+            String c = getCityName();
+            String s = getState();
+            if (c != null && s != null) {
+                StringBuffer buff = new StringBuffer(c);
+                buff.append(", ");
+                buff.append(s);
+                cityAndState = buff.toString();
+            }
         }
         return cityAndState;
     }
