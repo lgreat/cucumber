@@ -2,6 +2,7 @@ package gs.web.search;
 
 import gs.data.school.School;
 import gs.data.search.highlight.TextHighlighter;
+import gs.data.state.State;
 import gs.web.jsp.BaseTagHandler;
 
 import javax.servlet.jsp.JspWriter;
@@ -42,6 +43,19 @@ public class MixedResultsTagHandler extends BaseTagHandler {
 
     public void setQuery(String q) {
         _query = q;
+    }
+
+    private String getDecoratedQuery() {
+        String decoQuery = _query;
+        State s = getState();
+        if (s != null) {
+            StringBuffer buff = new StringBuffer(_query);
+            buff.append("&state=");
+            buff.append(s.getAbbreviationLowerCase());
+            decoQuery = buff.toString();
+        }
+        System.out.println ("decoQuery: " + decoQuery);
+        return decoQuery;
     }
 
     public void setResults(Map results) {
@@ -105,7 +119,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             if (schoolCount > SCHOOLS_MAX) {
 
                 out.print("<li class=\"viewall\"><a href=\"/search.page?q=");
-                out.print(_query);
+                out.print(getDecoratedQuery());
                 out.print("&c=school\">View all ");
                 out.print(schoolCount);
                 out.println(" results</a><li>");
@@ -135,7 +149,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             int citiesCount = ((Integer) _results.get("citiesTotal")).intValue();
             if (citiesCount > CITIES_MAX) {
                 out.print("<li class=\"viewall\"><a href=\"/search.page?q=");
-                out.print(_query);
+                out.print(getDecoratedQuery());
                 out.print("&c=city\">View all ");
                 out.print(citiesCount);
                 out.print(" results</a><li>");
@@ -175,7 +189,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             if (districtsCount > DISTRICTS_MAX) {
                 out.print("<li class=\"viewall\"><a href=\"/search.page?q=");
 
-                out.print(_query);
+                out.print(getDecoratedQuery());
                 out.print("&c=district\">View all ");
                 out.print(districtsCount);
                 out.println(" results</a><li>");
@@ -206,7 +220,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             int articlesCount = ((Integer) _results.get("articlesTotal")).intValue();
             if (articlesCount > ARTICLES_MAX) {
                 out.print("<li class=\"viewall\"><a href=\"/search.page?q=");
-                out.print(_query);
+                out.print(getDecoratedQuery());
                 out.print("&c=article\">View all ");
                 out.print(articlesCount);
                 out.println(" results</a><li>");
@@ -234,7 +248,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             int termsCount = ((Integer) _results.get("termsTotal")).intValue();
             if (termsCount > TERMS_MAX) {
                 out.print("<li class=\"viewall\"><a href=\"/search.page?q=");
-                out.print(_query);
+                out.print(getDecoratedQuery());
                 out.print("&c=term\">View all ");
                 out.println(termsCount);
                 out.println(" results</a><li>");

@@ -115,7 +115,8 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
         int total = _schoolsTotal +
                 _groupingHitCollector.getArticles() +
                 _groupingHitCollector.getCities() +
-                _groupingHitCollector.getDistricts();
+                _groupingHitCollector.getDistricts() +
+                _groupingHitCollector.getTerms();
 
         if (total > 0) {
 

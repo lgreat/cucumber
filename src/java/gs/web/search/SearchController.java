@@ -5,9 +5,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.apache.lucene.search.Sort;
+import org.apache.lucene.search.*;
+import org.apache.lucene.index.Term;
 import org.apache.log4j.Logger;
 import gs.data.search.*;
+import gs.data.search.Searcher;
 import gs.data.state.State;
 import gs.web.SessionContext;
 
@@ -39,6 +41,7 @@ public class SearchController extends AbstractController {
     public static final String BEAN_ID = "/search.page";
     private static Logger _log = Logger.getLogger(SearchController.class);
     private SpellCheckSearcher _spellCheckSearcher;
+    private Searcher _searcher;
     private ResultsPager _resultsPager;
 
     private boolean SUGGEST = true;
@@ -72,16 +75,14 @@ public class SearchController extends AbstractController {
             StringBuffer queryBuffer = new StringBuffer();
             queryBuffer.append(queryString);
 
-            State contextState = null;
-            SessionContext context = SessionContext.getInstance(request);
+            Query query = GSQueryParser.parse(queryString);
+            BooleanQuery bq = new BooleanQuery();
+            bq.add(query, true, false);
 
-            if (context != null) {
-                contextState = context.getState();
-            }
-
-            if (contextState != null) {
-                queryBuffer.append(" AND state:");
-                queryBuffer.append(contextState.getAbbreviation());
+            String st = request.getParameter("state");
+            if (st != null && !st.equals("all")) {
+                bq.add(new TermQuery(new Term("state", st.toLowerCase())), true, false);
+                _log.info("bq here: " + bq.toString());
             }
 
             // deal with p - the page parameter.
@@ -114,47 +115,45 @@ public class SearchController extends AbstractController {
             int schoolsPageSize = 10;
 
             if (constraint != null && !constraint.equals("all") && !constraint.equals("")) {
-                StringBuffer clone = new StringBuffer(qString);
-                clone.append(" AND type:");
-                clone.append(constraint);
-                DecoratedHits dh =
-                    _spellCheckSearcher.search(clone.toString(),
-                                               queryString, sort);
 
-                if (dh != null) {
+                bq.add (new TermQuery(new Term("type", constraint)), true, false);
+
+                Hits hits = _searcher.search(bq, sort, null, null);
+                if (hits != null) {
                     if (constraint.equals("school")) {
-                        _resultsPager.setSchools(dh.getHits());
+                        _resultsPager.setSchools(hits);
                     } else if (constraint.equals("article")) {
-                        _resultsPager.setArticles(dh.getHits());
+                        _resultsPager.setArticles(hits);
                     } else if (constraint.equals("city")) {
-                        _resultsPager.setCities(dh.getHits());
+                        _resultsPager.setCities(hits);
                     } else if (constraint.equals("terms")) {
-                        _resultsPager.setTerms(dh.getHits());
+                        _resultsPager.setTerms(hits);
                     } else {
-                        _resultsPager.setDistricts(dh.getHits());
+                        _resultsPager.setDistricts(hits);
                     }
                 }
             } else {
-                String[] types = {"school", "article", "district", "city", "term"};
+                String[] types =
+                        {"school", "article", "district", "city", "term"};
                 pageSize = 3;
                 schoolsPageSize = 6;
                 for (int i = 0; i < types.length; i++) {
-                    StringBuffer clone = new StringBuffer(qString);
-                    clone.append(" AND type:");
-                    clone.append(types[i]);
-                    DecoratedHits dh = _spellCheckSearcher.search(clone.toString(), queryString);
 
-                    if (dh != null) {
+                    BooleanQuery bq2 = (BooleanQuery)bq.clone();
+                    bq2.add (new TermQuery(new Term("type", types[i])), true, false);
+                    Hits hits = _searcher.search(bq2, null, null, null);
+
+                    if (hits != null) {
                         if (types[i].equals("school")) {
-                            _resultsPager.setSchools(dh.getHits());
+                            _resultsPager.setSchools(hits);
                         } else if (types[i].equals("article")) {
-                            _resultsPager.setArticles(dh.getHits());
+                            _resultsPager.setArticles(hits);
                         } else if (types[i].equals("city")) {
-                            _resultsPager.setCities(dh.getHits());
+                            _resultsPager.setCities(hits);
                         } else if (types[i].equals("term")) {
-                            _resultsPager.setTerms(dh.getHits());
+                            _resultsPager.setTerms(hits);
                         } else {
-                            _resultsPager.setDistricts(dh.getHits());
+                            _resultsPager.setDistricts(hits);
                         }
                     }
                 }
@@ -215,5 +214,9 @@ public class SearchController extends AbstractController {
      */
     public void setSpellCheckSearcher(SpellCheckSearcher spellCheckSearcher) {
         _spellCheckSearcher = spellCheckSearcher;
+    }
+
+    public void setSearcher(Searcher searcher) {
+        _searcher = searcher;
     }
 }

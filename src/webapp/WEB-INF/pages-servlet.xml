@@ -92,6 +92,9 @@
         <property name="spellCheckSearcher">
             <ref bean="spellCheckSearcher"/>
         </property>
+        <property name="searcher">
+            <ref bean="searcher"/>
+        </property>
     </bean>
 
     <bean name="resultsPager" class="gs.web.search.ResultsPager"
