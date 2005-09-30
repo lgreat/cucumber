@@ -76,32 +76,10 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
     protected State getState() {
         JspContext jspContext = getJspContext();
         State state = null; //State.CA;
-        System.out.println ("BaseTagHandler.getState() foo 1");
+
         if (jspContext != null) {
-            System.out.println ("BaseTagHandler.getState() bar 2");
+            //String o = (String)jspContext.findAttribute("state"); // why doesn't this work?
 
-            Enumeration e1 = jspContext.getAttributeNamesInScope(PageContext.REQUEST_SCOPE);
-            while(e1.hasMoreElements()) {
-                System.out.println ("request attribute: " + e1.nextElement());
-            }
-
-            Enumeration e3 = jspContext.getAttributeNamesInScope(PageContext.APPLICATION_SCOPE);
-            while(e3.hasMoreElements()) {
-                System.out.println ("application attribute: " + e3.nextElement());
-            }
-
-            Enumeration e2 = jspContext.getAttributeNamesInScope(PageContext.SESSION_SCOPE);
-            while(e2.hasMoreElements()) {
-                System.out.println ("session attribute: " + e2.nextElement());
-            }
-
-            String stateString = (String)jspContext.getAttribute("state");
-            if (stateString != null) {
-                // ok to do this since null can be returned
-                System.out.println ("BaseTagHandler.getState() 3");
-                state = _stateManager.getState(stateString);
-            }
-            /*
             SessionContext sc = (SessionContext) jspContext.getAttribute(SessionContext.SESSION_ATTRIBUTE_NAME, PageContext.SESSION_SCOPE);
             if (sc != null) {
                 State s = sc.getState();
@@ -109,10 +87,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
                     state = s;
                 }
             }
-            */
         }
-        //_log.info("setting state in BaseTagHandler to: " + state.toString());
-        System.out.println("setting state in BaseTagHandler to: " + state);
         return state;
     }
 
