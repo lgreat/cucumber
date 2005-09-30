@@ -3,11 +3,11 @@
 .menuBaractive { padding: 3px; text-align: center;  margin-bottom: 5px; position: relative; top: 1px; left: 1px;  border-right: 1px solid #ffffff; background-color: #FF6600; }
 .menuBar a:link { font-size: 12px; color: #ffffff; text-decoration: none; font-weight: bold;}    /* unvisited links */
 .menuBar a:visited { font-size: 12px; color: #ffffff; text-decoration: none; font-weight: bold;}   /* visited links   */
-.menuBar a:hover   { font-size: 12px; color: #B0B0B0; text-decoration: none; font-weight: bold;} /* user hovers     */
+.menuBar a:hover   { font-size: 12px; color: #ffffff; text-decoration: none; font-weight: bold;} /* user hovers     */
 .menuBar a:active  { font-size: 12px; color: #ffffff; text-decoration: none; font-weight: bold;}   /* active links    */
 .menuBaractive a:link { font-size: 12px; color: #ffffff; text-decoration: none; font-weight: bold;}    /* unvisited links */
 .menuBaractive a:visited { font-size: 12px; color: #ffffff; text-decoration: none; font-weight: bold;}   /* visited links   */
-.menuBaractive a:hover   { font-size: 12px; color: #B0B0B0; text-decoration: none; font-weight: bold;} /* user hovers     */
+.menuBaractive a:hover   { font-size: 12px; color: #ffffff; text-decoration: none; font-weight: bold;} /* user hovers     */
 .menuBaractive a:active  { font-size: 12px; color: #ffffff; text-decoration: none; font-weight: bold;}   /* active links    */
 
 .orangeBold {font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold; color: #ff6600;}
