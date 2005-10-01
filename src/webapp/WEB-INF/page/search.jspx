@@ -81,14 +81,15 @@
           </td>
           <td class="stretchycolumn">
           <div class="verticalcontainer">
-                <search:searchControl/>
+              <search:searchControl/>
 
-                <gsml:decorator id="resultoverview">
-                    <gsweb:searchsummary query="${param.q}"
-                                         schoolsTotal="${results.schoolsTotal}"
-                                         constrain="${param.c}"/>
-                </gsml:decorator>
-              </div>
+              <gsml:decorator id="resultoverview">
+                  <gsweb:searchsummary query="${param.q}"
+                                       schoolsTotal="${results.schoolsTotal}"
+                                       constrain="${param.c}"/>
+              </gsml:decorator>
+
+          </div>
           </td>
           <td width="310">
               <ad:x40/>
@@ -96,20 +97,14 @@
         </tr>
       </table>
 
-<!--<c:if test="${not empty results}">-->
-
-    <!--
-    <c:if test="${not empty results.suggestion}">
-        Did you mean:
-        <span id="suggestion">
-            <a href="/search.page?q=${results.suggestion}&amp;c=${param.c}">
-                <c:out value="${results.suggestion}"/>
-            </a>
-        </span>
-    </c:if>
-    -->
-
-    <br/>
+      <c:if test="${not empty results.suggestion}">
+          Did you mean:
+          <span id="suggestion">
+              <a href="/search.page?q=${results.suggestion}&amp;c=${param.c}">
+                  <c:out value="${results.suggestion}"/>
+              </a>
+          </span>
+      </c:if>
 
     <c:choose>
         <c:when test="${param.c == 'school'}">

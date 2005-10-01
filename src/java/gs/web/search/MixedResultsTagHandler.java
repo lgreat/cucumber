@@ -126,7 +126,6 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             }
             out.println("</ul>");
         }
-
     }
 
     private void writeCities(JspWriter out) throws IOException {
@@ -177,21 +176,25 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print("/");
                 out.print(sr.getState());
                 out.print("\">");
-                out.print(sr.getName());
+                out.print(TextHighlighter.highlight(sr.getName(), _query, "name"));
+                //out.print(sr.getName());
                 out.print(", ");
                 out.print(sr.getState());
                 out.print(" (");
                 out.print(sr.getSchools());
                 out.print(")</a>");
-                out.print("<address>");
-                out.print(TextHighlighter.highlight(sr.getCityAndState(), _query, "address"));
-                out.println("</address>");
+
+                String ss = sr.getCityAndState();
+                if (ss != null) {
+                    out.print("<address>");
+                    out.print(TextHighlighter.highlight(ss, _query, "address"));
+                    out.println("</address>");
+                }
                 out.println("</li>");
             }
             int districtsCount = ((Integer) _results.get("districtsTotal")).intValue();
             if (districtsCount > DISTRICTS_MAX) {
                 out.print("<li class=\"viewall\"><a href=\"/search.page?q=");
-
                 out.print(getDecoratedQuery());
                 out.print("&c=district\">View all ");
                 out.print(districtsCount);

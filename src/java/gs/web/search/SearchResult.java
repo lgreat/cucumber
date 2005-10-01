@@ -24,11 +24,12 @@ public class SearchResult {
     }
 
     public String getName() {
-        String name = _doc.get("name");
-        if (_highlight) {
-            name = TextHighlighter.highlight(name, _query, "name");
-        }
-        return name;
+        //String name = _doc.get("name");
+        //if (_highlight) {
+        //name = TextHighlighter.highlight(name, _query, "name");
+        //}
+        //return name;
+        return _doc.get("name");
     }
 
     public String getId() {
@@ -91,7 +92,7 @@ public class SearchResult {
     }
 
     public String getCityName() {
-        return _doc.get("cityname");        
+        return _doc.get("city");
     }
 
     public String getCityAndState() {

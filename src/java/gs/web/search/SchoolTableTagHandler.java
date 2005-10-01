@@ -42,8 +42,21 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             out.println("<table class=\"school_results_only\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
 
             if (_schools.size() > 0) {
+
+                /// start control row
+                out.print("<tr class=\"control_row\"><td colspan=\"5\">");
+                out.println("<table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
+                out.println("<tr><td>");
+                out.println("<input style=\"display:block\" type=\"image\" name=\"compare\" src=\"res/img/search/btn_old_comparechecked_167x21.gif\" alt=\"Submit Form\">");
+                out.println("<input style=\"display:block\" type=\"image\" name=\"save\" src=\"res/img/search/btn_old_savechecked2msl_193x21.gif\" alt=\"Submit Form\">");
+                out.println("</td><td class=\"results_pagenav\">");
+                //writePageNumbers(out);
+                out.println ("</td></tr></table></td></tr>");
+                /// end control row
+
                 out.println("<tr><th class=\"result_title\" width=\"1\">&nbsp;</th>");
 
+                /** Uncomment this for sorting by school name
                 StringBuffer buffer = new StringBuffer();
                 buffer.append("<th class=\"left\"><a href=\"/search.page?c=school");
                 if (getQueryString() != null) {
@@ -63,6 +76,8 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 }
                 out.println("\">");
                 out.print("Schools</a></th>");
+                */
+                out.print("<th class=\"left\">Schools</th>");            
 
                 out.println("<th class=\"result_title\">Type</th>");
                 out.println("<th class=\"result_title\">Grade</th>");
@@ -91,7 +106,6 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                     out.println("\">");
 
                     out.print(TextHighlighter.highlight(school.getName(), getQueryString(), "name"));
-                    //out.println(school.getName());
                     out.println("</a><br/>");
                     out.print(school.getPhysicalAddress().toString());
                     out.println("<br/>");

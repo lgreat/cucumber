@@ -63,7 +63,8 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
                         out.print("/");
                         out.print(result.getState());
                         out.print("\"><b>");
-                        out.println(result.getName());
+                        out.print(TextHighlighter.highlight(result.getName(), getQueryString(), "name"));
+                        //out.println(result.getName());
                         out.print("</b></a>");
                         out.print("<address>");
                         out.print(result.getCityAndState());

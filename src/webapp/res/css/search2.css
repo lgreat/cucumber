@@ -8,6 +8,7 @@ a {text-decoration:none;color:#00F;}
 a:visited {color:#66C;}
 a:hover {text-decoration:underline;}
 .pad {padding:0px 10px 0px 0px;display:inline;}
+.lpad {padding:0px 0px 0px 10px;display:inline;}
 .left {text-align:left;}
 .google_banner {width:100%; padding:10px 0px 10px 0px;text-align:center;}
 ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input, address {list-style:none;font-size:1em;font-style:normal;font-weight:normal;margin:0; padding:0;}
@@ -62,3 +63,4 @@ td.results_pagenav {text-align:right; font-weight:bold;white-space:nowrap}
 a.active {color:#000;}
 a.smaller {font-size:90%;}
 tr.last_row td {padding:10px 0px 0px 0px;border-bottom:0px;}
+tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}

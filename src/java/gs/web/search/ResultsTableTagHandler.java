@@ -109,7 +109,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                     out.print(hrefStart);
                     out.print(_page-1);
                     out.print("\">");
-                    out.println("&lt;&nbsp;previous</a>");
+                    out.println("&lt;&nbsp;Previous</a>");
                 }
 
                 for (int i = start; i < end+1; i++) {
