@@ -21,6 +21,16 @@
     </function>
 
     <tag>
+        <name>stateSelector</name>
+        <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>allowNoState</name>
+            <required>false</required>
+        </attribute>
+    </tag>
+
+    <tag>
         <name>longstate</name>
         <tag-class>gs.web.state.LongstateTagHandler</tag-class>
         <body-content>empty</body-content>
