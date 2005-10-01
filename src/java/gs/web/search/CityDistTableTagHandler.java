@@ -58,7 +58,7 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
                         out.print(TextHighlighter.highlight(result.getCityAndState(), getQueryString(), "address"));
                         out.print("</b></a>");
                     } else {
-                        out.print("<a href=\"http://www.greatschools.net/modperl/browse_district/");
+                        out.print("<a href=\"/modperl/browse_district/");
                         out.print(result.getId());
                         out.print("/");
                         out.print(result.getState());
@@ -85,9 +85,9 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
                     out.println("<a href=\"");
 
                     if (_type != null && _type.equals("city")) {
-                        out.print("http://www.greatschools.net/modperl/citylist/");
+                        out.print("/modperl/citylist/");
                     } else {
-                        out.print("http://www.greatschools.net/modperl/distlist/");
+                        out.print("/modperl/distlist/");
                     }
                     out.print(s.getAbbreviation());
                     out.print("\">Browse all ");

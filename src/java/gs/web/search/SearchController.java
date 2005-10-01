@@ -82,7 +82,6 @@ public class SearchController extends AbstractController {
             String st = request.getParameter("state");
             if (st != null && !st.equals("all")) {
                 bq.add(new TermQuery(new Term("state", st.toLowerCase())), true, false);
-                _log.info("bq here: " + bq.toString());
             }
 
             // deal with p - the page parameter.

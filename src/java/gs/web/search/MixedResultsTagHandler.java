@@ -104,7 +104,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 SearchResult school = (SearchResult) schools.get(i);
                 School school_ = getSchool(school);
 
-                out.print("<a href=\"http://www.greatschools.net/modperl/browse_school/");
+                out.print("<a href=\"/modperl/browse_school/");
                 out.print(school_.getState().getAbbreviationLowerCase());
                 out.print("/");
                 out.print(school_.getId().toString());
@@ -171,7 +171,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             for (int i = 0; i < count; i++) {
                 SearchResult sr = (SearchResult) districts.get(i);
                 out.print("<li>");
-                out.print("<a href=\"http://www.greatschools.net/modperl/browse_district/");
+                out.print("<a href=\"/modperl/browse_district/");
                 out.print(sr.getId());
                 out.print("/");
                 out.print(sr.getState());

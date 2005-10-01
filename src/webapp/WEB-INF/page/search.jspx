@@ -116,6 +116,7 @@
                                    total="${results.schoolsTotal}"
                                    page="${param.p}"/>
             </gsml:decorator>
+            <gsml:fireclick pageType="search" pageName="school-results" />
         </c:when>
 
         <c:when test="${param.c == 'article'}">
@@ -127,6 +128,7 @@
                                     total="${results.articlesTotal}"
                                     page="${param.p}"/>
             </gsml:decorator>
+            <gsml:fireclick pageType="search" pageName="article-results" />
         </c:when>
 
         <c:when test="${param.c == 'city'}">
@@ -139,6 +141,7 @@
                                          total="${results.citiesTotal}"
                                          page="${param.p}"/>
             </gsml:decorator>
+            <gsml:fireclick pageType="search" pageName="city-results" />
         </c:when>
 
         <c:when test="${param.c == 'district'}">
@@ -151,6 +154,7 @@
                                          total="${results.districtsTotal}"
                                          page="${param.p}"/>
             </gsml:decorator>
+            <gsml:fireclick pageType="search" pageName="district-results" />
         </c:when>
 
         <c:when test="${param.c == 'term'}">
@@ -162,15 +166,16 @@
                                  total="${results.termsTotal}"
                                  page="${param.p}"/>
             </gsml:decorator>
+            <gsml:fireclick pageType="search" pageName="term results" />
         </c:when>
 
         <c:otherwise>
             <gsml:decorator id="main">
                 <gsweb:mixedresults query="${param.q}" results="${results}"/>
             </gsml:decorator>
+            <gsml:fireclick pageType="search" pageName="mixed-results" />
         </c:otherwise>
     </c:choose>
-<!--</c:if>-->
 <br/>
 </td></tr></table>
 </body>

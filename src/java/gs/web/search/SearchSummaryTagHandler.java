@@ -1,6 +1,7 @@
 package gs.web.search;
 
 import gs.data.search.Searcher;
+import gs.data.search.GSQueryParser;
 import gs.data.state.State;
 import gs.web.SessionContext;
 import gs.web.jsp.BaseTagHandler;
@@ -12,6 +13,10 @@ import java.io.IOException;
 
 import org.springframework.context.ApplicationContext;
 import org.apache.log4j.Logger;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.search.TermQuery;
+import org.apache.lucene.index.Term;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -95,18 +100,20 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
 
         _groupingHitCollector.reset();
 
-        String queryIncludingState = _query;
-        State s = getState();
-        if (s != null) {
-            if (_query.indexOf("state:") == -1) {
-                StringBuffer buffer = new StringBuffer(_query);
-                buffer.append(" AND state:");
-                buffer.append(s.getAbbreviation());
-                queryIncludingState = buffer.toString();
-            }
-        }
+        try {
+        Query query = GSQueryParser.parse(_query);
+            BooleanQuery bq = new BooleanQuery();
+            bq.add(query, true, false);
 
-        getSearcher().search(queryIncludingState, null, _groupingHitCollector, null);
+            State s = getState();
+            if (s != null) {
+                bq.add(new TermQuery(new Term("state", s.getAbbreviationLowerCase())), true, false);
+            }
+            getSearcher().search(bq, null, _groupingHitCollector, null);
+
+        } catch (Exception e) {
+            _log.warn(e);
+        }
 
         JspWriter out = getJspContext().getOut();
 

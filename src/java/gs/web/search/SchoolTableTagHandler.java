@@ -99,7 +99,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
                     out.println("<td>");
 
-                    out.print("<a href=\"http://www.greatschools.net/modperl/browse_school/");
+                    out.print("<a href=\"/modperl/browse_school/");
                     out.print(school.getState().getAbbreviation());
                     out.print("/");
                     out.print(school.getId().toString());
