@@ -29,7 +29,6 @@ public class MixedResultsTagHandler extends BaseTagHandler {
     public static final String BEAN_ID = "MixedResultsTagHandler";
     private Map _results = null;
     private String _query = "";
-    private ResultsPager _pager;
 
     static String startHtml, endHtml;
 
@@ -136,9 +135,9 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             for (int i = 0; i < cities.size(); i++) {
                 SearchResult sr = (SearchResult) cities.get(i);
                 out.print("<li><a href=\"/search.page?c=school&q=");
-                out.print(sr.getCityName());
+                out.print(sr.getCity());
                 out.print("\">");
-                out.print(TextHighlighter.highlight(sr.getCityName(), _query, "cityname"));
+                out.print(TextHighlighter.highlight(sr.getCity(), _query, "city"));
                 out.print(" (");
                 out.print(sr.getSchools());
                 out.print(")</a>");

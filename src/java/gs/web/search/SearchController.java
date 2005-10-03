@@ -117,7 +117,7 @@ public class SearchController extends AbstractController {
             if (constraint != null && !constraint.equals("all") && !constraint.equals("")) {
 
                 bq.add (new TermQuery(new Term("type", constraint)), true, false);
-
+                model.put("query", bq.toString());
                 Hits hits = _searcher.search(bq, sort, null, null);
                 if (hits != null) {
                     if (constraint.equals("school")) {
@@ -141,6 +141,7 @@ public class SearchController extends AbstractController {
 
                     BooleanQuery bq2 = (BooleanQuery)bq.clone();
                     bq2.add (new TermQuery(new Term("type", types[i])), true, false);
+                    model.put("query", bq2.toString());
                     Hits hits = _searcher.search(bq2, null, null, null);
 
                     if (hits != null) {
@@ -175,7 +176,6 @@ public class SearchController extends AbstractController {
                 if (suggestion != null) {
                     suggestion = suggestion.replaceAll("\\+", "");
                 }
-
                 model.put("suggestion", suggestion);
             }
 
@@ -194,6 +194,7 @@ public class SearchController extends AbstractController {
         }
         long requestEnd = System.currentTimeMillis();
         long requestTime = requestEnd - requestStart;
+        model.put("requesttime", Long.toString(requestTime));
         //_log.info("handled search request for " + queryString + " in " + time + " ms");
         return new ModelAndView("search", "results", model);
     }

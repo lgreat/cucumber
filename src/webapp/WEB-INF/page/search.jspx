@@ -179,6 +179,7 @@
 <br/>
 </td></tr></table>
 
+<!-- debug output -->
 <c:if test="${not empty param.debug}">
 <hr/>
 <table>
@@ -186,9 +187,9 @@
         <td>
             HttpSession:
             <ul>
-                <li>
-                    <c:out value="Created: ${pageContext.request.session.creationTime}"/>
-                </li>
+                <li><c:out value="Request Time: ${results.requesttime}"/></li>
+                <li><c:out value="query: ${results.query}"/></li>
+                <li><c:out value="Created: ${pageContext.request.session.creationTime}"/></li>
             </ul>
         </td>
     </tr>

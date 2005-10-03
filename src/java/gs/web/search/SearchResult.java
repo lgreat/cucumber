@@ -91,14 +91,14 @@ public class SearchResult {
         return title;
     }
 
-    public String getCityName() {
-        return _doc.get("cityname");
+    public String getCity() {
+        return _doc.get("city");
     }
 
     public String getCityAndState() {
         String cityAndState = _doc.get("citystate");
         if (cityAndState == null || "".equals(cityAndState)) {
-            String c = getCityName();
+            String c = getCity();
             String s = getState();
             if (c != null && s != null) {
                 StringBuffer buff = new StringBuffer(c);
