@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.6 2005/08/08 17:51:22 thuss Exp $
+ * $Id: SubscribeController.java,v 1.7 2005/10/03 18:18:53 thuss Exp $
  */
 package gs.web.community;
 
@@ -83,7 +83,10 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
                 sessionContext.setState(user.getState());
             } else {
                 _log.error("Setting state to be CA because " + httpServletRequest.getParameter("state") +
-                    " is not a recognized subscription state");
+                        " is not a recognized subscription state for " + httpServletRequest.getMethod() +
+                        " request: " + httpServletRequest.getRequestURL() +
+                        " referrer: " + httpServletRequest.getHeader("referer") +
+                        " user agent: " + httpServletRequest.getHeader("user-agent"));
                 sessionContext.setState(State.CA);
             }
         }
@@ -177,7 +180,6 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         if (command.getState() == null) {
             command.setState(user.getState());
         }
-
 
         // Transfer the credit card expiration date into the CreditCardInfo object.
         // We don't expose this in the command to prevent hacking. Alternatively,
