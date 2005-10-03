@@ -54,30 +54,34 @@ public class SearchManagerController extends AbstractController {
                     session.invalidate();
                     return new ModelAndView(new RedirectView("login.page"));
                 } else {
-                    long start = System.currentTimeMillis();
+                    long start = 0;
 
                     if (request.getParameter("all") != null) {
+                        start = System.currentTimeMillis();
                         _indexer.index(StateManager.getList(),
                                 _indexDir.getMainDirectory(), _indexDir.getSpellCheckDirectory());
                     } else if (request.getParameter("test") != null) {
+                        start = System.currentTimeMillis();
                         List states = new ArrayList();
                         states.add(State.CA);
                         states.add(State.WY);
                         states.add(State.NY);
                         states.add(State.AK);
                         _indexer.index(states,
-                                _indexDir.getMainDirectory(), _indexDir.getSpellCheckDirectory());                        
+                                _indexDir.getMainDirectory(), _indexDir.getSpellCheckDirectory());
                     }
 
-                    long end = System.currentTimeMillis();
-                    long totalSeconds = (end - start) / 1000;
-                    long minutes = totalSeconds / 60;
-                    long seconds = totalSeconds % 60;
-                    StringBuffer buf = new StringBuffer();
-                    buf.append(String.valueOf(minutes));
-                    buf.append(":");
-                    buf.append(String.valueOf(seconds));
-                    time = buf.toString();
+                    if (start > 0) {
+                        long end = System.currentTimeMillis();
+                        long totalSeconds = (end - start) / 1000;
+                        long minutes = totalSeconds / 60;
+                        long seconds = totalSeconds % 60;
+                        StringBuffer buf = new StringBuffer();
+                        buf.append(String.valueOf(minutes));
+                        buf.append(":");
+                        buf.append(String.valueOf(seconds));
+                        time = buf.toString();
+                    }
                 }
                 return new ModelAndView("status/searchmanager", "time", time);
 
