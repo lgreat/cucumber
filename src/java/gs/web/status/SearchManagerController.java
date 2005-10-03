@@ -14,9 +14,13 @@ import javax.servlet.http.HttpSession;
 
 import gs.data.search.IndexDir;
 import gs.data.search.Indexer;
+import gs.data.state.StateManager;
+import gs.data.state.State;
 
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Controls re-indexing of Lucene indexes.
@@ -49,9 +53,22 @@ public class SearchManagerController extends AbstractController {
                 if (request.getParameter("logout") != null) {
                     session.invalidate();
                     return new ModelAndView(new RedirectView("login.page"));
-                } else if (request.getParameter("start") != null) {
+                } else {
                     long start = System.currentTimeMillis();
-                    _indexer.index(_indexDir.getMainDirectory(), _indexDir.getSpellCheckDirectory());
+
+                    if (request.getParameter("all") != null) {
+                        _indexer.index(StateManager.getList(),
+                                _indexDir.getMainDirectory(), _indexDir.getSpellCheckDirectory());
+                    } else if (request.getParameter("test") != null) {
+                        List states = new ArrayList();
+                        states.add(State.CA);
+                        states.add(State.WY);
+                        states.add(State.NY);
+                        states.add(State.AK);
+                        _indexer.index(states,
+                                _indexDir.getMainDirectory(), _indexDir.getSpellCheckDirectory());                        
+                    }
+
                     long end = System.currentTimeMillis();
                     long totalSeconds = (end - start) / 1000;
                     long minutes = totalSeconds / 60;
