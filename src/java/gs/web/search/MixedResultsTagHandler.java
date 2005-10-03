@@ -54,7 +54,6 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             buff.append(s.getAbbreviationLowerCase());
             decoQuery = buff.toString();
         }
-        System.out.println ("decoQuery: " + decoQuery);
         return decoQuery;
     }
 
@@ -239,8 +238,8 @@ public class MixedResultsTagHandler extends BaseTagHandler {
         out.println("<div class=\"result_title\">Glossary Terms</div>");
 
         List terms = (List) _results.get("terms");
-        if (terms != null) {
-            out.println("<ul>");
+        out.println("<ul>");
+        if (terms != null && terms.size() > 0) {
             for (int i = 0; i < terms.size(); i++) {
                 SearchResult sr = (SearchResult) terms.get(i);
                 out.println("<li>");
@@ -259,8 +258,13 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.println(termsCount);
                 out.println(" results</a><li>");
             }
-            out.println("</ul>");
+
+        } else {
+            out.print("<li class=\"viewall\"><a href=\"/cgi-bin/glossary_home/");
+            out.print(getStateOrDefault().getAbbreviation());
+            out.println ("\">Browse all glossary terms</a></li>");
         }
+        out.println("</ul>");
     }
 
     /**

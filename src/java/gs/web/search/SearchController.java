@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import gs.data.search.*;
 import gs.data.search.Searcher;
 import gs.data.state.State;
+import gs.data.util.Formatter;
 import gs.web.SessionContext;
 
 import java.util.Map;
@@ -62,7 +63,7 @@ public class SearchController extends AbstractController {
                                               HttpServletResponse response)
             throws Exception {
 
-        long start = System.currentTimeMillis();
+        long requestStart = System.currentTimeMillis();
 
         Map model = new HashMap();
 
@@ -191,9 +192,9 @@ public class SearchController extends AbstractController {
             model.put("pageSize", new Integer(pageSize));
             model.put("pager", _resultsPager);
         }
-        long end = System.currentTimeMillis();
-        long time = end - start;
-        _log.info("handled search request for " + queryString + " in " + time + " ms");
+        long requestEnd = System.currentTimeMillis();
+        long requestTime = requestEnd - requestStart;
+        //_log.info("handled search request for " + queryString + " in " + time + " ms");
         return new ModelAndView("search", "results", model);
     }
 

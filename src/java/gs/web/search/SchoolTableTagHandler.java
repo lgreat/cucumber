@@ -162,3 +162,4 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         }
     }
 }
+

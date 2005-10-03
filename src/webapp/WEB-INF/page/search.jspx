@@ -81,7 +81,7 @@
           </td>
           <td class="stretchycolumn">
           <div class="verticalcontainer">
-              <search:searchControl/>
+              <search:searchControl showSchoolFilters="true"/>
 
               <gsml:decorator id="resultoverview">
                   <gsweb:searchsummary query="${param.q}"
@@ -178,6 +178,24 @@
     </c:choose>
 <br/>
 </td></tr></table>
+
+<c:if test="${not empty param.debug}">
+<hr/>
+<table>
+    <tr>
+        <td>
+            HttpSession:
+            <ul>
+                <li>
+                    <c:out value="Created: ${pageContext.request.session.creationTime}"/>
+                </li>
+            </ul>
+        </td>
+    </tr>
+</table>
+<hr/>
+</c:if>
+
 </body>
 </html>
 </jsp:root>

@@ -44,22 +44,15 @@ public class TermTableTagHandler extends ResultsTableTagHandler {
                     out.println("<tr class=\"result_row\">");
                     out.println("<td class=\"checkbox\" width=\"1\">&nbsp;</td>");
                     out.println("<td>");
-
-                    //out.print("<a href=\"http://www.greatschools.net/cgi-bin/glossary_single/ca//?id=");
-                    //out.print(term.getId());
-                    //out.print("\">");
-
                     out.print("<b>");
                     out.print(term.getTerm());
                     out.print("</b>");
-                    //out.println("</a>");
                     out.println("<br/>");
                     out.print(term.getDefinition());
                     out.print("</td>");
                     out.println("</tr>");
                 }
-                out.println("<tr class=\"last_row\"><td colspan=\"5\"><ul>");
-                out.println("<li class=\"viewall\"><a href=\"#\">Browse all glossary terms</a></li></ul></td></tr>");
+                writeBrowseAllRow(out);
                 out.println("</table>");
                 out.println("<table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"><tr>");
                 out.println("<td>&nbsp;</td>");
@@ -67,11 +60,18 @@ public class TermTableTagHandler extends ResultsTableTagHandler {
                 writePageNumbers(out);
             } else {
                 out.println("<tr><th class=\"left result_title\">No glossary terms found</div></th></tr>");
+                writeBrowseAllRow(out);
                 out.println("<tr><td valign=\"top\" height=\"100\">");
             }
             out.println("</td></tr></table>");
             out.println("</td></tr></table>");
-
         }
+    }
+
+    private void writeBrowseAllRow(JspWriter out) throws IOException {
+        out.println("<tr class=\"last_row\"><td colspan=\"5\"><ul>");
+        out.print("<li class=\"viewall\"><a href=\"/cgi-bin/glossary_home/");
+        out.print(getStateOrDefault().getAbbreviation());
+        out.println ("\">Browse all glossary terms</a></li></ul></td></tr>");
     }
 }
