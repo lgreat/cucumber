@@ -92,7 +92,7 @@ public class SearchResult {
     }
 
     public String getCityName() {
-        return _doc.get("city");
+        return _doc.get("cityname");
     }
 
     public String getCityAndState() {
