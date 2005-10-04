@@ -13,9 +13,11 @@
     <c:set var="sponsorImg" value="http://${hostname}/modperl/promos/image//${rand}/${state}//3"/>
 
     <div id="adSponsor">
+        <center>
         Special thanks to our sponsor:<br/>
         <a href="${sponsorHref}" target="_blank">
             <img src="${sponsorImg}" border="0" height="31" width="150" />
         </a>
+        </center>
     </div>
 </jsp:root>
