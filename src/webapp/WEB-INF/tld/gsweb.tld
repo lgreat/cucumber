@@ -20,6 +20,12 @@
         <function-signature>java.lang.String oddOrEven(java.lang.Integer)</function-signature>
     </function>
 
+    <function>
+        <name>randomNumber</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>int randomNumber(int)</function-signature>
+    </function>
+
     <tag>
         <name>stateSelector</name>
         <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>

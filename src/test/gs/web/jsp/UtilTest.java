@@ -25,4 +25,20 @@ public class UtilTest extends TestCase {
         testNum = new Integer(2);
         assertEquals("even", Util.oddOrEven(testNum));
     }
+
+    public void testRandomNumber () {
+        int rand = Util.randomNumber(1);
+        assertTrue(rand == 0);
+
+        try {
+            rand = Util.randomNumber(0);
+            fail("Upper limit must be a positive number > 0");
+        } catch (IllegalArgumentException e) {
+            // Do nothing, we're good
+        }
+
+        rand = Util.randomNumber(100);
+        assertTrue(rand > 0);
+        assertTrue(rand < 100);
+    }
 }

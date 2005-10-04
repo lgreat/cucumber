@@ -22,32 +22,26 @@
     </head>
 
     <c:set var="onLoadScript">
-        <decorator:getProperty property="meta.onload" default="" />
+        <decorator:getProperty property="meta.onload" default=""/>
     </c:set>
 
     <body onload="${onLoadScript}">
-
-    <p/>
 
     <div id="header">
         <jsp:include page="/header/cobrand.module"/>
     </div>
 
-    <p/>
-
     <decorator:body/>
-
-    <p/>
 
     <div id="footer">
         <div id="footerAd">
             <ad:google728x90/>
         </div>
-
         <jsp:include page="/footer/searchEngine.module"/>
+        <div id="footerSponsor">
+            <ad:sponsor/>
+        </div>
     </div>
-
-    <p/>
 
     </body>
     </html>

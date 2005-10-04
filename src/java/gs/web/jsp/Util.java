@@ -1,5 +1,7 @@
 package gs.web.jsp;
 
+import java.util.Random;
+
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
@@ -27,5 +29,15 @@ public class Util {
             oddOrEven = "even";
         }
         return oddOrEven;
+    }
+
+    /**
+     * Generate a random integer between 0 (inclusive) and upperLimit (exclusive)
+     * @param upperLimit Th
+     * @return random number
+     */
+    public static int randomNumber(int upperLimit) {
+        Random r = new Random();
+        return r.nextInt(upperLimit);
     }
 }

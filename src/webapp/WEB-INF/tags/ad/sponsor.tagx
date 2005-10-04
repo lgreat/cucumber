@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
+        >
+    <jsp:directive.tag body-content="empty"/>
+    <c:set var="hostname" value="${sessionScope.context.hostName}"/>
+    <c:set var="state" value="${sessionScope.context.stateOrDefault}"/>
+    <c:set var="rand" value="${gsweb:randomNumber(1000)}"/>
+    <c:set var="sponsorHref"
+           value="http://${hostname}/modperl/promos/link//${rand}/${state}//3"/>
+    <c:set var="sponsorImg" value="http://${hostname}/modperl/promos/image//${rand}/${state}//3"/>
+
+    <div id="adSponsor">
+        Special thanks to our sponsor:<br/>
+        <a href="${sponsorHref}" target="_blank">
+            <img src="${sponsorImg}" border="0" height="31" width="150" />
+        </a>
+    </div>
+</jsp:root>
