@@ -24,7 +24,7 @@
         </conv:header>
 
         <conv:main imageName="topratedschoollist.gif" imageHeight="175" imageWidth="297">
-            Quickly find the top-rated public or charter schools in your area &#151;
+            Quickly find the top-rated public or charter schools in your area &amp;#151;
             or in the area where you're moving.
             <ul>
                 <li>Better than raw test scores alone, GreatSchools ratings are based
