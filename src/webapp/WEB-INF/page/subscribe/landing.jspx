@@ -113,7 +113,10 @@ img {border:0;}
           <td width="15" class="L_intro"></td>
           <td width="365" valign="top" bgcolor="#EEEEEE" style="padding-top:10px;font-size:12px;">
 		  <b>Here's a way that you can use GreatSchools Insider during your school selection process.
-</b><br />
+</b><br /><br />
+If you are not <b>${sessionScope.context.user.email}</b>, <a href="http://${sessionScope.context.hostName}/cgi-bin/logout/${sessionScope. context. stateOrDefault. abbreviation}/">click here</a> <br/>
+<a href="http://${sessionScope.context.hostName}/cgi-bin/feedback_faq/${sessionScope.context.stateOrDefault.abbreviation}?fbtype=subentry">Contact Customer Support</a>
+
  </td>
           <td width="205" valign="top" class="C toc">
 <div style="padding:5px 0px 0px 10px;">1. <a href="#step1">Consider your needs</a><br/>
@@ -121,10 +124,6 @@ img {border:0;}
 3. <a href="#step3">Narrow the field</a><br/>
 4. <a href="#step4">Dig into the details</a><br/>
 5. <a href="#step5">Visit and select schools</a><br/>
-<br/>
-If you are not <a href="http://${sessionScope.context.hostName}/cgi-bin/logout/${sessionScope. context. stateOrDefault. abbreviation}/">${sessionScope.
-                    context.user.email}</a> <br/>
-<a href="http://${sessionScope.context.hostName}/cgi-bin/feedback_faq/${sessionScope.context.stateOrDefault.abbreviation}?fbtype=subentry">Contact Customer Support</a>
 </div>
 </td>
           <td width="15" class="R"></td>
