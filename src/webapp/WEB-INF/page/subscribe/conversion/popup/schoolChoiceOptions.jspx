@@ -23,7 +23,7 @@
             What choices do you have?  What are the pros and cons of each?
         </conv:header>
 
-        <conv:main imageName="getbesteducation.gif" imageHeight="287" imageWidth="300">
+        <conv:main imageName="getbesteducation.gif" imageHeight="193" imageWidth="300">
             Make sense of the different options with advice from our experts.
         </conv:main>
 
