@@ -26,7 +26,10 @@
     <!-- Create a version.properties file with the build info -->
     <goal name="create-build-version">
         <ant:propertyfile file="${maven.build.dest}/version.properties">
-            <entry key="gsweb.buildtime" type="date" default="now"/>
+            <entry key="gsweb.buildtime"
+                   type="date"
+                   default="now"
+                   pattern="yyyyMMddkkmmss"/>
         </ant:propertyfile>
     </goal>
 
