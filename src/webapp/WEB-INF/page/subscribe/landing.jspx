@@ -70,21 +70,21 @@ img {border:0;}
 <table width="100%" border="0"  cellpadding="0" cellspacing="0" bgcolor="#3B468F">
   <tr>
     <td valign="top"><center>
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
 	<table width="600" border="0" align="center" cellpadding="0" cellspacing="0" class="box_shado1" bgcolor="#FFFFFF">
-        <tr> 
+        <tr>
           <td width="15" height="15" class="TL"></td>
           <td colspan="2" class="T"></td>
           <td width="15" height="15" class="TR"></td>
         </tr>
-        <tr> 
+        <tr>
           <td width="15" class="L"></td>
           <td class="C"><img src="/res/img/box/logo.gif" width="100" height="40"/></td>
           <td class="C" align="right" style="text-align:right;"><img src="/res/img/box/PA_1stGrade.gif" width="260" height="40"/></td>
@@ -92,16 +92,16 @@ img {border:0;}
         </tr>
       </table>
 	  <table width="600" border="0" cellspacing="0" cellpadding="0">
-        <tr> 
+        <tr>
           <td bgcolor="#666666"> <table width="380" border="0" cellpadding="0" cellspacing="0" class="box_shado1">
-              <tr> 
+              <tr>
                 <td width="10" class="L"><img src="/res/img/box/spacer.gif" width="1" height="1"/></td>
                 <td class="white_smaller_bold_pad">Get the most out of GreatSchools Insider</td>
               </tr>
             </table>
 			</td>
           <td bgcolor="#FF6600"><table width="220" border="0" cellpadding="0" cellspacing="0" class="box_shado1">
-              <tr> 
+              <tr>
                 <td class="white_smaller_bold_pad"><i>Table of contents:</i></td>
                 <td width="10" class="R"><img src="/res/img/box/spacer.gif" width="1" height="1"/></td>
               </tr>
@@ -109,7 +109,7 @@ img {border:0;}
         </tr>
       </table>
       <table width="600" border="0" align="center" cellpadding="0" cellspacing="0" class="box_shado1" bgcolor="#FFFFFF">
-        <tr> 
+        <tr>
           <td width="15" class="L_intro"></td>
           <td width="365" valign="top" bgcolor="#EEEEEE" style="padding-top:10px;font-size:12px;">
 		  <b>Here's a way that you can use GreatSchools Insider during your school selection process.
@@ -122,55 +122,54 @@ img {border:0;}
 4. <a href="#step4">Dig into the details</a><br/>
 5. <a href="#step5">Visit and select schools</a><br/>
 <br/>
-If you are not <a href="http://${sessionScope.context.hostName}/cgi-bin/logout/${sessionScope. context. stateOrDefault. abbreviation}/">${sessionScope. 
+If you are not <a href="http://${sessionScope.context.hostName}/cgi-bin/logout/${sessionScope. context. stateOrDefault. abbreviation}/">${sessionScope.
                     context.user.email}</a> <br/>
 <a href="http://${sessionScope.context.hostName}/cgi-bin/feedback_faq/${sessionScope.context.stateOrDefault.abbreviation}?fbtype=subentry">Contact Customer Support</a>
 </div>
 </td>
           <td width="15" class="R"></td>
         </tr>
-        <tr> 
+        <tr>
           <td width="15" height="15" class="BL"></td>
           <td colspan="2" class="B"></td>
           <td width="15" height="15" class="BR"></td>
         </tr>
       </table>
-	  
-	  
-	  
-	  
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-      
-	  <a name="step1"></a> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	  <a name="step1"></a>
       <table width="600" border="0"  cellpadding="0" cellspacing="0" class="box_shado1" bgcolor="#FFFFFF">
-        <tr> 
+        <tr>
           <td width="15" height="15" class="TL"></td>
           <td class="T"></td>
           <td width="15" height="15" class="TR"></td>
         </tr>
-        <tr> 
+        <tr>
           <td width="15" class="L"></td>
           <td class="C"><h3>Consider your needs</h3>
-            
-            <div class="body"> 
+
+            <div class="body">
               <!-- here goes the H4 if used-->
-              <b>What math concepts will my <b>first-grader </b> learn ?</b><br/>
 Rank your priorities for your child and family as you begin your school search.
 <br/>
 First, get a quick primer to organize your thoughts:
@@ -200,29 +199,29 @@ Then, use these printable worksheets to rank your priorities.
             <a style="float:right;padding-right:10px;" href="#top">back to top</a></div></td>
           <td width="15" class="R"></td>
         </tr>
-        <tr> 
+        <tr>
           <td width="15" height="15" class="BL"></td>
           <td class="B"></td>
           <td width="15" height="15" class="BR"></td>
         </tr>
       </table>
-	  
-	  
-	  
-  
-      
-	  <a name="step2"></a> 
+
+
+
+
+
+	  <a name="step2"></a>
       <table width="600" border="0"  cellpadding="0" cellspacing="0" class="box_shado1" bgcolor="#FFFFFF">
-        <tr> 
+        <tr>
           <td width="15" height="15" class="TL"></td>
           <td class="T"></td>
           <td width="15" height="15" class="TR"></td>
         </tr>
-        <tr> 
+        <tr>
           <td width="15" class="L"></td>
           <td class="C"><h3>Understand your options</h3>
-            
-            <div class="body"> 
+
+            <div class="body">
               <!-- here goes the H4 if used-->
 Learn what school choices you really have, and understand more about each: public,
       private, charter; district transfers; and more.<br />
@@ -261,32 +260,32 @@ Then, read more about what inte/rests you most:
             <a style="float:right;padding-right:10px;" href="#top">back to top</a></div></td>
           <td width="15" class="R"></td>
         </tr>
-        <tr> 
+        <tr>
           <td width="15" height="15" class="BL"></td>
           <td class="B"></td>
           <td width="15" height="15" class="BR"></td>
         </tr>
       </table>
-	  
-	    
-      
-	  <a name="step3"></a> 
+
+
+
+	  <a name="step3"></a>
       <table width="600" border="0"  cellpadding="0" cellspacing="0" class="box_shado1" bgcolor="#FFFFFF">
-        <tr> 
+        <tr>
           <td width="15" height="15" class="TL"></td>
           <td class="T"></td>
           <td width="15" height="15" class="TR"></td>
         </tr>
-        <tr> 
+        <tr>
           <td width="15" class="L"></td>
           <td class="C"><h3>Narrow the field</h3>
-            
-            <div class="body"> 
+
+            <div class="body">
               <!-- here goes the H4 if used-->
 Use interactive search to identify an area, or to focus in on the schools that
       match your priorities for your child and family.
 <br/>
-First, get a quick primer to organize your thoughts:                       <h4>
+<h4>
                             <a href="http://${sessionScope.context.hostName}/cgi-bin/site/rank_overview.cgi/${sessionScope.context.stateOrDefault.abbreviation}">Top-rated
       schools</a>
                         </h4>
@@ -314,7 +313,7 @@ Compare schools based on criteria that matter most to you.
                             <li>
 Line up schools side by side to compare their ratings
                                 <c:if test="${sessionScope.context.state.yellowFlagState}">
-and to see which have yellow flag alerts highlighting
+and to see which have flag alerts highlighting
 areas of potential concern</c:if>.
                             </li>
                         </ul>
@@ -323,32 +322,32 @@ areas of potential concern</c:if>.
             <a style="float:right;padding-right:10px;" href="#top">back to top</a></div></td>
           <td width="15" class="R"></td>
         </tr>
-        <tr> 
+        <tr>
           <td width="15" height="15" class="BL"></td>
           <td class="B"></td>
           <td width="15" height="15" class="BR"></td>
         </tr>
       </table>
-	  
-	    
-      
-	  <a name="step4"></a> 
+
+
+
+	  <a name="step4"></a>
       <table width="600" border="0"  cellpadding="0" cellspacing="0" class="box_shado1" bgcolor="#FFFFFF">
-        <tr> 
+        <tr>
           <td width="15" height="15" class="TL"></td>
           <td class="T"></td>
           <td width="15" height="15" class="TR"></td>
         </tr>
-        <tr> 
+        <tr>
           <td width="15" class="L"></td>
           <td class="C"><h3>Dig into the details</h3>
-            
-            <div class="body"> 
+
+            <div class="body">
               <!-- here goes the H4 if used-->
  <c:choose>
                                 <c:when test="${sessionScope.context.state.yellowFlagState}">
                         Analyze key information about each school: exclusive ratings, real parents'
-      reviews, and possible areas of concerns highlighted with yellow flag alerts.
+      reviews, and possible areas of concerns highlighted with flag alerts.
                                 </c:when>
                                 <c:otherwise>
 Analyze key information about each school including
@@ -357,7 +356,7 @@ Analyze key information about each school including
                             </c:choose>
 <br />
 <br />
-Start with schools you've saved to 
+Start with schools you've saved to
 <a href="http://${sessionScope.context.hostName}/cgi-bin/msl_confirm/${sessionScope.context.stateOrDefault.abbreviation}">My&#160;School&#160;List</a>.
 <br />
 <br />
@@ -371,7 +370,7 @@ Or, look up school information by individual school:
                             </li>
                             <c:if test="${sessionScope.context.state.yellowFlagState}">
                                 <li>
-                                    <a href="http://${sessionScope.context.hostName}/cgi-bin/ratingsrch/${sessionScope.context.stateOrDefault.abbreviation}">Yellow Flag Alerts</a>
+                                    <a href="http://${sessionScope.context.hostName}/cgi-bin/ratingsrch/${sessionScope.context.stateOrDefault.abbreviation}">Flag Alerts</a>
                                 </li>
                             </c:if>
                         </ul>
@@ -380,29 +379,29 @@ Or, look up school information by individual school:
             <a style="float:right;padding-right:10px;" href="#top">back to top</a></div></td>
           <td width="15" class="R"></td>
         </tr>
-        <tr> 
+        <tr>
           <td width="15" height="15" class="BL"></td>
           <td class="B"></td>
           <td width="15" height="15" class="BR"></td>
         </tr>
       </table>
-	  
-	    
-      
-	  <a name="step5"></a> 
+
+
+
+	  <a name="step5"></a>
       <table width="600" border="0"  cellpadding="0" cellspacing="0" class="box_shado1" bgcolor="#FFFFFF">
-        <tr> 
+        <tr>
           <td width="15" height="15" class="TL"></td>
           <td class="T"></td>
           <td width="15" height="15" class="TR"></td>
         </tr>
-        <tr> 
+        <tr>
           <td width="15" class="L"></td>
           <td class="C"><h3>Visit and select schools</h3>
-            
-            <div class="body"> 
+
+            <div class="body">
               <!-- here goes the H4 if used-->
-No amount of /research can replace an in-person visit to the schools you're considering.
+No amount of research can replace an in-person visit to the schools you're considering.
 Make sure you get the most out of each school visit by targeting what questions
 to ask and what to look for.
 <br />
@@ -411,11 +410,11 @@ Start here:
                         <ul>
                             <gsml:articleLinkLi articleId="48"/>
                         </ul>
-                   
+
                             <a href="#getacro">
                                 <img class="pdf" src="/res/img/adobe/pdficon.gif" alt="PDF Format"/>
                             </a>
-        Document specific questions about individual schools based on your /research
+        Document specific questions about individual schools based on your research
         with these printable worksheets:
   <ul>
                                 <li>
@@ -438,8 +437,8 @@ Start here:
                             <gsml:articleLinkLi articleId="60"/>
                             <gsml:articleLinkLi articleId="20"/>
                         </ul>
-						
-						
+
+
                         <hr size="1" color="#CCCCCC"/>
                         Our worksheets are in PDF format. Go
                         <a href="http://www.adobe.com/products/acrobat/readermain.html"
@@ -456,17 +455,17 @@ Start here:
             <a style="float:right;padding-right:10px;" href="#top">back to top</a></div></td>
           <td width="15" class="R"></td>
         </tr>
-        <tr> 
+        <tr>
           <td width="15" height="15" class="BL"></td>
           <td class="B"></td>
           <td width="15" height="15" class="BR"></td>
         </tr>
       </table>
 </center>
-	  
-	  	  
-	  
-	  
+
+
+
+
     </td>
   </tr>
 </table>
