@@ -216,7 +216,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print("/");
                 out.print(sr.getId());
                 out.print("\">");
-                out.println(sr.getTitle());
+                out.println(escapleLongstate(sr.getTitle()));
                 out.println("</a><br/>");
                 out.println(sr.getAbstract());
                 out.println("</li>");
