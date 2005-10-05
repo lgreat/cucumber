@@ -102,7 +102,12 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 SearchResult school = (SearchResult) schools.get(i);
                 School school_ = getSchool(school);
 
-                out.print("<a href=\"/modperl/browse_school/");
+                out.print("<a href=\"http://");
+                String host = getHostname();
+                if (host != null) {
+                    out.print(host);
+                }
+                out.print("/modperl/browse_school/");
                 out.print(school_.getState().getAbbreviationLowerCase());
                 out.print("/");
                 out.print(school_.getId().toString());
@@ -130,8 +135,9 @@ public class MixedResultsTagHandler extends BaseTagHandler {
         out.println("<div class=\"result_title\">Cities (# of schools)</div>");
 
         List cities = (List) _results.get("cities");
-        if (cities != null) {
-            out.println("<ul>");
+        out.println("<ul>");
+        if (cities != null && cities.size() > 0) {
+
             for (int i = 0; i < cities.size(); i++) {
                 SearchResult sr = (SearchResult) cities.get(i);
                 out.print("<li><a href=\"/search.page?c=school&q=");
@@ -151,8 +157,20 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print(citiesCount);
                 out.print(" results</a><li>");
             }
-            out.println("</ul>");
+
+        } else {
+            State s = getState();
+            if (s != null) {
+                out.print("<li class=\"browseall\"><a href=\"http://");
+                out.print(getHostname());
+                out.print("/modperl/citylist/");
+                out.print(s.getAbbreviation());
+                out.println ("\">Browse all cities in ");
+                out.print(s.getLongName());
+                out.println("</a></li>");
+            }
         }
+        out.println("</ul>");
     }
 
     private void writeDistricts(JspWriter out) throws IOException {
