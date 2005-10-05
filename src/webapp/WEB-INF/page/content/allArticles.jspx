@@ -46,7 +46,7 @@
    	        <td>
                 <c:if test="${sessionScope.context.state.subscriptionState}">
                     <div id="toolsmenu">
-                        <center><span class="rlbcopy">Subscription Content:<br/>Your School Choice Options<br/><a href="/cgi-bin/conversion/ca"><img src="/res/img/learn_more_btn.gif" width="88" height="20" border="0" vspace="3" /></a></span></center>
+                        <center><span class="rlbcopy">Membership Content:<br/>Your School Choice Options<br/><a href="/cgi-bin/conversion/${sessionScope.context.stateOrDefault.abbreviation}"><img src="/res/img/learn_more_btn.gif" width="88" height="20" border="0" vspace="3" /></a></span></center>
                         <hr noshade="true" size="1" />
                             <c:forEach items="${insider_articles}" var="article">
                                 <br/><span class ="rcopy"><gsweb:articlelink article="${article}" windowName="article" /></span>
