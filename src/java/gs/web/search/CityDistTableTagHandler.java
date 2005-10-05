@@ -64,7 +64,6 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
                         out.print(result.getState());
                         out.print("\"><b>");
                         out.print(TextHighlighter.highlight(result.getName(), getQueryString(), "name"));
-                        //out.println(result.getName());
                         out.print("</b></a>");
                         String ss = result.getCityAndState();
                         if (ss != null) {
@@ -85,8 +84,8 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
                 State s = getState();
                 if (s != null) {
                     out.println("<ul><li class=\"viewall\">");
-                    out.println("<a href=\"");
-
+                    out.print("<a href=\"http://");
+                    out.print(getHostname());
                     if (_type != null && _type.equals("city")) {
                         out.print("/modperl/citylist/");
                     } else {

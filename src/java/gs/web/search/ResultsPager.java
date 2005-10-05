@@ -27,16 +27,28 @@ public class ResultsPager {
     private StateManager _stateManager;
     public static final int MIXED  = 0;
     public static final int SINGLE = 1;
-    private int _pageStyle = MIXED; // DEFAULT
 
     private static final Logger _log = Logger.getLogger(ResultsPager.class);
 
     public ResultsPager() {
     }
 
-    public void setPageStyle(int style) {
-        _pageStyle = style;
+    public void load(Hits hits, String constraint) {
+        if (hits != null && constraint != null) {
+            if (constraint.equals("school")) {
+                setSchools(hits);
+            } else if (constraint.equals("article")) {
+                setArticles(hits);
+            } else if (constraint.equals("city")) {
+                setCities(hits);
+            } else if (constraint.equals("term")) {
+                setTerms(hits);
+            } else {
+                setDistricts(hits);
+            }
+        }
     }
+
     public void setArticles(Hits hits) {
         _articleHits = hits;
     }

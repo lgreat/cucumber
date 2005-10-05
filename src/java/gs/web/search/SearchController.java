@@ -10,12 +10,11 @@ import org.apache.lucene.index.Term;
 import org.apache.log4j.Logger;
 import gs.data.search.*;
 import gs.data.search.Searcher;
-import gs.data.state.State;
-import gs.data.util.Formatter;
-import gs.web.SessionContext;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * This controller handles all search requests.
@@ -65,6 +64,9 @@ public class SearchController extends AbstractController {
 
         long requestStart = System.currentTimeMillis();
 
+        boolean debug = false;
+        if (request.getParameter("debug") != null) { debug = true; }
+
         Map model = new HashMap();
 
         String queryString = request.getParameter("q");
@@ -72,9 +74,6 @@ public class SearchController extends AbstractController {
 
         // If there is no query string, there's nothing to do.
         if (queryString != null && !queryString.equals("")) {
-
-            StringBuffer queryBuffer = new StringBuffer();
-            queryBuffer.append(queryString);
 
             Query query = GSQueryParser.parse(queryString);
             BooleanQuery bq = new BooleanQuery();
@@ -96,11 +95,9 @@ public class SearchController extends AbstractController {
                 }
             }
 
-            String suggestion = null;
             String constraint = request.getParameter("c");
-            String qString = queryBuffer.toString();
-
             String sortParam = request.getParameter("sort");
+
             Sort sort = null;
             if (sortParam != null) {
                 String reverseParam = request.getParameter("r");
@@ -114,56 +111,32 @@ public class SearchController extends AbstractController {
             int pageSize = 10;
             int schoolsPageSize = 10;
 
-            if (constraint != null && !constraint.equals("all") && !constraint.equals("")) {
+            List qList= new ArrayList(); // for debug output
 
+            if (constraint != null && !constraint.equals("all") && !constraint.equals("")) {
                 bq.add (new TermQuery(new Term("type", constraint)), true, false);
-                model.put("query", bq.toString());
+                qList.add(bq.toString());
                 Hits hits = _searcher.search(bq, sort, null, null);
-                if (hits != null) {
-                    if (constraint.equals("school")) {
-                        _resultsPager.setSchools(hits);
-                    } else if (constraint.equals("article")) {
-                        _resultsPager.setArticles(hits);
-                    } else if (constraint.equals("city")) {
-                        _resultsPager.setCities(hits);
-                    } else if (constraint.equals("terms")) {
-                        _resultsPager.setTerms(hits);
-                    } else {
-                        _resultsPager.setDistricts(hits);
-                    }
-                }
+                _resultsPager.load(hits, constraint);
             } else {
                 String[] types =
                         {"school", "article", "district", "city", "term"};
                 pageSize = 3;
                 schoolsPageSize = 6;
                 for (int i = 0; i < types.length; i++) {
-
                     BooleanQuery bq2 = (BooleanQuery)bq.clone();
                     bq2.add (new TermQuery(new Term("type", types[i])), true, false);
-                    model.put("query", bq2.toString());
+                    qList.add(bq2.toString());
                     Hits hits = _searcher.search(bq2, null, null, null);
-
-                    if (hits != null) {
-                        if (types[i].equals("school")) {
-                            _resultsPager.setSchools(hits);
-                        } else if (types[i].equals("article")) {
-                            _resultsPager.setArticles(hits);
-                        } else if (types[i].equals("city")) {
-                            _resultsPager.setCities(hits);
-                        } else if (types[i].equals("term")) {
-                            _resultsPager.setTerms(hits);
-                        } else {
-                            _resultsPager.setDistricts(hits);
-                        }
-                    }
+                    _resultsPager.load(hits, types[i]);
                 }
             }
+            if (debug) { model.put("queries", qList);}
 
-            _resultsPager.setQuery(qString);
+            _resultsPager.setQuery(queryString);
 
             if (SUGGEST) {
-                suggestion = (String)_spellCheckSearcher.getSuggestion("name", queryString);
+                String suggestion = (String)_spellCheckSearcher.getSuggestion("name", queryString);
 
                 if (suggestion == null) {
                     suggestion = (String)_spellCheckSearcher.getSuggestion("title", queryString);
@@ -190,11 +163,11 @@ public class SearchController extends AbstractController {
             model.put("termsTotal", new Integer(_resultsPager.getTermsTotal()));
             model.put("terms", _resultsPager.getTerms(page, pageSize));
             model.put("pageSize", new Integer(pageSize));
-            model.put("pager", _resultsPager);
+            //model.put("pager", _resultsPager);
         }
         long requestEnd = System.currentTimeMillis();
         long requestTime = requestEnd - requestStart;
-        model.put("requesttime", Long.toString(requestTime));
+        if (debug) { model.put("requesttime", Long.toString(requestTime)); }
         //_log.info("handled search request for " + queryString + " in " + time + " ms");
         return new ModelAndView("search", "results", model);
     }

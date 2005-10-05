@@ -68,29 +68,41 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
         return outString.replaceAll("LONGSTATE", stateString);
     }
 
+    private SessionContext getSessionContext() {
+        JspContext jspContext = getJspContext();
+        SessionContext sc = null;
+        if (jspContext != null) {
+            //String o = (String)jspContext.findAttribute("state"); // why doesn't this work?
+            sc = (SessionContext) jspContext.getAttribute(SessionContext.SESSION_ATTRIBUTE_NAME, PageContext.SESSION_SCOPE);
+        }
+        return sc;
+    }
+    
     /**
      * @return The current <code>State</code> based on knowledge of location
      * awareness in the <code>SessionConetext</code> object, or null if there
      * is no current location awareness.
      */
     protected State getState() {
-        JspContext jspContext = getJspContext();
+        SessionContext sc = getSessionContext();
         State state = null; //State.CA;
-
-        if (jspContext != null) {
-            //String o = (String)jspContext.findAttribute("state"); // why doesn't this work?
-
-            SessionContext sc = (SessionContext) jspContext.getAttribute(SessionContext.SESSION_ATTRIBUTE_NAME, PageContext.SESSION_SCOPE);
-            if (sc != null) {
-                State s = sc.getState();
-                if (s != null) {
-                    state = s;
-                }
-            }
+        if (sc != null) {
+            state = sc.getState();
         }
         return state;
     }
 
+    /**
+     * Another convenience method to get the hostname.
+     * @return
+     */
+    protected String getHostname() {
+        SessionContext sc = getSessionContext();
+        if (sc != null) {
+            return sc.getHostName();
+        }
+        return null;
+    }
     /**
      * @return a non-null <code>State</code> object.
      */

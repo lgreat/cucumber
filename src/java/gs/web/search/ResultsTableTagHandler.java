@@ -1,10 +1,13 @@
 package gs.web.search;
 
 import gs.web.jsp.BaseTagHandler;
+import gs.data.state.State;
 
 import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -18,6 +21,8 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
     private String _sortColumn = null;
     private boolean _reverse = false;
     private List _results;
+    private static final Logger _log =
+            Logger.getLogger(ResultsTableTagHandler.class);
 
     public void setResults(List results) {
         _results = results;
@@ -26,7 +31,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
     public List getResults() {
         return _results;
     }
-    
+
     public void setTotal(int total) {
         _total = total;
     }
@@ -84,6 +89,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
             out.print(_total);
             out.println();
             */
+
             if (_total > PAGE_SIZE) {
                 out.println("Results page:&nbsp;&nbsp;");
 
@@ -98,6 +104,11 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                 StringBuffer hrefBuffer = new StringBuffer(40);
                 hrefBuffer.append("<a class=\"pad\" href=\"/search.page?q=");
                 hrefBuffer.append(_queryString);
+                State s = getState();
+                if (s != null) {
+                    hrefBuffer.append("&state=");
+                    hrefBuffer.append(s.getAbbreviationLowerCase());
+                }
                 hrefBuffer.append("&amp;c=");
                 hrefBuffer.append(getConstraint());
                 hrefBuffer.append("&amp;sort=");

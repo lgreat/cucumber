@@ -44,7 +44,9 @@ public class ArticleTableTagHandler extends ResultsTableTagHandler {
                     out.println("<tr class=\"result_row\">");
                     out.println("<td width=\"1\">&nbsp;</td>");
                     out.println("<td><b>");
-                    out.print("<a href=\"http://www.greatschools.net/cgi-bin/showarticle/");
+                    out.print("<a href=\"http://");
+                    out.print(getHostname());
+                    out.print("/cgi-bin/showarticle/");
                     out.print(s.getAbbreviationLowerCase());
                     out.print("/");
                     out.print(article.getId());
@@ -57,7 +59,9 @@ public class ArticleTableTagHandler extends ResultsTableTagHandler {
                     out.println("</tr>");
                 }
                 out.println("<tr class=\"last_row\"><td colspan=\"5\"><ul>");
-                out.print("<li class=\"viewall\"><a href=\"http://www.greatschools.net/content/allArticles.page?state=");
+                out.print("<li class=\"viewall\"><a href=\"http://");
+                out.print(getHostname());
+                out.print("/content/allArticles.page?state=");
                 out.print(s.getAbbreviation());
                 out.print("\">Browse all Articles</a></li></ul></td></tr>");
 

@@ -100,19 +100,21 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
 
         _groupingHitCollector.reset();
 
-        try {
-        Query query = GSQueryParser.parse(_query);
-            BooleanQuery bq = new BooleanQuery();
-            bq.add(query, true, false);
+        if (_query != null && !_query.equals("")) {
+            try {
+                Query query = GSQueryParser.parse(_query);
+                BooleanQuery bq = new BooleanQuery();
+                bq.add(query, true, false);
 
-            State s = getState();
-            if (s != null) {
-                bq.add(new TermQuery(new Term("state", s.getAbbreviationLowerCase())), true, false);
+                State s = getState();
+                if (s != null) {
+                    bq.add(new TermQuery(new Term("state", s.getAbbreviationLowerCase())), true, false);
+                }
+                getSearcher().search(bq, null, _groupingHitCollector, null);
+
+            } catch (Exception e) {
+                _log.warn(e);
             }
-            getSearcher().search(bq, null, _groupingHitCollector, null);
-
-        } catch (Exception e) {
-            _log.warn(e);
         }
 
         JspWriter out = getJspContext().getOut();
@@ -183,7 +185,7 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             out.println("</td><td class=\"col3\">");
 
             if (_constraint == null || _constraint.equals("") ||
-                _constraint.equals("all")) {
+                    _constraint.equals("all")) {
                 out.print("<a class=\"active\">");
                 out.print(VIEW_ALL);
                 out.println("</a>");

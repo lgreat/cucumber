@@ -50,8 +50,9 @@ table.glossary_results td {padding:3px 20px 2px 5px;}
 .school_results a, .city_results a, .district_results a, .article_results a, .glossary_results a {font-weight:bold;}
 .city_results a, .district_results a {white-space:nowrap;}
 .viewall{margin:0;padding:0;list-style: none;}
-.viewall {padding-left: 10px;background-image: url(../img/search/arrow.gif);background-repeat: no-repeat;background-position: 0 .5em;}
+.viewall, .browseall{padding-left: 10px;background-image: url(../img/search/arrow.gif);background-repeat: no-repeat;background-position: 0 .5em;}
 .viewall a {display:block;font-weight:normal;font-size:90%;margin-bottom:10px;}
+
 
 .errormessage {font-weight:bold;color:#C00;padding-left:20px;}
 .errormessage b {color:#000;}

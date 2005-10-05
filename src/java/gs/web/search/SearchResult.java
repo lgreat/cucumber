@@ -24,11 +24,6 @@ public class SearchResult {
     }
 
     public String getName() {
-        //String name = _doc.get("name");
-        //if (_highlight) {
-        //name = TextHighlighter.highlight(name, _query, "name");
-        //}
-        //return name;
         return _doc.get("name");
     }
 
@@ -131,7 +126,6 @@ public class SearchResult {
     }
 
     public String getTerm() {
-        //return _doc.get("term");
         String term = _doc.get("term");
         if (_highlight) {
                term = TextHighlighter.highlight(term, _query, "term");

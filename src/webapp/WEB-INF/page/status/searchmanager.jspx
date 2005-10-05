@@ -30,6 +30,7 @@
 
     <body>
     <h1>GSWeb Search System Control Page</h1>
+    <h2>Host: <c:out value="${pageContext.request.serverName}" /></h2>
 
     Reindex data. This deletes any existing indexes!
     <form action="/status/searchmanager.page" method="post">
