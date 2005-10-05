@@ -35,7 +35,7 @@
                     State:
                 </td>
                 <td>
-                    <gsweb:stateSelector/>
+                    <gsweb:stateSelector allowNoState="${param.state == 'all'}"/>
                     <a class="lpad" href="http://www.greatschools.net/cgi-bin/template_plain/advanced/">Search near address</a>
                 </td>
 
@@ -56,7 +56,7 @@
                     </tr>
                 </c:if>
             </tr>
-            <c:if test="${param.c == 'school' and (not empty showSchoolFilters)}">
+            <c:if test="${param.c == 'school' and (showSchoolFilters == 'true')}">
                 <tr>
                     <td class="label">Show only:</td>
                     <td>
