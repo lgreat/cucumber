@@ -124,7 +124,12 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                     out.println("</td><td align=\"center\">");
                     out.println(school.getGradeLevels().getRangeString());
                     out.println("</td><td align=\"center\">");
-                    out.print(school.getEnrollment());
+                    int enrollment = school.getEnrollment();
+                    if (enrollment > -1) {
+                        out.print(enrollment);
+                    } else {
+                        out.print("not available");
+                    }
                     out.println("</td>");
                     out.println("</tr>");
                 }

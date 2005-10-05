@@ -125,7 +125,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print(getDecoratedQuery());
                 out.print("&c=school\">View all ");
                 out.print(schoolCount);
-                out.println(" results</a><li>");
+                out.println(" results</a></li>");
             }
             out.println("</ul>");
         }
@@ -155,7 +155,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print(getDecoratedQuery());
                 out.print("&c=city\">View all ");
                 out.print(citiesCount);
-                out.print(" results</a><li>");
+                out.print(" results</a></li>");
             }
 
         } else {
@@ -193,7 +193,6 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print(sr.getState());
                 out.print("\">");
                 out.print(TextHighlighter.highlight(sr.getName(), _query, "name"));
-                //out.print(sr.getName());
                 out.print(", ");
                 out.print(sr.getState());
                 out.print(" (");
@@ -214,7 +213,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print(getDecoratedQuery());
                 out.print("&c=district\">View all ");
                 out.print(districtsCount);
-                out.println(" results</a><li>");
+                out.println(" results</a></li>");
             }
             out.println("</ul>");
         }
@@ -229,7 +228,9 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             for (int i = 0; i < articles.size(); i++) {
                 SearchResult sr = (SearchResult) articles.get(i);
                 out.println("<li>");
-                out.print("<a href=\"http://www.greatschools.net/cgi-bin/showarticle/");
+                out.print("<a href=\"http://");
+                out.print(getHostname());
+                out.print("/cgi-bin/showarticle/");
                 out.print(getStateOrDefault().getAbbreviationLowerCase());
                 out.print("/");
                 out.print(sr.getId());
@@ -245,7 +246,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print(getDecoratedQuery());
                 out.print("&c=article\">View all ");
                 out.print(articlesCount);
-                out.println(" results</a><li>");
+                out.println(" results</a></li>");
             }
             out.println("</ul>");
         }
@@ -260,7 +261,11 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             for (int i = 0; i < terms.size(); i++) {
                 SearchResult sr = (SearchResult) terms.get(i);
                 out.println("<li>");
-                out.print("<a href=\"http://www.greatschools.net/cgi-bin/glossary_single/ca//?id=");
+                out.print("<a href=\"http://");
+                out.print(getHostname());
+                out.print("/cgi-bin/glossary_single/");
+                out.print(getStateOrDefault().getAbbreviationLowerCase());
+                out.print("/?id=");
                 out.print(sr.getId());
                 out.print("\">");
                 out.println(sr.getTerm());
@@ -273,7 +278,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print(getDecoratedQuery());
                 out.print("&c=term\">View all ");
                 out.println(termsCount);
-                out.println(" results</a><li>");
+                out.println(" results</a></li>");
             }
 
         } else {
