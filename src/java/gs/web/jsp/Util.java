@@ -7,6 +7,12 @@ import java.util.Random;
  */
 public class Util {
 
+    /**
+     * Lowercases a String.
+     * @param word - may be null
+     * @return a lowercase <code>String</code> or null
+     * if the word argument is null.
+     */
     public static String toLowercase(String word) {
         String lowered = null;
         if (word != null) {
