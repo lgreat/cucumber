@@ -163,12 +163,10 @@ public class SearchController extends AbstractController {
             model.put("termsTotal", new Integer(_resultsPager.getTermsTotal()));
             model.put("terms", _resultsPager.getTerms(page, pageSize));
             model.put("pageSize", new Integer(pageSize));
-            //model.put("pager", _resultsPager);
         }
         long requestEnd = System.currentTimeMillis();
         long requestTime = requestEnd - requestStart;
         if (debug) { model.put("requesttime", Long.toString(requestTime)); }
-        //_log.info("handled search request for " + queryString + " in " + time + " ms");
         return new ModelAndView("search", "results", model);
     }
 

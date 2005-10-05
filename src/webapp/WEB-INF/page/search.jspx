@@ -90,7 +90,7 @@
     Did you mean:
     <span id="suggestion">
               <a href="/search.page?q=${results.suggestion}&amp;c=${param.c}">
-                  <c:out value="${results.suggestion}"/>
+                  <c:out value="${results.suggestion}" escapeXml="true"/>
               </a>
           </span>
 </c:if>

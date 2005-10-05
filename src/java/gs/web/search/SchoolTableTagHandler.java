@@ -107,11 +107,13 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
                     out.print(TextHighlighter.highlight(school.getName(), getQueryString(), "name"));
                     out.println("</a><br/>");
-                    out.print(school.getPhysicalAddress().toString());
+                    out.print(TextHighlighter.highlight(school.getPhysicalAddress().toString(),
+                            getQueryString(), "address"));
                     out.println("<br/>");
 
                     try {
-                        out.print(school.getDistrict().getName());
+                        out.print(TextHighlighter.highlight(school.getDistrict().getName(),
+                            getQueryString(), "name"));                        
                     } catch (Exception e) {
                         _log.warn(e);
                     }
