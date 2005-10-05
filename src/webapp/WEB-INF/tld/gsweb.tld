@@ -33,6 +33,7 @@
         <attribute>
             <name>allowNoState</name>
             <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
 
