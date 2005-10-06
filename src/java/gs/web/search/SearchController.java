@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.apache.lucene.search.*;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.queryParser.ParseException;
 import org.apache.log4j.Logger;
 import gs.data.search.*;
 import gs.data.search.Searcher;
@@ -75,9 +76,13 @@ public class SearchController extends AbstractController {
         // If there is no query string, there's nothing to do.
         if (queryString != null && !queryString.equals("")) {
 
-            Query query = GSQueryParser.parse(queryString);
             BooleanQuery bq = new BooleanQuery();
-            bq.add(query, true, false);
+            try {
+                Query query = GSQueryParser.parse(queryString);
+                bq.add(query, true, false);
+            } catch (ParseException pe) {
+                _log.warn("Problem parsing search query: " + queryString, pe);
+            }
 
             String st = request.getParameter("state");
             if (st != null && !st.equals("all")) {
