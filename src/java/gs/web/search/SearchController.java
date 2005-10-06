@@ -104,7 +104,7 @@ public class SearchController extends AbstractController {
             String sortParam = request.getParameter("sort");
 
             Sort sort = null;
-            if (sortParam != null) {
+            if (sortParam != null && !"".equals(sortParam)) {
                 String reverseParam = request.getParameter("r");
                 boolean reverse = false;
                 if (reverseParam != null && reverseParam.equals ("t")) {

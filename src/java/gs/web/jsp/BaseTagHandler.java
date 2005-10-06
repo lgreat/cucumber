@@ -10,10 +10,12 @@ import gs.data.state.StateManager;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.JspContext;
+import javax.servlet.jsp.JspWriter;
 
 import org.apache.log4j.Logger;
 
 import java.util.Enumeration;
+import java.io.IOException;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -77,7 +79,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
         }
         return sc;
     }
-    
+
     /**
      * @return The current <code>State</code> based on knowledge of location
      * awareness in the <code>SessionConetext</code> object, or null if there
@@ -112,5 +114,18 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
             s = State.CA;
         }
         return s;
+    }
+
+    /**
+     * Writes an <a href> tag which links to the all articles page.
+     * @param out
+     * @throws IOException
+     */
+    protected void writeBrowseAllArticlesLink(JspWriter out) throws IOException {
+        out.print("<a href=\"http://");
+        out.print(getHostname());
+        out.print("/content/allArticles.page?state=");
+        out.print(getStateOrDefault().getAbbreviation());
+        out.print("\">Browse all articles</a>");
     }
 }

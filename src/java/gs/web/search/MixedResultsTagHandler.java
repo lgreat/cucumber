@@ -137,7 +137,6 @@ public class MixedResultsTagHandler extends BaseTagHandler {
         List cities = (List) _results.get("cities");
         out.println("<ul>");
         if (cities != null && cities.size() > 0) {
-
             for (int i = 0; i < cities.size(); i++) {
                 SearchResult sr = (SearchResult) cities.get(i);
                 out.print("<li><a href=\"/search.page?c=school&q=");
@@ -157,11 +156,10 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print(citiesCount);
                 out.print(" results</a></li>");
             }
-
         } else {
             State s = getState();
             if (s != null) {
-                out.print("<li class=\"browseall\"><a href=\"http://");
+                out.print("<li class=\"viewall\"><a href=\"http://");
                 out.print(getHostname());
                 out.print("/modperl/citylist/");
                 out.print(s.getAbbreviation());
@@ -177,13 +175,13 @@ public class MixedResultsTagHandler extends BaseTagHandler {
         out.println("<div class=\"result_title\">Districts (# of schools)</div>");
 
         List districts = (List) _results.get("districts");
-        if (districts != null) {
+        out.println("<ul>");
+        if (districts != null && districts.size() > 0) {
             int count = districts.size();
             if (count > DISTRICTS_MAX) {
                 count = DISTRICTS_MAX;
             }
 
-            out.println("<ul>");
             for (int i = 0; i < count; i++) {
                 SearchResult sr = (SearchResult) districts.get(i);
                 String s = sr.getState();
@@ -221,16 +219,28 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print(districtsCount);
                 out.println(" results</a></li>");
             }
-            out.println("</ul>");
+
+        } else {
+            State s = getState();
+            if (s != null) {
+                out.print("<li class=\"viewall\"><a href=\"http://");
+                out.print(getHostname());
+                out.print("/modperl/distlist/");
+                out.print(s.getAbbreviation());
+                out.println ("\">Browse all districts in ");
+                out.print(s.getLongName());
+                out.println("</a></li>");
+            }
         }
+        out.println("</ul>");
     }
 
     private void writeArticles(JspWriter out) throws IOException {
         out.println("<div class=\"result_title\">Articles</div>");
 
         List articles = (List) _results.get("articles");
-        if (articles != null) {
-            out.println("<ul>");
+        out.println("<ul>");
+        if (articles != null && articles.size() > 0) {
             for (int i = 0; i < articles.size(); i++) {
                 SearchResult sr = (SearchResult) articles.get(i);
                 out.println("<li>");
@@ -254,8 +264,13 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print(articlesCount);
                 out.println(" results</a></li>");
             }
-            out.println("</ul>");
+
+        } else {
+            out.print("<li class=\"viewall\">");
+            writeBrowseAllArticlesLink(out);
+            out.println("</li>");
         }
+        out.println("</ul>");
     }
 
     private void writeGlossary(JspWriter out) throws IOException {
@@ -288,7 +303,9 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             }
 
         } else {
-            out.print("<li class=\"viewall\"><a href=\"/cgi-bin/glossary_home/");
+            out.print("<li class=\"viewall\"><a href=\"http://");
+            out.print(getHostname());
+            out.print("/cgi-bin/glossary_home/");
             out.print(getStateOrDefault().getAbbreviation());
             out.println ("\">Browse all glossary terms</a></li>");
         }

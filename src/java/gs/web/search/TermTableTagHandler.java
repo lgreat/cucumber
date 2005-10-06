@@ -70,7 +70,9 @@ public class TermTableTagHandler extends ResultsTableTagHandler {
 
     private void writeBrowseAllRow(JspWriter out) throws IOException {
         out.println("<tr class=\"last_row\"><td colspan=\"5\"><ul>");
-        out.print("<li class=\"viewall\"><a href=\"/cgi-bin/glossary_home/");
+        out.print("<li class=\"viewall\"><a href=\"http://");
+        out.print(getHostname());
+        out.print("/cgi-bin/glossary_home/");
         out.print(getStateOrDefault().getAbbreviation());
         out.println ("\">Browse all glossary terms</a></li></ul></td></tr>");
     }

@@ -114,13 +114,30 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
                 writePageNumbers(out);
             } else {
                 String type = "districts";
+                String path = "/distlist/";
                 if (_type != null && _type.equals("city")) {
                     type = "cities";
+                    path = "/citylist/";
                 }
 
                 out.print("<tr><th class=\"left result_title\">No ");
                 out.print(type);
                 out.println(" found</div></th></tr>");
+
+                if (getState() != null) { // don't do this in "all" state
+                    out.println("<tr class=\"last_row\"><td colspan=\"5\"><ul>");
+                    out.print("<li class=\"viewall\"><a href=\"http://");
+                    out.print(getHostname());
+                    out.print("/modperl");
+                    out.print(path);
+                    out.print(getState().getAbbreviation());
+                    out.print ("\">Browse all ");
+                    out.print(type);
+                    out.print(" in ");
+                    out.print(getStateOrDefault().getLongName());
+                    out.println("</a></li>");
+                    out.println ("</ul></td></tr>");
+                }
                 out.println("<tr><td valign=\"top\" height=\"100\">");
             }
             out.println("</td></tr></table>");

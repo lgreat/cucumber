@@ -32,7 +32,7 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
     private static final Logger _log = Logger.getLogger(SearchSummaryTagHandler.class);
 
     // String constants:
-    private static String VIEW_ALL = "View All Results";
+    private static String VIEW_ALL = "All Results: ";
     private static String CITIES = "Cities: ";
     private static String SCHOOLS = "Schools: ";
     private static String ARTICLES = "Articles: ";
@@ -187,17 +187,16 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             if (_constraint == null || _constraint.equals("") ||
                     _constraint.equals("all")) {
                 out.print("<a class=\"active\">");
-                out.print(VIEW_ALL);
-                out.println("</a>");
             } else {
                 out.print(aStart);
                 out.print(_query);
                 out.print("&state=");
                 out.print(getStateParam());
                 out.print("&c=all\">");
-                out.print(VIEW_ALL);
-                out.println("</a>");
             }
+            out.print(VIEW_ALL);
+            out.print(total);
+            out.println("</a>");
 
             if (_constraint != null && _constraint.equals("city")) {
                 out.print("<a class=\"active\">");

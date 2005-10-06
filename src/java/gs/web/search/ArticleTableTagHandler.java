@@ -74,6 +74,10 @@ public class ArticleTableTagHandler extends ResultsTableTagHandler {
                 writePageNumbers(out);
             } else {
                 out.println("<tr><th class=\"left result_title\">No articles found</div></th></tr>");
+                out.println("<tr class=\"last_row\"><td colspan=\"5\"><ul>");
+                out.print("<li class=\"viewall\">");
+                writeBrowseAllArticlesLink(out);
+                out.println("</li></ul></td></tr>");
                 out.println("<tr><td valign=\"top\" height=\"100\">");
             }
             out.println("</td></tr></table>");
