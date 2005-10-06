@@ -58,11 +58,13 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
                         out.print(TextHighlighter.highlight(result.getCityAndState(), getQueryString(), "address"));
                         out.print("</b></a>");
                     } else {
-                        out.print("<a href=\"/modperl/browse_district/");
+
+                        out.print("<a href=\"/search.page?q=type:school+AND+district:");
                         out.print(result.getId());
-                        out.print("/");
+                        out.print("&c=school&state=");
                         out.print(result.getState());
                         out.print("\"><b>");
+
                         out.print(TextHighlighter.highlight(result.getName(), getQueryString(), "name"));
                         out.print("</b></a>");
                         String ss = result.getCityAndState();

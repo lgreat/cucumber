@@ -186,20 +186,21 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             out.println("<ul>");
             for (int i = 0; i < count; i++) {
                 SearchResult sr = (SearchResult) districts.get(i);
-                out.print("<li>");
-                out.print("<a href=\"/modperl/browse_district/");
-                out.print(sr.getId());
-                out.print("/");
                 String s = sr.getState();
+                out.print("<li>");
+                out.print("<a href=\"/search.page?q=type:school+AND+district:");
+                out.print(sr.getId());
+                out.print("&c=school&state=");
                 out.print(s);
                 out.print("\">");
                 out.print(TextHighlighter.highlight(sr.getName(), _query, "name"));
                 out.print(", ");
 
+
                 if (s != null) {
                     out.print(s.toUpperCase());
                 }
-                
+
                 out.print(" (");
                 out.print(sr.getSchools());
                 out.print(")</a>");
