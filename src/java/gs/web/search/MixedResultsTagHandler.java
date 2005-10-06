@@ -190,11 +190,16 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print("<a href=\"/modperl/browse_district/");
                 out.print(sr.getId());
                 out.print("/");
-                out.print(sr.getState());
+                String s = sr.getState();
+                out.print(s);
                 out.print("\">");
                 out.print(TextHighlighter.highlight(sr.getName(), _query, "name"));
                 out.print(", ");
-                out.print(sr.getState());
+
+                if (s != null) {
+                    out.print(s.toUpperCase());
+                }
+                
                 out.print(" (");
                 out.print(sr.getSchools());
                 out.print(")</a>");

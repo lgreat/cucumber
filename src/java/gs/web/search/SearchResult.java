@@ -38,7 +38,7 @@ public class SearchResult {
             addressBuffer.append("  ");
             addressBuffer.append(_doc.get("city"));
             addressBuffer.append(", ");
-            addressBuffer.append(getState());
+            addressBuffer.append(getState().toUpperCase());
             addressBuffer.append(" ");
             addressBuffer.append(_doc.get("zip"));
             _address = addressBuffer.toString ();
@@ -98,7 +98,9 @@ public class SearchResult {
             if (c != null && s != null) {
                 StringBuffer buff = new StringBuffer(c);
                 buff.append(", ");
-                buff.append(s);
+                if (s != null) {
+                    buff.append(s.toUpperCase());
+                }
                 cityAndState = buff.toString();
             }
         }
