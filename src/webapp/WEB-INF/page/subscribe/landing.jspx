@@ -86,7 +86,7 @@ img {border:0;}
         </tr>
         <tr>
           <td width="15" class="L"></td>
-          <td class="C"><img src="/res/img/box/logo.gif" width="100" height="40"/></td>
+          <td class="C"><a href="http://${sessionScope.context.hostName}/modperl/go/${sessionScope.context.stateOrDefault.abbreviation}"><img src="/res/img/box/logo.gif" width="100" height="40"/></a></td>
           <td class="C" align="right" style="text-align:right;"><img src="/res/img/box/PA_1stGrade.gif" width="260" height="40"/></td>
           <td width="15" class="R"></td>
         </tr>
