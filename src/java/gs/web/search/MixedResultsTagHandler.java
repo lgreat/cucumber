@@ -192,13 +192,6 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print(s);
                 out.print("\">");
                 out.print(TextHighlighter.highlight(sr.getName(), _query, "name"));
-                out.print(", ");
-
-
-                if (s != null) {
-                    out.print(s.toUpperCase());
-                }
-
                 out.print(" (");
                 out.print(sr.getSchools());
                 out.print(")</a>");
