@@ -7,21 +7,20 @@
     <jsp:directive.attribute name="showSchoolFilters" required="false"/>
 
     <c:url var="pagename" value="/search.page"/>
-    <form id="searchForm" name="sf" method="get" style="margin: 0; padding: 0"
+    <form id="searchForm" name="sf" method="get"
           action="${pagename}">
         <table style="width:100%">
             <tr>
                 <td class="label" width="90">Search:</td>
                 <td>
                     <input type="text"
+						   class="textfield"
                            id="q"
                            name="q"
                            style="width:95%"
                            size="50"
                            maxlength="255"
-                           value="${not empty param.q ? param.q : ''}"
-                           onfocus="this.className='focus'"
-                           onblur="this.className=''"/>
+                           value="${not empty param.q ? param.q : ''}"/>
                 </td>
 
                 <td>

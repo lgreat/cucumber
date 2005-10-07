@@ -53,6 +53,8 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
                     if (_type != null && _type.equals("city")) {
                         out.print("<a href=\"/search.page?c=school&amp;q=type:school+city:");
                         out.print(result.getCity());
+                        out.print("&state=");
+                        out.print(result.getState());
                         out.print("\">");
                         out.print("<b>");
                         out.print(TextHighlighter.highlight(result.getCityAndState(), getQueryString(), "address"));

@@ -91,12 +91,13 @@ public class MixedResultsTagHandler extends BaseTagHandler {
         out.println("<div class=\"result_title\">Schools</div>");
 
         List schools = (List) _results.get("schools");
-        if (schools != null) {
+        out.println("<ul>");
+        if (schools != null && schools.size() > 0) {
             int count = schools.size();
             if (count > SCHOOLS_MAX) {
                 count = SCHOOLS_MAX;
             }
-            out.println("<ul>");
+
             for (int i = 0; i < count; i++) {
                 out.print("<li>");
                 SearchResult school = (SearchResult) schools.get(i);
@@ -127,8 +128,24 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print(schoolCount);
                 out.println(" results</a></li>");
             }
-            out.println("</ul>");
+
+        } else {
+            /**  Uncomment this for "browse all" functionality -> confirm link url
+            State s = getState();
+            if (s != null) {
+                out.print("<li class=\"viewall\">");
+                out.print("<a href=\"http://");
+                out.print(getHostname());
+                out.print("/cgi-bin/template_plain/advanced/");
+                out.print(s.getAbbreviation());
+                out.println("\">");
+                out.print("Browse all schools in ");
+                out.print(s.getLongName());
+                out.println("</a></li>");
+            }
+            */
         }
+        out.println("</ul>");
     }
 
     private void writeCities(JspWriter out) throws IOException {
@@ -139,10 +156,14 @@ public class MixedResultsTagHandler extends BaseTagHandler {
         if (cities != null && cities.size() > 0) {
             for (int i = 0; i < cities.size(); i++) {
                 SearchResult sr = (SearchResult) cities.get(i);
-                out.print("<li><a href=\"/search.page?c=school&q=");
+
+                out.print("<li>");
+                out.print("<a href=\"/search.page?c=school&amp;q=type:school+city:");
                 out.print(sr.getCity());
+                out.print("&state=");
+                out.print(sr.getState());
                 out.print("\">");
-                out.print(TextHighlighter.highlight(sr.getCity(), _query, "city"));
+                out.print(TextHighlighter.highlight(sr.getCityAndState(), _query, "city"));
                 out.print(" (");
                 out.print(sr.getSchools());
                 out.print(")</a>");

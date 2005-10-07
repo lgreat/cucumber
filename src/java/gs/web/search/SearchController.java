@@ -85,7 +85,7 @@ public class SearchController extends AbstractController {
             }
 
             String st = request.getParameter("state");
-            if (st != null && !st.equals("all")) {
+            if (st != null && !st.equalsIgnoreCase("all")) {
                 bq.add(new TermQuery(new Term("state", st.toLowerCase())), true, false);
             }
 

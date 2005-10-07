@@ -23,6 +23,17 @@
 
     <link rel="stylesheet" href="res/css/search/search.css" type="text/css"
           media="screen"/>
+
+    <script type="text/javascript">
+        // this script writes custom css for safari or other browsers we don't really support
+        var detect = navigator.userAgent.toLowerCase();
+        function checkIt(string) {
+            place = detect.indexOf(string) + 1;
+            thestring = string;
+            return place;
+        }
+        if (checkIt('safari')) document.writeln('<style>.bottomalign {position:relative;padding-top:20px;}</style>');
+    </script>
 </head>
 
 <meta name="onload" content="document.sf.q.focus()"/>
@@ -64,7 +75,6 @@
                                          schoolsTotal="${results.schoolsTotal}"
                                          constrain="${param.c}"/>
                 </gsml:decorator>
-
             </div>
         </td>
         <td width="310">
@@ -72,7 +82,7 @@
         </td>
     </tr>
 </table>
-
+<!--
 <c:if test="${not empty results.suggestion}">
     Did you mean:
     <span id="suggestion">
@@ -81,6 +91,7 @@
               </a>
           </span>
 </c:if>
+-->
 
 <c:choose>
     <c:when test="${param.c == 'school'}">
@@ -173,6 +184,17 @@
                         </ul>
                     </li>
                     <li><c:out value="Created: ${pageContext.request.session.creationTime}"/></li>
+                    <li><c:out value="User prin: ${pageContext.request.userPrincipal.name}"/></li>
+                    <li>
+                    <c:forEach items="${headerValues}" var="h">
+                         <br/>
+                         <b><c:out value="${h.key}" /></b>
+                         <c:forEach items="${h.value}" var="value">
+                             <c:out value="${value}"/>
+                         </c:forEach>
+
+                    </c:forEach>
+                    </li>
                 </ul>
             </td>
         </tr>
