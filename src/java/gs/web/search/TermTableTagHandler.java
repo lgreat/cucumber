@@ -45,7 +45,17 @@ public class TermTableTagHandler extends ResultsTableTagHandler {
                     out.println("<td class=\"checkbox\" width=\"1\">&nbsp;</td>");
                     out.println("<td>");
                     out.print("<b>");
+
+                    out.print("<a href=\"http://");
+                    out.print(getHostname());
+                    out.print("/cgi-bin/glossary_single/");
+                    out.print(getStateOrDefault().getAbbreviationLowerCase());
+                    out.print("/?id=");
+                    out.print(term.getId());
+                    out.print("\">");
                     out.print(term.getTerm());
+                    out.println("</a>");
+                    
                     out.print("</b>");
                     out.println("<br/>");
                     out.print(term.getDefinition());
