@@ -46,7 +46,11 @@ public class ArticleTableTagHandler extends ResultsTableTagHandler {
                     out.println("<td><b>");
                     out.print("<a href=\"http://");
                     out.print(getHostname());
-                    out.print("/cgi-bin/showarticle/");
+                    out.print("/cgi-bin/show");
+                    if (article.isInsider()){
+                        out.print("part");
+                    }
+                    out.print("article/");
                     out.print(s.getAbbreviationLowerCase());
                     out.print("/");
                     out.print(article.getId());

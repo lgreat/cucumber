@@ -242,18 +242,22 @@ public class MixedResultsTagHandler extends BaseTagHandler {
         out.println("<ul>");
         if (articles != null && articles.size() > 0) {
             for (int i = 0; i < articles.size(); i++) {
-                SearchResult sr = (SearchResult) articles.get(i);
+                SearchResult article = (SearchResult) articles.get(i);
                 out.println("<li>");
                 out.print("<a href=\"http://");
                 out.print(getHostname());
-                out.print("/cgi-bin/showarticle/");
+                out.print("/cgi-bin/show");
+                if (article.isInsider()){
+                    out.print("part");
+                }
+                out.print("article/");
                 out.print(getStateOrDefault().getAbbreviationLowerCase());
                 out.print("/");
-                out.print(sr.getId());
+                out.print(article.getId());
                 out.print("\">");
-                out.println(escapleLongstate(sr.getTitle()));
+                out.println(escapleLongstate(article.getTitle()));
                 out.println("</a><br/>");
-                out.println(sr.getAbstract());
+                out.println(article.getAbstract());
                 out.println("</li>");
             }
             int articlesCount = ((Integer) _results.get("articlesTotal")).intValue();

@@ -55,16 +55,10 @@ public class SearchResult {
         return _doc;
     }
 
+    public boolean isInsider() {
+        System.out.println("insider::::" + _doc.get("insider"));
 
-    public String getInsider() {
-        String isInsider = "false";
-        String insider = _doc.get("insider");
-        if (insider != null) {
-            if (insider.equals("true")) {
-                isInsider = "true";
-            }
-        }
-        return isInsider;
+        return "true".equals(_doc.get("insider"));
     }
 
     /**
