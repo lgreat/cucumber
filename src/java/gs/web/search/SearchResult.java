@@ -56,8 +56,6 @@ public class SearchResult {
     }
 
     public boolean isInsider() {
-        System.out.println("insider::::" + _doc.get("insider"));
-
         return "true".equals(_doc.get("insider"));
     }
 
