@@ -26,6 +26,12 @@
         <function-signature>int randomNumber(int)</function-signature>
     </function>
 
+    <function>
+        <name>getStateName</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>java.lang.String getStateName(java.lang.String)</function-signature>
+    </function>
+
     <tag>
         <name>stateSelector</name>
         <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>

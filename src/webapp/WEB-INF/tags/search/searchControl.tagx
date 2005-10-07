@@ -36,7 +36,7 @@
                 </td>
                 <td>
                     <gsweb:stateSelector allowNoState="${param.state == 'all'}"/>
-                    <a class="lpad" href="http://www.greatschools.net/cgi-bin/template_plain/advanced/">Search near address</a>
+                    <a class="lpad" href="http://${sessionScope.context.hostName}/cgi-bin/template_plain/advanced/">Search near address</a>
                 </td>
 
                 <c:if test="${not empty param.state and param.state != 'all'}">
@@ -48,10 +48,12 @@
                             <c:url var="allArticlesPage" value="/content/allArticles.page"/>
                             <a href="${allArticlesPage}?state=${param.state}"
                                class="pad">All Articles</a>
-                            <a href="/modperl/citylist/${param.state}/"
-                               class="pad">All Cities</a>
-                            <a href="/modperl/distlist/${param.state}"
-                               class="pad">All Districts</a>
+                            <a href="http://${sessionScope.context.hostName}/modperl/citylist/${param.state}/" class="pad">
+                               <c:out value="${gsweb:getStateName(param.state)} Cities"/>
+                            </a>
+                            <a href="http://${sessionScope.context.hostName}/modperl/distlist/${param.state}" class="pad">
+                               <c:out value="${gsweb:getStateName(param.state)} Districts"/>
+                            </a>
                         </td>
                     </tr>
                 </c:if>
