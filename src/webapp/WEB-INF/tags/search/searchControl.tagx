@@ -24,8 +24,8 @@
                 </td>
 
                 <td>
-                    <input type="image" src="res/img/search/new_go_blue.gif"
-                           value=" Go "/>
+                    <input type="image" src="res/img/search/btn_go.gif"
+                           class="btn" value="go"/>
                 </td>
             </tr>
             <tr>
@@ -34,7 +34,7 @@
                     State:
                 </td>
                 <td>
-                    <gsweb:stateSelector allowNoState="${param.state == 'all'}"/>
+                    <gsweb:stateSelector allowNoState="${param.state == 'all'}" useLongNames="true"/>
                     <a class="lpad" href="http://${sessionScope.context.hostName}/cgi-bin/template_plain/advanced/">Search near address</a>
                 </td>
 
