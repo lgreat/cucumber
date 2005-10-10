@@ -50,7 +50,7 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
 
         buffer.append("<table class=\"columns\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><tr>");
         buffer.append("<td class=\"col1\" rowspan=\"2\">");
-        buffer.append("<img src=\"res/img/search/icon_resultoverview.gif\" /></td>");
+        buffer.append("<img src=\"/res/img/search/icon_resultoverview.gif\" /></td>");
         buffer.append("<td class=\"title\" colspan=\"2\">Results: ");
         frag1 = buffer.toString();
 
@@ -119,7 +119,7 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
 
         JspWriter out = getJspContext().getOut();
 
-        out.println("<link rel=\"stylesheet\" href=\"res/css/searchsummary.css\" type=\"text/css\" media=\"screen\"/>");
+        out.println("<link rel=\"stylesheet\" href=\"/res/css/searchsummary.css\" type=\"text/css\" media=\"screen\"/>");
 
         int total = _schoolsTotal +
                 _groupingHitCollector.getArticles() +
@@ -234,7 +234,7 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
         } else {
             out.println("<table class=\"columns\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><tr>");
             out.println("<td class=\"col1\" rowspan=\"2\">");
-            out.println("<img src=\"res/img/search/icon_error1.gif\" /></td>");
+            out.println("<img src=\"/res/img/search/icon_error1.gif\" /></td>");
             out.print("<td class=\"errormessage\">Your search for <b>\"");
             out.print(_query);
             out.println("\"</b> did not return any results.<br/>Please try again.");
