@@ -135,19 +135,6 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 }
                 out.print("<tr class=\"last_row\"><td colspan=\"5\">");
 
-                /** Uncomment this to add "browse all" functionality
-                State s = getState();
-                if (s != null) {
-                    out.print("<ul><li class=\"viewall\">");
-                    out.print("<a href=\"http://www.greatschools.net/cgi-bin/template_plain/advanced/");
-                    out.print(s.getAbbreviation());
-                    out.println("\">");
-                    out.print("Browse all ");
-                    out.print(s.getLongName());
-                    out.println(" schools</a></li></ul>");
-                }
-                */
-
                 out.println("</td></tr></table>");
                 out.println("<table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"><tr>");
                 out.println("<td>");

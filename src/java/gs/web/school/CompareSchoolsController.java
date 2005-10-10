@@ -28,7 +28,14 @@ public class CompareSchoolsController extends AbstractController {
                                               HttpServletResponse response)
             throws Exception {
 
-        StringBuffer urlBuffer = new StringBuffer("http://www.greatschools.net/cgi-bin/");
+        SessionContext sc = SessionContext.getInstance(request);
+
+        StringBuffer urlBuffer = new StringBuffer(50);
+        if (sc != null) {
+            urlBuffer.append("http://");
+            urlBuffer.append(sc.getHostName());
+        }
+        urlBuffer.append("/cgi-bin/");
 
         // The input submit buttons are images that are labeled "compare" and
         // "save".  The parameters included in the request include the location
