@@ -14,7 +14,6 @@ import javax.servlet.jsp.JspWriter;
 
 import org.apache.log4j.Logger;
 
-import java.util.Enumeration;
 import java.io.IOException;
 
 /**
@@ -96,7 +95,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
 
     /**
      * Another convenience method to get the hostname.
-     * @return
+     * @return <code>String</code>
      */
     protected String getHostname() {
         SessionContext sc = getSessionContext();

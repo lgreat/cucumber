@@ -184,8 +184,9 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print(getHostname());
                 out.print("/modperl/citylist/");
                 out.print(s.getAbbreviation());
-                out.println ("\">Browse all cities in ");
+                out.print ("\">Browse all ");
                 out.print(s.getLongName());
+                out.print(" cities");
                 out.println("</a></li>");
             }
         }
@@ -241,8 +242,9 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.print(getHostname());
                 out.print("/modperl/distlist/");
                 out.print(s.getAbbreviation());
-                out.println ("\">Browse all districts in ");
+                out.print ("\">Browse all ");
                 out.print(s.getLongName());
+                out.print(" districts");
                 out.println("</a></li>");
             }
         }

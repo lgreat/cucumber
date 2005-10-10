@@ -60,19 +60,17 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
                         out.print(TextHighlighter.highlight(result.getCityAndState(), getQueryString(), "address"));
                         out.print("</b></a>");
                     } else {
-
                         out.print("<a href=\"/search.page?q=type:school+AND+district:");
                         out.print(result.getId());
                         out.print("&c=school&state=");
                         out.print(result.getState());
-                        out.print("\"><b>");
-
+                        out.print("\">");
                         out.print(TextHighlighter.highlight(result.getName(), getQueryString(), "name"));
-                        out.print("</b></a>");
+                        out.print("</a>");
                         String ss = result.getCityAndState();
                         if (ss != null) {
                             out.print("<address>");
-                            out.print(ss);
+                            out.print(TextHighlighter.highlight(ss, getQueryString(), "address"));
                             out.print("</address>");
                         }
                     }
@@ -134,9 +132,9 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
                     out.print(path);
                     out.print(getState().getAbbreviation());
                     out.print ("\">Browse all ");
-                    out.print(type);
-                    out.print(" in ");
                     out.print(getStateOrDefault().getLongName());
+                    out.print(" ");
+                    out.print(type);
                     out.println("</a></li>");
                     out.println ("</ul></td></tr>");
                 }
