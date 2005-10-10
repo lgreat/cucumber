@@ -86,19 +86,21 @@
     <!-- Search begin -->
     <bean name="/search.page" class="gs.web.search.SearchController"
           autowire="byName">
-        <property name="resultsPager">
-            <ref bean="resultsPager"/>
-        </property>
-        <property name="spellCheckSearcher">
-            <ref bean="spellCheckSearcher"/>
-        </property>
-        <property name="searcher">
-            <ref bean="searcher"/>
-        </property>
+      <property name="commandName"><value>searchCommand</value></property>
+      <property name="commandClass"><value>gs.web.search.SearchCommand</value></property>
+      <property name="resultsPager">
+        <ref bean="resultsPager"/>
+      </property>
+      <property name="spellCheckSearcher">
+        <ref bean="spellCheckSearcher"/>
+      </property>
+      <property name="searcher">
+        <ref bean="searcher"/>
+      </property>
     </bean>
 
-    <bean name="resultsPager" class="gs.web.search.ResultsPager"
-          autowire="byName"/>
+  <bean name="resultsPager" class="gs.web.search.ResultsPager"
+        autowire="byName"/>
 
     <!-- These beans control access to searchmanager.page -->
     <bean id="loginValidator" class="gs.web.status.LoginValidator"/>

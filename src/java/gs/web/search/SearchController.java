@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.mvc.AbstractFormController;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.validation.BindException;
 import org.apache.lucene.search.*;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.ParseException;
@@ -24,7 +27,6 @@ import java.util.ArrayList;
  * can be delivered in the model.
  * <p/>
  * <p/>
- * Parameters used in this page:
  * <ul>
  * <li>c    :  constraint</li>
  * <li>st   : state - CA, NY, WA, etc.</li>
@@ -37,7 +39,7 @@ import java.util.ArrayList;
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class SearchController extends AbstractController {
+public class SearchController extends AbstractFormController {
 
     public static final String BEAN_ID = "/search.page";
     private static Logger _log = Logger.getLogger(SearchController.class);
@@ -46,6 +48,35 @@ public class SearchController extends AbstractController {
     private ResultsPager _resultsPager;
 
     private boolean SUGGEST = true;
+
+    public boolean isFormSubmission(HttpServletRequest request) {
+        return true;
+    }
+
+    public ModelAndView showForm(HttpServletRequest request,
+                                 HttpServletResponse response, BindException errors)
+			throws Exception {
+        _log.info("show form..");
+        return doRequest(request, response);
+    }
+
+	public ModelAndView processFormSubmission(
+            HttpServletRequest request, HttpServletResponse response, Object command, BindException errors)
+			throws Exception {
+        _log.info ("processFormSubmission");
+        if (command != null && command instanceof SearchCommand) {
+            SearchCommand sc = (SearchCommand)command;
+            System.out.println ("sc.query: " + sc.getQuery());
+            System.out.println ("sc.q: " + sc.getQ());
+
+        }
+        return doRequest(request, response);
+    }
+
+    public void initBinder(HttpServletRequest request,
+                           ServletRequestDataBinder binder) {
+        // 
+    }
 
     /**
      * Though this message throws <code>Exception</code>, it should swallow most
@@ -59,8 +90,8 @@ public class SearchController extends AbstractController {
      *         search results and attendant parameters as the model.
      * @throws Exception
      */
-    public ModelAndView handleRequestInternal(HttpServletRequest request,
-                                              HttpServletResponse response)
+    public ModelAndView doRequest(HttpServletRequest request,
+                                  HttpServletResponse response)
             throws Exception {
 
         long requestStart = System.currentTimeMillis();
