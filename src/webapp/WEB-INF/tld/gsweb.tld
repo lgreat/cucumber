@@ -46,9 +46,14 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
-
     </tag>
 
+    <tag>
+      <name>schoolFilters</name>
+      <tag-class>gs.web.search.SchoolFiltersTag</tag-class>
+      <body-content>empty</body-content>
+    </tag>
+  
     <tag>
         <name>longstate</name>
         <tag-class>gs.web.state.LongstateTagHandler</tag-class>

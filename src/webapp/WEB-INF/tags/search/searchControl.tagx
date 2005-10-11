@@ -58,37 +58,53 @@
                 </c:if>
             </tr>
             <c:if test="${param.c == 'school' and (showSchoolFilters == 'true')}">
+                <!-- Make sure that the school constraint gets carried over. -->
+                <input type="hidden" name="c" value="school"/>
                 <tr>
                     <td class="label">Show only:</td>
                     <td>
+                        <gsweb:schoolFilters/>
+                        <!--
                         <table><tr><td>
                             <td>
                                 <div class="checkbox">
-                                    <input type="checkbox"><c:out value=" Public" escapeXml="true"/></input>
+                                    <c:out value="&lt;input type='checkbox' name='schooltype' value='public' ${param.schooltype == 'public' ? 'checked' : ''} &gt;" escapeXml="false"/>
+                                        <c:out value=" Public" escapeXml="true"/>
+                                    <c:out value="&lt;/input&gt;" escapeXml="false"/>
                                 </div>
                                 <div class="checkbox">
-                                    <input type="checkbox"><c:out value=" Private" escapeXml="true"/></input>
+                                    <c:out value="&lt;input type='checkbox' name='schooltype' value='private' ${param.schooltype == 'private' ? 'checked' : ''} &gt;" escapeXml="false"/>
+                                        <c:out value=" Private" escapeXml="true"/>
+                                    <c:out value="&lt;/input&gt;" escapeXml="false"/>
                                 </div>
                                 <div class="checkbox">
-                                    <input type="checkbox"><c:out value=" Charter" escapeXml="true"/> </input>
+                                    <c:out value="&lt;input type='checkbox' name='schooltype' value='charter' ${param.schooltype == 'charter' ? 'checked' : ''} &gt;" escapeXml="false"/>
+                                        <c:out value=" Charter" escapeXml="true"/>
+                                    <c:out value="&lt;/input&gt;" escapeXml="false"/>
                                 </div>
                             </td>
                             <td>
                                 <div class="checkbox">
-                                    <input type="checkbox"><c:out value=" Elementary" escapeXml="true" /></input>
+                                    <c:out value="&lt;input type='checkbox' name='gradelevel' value='elementary' ${param.gradelevel == 'elementary' ? 'checked' : ''} &gt;" escapeXml="false"/>
+                                        <c:out value=" Elementary" escapeXml="true" />
+                                    <c:out value="&lt;/input&gt;" escapeXml="false"/>
                                 </div>
                                 <div class="checkbox">
-                                    <input type="checkbox"><c:out value=" Middle" escapeXml="true" /></input>
+                                    <c:out value="&lt;input type='checkbox' name='gradelevel' value='middle' ${param.gradelevel == 'middle' ? 'checked' : ''} &gt;" escapeXml="false"/>
+                                        <c:out value=" Middle" escapeXml="true" />
+                                    <c:out value="&lt;/input&gt;" escapeXml="false"/>
                                 </div>
                                 <div class="checkbox">
-                                    <input type="checkbox"><c:out value=" High" escapeXml="true" /></input>
+                                    <c:out value="&lt;input type='checkbox' name='gradelevel' value='high' ${param.gradelevel == 'high' ? 'checked' : ''} &gt;" escapeXml="false"/>
+                                        <c:out value=" High" escapeXml="true" />
+                                    <c:out value="&lt;/input&gt;" escapeXml="false"/>
                                 </div>
                             </td>
                         </td></tr></table>
+                        -->
                     </td>
                 </tr>
             </c:if>
-
         </table>
     </form>
 </jsp:root>

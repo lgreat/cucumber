@@ -68,7 +68,7 @@
         </td>
         <td class="stretchycolumn">
             <div class="verticalcontainer">
-                <search:searchControl showSchoolFilters="false"/>
+                <search:searchControl showSchoolFilters="true"/>
 
                 <gsml:decorator id="resultoverview">
                     <gsweb:searchsummary query="${param.q}"

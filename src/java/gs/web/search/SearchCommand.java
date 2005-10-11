@@ -1,6 +1,7 @@
 package gs.web.search;
 
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.Filter;
 import gs.data.search.GSQueryParser;
 
 /**
@@ -8,11 +9,13 @@ import gs.data.search.GSQueryParser;
  */
 public class SearchCommand {
 
-    private String _constraint;
     private String _type;
     private String _q;
     private int page;
-    private String state;
+    private String _state;
+    private String _schooltype;
+    private String _gradelevel;
+    private Filter _filter;
 
     public void setQ(String q) {
         _q = q;
@@ -29,18 +32,17 @@ public class SearchCommand {
         return query;
     }
 
-    public String getConstraint() {
-        return _constraint;
-    }
-
-    public void setConstraint(String _constraint) {
-        this._constraint = _constraint;
-    }
-
     public String getType() {
         return _type;
     }
 
+    public void setSchoolType(String type) {
+        _schooltype = type;
+    }
+
+    public String getSchoolType() {
+        
+    }
     public void setC(String _type) {
         this._type = _type;
     }
@@ -54,10 +56,14 @@ public class SearchCommand {
     }
 
     public void setState(String s) {
-        state = s;
+        _state = s;
     }
 
     public String getState() {
-        return state;
+        return _state;
+    }
+
+    public Filter getFilter() {
+        return _filter;
     }
 }

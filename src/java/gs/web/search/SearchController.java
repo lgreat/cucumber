@@ -54,32 +54,13 @@ public class SearchController extends AbstractFormController {
     public ModelAndView showForm(HttpServletRequest request,
                                  HttpServletResponse response, BindException errors)
 			throws Exception {
-        return doRequest(request, response);
+        throw new RuntimeException("SearchController.showForm() should not be called");
+        //return doRequest(request, response);
     }
 
-	public ModelAndView processFormSubmission(
-            HttpServletRequest request, HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
-        if (command != null && command instanceof SearchCommand) {
-            SearchCommand sc = (SearchCommand)command;
-
-            System.out.println ("sc.page: " + sc.getPage());
-            System.out.println ("sc.type: " + sc.getType());
-            System.out.println ("sc.state: " + sc.getState());
-            //System.out.println ("sc.query: " + sc.getQuery().toString());            
-        }
-        return doRequest(request, response);
-    }
-
-    /*
-    public void initBinder(HttpServletRequest request,
-                           ServletRequestDataBinder binder) {
-        // 
-    }
-      */
 
     /**
-     * Though this message throws <code>Exception</code>, it should swallow most
+     * Though this method throws <code>Exception</code>, it should swallow most
      * (all?) searching errors while just logging appropriately and returning
      * no results to the user.  Search/Query/Parsing errors are meaningless to
      * most users and should be handled internally.
@@ -90,9 +71,25 @@ public class SearchController extends AbstractFormController {
      *         search results and attendant parameters as the model.
      * @throws Exception
      */
-    public ModelAndView doRequest(HttpServletRequest request,
-                                  HttpServletResponse response)
-            throws Exception {
+	public ModelAndView processFormSubmission(
+            HttpServletRequest request, HttpServletResponse response, Object command, BindException errors)
+			throws Exception {
+        if (command != null && command instanceof SearchCommand) {
+            SearchCommand sc = (SearchCommand)command;
+
+            System.out.println ("sc.page: " + sc.getPage());
+            System.out.println ("sc.type: " + sc.getType());
+            System.out.println ("sc.state: " + sc.getState());
+            System.out.println ("sc.query: " + sc.getQuery().toString());
+            System.out.println ("filter: " + sc.getFilter().toString());
+        }
+
+        /*
+        public void initBinder(HttpServletRequest request,
+                             ServletRequestDataBinder binder) {
+          //
+        }
+        */
 
         long requestStart = System.currentTimeMillis();
 
