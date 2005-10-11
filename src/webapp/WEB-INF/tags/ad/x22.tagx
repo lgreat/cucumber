@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:directive.tag body-content="empty"/>
+    <c:if test="${!sessionScope.context.adFree}">
+        <div id="adLeaderboard">
+            <script language="JavaScript">OAS_AD('x22');</script>
+            <c:url var="sponsorImage" value="/res/img/ad/sponsor_vertical.gif"/>
+            <img src="${sponsorImage}" width="10" height="90"/>
+        </div>
+    </c:if>
+</jsp:root>

@@ -3,109 +3,110 @@
           xmlns="http://www.w3c.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
-    <html lang="en">
+<html lang="en">
 
-    <jsp:output doctype-root-element="html"
-                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-    <jsp:directive.page contentType="text/html"/>
+<jsp:directive.page contentType="text/html"/>
 
-    <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
-        <meta name="wrapperstyle" content="noleft"/>
-        <meta name="wrapperstate" content="FL"/>
-        <title>GreatSchools GSWeb Status Page</title>
-        <style type="text/css">
-            body {
-                text-align: center;
-            }
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+    <meta name="wrapperstyle" content="noleft"/>
+    <meta name="wrapperstate" content="FL"/>
+    <title>GreatSchools GSWeb Status Page</title>
+    <style type="text/css">
+        body {
+            text-align: center;
+        }
 
-            h1 {
-                font-family: Georgia, serif;
-                font-variant: small-caps;
-                font-size: 12pt;
-            }
+        h1 {
+            font-family: Georgia, serif;
+            font-variant: small-caps;
+            font-size: 12pt;
+        }
 
-            .statusbox {
-                width: 500px;
-                border: thin dashed black;
-                padding: 10px;
-                background: #E8E8E8;
-                margin: 0 auto;
-            }
+        .statusbox {
+            width: 500px;
+            border: thin dashed black;
+            padding: 10px;
+            background: #E8E8E8;
+            margin: 0 auto;
+        }
 
-            .statustitle {
-                text-align: left;
-                color: #333399;
-            }
+        .statustitle {
+            text-align: left;
+            color: #333399;
+        }
 
-            .statusvalue {
-                text-align: left;
-                text-transform: capitalize;
-                color: #AA3333;
-            }
-        </style>
-    </head>
+        .statusvalue {
+            text-align: left;
+            text-transform: capitalize;
+            color: #AA3333;
+        }
+    </style>
+</head>
 
-    <body>
-    <h1>GSWeb Status Page</h1>
-    <!-- Opted for a table instead of pure CSS since this truly is a table -->
-    <table class="statusbox">
+<body>
+<h1>GSWeb Status Page</h1>
+<!-- Opted for a table instead of pure CSS since this truly is a table -->
+<table class="statusbox">
+    <tr>
+        <td class="statustitle">GSWeb build date/time (PST)</td>
+        <td class="statusvalue" colspan="2"><c:out value="${version}"/></td>
+    </tr>
+    <tr>
+        <td class="statustitle">Tomcat host serving request</td>
+        <td class="statusvalue" colspan="2"><c:out value="${hostname}"/></td>
+    </tr>
+    <tr>
+        <td class="statustitle">Main database read/write test</td>
+        <td class="statusvalue"><c:out value="${mainReadWrite}"/></td>
+        <td class="statuserror"><c:out value="${mainError}"/></td>
+    </tr>
+    <tr>
+        <td class="statustitle">State database read/write test</td>
+        <td class="statusvalue"><c:out value="${stateReadWrite}"/></td>
+        <td class="statuserror"><c:out value="${stateError}"/></td>
+    </tr>
+</table>
+
+<br/>
+
+<table class="statusbox">
+
+    <tr>
+        <td>Environment Properties</td>
+    </tr>
+    <c:forEach items="${environment}" var="item">
         <tr>
-            <td class="statustitle">GSWeb build date/time (PST)</td>
-            <td class="statusvalue" colspan="2"><c:out value="${version}"/></td>
+            <td class="statustitle">
+                <c:out value="${item.key}"/>
+            </td>
+            <td class="statusvalue">
+                <c:out value="${item.value}"/>
+            </td>
         </tr>
+    </c:forEach>
+</table>
+
+<br/>
+
+<table class="statusbox">
+    <c:url var="monitorPage" value="/status/monitor.page"/>
+
+    <form action="${monitorPage}" method="post">
         <tr>
-            <td class="statustitle">Tomcat host serving request</td>
-            <td class="statusvalue" colspan="2"><c:out value="${hostname}"/></td>
+            <td class="statustitle">Trigger test log message: </td>
+            <td><input type="text" name="logmessage" size="30"/></td>
+            <td><input type="submit" value="log it!"/></td>
         </tr>
-        <tr>
-            <td class="statustitle">Main database read/write test</td>
-            <td class="statusvalue"><c:out value="${mainReadWrite}"/></td>
-            <td class="statuserror"><c:out value="${mainError}"/></td>
-        </tr>
-        <tr>
-            <td class="statustitle">State database read/write test</td>
-            <td class="statusvalue"><c:out value="${stateReadWrite}"/></td>
-            <td class="statuserror"><c:out value="${stateError}"/></td>
-        </tr>
-    </table>
+    </form>
+</table>
 
-    <br/>
-
-    <table class="statusbox">
-
-        <tr>
-            <td>Environment Properties</td>
-        </tr>
-        <c:forEach items="${environment}" var="item">
-            <tr>
-                <td class="statustitle">
-                    <c:out value="${item.key}"/>
-                </td>
-                <td class="statusvalue">
-                    <c:out value="${item.value}"/>
-                </td>
-            </tr>
-        </c:forEach>
-    </table>
-
-    <br/>
-
-    <table class="statusbox">
-        <c:url var="monitorPage" value="/status/monitor.page"/>
-        <form action="${monitorPage}" method="post">
-            <tr>
-                <td class="statustitle">Trigger test log message: </td>
-                <td><input type="text" name="logmessage" size="30"/></td>
-                <td><input type="submit" value="log it!"/></td>
-            </tr>
-        </form>
-    </table>
-
-    <br/>
-    </body>
-    </html>
+<br/>
+</body>
+</html>
 </jsp:root>
 
