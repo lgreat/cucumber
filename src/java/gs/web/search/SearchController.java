@@ -4,9 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.mvc.AbstractFormController;
-import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.validation.BindException;
 import org.apache.lucene.search.*;
 import org.apache.lucene.index.Term;
@@ -56,27 +54,29 @@ public class SearchController extends AbstractFormController {
     public ModelAndView showForm(HttpServletRequest request,
                                  HttpServletResponse response, BindException errors)
 			throws Exception {
-        _log.info("show form..");
         return doRequest(request, response);
     }
 
 	public ModelAndView processFormSubmission(
             HttpServletRequest request, HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
-        _log.info ("processFormSubmission");
         if (command != null && command instanceof SearchCommand) {
             SearchCommand sc = (SearchCommand)command;
-            System.out.println ("sc.query: " + sc.getQuery());
-            System.out.println ("sc.q: " + sc.getQ());
 
+            System.out.println ("sc.page: " + sc.getPage());
+            System.out.println ("sc.type: " + sc.getType());
+            System.out.println ("sc.state: " + sc.getState());
+            //System.out.println ("sc.query: " + sc.getQuery().toString());            
         }
         return doRequest(request, response);
     }
 
+    /*
     public void initBinder(HttpServletRequest request,
                            ServletRequestDataBinder binder) {
         // 
     }
+      */
 
     /**
      * Though this message throws <code>Exception</code>, it should swallow most
@@ -172,14 +172,14 @@ public class SearchController extends AbstractFormController {
             _resultsPager.setQuery(queryString);
 
             if (SUGGEST) {
-                String suggestion = (String)_spellCheckSearcher.getSuggestion("name", queryString);
+                String suggestion = _spellCheckSearcher.getSuggestion("name", queryString);
 
                 if (suggestion == null) {
-                    suggestion = (String)_spellCheckSearcher.getSuggestion("title", queryString);
+                    suggestion = _spellCheckSearcher.getSuggestion("title", queryString);
                 }
 
                 if (suggestion == null) {
-                    suggestion = (String)_spellCheckSearcher.getSuggestion("cityname", queryString);
+                    suggestion = _spellCheckSearcher.getSuggestion("cityname", queryString);
                 }
 
                 if (suggestion != null) {

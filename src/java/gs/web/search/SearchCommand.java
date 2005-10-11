@@ -1,29 +1,32 @@
 package gs.web.search;
 
+import org.apache.lucene.search.Query;
+import gs.data.search.GSQueryParser;
+
 /**
  * @author Chris Kimm <mailto:chris@seeqa.com>
  */
 public class SearchCommand {
 
-    private String _query;
     private String _constraint;
     private String _type;
     private String _q;
+    private int page;
+    private String state;
 
     public void setQ(String q) {
         _q = q;
     }
 
-    public String getQ() {
-        return _q;
-    }
-    
-    public String getQuery() {
-        return _query;
-    }
+    public Query getQuery () throws Exception {
+        Query query = null;
+        if (_q != null) {
+            query = GSQueryParser.parse(_q);
+        } else {
+        // try to build the query using the other parameters
 
-    public void setQuery(String _query) {
-        this._query = _query;
+        }
+        return query;
     }
 
     public String getConstraint() {
@@ -38,7 +41,23 @@ public class SearchCommand {
         return _type;
     }
 
-    public void setType(String _type) {
+    public void setC(String _type) {
         this._type = _type;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int p) {
+        page = p;
+    }
+
+    public void setState(String s) {
+        state = s;
+    }
+
+    public String getState() {
+        return state;
     }
 }
