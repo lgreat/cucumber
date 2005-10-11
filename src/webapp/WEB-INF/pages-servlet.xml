@@ -214,6 +214,15 @@
     </bean>
     <!-- End Conversion pages -->
 
+    <bean name="/path/choose/index.page"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>path/choose/index</value>
+        </property>
+    </bean>
+
+
+
     <!-- WEB PAGE DEFINITIONS END -->
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

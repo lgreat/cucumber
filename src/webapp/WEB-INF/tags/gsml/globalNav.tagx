@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:directive.tag body-content="empty"/>
+    <jsp:directive.attribute name="path" required="false"/>
+
+    <div id="globalnav">
+        <table class="globalnav shade4" border="0" cellspacing="0" cellpadding="0" width="100%">
+            <tr>
+                <td class="TL">
+                </td>
+                <td class="T">
+                </td>
+                <td class="TR">
+                </td>
+            </tr>
+            <tr>
+                <td class="L">
+                </td>
+                <td class="C" style="background: #FE894C  url(/res/img/box/border_shade4pathway1_BG.gif) bottom right no-repeat; padding: 0;vertical-align:middle;">
+                    <h1>
+                        <a href="#pathway1"> Choosing Schools </a>
+                    </h1>
+                    <a href="#"> Top-Rated Schools </a>
+                    <a href="#"> School Choice Center </a>
+                    <a href="#"> Compare Schools </a>
+                    <a href="#"> Search By Address </a>
+                    <a href="#"> My School List </a>
+                    <a href="#" class="insiderlink"> Sign Out </a>
+                </td>
+                <td class="R">
+                </td>
+            </tr>
+            <tr>
+                <td class="BL">
+                </td>
+                <td class="B">
+                </td>
+                <td class="BR">
+                </td>
+            </tr>
+        </table>
+        <!-- pw1 -->
+        <table class="globalnav shade4" border="0" cellspacing="0" cellpadding="0" width="100%">
+            <tr>
+                <td class="TL">
+                </td>
+                <td class="T">
+                </td>
+                <td class="TR">
+                </td>
+            </tr>
+            <tr>
+                <td class="L">
+                </td>
+                <td class="C" style="background: #FE894C  url(/res/img/box/border_shade4pathway2sm_BG.gif) bottom right no-repeat; vertical-align:top; padding: 0px 0px 0px 0px;vertical-align:middle;">
+                    <h1>
+                        <a href="#pathway1"> My Child's School </a>
+                    </h1>
+                </td>
+                <td class="R">
+                </td>
+            </tr>
+            <tr>
+                <td class="BL">
+                </td>
+                <td class="B">
+                </td>
+                <td class="BR">
+                </td>
+            </tr>
+        </table>
+        <!-- pw2 -->
+        <table class="globalnav shade4" border="0" cellspacing="0" cellpadding="0" width="100%">
+            <tr>
+                <td class="TL">
+                </td>
+                <td class="T">
+                </td>
+                <td class="TR">
+                </td>
+            </tr>
+            <tr>
+                <td class="L">
+                </td>
+                <td class="C" style="background: #FE894C  url(/res/img/box/border_shade4pathway3sm_BG.gif) bottom right no-repeat; vertical-align:top; padding: 0px 0px 0px 0px;vertical-align:middle;">
+                    <h1>
+                        <a href="#pathway1"> Holiday Center </a>
+                    </h1>
+                </td>
+                <td class="R">
+                </td>
+            </tr>
+            <tr>
+                <td class="BL">
+                </td>
+                <td class="B">
+                </td>
+                <td class="BR">
+                </td>
+            </tr>
+        </table>
+        <!-- pw3 -->
+    </div>
+
+</jsp:root>

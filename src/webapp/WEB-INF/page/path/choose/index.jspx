@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+    xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+    xmlns="http://www.w3c.org/1999/xhtml"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+    xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+    xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+    >
+    <html lang="en">
+
+        <jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+        <jsp:directive.page contentType="text/html"/>
+
+        <head>
+            <![CDATA[
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+        <link rel="stylesheet" href="/res/css/global.css"></link>
+        <link rel="stylesheet" href="/res/css/box.css"></link>
+            ]]>
+            <title>GreatSchools FIXME</title>
+        </head>
+        <body id="pathway1">
+        <table id="pagemargin" border="0" cellspacing="0" cellpadding="0" class="border">
+        	<tr>
+        		<td valign="top">
+        <!-- INCLUDE TOP content with logo, etc. -->
+                    <ad:leaderBoard />
+                    <gsml:memberBar />
+        			<table id="main" border="0" cellspacing="0" cellpadding="0" width="100%">
+        				<tr>
+        					<td class="col1" valign="top">
+                            <gsml:globalNav path="1" />
+                            <promo:newsletterSmall />
+        					</td>
+        					<td class="col2" valign="top">
+        						<table class="topcontent shade5" border="0" cellspacing="0" cellpadding="0" width="100%">
+        							<tr>
+        								<td class="TL">
+        								</td>
+        								<td class="T">
+        								</td>
+        								<td class="TR">
+        								</td>
+        							</tr>
+        							<tr>
+        								<td class="L">
+        								</td>
+        								<td class="button" onclick="location='#pathway4';" style="background: #DDDDDD url(src/img/border_shade5_BG.gif); padding: 0px 0px 0px 0px;" valign="top">
+        									<h1 class="moduleheader">California Schools - Free Resources <span class="tagline">from Greatschools.net, an independent nonprofit</span></h1>
+        									<div class="topcontentcol1">
+        									</div>
+        <!-- topcontentcol1 -->
+        									<div class="topcontentcol2">
+        									</div>
+        <!-- topcontentcol2 -->
+        								</td>
+        								<td class="R">
+        								</td>
+        							</tr>
+        							<tr>
+        								<td class="BL">
+        								</td>
+        								<td class="B">
+        								</td>
+        								<td class="BR">
+        								</td>
+        							</tr>
+        						</table>
+        <!-- shade5 -->
+        						<table class="bottomcontent shade3" border="0" cellspacing="0" cellpadding="0" width="100%">
+        							<tr>
+        								<td class="TL">
+        								</td>
+        								<td class="T">
+        								</td>
+        								<td class="TR">
+        								</td>
+        							</tr>
+        							<tr>
+        								<td class="L">
+        								</td>
+        								<td class="button" style="background: #FFFFFF url(src/img/border_shade5_BG.gif); padding: 0px 0px 0px 0px;" valign="top">
+        <!-- bottomcontent -->
+        								</td>
+        								<td class="R">
+        								</td>
+        							</tr>
+        							<tr>
+        								<td class="BL">
+        								</td>
+        								<td class="B">
+        								</td>
+        								<td class="BR">
+        								</td>
+        							</tr>
+        						</table>
+        <!-- shade4 -->
+        					</td>
+        				</tr>
+        			</table>
+        <!-- main -->
+        		</td>
+        	</tr>
+        </table>
+        </body>
+    </html>
+</jsp:root>
+

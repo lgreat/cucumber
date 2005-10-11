@@ -1,8 +1,105 @@
-#adSquare { text-align:center; color: #999; width:300px; padding:5px 5px 5px 5px; margin:0 0 10px 0; border:1px solid #BBB; font-size:10px; float:right;}
 
+
+/* global */
+html, body{width:100%;height:100%}
+body, form {margin:0;padding:0}
+body, td, samp {font-family: Arial, Helvetica, sans-serif; font-size:12px;}
+table#pagemargin {position:relative;width:100%;height:100%;margin:0px auto;padding:6px 6px 6px 6px;}
+img {border:0;display:block;padding:0;margin:0;}
+.border {border:1px solid #900;}
+.small {font-size:80%;}
+a {text-decoration:none;color:#00F;}
+a:visited {color:#66C;}
+a:hover {text-decoration:underline;}
+a.pad {padding:0px 10px 0px 0px;display:inline;}
+a.nohover:hover {text-decoration:none;}
+.lpad {padding:0px 0px 0px 10px;display:inline;}
+.block, .block a {display:block;}
+.bpad div {padding-bottom:6px;}
+.left {text-align:left;}
+ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input,label,address,div {list-style:none;font-size:1em;font-style:normal;font-weight:normal;margin:0; padding:0;}
+.bottomalign {position:absolute;bottom:0px;}
+div.verticalcontainer {position:relative;height:250px;}
+.nowrap {white-space:nowrap;}
+.fullheight {height:100%;}
+.fullwidth {width:100%;}
+input.checkbox {margin:0px 0px -2px 0px;}
+.smallform .textfield {font-size:90%;color:#999;width:75%;height:1.8em;padding:1px 0px 0px 3px;}
+.smallform input.btn {width:21px;height:18px;margin:0px 0px -3px 6px;padding:0px 0px 0px 0px;border:0;}
+
+
+/* branding */
+img#logo {width:260px;height:40px;padding:0px 0px 0px 0px;margin:0px 0px 6px 0px;}
+
+
+/* advertising */
+#adSquare { text-align:center; color: #999; width:300px; padding:5px 5px 5px 5px; margin:0 0 10px 0; border:1px solid #BBB; font-size:10px; float:right;}
+.google_banner {width:100%; padding:10px 0px 10px 0px;text-align:center;}
+
+
+/* header segment */
+table.leaderboard {background: #339;border-top:1px solid #336;border-bottom:1px solid #336;margin:0px 0px 5px 0px;}
+table.leaderboard td {padding-left:7px;text-align:center;}
+table.leaderboard td img {display:inline;}
+
+table.ch .toprow .col1 {width:180px;}
+table.ch .toprow .col2 {text-align:right;width:100%;}
+
+
+/* footer */
 #footer {position: relative; margin: 0 auto; width: 75%; font-family: Arial, Helvetica, sans-serif; color:#000000; font-size: 10px; font-style: normal;}
 #footerAd {}
 #footerText {line-height: 10pt; font-size: 11px; font-weight: bold; padding-top: 10px; padding-bottom: 10px; }
 #footerSearch {padding-bottom: 5px}
 #footerSponsor {}
 #footerCopyright {padding-bottom: 5px; text-align: center}
+
+
+
+/* global side nav */
+.globalnav {height:50px;}
+.globalnav h1 {color: #000;font-weight:bold;font-size:16px;padding:0px 0px 4px 0px;cursor:hand;width:100%;}
+.globalnav h1 a, .globalnav h1 a:visited {color: #000;}
+.globalnav h1 a:hover {text-decoration:none;color:#FFF;}
+.globalnav a, .globalnav a:visited {color: #FFF;}
+.globalnav a {display:block;margin:0px 0px 3px 0px;font-weight:bold;}
+.globalnav a.insiderlink {margin:13px 0px 7px 0px;}
+.globalnav a:hover {text-decoration:none;color:#FC9;}
+
+
+
+
+
+.globalsearch {font-size:13px;margin:0px 0px 3px 0px;padding:1px 0px 2px 3px;}
+/* select.globalsearch option {background: #DDD;} */
+.textfield {color:#999;width:50%;}
+input.btn {width:28px;height:24px;margin:0px 0px -2px 6px;padding:0px 0px 0px 0px;border:0;}
+
+tr.login td {font-size:10px;}
+tr.login td.col1 {text-align:left;padding-left:2px;}
+tr.login td.col2 {text-align:right;padding-right:3px;}
+
+table.whitebox {margin-bottom:5px;}
+
+#main {margin:5px 0px 0px 0px;}
+#main td.col1 {width:180px;height:100%;padding:0px 0px 0px 0px;}
+#main td.col2 {padding:0px 0px 0px 0px;}
+
+/* page specific */
+.topcontentcol1 {width:60%;float:left;}
+.topcontentcol2 {width:40%;float:right;vertical-align:middle;padding-top:0px;}
+.browselinks {padding:6px 0px 15px 0px;width:50%;}
+div.featuredarticle {margin:20px 6px 6px 5px;}
+div.featuredarticle b {color:#900;font-weight:bold;text-decoration:none;}
+table.promoNewsletterSmall {margin:20px 0px 0px 2px;}
+table.promoNewsletterSmall h2 {font-size:1.5em;font-weight:bold;margin:0px 0px 0px 0px;}
+table.promoNewsletterSmall h3 {font-size:1em;font-weight:bold;margin:10px 0px 0px 0px;}
+table.promoNewsletterSmall .smallform {margin: 10px 0px 2px 0px;}
+
+h1.moduleheader {color:#F60;font-size:16px;font-weight:bold;white-space:nowrap;padding:0px 0px 4px 0px;}
+h1.moduleheader span.tagline {color:#000;font-weight:normal;font-size:12px;padding-left:20px;}
+h2.segmentheader {color:#900;font-size:13px;font-weight:bold;padding:0px 0px 3px 0px;}
+
+table.bottomcontent tr {padding-bottom:5px;}
+table.bottomcontent tr td img {text-align:center;}
+

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:directive.tag body-content="empty"/>
+
+    <table class="promoNewsletterSmall" border="0" cellspacing="0" cellpadding="0" width="100%">
+        <tr>
+            <td style="background: #FFF url(src/img/border_blank_TL.gif) left top; width:0px; height:0px;">
+            </td>
+            <td style="background: #FFF url(src/img/border_blank_T.gif) top repeat-x;">
+            </td>
+            <td style="background: #FFF url(src/img/border_blank_TR.gif) top right; width:0px; height:0px;">
+            </td>
+        </tr>
+        <tr>
+            <td style="background: #FFF url(src/img/border_blank_L.gif) left repeat-y;">
+            </td>
+            <td style="background: #FFF url(src/img/border_blank_BG.gif) bottom right no-repeat; padding: 0px 0px 0px 0px;" valign="top">
+                <h2>
+                    <a class="nohover" href="#">FREE Newsletters</a>
+                </h2>
+                <div class="small">
+										Help your child succeed in school.
+                </div>
+                <h3>Timely tips and advice:</h3>
+                <input class="checkbox" type="checkbox" name="pa" checked="checked"/>
+                <label>Parent Advisor</label>
+                <br/>
+                <h3>What to expect in the classroom and more: </h3>
+                <input class="checkbox" type="checkbox" name="k"/>
+                <label>My Kindergartner</label>
+                <br/>
+                <input class="checkbox" type="checkbox" name="1st"/>
+                <label>My First-Grader</label>
+                <br/>
+                <input class="checkbox" type="checkbox" name="2nd"/>
+                <label>My Second-Grader</label>
+                <br/>
+                <input class="checkbox" type="checkbox" name="3rd"/>
+                <label>My Third-Grader</label>
+                <h3>Performance updates for your child's school:</h3>
+                <input class="checkbox" type="checkbox" name="3rd"/>
+                <label>My School Stats</label>
+                <div class="smallform">
+                    <input type="text" class="textfield" onfocus="this.value='';" value="Enter email"/>
+                    <input type="image" src="src/img/btn_go_small.gif" class="btn"/>
+                </div>
+                <a class="small block" href="#">Learn More</a>
+                <a class="small block" href="#">Privacy Policy</a>
+            </td>
+            <td style="background: #FFF url(src/img/border_blank_R.gif) right repeat-y;">
+            </td>
+        </tr>
+        <tr>
+            <td style="background: #FFF url(src/img/border_blank_BL.gif) left bottom; width:0px; height:0px;">
+            </td>
+            <td style="background: #FFF url(src/img/border_blank_B.gif) bottom repeat-x;">
+            </td>
+            <td style="background: #FFF url(src/img/border_blank_BR.gif) bottom right; width:0px; height:0px;">
+            </td>
+        </tr>
+    </table>
+
+</jsp:root>
