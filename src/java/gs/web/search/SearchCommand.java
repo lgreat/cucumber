@@ -41,8 +41,9 @@ public class SearchCommand {
     }
 
     public String getSchoolType() {
-        
+        return _schooltype;
     }
+    
     public void setC(String _type) {
         this._type = _type;
     }
