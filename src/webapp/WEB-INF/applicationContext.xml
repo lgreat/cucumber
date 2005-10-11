@@ -17,11 +17,6 @@
     <!--        </property>-->
     <!--    </bean>-->
 
-    <bean id="stateManager"
-        class="gs.data.state.StateManager"
-        lazy-init="true">
-    </bean>
-
     <bean id="schoolTableTagHandler"
           class="gs.web.search.SchoolTableTagHandler">
     </bean>
