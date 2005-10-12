@@ -34,7 +34,7 @@ img#logo {width:260px;height:40px;padding:0px 0px 0px 0px;margin:0px 0px 6px 0px
 
 /* advertising */
 #adSquare { text-align:center; color: #999; width:300px; padding:5px 5px 5px 5px; margin:0 0 10px 0; border:1px solid #BBB; font-size:10px; float:right;}
-#adLeaderboard {background: #339;text-align:center;border-top:1px solid #336;border-bottom:1px solid #336;margin:0px 0px 5px 0px;}
+#adLeaderboard {background: #339;white-space:nowrap;text-align:center;border-top:1px solid #336;border-bottom:1px solid #336;margin:0px 0px 5px 0px;}
 #adLeaderboard img {display:inline;}
 .google_banner {width:100%; padding:10px 0px 10px 0px;text-align:center;}
 
