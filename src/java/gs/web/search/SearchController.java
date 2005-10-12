@@ -7,11 +7,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractFormController;
 import org.springframework.validation.BindException;
 import org.apache.lucene.search.*;
-import org.apache.lucene.index.Term;
-import org.apache.lucene.queryParser.ParseException;
 import org.apache.log4j.Logger;
 import gs.data.search.*;
 import gs.data.search.Searcher;
+import gs.data.search.SearchCommand;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -39,7 +38,7 @@ import java.util.ArrayList;
  */
 public class SearchController extends AbstractFormController {
 
-    public static final String BEAN_ID = "/search.page";
+    public static final String BEAN_ID = "/search/search.page";
     private static Logger _log = Logger.getLogger(SearchController.class);
     private SpellCheckSearcher _spellCheckSearcher;
     private Searcher _searcher;
@@ -74,22 +73,6 @@ public class SearchController extends AbstractFormController {
 	public ModelAndView processFormSubmission(
             HttpServletRequest request, HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
-        if (command != null && command instanceof SearchCommand) {
-            SearchCommand sc = (SearchCommand)command;
-
-            System.out.println ("sc.page: " + sc.getPage());
-            System.out.println ("sc.type: " + sc.getType());
-            System.out.println ("sc.state: " + sc.getState());
-            System.out.println ("sc.query: " + sc.getQuery().toString());
-            System.out.println ("filter: " + sc.getFilter().toString());
-        }
-
-        /*
-        public void initBinder(HttpServletRequest request,
-                             ServletRequestDataBinder binder) {
-          //
-        }
-        */
 
         long requestStart = System.currentTimeMillis();
 
@@ -101,23 +84,15 @@ public class SearchController extends AbstractFormController {
         String queryString = request.getParameter("q");
         _log.info("Search query:" + queryString);
 
-        // If there is no query string, there's nothing to do.
-        if (queryString != null && !queryString.equals("")) {
+        if (command != null && command instanceof SearchCommand &&
+                queryString != null && !queryString.equals("")) {
+            SearchCommand sc = (SearchCommand)command;
 
-            BooleanQuery bq = new BooleanQuery();
-            try {
-                Query query = GSQueryParser.parse(queryString);
-                bq.add(query, true, false);
-            } catch (ParseException pe) {
-                _log.warn("Problem parsing search query: " + queryString, pe);
+            Hits hts = _searcher.search(sc);
+            if (hts != null) {
+                _log.debug("hit count: " + hts.length());
             }
 
-            String st = request.getParameter("state");
-            if (st != null && !st.equalsIgnoreCase("all")) {
-                bq.add(new TermQuery(new Term("state", st.toLowerCase())), true, false);
-            }
-
-            // deal with p - the page parameter.
             int page = 1;
             String p = request.getParameter("p");
             if (p != null) {
@@ -129,17 +104,6 @@ public class SearchController extends AbstractFormController {
             }
 
             String constraint = request.getParameter("c");
-            String sortParam = request.getParameter("sort");
-
-            Sort sort = null;
-            if (sortParam != null && !"".equals(sortParam)) {
-                String reverseParam = request.getParameter("r");
-                boolean reverse = false;
-                if (reverseParam != null && reverseParam.equals ("t")) {
-                    reverse = true;
-                }
-                sort = new Sort(sortParam, reverse);
-            }
 
             int pageSize = 10;
             int schoolsPageSize = 10;
@@ -147,23 +111,19 @@ public class SearchController extends AbstractFormController {
             List qList= new ArrayList(); // for debug output
 
             if (constraint != null && !constraint.equals("all") && !constraint.equals("")) {
-                bq.add (new TermQuery(new Term("type", constraint)), true, false);
-                qList.add(bq.toString());
-                Hits hits = _searcher.search(bq, sort, null, null);
-                _resultsPager.load(hits, constraint);
+                _resultsPager.load(hts, constraint);
             } else {
                 String[] types =
                         {"school", "article", "district", "city", "term"};
                 pageSize = 3;
                 schoolsPageSize = 6;
                 for (int i = 0; i < types.length; i++) {
-                    BooleanQuery bq2 = (BooleanQuery)bq.clone();
-                    bq2.add (new TermQuery(new Term("type", types[i])), true, false);
-                    qList.add(bq2.toString());
-                    Hits hits = _searcher.search(bq2, null, null, null);
+                    sc.setType(types[i]);
+                    Hits hits = _searcher.search(sc);
                     _resultsPager.load(hits, types[i]);
                 }
             }
+
             if (debug) { model.put("queries", qList);}
 
             _resultsPager.setQuery(queryString);
@@ -200,12 +160,11 @@ public class SearchController extends AbstractFormController {
         long requestEnd = System.currentTimeMillis();
         long requestTime = requestEnd - requestStart;
         if (debug) { model.put("requesttime", Long.toString(requestTime)); }
-        return new ModelAndView("search", "results", model);
+        return new ModelAndView("search/search", "results", model);
     }
 
     /**
      * A setter for Spring
-     *
      * @param pager
      */
     public void setResultsPager(ResultsPager pager) {
@@ -214,13 +173,16 @@ public class SearchController extends AbstractFormController {
 
     /**
      * A setter for Spring
-     *
      * @param spellCheckSearcher
      */
     public void setSpellCheckSearcher(SpellCheckSearcher spellCheckSearcher) {
         _spellCheckSearcher = spellCheckSearcher;
     }
 
+    /**
+     * A setter for Spring
+     * @param searcher
+     */
     public void setSearcher(Searcher searcher) {
         _searcher = searcher;
     }

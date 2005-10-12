@@ -13,7 +13,7 @@
     </decorator>
 
     <decorator name="cobrandHeaderGsFooter" page="cobrandHeaderGsFooter.jspx">
-        <pattern>/search.page</pattern>
+        <pattern>/search/search.page</pattern>
         <pattern>/path/choose/index.page</pattern>
     </decorator>
     

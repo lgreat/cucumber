@@ -38,7 +38,7 @@
 
                             <c:if test="${page gt 1}">
                                 <a class="p"
-                                    href="/search.page?q=${query}&amp;c=${constraint}&amp;${sortParam}&amp;s=${style}&amp;p=${page-1}">&lt;&lt;</a>
+                                    href="/search/search.page?q=${query}&amp;c=${constraint}&amp;${sortParam}&amp;s=${style}&amp;p=${page-1}">&lt;&lt;</a>
                             </c:if>
                             <c:set var="counter" value="1"/>
                             <c:forEach begin="${page le 10 ? 1 : page-5}"
@@ -51,7 +51,7 @@
                                     </c:if>
                                     <span id="${tick}">
                                         <a class="p"
-                                            href="/search.page?q=${query}&amp;c=${constraint}&amp;${sortParam}&amp;s=${style}&amp;p=${index}"> ${index}</a>
+                                            href="/search/search.page?q=${query}&amp;c=${constraint}&amp;${sortParam}&amp;s=${style}&amp;p=${index}"> ${index}</a>
                                     </span>
                                     <c:set var="tick" value=""/>
                                     <c:set var="counter" value="${counter+1}"/>
@@ -60,13 +60,13 @@
                             </c:forEach>
                             <c:if test="${page lt maxPages}">
                                 <a class="p"
-                                    href="/search.page?q=${query}&amp;c=${constraint}&amp;s=${style}&amp;p=${page+1}">&gt;&gt;</a>
+                                    href="/search/search.page?q=${query}&amp;c=${constraint}&amp;s=${style}&amp;p=${page+1}">&gt;&gt;</a>
                             </c:if>
                         </span>
                     </c:when>
                     <c:otherwise>
                         <span class="more">
-                            <a href="/search.page?q=${query}&amp;c=${type}&amp;s=${style}&amp;p=1">more >></a>
+                            <a href="/search/search.page?q=${query}&amp;c=${type}&amp;s=${style}&amp;p=1">more >></a>
                         </span>
                     </c:otherwise>
                 </c:choose>

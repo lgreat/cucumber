@@ -84,10 +84,11 @@
     <!-- Insider end -->
 
     <!-- Search begin -->
-    <bean name="/search.page" class="gs.web.search.SearchController"
+    <bean name="/search/search.page" class="gs.web.search.SearchController"
           autowire="byName">
+      <property name="sessionForm"><value>false</value></property>
       <property name="commandName"><value>searchCommand</value></property>
-      <property name="commandClass"><value>gs.web.search.SearchCommand</value></property>
+      <property name="commandClass"><value>gs.data.search.SearchCommand</value></property>
       <property name="resultsPager">
         <ref bean="resultsPager"/>
       </property>

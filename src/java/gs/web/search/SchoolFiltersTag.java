@@ -3,59 +3,129 @@ package gs.web.search;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.JspContext;
+import javax.servlet.jsp.PageContext;
 import java.io.IOException;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
+ * This class writes the table grid of checkboxes used in searchControl.tagx
+ * to filter school results.
+ *
  * @author Chris Kimm <mailto:chris@seeqa.com>
  */
 public class SchoolFiltersTag extends SimpleTagSupport {
+
+    private Set _schoolTypeSet;
+    private Set _gradeLevelSet;
+    private static Set _defaultSchoolTypeSet = new HashSet();
+    private static Set _defaultGradeLevelSet = new HashSet();
+
+    static {
+        _defaultGradeLevelSet.add("elementary");
+        _defaultGradeLevelSet.add("middle");
+        _defaultGradeLevelSet.add("high");
+
+        _defaultSchoolTypeSet.add("public");
+        _defaultSchoolTypeSet.add("private");
+        _defaultSchoolTypeSet.add("charter");
+    }
+    /**
+     * This is collection of schooltype checks: public; private; charter
+     * @param o
+     */
+    public void setSchoolTypes(Object o) {
+        String[] params = (String[])o;
+        if (params != null) {
+            _schoolTypeSet = new HashSet();
+            for (int i = 0; i < params.length; i++) {
+                _schoolTypeSet.add(params[i]);
+            }
+        } else {
+            _schoolTypeSet = _defaultSchoolTypeSet;
+        }
+    }
+
+    /**
+     * This is the collection of gradeLevel checks: elementary; middle; high
+     * @param o
+     */
+    public void setGradeLevels(Object o) {
+        String[] params = (String[])o;
+        if (params != null) {
+            _gradeLevelSet = new HashSet();
+            for (int i = 0; i < params.length; i++) {
+                _gradeLevelSet.add(params[i]);
+            }
+        } else {
+            _gradeLevelSet = _defaultGradeLevelSet;
+        }
+    }
+
     public void doTag() throws IOException {
-        JspContext jspContext = getJspContext();
-        String o = (String)jspContext.findAttribute("schooltype");
-        String gl = (String)jspContext.findAttribute("gradelevel");
 
         JspWriter out = getJspContext().getOut();
         out.println("<table><tr><td>");
         out.println("<td>");
 
         out.println("<div class=\"checkbox\">");
-        out.print("<input type=\"checkbox\" name=\"schooltype\" ");
-        out.print("value=\"public\">");
+        out.print("<input id=\"stpub\" type=\"checkbox\" name=\"schooltype\" ");
+        if (_schoolTypeSet != null && _schoolTypeSet.contains("public")) {
+            out.print("checked ");
+        }
+        out.print("value=\"public\" onClick=\"checkSchoolTypes('stpub')\">");
         out.print(" Public");
-        //out.print(o);
         out.println("</input>");
         out.println("</div>");
 
         out.println("<div class=\"checkbox\">");
-        out.print("<input type=\"checkbox\" name=\"schooltype\" ");
-        out.print(" value=\"private\">");
+        out.print("<input id=\"stpri\" type=\"checkbox\" name=\"schooltype\" ");
+        if (_schoolTypeSet != null && _schoolTypeSet.contains("private")) {
+            out.print("checked ");
+        }
+        out.print("value=\"private\" onClick=\"checkSchoolTypes('stpri')\">");
         out.print(" Private");
         out.println("</input>");
         out.println("</div>");
 
         out.println("<div class=\"checkbox\">");
-        out.print("<input type=\"checkbox\" name=\"schooltype\" value=\"charter\">");
+        out.print("<input id=\"stcha\" type=\"checkbox\" name=\"schooltype\" ");
+        if (_schoolTypeSet != null && _schoolTypeSet.contains("charter")) {
+            out.print("checked ");
+        }
+        out.print("value=\"charter\" onClick=\"checkSchoolTypes('stcha')\">");
         out.print(" Charter");
         out.println("</input>");
         out.println("</div>");
 
-        out.println("</td><td>");
+        out.println("</td><td style=\"padding-left:12mm\">");
 
         out.println("<div class=\"checkbox\">");
-        out.print("<input type=\"checkbox\" name=\"gradelevel\" value=\"elementary\">");
+        out.print("<input id=\"gle\" type=\"checkbox\" name=\"gradelevel\" ");
+        if (_gradeLevelSet != null && _gradeLevelSet.contains("elementary")) {
+            out.print("checked ");
+        }
+        out.print("value=\"elementary\" onClick=\"checkGradeLevels('gle')\">");
         out.print(" Elementary");
-        //out.print(gl);
         out.println("</input>");
         out.println("</div>");
 
         out.println("<div class=\"checkbox\">");
-        out.print("<input type=\"checkbox\" name=\"gradelevel\" value=\"middle\">");
+        out.print("<input id=\"glm\" type=\"checkbox\" name=\"gradelevel\" ");
+        if (_gradeLevelSet != null && _gradeLevelSet.contains("middle")) {
+            out.print("checked ");
+        }
+        out.print("value=\"middle\" onClick=\"checkGradeLevels('glm')\">");
         out.print(" Middle");
         out.println("</input>");
         out.println("</div>");
 
         out.println("<div class=\"checkbox\">");
-        out.print("<input type=\"checkbox\" name=\"gradelevel\" value=\"high\">");
+        out.print("<input id=\"glh\" type=\"checkbox\" name=\"gradelevel\" ");
+        if (_gradeLevelSet != null && _gradeLevelSet.contains("high")) {
+            out.print("checked ");
+        }
+        out.print("value=\"high\" onClick=\"checkGradeLevels('glh')\">");
         out.print(" High");
         out.println("</input>");
         out.println("</div>");

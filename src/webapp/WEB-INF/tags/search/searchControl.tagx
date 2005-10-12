@@ -6,9 +6,32 @@
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="showSchoolFilters" required="false"/>
 
-    <c:url var="pagename" value="/search.page"/>
+
+    <![CDATA[
+    <script>
+        function checkSchoolTypes(id) {
+            if((document.getElementById('stpub').checked == false) &&
+               (document.getElementById('stpri').checked == false) &&
+               (document.getElementById('stcha').checked == false)) {
+                document.getElementById(id).checked = true;
+                alert('You must select at least one school type.');
+            }
+        }
+
+        function checkGradeLevels(id) {
+            if((document.getElementById('gle').checked == false) &&
+               (document.getElementById('glm').checked == false) &&
+               (document.getElementById('glh').checked == false)) {
+                document.getElementById(id).checked = true;
+                alert('You must select at least one grade level.');
+            }
+        }
+    </script>
+    ]]>
+
+    <!--<c:url var="pagename" value="/search.page"/>-->
     <form id="searchForm" name="sf" method="get"
-          action="${pagename}">
+          action="/search/search.page">
         <table style="width:100%">
             <tr>
                 <td class="label" width="90">Search:</td>
@@ -35,7 +58,9 @@
                 </td>
                 <td>
                     <gsweb:stateSelector allowNoState="${param.state == 'all'}" useLongNames="true"/>
-                    <a class="lpad" href="http://${sessionScope.context.hostName}/cgi-bin/template_plain/advanced/">Search near address</a>
+                    <c:set var="st" value="${(param.state == 'all') || (empty param.state) ? 'ca' : param.state}"/>
+                    <!--<input type="submit" value="Search near..." name="searchnear" />-->
+                    <a class="lpad" href="http://${sessionScope.context.hostName}/cgi-bin/template_plain/advanced/${st}">Search near address</a>
                 </td>
 
                 <c:if test="${not empty param.state and param.state != 'all'}">
@@ -63,45 +88,7 @@
                 <tr>
                     <td class="label">Show only:</td>
                     <td>
-                        <gsweb:schoolFilters/>
-                        <!--
-                        <table><tr><td>
-                            <td>
-                                <div class="checkbox">
-                                    <c:out value="&lt;input type='checkbox' name='schooltype' value='public' ${param.schooltype == 'public' ? 'checked' : ''} &gt;" escapeXml="false"/>
-                                        <c:out value=" Public" escapeXml="true"/>
-                                    <c:out value="&lt;/input&gt;" escapeXml="false"/>
-                                </div>
-                                <div class="checkbox">
-                                    <c:out value="&lt;input type='checkbox' name='schooltype' value='private' ${param.schooltype == 'private' ? 'checked' : ''} &gt;" escapeXml="false"/>
-                                        <c:out value=" Private" escapeXml="true"/>
-                                    <c:out value="&lt;/input&gt;" escapeXml="false"/>
-                                </div>
-                                <div class="checkbox">
-                                    <c:out value="&lt;input type='checkbox' name='schooltype' value='charter' ${param.schooltype == 'charter' ? 'checked' : ''} &gt;" escapeXml="false"/>
-                                        <c:out value=" Charter" escapeXml="true"/>
-                                    <c:out value="&lt;/input&gt;" escapeXml="false"/>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="checkbox">
-                                    <c:out value="&lt;input type='checkbox' name='gradelevel' value='elementary' ${param.gradelevel == 'elementary' ? 'checked' : ''} &gt;" escapeXml="false"/>
-                                        <c:out value=" Elementary" escapeXml="true" />
-                                    <c:out value="&lt;/input&gt;" escapeXml="false"/>
-                                </div>
-                                <div class="checkbox">
-                                    <c:out value="&lt;input type='checkbox' name='gradelevel' value='middle' ${param.gradelevel == 'middle' ? 'checked' : ''} &gt;" escapeXml="false"/>
-                                        <c:out value=" Middle" escapeXml="true" />
-                                    <c:out value="&lt;/input&gt;" escapeXml="false"/>
-                                </div>
-                                <div class="checkbox">
-                                    <c:out value="&lt;input type='checkbox' name='gradelevel' value='high' ${param.gradelevel == 'high' ? 'checked' : ''} &gt;" escapeXml="false"/>
-                                        <c:out value=" High" escapeXml="true" />
-                                    <c:out value="&lt;/input&gt;" escapeXml="false"/>
-                                </div>
-                            </td>
-                        </td></tr></table>
-                        -->
+                        <gsweb:schoolFilters schoolTypes="${paramValues.schooltype}" gradeLevels="${paramValues.gradelevel}"/>
                     </td>
                 </tr>
             </c:if>

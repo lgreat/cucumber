@@ -102,7 +102,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                 int counter = 1;
 
                 StringBuffer hrefBuffer = new StringBuffer(40);
-                hrefBuffer.append("<a class=\"pad\" href=\"/search.page?q=");
+                hrefBuffer.append("<a class=\"pad\" href=\"/search/search.page?q=");
                 hrefBuffer.append(_queryString);
                 State s = getState();
                 if (s != null) {

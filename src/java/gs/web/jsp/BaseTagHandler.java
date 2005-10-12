@@ -47,6 +47,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
     protected School getSchool(SearchResult sr) {
         School school = null;
         try {
+            _log.debug("sr.getState:::::: " + sr.getState());
             State state = _stateManager.getState(sr.getState());
             if (state != null) {
                 school = getSchoolDao().getSchoolById(state, Integer.valueOf(sr.getId()));

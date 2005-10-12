@@ -40,7 +40,7 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
     private static String DISTRICTS = "Districts: ";
 
 
-    private static String aStart = "<a href=\"/search.page?q=";
+    private static String aStart = "<a href=\"/search/search.page?q=";
     private static String frag1;
     private static String frag2 = "</td></tr><tr><td class=\"col2\">";
     private static String frag3;

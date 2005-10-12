@@ -122,7 +122,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             int schoolCount = ((Integer) _results.get("schoolsTotal")).intValue();
             if (schoolCount > SCHOOLS_MAX) {
 
-                out.print("<li class=\"viewall\"><a href=\"/search.page?q=");
+                out.print("<li class=\"viewall\"><a href=\"/search/search.page?q=");
                 out.print(getDecoratedQuery());
                 out.print("&c=school\">View all ");
                 out.print(schoolCount);
@@ -158,7 +158,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 SearchResult sr = (SearchResult) cities.get(i);
 
                 out.print("<li>");
-                out.print("<a href=\"/search.page?c=school&amp;q=type:school+city:");
+                out.print("<a href=\"/search/search.page?c=school&amp;q=type:school+city:");
                 out.print(sr.getCity());
                 out.print("&state=");
                 out.print(sr.getState());
@@ -171,7 +171,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             }
             int citiesCount = ((Integer) _results.get("citiesTotal")).intValue();
             if (citiesCount > CITIES_MAX) {
-                out.print("<li class=\"viewall\"><a href=\"/search.page?q=");
+                out.print("<li class=\"viewall\"><a href=\"/search/search.page?q=");
                 out.print(getDecoratedQuery());
                 out.print("&c=city\">View all ");
                 out.print(citiesCount);
@@ -208,7 +208,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 SearchResult sr = (SearchResult) districts.get(i);
                 String s = sr.getState();
                 out.print("<li>");
-                out.print("<a href=\"/search.page?q=type:school+AND+district:");
+                out.print("<a href=\"/search/search.page?q=type:school+AND+district:");
                 out.print(sr.getId());
                 out.print("&c=school&state=");
                 out.print(s);
@@ -228,7 +228,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             }
             int districtsCount = ((Integer) _results.get("districtsTotal")).intValue();
             if (districtsCount > DISTRICTS_MAX) {
-                out.print("<li class=\"viewall\"><a href=\"/search.page?q=");
+                out.print("<li class=\"viewall\"><a href=\"/search/search.page?q=");
                 out.print(getDecoratedQuery());
                 out.print("&c=district\">View all ");
                 out.print(districtsCount);
@@ -278,7 +278,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             }
             int articlesCount = ((Integer) _results.get("articlesTotal")).intValue();
             if (articlesCount > ARTICLES_MAX) {
-                out.print("<li class=\"viewall\"><a href=\"/search.page?q=");
+                out.print("<li class=\"viewall\"><a href=\"/search/search.page?q=");
                 out.print(getDecoratedQuery());
                 out.print("&c=article\">View all ");
                 out.print(articlesCount);
@@ -315,7 +315,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
             }
             int termsCount = ((Integer) _results.get("termsTotal")).intValue();
             if (termsCount > TERMS_MAX) {
-                out.print("<li class=\"viewall\"><a href=\"/search.page?q=");
+                out.print("<li class=\"viewall\"><a href=\"/search/search.page?q=");
                 out.print(getDecoratedQuery());
                 out.print("&c=term\">View all ");
                 out.println(termsCount);

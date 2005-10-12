@@ -21,7 +21,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
     <title>Search</title>
 
-    <link rel="stylesheet" href="res/css/search/search.css" type="text/css"
+    <link rel="stylesheet" href="/res/css/search/search.css" type="text/css"
           media="screen"/>
 
     <script type="text/javascript">
@@ -50,18 +50,18 @@
         <td class="left">
             <div class="verticalcontainer">
                 <a href="/">
-                    <img src="res/img/search/GS_logo_160x60.gif" alt="logo"
+                    <img src="/res/img/search/GS_logo_160x60.gif" alt="logo"
                          width="160" height="60" style="padding-left:6px;"/>
                 </a>
 
                 <div class="bottomalign">
-                    <a href="#"><img src="res/img/search/button_compare.lo.gif"
+                    <a href="#"><img src="/res/img/search/button_compare.lo.gif"
                                      alt="pw 1" width="180" height="35"/></a>
-                    <a href="#"><img src="res/img/search/button_pw1.lo.gif"
+                    <a href="#"><img src="/res/img/search/button_pw1.lo.gif"
                                      alt="pw 1" width="180" height="35"/></a>
-                    <a href="#"><img src="res/img/search/button_pw2.lo.gif"
+                    <a href="#"><img src="/res/img/search/button_pw2.lo.gif"
                                      alt="pw 2" width="180" height="35"/></a>
-                    <a href="#"><img src="res/img/search/button_pw3.lo.gif"
+                    <a href="#"><img src="/res/img/search/button_pw3.lo.gif"
                                      alt="pw 3" width="180" height="35"/></a>
                 </div>
             </div>
@@ -86,7 +86,7 @@
 <c:if test="${not empty results.suggestion}">
     Did you mean:
     <span id="suggestion">
-              <a href="/search.page?q=${results.suggestion}&amp;c=${param.c}">
+              <a href="/search/search.page?q=${results.suggestion}&amp;c=${param.c}">
                   <c:out value="${results.suggestion}" escapeXml="true"/>
               </a>
           </span>
