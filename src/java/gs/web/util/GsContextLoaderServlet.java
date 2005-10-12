@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 NDP Software. All Rights Reserved.
- * $Id: GsContextLoaderServlet.java,v 1.1 2005/10/12 16:47:42 apeterson Exp $
+ * $Id: GsContextLoaderServlet.java,v 1.2 2005/10/12 16:50:39 apeterson Exp $
  */
 
 package gs.web.util;
@@ -14,7 +14,11 @@ import javax.servlet.ServletContext;
 
 /**
  * Provides place where we can insert the gs data application context as the parent
- * context.
+ * context. This parent context is taken from the gs.data runtime context, which
+ * has been properly configured.
+ * <p />
+ * Without this class, web.xml must list all necessary config files of GSData. This
+ * is a maintenance problems, as new files aren't added automatically to both projects.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */

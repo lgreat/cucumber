@@ -32,7 +32,7 @@
         -->
     <servlet>
         <servlet-name>context</servlet-name>
-        <servlet-class>org.springframework.web.context.ContextLoaderServlet</servlet-class>
+        <servlet-class>gs.web.util.GsContextLoaderServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <!--
@@ -42,8 +42,6 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            classpath:gs/data/applicationContext-data.xml,
-            classpath:gs/data/dao/hibernate/applicationContext-hibernate.xml,
             /WEB-INF/applicationContext.xml
         </param-value>
     </context-param>
