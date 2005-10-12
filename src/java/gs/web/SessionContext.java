@@ -1,33 +1,42 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.13 2005/09/22 00:50:06 thuss Exp $
+ * $Id: SessionContext.java,v 1.14 2005/10/12 22:42:06 apeterson Exp $
  */
 package gs.web;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.content.IArticleDao;
-import gs.data.state.State;
-import gs.data.state.StateManager;
 import gs.data.school.ISchoolDao;
 import gs.data.school.census.ICensusValueDao;
+import gs.data.state.State;
+import gs.data.state.StateManager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.beans.BeansException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.Serializable;
 
 /**
- * The purpose is ...
+ * The purpose is to hold common "global" properties for a user throughout their
+ * session. It's a facade over the regular session, provide type safety and
+ * whatever integrity guarantees we need to add. This class is wired to always
+ * be available to your page, so you don't have to defensively check for null.
+ * Additionally, we can enforce rules like "the user's current state is available",
+ * and not mess with checks to make sure values are in the session.
+ * <p />
+ * Finally, this class gets called at the beginning of each request, and can
+ * perform global operations like changing the user's state, host or cobrand.
  *
  * @author Andrew J. Peterson <mailto:apeterson@greatschools.net>
  */
-public class SessionContext implements ApplicationContextAware {
+public class SessionContext implements ApplicationContextAware, Serializable {
 
     public static final String BEAN_ID = "sessionContext";
 
@@ -42,13 +51,13 @@ public class SessionContext implements ApplicationContextAware {
     // user can change the cobrand by passing a parameter on the command line
     private static final String COBRAND_PARAM = "cobrand";
 
-    private IUserDao _userDao;
-    private StateManager _stateManager;
-    private IArticleDao _articleDao;
-    private ISchoolDao _schoolDao;
-    private ICensusValueDao _censusValueDao;
+    private transient IUserDao _userDao;
+    private transient StateManager _stateManager;
+    private transient IArticleDao _articleDao;
+    private transient ISchoolDao _schoolDao;
+    private transient ICensusValueDao _censusValueDao;
 
-    private static final Log _log = LogFactory.getLog(SessionContextInterceptor.class);
+    private static final transient Log _log = LogFactory.getLog(SessionContextInterceptor.class);
 
     /**
      * The name of the cobrand (sfgate, azcentral, dps, etc...) or null
@@ -58,7 +67,7 @@ public class SessionContext implements ApplicationContextAware {
     private User _user;
     private State _state;
 
-    private ApplicationContext _applicationContext;
+    private transient ApplicationContext _applicationContext;
 
     /**
      * Accessor
@@ -106,7 +115,7 @@ public class SessionContext implements ApplicationContextAware {
         if (cookieId != null) {
             // No previous login information or different user.
             if (_user == null || !_user.getId().equals(cookieId)) {
-                _user = _userDao.getUserFromId(cookieId);
+                _user = _userDao.getUserFromId(cookieId.intValue());
             }
         }
 
@@ -114,7 +123,12 @@ public class SessionContext implements ApplicationContextAware {
     }
 
 
+    /**
+     * Called at the beginning of the request. Allows this class to
+     * do common operations for all pages.
+     */
     public void updateFromParams(HttpServletRequest httpServletRequest) {
+
         // Get the real hostname or see if it's been overridden
         String paramHost = httpServletRequest.getParameter(HOST_PARAM);
         if (!StringUtils.isEmpty(paramHost)) {
@@ -143,8 +157,8 @@ public class SessionContext implements ApplicationContextAware {
             // then we return the full cobrand URL
         } else if (_cobrand != null &&
                 (_hostName.startsWith("www") ||
-                        _hostName.startsWith("staging") ||
-                        _hostName.startsWith("dev"))) {
+                _hostName.startsWith("staging") ||
+                _hostName.startsWith("dev"))) {
             // dev.greatschools.net?cobrand=sfgate -> sfgate.dev.greatschools.net
             _hostName = _cobrand + "." + _hostName;
             // azcentral.www.greatschools.net -> azcentral.greatschools.net
@@ -224,8 +238,6 @@ public class SessionContext implements ApplicationContextAware {
     /**
      * Is this the yahoo cobrand?
      * yahoo cobrands are yahooed and yahoo
-     *
-     * @return
      */
     public boolean isYahooCobrand() {
         boolean sYahooCobrand = false;
