@@ -55,6 +55,7 @@
         								<td class="button" onclick="location='#pathway4';" style="background: #DDDDDD url(src/img/border_shade5_BG.gif); padding: 0px 0px 0px 0px;" valign="top">
         									<h1 class="moduleheader">California Schools - Free Resources <span class="tagline">from Greatschools.net, an independent nonprofit</span></h1>
         									<div class="topcontentcol1">
+                                            <gsml:a href="/modperl/go/STATE">CLICK HERE</gsml:a>
         									</div>
         <!-- topcontentcol1 -->
         									<div class="topcontentcol2">
