@@ -2,8 +2,6 @@ package gs.web.search;
 
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.JspContext;
-import javax.servlet.jsp.PageContext;
 import java.io.IOException;
 import java.util.Set;
 import java.util.HashSet;
@@ -32,6 +30,7 @@ public class SchoolFiltersTag extends SimpleTagSupport {
     }
     /**
      * This is collection of schooltype checks: public; private; charter
+     * If null is passed as an argument, defaults to all three types.
      * @param o
      */
     public void setSchoolTypes(Object o) {
@@ -48,6 +47,7 @@ public class SchoolFiltersTag extends SimpleTagSupport {
 
     /**
      * This is the collection of gradeLevel checks: elementary; middle; high
+     * If null is passed as the argument, defaults to all three types.
      * @param o
      */
     public void setGradeLevels(Object o) {
@@ -62,6 +62,10 @@ public class SchoolFiltersTag extends SimpleTagSupport {
         }
     }
 
+    /**
+     * Writes a table with 3 schooltype checkboxes and 3 gradelevel checkboxes.
+     * @throws IOException
+     */
     public void doTag() throws IOException {
 
         JspWriter out = getJspContext().getOut();
