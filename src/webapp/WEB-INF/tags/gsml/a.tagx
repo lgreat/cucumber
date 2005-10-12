@@ -7,7 +7,11 @@
     <jsp:directive.attribute name="href" required="true" description="context-relative URL"/>
     <jsp:directive.attribute name="className" required="false" description="CSS class"/>
     <jsp:scriptlet>
-        // TODO Pull this out and have the code in the session context; write unit test; deal with dev environment.
+        // If the URL has a STATE string in it (or more than one), replace it with the
+        // user's state.
+        // TODO Pull this out and have the code in the session context;
+        // TODO write unit test
+        // TODO deal with dev environment.
         if (href.indexOf("STATE") != -1) {
             gs.web.SessionContext context = gs.web.SessionContext.getInstance(session);
             gs.data.state.State s = null;
