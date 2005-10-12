@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:directive.tag body-content="scriptless"/>
+    <jsp:directive.attribute name="state" required="false" description="Optional state to override context value"/>
+    <jsp:directive.attribute name="href" required="true" description="context-relative URL"/>
+    <jsp:directive.attribute name="className" required="false" description="CSS class"/>
+    <jsp:scriptlet>
+        // TODO Pull this out and have the code in the session context; write unit test; deal with dev environment.
+        if (href.indexOf("STATE") != -1) {
+            gs.web.SessionContext context = gs.web.SessionContext.getInstance(session);
+            gs.data.state.State s = null;
+            if (state != null) {
+                s = context.getStateManager().getState(state);
+            }
+            if (s == null) {
+                s = context.getStateOrDefault();
+            }
+            String sa = s.getAbbreviation();
+
+            jspContext.setAttribute("href", href.replaceAll("STATE", sa));
+        }
+    </jsp:scriptlet>
+    <c:url var="href2" value="${href}"/>
+    <!-- TODO class name -->
+    <a href="${href2}">
+        <jsp:doBody/>
+    </a>
+
+</jsp:root>
