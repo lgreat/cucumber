@@ -18,7 +18,7 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" pageEncoding="UTF-8" />
     <title>Search</title>
 
     <link rel="stylesheet" href="/res/css/search/search.css" type="text/css"

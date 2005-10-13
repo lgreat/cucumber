@@ -1,6 +1,7 @@
 package gs.web.search;
 
 import gs.data.state.State;
+import gs.data.content.Article;
 
 import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
@@ -40,10 +41,11 @@ public class ArticleTableTagHandler extends ResultsTableTagHandler {
                 State s = getStateOrDefault();
 
                 for (int i = 0; i < _articles.size(); i++) {
-                    SearchResult article = (SearchResult) _articles.get(i);
+                    //SearchResult article = (SearchResult) _articles.get(i);
+                    Article article = getArticle((SearchResult) _articles.get(i));
                     out.println("<tr class=\"result_row\">");
                     out.println("<td width=\"1\">&nbsp;</td>");
-                    out.println("<td><b>");
+                    out.println("<td>");
                     out.print("<a href=\"http://");
                     out.print(getHostname());
                     out.print("/cgi-bin/show");
@@ -55,9 +57,21 @@ public class ArticleTableTagHandler extends ResultsTableTagHandler {
                     out.print("/");
                     out.print(article.getId());
                     out.print("\">");
-                    out.println(escapleLongstate(article.getTitle()));
-                    out.println("</b></a><br/>");
-                    out.println(article.getAbstract());
+
+                    out.print(escapeLongstate(article.getTitle()));
+                    out.print("</a><br/>");
+                    /*
+                    byte[] utf8 = article.getAbstract().getBytes();
+                    System.out.println("\n\n\n");
+                    for (int ii = 0; ii < utf8.length; ii++) {
+                        System.out.print((char)utf8[ii]);
+                        System.out.print(utf8[ii]);
+                        System.out.print("|");
+                    }
+                    System.out.println ("\n\n\n");
+                    out.println(new String(utf8, "UTF-8"));
+                    */
+                    out.print(article.getAbstract());
                     out.println("</td><td></td>");
                     //out.println("</td><td class=\"icons\">NEW</td>");
                     out.println("</tr>");

@@ -6,6 +6,8 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.data.content.IArticleDao;
+import gs.data.content.Article;
 
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import javax.servlet.jsp.PageContext;
@@ -22,21 +24,17 @@ import java.io.IOException;
 public abstract class BaseTagHandler extends SimpleTagSupport {
 
     private static final Logger _log = Logger.getLogger(BaseTagHandler.class);
-    private ISchoolDao _schoolDao;
+    private static ISchoolDao _schoolDao;
+    private static IArticleDao _articleDao;
     private static StateManager _stateManager = new StateManager();
 
     protected ISchoolDao getSchoolDao() {
         if (_schoolDao == null) {
             try {
-                JspContext jspContext = getJspContext();
-
-                if (jspContext != null) {
-                    SessionContext sc = (SessionContext) jspContext.getAttribute(SessionContext.SESSION_ATTRIBUTE_NAME, PageContext.SESSION_SCOPE);
-                    if (sc != null) {
-                        _schoolDao = sc.getSchoolDao();
-                    }
+                SessionContext sc = getSessionContext();
+                if (sc != null) {
+                    _schoolDao = sc.getSchoolDao();
                 }
-
             } catch (Exception e) {
                 _log.warn("problem getting ISchoolDao: ", e);
             }
@@ -44,10 +42,27 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
         return _schoolDao;
     }
 
+    protected IArticleDao getArticleDao() {
+        if (_articleDao == null) {
+            try {
+                SessionContext sc = getSessionContext();
+                if (sc != null) {
+                    _articleDao = sc.getArticleDao();
+                }
+            } catch (Exception e) {
+                _log.warn("problem getting IArticleDao: ", e);
+            }
+        }
+        return _articleDao;
+    }
+
+    protected Article getArticle(SearchResult sr) {
+        return getArticleDao().getArticleFromId(Integer.decode(sr.getId()));
+    }
+    
     protected School getSchool(SearchResult sr) {
         School school = null;
         try {
-            _log.debug("sr.getState:::::: " + sr.getState());
             State state = _stateManager.getState(sr.getState());
             if (state != null) {
                 school = getSchoolDao().getSchoolById(state, Integer.valueOf(sr.getId()));
@@ -58,14 +73,8 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
         return school;
     }
 
-    protected String escapleLongstate(String title) {
-
-        String stateString = " your state ";
-        State s = getState();
-        if (s != null) {
-            stateString = s.getLongName();
-        }
-
+    protected String escapeLongstate(String title) {
+        String stateString = getStateOrDefault().getLongName();
         String outString = title.replace('$', ' ');
         return outString.replaceAll("LONGSTATE", stateString);
     }
