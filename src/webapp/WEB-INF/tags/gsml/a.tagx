@@ -12,6 +12,7 @@
         // TODO Pull this out and have the code in the session context;
         // TODO write unit test
         // TODO deal with dev environment.
+        // TODO deal with secure servers. If going from secure to not secure, must write protocol out along with host. Vice versa.
         if (href.indexOf("STATE") != -1) {
             gs.web.SessionContext context = gs.web.SessionContext.getInstance(session);
             gs.data.state.State s = null;

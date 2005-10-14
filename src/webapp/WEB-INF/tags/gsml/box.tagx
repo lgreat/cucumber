@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:directive.tag body-content="empty"/>
+    <jsp:directive.attribute name="tableClass" required="false" description="class attribute applied to the table element"/>
+    <jsp:directive.attribute name="tableId" required="false" description="id attribute applied to the table element"/>
+    <jsp:directive.attribute name="tableWidth" required="false" description="width attribute applied to the table element"/>
+    <jsp:directive.attribute name="tableHeight" required="false" description="height attribute applied to the table element"/>
+    <jsp:directive.attribute name="contentClass" required="false" description="class tag applied to the innnermost td"/>
+    <jsp:directive.attribute name="contentId" required="false" description="id tag applied to the innermost td"/>
+    <jsp:directive.attribute name="filePrefix" required="true" description="the beginning fo the file path, such as '/res/img/box/border_blank_'"/>
+    <jsp:directive.attribute name="fileExt" required="false" description="the file type extension. The default is '.gif'"/>
+
+
+    
+    <table class="${tableClass}" border="0" cellspacing="0" cellpadding="0" width="${tableWidth}">
+        <tr>
+            <td style="background: #FFF url(${filePrefix}TL.gif) left top; width:0px; height:0px;">
+            </td>
+            <td style="background: #FFF url(${filePrefix}T.gif) top repeat-x;">
+            </td>
+            <td style="background: #FFF url(${filePrefix}TR.gif) top right; width:0px; height:0px;">
+            </td>
+        </tr>
+        <tr>
+            <td style="background: #FFF url(${filePrefix}L.gif) left repeat-y;">
+            </td>
+            <td style="background: #FFF url(${filePrefix}BG.gif) bottom right no-repeat; padding: 0px 0px 0px 0px;" valign="top">
+                <jsp:doBody/>
+            </td>
+            <td style="background: #FFF url(${filePrefix}R.gif) right repeat-y;">
+            </td>
+        </tr>
+        <tr>
+            <td style="background: #FFF url(${filePrefix}BL.gif) left bottom; width:0px; height:0px;">
+            </td>
+            <td style="background: #FFF url(${filePrefix}B.gif) bottom repeat-x;">
+            </td>
+            <td style="background: #FFF url(${filePrefix}BR.gif) bottom right; width:0px; height:0px;">
+            </td>
+        </tr>
+    </table>
+
+</jsp:root>

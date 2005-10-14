@@ -57,7 +57,7 @@ function showdesc(desc,number) {
 /* Creates innerHtml to show the image and the BUY button, of fixed width and height. */
 function showImage(image,number) {
      var innerHtml = "<img" +
-		    " src='res/img/5steps/"+image+"'" +
+		    " src='"+image+"'" +
      		" border=0" +
      		" width=260" +
      		" height=200" +
@@ -69,7 +69,7 @@ function showImage(image,number) {
 preceeded by two br tags. */
 function showBrBrImage(image,number) {
      var innerHtml = "<br /><br /><img" +
-             " src='res/img/5steps/"+image+"'" +
+             " src='"+image+"'" +
      		" border=0" +
      		" width=260" +
      		"/>";
@@ -282,13 +282,13 @@ font-size:100%;
                                   with these primers and printable worksheets written by experts.
                                     <ul class="arrow">
                                         <li>
-                                            <a href="javascript:showImage('screenshot12.gif',1)">Choosing a School: Consider Your Child's Needs</a>
+                                            <a href="javascript:showImage('res/img/5steps/screenshot12.gif',1)">Choosing a School: Consider Your Child's Needs</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:showImage('screenshot10.gif',1)">Choosing a School: Consider Your Family Needs and Values</a>
+                                            <a href="javascript:showImage('res/img/5steps/screenshot10.gif',1)">Choosing a School: Consider Your Family Needs and Values</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:showImage('screenshot9.gif',1)">Imagining Your Ideal School: An Exercise for Setting Priorities</a>
+                                            <a href="javascript:showImage('res/img/5steps/screenshot9.gif',1)">Imagining Your Ideal School: An Exercise for Setting Priorities</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -301,20 +301,20 @@ font-size:100%;
                                   Make sense of the different options with advice from our experts.
                                     <ul class="arrow">
                                         <li>
-                                            <a href="javascript:showImage('screenshot8.gif',2)">Choosing a School in ${sessionScope.context.stateOrDefault.longName}: An Overview of Your Options</a>
+                                            <a href="javascript:showImage('res/img/5steps/screenshot8.gif',2)">Choosing a School in ${sessionScope.context.stateOrDefault.longName}: An Overview of Your Options</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:showImage('screenshot7.gif',2)">Interdistrict and Intradistrict Transfers in ${sessionScope.context.stateOrDefault.longName}: Options
+                                            <a href="javascript:showImage('res/img/5steps/screenshot7.gif',2)">Interdistrict and Intradistrict Transfers in ${sessionScope.context.stateOrDefault.longName}: Options
                                       Beyond Your Neighborhood School </a>
                                         </li>
                                         <li>
-                                            <a href="javascript:showImage('screenshot6.gif',2)">Private vs. Public Schools: What's the Difference? </a>
+                                            <a href="javascript:showImage('res/img/5steps/screenshot6.gif',2)">Private vs. Public Schools: What's the Difference? </a>
                                         </li>
                                         <li>
-                                            <a href="javascript:showImage('screenshot5.gif',2)">Charter Schools Offer an Array of Choices </a>
+                                            <a href="javascript:showImage('res/img/5steps/screenshot5.gif',2)">Charter Schools Offer an Array of Choices </a>
                                         </li>
                                         <li>
-                                            <a href="javascript:showImage('screenshot4.gif',2)">Enrolling in Kindergarten in ${sessionScope.context.stateOrDefault.longName}: What You Need To Know
+                                            <a href="javascript:showImage('res/img/5steps/screenshot4.gif',2)">Enrolling in Kindergarten in ${sessionScope.context.stateOrDefault.longName}: What You Need To Know
                                             </a>
                                         </li>
                                     </ul>
@@ -331,13 +331,13 @@ font-size:100%;
 
                                     <ul class="arrow">
                                         <li> Focus on
-                                            <a href="javascript:showBrBrImage('step3_scorerating.jpg',3);">top-rated public schools</a> by geographic area
+                                            <a href="javascript:showBrBrImage('res/img/5steps/step3_scorerating.jpg',3);">top-rated public schools</a> by geographic area
                                         </li>
                                         <li> Then
-                                            <a href="javascript:showBrBrImage('comparelist.gif',3);">compare schools</a> side-by-side
+                                            <a href="javascript:showBrBrImage('res/img/5steps/comparelist.gif',3);">compare schools</a> side-by-side
                                         </li>
                                         <li> Create your personalized "
-                                            <a href="javascript:showImage('step3_msl.gif',3);">My School List</a>" once you've hand-picked schools for further
+                                            <a href="javascript:showImage('res/img/5steps/step3_msl.gif',3);">My School List</a>" once you've hand-picked schools for further
                                       consideration
                                         </li>
                                     </ul>
@@ -351,18 +351,18 @@ font-size:100%;
                                   help you interpret the data, plus real parents have shared their opinions.
                                     <ul class="arrow">
                                         <li>
-                                            <a href="javascript:showImage('parentratings.gif',4)">Exclusive GreatSchools Ratings</a>
+                                            <a href="javascript:showImage('res/img/5steps/parentratings.gif',4)">Exclusive GreatSchools Ratings</a>
                                         </li>
                                         <c:if test="${sessionScope.context.state.yellowFlagState}">
                                             <li>
-                                                <a href="javascript:showImage('yellowflags.gif',4)">Yellow Flag Alerts</a>
+                                                <a href="javascript:showImage('res/img/5steps/yellowflags.gif',4)">Yellow Flag Alerts</a>
                                             </li>
                                         </c:if>
                                         <li>
-                                            <a href="javascript:showImage('parentreview.gif',4)">Ratings and reviews from real parents</a>
+                                            <a href="javascript:showImage('res/img/5steps/parentreview.gif',4)">Ratings and reviews from real parents</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:showImage('contactinfo.gif',4)">Get contact information to arrange for school visits</a>
+                                            <a href="javascript:showImage('res/img/5steps/contactinfo.gif',4)">Get contact information to arrange for school visits</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -376,13 +376,13 @@ font-size:100%;
                                   that you ask the questions that matter most.
                                     <ul class="arrow">
                                         <li>
-                                            <a href="javascript:showImage('screenshot3.gif',5);">The School Visit: Things to Look For, Questions to Ask</a>
+                                            <a href="javascript:showImage('res/img/5steps/screenshot3.gif',5);">The School Visit: Things to Look For, Questions to Ask</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:showImage('screenshot2.gif',5);">The School Visit: A Step by Step Guide</a>
+                                            <a href="javascript:showImage('res/img/5steps/screenshot2.gif',5);">The School Visit: A Step by Step Guide</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:showImage('screenshot1.gif',5);">Enrolling in Kindergarten: What You Need To Know</a>
+                                            <a href="javascript:showImage('res/img/5steps/screenshot1.gif',5);">Enrolling in Kindergarten: What You Need To Know</a>
                                         </li>
                                     </ul>
                                 </div>
