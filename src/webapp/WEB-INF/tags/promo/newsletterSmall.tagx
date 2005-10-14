@@ -45,11 +45,11 @@ old user, add new subscriptions
             <label>My Second-Grader</label>
             <br/>
             <input class="checkbox" type="checkbox" name="my3" value="my3"/>
-            <label>My Third-Grader</label> <!--<h3>Performance updates for your child's school:</h3> <input class="checkbox" type="checkbox" name="3rd" /><label>My School Stats</label>
+            <label>My Third-Grader</label><!--<h3>Performance updates for your child's school:</h3> <input class="checkbox" type="checkbox" name="3rd" /><label>My School Stats</label>
 -->
             <div class="smallform">
                 <input type="text" class="textfield" onfocus="if (this.value=='Enter email') this.value='';" value="Enter email" onblur="if (this.value=='') this.value='Enter email';" name="email" id="email"/>
-                <input type="image" src="/res/img/btn_go_small.gif" class="btn"/>
+                <input type="image" src="/res/img/button/btn_go_small.gif" class="btn"/>
             </div>
             <a class="small block" href="/cgi-bin/newsletters/CA">Learn More</a>
             <a class="small block" href="/cgi-bin/static/privacy.inc/ca">Privacy Policy</a>

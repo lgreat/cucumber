@@ -13,33 +13,51 @@
     <jsp:directive.attribute name="fileExt" required="false" description="the file type extension. The default is '.gif'"/>
 
 
-    
-    <table class="${tableClass}" border="0" cellspacing="0" cellpadding="0" width="${tableWidth}">
-        <tr>
-            <td style="background: #FFF url(${filePrefix}TL.gif) left top; width:0px; height:0px;">
-            </td>
-            <td style="background: #FFF url(${filePrefix}T.gif) top repeat-x;">
-            </td>
-            <td style="background: #FFF url(${filePrefix}TR.gif) top right; width:0px; height:0px;">
-            </td>
-        </tr>
-        <tr>
-            <td style="background: #FFF url(${filePrefix}L.gif) left repeat-y;">
-            </td>
-            <td style="background: #FFF url(${filePrefix}BG.gif) bottom right no-repeat; padding: 0px 0px 0px 0px;" valign="top">
-                <jsp:doBody/>
-            </td>
-            <td style="background: #FFF url(${filePrefix}R.gif) right repeat-y;">
-            </td>
-        </tr>
-        <tr>
-            <td style="background: #FFF url(${filePrefix}BL.gif) left bottom; width:0px; height:0px;">
-            </td>
-            <td style="background: #FFF url(${filePrefix}B.gif) bottom repeat-x;">
-            </td>
-            <td style="background: #FFF url(${filePrefix}BR.gif) bottom right; width:0px; height:0px;">
-            </td>
-        </tr>
-    </table>
+    <jsp:element name="table">
+        <jsp:attribute name="border">0</jsp:attribute>
+        <jsp:attribute name="cellpadding">0</jsp:attribute>
+        <jsp:attribute name="cellspacing">0</jsp:attribute>
+        <!--c:if test="${not empty tableClass}"-->
+            <jsp:attribute name="class">${tableClass}</jsp:attribute>
+        <!--/c:if-->
+        <!--c:if test="${not empty tableId}"-->
+            <jsp:attribute name="id">${tableId}</jsp:attribute>
+        <!--/c:if-->
+        <!--c:if test="${not empty tableWidth}">
+            <jsp:attribute name="width" >${tableWidth}"</jsp:attribute>
+        </c:if>
+        <c:if test="${not empty tableHeight}">
+            <jsp:attribute name="height">${tableHeight}</jsp:attribute>
+        </c:if-->
+        <jsp:body>
+            <tr>
+                <td style="background: #FFF url(${filePrefix}TL.gif) left top; width:0px; height:0px;">
+                </td>
+                <td style="background: #FFF url(${filePrefix}T.gif) top repeat-x;">
+                </td>
+                <td style="background: #FFF url(${filePrefix}TR.gif) top right; width:0px; height:0px;">
+                </td>
+            </tr>
+            <tr>
+                <td style="background: #FFF url(${filePrefix}L.gif) left repeat-y;">
+                </td>
+                <jsp:element name="td">
+                    <jsp:attribute name="style">background: #FFF url(${filePrefix}BG.gif) bottom right no-repeat; padding: 0px 0px 0px 0px;</jsp:attribute>
+                    <jsp:attribute name="valign">top</jsp:attribute>
+                    <jsp:doBody/>
+                </jsp:element>
+                <td style="background: #FFF url(${filePrefix}R.gif) right repeat-y;">
+                </td>
+            </tr>
+            <tr>
+                <td style="background: #FFF url(${filePrefix}BL.gif) left bottom; width:0px; height:0px;">
+                </td>
+                <td style="background: #FFF url(${filePrefix}B.gif) bottom repeat-x;">
+                </td>
+                <td style="background: #FFF url(${filePrefix}BR.gif) bottom right; width:0px; height:0px;">
+                </td>
+            </tr>
+        </jsp:body>
+    </jsp:element>
 
 </jsp:root>
