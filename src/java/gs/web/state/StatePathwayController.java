@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.2 2005/10/14 00:46:46 dlee Exp $
+ * $Id: StatePathwayController.java,v 1.3 2005/10/14 17:08:09 dlee Exp $
  */
 package gs.web.state;
 
@@ -58,14 +58,13 @@ public class StatePathwayController extends AbstractController {
         }
 
         if (hasSelectedState) {
-            boolean isRelativeUrl = true;
+            boolean isContextRelative = true;
             //redirect to the correct pathway
             if (pathwayUrl.matches(".+modperl.+|.+cgi-bin.+")) {
-                pathwayUrl = sessionContext.getHostName()
-                                + pathwayUrl + "/" + state.getAbbreviationLowerCase(); 
-                isRelativeUrl = false;
+                pathwayUrl += "/" + state.getAbbreviationLowerCase();
+                isContextRelative = false;
             }
-            RedirectView redirectView = new RedirectView(pathwayUrl, isRelativeUrl);
+            RedirectView redirectView = new RedirectView(pathwayUrl, isContextRelative);
 
             Map params = new HashMap();
             params.put("state", state.getAbbreviationLowerCase());
