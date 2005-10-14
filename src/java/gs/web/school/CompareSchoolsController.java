@@ -53,9 +53,13 @@ public class CompareSchoolsController extends AbstractController {
         }
 
         ISessionFacade sessionContext = SessionFacade.getInstance(request);
-        State currentState = sessionContext.getStateOrDefault();
+        if (sessionContext != null) {
+            State currentState = sessionContext.getStateOrDefault();
+            urlBuffer.append(currentState.getAbbreviationLowerCase());
+        } else {
+            urlBuffer.append("ca");
+        }
 
-        urlBuffer.append(currentState.getAbbreviationLowerCase());
         urlBuffer.append(idString);
 
         String[] schoolIds = request.getParameterValues("sc");
