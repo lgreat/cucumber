@@ -14,14 +14,8 @@
         // TODO deal with dev environment.
         // TODO deal with secure servers. If going from secure to not secure, must write protocol out along with host. Vice versa.
         if (href.indexOf("STATE") != -1) {
-            gs.web.SessionContext context = gs.web.SessionContext.getInstance(session);
-            gs.data.state.State s = null;
-            if (state != null) {
-                s = context.getStateManager().getState(state);
-            }
-            if (s == null) {
-                s = context.getStateOrDefault();
-            }
+            gs.web.ISessionFacade context = gs.web.SessionContext.getInstance(request);
+            gs.data.state.State s = context.getStateOrDefault();
             String sa = s.getAbbreviation();
 
             jspContext.setAttribute("href", href.replaceAll("STATE", sa));
