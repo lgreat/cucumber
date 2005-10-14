@@ -1,16 +1,17 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.3 2005/10/14 17:08:09 dlee Exp $
+ * $Id: StatePathwayController.java,v 1.4 2005/10/14 23:32:38 apeterson Exp $
  */
 package gs.web.state;
 
 import gs.data.state.State;
+import gs.web.ISessionFacade;
 import gs.web.SessionContext;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.context.NoSuchMessageException;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
@@ -18,8 +19,8 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * The purpose is ...
@@ -33,16 +34,16 @@ public class StatePathwayController extends AbstractController {
 
     private static final Log _log = LogFactory.getLog(StatePathwayController.class);
 
-    public String _viewName;
-    public Map _pathways;
-    public ResourceBundleMessageSource _messageSource;
+    private String _viewName;
+    private Map _pathways;
+    private ResourceBundleMessageSource _messageSource;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
 
         boolean hasSelectedState = false;
-        SessionContext sessionContext = SessionContext.getInstance(request);
+        ISessionFacade sessionFacade = SessionContext.getInstance(request);
         State state = null;
-        state = sessionContext.getState();
+        state = sessionFacade.getState();
         if (state != null) {
             hasSelectedState = true;
         }
