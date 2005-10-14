@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AllArticlesController.java,v 1.2 2005/09/19 05:30:44 dlee Exp $
+ * $Id: AllArticlesController.java,v 1.3 2005/10/14 23:21:26 apeterson Exp $
  */
 package gs.web.content;
 
@@ -8,8 +8,8 @@ import gs.data.content.Article;
 import gs.data.content.ArticleCategory;
 import gs.data.content.ArticleManager;
 import gs.data.content.IArticleDao;
-import gs.data.state.State;
-import gs.web.SessionContext;
+import gs.web.ISessionFacade;
+import gs.web.SessionFacade;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,13 +39,9 @@ public class AllArticlesController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
 
 
-         SessionContext sessionContext = SessionContext.getInstance(request);
-        // Force a state into the session
-        if (sessionContext.getState() == null) {
-            sessionContext.setState(State.CA);
-        }
+        ISessionFacade sessionFacade = SessionFacade.getInstance(request);
 
-        List articles = _articleDao.getArticlesForState(sessionContext.getState());
+        List articles = _articleDao.getArticlesForState(sessionFacade.getStateOrDefault());
 
         Article article = null;
         ArticleCategory articleCategory = null;
@@ -56,23 +52,23 @@ public class AllArticlesController extends AbstractController {
 
 
         //initialize the map that holds all the categories
-        List categories  = _articleManager.getAllCategories();
-        for (int i=0; i < categories.size(); i++) {
+        List categories = _articleManager.getAllCategories();
+        for (int i = 0; i < categories.size(); i++) {
             articleCategory = (ArticleCategory) categories.get(i);
             catMap.put(articleCategory, null);
             sccMap.put(articleCategory, null);
         }
 
         //iterate through all articles
-        for (int i=0; i < articles.size(); i++) {
+        for (int i = 0; i < articles.size(); i++) {
             article = (Article) articles.get(i);
-            categories  = _articleManager.getCategories(article.getCategory());
+            categories = _articleManager.getCategories(article.getCategory());
 
             if (article.isInsider()) {
                 insiderArticles.add(article);
             }
 
-            for (int j=0; j < categories.size(); j++) {
+            for (int j = 0; j < categories.size(); j++) {
                 articleCategory = (ArticleCategory) categories.get(j);
 
                 if (_articleManager.isSchoolChoiceCenterCategory(articleCategory)) {
@@ -89,7 +85,7 @@ public class AllArticlesController extends AbstractController {
         model.put("categories", catMap);
         model.put("scc_categories", sccMap);
         model.put("insider_articles", insiderArticles);
-        model.put("num_categories", String.valueOf(catMap.size()+sccMap.size()));
+        model.put("num_categories", String.valueOf(catMap.size() + sccMap.size()));
         model.put("index", new Integer(0));
 
         return new ModelAndView(_viewName, model);

@@ -1,6 +1,7 @@
 package gs.web.jsp;
 
 import gs.web.SessionContext;
+import gs.web.ISessionFacade;
 import gs.web.search.SearchResult;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
@@ -31,7 +32,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
     protected ISchoolDao getSchoolDao() {
         if (_schoolDao == null) {
             try {
-                SessionContext sc = getSessionContext();
+                ISessionFacade sc = getSessionContext();
                 if (sc != null) {
                     _schoolDao = sc.getSchoolDao();
                 }
@@ -45,7 +46,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
     protected IArticleDao getArticleDao() {
         if (_articleDao == null) {
             try {
-                SessionContext sc = getSessionContext();
+                ISessionFacade sc = getSessionContext();
                 if (sc != null) {
                     _articleDao = sc.getArticleDao();
                 }
@@ -59,7 +60,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
     protected Article getArticle(SearchResult sr) {
         return getArticleDao().getArticleFromId(Integer.decode(sr.getId()));
     }
-    
+
     protected School getSchool(SearchResult sr) {
         School school = null;
         try {
@@ -79,12 +80,12 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
         return outString.replaceAll("LONGSTATE", stateString);
     }
 
-    private SessionContext getSessionContext() {
+    protected ISessionFacade getSessionContext() {
         JspContext jspContext = getJspContext();
-        SessionContext sc = null;
+        ISessionFacade sc = null;
         if (jspContext != null) {
             //String o = (String)jspContext.findAttribute("state"); // why doesn't this work?
-            sc = (SessionContext) jspContext.getAttribute(SessionContext.SESSION_ATTRIBUTE_NAME, PageContext.SESSION_SCOPE);
+            sc = (ISessionFacade) jspContext.getAttribute(SessionContext.SESSION_ATTRIBUTE_NAME, PageContext.SESSION_SCOPE);
         }
         return sc;
     }
@@ -95,7 +96,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
      * is no current location awareness.
      */
     protected State getState() {
-        SessionContext sc = getSessionContext();
+        ISessionFacade sc = getSessionContext();
         State state = null; //State.CA;
         if (sc != null) {
             state = sc.getState();
@@ -108,7 +109,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
      * @return <code>String</code>
      */
     protected String getHostname() {
-        SessionContext sc = getSessionContext();
+        ISessionFacade sc = getSessionContext();
         if (sc != null) {
             return sc.getHostName();
         }

@@ -1,22 +1,20 @@
 package gs.web.search;
 
-import gs.data.search.Searcher;
 import gs.data.search.GSQueryParser;
+import gs.data.search.Searcher;
 import gs.data.state.State;
-import gs.web.SessionContext;
+import gs.web.ISessionFacade;
 import gs.web.jsp.BaseTagHandler;
-
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.JspContext;
-import javax.servlet.jsp.PageContext;
-import java.io.IOException;
-
-import org.springframework.context.ApplicationContext;
 import org.apache.log4j.Logger;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.BooleanQuery;
-import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.TermQuery;
+import org.springframework.context.ApplicationContext;
+
+import javax.servlet.jsp.JspContext;
+import javax.servlet.jsp.JspWriter;
+import java.io.IOException;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -67,8 +65,6 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
     /**
      * This is called setConstrain (with no ending t) instead of setConstraint
      * because constraint appears to be a reserved work in the jsp world.
-     *
-     * @param c
      */
     public void setConstrain(String c) {
         _constraint = c;
@@ -83,7 +79,7 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             try {
                 JspContext jspContext = getJspContext();
                 if (jspContext != null) {
-                    SessionContext sc = (SessionContext) jspContext.getAttribute(SessionContext.SESSION_ATTRIBUTE_NAME, PageContext.SESSION_SCOPE);
+                    ISessionFacade sc = getSessionContext();
                     if (sc != null) {
                         ApplicationContext ac = sc.getApplicationContext();
                         _searcher = (Searcher) ac.getBean(Searcher.BEAN_ID);

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextInterceptor.java,v 1.1 2005/06/09 21:34:25 apeterson Exp $
+ * $Id: SessionContextInterceptor.java,v 1.2 2005/10/14 23:21:26 apeterson Exp $
  */
 package gs.web;
 
@@ -34,7 +34,7 @@ public class SessionContextInterceptor
                              Object o) throws Exception {
         HttpSession session = httpServletRequest.getSession();
 
-        SessionContext sessionContext = SessionContext.getInstance(httpServletRequest);
+        SessionContext sessionContext = SessionContext.getInstanceImpl(httpServletRequest);
 
         if (sessionContext == null) {
 

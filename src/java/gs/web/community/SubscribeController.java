@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.7 2005/10/03 18:18:53 thuss Exp $
+ * $Id: SubscribeController.java,v 1.8 2005/10/14 23:21:26 apeterson Exp $
  */
 package gs.web.community;
 
@@ -9,12 +9,13 @@ import gs.data.payment.CreditCardInfo;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.Price;
-import gs.web.SessionContext;
+import gs.web.ISessionFacade;
+import gs.web.SessionFacade;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.validation.BindException;
@@ -75,22 +76,23 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
             command.setTryingToRenew(true);
         }
 
-        SessionContext sessionContext = SessionContext.getInstance(httpServletRequest);
+        ISessionFacade sessionContext = SessionFacade.getInstance(httpServletRequest);
 
         // Force a state into the session
         if (sessionContext.getState() == null) {
             if (user.getState() != null) {
-                sessionContext.setState(user.getState());
+                command.setState(user.getState());
             } else {
                 _log.error("Setting state to be CA because " + httpServletRequest.getParameter("state") +
                         " is not a recognized subscription state for " + httpServletRequest.getMethod() +
                         " request: " + httpServletRequest.getRequestURL() +
                         " referrer: " + httpServletRequest.getHeader("referer") +
                         " user agent: " + httpServletRequest.getHeader("user-agent"));
-                sessionContext.setState(State.CA);
+                command.setState(State.CA);
             }
+        } else {
+            command.setState(sessionContext.getState());
         }
-        command.setState(sessionContext.getState());
 
         String paramUrl = httpServletRequest.getParameter(URL_PARAM);
         if (!StringUtils.isEmpty(paramUrl)) {

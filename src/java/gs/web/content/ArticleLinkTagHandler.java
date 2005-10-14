@@ -1,17 +1,16 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.4 2005/09/28 23:53:10 wbeck Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.5 2005/10/14 23:21:26 apeterson Exp $
  */
 package gs.web.content;
 
 import gs.data.content.Article;
 import gs.data.state.State;
-import gs.web.SessionContext;
+import gs.web.ISessionFacade;
+import gs.web.jsp.BaseTagHandler;
 
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
 /**
@@ -19,7 +18,7 @@ import java.io.IOException;
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
-public class ArticleLinkTagHandler extends SimpleTagSupport {
+public class ArticleLinkTagHandler extends BaseTagHandler {
 
     private Article _article;
     private String _windowName = "";
@@ -30,15 +29,14 @@ public class ArticleLinkTagHandler extends SimpleTagSupport {
         StringBuffer articleLink = new StringBuffer();
 
         if (jspContext != null) {
-            SessionContext sc = (SessionContext) jspContext.getAttribute(SessionContext.SESSION_ATTRIBUTE_NAME, PageContext.SESSION_SCOPE);
+            ISessionFacade sc = getSessionContext();
 
             if (sc != null) {
                 State s = sc.getStateOrDefault();
 
                 if (_article.isSpanish() && _article.isNew()) {
                     articleLink.append("<img src=\"/res/img/content/nuevo.jpg\">&nbsp;");
-                }
-                else if (_article.isNew()) {
+                } else if (_article.isNew()) {
                     articleLink.append("<img src=\"/res/img/content/new.jpg\">&nbsp;");
 
                 }
@@ -50,16 +48,15 @@ public class ArticleLinkTagHandler extends SimpleTagSupport {
                 }
 
 
-
                 String title = _article.getTitle();
-                title = title.replaceAll("\\$LONGSTATE",s.getLongName());
+                title = title.replaceAll("\\$LONGSTATE", s.getLongName());
 
                 articleLink.append(s.getAbbreviationLowerCase()).append("/")
-                            .append(_article.getId().toString())
-                            .append("\" target=\"")
-                            .append(_windowName)
-                            .append("\">")
-                            .append(title).append("</a>").toString();
+                        .append(_article.getId().toString())
+                        .append("\" target=\"")
+                        .append(_windowName)
+                        .append("\">")
+                        .append(title).append("</a>").toString();
 
             }
         }

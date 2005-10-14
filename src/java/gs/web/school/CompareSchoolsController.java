@@ -1,16 +1,15 @@
 package gs.web.school;
 
-import org.springframework.web.servlet.mvc.AbstractController;
+import gs.data.state.State;
+import gs.web.ISessionFacade;
+import gs.web.SessionFacade;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
-import javax.servlet.http.HttpServletResponse;
+
 import javax.servlet.http.HttpServletRequest;
-
-import gs.web.SessionContext;
-import gs.data.state.State;
-
-import java.util.Enumeration;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * This controller handles requests for "compare checked schools" and
@@ -28,7 +27,7 @@ public class CompareSchoolsController extends AbstractController {
                                               HttpServletResponse response)
             throws Exception {
 
-        SessionContext sc = SessionContext.getInstance(request);
+        ISessionFacade sc = SessionFacade.getInstance(request);
 
         StringBuffer urlBuffer = new StringBuffer(50);
         if (sc != null) {
@@ -49,19 +48,14 @@ public class CompareSchoolsController extends AbstractController {
             urlBuffer.append("msl_compare/");
         } else {
             urlBuffer.append("msl_confirm/");
-            idString="/?add_ids=";
+            idString = "/?add_ids=";
             idDelimiter = "&add_ids=";
         }
 
-        SessionContext sessionContext = SessionContext.getInstance(request);
-        State currentState = null;
-        if (sessionContext != null) {
-            currentState = sessionContext.getStateOrDefault();
-        } else {
-            currentState = State.CA; // default state
-        }
+        ISessionFacade sessionContext = SessionFacade.getInstance(request);
+        State currentState = sessionContext.getStateOrDefault();
 
-        urlBuffer.append (currentState.getAbbreviationLowerCase());
+        urlBuffer.append(currentState.getAbbreviationLowerCase());
         urlBuffer.append(idString);
 
         String[] schoolIds = request.getParameterValues("sc");

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.14 2005/10/12 22:42:06 apeterson Exp $
+ * $Id: SessionContext.java,v 1.15 2005/10/14 23:21:26 apeterson Exp $
  */
 package gs.web;
 
@@ -24,32 +24,22 @@ import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 
 /**
- * The purpose is to hold common "global" properties for a user throughout their
- * session. It's a facade over the regular session, provide type safety and
- * whatever integrity guarantees we need to add. This class is wired to always
- * be available to your page, so you don't have to defensively check for null.
- * Additionally, we can enforce rules like "the user's current state is available",
- * and not mess with checks to make sure values are in the session.
- * <p />
- * Finally, this class gets called at the beginning of each request, and can
- * perform global operations like changing the user's state, host or cobrand.
+ * Implementation of the ISessionFacade interface based on Java servlet
+ * sessions.
  *
  * @author Andrew J. Peterson <mailto:apeterson@greatschools.net>
+ * @see SessionContextInterceptor
  */
-public class SessionContext implements ApplicationContextAware, Serializable {
+public class SessionContext
+        extends SessionFacade
+        implements ApplicationContextAware, Serializable, ISessionChanger {
 
-    public static final String BEAN_ID = "sessionContext";
+    static final String BEAN_ID = "sessionContext";
 
+    /**
+     * @deprecated use the factory method {@link SessionFacade#getInstance(javax.servlet.http.HttpServletRequest)}
+     */
     public static final String SESSION_ATTRIBUTE_NAME = "context";
-
-    // user can change state by passing a parameter on the command line
-    private static final String STATE_PARAM = "state";
-
-    // user can change hosts by passing a parameter on the command line
-    private static final String HOST_PARAM = "host";
-
-    // user can change the cobrand by passing a parameter on the command line
-    private static final String COBRAND_PARAM = "cobrand";
 
     private transient IUserDao _userDao;
     private transient StateManager _stateManager;
@@ -69,21 +59,15 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     private transient ApplicationContext _applicationContext;
 
-    /**
-     * Accessor
-     */
-    public static SessionContext getInstance(HttpSession session) {
-        return (SessionContext) session.getAttribute(SESSION_ATTRIBUTE_NAME);
-    }
-
-    public static SessionContext getInstance(HttpServletRequest request) {
+    static SessionContext getInstanceImpl(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        return (SessionContext) session.getAttribute(SESSION_ATTRIBUTE_NAME);
+        return (SessionContext) session.getAttribute(SessionContext.SESSION_ATTRIBUTE_NAME);
     }
 
-
-    public SessionContext() {
-
+    /**
+     * Created by Spring as needed.
+     */
+    SessionContext() {
     }
 
 
@@ -123,10 +107,6 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     }
 
 
-    /**
-     * Called at the beginning of the request. Allows this class to
-     * do common operations for all pages.
-     */
     public void updateFromParams(HttpServletRequest httpServletRequest) {
 
         // Get the real hostname or see if it's been overridden
@@ -212,20 +192,10 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         return _hostName;
     }
 
-    /**
-     * Determine if this is our main website or a cobrand
-     *
-     * @return true if it's a cobrand
-     */
     public boolean isCobrand() {
         return _cobrand != null;
     }
 
-    /**
-     * Determine if this site should be ad free
-     *
-     * @return true if it's ad free
-     */
     public boolean isAdFree() {
         boolean sAdFree = false;
         if (_cobrand != null &&
@@ -235,10 +205,6 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         return sAdFree;
     }
 
-    /**
-     * Is this the yahoo cobrand?
-     * yahoo cobrands are yahooed and yahoo
-     */
     public boolean isYahooCobrand() {
         boolean sYahooCobrand = false;
         if (_cobrand != null &&

@@ -1,13 +1,14 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: InsiderOnlyInterceptor.java,v 1.1 2005/06/09 21:34:25 apeterson Exp $
+ * $Id: InsiderOnlyInterceptor.java,v 1.2 2005/10/14 23:21:26 apeterson Exp $
  */
 package gs.web.community;
 
 import gs.data.community.ISubscriptionDao;
 import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
-import gs.web.SessionContext;
+import gs.web.ISessionFacade;
+import gs.web.SessionFacade;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeansException;
@@ -39,17 +40,17 @@ public class InsiderOnlyInterceptor
                              HttpServletResponse httpServletResponse,
                              Object o) throws Exception {
 
-        SessionContext sessionContext = SessionContext.getInstance(httpServletRequest);
+        ISessionFacade sessionFacade = SessionFacade.getInstance(httpServletRequest);
 
         if (httpServletRequest.getRequestURI().indexOf("insider.page") >= 0) {
-            final User user = sessionContext.getUser();
+            final User user = sessionFacade.getUser();
             if (user == null ||
                     !_subscriptionDao.isUserSubscribed(user, SubscriptionProduct.ONE_YEAR_SUB, new Date())) {
 
                 String url = "http://" +
-                        sessionContext.getHostName() +
+                        sessionFacade.getHostName() +
                         "/cgi-bin/site/signin.cgi/" +
-                        sessionContext.getState().getAbbreviation();
+                        sessionFacade.getState().getAbbreviation();
                 final String redirect = httpServletResponse.encodeRedirectURL(url);
                 httpServletResponse.sendRedirect(redirect);
                 return false;
