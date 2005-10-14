@@ -251,7 +251,7 @@
                 </entry>
                 <entry>
                     <key><value>pathway4</value></key>
-                    <value>/search.page</value>
+                    <value>/search/search.page</value>
                 </entry>
                 <entry>
                     <key><value>default</value></key>
