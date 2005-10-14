@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:conv="urn:jsptagdir:/WEB-INF/tags/subscribe/conversion/popup"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        >
+<html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/res/css/subscribe/conversion/cp_styles.css"/>
+        <title>GreatSchools Insider Membership Benefits - Parent Reviews</title>
+    </head>
+
+    <body marginheight="0" marginwidth="0" topmargin="0" leftmargin="0" bgcolor="ffffff">
+        <conv:navbar current="parentReviews"/>
+
+        <conv:header title="Parent Reviews">
+        Want to get the inside scoop about schools you're considering?
+        </conv:header>
+
+        <conv:main imageName="parentratings.gif" imageHeight="200" imageWidth="260">
+          Parents know what the statistics can't reveal. Thousands of parents have
+          rated schools all across , providing their opinions about:
+          <ul>
+            <li>Extracurricular activities</li>
+            <li>Teacher quality</li>
+            <li>Parent involvement</li>
+            <li>Principal leadership</li>
+            <li>Safety and discipline</li>
+          </ul>
+            Plus, parent reviewers share their personal views, helping you understand
+            the school "beyond the numbers."
+        </conv:main>
+
+        <conv:footer text="I feel privy to information that I would never know about schools if I did not subscribe."
+            prevPage="ratings.page"
+            nextPage="flagAlerts.page"
+        />
+    </body>
+    <gsml:fireclick pageType="conversion" pageName="parentreviews" />
+</html>
+</jsp:root>

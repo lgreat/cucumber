@@ -13,7 +13,7 @@
                 <td><img src="/res/img/subscribe/conversion/popup/grey_300top.gif" width="300" height="10" border="0"/></td>
             </tr>
             <tr>
-                <td><img src="/res/img/subscribe/conversion/popup/${imageName}" width="${imageWidth}" height="${imageHeight}" border="0"/></td>
+                <td align="center"><img src="/res/img/subscribe/conversion/popup/${imageName}" width="${imageWidth}" height="${imageHeight}" border="0"/></td>
             </tr>
             <tr>
                 <td><img src="/res/img/subscribe/conversion/popup/grey_300btm.gif" width="300" height="10" border="0"/></td>

@@ -31,7 +31,7 @@
         </conv:main>
 
         <conv:footer text="Very helpful information that helped confirm my suspicions that my child's school was not a good performer. We are putting him into a better-rated school next year."
-            prevPage="ratings.page"
+            prevPage="parentReviews.page"
             nextPage="compareSchools.page"
         />
     </body>

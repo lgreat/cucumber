@@ -28,7 +28,7 @@
 
         <conv:footer text="The school ratings were very helpful for me in our relocation to another state."
             prevPage="topRatedSchools.page"
-            nextPage="flagAlerts.page" />
+            nextPage="parentReviews.page" />
 
     </body>
     <gsml:fireclick pageType="conversion" pageName="ratings" />

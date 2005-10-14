@@ -36,6 +36,16 @@
         <a href="/subscribe/conversion/popup/ratings.page?state=${sessionScope.context.stateOrDefault.abbreviation}">GreatSchools<br/>Ratings</a></div></td>
     <td>
         <c:choose>
+            <c:when test="${(current == 'parentReviews')}">
+                <div class="menuBaractive">
+            </c:when>
+            <c:otherwise>
+                <div class="menuBar">
+            </c:otherwise>
+        </c:choose>
+        <a href="/subscribe/conversion/popup/parentReviews.page?state=${sessionScope.context.stateOrDefault.abbreviation}">Parent<br/>Reviews</a></div></td>
+    <td>
+        <c:choose>
             <c:when test="${(current == 'flagAlerts')}">
                 <div class="menuBaractive">
             </c:when>
@@ -46,7 +56,7 @@
         <a href="/subscribe/conversion/popup/flagAlerts.page?state=${sessionScope.context.stateOrDefault.abbreviation}">Flag<br/>Alerts</a></div></td>
     <td>
         <c:choose>
-            <c:when test="${(current == 'compareSchools')}">        
+            <c:when test="${(current == 'compareSchools')}">
                 <div class="menuBaractive">
             </c:when>
             <c:otherwise>

@@ -200,6 +200,13 @@
         </property>
     </bean>
 
+    <bean name="/subscribe/conversion/popup/parentReviews.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>subscribe/conversion/popup/parentReviews</value>
+        </property>
+    </bean>
+
     <bean name="/subscribe/conversion/popup/flagAlerts.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
@@ -222,7 +229,37 @@
         </property>
     </bean>
 
-
+    <bean name="/stateLauncher.page"
+        class="gs.web.state.StatePathwayController"
+        autowire="byName">
+        <property name="viewName">
+            <value>stateLauncher</value>
+        </property>
+        <property name="pathways">
+            <map>
+                <entry>
+                    <key><value>pathway1</value></key>
+                    <value>/modperl/go</value>
+                </entry>
+                <entry>
+                    <key><value>pathway2</value></key>
+                    <value>/content/allArticles.page</value>
+                </entry>
+                <entry>
+                    <key><value>pathway3</value></key>
+                    <value>/cgi-bin/site/parent_tips.cgi</value>
+                </entry>
+                <entry>
+                    <key><value>pathway4</value></key>
+                    <value>/search.page</value>
+                </entry>
+                <entry>
+                    <key><value>default</value></key>
+                    <value>/index.html</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
 
     <!-- WEB PAGE DEFINITIONS END -->
 
