@@ -10,6 +10,7 @@ import org.apache.lucene.index.Term;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.TermQuery;
+import org.apache.taglibs.standard.functions.Functions;
 import org.springframework.context.ApplicationContext;
 
 import javax.servlet.jsp.JspContext;
@@ -58,7 +59,7 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
     }
 
     public void setQuery(String q) {
-        _query = q;
+        _query = Functions.escapeXml(q);
         _groupingHitCollector = new GroupingHitCollector();
     }
 

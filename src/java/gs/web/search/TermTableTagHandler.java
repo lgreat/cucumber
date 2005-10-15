@@ -1,5 +1,7 @@
 package gs.web.search;
 
+import gs.data.search.highlight.TextHighlighter;
+
 import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
 import java.util.List;
@@ -8,14 +10,6 @@ import java.util.List;
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class TermTableTagHandler extends ResultsTableTagHandler {
-
-    /*
-    private List _terms;
-
-    public void setTerms(List terms) {
-        _terms = terms;
-    }
-    */
 
     public String getConstraint() {
         return "term";
@@ -44,8 +38,6 @@ public class TermTableTagHandler extends ResultsTableTagHandler {
                     out.println("<tr class=\"result_row\">");
                     out.println("<td class=\"checkbox\" width=\"1\">&nbsp;</td>");
                     out.println("<td>");
-                    out.print("<b>");
-
                     out.print("<a href=\"http://");
                     out.print(getHostname());
                     out.print("/cgi-bin/glossary_single/");
@@ -53,12 +45,10 @@ public class TermTableTagHandler extends ResultsTableTagHandler {
                     out.print("/?id=");
                     out.print(term.getId());
                     out.print("\">");
-                    out.print(term.getTerm());
+                    out.print(TextHighlighter.highlight(term.getTerm(), getQueryString(), "term"));
                     out.println("</a>");
-                    
-                    out.print("</b>");
                     out.println("<br/>");
-                    out.print(term.getDefinition());
+                    out.print(TextHighlighter.highlight(term.getDefinition(), getQueryString(), "term"));
                     out.print("</td>");
                     out.println("</tr>");
                 }

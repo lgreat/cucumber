@@ -51,7 +51,7 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
                     out.println("<td>");
 
                     if (_type != null && _type.equals("city")) {
-                        out.print("<a href=\"/search/search.page?c=school&amp;q=type:school+city:");
+                        out.print("<a href=\"/search/search.page?c=school&amp;q=city:");
                         out.print(result.getCity());
                         out.print("&state=");
                         out.print(result.getState());
@@ -60,7 +60,7 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
                         out.print(TextHighlighter.highlight(result.getCityAndState(), getQueryString(), "address"));
                         out.print("</b></a>");
                     } else {
-                        out.print("<a href=\"/search/search.page?q=type:school+AND+district:");
+                        out.print("<a href=\"/search/search.page?c=district&q=district:");
                         out.print(result.getId());
                         out.print("&c=school&state=");
                         out.print(result.getState());

@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.apache.taglibs.standard.functions.Functions;
+
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
@@ -41,14 +43,17 @@ public class MixedResultsTagHandler extends BaseTagHandler {
     }
 
     public void setQuery(String q) {
-        _query = q;
+        _query = Functions.escapeXml(q);
     }
 
+    /**
+     * @return A string with the state appended to the query as a uri parameter
+     */
     private String getDecoratedQuery() {
         String decoQuery = _query;
         State s = getState();
         if (s != null) {
-            StringBuffer buff = new StringBuffer(_query);
+            StringBuffer buff = new StringBuffer(Functions.escapeXml(_query));
             buff.append("&state=");
             buff.append(s.getAbbreviationLowerCase());
             decoQuery = buff.toString();
@@ -158,7 +163,9 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 SearchResult sr = (SearchResult) cities.get(i);
 
                 out.print("<li>");
-                out.print("<a href=\"/search/search.page?c=school&amp;q=type:school+city:");
+                out.print("<a href=\"/search/search.page?q=");
+                out.print(Functions.escapeXml(_query));
+                out.print("&c=school&amp;city=");
                 out.print(sr.getCity());
                 out.print("&state=");
                 out.print(sr.getState());
@@ -208,9 +215,9 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 SearchResult sr = (SearchResult) districts.get(i);
                 String s = sr.getState();
                 out.print("<li>");
-                out.print("<a href=\"/search/search.page?q=type:school+AND+district:");
+                out.print("<a href=\"/search/search.page?c=school&q=district:");
                 out.print(sr.getId());
-                out.print("&c=school&state=");
+                out.print("&state=");
                 out.print(s);
                 out.print("\">");
                 out.print(TextHighlighter.highlight(sr.getName(), _query, "name"));

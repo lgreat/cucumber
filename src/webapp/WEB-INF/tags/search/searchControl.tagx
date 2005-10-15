@@ -2,6 +2,7 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="showSchoolFilters" required="false"/>
@@ -29,9 +30,11 @@
     </script>
     ]]>
 
-    <!--<c:url var="pagename" value="/search.page"/>-->
+    <c:url var="search" value="/search/search.page"/>
+
     <form id="searchForm" name="sf" method="get"
           action="/search/search.page">
+
         <table style="width:100%">
             <tr>
                 <td class="label" width="90">Search:</td>
@@ -43,7 +46,7 @@
                            style="width:95%"
                            size="50"
                            maxlength="255"
-                           value="${not empty param.q ? param.q : ''}"/>
+                           value="${not empty param.q ? fn:escapeXml(param.q) : ''}"/>
                 </td>
 
                 <td>
@@ -59,8 +62,7 @@
                 <td>
                     <gsweb:stateSelector allowNoState="${param.state == 'all'}" useLongNames="true"/>
                     <c:set var="st" value="${(param.state == 'all') || (empty param.state) ? 'ca' : param.state}"/>
-                    <!--<input type="submit" value="Search near..." name="searchnear" />-->
-                    <a class="lpad" href="http://${sessionScope.context.hostName}/cgi-bin/template_plain/advanced/${st}">Search near address</a>
+                    <input type="submit" class="lpad" name="searchnear" value="Search near address " />
                 </td>
 
                 <c:if test="${not empty param.state and param.state != 'all'}">

@@ -7,7 +7,7 @@ import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.taglibs.standard.functions.Functions;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -21,8 +21,6 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
     private String _sortColumn = null;
     private boolean _reverse = false;
     private List _results;
-    private static final Logger _log =
-            Logger.getLogger(ResultsTableTagHandler.class);
 
     public void setResults(List results) {
         _results = results;
@@ -103,7 +101,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
 
                 StringBuffer hrefBuffer = new StringBuffer(40);
                 hrefBuffer.append("<a class=\"pad\" href=\"/search/search.page?q=");
-                hrefBuffer.append(_queryString);
+                hrefBuffer.append(Functions.escapeXml(_queryString));
                 State s = getState();
                 if (s != null) {
                     hrefBuffer.append("&state=");

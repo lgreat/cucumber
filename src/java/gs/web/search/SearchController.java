@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.servlet.mvc.AbstractFormController;
 import org.springframework.validation.BindException;
 import org.apache.lucene.search.*;
@@ -11,11 +13,10 @@ import org.apache.log4j.Logger;
 import gs.data.search.*;
 import gs.data.search.Searcher;
 import gs.data.search.SearchCommand;
+import gs.web.SessionContext;
+import gs.web.ISessionFacade;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * This controller handles all search requests.
@@ -52,7 +53,7 @@ public class SearchController extends AbstractFormController {
 
     public ModelAndView showForm(HttpServletRequest request,
                                  HttpServletResponse response, BindException errors)
-			throws Exception {
+            throws Exception {
         throw new RuntimeException("SearchController.showForm() should not be called");
         //return doRequest(request, response);
     }
@@ -70,14 +71,31 @@ public class SearchController extends AbstractFormController {
      *         search results and attendant parameters as the model.
      * @throws Exception
      */
-	public ModelAndView processFormSubmission(
+    public ModelAndView processFormSubmission(
             HttpServletRequest request, HttpServletResponse response, Object command, BindException errors)
-			throws Exception {
+            throws Exception {
 
         long requestStart = System.currentTimeMillis();
 
         boolean debug = false;
         if (request.getParameter("debug") != null) { debug = true; }
+
+        //If the user presses the "Search new address" link
+        if (request.getParameter("searchnear") != null) {
+            // get the state the old-fashioned way.
+            String s =  request.getParameter("state");
+
+            StringBuffer urlBuffer = new StringBuffer(100);
+            urlBuffer.append("http://");
+            ISessionFacade sc = SessionContext.getInstance(request);
+            urlBuffer.append(sc.getHostName());
+            urlBuffer.append("/cgi-bin/template_plain/advanced/");
+            if (s != null && !"all".equals(s) ) {
+                urlBuffer.append(s);
+            }
+            View redirectView = new RedirectView(urlBuffer.toString());
+            return new ModelAndView(redirectView);
+        }
 
         Map model = new HashMap();
 
