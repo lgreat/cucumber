@@ -106,13 +106,7 @@ public class SearchController extends AbstractFormController {
                 queryString != null && !queryString.equals("")) {
             SearchCommand sc = (SearchCommand)command;
 
-            List qList= new ArrayList(); // for debug output
-            if (debug) { qList.add(sc.getQuery()); }
-
             Hits hts = _searcher.search(sc);
-            if (hts != null) {
-                _log.debug("hit count: " + hts.length());
-            }
 
             int page = 1;
             String p = request.getParameter("p");
@@ -129,8 +123,6 @@ public class SearchController extends AbstractFormController {
             int pageSize = 10;
             int schoolsPageSize = 10;
 
-
-
             if (constraint != null && !constraint.equals("all") && !constraint.equals("")) {
                 _resultsPager.load(hts, constraint);
             } else {
@@ -140,7 +132,6 @@ public class SearchController extends AbstractFormController {
                 schoolsPageSize = 6;
                 for (int i = 0; i < types.length; i++) {
                     sc.setType(types[i]);
-                    if (debug) { qList.add(sc.getQuery()); }
                     Hits hits = _searcher.search(sc);
                     _resultsPager.load(hits, types[i]);
                 }
@@ -167,7 +158,6 @@ public class SearchController extends AbstractFormController {
                 model.put("suggestion", suggestion);
             }
 
-            if (debug) { model.put("queries", qList);}
             model.put("articlesTotal", new Integer(_resultsPager.getArticlesTotal()));
             model.put("articles", _resultsPager.getArticles(page, pageSize));
             model.put("schoolsTotal", new Integer(_resultsPager.getSchoolsTotal()));
