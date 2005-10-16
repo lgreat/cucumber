@@ -90,7 +90,7 @@
                 <tr>
                     <td class="label">Show only:</td>
                     <td>
-                        <gsweb:schoolFilters schoolTypes="${paramValues.schooltype}" gradeLevels="${paramValues.gradelevel}"/>
+                        <gsweb:schoolFilters schoolTypes="${paramValues.st}" gradeLevels="${paramValues.gl}"/>
                     </td>
                 </tr>
             </c:if>

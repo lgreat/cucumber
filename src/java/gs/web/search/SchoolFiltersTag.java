@@ -73,7 +73,7 @@ public class SchoolFiltersTag extends SimpleTagSupport {
         out.println("<td>");
 
         out.println("<div class=\"checkbox\">");
-        out.print("<input id=\"stpub\" type=\"checkbox\" name=\"schooltype\" ");
+        out.print("<input id=\"stpub\" type=\"checkbox\" name=\"st\" ");
         if (_schoolTypeSet != null && _schoolTypeSet.contains("public")) {
             out.print("checked ");
         }
@@ -83,7 +83,7 @@ public class SchoolFiltersTag extends SimpleTagSupport {
         out.println("</div>");
 
         out.println("<div class=\"checkbox\">");
-        out.print("<input id=\"stpri\" type=\"checkbox\" name=\"schooltype\" ");
+        out.print("<input id=\"stpri\" type=\"checkbox\" name=\"st\" ");
         if (_schoolTypeSet != null && _schoolTypeSet.contains("private")) {
             out.print("checked ");
         }
@@ -93,7 +93,7 @@ public class SchoolFiltersTag extends SimpleTagSupport {
         out.println("</div>");
 
         out.println("<div class=\"checkbox\">");
-        out.print("<input id=\"stcha\" type=\"checkbox\" name=\"schooltype\" ");
+        out.print("<input id=\"stcha\" type=\"checkbox\" name=\"st\" ");
         if (_schoolTypeSet != null && _schoolTypeSet.contains("charter")) {
             out.print("checked ");
         }
@@ -105,7 +105,7 @@ public class SchoolFiltersTag extends SimpleTagSupport {
         out.println("</td><td style=\"padding-left:12mm\">");
 
         out.println("<div class=\"checkbox\">");
-        out.print("<input id=\"gle\" type=\"checkbox\" name=\"gradelevel\" ");
+        out.print("<input id=\"gle\" type=\"checkbox\" name=\"gl\" ");
         if (_gradeLevelSet != null && _gradeLevelSet.contains("elementary")) {
             out.print("checked ");
         }
@@ -115,7 +115,7 @@ public class SchoolFiltersTag extends SimpleTagSupport {
         out.println("</div>");
 
         out.println("<div class=\"checkbox\">");
-        out.print("<input id=\"glm\" type=\"checkbox\" name=\"gradelevel\" ");
+        out.print("<input id=\"glm\" type=\"checkbox\" name=\"gl\" ");
         if (_gradeLevelSet != null && _gradeLevelSet.contains("middle")) {
             out.print("checked ");
         }
@@ -125,7 +125,7 @@ public class SchoolFiltersTag extends SimpleTagSupport {
         out.println("</div>");
 
         out.println("<div class=\"checkbox\">");
-        out.print("<input id=\"glh\" type=\"checkbox\" name=\"gradelevel\" ");
+        out.print("<input id=\"glh\" type=\"checkbox\" name=\"gl\" ");
         if (_gradeLevelSet != null && _gradeLevelSet.contains("high")) {
             out.print("checked ");
         }

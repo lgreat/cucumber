@@ -137,21 +137,16 @@ public class SearchController extends AbstractFormController {
                 }
             }
 
-
-
             _resultsPager.setQuery(queryString);
 
             if (SUGGEST) {
                 String suggestion = _spellCheckSearcher.getSuggestion("name", queryString);
-
                 if (suggestion == null) {
                     suggestion = _spellCheckSearcher.getSuggestion("title", queryString);
                 }
-
                 if (suggestion == null) {
-                    suggestion = _spellCheckSearcher.getSuggestion("cityname", queryString);
+                    suggestion = _spellCheckSearcher.getSuggestion("city", queryString);
                 }
-
                 if (suggestion != null) {
                     suggestion = suggestion.replaceAll("\\+", "");
                 }

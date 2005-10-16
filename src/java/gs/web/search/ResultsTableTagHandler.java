@@ -6,8 +6,12 @@ import gs.data.state.State;
 import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Iterator;
 
 import org.apache.taglibs.standard.functions.Functions;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -21,6 +25,8 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
     private String _sortColumn = null;
     private boolean _reverse = false;
     private List _results;
+    private String[] gradeLevels;
+    private String[] schoolTypes;
 
     public void setResults(List results) {
         _results = results;
@@ -68,6 +74,15 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
         return _reverse;
     }
 
+    public void setParameters(Map parameters) {
+        if (parameters != null) {
+            gradeLevels = (String[])parameters.get("gl");
+            schoolTypes = (String[])parameters.get("st");
+        } else {
+            gradeLevels = null;
+            schoolTypes = null;
+        }
+    }
     protected void writePageNumbers(JspWriter out) throws IOException {
 
         if (_total > 0) {
@@ -102,15 +117,38 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                 StringBuffer hrefBuffer = new StringBuffer(40);
                 hrefBuffer.append("<a class=\"pad\" href=\"/search/search.page?q=");
                 hrefBuffer.append(Functions.escapeXml(_queryString));
+
                 State s = getState();
                 if (s != null) {
                     hrefBuffer.append("&state=");
                     hrefBuffer.append(s.getAbbreviationLowerCase());
                 }
-                hrefBuffer.append("&amp;c=");
-                hrefBuffer.append(getConstraint());
-                hrefBuffer.append("&amp;sort=");
-                hrefBuffer.append(_sortColumn);
+
+                String c = getConstraint();
+                if (!StringUtils.isEmpty(c)) {
+                    hrefBuffer.append("&amp;c=");
+                    hrefBuffer.append(c);
+                }
+
+                if (gradeLevels != null) {
+                    for(int i = 0; i < gradeLevels.length; i++) {
+                        hrefBuffer.append("&gl=");
+                        hrefBuffer.append(gradeLevels[i]);
+                    }
+                }
+
+                if (schoolTypes != null) {
+                    for(int i = 0; i < schoolTypes.length; i++) {
+                        hrefBuffer.append("&st=");
+                        hrefBuffer.append(schoolTypes[i]);
+                    }
+                }
+
+                if (!StringUtils.isEmpty(_sortColumn)) {
+                    hrefBuffer.append("&amp;sort=");
+                    hrefBuffer.append(_sortColumn);
+                }
+
                 hrefBuffer.append("&amp;p=");
                 String hrefStart = hrefBuffer.toString();
 

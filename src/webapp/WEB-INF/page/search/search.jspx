@@ -101,6 +101,7 @@
                                sortColumn="${param.sort}"
                                reverse="${param.r}"
                                total="${results.schoolsTotal}"
+                               parameters="${paramValues}"
                                page="${param.p}"/>
         </gsml:decorator>
         <gsml:fireclick pageType="search" pageName="school-results"/>
