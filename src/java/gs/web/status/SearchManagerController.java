@@ -15,6 +15,7 @@ import gs.data.search.IndexDir;
 import gs.data.search.Indexer;
 import gs.data.state.StateManager;
 import gs.data.state.State;
+import gs.web.search.SearchController;
 
 import java.io.IOException;
 import java.util.List;
@@ -48,7 +49,11 @@ public class SearchManagerController extends AbstractController {
                 session.setAttribute("authenticated", Boolean.TRUE);
                 log.info("SearchManager login: " + ident.getUsername());
 
-                if (request.getParameter("logout") != null) {
+                if(request.getParameter("showdidyoumean") != null) {
+                    SearchController.showDidYouMean(true);
+                } else if(request.getParameter("showdidyoumean") != null) {
+                    SearchController.showDidYouMean(false);
+                } else if (request.getParameter("logout") != null) {
                     session.invalidate();
                     return new ModelAndView(new RedirectView("login.page"));
                 } else {
