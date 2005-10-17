@@ -44,7 +44,6 @@ public class SearchController extends AbstractFormController {
     private SpellCheckSearcher _spellCheckSearcher;
     private Searcher _searcher;
     private ResultsPager _resultsPager;
-    private static boolean _showDidYouMean = false;
     private boolean SUGGEST = true;
 
     public boolean isFormSubmission(HttpServletRequest request) {
@@ -155,8 +154,6 @@ public class SearchController extends AbstractFormController {
                     long s = System.currentTimeMillis();
                     Filter filter = _searcher.getFilter(sessionContext.getState());
                     Hits suggestHits = _searcher.search(suggestion, null, null, filter);
-                    _log.debug("suggest filter: " + filter);
-                    _log.debug("suggest hits: " + suggestHits);
                     if (suggestHits != null && suggestHits.length() > 0) {
 
                         suggestion = suggestion.replaceAll("\\+", "");
@@ -167,8 +164,6 @@ public class SearchController extends AbstractFormController {
                 }
             }
 
-            System.out.println ("showdid you mean: " + String.valueOf(_showDidYouMean));
-            model.put("showdidyoumean", String.valueOf(_showDidYouMean));
             model.put("articlesTotal", new Integer(_resultsPager.getArticlesTotal()));
             model.put("articles", _resultsPager.getArticles(page, pageSize));
             model.put("schoolsTotal", new Integer(_resultsPager.getSchoolsTotal()));
@@ -185,10 +180,6 @@ public class SearchController extends AbstractFormController {
         long requestTime = requestEnd - requestStart;
         if (debug) { model.put("requesttime", Long.toString(requestTime)); }
         return new ModelAndView("search/search", "results", model);
-    }
-
-    public static void showDidYouMean(boolean show) {
-        _showDidYouMean = show;
     }
 
     /**

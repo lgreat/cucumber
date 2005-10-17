@@ -49,11 +49,7 @@ public class SearchManagerController extends AbstractController {
                 session.setAttribute("authenticated", Boolean.TRUE);
                 log.info("SearchManager login: " + ident.getUsername());
 
-                if(request.getParameter("showdidyoumean") != null) {
-                    SearchController.showDidYouMean(true);
-                } else if(request.getParameter("showdidyoumean") != null) {
-                    SearchController.showDidYouMean(false);
-                } else if (request.getParameter("logout") != null) {
+                if (request.getParameter("logout") != null) {
                     session.invalidate();
                     return new ModelAndView(new RedirectView("login.page"));
                 } else {

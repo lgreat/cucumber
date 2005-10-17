@@ -83,7 +83,7 @@
     </tr>
 </table>
 
-<c:if test="${not empty results.suggestion and results.showdidyoumean == 'true'}">
+<c:if test="${not empty results.suggestion}">
     Did you mean:
     <span id="suggestion">
               <a href="/search/search.page?q=${results.suggestion}&amp;c=${param.c}">
