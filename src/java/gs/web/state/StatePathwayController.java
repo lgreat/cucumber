@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.4 2005/10/14 23:32:38 apeterson Exp $
+ * $Id: StatePathwayController.java,v 1.5 2005/10/17 16:46:08 dlee Exp $
  */
 package gs.web.state;
 
 import gs.data.state.State;
-import gs.web.ISessionFacade;
 import gs.web.SessionContext;
-import org.apache.commons.lang.StringUtils;
+import gs.web.ISessionFacade;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.context.NoSuchMessageException;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.context.NoSuchMessageException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
@@ -19,8 +19,8 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
+import java.util.Locale;
 
 /**
  * The purpose is ...
