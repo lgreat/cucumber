@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.15 2005/10/14 23:21:26 apeterson Exp $
+ * $Id: SessionContext.java,v 1.16 2005/10/17 01:21:46 chriskimm Exp $
  */
 package gs.web;
 
@@ -67,7 +67,7 @@ public class SessionContext
     /**
      * Created by Spring as needed.
      */
-    SessionContext() {
+    public SessionContext() {
     }
 
 
@@ -148,6 +148,7 @@ public class SessionContext
         // Set state, or change, if necessary
         String paramStateStr = httpServletRequest.getParameter(STATE_PARAM);
         if (!StringUtils.isEmpty(paramStateStr)) {
+            _stateManager = new StateManager();
             State s = _stateManager.getState(paramStateStr);
             final State currState = _state;
             if (currState == null) {

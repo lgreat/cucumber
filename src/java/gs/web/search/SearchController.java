@@ -80,6 +80,8 @@ public class SearchController extends AbstractFormController {
         boolean debug = false;
         if (request.getParameter("debug") != null) { debug = true; }
 
+        ISessionFacade sessionContext = SessionContext.getInstance(request);
+
         //If the user presses the "Search new address" link
         if (request.getParameter("searchnear") != null) {
             // get the state the old-fashioned way.
@@ -87,8 +89,7 @@ public class SearchController extends AbstractFormController {
 
             StringBuffer urlBuffer = new StringBuffer(100);
             urlBuffer.append("http://");
-            ISessionFacade sc = SessionContext.getInstance(request);
-            urlBuffer.append(sc.getHostName());
+            urlBuffer.append(sessionContext.getHostName());
             urlBuffer.append("/cgi-bin/template_plain/advanced/");
             if (s != null && !"all".equals(s) ) {
                 urlBuffer.append(s);
@@ -148,9 +149,22 @@ public class SearchController extends AbstractFormController {
                     suggestion = _spellCheckSearcher.getSuggestion("city", queryString);
                 }
                 if (suggestion != null) {
-                    suggestion = suggestion.replaceAll("\\+", "");
+                    // Check to see if the suggestion returns any results for the
+                    // current state. It's ok if the filter returned by
+                    // Searcher.getFilter is null.
+                    long s = System.currentTimeMillis();
+                    Filter filter = _searcher.getFilter(sessionContext.getState());
+                    Hits suggestHits = _searcher.search(suggestion, null, null, filter);
+                    _log.debug("suggest filter: " + filter);
+                    _log.debug("suggest hits: " + suggestHits);
+                    if (suggestHits != null && suggestHits.length() > 0) {
+
+                        suggestion = suggestion.replaceAll("\\+", "");
+                        model.put("suggestion", suggestion);
+                    }
+                    long f = System.currentTimeMillis();
+                    _log.info("did-you-mean overhead: " + (f - s));
                 }
-                model.put("suggestion", suggestion);
             }
 
             model.put("articlesTotal", new Integer(_resultsPager.getArticlesTotal()));
