@@ -1,4 +1,5 @@
     <jsp:directive.tag body-content="empty"/>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:directive.attribute name="pageType" required="true"/>
 <jsp:directive.attribute name="pageName" required="true"/>
 <jsp:directive.attribute
@@ -27,12 +28,15 @@
     required="false"/>
 
 <script language="javascript" type="text/javascript">
-    var fc_content='${sessionScope.context.hostName}/${empty(state) ? sessionScope.context.stateOrDefault.abbreviationLowerCase : state}/${empty(pageType) ?
-    "-" : pageType}/${pageName}/${empty(id) ?
-    "-" : id}/${empty(schoolType) ?
-    "-" : schoolType}/${empty(schoolLevel) ?
-    "-" : schoolLevel}/${empty(locale) ?
-    "-" : locale}';
+    var fc_content='${sessionScope.context.hostName}/${empty(state)
+        ? sessionScope.context.stateOrDefault.abbreviationLowerCase : state}/${empty(pageType)
+        ? "-" : pageType}/${pageName}/${empty(id)
+        ? "-" : id}/${empty(schoolType)
+        ? "-" : schoolType}/${empty(schoolLevel)
+        ? "-" : schoolLevel}/${empty(locale)
+        ? "-" : locale}/${sessionScope.context.hostName == 'www.greatschools.net'
+        ? "0" : "1"}/${sessionScope.context.stateOrDefault.subscriptionState ? "1" : "0"}';
+
     ${empty(extraJavascriptVariable) ? "" : extraJavascriptVariable}
     // Fireclick Web Analytics - COPYRIGHT 1999-2005 - Please do not modify this code
     function handle(){return true;}
