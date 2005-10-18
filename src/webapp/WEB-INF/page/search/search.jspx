@@ -86,7 +86,7 @@
         </td>
     </tr>
 </table>
-
+<!--
 <c:if test="${not empty results.suggestion}">
     Did you mean:
     <span id="suggestion">
@@ -95,7 +95,7 @@
               </a>
           </span>
 </c:if>
-
+-->
 <c:choose>
     <c:when test="${param.c == 'school'}">
         <gsml:decorator id="main">
