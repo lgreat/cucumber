@@ -316,6 +316,26 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>articlesTotal</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>citiesTotal</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>districtsTotal</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+      <attribute>
+            <name>termsTotal</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>constrain</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>

@@ -17,6 +17,7 @@ import gs.web.SessionContext;
 import gs.web.ISessionFacade;
 
 import java.util.*;
+import java.io.IOException;
 
 /**
  * This controller handles all search requests.
@@ -44,7 +45,9 @@ public class SearchController extends AbstractFormController {
     private SpellCheckSearcher _spellCheckSearcher;
     private Searcher _searcher;
     private ResultsPager _resultsPager;
-    private boolean SUGGEST = true;
+    private boolean suggest = true;
+    private int minimumHits = 3;
+    private float minimumScore = 0.5f;
 
     public boolean isFormSubmission(HttpServletRequest request) {
         return true;
@@ -106,8 +109,6 @@ public class SearchController extends AbstractFormController {
                 queryString != null && !queryString.equals("")) {
             SearchCommand sc = (SearchCommand)command;
 
-            Hits hts = _searcher.search(sc);
-
             int page = 1;
             String p = request.getParameter("p");
             if (p != null) {
@@ -118,12 +119,13 @@ public class SearchController extends AbstractFormController {
                 }
             }
 
-            String constraint = request.getParameter("c");
-
             int pageSize = 10;
             int schoolsPageSize = 10;
 
+            String constraint = request.getParameter("c");
+
             if (constraint != null && !constraint.equals("all") && !constraint.equals("")) {
+                Hits hts = _searcher.search(sc);
                 _resultsPager.load(hts, constraint);
             } else {
                 String[] types =
@@ -139,7 +141,7 @@ public class SearchController extends AbstractFormController {
 
             _resultsPager.setQuery(queryString);
 
-            if (SUGGEST) {
+            if (suggest) {
                 String suggestion = _spellCheckSearcher.getSuggestion("name", queryString);
                 if (suggestion == null) {
                     suggestion = _spellCheckSearcher.getSuggestion("title", queryString);
@@ -180,6 +182,24 @@ public class SearchController extends AbstractFormController {
         long requestTime = requestEnd - requestStart;
         if (debug) { model.put("requesttime", Long.toString(requestTime)); }
         return new ModelAndView("search/search", "results", model);
+    }
+
+    /**
+     * Checks the Hits object to see if we should suggest a "did-you-mean" query.
+     * @param hits
+     * @return a boolean value true if hits.lenght() is below <code>minimumHits</code>
+     * or hits.score(0) is below <code>minimumScore</code>
+     */
+    private boolean determineSuggest(Hits hits) throws IOException {
+        boolean suggest = false;
+        if (hits != null) {
+            if (hits.length() < minimumHits || hits.score(0) < minimumScore ) {
+                suggest = true;
+            }
+        } else {
+            suggest = true;
+        }
+        return suggest;
     }
 
     /**

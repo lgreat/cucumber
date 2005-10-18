@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.16 2005/10/17 01:21:46 chriskimm Exp $
+ * $Id: SessionContext.java,v 1.17 2005/10/18 00:40:35 chriskimm Exp $
  */
 package gs.web;
 
@@ -32,7 +32,7 @@ import java.io.Serializable;
  */
 public class SessionContext
         extends SessionFacade
-        implements ApplicationContextAware, Serializable, ISessionChanger {
+        implements ApplicationContextAware, ISessionChanger {
 
     static final String BEAN_ID = "sessionContext";
 
@@ -41,13 +41,13 @@ public class SessionContext
      */
     public static final String SESSION_ATTRIBUTE_NAME = "context";
 
-    private transient IUserDao _userDao;
-    private transient StateManager _stateManager;
-    private transient IArticleDao _articleDao;
-    private transient ISchoolDao _schoolDao;
-    private transient ICensusValueDao _censusValueDao;
+    private  IUserDao _userDao;
+    private  StateManager _stateManager;
+    private  IArticleDao _articleDao;
+    private  ISchoolDao _schoolDao;
+    private  ICensusValueDao _censusValueDao;
 
-    private static final transient Log _log = LogFactory.getLog(SessionContextInterceptor.class);
+    private static final  Log _log = LogFactory.getLog(SessionContextInterceptor.class);
 
     /**
      * The name of the cobrand (sfgate, azcentral, dps, etc...) or null
@@ -57,7 +57,7 @@ public class SessionContext
     private User _user;
     private State _state;
 
-    private transient ApplicationContext _applicationContext;
+    private  ApplicationContext _applicationContext;
 
     static SessionContext getInstanceImpl(HttpServletRequest request) {
         HttpSession session = request.getSession();

@@ -73,6 +73,10 @@
                 <gsml:decorator id="resultoverview">
                     <gsweb:searchsummary query="${param.q}"
                                          schoolsTotal="${results.schoolsTotal}"
+                                         articlesTotal="${results.articlesTotal}"
+                                         citiesTotal="${results.citiesTotal}"
+                                         districtsTotal="${results.districtsTotal}"
+                                         termsTotal="${results.termsTotal}"
                                          constrain="${param.c}"/>
                 </gsml:decorator>
             </div>

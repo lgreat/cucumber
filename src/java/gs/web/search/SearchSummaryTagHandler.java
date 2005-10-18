@@ -1,19 +1,10 @@
 package gs.web.search;
 
-import gs.data.search.GSQueryParser;
 import gs.data.search.Searcher;
 import gs.data.state.State;
-import gs.web.ISessionFacade;
 import gs.web.jsp.BaseTagHandler;
 import org.apache.log4j.Logger;
-import org.apache.lucene.index.Term;
-import org.apache.lucene.search.BooleanQuery;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.TermQuery;
 import org.apache.taglibs.standard.functions.Functions;
-import org.springframework.context.ApplicationContext;
-
-import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
 
@@ -23,11 +14,13 @@ import java.io.IOException;
 public class SearchSummaryTagHandler extends BaseTagHandler {
 
     public static final String BEAN_ID = "searchSummaryTagHandler";
-    private Searcher _searcher;
     private String _query;
     private int _schoolsTotal = 0;
+    private int _articlesTotal = 0;
+    private int _citiesTotal = 0;
+    private int _districtsTotal = 0;
+    private int _termsTotal = 0;
     private String _constraint = null;
-    private GroupingHitCollector _groupingHitCollector;
     private static final Logger _log = Logger.getLogger(SearchSummaryTagHandler.class);
 
     // String constants:
@@ -37,7 +30,6 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
     private static String ARTICLES = "Articles: ";
     private static String TERMS = "Glossary Terms: ";
     private static String DISTRICTS = "Districts: ";
-
 
     private static String aStart = "<a href=\"/search/search.page?q=";
     private static String frag1;
@@ -60,7 +52,6 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
 
     public void setQuery(String q) {
         _query = Functions.escapeXml(q);
-        _groupingHitCollector = new GroupingHitCollector();
     }
 
     /**
@@ -75,54 +66,30 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
         _schoolsTotal = count;
     }
 
-    private Searcher getSearcher() {
-        if (_searcher == null) {
-            try {
-                JspContext jspContext = getJspContext();
-                if (jspContext != null) {
-                    ISessionFacade sc = getSessionContext();
-                    if (sc != null) {
-                        ApplicationContext ac = sc.getApplicationContext();
-                        _searcher = (Searcher) ac.getBean(Searcher.BEAN_ID);
-                    }
-                }
-            } catch (Exception e) {
-                _log.warn("problem getting ISchoolDao: ", e);
-            }
-        }
-        return _searcher;
+    public void setArticlesTotal(int articlesTotal) {
+        _articlesTotal = articlesTotal;
+    }
+
+    public void setCitiesTotal(int citiesTotal) {
+        _citiesTotal = citiesTotal;
+    }
+
+    public void setDistrictsTotal(int districtsTotal) {
+        _districtsTotal = districtsTotal;
+    }
+
+    public void setTermsTotal(int termsTotal) {
+        _termsTotal = termsTotal;
     }
 
     public void doTag() throws IOException {
-
-        _groupingHitCollector.reset();
-
-        if (_query != null && !_query.equals("")) {
-            try {
-                Query query = GSQueryParser.parse(_query);
-                BooleanQuery bq = new BooleanQuery();
-                bq.add(query, true, false);
-
-                State s = getState();
-                if (s != null) {
-                    bq.add(new TermQuery(new Term("state", s.getAbbreviationLowerCase())), true, false);
-                }
-                getSearcher().search(bq, null, _groupingHitCollector, null);
-
-            } catch (Exception e) {
-                _log.warn(e);
-            }
-        }
 
         JspWriter out = getJspContext().getOut();
 
         out.println("<link rel=\"stylesheet\" href=\"/res/css/searchsummary.css\" type=\"text/css\" media=\"screen\"/>");
 
-        int total = _schoolsTotal +
-                _groupingHitCollector.getArticles() +
-                _groupingHitCollector.getCities() +
-                _groupingHitCollector.getDistricts() +
-                _groupingHitCollector.getTerms();
+        int total = _schoolsTotal + _articlesTotal + _districtsTotal +
+                _citiesTotal + _termsTotal;
 
         if (total > 0) {
 
@@ -130,54 +97,44 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             out.println(total);
             out.println(frag2);
 
-
             if (_constraint != null && _constraint.equals("school")) {
                 out.print("<a class=\"active\">");
-                out.print(SCHOOLS);
-                out.print(_schoolsTotal);
-                out.println("</a>");
             } else {
                 out.print(aStart);
                 out.print(_query);
                 out.print("&state=");
                 out.print(getStateParam());
                 out.print("&c=school\">");
-                out.print(SCHOOLS);
-                out.print(_schoolsTotal);
-                out.println("</a>");
             }
+            out.print(SCHOOLS);
+            out.print(_schoolsTotal);
+            out.println("</a>");
 
             if (_constraint != null && _constraint.equals("article")) {
                 out.print("<a class=\"active\">");
-                out.print(ARTICLES);
-                out.print(_groupingHitCollector.getArticles());
-                out.println("</a>");
             } else {
                 out.print(aStart);
                 out.print(_query);
                 out.print("&state=");
                 out.print(getStateParam());
                 out.print("&c=article\">");
-                out.print(ARTICLES);
-                out.print(_groupingHitCollector.getArticles());
-                out.println("</a>");
             }
+            out.print(ARTICLES);
+            out.print(_articlesTotal);
+            out.println("</a>");
 
             if (_constraint != null && _constraint.equals("term")) {
                 out.print("<a class=\"active\">");
-                out.print(TERMS);
-                out.print(_groupingHitCollector.getTerms());
-                out.println("</a>");
             } else {
                 out.print(aStart);
                 out.print(_query);
                 out.print("&state=");
                 out.print(getStateParam());
                 out.print("&c=term\">");
-                out.print(TERMS);
-                out.print(_groupingHitCollector.getTerms());
-                out.println("</a>");
             }
+            out.print(TERMS);
+            out.print(_termsTotal);
+            out.println("</a>");
 
             out.println("</td><td class=\"col3\">");
 
@@ -197,35 +154,29 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
 
             if (_constraint != null && _constraint.equals("city")) {
                 out.print("<a class=\"active\">");
-                out.print(CITIES);
-                out.print(_groupingHitCollector.getCities());
-                out.println("</a>");
             } else {
                 out.print(aStart);
                 out.print(_query);
                 out.print("&state=");
                 out.print(getStateParam());
                 out.print("&c=city\">");
-                out.print(CITIES);
-                out.print(_groupingHitCollector.getCities());
-                out.println("</a>");
             }
+            out.print(CITIES);
+            out.print(_citiesTotal);
+            out.println("</a>");
 
             if (_constraint != null && _constraint.equals("district")) {
                 out.print("<a class=\"active\">");
-                out.print(DISTRICTS);
-                out.print(_groupingHitCollector.getDistricts());
-                out.println("</a>");
             } else {
                 out.print(aStart);
                 out.print(_query);
                 out.print("&state=");
                 out.print(getStateParam());
                 out.print("&c=district\">");
-                out.print(DISTRICTS);
-                out.print(_groupingHitCollector.getDistricts());
-                out.println("</a>");
             }
+            out.print(DISTRICTS);
+            out.print(_districtsTotal);
+            out.println("</a>");
 
             out.println(frag3);
         } else {
@@ -246,113 +197,5 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             param = s.getAbbreviationLowerCase();
         }
         return param;
-    }
-
-    static class GroupingHitCollector extends org.apache.lucene.search.HitCollector {
-
-        int total = 0;
-        int pubSchools = 0;
-        int priSchools = 0;
-        int chaSchools = 0;
-        int elementarySchools = 0;
-        int middleSchools = 0;
-        int highSchools = 0;
-        int districts = 0;
-        int articles = 0;
-        int cities = 0;
-        int terms = 0;
-
-        public void collect(int id, float score) {
-            total++;
-            if (Searcher.publicSchoolBits.get(id)) {
-                pubSchools++;
-            } else if (Searcher.privateSchoolBits.get(id)) {
-                priSchools++;
-            } else if (Searcher.charterSchoolBits.get(id)) {
-                chaSchools++;
-            }
-
-            if (Searcher.elementarySchoolBits.get(id)) {
-                elementarySchools++;
-            }
-
-            if (Searcher.middleSchoolBits.get(id)) {
-                middleSchools++;
-            }
-
-            if (Searcher.highSchoolBits.get(id)) {
-                highSchools++;
-            }
-
-            if (Searcher.districtBits.get(id)) {
-                districts++;
-            }
-
-            if (Searcher.articleBits.get(id)) {
-                articles++;
-            }
-
-            if (Searcher.cityBits.get(id)) {
-                cities++;
-            }
-
-            if (Searcher.glossaryTermBits.get(id)) {
-                terms++;
-            }
-        }
-
-        public void reset() {
-            total = 0;
-            pubSchools = 0;
-            priSchools = 0;
-            chaSchools = 0;
-            elementarySchools = 0;
-            middleSchools = 0;
-            highSchools = 0;
-            districts = 0;
-            cities = 0;
-            articles = 0;
-            terms = 0;
-        }
-
-        public int getElementarySchools() {
-            return elementarySchools;
-        }
-
-        public int getMiddleSchools() {
-            return middleSchools;
-        }
-
-        public int getHighSchools() {
-            return highSchools;
-        }
-
-        public int getPublicSchools() {
-            return pubSchools;
-        }
-
-        public int getPrivateSchools() {
-            return priSchools;
-        }
-
-        public int getCharterSchools() {
-            return chaSchools;
-        }
-
-        public int getDistricts() {
-            return districts;
-        }
-
-        public int getArticles() {
-            return articles;
-        }
-
-        public int getCities() {
-            return cities;
-        }
-
-        public int getTerms() {
-            return terms;
-        }
     }
 }
