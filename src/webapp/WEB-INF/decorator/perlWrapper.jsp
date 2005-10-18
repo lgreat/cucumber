@@ -1,4 +1,5 @@
-<%@ page import="gs.web.SessionContext"%>
+<%@ page import="gs.web.ISessionFacade,
+                 gs.web.SessionFacade"%>
 <%@ page import="gs.data.state.State"%>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -8,7 +9,7 @@
 
 <decorator:usePage id="smPage"/>
 <%
-    SessionContext ctx = SessionContext.getInstance(request);
+    ISessionFacade ctx = SessionFacade.getInstance(request);
 
     // Determine if we're on a server or a developers workstation with no perl
     String serverName = request.getServerName();

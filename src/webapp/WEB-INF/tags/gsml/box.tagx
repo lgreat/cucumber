@@ -17,6 +17,9 @@
         <jsp:attribute name="border">0</jsp:attribute>
         <jsp:attribute name="cellpadding">0</jsp:attribute>
         <jsp:attribute name="cellspacing">0</jsp:attribute>
+        <!-- There's a bug in jasper JSP compiler that refuses to compile these conditionl attributes.
+            I don't know of a good workaround, besides giving up the whole concept and going to CDATA.
+            I haven't done that yet, but it's possible. -->
         <!--c:if test="${not empty tableClass}"-->
             <jsp:attribute name="class">${tableClass}</jsp:attribute>
         <!--/c:if-->

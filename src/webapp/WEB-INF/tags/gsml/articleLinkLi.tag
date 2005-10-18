@@ -1,7 +1,7 @@
 <jsp:directive.tag body-content="empty"/>
 <jsp:directive.attribute name="articleId" required="true"/>
 <jsp:scriptlet>
-    gs.web.SessionContext context = gs.web.SessionContext.getInstance(session);
+    gs.web.ISessionFacade context = gs.web.SessionFacade.getInstance(session);
     gs.data.state.State state = context.getState();
     gs.data.content.IArticleDao dao = context.getArticleDao();
     boolean isAvailable = dao.isArticleInState(articleId, state);
