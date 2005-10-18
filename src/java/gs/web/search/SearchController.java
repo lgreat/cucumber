@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import gs.data.search.*;
 import gs.data.search.Searcher;
 import gs.data.search.SearchCommand;
+import gs.data.state.State;
 import gs.web.SessionContext;
 import gs.web.ISessionFacade;
 
@@ -42,6 +43,7 @@ public class SearchController extends AbstractFormController {
 
     public static final String BEAN_ID = "/search/search.page";
     private static Logger _log = Logger.getLogger(SearchController.class);
+    private static Logger searchLog = Logger.getLogger("search");
     private SpellCheckSearcher _spellCheckSearcher;
     private Searcher _searcher;
     private ResultsPager _resultsPager;
@@ -57,7 +59,6 @@ public class SearchController extends AbstractFormController {
                                  HttpServletResponse response, BindException errors)
             throws Exception {
         throw new RuntimeException("SearchController.showForm() should not be called");
-        //return doRequest(request, response);
     }
 
 
@@ -103,8 +104,8 @@ public class SearchController extends AbstractFormController {
         Map model = new HashMap();
 
         String queryString = request.getParameter("q");
-        _log.info("Search query:" + queryString);
-
+        String constraint = null;
+        String suggestion = null;
         if (command != null && command instanceof SearchCommand &&
                 queryString != null && !queryString.equals("")) {
             SearchCommand sc = (SearchCommand)command;
@@ -122,7 +123,7 @@ public class SearchController extends AbstractFormController {
             int pageSize = 10;
             int schoolsPageSize = 10;
 
-            String constraint = request.getParameter("c");
+            constraint = sc.getType();
 
             if (constraint != null && !constraint.equals("all") && !constraint.equals("")) {
                 Hits hts = _searcher.search(sc);
@@ -142,7 +143,7 @@ public class SearchController extends AbstractFormController {
             _resultsPager.setQuery(queryString);
 
             if (suggest) {
-                String suggestion = _spellCheckSearcher.getSuggestion("name", queryString);
+                suggestion = _spellCheckSearcher.getSuggestion("name", queryString);
                 if (suggestion == null) {
                     suggestion = _spellCheckSearcher.getSuggestion("title", queryString);
                 }
@@ -162,7 +163,7 @@ public class SearchController extends AbstractFormController {
                         model.put("suggestion", suggestion);
                     }
                     long f = System.currentTimeMillis();
-                    _log.info("did-you-mean overhead: " + (f - s));
+                    searchLog.info("did-you-mean overhead: " + (f - s));
                 }
             }
 
@@ -178,12 +179,42 @@ public class SearchController extends AbstractFormController {
             model.put("terms", _resultsPager.getTerms(page, pageSize));
             model.put("pageSize", new Integer(pageSize));
         }
+
         long requestEnd = System.currentTimeMillis();
         long requestTime = requestEnd - requestStart;
         if (debug) { model.put("requesttime", Long.toString(requestTime)); }
+        logIt(queryString, constraint, sessionContext.getState(),
+                _resultsPager.getResultsTotal(), requestTime, suggestion);
         return new ModelAndView("search/search", "results", model);
     }
 
+    private void logIt(String query, String type, State state, int results,
+                       long time, String suggestion) {
+        StringBuffer logBuffer = new StringBuffer(100);
+        logBuffer.append("querystring:[");
+        logBuffer.append(query);
+        logBuffer.append("] ");
+        logBuffer.append("type:[");
+        logBuffer.append(type);
+        logBuffer.append("] ");
+        if (state != null) {
+            logBuffer.append("state:[");
+            logBuffer.append(state.getAbbreviation());
+            logBuffer.append("] ");
+        }
+        logBuffer.append("results:[");
+        logBuffer.append(results);
+        logBuffer.append("] ");
+        logBuffer.append("time:[");
+        logBuffer.append(time);
+        logBuffer.append("] ");
+        if (suggestion != null) {
+            logBuffer.append("suggestion:[");
+            logBuffer.append(suggestion);
+            logBuffer.append("] ");
+        }
+        searchLog.info(logBuffer.toString());
+    }
     /**
      * Checks the Hits object to see if we should suggest a "did-you-mean" query.
      * @param hits

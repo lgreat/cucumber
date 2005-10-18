@@ -114,6 +114,11 @@ public class ResultsPager {
         return _termHits.length();
     }
 
+    public int getResultsTotal() {
+        return getSchoolsTotal() + getArticlesTotal() + getCitiesTotal() +
+                getDistrictsTotal() + getTermsTotal();
+    }
+
     /**
      * @param hits
      * @param page

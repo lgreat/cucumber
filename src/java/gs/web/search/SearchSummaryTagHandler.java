@@ -188,6 +188,8 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             out.println("\"</b> did not return any results.<br/>Please try again.");
             out.println("</td></tr></table>");
         }
+
+        _schoolsTotal = _articlesTotal = _districtsTotal = _citiesTotal = _termsTotal = 0;        
     }
 
     private String getStateParam() {
