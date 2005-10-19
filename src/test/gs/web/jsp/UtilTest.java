@@ -38,7 +38,7 @@ public class UtilTest extends TestCase {
         }
 
         rand = Util.randomNumber(100);
-        assertTrue(rand > 0);
+        assertTrue(rand >= 0);
         assertTrue(rand < 100);
     }
 }
