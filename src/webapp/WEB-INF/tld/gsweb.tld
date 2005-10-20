@@ -46,22 +46,27 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>cssClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
-      <name>schoolFilters</name>
-      <tag-class>gs.web.search.SchoolFiltersTag</tag-class>
-      <body-content>empty</body-content>
-      <attribute>
-        <name>schoolTypes</name>
-        <required>true</required>
-        <rtexprvalue>true</rtexprvalue>
-      </attribute>
-      <attribute>
-        <name>gradeLevels</name>
-        <required>true</required>
-        <rtexprvalue>true</rtexprvalue>
-      </attribute>
+        <name>schoolFilters</name>
+        <tag-class>gs.web.search.SchoolFiltersTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>schoolTypes</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>gradeLevels</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
@@ -330,7 +335,7 @@
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
-      <attribute>
+        <attribute>
             <name>termsTotal</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>

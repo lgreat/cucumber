@@ -47,6 +47,11 @@ table.leaderboard td img {display:inline;}
 table.ch .toprow .col1 {width:180px;}
 table.ch .toprow .col2 {text-align:right;width:100%;}
 
+/* header */
+#headerGS {position: relative;height:50px}
+#headerLogo {position:absolute;left:5px;width:300px;padding-top:5px;}
+#headerSearch {position:absolute;right:5px;width:550px;text-align:right;margin-top:12px;}
+#headerSearch.select {margin-top:10px;}
 
 /* footer */
 #footer {position: relative; margin: 0 auto; width: 75%; font-family: Arial, Helvetica, sans-serif; color:#000000; font-size: 10px; font-style: normal;}
@@ -55,8 +60,6 @@ table.ch .toprow .col2 {text-align:right;width:100%;}
 #footerSearch {padding-bottom: 5px}
 #footerSponsor {}
 #footerCopyright {padding-bottom: 5px; text-align: center}
-
-
 
 /* global side nav */
 .globalnav {height:50px;}
@@ -67,10 +70,6 @@ table.ch .toprow .col2 {text-align:right;width:100%;}
 .globalnav a {display:block;margin:0px 0px 3px 0px;font-weight:bold;}
 .globalnav a.insiderlink {margin:13px 0px 7px 0px;}
 .globalnav a:hover {text-decoration:none;color:#FC9;}
-
-
-
-
 
 .globalsearch {font-size:13px;margin:0px 0px 3px 0px;padding:1px 0px 2px 3px;}
 /* select.globalsearch option {background: #DDD;} */

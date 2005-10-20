@@ -25,5 +25,10 @@ Currently it's in this folder:
 
 /usr2/local/certificates/
 
-
+5. To make the application reloadable in Tomcat so you can change a class in IDEA, hit ctrl-shift-F9 to rebuild a class, and hit refresh in your browser and see the changes:
+a) Do step 2. 
+b) Then in IDEA right click on gs-web -> module settings -> paths and change Output path to that path of your source tree such as C:\java\greatschools\GSWeb\src\webapp\WEB-INF\classes . 
+c) Edit $TOMCAT_HOME\conf\server.xml and add the following modified for your source path one line above the </Host> tag:
+<Context path="/gs-web" docBase="c:/java/greatschools/GSWeb/src/webapp" reloadable="true">
+</Context> 
 

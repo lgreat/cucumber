@@ -37,6 +37,7 @@
 </head>
 
 <meta name="onload" content="document.sf.q.focus()"/>
+<meta name="gsheader" content="false"/>
 
 <body onload="document.sf.q.focus()">
 <ad:xAdSetup page="search" ads="x40"/>
