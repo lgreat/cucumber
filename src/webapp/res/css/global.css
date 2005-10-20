@@ -27,10 +27,8 @@ input.checkbox {margin:0px 0px -2px 0px;}
 .smallform .textfield {font-size:90%;color:#999;width:75%;height:1.8em;padding:1px 0px 0px 3px;}
 .smallform input.btn {width:21px;height:18px;margin:0px 0px -3px 6px;padding:0px 0px 0px 0px;border:0;}
 
-
 /* branding */
 img#logo {width:260px;height:40px;padding:0px 0px 0px 0px;margin:0px 0px 6px 0px;}
-
 
 /* advertising */
 #adSquare { text-align:center; color: #999; width:300px; padding:5px 5px 5px 5px; margin:0 0 10px 0; border:1px solid #BBB; font-size:10px; float:right;}
@@ -40,28 +38,27 @@ img#logo {width:260px;height:40px;padding:0px 0px 0px 0px;margin:0px 0px 6px 0px
 .adSponsorImage {display:inline;}
 #adLeaderboard center {display:inline;} /* work around leaderboard images that include center tag */
 
-
-/* header segment */
-table.leaderboard {background: #339;border-top:1px solid #336;border-bottom:1px solid #336;margin:0px 0px 5px 0px;}
-table.leaderboard td {padding-left:7px;text-align:center;}
-table.leaderboard td img {display:inline;}
-
-table.ch .toprow .col1 {width:180px;}
-table.ch .toprow .col2 {text-align:right;width:100%;}
-
 /* header */
 #headerGS {position: relative;height:50px;min-width:750px;}
 #headerLogo {position:absolute;left:5px;width:300px;padding-top:5px;}
 #headerSearch {position:absolute;right:5px;width:550px;text-align:right;margin-top:12px;}
 #headerSearch.select {margin-top:10px;}
+.globalsearch {font-size:13px;margin:0px 0px 3px 0px;padding:1px 0px 2px 3px;}
+/* select.globalsearch option {background: #DDD;} */
+.textfield {color:#999;width:50%;}
+input.btn {width:28px;height:24px;margin:0px 0px -2px 6px;padding:0px 0px 0px 0px;border:0;}
 
 /* footer */
 #footer {position: relative; margin: 0 auto; width: 750px; font-family: Arial, Helvetica, sans-serif; color:#000000; font-size: 10px; font-style: normal;}
 #footerAd {}
 #footerText {line-height: 10pt; font-size: 11px; font-weight: bold; padding-top: 10px; padding-bottom: 10px; }
 #footerSearch {padding-bottom: 5px}
-#footerSponsor {}
+#footerSponsor {padding:20px 20px 0px 0px;}
 #footerCopyright {padding-bottom: 5px; text-align: center}
+#footerGS {padding-top:10px;}
+#footerGS table {border-collapse:collapse;width:728px;}
+#footerGS th {text-align:left;font-size: 10px; color: rgb(255, 255, 255); background:#003399; padding:0px;margin:10px;empty-cells:hide}
+#footerGS td {font-size: 10px; vertical-align:top;}
 
 /* global side nav */
 .globalnav {height:50px;}
@@ -73,22 +70,15 @@ table.ch .toprow .col2 {text-align:right;width:100%;}
 .globalnav a.insiderlink {margin:13px 0px 7px 0px;}
 .globalnav a:hover {text-decoration:none;color:#FC9;}
 
-.globalsearch {font-size:13px;margin:0px 0px 3px 0px;padding:1px 0px 2px 3px;}
-/* select.globalsearch option {background: #DDD;} */
-.textfield {color:#999;width:50%;}
-input.btn {width:28px;height:24px;margin:0px 0px -2px 6px;padding:0px 0px 0px 0px;border:0;}
-
 tr.login td {font-size:10px;}
 tr.login td.col1 {text-align:left;padding-left:2px;}
 tr.login td.col2 {text-align:right;padding-right:3px;}
-
-table.whitebox {margin-bottom:5px;}
 
 #main {margin:5px 0px 0px 0px;}
 #main td.col1 {width:180px;height:100%;padding:0px 0px 0px 0px;}
 #main td.col2 {padding:0px 0px 0px 0px;}
 
-/* page specific */
+/* page specific ?WHICH PAGE IS IT FOR? */
 .topcontentcol1 {width:60%;float:left;}
 .topcontentcol2 {width:40%;float:right;vertical-align:middle;padding-top:0px;}
 .browselinks {padding:6px 0px 15px 0px;width:50%;}
