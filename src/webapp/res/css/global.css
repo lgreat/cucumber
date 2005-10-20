@@ -37,6 +37,8 @@ img#logo {width:260px;height:40px;padding:0px 0px 0px 0px;margin:0px 0px 6px 0px
 #adLeaderboard {background: #339;white-space:nowrap;text-align:center;border-top:1px solid #336;border-bottom:1px solid #336;margin:0px 0px 5px 0px;}
 #adLeaderboard img {display:inline;}
 .google_banner {width:100%; padding:10px 0px 10px 0px;text-align:center;}
+.adSponsorImage {display:inline;}
+#adLeaderboard center {display:inline;} /* work around leaderboard images that include center tag */
 
 
 /* header segment */
@@ -48,13 +50,13 @@ table.ch .toprow .col1 {width:180px;}
 table.ch .toprow .col2 {text-align:right;width:100%;}
 
 /* header */
-#headerGS {position: relative;height:50px}
+#headerGS {position: relative;height:50px;min-width:750px;}
 #headerLogo {position:absolute;left:5px;width:300px;padding-top:5px;}
 #headerSearch {position:absolute;right:5px;width:550px;text-align:right;margin-top:12px;}
 #headerSearch.select {margin-top:10px;}
 
 /* footer */
-#footer {position: relative; margin: 0 auto; width: 75%; font-family: Arial, Helvetica, sans-serif; color:#000000; font-size: 10px; font-style: normal;}
+#footer {position: relative; margin: 0 auto; width: 750px; font-family: Arial, Helvetica, sans-serif; color:#000000; font-size: 10px; font-style: normal;}
 #footerAd {}
 #footerText {line-height: 10pt; font-size: 11px; font-weight: bold; padding-top: 10px; padding-bottom: 10px; }
 #footerSearch {padding-bottom: 5px}

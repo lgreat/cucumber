@@ -44,7 +44,7 @@
                 <c:url var="searchpage" value="/search/search.page"/>
                 <form method="get" action="${searchpage}">
                     <gsweb:stateSelector cssClass="globalsearch" allowNoState="${param.state == 'all'}" useLongNames="true"/>
-                    <input type="text" value="Search School Name/District, City or Keyword" onfocus="this.value='';"
+                    <input type="text" value="School Name/District, City or Keyword" onfocus="this.value='';"
                            class="globalsearch textfield" name="q"/>
                     <c:url var="goImage" value="/res/img/button/btn_go.gif"/>
                     <input type="image" class="btn" src="${goImage}"/>

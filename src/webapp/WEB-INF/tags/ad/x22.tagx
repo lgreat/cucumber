@@ -7,7 +7,7 @@
         <div id="adLeaderboard">
             <script language="JavaScript">OAS_AD('x22');</script>
             <c:url var="sponsorImage" value="/res/img/ad/sponsor_vertical.gif"/>
-            <img src="${sponsorImage}" width="10" height="90"/>
+            <img class="adSponsorImage" src="${sponsorImage}" width="10" height="90"/>
         </div>
     </c:if>
 </jsp:root>
