@@ -19,11 +19,11 @@ old user, add new subscriptions
     -->
     <gsml:box filePrefix="/res/img/box/border_blank_" tableClass="promoNewsletterSmall" tableWidth="100%">
         <form action="http://apeterson.dev.greatschools.net/cgi-bin/newsletterSubscribe" method="get">
-            <input type="hidden" name="state" value="ca"/>
+            <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
             <input type="hidden" name="subscribe" value="Promo"/>
-            <input type="hidden" name="hdRefer" value=""/>
+            <!--input type="hidden" name="hdRefer" value=""/>
             <input type="hidden" name="school_name" value=""/>
-            <input type="hidden" name="ms_state" value=""/>
+            <input type="hidden" name="ms_state" value=""/-->
             <h2>
                 <a class="nohover" href="#">FREE Newsletters</a>
             </h2>
@@ -45,14 +45,15 @@ old user, add new subscriptions
             <label>My Second-Grader</label>
             <br/>
             <input class="checkbox" type="checkbox" name="my3" value="my3"/>
-            <label>My Third-Grader</label><!--<h3>Performance updates for your child's school:</h3> <input class="checkbox" type="checkbox" name="3rd" /><label>My School Stats</label>
--->
+            <label>My Third-Grader</label>
+            <h3>Performance updates for your child's school:</h3>
+            <input class="checkbox" type="checkbox" name="mss" value="mss" /><label>My School Stats</label>
             <div class="smallform">
                 <input type="text" class="textfield" onfocus="if (this.value=='Enter email') this.value='';" value="Enter email" onblur="if (this.value=='') this.value='Enter email';" name="email" id="email"/>
                 <input type="image" src="/res/img/button/btn_go_small.gif" class="btn"/>
             </div>
-            <a class="small block" href="/cgi-bin/newsletters/CA">Learn More</a>
-            <a class="small block" href="/cgi-bin/static/privacy.inc/ca">Privacy Policy</a>
+            <a class="small block" href="/cgi-bin/newsletters/${requestScope.context.stateOrDefault.abbreviation}">Learn More</a>
+            <a class="small block" href="/cgi-bin/static/privacy.inc/${requestScope.context.stateOrDefault.abbreviationLowerCase}">Privacy Policy</a>
         </form>
     </gsml:box>
 

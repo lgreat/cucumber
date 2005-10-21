@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionFacade.java,v 1.2 2005/10/21 00:16:01 apeterson Exp $
+ * $Id: SessionFacade.java,v 1.3 2005/10/21 01:45:06 apeterson Exp $
  */
 
 package gs.web;
@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
  * Place to hang the factory method.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @see SessionContextInterceptor guarantees that this object is available in the request.
  */
 public abstract class SessionFacade implements ISessionFacade {
 

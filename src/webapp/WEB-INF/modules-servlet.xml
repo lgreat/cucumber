@@ -2,6 +2,10 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
+    <bean id="sessionContextInterceptor"
+        class="gs.web.SessionContextInterceptor"
+        autowire="byName">
+    </bean>
 
     <bean name="/tease/featured.module"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
