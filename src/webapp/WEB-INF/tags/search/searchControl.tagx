@@ -74,10 +74,10 @@
                             <c:url var="allArticlesPage" value="/content/allArticles.page"/>
                             <a href="${allArticlesPage}?state=${param.state}"
                                class="pad">All Articles</a>
-                            <a href="http://${sessionScope.context.hostName}/modperl/citylist/${param.state}/" class="pad">
+                            <a href="http://${requestScope.context.hostName}/modperl/citylist/${param.state}/" class="pad">
                                <c:out value="${gsweb:getStateName(param.state)} Cities"/>
                             </a>
-                            <a href="http://${sessionScope.context.hostName}/modperl/distlist/${param.state}" class="pad">
+                            <a href="http://${requestScope.context.hostName}/modperl/distlist/${param.state}" class="pad">
                                <c:out value="${gsweb:getStateName(param.state)} Districts"/>
                             </a>
                         </td>

@@ -221,7 +221,7 @@ font-size:100%;
                                         </div>
                                     </td>
                                     <td>
-                                        <form method="post" action="http://${sessionScope.context.hostName}/cgi-bin/membership/${sessionScope.context.stateOrDefault.abbreviation}">
+                                        <form method="post" action="http://${requestScope.context.hostName}/cgi-bin/membership/${requestScope.context.stateOrDefault.abbreviation}">
                                             <div class="column2">Already a subscriber?
                                                 <br/>
                                                 <input name="email" type="text" value="Enter your username" size="20" onfocus="this.value='';"/>
@@ -233,7 +233,7 @@ font-size:100%;
                                     <td style="text-align: right">
                                         <div class="column3">Contact
                                             <br/>
-                                            <a class="nohover" href="http://${sessionScope.context.hostName}/cgi-bin/feedback_faq/${sessionScope.context.stateOrDefault.abbreviation}?fbtype=subentry">Customer Support</a>
+                                            <a class="nohover" href="http://${requestScope.context.hostName}/cgi-bin/feedback_faq/${requestScope.context.stateOrDefault.abbreviation}?fbtype=subentry">Customer Support</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -243,7 +243,7 @@ font-size:100%;
                         <div id="main">
                             <div class="column1">
                                 <a
-                                    href="https://${sessionScope.context.secureHostName}/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;amp;host=${sessionScope.context.hostName}"
+                                    href="https://${requestScope.context.secureHostName}/subscribe.page?state=${requestScope.context.stateOrDefault.abbreviation}&amp;amp;host=${requestScope.context.hostName}"
                                     style="position: absolute; bottom: 5px; right: 50px; z-index: 100"
                                     >
                                     <img src="res/img/5steps/btn_getunlimitedaccessnow.gif"
@@ -301,10 +301,10 @@ font-size:100%;
                                   Make sense of the different options with advice from our experts.
                                     <ul class="arrow">
                                         <li>
-                                            <a href="javascript:showImage('res/img/5steps/screenshot8.gif',2)">Choosing a School in ${sessionScope.context.stateOrDefault.longName}: An Overview of Your Options</a>
+                                            <a href="javascript:showImage('res/img/5steps/screenshot8.gif',2)">Choosing a School in ${requestScope.context.stateOrDefault.longName}: An Overview of Your Options</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:showImage('res/img/5steps/screenshot7.gif',2)">Interdistrict and Intradistrict Transfers in ${sessionScope.context.stateOrDefault.longName}: Options
+                                            <a href="javascript:showImage('res/img/5steps/screenshot7.gif',2)">Interdistrict and Intradistrict Transfers in ${requestScope.context.stateOrDefault.longName}: Options
                                       Beyond Your Neighborhood School </a>
                                         </li>
                                         <li>
@@ -314,7 +314,7 @@ font-size:100%;
                                             <a href="javascript:showImage('res/img/5steps/screenshot5.gif',2)">Charter Schools Offer an Array of Choices </a>
                                         </li>
                                         <li>
-                                            <a href="javascript:showImage('res/img/5steps/screenshot4.gif',2)">Enrolling in Kindergarten in ${sessionScope.context.stateOrDefault.longName}: What You Need To Know
+                                            <a href="javascript:showImage('res/img/5steps/screenshot4.gif',2)">Enrolling in Kindergarten in ${requestScope.context.stateOrDefault.longName}: What You Need To Know
                                             </a>
                                         </li>
                                     </ul>
@@ -353,7 +353,7 @@ font-size:100%;
                                         <li>
                                             <a href="javascript:showImage('res/img/5steps/parentratings.gif',4)">Exclusive GreatSchools Ratings</a>
                                         </li>
-                                        <c:if test="${sessionScope.context.state.yellowFlagState}">
+                                        <c:if test="${requestScope.context.state.yellowFlagState}">
                                             <li>
                                                 <a href="javascript:showImage('res/img/5steps/yellowflags.gif',4)">Yellow Flag Alerts</a>
                                             </li>
@@ -444,7 +444,7 @@ font-size:100%;
                     premium ratings and reviews.
                                             <ul class="arrow">
                                                 <li>Take 3 minutes to review
-                                                    <a href="http://${sessionScope.context.hostName}/cgi-bin/site/findschool2review.cgi/${sessionScope.context.stateOrDefault.abbreviation}/">
+                                                    <a href="http://${requestScope.context.hostName}/cgi-bin/site/findschool2review.cgi/${requestScope.context.stateOrDefault.abbreviation}/">
                                                     your child's school</a>.
                                                 </li>
                                                 <li>Hit "Submit."</li>
@@ -455,7 +455,7 @@ font-size:100%;
                                             <div class="joinfloat">
                                                 <b>Not ready to join?</b>
                                                 <br/>
-                                                <a href="http://${sessionScope.context.hostName}/cgi-bin/site/findschool2review.cgi/${sessionScope.context.stateOrDefault.abbreviation}/">
+                                                <a href="http://${requestScope.context.hostName}/cgi-bin/site/findschool2review.cgi/${requestScope.context.stateOrDefault.abbreviation}/">
                                                     <img src="res/img/5steps/btn_seeoneschoolforfree.gif" alt="See one school for FREE" vspace="5" hspace="10" border="0"/>
                                                 </a>
                                             </div>

@@ -24,10 +24,10 @@
         <table id="header" width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <td><a href="javascript:history.back();">&lt;&lt; Back</a></td>
-                <td align="right">Already a member? <a href="http://${sessionScope.context.hostName}/cgi-bin/site/signin.cgi/${sessionScope.context.stateOrDefault.abbreviation}/">Sign in</a></td>
+                <td align="right">Already a member? <a href="http://${requestScope.context.hostName}/cgi-bin/site/signin.cgi/${requestScope.context.stateOrDefault.abbreviation}/">Sign in</a></td>
             </tr>
             <tr>
-                <td><a href="/modperl/go/${sessionScope.context.stateOrDefault.abbreviation}"><img src="/res/img/subscribe/conversion/gs_bug.gif" alt="GreatSchools" width="223" height="73" vspace="5" border="0"/></a></td>
+                <td><a href="/modperl/go/${requestScope.context.stateOrDefault.abbreviation}"><img src="/res/img/subscribe/conversion/gs_bug.gif" alt="GreatSchools" width="223" height="73" vspace="5" border="0"/></a></td>
                 <td><img src="/res/img/subscribe/conversion/conv_top.gif" alt="Moving? Choosing a new School? GreatSchools Insider can help" width="505" height="73"/></td>
             </tr>
         </table>
@@ -55,12 +55,12 @@
                                     <tr>
                                         <td class="bodycopy" width="100%" valign="bottom">
                                             <ul class="arrow">
-                                                <li><a type="popup" href="/subscribe/conversion/popup/schoolChoiceOptions.page?state=${sessionScope.context.stateOrDefault.abbreviation}">School Choice Options</a> Learn how school choice works in the area you're researching.</li>
-                                                <li><a type="popup" href="/subscribe/conversion/popup/topRatedSchools.page?state=${sessionScope.context.stateOrDefault.abbreviation}">Top-Rated Schools</a> Start your search here to narrow your list.</li>
-                                                <li><a type="popup" href="/subscribe/conversion/popup/ratings.page?state=${sessionScope.context.stateOrDefault.abbreviation}">GreatSchools Ratings</a> Quickly understand how public and charter schools stack up with our exclusive rating system.</li>
-                                                <li><a type="popup" href="/subscribe/conversion/popup/parentReviews.page?state=${sessionScope.context.stateOrDefault.abbreviation}">Parent Ratings and Reviews</a> Read what local parents say about the schools on your list.</li>
-                                                <li><a type="popup" href="/subscribe/conversion/popup/flagAlerts.page?state=${sessionScope.context.stateOrDefault.abbreviation}">Flag Alerts</a> See if schools you're considering are flagged with areas of possible concern.</li>
-                                                <li><a type="popup" href="/subscribe/conversion/popup/compareSchools.page?state=${sessionScope.context.stateOrDefault.abbreviation}">Compare Schools</a> Look at schools side-by-side and compare them based on GreatSchools ratings and flag alerts as well as other criteria including academic performance, teacher qualifications, and student data.</li>
+                                                <li><a type="popup" href="/subscribe/conversion/popup/schoolChoiceOptions.page?state=${requestScope.context.stateOrDefault.abbreviation}">School Choice Options</a> Learn how school choice works in the area you're researching.</li>
+                                                <li><a type="popup" href="/subscribe/conversion/popup/topRatedSchools.page?state=${requestScope.context.stateOrDefault.abbreviation}">Top-Rated Schools</a> Start your search here to narrow your list.</li>
+                                                <li><a type="popup" href="/subscribe/conversion/popup/ratings.page?state=${requestScope.context.stateOrDefault.abbreviation}">GreatSchools Ratings</a> Quickly understand how public and charter schools stack up with our exclusive rating system.</li>
+                                                <li><a type="popup" href="/subscribe/conversion/popup/parentReviews.page?state=${requestScope.context.stateOrDefault.abbreviation}">Parent Ratings and Reviews</a> Read what local parents say about the schools on your list.</li>
+                                                <li><a type="popup" href="/subscribe/conversion/popup/flagAlerts.page?state=${requestScope.context.stateOrDefault.abbreviation}">Flag Alerts</a> See if schools you're considering are flagged with areas of possible concern.</li>
+                                                <li><a type="popup" href="/subscribe/conversion/popup/compareSchools.page?state=${requestScope.context.stateOrDefault.abbreviation}">Compare Schools</a> Look at schools side-by-side and compare them based on GreatSchools ratings and flag alerts as well as other criteria including academic performance, teacher qualifications, and student data.</li>
 				                            </ul>
                                             <br/>
                                             <br/>
@@ -80,7 +80,7 @@
                                                     <td bgcolor="#FFFFFF"></td>
                                                     <td bgcolor="#FFFFFF">
                                                         <b>GreatSchools Insider</b><br/>makes it easy to choose a new school for your child.<br/><br/>
-                                                        <center><a href="https://${sessionScope.context.secureHostName}/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;amp;host=${sessionScope.context.hostName}"><img src="/res/img/subscribe/conversion/popup/join_price_btn.gif" width="189" height="20" border="0" vspace="2"/></a></center>
+                                                        <center><a href="https://${requestScope.context.secureHostName}/subscribe.page?state=${requestScope.context.stateOrDefault.abbreviation}&amp;amp;host=${requestScope.context.hostName}"><img src="/res/img/subscribe/conversion/popup/join_price_btn.gif" width="189" height="20" border="0" vspace="2"/></a></center>
                                                     </td>
                                                     <td bgcolor="#FFFFFF"></td>
                                                     <td width="10"></td>
@@ -88,7 +88,7 @@
                                                     <td bgcolor="#FFFFFF">
                                                         <strong>Not ready to become a member?</strong><br/>
                                                         Help other parents by providing a review of a school you know.  In return, view one member-exclusive school profile for free.<br/>
-                                                        <center><br/><a href="http://${sessionScope.context.hostName}/cgi-bin/site/findschool2review.cgi/${sessionScope.context.stateOrDefault.abbreviation}/"><img src="/res/img/subscribe/conversion/try_sm_btn.gif" width="114" height="20" border="0" vspace="2"/></a></center>
+                                                        <center><br/><a href="http://${requestScope.context.hostName}/cgi-bin/site/findschool2review.cgi/${requestScope.context.stateOrDefault.abbreviation}/"><img src="/res/img/subscribe/conversion/try_sm_btn.gif" width="114" height="20" border="0" vspace="2"/></a></center>
                                                     </td>
                                                     <td bgcolor="#FFFFFF"></td>
                                                 </tr>
@@ -118,9 +118,9 @@
                 </td>
                 <td valign="top">
 	                <center>
-	                    <a href="https://${sessionScope.context.secureHostName}/subscribe.page?state=${sessionScope.context.stateOrDefault.abbreviation}&amp;amp;host=${sessionScope.context.hostName}"><img src="/res/img/subscribe/conversion/join_now_btn.gif" alt="Join Now" width="150" height="20" vspace="2" border="0"/></a><br/>
+	                    <a href="https://${requestScope.context.secureHostName}/subscribe.page?state=${requestScope.context.stateOrDefault.abbreviation}&amp;amp;host=${requestScope.context.hostName}"><img src="/res/img/subscribe/conversion/join_now_btn.gif" alt="Join Now" width="150" height="20" vspace="2" border="0"/></a><br/>
                         <br/>
-                        <a href="http://${sessionScope.context.hostName}/cgi-bin/site/findschool2review.cgi/${sessionScope.context.stateOrDefault.abbreviation}/"><img src="/res/img/subscribe/conversion/try_it_btn.gif" alt="Try GreatSchools Insider for free" width="150" height="20" vspace="2" border="0"/></a>
+                        <a href="http://${requestScope.context.hostName}/cgi-bin/site/findschool2review.cgi/${requestScope.context.stateOrDefault.abbreviation}/"><img src="/res/img/subscribe/conversion/try_it_btn.gif" alt="Try GreatSchools Insider for free" width="150" height="20" vspace="2" border="0"/></a>
 	                </center>
                     <div class="quote">
                         "This subscription has given me information needed to determine what schools will be acceptable for my child."

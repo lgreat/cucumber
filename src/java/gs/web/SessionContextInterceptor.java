@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextInterceptor.java,v 1.2 2005/10/14 23:21:26 apeterson Exp $
+ * $Id: SessionContextInterceptor.java,v 1.3 2005/10/21 00:16:01 apeterson Exp $
  */
 package gs.web;
 
@@ -29,21 +29,29 @@ public class SessionContextInterceptor
     private ApplicationContext _applicationContext;
 
 
+    /**
+     * @deprecated use the factory method {@link SessionFacade#getInstance(javax.servlet.http.HttpServletRequest)}
+     */
+    public static final String SESSION_ATTRIBUTE_NAME = "context";
+
     public boolean preHandle(HttpServletRequest httpServletRequest,
                              HttpServletResponse httpServletResponse,
                              Object o) throws Exception {
-        HttpSession session = httpServletRequest.getSession();
 
-        SessionContext sessionContext = SessionContext.getInstanceImpl(httpServletRequest);
+
+        HttpSession session = httpServletRequest.getSession();
+        SessionContext sessionContext
+                = (SessionContext) session.getAttribute(SESSION_ATTRIBUTE_NAME);
 
         if (sessionContext == null) {
 
             sessionContext =
                     (SessionContext) _applicationContext.getBean(SessionContext.BEAN_ID);
 
-            session.setAttribute(SessionContext.SESSION_ATTRIBUTE_NAME, sessionContext);
+            session.setAttribute(SESSION_ATTRIBUTE_NAME, sessionContext);
         }
 
+        httpServletRequest.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, sessionContext);
         sessionContext.setRequest(httpServletRequest);
 
         return true; // go on

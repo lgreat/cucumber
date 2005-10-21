@@ -85,7 +85,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
         ISessionFacade sc = null;
         if (jspContext != null) {
             //String o = (String)jspContext.findAttribute("state"); // why doesn't this work?
-            sc = (ISessionFacade) jspContext.getAttribute(SessionContext.SESSION_ATTRIBUTE_NAME, PageContext.SESSION_SCOPE);
+            sc = (ISessionFacade) jspContext.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, PageContext.REQUEST_SCOPE);
         }
         return sc;
     }

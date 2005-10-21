@@ -12,9 +12,9 @@
             and tools to choose schools, support their children's education and improve schools in their communities.
         </h5>
         <h6>&#169;1998-2005 GreatSchools Inc. All Rights Reserved.
-            <a href="http://${sessionScope.context.hostName}/modperl/go/${sessionScope.context.stateOrDefault.abbreviation}/">Home</a>
+            <a href="http://${requestScope.context.hostName}/modperl/go/${requestScope.context.stateOrDefault.abbreviation}/">Home</a>
             |
-            <a href="http://${sessionScope.context.hostName}/cgi-bin/static/terms.html/${sessionScope.context.stateOrDefault.abbreviation}">Terms of Use</a>
+            <a href="http://${requestScope.context.hostName}/cgi-bin/static/terms.html/${requestScope.context.stateOrDefault.abbreviation}">Terms of Use</a>
         </h6>
     </div>
 </jsp:root>

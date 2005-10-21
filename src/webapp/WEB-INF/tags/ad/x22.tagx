@@ -3,7 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core">
     <jsp:directive.tag body-content="empty"/>
-    <c:if test="${!sessionScope.context.adFree}">
+    <c:if test="${!requestScope.context.adFree}">
         <div id="adLeaderboard">
             <script language="JavaScript">OAS_AD('x22');</script>
             <c:url var="sponsorImage" value="/res/img/ad/sponsor_vertical.gif"/>

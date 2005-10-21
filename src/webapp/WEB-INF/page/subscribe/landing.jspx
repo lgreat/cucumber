@@ -86,7 +86,7 @@ img {border:0;}
         </tr>
         <tr>
           <td width="15" class="L"></td>
-          <td class="C"><a href="http://${sessionScope.context.hostName}/modperl/go/${sessionScope.context.stateOrDefault.abbreviation}"><img src="/res/img/box/logo.gif" width="100" height="40"/></a></td>
+          <td class="C"><a href="http://${requestScope.context.hostName}/modperl/go/${requestScope.context.stateOrDefault.abbreviation}"><img src="/res/img/box/logo.gif" width="100" height="40"/></a></td>
           <td class="C" align="right" style="text-align:right;"><img src="/res/img/box/PA_1stGrade.gif" width="260" height="40"/></td>
           <td width="15" class="R"></td>
         </tr>
@@ -114,8 +114,8 @@ img {border:0;}
           <td width="365" valign="top" bgcolor="#EEEEEE" style="padding-top:10px;font-size:12px;">
 		  <b>Here's a way that you can use GreatSchools Insider during your school selection process.
 </b><br /><br />
-If you are not <b>${sessionScope.context.user.email}</b>, <a href="http://${sessionScope.context.hostName}/cgi-bin/logout/${sessionScope. context. stateOrDefault. abbreviation}/">click here</a> <br/>
-<a href="http://${sessionScope.context.hostName}/cgi-bin/feedback_faq/${sessionScope.context.stateOrDefault.abbreviation}?fbtype=subentry">Contact Customer Support</a>
+If you are not <b>${requestScope.context.user.email}</b>, <a href="http://${requestScope.context.hostName}/cgi-bin/logout/${requestScope.context.stateOrDefault.abbreviation}/">click here</a> <br/>
+<a href="http://${requestScope.context.hostName}/cgi-bin/feedback_faq/${requestScope.context.stateOrDefault.abbreviation}?fbtype=subentry">Contact Customer Support</a>
 
  </td>
           <td width="205" valign="top" class="C toc">
@@ -182,15 +182,15 @@ First, get a quick primer to organize your thoughts:
 Then, use these printable worksheets to rank your priorities.
 <ul>
                                 <li>
-                                    <a href="http://${sessionScope.context.hostName}/pdf/articles/picky/ChildQuickThink.pdf">Child Quick Think: What Strengths, Challenges and Other Characteristics
+                                    <a href="http://${requestScope.context.hostName}/pdf/articles/picky/ChildQuickThink.pdf">Child Quick Think: What Strengths, Challenges and Other Characteristics
       Stand Out About Your Child?</a>
                                 </li>
                                 <li>
-                                    <a href="http://${sessionScope.context.hostName}/pdf/articles/picky/FamilyQuickThink.pdf">Family Quick Think: What Values, Needs, Strengths and Challenges
+                                    <a href="http://${requestScope.context.hostName}/pdf/articles/picky/FamilyQuickThink.pdf">Family Quick Think: What Values, Needs, Strengths and Challenges
       Stand Out About Your Family?</a>
                                 </li>
                                 <li>
-                                    <a href="http://${sessionScope.context.hostName}/pdf/choosing_imagine.pdf">Imagining Your Ideal School: An Exercise for Setting Priorities</a>
+                                    <a href="http://${requestScope.context.hostName}/pdf/choosing_imagine.pdf">Imagining Your Ideal School: An Exercise for Setting Priorities</a>
                                 </li>
                             </ul>
 							 <br />
@@ -285,7 +285,7 @@ Use interactive search to identify an area, or to focus in on the schools that
       match your priorities for your child and family.
 <br/>
 <h4>
-                            <a href="http://${sessionScope.context.hostName}/cgi-bin/site/rank_overview.cgi/${sessionScope.context.stateOrDefault.abbreviation}">Top-rated
+                            <a href="http://${requestScope.context.hostName}/cgi-bin/site/rank_overview.cgi/${requestScope.context.stateOrDefault.abbreviation}">Top-rated
       schools</a>
                         </h4>
                         <ul>
@@ -294,7 +294,7 @@ See which schools rank highest based on our exclusive ratings.
                             </li>
                         </ul>
                         <h4>
-                            <a href="http://${sessionScope.context.hostName}/cgi-bin/msl_confirm/${sessionScope.context.stateOrDefault.abbreviation}">My School List
+                            <a href="http://${requestScope.context.hostName}/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}">My School List
                             </a>
                         </h4>
                         <ul>
@@ -303,7 +303,7 @@ Save your potential matches for quick access to on future visits to GreatSchools
                             </li>
                         </ul>
                         <h4>
-                            <a href="http://${sessionScope.context.hostName}/cgi-bin/cs_where/${sessionScope.context.stateOrDefault.abbreviation}">Compare schools</a>
+                            <a href="http://${requestScope.context.hostName}/cgi-bin/cs_where/${requestScope.context.stateOrDefault.abbreviation}">Compare schools</a>
                         </h4>
                         <ul>
                             <li>
@@ -311,7 +311,7 @@ Compare schools based on criteria that matter most to you.
                             </li>
                             <li>
 Line up schools side by side to compare their ratings
-                                <c:if test="${sessionScope.context.state.yellowFlagState}">
+                                <c:if test="${requestScope.context.state.yellowFlagState}">
 and to see which have flag alerts highlighting
 areas of potential concern</c:if>.
                             </li>
@@ -344,7 +344,7 @@ areas of potential concern</c:if>.
             <div class="body">
               <!-- here goes the H4 if used-->
  <c:choose>
-                                <c:when test="${sessionScope.context.state.yellowFlagState}">
+                                <c:when test="${requestScope.context.state.yellowFlagState}">
                         Analyze key information about each school: exclusive ratings, real parents'
       reviews, and possible areas of concerns highlighted with flag alerts.
                                 </c:when>
@@ -356,20 +356,20 @@ Analyze key information about each school including
 <br />
 <br />
 Start with schools you've saved to
-<a href="http://${sessionScope.context.hostName}/cgi-bin/msl_confirm/${sessionScope.context.stateOrDefault.abbreviation}">My&#160;School&#160;List</a>.
+<a href="http://${requestScope.context.hostName}/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}">My&#160;School&#160;List</a>.
 <br />
 <br />
 Or, look up school information by individual school:
 <ul>
                             <li>
-                                <a href="http://${sessionScope.context.hostName}/cgi-bin/ratingsrch/${sessionScope.context.stateOrDefault.abbreviation}">Exclusive GreatSchools Ratings</a>
+                                <a href="http://${requestScope.context.hostName}/cgi-bin/ratingsrch/${requestScope.context.stateOrDefault.abbreviation}">Exclusive GreatSchools Ratings</a>
                             </li>
                             <li>
-                                <a href="http://${sessionScope.context.hostName}/cgi-bin/commentsrch/${sessionScope.context.stateOrDefault.abbreviation}">Parent Reviews</a>
+                                <a href="http://${requestScope.context.hostName}/cgi-bin/commentsrch/${requestScope.context.stateOrDefault.abbreviation}">Parent Reviews</a>
                             </li>
-                            <c:if test="${sessionScope.context.state.yellowFlagState}">
+                            <c:if test="${requestScope.context.state.yellowFlagState}">
                                 <li>
-                                    <a href="http://${sessionScope.context.hostName}/cgi-bin/ratingsrch/${sessionScope.context.stateOrDefault.abbreviation}">Flag Alerts</a>
+                                    <a href="http://${requestScope.context.hostName}/cgi-bin/ratingsrch/${requestScope.context.stateOrDefault.abbreviation}">Flag Alerts</a>
                                 </li>
                             </c:if>
                         </ul>
@@ -417,15 +417,15 @@ Start here:
         with these printable worksheets:
   <ul>
                                 <li>
-                                    <a href="http://${sessionScope.context.hostName}/pdf/schq_visit_elem.pdf">The Elementary
+                                    <a href="http://${requestScope.context.hostName}/pdf/schq_visit_elem.pdf">The Elementary
         School Visit: A Step by Step Guide</a>
                                 </li>
                                 <li>
-                                    <a href="http://${sessionScope.context.hostName}/pdf/schq_visit_middle.pdf">The Middle
+                                    <a href="http://${requestScope.context.hostName}/pdf/schq_visit_middle.pdf">The Middle
         School Visit: A Step by Step Guide</a>
                                 </li>
                                 <li>
-                                    <a href="http://${sessionScope.context.hostName}/pdf/schq_visit_high.pdf">The High
+                                    <a href="http://${requestScope.context.hostName}/pdf/schq_visit_high.pdf">The High
          School Visit: A Step by Step Guide</a>
 
                                 </li>

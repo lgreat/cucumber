@@ -6,15 +6,15 @@
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="page" type="java.lang.String" required="true"/>
     <jsp:directive.attribute name="ads" type="java.lang.String" required="true"/>
-        <c:if test="${!sessionScope.context.adFree}">
-            <c:if test="${!sessionScope.context.yahooCobrand}">
+        <c:if test="${!requestScope.context.adFree}">
+            <c:if test="${!requestScope.context.yahooCobrand}">
                 <!-- OAS SETUP begin -->
                 <SCRIPT LANGUAGE="JavaScript">
                     //configuration
                     OAS_url = 'http://oascentral.greatschools.net/RealMedia/ads/';
-                    OAS_sitepage = 'www/${gsweb:toLowercase(sessionScope.context.state.abbreviation)}/${page}';
+                    OAS_sitepage = 'www/${gsweb:toLowercase(requestScope.context.state.abbreviation)}/${page}';
                     OAS_listpos = '${ads}';
-                    OAS_query = 'state=${gsweb:toLowercase(sessionScope.context.state.abbreviation)}';
+                    OAS_query = 'state=${gsweb:toLowercase(requestScope.context.state.abbreviation)}';
                     OAS_target = '_top';
                     //end of configuration
                     OAS_version = 10;

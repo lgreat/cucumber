@@ -5,8 +5,8 @@
           xmlns:gsweb="gstaglib"
         >
     <jsp:directive.tag body-content="empty"/>
-    <c:set var="hostname" value="${sessionScope.context.hostName}"/>
-    <c:set var="state" value="${sessionScope.context.stateOrDefault}"/>
+    <c:set var="hostname" value="${requestScope.context.hostName}"/>
+    <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
     <c:set var="rand" value="${gsweb:randomNumber(1000)}"/>
     <c:set var="sponsorHref"
            value="http://${hostname}/modperl/promos/link//${rand}/${state}//3"/>

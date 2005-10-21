@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.17 2005/10/18 00:40:35 chriskimm Exp $
+ * $Id: SessionContext.java,v 1.18 2005/10/21 00:16:01 apeterson Exp $
  */
 package gs.web;
 
@@ -20,8 +20,6 @@ import org.springframework.context.ApplicationContextAware;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.io.Serializable;
 
 /**
  * Implementation of the ISessionFacade interface based on Java servlet
@@ -36,18 +34,13 @@ public class SessionContext
 
     static final String BEAN_ID = "sessionContext";
 
-    /**
-     * @deprecated use the factory method {@link SessionFacade#getInstance(javax.servlet.http.HttpServletRequest)}
-     */
-    public static final String SESSION_ATTRIBUTE_NAME = "context";
+    private IUserDao _userDao;
+    private StateManager _stateManager;
+    private IArticleDao _articleDao;
+    private ISchoolDao _schoolDao;
+    private ICensusValueDao _censusValueDao;
 
-    private  IUserDao _userDao;
-    private  StateManager _stateManager;
-    private  IArticleDao _articleDao;
-    private  ISchoolDao _schoolDao;
-    private  ICensusValueDao _censusValueDao;
-
-    private static final  Log _log = LogFactory.getLog(SessionContextInterceptor.class);
+    private static final Log _log = LogFactory.getLog(SessionContextInterceptor.class);
 
     /**
      * The name of the cobrand (sfgate, azcentral, dps, etc...) or null
@@ -57,12 +50,7 @@ public class SessionContext
     private User _user;
     private State _state;
 
-    private  ApplicationContext _applicationContext;
-
-    static SessionContext getInstanceImpl(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        return (SessionContext) session.getAttribute(SessionContext.SESSION_ATTRIBUTE_NAME);
-    }
+    private ApplicationContext _applicationContext;
 
     /**
      * Created by Spring as needed.
