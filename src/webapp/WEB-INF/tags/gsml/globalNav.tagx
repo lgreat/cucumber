@@ -19,7 +19,7 @@
             <tr>
                 <td class="L">
                 </td>
-                <td class="C" style="background: #FE894C  url(/res/img/box/border_shade4pathway1_BG.gif) bottom right no-repeat; padding: 0;vertical-align:middle;">
+                <td class="C choosingPwy">
                     <h1>
                         <gsml:a href="/path/choose/index.page"> Choosing Schools </gsml:a>
                     </h1>
@@ -55,7 +55,7 @@
             <tr>
                 <td class="L">
                 </td>
-                <td class="C" style="background: #FE894C  url(/res/img/box/border_shade4pathway2sm_BG.gif) bottom right no-repeat; vertical-align:top; padding: 0px 0px 0px 0px;vertical-align:middle;">
+                <td class="C mcsPwy">
                     <h1>
                         <a href="#pathway1"> My Child's School </a>
                     </h1>
@@ -85,7 +85,7 @@
             <tr>
                 <td class="L">
                 </td>
-                <td class="C" style="background: #FE894C  url(/res/img/box/border_shade4pathway3sm_BG.gif) bottom right no-repeat; vertical-align:top; padding: 0px 0px 0px 0px;vertical-align:middle;">
+                <td class="C editorialPwy">
                     <h1>
                         <a href="#pathway1"> Holiday Center </a>
                     </h1>
