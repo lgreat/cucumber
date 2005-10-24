@@ -49,7 +49,7 @@ public class ResultsPager {
         }
     }
 
-    public void setArticles(Hits hits) {
+    private void setArticles(Hits hits) {
         _articleHits = hits;
     }
 
@@ -62,7 +62,7 @@ public class ResultsPager {
         return _articleHits.length();
     }
 
-    public void setSchools(Hits hits) {
+    private void setSchools(Hits hits) {
         _schoolHits = hits;
     }
 
@@ -75,7 +75,7 @@ public class ResultsPager {
         return _schoolHits.length();
     }
 
-    public void setDistricts(Hits hits) {
+    private void setDistricts(Hits hits) {
         _districtHits = hits;
     }
 
@@ -88,7 +88,7 @@ public class ResultsPager {
         return _districtHits.length();
     }
 
-    public void setCities(Hits hits) {
+    private void setCities(Hits hits) {
         _cityHits = hits;
     }
 
@@ -141,7 +141,6 @@ public class ResultsPager {
             if (endIndex > hits.length()) {
                 endIndex = hits.length();
             }
-
 
             try {
                 for (int i = startIndex; i < endIndex; i++) {
