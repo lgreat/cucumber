@@ -23,12 +23,12 @@
                     <h1>
                         <gsml:a href="/path/choose/index.page"> Choosing Schools </gsml:a>
                     </h1>
-                    <gsml:a href="/cgi-bin/site/rank_overview.cgi/STATE"> Top-Rated Schools </gsml:a>
+                    <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE"> Top-Rated Schools </gsml:a>
                     <a href="#"> School Choice Center </a>
-                    <gsml:a href="/cgi-bin/cs_where/STATE"> Compare Schools </gsml:a>
-                    <gsml:a href="/cgi-bin/template_plain/advanced/STATE/#address"> Search By Address </gsml:a>
-                    <gsml:a href="/cgi-bin/msl_confirm/STATE"> My School List </gsml:a>
-                    <gsml:a href="/cgi-bin/logout/STATE/?email=eford@greatschools.net&amp;mid=736" className="insiderlink"> Sign Out </gsml:a>
+                    <gsml:a href="/cgi-bin/cs_where/$STATE"> Compare Schools </gsml:a>
+                    <gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address"> Search By Address </gsml:a>
+                    <gsml:a href="/cgi-bin/msl_confirm/$STATE"> My School List </gsml:a>
+                    <!--gsml:a href="/cgi-bin/logout/$STATE/?email=eford@greatschools.net&amp;mid=736" className="insiderlink"> Sign Out </gsml:a-->
                 </td>
                 <td class="R">
                 </td>
