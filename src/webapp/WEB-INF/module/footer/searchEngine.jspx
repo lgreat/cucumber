@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns="http://www.w3c.org/1999/xhtml"
         >
+<c:set var="longName" value="${requestScope.context.stateOrDefault.longName}"/>
+<c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+
 <div id="footerText">
     GreatSchools.net Elementary, middle and high school information for public, private and charter schools
     nationwide.
@@ -9,12 +13,17 @@
 
 <div id="footerSearch">
 
-<span style="style:inline" onclick="showSection('footerSearchStateSpecific');">California school information <a>(click to expand)</a></span>
+<span style="style:inline" onclick="showSection('footerSearchStateSpecific');">${longName} school information <a>(click
+    to expand)</a></span>
+
 <div id="footerSearchStateSpecific">
-<a href="/cgi-bin/schoollist/CA">California schools</a>, <a href="/modperl/distlist/CA">California districts</a>, <a href="/modperl/citylist/CA">California cities</a>
+    <a href="/cgi-bin/schoollist/${state}">${longName} schools</a>, <a
+        href="/modperl/distlist/${state}">${longName}
+    districts</a>, <a href="/modperl/citylist/${state}">${longName} cities</a>
 </div>
- |
+|
 <span onclick="showSection('footerSearchStates');">School information by state <a>(click to expand)</a></span>
+
 <div id="footerSearchStates">
     <a href="/modperl/go/AL">Alabama schools</a>,
     <a href="/modperl/go/AK">Alaska schools</a>,
@@ -68,8 +77,9 @@
     <a href="/modperl/go/WI">Wisconsin schools</a>,
     <a href="/modperl/go/WY">Wyoming schools</a>.
 </div>
- |
+|
 <span onclick="showSection('footerSearchCities');">School information by city <a>(click to expand)</a></span>
+
 <div id="footerSearchCities">
     <a href="/modperl/bycity/ny/?city=New+York&amp;showall=1&amp;level=a">New York schools</a>,
     <a href="/modperl/bycity/ca/?city=Los+Angeles&amp;showall=1&amp;level=a">Los Angeles schools</a>,

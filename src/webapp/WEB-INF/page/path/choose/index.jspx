@@ -10,7 +10,8 @@
     xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
     >
     <html lang="en">
-
+       <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+       <c:set var="stateLongName" value="${requestScope.context.stateOrDefault.longName}"/>
         <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
@@ -23,7 +24,7 @@
             ]]>
             <c:url var="boxcss" value="/res/css/box.css"/>
             <link rel="stylesheet" href="${boxcss}"></link>
-            <title>GreatSchools FIXME</title>
+            <title>${stateLongName} Schools</title>
         </head>
         <body id="pathway1">
         <table id="pagemargin" border="0" cellspacing="0" cellpadding="0">
@@ -53,7 +54,7 @@
         								<td class="L">
         								</td>
         								<td class="button" onclick="location='#pathway4';" style="background: #DDDDDD url(src/img/border_shade5_BG.gif); padding: 0px 0px 0px 0px;" valign="top">
-        									<h1 class="moduleheader">California Schools - Free Resources <span class="tagline">from Greatschools.net, an independent nonprofit</span></h1>
+        									<h1 class="moduleheader">${stateLongName} Schools - Free Resources <span class="tagline">from Greatschools.net, an independent nonprofit</span></h1>
         									<div class="topcontentcol1">
                                             <gsml:a href="/modperl/go/STATE">CLICK HERE</gsml:a>
         									</div>
