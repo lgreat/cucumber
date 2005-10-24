@@ -6,6 +6,7 @@
     xmlns:spring="http://www.springframework.org/tags"
     xmlns:layout="urn:jsptagdir:/WEB-INF/tags/gsml"
     >
+    <!-- This module requires that the state be sent in the url, as state=XX. -->
     <div id="copyright">
         <h5 class="ncopy">
             GreatSchools is an independent, nonprofit organization committed to providing parents with information

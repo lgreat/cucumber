@@ -391,7 +391,7 @@
 			<![CDATA[
 			<script src="https://seal.verisign.com/getseal?host_name=secure.greatschools.net&size=S&use_flash=YES&use_transparent=YES&lang=en"></script>
             ]]>
-            <jsp:include page="/footer/copyright.module"/>
+            <jsp:include page="/footer/copyright.module?state=${requestScope.context.stateOrDefault.abbreviation}"/>
 
             <gsml:fireclick pageType="conversion" pageName="subscribe"
                 extraJavascriptVariable="var fc_track='payment'; var fc_prod_add='${subCmd.subscriptionProduct.longName}';" />

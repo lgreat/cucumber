@@ -1,16 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ISessionFacade.java,v 1.1 2005/10/14 23:21:26 apeterson Exp $
+ * $Id: ISessionFacade.java,v 1.2 2005/10/24 21:53:04 apeterson Exp $
  */
 
 package gs.web;
 
-import gs.data.community.IUserDao;
 import gs.data.community.User;
-import gs.data.content.IArticleDao;
-import gs.data.school.ISchoolDao;
 import gs.data.state.State;
-import gs.data.state.StateManager;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -28,6 +24,7 @@ import org.springframework.context.ApplicationContext;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public interface ISessionFacade {
+
     ApplicationContext getApplicationContext();
 
     User getUser();
@@ -61,12 +58,4 @@ public interface ISessionFacade {
     boolean isYahooCobrand();
 
     String getSecureHostName();
-
-    IUserDao getUserDao();
-
-    StateManager getStateManager();
-
-    IArticleDao getArticleDao();
-
-    ISchoolDao getSchoolDao();
 }

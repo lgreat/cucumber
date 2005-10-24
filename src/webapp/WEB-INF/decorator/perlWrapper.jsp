@@ -1,5 +1,6 @@
 <%@ page import="gs.web.ISessionFacade,
-                 gs.web.SessionFacade"%>
+                 gs.web.SessionFacade,
+                 gs.data.util.NetworkUtil"%>
 <%@ page import="gs.data.state.State"%>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -11,19 +12,20 @@
 <%
     ISessionFacade ctx = SessionFacade.getInstance(request);
 
+    NetworkUtil networkUtil = new NetworkUtil();
+
     // Determine if we're on a server or a developers workstation with no perl
     String serverName = request.getServerName();
-    boolean developerWorkstation = false;
-    if (serverName.indexOf("localhost") > -1) {
-        developerWorkstation = true;
+    boolean developerWorkstation = networkUtil.isDeveloperWorkstation(serverName);
+    pageContext.setAttribute("developerWorkstation", Boolean.valueOf(developerWorkstation), PageContext.REQUEST_SCOPE);
+
+    if (developerWorkstation) {
         serverName = "dev.greatschools.net";
         String baseUrlDev = request.getScheme() + "://" + serverName + "/";
         String baseUrlJava = request.getRequestURL().toString();
         pageContext.setAttribute("baseUrlDev", baseUrlDev, PageContext.REQUEST_SCOPE);
         pageContext.setAttribute("baseUrlJava", baseUrlJava, PageContext.REQUEST_SCOPE);
     }
-    pageContext.setAttribute("developerWorkstation",
-            (developerWorkstation) ? Boolean.TRUE : Boolean.FALSE, PageContext.REQUEST_SCOPE);
 
     // The page for the c:import to use
     String wrapperStyle = smPage.getProperty("meta.wrapperstyle");

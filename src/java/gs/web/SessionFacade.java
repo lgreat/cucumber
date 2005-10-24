@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionFacade.java,v 1.3 2005/10/21 01:45:06 apeterson Exp $
+ * $Id: SessionFacade.java,v 1.4 2005/10/24 21:53:04 apeterson Exp $
  */
 
 package gs.web;

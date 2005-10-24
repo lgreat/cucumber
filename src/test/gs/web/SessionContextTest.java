@@ -1,9 +1,10 @@
 package gs.web;
 
-import junit.framework.TestCase;
-import org.springframework.mock.web.MockHttpServletRequest;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.data.util.NetworkUtil;
+import junit.framework.TestCase;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
  * Tests for the SessionContext object
@@ -12,12 +13,25 @@ import gs.data.state.StateManager;
  */
 public class SessionContextTest extends TestCase {
 
+
+    private SessionContextUtil _sessionContextUtil;
+
+    protected void setUp() throws Exception {
+        super.setUp();
+
+        _sessionContextUtil = new SessionContextUtil();
+        _sessionContextUtil.setStateManager(new StateManager());
+        _sessionContextUtil.setNetworkUtil(new NetworkUtil());
+    }
+
     public void testHostDeveloperWorkstation() {
         // Try developer workstation scenario
         MockHttpServletRequest request = new MockHttpServletRequest();
-        SessionContext ctx = new SessionContext();
         request.setServerName("localhost");
-        ctx.updateFromParams(request);
+
+        SessionContext ctx = new SessionContext();
+
+        _sessionContextUtil.updateFromParams(request, ctx);
         assertEquals(ctx.getHostName(), "dev.greatschools.net");
         assertTrue(!ctx.isAdFree());
         assertTrue(!ctx.isCobrand());
@@ -25,13 +39,13 @@ public class SessionContextTest extends TestCase {
 
         // Add the cobrand parameter
         request.addParameter("cobrand", "number1expert");
-        ctx.updateFromParams(request);
+        _sessionContextUtil.updateFromParams(request, ctx);
         assertEquals("number1expert.dev.greatschools.net", ctx.getHostName());
         assertTrue(ctx.isAdFree());
         assertTrue(ctx.isCobrand());
 
         request.addParameter("cobrand", "yahoo");
-        ctx.updateFromParams(request);
+        _sessionContextUtil.updateFromParams(request, ctx);
         assertTrue(ctx.isYahooCobrand());
 
     }
@@ -39,9 +53,8 @@ public class SessionContextTest extends TestCase {
     public void testHostCobrandUrlOnLiveSite() {
         MockHttpServletRequest request = new MockHttpServletRequest();
         SessionContext ctx = new SessionContext();
-        ctx.setStateManager(new StateManager());
         request.setServerName("sfgate.greatschools.net");
-        ctx.updateFromParams(request);
+        _sessionContextUtil.updateFromParams(request, ctx);
         assertEquals("sfgate.greatschools.net", ctx.getHostName());
         assertTrue(!ctx.isAdFree());
         assertTrue(ctx.isCobrand());
@@ -51,15 +64,14 @@ public class SessionContextTest extends TestCase {
 
         // Add the state parameter
         request.addParameter("state", "wy");
-        ctx.updateFromParams(request);
+        _sessionContextUtil.updateFromParams(request, ctx);
         assertTrue(ctx.getState().equals(State.WY));
 
         // Now try a non-standard URL cobrand such as babycenter
         request = new MockHttpServletRequest();
         ctx = new SessionContext();
-        ctx.setStateManager(new StateManager());
         request.setServerName("greatschools.babycenter.com");
-        ctx.updateFromParams(request);
+        _sessionContextUtil.updateFromParams(request, ctx);
         assertEquals("greatschools.babycenter.com", ctx.getHostName());
         assertTrue(!ctx.isAdFree());
         assertTrue(ctx.isCobrand());
@@ -69,10 +81,9 @@ public class SessionContextTest extends TestCase {
         // Try developer workstation scenario
         MockHttpServletRequest request = new MockHttpServletRequest();
         SessionContext ctx = new SessionContext();
-        ctx.setStateManager(new StateManager());
         request.setServerName("www.greatschools.net");
         request.addParameter("cobrand", "framed");
-        ctx.updateFromParams(request);
+        _sessionContextUtil.updateFromParams(request, ctx);
         assertEquals("framed.greatschools.net", ctx.getHostName());
         assertTrue(ctx.isAdFree());
         assertTrue(ctx.isCobrand());
@@ -81,11 +92,10 @@ public class SessionContextTest extends TestCase {
 
     public void testHostCobrandUrlOnDevSite() {
         // Try developer workstation scenario
-        MockHttpServletRequest request = new MockHttpServletRequest();
         SessionContext ctx = new SessionContext();
-        ctx.setStateManager(new StateManager());
+        MockHttpServletRequest request = new MockHttpServletRequest();
         request.setServerName("azcentral.dev.greatschools.net");
-        ctx.updateFromParams(request);
+        _sessionContextUtil.updateFromParams(request, ctx);
         assertEquals("azcentral.dev.greatschools.net", ctx.getHostName());
         assertTrue(!ctx.isAdFree());
         assertTrue(ctx.isCobrand());
@@ -96,14 +106,14 @@ public class SessionContextTest extends TestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         SessionContext ctx = new SessionContext();
         request.setServerName("yahoo.greatschools.net");
-        ctx.updateFromParams(request);
+        _sessionContextUtil.updateFromParams(request, ctx);
         assertEquals(ctx.getHostName(), "yahoo.greatschools.net");
         assertTrue(!ctx.isAdFree());
         assertTrue(ctx.isCobrand());
         assertTrue(ctx.isYahooCobrand());
 
         request.setServerName("yahooed.greatschools.net");
-        ctx.updateFromParams(request);
+        _sessionContextUtil.updateFromParams(request, ctx);
         assertEquals(ctx.getHostName(), "yahooed.greatschools.net");
         assertTrue(!ctx.isAdFree());
         assertTrue(ctx.isCobrand());
@@ -114,7 +124,7 @@ public class SessionContextTest extends TestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         SessionContext ctx = new SessionContext();
         request.setServerName("maddy");
-        ctx.updateFromParams(request);
+        _sessionContextUtil.updateFromParams(request, ctx);
         assertEquals(ctx.getHostName(), "maddy");
         assertTrue(!ctx.isAdFree());
         assertTrue(!ctx.isCobrand());

@@ -4,34 +4,38 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
     <jsp:directive.tag body-content="empty"/>
-    <!-- insider signed-in -->
-    <table class="ch" border="0" cellspacing="0" cellpadding="0" width="100%">
-        <tr class="login">
-            <td class="col1">
+    <jsp:directive.attribute name="user" type="gs.data.community.User" required="true"/>
+    <jsp:directive.attribute name="state" type="gs.data.state.State" required="true"/>
+    <c:if test="${user==null}">
+        <table class="ch" border="0" cellspacing="0" cellpadding="0" width="100%">
+            <tr class="login">
+                <td class="col1">
 						GreatSchools Insider Members
-                <gsml:a href="/cgi-bin/site/signin.cgi/STATE/">Sign In Here</gsml:a>
+                    <gsml:a href="/cgi-bin/site/signin.cgi/$STATE/" state="${state}">Sign In Here</gsml:a>
                         or
-                <gsml:a href="/cgi-bin/conversion/CA/overview">Learn More</gsml:a>
-            </td>
-            <td class="col2">
-                <span style="width:25px;"></span>
-                <!--a href="#">Customer Support</a-->
-            </td>
-        </tr>
-    </table>
-    <table class="ch" border="0" cellspacing="0" cellpadding="0" width="100%">
-        <tr class="login">
-            <td class="col1">
+                    <gsml:a href="/cgi-bin/conversion/$STATE/overview" state="${state}">Learn More</gsml:a>
+                </td>
+                <td class="col2">
+                    <span style="width:25px;"></span>
+                    <!--a href="#">Customer Support</a-->
+                </td>
+            </tr>
+        </table>
+    </c:if>
+    <c:if test="${user!=null}">
+        <table class="ch" border="0" cellspacing="0" cellpadding="0" width="100%">
+            <tr class="login">
+                <td class="col1">
 						Welcome to GreatSchools Insider,
-                <a href="#">eford@greatschools.net</a>
-            </td>
-            <td class="col2">
-                <gsml:a href="/cgi-bin/logout/CA/?email=eford@greatschools.net&amp;mid=736">Sign Out</gsml:a>
-                <span style="width:25px;"></span>
-                <gsml:a href="/cgi-bin/feedback_faq/WA?fbtype=subentry&amp;email=eford@greatschools.net">Customer Support</gsml:a>
-                <!-- TODO fix email address -->
-            </td>
-        </tr>
-    </table>
+                    <a href="#">${user.email}</a>
+                </td>
+                <td class="col2">
+                    <gsml:a href="/cgi-bin/logout/CA/?email=${user.email}&amp;mid=${user.id}">Sign Out</gsml:a>
+                    <span style="width:25px;"></span>
+                    <gsml:a href="/cgi-bin/feedback_faq/${user.email}?fbtype=subentry&amp;email=${user.email}">Customer Support</gsml:a>
+                </td>
+            </tr>
+        </table>
+    </c:if>
 
 </jsp:root>

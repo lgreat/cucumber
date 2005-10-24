@@ -18,10 +18,15 @@
     <!--    </bean>-->
 
     <bean id="schoolTableTagHandler"
-          class="gs.web.search.SchoolTableTagHandler">
+        class="gs.web.search.SchoolTableTagHandler">
     </bean>
 
     <bean id="searchSummaryTagHandler"
-          class="gs.web.search.SearchSummaryTagHandler">
+        class="gs.web.search.SearchSummaryTagHandler">
+    </bean>
+
+    <bean id="sessionContextUtil"
+        class="gs.web.SessionContextUtil"
+        autowire="byName">
     </bean>
 </beans>

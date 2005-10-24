@@ -116,7 +116,7 @@
             </tr>
         </table>
     </div>
-    <jsp:include page="/footer/searchEngine.module"/>
+    <jsp:include page="/footer/searchEngine.module?state=${requestScope.context.stateOrDefault.abbreviation}"/>
 </div>
 
 </body>

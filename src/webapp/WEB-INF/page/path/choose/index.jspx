@@ -33,7 +33,9 @@
         <!-- INCLUDE TOP content with logo, etc. -->
                     <ad:xAdSetup page="home" ads="x22"/>
                     <ad:x22 />
-                    <gsml:memberBar />
+                    <gsml:memberBar
+                        state="${requestScope.context.stateOrDefault}"
+                        user="${requestScope.context.user}"/>
         			<table id="main" border="0" cellspacing="0" cellpadding="0" width="100%">
         				<tr>
         					<td class="col1" valign="top">
@@ -56,7 +58,7 @@
         								<td class="button" onclick="location='#pathway4';" style="background: #DDDDDD url(src/img/border_shade5_BG.gif); padding: 0px 0px 0px 0px;" valign="top">
         									<h1 class="moduleheader">${stateLongName} Schools - Free Resources <span class="tagline">from Greatschools.net, an independent nonprofit</span></h1>
         									<div class="topcontentcol1">
-                                            <gsml:a href="/modperl/go/STATE">CLICK HERE</gsml:a>
+                                            <gsml:a href="/modperl/go/$STATE">CLICK HERE</gsml:a>
         									</div>
         <!-- topcontentcol1 -->
         									<div class="topcontentcol2">

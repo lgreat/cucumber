@@ -1,22 +1,20 @@
 package gs.web.jsp;
 
-import gs.web.SessionContext;
-import gs.web.ISessionFacade;
-import gs.web.search.SearchResult;
+import gs.data.content.Article;
+import gs.data.content.IArticleDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.data.content.IArticleDao;
-import gs.data.content.Article;
-
-import javax.servlet.jsp.tagext.SimpleTagSupport;
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.JspContext;
-import javax.servlet.jsp.JspWriter;
-
+import gs.web.ISessionFacade;
+import gs.web.SessionContext;
+import gs.web.search.SearchResult;
 import org.apache.log4j.Logger;
 
+import javax.servlet.jsp.JspContext;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
 /**
@@ -34,7 +32,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
             try {
                 ISessionFacade sc = getSessionContext();
                 if (sc != null) {
-                    _schoolDao = sc.getSchoolDao();
+                    _schoolDao = (ISchoolDao) sc.getApplicationContext().getBean(ISchoolDao.BEAN_ID);
                 }
             } catch (Exception e) {
                 _log.warn("problem getting ISchoolDao: ", e);
@@ -48,7 +46,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
             try {
                 ISessionFacade sc = getSessionContext();
                 if (sc != null) {
-                    _articleDao = sc.getArticleDao();
+                    _articleDao = (IArticleDao) sc.getApplicationContext().getBean(IArticleDao.BEAN_ID);
                 }
             } catch (Exception e) {
                 _log.warn("problem getting IArticleDao: ", e);
@@ -92,8 +90,8 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
 
     /**
      * @return The current <code>State</code> based on knowledge of location
-     * awareness in the <code>SessionConetext</code> object, or null if there
-     * is no current location awareness.
+     *         awareness in the <code>SessionConetext</code> object, or null if there
+     *         is no current location awareness.
      */
     protected State getState() {
         ISessionFacade sc = getSessionContext();
@@ -106,6 +104,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
 
     /**
      * Another convenience method to get the hostname.
+     *
      * @return <code>String</code>
      */
     protected String getHostname() {
@@ -115,6 +114,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
         }
         return null;
     }
+
     /**
      * @return a non-null <code>State</code> object.
      */
@@ -128,7 +128,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
 
     /**
      * Writes an <a href> tag which links to the all articles page.
-     * @param out
+     *
      * @throws IOException
      */
     protected void writeBrowseAllArticlesLink(JspWriter out) throws IOException {

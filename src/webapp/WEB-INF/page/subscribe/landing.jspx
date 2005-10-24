@@ -469,7 +469,7 @@ Start here:
   </tr>
 </table>
             <div id="footer">
-                <jsp:include page="/footer/copyright.module"/>
+                <jsp:include page="/footer/copyright.module?state=${requestScope.context.stateOrDefault.abbreviation}"/>
             </div>
 
             <gsml:fireclick pageType="home" pageName="five steps"/>

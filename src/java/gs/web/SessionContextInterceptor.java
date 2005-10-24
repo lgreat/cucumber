@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextInterceptor.java,v 1.3 2005/10/21 00:16:01 apeterson Exp $
+ * $Id: SessionContextInterceptor.java,v 1.4 2005/10/24 21:53:04 apeterson Exp $
  */
 package gs.web;
 
@@ -18,6 +18,14 @@ import javax.servlet.http.HttpSession;
 
 /**
  * The purpose to guarantee that certain values are stuck in the request.
+ * It is responsible for:
+ * <ul>
+ * <li>guaranteeing that there is a ISessionFacade implementation available in
+ * the request
+ * <li>pulling standard cookie values and putting them into the ISessionFacade
+ * <li>pulling param variables and putting them into the ISessionFacade
+ * <li>puttting calculated values into the ISessionFacade
+ * </ul>
  *
  * @author Andrew J. Peterson <mailto:apeterson@greatschools.net>
  */
@@ -25,9 +33,11 @@ public class SessionContextInterceptor
         implements HandlerInterceptor,
         ApplicationContextAware {
 
+
     private static final Log _log = LogFactory.getLog(SessionContextInterceptor.class);
     private ApplicationContext _applicationContext;
 
+    private SessionContextUtil _sessionContextUtil;
 
     /**
      * @deprecated use the factory method {@link SessionFacade#getInstance(javax.servlet.http.HttpServletRequest)}
@@ -40,22 +50,25 @@ public class SessionContextInterceptor
 
 
         HttpSession session = httpServletRequest.getSession();
-        SessionContext sessionContext
+        SessionContext context
                 = (SessionContext) session.getAttribute(SESSION_ATTRIBUTE_NAME);
 
-        if (sessionContext == null) {
+        if (context == null) {
 
-            sessionContext =
+            context =
                     (SessionContext) _applicationContext.getBean(SessionContext.BEAN_ID);
 
-            session.setAttribute(SESSION_ATTRIBUTE_NAME, sessionContext);
+            session.setAttribute(SESSION_ATTRIBUTE_NAME, context);
         }
 
-        httpServletRequest.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, sessionContext);
-        sessionContext.setRequest(httpServletRequest);
+        httpServletRequest.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, context);
+
+        _sessionContextUtil.readCookies(httpServletRequest, context);
+        _sessionContextUtil.updateFromParams(httpServletRequest, context);
 
         return true; // go on
     }
+
 
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
         // nothing
@@ -69,4 +82,13 @@ public class SessionContextInterceptor
         _applicationContext = applicationContext;
     }
 
+
+    public SessionContextUtil getSessionContextUtil() {
+        return _sessionContextUtil;
+    }
+
+    public void setSessionContextUtil(SessionContextUtil sessionContextUtil) {
+        _sessionContextUtil = sessionContextUtil;
+    }
 }
+

@@ -3,28 +3,24 @@
     xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
     <jsp:directive.tag body-content="scriptless"/>
-    <jsp:directive.attribute name="state" required="false" description="Optional state to override context value"/>
+    <jsp:directive.attribute name="state" required="false" description="Optional state to override session facade value"/>
     <jsp:directive.attribute name="href" required="true" description="context-relative URL"/>
     <jsp:directive.attribute name="className" required="false" description="CSS class"/>
     <jsp:scriptlet>
-        // If the URL has a STATE string in it (or more than one), replace it with the
-        // user's state.
-        // TODO Pull this out and have the code in the session context;
-        // TODO write unit test
-        // TODO deal with dev environment.
-        // TODO deal with secure servers. If going from secure to not secure, must write protocol out along with host. Vice versa.
-        if (href.indexOf("STATE") != -1) {
-            gs.web.ISessionFacade context = gs.web.SessionFacade.getInstance(request);
-            gs.data.state.State s = context.getStateOrDefault();
-            String sa = s.getAbbreviation();
-
-            jspContext.setAttribute("href", href.replaceAll("STATE", sa));
+        if (state != null) {
+            request.setAttribute("STATE", state);
         }
+        gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
+        href = urlUtil.buildUrl(href, request);
+        jspContext.setAttribute("href", href);
     </jsp:scriptlet>
     <c:url var="href2" value="${href}"/>
-    <!-- TODO class name -->
-    <a href="${href2}">
-        <jsp:doBody/>
-    </a>
+    <jsp:element name="a">
+        <jsp:attribute name="href">${href2}</jsp:attribute>
+        <jsp:attribute name="class">${className}</jsp:attribute>
+        <jsp:body>
+            <jsp:doBody/>
+        </jsp:body>
+    </jsp:element>
 
 </jsp:root>
