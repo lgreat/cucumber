@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.1 2005/10/24 21:53:04 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.2 2005/10/25 22:17:48 apeterson Exp $
  */
 
 package gs.web;
 
 import gs.data.community.IUserDao;
+import gs.data.community.User;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.NetworkUtil;
@@ -13,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +37,9 @@ public class SessionContextUtil {
 
     // user can change hosts by passing a parameter on the command line
     public static final String HOST_PARAM = "host";
+
+    // user can change hosts by passing a parameter on the command line
+    public static final String MEMBER_PARAM = "member";
 
 
     private static final Log _log = LogFactory.getLog(SessionContextUtil.class);
@@ -111,6 +116,28 @@ public class SessionContextUtil {
             } else if (!currState.equals(s)) {
                 state = s;
                 _log.debug("switching user's state: " + s);
+            }
+        }
+
+        // TODO make sure nobody can change IDs surreptitiously.
+        String paramMember = httpServletRequest.getParameter(MEMBER_PARAM);
+        if (StringUtils.isNotEmpty(paramMember)) {
+            final int id;
+            try {
+                id = Integer.parseInt(paramMember);
+                try {
+                    User user = null;
+                    user = _userDao.getUserFromId(id);
+                    context.setUser(user);
+                } catch (ObjectRetrievalFailureException e) {
+                    _log.warn("HACKER? Bad member id passed as parameter (ignoring): '" +
+                            paramMember + "' from IP " + httpServletRequest.getRemoteAddr() +
+                            " named " + httpServletRequest.getRemoteHost()); // don't pass exception-- it's distracting
+                }
+            } catch (NumberFormatException e) {
+                _log.warn("HACKER? Attempt to pass ill-formed member id as parameter: '" +
+                        paramMember + "' from IP " + httpServletRequest.getRemoteAddr() +
+                        " named " + httpServletRequest.getRemoteHost());// don't pass exception-- it's distracting
             }
         }
 

@@ -43,73 +43,27 @@
                             <promo:newsletterSmall />
         					</td>
         					<td class="col2" valign="top">
-        						<table class="topcontent shade5" border="0" cellspacing="0" cellpadding="0" width="100%">
-        							<tr>
-        								<td class="TL">
-        								</td>
-        								<td class="T">
-        								</td>
-        								<td class="TR">
-        								</td>
-        							</tr>
-        							<tr>
-        								<td class="L">
-        								</td>
-        								<td class="button" onclick="location='#pathway4';" style="background: #DDDDDD url(src/img/border_shade5_BG.gif); padding: 0px 0px 0px 0px;" valign="top">
-        									<h1 class="moduleheader">${stateLongName} Schools - Free Resources <span class="tagline">from Greatschools.net, an independent nonprofit</span></h1>
+                                <gsml:box tableClass="topcontent shade5"
+                                                tableWidth="100%"
+                                                    contentStyle="background: #DDDDDD url(/res/img/box/border_shade5_BG.gif); padding: 0px 0px 0px 0px;"
+                                                    ><!--contentClass="button" valign="top"-->
+        									<h1 class="moduleheader">${stateLongName} Schools - Free Resources <span class="tagline">
+                                                        from Greatschools.net, an independent nonprofit</span></h1>
         									<div class="topcontentcol1">
                                             <gsml:a href="/modperl/go/$STATE">CLICK HERE</gsml:a>
         									</div>
-        <!-- topcontentcol1 -->
         									<div class="topcontentcol2">
         									</div>
-        <!-- topcontentcol2 -->
-        								</td>
-        								<td class="R">
-        								</td>
-        							</tr>
-        							<tr>
-        								<td class="BL">
-        								</td>
-        								<td class="B">
-        								</td>
-        								<td class="BR">
-        								</td>
-        							</tr>
-        						</table>
-        <!-- shade5 -->
-        						<table class="bottomcontent shade3" border="0" cellspacing="0" cellpadding="0" width="100%">
-        							<tr>
-        								<td class="TL">
-        								</td>
-        								<td class="T">
-        								</td>
-        								<td class="TR">
-        								</td>
-        							</tr>
-        							<tr>
-        								<td class="L">
-        								</td>
-        								<td class="button" style="background: #FFFFFF url(src/img/border_shade5_BG.gif); padding: 0px 0px 0px 0px;" valign="top">
-        <!-- bottomcontent -->
-        								</td>
-        								<td class="R">
-        								</td>
-        							</tr>
-        							<tr>
-        								<td class="BL">
-        								</td>
-        								<td class="B">
-        								</td>
-        								<td class="BR">
-        								</td>
-        							</tr>
-        						</table>
-        <!-- shade4 -->
+</gsml:box>
+    <gsml:box tableClass="promoNewsletterBig shade3" tableWidth="100%"
+        ><!--contentClass="button" -->
+        <promo:newsletterBig />
+        								<!--td class="button"
+style="background: #FFFFFF url(src/img/border_shade5_BG.gif); padding: 0px 0px 0px 0px;" valign="top" -->
+</gsml:box>
         					</td>
         				</tr>
         			</table>
-        <!-- main -->
         		</td>
         	</tr>
         </table>

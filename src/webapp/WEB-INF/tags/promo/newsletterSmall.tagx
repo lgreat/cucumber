@@ -17,8 +17,8 @@ old user, no new subscriptions
 old user, add new subscriptions
 
     -->
-    <gsml:box filePrefix="/res/img/box/border_blank_" tableClass="promoNewsletterSmall" tableWidth="100%">
-        <form action="http://apeterson.dev.greatschools.net/cgi-bin/newsletterSubscribe" method="get">
+    <gsml:boxInline filePrefix="/res/img/box/border_blank_" tableClass="promoNewsletterSmall" tableWidth="100%">
+        <gsml:form action="/cgi-bin/newsletterSubscribe" method="get">
             <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
             <input type="hidden" name="subscribe" value="Promo"/>
             <!--input type="hidden" name="hdRefer" value=""/>
@@ -54,7 +54,7 @@ old user, add new subscriptions
             </div>
             <a class="small block" href="/cgi-bin/newsletters/${requestScope.context.stateOrDefault.abbreviation}">Learn More</a>
             <a class="small block" href="/cgi-bin/static/privacy.inc/${requestScope.context.stateOrDefault.abbreviationLowerCase}">Privacy Policy</a>
-        </form>
-    </gsml:box>
+        </gsml:form>
+    </gsml:boxInline>
 
 </jsp:root>
