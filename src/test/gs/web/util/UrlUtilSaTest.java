@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.1 2005/10/24 21:53:04 apeterson Exp $
+ * $Id: UrlUtilSaTest.java,v 1.2 2005/10/25 01:08:14 thuss Exp $
  */
 
 package gs.web.util;
@@ -47,6 +47,19 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("/modperl/bycity/PA", urlUtil.buildUrl("/modperl/bycity/$STATE", request));
         request.removeAttribute("STATE");
 
+        // Test the babycenter cobrand since it's not a greatschools.net domain
+        request.setServerName("greatschools.babycenter.com");
+        assertEquals("/modperl/bycity/CA", urlUtil.buildUrl("/modperl/bycity/CA", request));
+        assertEquals("/modperl/bycity/CA", urlUtil.buildUrl("/modperl/bycity/$STATE", request));
+        assertEquals("/search/search.page", urlUtil.buildUrl("/search/search.page", request));
+
+        // Test the standard cobrand such as sfgate
+        request.setServerName("sfgate.greatschools.net");
+        assertEquals("/modperl/bycity/CA", urlUtil.buildUrl("/modperl/bycity/CA", request));
+        assertEquals("/modperl/bycity/CA", urlUtil.buildUrl("/modperl/bycity/$STATE", request));
+        assertEquals("/search/search.page", urlUtil.buildUrl("/search/search.page", request));
+
+        request.setServerName("www.greatschools.net");
         request.setMethod("https");
         request.setScheme("https");
         assertEquals("http://www.greatschools.net/modperl/bycity/CA", urlUtil.buildUrl("/modperl/bycity/CA", request));

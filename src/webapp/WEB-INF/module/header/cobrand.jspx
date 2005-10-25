@@ -3,7 +3,7 @@
           xmlns="http://www.w3c.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
-    <c:if test="${requestScope.context.cobrand}">
+    <c:if test="${requestScope.context.cobrand &amp;&amp; !requestScope.context.adFree}">
         <div id="headerCobrand">
             <c:import url="http://${requestScope.context.hostName}/templates/local/nav/topnav.insrt"/>
         </div>
