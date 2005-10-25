@@ -22,6 +22,7 @@ public class StateSelectorTagHandler extends BaseTagHandler {
     private boolean _allowNoState = false;
     private boolean _useLongNames = false;
     private String _cssClass = null;
+    private String _onChange = null;
     private static StateManager _stateManager = new StateManager();
     private static List states = _stateManager.getSortedAbbreviations();
     private static List statesList = StateManager.getList();
@@ -46,6 +47,15 @@ public class StateSelectorTagHandler extends BaseTagHandler {
     }
 
     /**
+     * This option allows you to set an onChange handler on the state dropdown
+     *
+     * @param onChange - the onChange text to put on the web page
+     */
+    public void setOnChange(String onChange) {
+        _onChange = onChange;
+    }
+
+    /**
      * If true states full names will be displayed.  Otherwise, abbreviations
      * are used as option values.
      */
@@ -59,6 +69,9 @@ public class StateSelectorTagHandler extends BaseTagHandler {
         out.print("<select name=\"state\"");
         if (_cssClass != null) {
             out.print(" class=\"" + _cssClass + "\"");
+        }
+        if (_onChange != null) {
+            out.print(" onChange=\"" + _onChange + "\"");
         }
         out.println(">");
 

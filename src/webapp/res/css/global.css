@@ -39,13 +39,13 @@ img#logo {width:260px;height:40px;padding:0px 0px 0px 0px;margin:0px 0px 6px 0px
 #adLeaderboard center {display:inline;} /* work around leaderboard images that include center tag */
 
 /* header */
-#headerGS {position: relative;height:50px;min-width:750px;}
-#headerLogo {position:absolute;left:5px;width:300px;padding-top:5px;}
-#headerSearch {position:absolute;right:5px;width:550px;text-align:right;margin-top:12px;}
+#headerGS {position: relative;height:50px;min-width:780px;}
+#headerLogo {position:absolute;left:5px;width:250px;padding-top:5px;}
+#headerSearch {position:absolute;right:5px;min-width:520px;text-align:right;margin-top:12px;}
 #headerSearch.select {margin-top:10px;}
 .globalsearch {font-size:13px;margin:0px 0px 3px 0px;padding:1px 0px 2px 3px;}
 /* select.globalsearch option {background: #DDD;} */
-.textfield {color:#999;width:50%;}
+.textfield {color:#999;min-width:30%;}
 input.btn {width:28px;height:24px;margin:0px 0px -2px 6px;padding:0px 0px 0px 0px;border:0;}
 
 /* footer */

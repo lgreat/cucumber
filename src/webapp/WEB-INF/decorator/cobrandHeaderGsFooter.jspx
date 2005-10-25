@@ -6,6 +6,7 @@
         xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator"
         xmlns:gsweb="gstaglib"
         xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+        xmlns:s="urn:jsptagdir:/WEB-INF/tags/search"
         >
 <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:url var="basepath" value="/"/>
@@ -43,16 +44,7 @@
             </div>
 
             <div id="headerSearch">
-                <c:url var="searchpage" value="/search/search.page"/>
-
-                <form method="get" action="${searchpage}">
-                    <gsweb:stateSelector cssClass="globalsearch" allowNoState="${param.state == 'all'}"
-                                         useLongNames="true"/>
-                    <input type="text" value="School Name/District, City or Keyword" onfocus="this.value='';"
-                           class="globalsearch textfield" name="q"/>
-                    <c:url var="goImage" value="/res/img/button/btn_go.gif"/>
-                    <input type="image" class="btn" src="${goImage}"/>
-                </form>
+                <s:searchBox/>
             </div>
         </div>
     </c:if>
@@ -81,7 +73,8 @@
                 <td>
                     <a href="/cgi-bin/static/about_gs.inc/${state}">Overview</a><br/>
                     <a href="/cgi-bin/static/whoweare.inc/${state}">Who We Are</a><br/>
-                    <a href="/cgi-bin/static/faq.inc/${state}">FAQs</a> / <a href="/cgi-bin/static/sitemap.html/${state}">Site
+                    <a href="/cgi-bin/static/faq.inc/${state}">FAQs</a> / <a
+                        href="/cgi-bin/static/sitemap.html/${state}">Site
                     Map</a><br/>
 
                     <a href="/cgi-bin/feedback/${state}">Contact GreatSchools</a><br/>
