@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.1 2005/10/24 21:53:04 apeterson Exp $
+ * $Id: UrlUtil.java,v 1.2 2005/10/25 21:49:52 thuss Exp $
  */
 
 package gs.web.util;
@@ -47,6 +47,12 @@ public final class UrlUtil {
         gs.data.util.NetworkUtil networkUtil = new gs.data.util.NetworkUtil();
 
         String href = ref;
+
+        // If the application is deployed under say /gs-web instead of /
+        if (href.startsWith("/") && request.getContextPath().length() > 1 &&
+                !networkUtil.smellsLikePerl(href)) {
+            href = request.getContextPath() + href;
+        }
 
         if (href.indexOf("STATE") != -1) {
             // Allow a request attribute to override the session facade.

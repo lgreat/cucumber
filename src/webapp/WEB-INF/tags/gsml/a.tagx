@@ -14,13 +14,11 @@
         href = urlUtil.buildUrl(href, request);
         jspContext.setAttribute("href", href);
     </jsp:scriptlet>
-    <c:url var="href2" value="${href}"/>
     <jsp:element name="a">
-        <jsp:attribute name="href">${href2}</jsp:attribute>
+        <jsp:attribute name="href">${href}</jsp:attribute>
         <jsp:attribute name="class">${className}</jsp:attribute>
         <jsp:body>
             <jsp:doBody/>
         </jsp:body>
     </jsp:element>
-
 </jsp:root>
