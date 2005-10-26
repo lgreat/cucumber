@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.3 2005/10/25 21:49:52 thuss Exp $
+ * $Id: UrlUtilSaTest.java,v 1.4 2005/10/26 00:03:30 thuss Exp $
  */
 
 package gs.web.util;
@@ -65,6 +65,7 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals(ctxPath + "/search/search.page", urlUtil.buildUrl("/search/search.page", request));
         // But Perl pages should stay unmodified by the context path
         assertEquals("/modperl/bycity/CA", urlUtil.buildUrl("/modperl/bycity/$STATE", request));
+        assertEquals(ctxPath +"/res/css/global.css", urlUtil.buildUrl("/res/css/global.css", request));
         request.setContextPath("/");
 
         request.setServerName("www.greatschools.net");

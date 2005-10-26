@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   This should really be a tag handler since it's all code but I wanted to keep it consistent with a.tagx 
+-->
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:directive.tag body-content="scriptless"/>
+    <jsp:directive.attribute name="var" required="true" description="JSP variable name to set"/>
+    <jsp:directive.attribute name="value" required="true" description="context-relative URL"/>
+    <jsp:directive.attribute name="state" required="false" description="Optional state to override session facade value"/>
+    <jsp:scriptlet>
+        if (state != null) {
+            request.setAttribute("STATE", state);
+        }
+        gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
+        value = urlUtil.buildUrl(value, request);
+        jspContext.setAttribute(var, value, PageContext.REQUEST_SCOPE);
+    </jsp:scriptlet>
+</jsp:root>

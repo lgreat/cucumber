@@ -50,7 +50,7 @@
                         </td>
                     </tr>
                 </table>
-                <c:url value="/subscribe.page" var="form_submit"/>
+                <gsml:url value="/subscribe.page" var="form_submit"/>
                 <form action="${form_submit}"
                     id="subscribe"
                     name="subscribe"

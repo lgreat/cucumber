@@ -22,7 +22,7 @@
             <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
             ]]>
-            <c:url var="boxcss" value="/res/css/box.css"/>
+            <gsml:url var="boxcss" value="/res/css/box.css"/>
             <link rel="stylesheet" href="${boxcss}"></link>
             <title>${stateLongName} Schools</title>
         </head>

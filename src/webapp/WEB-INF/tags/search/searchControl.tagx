@@ -31,10 +31,10 @@
     </script>
     ]]>
 
-    <c:url var="search" value="/search/search.page"/>
+    <gsml:url var="search" value="/search/search.page"/>
 
     <gsml:form id="searchForm" name="sf" method="get"
-          action="/search/search.page">
+          action="${search}">
 
         <table style="width:100%">
             <tr>
@@ -51,7 +51,8 @@
                 </td>
 
                 <td>
-                    <input type="image" src="/res/img/search/btn_go.gif"
+                    <gsml:url var="goButton" value="/res/img/search/btn_go.gif"/>
+                    <input type="image" src="${goButton}"
                            class="btn" value="go"/>
                 </td>
             </tr>
@@ -72,7 +73,7 @@
                     <tr>
                         <td class="label">Browse:</td>
                         <td>
-                            <c:url var="allArticlesPage" value="/content/allArticles.page"/>
+                            <gsml:url var="allArticlesPage" value="/content/allArticles.page"/>
                             <a href="${allArticlesPage}?state=${param.state}"
                                class="pad">All Articles</a>
                             <a href="http://${requestScope.context.hostName}/modperl/citylist/${param.state}/" class="pad">

@@ -2,12 +2,13 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:g="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
     <!-- New Search
     Set the .textfield width in global.css to 50%
     <c:set var="searchPrompt" value="School Name/District, City or Keyword"/>
-    <c:url var="searchpage" value="/search/search.page"/>
+    <g:url var="searchpage" value="/search/search.page"/>
     <form name="headerSearch" method="get" action="${searchpage}"
     onsubmit="if (this.q.value == '' || this.q.value == '${searchPrompt}') { alert('You must specify search text'); return false;}">
         <gsweb:stateSelector cssClass="globalsearch" onChange="window.location.href='/modperl/go/' + this.value.toUpperCase()"
@@ -17,7 +18,7 @@
         onfocus="if (this.value=='${searchPrompt}') this.value='';"
         onblur="if (this.value=='') this.value='${searchPrompt}';"
         class="globalsearch textfield" name="q"/>
-        <c:url var="goImage" value="/res/img/button/btn_go.gif"/>
+        <g:url var="goImage" value="/res/img/button/btn_go.gif"/>
         <input type="image" class="btn" src="${goImage}"/>
     </form>
     -->
@@ -40,7 +41,7 @@
                onfocus="if (this.value=='${searchPrompt2}') this.value=''; if (this.form.field1.value=='${searchPrompt1}') this.form.field1.value='';"
                onblur="if (this.value=='' &amp;&amp; this.form.field1.value=='') { this.value='${searchPrompt2}'; this.form.field1.value='${searchPrompt1}'; }"
                class="globalsearch textfield" name="field2" size="15"/>
-        <c:url var="goImage" value="/res/img/button/btn_go.gif"/>
+        <g:url var="goImage" value="/res/img/button/btn_go.gif"/>
         <input type="image" class="btn" src="${goImage}"/>
     </form>
 </jsp:root>
