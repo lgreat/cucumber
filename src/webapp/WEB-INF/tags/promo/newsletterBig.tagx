@@ -20,7 +20,7 @@ old user, add new subscriptions
     <a class="nohover" href="#">
         <h1 class="moduleheader">Help your child succeed in school with FREE newsletters</h1>
     </a>
-    <img src="/res/img/promo/ed_newsletterfan.gif" alt="newsletter example"/>
+    <gsml:img src="/res/img/promo/ed_newsletterfan.gif" alt="newsletter example"/>
     <h3>Timely tips and advice to help you navigate the school year -- from back-to-school jitters to planning summer activities:
         <gsml:popupWindow href="/cm/pa_sample.html" top="50" left="50" width="650" height="600">View sample</gsml:popupWindow>
     </h3>
@@ -60,7 +60,7 @@ old user, add new subscriptions
                 onblur="if (this.value=='') this.value='Enter email';"
                 name="email"
                 id="email"/>
-            <input type="image" src="/res/img/button/btn_go_small.gif" class="btn" alt="GO"/>
+            <gsml:inputImage src="/res/img/button/btn_go_small.gif" styleClass="btn" alt="GO"/>
         </div>
     </gsml:form>
     <a class="small block" href="/cgi-bin/newsletters/${requestScope.context.stateOrDefault.abbreviation}">Learn More</a>

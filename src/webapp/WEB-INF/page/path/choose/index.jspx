@@ -52,6 +52,7 @@
                                             <gsml:a href="/modperl/go/$STATE">CLICK HERE</gsml:a>
         									</div>
         									<div class="topcontentcol2">
+                                            <jsp:include page="/topDistricts.module" />
         									</div>
 </gsml:box>
     <gsml:box tableClass="promoNewsletterBig shade3" tableWidth="100%"

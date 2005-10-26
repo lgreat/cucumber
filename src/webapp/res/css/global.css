@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.20 2005/10/26 20:57:40 thuss Exp $
+$Id: global.css,v 1.21 2005/10/26 22:11:25 apeterson Exp $
 ----------------------------------------------- */
 
 
@@ -98,7 +98,12 @@ h2.segmentheader {color:#900;font-size:13px;font-weight:bold;padding:0px 0px 3px
 
 /*  Lists
 ----------------------------------------------- */
-
+.result_title {font-size:1.1em;padding:0px 20px 0px 0px;font-weight:bold;}
+ul.result_list {padding:0px 0px 0px 0px;}
+ul.result_list li {padding:0px 20px 1px 0px;}
+ul.result_list li a {}
+ul.result_list li.viewall {background: url(../img/arrow.gif) 2px no-repeat;margin:2px 0px 10px 0px;}
+ul.result_list li.viewall a {font-weight:normal;margin:0px 0px 0px 12px;}
 
 /*  Forms
 ----------------------------------------------- */

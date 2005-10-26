@@ -6,15 +6,17 @@
     >
 <h3 class="result_title">${requestScope.header}</h3>
 <ul class="result_list nowrap">
-<c:forEach var="i" items="results">
-<li>
-<c:if test="${i.styleClass}">
-<gsml:a href="${i.href}" styleClass="${i.styleClass ? i.styleClass : ''}">${i.contents}</gsml:a>
-</c:if>
-<c:if test="${not i.styleClass}">
+<c:forEach var="i" items="${requestScope.results}">
+<c:if test="${i.styleClass!=null}">
+<li class="${i.styleClass}">
 <gsml:a href="${i.href}">${i.contents}</gsml:a>
-</c:if>
 </li>
+</c:if>
+<c:if test="${i.styleClass==null}">
+<li>
+<gsml:a href="${i.href}">${i.contents}</gsml:a>
+</li>
+</c:if>
 </c:forEach>
 </ul>
 
