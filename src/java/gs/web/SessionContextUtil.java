@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.2 2005/10/25 22:17:48 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.3 2005/10/26 20:51:33 apeterson Exp $
  */
 
 package gs.web;
@@ -87,7 +87,6 @@ public class SessionContextUtil {
     public void updateFromParams(HttpServletRequest httpServletRequest,
                                  SessionContext context) {
         String cobrand = context.getCobrand();
-        State state = context.getState();
 
         // Get the real hostname or see if it's been overridden
         String paramHost = httpServletRequest.getParameter(HOST_PARAM);
@@ -106,18 +105,7 @@ public class SessionContextUtil {
         // Now see if we need to override the hostName
         hostName = _networkUtil.buildPerlHostName(hostName, cobrand);
 
-        // Set state, or change, if necessary
-        String paramStateStr = httpServletRequest.getParameter(STATE_PARAM);
-        if (!StringUtils.isEmpty(paramStateStr)) {
-            State s = _stateManager.getState(paramStateStr);
-            final State currState = state;
-            if (currState == null) {
-                state = s;
-            } else if (!currState.equals(s)) {
-                state = s;
-                _log.debug("switching user's state: " + s);
-            }
-        }
+        updateStateFromParam(context, httpServletRequest);
 
         // TODO make sure nobody can change IDs surreptitiously.
         String paramMember = httpServletRequest.getParameter(MEMBER_PARAM);
@@ -143,7 +131,23 @@ public class SessionContextUtil {
 
         context.setHostName(hostName);
         context.setCobrand(cobrand);
-        context.setState(state);
+    }
+
+    public void updateStateFromParam(SessionContext context, HttpServletRequest httpServletRequest) {
+        // Set state, or change, if necessary
+        String paramStateStr = httpServletRequest.getParameter(STATE_PARAM);
+        if (!StringUtils.isEmpty(paramStateStr)) {
+            final State currState = context.getState();
+            State state = currState;
+            State s = _stateManager.getState(paramStateStr);
+            if (currState == null) {
+                state = s;
+            } else if (!currState.equals(s)) {
+                state = s;
+                _log.debug("switching user's state: " + s);
+            }
+            context.setState(state);
+        }
     }
 
 

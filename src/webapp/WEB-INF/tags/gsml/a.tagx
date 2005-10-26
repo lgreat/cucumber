@@ -5,7 +5,7 @@
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="state" required="false" description="Optional state to override session facade value"/>
     <jsp:directive.attribute name="href" required="true" description="context-relative URL"/>
-    <jsp:directive.attribute name="className" required="false" description="CSS class"/>
+    <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
     <jsp:scriptlet>
         if (state != null) {
             request.setAttribute("STATE", state);
@@ -16,7 +16,7 @@
     </jsp:scriptlet>
     <jsp:element name="a">
         <jsp:attribute name="href">${href}</jsp:attribute>
-        <jsp:attribute name="class">${className}</jsp:attribute>
+        <jsp:attribute name="class">${styleClass}</jsp:attribute>
         <jsp:body>
             <jsp:doBody/>
         </jsp:body>

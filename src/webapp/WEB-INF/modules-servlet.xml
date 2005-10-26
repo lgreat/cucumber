@@ -7,129 +7,123 @@
         autowire="byName">
     </bean>
 
-    <bean name="/tease/featured.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+    <bean name="/promo/featured.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>/tease/featured</value>
+            <value>/promo/featured</value>
         </property>
     </bean>
 
     <bean name="/searchBox.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/searchBox</value>
         </property>
     </bean>
 
-    <bean name="/path1.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>/path1</value>
-        </property>
-    </bean>
-
-    <bean name="/path2.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>/path2</value>
-        </property>
-    </bean>
-
-    <bean name="/path3.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>/path3</value>
-        </property>
-    </bean>
-
     <bean name="/search.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/search</value>
         </property>
     </bean>
 
     <bean name="/loginBox.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/loginBox</value>
         </property>
     </bean>
 
     <bean name="/parentPoll.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/parentPoll</value>
         </property>
     </bean>
 
-    <bean name="/tease/basicSchoolInformation.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+    <bean name="/promo/basicSchoolInformation.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>/tease/basicSchoolInformation</value>
+            <value>/promo/basicSchoolInformation</value>
         </property>
     </bean>
 
-    <bean name="/tease/principalView.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+    <bean name="/promo/principalView.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>/tease/principalView</value>
+            <value>/promo/principalView</value>
         </property>
     </bean>
 
-    <bean name="/tease/parentReview.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+    <bean name="/promo/parentReview.module"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>/tease/parentReview</value>
+            <value>/promo/parentReview</value>
         </property>
     </bean>
 
     <bean name="/search/schoolsTable.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/search/schoolsTable</value>
         </property>
     </bean>
 
     <bean name="/header/cobrand.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/header/cobrand</value>
         </property>
     </bean>
 
     <bean name="/header/moveChoose.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/header/moveChoose</value>
         </property>
     </bean>
 
     <bean name="/header/overview.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/header/overview</value>
         </property>
     </bean>
 
     <bean name="/footer/copyright.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/footer/copyright</value>
         </property>
     </bean>
 
     <bean name="/footer/searchEngine.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/footer/searchEngine</value>
         </property>
     </bean>
 
     <bean name="/footer/developmentCredits.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/footer/developmentCredits</value>
+        </property>
+    </bean>
+
+    <bean name="/topDistricts.module"
+        class="gs.web.state.TopDistrictsController"
+        autowire="byName" >
+        <property name="viewName">
+            <value>/resultList</value>
+        </property>
+    </bean>
+
+    <bean name="/topCities.module"
+        class="gs.web.state.TopDistrictsController">
+        <property name="viewName">
+            <value>/resultList</value>
         </property>
     </bean>
 

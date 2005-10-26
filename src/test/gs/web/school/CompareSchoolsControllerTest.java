@@ -2,11 +2,6 @@ package gs.web.school;
 
 import gs.web.BaseTestCase;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.view.RedirectView;
-
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -16,7 +11,7 @@ public class CompareSchoolsControllerTest extends BaseTestCase {
     private CompareSchoolsController controller;
 
     protected void setUp() {
-        controller = (CompareSchoolsController)_sApplicationContext.
+        controller = (CompareSchoolsController) _sApplicationContext.
                 getBean(CompareSchoolsController.BEAN_ID);
     }
 

@@ -8,6 +8,7 @@
     xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
     xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
     xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+    xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
     >
     <html lang="en">
        <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
@@ -22,8 +23,6 @@
             <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
             ]]>
-            <gsml:url var="boxcss" value="/res/css/box.css"/>
-            <link rel="stylesheet" href="${boxcss}"></link>
             <title>${stateLongName} Schools</title>
         </head>
         <body id="pathway1">
@@ -33,13 +32,13 @@
         <!-- INCLUDE TOP content with logo, etc. -->
                     <ad:xAdSetup page="home" ads="x22"/>
                     <ad:x22 />
-                    <gsml:memberBar
+                    <mod:memberBar
                         state="${requestScope.context.stateOrDefault}"
                         user="${requestScope.context.user}"/>
         			<table id="main" border="0" cellspacing="0" cellpadding="0" width="100%">
         				<tr>
         					<td class="col1" valign="top">
-                            <gsml:globalNav path="1" />
+                            <mod:globalNav path="1" />
                             <promo:newsletterSmall />
         					</td>
         					<td class="col2" valign="top">

@@ -45,4 +45,8 @@ public class BaseTestCase extends TestCase {
             //log.warn("No resource bundle found for: " + className);
         }
     }
+
+    public ApplicationContext getApplicationContext() {
+        return _sApplicationContext;
+    }
 }

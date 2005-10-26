@@ -31,7 +31,7 @@
             <table width="98%" style="vertical-align: top">
                 <tr>
                     <td colspan="4" align="right">
-                        <jsp:include page="/tease/featured.module"/>
+                        <jsp:include page="/promo/featured.module"/>
                     </td>
                 </tr>
                 <tr>
@@ -49,10 +49,10 @@
                 </tr>
                 <tr>
                     <td colspan="2" width="66%" rowspan="2">
-                        <jsp:include page="/tease/basicSchoolInformation.module"/>
+                        <jsp:include page="/promo/basicSchoolInformation.module"/>
                     </td>
                     <td width="33%">
-                        <jsp:include page="/tease/parentReview.module"/>
+                        <jsp:include page="/promo/parentReview.module"/>
                     </td>
                     <td rowspan="3">
                         <ad:google120x600/>
@@ -60,7 +60,7 @@
                 </tr>
                 <tr>
                     <td width="33%">
-                        <jsp:include page="/tease/principalView.module"/>
+                        <jsp:include page="/promo/principalView.module"/>
                     </td>
                 </tr>
                 <tr>
