@@ -6,7 +6,11 @@
     <!-- We check for ad free sites because number1expert, mcguire, and framed don't have cobrand headers -->
     <c:if test="${requestScope.context.cobrand &amp;&amp; !requestScope.context.adFree}">
         <div id="headerCobrand">
-            <c:import url="http://${requestScope.context.hostName}/templates/local/nav/topnav.insrt"/>
+            <!-- We use a table here to box in the header, otherwise poorly written cobrand headers
+                can have very unpredictable interactions with our page body. E.g. azcentral -->
+            <table width="100%"><tr><td align="center">
+                <c:import url="http://${requestScope.context.hostName}/templates/local/nav/topnav.insrt"/>
+            </td></tr></table>
         </div>
     </c:if>
 </jsp:root>

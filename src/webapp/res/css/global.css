@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.19 2005/10/26 17:01:17 apeterson Exp $
+$Id: global.css,v 1.20 2005/10/26 20:57:40 thuss Exp $
 ----------------------------------------------- */
 
 
@@ -9,9 +9,9 @@ $Id: global.css,v 1.19 2005/10/26 17:01:17 apeterson Exp $
 ----------------------------------------------- */
 html, body{width:100%;height:100%}
 body, form {margin:0;padding:0}
-body, td, samp {font-family: Arial, Helvetica, sans-serif; font-size:12px;}
-table#pagemargin {position:relative;width:100%;height:100%;margin:0px auto;padding:6px 6px 6px 6px;}
-img {border:0;display:block;padding:0;margin:0;}
+td, samp {font-family: Arial, Helvetica, sans-serif; font-size:12px;}
+#pagemargin {position:relative;width:100%;height:100%;margin:0px auto;padding:6px 6px 6px 6px;}
+#pagemargin img {border:0;display:block;padding:0;margin:0;}
 .border {border:1px solid #900;}
 .small {font-size:80%;}
 a {text-decoration:none;color:#00F;}
@@ -35,6 +35,8 @@ div.verticalcontainer {position:relative;height:250px;}
 ----------------------------------------------- */
 img#logo {width:260px;height:40px;padding:0px 0px 0px 0px;margin:0px 0px 6px 0px;}
 #headerGS {position: relative;height:50px;min-width:780px;}
+#headerGS img {border:0;display:block;padding:0;margin:0;}
+
 #headerLogo {position:absolute;left:5px;width:250px;padding-top:5px;}
 #headerSearch {position:absolute;right:5px;min-width:520px;text-align:right;margin-top:12px;}
 #headerSearch.select {margin-top:10px;}
