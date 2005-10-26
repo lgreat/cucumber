@@ -1,6 +1,12 @@
+/*
+-----------------------------------------------
+Greatschools.net Base Styles
+$Id: global.css,v 1.19 2005/10/26 17:01:17 apeterson Exp $
+----------------------------------------------- */
 
 
-/* global */
+/*   General
+----------------------------------------------- */
 html, body{width:100%;height:100%}
 body, form {margin:0;padding:0}
 body, td, samp {font-family: Arial, Helvetica, sans-serif; font-size:12px;}
@@ -23,38 +29,18 @@ div.verticalcontainer {position:relative;height:250px;}
 .nowrap {white-space:nowrap;}
 .fullheight {height:100%;}
 .fullwidth {width:100%;}
-input.checkbox {margin:0px 0px -2px 0px;}
-.smallform .textfield {font-size:90%;color:#999;width:75%;height:1.8em;padding:1px 0px 0px 3px;}
-.smallform input.btn {width:21px;height:18px;margin:0px 0px -3px 6px;padding:0px 0px 0px 0px;border:0;}
 
 
-
-/* branding */
+/*   Header/Footer
+----------------------------------------------- */
 img#logo {width:260px;height:40px;padding:0px 0px 0px 0px;margin:0px 0px 6px 0px;}
-
-
-
-/* advertising */
-#adSquare { text-align:center; color: #999; width:300px; padding:5px 5px 5px 5px; margin:0 0 10px 0; border:1px solid #BBB; font-size:10px; float:right;}
-#adLeaderboard {background: #339;white-space:nowrap;text-align:center;border-top:1px solid #336;border-bottom:1px solid #336;margin:0px 0px 5px 0px;}
-#adLeaderboard img {display:inline;}
-.google_banner {width:100%; padding:10px 0px 10px 0px;text-align:center;}
-.adSponsorImage {display:inline;}
-#adLeaderboard center {display:inline;} /* work around leaderboard images that include center tag */
-
-
-/* header */
 #headerGS {position: relative;height:50px;min-width:780px;}
 #headerLogo {position:absolute;left:5px;width:250px;padding-top:5px;}
 #headerSearch {position:absolute;right:5px;min-width:520px;text-align:right;margin-top:12px;}
 #headerSearch.select {margin-top:10px;}
 .globalsearch {font-size:13px;margin:0px 0px 3px 0px;padding:1px 0px 2px 3px;}
 /* select.globalsearch option {background: #DDD;} */
-.textfield {color:#999;min-width:30%;}
-input.btn {width:28px;height:24px;margin:0px 0px -2px 6px;padding:0px 0px 0px 0px;border:0;}
 
-
-/* footer */
 #footer {position: relative; margin: 0 auto; width: 750px; font-family: Arial, Helvetica, sans-serif; color:#000000; font-size: 10px; font-style: normal;}
 #footerAd {}
 #footerText {text-align:center;line-height: 10pt; font-size: 11px; font-weight: bold; padding-top: 10px; }
@@ -68,7 +54,19 @@ input.btn {width:28px;height:24px;margin:0px 0px -2px 6px;padding:0px 0px 0px 0p
 
 
 
-/* global side nav */
+/*  Structure
+----------------------------------------------- */
+#main {margin:5px 0px 0px 0px;}
+#main td.col1 {width:180px;height:100%;padding:0px 0px 0px 0px;}
+#main td.col2 {padding:0px 0px 0px 0px;}
+
+table.bottomcontent tr {padding-bottom:5px;}
+table.bottomcontent tr td img {text-align:center;}
+
+
+
+/*  Nav
+----------------------------------------------- */
 .globalnav {height:50px;}
 .globalnav h1 {color: #000;font-weight:bold;font-size:16px;padding:0px 0px 4px 0px;cursor:hand;width:100%;}
 .globalnav h1 a, .globalnav h1 a:visited {color: #000;}
@@ -81,13 +79,57 @@ input.btn {width:28px;height:24px;margin:0px 0px -2px 6px;padding:0px 0px 0px 0p
 .mcsPwy {background: #FE894C  url(../img/box/border_shade4pathway2sm_BG.gif) bottom right no-repeat; vertical-align:top; padding: 0px 0px 0px 0px;vertical-align:middle;}
 .editorialPwy {background: #FE894C  url(../img/box/border_shade4pathway3sm_BG.gif) bottom right no-repeat; vertical-align:top; padding: 0px 0px 0px 0px;vertical-align:middle;}
 
+
+/*  Search
+----------------------------------------------- */
+
+
+/*  Headings
+----------------------------------------------- */
+h1.moduleheader {color:#F60;font-size:16px;font-weight:bold;white-space:nowrap;padding:0px 0px 4px 0px;}
+h1.moduleheader span.tagline {color:#000;font-weight:normal;font-size:12px;padding-left:20px;}
+h2.segmentheader {color:#900;font-size:13px;font-weight:bold;padding:0px 0px 3px 0px;}
+
+
+
+
+
+/*  Lists
+----------------------------------------------- */
+
+
+/*  Forms
+----------------------------------------------- */
+input.checkbox {margin:0px 0px -2px 0px;}
+.smallform .textfield {font-size:90%;color:#999;width:75%;height:1.8em;padding:1px 0px 0px 3px;}
+.smallform input.btn {width:21px;height:18px;margin:0px 0px -3px 6px;padding:0px 0px 0px 0px;border:0;}
+.textfield {color:#999;min-width:30%;}
+input.btn {width:28px;height:24px;margin:0px 0px -2px 6px;padding:0px 0px 0px 0px;border:0;}
+
+
+/*  Links
+----------------------------------------------- */
+
+
+/*  Misc
+----------------------------------------------- */
+
+/*  Advertising
+----------------------------------------------- */
+#adSquare { text-align:center; color: #999; width:300px; padding:5px 5px 5px 5px; margin:0 0 10px 0; border:1px solid #BBB; font-size:10px; float:right;}
+#adLeaderboard {background: #339;white-space:nowrap;text-align:center;border-top:1px solid #336;border-bottom:1px solid #336;margin:0px 0px 5px 0px;}
+#adLeaderboard img {display:inline;}
+.google_banner {width:100%; padding:10px 0px 10px 0px;text-align:center;}
+.adSponsorImage {display:inline;}
+#adLeaderboard center {display:inline;} /* work around leaderboard images that include center tag */
+
+
+
+
+
 tr.login td {font-size:10px;}
 tr.login td.col1 {text-align:left;padding-left:2px;}
 tr.login td.col2 {text-align:right;padding-right:3px;}
-
-#main {margin:5px 0px 0px 0px;}
-#main td.col1 {width:180px;height:100%;padding:0px 0px 0px 0px;}
-#main td.col2 {padding:0px 0px 0px 0px;}
 
 /* page specific ?WHICH PAGE IS IT FOR? */
 .topcontentcol1 {width:60%;float:left;}
@@ -96,7 +138,8 @@ tr.login td.col2 {text-align:right;padding-right:3px;}
 
 
 
-/* PROMOS */
+/* PROMOS
+----------------------------------------------- */
 div.featuredarticle {margin:20px 6px 6px 5px;}
 div.featuredarticle b {color:#900;font-weight:bold;text-decoration:none;}
 
@@ -116,10 +159,36 @@ table.promoNewsletterBig .smallform {margin: 10px 0px 2px 0px;white-space:nowrap
 
 
 
-h1.moduleheader {color:#F60;font-size:16px;font-weight:bold;white-space:nowrap;padding:0px 0px 4px 0px;}
-h1.moduleheader span.tagline {color:#000;font-weight:normal;font-size:12px;padding-left:20px;}
-h2.segmentheader {color:#900;font-size:13px;font-weight:bold;padding:0px 0px 3px 0px;}
 
-table.bottomcontent tr {padding-bottom:5px;}
-table.bottomcontent tr td img {text-align:center;}
+/* Boxes
+----------------------------------------------- */
+table.shade3, table.shade5 {margin-bottom:3px;}
 
+table.shade3 td.TL {background: #FFFFFF url(../img/box/border_shade3_TL.gif) left top; width:7px; height:7px;}
+table.shade3 td.T {background: #FFFFFF url(../img/box/border_shade3_T.gif) top repeat-x;}
+table.shade3 td.TR {background: #FFFFFF url(../img/box/border_shade3_TR.gif) top right; width:7px; height:7px;}
+table.shade3 td.L {background: #FFFFFF url(../img/box/border_shade3_L.gif) left repeat-y;}
+table.shade3 td.BG {background: #FFFFFF url(../img/box/bg_gradient.gif) top left repeat-x; padding: 0px 0px 0px 0px;}
+table.shade3 td.R {background: #FFFFFF url(../img/box/border_shade5_R.gif) right repeat-y;}
+table.shade3 td.BL {background: #FFFFFF url(../img/box/border_shade5_BL.gif) left bottom; width:7px; height:7px;}
+table.shade3 td.B {background: #FFFFFF url(../img/box/border_shade5_B.gif) bottom repeat-x;}
+table.shade3 td.BR {background: #FFFFFF url(../img/box/border_shade5_BR.gif) bottom right; width:7px; height:7px;}
+
+table.shade4 td.TL {background: #FE894C url(../img/box/border_shade4_TL.gif) left top; width:7px; height:7px;}
+table.shade4 td.T {background: #FE894C url(../img/box/border_shade4_T.gif) top repeat-x;}
+table.shade4 td.TR {background: #FE894C url(../img/box/border_shade4_TR.gif) top right; width:7px; height:7px;}
+table.shade4 td.L {background: #FE894C url(../img/box/border_shade4_L.gif) left repeat-y;}
+table.shade4 td.R {background: #FE894C url(../img/box/border_shade4_R.gif) right repeat-y;}
+table.shade4 td.BL {background: #FE894C url(../img/box/border_shade4_BL.gif) left bottom; width:7px; height:7px;}
+table.shade4 td.B {background: #FE894C url(../img/box/border_shade4_B.gif) bottom repeat-x;}
+table.shade4 td.BR {background: #FE894C url(../img/box/border_shade4_BR.gif) bottom right; width:7px; height:7px;}
+
+table.shade5 td.TL {background: #DDDDDD url(../img/box/border_shade5_TL.gif) left top; width:7px; height:7px;}
+table.shade5 td.T {background: #DDDDDD url(../img/box/border_shade5_T.gif) top repeat-x;}
+table.shade5 td.TR {background: #DDDDDD url(../img/box/border_shade5_TR.gif) top right; width:7px; height:7px;}
+table.shade5 td.L {background: #DDDDDD url(../img/box/border_shade5_L.gif) left repeat-y;}
+table.shade5 td.BG {background: #DDDDDD url(../img/box/border_shade5_BG.gif); padding: 0px 0px 0px 0px;}
+table.shade5 td.R {background: #DDDDDD url(../img/box/border_shade5_R.gif) right repeat-y;}
+table.shade5 td.BL {background: #DDDDDD url(../img/box/border_shade5_BL.gif) left bottom; width:7px; height:7px;}
+table.shade5 td.B {background: #DDDDDD url(../img/box/border_shade5_B.gif) bottom repeat-x;}
+table.shade5 td.BR {background: #DDDDDD url(../img/box/border_shade5_BR.gif) bottom right; width:7px; height:7px;}
