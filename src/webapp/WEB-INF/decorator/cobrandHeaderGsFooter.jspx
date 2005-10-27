@@ -6,6 +6,7 @@
         xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator"
         xmlns:gsweb="gstaglib"
         xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+        xmlns:cobrand="urn:jsptagdir:/WEB-INF/tags/cobrand"
         xmlns:g="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:s="urn:jsptagdir:/WEB-INF/tags/search"
         >
@@ -36,6 +37,7 @@
 <body onload="${onloadPopunder} ${onLoadScript}">
 <jsp:include page="/header/cobrand.module"/>
 <div id="bodyGS">
+    <cobrand:framebuster />
     <div id="header">
         <!-- Note adFree sites are framed, mcguire, number1expert -->
         <c:if test="${showHeader!='false' &amp;&amp; !requestScope.context.adFree}">
