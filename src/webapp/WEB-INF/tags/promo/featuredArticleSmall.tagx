@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
+    <jsp:directive.tag body-content="empty"/>
+    <div class="featuredarticle">
+        <h3 class="result_title">Today&#8217;s Feature</h3>
+        <gsml:img src="/res/img/content/icon_newarticle.gif" styleClass="newarticle" alt="new article"/>
+        <a href="/cgi-bin/showarticlefeature/ca/41">
+            <b>Help and information for hurricane victims</b>
+        </a>
+        <br/>
+Hurricane Katrina hurried in like Hurricanes do occasionally, and this is more text just for position only.
+        <a href="#">More...</a>
+    </div>
+</jsp:root>

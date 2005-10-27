@@ -7,19 +7,22 @@
     xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
     >
 
-    <div id="parentPoll" class="tease">
-        <h1>May Parent Poll</h1>
+    <div class="parentPoll">
+        <h3>Tuesday Parent Poll TODO</h3>
+         <h4><gsml:a href="/cgi-bin/static/poll_results.tmpl/$STATE">View Previous Polls</gsml:a></h4>
         <!-- Set height of IFRAME to 370 to deal with laptops -->
-        <iframe
-            style="border: 0px solid white; margin: 0; height: 370; width: 180"
-            src="http://poll.websitegear.com/iframepoll.asp?pollID=7064"
-            align="middle"
-            scrolling="no">
-            <a href="http://www.websitegear.com">WebsiteGear Web Poll</a>: Requires newer web browser to view.
-        </iframe>
-        <h2>
-            <a href="http://greatschools.net/cgi-bin/static/poll_results.tmpl/AZ">View Previous Polls</a>
-        </h2>
+        <iframe name="wgpoll"
+        id="poll"
+        src="http://poll.websitegear.com/iframepoll.asp?pollID=7970"
+        border="0"
+        marginwidth="0"
+        marginheight="0"
+        align="middle"
+        frameborder="no"
+        height="370"
+        scrolling="no"
+        width="180"
+        >Web Poll: requires newer web browser to view</iframe>
     </div>
 
 </jsp:root>

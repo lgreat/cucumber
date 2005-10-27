@@ -3,14 +3,10 @@
     xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
     <jsp:directive.tag body-content="scriptless"/>
-    <jsp:directive.attribute name="state" required="false" description="Optional state to override session facade value"/>
     <jsp:directive.attribute name="src" required="true" description="context-relative URL"/>
     <jsp:directive.attribute name="alt" required="true" description="alt text"/>
     <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
     <jsp:scriptlet>
-        if (state != null) {
-            request.setAttribute("STATE", state);
-        }
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
         src = urlUtil.buildUrl(src, request);
         jspContext.setAttribute("src", src);

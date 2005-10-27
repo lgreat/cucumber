@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
+    <jsp:directive.tag body-content="empty"/>
+    <div class="featuredarticle">
+        <b class="result_title">Personalize Your Search</b>
+        <br />
+My School List is a free tool that helps you keep track of schools you're researching.
+        <br />
+        <a href="#">Learn more</a>
+    </div>
+ </jsp:root>

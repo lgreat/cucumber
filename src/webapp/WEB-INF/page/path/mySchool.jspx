@@ -38,9 +38,8 @@
                         <table id="main" border="0" cellspacing="0" cellpadding="0" width="100%">
                             <tr>
                                 <td class="col1" valign="top">
-                                    <mod:globalNav path="1"/>
-                                    <promo:mySchoolListSmall/>
-                                    <promo:newsletterSmall/>
+                                    <mod:globalNav path="2"/>
+                                    <jsp:include page="/parentPoll.module"/>
                                 </td>
                                 <td class="col2" valign="top">
                                     <gsml:box tableClass="topcontent shade5"
@@ -57,8 +56,8 @@
                                             <jsp:include page="/topCities.module"/>
                                         </div>
                                         <div class="topcontentcol2">
-                                            <promo:schoolChoiceCenterSmall />
-                                            <promo:featuredArticleSmall />
+                                            <promo:schoolChoiceCenterSmall/>
+                                            <promo:featuredArticleSmall/>
                                         </div>
                                     </gsml:box>
                                     <gsml:box tableClass="shade3" tableWidth="100%">

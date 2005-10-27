@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.2 2005/10/25 21:49:52 thuss Exp $
+ * $Id: UrlUtil.java,v 1.3 2005/10/27 21:10:45 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.data.state.State;
+import gs.web.ISessionFacade;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -66,6 +67,18 @@ public final class UrlUtil {
                 gs.data.state.State s = context.getStateOrDefault();
                 String sa = s.getAbbreviation();
                 href = href.replaceAll("\\$STATE", sa);
+            }
+        }
+
+        if (href.indexOf("HOST") != -1) {
+            // Allow a request attribute to override the session facade.
+            if (request.getAttribute("HOST") != null) {
+                String h = (String) request.getAttribute("HOST");
+                href = href.replaceAll("\\$HOST", h);
+            } else {
+                ISessionFacade context = gs.web.SessionFacade.getInstance(request);
+                String s = context.getHostName();
+                href = href.replaceAll("\\$HOST", s);
             }
         }
 

@@ -4,7 +4,7 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
     <jsp:directive.tag body-content="empty"/>
-    <jsp:directive.attribute name="path" required="false"/>
+    <jsp:directive.attribute name="path" required="false" description="1, 2 or 3, or nothing if there is no path"/>
 
     <div id="globalnav">
         <table class="globalnav shade4" border="0" cellspacing="0" cellpadding="0" width="100%">
@@ -19,24 +19,33 @@
             <tr>
                 <td class="L">
                 </td>
-                <td class="C choosingPwy">
-                    <h1>
-                        <gsml:a href="/modperl/go/$STATE"> Choosing Schools </gsml:a>
-                    </h1>
-                    <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE"> Top-Rated Schools </gsml:a>
-                    <a href="#"> School Choice Center </a>
-                    <gsml:a href="/cgi-bin/cs_where/$STATE"> Compare Schools </gsml:a>
-                    <gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address"> Search By Address </gsml:a>
-                    <gsml:a href="/cgi-bin/msl_confirm/$STATE"> My School List </gsml:a>
-                    <c:if test="${requestScope.stateOrDefault.subscriptionState}">
-                        <c:if test="${requestScope.user==null}">
-                            <gsml:a href="/cgi-bin/site/signin.cgi/$STATE/" state="${requestScope.stateOrDefault}">Sign In</gsml:a>
+                <c:if test="${path==1}">
+                    <td class="C choosingPwy">
+                        <h1>
+                            <gsml:a href="/modperl/go/$STATE"> Choosing Schools </gsml:a>
+                        </h1>
+                        <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE"> Top-Rated Schools </gsml:a>
+                        <gsml:a href="#"> School Choice Center </gsml:a>
+                        <gsml:a href="/cgi-bin/cs_where/$STATE"> Compare Schools </gsml:a>
+                        <gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address"> Search By Address </gsml:a>
+                        <gsml:a href="/cgi-bin/msl_confirm/$STATE"> My School List </gsml:a>
+                        <c:if test="${requestScope.stateOrDefault.subscriptionState}">
+                            <c:if test="${requestScope.user==null}">
+                                <gsml:a href="/cgi-bin/site/signin.cgi/$STATE/" state="${requestScope.stateOrDefault}">Sign In</gsml:a>
+                            </c:if>
+                            <c:if test="${requestScope.user!=null}">
+                                <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.user.email}&amp;mid=${requestScope.user.id}">Sign Out</gsml:a>
+                            </c:if>
                         </c:if>
-                        <c:if test="${requestScope.user!=null}">
-                            <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.user.email}&amp;mid=${requestScope.user.id}">Sign Out</gsml:a>
-                        </c:if>
-                    </c:if>
-                </td>
+                    </td>
+                </c:if>
+                <c:if test="${path!=1}">
+                    <td class="C choosingPwyClosed" >
+                        <h1>
+                            <gsml:a href="/modperl/go/$STATE"> Choosing Schools </gsml:a>
+                        </h1>
+                    </td>
+                </c:if>
                 <td class="R">
                 </td>
             </tr>
@@ -62,11 +71,26 @@
             <tr>
                 <td class="L">
                 </td>
-                <td class="C mcsPwy">
-                    <h1>
-                        <a href="#pathway1"> My Child's School </a>
-                    </h1>
-                </td>
+                <c:if test="${path==2}">
+                    <td class="C mcsPwy">
+                        <h1>
+                        <gsml:a href="#pathway1">My Child's School</gsml:a>
+                        </h1>
+                        <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List</gsml:a>
+                        <gsml:a href="/cgi-bin/cs_where/$STATE">Compare Schools</gsml:a>
+                        <gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">Rate My School</gsml:a>
+                        <gsml:a href="/content/allArticles.page?state=$STATE">Browse List of Topics</gsml:a>
+
+                        <gsml:a href="/cgi-bin/newsletters/$STATE">Newsletter Center</gsml:a>
+                    </td>
+                </c:if>
+                <c:if test="${path!=2}">
+                    <td class="C mcsPwyClosed">
+                        <h1>
+                            <gsml:a href="#pathway1"> My Child's School </gsml:a>
+                        </h1>
+                    </td>
+                </c:if>
                 <td class="R">
                 </td>
             </tr>
@@ -94,7 +118,7 @@
                 </td>
                 <td class="C editorialPwy">
                     <h1>
-                        <a href="#pathway1"> Holiday Center </a>
+                        <gsml:a href="#pathway1"> Holiday Center </gsml:a>
                     </h1>
                 </td>
                 <td class="R">

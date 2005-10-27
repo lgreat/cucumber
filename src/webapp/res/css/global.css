@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.24 2005/10/27 20:54:25 thuss Exp $
+$Id: global.css,v 1.25 2005/10/27 21:10:45 apeterson Exp $
 ----------------------------------------------- */
 
 
@@ -77,7 +77,9 @@ table.bottomcontent tr td img {text-align:center;}
 .globalnav a.insiderlink {margin:13px 0px 7px 0px;}
 .globalnav a:hover {text-decoration:none;color:#FC9;}
 .choosingPwy {background: #FE894C  url(../img/box/border_shade4pathway1_BG.gif) bottom right no-repeat; padding: 0;vertical-align:middle;}
-.mcsPwy {background: #FE894C  url(../img/box/border_shade4pathway2sm_BG.gif) bottom right no-repeat; vertical-align:top; padding: 0px 0px 0px 0px;vertical-align:middle;}
+.choosingPwyClosed {padding: 0px; background: rgb(254, 137, 76) url(../img/box/border_shade4pathway1sm_BG.gif) no-repeat scroll right bottom; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; vertical-align: middle;}
+.mcsPwy {padding: 0px; background: rgb(254, 137, 76) url(../img/box/border_shade4pathway2_BG.gif) no-repeat scroll right bottom; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; vertical-align: middle;}
+.mcsPwyClosed {background: #FE894C  url(../img/box/border_shade4pathway2sm_BG.gif) bottom right no-repeat; vertical-align:top; padding: 0px 0px 0px 0px;vertical-align:middle;}
 .editorialPwy {background: #FE894C  url(../img/box/border_shade4pathway3sm_BG.gif) bottom right no-repeat; vertical-align:top; padding: 0px 0px 0px 0px;vertical-align:middle;}
 
 
@@ -87,8 +89,12 @@ table.bottomcontent tr td img {text-align:center;}
 
 /*  Headings
 ----------------------------------------------- */
-h1.moduleheader, span.moduleheader, span.moduleheader h1 {color:#F60;font-size:18px;font-weight:bold;white-space:nowrap;padding:0px 0px 0px 0px;}
+h1.moduleheader {color:#F60;font-size:16px;font-weight:bold;white-space:nowrap;padding:0px 0px 4px 0px;}
 h1.moduleheader span {color:#000; font-weight:normal;font-size:10px;padding-left:10px;}
+h1.moduleheader span.tagline {color:#000;font-weight:normal;font-size:12px;padding-left:20px;}
+/*h1.moduleheader, span.moduleheader, span.moduleheader h1 {color:#F60;font-size:18px;font-weight:bold;white-space:nowrap;padding:0px 0px 0px 0px;}
+h1.moduleheader span {color:#000; font-weight:normal;font-size:10px;padding-left:10px;}
+*/
 .inline {display:inline;}
 h2.segmentheader {color:#900;font-size:13px;font-weight:bold;padding:0px 0px 3px 0px;}
 h3.tagline, h4.tagline {color:#F60;font-weight:normal;padding:0px 0px 5px 0px;}
@@ -102,7 +108,7 @@ h3.tagline, h4.tagline {color:#F60;font-weight:normal;padding:0px 0px 5px 0px;}
 .result_title {font-size:1.1em;padding:0px 20px 0px 0px;font-weight:bold;}
 ul.result_list {padding:0px 0px 0px 0px;}
 ul.result_list li {padding:0px 20px 1px 0px;}
-ul.result_list li a {}
+ul.result_list li a {color:#66c;}
 ul.result_list li.viewall {background: url(../img/arrow.gif) 2px no-repeat;margin:2px 0px 10px 0px;}
 ul.result_list li.viewall a {font-weight:normal;margin:0px 0px 0px 12px;}
 
@@ -121,6 +127,9 @@ input.btn {width:28px;height:24px;margin:0px 0px -2px 6px;padding:0px 0px 0px 0p
 
 /*  Misc
 ----------------------------------------------- */
+.parentPoll {text-align:center;}
+.parentPoll h3 {padding:0px 0px 0px 0px;font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#111;} /* this causes the text to center properly. why text-align:center not working? */
+.parentPoll h4 a {color:#66c}
 
 /*  Advertising
 ----------------------------------------------- */
@@ -148,8 +157,11 @@ tr.login td.col2 {text-align:right;padding-right:3px;}
 
 /* PROMOS
 ----------------------------------------------- */
-div.featuredarticle {margin:20px 6px 6px 5px;}
-div.featuredarticle b {color:#900;font-weight:bold;text-decoration:none;}
+#promoMembershipBig td { vertical-align:top;}
+
+.featuredarticle {margin:0px 0px 0px 5px;}
+.featuredarticle2 {margin:0px 0px 10px 0px;}
+.featuredarticle b, .featuredarticle2 b {font-weight:bold;text-decoration:none;} /* margin right is IE bug fix */
 
 /*WAS: table.promoNewsletterSmall {margin:20px 0px 0px 2px;}*/
 /*WAS: table.promoNewsletterSmall h3 {font-size:1em;font-weight:bold;margin:10px 0px 0px 0px;}*/
