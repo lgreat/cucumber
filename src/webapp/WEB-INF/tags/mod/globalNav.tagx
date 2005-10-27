@@ -74,7 +74,7 @@
                 <c:if test="${path==2}">
                     <td class="C mcsPwy">
                         <h1>
-                        <gsml:a href="#pathway1">My Child's School</gsml:a>
+                        <gsml:a href="/path/mySchool.page">My Child's School</gsml:a>
                         </h1>
                         <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List</gsml:a>
                         <gsml:a href="/cgi-bin/cs_where/$STATE">Compare Schools</gsml:a>
@@ -87,7 +87,7 @@
                 <c:if test="${path!=2}">
                     <td class="C mcsPwyClosed">
                         <h1>
-                            <gsml:a href="#pathway1"> My Child's School </gsml:a>
+                            <gsml:a href="/path/mySchool.page"> My Child's School </gsml:a>
                         </h1>
                     </td>
                 </c:if>

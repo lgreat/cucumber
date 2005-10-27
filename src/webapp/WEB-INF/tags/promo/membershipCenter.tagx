@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
+    <jsp:directive.tag body-content="empty"/>
+    <div class="featuredarticle">
+        <h3 class="result_title">Membership Center</h3>
+Welcome! To get started, use search PLUS to access school ratings, alerts, parent reviews and more.
+        <br />
+        <a href="#">More tips for using your membership</a>
+    </div>
+</jsp:root>
+
+

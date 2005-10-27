@@ -8,6 +8,7 @@
     xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
     xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
     xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+    xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
     xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
     >
     <html lang="en">
@@ -52,9 +53,19 @@
                                                         from Greatschools.net, an independent nonprofit</span>
                                         </h1>
                                         <div class="topcontentcol1">
-                                            <gsml:a href="/modperl/go/$STATE">CLICK HERE</gsml:a>
-                                            <jsp:include page="/topDistricts.module"/>
-                                            <jsp:include page="/topCities.module"/>
+                                            <search:searchBox/>
+                                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td valign="top" width="50%">
+                                                            <jsp:include page="/topCities.module"/>
+                                                        </td>
+                                                        <td valign="top" width="50%">
+                                                            <jsp:include page="/topDistricts.module"/>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                         <div class="topcontentcol2">
                                             <promo:schoolChoiceCenterSmall />
