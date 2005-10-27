@@ -56,9 +56,8 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
                         out.print("&state=");
                         out.print(result.getState());
                         out.print("\">");
-                        out.print("<b>");
                         out.print(TextHighlighter.highlight(result.getCityAndState(), getQueryString(), "address"));
-                        out.print("</b></a>");
+                        out.print("</a>");
                     } else {
                         out.print("<a href=\"/search/search.page?c=district&q=district:");
                         out.print(result.getId());

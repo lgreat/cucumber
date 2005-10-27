@@ -8,6 +8,7 @@
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gsweb="gstaglib">
 
 <html lang="en">
@@ -18,75 +19,222 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" pageEncoding="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
     <title>Search</title>
 
-    <link rel="stylesheet" href="/res/css/search/search.css" type="text/css"
-          media="screen"/>
+    <link rel="stylesheet" href="/res/css/search/search.css"
+          type="text/css" media="screen"/>
+    <link rel="stylesheet" href="/res/css/searchsummary.css"
+          type="text/css" media="screen"/>
+    <meta name="onload" content="document.sf.q.focus()"/>
+    <meta name="gsheader" content="false"/>
 
-    <script type="text/javascript">
-        // this script writes custom css for safari or other browsers we don't really support
-        var detect = navigator.userAgent.toLowerCase();
-        function checkIt(string) {
-            place = detect.indexOf(string) + 1;
-            thestring = string;
-            return place;
+    <![CDATA[
+    <script>
+        function checkSchoolTypes(id) {
+            if((document.getElementById('stpub').checked == false) &&
+               (document.getElementById('stpri').checked == false) &&
+               (document.getElementById('stcha').checked == false)) {
+                document.getElementById(id).checked = true;
+                alert('You must select at least one school type.');
+            }
         }
-        if (checkIt('safari')) document.writeln('<style>.bottomalign {position:relative;padding-top:20px;}</style>');
+
+        function checkGradeLevels(id) {
+            if((document.getElementById('gle').checked == false) &&
+               (document.getElementById('glm').checked == false) &&
+               (document.getElementById('glh').checked == false)) {
+                document.getElementById(id).checked = true;
+                alert('You must select at least one grade level.');
+            }
+        }
     </script>
+    ]]>
 </head>
 
-<meta name="onload" content="document.sf.q.focus()"/>
-<meta name="gsheader" content="false"/>
+<body>
 
-<body onload="document.sf.q.focus()">
-<ad:xAdSetup page="search" ads="x40"/>
+<table border="0" width="100%">
+<tr>
+    <td colspan="2">
+        <table width="100%">
+            <tr>
+                <td align="left">
+                    <a href=""><img id="logo" alt="GreatSchools.net Logo"
+                                    src="/res/img/logo_GS_260x40.gif"></img>
+                    </a>
+                </td>
+                <td align="right">
+                    <search:searchControl showSchoolFilters="false"
+                                          rememberQuery="false"/>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <ad:xAdSetup ads="x22" page="search"/>
+        <ad:x22/>
+    </td>
+</tr>
+<!--
+<tr>
+    <td colspan="2">
+        <table width="100%">
+            <tr><td align="left">left</td><td align="right">right</td></tr>
+        </table>
+    </td>
+</tr>
+-->
+<tr>
 
+<td>
+<table width="100%"><tr>
+
+<td width="160" valign="top">
+    <mod:globalNav path="1" />
+    <!--
+    <a href="#"><img src="/res/img/search/button_compare.lo.gif"
+                     alt="pw 1" width="180" height="35"/></a>
+    <a href="#"><img src="/res/img/search/button_pw1.lo.gif"
+                     alt="pw 1" width="180" height="35"/></a>
+    <a href="#"><img src="/res/img/search/button_pw2.lo.gif"
+                     alt="pw 2" width="180" height="35"/></a>
+    <a href="#"><img src="/res/img/search/button_pw3.lo.gif"
+                     alt="pw 3" width="180" height="35"/></a>
+                     -->
+</td>
+<td>
+<table width="100%">
+<tr>
+    <td>
+        <gsml:decorator tagclass="resultoverview">
+            <gsweb:searchsummary query="${param.q}"
+                                 schoolsTotal="${results.schoolsTotal}"
+                                 articlesTotal="${results.articlesTotal}"
+                                 citiesTotal="${results.citiesTotal}"
+                                 districtsTotal="${results.districtsTotal}"
+                                 termsTotal="${results.termsTotal}"
+                                 constrain="${param.c}"/>
+        </gsml:decorator>
+    </td>
+</tr>
+<tr>
+    <td>
+
+        <c:choose>
+            <c:when test="${param.c == 'school'}">
+                <gsml:decorator tagclass="main">
+                    <table>
+                        <tr>
+                            <td>Refine results:</td>
+                            <td id="schoolfilters">
+                                <gsweb:schoolFilters
+                                        query="${param.q}"
+                                        schoolTypes="${paramValues.st}"
+                                        gradeLevels="${paramValues.gl}"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <gsweb:schooltable schools="${results.schools}"
+                                       query="${param.q}"
+                                       sortColumn="${param.sort}"
+                                       reverse="${param.r}"
+                                       total="${results.schoolsTotal}"
+                                       parameters="${paramValues}"
+                                       page="${param.p}"/>
+                </gsml:decorator>
+                <gsml:fireclick pageType="search" pageName="school-results"/>
+            </c:when>
+
+            <c:when test="${param.c == 'article'}">
+                <gsml:decorator tagclass="main">
+                    <gsweb:articletable articles="${results.articles}"
+                                        query="${param.q}"
+                                        sortColumn="${param.sort}"
+                                        reverse="${param.r}"
+                                        total="${results.articlesTotal}"
+                                        page="${param.p}"/>
+                </gsml:decorator>
+                <gsml:fireclick pageType="search" pageName="article-results"/>
+            </c:when>
+
+            <c:when test="${param.c == 'city'}">
+                <gsml:decorator tagclass="main">
+                    <gsweb:citydistricttable results="${results.cities}"
+                                             type="city"
+                                             query="${param.q}"
+                                             sortColumn="${param.sort}"
+                                             reverse="${param.r}"
+                                             total="${results.citiesTotal}"
+                                             page="${param.p}"/>
+                </gsml:decorator>
+                <gsml:fireclick pageType="search" pageName="city-results"/>
+            </c:when>
+
+            <c:when test="${param.c == 'district'}">
+                <gsml:decorator tagclass="main">
+                    <gsweb:citydistricttable results="${results.districts}"
+                                             type="district"
+                                             query="${param.q}"
+                                             sortColumn="${param.sort}"
+                                             reverse="${param.r}"
+                                             total="${results.districtsTotal}"
+                                             page="${param.p}"/>
+                </gsml:decorator>
+                <gsml:fireclick pageType="search" pageName="district-results"/>
+            </c:when>
+
+            <c:when test="${param.c == 'term'}">
+                <gsml:decorator tagclass="main">
+                    <gsweb:termtable results="${results.terms}"
+                                     query="${param.q}"
+                                     sortColumn="${param.sort}"
+                                     reverse="${param.r}"
+                                     total="${results.termsTotal}"
+                                     page="${param.p}"/>
+                </gsml:decorator>
+                <gsml:fireclick pageType="search" pageName="term results"/>
+            </c:when>
+
+            <!-- Mixed results -->
+            <c:otherwise>
+                <c:if test="${results != null and (results.termsTotal +
+                                                 results.schoolsTotal +
+                                                 results.articlesTotal +
+                                                 results.citiesTotal +
+                                                 results.districtsTotal) > 0}">
+                    <gsml:decorator tagclass="main">
+                        <gsweb:citydistmixed query="${param.q}"
+                                             results="${results}"/>
+                    </gsml:decorator>
+                </c:if>
+                <gsml:decorator tagclass="main">
+                    <gsweb:mixedresults query="${param.q}"
+                                        results="${results}"/>
+                </gsml:decorator>
+                <gsml:fireclick pageType="search" pageName="mixed-results"/>
+            </c:otherwise>
+        </c:choose>
+
+    </td>
+</tr>
+</table>
+</td>
+
+</tr></table></td>
+
+
+</tr>
+</table>
+
+<!-- end experimental..........  -->
+<!--
 <table id="pagemargin" border="0" cellspacing="0" cellpadding="0"
        class="border">
-<tr>
-<td valign="top">
-<table id="header" border="0" cellspacing="0" cellpadding="0">
-    <tr>
-        <td class="left">
-            <div class="verticalcontainer">
-                <a href="/">
-                    <img src="/res/img/search/GS_logo_160x60.gif" alt="logo"
-                         width="160" height="60" style="padding-left:6px;"/>
-                </a>
+       -->
 
-                <div class="bottomalign">
-                    <a href="#"><img src="/res/img/search/button_compare.lo.gif"
-                                     alt="pw 1" width="180" height="35"/></a>
-                    <a href="#"><img src="/res/img/search/button_pw1.lo.gif"
-                                     alt="pw 1" width="180" height="35"/></a>
-                    <a href="#"><img src="/res/img/search/button_pw2.lo.gif"
-                                     alt="pw 2" width="180" height="35"/></a>
-                    <a href="#"><img src="/res/img/search/button_pw3.lo.gif"
-                                     alt="pw 3" width="180" height="35"/></a>
-                </div>
-            </div>
-        </td>
-        <td class="stretchycolumn">
-            <div class="verticalcontainer">
-                <search:searchControl showSchoolFilters="true"/>
-
-                <gsml:decorator id="resultoverview">
-                    <gsweb:searchsummary query="${param.q}"
-                                         schoolsTotal="${results.schoolsTotal}"
-                                         articlesTotal="${results.articlesTotal}"
-                                         citiesTotal="${results.citiesTotal}"
-                                         districtsTotal="${results.districtsTotal}"
-                                         termsTotal="${results.termsTotal}"
-                                         constrain="${param.c}"/>
-                </gsml:decorator>
-            </div>
-        </td>
-        <td width="310">
-            <ad:x40/>
-        </td>
-    </tr>
-</table>
 <!--
 <c:if test="${not empty results.suggestion}">
     Did you mean:
@@ -97,116 +245,58 @@
           </span>
 </c:if>
 -->
-<c:choose>
-    <c:when test="${param.c == 'school'}">
-        <gsml:decorator id="main">
-            <gsweb:schooltable schools="${results.schools}"
-                               query="${param.q}"
-                               sortColumn="${param.sort}"
-                               reverse="${param.r}"
-                               total="${results.schoolsTotal}"
-                               parameters="${paramValues}"
-                               page="${param.p}"/>
-        </gsml:decorator>
-        <gsml:fireclick pageType="search" pageName="school-results"/>
-    </c:when>
-
-    <c:when test="${param.c == 'article'}">
-        <gsml:decorator id="main">
-            <gsweb:articletable articles="${results.articles}"
-                                query="${param.q}"
-                                sortColumn="${param.sort}"
-                                reverse="${param.r}"
-                                total="${results.articlesTotal}"
-                                page="${param.p}"/>
-        </gsml:decorator>
-        <gsml:fireclick pageType="search" pageName="article-results"/>
-    </c:when>
-
-    <c:when test="${param.c == 'city'}">
-        <gsml:decorator id="main">
-            <gsweb:citydistricttable results="${results.cities}"
-                                     type="city"
-                                     query="${param.q}"
-                                     sortColumn="${param.sort}"
-                                     reverse="${param.r}"
-                                     total="${results.citiesTotal}"
-                                     page="${param.p}"/>
-        </gsml:decorator>
-        <gsml:fireclick pageType="search" pageName="city-results"/>
-    </c:when>
-
-    <c:when test="${param.c == 'district'}">
-        <gsml:decorator id="main">
-            <gsweb:citydistricttable results="${results.districts}"
-                                     type="district"
-                                     query="${param.q}"
-                                     sortColumn="${param.sort}"
-                                     reverse="${param.r}"
-                                     total="${results.districtsTotal}"
-                                     page="${param.p}"/>
-        </gsml:decorator>
-        <gsml:fireclick pageType="search" pageName="district-results"/>
-    </c:when>
-
-    <c:when test="${param.c == 'term'}">
-        <gsml:decorator id="main">
-            <gsweb:termtable results="${results.terms}"
-                             query="${param.q}"
-                             sortColumn="${param.sort}"
-                             reverse="${param.r}"
-                             total="${results.termsTotal}"
-                             page="${param.p}"/>
-        </gsml:decorator>
-        <gsml:fireclick pageType="search" pageName="term results"/>
-    </c:when>
-
-    <c:otherwise>
-        <gsml:decorator id="main">
-            <gsweb:mixedresults query="${param.q}" results="${results}"/>
-        </gsml:decorator>
-        <gsml:fireclick pageType="search" pageName="mixed-results"/>
-    </c:otherwise>
-</c:choose>
-<br/>
-</td></tr></table>
 
 <!-- debug output -->
+
+<!--
 <c:if test="${not empty param.debug}">
-    <div id="debug"><hr/><table>
-        <tr>
-            <td>
-                <ul>
-                    <li><c:out value="Request Time: ${results.requesttime} ms"/>
-                    </li>
-                    <li>
-                        <ul>
-                            <c:forEach items="${results.queries}" var="query">
-                                <li>
-                                    <c:out value="query: ${query}"/>
-                                </li>
+    <div id="debug"><hr/>
+        <table>
+            <tr>
+                <td>
+                    <ul>
+                        <li><c:out
+                                value="Request Time: ${results.requesttime} ms"/>
+                        </li>
+                        <li>
+                            <ul>
+                                <c:forEach items="${results.queries}"
+                                           var="query">
+                                    <li>
+                                        <c:out value="query: ${query}"/>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </li>
+                        <li><c:out
+                                value="Created: ${pageContext.request.session.creationTime}"/>
+                        </li>
+                        <li><c:out
+                                value="User prin: ${pageContext.request.userPrincipal.name}"/>
+                        </li>
+                        <li>
+                            <c:forEach items="${headerValues}" var="h">
+                                <br/>
+                                <b><c:out value="${h.key}"/></b>
+                                <c:forEach items="${h.value}" var="value">
+                                    <c:out value="${value}"/>
+                                </c:forEach>
+
                             </c:forEach>
-                        </ul>
-                    </li>
-                    <li><c:out value="Created: ${pageContext.request.session.creationTime}"/></li>
-                    <li><c:out value="User prin: ${pageContext.request.userPrincipal.name}"/></li>
-                    <li>
-                    <c:forEach items="${headerValues}" var="h">
-                         <br/>
-                         <b><c:out value="${h.key}" /></b>
-                         <c:forEach items="${h.value}" var="value">
-                             <c:out value="${value}"/>
-                         </c:forEach>
-
-                    </c:forEach>
-                    </li>
-                </ul>
-            </td>
-        </tr>
-    </table>
-    <hr/></div>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <hr/></div>
 </c:if>
-
+</td>
+</tr>
+</table>
+</td></tr>
+</table>
+-->
 </body>
 </html>
+
 </jsp:root>

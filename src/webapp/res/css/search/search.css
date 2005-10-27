@@ -9,9 +9,11 @@ a:visited {color:#66C;}
 a:hover {text-decoration:underline;}
 .pad {padding:0px 10px 0px 0px;display:inline;}
 .lpad {padding:0px 0px 0px 10px;display:inline;}
+.rpad {padding-right:8px;display:inline;}
 .left {text-align:left;}
 .google_banner {width:100%; padding:10px 0px 10px 0px;text-align:center;}
 ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input, address {list-style:none;font-size:1em;font-style:normal;font-weight:normal;margin:0; padding:0;}
+
 .bottomalign {position:absolute;bottom:0px;}
 
 table#header {width:100%;margin: 0px 0px 0px 0px;}
@@ -21,25 +23,26 @@ table#header td.stretchycolumn {padding: 0px 6px 0px 6px;height:250px;}
 td.label {width:70px;color:#666;vertical-align:top;}
 .checkbox {padding:0;margin:0; font-size:90%;}
 
+.main ul {list-style-type: none; padding-left:0; padding-bottom:20px; margin:0}
+.main li {padding-bottom: 10px}
+.main {margin:6px 0px 0px 0px;width:100%;}
+.main .TL, .main .TR, .main .BL, .main .BR { width:10px; height:10px; background:no-repeat; }
+.main td.TL {background:  url(../../img/search/border_shade3_TL.gif) left top; }
+.main td.T {background:  url(../../img/search/border_shade3_T.gif) top repeat-x;}
+.main td.TR {background:  url(../../img/search/border_shade3_TR.gif) top right;}
+.main td.L {background:  url(../../img/search/border_shade3_L.gif) left repeat-y;}
+.main td.C {background:  url(../../img/search/border_shade3_BG.gif); padding: 0px 0px 0px 0px;vertical-align:top;}
+.main td.R {background:  url(../../img/search/border_shade3_R.gif) right repeat-y;}
+.main td.BL {background:  url(../../img/search/border_shade3_BL.gif) left bottom;}
+.main td.B {background:  url(../../img/search/border_shade3_B.gif) bottom repeat-x;}
+.main td.BR {background:  url(../../img/search/border_shade3_BR.gif) bottom right;}
+.main table.columns {width:100%;}
+.main .columns td.col1 {width:38%; vertical-align:top}
+.main .columns td.col2 {width:25%; vertical-align:top}
+.main .columns td.col3 {width:37%; vertical-align:top}
 
-table#main ul {list-style-type: none; padding-left:0; padding-bottom:20px; margin:0}
-table#main li {padding-bottom: 10px}
-table#main {margin:6px 0px 0px 0px;width:100%;}
-table#main .TL, table#main .TR, table#main .BL, table#main .BR { width:10px; height:10px; background:no-repeat; }
-table#main td.TL {background:  url(../../img/search/border_shade3_TL.gif) left top; }
-table#main td.T {background:  url(../../img/search/border_shade3_T.gif) top repeat-x;}
-table#main td.TR {background:  url(../../img/search/border_shade3_TR.gif) top right;}
-table#main td.L {background:  url(../../img/search/border_shade3_L.gif) left repeat-y;}
-table#main td.C {background:  url(../../img/search/border_shade3_BG.gif); padding: 0px 0px 0px 0px;vertical-align:top;}
-table#main td.R {background:  url(../../img/search/border_shade3_R.gif) right repeat-y;}
-table#main td.BL {background:  url(../../img/search/border_shade3_BL.gif) left bottom;}
-table#main td.B {background:  url(../../img/search/border_shade3_B.gif) bottom repeat-x;}
-table#main td.BR {background:  url(../../img/search/border_shade3_BR.gif) bottom right;}
-table#main table.columns {width:100%;}
-table#main .columns td.col1 {width:38%; vertical-align:top}
-table#main .columns td.col2 {width:25%; vertical-align:top}
-table#main .columns td.col3 {width:37%; vertical-align:top}
-
+#mixedschoolscolumn {width:60%; vertical-align:top}
+#mixedarticlescolumn {width:40%; vertical-align:top}    
 
 .result_title {padding:0px 20px 0px 0px;border-bottom:1px solid #999;margin-right:10px;font-weight:bold;}
 table.school_results tr td {padding:3px 20px 2px 5px;}
@@ -68,3 +71,16 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
 
 .highlight {font-weight: 800;}
 #suggestion {font-style: italic; font-weight: bold;}
+.searchbyaddress {padding-left:5mm; vertical-align:bottom;}
+.resultheadline {font-size:large}
+#schoolfilters {padding-bottom:13px}
+
+table.leaderboard {
+	BORDER-TOP: #336 1px solid; BACKGROUND: #339; MARGIN: 0px 0px 5px; BORDER-BOTTOM: #336 1px solid
+}
+table.leaderboard TD {
+	PADDING-LEFT: 7px; TEXT-ALIGN: center
+}
+table.leaderboard TD IMG {
+	DISPLAY: inline
+}

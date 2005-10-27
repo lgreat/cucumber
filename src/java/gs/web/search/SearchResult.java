@@ -103,6 +103,7 @@ public class SearchResult {
         String abs = _doc.get("abstract");
         if (_highlight) {
                abs = TextHighlighter.highlight(abs, _query, "abstract");
+            System.out.println ("abstract in highlighted: searchresult: " + abs);
         }
         return abs;
     }

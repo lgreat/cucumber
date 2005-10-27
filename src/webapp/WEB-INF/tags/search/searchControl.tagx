@@ -7,73 +7,49 @@
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="showSchoolFilters" required="false"/>
-
-
-    <![CDATA[
-    <script>
-        function checkSchoolTypes(id) {
-            if((document.getElementById('stpub').checked == false) &&
-               (document.getElementById('stpri').checked == false) &&
-               (document.getElementById('stcha').checked == false)) {
-                document.getElementById(id).checked = true;
-                alert('You must select at least one school type.');
-            }
-        }
-
-        function checkGradeLevels(id) {
-            if((document.getElementById('gle').checked == false) &&
-               (document.getElementById('glm').checked == false) &&
-               (document.getElementById('glh').checked == false)) {
-                document.getElementById(id).checked = true;
-                alert('You must select at least one grade level.');
-            }
-        }
-    </script>
-    ]]>
+    <jsp:directive.attribute name="rememberQuery" required="false"/>
 
     <gsml:url var="search" value="/search/search.page"/>
-
     <gsml:form id="searchForm" name="sf" method="get"
           action="${search}">
 
-        <table style="width:100%">
+        <table>
             <tr>
-                <td class="label" width="90">Search:</td>
-                <td>
+                <td class="label" width="90" align="right" style="vertical-align:middle;">Search:</td>
+                <td style="vertical-align:middle;">
+
                     <input type="text"
 						   class="textfield"
                            id="q"
                            name="q"
-                           style="width:95%"
                            size="50"
                            maxlength="255"
-                           value="${not empty param.q ? fn:escapeXml(param.q) : ''}"/>
+                           value="${(not empty param.q) and (rememberQuery == 'true') ? fn:escapeXml(param.q) : ''}"/>
                 </td>
-
-                <td>
-                    <gsml:url var="goButton" value="/res/img/search/btn_go.gif"/>
-                    <input type="image" src="${goButton}"
-                           class="btn" value="go"/>
-                </td>
-            </tr>
-            <tr>
-
-                <td class="label">
+                <td class="label" style="vertical-align:middle;" align="right">
                     State:
                 </td>
-                <td>
+                <td style="vertical-align:middle;">
                     <gsweb:stateSelector allowNoState="${param.state == 'all'}" useLongNames="true"/>
                     <c:set var="st" value="${(param.state == 'all') || (empty param.state) ? 'ca' : param.state}"/>
-                    <input type="submit" class="lpad" name="searchnear" value="Search near address " />
                 </td>
-
+                <td style="vertical-align:middle">
+                    <gsml:url var="goButton" value="/res/img/search/btn_go.gif"/>
+                    <input type="image" src="${goButton}" class="btn" value="go"/>
+                </td>
+                <!--
+                <tr>
+                    <td colspan="2">
+                       <input type="submit" class="lpad" name="searchnear" value="Search near address " />
+                    </td>
+                 </tr>
                 <c:if test="${not empty param.state and param.state != 'all'}">
                     <td>
                     </td>
                     <tr>
                         <td class="label">Browse:</td>
                         <td>
-                            <gsml:url var="allArticlesPage" value="/content/allArticles.page"/>
+                            <c:url var="allArticlesPage" value="/content/allArticles.page"/>
                             <a href="${allArticlesPage}?state=${param.state}"
                                class="pad">All Articles</a>
                             <a href="http://${requestScope.context.hostName}/modperl/citylist/${param.state}/" class="pad">
@@ -85,17 +61,8 @@
                         </td>
                     </tr>
                 </c:if>
+                    -->
             </tr>
-            <c:if test="${param.c == 'school' and (showSchoolFilters == 'true')}">
-                <!-- Make sure that the school constraint gets carried over. -->
-                <input type="hidden" name="c" value="school"/>
-                <tr>
-                    <td class="label">Show only:</td>
-                    <td>
-                        <gsweb:schoolFilters schoolTypes="${paramValues.st}" gradeLevels="${paramValues.gl}"/>
-                    </td>
-                </tr>
-            </c:if>
         </table>
     </gsml:form>
 </jsp:root>

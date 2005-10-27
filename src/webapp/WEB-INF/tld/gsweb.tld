@@ -63,6 +63,11 @@
         <tag-class>gs.web.search.SchoolFiltersTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
+            <name>query</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>schoolTypes</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
@@ -366,6 +371,22 @@
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+    </tag>
+
+    <tag>
+      <name>citydistmixed</name>
+      <tag-class>gs.web.search.CityDistMixedTag</tag-class>
+      <body-content>empty</body-content>
+      <attribute>
+          <name>results</name>
+          <required>true</required>
+          <rtexprvalue>true</rtexprvalue>
+      </attribute>
+      <attribute>
+          <name>query</name>
+          <required>true</required>
+          <rtexprvalue>true</rtexprvalue>
+      </attribute>
     </tag>
 
     <tag>

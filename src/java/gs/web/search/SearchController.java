@@ -80,6 +80,8 @@ public class SearchController extends AbstractFormController {
 
         long requestStart = System.currentTimeMillis();
 
+        _resultsPager = new ResultsPager();
+        
         boolean debug = false;
         if (request.getParameter("debug") != null) { debug = true; }
 
@@ -191,7 +193,7 @@ public class SearchController extends AbstractFormController {
     private void logIt(String query, String type, State state, int results,
                        long time, String suggestion) {
         StringBuffer logBuffer = new StringBuffer(100);
-        logBuffer.append("querystring:[");
+        logBuffer.append("query:[");
         logBuffer.append(query);
         logBuffer.append("] ");
         logBuffer.append("type:[");

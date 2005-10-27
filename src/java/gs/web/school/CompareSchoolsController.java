@@ -34,7 +34,6 @@ public class CompareSchoolsController extends AbstractController {
             urlBuffer.append("http://");
             urlBuffer.append(sc.getHostName());
         }
-        urlBuffer.append("/cgi-bin/");
 
         // The input submit buttons are images that are labeled "compare" and
         // "save".  The parameters included in the request include the location
@@ -45,9 +44,9 @@ public class CompareSchoolsController extends AbstractController {
 
         String p1 = request.getParameter("compare.x");
         if (p1 != null) {
-            urlBuffer.append("msl_compare/");
+            urlBuffer.append("/modperl/msl_compare/");
         } else {
-            urlBuffer.append("msl_confirm/");
+            urlBuffer.append("/cgi-bin/msl_confirm/");
             idString = "/?add_ids=";
             idDelimiter = "&add_ids=";
         }

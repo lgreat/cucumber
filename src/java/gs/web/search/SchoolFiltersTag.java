@@ -12,7 +12,7 @@ import java.util.HashSet;
  *
  * @author Chris Kimm <mailto:chris@seeqa.com>
  */
-public class SchoolFiltersTag extends SimpleTagSupport {
+public class SchoolFiltersTag extends BaseQueryTagHandler {//SimpleTagSupport {
 
     private Set _schoolTypeSet;
     private Set _gradeLevelSet;
@@ -69,8 +69,17 @@ public class SchoolFiltersTag extends SimpleTagSupport {
     public void doTag() throws IOException {
 
         JspWriter out = getJspContext().getOut();
+
+        out.print("<form action=\"/search/search.page\">");
+        out.print("<input type=\"hidden\" name=\"c\" value=\"school\">");
+        out.print("<input type=\"hidden\" name=\"state\" value=\"");
+        out.print(getStateOrDefault().getAbbreviationLowerCase());
+        out.print("\">");
+        out.print("<input type=\"hidden\" name=\"q\" value=\"");
+        out.print(_query);
+        out.print("\">");
         out.println("<table><tr><td>");
-        out.println("<td>");
+        //out.println("<td>");
 
         out.println("<div class=\"checkbox\">");
         out.print("<input id=\"stpub\" type=\"checkbox\" name=\"st\" ");
@@ -134,6 +143,9 @@ public class SchoolFiltersTag extends SimpleTagSupport {
         out.println("</input>");
         out.println("</div>");
 
-        out.println("</td></tr></table");
+        out.println("</td>");
+        out.println ("<td><input type=\"submit\" value=\"Filter Schools\" /></td>");
+        out.println("</tr></table");
+        out.println("</form>");
     }
 }

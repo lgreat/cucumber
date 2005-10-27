@@ -31,7 +31,7 @@ public class CompareSchoolsControllerTest extends BaseTestCase {
         request.addParameter("compare.x", "1234");
         //ModelAndView mav = controller.handleRequestInternal(request, (HttpServletResponse)null);
         //RedirectView view = (RedirectView)mav.getView();
-        //assertTrue(view.getUrl().matches("/cgi-bin/msl_compare/ca/\\?ids=$"));
+        //assertTrue(view.getUrl().matches("/modperl/msl_compare/ca/\\?ids=$"));
         // todo
     }
 

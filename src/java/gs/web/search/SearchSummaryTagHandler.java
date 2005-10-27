@@ -1,10 +1,10 @@
 package gs.web.search;
 
-import gs.data.search.Searcher;
 import gs.data.state.State;
 import gs.web.jsp.BaseTagHandler;
 import org.apache.log4j.Logger;
 import org.apache.taglibs.standard.functions.Functions;
+
 import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
 
@@ -32,19 +32,11 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
     private static String DISTRICTS = "Districts: ";
 
     private static String aStart = "<a href=\"/search/search.page?q=";
-    private static String frag1;
     private static String frag2 = "</td></tr><tr><td class=\"col2\">";
     private static String frag3;
 
     static {
         StringBuffer buffer = new StringBuffer();
-
-        buffer.append("<table class=\"columns\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><tr>");
-        buffer.append("<td class=\"col1\" rowspan=\"2\">");
-        buffer.append("<img src=\"/res/img/search/icon_resultoverview.gif\" /></td>");
-        buffer.append("<td class=\"title\" colspan=\"2\">Results: ");
-        frag1 = buffer.toString();
-
         buffer.delete(0, buffer.length());
         buffer.append("</td></tr></table>");
         frag3 = buffer.toString();
@@ -63,10 +55,12 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
     }
 
     public void setSchoolsTotal(int count) {
+        System.out.println("schools: " + count);
         _schoolsTotal = count;
     }
 
     public void setArticlesTotal(int articlesTotal) {
+        System.out.println("articles: " + articlesTotal);
         _articlesTotal = articlesTotal;
     }
 
@@ -86,110 +80,117 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
 
         JspWriter out = getJspContext().getOut();
 
-        out.println("<link rel=\"stylesheet\" href=\"/res/css/searchsummary.css\" type=\"text/css\" media=\"screen\"/>");
+        //out.println("<link rel=\"stylesheet\" href=\"/res/css/searchsummary.css\" type=\"text/css\" media=\"screen\"/>");
 
         int total = _schoolsTotal + _articlesTotal + _districtsTotal +
                 _citiesTotal + _termsTotal;
 
         if (total > 0) {
+            out.println("<table><tr><td class=\"resultheadline\">");
+            out.print("Your search for &nbsp;&quot;<span class=\"searchfor\">");
+            out.print(_query);
+            out.print("</span>&quot;&nbsp; found ");
+            out.print(total);
+            out.println(" results.");
+            out.println("</td><td class=\"searchbyaddress\">");
+            writeSearchNearForm(out);
+            out.println("</td></tr></table>");
+            if (_constraint == null || _constraint.equals("") ||
+                    _constraint.equals("all")) {
+                out.println("<table><tr><td>");
+                out.print("Results found in ");
 
-            out.println(frag1);
-            out.println(total);
-            out.println(frag2);
-
-            if (_constraint != null && _constraint.equals("school")) {
-                out.print("<a class=\"active\">");
-            } else {
                 out.print(aStart);
                 out.print(_query);
                 out.print("&state=");
                 out.print(getStateParam());
                 out.print("&c=school\">");
-            }
-            out.print(SCHOOLS);
-            out.print(_schoolsTotal);
-            out.println("</a>");
+                out.print("Schools</a> (");
+                out.print(_schoolsTotal);
+                out.print("), ");
 
-            if (_constraint != null && _constraint.equals("article")) {
-                out.print("<a class=\"active\">");
-            } else {
-                out.print(aStart);
-                out.print(_query);
-                out.print("&state=");
-                out.print(getStateParam());
-                out.print("&c=article\">");
-            }
-            out.print(ARTICLES);
-            out.print(_articlesTotal);
-            out.println("</a>");
-
-            if (_constraint != null && _constraint.equals("term")) {
-                out.print("<a class=\"active\">");
-            } else {
-                out.print(aStart);
-                out.print(_query);
-                out.print("&state=");
-                out.print(getStateParam());
-                out.print("&c=term\">");
-            }
-            out.print(TERMS);
-            out.print(_termsTotal);
-            out.println("</a>");
-
-            out.println("</td><td class=\"col3\">");
-
-            if (_constraint == null || _constraint.equals("") ||
-                    _constraint.equals("all")) {
-                out.print("<a class=\"active\">");
-            } else {
-                out.print(aStart);
-                out.print(_query);
-                out.print("&state=");
-                out.print(getStateParam());
-                out.print("&c=all\">");
-            }
-            out.print(VIEW_ALL);
-            out.print(total);
-            out.println("</a>");
-
-            if (_constraint != null && _constraint.equals("city")) {
-                out.print("<a class=\"active\">");
-            } else {
                 out.print(aStart);
                 out.print(_query);
                 out.print("&state=");
                 out.print(getStateParam());
                 out.print("&c=city\">");
-            }
-            out.print(CITIES);
-            out.print(_citiesTotal);
-            out.println("</a>");
+                out.print("Cities</a> (");
+                out.print(_citiesTotal);
+                out.print("), ");
 
-            if (_constraint != null && _constraint.equals("district")) {
-                out.print("<a class=\"active\">");
-            } else {
                 out.print(aStart);
                 out.print(_query);
                 out.print("&state=");
                 out.print(getStateParam());
                 out.print("&c=district\">");
+                out.print("Districts</a> (");
+                out.print(_districtsTotal);
+                out.print("), ");
+
+                out.print(aStart);
+                out.print(_query);
+                out.print("&state=");
+                out.print(getStateParam());
+                out.print("&c=article\">Articles</a> (");
+                out.print(_articlesTotal);
+                out.print("), ");
+
+                out.print(aStart);
+                out.print(_query);
+                out.print("&state=");
+                out.print(getStateParam());
+                out.print("&c=term\">");
+                out.print("Glossary Terms</a> (");
+                out.print(_termsTotal);
+                out.println(")");
+                out.println("</td></tr></table>");
             }
-            out.print(DISTRICTS);
-            out.print(_districtsTotal);
-            out.println("</a>");
+            out.println("<table><tr><td>Browse:</td><td>");
+            out.print("<a class=\"rpad\" href=\"/content/allArticles.page?state=");
+            out.print(getStateParam());
+            out.println("\">All Articles</a></td>");
 
-            out.println(frag3);
+            String host = getSessionContext().getHostName();
+            out.print("<td><a class=\"rpad\"  href=\"http://");
+            out.print(host);
+            out.print("/modperl/citylist/");
+            out.print(getStateParam());
+            out.print("\">All ");
+            out.print(getStateOrDefault().getLongName());
+            out.println(" Cities</a></td>");
+
+            out.print("<td><a class=\"rpad\" href=\"http://");
+            out.print(host);
+            out.print("/modperl/distlist/");
+            out.print(getStateParam());
+            out.print("\">All ");
+            out.print(getStateOrDefault().getLongName());
+            out.println(" Districts</a></td>");
+
+            out.println("</tr></table>");
         } else {
-            out.println("<table class=\"columns\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><tr>");
-            out.println("<td class=\"col1\" rowspan=\"2\">");
-            out.println("<img src=\"/res/img/search/icon_error1.gif\" /></td>");
-            out.print("<td class=\"errormessage\">Your search for <b>\"");
+            out.println ("<table><tr><td>");
+            out.print("<span class=\"resultheadline\">Your search for <b>\"");
             out.print(_query);
-            out.println("\"</b> did not return any results.<br/>Please try again.");
-            out.println("</td></tr></table>");
+            out.println("\"</b> did not return any results.</span>");
+            out.println ("</td><td class=\"searchbyaddress\">");
+            writeSearchNearForm(out);
+            out.println ("</td></tr><tr><td>");
+            out.println("Please try again.");
+            out.println ("</td></tr></table>");
         }
+        _schoolsTotal = _articlesTotal = _districtsTotal = _citiesTotal = _termsTotal = 0;
 
-        _schoolsTotal = _articlesTotal = _districtsTotal = _citiesTotal = _termsTotal = 0;        
+    }
+
+    private void writeSearchNearForm(JspWriter out) throws IOException {
+        out.println("<form action=\"/search/search.page\">");
+        out.print("<input type=\"image\" name=\"searchnear\" value=\"submit\" ");
+        out.println("src=\"/res/img/btn_searchbyaddress.gif\" alt=\"Search By Address\" >");
+        out.print("<input type=\"hidden\" name=\"state\" value=\"");
+        out.print(getStateOrDefault().getAbbreviationLowerCase());
+        out.println("\">");
+        out.println("</form>");
     }
 
     private String getStateParam() {

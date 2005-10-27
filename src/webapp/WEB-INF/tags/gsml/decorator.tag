@@ -1,7 +1,7 @@
 <jsp:directive.tag body-content="scriptless"/>
-<jsp:directive.attribute name="id" required="true"/>
+<jsp:directive.attribute name="tagclass" required="true"/>
 
-<table id="${id}" border="0" cellspacing="0" cellpadding="0">
+<table class="${tagclass}" border="0" cellspacing="0" cellpadding="0">
     <tr>
         <td class="TL"></td>
         <td class="T"></td>

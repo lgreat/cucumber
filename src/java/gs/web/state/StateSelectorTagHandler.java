@@ -9,8 +9,10 @@ import java.util.List;
 import java.io.IOException;
 
 /**
- * This tag handler produces a drop-down with the fifty state abbreviations in
- * alphabetical order of the abbreviations, not the long state name.
+ * This tag handler produces a drop-down which defaults to using the fifty
+ * state abbreviations in alphabetical order of the abbreviations, not
+ * the long state name.  When useLongNames == true, then the names are listed
+ * in the alphabetical order of the long names.
  * <p/>
  * The tag accept all optional parameter to allow a non-state selection.  This
  * appears with the option name="state" value="all".
@@ -24,7 +26,7 @@ public class StateSelectorTagHandler extends BaseTagHandler {
     private String _cssClass = null;
     private String _onChange = null;
     private static StateManager _stateManager = new StateManager();
-    private static List states = _stateManager.getSortedAbbreviations();
+    private static List stateAbbreviations = _stateManager.getSortedAbbreviations();
     private static List statesList = StateManager.getList();
 
     /**
@@ -76,32 +78,32 @@ public class StateSelectorTagHandler extends BaseTagHandler {
         out.println(">");
 
         if (_allowNoState) {
-            out.println("<option name=\"state\" value=\"all\">State</option>");
+            out.println("<option value=\"all\">State</option>");
         }
+
+        State currentState = getStateOrDefault();
 
         if (_useLongNames) {
             for (int i = 0; i < statesList.size(); i++) {
-                out.print("<option name=\"state\" value=\"");
+                out.print("<option value=\"");
                 State state = (State) statesList.get(i);
                 out.print(state.getAbbreviationLowerCase());
                 out.print("\" ");
-                State s = getStateOrDefault();
-                if (s.equals(state)) {
-                    out.print(" selected ");
+                if (currentState.equals(state)) {
+                    out.print(" selected='selected' ");
                 }
                 out.print(">");
                 out.print(state.getLongName());
                 out.println("</option>");
             }
         } else {
-            for (int i = 0; i < states.size(); i++) {
-                out.print("<option name=\"state\" value=\"");
-                String state = (String) states.get(i);
+            for (int i = 0; i < stateAbbreviations.size(); i++) {
+                out.print("<option value=\"");
+                String state = (String) stateAbbreviations.get(i);
                 out.print(state);
                 out.print("\" ");
-                State s = getStateOrDefault();
-                if (s.getAbbreviation().equalsIgnoreCase(state)) {
-                    out.print(" selected ");
+                if (currentState.getAbbreviation().equalsIgnoreCase(state)) {
+                    out.print(" selected='selected' ");
                 }
                 out.print(">");
                 out.print(state);

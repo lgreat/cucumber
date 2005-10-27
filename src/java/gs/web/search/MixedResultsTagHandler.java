@@ -2,8 +2,6 @@ package gs.web.search;
 
 import gs.data.school.School;
 import gs.data.search.highlight.TextHighlighter;
-import gs.data.state.State;
-import gs.web.jsp.BaseTagHandler;
 
 import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
@@ -12,12 +10,10 @@ import java.util.List;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.apache.taglibs.standard.functions.Functions;
-
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class MixedResultsTagHandler extends BaseTagHandler {
+public class MixedResultsTagHandler extends BaseQueryTagHandler {
 
     /*
      * These are the max number of results displayed in the results lists.
@@ -25,12 +21,9 @@ public class MixedResultsTagHandler extends BaseTagHandler {
     private static final int SCHOOLS_MAX = 6;
     private static final int ARTICLES_MAX = 3;
     private static final int TERMS_MAX = 3;
-    private static final int CITIES_MAX = 3;
-    private static final int DISTRICTS_MAX = 3;
 
     public static final String BEAN_ID = "MixedResultsTagHandler";
     private Map _results = null;
-    private String _query = "";
 
     static String startHtml, endHtml;
 
@@ -42,25 +35,6 @@ public class MixedResultsTagHandler extends BaseTagHandler {
         endHtml = "</tr></table>";
     }
 
-    public void setQuery(String q) {
-        _query = Functions.escapeXml(q);
-    }
-
-    /**
-     * @return A string with the state appended to the query as a uri parameter
-     */
-    private String getDecoratedQuery() {
-        String decoQuery = _query;
-        State s = getState();
-        if (s != null) {
-            StringBuffer buff = new StringBuffer(Functions.escapeXml(_query));
-            buff.append("&state=");
-            buff.append(s.getAbbreviationLowerCase());
-            decoQuery = buff.toString();
-        }
-        return decoQuery;
-    }
-
     public void setResults(Map results) {
         _results = results;
     }
@@ -70,24 +44,20 @@ public class MixedResultsTagHandler extends BaseTagHandler {
         JspWriter out = getJspContext().getOut();
         out.println(startHtml);
         if (hasResults(_results)) {
-            out.println("<td class=\"col1\">");
+            //out.println("<td class=\"col1\">");
+            out.println("<td id=\"mixedschoolscolumn\">");
             writeSchools(out);
             out.println("</td>");
-
-            out.println("<td class=\"col2\">");
-            writeCities(out);
-            writeDistricts(out);
-            out.println("</td>");
-
-            out.println("<td class=\"col3\">");
+            //out.println("<td class=\"col3\">");
+            out.println("<td id=\"mixedarticlescolumn\">");
             writeArticles(out);
             writeGlossary(out);
             out.println("</td>");
         } else {
             out.println("<td><table border=\"0\" class=\"school_results_only\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
-            out.println("<tr><th class=\"left result_title\">No results found</div></th></tr>");
+            out.println("<tr><th class=\"left result_title\">No results found</th></tr>");
             out.println("<tr><td valign=\"top\" height=\"100\">");
-            out.println("</td></table>");
+            out.println("</td></tr></table></td>");
         }
         out.println(endHtml);
     }
@@ -149,111 +119,6 @@ public class MixedResultsTagHandler extends BaseTagHandler {
                 out.println("</a></li>");
             }
             */
-        }
-        out.println("</ul>");
-    }
-
-    private void writeCities(JspWriter out) throws IOException {
-        out.println("<div class=\"result_title\">Cities (# of schools)</div>");
-
-        List cities = (List) _results.get("cities");
-        out.println("<ul>");
-        if (cities != null && cities.size() > 0) {
-            for (int i = 0; i < cities.size(); i++) {
-                SearchResult sr = (SearchResult) cities.get(i);
-
-                out.print("<li>");
-                out.print("<a href=\"/search/search.page?q=");
-                out.print(Functions.escapeXml(_query));
-                out.print("&c=school&amp;city=");
-                out.print(sr.getCity());
-                out.print("&state=");
-                out.print(sr.getState());
-                out.print("\">");
-                out.print(TextHighlighter.highlight(sr.getCityAndState(), _query, "city"));
-                out.print(" (");
-                out.print(sr.getSchools());
-                out.print(")</a>");
-                out.println("</li>");
-            }
-            int citiesCount = ((Integer) _results.get("citiesTotal")).intValue();
-            if (citiesCount > CITIES_MAX) {
-                out.print("<li class=\"viewall\"><a href=\"/search/search.page?q=");
-                out.print(getDecoratedQuery());
-                out.print("&c=city\">View all ");
-                out.print(citiesCount);
-                out.print(" results</a></li>");
-            }
-        } else {
-            State s = getState();
-            if (s != null) {
-                out.print("<li class=\"viewall\"><a href=\"http://");
-                out.print(getHostname());
-                out.print("/modperl/citylist/");
-                out.print(s.getAbbreviation());
-                out.print ("\">Browse all ");
-                out.print(s.getLongName());
-                out.print(" cities");
-                out.println("</a></li>");
-            }
-        }
-        out.println("</ul>");
-    }
-
-    private void writeDistricts(JspWriter out) throws IOException {
-        out.println("<div class=\"result_title\">Districts (# of schools)</div>");
-
-        List districts = (List) _results.get("districts");
-        out.println("<ul>");
-        if (districts != null && districts.size() > 0) {
-            int count = districts.size();
-            if (count > DISTRICTS_MAX) {
-                count = DISTRICTS_MAX;
-            }
-
-            for (int i = 0; i < count; i++) {
-                SearchResult sr = (SearchResult) districts.get(i);
-                String s = sr.getState();
-                out.print("<li>");
-                out.print("<a href=\"/search/search.page?c=school&q=district:");
-                out.print(sr.getId());
-                out.print("&state=");
-                out.print(s);
-                out.print("\">");
-                out.print(TextHighlighter.highlight(sr.getName(), _query, "name"));
-                out.print(" (");
-                out.print(sr.getSchools());
-                out.print(")</a>");
-
-                String ss = sr.getCityAndState();
-                if (ss != null) {
-                    out.print("<address>");
-                    out.print(TextHighlighter.highlight(ss, _query, "address"));
-                    out.println("</address>");
-                }
-                out.println("</li>");
-            }
-            int districtsCount = ((Integer) _results.get("districtsTotal")).intValue();
-            if (districtsCount > DISTRICTS_MAX) {
-                out.print("<li class=\"viewall\"><a href=\"/search/search.page?q=");
-                out.print(getDecoratedQuery());
-                out.print("&c=district\">View all ");
-                out.print(districtsCount);
-                out.println(" results</a></li>");
-            }
-
-        } else {
-            State s = getState();
-            if (s != null) {
-                out.print("<li class=\"viewall\"><a href=\"http://");
-                out.print(getHostname());
-                out.print("/modperl/distlist/");
-                out.print(s.getAbbreviation());
-                out.print ("\">Browse all ");
-                out.print(s.getLongName());
-                out.print(" districts");
-                out.println("</a></li>");
-            }
         }
         out.println("</ul>");
     }
@@ -346,9 +211,7 @@ public class MixedResultsTagHandler extends BaseTagHandler {
      * @param map
      * @return true if there are results
      */
-    private static boolean hasResults
-            (Map
-                    map) {
+    private static boolean hasResults (Map map) {
         if (map != null) {
             Collection lists = map.values();
             Iterator iter = lists.iterator();
