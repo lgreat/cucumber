@@ -7,7 +7,7 @@
         xmlns:gsweb="gstaglib"
         xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         xmlns:cobrand="urn:jsptagdir:/WEB-INF/tags/cobrand"
-        xmlns:g="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:s="urn:jsptagdir:/WEB-INF/tags/search"
         >
 <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
@@ -20,7 +20,7 @@
     <title>
         <decorator:title default="REPLACE THIS REPLACE THIS REPLACE THIS REPLACE THIS"/>
     </title>
-    <g:url var="globalcss" value="/res/css/global.css"/>
+    <gsml:url var="globalcss" value="/res/css/global.css"/>
     <link rel="stylesheet" href="${globalcss}"></link>
     <!-- This tag includes ad_popunder.js and sets onloadPopunder -->
     <ad:xPopunder/>
@@ -43,7 +43,7 @@
         <c:if test="${showHeader!='false' &amp;&amp; !requestScope.context.adFree}">
             <div id="headerGS">
                 <div id="headerLogo">
-                    <g:url var="logoImage" value="/res/img/logo/logo_GS_260x40.gif"/>
+                    <gsml:url var="logoImage" value="/res/img/logo/logo_GS_260x40.gif"/>
                     <a href="/"><img alt="GreatSchools.net Logo" src="${logoImage}"/></a>
                 </div>
 

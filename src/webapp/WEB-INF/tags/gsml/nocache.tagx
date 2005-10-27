@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This tag doesn't currently work in a sitemesh decorator due to this sitemesh bug:
+
+    http://jira.opensymphony.com/browse/SIM-17
+
+    Therefor I'm putting it in the Spring intercepter for the time being.
+
+   Disable caching of the page.
+   WARNING: this tag is likely already used in the sitemesh decorator so you shouldn't need to include it
+   it in individual pages.
+-->
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page">
+    <jsp:directive.tag body-content="empty"/>
+    <jsp:scriptlet>
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+    </jsp:scriptlet>
+</jsp:root>
