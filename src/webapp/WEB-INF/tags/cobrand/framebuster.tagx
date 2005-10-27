@@ -8,8 +8,7 @@
     <c:if test="${!requestScope.context.cobrand}">
         <script language="javascript" type="text/javascript">
             if (parent.frames.length > 0 &amp;&amp;
-                document.referrer.indexOf("greatschools.net") != 13
-                    ) {
+                document.referrer.indexOf("greatschools.net") != 13) {
                 parent.location.href = self.document.location
             }
         </script>
