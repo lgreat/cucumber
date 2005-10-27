@@ -18,7 +18,7 @@
             jspContext.setAttribute("ads", ads);
         }
         ]]></jsp:scriptlet>
-    <c:if test="${!requestScope.context.adFree &amp;&amp; !empty ads}">
+    <c:if test="${!requestScope.context.adFree and !empty ads}">
         <c:if test="${!requestScope.context.yahooCobrand}">
             <!-- OAS SETUP begin -->
             <SCRIPT LANGUAGE="JavaScript">

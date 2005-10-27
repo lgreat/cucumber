@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.21 2005/10/26 22:11:25 apeterson Exp $
+$Id: global.css,v 1.22 2005/10/27 00:34:25 thuss Exp $
 ----------------------------------------------- */
 
 
@@ -10,7 +10,7 @@ $Id: global.css,v 1.21 2005/10/26 22:11:25 apeterson Exp $
 html, body{width:100%;height:100%}
 body, form {margin:0;padding:0}
 td, samp {font-family: Arial, Helvetica, sans-serif; font-size:12px;}
-#pagemargin {position:relative;width:100%;height:100%;margin:0px auto;padding:6px 6px 6px 6px;}
+#pagemargin {position:relative;width:100%;margin:0px auto;padding:6px 6px 6px 6px;}
 #pagemargin img {border:0;display:block;padding:0;margin:0;}
 .border {border:1px solid #900;}
 .small {font-size:80%;}
@@ -43,7 +43,7 @@ img#logo {width:260px;height:40px;padding:0px 0px 0px 0px;margin:0px 0px 6px 0px
 .globalsearch {font-size:13px;margin:0px 0px 3px 0px;padding:1px 0px 2px 3px;}
 /* select.globalsearch option {background: #DDD;} */
 
-#footer {position: relative; margin: 0 auto; width: 750px; font-family: Arial, Helvetica, sans-serif; color:#000000; font-size: 10px; font-style: normal;}
+#footerGS {position: relative; margin: 0 auto; width: 750px; font-family: Arial, Helvetica, sans-serif; color:#000000; font-size: 10px; font-style: normal;}
 #footerAd {}
 #footerText {text-align:center;line-height: 10pt; font-size: 11px; font-weight: bold; padding-top: 10px; }
 #footerSearch {text-align:center;}
