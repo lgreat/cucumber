@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopDistrictsController.java,v 1.3 2005/10/27 16:20:15 thuss Exp $
+ * $Id: TopDistrictsController.java,v 1.4 2005/10/27 16:50:32 thuss Exp $
  */
 
 package gs.web.state;
@@ -48,7 +48,7 @@ public class TopDistrictsController extends AbstractController {
             District district = _districtDao.findDistrictById(state, districtIds[i]);
             Anchor anchor = new Anchor("/cgi-bin/" + state.getAbbreviationLowerCase() +
                     "/district_profile/" + district.getId(),
-                    district.getName() + " schools");
+                    district.getName());
             items.add(anchor);
         }
         items.add(new Anchor("/modperl/distlist/" + state.getAbbreviation(),

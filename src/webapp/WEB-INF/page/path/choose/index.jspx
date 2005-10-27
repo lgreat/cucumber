@@ -46,8 +46,8 @@
                                                 tableWidth="100%"
                                                     contentStyle="background: #DDDDDD url(/res/img/box/border_shade5_BG.gif); padding: 0px 0px 0px 0px;"
                                                     ><!--contentClass="button" valign="top"-->
-        									<h1 class="moduleheader">${stateLongName} Schools - Free Resources <span class="tagline">
-                                                        from Greatschools.net, an independent nonprofit</span></h1>
+        									<span class="moduleheader"><h1 class="inline">${stateLongName} Schools</h1> - Free Resources</span>
+<h3 class="tagline">Objective information from Greatschools, an independent nonprofit dedicated to helping parents</h3>
         									<div class="topcontentcol1">
                                             <gsml:a href="/modperl/go/$STATE">CLICK HERE</gsml:a>
         									</div>
