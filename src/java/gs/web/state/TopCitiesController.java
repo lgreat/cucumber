@@ -1,11 +1,10 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopDistrictsController.java,v 1.2 2005/10/27 00:14:39 apeterson Exp $
+ * $Id: TopCitiesController.java,v 1.1 2005/10/27 00:14:39 apeterson Exp $
  */
 
 package gs.web.state;
 
-import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.web.ISessionFacade;
@@ -17,6 +16,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,9 +27,11 @@ import java.util.Map;
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
-public class TopDistrictsController extends AbstractController {
+public class TopCitiesController extends AbstractController {
     private String _viewName;
     private IDistrictDao _districtDao;
+
+    public static final int MAX_CITIES = 5;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -40,19 +42,21 @@ public class TopDistrictsController extends AbstractController {
 
         Map model = new HashMap();
 
-        model.put("header", state.getLongName() + " Districts");
+        model.put("header", state.getLongName() + " Cities");
 
-        Integer[] districtIds = state.getTopDistricts();
-        List items = new ArrayList(districtIds.length);
-        for (int i = 0; i < districtIds.length; i++) {
-            District district = _districtDao.findDistrictById(state, districtIds[i]);
-            Anchor anchor = new Anchor("/cgi-bin/" + state.getAbbreviationLowerCase() +
-                    "/district_profile/" + district.getId(),
-                    district.getName());
+        String[] cities = state.getCities();
+        List items = new ArrayList(cities.length);
+        final int cityCount = cities.length < MAX_CITIES ? cities.length : MAX_CITIES;
+        for (int i = 0; i < cityCount; i++) {
+            String city = cities[i];
+            String urlEncodedCity = URLEncoder.encode(city, "UTF-8");
+            Anchor anchor = new Anchor("/modperl/bycity/" + state.getAbbreviationLowerCase() +
+                    "/?city=" + urlEncodedCity + "&showall=1&level=a",
+                    city);
             items.add(anchor);
         }
-        items.add(new Anchor("/modperl/distlist/" + state.getAbbreviation(),
-                "View all " + state.getLongName() + " districts",
+        items.add(new Anchor("/modperl/citylist/" + state.getAbbreviation() + "/",
+                "View all " + state.getLongName() + " cities",
                 "viewall"));
         model.put("results", items);
 

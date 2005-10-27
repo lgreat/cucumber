@@ -53,6 +53,7 @@
         									</div>
         									<div class="topcontentcol2">
                                             <jsp:include page="/topDistricts.module" />
+                                            <jsp:include page="/topCities.module" />
         									</div>
 </gsml:box>
     <gsml:box tableClass="promoNewsletterBig shade3" tableWidth="100%"

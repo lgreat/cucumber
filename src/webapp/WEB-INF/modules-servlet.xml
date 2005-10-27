@@ -121,7 +121,8 @@
     </bean>
 
     <bean name="/topCities.module"
-        class="gs.web.state.TopDistrictsController">
+        class="gs.web.state.TopCitiesController"
+        autowire="byName" >
         <property name="viewName">
             <value>/resultList</value>
         </property>
