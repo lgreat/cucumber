@@ -47,7 +47,7 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>cssClass</name>
+            <name>styleClass</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

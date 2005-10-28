@@ -23,7 +23,7 @@ public class StateSelectorTagHandler extends BaseTagHandler {
 
     private boolean _allowNoState = false;
     private boolean _useLongNames = false;
-    private String _cssClass = null;
+    private String _styleClass = null;
     private String _onChange = null;
     private static StateManager _stateManager = new StateManager();
     private static List stateAbbreviations = _stateManager.getSortedAbbreviations();
@@ -42,10 +42,10 @@ public class StateSelectorTagHandler extends BaseTagHandler {
     /**
      * This option allows you to set the css class of the state dropdown
      *
-     * @param cssClass - css class to use
+     * @param styleClass - css class to use
      */
-    public void setCssClass(String cssClass) {
-        _cssClass = cssClass;
+    public void setStyleClass(String styleClass) {
+        _styleClass = styleClass;
     }
 
     /**
@@ -69,8 +69,8 @@ public class StateSelectorTagHandler extends BaseTagHandler {
 
         JspWriter out = getJspContext().getOut();
         out.print("<select name=\"state\"");
-        if (_cssClass != null) {
-            out.print(" class=\"" + _cssClass + "\"");
+        if (_styleClass != null) {
+            out.print(" class=\"" + _styleClass + "\"");
         }
         if (_onChange != null) {
             out.print(" onChange=\"" + _onChange + "\"");

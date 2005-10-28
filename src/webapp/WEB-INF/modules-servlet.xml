@@ -14,13 +14,6 @@
         </property>
     </bean>
 
-    <bean name="/searchBox.module"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>/searchBox</value>
-        </property>
-    </bean>
-
     <bean name="/search.module"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
