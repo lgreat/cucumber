@@ -90,7 +90,8 @@ public class MixedResultsTagHandler extends BaseQueryTagHandler {
                 out.print("\">");
                 out.print(TextHighlighter.highlight(school_.getName(), _query, "name"));
                 out.println("</a><address>");
-                out.println(TextHighlighter.highlight(school_.getPhysicalAddress().toString(), _query, "address"));
+                //out.println(TextHighlighter.highlight(school_.getPhysicalAddress().toString(), _query, "address"));
+                out.println(school_.getPhysicalAddress().toString());
                 out.println("</address></li>");
             }
 
@@ -103,7 +104,6 @@ public class MixedResultsTagHandler extends BaseQueryTagHandler {
                 out.print(schoolCount);
                 out.println(" results</a></li>");
             }
-
         } else {
             /**  Uncomment this for "browse all" functionality -> confirm link url
             State s = getState();

@@ -31,7 +31,6 @@ public class CityDistMixedTag extends BaseQueryTagHandler {
     public void doTag() throws IOException {
 
         JspWriter out = getJspContext().getOut();
-//        out.println("<table><tr><th>Browse Schools in</th></tr><tr><td>");
         out.println("<table class=\"columns\"><tr>");
         out.println("<td class=\"col1\">");
         writeCities(out);
@@ -39,7 +38,6 @@ public class CityDistMixedTag extends BaseQueryTagHandler {
         writeDistricts(out);
         out.println("</td>");
         out.println("</tr></table>");
-//        out.println("</td></tr></table>");
     }
 
     private void writeCities(JspWriter out) throws IOException {
@@ -118,7 +116,7 @@ public class CityDistMixedTag extends BaseQueryTagHandler {
 
                 String ss = sr.getCityAndState();
                 if (ss != null) {
-                    out.print("<address>");
+                    out.print("<address style=\"display:inline;padding-left:8px\">");
                     out.print(TextHighlighter.highlight(ss, _query, "address"));
                     out.println("</address>");
                 }
