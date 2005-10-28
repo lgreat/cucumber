@@ -4,8 +4,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.servlet.mvc.AbstractFormController;
 import org.springframework.validation.BindException;
 import org.apache.lucene.search.*;
@@ -42,11 +40,9 @@ import java.io.IOException;
 public class SearchController extends AbstractFormController {
 
     public static final String BEAN_ID = "/search/search.page";
-    private static Logger _log = Logger.getLogger(SearchController.class);
     private static Logger searchLog = Logger.getLogger("search");
     private SpellCheckSearcher _spellCheckSearcher;
     private Searcher _searcher;
-    private ResultsPager _resultsPager;
     private boolean suggest = true;
     private int minimumHits = 3;
     private float minimumScore = 0.5f;
@@ -80,28 +76,12 @@ public class SearchController extends AbstractFormController {
 
         long requestStart = System.currentTimeMillis();
 
-        _resultsPager = new ResultsPager();
+        ResultsPager _resultsPager = new ResultsPager();
         
         boolean debug = false;
         if (request.getParameter("debug") != null) { debug = true; }
 
         ISessionFacade sessionContext = SessionContext.getInstance(request);
-
-        //If the user presses the "Search new address" link
-        if (request.getParameter("searchnear") != null) {
-            // get the state the old-fashioned way.
-            String s =  request.getParameter("state");
-
-            StringBuffer urlBuffer = new StringBuffer(100);
-            urlBuffer.append("http://");
-            urlBuffer.append(sessionContext.getHostName());
-            urlBuffer.append("/cgi-bin/template_plain/advanced/");
-            if (s != null && !"all".equals(s) ) {
-                urlBuffer.append(s);
-            }
-            View redirectView = new RedirectView(urlBuffer.toString());
-            return new ModelAndView(redirectView);
-        }
 
         Map model = new HashMap();
 
@@ -190,7 +170,7 @@ public class SearchController extends AbstractFormController {
         return new ModelAndView("search/search", "results", model);
     }
 
-    private void logIt(String query, String type, State state, int results,
+    private static void logIt(String query, String type, State state, int results,
                        long time, String suggestion) {
         StringBuffer logBuffer = new StringBuffer(100);
         logBuffer.append("query:[");
@@ -222,6 +202,7 @@ public class SearchController extends AbstractFormController {
      * @param hits
      * @return a boolean value true if hits.lenght() is below <code>minimumHits</code>
      * or hits.score(0) is below <code>minimumScore</code>
+     * @noinspection UNUSED_SYMBOL
      */
     private boolean determineSuggest(Hits hits) throws IOException {
         boolean suggest = false;
@@ -233,14 +214,6 @@ public class SearchController extends AbstractFormController {
             suggest = true;
         }
         return suggest;
-    }
-
-    /**
-     * A setter for Spring
-     * @param pager
-     */
-    public void setResultsPager(ResultsPager pager) {
-        _resultsPager = pager;
     }
 
     /**

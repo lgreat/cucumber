@@ -29,7 +29,6 @@ public class CityDistMixedTag extends BaseQueryTagHandler {
     }
 
     public void doTag() throws IOException {
-
         JspWriter out = getJspContext().getOut();
         out.println("<table class=\"columns\"><tr>");
         out.println("<td class=\"col1\">");
@@ -45,7 +44,7 @@ public class CityDistMixedTag extends BaseQueryTagHandler {
 
         List cities = (List) _results.get("cities");
 
-        out.println("<ul>");
+        out.println("<ul style=\"padding-bottom:0px\">");
         if (cities != null && cities.size() > 0) {
 
             for (int i = 0; i < cities.size(); i++) {
@@ -66,7 +65,7 @@ public class CityDistMixedTag extends BaseQueryTagHandler {
             }
             int citiesCount = ((Integer) _results.get("citiesTotal")).intValue();
             if (citiesCount > CITIES_MAX) {
-                out.print("<li class=\"viewall\"><a href=\"/search/search.page?q=");
+                out.print("<li class=\"viewall\" style=\"padding-bottom:0px\"><a href=\"/search/search.page?q=");
                 out.print(getDecoratedQuery());
                 out.print("&c=city\">View all ");
                 out.print(citiesCount);
@@ -76,7 +75,7 @@ public class CityDistMixedTag extends BaseQueryTagHandler {
         State s = getState();
         if (s != null) {
 
-            out.print("<li class=\"viewall\"><a href=\"http://");
+            out.print("<li class=\"browseall\"><a href=\"http://");
             out.print(getHostname());
             out.print("/modperl/citylist/");
             out.print(s.getAbbreviation());
@@ -124,7 +123,7 @@ public class CityDistMixedTag extends BaseQueryTagHandler {
             }
             int districtsCount = ((Integer) _results.get("districtsTotal")).intValue();
             if (districtsCount > DISTRICTS_MAX) {
-                out.print("<li class=\"viewall\"><a href=\"/search/search.page?q=");
+                out.print("<li class=\"viewall\" style=\"padding-bottom:0px\"><a href=\"/search/search.page?q=");
                 out.print(getDecoratedQuery());
                 out.print("&c=district\">View all ");
                 out.print(districtsCount);
@@ -134,7 +133,7 @@ public class CityDistMixedTag extends BaseQueryTagHandler {
 
         State s = getState();
         if (s != null) {
-            out.print("<li class=\"viewall\"><a href=\"http://");
+            out.print("<li class=\"browseall\"><a href=\"http://");
             out.print(getHostname());
             out.print("/modperl/distlist/");
             out.print(s.getAbbreviation());

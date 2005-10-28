@@ -94,16 +94,6 @@
 
 <td width="160" valign="top">
     <mod:globalNav path="1" />
-    <!--
-    <a href="#"><img src="/res/img/search/button_compare.lo.gif"
-                     alt="pw 1" width="180" height="35"/></a>
-    <a href="#"><img src="/res/img/search/button_pw1.lo.gif"
-                     alt="pw 1" width="180" height="35"/></a>
-    <a href="#"><img src="/res/img/search/button_pw2.lo.gif"
-                     alt="pw 2" width="180" height="35"/></a>
-    <a href="#"><img src="/res/img/search/button_pw3.lo.gif"
-                     alt="pw 3" width="180" height="35"/></a>
-                     -->
 </td>
 <td>
 <table width="100%">

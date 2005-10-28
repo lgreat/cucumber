@@ -91,13 +91,18 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             out.print(_query);
             out.print("</span>&quot;&nbsp; found ");
             out.print(total);
-            out.println(" results.");
+            out.print(" result");
+            if (total > 1) {
+                out.print("s");
+            }
+            out.println(".");
+
             out.println("</td><td class=\"searchbyaddress\">");
-            writeSearchNearForm(out);
+            writeSearchNearLink(out);
             out.println("</td></tr></table>");
             if (_constraint == null || _constraint.equals("") ||
                     _constraint.equals("all")) {
-                out.println("<table><tr><td>");
+                out.println("<table><tr><td class=\"resultheadline\">");
                 out.print("Results found in ");
 
                 out.print(aStart);
@@ -174,7 +179,7 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             out.print(_query);
             out.println("\"</b> did not return any results.</span>");
             out.println ("</td><td class=\"searchbyaddress\">");
-            writeSearchNearForm(out);
+            writeSearchNearLink(out);
             out.println ("</td></tr><tr><td>");
             out.println("Please try again.");
             out.println ("</td></tr></table>");
@@ -183,7 +188,14 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
 
     }
 
-    private void writeSearchNearForm(JspWriter out) throws IOException {
+    private void writeSearchNearLink(JspWriter out) throws IOException {
+        out.print("<a href=\"http://");
+        out.print(getSessionContext().getHostName());
+        out.print("/cgi-bin/template_plain/advanced/");
+        out.print(getStateOrDefault());
+        out.print("\">");
+        out.println("Search near address</a>");
+        /*
         out.println("<form action=\"/search/search.page\">");
         out.print("<input type=\"image\" name=\"searchnear\" value=\"submit\" ");
         out.println("src=\"/res/img/btn_searchbyaddress.gif\" alt=\"Search By Address\" >");
@@ -191,6 +203,7 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
         out.print(getStateOrDefault().getAbbreviationLowerCase());
         out.println("\">");
         out.println("</form>");
+        */
     }
 
     private String getStateParam() {

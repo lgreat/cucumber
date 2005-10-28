@@ -44,11 +44,9 @@ public class MixedResultsTagHandler extends BaseQueryTagHandler {
         JspWriter out = getJspContext().getOut();
         out.println(startHtml);
         if (hasResults(_results)) {
-            //out.println("<td class=\"col1\">");
             out.println("<td id=\"mixedschoolscolumn\">");
             writeSchools(out);
             out.println("</td>");
-            //out.println("<td class=\"col3\">");
             out.println("<td id=\"mixedarticlescolumn\">");
             writeArticles(out);
             writeGlossary(out);
@@ -63,7 +61,10 @@ public class MixedResultsTagHandler extends BaseQueryTagHandler {
     }
 
     private void writeSchools(JspWriter out) throws IOException {
-        out.println("<div class=\"result_title\">Schools</div>");
+        out.print("<div class=\"result_title\"><b>Schools</b> with \"");
+        out.print("<span class=\"searchfor\">");
+        out.print(_query);
+        out.println("</span>\" in name</div>");
 
         List schools = (List) _results.get("schools");
         out.println("<ul>");

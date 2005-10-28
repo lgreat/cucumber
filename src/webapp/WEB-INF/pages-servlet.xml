@@ -89,9 +89,6 @@
       <property name="sessionForm"><value>false</value></property>
       <property name="commandName"><value>searchCommand</value></property>
       <property name="commandClass"><value>gs.data.search.SearchCommand</value></property>
-      <property name="resultsPager">
-        <ref bean="resultsPager"/>
-      </property>
       <property name="spellCheckSearcher">
         <ref bean="spellCheckSearcher"/>
       </property>
@@ -115,7 +112,7 @@
         <property name="successView"><value>/status/searchmanager.page</value></property>
     </bean>
 
-    <!-- This page allows the search indexes to be rebuilt. -->
+      <!-- This page allows the search indexes to be rebuilt. -->
     <bean name="/status/searchmanager.page"
           class="gs.web.status.SearchManagerController" autowire="byName">
     </bean>

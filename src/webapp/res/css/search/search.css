@@ -23,7 +23,7 @@ table#header td.stretchycolumn {padding: 0px 6px 0px 6px;height:250px;}
 td.label {width:70px;color:#666;vertical-align:top;}
 .checkbox {padding:0;margin:0; font-size:90%;}
 
-.main ul {list-style-type: none; padding-left:0; padding-bottom:20px; margin:0}
+.main ul {list-style-type: none; padding-left:0; padding-bottom:0px; margin:0}
 .main li {padding-bottom: 10px}
 .main {margin:6px 0px 0px 0px;width:100%;}
 .main .TL, .main .TR, .main .BL, .main .BR { width:10px; height:10px; background:no-repeat; }
@@ -44,7 +44,7 @@ td.label {width:70px;color:#666;vertical-align:top;}
 #mixedschoolscolumn {width:60%; vertical-align:top}
 #mixedarticlescolumn {width:40%; vertical-align:top}    
 
-.result_title {padding:0px 20px 0px 0px;border-bottom:1px solid #999;margin-right:10px;font-weight:bold;}
+.result_title {padding:0px 20px 0px 0px;border-bottom:1px solid #999;margin-right:10px;}
 table.school_results tr td {padding:3px 20px 2px 5px;}
 table.city_results td {padding:3px 20px 5px 5px;}
 table.district_results td {padding:3px 20px 5px 5px;}
@@ -52,10 +52,9 @@ table.article_results td {padding:3px 20px 10px 5px;}
 table.glossary_results td {padding:3px 20px 2px 5px;}
 .school_results a, .city_results a, .district_results a, .article_results a, .glossary_results a {font-weight:bold;}
 .city_results a, .district_results a {white-space:nowrap;}
-.viewall{margin:0;padding:0;list-style: none;}
+.viewall, .browseall{margin:0;padding:0;list-style: none;}
 .viewall, .browseall{padding-left: 10px;background-image: url(../../img/search/arrow.gif);background-repeat: no-repeat;background-position: 0 .5em;}
-.viewall a {display:block;font-weight:normal;font-size:90%;}
-
+.viewall a, .browseall a {display:block;font-weight:normal;font-size:90%;}
 
 .errormessage {font-weight:bold;color:#C00;padding-left:20px;}
 .errormessage b {color:#000;}
@@ -72,7 +71,7 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
 .highlight {font-weight: 800;}
 #suggestion {font-style: italic; font-weight: bold;}
 .searchbyaddress {padding-left:5mm; vertical-align:bottom;}
-.resultheadline {font-size:large}
+.resultheadline {font-size:120%}
 #schoolfilters {padding-bottom:13px}
 
 table.leaderboard {
