@@ -1,48 +1,42 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AllArticlesControllerTest.java,v 1.1 2005/09/17 00:25:58 dlee Exp $
+ * $Id: AllArticlesControllerTest.java,v 1.2 2005/10/28 21:25:41 dlee Exp $
  */
 package gs.web.content;
 
 import gs.data.content.ArticleManager;
 import gs.data.content.IArticleDao;
-import gs.web.BaseTestCase;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpSession;
+import gs.web.BaseControllerTestCase;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletException;
+import java.util.List;
 import java.util.Map;
 
 /**
- * The purpose is ...
- * TODO - dlee: write a test that passes
+ * The purpose is to test the AllArticlesController
+ *
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
-public class AllArticlesControllerTest extends BaseTestCase {
-    private AllArticlesController _controller;
+public class AllArticlesControllerTest extends BaseControllerTestCase {
 
-    protected void setUp() throws Exception {
-        super.setUp();
-        _controller = (AllArticlesController) _sApplicationContext.getBean(AllArticlesController.BEAN_ID);
-        _controller.setArticleDao((IArticleDao)_sApplicationContext.getBean(IArticleDao.BEAN_ID));
-        _controller.setArticleManager(new ArticleManager());
-    }
+    public void testGetCategories() throws Exception {
+        AllArticlesController c = new AllArticlesController();
+        c.setApplicationContext(getApplicationContext());
+        c.setArticleDao((IArticleDao) getApplicationContext().getBean(IArticleDao.BEAN_ID));
+        c.setArticleManager((ArticleManager) getApplicationContext().getBean(ArticleManager.BEAN_ID));
 
-    public void testNothing() {
-        String test = "Test Below Needs to Pass";
-        assertEquals(test,test);
-    }
-    /**
-     * The handle request method connects to the database and gets the build version
-     */
-    public void notestHandleRequest() throws Exception, ServletException {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setSession(new MockHttpSession());
-        ModelAndView mv = _controller.handleRequestInternal(request,null);
+        ModelAndView modelAndView = c.handleRequestInternal(getRequest(), getResponse());
 
-        Map model = mv.getModel();
-        assertNotNull(model);
+        Map catMap = (Map) modelAndView.getModel().get("categories");
+        assertTrue(catMap.size() > 0);
+        Map sccMap = (Map) modelAndView.getModel().get("scc_categories");
+        assertTrue(catMap.size() > 0);
+        List insiderArticles = (List) modelAndView.getModel().get("insider_articles");
+        assertTrue(insiderArticles.size() > 0);
+        String numberOfCatgegories = String.valueOf(catMap.size() + sccMap.size());
+        assertEquals(numberOfCatgegories, (String) modelAndView.getModel().get("num_categories"));
+        assertEquals(new Integer(0), (Integer) modelAndView.getModel().get("index"));
+
     }
 }
