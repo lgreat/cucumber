@@ -21,11 +21,14 @@
                     <input type="hidden" name="state" value="${state.abbreviation}"/>
                 </c:if>
                 <c:if test="${state == null}">
+                    <!--                        onChange="window.location.href='/modperl/go/' + this.value.toUpperCase()"-->
                     <gsweb:stateSelector
                         styleClass="globalsearch"
-                        onChange="window.location.href='/modperl/go/' + this.value.toUpperCase()"
+                        onChange="window.location.href='/path/choose.page?state=' + this.value.toUpperCase()"
                         allowNoState="${param.state == 'all'}"
                         useLongNames="true"/>
+                    &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                    &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
                 </c:if>
                 <input type="text" value="${searchPrompt}"
                     onfocus="if (this.value=='${searchPrompt}') this.value='';"

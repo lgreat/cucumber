@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StateControllerSaTest.java,v 1.4 2005/10/28 00:07:28 apeterson Exp $
+ * $Id: StateControllerSaTest.java,v 1.5 2005/10/28 18:56:29 apeterson Exp $
  */
 
 package gs.web.state;
@@ -49,27 +49,27 @@ public class StateControllerSaTest extends BaseControllerTestCase {
         assertEquals("View all California districts", veryLast.getContents());
 
 
-        // Test LA districts-- this should produce what?
+        // Test AK districts-- this should produce what?
         SessionContext context = (SessionContext) SessionFacade.getInstance(getRequest());
-        context.setState(State.LA);
+        context.setState(State.AK);
         context.setHostName("localhost");
         modelAndView = c.handleRequestInternal(getRequest(), getResponse());
 
         header = modelAndView.getModel().get("header");
         assertNotNull(header);
         assertTrue(header instanceof String);
-        assertEquals("Louisiana Districts", header);
+        assertEquals("Alaska Districts", header);
         results = (List) modelAndView.getModel().get("results");
         assertNotNull(results);
         assertEquals(5, results.size());
         districtAnchor = (Anchor) results.get(0);
-        assertEquals("LA District A", districtAnchor.getContents());
+        assertEquals("AK District A", districtAnchor.getContents());
         districtAnchor = (Anchor) results.get(3);
-        assertEquals("LA District D", districtAnchor.getContents());
-        assertEquals("/cgi-bin/la/district_profile/19", districtAnchor.getHref());
+        assertEquals("AK District D", districtAnchor.getContents());
+        assertEquals("/cgi-bin/ak/district_profile/25", districtAnchor.getHref());
         last = (Anchor) results.get(4);
-        assertEquals("View all Louisiana districts", last.getContents());
-        assertEquals("/modperl/distlist/LA", last.getHref());
+        assertEquals("View all Alaska districts", last.getContents());
+        assertEquals("/modperl/distlist/AK", last.getHref());
 
     }
 
@@ -89,10 +89,10 @@ public class StateControllerSaTest extends BaseControllerTestCase {
         assertNotNull(results);
         assertTrue(results.size() > 4);
         Anchor la = (Anchor) results.get(0);
-        assertEquals("Los Angeles", la.getContents());
+        assertEquals("Los Angeles schools", la.getContents());
         assertEquals("/modperl/bycity/ca/?city=Los+Angeles&showall=1&level=a", la.getHref());
         Anchor sf = (Anchor) results.get(3);
-        assertEquals("San Francisco", sf.getContents());
+        assertEquals("San Francisco schools", sf.getContents());
         assertEquals("/modperl/bycity/ca/?city=San+Francisco&showall=1&level=a", sf.getHref());
         assertNotNull(modelAndView.getModel().get("results"));
 
