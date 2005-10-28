@@ -40,8 +40,15 @@
                             <tr>
                                 <td class="col1" valign="top">
                                     <mod:globalNav path="1"/>
-                                    <promo:mySchoolListSmall/>
-                                    <promo:newsletterSmall/>
+                                    <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
+
+                                        <promo:newsletterSmall/>
+                                        <!--promo:mySchoolListSmall/-->
+                                    </c:if>
+                                    <c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
+                                        <promo:mySchoolListSmall/>
+                                        <promo:featuredArticleSmall/>
+                                    </c:if>
                                 </td>
                                 <td class="col2" valign="top">
                                     <gsml:box tableClass="topcontent shade5"
@@ -72,15 +79,22 @@
                                             <promo:featuredArticleSmall />
                                         </div>
                                     </gsml:box>
-                                    <gsml:box tableClass="shade3" tableWidth="100%">
-                                        <promo:membershipBig/>
-                                    </gsml:box>
-                                    <gsml:box tableClass="promoNewsletterBig shade3" tableWidth="100%"
-                                        ><!--contentClass="button" -->
-                                        <promo:newsletterBig/>
-                                        <!--td class="button"
+                                    <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
+                                        <gsml:box tableClass="shade3" tableWidth="100%">
+                                            <promo:membershipBig/>
+                                        </gsml:box>
+                                        <!--gsml:box tableClass="promoNewsletterBig shade3" tableWidth="100%">
+                                            <promo:newsletterBig/>
+                                        </gsml:box-->
+                                    </c:if>
+                                    <c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
+                                        <gsml:box tableClass="promoNewsletterBig shade3" tableWidth="100%"
+                                            ><!--contentClass="button" -->
+                                            <promo:newsletterBig/>
+                                            <!--td class="button"
 style="background: #FFFFFF url(src/img/border_shade5_BG.gif); padding: 0px 0px 0px 0px;" valign="top" -->
-                                    </gsml:box>
+                                        </gsml:box>
+                                    </c:if>
                                 </td>
                             </tr>
                         </table>

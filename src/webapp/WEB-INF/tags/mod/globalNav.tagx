@@ -22,7 +22,8 @@
                 <c:if test="${path==1}">
                     <td class="C choosingPwy">
                         <h1>
-                            <gsml:a href="/modperl/go/$STATE"> Choosing Schools </gsml:a>
+                            <!--gsml:a href="/modperl/go/$STATE"> Choosing Schools </gsml:a-->
+                            <gsml:a href="/path/choose.page"> Choosing Schools </gsml:a>
                         </h1>
                         <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE"> Top-Rated Schools </gsml:a>
                         <gsml:a href="#"> School Choice Center </gsml:a>
@@ -42,7 +43,8 @@
                 <c:if test="${path!=1}">
                     <td class="C choosingPwyClosed" >
                         <h1>
-                            <gsml:a href="/modperl/go/$STATE"> Choosing Schools </gsml:a>
+                            <!--gsml:a href="/modperl/go/$STATE"> Choosing Schools </gsml:a-->
+                            <gsml:a href="/path/choose.page"> Choosing Schools </gsml:a>
                         </h1>
                     </td>
                 </c:if>
