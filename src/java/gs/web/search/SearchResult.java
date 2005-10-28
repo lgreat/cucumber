@@ -90,9 +90,7 @@ public class SearchResult {
             if (c != null && s != null) {
                 StringBuffer buff = new StringBuffer(c);
                 buff.append(", ");
-                if (s != null) {
-                    buff.append(s.toUpperCase());
-                }
+                buff.append(s.toUpperCase());
                 cityAndState = buff.toString();
             }
         }
@@ -103,7 +101,6 @@ public class SearchResult {
         String abs = _doc.get("abstract");
         if (_highlight) {
                abs = TextHighlighter.highlight(abs, _query, "abstract");
-            System.out.println ("abstract in highlighted: searchresult: " + abs);
         }
         return abs;
     }
