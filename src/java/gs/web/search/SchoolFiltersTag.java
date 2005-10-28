@@ -12,7 +12,7 @@ import java.util.HashSet;
  *
  * @author Chris Kimm <mailto:chris@seeqa.com>
  */
-public class SchoolFiltersTag extends BaseQueryTagHandler {//SimpleTagSupport {
+public class SchoolFiltersTag extends BaseQueryTagHandler {
 
     private Set _schoolTypeSet;
     private Set _gradeLevelSet;
@@ -71,15 +71,17 @@ public class SchoolFiltersTag extends BaseQueryTagHandler {//SimpleTagSupport {
         JspWriter out = getJspContext().getOut();
 
         out.print("<form action=\"/search/search.page\">");
-        out.print("<input type=\"hidden\" name=\"c\" value=\"school\">");
+
+        out.print("<input type=\"hidden\" name=\"c\" value=\"school\" />");
         out.print("<input type=\"hidden\" name=\"state\" value=\"");
         out.print(getStateOrDefault().getAbbreviationLowerCase());
-        out.print("\">");
+        out.print("\" />");
         out.print("<input type=\"hidden\" name=\"q\" value=\"");
         out.print(_query);
-        out.print("\">");
-        out.println("<table><tr><td>");
-        //out.println("<td>");
+        out.print("\" />");
+
+        out.println("<table><tr>");
+        out.println ("<td>");
 
         out.println("<div class=\"checkbox\">");
         out.print("<input id=\"stpub\" type=\"checkbox\" name=\"st\" ");
@@ -87,7 +89,7 @@ public class SchoolFiltersTag extends BaseQueryTagHandler {//SimpleTagSupport {
             out.print("checked ");
         }
         out.print("value=\"public\" onClick=\"checkSchoolTypes('stpub')\">");
-        out.print(" Public");
+        out.print("&nbsp;Public");
         out.println("</input>");
         out.println("</div>");
 
@@ -97,7 +99,7 @@ public class SchoolFiltersTag extends BaseQueryTagHandler {//SimpleTagSupport {
             out.print("checked ");
         }
         out.print("value=\"private\" onClick=\"checkSchoolTypes('stpri')\">");
-        out.print(" Private");
+        out.print("&nbsp;Private");
         out.println("</input>");
         out.println("</div>");
 
@@ -107,11 +109,13 @@ public class SchoolFiltersTag extends BaseQueryTagHandler {//SimpleTagSupport {
             out.print("checked ");
         }
         out.print("value=\"charter\" onClick=\"checkSchoolTypes('stcha')\">");
-        out.print(" Charter");
+        out.print("&nbsp;Charter");
         out.println("</input>");
         out.println("</div>");
 
-        out.println("</td><td style=\"padding-left:12mm\">");
+        out.println("</td>");
+
+        out.println("<td style=\"padding-left:12mm\">");
 
         out.println("<div class=\"checkbox\">");
         out.print("<input id=\"gle\" type=\"checkbox\" name=\"gl\" ");
@@ -119,7 +123,7 @@ public class SchoolFiltersTag extends BaseQueryTagHandler {//SimpleTagSupport {
             out.print("checked ");
         }
         out.print("value=\"elementary\" onClick=\"checkGradeLevels('gle')\">");
-        out.print(" Elementary");
+        out.print("&nbsp;Elementary");
         out.println("</input>");
         out.println("</div>");
 
@@ -129,7 +133,7 @@ public class SchoolFiltersTag extends BaseQueryTagHandler {//SimpleTagSupport {
             out.print("checked ");
         }
         out.print("value=\"middle\" onClick=\"checkGradeLevels('glm')\">");
-        out.print(" Middle");
+        out.print("&nbsp;Middle");
         out.println("</input>");
         out.println("</div>");
 
@@ -139,13 +143,14 @@ public class SchoolFiltersTag extends BaseQueryTagHandler {//SimpleTagSupport {
             out.print("checked ");
         }
         out.print("value=\"high\" onClick=\"checkGradeLevels('glh')\">");
-        out.print(" High");
+        out.print("&nbsp;High");
         out.println("</input>");
         out.println("</div>");
 
         out.println("</td>");
         out.println ("<td><input type=\"submit\" value=\"Filter Schools\" /></td>");
-        out.println("</tr></table");
+        out.println("</tr></table>");
+
         out.println("</form>");
     }
 }
