@@ -153,10 +153,8 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
     }
 
     private static void writeButtons(JspWriter out) throws IOException {
-        //out.println("<input style=\"display:block\" type=\"image\" name=\"compare\" src=\"/res/img/search/btn_old_comparechecked_167x21.gif\" alt=\"Submit Form\">");
-        //out.println("<input style=\"display:block\" type=\"image\" name=\"save\" src=\"/res/img/search/btn_old_savechecked2msl_193x21.gif\" alt=\"Submit Form\">");
-        out.println("<input type=\"image\" name=\"compare\" src=\"/res/img/search/btn_old_comparechecked_167x21.gif\" alt=\"Submit Form\">");
-        out.println("<input type=\"image\" name=\"save\" src=\"/res/img/search/btn_old_savechecked2msl_193x21.gif\" alt=\"Submit Form\">");
+        out.println("<input type=\"image\" name=\"compare\" src=\"/res/img/btn_comparechecked_149x21.gif\" alt=\"Submit Form\">");
+        out.println("<input type=\"image\" name=\"save\" src=\"/res/img/btn_savechecked2msl_173x21.gif\" alt=\"Submit Form\">");
     }
 }
 

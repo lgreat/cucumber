@@ -2,7 +2,6 @@ package gs.web.search;
 
 import gs.data.state.State;
 import gs.web.jsp.BaseTagHandler;
-import org.apache.log4j.Logger;
 import org.apache.taglibs.standard.functions.Functions;
 
 import javax.servlet.jsp.JspWriter;
@@ -21,26 +20,16 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
     private int _districtsTotal = 0;
     private int _termsTotal = 0;
     private String _constraint = null;
-    private static final Logger _log = Logger.getLogger(SearchSummaryTagHandler.class);
+    //private static final Logger _log = Logger.getLogger(SearchSummaryTagHandler.class);
 
-    // String constants:
-    private static String VIEW_ALL = "All Results: ";
-    private static String CITIES = "Cities: ";
-    private static String SCHOOLS = "Schools: ";
-    private static String ARTICLES = "Articles: ";
-    private static String TERMS = "Glossary Terms: ";
-    private static String DISTRICTS = "Districts: ";
+    private static final int ALL       = 0;
+    private static final int CITIES    = 1;
+    private static final int SCHOOLS   = 2;
+    private static final int ARTICLES  = 3;
+    private static final int TERMS     = 4;
+    private static final int DISTRICTS = 5;
 
     private static String aStart = "<a href=\"/search/search.page?q=";
-    private static String frag2 = "</td></tr><tr><td class=\"col2\">";
-    private static String frag3;
-
-    static {
-        StringBuffer buffer = new StringBuffer();
-        buffer.delete(0, buffer.length());
-        buffer.append("</td></tr></table>");
-        frag3 = buffer.toString();
-    }
 
     public void setQuery(String q) {
         _query = Functions.escapeXml(q);
@@ -52,6 +41,23 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
      */
     public void setConstrain(String c) {
         _constraint = c;
+    }
+
+    private int getConstraint() {
+        int constraint = SCHOOLS;
+        if (_constraint == null || _constraint.equals("") ||
+                _constraint.equals("all")) {
+            return ALL;
+        } else if ("term".equals(_constraint)) {
+            constraint = TERMS;
+        } else if ("article".equals(_constraint)) {
+            constraint = ARTICLES;
+        } else if ("city".equals(_constraint)) {
+            constraint = CITIES;
+        } else if ("district".equals(_constraint)) {
+            constraint = DISTRICTS;
+        }
+        return constraint;
     }
 
     public void setSchoolsTotal(int count) {
@@ -80,28 +86,64 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
 
         JspWriter out = getJspContext().getOut();
 
-        //out.println("<link rel=\"stylesheet\" href=\"/res/css/searchsummary.css\" type=\"text/css\" media=\"screen\"/>");
-
         int total = _schoolsTotal + _articlesTotal + _districtsTotal +
                 _citiesTotal + _termsTotal;
 
         if (total > 0) {
             out.println("<table><tr><td class=\"resultheadline\">");
-            out.print("Your search for &nbsp;&quot;<span class=\"searchfor\">");
-            out.print(_query);
-            out.print("</span>&quot;&nbsp; found ");
-            out.print(total);
-            out.print(" result");
-            if (total > 1) {
-                out.print("s");
+
+            switch(getConstraint()) {
+                case SCHOOLS:
+                    out.print("<b>Schools</b> with &nbsp;&quot;<span class=\"searchfor\">");
+                    out.print(_query);
+                    out.print("</span>&quot;&nbsp; in name");
+                    break;
+                case ARTICLES:
+                    out.print("<b>Articles</b> matching &nbsp;&quot;<span class=\"searchfor\">");
+                    out.print(_query);
+                    out.print("</span>&quot;&nbsp; (");
+                    out.print(_articlesTotal);
+                    out.println("&nbsp;Results)");
+                    break;
+                case TERMS:
+                    out.print("<b>Glossary Terms</b> matching &nbsp;&quot;<span class=\"searchfor\">");
+                    out.print(_query);
+                    out.print("</span>&quot;&nbsp; (");
+                    out.print(_termsTotal);
+                    out.println("&nbsp;Results)");
+                    break;
+                case CITIES:
+                    out.print("<b>Cities</b> matching &nbsp;&quot;<span class=\"searchfor\">");
+                    out.print(_query);
+                    out.print("</span>&quot;&nbsp; (");
+                    out.print(_citiesTotal);
+                    out.println("&nbsp;Results)");
+                    break;
+                case DISTRICTS:
+                    out.print("<b>Districts</b> matching &nbsp;&quot;<span class=\"searchfor\">");
+                    out.print(_query);
+                    out.print("</span>&quot;&nbsp; (");
+                    out.print(_districtsTotal);
+                    out.println("&nbsp;Results)");
+                    break;
+                default: // all
+                    out.print("Your search for &nbsp;&quot;<span class=\"searchfor\">");
+                    out.print(_query);
+                    out.print("</span>&quot;&nbsp; found ");
+                    out.print(total);
+                    out.print(" result");
+                    if (total > 1) {
+                        out.print("s");
+                    }
+                    out.println(".");
+                    break;
             }
-            out.println(".");
+
 
             out.println("</td><td class=\"searchbyaddress\">");
             writeSearchNearLink(out);
             out.println("</td></tr></table>");
-            if (_constraint == null || _constraint.equals("") ||
-                    _constraint.equals("all")) {
+            if (getConstraint() == ALL) {
                 out.println("<table><tr><td class=\"resultheadline\">");
                 out.print("Results found in ");
 
@@ -109,8 +151,7 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
                 out.print(_query);
                 out.print("&state=");
                 out.print(getStateParam());
-                out.print("&c=school\">");
-                out.print("Schools</a> (");
+                out.print("&c=school\">Schools</a> (");
                 out.print(_schoolsTotal);
                 out.print("), ");
 
@@ -118,8 +159,7 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
                 out.print(_query);
                 out.print("&state=");
                 out.print(getStateParam());
-                out.print("&c=city\">");
-                out.print("Cities</a> (");
+                out.print("&c=city\">Cities</a> (");
                 out.print(_citiesTotal);
                 out.print("), ");
 
@@ -127,8 +167,7 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
                 out.print(_query);
                 out.print("&state=");
                 out.print(getStateParam());
-                out.print("&c=district\">");
-                out.print("Districts</a> (");
+                out.print("&c=district\">Districts</a> (");
                 out.print(_districtsTotal);
                 out.print("), ");
 
@@ -144,8 +183,7 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
                 out.print(_query);
                 out.print("&state=");
                 out.print(getStateParam());
-                out.print("&c=term\">");
-                out.print("Glossary Terms</a> (");
+                out.print("&c=term\">Glossary Terms</a> (");
                 out.print(_termsTotal);
                 out.println(")");
                 out.println("</td></tr></table>");
@@ -180,9 +218,7 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             out.println("\"</b> did not return any results.</span>");
             out.println ("</td><td class=\"searchbyaddress\">");
             writeSearchNearLink(out);
-            out.println ("</td></tr><tr><td>");
-            out.println("Please try again.");
-            out.println ("</td></tr></table>");
+            out.println ("</td></tr><tr><td>Please try again.</td></tr></table>");
         }
         _schoolsTotal = _articlesTotal = _districtsTotal = _citiesTotal = _termsTotal = 0;
 
@@ -195,15 +231,6 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
         out.print(getStateOrDefault());
         out.print("\">");
         out.println("Search near address</a>");
-        /*
-        out.println("<form action=\"/search/search.page\">");
-        out.print("<input type=\"image\" name=\"searchnear\" value=\"submit\" ");
-        out.println("src=\"/res/img/btn_searchbyaddress.gif\" alt=\"Search By Address\" >");
-        out.print("<input type=\"hidden\" name=\"state\" value=\"");
-        out.print(getStateOrDefault().getAbbreviationLowerCase());
-        out.println("\">");
-        out.println("</form>");
-        */
     }
 
     private String getStateParam() {
