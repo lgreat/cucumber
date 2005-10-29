@@ -3,16 +3,12 @@
     xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
     <jsp:directive.tag body-content="scriptless"/>
-    <jsp:directive.attribute name="tableClass" required="false" description="class attribute applied to the table element"/>
-    <jsp:directive.attribute name="tableId" required="false" description="id attribute applied to the table element"/>
+    <jsp:directive.attribute name="tableClass" required="true" description="class attribute applied to the table element"/>
     <jsp:directive.attribute name="tableWidth" required="false" description="width attribute applied to the table element"/>
-    <jsp:directive.attribute name="tableHeight" required="false" description="height attribute applied to the table element"/>
-    <jsp:directive.attribute name="contentStyle" required="false" description="style applied to the innnermost td"/>
-    <jsp:directive.attribute name="contentId" required="false" description="id tag applied to the innermost td"/>
 
-    <table id="${tableId}" class="${tableClass}"
+    <table class="${tableClass}"
         border="0" cellspacing="0" cellpadding="0"
-        width="${tableWidth}" height="${tableHeight}">
+        width="${tableWidth}" >
         <tr>
             <td class="TL"></td>
             <td class="T"></td>
@@ -20,7 +16,7 @@
         </tr>
         <tr>
             <td class="L"></td>
-            <td class="BG" id="${contentId}" style="${contentStyle}">
+            <td class="BG">
                 <jsp:doBody/>
             </td>
             <td class="R"></td>

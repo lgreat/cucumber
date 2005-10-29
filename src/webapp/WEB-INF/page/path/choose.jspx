@@ -41,8 +41,9 @@
                                 <td class="col1" valign="top">
                                     <mod:globalNav path="1"/>
                                     <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
-
-                                        <promo:newsletterSmall/>
+                                        <gsml:box tableClass="blank" tableWidth="100%">
+                                            <promo:newsletterSmall/>
+                                        </gsml:box>
                                         <!--promo:mySchoolListSmall/-->
                                     </c:if>
                                     <c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
@@ -51,16 +52,32 @@
                                     </c:if>
                                 </td>
                                 <td class="col2" valign="top">
-                                    <gsml:box tableClass="topcontent shade5"
+                                    <gsml:box tableClass="shade3"
                                         tableWidth="100%"
-                                        contentStyle="background: #DDDDDD url(/res/img/box/border_shade5_BG.gif); padding: 0px 0px 0px 0px;"
                                         ><!--contentClass="button" valign="top"-->
-                                        <h1 class="moduleheader">${stateLongName} Schools - Free Resources
-                                            <span class="tagline">
-                                                        from Greatschools.net, an independent nonprofit</span>
-                                        </h1>
+                                        <span class="moduleheader"><h1 class="inline">${stateLongName} Schools</h1> -
+                                            <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
+                                                <c:if test="${requestScope.context.user==null}">
+     Free Resources
+                                                </c:if>
+                                                <c:if test="${requestScope.context.user!=null}">
+     Membership Area
+                                                </c:if>
+                                            </c:if>
+                                            <c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
+ Free Resources
+                                            </c:if>
+                                            </span>
+                                        <h3 class="tagline">
+                                                 Objective information from Greatschools, an independent nonprofit dedicated to helping parents
+                                        </h3>
                                         <div class="topcontentcol1">
                                             <search:searchBox state="${requestScope.context.stateOrDefault}"/>
+                                            <div class="browselinks">
+                                            <gsml:a styleClass="nowrap" href="/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}">My School List</gsml:a>
+                                            <gsml:a styleClass="nowrap" href="/cgi-bin/cs_where/${requestScope.context.stateOrDefault.abbreviation}">Compare schools</gsml:a>
+                                            <gsml:a styleClass="nowrap" href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">Advanced search</gsml:a>
+                                            </div>
                                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                                 <tbody>
                                                     <tr>
@@ -75,8 +92,8 @@
                                             </table>
                                         </div>
                                         <div class="topcontentcol2">
-                                            <promo:schoolChoiceCenterSmall />
-                                            <promo:featuredArticleSmall />
+                                            <promo:schoolChoiceCenterSmall/>
+                                            <promo:featuredArticleSmall/>
                                         </div>
                                     </gsml:box>
                                     <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">

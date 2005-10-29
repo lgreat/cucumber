@@ -17,7 +17,7 @@ old user, no new subscriptions
 old user, add new subscriptions
 
     -->
-    <gsml:boxInline filePrefix="/res/img/box/border_blank_" tableClass="promoNewsletterSmall" tableWidth="100%">
+    <div class="promoNewsletterSmall">
         <gsml:form action="/cgi-bin/newsletterSubscribe" method="get">
             <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
             <input type="hidden" name="subscribe" value="Promo"/>
@@ -47,7 +47,8 @@ old user, add new subscriptions
             <input class="checkbox" type="checkbox" name="my3" value="my3"/>
             <label>My Third-Grader</label>
             <h3>Performance updates for your child's school:</h3>
-            <input class="checkbox" type="checkbox" name="mss" value="mss" /><label>My School Stats</label>
+            <input class="checkbox" type="checkbox" name="mss" value="mss"/>
+            <label>My School Stats</label>
             <div class="smallform">
                 <input type="text" class="textfield" onfocus="if (this.value=='Enter email') this.value='';" value="Enter email" onblur="if (this.value=='') this.value='Enter email';" name="email" id="email"/>
                 <gsml:inputImage src="/res/img/button/btn_go_small.gif" styleClass="btn" alt="GO"/>
@@ -55,6 +56,6 @@ old user, add new subscriptions
             <a class="small block" href="/cgi-bin/newsletters/${requestScope.context.stateOrDefault.abbreviation}">Learn More</a>
             <a class="small block" href="/cgi-bin/static/privacy.inc/${requestScope.context.stateOrDefault.abbreviationLowerCase}">Privacy Policy</a>
         </gsml:form>
-    </gsml:boxInline>
+    </div>
 
 </jsp:root>

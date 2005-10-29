@@ -168,6 +168,13 @@
         </property>
     </bean>
 
+    <bean name="/test/boxes.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/test/boxes</value>
+        </property>
+    </bean>
+
     <!--Begin conversion pages -->
     <bean name="/subscribe/conversion/conversion.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">

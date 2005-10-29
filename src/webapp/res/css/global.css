@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.26 2005/10/28 18:56:29 apeterson Exp $
+$Id: global.css,v 1.27 2005/10/29 00:13:38 apeterson Exp $
 ----------------------------------------------- */
 
 
@@ -11,7 +11,7 @@ html, body{width:100%;height:100%}
 body, form {margin:0;padding:0}
 td, samp {font-family: Arial, Helvetica, sans-serif; font-size:12px;}
 #pagemargin {position:relative;width:100%;margin:0px auto;padding:6px 6px 6px 6px;}
-#pagemargin img {border:0;display:block;padding:0;margin:0;}
+#pagemargin img {border:0;padding:0;margin:0;} /* AJP display:block; */
 .border {border:1px solid #900;}
 .small {font-size:80%;}
 a {text-decoration:none;color:#00F;}
@@ -85,19 +85,23 @@ table.bottomcontent tr td img {text-align:center;}
 
 /*  Search
 ----------------------------------------------- */
+.browselinks {padding:10px 0px 10px 0px;width:100%;}
+.browselinks a {padding-right:20px;white-space:nowrap;}
 
 
 /*  Headings
 ----------------------------------------------- */
+h1.moduleheader, span.moduleheader, span.moduleheader h1 {
+    color:#F60;font-size:18px;font-weight:bold;white-space:nowrap;padding:0px 0px 0px 0px;}
+h1.moduleheader span {color:#000; font-weight:normal;font-size:10px;padding-left:10px;}
 h1.moduleheader {color:#F60;font-size:16px;font-weight:bold;white-space:nowrap;padding:0px 0px 4px 0px;}
 h1.moduleheader span {color:#000; font-weight:normal;font-size:10px;padding-left:10px;}
-h1.moduleheader span.tagline {color:#000;font-weight:normal;font-size:12px;padding-left:20px;}
-/*h1.moduleheader, span.moduleheader, span.moduleheader h1 {color:#F60;font-size:18px;font-weight:bold;white-space:nowrap;padding:0px 0px 0px 0px;}
-h1.moduleheader span {color:#000; font-weight:normal;font-size:10px;padding-left:10px;}
-*/
+
 .inline {display:inline;}
 h2.segmentheader {color:#900;font-size:13px;font-weight:bold;padding:0px 0px 3px 0px;}
 h3.tagline, h4.tagline {color:#F60;font-weight:normal;padding:0px 0px 5px 0px;}
+h3.tagline {font-size:0.9em;}
+h3.tagline {color:#F60;font-weight:normal;padding:0px 0px 5px 0px;}
 
 
 
@@ -166,29 +170,30 @@ tr.login td.col2 {text-align:right;padding-right:3px;}
 /*WAS: table.promoNewsletterSmall {margin:20px 0px 0px 2px;}*/
 /*WAS: table.promoNewsletterSmall h3 {font-size:1em;font-weight:bold;margin:10px 0px 0px 0px;}*/
 table.promoNewsletterSmall {margin:6px 0px 0px 0px;}
-table.promoNewsletterBig {margin:0px 0px 0px 2px;}
-table.promoNewsletterBig img {float:right;margin:15px;}
-table.promoNewsletterBig a {font-weight:normal;}
+div.promoNewsletterBig {margin:0px 0px 0px 2px;}
+div.promoNewsletterBig img {float:right;margin:15px;}
+div.promoNewsletterBig a {font-weight:normal;}
 table.promoNewsletterSmall h2,
-table.promoNewsletterBig h2 {font-size:1.5em;font-weight:bold;margin:0px 0px 0px 0px;}
+div.promoNewsletterBig h2 {font-size:1.5em;font-weight:bold;margin:0px 0px 0px 0px;}
 table.promoNewsletterSmall h3,
-table.promoNewsletterBig h3 {font-size:1em;font-weight:bold;margin:10px 0px 5px 0px;}
-table.promoNewsletterBig .columnHeader a {font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;}
+div.promoNewsletterBig h3 {font-size:1em;font-weight:bold;margin:10px 0px 5px 0px;}
+div.promoNewsletterBig .columnHeader a {font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;}
 table.promoNewsletterSmall .smallform,
-table.promoNewsletterBig .smallform {margin: 10px 0px 2px 0px;white-space:nowrap;}
+div.promoNewsletterBig .smallform {margin: 10px 0px 2px 0px;white-space:nowrap;}
 
 
 
 
 /* Boxes
 ----------------------------------------------- */
-table.shade3, table.shade5 {margin-bottom:3px;}
 
-table.shade3 td.TL {background: #FFFFFF url(../img/box/border_shade3_TL.gif) left top; width:7px; height:7px;}
-table.shade3 td.T {background: #FFFFFF url(../img/box/border_shade3_T.gif) top repeat-x;}
-table.shade3 td.TR {background: #FFFFFF url(../img/box/border_shade3_TR.gif) top right; width:7px; height:7px;}
-table.shade3 td.L {background: #FFFFFF url(../img/box/border_shade3_L.gif) left repeat-y;}
-table.shade3 td.BG {background: #FFFFFF url(../img/box/bg_gradient.gif) top left repeat-x; padding: 0px 0px 0px 0px;}
+/* shade box styles */
+table.shade3 {margin-bottom:3px;}
+table.shade3 td.TL {background: #ececec url(../img/box/border_shade3_TL.gif) left top; width:7px; height:7px;}
+table.shade3 td.T {background: #ececec url(../img/box/border_shade3_T.gif) top repeat-x;}
+table.shade3 td.TR {background: #ececec url(../img/box/border_shade3_TR.gif) top right; width:7px; height:7px;}
+table.shade3 td.L {background: #FFFFFF url(../img/box/bg_gradient.gif) top left repeat-x;border-left:1px solid #ccc;font-size:1px;}
+table.shade3 td.BG {background: #FFFFFF url(../img/box/bg_gradient.gif) top left repeat-x; padding: 0;}
 table.shade3 td.R {background: #FFFFFF url(../img/box/border_shade5_R.gif) right repeat-y;}
 table.shade3 td.BL {background: #FFFFFF url(../img/box/border_shade5_BL.gif) left bottom; width:7px; height:7px;}
 table.shade3 td.B {background: #FFFFFF url(../img/box/border_shade5_B.gif) bottom repeat-x;}
@@ -203,6 +208,7 @@ table.shade4 td.BL {background: #FE894C url(../img/box/border_shade4_BL.gif) lef
 table.shade4 td.B {background: #FE894C url(../img/box/border_shade4_B.gif) bottom repeat-x;}
 table.shade4 td.BR {background: #FE894C url(../img/box/border_shade4_BR.gif) bottom right; width:7px; height:7px;}
 
+table.shade5 {margin-bottom:3px;}
 table.shade5 td.TL {background: #DDDDDD url(../img/box/border_shade5_TL.gif) left top; width:7px; height:7px;}
 table.shade5 td.T {background: #DDDDDD url(../img/box/border_shade5_T.gif) top repeat-x;}
 table.shade5 td.TR {background: #DDDDDD url(../img/box/border_shade5_TR.gif) top right; width:7px; height:7px;}
@@ -212,3 +218,15 @@ table.shade5 td.R {background: #DDDDDD url(../img/box/border_shade5_R.gif) right
 table.shade5 td.BL {background: #DDDDDD url(../img/box/border_shade5_BL.gif) left bottom; width:7px; height:7px;}
 table.shade5 td.B {background: #DDDDDD url(../img/box/border_shade5_B.gif) bottom repeat-x;}
 table.shade5 td.BR {background: #DDDDDD url(../img/box/border_shade5_BR.gif) bottom right; width:7px; height:7px;}
+
+table.blank {margin-bottom:3px;}
+table.blank td.TL {background: #fff url(../img/box/border_blank_TL.gif) left top; width:7px; height:7px;}
+table.blank td.T {background: #fff url(../img/box/border_blank_T.gif) top repeat-x;}
+table.blank td.TR {background: #fff url(../img/box/border_blank_TR.gif) top right; width:7px; height:7px;}
+table.blank td.L {background: #fff url(../img/box/border_blank_L.gif) left repeat-y;}
+table.blank td.BG {background: #FFF url(../img/box/border_blank_BG.gif) bottom right no-repeat; padding: 0px 0px 0px 0px;}
+table.blank td.R {background: #fff url(../img/box/border_blank_R.gif) right repeat-y;}
+table.blank td.BL {background: #fff url(../img/box/border_blank_BL.gif) left bottom; width:7px; height:7px;}
+table.blank td.B {background: #fff url(../img/box/border_blank_B.gif) bottom repeat-x;}
+table.blank td.BR {background: #fff url(../img/box/border_blank_BR.gif) bottom right; width:7px; height:7px;}
+

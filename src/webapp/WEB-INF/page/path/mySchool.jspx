@@ -43,36 +43,42 @@
                                     <jsp:include page="/parentPoll.module"/>
                                 </td>
                                 <td class="col2" valign="top">
-                                    <gsml:box tableClass="topcontent shade5"
-                                        tableWidth="100%"
-                                        contentStyle="background: #DDDDDD url(/res/img/box/border_shade5_BG.gif); padding: 0px 0px 0px 0px;"
-                                        ><!--contentClass="button" valign="top"-->
-                                        <h1 class="moduleheader">${stateLongName} Schools - Free Resources
-                                            <span class="tagline">
-                                                        from Greatschools.net, an independent nonprofit</span>
-                                        </h1>
+                                    <gsml:box tableClass="shade3" tableWidth="100%"><!--contentClass="button" valign="top"-->
+                                        <h1 class="moduleheader">My Child's School</h1>
+                                        <h3 class="tagline">Stats, tools and advice from GreatSchools, an independent nonprofit committed to helping parents</h3>
                                         <div class="topcontentcol1">
                                             <search:searchBox state="${requestScope.context.stateOrDefault}"/>
-                                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                                <tbody>
-                                                    <tr>
-                                                        <td valign="top" width="50%">
-                                                            <jsp:include page="/topCities.module"/>
-                                                        </td>
-                                                        <td valign="top" width="50%">
-                                                            <jsp:include page="/topDistricts.module"/>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                            <div class="browselinks">
+                                                <gsml:a styleClass="nowrap" href="/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}">My School List</gsml:a>
+                                                <gsml:a styleClass="nowrap" href="/cgi-bin/cs_where/${requestScope.context.stateOrDefault.abbreviation}">Compare schools</gsml:a>
+                                                <gsml:a styleClass="nowrap" href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">Advanced search</gsml:a>
+                                            </div>
+                                            <promo:featuredArticleSmall/>
                                         </div>
+
                                         <div class="topcontentcol2">
-                                            <promo:membershipCenter/>
-                                            <promo:schoolChoiceCenterSmall/>
-                                        </div>
+
+                                            <div class="featuredarticle">
+                                                <a href="#">
+                                                    <gsml:img src="/res/img/community/btn_rateyourschool.gif" alt="Rate your School" />
+                                                </a>
+                                                <br/>
+Spread the word about your school--post a review.
+                                                <br/>
+                                                <br/>
+                                                <h3 class="result_title">Sample Parent Review:</h3>
+                                                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star" />
+                                                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
+                                                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
+                                                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>(May 2005)
+                                                <br/>
+                                                <div class="parentQuote">
+ "Dynamic, creative principal. Teachers who provide attention and dedication. Active group of parents involved..."</div>
+                                            </div><!-- featuredarticle -->
+
+                                        </div><!-- topcontentcol2 -->
                                     </gsml:box>
-                                    <gsml:box tableClass="promoNewsletterBig shade3" tableWidth="100%"
-                                        ><!--contentClass="button" -->
+                                    <gsml:box tableClass="shade3" tableWidth="100%"><!--contentClass="button" -->
                                         <promo:newsletterBig/>
                                         <!--td class="button"
 style="background: #FFFFFF url(src/img/border_shade5_BG.gif); padding: 0px 0px 0px 0px;" valign="top" -->
