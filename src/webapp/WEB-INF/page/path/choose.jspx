@@ -55,7 +55,8 @@
                                     <gsml:box tableClass="shade3"
                                         tableWidth="100%"
                                         ><!--contentClass="button" valign="top"-->
-                                        <span class="moduleheader"><h1 class="inline">${stateLongName} Schools</h1> -
+                                        <span class="moduleheader">
+                                            <h1 class="inline">${stateLongName} Schools</h1> -
                                             <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
                                                 <c:if test="${requestScope.context.user==null}">
      Free Resources
@@ -67,16 +68,16 @@
                                             <c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
  Free Resources
                                             </c:if>
-                                            </span>
+                                        </span>
                                         <h3 class="tagline">
                                                  Objective information from Greatschools, an independent nonprofit dedicated to helping parents
                                         </h3>
                                         <div class="topcontentcol1">
                                             <search:searchBox state="${requestScope.context.stateOrDefault}"/>
                                             <div class="browselinks">
-                                            <gsml:a styleClass="nowrap" href="/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}">My School List</gsml:a>
-                                            <gsml:a styleClass="nowrap" href="/cgi-bin/cs_where/${requestScope.context.stateOrDefault.abbreviation}">Compare schools</gsml:a>
-                                            <gsml:a styleClass="nowrap" href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">Advanced search</gsml:a>
+                                                <gsml:a styleClass="nowrap" href="/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}">My School List</gsml:a>
+                                                <gsml:a styleClass="nowrap" href="/cgi-bin/cs_where/${requestScope.context.stateOrDefault.abbreviation}">Compare schools</gsml:a>
+                                                <gsml:a styleClass="nowrap" href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">Advanced search</gsml:a>
                                             </div>
                                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                                 <tbody>
@@ -98,11 +99,13 @@
                                     </gsml:box>
                                     <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
                                         <gsml:box tableClass="shade3" tableWidth="100%">
-                                            <promo:membershipBig/>
+                                            <c:if test="${requestScope.context.user==null}">
+                                                <promo:membershipBig/>
+                                            </c:if>
+                                            <c:if test="${requestScope.context.user!=null}">
+                                                    <promo:newsletterBig/>
+                                            </c:if>
                                         </gsml:box>
-                                        <!--gsml:box tableClass="promoNewsletterBig shade3" tableWidth="100%">
-                                            <promo:newsletterBig/>
-                                        </gsml:box-->
                                     </c:if>
                                     <c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
                                         <gsml:box tableClass="promoNewsletterBig shade3" tableWidth="100%"
