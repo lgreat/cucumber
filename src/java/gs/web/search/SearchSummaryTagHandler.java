@@ -96,7 +96,9 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
                 case SCHOOLS:
                     out.print("<b>Schools</b> with &nbsp;&quot;<span class=\"searchfor\">");
                     out.print(_query);
-                    out.print("</span>&quot;&nbsp; in name");
+                    out.print("</span>&quot;&nbsp; in name&nbsp;(");
+                    out.print(_schoolsTotal);
+                    out.println("&nbsp;Results)");
                     break;
                 case ARTICLES:
                     out.print("<b>Articles</b> matching &nbsp;&quot;<span class=\"searchfor\">");

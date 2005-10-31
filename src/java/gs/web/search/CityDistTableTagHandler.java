@@ -36,9 +36,9 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
                 out.print("<tr><th class=\"result_title\" width=\"1\">&nbsp;</th><th class=\"left\">");
 
                 if (_type != null && _type.equals("city")) {
-                    out.print("City Name");
+                    out.print("Browse Schools in City");
                 } else {
-                    out.print("District Name");
+                    out.print("Browse Schools in District");
                 }
                 out.println("</th>");
                 out.println("<th class=\"result_title\">Number of Schools</th>");
