@@ -22,9 +22,11 @@
     <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
     <title>Search</title>
 
-    <link rel="stylesheet" href="/res/css/search/search.css"
+    <gsml:url var="searchcss" value="/res/css/search/search.css" />
+    <link rel="stylesheet" href="${searchcss}"
           type="text/css" media="screen"/>
-    <link rel="stylesheet" href="/res/css/searchsummary.css"
+    <gsml:url var="searchsummarycss" value="/res/css/searchsummary.css" />
+    <link rel="stylesheet" href="${searchsummarycss}"
           type="text/css" media="screen"/>
     <meta name="onload" content="document.sf.q.focus()"/>
     <meta name="gsheader" content="false"/>
@@ -93,7 +95,7 @@
 <table width="100%"><tr>
 
 <td width="160" valign="top">
-    <mod:globalNav path="1" />
+    <mod:globalNav />
 </td>
 <td>
 <table width="100%">
