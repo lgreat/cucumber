@@ -57,10 +57,11 @@
             <td valign="top">
                 <table id="main" border="0" align="center" cellpadding="0" cellspacing="0">
                 <tr>
-                    <td valign="top" class="col1"> <img src="/res/img/logo/logo_GS_260x40.gif" width="260" height="40" alt="GreatSchools Logo"/>
+                    <td valign="top" class="col1">
+                    <gsml:img src="/res/img/logo/logo_GS_260x40.gif" alt="GreatSchools Logo"/>
                     <h2>${promotext}</h2>
-
-                    <img src="/res/img/map_US_splash_interstitial.gif" width="519" height="310" border="0" usemap="#Map" href="${url}&amp;state=RI" alt="US Map" />
+                    <gsml:url var="mapImage" value="/res/img/map_US_splash_interstitial.gif" />
+                    <img src="${mapImage}" width="519" height="310" border="0" usemap="#Map" href="${url}&amp;state=RI" alt="US Map" />
                     <map name="Map">
                         <area shape="poly" coords="315,183" href="#" />
                         <area shape="poly" coords="330,184" href="#" />

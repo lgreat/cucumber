@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.5 2005/10/17 16:46:08 dlee Exp $
+ * $Id: StatePathwayController.java,v 1.6 2005/11/01 19:33:59 thuss Exp $
  */
 package gs.web.state;
 
@@ -51,6 +51,7 @@ public class StatePathwayController extends AbstractController {
         String paramPathway = request.getParameter("p");
         String paramSearchQuery = request.getParameter("q");
         String pathwayUrl = "";
+        gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
 
         if (_pathways.containsKey(paramPathway)) {
             pathwayUrl = (String) _pathways.get(paramPathway);
@@ -61,14 +62,16 @@ public class StatePathwayController extends AbstractController {
         if (hasSelectedState) {
             boolean isContextRelative = true;
             //redirect to the correct pathway
+            Map params = new HashMap();
             if (pathwayUrl.matches(".+modperl.+|.+cgi-bin.+")) {
                 pathwayUrl += "/" + state.getAbbreviationLowerCase();
                 isContextRelative = false;
+            } else {
+                params.put("state", state.getAbbreviationLowerCase());
             }
-            RedirectView redirectView = new RedirectView(pathwayUrl, isContextRelative);
 
-            Map params = new HashMap();
-            params.put("state", state.getAbbreviationLowerCase());
+            pathwayUrl = urlUtil.buildUrl(pathwayUrl, request);
+            RedirectView redirectView = new RedirectView(pathwayUrl, isContextRelative);
 
             if (!StringUtils.isEmpty(paramSearchQuery)) {
                 params.put("q", paramSearchQuery);
@@ -92,7 +95,7 @@ public class StatePathwayController extends AbstractController {
                 promo = "";
             }
 
-            model.put("url", httpServletResponse.encodeURL(postBackUrl));
+            model.put("url", urlUtil.buildUrl(postBackUrl, request));
             model.put("promotext", promo);
 
             return new ModelAndView(_viewName, model);
