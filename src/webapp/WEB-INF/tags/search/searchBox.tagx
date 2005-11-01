@@ -22,9 +22,10 @@
                 </c:if>
                 <c:if test="${state == null}">
                     <!--                        onChange="window.location.href='/modperl/go/' + this.value.toUpperCase()"-->
+                    <gsml:url var="pathPage" value="/path/choose.page?state="/>
                     <gsweb:stateSelector
                         styleClass="globalsearch"
-                        onChange="window.location.href='/path/choose.page?state=' + this.value.toUpperCase()"
+                        onChange="window.location.href='${pathPage}' + this.value.toUpperCase()"
                         allowNoState="${param.state == 'all'}"
                         useLongNames="true"/>
                     &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
@@ -50,8 +51,9 @@
                     <input type="hidden" name="state" value="${state.abbreviation}"/>
                 </c:if>
                 <c:if test="${state == null}">
+                    <gsml:url var="pathPage" value="/modperl/go/"/>
                     <gsweb:stateSelector styleClass="globalsearch"
-                        onChange="window.location.href='/modperl/go/' + this.value.toUpperCase()"
+                        onChange="window.location.href='${pathPage}' + this.value.toUpperCase()"
                         allowNoState="${param.state == 'all'}"
                         useLongNames="true"/>
                 </c:if>
