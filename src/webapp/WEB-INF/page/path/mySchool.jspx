@@ -1,99 +1,161 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root
-    xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-    xmlns="http://www.w3c.org/1999/xhtml"
-    xmlns:c="http://java.sun.com/jsp/jstl/core"
-    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-    xmlns:spring="http://www.springframework.org/tags"
-    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-    xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-    xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
-    xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
-    xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-    >
-    <jsp:directive.page import="gs.web.SessionFacade"/>
-    <jsp:scriptlet>
-        SessionFacade.getInstance(request).setPathway("2");
-    </jsp:scriptlet>
-    <html lang="en">
-        <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-        <c:set var="stateLongName" value="${requestScope.context.stateOrDefault.longName}"/>
-        <jsp:output doctype-root-element="html"
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+        xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        xmlns:spring="http://www.springframework.org/tags"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+        xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+        xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        >
+<jsp:directive.page import="gs.web.SessionFacade"/>
+<jsp:scriptlet>
+    SessionFacade.getInstance(request).setPathway("2");
+</jsp:scriptlet>
+<html lang="en">
+<c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+<c:set var="stateLongName" value="${requestScope.context.stateOrDefault.longName}"/>
+<jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-        <jsp:directive.page contentType="text/html"/>
+<jsp:directive.page contentType="text/html"/>
 
-        <head>
-            <![CDATA[
+<head>
+    <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+        <style type="text/css">
+.topcontentcol1 {padding-right:7px;}
+.topcontentcol2 {border-left:1px solid #999;padding:0px 5px 0px 10px;margin:0px 0px 10px 0px;}
+        </style>
             ]]>
-            <title>${stateLongName} Schools</title>
-        </head>
-        <body id="pathway1">
-            <table id="pagemargin" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td valign="top">
-                        <!-- INCLUDE TOP content with logo, etc. -->
-                        <ad:xAdSetup page="home" ads="x22"/>
-                        <ad:x22/>
-                        <mod:memberBar
-                            state="${requestScope.context.stateOrDefault}"
-                            user="${requestScope.context.user}"/>
-                        <table id="main" border="0" cellspacing="0" cellpadding="0" width="100%">
-                            <tr>
-                                <td class="col1" valign="top">
-                                    <mod:globalNav/>
-                                    <jsp:include page="/parentPoll.module"/>
-                                </td>
-                                <td class="col2" valign="top">
-                                    <gsml:box tableClass="shade3" tableWidth="100%"><!--contentClass="button" valign="top"-->
-                                        <h1 class="moduleheader">My Child's School</h1>
-                                        <h3 class="tagline">Stats, tools and advice from GreatSchools, an independent nonprofit committed to helping parents</h3>
-                                        <div class="topcontentcol1">
-                                            <search:searchBox state="${requestScope.context.stateOrDefault}"/>
-                                            <div class="browselinks">
-                                                <gsml:a styleClass="nowrap" href="/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}">My School List</gsml:a>
-                                                <gsml:a styleClass="nowrap" href="/cgi-bin/cs_where/${requestScope.context.stateOrDefault.abbreviation}">Compare schools</gsml:a>
-                                                <gsml:a styleClass="nowrap" href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">Advanced search</gsml:a>
-                                            </div>
-                                            <promo:featuredArticleSmall/>
-                                        </div>
+    <title>${stateLongName} Schools</title>
+</head>
 
-                                        <div class="topcontentcol2">
+<body class="pathway1">
+<table id="pagemargin" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td valign="top">
+<!-- INCLUDE TOP content with logo, etc. -->
+<ad:xAdSetup page="home" ads="x22"/>
+<ad:x22/>
+<mod:memberBar
+        state="${requestScope.context.stateOrDefault}"
+        user="${requestScope.context.user}"/>
+<table id="main" border="0" cellspacing="0" cellpadding="0" width="100%">
+<tr>
+<td class="col1" valign="top">
+    <mod:globalNav/>
+    <jsp:include page="/parentPoll.module"/>
+</td>
+<td class="col2" valign="top">
+    <gsml:box tableClass="shade3" tableWidth="100%"><!--contentClass="button" valign="top"-->
+        <h1 class="moduleheader">My Child's School</h1>
 
-                                            <div class="featuredarticle">
-                                                <a href="#">
-                                                    <gsml:img src="/res/img/community/btn_rateyourschool.gif" alt="Rate your School" />
-                                                </a>
-                                                <br/>
-Spread the word about your school--post a review.
-                                                <br/>
-                                                <br/>
-                                                <h3 class="result_title">Sample Parent Review:</h3>
-                                                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star" />
-                                                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
-                                                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
-                                                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>(May 2005)
-                                                <br/>
-                                                <div class="parentQuote">
- "Dynamic, creative principal. Teachers who provide attention and dedication. Active group of parents involved..."</div>
-                                            </div><!-- featuredarticle -->
+        <h3 class="tagline">Stats, tools and advice from GreatSchools, an independent nonprofit
+            committed to helping parents</h3>
 
-                                        </div><!-- topcontentcol2 -->
-                                    </gsml:box>
-                                    <gsml:box tableClass="shade3" tableWidth="100%"><!--contentClass="button" -->
-                                        <promo:newsletterBig/>
-                                        <!--td class="button"
-style="background: #FFFFFF url(src/img/border_shade5_BG.gif); padding: 0px 0px 0px 0px;" valign="top" -->
-                                    </gsml:box>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </body>
-    </html>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td width="60%" valign="top">
+                    <div class="topcontentcol1">
+                        <search:searchBox state="${requestScope.context.stateOrDefault}"/>
+
+                        <div class="browselinks">
+                            <gsml:a styleClass="nowrap"
+                                    href="/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}">
+                                My School List</gsml:a>
+                            <gsml:a styleClass="nowrap"
+                                    href="/cgi-bin/cs_where/${requestScope.context.stateOrDefault.abbreviation}">
+                                Compare schools</gsml:a>
+                            <gsml:a styleClass="nowrap"
+                                    href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">
+                                Advanced search</gsml:a>
+                        </div>
+                        <promo:featuredArticleSmall/>
+                    </div>
+                </td><td  valign="top">
+                <div class="topcontentcol2">
+
+                    <div class="featuredarticle">
+                        <a href="#">
+                            <gsml:img src="/res/img/community/btn_rateyourschool.gif"
+                                      alt="Rate your School"/>
+                        </a>
+                        <br/>
+                        Spread the word about your school--post a review.
+                        <br/>
+                        <br/>
+
+                        <h3 class="result_title">Sample Parent Review:</h3>
+                        <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
+                        <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
+                        <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
+                        <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>(May 2005)
+                        <br/>
+
+                        <div class="parentQuote">
+                            "Dynamic, creative principal. Teachers who provide attention and dedication.
+                            Active group of parents involved..."</div>
+                    </div><!-- featuredarticle -->
+
+                </div><!-- topcontentcol2 -->
+            </td></tr></table>
+    </gsml:box>
+    <gsml:box tableClass="shade3" tableWidth="100%">
+        <a class="nohover" href="#"><h1 class="moduleheader">Navigate the Year with FREE News, Tips and
+            Advice!</h1></a>
+        <h4 class="tagline">Discover why <b>millions of parents</b> turn to GreatSchools each month</h4>
+
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td width="60%" valign="top">
+                    <div class="topcontentcol1">
+                        <promo:newsletterMedium/>
+                    </div>
+                </td><td  valign="top">
+                <div class="topcontentcol2" style="padding-bottom: 180px;">
+                    <!-- css hack b/c 100% height ignores margin setting -->
+                    <div class="columnHeader"><a href="#">Find Hot Topics Now</a></div>
+
+                    <div class="featuredarticle2">
+                        <h3 class="result_title">Today's Feature</h3>
+                        <img style="margin: 0px 0px 0px -4px; float: left;" src="src/img/icon_newarticle.gif"
+                             class="newarticle" alt="new"/><a href="/cgi-bin/showarticlefeature/$STATE/41"><b>Help
+                        and information for hurricane victims</b></a><br/>
+                        Hurricane Katrina hurried in like Hurricanes do occasionally, and this is more text just
+                        for position only. <a href="#">More...</a>
+                        <ul class="result_list nowrap"><li class="viewall"><a
+                                href="/cgi-bin/site/parent_tips.cgi/CA">Browse the latest topics</a></li></ul>
+
+                    </div><!-- featuredarticle -->
+
+                    <h3>Let our education experts guide you through
+                        a successful school year with articles written
+                        for the season:</h3>
+                    <ul class="promo">
+                        <li>Standardized tests</li>
+                        <li>Back to school</li>
+                        <li>Report cards</li>
+                        <li>Holidays</li>
+                        <li>Summer camps and more!</li>
+                    </ul>
+                    <ul class="result_list nowrap"><li class="viewall"><a
+                            href="/content/allArticles.page?state=CA">Browse full article library</a></li></ul>
+
+                </div><!-- topcontentcol2 -->
+            </td></tr></table>
+    </gsml:box>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</body>
+</html>
 </jsp:root>
 

@@ -22,7 +22,7 @@
                     <td class="C choosingPwy">
                         <h1>
                             <!--gsml:a href="/modperl/go/$STATE"> Choosing Schools </gsml:a-->
-                            <gsml:a href="/path/choose.page"> Choosing Schools </gsml:a>
+                            <gsml:a href="/modperl/go/$STATE"> Choosing Schools </gsml:a>
                         </h1>
                         <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE"> Top-Rated Schools </gsml:a>
                         <gsml:a href="#"> School Choice Center </gsml:a>
@@ -42,8 +42,7 @@
                 <c:if test="${requestScope.context.pathway!='1'}">
                     <td class="C choosingPwyClosed" >
                         <h1>
-                            <!--gsml:a href="/modperl/go/$STATE"> Choosing Schools </gsml:a-->
-                            <gsml:a href="/path/choose.page"> Choosing Schools </gsml:a>
+                            <gsml:a href="/modperl/go/$STATE"> Choosing Schools </gsml:a>
                         </h1>
                     </td>
                 </c:if>
@@ -119,7 +118,7 @@
                 </td>
                 <td class="C editorialPwy">
                     <h1>
-                        <gsml:a href="#pathway1"> Holiday Center </gsml:a>
+                        <gsml:a href="/cgi-bin/site/holiday_center.cgi"> Holiday Center </gsml:a>
                     </h1>
                 </td>
                 <td class="R">

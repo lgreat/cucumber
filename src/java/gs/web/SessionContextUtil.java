@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.4 2005/11/01 17:46:57 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.5 2005/11/01 21:13:10 apeterson Exp $
  */
 
 package gs.web;
@@ -9,7 +9,7 @@ import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.data.util.NetworkUtil;
+import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,7 +50,7 @@ public class SessionContextUtil {
 
     private IUserDao _userDao;
     private StateManager _stateManager;
-    private NetworkUtil _networkUtil = new NetworkUtil();
+    private UrlUtil _urlUtil = new UrlUtil();
 
 
     public void readCookies(HttpServletRequest httpServletRequest,
@@ -114,11 +114,11 @@ public class SessionContextUtil {
         if (StringUtils.isNotEmpty(paramCobrand)) {
             cobrand = paramCobrand;
         } else {
-            cobrand = _networkUtil.cobrandFromUrl(hostName);
+            cobrand = _urlUtil.cobrandFromUrl(hostName);
         }
 
         // Now see if we need to override the hostName
-        hostName = _networkUtil.buildPerlHostName(hostName, cobrand);
+        hostName = _urlUtil.buildPerlHostName(hostName, cobrand);
 
         updateStateFromParam(context, httpServletRequest);
 
@@ -202,14 +202,6 @@ public class SessionContextUtil {
 
     public void setStateManager(StateManager stateManager) {
         _stateManager = stateManager;
-    }
-
-    public NetworkUtil getNetworkUtil() {
-        return _networkUtil;
-    }
-
-    public void setNetworkUtil(NetworkUtil networkUtil) {
-        _networkUtil = networkUtil;
     }
 
 }

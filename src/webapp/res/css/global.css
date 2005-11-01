@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.28 2005/11/01 17:10:43 apeterson Exp $
+$Id: global.css,v 1.29 2005/11/01 21:13:02 apeterson Exp $
 ----------------------------------------------- */
 
 
@@ -154,16 +154,10 @@ tr.login td {font-size:10px;}
 tr.login td.col1 {text-align:left;padding-left:2px;}
 tr.login td.col2 {text-align:right;padding-right:3px;}
 
-/* page specific ?WHICH PAGE IS IT FOR? */
-.topcontentcol1 {width:60%;float:left;}
-.topcontentcol2 {width:40%;float:right;vertical-align:middle;padding-top:0px;}
-.browselinks {padding:6px 0px 15px 0px;width:50%;}
-
 
 
 /* PROMOS
 ----------------------------------------------- */
-#promoMembershipBig td { vertical-align:top;}
 
 .featuredarticle {margin:0px 0px 0px 5px;}
 .featuredarticle2 {margin:0px 0px 10px 0px;}
@@ -172,17 +166,28 @@ tr.login td.col2 {text-align:right;padding-right:3px;}
 /*WAS: table.promoNewsletterSmall {margin:20px 0px 0px 2px;}*/
 /*WAS: table.promoNewsletterSmall h3 {font-size:1em;font-weight:bold;margin:10px 0px 0px 0px;}*/
 table.promoNewsletterSmall {margin:6px 0px 0px 0px;}
-div.promoNewsletterBig {margin:0px 0px 0px 2px;}
-div.promoNewsletterBig img {float:right;margin:15px;}
-div.promoNewsletterBig a {font-weight:normal;}
-table.promoNewsletterSmall h2,
-div.promoNewsletterBig h2 {font-size:1.5em;font-weight:bold;margin:0px 0px 0px 0px;}
-table.promoNewsletterSmall h3,
-div.promoNewsletterBig h3 {font-size:1em;font-weight:bold;margin:10px 0px 5px 0px;}
-div.promoNewsletterBig .columnHeader a {font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;}
-table.promoNewsletterSmall .smallform,
+.promoNewsletterSmall h2 {font-size:1.5em;font-weight:bold;margin:0px 0px 0px 0px;}
+.promoNewsletterSmall h3,
+.promoNewsletterSmall .smallform {margin: 10px 0px 2px 0px;white-space:nowrap;}
+
+.promoNewsletterMedium {margin:0px 0px 0px 2px;}
+.promoNewsletterMedium img {float:right;margin:15px;}
+.promoNewsletterMedium a {font-weight:normal;}
+.promoNewsletterMedium h2 {font-size:1.5em;font-weight:bold;margin:0px 0px 0px 0px;}
+.promoNewsletterMedium h3 {font-size:1em;font-weight:bold;margin:10px 0px 5px 0px;}
+.promoNewsletterMedium .columnHeader  {font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#66C;}
+div.promoNewsletterMedium .smallform {margin: 10px 0px 2px 0px;white-space:nowrap;}
+
+.promoNewsletterBig {margin:0px 0px 0px 2px;}
+.promoNewsletterBig img {float:right;margin:15px;}
+.promoNewsletterBig a {font-weight:normal;}
+.promoNewsletterBig h2 {font-size:1.5em;font-weight:bold;margin:0px 0px 0px 0px;}
+.promoNewsletterBig h3 {font-size:1em;font-weight:bold;margin:10px 0px 5px 0px;}
+div.promoNewsletterBig .columnHeader a:link {font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#66C;}
 div.promoNewsletterBig .smallform {margin: 10px 0px 2px 0px;white-space:nowrap;}
 
+
+.promoMembershipBig td { vertical-align:top;}
 
 
 

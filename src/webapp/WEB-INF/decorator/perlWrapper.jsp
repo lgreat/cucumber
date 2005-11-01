@@ -2,6 +2,7 @@
                  gs.web.SessionFacade,
                  gs.data.util.NetworkUtil"%>
 <%@ page import="gs.data.state.State"%>
+<%@ page import="gs.web.util.UrlUtil"%>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -12,11 +13,11 @@
 <%
     ISessionFacade ctx = SessionFacade.getInstance(request);
 
-    NetworkUtil networkUtil = new NetworkUtil();
+    UrlUtil urlUtil = new UrlUtil();
 
     // Determine if we're on a server or a developers workstation with no perl
     String serverName = request.getServerName();
-    boolean developerWorkstation = networkUtil.isDeveloperWorkstation(serverName);
+    boolean developerWorkstation = urlUtil.isDeveloperWorkstation(serverName);
     pageContext.setAttribute("developerWorkstation", Boolean.valueOf(developerWorkstation), PageContext.REQUEST_SCOPE);
 
     if (developerWorkstation) {
