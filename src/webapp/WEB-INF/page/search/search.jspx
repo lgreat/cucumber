@@ -52,6 +52,7 @@
         }
     </script>
     ]]>
+    <ad:xAdSetup ads="x22,x20" page="search"/>
 </head>
 
 <body>
@@ -76,7 +77,6 @@
 </tr>
 <tr>
     <td colspan="2">
-        <ad:xAdSetup ads="x22" page="search"/>
         <ad:x22/>
     </td>
 </tr>
@@ -93,11 +93,17 @@
 
 <td>
 <table width="100%"><tr>
-
 <td width="160" valign="top">
-    <mod:globalNav />
+    <table>
+        <tr><td>
+            <mod:globalNav />
+        </td></tr>
+        <tr align="center"><td>
+            <ad:x20/>
+        </td></tr>
+    </table>
 </td>
-<td>
+<td valign="top">
 <table width="100%">
 <tr>
     <td>
@@ -117,7 +123,7 @@
 
         <c:choose>
             <c:when test="${param.c == 'school'}">
-                <gsml:decorator tagclass="main">
+                <gsml:box tableClass="shade3 resultoverview">
                     <table>
                         <tr>
                             <td>Refine results:</td>
@@ -136,19 +142,19 @@
                                        total="${results.schoolsTotal}"
                                        parameters="${paramValues}"
                                        page="${param.p}"/>
-                </gsml:decorator>
+                </gsml:box>
                 <gsml:fireclick pageType="search" pageName="school-results"/>
             </c:when>
 
             <c:when test="${param.c == 'article'}">
-                <gsml:decorator tagclass="main">
+                <gsml:box tableClass="shade3 resultoverview">
                     <gsweb:articletable articles="${results.articles}"
                                         query="${param.q}"
                                         sortColumn="${param.sort}"
                                         reverse="${param.r}"
                                         total="${results.articlesTotal}"
                                         page="${param.p}"/>
-                </gsml:decorator>
+                </gsml:box>
                 <gsml:fireclick pageType="search" pageName="article-results"/>
             </c:when>
 
@@ -221,12 +227,6 @@
 </tr>
 </table>
 
-<!-- end experimental..........  -->
-<!--
-<table id="pagemargin" border="0" cellspacing="0" cellpadding="0"
-       class="border">
-       -->
-
 <!--
 <c:if test="${not empty results.suggestion}">
     Did you mean:
@@ -238,57 +238,6 @@
 </c:if>
 -->
 
-<!-- debug output -->
-
-<!--
-<c:if test="${not empty param.debug}">
-    <div id="debug"><hr/>
-        <table>
-            <tr>
-                <td>
-                    <ul>
-                        <li><c:out
-                                value="Request Time: ${results.requesttime} ms"/>
-                        </li>
-                        <li>
-                            <ul>
-                                <c:forEach items="${results.queries}"
-                                           var="query">
-                                    <li>
-                                        <c:out value="query: ${query}"/>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        </li>
-                        <li><c:out
-                                value="Created: ${pageContext.request.session.creationTime}"/>
-                        </li>
-                        <li><c:out
-                                value="User prin: ${pageContext.request.userPrincipal.name}"/>
-                        </li>
-                        <li>
-                            <c:forEach items="${headerValues}" var="h">
-                                <br/>
-                                <b><c:out value="${h.key}"/></b>
-                                <c:forEach items="${h.value}" var="value">
-                                    <c:out value="${value}"/>
-                                </c:forEach>
-
-                            </c:forEach>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        </table>
-        <hr/></div>
-</c:if>
-</td>
-</tr>
-</table>
-</td></tr>
-</table>
--->
 </body>
 </html>
-
 </jsp:root>
