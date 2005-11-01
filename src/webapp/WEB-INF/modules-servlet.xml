@@ -2,6 +2,16 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
+    <bean name="defaultHandlerMapping"
+          class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
+        <property name="interceptors">
+            <list>
+                <ref local="sessionContextInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+
     <bean id="sessionContextInterceptor"
         class="gs.web.SessionContextInterceptor"
         autowire="byName">
