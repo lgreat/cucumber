@@ -1,7 +1,7 @@
 package gs.web.search;
 
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.JspContext;
 import java.io.IOException;
 import java.util.Set;
 import java.util.HashSet;
@@ -148,9 +148,28 @@ public class SchoolFiltersTag extends BaseQueryTagHandler {
         out.println("</div>");
 
         out.println("</td>");
-        out.println ("<td><input type=\"submit\" value=\"Filter Schools\" /></td>");
+        out.println ("<td><input type=\"submit\" value=\"Refine Results\" /></td>");
         out.println("</tr></table>");
-
+        writeHiddenAttributes(out);
         out.println("</form>");
+    }
+
+    private void writeHiddenAttributes(JspWriter out) throws IOException {
+        JspContext jspContext = getJspContext();
+        if (jspContext != null) {
+            String city = (String)jspContext.findAttribute("city");
+            if (city != null) {
+                out.print("<input type=\"hidden\" name=\"city\" value=\"");
+                out.print(city);
+                out.print("\">");
+            } else {
+                String distID = (String)jspContext.findAttribute("district");
+                if (distID != null) {
+                    out.print("<input type=\"hidden\" name=\"district\" value=\"");
+                    out.print(distID);
+                    out.print("\">");
+                }
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ import gs.data.content.Article;
 import gs.data.content.IArticleDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
+import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.ISessionFacade;
@@ -25,6 +26,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
     private static final Logger _log = Logger.getLogger(BaseTagHandler.class);
     private static ISchoolDao _schoolDao;
     private static IArticleDao _articleDao;
+    private static IDistrictDao _districtDao;
     private static StateManager _stateManager = new StateManager();
 
     protected ISchoolDao getSchoolDao() {
@@ -72,6 +74,20 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
             _log.warn("error retrieving school: ", e);
         }
         return school;
+    }
+
+    protected IDistrictDao getDistrictDao() {
+        if (_districtDao == null) {
+            try {
+                ISessionFacade sc = getSessionContext();
+                if (sc != null) {
+                    _districtDao = (IDistrictDao) sc.getApplicationContext().getBean(IDistrictDao.BEAN_ID);
+                }
+            } catch (Exception e) {
+                _log.warn("problem getting IDistrictDao: ", e);
+            }
+        }
+        return _districtDao;        
     }
 
     protected String escapeLongstate(String title) {

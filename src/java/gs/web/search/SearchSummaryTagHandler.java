@@ -1,10 +1,12 @@
 package gs.web.search;
 
 import gs.data.state.State;
+import gs.data.school.district.District;
 import gs.web.jsp.BaseTagHandler;
 import org.apache.taglibs.standard.functions.Functions;
 
 import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.JspContext;
 import java.io.IOException;
 
 /**
@@ -61,12 +63,10 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
     }
 
     public void setSchoolsTotal(int count) {
-        System.out.println("schools: " + count);
         _schoolsTotal = count;
     }
 
     public void setArticlesTotal(int articlesTotal) {
-        System.out.println("articles: " + articlesTotal);
         _articlesTotal = articlesTotal;
     }
 
@@ -89,14 +89,42 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
         int total = _schoolsTotal + _articlesTotal + _districtsTotal +
                 _citiesTotal + _termsTotal;
 
+        JspContext jspContext = getJspContext();
+        String city = null;
+        String dist = null;
+
+        if (jspContext != null) {
+            city = (String)jspContext.findAttribute("city");
+            if (city == null) {
+                String distID = (String)jspContext.findAttribute("district");
+                if (distID != null) {
+                    District district =
+                            getDistrictDao().findDistrictById(getState(),
+                                    Integer.valueOf(distID));
+                    dist = district.getName();
+                }
+            }
+        }
+
         if (total > 0) {
             out.println("<table><tr><td class=\"resultheadline\">");
 
             switch(getConstraint()) {
                 case SCHOOLS:
-                    out.print("<b>Schools</b> with &nbsp;&quot;<span class=\"searchfor\">");
-                    out.print(_query);
-                    out.print("</span>&quot;&nbsp; in name&nbsp;(");
+                    out.print("<b>Schools</b>");
+                    if (city != null) {
+                        out.print(" in the city of &quot;<span class=\"searchfor\">");
+                        out.print(city);
+                        out.print("</span>&quot;&nbsp;(");
+                    } else if (dist != null) {
+                        out.print(" in the district&nbsp;&quot;<span class=\"searchfor\">");
+                        out.print(dist);
+                        out.print("</span>&quot;&nbsp;(");
+                    } else {
+                        out.print(" with &nbsp;&quot;<span class=\"searchfor\">");
+                        out.print(_query);
+                        out.print("</span>&quot;&nbsp; in name&nbsp;(");
+                    }
                     out.print(_schoolsTotal);
                     out.println("&nbsp;Results)");
                     break;
@@ -216,7 +244,13 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
         } else {
             out.println ("<table><tr><td>");
             out.print("<span class=\"resultheadline\">Your search for <b>\"");
-            out.print(_query);
+            if (city != null) {
+                out.print(city);
+            } else if (dist != null) {
+                out.print(dist);
+            } else {
+                out.print(_query);
+            }
             out.println("\"</b> did not return any results.</span>");
             out.println ("</td><td class=\"searchbyaddress\">");
             writeSearchNearLink(out);
@@ -231,8 +265,8 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
         out.print(getSessionContext().getHostName());
         out.print("/cgi-bin/template_plain/advanced/");
         out.print(getStateOrDefault());
-        out.print("\">");
-        out.println("Search near address</a>");
+        out.print("/#address\">");
+        out.println("Search near Address</a>");
     }
 
     private String getStateParam() {

@@ -7,6 +7,8 @@ import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.taglibs.standard.functions.Functions;
+
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
@@ -51,19 +53,28 @@ public class CityDistTableTagHandler extends ResultsTableTagHandler {
                     out.println("<td>");
 
                     if (_type != null && _type.equals("city")) {
-                        out.print("<a href=\"/search/search.page?c=school&amp;q=city:");
+
+                        out.print("<a href=\"/search/search.page?q=");
+                        out.print(Functions.escapeXml(getQueryString()));
+                        out.print("&c=school&amp;city=");
                         out.print(result.getCity());
                         out.print("&state=");
                         out.print(result.getState());
                         out.print("\">");
+
                         out.print(TextHighlighter.highlight(result.getCityAndState(), getQueryString(), "address"));
                         out.print("</a>");
                     } else {
-                        out.print("<a href=\"/search/search.page?c=district&q=district:");
+
+
+                        out.print("<a href=\"/search/search.page?c=school&q=district:");
+                        out.print(result.getId());       ///
+                        out.print("&district=");     /// Todo: this is crap ugly
                         out.print(result.getId());
-                        out.print("&c=school&state=");
+                        out.print("&state=");
                         out.print(result.getState());
                         out.print("\">");
+
                         out.print(TextHighlighter.highlight(result.getName(), getQueryString(), "name"));
                         out.print("</a>");
                         String ss = result.getCityAndState();

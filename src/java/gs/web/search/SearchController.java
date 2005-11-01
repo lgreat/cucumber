@@ -91,6 +91,13 @@ public class SearchController extends AbstractFormController {
         if (command != null && command instanceof SearchCommand &&
                 queryString != null && !queryString.equals("")) {
             SearchCommand sc = (SearchCommand)command;
+            
+            // set up the city and dist attributes, needed by searchsummary
+            if (sc.getCity() != null) {
+                request.setAttribute("city", sc.getCity());
+            } else if (sc.getDistrict() != null) {
+                request.setAttribute("district", sc.getDistrict());
+            }
 
             int page = 1;
             String p = request.getParameter("p");

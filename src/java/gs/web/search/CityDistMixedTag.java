@@ -10,19 +10,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * This <code>TagHandler</code> writes a table containing two search reuslt
+ * colums: the left column containing cities results and the right column
+ * containing district results.
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class CityDistMixedTag extends BaseQueryTagHandler {
 
     public static final String BEAN_ID = "cityDistMixedTag";
-    private String _query;
     private Map _results;
     private static final int CITIES_MAX = 3;
     private static final int DISTRICTS_MAX = 3;
-
-    public void setQuery(String q) {
-        _query = Functions.escapeXml(q);
-    }
 
     public void setResults(Map results) {
         _results = results;
@@ -49,8 +47,7 @@ public class CityDistMixedTag extends BaseQueryTagHandler {
 
             for (int i = 0; i < cities.size(); i++) {
                 SearchResult sr = (SearchResult) cities.get(i);
-                out.print("<li>");
-                out.print("<a href=\"/search/search.page?q=");
+                out.print("<li class=\"citydist\"><a href=\"/search/search.page?q=");
                 out.print(Functions.escapeXml(_query));
                 out.print("&c=school&amp;city=");
                 out.print(sr.getCity());
@@ -102,8 +99,9 @@ public class CityDistMixedTag extends BaseQueryTagHandler {
             for (int i = 0; i < count; i++) {
                 SearchResult sr = (SearchResult) districts.get(i);
                 String s = sr.getState();
-                out.print("<li>");
-                out.print("<a href=\"/search/search.page?c=school&q=district:");
+                out.print("<li class=\"citydist\"><a href=\"/search/search.page?c=school&q=district:");
+                out.print(sr.getId());       ///
+                out.print("&district=");     /// Todo: this is crap ugly
                 out.print(sr.getId());
                 out.print("&state=");
                 out.print(s);
