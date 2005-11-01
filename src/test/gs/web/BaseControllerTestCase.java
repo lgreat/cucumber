@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: BaseControllerTestCase.java,v 1.1 2005/10/26 20:51:33 apeterson Exp $
+ * $Id: BaseControllerTestCase.java,v 1.2 2005/11/01 00:30:06 thuss Exp $
  */
 
 package gs.web;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class BaseControllerTestCase extends BaseTestCase {
-    private HttpServletRequest _request;
-    private HttpServletResponse _response;
+    private MockHttpServletRequest _request;
+    private MockHttpServletResponse _response;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -39,12 +39,14 @@ public class BaseControllerTestCase extends BaseTestCase {
         _response = new MockHttpServletResponse();
     }
 
-    public HttpServletRequest getRequest() {
+    public MockHttpServletRequest getRequest() {
         return _request;
     }
 
-    public HttpServletResponse getResponse() {
+    public MockHttpServletResponse getResponse() {
         return _response;
     }
+
+
 
 }
