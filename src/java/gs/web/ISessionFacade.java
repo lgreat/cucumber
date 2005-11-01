@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ISessionFacade.java,v 1.2 2005/10/24 21:53:04 apeterson Exp $
+ * $Id: ISessionFacade.java,v 1.3 2005/11/01 17:06:00 apeterson Exp $
  */
 
 package gs.web;
@@ -17,7 +17,6 @@ import org.springframework.context.ApplicationContext;
  * Additionally, we can enforce rules like "the user's current geographic state is available",
  * and not mess with checks to make sure values are in the session. See {@link #getStateOrDefault()} for
  * an example of this.
- * <p />
  * Finally, this class gets called at the beginning of each request, and can
  * perform global operations like changing the user's state, host or cobrand.
  *
@@ -27,11 +26,28 @@ public interface ISessionFacade {
 
     ApplicationContext getApplicationContext();
 
+    /**
+     * Current user, if known. This does NOT guarantee that this is a subscribed
+     * user. Other tests must be used to protect paid content.
+     */
     User getUser();
 
+    /**
+     * Current state (of the U.S.).
+     */
     State getState();
 
+    /**
+     * Guaranteed non-null state.
+     */
     State getStateOrDefault();
+
+    /**
+     * A pathway of "1", "2" or "3", or null for no pathway.
+     */
+    String getPathway();
+
+    void setPathway(String pathway);
 
     String getCobrand();
 

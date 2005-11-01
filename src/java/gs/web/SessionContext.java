@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.19 2005/10/24 21:53:04 apeterson Exp $
+ * $Id: SessionContext.java,v 1.20 2005/11/01 17:06:00 apeterson Exp $
  */
 package gs.web;
 
@@ -39,6 +39,7 @@ public class SessionContext
     private String _hostName;
     private User _user;
     private State _state;
+    private String _pathway;
 
     private ApplicationContext _applicationContext;
 
@@ -128,4 +129,12 @@ public class SessionContext
         _applicationContext = applicationContext;
     }
 
+
+    public String getPathway() {
+        return _pathway;
+    }
+
+    public void setPathway(String pathway) {
+        _pathway = pathway;
+    }
 }
