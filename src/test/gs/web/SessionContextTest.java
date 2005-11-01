@@ -2,7 +2,6 @@ package gs.web;
 
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.data.util.NetworkUtil;
 import junit.framework.TestCase;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -21,7 +20,6 @@ public class SessionContextTest extends TestCase {
 
         _sessionContextUtil = new SessionContextUtil();
         _sessionContextUtil.setStateManager(new StateManager());
-        _sessionContextUtil.setNetworkUtil(new NetworkUtil());
     }
 
     public void testHostDeveloperWorkstation() {

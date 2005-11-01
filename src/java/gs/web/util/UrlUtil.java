@@ -1,14 +1,19 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.3 2005/10/27 21:10:45 apeterson Exp $
+ * $Id: UrlUtil.java,v 1.4 2005/11/01 21:11:28 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.data.state.State;
 import gs.web.ISessionFacade;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Wrapping and URL munging tools.
@@ -18,13 +23,131 @@ import javax.servlet.http.HttpServletRequest;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public final class UrlUtil {
+    private static final Log _log = LogFactory.getLog(UrlUtil.class);
+
+    /**
+     * Given a hostname, extracts the cobrand, or what looks like
+     * a cobrand from it. Returns null for no cobrand.
+     */
+    public String cobrandFromUrl(String hostName) {
+        String cobrandName = null;
+        final boolean isCobrand = !hostName.startsWith("www")
+                && !hostName.startsWith("staging")
+                && !hostName.startsWith("dev")
+                && !hostName.startsWith("localhost")
+                && !hostName.startsWith("dlee")
+                && !hostName.startsWith("apeterson")
+                && !hostName.startsWith("thuss")
+                && !hostName.startsWith("chriskimm")
+                && !hostName.startsWith("comphead")
+                && hostName.indexOf('.') != -1;
+        if (isCobrand) {
+            cobrandName = hostName.substring(0, hostName.indexOf("."));
+            // Need special cases for greatschools.cobrand.com like babycenter
+            if (hostName.startsWith("greatschools.")) {
+                int firstDot = hostName.indexOf(".");
+                int lastDot = hostName.lastIndexOf(".");
+                if (lastDot > firstDot) {
+                    cobrandName = hostName.substring(firstDot + 1, lastDot);
+                }
+            }
+        }
+        return cobrandName;
+    }
+
+    public String buildPerlHostName(String hostName, String cobrand) {
+        if (StringUtils.contains(hostName, "localhost")) {
+            String dev = "dev.greatschools.net";
+            return (cobrand == null) ? dev : cobrand + "." + dev;
+
+            // Else if it's the main website but with the cobrand parameter passed
+            // then we return the full cobrand URL
+        } else if (cobrand != null &&
+                (hostName.startsWith("www") ||
+                        hostName.startsWith("staging") ||
+                        hostName.startsWith("dev"))) {
+            // dev.greatschools.net?cobrand=sfgate -> sfgate.dev.greatschools.net
+            String hn = cobrand + "." + hostName;
+            // azcentral.www.greatschools.net -> azcentral.greatschools.net
+            return hn.replaceFirst(".www.", ".");
+        } else {
+            return hostName;
+        }
+
+    }
+
+    /**
+     * Examines the dest URL and returns a URL that will work from the given
+     * src location. It attempts to deliver the smallest possible URL
+     * that will work.
+     *
+     * @param dest         the site-relative link to the destination page or resource
+     * @param isDestSecure should the dest page be access via https?
+     * @param src          the current location. Should be a Java page.
+     * @see javax.servlet.http.HttpServletRequest#getRequestURI()
+     */
+    public String buildHref(String dest, boolean isDestSecure, String src) {
+        _log.debug("dest=" + dest + " isDestSecure?" + isDestSecure + " src=" + src);
+        boolean destIsPerl = smellsLikePerl(dest);
+        try {
+            URL sourceUrl = new URL(src);
+            if (isDeveloperWorkstation(sourceUrl.getHost())) {
+                if (destIsPerl) {
+                    return "http://dev.greatschools.net" + dest;
+                } else {
+                    return dest;
+                }
+            } else {
+                if ("https".equals(sourceUrl.getProtocol())) {
+                    if (destIsPerl) {
+                        return "http://" +
+                                sourceUrl.getHost() +
+                                "" + dest;
+                    } else {
+                        if (isDestSecure) {
+                            return dest;
+                        } else {
+                            return "http://" +
+                                    sourceUrl.getHost() +
+                                    "" + dest;
+                        }
+                    }
+                }
+                // Anywhere but a developer workstation and we should be able to use the relative
+                // link.
+                return dest;
+            }
+
+        } catch (MalformedURLException e) {
+            _log.warn("Unable to interpret current page as URL", e);
+            return dest;
+        }
+    }
+
+
+    /**
+     * Returns true if it looks like the given resource needs to be sought from
+     * the perl site. This is useful in building out URLs during development. Since
+     * a programmers dev site is hosted on a different machine, this is usful to know
+     * if a non-relative URL must be used.
+     */
+    public boolean smellsLikePerl(String partialUrl) {
+        if ((partialUrl.indexOf("res/") == -1 && partialUrl.indexOf(".page") == -1)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isDeveloperWorkstation(String hostName) {
+        return hostName.indexOf("localhost") > -1;
+    }
+
 
     /**
      * Generates a url from the given requested resource. Common bottleneck for URL
      * building.
-     * <p />
      * This routine can grow as we decide to do more or less with URLs.
-     * <p />
      * It does substitution of $VARIABLES, per Perl world. The current variables
      * supported are:
      * <ul>
@@ -33,11 +156,9 @@ public final class UrlUtil {
      * This variable is taken from the request attribute named of the same name,
      * and if not found there, it uses the ISessionFacade available from the
      * request.
-     * <p />
      * It will add the appropriate server name if this is a link to a perl page.
      * This is most helpful in the dev environment, but this bottleneck allows us
      * to use the same code for test and deploy environments.
-     * <p />
      * It does not guarantee to build the smallest possible URL, but it attempts
      * to do so.
      */
@@ -51,7 +172,7 @@ public final class UrlUtil {
 
         // If the application is deployed under say /gs-web instead of /
         if (href.startsWith("/") && request.getContextPath().length() > 1 &&
-                !networkUtil.smellsLikePerl(href)) {
+                !smellsLikePerl(href)) {
             href = request.getContextPath() + href;
         }
 
@@ -84,7 +205,7 @@ public final class UrlUtil {
 
         final String src = request.getRequestURL().toString();
 
-        href = networkUtil.buildHref(href, false, src);
+        href = buildHref(href, false, src);
 
         return href;
     }

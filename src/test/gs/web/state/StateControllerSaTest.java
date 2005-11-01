@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StateControllerSaTest.java,v 1.6 2005/10/29 00:45:52 apeterson Exp $
+ * $Id: StateControllerSaTest.java,v 1.7 2005/11/01 21:11:04 apeterson Exp $
  */
 
 package gs.web.state;
@@ -41,7 +41,7 @@ public class StateControllerSaTest extends BaseControllerTestCase {
         assertEquals("Fresno Unified", districtAnchor.getContents());
         Anchor last = (Anchor) results.get(4);
         assertEquals("San Francisco Unified", last.getContents());
-        assertEquals("/cgi-bin/ca/district_profile/717", last.getHref());
+        assertEquals("/modperl/browse_district/717/ca", last.getHref());
         assertNotNull(modelAndView.getModel().get("results"));
 
         Anchor veryLast = (Anchor) results.get(5);
@@ -66,7 +66,7 @@ public class StateControllerSaTest extends BaseControllerTestCase {
         assertEquals("AK District A", districtAnchor.getContents());
         districtAnchor = (Anchor) results.get(3);
         assertEquals("AK District D", districtAnchor.getContents());
-        assertEquals("/cgi-bin/ak/district_profile/25", districtAnchor.getHref());
+        assertEquals("/modperl/browse_district/25/ak", districtAnchor.getHref());
         last = (Anchor) results.get(4);
         assertEquals("View all Alaska districts", last.getContents());
         assertEquals("/modperl/distlist/AK", last.getHref());

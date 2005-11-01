@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopDistrictsController.java,v 1.6 2005/11/01 17:46:57 apeterson Exp $
+ * $Id: TopDistrictsController.java,v 1.7 2005/11/01 21:10:52 apeterson Exp $
  */
 
 package gs.web.state;
@@ -30,6 +30,9 @@ import java.util.Map;
 public class TopDistrictsController extends AbstractController {
     private String _viewName;
     private IDistrictDao _districtDao;
+    private String _urlTemplate = "/modperl/browse_district/$DISTRICT/$STATE";
+    //                            "/cgi-bin/$STATE/district_profile/$DISTRICT"
+
 
     /**
      * Handle a request for the top districts ina given state.
@@ -48,7 +51,6 @@ public class TopDistrictsController extends AbstractController {
         Integer[] districtIds = state.getTopDistricts();
         List items = new ArrayList(districtIds.length);
         for (int i = 0; i < districtIds.length; i++) {
-            Anchor anchor;
             /*
                 There's some extra error handling code here specifically designed
                 to get us through testing/development environments. If the given
@@ -58,16 +60,17 @@ public class TopDistrictsController extends AbstractController {
                 If this is a real district, we will see references to it in
                 the 404 report-- but there may be a better way to fix this.
             */
+            String url = _urlTemplate;
+            url = url.replaceAll("\\$STATE", state.getAbbreviationLowerCase());
+            url = url.replaceAll("\\$DISTRICT", districtIds[i].toString());
+            String name;
             try {
                 District district = _districtDao.findDistrictById(state, districtIds[i]);
-                anchor = new Anchor("/cgi-bin/" + state.getAbbreviationLowerCase() +
-                        "/district_profile/" + districtIds[i],
-                        district.getName());
+                name = district.getName();
             } catch (Exception e) {
-                anchor = new Anchor("/cgi-bin/" + state.getAbbreviationLowerCase() +
-                        "/district_profile/" + districtIds[i],
-                        state.getAbbreviation() + " District " + "ABCDEFG".substring(i, i + 1));
+                name = state.getAbbreviation() + " District " + "ABCDEFG".substring(i, i + 1);
             }
+            Anchor anchor = new Anchor(url, name);
             items.add(anchor);
         }
         items.add(new Anchor("/modperl/distlist/" + state.getAbbreviation(),
