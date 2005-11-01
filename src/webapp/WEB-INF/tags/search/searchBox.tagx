@@ -21,20 +21,20 @@
                     <input type="hidden" name="state" value="${state.abbreviation}"/>
                 </c:if>
                 <c:if test="${state == null}">
-                    <!--                        onChange="window.location.href='/modperl/go/' + this.value.toUpperCase()"-->
-                    <gsml:url var="pathPage" value="/path/choose.page?state="/>
+                    <gsml:url var="u" value="/modperl/go/" />
                     <gsweb:stateSelector
                         styleClass="globalsearch"
-                        onChange="window.location.href='${pathPage}' + this.value.toUpperCase()"
+                        onChange="window.location.href='${u}' + this.value.toUpperCase()"
                         allowNoState="${param.state == 'all'}"
                         useLongNames="true"/>
                     &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
                     &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
                 </c:if>
                 <input type="text" value="${searchPrompt}"
-                    onfocus="if (this.value=='${searchPrompt}') this.value='';"
-                    onblur="if (this.value=='') this.value='${searchPrompt}';"
-                    class="globalsearch textfield" name="q"/>
+                    onfocus="this.className='globalsearch textfieldfocused';if (this.value=='${searchPrompt}') this.value='';"
+                    onblur="this.className='globalsearch textfieldblurred';if (this.value=='') this.value='${searchPrompt}';"
+                    class="globalsearch textfieldblurred"
+                    name="q"/>
                 <gsml:inputImage styleClass="btn" src="/res/img/button/btn_go.gif" alt="GO"/>
             </gsml:form>
         </c:if>

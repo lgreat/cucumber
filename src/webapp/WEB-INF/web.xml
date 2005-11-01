@@ -57,6 +57,17 @@
         <url-pattern>*.page</url-pattern>
     </servlet-mapping>
 
+    <!--servlet>
+        <servlet-name>legacy</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>legacy</servlet-name>
+        <url-pattern>/modperl/go/*</url-pattern>
+    </servlet-mapping-->
+
     <servlet>
         <servlet-name>modules</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -85,6 +96,16 @@
         <filter-name>sitemesh</filter-name>
         <url-pattern>*.page</url-pattern>
     </filter-mapping>
+
+    <!--filter>
+        <filter-name>sitemeshLegacy</filter-name>
+        <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>sitemeshLegacy</filter-name>
+        <url-pattern>/modperl/go/*</url-pattern>
+    </filter-mapping-->
 
     <!--
     <filter>
