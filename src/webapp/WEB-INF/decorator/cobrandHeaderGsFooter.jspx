@@ -44,7 +44,8 @@
             <div id="headerGS">
                 <div id="headerLogo">
                     <gsml:url var="logoImage" value="/res/img/logo/logo_GS_260x40.gif"/>
-                    <a href="/"><img alt="GreatSchools.net Logo" src="${logoImage}"/></a>
+                    <gsml:url var="splashPage" value="/?state=$STATE"/>
+                    <a href="${splashPage}"><img alt="GreatSchools.net Logo" src="${logoImage}"/></a>
                 </div>
 
                 <div id="headerSearch">
