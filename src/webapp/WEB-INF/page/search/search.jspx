@@ -101,7 +101,7 @@
 <table width="100%">
 <tr>
     <td>
-        <gsml:decorator tagclass="resultoverview">
+        <gsml:box tableClass="shade3 resultoverview">
             <gsweb:searchsummary query="${param.q}"
                                  schoolsTotal="${results.schoolsTotal}"
                                  articlesTotal="${results.articlesTotal}"
@@ -109,7 +109,7 @@
                                  districtsTotal="${results.districtsTotal}"
                                  termsTotal="${results.termsTotal}"
                                  constrain="${param.c}"/>
-        </gsml:decorator>
+        </gsml:box>
     </td>
 </tr>
 <tr>
@@ -153,7 +153,7 @@
             </c:when>
 
             <c:when test="${param.c == 'city'}">
-                <gsml:decorator tagclass="main">
+                <gsml:box tableClass="shade3 main">
                     <gsweb:citydistricttable results="${results.cities}"
                                              type="city"
                                              query="${param.q}"
@@ -161,12 +161,12 @@
                                              reverse="${param.r}"
                                              total="${results.citiesTotal}"
                                              page="${param.p}"/>
-                </gsml:decorator>
+                </gsml:box>
                 <gsml:fireclick pageType="search" pageName="city-results"/>
             </c:when>
 
             <c:when test="${param.c == 'district'}">
-                <gsml:decorator tagclass="main">
+                <gsml:box tableClass="shade3 main">
                     <gsweb:citydistricttable results="${results.districts}"
                                              type="district"
                                              query="${param.q}"
@@ -174,19 +174,19 @@
                                              reverse="${param.r}"
                                              total="${results.districtsTotal}"
                                              page="${param.p}"/>
-                </gsml:decorator>
+                </gsml:box>
                 <gsml:fireclick pageType="search" pageName="district-results"/>
             </c:when>
 
             <c:when test="${param.c == 'term'}">
-                <gsml:decorator tagclass="main">
+                <gsml:box tableClass="shade3 main">
                     <gsweb:termtable results="${results.terms}"
                                      query="${param.q}"
                                      sortColumn="${param.sort}"
                                      reverse="${param.r}"
                                      total="${results.termsTotal}"
                                      page="${param.p}"/>
-                </gsml:decorator>
+                </gsml:box>
                 <gsml:fireclick pageType="search" pageName="term results"/>
             </c:when>
 
@@ -197,15 +197,15 @@
                                                  results.articlesTotal +
                                                  results.citiesTotal +
                                                  results.districtsTotal) > 0}">
-                    <gsml:decorator tagclass="main">
+                    <gsml:box tableClass="shade3 main">
                         <gsweb:citydistmixed query="${param.q}"
                                              results="${results}"/>
-                    </gsml:decorator>
+                    </gsml:box>
                 </c:if>
-                <gsml:decorator tagclass="main">
+                <gsml:box tableClass="shade3 main">
                     <gsweb:mixedresults query="${param.q}"
                                         results="${results}"/>
-                </gsml:decorator>
+                </gsml:box>
                 <gsml:fireclick pageType="search" pageName="mixed-results"/>
             </c:otherwise>
         </c:choose>
