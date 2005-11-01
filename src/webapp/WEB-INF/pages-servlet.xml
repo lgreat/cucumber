@@ -16,6 +16,10 @@
         </property>
     </bean>
 
+    <!--bean name="lecacyHandlerMapping"
+        class="gs.web.util.LegacyHandlerMapping">
+        </bean-->
+
     <bean id="sessionContextInterceptor"
           class="gs.web.SessionContextInterceptor"
           autowire="byName">
@@ -25,13 +29,6 @@
     <!--        class="gs.web.community.InsiderOnlyInterceptor"-->
     <!--        autowire="byName">-->
     <!--    </bean>-->
-
-    <!-- factory bean for user session information -->
-    <bean id="sessionContext"
-          class="gs.web.SessionContext"
-          autowire="byName"
-          singleton="false">
-    </bean>
 
     <!-- WEB PAGE DEFINITIONS BEGIN -->
 

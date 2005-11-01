@@ -25,6 +25,13 @@
         class="gs.web.search.SearchSummaryTagHandler">
     </bean>
 
+    <!-- factory bean for user session information -->
+    <bean id="sessionContext"
+          class="gs.web.SessionContext"
+          autowire="byName"
+          singleton="false">
+    </bean>
+
     <bean id="sessionContextUtil"
         class="gs.web.SessionContextUtil"
         autowire="byName">
