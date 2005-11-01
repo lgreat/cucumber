@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.6 2005/11/01 19:33:59 thuss Exp $
+ * $Id: StatePathwayController.java,v 1.7 2005/11/01 19:58:03 thuss Exp $
  */
 package gs.web.state;
 
@@ -64,10 +64,10 @@ public class StatePathwayController extends AbstractController {
             //redirect to the correct pathway
             Map params = new HashMap();
             if (pathwayUrl.matches(".+modperl.+|.+cgi-bin.+")) {
-                pathwayUrl += "/" + state.getAbbreviationLowerCase();
+                pathwayUrl += "/" + state.getAbbreviation();
                 isContextRelative = false;
             } else {
-                params.put("state", state.getAbbreviationLowerCase());
+                params.put("state", state.getAbbreviation());
             }
 
             pathwayUrl = urlUtil.buildUrl(pathwayUrl, request);
