@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextInterceptor.java,v 1.6 2005/10/27 20:54:25 thuss Exp $
+ * $Id: SessionContextInterceptor.java,v 1.7 2005/11/01 17:46:57 apeterson Exp $
  */
 package gs.web;
 
@@ -44,8 +44,8 @@ public class SessionContextInterceptor
      */
     private static final String SESSION_ATTRIBUTE_NAME = "context";
 
-    public boolean preHandle(HttpServletRequest httpServletRequest,
-                             HttpServletResponse httpServletResponse,
+    public boolean preHandle(HttpServletRequest request,
+                             HttpServletResponse response,
                              Object o) throws Exception {
         /**
          * Set pages to not be cached since almost all pages include the member bar now or some
@@ -53,11 +53,11 @@ public class SessionContextInterceptor
          * tag doesn't work due to a sitemesh bug (see gsml:nocache tag for more info) it's here
          * for the time being.
          */
-        httpServletResponse.setHeader("Cache-Control", "no-cache");
-        httpServletResponse.setHeader("Pragma", "no-cache");
-        httpServletResponse.setDateHeader("Expires", 0);
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
 
-        HttpSession session = httpServletRequest.getSession();
+        HttpSession session = request.getSession();
         SessionContext context
                 = (SessionContext) session.getAttribute(SESSION_ATTRIBUTE_NAME);
 
@@ -69,10 +69,11 @@ public class SessionContextInterceptor
             session.setAttribute(SESSION_ATTRIBUTE_NAME, context);
         }
 
-        httpServletRequest.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, context);
+        request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, context);
 
-        _sessionContextUtil.readCookies(httpServletRequest, context);
-        _sessionContextUtil.updateFromParams(httpServletRequest, context);
+        _sessionContextUtil.readCookies(request, context);
+        _sessionContextUtil.updateFromRequestAttributes(request, context);
+        _sessionContextUtil.updateFromParams(request, context);
 
         return true; // go on
     }

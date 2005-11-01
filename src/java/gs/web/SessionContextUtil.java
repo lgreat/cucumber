@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.3 2005/10/26 20:51:33 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.4 2005/11/01 17:46:57 apeterson Exp $
  */
 
 package gs.web;
@@ -42,6 +42,9 @@ public class SessionContextUtil {
     public static final String MEMBER_PARAM = "member";
 
 
+    private static final String PATHWAY_PARAM = "path";
+
+
     private static final Log _log = LogFactory.getLog(SessionContextUtil.class);
     private ApplicationContext _applicationContext;
 
@@ -81,12 +84,23 @@ public class SessionContextUtil {
     }
 
     /**
+     * HandlerMapping may put information into the request for us to pull out.
+     */
+    public void updateFromRequestAttributes(HttpServletRequest httpServletRequest,
+                                            SessionContext context) {
+
+        Object s = httpServletRequest.getAttribute("state");
+        if (s != null && s instanceof State) {
+            context.setState((State) s);
+        }
+    }
+
+    /**
      * Called at the beginning of the request. Allows this class to
      * do common operations for all pages.
      */
     public void updateFromParams(HttpServletRequest httpServletRequest,
                                  SessionContext context) {
-        String cobrand = context.getCobrand();
 
         // Get the real hostname or see if it's been overridden
         String paramHost = httpServletRequest.getParameter(HOST_PARAM);
@@ -95,6 +109,7 @@ public class SessionContextUtil {
                 paramHost;
 
         // Determine if this is a cobrand
+        String cobrand = context.getCobrand();
         String paramCobrand = httpServletRequest.getParameter(COBRAND_PARAM);
         if (StringUtils.isNotEmpty(paramCobrand)) {
             cobrand = paramCobrand;
@@ -106,6 +121,20 @@ public class SessionContextUtil {
         hostName = _networkUtil.buildPerlHostName(hostName, cobrand);
 
         updateStateFromParam(context, httpServletRequest);
+
+        // Set state, or change, if necessary
+        String paramPathwayStr = httpServletRequest.getParameter(PATHWAY_PARAM);
+        if (!StringUtils.isEmpty(paramPathwayStr)) {
+            final String currPathway = context.getPathway();
+            String pathway = currPathway;
+            if (currPathway == null) {
+                pathway = paramPathwayStr;
+            } else if (!currPathway.equals(pathway)) {
+                pathway = paramPathwayStr;
+                _log.debug("switching user's pathway: " + pathway);
+            }
+            context.setPathway(pathway);
+        }
 
         // TODO make sure nobody can change IDs surreptitiously.
         String paramMember = httpServletRequest.getParameter(MEMBER_PARAM);

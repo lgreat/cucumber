@@ -11,6 +11,10 @@
     xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
     xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
     >
+    <jsp:directive.page import="gs.web.SessionFacade"/>
+    <jsp:scriptlet>
+        SessionFacade.getInstance(request).setPathway("2");
+    </jsp:scriptlet>
     <html lang="en">
         <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
         <c:set var="stateLongName" value="${requestScope.context.stateOrDefault.longName}"/>
@@ -39,7 +43,7 @@
                         <table id="main" border="0" cellspacing="0" cellpadding="0" width="100%">
                             <tr>
                                 <td class="col1" valign="top">
-                                    <mod:globalNav path="2"/>
+                                    <mod:globalNav/>
                                     <jsp:include page="/parentPoll.module"/>
                                 </td>
                                 <td class="col2" valign="top">
