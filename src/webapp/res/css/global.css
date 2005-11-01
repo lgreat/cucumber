@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.29 2005/11/01 21:13:02 apeterson Exp $
+$Id: global.css,v 1.30 2005/11/01 22:10:18 thuss Exp $
 ----------------------------------------------- */
 
 
@@ -52,8 +52,6 @@ img#logo {width:260px;height:40px;padding:0px 0px 0px 0px;margin:0px 0px 6px 0px
 #footerGS table {border-collapse:collapse;width:728px;}
 #footerGS th {text-align:left;font-size: 10px; color: rgb(255, 255, 255); background:#003399;}
 #footerGS td {font-size: 10px; vertical-align:top;}
-
-
 
 /*  Structure
 ----------------------------------------------- */
@@ -121,7 +119,7 @@ ul.result_list li.viewall a {font-weight:normal;margin:0px 0px 0px 12px;}
 input.checkbox {margin:0px 0px -2px 0px;}
 .smallform .textfield {font-size:90%;color:#999;width:75%;height:1.8em;padding:1px 0px 0px 3px;}
 .smallform input.btn {width:21px;height:18px;margin:0px 0px -3px 6px;padding:0px 0px 0px 0px;border:0;}
-.textfield {color:#333;min-width:50%;}
+.textfield {color:#333;min-width:70%;}
 .textfieldfocused {color:#333;min-width:50%;}
 .textfieldblurred {color:#999;min-width:50%;}
 input.btn {width:28px;height:24px;margin:0px 0px -2px 6px;padding:0px 0px 0px 0px;border:0;}
@@ -145,6 +143,8 @@ input.btn {width:28px;height:24px;margin:0px 0px -2px 6px;padding:0px 0px 0px 0p
 .google_banner {width:100%; padding:10px 0px 10px 0px;text-align:center;}
 .adSponsorImage {display:inline;}
 #adLeaderboard center {display:inline;} /* work around leaderboard images that include center tag */
+#adSkyscraper {padding-top: 20px;}
+#adSkyscraper img {margin-left: auto; margin-right: auto;}
 
 
 
@@ -153,8 +153,6 @@ input.btn {width:28px;height:24px;margin:0px 0px -2px 6px;padding:0px 0px 0px 0p
 tr.login td {font-size:10px;}
 tr.login td.col1 {text-align:left;padding-left:2px;}
 tr.login td.col2 {text-align:right;padding-right:3px;}
-
-
 
 /* PROMOS
 ----------------------------------------------- */

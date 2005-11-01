@@ -6,6 +6,7 @@
     <jsp:directive.attribute name="src" required="true" description="context-relative URL"/>
     <jsp:directive.attribute name="alt" required="true" description="alt text"/>
     <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
+    <jsp:directive.attribute name="id" required="false" description="CSS id"/>
     <jsp:scriptlet>
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
         src = urlUtil.buildUrl(src, request);
@@ -14,6 +15,7 @@
     <jsp:element name="img">
         <jsp:attribute name="src">${src}</jsp:attribute>
         <jsp:attribute name="alt">${alt}</jsp:attribute>
+        <jsp:attribute name="id">${id}</jsp:attribute>
         <jsp:attribute name="class">${styleClass}</jsp:attribute>
         <jsp:body>
             <jsp:doBody/>

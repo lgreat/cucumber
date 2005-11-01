@@ -22,14 +22,14 @@
     <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
     <title>Search</title>
 
-    <gsml:url var="searchcss" value="/res/css/search/search.css" />
+    <gsml:url var="searchcss" value="/res/css/search/search.css"/>
     <link rel="stylesheet" href="${searchcss}"
           type="text/css" media="screen"/>
-    <gsml:url var="searchsummarycss" value="/res/css/searchsummary.css" />
+    <gsml:url var="searchsummarycss" value="/res/css/searchsummary.css"/>
     <link rel="stylesheet" href="${searchsummarycss}"
           type="text/css" media="screen"/>
     <meta name="onload" content="document.sf.q.focus()"/>
-    <meta name="gsheader" content="false"/>
+    <!-- meta name="gsheader" content="false"/ -->
 
     <![CDATA[
     <script>
@@ -58,6 +58,7 @@
 <body>
 
 <table border="0" width="100%">
+<!--
 <tr>
     <td colspan="2">
         <table width="100%">
@@ -75,6 +76,7 @@
         </table>
     </td>
 </tr>
+-->
 <tr>
     <td colspan="2">
         <ad:x22/>
@@ -92,18 +94,13 @@
 <tr>
 
 <td>
-<table width="100%"><tr>
-<td width="160" valign="top">
-    <table>
-        <tr><td>
-            <mod:globalNav />
-        </td></tr>
-        <tr align="center"><td>
+
+<table id="main" width="100%"><tr>
+<td class="col1" valign="top">
+            <mod:globalNav/>
             <ad:x20/>
-        </td></tr>
-    </table>
 </td>
-<td valign="top">
+<td valign="top" class="col2">
 <table width="100%">
 <tr>
     <td>
@@ -221,7 +218,8 @@
 </table>
 </td>
 
-</tr></table></td>
+</tr></table>
+</td>
 
 
 </tr>
