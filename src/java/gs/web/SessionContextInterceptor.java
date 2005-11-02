@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextInterceptor.java,v 1.7 2005/11/01 17:46:57 apeterson Exp $
+ * $Id: SessionContextInterceptor.java,v 1.8 2005/11/02 21:00:47 apeterson Exp $
  */
 package gs.web;
 
@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * The purpose to guarantee that certain values are stuck in the request.
@@ -47,7 +46,7 @@ public class SessionContextInterceptor
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object o) throws Exception {
-        /**
+        /*
          * Set pages to not be cached since almost all pages include the member bar now or some
          * other dynamic content. This should be in the decorator as gsml:nocache but since that
          * tag doesn't work due to a sitemesh bug (see gsml:nocache tag for more info) it's here
@@ -57,23 +56,20 @@ public class SessionContextInterceptor
         response.setHeader("Pragma", "no-cache");
         response.setDateHeader("Expires", 0);
 
-        HttpSession session = request.getSession();
-        SessionContext context
-                = (SessionContext) session.getAttribute(SESSION_ATTRIBUTE_NAME);
-
-        if (context == null) {
-
-            context =
-                    (SessionContext) _applicationContext.getBean(SessionContext.BEAN_ID);
-
-            session.setAttribute(SESSION_ATTRIBUTE_NAME, context);
-        }
+        /*
+         Create a new session context every time.
+         Then, pull information out of cookies and parameters.
+         We also pull things out the request because this is a convenient way
+         to pass things in from include tags.
+         */
+        SessionContext context =
+                (SessionContext) _applicationContext.getBean(SessionContext.BEAN_ID);
 
         request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, context);
 
         _sessionContextUtil.readCookies(request, context);
         _sessionContextUtil.updateFromRequestAttributes(request, context);
-        _sessionContextUtil.updateFromParams(request, context);
+        _sessionContextUtil.updateFromParams(request, response, context);
 
         return true; // go on
     }

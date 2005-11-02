@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.5 2005/11/01 21:13:10 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.6 2005/11/02 21:00:47 apeterson Exp $
  */
 
 package gs.web;
@@ -18,6 +18,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Provides...
@@ -41,8 +42,10 @@ public class SessionContextUtil {
     // user can change hosts by passing a parameter on the command line
     public static final String MEMBER_PARAM = "member";
 
+    public static final String PATHWAY_PARAM = "path";
 
-    private static final String PATHWAY_PARAM = "path";
+    private static final String MEMBER_ID_COOKIE = "MEMBER";
+    private static final String PATHWAY_COOKIE = "PATHWAY";
 
 
     private static final Log _log = LogFactory.getLog(SessionContextUtil.class);
@@ -67,17 +70,20 @@ public class SessionContextUtil {
         if (cookies != null) {
             for (int i = 0; i < cookies.length; i++) {
                 Cookie thisCookie = cookies[i];
-                if ("MEMBER".equals(thisCookie.getName())) {
+                if (MEMBER_ID_COOKIE.equals(thisCookie.getName())) {
                     String id = thisCookie.getValue();
                     cookieId = new Integer(id);
-                }
-            }
-        }
 
-        if (cookieId != null) {
-            // No previous login information or different user.
-            if (context.getUser() == null || !context.getUser().getId().equals(cookieId)) {
-                context.setUser(_userDao.getUserFromId(cookieId.intValue()));
+                    // No previous login information or different user.
+                    if (context.getUser() == null || !context.getUser().getId().equals(cookieId)) {
+                        context.setUser(_userDao.getUserFromId(cookieId.intValue()));
+                    }
+                } else if (PATHWAY_COOKIE.equals(thisCookie.getName())) {
+                    String path = thisCookie.getValue();
+                    if (!path.equals(context.getPathway())) {
+                        context.setPathway(path); // TODO validation
+                    }
+                }
             }
         }
 
@@ -99,18 +105,19 @@ public class SessionContextUtil {
      * Called at the beginning of the request. Allows this class to
      * do common operations for all pages.
      */
-    public void updateFromParams(HttpServletRequest httpServletRequest,
+    public void updateFromParams(HttpServletRequest request,
+                                 HttpServletResponse response,
                                  SessionContext context) {
 
         // Get the real hostname or see if it's been overridden
-        String paramHost = httpServletRequest.getParameter(HOST_PARAM);
+        String paramHost = request.getParameter(HOST_PARAM);
         String hostName = StringUtils.isEmpty(paramHost) ?
-                httpServletRequest.getServerName() :
+                request.getServerName() :
                 paramHost;
 
         // Determine if this is a cobrand
         String cobrand = context.getCobrand();
-        String paramCobrand = httpServletRequest.getParameter(COBRAND_PARAM);
+        String paramCobrand = request.getParameter(COBRAND_PARAM);
         if (StringUtils.isNotEmpty(paramCobrand)) {
             cobrand = paramCobrand;
         } else {
@@ -120,24 +127,16 @@ public class SessionContextUtil {
         // Now see if we need to override the hostName
         hostName = _urlUtil.buildPerlHostName(hostName, cobrand);
 
-        updateStateFromParam(context, httpServletRequest);
+        updateStateFromParam(context, request);
 
         // Set state, or change, if necessary
-        String paramPathwayStr = httpServletRequest.getParameter(PATHWAY_PARAM);
-        if (!StringUtils.isEmpty(paramPathwayStr)) {
-            final String currPathway = context.getPathway();
-            String pathway = currPathway;
-            if (currPathway == null) {
-                pathway = paramPathwayStr;
-            } else if (!currPathway.equals(pathway)) {
-                pathway = paramPathwayStr;
-                _log.debug("switching user's pathway: " + pathway);
-            }
-            context.setPathway(pathway);
+        String paramPathwayStr = request.getParameter(PATHWAY_PARAM);
+        if (StringUtils.isNotEmpty(paramPathwayStr)) {
+            setPathway(context, response, paramPathwayStr);
         }
 
         // TODO make sure nobody can change IDs surreptitiously.
-        String paramMember = httpServletRequest.getParameter(MEMBER_PARAM);
+        String paramMember = request.getParameter(MEMBER_PARAM);
         if (StringUtils.isNotEmpty(paramMember)) {
             final int id;
             try {
@@ -148,18 +147,41 @@ public class SessionContextUtil {
                     context.setUser(user);
                 } catch (ObjectRetrievalFailureException e) {
                     _log.warn("HACKER? Bad member id passed as parameter (ignoring): '" +
-                            paramMember + "' from IP " + httpServletRequest.getRemoteAddr() +
-                            " named " + httpServletRequest.getRemoteHost()); // don't pass exception-- it's distracting
+                            paramMember + "' from IP " + request.getRemoteAddr() +
+                            " named " + request.getRemoteHost()); // don't pass exception-- it's distracting
                 }
             } catch (NumberFormatException e) {
                 _log.warn("HACKER? Attempt to pass ill-formed member id as parameter: '" +
-                        paramMember + "' from IP " + httpServletRequest.getRemoteAddr() +
-                        " named " + httpServletRequest.getRemoteHost());// don't pass exception-- it's distracting
+                        paramMember + "' from IP " + request.getRemoteAddr() +
+                        " named " + request.getRemoteHost());// don't pass exception-- it's distracting
             }
         }
 
         context.setHostName(hostName);
         context.setCobrand(cobrand);
+    }
+
+    /**
+     * Sets the pathway in both the context and the  pseudo-"session" (the cookie).
+     */
+    public void setPathway(SessionContext context, HttpServletResponse response, String paramPathwayStr) {
+        final String currPathway = context.getPathway();
+        if (currPathway == null ||
+                !currPathway.equals(paramPathwayStr)) {
+            Cookie c = new Cookie(PATHWAY_COOKIE, paramPathwayStr);
+            c.setPath("/");
+            response.addCookie(c);
+
+            context.setPathway(paramPathwayStr);
+        }
+    }
+
+    /**
+     * Sets the pathway in both the context and the  pseudo-"session" (the cookie).
+     */
+    public void setPathway(HttpServletRequest request, HttpServletResponse response, String newPathway) {
+        SessionContext context = (SessionContext) SessionContext.getInstance(request);
+        setPathway(context, response, newPathway);
     }
 
     public void updateStateFromParam(SessionContext context, HttpServletRequest httpServletRequest) {
