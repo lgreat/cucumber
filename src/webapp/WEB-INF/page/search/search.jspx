@@ -120,7 +120,7 @@
 
         <c:choose>
             <c:when test="${param.c == 'school'}">
-                <gsml:box tableClass="shade3 resultoverview">
+                <gsml:box tableClass="shade3 main" >
                     <table>
                         <tr>
                             <td>Refine results:</td>
@@ -144,7 +144,7 @@
             </c:when>
 
             <c:when test="${param.c == 'article'}">
-                <gsml:box tableClass="shade3 resultoverview">
+                <gsml:box tableClass="shade3 main">
                     <gsweb:articletable articles="${results.articles}"
                                         query="${param.q}"
                                         sortColumn="${param.sort}"
