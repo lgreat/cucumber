@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StateControllerSaTest.java,v 1.7 2005/11/01 21:11:04 apeterson Exp $
+ * $Id: StateControllerTest.java,v 1.1 2005/11/02 21:01:20 apeterson Exp $
  */
 
 package gs.web.state;
@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
-public class StateControllerSaTest extends BaseControllerTestCase {
+public class StateControllerTest extends BaseControllerTestCase {
 
     public void testTopDistrictsController() throws Exception {
         TopDistrictsController c = new TopDistrictsController();
@@ -85,7 +85,7 @@ public class StateControllerSaTest extends BaseControllerTestCase {
         assertTrue(header instanceof String);
         assertEquals("California Cities", header);
 
-        final List results = (List) modelAndView.getModel().get("results");
+        List results = (List) modelAndView.getModel().get("results");
         assertNotNull(results);
         assertTrue(results.size() > 4);
         Anchor la = (Anchor) results.get(0);
@@ -99,6 +99,20 @@ public class StateControllerSaTest extends BaseControllerTestCase {
         Anchor veryLast = (Anchor) results.get(results.size() - 1);
         assertEquals("/modperl/citylist/CA/", veryLast.getHref());
         assertEquals("View all California cities", veryLast.getContents());
+
+
+        // Special case DC
+        SessionContext context = (SessionContext) SessionFacade.getInstance(getRequest());
+        context.setState(State.DC);
+        modelAndView = c.handleRequestInternal(getRequest(), getResponse());
+        results = (List) modelAndView.getModel().get("results");
+        assertNotNull(results);
+        assertEquals(1, results.size());
+        la = (Anchor) results.get(0);
+        assertEquals("View all schools", la.getContents());
+        assertEquals("/cgi-bin/schoollist/DC", la.getHref());
+
+
     }
 
 
