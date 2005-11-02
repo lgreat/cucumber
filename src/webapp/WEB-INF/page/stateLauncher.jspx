@@ -40,188 +40,188 @@
                     <gsml:img src="/res/img/logo/logo_GS_260x40.gif" alt="GreatSchools Logo"/>
                     <h2>${promotext}</h2>
                     <gsml:url var="mapImage" value="/res/img/map_US_splash_interstitial.gif" />
-                    <img src="${mapImage}" width="519" height="310" border="0" usemap="#Map" href="${url}&amp;state=RI" alt="US Map" />
+                    <img src="${mapImage}" width="519" height="310" border="0" usemap="#Map" href="${url}RI" alt="US Map" />
                     <map name="Map">
                         <area shape="poly" coords="315,183" href="#" />
                         <area shape="poly" coords="330,184" href="#" />
                         <area shape="poly" coords="315,223" href="#" />
-                        <area shape="poly" coords="316,185,332,183,341,207,341,221,320,222,316,219" href="${url}&amp;state=AL" />
+                        <area shape="poly" coords="316,185,332,183,341,207,341,221,320,222,316,219" href="${url}AL" />
                         <area shape="poly" coords="13,230" href="#" />
-                        <area shape="poly" coords="16,231,32,223,48,224,57,233,61,258,64,268,38,270,27,287,14,271,20,268" href="${url}&amp;state=AK" />
+                        <area shape="poly" coords="16,231,32,223,48,224,57,233,61,258,64,268,38,270,27,287,14,271,20,268" href="${url}AK" />
                         <area shape="poly" coords="85,151" href="#" />
 
                         <area shape="poly" coords="83,152" href="#" />
-                        <area shape="poly" coords="85,152,119,158,114,192,113,211,93,206,79,196,74,192" href="${url}&amp;state=AZ" />
+                        <area shape="poly" coords="85,152,119,158,114,192,113,211,93,206,79,196,74,192" href="${url}AZ" />
                         <area shape="poly" coords="257,170" href="#" />
-                        <area shape="poly" coords="257,170,289,169,290,180,283,193,282,201,264,201" href="${url}&amp;state=AR" />
+                        <area shape="poly" coords="257,170,289,169,290,180,283,193,282,201,264,201" href="${url}AR" />
                         <area shape="poly" coords="14,78" href="#" />
-                        <area shape="poly" coords="12,75,38,83,32,116,40,129,67,167,67,180,57,184,39,171,23,149,14,118" href="${url}&amp;state=CA" />
+                        <area shape="poly" coords="12,75,38,83,32,116,40,129,67,167,67,180,57,184,39,171,23,149,14,118" href="${url}CA" />
                         <area shape="poly" coords="135,113" href="#" />
-                        <area shape="poly" coords="135,113,185,118,184,155,130,151" href="${url}&amp;state=CO" />
+                        <area shape="poly" coords="135,113,185,118,184,155,130,151" href="${url}CO" />
                         <area shape="poly" coords="428,83" href="#" />
 
                         <area shape="poly" coords="438,81" href="#" />
                         <area shape="poly" coords="431,85" href="#" />
-                        <area shape="poly" coords="428,83,438,79,441,86,428,92" href="${url}&amp;state=CT" />
-                        <area shape="rect" coords="436,112,503,124" href="${url}&amp;state=DE" />
-                        <area shape="rect" coords="437,136,504,148" href="${url}&amp;state=DC" />
+                        <area shape="poly" coords="428,83,438,79,441,86,428,92" href="${url}CT" />
+                        <area shape="rect" coords="436,112,503,124" href="${url}DE" />
+                        <area shape="rect" coords="437,136,504,148" href="${url}DC" />
                         <area shape="poly" coords="361,228" href="#" />
-                        <area shape="poly" coords="359,227,379,225,399,268,396,277,379,260" href="${url}&amp;state=FL" />
+                        <area shape="poly" coords="359,227,379,225,399,268,396,277,379,260" href="${url}FL" />
                         <area shape="poly" coords="338,181" href="#" />
-                        <area shape="poly" coords="338,182,354,180,378,205,377,217,353,221" href="${url}&amp;state=GA" />
+                        <area shape="poly" coords="338,182,354,180,378,205,377,217,353,221" href="${url}GA" />
 
-                        <area shape="rect" coords="118,261,189,306" href="${url}&amp;state=HI" />
+                        <area shape="rect" coords="118,261,189,306" href="${url}HI" />
                         <area shape="poly" coords="87,15" href="#" />
-                        <area shape="poly" coords="85,14,81,44,83,55,74,71,70,84,114,93,118,69,106,71" href="${url}&amp;state=ID" />
+                        <area shape="poly" coords="85,14,81,44,83,55,74,71,70,84,114,93,118,69,106,71" href="${url}ID" />
                         <area shape="poly" coords="291,101" href="#" />
-                        <area shape="poly" coords="290,100,306,99,311,122,311,138,305,153,295,143,286,127,284,123" href="${url}&amp;state=IL" />
+                        <area shape="poly" coords="290,100,306,99,311,122,311,138,305,153,295,143,286,127,284,123" href="${url}IL" />
                         <area shape="poly" coords="314,108" href="#" />
-                        <area shape="poly" coords="315,109,332,104,335,132,327,141,318,145" href="${url}&amp;state=IN" />
+                        <area shape="poly" coords="315,109,332,104,335,132,327,141,318,145" href="${url}IN" />
                         <area shape="poly" coords="240,91" href="#" />
-                        <area shape="poly" coords="238,91,277,90,283,103,280,109,277,119,252,118,244,118" href="${url}&amp;state=IA" />
+                        <area shape="poly" coords="238,91,277,90,283,103,280,109,277,119,252,118,244,118" href="${url}IA" />
 
                         <area shape="poly" coords="199,147" href="#" />
-                        <area shape="poly" coords="193,129,243,130,249,141,250,158,193,156" href="${url}&amp;state=KS" />
+                        <area shape="poly" coords="193,129,243,130,249,141,250,158,193,156" href="${url}KS" />
                         <area shape="poly" coords="305,161" href="#" />
-                        <area shape="poly" coords="305,161,316,152,332,148,340,138,354,138,359,147,350,155" href="${url}&amp;state=KY" />
+                        <area shape="poly" coords="305,161,316,152,332,148,340,138,354,138,359,147,350,155" href="${url}KY" />
                         <area shape="poly" coords="262,209" href="#" />
-                        <area shape="poly" coords="262,209,283,208,284,214,281,226,292,232,297,230,300,238,301,242,293,246,279,240,267,239" href="${url}&amp;state=LA" />
-                        <area shape="rect" coords="438,126,504,134" href="${url}&amp;state=MD" />
+                        <area shape="poly" coords="262,209,283,208,284,214,281,226,292,232,297,230,300,238,301,242,293,246,279,240,267,239" href="${url}LA" />
+                        <area shape="rect" coords="438,126,504,134" href="${url}MD" />
                         <area shape="poly" coords="428,80" href="#" />
-                        <area shape="poly" coords="428,80,428,75,443,71,453,77,447,81" href="${url}&amp;state=MA" />
+                        <area shape="poly" coords="428,80,428,75,443,71,453,77,447,81" href="${url}MA" />
 
                         <area shape="poly" coords="330,60" href="#" />
-                        <area shape="poly" coords="330,60,338,64,339,73,337,82,346,79,349,88,343,99,328,100,322,100,321,80" href="${url}&amp;state=MI" />
+                        <area shape="poly" coords="330,60,338,64,339,73,337,82,346,79,349,88,343,99,328,100,322,100,321,80" href="${url}MI" />
                         <area shape="poly" coords="235,29" href="#" />
-                        <area shape="poly" coords="235,30,278,38,270,47,264,59,262,71,272,83,251,84,239,83" href="${url}&amp;state=MN" />
+                        <area shape="poly" coords="235,30,278,38,270,47,264,59,262,71,272,83,251,84,239,83" href="${url}MN" />
                         <area shape="poly" coords="294,184" href="#" />
-                        <area shape="poly" coords="295,184,310,184,311,228,306,232,299,224,287,224,290,201" href="${url}&amp;state=MS" />
+                        <area shape="poly" coords="295,184,310,184,311,228,306,232,299,224,287,224,290,201" href="${url}MS" />
                         <area shape="poly" coords="248,123" href="#" />
-                        <area shape="poly" coords="248,124,275,124,286,142,290,154,297,161,282,163,257,164" href="${url}&amp;state=MO" />
+                        <area shape="poly" coords="248,124,275,124,286,142,290,154,297,161,282,163,257,164" href="${url}MO" />
                         <area shape="poly" coords="94,16" href="#" />
 
-                        <area shape="poly" coords="94,15,177,26,175,66,125,59,115,62,109,60" href="${url}&amp;state=MT" />
+                        <area shape="poly" coords="94,15,177,26,175,66,125,59,115,62,109,60" href="${url}MT" />
                         <area shape="poly" coords="177,93" href="#" />
-                        <area shape="poly" coords="177,95,222,98,233,101,241,124,198,123,181,110" href="${url}&amp;state=NE" />
+                        <area shape="poly" coords="177,95,222,98,233,101,241,124,198,123,181,110" href="${url}NE" />
                         <area shape="poly" coords="47,84" href="#" />
-                        <area shape="poly" coords="48,83,89,93,78,151,74,151,71,161,41,115" href="${url}&amp;state=NV" />
+                        <area shape="poly" coords="48,83,89,93,78,151,74,151,71,161,41,115" href="${url}NV" />
                         <area shape="poly" coords="431,55" href="#" />
-                        <area shape="poly" coords="432,55,438,53,442,67,432,70" href="${url}&amp;state=NH" />
+                        <area shape="poly" coords="432,55,438,53,442,67,432,70" href="${url}NH" />
                         <area shape="poly" coords="418,94" href="#" />
-                        <area shape="poly" coords="417,94,425,96,428,106,424,117,415,112" href="${url}&amp;state=NJ" />
+                        <area shape="poly" coords="417,94,425,96,428,106,424,117,415,112" href="${url}NJ" />
 
                         <area shape="poly" coords="127,156" href="#" />
-                        <area shape="poly" coords="128,158,175,162,172,212,122,210" href="${url}&amp;state=NM" />
+                        <area shape="poly" coords="128,158,175,162,172,212,122,210" href="${url}NM" />
                         <area shape="poly" coords="412,57" href="#" />
                         <area shape="poly" coords="415,53" href="#" />
                         <area shape="poly" coords="415,55" href="#" />
-                        <area shape="poly" coords="417,52,425,90,417,90,409,83,380,89,382,80" href="${url}&amp;state=NY" />
+                        <area shape="poly" coords="417,52,425,90,417,90,409,83,380,89,382,80" href="${url}NY" />
                         <area shape="poly" coords="367,158" href="#" />
-                        <area shape="poly" coords="367,158,417,150,413,158,412,165,403,178,379,171,355,174" href="${url}&amp;state=NC" />
+                        <area shape="poly" coords="367,158,417,150,413,158,412,165,403,178,379,171,355,174" href="${url}NC" />
                         <area shape="poly" coords="183,26" href="#" />
 
-                        <area shape="poly" coords="183,27,229,29,233,58,180,55" href="${url}&amp;state=ND" />
+                        <area shape="poly" coords="183,27,229,29,233,58,180,55" href="${url}ND" />
                         <area shape="poly" coords="336,105" href="#" />
-                        <area shape="poly" coords="336,106,351,105,366,101,367,119,354,132,340,129" href="${url}&amp;state=OH" />
+                        <area shape="poly" coords="336,106,351,105,366,101,367,119,354,132,340,129" href="${url}OH" />
                         <area shape="poly" coords="180,160" href="#" />
-                        <area shape="poly" coords="182,161,251,163,253,195,218,192,207,189,206,167" href="${url}&amp;state=OK" />
+                        <area shape="poly" coords="182,161,251,163,253,195,218,192,207,189,206,167" href="${url}OK" />
                         <area shape="poly" coords="25,35" href="#" />
-                        <area shape="poly" coords="25,35,75,45,71,57,70,66,64,83,14,70" href="${url}&amp;state=OR" />
+                        <area shape="poly" coords="25,35,75,45,71,57,70,66,64,83,14,70" href="${url}OR" />
                         <area shape="poly" coords="371,96" href="#" />
-                        <area shape="poly" coords="371,96,411,90,413,106,377,116" href="${url}&amp;state=PA" />
+                        <area shape="poly" coords="371,96,411,90,413,106,377,116" href="${url}PA" />
 
                         <area shape="poly" coords="479,87" href="#" />
                         <area shape="poly" coords="460,74" href="#" />
                         <area shape="poly" coords="501,90" href="#" />
                         <area shape="rect" coords="458,74,504,96" href="#" />
                         <area shape="poly" coords="360,178" href="#" />
-                        <area shape="poly" coords="360,179,373,174,386,179,398,182,383,200" href="${url}&amp;state=SC" />
+                        <area shape="poly" coords="360,179,373,174,386,179,398,182,383,200" href="${url}SC" />
                         <area shape="poly" coords="182,61" href="#" />
-                        <area shape="poly" coords="180,61,232,64,233,94,179,89" href="${url}&amp;state=SD" />
+                        <area shape="poly" coords="180,61,232,64,233,94,179,89" href="${url}SD" />
                         <area shape="poly" coords="302,167" href="#" />
 
-                        <area shape="poly" coords="301,166,361,159,342,176,297,179" href="${url}&amp;state=TN" />
+                        <area shape="poly" coords="301,166,361,159,342,176,297,179" href="${url}TN" />
                         <area shape="poly" coords="180,167" href="#" />
-                        <area shape="poly" coords="180,168,202,171,203,191,227,200,250,200,256,206,257,224,258,238,247,243,232,255,220,272,210,273,193,241,174,236,168,243,161,233,145,215,177,216" href="${url}&amp;state=TX" />
+                        <area shape="poly" coords="180,168,202,171,203,191,227,200,250,200,256,206,257,224,258,238,247,243,232,255,220,272,210,273,193,241,174,236,168,243,161,233,145,215,177,216" href="${url}TX" />
                         <area shape="poly" coords="94,94" href="#" />
-                        <area shape="poly" coords="94,94,114,96,113,108,128,112,124,151,85,145" href="${url}&amp;state=UT" />
+                        <area shape="poly" coords="94,94,114,96,113,108,128,112,124,151,85,145" href="${url}UT" />
                         <area shape="poly" coords="420,51" href="#" />
-                        <area shape="poly" coords="420,51,431,48,433,53,428,56,431,71,424,74" href="${url}&amp;state=VT" />
+                        <area shape="poly" coords="420,51,431,48,433,53,428,56,431,71,424,74" href="${url}VT" />
                         <area shape="poly" coords="356,157" href="#" />
-                        <area shape="poly" coords="357,156,415,148,409,144,409,136,403,132,398,125,393,124,383,136,380,146" href="${url}&amp;state=VA" />
+                        <area shape="poly" coords="357,156,415,148,409,144,409,136,403,132,398,125,393,124,383,136,380,146" href="${url}VA" />
 
                         <area shape="poly" coords="30,5" href="#" />
-                        <area shape="poly" coords="29,5,30,24,34,28,36,35,63,38,77,41,81,13,48,3,44,13" href="${url}&amp;state=WA" />
-                        <area shape="poly" coords="373,124,361,138,370,146,378,138,383,129,389,124,382,126,380,120" href="${url}&amp;state=WV" />
+                        <area shape="poly" coords="29,5,30,24,34,28,36,35,63,38,77,41,81,13,48,3,44,13" href="${url}WA" />
+                        <area shape="poly" coords="373,124,361,138,370,146,378,138,383,129,389,124,382,126,380,120" href="${url}WV" />
                         <area shape="poly" coords="438,42" href="#" />
-                        <area shape="poly" coords="440,43,442,20,452,18,460,36,462,41,443,56" href="${url}&amp;state=ME" />
+                        <area shape="poly" coords="440,43,442,20,452,18,460,36,462,41,443,56" href="${url}ME" />
                         <area shape="poly" coords="274,54" href="#" />
-                        <area shape="poly" coords="273,54,284,56,301,66,304,75,306,85,306,94,287,95,280,84,270,72" href="${url}&amp;state=WI" />
+                        <area shape="poly" coords="273,54,284,56,301,66,304,75,306,85,306,94,287,95,280,84,270,72" href="${url}WI" />
                         <area shape="poly" coords="125,66" href="#" />
-                        <area shape="poly" coords="124,67,174,72,171,109,119,106" href="${url}&amp;state=WY" />
+                        <area shape="poly" coords="124,67,174,72,171,109,119,106" href="${url}WY" />
                     </map>
                 </td>
-                <td width="0" valign="top" class="state1"><a href="${url}&amp;state=AL" >Alabamas</a><br/>
-                    <a href="${url}&amp;state=AK" >Alaska</a><br/>
-                    <a href="${url}&amp;state=AZ" >Arizona</a><br/>
-                    <a href="${url}&amp;state=AR" >Arkansas</a><br/>
-                    <a href="${url}&amp;state=CA" >California</a><br/>
+                <td width="0" valign="top" class="state1"><a href="${url}AL" >Alabamas</a><br/>
+                    <a href="${url}AK" >Alaska</a><br/>
+                    <a href="${url}AZ" >Arizona</a><br/>
+                    <a href="${url}AR" >Arkansas</a><br/>
+                    <a href="${url}CA" >California</a><br/>
 
-                    <a href="${url}&amp;state=CO" >Colorado</a><br/>
-                    <a href="${url}&amp;state=CT" >Connecticut</a><br/>
-                    <a href="${url}&amp;state=DE" >Delaware</a><br/>
-                    <a href="${url}&amp;state=DC" >District of Columbia</a><br/>
-                    <a href="${url}&amp;state=FL" >Florida</a><br/>
-                    <a href="${url}&amp;state=GA" >Georgia</a><br/>
+                    <a href="${url}CO" >Colorado</a><br/>
+                    <a href="${url}CT" >Connecticut</a><br/>
+                    <a href="${url}DE" >Delaware</a><br/>
+                    <a href="${url}DC" >District of Columbia</a><br/>
+                    <a href="${url}FL" >Florida</a><br/>
+                    <a href="${url}GA" >Georgia</a><br/>
 
-                    <a href="${url}&amp;state=HI" >Hawaii</a><br/>
-                    <a href="${url}&amp;state=ID" >Idaho</a><br/>
-                    <a href="${url}&amp;state=IL" >Illinois</a><br/>
-                    <a href="${url}&amp;state=IN" >Indiana</a><br/>
-                    <a href="${url}&amp;state=IA" >Iowa</a><br/>
-                    <a href="${url}&amp;state=KS" >Kansas</a><br/>
+                    <a href="${url}HI" >Hawaii</a><br/>
+                    <a href="${url}ID" >Idaho</a><br/>
+                    <a href="${url}IL" >Illinois</a><br/>
+                    <a href="${url}IN" >Indiana</a><br/>
+                    <a href="${url}IA" >Iowa</a><br/>
+                    <a href="${url}KS" >Kansas</a><br/>
 
-                    <a href="${url}&amp;state=KY" >Kentucky</a><br/>
-                    <a href="${url}&amp;state=LA" >Louisiana</a><br/>
-                    <a href="${url}&amp;state=ME" >Maine</a><br/>
-                    <a href="${url}&amp;state=MD" >Maryland</a><br/>
-                    <a href="${url}&amp;state=MA" >Massachusetts</a><br/>
-                    <a href="${url}&amp;state=MI" >Michigan</a><br/>
+                    <a href="${url}KY" >Kentucky</a><br/>
+                    <a href="${url}LA" >Louisiana</a><br/>
+                    <a href="${url}ME" >Maine</a><br/>
+                    <a href="${url}MD" >Maryland</a><br/>
+                    <a href="${url}MA" >Massachusetts</a><br/>
+                    <a href="${url}MI" >Michigan</a><br/>
 
-                    <a href="${url}&amp;state=MN" >Minnesota</a><br/>
-                    <a href="${url}&amp;state=MS" >Mississippi</a><br/>
-                    <a href="${url}&amp;state=MO" >Missouri</a><br/>
+                    <a href="${url}MN" >Minnesota</a><br/>
+                    <a href="${url}MS" >Mississippi</a><br/>
+                    <a href="${url}MO" >Missouri</a><br/>
                 </td>
                 <td valign="top" class="state2">
-                    <a href="${url}&amp;state=MT" >Montana</a><br/>
-                    <a href="${url}&amp;state=NE" >Nebraska</a><br/>
+                    <a href="${url}MT" >Montana</a><br/>
+                    <a href="${url}NE" >Nebraska</a><br/>
 
-                    <a href="${url}&amp;state=NV" >Nevada</a><br/>
-                    <a href="${url}&amp;state=NH" >New Hampshire</a><br/>
-                    <a href="${url}&amp;state=NJ" >New Jersy</a><br/>
-                    <a href="${url}&amp;state=NM" >New Mexico</a><br/>
-                    <a href="${url}&amp;state=NY" >New York</a><br/>
-                    <a href="${url}&amp;state=NC" >North Carolina</a><br/>
+                    <a href="${url}NV" >Nevada</a><br/>
+                    <a href="${url}NH" >New Hampshire</a><br/>
+                    <a href="${url}NJ" >New Jersy</a><br/>
+                    <a href="${url}NM" >New Mexico</a><br/>
+                    <a href="${url}NY" >New York</a><br/>
+                    <a href="${url}NC" >North Carolina</a><br/>
 
-                    <a href="${url}&amp;state=ND" >North Dakota</a><br/>
-                    <a href="${url}&amp;state=OH" >Ohio</a><br/>
-                    <a href="${url}&amp;state=OK" >Oklahoma</a><br/>
-                    <a href="${url}&amp;state=OR" >Oregon</a><br/>
-                    <a href="${url}&amp;state=PA" >Pennsylvania</a><br/>
-                    <a href="${url}&amp;state=RI" >Rhode Island</a><br/>
+                    <a href="${url}ND" >North Dakota</a><br/>
+                    <a href="${url}OH" >Ohio</a><br/>
+                    <a href="${url}OK" >Oklahoma</a><br/>
+                    <a href="${url}OR" >Oregon</a><br/>
+                    <a href="${url}PA" >Pennsylvania</a><br/>
+                    <a href="${url}RI" >Rhode Island</a><br/>
 
-                    <a href="${url}&amp;state=SC" >South Carolina</a><br/>
-                    <a href="${url}&amp;state=SD" >South Dakota</a><br/>
-                    <a href="${url}&amp;state=TN" >Tennessee</a><br/>
-                    <a href="${url}&amp;state=TX" >Texas</a><br/>
-                    <a href="${url}&amp;state=UT" >Utah</a><br/>
-                    <a href="${url}&amp;state=VT" >Vermont</a><br/>
+                    <a href="${url}SC" >South Carolina</a><br/>
+                    <a href="${url}SD" >South Dakota</a><br/>
+                    <a href="${url}TN" >Tennessee</a><br/>
+                    <a href="${url}TX" >Texas</a><br/>
+                    <a href="${url}UT" >Utah</a><br/>
+                    <a href="${url}VT" >Vermont</a><br/>
 
-                    <a href="${url}&amp;state=VA" >Virginia</a><br/>
-                    <a href="${url}&amp;state=WA" >Washington</a><br/>
-                    <a href="${url}&amp;state=WV" >West Virginia</a><br/>
-                    <a href="${url}&amp;state=WI" >Wisconsin</a><br/>
-                    <a href="${url}&amp;state=WY" >Wyoming</a>
+                    <a href="${url}VA" >Virginia</a><br/>
+                    <a href="${url}WA" >Washington</a><br/>
+                    <a href="${url}WV" >West Virginia</a><br/>
+                    <a href="${url}WI" >Wisconsin</a><br/>
+                    <a href="${url}WY" >Wyoming</a>
                 </td>
             </tr></table>
     </td></tr></table>

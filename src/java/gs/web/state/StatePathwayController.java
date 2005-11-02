@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.8 2005/11/02 18:29:51 thuss Exp $
+ * $Id: StatePathwayController.java,v 1.9 2005/11/02 18:59:00 thuss Exp $
  */
 package gs.web.state;
 
@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Locale;
+import java.net.URLEncoder;
 
 /**
  * The purpose is ...
@@ -59,45 +60,33 @@ public class StatePathwayController extends AbstractController {
             pathwayUrl = (String) _pathways.get(DEFAULT_PATHWAY_MAP_KEY);
         }
 
+        if (!StringUtils.isEmpty(paramSearchQuery)) {
+            paramSearchQuery = URLEncoder.encode(paramSearchQuery, "UTF-8");
+            pathwayUrl += "?q=" + paramSearchQuery + "&state=";
+        } else if (pathwayUrl.matches(".+modperl.+|.+cgi-bin.+")) {
+            pathwayUrl += "/";
+        } else {
+            pathwayUrl += "?state=";
+        }
+
         if (hasSelectedState) {
-            boolean isContextRelative = true;
             //redirect to the correct pathway
             Map params = new HashMap();
-            if (pathwayUrl.matches(".+modperl.+|.+cgi-bin.+")) {
-                pathwayUrl += "/" + state.getAbbreviation();
-                isContextRelative = false;
-            } else {
-                params.put("state", state.getAbbreviation());
-            }
-
+            pathwayUrl += state.getAbbreviation();
             pathwayUrl = urlUtil.buildUrl(pathwayUrl, request);
             RedirectView redirectView = new RedirectView(pathwayUrl);
-
-            if (!StringUtils.isEmpty(paramSearchQuery)) {
-                params.put("q", paramSearchQuery);
-            }
             redirectView.setAttributesMap(params);
-
             return new ModelAndView(redirectView);
-
         } else {
             Map model = new HashMap();
-            String postBackUrl = BEAN_ID + "?p=" + paramPathway;
-
-            if (!StringUtils.isEmpty(paramSearchQuery)) {
-                postBackUrl += "&q=" + paramSearchQuery;
-            }
             String promo = null;
-
             try {
                 promo = _messageSource.getMessage(paramPathway + "_promo", null, Locale.ENGLISH);
             } catch (NoSuchMessageException e) {
                 promo = "";
             }
-
-            model.put("url", urlUtil.buildUrl(postBackUrl, request));
+            model.put("url", urlUtil.buildUrl(pathwayUrl, request));
             model.put("promotext", promo);
-
             return new ModelAndView(_viewName, model);
         }
     }
