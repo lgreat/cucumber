@@ -33,6 +33,9 @@
 <c:set var="showHeader">
     <decorator:getProperty property="meta.gsheader" default=""/>
 </c:set>
+<c:set var="showFooter">
+    <decorator:getProperty property="meta.gsfooter" default=""/>
+</c:set>
 
 <body onload="${onloadPopunder} ${onLoadScript}">
 <jsp:include page="/header/cobrand.module"/>
@@ -58,7 +61,7 @@
     <decorator:body/>
 
     <!-- Note adFree sites are framed, mcguire, number1expert -->
-    <c:if test="${!requestScope.context.adFree}">
+    <c:if test="${showHeader!='false' and !requestScope.context.adFree}">
         <div id="footerGS">
             <div id="footerAd">
                 <ad:google728x90/>

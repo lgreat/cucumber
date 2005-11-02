@@ -18,46 +18,25 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <!-- This page is decorated by cobrandHeaderGsFooter to get global.css and cobrand headers -->
+        <meta name="gsheader" content="false" />
+        <meta name="gsfooter" content="false" />
         <title>Select a state</title>
-        <![CDATA[
             <style type="text/css">
-            html, body{width:100%;height:100%}
-            body{margin:0;padding:0}
-            body, td, samp {font-family: Arial, Helvetica, sans-serif; font-size:12px;}
-            table#pagemargin {position:relative;width:100%;height:100%;margin:0px auto;padding:6px 6px 6px 6px;}
-            .border  {border:1px solid #900;
-            img {border:0;display:block;paddding:0;margin:0;}
-            a {text-decoration:none;color:#00F;}
-            a:visited {color:#66C;}
-            a:hover {text-decoration:underline;}
-            a.pad {padding:0px 10px 0px 0px;display:inline;}
-            .lpad {padding:0px 0px 0px 10px;display:inline;}
-            .block a {display:block;}
-            .bpad div {padding-bottom:6px;}
-            .left {text-align:left;}
-            .google_banner {width:100%; padding:10px 0px 10px 0px;text-align:center;}
-            ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input,label,address,div {list-style:none;font-size:1em;font-style:normal;font-weight:normal;margin:0; padding:0;}
-            .bottomalign {position:absolute;bottom:0px;}
-            div.verticalcontainer {position:relative;height:250px;}
-            .nowrap {white-space:nowrap;}
-            .bold {font-weight:bold;}
-            .white {color: #FFF;}
-            .black {color: #000;}
-
-            /*  state specific */
-            .col2 {padding:0px 15px 0px 0px;}
-            h2 {font-weight:bold;margin:15px 0px 10px 0px;font-size:1.2em;text-align:center;}
+            .state1 {padding:0px 15px 0px 15px;}
+            #main {margin-left: auto; margin-right: auto;}
+            h2 {font-weight:bold;padding:15px 0px 20px 0px;font-size:1.2em;text-align:center;}
             </style>
-         ]]>
     </head>
 
     <body bgcolor="#FFFFFF">
-        <table id="pagemargin" border="0" cellspacing="0" cellpadding="0" class="border">
+    <div id="bodyGS">
+        <table id="pagemargin" border="0">
         <tr>
             <td valign="top">
-                <table id="main" border="0" align="center" cellpadding="0" cellspacing="0">
+                <table id="main" border="0">
                 <tr>
-                    <td valign="top" class="col1">
+                    <td valign="top" class="map">
                     <gsml:img src="/res/img/logo/logo_GS_260x40.gif" alt="GreatSchools Logo"/>
                     <h2>${promotext}</h2>
                     <gsml:url var="mapImage" value="/res/img/map_US_splash_interstitial.gif" />
@@ -182,7 +161,7 @@
                         <area shape="poly" coords="124,67,174,72,171,109,119,106" href="${url}&amp;state=WY" />
                     </map>
                 </td>
-                <td width="0" valign="top" class="col2"><a href="${url}&amp;state=AL" >Alabamas</a><br/>
+                <td width="0" valign="top" class="state1"><a href="${url}&amp;state=AL" >Alabamas</a><br/>
                     <a href="${url}&amp;state=AK" >Alaska</a><br/>
                     <a href="${url}&amp;state=AZ" >Arizona</a><br/>
                     <a href="${url}&amp;state=AR" >Arkansas</a><br/>
@@ -213,7 +192,7 @@
                     <a href="${url}&amp;state=MS" >Mississippi</a><br/>
                     <a href="${url}&amp;state=MO" >Missouri</a><br/>
                 </td>
-                <td valign="top" class="col3">
+                <td valign="top" class="state2">
                     <a href="${url}&amp;state=MT" >Montana</a><br/>
                     <a href="${url}&amp;state=NE" >Nebraska</a><br/>
 
@@ -246,6 +225,7 @@
                 </td>
             </tr></table>
     </td></tr></table>
+    </div>
 
 
 

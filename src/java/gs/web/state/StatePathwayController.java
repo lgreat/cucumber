@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.7 2005/11/01 19:58:03 thuss Exp $
+ * $Id: StatePathwayController.java,v 1.8 2005/11/02 18:29:51 thuss Exp $
  */
 package gs.web.state;
 
@@ -71,7 +71,7 @@ public class StatePathwayController extends AbstractController {
             }
 
             pathwayUrl = urlUtil.buildUrl(pathwayUrl, request);
-            RedirectView redirectView = new RedirectView(pathwayUrl, isContextRelative);
+            RedirectView redirectView = new RedirectView(pathwayUrl);
 
             if (!StringUtils.isEmpty(paramSearchQuery)) {
                 params.put("q", paramSearchQuery);
