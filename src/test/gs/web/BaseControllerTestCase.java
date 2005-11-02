@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: BaseControllerTestCase.java,v 1.2 2005/11/01 00:30:06 thuss Exp $
+ * $Id: BaseControllerTestCase.java,v 1.3 2005/11/02 22:38:27 thuss Exp $
  */
 
 package gs.web;
@@ -20,23 +20,32 @@ import javax.servlet.http.HttpServletResponse;
 public class BaseControllerTestCase extends BaseTestCase {
     private MockHttpServletRequest _request;
     private MockHttpServletResponse _response;
+    private SessionContext _sessionContext;
 
     protected void setUp() throws Exception {
         super.setUp();
-
         _request = new MockHttpServletRequest();
-
-        SessionContext sessionContext = new SessionContext();
-        sessionContext.setApplicationContext(getApplicationContext());
-        sessionContext.setCobrand(null);
-        sessionContext.setHostName("www.greatschools.net");
-        sessionContext.setState(State.CA);
-        sessionContext.setUser(null);
+        String hostname = "www.greatschools.net";
+        _request.setServerName(hostname);
+        _sessionContext = new SessionContext();
+        _sessionContext.setApplicationContext(getApplicationContext());
+        _sessionContext.setCobrand(null);
+        _sessionContext.setHostName(hostname);
+        _sessionContext.setState(State.CA);
+        _sessionContext.setUser(null);
         // Note: you can override or reset them at the beginning of your test.
 
-        _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, sessionContext);
+        _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
 
         _response = new MockHttpServletResponse();
+    }
+
+    protected void tearDown () throws Exception {
+        super.tearDown();
+    }
+
+    public SessionContext getSessionContext() {
+        return _sessionContext;
     }
 
     public MockHttpServletRequest getRequest() {

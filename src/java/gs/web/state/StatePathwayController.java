@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.9 2005/11/02 18:59:00 thuss Exp $
+ * $Id: StatePathwayController.java,v 1.10 2005/11/02 22:38:27 thuss Exp $
  */
 package gs.web.state;
 
@@ -31,7 +31,7 @@ import java.net.URLEncoder;
 public class StatePathwayController extends AbstractController {
 
     public static final String BEAN_ID = "/stateLauncher.page";
-    private static final String DEFAULT_PATHWAY_MAP_KEY = "default";
+    static final String DEFAULT_PATHWAY_MAP_KEY = "default";
 
     private static final Log _log = LogFactory.getLog(StatePathwayController.class);
 
@@ -42,9 +42,7 @@ public class StatePathwayController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
 
         boolean hasSelectedState = false;
-        ISessionFacade sessionFacade = SessionContext.getInstance(request);
-        State state = null;
-        state = sessionFacade.getState();
+        String state = request.getParameter("state");
         if (state != null) {
             hasSelectedState = true;
         }
@@ -72,7 +70,7 @@ public class StatePathwayController extends AbstractController {
         if (hasSelectedState) {
             //redirect to the correct pathway
             Map params = new HashMap();
-            pathwayUrl += state.getAbbreviation();
+            pathwayUrl += state;
             pathwayUrl = urlUtil.buildUrl(pathwayUrl, request);
             RedirectView redirectView = new RedirectView(pathwayUrl);
             redirectView.setAttributesMap(params);
@@ -82,7 +80,7 @@ public class StatePathwayController extends AbstractController {
             String promo = null;
             try {
                 promo = _messageSource.getMessage(paramPathway + "_promo", null, Locale.ENGLISH);
-            } catch (NoSuchMessageException e) {
+            } catch (Exception e) {
                 promo = "";
             }
             model.put("url", urlUtil.buildUrl(pathwayUrl, request));
