@@ -8,6 +8,7 @@
     <jsp:directive.attribute name="state" required="false"
         description="The state to generate the search for. If unspecified, presents a popup."
         type="gs.data.state.State"/>
+
     <c:set var="usingNewSearch" value="true"/>
     <div class="globalsearch">
         <c:if test="${usingNewSearch}">
@@ -21,7 +22,11 @@
                     <input type="hidden" name="state" value="${state.abbreviation}"/>
                 </c:if>
                 <c:if test="${state == null}">
-                    <gsml:url var="u" value="/modperl/go/" />
+                    <gsml:url var="u" value="/modperl/go/" /><!-- TODO switch back to this before going live! -->
+                    <gsml:url var="u" value="/path/choose.page?state=" />
+                    <c:if test="${requestScope.context.pathway eq 2}">
+                    <gsml:url var="u" value="/path/mySchool.page?state=" />
+                    </c:if>
                     <gsweb:stateSelector
                         styleClass="statedropdown"
                         onChange="window.location.href='${u}' + this.value.toUpperCase()"
