@@ -17,13 +17,6 @@
         autowire="byName">
     </bean>
 
-    <bean name="/promo/featured.module"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>/promo/featured</value>
-        </property>
-    </bean>
-
     <bean name="/search.module"
         class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
@@ -128,6 +121,14 @@
         autowire="byName" >
         <property name="viewName">
             <value>/resultList</value>
+        </property>
+    </bean>
+
+    <bean name="/promo/featuredArticles.module"
+        class="gs.web.content.FeaturedArticlesController"
+        autowire="byName" >
+        <property name="viewName">
+            <value>/promo/featuredArticles</value>
         </property>
     </bean>
 

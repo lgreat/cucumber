@@ -1,9 +1,10 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AllArticlesControllerTest.java,v 1.2 2005/10/28 21:25:41 dlee Exp $
+ * $Id: ContentControllerTest.java,v 1.1 2005/11/02 01:10:34 apeterson Exp $
  */
 package gs.web.content;
 
+import gs.data.content.Article;
 import gs.data.content.ArticleManager;
 import gs.data.content.IArticleDao;
 import gs.web.BaseControllerTestCase;
@@ -15,10 +16,9 @@ import java.util.Map;
 /**
  * The purpose is to test the AllArticlesController
  *
- *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
-public class AllArticlesControllerTest extends BaseControllerTestCase {
+public class ContentControllerTest extends BaseControllerTestCase {
 
     public void testGetCategories() throws Exception {
         AllArticlesController c = new AllArticlesController();
@@ -38,5 +38,18 @@ public class AllArticlesControllerTest extends BaseControllerTestCase {
         assertEquals(numberOfCatgegories, (String) modelAndView.getModel().get("num_categories"));
         assertEquals(new Integer(0), (Integer) modelAndView.getModel().get("index"));
 
+    }
+
+
+    public void testFeaturedArticlesController() throws Exception {
+        FeaturedArticlesController c = new FeaturedArticlesController();
+        c.setApplicationContext(getApplicationContext());
+        c.setArticleDao((IArticleDao) getApplicationContext().getBean(IArticleDao.BEAN_ID));
+
+        ModelAndView modelAndView = c.handleRequestInternal(getRequest(), getResponse());
+
+        List articles = (List) modelAndView.getModel().get("articles");
+        assertTrue(articles.size() > 0);
+        assertTrue(articles.get(0) instanceof Article);
     }
 }

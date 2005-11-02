@@ -40,7 +40,7 @@
     <cobrand:framebuster />
     <div id="header">
         <!-- Note adFree sites are framed, mcguire, number1expert -->
-        <c:if test="${showHeader!='false' &amp;&amp; !requestScope.context.adFree}">
+        <c:if test="${showHeader!='false' and !requestScope.context.adFree}">
             <div id="headerGS">
                 <div id="headerLogo">
                     <gsml:url var="logoImage" value="/res/img/logo/logo_GS_260x40.gif"/>

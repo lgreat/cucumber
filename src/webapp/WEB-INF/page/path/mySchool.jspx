@@ -62,7 +62,11 @@
             <tr>
                 <td width="60%" valign="top">
                     <div class="topcontentcol1">
-                        <search:searchBox state="${requestScope.context.stateOrDefault}"/>
+                        <h3 class="result_title">Find Your School Profile</h3>
+
+                        <!--div class="smallform2fields nowrap"-->
+                            <search:searchBox state="${requestScope.context.stateOrDefault}"/>
+                        <!--/div-->
 
                         <div class="browselinks">
                             <gsml:a styleClass="nowrap"
@@ -75,9 +79,9 @@
                                     href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">
                                 Advanced search</gsml:a>
                         </div>
-                        <promo:featuredArticleSmall/>
+                        <jsp:include page="/promo/featuredArticles.module"/>
                     </div>
-                </td><td  valign="top">
+                </td><td valign="top">
                 <div class="topcontentcol2">
 
                     <div class="featuredarticle">
@@ -116,18 +120,14 @@
                     <div class="topcontentcol1">
                         <promo:newsletterMedium/>
                     </div>
-                </td><td  valign="top">
-                <div class="topcontentcol2" style="padding-bottom: 180px;">
+                </td><td valign="top">
+                <div class="topcontentcol2 hotTopics" style="padding-bottom: 180px;">
                     <!-- css hack b/c 100% height ignores margin setting -->
-                    <div class="columnHeader"><a href="#">Find Hot Topics Now</a></div>
+                    <h4><a href="#">Find Hot Topics Now</a></h4>
+
+                    <jsp:include page="/promo/featuredArticles.module"/>
 
                     <div class="featuredarticle2">
-                        <h3 class="result_title">Today's Feature</h3>
-                        <img style="margin: 0px 0px 0px -4px; float: left;" src="src/img/icon_newarticle.gif"
-                             class="newarticle" alt="new"/><a href="/cgi-bin/showarticlefeature/$STATE/41"><b>Help
-                        and information for hurricane victims</b></a><br/>
-                        Hurricane Katrina hurried in like Hurricanes do occasionally, and this is more text just
-                        for position only. <a href="#">More...</a>
                         <ul class="result_list nowrap"><li class="viewall"><a
                                 href="/cgi-bin/site/parent_tips.cgi/CA">Browse the latest topics</a></li></ul>
 

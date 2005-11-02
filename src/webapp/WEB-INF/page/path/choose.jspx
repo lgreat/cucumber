@@ -57,7 +57,7 @@
             </c:if>
             <c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
                 <promo:mySchoolListSmall/>
-                <promo:featuredArticleSmall/>
+                <jsp:include page="/promo/featuredArticles.module"/>
             </c:if>
         </td>
         <td class="col2" valign="top">
@@ -87,6 +87,7 @@
                     <tr>
                         <td width="60%">
                             <div class="topcontentcol1">
+                                <h3 class="result_title">Search California Schools</h3>
                                 <search:searchBox state="${requestScope.context.stateOrDefault}"/>
 
                                 <div class="browselinks">
@@ -116,7 +117,7 @@
                         </td><td width="40%">
                         <div class="topcontentcol2">
                             <promo:schoolChoiceCenterSmall/>
-                            <promo:featuredArticleSmall/>
+                            <jsp:include page="/promo/featuredArticles.module"/>
                         </div></td></tr>
                 </table>
             </gsml:box>

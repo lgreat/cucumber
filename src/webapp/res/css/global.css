@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.30 2005/11/01 22:10:18 thuss Exp $
+$Id: global.css,v 1.31 2005/11/02 01:10:34 apeterson Exp $
 ----------------------------------------------- */
 
 
@@ -9,9 +9,9 @@ $Id: global.css,v 1.30 2005/11/01 22:10:18 thuss Exp $
 ----------------------------------------------- */
 html, body{width:100%;height:100%}
 body, form {margin:0;padding:0}
-td, samp {font-family: Arial, Helvetica, sans-serif; font-size:12px;}
+body, td, samp {font-family: Arial, Helvetica, sans-serif; font-size:12px;}
 #pagemargin {position:relative;width:100%;margin:0px auto;padding:6px 6px 6px 6px;}
-#pagemargin img {border:0;padding:0;margin:0;} /* AJP display:block; */
+img {border:0;padding:0;margin:0;}
 .border {border:1px solid #900;}
 .small {font-size:80%;}
 a {text-decoration:none;color:#00F;}
@@ -37,11 +37,29 @@ img#logo {width:260px;height:40px;padding:0px 0px 0px 0px;margin:0px 0px 6px 0px
 #headerGS {position: relative;height:50px;min-width:780px;}
 #headerGS img {border:0;display:block;padding:0;margin:0;}
 
+/* These are two divs taking up the header area: headerLogo and globalsearch */
 #headerLogo {position:absolute;left:5px;width:250px;padding-top:5px;}
-#headerSearch {position:absolute;right:5px;min-width:520px;text-align:right;margin-top:12px;}
+#headerSearch {
+    position:absolute;right:5px;
+    min-width:520px;
+    text-align:right;margin-top:12px;
+    white-space: nowrap;
+}
 #headerSearch.select {margin-top:10px;}
-.globalsearch {font-size:13px;margin:0px 0px 3px 0px;padding:1px 0px 2px 3px;}
+
+#headerSearch  .textfieldfocused,
+#headerSearch  .textfieldblurred  {
+    font-size:13px;
+    margin:0px 0px 3px 0px;
+    padding:1px 0px 2px 3px;
+    width: 300px;
+}
+/*.globalsearch {white-space: nowrap}
+.globalsearch .statedropdown, .globalsearch .textfield,
+.globalsearch .textfieldblurred, .globalsearch  .textfieldfocused {font-size:13px;margin:0px 0px 3px 0px;padding:1px 0px 2px 3px;}
 /* select.globalsearch option {background: #DDD;} */
+/*.globalsearch .textfieldblurred, .globalsearch  .textfieldfocused {width: 60%}*/
+
 
 #footerGS {position: relative; padding-top:10px; margin: 0 auto; width: 750px; font-family: Arial, Helvetica, sans-serif; color:#000000; font-size: 10px; font-style: normal;}
 #footerAd {}
@@ -92,8 +110,11 @@ table.bottomcontent tr td img {text-align:center;}
 h1.moduleheader, span.moduleheader, span.moduleheader h1 {
     color:#F60;font-size:18px;font-weight:bold;white-space:nowrap;padding:0px 0px 0px 0px;}
 h1.moduleheader span {color:#000; font-weight:normal;font-size:10px;padding-left:10px;}
-h1.moduleheader {color:#F60;font-size:16px;font-weight:bold;white-space:nowrap;padding:0px 0px 4px 0px;}
-h1.moduleheader span {color:#000; font-weight:normal;font-size:10px;padding-left:10px;}
+h3.tagline {font-size:0.9em;}
+h4.tagline {font-size:1em;}
+h3.tagline, h4.tagline {color:#F60;font-weight:normal;padding:0px 0px 5px 0px;}
+h4.tagline b {font-weight:bold;}
+
 
 .inline {display:inline;}
 h2.segmentheader {color:#900;font-size:13px;font-weight:bold;padding:0px 0px 3px 0px;}
@@ -160,12 +181,13 @@ tr.login td.col2 {text-align:right;padding-right:3px;}
 .featuredarticle {margin:0px 0px 0px 5px;}
 .featuredarticle2 {margin:0px 0px 10px 0px;}
 .featuredarticle b, .featuredarticle2 b {font-weight:bold;text-decoration:none;} /* margin right is IE bug fix */
+img.newarticle {margin-right:5px;margin-bottom:-2px;}
 
 /*WAS: table.promoNewsletterSmall {margin:20px 0px 0px 2px;}*/
 /*WAS: table.promoNewsletterSmall h3 {font-size:1em;font-weight:bold;margin:10px 0px 0px 0px;}*/
 table.promoNewsletterSmall {margin:6px 0px 0px 0px;}
 .promoNewsletterSmall h2 {font-size:1.5em;font-weight:bold;margin:0px 0px 0px 0px;}
-.promoNewsletterSmall h3,
+.promoNewsletterSmall h3 {margin: 10px 0px 2px 0px;}
 .promoNewsletterSmall .smallform {margin: 10px 0px 2px 0px;white-space:nowrap;}
 
 .promoNewsletterMedium {margin:0px 0px 0px 2px;}
@@ -173,8 +195,9 @@ table.promoNewsletterSmall {margin:6px 0px 0px 0px;}
 .promoNewsletterMedium a {font-weight:normal;}
 .promoNewsletterMedium h2 {font-size:1.5em;font-weight:bold;margin:0px 0px 0px 0px;}
 .promoNewsletterMedium h3 {font-size:1em;font-weight:bold;margin:10px 0px 5px 0px;}
-.promoNewsletterMedium .columnHeader  {font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#66C;}
+/*.promoNewsletterMedium .columnHeader  {font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#66C;}*/
 div.promoNewsletterMedium .smallform {margin: 10px 0px 2px 0px;white-space:nowrap;}
+.promoNewsletterMedium h4 a, .hotTopics h4 a {font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;}
 
 .promoNewsletterBig {margin:0px 0px 0px 2px;}
 .promoNewsletterBig img {float:right;margin:15px;}
@@ -186,7 +209,7 @@ div.promoNewsletterBig .smallform {margin: 10px 0px 2px 0px;white-space:nowrap;}
 
 
 .promoMembershipBig td { vertical-align:top;}
-
+h3.membershipTagline {color:#F60;margin:10px 0px 10px 0px;font-weight:bold;}
 
 
 /* Boxes
@@ -234,4 +257,35 @@ table.blank td.R {background: #fff url(../img/box/border_blank_R.gif) right repe
 table.blank td.BL {background: #fff url(../img/box/border_blank_BL.gif) left bottom; width:7px; height:7px;}
 table.blank td.B {background: #fff url(../img/box/border_blank_B.gif) bottom repeat-x;}
 table.blank td.BR {background: #fff url(../img/box/border_blank_BR.gif) bottom right; width:7px; height:7px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

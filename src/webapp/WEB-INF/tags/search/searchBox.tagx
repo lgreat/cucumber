@@ -9,7 +9,7 @@
         description="The state to generate the search for. If unspecified, presents a popup."
         type="gs.data.state.State"/>
     <c:set var="usingNewSearch" value="true"/>
-    <div class="searchBox">
+    <div class="globalsearch">
         <c:if test="${usingNewSearch}">
             <!-- New Search
             Set the .textfield width in global.css to 50% -->
@@ -23,17 +23,16 @@
                 <c:if test="${state == null}">
                     <gsml:url var="u" value="/modperl/go/" />
                     <gsweb:stateSelector
-                        styleClass="globalsearch"
+                        styleClass="statedropdown"
                         onChange="window.location.href='${u}' + this.value.toUpperCase()"
                         allowNoState="${param.state == 'all'}"
                         useLongNames="true"/>
-                    &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-                    &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                    &#160;&#160;&#160;&#160;&#160;
                 </c:if>
                 <input type="text" value="${searchPrompt}"
-                    onfocus="this.className='globalsearch textfieldfocused';if (this.value=='${searchPrompt}') this.value='';"
-                    onblur="this.className='globalsearch textfieldblurred';if (this.value=='') this.value='${searchPrompt}';"
-                    class="globalsearch textfieldblurred"
+                    onfocus="this.className='textfieldfocused';if (this.value=='${searchPrompt}') this.value='';"
+                    onblur="this.className='textfieldblurred';if (this.value=='') this.value='${searchPrompt}';"
+                    class="textfieldblurred"
                     name="q"/>
                 <gsml:inputImage styleClass="btn" src="/res/img/button/btn_go.gif" alt="GO"/>
             </gsml:form>
@@ -52,7 +51,7 @@
                 </c:if>
                 <c:if test="${state == null}">
                     <gsml:url var="pathPage" value="/modperl/go/"/>
-                    <gsweb:stateSelector styleClass="globalsearch"
+                    <gsweb:stateSelector styleClass="statedropdown"
                         onChange="window.location.href='${pathPage}' + this.value.toUpperCase()"
                         allowNoState="${param.state == 'all'}"
                         useLongNames="true"/>
@@ -60,12 +59,12 @@
                 <input style="min-width:33%" type="text" value="${searchPrompt1}"
                     onfocus="if (this.value=='${searchPrompt1}') this.value=''; if (this.form.field2.value=='${searchPrompt2}') this.form.field2.value='';"
                     onblur="if (this.value=='' &amp;&amp; this.form.field2.value=='') { this.value='${searchPrompt1}'; this.form.field2.value='${searchPrompt2}'; }"
-                    class="globalsearch textfield" name="field1" size="20"/>
+                    class="textfield" name="field1" size="20"/>
                 <span style="margin: 0px 3px 7px 2px; font-size: 10px;">and/or</span>
                 <input style="min-width:20%" type="text" value="${searchPrompt2}"
                     onfocus="if (this.value=='${searchPrompt2}') this.value=''; if (this.form.field1.value=='${searchPrompt1}') this.form.field1.value='';"
                     onblur="if (this.value=='' &amp;&amp; this.form.field1.value=='') { this.value='${searchPrompt2}'; this.form.field1.value='${searchPrompt1}'; }"
-                    class="globalsearch textfield" name="field2" size="15"/>
+                    class="textfield" name="field2" size="15"/>
                 <gsml:url var="goImage" value="/res/img/button/btn_go.gif"/>
                 <input type="image" class="btn" src="${goImage}"/>
             </form>

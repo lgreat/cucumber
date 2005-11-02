@@ -32,7 +32,6 @@
             <table width="98%" style="vertical-align: top">
                 <tr>
                     <td colspan="4" align="right">
-                        <jsp:include page="/promo/featured.module"/>
                     </td>
                 </tr>
                 <tr>

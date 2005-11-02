@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.5 2005/10/14 23:21:26 apeterson Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.6 2005/11/02 01:10:34 apeterson Exp $
  */
 package gs.web.content;
 
@@ -8,9 +8,12 @@ import gs.data.content.Article;
 import gs.data.state.State;
 import gs.web.ISessionFacade;
 import gs.web.jsp.BaseTagHandler;
+import gs.web.util.UrlUtil;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.tagext.JspFragment;
 import java.io.IOException;
 
 /**
@@ -22,6 +25,8 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
 
     private Article _article;
     private String _windowName = "";
+    private UrlUtil _urlUtil = new UrlUtil();
+
 
     public void doTag() throws IOException {
 
@@ -34,11 +39,10 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
             if (sc != null) {
                 State s = sc.getStateOrDefault();
 
-                if (_article.isSpanish() && _article.isNew()) {
-                    articleLink.append("<img src=\"/res/img/content/nuevo.jpg\">&nbsp;");
-                } else if (_article.isNew()) {
-                    articleLink.append("<img src=\"/res/img/content/new.jpg\">&nbsp;");
-
+                if (_article.isNew()) {
+                    String img = _article.isSpanish() ? "/res/img/content/nuevo.jpg" : "/res/img/content/icon_newarticle.gif";
+                    img = _urlUtil.buildHref(img, false, null);
+                    articleLink.append("<img src=\"" + img + "\" alt=\"new\" class=\"newarticle\">&nbsp;");
                 }
 
                 if (s.isSubscriptionState() && _article.isInsider()) {
@@ -51,11 +55,17 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
                 String title = _article.getTitle();
                 title = title.replaceAll("\\$LONGSTATE", s.getLongName());
 
+                JspFragment jspBody = getJspBody();
+
                 articleLink.append(s.getAbbreviationLowerCase()).append("/")
                         .append(_article.getId().toString())
-                        .append("\" target=\"")
-                        .append(_windowName)
-                        .append("\">")
+                        .append("\" ");
+                if (StringUtils.isNotEmpty(_windowName)) {
+                    articleLink.append(" target=\"")
+                            .append(_windowName)
+                            .append("\"");
+                }
+                articleLink.append(">")
                         .append(title).append("</a>").toString();
 
             }
