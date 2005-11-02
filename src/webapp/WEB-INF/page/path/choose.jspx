@@ -87,7 +87,7 @@
                     <tr>
                         <td width="60%">
                             <div class="topcontentcol1">
-                                <h3 class="result_title">Search California Schools</h3>
+                                <h3 class="result_title">Search ${requestScope.context.stateOrDefault.longName} Schools</h3>
                                 <search:searchBox state="${requestScope.context.stateOrDefault}"/>
 
                                 <div class="browselinks">

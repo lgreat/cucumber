@@ -29,12 +29,12 @@
                         <gsml:a href="/cgi-bin/cs_where/$STATE"> Compare Schools </gsml:a>
                         <gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address"> Search By Address </gsml:a>
                         <gsml:a href="/cgi-bin/msl_confirm/$STATE"> My School List </gsml:a>
-                        <c:if test="${requestScope.stateOrDefault.subscriptionState}">
-                            <c:if test="${requestScope.user==null}">
-                                <gsml:a href="/cgi-bin/site/signin.cgi/$STATE/" state="${requestScope.stateOrDefault}">Sign In</gsml:a>
+                        <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
+                            <c:if test="${requestScope.context.user==null}">
+                                <gsml:a href="/cgi-bin/site/signin.cgi/$STATE/" state="${requestScope.context.stateOrDefault}">Sign In</gsml:a>
                             </c:if>
-                            <c:if test="${requestScope.user!=null}">
-                                <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.user.email}&amp;mid=${requestScope.user.id}">Sign Out</gsml:a>
+                            <c:if test="${requestScope.context.user!=null}">
+                                <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.user.email}&amp;mid=${requestScope.context.user.id}">Sign Out</gsml:a>
                             </c:if>
                         </c:if>
                     </td>
