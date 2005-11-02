@@ -17,7 +17,6 @@
         <head>
             <gsml:url value="/index.page" var="basepath"/>
             <base href="${basepath}"></base>
-            <link rel="stylesheet" href="res/css/spp2.css"></link>
         </head>
 
 

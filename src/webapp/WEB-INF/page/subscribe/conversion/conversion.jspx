@@ -12,7 +12,7 @@
     <jsp:directive.page contentType="text/html"/>
     <head>
         <title>GreatSchools Insider Membership Benefits</title>
-        <link rel="stylesheet" type="text/css" href="/res/css/subscribe/conversion/cp_styles.css"/>
+        <link rel="stylesheet" type="text/css" href="/res/css/community/cp_styles.css"/>
         <script language="javascript" type="text/javascript"  src="/res/js/popup.js"></script>
         <gsml:fireclick pageType="conversion" pageName="home"
             extraJavascriptVariable="var fc_track='view';var fc_prod_view='GreatSchools Insider';"/>

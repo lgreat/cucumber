@@ -12,7 +12,7 @@
 
     <jsp:directive.page contentType="text/html"/>
     <head>
-        <link rel="stylesheet" type="text/css" href="/res/css/subscribe/conversion/cp_styles.css"/>
+        <link rel="stylesheet" type="text/css" href="/res/css/community/cp_styles.css"/>
         <title>GreatSchools Insider Membership Benefits - Flag Alerts</title>
     </head>
 

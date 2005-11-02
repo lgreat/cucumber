@@ -11,9 +11,10 @@
         xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         >
-<jsp:directive.page import="gs.web.SessionFacade"/>
+<jsp:directive.page import="gs.web.SessionContextUtil"/>
 <jsp:scriptlet>
-    SessionFacade.getInstance(request).setPathway("2");
+    SessionContextUtil u = new SessionContextUtil();
+    u.setPathway(request, response, "2");
 </jsp:scriptlet>
 <html lang="en">
 <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
@@ -65,7 +66,7 @@
                         <h3 class="result_title">Find Your School Profile</h3>
 
                         <!--div class="smallform2fields nowrap"-->
-                            <search:searchBox state="${requestScope.context.stateOrDefault}"/>
+                        <search:searchBox state="${requestScope.context.stateOrDefault}"/>
                         <!--/div-->
 
                         <div class="browselinks">
