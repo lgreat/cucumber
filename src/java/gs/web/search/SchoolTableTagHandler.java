@@ -63,49 +63,53 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
                 SearchResult sResult = (SearchResult) _schools.get(i);
                 School school = getSchool(sResult);
-                if (school != null) {
-                    out.println("<tr class=\"result_row\">");
-                    out.println("<td class=\"checkbox\" width=\"1\">");
-                    out.print("<input name=\"sc\" type=\"checkbox\"  value=\"");
-                    out.print(school.getState().getAbbreviationLowerCase());
-                    out.print(school.getId());
-                    out.print("\" /></td>");
+                try {
+                    if (school != null) {
+                        out.println("<tr class=\"result_row\">");
+                        out.println("<td class=\"checkbox\" width=\"1\">");
+                        out.print("<input name=\"sc\" type=\"checkbox\"  value=\"");
+                        out.print(school.getState().getAbbreviationLowerCase());
+                        out.print(school.getId());
+                        out.print("\" /></td>");
 
-                    out.println("<td>");
+                        out.println("<td>");
 
-                    out.print("<a href=\"/modperl/browse_school/");
-                    out.print(school.getState().getAbbreviation());
-                    out.print("/");
-                    out.print(school.getId().toString());
-                    out.println("\">");
+                        out.print("<a href=\"/modperl/browse_school/");
+                        out.print(school.getState().getAbbreviation());
+                        out.print("/");
+                        out.print(school.getId().toString());
+                        out.println("\">");
 
-                    out.print(TextHighlighter.highlight(school.getName(), getQueryString(), "name"));
-                    out.println("</a><br/>");
-                    out.print(school.getPhysicalAddress().toString());
-                    out.println("<br/>");
+                        out.print(TextHighlighter.highlight(school.getName(), getQueryString(), "name"));
+                        out.println("</a><br/>");
+                        out.print(school.getPhysicalAddress().toString());
+                        out.println("<br/>");
 
-                    District dist = school.getDistrict();
-                    if (dist != null) {
-                        String name = dist.getName();
-                        if (name != null) {
-                            out.print(name);
+                        District dist = school.getDistrict();
+                        if (dist != null) {
+                            String name = dist.getName();
+                            if (name != null) {
+                                out.print(name);
+                            }
                         }
-                    }
 
-                    out.println("</td>");
-                    out.println("<td align=\"center\">");
-                    out.println(school.getType().getSchoolTypeName());
-                    out.println("</td><td align=\"center\">");
-                    out.println(school.getGradeLevels().getRangeString());
-                    out.println("</td><td align=\"center\">");
-                    int enrollment = school.getEnrollment();
-                    if (enrollment > -1) {
-                        out.print(enrollment);
-                    } else {
-                        out.print("not available");
+                        out.println("</td>");
+                        out.println("<td align=\"center\">");
+                        out.println(school.getType().getSchoolTypeName());
+                        out.println("</td><td align=\"center\">");
+                        out.println(school.getGradeLevels().getRangeString());
+                        out.println("</td><td align=\"center\">");
+                        int enrollment = school.getEnrollment();
+                        if (enrollment > -1) {
+                            out.print(enrollment);
+                        } else {
+                            out.print("not available");
+                        }
+                        out.println("</td>");
+                        out.println("</tr>");
                     }
-                    out.println("</td>");
-                    out.println("</tr>");
+                } catch (Exception e) {
+                    _log.warn("Problem writing school: " + school, e);
                 }
             }
             out.print("<tr class=\"last_row\"><td colspan=\"5\">");
