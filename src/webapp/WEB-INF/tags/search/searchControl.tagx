@@ -6,7 +6,6 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
-    <jsp:directive.attribute name="showSchoolFilters" required="false"/>
     <jsp:directive.attribute name="rememberQuery" required="false"/>
 
     <gsml:url var="search" value="/search/search.page"/>
@@ -37,31 +36,6 @@
                     <gsml:url var="goButton" value="/res/img/search/btn_go.gif"/>
                     <input type="image" src="${goButton}" class="btn" value="go"/>
                 </td>
-                <!--
-                <tr>
-                    <td colspan="2">
-                       <input type="submit" class="lpad" name="searchnear" value="Search near address " />
-                    </td>
-                 </tr>
-                <c:if test="${not empty param.state and param.state != 'all'}">
-                    <td>
-                    </td>
-                    <tr>
-                        <td class="label">Browse:</td>
-                        <td>
-                            <c:url var="allArticlesPage" value="/content/allArticles.page"/>
-                            <a href="${allArticlesPage}?state=${param.state}"
-                               class="pad">All Articles</a>
-                            <a href="http://${requestScope.context.hostName}/modperl/citylist/${param.state}/" class="pad">
-                               <c:out value="${gsweb:getStateName(param.state)} Cities"/>
-                            </a>
-                            <a href="http://${requestScope.context.hostName}/modperl/distlist/${param.state}" class="pad">
-                               <c:out value="${gsweb:getStateName(param.state)} Districts"/>
-                            </a>
-                        </td>
-                    </tr>
-                </c:if>
-                    -->
             </tr>
         </table>
     </gsml:form>

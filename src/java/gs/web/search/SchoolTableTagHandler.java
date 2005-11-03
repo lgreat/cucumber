@@ -52,30 +52,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             /// end control row
 
             out.println("<tr><th class=\"result_title\" width=\"1\">&nbsp;</th>");
-
-            /** Uncomment this for sorting by school name
-             StringBuffer buffer = new StringBuffer();
-             buffer.append("<th class=\"left\"><a href=\"/search.page?c=school");
-             if (getQueryString() != null) {
-             buffer.append("&amp;q=");
-             buffer.append(getQueryString());
-             }
-             String href = buffer.toString();
-             out.print(href);
-             out.print("&amp;sort=name");
-
-             if (getSortColumn() != null && getSortColumn().equals("name")) {
-             if (sortReverse()) {
-             out.print("&amp;r=f");
-             } else {
-             out.print("&amp;r=t");
-             }
-             }
-             out.println("\">");
-             out.print("Schools</a></th>");
-             */
             out.print("<th class=\"left\">Schools</th>");
-
             out.println("<th class=\"result_title\">Type</th>");
             out.println("<th class=\"result_title\">Grade</th>");
             out.println("<th class=\"result_title\">Enrollment</th>");
@@ -109,11 +86,9 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
                     District dist = school.getDistrict();
                     if (dist != null) {
-                        try {
-                            out.print(TextHighlighter.highlight(dist.getName(),
-                                    getQueryString(), "name"));
-                        } catch (Exception e) {
-                            _log.warn("error writing district", e);
+                        String name = dist.getName();
+                        if (name != null) {
+                            out.print(name);
                         }
                     }
 

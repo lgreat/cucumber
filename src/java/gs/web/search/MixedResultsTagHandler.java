@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
@@ -21,7 +23,7 @@ public class MixedResultsTagHandler extends BaseQueryTagHandler {
     private static final int SCHOOLS_MAX = 6;
     private static final int ARTICLES_MAX = 3;
     private static final int TERMS_MAX = 3;
-
+    private static final Logger _log = Logger.getLogger(MixedResultsTagHandler.class);
     public static final String BEAN_ID = "MixedResultsTagHandler";
     private Map _results = null;
 
@@ -75,25 +77,39 @@ public class MixedResultsTagHandler extends BaseQueryTagHandler {
             }
 
             for (int i = 0; i < count; i++) {
-                out.print("<li>");
-                SearchResult school = (SearchResult) schools.get(i);
-                School school_ = getSchool(school);
 
-                out.print("<a href=\"http://");
-                String host = getHostname();
-                if (host != null) {
-                    out.print(host);
+                out.print("<li>");
+                SearchResult schoolResult = (SearchResult) schools.get(i);
+                School school = getSchool(schoolResult);
+
+                // The enclosing for loop will never be that long so having this
+                // try/catch should no be too expensive.
+                try {
+                    out.print("<a href=\"http://");
+                    String host = getHostname();
+                    if (host != null) {
+                        out.print(host);
+                    }
+                    out.print("/modperl/browse_school/");
+                    out.print(school.getState().getAbbreviationLowerCase());
+                    out.print("/");
+                    out.print(school.getId().toString());
+                    out.print("\">");
+                    out.print(TextHighlighter.highlight(school.getName(), _query, "name"));
+                    out.println("</a><address>");
+                    out.println(school.getPhysicalAddress().toString());
+                    out.println("</address>");
+                } catch (NullPointerException npe) {
+                    StringBuffer errorBuffer = new StringBuffer(50);
+                    errorBuffer.append("Problem with school: ");
+                    if(school != null) {
+                        errorBuffer.append(school.toString());
+                    } else if(schoolResult != null) {
+                        errorBuffer.append(schoolResult.toString());
+                    }
+                    _log.warn(errorBuffer.toString(), npe);
                 }
-                out.print("/modperl/browse_school/");
-                out.print(school_.getState().getAbbreviationLowerCase());
-                out.print("/");
-                out.print(school_.getId().toString());
-                out.print("\">");
-                out.print(TextHighlighter.highlight(school_.getName(), _query, "name"));
-                out.println("</a><address>");
-                //out.println(TextHighlighter.highlight(school_.getPhysicalAddress().toString(), _query, "address"));
-                out.println(school_.getPhysicalAddress().toString());
-                out.println("</address></li>");
+                out.println("</li>");
             }
 
             int schoolCount = ((Integer) _results.get("schoolsTotal")).intValue();
@@ -105,21 +121,6 @@ public class MixedResultsTagHandler extends BaseQueryTagHandler {
                 out.print(schoolCount);
                 out.println(" results</a></li>");
             }
-        } else {
-            /**  Uncomment this for "browse all" functionality -> confirm link url
-            State s = getState();
-            if (s != null) {
-                out.print("<li class=\"viewall\">");
-                out.print("<a href=\"http://");
-                out.print(getHostname());
-                out.print("/cgi-bin/template_plain/advanced/");
-                out.print(s.getAbbreviation());
-                out.println("\">");
-                out.print("Browse all schools in ");
-                out.print(s.getLongName());
-                out.println("</a></li>");
-            }
-            */
         }
         out.println("</ul>");
     }
@@ -136,7 +137,7 @@ public class MixedResultsTagHandler extends BaseQueryTagHandler {
                 out.print("<a href=\"http://");
                 out.print(getHostname());
                 out.print("/cgi-bin/show");
-                if (article.isInsider()){
+                if (article.isInsider()) {
                     out.print("part");
                 }
                 out.print("article/");
@@ -200,7 +201,7 @@ public class MixedResultsTagHandler extends BaseQueryTagHandler {
             out.print(getHostname());
             out.print("/cgi-bin/glossary_home/");
             out.print(getStateOrDefault().getAbbreviation());
-            out.println ("\">Browse all glossary terms</a></li>");
+            out.println("\">Browse all glossary terms</a></li>");
         }
         out.println("</ul>");
     }
@@ -212,7 +213,7 @@ public class MixedResultsTagHandler extends BaseQueryTagHandler {
      * @param map
      * @return true if there are results
      */
-    private static boolean hasResults (Map map) {
+    private static boolean hasResults(Map map) {
         if (map != null) {
             Collection lists = map.values();
             Iterator iter = lists.iterator();

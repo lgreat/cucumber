@@ -8,8 +8,6 @@ import javax.servlet.jsp.JspContext;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.Iterator;
 
 import org.apache.taglibs.standard.functions.Functions;
 import org.apache.commons.lang.StringUtils;
@@ -84,25 +82,21 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
             schoolTypes = null;
         }
     }
+
     protected void writePageNumbers(JspWriter out) throws IOException {
 
-        if (_total > 0) {
+        JspContext jspContext = getJspContext();
+        String cityParam = null;
+        String distParam = null;
 
-            /*
-            out.print("Result : ");
-            int p = ((_page <= 1) ? 0 : (_page-1) * PAGE_SIZE);
-            out.print(p+1);
-            out.print(" - ");
-
-            if ((p + PAGE_SIZE) <= _total) {
-                out.print(p + PAGE_SIZE);
-            } else {
-                out.print(_total);
+        if (jspContext != null) {
+            cityParam = (String)jspContext.findAttribute("city");
+            if (cityParam == null) {
+                distParam = (String)jspContext.findAttribute("district");
             }
-            out.print(" of ");
-            out.print(_total);
-            out.println();
-            */
+        }
+
+        if (_total > 0) {
 
             if (_total > PAGE_SIZE) {
                 out.println("Results page:&nbsp;&nbsp;");
@@ -118,6 +112,14 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                 StringBuffer hrefBuffer = new StringBuffer(40);
                 hrefBuffer.append("<a class=\"pad\" href=\"/search/search.page?q=");
                 hrefBuffer.append(Functions.escapeXml(_queryString));
+
+                if (cityParam != null) {
+                    hrefBuffer.append("&city=");
+                    hrefBuffer.append(cityParam);
+                } else if (distParam != null) {
+                    hrefBuffer.append("&district=");
+                    hrefBuffer.append(distParam);
+                }
 
                 State s = getState();
                 if (s != null) {
