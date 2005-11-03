@@ -40,7 +40,8 @@
 <body onload="${onloadPopunder} ${onLoadScript}">
 <jsp:include page="/header/cobrand.module"/>
 <div id="bodyGS">
-    <cobrand:framebuster />
+    <cobrand:framebuster/>
+
     <div id="header">
         <!-- Note adFree sites are framed, mcguire, number1expert -->
         <c:if test="${showHeader!='false' and !requestScope.context.adFree}">
@@ -62,7 +63,7 @@
 
     <!-- Note adFree sites are framed, mcguire, number1expert -->
     <c:if test="${showHeader!='false' and !requestScope.context.adFree}">
-        <div id="footerGS">
+        <div id="footer">
             <div id="footerAd">
                 <ad:google728x90/>
             </div>
@@ -118,8 +119,19 @@
                         </td>
                     </tr>
                 </table>
+                <div id="footerText">
+                    GreatSchools.net Elementary, middle and high school information for public, private and charter
+                    schools
+                    nationwide.
+                </div>
+                <jsp:include
+                        page="/footer/searchEngine.module?state=${requestScope.context.stateOrDefault.abbreviation}"/>
+                <div id="footerCopyright">
+                    &amp;#169;1998-2005 GreatSchools Inc. All Rights Reserved.
+                    <a href="/cgi-bin/static/terms.html/${requestScope.context.stateOrDefault.abbreviation}">Terms of
+                        Use</a>
+                </div>
             </div>
-            <jsp:include page="/footer/searchEngine.module?state=${requestScope.context.stateOrDefault.abbreviation}"/>
         </div>
     </c:if>
 </div>

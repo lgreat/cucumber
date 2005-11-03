@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.35 2005/11/03 19:24:07 thuss Exp $
+$Id: global.css,v 1.36 2005/11/03 19:48:37 thuss Exp $
 ----------------------------------------------- */
 
 
@@ -65,15 +65,15 @@ img#logo {width:260px;height:40px;padding:0px 0px 0px 0px;margin:0px 0px 6px 0px
 /*.globalsearch .textfieldblurred, .globalsearch  .textfieldfocused {width: 60%}*/
 
 
-#footerGS {position: relative; padding-top:10px; margin: 0 auto; width: 750px; font-family: Arial, Helvetica, sans-serif; color:#000000; font-size: 10px; font-style: normal;}
-#footerAd {}
-#footerText {text-align:center;line-height: 10pt; font-size: 11px; font-weight: bold; padding-top: 10px; }
-#footerSearch {text-align:center;}
+#footer {margin-left:auto;margin-right:auto;width:750px;line-height:10pt;font-size:11px;}
+#footerGS {padding-top:10px;}
+#footerText {font-weight: bold; padding-top: 10px; text-align: center;}
+#footerSearch {text-align: center;font-size: 10px;}
 #footerSponsor {padding:20px 20px 0px 0px;}
-#footerCopyright {padding-bottom: 5px; text-align: center}
+#footerCopyright {padding-bottom: 5px; text-align: center; font-size: 10px;}
 #footerGS table {border-collapse:collapse;width:728px;}
 #footerGS th {text-align:left;font-size: 10px; color: rgb(255, 255, 255); background:#003399;}
-#footerGS td {font-size: 10px; vertical-align:top;}
+#footerGS td {font-size: 10px; vertical-align:top;line-height:8pt}
 
 /*  Structure
 ----------------------------------------------- */
@@ -83,8 +83,6 @@ img#logo {width:260px;height:40px;padding:0px 0px 0px 0px;margin:0px 0px 6px 0px
 
 table.bottomcontent tr {padding-bottom:5px;}
 table.bottomcontent tr td img {text-align:center;}
-
-
 
 /*  Nav
 ----------------------------------------------- */

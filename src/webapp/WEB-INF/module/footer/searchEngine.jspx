@@ -6,11 +6,6 @@
 <c:set var="longName" value="${requestScope.context.stateOrDefault.longName}"/>
 <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 
-<div id="footerText">
-    GreatSchools.net Elementary, middle and high school information for public, private and charter schools
-    nationwide.
-</div>
-
 <div id="footerSearch">
 
 <span style="style:inline" onclick="showSection('footerSearchStateSpecific');">${longName} school information <a>(click
@@ -148,9 +143,4 @@
         }
     }
 </script>
-
-<div id="footerCopyright">
-    &amp;#169;1998-2005 GreatSchools Inc. All Rights Reserved.
-    <a href="/cgi-bin/static/terms.html/${requestScope.context.stateOrDefault.abbreviation}">Terms of Use</a>
-</div>
 </jsp:root>
