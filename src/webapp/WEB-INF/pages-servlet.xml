@@ -269,6 +269,10 @@
                     <value>/modperl/go</value>
                 </entry>
                 <entry>
+                    <key><value>pathway5</value></key>
+                    <value>/search/search.page</value>
+                </entry>
+                <entry>
                     <key><value>default</value></key>
                     <value>/index.html</value>
                 </entry>
