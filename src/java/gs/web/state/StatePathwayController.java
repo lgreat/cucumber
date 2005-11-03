@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.10 2005/11/02 22:38:27 thuss Exp $
+ * $Id: StatePathwayController.java,v 1.11 2005/11/03 02:30:25 chriskimm Exp $
  */
 package gs.web.state;
 
@@ -43,7 +43,7 @@ public class StatePathwayController extends AbstractController {
 
         boolean hasSelectedState = false;
         String state = request.getParameter("state");
-        if (state != null) {
+        if (state != null && !"".equals(state)) {
             hasSelectedState = true;
         }
 
