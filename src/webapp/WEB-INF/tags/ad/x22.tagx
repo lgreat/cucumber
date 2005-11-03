@@ -7,9 +7,17 @@
     <jsp:directive.tag body-content="empty"/>
     <c:if test="${!requestScope.context.adFree  &amp;&amp; !requestScope.context.cobrand}">
         <div id="adLeaderboard">
-            <script language="JavaScript">OAS_AD('x22');</script>
-            <gsml:url var="sponsorImage" value="/res/img/ad/sponsor_vertical.gif"/>
-            <img class="adSponsorImage" src="${sponsorImage}" width="10" height="90"/>
+            <table>
+                <tr>
+                    <td>
+                        <script language="JavaScript">OAS_AD('x22');</script>
+                    </td>
+                    <td>
+                        <gsml:url var="sponsorImage" value="/res/img/ad/sponsor_vertical.gif"/>
+                        <img class="adSponsorImage" src="${sponsorImage}" width="10" height="90"/>
+                    </td>
+                </tr>
+            </table>
         </div>
     </c:if>
 </jsp:root>
