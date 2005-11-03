@@ -169,7 +169,6 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
                     break;
             }
 
-
             out.println("</td><td class=\"searchbyaddress\">");
             writeSearchNearLink(out);
             out.println("</td></tr></table>");
@@ -218,29 +217,8 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
                 out.println(")");
                 out.println("</td></tr></table>");
             }
-            out.println("<table><tr><td>Browse:</td><td>");
-            out.print("<a class=\"rpad\" href=\"/content/allArticles.page?state=");
-            out.print(getStateParam());
-            out.println("\">All Articles</a></td>");
+            writeBrowseLinks(out);
 
-            String host = getSessionContext().getHostName();
-            out.print("<td><a class=\"rpad\"  href=\"http://");
-            out.print(host);
-            out.print("/modperl/citylist/");
-            out.print(getStateParam());
-            out.print("\">All ");
-            out.print(getStateOrDefault().getLongName());
-            out.println(" Cities</a></td>");
-
-            out.print("<td><a class=\"rpad\" href=\"http://");
-            out.print(host);
-            out.print("/modperl/distlist/");
-            out.print(getStateParam());
-            out.print("\">All ");
-            out.print(getStateOrDefault().getLongName());
-            out.println(" Districts</a></td>");
-
-            out.println("</tr></table>");
         } else {
             out.println ("<table><tr><td>");
             out.print("<span class=\"resultheadline\">Your search for <b>\"");
@@ -254,7 +232,10 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
             out.println("\"</b> did not return any results.</span>");
             out.println ("</td><td class=\"searchbyaddress\">");
             writeSearchNearLink(out);
-            out.println ("</td></tr><tr><td>Please try again.</td></tr></table>");
+            out.println ("</td></tr><tr><td>");
+            writeBrowseLinks(out);
+            //Please try again.
+            out.println("</td></tr></table>");
         }
         _schoolsTotal = _articlesTotal = _districtsTotal = _citiesTotal = _termsTotal = 0;
 
@@ -267,6 +248,29 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
         out.print(getStateOrDefault());
         out.print("/#address\">");
         out.println("Search near Address</a>");
+    }
+
+    private void writeBrowseLinks(JspWriter out) throws IOException {
+
+        out.println("<table><tr><td>Browse:</td><td>");
+        out.print("<a class=\"rpad\" href=\"/content/allArticles.page?state=");
+        out.print(getStateParam());
+        out.println("\">All Articles</a></td>");
+        String host = getSessionContext().getHostName();
+        out.print("<td><a class=\"rpad\"  href=\"http://");
+        out.print(host);
+        out.print("/modperl/citylist/");
+        out.print(getStateParam());
+        out.print("\">All ");
+        out.print(getStateOrDefault().getLongName());
+        out.println(" Cities</a></td>");
+        out.print("<td><a class=\"rpad\" href=\"http://");
+        out.print(host);
+        out.print("/modperl/distlist/");
+        out.print(getStateParam());
+        out.print("\">All ");
+        out.print(getStateOrDefault().getLongName());
+        out.println(" Districts</a></td></tr></table>");
     }
 
     private String getStateParam() {
