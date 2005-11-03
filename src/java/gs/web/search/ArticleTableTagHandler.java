@@ -60,23 +60,8 @@ public class ArticleTableTagHandler extends ResultsTableTagHandler {
 
                     out.print(TextHighlighter.highlight(escapeLongstate(article.getTitle()), getQueryString(), "title"));
                     out.print("</a><br/>");
-
-                    String art = article.getAbstract();
-                    System.out.println (art);
-                    byte[] bytes = art.getBytes();
-                    for (int ii = 0; ii < bytes.length; ii++) {
-                        int c = (int)bytes[ii];
-                        System.out.print(" " + (char)c + ":" + c);
-                        if (c > 127 && c < 160) {
-                            System.out.println ("AHHHHHHHHHHHHHHHHHHH!!!!" + art);
-                            break;
-                        }
-                    }
-
-                    //System.out.println ("article abstract: " + );
                     out.print(TextHighlighter.highlight(escapeLongstate(article.getAbstract()), getQueryString(), "abstract"));
                     out.println("</td><td></td>");
-                    //out.println("</td><td class=\"icons\">NEW</td>");
                     out.println("</tr>");
                 }
                 out.println("<tr class=\"last_row\"><td colspan=\"5\"><ul>");

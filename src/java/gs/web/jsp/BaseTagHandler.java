@@ -58,9 +58,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
     }
 
     protected Article getArticle(SearchResult sr) {
-        Article a = getArticleDao().getArticleFromId(Integer.decode(sr.getId()));
-        System.out.println ("art:::" + a.getAbstract());
-        return a; 
+        return getArticleDao().getArticleFromId(Integer.decode(sr.getId()));
     }
 
     protected School getSchool(SearchResult sr) {
