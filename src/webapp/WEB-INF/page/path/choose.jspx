@@ -52,13 +52,18 @@
             <mod:globalNav/>
             <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
                 <gsml:box tableClass="blank" tableWidth="100%">
-                    <promo:newsletterSmall/>
+                    <c:if test="${requestScope.context.user==null}">
+                        <promo:newsletterSmall/>
+                    </c:if>
+                    <c:if test="${requestScope.context.user!=null}">
+                        <jsp:include page="/promo/featuredArticles.module" />
+                        <promo:mySchoolListSmall/>
+                    </c:if>
                 </gsml:box>
-                <!--promo:mySchoolListSmall/-->
             </c:if>
             <c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
-                <promo:mySchoolListSmall/>
                 <jsp:include page="/promo/featuredArticles.module"/>
+                <promo:mySchoolListSmall/>
             </c:if>
         </td>
         <td class="col2" valign="top">
@@ -118,8 +123,32 @@
                             </div>
                         </td><td width="40%">
                         <div class="topcontentcol2">
+
+
+
+            <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
+                    <c:if test="${requestScope.context.user==null}">
                             <promo:schoolChoiceCenterSmall/>
                             <jsp:include page="/promo/featuredArticles.module"/>
+                    </c:if>
+                    <c:if test="${requestScope.context.user!=null}">
+
+                        <div class="featuredarticle">
+<h3 class="result_title">Membership Center</h3>
+Welcome! To get started, use search PLUS to access school ratings, alerts, parent reviews and more.<br />
+<a href="#">More tips for using your membership</a>
+</div>
+                            <promo:schoolChoiceCenterSmall/>
+                    </c:if>
+            </c:if>
+            <c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
+                            <promo:schoolChoiceCenterSmall/>
+                            <jsp:include page="/promo/featuredArticles.module"/>
+            </c:if>
+
+
+
+
                         </div></td></tr>
                 </table>
             </gsml:box>
@@ -129,9 +158,6 @@
                         <promo:membershipBig/>
                     </c:if>
                     <c:if test="${requestScope.context.user!=null}">
-                        <a class="nohover" href="#">
-                            <h1 class="moduleheader">Help your child succeed in school with FREE newsletters</h1>
-                        </a>
                         <promo:newsletterBig/>
                     </c:if>
                 </gsml:box>

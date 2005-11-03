@@ -237,6 +237,13 @@
         </property>
     </bean>
 
+    <bean name="/content/schoolChoiceCenter.page"
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/content/schoolChoiceCenter</value>
+        </property>
+    </bean>
+
     <bean name="/stateLauncher.page"
         class="gs.web.state.StatePathwayController"
         autowire="byName">

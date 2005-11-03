@@ -25,7 +25,7 @@ old user, add new subscriptions
             <input type="hidden" name="school_name" value=""/>
             <input type="hidden" name="ms_state" value=""/-->
             <h2>
-                <a class="nohover" href="#">FREE Newsletters</a>
+                FREE Newsletters
             </h2>
             <div class="small">
 				Help your child succeed in school.

@@ -13,6 +13,7 @@
         <pattern>/path/choose.page</pattern>
         <pattern>/path/mySchool.page</pattern>
         <pattern>/stateLauncher.page</pattern>
+        <pattern>/content/schoolChoiceCenter.page</pattern>
     </decorator>
 
     <!-- We have to explicitly exclude due to a Sitemesh 2.2.1 bug that truncates the closing html tag -->

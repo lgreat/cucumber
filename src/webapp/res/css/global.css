@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.33 2005/11/02 02:02:12 apeterson Exp $
+$Id: global.css,v 1.34 2005/11/03 00:46:21 apeterson Exp $
 ----------------------------------------------- */
 
 
@@ -157,7 +157,7 @@ input.btn {width:28px;height:24px;margin:0px 0px -2px 6px;padding:0px 0px 0px 0p
 /*  Misc
 ----------------------------------------------- */
 .parentPoll {text-align:center;}
-.parentPoll h3 {padding:0px 0px 0px 0px;font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#111;} /* this causes the text to center properly. why text-align:center not working? */
+.parentPoll h3 {padding:0px 0px 0px 0px;font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#66c;}
 .parentPoll h4 a {color:#66c}
 
 /*  Advertising
@@ -190,7 +190,7 @@ img.newarticle {margin-right:5px;margin-bottom:-2px;}
 /*WAS: table.promoNewsletterSmall {margin:20px 0px 0px 2px;}*/
 /*WAS: table.promoNewsletterSmall h3 {font-size:1em;font-weight:bold;margin:10px 0px 0px 0px;}*/
 table.promoNewsletterSmall {margin:6px 0px 0px 0px;}
-.promoNewsletterSmall h2 {font-size:1.5em;font-weight:bold;margin:0px 0px 0px 0px;}
+.promoNewsletterSmall h2 {font-size:1.5em;font-weight:bold;margin:0px 0px 0px 0px;color:#66c}
 .promoNewsletterSmall h3 {margin: 10px 0px 2px 0px;}
 .promoNewsletterSmall .smallform {margin: 10px 0px 2px 0px;white-space:nowrap;}
 

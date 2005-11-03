@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:gsweb="gstaglib"
+        >
+<html lang="en">
+
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>GreatSchools.net: School Choice Center</title>
+</head>
+
+<body>
+<ad:xAdSetup page="scc" ads="x40"/>
+<mod:memberBar
+        state="${requestScope.context.stateOrDefault}"
+        user="${requestScope.context.user}"/>
+
+
+
+
+
+
+<table id="main" border="0" cellspacing="0" cellpadding="0" width="100%">
+    <tr>
+        <td class="col1" valign="top">
+            <mod:globalNav/>
+        </td>
+        <td class="col2" valign="top">
+
+<table border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" width="130">
+    <gsml:img src="/res/img/content/scc/kids1.jpg"  alt="editorial photo"/>
+    <!-- width="120" height="247" -->
+    <br/>
+    <gsml:img src="/res/img/content/scc/kids4.jpg" alt="editorial photo"/>
+    <!-- width="120" height="223" -->
+    <br/>
+</td>
+<td>
+<gsml:img src="/res/img/content/scc/title_scc.jpg" alt="School Choice Center"/>
+<!-- width="590" height="60"  -->
+<p>Check these resources in the
+<strong>
+    California School Choice Center
+</strong>
+to find the best match for your child.</p>
+
+<div id="articletools">
+    <!-- Article Tools and Advert -->
+    <table id="toolmenucontent" border="0" align="right" cellpadding="3" cellspacing="0" width="160">
+        <tr>
+            <td align="right">
+                See our
+                <gsml:a href="/content/allArticles.page?state=ca">
+                    full library of articles
+                </gsml:a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                <div id="squareadvert" style="float:right">
+                    <ad:x40 />
+                </div>
+
+                <div style="float:right">
+                    <center>
+                        <table border="0" cellpadding="3" cellspacing="0" width="250">
+                            <tr>
+                                <td>
+                                    <b>
+                                        More advice for parents
+                                    </b>
+                                    <br/>
+                                    Looking for tips to help your child succeed?
+                                    <br/>
+                                    <gsml:a href="/content/allArticles.page?state=ca">
+                                        Check out the GreatSchools.net library
+                                    </gsml:a>
+                                    <br/>
+                                </td>
+                            </tr>
+                        </table>
+                    </center>
+                </div>
+
+                <div >
+                    <center>
+                        <table border="0" cellpadding="3" cellspacing="0" width="250">
+                            <tr>
+                                <td >
+                                    <b>
+                                        FREE monthly tips from GreatSchools.net delivered directly to your email in-box
+                                    </b>
+                                    <br/>
+                                    What to expect in the classroom, ideas for learning activities, book recommendations
+                                    and more :
+                                    <br/>
+                                    <b>
+                                        My Kindergartner
+                                    </b>
+                                    <br/>
+                                    <b>
+                                        My First-Grader
+                                    </b>
+                                    <br/>
+                                    <b>
+                                        My Second-Grader
+                                    </b>
+                                    <br/>
+                                    <b>
+                                        My Third-Grader
+                                    </b>
+                                    <br/>
+                                    <gsml:a href="/cgi-bin/newsletters/ca">
+                                        Learn more and sign up today!
+                                    </gsml:a>
+                                    <br/>
+                                </td>
+                            </tr>
+                        </table>
+                    </center>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<b>
+    Where to Begin
+</b>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/ca/308/">
+    Consider Your Child's Needs
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/ca/307/">
+    Consider Your Family's Needs
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/ca/87/">
+    Imagine Your Ideal School
+</gsml:a>
+<br/>
+<gsml:a href="/pdf/choosing_imagine.pdf">
+    Printable worksheet
+</gsml:a>
+<br/>
+<br/>
+<b>
+    Learn About Your Options
+</b>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/ca/96/">
+    Choosing a School in California
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/ca/197/">
+    Private vs. Public: What's the Difference?
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/ca/246/">
+    Frequently Asked Questions About Private Schools
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/ca/92/">
+    Online Resources for Charter Schools
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/ca/188/">
+    Homeschooling: Key Facts and Resources
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/ca/205/">
+    What No Child Left Behind Means to Your Child
+</gsml:a>
+<br/>
+<br/>
+<b>
+    Members Only
+</b>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/CA/55///">
+    Get the Best Education for Your Child in California
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/CA/239///">
+    Interdistrict and Intradistrict Transfers in California
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/ca/241///">
+    Charter Schools Offer an Array of Choices
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/AZ/267///">
+    Getting the Best Education in the Phoenix Area
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/AZ/266///">
+    Eight Steps to Choosing a School in the Phoenix Area
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/AZ/265///">
+    Choosing a Charter School in the Phoenix Area
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/AZ/269///">
+    A Sampling of Charter Schools in the Phoenix Area
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/TX/222///">
+    Get the Best Education for Your Child in Texas
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/TX/220///">
+    Interdistrict and Intradistrict Transfers in California
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/FL/213///">
+    Get the Best Education for Your Child in Florida
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/FL/217///">
+    Three Florida Charter Schools Highlight the Variety of Choices
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/CO/294///">
+    They've Got Our Attention: Notable Schools in Colorado
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/CO/293///">
+    Three Charter Schools Highlight Colorado's Array of Choices
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/CA/55///">
+    Get the Best Education for Your Child in California
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/NY/301///">
+    They've Got Our Attention: Notable Schools in New York
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/NY/302///">
+    A Sampling of Charter Schools in New York
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/NJ/316///">
+    Get the Best Education for Your Child in New Jersey
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/NJ/321///">
+    Interdistrict and Intradistrict Transfers in New Jersey
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/WA/251///">
+    Get the Best Education for Your Child in Washington
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/WA/252///">
+    Interdistrict and Intradistrict Transfers in Washington
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/WA/250///">
+    School Choice in Seattle Promotes Innovation
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/PA/305///">
+    They've Got Our Attention: Notable Schools in Pennsylvania
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/PA/306///">
+    A Sampling of Charter Schools in Pennsylvania
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/IL/346///">
+    Get the Best Education for Your Child in Illinois
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/IL/347///">
+    Interdistrict and Intradistrict Transfers in Illinois
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/OH/344///">
+    Get the Best Education for Your Child in Ohio
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/OH/345///">
+    Interdistrict and Intradistrict Transfers in Ohio
+</gsml:a>
+<br/>
+<br/>
+<b>
+    Make the Most Out of Your School Visit
+</b>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/ca/48/">
+    The School Visit: What to Look For
+</gsml:a>
+<br/>
+<gsml:a href="/pdf/schq_visit_elem.pdf">
+    Elementary School: A printable worksheet
+</gsml:a>
+<br/>
+<gsml:a href="/pdf/schq_visit_middle.pdf">
+    Middle School: A printable worksheet
+</gsml:a>
+<br/>
+<gsml:a href="/pdf/schq_visit_high.pdf">
+    High School: A printable worksheet
+</gsml:a>
+<br/>
+<br/>
+<b>
+    Apply and Enroll
+</b>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/ca/249/">
+    Enrolling in Kindergarten in California
+</gsml:a>
+<br/>
+<gsml:a href="/cgi-bin/showarticle/ca/60/">
+    10 Tips for Adjusting to a New School
+</gsml:a>
+<br/>
+</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+<gsml:fireclick pageType="article" pageName="schoolChoiceCenter"/>
+</body>
+</html>
+</jsp:root>
+

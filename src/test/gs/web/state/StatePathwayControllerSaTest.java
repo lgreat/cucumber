@@ -1,17 +1,14 @@
 package gs.web.state;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.SessionContext;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
-import org.springframework.context.support.ResourceBundleMessageSource;
 
-import java.util.Map;
 import java.util.HashMap;
-import java.util.Locale;
+import java.util.Map;
 
 /**
  * Controller tests for Davids bridge page
@@ -30,6 +27,7 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
 
     /**
      * Test the pathway 1 choose page for url modperl/go
+     *
      * @throws Exception
      */
     public void testPathwayChoose() throws Exception {
@@ -66,6 +64,7 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
 
     /**
      * Test the pathway 4 search page with passing parameters through
+     *
      * @throws Exception
      */
     public void testPathwaySearch() throws Exception {
