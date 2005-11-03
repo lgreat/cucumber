@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.36 2005/11/03 19:48:37 thuss Exp $
+$Id: global.css,v 1.37 2005/11/03 20:10:08 thuss Exp $
 ----------------------------------------------- */
 
 
@@ -54,7 +54,7 @@ img#logo {width:260px;height:40px;padding:0px 0px 0px 0px;margin:0px 0px 6px 0px
 #headerSearch  .textfieldfocused,
 #headerSearch  .textfieldblurred  {
     font-size:13px;
-    margin:0px 0px 3px 0px;
+    margin:0px 0px 1px 0px;
     padding:1px 0px 2px 3px;
     width: 300px;
 }
