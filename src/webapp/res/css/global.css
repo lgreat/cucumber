@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.37 2005/11/03 20:10:08 thuss Exp $
+$Id: global.css,v 1.38 2005/11/04 01:48:16 thuss Exp $
 ----------------------------------------------- */
 
 
@@ -94,11 +94,13 @@ table.bottomcontent tr td img {text-align:center;}
 .globalnav a {display:block;margin:0px 0px 3px 0px;font-weight:bold;}
 .globalnav a.insiderlink {margin:13px 0px 7px 0px;}
 .globalnav a:hover {text-decoration:none;color:#FC9;}
-.choosingPwy {background: #FE894C  url(../img/box/border_shade4pathway1_BG.gif) bottom right no-repeat; padding: 0;vertical-align:middle;}
-.choosingPwyClosed {padding: 0px; background: rgb(254, 137, 76) url(../img/box/border_shade4pathway1sm_BG.gif) no-repeat scroll right bottom; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; vertical-align: middle;}
-.mcsPwy {padding: 0px; background: rgb(254, 137, 76) url(../img/box/border_shade4pathway2_BG.gif) no-repeat scroll right bottom; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; vertical-align: middle;}
-.mcsPwyClosed {background: #FE894C  url(../img/box/border_shade4pathway2sm_BG.gif) bottom right no-repeat; vertical-align:top; padding: 0px 0px 0px 0px;vertical-align:middle;}
-.editorialPwy {background: #FE894C  url(../img/box/border_shade4pathway3sm_BG.gif) bottom right no-repeat; vertical-align:top; padding: 0px 0px 0px 0px;vertical-align:middle;}
+
+.C {vertical-align:middle;}
+.choosingPwy {background: #FE894C url(../img/box/border_shade4pathway1_BG.gif) bottom right no-repeat;}
+.choosingPwyClosed {background: #FE894C url(../img/box/border_shade4pathway1sm_BG.gif) bottom right no-repeat;}
+.mcsPwy {background: #FE894C url(../img/box/border_shade4pathway2_BG.gif) bottom right no-repeat;}
+.mcsPwyClosed {background: #FE894C url(../img/box/border_shade4pathway2sm_BG.gif) bottom right no-repeat}
+.editorialPwy {background: #FE894C url(../img/box/border_shade4pathway3sm_BG.gif) bottom right no-repeat}
 
 
 /*  Search
