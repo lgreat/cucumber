@@ -8,17 +8,18 @@
         <h3 class="result_title">School Choice Center</h3>
         <ul class="result_list nowrap">
             <li>
-                <a href="#">Learn about your options</a>
+                Learn about your options
             </li>
             <li>
-                <a href="#">Make the most of your school visit</a>
+                Make the most of your school visit
             </li>
             <li>
-                <a href="#">Apply and enroll</a>
+                Apply and enroll
             </li>
             <li class="viewall">
                 <gsml:a href="/content/schoolChoiceCenter.page" >Browse all articles</gsml:a>
             </li>
         </ul>
     </div>
+
 </jsp:root>
