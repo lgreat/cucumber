@@ -1,27 +1,23 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.11 2005/11/03 02:30:25 chriskimm Exp $
+ * $Id: StatePathwayController.java,v 1.12 2005/11/05 01:38:24 dlee Exp $
  */
 package gs.web.state;
 
-import gs.data.state.State;
-import gs.web.SessionContext;
-import gs.web.ISessionFacade;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.context.NoSuchMessageException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Locale;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * The purpose is ...
@@ -43,7 +39,7 @@ public class StatePathwayController extends AbstractController {
 
         boolean hasSelectedState = false;
         String state = request.getParameter("state");
-        if (state != null && !"".equals(state)) {
+        if (!StringUtils.isEmpty(state)) {
             hasSelectedState = true;
         }
 
@@ -61,7 +57,7 @@ public class StatePathwayController extends AbstractController {
         if (!StringUtils.isEmpty(paramSearchQuery)) {
             paramSearchQuery = URLEncoder.encode(paramSearchQuery, "UTF-8");
             pathwayUrl += "?q=" + paramSearchQuery + "&state=";
-        } else if (pathwayUrl.matches(".+modperl.+|.+cgi-bin.+")) {
+        } else if (urlUtil.smellsLikePerl(pathwayUrl)) {
             pathwayUrl += "/";
         } else {
             pathwayUrl += "?state=";

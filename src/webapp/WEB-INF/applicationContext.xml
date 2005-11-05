@@ -36,4 +36,19 @@
         class="gs.web.SessionContextUtil"
         autowire="byName">
     </bean>
+
+    <bean id="pathwaysMap"
+        class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="pathway1"><value>/modperl/go</value></entry>
+                <entry key="pathway2"><value>/path/mySchool.page</value></entry>
+                <entry key="pathway3"><value>/cgi-bin/site/holiday_center.cgi</value></entry>
+                <entry key="pathway4"><value>/modperl/go</value></entry>
+                <entry key="pathway5"><value>/search/search.page</value></entry>
+                <entry key="default"><value>/index.html</value></entry>
+            </map>
+        </constructor-arg>
+    </bean>
+
 </beans>

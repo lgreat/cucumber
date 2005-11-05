@@ -251,32 +251,7 @@
             <value>stateLauncher</value>
         </property>
         <property name="pathways">
-            <map>
-                <entry>
-                    <key><value>pathway1</value></key>
-                    <value>/modperl/go</value>
-                </entry>
-                <entry>
-                    <key><value>pathway2</value></key>
-                    <value>/path/mySchool.page</value>
-                </entry>
-                <entry>
-                    <key><value>pathway3</value></key>
-                    <value>/cgi-bin/site/holiday_center.cgi</value>
-                </entry>
-                <entry>
-                    <key><value>pathway4</value></key>
-                    <value>/modperl/go</value>
-                </entry>
-                <entry>
-                    <key><value>pathway5</value></key>
-                    <value>/search/search.page</value>
-                </entry>
-                <entry>
-                    <key><value>default</value></key>
-                    <value>/index.html</value>
-                </entry>
-            </map>
+            <ref bean="pathwaysMap"/>
         </property>
     </bean>
 
