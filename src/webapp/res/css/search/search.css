@@ -47,7 +47,7 @@ table.school_results_only td, table.article_results_only td {padding:4px 0px 6px
 table.article_results_only td.icons {color:#F60;font-weight:bold;padding:0px 20px 0px 20px;}
 tr.result_row:hover {background: #EEE;}
 td.results_pagenav {text-align:right; font-weight:bold;white-space:nowrap}
-a.active {color:#000;}
+.active {color:#000;padding-right:10px}
 a.smaller {font-size:90%;}
 tr.last_row td {padding:10px 0px 0px 0px;border-bottom:0px;}
 tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}

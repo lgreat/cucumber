@@ -126,43 +126,63 @@ public class SearchSummaryTagHandler extends BaseTagHandler {
                         out.print("</span>&quot;&nbsp; in name&nbsp;(");
                     }
                     out.print(_schoolsTotal);
-                    out.println("&nbsp;Results)");
+                    out.print("&nbsp;Result");
+                    if (_schoolsTotal != 1) {
+                        out.print("s");
+                    }
+                    out.println(")");
                     break;
                 case ARTICLES:
                     out.print("<b>Articles</b> matching &nbsp;&quot;<span class=\"searchfor\">");
                     out.print(_query);
                     out.print("</span>&quot;&nbsp; (");
                     out.print(_articlesTotal);
-                    out.println("&nbsp;Results)");
+                    out.print("&nbsp;Result");
+                    if (_articlesTotal != 1) {
+                        out.print("s");
+                    }
+                    out.println(")");
                     break;
                 case TERMS:
                     out.print("<b>Glossary Terms</b> matching &nbsp;&quot;<span class=\"searchfor\">");
                     out.print(_query);
                     out.print("</span>&quot;&nbsp; (");
                     out.print(_termsTotal);
-                    out.println("&nbsp;Results)");
+                    out.print("&nbsp;Result");
+                    if (_termsTotal != 1) {
+                        out.print("s");
+                    }
+                    out.println(")");
                     break;
                 case CITIES:
                     out.print("<b>Cities</b> matching &nbsp;&quot;<span class=\"searchfor\">");
                     out.print(_query);
                     out.print("</span>&quot;&nbsp; (");
                     out.print(_citiesTotal);
-                    out.println("&nbsp;Results)");
+                    out.print("&nbsp;Result");
+                    if (_citiesTotal != 1) {
+                        out.print("s");
+                    }
+                    out.println(")");
                     break;
                 case DISTRICTS:
                     out.print("<b>Districts</b> matching &nbsp;&quot;<span class=\"searchfor\">");
                     out.print(_query);
                     out.print("</span>&quot;&nbsp; (");
                     out.print(_districtsTotal);
-                    out.println("&nbsp;Results)");
+                    out.print("&nbsp;Result");
+                    if (_districtsTotal != 1) {
+                        out.print("s");
+                    }
+                    out.println(")");
                     break;
                 default: // all
                     out.print("Your search for &nbsp;&quot;<span class=\"searchfor\">");
                     out.print(_query);
                     out.print("</span>&quot;&nbsp; found ");
                     out.print(total);
-                    out.print(" result");
-                    if (total > 1) {
+                    out.print("&nbsp;result");
+                    if (total != 1) {
                         out.print("s");
                     }
                     out.println(".");

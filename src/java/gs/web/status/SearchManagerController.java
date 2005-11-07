@@ -15,7 +15,6 @@ import gs.data.search.IndexDir;
 import gs.data.search.Indexer;
 import gs.data.state.StateManager;
 import gs.data.state.State;
-import gs.web.search.SearchController;
 
 import java.io.IOException;
 import java.util.List;
@@ -62,10 +61,12 @@ public class SearchManagerController extends AbstractController {
                     } else if (request.getParameter("test") != null) {
                         start = System.currentTimeMillis();
                         List states = new ArrayList();
-                        states.add(State.CA);
-                        states.add(State.WY);
-                        states.add(State.NY);
                         states.add(State.AK);
+                        //states.add(State.CA);
+                        states.add(State.CO); //
+                        states.add(State.CT); //
+                        //states.add(State.NY);
+                        states.add(State.WY);
                         _indexer.index(states,
                                 _indexDir.getMainDirectory(), _indexDir.getSpellCheckDirectory());
                     }
