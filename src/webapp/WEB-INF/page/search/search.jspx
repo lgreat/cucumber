@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="${searchsummarycss}"
           type="text/css" media="screen"/>
     <meta name="onload" content="document.sf.q.focus()"/>
-    <meta name="gsheader" content="false"/>
+    <!--<meta name="gsheader" content="false"/>-->
 
     <![CDATA[
     <script>
@@ -58,7 +58,7 @@
 <body>
 
 <table border="0" width="100%">
-
+<!--
 <tr>
     <td colspan="2">
         <table width="100%">
@@ -75,7 +75,7 @@
         </table>
     </td>
 </tr>
-
+-->
 <tr>
     <td colspan="2">
         <ad:x22/>
