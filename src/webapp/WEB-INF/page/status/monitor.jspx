@@ -55,21 +55,31 @@
 <table class="statusbox">
     <tr>
         <td class="statustitle">GSWeb build date/time (PST)</td>
-        <td class="statusvalue" colspan="2"><c:out value="${version}"/></td>
+        <td class="statusvalue" colspan="2">${version}</td>
     </tr>
     <tr>
         <td class="statustitle">Tomcat host serving request</td>
-        <td class="statusvalue" colspan="2"><c:out value="${hostname}"/></td>
+        <td class="statusvalue" colspan="2">${hostname}</td>
     </tr>
     <tr>
         <td class="statustitle">Main database read/write test</td>
-        <td class="statusvalue"><c:out value="${mainReadWrite}"/></td>
-        <td class="statuserror"><c:out value="${mainError}"/></td>
+        <td class="statusvalue">${mainReadWrite}</td>
+        <td class="statuserror">${mainError}</td>
     </tr>
     <tr>
         <td class="statustitle">State database read/write test</td>
-        <td class="statusvalue"><c:out value="${stateReadWrite}"/></td>
-        <td class="statuserror"><c:out value="${stateError}"/></td>
+        <td class="statusvalue">${stateReadWrite}</td>
+        <td class="statuserror">${stateError}</td>
+    </tr>
+    <tr>
+        <td class="statustitle">Session test previous host</td>
+        <td class="statusvalue">${lasthost}</td>
+        <td class="statuserror"></td>
+    </tr>
+        <tr>
+        <td class="statustitle">Session test view count</td>
+        <td class="statusvalue">${hitcount}</td>
+        <td class="statuserror"></td>
     </tr>
 </table>
 

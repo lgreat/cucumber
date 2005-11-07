@@ -1,6 +1,7 @@
 package gs.web.status;
 
 import gs.web.BaseTestCase;
+import gs.web.BaseControllerTestCase;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
@@ -10,7 +11,7 @@ import java.util.Map;
 /**
  * Tests the MonitorController
  */
-public class MonitorControllerTest extends BaseTestCase {
+public class MonitorControllerTest extends BaseControllerTestCase {
 
     private MonitorController _controller;
 
@@ -23,7 +24,7 @@ public class MonitorControllerTest extends BaseTestCase {
      * The handle request method connects to the database and gets the build version
      */
     public void testHandleRequest() throws IOException, ServletException {
-        ModelAndView mv = _controller.handleRequest(null, null);
+        ModelAndView mv = _controller.handleRequest(getRequest(), getResponse());
 
         assertTrue(mv.getViewName().indexOf("status") > -1);
         Map model = mv.getModel();
@@ -34,6 +35,9 @@ public class MonitorControllerTest extends BaseTestCase {
         assertEquals(model.get("mainError"), "");
         assertTrue(((Boolean) model.get("stateReadWrite")).booleanValue());
         assertEquals(model.get("stateError"), "");
+        assertEquals(new Integer(1), getRequest().getSession(false).getAttribute("hitcount"));
+        assertNotNull(getRequest().getSession(false).getAttribute("thishost"));
+        assertNotNull(getRequest().getSession(false).getAttribute("lasthost"));
     }
 
 }

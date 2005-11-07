@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
 import java.net.InetAddress;
@@ -119,6 +120,23 @@ public class MonitorController implements Controller {
         if (request != null) {
             model.put("environment", getEnvironmentMap(request.getSession().getServletContext()));
         }
+
+        // Test setting some values in the session to try session replication
+        HttpSession session = request.getSession(true);
+
+        String thishost = (String) session.getAttribute("thishost");
+        if (thishost == null) thishost = "NA";
+        session.setAttribute("lasthost", thishost);
+        session.setAttribute("thishost", hostname);
+
+        Integer hitcount = (Integer) session.getAttribute("hitcount");
+        if (hitcount == null) {
+            hitcount = new Integer(1);
+        } else {
+            hitcount = new Integer(1 + hitcount.intValue());
+        }
+        session.setAttribute("hitcount", hitcount);
+
 
         return new ModelAndView(_viewName, model);
     }
