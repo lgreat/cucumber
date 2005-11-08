@@ -9,6 +9,6 @@
         <br />
 My School List is a free tool that helps you keep track of schools you're researching.
         <br />
-        <a href="#">Learn more</a>
+        <gsml:a href="/cgi-bin/msl_confirm/$STATE">Learn more</gsml:a>
     </div>
  </jsp:root>

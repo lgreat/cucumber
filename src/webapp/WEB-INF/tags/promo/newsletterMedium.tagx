@@ -22,7 +22,7 @@
 
             <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
             <input type="hidden" name="subscribe" value="Promo"/>
-            <h4><a href="#">Get Updates Delivered to Your Inbox</a></h4>
+            <h4>Get Updates Delivered to Your Inbox</h4>
 
             <h3>Periodic performance updates for your child's school:
                 <gsml:popupWindow href="/cm/mss_demo3.html" top="50" left="50" width="625" height="600">View sample</gsml:popupWindow>

@@ -21,14 +21,15 @@
                 <c:if test="${requestScope.context.pathway=='1'}">
                     <td class="C choosingPwy">
                         <h1>
-                            <!--gsml:a href="/modperl/go/$STATE"> Choosing Schools </gsml:a-->
                             <gsml:a href="/modperl/go/$STATE"> Choosing Schools </gsml:a>
                         </h1>
-                        <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE"> Top-Rated Schools </gsml:a>
-                        <gsml:a href="#"> School Choice Center </gsml:a>
-                        <gsml:a href="/cgi-bin/cs_where/$STATE"> Compare Schools </gsml:a>
-                        <gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address"> Search By Address </gsml:a>
-                        <gsml:a href="/cgi-bin/msl_confirm/$STATE"> My School List </gsml:a>
+                        <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
+                            <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE">Top-Rated Schools</gsml:a>
+                        </c:if>
+                        <gsml:a href="/content/schoolChoiceCenter.page">School Choice Center</gsml:a>
+                        <gsml:a href="/cgi-bin/cs_where/$STATE">Compare Schools</gsml:a>
+                        <gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">Search By Address</gsml:a>
+                        <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List</gsml:a>
                         <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
                             <c:if test="${requestScope.context.user==null}">
                                 <gsml:a href="/cgi-bin/site/signin.cgi/$STATE/" state="${requestScope.context.stateOrDefault}">Sign In</gsml:a>
@@ -42,7 +43,7 @@
                 <c:if test="${requestScope.context.pathway!='1'}">
                     <td class="C choosingPwyClosed" >
                         <h1>
-                            <gsml:a href="/modperl/go/$STATE"> Choosing Schools </gsml:a>
+                            <gsml:a href="/modperl/go/$STATE">Choosing Schools</gsml:a>
                         </h1>
                     </td>
                 </c:if>

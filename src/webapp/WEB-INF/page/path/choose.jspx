@@ -47,30 +47,36 @@
         state="${requestScope.context.stateOrDefault}"
         user="${requestScope.context.user}"/>
 <table id="main" border="0" cellspacing="0" cellpadding="0" width="100%">
-    <tr>
-        <td class="col1" valign="top">
-            <mod:globalNav/>
-            <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
-                <gsml:box tableClass="blank" tableWidth="100%">
-                    <c:if test="${requestScope.context.user==null}">
-                        <promo:newsletterSmall/>
-                    </c:if>
-                    <c:if test="${requestScope.context.user!=null}">
-                        <jsp:include page="/promo/featuredArticles.module" />
-                        <promo:mySchoolListSmall/>
-                    </c:if>
-                </gsml:box>
+<tr>
+<td class="col1" valign="top">
+    <mod:globalNav/>
+    <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
+        <gsml:box tableClass="blank" tableWidth="100%">
+            <c:if test="${requestScope.context.user==null}">
+                <promo:newsletterSmall/>
             </c:if>
-            <c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
+            <c:if test="${requestScope.context.user!=null}">
                 <jsp:include page="/promo/featuredArticles.module"/>
+                <br />
                 <promo:mySchoolListSmall/>
             </c:if>
-        </td>
-        <td class="col2" valign="top">
-            <gsml:box tableClass="shade3"
-                      tableWidth="100%"
-                    ><!--contentClass="button" valign="top"-->
-                <span class="moduleheader">
+        </gsml:box>
+    </c:if>
+    <c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
+        <gsml:box tableClass="shade2">
+            <jsp:include page="/promo/featuredArticles.module"/>
+        </gsml:box>
+        <br/>
+        <gsml:box tableClass="shade2">
+            <promo:mySchoolListSmall/>
+        </gsml:box>
+    </c:if>
+</td>
+<td class="col2" valign="top">
+<gsml:box tableClass="shade3"
+          tableWidth="100%"
+        ><!--contentClass="button" valign="top"-->
+    <span class="moduleheader">
                                             <h1 class="inline">${stateLongName} Schools</h1> -
                                             <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
                                                 <c:if test="${requestScope.context.user==null}">
@@ -85,93 +91,91 @@
                                             </c:if>
                                         </span>
 
-                <h3 class="tagline">
-                    Objective information from Greatschools, an independent nonprofit dedicated to helping
-                    parents
-                </h3>
-                <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tr>
-                        <td width="60%">
-                            <div class="topcontentcol1">
-                                <h3 class="result_title">Search ${requestScope.context.stateOrDefault.longName}
-                                    Schools</h3>
-                                <search:searchBox state="${requestScope.context.stateOrDefault}"/>
+    <h3 class="tagline">
+        Objective information from Greatschools, an independent nonprofit dedicated to helping
+        parents
+    </h3>
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td width="60%">
+                <div class="topcontentcol1">
+                    <h3 class="result_title">Search ${requestScope.context.stateOrDefault.longName}
+                        Schools</h3>
+                    <search:searchBox state="${requestScope.context.stateOrDefault}"/>
 
-                                <div class="browselinks">
-                                    <gsml:a styleClass="nowrap"
-                                            href="/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}">
-                                        My School List</gsml:a>
-                                    <gsml:a styleClass="nowrap"
-                                            href="/cgi-bin/cs_where/${requestScope.context.stateOrDefault.abbreviation}">
-                                        Compare schools</gsml:a>
-                                    <gsml:a styleClass="nowrap"
-                                            href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">
-                                        Advanced search</gsml:a>
-                                </div>
-                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                    <tbody>
-                                        <tr>
-                                            <td valign="top" width="50%">
-                                                <jsp:include page="/topCities.module"/>
-                                            </td>
-                                            <td valign="top" width="50%">
-                                                <jsp:include page="/topDistricts.module"/>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </td><td width="40%">
-                        <div class="topcontentcol2">
+                    <div class="browselinks">
+                        <gsml:a styleClass="nowrap"
+                                href="/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}">
+                            My School List</gsml:a>
+                        <gsml:a styleClass="nowrap"
+                                href="/cgi-bin/cs_where/${requestScope.context.stateOrDefault.abbreviation}">
+                            Compare schools</gsml:a>
+                        <gsml:a styleClass="nowrap"
+                                href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">
+                            Advanced search</gsml:a>
+                    </div>
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td valign="top" width="50%">
+                                    <jsp:include page="/topCities.module"/>
+                                </td>
+                                <td valign="top" width="50%">
+                                    <jsp:include page="/topDistricts.module"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td><td width="40%">
+            <div class="topcontentcol2">
 
 
-
-            <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
+                <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
                     <c:if test="${requestScope.context.user==null}">
-                            <promo:schoolChoiceCenterSmall/>
-                            <jsp:include page="/promo/featuredArticles.module"/>
+                        <promo:schoolChoiceCenterSmall/>
+                        <jsp:include page="/promo/featuredArticles.module"/>
                     </c:if>
                     <c:if test="${requestScope.context.user!=null}">
 
                         <div class="featuredarticle">
-<h3 class="result_title">Membership Center</h3>
-Welcome! To get started, use search PLUS to access school ratings, alerts, parent reviews and more.<br />
-<a href="#">More tips for using your membership</a>
-</div>
-                            <promo:schoolChoiceCenterSmall/>
+                            <h3 class="result_title">Membership Center</h3>
+                            Welcome! To get started, use search PLUS to access school ratings, alerts, parent reviews
+                            and more.<br/>
+                            <a href="#">More tips for using your membership</a>
+                        </div>
+                        <promo:schoolChoiceCenterSmall/>
                     </c:if>
-            </c:if>
-            <c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
-                            <promo:schoolChoiceCenterSmall/>
-                            <jsp:include page="/promo/featuredArticles.module"/>
-            </c:if>
+                </c:if>
+                <c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
+                    <promo:schoolChoiceCenterSmall/>
+                    <jsp:include page="/promo/featuredArticles.module"/>
+                </c:if>
 
 
-
-
-                        </div></td></tr>
-                </table>
-            </gsml:box>
-            <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
-                <gsml:box tableClass="shade3" tableWidth="100%">
-                    <c:if test="${requestScope.context.user==null}">
-                        <promo:membershipBig/>
-                    </c:if>
-                    <c:if test="${requestScope.context.user!=null}">
-                        <promo:newsletterBig/>
-                    </c:if>
-                </gsml:box>
-            </c:if>
-            <c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
-                <gsml:box tableClass="promoNewsletterBig shade3" tableWidth="100%"
-                        ><!--contentClass="button" -->
-                    <promo:newsletterBig/>
-                    <!--td class="button"
-           style="background: #FFFFFF url(src/img/border_shade5_BG.gif); padding: 0px 0px 0px 0px;" valign="top" -->
-                </gsml:box>
-            </c:if>
-        </td>
-    </tr>
+            </div></td></tr>
+    </table>
+</gsml:box>
+<c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
+    <gsml:box tableClass="shade3" tableWidth="100%">
+        <c:if test="${requestScope.context.user==null}">
+            <promo:membershipBig/>
+        </c:if>
+        <c:if test="${requestScope.context.user!=null}">
+            <promo:newsletterBig/>
+        </c:if>
+    </gsml:box>
+</c:if>
+<c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
+    <gsml:box tableClass="promoNewsletterBig shade3" tableWidth="100%"
+            ><!--contentClass="button" -->
+        <promo:newsletterBig/>
+        <!--td class="button"
+style="background: #FFFFFF url(src/img/border_shade5_BG.gif); padding: 0px 0px 0px 0px;" valign="top" -->
+    </gsml:box>
+</c:if>
+</td>
+</tr>
 </table>
 </td>
 </tr>

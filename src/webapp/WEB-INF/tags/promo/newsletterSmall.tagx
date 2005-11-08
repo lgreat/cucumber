@@ -21,9 +21,6 @@ old user, add new subscriptions
         <gsml:form action="/cgi-bin/newsletterSubscribe" method="get">
             <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
             <input type="hidden" name="subscribe" value="Promo"/>
-            <!--input type="hidden" name="hdRefer" value=""/>
-            <input type="hidden" name="school_name" value=""/>
-            <input type="hidden" name="ms_state" value=""/-->
             <h2>
                 FREE Newsletters
             </h2>

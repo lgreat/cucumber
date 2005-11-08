@@ -9,7 +9,7 @@
         description="The state to generate the search for. If unspecified, presents a popup."
         type="gs.data.state.State"/>
 
-    <c:set var="usingNewSearch" value="true"/>
+    <c:set var="usingNewSearch" value="false"/>
     <div class="globalsearch">
         <c:if test="${usingNewSearch}">
             <!-- New Search

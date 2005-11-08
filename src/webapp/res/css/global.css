@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.38 2005/11/04 01:48:16 thuss Exp $
+$Id: global.css,v 1.39 2005/11/08 19:21:04 apeterson Exp $
 ----------------------------------------------- */
 
 
@@ -157,8 +157,8 @@ input.btn {width:28px;height:24px;margin:0px 0px -2px 6px;padding:0px 0px 0px 0p
 /*  Misc
 ----------------------------------------------- */
 .parentPoll {text-align:center;}
-.parentPoll h3 {padding:0px 0px 0px 0px;font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#66c;}
-.parentPoll h4 a {color:#66c}
+.parentPoll h3 {padding:0px 0px 0px 0px;font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#00f;}
+.parentPoll h4 a {color:#00f}
 
 /*  Advertising
 ----------------------------------------------- */
@@ -180,6 +180,12 @@ tr.login td.col2 {text-align:right;padding-right:3px;}
 .featuredarticle2 {margin:0px 0px 10px 0px;}
 .featuredarticle b, .featuredarticle2 b {font-weight:bold;text-decoration:none;} /* margin right is IE bug fix */
 img.newarticle {margin-right:5px;margin-bottom:-2px;}
+div.featuredarticle h3 {
+margin-top: 1em;
+}
+.featuredarticle a {
+    color:#66C;
+}
 
 /*WAS: table.promoNewsletterSmall {margin:20px 0px 0px 2px;}*/
 /*WAS: table.promoNewsletterSmall h3 {font-size:1em;font-weight:bold;margin:10px 0px 0px 0px;}*/
@@ -195,7 +201,7 @@ table.promoNewsletterSmall {margin:6px 0px 0px 0px;}
 .promoNewsletterMedium h3 {font-size:1em;font-weight:bold;margin:10px 0px 5px 0px;}
 /*.promoNewsletterMedium .columnHeader  {font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#66C;}*/
 div.promoNewsletterMedium .smallform {margin: 10px 0px 2px 0px;white-space:nowrap;}
-.promoNewsletterMedium h4 a, .hotTopics h4 a {font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;}
+.promoNewsletterMedium h4, .hotTopics h4 {font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#00F}
 
 .promoNewsletterBig {margin:0px 0px 0px 2px;}
 .promoNewsletterBig img {float:right;margin:15px;}
@@ -208,6 +214,10 @@ div.promoNewsletterBig .smallform {margin: 10px 0px 2px 0px;white-space:nowrap;}
 
 .promoMembershipBig td { vertical-align:top;}
 h3.membershipTagline {color:#F60;margin:10px 0px 10px 0px;font-weight:bold;}
+
+.promoArticles h3 {font-weight: bold;}
+.promoArticles ul.promo {margin:10px 0px 15px 10px;}
+.promoArticles ul.promo li {margin:0px 0px 0px 20px;list-style-type:disc;line-height:1.4em;}
 
 
 /* Boxes
