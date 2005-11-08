@@ -47,7 +47,7 @@
                 <entry key="pathway4"><value>/modperl/go</value></entry>
                 <entry key="search_single"><value>/search/search.page</value></entry>
                 <entry key="search_double"><value>/cgi-bin/search_switch</value></entry>
-                <entry key="default"><value>/index.html</value></entry>                
+                <entry key="default"><value>/modperl/go</value></entry>                
             </map>
         </constructor-arg>
     </bean>
