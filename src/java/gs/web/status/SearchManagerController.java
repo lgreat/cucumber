@@ -62,10 +62,8 @@ public class SearchManagerController extends AbstractController {
                         start = System.currentTimeMillis();
                         List states = new ArrayList();
                         states.add(State.AK);
-                        //states.add(State.CA);
-                        states.add(State.CO); //
-                        states.add(State.CT); //
-                        //states.add(State.NY);
+                        states.add(State.CA);
+                        states.add(State.NY);
                         states.add(State.WY);
                         _indexer.index(states,
                                 _indexDir.getMainDirectory(), _indexDir.getSpellCheckDirectory());

@@ -56,8 +56,13 @@ public class CityDistMixedTag extends BaseQueryTagHandler {
                 out.print("\">");
                 out.print(TextHighlighter.highlight(sr.getCityAndState(), _query, "city"));
                 out.print(" (");
-                out.print(sr.getSchools());
-                out.print(" schools)</a>");
+                int schoolCount = sr.getSchools();
+                out.print(schoolCount);
+                out.print(" school");
+                if (schoolCount != 1) {
+                    out.print("s");
+                }                
+                out.print(")</a>");
                 out.println("</li>");
             }
             int citiesCount = ((Integer) _results.get("citiesTotal")).intValue();
@@ -108,8 +113,13 @@ public class CityDistMixedTag extends BaseQueryTagHandler {
                 out.print("\">");
                 out.print(TextHighlighter.highlight(sr.getName(), _query, "name"));
                 out.print(" (");
-                out.print(sr.getSchools());
-                out.print(" schools)</a>");
+                int schoolCount = sr.getSchools();
+                out.print(schoolCount);
+                out.print(" school");
+                if (schoolCount != 1) {
+                    out.print("s");
+                }
+                out.print(")</a>");
 
                 String ss = sr.getCityAndState();
                 if (ss != null) {
