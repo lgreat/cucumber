@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesController.java,v 1.4 2005/11/02 21:01:20 apeterson Exp $
+ * $Id: TopCitiesController.java,v 1.5 2005/11/08 19:20:34 apeterson Exp $
  */
 
 package gs.web.state;
@@ -16,11 +16,11 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
-import java.util.ArrayList;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Provides...
@@ -30,8 +30,6 @@ import java.net.URLEncoder;
 public class TopCitiesController extends AbstractController {
     private String _viewName;
     private IDistrictDao _districtDao;
-
-    public static final int MAX_CITIES = 5;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -55,9 +53,12 @@ public class TopCitiesController extends AbstractController {
         } else {
             model.put("header", state.getLongName() + " Cities");
 
-            String[] cities = state.getCities();
-            List items = new ArrayList(cities.length);
-            final int cityCount = cities.length < MAX_CITIES ? cities.length : MAX_CITIES;
+            String[] cities = state.getTopCities();
+            int cityCount = state.getTopCityCount();
+            if (cities.length < cityCount) {
+                cityCount = cities.length;
+            }
+            List items = new ArrayList(cityCount);
             for (int i = 0; i < cityCount; i++) {
                 String city = cities[i];
                 String urlEncodedCity = URLEncoder.encode(city, "UTF-8");
