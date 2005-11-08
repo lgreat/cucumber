@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.12 2005/11/05 01:38:24 dlee Exp $
+ * $Id: StatePathwayController.java,v 1.13 2005/11/08 20:10:31 dlee Exp $
  */
 package gs.web.state;
 
@@ -28,6 +28,8 @@ public class StatePathwayController extends AbstractController {
 
     public static final String BEAN_ID = "/stateLauncher.page";
     static final String DEFAULT_PATHWAY_MAP_KEY = "default";
+    public static final String SEARCH_SINGLE = "search_single";
+    public static final String SEARCH_DOUBLE = "search_double";
 
     private static final Log _log = LogFactory.getLog(StatePathwayController.class);
 
@@ -37,52 +39,93 @@ public class StatePathwayController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
 
-        boolean hasSelectedState = false;
+        boolean hasSelectedState = true;
+
         String state = request.getParameter("state");
-        if (!StringUtils.isEmpty(state)) {
-            hasSelectedState = true;
+        if (StringUtils.isEmpty(state)) {
+            hasSelectedState = false;
+            state = "";
         }
 
         String paramPathway = request.getParameter("p");
-        String paramSearchQuery = request.getParameter("q");
-        String pathwayUrl = "";
+        String redirectUrl = "";
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
 
         if (_pathways.containsKey(paramPathway)) {
-            pathwayUrl = (String) _pathways.get(paramPathway);
+            redirectUrl = (String) _pathways.get(paramPathway);
         } else {
-            pathwayUrl = (String) _pathways.get(DEFAULT_PATHWAY_MAP_KEY);
+            redirectUrl = (String) _pathways.get(DEFAULT_PATHWAY_MAP_KEY);
+            paramPathway = DEFAULT_PATHWAY_MAP_KEY;
         }
 
-        if (!StringUtils.isEmpty(paramSearchQuery)) {
-            paramSearchQuery = URLEncoder.encode(paramSearchQuery, "UTF-8");
-            pathwayUrl += "?q=" + paramSearchQuery + "&state=";
-        } else if (urlUtil.smellsLikePerl(pathwayUrl)) {
-            pathwayUrl += "/";
+        if (urlUtil.smellsLikePerl(redirectUrl)) {
+            redirectUrl += "/";
         } else {
-            pathwayUrl += "?state=";
+            redirectUrl += "?state=";
+        }
+
+        String extraParam;
+
+        if (paramPathway.equals(SEARCH_SINGLE)) {
+            extraParam = buildSingleSearchParam(request);
+        } else if (paramPathway.equals(SEARCH_DOUBLE)) {
+            extraParam = buildDoubleSearchParam(request);
+        } else {
+            extraParam = "";
         }
 
         if (hasSelectedState) {
-            //redirect to the correct pathway
-            Map params = new HashMap();
-            pathwayUrl += state;
-            pathwayUrl = urlUtil.buildUrl(pathwayUrl, request);
-            RedirectView redirectView = new RedirectView(pathwayUrl);
-            redirectView.setAttributesMap(params);
+            redirectUrl += state + extraParam;
+            redirectUrl = urlUtil.buildUrl(redirectUrl, request);
+            RedirectView redirectView = new RedirectView(redirectUrl);
+
             return new ModelAndView(redirectView);
+
         } else {
             Map model = new HashMap();
             String promo = null;
+
             try {
                 promo = _messageSource.getMessage(paramPathway + "_promo", null, Locale.ENGLISH);
             } catch (Exception e) {
                 promo = "";
             }
-            model.put("url", urlUtil.buildUrl(pathwayUrl, request));
+
+            model.put("url", urlUtil.buildUrl(redirectUrl, request));
+            model.put("extraParams", extraParam);
             model.put("promotext", promo);
+
             return new ModelAndView(_viewName, model);
         }
+    }
+
+    private String buildSingleSearchParam (final HttpServletRequest request) throws Exception {
+        String paramQuery = request.getParameter("q");
+        String appendParam = "";
+
+        if (!StringUtils.isEmpty(paramQuery)) {
+            appendParam += "&q=" + URLEncoder.encode(paramQuery, "UTF-8");
+        }
+
+        return appendParam;
+    }
+
+    private String buildDoubleSearchParam (final HttpServletRequest request) throws Exception {
+
+        String paramName = request.getParameter("field1");
+        String paramCity = request.getParameter("field2");
+
+        String appendParam = "?selector=by_school";
+
+        if (!StringUtils.isEmpty(paramName)) {
+            appendParam += "&field1=" + URLEncoder.encode(paramName, "UTF-8");
+        }
+
+        if (!StringUtils.isEmpty(paramCity)) {
+            appendParam += "&field2=" + URLEncoder.encode(paramCity, "UTF-8");
+        }
+
+        return appendParam;
     }
 
     public String getViewName() {

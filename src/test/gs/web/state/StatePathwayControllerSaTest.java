@@ -36,6 +36,8 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         MockHttpServletRequest request = getRequest();
         MockHttpServletResponse response = getResponse();
         StatePathwayController controller = new StatePathwayController();
+        final String pathway_single_search = "search_single";
+        final String pathway_double_search = "search_double";
 
         // Set up the resourec bundle
         ResourceBundleMessageSource msgs = new ResourceBundleMessageSource();
@@ -43,7 +45,6 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
 
         String url = null;
         ModelAndView modelAndView = null;
-        String searchParam = "";
         String state = "";
 
         //get the pathways map: key is the pathway name, value is the url to go to
@@ -53,92 +54,127 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         Iterator reUseIter = keys.iterator();
         Iterator iter = reUseIter;
 
-        //no state param, no search param
-        while (iter.hasNext()) {
-            String key = (String) iter.next();
-            url = (String) pathways.get(key);
-
-            request.addParameter("p", key);
-            modelAndView = controller.handleRequestInternal(request, response);
-            assertEquals(buildTestUrl(url, searchParam, state), modelAndView.getModel().get("url"));
-        }
-
         //bogus pathway
         request.addParameter("p", "boguspathway");
         modelAndView = controller.handleRequestInternal(request, response);
         url = (String) pathways.get("default");
-        assertEquals(buildTestUrl(url, searchParam, state), modelAndView.getModel().get("url"));
+        assertEquals(buildTestUrl(url, state), modelAndView.getModel().get("url"));
 
         //no pathway
         modelAndView = controller.handleRequestInternal(request, response);
         url = (String) pathways.get("default");
-        assertEquals(buildTestUrl(url, searchParam, state), modelAndView.getModel().get("url"));
+        assertEquals(buildTestUrl(url, state), modelAndView.getModel().get("url"));
 
-        //no state param, search param
-        searchParam = "San Francisco";
-        iter = keys.iterator();
+        //no state param
         while (iter.hasNext()) {
             String key = (String) iter.next();
             url = (String) pathways.get(key);
+            if (key.equals(pathway_single_search) || key.equals(pathway_double_search)) {
+                continue;
+            }
 
             request.addParameter("p", key);
-            request.addParameter("q", searchParam);
+
             modelAndView = controller.handleRequestInternal(request, response);
-            assertEquals(buildTestUrl(url, searchParam, state), modelAndView.getModel().get("url"));
+            assertEquals(buildTestUrl(url, state), modelAndView.getModel().get("url"));
         }
 
-        //empty state param, search param
-        searchParam = "San Francisco";
+        RedirectView view = null;
+
+
+        //no state param, single search
         iter = keys.iterator();
-        while (iter.hasNext()) {
-            String key = (String) iter.next();
-            url = (String) pathways.get(key);
 
-            request.addParameter("p", key);
-            request.addParameter("q", searchParam);
-            request.addParameter("state", state);
-            modelAndView = controller.handleRequestInternal(request, response);
-            assertEquals(buildTestUrl(url, searchParam, state), modelAndView.getModel().get("url"));
-        }
+        request.addParameter("p", pathway_single_search);
+        request.addParameter("q", "San Francisco");
 
-        //state param, query param
-        searchParam = "San Francisco";
+        modelAndView = controller.handleRequestInternal(request, response);
+        url = (String) pathways.get(pathway_single_search);
+        assertEquals(url+"?state=", modelAndView.getModel().get("url"));
+        assertEquals("&q=San+Francisco", modelAndView.getModel().get("extraParams"));
+
+        //no state param, double search
+        request.addParameter("p", pathway_double_search);
+        request.addParameter("field1", "Lowell");
+        request.addParameter("field2", "San Francisco");
+        modelAndView = controller.handleRequestInternal(request, response);
+        url = (String) pathways.get(pathway_double_search);
+        state = "";
+        assertEquals(buildTestUrl(url, state), modelAndView.getModel().get("url"));
+        assertEquals("?selector=by_school&field1=Lowell&field2=San+Francisco",
+                        modelAndView.getModel().get("extraParams"));
+
+        //state param, no search param
         state = "CA";
         iter = keys.iterator();
+        request = new MockHttpServletRequest();
+
         while (iter.hasNext()) {
             String key = (String) iter.next();
+
+            if (key.equals(pathway_single_search) || key.equals(pathway_double_search)) {
+                continue;
+            }
             url = (String) pathways.get(key);
 
             request.addParameter("p", key);
-            request.addParameter("q", searchParam);
             request.addParameter("state", state);
+
 
             modelAndView = controller.handleRequestInternal(request, response);
             assertNull(modelAndView.getModel().get("url"));
-            RedirectView view = null;
+            view = null;
             try {
                 view = (RedirectView) modelAndView.getView();
             } catch (ClassCastException e) {
                 fail("We expected a redirect view but received something else!");
             }
-            assertEquals(view.getUrl(), buildTestUrl(url, searchParam, state));
+            assertEquals(buildRedirectUrl(url, state, request), view.getUrl());
         }
+
+        //valid state param, double search
+        state = "CA";
+        request.addParameter("p", pathway_double_search);
+        request.addParameter("field1", "Lowell");
+        request.addParameter("field2", "San Francisco");
+        request.addParameter("state", state);
+        modelAndView = controller.handleRequestInternal(request, response);
+        url = (String) pathways.get(pathway_double_search);
+        view = null;
+        try {
+            view = (RedirectView) modelAndView.getView();
+        } catch (ClassCastException e) {
+            fail("We expected a redirect view but received something else!");
+        }
+        assertEquals(buildRedirectUrl(url, state, request) + "?selector=by_school&field1=Lowell&field2=San+Francisco",
+                    view.getUrl());
+
+        //valid state param, single search
+        state = "CA";
+        request.addParameter("p", pathway_single_search);
+        request.addParameter("q", "San Francisco");
+        request.addParameter("state", state);
+        modelAndView = controller.handleRequestInternal(request, response);
+        view = null;
+        try {
+            view = (RedirectView) modelAndView.getView();
+        } catch (ClassCastException e) {
+            fail("We expected a redirect view but received something else!");
+        }
+        url = (String) pathways.get(pathway_single_search);
+        assertEquals(buildRedirectUrl(url, state, request) + "&q=San+Francisco", view.getUrl());
+
     }
 
-    private String buildTestUrl(final String url, String searchParam, String state) {
+    private String buildTestUrl(final String url, String state) {
         UrlUtil urlUtil = new UrlUtil();
 
         String retUrl = url;
 
-        if (searchParam != "") {
-            searchParam = searchParam.replaceAll(" ", "+");
-            retUrl += "?q=" + searchParam + "&state=";
+        if (urlUtil.smellsLikePerl(url)) {
+            retUrl += "/";
         } else {
-            if (urlUtil.smellsLikePerl(url)) {
-                retUrl += "/";
-            } else {
-                retUrl += "?state=";
-            }
+            retUrl += "?state=";
         }
 
         if (state != "") {
@@ -146,5 +182,11 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         }
 
         return retUrl;
+    }
+
+    private String buildRedirectUrl (final String url, String state, MockHttpServletRequest request) {
+        UrlUtil urlUtil = new UrlUtil();
+
+        return urlUtil.buildUrl(buildTestUrl(url, state), request);
     }
 }
