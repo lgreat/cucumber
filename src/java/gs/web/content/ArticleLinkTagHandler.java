@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.8 2005/11/09 01:37:03 apeterson Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.9 2005/11/09 22:27:32 apeterson Exp $
  */
 package gs.web.content;
 

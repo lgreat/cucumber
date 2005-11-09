@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.5 2005/11/03 20:10:08 thuss Exp $
+ * $Id: UrlUtil.java,v 1.6 2005/11/09 22:27:04 apeterson Exp $
  */
 
 package gs.web.util;
@@ -87,7 +87,15 @@ public final class UrlUtil {
      * @see javax.servlet.http.HttpServletRequest#getRequestURI()
      */
     public String buildHref(String dest, boolean isDestSecure, String src) {
+
+
+        if (src == null) {
+            _log.warn("Unable to interpret current page 'null' as URL");
+            return dest; // no logic to do, but not a good case
+        }
+
         _log.debug("dest=" + dest + " isDestSecure?" + isDestSecure + " src=" + src);
+
         boolean destIsPerl = smellsLikePerl(dest);
         try {
             URL sourceUrl = new URL(src);

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.5 2005/11/01 21:11:28 apeterson Exp $
+ * $Id: UrlUtilSaTest.java,v 1.6 2005/11/09 22:27:15 apeterson Exp $
  */
 
 package gs.web.util;
@@ -157,7 +157,8 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("/modperl/bycity/CA", _urlUtil.buildHref("/modperl/bycity/CA", false, "http://staging.greatschools.net/search/search.page"));
         assertEquals("/modperl/bycity/CA", _urlUtil.buildHref("/modperl/bycity/CA", false, "http://www.greatschools.net/search/search.page"));
         assertEquals("http://www.greatschools.net/modperl/bycity/CA", _urlUtil.buildHref("/modperl/bycity/CA", false, "https://www.greatschools.net/search/search.page"));
-
+        assertEquals("/modperl/bycity/CA", _urlUtil.buildHref("/modperl/bycity/CA", false, null));
+        assertEquals("/something.page", _urlUtil.buildHref("/something.page", false, null));
     }
 
 
