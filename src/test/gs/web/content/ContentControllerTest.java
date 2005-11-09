@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ContentControllerTest.java,v 1.4 2005/11/09 01:54:06 apeterson Exp $
+ * $Id: ContentControllerTest.java,v 1.5 2005/11/09 23:24:17 apeterson Exp $
  */
 package gs.web.content;
 
@@ -47,10 +47,26 @@ public class ContentControllerTest extends BaseControllerTestCase {
         c.setApplicationContext(getApplicationContext());
         c.setArticleDao((IArticleDao) getApplicationContext().getBean(IArticleDao.BEAN_ID));
 
+        getRequest().addParameter("position", IArticleDao.HOT_TOPIC);
+
         ModelAndView modelAndView = c.handleRequestInternal(getRequest(), getResponse());
 
         Object article = modelAndView.getModel().get("article");
         assertTrue(article instanceof Article);
+        assertEquals("", modelAndView.getModel().get("heading"));
+
+
+        getRequest().addParameter("position", IArticleDao.FOCUS_ON_CHOICE);
+        modelAndView = c.handleRequestInternal(getRequest(), getResponse());
+        article = modelAndView.getModel().get("article");
+        assertTrue(article instanceof Article);
+        assertEquals("Focus on Choice", modelAndView.getModel().get("heading"));
+
+        getRequest().addParameter("position", IArticleDao.PATH1_FEATURE);
+        modelAndView = c.handleRequestInternal(getRequest(), getResponse());
+        article = modelAndView.getModel().get("article");
+        assertTrue(article instanceof Article);
+        assertEquals("Today&#8217s Feature", modelAndView.getModel().get("heading"));
     }
 
     public void testPremiumArticlesController() throws Exception {

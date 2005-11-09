@@ -56,7 +56,7 @@
                 <promo:newsletterSmall/>
             </c:if>
             <c:if test="${requestScope.context.user!=null}">
-                <jsp:include page="/promo/featuredArticles.module?pos=1"/>
+                <jsp:include page="/promo/featuredArticles.module?position=PATH1_FEATURE"/>
                 <br />
                 <promo:mySchoolListSmall/>
             </c:if>
@@ -64,7 +64,7 @@
     </c:if>
     <c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
         <gsml:box tableClass="shade2">
-            <jsp:include page="/promo/featuredArticles.module?pos=1"/>
+            <jsp:include page="/promo/featuredArticles.module?position=PATH1_FEATURE"/>
         </gsml:box>
         <br/>
         <gsml:box tableClass="shade2">
@@ -134,7 +134,7 @@
                 <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
                     <c:if test="${requestScope.context.user==null}">
                         <promo:schoolChoiceCenterSmall/>
-                        <jsp:include page="/promo/featuredArticles.module?pos=3"/>
+                        <jsp:include page="/promo/featuredArticles.module?position=FOCUS_ON_CHOICE"/>
                     </c:if>
                     <c:if test="${requestScope.context.user!=null}">
                         <promo:membershipCenterSmall />
@@ -143,7 +143,7 @@
                 </c:if>
                 <c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
                     <promo:schoolChoiceCenterSmall/>
-                    <jsp:include page="/promo/featuredArticles.module?pos=3"/>
+                    <jsp:include page="/promo/featuredArticles.module?position=FOCUS_ON_CHOICE"/>
                 </c:if>
 
 

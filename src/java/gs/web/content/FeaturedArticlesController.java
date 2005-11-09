@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.3 2005/11/09 19:52:52 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.4 2005/11/09 23:24:17 apeterson Exp $
  */
 package gs.web.content;
 
-import gs.data.content.IArticleDao;
 import gs.data.content.Article;
+import gs.data.content.IArticleDao;
 import gs.web.ISessionFacade;
 import gs.web.SessionFacade;
 import org.apache.commons.lang.StringUtils;
@@ -37,27 +37,38 @@ public class FeaturedArticlesController extends AbstractController {
 
         ISessionFacade sessionFacade = SessionFacade.getInstance(request);
 
-        String heading = "Today&#8217s Feature";
-        Article article = null;
-        String posStr = request.getParameter("pos");
-        if (StringUtils.isNumeric(posStr)) {
-            int pos = Integer.valueOf(posStr).intValue();
-            article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), pos);
-
-            if (pos==2) {
-                heading = "What&#8217s New?";
-            }
+        String posStr = request.getParameter("position");
+        if (StringUtils.isEmpty(posStr)) {
+            posStr = IArticleDao.HOT_TOPIC; // bad default
         }
 
-        if (article== null) {
+        Article article = null;
+        article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), posStr);
+        // backward compatible
+        // TODO remove
+        if (article == null) {
             List articles = _articleDao.getFeaturedArticles(sessionFacade.getStateOrDefault());
             article = (Article) articles.get(0);
         }
 
+        // Allow param override
+        final String paramHeading = request.getParameter("heading");
+        String heading = "Today&#8217s Feature";
+        if (StringUtils.isNotEmpty(paramHeading)) {
+            heading = paramHeading;
+        } else {
+            if (StringUtils.equals(posStr, IArticleDao.FOCUS_ON_CHOICE)) {
+                heading = "Focus on Choice";
+            } else if (StringUtils.equals(posStr, IArticleDao.HOT_TOPIC)) {
+                heading = ""; // no heading
+            } else {
+                heading = "Today&#8217s Feature";
+            }
+        }
 
         Map model = new HashMap(2);
         model.put("article", article);
-        model.put("heading", heading);        
+        model.put("heading", heading);
 
         return new ModelAndView(_viewName, model);
     }
