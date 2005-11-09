@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopDistrictsController.java,v 1.7 2005/11/01 21:10:52 apeterson Exp $
+ * $Id: TopDistrictsController.java,v 1.8 2005/11/09 20:05:18 apeterson Exp $
  */
 
 package gs.web.state;
@@ -46,9 +46,11 @@ public class TopDistrictsController extends AbstractController {
 
         Map model = new HashMap();
 
-        model.put("header", state.getLongName() + " Districts");
-
         Integer[] districtIds = state.getTopDistricts();
+        model.put("header",
+                state.getLongName() + " District" +
+                        (districtIds.length > 1 ? "s" : ""));
+
         List items = new ArrayList(districtIds.length);
         for (int i = 0; i < districtIds.length; i++) {
             /*
@@ -59,6 +61,7 @@ public class TopDistrictsController extends AbstractController {
                 a fake name for the district.
                 If this is a real district, we will see references to it in
                 the 404 report-- but there may be a better way to fix this.
+                NDP -- Nov 2005
             */
             String url = _urlTemplate;
             url = url.replaceAll("\\$STATE", state.getAbbreviationLowerCase());
@@ -73,9 +76,11 @@ public class TopDistrictsController extends AbstractController {
             Anchor anchor = new Anchor(url, name);
             items.add(anchor);
         }
-        items.add(new Anchor("/modperl/distlist/" + state.getAbbreviation(),
-                "View all " + state.getLongName() + " districts",
-                "viewall"));
+        if (!state.equals(State.HI)){
+            items.add(new Anchor("/modperl/distlist/" + state.getAbbreviation(),
+                    "View all " + state.getLongName() + " districts",
+                    "viewall"));
+        }
         model.put("results", items);
 
         ModelAndView modelAndView = new ModelAndView(_viewName, model);

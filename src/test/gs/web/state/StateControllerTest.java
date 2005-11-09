@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StateControllerTest.java,v 1.1 2005/11/02 21:01:20 apeterson Exp $
+ * $Id: StateControllerTest.java,v 1.2 2005/11/09 20:05:08 apeterson Exp $
  */
 
 package gs.web.state;
@@ -71,6 +71,22 @@ public class StateControllerTest extends BaseControllerTestCase {
         assertEquals("View all Alaska districts", last.getContents());
         assertEquals("/modperl/distlist/AK", last.getHref());
 
+
+        // Test AK districts-- this should produce what?
+        context.setState(State.HI);
+        context.setHostName("localhost");
+        modelAndView = c.handleRequestInternal(getRequest(), getResponse());
+
+        header = modelAndView.getModel().get("header");
+        assertNotNull(header);
+        assertTrue(header instanceof String);
+        assertEquals("Hawaii District", header);
+        results = (List) modelAndView.getModel().get("results");
+        assertNotNull(results);
+        assertEquals(1, results.size());
+        districtAnchor = (Anchor) results.get(0);
+        assertEquals("HI District A", districtAnchor.getContents());
+        assertEquals("/modperl/browse_district/1/hi", districtAnchor.getHref());
     }
 
     public void testTopCitiesController() throws Exception {
