@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.2 2005/11/09 01:37:03 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.3 2005/11/09 19:52:52 apeterson Exp $
  */
 package gs.web.content;
 
@@ -37,11 +37,16 @@ public class FeaturedArticlesController extends AbstractController {
 
         ISessionFacade sessionFacade = SessionFacade.getInstance(request);
 
+        String heading = "Today&#8217s Feature";
         Article article = null;
         String posStr = request.getParameter("pos");
         if (StringUtils.isNumeric(posStr)) {
             int pos = Integer.valueOf(posStr).intValue();
             article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), pos);
+
+            if (pos==2) {
+                heading = "What&#8217s New?";
+            }
         }
 
         if (article== null) {
@@ -50,8 +55,9 @@ public class FeaturedArticlesController extends AbstractController {
         }
 
 
-        Map model = new HashMap(1);
+        Map model = new HashMap(2);
         model.put("article", article);
+        model.put("heading", heading);        
 
         return new ModelAndView(_viewName, model);
     }

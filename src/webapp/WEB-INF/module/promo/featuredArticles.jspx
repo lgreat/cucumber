@@ -5,10 +5,10 @@
           xmlns:gsweb="gstaglib"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
     <div class="featuredarticle">
-        <h3 class="result_title">Today&#8217;s Feature</h3>
+        <h3 class="result_title">${heading}</h3>
         <b><gsweb:articlelink article="${article}" featured="true" flaggedIfNew="true"/></b>
         <br/>
         ${article.abstract}
-        <gsweb:articlelink article="${article}" featured="true"  flaggedIfNew="false">More...</gsweb:articlelink>
+        <gsweb:articlelink article="${article}" featured="true" flaggedIfNew="false">More...</gsweb:articlelink>
     </div>
 </jsp:root>
