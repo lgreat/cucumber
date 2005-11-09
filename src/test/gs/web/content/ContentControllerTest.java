@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ContentControllerTest.java,v 1.2 2005/11/09 00:53:08 dlee Exp $
+ * $Id: ContentControllerTest.java,v 1.3 2005/11/09 01:53:50 apeterson Exp $
  */
 package gs.web.content;
 
@@ -49,9 +49,8 @@ public class ContentControllerTest extends BaseControllerTestCase {
 
         ModelAndView modelAndView = c.handleRequestInternal(getRequest(), getResponse());
 
-        List articles = (List) modelAndView.getModel().get("articles");
-        assertTrue(articles.size() > 0);
-        assertTrue(articles.get(0) instanceof Article);
+        Object article = modelAndView.getModel().get("article");
+        assertTrue(article instanceof Article);
     }
 
     public void testPremiumArticlesController() throws Exception {
