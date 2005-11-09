@@ -399,12 +399,17 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>windowName</name>
+            <name>target</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>featured</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>flaggedIfNew</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

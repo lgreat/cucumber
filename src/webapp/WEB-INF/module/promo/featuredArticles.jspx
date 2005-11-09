@@ -6,9 +6,9 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
     <div class="featuredarticle">
         <h3 class="result_title">Today&#8217;s Feature</h3>
-        <b><gsweb:articlelink article="${articles[0]}" featured="true"/></b>
+        <b><gsweb:articlelink article="${article}" featured="true" flaggedIfNew="true"/></b>
         <br/>
-        ${articles[0].abstract}
-        <gsweb:articlelink article="${articles[0]}" featured="true">More...</gsweb:articlelink>
+        ${article.abstract}
+        <gsweb:articlelink article="${article}" featured="true"  flaggedIfNew="false">More...</gsweb:articlelink>
     </div>
 </jsp:root>

@@ -1,12 +1,14 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.1 2005/11/02 01:10:34 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.2 2005/11/09 01:37:03 apeterson Exp $
  */
 package gs.web.content;
 
 import gs.data.content.IArticleDao;
+import gs.data.content.Article;
 import gs.web.ISessionFacade;
 import gs.web.SessionFacade;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,10 +37,21 @@ public class FeaturedArticlesController extends AbstractController {
 
         ISessionFacade sessionFacade = SessionFacade.getInstance(request);
 
-        List articles = _articleDao.getFeaturedArticles(sessionFacade.getStateOrDefault());
+        Article article = null;
+        String posStr = request.getParameter("pos");
+        if (StringUtils.isNumeric(posStr)) {
+            int pos = Integer.valueOf(posStr).intValue();
+            article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), pos);
+        }
+
+        if (article== null) {
+            List articles = _articleDao.getFeaturedArticles(sessionFacade.getStateOrDefault());
+            article = (Article) articles.get(0);
+        }
+
 
         Map model = new HashMap(1);
-        model.put("articles", articles);
+        model.put("article", article);
 
         return new ModelAndView(_viewName, model);
     }

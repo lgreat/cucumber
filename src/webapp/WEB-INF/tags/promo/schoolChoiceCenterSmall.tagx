@@ -17,7 +17,7 @@
                 Apply and enroll
             </li>
             <li class="viewall">
-                <gsml:a href="/content/schoolChoiceCenter.page" >Visit the School Choice Center</gsml:a>
+                <gsml:a href="/content/schoolChoiceCenter.page?state=$STATE" >Visit the School Choice Center</gsml:a>
             </li>
         </ul>
     </div>

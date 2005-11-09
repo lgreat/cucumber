@@ -56,7 +56,7 @@
                 <promo:newsletterSmall/>
             </c:if>
             <c:if test="${requestScope.context.user!=null}">
-                <jsp:include page="/promo/featuredArticles.module"/>
+                <jsp:include page="/promo/featuredArticles.module?pos=1"/>
                 <br />
                 <promo:mySchoolListSmall/>
             </c:if>
@@ -64,7 +64,7 @@
     </c:if>
     <c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
         <gsml:box tableClass="shade2">
-            <jsp:include page="/promo/featuredArticles.module"/>
+            <jsp:include page="/promo/featuredArticles.module?pos=1"/>
         </gsml:box>
         <br/>
         <gsml:box tableClass="shade2">
@@ -100,7 +100,7 @@
             <td width="60%">
                 <div class="topcontentcol1">
                     <h3 class="result_title">Search ${requestScope.context.stateOrDefault.longName}
-                        Schools</h3>
+                        Schools <gsml:a styleClass="changeState" href="/stateLauncher.page?p=pathway1">Change state</gsml:a></h3>
                     <search:searchBox state="${requestScope.context.stateOrDefault}"/>
 
                     <div class="browselinks">
@@ -134,22 +134,16 @@
                 <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
                     <c:if test="${requestScope.context.user==null}">
                         <promo:schoolChoiceCenterSmall/>
-                        <jsp:include page="/promo/featuredArticles.module"/>
+                        <jsp:include page="/promo/featuredArticles.module?pos=3"/>
                     </c:if>
                     <c:if test="${requestScope.context.user!=null}">
-
-                        <div class="featuredarticle">
-                            <h3 class="result_title">Membership Center</h3>
-                            Welcome! To get started, use search PLUS to access school ratings, alerts, parent reviews
-                            and more.<br/>
-                            <a href="#">More tips for using your membership</a>
-                        </div>
+                        <promo:membershipCenterSmall />
                         <promo:schoolChoiceCenterSmall/>
                     </c:if>
                 </c:if>
                 <c:if test="${not requestScope.context.stateOrDefault.subscriptionState}">
                     <promo:schoolChoiceCenterSmall/>
-                    <jsp:include page="/promo/featuredArticles.module"/>
+                    <jsp:include page="/promo/featuredArticles.module?pos=3"/>
                 </c:if>
 
 

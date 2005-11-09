@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.7 2005/11/08 19:21:04 apeterson Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.8 2005/11/09 01:37:03 apeterson Exp $
  */
 package gs.web.content;
 
@@ -23,10 +23,27 @@ import java.io.IOException;
  */
 public class ArticleLinkTagHandler extends BaseTagHandler {
 
-    private Article _article;
-    private String _windowName;
     private UrlUtil _urlUtil = new UrlUtil();
+
+    /**
+     * The article to link to.
+     */
+    private Article _article;
+
+    /**
+     * The target window name, if any.
+     */
+    private String _target;
+
+    /**
+     * Link to the "featured" version of the article, instead of the regular one.
+     */
     private boolean _featured;
+
+    /**
+     * Draw a visual indication that the article is new.
+     */
+    private boolean _flaggedIfNew;
 
 
     public void doTag() throws IOException {
@@ -37,7 +54,7 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
 
         State s = sc.getStateOrDefault();
 
-        if (_article.isNew()) {
+        if (_flaggedIfNew && _article.isNew()) {
             String img = _article.isSpanish() ? "/res/img/content/nuevo.jpg" : "/res/img/content/icon_newarticle.gif";
             img = _urlUtil.buildHref(img, false, null);
             b.append("<img src=\"" + img + "\" alt=\"new\" class=\"newarticle\">&nbsp;");
@@ -72,9 +89,9 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         b.append(link);
 
         b.append("\" ");
-        if (StringUtils.isNotEmpty(_windowName)) {
+        if (StringUtils.isNotEmpty(_target)) {
             b.append(" target=\"")
-                    .append(_windowName)
+                    .append(_target)
                     .append("\"");
         }
         b.append(">");
@@ -82,7 +99,7 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
 
         getJspContext().getOut().print(b);
 
-
+        // Output the body, if any. Otherwise, output the article title.
         JspFragment jspBody = getJspBody();
         if (jspBody != null && StringUtils.isNotEmpty(jspBody.toString())) {
             try {
@@ -97,7 +114,6 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         }
 
         getJspContext().getOut().print("</a>");
-
     }
 
 
@@ -109,12 +125,12 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         _article = article;
     }
 
-    public String getWindowName() {
-        return _windowName;
+    public String getTarget() {
+        return _target;
     }
 
-    public void setWindowName(String windowName) {
-        _windowName = windowName;
+    public void setTarget(String target) {
+        _target = target;
     }
 
     public boolean isFeatured() {
@@ -123,5 +139,13 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
 
     public void setFeatured(boolean featured) {
         _featured = featured;
+    }
+
+    public boolean isFlaggedIfNew() {
+        return _flaggedIfNew;
+    }
+
+    public void setFlaggedIfNew(boolean flaggedIfNew) {
+        _flaggedIfNew = flaggedIfNew;
     }
 }

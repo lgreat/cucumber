@@ -63,7 +63,7 @@
             <tr>
                 <td width="60%" valign="top">
                     <div class="topcontentcol1">
-                        <h3 class="result_title">Find Your School Profile</h3>
+                        <h3 class="result_title">Find Your School <gsml:a styleClass="changeState" href="/stateLauncher.page?p=pathway2">Change state</gsml:a></h3>
 
                         <!--div class="smallform2fields nowrap"-->
                         <search:searchBox state="${requestScope.context.stateOrDefault}"/>
@@ -80,16 +80,16 @@
                                     href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">
                                 Advanced search</gsml:a>
                         </div>
-                        <jsp:include page="/promo/featuredArticles.module"/>
+                        <jsp:include page="/promo/featuredArticles.module?pos=1"/>
                     </div>
                 </td><td valign="top">
                 <div class="topcontentcol2">
 
                     <div class="featuredarticle">
-                        <a href="#">
+                        <gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
                             <gsml:img src="/res/img/community/btn_rateyourschool.gif"
                                       alt="Rate your School"/>
-                        </a>
+                        </gsml:a>
                         <br/>
                         Spread the word about your school--post a review.
                         <br/>
@@ -126,7 +126,7 @@
                     <!-- css hack b/c 100% height ignores margin setting -->
                     <h4>Find Hot Topics Now</h4>
 
-                    <jsp:include page="/promo/featuredArticles.module"/>
+                    <jsp:include page="/promo/featuredArticles.module?pos=2"/>
 
                     <div class="featuredarticle2">
                         <ul class="result_list nowrap"><li class="viewall"><gsml:a
