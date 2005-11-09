@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.41 2005/11/09 19:40:11 apeterson Exp $
+$Id: global.css,v 1.42 2005/11/09 23:40:37 apeterson Exp $
 ----------------------------------------------- */
 
 
@@ -129,8 +129,9 @@ h3.tagline {font-size:0.9em;}
 h3.tagline {color:#F60;font-weight:normal;padding:0px 0px 5px 0px;}
 
 .changeState {
-    padding-left: 2em;
+    padding-left: .6em;
     font-weight: normal;
+    font-size: 80%;
 }
 
 
