@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ContentControllerTest.java,v 1.3 2005/11/09 01:53:50 apeterson Exp $
+ * $Id: ContentControllerTest.java,v 1.4 2005/11/09 01:54:06 apeterson Exp $
  */
 package gs.web.content;
 
