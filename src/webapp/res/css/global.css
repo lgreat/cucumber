@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.40 2005/11/09 01:37:03 apeterson Exp $
+$Id: global.css,v 1.41 2005/11/09 19:40:11 apeterson Exp $
 ----------------------------------------------- */
 
 
@@ -16,8 +16,10 @@ body, form {margin:0;padding:0}
 /* Overrides of standard tags */
 img {border:0;padding:0;margin:0;}
 a {text-decoration:none;color:#00F;}
+a:link {color:#00F;}
 a:visited {color:#66C;}
 a:hover {text-decoration:underline;}
+a:active {color:#66c;}
 a.pad {padding:0px 10px 0px 0px;display:inline;}
 a.nohover:hover {text-decoration:none;}
 ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input,label,address,div {list-style:none;font-size:1em;font-style:normal;font-weight:normal;margin:0; padding:0;}
@@ -138,7 +140,6 @@ h3.tagline {color:#F60;font-weight:normal;padding:0px 0px 5px 0px;}
 .result_title {font-size:1.1em;padding:0px 20px 0px 0px;font-weight:bold;}
 ul.result_list {padding:0px 0px 0px 0px;}
 ul.result_list li {padding:0px 20px 1px 0px;}
-ul.result_list li a {color:#66c;}
 ul.result_list li.viewall {background: url(../img/arrow.gif) 2px no-repeat;margin:2px 0px 10px 0px;}
 ul.result_list li.viewall a {font-weight:normal;margin:0px 0px 0px 12px;}
 
@@ -161,7 +162,6 @@ input.btn {width:28px;height:24px;margin:0px 0px -2px 6px;padding:0px 0px 0px 0p
 ----------------------------------------------- */
 .parentPoll {text-align:center;}
 .parentPoll h3 {padding:0px 0px 0px 0px;font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#00f;}
-.parentPoll h4 a {color:#00f}
 
 /*  Advertising
 ----------------------------------------------- */
@@ -186,14 +186,11 @@ img.newarticle {margin-right:5px;margin-bottom:-2px;}
 div.featuredarticle h3 {
 margin-top: 1em;
 }
-.featuredarticle a {
-    color:#66C;
-}
 
 /*WAS: table.promoNewsletterSmall {margin:20px 0px 0px 2px;}*/
 /*WAS: table.promoNewsletterSmall h3 {font-size:1em;font-weight:bold;margin:10px 0px 0px 0px;}*/
 table.promoNewsletterSmall {margin:6px 0px 0px 0px;}
-.promoNewsletterSmall h2 {font-size:1.5em;font-weight:bold;margin:0px 0px 0px 0px;color:#66c}
+.promoNewsletterSmall h2 {font-size:1.5em;font-weight:bold;margin:0px 0px 0px 0px;color:#00f}
 .promoNewsletterSmall h3 {margin: 10px 0px 2px 0px;}
 .promoNewsletterSmall .smallform {margin: 10px 0px 2px 0px;white-space:nowrap;}
 
@@ -211,7 +208,7 @@ div.promoNewsletterMedium .smallform {margin: 10px 0px 2px 0px;white-space:nowra
 .promoNewsletterBig a {font-weight:normal;}
 .promoNewsletterBig h2 {font-size:1.5em;font-weight:bold;margin:0px 0px 0px 0px;}
 .promoNewsletterBig h3 {font-size:1em;font-weight:bold;margin:10px 0px 5px 0px;}
-div.promoNewsletterBig .columnHeader a:link {font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#66C;}
+div.promoNewsletterBig .columnHeader a:link {font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;}
 div.promoNewsletterBig .smallform {margin: 10px 0px 2px 0px;white-space:nowrap;}
 
 
