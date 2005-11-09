@@ -8,13 +8,13 @@
         <h3 class="result_title">School Choice Center</h3>
         <ul class="result_list nowrap">
             <li>
-                Learn about your options
+                <gsml:a href="/content/schoolChoiceCenter.page#options?state=$STATE" >Learn about your options</gsml:a>
             </li>
             <li>
-                Make the most of your school visit
+                <gsml:a href="/content/schoolChoiceCenter.page#visit?state=$STATE" >Make the most of your school visit</gsml:a>
             </li>
             <li>
-                Apply and enroll
+                <gsml:a href="/content/schoolChoiceCenter.page#apply?state=$STATE" >Apply and enroll</gsml:a>
             </li>
             <li class="viewall">
                 <gsml:a href="/content/schoolChoiceCenter.page?state=$STATE" >Visit the School Choice Center</gsml:a>

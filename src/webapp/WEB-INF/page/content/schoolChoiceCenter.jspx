@@ -115,7 +115,7 @@ to find the best match for your child.</p>
     </ul>
 <br/>
 <br/>
-<b>
+<b name="options">
     Learn About Your Options
 </b>
 <br/>
@@ -154,8 +154,8 @@ to find the best match for your child.</p>
         <br/>
     </c:if>
 
-<b>
-    Make the Most Out of Your School Visit
+<b name="visit">
+    Make the Most of Your School Visit
 </b>
 <br/>
 <gsml:a href="/cgi-bin/showarticle/$STATE/48">
@@ -169,7 +169,7 @@ to find the best match for your child.</p>
 </ul>
 <br/>
 <br/>
-<b>
+<b name="apply">
     Apply and Enroll
 </b>
 <br/>
