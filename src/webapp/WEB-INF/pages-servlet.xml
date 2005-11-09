@@ -238,7 +238,8 @@
     </bean>
 
     <bean name="/content/schoolChoiceCenter.page"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        class="gs.web.content.PremiumArticlesController"
+        autowire="byName">
         <property name="viewName">
             <value>/content/schoolChoiceCenter</value>
         </property>

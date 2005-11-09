@@ -1,12 +1,13 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ContentControllerTest.java,v 1.1 2005/11/02 01:10:34 apeterson Exp $
+ * $Id: ContentControllerTest.java,v 1.2 2005/11/09 00:53:08 dlee Exp $
  */
 package gs.web.content;
 
 import gs.data.content.Article;
 import gs.data.content.ArticleManager;
 import gs.data.content.IArticleDao;
+import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -51,5 +52,24 @@ public class ContentControllerTest extends BaseControllerTestCase {
         List articles = (List) modelAndView.getModel().get("articles");
         assertTrue(articles.size() > 0);
         assertTrue(articles.get(0) instanceof Article);
+    }
+
+    public void testPremiumArticlesController() throws Exception {
+        PremiumArticlesController c = new PremiumArticlesController();
+        c.setApplicationContext(getApplicationContext());
+        c.setArticleDao((IArticleDao) getApplicationContext().getBean(IArticleDao.BEAN_ID));
+
+        ModelAndView modelAndView = c.handleRequestInternal(getRequest(), getResponse());
+        List articles = (List) modelAndView.getModel().get("articles");
+        //ca has premium articles
+        assertTrue(articles.size() > 0);
+        assertTrue(articles.get(0) instanceof Article);
+
+        //de does not have premium articles
+        assertFalse(State.DE.isSubscriptionState());
+        getSessionContext().setState(State.DE);
+        modelAndView = c.handleRequestInternal(getRequest(), getResponse());
+        articles = (List) modelAndView.getModel().get("articles");
+        assertNull(articles);
     }
 }
