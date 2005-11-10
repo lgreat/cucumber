@@ -109,7 +109,8 @@ to find the best match for your child.</p>
     </li>
 </ul>
 
-<h2 name="options">Learn About Your Options</h2>
+<h2>Learn About Your Options</h2>
+<a name="options"/>
 <ul class="plain">
     <li><gsml:a href="/cgi-bin/showarticle/$STATE/96">Choosing a School in ${stateLongName}</gsml:a></li>
     <li><gsml:a href="/cgi-bin/showarticle/$STATE/197">Private vs. Public: What's the Difference?</gsml:a></li>
@@ -128,7 +129,8 @@ to find the best match for your child.</p>
     </ul>
 </c:if>
 
-<h2 name="visit">Make the Most of Your School Visit</h2>
+<h2>Make the Most of Your School Visit</h2>
+    <a name="visit"/>
     <ul class="plain" >
         <li>
             <gsml:a href="/cgi-bin/showarticle/$STATE/48">The School Visit: What to Look For</gsml:a>
@@ -140,7 +142,8 @@ to find the best match for your child.</p>
         </li>
     </ul>
 
-<h2 name="apply">Apply and Enroll</h2>
+<h2>Apply and Enroll</h2>
+    <a name="apply"/>
 <ul class="plain" >
     <li><gsml:a href="/cgi-bin/showarticle/$STATE/249">Enrolling in Kindergarten in ${stateLongName}</gsml:a></li>
     <li><gsml:a href="/cgi-bin/showarticle/$STATE/60">10 Tips for Adjusting to a New School</gsml:a></li>
