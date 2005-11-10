@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.6 2005/11/09 22:27:04 apeterson Exp $
+ * $Id: UrlUtil.java,v 1.7 2005/11/10 01:28:30 apeterson Exp $
  */
 
 package gs.web.util;
@@ -216,5 +216,31 @@ public final class UrlUtil {
         href = buildHref(href, false, src);
 
         return href;
+    }
+
+    /**
+     * Converts a "vpage" to a url that can be used on the site.
+     * This method can be expanded and configured to work with more
+     * URLs as we grow this concept.
+     * URLs that don't look like VPAGE URLs are returned as is.
+     *
+     * @param url url or "vpage". A vpage starts with "vpage:"
+     * @return a url
+     */
+    public String vpageToUrl(String url) {
+        if (url.startsWith("vpage:")) {
+            String vpage = url.substring(6);
+            if (StringUtils.equals("content.seasonal", vpage)) {
+                return "/cgi-bin/site/holiday_center.cgi/$STATE";
+                // NOTE: was "/cgi-bin/site/parent_tips.cgi/$STATE"
+            } else if (StringUtils.equals("path1", vpage)) {
+                return "/modperl/go/$STATE";
+            } else if (StringUtils.equals("path2", vpage)) {
+                return "/path/mySchool.page?state=$STATE";
+            }
+            throw new IllegalArgumentException("Unknown vpage indicated: " + vpage);
+        } else {
+            return url;
+        }
     }
 }

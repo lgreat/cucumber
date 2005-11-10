@@ -23,7 +23,7 @@
                 </c:if>
                 <c:if test="${state == null}">
                     <gsml:url var="u" value="/modperl/go/" /><!-- TODO switch back to this before going live! -->
-                    <gsml:url var="u" value="/path/choose.page?state=" />
+                    <!--gsml:url var="u" value="/path/choose.page?state=" /-->
                     <c:if test="${requestScope.context.pathway eq 2}">
                     <gsml:url var="u" value="/path/mySchool.page?state=" />
                     </c:if>

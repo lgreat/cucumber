@@ -131,7 +131,7 @@
 
                     <div class="featuredarticle2">
                         <ul class="result_list nowrap"><li class="viewall"><gsml:a
-                                href="/cgi-bin/site/parent_tips.cgi/CA">Browse the latest topics</gsml:a></li></ul>
+                                href="vpage:content.seasonal">Browse the latest topics</gsml:a></li></ul>
                     </div>
 
                     <div class="promoArticles">

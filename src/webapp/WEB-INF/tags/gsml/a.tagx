@@ -11,6 +11,7 @@
             request.setAttribute("STATE", state);
         }
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
+        href = urlUtil.vpageToUrl(href);
         href = urlUtil.buildUrl(href, request);
         jspContext.setAttribute("href", href);
     </jsp:scriptlet>
