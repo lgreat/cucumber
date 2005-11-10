@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.4 2005/11/09 23:24:17 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.5 2005/11/10 21:21:22 apeterson Exp $
  */
 package gs.web.content;
 
@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,16 +39,10 @@ public class FeaturedArticlesController extends AbstractController {
         String posStr = request.getParameter("position");
         if (StringUtils.isEmpty(posStr)) {
             posStr = IArticleDao.HOT_TOPIC; // bad default
+            _log.warn("Default position being used. Please fix.");
         }
 
-        Article article = null;
-        article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), posStr);
-        // backward compatible
-        // TODO remove
-        if (article == null) {
-            List articles = _articleDao.getFeaturedArticles(sessionFacade.getStateOrDefault());
-            article = (Article) articles.get(0);
-        }
+        Article article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), posStr);
 
         // Allow param override
         final String paramHeading = request.getParameter("heading");
