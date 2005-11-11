@@ -157,6 +157,7 @@
 </td>
 </tr>
 </table>
+<gsml:fireclick pageType="home" pageName="my childs school" />
 </body>
 </html>
 </jsp:root>
