@@ -8,19 +8,14 @@
     <div id="globalnav">
         <table class="globalnav shade4" border="0" cellspacing="0" cellpadding="0" width="100%">
             <tr>
-                <td class="TL">
-                </td>
-                <td class="T">
-                </td>
-                <td class="TR">
-                </td>
+                <td class="TL"></td>
+                <td class="T"></td>
+                <td class="TR"></td>
             </tr>
             <tr>
-                <td class="L">
-                </td>
+                <td class="L"></td>
                 <c:if test="${requestScope.context.pathway=='1'}">
-                    <td class="C choosingPwy">
-                        <h1>
+                    <td class="C choosingPwy"><h1>
                             <gsml:a href="vpage:path1">Choosing Schools</gsml:a>
                         </h1>
                         <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
@@ -39,44 +34,32 @@
                             <c:if test="${requestScope.context.user!=null}">
                                 <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.user.email}&amp;mid=${requestScope.context.user.id}">Sign Out</gsml:a>
                             </c:if>
-                        </c:if>
-                    </td>
+                        </c:if></td>
                 </c:if>
                 <c:if test="${requestScope.context.pathway!='1'}">
-                    <td class="C choosingPwyClosed" >
-                        <h1>
+                    <td class="C choosingPwyClosed" ><h1>
                             <gsml:a href="vpage:path1">Choosing Schools</gsml:a>
-                        </h1>
-                    </td>
+                        </h1></td>
                 </c:if>
-                <td class="R">
-                </td>
+                <td class="R"></td>
             </tr>
             <tr>
-                <td class="BL">
-                </td>
-                <td class="B">
-                </td>
-                <td class="BR">
-                </td>
+                <td class="BL"></td>
+                <td class="B"></td>
+                <td class="BR"></td>
             </tr>
         </table>
         <!-- pw1 -->
         <table class="globalnav shade4" border="0" cellspacing="0" cellpadding="0" width="100%">
             <tr>
-                <td class="TL">
-                </td>
-                <td class="T">
-                </td>
-                <td class="TR">
-                </td>
+                <td class="TL"></td>
+                <td class="T"></td>
+                <td class="TR"></td>
             </tr>
             <tr>
-                <td class="L">
-                </td>
+                <td class="L"></td>
                 <c:if test="${requestScope.context.pathway==2}">
-                    <td class="C mcsPwy">
-                        <h1>
+                    <td class="C mcsPwy"><h1>
                         <gsml:a href="vpage:path2">My Child's School</gsml:a>
                         </h1>
                         <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List</gsml:a>
@@ -84,56 +67,39 @@
                         <gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">Rate My School</gsml:a>
                         <gsml:a href="/content/allArticles.page?state=$STATE">Browse List of Topics</gsml:a>
 
-                        <gsml:a href="/cgi-bin/newsletters/$STATE">Newsletter Center</gsml:a>
-                    </td>
+                        <gsml:a href="/cgi-bin/newsletters/$STATE">Newsletter Center</gsml:a></td>
                 </c:if>
                 <c:if test="${requestScope.context.pathway!=2}">
-                    <td class="C mcsPwyClosed">
-                        <h1>
+                    <td class="C mcsPwyClosed"><h1>
                             <gsml:a href="vpage:path2">My Child's School</gsml:a>
-                        </h1>
-                    </td>
+                        </h1></td>
                 </c:if>
-                <td class="R">
-                </td>
+                <td class="R"></td>
             </tr>
             <tr>
-                <td class="BL">
-                </td>
-                <td class="B">
-                </td>
-                <td class="BR">
-                </td>
+                <td class="BL"></td>
+                <td class="B"></td>
+                <td class="BR"></td>
             </tr>
         </table>
         <!-- pw2 -->
         <table class="globalnav shade4" border="0" cellspacing="0" cellpadding="0" width="100%">
             <tr>
-                <td class="TL">
-                </td>
-                <td class="T">
-                </td>
-                <td class="TR">
-                </td>
+                <td class="TL"></td>
+                <td class="T"></td>
+                <td class="TR"></td>
             </tr>
             <tr>
-                <td class="L">
-                </td>
-                <td class="C editorialPwy">
-                    <h1>
+                <td class="L"></td>
+                <td class="C editorialPwy"><h1>
                         <gsml:a href="vpage:content.seasonal">Holiday Center</gsml:a>
-                    </h1>
-                </td>
-                <td class="R">
-                </td>
+                    </h1></td>
+                <td class="R"></td>
             </tr>
             <tr>
-                <td class="BL">
-                </td>
-                <td class="B">
-                </td>
-                <td class="BR">
-                </td>
+                <td class="BL"></td>
+                <td class="B"></td>
+                <td class="BR"></td>
             </tr>
         </table>
         <!-- pw3 -->
