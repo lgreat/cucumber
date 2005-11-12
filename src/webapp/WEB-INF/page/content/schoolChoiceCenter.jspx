@@ -42,7 +42,6 @@
             width: 100%;
             height: 90%;
             border-style: none solid none solid;
-            line-height: 90%;
             padding-left: 4px;
         }
     </style>
