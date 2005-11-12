@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.6 2005/11/02 21:00:47 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.7 2005/11/12 00:28:20 apeterson Exp $
  */
 
 package gs.web;
@@ -184,16 +184,20 @@ public class SessionContextUtil {
         setPathway(context, response, newPathway);
     }
 
+    /**
+     * Attempt to interpret a state= parameter and save it in the given context. If it can't recognize
+     * the state, it just uses what was there before, if anything.
+     */
     public void updateStateFromParam(SessionContext context, HttpServletRequest httpServletRequest) {
         // Set state, or change, if necessary
         String paramStateStr = httpServletRequest.getParameter(STATE_PARAM);
-        if (!StringUtils.isEmpty(paramStateStr)) {
+        if (!StringUtils.isEmpty(paramStateStr) && paramStateStr.length() >= 2) {
             final State currState = context.getState();
             State state = currState;
-            State s = _stateManager.getState(paramStateStr);
+            State s = _stateManager.getState(paramStateStr.substring(0, 2));
             if (currState == null) {
                 state = s;
-            } else if (!currState.equals(s)) {
+            } else if (s != null && !currState.equals(s)) {
                 state = s;
                 _log.debug("switching user's state: " + s);
             }

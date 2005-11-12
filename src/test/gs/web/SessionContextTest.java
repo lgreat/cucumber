@@ -132,4 +132,39 @@ public class SessionContextTest extends TestCase {
         assertTrue(!ctx.isYahooCobrand());
     }
 
+    public void testStateSetting() {
+        SessionContextUtil util = new SessionContextUtil();
+        util.setStateManager(new StateManager());
+
+        SessionContext ctx = new SessionContext();
+
+        MockHttpServletRequest request = new MockHttpServletRequest();
+
+        assertEquals(null, ctx.getState());
+
+        request.addParameter("state", "");
+        util.updateStateFromParam(ctx, request);
+        assertEquals(null, ctx.getState());
+
+        request.addParameter("state", "GA");
+        util.updateStateFromParam(ctx, request);
+        assertEquals(State.GA, ctx.getState());
+
+        request.addParameter("state", "fl");
+        util.updateStateFromParam(ctx, request);
+        assertEquals(State.FL, ctx.getState());
+
+        request.addParameter("state", "ct/");
+        util.updateStateFromParam(ctx, request);
+        assertEquals(State.CT, ctx.getState());
+
+        request.addParameter("state", "x");
+        util.updateStateFromParam(ctx, request);
+        assertEquals(State.CT, ctx.getState());
+
+        request.addParameter("state", "xx");
+        util.updateStateFromParam(ctx, request);
+        assertEquals(State.CT, ctx.getState());
+    }
+
 }
