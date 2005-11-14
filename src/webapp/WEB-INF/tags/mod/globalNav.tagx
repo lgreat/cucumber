@@ -15,7 +15,7 @@
             <tr>
                 <td class="L"></td>
                 <c:if test="${requestScope.context.pathway=='1'}">
-                    <td class="C choosingPwy"><h1>
+                    <td class="BG choosingPwy"><h1>
                             <gsml:a href="vpage:path1">Choosing Schools</gsml:a>
                         </h1>
                         <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
@@ -37,7 +37,7 @@
                         </c:if></td>
                 </c:if>
                 <c:if test="${requestScope.context.pathway!='1'}">
-                    <td class="C choosingPwyClosed" ><h1>
+                    <td class="BG choosingPwyClosed" ><h1>
                             <gsml:a href="vpage:path1">Choosing Schools</gsml:a>
                         </h1></td>
                 </c:if>
@@ -59,7 +59,7 @@
             <tr>
                 <td class="L"></td>
                 <c:if test="${requestScope.context.pathway==2}">
-                    <td class="C mcsPwy"><h1>
+                    <td class="BG mcsPwy"><h1>
                         <gsml:a href="vpage:path2">My Child's School</gsml:a>
                         </h1>
                         <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List</gsml:a>
@@ -70,7 +70,7 @@
                         <gsml:a href="/cgi-bin/newsletters/$STATE">Newsletter Center</gsml:a></td>
                 </c:if>
                 <c:if test="${requestScope.context.pathway!=2}">
-                    <td class="C mcsPwyClosed"><h1>
+                    <td class="BG mcsPwyClosed"><h1>
                             <gsml:a href="vpage:path2">My Child's School</gsml:a>
                         </h1></td>
                 </c:if>
@@ -91,7 +91,7 @@
             </tr>
             <tr>
                 <td class="L"></td>
-                <td class="C editorialPwy"><h1>
+                <td class="BG editorialPwy"><h1>
                         <gsml:a href="vpage:content.seasonal">Holiday Center</gsml:a>
                     </h1></td>
                 <td class="R"></td>

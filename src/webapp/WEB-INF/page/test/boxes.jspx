@@ -40,22 +40,6 @@
                 </gsml:box>
 
 
-
-                <gsml:decorator tagclass="resultoverview">
-                    <h1>Hello gsml:decorator.resultoverview.</h1>
-                    <p>musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. </p>
-
-
-                </gsml:decorator>
-
-                <gsml:decorator tagclass="main">
-                    <h1>Hello gsml:decorator.resultoverview.</h1>
-                    <p>musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. </p>
-
-
-                </gsml:decorator>
-
-
             </div>
             <div style="padding:2em;">
                 <gsml:box tableClass="shade3">
@@ -78,20 +62,6 @@
                 </gsml:box>
 
 
-
-                <gsml:decorator tagclass="resultoverview">
-                    <h1>Hello gsml:decorator.resultoverview.</h1>
-                    <p>musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. </p>
-
-
-                </gsml:decorator>
-
-                <gsml:decorator tagclass="main">
-                    <h1>Hello gsml:decorator.resultoverview.</h1>
-                    <p>musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. </p>
-
-
-                </gsml:decorator>
             </div>
         </body>
 
