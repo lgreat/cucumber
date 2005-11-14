@@ -145,8 +145,8 @@
                             <li>Holidays</li>
                             <li>Summer camps and more!</li>
                         </ul>
-                        <ul class="result_list nowrap"><li class="viewall"><a
-                                href="/content/allArticles.page?state=CA">Browse full article library</a></li></ul>
+                        <ul class="result_list nowrap"><li class="viewall"><gsml:a
+                                href="/content/allArticles.page?state=$STATE">Browse full article library</gsml:a></li></ul>
                     </div>
                 </div><!-- topcontentcol2 -->
             </td></tr></table>

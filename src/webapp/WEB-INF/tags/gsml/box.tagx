@@ -15,7 +15,7 @@
             <td class="TR"></td>
         </tr>
         <tr>
-            <td class="L"></td>
+            <td class="L">&#160;</td>
             <td class="BG">
                 <jsp:doBody/>
             </td>
