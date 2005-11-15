@@ -53,7 +53,7 @@
                 </div>
 
                 <div id="headerSearch">
-                    <search:searchBox/>
+                    <search:searchBox state="${requestScope.context.stateOrDefault}"/>
                 </div>
             </div>
         </c:if>
