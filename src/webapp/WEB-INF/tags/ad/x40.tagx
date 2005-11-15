@@ -10,9 +10,11 @@
                     <tr><td>
                         <c:choose>
                             <c:when test='${requestScope.context.yahooCobrand}'>
-                                <iframe src="http://us.adserver.yahoo.com/a?f=96345362&amp;p=ed&amp;l=LREC&amp;c=sh&amp;bg=white"
+                                    <![CDATA[
+                                    <iframe src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=sh&bg=white"
                                         align="center" width="300" height="265" frameborder="no" border="0"
                                         marginwidth="0" marginheight="0" scrolling="no"></iframe>
+                                       ]]>
                             </c:when>
                             <c:otherwise>
                                 <script language="JavaScript">OAS_AD('x40');</script>
