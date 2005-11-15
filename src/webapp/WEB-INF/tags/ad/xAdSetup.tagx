@@ -11,7 +11,7 @@
     <jsp:scriptlet><![CDATA[
         // On cobrands we don't show position x22 so check for it on cobrands
         gs.web.ISessionFacade ctx = SessionFacade.getInstance(request);
-        if (ctx.isCobrand()) {
+        if (ctx.isCobranded()) {
             ads = ads.replaceAll("x22,", "");
             ads = ads.replaceAll(",x22", "");
             ads = ads.replaceAll("x22", "");

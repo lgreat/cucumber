@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ISessionFacade.java,v 1.3 2005/11/01 17:06:00 apeterson Exp $
+ * $Id: ISessionFacade.java,v 1.4 2005/11/15 17:21:59 apeterson Exp $
  */
 
 package gs.web;
@@ -58,7 +58,7 @@ public interface ISessionFacade {
      *
      * @return true if it's a cobrand
      */
-    boolean isCobrand();
+    boolean isCobranded();
 
     /**
      * Determine if this site should be ad free

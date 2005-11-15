@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.20 2005/11/01 17:06:00 apeterson Exp $
+ * $Id: SessionContext.java,v 1.21 2005/11/15 17:21:36 apeterson Exp $
  */
 package gs.web;
 
@@ -82,7 +82,7 @@ public class SessionContext
         return _hostName;
     }
 
-    public boolean isCobrand() {
+    public boolean isCobranded() {
         return _cobrand != null;
     }
 

@@ -5,7 +5,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
     <jsp:directive.tag body-content="empty"/>
-    <c:if test="${!requestScope.context.adFree  &amp;&amp; !requestScope.context.cobrand}">
+    <c:if test="${!requestScope.context.adFree  and !requestScope.context.cobranded}">
         <div id="adLeaderboard">
             <table>
                 <tr>
