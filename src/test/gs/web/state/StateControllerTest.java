@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StateControllerTest.java,v 1.3 2005/11/15 01:39:26 apeterson Exp $
+ * $Id: StateControllerTest.java,v 1.4 2005/11/15 23:44:40 apeterson Exp $
  */
 
 package gs.web.state;
@@ -127,6 +127,18 @@ public class StateControllerTest extends BaseControllerTestCase {
         la = (Anchor) results.get(0);
         assertEquals("View all schools", la.getContents());
         assertEquals("/cgi-bin/schoollist/DC", la.getHref());
+
+
+        // Special case NYC
+        context = (SessionContext) SessionFacade.getInstance(getRequest());
+        context.setState(State.NY);
+        modelAndView = c.handleRequestInternal(getRequest(), getResponse());
+        results = (List) modelAndView.getModel().get("results");
+        assertNotNull(results);
+        Anchor nyc = (Anchor) results.get(0);
+        assertEquals("New York City schools", nyc.getContents());
+        assertEquals("/modperl/bycity/ny/?city=New+York", nyc.getHref());
+        assertNotNull(modelAndView.getModel().get("results"));
 
 
     }
