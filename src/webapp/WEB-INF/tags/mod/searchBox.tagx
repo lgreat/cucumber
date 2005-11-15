@@ -56,9 +56,6 @@
                 </c:if>
                 <c:if test="${state == null}">
                     <gsml:url var="pathPage" value="/modperl/go/"/>
-                    <c:if test="${requestScope.context.pathway eq 2}">
-                    <gsml:url var="pathPage" value="/path/mySchool.page?state=" />
-                    </c:if>
                     <gsweb:stateSelector styleClass="statedropdown"
                         onChange="window.location.href='${pathPage}' + this.value.toUpperCase()"
                         allowNoState="${param.state == 'all'}"

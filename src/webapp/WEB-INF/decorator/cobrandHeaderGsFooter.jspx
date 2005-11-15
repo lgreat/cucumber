@@ -45,17 +45,19 @@
     <div id="header">
         <!-- Note adFree sites are framed, mcguire, number1expert -->
         <c:if test="${showHeader!='false' and !requestScope.context.adFree}">
-            <div id="headerGS">
-                <div id="headerLogo">
+            <table id="headerGS">
+            <tr>
+                <td id="headerLogo">
                     <gsml:url var="logoImage" value="/res/img/logo/logo_GS_260x40.gif"/>
                     <gsml:url var="splashPage" value="/?state=$STATE"/>
                     <a href="${splashPage}"><img alt="GreatSchools.net Logo" src="${logoImage}"/></a>
-                </div>
+                </td>
 
-                <div id="headerSearch">
-                    <search:searchBox state="${requestScope.context.stateOrDefault}"/>
-                </div>
-            </div>
+                <td id="headerSearch">
+                    <search:searchBox />
+                </td>
+                </tr>
+            </table>
         </c:if>
     </div>
 
