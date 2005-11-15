@@ -10,7 +10,7 @@
         type="gs.data.state.State"/>
 
     <c:set var="usingNewSearch" value="false"/>
-    <div class="globalsearch">
+    <div class="globalsearch" >
         <c:if test="${usingNewSearch}">
             <!-- New Search
             Set the .textfield width in global.css to 50% -->
@@ -50,7 +50,7 @@
             <gsml:url var="searchPage" value="/cgi-bin/search_switch/${requestScope.context.stateOrDefault}"/>
             <form name="headerSearch" method="post" action="${searchPage}"
                 onsubmit="if ((this.field1.value == '' || this.field1.value == '${searchPrompt1}') &amp;&amp; (this.field2.value == '' || this.field2.value == '${searchPrompt2}')) { alert('You must specify a school, district, or city name'); return false;} ${triggerPopunder}">
-                <table align="right" style="width:20em;height:40px;margin-right: 10px"><tr><td>
+                <table><tr><td>
                 <input type="hidden" name="selector" value="by_school"/>
                 <c:if test="${state != null}">
                     <input type="hidden" name="state" value="${state.abbreviation}"/>

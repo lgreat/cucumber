@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.47 2005/11/15 20:45:34 apeterson Exp $
+$Id: global.css,v 1.48 2005/11/15 21:42:09 apeterson Exp $
 ----------------------------------------------- */
 
 /*
@@ -68,7 +68,7 @@ img#logo {width:260px;height:40px;padding:0px 0px 0px 0px;margin:0px 0px 6px 0px
     width: 100%;
 }
 #headerLogo {
-    padding-left; 5px;
+    padding-left: 5px;
     width: 250px;
 }
 #headerSearch {
@@ -77,6 +77,13 @@ img#logo {width:260px;height:40px;padding:0px 0px 0px 0px;margin:0px 0px 6px 0px
     padding:1px 0px 2px 3px;
     width: 300px;
     white-space: nowrap;
+}
+#headerSearch .globalsearch {
+}
+
+#headerSearch .globalsearch table {
+    float: right;
+    width:10em;height:40px;margin-right: 10px; text-align: right
 }
 
 #footer {margin-left:auto;margin-right:auto;width:750px;line-height:10pt;font-size:.9em;}
