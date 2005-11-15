@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.45 2005/11/14 23:52:08 apeterson Exp $
+$Id: global.css,v 1.46 2005/11/15 17:24:03 apeterson Exp $
 ----------------------------------------------- */
 
 /*
@@ -111,8 +111,9 @@ table.bottomcontent tr td img {text-align:center;}
 
 /*  Headings
 ----------------------------------------------- */
-h1.moduleheader, span.moduleheader, span.moduleheader h1 {
+h1.moduleheader, span.moduleheader {
     color:#F60;font-size:1.5em;font-weight:bold;white-space:nowrap;padding:0px 0px 0px 0px;}
+span.moduleheader h1 { font-size:inherit;font-weight:bold;}
 h1.moduleheader span {color:#000; font-weight:normal;font-size:10px;padding-left:10px;}
 h3.tagline {font-size:0.9em;}
 h4.tagline {font-size:1em;}
