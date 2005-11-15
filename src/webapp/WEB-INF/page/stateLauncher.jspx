@@ -23,9 +23,11 @@
         <meta name="gsfooter" content="false" />
         <title>Select a state</title>
             <style type="text/css">
+            #bodyGS { font-size: 76%; }
             .state1 {padding:0px 15px 0px 15px;}
             #main {margin-left: auto; margin-right: auto;}
             h2 {font-weight:bold;padding:15px 0px 20px 0px;font-size:1.2em;text-align:center;}
+            div#bodyGS .state1 a, div#bodyGS .state2 a  {font-size: 1.5em}
             </style>
     </head>
 
@@ -161,7 +163,7 @@
                         <area shape="poly" coords="124,67,174,72,171,109,119,106" href="${url}WY${extraParams}" />
                     </map>
                 </td>
-                <td width="0" valign="top" class="state1"><a href="${url}AL${extraParams}" >Alabamas</a><br/>
+                <td width="0" valign="top" class="state1"><a href="${url}AL${extraParams}" >Alabama</a><br/>
                     <a href="${url}AK${extraParams}" >Alaska</a><br/>
                     <a href="${url}AZ${extraParams}" >Arizona</a><br/>
                     <a href="${url}AR${extraParams}" >Arkansas</a><br/>
@@ -198,7 +200,7 @@
 
                     <a href="${url}NV${extraParams}" >Nevada</a><br/>
                     <a href="${url}NH${extraParams}" >New Hampshire</a><br/>
-                    <a href="${url}NJ${extraParams}" >New Jersy</a><br/>
+                    <a href="${url}NJ${extraParams}" >New Jersey</a><br/>
                     <a href="${url}NM${extraParams}" >New Mexico</a><br/>
                     <a href="${url}NY${extraParams}" >New York</a><br/>
                     <a href="${url}NC${extraParams}" >North Carolina</a><br/>
