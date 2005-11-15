@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StateControllerTest.java,v 1.2 2005/11/09 20:05:08 apeterson Exp $
+ * $Id: StateControllerTest.java,v 1.3 2005/11/15 01:39:26 apeterson Exp $
  */
 
 package gs.web.state;
@@ -106,10 +106,10 @@ public class StateControllerTest extends BaseControllerTestCase {
         assertTrue(results.size() > 4);
         Anchor la = (Anchor) results.get(0);
         assertEquals("Los Angeles schools", la.getContents());
-        assertEquals("/modperl/bycity/ca/?city=Los+Angeles&level=a", la.getHref());
+        assertEquals("/modperl/bycity/ca/?city=Los+Angeles", la.getHref());
         Anchor sf = (Anchor) results.get(3);
         assertEquals("San Francisco schools", sf.getContents());
-        assertEquals("/modperl/bycity/ca/?city=San+Francisco&level=a", sf.getHref());
+        assertEquals("/modperl/bycity/ca/?city=San+Francisco", sf.getHref());
         assertNotNull(modelAndView.getModel().get("results"));
 
         Anchor veryLast = (Anchor) results.get(results.size() - 1);
