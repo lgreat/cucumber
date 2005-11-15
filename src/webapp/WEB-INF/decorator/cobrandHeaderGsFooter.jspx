@@ -45,18 +45,45 @@
     <div id="header">
         <!-- Note adFree sites are framed, mcguire, number1expert -->
         <c:if test="${showHeader!='false' and !requestScope.context.adFree}">
-            <table id="headerGS" >
-            <tr>
-                <td id="headerLogo">
-                    <gsml:url var="logoImage" value="/res/img/logo/logo_GS_260x40.gif"/>
-                    <gsml:url var="splashPage" value="/?state=$STATE"/>
-                    <a href="${splashPage}"><img alt="GreatSchools.net Logo" src="${logoImage}"/></a>
-                </td>
-                <td id="headerSearch">
-                    <search:searchBox />
-                </td>
-                </tr>
-            </table>
+            <c:set var="searchPrompt1" value="Search school name or district"/>
+            <c:set var="searchPrompt2" value="Search city"/>
+            <gsml:url var="searchPage"
+                      value="/cgi-bin/search_switch/${requestScope.context.stateOrDefault}"/>
+
+                            <gsml:url var="pathPage" value="/modperl/go/"/>
+            <c:if test="${requestScope.context.pathway eq 2}">
+                <gsml:url var="pathPage" value="/path/mySchool.page?state="/>
+                            </c:if>
+            <form name="headerSearch" method="post" action="${searchPage}"
+                  onsubmit="if ((this.field1.value == '' || this.field1.value == '${searchPrompt1}') &amp;&amp; (this.field2.value == '' || this.field2.value == '${searchPrompt2}')) { alert('You must specify a school, district, or city name'); return false;} ${triggerPopunder}">
+                <table id="headerGS">
+                    <tr>
+                        <td id="headerLogo" width="20%">
+                            <gsml:url var="logoImage" value="/res/img/logo/logo_GS_260x40.gif"/>
+                            <gsml:url var="splashPage" value="/?state=$STATE"/>
+                            <a href="${splashPage}"><img alt="GreatSchools.net Logo" src="${logoImage}"/></a>
+                        </td><td width="*"></td>
+                        <td width="5%">
+                            <input type="hidden" name="selector" value="by_school"/>
+                            <gsweb:stateSelector styleClass="statedropdown"
+                                                 onChange="window.location.href='${pathPage}' + this.value.toUpperCase()"
+                                                 allowNoState="${param.state == 'all'}"
+                                                 useLongNames="true"/>
+                        </td><td width="5%"><input type="text" value="${searchPrompt1}"
+                                        onfocus="if (this.value=='${searchPrompt1}') this.value=''; if (this.form.field2.value=='${searchPrompt2}') this.form.field2.value='';"
+                                        onblur="if (this.value=='' &amp;&amp; this.form.field2.value=='') { this.value='${searchPrompt1}'; this.form.field2.value='${searchPrompt2}'; }"
+                                        class="textfield" name="field1" size="28"/>
+                    </td><td width="5%" style="margin: 0px 3px 7px 2px; font-size: .8em;width: 3em;">and/or
+                    </td><td width="5%" ><input type="text" value="${searchPrompt2}"
+                                    onfocus="if (this.value=='${searchPrompt2}') this.value=''; if (this.form.field1.value=='${searchPrompt1}') this.form.field1.value='';"
+                                    onblur="if (this.value=='' &amp;&amp; this.form.field1.value=='') { this.value='${searchPrompt2}'; this.form.field1.value='${searchPrompt1}'; }"
+                                    class="textfield" name="field2" size="15"/>
+                    </td><td width="5%" ><gsml:url var="goImage" value="/res/img/button/btn_go.gif"/>
+                        <input type="image" class="btn" src="${goImage}"/>
+                    </td>
+                    </tr>
+                </table>
+             </form>
         </c:if>
     </div>
 

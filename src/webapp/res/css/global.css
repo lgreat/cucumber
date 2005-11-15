@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.48 2005/11/15 21:42:09 apeterson Exp $
+$Id: global.css,v 1.49 2005/11/15 23:36:20 apeterson Exp $
 ----------------------------------------------- */
 
 /*
@@ -45,45 +45,12 @@ div.verticalcontainer {position:relative;height:250px;}
 img#logo {width:260px;height:40px;padding:0px 0px 0px 0px;margin:0px 0px 6px 0px;}
 #headerGS {position: relative;height:50px;min-width:780px;}
 #headerGS img {border:0;display:block;padding:0;margin:0;}
-
-/* These are two divs taking up the header area: headerLogo and globalsearch */
-/*#headerLogo {position:absolute;left:5px;width:250px;padding-top:5px;}
-#headerSearch {
-    position:absolute;right:5px;
-    min-width:520px;
-    text-align:right;margin-top:12px;
-    white-space: nowrap;
-}
-#headerSearch.select {margin-top:10px;}
-
-#headerSearch  .textfieldfocused,
-#headerSearch  .textfieldblurred  {
-    font-size:1em;
-    margin:0px 0px 1px 0px;
-    padding:1px 0px 2px 3px;
-    width: 300px;
-}
-*/
 #headerGS {
     width: 100%;
 }
 #headerLogo {
     padding-left: 5px;
     width: 250px;
-}
-#headerSearch {
-    text-align: right;
-    margin:0px 0px 1px 0px;
-    padding:1px 0px 2px 3px;
-    width: 300px;
-    white-space: nowrap;
-}
-#headerSearch .globalsearch {
-}
-
-#headerSearch .globalsearch table {
-    float: right;
-    width:10em;height:40px;margin-right: 10px; text-align: right
 }
 
 #footer {margin-left:auto;margin-right:auto;width:750px;line-height:10pt;font-size:.9em;}
