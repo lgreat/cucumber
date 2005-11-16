@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.49 2005/11/15 23:36:20 apeterson Exp $
+$Id: global.css,v 1.50 2005/11/16 17:59:13 apeterson Exp $
 ----------------------------------------------- */
 
 /*
@@ -75,7 +75,7 @@ table.bottomcontent tr td img {text-align:center;}
 /*  Nav
 ----------------------------------------------- */
 /*.globalnav {height:50px;} pulls the whole table apart-- size from the middle */
-.globalnav .BG {    padding: .5em 0 .5em 0; } /* middle size */
+.globalnav .BG {    padding: .5em 0 .5em 0; white-space: nowrap }
 .globalnav h1 {color: #000;font-weight:bold;font-size:1.3em;padding:0px 0px 4px 0px;cursor:hand;width:100%;}
 .globalnav h1 a, .globalnav h1 a:visited {color: #000;}
 .globalnav h1 a:hover {text-decoration:none;color:#FFF;}
