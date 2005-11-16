@@ -39,6 +39,11 @@
 
 <body onload="${onloadPopunder} ${onLoadScript}">
 <jsp:include page="/header/cobrand.module"/>
+<c:if test="${requestScope.context.cobranded}">
+    <style type="text/css">
+        #bodyGS { width:750px; }
+    </style>
+</c:if>
 <div id="bodyGS">
     <cobrand:framebuster/>
 
