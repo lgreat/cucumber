@@ -135,7 +135,7 @@
                         <area shape="poly" coords="479,87" href="#" />
                         <area shape="poly" coords="460,74" href="#" />
                         <area shape="poly" coords="501,90" href="#" />
-                        <area shape="rect" coords="458,74,504,96" href="#" />
+                        <area shape="rect" coords="458,74,504,96" href="${url}RI${extraParams}" />
                         <area shape="poly" coords="360,178" href="#" />
                         <area shape="poly" coords="360,179,373,174,386,179,398,182,383,200" href="${url}SC${extraParams}" />
                         <area shape="poly" coords="182,61" href="#" />
