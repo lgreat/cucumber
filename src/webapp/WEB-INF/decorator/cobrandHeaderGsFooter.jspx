@@ -41,7 +41,7 @@
 <jsp:include page="/header/cobrand.module"/>
 <c:if test="${requestScope.context.cobranded}">
     <style type="text/css">
-        #bodyGS { width:750px; }
+        #bodyGS { width:750px; margin: auto; }
     </style>
 </c:if>
 <div id="bodyGS">

@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.51 2005/11/16 20:08:19 thuss Exp $
+$Id: global.css,v 1.52 2005/11/16 20:22:49 thuss Exp $
 ----------------------------------------------- */
 
 /*
@@ -13,7 +13,7 @@ font-size: see http://www.thenoodleincident.com/tutorials/typography/template.ht
 html, body{width:100%;height:100%}
 body, form {margin:0;padding:0}
 /* We use bodyGS so we don't affect the cobrand headers */
-#bodyGS {font-family: Arial, Helvetica, sans-serif; font-size:76%; margin:auto;}
+#bodyGS {font-family: Arial, Helvetica, sans-serif; font-size:76%;}
 #pagemargin {position:relative;width:100%;margin:0px auto;padding:6px 6px 6px 6px;}
 
 /* Overrides of standard tags */
