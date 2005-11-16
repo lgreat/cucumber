@@ -90,7 +90,7 @@
     <decorator:body/>
 
     <!-- Note adFree sites are framed, mcguire, number1expert -->
-    <c:if test="${showHeader!='false' and !requestScope.context.adFree}">
+    <c:if test="${showHeader!='false' and !requestScope.context.adFree and !requestScope.context.yahooCobrand}">
         <div id="footer">
             <div id="footerAd">
                 <ad:google728x90/>
