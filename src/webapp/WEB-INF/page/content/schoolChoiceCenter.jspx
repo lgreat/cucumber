@@ -118,7 +118,6 @@
         </li>
     </ul>
 
-    <a name="options"/>
     <h2>Learn About Your Options</h2>
     <ul class="plain">
         <li><gsml:a href="/cgi-bin/showarticle/$STATE/96">Choosing a School in ${stateLongName}</gsml:a></li>
@@ -138,7 +137,6 @@
         </ul>
     </c:if>
 
-    <a name="visit"/>
     <h2>Make the Most of Your School Visit</h2>
     <ul class="plain" >
         <li>
@@ -151,7 +149,6 @@
         </li>
     </ul>
 
-    <a name="apply"/>
     <h2>Apply and Enroll</h2>
     <ul class="plain" >
         <li><gsml:a href="/cgi-bin/showarticle/$STATE/249">Enrolling in Kindergarten in ${stateLongName}</gsml:a></li>
