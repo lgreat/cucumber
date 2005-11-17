@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.8 2005/11/17 19:30:30 thuss Exp $
+ * $Id: UrlUtil.java,v 1.9 2005/11/17 19:44:22 thuss Exp $
  */
 
 package gs.web.util;
@@ -223,7 +223,7 @@ public final class UrlUtil {
                 secureDest = true;
         }
 
-        return buildHref(href, secureDest, src, context.getHostName());
+        return buildHref(href, secureDest, src, context!=null?context.getHostName():null);
     }
 
     /**
