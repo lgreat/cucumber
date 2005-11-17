@@ -52,7 +52,7 @@ public class Util {
 
     /**
      * A utility method to return a state's long name from a 2-char
-     * abbreviation.  Uses State getState(abbrev) to first get the State.
+     * abbreviation.  Uses State getDatabaseState(abbrev) to first get the State.
      *
      * @param abbr The 2 letter abbreviation (case-insensitive)
      * @return a <code>String</code> or null if the provide string doesn't

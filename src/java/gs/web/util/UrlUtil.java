@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.7 2005/11/10 01:28:30 apeterson Exp $
+ * $Id: UrlUtil.java,v 1.8 2005/11/17 19:30:30 thuss Exp $
  */
 
 package gs.web.util;
@@ -32,6 +32,7 @@ public final class UrlUtil {
     public String cobrandFromUrl(String hostName) {
         String cobrandName = null;
         final boolean isCobrand = !hostName.startsWith("www")
+                && !hostName.startsWith("secure")
                 && !hostName.startsWith("staging")
                 && !hostName.startsWith("dev")
                 && !hostName.startsWith("localhost")
@@ -70,6 +71,9 @@ public final class UrlUtil {
             String hn = cobrand + "." + hostName;
             // azcentral.www.greatschools.net -> azcentral.greatschools.net
             return hn.replaceFirst(".www.", ".");
+        } else if (hostName.startsWith("secure")) {
+            // Secure pages link back to www.greatschools.net if we didn't come from a cobrand
+            return "www.greatschools.net";
         } else {
             return hostName;
         }
@@ -84,9 +88,10 @@ public final class UrlUtil {
      * @param dest         the site-relative link to the destination page or resource
      * @param isDestSecure should the dest page be access via https?
      * @param src          the current location. Should be a Java page.
+     * @param orighost     null or cobrand.gs.net when on secure.gs.net
      * @see javax.servlet.http.HttpServletRequest#getRequestURI()
      */
-    public String buildHref(String dest, boolean isDestSecure, String src) {
+    public String buildHref(String dest, boolean isDestSecure, String src, String orighost) {
 
 
         if (src == null) {
@@ -107,17 +112,17 @@ public final class UrlUtil {
                 }
             } else {
                 if ("https".equals(sourceUrl.getProtocol())) {
+                    String host = sourceUrl.getHost();
+                    if (orighost != null) {
+                        host = orighost;
+                    }
                     if (destIsPerl) {
-                        return "http://" +
-                                sourceUrl.getHost() +
-                                "" + dest;
+                        return "http://" + host + dest;
                     } else {
                         if (isDestSecure) {
                             return dest;
                         } else {
-                            return "http://" +
-                                    sourceUrl.getHost() +
-                                    "" + dest;
+                            return "http://" + host + dest;
                         }
                     }
                 }
@@ -184,6 +189,7 @@ public final class UrlUtil {
             href = request.getContextPath() + href;
         }
 
+        gs.web.ISessionFacade context = gs.web.SessionFacade.getInstance(request);
         if (href.indexOf("STATE") != -1) {
             // Allow a request attribute to override the session facade.
             if (request.getAttribute("STATE") != null &&
@@ -192,7 +198,6 @@ public final class UrlUtil {
                 String sa = s.getAbbreviation();
                 href = href.replaceAll("\\$STATE", sa);
             } else {
-                gs.web.ISessionFacade context = gs.web.SessionFacade.getInstance(request);
                 gs.data.state.State s = context.getStateOrDefault();
                 String sa = s.getAbbreviation();
                 href = href.replaceAll("\\$STATE", sa);
@@ -205,7 +210,6 @@ public final class UrlUtil {
                 String h = (String) request.getAttribute("HOST");
                 href = href.replaceAll("\\$HOST", h);
             } else {
-                ISessionFacade context = gs.web.SessionFacade.getInstance(request);
                 String s = context.getHostName();
                 href = href.replaceAll("\\$HOST", s);
             }
@@ -213,9 +217,13 @@ public final class UrlUtil {
 
         final String src = request.getRequestURL().toString();
 
-        href = buildHref(href, false, src);
+        boolean secureDest = false;
+        if ("https".equals(request.getScheme()) &&
+                (ref.indexOf("subscribe.page") > -1 || ref.indexOf("thankyou.page") > -1)) {
+                secureDest = true;
+        }
 
-        return href;
+        return buildHref(href, secureDest, src, context.getHostName());
     }
 
     /**

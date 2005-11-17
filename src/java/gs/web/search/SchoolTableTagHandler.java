@@ -68,14 +68,14 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                     out.println("<tr class=\"result_row\">");
                     out.println("<td class=\"checkbox\" width=\"1\">");
                     out.print("<input name=\"sc\" type=\"checkbox\"  value=\"");
-                    out.print(school.getState().getAbbreviationLowerCase());
+                    out.print(school.getDatabaseState().getAbbreviationLowerCase());
                     out.print(school.getId());
                     out.print("\" /></td>");
 
                     out.println("<td>");
 
                     out.print("<a href=\"/modperl/browse_school/");
-                    out.print(school.getState().getAbbreviation());
+                    out.print(school.getDatabaseState().getAbbreviation());
                     out.print("/");
                     out.print(school.getId().toString());
                     out.println("\">");

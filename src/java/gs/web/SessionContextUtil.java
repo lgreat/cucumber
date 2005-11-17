@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.7 2005/11/12 00:28:20 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.8 2005/11/17 19:30:30 thuss Exp $
  */
 
 package gs.web;
@@ -156,7 +156,6 @@ public class SessionContextUtil {
                         " named " + request.getRemoteHost());// don't pass exception-- it's distracting
             }
         }
-
         context.setHostName(hostName);
         context.setCobrand(cobrand);
     }

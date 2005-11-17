@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.53 2005/11/16 21:30:11 thuss Exp $
+$Id: global.css,v 1.54 2005/11/17 19:30:30 thuss Exp $
 ----------------------------------------------- */
 
 /*
@@ -242,17 +242,6 @@ table.shade5 td.R {background: #DDDDDD url(../img/box/border_shade5_R.gif) right
 table.shade5 td.BL {background: #DDDDDD url(../img/box/border_shade5_BL.gif) left bottom; width:7px; height:7px;}
 table.shade5 td.B {background: #DDDDDD url(../img/box/border_shade5_B.gif) bottom repeat-x;}
 table.shade5 td.BR {background: #DDDDDD url(../img/box/border_shade5_BR.gif) bottom right; width:7px; height:7px;}
-
-table.blank {margin-bottom:3px;}
-table.blank td.TL {background: #fff url(../img/box/border_blank_TL.gif) left top; width:7px; height:7px;}
-table.blank td.T {background: #fff url(../img/box/border_blank_T.gif) top repeat-x;}
-table.blank td.TR {background: #fff url(../img/box/border_blank_TR.gif) top right; width:7px; height:7px;}
-table.blank td.L {background: #fff url(../img/box/border_blank_L.gif) left repeat-y;}
-table.blank td.BG {background: #FFF url(../img/box/border_blank_BG.gif) bottom right no-repeat; padding: 0px 0px 0px 0px;}
-table.blank td.R {background: #fff url(../img/box/border_blank_R.gif) right repeat-y;}
-table.blank td.BL {background: #fff url(../img/box/border_blank_BL.gif) left bottom; width:7px; height:7px;}
-table.blank td.B {background: #fff url(../img/box/border_blank_B.gif) bottom repeat-x;}
-table.blank td.BR {background: #fff url(../img/box/border_blank_BR.gif) bottom right; width:7px; height:7px;}
 
 
 

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.9 2005/11/09 22:27:32 apeterson Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.10 2005/11/17 19:30:30 thuss Exp $
  */
 package gs.web.content;
 
@@ -56,7 +56,7 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
 
         if (_flaggedIfNew && _article.isNew()) {
             String img = _article.isSpanish() ? "/res/img/content/nuevo.jpg" : "/res/img/content/icon_newarticle.gif";
-            img = _urlUtil.buildHref(img, false, null);
+            img = _urlUtil.buildHref(img, false, null, null);
             b.append("<img src=\"" + img + "\" alt=\"new\" class=\"newarticle\">&nbsp;");
         }
 
@@ -85,7 +85,7 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
                 s.getAbbreviationLowerCase() +
                 "/" +
                 _article.getId();
-        link = _urlUtil.buildHref(link, false, null);
+        link = _urlUtil.buildHref(link, false, null, null);
         b.append(link);
 
         b.append("\" ");

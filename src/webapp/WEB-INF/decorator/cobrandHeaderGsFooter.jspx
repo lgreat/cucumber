@@ -42,7 +42,7 @@
 <c:if test="${requestScope.context.cobranded}">
     <style type="text/css">
         #bodyGS { width:800px; margin:auto;}
-    </style>
+    </style>    
 </c:if>
 <div id="bodyGS">
     <cobrand:framebuster/>
