@@ -17,8 +17,8 @@ import org.apache.commons.lang.StringUtils;
  */
 public abstract class ResultsTableTagHandler extends BaseTagHandler {
 
-    private int _total = 0;
-    private int _page = 0;
+    protected int _total = 0;
+    protected int _page = 0;
     protected String _queryString = null;
     protected int PAGE_SIZE = 10;
     private String _sortColumn = null;

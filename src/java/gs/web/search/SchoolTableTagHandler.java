@@ -37,6 +37,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
         out.println("<form action=\"/compareSchools.page\">");
         out.println("<table class=\"columns\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">");
+        out.println ("<tr><td id=\"schooltableheader\"></td></tr>");
         out.println("<tr><td valign=\"top\">");
         out.println("<table class=\"school_results_only\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
 
