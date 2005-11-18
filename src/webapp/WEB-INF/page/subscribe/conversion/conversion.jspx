@@ -13,7 +13,6 @@
     <head>
         <title>GreatSchools Insider Membership Benefits</title>
         <link rel="stylesheet" type="text/css" href="/res/css/community/cp_styles.css"/>
-        <script language="javascript" type="text/javascript"  src="/res/js/popup.js"></script>
         <gsml:fireclick pageType="conversion" pageName="home"
             extraJavascriptVariable="var fc_track='view';var fc_prod_view='GreatSchools Insider';"/>
 
@@ -55,12 +54,11 @@
                                     <tr>
                                         <td class="bodycopy" width="100%" valign="bottom">
                                             <ul class="arrow">
-                                                <li><a type="popup" href="/subscribe/conversion/popup/schoolChoiceOptions.page?state=${requestScope.context.stateOrDefault.abbreviation}">School Choice Options</a> Learn how school choice works in the area you're researching.</li>
-                                                <li><a type="popup" href="/subscribe/conversion/popup/topRatedSchools.page?state=${requestScope.context.stateOrDefault.abbreviation}">Top-Rated Schools</a> Start your search here to narrow your list.</li>
-                                                <li><a type="popup" href="/subscribe/conversion/popup/ratings.page?state=${requestScope.context.stateOrDefault.abbreviation}">GreatSchools Ratings</a> Quickly understand how public and charter schools stack up with our exclusive rating system.</li>
-                                                <li><a type="popup" href="/subscribe/conversion/popup/parentReviews.page?state=${requestScope.context.stateOrDefault.abbreviation}">Parent Ratings and Reviews</a> Read what local parents say about the schools on your list.</li>
-                                                <li><a type="popup" href="/subscribe/conversion/popup/flagAlerts.page?state=${requestScope.context.stateOrDefault.abbreviation}">Flag Alerts</a> See if schools you're considering are flagged with areas of possible concern.</li>
-                                                <li><a type="popup" href="/subscribe/conversion/popup/compareSchools.page?state=${requestScope.context.stateOrDefault.abbreviation}">Compare Schools</a> Look at schools side-by-side and compare them based on GreatSchools ratings and flag alerts as well as other criteria including academic performance, teacher qualifications, and student data.</li>
+                                                <li><gsml:popupWindow width="610" height="600" left="50" top="50" href="/subscribe/conversion/popup/schoolChoiceOptions.page?state=$STATE">School Choice Options</gsml:popupWindow> Learn how school choice works in the area you're researching.</li>
+                                                <li><gsml:popupWindow width="610" height="600"  left="50"  top="50" href="/subscribe/conversion/popup/topRatedSchools.page?state=$STATE">Top-Rated Schools</gsml:popupWindow> Start your search here to narrow your list.</li>
+                                                <li><gsml:popupWindow  width="610" height="600" left="50"  top="50" href="/subscribe/conversion/popup/ratings.page?state=$STATE">GreatSchools Ratings</gsml:popupWindow> Quickly understand how public and charter schools stack up with our exclusive rating system.</li>
+                                                <li><gsml:popupWindow  width="610" height="600" left="50"  top="50" href="/subscribe/conversion/popup/parentReviews.page?state=$STATE">Parent Ratings and Reviews</gsml:popupWindow> Read what local parents say about the schools on your list.</li>
+                                                <li><gsml:popupWindow  width="610" height="600" left="50"  top="50" href="/subscribe/conversion/popup/compareSchools.page?state=$STATE">Compare Schools</gsml:popupWindow> Look at schools side-by-side and compare them based on GreatSchools ratings and flag alerts as well as other criteria including academic performance, teacher qualifications, and student data.</li>
 				                            </ul>
                                             <br/>
                                             <br/>

@@ -165,11 +165,8 @@
         </property>
     </bean>
 
-    <bean name="/test/boxes.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>/test/boxes</value>
-        </property>
+    <bean name="/test/*"
+          class="gs.web.util.TestViewController">
     </bean>
 
     <!--Begin conversion pages -->
