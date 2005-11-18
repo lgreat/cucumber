@@ -32,7 +32,7 @@ table.box_shado1 td.TR {background:  url(/res/img/box/box_shado1_TR.gif) top rig
 table.box_shado1 td.TR_black {background:  url(/res/img/box/box_shado1_TR_black.gif) top right no-repeat;}
 table.box_shado1 td.L {background:  url(/res/img/box/box_shado1_L.gif) left repeat-y;}
 table.box_shado1 td.C_sponsor {padding: 0px 0px 0px 0px;}
-table.box_shado1 td.C {padding: 0px 0px 0px 0px;background:  url(/res/img/box/title_bar.gif) 0px 20px no-repeat;}
+table.box_shado1 td.C {padding: 0px 0px 0px 0px;}
 table.box_shado1 td.R {background:  url(/res/img/box/box_shado1_R.gif) right repeat-y;}
 table.box_shado1 td.BL {background:  url(/res/img/box/box_shado1_BL.gif) no-repeat left bottom;}
 table.box_shado1 td.B {background:  url(/res/img/box/box_shado1_B.gif) bottom repeat-x;}
@@ -55,8 +55,7 @@ background:#EEE;}
 table.box_shado1 td.L_intro {background: #EEE url(/res/img/box/box_shado1_L.gif) left repeat-y;}
 .toc {padding:5px 0px 5px 5px;font-size:12px;line-height:24px;font-weight:bold;}
 .pad{padding:3px 15px 4px 5px;}
-div.title_bar {position:absolute; width:591px; height:5px; left:-11px; top:20px;
-background:  url(/res/img/box/title_bar.gif) top no-repeat;overflow:hidden;}
+div.title_bar {position:absolute; width:591px; height:5px; left:-11px; top:20px; overflow:hidden;}
 table.calloutbox {width:40%;}
 table.calloutbox tr td { padding: 3px 3px 3px 3px; font-size:80%; }
 td {text-align:left;}
