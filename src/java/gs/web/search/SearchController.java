@@ -114,20 +114,8 @@ public class SearchController extends AbstractFormController {
 
             constraint = sc.getType();
 
-            if (constraint != null && !constraint.equals("all") && !constraint.equals("")) {
-                Hits hts = _searcher.search(sc);
-                _resultsPager.load(hts, constraint);
-            } else {
-                String[] types =
-                        {"school", "article", "district", "city", "term"};
-                pageSize = 3;
-                schoolsPageSize = 6;
-                for (int i = 0; i < types.length; i++) {
-                    sc.setType(types[i]);
-                    Hits hits = _searcher.search(sc);
-                    _resultsPager.load(hits, types[i]);
-                }
-            }
+            Hits hts = _searcher.search(sc);
+            _resultsPager.load(hts, constraint);
 
             _resultsPager.setQuery(queryString);
 
@@ -167,6 +155,8 @@ public class SearchController extends AbstractFormController {
             model.put("termsTotal", new Integer(_resultsPager.getTermsTotal()));
             model.put("terms", _resultsPager.getTerms(page, pageSize));
             model.put("pageSize", new Integer(pageSize));
+            model.put("mainResults", _resultsPager.getResults(page, pageSize));
+            model.put("total", new Integer(hts.length()));
         }
 
         long requestEnd = System.currentTimeMillis();

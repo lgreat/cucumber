@@ -27,6 +27,7 @@ public class ResultsPager {
     private StateManager _stateManager;
     public static final int MIXED  = 0;
     public static final int SINGLE = 1;
+    private Hits _hits;
 
     private static final Logger _log = Logger.getLogger(ResultsPager.class);
 
@@ -34,6 +35,7 @@ public class ResultsPager {
     }
 
     public void load(Hits hits, String constraint) {
+        _hits = hits;
         if (hits != null && constraint != null) {
             if (constraint.equals("school")) {
                 setSchools(hits);
@@ -47,6 +49,10 @@ public class ResultsPager {
                 setDistricts(hits);
             }
         }
+    }
+
+    public List getResults(int page, int pageSize) {
+        return getPage(_hits, page,  pageSize);
     }
 
     private void setArticles(Hits hits) {

@@ -9,6 +9,12 @@ import gs.data.search.IndexField;
  */
 public class SearchResult {
 
+    public final static int DISTRICT = 0;
+    public final static int SCHOOL   = 1;
+    public final static int CITY     = 2;
+    public final static int ARTICLE  = 3;
+    public final static int TERM     = 4;
+
     private String _address;
     private Document _doc;
     private String _query;
@@ -31,6 +37,64 @@ public class SearchResult {
         return _doc.get("id");
     }
 
+    public String getHeadline() {
+        String headline = getName();
+        if (headline == null) {
+            headline = getTitle();
+            if (headline == null) {
+                headline = getTerm();
+                if (headline == null) {
+                    headline = getCity();
+                }
+            }
+        }
+
+        if (_highlight) {
+            headline = TextHighlighter.highlight(headline, _query, "name"); 
+        }
+        return headline;
+    }
+
+    public String getContext() {
+        String context = null;
+        String type = _doc.get("type");
+        if ("school".equals(type)) {
+            context = getAddress();
+        } else if ("topic".equals(type) ||
+                "article".equals(type) ||
+                "term".equals(type)) {
+            context = getAbstract();
+            if (context == null) {
+                context = getDefinition();
+            }
+        }
+        return context;
+    }
+
+    /**
+     * This method returns the type of this result as an int value.  The result
+     * types are available as public static members: SCHOOL, DISTRICT, CITY,
+     * ARTICLE, TERM.
+     * @return an int.
+     */
+    public int getType() {
+        int type = -1; // undefined
+        String t = _doc.get("type");
+        // t should never be null - NPE if it is.
+        if ("district".equals(t)) {
+            type = DISTRICT;
+        } else if ("school".equals(t)) {
+            type = SCHOOL;
+        } else if ("city".equals(t)) {
+            type = CITY;
+        } else if ("article".equals(t)) {
+            type = ARTICLE;
+        } else if ("term".equals(t)) {
+            type = TERM;
+        }
+        return type;
+    }
+
     public String getAddress() {
         if (_address == null) {
             StringBuffer addressBuffer = new StringBuffer ();
@@ -45,7 +109,7 @@ public class SearchResult {
         }
 
         if (_highlight) {
-            return TextHighlighter.highlight(_address, _query, "address");
+            _address = TextHighlighter.highlight(_address, _query, "address");
         }
 
         return _address;

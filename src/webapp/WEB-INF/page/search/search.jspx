@@ -20,7 +20,14 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
-    <title>Search</title>
+
+    <title>
+        <c:choose>
+            <c:when test="${not empty param.city}"><c:out value="${param.city} - "/>schools</c:when>
+            <c:when test="${not empty param.dist}"><c:out value="${param.dist} - "/>schools</c:when>
+            <c:otherwise><c:out value="${param.q} - " escapeXml="false"/> GreatSchools.net Search</c:otherwise>
+        </c:choose>
+    </title>
 
     <gsml:url var="searchcss" value="/res/css/search/search.css"/>
     <link rel="stylesheet" href="${searchcss}"
@@ -29,7 +36,7 @@
     <link rel="stylesheet" href="${searchsummarycss}"
           type="text/css" media="screen"/>
     <meta name="onload" content="document.sf.q.focus()"/>
-    <!--<meta name="gsheader" content="false"/>-->
+    <meta name="gsheader" content="false"/>
 
     <![CDATA[
     <script>
@@ -53,12 +60,17 @@
     </script>
     ]]>
     <ad:xAdSetup ads="x22,x20" page="search"/>
+
+<style>
+
+</style>
+
 </head>
 
 <body>
 
 <table border="0" width="100%">
-<!--
+
 <tr>
     <td colspan="2">
         <table width="100%">
@@ -68,28 +80,27 @@
                                     src="/res/img/logo_GS_260x40.gif"></img>
                     </a>
                 </td>
-                <td align="right">
-                    <search:searchControl rememberQuery="false"/>
-                </td>
             </tr>
         </table>
     </td>
 </tr>
--->
+
 <tr>
     <td colspan="2">
         <ad:x22/>
     </td>
 </tr>
-<!--
 <tr>
     <td colspan="2">
         <table width="100%">
-            <tr><td align="left">left</td><td align="right">right</td></tr>
+            <tr><td align="left">
+                   <!--<gsweb:stateSelector allowNoState="${param.state == 'all'}" useLongNames="true"/>-->
+                 </td><td align="right">
+                    <search:searchControl rememberQuery="true"/>
+            </td></tr>
         </table>
     </td>
 </tr>
--->
 <tr>
 
 <td>
@@ -100,140 +111,44 @@
             <ad:x20/>
 </td>
 <td valign="top" class="col2">
-<table width="100%">
-<tr>
-    <td>
-        <gsml:box tableClass="shade3 resultoverview">
-            <gsweb:searchsummary query="${param.q}"
-                                 schoolsTotal="${results.schoolsTotal}"
-                                 articlesTotal="${results.articlesTotal}"
-                                 citiesTotal="${results.citiesTotal}"
-                                 districtsTotal="${results.districtsTotal}"
-                                 termsTotal="${results.termsTotal}"
-                                 constrain="${param.c}"/>
+
+       <gsml:box tableClass="shade3 main">
+           <c:choose>
+               <c:when test="${param.c == 'school'}">
+                   <gsweb:schooltable schools="${results.mainResults}"
+                                      query="${param.q}"
+                                      total="${results.total}"
+                                      page="${param.p}" />
+               </c:when>
+               <c:otherwise>
+                   <gsweb:mainResults results="${results.mainResults}"
+                                      page="${param.p}"
+                                      total="${results.total}"
+                                      query="${param.q}"
+                                      constraint="${param.c}"/>
+              </c:otherwise>
+           </c:choose>
         </gsml:box>
-    </td>
-</tr>
-<tr>
-    <td>
 
-        <c:choose>
-            <c:when test="${param.c == 'school'}">
-                <gsml:box tableClass="shade3 main" >
-                    <table>
-                        <tr>
-                            <td>Refine results:</td>
-                            <td id="schoolfilters">
-                                <gsweb:schoolFilters
-                                        query="${param.q}"
-                                        schoolTypes="${paramValues.st}"
-                                        gradeLevels="${paramValues.gl}"/>
-                            </td>
-                        </tr>
-                    </table>
-                    <gsweb:schooltable schools="${results.schools}"
-                                       query="${param.q}"
-                                       sortColumn="${param.sort}"
-                                       reverse="${param.r}"
-                                       total="${results.schoolsTotal}"
-                                       parameters="${paramValues}"
-                                       page="${param.p}"/>
-                </gsml:box>
-                <gsml:fireclick pageType="search" pageName="school-results"/>
-            </c:when>
-
-            <c:when test="${param.c == 'article'}">
-                <gsml:box tableClass="shade3 main">
-                    <gsweb:articletable articles="${results.articles}"
-                                        query="${param.q}"
-                                        sortColumn="${param.sort}"
-                                        reverse="${param.r}"
-                                        total="${results.articlesTotal}"
-                                        page="${param.p}"/>
-                </gsml:box>
-                <gsml:fireclick pageType="search" pageName="article-results"/>
-            </c:when>
-
-            <c:when test="${param.c == 'city'}">
-                <gsml:box tableClass="shade3 main">
-                    <gsweb:citydistricttable results="${results.cities}"
-                                             type="city"
-                                             query="${param.q}"
-                                             sortColumn="${param.sort}"
-                                             reverse="${param.r}"
-                                             total="${results.citiesTotal}"
-                                             page="${param.p}"/>
-                </gsml:box>
-                <gsml:fireclick pageType="search" pageName="city-results"/>
-            </c:when>
-
-            <c:when test="${param.c == 'district'}">
-                <gsml:box tableClass="shade3 main">
-                    <gsweb:citydistricttable results="${results.districts}"
-                                             type="district"
-                                             query="${param.q}"
-                                             sortColumn="${param.sort}"
-                                             reverse="${param.r}"
-                                             total="${results.districtsTotal}"
-                                             page="${param.p}"/>
-                </gsml:box>
-                <gsml:fireclick pageType="search" pageName="district-results"/>
-            </c:when>
-
-            <c:when test="${param.c == 'term'}">
-                <gsml:box tableClass="shade3 main">
-                    <gsweb:termtable results="${results.terms}"
-                                     query="${param.q}"
-                                     sortColumn="${param.sort}"
-                                     reverse="${param.r}"
-                                     total="${results.termsTotal}"
-                                     page="${param.p}"/>
-                </gsml:box>
-                <gsml:fireclick pageType="search" pageName="term results"/>
-            </c:when>
-
-            <!-- Mixed results -->
-            <c:otherwise>
-                <c:if test="${results != null and (results.termsTotal +
-                                                 results.schoolsTotal +
-                                                 results.articlesTotal +
-                                                 results.citiesTotal +
-                                                 results.districtsTotal) > 0}">
-                    <gsml:box tableClass="shade3 main">
-                        <gsweb:citydistmixed query="${param.q}"
-                                             results="${results}"/>
-                    </gsml:box>
-                </c:if>
-                <gsml:box tableClass="shade3 main">
-                    <gsweb:mixedresults query="${param.q}"
-                                        results="${results}"/>
-                </gsml:box>
-                <gsml:fireclick pageType="search" pageName="mixed-results"/>
-            </c:otherwise>
-        </c:choose>
-
-    </td>
-</tr>
-</table>
+</td>
+<td class="rightcolumn">
+    <gsml:box tableClass="shade3 main">
+        <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
+        <ul>
+            <li id="browseheader">Browse</li>
+            <li><gsml:a href="/modperl/citylist/${state.abbreviation}">All <c:out value="${state.longName}"/> Cities</gsml:a></li>
+            <li><gsml:a href="/modperl/distlist/${state.abbreviation}">All <c:out value="${state.longName}"/> Districts</gsml:a></li>
+            <li><gsml:a href="/content/allArticles.page?state=${requestScope.context.stateOrDefault.abbreviation}">All Articles</gsml:a></li>
+            <li><gsml:a href="/cgi-bin/glossary_home/${state}">All Glossary Terms</gsml:a></li>
+        </ul>
+    </gsml:box>
 </td>
 
 </tr></table>
 </td>
 
-
 </tr>
 </table>
-
-<!--
-<c:if test="${not empty results.suggestion}">
-    Did you mean:
-    <span id="suggestion">
-              <a href="/search/search.page?q=${results.suggestion}&amp;c=${param.c}">
-                  <c:out value="${results.suggestion}" escapeXml="true"/>
-              </a>
-          </span>
-</c:if>
--->
 
 </body>
 </html>
