@@ -1,12 +1,11 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.9 2005/11/17 19:44:22 thuss Exp $
+ * $Id: UrlUtil.java,v 1.10 2005/11/18 00:17:10 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.data.state.State;
-import gs.web.ISessionFacade;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,6 +39,7 @@ public final class UrlUtil {
                 && !hostName.startsWith("dlee.dev")
                 && !hostName.startsWith("apeterson.dev")
                 && !hostName.startsWith("thuss.dev")
+                && !hostName.startsWith("tmauder.dev")
                 && !hostName.startsWith("chriskimm.dev")
                 && hostName.indexOf('.') != -1;
         if (isCobrand) {
