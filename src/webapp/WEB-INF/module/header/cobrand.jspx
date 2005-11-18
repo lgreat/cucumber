@@ -21,7 +21,15 @@
             <!-- We use a table here to box in the header, otherwise poorly written cobrand headers
                 can have very unpredictable interactions with our page body. E.g. azcentral -->
             <table width="100%"><tr><td align="center">
+                <jsp:scriptlet>
+                    try {
+                </jsp:scriptlet>
                 <c:import url="http://${requestScope.context.hostName}/templates/local/nav/topnav.insrt"/>
+                <jsp:scriptlet>
+                    } catch (Exception e) {
+                        // Do nothing
+                    }
+                </jsp:scriptlet>
             </td></tr></table>
             <!-- Restore the onload function because some cobrands overwrite it -->
             <script language="javascript">
