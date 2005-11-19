@@ -1,6 +1,7 @@
 package gs.web.search;
 
 import org.apache.lucene.document.Document;
+import org.apache.lucene.search.Explanation;
 import gs.data.search.highlight.TextHighlighter;
 import gs.data.search.IndexField;
 
@@ -19,6 +20,7 @@ public class SearchResult {
     private Document _doc;
     private String _query;
     private boolean _highlight = true;
+    private Explanation _ex;
 
     public SearchResult(Document doc) {
         _doc = doc;
@@ -200,5 +202,17 @@ public class SearchResult {
             count = Integer.parseInt(schools);
         }
         return count;
+    }
+
+    public void setExplanation(Explanation ex) {
+        _ex = ex;
+    }
+
+    public String getExplanation() {
+        String explanation = "";
+        if (_ex != null) {
+            explanation = _ex.toString();
+        }
+        return explanation;
     }
 }

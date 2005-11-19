@@ -76,15 +76,13 @@ public class SearchController extends AbstractFormController {
 
         long requestStart = System.currentTimeMillis();
 
-        ResultsPager _resultsPager = new ResultsPager();
-        
         boolean debug = false;
         if (request.getParameter("debug") != null) { debug = true; }
 
         ISessionFacade sessionContext = SessionContext.getInstance(request);
 
         Map model = new HashMap();
-
+        ResultsPager _resultsPager = null;
         String queryString = request.getParameter("q");
         String constraint = null;
         String suggestion = null;
@@ -115,9 +113,13 @@ public class SearchController extends AbstractFormController {
             constraint = sc.getType();
 
             Hits hts = _searcher.search(sc);
-            _resultsPager.load(hts, constraint);
+            _resultsPager = new ResultsPager();
+            _resultsPager.setQuery(sc.getQueryString());
 
-            _resultsPager.setQuery(queryString);
+            if(debug) {
+                _resultsPager.enableExplanation(_searcher, sc.getQuery());
+            }
+            _resultsPager.load(hts, constraint);
 
             if (suggest) {
                 suggestion = _spellCheckSearcher.getSuggestion("name", queryString);
@@ -162,8 +164,10 @@ public class SearchController extends AbstractFormController {
         long requestEnd = System.currentTimeMillis();
         long requestTime = requestEnd - requestStart;
         if (debug) { model.put("requesttime", Long.toString(requestTime)); }
-        logIt(queryString, constraint, sessionContext.getState(),
+        if (_resultsPager != null) {
+            logIt(queryString, constraint, sessionContext.getState(),
                 _resultsPager.getResultsTotal(), requestTime, suggestion);
+        }
         return new ModelAndView("search/search", "results", model);
     }
 

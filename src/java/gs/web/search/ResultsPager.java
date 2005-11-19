@@ -1,6 +1,7 @@
 package gs.web.search;
 
 import org.apache.lucene.search.Hits;
+import org.apache.lucene.search.Query;
 import org.apache.lucene.document.Document;
 import org.apache.log4j.Logger;
 
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.io.IOException;
 
 import gs.data.state.StateManager;
+import gs.data.search.Searcher;
 
 /**
  * This class handles the organization of <code>Hits</code> into
@@ -28,10 +30,17 @@ public class ResultsPager {
     public static final int MIXED  = 0;
     public static final int SINGLE = 1;
     private Hits _hits;
+    private Searcher _searcher;
+    private Query _explanationQuery;
 
     private static final Logger _log = Logger.getLogger(ResultsPager.class);
 
     public ResultsPager() {
+    }
+
+    public void enableExplanation(Searcher searcher, Query q) {
+        _searcher = searcher;
+        _explanationQuery = q;
     }
 
     public void load(Hits hits, String constraint) {
@@ -151,7 +160,11 @@ public class ResultsPager {
             try {
                 for (int i = startIndex; i < endIndex; i++) {
                     Document d = hits.doc(i);
-                    searchResults.add(new SearchResult(d, _query));
+                    SearchResult sr = new SearchResult(d, _query);
+                    if (_searcher != null) {
+                        sr.setExplanation(_searcher.explain(_explanationQuery, _hits.id(i)));
+                    } 
+                    searchResults.add(sr);
                 }
             } catch (IOException e) {
                 _log.warn(e);

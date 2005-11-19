@@ -75,3 +75,7 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
     width:165px;
     vertical-align:top;
 }
+
+pre.explanation {
+    font-size:130%
+}

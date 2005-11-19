@@ -126,6 +126,11 @@ public class MainResultsTag extends ResultsTableTagHandler {
                 }
                 out.println("</td>");
                 out.println("</tr>");
+                if (_debug) {
+                    out.print("<tr><td><pre class=\"explanation\">");
+                    out.print(result.getExplanation());
+                    out.println("</pre></td></tr>");
+                }
             }
             out.println("</table>");
         } else {

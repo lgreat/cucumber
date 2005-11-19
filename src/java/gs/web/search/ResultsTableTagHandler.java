@@ -21,6 +21,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
     protected int _page = 0;
     protected String _queryString = null;
     protected int PAGE_SIZE = 10;
+    protected boolean _debug = false;
     private String _sortColumn = null;
     private boolean _reverse = false;
     private List _results;
@@ -73,6 +74,10 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
         return _reverse;
     }
 
+    public void setDebug(boolean db) {
+        _debug = db;
+    }
+    
     public void setParameters(Map parameters) {
         if (parameters != null) {
             gradeLevels = (String[])parameters.get("gl");

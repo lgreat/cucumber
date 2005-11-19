@@ -93,8 +93,8 @@
                                       page="${param.p}"
                                       total="${results.total}"
                                       query="${param.q}"
-                                      constraint="${param.c}" />
-                                      <!--debug="${param.debug}"/>-->
+                                      constraint="${param.c}"
+                                      debug="${param.debug}"/>
               </c:otherwise>
            </c:choose>
         </gsml:box>
