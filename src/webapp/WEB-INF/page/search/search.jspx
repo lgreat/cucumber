@@ -20,7 +20,6 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
-
     <title>
         <c:choose>
             <c:when test="${not empty param.city}"><c:out value="${param.city} - "/>schools</c:when>
@@ -32,39 +31,9 @@
     <gsml:url var="searchcss" value="/res/css/search/search.css"/>
     <link rel="stylesheet" href="${searchcss}"
           type="text/css" media="screen"/>
-    <gsml:url var="searchsummarycss" value="/res/css/searchsummary.css"/>
-    <link rel="stylesheet" href="${searchsummarycss}"
-          type="text/css" media="screen"/>
-    <meta name="onload" content="document.sf.q.focus()"/>
+    <meta name="onload" content="javascript:document.sf.q.focus()"/>
     <meta name="gsheader" content="false"/>
-
-    <![CDATA[
-    <script>
-        function checkSchoolTypes(id) {
-            if((document.getElementById('stpub').checked == false) &&
-               (document.getElementById('stpri').checked == false) &&
-               (document.getElementById('stcha').checked == false)) {
-                document.getElementById(id).checked = true;
-                alert('You must select at least one school type.');
-            }
-        }
-
-        function checkGradeLevels(id) {
-            if((document.getElementById('gle').checked == false) &&
-               (document.getElementById('glm').checked == false) &&
-               (document.getElementById('glh').checked == false)) {
-                document.getElementById(id).checked = true;
-                alert('You must select at least one grade level.');
-            }
-        }
-    </script>
-    ]]>
     <ad:xAdSetup ads="x22,x20" page="search"/>
-
-<style>
-
-</style>
-
 </head>
 
 <body>
@@ -94,7 +63,6 @@
     <td colspan="2">
         <table width="100%">
             <tr><td align="left">
-                   <!--<gsweb:stateSelector allowNoState="${param.state == 'all'}" useLongNames="true"/>-->
                  </td><td align="right">
                     <search:searchControl rememberQuery="true"/>
             </td></tr>
@@ -125,7 +93,8 @@
                                       page="${param.p}"
                                       total="${results.total}"
                                       query="${param.q}"
-                                      constraint="${param.c}"/>
+                                      constraint="${param.c}" />
+                                      <!--debug="${param.debug}"/>-->
               </c:otherwise>
            </c:choose>
         </gsml:box>
@@ -145,6 +114,7 @@
 </td>
 
 </tr></table>
+
 </td>
 
 </tr>
