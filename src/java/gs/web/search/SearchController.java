@@ -40,6 +40,7 @@ import java.io.IOException;
 public class SearchController extends AbstractFormController {
 
     public static final String BEAN_ID = "/search/search.page";
+    private static Logger _log = Logger.getLogger(SearchController.class);
     private static Logger searchLog = Logger.getLogger("search");
     private SpellCheckSearcher _spellCheckSearcher;
     private Searcher _searcher;
@@ -77,7 +78,9 @@ public class SearchController extends AbstractFormController {
         long requestStart = System.currentTimeMillis();
 
         boolean debug = false;
-        if (request.getParameter("debug") != null) { debug = true; }
+        if (request.getParameter("debug") != null) {
+            debug = true;
+        }
 
         ISessionFacade sessionContext = SessionContext.getInstance(request);
 
@@ -88,8 +91,8 @@ public class SearchController extends AbstractFormController {
         String suggestion = null;
         if (command != null && command instanceof SearchCommand &&
                 queryString != null && !queryString.equals("")) {
-            SearchCommand sc = (SearchCommand)command;
-            
+            SearchCommand sc = (SearchCommand) command;
+
             // set up the city and dist attributes, needed by searchsummary
             if (sc.getCity() != null) {
                 request.setAttribute("city", sc.getCity());
@@ -113,66 +116,72 @@ public class SearchController extends AbstractFormController {
             constraint = sc.getType();
 
             Hits hts = _searcher.search(sc);
-            _resultsPager = new ResultsPager();
-            _resultsPager.setQuery(sc.getQueryString());
+            if (hts != null) {
+                _resultsPager = new ResultsPager();
+                _resultsPager.setQuery(sc.getQueryString());
 
-            if(debug) {
-                _resultsPager.enableExplanation(_searcher, sc.getQuery());
-            }
-            _resultsPager.load(hts, constraint);
-
-            if (suggest) {
-                suggestion = _spellCheckSearcher.getSuggestion("name", queryString);
-                if (suggestion == null) {
-                    suggestion = _spellCheckSearcher.getSuggestion("title", queryString);
+                if (debug) {
+                    _resultsPager.enableExplanation(_searcher, sc.getQuery());
                 }
-                if (suggestion == null) {
-                    suggestion = _spellCheckSearcher.getSuggestion("city", queryString);
-                }
-                if (suggestion != null) {
-                    // Check to see if the suggestion returns any results for the
-                    // current state. It's ok if the filter returned by
-                    // Searcher.getFilter is null.
-                    long s = System.currentTimeMillis();
-                    Filter filter = _searcher.getFilter(sessionContext.getState());
-                    Hits suggestHits = _searcher.search(suggestion, null, null, filter);
-                    if (suggestHits != null && suggestHits.length() > 0) {
+                _resultsPager.load(hts, constraint);
 
-                        suggestion = suggestion.replaceAll("\\+", "");
-                        model.put("suggestion", suggestion);
+                if (suggest) {
+                    suggestion = _spellCheckSearcher.getSuggestion("name", queryString);
+                    if (suggestion == null) {
+                        suggestion = _spellCheckSearcher.getSuggestion("title", queryString);
                     }
-                    long f = System.currentTimeMillis();
-                    searchLog.info("did-you-mean overhead: " + (f - s));
-                }
-            }
+                    if (suggestion == null) {
+                        suggestion = _spellCheckSearcher.getSuggestion("city", queryString);
+                    }
+                    if (suggestion != null) {
+                        // Check to see if the suggestion returns any results for the
+                        // current state. It's ok if the filter returned by
+                        // Searcher.getFilter is null.
+                        long s = System.currentTimeMillis();
+                        Filter filter = _searcher.getFilter(sessionContext.getState());
+                        Hits suggestHits = _searcher.search(suggestion, null, null, filter);
+                        if (suggestHits != null && suggestHits.length() > 0) {
 
-            model.put("articlesTotal", new Integer(_resultsPager.getArticlesTotal()));
-            model.put("articles", _resultsPager.getArticles(page, pageSize));
-            model.put("schoolsTotal", new Integer(_resultsPager.getSchoolsTotal()));
-            model.put("schools", _resultsPager.getSchools(page, schoolsPageSize));
-            model.put("districtsTotal", new Integer(_resultsPager.getDistrictsTotal()));
-            model.put("districts", _resultsPager.getDistricts(page, pageSize));
-            model.put("citiesTotal", new Integer(_resultsPager.getCitiesTotal()));
-            model.put("cities", _resultsPager.getCities(page, pageSize));
-            model.put("termsTotal", new Integer(_resultsPager.getTermsTotal()));
-            model.put("terms", _resultsPager.getTerms(page, pageSize));
-            model.put("pageSize", new Integer(pageSize));
-            model.put("mainResults", _resultsPager.getResults(page, pageSize));
-            model.put("total", new Integer(hts.length()));
+                            suggestion = suggestion.replaceAll("\\+", "");
+                            model.put("suggestion", suggestion);
+                        }
+                        long f = System.currentTimeMillis();
+                        searchLog.info("did-you-mean overhead: " + (f - s));
+                    }
+                }
+
+                model.put("articlesTotal", new Integer(_resultsPager.getArticlesTotal()));
+                model.put("articles", _resultsPager.getArticles(page, pageSize));
+                model.put("schoolsTotal", new Integer(_resultsPager.getSchoolsTotal()));
+                model.put("schools", _resultsPager.getSchools(page, schoolsPageSize));
+                model.put("districtsTotal", new Integer(_resultsPager.getDistrictsTotal()));
+                model.put("districts", _resultsPager.getDistricts(page, pageSize));
+                model.put("citiesTotal", new Integer(_resultsPager.getCitiesTotal()));
+                model.put("cities", _resultsPager.getCities(page, pageSize));
+                model.put("termsTotal", new Integer(_resultsPager.getTermsTotal()));
+                model.put("terms", _resultsPager.getTerms(page, pageSize));
+                model.put("pageSize", new Integer(pageSize));
+                model.put("mainResults", _resultsPager.getResults(page, pageSize));
+                model.put("total", new Integer(hts.length()));
+            } else {
+                _log.warn("Hits object is null for SearchCommand: " + sc);
+            }
         }
 
         long requestEnd = System.currentTimeMillis();
         long requestTime = requestEnd - requestStart;
-        if (debug) { model.put("requesttime", Long.toString(requestTime)); }
+        if (debug) {
+            model.put("requesttime", Long.toString(requestTime));
+        }
         if (_resultsPager != null) {
             logIt(queryString, constraint, sessionContext.getState(),
-                _resultsPager.getResultsTotal(), requestTime, suggestion);
+                    _resultsPager.getResultsTotal(), requestTime, suggestion);
         }
         return new ModelAndView("search/search", "results", model);
     }
 
     private static void logIt(String query, String type, State state, int results,
-                       long time, String suggestion) {
+                              long time, String suggestion) {
         StringBuffer logBuffer = new StringBuffer(100);
         logBuffer.append("query:[");
         logBuffer.append(query);
@@ -198,27 +207,30 @@ public class SearchController extends AbstractFormController {
         }
         searchLog.info(logBuffer.toString());
     }
+
     /**
      * Checks the Hits object to see if we should suggest a "did-you-mean" query.
+     *
      * @param hits
      * @return a boolean value true if hits.lenght() is below <code>minimumHits</code>
-     * or hits.score(0) is below <code>minimumScore</code>
+     *         or hits.score(0) is below <code>minimumScore</code>
      * @noinspection UNUSED_SYMBOL
      */
     private boolean determineSuggest(Hits hits) throws IOException {
-        boolean suggest = false;
+        boolean didUMean = false;
         if (hits != null) {
-            if (hits.length() < minimumHits || hits.score(0) < minimumScore ) {
-                suggest = true;
+            if (hits.length() < minimumHits || hits.score(0) < minimumScore) {
+                didUMean = true;
             }
         } else {
-            suggest = true;
+            didUMean = true;
         }
-        return suggest;
+        return didUMean;
     }
 
     /**
      * A setter for Spring
+     *
      * @param spellCheckSearcher
      */
     public void setSpellCheckSearcher(SpellCheckSearcher spellCheckSearcher) {
@@ -227,6 +239,7 @@ public class SearchController extends AbstractFormController {
 
     /**
      * A setter for Spring
+     *
      * @param searcher
      */
     public void setSearcher(Searcher searcher) {
