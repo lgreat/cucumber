@@ -84,6 +84,11 @@
     </welcome-file-list>
 
     <filter>
+        <filter-name>opensessioninview</filter-name>
+        <filter-class>gs.web.util.OpenSessionInViewFilter</filter-class>
+    </filter>
+
+    <filter>
         <filter-name>sitemesh</filter-name>
         <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
         <!--<init-param>-->
@@ -92,19 +97,14 @@
         <!--</init-param>-->
     </filter>
 
-    <filter>
-        <filter-name>opensessioninview</filter-name>
-        <filter-class>gs.web.util.OpenSessionInViewFilter</filter-class>
-    </filter>
-
+    <!-- This should come before the sitemesh filter so that it wraps sitemesh -->
     <filter-mapping>
-        <filter-name>sitemesh</filter-name>
+        <filter-name>opensessioninview</filter-name>
         <url-pattern>*.page</url-pattern>
     </filter-mapping>
 
-    <!-- This should come after the sitemesh filter so all views are rendered prior to this -->
     <filter-mapping>
-        <filter-name>opensessioninview</filter-name>
+        <filter-name>sitemesh</filter-name>
         <url-pattern>*.page</url-pattern>
     </filter-mapping>
 

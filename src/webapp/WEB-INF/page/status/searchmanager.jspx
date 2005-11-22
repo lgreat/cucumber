@@ -33,11 +33,11 @@
     <h2>Host: <c:out value="${pageContext.request.serverName}" /></h2>
 
     Reindex data. This deletes any existing indexes!
-    <form action="/status/searchmanager.page" method="post">
+    <gsml:form action="/status/searchmanager.page" method="post">
         <input type="submit" name="all" value="Index All States"/>
         <input type="submit" name="test" value="Index Test States"/>
         <input type="submit" name="logout" value="logout"/>
-    </form>
+    </gsml:form>
     <c:if test="${!empty time}">
         <c:out value="Indexing time ${time}"/> 
     </c:if>
