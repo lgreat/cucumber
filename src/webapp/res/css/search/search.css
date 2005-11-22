@@ -61,6 +61,7 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
 
 .result_row td {padding-bottom:15px}
 .context {display:block;}
+
 .mainresultsheader {
     padding-bottom:10px;
     border-bottom: solid gray;
@@ -78,4 +79,13 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
 
 pre.explanation {
     font-size:130%
+}
+
+table.refinementtable {
+   padding-left:50px;
+}
+
+table.refinementtable td {
+   padding-left:20px;
+   padding-bottom:0px
 }

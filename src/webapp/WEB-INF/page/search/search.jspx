@@ -111,9 +111,18 @@
             <li><gsml:a href="/cgi-bin/glossary_home/${state}">All Glossary Terms</gsml:a></li>
         </ul>
     </gsml:box>
+    <gsml:box tableClass="shade3 main">
+        <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
+        <ul>
+            <li id="browseheader">Advanced School Search</li>
+            <li><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">Search near Address</gsml:a></li>
+            <li><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#county">Search by County</gsml:a></li>
+        </ul>
+    </gsml:box>
 </td>
+</tr>
 
-</tr></table>
+</table>
 
 </td>
 

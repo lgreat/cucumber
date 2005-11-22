@@ -63,23 +63,27 @@ public class MainResultsTag extends ResultsTableTagHandler {
                 SearchResult result = (SearchResult) _results.get(i);
                 out.println("<tr class=\"result_row\">");
                 out.print("<td name=\"headline\">");
+                StringBuffer linkBuffer = new StringBuffer();
                 switch(result.getType()) {
                     case SearchResult.DISTRICT:
-                        out.print ("Schools in the district of ");
-                        out.print("<a href=\"/search/search.page?q=type:school&c=school&state=");
-                        out.print(getSessionContext().getState().getAbbreviation());
-                        out.print("&district=");
-                        out.print(result.getId());
+                        out.print("Schools in the district of ");
+                        //linkBuffer.append("<a href=\"/search/search.page?q=type:school&c=school&state=");
+                        linkBuffer.append("<a href=\"/search/search.page?c=school&state=");
+                        linkBuffer.append(getSessionContext().getState().getAbbreviation());
+                        linkBuffer.append("&district=");
+                        linkBuffer.append(result.getId());
+                        out.print(linkBuffer.toString());
                         out.print("\">");
                         break;
                     case SearchResult.CITY:
-                        out.print ("Schools in the city of ");
-                        out.print("<a href=\"/search/search.page?q=");
-                        out.print(Functions.escapeXml(_queryString));
-                        out.print("&c=school&amp;city=");
-                        out.print(result.getCity());
-                        out.print("&state=");
-                        out.print(result.getState());
+                        out.print("Schools in the city of ");
+                        linkBuffer.append("<a href=\"/search/search.page?q=");
+                        linkBuffer.append(Functions.escapeXml(_queryString));
+                        linkBuffer.append("&c=school&amp;city=");
+                        linkBuffer.append(result.getCity());
+                        linkBuffer.append("&state=");
+                        linkBuffer.append(result.getState());
+                        out.print(linkBuffer.toString());
                         out.print("\">");
                         break;
                     case SearchResult.SCHOOL:
@@ -124,8 +128,25 @@ public class MainResultsTag extends ResultsTableTagHandler {
                     out.print(context);
                     out.println("</span>");
                 }
-                out.println("</td>");
-                out.println("</tr>");
+
+                if (result.getType() == SearchResult.DISTRICT ||
+                    result.getType() == SearchResult.CITY) {
+                    out.println("<table class=\"refinementtable\"><tr>");
+                    out.println("<td>");
+                    out.print(linkBuffer.toString());
+                    out.println("&gl=elementary\">Elementary</a></td><td>");
+                    out.print(linkBuffer.toString());
+                    out.println("&gl=middle\">Middle</a></td><td>");
+                    out.print(linkBuffer.toString());
+                    out.println("&gl=high\">High</a></td></tr><tr><td>");
+                    out.print(linkBuffer.toString());
+                    out.println("&st=public\">Public</a></td><td>");
+                    out.print(linkBuffer.toString());
+                    out.println("&st=private\">Private</a></td><td>");
+                    out.print(linkBuffer.toString());
+                    out.println("&st=charter\">Charter</a></td></tr></table>");
+                }
+                out.println("</td></tr>");
                 if (_debug) {
                     out.print("<tr><td><pre class=\"explanation\">");
                     out.print(result.getExplanation());

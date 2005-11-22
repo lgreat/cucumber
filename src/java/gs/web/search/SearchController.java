@@ -89,8 +89,7 @@ public class SearchController extends AbstractFormController {
         String queryString = request.getParameter("q");
         String constraint = null;
         String suggestion = null;
-        if (command != null && command instanceof SearchCommand &&
-                queryString != null && !queryString.equals("")) {
+        if (command != null && command instanceof SearchCommand) {
             SearchCommand sc = (SearchCommand) command;
 
             // set up the city and dist attributes, needed by searchsummary
@@ -184,7 +183,11 @@ public class SearchController extends AbstractFormController {
                               long time, String suggestion) {
         StringBuffer logBuffer = new StringBuffer(100);
         logBuffer.append("query:[");
-        logBuffer.append(query);
+        if (query != null) {
+            logBuffer.append(query);
+        } else {
+            logBuffer.append("null");
+        }
         logBuffer.append("] ");
         logBuffer.append("type:[");
         logBuffer.append(type);

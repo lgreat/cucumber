@@ -37,7 +37,32 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
         out.println("<form action=\"/compareSchools.page\">");
         out.println("<table class=\"columns\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">");
-        out.println ("<tr><td id=\"schooltableheader\"></td></tr>");
+        out.println ("<tr><td class=\"mainresultsheader\">");
+
+        out.println("<table width=\"100%\"><tr><td>");
+        out.print("Found ");
+        out.print(_total);
+        String constraint = getConstraint();
+        if (constraint != null && !"all".equals(constraint)) {
+            out.print (" " + constraint);
+        } else {
+            out.print (" result");
+        }
+        if (_total != 1) {
+            out.print("s");
+        }
+        out.print(" for query: <span class=\"searchfor\">");
+        out.print(_queryString);
+        out.print("</span>");
+        out.print("</td><td id=\"resultset\">");
+        if (_total > 0) {
+            out.print("Results ");
+            out.print((_page * PAGE_SIZE) + 1);
+            out.print(" - ");
+            out.print((_page * PAGE_SIZE) + PAGE_SIZE);
+        }
+        out.println("</td></tr></table>");
+        out.print("</td></tr>");
         out.println("<tr><td valign=\"top\">");
         out.println("<table class=\"school_results_only\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
 
@@ -46,7 +71,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             /// start control row
             out.print("<tr class=\"control_row\"><td colspan=\"5\">");
             out.println("<table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
-            out.println("<tr><td>");
+            out.println("<tr><td style=\"padding-top:5px\">");
             writeButtons(out);
             out.println("</td><td class=\"results_pagenav\">");
             out.println("</td></tr></table></td></tr>");

@@ -75,7 +75,7 @@
                     <gsweb:stateSelector allowNoState="${param.state == 'all'}" useLongNames="true"/>
                     <c:set var="st" value="${(param.state == 'all') || (empty param.state) ? 'ca' : param.state}"/>
                 </td>
-                <td style="vertical-align:middle">
+                <td style="vertical-align:middle;padding-bottom:2px">
                     <gsml:url var="goButton" value="/res/img/search/btn_go.gif"/>
                     <input type="image" src="${goButton}" class="btn" value="go"/>
                 </td>
