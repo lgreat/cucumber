@@ -91,7 +91,7 @@ public class MixedResultsTagHandler extends BaseQueryTagHandler {
                         out.print(host);
                     }
                     out.print("/modperl/browse_school/");
-                    out.print(school.getState().getAbbreviationLowerCase());
+                    out.print(school.getDatabaseState().getAbbreviationLowerCase());
                     out.print("/");
                     out.print(school.getId().toString());
                     out.print("\">");

@@ -92,8 +92,19 @@
         <!--</init-param>-->
     </filter>
 
+    <filter>
+        <filter-name>opensessioninview</filter-name>
+        <filter-class>gs.web.util.OpenSessionInViewFilter</filter-class>
+    </filter>
+
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
+        <url-pattern>*.page</url-pattern>
+    </filter-mapping>
+
+    <!-- This should come after the sitemesh filter so all views are rendered prior to this -->
+    <filter-mapping>
+        <filter-name>opensessioninview</filter-name>
         <url-pattern>*.page</url-pattern>
     </filter-mapping>
 
