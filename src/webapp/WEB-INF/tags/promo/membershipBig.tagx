@@ -5,7 +5,7 @@
     xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
     <jsp:directive.tag body-content="empty"/>
 
-    <table id="promoMembershipBig" cellpadding="0" cellspacing="0" width="100%">
+    <table class="promoMembershipBig" cellpadding="0" cellspacing="0" width="100%">
         <tr>
             <td width="60%">
                 <h1 class="moduleheader">Become a Member!
@@ -88,18 +88,9 @@ First-hand accounts from real parents
             </td>
         </tr>
         <tr>
-
-            <td>
-            <gsml:a href="/cgi-bin/conversion/$STATE?ref=promo_membership_big">Learn more</gsml:a>
-            </td>
-            <td>
-            </td>
-            <td></td>
-        </tr>
-        <tr>
             <td colspan="3" align="center">
-                <gsml:a href="https://secure.greatschools.net/subscribe.page?state=$STATE&amp;host=$HOST">
-                    <gsml:img src="/res/img/promo/btn_joinnow.gif" alt="Join Now"/>
+                <gsml:a href="/cgi-bin/conversion/$STATE/overview">
+                    <gsml:img src="/images/learn_more_btn.gif" alt="Learn More"/>
                 </gsml:a>
             </td>
         </tr>

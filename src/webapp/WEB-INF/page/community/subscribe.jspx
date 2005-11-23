@@ -71,6 +71,9 @@
                                     <c:if test="${!status.error}">
                                         An annual membership fee of ${subCmd.subscriptionPrice} gives you
                                         unlimited access to all exclusive membership content.
+                                        <a href="http://${requestScope.context.hostName}/cgi-bin/conversion/$STATE/overview">
+                                            Learn More
+                                        </a>
                                         <div style="align:center">
                                             <img src="res/img/conv_pic2.gif" alt="photo of family" width="165" height="230" vspace="8" border="0"/>
                                         </div>
