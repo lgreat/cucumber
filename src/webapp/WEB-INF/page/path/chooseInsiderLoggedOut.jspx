@@ -50,7 +50,6 @@
                 <tr>
                     <td class="col1" valign="top">
                         <mod:globalNav/>
-                        <mod:stateSelectMedium state="${requestScope.context.stateOrDefault}"/>
                         <gsml:box tableClass="blank" tableWidth="100%">
                             <promo:newsletterSmall/>
                         </gsml:box>

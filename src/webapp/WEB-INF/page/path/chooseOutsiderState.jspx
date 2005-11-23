@@ -49,7 +49,6 @@
                 <tr>
                     <td class="col1" valign="top">
                         <mod:globalNav/>
-                        <mod:stateSelectMedium state="${requestScope.context.stateOrDefault}"/>
                         <gsml:box tableClass="shade2">
                             <jsp:include page="/promo/featuredArticles.module?position=PATH1_FEATURE"/>
                         </gsml:box>
