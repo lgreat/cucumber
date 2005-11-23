@@ -124,6 +124,14 @@
         </property>
     </bean>
 
+    <bean name="/community/mySchoolList.module"
+        class="gs.web.community.MySchoolListController"
+        autowire="byName" >
+        <property name="viewName">
+            <value>/resultList</value>
+        </property>
+    </bean>
+
     <bean name="/promo/featuredArticles.module"
         class="gs.web.content.FeaturedArticlesController"
         autowire="byName" >
