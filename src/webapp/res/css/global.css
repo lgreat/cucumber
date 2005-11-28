@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.55 2005/11/23 21:45:55 apeterson Exp $
+$Id: global.css,v 1.56 2005/11/28 18:43:16 apeterson Exp $
 ----------------------------------------------- */
 
 /*
@@ -138,7 +138,7 @@ input.checkbox {margin:0px 0px -2px 0px;}
 .textfield {color:#333;min-width:70%;}
 .textfieldfocused {color:#333;min-width:50%;}
 .textfieldblurred {color:#999;min-width:50%;}
-input.btn {width:28px;height:24px;margin:0px 0px -2px 6px;padding:0px 0px 0px 0px;border:0;}
+input.btn {width:28px;height:24px;margin:0px 0px 0px 6px;padding:0px 0px 0px 0px;border:0;}
 
 
 /*  Links
