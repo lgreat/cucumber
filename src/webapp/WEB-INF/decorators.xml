@@ -26,12 +26,9 @@
         <pattern>*/monitor.page*</pattern>
         <!--<pattern>*/search.page*</pattern>-->
 
-        <!-- Inhouse test pages -->
         <pattern>*/sorry.page*</pattern>
         <pattern>*/compareSchools.page*</pattern>
-        <pattern>*/sample.page*</pattern>
-        <pattern>*/wall.page*</pattern>
-        <pattern>*/subscribe/conversion/*</pattern>
+        <pattern>*/community/conversion/*</pattern>
     </excludes>
 
 
