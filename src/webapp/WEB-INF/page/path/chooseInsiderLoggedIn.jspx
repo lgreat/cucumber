@@ -72,8 +72,8 @@
                                     <td width="60%">
                                         <div class="topcontentcol1" style="padding-top: .75em">
                                             <h3 class="result_title">
-                                                Search ${requestScope.context.stateOrDefault.longName}
-                                                Schools<gsml:a styleClass="changeState"
+                                                ${requestScope.context.stateOrDefault.longName}
+                                                School Search PLUS<gsml:a styleClass="changeState"
                                                                href="/stateLauncher.page?p=pathway1">Search another
                                                 state</gsml:a></h3>
                                             <search:searchBox state="${requestScope.context.stateOrDefault}"/>
