@@ -181,6 +181,14 @@
         </property>
     </bean>
 
+    <!-- backward compatible page-- the perl forwards here  -->
+    <bean name="/subscribe/conversion/conversion.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>community/conversion/conversion</value>
+        </property>
+    </bean>
+
     <bean name="/community/conversion/popup/schoolChoiceOptions.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
