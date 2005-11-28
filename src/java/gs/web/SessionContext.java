@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.21 2005/11/15 17:21:36 apeterson Exp $
+ * $Id: SessionContext.java,v 1.22 2005/11/28 18:43:29 thuss Exp $
  */
 package gs.web;
 
@@ -89,7 +89,7 @@ public class SessionContext
     public boolean isAdFree() {
         boolean sAdFree = false;
         if (_cobrand != null &&
-                (_cobrand.matches("mcguire|framed|number1expert"))) {
+                (_cobrand.matches("mcguire|framed|number1expert|vreo"))) {
             sAdFree = true;
         }
         return sAdFree;
