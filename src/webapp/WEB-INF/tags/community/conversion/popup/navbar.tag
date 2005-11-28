@@ -13,7 +13,7 @@
                 <div class="menuBar">
             </c:otherwise>
         </c:choose>
-        <a href="/subscribe/conversion/popup/schoolChoiceOptions.page?state=${requestScope.context.stateOrDefault.abbreviation}">School Choice<br/>Options</a></div></td>
+        <a href="/community/conversion/popup/schoolChoiceOptions.page?state=${requestScope.context.stateOrDefault.abbreviation}">School Choice<br/>Options</a></div></td>
     <td>
          <c:choose>
              <c:when test="${(current == 'topRatedSchools')}">
@@ -23,7 +23,7 @@
                  <div class="menuBar">
              </c:otherwise>
          </c:choose>
-        <a href="/subscribe/conversion/popup/topRatedSchools.page?state=${requestScope.context.stateOrDefault.abbreviation}">Top-Rated<br/>Schools</a></div></td>
+        <a href="/community/conversion/popup/topRatedSchools.page?state=${requestScope.context.stateOrDefault.abbreviation}">Top-Rated<br/>Schools</a></div></td>
     <td>
         <c:choose>
             <c:when test="${(current == 'ratings')}">
@@ -33,7 +33,7 @@
                 <div class="menuBar">
             </c:otherwise>
         </c:choose>
-        <a href="/subscribe/conversion/popup/ratings.page?state=${requestScope.context.stateOrDefault.abbreviation}">GreatSchools<br/>Ratings</a></div></td>
+        <a href="/community/conversion/popup/ratings.page?state=${requestScope.context.stateOrDefault.abbreviation}">GreatSchools<br/>Ratings</a></div></td>
     <td>
         <c:choose>
             <c:when test="${(current == 'parentReviews')}">
@@ -43,7 +43,7 @@
                 <div class="menuBar">
             </c:otherwise>
         </c:choose>
-        <a href="/subscribe/conversion/popup/parentReviews.page?state=${requestScope.context.stateOrDefault.abbreviation}">Parent<br/>Reviews</a></div></td>
+        <a href="/community/conversion/popup/parentReviews.page?state=${requestScope.context.stateOrDefault.abbreviation}">Parent<br/>Reviews</a></div></td>
     <td>
         <c:choose>
             <c:when test="${(current == 'compareSchools')}">
@@ -53,6 +53,6 @@
                 <div class="menuBar">
             </c:otherwise>
         </c:choose>
-        <a href="/subscribe/conversion/popup/compareSchools.page?state=${requestScope.context.stateOrDefault.abbreviation}">Compare<br/>Schools</a></div></td>
+        <a href="/community/conversion/popup/compareSchools.page?state=${requestScope.context.stateOrDefault.abbreviation}">Compare<br/>Schools</a></div></td>
   </tr>
 </table>

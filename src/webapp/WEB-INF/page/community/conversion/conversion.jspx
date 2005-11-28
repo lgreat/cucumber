@@ -26,8 +26,8 @@
                 <td align="right">Already a member? <a href="http://${requestScope.context.hostName}/cgi-bin/site/signin.cgi/${requestScope.context.stateOrDefault.abbreviation}/">Sign in</a></td>
             </tr>
             <tr>
-                <td><a href="/modperl/go/${requestScope.context.stateOrDefault.abbreviation}"><img src="/res/img/subscribe/conversion/gs_bug.gif" alt="GreatSchools" width="223" height="73" vspace="5" border="0"/></a></td>
-                <td><img src="/res/img/subscribe/conversion/conv_top.gif" alt="Moving? Choosing a new School? GreatSchools Insider can help" width="505" height="73"/></td>
+                <td><a href="/modperl/go/${requestScope.context.stateOrDefault.abbreviation}"><img src="/res/img/community/conversion/gs_bug.gif" alt="GreatSchools" width="223" height="73" vspace="5" border="0"/></a></td>
+                <td><img src="/res/img/community/conversion/conv_top.gif" alt="Moving? Choosing a new School? GreatSchools Insider can help" width="505" height="73"/></td>
             </tr>
         </table>
 
@@ -36,9 +36,9 @@
                 <td width="100%">
                     <table id="box" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#dbe4e2">
                         <tr>
-                            <td><img src="/res/img/subscribe/conversion/corner_green_ul.gif" width="10" heigt="10"/></td>
+                            <td><img src="/res/img/community/conversion/corner_green_ul.gif" width="10" heigt="10"/></td>
                             <td></td>
-                            <td><img src="/res/img/subscribe/conversion/corner_green_ur.gif" width="10" height="10"/></td>
+                            <td><img src="/res/img/community/conversion/corner_green_ur.gif" width="10" height="10"/></td>
                         </tr>
                         <tr>
                             <td></td>
@@ -54,11 +54,11 @@
                                     <tr>
                                         <td class="bodycopy" width="100%" valign="bottom">
                                             <ul class="arrow">
-                                                <li><gsml:popupWindow width="610" height="600" left="50" top="50" href="/subscribe/conversion/popup/schoolChoiceOptions.page?state=$STATE">School Choice Options</gsml:popupWindow> Learn how school choice works in the area you're researching.</li>
-                                                <li><gsml:popupWindow width="610" height="600"  left="50"  top="50" href="/subscribe/conversion/popup/topRatedSchools.page?state=$STATE">Top-Rated Schools</gsml:popupWindow> Start your search here to narrow your list.</li>
-                                                <li><gsml:popupWindow  width="610" height="600" left="50"  top="50" href="/subscribe/conversion/popup/ratings.page?state=$STATE">GreatSchools Ratings</gsml:popupWindow> Quickly understand how public and charter schools stack up with our exclusive rating system.</li>
-                                                <li><gsml:popupWindow  width="610" height="600" left="50"  top="50" href="/subscribe/conversion/popup/parentReviews.page?state=$STATE">Parent Ratings and Reviews</gsml:popupWindow> Read what local parents say about the schools on your list.</li>
-                                                <li><gsml:popupWindow  width="610" height="600" left="50"  top="50" href="/subscribe/conversion/popup/compareSchools.page?state=$STATE">Compare Schools</gsml:popupWindow> Look at schools side-by-side and compare them based on GreatSchools ratings and flag alerts as well as other criteria including academic performance, teacher qualifications, and student data.</li>
+                                                <li><gsml:popupWindow width="610" height="600" left="50" top="50" href="/community/conversion/popup/schoolChoiceOptions.page?state=$STATE">School Choice Options</gsml:popupWindow> Learn how school choice works in the area you're researching.</li>
+                                                <li><gsml:popupWindow width="610" height="600"  left="50"  top="50" href="/community/conversion/popup/topRatedSchools.page?state=$STATE">Top-Rated Schools</gsml:popupWindow> Start your search here to narrow your list.</li>
+                                                <li><gsml:popupWindow  width="610" height="600" left="50"  top="50" href="/community/conversion/popup/ratings.page?state=$STATE">GreatSchools Ratings</gsml:popupWindow> Quickly understand how public and charter schools stack up with our exclusive rating system.</li>
+                                                <li><gsml:popupWindow  width="610" height="600" left="50"  top="50" href="/community/conversion/popup/parentReviews.page?state=$STATE">Parent Ratings and Reviews</gsml:popupWindow> Read what local parents say about the schools on your list.</li>
+                                                <li><gsml:popupWindow  width="610" height="600" left="50"  top="50" href="/community/conversion/popup/compareSchools.page?state=$STATE">Compare Schools</gsml:popupWindow> Look at schools side-by-side and compare them based on GreatSchools ratings and flag alerts as well as other criteria including academic performance, teacher qualifications, and student data.</li>
 				                            </ul>
                                             <br/>
                                             <br/>
@@ -66,19 +66,19 @@
                                             <br/>
                                             <table id="signupbuttons" width="100%" border="0" cellspacing="0" cellpadding="0">
                                                 <tr>
-                                                    <td valign="top" bgcolor="#FFFFFF"><img src="/res/img/subscribe/conversion/corner_whiteONgreen_ul.gif" width="10" height="10"/></td>
+                                                    <td valign="top" bgcolor="#FFFFFF"><img src="/res/img/community/conversion/corner_whiteONgreen_ul.gif" width="10" height="10"/></td>
                                                     <td bgcolor="#FFFFFF"></td>
-                                                    <td align="right" valign="top" bgcolor="#FFFFFF"><img src="/res/img/subscribe/conversion/corner_whiteONgreen_ur.gif" width="10" height="10"/></td>
+                                                    <td align="right" valign="top" bgcolor="#FFFFFF"><img src="/res/img/community/conversion/corner_whiteONgreen_ur.gif" width="10" height="10"/></td>
                                                     <td width="10"></td>
-                                                    <td valign="top" bgcolor="#FFFFFF"><img src="/res/img/subscribe/conversion/corner_whiteONgreen_ul.gif" width="10" height="10"/></td>
+                                                    <td valign="top" bgcolor="#FFFFFF"><img src="/res/img/community/conversion/corner_whiteONgreen_ul.gif" width="10" height="10"/></td>
                                                     <td bgcolor="#FFFFFF"></td>
-                                                    <td align="right" valign="top" bgcolor="#FFFFFF"><img src="/res/img/subscribe/conversion/corner_whiteONgreen_ur.gif" width="10" height="10"/></td>
+                                                    <td align="right" valign="top" bgcolor="#FFFFFF"><img src="/res/img/community/conversion/corner_whiteONgreen_ur.gif" width="10" height="10"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td bgcolor="#FFFFFF"></td>
                                                     <td bgcolor="#FFFFFF">
                                                         <b>GreatSchools Insider</b><br/>makes it easy to choose a new school for your child.<br/><br/>
-                                                        <center><a href="https://${requestScope.context.secureHostName}/subscribe.page?state=${requestScope.context.stateOrDefault.abbreviation}&amp;amp;host=${requestScope.context.hostName}"><img src="/res/img/subscribe/conversion/popup/join_price_btn.gif" width="189" height="20" border="0" vspace="2"/></a></center>
+                                                        <center><a href="https://${requestScope.context.secureHostName}/subscribe.page?state=${requestScope.context.stateOrDefault.abbreviation}&amp;amp;host=${requestScope.context.hostName}"><img src="/res/img/community/conversion/popup/join_price_btn.gif" width="189" height="20" border="0" vspace="2"/></a></center>
                                                     </td>
                                                     <td bgcolor="#FFFFFF"></td>
                                                     <td width="10"></td>
@@ -86,39 +86,39 @@
                                                     <td bgcolor="#FFFFFF">
                                                         <strong>Not ready to become a member?</strong><br/>
                                                         Help other parents by providing a review of a school you know.  In return, view one member-exclusive school profile for free.<br/>
-                                                        <center><br/><a href="http://${requestScope.context.hostName}/cgi-bin/site/findschool2review.cgi/${requestScope.context.stateOrDefault.abbreviation}/"><img src="/res/img/subscribe/conversion/try_sm_btn.gif" width="114" height="20" border="0" vspace="2"/></a></center>
+                                                        <center><br/><a href="http://${requestScope.context.hostName}/cgi-bin/site/findschool2review.cgi/${requestScope.context.stateOrDefault.abbreviation}/"><img src="/res/img/community/conversion/try_sm_btn.gif" width="114" height="20" border="0" vspace="2"/></a></center>
                                                     </td>
                                                     <td bgcolor="#FFFFFF"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td valign="bottom" bgcolor="#FFFFFF"><img src="/res/img/subscribe/conversion/corner_whiteONgreen_ll.gif" width="10" height="10"/></td>
+                                                    <td valign="bottom" bgcolor="#FFFFFF"><img src="/res/img/community/conversion/corner_whiteONgreen_ll.gif" width="10" height="10"/></td>
                                                     <td bgcolor="#FFFFFF"></td>
-                                                    <td align="right" valign="bottom" bgcolor="#FFFFFF"><img src="/res/img/subscribe/conversion/corner_whiteONgreen_lr.gif" width="10" height="10"/></td>
+                                                    <td align="right" valign="bottom" bgcolor="#FFFFFF"><img src="/res/img/community/conversion/corner_whiteONgreen_lr.gif" width="10" height="10"/></td>
                                                     <td width="10"></td>
-                                                    <td valign="bottom" bgcolor="#FFFFFF"><img src="/res/img/subscribe/conversion/corner_whiteONgreen_ll.gif" width="10" height="10"/></td>
+                                                    <td valign="bottom" bgcolor="#FFFFFF"><img src="/res/img/community/conversion/corner_whiteONgreen_ll.gif" width="10" height="10"/></td>
                                                     <td bgcolor="#FFFFFF"></td>
-                                                    <td align="right" valign="bottom" bgcolor="#FFFFFF"><img src="/res/img/subscribe/conversion/corner_whiteONgreen_lr.gif" width="10" height="10"/></td>
+                                                    <td align="right" valign="bottom" bgcolor="#FFFFFF"><img src="/res/img/community/conversion/corner_whiteONgreen_lr.gif" width="10" height="10"/></td>
                                                 </tr>
                                             </table>
                                         </td>
-                                        <td align="right" valign="bottom"><img src="/res/img/subscribe/conversion/conv_pic.gif" width="200" height="314" border="0"/></td>
+                                        <td align="right" valign="bottom"><img src="/res/img/community/conversion/conv_pic.gif" width="200" height="314" border="0"/></td>
                                     </tr>
                                 </table>
                             </td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td><img src="/res/img/subscribe/conversion/corner_green_ll.gif" width="10" height="10"/></td>
+                            <td><img src="/res/img/community/conversion/corner_green_ll.gif" width="10" height="10"/></td>
                             <td></td>
-                            <td><img src="/res/img/subscribe/conversion/corner_green_lr.gif" width="10" height="10"/></td>
+                            <td><img src="/res/img/community/conversion/corner_green_lr.gif" width="10" height="10"/></td>
                         </tr>
                     </table>
                 </td>
                 <td valign="top">
 	                <center>
-	                    <a href="https://${requestScope.context.secureHostName}/subscribe.page?state=${requestScope.context.stateOrDefault.abbreviation}&amp;amp;host=${requestScope.context.hostName}"><img src="/res/img/subscribe/conversion/join_now_btn.gif" alt="Join Now" width="150" height="20" vspace="2" border="0"/></a><br/>
+	                    <a href="https://${requestScope.context.secureHostName}/subscribe.page?state=${requestScope.context.stateOrDefault.abbreviation}&amp;amp;host=${requestScope.context.hostName}"><img src="/res/img/community/conversion/join_now_btn.gif" alt="Join Now" width="150" height="20" vspace="2" border="0"/></a><br/>
                         <br/>
-                        <a href="http://${requestScope.context.hostName}/cgi-bin/site/findschool2review.cgi/${requestScope.context.stateOrDefault.abbreviation}/"><img src="/res/img/subscribe/conversion/try_it_btn.gif" alt="Try GreatSchools Insider for free" width="150" height="20" vspace="2" border="0"/></a>
+                        <a href="http://${requestScope.context.hostName}/cgi-bin/site/findschool2review.cgi/${requestScope.context.stateOrDefault.abbreviation}/"><img src="/res/img/community/conversion/try_it_btn.gif" alt="Try GreatSchools Insider for free" width="150" height="20" vspace="2" border="0"/></a>
 	                </center>
                     <div class="quote">
                         "This subscription has given me information needed to determine what schools will be acceptable for my child."

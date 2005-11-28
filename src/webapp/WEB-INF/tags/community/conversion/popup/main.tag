@@ -10,13 +10,13 @@
     <td width="50%">
         <table cellpadding="0" cellspacing="0" border="0" bgcolor="#dbe4e2" width="223">
             <tr>
-                <td><img src="/res/img/subscribe/conversion/popup/grey_300top.gif" width="300" height="10" border="0"/></td>
+                <td><img src="/res/img/community/conversion/popup/grey_300top.gif" width="300" height="10" border="0"/></td>
             </tr>
             <tr>
-                <td align="center"><img src="/res/img/subscribe/conversion/popup/${imageName}" width="${imageWidth}" height="${imageHeight}" border="0"/></td>
+                <td align="center"><img src="/res/img/community/conversion/popup/${imageName}" width="${imageWidth}" height="${imageHeight}" border="0"/></td>
             </tr>
             <tr>
-                <td><img src="/res/img/subscribe/conversion/popup/grey_300btm.gif" width="300" height="10" border="0"/></td>
+                <td><img src="/res/img/community/conversion/popup/grey_300btm.gif" width="300" height="10" border="0"/></td>
             </tr>
         </table>
     </td>

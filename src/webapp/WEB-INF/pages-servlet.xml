@@ -68,14 +68,14 @@
     <bean name="/insider.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>subscribe/landing</value>
+            <value>community/insider</value>
         </property>
     </bean>
 
     <bean name="/fiveSteps.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>houseAd/insiderFiveSteps</value>
+            <value>promo/insiderFiveSteps</value>
         </property>
     </bean>
     <!-- Insider end -->
@@ -165,22 +165,8 @@
         </property>
     </bean>
 
-    <bean name="/sample.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>sample</value>
-        </property>
-    </bean>
-
     <bean name="/compareSchools.page" class="gs.web.school.CompareSchoolsController"
           autowire="byName">
-    </bean>
-
-    <bean name="/wall.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>wall</value>
-        </property>
     </bean>
 
     <bean name="/test/*"
@@ -188,52 +174,52 @@
     </bean>
 
     <!--Begin conversion pages -->
-    <bean name="/subscribe/conversion/conversion.page"
+    <bean name="/community/conversion/conversion.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>subscribe/conversion/conversion</value>
+            <value>community/conversion/conversion</value>
         </property>
     </bean>
 
-    <bean name="/subscribe/conversion/popup/schoolChoiceOptions.page"
+    <bean name="/community/conversion/popup/schoolChoiceOptions.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>subscribe/conversion/popup/schoolChoiceOptions</value>
+            <value>community/conversion/popup/schoolChoiceOptions</value>
         </property>
     </bean>
 
-    <bean name="/subscribe/conversion/popup/topRatedSchools.page"
+    <bean name="/community/conversion/popup/topRatedSchools.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>subscribe/conversion/popup/topRatedSchools</value>
+            <value>community/conversion/popup/topRatedSchools</value>
         </property>
     </bean>
 
-    <bean name="/subscribe/conversion/popup/ratings.page"
+    <bean name="/community/conversion/popup/ratings.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>subscribe/conversion/popup/ratings</value>
+            <value>community/conversion/popup/ratings</value>
         </property>
     </bean>
 
-    <bean name="/subscribe/conversion/popup/parentReviews.page"
+    <bean name="/community/conversion/popup/parentReviews.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>subscribe/conversion/popup/parentReviews</value>
+            <value>community/conversion/popup/parentReviews</value>
         </property>
     </bean>
 
-    <bean name="/subscribe/conversion/popup/flagAlerts.page"
+    <bean name="/community/conversion/popup/flagAlerts.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>subscribe/conversion/popup/flagAlerts</value>
+            <value>community/conversion/popup/flagAlerts</value>
         </property>
     </bean>
 
-    <bean name="/subscribe/conversion/popup/compareSchools.page"
+    <bean name="/community/conversion/popup/compareSchools.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>subscribe/conversion/popup/compareSchools</value>
+            <value>community/conversion/popup/compareSchools</value>
         </property>
     </bean>
     <!-- End Conversion pages -->

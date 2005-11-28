@@ -71,7 +71,7 @@
                                     <c:if test="${!status.error}">
                                         An annual membership fee of ${subCmd.subscriptionPrice} gives you
                                         unlimited access to all exclusive membership content.
-                                        <a href="http://${requestScope.context.hostName}/cgi-bin/conversion/$STATE/overview">
+                                        <a href="http://${requestScope.context.hostName}/cgi-bin/conversion/${requestScope.context.stateOrDefault.abbreviation}/overview">
                                             Learn More
                                         </a>
                                         <div style="align:center">
