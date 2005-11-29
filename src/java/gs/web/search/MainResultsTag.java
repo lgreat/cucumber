@@ -67,7 +67,6 @@ public class MainResultsTag extends ResultsTableTagHandler {
                 switch(result.getType()) {
                     case SearchResult.DISTRICT:
                         out.print("Schools in the district of ");
-                        //linkBuffer.append("<a href=\"/search/search.page?q=type:school&c=school&state=");
                         linkBuffer.append("<a href=\"/search/search.page?c=school&state=");
                         linkBuffer.append(getSessionContext().getState().getAbbreviation());
                         linkBuffer.append("&district=");
