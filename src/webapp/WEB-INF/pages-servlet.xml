@@ -225,7 +225,8 @@
     <!-- End Conversion pages -->
 
     <bean name="/path/choose.page"
-          class="gs.web.path.ChoosingPathwayController">
+          class="gs.web.path.ChoosingPathwayController"
+          autowire="byName">
     </bean>
 
     <bean name="/path/mySchool.page"
