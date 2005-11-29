@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.5 2005/11/10 21:21:22 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.6 2005/11/29 01:37:38 apeterson Exp $
  */
 package gs.web.content;
 
@@ -20,9 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Controller to display all articles
+ * Controller to display all specified articles.
  *
- * @author David Lee <mailto:dlee@greatschools.net>
+ * @author Andrew Peterson <mailto:apeterson@greatschools.net>
  */
 public class FeaturedArticlesController extends AbstractController {
 
@@ -31,16 +31,20 @@ public class FeaturedArticlesController extends AbstractController {
     private String _viewName;
 
     private IArticleDao _articleDao;
+    public static final String POSITION_PARAM = "position";
+    private static final String ABSTRACT_PARAM = "abstract";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
 
         ISessionFacade sessionFacade = SessionFacade.getInstance(request);
 
-        String posStr = request.getParameter("position");
+        String posStr = request.getParameter(POSITION_PARAM);
         if (StringUtils.isEmpty(posStr)) {
             posStr = IArticleDao.HOT_TOPIC; // bad default
             _log.warn("Default position being used. Please fix.");
         }
+
+        boolean showAbstract = StringUtils.isNotEmpty(request.getParameter(ABSTRACT_PARAM));
 
         Article article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), posStr);
 

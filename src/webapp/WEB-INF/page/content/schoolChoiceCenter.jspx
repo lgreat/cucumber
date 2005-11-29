@@ -20,7 +20,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <meta name="wrapperstyle" content="article"/>
-    <title>GreatSchools.net: School Choice Center</title>
+    <title>GreatSchools.net: School Choosers Guide</title>
     <style type="text/css">
             body {
                 text-align: left;
@@ -59,11 +59,11 @@
     <br/>
 </td>
 <td>
-    <gsml:img src="/res/img/content/scc/title_scc.jpg" alt="School Choice Center"/>
+    <gsml:img src="/res/img/content/scc/title_scc.jpg" alt="School Choosers Guide"/>
     <!-- width="590" height="60"  -->
     <p>Check these resources in the
     <strong>
-        ${stateLongName} School Choice Center
+        ${stateLongName} School Choosers Guide
     </strong>
     to find the best match for your child.</p>
 

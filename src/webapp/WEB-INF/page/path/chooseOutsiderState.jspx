@@ -29,8 +29,6 @@
     <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
         <style type="text/css">
-.topcontentcol1 {padding-right:7px;}
-.topcontentcol2 {border-left:1px solid #999;padding:0px 5px 0px 10px;margin:0px 0px 10px 0px;}
         </style>
             ]]>
     <title>${stateLongName} Schools</title>
@@ -64,50 +62,33 @@
    </span>
 
                             <h3 class="tagline">
-                                Objective information from GreatSchools, an independent nonprofit dedicated to helping
-                                parents
+                                Brought to you by GreatSchools, an independent non-profit dedicated to helping parents
                             </h3>
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
-                                    <td width="60%">
-                                        <div class="topcontentcol1" style="padding-top: .75em">
+                                    <td width="60%" style="vertical-align: top; ">
+                                        <div style="padding-right:7px; padding-top: .75em">
                                             <h3 class="result_title">
-                                                Search ${requestScope.context.stateOrDefault.longName}
-                                                Schools<gsml:a styleClass="changeState"
-                                                               href="/stateLauncher.page?p=pathway1">Search another
-                                                state</gsml:a></h3>
-                                            <search:searchBox state="${requestScope.context.stateOrDefault}"/>
+                                                Find test scores, teacher stats and more</h3>
+                                            <mod:searchBox state="${requestScope.context.stateOrDefault}"/>
 
                                             <div class="browselinks">
-                                                <gsml:a styleClass="nowrap"
-                                                        href="/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}">
-                                                    My
-                                                    School List</gsml:a>
-                                                <gsml:a styleClass="nowrap"
-                                                        href="/cgi-bin/cs_where/${requestScope.context.stateOrDefault.abbreviation}">
-                                                    Compare
-                                                    schools</gsml:a>
-                                                <gsml:a styleClass="nowrap"
-                                                        href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">
-                                                    Advanced search</gsml:a>
                                             </div>
-                                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                                <tbody>
-                                                    <tr>
-                                                        <td valign="top" width="50%">
-                                                            <jsp:include page="/topCities.module"/>
-                                                        </td>
-                                                        <td valign="top" width="50%">
-                                                            <jsp:include page="/topDistricts.module"/>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
+                                            <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                                                   class="topCities">
+                                                <tr>
+                                                    <td valign="top" width="50%">
+                                                        <jsp:include page="/topCities.module"/>
+                                                    </td>
+                                                    <td valign="top" width="50%">
+                                                        <jsp:include page="/topDistricts.module"/>
+                                                    </td>
+                                                </tr>
                                             </table>
                                         </div>
                                     </td><td width="40%">
-                                    <div class="topcontentcol2">
-                                        <promo:schoolChoiceCenterSmall/>
-                                        <jsp:include page="/promo/featuredArticles.module?position=FOCUS_ON_CHOICE"/>
+                                    <div style="border-left:1px solid #999;padding:0px 5px 0px 10px;margin:0px 0px 10px 0px;">
+                                        <promo:schoolChoiceCenterMedium/>
                                     </div></td></tr>
                             </table>
                         </gsml:box>

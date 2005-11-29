@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MySchoolListController.java,v 1.1 2005/11/23 00:14:58 apeterson Exp $
+ * $Id: MySchoolListController.java,v 1.2 2005/11/29 01:37:38 apeterson Exp $
  */
 
 package gs.web.community;
@@ -15,6 +15,7 @@ import gs.web.ISessionFacade;
 import gs.web.SessionContextUtil;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -31,11 +32,15 @@ public class MySchoolListController extends AbstractController {
     private String _viewName;
     private ISchoolDao _schoolDao;
     private IUserDao _userDao;
+    public static final int DEFAULT_SCHOOL_LIMIT = 3;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         ISessionFacade context = SessionFacade.getInstance(request);
         String memberId = request.getParameter(SessionContextUtil.MEMBER_PARAM);
+        String limitStr = request.getParameter("limit");
+        int limit = StringUtils.isNumeric(limitStr) ? Integer.valueOf(limitStr).intValue() : DEFAULT_SCHOOL_LIMIT;
+
 
         State state = context.getStateOrDefault();
 
@@ -43,24 +48,31 @@ public class MySchoolListController extends AbstractController {
 
         Map model = new HashMap();
 
-        model.put("header", user.getFirstName() + ": My School List");
+        model.put("header", "My School List");
 
         Set schools = user.getFavoriteSchools();
 
         List items = new ArrayList(schools.size());
+        int shown = 0;
         for (Iterator i = schools.iterator(); i.hasNext();) {
             FavoriteSchool favoriteSchool = (FavoriteSchool) i.next();
 
             School school = _schoolDao.getSchoolById(favoriteSchool.getState(), favoriteSchool.getId());
 
-            Anchor anchor = new Anchor("/modperl/browse_school/"+ school.getDatabaseState().getAbbreviationLowerCase()+
-                    "/"+school.getId()+"/",
+            Anchor anchor = new Anchor("/modperl/browse_school/" + school.getDatabaseState().getAbbreviationLowerCase() +
+                    "/" + school.getId() + "/",
                     school.getName());
-            items.add(anchor);
+
+            if (shown < limit) {
+                items.add(anchor);
+                shown ++;
+            } else if (shown == limit) {
+                items.add(new Anchor("/cgi-bin/msl_confirm/" + state.getAbbreviation() + "/",
+                        "Manage My School List",
+                        "viewall"));
+                shown = schools.size();
+            }
         }
-        items.add(new Anchor("/cgi-bin/msl_confirm/" + state.getAbbreviation() + "/",
-                "Manage My School List",
-                "viewall"));
         model.put("results", items);
 
 

@@ -23,7 +23,7 @@
                                 <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE">Top-Rated Schools</gsml:a>
                             </c:if>
                         </c:if>
-                        <gsml:a href="/content/schoolChoiceCenter.page?state=$STATE">School Choice Center</gsml:a>
+                        <gsml:a href="/content/schoolChoiceCenter.page?state=$STATE">School Choosers Guide</gsml:a>
                         <gsml:a href="/cgi-bin/cs_where/$STATE">Compare Schools</gsml:a>
                         <gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">Search By Address</gsml:a>
                         <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List</gsml:a>

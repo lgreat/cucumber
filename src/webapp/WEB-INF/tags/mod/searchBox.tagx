@@ -9,4 +9,48 @@
         description="The state to generate the search for. If unspecified, presents a popup."
         type="gs.data.state.State"/>
 
+    <c:set var="usingNewSearch" value="false"/>
+    <div class="globalsearch" >
+        <c:if test="${usingNewSearch}">
+            <!-- New Search
+            Set the .textfield width in global.css to 50% -->
+            <c:set var="searchPrompt" value="School, district, city or keyword"/>
+            <gsml:form method="get"
+                action="/search/search.page"
+                onsubmit="if (this.q.value == '' || this.q.value == '${searchPrompt}') { alert('You must specify search text'); return false;} ${triggerPopunder}">
+                    <input type="hidden" name="state" value="${state.abbreviation}"/>
+                <input type="text" value="${searchPrompt}"
+                    onfocus="this.className='textfieldfocused';if (this.value=='${searchPrompt}') this.value='';"
+                    onblur="this.className='textfieldblurred';if (this.value=='') this.value='${searchPrompt}';"
+                    class="textfieldblurred"
+                    name="q"/>
+                <gsml:inputImage styleClass="btn" src="/res/img/button/btn_go.gif" alt="GO"/>
+            </gsml:form>
+        </c:if>
+        <c:if test="${not usingNewSearch}">
+
+            <!-- This is the old Perl search -->
+            <c:set var="searchPrompt1" value="Search school name or district"/>
+            <c:set var="searchPrompt2" value="Search city"/>
+            <gsml:url var="searchPage" value="/cgi-bin/search_switch/${requestScope.context.stateOrDefault}"/>
+            <form name="headerSearch" method="post" action="${searchPage}"
+                onsubmit="if ((this.field1.value == '' || this.field1.value == '${searchPrompt1}') &amp;&amp; (this.field2.value == '' || this.field2.value == '${searchPrompt2}')) { alert('You must specify a school, district, or city name'); return false;} ${triggerPopunder}">
+                <table><tr><td>
+                <input type="hidden" name="selector" value="by_school"/>
+                    <input type="hidden" name="state" value="${state.abbreviation}"/>
+                </td><td><input style="min-width:33%" type="text" value="${searchPrompt1}"
+                    onfocus="if (this.value=='${searchPrompt1}') this.value=''; if (this.form.field2.value=='${searchPrompt2}') this.form.field2.value='';"
+                    onblur="if (this.value=='' &amp;&amp; this.form.field2.value=='') { this.value='${searchPrompt1}'; this.form.field2.value='${searchPrompt2}'; }"
+                    class="textfield" name="field1" size="28"/>
+                </td><td><span style="margin: 0px 3px 7px 2px; font-size: 10px;">and/or</span>
+                </td><td><input style="min-width:20%" type="text" value="${searchPrompt2}"
+                    onfocus="if (this.value=='${searchPrompt2}') this.value=''; if (this.form.field1.value=='${searchPrompt1}') this.form.field1.value='';"
+                    onblur="if (this.value=='' &amp;&amp; this.form.field1.value=='') { this.value='${searchPrompt2}'; this.form.field1.value='${searchPrompt1}'; }"
+                    class="textfield" name="field2" size="15"/>
+                </td><td><gsml:url var="goImage" value="/res/img/button/btn_go.gif"/>
+                <input type="image" class="btn" src="${goImage}"/>
+                </td></tr></table>
+            </form>
+        </c:if>
+    </div>
 </jsp:root>

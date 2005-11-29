@@ -62,12 +62,10 @@
         <table border="0" cellpadding="0" cellspacing="0" width="100%">
             <tr>
                 <td width="60%" valign="top">
-                    <div class="topcontentcol1" style="padding-top: .75em; padding-right: 2em">
-                        <h3 class="result_title">Find Your School<gsml:a styleClass="changeState" href="/stateLauncher.page?p=pathway2">Not  in ${requestScope.context.stateOrDefault.longName}? Change state</gsml:a></h3>
-
-                        <!--div class="smallform2fields nowrap"-->
-                        <search:searchBox state="${requestScope.context.stateOrDefault}"/>
-                        <!--/div-->
+                    <div class="topcontentcol1" style="padding-top: .75em; padding-right: 2em;" >
+                        <h3 class="result_title">
+                            Find test scores, teacher stats and more</h3>
+                        <mod:searchBox state="${requestScope.context.stateOrDefault}"/>
 
                         <div class="browselinks">
                             <gsml:a styleClass="nowrap"
@@ -80,11 +78,14 @@
                                     href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">
                                 Advanced search</gsml:a>
                         </div>
-                        <jsp:include page="/promo/featuredArticles.module?position=PATH2_FEATURE"/>
-                        <br />
+                        <c:if test="${requestScope.context.user != null}">
+                            <jsp:include page="/community/mySchoolList.module?member=${requestScope.context.user.id}&amp;limit=2" />
+                        </c:if>
                     </div>
                 </td><td valign="top">
                 <div class="topcontentcol2">
+
+<!--mod:stateSelectMedium state="${requestScope.context.stateOrDefault}" /-->
 
                     <div class="featuredarticle">
                         <gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
@@ -92,7 +93,7 @@
                                       alt="Rate your School"/>
                         </gsml:a>
                         <br/>
-                        Spread the word about your school--post a review.
+                        Spread the word about your school - post a review.
                         <br/>
                         <br/>
 
@@ -161,4 +162,3 @@
 </body>
 </html>
 </jsp:root>
-

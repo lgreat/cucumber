@@ -1,10 +1,13 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ChoosingPathwayController.java,v 1.1 2005/11/23 00:14:58 apeterson Exp $
+ * $Id: ChoosingPathwayController.java,v 1.2 2005/11/29 01:37:38 apeterson Exp $
  */
 
 package gs.web.path;
 
+import gs.data.community.ISubscriptionDao;
+import gs.data.community.SubscriptionProduct;
+import gs.data.community.User;
 import gs.web.ISessionFacade;
 import gs.web.SessionContext;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,6 +17,7 @@ import org.springframework.web.servlet.view.InternalResourceView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /**
  * Choose the right choosing pathway landing page, based on whether the user is
@@ -22,16 +26,21 @@ import javax.servlet.http.HttpServletResponse;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class ChoosingPathwayController implements Controller {
+
+    ISubscriptionDao _subscriptionDao;
+
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         ISessionFacade context = SessionContext.getInstance(request);
 
         String pageName;
+        final User user = context.getUser();
         if (context.getStateOrDefault().isSubscriptionState() &&
-                context.getUser() != null) {
+                user != null &&
+                _subscriptionDao.isUserSubscribed(user, SubscriptionProduct.ONE_YEAR_SUB, new Date())) {
             pageName = "chooseInsiderLoggedIn";
         } else if (context.getStateOrDefault().isSubscriptionState() &&
-                context.getUser() == null &&
+                user == null &&
                 !"azcentral".equals(context.getCobrand())) {
             pageName = "chooseInsiderLoggedOut";
 
@@ -43,5 +52,14 @@ public class ChoosingPathwayController implements Controller {
         View view = new InternalResourceView(fileName);
         ModelAndView modelAndView = new ModelAndView(view);
         return modelAndView;
+    }
+
+
+    public ISubscriptionDao getSubscriptionDao() {
+        return _subscriptionDao;
+    }
+
+    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
+        _subscriptionDao = subscriptionDao;
     }
 }

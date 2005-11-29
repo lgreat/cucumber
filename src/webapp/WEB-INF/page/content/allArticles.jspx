@@ -63,7 +63,7 @@
     <span class="header">All Articles</span>
         <br/><br/>
     <div class="category">
-        <a href="javascript:showSection(-1);"><span class="categoryName">School Choice Center</span></a>
+        <a href="javascript:showSection(-1);"><span class="categoryName">School Choosers Guide</span></a>
         <div id="articlelist-1">
             <c:forEach items="${scc_categories}" var="category">
                 <c:if test="${!empty category.value}">

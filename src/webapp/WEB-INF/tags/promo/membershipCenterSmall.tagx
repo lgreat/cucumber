@@ -5,11 +5,11 @@
     <jsp:directive.tag body-content="empty"/>
     <div class="featuredarticle">
         <h3 class="result_title">Membership Center</h3>
-        Welcome! To get started, use search PLUS to access school ratings, alerts, parent reviews and more.
+        Welcome, ${requestScope.context.user.email}!
         <br/>
         <ul class="result_list nowrap">
         <li class="viewall">
-            <gsml:a href="/insider.page?state=$STATE">More tips for using your membership</gsml:a>
+            <gsml:a href="/insider.page?state=$STATE">Get tips for using your membership</gsml:a>
         </li>
         </ul>
     </div>

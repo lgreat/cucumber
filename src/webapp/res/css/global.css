@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.56 2005/11/28 18:43:16 apeterson Exp $
+$Id: global.css,v 1.57 2005/11/29 01:37:38 apeterson Exp $
 ----------------------------------------------- */
 
 /*
@@ -130,6 +130,11 @@ ul.result_list li {padding:0px 20px 1px 0px;}
 ul.result_list li.viewall {background: url(../img/arrow.gif) 2px no-repeat;margin:2px 0px 10px 0px;}
 ul.result_list li.viewall a {font-weight:normal;margin:0px 0px 0px 12px;}
 
+/** TODO AJP  use the existing class */
+table.topCities ul.result_list li { font-size: .95em; }
+
+
+
 /*  Forms
 ----------------------------------------------- */
 input.checkbox {margin:0px 0px -2px 0px;}
@@ -207,6 +212,11 @@ table.promoMembershipBig { margin: .1em 1em 1em 0; }
 .promoArticles h3 {font-weight: bold;}
 .promoArticles ul.promo {margin:10px 0px 15px 10px;}
 .promoArticles ul.promo li {margin:0px 0px 0px 20px;list-style-type:disc;line-height:1.4em;}
+
+
+.schoolchoicecenter li {padding:3px 20px 3px 0px;}
+.schoolchoicecenter li.viewall {background: url(../img/arrow.gif) 2px no-repeat;margin:2px 0px 3px 0px;}
+.schoolchoicecenter li.viewall a {font-weight:normal; margin:0px 0px 0px 12px;}
 
 
 /* Boxes

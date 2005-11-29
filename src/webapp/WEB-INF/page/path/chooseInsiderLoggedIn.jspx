@@ -29,8 +29,6 @@
     <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
         <style type="text/css">
-.topcontentcol1 {padding-right:7px;}
-.topcontentcol2 {border-left:1px solid #999;padding:0px 5px 0px 10px;margin:0px 0px 10px 0px;}
         </style>
             ]]>
     <title>${stateLongName} Schools</title>
@@ -57,56 +55,37 @@
                     </td>
                     <td class="col2" valign="top">
                         <gsml:box tableClass="shade3"
-                                  tableWidth="100%" >
-        <span class="moduleheader">
-       <h1 class="inline">${stateLongName} Schools</h1> &#8211;
-               Membership Area
-   </span>
+                                  tableWidth="100%">
+                            <span class="moduleheader"><h1 class="inline">${stateLongName} Schools</h1> &#8211; Members Area</span>
 
                             <h3 class="tagline">
-                                Objective information from GreatSchools, an independent nonprofit dedicated to helping
-                                parents
+                                Brought to you by GreatSchools, an independent non-profit dedicated to helping parents
                             </h3>
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td width="60%">
-                                        <div class="topcontentcol1" style="padding-top: .75em">
-                                            <h3 class="result_title">
-                                                ${requestScope.context.stateOrDefault.longName}
-                                                School Search PLUS<gsml:a styleClass="changeState"
-                                                               href="/stateLauncher.page?p=pathway1">Search another
-                                                state</gsml:a></h3>
-                                            <search:searchBox state="${requestScope.context.stateOrDefault}"/>
+                                        <div style="padding-right:7px;padding-top: .75em">
+                                            <h3 class="result_title">Find school stats, parent reviews and more</h3>
+                                            <mod:searchBox state="${requestScope.context.stateOrDefault}"/>
 
                                             <div class="browselinks">
-                                                <gsml:a styleClass="nowrap"
-                                                        href="/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}">
-                                                    My
-                                                    School List</gsml:a>
-                                                <gsml:a styleClass="nowrap"
-                                                        href="/cgi-bin/cs_where/${requestScope.context.stateOrDefault.abbreviation}">
-                                                    Compare
-                                                    schools</gsml:a>
-                                                <gsml:a styleClass="nowrap"
-                                                        href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">
-                                                    Advanced search</gsml:a>
                                             </div>
-                                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                                <tbody>
-                                                    <tr>
-                                                        <td valign="top" width="50%">
-                                                            <jsp:include page="/topCities.module"/>
-                                                        </td>
-                                                        <td valign="top" width="50%">
-                                                            <jsp:include page="/topDistricts.module"/>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
+                                            <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                                                   class="topCities">
+                                                <tr>
+                                                    <td valign="top" width="50%">
+                                                        <jsp:include page="/topCities.module"/>
+                                                    </td>
+                                                    <td valign="top" width="50%">
+                                                        <jsp:include page="/topDistricts.module"/>
+                                                    </td>
+                                                </tr>
                                             </table>
                                         </div>
                                     </td><td width="40%">
-                                    <div class="topcontentcol2">
+                                    <div style="border-left:1px solid #999;padding:0px 5px 0px 10px;margin:0px 0px 10px 0px;">
                                         <promo:membershipCenterSmall/>
+                                        <br/>
                                         <promo:schoolChoiceCenterSmall/>
                                     </div></td></tr>
                             </table>

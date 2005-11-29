@@ -5,21 +5,12 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
     <jsp:directive.tag body-content="empty"/>
     <div class="schoolchoicecenter featuredarticle">
-        <h3 class="result_title">School Choice Center</h3>
+        <h3 class="result_title">School Choosers Guide</h3>
         <ul class="result_list nowrap">
-            <li>
-                <gsml:a href="/content/schoolChoiceCenter.page?state=$STATE#options" >Learn about your options</gsml:a>
-            </li>
-            <li>
-                <gsml:a href="/content/schoolChoiceCenter.page?state=$STATE#visit" >Make the most of your school visit</gsml:a>
-            </li>
-            <li>
-                <gsml:a href="/content/schoolChoiceCenter.page?state=$STATE#apply" >Apply and enroll</gsml:a>
-            </li>
-            <li class="viewall">
-                <gsml:a href="/content/schoolChoiceCenter.page?state=$STATE" >Visit the School Choice Center</gsml:a>
-            </li>
-        </ul>
+        <li>Learn your options, make the best match.</li>
+        <li class="viewall">
+            <gsml:a href="/content/schoolChoiceCenter.page?state=$STATE" >Browse all school choice resources</gsml:a>
+        </li></ul>
     </div>
 
 </jsp:root>
