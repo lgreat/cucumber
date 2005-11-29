@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.10 2005/11/18 00:17:10 apeterson Exp $
+ * $Id: UrlUtil.java,v 1.11 2005/11/29 23:38:25 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.data.state.State;
+import gs.data.content.Article;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -251,4 +252,30 @@ public final class UrlUtil {
             return url;
         }
     }
+
+    public String getArticleLink(State s, Article article, boolean featured) {
+        // Calculate page to use
+        String page;
+        if (s.isSubscriptionState() && article.isInsider()) {
+            page = "showpartarticle";
+        } else {
+            if (featured) {
+                page = "showarticlefeature";
+            } else {
+                page = "showarticle";
+            }
+        }
+
+        // Calculate link
+        String link = "/cgi-bin/" +
+                page +
+                "/" +
+                s.getAbbreviationLowerCase() +
+                "/" +
+                article.getId();
+        link = buildHref(link, false, null, null);
+        return link;
+    }
+
+
 }

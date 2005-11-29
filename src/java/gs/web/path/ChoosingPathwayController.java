@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ChoosingPathwayController.java,v 1.2 2005/11/29 01:37:38 apeterson Exp $
+ * $Id: ChoosingPathwayController.java,v 1.3 2005/11/29 23:38:25 apeterson Exp $
  */
 
 package gs.web.path;
@@ -8,6 +8,7 @@ package gs.web.path;
 import gs.data.community.ISubscriptionDao;
 import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
+import gs.data.state.State;
 import gs.web.ISessionFacade;
 import gs.web.SessionContext;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,11 +36,12 @@ public class ChoosingPathwayController implements Controller {
 
         String pageName;
         final User user = context.getUser();
-        if (context.getStateOrDefault().isSubscriptionState() &&
+        final State state = context.getStateOrDefault();
+        if (state.isSubscriptionState() &&
                 user != null &&
                 _subscriptionDao.isUserSubscribed(user, SubscriptionProduct.ONE_YEAR_SUB, new Date())) {
             pageName = "chooseInsiderLoggedIn";
-        } else if (context.getStateOrDefault().isSubscriptionState() &&
+        } else if (state.isSubscriptionState() &&
                 user == null &&
                 !"azcentral".equals(context.getCobrand())) {
             pageName = "chooseInsiderLoggedOut";

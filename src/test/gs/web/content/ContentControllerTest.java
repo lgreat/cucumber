@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ContentControllerTest.java,v 1.6 2005/11/29 23:24:49 thuss Exp $
+ * $Id: ContentControllerTest.java,v 1.7 2005/11/29 23:38:25 apeterson Exp $
  */
 package gs.web.content;
 
@@ -11,6 +11,7 @@ import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -46,10 +47,13 @@ public class ContentControllerTest extends BaseControllerTestCase {
         FeaturedArticlesController c = new FeaturedArticlesController();
         c.setApplicationContext(getApplicationContext());
         c.setArticleDao((IArticleDao) getApplicationContext().getBean(IArticleDao.BEAN_ID));
+        c.setSingleArticleViewName("/promo/featuredArticles");
 
         getRequest().setParameter("position", IArticleDao.HOT_TOPIC);
 
         ModelAndView modelAndView = c.handleRequestInternal(getRequest(), getResponse());
+
+        assertEquals("/promo/featuredArticles", modelAndView.getViewName());
 
         Object article = modelAndView.getModel().get("article");
         assertTrue(article instanceof Article);
@@ -67,6 +71,27 @@ public class ContentControllerTest extends BaseControllerTestCase {
         article = modelAndView.getModel().get("article");
         assertTrue(article instanceof Article);
         assertEquals("Today&#8217s Feature", modelAndView.getModel().get("heading"));
+    }
+
+    public void testFeaturedArticlesControllerMultiple() throws Exception {
+        FeaturedArticlesController c = (FeaturedArticlesController) getApplicationContext().getBean("/promo/featuredArticles.module");
+
+        getRequest().addParameter("position",
+                IArticleDao.HOT_TOPIC + "," + IArticleDao.FOCUS_ON_CHOICE + "," + IArticleDao.PATH1_FEATURE);
+
+        ModelAndView modelAndView = c.handleRequestInternal(getRequest(), getResponse());
+
+        final Map model = modelAndView.getModel();
+        assertEquals("/resultsList", modelAndView.getViewName());
+        assertNull(model.get("article"));
+
+        List articles = (List) model.get("results");
+        assertTrue(articles instanceof Collection);
+        assertEquals(Article.class,  articles.get(0).getClass());
+        assertEquals(Article.class,  articles.get(1).getClass());
+        assertEquals(Article.class,  articles.get(2).getClass());
+        assertNull(articles.get(3));
+        assertEquals("", model.get("heading"));
     }
 
     public void testPremiumArticlesController() throws Exception {

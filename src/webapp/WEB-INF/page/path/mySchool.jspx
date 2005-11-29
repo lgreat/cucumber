@@ -79,7 +79,7 @@
                                 Advanced search</gsml:a>
                         </div>
                         <c:if test="${requestScope.context.user != null}">
-                            <jsp:include page="/community/mySchoolList.module?member=${requestScope.context.user.id}&amp;limit=2" />
+                            <jsp:include page="/community/mySchoolList.module?member=${requestScope.context.user.id}&amp;limit=3" />
                         </c:if>
                     </div>
                 </td><td valign="top">

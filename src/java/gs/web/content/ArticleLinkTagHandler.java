@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.10 2005/11/17 19:30:30 thuss Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.11 2005/11/29 23:38:25 apeterson Exp $
  */
 package gs.web.content;
 
@@ -23,7 +23,7 @@ import java.io.IOException;
  */
 public class ArticleLinkTagHandler extends BaseTagHandler {
 
-    private UrlUtil _urlUtil = new UrlUtil();
+    private static UrlUtil _urlUtil = new UrlUtil();
 
     /**
      * The article to link to.
@@ -66,26 +66,7 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
 
         b.append("<a href=\"");
 
-        // Calculate page to use
-        String page;
-        if (s.isSubscriptionState() && _article.isInsider()) {
-            page = "showpartarticle";
-        } else {
-            if (_featured) {
-                page = "showarticlefeature";
-            } else {
-                page = "showarticle";
-            }
-        }
-
-        // Calculate link
-        String link = "/cgi-bin/" +
-                page +
-                "/" +
-                s.getAbbreviationLowerCase() +
-                "/" +
-                _article.getId();
-        link = _urlUtil.buildHref(link, false, null, null);
+        String link = _urlUtil.getArticleLink(s, _article, _featured);
         b.append(link);
 
         b.append("\" ");
@@ -115,7 +96,6 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
 
         getJspContext().getOut().print("</a>");
     }
-
 
     public Article getArticle() {
         return _article;

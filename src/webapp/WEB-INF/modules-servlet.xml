@@ -100,8 +100,11 @@
     <bean name="/promo/featuredArticles.module"
         class="gs.web.content.FeaturedArticlesController"
         autowire="byName" >
-        <property name="viewName">
+        <property name="singleArticleViewName">
             <value>/promo/featuredArticles</value>
+        </property>
+        <property name="multipleArticlesViewName">
+            <value>/resultList</value>
         </property>
     </bean>
 

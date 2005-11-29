@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MySchoolListController.java,v 1.2 2005/11/29 01:37:38 apeterson Exp $
+ * $Id: MySchoolListController.java,v 1.3 2005/11/29 23:38:25 apeterson Exp $
  */
 
 package gs.web.community;
@@ -48,8 +48,6 @@ public class MySchoolListController extends AbstractController {
 
         Map model = new HashMap();
 
-        model.put("header", "My School List");
-
         Set schools = user.getFavoriteSchools();
 
         List items = new ArrayList(schools.size());
@@ -68,7 +66,7 @@ public class MySchoolListController extends AbstractController {
                 shown ++;
             } else if (shown == limit) {
                 items.add(new Anchor("/cgi-bin/msl_confirm/" + state.getAbbreviation() + "/",
-                        "Manage My School List",
+                        "My School List",
                         "viewall"));
                 shown = schools.size();
             }
