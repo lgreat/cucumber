@@ -3,7 +3,7 @@ package gs.web.state;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.UrlUtil;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.mock.web.MockHttpServletRequest;
+import gs.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -55,7 +55,7 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         Iterator iter = reUseIter;
 
         //bogus pathway
-        request.addParameter("p", "boguspathway");
+        request.setParameter("p", "boguspathway");
         modelAndView = controller.handleRequestInternal(request, response);
         url = (String) pathways.get("default");
         assertEquals(buildTestUrl(url, state), modelAndView.getModel().get("url"));
@@ -73,7 +73,7 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
                 continue;
             }
 
-            request.addParameter("p", key);
+            request.setParameter("p", key);
 
             modelAndView = controller.handleRequestInternal(request, response);
             assertEquals(buildTestUrl(url, state), modelAndView.getModel().get("url"));
@@ -85,8 +85,8 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         //no state param, single search
         iter = keys.iterator();
 
-        request.addParameter("p", pathway_single_search);
-        request.addParameter("q", "San Francisco");
+        request.setParameter("p", pathway_single_search);
+        request.setParameter("q", "San Francisco");
 
         modelAndView = controller.handleRequestInternal(request, response);
         url = (String) pathways.get(pathway_single_search);
@@ -94,9 +94,9 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         assertEquals("&q=San+Francisco", modelAndView.getModel().get("extraParams"));
 
         //no state param, double search
-        request.addParameter("p", pathway_double_search);
-        request.addParameter("field1", "Lowell");
-        request.addParameter("field2", "San Francisco");
+        request.setParameter("p", pathway_double_search);
+        request.setParameter("field1", "Lowell");
+        request.setParameter("field2", "San Francisco");
         modelAndView = controller.handleRequestInternal(request, response);
         url = (String) pathways.get(pathway_double_search);
         state = "";
@@ -117,8 +117,8 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
             }
             url = (String) pathways.get(key);
 
-            request.addParameter("p", key);
-            request.addParameter("state", state);
+            request.setParameter("p", key);
+            request.setParameter("state", state);
 
 
             modelAndView = controller.handleRequestInternal(request, response);
@@ -134,10 +134,10 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
 
         //valid state param, double search
         state = "CA";
-        request.addParameter("p", pathway_double_search);
-        request.addParameter("field1", "Lowell");
-        request.addParameter("field2", "San Francisco");
-        request.addParameter("state", state);
+        request.setParameter("p", pathway_double_search);
+        request.setParameter("field1", "Lowell");
+        request.setParameter("field2", "San Francisco");
+        request.setParameter("state", state);
         modelAndView = controller.handleRequestInternal(request, response);
         url = (String) pathways.get(pathway_double_search);
         view = null;
@@ -151,9 +151,9 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
 
         //valid state param, single search
         state = "CA";
-        request.addParameter("p", pathway_single_search);
-        request.addParameter("q", "San Francisco");
-        request.addParameter("state", state);
+        request.setParameter("p", pathway_single_search);
+        request.setParameter("q", "San Francisco");
+        request.setParameter("state", state);
         modelAndView = controller.handleRequestInternal(request, response);
         view = null;
         try {

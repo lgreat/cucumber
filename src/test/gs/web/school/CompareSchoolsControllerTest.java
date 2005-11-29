@@ -1,7 +1,7 @@
 package gs.web.school;
 
 import gs.web.BaseTestCase;
-import org.springframework.mock.web.MockHttpServletRequest;
+import gs.web.MockHttpServletRequest;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>

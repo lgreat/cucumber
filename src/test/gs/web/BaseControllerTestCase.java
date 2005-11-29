@@ -1,16 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: BaseControllerTestCase.java,v 1.3 2005/11/02 22:38:27 thuss Exp $
+ * $Id: BaseControllerTestCase.java,v 1.4 2005/11/29 23:24:49 thuss Exp $
  */
 
 package gs.web;
 
 import gs.data.state.State;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Provides...

@@ -1,12 +1,12 @@
 package gs.web.search;
 
 import gs.web.BaseTestCase;
+import gs.web.MockHttpServletRequest;
 import gs.data.search.SpellCheckSearcher;
 import gs.data.search.Searcher;
 import gs.data.search.IndexDir;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.apache.lucene.store.RAMDirectory;
 
 import java.util.Map;
@@ -34,7 +34,7 @@ public class SearchControllerTest extends BaseTestCase {
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
-        request.addParameter("q", "San Bruno");
+        request.setParameter("q", "San Bruno");
         //ModelAndView mv = sc.handleRequestInternal(request, response);
         //Map model = mv.getModel();
     }
@@ -43,7 +43,7 @@ public class SearchControllerTest extends BaseTestCase {
     public void testSuggestion() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
-        request.addParameter("q", "Alamefa");
+        request.setParameter("q", "Alamefa");
         //ModelAndView mv = sc.handleRequestInternal(request, response);
         //Map model = mv.getModel();
         //String suggestion = (String)model.get("suggestedQuery");
@@ -55,10 +55,10 @@ public class SearchControllerTest extends BaseTestCase {
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
-        request.addParameter("p", "1");
-        request.addParameter("c", "schools");
-        request.addParameter("q", "Alameda");
-        request.addParameter("s", "1");
+        request.setParameter("p", "1");
+        request.setParameter("c", "schools");
+        request.setParameter("q", "Alameda");
+        request.setParameter("s", "1");
         //ModelAndView mv = sc.handleRequestInternal(request, response);
         //Map model = mv.getModel();
     }

@@ -109,13 +109,13 @@
 
         <!-- XDoclet dependencies -->
         <!--<dependency>-->
-        <!--<groupId>xdoclet-plugins</groupId>-->
-        <!--<artifactId>xdoclet-plugin-web</artifactId>-->
-        <!--<version>1.0.2</version>-->
-        <!--<url>http://xdoclet.codehaus.org</url>-->
-        <!--<properties>-->
-        <!--<xdoclet.dependency>true</xdoclet.dependency>-->
-        <!--</properties>-->
+            <!--<groupId>xdoclet-plugins</groupId>-->
+            <!--<artifactId>xdoclet-plugin-web</artifactId>-->
+            <!--<version>1.0.2</version>-->
+            <!--<url>http://xdoclet.codehaus.org</url>-->
+            <!--<properties>-->
+                <!--<xdoclet.dependency>true</xdoclet.dependency>-->
+            <!--</properties>-->
         <!--</dependency>-->
 
         <dependency>
@@ -128,16 +128,10 @@
         </dependency>
 
         <dependency>
-            <groupId>spring</groupId>
+            <groupId>springframework</groupId>
             <artifactId>spring-mock</artifactId>
-            <version>1.0.2</version>
+            <version>1.2.6</version>
         </dependency>
-
-        <!--<dependency>-->
-            <!--<groupId>springframework</groupId>-->
-            <!--<artifactId>spring-mock</artifactId>-->
-            <!--<version>1.2.6</version>-->
-        <!--</dependency>-->
 
         <!-- HttpUnit dependencies -->
         <dependency>
@@ -150,12 +144,12 @@
         </dependency>
 
         <dependency>
-            <groupId>jdom</groupId>
+          <groupId>jdom</groupId>
             <artifactId>jdom</artifactId>
-            <version>1.0</version>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
+          <version>1.0</version>
+          <properties>
+            <war.bundle>true</war.bundle>
+          </properties>
         </dependency>
 
         <dependency>

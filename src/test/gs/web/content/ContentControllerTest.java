@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ContentControllerTest.java,v 1.5 2005/11/09 23:24:17 apeterson Exp $
+ * $Id: ContentControllerTest.java,v 1.6 2005/11/29 23:24:49 thuss Exp $
  */
 package gs.web.content;
 
@@ -47,7 +47,7 @@ public class ContentControllerTest extends BaseControllerTestCase {
         c.setApplicationContext(getApplicationContext());
         c.setArticleDao((IArticleDao) getApplicationContext().getBean(IArticleDao.BEAN_ID));
 
-        getRequest().addParameter("position", IArticleDao.HOT_TOPIC);
+        getRequest().setParameter("position", IArticleDao.HOT_TOPIC);
 
         ModelAndView modelAndView = c.handleRequestInternal(getRequest(), getResponse());
 
@@ -56,13 +56,13 @@ public class ContentControllerTest extends BaseControllerTestCase {
         assertEquals("", modelAndView.getModel().get("heading"));
 
 
-        getRequest().addParameter("position", IArticleDao.FOCUS_ON_CHOICE);
+        getRequest().setParameter("position", IArticleDao.FOCUS_ON_CHOICE);
         modelAndView = c.handleRequestInternal(getRequest(), getResponse());
         article = modelAndView.getModel().get("article");
         assertTrue(article instanceof Article);
         assertEquals("Focus on Choice", modelAndView.getModel().get("heading"));
 
-        getRequest().addParameter("position", IArticleDao.PATH1_FEATURE);
+        getRequest().setParameter("position", IArticleDao.PATH1_FEATURE);
         modelAndView = c.handleRequestInternal(getRequest(), getResponse());
         article = modelAndView.getModel().get("article");
         assertTrue(article instanceof Article);

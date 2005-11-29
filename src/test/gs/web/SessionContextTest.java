@@ -3,7 +3,6 @@ package gs.web;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import junit.framework.TestCase;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
@@ -39,13 +38,13 @@ public class SessionContextTest extends TestCase {
         assertTrue(!ctx.isYahooCobrand());
 
         // Add the cobrand parameter
-        request.addParameter("cobrand", "number1expert");
+        request.setParameter("cobrand", "number1expert");
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
         assertEquals("number1expert.dev.greatschools.net", ctx.getHostName());
         assertTrue(ctx.isAdFree());
         assertTrue(ctx.isCobranded());
 
-        request.addParameter("cobrand", "yahoo");
+        request.setParameter("cobrand", "yahoo");
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
         assertTrue(ctx.isYahooCobrand());
 
@@ -64,7 +63,7 @@ public class SessionContextTest extends TestCase {
         assertTrue(ctx.getStateOrDefault().equals(State.CA));
 
         // Add the state parameter
-        request.addParameter("state", "wy");
+        request.setParameter("state", "wy");
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
         assertTrue(ctx.getState().equals(State.WY));
 
@@ -83,7 +82,7 @@ public class SessionContextTest extends TestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         SessionContext ctx = new SessionContext();
         request.setServerName("www.greatschools.net");
-        request.addParameter("cobrand", "framed");
+        request.setParameter("cobrand", "framed");
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
         assertEquals("framed.greatschools.net", ctx.getHostName());
         assertTrue(ctx.isAdFree());
@@ -142,27 +141,27 @@ public class SessionContextTest extends TestCase {
 
         assertEquals(null, ctx.getState());
 
-        request.addParameter("state", "");
+        request.setParameter("state", "");
         util.updateStateFromParam(ctx, request);
         assertEquals(null, ctx.getState());
 
-        request.addParameter("state", "GA");
+        request.setParameter("state", "GA");
         util.updateStateFromParam(ctx, request);
         assertEquals(State.GA, ctx.getState());
 
-        request.addParameter("state", "fl");
+        request.setParameter("state", "fl");
         util.updateStateFromParam(ctx, request);
         assertEquals(State.FL, ctx.getState());
 
-        request.addParameter("state", "ct/");
+        request.setParameter("state", "ct/");
         util.updateStateFromParam(ctx, request);
         assertEquals(State.CT, ctx.getState());
 
-        request.addParameter("state", "x");
+        request.setParameter("state", "x");
         util.updateStateFromParam(ctx, request);
         assertEquals(State.CT, ctx.getState());
 
-        request.addParameter("state", "xx");
+        request.setParameter("state", "xx");
         util.updateStateFromParam(ctx, request);
         assertEquals(State.CT, ctx.getState());
     }

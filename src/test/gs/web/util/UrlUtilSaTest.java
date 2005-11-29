@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.8 2005/11/17 19:30:30 thuss Exp $
+ * $Id: UrlUtilSaTest.java,v 1.9 2005/11/29 23:24:49 thuss Exp $
  */
 
 package gs.web.util;
@@ -9,8 +9,8 @@ import gs.data.state.State;
 import gs.web.SessionContext;
 import gs.web.SessionFacade;
 import gs.web.SessionContextUtil;
+import gs.web.MockHttpServletRequest;
 import junit.framework.TestCase;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
@@ -90,7 +90,7 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("http://www.greatschools.net/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/$STATE", request));
 
         // Test secure URL but coming from a cobrand
-        request.addParameter("host", "sfgate.greatschools.net");
+        request.setParameter("host", "sfgate.greatschools.net");
         sessionUtil.updateFromParams(request, response, sessionFacade);
         assertEquals("/thankyou.page", _urlUtil.buildUrl("/thankyou.page", request));
         assertEquals("http://sfgate.greatschools.net/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/CA", request));
