@@ -39,7 +39,7 @@
 
         <conv:footer text="I feel privy to information that I would never know about schools if I did not subscribe."
             prevPage="ratings.page"
-            nextPage="flagAlerts.page"
+            nextPage="compareSchools.page"
         />
     </body>
     <gsml:fireclick pageType="conversion" pageName="parentreviews" />
