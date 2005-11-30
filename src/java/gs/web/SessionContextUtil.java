@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.9 2005/11/30 17:56:02 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.10 2005/11/30 20:50:29 apeterson Exp $
  */
 
 package gs.web;
@@ -111,27 +111,29 @@ public class SessionContextUtil {
             */
             if (insiderId != -1) {
                 if (context.getUser() == null || context.getUser().getId().intValue() != insiderId) {
-                    final User user = _userDao.getUserFromId(insiderId);
-                    if (user != null) {
+                    final User user;
+                    try {
+                        user = _userDao.getUserFromId(insiderId);
                         context.setUser(user);
                         if (mslId != -1 && mslId != insiderId) {
                             _log.warn("User with two conflicting cookies: " +
                                     MEMBER_ID_INSIDER_COOKIE + "=" + insiderId + " " +
                                     MEMBER_ID_MSL_COOKIE + "=" + mslId);
                         }
-                    } else {
+                    } catch (ObjectRetrievalFailureException e) {
                         _log.warn("User not found for cookie: " +
                                 MEMBER_ID_INSIDER_COOKIE + "=" + insiderId + " " +
                                 MEMBER_ID_MSL_COOKIE + "=" + mslId);
-                    }
 
+                    }
                 }
             } else if (mslId != -1) {
                 if (context.getUser() == null || context.getUser().getId().intValue() != mslId) {
-                    final User user = _userDao.getUserFromId(mslId);
-                    if (user != null) {
+                    final User user;
+                    try {
+                        user = _userDao.getUserFromId(mslId);
                         context.setUser(user);
-                    } else {
+                    } catch (ObjectRetrievalFailureException e) {
                         _log.warn("User not found for MSL cookie: " +
                                 MEMBER_ID_MSL_COOKIE + "=" + mslId);
                     }
