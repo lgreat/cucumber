@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MySchoolListController.java,v 1.3 2005/11/29 23:38:25 apeterson Exp $
+ * $Id: MySchoolListController.java,v 1.4 2005/11/30 01:41:30 apeterson Exp $
  */
 
 package gs.web.community;
@@ -55,7 +55,7 @@ public class MySchoolListController extends AbstractController {
         for (Iterator i = schools.iterator(); i.hasNext();) {
             FavoriteSchool favoriteSchool = (FavoriteSchool) i.next();
 
-            School school = _schoolDao.getSchoolById(favoriteSchool.getState(), favoriteSchool.getId());
+            School school = _schoolDao.getSchoolById(favoriteSchool.getState(), favoriteSchool.getSchoolId());
 
             Anchor anchor = new Anchor("/modperl/browse_school/" + school.getDatabaseState().getAbbreviationLowerCase() +
                     "/" + school.getId() + "/",
