@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.7 2005/11/29 23:38:25 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.8 2005/11/30 00:09:58 apeterson Exp $
  */
 package gs.web.content;
 
@@ -43,11 +43,6 @@ public class FeaturedArticlesController extends AbstractController {
      * One or more "article position" strings, comma separated.
      */
     public static final String POSITION_PARAM = "position";
-
-    /**
-     * Should the abstract be included in the output
-     */
-    private static final String SHOWING_ABSTRACT_PARAM = "showingAbstract";
 
     // Single article display
     public static final String MODEL_ARTICLE = "article";
@@ -107,14 +102,12 @@ public class FeaturedArticlesController extends AbstractController {
 
         List items = new ArrayList(posStrs.length);
         for (int i = 0; i < posStrs.length; i++ ) {
-            Article article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), posStr);
+            Article article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), posStrs[i]);
 
             Anchor anchor = new Anchor(_urlUtil.getArticleLink(sessionFacade.getStateOrDefault(), article, false),
                     article.getTitle());
             items.add(anchor);
         }
-
-        boolean showAbstract = StringUtils.isNotEmpty(request.getParameter(SHOWING_ABSTRACT_PARAM));
 
         // Allow param override
         final String paramHeading = request.getParameter("heading");

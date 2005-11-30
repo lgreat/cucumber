@@ -25,7 +25,7 @@
 
     <!-- The version of the project under development, e.g.
          1.1, 1.2, 2.0-SNAPSHOT -->
-    <currentVersion>0.1</currentVersion>
+    <currentVersion>3.9</currentVersion>
 
     <!-- details about the organization that 'owns' the project -->
     <organization>
@@ -58,7 +58,7 @@
         <dependency>
             <groupId>gs</groupId>
             <artifactId>gs-data</artifactId>
-            <version>0.1</version>
+            <version>3.9</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
