@@ -8,13 +8,13 @@
         <h3 class="result_title">School Choosers Guide</h3>
         <ul>
             <li>
-                <a href="#">Some sort of article.</a>
+                <a href="#">Private vs. Public: What's the Difference</a>
             </li>
             <li>
-                <a href="#">Really Interesting Facts about My Kid</a>
+                <a href="#">The School Visit: What to Look For, What to Ask</a>
             </li>
             <li>
-                <a href="#">Free New Money!</a>
+                <a href="#">New Neighborhood, New School: Making the Transition Easier</a>
             </li>
             <li class="viewall">
                 <gsml:a href="/content/schoolChoiceCenter.page?state=$STATE" >Browse all school choice resources</gsml:a>

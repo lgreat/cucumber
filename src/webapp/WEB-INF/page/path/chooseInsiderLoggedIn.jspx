@@ -48,7 +48,14 @@
                     <td class="col1" valign="top">
                         <mod:globalNav/>
                         <gsml:box tableClass="blank" tableWidth="100%">
-                            <jsp:include page="/promo/featuredArticles.module?position=PATH1_FEATURE"/>
+                            <h3>Featured Topics</h3>
+                            <ul class="resultlist">
+                                <li><a href="#">Great Learning Gift Ideas You Won't See on TV</a></li>
+                                <li><a href="#">Easy Gifts Kids Can Make</a></li>
+                                <li><a href="#">Fun Ideas for the Holiday Break</a></li>
+                            </ul>
+
+                            <!--jsp:include page="/promo/featuredArticles.module?position=PATH1_FEATURE"/-->
                         </gsml:box>
                     </td>
                     <td class="col2" valign="top">

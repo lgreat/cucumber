@@ -128,7 +128,13 @@
                     <!-- css hack b/c 100% height ignores margin setting -->
                     <h4>Find Hot Topics Now</h4>
 
-                    <jsp:include page="/promo/featuredArticles.module?position=HOT_TOPIC"/>
+                    <ul class="resultlist">
+                        <li><a href="#">Great Learning Gift Ideas You Won't See on TV</a></li>
+                        <li><a href="#">Easy Gifts Kids Can Make</a></li>
+                        <li><a href="#">Fun Ideas for the Holiday Break</a></li>
+                    </ul>
+
+                    <!--jsp:include page="/promo/featuredArticles.module?position=HOT_TOPIC"/-->
 
                     <div class="featuredarticle2">
                         <ul class="result_list nowrap"><li class="viewall"><gsml:a
