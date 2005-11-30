@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MySchoolListController.java,v 1.4 2005/11/30 01:41:30 apeterson Exp $
+ * $Id: MySchoolListController.java,v 1.5 2005/11/30 17:56:02 apeterson Exp $
  */
 
 package gs.web.community;
@@ -57,11 +57,10 @@ public class MySchoolListController extends AbstractController {
 
             School school = _schoolDao.getSchoolById(favoriteSchool.getState(), favoriteSchool.getSchoolId());
 
-            Anchor anchor = new Anchor("/modperl/browse_school/" + school.getDatabaseState().getAbbreviationLowerCase() +
-                    "/" + school.getId() + "/",
-                    school.getName());
-
             if (shown < limit) {
+                Anchor anchor = new Anchor("/modperl/browse_school/" + school.getDatabaseState().getAbbreviationLowerCase() +
+                        "/" + school.getId() + "/",
+                        school.getName());
                 items.add(anchor);
                 shown ++;
             } else if (shown == limit) {

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.8 2005/11/17 19:30:30 thuss Exp $
+ * $Id: SessionContextUtil.java,v 1.9 2005/11/30 17:56:02 apeterson Exp $
  */
 
 package gs.web;
@@ -44,7 +44,15 @@ public class SessionContextUtil {
 
     public static final String PATHWAY_PARAM = "path";
 
-    private static final String MEMBER_ID_COOKIE = "MEMBER";
+    /**
+     * Insider log-in cookie, from Java site. Domain is ".greatschools.net".
+     */
+    private static final String MEMBER_ID_INSIDER_COOKIE = "MEMBER";
+
+    /**
+     * My School List cookie, for backward compatibility. Domain is ".greatschools.net".
+     */
+    private static final String MEMBER_ID_MSL_COOKIE = "MEMID";
     private static final String PATHWAY_COOKIE = "PATHWAY";
 
 
@@ -65,18 +73,28 @@ public class SessionContextUtil {
         // sign in, visit java page, sign out (perl), and then return to java
         // page. It  used to think you were still signed in.
         // TODO make sure nobody can change IDs surreptitiously.
-        Integer cookieId = null;
+        int insiderId = -1;
+        int mslId = -1;
+
         Cookie[] cookies = httpServletRequest.getCookies();
         if (cookies != null) {
+
+            // Collect all the cookies
             for (int i = 0; i < cookies.length; i++) {
                 Cookie thisCookie = cookies[i];
-                if (MEMBER_ID_COOKIE.equals(thisCookie.getName())) {
+                if (MEMBER_ID_INSIDER_COOKIE.equals(thisCookie.getName())) {
                     String id = thisCookie.getValue();
-                    cookieId = new Integer(id);
-
-                    // No previous login information or different user.
-                    if (context.getUser() == null || !context.getUser().getId().equals(cookieId)) {
-                        context.setUser(_userDao.getUserFromId(cookieId.intValue()));
+                    try {
+                        insiderId = Integer.parseInt(id);
+                    } catch (NumberFormatException e) {
+                        // ignore
+                    }
+                } else if (MEMBER_ID_MSL_COOKIE.equals(thisCookie.getName())) {
+                    String id = thisCookie.getValue();
+                    try {
+                        mslId = Integer.parseInt(id);
+                    } catch (NumberFormatException e) {
+                        // ignore
                     }
                 } else if (PATHWAY_COOKIE.equals(thisCookie.getName())) {
                     String path = thisCookie.getValue();
@@ -85,8 +103,41 @@ public class SessionContextUtil {
                     }
                 }
             }
-        }
 
+            /*
+                Process the membership related cookies.
+                Only change user if there is no previous login information or
+                different user. A member login overrides MSL cookie.
+            */
+            if (insiderId != -1) {
+                if (context.getUser() == null || context.getUser().getId().intValue() != insiderId) {
+                    final User user = _userDao.getUserFromId(insiderId);
+                    if (user != null) {
+                        context.setUser(user);
+                        if (mslId != -1 && mslId != insiderId) {
+                            _log.warn("User with two conflicting cookies: " +
+                                    MEMBER_ID_INSIDER_COOKIE + "=" + insiderId + " " +
+                                    MEMBER_ID_MSL_COOKIE + "=" + mslId);
+                        }
+                    } else {
+                        _log.warn("User not found for cookie: " +
+                                MEMBER_ID_INSIDER_COOKIE + "=" + insiderId + " " +
+                                MEMBER_ID_MSL_COOKIE + "=" + mslId);
+                    }
+
+                }
+            } else if (mslId != -1) {
+                if (context.getUser() == null || context.getUser().getId().intValue() != mslId) {
+                    final User user = _userDao.getUserFromId(mslId);
+                    if (user != null) {
+                        context.setUser(user);
+                    } else {
+                        _log.warn("User not found for MSL cookie: " +
+                                MEMBER_ID_MSL_COOKIE + "=" + mslId);
+                    }
+                }
+            }
+        }
     }
 
     /**
