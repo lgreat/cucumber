@@ -7,7 +7,7 @@
 <c:if test="${not empty requestScope.header}">
 <h3 class="result_title">${requestScope.header}</h3>
 </c:if>
-<ul class="result_list nowrap">
+<ul class="result_list">
 <c:forEach var="i" items="${requestScope.results}">
 <c:if test="${i.styleClass!=null}">
 <li class="${i.styleClass}">

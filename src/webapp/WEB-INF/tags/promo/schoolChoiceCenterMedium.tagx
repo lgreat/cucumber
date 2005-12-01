@@ -5,24 +5,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
     <jsp:directive.tag body-content="empty"/>
     <div class="schoolchoicecenter featuredarticle">
-        <h3 class="result_title">School Choosers Guide</h3>
-        <ul>
-            <li>
-                <a href="#">Private vs. Public: What's the Difference</a>
-            </li>
-            <li>
-                <a href="#">The School Visit: What to Look For, What to Ask</a>
-            </li>
-            <li>
-                <a href="#">New Neighborhood, New School: Making the Transition Easier</a>
-            </li>
-            <li class="viewall">
-                <gsml:a href="/content/schoolChoiceCenter.page?state=$STATE" >Browse all school choice resources</gsml:a>
-            </li>
-            <li class="viewall">
-                <gsml:a href="/content/allArticles.page?state=$STATE" >Browse all topics</gsml:a>
-            </li>
-        </ul>
+        <jsp:include page="/promo/featuredArticles.module?position=FOCUS_ON_CHOICE&amp;count=3&amp;heading=School+Choosers+Guide" />
     </div>
 
 </jsp:root>

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.8 2005/11/30 00:09:58 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.9 2005/12/01 01:56:24 apeterson Exp $
  */
 package gs.web.content;
 
@@ -18,10 +18,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Controller to display all specified articles.
@@ -43,12 +40,18 @@ public class FeaturedArticlesController extends AbstractController {
      * One or more "article position" strings, comma separated.
      */
     public static final String POSITION_PARAM = "position";
+    /**
+     * Number of articles to display. The default is 1.
+     */
+    private static final String COUNT_PARAM = "count";
 
+    public static final String HEAD_PARAM = "heading";
+
+    /*
+        Model property names.
+    */
     // Single article display
     public static final String MODEL_ARTICLE = "article";
-
-    // Multiple article display
-    // model contains "header", a string; and "results", a list of Anchor objects
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
 
@@ -59,8 +62,18 @@ public class FeaturedArticlesController extends AbstractController {
             _log.warn("Default position being used. Please fix.");
         }
 
-        if (posStr.indexOf(',') != -1) {
-            return handleMultipleArticles(request, posStr);
+        String countStr = request.getParameter(COUNT_PARAM);
+        int count = 1;
+        if (StringUtils.isNumeric(countStr)) {
+            try {
+                count = Integer.valueOf(countStr).intValue();
+            } catch (NumberFormatException e) {
+                // ignore
+            }
+        }
+
+        if (count > 1) {
+            return handleMultipleArticles(request, posStr, count);
         } else {
             return handleSingleArticle(request, posStr);
         }
@@ -68,50 +81,55 @@ public class FeaturedArticlesController extends AbstractController {
 
     private ModelAndView handleSingleArticle(HttpServletRequest request, String posStr) {
         ISessionFacade sessionFacade = SessionFacade.getInstance(request);
-        Article article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), posStr);
+        Article article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), posStr, 0);
 
         // Allow param override
-        final String paramHeading = request.getParameter("heading");
-        String heading = "Today&#8217s Feature";
-        if (StringUtils.isNotEmpty(paramHeading)) {
-            heading = paramHeading;
-        } else {
-            if (StringUtils.equals(posStr, IArticleDao.FOCUS_ON_CHOICE)) {
-                heading = "Focus on Choice";
-            } else if (StringUtils.equals(posStr, IArticleDao.HOT_TOPIC)) {
-                heading = ""; // no heading
-            } else {
-                heading = "Today&#8217s Feature";
-            }
-        }
+        final String heading = calcHeading(request, posStr);
 
         Map model = new HashMap(2);
         model.put("article", article);
-        model.put("heading", heading);
+        model.put(HEAD_PARAM, heading);
 
         return new ModelAndView(_singleArticleViewName, model);
     }
 
-    private ModelAndView handleMultipleArticles(HttpServletRequest request, String posStr) {
+    private ModelAndView handleMultipleArticles(HttpServletRequest request, String posStr, int count) {
 
         ISessionFacade sessionFacade = SessionFacade.getInstance(request);
 
+        List items = new ArrayList(count);
+        Set articles = new HashSet(count);
+        for (int i = 0; i < count; i++) {
+            Article article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), posStr, i);
 
-        String[] posStrs = StringUtils.split(posStr, ',');
-
-
-        List items = new ArrayList(posStrs.length);
-        for (int i = 0; i < posStrs.length; i++ ) {
-            Article article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), posStrs[i]);
-
-            Anchor anchor = new Anchor(_urlUtil.getArticleLink(sessionFacade.getStateOrDefault(), article, false),
-                    article.getTitle());
-            items.add(anchor);
+            if (article != null &&
+                    !articles.contains(article)) {
+                Anchor anchor = new Anchor(_urlUtil.getArticleLink(sessionFacade.getStateOrDefault(), article, false),
+                        article.getTitle());
+                items.add(anchor);
+                articles.add(article);
+            }
         }
 
+        Anchor anchor = new Anchor("#",
+                "View all articles", "viewall");
+        items.add(anchor);
+
+
+        final String heading = calcHeading(request, posStr);
+
+        Map model = new HashMap(2);
+        model.put("results", items);
+        model.put("header", heading);
+
+        return new ModelAndView(_multipleArticlesViewName, model);
+    }
+
+    private String calcHeading(HttpServletRequest request, String posStr) {
         // Allow param override
-        final String paramHeading = request.getParameter("heading");
-        String heading = "Today&#8217s Feature";
+        final String paramHeading = request.getParameter(HEAD_PARAM);
+        String heading;
+        heading = "Today&#8217s Feature";
         if (StringUtils.isNotEmpty(paramHeading)) {
             heading = paramHeading;
         } else {
@@ -123,12 +141,7 @@ public class FeaturedArticlesController extends AbstractController {
                 heading = "Today&#8217s Feature";
             }
         }
-
-        Map model = new HashMap(2);
-        model.put("results", items);
-        model.put("heading", heading);
-
-        return new ModelAndView(_multipleArticlesViewName, model);
+        return heading;
     }
 
     public String getSingleArticleViewName() {

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ContentControllerTest.java,v 1.8 2005/11/30 00:01:35 apeterson Exp $
+ * $Id: ContentControllerTest.java,v 1.9 2005/12/01 01:56:24 apeterson Exp $
  */
 package gs.web.content;
 
@@ -9,8 +9,10 @@ import gs.data.content.ArticleManager;
 import gs.data.content.IArticleDao;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
+import gs.web.util.Anchor;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -75,22 +77,46 @@ public class ContentControllerTest extends BaseControllerTestCase {
     public void testFeaturedArticlesControllerMultiple() throws Exception {
         FeaturedArticlesController c = (FeaturedArticlesController) getApplicationContext().getBean("/promo/featuredArticles.module");
 
-        getRequest().addParameter("position",
-                IArticleDao.HOT_TOPIC + "," + IArticleDao.FOCUS_ON_CHOICE + "," + IArticleDao.PATH1_FEATURE);
+        getRequest().addParameter("position", IArticleDao.FOCUS_ON_CHOICE);
+        getRequest().addParameter("count", "3");
+        getRequest().addParameter("heading", "Grateful");
 
         ModelAndView modelAndView = c.handleRequestInternal(getRequest(), getResponse());
 
-        final Map model = modelAndView.getModel();
-        /*assertEquals("/resultsList", modelAndView.getViewName());
+        Map model = modelAndView.getModel();
+        assertEquals("/resultList", modelAndView.getViewName());
         assertNull(model.get("article"));
 
         List articles = (List) model.get("results");
         assertTrue(articles instanceof Collection);
-        assertEquals(Article.class,  articles.get(0).getClass());
-        assertEquals(Article.class,  articles.get(1).getClass());
-        assertEquals(Article.class,  articles.get(2).getClass());
-        assertNull(articles.get(3));
-        assertEquals("", model.get("heading"));*/
+        assertEquals(3, articles.size());
+        assertEquals(Anchor.class, articles.get(0).getClass());
+        assertEquals(Anchor.class, articles.get(1).getClass());
+        assertEquals(Anchor.class, articles.get(2).getClass());
+        assertEquals("Grateful", model.get("heading")); // Grateful Heading
+
+        // Ask for 4, but only get 3
+        getRequest().setParameter("count", "4");
+        modelAndView = c.handleRequestInternal(getRequest(), getResponse());
+        model = modelAndView.getModel();
+        articles = (List) model.get("results");
+        assertTrue(articles instanceof Collection);
+        assertEquals(3, articles.size());
+
+        // Ask for 2, and get 2
+        getRequest().setParameter("count", "2");
+        modelAndView = c.handleRequestInternal(getRequest(), getResponse());
+        model = modelAndView.getModel();
+        assertEquals("/resultList", modelAndView.getViewName());
+        assertNull(model.get("article"));
+
+        articles = (List) model.get("results");
+        assertTrue(articles instanceof Collection);
+        assertEquals(2, articles.size());
+        assertEquals(Anchor.class, articles.get(0).getClass());
+        assertEquals(Anchor.class, articles.get(1).getClass());
+        assertEquals("Grateful", model.get("heading")); // Grateful Heading
+
     }
 
     public void testPremiumArticlesController() throws Exception {

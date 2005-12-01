@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopDistrictsController.java,v 1.8 2005/11/09 20:05:18 apeterson Exp $
+ * $Id: TopDistrictsController.java,v 1.9 2005/12/01 01:56:24 apeterson Exp $
  */
 
 package gs.web.state;
