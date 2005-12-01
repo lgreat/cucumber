@@ -7,7 +7,7 @@
         <h3 class="result_title">Membership Center</h3>
         Welcome, ${requestScope.context.user.email}!
         <br/>
-        <ul class="result_list nowrap">
+        <ul class="nowrap">
         <li class="viewall">
             <gsml:a href="/insider.page?state=$STATE">Get tips for using your membership</gsml:a>
         </li>

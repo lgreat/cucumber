@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MySchoolListController.java,v 1.5 2005/11/30 17:56:02 apeterson Exp $
+ * $Id: MySchoolListController.java,v 1.6 2005/12/01 20:32:52 apeterson Exp $
  */
 
 package gs.web.community;
@@ -15,6 +15,7 @@ import gs.web.ISessionFacade;
 import gs.web.SessionContextUtil;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
+import gs.web.util.UnorderedListModel;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -70,7 +71,7 @@ public class MySchoolListController extends AbstractController {
                 shown = schools.size();
             }
         }
-        model.put("results", items);
+        model.put(UnorderedListModel.RESULTS, items);
 
 
         ModelAndView modelAndView = new ModelAndView(_viewName, model);

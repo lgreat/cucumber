@@ -77,7 +77,7 @@
         class="gs.web.state.TopDistrictsController"
         autowire="byName" >
         <property name="viewName">
-            <value>/resultList</value>
+            <value>/unorderedList</value>
         </property>
     </bean>
 
@@ -85,7 +85,7 @@
         class="gs.web.state.TopCitiesController"
         autowire="byName" >
         <property name="viewName">
-            <value>/resultList</value>
+            <value>/unorderedList</value>
         </property>
     </bean>
 
@@ -93,7 +93,7 @@
         class="gs.web.community.MySchoolListController"
         autowire="byName" >
         <property name="viewName">
-            <value>/resultList</value>
+            <value>/unorderedList</value>
         </property>
     </bean>
 
@@ -104,7 +104,7 @@
             <value>/promo/featuredArticles</value>
         </property>
         <property name="multipleArticlesViewName">
-            <value>/resultList</value>
+            <value>/unorderedList</value>
         </property>
     </bean>
 

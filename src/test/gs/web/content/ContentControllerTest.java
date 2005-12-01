@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ContentControllerTest.java,v 1.9 2005/12/01 01:56:24 apeterson Exp $
+ * $Id: ContentControllerTest.java,v 1.10 2005/12/01 20:32:53 apeterson Exp $
  */
 package gs.web.content;
 
@@ -10,6 +10,7 @@ import gs.data.content.IArticleDao;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.Anchor;
+import gs.web.util.UnorderedListModel;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collection;
@@ -65,13 +66,13 @@ public class ContentControllerTest extends BaseControllerTestCase {
         modelAndView = c.handleRequestInternal(getRequest(), getResponse());
         article = modelAndView.getModel().get("article");
         assertTrue(article instanceof Article);
-        assertEquals("Focus on Choice", modelAndView.getModel().get("heading"));
+        assertEquals("School Choosers Guide", modelAndView.getModel().get("heading"));
 
         getRequest().setParameter("position", IArticleDao.PATH1_FEATURE);
         modelAndView = c.handleRequestInternal(getRequest(), getResponse());
         article = modelAndView.getModel().get("article");
         assertTrue(article instanceof Article);
-        assertEquals("Today&#8217s Feature", modelAndView.getModel().get("heading"));
+        assertEquals("Featured Topics", modelAndView.getModel().get("heading"));
     }
 
     public void testFeaturedArticlesControllerMultiple() throws Exception {
@@ -84,38 +85,37 @@ public class ContentControllerTest extends BaseControllerTestCase {
         ModelAndView modelAndView = c.handleRequestInternal(getRequest(), getResponse());
 
         Map model = modelAndView.getModel();
-        assertEquals("/resultList", modelAndView.getViewName());
+        assertEquals("/unorderedList", modelAndView.getViewName());
         assertNull(model.get("article"));
 
-        List articles = (List) model.get("results");
+        List articles = (List) model.get(UnorderedListModel.RESULTS);
         assertTrue(articles instanceof Collection);
-        assertEquals(3, articles.size());
+        assertEquals(5, articles.size());
         assertEquals(Anchor.class, articles.get(0).getClass());
         assertEquals(Anchor.class, articles.get(1).getClass());
         assertEquals(Anchor.class, articles.get(2).getClass());
-        assertEquals("Grateful", model.get("heading")); // Grateful Heading
+        assertEquals("Grateful", model.get(UnorderedListModel.HEAD)); // Grateful Heading
 
         // Ask for 4, but only get 3
         getRequest().setParameter("count", "4");
         modelAndView = c.handleRequestInternal(getRequest(), getResponse());
         model = modelAndView.getModel();
-        articles = (List) model.get("results");
+        articles = (List) model.get(UnorderedListModel.RESULTS);
         assertTrue(articles instanceof Collection);
-        assertEquals(3, articles.size());
+        assertEquals(5, articles.size());
 
         // Ask for 2, and get 2
         getRequest().setParameter("count", "2");
         modelAndView = c.handleRequestInternal(getRequest(), getResponse());
         model = modelAndView.getModel();
-        assertEquals("/resultList", modelAndView.getViewName());
+        assertEquals("/unorderedList", modelAndView.getViewName());
         assertNull(model.get("article"));
 
-        articles = (List) model.get("results");
+        articles = (List) model.get(UnorderedListModel.RESULTS);
         assertTrue(articles instanceof Collection);
-        assertEquals(2, articles.size());
+        assertEquals(4, articles.size());
         assertEquals(Anchor.class, articles.get(0).getClass());
         assertEquals(Anchor.class, articles.get(1).getClass());
-        assertEquals("Grateful", model.get("heading")); // Grateful Heading
 
     }
 

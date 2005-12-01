@@ -1,7 +1,7 @@
 
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesController.java,v 1.8 2005/12/01 01:56:24 apeterson Exp $
+ * $Id: TopCitiesController.java,v 1.9 2005/12/01 20:32:52 apeterson Exp $
  */
 
 package gs.web.state;
@@ -12,6 +12,7 @@ import gs.web.ISessionFacade;
 import gs.web.SessionContextUtil;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
+import gs.web.util.UnorderedListModel;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -43,16 +44,16 @@ public class TopCitiesController extends AbstractController {
 
         // There is only one city in DC, so rewrite a little bit.
         if (state.equals(State.DC)) {
-            model.put("header", state.getLongName() + " Schools");
+            model.put(UnorderedListModel.HEAD, state.getLongName() + " Schools");
 
             List items = new ArrayList(1);
             Anchor anchor = new Anchor("/cgi-bin/schoollist/DC",
                     "View all schools");
             items.add(anchor);
-            model.put("results", items);
+            model.put(UnorderedListModel.RESULTS, items);
 
         } else {
-            model.put("header", state.getLongName() + " Cities");
+            model.put(UnorderedListModel.HEAD, state.getLongName() + " Cities");
 
             String[] cities = state.getTopCities();
             int cityCount = state.getTopCityCount();
@@ -72,7 +73,7 @@ public class TopCitiesController extends AbstractController {
             items.add(new Anchor("/modperl/citylist/" + state.getAbbreviation() + "/",
                     "View all " + state.getLongName() + " cities",
                     "viewall"));
-            model.put("results", items);
+            model.put(UnorderedListModel.RESULTS, items);
 
         }
 

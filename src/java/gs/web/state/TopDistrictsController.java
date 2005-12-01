@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopDistrictsController.java,v 1.9 2005/12/01 01:56:24 apeterson Exp $
+ * $Id: TopDistrictsController.java,v 1.10 2005/12/01 20:32:52 apeterson Exp $
  */
 
 package gs.web.state;
@@ -12,6 +12,7 @@ import gs.web.ISessionFacade;
 import gs.web.SessionContextUtil;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
+import gs.web.util.UnorderedListModel;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -47,7 +48,7 @@ public class TopDistrictsController extends AbstractController {
         Map model = new HashMap();
 
         Integer[] districtIds = state.getTopDistricts();
-        model.put("header",
+        model.put(UnorderedListModel.HEAD,
                 state.getLongName() + " District" +
                         (districtIds.length > 1 ? "s" : ""));
 
@@ -81,7 +82,7 @@ public class TopDistrictsController extends AbstractController {
                     "View all " + state.getLongName() + " districts",
                     "viewall"));
         }
-        model.put("results", items);
+        model.put(UnorderedListModel.RESULTS, items);
 
         ModelAndView modelAndView = new ModelAndView(_viewName, model);
         return modelAndView;

@@ -78,9 +78,9 @@
                                     href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">
                                 Advanced search</gsml:a>
                         </div>
-                        <c:if test="${requestScope.context.user != null}">
+                        <!--c:if test="${requestScope.context.user != null}">
                             <jsp:include page="/community/mySchoolList.module?member=${requestScope.context.user.id}&amp;limit=3" />
-                        </c:if>
+                        </c:if-->
                     </div>
                 </td><td valign="top">
                 <div class="topcontentcol2">
@@ -127,19 +127,7 @@
                 <div class="topcontentcol2 hotTopics" style="padding-bottom: 180px;">
                     <!-- css hack b/c 100% height ignores margin setting -->
                     <h4>Find Hot Topics Now</h4>
-
-                    <ul class="resultlist">
-                        <li><a href="#">Great Learning Gift Ideas You Won't See on TV</a></li>
-                        <li><a href="#">Easy Gifts Kids Can Make</a></li>
-                        <li><a href="#">Fun Ideas for the Holiday Break</a></li>
-                    </ul>
-
-                    <!--jsp:include page="/promo/featuredArticles.module?position=HOT_TOPIC"/-->
-
-                    <div class="featuredarticle2">
-                        <ul class="result_list nowrap"><li class="viewall"><gsml:a
-                                href="vpage:content.seasonal">Browse the latest topics</gsml:a></li></ul>
-                    </div>
+                    <jsp:include page="/promo/featuredArticles.module?position=HOT_TOPIC&amp;count=3"/>
 
                     <div class="promoArticles">
                         <h3>Let our education experts guide you through
@@ -152,7 +140,7 @@
                             <li>Holidays</li>
                             <li>Summer camps and more!</li>
                         </ul>
-                        <ul class="result_list nowrap"><li class="viewall"><gsml:a
+                        <ul class="nowrap"><li class="viewall"><gsml:a
                                 href="/content/allArticles.page?state=$STATE">Browse full article library</gsml:a></li></ul>
                     </div>
                 </div><!-- topcontentcol2 -->

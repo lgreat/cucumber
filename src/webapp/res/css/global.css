@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.57 2005/11/29 01:37:38 apeterson Exp $
+$Id: global.css,v 1.58 2005/12/01 20:32:53 apeterson Exp $
 ----------------------------------------------- */
 
 /*
@@ -125,13 +125,12 @@ h3.tagline {color:#F60;font-weight:normal;padding:0px 0px 5px 0px;}
 /*  Lists
 ----------------------------------------------- */
 .result_title {font-size:1.1em;padding:0px 20px 0px 0px;font-weight:bold;}
-ul.result_list {padding:0px 0px 0px 0px;}
-ul.result_list li {padding:0px 20px 1px 0px;}
-ul.result_list li.viewall {background: url(../img/arrow.gif) 2px no-repeat;margin:2px 0px 10px 0px;}
-ul.result_list li.viewall a {font-weight:normal;margin:0px 0px 0px 12px;}
+ul {padding:0px 0px 0px 0px;}
+ul li {padding:0px 20px 1px 0px;}
+ul li.viewall {background: url(../img/arrow.gif) 2px no-repeat;margin:2px 0px 10px 0px;}
+ul li.viewall a {font-weight:normal;margin:0px 0px 0px 12px;}
 
-/** TODO AJP  use the existing class */
-table.topCities ul.result_list li { font-size: .95em; }
+table.topCities ul li { font-size: .95em; }
 
 
 
@@ -172,8 +171,7 @@ tr.login td.col2 {text-align:right;padding-right:3px;}
 ----------------------------------------------- */
 
 .featuredarticle {margin:0px 0px 0px 5px;}
-.featuredarticle2 {margin:0px 0px 10px 0px;}
-.featuredarticle b, .featuredarticle2 b {font-weight:bold;text-decoration:none;} /* margin right is IE bug fix */
+.featuredarticle b {font-weight:bold;text-decoration:none;} /* margin right is IE bug fix */
 img.newarticle {margin-right:5px;margin-bottom:-2px;}
 div.featuredarticle h3 {
 margin-top: 1em;
@@ -214,6 +212,10 @@ table.promoMembershipBig { margin: .1em 1em 1em 0; }
 .promoArticles ul.promo li {margin:0px 0px 0px 20px;list-style-type:disc;line-height:1.4em;}
 
 
+
+.schoolchoicecenter {margin:0px 0px 0px 5px;}
+.schoolchoicecenter b {font-weight:bold;text-decoration:none;}
+.schoolchoicecenter h3 {margin-top: 1em;}
 .schoolchoicecenter li {padding:3px 20px 3px 0px;}
 .schoolchoicecenter li.viewall {background: url(../img/arrow.gif) 2px no-repeat;margin:2px 0px 3px 0px;}
 .schoolchoicecenter li.viewall a {font-weight:normal; margin:0px 0px 0px 12px;}

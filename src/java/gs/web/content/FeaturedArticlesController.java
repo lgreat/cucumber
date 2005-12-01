@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.9 2005/12/01 01:56:24 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.10 2005/12/01 20:32:52 apeterson Exp $
  */
 package gs.web.content;
 
@@ -10,6 +10,7 @@ import gs.web.ISessionFacade;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
 import gs.web.util.UrlUtil;
+import gs.web.util.UnorderedListModel;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -111,16 +112,26 @@ public class FeaturedArticlesController extends AbstractController {
             }
         }
 
-        Anchor anchor = new Anchor("#",
-                "View all articles", "viewall");
+        if (StringUtils.equals(IArticleDao.FOCUS_ON_CHOICE, posStr)) {
+            Anchor anchor = new Anchor(_urlUtil.buildUrl("/content/allArticles.page?state=$STATE", request),
+                    "Browse all school choice resources", "viewall");
+            items.add(anchor);
+        } else if (StringUtils.equals(IArticleDao.HOT_TOPIC, posStr)) {
+            Anchor anchor = new Anchor(_urlUtil.buildUrl("vpage:content.seasonal", request),
+                    "Browse the latest topics", "viewall");
+            items.add(anchor);
+        }
+
+        Anchor anchor = new Anchor(_urlUtil.buildUrl("/content/allArticles.page?state=$STATE", request),
+                "Browse all topics", "viewall");
         items.add(anchor);
 
 
         final String heading = calcHeading(request, posStr);
 
         Map model = new HashMap(2);
-        model.put("results", items);
-        model.put("header", heading);
+        model.put(UnorderedListModel.RESULTS, items);
+        model.put(UnorderedListModel.HEAD, heading);
 
         return new ModelAndView(_multipleArticlesViewName, model);
     }
@@ -134,11 +145,11 @@ public class FeaturedArticlesController extends AbstractController {
             heading = paramHeading;
         } else {
             if (StringUtils.equals(posStr, IArticleDao.FOCUS_ON_CHOICE)) {
-                heading = "Focus on Choice";
+                heading = "School Choosers Guide";
             } else if (StringUtils.equals(posStr, IArticleDao.HOT_TOPIC)) {
                 heading = ""; // no heading
             } else {
-                heading = "Today&#8217s Feature";
+                heading = "Featured Topics"; // "Today&#8217s Feature";
             }
         }
         return heading;
