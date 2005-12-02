@@ -5,9 +5,11 @@
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:spring="http://www.springframework.org/tags"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib"
         >
+<jsp:directive.page import="gs.web.util.PageHelper"/>
     <html lang="en">
 
     <jsp:output doctype-root-element="html"
@@ -19,14 +21,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <!-- This page is decorated by cobrandHeaderGsFooter to get global.css and cobrand headers -->
-        <meta name="gsheader" content="false" />
-        <meta name="gsfooter" content="false" />
+        <jsp:scriptlet>
+            PageHelper.hideHeader(request);
+            PageHelper.hideFooter(request);
+        </jsp:scriptlet>
         <title>Select a state</title>
             <style type="text/css">
             #bodyGS { font-size: 76%; }
             .state1 {padding:0px 15px 0px 15px;}
             #main {margin-left: auto; margin-right: auto;}
-            h2 {font-weight:bold;padding:15px 0px 20px 0px;font-size:1.3em;text-align:center;}
+            h2 {font-weight:bold;padding:15px 0px 20px 0px;font-size:1.5em;text-align:left;color:#666}
             div#bodyGS .state1 a, div#bodyGS .state2 a  {font-size: 1.5em}
             </style>
     </head>
@@ -231,7 +235,7 @@
 
 
 
-    <gsml:fireclick pageType="home" pageName="stateLauncher" />
+    <mod:tracking pageType="home" pageName="stateLauncher" />
     </body>
     </html>
 </jsp:root>
