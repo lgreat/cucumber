@@ -43,9 +43,9 @@
         <td valign="top">
             <ad:xAdSetup page="home" ads="x22"/>
             <ad:x22/>
-            <mod:memberBar
+            <mod:stateNSearchBar
                     state="${requestScope.context.stateOrDefault}"
-                    user="${requestScope.context.user}"/>
+                    />
             <table id="main" border="0" cellspacing="0" cellpadding="0" width="100%">
                 <tr>
                     <td class="col1" valign="top">
@@ -103,7 +103,7 @@
         </td>
     </tr>
 </table>
-<gsml:fireclick pageType="home" pageName="state home"/>
+<mod:tracking pageType="home" pageName="state home"/>
 </body>
 </html>
 </jsp:root>

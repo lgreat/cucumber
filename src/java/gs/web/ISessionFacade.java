@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ISessionFacade.java,v 1.4 2005/11/15 17:21:59 apeterson Exp $
+ * $Id: ISessionFacade.java,v 1.5 2005/12/03 00:35:59 apeterson Exp $
  */
 
 package gs.web;
@@ -59,13 +59,6 @@ public interface ISessionFacade {
      * @return true if it's a cobrand
      */
     boolean isCobranded();
-
-    /**
-     * Determine if this site should be ad free
-     *
-     * @return true if it's ad free
-     */
-    boolean isAdFree();
 
     /**
      * Is this the yahoo cobrand?

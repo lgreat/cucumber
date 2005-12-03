@@ -16,7 +16,7 @@
     On yahoo, framed, number1expert, mcguire we show none
     -->
     <c:set var="state" value="${fn:toLowerCase(requestScope.context.stateOrDefault.abbreviation)}"/>
-    <c:if test="${!requestScope.context.adFree and !requestScope.context.yahooCobrand}">
+    <c:if test="${!requestScope.pageHelper.adFree and !requestScope.context.yahooCobrand}">
         <c:set var="onloadPopunder" scope="request" value="DisplayPopunder('${state}','x06|x17');"/>
         <c:set var="triggerPopunder" scope="request" value="DisplayPopunderSpecial('${state}','x06|x17'); return true;"/>
         <gsml:url var="popunderJs" value="/cm/ad_popunder.js" />

@@ -158,7 +158,7 @@
 </tr>
 </table>
 
-    <gsml:fireclick pageType="article" pageName="school choice center"/>
+    <mod:tracking pageType="article" pageName="school choice center"/>
 </body>
 </html>
 </jsp:root>

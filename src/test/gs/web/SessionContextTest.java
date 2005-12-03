@@ -33,7 +33,6 @@ public class SessionContextTest extends TestCase {
 
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
         assertEquals(ctx.getHostName(), "dev.greatschools.net");
-        assertTrue(!ctx.isAdFree());
         assertTrue(!ctx.isCobranded());
         assertTrue(!ctx.isYahooCobrand());
 
@@ -41,7 +40,6 @@ public class SessionContextTest extends TestCase {
         request.setParameter("cobrand", "number1expert");
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
         assertEquals("number1expert.dev.greatschools.net", ctx.getHostName());
-        assertTrue(ctx.isAdFree());
         assertTrue(ctx.isCobranded());
 
         request.setParameter("cobrand", "yahoo");
@@ -56,7 +54,6 @@ public class SessionContextTest extends TestCase {
         request.setServerName("sfgate.greatschools.net");
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
         assertEquals("sfgate.greatschools.net", ctx.getHostName());
-        assertTrue(!ctx.isAdFree());
         assertTrue(ctx.isCobranded());
         assertEquals(ctx.getCobrand(), "sfgate");
         assertNull(ctx.getState());
@@ -73,7 +70,6 @@ public class SessionContextTest extends TestCase {
         request.setServerName("greatschools.babycenter.com");
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
         assertEquals("greatschools.babycenter.com", ctx.getHostName());
-        assertTrue(!ctx.isAdFree());
         assertTrue(ctx.isCobranded());
     }
 
@@ -85,7 +81,6 @@ public class SessionContextTest extends TestCase {
         request.setParameter("cobrand", "framed");
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
         assertEquals("framed.greatschools.net", ctx.getHostName());
-        assertTrue(ctx.isAdFree());
         assertTrue(ctx.isCobranded());
         assertEquals(ctx.getCobrand(), "framed");
     }
@@ -97,7 +92,6 @@ public class SessionContextTest extends TestCase {
         request.setServerName("azcentral.dev.greatschools.net");
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
         assertEquals("azcentral.dev.greatschools.net", ctx.getHostName());
-        assertTrue(!ctx.isAdFree());
         assertTrue(ctx.isCobranded());
         assertEquals(ctx.getCobrand(), "azcentral");
     }
@@ -108,14 +102,12 @@ public class SessionContextTest extends TestCase {
         request.setServerName("yahoo.greatschools.net");
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
         assertEquals(ctx.getHostName(), "yahoo.greatschools.net");
-        assertTrue(!ctx.isAdFree());
         assertTrue(ctx.isCobranded());
         assertTrue(ctx.isYahooCobrand());
 
         request.setServerName("yahooed.greatschools.net");
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
         assertEquals(ctx.getHostName(), "yahooed.greatschools.net");
-        assertTrue(!ctx.isAdFree());
         assertTrue(ctx.isCobranded());
         assertTrue(ctx.isYahooCobrand());
     }
@@ -126,7 +118,6 @@ public class SessionContextTest extends TestCase {
         request.setServerName("maddy");
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
         assertEquals(ctx.getHostName(), "maddy");
-        assertTrue(!ctx.isAdFree());
         assertTrue(!ctx.isCobranded());
         assertTrue(!ctx.isYahooCobrand());
     }

@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.58 2005/12/01 20:32:53 apeterson Exp $
+$Id: global.css,v 1.59 2005/12/03 00:35:59 apeterson Exp $
 ----------------------------------------------- */
 
 /*
@@ -39,6 +39,24 @@ div.verticalcontainer {position:relative;height:250px;}
 .fullheight {height:100%;}
 .fullwidth {width:100%;}
 
+
+.cobranded div#bodyGS {
+width: 800px;
+margin: auto;
+}
+
+/*
+body.yahooed div#bodyGS {
+    font-family: comic sans MS;
+    background-color: white;
+    border: 3px dashed red;
+    padding: 1em;
+}
+body.yahooed  {
+    font-family: comic sans MS;
+    background-color: orange;
+}
+*/
 
 /*   Header/Footer
 ----------------------------------------------- */
@@ -125,12 +143,11 @@ h3.tagline {color:#F60;font-weight:normal;padding:0px 0px 5px 0px;}
 /*  Lists
 ----------------------------------------------- */
 .result_title {font-size:1.1em;padding:0px 20px 0px 0px;font-weight:bold;}
-ul {padding:0px 0px 0px 0px;}
-ul li {padding:0px 20px 1px 0px;}
-ul li.viewall {background: url(../img/arrow.gif) 2px no-repeat;margin:2px 0px 10px 0px;}
-ul li.viewall a {font-weight:normal;margin:0px 0px 0px 12px;}
 
-table.topCities ul li { font-size: .95em; }
+.topCities ul {padding:0px 0px 0px 0px;}
+.topCities ul li {padding:0px 20px 1px 0px; } /*font-size: .95em;*/
+/*.topCities ul li.viewall {background: url(../img/arrow.gif) 2px no-repeat;margin:2px 0px 10px 0px;}
+.topCities ul li.viewall a {font-weight:normal;margin:0px 0px 0px 12px;}*/
 
 
 
@@ -143,6 +160,15 @@ input.checkbox {margin:0px 0px -2px 0px;}
 .textfieldfocused {color:#333;min-width:50%;}
 .textfieldblurred {color:#999;min-width:50%;}
 input.btn {width:28px;height:24px;margin:0px 0px 0px 6px;padding:0px 0px 0px 0px;border:0;}
+
+
+/* User Info */
+div#userInfo {
+    font-size: 0.97em;
+    padding-right: 1em;
+    line-height:1.2em;
+}
+
 
 
 /*  Links

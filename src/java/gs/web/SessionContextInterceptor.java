@@ -1,9 +1,10 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextInterceptor.java,v 1.9 2005/11/18 22:49:25 apeterson Exp $
+ * $Id: SessionContextInterceptor.java,v 1.10 2005/12/03 00:35:59 apeterson Exp $
  */
 package gs.web;
 
+import gs.web.util.PageHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeansException;
@@ -66,6 +67,10 @@ public class SessionContextInterceptor
         _sessionContextUtil.readCookies(request, context);
         _sessionContextUtil.updateFromRequestAttributes(request, context);
         _sessionContextUtil.updateFromParams(request, response, context);
+
+
+        PageHelper pageHelper = new PageHelper(context);
+        request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
 
         return true; // go on
     }

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.22 2005/11/28 18:43:29 thuss Exp $
+ * $Id: SessionContext.java,v 1.23 2005/12/03 00:35:59 apeterson Exp $
  */
 package gs.web;
 
@@ -84,15 +84,6 @@ public class SessionContext
 
     public boolean isCobranded() {
         return _cobrand != null;
-    }
-
-    public boolean isAdFree() {
-        boolean sAdFree = false;
-        if (_cobrand != null &&
-                (_cobrand.matches("mcguire|framed|number1expert|vreo"))) {
-            sAdFree = true;
-        }
-        return sAdFree;
     }
 
     public boolean isYahooCobrand() {

@@ -10,6 +10,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gsweb="gstaglib">
+<jsp:directive.page import="gs.web.util.PageHelper"/>
 
 <html lang="en">
 <jsp:output doctype-root-element="html"
@@ -31,8 +32,10 @@
     <gsml:url var="searchcss" value="/res/css/search/search.css"/>
     <link rel="stylesheet" href="${searchcss}"
           type="text/css" media="screen"/>
-    <meta name="onload" content="javascript:document.sf.q.focus()"/>
-    <meta name="gsheader" content="false"/>
+    <jsp:scriptlet>
+        PageHelper.hideHeader(request);
+        PageHelper.addOnLoadHandler(request, "document.sf.q.focus()");
+    </jsp:scriptlet>
     <ad:xAdSetup ads="x22,x20" page="search"/>
 </head>
 

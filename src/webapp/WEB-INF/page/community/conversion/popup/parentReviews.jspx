@@ -3,6 +3,7 @@
           xmlns="http://www.w3c.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:conv="urn:jsptagdir:/WEB-INF/tags/community/conversion/popup"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
 <html lang="en">
@@ -42,6 +43,6 @@
             nextPage="compareSchools.page"
         />
     </body>
-    <gsml:fireclick pageType="conversion" pageName="parentreviews" />
+    <mod:tracking pageType="conversion" pageName="parentreviews" />
 </html>
 </jsp:root>

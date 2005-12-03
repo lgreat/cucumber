@@ -6,6 +6,7 @@
           xmlns:spring="http://www.springframework.org/tags"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gsweb="gstaglib"
         >
     <html lang="en">
@@ -123,7 +124,7 @@
         }
         </script>
         ]]>
-    <gsml:fireclick pageType="article" pageName="library" />
+    <mod:tracking pageType="article" pageName="library" />
     </body>
     </html>
 </jsp:root>
