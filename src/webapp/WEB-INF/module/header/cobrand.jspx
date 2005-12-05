@@ -12,7 +12,7 @@
     Cobrand headers will eventually need to be moved somewhere that we don't have to create a separate
     http request just to fetch them such as the database.
     -->
-    <c:if test="${requestScope.context.cobranded and !requestScope.context.adFree}">
+    <c:if test="${requestScope.context.cobranded and !requestScope.pageHelper.adFree}">
         <div id="headerCobrand">
             <!-- Backup the onload function because some cobrands overwrite it -->
             <script language="javascript">
