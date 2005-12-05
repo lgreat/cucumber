@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.60 2005/12/05 19:48:36 apeterson Exp $
+$Id: global.css,v 1.61 2005/12/05 21:47:56 apeterson Exp $
 ----------------------------------------------- */
 
 /*
@@ -185,7 +185,7 @@ div#userInfo {
 /*  Misc
 ----------------------------------------------- */
 .parentPoll {text-align:center;}
-.parentPoll h3 {padding:0px 0px 0px 0px;font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#00f;}
+.parentPoll h3 {padding:0px 0px 0px 0px;font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#036;}
 
 /*  Advertising
 ----------------------------------------------- */
@@ -210,6 +210,27 @@ div.featuredarticle h3 {
 margin-top: 1em;
 }
 
+.featuredarticles,
+.hotTopics {
+    margin: 0 .5em 0 .5em
+}
+.featuredarticles li, .hotTopics li {
+    padding:3px 20px 3px 12px;
+    margin:2px 0px 3px 0px;
+    background: url(../img/bullet_blueball.gif) 2px 7px no-repeat;
+}
+.featuredarticles h3, div.hotTopics h3 {
+    font-size: 1.5em;
+    color: #036;
+    font-weight: bold;
+    padding:3px 20px 3px 0;
+    margin:2px 0px 3px 0px;
+}
+.topcontentcol2 .hotTopics h3 {
+    font-size: 1.3em;
+}
+
+
 .promoNewsletterSmall h2 {font-size:1.5em;font-weight:bold;margin:0px 0px 0px 0px;color:#036;}
 .promoNewsletterSmall h3 {margin: 10px 0px 2px 0px;}
 .promoNewsletterSmall .smallform {margin: 10px 0px 2px 0px;white-space:nowrap;}
@@ -221,7 +242,7 @@ margin-top: 1em;
 .promoNewsletterMedium h3 {font-size:1em;font-weight:bold;margin:10px 0px 5px 0px;}
 /*.promoNewsletterMedium .columnHeader  {font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#66C;}*/
 div.promoNewsletterMedium .smallform {margin: 10px 0px 2px 0px;white-space:nowrap;}
-.promoNewsletterMedium h4, .hotTopics h4 {font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#00F}
+.promoNewsletterMedium h4 {font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#036}
 
 .promoNewsletterBig {margin:0px 0px 0px 2px;}
 .promoNewsletterBig img {float:right;margin:15px;}
@@ -260,7 +281,7 @@ table.promoMembershipBig { margin: .1em 1em 1em 0; }
 .schoolchoicecenter li {
     padding:3px 20px 3px 12px;
     margin:2px 0px 3px 0px;
-    background: url(../img/promo/bullet_blueball.gif) 2px 7px no-repeat;
+    background: url(../img/bullet_blueball.gif) 2px 7px no-repeat;
 }
 /*.schoolchoicecenter li.viewall {background: url(../img/arrow.gif) 2px no-repeat;margin:2px 0px 3px 0px;}*/
 .schoolchoicecenter li.viewall {margin-bottom: -6px;  }

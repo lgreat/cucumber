@@ -48,14 +48,9 @@
                     <td class="col1" valign="top">
                         <mod:globalNav/>
                         <gsml:box tableClass="blank" tableWidth="100%">
-                            <h3>Featured Topics</h3>
-                            <ul class="resultlist">
-                                <li><a href="#">Great Learning Gift Ideas You Won't See on TV</a></li>
-                                <li><a href="#">Easy Gifts Kids Can Make</a></li>
-                                <li><a href="#">Fun Ideas for the Holiday Break</a></li>
-                            </ul>
-
-                            <!--jsp:include page="/promo/featuredArticles.module?position=PATH1_FEATURE"/-->
+                            <div class="featuredarticles">
+                                <jsp:include page="/promo/featuredArticles.module?position=PATH1_FEATURE&amp;count=3"/>
+                            </div>
                         </gsml:box>
                     </td>
                     <td class="col2" valign="top">
@@ -67,8 +62,10 @@
                                         <span class="moduleheader"><h1 class="inline">${stateLongName} Schools</h1> &#8211; Members Area</span>
 
                                         <h3 class="tagline">
-                                            Brought to you by GreatSchools, an independent nonprofit dedicated to helping parents
+                                            Brought to you by GreatSchools, an independent nonprofit dedicated to
+                                            helping parents
                                         </h3>
+
                                         <div style="padding-right:7px;padding-top: .75em">
                                             <h3 class="result_title">Find school stats, parent reviews and more</h3>
                                             <mod:searchBox state="${requestScope.context.stateOrDefault}"/>
@@ -88,11 +85,8 @@
                                             </table>
                                         </div>
                                     </td><td width="40%">
-                                    <div style="border-left:1px solid #999;padding:0px 5px 0px 10px;margin:0px 0px 10px 0px;">
-                                        <promo:membershipCenterSmall/>
-                                        <br/>
-                                        <promo:schoolChoiceCenterSmall/>
-                                    </div></td></tr>
+                                    <promo:schoolChoiceCenterMedium/>
+                                </td></tr>
                             </table>
                         </gsml:box>
                         <gsml:box tableClass="shade3" tableWidth="100%">

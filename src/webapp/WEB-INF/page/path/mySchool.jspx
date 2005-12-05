@@ -47,111 +47,112 @@
         state="${requestScope.context.stateOrDefault}"
         />
 <table id="main" border="0" cellspacing="0" cellpadding="0" width="100%">
-<tr>
-<td class="col1" valign="top">
-    <mod:globalNav/>
-    <jsp:include page="/parentPoll.module"/>
-</td>
-<td class="col2" valign="top">
-    <gsml:box tableClass="shade3" tableWidth="100%"><!--contentClass="button" valign="top"-->
-        <h1 class="moduleheader">My Child's School</h1>
+    <tr>
+        <td class="col1" valign="top">
+            <mod:globalNav/>
+            <jsp:include page="/parentPoll.module"/>
+        </td>
+        <td class="col2" valign="top">
+            <gsml:box tableClass="shade3" tableWidth="100%"><!--contentClass="button" valign="top"-->
+                <h1 class="moduleheader">My Child's School</h1>
 
-        <h3 class="tagline">Stats, tools and advice from GreatSchools, an independent nonprofit
-            committed to helping parents</h3>
+                <h3 class="tagline">Stats, tools and advice from GreatSchools, an independent nonprofit
+                    committed to helping parents</h3>
 
-        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-            <tr>
-                <td width="60%" valign="top">
-                    <div class="topcontentcol1" style="padding-top: .75em; padding-right: 2em;" >
-                        <h3 class="result_title">
-                            Find test scores, teacher stats and more</h3>
-                        <mod:searchBox state="${requestScope.context.stateOrDefault}"/>
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td width="60%" valign="top">
+                            <div class="topcontentcol1" style="padding-top: .75em; padding-right: 2em;">
+                                <h3 class="result_title">
+                                    Find test scores, teacher stats and more</h3>
+                                <mod:searchBox state="${requestScope.context.stateOrDefault}"/>
 
-                        <div class="browselinks">
-                            <gsml:a styleClass="nowrap"
-                                    href="/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}">
-                                My School List</gsml:a>
-                            <gsml:a styleClass="nowrap"
-                                    href="/cgi-bin/cs_where/${requestScope.context.stateOrDefault.abbreviation}">
-                                Compare schools</gsml:a>
-                            <gsml:a styleClass="nowrap"
-                                    href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">
-                                Advanced search</gsml:a>
+                                <div class="browselinks">
+                                    <gsml:a styleClass="nowrap"
+                                            href="/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}">
+                                        My School List</gsml:a>
+                                    <gsml:a styleClass="nowrap"
+                                            href="/cgi-bin/cs_where/${requestScope.context.stateOrDefault.abbreviation}">
+                                        Compare schools</gsml:a>
+                                    <gsml:a styleClass="nowrap"
+                                            href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">
+                                        Advanced search</gsml:a>
+                                </div>
+                                <!--c:if test="${requestScope.context.user != null}">
+                                    <jsp:include page="/community/mySchoolList.module?member=${requestScope.context.user.id}&amp;limit=3" />
+                                </c:if-->
+                            </div>
+                        </td><td valign="top">
+                        <div class="topcontentcol2">
+
+                            <!--mod:stateSelectMedium state="${requestScope.context.stateOrDefault}" /-->
+
+                            <div class="featuredarticle">
+                                <gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
+                                    <gsml:img src="/res/img/community/btn_rateyourschool.gif"
+                                              alt="Rate your School"/>
+                                </gsml:a>
+                                <br/>
+
+                                <h3 class="result_title">Sample Parent Review:</h3>
+                                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
+                                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
+                                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
+                                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>(May 2005)
+                                <br/>
+
+                                <div class="parentQuote">
+                                    "Dynamic, creative principal. Teachers who provide attention and dedication.
+                                    Active group of parents..."</div>
+                            </div><!-- featuredarticle -->
+
+                        </div><!-- topcontentcol2 -->
+                    </td></tr></table>
+            </gsml:box>
+            <gsml:box tableClass="shade3" tableWidth="100%">
+                <gsml:a styleClass="nohover" href="/cgi-bin/newsletters/$STATE"><h1 class="moduleheader">Navigate the
+                    Year with FREE News, Tips and
+                    Advice!</h1></gsml:a>
+                <h4 class="tagline">Discover why <b>millions of parents</b> turn to GreatSchools each month</h4>
+
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td width="60%" valign="top">
+                            <div class="topcontentcol1">
+                                <promo:newsletterMedium/>
+                            </div>
+                        </td><td valign="top">
+                        <div class="topcontentcol2" style="padding-bottom: 180px;">
+                            <div class="hotTopics">
+                                <h3>Find Hot Topics Now</h3>
+                                <jsp:include page="/promo/featuredArticles.module?position=HOT_TOPIC&amp;count=3"/>
+                            </div>
+
+                            <!--div class="promoArticles">
+                                <h3>Let our education experts guide you through
+                                    a successful school year with articles written
+                                    for the season:</h3>
+                                <ul class="promo">
+                                    <li>Standardized tests</li>
+                                    <li>Back to school</li>
+                                    <li>Report cards</li>
+                                    <li>Holidays</li>
+                                    <li>Summer camps and more!</li>
+                                </ul>
+                                <ul class="nowrap"><li class="viewall"><gsml:a
+                                        href="/content/allArticles.page?state=$STATE">Browse full article
+                                    library</gsml:a></li></ul>
+                            </div-->
                         </div>
-                        <!--c:if test="${requestScope.context.user != null}">
-                            <jsp:include page="/community/mySchoolList.module?member=${requestScope.context.user.id}&amp;limit=3" />
-                        </c:if-->
-                    </div>
-                </td><td valign="top">
-                <div class="topcontentcol2">
-
-<!--mod:stateSelectMedium state="${requestScope.context.stateOrDefault}" /-->
-
-                    <div class="featuredarticle">
-                        <gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
-                            <gsml:img src="/res/img/community/btn_rateyourschool.gif"
-                                      alt="Rate your School"/>
-                        </gsml:a>
-                        <br/>
-                        Spread the word about your school - post a review.
-                        <br/>
-                        <br/>
-
-                        <h3 class="result_title">Sample Parent Review:</h3>
-                        <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
-                        <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
-                        <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
-                        <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>(May 2005)
-                        <br/>
-
-                        <div class="parentQuote">
-                            "Dynamic, creative principal. Teachers who provide attention and dedication.
-                            Active group of parents involved..."</div>
-                    </div><!-- featuredarticle -->
-
-                </div><!-- topcontentcol2 -->
-            </td></tr></table>
-    </gsml:box>
-    <gsml:box tableClass="shade3" tableWidth="100%">
-        <gsml:a styleClass="nohover" href="/cgi-bin/newsletters/$STATE"><h1 class="moduleheader">Navigate the Year with FREE News, Tips and
-            Advice!</h1></gsml:a>
-        <h4 class="tagline">Discover why <b>millions of parents</b> turn to GreatSchools each month</h4>
-
-        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-            <tr>
-                <td width="60%" valign="top">
-                    <div class="topcontentcol1">
-                        <promo:newsletterMedium/>
-                    </div>
-                </td><td valign="top">
-                <div class="topcontentcol2 hotTopics" style="padding-bottom: 180px;">
-                    <h4>Find Hot Topics Now</h4>
-                    <jsp:include page="/promo/featuredArticles.module?position=HOT_TOPIC&amp;count=3"/>
-
-                    <div class="promoArticles">
-                        <h3>Let our education experts guide you through
-                            a successful school year with articles written
-                            for the season:</h3>
-                        <ul class="promo">
-                            <li>Standardized tests</li>
-                            <li>Back to school</li>
-                            <li>Report cards</li>
-                            <li>Holidays</li>
-                            <li>Summer camps and more!</li>
-                        </ul>
-                        <ul class="nowrap"><li class="viewall"><gsml:a
-                                href="/content/allArticles.page?state=$STATE">Browse full article library</gsml:a></li></ul>
-                    </div>
-                </div><!-- topcontentcol2 -->
-            </td></tr></table>
-    </gsml:box>
-</td>
-</tr>
+                    </td></tr></table>
+            </gsml:box>
+        </td>
+    </tr>
 </table>
 </td>
 </tr>
 </table>
-<mod:tracking pageType="home" pageName="my childs school" />
+<mod:tracking pageType="home" pageName="my childs school"/>
 </body>
 </html>
 </jsp:root>

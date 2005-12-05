@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.9 2005/11/29 23:24:49 thuss Exp $
+ * $Id: UrlUtilSaTest.java,v 1.10 2005/12/05 21:47:56 apeterson Exp $
  */
 
 package gs.web.util;
@@ -56,6 +56,7 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/$STATE", request));
         request.setAttribute("STATE", State.PA);
         assertEquals("/modperl/bycity/PA", _urlUtil.buildUrl("/modperl/bycity/$STATE", request));
+        assertEquals("/content/allArticles.page?state=PA", _urlUtil.buildUrl("/content/allArticles.page?state=$STATE", request));
         request.removeAttribute("STATE");
 
         // Test the babycenter cobrand since it's not a greatschools.net domain
@@ -77,6 +78,7 @@ public class UrlUtilSaTest extends TestCase {
         // But Perl pages should stay unmodified by the context path
         assertEquals("/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/$STATE", request));
         assertEquals(ctxPath +"/res/css/global.css", _urlUtil.buildUrl("/res/css/global.css", request));
+        assertEquals("/gs-web/content/allArticles.page?state=CA", _urlUtil.buildUrl("/content/allArticles.page?state=$STATE", request));
         request.setContextPath("/");
 
         // Test https server links

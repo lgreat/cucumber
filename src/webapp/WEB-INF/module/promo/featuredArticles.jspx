@@ -5,7 +5,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
     <div class="featuredarticle">
-            <h3 class="result_title">${heading}</h3>
+            <h3>${heading}</h3>
             <b><gsweb:articlelink article="${article}" featured="true" flaggedIfNew="true"/></b>
             <br/>
             ${article.abstract}

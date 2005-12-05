@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ChoosingPathwayController.java,v 1.3 2005/11/29 23:38:25 apeterson Exp $
+ * $Id: ChoosingPathwayController.java,v 1.4 2005/12/05 21:47:56 apeterson Exp $
  */
 
 package gs.web.path;
@@ -39,7 +39,9 @@ public class ChoosingPathwayController implements Controller {
         final State state = context.getStateOrDefault();
         if (state.isSubscriptionState() &&
                 user != null &&
-                _subscriptionDao.isUserSubscribed(user, SubscriptionProduct.ONE_YEAR_SUB, new Date())) {
+                (_subscriptionDao.isUserSubscribed(user, SubscriptionProduct.ONE_YEAR_SUB, new Date()) ||
+                        user.getId().intValue() == 1) // for testing purposes
+                ) {
             pageName = "chooseInsiderLoggedIn";
         } else if (state.isSubscriptionState() &&
                 user == null &&

@@ -28,6 +28,12 @@
                         <gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">Search By Address</gsml:a>
                         <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List</gsml:a>
                         <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
+                            <c:if test="${requestScope.context.user!=null}">
+                                <gsml:a href="/insider.page?state=$STATE">Member Center</gsml:a>
+                            </c:if>
+                        </c:if>
+
+                        <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
                             <c:if test="${requestScope.context.user==null}">
                                 <gsml:a href="/cgi-bin/site/signin.cgi/$STATE/" state="${requestScope.context.stateOrDefault}">Sign In</gsml:a>
                             </c:if>

@@ -51,7 +51,7 @@
                     <td class="col1" valign="top">
                         <mod:globalNav/>
                         <gsml:box tableClass="shade2">
-                            <div class="featuredarticle">
+                            <div class="featuredarticles">
                                 <jsp:include page="/promo/featuredArticles.module?position=PATH1_FEATURE&amp;count=3"/>
                             </div>
 
