@@ -24,9 +24,9 @@ old user, add new subscriptions
             <h2>
                 FREE Newsletters
             </h2>
-            <div class="small">
+            <h4>
 				Help your child succeed in school.
-            </div>
+            </h4>
             <h3>Timely tips and advice:</h3>
             <input class="checkbox" type="checkbox" name="greatnews" value="greatnews" checked="checked"/>
             <label>Parent Advisor</label>

@@ -48,21 +48,19 @@
                 <tr>
                     <td class="col1" valign="top">
                         <mod:globalNav/>
-                        <gsml:box tableClass="blank" tableWidth="100%">
-                            <promo:newsletterSmall/>
-                        </gsml:box>
+                        <jsp:include page="/parentPoll.module"/>
                     </td>
                     <td class="col2" valign="top">
                         <gsml:box tableClass="shade3"
                                   tableWidth="100%">
-        <span class="moduleheader"><h1 class="inline">${stateLongName} Schools</h1> &#8211; Free Resources</span>
-
-                            <h3 class="tagline">
-                                Brought to you by GreatSchools, an independent nonprofit dedicated to helping parents
-                            </h3>
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <table style="vertical-align: top" border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
-                                    <td width="60%">
+                                    <td width="60%">        <span class="moduleheader">
+<h1 class="inline">${stateLongName} Schools</h1> &#8211; Free Resources</span>
+
+                            <!--h3 class="tagline">
+                                Brought to you by GreatSchools, an independent nonprofit dedicated to helping parents
+                            </h3-->
                                         <div style="padding-right:7px; padding-top: .75em">
                                             <h3 class="result_title">Find test scores, teacher stats and more</h3>
                                             <mod:searchBox state="${requestScope.context.stateOrDefault}"/>
@@ -81,15 +79,27 @@
                                                 </tr>
                                             </table>
                                         </div>
-                                    </td><td width="40%">
-                                    <div style="border-left:1px solid #999;padding:0px 5px 0px 10px;margin:0px 0px 10px 0px;">
+                                    </td><td width="40%" style="vertical-align: top;">
+                                    <div  style="padding: 0 1em 1em 0em; margin-left: -5px">
                                         <promo:schoolChoiceCenterMedium/>
-                                    </div></td></tr>
+                                        </div>
+                                    </td></tr>
                             </table>
                         </gsml:box>
-                        <gsml:box tableClass="shade3" tableWidth="100%">
-                            <promo:membershipBig/>
+                            <table style="vertical-align: top" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td width="60%" style="vertical-align: top"  height="100%">
+                        <gsml:box tableClass="shade3" tableWidth="100%" tableHeight="100%">
+                            <promo:membershipMedium/>
                         </gsml:box>
+                            </td>
+                            <td style="vertical-align: top"  width="40%" height="100%">
+                        <gsml:box tableClass="shade3" tableWidth="100%"  tableHeight="100%">
+                            <promo:newsletterSmall/>
+                        </gsml:box>
+                            </td>
+                            </tr>
+                            </table>
                     </td>
                 </tr>
             </table>

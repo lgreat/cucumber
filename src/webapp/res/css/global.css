@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------
 Greatschools.net Base Styles
-$Id: global.css,v 1.59 2005/12/03 00:35:59 apeterson Exp $
+$Id: global.css,v 1.60 2005/12/05 19:48:36 apeterson Exp $
 ----------------------------------------------- */
 
 /*
@@ -70,6 +70,13 @@ img#logo {width:260px;height:40px;padding:0px 0px 0px 0px;margin:0px 0px 6px 0px
     padding-left: 5px;
     width: 250px;
 }
+
+
+#stateNSearchBar { margin: 3px 0 0px 0}
+#stateNSearchBar .state { vertical-align: middle;}
+#stateNSearchBar .state { font-weight: bold;}
+#stateNSearchBar .btn { margin-right: 1em;}
+
 
 #footer {margin-left:auto;margin-right:auto;width:750px;line-height:10pt;font-size:.9em;}
 #footerGS {padding-top:10px;}
@@ -203,10 +210,7 @@ div.featuredarticle h3 {
 margin-top: 1em;
 }
 
-/*WAS: table.promoNewsletterSmall {margin:20px 0px 0px 2px;}*/
-/*WAS: table.promoNewsletterSmall h3 {font-size:1em;font-weight:bold;margin:10px 0px 0px 0px;}*/
-table.promoNewsletterSmall {margin:6px 0px 0px 0px;}
-.promoNewsletterSmall h2 {font-size:1.5em;font-weight:bold;margin:0px 0px 0px 0px;color:#00f}
+.promoNewsletterSmall h2 {font-size:1.5em;font-weight:bold;margin:0px 0px 0px 0px;color:#036;}
 .promoNewsletterSmall h3 {margin: 10px 0px 2px 0px;}
 .promoNewsletterSmall .smallform {margin: 10px 0px 2px 0px;white-space:nowrap;}
 
@@ -233,18 +237,33 @@ h3.membershipTagline {color:#F60;margin:10px 0px 10px 0px;font-weight:bold;}
 .promoMembershipBig td { vertical-align:top; padding: 0 0 .5em 0}
 table.promoMembershipBig { margin: .1em 1em 1em 0; }
 
+.promoMembershipMedium { margin: .3em;}
+.promoMembershipMedium h3 { color: #f60;}
+.promoMembershipMedium th { text-align: center; font-size: 0.9em; font-weight: 100}
+.promoMembershipMedium h5 { font-weight: 700; padding: .7em 0 0 0}
+.promoMembershipMedium td.learnMore a { display: block; padding: 1em}
+
+
 .promoArticles h3 {font-weight: bold;}
 .promoArticles ul.promo {margin:10px 0px 15px 10px;}
 .promoArticles ul.promo li {margin:0px 0px 0px 20px;list-style-type:disc;line-height:1.4em;}
 
 
 
-.schoolchoicecenter {margin:0px 0px 0px 5px;}
+.schoolchoicecenter {
+     margin:0px 0px 5px 5px;
+    background: url(../img/promo/bg_chalkboard.gif) center no-repeat;
+}
 .schoolchoicecenter b {font-weight:bold;text-decoration:none;}
-.schoolchoicecenter h3 {margin-top: 1em;}
-.schoolchoicecenter li {padding:3px 20px 3px 0px;}
-.schoolchoicecenter li.viewall {background: url(../img/arrow.gif) 2px no-repeat;margin:2px 0px 3px 0px;}
-.schoolchoicecenter li.viewall a {font-weight:normal; margin:0px 0px 0px 12px;}
+.schoolchoicecenter h3 {margin-top: 0em; font-size: 1.5em; color:#036;padding:0px 5px 1em 10px;}
+.schoolchoicecenter ul {border-left:1px solid #999;padding:0px 5px 0px 10px;}
+.schoolchoicecenter li {
+    padding:3px 20px 3px 12px;
+    margin:2px 0px 3px 0px;
+    background: url(../img/promo/bullet_blueball.gif) 2px 7px no-repeat;
+}
+/*.schoolchoicecenter li.viewall {background: url(../img/arrow.gif) 2px no-repeat;margin:2px 0px 3px 0px;}*/
+.schoolchoicecenter li.viewall {margin-bottom: -6px;  }
 
 
 /* Boxes
@@ -257,7 +276,7 @@ table.shade3 td.TL {background: #ececec url(../img/box/border_shade3_TL.gif) lef
 table.shade3 td.T {background: #ececec url(../img/box/border_shade3_T.gif) top repeat-x;}
 table.shade3 td.TR {background: #ececec url(../img/box/border_shade3_TR.gif) top right; width:7px; height:7px;}
 table.shade3 td.L {background: #FFFFFF url(../img/box/bg_gradient.gif) top left repeat-x;border-left:1px solid #ccc;font-size:1px;}
-table.shade3 td.BG {background: #FFFFFF url(../img/box/bg_gradient.gif) top left repeat-x; padding: 0;}
+table.shade3 td.BG {background: #FFFFFF url(../img/box/bg_gradient.gif) top left repeat-x; padding: 0; vertical-align: top}
 table.shade3 td.R {background: #FFFFFF url(../img/box/border_shade5_R.gif) right repeat-y;}
 table.shade3 td.BL {background: #FFFFFF url(../img/box/border_shade5_BL.gif) left bottom; width:7px; height:7px;}
 table.shade3 td.B {background: #FFFFFF url(../img/box/border_shade5_B.gif) bottom repeat-x;}

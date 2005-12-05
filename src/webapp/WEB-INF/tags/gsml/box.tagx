@@ -5,10 +5,11 @@
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="tableClass" required="true" description="class attribute applied to the table element"/>
     <jsp:directive.attribute name="tableWidth" required="false" description="width attribute applied to the table element"/>
+    <jsp:directive.attribute name="tableHeight" required="false" description="height attribute applied to the table element"/>
 
     <table class="${tableClass}"
         border="0" cellspacing="0" cellpadding="0"
-        width="${tableWidth}" >
+        width="${tableWidth}" height="${tableHeight}" >
         <tr>
             <td class="TL"></td>
             <td class="T"></td>

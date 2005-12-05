@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
+    <jsp:directive.tag body-content="empty"/>
+
+    <table class="promoMembershipMedium" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td width="60%">
+                <h1 class="moduleheader">Become a Member!
+
+                </h1>
+            </td>
+            <td colspan="2" style="text-align: right; padding-right: 1em"><span>
+                        <gsml:a href="/cgi-bin/site/signin.cgi/$STATE/">Sign In</gsml:a> or
+                <gsml:a href="/cgi-bin/conversion/$STATE/overview">Learn More</gsml:a>
+                    </span></td>
+        </tr>
+        <tr>
+            <td>                <h3>Annual membership includes exclusive content and features.</h3>
+</td>
+
+        </tr>
+        <tr>
+            <td></td>
+            <th width="20%">
+                Free
+            </th>
+            <th width="20%">
+                GreatSchools
+                    <br/>Insider
+            </th>
+        </tr>
+
+        <tr>
+            <td>
+                <h5>School Search</h5>
+Find test scores, teacher stats and more
+            </td>
+            <td align="center">
+                <gsml:img src="/res/img/promo/checkmark.gif" alt="X"/>
+            </td>
+            <td align="center">
+                <gsml:img src="/res/img/promo/checkmark.gif" alt="X"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h5>Help &amp; Advice</h5>
+Help your child succeed, improve your school
+            </td>
+            <td align="center">
+                <gsml:img src="/res/img/promo/checkmark.gif" alt="X"/>
+            </td>
+            <td align="center">
+                <gsml:img src="/res/img/promo/checkmark.gif" alt="X"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h5>GreatSchools Ratings</h5>
+How your school stacks up&#8212; a GreatSchools exclusive analysis
+            </td>
+            <td></td>
+            <td align="center">
+                <gsml:img src="/res/img/promo/checkmark.gif" alt="X"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h5>Search PLUS</h5>
+
+Find top-rated schools by area
+            </td>
+            <td></td>
+            <td align="center">
+                <gsml:img src="/res/img/promo/checkmark.gif" alt="X"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h5>Parent Reviews &amp; Ratings</h5>
+The inside story from parents
+            </td>
+            <td></td>
+            <td align="center">
+                <gsml:img src="/res/img/promo/checkmark.gif" alt="X"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" align="center" class="learnMore">
+                <gsml:a href="/cgi-bin/conversion/$STATE/overview">
+                    <gsml:img src="/images/learn_more_btn.gif" alt="Learn More"/>
+                </gsml:a>
+            </td>
+        </tr>
+    </table>
+</jsp:root>

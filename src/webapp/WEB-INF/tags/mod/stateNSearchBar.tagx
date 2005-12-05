@@ -5,12 +5,6 @@
     xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="state" type="gs.data.state.State" required="true"/>
-<style>
-#stateNSearchBar { margin: 3px 0 0px 0}
-#stateNSearchBar .state { vertical-align: middle;}
-#stateNSearchBar .state { font-weight: bold;}
-#stateNSearchBar .btn { margin-right: 1em;}
-</style>
 
 <c:set var="searchPrompt1" value="Search school name or district"/>
 <c:set var="searchPrompt2" value="Search city"/>
@@ -24,9 +18,9 @@
 
             <table id="stateNSearchBar" border="0" cellspacing="0" cellpadding="0" width="100%">
                 <tr class="">
-                    <td class="state" width="25">
+                    <!--td class="state" width="25">
 						<img height="21" width="25"  src="http://www.census.gov/census2000/states/img/${state.abbreviationLowerCase}.gif" />
-                    </td>
+                    </td-->
                     <td class="state">
 						${state.longName} Schools
 						<gsml:a styleClass="changeState" href="/stateLauncher.page?p=pathway${requestScope.context.pathway}">Change state</gsml:a>
