@@ -35,6 +35,7 @@
             .subCategory {font-size: 12px; padding-left: 20px; padding-bottom: 10px;}
             .categorySection {font-size: 12px; padding-left: 20px;}
             .articleLink {padding: 5px;}
+            #adSquare {clear:right;}
 
         </style>
     </head>
