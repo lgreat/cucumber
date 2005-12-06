@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.63 2005/12/05 23:06:31 apeterson Exp $
+   $Id: global.css,v 1.64 2005/12/06 00:45:37 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -181,10 +181,8 @@
 
     #stateNSearchBar .state {
         vertical-align: middle;
-    }
-
-    #stateNSearchBar .state {
         font-weight: bold;
+        padding-left: .5em;
     }
 
     #stateNSearchBar .btn {
@@ -595,6 +593,10 @@
         font-size: 1.3em;
     }
 
+    .promoNewsletterSmall {
+        padding-bottom: 2em;
+    }
+
     .promoNewsletterSmall h2 {
         font-size: 1.5em;
         font-weight: bold;
@@ -740,14 +742,11 @@
 
     .schoolchoicecenter {
         margin: 0px 0px 5px 5px;
+        min-height: 180px; /* image is 170px */
         background-image: url( ../img/promo/bg_chalkboard.gif );
         background-repeat: no-repeat;
         background-position: center center;
-    }
-
-    .schoolchoicecenter b {
-        font-weight: bold;
-        text-decoration: none;
+        background-position:50% 50%; /* Does this fix IE bug? */
     }
 
     .schoolchoicecenter h3 {
@@ -755,6 +754,7 @@
         font-size: 1.5em;
         color: #036;
         padding: 0px 5px 1em 10px;
+        white-space:nowrap;
     }
 
     .schoolchoicecenter ul {
