@@ -68,8 +68,11 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
     border-bottom-width:1px;
 }
 
-#browseheader {
+.browseheader {
+    padding-bottom:5px;
     font-weight:700;
+    font-size:larger;
+    color:#FE894C;
 }
 
 .rightcolumn {
@@ -88,4 +91,33 @@ table.refinementtable {
 table.refinementtable td {
    padding-left:20px;
    padding-bottom:0px
+}
+
+#newnav { width:100%; height:45px; padding:0px;}
+#newnav td {
+    text-align:center;
+    font-weight:bold;
+    font-size:larger;
+    color:#FFFFFF;
+    background-color:#FE894C;
+}
+
+.citydistrict { padding:5px; }
+.citydistrict .citydistresult { padding-left:7px; padding-right:7px; }
+
+.refinementlist li{
+    padding-bottom:6px;
+}
+
+.filterlist li{
+    padding-bottom:3px;
+}
+
+#filters {
+    background-color:#DDDDDD;
+}
+
+.citydistlinks {
+    padding-top:5px;
+    padding-bottom:6px;
 }

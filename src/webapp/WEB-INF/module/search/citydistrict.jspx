@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
+    <div class="citydistrict">
+
+        <c:if test="${not empty model.cites}">
+            <span class="citydistlabel"><c:out value="${model.filters}" /></span>
+            <c:forEach var="city" items="${model.cities}">
+                <span class="citydistresult">
+                    <a href="/search/search.page?c=school&amp;state=${param.state}&amp;q=${param.q}&amp;city=${city}${model.filterparams}">
+                        <c:out value="${city}"/>
+                    </a>
+                </span>
+            </c:forEach>
+            <br/>
+        </c:if>
+
+
+        <c:if test="${not empty model.cities}">
+            <div class="citydistlinks">
+        <span class="citydistlabel">All schools in the city of: </span>
+        <c:forEach var="city" items="${model.cities}">
+            <span class="citydistresult">
+            <a href="/search/search.page?c=school&amp;state=${param.state}&amp;q=${param.q}&amp;city=${city}">
+                <c:out value="${city}"/>
+            </a>
+            </span>
+        </c:forEach>
+        <c:if test="${model.citiestotal > 3}">
+            <a href="">more cities...</a>
+        </c:if>
+        <br/>
+            </div>
+        </c:if>
+
+
+        <c:if test="${not empty model.districts}">
+
+        <span class="citydistlabel">All schools in the district of: </span>
+        <c:forEach var="district" items="${model.districts}">
+            <span class="citydistresult">
+                <a href="/search/search.page?c=school&amp;state=${param.state}&amp;district=${district.id}&amp;distname=${district.name}">
+                    <c:out value="${district.name}"/>
+                </a>
+            </span>
+        </c:forEach>
+        <c:if test="${model.citiestotal > 3}">
+            <a href="">more districts...</a>
+        </c:if>
+        </c:if>
+    </div>
+</jsp:root>

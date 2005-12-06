@@ -30,7 +30,9 @@ public class MainResultsTag extends ResultsTableTagHandler {
 
         JspWriter out = getJspContext().getOut();
 
-        out.print("<table width=\"100%\"><tr><td class=\"mainresultsheader\">");
+        out.print("<table width=\"100%\">");
+        /*
+        out.println("<tr><td class=\"mainresultsheader\">");
         out.println("<table width=\"100%\"><tr><td>");
         out.print("Found ");
         out.print(_total);
@@ -55,7 +57,9 @@ public class MainResultsTag extends ResultsTableTagHandler {
             out.print(" - ");
             out.print((_page * PAGE_SIZE) + PAGE_SIZE);
         }
-        out.println("</td></tr></table></td></tr><tr>");
+        out.println("</td></tr></table></td></tr>");
+          */
+        out.println ("<tr>");
         out.println("<td colspan=\"2\">");
         if (_results != null && _total > 0) {
             out.println("<table id=\"mainresults\">");
@@ -76,12 +80,13 @@ public class MainResultsTag extends ResultsTableTagHandler {
                         break;
                     case SearchResult.CITY:
                         out.print("Schools in the city of ");
-                        linkBuffer.append("<a href=\"/search/search.page?q=");
-                        linkBuffer.append(Functions.escapeXml(_queryString));
-                        linkBuffer.append("&c=school&amp;city=");
-                        linkBuffer.append(result.getCity());
-                        linkBuffer.append("&state=");
+                        linkBuffer.append("<a href=\"/search/search.page?c=school&state=");
                         linkBuffer.append(result.getState());
+                        linkBuffer.append("&amp;q=");
+                        linkBuffer.append(Functions.escapeXml(_queryString));
+                        linkBuffer.append("&amp;city=");
+                        linkBuffer.append(result.getCity());
+
                         out.print(linkBuffer.toString());
                         out.print("\">");
                         break;
@@ -128,6 +133,7 @@ public class MainResultsTag extends ResultsTableTagHandler {
                     out.println("</span>");
                 }
 
+                /*
                 if (result.getType() == SearchResult.DISTRICT ||
                     result.getType() == SearchResult.CITY) {
                     out.println("<table class=\"refinementtable\"><tr>");
@@ -145,6 +151,7 @@ public class MainResultsTag extends ResultsTableTagHandler {
                     out.print(linkBuffer.toString());
                     out.println("&st=charter\">Charter</a></td></tr></table>");
                 }
+                */
                 out.println("</td></tr>");
                 if (_debug) {
                     out.print("<tr><td><pre class=\"explanation\">");

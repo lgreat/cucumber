@@ -44,7 +44,7 @@ public class SearchController extends AbstractFormController {
     private static Logger searchLog = Logger.getLogger("search");
     private SpellCheckSearcher _spellCheckSearcher;
     private Searcher _searcher;
-    private boolean suggest = true;
+    private boolean suggest = false;
     private int minimumHits = 3;
     private float minimumScore = 0.5f;
 
@@ -97,6 +97,19 @@ public class SearchController extends AbstractFormController {
                 request.setAttribute("city", sc.getCity());
             } else if (sc.getDistrict() != null) {
                 request.setAttribute("district", sc.getDistrict());
+                request.setAttribute("distname", request.getParameter("distname"));
+            }
+
+            String[] levels = request.getParameterValues("gl");
+            System.out.println ("debug 1");
+            if (levels != null) {
+                System.out.println ("setting gl: "+ levels);
+                request.setAttribute("gl", levels);
+            }
+
+            String[] sTypes = request.getParameterValues("st");
+            if (sTypes != null) {
+                request.setAttribute("st", sTypes);
             }
 
             int page = 1;
@@ -116,6 +129,7 @@ public class SearchController extends AbstractFormController {
 
             Hits hts = _searcher.search(sc);
             if (hts != null) {
+
                 _resultsPager = new ResultsPager();
                 _resultsPager.setQuery(sc.getQueryString());
 

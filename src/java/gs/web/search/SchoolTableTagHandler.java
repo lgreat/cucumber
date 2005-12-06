@@ -5,6 +5,8 @@ import gs.data.school.district.District;
 import gs.data.search.highlight.TextHighlighter;
 
 import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
@@ -37,32 +39,106 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
         out.println("<form action=\"/compareSchools.page\">");
         out.println("<table class=\"columns\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">");
-        out.println ("<tr><td class=\"mainresultsheader\">");
 
-        out.println("<table width=\"100%\"><tr><td>");
+        out.println ("<tr><td class=\"mainresultsheader\">");
+        out.println("<table width=\"100%\"><tr><td><span id=\"resultsheadline\">");
         out.print("Found ");
         out.print(_total);
-        String constraint = getConstraint();
-        if (constraint != null && !"all".equals(constraint)) {
-            out.print (" " + constraint);
-        } else {
-            out.print (" result");
-        }
+        out.print(" school");
         if (_total != 1) {
             out.print("s");
         }
-        out.print(" for query: <span class=\"searchfor\">");
-        out.print(_queryString);
-        out.print("</span>");
-        out.print("</td><td id=\"resultset\">");
+        out.print(" in ");
+        String city = (String)getJspContext().findAttribute("city");
+        if (city != null) {
+            out.print(" the city of: ");
+            out.print(city);
+        } else {
+            String dist = (String)getJspContext().findAttribute("distname");
+            if (dist != null) {
+                out.print(" the distict of: ");
+                out.print(dist);
+            }
+        }
+
+        out.print("</span></td><td id=\"resultset\">");
         if (_total > 0) {
             out.print("Results ");
             out.print((_page * PAGE_SIZE) + 1);
             out.print(" - ");
-            out.print((_page * PAGE_SIZE) + PAGE_SIZE);
+            int x = (_page * PAGE_SIZE) + PAGE_SIZE;
+            if (_total > x) {
+                out.print(x);
+            } else {
+                out.print(_total);
+            }
+            out.print(" of ");
+            out.println(_total);
         }
-        out.println("</td></tr></table>");
+        out.println("</td></tr>");
+
+        StringBuffer filterBuffer = new StringBuffer();
+
+        PageContext pc = (PageContext)getJspContext().findAttribute(PageContext.PAGECONTEXT);
+        String qString = "";
+        if (pc != null) {
+            HttpServletRequest request = (HttpServletRequest)pc.getRequest();
+            qString = request.getQueryString();
+        }
+
+        String[] gls = (String[])getJspContext().findAttribute("gl");
+        if (gls != null) {
+            for (int i = 0; i < gls.length; i++) {
+                String qs = "";
+                if (filterBuffer.length() > 0) {
+                    filterBuffer.append(" | ");
+                }
+                filterBuffer.append(gls[i]);
+                if ("elementary".equals(gls[i])) {
+                    qs = qString.replaceAll("\\&gl=elementary","");
+                } else if("middle".equals(gls[i])) {
+                    qs = qString.replaceAll("\\&gl=middle","");
+                } else if("high".equals(gls[i])) {
+                    qs = qString.replaceAll("\\&gl=high","");
+                }
+                filterBuffer.append(" (<a href=\"/search/search.page?");
+                filterBuffer.append(qs);
+                filterBuffer.append("\">remove</a>)");
+            }
+        }
+
+        String[] sts = (String[])getJspContext().findAttribute("st");
+        if (sts != null) {
+            for (int i = 0; i < sts.length; i++) {
+                String qs = "";
+                if (filterBuffer.length() > 0) {
+                    filterBuffer.append(" | ");
+                }
+                filterBuffer.append(sts[i]);
+                if ("public".equals(sts[i])) {
+                    qs = qString.replaceAll("\\&st=public","");
+                } else if("private".equals(sts[i])) {
+                    qs = qString.replaceAll("\\&st=private","");
+                } else if("charter".equals(sts[i])) {
+                    qs = qString.replaceAll("\\&st=charter","");
+                }
+                filterBuffer.append(" (<a href=\"/search/search.page?");
+                filterBuffer.append(qs);
+                filterBuffer.append("\">remove</a>)");
+            }
+        }
+
+        if (filterBuffer.length() > 0) {
+            out.println ("<tr><td id=\"filters\" colspan=\"2\">");
+            out.print("Filtered: ");
+            out.println (filterBuffer.toString());
+            out.println ("</td></tr>");
+        }
+
+        out.println ("</table>");
+
         out.print("</td></tr>");
+
         out.println("<tr><td valign=\"top\">");
         out.println("<table class=\"school_results_only\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
 
@@ -79,9 +155,9 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
             out.println("<tr><th class=\"result_title\" width=\"1\">&nbsp;</th>");
             out.print("<th class=\"left\">Schools</th>");
-            out.println("<th class=\"result_title\">Type</th>");
-            out.println("<th class=\"result_title\">Grade</th>");
-            out.println("<th class=\"result_title\">Enrollment</th>");
+            out.println("<th align=\"center\" class=\"result_title\">Type</th>");
+            out.println("<th align=\"center\" class=\"result_title\">Grade</th>");
+            out.println("<th align=\"center\" class=\"result_title\">Enrollment</th>");
 
             out.println("</tr>");
 

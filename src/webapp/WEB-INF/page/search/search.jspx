@@ -48,7 +48,7 @@
         <table width="100%">
             <tr>
                 <td align="left">
-                    <a href=""><img id="logo" alt="GreatSchools.net Logo"
+                    <a href="http://www.greatschools.net"><img id="logo" alt="GreatSchools.net Logo"
                                     src="/res/img/logo_GS_260x40.gif"></img>
                     </a>
                 </td>
@@ -64,50 +64,44 @@
 </tr>
 <tr>
     <td colspan="2">
-        <table width="100%">
-            <tr><td align="left">
-                 </td><td align="right">
-                    <search:searchControl rememberQuery="true"/>
-            </td></tr>
+        <!--<table width="100%">-->
+            <!--<tr><td>-->
+                <search:searchControl rememberQuery="true"/>
+            <!--</td></tr>-->
+        <!--</table>-->
+    </td>
+</tr>
+
+<tr>
+    <td>
+        <table id="newnav">
+            <tr>
+                <td>Choosing Schools</td>
+                <td>My Child's School</td>
+                <td>Holiday Center</td>
+                <td>Compare Schools</td>
+            </tr>
         </table>
     </td>
 </tr>
+
 <tr>
 
 <td>
 
 <table id="main" width="100%"><tr>
 <td class="col1" valign="top">
-            <mod:globalNav/>
-            <ad:x20/>
-</td>
-<td valign="top" class="col2">
 
-       <gsml:box tableClass="shade3 main">
-           <c:choose>
-               <c:when test="${param.c == 'school'}">
-                   <gsweb:schooltable schools="${results.mainResults}"
-                                      query="${param.q}"
-                                      total="${results.total}"
-                                      page="${param.p}" />
-               </c:when>
-               <c:otherwise>
-                   <gsweb:mainResults results="${results.mainResults}"
-                                      page="${param.p}"
-                                      total="${results.total}"
-                                      query="${param.q}"
-                                      constraint="${param.c}"
-                                      debug="${param.debug}"/>
-              </c:otherwise>
-           </c:choose>
+    <c:if test="${param.c == 'school'}">
+        <gsml:box tableClass="shade3 main">
+            <gsweb:filters/>
         </gsml:box>
+    </c:if>
 
-</td>
-<td class="rightcolumn">
     <gsml:box tableClass="shade3 main">
         <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
-        <ul>
-            <li id="browseheader">Browse</li>
+        <h2 class="browseheader">Browse</h2>
+        <ul class="refinementlist">
             <li><gsml:a href="/modperl/citylist/${state.abbreviation}">All <c:out value="${state.longName}"/> Cities</gsml:a></li>
             <li><gsml:a href="/modperl/distlist/${state.abbreviation}">All <c:out value="${state.longName}"/> Districts</gsml:a></li>
             <li><gsml:a href="/content/allArticles.page?state=${requestScope.context.stateOrDefault.abbreviation}">All Articles</gsml:a></li>
@@ -116,13 +110,60 @@
     </gsml:box>
     <gsml:box tableClass="shade3 main">
         <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
-        <ul>
-            <li id="browseheader">Advanced School Search</li>
+        <h2 class="browseheader">Advanced School Search</h2>
+        <ul class="refinementlist">
             <li><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">Search near Address</gsml:a></li>
             <li><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#county">Search by County</gsml:a></li>
         </ul>
     </gsml:box>
+
 </td>
+<td valign="top" class="col2">
+
+    <c:choose>
+        <c:when test="${param.c == 'school'}">
+            <gsml:box tableClass="shade3 main">
+                <gsweb:schooltable schools="${results.mainResults}"
+                                   query="${param.q}"
+                                   total="${results.total}"
+                                   page="${param.p}" />
+            </gsml:box>
+        </c:when>
+        <c:otherwise>
+
+            <div id="resutlsheader">
+            <table width="90%">
+                <tr>
+                    <td align="left">
+                        <span>All results for </span>&quot;<span class="browseheader">${param.q}</span>&quot;
+                    </td>
+                    <td align="right">
+                        <c:if test="${results.total gt 0}">
+                            <c:set var="px" value="${(param.p * 10)}"/>
+                            <c:out value="${px + 1} - ${(results.total lt px + 10) ? results.total : px + 10} of ${results.total}"/>
+                        </c:if>
+                    </td>
+                </tr>
+            </table>
+            </div>
+
+            <jsp:include page="/search/citydistrict.module?${pageContext.request.queryString}" />
+            <hr/>
+            <gsweb:mainResults results="${results.mainResults}"
+                               page="${param.p}"
+                               total="${results.total}"
+                               query="${param.q}"
+                               constraint="${param.c}"
+                               debug="${param.debug}"/>
+        </c:otherwise>
+    </c:choose>
+
+</td>
+
+<td class="rightcolumn" align="center">
+    <ad:x20/>
+</td>
+
 </tr>
 
 </table>

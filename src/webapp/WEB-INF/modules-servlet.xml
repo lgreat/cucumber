@@ -108,6 +108,14 @@
         </property>
     </bean>
 
+    <bean name="/search/citydistrict.module"
+        class="gs.web.search.CityDistrictController"
+        autowire="byName" >
+      <constructor-arg>
+        <ref bean="searcher"/>
+      </constructor-arg>
+    </bean>
+
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass">
             <value>org.springframework.web.servlet.view.JstlView</value>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<searchtests>
+  <baseurl>
+    http://dev.greatschools.net/search/search.page
+  </baseurl>
+  <test>
+    <description>Schools by county</description>
+    <query>Los Angeles private</query>
+    <state>ca</state>
+    <result>Cheder Of Los Angeles</result>
+  </test>
+  <test>
+    <description>A topic-only search</description>
+    <strict>false</strict>
+    <query>api</query>
+    <state>ca</state>
+    <result>The API</result>
+    <result>A Guide to the STAR Tests in California</result>
+  </test>
+  <test>
+    <description>A query returning schools and topics</description>
+    <strict>false</strict>
+    <query>gifted</query>
+    <state>ca</state>
+    <result>Mirman School</result>
+    <result>Balboa Gifted</result>
+    <result>Great Gifts for Teachers</result>
+    <result>Gifted and Talented Education</result>
+  </test>
+</searchtests>
