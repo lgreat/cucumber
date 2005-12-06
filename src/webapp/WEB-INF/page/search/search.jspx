@@ -122,7 +122,7 @@
 
     <c:choose>
         <!--<c:when test="${param.c == 'school'}">-->
-        <c:when test="${(not empty param.city) or (not empty param.dist)}">
+        <c:when test="${(not empty param.city) or (not empty param.district)}">
             <gsml:box tableClass="shade3 main">
                 <gsweb:schooltable schools="${results.mainResults}"
                                    query="${param.q}"
