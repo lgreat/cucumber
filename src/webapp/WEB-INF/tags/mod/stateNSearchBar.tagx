@@ -22,8 +22,7 @@
 						<img height="21" width="25"  src="http://www.census.gov/census2000/states/img/${state.abbreviationLowerCase}.gif" />
                     </td-->
                     <td class="state">
-						${state.longName} Schools
-						<gsml:a styleClass="changeState" href="/stateLauncher.page?p=pathway${requestScope.context.pathway}">Change state</gsml:a>
+						${state.longName} Schools &#8212; <gsml:a styleClass="changeState" href="/stateLauncher.page?p=pathway${requestScope.context.pathway}">Change state</gsml:a>
                     </td>
 
                                     <td width="*"></td>
