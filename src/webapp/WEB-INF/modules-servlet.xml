@@ -13,93 +13,94 @@
 
 
     <bean id="sessionContextInterceptor"
-        class="gs.web.SessionContextInterceptor"
-        autowire="byName">
+          class="gs.web.SessionContextInterceptor"
+          autowire="byName">
     </bean>
 
     <bean name="/search.module"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/search</value>
         </property>
     </bean>
 
-    <bean name="/parentPoll.module"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+    <bean name="/content/parentPoll.module"
+          class="gs.web.content.ParentPollController"
+          autowire="byName">
         <property name="viewName">
             <value>/parentPoll</value>
         </property>
     </bean>
 
     <bean name="/search/schoolsTable.module"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/search/schoolsTable</value>
         </property>
     </bean>
 
     <bean name="/header/cobrand.module"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/header/cobrand</value>
         </property>
     </bean>
 
     <bean name="/header/moveChoose.module"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/header/moveChoose</value>
         </property>
     </bean>
 
     <bean name="/footer/copyright.module"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/footer/copyright</value>
         </property>
     </bean>
 
     <bean name="/footer/searchEngine.module"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/footer/searchEngine</value>
         </property>
     </bean>
 
     <bean name="/footer/developmentCredits.module"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
             <value>/footer/developmentCredits</value>
         </property>
     </bean>
 
-    <bean name="/topDistricts.module"
-        class="gs.web.state.TopDistrictsController"
-        autowire="byName" >
+    <bean name="/state/topDistricts.module"
+          class="gs.web.state.TopDistrictsController"
+          autowire="byName">
         <property name="viewName">
             <value>/unorderedList</value>
         </property>
     </bean>
 
-    <bean name="/topCities.module"
-        class="gs.web.state.TopCitiesController"
-        autowire="byName" >
+    <bean name="/state/topCities.module"
+          class="gs.web.state.TopCitiesController"
+          autowire="byName">
         <property name="viewName">
             <value>/unorderedList</value>
         </property>
     </bean>
 
     <bean name="/community/mySchoolList.module"
-        class="gs.web.community.MySchoolListController"
-        autowire="byName" >
+          class="gs.web.community.MySchoolListController"
+          autowire="byName">
         <property name="viewName">
             <value>/unorderedList</value>
         </property>
     </bean>
 
     <bean name="/promo/featuredArticles.module"
-        class="gs.web.content.FeaturedArticlesController"
-        autowire="byName" >
+          class="gs.web.content.FeaturedArticlesController"
+          autowire="byName">
         <property name="singleArticleViewName">
             <value>/promo/featuredArticles</value>
         </property>
@@ -109,11 +110,11 @@
     </bean>
 
     <bean name="/search/citydistrict.module"
-        class="gs.web.search.CityDistrictController"
-        autowire="byName" >
-      <constructor-arg>
-        <ref bean="searcher"/>
-      </constructor-arg>
+          class="gs.web.search.CityDistrictController"
+          autowire="byName">
+        <constructor-arg>
+            <ref bean="searcher"/>
+        </constructor-arg>
     </bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

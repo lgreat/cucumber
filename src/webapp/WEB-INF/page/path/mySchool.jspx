@@ -50,7 +50,7 @@
     <tr>
         <td class="col1" valign="top">
             <mod:globalNav/>
-            <jsp:include page="/parentPoll.module"/>
+            <jsp:include page="/content/parentPoll.module"/>
         </td>
         <td class="col2" valign="top">
             <gsml:box tableClass="shade3" tableWidth="100%"><!--contentClass="button" valign="top"-->

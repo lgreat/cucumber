@@ -103,10 +103,10 @@
                             <tbody>
                                 <tr>
                                     <td valign="top" width="50%">
-                                        <jsp:include page="/topCities.module"/>
+                                        <jsp:include page="/state/topCities.module"/>
                                     </td>
                                     <td valign="top" width="50%">
-                                        <jsp:include page="/topDistricts.module"/>
+                                        <jsp:include page="/state/topDistricts.module"/>
                                     </td>
                                 </tr>
                             </tbody>

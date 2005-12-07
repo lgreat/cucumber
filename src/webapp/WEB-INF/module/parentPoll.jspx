@@ -15,7 +15,7 @@
         <h4><gsml:a href="/cgi-bin/static/poll_results.tmpl/$STATE">View Previous Polls</gsml:a></h4>
         <iframe name="wgpoll"
                 id="poll"
-                src="http://poll.websitegear.com/iframepoll.asp?pollID=8151"
+                src="http://poll.websitegear.com/iframepoll.asp?pollID=${requestScope.parentPollId}"
                 border="0"
                 marginwidth="0"
                 marginheight="0"
