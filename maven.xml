@@ -30,6 +30,9 @@
                    type="date"
                    default="now"
                    pattern="yyyyMMddkkmmss"/>
+            <entry key="gsweb.version"
+                   type="string"
+                   default="${pom.currentVersion}"/>
         </ant:propertyfile>
     </goal>
 

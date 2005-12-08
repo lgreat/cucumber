@@ -73,7 +73,10 @@ public class MonitorController implements Controller {
         Map model = new HashMap();
 
         // Set the version
-        model.put("version", _versionProperties.getProperty("gsweb.buildtime"));
+        model.put("buildtime", 
+                  _versionProperties.getProperty("gsweb.buildtime"));
+        model.put("version", 
+                  _versionProperties.getProperty("gsweb.version"));
 
         // Set the hostname
         String hostname = "Unable to resolve hostname";

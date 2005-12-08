@@ -55,6 +55,10 @@
 <table class="statusbox">
     <tr>
         <td class="statustitle">GSWeb build date/time (PST)</td>
+        <td class="statusvalue" colspan="2">${buildtime}</td>
+    </tr>
+    <tr>
+        <td class="statustitle">GSWeb Version</td>
         <td class="statusvalue" colspan="2">${version}</td>
     </tr>
     <tr>
