@@ -10,7 +10,7 @@
         <div id="userInfo">
             <c:if test="${user==null}">
                 GreatSchools Insider Members
-                <gsml:a href="/cgi-bin/site/signin.cgi/$STATE/" state="${state}">Sign In Here</gsml:a>
+                <gsml:a href="/cgi-bin/site/signin.cgi/$STATE/" state="${state}">Sign In Here</gsml:a><br />
                 or
                 <gsml:a href="/cgi-bin/conversion/$STATE/overview" state="${state}">Learn More</gsml:a>
             </c:if>

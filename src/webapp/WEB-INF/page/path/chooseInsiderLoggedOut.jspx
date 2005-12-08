@@ -62,7 +62,8 @@
                                 Brought to you by GreatSchools, an independent nonprofit dedicated to helping parents
                             </h3-->
                                         <div style="padding-right:7px; padding-top: .75em">
-                                            <h3 class="result_title">Find test scores, teacher stats and more</h3>
+                                            <h3 class="result_title">Find test scores, teacher stats and more
+                                                <gsml:a styleClass="changeState" href="/stateLauncher.page?p=pathway2">Search another state</gsml:a></h3>
                                             <mod:searchBox state="${requestScope.context.stateOrDefault}"/>
 
                                             <div class="browselinks">

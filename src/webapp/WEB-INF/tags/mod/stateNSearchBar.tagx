@@ -22,19 +22,19 @@
 						<img height="21" width="25"  src="http://www.census.gov/census2000/states/img/${state.abbreviationLowerCase}.gif" />
                     </td-->
                     <td class="state">
-						${state.longName} Schools &#8212; <gsml:a styleClass="changeState" href="/stateLauncher.page?p=pathway${requestScope.context.pathway}">Change state</gsml:a>
+						${state.longName} Schools <gsml:a styleClass="changeState" href="/stateLauncher.page?p=pathway${requestScope.context.pathway}">Change state</gsml:a>
                     </td>
 
                                     <td width="*"></td>
                                     <td width="5%"><input type="text" value="${searchPrompt1}"
                                                                onfocus="if (this.value=='${searchPrompt1}') this.value=''; if (this.form.field2.value=='${searchPrompt2}') this.form.field2.value='';"
                                                                onblur="if (this.value=='' &amp;&amp; this.form.field2.value=='') { this.value='${searchPrompt1}'; this.form.field2.value='${searchPrompt2}'; }"
-                                                               class="textfield" name="field1" size="29"/>
-                                </td><td width="3%" style="font-size: .8em"><span style="margin: 0px 1px 7px 1px; padding: 0 3px 0 3px">and/or</span>
+                                                               name="field1" size="29"/>
+                                </td><td width="3%" style="font-size: 1.1em; color: #666"><div style="padding: 0 5px 0 5px">and/or</div>
                                 </td><td width="5%"><input type="text" value="${searchPrompt2}"
                                                            onfocus="if (this.value=='${searchPrompt2}') this.value=''; if (this.form.field1.value=='${searchPrompt1}') this.form.field1.value='';"
                                                            onblur="if (this.value=='' &amp;&amp; this.form.field1.value=='') { this.value='${searchPrompt2}'; this.form.field1.value='${searchPrompt1}'; }"
-                                                           class="textfield" name="field2" size="10"/>
+                                                           name="field2" size="15"/>
                                 </td>
                                 <td width="2%"><gsml:url var="goImage" value="/res/img/button/btn_go.gif"/>
                                     <input type="image" class="btn" src="${goImage}"/>
