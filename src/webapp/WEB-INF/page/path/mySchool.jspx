@@ -79,15 +79,9 @@
                                             href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">
                                         Advanced search</gsml:a>
                                 </div>
-                                <!--c:if test="${requestScope.context.user != null}">
-                                    <jsp:include page="/community/mySchoolList.module?member=${requestScope.context.user.id}&amp;limit=3" />
-                                </c:if-->
                             </div>
                         </td><td valign="top">
                         <div class="topcontentcol2">
-
-                            <!--mod:stateSelectMedium state="${requestScope.context.stateOrDefault}" /-->
-
                             <div class="featuredarticle">
                                 <gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
                                     <gsml:img src="/res/img/community/btn_rateyourschool.gif"
@@ -105,7 +99,7 @@
                                 <div class="parentQuote">
                                     "Dynamic, creative principal. Teachers who provide attention and dedication.
                                     Active group of parents..."</div>
-                            </div><!-- featuredarticle -->
+                            </div>
 
                         </div>
                     </td></tr></table>
@@ -126,24 +120,8 @@
                         <div class="topcontentcol2" style="padding-bottom: 180px;">
                             <div class="hotTopics">
                                 <h3>Find Hot Topics Now</h3>
-                                <jsp:include page="/promo/featuredArticles.module?position=HOT_TOPIC&amp;count=3"/>
+                                <jsp:include page="/promo/featuredArticles.module?position=HOT_TOPIC&amp;count=7"/>
                             </div>
-
-                            <!--div class="promoArticles">
-                                <h3>Let our education experts guide you through
-                                    a successful school year with articles written
-                                    for the season:</h3>
-                                <ul class="promo">
-                                    <li>Standardized tests</li>
-                                    <li>Back to school</li>
-                                    <li>Report cards</li>
-                                    <li>Holidays</li>
-                                    <li>Summer camps and more!</li>
-                                </ul>
-                                <ul class="nowrap"><li class="viewall"><gsml:a
-                                        href="/content/allArticles.page?state=$STATE">Browse full article
-                                    library</gsml:a></li></ul>
-                            </div-->
                         </div>
                     </td></tr></table>
             </gsml:box>

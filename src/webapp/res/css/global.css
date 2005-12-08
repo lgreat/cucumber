@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.67 2005/12/08 00:37:47 apeterson Exp $
+   $Id: global.css,v 1.68 2005/12/08 00:44:45 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -182,7 +182,7 @@
     #stateNSearchBar .state {
         vertical-align: middle;
         font-weight: bold;
-        padding-left: .5em;
+        padding-left: .1em;
         font-size: 1.3em;
     }
 

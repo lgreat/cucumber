@@ -52,7 +52,7 @@
                         <mod:globalNav/>
                         <gsml:box tableClass="shade2">
                             <div class="featuredarticles">
-                                <jsp:include page="/promo/featuredArticles.module?position=PATH1_FEATURE&amp;count=3"/>
+                                <jsp:include page="/promo/featuredArticles.module?position=PATH1_FEATURE&amp;count=7"/>
                             </div>
 
                         </gsml:box>
@@ -73,7 +73,7 @@
                                         <div style="padding-right:7px; padding-top: .75em">
                                             <h3 class="result_title">
                                                 Find test scores, teacher stats and more
-                                                <gsml:a styleClass="changeState" href="/stateLauncher.page?p=pathway2">Search another state</gsml:a></h3>                                            
+                                                <gsml:a styleClass="changeState" href="/stateLauncher.page?p=pathway2">Search another state</gsml:a></h3>
                                             <mod:searchBox state="${requestScope.context.stateOrDefault}"/>
 
                                             <div class="browselinks">

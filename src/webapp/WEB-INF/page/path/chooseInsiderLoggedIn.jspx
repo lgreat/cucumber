@@ -49,7 +49,7 @@
                         <mod:globalNav/>
                         <gsml:box tableClass="blank" tableWidth="100%">
                             <div class="featuredarticles">
-                                <jsp:include page="/promo/featuredArticles.module?position=PATH1_FEATURE&amp;count=3"/>
+                                <jsp:include page="/promo/featuredArticles.module?position=PATH1_FEATURE&amp;count=7"/>
                             </div>
                         </gsml:box>
                     </td>
