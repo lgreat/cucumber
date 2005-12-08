@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.11 2005/12/05 21:47:55 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.12 2005/12/08 17:53:01 apeterson Exp $
  */
 package gs.web.content;
 
@@ -101,14 +101,18 @@ public class FeaturedArticlesController extends AbstractController {
         List items = new ArrayList(count);
         Set articles = new HashSet(count);
         for (int i = 0; i < count; i++) {
-            Article article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), posStr, i);
+            try {
+                Article article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), posStr, i);
 
-            if (article != null &&
-                    !articles.contains(article)) {
-                Anchor anchor = new Anchor(_urlUtil.getArticleLink(sessionFacade.getStateOrDefault(), article, false),
-                        article.getTitle());
-                items.add(anchor);
-                articles.add(article);
+                if (article != null &&
+                        !articles.contains(article)) {
+                    Anchor anchor = new Anchor(_urlUtil.getArticleLink(sessionFacade.getStateOrDefault(), article, false),
+                            article.getTitle());
+                    items.add(anchor);
+                    articles.add(article);
+                }
+            } catch (IllegalArgumentException e) {
+                _log.warn("Problem finding a featured article.", e);
             }
         }
 
