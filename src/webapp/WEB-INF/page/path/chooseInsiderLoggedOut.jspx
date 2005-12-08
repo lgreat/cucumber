@@ -38,12 +38,9 @@
 <table id="pagemargin" border="0" cellspacing="0" cellpadding="0">
     <tr>
         <td valign="top">
-            <!-- INCLUDE TOP content with logo, etc. -->
             <ad:xAdSetup page="home" ads="x22"/>
             <ad:x22/>
-            <mod:stateNSearchBar
-                    state="${requestScope.context.stateOrDefault}"
-                    />
+            <mod:stateNSearchBar state="${requestScope.context.stateOrDefault}" />
             <table id="main" border="0" cellspacing="0" cellpadding="0" width="100%">
                 <tr>
                     <td class="col1" valign="top">

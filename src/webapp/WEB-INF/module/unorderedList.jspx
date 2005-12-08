@@ -12,11 +12,17 @@
 <c:if test="${i.styleClass!=null}">
 <li class="${i.styleClass}">
 <gsml:a href="${i.href}">${i.contents}</gsml:a>
+    <c:if test="${i.image!=null}">
+        <img src="${i.image}" />
+    </c:if>
 </li>
 </c:if>
 <c:if test="${i.styleClass==null}">
 <li>
 <gsml:a href="${i.href}">${i.contents}</gsml:a>
+    <c:if test="${i.image!=null}">
+        <img src="${i.image}" />
+    </c:if>
 </li>
 </c:if>
 </c:forEach>

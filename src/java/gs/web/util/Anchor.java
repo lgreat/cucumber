@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: Anchor.java,v 1.1 2005/10/26 20:51:33 apeterson Exp $
+ * $Id: Anchor.java,v 1.2 2005/12/08 23:46:34 apeterson Exp $
  */
 
 package gs.web.util;
@@ -14,18 +14,27 @@ public class Anchor {
     private final String _href;
     private final String _contents;
     private final String _styleClass; // CSS class, or null
-    // TODO add more attributes as needed
+    private final String _image;
 
     public Anchor(String href, String contents) {
         _href = href;
         _contents = contents;
         _styleClass = null;
+        _image = null;
     }
 
     public Anchor(String href, String contents, String styleClass) {
         _href = href;
         _contents = contents;
         _styleClass = styleClass;
+        _image = null;
+    }
+
+    public Anchor(String href, String contents, String styleClass, String image) {
+        _href = href;
+        _contents = contents;
+        _styleClass = styleClass;
+        _image = image;
     }
 
     public String getHref() {
@@ -38,5 +47,9 @@ public class Anchor {
 
     public String getStyleClass() {
         return _styleClass;
+    }
+
+    public String getImage() {
+        return _image;
     }
 }

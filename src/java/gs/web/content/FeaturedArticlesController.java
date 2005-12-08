@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.13 2005/12/08 19:51:10 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.14 2005/12/08 23:46:24 apeterson Exp $
  */
 package gs.web.content;
 
@@ -109,7 +109,7 @@ public class FeaturedArticlesController extends AbstractController {
                     String articleLink = _urlUtil.getArticleLink(sessionFacade.getStateOrDefault(), article, false);
                     final Anchor anchor;
                     if (article.isNew()) {
-                        anchor = new Anchor(articleLink, article.getTitle(), "new");
+                        anchor = new Anchor(articleLink, article.getTitle(), "new", "../res/img/content/icon_newarticle.gif");
                     } else {
                         anchor = new Anchor(articleLink, article.getTitle());
                     }
