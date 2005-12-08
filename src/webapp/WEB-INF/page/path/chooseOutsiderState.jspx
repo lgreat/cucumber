@@ -90,10 +90,9 @@
                                                 </tr>
                                             </table>
                                         </div>
-                                    </td><td width="40%">
-                                    <div style="padding: 0 1em 1em 1em">
+                                    </td><td width="40%" style="vertical-align:top">
                                         <promo:schoolChoiceCenterMedium/>
-                                    </div></td></tr>
+                                    </td></tr>
                             </table>
                         </gsml:box>
                         <gsml:box tableClass="promoNewsletterBig shade3" tableWidth="100%">

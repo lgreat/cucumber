@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.68 2005/12/08 00:44:45 apeterson Exp $
+   $Id: global.css,v 1.69 2005/12/08 19:51:10 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -149,7 +149,7 @@
     img#logo {
         width: 260px;
         height: 40px;
-        padding: 0px 0px 0px 0px;
+        padding: 0;
         margin: 0px 0px 6px 0px;
     }
 
@@ -260,11 +260,11 @@
     #main td.col1 {
         width: 180px;
         height: 100%;
-        padding: 0px 0px 0px 0px;
+        padding: 0;
     }
 
     #main td.col2 {
-        padding: 0px 0px 0px 0px;
+        padding: 0;
     }
 
     table.bottomcontent tr {
@@ -359,7 +359,7 @@
         font-size: 1.5em;
         font-weight: bold;
         white-space: nowrap;
-        padding: 0px 0px 0px 0px;
+        padding: 0;
     }
 
     span.moduleheader h1 {
@@ -434,7 +434,7 @@
     }
 
     .topCities ul {
-        padding: 0px 0px 0px 0px;
+        padding: 0;
     }
 
     .topCities ul li {
@@ -463,7 +463,7 @@
         width: 21px;
         height: 18px;
         margin: 0px 0px -3px 6px;
-        padding: 0px 0px 0px 0px;
+        padding: 0;
         border: 0;
     }
 
@@ -486,7 +486,7 @@
         width: 28px;
         height: 24px;
         margin: 0px 0px 0px 6px;
-        padding: 0px 0px 0px 0px;
+        padding: 0;
         border: 0;
     }
 
@@ -508,7 +508,7 @@
     }
 
     .parentPoll h3 {
-        padding: 0px 0px 0px 0px;
+        padding: 0;
         font-size: 1.3em;
         font-weight: bold;
         margin: 10px 0px 6px 0px;
@@ -584,14 +584,24 @@
 
     .featuredarticles,
         .hotTopics {
-        margin: 0 .5em 0 .5em
+        margin: 0 .5em 0 .5em;
     }
 
     .featuredarticles li, .hotTopics li {
-        padding: 3px 20px 3px 12px;
+        padding: 3px 5px 3px 12px;
         margin: 2px 0px 3px 0px;
         background: url( ../img/bullet_blueball.gif ) 2px 7px no-repeat;
     }
+
+    /* NEW! */
+    .featuredarticles li.new a, .schoolchoicecenter li.new a, .hotTopics li.new a {
+        padding-right: 23px;
+        background-color: transparent;
+        background-image: url( ../img/content/icon_newarticle.gif );
+        background-position: center right;
+        background-repeat: no-repeat;
+    }
+
 
     .featuredarticles h3, div.hotTopics h3 {
         font-size: 1.5em;
@@ -601,10 +611,10 @@
         margin: 2px 0px 3px 0px;
     }
 
-    .topcontentcol2 .hotTopics h3 {
+/*    .topcontentcol2 .hotTopics h3 {
         font-size: 1.3em;
     }
-
+*/
     .promoNewsletterSmall {
         padding-bottom: 2em;
     }
@@ -612,7 +622,7 @@
     .promoNewsletterSmall h2 {
         font-size: 1.5em;
         font-weight: bold;
-        margin: 0px 0px 0px 0px;
+        margin: 4px 0 0 0;
         color: #036;
     }
 
@@ -641,7 +651,7 @@
     .promoNewsletterMedium h2 {
         font-size: 1.5em;
         font-weight: bold;
-        margin: 0px 0px 0px 0px;
+        margin: 0;
     }
 
     .promoNewsletterMedium h3 {
@@ -679,7 +689,7 @@
     .promoNewsletterBig h2 {
         font-size: 1.5em;
         font-weight: bold;
-        margin: 0px 0px 0px 0px;
+        margin: 0;
     }
 
     .promoNewsletterBig h3 {
@@ -758,14 +768,12 @@
         background-image: url( ../img/promo/bg_chalkboard.gif );
         background-repeat: no-repeat;
         background-position: center center;
-        background-position:50% 50%; /* Does this fix IE bug? */
     }
 
     .schoolchoicecenter h3 {
-        margin-top: 0em;
         font-size: 1.5em;
         color: #036;
-        padding: 0px 5px 1em 10px;
+        padding: 0px 5px .3em 10px;
         white-space:nowrap;
     }
 
@@ -775,7 +783,7 @@
     }
 
     .schoolchoicecenter li {
-        padding: 3px 20px 3px 12px;
+        padding: 3px 5px 3px 12px;
         margin: 2px 0px 3px 0px;
         background-image: url( ../img/bullet_blueball.gif );
         background-repeat: no-repeat;
@@ -910,7 +918,7 @@
 
     table.shade5 td.BG {
         background: #DDDDDD url( ../img/box/border_shade5_BG.gif );
-        padding: 0px 0px 0px 0px;
+        padding: 0;
     }
 
     table.shade5 td.R {

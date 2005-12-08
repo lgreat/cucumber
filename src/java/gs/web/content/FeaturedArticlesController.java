@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.12 2005/12/08 17:53:01 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.13 2005/12/08 19:51:10 apeterson Exp $
  */
 package gs.web.content;
 
@@ -9,8 +9,8 @@ import gs.data.content.IArticleDao;
 import gs.web.ISessionFacade;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
-import gs.web.util.UrlUtil;
 import gs.web.util.UnorderedListModel;
+import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -106,8 +106,13 @@ public class FeaturedArticlesController extends AbstractController {
 
                 if (article != null &&
                         !articles.contains(article)) {
-                    Anchor anchor = new Anchor(_urlUtil.getArticleLink(sessionFacade.getStateOrDefault(), article, false),
-                            article.getTitle());
+                    String articleLink = _urlUtil.getArticleLink(sessionFacade.getStateOrDefault(), article, false);
+                    final Anchor anchor;
+                    if (article.isNew()) {
+                        anchor = new Anchor(articleLink, article.getTitle(), "new");
+                    } else {
+                        anchor = new Anchor(articleLink, article.getTitle());
+                    }
                     items.add(anchor);
                     articles.add(article);
                 }
