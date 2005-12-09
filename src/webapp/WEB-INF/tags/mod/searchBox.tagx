@@ -46,7 +46,7 @@
                 </td><td><input style="min-width:20%" type="text" value="${searchPrompt2}"
                     onfocus="if (this.value=='${searchPrompt2}') this.value=''; if (this.form.field1.value=='${searchPrompt1}') this.form.field1.value='';"
                     onblur="if (this.value=='' &amp;&amp; this.form.field1.value=='') { this.value='${searchPrompt2}'; this.form.field1.value='${searchPrompt1}'; }"
-                    class="textfield" name="field2" size="10"/>
+                    class="textfield" name="field2" size="8"/>
                 </td><td><gsml:url var="goImage" value="/res/img/button/btn_go.gif"/>
                 <input type="image" class="btn" src="${goImage}"/>
                 </td></tr></table>
