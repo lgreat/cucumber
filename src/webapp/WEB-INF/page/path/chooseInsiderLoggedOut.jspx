@@ -29,6 +29,7 @@
     <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
         <style type="text/css">
+        div.alignBoxes { height: 33em; vertical-align: top; }
         </style>
             ]]>
     <title>${stateLongName} Schools</title>
@@ -52,7 +53,7 @@
                                   tableWidth="100%">
                             <table style="vertical-align: top" border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
-                                    <td width="60%">        <span class="moduleheader">
+                                    <td width="60%" style="vertical-align: top" >        <span class="moduleheader">
 <h1 class="inline">${stateLongName} Schools</h1> &#8211; Free Resources</span>
 
                             <!--h3 class="tagline">
@@ -85,15 +86,19 @@
                             </table>
                         </gsml:box>
                             <table style="vertical-align: top" border="0" cellpadding="0" cellspacing="0" width="100%">
-                                <tr>
-                                    <td width="60%" style="vertical-align: top"  height="100%">
-                        <gsml:box tableClass="shade3" tableWidth="100%" tableHeight="100%">
-                            <promo:membershipMedium/>
-                        </gsml:box>
+                          <tr>
+                             <td width="60%" style="vertical-align: top"  height="100%">
+                                <gsml:box tableClass="shade3" tableWidth="100%" tableHeight="100%">
+                                    <div class="alignBoxes">
+                                        <promo:membershipMedium/>
+                                    </div>
+                                </gsml:box>
                             </td>
                             <td style="vertical-align: top"  width="40%" height="100%">
                         <gsml:box tableClass="shade3" tableWidth="100%"  tableHeight="100%">
-                            <promo:newsletterSmall/>
+                            <div class="alignBoxes">
+                                <promo:newsletterSmall/>
+                            </div>
                         </gsml:box>
                             </td>
                             </tr>
