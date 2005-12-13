@@ -31,34 +31,6 @@ public class MainResultsTag extends ResultsTableTagHandler {
         JspWriter out = getJspContext().getOut();
 
         out.print("<table width=\"100%\">");
-        /*
-        out.println("<tr><td class=\"mainresultsheader\">");
-        out.println("<table width=\"100%\"><tr><td>");
-        out.print("Found ");
-        out.print(_total);
-
-        String constraint = getConstraint();
-        if (constraint != null && !"all".equals(constraint)) {
-            out.print (" " + constraint);
-        } else {
-            out.print (" result");
-        }
-        if (_total != 1) {
-            out.print("s");
-        }
-
-        out.print(" for query: <span class=\"searchfor\">");
-        out.print(_queryString);
-        out.print("</span>");
-        out.print("</td><td id=\"resultset\">");
-        if (_total > 0) {
-            out.print("Results ");
-            out.print((_page * PAGE_SIZE) + 1);
-            out.print(" - ");
-            out.print((_page * PAGE_SIZE) + PAGE_SIZE);
-        }
-        out.println("</td></tr></table></td></tr>");
-          */
         out.println ("<tr>");
         out.println("<td colspan=\"2\">");
         if (_results != null && _total > 0) {
@@ -132,26 +104,6 @@ public class MainResultsTag extends ResultsTableTagHandler {
                     out.print(context);
                     out.println("</span>");
                 }
-
-                /*
-                if (result.getType() == SearchResult.DISTRICT ||
-                    result.getType() == SearchResult.CITY) {
-                    out.println("<table class=\"refinementtable\"><tr>");
-                    out.println("<td>");
-                    out.print(linkBuffer.toString());
-                    out.println("&gl=elementary\">Elementary</a></td><td>");
-                    out.print(linkBuffer.toString());
-                    out.println("&gl=middle\">Middle</a></td><td>");
-                    out.print(linkBuffer.toString());
-                    out.println("&gl=high\">High</a></td></tr><tr><td>");
-                    out.print(linkBuffer.toString());
-                    out.println("&st=public\">Public</a></td><td>");
-                    out.print(linkBuffer.toString());
-                    out.println("&st=private\">Private</a></td><td>");
-                    out.print(linkBuffer.toString());
-                    out.println("&st=charter\">Charter</a></td></tr></table>");
-                }
-                */
                 out.println("</td></tr>");
                 if (_debug) {
                     out.print("<tr><td><pre class=\"explanation\">");
