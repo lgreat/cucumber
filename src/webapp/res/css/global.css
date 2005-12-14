@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.75 2005/12/14 19:44:14 apeterson Exp $
+   $Id: global.css,v 1.76 2005/12/14 19:45:07 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -777,12 +777,9 @@
 
     .schoolchoicecenter ul {
         border-left: 1px solid #999;
-        padding: 0px 5px 0px 10px;
+        padding: 0px 5px .3em 10px;
     }
-    div.schoolchoicecenter ul {
-        padding-bottom: .3em;
-    }
-
+    
     .schoolchoicecenter li {
         padding: 3px 5px 3px 12px;
         margin: 2px 0px 3px 0px;
