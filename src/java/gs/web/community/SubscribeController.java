@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.8 2005/10/14 23:21:26 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.9 2005/12/14 19:04:32 apeterson Exp $
  */
 package gs.web.community;
 
@@ -14,10 +14,6 @@ import gs.web.SessionFacade;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallbackWithoutResult;
-import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,7 +37,6 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
     private StateManager _stateManager;
-    private PlatformTransactionManager _transactionManager;
 
     private static final String EMAIL_PARAM = "email";
     private static final String URL_PARAM = "url";
@@ -151,12 +146,7 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
 
         final SubscribeCommand command = (SubscribeCommand) o;
 
-        TransactionTemplate template = new TransactionTemplate(_transactionManager);
-        template.execute(new TransactionCallbackWithoutResult() {
-            protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
-                makePurchase(command, be);
-            }
-        });
+        makePurchase(command, be);
     }
 
     private void makePurchase(SubscribeCommand command, BindException be) {
@@ -300,11 +290,4 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
         _stateManager = stateManager;
     }
 
-    public PlatformTransactionManager getTransactionManager() {
-        return _transactionManager;
-    }
-
-    public void setTransactionManager(PlatformTransactionManager transactionManager) {
-        _transactionManager = transactionManager;
-    }
 }
