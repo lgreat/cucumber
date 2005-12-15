@@ -101,9 +101,7 @@ public class SearchController extends AbstractFormController {
             }
 
             String[] levels = request.getParameterValues("gl");
-            System.out.println ("debug 1");
             if (levels != null) {
-                System.out.println ("setting gl: "+ levels);
                 request.setAttribute("gl", levels);
             }
 
