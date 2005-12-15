@@ -55,7 +55,10 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
 .highlight {font-weight: 800;}
 #suggestion {font-style: italic; font-weight: bold;}
 .searchbyaddress {padding-left:20mm; vertical-align:bottom;}
-.resultheadline {font-size:140%}
+#resultsheadline {
+    font-size:110%;
+    padding-left:2px;
+}
 #schoolfilters {padding-bottom:13px}
 
 
@@ -64,15 +67,13 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
 
 .mainresultsheader {
     padding-bottom:10px;
-    border-bottom: solid gray;
-    border-bottom-width:1px;
 }
 
 .browseheader {
     padding-bottom:5px;
     font-weight:700;
     font-size:larger;
-    color:#FE894C;
+    /**color:#FE894C;*/
 }
 
 .rightcolumn {
@@ -114,6 +115,9 @@ table.refinementtable td {
 }
 
 #filters {
+    padding-top:3px;
+    padding-bottom:3px;
+    padding-left:3px;
     background-color:#DDDDDD;
 }
 
@@ -121,3 +125,45 @@ table.refinementtable td {
     padding-top:5px;
     padding-bottom:6px;
 }
+
+#noresults ul {
+    padding-top:5px;
+    padding-bottom:15px;
+}
+#noresults li {
+    padding-left:20px;
+    padding-bottom:3px;
+    list-style:disc;
+    list-style-type:disc;
+    list-style-position:inside;
+
+}
+
+#searchfooter {
+    padding-top:15px;
+    padding-bottom:15px;
+}
+
+/** temp until search controls are merged */
+.state {
+    vertical-align: middle;
+    font-weight: bold;
+    padding-left: .1em;
+    font-size: 1.3em;
+}
+
+.state .changeState {
+    padding-left: .7em;
+    font-size:0.75em;
+}
+/** end temp */
+
+tr.result_row td {
+    padding:0px;
+}
+
+tr.contextrow td {
+    padding-right:40px;
+    padding-bottom:10px;
+}
+

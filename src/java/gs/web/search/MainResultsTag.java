@@ -3,6 +3,8 @@ package gs.web.search;
 import org.apache.taglibs.standard.functions.Functions;
 
 import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.JspFragment;
 import java.io.IOException;
 import java.util.List;
 
@@ -31,16 +33,17 @@ public class MainResultsTag extends ResultsTableTagHandler {
         JspWriter out = getJspContext().getOut();
 
         out.print("<table width=\"100%\">");
-        out.println ("<tr>");
+        out.println("<tr>");
         out.println("<td colspan=\"2\">");
         if (_results != null && _total > 0) {
             out.println("<table id=\"mainresults\">");
             for (int i = 0; i < _results.size(); i++) {
                 SearchResult result = (SearchResult) _results.get(i);
                 out.println("<tr class=\"result_row\">");
-                out.print("<td name=\"headline\">");
+
+                out.print("<td name=\"headline\" colspan=\"3\">");
                 StringBuffer linkBuffer = new StringBuffer();
-                switch(result.getType()) {
+                switch (result.getType()) {
                     case SearchResult.DISTRICT:
                         out.print("Schools in the district of ");
                         linkBuffer.append("<a href=\"/search/search.page?c=school&state=");
@@ -75,7 +78,7 @@ public class MainResultsTag extends ResultsTableTagHandler {
                         out.print("<a href=\"http://");
                         out.print(getHostname());
                         out.print("/cgi-bin/show");
-                        if (result.isInsider()){
+                        if (result.isInsider()) {
                             out.print("part");
                         }
                         out.print("article/");
@@ -91,19 +94,31 @@ public class MainResultsTag extends ResultsTableTagHandler {
                         out.print(getStateOrDefault().getAbbreviationLowerCase());
                         out.print("/?id=");
                         out.print(result.getId());
-                    out.print("\">");
+                        out.print("\">");
                         break;
                     default:
                 }
 
                 out.print(result.getHeadline());
                 out.println("</a>");
-                String context = result.getContext();
-                if (context != null) {
-                    out.print("<span class=\"context\">");
-                    out.print(context);
-                    out.println("</span>");
+                out.println("</td></tr>");
+
+                out.println("<tr class=\"contextrow\"><td>");
+                if (result.getType() == SearchResult.SCHOOL) {
+                    out.println(result.getAddress());
+                    out.println("</td><td>");
+                    out.println(result.getSchoolType());
+                    out.println("</td><td>");
+                    out.println(result.getGradeLevel());
+                } else {
+                    String context = result.getContext();
+                    if (context != null) {
+                        out.print("<span class=\"context\">");
+                        out.print(context);
+                        out.println("</span>");
+                    }
                 }
+
                 out.println("</td></tr>");
                 if (_debug) {
                     out.print("<tr><td><pre class=\"explanation\">");
@@ -113,11 +128,17 @@ public class MainResultsTag extends ResultsTableTagHandler {
             }
             out.println("</table>");
         } else {
-            out.println("<span class=\"noresults\">No Results Found</span>");
+            getJspBody().getJspContext().setAttribute("noresults", "true");
         }
-        out.println ("</td></tr><tr><td class=\"results_pagenav\">");
+
+        out.println("</td></tr><tr><td class=\"results_pagenav\">");
         writePageNumbers(out);
         out.println("</td></tr></table>");
 
+        try {
+            getJspBody().invoke(out);
+        } catch (JspException e) {
+            throw new IOException(e.getMessage());
+        }
     }
 }

@@ -6,9 +6,9 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
     <div class="citydistrict">
 
-        <c:if test="${not empty model.cites}">
+        <c:if test="${not empty model.filteredcities}">
             <span class="citydistlabel"><c:out value="${model.filters}" /></span>
-            <c:forEach var="city" items="${model.cities}">
+            <c:forEach var="city" items="${model.filteredcities}">
                 <span class="citydistresult">
                     <a href="/search/search.page?c=school&amp;state=${param.state}&amp;q=${param.q}&amp;city=${city}${model.filterparams}">
                         <c:out value="${city}"/>
@@ -21,18 +21,18 @@
 
         <c:if test="${not empty model.cities}">
             <div class="citydistlinks">
-        <span class="citydistlabel">All schools in the city of: </span>
-        <c:forEach var="city" items="${model.cities}">
-            <span class="citydistresult">
-            <a href="/search/search.page?c=school&amp;state=${param.state}&amp;q=${param.q}&amp;city=${city}">
-                <c:out value="${city}"/>
-            </a>
-            </span>
-        </c:forEach>
-        <c:if test="${model.citiestotal > 3}">
-            <a href="">more cities...</a>
-        </c:if>
-        <br/>
+                <span class="citydistlabel">All schools in the city of: </span>
+                <c:forEach var="city" items="${model.cities}">
+                    <span class="citydistresult">
+                        <a href="/search/search.page?c=school&amp;state=${param.state}&amp;q=${param.q}&amp;city=${city}">
+                            <c:out value="${city}"/>
+                        </a>
+                    </span>
+                </c:forEach>
+                <c:if test="${model.citiestotal > 3 and param.morecities != 'true'}">
+                    <a href="/search/search.page?${pageContext.request.queryString}&amp;morecities=true">more cities...</a>
+                </c:if>
+                <br/>
             </div>
         </c:if>
 
@@ -47,8 +47,8 @@
                 </a>
             </span>
         </c:forEach>
-        <c:if test="${model.citiestotal > 3}">
-            <a href="">more districts...</a>
+        <c:if test="${model.citiestotal > 3 and param.moredistricts != 'true'}">
+            <a href="/search/search.page?${pageContext.request.queryString}&amp;moredistricts=true">more districts...</a>
         </c:if>
         </c:if>
     </div>

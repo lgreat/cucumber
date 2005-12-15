@@ -7,53 +7,37 @@
           xmlns:gsweb="gstaglib">
 <jsp:directive.tag body-content="empty"/>
 <jsp:directive.attribute name="rememberQuery" required="false"/>
+<jsp:directive.attribute name="showStates" required="false"/>
 
 <gsml:url var="search" value="/search/search.page"/>
-<gsml:form id="searchForm" name="sf" method="get"
-           action="${search}">
-
-    <table width="100%" style="padding:0px">
+<gsml:form id="searchForm" name="sf" method="get" action="${search}">
+    <table style="padding:0px; margin:0px;">
         <tr>
-            <td align="left" style="padding:0px;">
-                <table style="padding:0px; margin:0px;">
-                    <tr>
-                        <td class="label" style="vertical-align:middle; padding:0px;"
-                            align="right">
-                            State:
-                        </td>
-                        <td style="vertical-align:middle; padding:0px">
-                            <gsweb:stateSelector
-                                    allowNoState="${param.state == 'all'}"
-                                    useLongNames="true"/>
-                            <c:set var="st"
-                                   value="${(param.state == 'all') || (empty param.state) ? 'ca' : param.state}"/>
-                        </td>
-                    </tr>
-                </table>
+            <c:if test="${showStates == 'true'}">
+                <td>
+                    <gsweb:stateSelector useLongNames="true"/>
+                </td>
+            </c:if>
+
+            <td class="label" width="90" align="right"
+                               style="vertical-align:middle;">Search
             </td>
-            <td align="right">
-                <table style="padding:0px; margin:0px;">
-                    <tr>
-                        <td class="label" width="90" align="right"
-                            style="vertical-align:middle;">Search:</td>
-                        <td>
-                            <select name="c">
-                                <option value="all">All GreatSchools</option>
-                                        <option value="school">Schools</option>
-                                        <option value="topic">Topics</option>
-
-                            </select>
-                        </td><td> for </td>
-                        <td align="right" style="vertical-align:middle;">
-                            <input type="text"
-                                   id="q"
-                                   name="q"
-                                   size="50"
-                                   style="font-size:small"
-                                   maxlength="255"
-                                   value="${(not empty param.q) and (rememberQuery == 'true') and (param.c != 'school')? fn:escapeXml(param.q) : ''}"/>
-                        </td>
-
+            <td align="right" style="vertical-align:middle;">
+                <input type="text"
+                       id="q"
+                       name="q"
+                       size="50"
+                       style="font-size:small"
+                       maxlength="255"
+                       value="${(not empty param.q) and (rememberQuery == 'true') and (empty param.city) and (empty param.district) ? fn:escapeXml(param.q) : ''}"/>
+            </td>
+            <td>
+                <select name="c">
+                    <option value="all">Entire site  </option>
+                    <option value="school">Schools</option>
+                    <option value="topic">Topics</option>
+                </select>
+            </td>
                         <td style="vertical-align:middle;padding-bottom:2px">
                             <gsml:url var="goButton"
                                       value="/res/img/search/btn_go.gif"/>
@@ -62,8 +46,8 @@
                         </td>
                     </tr>
                 </table>
-            </td>
-            </tr>
-    </table>
+    <c:if test="${showStates != 'true'}">
+        <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}" />
+    </c:if>
 </gsml:form>
 </jsp:root>

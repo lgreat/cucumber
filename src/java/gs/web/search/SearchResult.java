@@ -2,6 +2,7 @@ package gs.web.search;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.Explanation;
+import org.apache.commons.lang.StringUtils;
 import gs.data.search.highlight.TextHighlighter;
 import gs.data.search.IndexField;
 
@@ -71,6 +72,21 @@ public class SearchResult {
             }
         }
         return context;
+    }
+
+    public String getGradeLevel() {
+        String gradeLevel = "";
+        String gl = _doc.get("gradelevel");
+        if (!StringUtils.isEmpty(gl)) {
+            if ("e".equals(gl)) {
+                gradeLevel = "elementary";
+            } else if ("m".equals(gl)) {
+                gradeLevel = "middle";
+            } else if ("h".equals(gl)) {
+                gradeLevel = "high";
+            }
+        }
+        return gradeLevel;
     }
 
     /**

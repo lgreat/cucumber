@@ -128,12 +128,16 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             }
         }
 
+
+        out.println ("<tr><td id=\"filters\" colspan=\"2\">");
         if (filterBuffer.length() > 0) {
-            out.println ("<tr><td id=\"filters\" colspan=\"2\">");
             out.print("Filtered: ");
             out.println (filterBuffer.toString());
-            out.println ("</td></tr>");
+        } else {
+            out.println ("To further narrow your list, use the filters on the left.");
         }
+        out.println ("</td></tr>");
+
 
         out.println ("</table>");
 
@@ -236,8 +240,8 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
     }
 
     private static void writeButtons(JspWriter out) throws IOException {
-        out.println("<input type=\"image\" name=\"compare\" src=\"/res/img/btn_comparechecked_149x21.gif\" alt=\"Submit Form\">");
-        out.println("<input type=\"image\" name=\"save\" src=\"/res/img/btn_savechecked2msl_173x21.gif\" alt=\"Submit Form\">");
+        out.println("<input type=\"image\" name=\"compare\" src=\"/res/img/btn_comparechecked_149x21.gif\" alt=\"Compare checked Schools\"/>");
+        out.println("<input type=\"image\" name=\"save\" src=\"/res/img/btn_savechecked2msl_173x21.gif\" alt=\"Save checked to My School List\"/>");
     }
 }
 

@@ -64,7 +64,26 @@
 </tr>
 <tr>
     <td colspan="2">
-        <search:searchControl rememberQuery="true"/>
+        <table width="100%" style="padding:0px">
+            <tr>
+                <td align="left" style="padding:0px;">
+                    <table style="padding:0px; margin:0px;">
+                        <tr>
+                            <td class="state">
+                                  ${requestScope.context.stateOrDefault.longName} schools
+                                <gsml:a styleClass="changeState"
+                                        href="/stateLauncher.page?p=pathway${requestScope.context.pathway}">
+                                       Change state
+                                </gsml:a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td align="right">
+                    <search:searchControl rememberQuery="true"/>
+                </td>
+            </tr>
+        </table>
     </td>
 </tr>
 
@@ -131,7 +150,22 @@
             <table width="90%">
                 <tr>
                     <td align="left">
-                        <span>All results for </span>&quot;<span class="browseheader">${param.q}</span>&quot;
+                        <c:choose>
+                            <c:when test="${results.total gt 0}">
+                                <c:choose>
+                                    <c:when test="${param.c == 'topic'}">
+                                        Topic results for
+                                    </c:when>
+                                    <c:otherwise>
+                                        All results for
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:when>
+                            <c:otherwise>
+                                No results found for
+                            </c:otherwise>
+                        </c:choose>
+                            &quot;<span class="browseheader">${param.q}</span>&quot;
                     </td>
                     <td align="right">
                         <c:if test="${results.total gt 0}">
@@ -150,7 +184,42 @@
                                total="${results.total}"
                                query="${param.q}"
                                constraint="${param.c}"
-                               debug="${param.debug}"/>
+                               debug="${param.debug}">
+
+                               <table width="100%"><tr><td align="center">
+                               <div id="${(noresults == 'true') ? 'noresults' : 'searchfooter'}">
+                                   <c:if test="${noresults == 'true'}">
+                                       <table><tr><td>
+                                   Suggestions:
+                                   <ul>
+                                       <li>Make sure all words are spelled correctly</li>
+                                       <li>Try different or fewer keywords.</li>
+                                       <li>Try more general keywords.</li>
+                                       <li>You searched in ${requestScope.context.stateOrDefault.longName}.  &#160;&#160; Would you like to change state?</li>
+                                   </ul>
+                                       </td></tr></table>
+                                   </c:if>
+                                   <table>
+                                       <tr>
+                                           <td><search:searchControl rememberQuery="true" showStates="${noresults}"/></td>
+                                       </tr>
+                                       <tr>
+                                           <td colspan="2" align="center">
+                                               <c:if test="${noresults != 'true'}">
+                                                   <a href="">Change state</a>
+                                                   |
+                                               </c:if>
+                                               <a href="">Advanced School Search</a>
+                                               |
+                                               <a href="">Search Tips</a>
+                                               |
+                                               <a href="">Didn't find what you need?</a>
+                                           </td>
+                                       </tr>
+                                   </table>
+                               </div>
+                 </td></tr></table>
+             </gsweb:mainResults>
         </c:otherwise>
     </c:choose>
 

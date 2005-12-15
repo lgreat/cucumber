@@ -63,7 +63,7 @@
       <tag-class>gs.web.search.SchoolFilters</tag-class>
       <body-content>empty</body-content>
     </tag>
-  
+
     <tag>
         <name>schoolFilters</name>
         <tag-class>gs.web.search.SchoolFiltersTag</tag-class>
@@ -176,7 +176,7 @@
   <tag>
       <name>mainResults</name>
       <tag-class>gs.web.search.MainResultsTag</tag-class>
-      <body-content>empty</body-content>
+      <body-content>scriptless</body-content>
         <attribute>
             <name>results</name>
             <required>true</required>
