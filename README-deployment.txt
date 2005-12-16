@@ -1,3 +1,18 @@
+
+maven-tomcat plugin
+===================
+
+
+The maven-tomcat plugin in GSWeb allows command line
+redeploying to your local tomcat by doing:
+
+   * maven tomcat-install (if the webapp is not already installed)
+   * maven tomcat-reload (if you want to update an already running version with
+the latest changes)
+   * maven tomcat-uninstall (to remove it from tomcat)
+
+
+
 1. Prerequisites: You will need the tomcat maven plugin:
 
 cd ../GSData (you must go into the GSData project since it knows about the remote maven repos)
@@ -41,4 +56,23 @@ path one line above the </Host> tag:
 
 Usage:
 Hit ctrl-shift-F9 to rebuild a class, and hit refresh in your browser and see the changes:
+
+
+
+
+Let Todd know if you have any questions or problems.
+
+
+Using IDEA to Compile into build directory
+==========================================
+To compile gs-web Java classes into the maven build directory, do the following:
+   * in IDEA, go to Settings->Modules->GS-Web->Paths(tab)
+   * set the output path to <your path to GSWeb>\GSWeb\src\webapp\WEB-INF\classes
+
+If you have configured tomcat to be deployed out of your src\webapp dir,
+then files compiled with IDEA will automatically trigger a reload in tomcat,
+and your changes will be available without rebuilding the whole project or restarting tomcat.
+Also, you need to set reloadable=true in the context descriptor for gsweb.
+This should be in <tomcat_home>\conf\Catalina\localhost\ROOT.xml or <tomcat_home>\conf\Catalina\localhost\gs-web.xml
+
 
