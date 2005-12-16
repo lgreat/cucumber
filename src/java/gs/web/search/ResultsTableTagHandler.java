@@ -104,7 +104,6 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
         if (_total > 0) {
 
             if (_total > PAGE_SIZE) {
-                out.println("Results page:&nbsp;&nbsp;");
 
                 if (_page < 1) { // when page has not be set yet.
                     _page = 1;

@@ -63,7 +63,6 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
         out.print("</span></td><td id=\"resultset\">");
         if (_total > 0) {
-            out.print("Results ");
             out.print((_page * PAGE_SIZE) + 1);
             out.print(" - ");
             int x = (_page * PAGE_SIZE) + PAGE_SIZE;

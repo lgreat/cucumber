@@ -3,10 +3,12 @@ package gs.web.search;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.search.*;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.document.Document;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,8 +38,9 @@ public class CityDistrictController extends AbstractController {
     public static final String BEAN_ID = "/search/citydistrict.module";
     private static int LIST_SIZE = 3;  // The # of city or dist results to show
     private static int EXTENDED_LIST_SIZE = 50;
-    //private static final Logger _log =
-    //                Logger.getLogger(CityDistrictController.class);
+    private static final Logger _log =
+            Logger.getLogger(CityDistrictController.class);
+
     private static final String[] CITY_DIST_STOP_WORDS = {
             "a", "an", "and", "are", "as", "at", "be", "but", "by",
             "for", "if", "in", "into", "is", "it",
@@ -46,7 +49,7 @@ public class CityDistrictController extends AbstractController {
             "they", "this", "to", "was", "will", "with",
             // City/District specific stopwords
             "charter", "city", "district", "elementary", "middle", "high",
-            "junior", "public", "private", "school", "schools",
+            "junior", "public", "private", "school", "schools"
     };
 
     private Searcher _searcher;
@@ -57,10 +60,18 @@ public class CityDistrictController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
+
         String queryString = (String) request.getParameter("q");
         String state = (String) request.getParameter("state");
 
-        int cityListSize = LIST_SIZE, districtListSize = LIST_SIZE;
+        int filteredListSize = LIST_SIZE,
+                cityListSize = LIST_SIZE,
+                districtListSize = LIST_SIZE;
+
+        if (!StringUtils.isEmpty((String) request.getParameter("morefiltered"))) {
+            filteredListSize = EXTENDED_LIST_SIZE;
+        }
+
         if (!StringUtils.isEmpty((String) request.getParameter("morecities"))) {
             cityListSize = EXTENDED_LIST_SIZE;
         }
@@ -68,7 +79,6 @@ public class CityDistrictController extends AbstractController {
         if (!StringUtils.isEmpty((String) request.getParameter("moredistricts"))) {
             districtListSize = EXTENDED_LIST_SIZE;
         }
-
 
         state = (!StringUtils.isEmpty(state)) ? state.toLowerCase() : "ca";
         Map model = new HashMap();
@@ -85,8 +95,12 @@ public class CityDistrictController extends AbstractController {
             QueryParser parser =
                     new QueryParser("text", new PorterStandardAnalyzer(CITY_DIST_STOP_WORDS));
             parser.setOperator(QueryParser.DEFAULT_OPERATOR_AND);
-            Query keywordQuery = parser.parse(queryString);
-            baseQuery.add(keywordQuery, true, false);
+            try {
+                Query keywordQuery = parser.parse(queryString);
+                baseQuery.add(keywordQuery, true, false);
+            } catch (ParseException pe) {
+                _log.warn("error parsing: " + queryString, pe);
+            }
 
             StringBuffer filtersBuffer = new StringBuffer("All ");
             StringBuffer urlBuffer = new StringBuffer();
@@ -125,10 +139,9 @@ public class CityDistrictController extends AbstractController {
                 gl = "high";
             }
 
-            filtersBuffer.append(" schools in ");
+            filtersBuffer.append(" schools in the city of:");
             model.put("filters", filtersBuffer.toString());
             model.put("filterparams", urlBuffer.toString());
-            //}
 
             BooleanQuery cityQuery = new BooleanQuery();
             cityQuery.add(new TermQuery(new Term("type", "city")), true, false);
@@ -144,14 +157,10 @@ public class CityDistrictController extends AbstractController {
             Hits districtHits = _searcher.search(districtQuery, null, null, null);
             model.put("districtstotal", new Integer(districtHits != null ? districtHits.length() : 0));
 
-            System.out.println("cityHits: " + cityHits.length());
-            model.put("cities", cityHits);
-            model.put("districts", districtHits);
-
             List filteredCities = new ArrayList();
 
             if (cityHits != null && cityHits.length() > 0 && (gl != null || st != null)) {
-                // todo: limit to x cities and provide a "more" link
+                int count = 0;
                 for (int ii = 0; ii < cityHits.length(); ii++) {
                     SearchCommand command = new SearchCommand();
                     command.setState(state);
@@ -167,10 +176,15 @@ public class CityDistrictController extends AbstractController {
 
                     Hits hits = _searcher.search(command);
                     if (hits != null && hits.length() > 0) {
-                        filteredCities.add(city);
+                        if (ii < filteredListSize) {
+                            filteredCities.add(city);
+                        }
                     }
+                    count++;
                 }
+
                 if (filteredCities.size() > 0) {
+                    model.put("filteredtotal", new Integer(count));
                     model.put("filteredcities", filteredCities);
                 }
             }
@@ -184,6 +198,7 @@ public class CityDistrictController extends AbstractController {
                     cities.add(cityDoc.get("city"));
                 }
             }
+
             for (int j = 0; j < districtListSize; j++) {
                 if (districtHits != null && districtHits.length() > j) {
                     Document districtDoc = districtHits.doc(j);
@@ -193,7 +208,6 @@ public class CityDistrictController extends AbstractController {
                     districts.add(dMap);
                 }
             }
-
 
             model.put("cities", cities);
             model.put("districts", districts);

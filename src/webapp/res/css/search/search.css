@@ -76,6 +76,13 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
     /**color:#FE894C;*/
 }
 
+.headerquery {
+    padding-bottom:5px;
+    font-weight:700;
+    font-size:larger;
+    color:#FE894C;
+}
+
 .rightcolumn {
     width:165px;
     vertical-align:top;
@@ -140,8 +147,8 @@ table.refinementtable td {
 }
 
 #searchfooter {
-    padding-top:15px;
-    padding-bottom:15px;
+    padding-top:20px;
+    padding-bottom:20px;
 }
 
 /** temp until search controls are merged */
@@ -163,7 +170,18 @@ tr.result_row td {
 }
 
 tr.contextrow td {
+    padding-left:25px;
     padding-right:40px;
     padding-bottom:10px;
+    font-size:97%
 }
 
+tr.result_row td {
+    padding-top:15px;
+}
+tr td.checkbox {
+    vertical-align:top;
+    padding-top:15px;
+    padding-left:4px;
+    padding-right:7px;
+}

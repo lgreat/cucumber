@@ -156,6 +156,9 @@
                                     <c:when test="${param.c == 'topic'}">
                                         Topic results for
                                     </c:when>
+                                    <c:when test="${param.c == 'school'}">
+                                        School results for
+                                    </c:when>
                                     <c:otherwise>
                                         All results for
                                     </c:otherwise>
@@ -165,7 +168,7 @@
                                 No results found for
                             </c:otherwise>
                         </c:choose>
-                            &quot;<span class="browseheader">${param.q}</span>&quot;
+                            &quot;<span class="headerquery">${gsweb:highlight(param.q, 'private', 'text')}</span>&quot;
                     </td>
                     <td align="right">
                         <c:if test="${results.total gt 0}">
@@ -186,34 +189,42 @@
                                constraint="${param.c}"
                                debug="${param.debug}">
 
-                               <table width="100%"><tr><td align="center">
+                               <table width="100%"><tr><td align="left">
                                <div id="${(noresults == 'true') ? 'noresults' : 'searchfooter'}">
                                    <c:if test="${noresults == 'true'}">
-                                       <table><tr><td>
+                                       <table><tr><td align="left">
                                    Suggestions:
                                    <ul>
-                                       <li>Make sure all words are spelled correctly</li>
+                                       <li>Make sure all words are spelled correctly.</li>
                                        <li>Try different or fewer keywords.</li>
                                        <li>Try more general keywords.</li>
-                                       <li>You searched in ${requestScope.context.stateOrDefault.longName}.  &#160;&#160; Would you like to change state?</li>
+                                       <!--<li>You searched in ${requestScope.context.stateOrDefault.longName}.  &#160;&#160; Would you like to change state? &#160;&#160;&#160;<gsweb:stateSelector useLongNames="true"/> </li>-->
                                    </ul>
                                        </td></tr></table>
                                    </c:if>
-                                   <table>
+                                   <table width="100%">
+                                       <c:if test="${noresults == 'true'}">
+                                           <tr><td>You searched in ${requestScope.context.stateOrDefault.longName}.  &#160;&#160; Search again in a different state? &#160;</td></tr>
+                                       </c:if>
                                        <tr>
-                                           <td><search:searchControl rememberQuery="true" showStates="${noresults}"/></td>
+                                           <td align="${(noresults == 'true') ? 'left' : 'center'}"><search:searchControl rememberQuery="true" showStates="${noresults}"/></td>
+                                           <!--<td align="center"><search:searchControl rememberQuery="true" showStates="false"/></td>-->
                                        </tr>
                                        <tr>
                                            <td colspan="2" align="center">
-                                               <c:if test="${noresults != 'true'}">
-                                                   <a href="">Change state</a>
+                                               <!--<c:if test="${noresults != 'true'}">
+                                                   <gsml:a href="/stateLauncher.page?p=pathway${requestScope.context.pathway}">
+                                                           Change state
+                                                   </gsml:a>&#160;
                                                    |
-                                               </c:if>
-                                               <a href="">Advanced School Search</a>
+                                               </c:if>-->
+                                               &#160;<gsml:a href="/cgi-bin/template_plain/advanced/$STATE/">
+                                                   Advanced school search
+                                               </gsml:a>&#160;
                                                |
-                                               <a href="">Search Tips</a>
+                                               &#160;<a href="">Search tips</a>&#160;
                                                |
-                                               <a href="">Didn't find what you need?</a>
+                                               &#160;<a href="">Didn't find what you need?</a>
                                            </td>
                                        </tr>
                                    </table>

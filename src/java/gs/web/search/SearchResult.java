@@ -117,7 +117,7 @@ public class SearchResult {
         if (_address == null) {
             StringBuffer addressBuffer = new StringBuffer ();
             addressBuffer.append(_doc.get("street"));
-            addressBuffer.append("  ");
+            addressBuffer.append(",  ");
             addressBuffer.append(_doc.get("city"));
             addressBuffer.append(", ");
             addressBuffer.append(getState().toUpperCase());

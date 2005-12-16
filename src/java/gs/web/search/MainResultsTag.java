@@ -103,23 +103,27 @@ public class MainResultsTag extends ResultsTableTagHandler {
                 out.println("</a>");
                 out.println("</td></tr>");
 
-                out.println("<tr class=\"contextrow\"><td>");
+                out.println("<tr class=\"contextrow\">");
                 if (result.getType() == SearchResult.SCHOOL) {
+                    out.println("<td>");
                     out.println(result.getAddress());
                     out.println("</td><td>");
                     out.println(result.getSchoolType());
                     out.println("</td><td>");
                     out.println(result.getGradeLevel());
+                    out.println("</td>");
                 } else {
                     String context = result.getContext();
                     if (context != null) {
+                        out.println("<td colspan=\"3\">");
                         out.print("<span class=\"context\">");
                         out.print(context);
                         out.println("</span>");
+                        out.println("</td>");
                     }
                 }
 
-                out.println("</td></tr>");
+                out.println("</tr>");
                 if (_debug) {
                     out.print("<tr><td><pre class=\"explanation\">");
                     out.print(result.getExplanation());

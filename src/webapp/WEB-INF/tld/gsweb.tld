@@ -32,6 +32,12 @@
         <function-signature>java.lang.String getStateName(java.lang.String)</function-signature>
     </function>
 
+    <function>
+        <name>highlight</name>
+        <function-class>gs.data.search.highlight.TextHighlighter</function-class>
+        <function-signature>java.lang.String highlight(java.lang.String,java.lang.String,java.lang.String)</function-signature>
+    </function>
+
     <tag>
         <name>stateSelector</name>
         <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>

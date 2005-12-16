@@ -32,6 +32,7 @@ public class SchoolFilters extends BaseQueryTagHandler {
             System.out.println ("qString: " + qString);
         }
 
+        // Elementary
         out.print("<li>");
         if (gradeLevels != null && gradeLevels.contains("elementary")) {
             out.print("Elementary (<a href=\"/search/search.page?");
@@ -44,6 +45,7 @@ public class SchoolFilters extends BaseQueryTagHandler {
         }
         out.print("</li>");
 
+        // Middle
         out.print("<li>");
         if (gradeLevels != null && gradeLevels.contains("middle")) {
             out.print("Middle (<a href=\"/search/search.page?");
@@ -56,6 +58,7 @@ public class SchoolFilters extends BaseQueryTagHandler {
         }
         out.print("</li>");
 
+        // High
         out.print("<li>");
         if (gradeLevels != null && gradeLevels.contains("high")) {
             out.print("High (<a href=\"/search/search.page?");
@@ -76,6 +79,7 @@ public class SchoolFilters extends BaseQueryTagHandler {
         if (sts != null) schoolTypes = Arrays.asList(sts);
 
 
+        // Public
         out.print("<li>");
         if (schoolTypes != null && schoolTypes.contains("public")) {
             out.print("Public (<a href=\"/search/search.page?");
@@ -88,18 +92,7 @@ public class SchoolFilters extends BaseQueryTagHandler {
         }
         out.print("</li>");
 
-        out.print("<li>");
-        if (schoolTypes != null && schoolTypes.contains("private")) {
-            out.print("Private (<a href=\"/search/search.page?");
-            out.print(qString.replaceAll("\\&st=private",""));
-            out.print("\">remove</a>)");
-        } else {
-            out.print("<a href=\"/search/search.page?");
-            out.print(qString);
-            out.println("&st=private\">Private</a>");
-        }
-        out.print("</li>");
-
+        // Charter
         out.print("<li>");
         if (schoolTypes != null && schoolTypes.contains("charter")) {
             out.print("Charter (<a href=\"/search/search.page?");
@@ -109,6 +102,19 @@ public class SchoolFilters extends BaseQueryTagHandler {
             out.print("<a href=\"/search/search.page?");
             out.print(qString);
             out.println("&st=charter\">Charter</a>");
+        }
+        out.print("</li>");
+
+        // Private
+        out.print("<li>");
+        if (schoolTypes != null && schoolTypes.contains("private")) {
+            out.print("Private (<a href=\"/search/search.page?");
+            out.print(qString.replaceAll("\\&st=private",""));
+            out.print("\">remove</a>)");
+        } else {
+            out.print("<a href=\"/search/search.page?");
+            out.print(qString);
+            out.println("&st=private\">Private</a>");
         }
         out.print("</li></ul>");
     }
