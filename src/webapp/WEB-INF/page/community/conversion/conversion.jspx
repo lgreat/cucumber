@@ -24,7 +24,15 @@
         <table id="header" width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <td><a href="javascript:history.back();">&lt;&lt; Back</a></td>
-                <td align="right">Already a member? <a href="http://${requestScope.context.hostName}/cgi-bin/site/signin.cgi/${requestScope.context.stateOrDefault.abbreviation}/">Sign in</a></td>
+                 <td align="right">
+                <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
+           <c:if test="${requestScope.context.user==null}">
+Already a member? <a href="http://${requestScope.context.hostName}/cgi-bin/site/signin.cgi/${requestScope.context.stateOrDefault.abbreviation}/">Sign in</a>           </c:if>
+           </c:if>
+           <c:if test="${requestScope.context.user!=null}">
+       </c:if>
+
+                </td>
             </tr>
             <tr>
                 <td><a href="/modperl/go/${requestScope.context.stateOrDefault.abbreviation}"><img src="/res/img/community/conversion/gs_bug.gif" alt="GreatSchools" width="223" height="73" vspace="5" border="0"/></a></td>
