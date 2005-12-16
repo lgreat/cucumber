@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.11 2005/11/29 23:38:25 apeterson Exp $
+ * $Id: UrlUtil.java,v 1.12 2005/12/16 23:15:37 dlee Exp $
  */
 
 package gs.web.util;
@@ -240,7 +240,7 @@ public final class UrlUtil {
         if (url.startsWith("vpage:")) {
             String vpage = url.substring(6);
             if (StringUtils.equals("content.seasonal", vpage)) {
-                return "/cgi-bin/site/holiday_center.cgi/$STATE";
+                return "/cgi-bin/site/january_parent_tips.cgi/$STATE";
                 // NOTE: was "/cgi-bin/site/parent_tips.cgi/$STATE"
             } else if (StringUtils.equals("path1", vpage)) {
                 return "/modperl/go/$STATE";

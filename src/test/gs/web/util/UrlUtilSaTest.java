@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.10 2005/12/05 21:47:56 apeterson Exp $
+ * $Id: UrlUtilSaTest.java,v 1.11 2005/12/16 23:15:37 dlee Exp $
  */
 
 package gs.web.util;
@@ -182,7 +182,7 @@ public class UrlUtilSaTest extends TestCase {
     public void testVpageToUrl() {
         assertEquals("/search/search.page", _urlUtil.vpageToUrl("/search/search.page"));
         assertEquals("/modperl/bycity/CA", _urlUtil.vpageToUrl("/modperl/bycity/CA"));
-        assertEquals("/cgi-bin/site/holiday_center.cgi/$STATE", _urlUtil.vpageToUrl("vpage:content.seasonal"));
+        assertEquals("/cgi-bin/site/january_parent_tips.cgi/$STATE", _urlUtil.vpageToUrl("vpage:content.seasonal"));
         assertEquals("/modperl/go/$STATE", _urlUtil.vpageToUrl("vpage:path1"));
         assertEquals("/path/mySchool.page?state=$STATE", _urlUtil.vpageToUrl("vpage:path2"));
     }
