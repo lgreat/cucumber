@@ -64,6 +64,6 @@
             </div>
         </gsml:form>
         <gsml:a styleClass="small block" href="/cgi-bin/newsletters/${requestScope.context.stateOrDefault.abbreviation}">Learn More</gsml:a>
-        <gsml:a styleClass="small block" href="/cgi-bin/static/privacy.inc/${requestScope.context.stateOrDefault.abbreviationLowerCase}">Privacy Policy</gsml:a>
+        <gsml:a styleClass="small block" href="/cgi-bin/static/privacy.inc/${requestScope.context.stateOrDefault.abbreviationLowerCase}">GreatSchools Privacy Policy</gsml:a>
     </div>
 </jsp:root>
