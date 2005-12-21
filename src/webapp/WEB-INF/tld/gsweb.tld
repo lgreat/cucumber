@@ -143,42 +143,6 @@
         </attribute>
     </tag>
 
-    <tag>
-        <name>articletable</name>
-        <tag-class>gs.web.search.ArticleTableTagHandler</tag-class>
-        <body-content>empty</body-content>
-        <attribute>
-            <name>articles</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>query</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>sortColumn</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>reverse</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>total</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>page</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-    </tag>
-
   <tag>
       <name>mainResults</name>
       <tag-class>gs.web.search.MainResultsTag</tag-class>
@@ -215,43 +179,7 @@
         </attribute>
   </tag>
 
-    <tag>
-        <name>termtable</name>
-        <tag-class>gs.web.search.TermTableTagHandler</tag-class>
-        <body-content>empty</body-content>
-        <attribute>
-            <name>results</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>query</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>sortColumn</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>reverse</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>total</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>page</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-    </tag>
-
-    <tag>
+  <tag>
         <name>citydistricttable</name>
         <tag-class>gs.web.search.CityDistTableTagHandler</tag-class>
         <body-content>empty</body-content>
@@ -405,39 +333,7 @@
         </attribute>
     </tag>
 
-    <tag>
-        <name>mixedresults</name>
-        <tag-class>gs.web.search.MixedResultsTagHandler</tag-class>
-        <body-content>empty</body-content>
-        <attribute>
-            <name>results</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>query</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-    </tag>
-
-    <tag>
-      <name>citydistmixed</name>
-      <tag-class>gs.web.search.CityDistMixedTag</tag-class>
-      <body-content>empty</body-content>
-      <attribute>
-          <name>results</name>
-          <required>true</required>
-          <rtexprvalue>true</rtexprvalue>
-      </attribute>
-      <attribute>
-          <name>query</name>
-          <required>true</required>
-          <rtexprvalue>true</rtexprvalue>
-      </attribute>
-    </tag>
-
-    <tag>
+  <tag>
         <name>articlelink</name>
         <tag-class>gs.web.content.ArticleLinkTagHandler</tag-class>
         <body-content>tagdependent</body-content>
