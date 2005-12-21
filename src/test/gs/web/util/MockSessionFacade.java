@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MockSessionFacade.java,v 1.1 2005/12/03 00:35:59 apeterson Exp $
+ * $Id: MockSessionFacade.java,v 1.2 2005/12/21 23:19:07 apeterson Exp $
  */
 
 package gs.web.util;
@@ -18,6 +18,7 @@ import org.springframework.context.ApplicationContext;
  */
 public class MockSessionFacade implements ISessionFacade {
     private State _state;
+    private boolean _paidSubscriber;
 
     public ApplicationContext getApplicationContext() {
         return SpringUtil.getApplicationContext();
@@ -25,6 +26,14 @@ public class MockSessionFacade implements ISessionFacade {
 
     public User getUser() {
         return null;
+    }
+
+    public boolean isPaidSubscriber() {
+        return _paidSubscriber;
+    }
+
+    public void setPaidSubscriber(boolean paidSubscriber) {
+        _paidSubscriber = paidSubscriber;
     }
 
     public State getState() {
