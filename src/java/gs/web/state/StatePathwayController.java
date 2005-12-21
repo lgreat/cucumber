@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.14 2005/12/03 00:35:59 apeterson Exp $
+ * $Id: StatePathwayController.java,v 1.15 2005/12/21 23:11:26 dlee Exp $
  */
 package gs.web.state;
 
@@ -39,6 +39,7 @@ public class StatePathwayController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
 
+        request.getSession(false);
         boolean hasSelectedState = true;
 
         String state = request.getParameter("state");
