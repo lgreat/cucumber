@@ -6,6 +6,7 @@
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="user" type="gs.data.community.User" required="true"/>
     <jsp:directive.attribute name="state" type="gs.data.state.State" required="true"/>
+    <jsp:directive.attribute name="paidSubscriber" type="java.lang.Boolean" required="true"/>
     <c:if test="${requestScope.pageHelper.signInAvailable}">
         <div id="userInfo">
             <c:if test="${user==null}">
@@ -15,7 +16,7 @@
                 <gsml:a href="/cgi-bin/conversion/$STATE/overview" state="${state}">Learn More</gsml:a>
             </c:if>
             <c:if test="${user!=null}">
-                Welcome to GreatSchools Insider,
+                Welcome to GreatSchools<c:if test="${paidSubscriber}"> Insider</c:if>,
                 ${user.email}<br />
                 <gsml:a href="/cgi-bin/logout/$STATE/?email=${user.email}&amp;mid=${user.id}">Sign Out</gsml:a>
                 &#160;

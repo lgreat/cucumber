@@ -19,7 +19,7 @@
                             <gsml:a href="vpage:path1">Choosing Schools</gsml:a>
                         </h1>
                         <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
-                            <c:if test="${requestScope.context.user!=null}">
+                            <c:if test="${requestScope.context.paidSubscriber}">
                                 <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE">Top-Rated Schools</gsml:a>
                             </c:if>
                         </c:if>
@@ -28,7 +28,7 @@
                         <gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">Search By Address</gsml:a>
                         <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List</gsml:a>
                         <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
-                            <c:if test="${requestScope.context.user!=null}">
+                            <c:if test="${requestScope.context.paidSubscriber}">
                                 <gsml:a href="/insider.page?state=$STATE">Member Center</gsml:a>
                             </c:if>
                         </c:if>

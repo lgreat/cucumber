@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ISessionFacade.java,v 1.5 2005/12/03 00:35:59 apeterson Exp $
+ * $Id: ISessionFacade.java,v 1.6 2005/12/21 23:01:14 apeterson Exp $
  */
 
 package gs.web;
@@ -31,6 +31,11 @@ public interface ISessionFacade {
      * user. Other tests must be used to protect paid content.
      */
     User getUser();
+
+    /**
+     * Is user subscribed as a member?
+     */
+    boolean isPaidSubscriber();
 
     /**
      * Current state (of the U.S.).

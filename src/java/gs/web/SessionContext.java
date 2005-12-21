@@ -1,9 +1,11 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.23 2005/12/03 00:35:59 apeterson Exp $
+ * $Id: SessionContext.java,v 1.24 2005/12/21 23:01:14 apeterson Exp $
  */
 package gs.web;
 
+import gs.data.community.ISubscriptionDao;
+import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
 import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
@@ -14,6 +16,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Implementation of the ISessionFacade interface based on Java servlet
@@ -42,6 +45,7 @@ public class SessionContext
     private String _pathway;
 
     private ApplicationContext _applicationContext;
+    private ISubscriptionDao _subscriptionDao;
 
     /**
      * Created by Spring as needed.
@@ -60,6 +64,14 @@ public class SessionContext
 
     public void setUser(final User user) {
         _user = user;
+    }
+
+    public boolean isPaidSubscriber() {
+        if (_user == null) {
+            return false;
+        }
+
+        return _subscriptionDao.isUserSubscribed(_user, SubscriptionProduct.ONE_YEAR_SUB, new Date());
     }
 
     public State getState() {
@@ -127,5 +139,13 @@ public class SessionContext
 
     public void setPathway(String pathway) {
         _pathway = pathway;
+    }
+
+    public ISubscriptionDao getSubscriptionDao() {
+        return _subscriptionDao;
+    }
+
+    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
+        _subscriptionDao = subscriptionDao;
     }
 }

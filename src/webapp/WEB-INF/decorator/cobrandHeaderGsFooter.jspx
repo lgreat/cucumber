@@ -53,7 +53,7 @@
                     </c:choose>
                 </td>
                 <td width="*" style="text-align:right">
-                    <mod:userInfo user="${requestScope.context.user}" state="${state}"/>
+                    <mod:userInfo user="${requestScope.context.user}" state="${state}" paidSubscriber="${requestScope.context.paidSubscriber}"/>
                 </td>
             </tr>
         </table>
