@@ -36,6 +36,7 @@
 <cobrand:framebuster/>
 
 <div id="header">
+    <!--c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}"-->
     <c:if test="${requestScope.pageHelper.showingHeader and !requestScope.pageHelper.adFree}">
         <table id="headerGS">
             <tr>
@@ -71,15 +72,15 @@
         <div id="footerGS">
             <div class="lowernavbar">
 
-            <a id="lnk_about" href="/cgi-bin/static/about_gs.inc" onClick="lnkWrap(this.id,'p')">About Us</a> &#124;
+            <a id="lnk_about" href="/cgi-bin/static/about_gs.inc/${state}">About Us</a> &#124;
 
-                <a id="lnk_donate" href="/cgi-bin/static/donation.html" onClick="lnkWrap(this.id,'p')">Donations</a> &#124;
+                <a id="lnk_donate" href="/cgi-bin/static/donation.html/${state}" >Donations</a> &#124;
 
-                <a id="lnk_newsl" href="/cgi-bin/newsletters" onClick="lnkWrap(this.id,'p')">Free Newsletters</a> &#124;
+                <a id="lnk_newsl" href="/cgi-bin/newsletters/${state}" >Free Newsletters</a> &#124;
 
-                <a id="lnk_contact" href="/cgi-bin/feedback"  onClick="lnkWrap(this.id,'p')">Contact Us</a> &#124;
+                <a id="lnk_contact" href="/cgi-bin/feedback/${state}"  >Contact Us</a> &#124;
 
-                <a id="lnk_priv" href="/cgi-bin/static/privacy.inc"  onClick="lnkWrap(this.id,'p')">Privacy Policy</a>
+                <a id="lnk_priv" href="/cgi-bin/static/privacy.inc/${state}"  >Privacy Policy</a>
 
 
             <div id="footerText">
