@@ -8,13 +8,14 @@
 
 <c:set var="searchPrompt1" value="Search school name or district"/>
 <c:set var="searchPrompt2" value="Search city"/>
-<gsml:url var="searchPage"
-          value="/cgi-bin/search_switch/${state}"/>
+<gsml:url var="searchPage" value="/cgi-bin/search_switch/${state}"/>
 
 <form name="headerSearch"
        method="post"
        action="${searchPage}"
        onsubmit="if ((this.field1.value == '' || this.field1.value == '${searchPrompt1}') &amp;&amp; (this.field2.value == '' || this.field2.value == '${searchPrompt2}')) { alert('You must specify a school, district, or city name'); return false;} ${triggerPopunder}">
+    <input type="hidden" name="selector" value="by_school"/>
+    <input type="hidden" name="state" value="${state.abbreviation}"/>
 
             <table id="stateNSearchBar" border="0" cellspacing="0" cellpadding="0" width="100%">
                 <tr class="">
