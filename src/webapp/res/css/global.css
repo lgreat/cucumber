@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.76 2005/12/14 19:45:07 apeterson Exp $
+   $Id: global.css,v 1.77 2005/12/21 01:50:59 wbeck Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -218,14 +218,26 @@
     }
 
     #footerText {
-        font-weight: bold;
-        padding-top: 10px;
-        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size:12px;
+        color:#777;
+        font-weight:bold;
+        padding-top:10px;
     }
 
     #footerSearch {
-        text-align: center;
-        font-size: 10px;
+        text-align:center;
+        color:#999;
+        font-size:10px;
+    }
+
+    #footerSearch a {
+        color:#039;
+    }
+
+    #footerSearch span {
+        padding-left: 2px;
+        padding-right: 2px;
     }
 
     #footerSponsor {
@@ -233,9 +245,19 @@
     }
 
     #footerCopyright {
-        padding-bottom: 5px;
-        text-align: center;
-        font-size: 10px;
+        font-size:10px;
+        text-align:center;
+        color:#999;
+        padding-top:10px;
+        padding-bottom:10px;
+    }
+
+    #footerCopyright a:link {
+        color:#039;
+    }
+
+    #footerCopyright a:visited {
+        color:#039;
     }
 
     #footerGS table {
@@ -254,6 +276,26 @@
         font-size: 10px;
         vertical-align: top;
         line-height: 8pt
+    }
+
+    .lowernavbar {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size:12px;
+        text-align:center;
+        font-weight:bold;
+        padding-top:24px;
+    }
+
+    .lowernavbar a:link,
+        .lowernavbar a:visited {
+        color:#039;padding: 0px 2px 0px 3px;
+    }
+
+    #footerSearchStates,#footerSearchCities,#footerSearchStateSpecific {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size:12px;
+        color:#666;
+        padding:0px 50px 10px 50px;
     }
 
         /*  Structure
@@ -779,7 +821,7 @@
         border-left: 1px solid #999;
         padding: 0px 5px .3em 10px;
     }
-    
+
     .schoolchoicecenter li {
         padding: 3px 5px 3px 12px;
         margin: 2px 0px 3px 0px;

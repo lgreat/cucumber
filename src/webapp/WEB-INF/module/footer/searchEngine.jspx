@@ -8,16 +8,26 @@
 
 <div id="footerSearch">
 
-<span style="style:inline" onclick="showSection('footerSearchStateSpecific');">${longName} school information <a>(click
-    to expand)</a></span>
+<span onclick="showSection('footerSearchStateSpecific');">${longName} school information (<a>click
+    to expand</a>)</span>
+<span onclick="showSection('footerSearchStates');">School information by state (<a>click
+    to expand</a>)</span>
+<span onclick="showSection('footerSearchCities');">School information by city (<a>click
+    to expand</a>)</span>
+
+
+<div id="footerCopyright">
+    &amp;#169;1998-2006 GreatSchools Inc. All Rights Reserved.
+    <a href="/cgi-bin/static/terms.html/${requestScope.context.stateOrDefault.abbreviation}">Terms of
+        Use</a>
+</div>
 
 <div id="footerSearchStateSpecific">
     <a href="/cgi-bin/schoollist/${state}">${longName} schools</a>, <a
         href="/modperl/distlist/${state}">${longName}
     districts</a>, <a href="/modperl/citylist/${state}">${longName} cities</a>
 </div>
-|
-<span onclick="showSection('footerSearchStates');">School information by state <a>(click to expand)</a></span>
+
 
 <div id="footerSearchStates">
     <a href="/modperl/go/AL">Alabama schools</a>,
@@ -72,8 +82,7 @@
     <a href="/modperl/go/WI">Wisconsin schools</a>,
     <a href="/modperl/go/WY">Wyoming schools</a>.
 </div>
-|
-<span onclick="showSection('footerSearchCities');">School information by city <a>(click to expand)</a></span>
+
 
 <div id="footerSearchCities">
     <a href="/modperl/bycity/ny/?city=New+York&amp;showall=1&amp;level=a">New York schools</a>,

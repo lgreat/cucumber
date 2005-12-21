@@ -67,69 +67,30 @@
             <ad:google728x90/>
         </div>
 
+
         <div id="footerGS">
-            <table>
-                <tr>
-                    <th></th>
-                    <th>ABOUT US</th>
-                    <th>FOR SPONSORS &amp; PARTNERS</th>
-                    <th>FOR PRINCIPALS</th>
-                    <th>COMMUNITY OUTREACH</th>
-                </tr>
-                <tr>
-                    <td><div id="footerSponsor">
-                        <ad:sponsor/>
-                    </div></td>
-                    <td>
-                        <a href="/cgi-bin/static/about_gs.inc/${state}">Overview</a><br/>
-                        <a href="/cgi-bin/static/whoweare.inc/${state}">Who We Are</a><br/>
-                        <a href="/cgi-bin/static/faq.inc/${state}">FAQs</a> / <a
-                            href="/cgi-bin/static/sitemap.html/${state}">Site
-                        Map</a><br/>
+            <div class="lowernavbar">
 
-                        <a href="/cgi-bin/feedback/${state}">Contact GreatSchools</a><br/>
-                        <a href="/cgi-bin/static/press.inc/${state}">Press</a> /
-                        <a href="/cgi-bin/static/jobs.inc/${state}">Jobs</a><br/>
-                        <a href="/cgi-bin/static/donation.html/${state}">Support GreatSchools</a><br/>
-                        <a href="/cgi-bin/static/privacy.inc/${state}">Privacy Statement</a><br/>
-                        <a href="/cgi-bin/static/link_to_us.tmpl/${state}">Link To Us</a>
-                    </td>
-                    <td>
-                        <a href="/content/mediakit"
-                           onclick="Popup=window.open('/content/mediakit','Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=566,height=430,left=50,top=50'); return false;">Advertising
-                            Information</a><br/>
-                        <a href="/realtors/intro.html"
-                           onclick="Popup=window.open('/realtors/intro.html','Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=502,height=502,left=50,top=50'); return false;">Real
-                            Estate Professionals</a><br/>
-                        <a href="/cgi-bin/static/sponsors.inc/${state}">Sponsors and Partners</a><br/>
-                        <a href="/cgi-bin/static/sponsortestimonial.inc/${state}">What People Are Saying</a>
-                    </td>
+            <a id="lnk_about" href="/cgi-bin/static/about_gs.inc" onClick="lnkWrap(this.id,'p')">About Us</a> &#124;
 
-                    <td>
-                        <a href="/cgi-bin/static/ed_extra.inc/${state}">Overview</a><br/>
-                        <a href="/cgi-bin/pq_start.cgi/${state}">Get Started</a><br/>
-                        <a href="/cgi-bin/static/princ_faq.html/${state}">FAQs for Principals</a><br/>
-                        <a href="/cgi-bin/static/princ_help.html/${state}">Principals: Get Help</a><br/>
-                    </td>
-                    <td>
-                        <a href="/cgi-bin/static/outreach.inc/${state}">Overview</a><br/>
-                        <a href="/cgi-bin/browse_cat/spanish/${state}">Art<![CDATA[&iacute;]]>culos en
-                            Espa<![CDATA[&ntilde;]]>ol</a><br/>
-                    </td>
-                </tr>
-            </table>
+                <a id="lnk_donate" href="/cgi-bin/static/donation.html" onClick="lnkWrap(this.id,'p')">Donations</a> &#124;
+
+                <a id="lnk_newsl" href="/cgi-bin/newsletters" onClick="lnkWrap(this.id,'p')">Free Newsletters</a> &#124;
+
+                <a id="lnk_contact" href="/cgi-bin/feedback"  onClick="lnkWrap(this.id,'p')">Contact Us</a> &#124;
+
+                <a id="lnk_priv" href="/cgi-bin/static/privacy.inc"  onClick="lnkWrap(this.id,'p')">Privacy Policy</a>
+
+
             <div id="footerText">
-                GreatSchools.net Elementary, middle and high school information for public, private and charter
+                GreatSchools.net: Elementary, middle and high school information for public, private and charter
                 schools
                 nationwide.
             </div>
+                </div>
             <jsp:include
                     page="/footer/searchEngine.module?state=${requestScope.context.stateOrDefault.abbreviation}"/>
-            <div id="footerCopyright">
-                &amp;#169;1998-2005 GreatSchools Inc. All Rights Reserved.
-                <a href="/cgi-bin/static/terms.html/${requestScope.context.stateOrDefault.abbreviation}">Terms of
-                    Use</a>
-            </div>
+
         </div>
     </div>
 </c:if>
