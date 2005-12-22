@@ -210,14 +210,9 @@
                                            <td align="${(noresults == 'true') ? 'left' : 'center'}"><search:searchControl rememberQuery="true" showStates="${noresults}"/></td>
                                            <!--<td align="center"><search:searchControl rememberQuery="true" showStates="false"/></td>-->
                                        </tr>
+                                       <!--
                                        <tr>
                                            <td colspan="2" align="center">
-                                               <!--<c:if test="${noresults != 'true'}">
-                                                   <gsml:a href="/stateLauncher.page?p=pathway${requestScope.context.pathway}">
-                                                           Change state
-                                                   </gsml:a>&#160;
-                                                   |
-                                               </c:if>-->
                                                &#160;<gsml:a href="/cgi-bin/template_plain/advanced/$STATE/">
                                                    Advanced school search
                                                </gsml:a>&#160;
@@ -227,6 +222,7 @@
                                                &#160;<a href="">Didn't find what you need?</a>
                                            </td>
                                        </tr>
+                                       -->
                                    </table>
                                </div>
                  </td></tr></table>
