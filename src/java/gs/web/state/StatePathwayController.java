@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.16 2005/12/22 00:03:47 dlee Exp $
+ * $Id: StatePathwayController.java,v 1.17 2005/12/22 01:22:33 dlee Exp $
  */
 package gs.web.state;
 
@@ -10,7 +10,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +38,7 @@ public class StatePathwayController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
 
-        
+
         boolean hasSelectedState = true;
 
         String state = request.getParameter("state");
@@ -78,9 +77,9 @@ public class StatePathwayController extends AbstractController {
         if (hasSelectedState) {
             redirectUrl += state + extraParam;
             redirectUrl = urlUtil.buildUrl(redirectUrl, request);
-            RedirectView redirectView = new RedirectView(redirectUrl);
+            httpServletResponse.sendRedirect(redirectUrl);
 
-            return new ModelAndView(redirectView);
+            return new ModelAndView();
 
         } else {
             Map model = new HashMap();
