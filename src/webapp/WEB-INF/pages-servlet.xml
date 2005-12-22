@@ -10,6 +10,7 @@
           class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
         <property name="interceptors">
             <list>
+                <ref local="responseInterceptor"/> 
                 <ref local="sessionContextInterceptor"/>
                 <!--                <ref local="insiderOnlyInterceptor"/>-->
             </list>
@@ -19,6 +20,9 @@
     <!--bean name="lecacyHandlerMapping"
         class="gs.web.util.LegacyHandlerMapping">
         </bean-->
+    <bean id="responseInterceptor"
+            class="gs.web.ResponseInterceptor"
+            autowire="byName" />
 
     <bean id="sessionContextInterceptor"
           class="gs.web.SessionContextInterceptor"

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextInterceptor.java,v 1.10 2005/12/03 00:35:59 apeterson Exp $
+ * $Id: SessionContextInterceptor.java,v 1.11 2005/12/22 23:41:17 dlee Exp $
  */
 package gs.web;
 
@@ -43,15 +43,6 @@ public class SessionContextInterceptor
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object o) throws Exception {
-        /*
-         * Set pages to not be cached since almost all pages include the member bar now or some
-         * other dynamic content. This should be in the decorator as gsml:nocache but since that
-         * tag doesn't work due to a sitemesh bug (see gsml:nocache tag for more info) it's here
-         * for the time being.
-         */
-        response.setHeader("Cache-Control", "no-cache");
-        response.setHeader("Pragma", "no-cache");
-        response.setDateHeader("Expires", 0);
 
         /*
          Create a new session context every time.
