@@ -92,7 +92,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 if (filterBuffer.length() > 0) {
                     filterBuffer.append(" | ");
                 }
-                filterBuffer.append(gls[i]);
+                filterBuffer.append(capitalize(gls[i]));
                 if ("elementary".equals(gls[i])) {
                     qs = qString.replaceAll("\\&gl=elementary","");
                 } else if("middle".equals(gls[i])) {
@@ -113,7 +113,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 if (filterBuffer.length() > 0) {
                     filterBuffer.append(" | ");
                 }
-                filterBuffer.append(sts[i]);
+                filterBuffer.append(capitalize(sts[i]));
                 if ("public".equals(sts[i])) {
                     qs = qString.replaceAll("\\&st=public","");
                 } else if("private".equals(sts[i])) {
@@ -241,6 +241,19 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
     private static void writeButtons(JspWriter out) throws IOException {
         out.println("<input type=\"image\" name=\"compare\" src=\"/res/img/btn_comparechecked_149x21.gif\" alt=\"Compare checked Schools\"/>");
         out.println("<input type=\"image\" name=\"save\" src=\"/res/img/btn_savechecked2msl_173x21.gif\" alt=\"Save checked to My School List\"/>");
+    }
+
+    private static String capitalize(String s) {
+        String capString = s;
+        if (s != null && s.length() > 1) {
+            String initial = s.substring(0,1);
+            String rest = s.substring(1,s.length());
+            StringBuffer buffer = new StringBuffer(s.length());
+            buffer.append(initial.toUpperCase());
+            buffer.append(rest);
+            capString = buffer.toString();
+        }
+        return capString;
     }
 }
 

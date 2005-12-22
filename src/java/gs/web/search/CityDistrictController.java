@@ -61,22 +61,22 @@ public class CityDistrictController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
 
-        String queryString = (String) request.getParameter("q");
-        String state = (String) request.getParameter("state");
+        String queryString = request.getParameter("q");
+        String state = request.getParameter("state");
 
         int filteredListSize = LIST_SIZE,
                 cityListSize = LIST_SIZE,
                 districtListSize = LIST_SIZE;
 
-        if (!StringUtils.isEmpty((String) request.getParameter("morefiltered"))) {
+        if (!StringUtils.isEmpty(request.getParameter("morefiltered"))) {
             filteredListSize = EXTENDED_LIST_SIZE;
         }
 
-        if (!StringUtils.isEmpty((String) request.getParameter("morecities"))) {
+        if (!StringUtils.isEmpty(request.getParameter("morecities"))) {
             cityListSize = EXTENDED_LIST_SIZE;
         }
 
-        if (!StringUtils.isEmpty((String) request.getParameter("moredistricts"))) {
+        if (!StringUtils.isEmpty(request.getParameter("moredistricts"))) {
             districtListSize = EXTENDED_LIST_SIZE;
         }
 
@@ -85,9 +85,6 @@ public class CityDistrictController extends AbstractController {
         model.put("query", queryString);
         model.put("state", state);
 
-        BooleanQuery baseQuery = new BooleanQuery();
-        baseQuery.add(new TermQuery(new Term("state", state)), true, false);
-
         String st = null;
         String gl = null;
 
@@ -95,6 +92,10 @@ public class CityDistrictController extends AbstractController {
             QueryParser parser =
                     new QueryParser("text", new PorterStandardAnalyzer(CITY_DIST_STOP_WORDS));
             parser.setOperator(QueryParser.DEFAULT_OPERATOR_AND);
+
+            BooleanQuery baseQuery = new BooleanQuery();
+            baseQuery.add(new TermQuery(new Term("state", state)), true, false);
+
             try {
                 Query keywordQuery = parser.parse(queryString);
                 baseQuery.add(keywordQuery, true, false);
@@ -146,14 +147,12 @@ public class CityDistrictController extends AbstractController {
             BooleanQuery cityQuery = new BooleanQuery();
             cityQuery.add(new TermQuery(new Term("type", "city")), true, false);
             cityQuery.add(baseQuery, true, false);
+            Hits cityHits = _searcher.search(cityQuery, null, null, null);
+            model.put("citiestotal", new Integer(cityHits != null ? cityHits.length() : 0));
 
             BooleanQuery districtQuery = new BooleanQuery();
             districtQuery.add(new TermQuery(new Term("type", "district")), true, false);
             districtQuery.add(baseQuery, true, false);
-
-            Hits cityHits = _searcher.search(cityQuery, null, null, null);
-            model.put("citiestotal", new Integer(cityHits != null ? cityHits.length() : 0));
-
             Hits districtHits = _searcher.search(districtQuery, null, null, null);
             model.put("districtstotal", new Integer(districtHits != null ? districtHits.length() : 0));
 

@@ -15,8 +15,7 @@ public class SchoolFilters extends BaseQueryTagHandler {
 
         JspWriter out = getJspContext().getOut();
 
-        //getJspContext().getAttribute("request");
-        out.println("<h2 class=\"browseheader\">Filter Your List</h2>");
+        out.println("<h2 class=\"browseheader\">Filter your list</h2>");
         out.println("<ul class=\"filterlist\" id=\"schoolfilterlist\">");
 
         String[] gls = (String[])getJspContext().findAttribute("gl");

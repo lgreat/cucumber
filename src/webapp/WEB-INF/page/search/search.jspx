@@ -117,18 +117,18 @@
         <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
         <h2 class="browseheader">Browse</h2>
         <ul class="refinementlist">
-            <li><gsml:a href="/modperl/citylist/${state.abbreviation}">All <c:out value="${state.longName}"/> Cities</gsml:a></li>
-            <li><gsml:a href="/modperl/distlist/${state.abbreviation}">All <c:out value="${state.longName}"/> Districts</gsml:a></li>
-            <li><gsml:a href="/content/allArticles.page?state=${requestScope.context.stateOrDefault.abbreviation}">All Articles</gsml:a></li>
-            <li><gsml:a href="/cgi-bin/glossary_home/${state}">All Glossary Terms</gsml:a></li>
+            <li><gsml:a href="/modperl/citylist/${state.abbreviation}">All <c:out value="${state.longName}"/> cities</gsml:a></li>
+            <li><gsml:a href="/modperl/distlist/${state.abbreviation}">All <c:out value="${state.longName}"/> districts</gsml:a></li>
+            <li><gsml:a href="/content/allArticles.page?state=${requestScope.context.stateOrDefault.abbreviation}">All topics</gsml:a></li>
+            <li><gsml:a href="/cgi-bin/glossary_home/${state}">All glossary terms</gsml:a></li>
         </ul>
     </gsml:box>
     <gsml:box tableClass="shade3 main">
         <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
         <h2 class="browseheader">Advanced School Search</h2>
         <ul class="refinementlist">
-            <li><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">Search near Address</gsml:a></li>
-            <li><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#county">Search by County</gsml:a></li>
+            <li><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">Search near address</gsml:a></li>
+            <li><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#county">Search by county</gsml:a></li>
         </ul>
     </gsml:box>
 
@@ -196,8 +196,8 @@
                                    Suggestions:
                                    <ul>
                                        <li>Make sure all words are spelled correctly.</li>
-                                       <li>Try different or fewer keywords.</li>
-                                       <li>Try more general keywords.</li>
+                                       <li>Try different or fewer key words.</li>
+                                       <li>Try more general key words.</li>
                                        <!--<li>You searched in ${requestScope.context.stateOrDefault.longName}.  &#160;&#160; Would you like to change state? &#160;&#160;&#160;<gsweb:stateSelector useLongNames="true"/> </li>-->
                                    </ul>
                                        </td></tr></table>
