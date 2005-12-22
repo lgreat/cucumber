@@ -14,7 +14,7 @@ import java.util.Set;
 
 /**
  * Controller tests for Davids bridge page
- *
+ * TODO clean up calls to MockHttpServletResponse 
  * @author <a href="mailto:thuss@greatschools.net">Todd Huss</a>
  */
 public class StatePathwayControllerSaTest extends BaseControllerTestCase {
@@ -35,9 +35,12 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
     public void testPathways() throws Exception {
         MockHttpServletRequest request = getRequest();
         MockHttpServletResponse response = getResponse();
+
         StatePathwayController controller = new StatePathwayController();
         final String pathway_single_search = "search_single";
         final String pathway_double_search = "search_double";
+
+        String redirectUrl = "";
 
         // Set up the resourec bundle
         ResourceBundleMessageSource msgs = new ResourceBundleMessageSource();
@@ -74,7 +77,6 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
             }
 
             request.setParameter("p", key);
-
             modelAndView = controller.handleRequestInternal(request, response);
             assertEquals(buildTestUrl(url, state), modelAndView.getModel().get("url"));
         }
@@ -117,19 +119,13 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
             }
             url = (String) pathways.get(key);
 
+            MockHttpServletResponse responser = new MockHttpServletResponse();
             request.setParameter("p", key);
             request.setParameter("state", state);
 
-
-            modelAndView = controller.handleRequestInternal(request, response);
-            assertNull(modelAndView.getModel().get("url"));
-            view = null;
-            try {
-                view = (RedirectView) modelAndView.getView();
-            } catch (ClassCastException e) {
-                fail("We expected a redirect view but received something else!");
-            }
-            assertEquals(buildRedirectUrl(url, state, request), view.getUrl());
+            modelAndView = controller.handleRequestInternal(request, responser);
+            redirectUrl = responser.getRedirectedUrl();
+            assertEquals(buildRedirectUrl(url, state, request), redirectUrl);
         }
 
         //valid state param, double search
@@ -140,29 +136,24 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         request.setParameter("state", state);
         modelAndView = controller.handleRequestInternal(request, response);
         url = (String) pathways.get(pathway_double_search);
-        view = null;
-        try {
-            view = (RedirectView) modelAndView.getView();
-        } catch (ClassCastException e) {
-            fail("We expected a redirect view but received something else!");
-        }
+        response = new MockHttpServletResponse();
+        modelAndView = controller.handleRequestInternal(request, response);
+        redirectUrl = response.getRedirectedUrl();
         assertEquals(buildRedirectUrl(url, state, request) + "?selector=by_school&field1=Lowell&field2=San+Francisco",
-                    view.getUrl());
+                    redirectUrl);
 
         //valid state param, single search
         state = "CA";
         request.setParameter("p", pathway_single_search);
         request.setParameter("q", "San Francisco");
         request.setParameter("state", state);
-        modelAndView = controller.handleRequestInternal(request, response);
-        view = null;
-        try {
-            view = (RedirectView) modelAndView.getView();
-        } catch (ClassCastException e) {
-            fail("We expected a redirect view but received something else!");
-        }
         url = (String) pathways.get(pathway_single_search);
-        assertEquals(buildRedirectUrl(url, state, request) + "&q=San+Francisco", view.getUrl());
+        response = new MockHttpServletResponse();
+
+
+        modelAndView = controller.handleRequestInternal(request, response);
+        redirectUrl = response.getRedirectedUrl();
+        assertEquals(buildRedirectUrl(url, state, request) + "&q=San+Francisco", redirectUrl);
 
     }
 
