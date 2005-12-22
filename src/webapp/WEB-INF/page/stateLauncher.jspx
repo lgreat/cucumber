@@ -9,7 +9,8 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib"
         >
-<jsp:directive.page import="gs.web.util.PageHelper"/>
+    <%@ page language="java" session="false"%/>
+    <jsp:directive.page import="gs.web.util.PageHelper"/>
     <html lang="en">
 
     <jsp:output doctype-root-element="html"
