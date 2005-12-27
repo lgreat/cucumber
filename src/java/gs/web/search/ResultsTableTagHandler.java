@@ -7,7 +7,6 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.JspContext;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.taglibs.standard.functions.Functions;
 import org.apache.commons.lang.StringUtils;
@@ -25,8 +24,6 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
     private String _sortColumn = null;
     private boolean _reverse = false;
     private List _results;
-    private String[] gradeLevels;
-    private String[] schoolTypes;
 
     public void setResults(List results) {
         _results = results;
@@ -78,16 +75,6 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
         _debug = db;
     }
     
-    public void setParameters(Map parameters) {
-        if (parameters != null) {
-            gradeLevels = (String[])parameters.get("gl");
-            schoolTypes = (String[])parameters.get("st");
-        } else {
-            gradeLevels = null;
-            schoolTypes = null;
-        }
-    }
-
     protected void writePageNumbers(JspWriter out) throws IOException {
 
         JspContext jspContext = getJspContext();
@@ -137,17 +124,20 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                     hrefBuffer.append(c);
                 }
 
-                if (gradeLevels != null) {
-                    for(int i = 0; i < gradeLevels.length; i++) {
+                String[] gls = (String[])getJspContext().findAttribute("gl");
+                if (gls != null) {
+                    for (int jj = 0; jj < gls.length; jj++) {
                         hrefBuffer.append("&gl=");
-                        hrefBuffer.append(gradeLevels[i]);
+                        hrefBuffer.append(gls[jj]);
                     }
                 }
 
-                if (schoolTypes != null) {
-                    for(int i = 0; i < schoolTypes.length; i++) {
+
+                String[] sts = (String[])getJspContext().findAttribute("st");
+                if (sts != null) {
+                    for(int i = 0; i < sts.length; i++) {
                         hrefBuffer.append("&st=");
-                        hrefBuffer.append(schoolTypes[i]);
+                        hrefBuffer.append(sts[i]);
                     }
                 }
 

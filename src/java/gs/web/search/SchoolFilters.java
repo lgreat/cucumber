@@ -28,7 +28,10 @@ public class SchoolFilters extends BaseQueryTagHandler {
         if (pc != null) {
             HttpServletRequest request = (HttpServletRequest)pc.getRequest();
             qString = request.getQueryString();
-            System.out.println ("qString: " + qString);
+            //remove page numbers from the url
+            System.out.println ("qString before: " + qString);
+            qString = qString.replaceAll("&p=\\p{Digit}[\\p{Digit}]?", "");
+            System.out.println ("qString after: " + qString);
         }
 
         // Elementary
