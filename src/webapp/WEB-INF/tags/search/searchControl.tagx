@@ -8,6 +8,7 @@
 <jsp:directive.tag body-content="empty"/>
 <jsp:directive.attribute name="rememberQuery" required="false"/>
 <jsp:directive.attribute name="showStates" required="false"/>
+<jsp:directive.attribute name="fieldlength" required="false"/>
 
 <gsml:url var="search" value="/search/search.page"/>
 <gsml:form id="searchForm" name="sf" method="get" action="${search}">
@@ -26,7 +27,7 @@
                 <input type="text"
                        id="q"
                        name="q"
-                       size="50"
+                       size="${(not empty fieldlength) ? fieldlength : '50'}"
                        style="font-size:small"
                        maxlength="255"
                        value="${(not empty param.q) and (rememberQuery == 'true') and (empty param.city) and (empty param.district) ? fn:escapeXml(param.q) : ''}"/>

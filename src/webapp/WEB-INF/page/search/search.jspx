@@ -191,7 +191,6 @@
                                        <li>Make sure all words are spelled correctly.</li>
                                        <li>Try different or fewer key words.</li>
                                        <li>Try more general key words.</li>
-                                       <!--<li>You searched in ${requestScope.context.stateOrDefault.longName}.  &#160;&#160; Would you like to change state? &#160;&#160;&#160;<gsweb:stateSelector useLongNames="true"/> </li>-->
                                    </ul>
                                        </td></tr></table>
                                    </c:if>
@@ -200,22 +199,8 @@
                                            <tr><td>You searched in ${requestScope.context.stateOrDefault.longName}.  &#160;&#160; Search again in a different state? &#160;</td></tr>
                                        </c:if>
                                        <tr>
-                                           <td align="${(noresults == 'true') ? 'left' : 'center'}"><search:searchControl rememberQuery="true" showStates="${noresults}"/></td>
-                                           <!--<td align="center"><search:searchControl rememberQuery="true" showStates="false"/></td>-->
+                                           <td align="${(noresults == 'true') ? 'left' : 'center'}"><search:searchControl rememberQuery="true" showStates="${noresults}" fieldlength="38"/></td>
                                        </tr>
-                                       <!--
-                                       <tr>
-                                           <td colspan="2" align="center">
-                                               &#160;<gsml:a href="/cgi-bin/template_plain/advanced/$STATE/">
-                                                   Advanced school search
-                                               </gsml:a>&#160;
-                                               |
-                                               &#160;<a href="">Search tips</a>&#160;
-                                               |
-                                               &#160;<a href="">Didn't find what you need?</a>
-                                           </td>
-                                       </tr>
-                                       -->
                                    </table>
                                </div>
                  </td></tr></table>
