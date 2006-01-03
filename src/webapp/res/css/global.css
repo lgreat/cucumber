@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.77 2005/12/21 01:50:59 wbeck Exp $
+   $Id: global.css,v 1.78 2006/01/03 17:46:21 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -184,11 +184,12 @@
         margin: 3px 0 0px 0
     }
 
-    #stateNSearchBar .state {
+    #stateNSearchBar .state h1 {
         vertical-align: middle;
         font-weight: bold;
         padding-left: .1em;
         font-size: 1.3em;
+        display: inline;
     }
 
     #stateNSearchBar .state .changeState {
