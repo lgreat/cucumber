@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
+    <jsp:directive.tag body-content="empty"/>
+
+    <div id="horizontalnav">
+        <table width="100%"><tr><td>
+            <table class="horizontalnav shade4" border="0" cellspacing="0"
+                   cellpadding="0" width="100%">
+                <tr>
+                    <td class="TL"></td>
+                    <td class="T"></td>
+                    <td class="TR"></td>
+                </tr>
+                <tr>
+                    <td class="L"></td>
+                    <td class="BG choosingPwyClosed">
+                        <h1>
+                            <gsml:a href="vpage:path1">Choosing
+                                Schools</gsml:a>
+                        </h1>
+                    </td>
+                    <td class="R"></td>
+                </tr>
+                <tr>
+                    <td class="BL"></td>
+                    <td class="B"></td>
+                    <td class="BR"></td>
+                </tr>
+            </table>
+            <!-- pw1 -->
+        </td><td>
+            <table class="horizontalnav shade4" border="0" cellspacing="0"
+                   cellpadding="0" width="100%">
+                <tr>
+                    <td class="TL"></td>
+                    <td class="T"></td>
+                    <td class="TR"></td>
+                </tr>
+                <tr>
+                    <td class="L"></td>
+                    <td class="BG mcsPwyClosed"><h1>
+                        <gsml:a href="vpage:path2">My Child's
+                            School</gsml:a>
+                    </h1></td>
+                    <td class="R"></td>
+                </tr>
+                <tr>
+                    <td class="BL"></td>
+                    <td class="B"></td>
+                    <td class="BR"></td>
+                </tr>
+            </table>
+            <!-- pw2 -->
+        </td>
+        <td>
+            <table class="horizontalnav shade4" border="0" cellspacing="0"
+                   cellpadding="0" width="100%">
+                <tr>
+                    <td class="TL"></td>
+                    <td class="T"></td>
+                    <td class="TR"></td>
+                </tr>
+                <tr>
+                    <td class="L"></td>
+                    <td class="BG editorialPwy"><h1>
+                        <gsml:a href="vpage:content.seasonal">January Parent Tips</gsml:a>
+                    </h1></td>
+                    <td class="R"></td>
+                </tr>
+                <tr>
+                    <td class="BL"></td>
+                    <td class="B"></td>
+                    <td class="BR"></td>
+                </tr>
+            </table>
+            <!-- pw3 -->
+        </td>
+        <td>
+            <table class="horizontalnav shade4" border="0" cellspacing="0"
+                   cellpadding="0" width="100%">
+                <tr>
+                    <td class="TL"></td>
+                    <td class="T"></td>
+                    <td class="TR"></td>
+                </tr>
+                <tr>
+                    <td class="L"></td>
+                    <td class="BG comparePwy">
+                        <h1>
+                            <gsml:a href="/cgi-bin/cs_where/$STATE">Compare Schools</gsml:a>
+                        </h1>
+                    </td>
+                    <td class="R"></td>
+                </tr>
+                <tr>
+                    <td class="BL"></td>
+                    <td class="B"></td>
+                    <td class="BR"></td>
+                </tr>
+            </table>
+            <!-- pw3 -->
+        </td>
+        </tr>
+        </table>
+    </div>
+
+</jsp:root>

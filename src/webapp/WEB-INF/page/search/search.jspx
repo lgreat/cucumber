@@ -30,8 +30,8 @@
     </title>
 
     <gsml:url var="searchcss" value="/res/css/search/search.css"/>
-    <link rel="stylesheet" href="${searchcss}"
-          type="text/css" media="screen"/>
+    <link rel="stylesheet" href="${searchcss}" type="text/css" media="screen"/>
+
     <jsp:scriptlet>
         PageHelper.hideHeader(request);
         PageHelper.addOnLoadHandler(request, "document.sf.q.focus()");
@@ -89,14 +89,7 @@
 
 <tr>
     <td>
-        <table id="newnav">
-            <tr>
-                <td>Choosing Schools</td>
-                <td>My Child's School</td>
-                <td>Holiday Center</td>
-                <td>Compare Schools</td>
-            </tr>
-        </table>
+        <mod:horizontalNav/>
     </td>
 </tr>
 
