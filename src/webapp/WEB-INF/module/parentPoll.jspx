@@ -11,7 +11,7 @@
     </jsp:scriptlet>
 
     <div class="parentPoll">
-        <h3><fmt:formatDate value="${d}" type="date" pattern="MMMMMMMMMMMMMMMMMM"  /> Parent Poll</h3>
+        <h3><fmt:formatDate value="${d}" type="date" pattern="MMMMMMMMMMMMMMMMMM"  /> Poll</h3>
         <h4><gsml:a href="/cgi-bin/static/poll_results.tmpl/$STATE">View previous polls</gsml:a></h4>
         <iframe name="wgpoll"
                 id="poll"
