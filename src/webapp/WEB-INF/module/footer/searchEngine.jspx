@@ -8,11 +8,11 @@
 
 <div id="footerSearch">
 
-<span onclick="showSection('footerSearchStateSpecific');">${longName} school information (<a>click
+<span onclick="showSection('footerSearchStateSpecific');">${longName} school information (<a href="#bottom">click
     to expand</a>)</span>
-<span onclick="showSection('footerSearchStates');">School information by state (<a>click
+<span onclick="showSection('footerSearchStates');">School information by state (<a href="#bottom">click
     to expand</a>)</span>
-<span onclick="showSection('footerSearchCities');">School information by city (<a>click
+<span onclick="showSection('footerSearchCities');">School information by city (<a href="#bottom">click
     to expand</a>)</span>
 
 
@@ -136,6 +136,7 @@
     <a href="/modperl/bycity/co/?city=Colorado+Springs&amp;showall=1&amp;level=a">Colorado Springs schools</a>,
     <a href="/modperl/bycity/tx/?city=Arlington&amp;showall=1&amp;level=a">Arlington schools</a>.
 </div>
+<a name="bottom"> </a>
 </div>
 
 <script type="text/javascript">
