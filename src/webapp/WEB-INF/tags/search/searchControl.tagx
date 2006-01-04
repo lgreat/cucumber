@@ -27,7 +27,7 @@
                 <input type="text"
                        id="q"
                        name="q"
-                       size="${(not empty fieldlength) ? fieldlength : '50'}"
+                       size="${(not empty fieldlength) ? (fieldlength) : '50'}"
                        style="font-size:small"
                        maxlength="255"
                        value="${(not empty param.q) and (rememberQuery == 'true') and (empty param.city) and (empty param.district) ? fn:escapeXml(param.q) : ''}"/>
@@ -39,16 +39,19 @@
                     <option value="topic">Topics</option>
                 </select>
             </td>
-                        <td style="vertical-align:middle;padding-bottom:2px">
-                            <gsml:url var="goButton"
-                                      value="/res/img/search/btn_go.gif"/>
-                            <input type="image" src="${goButton}" class="btn"
-                                   value="go"/>
-                        </td>
-                    </tr>
-                </table>
+            <td style="vertical-align:middle;padding-bottom:2px">
+                <gsml:url var="goButton"
+                          value="/res/img/search/btn_go.gif"/>
+                <input type="image" src="${goButton}" class="btn"
+                       value="go"/>
+            </td>
+        </tr>
+    </table>
     <c:if test="${showStates != 'true'}">
         <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}" />
+    </c:if>
+    <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}" >
+        <input type="hidden" name="st" value="charter" />
     </c:if>
 </gsml:form>
 </jsp:root>

@@ -106,24 +106,6 @@ public class SearchController extends AbstractFormController {
             }
 
             String[] sTypes = request.getParameterValues("st");
-
-            // use the cobrand first, then the hostname to determine if the
-            // reqest is coming from charterschoolratings.org
-            boolean isCSR = false;
-            String cobrand = sessionContext.getCobrand();
-            if (cobrand != null && cobrand.indexOf("charterschoolratings") != -1) {
-                isCSR = true;
-            } else {
-                String hostname = sessionContext.getHostName();
-                if (hostname != null && hostname.indexOf("charterschoolratings") != -1) {
-                    isCSR = true;
-                }
-            }
-
-            if (isCSR) {
-                sTypes = new String[] {"charter"};
-            }
-
             if (sTypes != null) {
                 request.setAttribute("st", sTypes);
             }
