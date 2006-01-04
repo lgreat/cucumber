@@ -224,26 +224,6 @@ public class SearchController extends AbstractFormController {
     }
 
     /**
-     * Checks the Hits object to see if we should suggest a "did-you-mean" query.
-     *
-     * @param hits
-     * @return a boolean value true if hits.lenght() is below <code>minimumHits</code>
-     *         or hits.score(0) is below <code>minimumScore</code>
-     * @noinspection UNUSED_SYMBOL
-     */
-    private boolean determineSuggest(Hits hits) throws IOException {
-        boolean didUMean = false;
-        if (hits != null) {
-            if (hits.length() < minimumHits || hits.score(0) < minimumScore) {
-                didUMean = true;
-            }
-        } else {
-            didUMean = true;
-        }
-        return didUMean;
-    }
-
-    /**
      * A setter for Spring
      *
      * @param spellCheckSearcher
