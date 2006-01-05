@@ -160,7 +160,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             out.print("<th class=\"left\">Schools</th>");
             out.println("<th align=\"center\" class=\"result_title\">Type</th>");
             out.println("<th align=\"center\" class=\"result_title\">Grade</th>");
-            out.println("<th align=\"center\" class=\"result_title\">Enrollment</th>");
+            out.println("<th align=\"center\" class=\"result_title\">Enrollment&nbsp;&nbsp;</th>");
 
             out.println("</tr>");
 

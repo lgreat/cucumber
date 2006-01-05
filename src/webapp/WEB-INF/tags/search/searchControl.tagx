@@ -5,25 +5,29 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:gsweb="gstaglib">
-<jsp:directive.tag body-content="empty"/>
-<jsp:directive.attribute name="rememberQuery" required="false"/>
-<jsp:directive.attribute name="showStates" required="false"/>
-<jsp:directive.attribute name="fieldlength" required="false"/>
+    <jsp:directive.tag body-content="empty"/>
+    <jsp:directive.attribute name="rememberQuery" required="false"/>
+    <jsp:directive.attribute name="showStates" required="false"/>
+    <jsp:directive.attribute name="fieldlength" required="false"/>
 
-<gsml:url var="search" value="/search/search.page"/>
-<gsml:form id="searchForm" name="sf" method="get" action="${search}">
-    <table style="padding:0px; margin:0px;">
-        <tr>
+    <gsml:url var="search" value="/search/search.page"/>
+    <gsml:form id="searchForm" name="sf" method="get" action="${search}">
+        <table style="padding:0px; margin:0px;">
             <c:if test="${showStates == 'true'}">
-                <td>
-                    <gsweb:stateSelector useLongNames="true"/>
+                <tr>
+                    <td colspan="2" class="label" align="left"
+                        style="white-space:nowrap;">Search again in:
+                        <gsweb:stateSelector useLongNames="true"/>
+                    </td>
+                    <td></td>
+               </tr>
+            </c:if>
+            <tr>
+            <c:if test="${showStates != 'true'}">
+                <td class="label" width="90" align="right">Search
                 </td>
             </c:if>
-
-            <td class="label" width="90" align="right"
-                               style="vertical-align:middle;">Search
-            </td>
-            <td align="right" style="vertical-align:middle;">
+            <td colspan="1" align="right" style="vertical-align:middle;">
                 <input type="text"
                        id="q"
                        name="q"
@@ -34,9 +38,9 @@
             </td>
             <td>
                 <select name="c">
-                    <option value="all">Entire site  </option>
-                    <option value="school">Schools</option>
-                    <option value="topic">Topics</option>
+                    <option value="all">Schools and Topics </option>
+                    <option value="school">Schools only</option>
+                    <option value="topic">Topics only</option>
                 </select>
             </td>
             <td style="vertical-align:middle;padding-bottom:2px">
@@ -46,12 +50,13 @@
                        value="go"/>
             </td>
         </tr>
-    </table>
-    <c:if test="${showStates != 'true'}">
-        <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}" />
-    </c:if>
-    <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}" >
-        <input type="hidden" name="st" value="charter" />
-    </c:if>
-</gsml:form>
+        </table>
+        <c:if test="${showStates != 'true'}">
+            <input type="hidden" name="state"
+                   value="${requestScope.context.stateOrDefault}"/>
+        </c:if>
+        <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
+            <input type="hidden" name="st" value="charter"/>
+        </c:if>
+    </gsml:form>
 </jsp:root>
