@@ -65,12 +65,12 @@
     <span class="header">All Articles</span>
         <br/><br/>
     <div class="category">
-        <a href="javascript:showSection('articlelist-1');"><span class="categoryName">School Choosers Guide</span></a>
+        <a href="javascript:toggleById('articlelist-1');"><span class="categoryName">School Choosers Guide</span></a>
         <div id="articlelist-1">
             <c:forEach items="${scc_categories}" var="category">
                 <c:if test="${!empty category.value}">
                     <div class="subCategory">
-                        <a href="javascript:showSection('articlelist${index}');">
+                        <a href="javascript:toggleById('articlelist${index}');">
                             <span class="categoryName"><c:out value="${category.key.categoryName}"/></span>
                         </a>
                         <div id="articlelist${index}" class="categorySection">
@@ -90,7 +90,7 @@
     <c:forEach items="${categories}" var="category">
         <c:if test="${!empty category.value}">
             <div class="category">
-                    <a href="javascript:showSection('articlelist${index}');"><span class="categoryName">
+                    <a href="javascript:toggleById('articlelist${index}');"><span class="categoryName">
                     <c:out value="${category.key.categoryName}"/></span></a>
                 <div id="articlelist${index}" class="categorySection">
                     <c:forEach items="${category.value}" var="article">
