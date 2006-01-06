@@ -6,43 +6,47 @@
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="state" type="gs.data.state.State" required="true"/>
 
-<c:set var="searchPrompt1" value="Search school name or district"/>
-<c:set var="searchPrompt2" value="Search city"/>
-<gsml:url var="searchPage" value="/cgi-bin/search_switch/${state}"/>
-
+<gsml:url var="a" value="/search/search.page"/>
 <form name="headerSearch"
        method="post"
-       action="${searchPage}"
-       onsubmit="if ((this.field1.value == '' || this.field1.value == '${searchPrompt1}') &amp;&amp; (this.field2.value == '' || this.field2.value == '${searchPrompt2}')) { alert('You must specify a school, district, or city name'); return false;} ${triggerPopunder}">
-    <input type="hidden" name="selector" value="by_school"/>
+       action="${a}">
     <input type="hidden" name="state" value="${state.abbreviation}"/>
 
             <table id="stateNSearchBar" border="0" cellspacing="0" cellpadding="0" width="100%">
-                <tr class="">
+                <tr>
                     <!--td class="state" width="25">
 						<img height="21" width="25"  src="http://www.census.gov/census2000/states/img/${state.abbreviationLowerCase}.gif" />
                     </td-->
-                    <td class="state">
+                    <td class="state" width="40%">
 						<h1>${state.longName} schools</h1> <gsml:a styleClass="changeState" href="/stateLauncher.page?p=pathway${requestScope.context.pathway}">Change state</gsml:a>
                     </td>
 
-                                    <td width="*"></td>
-                                    <td width="5%"><input type="text" value="${searchPrompt1}"
-                                                               onfocus="if (this.value=='${searchPrompt1}') this.value=''; if (this.form.field2.value=='${searchPrompt2}') this.form.field2.value='';"
-                                                               onblur="if (this.value=='' &amp;&amp; this.form.field2.value=='') { this.value='${searchPrompt1}'; this.form.field2.value='${searchPrompt2}'; }"
-                                                               name="field1" size="29"/>
-                                </td><td width="3%" style="font-size: 1.1em; color: #666"><div style="padding: 0 5px 0 5px">and/or</div>
-                                </td><td width="5%"><input type="text" value="${searchPrompt2}"
-                                                           onfocus="if (this.value=='${searchPrompt2}') this.value=''; if (this.form.field1.value=='${searchPrompt1}') this.form.field1.value='';"
-                                                           onblur="if (this.value=='' &amp;&amp; this.form.field1.value=='') { this.value='${searchPrompt2}'; this.form.field1.value='${searchPrompt1}'; }"
-                                                           name="field2" size="15"/>
-                                </td>
-                                <td width="2%"><gsml:url var="goImage" value="/res/img/button/btn_go.gif"/>
-                                    <input type="image" class="btn" src="${goImage}"/>
-                                </td>
+                    <td width="40%">&#160;</td>
+                    <td style="vertical-align: middle;padding-right: .5em" class="label" align="right" width="90" > Search </td>
+
+                    <td style="vertical-align: middle;" align="right">
+                        <input value="" maxlength="255" style="font-size: small;margin-right: .5em" size="30" name="q" id="q" type="text" />
+                    </td>
+                    <td>
+                        <select name="c">
+                            <option value="all">
+                                Schools and Topics
+                            </option>
+                            <option value="school">
+                                Schools only
+                            </option>
+                            <option value="topic">
+                                Topics only
+                            </option>
+                        </select>
+                    </td>
+                   <td width="2%"><gsml:url var="goImage" value="/res/img/button/btn_go.gif"/>
+                     <input type="image" class="btn" src="${goImage}"/>
+                    </td>
 
                 </tr>
             </table>
                         </form>
+
 
 </jsp:root>
