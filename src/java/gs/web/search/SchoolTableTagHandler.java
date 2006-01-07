@@ -62,10 +62,12 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         }
 
         out.print("</span></td><td id=\"resultset\">");
+
         if (_total > 0) {
-            out.print((_page * PAGE_SIZE) + 1);
+            int page = ((_page > 0) ? (_page-1) : 0);
+            out.print((page * PAGE_SIZE) + 1);
             out.print(" - ");
-            int x = (_page * PAGE_SIZE) + PAGE_SIZE;
+            int x = (page * PAGE_SIZE) + PAGE_SIZE;
             if (_total > x) {
                 out.print(x);
             } else {
@@ -135,14 +137,8 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         } else {
             out.println ("To further narrow your list, use the filters on the left.");
         }
-        out.println ("</td></tr>");
-
-
-        out.println ("</table>");
-
-        out.print("</td></tr>");
-
-        out.println("<tr><td valign=\"top\">");
+        out.println ("</td></tr></table>");
+        out.print("</td></tr><tr><td valign=\"top\">");
         out.println("<table class=\"school_results_only\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
 
         if (_schools != null && _schools.size() > 0) {
