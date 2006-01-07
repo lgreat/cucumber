@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.1 2005/12/03 00:35:59 apeterson Exp $
+ * $Id: PageHelper.java,v 1.2 2006/01/07 00:26:18 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -85,7 +85,8 @@ public class PageHelper {
     }
 
     public boolean isShowingBannerAd() {
-        return StringUtils.isEmpty(_cobrand);
+        return StringUtils.isEmpty(_cobrand) ||
+                "charterschoolratings".equals(_cobrand);
     }
 
     /**

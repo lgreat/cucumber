@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.1 2005/12/03 00:35:59 apeterson Exp $
+ * $Id: PageHelperSaTest.java,v 1.2 2006/01/07 00:25:12 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -39,6 +39,16 @@ public class PageHelperSaTest extends TestCase {
         assertFalse(pageHelper.isLogoLinked());
         assertFalse(pageHelper.isShowingFooter());
         assertTrue(pageHelper.isAdFree());
+    }
+
+    public void testCSR() {
+        MockSessionFacade sessionFacade = new MockSessionFacade();
+        sessionFacade.setCobrand("charterschoolratings");
+        PageHelper pageHelper = new PageHelper(sessionFacade);
+
+        assertTrue(pageHelper.isShowingBannerAd());
+        assertTrue(pageHelper.isShowingFooter());
+        assertFalse(pageHelper.isAdFree());
     }
 
     public void testNumber1expert() {
