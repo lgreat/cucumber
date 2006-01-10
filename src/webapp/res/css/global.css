@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.80 2006/01/06 20:47:57 apeterson Exp $
+   $Id: global.css,v 1.81 2006/01/10 19:26:44 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -138,7 +138,7 @@
         min-width: 770px;
     }
 
-    .cobranded .globalsearch {
+    .cobranded .globalSearch {
         font-size: 90%;
     }
 
@@ -205,6 +205,13 @@
 
     #stateNSearchBar input {
         font-size: 1.1em;
+    }
+
+    div.globalSearch {
+        }
+    div.globalSearch input.btn {
+        vertical-align: middle;
+
     }
 
     #footer {
@@ -568,16 +575,6 @@
     .textfield {
         color: #333;
         min-width: 70%;
-    }
-
-    .textfieldfocused {
-        color: #333;
-        min-width: 50%;
-    }
-
-    .textfieldblurred {
-        color: #999;
-        min-width: 50%;
     }
 
     input.btn {
