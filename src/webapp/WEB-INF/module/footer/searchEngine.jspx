@@ -8,11 +8,11 @@
 
 <div id="footerSearch">
 
-<span onclick="showSection('footerSearchStateSpecific');">${longName} school information (<a href="#bottom">click
+<span onclick="toggleById('footerSearchStateSpecific');">${longName} school information (<a href="#bottom">click
     to expand</a>)</span>
-<span onclick="showSection('footerSearchStates');">School information by state (<a href="#bottom">click
+<span onclick="toggleById('footerSearchStates');">School information by state (<a href="#bottom">click
     to expand</a>)</span>
-<span onclick="showSection('footerSearchCities');">School information by city (<a href="#bottom">click
+<span onclick="toggleById('footerSearchCities');">School information by city (<a href="#bottom">click
     to expand</a>)</span>
 
 
@@ -143,14 +143,5 @@
     document.getElementById('footerSearchStates').style.display = 'none';
     document.getElementById('footerSearchCities').style.display = 'none';
     document.getElementById('footerSearchStateSpecific').style.display = 'none';
-    function showSection(section) {
-        var layer = document.getElementById(section);
-
-        if (layer.style.display == 'block') {
-            layer.style.display = 'none';
-        } else {
-            layer.style.display = 'block';
-        }
-    }
 </script>
 </jsp:root>
