@@ -8,7 +8,7 @@
 
         <c:if test="${not empty model.filteredcities}">
             <div id="filteredlinks">
-                <span class="citydistlabel"><c:out value="${model.filters}" /></span>
+                <span class="citydistlabel"><c:out escapeXml="false" value="${model.filters}" /></span>
                 <c:forEach var="city" items="${model.filteredcities}">
                     <span class="citydistresult">
                         <a href="/search/search.page?c=school&amp;state=${param.state}&amp;q=${param.q}&amp;city=${city}${model.filterparams}">
@@ -17,8 +17,8 @@
                     </span>
                 </c:forEach>
                 <c:if test="${model.filteredtotal > 3 and param.morefiltered != 'true'}">
-                <a href="/search/search.page?${pageContext.request.queryString}&amp;morefiltered=true">more...</a>
-            </c:if>
+                    <a href="/search/search.page?${pageContext.request.queryString}&amp;morefiltered=true">more...</a>
+                </c:if>
             <br/>
             </div>
         </c:if>

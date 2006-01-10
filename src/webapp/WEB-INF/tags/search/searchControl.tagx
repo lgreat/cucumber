@@ -11,7 +11,7 @@
     <jsp:directive.attribute name="fieldlength" required="false"/>
 
     <gsml:url var="search" value="/search/search.page"/>
-    <gsml:form id="searchForm" name="sf" method="get" action="${search}">
+    <gsml:form id="searchform" name="sf" method="get" action="${search}">
         <table style="padding:0px; margin:0px;">
             <c:if test="${showStates == 'true'}">
                 <tr>
@@ -38,7 +38,7 @@
             </td>
             <td>
                 <select name="c">
-                    <option value="all">Schools and Topics </option>
+                    <option value="all">Schools &amp; Topics </option>
                     <option value="school">Schools only</option>
                     <option value="topic">Topics only</option>
                 </select>

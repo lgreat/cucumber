@@ -103,7 +103,7 @@ public class CityDistrictController extends AbstractController {
                 _log.warn("error parsing: " + queryString, pe);
             }
 
-            StringBuffer filtersBuffer = new StringBuffer("All ");
+            StringBuffer filtersBuffer = new StringBuffer("All <span id=\"rollupfilters\">");
             StringBuffer urlBuffer = new StringBuffer();
 
             String lowerCaseQuery = queryString.toLowerCase();
@@ -140,7 +140,7 @@ public class CityDistrictController extends AbstractController {
                 gl = "high";
             }
 
-            filtersBuffer.append(" schools in the city of:");
+            filtersBuffer.append("</span> schools in the city of:");
             model.put("filters", filtersBuffer.toString());
             model.put("filterparams", urlBuffer.toString());
 

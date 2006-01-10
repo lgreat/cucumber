@@ -40,7 +40,7 @@
 
     <jsp:scriptlet>
         PageHelper.hideHeader(request);
-        PageHelper.addOnLoadHandler(request, "document.sf.q.focus()");
+        PageHelper.addOnLoadHandler(request, "document.getElementById('q').focus()");
     </jsp:scriptlet>
     <ad:xAdSetup ads="x22,x20" page="search"/>
 </head>
