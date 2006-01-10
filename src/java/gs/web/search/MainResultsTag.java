@@ -8,6 +8,8 @@ import javax.servlet.jsp.tagext.JspFragment;
 import java.io.IOException;
 import java.util.List;
 
+import gs.data.school.School;
+
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
@@ -41,30 +43,8 @@ public class MainResultsTag extends ResultsTableTagHandler {
                 SearchResult result = (SearchResult) _results.get(i);
                 out.println("<tr class=\"result_row\">");
 
-                out.print("<td name=\"headline\" colspan=\"3\">");
-                StringBuffer linkBuffer = new StringBuffer();
+                out.print("<td class=\"headline\" colspan=\"3\">");
                 switch (result.getType()) {
-                    case SearchResult.DISTRICT:
-                        out.print("Schools in the district of ");
-                        linkBuffer.append("<a href=\"/search/search.page?c=school&state=");
-                        linkBuffer.append(getSessionContext().getState().getAbbreviation());
-                        linkBuffer.append("&district=");
-                        linkBuffer.append(result.getId());
-                        out.print(linkBuffer.toString());
-                        out.print("\">");
-                        break;
-                    case SearchResult.CITY:
-                        out.print("Schools in the city of ");
-                        linkBuffer.append("<a href=\"/search/search.page?c=school&state=");
-                        linkBuffer.append(result.getState());
-                        linkBuffer.append("&amp;q=");
-                        linkBuffer.append(Functions.escapeXml(_queryString));
-                        linkBuffer.append("&amp;city=");
-                        linkBuffer.append(result.getCity());
-
-                        out.print(linkBuffer.toString());
-                        out.print("\">");
-                        break;
                     case SearchResult.SCHOOL:
                         out.print("<a href=\"http://");
                         out.print(getSessionContext().getHostName());
@@ -106,11 +86,21 @@ public class MainResultsTag extends ResultsTableTagHandler {
                 out.println("<tr class=\"contextrow\">");
                 if (result.getType() == SearchResult.SCHOOL) {
                     out.println("<td>");
-                    out.println(result.getAddress());
-                    out.println("</td><td>");
-                    out.println(result.getSchoolType());
-                    out.println("</td><td>");
-                    out.println(result.getGradeLevel());
+                    School school = getSchool(result);
+
+                    if (school != null) {
+                        out.println(school.getPhysicalAddress().toString());
+                        out.print("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
+                        out.println(school.getType().getSchoolTypeName());
+                        out.print("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
+                        out.println(school.getGradeLevels().getRangeString());
+                    } else {
+                        out.println(result.getAddress());
+                        out.print("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
+                        out.println(result.getSchoolType());
+                        out.print("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
+                        out.println(result.getGradeLevel());
+                    }
                     out.println("</td>");
                 } else {
                     String context = result.getContext();

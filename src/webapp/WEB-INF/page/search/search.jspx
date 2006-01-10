@@ -164,7 +164,7 @@
         </c:when>
         <c:otherwise>
 
-            <div id="resutlsheader">
+            <div id="resultsheader">
                 <table width="90%">
                     <tr>
                         <td align="left">
@@ -198,10 +198,9 @@
                     </tr>
                 </table>
             </div>
-
+            <hr/>
             <jsp:include
                     page="/search/citydistrict.module?${pageContext.request.queryString}"/>
-            <hr/>
             <gsweb:mainResults results="${results.mainResults}"
                                page="${param.p}"
                                total="${results.total}"

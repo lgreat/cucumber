@@ -27,12 +27,17 @@
         <c:if test="${not empty model.cities}">
             <div class="citydistlinks">
                 <span class="citydistlabel">All <c:out value="${(param.st == 'charter') ? 'charter' : ''}"/> schools in the city of: </span>
+                <c:set var="count" value="0"/>
                 <c:forEach var="city" items="${model.cities}">
                     <span class="citydistresult">
                         <a href="/search/search.page?c=school&amp;state=${param.state}&amp;q=${param.q}&amp;city=${city}${param.st == 'charter' ? '&amp;st=charter' : ''}">
                             <c:out escapeXml="false" value="${gsweb:highlight(city, param.q, 'city')}"/>
                         </a>
                     </span>
+                    <c:if test="${count lt model.citiestotal - 1}">
+                        <c:out value="  -  "/>
+                    </c:if>
+                    <c:set var="count" value="${count + 1}"/>
                 </c:forEach>
                 <c:if test="${model.citiestotal > 3 and param.morecities != 'true'}">
                     <a href="/search/search.page?${pageContext.request.queryString}&amp;morecities=true">more cities...</a>
@@ -44,17 +49,22 @@
 
         <c:if test="${not empty model.districts}">
 
-        <span class="citydistlabel">All <c:out value="${(param.st == 'charter') ? 'charter' : ''}"/> schools in the district of: </span>
-        <c:forEach var="district" items="${model.districts}">
-            <span class="citydistresult">
-                <a href="/search/search.page?c=school&amp;state=${param.state}&amp;district=${district.id}&amp;distname=${district.name}${param.st == 'charter' ? '&amp;st=charter' : ''}">
-                    <c:out escapeXml="false" value="${gsweb:highlight(district.name, param.q, 'name')}"/>
-                </a>
-            </span>
-        </c:forEach>
-        <c:if test="${model.citiestotal > 3 and param.moredistricts != 'true'}">
-            <a href="/search/search.page?${pageContext.request.queryString}&amp;moredistricts=true">more districts...</a>
-        </c:if>
+            <span class="citydistlabel">All <c:out value="${(param.st == 'charter') ? 'charter' : ''}"/> schools in the district of: </span>
+            <c:set var="count" value="0"/>
+            <c:forEach var="district" items="${model.districts}">
+                <span class="citydistresult">
+                    <a href="/search/search.page?c=school&amp;state=${param.state}&amp;district=${district.id}&amp;distname=${district.name}${param.st == 'charter' ? '&amp;st=charter' : ''}">
+                        <c:out escapeXml="false" value="${gsweb:highlight(district.name, param.q, 'name')}"/>
+                    </a>
+                </span>
+                <c:if test="${count lt model.districtstotal - 1}">
+                    <c:out value="  -  "/>
+                </c:if>
+                <c:set var="count" value="${count + 1}"/>
+            </c:forEach>
+            <c:if test="${model.districtstotal > 3 and param.moredistricts != 'true'}">
+                <a href="/search/search.page?${pageContext.request.queryString}&amp;moredistricts=true">more districts...</a>
+            </c:if>
         </c:if>
     </div>
 </jsp:root>

@@ -55,6 +55,9 @@ table.glossary_results td {padding:3px 20px 2px 5px;}
 .viewall a, .browseall a {font-weight:normal;font-size:90%;}
 .main li.citydist {padding-bottom: 5px}
 
+.citydistrict, #resultsheader { font-size:125%; }
+td.headline {font-size:110%;}
+
 table.school_results_only th, table.article_results_only th {padding:4px 0px 2px 5px;border-bottom:1px solid #aaa;}
 table.school_results_only td, table.article_results_only td {padding:4px 0px 6px 5px;border-bottom:1px solid #FFF;}
 table.article_results_only td.icons {color:#F60;font-weight:bold;padding:0px 20px 0px 20px;}
