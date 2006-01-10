@@ -8,7 +8,7 @@
 
 <gsml:url var="a" value="/search/search.page"/>
 <form name="headerSearch"
-       method="post"
+       method="get"
        action="${a}">
     <input type="hidden" name="state" value="${state.abbreviation}"/>
 
