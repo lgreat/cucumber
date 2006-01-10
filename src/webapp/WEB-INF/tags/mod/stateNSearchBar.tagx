@@ -22,7 +22,7 @@
                     </td>
 
                     <td width="40%">&#160;</td>
-                    <td style="vertical-align: middle;padding-right: .5em" class="label" align="right" width="90" > Search </td>
+                    <td style="vertical-align: middle;padding-right: .5em; color: #555" class="label" align="right" width="90" > Search </td>
 
                     <td style="vertical-align: middle;" align="right">
                         <input value="" maxlength="255" style="font-size: small;margin-right: .5em" size="30" name="q" id="q" type="text" />
@@ -30,7 +30,7 @@
                     <td>
                         <select name="c">
                             <option value="all">
-                                Schools and Topics
+                                Schools &amp; Topics
                             </option>
                             <option value="school">
                                 Schools only
