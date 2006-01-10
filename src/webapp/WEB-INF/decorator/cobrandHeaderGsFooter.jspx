@@ -23,6 +23,10 @@
     </title>
     <gsml:url var="globalcss" value="/res/css/global.css"/>
     <link rel="stylesheet" href="${globalcss}"></link>
+
+    <gsml:url var="globaljs" value="/res/js/global.js"/>
+    <script language="javascript" type="text/javascript"  src="${globaljs}" />
+
     <!-- This tag includes ad_popunder.js and sets onloadPopunder -->
     <ad:xPopunder/>
     <decorator:head/>
@@ -36,8 +40,7 @@
 <cobrand:framebuster/>
 
 <div id="header">
-    <!--c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}"-->
-    <c:if test="${requestScope.pageHelper.showingHeader and !requestScope.pageHelper.adFree}">
+    <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
         <table id="headerGS">
             <tr>
                 <td id="headerLogo" width="20%">

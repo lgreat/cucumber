@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MySchoolListController.java,v 1.6 2005/12/01 20:32:52 apeterson Exp $
+ * $Id: MySchoolListController.java,v 1.7 2006/01/10 18:26:07 apeterson Exp $
  */
 
 package gs.web.community;
@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
- * Provides...
+ * Provide the "member" and "limit".
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
@@ -66,7 +66,7 @@ public class MySchoolListController extends AbstractController {
                 shown ++;
             } else if (shown == limit) {
                 items.add(new Anchor("/cgi-bin/msl_confirm/" + state.getAbbreviation() + "/",
-                        "My School List",
+                        "" + (schools.size() - limit) + " more... (view)",
                         "viewall"));
                 shown = schools.size();
             }

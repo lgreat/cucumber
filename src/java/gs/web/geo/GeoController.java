@@ -1,22 +1,26 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.1 2005/11/29 01:37:38 apeterson Exp $
+ * $Id: GeoController.java,v 1.2 2006/01/10 18:26:07 apeterson Exp $
  */
 
 package gs.web.geo;
 
 import gs.data.geo.IGeoDao;
 import gs.data.geo.bestplaces.BpCity;
+import gs.data.geo.bestplaces.BpState;
 import gs.data.geo.bestplaces.BpZip;
 import gs.data.state.State;
 import gs.web.SessionContext;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,6 +32,7 @@ public class GeoController implements Controller {
     private IGeoDao _geoDao;
     private String _viewName;
 
+    protected final Log _log = LogFactory.getLog(getClass());
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -49,7 +54,7 @@ public class GeoController implements Controller {
 
 
         String cityNameParam = request.getParameter("city");
-        if (StringUtils.isNotEmpty(zipCodeParam)) {
+        if (StringUtils.isNotEmpty(cityNameParam) && state != null) {
 
             BpCity city = _geoDao.findCity(state, cityNameParam);
 
@@ -58,6 +63,11 @@ public class GeoController implements Controller {
             }
         }
 
+        BpState bps = _geoDao.findState(state);
+        model.put("statewide", bps);
+
+        List list = _geoDao.getAllBpNation();
+        model.put("us", list.get(0));
 
         ModelAndView modelAndView = new ModelAndView(_viewName, model);
 

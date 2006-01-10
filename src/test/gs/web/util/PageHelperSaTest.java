@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.2 2006/01/07 00:25:12 chriskimm Exp $
+ * $Id: PageHelperSaTest.java,v 1.3 2006/01/10 18:26:07 apeterson Exp $
  */
 
 package gs.web.util;
@@ -22,7 +22,8 @@ public class PageHelperSaTest extends TestCase {
         PageHelper pageHelper = new PageHelper(sessionFacade);
 
         assertTrue(pageHelper.isShowingBannerAd());
-        assertTrue(pageHelper.isShowingHeader());
+        assertTrue(pageHelper.isShowingLogo());
+        assertTrue(pageHelper.isShowingUserInfo());
         assertTrue(pageHelper.isShowingFooter());
         assertTrue(pageHelper.isLogoLinked());
         assertFalse(pageHelper.isAdFree());
@@ -35,7 +36,8 @@ public class PageHelperSaTest extends TestCase {
         PageHelper pageHelper = new PageHelper(sessionFacade);
 
         assertFalse(pageHelper.isShowingBannerAd());
-        assertTrue(pageHelper.isShowingHeader());
+        assertFalse(pageHelper.isShowingLogo());
+        assertFalse(pageHelper.isShowingUserInfo());
         assertFalse(pageHelper.isLogoLinked());
         assertFalse(pageHelper.isShowingFooter());
         assertTrue(pageHelper.isAdFree());
@@ -58,7 +60,8 @@ public class PageHelperSaTest extends TestCase {
         PageHelper pageHelper = new PageHelper(sessionFacade);
 
         assertFalse(pageHelper.isShowingBannerAd());
-        assertTrue(pageHelper.isShowingHeader());
+        assertFalse(pageHelper.isShowingLogo());
+        assertFalse(pageHelper.isShowingUserInfo());
         assertFalse(pageHelper.isLogoLinked());
         assertFalse(pageHelper.isShowingFooter());
         assertTrue(pageHelper.isAdFree());
@@ -71,7 +74,8 @@ public class PageHelperSaTest extends TestCase {
         PageHelper pageHelper = new PageHelper(sessionFacade);
 
         assertFalse(pageHelper.isShowingBannerAd());
-        assertTrue(pageHelper.isShowingHeader());
+        assertTrue(pageHelper.isShowingLogo());
+        assertTrue(pageHelper.isShowingUserInfo());
         assertFalse(pageHelper.isLogoLinked());
         assertTrue(pageHelper.isShowingFooter());
         assertFalse(pageHelper.isAdFree());
@@ -84,7 +88,7 @@ public class PageHelperSaTest extends TestCase {
         PageHelper pageHelper = new PageHelper(sessionFacade);
 
         assertFalse(pageHelper.isShowingBannerAd());
-        assertTrue(pageHelper.isShowingHeader());
+        assertTrue(pageHelper.isShowingLogo() || pageHelper.isShowingUserInfo());
         assertFalse(pageHelper.isLogoLinked());
         assertFalse(pageHelper.isShowingFooter());
         assertFalse(pageHelper.isAdFree());
@@ -97,7 +101,7 @@ public class PageHelperSaTest extends TestCase {
         PageHelper pageHelper = new PageHelper(sessionFacade);
 
         assertFalse(pageHelper.isShowingBannerAd());
-        assertTrue(pageHelper.isShowingHeader());
+        assertTrue(pageHelper.isShowingLogo() || pageHelper.isShowingUserInfo());
         assertFalse(pageHelper.isLogoLinked());
         assertTrue(pageHelper.isShowingFooter());
         assertFalse(pageHelper.isAdFree());
@@ -112,7 +116,7 @@ public class PageHelperSaTest extends TestCase {
         request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
 
         assertTrue(pageHelper.isShowingBannerAd());
-        assertTrue(pageHelper.isShowingHeader());
+        assertTrue(pageHelper.isShowingLogo() || pageHelper.isShowingUserInfo());
         assertTrue(pageHelper.isShowingFooter());
         assertTrue(pageHelper.isLogoLinked());
 
@@ -144,7 +148,7 @@ public class PageHelperSaTest extends TestCase {
         PageHelper.hideFooter(request);
 
         assertTrue(pageHelper.isShowingBannerAd());
-        assertTrue(pageHelper.isShowingHeader());
+        assertTrue(pageHelper.isShowingLogo() || pageHelper.isShowingUserInfo());
         assertFalse(pageHelper.isShowingFooter());
         assertTrue(pageHelper.isLogoLinked());
         assertFalse(pageHelper.isAdFree());
@@ -162,7 +166,7 @@ public class PageHelperSaTest extends TestCase {
         PageHelper.hideHeader(request);
 
         assertTrue(pageHelper.isShowingBannerAd());
-        assertFalse(pageHelper.isShowingHeader());
+        assertFalse(pageHelper.isShowingLogo() || pageHelper.isShowingUserInfo());
         assertTrue(pageHelper.isShowingFooter());
         assertTrue(pageHelper.isLogoLinked());
         assertFalse(pageHelper.isAdFree());
@@ -175,7 +179,7 @@ public class PageHelperSaTest extends TestCase {
         PageHelper pageHelper = new PageHelper(sessionFacade);
 
         assertTrue(pageHelper.isShowingBannerAd());
-        assertTrue(pageHelper.isShowingHeader());
+        assertTrue(pageHelper.isShowingLogo() || pageHelper.isShowingUserInfo());
         assertTrue(pageHelper.isShowingFooter());
         assertTrue(pageHelper.isLogoLinked());
         assertFalse(pageHelper.isSignInAvailable());
@@ -184,7 +188,7 @@ public class PageHelperSaTest extends TestCase {
         pageHelper = new PageHelper(sessionFacade);
 
         assertTrue(pageHelper.isShowingBannerAd());
-        assertTrue(pageHelper.isShowingHeader());
+        assertTrue(pageHelper.isShowingLogo() || pageHelper.isShowingUserInfo());
         assertTrue(pageHelper.isShowingFooter());
         assertTrue(pageHelper.isLogoLinked());
         assertTrue(pageHelper.isSignInAvailable());

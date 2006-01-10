@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.2 2006/01/07 00:26:18 chriskimm Exp $
+ * $Id: PageHelper.java,v 1.3 2006/01/10 18:26:07 apeterson Exp $
  */
 
 package gs.web.util;
@@ -89,14 +89,14 @@ public class PageHelper {
                 "charterschoolratings".equals(_cobrand);
     }
 
-    /**
-     * Is the GS logo and the sign in area shown?
-     *
-     * @todo is this too large a chunk to include as one boolean?
-     */
-    public boolean isShowingHeader() {
-        return _showingHeader;
+    public boolean isShowingLogo() {
+        return _showingHeader && !isAdFree();
     }
+
+    public boolean isShowingUserInfo() {
+        return _showingHeader && !isAdFree();
+    }
+
 
     /**
      * Is all the stuff in the footer (SE links, About us links, copyright)
