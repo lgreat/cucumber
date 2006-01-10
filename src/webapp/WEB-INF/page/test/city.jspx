@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+        xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        xmlns:spring="http://www.springframework.org/tags"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+        xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+        xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        >
+<jsp:directive.page import="gs.data.state.State"/>
+<jsp:directive.page import="gs.web.SessionContext"/>
+<jsp:scriptlet>
+    State state = SessionContext.getInstance(request).getStateOrDefault();
+
+
+</jsp:scriptlet>
+<html lang="en">
+<c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+<c:set var="stateLongName" value="${requestScope.context.stateOrDefault.longName}"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <![CDATA[
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+        <style type="text/css">
+.topcontentcol1 {padding-right:7px;}
+.topcontentcol2 {border-left:1px solid #999;padding:0px 5px 0px 10px;margin:0px 0px 10px 0px;}
+
+body {
+    font-family: comic sans ms;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#mapContainer {
+    margin: .3em;
+    border: 1px solid #00c;
+    background-color: #eee;
+    padding: .0em;
+}
+#map, #mapContainer {
+    width: 330px; height: 200px;
+}
+.statsModule {
+    font-family: comic sans ms;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .8em;
+    margin: .3em;
+}
+.statsModule h1 {
+    color: black;
+    font-size: 1.2em;
+    border: 0px solid #888;
+    border-width: 0 0 1px 0;
+    text-align: center;
+    text-align: left;
+}
+
+.statsModule table {
+            padding-top: 1em;
+			width: 100%;
+        }
+.statsModule td {
+            text-align: right;
+            padding: .1em 1em;
+            font-weight: bold;
+        }
+.statsModule th{
+            text-align: left;
+            font-weight: normal;
+            font-size: 85%;
+            text-transform: uppercase;
+        }
+.statsModule thead th{
+            text-align: center;
+            font-weight: normal;
+        }
+.statsModule .better { color: green; }
+.statsModule .worse { color: red; }
+
+        </style>
+<script src="http://maps.google.com/maps?file=api&amp;v=1&amp;key=ABQIAAAAfIbt4ypAXkQ3IPRD94rdpBQEcfRlX9STjQIboV_rOfY8lEtLuRRI5C9Gh1Qfx01C-MsuJfXh6-Go1w"
+        type="text/javascript"></script>
+            ]]>
+    <c:set var="city">${param["city"]}</c:set>
+    <title>${city} Schools</title>
+    <gsml:url var="globalcss" value="/res/css/global.css"/>
+    <link rel="stylesheet" href="${globalcss}"></link>
+
+
+</head>
+
+<body id="pathway1">
+<table id="pagemargin" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td valign="top">
+<!-- INCLUDE TOP content with logo, etc. -->
+<ad:xAdSetup page="home" ads="x22"/>
+<ad:x22/>
+<mod:stateNSearchBar
+        state="${requestScope.context.stateOrDefault}"
+        />
+<table id="main" border="0" cellspacing="0" cellpadding="0" width="100%">
+    <tr>
+        <td class="col1" valign="top">
+            <mod:globalNav/>
+            <c:if test="${requestScope.context.user != null}">
+                <h3>My School List</h3>
+                <jsp:include page="/community/mySchoolList.module?member=${requestScope.context.user.id}&amp;limit=3"/>
+            </c:if>
+            <!--mod:stateSelectMedium state="${requestScope.context.stateOrDefault}" / -->
+        </td>
+        <td class="col2" valign="top">
+            <gsml:box tableClass="shade3"
+                      tableWidth="100%">
+        <span class="moduleheader">
+       <h1 class="inline">${city} Schools</h1>
+   </span>
+
+                <h3 class="tagline">
+                    Objective information from GreatSchools, an independent nonprofit dedicated to helping
+                    parents
+                </h3>
+
+
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td width="60%">
+                            <div class="topcontentcol1" style="padding-top: .75em">
+
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td valign="top" width="50%">
+                                                <div class="nearbyCities" style="float:right">
+                                                    <h3>nearby cities</h3>
+                                                    <ul>
+                                                        <li>
+                                                            <a href="city.page?city=San%20Francisco&amp;state=CA&amp;member=1">San
+                                                                Francisco</a>
+
+                                                        </li>
+                                                        <li>
+                                                            <a href="city.page?city=San%20Jose&amp;state=CA&amp;member=1">San
+                                                                Jose</a>
+
+                                                        </li>
+                                                        <li>
+                                                            <a href="city.page?city=Oakland&amp;state=CA&amp;member=1">Oakland</a>
+
+                                                        </li>
+                                                        <li>
+                                                            <a href="city.page?city=Berkeley&amp;state=CA&amp;member=1">Berkeley</a>
+
+                                                        </li>
+                                                        <li>
+                                                            <a href="city.page?city=Allgood&amp;state=AL&amp;member=1">Allgood,
+                                                                AL</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="city.page?city=Aliceville&amp;state=AL&amp;member=1">Aliceville,
+                                                                AL</a>
+
+                                                        </li>
+                                                        <li>
+                                                            <a href="city.page?city=Ashville&amp;state=AL&amp;member=1">Ashville,
+                                                                AL</a>
+
+                                                        </li>
+                                                        <li>
+                                                            <a href="city.page?city=Alabaster&amp;state=AL&amp;member=1">Alabaster,
+                                                                AL</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="city.page?city=Auburn&amp;state=AL&amp;member=1">Auburn,
+                                                                AL</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="city.page?city=Anniston&amp;state=AL&amp;member=1">Jennifer
+                                                                Anniston, AL</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="city.page?city=Athens&amp;state=AL&amp;member=1">Athens,
+                                                                AL</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="city.page?city=Attalla&amp;state=AL&amp;member=1">Attalla,
+                                                                AL</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <jsp:include page="/state/topCities.module"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </gsml:box>
+            <gsml:box tableClass="shade3">
+                <jsp:include page="/geo/cityStats.module?city=${city}&amp;state=${state}"/>
+            </gsml:box>
+        </td>
+        <td class="col3" valign="top">
+            <gsml:box tableClass="shade3">
+                <jsp:include page="/geo/cityMap.module?city=${city}&amp;state=${state}"/>
+                <jsp:include page="/geo/citySchoolStats.module?city=${city}&amp;state=${state}"/>
+            </gsml:box>
+        </td>
+    </tr>
+</table>
+</td>
+</tr>
+</table>
+</body>
+</html>
+</jsp:root>
+

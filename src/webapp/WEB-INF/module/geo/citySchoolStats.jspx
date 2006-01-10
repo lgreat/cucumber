@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        >
+
+    <div id="citySchoolStats" class="statsModule">
+        <h1>${requestScope.city.name} School Facts</h1>
+        <table >
+            <thead>
+            <tr><th width="50%"></th><th width="25%">${requestScope.city.name}</th><th width="25%">U.S.</th></tr>
+            </thead>
+            <tr>
+                <th>$ spent per pupil</th>
+                <td class="${requestScope.city.schoolExpenditures gt requestScope.us.schoolExpenditures ? 'better' : 'worse'}">$<fmt:formatNumber value="${requestScope.city.schoolExpenditures}" maxFractionDigits="0"/> 
+</td>
+                <td>$<fmt:formatNumber value="${requestScope.us.schoolExpenditures}" maxFractionDigits="0"/></td>
+            </tr>
+            <tr>
+                <th>Student/teacher</th>
+                <td class="${requestScope.city.schoolRatio lt requestScope.us.schoolRatio ? 'better' : 'worse'}"> ${requestScope.city.schoolRatio}</td><td>${requestScope.us.schoolRatio}</td>
+            </tr>
+            <tr>
+                <th>Students/counselor</th>
+                <td class="${requestScope.city.studentsPerCounselor lt requestScope.us.studentsPerCounselor ? 'better' : 'worse'}"> <fmt:formatNumber value="${requestScope.city.studentsPerCounselor}" maxFractionDigits="0"/></td><td><fmt:formatNumber value="${requestScope.us.studentsPerCounselor}" maxFractionDigits="0"/></td>
+            </tr>
+            <tr>
+                <th>Students/librarian</th>
+                <td class="${requestScope.city.studentsPerLibrarian lt requestScope.us.studentsPerLibrarian ? 'better' : 'worse'}">
+
+
+<fmt:formatNumber value="${requestScope.city.studentsPerLibrarian}" maxFractionDigits="0"/></td><td><fmt:formatNumber value="${requestScope.us.studentsPerLibrarian}" maxFractionDigits="0"/>
+
+				</td>
+            </tr>
+        </table>
+
+    </div>
+
+</jsp:root>

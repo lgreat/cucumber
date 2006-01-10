@@ -98,6 +98,30 @@
         </property>
     </bean>
 
+    <bean name="/geo/cityMap.module"
+          class="gs.web.geo.GeoController"
+          autowire="byName">
+        <property name="viewName">
+            <value>/geo/cityMap</value>
+        </property>
+    </bean>
+
+    <bean name="/geo/cityStats.module"
+          class="gs.web.geo.GeoController"
+          autowire="byName">
+        <property name="viewName">
+            <value>/geo/cityStats</value>
+        </property>
+    </bean>
+
+    <bean name="/geo/citySchoolStats.module"
+          class="gs.web.geo.GeoController"
+          autowire="byName">
+        <property name="viewName">
+            <value>/geo/citySchoolStats</value>
+        </property>
+    </bean>
+
     <bean name="/promo/featuredArticles.module"
           class="gs.web.content.FeaturedArticlesController"
           autowire="byName">
