@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.17 2005/12/22 01:22:33 dlee Exp $
+ * $Id: StatePathwayController.java,v 1.18 2006/01/10 21:00:27 thuss Exp $
  */
 package gs.web.state;
 
@@ -53,6 +53,9 @@ public class StatePathwayController extends AbstractController {
 
         if (_pathways.containsKey(paramPathway)) {
             redirectUrl = (String) _pathways.get(paramPathway);
+        } else if (request.getParameter("url") != null) {
+            redirectUrl = request.getParameter("url");
+            paramPathway = DEFAULT_PATHWAY_MAP_KEY;
         } else {
             redirectUrl = (String) _pathways.get(DEFAULT_PATHWAY_MAP_KEY);
             paramPathway = DEFAULT_PATHWAY_MAP_KEY;

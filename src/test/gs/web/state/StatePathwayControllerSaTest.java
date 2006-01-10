@@ -57,6 +57,13 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         Iterator reUseIter = keys.iterator();
         Iterator iter = reUseIter;
 
+        //pass in a specific url instead of a pathway name
+        String randomUrl = "/cgi-bin/feedback";
+        request.setParameter("url", randomUrl);
+        modelAndView = controller.handleRequestInternal(request, response);
+        assertEquals(randomUrl + "/", modelAndView.getModel().get("url"));
+        request.setParameter("url", null);
+
         //bogus pathway
         request.setParameter("p", "boguspathway");
         modelAndView = controller.handleRequestInternal(request, response);
