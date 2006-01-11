@@ -11,6 +11,9 @@
        method="get"
        action="${a}">
     <input type="hidden" name="state" value="${state.abbreviation}"/>
+    <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
+        <input type="hidden" name="st" value="charter"/>
+    </c:if>
 
             <table id="stateNSearchBar" border="0" cellspacing="0" cellpadding="0" width="100%">
                 <tr>
