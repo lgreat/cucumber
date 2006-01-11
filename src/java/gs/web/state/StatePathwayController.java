@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.18 2006/01/10 21:00:27 thuss Exp $
+ * $Id: StatePathwayController.java,v 1.19 2006/01/11 21:37:01 apeterson Exp $
  */
 package gs.web.state;
 
@@ -103,11 +103,16 @@ public class StatePathwayController extends AbstractController {
     }
 
     private String buildSingleSearchParam (final HttpServletRequest request) throws Exception {
-        String paramQuery = request.getParameter("q");
         String appendParam = "";
 
+        String paramQuery = request.getParameter("q");
         if (!StringUtils.isEmpty(paramQuery)) {
             appendParam += "&q=" + URLEncoder.encode(paramQuery, "UTF-8");
+        }
+
+        String paramSt = request.getParameter("st");
+        if (!StringUtils.isEmpty(paramSt)) {
+            appendParam += "&st=" + URLEncoder.encode(paramSt, "UTF-8");
         }
 
         return appendParam;

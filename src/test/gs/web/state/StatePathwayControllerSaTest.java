@@ -14,7 +14,7 @@ import java.util.Set;
 
 /**
  * Controller tests for Davids bridge page
- * TODO clean up calls to MockHttpServletResponse 
+ * TODO clean up calls to MockHttpServletResponse
  * @author <a href="mailto:thuss@greatschools.net">Todd Huss</a>
  */
 public class StatePathwayControllerSaTest extends BaseControllerTestCase {
@@ -27,6 +27,9 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         super.tearDown();
     }
 
+    final String PATHWAY_SINGLE_SEARCH = "search_single";
+    final String PATHWAY_DOUBLE_SEARCH = "search_double";
+
     /**
      * Test all pathways
      *
@@ -37,91 +40,91 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         MockHttpServletResponse response = getResponse();
 
         StatePathwayController controller = new StatePathwayController();
-        final String pathway_single_search = "search_single";
-        final String pathway_double_search = "search_double";
 
-        String redirectUrl = "";
-
-        // Set up the resourec bundle
+        // Set up the resource bundle
         ResourceBundleMessageSource msgs = new ResourceBundleMessageSource();
         controller.setMessageSource(msgs);
-
-        String url = null;
-        ModelAndView modelAndView = null;
-        String state = "";
 
         //get the pathways map: key is the pathway name, value is the url to go to
         Map pathways = (Map) getApplicationContext().getBean("pathwaysMap");
         controller.setPathways(pathways);
-        Set keys = pathways.keySet();
-        Iterator reUseIter = keys.iterator();
-        Iterator iter = reUseIter;
+
+
 
         //pass in a specific url instead of a pathway name
         String randomUrl = "/cgi-bin/feedback";
         request.setParameter("url", randomUrl);
+        ModelAndView modelAndView;
         modelAndView = controller.handleRequestInternal(request, response);
         assertEquals(randomUrl + "/", modelAndView.getModel().get("url"));
         request.setParameter("url", null);
 
+
         //bogus pathway
         request.setParameter("p", "boguspathway");
         modelAndView = controller.handleRequestInternal(request, response);
+
+        String url;
         url = (String) pathways.get("default");
-        assertEquals(buildTestUrl(url, state), modelAndView.getModel().get("url"));
+        assertEquals(buildTestUrl(url, ""), modelAndView.getModel().get("url"));
 
         //no pathway
         modelAndView = controller.handleRequestInternal(request, response);
         url = (String) pathways.get("default");
-        assertEquals(buildTestUrl(url, state), modelAndView.getModel().get("url"));
+        assertEquals(buildTestUrl(url, ""), modelAndView.getModel().get("url"));
 
         //no state param
+        Iterator iter = pathways.keySet().iterator();
         while (iter.hasNext()) {
             String key = (String) iter.next();
             url = (String) pathways.get(key);
-            if (key.equals(pathway_single_search) || key.equals(pathway_double_search)) {
+            if (key.equals(PATHWAY_SINGLE_SEARCH) || key.equals(PATHWAY_DOUBLE_SEARCH)) {
                 continue;
             }
 
             request.setParameter("p", key);
             modelAndView = controller.handleRequestInternal(request, response);
-            assertEquals(buildTestUrl(url, state), modelAndView.getModel().get("url"));
+            assertEquals(buildTestUrl(url, ""), modelAndView.getModel().get("url"));
         }
-
-        RedirectView view = null;
 
 
         //no state param, single search
-        iter = keys.iterator();
-
-        request.setParameter("p", pathway_single_search);
+        request.setParameter("p", PATHWAY_SINGLE_SEARCH);
         request.setParameter("q", "San Francisco");
-
         modelAndView = controller.handleRequestInternal(request, response);
-        url = (String) pathways.get(pathway_single_search);
+        url = (String) pathways.get(PATHWAY_SINGLE_SEARCH);
         assertEquals(url+"?state=", modelAndView.getModel().get("url"));
         assertEquals("&q=San+Francisco", modelAndView.getModel().get("extraParams"));
 
+        //no state param, single search, charter school
+        request.setParameter("p", PATHWAY_SINGLE_SEARCH);
+        request.setParameter("q", "San Francisco");
+        request.setParameter("st", "charter");
+        modelAndView = controller.handleRequestInternal(request, response);
+        url = (String) pathways.get(PATHWAY_SINGLE_SEARCH);
+        assertEquals(url+"?state=", modelAndView.getModel().get("url"));
+        assertEquals("&q=San+Francisco&st=charter", modelAndView.getModel().get("extraParams"));
+
         //no state param, double search
-        request.setParameter("p", pathway_double_search);
+        request.setParameter("p", PATHWAY_DOUBLE_SEARCH);
         request.setParameter("field1", "Lowell");
         request.setParameter("field2", "San Francisco");
         modelAndView = controller.handleRequestInternal(request, response);
-        url = (String) pathways.get(pathway_double_search);
-        state = "";
-        assertEquals(buildTestUrl(url, state), modelAndView.getModel().get("url"));
+        url = (String) pathways.get(PATHWAY_DOUBLE_SEARCH);
+        assertEquals(buildTestUrl(url, ""), modelAndView.getModel().get("url"));
         assertEquals("?selector=by_school&field1=Lowell&field2=San+Francisco",
                         modelAndView.getModel().get("extraParams"));
 
         //state param, no search param
-        state = "CA";
-        iter = keys.iterator();
+        String state = "CA";
+        iter = pathways.keySet().iterator();
         request = new MockHttpServletRequest();
 
+        String redirectUrl = "";
         while (iter.hasNext()) {
             String key = (String) iter.next();
 
-            if (key.equals(pathway_single_search) || key.equals(pathway_double_search)) {
+            if (key.equals(PATHWAY_SINGLE_SEARCH) || key.equals(PATHWAY_DOUBLE_SEARCH)) {
                 continue;
             }
             url = (String) pathways.get(key);
@@ -137,12 +140,12 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
 
         //valid state param, double search
         state = "CA";
-        request.setParameter("p", pathway_double_search);
+        request.setParameter("p", PATHWAY_DOUBLE_SEARCH);
         request.setParameter("field1", "Lowell");
         request.setParameter("field2", "San Francisco");
         request.setParameter("state", state);
         modelAndView = controller.handleRequestInternal(request, response);
-        url = (String) pathways.get(pathway_double_search);
+        url = (String) pathways.get(PATHWAY_DOUBLE_SEARCH);
         response = new MockHttpServletResponse();
         modelAndView = controller.handleRequestInternal(request, response);
         redirectUrl = response.getRedirectedUrl();
@@ -151,10 +154,10 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
 
         //valid state param, single search
         state = "CA";
-        request.setParameter("p", pathway_single_search);
+        request.setParameter("p", PATHWAY_SINGLE_SEARCH);
         request.setParameter("q", "San Francisco");
         request.setParameter("state", state);
-        url = (String) pathways.get(pathway_single_search);
+        url = (String) pathways.get(PATHWAY_SINGLE_SEARCH);
         response = new MockHttpServletResponse();
 
 
