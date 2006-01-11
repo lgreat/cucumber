@@ -8,8 +8,18 @@
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="rememberQuery" required="false"/>
     <jsp:directive.attribute name="showStates" required="false"/>
-    <jsp:directive.attribute name="fieldlength" required="false"/>
+    <jsp:directive.attribute name="fieldLength" required="false"/>
+    <jsp:directive.attribute name="showLabel"
+                             required="false"
+                             description="Should the 'Search' label be shown? Default yes."
+                             type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="showConstraint"
+                             required="false"
+                             description="Should the constraint control (select) show in this control? Default yes."
+                             type="java.lang.Boolean"/>
 
+
+    <div class="globalSearch">
     <gsml:url var="search" value="/search/search.page"/>
     <gsml:form id="searchform" name="sf" method="get" action="${search}">
         <table style="padding:0px; margin:0px;">
@@ -23,7 +33,7 @@
                </tr>
             </c:if>
             <tr>
-            <c:if test="${showStates != 'true'}">
+            <c:if test="${showStates != 'true' and (empty showLabel or showLabel) }">
                 <td class="label" width="90" align="right">Search
                 </td>
             </c:if>
@@ -31,18 +41,20 @@
                 <input type="text"
                        id="q"
                        name="q"
-                       size="${(not empty fieldlength) ? (fieldlength) : '50'}"
+                       size="${(not empty fieldLength) ? (fieldLength) : '50'}"
                        style="font-size:small"
                        maxlength="255"
                        value="${(not empty param.q) and (rememberQuery == 'true') and (empty param.city) and (empty param.district) ? fn:escapeXml(param.q) : ''}"/>
             </td>
-            <td>
-                <select name="c">
-                    <option value="all">Schools &amp; Topics </option>
-                    <option value="school">Schools only</option>
-                    <option value="topic">Topics only</option>
-                </select>
-            </td>
+                <c:if test="${(empty showConstraint) or showConstraint}">
+                    <td>
+                        <select name="c">
+                            <option value="all">Schools &amp; Topics </option>
+                            <option value="school">Schools only</option>
+                            <option value="topic">Topics only</option>
+                        </select>
+                    </td>
+                </c:if>
             <td style="vertical-align:middle;padding-bottom:2px">
                 <gsml:url var="goButton"
                           value="/res/img/search/btn_go.gif"/>
@@ -59,4 +71,6 @@
             <input type="hidden" name="st" value="charter"/>
         </c:if>
     </gsml:form>
+
+    </div>
 </jsp:root>

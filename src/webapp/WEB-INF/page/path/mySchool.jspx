@@ -66,7 +66,8 @@
                                 <h3 class="result_title">
                                     Find test scores, teacher stats and more
                                 <gsml:a styleClass="changeState" href="/stateLauncher.page?p=pathway2">Search another state</gsml:a></h3>
-                                <mod:searchBox state="${requestScope.context.stateOrDefault}"/>
+
+                                <search:searchControl showConstraint="false" fieldLength="40" showLabel="false"/>
 
                                 <div class="browselinks">
                                     <gsml:a styleClass="nowrap"

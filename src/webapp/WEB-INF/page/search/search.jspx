@@ -57,13 +57,6 @@
 <body>
 
 <table border="0" width="100%">
-<!--
-<tr>
-                <td align="right">
-                    <search:searchControl rememberQuery="true"/>
-                </td>
-</tr>
--->
 <tr>
 
 <td>
@@ -195,7 +188,7 @@
                                 <td align="${(noresults == 'true') ? 'left' : 'center'}">
                                     <search:searchControl rememberQuery="true"
                                                           showStates="${noresults}"
-                                                          fieldlength="38"/>
+                                                          fieldLength="38"/>
                                 </td>
                             </tr>
                         </table>

@@ -9,15 +9,6 @@ td.label {color:#666;vertical-align:middle;}
 .main li {padding-bottom: 10px}
 .main {margin:0px 0px 0px 0px;width:100%;}
 .main .TL, .main .TR, .main .BL, .main .BR { width:10px; height:10px; background:no-repeat; }
-.main td.TL {background:  url(../../img/search/border_shade3_TL.gif) left top; }
-.main td.T {background:  url(../../img/search/border_shade3_T.gif) top repeat-x;}
-.main td.TR {background:  url(../../img/search/border_shade3_TR.gif) top right;}
-.main td.L {background:  url(../../img/search/border_shade3_L.gif) left repeat-y;}
-.main td.C {background:  url(../../img/search/border_shade3_BG.gif); padding: 0px 0px 0px 0px;vertical-align:top;}
-.main td.R {background:  url(../../img/search/border_shade3_R.gif) right repeat-y;}
-.main td.BL {background:  url(../../img/search/border_shade3_BL.gif) left bottom;}
-.main td.B {background:  url(../../img/search/border_shade3_B.gif) bottom repeat-x;}
-.main td.BR {background:  url(../../img/search/border_shade3_BR.gif) bottom right;}
 .main table.columns {width:100%;}
 .main .columns td.col1 {width:38%; vertical-align:top}
 .main .columns td.col2 {width:25%; vertical-align:top}
@@ -158,21 +149,6 @@ pre.explanation {
     padding-top:20px;
     padding-bottom:20px;
 }
-
-/** temp until search controls are merged */
-.state {
-    vertical-align: middle;
-    font-weight: bold;
-    padding-left: .1em;
-    font-size: 1.3em;
-    white-space:nowrap;
-}
-
-.state .changeState {
-    padding-left: .7em;
-    font-size:0.75em;
-}
-/** end temp */
 
 tr.result_row td {
     padding:0px;
