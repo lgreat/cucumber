@@ -35,72 +35,35 @@
         </c:choose>
     </title>
 
+    <![CDATA[
+    <style type="text/css">
+           table#pagemargin, .pageWidth { width:100% !important; border:0}
+    </style>
+    ]]>
+
     <gsml:url var="searchcss" value="/res/css/search/search.css"/>
     <link rel="stylesheet" href="${searchcss}" type="text/css" media="screen"/>
 
+    <gsml:url var="globalcss" value="/res/css/global.css"/>
+    <link rel="stylesheet" href="${globalcss}" type="text/css" media="screen"/>
+
     <jsp:scriptlet>
         PageHelper.hideHeader(request);
-        PageHelper.addOnLoadHandler(request, "document.getElementById('q').focus()");
     </jsp:scriptlet>
     <ad:xAdSetup ads="x22,x20" page="search"/>
+
 </head>
 
 <body>
 
 <table border="0" width="100%">
-<c:if test="${!requestScope.pageHelper.adFree}">
+<!--
 <tr>
-    <td colspan="2">
-        <table width="100%">
-            <tr>
-                <td align="left">
-                    <a href="http://www.greatschools.net"><img id="logo"
-                                                               alt="GreatSchools.net Logo"
-                                                               src="/res/img/logo_GS_260x40.gif"></img>
-                    </a>
-                </td>
-            </tr>
-        </table>
-    </td>
-</tr>
-</c:if>
-<tr>
-    <td colspan="2">
-        <ad:x22/>
-    </td>
-</tr>
-<tr>
-    <td colspan="2">
-        <table width="100%" style="padding:0px">
-            <tr>
-                <td align="left" style="padding:0px;">
-                    <table style="padding:0px; margin:0px;">
-                        <tr>
-                            <td class="state">
-                                ${requestScope.context.stateOrDefault.longName}
-                                schools
-                                <gsml:a styleClass="changeState"
-                                        href="/stateLauncher.page?p=pathway${requestScope.context.pathway}">
-                                    Change state
-                                </gsml:a>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
                 <td align="right">
                     <search:searchControl rememberQuery="true"/>
                 </td>
-            </tr>
-        </table>
-    </td>
 </tr>
-
-<tr>
-    <td>
-        <mod:horizontalNav/>
-    </td>
-</tr>
-
+-->
 <tr>
 
 <td>
@@ -191,7 +154,8 @@
                         </td>
                         <td align="right">
                             <c:if test="${results.total gt 0}">
-                                <c:set var="px" value="${(param.p * 10)}"/>
+                                <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
+                                <c:set var="px" value="${(page * 10)}"/>
                                 <c:out value="${px + 1} - ${(results.total lt px + 10) ? results.total : px + 10} of ${results.total}"/>
                             </c:if>
                         </td>
