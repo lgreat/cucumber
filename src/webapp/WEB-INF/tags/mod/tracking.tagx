@@ -51,18 +51,19 @@
     s.eVar2="";
     s.eVar3="";
     s.eVar4="";
-    s.eVar5="";<![CDATA[]//<!--
-
-    /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
-    var s_code=s.t();if(s_code)document.write(s_code)//-->]]>
-    </script>
-    <script language="JavaScript"><!--
-    if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
-    //--></script><noscript><img
-    src="http://gsnetdev.122.2O7.net/b/ss/gsnetdev/1/H.2--NS/0"
-    height="1" width="1" border="0" alt="" /></noscript><!--/DO NOT REMOVE/-->
-    <!-- End SiteCatalyst code version: H.2. -->
-
+    s.eVar5="";
+</script>
+<![CDATA[
+<script language="JavaScript"><!--
+/************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+var s_code=s.t();if(s_code)document.write(s_code)//--></script>
+<script language="JavaScript"><!--
+if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
+//--></script><noscript><img
+src="http://gsnetdev.122.2O7.net/b/ss/gsnetdev/1/H.2--NS/0"
+height="1" width="1" border="0" alt="" /></noscript><!--/DO NOT REMOVE/-->
+<!-- End SiteCatalyst code version: H.2. -->
+]]>
 
 
 </jsp:root>
