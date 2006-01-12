@@ -108,7 +108,10 @@ pre.explanation {
 }
 
 .citydistrict { padding:5px; }
-.citydistrict .citydistresult { padding-left:7px; padding-right:7px; }
+.citydistrict .citydistresult {
+    padding-left:7px;
+    padding-right:7px;
+}
 
 .refinementlist li{
     padding-bottom:6px;
@@ -177,4 +180,12 @@ tr td.checkbox {
 
 #rollupfilters {
     font-weight:bold;
+}
+
+/*IE hack to make the font size similar to Firefox */
+* html #searchpagetable tr td {
+    font-size:80%;
+}
+* html #searchpagetable tr td #resultsheader td {
+    font-size:100%;
 }

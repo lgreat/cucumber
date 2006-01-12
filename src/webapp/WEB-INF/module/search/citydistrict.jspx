@@ -19,7 +19,7 @@
                 <c:if test="${model.filteredtotal > 3 and param.morefiltered != 'true'}">
                     <a href="/search/search.page?${pageContext.request.queryString}&amp;morefiltered=true">more...</a>
                 </c:if>
-            <br/>
+                <br/>
             </div>
         </c:if>
 
