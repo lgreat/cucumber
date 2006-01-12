@@ -29,9 +29,9 @@
 
     <!-- SiteCatalyst code version: H.2. Copyright 1997-2005 Omniture, Inc. More info available at http://www.omniture.com -->
     <gsml:url var="js" value="/res/js/s_code.js" />
-    <script language="JavaScript" src="${js}"></script>
-
-    <script language="JavaScript">
+    <script language="JavaScript" src="${js}">
+<![CDATA[</script>
+    <script language="JavaScript">]]>
     s.pageName="${pageName}";
     s.server="${requestScope.context.hostName}";
     s.channel="${empty(state) ? requestScope.context.stateOrDefault.abbreviation : state}";

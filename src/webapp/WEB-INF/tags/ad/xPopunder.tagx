@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
@@ -15,7 +14,7 @@
     The ad_popunder.js code determines if we should display 1 or 2
     On yahoo, framed, number1expert, mcguire we show none
     -->
-    <c:set var="state" value="${fn:toLowerCase(requestScope.context.stateOrDefault.abbreviation)}"/>
+    <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviationLowerCase}"/>
     <c:if test="${!requestScope.pageHelper.adFree and !requestScope.context.yahooCobrand}">
         <c:set var="onloadPopunder" scope="request" value="DisplayPopunder('${state}','x06|x17');"/>
         <c:set var="triggerPopunder" scope="request" value="DisplayPopunderSpecial('${state}','x06|x17'); return true;"/>
