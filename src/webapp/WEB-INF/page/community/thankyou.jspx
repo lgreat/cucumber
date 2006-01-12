@@ -112,8 +112,8 @@
 
             <jsp:include page="/footer/copyright.module?state=${requestScope.context.stateOrDefault.abbreviation}"/>
 
-            <mod:tracking pageType="conversion" pageName="confirmation"
-                extraJavascriptVariable="var fc_track='confirmation';var fc_prod_buy='${param.longName}?1?${param.priceCents}';var fc_order='${param.priceCents}';"/>
+            <mod:tracking pageType="conversion" pageName="confirmation" />
+                <!--extraJavascriptVariable="var fc_track='confirmation';var fc_prod_buy='${param.longName}?1?${param.priceCents}';var fc_order='${param.priceCents}';" -->
         </body>
     </html>
 </jsp:root>

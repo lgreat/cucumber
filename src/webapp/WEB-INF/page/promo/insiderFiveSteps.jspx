@@ -474,8 +474,8 @@ font-size:100%;
                     </td>
                 </tr>
             </table>
-            <mod:tracking pageType="conversion" pageName="five steps"
-                extraJavascriptVariable="var fc_track='view';var fc_prod_view='GreatSchools Insider';"/>
+            <mod:tracking pageType="conversion" pageName="five steps" />
+                <!--extraJavascriptVariable="var fc_track='view';var fc_prod_view='GreatSchools Insider';"/ -->
         </body>
     </html>
 </jsp:root>
