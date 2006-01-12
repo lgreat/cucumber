@@ -1,5 +1,9 @@
-    <jsp:directive.tag body-content="empty"/>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
+<jsp:directive.tag body-content="empty"/>
 <jsp:directive.attribute name="pageType" required="true"/>
 <jsp:directive.attribute name="pageName" required="true"/>
 <jsp:directive.attribute
@@ -26,30 +30,32 @@
     <!-- SiteCatalyst code version: H.2. Copyright 1997-2005 Omniture, Inc. More info available at http://www.omniture.com -->
     <gsml:url var="js" value="/res/js/s_code.js" />
     <script language="JavaScript" src="${js}"></script>
-    <script language="JavaScript"><!--
-    s.pageName="${pageName}"
-    s.server="${requestScope.context.hostName}"
-    s.channel="US:${empty(state) ? requestScope.context.stateOrDefault.abbreviationLowerCase : state}"
-    s.pageType="${empty(pageType) ? "" : pageType}"
-    s.prop1="${empty(id) ? "" : id}"
-    s.prop2="${empty(schoolType) ? "" : schoolType}"
-    s.prop3="${empty(schoolLevel) ? "" : schoolLevel}"
-    s.prop4="${empty(locale) ? "" : locale}"
-    s.prop5="${requestScope.context.stateOrDefault.subscriptionState ? "1" : "0"}"
-    /* E-commerce Variables */
-    s.campaign=""
-    s.state=""
-    s.zip=""
-    s.events=""
-    s.products=""
-    s.purchaseID=""
-    s.eVar1=""
-    s.eVar2=""
-    s.eVar3=""
-    s.eVar4=""
-    s.eVar5=""
+
+    <script language="JavaScript">
+    s.pageName="${pageName}";
+    s.server="${requestScope.context.hostName}";
+    s.channel="${empty(state) ? requestScope.context.stateOrDefault.abbreviation : state}";
+    s.pageType="${empty(pageType) ? "" : pageType}";
+    s.prop1="${empty(id) ? "" : id}";
+    s.prop2="${empty(schoolType) ? "" : schoolType}";
+    s.prop3="${empty(schoolLevel) ? "" : schoolLevel}";
+    s.prop4="${empty(locale) ? "" : locale}";
+    s.prop5="${requestScope.context.stateOrDefault.subscriptionState ? "1" : "0"}";
+    s.campaign="";
+    s.state="";
+    s.zip="";
+    s.events="";
+    s.products="";
+    s.purchaseID="";
+    s.eVar1="";
+    s.eVar2="";
+    s.eVar3="";
+    s.eVar4="";
+    s.eVar5="";<![CDATA[]//<!--
+
     /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
-    var s_code=s.t();if(s_code)document.write(s_code)//--></script>
+    var s_code=s.t();if(s_code)document.write(s_code)//-->]]>
+    </script>
     <script language="JavaScript"><!--
     if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
     //--></script><noscript><img
@@ -58,3 +64,5 @@
     <!-- End SiteCatalyst code version: H.2. -->
 
 
+
+</jsp:root>
