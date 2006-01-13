@@ -1,20 +1,19 @@
 package gs.web.state;
 
 import gs.web.BaseControllerTestCase;
+import gs.web.MockHttpServletRequest;
 import gs.web.util.UrlUtil;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import gs.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Controller tests for Davids bridge page
  * TODO clean up calls to MockHttpServletResponse
+ *
  * @author <a href="mailto:thuss@greatschools.net">Todd Huss</a>
  */
 public class StatePathwayControllerSaTest extends BaseControllerTestCase {
@@ -49,8 +48,6 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         Map pathways = (Map) getApplicationContext().getBean("pathwaysMap");
         controller.setPathways(pathways);
 
-
-
         //pass in a specific url instead of a pathway name
         String randomUrl = "/cgi-bin/feedback";
         request.setParameter("url", randomUrl);
@@ -58,7 +55,6 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         modelAndView = controller.handleRequestInternal(request, response);
         assertEquals(randomUrl + "/", modelAndView.getModel().get("url"));
         request.setParameter("url", null);
-
 
         //bogus pathway
         request.setParameter("p", "boguspathway");
@@ -87,13 +83,12 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
             assertEquals(buildTestUrl(url, ""), modelAndView.getModel().get("url"));
         }
 
-
         //no state param, single search
         request.setParameter("p", PATHWAY_SINGLE_SEARCH);
         request.setParameter("q", "San Francisco");
         modelAndView = controller.handleRequestInternal(request, response);
         url = (String) pathways.get(PATHWAY_SINGLE_SEARCH);
-        assertEquals(url+"?state=", modelAndView.getModel().get("url"));
+        assertEquals(url + "?state=", modelAndView.getModel().get("url"));
         assertEquals("&q=San+Francisco", modelAndView.getModel().get("extraParams"));
 
         //no state param, single search, charter school
@@ -102,7 +97,7 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         request.setParameter("st", "charter");
         modelAndView = controller.handleRequestInternal(request, response);
         url = (String) pathways.get(PATHWAY_SINGLE_SEARCH);
-        assertEquals(url+"?state=", modelAndView.getModel().get("url"));
+        assertEquals(url + "?state=", modelAndView.getModel().get("url"));
         assertEquals("&q=San+Francisco&st=charter", modelAndView.getModel().get("extraParams"));
 
         //no state param, single search, constraint
@@ -112,7 +107,7 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         request.setParameter("st", null);
         modelAndView = controller.handleRequestInternal(request, response);
         url = (String) pathways.get(PATHWAY_SINGLE_SEARCH);
-        assertEquals(url+"?state=", modelAndView.getModel().get("url"));
+        assertEquals(url + "?state=", modelAndView.getModel().get("url"));
         assertEquals("&q=San+Francisco&c=school", modelAndView.getModel().get("extraParams"));
 
         //no state param, double search
@@ -123,7 +118,7 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         url = (String) pathways.get(PATHWAY_DOUBLE_SEARCH);
         assertEquals(buildTestUrl(url, ""), modelAndView.getModel().get("url"));
         assertEquals("?selector=by_school&field1=Lowell&field2=San+Francisco",
-                        modelAndView.getModel().get("extraParams"));
+                modelAndView.getModel().get("extraParams"));
 
         //state param, no search param
         String state = "CA";
@@ -160,7 +155,7 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         modelAndView = controller.handleRequestInternal(request, response);
         redirectUrl = response.getRedirectedUrl();
         assertEquals(buildRedirectUrl(url, state, request) + "?selector=by_school&field1=Lowell&field2=San+Francisco",
-                    redirectUrl);
+                redirectUrl);
 
         //valid state param, single search
         state = "CA";
@@ -195,7 +190,7 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         return retUrl;
     }
 
-    private String buildRedirectUrl (final String url, String state, MockHttpServletRequest request) {
+    private String buildRedirectUrl(final String url, String state, MockHttpServletRequest request) {
         UrlUtil urlUtil = new UrlUtil();
 
         return urlUtil.buildUrl(buildTestUrl(url, state), request);
