@@ -16,7 +16,6 @@ import gs.web.SessionContext;
 import gs.web.ISessionFacade;
 
 import java.util.*;
-import java.io.IOException;
 
 /**
  * This controller handles all search requests.
@@ -45,8 +44,6 @@ public class SearchController extends AbstractFormController {
     private SpellCheckSearcher _spellCheckSearcher;
     private Searcher _searcher;
     private boolean suggest = false;
-    private int minimumHits = 3;
-    private float minimumScore = 0.5f;
 
     public boolean isFormSubmission(HttpServletRequest request) {
         return true;

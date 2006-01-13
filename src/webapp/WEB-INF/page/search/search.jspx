@@ -21,6 +21,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+    <meta name="wrapperstyle" content="newsearch"/>
     <title>
         <c:choose>
             <c:when test="${not empty param.city}">
@@ -52,7 +53,6 @@
     <jsp:scriptlet>
         PageHelper.hideHeader(request);
     </jsp:scriptlet>
-    <ad:xAdSetup ads="x22,x20" page="search"/>
 
 </head>
 
@@ -201,7 +201,7 @@
 </td>
 
 <td class="rightcolumn" align="center">
-    <ad:x20/>
+    <ad:x33/>
 </td>
 
 </tr>

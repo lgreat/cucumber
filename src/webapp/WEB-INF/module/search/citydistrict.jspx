@@ -34,18 +34,17 @@
                             <c:out escapeXml="false" value="${gsweb:highlight(city, param.q, 'city')}"/>
                         </a>
                     </span>
-                    <c:if test="${count lt model.citiestotal - 1}">
-                        <c:out value="  -  "/>
-                    </c:if>
                     <c:set var="count" value="${count + 1}"/>
+                    <c:if test="${(count lt (model.citiestotal > 50 ? 50 : model.citiestotal))}">
+                        <c:out value="  &#183;  "/>
+                    </c:if>
                 </c:forEach>
                 <c:if test="${model.citiestotal > 3 and param.morecities != 'true'}">
-                    <a href="/search/search.page?${pageContext.request.queryString}&amp;morecities=true">more cities...</a>
+                    &#160;&#160;<a href="/search/search.page?${pageContext.request.queryString}&amp;morecities=true">more cities...</a>
                 </c:if>
                 <br/>
             </div>
         </c:if>
-
 
         <c:if test="${not empty model.districts}">
 
@@ -57,13 +56,13 @@
                         <c:out escapeXml="false" value="${gsweb:highlight(district.name, param.q, 'name')}"/>
                     </a>
                 </span>
-                <c:if test="${count lt model.districtstotal - 1}">
-                    <c:out value="  -  "/>
-                </c:if>
                 <c:set var="count" value="${count + 1}"/>
+                <c:if test="${(count lt (model.districtstotal > 50 ? 50 : model.districtstotal))}">
+                    <c:out value=" &#183; "/>
+                </c:if>
             </c:forEach>
             <c:if test="${model.districtstotal > 3 and param.moredistricts != 'true'}">
-                <a href="/search/search.page?${pageContext.request.queryString}&amp;moredistricts=true">more districts...</a>
+                &#160;&#160;<a href="/search/search.page?${pageContext.request.queryString}&amp;moredistricts=true">more districts...</a>
             </c:if>
         </c:if>
     </div>
