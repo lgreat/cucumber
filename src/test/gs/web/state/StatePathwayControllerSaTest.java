@@ -105,6 +105,16 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         assertEquals(url+"?state=", modelAndView.getModel().get("url"));
         assertEquals("&q=San+Francisco&st=charter", modelAndView.getModel().get("extraParams"));
 
+        //no state param, single search, constraint
+        request.setParameter("p", PATHWAY_SINGLE_SEARCH);
+        request.setParameter("q", "San Francisco");
+        request.setParameter("c", "school");
+        request.setParameter("st", null);
+        modelAndView = controller.handleRequestInternal(request, response);
+        url = (String) pathways.get(PATHWAY_SINGLE_SEARCH);
+        assertEquals(url+"?state=", modelAndView.getModel().get("url"));
+        assertEquals("&q=San+Francisco&c=school", modelAndView.getModel().get("extraParams"));
+
         //no state param, double search
         request.setParameter("p", PATHWAY_DOUBLE_SEARCH);
         request.setParameter("field1", "Lowell");

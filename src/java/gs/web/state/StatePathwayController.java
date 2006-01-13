@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.19 2006/01/11 21:37:01 apeterson Exp $
+ * $Id: StatePathwayController.java,v 1.20 2006/01/13 01:16:54 apeterson Exp $
  */
 package gs.web.state;
 
@@ -113,6 +113,11 @@ public class StatePathwayController extends AbstractController {
         String paramSt = request.getParameter("st");
         if (!StringUtils.isEmpty(paramSt)) {
             appendParam += "&st=" + URLEncoder.encode(paramSt, "UTF-8");
+        }
+
+        String paramC = request.getParameter("c");
+        if (!StringUtils.isEmpty(paramC)) {
+            appendParam += "&c=" + URLEncoder.encode(paramC, "UTF-8");
         }
 
         return appendParam;
