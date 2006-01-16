@@ -1,6 +1,7 @@
 package gs.web.search;
 
 import org.apache.taglibs.standard.functions.Functions;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.JspException;
@@ -98,8 +99,11 @@ public class MainResultsTag extends ResultsTableTagHandler {
                         out.println(result.getAddress());
                         out.print("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
                         out.println(result.getSchoolType());
-                        out.print("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
-                        out.println(result.getGradeLevel());
+                        String gl = result.getGradeLevel();
+                        if (StringUtils.isNotEmpty(gl)) {
+                            out.print("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
+                            out.println(gl);
+                        }
                     }
                     out.println("</td>");
                 } else {
