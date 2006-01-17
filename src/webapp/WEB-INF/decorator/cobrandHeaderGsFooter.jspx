@@ -24,10 +24,10 @@
         <decorator:title default="REPLACE THIS REPLACE THIS REPLACE THIS REPLACE THIS"/>
     </title>
     <gsml:url var="globalcss" value="/res/css/global.css"/>
-    <link rel="stylesheet" href="${globalcss}"></link>
+    <![CDATA[<link rel="stylesheet" href="${globalcss}"></link>]]>
 
     <gsml:url var="globaljs" value="/res/js/global.js"/>
-    <script language="javascript" type="text/javascript" src="${globaljs}"><![CDATA[]]></script>
+    <![CDATA[<script language="javascript" type="text/javascript" src="${globaljs}"></script>]]>
 
     <!-- This tag includes ad_popunder.js and sets onloadPopunder -->
     <ad:xPopunder/>
