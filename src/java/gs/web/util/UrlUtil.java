@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.12 2005/12/16 23:15:37 dlee Exp $
+ * $Id: UrlUtil.java,v 1.13 2006/01/17 20:49:45 apeterson Exp $
  */
 
 package gs.web.util;
@@ -40,8 +40,9 @@ public final class UrlUtil {
                 && !hostName.startsWith("dlee.dev")
                 && !hostName.startsWith("apeterson.dev")
                 && !hostName.startsWith("thuss.dev")
-                && !hostName.startsWith("tmauder.dev")
                 && !hostName.startsWith("chriskimm.dev")
+                && !hostName.equals("127.0.0.1")
+                && !hostName.equals("apeterson.office.greatschools.net")
                 && hostName.indexOf('.') != -1;
         if (isCobrand) {
             cobrandName = hostName.substring(0, hostName.indexOf("."));

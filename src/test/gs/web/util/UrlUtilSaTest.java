@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.11 2005/12/16 23:15:37 dlee Exp $
+ * $Id: UrlUtilSaTest.java,v 1.12 2006/01/17 20:49:45 apeterson Exp $
  */
 
 package gs.web.util;
@@ -114,11 +114,21 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("babycenter", _urlUtil.cobrandFromUrl("greatschools.babycenter.com"));
         assertEquals("parentcenter", _urlUtil.cobrandFromUrl("greatschools.parentcenter.com"));
 
-        // These don't work.
-        // TODO Todd
-//        assertNull(_urlUtil.cobrandFromUrl("greatschools.net"));
-//        assertNull(_urlUtil.cobrandFromUrl("127.0.0.1"));
-//        assertNull(_urlUtil.cobrandFromUrl("215.76.8.34"));
+        assertEquals("yahoo", _urlUtil.cobrandFromUrl("yahoo.dev.greatschools.net"));
+        assertEquals("yahooed", _urlUtil.cobrandFromUrl("yahooed.dev.greatschools.net"));
+        assertEquals("azcentral", _urlUtil.cobrandFromUrl("azcentral.dev.greatschools.net/"));
+
+        assertEquals("yahoo", _urlUtil.cobrandFromUrl("yahoo.staging.greatschools.net"));
+        assertEquals("yahooed", _urlUtil.cobrandFromUrl("yahooed.staging.greatschools.net"));
+        assertEquals("azcentral", _urlUtil.cobrandFromUrl("azcentral.staging.greatschools.net/"));
+
+        assertEquals("charterschoolratings", _urlUtil.cobrandFromUrl("charterschoolratings.dev.greatschools.net/"));
+
+        assertNull(_urlUtil.cobrandFromUrl("127.0.0.1"));
+        assertNull(_urlUtil.cobrandFromUrl("apeterson.office.greatschools.net"));
+
+        // This doesn't work, but it's not a realistic case at this time.
+        //assertNull(_urlUtil.cobrandFromUrl("greatschools.net"));
     }
 
     public void testBuildPerlHostname() {

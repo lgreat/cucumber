@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.10 2005/11/30 20:50:29 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.11 2006/01/17 20:49:57 apeterson Exp $
  */
 
 package gs.web;
@@ -164,12 +164,10 @@ public class SessionContextUtil {
 
         // Get the real hostname or see if it's been overridden
         String paramHost = request.getParameter(HOST_PARAM);
-        String hostName = StringUtils.isEmpty(paramHost) ?
-                request.getServerName() :
-                paramHost;
+        String hostName = StringUtils.isEmpty(paramHost) ? request.getServerName() : paramHost;
 
         // Determine if this is a cobrand
-        String cobrand = context.getCobrand();
+        String cobrand;
         String paramCobrand = request.getParameter(COBRAND_PARAM);
         if (StringUtils.isNotEmpty(paramCobrand)) {
             cobrand = paramCobrand;
