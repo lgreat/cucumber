@@ -24,23 +24,21 @@
         <decorator:title default="REPLACE THIS REPLACE THIS REPLACE THIS REPLACE THIS"/>
     </title>
     <gsml:url var="globalcss" value="/res/css/global.css"/>
-    <link rel="stylesheet" href="${globalcss}">&#160;</link>
+    <link rel="stylesheet" href="${globalcss}"></link>
+
+    <gsml:url var="globaljs" value="/res/js/global.js"/>
+    <script language="javascript" type="text/javascript" src="${globaljs}"><![CDATA[]]></script>
 
     <!-- This tag includes ad_popunder.js and sets onloadPopunder -->
     <ad:xPopunder/>
     <decorator:head/>
-
-    <gsml:url var="globaljs" value="/res/js/global.js"/>
-    <script language="javascript" type="text/javascript" src="${globaljs}">&#160;</script>
-
 </head>
 
 <body onload="${onloadPopunder} ${requestScope.pageHelper.onload}">
-<cobrand:framebuster/>
-
 <div id="pageGS" class="${pageClass}">
-    <jsp:include page="/header/cobrand.module"/>
-    <div id="bodyGS">
+<jsp:include page="/header/cobrand.module"/>
+<div id="bodyGS">
+<cobrand:framebuster/>
 
         <div id="header">
             <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
