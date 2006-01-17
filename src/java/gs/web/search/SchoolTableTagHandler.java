@@ -226,8 +226,13 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             writePageNumbers(out);
 
         } else {
-            out.println("<tr><th class=\"left result_title\">No schools found</div></th></tr>");
+            if (filterBuffer.length() > 0) {
+                out.println("<tr><th class=\"left result_title\">Your refinement did not return any results.</th></tr>");
+            } else {
+                out.println("<tr><th class=\"left result_title\">No schools found</th></tr>");
+            }
             out.println("<tr><td valign=\"top\" height=\"100\">");
+            out.println("Please try again.");
         }
         out.println("</td></tr></table>");
         out.println("</td></tr></table>");

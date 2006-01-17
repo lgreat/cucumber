@@ -80,11 +80,13 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
         JspContext jspContext = getJspContext();
         String cityParam = null;
         String distParam = null;
+        String distNameParam = null;
 
         if (jspContext != null) {
             cityParam = (String)jspContext.findAttribute("city");
             if (cityParam == null) {
                 distParam = (String)jspContext.findAttribute("district");
+                distNameParam = (String)jspContext.findAttribute("distname");
             }
         }
 
@@ -110,6 +112,11 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                 } else if (distParam != null) {
                     hrefBuffer.append("&district=");
                     hrefBuffer.append(distParam);
+                }
+
+                if (distNameParam != null) {
+                    hrefBuffer.append("&distname=");
+                    hrefBuffer.append(distNameParam);                    
                 }
 
                 State s = getState();
