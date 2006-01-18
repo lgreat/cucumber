@@ -38,6 +38,9 @@
 
     <![CDATA[
     <style type="text/css">
+    <c:if test="${not requestScope.context.cobranded}">
+           table#pagemargin, .pageWidth { width:100% !important; border:0}
+    </c:if>
            table#pagemargin, .pageWidth { width:100% !important; border:0}
            a:link {text-decoration:none;}
            a:visited {color: #66C; text-decoration:none;}
@@ -111,6 +114,7 @@
 
     <c:choose>
         <c:when test="${(not empty param.city) or (not empty param.district)}">
+            <mod:tracking pageName="schools" pageType="searchResults"/>
             <gsml:box tableClass="shade3 main">
                 <gsweb:schooltable schools="${results.mainResults}"
                                    query="${param.q}"
@@ -119,6 +123,7 @@
             </gsml:box>
         </c:when>
         <c:otherwise>
+            <mod:tracking pageName="mixed" pageType="searchResults"/>
 
             <div id="resultsheader">
                 <table width="90%">
@@ -212,7 +217,6 @@
 
 </tr>
 </table>
-
 </body>
 </html>
 </jsp:root>
