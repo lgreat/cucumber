@@ -36,16 +36,26 @@
         </c:choose>
     </title>
 
+    <c:if test="${not requestScope.context.cobranded}">
     <![CDATA[
     <style type="text/css">
-    <c:if test="${not requestScope.context.cobranded}">
            table#pagemargin, .pageWidth { width:100% !important; border:0}
+    </style>
+    ]]>
     </c:if>
-           table#pagemargin, .pageWidth { width:100% !important; border:0}
+    <c:if test="${requestScope.context.cobranded}">
+    <![CDATA[
+    <style type="text/css">
+    .rcopy { }
+           table#pagemargin, .pageWidth { width:760px !important; border:0}
+           #searchfooter { width: 400px !important;}
+    </style>
+    ]]>
+    </c:if>
+    <style type="text/css">
            a:link {text-decoration:none;}
            a:visited {color: #66C; text-decoration:none;}
     </style>
-    ]]>
 
     <gsml:url var="searchcss" value="/res/css/search/search.css"/>
     <link rel="stylesheet" href="${searchcss}" type="text/css" media="screen"/>
@@ -193,7 +203,7 @@
                                 <td align="${(noresults == 'true') ? 'left' : 'center'}">
                                     <search:searchControl rememberQuery="true"
                                                           showStates="${noresults}"
-                                                          fieldLength="38"/>
+                                                          fieldLength="${requestScope.context.cobranded ? 20 : 38}"/>
                                 </td>
                             </tr>
                         </table>
