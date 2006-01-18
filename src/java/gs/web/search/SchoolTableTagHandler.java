@@ -153,11 +153,10 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             /// end control row
 
             out.println("<tr><th class=\"result_title\" width=\"1\">&nbsp;</th>");
-            out.print("<th class=\"left\">Schools</th>");
+            out.println("<th align=\"left\"   class=\"result_title\">Schools</th>");
             out.println("<th align=\"center\" class=\"result_title\">Type</th>");
             out.println("<th align=\"center\" class=\"result_title\">Grade</th>");
             out.println("<th align=\"center\" class=\"result_title\">Enrollment&nbsp;&nbsp;</th>");
-
             out.println("</tr>");
 
             for (int i = 0; i < _schools.size(); i++) {

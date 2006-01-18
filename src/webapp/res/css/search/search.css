@@ -22,7 +22,6 @@ TODO: name consistently.
     vertical-align: top;
 }
 
-
 * html #leftsearchcolumn {
 	border-left:150px solid #FFF;
 }
@@ -31,22 +30,15 @@ TODO: name consistently.
 	margin-left:-150px;
     position:relative;
 }
-    /*
-*/
+
 /*\*/
 * html #leftsearchcolumn, * html #leftsearchcontainer {
 	height: 1px;
 }
 /**/
 
-.result_title {padding:0px 20px 0px 0px;border-bottom:1px solid #999;margin-right:10px;}
-table.school_results tr td {padding:3px 20px 2px 5px;}
-table.city_results td {padding:3px 20px 5px 5px;}
-table.district_results td {padding:3px 20px 5px 5px;}
-table.article_results td {padding:3px 20px 10px 5px;}
-table.glossary_results td {padding:3px 20px 2px 5px;}
-.school_results a, .city_results a, .district_results a, .article_results a, .glossary_results a {font-weight:bold;}
-.city_results a, .district_results a {white-space:nowrap;}
+th.result_title {padding:0px 20px 0px 0px;border-bottom:1px solid #999;margin-right:10px;font-size:100%}
+* html th.result_title {font-size:80%}
 .viewall, li.browseall{margin:0;padding:0;list-style: none;}
 .viewall, li.browseall{padding-left: 10px;background-image: url(../../img/search/arrow.gif);background-repeat: no-repeat;background-position: 0 .5em;}
 .viewall a, .browseall a {font-weight:normal;font-size:90%;}
@@ -55,9 +47,8 @@ table.glossary_results td {padding:3px 20px 2px 5px;}
 .citydistrict, #resultsheader { font-size:125%; }
 td.headline {font-size:110%;}
 
-table.school_results_only th, table.article_results_only th {padding:4px 0px 2px 5px;border-bottom:1px solid #aaa;}
-table.school_results_only td, table.article_results_only td {padding:4px 0px 6px 5px;border-bottom:1px solid #FFF;}
-table.article_results_only td.icons {color:#F60;font-weight:bold;padding:0px 20px 0px 20px;}
+table.school_results_only th {padding:4px 0px 2px 5px;border-bottom:1px solid #aaa;}
+table.school_results_only td {padding:4px 0px 6px 5px;border-bottom:1px solid #FFF;}
 tr.result_row:hover {background: #EEE;}
 td.results_pagenav {text-align:right; font-weight:bold;white-space:nowrap}
 .active {color:#000;padding-right:10px}
@@ -94,7 +85,6 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
     font-size:larger;
     color:#FE894C;
 }
-
 
 pre.explanation {
     font-size:130%
@@ -155,9 +145,7 @@ pre.explanation {
     padding-bottom:20px;
 }
 
-tr.result_row td {
-    padding:0px;
-}
+tr.result_row td { padding:0px; }
 
 tr.contextrow td {
     padding-left:25px;
@@ -166,9 +154,8 @@ tr.contextrow td {
     font-size:97%
 }
 
-tr.result_row td {
-    padding-top:15px;
-}
+tr.result_row td { padding-top:15px;}
+
 tr td.checkbox {
     vertical-align:top;
     padding-top:15px;
@@ -176,13 +163,8 @@ tr td.checkbox {
     padding-right:7px;
 }
 
-#searchagain {
-    font-weight:bold;
-}
-
-#rollupfilters {
-    font-weight:bold;
-}
+#searchagain { font-weight:bold;}
+#rollupfilters { font-weight:bold;}
 
 /*IE hack to make the font size similar to Firefox */
 * html #searchpagetable tr td {

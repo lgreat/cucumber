@@ -88,18 +88,11 @@ public class MainResultsTag extends ResultsTableTagHandler {
                 if (result.getType() == SearchResult.SCHOOL) {
                     out.println("<td>");
                     School school = getSchool(result);
-
                     if (school != null) {
                         out.println(school.getPhysicalAddress().toString());
                         out.print("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
                         out.println(school.getType().getSchoolTypeName());
-                        out.print("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
-                        out.println(school.getGradeLevels().getRangeString());
-                    } else {
-                        out.println(result.getAddress());
-                        out.print("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
-                        out.println(result.getSchoolType());
-                        String gl = result.getGradeLevel();
+                        String gl = school.getGradeLevels().getRangeString();
                         if (StringUtils.isNotEmpty(gl)) {
                             out.print("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
                             out.println(gl);
