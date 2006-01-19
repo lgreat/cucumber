@@ -30,23 +30,11 @@
             <td align="right" valign="bottom"><table cellpadding="0" cellspacing="0" class="toptabs_wide" >
 
                 <tr>
-                  <td class="tab_on_left">&#160;</td>
-                  <td class="tab_on"><gsml:a href="/modperl/go/$STATE">Choosing Schools</gsml:a></td>
-                  <td width="12" class="tab_on_right">&#160;</td>
-                  <td class="tab_off_left">&#160;</td>
-                  <td class="tab_off"><gsml:a href="/path/mySchool.page?state=$STATE">My Child's School </gsml:a></td>
-                  <td class="tab_off_right">&#160;</td>
-                  <td class="tab_off_left">&#160;</td>
-
-                  <td class="tab_off"><gsml:a href="/cgi-bin/site/january_parent_tips.cgi/$STATE">January Parent Tips</gsml:a></td>
-                  <td class="tab_off_right">&#160;</td>
-                  <td class="tab_off_left">&#160;</td>
-                  <td class="tab_off"><gsml:a href="/cgi-bin/static/about_gs.inc/$STATE">About Us</gsml:a></td>
-                  <td class="tab_off_right">&#160;</td>
-                  <td class="tab_off_left">&#160;</td>
-                  <td class="tab_off"><gsml:a href="/cgi-bin/static/donation.html/$STATE">Donate</gsml:a></td>
-
-                  <td class="tab_off_right">&#160;</td>
+                    <mod:topNavTab selected="${requestScope.context.pathway == 1}" href="/modperl/go/$STATE" label="Choosing Schools"/>
+                    <mod:topNavTab selected="${requestScope.context.pathway == 2}" href="/path/mySchool.page?state=$STATE" label="My Child's School"/>
+                    <mod:topNavTab selected="${requestScope.context.pathway == 3}" href="/cgi-bin/site/january_parent_tips.cgi/$STATE" label="January Parent Tips"/>
+                    <mod:topNavTab selected="${requestScope.context.pathway == 4}" href="/cgi-bin/static/about_gs.inc/$STATE" label="About Us"/>
+                    <mod:topNavTab selected="${requestScope.context.pathway == 5}" href="/cgi-bin/static/donation.html/$STATE" label="Donate"/>
                 </tr>
             </table></td>
           </tr>
