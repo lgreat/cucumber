@@ -22,6 +22,9 @@
 
     if (developerWorkstation) {
         serverName = "dev.greatschools.net";
+        if (ctx.isCobranded()) {
+            serverName = ctx.getCobrand() + "." + serverName;
+        }
         String baseUrlDev = request.getScheme() + "://" + serverName + "/";
         String baseUrlJava = request.getRequestURL().toString();
         pageContext.setAttribute("baseUrlDev", baseUrlDev, PageContext.REQUEST_SCOPE);
