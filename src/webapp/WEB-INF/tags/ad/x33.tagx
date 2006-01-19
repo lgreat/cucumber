@@ -7,10 +7,17 @@
         <div id="adSkyscraper">
             <c:choose>
                 <c:when test='${requestScope.context.yahooCobrand}'>
+                    <![CDATA[
+                    <center>
+                    <script language="JavaScript" type="text/javascript" src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=SKY&c=r"></script>
+                    <noscript>
                     <iframe src="http://us.adserver.yahoo.com/a?f=96345362&amp;p=ed&amp;l=SKY&amp;c=h&amp;bg=white"
-                            width="160" height="600" marginwidth="0" marginheight="0" hspace="0" vspace="0"
-                            frameborder="0" scrolling="no">
+                        width="160" height="600" marginwidth="0" marginheight="0" hspace="0" vspace="0"
+                        frameborder="0" scrolling="no">
                     </iframe>
+                    </noscript>
+                    </center>
+                    ]]>
                 </c:when>
                 <c:otherwise>
                     <script language="JavaScript">OAS_AD('x33');</script>
