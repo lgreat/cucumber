@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.13 2006/01/17 20:49:45 apeterson Exp $
+ * $Id: UrlUtil.java,v 1.14 2006/01/19 23:33:45 apeterson Exp $
  */
 
 package gs.web.util;
@@ -41,6 +41,7 @@ public final class UrlUtil {
                 && !hostName.startsWith("apeterson.dev")
                 && !hostName.startsWith("thuss.dev")
                 && !hostName.startsWith("chriskimm.dev")
+                && !hostName.startsWith("wbeck.dev")
                 && !hostName.equals("127.0.0.1")
                 && !hostName.equals("apeterson.office.greatschools.net")
                 && hostName.indexOf('.') != -1;
