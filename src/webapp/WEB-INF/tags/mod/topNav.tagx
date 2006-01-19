@@ -8,8 +8,6 @@
         >
     <jsp:directive.tag body-content="empty"/>
 
-    <link href="/gs-web/res/css/header.css" rel="stylesheet" type="text/css" />
-
     <ad:x22 />
 
     <div id="topnav">

@@ -26,6 +26,9 @@
     <gsml:url var="globalcss" value="/res/css/global.css"/>
     <![CDATA[<link rel="stylesheet" href="${globalcss}"></link>]]>
 
+    <gsml:url var="headercss" value="/res/css/header.css"/>
+    <![CDATA[<link rel="stylesheet" href="${headercss}"></link>]]>
+
     <gsml:url var="globaljs" value="/res/js/global.js"/>
     <![CDATA[<script language="javascript" type="text/javascript" src="${globaljs}"></script>]]>
 
