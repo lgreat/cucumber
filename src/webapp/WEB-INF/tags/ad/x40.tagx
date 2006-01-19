@@ -11,9 +11,12 @@
                         <c:choose>
                             <c:when test='${requestScope.context.yahooCobrand}'>
                                     <![CDATA[
-                                    <iframe src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=sh&bg=white"
-                                        align="center" width="300" height="265" frameborder="no" border="0"
-                                        marginwidth="0" marginheight="0" scrolling="no"></iframe>
+                                    <center>
+                                    <script language="JavaScript" type="text/javascript" src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=r"></script>
+                                    <noscript>
+                                    <iframe src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=sh&bg=white" align="center" width="300" height="265" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+                                    </noscript>
+                                    </center>
                                        ]]>
                             </c:when>
                             <c:otherwise>
