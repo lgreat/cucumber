@@ -124,16 +124,15 @@
 
     <c:choose>
         <c:when test="${(not empty param.city) or (not empty param.district)}">
-            <mod:tracking pageName="schools" pageType="searchResults"/>
             <gsml:box tableClass="shade3 main">
                 <gsweb:schooltable schools="${results.mainResults}"
                                    query="${param.q}"
                                    total="${results.total}"
                                    page="${param.p}"/>
+            <mod:tracking pageName="schools" pageType="searchResults"/>
             </gsml:box>
         </c:when>
         <c:otherwise>
-            <mod:tracking pageName="mixed" pageType="searchResults"/>
 
             <div id="resultsheader">
                 <table width="90%">
@@ -171,6 +170,7 @@
                 </table>
             </div>
             <hr/>
+            <mod:tracking pageName="mixed" pageType="searchResults"/>
             <jsp:include
                     page="/search/citydistrict.module?${pageContext.request.queryString}"/>
             <gsweb:mainResults results="${results.mainResults}"
