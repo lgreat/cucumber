@@ -40,30 +40,9 @@
 <div id="bodyGS">
 <cobrand:framebuster/>
 
-        <div id="header">
-            <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
-                <table id="headerGS">
-                    <tr>
-                        <td id="headerLogo" width="20%">
-                            <gsml:url var="logoImage" value="/res/img/logo/logo_GS_260x40.gif"/>
-                            <gsml:url var="splashPage" value="/?state=$STATE"/>
-                            <c:choose>
-                                <c:when test="${requestScope.pageHelper.logoLinked}">
-                                    <a href="${splashPage}"><img alt="GreatSchools.net Logo" src="${logoImage}"/></a>
-                                </c:when>
-                                <c:otherwise>
-                                    <img alt="GreatSchools.net Logo" src="${logoImage}"/>
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
-                        <td width="*" style="text-align:right">
-                            <mod:userInfo user="${requestScope.context.user}" state="${state}"
-                                          paidSubscriber="${requestScope.context.paidSubscriber}"/>
-                        </td>
-                    </tr>
-                </table>
+    <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
+       <mod:topNav />
             </c:if>
-        </div>
 
         <decorator:body/>
 

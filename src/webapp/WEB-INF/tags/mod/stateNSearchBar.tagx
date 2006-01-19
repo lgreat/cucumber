@@ -6,50 +6,5 @@
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="state" type="gs.data.state.State" required="true"/>
 
-<gsml:url var="a" value="/search/search.page"/>
-<form name="headerSearch"
-       method="get"
-       action="${a}">
-    <input type="hidden" name="state" value="${state.abbreviation}"/>
-    <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
-        <input type="hidden" name="st" value="charter"/>
-    </c:if>
-
-            <table id="stateNSearchBar" border="0" cellspacing="0" cellpadding="0" width="100%">
-                <tr>
-                    <!--td class="state" width="25">
-						<img height="21" width="25"  src="http://www.census.gov/census2000/states/img/${state.abbreviationLowerCase}.gif" />
-                    </td-->
-                    <td class="state" width="40%">
-						<h1>${state.longName} schools</h1> <gsml:a styleClass="changeState" href="/stateLauncher.page?p=pathway${requestScope.context.pathway}">Change state</gsml:a>
-                    </td>
-
-                    <td width="40%">&#160;</td>
-                    <td style="vertical-align: middle;padding-right: .5em; color: #555" class="label" align="right" width="90" > Search </td>
-
-                    <td style="vertical-align: middle;" align="right">
-                        <input value="" maxlength="255" style="font-size: small;margin-right: .5em" size="30" name="q" id="q" type="text" />
-                    </td>
-                    <td>
-                        <select name="c">
-                            <option value="all">
-                                Schools &amp; Topics
-                            </option>
-                            <option value="school">
-                                Schools only
-                            </option>
-                            <option value="topic">
-                                Topics only
-                            </option>
-                        </select>
-                    </td>
-                   <td width="2%"><gsml:url var="goImage" value="/res/img/button/btn_go.gif"/>
-                     <input type="image" class="btn" src="${goImage}"/>
-                    </td>
-
-                </tr>
-            </table>
-    </form>
-
 
 </jsp:root>

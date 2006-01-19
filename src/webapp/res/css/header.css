@@ -1,6 +1,8 @@
-#topnav A, #topnav A:visited {color:#000099; text-decoration: none;  }
-#topnav A:hover {text-decoration: none; color: #000099;}
-#topnav A:active {text-decoration: none; color: #000099;}
+div#topnav { padding: 14px 12px 0 8px }
+
+#topnav a:link, #topnav a:visited {color:#000099; text-decoration: none;  }
+#topnav a:hover {text-decoration: none; color: #000099;}
+#topnav a:active {text-decoration: none; color: #000099;}
 
 /* uppermost header area with tabs*/
 #outer { width: 100%; border-bottom: 3px solid #EB7A31; }
@@ -32,8 +34,9 @@ table.lower { width: 100%; padding: 0px; height: 63px; border: none;}
 #search a {font-size:11px;}
 .search_area td {font-size:11px;}
 
-#topnav #browse_area {font-family:  arial, verdana, sans-serif; font-size: 11px; color: #666; text-decoration: none; text-align: left; background-color: #DBDBDB;  width: 190px; padding-left: 18px; padding-top: 3px; white-space:nowrap;}
+#browse_area {font-family:  arial, verdana, sans-serif; font-size: 11px; color: #666; text-decoration: none; text-align: left; background-color: #DBDBDB;  width: 190px; padding-left: 18px; padding-top: 3px; white-space:nowrap;}
 #browse_area a {font-size:11px;}
+#browse_area h1 {display: inline; font-weight: inherit}
 
 .leftside { width: 7px;  background-color:#DBDBDB; border-left: 1px solid #EB7A31;}
 .leftside_corner { background-image:url(../img/header/left_round_corner.gif); width: 5px;  background-repeat: no-repeat; height: 5px; background-color:#DBDBDB; border: 0px;}

@@ -39,7 +39,6 @@
     <tr>
         <td valign="top">
             <ad:xAdSetup page="home" ads="x22"/>
-            <ad:x22/>
             <mod:stateNSearchBar
                     state="${requestScope.context.stateOrDefault}"
                     />

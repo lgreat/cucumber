@@ -102,7 +102,6 @@ body {
 <td valign="top">
 <!-- INCLUDE TOP content with logo, etc. -->
 <ad:xAdSetup page="home" ads="x22"/>
-<ad:x22/>
 <mod:stateNSearchBar
         state="${requestScope.context.stateOrDefault}"
         />

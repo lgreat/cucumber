@@ -42,7 +42,6 @@
     <tr>
         <td valign="top">
             <ad:xAdSetup page="home" ads="x22"/>
-            <ad:x22/>
             <mod:stateNSearchBar
                     state="${requestScope.context.stateOrDefault}"
                     />
@@ -76,7 +75,7 @@
                                                 <gsml:a styleClass="changeState" href="/stateLauncher.page?p=pathway1">Search another state</gsml:a></h3>
 
                                             <search:searchControl showConstraint="false" fieldLength="40" showLabel="false"/>
-                                            
+
                                             <div class="browselinks">
                                             </div>
                                             <table border="0" cellpadding="0" cellspacing="0" width="100%"
