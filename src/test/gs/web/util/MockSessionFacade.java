@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MockSessionFacade.java,v 1.2 2005/12/21 23:19:07 apeterson Exp $
+ * $Id: MockSessionFacade.java,v 1.3 2006/01/19 00:27:08 apeterson Exp $
  */
 
 package gs.web.util;
@@ -19,6 +19,7 @@ import org.springframework.context.ApplicationContext;
 public class MockSessionFacade implements ISessionFacade {
     private State _state;
     private boolean _paidSubscriber;
+    private String _hostName = "www.greatschools.net";
 
     public ApplicationContext getApplicationContext() {
         return SpringUtil.getApplicationContext();
@@ -66,7 +67,11 @@ public class MockSessionFacade implements ISessionFacade {
     }
 
     public String getHostName() {
-        return "www.greatschools.net";
+        return _hostName;
+    }
+
+    public void setHostName(String hostName) {
+        _hostName = hostName;
     }
 
     public boolean isCobranded() {

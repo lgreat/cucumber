@@ -2,7 +2,7 @@
 Copyright 1997-2005 Omniture, Inc. More info available at
 http://www.omniture.com */
 /* Specify the Report Suite ID(s) to track here */
-var s_account="gsnet"
+var s_account="gsnetdev"
 var s=s_gi(s_account)
 /************************** CONFIG SECTION **************************/
 /* You may add or alter any code config here. */
@@ -13,7 +13,7 @@ s.trackDownloadLinks=true
 s.trackExternalLinks=true
 s.trackInlineStats=true
 s.linkDownloadFileTypes="exe,zip,wav,mp3,mov,mpg,avi,wmv,doc,pdf,xls"
-s.linkInternalFilters="javascript:,greatschools,schools"
+s.linkInternalFilters="javascript:,."
 s.linkLeaveQueryString=false
 s.linkTrackVars="None"
 s.linkTrackEvents="None"

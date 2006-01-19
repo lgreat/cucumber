@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.3 2006/01/10 18:26:07 apeterson Exp $
+ * $Id: PageHelper.java,v 1.4 2006/01/19 00:25:14 apeterson Exp $
  */
 
 package gs.web.util;
@@ -70,6 +70,7 @@ public class PageHelper {
     private boolean _showingHeader = true;
     private boolean _showingFooter = true;
     private final String _cobrand;
+    private final String _hostName;
     private final boolean _subscriptionState;
 
     private static final Log _log = LogFactory.getLog(PageHelper.class);
@@ -82,6 +83,7 @@ public class PageHelper {
     public PageHelper(ISessionFacade sessionFacade) {
         _cobrand = sessionFacade.getCobrand();
         _subscriptionState = sessionFacade.getStateOrDefault().isSubscriptionState();
+        _hostName = sessionFacade.getHostName();
     }
 
     public boolean isShowingBannerAd() {
@@ -165,4 +167,11 @@ public class PageHelper {
         _onload += javascript;
     }
 
+    public boolean isDevEnvironment() {
+        return _hostName.indexOf("dev.") != -1 ||
+                _hostName.indexOf("staging") != -1 ||
+                _hostName.indexOf("apeterson.office") != -1 ||
+                _hostName.equals("127.0.0.1") ||
+                _hostName.equals("localhost");
+    }
 }

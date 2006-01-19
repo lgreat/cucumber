@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.3 2006/01/10 18:26:07 apeterson Exp $
+ * $Id: PageHelperSaTest.java,v 1.4 2006/01/19 00:25:14 apeterson Exp $
  */
 
 package gs.web.util;
@@ -193,6 +193,59 @@ public class PageHelperSaTest extends TestCase {
         assertTrue(pageHelper.isLogoLinked());
         assertTrue(pageHelper.isSignInAvailable());
         assertFalse(pageHelper.isAdFree());
+    }
+
+    public void testIsDevEnvironment() {
+
+        MockSessionFacade sessionFacade = new MockSessionFacade();
+
+        sessionFacade.setHostName("www.greatschools.net");
+        PageHelper pageHelper = new PageHelper(sessionFacade);
+        assertFalse(pageHelper.isDevEnvironment());
+
+        sessionFacade.setHostName("cobrand.greatschools.net");
+        pageHelper = new PageHelper(sessionFacade);
+        assertFalse(pageHelper.isDevEnvironment());
+
+        sessionFacade.setHostName("yahoo.greatschools.net");
+        pageHelper = new PageHelper(sessionFacade);
+        assertFalse(pageHelper.isDevEnvironment());
+
+        sessionFacade.setHostName("charterschoolratings.org");
+        pageHelper = new PageHelper(sessionFacade);
+        assertFalse(pageHelper.isDevEnvironment());
+
+        sessionFacade.setHostName("dev.greatschools.net");
+        pageHelper = new PageHelper(sessionFacade);
+        assertTrue(pageHelper.isDevEnvironment());
+
+        sessionFacade.setHostName("cobrand.dev.greatschools.net");
+        pageHelper = new PageHelper(sessionFacade);
+        assertTrue(pageHelper.isDevEnvironment());
+
+        sessionFacade.setHostName("charterschoolratings.dev.greatschools.net");
+        pageHelper = new PageHelper(sessionFacade);
+        assertTrue(pageHelper.isDevEnvironment());
+
+        sessionFacade.setHostName("staging.greatschools.net");
+        pageHelper = new PageHelper(sessionFacade);
+        assertTrue(pageHelper.isDevEnvironment());
+
+        sessionFacade.setHostName("apeterson.dev.greatschools.net");
+        pageHelper = new PageHelper(sessionFacade);
+        assertTrue(pageHelper.isDevEnvironment());
+
+        sessionFacade.setHostName("apeterson.office.greatschools.net");
+        pageHelper = new PageHelper(sessionFacade);
+        assertTrue(pageHelper.isDevEnvironment());
+
+        sessionFacade.setHostName("localhost");
+        pageHelper = new PageHelper(sessionFacade);
+        assertTrue(pageHelper.isDevEnvironment());
+
+        sessionFacade.setHostName("127.0.0.1");
+        pageHelper = new PageHelper(sessionFacade);
+        assertTrue(pageHelper.isDevEnvironment());
     }
 
 
