@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.14 2006/01/19 23:33:45 apeterson Exp $
+ * $Id: UrlUtil.java,v 1.15 2006/01/20 19:17:47 apeterson Exp $
  */
 
 package gs.web.util;
@@ -34,6 +34,8 @@ public final class UrlUtil {
         final boolean isCobrand = !hostName.startsWith("www")
                 && !hostName.startsWith("secure")
                 && !hostName.startsWith("staging")
+                && !hostName.startsWith("maddy")
+                && !hostName.startsWith("clone")
                 && !hostName.startsWith("dev")
                 && !hostName.startsWith("localhost")
                 && !hostName.startsWith("main.dev")
@@ -155,8 +157,26 @@ public final class UrlUtil {
         }
     }
 
+    /**
+     * Is this code running on a developers workstation?
+     */
     public boolean isDeveloperWorkstation(String hostName) {
-        return hostName.indexOf("localhost") > -1;
+        return hostName.indexOf("localhost") > -1 ||
+                hostName.indexOf("127.0.0.1") > -1 ||
+                hostName.indexOf("apeterson.office.greatschools.net") > -1;
+    }
+
+    /**
+     * Is this development code, either on the developers workstation
+     * or on one of the development servers?
+     * Is this not the live site? or a very near clone of it?
+     */
+    public boolean isDevEnvironment(String hostName) {
+        return hostName.indexOf("dev.") != -1 ||
+                hostName.indexOf("staging") != -1 ||
+                hostName.indexOf("apeterson.office") != -1 ||
+                hostName.equals("127.0.0.1") ||
+                hostName.equals("localhost");
     }
 
 

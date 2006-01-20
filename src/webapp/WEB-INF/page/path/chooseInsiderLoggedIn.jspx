@@ -26,6 +26,7 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
+    <ad:xAdSetup page="home" ads="x22"/>
     <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
         <style type="text/css">
@@ -38,10 +39,6 @@
 <table id="pagemargin" border="0" cellspacing="0" cellpadding="0">
     <tr>
         <td valign="top">
-            <ad:xAdSetup page="home" ads="x22"/>
-            <mod:stateNSearchBar
-                    state="${requestScope.context.stateOrDefault}"
-                    />
             <table id="main" border="0" cellspacing="0" cellpadding="0" width="100%">
                 <tr>
                     <td class="col1" valign="top">

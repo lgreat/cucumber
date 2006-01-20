@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.82 2006/01/19 20:46:50 apeterson Exp $
+   $Id: global.css,v 1.83 2006/01/20 19:17:47 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -149,6 +149,9 @@
         white-space: normal;
     }
 
+    /* patch for yahoo cobrand */
+    .yedsearchbar { font-size: 80%;}
+
         /*   Header/Footer
        ----------------------------------------------- */
     img#logo {
@@ -178,33 +181,6 @@
     #headerLogo {
         padding-left: 5px;
         width: 250px;
-    }
-
-    #stateNSearchBar {
-        margin: 3px 0 0px 0
-    }
-
-    #stateNSearchBar .state h1 {
-        vertical-align: middle;
-        font-weight: bold;
-        padding-left: .1em;
-        font-size: 1.3em;
-        display: inline;
-        white-space: nowrap;
-    }
-
-    #stateNSearchBar .state .changeState {
-        padding-left: .7em;
-        font-size:0.75em;
-        white-space: nowrap;
-    }
-
-    #stateNSearchBar .btn {
-        margin-right: 1em;
-    }
-
-    #stateNSearchBar input {
-        font-size: 1.1em;
     }
 
     div.globalSearch {
@@ -375,76 +351,16 @@
     }
 
 
-    /**
-        Horizontal nav styles are tweaks of the global (vertical) nav styles.
-        Theses styles should be factored once the vertical nav is removed and
-        the horizontal nav *is* the global nav.
-    */
-    .horizontalnav .BG {
-        padding: .5em 0 .5em 0;
-        white-space: nowrap
-    }
-
-    .horizontalnav h1 {
-        color: #FFF;
-        font-weight: bold;
-        font-size: 1.3em;
-        padding: 0px 0px 4px 0px;
-        cursor: hand;
-        width: 100%;
-    }
-
-    .horizontalnav h1 a, .horizontalnav h1 a:visited {
-        color: #FFF;
-    }
-
-    .horizontalnav h1 a:hover {
-        text-decoration: none;
-        color: #FC9;
-    }
-
-
-    .horizontalnav a {
-        color: #FFF;
-        display: block;
-        margin: 0px 0px 3px 20px;
-        font-weight: bold;
-    }
-
-    .horizontalnav a:visited {
-        color: #FFF;
-    }
-
-    .horizontalnav a:hover {
-        text-decoration: none;
-        color: #FC9;
-    }
-
-
     .choosingPwy {
-        background: #FE894C url( ../img/box/border_shade4pathway1_BG.gif ) bottom right no-repeat;
-    }
-
-    .choosingPwyClosed {
-        background: #FE894C url( ../img/box/border_shade4pathway1sm_BG.gif ) bottom right no-repeat;
-    }
-
-    .comparePwy {
-        background: #FE894C url( ../img/button/btn_ch_compare_bg2.gif ) bottom right no-repeat;
+        background: #FE894C url( ../img/box/xborder_shade4pathway1_BG.gif ) bottom right no-repeat;
     }
 
     .mcsPwy {
-        background: #FE894C url( ../img/box/border_shade4pathway2_BG.gif ) bottom right no-repeat;
+        background: #FE894C url( ../img/box/xborder_shade4pathway2_BG.gif ) bottom right no-repeat;
     }
-
-    .mcsPwyClosed {
-        background: #FE894C url( ../img/box/border_shade4pathway2sm_BG.gif ) bottom right no-repeat
+.colorFromTopNavIs choosingPwy, .mcsPwyx {
+    background-color: #eb7a31
     }
-
-    .editorialPwy {
-        background: #FE894C url( ../img/box/border_shade4pathway3sm_BG.gif ) bottom right no-repeat
-    }
-
         /*  Search
        ----------------------------------------------- */
     .browselinks {
@@ -617,6 +533,7 @@
 
     #adLeaderboard {
         background: #339;
+        background: #fff;
     }
 
     #adLeaderboard table {

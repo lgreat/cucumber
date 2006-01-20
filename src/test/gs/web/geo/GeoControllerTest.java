@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoControllerTest.java,v 1.2 2006/01/10 18:54:17 apeterson Exp $
+ * $Id: GeoControllerTest.java,v 1.3 2006/01/20 19:19:16 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class GeoControllerTest extends BaseControllerTestCase {
 
-    public void xtestOakland() throws Exception {
+    public void testOakland() throws Exception {
         GeoController c = new GeoController();
 
         c.setGeoDao((IGeoDao) getApplicationContext().getBean(IGeoDao.BEAN_ID));
@@ -46,7 +46,5 @@ public class GeoControllerTest extends BaseControllerTestCase {
 
         Object city = modelAndView.getModel().get("city");
         assertNotNull(city);
-
-
     }
 }

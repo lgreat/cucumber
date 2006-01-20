@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.13 2006/01/19 23:33:53 apeterson Exp $
+ * $Id: UrlUtilSaTest.java,v 1.14 2006/01/20 19:17:47 apeterson Exp $
  */
 
 package gs.web.util;
@@ -27,7 +27,7 @@ public class UrlUtilSaTest extends TestCase {
         _urlUtil = new UrlUtil();
     }
 
-    public void testUrl() {
+    public void testBuildUrl() {
         SessionContext sessionFacade = new SessionContext();
         SessionContextUtil sessionUtil = new SessionContextUtil();
         sessionFacade.setState(State.CA);
@@ -104,6 +104,8 @@ public class UrlUtilSaTest extends TestCase {
         assertNull(_urlUtil.cobrandFromUrl("www.greatschools.net"));
         assertNull(_urlUtil.cobrandFromUrl("dev.greatschools.net"));
         assertNull(_urlUtil.cobrandFromUrl("secure.greatschools.net"));
+        assertNull(_urlUtil.cobrandFromUrl("maddy.greatschools.net"));
+        assertNull(_urlUtil.cobrandFromUrl("clone.greatschools.net"));
         assertNull(_urlUtil.cobrandFromUrl("apeterson.dev.greatschools.net"));
         assertNull(_urlUtil.cobrandFromUrl("wbeck.dev.greatschools.net"));
         assertNull(_urlUtil.cobrandFromUrl("localhost"));
@@ -173,10 +175,31 @@ public class UrlUtilSaTest extends TestCase {
 
     public void testIsDeveloperWorkstation() {
         assertFalse(_urlUtil.isDeveloperWorkstation("www.greatschools.net"));
+        assertFalse(_urlUtil.isDeveloperWorkstation("maddy.greatschools.net"));
+        assertFalse(_urlUtil.isDeveloperWorkstation("clone.greatschools.net"));
         assertFalse(_urlUtil.isDeveloperWorkstation("dev.greatschools.net"));
         assertFalse(_urlUtil.isDeveloperWorkstation("staging.greatschools.net"));
         assertFalse(_urlUtil.isDeveloperWorkstation("apeterson.dev.greatschools.net"));
+        assertTrue(_urlUtil.isDeveloperWorkstation("apeterson.office.greatschools.net"));
         assertTrue(_urlUtil.isDeveloperWorkstation("localhost"));
+        assertTrue(_urlUtil.isDeveloperWorkstation("127.0.0.1"));
+    }
+
+    public void testIsDevEnvironment() {
+        assertFalse(_urlUtil.isDevEnvironment("www.greatschools.net"));
+        assertFalse(_urlUtil.isDevEnvironment("cobrand.greatschools.net"));
+        assertFalse(_urlUtil.isDevEnvironment("maddy.greatschools.net"));
+        assertFalse(_urlUtil.isDevEnvironment("yahoo.greatschools.net"));
+        assertFalse(_urlUtil.isDevEnvironment("charterschoolratings.org"));
+
+        assertTrue(_urlUtil.isDevEnvironment("dev.greatschools.net"));
+        assertTrue(_urlUtil.isDevEnvironment("cobrand.dev.greatschools.net"));
+        assertTrue(_urlUtil.isDevEnvironment("charterschoolratings.dev.greatschools.net"));
+        assertTrue(_urlUtil.isDevEnvironment("staging.greatschools.net"));
+        assertTrue(_urlUtil.isDevEnvironment("apeterson.dev.greatschools.net"));
+        assertTrue(_urlUtil.isDevEnvironment("apeterson.office.greatschools.net"));
+        assertTrue(_urlUtil.isDevEnvironment("localhost"));
+        assertTrue(_urlUtil.isDevEnvironment("127.0.0.1"));
     }
 
     public void testBuildHref() {

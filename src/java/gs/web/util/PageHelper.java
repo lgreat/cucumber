@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.4 2006/01/19 00:25:14 apeterson Exp $
+ * $Id: PageHelper.java,v 1.5 2006/01/20 19:17:47 apeterson Exp $
  */
 
 package gs.web.util;
@@ -75,6 +75,8 @@ public class PageHelper {
 
     private static final Log _log = LogFactory.getLog(PageHelper.class);
     private String _onload = "";
+
+    private static UrlUtil _urlUtil = new UrlUtil();
 
     private static PageHelper getInstance(HttpServletRequest request) {
         return (PageHelper) request.getAttribute(REQUEST_ATTRIBUTE_NAME);
@@ -168,10 +170,6 @@ public class PageHelper {
     }
 
     public boolean isDevEnvironment() {
-        return _hostName.indexOf("dev.") != -1 ||
-                _hostName.indexOf("staging") != -1 ||
-                _hostName.indexOf("apeterson.office") != -1 ||
-                _hostName.equals("127.0.0.1") ||
-                _hostName.equals("localhost");
+        return _urlUtil.isDevEnvironment(_hostName);
     }
 }
