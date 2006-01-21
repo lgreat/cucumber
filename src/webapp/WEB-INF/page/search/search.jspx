@@ -59,13 +59,6 @@
     <gsml:url var="searchcss" value="/res/css/search/search.css"/>
     <link rel="stylesheet" href="${searchcss}" type="text/css" media="screen"/>
 
-    <gsml:url var="globalcss" value="/res/css/global.css"/>
-    <link rel="stylesheet" href="${globalcss}" type="text/css" media="screen"/>
-
-    <jsp:scriptlet>
-        PageHelper.hideHeader(request);
-    </jsp:scriptlet>
-
 </head>
 
 <body>

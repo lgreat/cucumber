@@ -105,110 +105,26 @@ body {
 <table id="main" border="0" cellspacing="0" cellpadding="0" width="100%">
     <tr>
         <td class="col1" valign="top">
-            <mod:globalNav/>
+            <gsml:box tableClass="shade3"
+                      tableWidth="100%">
+            <jsp:include page="/geo/nearbyCities.module?city=${city}" />
+                <jsp:include page="/state/topCities.module"/>
+            </gsml:box>
             <c:if test="${requestScope.context.user != null}">
                 <h3>My School List</h3>
                 <jsp:include page="/community/mySchoolList.module?member=${requestScope.context.user.id}&amp;limit=3"/>
             </c:if>
             <!--mod:stateSelectMedium state="${requestScope.context.stateOrDefault}" / -->
         </td>
-        <td class="col2" valign="top">
-            <gsml:box tableClass="shade3"
-                      tableWidth="100%">
-        <span class="moduleheader">
-       <h1 class="inline">${city} Schools</h1>
-   </span>
-
-                <h3 class="tagline">
-                    Objective information from GreatSchools, an independent nonprofit dedicated to helping
-                    parents
-                </h3>
-
-
-                <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tr>
-                        <td width="60%">
-                            <div class="topcontentcol1" style="padding-top: .75em">
-
-                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                                    <tbody>
-                                        <tr>
-                                            <td valign="top" width="50%">
-                                                <div class="nearbyCities" style="float:right">
-                                                    <h3>nearby cities</h3>
-                                                    <ul>
-                                                        <li>
-                                                            <a href="city.page?city=San%20Francisco&amp;state=CA&amp;member=1">San
-                                                                Francisco</a>
-
-                                                        </li>
-                                                        <li>
-                                                            <a href="city.page?city=San%20Jose&amp;state=CA&amp;member=1">San
-                                                                Jose</a>
-
-                                                        </li>
-                                                        <li>
-                                                            <a href="city.page?city=Oakland&amp;state=CA&amp;member=1">Oakland</a>
-
-                                                        </li>
-                                                        <li>
-                                                            <a href="city.page?city=Berkeley&amp;state=CA&amp;member=1">Berkeley</a>
-
-                                                        </li>
-                                                        <li>
-                                                            <a href="city.page?city=Allgood&amp;state=AL&amp;member=1">Allgood,
-                                                                AL</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="city.page?city=Aliceville&amp;state=AL&amp;member=1">Aliceville,
-                                                                AL</a>
-
-                                                        </li>
-                                                        <li>
-                                                            <a href="city.page?city=Ashville&amp;state=AL&amp;member=1">Ashville,
-                                                                AL</a>
-
-                                                        </li>
-                                                        <li>
-                                                            <a href="city.page?city=Alabaster&amp;state=AL&amp;member=1">Alabaster,
-                                                                AL</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="city.page?city=Auburn&amp;state=AL&amp;member=1">Auburn,
-                                                                AL</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="city.page?city=Anniston&amp;state=AL&amp;member=1">Jennifer
-                                                                Anniston, AL</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="city.page?city=Athens&amp;state=AL&amp;member=1">Athens,
-                                                                AL</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="city.page?city=Attalla&amp;state=AL&amp;member=1">Attalla,
-                                                                AL</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <jsp:include page="/state/topCities.module"/>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </gsml:box>
-            <gsml:box tableClass="shade3">
-                <jsp:include page="/geo/cityStats.module?city=${city}&amp;state=${state}"/>
-            </gsml:box>
-        </td>
-        <td class="col3" valign="top">
+        <td class="" valign="top">
             <gsml:box tableClass="shade3">
                 <jsp:include page="/geo/cityMap.module?city=${city}&amp;state=${state}"/>
                 <jsp:include page="/geo/citySchoolStats.module?city=${city}&amp;state=${state}"/>
+            </gsml:box>
+        </td>
+        <td class="" valign="top">
+            <gsml:box tableClass="shade3">
+                <jsp:include page="/geo/cityStats.module?city=${city}&amp;state=${state}"/>
             </gsml:box>
         </td>
     </tr>

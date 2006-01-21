@@ -90,6 +90,14 @@
         </property>
     </bean>
 
+    <bean name="/geo/nearbyCities.module"
+          class="gs.web.geo.NearbyCitiesController"
+          autowire="byName">
+        <property name="viewName">
+            <value>/unorderedList</value>
+        </property>
+    </bean>
+
     <bean name="/community/mySchoolList.module"
           class="gs.web.community.MySchoolListController"
           autowire="byName">
