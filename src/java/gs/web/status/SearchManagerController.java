@@ -21,7 +21,16 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Controls re-indexing of Lucene indexes.
+ * Controls re-indexing of Lucene indexes.  User may select to index all states
+ * or a test subset including the following states:
+ *
+ * <ul><li>Alaska</li>
+ *     <li>California</li>
+ *     <li>NY</li>
+ *     <li>WY</li>
+ * </ul>
+ * These test states may be indexed while connected to any database as there is
+ * local test data for these states included in our dev environments.
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
@@ -51,23 +60,22 @@ public class SearchManagerController extends AbstractController {
                 if (request.getParameter("logout") != null) {
                     session.invalidate();
                     return new ModelAndView(new RedirectView("login.page"));
-                } else {
-                    long start = 0;
+                } else if (request.getParameter("index") != null) {
+                    long start = System.currentTimeMillis();
+                    List states = null;
 
                     if (request.getParameter("all") != null) {
-                        start = System.currentTimeMillis();
-                        _indexer.index(StateManager.getList(),
-                                _indexDir.getMainDirectory(), _indexDir.getSpellCheckDirectory());
+                        states = StateManager.getList();
                     } else if (request.getParameter("test") != null) {
-                        start = System.currentTimeMillis();
-                        List states = new ArrayList();
+                        states = new ArrayList();
                         states.add(State.AK);
                         states.add(State.CA);
                         states.add(State.NY);
                         states.add(State.WY);
-                        _indexer.index(states,
-                                _indexDir.getMainDirectory(), _indexDir.getSpellCheckDirectory());
                     }
+
+                    _indexer.index(states,
+                            _indexDir.getMainDirectory(), _indexDir.getSpellCheckDirectory());
 
                     if (start > 0) {
                         long end = System.currentTimeMillis();

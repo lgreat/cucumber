@@ -4,8 +4,8 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsweb="gstaglib"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
+    <c:if test="${param.c != 'topic'}">
     <div class="citydistrict">
-
         <c:if test="${not empty model.filteredcities}">
             <div id="filteredlinks">
                 <span class="citydistlabel"><c:out escapeXml="false" value="${model.filters}" /></span>
@@ -66,4 +66,5 @@
             </c:if>
         </c:if>
     </div>
+    </c:if>
 </jsp:root>

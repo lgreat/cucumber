@@ -37,6 +37,7 @@
         <input type="submit" name="all" value="Index All States"/>
         <input type="submit" name="test" value="Index Test States"/>
         <input type="submit" name="logout" value="logout"/>
+        <input type="hidden" name="index" value="true" />
     </gsml:form>
     <c:if test="${!empty time}">
         <c:out value="Indexing time ${time}"/> 
