@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gsweb="gstaglib"
+        >
+<jsp:directive.page import="gs.web.SessionContextUtil"/>
+    <html lang="en">
+
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+    <jsp:scriptlet>
+        SessionContextUtil u = new SessionContextUtil();
+        u.setPathway(request, response, "4");
+    </jsp:scriptlet>
+
+    <head>
+        <ad:xAdSetup page="aboutUs" ads="x22"/>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <title>About Us</title>
+    </head>
+
+    <body>
+
+    <mod:tracking pageType="aboutUs" pageName="aboutUs" />
+
+<div class="gs">
+<center>
+<div class="about">
+<div class="page">
+
+   <h3>Our Story</h3>
+   <p>A former teacher, Bill Jackson founded GreatSchools in 1998 to
+   catalyze a force that he believed was vital to the process of
+   achieving education excellence - <b><i>parent involvement</i></b>.
+</p>
+   <p>Bill launched GreatSchools.net because he believed that:</p>
+
+   <ul class="noindent">
+   <li>When parents make <strong><em>informed choices</em></strong>,
+   students and schools benefit</li>
+
+   <li>Students are more successful when <strong><em>parents are
+   actively involved</em></strong> in their education</li>
+
+   <li>Schools improve when <strong><em>parents advocate</em></strong>
+   for high-quality teaching and learning</li>
+   </ul>
+
+   <p>Since then, GreatSchools has evolved into a national,
+   independent nonprofit organization committed to helping parents
+   like you <b><i>choose</i></b> schools, <b><i>support</i></b> your
+   children's education and <b><i>improve</i></b> schools in your
+   community. More than 25 million users visited GreatSchools.net in
+   2005. Our content powers the Internet's leading media organizations
+   including AOL, Yahoo!, Knight Ridder, the Los Angeles Times and
+   more than 85 top Web sites nationwide.</p>
+
+   <p><b><i>Our Mission:</i></b> To improve K-12 education by
+   inspiring parents to get involved.</p>
+
+   <h3>We Help Parents Like You...</h3>
+
+
+   <h4>Choose the best school for your child</h4>
+   <p>GreatSchools helps parents choose the best school by providing
+   comprehensive profiles for more than 120,000 schools nationwide.
+   Other parent-friendly features include exclusive ratings, parent
+   reviews, powerful search and compare tools, and helpful advice.
+</p>
+   <p>See a <gsml:a href="/modperl/browse_school/$STATE/30/">sample school
+   profile</gsml:a><br />
+   Review answers to <gsml:a href=
+   "/cgi-bin/static/faq.inc/$STATE">Frequently Asked Questions</gsml:a></p>
+
+   <h4>Support your child's education</h4>
+   <p>As you guide your child from kindergarten through high school,
+   you'll face unexpected challenges and hurdles. Some may be unique
+   to you and your child, others are faced by virtually every parent.
+   Either way, you don't have to go it alone - GreatSchools has
+   resources that can help.</p>
+
+   <p>Our personalized email newsletters provide school updates,
+   grade-by-grade learning tools and seasonal advice on education
+   topics. <gsml:a href="/cgi-bin/newsletters/$STATE">Learn more</gsml:a></p>
+
+   <p>GreatSchools' online library features hundreds of articles that
+   help parents navigate the K-12 process, including advice from
+   experts and real parents. <gsml:a href=
+   "/content/allArticles.page?$STATE">Visit our library</gsml:a></p>
+
+   <h4>Improve schools in your community</h4>
+   <p>GreatSchools is currently conducting pilot programs to organize and
+   support parents advocating for education excellence in their
+   communities. In <b>San Francisco</b>, GreatSchools is helping
+   parents in five schools to better support their own children's
+   education and to advocate for quality teaching and learning for all
+   children. In <b>Dayton, Ohio</b>, GreatSchools is helping
+   low-income parents make better-informed school choices in order to
+   drive local demand for high-quality schools.</p>
+
+   <p>Learn more about the <gsml:a href=
+   "/cgi-bin/static/network.inc/$STATE">GreatSchools Network</gsml:a></p>
+
+
+
+
+   <h3>More About GreatSchools</h3>
+
+
+   GreatSchools would not be possible without the support of
+   foundations and corporations that understand the importance of
+   parent involvement in a child's education. Major funders include
+   the Bill and Melinda Gates Foundation, the William and Flora
+   Hewlett Foundation, the Pisces Foundation, the Robertson Foundation
+   and the Walton Family Foundation.
+
+   <ul>
+   <li><gsml:a href="/cgi-bin/static/sponsors.inc/$STATE">Sponsors and
+   Partners</gsml:a></li>
+
+   <li><gsml:a href="/cgi-bin/static/whoweare.inc/$STATE">Board of
+   Directors, Staff and Advisory Councils</gsml:a></li>
+
+   <li><gsml:a href="/cgi-bin/static/jobs.inc/$STATE">Employment
+   Opportunities</gsml:a></li>
+
+   <li><gsml:a href="/cgi-bin/static/press.inc/$STATE">Press Room</gsml:a></li>
+
+   <li><gsml:a href="/cgi-bin/feedback/$STATE">Contact Us</gsml:a></li>
+   </ul>
+
+   <p>GreatSchools.net<br />
+   301 Howard Street, Suite 1440<br />
+   San Francisco, CA 94105<br />
+   Phone: (415) 977-0700<br />
+   Fax: (415) 977-0704<br />
+   </p>
+   </div>
+   </div></center>
+   </div>
+    </body>
+    </html>
+</jsp:root>
+

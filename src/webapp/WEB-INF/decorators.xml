@@ -5,15 +5,17 @@
     -->
 
     <decorator name="perlWrapper" page="perlWrapper.jsp">
-        <pattern>/search/search.page</pattern>
-        <pattern>/content/allArticles.page</pattern>
-        <pattern>/content/schoolChoiceCenter.page</pattern>
     </decorator>
 
     <decorator name="cobrandHeaderGsFooter" page="cobrandHeaderGsFooter.jspx">
         <pattern>/path/choose.page</pattern>
         <pattern>/path/mySchool.page</pattern>
         <pattern>/stateLauncher.page</pattern>
+        <pattern>/search/search.page</pattern>
+        <pattern>/content/allArticles.page</pattern>
+        <pattern>/content/schoolChoiceCenter.page</pattern>
+        <pattern>/about/aboutUs.page</pattern>
+        <pattern>/test/city.page</pattern>
     </decorator>
 
     <!-- We have to explicitly exclude due to a Sitemesh 2.2.1 bug that truncates the closing html tag -->

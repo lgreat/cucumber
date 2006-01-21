@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.83 2006/01/20 19:17:47 apeterson Exp $
+   $Id: global.css,v 1.84 2006/01/21 01:13:57 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -781,12 +781,17 @@
         padding: 0px 5px .3em 10px;
     }
 
-    .schoolchoicecenter li {
+    .schoolchoicecenter li,
+    div.about li {
         padding: 3px 5px 3px 12px;
         margin: 2px 0px 3px 0px;
         background-image: url( ../img/bullet_blueball.gif );
         background-repeat: no-repeat;
         background-position: 2px 7px;
+    }
+
+    div.about li {
+        padding-bottom: 0;
     }
     .schoolchoicecenter li.viewall {
         margin-bottom: -6px;
@@ -954,6 +959,34 @@
 
 
 
+/* About us pages */
+    .about a:link { color: #039 }
+    .about h3 {
+        color: #f60;
+        border-bottom: 1px solid #ccc;
+        width: 551;
+        font-weight: bold;
+        font-size:  1.2em;
+        margin: 2em 0 1em 0;
+    }
+    .about h4 {
+        font-weight: bold;
+        margin-top: 0;
+    }
+    .about p {
+        margin: 0em 0 1.2em 0;
+    }
+    .about ul {
+        margin-bottom: 1em;
+    }
+
+    div.about {
+        width: 50em;
+        padding: 0 2em 4em 2em;
+    }
+    div.about div.page {
+        text-align: left;
+    }
 
 
 
