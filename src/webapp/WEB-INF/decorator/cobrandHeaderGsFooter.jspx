@@ -59,15 +59,15 @@
                 <div id="footerGS">
                     <div class="lowernavbar">
 
-                        <a id="lnk_about" href="/cgi-bin/static/about_gs.inc/${state}">About Us</a> &#124;
+                        <gsml:a href="/about/aboutUs.page?state=${state}">About Us</gsml:a> &#124;
 
-                        <a id="lnk_donate" href="/cgi-bin/static/donation.html/${state}">Donations</a> &#124;
+                        <gsml:a href="/about/donate.page?state=${state}">Donate</gsml:a> &#124;
 
-                        <a id="lnk_newsl" href="/cgi-bin/newsletters/${state}">Free Newsletters</a> &#124;
+                        <gsml:a href="/cgi-bin/newsletters/${state}">Free Newsletters</gsml:a> &#124;
 
-                        <a id="lnk_contact" href="/cgi-bin/feedback/${state}">Contact Us</a> &#124;
+                        <gsml:a href="/cgi-bin/feedback/${state}">Contact Us</gsml:a> &#124;
 
-                        <a id="lnk_priv" href="/cgi-bin/static/privacy.inc/${state}">Privacy Policy</a>
+                        <gsml:a href="/cgi-bin/static/privacy.inc/${state}">Privacy Policy</gsml:a>
 
 
                         <div id="footerText">

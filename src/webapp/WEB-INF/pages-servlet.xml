@@ -170,6 +170,23 @@
         </property>
     </bean>
 
+     <bean name="/about/donate.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>about/donate</value>
+        </property>
+    </bean>
+
+     <bean name="/about/donationBridge.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>about/donationBridge</value>
+        </property>
+    </bean>
+
+
     <bean name="/bill/jackson.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName">

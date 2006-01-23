@@ -15,6 +15,8 @@
         <pattern>/content/allArticles.page</pattern>
         <pattern>/content/schoolChoiceCenter.page</pattern>
         <pattern>/about/aboutUs.page</pattern>
+        <pattern>/about/donate.page</pattern>
+         <pattern>/about/donationBridge.page</pattern>
         <pattern>/test/city.page</pattern>
     </decorator>
 

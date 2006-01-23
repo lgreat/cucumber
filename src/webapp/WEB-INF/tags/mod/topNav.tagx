@@ -32,7 +32,7 @@
                     <mod:topNavTab selected="${requestScope.context.pathway == 2}" href="/path/mySchool.page?state=$STATE" label="My Child's School"/>
                     <mod:topNavTab selected="${requestScope.context.pathway == 3}" href="/cgi-bin/site/january_parent_tips.cgi/$STATE" label="January Parent Tips"/>
                     <mod:topNavTab selected="${requestScope.context.pathway == 4}" href="/about/aboutUs.page?state=$STATE" label="About Us"/>
-                    <mod:topNavTab selected="${requestScope.context.pathway == 5}" href="/cgi-bin/static/donation.html/$STATE" label="Donate"/>
+                    <mod:topNavTab selected="${requestScope.context.pathway == 5}" href="/about/donate.page?state=$STATE" label="Donate"/>
                 </tr>
             </table></td>
           </tr>
