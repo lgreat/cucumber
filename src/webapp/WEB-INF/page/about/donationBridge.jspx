@@ -9,7 +9,6 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gsweb="gstaglib"
         >
-<jsp:directive.page import="gs.web.SessionContextUtil"/>
     <html lang="en">
 
     <jsp:output doctype-root-element="html"
@@ -20,40 +19,46 @@
 
 
     <head>
-        <ad:xAdSetup page="donationBridge" ads="x22"/>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <title>Donate to GreatSchools.net</title>
     </head>
 
-    <body>
+    <gsml:body adPageName="donationBridge">
 
-    <mod:tracking pageType="donationBridge" pageName="donationBridge" />
+        <mod:tracking pageType="donationBridge" pageName="donationBridge"/>
 
-<div class="gs">
-    <center>
-<div class="about">
-<div class="page">
+        <div class="gs">
+            <center>
+                <div class="about">
+                    <div class="page">
 
-   <h3>How to Donate to GreatSchools</h3>
+                        <h3>How to Donate to GreatSchools</h3>
 
-   <h4>By Credit Card</h4>      <p></p>
-    <p>
-   <a href="https://secure.entango.com/donate/rpdfMtPPh2g">Click here to donate by credit card</a>
-    </p>
+                        <h4>By Credit Card</h4>
 
-   <h4>By Check or Money Order</h4>        <p></p>
-   <p>Make your check payable to GreatSchools and send it to:</p>
+                        <p></p>
 
-   <p>Development Office<br/>
-GreatSchools.net<br/>
-301 Howard Street, Suite 1440<br/>
-San Francisco, CA 94105</p>
+                        <p>
+                            <a href="https://secure.entango.com/donate/rpdfMtPPh2g">Click here to donate by credit
+                                card</a>
+                        </p>
+
+                        <h4>By Check or Money Order</h4>
+
+                        <p></p>
+
+                        <p>Make your check payable to GreatSchools and send it to:</p>
+
+                        <p>Development Office<br/>
+                            GreatSchools.net<br/>
+                            301 Howard Street, Suite 1440<br/>
+                            San Francisco, CA 94105</p>
 
 
-   </div>
-   </div>       </center>
-   </div>
-    </body>
+                    </div>
+                </div></center>
+        </div>
+    </gsml:body>
     </html>
 </jsp:root>
 

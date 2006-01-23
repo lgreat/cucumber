@@ -5,6 +5,9 @@
     <jsp:directive.tag body-content="empty"/>
     <c:if test="${!requestScope.pageHelper.adFree}">
         <div id="adSkyscraper">
+            <jsp:scriptlet>
+                request.setAttribute("x20", Boolean.TRUE);
+            </jsp:scriptlet>
             <c:choose>
                 <c:when test='${requestScope.context.yahooCobrand}'>
                     <![CDATA[

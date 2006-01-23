@@ -39,8 +39,7 @@
         </style>
     </head>
 
-    <body>
-FIX    <ad:xAdSetup page="allArticles" ads="x22 x40" />
+    <gsml:body adPageName="allArticles">
    <div id="articletools">
    <!-- Article Tools and Advert -->
     <table id="toolmenucontent" border="0" align="right" cellpadding="3" cellspacing="0" width="160">
@@ -117,7 +116,7 @@ FIX    <ad:xAdSetup page="allArticles" ads="x22 x40" />
         </script>
         ]]>
     <mod:tracking pageType="article" pageName="library" />
-    </body>
+    </gsml:body>
     </html>
 </jsp:root>
 

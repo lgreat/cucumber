@@ -32,12 +32,6 @@
                     <p>musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. </p>
 
                 </gsml:box>
-                <gsml:box tableClass="shade5">
-
-                    <h1>Hello shade5.</h1>
-                    <p>musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. </p>
-
-                </gsml:box>
 
 
             </div>
@@ -51,12 +45,6 @@
                 <gsml:box tableClass="shade4">
 
                     <h1>Hello shade4.</h1>
-                    <p>musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. </p>
-
-                </gsml:box>
-                <gsml:box tableClass="shade5">
-
-                    <h1>Hello shade5.</h1>
                     <p>musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. musum expockrum ipsum lacumom. </p>
 
                 </gsml:box>

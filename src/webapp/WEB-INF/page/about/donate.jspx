@@ -23,12 +23,11 @@
     </jsp:scriptlet>
 
     <head>
-        <ad:xAdSetup page="donate" ads="x22"/>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <title>Donate to GreatSchools.net</title>
     </head>
 
-    <body>
+    <gsml:body adPageName="donate">
 
     <mod:tracking pageType="donate" pageName="donate" />
 
@@ -75,7 +74,7 @@ Help all parents guide and support <br />their children's education.</h1>
    </div>
    </div></center>
    </div>
-    </body>
+    </gsml:body>
     </html>
 </jsp:root>
 

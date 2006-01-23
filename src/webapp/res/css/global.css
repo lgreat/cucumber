@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.85 2006/01/23 20:37:08 wbeck Exp $
+   $Id: global.css,v 1.86 2006/01/23 20:56:33 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -837,21 +837,21 @@
     }
 
     table.shade3 td.R {
-        background: #FFFFFF url( ../img/box/border_shade5_R.gif ) right repeat-y;
+        background: #FFFFFF url( ../img/box/border_shade3_R.gif ) right repeat-y;
     }
 
     table.shade3 td.BL {
-        background: #FFFFFF url( ../img/box/border_shade5_BL.gif ) left bottom;
+        background: #FFFFFF url( ../img/box/border_shade3_BL.gif ) left bottom;
         width: 7px;
         height: 7px;
     }
 
     table.shade3 td.B {
-        background: #FFFFFF url( ../img/box/border_shade5_B.gif ) bottom repeat-x;
+        background: #FFFFFF url( ../img/box/border_shade3_B.gif ) bottom repeat-x;
     }
 
     table.shade3 td.BR {
-        background: #FFFFFF url( ../img/box/border_shade5_BR.gif ) bottom right;
+        background: #FFFFFF url( ../img/box/border_shade3_BR.gif ) bottom right;
         width: 7px;
         height: 7px;
     }
@@ -896,54 +896,18 @@
         height: 7px;
     }
 
-    table.shade5 {
-        margin-bottom: 3px;
-    }
 
-    table.shade5 td.TL {
-        background: #DDDDDD url( ../img/box/border_shade5_TL.gif ) left top;
-        width: 7px;
-        height: 7px;
-    }
 
-    table.shade5 td.T {
-        background: #DDDDDD url( ../img/box/border_shade5_T.gif ) top repeat-x;
-    }
 
-    table.shade5 td.TR {
-        background: #DDDDDD url( ../img/box/border_shade5_TR.gif ) top right;
-        width: 7px;
-        height: 7px;
-    }
 
-    table.shade5 td.L {
-        background: #DDDDDD url( ../img/box/border_shade5_L.gif ) left repeat-y;
-    }
 
-    table.shade5 td.BG {
-        background: #DDDDDD url( ../img/box/border_shade5_BG.gif );
-        padding: 0;
-    }
 
-    table.shade5 td.R {
-        background: #DDDDDD url( ../img/box/border_shade5_R.gif ) right repeat-y;
-    }
 
-    table.shade5 td.BL {
-        background: #DDDDDD url( ../img/box/border_shade5_BL.gif ) left bottom;
-        width: 7px;
-        height: 7px;
-    }
 
-    table.shade5 td.B {
-        background: #DDDDDD url( ../img/box/border_shade5_B.gif ) bottom repeat-x;
-    }
 
-    table.shade5 td.BR {
-        background: #DDDDDD url( ../img/box/border_shade5_BR.gif ) bottom right;
-        width: 7px;
-        height: 7px;
-    }
+
+
+
 
 
 
@@ -984,7 +948,6 @@
     div.about div.page {
         text-align: left;
     }
-
 
 
 

@@ -3,20 +3,29 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsweb="gstaglib">
-    <jsp:directive.tag body-content="empty"/>
-    <jsp:directive.attribute name="page" type="java.lang.String" required="true"/>
-    <jsp:directive.attribute name="ads" type="java.lang.String" required="true"/>
+    <jsp:directive.tag body-content="empty"
+                       description="Generates necessary JavaScript to show the ads on a page. Generally you will not call this directly, but it will be called by the page decorator."/>
     <jsp:directive.tag import="gs.web.ISessionFacade"/>
     <jsp:directive.tag import="gs.web.SessionFacade"/>
     <jsp:scriptlet><![CDATA[
         // On cobrands we don't show position x22 so check for it on cobrands
-        gs.web.ISessionFacade ctx = SessionFacade.getInstance(request);
-        if (ctx.isCobranded()) {
-            ads = ads.replaceAll("x22,", "");
-            ads = ads.replaceAll(",x22", "");
-            ads = ads.replaceAll("x22", "");
-            jspContext.setAttribute("ads", ads);
+        ISessionFacade context = SessionFacade.getInstance(request);
+        // TODO Perhaps this stuff should be passed in so this tag is usable by non-decorators.
+        String ads = "";
+        out.print(ads);
+        if (!context.isCobranded()) { //  && Boolean.TRUE.equals(request.getAttribute("x22")
+            ads += "x22,";
         }
+        if (Boolean.TRUE.equals(request.getAttribute("x20"))) {
+            ads += "x20,";
+        }
+        if (Boolean.TRUE.equals(request.getAttribute("x33"))) {
+            ads += "x33,";
+        }
+        if (Boolean.TRUE.equals(request.getAttribute("x40"))) {
+            ads += "x40,";
+        }
+        request.setAttribute("ads", ads);
         ]]></jsp:scriptlet>
     <c:if test="${!requestScope.pageHelper.adFree and !empty ads}">
         <c:if test="${!requestScope.context.yahooCobrand}">
@@ -24,7 +33,8 @@
             <SCRIPT LANGUAGE="JavaScript">
                 //configuration
                 OAS_url = 'http://oascentral.greatschools.net/RealMedia/ads/';
-                OAS_sitepage = 'www/${gsweb:toLowercase(requestScope.context.state.abbreviation)}/${page}';
+                OAS_sitepage =
+                'www/${gsweb:toLowercase(requestScope.context.state.abbreviation)}/${requestScope.adPageName}';
                 OAS_listpos = '${ads}';
                 OAS_query = 'state=${gsweb:toLowercase(requestScope.context.state.abbreviation)}';
                 OAS_target = '_top';

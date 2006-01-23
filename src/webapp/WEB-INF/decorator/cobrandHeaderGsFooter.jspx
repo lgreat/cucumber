@@ -34,6 +34,8 @@
 
     <!-- This tag includes ad_popunder.js and sets onloadPopunder -->
     <ad:xPopunder/>
+    <ad:xAdSetup />
+
     <decorator:head/>
 </head>
 

@@ -6,6 +6,9 @@
         >
     <jsp:directive.tag body-content="empty"/>
     <c:if test="${!requestScope.pageHelper.adFree  and !requestScope.context.cobranded}">
+        <jsp:scriptlet>
+            request.setAttribute("x22", Boolean.TRUE);
+        </jsp:scriptlet>
         <div id="adLeaderboard">
             <table>
                 <tr>

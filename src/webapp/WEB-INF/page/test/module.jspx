@@ -26,11 +26,6 @@
                     <jsp:include page="${param['mod']}" />
 
                 </gsml:box>
-                <gsml:box tableClass="shade5">
-
-                    <jsp:include page="${param['mod']}" />
-
-                </gsml:box>
 </div>
 <div style="width: 50%" >
                 <gsml:box tableClass="shade3">
@@ -38,19 +33,9 @@
                     <jsp:include page="${param['mod']}" />
 
                 </gsml:box>
-                <gsml:box tableClass="shade5">
-
-                    <jsp:include page="${param['mod']}" />
-
-                </gsml:box>
 </div>
 <div style="width: 33%" >
                 <gsml:box tableClass="shade3">
-
-                    <jsp:include page="${param['mod']}" />
-
-                </gsml:box>
-                <gsml:box tableClass="shade5">
 
                     <jsp:include page="${param['mod']}" />
 
@@ -63,20 +48,10 @@
                     <jsp:include page="${param['mod']}" />
 
                 </gsml:box>
-                <gsml:box tableClass="shade5">
-
-                    <jsp:include page="${param['mod']}" />
-
-                </gsml:box>
 </div>
 
 <div style="width: 20%" >
                 <gsml:box tableClass="shade3">
-
-                    <jsp:include page="${param['mod']}" />
-
-                </gsml:box>
-                <gsml:box tableClass="shade5">
 
                     <jsp:include page="${param['mod']}" />
 

@@ -23,12 +23,11 @@
     </jsp:scriptlet>
 
     <head>
-        <ad:xAdSetup page="aboutUs" ads="x22"/>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <title>About Us</title>
     </head>
 
-    <body>
+    <gsml:body adPageName="aboutUs">
 
     <mod:tracking pageType="aboutUs" pageName="aboutUs" />
 
@@ -147,7 +146,7 @@
    </div>
    </div></center>
    </div>
-    </body>
+    </gsml:body>
     </html>
 </jsp:root>
 

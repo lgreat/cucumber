@@ -26,7 +26,6 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <ad:xAdSetup page="home" ads="x22"/>
     <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
         <style type="text/css">
@@ -37,7 +36,7 @@
     <title>GreatSchools.net: My Child's School</title>
 </head>
 
-<body class="pathway1">
+<gsml:body adPageName="home">
 <table id="pagemargin" border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td valign="top">
@@ -129,6 +128,6 @@
 </tr>
 </table>
 <mod:tracking pageType="home" pageName="my childs school"/>
-</body>
+</gsml:body>
 </html>
 </jsp:root>
