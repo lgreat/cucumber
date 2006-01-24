@@ -32,7 +32,7 @@ div#topnav { padding: 14px 9px 0 8px }
 #topnav #search { padding: 4px 10px 0px 10px; font-family: arial, verdana, sans-serif; font-size: 11px; color: #666; text-align: center;}
 #topnav .search_area { width: 80%; text-align: left; white-space: nowrap;}
 #topnav #search a {font-size:11px;}
-#topnav .search_area td {font-size:11px;}
+#topnav .search_area td {font-size:11px; white-space: nowrap;}
 
 #topnav #browse_area {font-family:  arial, verdana, sans-serif; font-size: 11px; color: #666; text-decoration: none; text-align: left; background-color: #DBDBDB;  width: 190px; padding-left: 18px; padding-top: 3px; white-space:nowrap;}
 #topnav #browse_area a {font-size:11px;}
