@@ -281,6 +281,15 @@
         </property>
     </bean>
 
+    <bean name="/content/feb06GuideToTests.page"
+          class="gs.web.content.PremiumArticlesController"
+          autowire="byName">
+        <property name="viewName">
+            <value>/content/feb06GuideToTests</value>
+        </property>
+    </bean>
+
+
     <bean name="/stateLauncher.page"
           class="gs.web.state.StatePathwayController"
           autowire="byName">
