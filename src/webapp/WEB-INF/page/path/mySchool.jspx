@@ -48,7 +48,7 @@
             <jsp:include page="/content/parentPoll.module"/>
         </td>
         <td class="col2" valign="top">
-            <gsml:box tableClass="shade3" tableWidth="100%"><!--contentClass="button" valign="top"-->
+            <gsml:box tableClass="shade3" tableWidth="100%">
                 <h1 class="moduleheader">My Child's School</h1>
 
                 <h3 class="tagline">Stats, tools and advice from GreatSchools, an independent nonprofit
