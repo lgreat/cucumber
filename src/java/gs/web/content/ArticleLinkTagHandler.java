@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.11 2005/11/29 23:38:25 apeterson Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.12 2006/01/24 21:50:50 apeterson Exp $
  */
 package gs.web.content;
 
@@ -45,14 +45,26 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
      */
     private boolean _flaggedIfNew;
 
+    /**
+     * Specify an element to wrap the article in, if the article appears.
+     */
+    private String _wrappingElement;
+
 
     public void doTag() throws IOException {
 
+        ISessionFacade sc = getSessionContext();
+        State s = sc.getStateOrDefault();
+
+        if (!_article.isArticleAvailableInState(s)) {
+            return; // NOTE: Early exit!
+        }
+
         StringBuffer b = new StringBuffer();
 
-        ISessionFacade sc = getSessionContext();
-
-        State s = sc.getStateOrDefault();
+        if (StringUtils.isNotEmpty(_wrappingElement)) {
+            b.append("<" + _wrappingElement + ">");
+        }
 
         if (_flaggedIfNew && _article.isNew()) {
             String img = _article.isSpanish() ? "/res/img/content/nuevo.jpg" : "/res/img/content/icon_newarticle.gif";
@@ -95,6 +107,10 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         }
 
         getJspContext().getOut().print("</a>");
+
+        if (StringUtils.isNotEmpty(_wrappingElement)) {
+            getJspContext().getOut().print("</" + _wrappingElement + ">");
+        }
     }
 
     public Article getArticle() {
@@ -127,5 +143,13 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
 
     public void setFlaggedIfNew(boolean flaggedIfNew) {
         _flaggedIfNew = flaggedIfNew;
+    }
+
+    public String getWrappingElement() {
+        return _wrappingElement;
+    }
+
+    public void setWrappingElement(String wrappingElement) {
+        _wrappingElement = wrappingElement;
     }
 }

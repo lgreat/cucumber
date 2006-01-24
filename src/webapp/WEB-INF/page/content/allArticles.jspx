@@ -9,76 +9,147 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gsweb="gstaglib"
         >
-    <html lang="en">
+<html lang="en">
 
-    <jsp:output doctype-root-element="html"
-                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-    <jsp:directive.page contentType="text/html"/>
+<jsp:directive.page contentType="text/html"/>
 
-    <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <title>All Articles</title>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>All Articles</title>
 
-        <style type="text/css">
-            body {
-                text-align: left;
-                font-family: Arial, Helvetica, sans-serif;
-                font-size: 12px;
-                color: #000000;
-            }
+    <style type="text/css">
 
-            .category {font-size: 12px; padding-left: 20px; padding-bottom: 10px; width: 60%;}
-            .categoryName {font-family: arial; font-size: 12px; font-style: normal; color: #000000;}
-            .subCategory {font-size: 12px; padding-left: 20px; padding-bottom: 10px;}
-            .categorySection {font-size: 12px; padding-left: 20px;}
-            .articleLink {padding: 5px;}
-            #adSquare {clear:right;margin-top: 2em;}
+        div.allArticles {
+            padding: 2em 3em 0 3em;
+            text-align: left;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            color: #000000;
+        }
 
-        </style>
-    </head>
+        div.allArticles h1  {
+            font-size: 1.3em;
+            color: #eb7a31;
+            font-weight: bold;
+            margin-bottom: 1em;
+        }
 
-    <gsml:body adPageName="allArticles">
-   <div id="articletools">
-   <!-- Article Tools and Advert -->
-    <table id="toolmenucontent" border="0" align="right" cellpadding="3" cellspacing="0" width="160">
-        <tr>
-   	        <td>
-                <c:if test="${requestScope.context.state.subscriptionState}">
-                    <div id="toolsmenu">
-                        <center><span class="rlbcopy">Membership Content:<br/>Your School Choice Options<br/><a href="/cgi-bin/conversion/${requestScope.context.stateOrDefault.abbreviation}"><img src="/res/img/learn_more_btn.gif" width="88" height="20" border="0" vspace="3" /></a></span></center>
-                        <hr noshade="true" size="1" />
+        div.allArticles h2 {
+            font-size: 12px;
+            font-style: normal;
+            color: #000000;
+        }
+
+        div.allArticles h3  {
+            font-size: 1.1em;
+            color: #039;
+            font-weight: bold;
+            margin-bottom: 1em;
+        }
+
+        div.allArticles a:hover, .category h2:hover, .subCategory h2:hover {
+            text-decoration: underline;
+        }
+
+        .category {
+            font-size: 12px;
+            padding: .4em 0 .4em 0;
+            width: 60%;
+        }
+
+        .subCategory {
+            font-size: 12px;
+            padding: .4em 0 .4em 20px;
+        }
+
+        ul.categorySection {
+            font-size: 12px;
+            padding: 0 0 .5em 20px;
+        }
+
+        ul.categorySection li {
+            margin: .5em 0 .5em 0;
+        }
+
+        table#toolmenucontent {
+            border: 1px solid #bbb;
+            background-color: #eee;
+        }
+
+        table#toolmenucontent li {
+            margin: .5em .5em .5em .5em;
+        }
+        table#toolmenucontent .toolsmenu {
+            padding: 1em;
+        }
+        table#toolmenucontent .toolsmenu h3 img {
+            margin: 1em;
+        }
+        #adSquare {
+            clear: right;
+            margin-top: 2em;
+        }
+
+        div#instructions {
+            padding: 0 0 1em 0;
+            font-style: italic;
+            display: none;
+        }
+
+    </style>
+</head>
+
+<gsml:body adPageName="allArticles">
+    <div class="allArticles">
+    <div id="articletools">
+        <!-- Article Tools and Advert -->
+        <table id="toolmenucontent" border="0" align="right" cellpadding="3" cellspacing="0" width="310">
+            <tr><td>
+                    <c:if test="${requestScope.context.state.subscriptionState}">
+                        <div id="toolsmenu">
+                            <center><h3>Membership Content:<br/>Your School Choice Options<br/><a
+                                    href="/cgi-bin/conversion/${requestScope.context.stateOrDefault.abbreviation}"><gsml:img
+                                    src="/res/img/learn_more_btn.gif" alt="Learn More"/></a></h3>
+                            </center>
+                            <hr noshade="true" size="1"/>
+                            <ul>
                             <c:forEach items="${insider_articles}" var="article">
-                                <br/><span class ="rcopy"><gsweb:articlelink article="${article}" target="article"  flaggedIfNew="true" /></span>
+                                <gsweb:articlelink article="${article}" target="article"  flaggedIfNew="true" wrappingElement="li" />
                             </c:forEach>
-                    </div>
-                </c:if>
-                <img src="/images/p.gif" height="5"/><br/>
-                    <ad:x40/>
-   	        </td>
-        </tr>
-   </table>
-   </div>
+                            </ul>
+                        </div>
+                    </c:if>
+        </td></tr>
+        </table>
+        <ad:x40/>
+    </div>
 
-    <span class="header">All Articles</span>
-        <br/><br/>
+    <h1>All Articles</h1>
+
+    <div id="instructions">
+    Click on the category to see the articles.
+    </div>
+
     <div class="category">
-        <a href="javascript:toggleById('articlelist-1');"><span class="categoryName">School Choosers Guide</span></a>
+        <a href="javascript:toggleById('articlelist-1');"><h2>School Choosers Guide</h2></a>
+
         <div id="articlelist-1">
             <c:forEach items="${scc_categories}" var="category">
                 <c:if test="${!empty category.value}">
                     <div class="subCategory">
                         <a href="javascript:toggleById('articlelist${index}');">
-                            <span class="categoryName"><c:out value="${category.key.categoryName}"/></span>
+                            <h2><c:out value="${category.key.categoryName}"/></h2>
                         </a>
-                        <div id="articlelist${index}" class="categorySection">
+
+                        <ul id="articlelist${index}" class="categorySection">
                             <c:forEach items="${category.value}" var="article">
-                                <div class="articleLink">
-                                        <gsweb:articlelink article="${article}" target="article"  flaggedIfNew="true" />
-                                </div>
+                                    <gsweb:articlelink article="${article}" target="article" flaggedIfNew="true" wrappingElement="li"/>
                             </c:forEach>
-                        </div>
+                        </ul>
                         <c:set var="index" value="${index + 1}"/>
                     </div>
                 </c:if>
@@ -89,34 +160,36 @@
     <c:forEach items="${categories}" var="category">
         <c:if test="${!empty category.value}">
             <div class="category">
-                    <a href="javascript:toggleById('articlelist${index}');"><span class="categoryName">
-                    <c:out value="${category.key.categoryName}"/></span></a>
-                <div id="articlelist${index}" class="categorySection">
+                <a href="javascript:toggleById('articlelist${index}');"><h2>
+                    <c:out value="${category.key.categoryName}"/></h2></a>
+
+                <ul id="articlelist${index}" class="categorySection">
                     <c:forEach items="${category.value}" var="article">
-                        <div class="articleLink">
-                            <gsweb:articlelink article="${article}" target="article"  flaggedIfNew="true"/>
-                        </div>
+                            <gsweb:articlelink article="${article}" target="article" flaggedIfNew="true" wrappingElement="li"/>
                     </c:forEach>
-                </div>
+                </ul>
                 <c:set var="index" value="${index + 1}"/>
             </div>
         </c:if>
     </c:forEach>
-
-        <![CDATA[
+</div>
+    <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
         <script type="text/javascript">
+
+        var instructions = document.getElementById('instructions');
+        if (instructions) instructions.style.display = 'block';
 
         for (var i=-1; i<${num_categories}; i++) {
             var layer = document.getElementById('articlelist'+i);
             if (layer) {
                 layer.style.display = 'none';
-            }
+                }
         }
         </script>
         ]]>
-    <mod:tracking pageType="article" pageName="library" />
-    </gsml:body>
-    </html>
+    <mod:tracking pageType="article" pageName="library"/>
+</gsml:body>
+</html>
 </jsp:root>
 
