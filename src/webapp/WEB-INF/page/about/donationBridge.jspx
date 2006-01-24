@@ -9,6 +9,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gsweb="gstaglib"
         >
+    <jsp:directive.page import="gs.web.util.PageHelper"/>
     <html lang="en">
 
     <jsp:output doctype-root-element="html"
@@ -17,7 +18,9 @@
 
     <jsp:directive.page contentType="text/html"/>
 
-
+    <jsp:scriptlet>
+        PageHelper.hideFooterAd(request);
+    </jsp:scriptlet>
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <title>Donate to GreatSchools.net</title>

@@ -10,6 +10,7 @@
           xmlns:gsweb="gstaglib"
         >
 <jsp:directive.page import="gs.web.SessionContextUtil"/>
+    <jsp:directive.page import="gs.web.util.PageHelper"/>
     <html lang="en">
 
     <jsp:output doctype-root-element="html"
@@ -20,6 +21,7 @@
      <jsp:scriptlet>
         SessionContextUtil u = new SessionContextUtil();
         u.setPathway(request, response, "5");
+         PageHelper.hideFooterAd(request);
     </jsp:scriptlet>
 
     <head>

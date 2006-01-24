@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.5 2006/01/20 19:17:47 apeterson Exp $
+ * $Id: PageHelper.java,v 1.6 2006/01/24 18:27:56 apeterson Exp $
  */
 
 package gs.web.util;
@@ -52,6 +52,15 @@ public class PageHelper {
         }
     }
 
+    public static void hideFooterAd(HttpServletRequest request) {
+        PageHelper pageHelper = getInstance(request);
+        if (pageHelper != null) {
+            pageHelper.setShowingFooterAd(false);
+        } else {
+            _log.error("No PageHelper object available.");
+        }
+    }
+
     /**
      * Adds the given code to the onload script of the body tag.
      */
@@ -69,6 +78,7 @@ public class PageHelper {
 
     private boolean _showingHeader = true;
     private boolean _showingFooter = true;
+    private boolean _showingFooterAd = true;
     private final String _cobrand;
     private final String _hostName;
     private final boolean _subscriptionState;
@@ -110,6 +120,18 @@ public class PageHelper {
      */
     public boolean isShowingFooter() {
         return _showingFooter && !isAdFree() && !isYahooCobrand();
+    }
+
+    /**
+     * There's a footer ad at the bottom of the page, above the nav elements and SEO
+     * stuff. It's currently a google ad. Do we show it?
+     */
+    public boolean isShowingFooterAd() {
+        return _showingFooterAd && !isAdFree() && !isYahooCobrand();
+    }
+
+    public void setShowingFooterAd(boolean showingFooterAd) {
+        _showingFooterAd = showingFooterAd;
     }
 
     private boolean isYahooCobrand() {
