@@ -57,7 +57,6 @@
         .category {
             font-size: 12px;
             padding: .4em 0 .4em 0;
-            width: 60%;
         }
 
         .subCategory {
@@ -106,9 +105,9 @@
     <div class="allArticles">
     <div id="articletools">
         <!-- Article Tools and Advert -->
+        <c:if test="${requestScope.context.state.subscriptionState}">
         <table id="toolmenucontent" border="0" align="right" cellpadding="3" cellspacing="0" width="310">
             <tr><td>
-                    <c:if test="${requestScope.context.state.subscriptionState}">
                         <div id="toolsmenu">
                             <center><h3>Membership Content:<br/>Your School Choice Options<br/><a
                                     href="/cgi-bin/conversion/${requestScope.context.stateOrDefault.abbreviation}"><gsml:img
@@ -121,9 +120,9 @@
                             </c:forEach>
                             </ul>
                         </div>
-                    </c:if>
         </td></tr>
         </table>
+        </c:if>
         <ad:x40/>
     </div>
 

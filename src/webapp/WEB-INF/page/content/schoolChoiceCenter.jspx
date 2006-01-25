@@ -5,6 +5,7 @@
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:spring="http://www.springframework.org/tags"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsweb="gstaglib"
@@ -28,83 +29,54 @@
                 color: #000000;
             }
 
-        h2 {font-size: 14px; color: #000000; font-weight: bold; margin-top: 20px; margin-bottom: 0px;}
+        h2 {font-size: 14px; color: #000000; font-weight: bold; margin-top: .3em; margin-bottom: 0px;}
 
-        #newspromo { color: #000; width:250px; padding:5px 5px 5px 5px; margin:0 0 10px 0; border:1px solid #BBB; font-size:10px; float:right; font-weight:normal;}
+            .newspromo, #newspromo {
+                color: #000;
+                width: 300px;
+                padding: 5px 5px 5px 5px;
+                margin: 0 0 10px 0;
+                border: 1px solid #BBB;
+                float: right;
+                font-weight: normal;
+            }
         #pdf_li { margin-top:3px; margin-bottom:3px; list-style-image: url(/res/img/adobe/pdficon.gif)}
         UL.plain  {list-style: none; margin-top:3px; margin-bottom:0px; margin-left:3px; padding:5px; font-size: 12px;}
         UL.plain li {padding:5px;}
-        img.border {border: 0px; width:4px; height:90%; color:#000;}
 
         table.content {
-            border: 1px solid #BBB;
-            width: 100%;
-            height: 90%;
-            border-style: none solid none solid;
+            width: 95%;
             padding-left: 4px;
+            margin: 2em 0 0 0;
+            text-align: left;
         }
+
+        table.content p  { font-size: 1.4em; padding: 1em 0 1em 0 }
     </style>
 </head>
 
 <body>
+<div class="schoolChoiceCenter">
+<center>
+
 <table class="content" cellpadding="0" cellspacing="0">
 <tr>
-<td valign="top" width="130">
-    <gsml:img src="/res/img/content/scc/kids1.jpg"  alt="editorial photo"/>
-    <!-- width="120" height="247" -->
+<td valign="top" width="130" rowspan="2">
+    <gsml:img src="/res/img/content/scc/kids1.jpg"  alt="photo of teacher helping a child at computer"/>
     <p/>
-    <gsml:img src="/res/img/content/scc/kids4.jpg" alt="editorial photo"/>
-    <!-- width="120" height="223" -->
-    <br/>
+    <gsml:img src="/res/img/content/scc/kids4.jpg" alt="photo of child raising hand"/>
 </td>
-<td>
+<td colspan="2" style="padding: 0 0 1em 2em">
     <gsml:img src="/res/img/content/scc/title_scc.jpg" alt="School Choosers Guide"/>
-    <!-- width="590" height="60"  -->
     <p>Check these resources in the
     <strong>
         ${stateLongName} School Choosers Guide
     </strong>
     to find the best match for your child.</p>
-
-    <div id="articletools">
-      <!-- Article Tools and Advert -->
-      <table id="toolmenucontent" border="0" align="right" cellpadding="3" cellspacing="0" width="160">
-        <tr>
-          <td align="right"><span class="bodycopy">See our <gsml:a href="/content/allArticles.page?state=$STATE">full library of articles</gsml:a></span></td>
-        </tr>
-        <tr>
-            <td>
-                <ad:x40/>
-                <div id="newspromo">
-                <table border="0" cellpadding="3" cellspacing="0">
-                <tr>
-                    <td style="font-size:12px;">
-                        <b>More advice for parents</b><br/>
-                        Looking for tips to help your child succeed?<br/>
-                        <gsml:a href="/content/allArticles.page?state=$STATE">Check out the GreatSchools.net library</gsml:a><br/>
-
-                    </td>
-                </tr>
-                </table>
-                </div>
-                <div id="newspromo">
-                    <table border="0" cellpadding="3" cellspacing="0">
-                    <tr>
-                        <td style="font-size:12px;">
-                        <b>FREE monthly tips from GreatSchools.net delivered directly to your email in-box</b><br/>
-                            What to expect in the classroom, ideas for learning activities, book recommendations and more :<br/>
-                              <b>My Kindergartner</b><br/>
-                              <b>My First-Grader</b><br/>
-                              <b>My Second-Grader</b><br/>
-                              <b>My Third-Grader</b><br/>
-                            <gsml:a href="/cgi-bin/newsletters/$STATE">Learn more and sign up today!</gsml:a><br/>
-                        </td></tr></table>
-                </div>
-            </td>
-        </tr>
-      </table>
-    </div>
-
+</td>
+</tr>
+<tr>
+<td valign="top" width="*" style="padding: 0 2em 0 2em">
 
     <h2>Where to Begin</h2>
     <ul class="plain">
@@ -125,6 +97,19 @@
         <li><gsml:a href="/cgi-bin/showarticle/$STATE/92">Online Resources for Charter Schools</gsml:a></li>
         <li><gsml:a href="/cgi-bin/showarticle/$STATE/188">Homeschooling: Key Facts and Resources</gsml:a></li>
         <li><gsml:a href="/cgi-bin/showarticle/$STATE/205">What No Child Left Behind Means to Your Child</gsml:a></li>
+
+        <gsml:articleLinkLi articleId="456" />
+        <gsml:articleLinkLi articleId="384" />
+        <gsml:articleLinkLi articleId="352" />
+        <gsml:articleLinkLi articleId="351" />
+        <gsml:articleLinkLi articleId="364" />
+        <gsml:articleLinkLi articleId="365" />
+        <gsml:articleLinkLi articleId="353" />
+        <gsml:articleLinkLi articleId="354" />
+        <gsml:articleLinkLi articleId="349" />
+        <gsml:articleLinkLi articleId="368" />
+        <gsml:articleLinkLi articleId="487" />
+        <gsml:articleLinkLi articleId="490" />
     </ul>
 
     <c:if test="${requestScope.context.state.subscriptionState}">
@@ -150,13 +135,41 @@
 
     <h2>Apply and Enroll</h2>
     <ul class="plain" >
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/249">Enrolling in Kindergarten in ${stateLongName}</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/60">10 Tips for Adjusting to a New School</gsml:a></li>
+        <gsml:articleLinkLi articleId="249" />
+        <gsml:articleLinkLi articleId="60" />
+        <gsml:articleLinkLi articleId="489" />
+        <gsml:articleLinkLi articleId="510" />
+        <gsml:articleLinkLi articleId="509" />
+
     </ul>
+</td>
+<td valign="top" width="230">
+    <!--span class="bodycopy">See our <gsml:a href="/content/allArticles.page?state=$STATE">
+                    full
+                    library of articles</gsml:a></span-->
+    <div class="newspromo">
+        <table border="0" cellpadding="3" cellspacing="0">
+            <tr>
+                <td style="font-size:12px;">
+                    <b>More advice for parents</b><br/>
+                    Choosing a school? Looking for tips to support your child's learning?<br/>
+                    <gsml:a href="/content/allArticles.page?state=$STATE">Check out the GreatSchools.net
+                        library</gsml:a><br/>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+    <ad:x40/>
+    <div class="newspromo">
+        <promo:newsletterSmall/>
+    </div>
+
 </td>
 </tr>
 </table>
-
+</center>
+</div>
     <mod:tracking pageType="article" pageName="school choice center"/>
 </body>
 </html>
