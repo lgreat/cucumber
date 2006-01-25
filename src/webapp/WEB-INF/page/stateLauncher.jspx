@@ -21,7 +21,6 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <!-- This page is decorated by cobrandHeaderGsFooter to get global.css and cobrand headers -->
         <jsp:scriptlet>
             PageHelper.hideHeader(request);
             PageHelper.hideFooter(request);

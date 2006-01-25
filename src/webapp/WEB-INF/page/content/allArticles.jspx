@@ -39,8 +39,7 @@
         }
 
         div.allArticles h2 {
-            font-size: 12px;
-            font-style: normal;
+            font-size: 1.1em;
             color: #000000;
         }
 

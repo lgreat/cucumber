@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:gsweb="gstaglib"
+        >
+<jsp:directive.page import="gs.web.SessionContextUtil"/>
+<jsp:directive.page import="gs.web.util.PageHelper"/>
+<html lang="en">
+<c:set var="stateLongName" value="${requestScope.context.stateOrDefault.longName}"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<jsp:scriptlet>
+    SessionContextUtil u = new SessionContextUtil();
+    u.setPathway(request, response, "3");
+</jsp:scriptlet>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>GreatSchools.net: Guide to Tests</title>
+
+
+    <style type="text/css">
+
+
+        h2 {
+            font-size: 14px;
+            color: #000000;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 0px;
+        }
+
+        .newspromo, #newspromo {
+            color: #000;
+            width: 250px;
+            padding: 5px 5px 5px 5px;
+            margin: 0 0 10px 0;
+            border: 1px solid #BBB;
+            float: right;
+            font-weight: normal;
+        }
+
+        UL.plain {
+            list-style: none;
+            margin-top: 3px;
+            margin-bottom: 0px;
+            margin-left: 3px;
+            padding: 5px;
+            font-size: 12px;
+        }
+
+        UL.plain li {
+            padding: 5px;
+        }
+
+        table.content {
+            border: 0px solid #BBB;
+            border-style: none solid solid solid;
+            width: 95%;
+            height: 90%;
+            padding-left: 4px;
+            padding-right: 4px;
+            padding-bottom: 10px;
+        }
+
+        h1.guideToTests {
+            font-size: 2.0em;
+            font-weight: bold;
+            color: #eb7a31;
+            border-bottom: 1px solid #999;
+            margin-bottom: .6em;
+        }
+        div.guideToTests {
+            padding-top: 1em;
+            padding-bottom: 3em;
+        }
+        .guideToTests p {
+            margin: .5em 0 .5em 0;
+        }
+    </style>
+
+</head>
+
+
+<mod:tracking pageType="article" pageName="guideToTests"/>
+
+
+<body>
+<div class="guideToTests">
+<center>
+<table class="content" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top" width="130">
+    <h1 class="guideToTests" style="border-style: none">&#160;</h1>
+    <gsml:img src="/res/img/content/scantron.jpg" alt="photo of hand holding pencil taking multiple choice test"/>
+
+    <p/>
+    <!--gsml:img src="/res/img/content/scc/kids1.jpg" alt="editorial photo"/-->
+    <!-- width="120" height="247" -->
+    <p/>
+    <!--gsml:img src="/res/img/content/scc/kids4.jpg" alt="editorial photo"/-->
+    <!-- width="120" height="223" -->
+    <br/>
+</td>
+<td>
+<h1 class="guideToTests">Guide to Tests</h1>
+<p>Spring brings the annual rite of standardized testing to classrooms around the nation.</p>
+    <p>
+    Check GreatSchools resources to help understand what the tests mean to your child and your school.</p>
+
+
+<h2>Get Smart About Tests</h2>
+<ul class="plain">
+    <li><gsml:a href="/cgi-bin/showarticle/$STATE/68">Five Ways to Get Smart About Test Scores</gsml:a></li>
+    <li><gsml:a href="/cgi-bin/showarticle/$STATE/160">Wondering What to Think About All These Tests?</gsml:a></li>
+    <li><gsml:a href="/cgi-bin/showarticle/$STATE/205">What No Child Left Behind Means for Your Child</gsml:a></li>
+</ul>
+
+<c:if test="${requestScope.context.state.subscriptionState}">
+    <h2>Members Only</h2>
+    <c:if test="${requestScope.context.state.abbreviation == 'AZ'}">
+        <ul class="plain">
+            <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/66">
+                Standardized Tests in Arizona</gsml:a></li>
+            <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/70">AIMS
+                Update: Arizona Test Survives Growing Pains</gsml:a></li>
+        </ul>
+    </c:if>
+
+    <c:if test="${requestScope.context.state.abbreviation == 'CA'}">
+        <ul class="plain">
+            <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/14">A
+                Guide to the STAR Tests in California</gsml:a></li>
+            <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/72">The
+                API: 10 Things Parents Should Know</gsml:a></li>
+            <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/194">The
+                API: Where Does Your Child's School Stand?</gsml:a></li>
+            <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/238">A
+                Guide to California's Standardized Tests for High School Students</gsml:a></li>
+            <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/276">
+                Frequently Asked Questions about the California High School Exit Exam</gsml:a></li>
+            <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/170">A
+                Clever Way to Get Your Child Reading: California's Reading List</gsml:a></li>
+        </ul>
+    </c:if>
+
+    <c:if test="${requestScope.context.state.abbreviation == 'WA'}">
+        <ul class="plain">
+            <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/248">A
+                Guide to Testing Talk in Washington</gsml:a></li>
+            <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/247">
+                Testing in Washington: An Overview</gsml:a></li>
+        </ul>
+    </c:if>
+
+    <c:if test="${requestScope.context.state.abbreviation == 'TX'}">
+        <ul class="plain">
+            <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/208">A
+                Guide to Testing Talk in Texas</gsml:a></li>
+            <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/207">
+                TAKS</gsml:a></li>
+        </ul>
+    </c:if>
+
+    <c:if test="${requestScope.context.state.abbreviation == 'FL'}">
+        <ul class="plain">
+            <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/211">
+                Testing in Florida: An Overview</gsml:a></li>
+            <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/214">A
+                Guide to Testing Talk in Florida</gsml:a></li>
+            <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/216">A+
+                Plan for Education: Florida's Blueprint for Improving Schools</gsml:a></li>
+        </ul>
+    </c:if>
+
+    <c:if test="${requestScope.context.state.abbreviation == 'CO'}">
+        <ul class="plain">
+            <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/289">
+                Testing in Colorado: An Overview</gsml:a></li>
+        </ul>
+    </c:if>
+
+</c:if>
+
+
+<h2>Help Your Child, Your School Succeed</h2>
+<ul class="plain">
+    <li><gsml:a href="/cgi-bin/showarticle/$STATE/96">Is My Child on Track?</gsml:a></li>
+    <li><gsml:a href="/cgi-bin/showarticle/$STATE/197">Checklist for Test "De-Stress"</gsml:a></li>
+    <li><gsml:a href="/cgi-bin/showarticle/$STATE/246">The Achievement Gap: Is Your School Helping All Students
+        Succeed?</gsml:a></li>
+    <li><gsml:a href="/cgi-bin/showarticle/$STATE/92">When to Hire a Tutor</gsml:a></li>
+    <li><gsml:a href="/cgi-bin/showarticle/$STATE/188">Decided to Get a Tutor? Questions To Ask</gsml:a></li>
+    <li><gsml:a href="/cgi-bin/showarticle/$STATE/205">Five Key Skills to Academic Success</gsml:a></li>
+</ul>
+
+<h2>The SAT</h2>
+<ul class="plain">
+    <li><gsml:a href="/cgi-bin/showarticle/$STATE/243">The New SAT: College Admissions Test Gets Major Overhaul</gsml:a>
+    </li>
+    <li><gsml:a href="/cgi-bin/showarticle/$STATE/244">Get Ready for the SAT: Help Your Child Score High</gsml:a></li>
+
+</ul>
+</td>
+
+<td valign="top">
+    <div id="articletools">
+        <!-- Article Tools and Advert -->
+        <table id="toolmenucontent" border="0" align="right" cellpadding="3" cellspacing="0" width="160">
+            <tr>
+                <td align="right"><span class="bodycopy">See our <gsml:a href="/content/allArticles.page?state=$STATE">full
+                    library of articles</gsml:a></span></td>
+            </tr>
+            <tr>
+                <td>
+                    <ad:x40/>
+
+                    <div class="newspromo">
+                        <table border="0" cellpadding="3" cellspacing="0">
+                            <tr>
+                                <td style="font-size:12px;">
+                                    <b>More advice for parents</b><br/>
+                                    Choosing a school? Looking for tips to support your child's learning?<br/>
+                                    <gsml:a href="/content/allArticles.page?state=$STATE">Check out the GreatSchools.net
+                                        library</gsml:a><br/>
+
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="newspromo">
+                        <promo:newsletterSmall />
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</td>
+</tr>
+</table>
+</center>
+</div>
+</body>
+</html>
+</jsp:root>
+

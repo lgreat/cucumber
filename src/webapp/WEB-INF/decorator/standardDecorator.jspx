@@ -43,10 +43,10 @@
 </head>
 
 <body onload="${onloadPopunder} ${requestScope.pageHelper.onload}">
+<cobrand:framebuster/>
 <div id="pageGS" class="${pageClass}">
 <jsp:include page="/header/cobrand.module"/>
-<div id="bodyGS">
-<cobrand:framebuster/>
+<div id="bodyGS" class="bodyGS">
 
     <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
        <mod:topNav />

@@ -281,11 +281,11 @@
         </property>
     </bean>
 
-    <bean name="/content/feb06GuideToTests.page"
-          class="gs.web.content.PremiumArticlesController"
+    <bean name="/content/guideToTests.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName">
         <property name="viewName">
-            <value>/content/feb06GuideToTests</value>
+            <value>/content/guideToTests</value>
         </property>
     </bean>
 

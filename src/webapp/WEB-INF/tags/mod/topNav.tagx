@@ -30,7 +30,7 @@
                 <tr>
                     <mod:topNavTab selected="${requestScope.context.pathway == 1}" href="/modperl/go/$STATE" label="Choosing Schools"/>
                     <mod:topNavTab selected="${requestScope.context.pathway == 2}" href="/path/mySchool.page?state=$STATE" label="My Child's School"/>
-                    <mod:topNavTab selected="${requestScope.context.pathway == 3}" href="/content/feb06GuideToTests.page?state=$STATE" label="Guide To Tests"/>
+                    <mod:topNavTab selected="${requestScope.context.pathway == 3}" href="/content/guideToTests.page?state=$STATE" label="Guide To Tests"/>
                     <mod:topNavTab selected="${requestScope.context.pathway == 4}" href="/about/aboutUs.page?state=$STATE" label="About Us"/>
                     <mod:topNavTab selected="${requestScope.context.pathway == 5}" href="/about/donate.page?state=$STATE" label="Donate"/>
                 </tr>

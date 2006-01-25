@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.87 2006/01/24 23:20:28 wbeck Exp $
+   $Id: global.css,v 1.88 2006/01/25 18:03:01 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -118,14 +118,6 @@
         white-space: nowrap;
     }
 
-    .fullheight {
-        height: 100%;
-    }
-
-    .fullwidth {
-        width: 100%;
-    }
-
     .cobranded div#bodyGS {
         width: 770px;
         margin: auto;
@@ -134,10 +126,6 @@
     /*
     Cobrand doesn't quite fit in the width required, so I squish the text for them.
     */
-    .cobranded #headerGS {
-        min-width: 770px;
-    }
-
     .cobranded .globalSearch {
         font-size: 90%;
     }
@@ -161,127 +149,12 @@
         margin: 0px 0px 6px 0px;
     }
 
-    #headerGS {
-        position: relative;
-        height: 50px;
-        min-width: 780px;
-    }
-
-    #headerGS img {
-        border: 0;
-        display: block;
-        padding: 0;
-        margin: 0;
-    }
-
-    #headerGS {
-        width: 100%;
-    }
-
-    #headerLogo {
-        padding-left: 5px;
-        width: 250px;
-    }
-
-    div.globalSearch {
-        }
     div.globalSearch input.btn {
         vertical-align: middle;
 
     }
 
-    #footer {
-        margin-left: auto;
-        margin-right: auto;
-        width: 750px;
-        line-height: 10pt;
-        font-size: .9em;
-    }
 
-    #footerGS {
-        padding-top: 10px;
-    }
-
-    #footerText {
-        font-family: Arial, Helvetica, sans-serif;
-        font-size:12px;
-        color:#777;
-        font-weight:bold;
-        padding-top:10px;
-    }
-
-    #footerSearch {
-        text-align:center;
-        color:#999;
-        font-size:10px;
-    }
-
-    #footerSearch a {
-        color:#039;
-    }
-
-    #footerSearch span {
-        padding-left: 2px;
-        padding-right: 2px;
-    }
-
-    #footerSponsor {
-        padding: 20px 20px 0px 0px;
-    }
-
-    #footerCopyright {
-        font-size:10px;
-        text-align:center;
-        color:#999;
-        padding-top:10px;
-        padding-bottom:10px;
-    }
-
-    #footerCopyright a:link {
-        color:#039;
-    }
-
-    #footerCopyright a:visited {
-        color:#039;
-    }
-
-    #footerGS table {
-        border-collapse: collapse;
-        width: 728px;
-    }
-
-    #footerGS th {
-        text-align: left;
-        font-size: 10px;
-        color: rgb( 255, 255, 255 );
-        background: #003399;
-    }
-
-    #footerGS td {
-        font-size: 10px;
-        vertical-align: top;
-        line-height: 8pt
-    }
-
-    .lowernavbar {
-        font-family: Arial, Helvetica, sans-serif;
-        font-size:12px;
-        text-align:center;
-        font-weight:bold;
-        padding-top:24px;
-    }
-
-    .lowernavbar a:link,
-        .lowernavbar a:visited {
-        color:#039;padding: 0px 2px 0px 3px;
-    }
-
-    #footerSearchStates,#footerSearchCities,#footerSearchStateSpecific {
-        font-family: Arial, Helvetica, sans-serif;
-        font-size:12px;
-        color:#666;
-        padding:0px 50px 10px 50px;
-    }
 
         /*  Structure
        ----------------------------------------------- */
@@ -312,20 +185,21 @@
     /*.globalnav {height:50px;} pulls the whole table apart-- size from the middle */
     .globalnav .BG {
         padding: .5em 0 .5em 0;
-        white-space: nowrap
+        white-space: nowrap;
     }
 
     .globalnav h1 {
-        color: #000;
-        font-weight: bold;
-        font-size: 1.3em;
         padding: 0px 0px 4px 0px;
         cursor: hand;
         width: 100%;
+        color: #036;
+        font-size: 1.4em;
+        font-weight: bold;
     }
 
     .globalnav h1 a, .globalnav h1 a:visited {
         color: #000;
+        font-weight: normal;
     }
 
     .globalnav h1 a:hover {
@@ -334,33 +208,22 @@
     }
 
 
-    .globalnav a {
-        color: #FFF;
+    .globalnav a:link, .globalnav a:visited {
         display: block;
         margin: 0px 0px 3px 0px;
-        font-weight: bold;
-    }
-
-    .globalnav a:visited {
-        color: #FFF;
+        font-weight: normal;
+        font-size: 12px;
+        padding-bottom: 4px;
+        color: #036;
     }
 
     .globalnav a:hover {
-        text-decoration: none;
-        color: #FC9;
+        text-decoration: underline;
+        color: black;
     }
 
 
-    .choosingPwy {
-        background: #FE894C url( ../img/box/xborder_shade4pathway1_BG.gif ) bottom right no-repeat;
-    }
 
-    .mcsPwy {
-        background: #FE894C url( ../img/box/xborder_shade4pathway2_BG.gif ) bottom right no-repeat;
-    }
-.colorFromTopNavIs choosingPwy, .mcsPwyx {
-    background-color: #eb7a31
-    }
         /*  Search
        ----------------------------------------------- */
     .browselinks {
@@ -376,7 +239,7 @@
         /*  Headings
        ----------------------------------------------- */
     h1.moduleheader, span.moduleheader {
-        color: #F60;
+        color: #eb7a31;
         font-size: 1.5em;
         font-weight: bold;
         white-space: nowrap;
@@ -395,20 +258,6 @@
         padding-left: 10px;
     }
 
-    h3.tagline {
-        font-size: 0.9em;
-    }
-
-    h4.tagline {
-        font-size: 1em;
-    }
-
-    h3.tagline, h4.tagline {
-        color: #F60;
-        font-weight: normal;
-        padding: 0px 0px 5px 0px;
-    }
-
     h4.tagline b {
         font-weight: bold;
     }
@@ -425,7 +274,7 @@
     }
 
     h3.tagline, h4.tagline {
-        color: #F60;
+        color: #eb7a31;
         font-weight: normal;
         padding: 0px 0px 5px 0px;
     }
@@ -435,7 +284,7 @@
     }
 
     h3.tagline {
-        color: #F60;
+        color: #eb7a31;
         font-weight: normal;
         padding: 0px 0px 5px 0px;
     }
@@ -462,9 +311,6 @@
         padding: 0px 20px 1px 0px;
     }
 
-    /*font-size: .95em;*/
-        /*.topCities ul li.viewall {background: url(../img/arrow.gif) 2px no-repeat;margin:2px 0px 10px 0px;}
- .topCities ul li.viewall a {font-weight:normal;margin:0px 0px 0px 12px;}*/
 
         /*  Forms
        ----------------------------------------------- */
@@ -669,7 +515,8 @@
         font-size: 1.3em;
         font-weight: bold;
         margin: 10px 0px 6px 0px;
-        color: #036
+        color: #036;
+
     }
 
     .promoNewsletterBig {
@@ -729,6 +576,7 @@
 
     .promoMembershipMedium h3 {
         color: #f60;
+        color: #777;
     }
 
     .promoMembershipMedium th {
@@ -852,6 +700,60 @@
 
     table.shade3 td.BR {
         background: #FFFFFF url( ../img/box/border_shade3_BR.gif ) bottom right;
+        width: 7px;
+        height: 7px;
+    }
+
+    /* shade box styles */
+    table.navOrange {
+        margin-bottom: 3px;
+    }
+
+    table.navOrange td.TL {
+        background: #fad3ae url( ../img/box/border_orange_TL.gif ) left top;
+        width: 7px;
+        height: 7px;
+    }
+
+    table.navOrange td.T {
+        background: #fad3ae url( ../img/box/border_orange_T.gif ) top repeat-x;
+    }
+
+    table.navOrange td.TR {
+        background: #fad3ae url( ../img/box/border_orange_TR.gif ) top right;
+        width: 7px;
+        height: 7px;
+    }
+
+    table.navOrange td.L {
+        background: #fad3ae url( ../img/box/border_orange_L.gif ) top left repeat-x;
+        border-left: 1px solid #ccc;
+        border-left: 1px solid #eb7a31;
+        font-size: 1px;
+    }
+
+    table.navOrange td.BG {
+        background-color: #fad3ae !important;
+        padding: 0;
+        vertical-align: top
+    }
+
+    table.navOrange td.R {
+        background: #FFFFFF url( ../img/box/border_orange_R.gif ) right repeat-y;
+    }
+
+    table.navOrange td.BL {
+        background: #FFFFFF url( ../img/box/border_orange_BL.gif ) left bottom;
+        width: 7px;
+        height: 7px;
+    }
+
+    table.navOrange td.B {
+        background: #FFFFFF url( ../img/box/border_orange_B.gif ) bottom repeat-x;
+    }
+
+    table.navOrange td.BR {
+        background: #FFFFFF url( ../img/box/border_orange_BR.gif ) bottom right;
         width: 7px;
         height: 7px;
     }

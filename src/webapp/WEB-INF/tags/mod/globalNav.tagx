@@ -7,7 +7,7 @@
 
     <div id="globalnav">
         <c:if test="${requestScope.context.pathway=='1'}">
-        <table class="globalnav shade4" border="0" cellspacing="0" cellpadding="0" width="100%">
+        <table class="globalnav navOrange" border="0" cellspacing="0" cellpadding="0" width="100%">
             <tr>
                 <td class="TL"></td>
                 <td class="T"></td>
@@ -15,7 +15,7 @@
             </tr>
             <tr>
                 <td class="L"></td>
-                    <td class="BG choosingPwy"><h1>
+                    <td class="BG" style="background-color: #FAD3ae !important"><h1>
                             Choosing Schools
                         </h1>
                         <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
@@ -40,7 +40,7 @@
                             <c:if test="${requestScope.context.user!=null}">
                                 <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.user.email}&amp;mid=${requestScope.context.user.id}">Sign Out</gsml:a>
                             </c:if>
-                        </c:if></td>
+                        </c:if><br /></td>
                 <td class="R"></td>
             </tr>
             <tr>
@@ -52,7 +52,7 @@
                 </c:if>
         <!-- pw1 -->
                 <c:if test="${requestScope.context.pathway==2}">
-        <table class="globalnav shade4" border="0" cellspacing="0" cellpadding="0" width="100%">
+        <table class="globalnav navOrange" border="0" cellspacing="0" cellpadding="0" width="100%">
             <tr>
                 <td class="TL"></td>
                 <td class="T"></td>
@@ -60,7 +60,7 @@
             </tr>
             <tr>
                 <td class="L"></td>
-                    <td class="BG mcsPwy"><h1>
+                    <td class="BG"><h1>
                         My Child's School
                         </h1>
                         <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List</gsml:a>

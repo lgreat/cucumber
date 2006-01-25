@@ -7,14 +7,14 @@
     <decorator name="perlWrapper" page="perlWrapper.jsp">
     </decorator>
 
-    <decorator name="cobrandHeaderGsFooter" page="cobrandHeaderGsFooter.jspx">
+    <decorator name="cobrandHeaderGsFooter" page="standardDecorator.jspx">
         <pattern>/path/choose.page</pattern>
         <pattern>/path/mySchool.page</pattern>
         <pattern>/stateLauncher.page</pattern>
         <pattern>/search/search.page</pattern>
         <pattern>/content/allArticles.page</pattern>
         <pattern>/content/schoolChoiceCenter.page</pattern>
-        <pattern>/content/feb06GuideToTests.page</pattern>        
+        <pattern>/content/guideToTests.page</pattern>        
         <pattern>/about/aboutUs.page</pattern>
         <pattern>/about/donate.page</pattern>
          <pattern>/about/donationBridge.page</pattern>
@@ -29,8 +29,6 @@
         <pattern>*/subscribe.page*</pattern>
         <pattern>*/thankyou.page*</pattern>
         <pattern>*/monitor.page*</pattern>
-        <!--<pattern>*/search.page*</pattern>-->
-
         <pattern>*/sorry.page*</pattern>
         <pattern>*/compareSchools.page*</pattern>
         <pattern>*/community/conversion/*</pattern>
