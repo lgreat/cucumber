@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.13 2006/01/26 20:13:32 apeterson Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.14 2006/01/26 20:41:53 apeterson Exp $
  */
 package gs.web.content;
 
@@ -68,6 +68,13 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         if (article == null) {
             IArticleDao articleDao = getArticleDao();
             article = articleDao.getArticleFromId(_articleId);
+            if (article == null) {
+                _log.error("Cannot find article with id " + _articleId);
+            }
+        }
+
+        if (article == null) {
+            return; // NOTE: Early exit!
         }
 
         if (!article.isArticleAvailableInState(s)) {

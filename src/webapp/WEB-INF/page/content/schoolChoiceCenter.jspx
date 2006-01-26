@@ -22,26 +22,32 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <title>GreatSchools.net: School Choosers Guide</title>
     <style type="text/css">
-            body {
-                text-align: left;
-                font-family: Arial, Helvetica, sans-serif;
-                font-size: 12px;
-                color: #000000;
-            }
+        body {
+            text-align: left;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000000;
+        }
 
-        h2 {font-size: 14px; color: #000000; font-weight: bold; margin-top: .3em; margin-bottom: 0px;}
+        h2 {
+            font-size: 14px;
+            color: #000000;
+            font-weight: bold;
+            margin-top: .3em;
+            margin-bottom: 0px;
+        }
 
-            .newspromo, #newspromo {
-                color: #000;
-                width: 300px;
-                padding: 5px 5px 5px 5px;
-                margin: 0 0 10px 0;
-                border: 1px solid #BBB;
-                float: right;
-                font-weight: normal;
-            }
+        .newspromo {
+            color: #000;
+            width: 300px;
+            padding: 5px 5px 5px 5px;
+            margin: 0 0 10px 0;
+            border: 1px solid #BBB;
+            float: right;
+            font-weight: normal;
+        }
+
         ul.pdfs li {
-            background-image: url(/res/img/adobe/pdficon.gif);
+            background-image: url( /res/img/adobe/pdficon.gif );
             background-position: left;
             background-repeat: no-repeat;
             vertical-align: 50%;
@@ -50,17 +56,31 @@
             line-height: 22px;
             margin-top: 2px;
         }
-        UL.plain  {list-style: none; margin-top:3px; margin-bottom:0px; margin-left:3px; padding:5px; font-size: 12px;}
-        UL.plain li {padding:5px;}
+
+        UL.plain {
+            list-style: none;
+            margin-top: 3px;
+            margin-bottom: 0px;
+            margin-left: 3px;
+            padding: 5px;
+            font-size: 12px;
+        }
+
+        UL.plain li {
+            padding: 5px;
+        }
 
         table.content {
             width: 95%;
             padding-left: 4px;
-            margin: 2em 0 0 0;
+            margin: 2em 0 3em 0;
             text-align: left;
         }
 
-        table.content p  { font-size: 1.4em; padding: 1em 0 1em 0 }
+        table.content p {
+            font-size: 1.4em;
+            padding: 1em 0 1em 0
+        }
     </style>
 </head>
 
@@ -70,116 +90,121 @@
 
 <table class="content" cellpadding="0" cellspacing="0">
 <tr>
-<td valign="top" width="130" rowspan="2">
-    <gsml:img src="/res/img/content/scc/kids1.jpg"  alt="photo of teacher helping a child at computer"/>
-    <p/>
-    <gsml:img src="/res/img/content/scc/kids4.jpg" alt="photo of child raising hand"/>
-</td>
-<td colspan="2" style="padding: 0 0 1em 2em">
-    <gsml:img src="/res/img/content/scc/title_scc.jpg" alt="School Choosers Guide"/>
-    <p>Check these resources in the
-    <strong>
-        ${stateLongName} School Choosers Guide
-    </strong>
-    to find the best match for your child.</p>
-</td>
+    <td valign="top" width="130" rowspan="2">
+        <gsml:img src="/res/img/content/scc/kids1.jpg" alt="photo of teacher helping a child at computer"/>
+
+        <p/>
+        <gsml:img src="/res/img/content/scc/kids4.jpg" alt="photo of child raising hand"/>
+    </td>
+    <td colspan="2" style="padding: 0 0 1em 2em">
+        <gsml:img src="/res/img/content/scc/title_scc.jpg" alt="School Choosers Guide"/>
+
+        <p>Check these resources in the
+            <strong>
+                ${stateLongName} School Choosers Guide
+            </strong>
+            to find the best match for your child.</p>
+    </td>
 </tr>
 <tr>
-<td valign="top" width="*" style="padding: 0 2em 0 2em">
+    <td valign="top" width="*" style="padding: 0 2em 0 2em">
 
-    <h2>Where to Begin</h2>
-    <ul class="plain">
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/308">Consider Your Child's Needs</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/307">Consider Your Family's Needs</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/87">Imagine Your Ideal School</gsml:a>
-            <ul class="pdfs">
-                <li><gsml:a href="/pdf/choosing_imagine.pdf">Printable worksheet</gsml:a></li>
-            </ul>
-        </li>
-    </ul>
-
-    <h2>Learn About Your Options</h2>
-    <ul class="plain">
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/96">Choosing a School in ${stateLongName}</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/197">Private vs. Public: What's the Difference?</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/246">Frequently Asked Questions About Private Schools</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/92">Online Resources for Charter Schools</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/188">Homeschooling: Key Facts and Resources</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/205">What No Child Left Behind Means to Your Child</gsml:a></li>
-
-        <gsml:articleLinkLi articleId="456" />
-        <gsml:articleLinkLi articleId="384" />
-        <gsml:articleLinkLi articleId="352" />
-        <gsml:articleLinkLi articleId="351" />
-        <gsml:articleLinkLi articleId="364" />
-        <gsml:articleLinkLi articleId="365" />
-        <gsml:articleLinkLi articleId="353" />
-        <gsml:articleLinkLi articleId="354" />
-        <gsml:articleLinkLi articleId="349" />
-        <gsml:articleLinkLi articleId="368" />
-        <gsml:articleLinkLi articleId="487" />
-        <gsml:articleLinkLi articleId="490" />
-    </ul>
-
-    <c:if test="${requestScope.context.state.subscriptionState}">
-        <h2>Members Only</h2>
-        <ul class="plain" >
-        <c:forEach items="${articles}" var="article">
-            <li><gsweb:articlelink article="${article}"/></li>
-        </c:forEach>
+        <h2>Where to Begin</h2>
+        <ul class="plain">
+            <li><gsml:a href="/cgi-bin/showarticle/$STATE/308">Consider Your Child's Needs</gsml:a></li>
+            <li><gsml:a href="/cgi-bin/showarticle/$STATE/307">Consider Your Family's Needs</gsml:a></li>
+            <li><gsml:a href="/cgi-bin/showarticle/$STATE/87">Imagine Your Ideal School</gsml:a>
+                <ul class="pdfs">
+                    <li><gsml:a href="/pdf/choosing_imagine.pdf">Printable worksheet</gsml:a></li>
+                </ul>
+            </li>
         </ul>
-    </c:if>
 
-    <h2>Make the Most of Your School Visit</h2>
-    <ul class="plain" >
-        <li>
-            <gsml:a href="/cgi-bin/showarticle/$STATE/48">The School Visit: What to Look For</gsml:a>
-            <ul class="pdfs">
-                <li><gsml:a href="/pdf/schq_visit_elem.pdf">Elementary School: A printable worksheet</gsml:a></li>
-                <li><gsml:a href="/pdf/schq_visit_middle.pdf">Middle School: A printable worksheet</gsml:a></li>
-                <li><gsml:a href="/pdf/schq_visit_high.pdf">High School: A printable worksheet</gsml:a></li>
+        <h2>Learn About Your Options</h2>
+        <ul class="plain">
+            <li><gsml:a href="/cgi-bin/showarticle/$STATE/96">Choosing a School in ${stateLongName}</gsml:a></li>
+            <li><gsml:a href="/cgi-bin/showarticle/$STATE/197">Private vs. Public: What's the Difference?</gsml:a></li>
+            <li><gsml:a href="/cgi-bin/showarticle/$STATE/246">Frequently Asked Questions About Private Schools</gsml:a>
+            </li>
+            <li><gsml:a href="/cgi-bin/showarticle/$STATE/92">Online Resources for Charter Schools</gsml:a></li>
+            <li><gsml:a href="/cgi-bin/showarticle/$STATE/188">Homeschooling: Key Facts and Resources</gsml:a></li>
+            <li><gsml:a href="/cgi-bin/showarticle/$STATE/205">What No Child Left Behind Means to Your Child</gsml:a>
+            </li>
+
+            <gsweb:articlelink articleId="456" wrappingElement="li"/>
+            <gsweb:articlelink articleId="384" wrappingElement="li"/>
+            <gsweb:articlelink articleId="352" wrappingElement="li"/>
+            <gsweb:articlelink articleId="351" wrappingElement="li"/>
+            <gsweb:articlelink articleId="364" wrappingElement="li"/>
+            <gsweb:articlelink articleId="365" wrappingElement="li"/>
+            <gsweb:articlelink articleId="353" wrappingElement="li"/>
+            <gsweb:articlelink articleId="354" wrappingElement="li"/>
+            <gsweb:articlelink articleId="349" wrappingElement="li"/>
+            <gsweb:articlelink articleId="368" wrappingElement="li"/>
+            <gsweb:articlelink articleId="487" wrappingElement="li"/>
+            <gsweb:articlelink articleId="490" wrappingElement="li"/>
+        </ul>
+
+        <c:if test="${requestScope.context.state.subscriptionState}">
+            <h2>Members Only</h2>
+            <ul class="plain">
+                <c:forEach items="${articles}" var="article">
+                    <li><gsweb:articlelink article="${article}"/></li>
+                </c:forEach>
             </ul>
-        </li>
-    </ul>
+        </c:if>
 
-    <h2>Apply and Enroll</h2>
-    <ul class="plain" >
-        <gsml:articleLinkLi articleId="249" />
-        <gsml:articleLinkLi articleId="60" />
-        <gsml:articleLinkLi articleId="489" />
-        <gsml:articleLinkLi articleId="510" />
-        <gsml:articleLinkLi articleId="509" />
+        <h2>Make the Most of Your School Visit</h2>
+        <ul class="plain">
+            <li>
+                <gsml:a href="/cgi-bin/showarticle/$STATE/48">The School Visit: What to Look For</gsml:a>
+                <ul class="pdfs">
+                    <li><gsml:a href="/pdf/schq_visit_elem.pdf">Elementary School: A printable worksheet</gsml:a></li>
+                    <li><gsml:a href="/pdf/schq_visit_middle.pdf">Middle School: A printable worksheet</gsml:a></li>
+                    <li><gsml:a href="/pdf/schq_visit_high.pdf">High School: A printable worksheet</gsml:a></li>
+                </ul>
+            </li>
+        </ul>
 
-    </ul>
-</td>
-<td valign="top" width="230">
-    <!--span class="bodycopy">See our <gsml:a href="/content/allArticles.page?state=$STATE">
-                    full
-                    library of articles</gsml:a></span-->
-    <div class="newspromo">
-        <table border="0" cellpadding="3" cellspacing="0">
-            <tr>
-                <td style="font-size:12px;">
-                    <b>More advice for parents</b><br/>
-                    Choosing a school? Looking for tips to support your child's learning?<br/>
-                    <gsml:a href="/content/allArticles.page?state=$STATE">Check out the GreatSchools.net
-                        library</gsml:a><br/>
+        <h2>Apply and Enroll</h2>
+        <ul class="plain">
+            <gsweb:articlelink articleId="249" wrappingElement="li"/>
+            <gsweb:articlelink articleId="60" wrappingElement="li"/>
+            <gsweb:articlelink articleId="489" wrappingElement="li"/>
+            <gsweb:articlelink articleId="510" wrappingElement="li"/>
+            <gsweb:articlelink articleId="509" wrappingElement="li"/>
 
-                </td>
-            </tr>
-        </table>
-    </div>
-    <ad:x40/>
-    <div class="newspromo">
-        <promo:newsletterSmall/>
-    </div>
+        </ul>
+    </td>
+    <td valign="top" width="230">
+        <!--span class="bodycopy">See our <gsml:a href="/content/allArticles.page?state=$STATE">
+      full
+      library of articles</gsml:a></span-->
+        <div class="newspromo">
+            <table border="0" cellpadding="3" cellspacing="0">
+                <tr>
+                    <td style="font-size:12px;">
+                        <b>More advice for parents</b><br/>
+                        Choosing a school? Looking for tips to support your child's learning?<br/>
+                        <gsml:a href="/content/allArticles.page?state=$STATE">Check out the GreatSchools.net
+                            library</gsml:a><br/>
 
-</td>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <ad:x40/>
+
+        <div class="newspromo">
+            <promo:newsletterSmall/>
+        </div>
+
+    </td>
 </tr>
 </table>
 </center>
 </div>
-    <mod:tracking pageType="article" pageName="school choice center"/>
+<mod:tracking pageType="article" pageName="school choice center"/>
 </body>
 </html>
 </jsp:root>

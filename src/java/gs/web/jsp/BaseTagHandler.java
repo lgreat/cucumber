@@ -23,7 +23,7 @@ import java.io.IOException;
  */
 public abstract class BaseTagHandler extends SimpleTagSupport {
 
-    private static final Logger _log = Logger.getLogger(BaseTagHandler.class);
+    protected static final Logger _log = Logger.getLogger(BaseTagHandler.class);
     private static ISchoolDao _schoolDao;
     private static IArticleDao _articleDao;
     private static IDistrictDao _districtDao;
@@ -85,7 +85,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
                 _log.warn("problem getting IDistrictDao: ", e);
             }
         }
-        return _districtDao;        
+        return _districtDao;
     }
 
     protected String escapeLongstate(String title) {
