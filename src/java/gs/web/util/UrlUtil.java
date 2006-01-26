@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.16 2006/01/25 18:03:01 apeterson Exp $
+ * $Id: UrlUtil.java,v 1.17 2006/01/26 21:05:27 apeterson Exp $
  */
 
 package gs.web.util;
 
-import gs.data.state.State;
 import gs.data.content.Article;
+import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -21,6 +21,7 @@ import java.net.URL;
  * with the specific GSWeb environment, especially the session facade.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @see org.springframework.web.util.WebUtils
  */
 public final class UrlUtil {
     private static final Log _log = LogFactory.getLog(UrlUtil.class);
@@ -61,6 +62,9 @@ public final class UrlUtil {
         return cobrandName;
     }
 
+    /**
+     * Create the correct perl hostname, most useful in the development environment.
+     */
     public String buildPerlHostName(String hostName, String cobrand) {
         if (StringUtils.contains(hostName, "localhost")) {
             String dev = "dev.greatschools.net";
@@ -243,10 +247,10 @@ public final class UrlUtil {
         boolean secureDest = false;
         if ("https".equals(request.getScheme()) &&
                 (ref.indexOf("subscribe.page") > -1 || ref.indexOf("thankyou.page") > -1)) {
-                secureDest = true;
+            secureDest = true;
         }
 
-        return buildHref(href, secureDest, src, context!=null?context.getHostName():null);
+        return buildHref(href, secureDest, src, context != null ? context.getHostName() : null);
     }
 
     /**
@@ -276,6 +280,13 @@ public final class UrlUtil {
         }
     }
 
+    /**
+     * Generates a link to the given article, based on
+     *
+     * @param featured should the "featured" url be used instead of the normal one. This is
+     *                 for tracking.
+     * @return a usable link, relative to the site
+     */
     public String getArticleLink(State s, Article article, boolean featured) {
         // Calculate page to use
         String page;
