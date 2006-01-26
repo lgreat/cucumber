@@ -40,7 +40,16 @@
                 float: right;
                 font-weight: normal;
             }
-        #pdf_li { margin-top:3px; margin-bottom:3px; list-style-image: url(/res/img/adobe/pdficon.gif)}
+        ul.pdfs li {
+            background-image: url(/res/img/adobe/pdficon.gif);
+            background-position: left;
+            background-repeat: no-repeat;
+            vertical-align: 50%;
+            text-indent: 35px;
+            height: 32px;
+            line-height: 22px;
+            margin-top: 2px;
+        }
         UL.plain  {list-style: none; margin-top:3px; margin-bottom:0px; margin-left:3px; padding:5px; font-size: 12px;}
         UL.plain li {padding:5px;}
 
@@ -83,7 +92,7 @@
         <li><gsml:a href="/cgi-bin/showarticle/$STATE/308">Consider Your Child's Needs</gsml:a></li>
         <li><gsml:a href="/cgi-bin/showarticle/$STATE/307">Consider Your Family's Needs</gsml:a></li>
         <li><gsml:a href="/cgi-bin/showarticle/$STATE/87">Imagine Your Ideal School</gsml:a>
-            <ul id="pdf_li">
+            <ul class="pdfs">
                 <li><gsml:a href="/pdf/choosing_imagine.pdf">Printable worksheet</gsml:a></li>
             </ul>
         </li>
@@ -125,7 +134,7 @@
     <ul class="plain" >
         <li>
             <gsml:a href="/cgi-bin/showarticle/$STATE/48">The School Visit: What to Look For</gsml:a>
-            <ul id="pdf_li">
+            <ul class="pdfs">
                 <li><gsml:a href="/pdf/schq_visit_elem.pdf">Elementary School: A printable worksheet</gsml:a></li>
                 <li><gsml:a href="/pdf/schq_visit_middle.pdf">Middle School: A printable worksheet</gsml:a></li>
                 <li><gsml:a href="/pdf/schq_visit_high.pdf">High School: A printable worksheet</gsml:a></li>
