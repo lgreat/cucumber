@@ -1,10 +1,11 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.12 2006/01/24 21:50:50 apeterson Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.13 2006/01/26 20:13:32 apeterson Exp $
  */
 package gs.web.content;
 
 import gs.data.content.Article;
+import gs.data.content.IArticleDao;
 import gs.data.state.State;
 import gs.web.ISessionFacade;
 import gs.web.jsp.BaseTagHandler;
@@ -24,6 +25,11 @@ import java.io.IOException;
 public class ArticleLinkTagHandler extends BaseTagHandler {
 
     private static UrlUtil _urlUtil = new UrlUtil();
+
+    /**
+     * The article id to link to. Set either this or the article.
+     */
+    private Integer _articleId;
 
     /**
      * The article to link to.
@@ -56,7 +62,15 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         ISessionFacade sc = getSessionContext();
         State s = sc.getStateOrDefault();
 
-        if (!_article.isArticleAvailableInState(s)) {
+        Article article = _article;
+
+        // If no article object, use the Dao to retrieve the article based on the article id.
+        if (article == null) {
+            IArticleDao articleDao = getArticleDao();
+            article = articleDao.getArticleFromId(_articleId);
+        }
+
+        if (!article.isArticleAvailableInState(s)) {
             return; // NOTE: Early exit!
         }
 
@@ -66,19 +80,19 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
             b.append("<" + _wrappingElement + ">");
         }
 
-        if (_flaggedIfNew && _article.isNew()) {
-            String img = _article.isSpanish() ? "/res/img/content/nuevo.jpg" : "/res/img/content/icon_newarticle.gif";
+        if (_flaggedIfNew && article.isNew()) {
+            String img = article.isSpanish() ? "/res/img/content/nuevo.jpg" : "/res/img/content/icon_newarticle.gif";
             img = _urlUtil.buildHref(img, false, null, null);
             b.append("<img src=\"" + img + "\" alt=\"new\" class=\"newarticle\">&nbsp;");
         }
 
-        if (s.isSubscriptionState() && _article.isInsider()) {
+        if (s.isSubscriptionState() && article.isInsider()) {
             b.append("<img src=\"/res/img/st_icon.gif\" border=\"0\" />");
         }
 
         b.append("<a href=\"");
 
-        String link = _urlUtil.getArticleLink(s, _article, _featured);
+        String link = _urlUtil.getArticleLink(s, article, _featured);
         b.append(link);
 
         b.append("\" ");
@@ -98,11 +112,11 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
             try {
                 jspBody.invoke(getJspContext().getOut());
             } catch (JspException e) {
-                String title = _article.getTitle().replaceAll("\\$LONGSTATE", s.getLongName());
+                String title = article.getTitle().replaceAll("\\$LONGSTATE", s.getLongName());
                 getJspContext().getOut().print(title);
             }
         } else {
-            String title = _article.getTitle().replaceAll("\\$LONGSTATE", s.getLongName());
+            String title = article.getTitle().replaceAll("\\$LONGSTATE", s.getLongName());
             getJspContext().getOut().print(title);
         }
 
@@ -151,5 +165,13 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
 
     public void setWrappingElement(String wrappingElement) {
         _wrappingElement = wrappingElement;
+    }
+
+    public Integer getArticleId() {
+        return _articleId;
+    }
+
+    public void setArticleId(Integer articleId) {
+        _articleId = articleId;
     }
 }

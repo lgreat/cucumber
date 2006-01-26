@@ -257,26 +257,37 @@
         <body-content>tagdependent</body-content>
         <attribute>
             <name>article</name>
-            <required>true</required>
+            <description>an Article object. If not provided, articleId must be set.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>articleId</name>
+            <description>the article id, of an Article in the database. If not provided, article must be set.</description>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>target</name>
+            <description>generates a "target" attribute within the a tag with this value</description>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>featured</name>
+            <description>if set to true, generates a link to the featured article url (showarticlefeature)</description>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>flaggedIfNew</name>
+            <description>draws a "new" image for new articles</description>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>wrappingElement</name>
+            <description>if set, generates a wrapping element around the link to the article. Useful for generating list items dynamically; if the article is not available, this enclosing element is NOT generated.</description>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
