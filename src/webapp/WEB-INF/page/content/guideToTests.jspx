@@ -191,13 +191,13 @@
 
     <h2>Help Your Child, Your School Succeed</h2>
     <ul class="plain">
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/96">Is My Child on Track?</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/197">Checklist for Test "De-Stress"</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/246">The Achievement Gap: Is Your School Helping All Students
+        <li><gsml:a href="/cgi-bin/showarticle/$STATE/4">Is My Child on Track?</gsml:a></li>
+        <li><gsml:a href="/cgi-bin/showarticle/$STATE/15">Checklist for Test "De-Stress"</gsml:a></li>
+        <li><gsml:a href="/cgi-bin/showarticle/$STATE/99">The Achievement Gap: Is Your School Helping All Students
             Succeed?</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/92">When to Hire a Tutor</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/188">Decided to Get a Tutor? Questions To Ask</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/205">Five Key Skills to Academic Success</gsml:a></li>
+        <li><gsml:a href="/cgi-bin/showarticle/$STATE/310">When to Hire a Tutor</gsml:a></li>
+        <li><gsml:a href="/cgi-bin/showarticle/$STATE/366">Decided to Get a Tutor? Questions To Ask</gsml:a></li>
+        <li><gsml:a href="/cgi-bin/showarticle/$STATE/204">Five Key Skills to Academic Success</gsml:a></li>
     </ul>
 
     <h2>The SAT</h2>
