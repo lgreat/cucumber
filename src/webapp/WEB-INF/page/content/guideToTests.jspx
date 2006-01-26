@@ -122,9 +122,9 @@
         <h2>Members Only</h2>
         <c:if test="${requestScope.context.state.abbreviation == 'AZ'}">
             <ul class="plain">
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/66">
+                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/66">
                     Standardized Tests in Arizona</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/70">
+                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/70">
                     AIMS
                     Update: Arizona Test Survives Growing Pains</gsml:a></li>
             </ul>
@@ -132,46 +132,46 @@
 
         <c:if test="${requestScope.context.state.abbreviation == 'CA'}">
             <ul class="plain">
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/14">A
+                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/14">A
                     Guide to the STAR Tests in California</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/72">
+                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/72">
                     The
                     API: 10 Things Parents Should Know</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/194">
+                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/194">
                     The
                     API: Where Does Your Child's School Stand?</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/238">A
+                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/238">A
                     Guide to California's Standardized Tests for High School Students</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/276">
+                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/276">
                     Frequently Asked Questions about the California High School Exit Exam</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/170">A
+                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/170">A
                     Clever Way to Get Your Child Reading: California's Reading List</gsml:a></li>
             </ul>
         </c:if>
 
         <c:if test="${requestScope.context.state.abbreviation == 'WA'}">
             <ul class="plain">
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/248">A
+                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/248">A
                     Guide to Testing Talk in Washington</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/247">
+                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/247">
                     Testing in Washington: An Overview</gsml:a></li>
             </ul>
         </c:if>
 
         <c:if test="${requestScope.context.state.abbreviation == 'TX'}">
             <ul class="plain">
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/208">A
+                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/208">A
                     Guide to Testing Talk in Texas</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/207">
+                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/207">
                     TAKS</gsml:a></li>
             </ul>
         </c:if>
 
         <c:if test="${requestScope.context.state.abbreviation == 'FL'}">
             <ul class="plain">
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/211">
+                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/211">
                     Testing in Florida: An Overview</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/214">A
+                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/214">A
                     Guide to Testing Talk in Florida</gsml:a></li>
                 <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/216">
                     A+
@@ -181,7 +181,7 @@
 
         <c:if test="${requestScope.context.state.abbreviation == 'CO'}">
             <ul class="plain">
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/289">
+                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/289">
                     Testing in Colorado: An Overview</gsml:a></li>
             </ul>
         </c:if>
