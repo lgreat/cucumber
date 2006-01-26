@@ -6,6 +6,7 @@
     xmlns:spring="http://www.springframework.org/tags"
     xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
     xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+    xmlns:gsweb="gstaglib"
     >
     <html xml:lang="en">
         <jsp:scriptlet>
@@ -173,8 +174,8 @@ Rank your priorities for your child and family as you begin your school search.
 <br/>
 First, get a quick primer to organize your thoughts:
                         <ul>
-                            <gsml:articleLinkLi articleId="308"/>
-                            <gsml:articleLinkLi articleId="307"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="308"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="307"/>
                         </ul>
 <a href="#getacro">
 <img class="pdf" src="/res/img/adobe/pdficon.gif" alt="PDF Format"/>
@@ -227,30 +228,30 @@ Learn what school choices you really have, and understand more about each: publi
 <br />
 Review this first:
 <ul>
-<gsml:articleLinkLi articleId="96"/>
+<gsweb:articlelink wrappingElement="li" articleId="96"/>
 </ul>
 Then, read more about what interests you most:
 <ul>
-                            <gsml:articleLinkLi articleId="249"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="249"/>
 
-                            <gsml:articleLinkLi articleId="239"/>
-                            <gsml:articleLinkLi articleId="252"/>
-                            <gsml:articleLinkLi articleId="220"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="239"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="252"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="220"/>
 
-                            <gsml:articleLinkLi articleId="51"/>
-                            <gsml:articleLinkLi articleId="225"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="51"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="225"/>
 
-                            <gsml:articleLinkLi articleId="197"/>
-                            <gsml:articleLinkLi articleId="246"/>
-                            <gsml:articleLinkLi articleId="241"/>
-                            <gsml:articleLinkLi articleId="92"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="197"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="246"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="241"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="92"/>
 
-                            <gsml:articleLinkLi articleId="306"/>
-                            <gsml:articleLinkLi articleId="293"/>
-                            <gsml:articleLinkLi articleId="302"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="306"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="293"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="302"/>
 
-                            <gsml:articleLinkLi articleId="188"/>
-                            <gsml:articleLinkLi articleId="205"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="188"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="205"/>
                         </ul>
 
 
@@ -407,7 +408,7 @@ to ask and what to look for.
 <br />
 Start here:
                         <ul>
-                            <gsml:articleLinkLi articleId="48"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="48"/>
                         </ul>
 
                             <a href="#getacro">
@@ -432,9 +433,9 @@ Start here:
                             </ul>
         Then read these:
                         <ul>
-                            <gsml:articleLinkLi articleId="249"/>
-                            <gsml:articleLinkLi articleId="60"/>
-                            <gsml:articleLinkLi articleId="20"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="249"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="60"/>
+                            <gsweb:articlelink wrappingElement="li" articleId="20"/>
                         </ul>
 
 
