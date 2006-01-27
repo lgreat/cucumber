@@ -10,13 +10,12 @@
             request.setAttribute("x22", Boolean.TRUE);
         </jsp:scriptlet>
         <div id="adLeaderboard">
-            <table>
+            <table cellpadding="0" cellspacing="0">
                 <tr>
                     <td>
                         <gsml:url var="sponsorImage" value="/res/img/ad/sponsor_vertical.gif"/>
                         <img class="adSponsorImage" src="${sponsorImage}" width="10" height="90"/>
                     </td>
-                    <td width="0"></td>
                     <td style="text-align: left">
                         <script language="JavaScript">OAS_AD('x22');</script>
                     </td>
