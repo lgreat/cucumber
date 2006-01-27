@@ -21,7 +21,7 @@ TODO: name consistently.
 .rightcolumn {
     vertical-align: top;
 }
-
+/*
 * html #leftsearchcolumn {
 	border-left:150px solid #FFF;
 }
@@ -31,28 +31,24 @@ TODO: name consistently.
     position:relative;
 }
 
-/*\*/
+/*
 * html #leftsearchcolumn, * html #leftsearchcontainer {
 	height: 1px;
 }
 /**/
 
-th.result_title {padding:0px 20px 0px 0px;border-bottom:1px solid #999;margin-right:10px;font-size:100%}
-* html th.result_title {font-size:80%}
-.viewall, li.browseall{margin:0;padding:0;list-style: none;}
-.viewall, li.browseall{padding-left: 10px;background-image: url(../../img/search/arrow.gif);background-repeat: no-repeat;background-position: 0 .5em;}
-.viewall a, .browseall a {font-weight:normal;font-size:90%;}
+th.result_title {padding:0px 20px 0px 0px;border-bottom:1px solid #999;margin-right:10px;font-size:1.1em}
+/** html th.result_title {font-size:80%}*/
 .main li.citydist {padding-bottom: 5px}
 
-.citydistrict, #resultsheader { font-size:125%; }
-td.headline {font-size:110%;}
+.citydistrict, #resultsheader { font-size:1.3em; }
+td.headline {font-size:1.1em;}
 
 table.school_results_only th {padding:4px 0px 2px 5px;border-bottom:1px solid #aaa;}
 table.school_results_only td {padding:4px 0px 6px 5px;border-bottom:1px solid #FFF;}
 tr.result_row:hover {background: #EEE;}
 td.results_pagenav {text-align:right; font-weight:bold;white-space:nowrap}
 .active {color:#000;padding-right:10px}
-a.smaller {font-size:90%;}
 tr.last_row td {padding:10px 0px 0px 0px;border-bottom:0px;}
 tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
 
@@ -60,7 +56,7 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
 #suggestion {font-style: italic; font-weight: bold;}
 .searchbyaddress {padding-left:20mm; vertical-align:bottom;}
 #resultsheadline {
-    font-size:110%;
+    font-size:1.3em;
     padding-left:2px;
 }
 #schoolfilters {padding-bottom:13px}
@@ -76,28 +72,19 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
 .browseheader {
     padding-bottom:5px;
     font-weight:700;
-    font-size:larger;
+    font-size:1.3em;
 }
 
 .headerquery {
     padding-bottom:5px;
     font-weight:700;
-    font-size:larger;
     color:#FE894C;
 }
 
 pre.explanation {
-    font-size:130%
+    font-size:1.3em;
 }
 
-#newnav { width:100%; height:45px; padding:0px;}
-#newnav td {
-    text-align:center;
-    font-weight:bold;
-    font-size:larger;
-    color:#FFFFFF;
-    background-color:#FE894C;
-}
 
 .citydistrict { padding:5px; }
 .citydistrict .citydistresult {
@@ -151,7 +138,8 @@ tr.contextrow td {
     padding-left:25px;
     padding-right:40px;
     padding-bottom:10px;
-    font-size:97%
+    font-size:97%;
+    font-size:1em;
 }
 
 tr.result_row td { padding-top:15px;}
@@ -167,9 +155,17 @@ tr td.checkbox {
 #rollupfilters { font-weight:bold;}
 
 /*IE hack to make the font size similar to Firefox */
-* html #searchpagetable tr td {
+/* html #searchpagetable tr td {
     font-size:80%;
 }
 * html #searchpagetable tr td #resultsheader td {
     font-size:100%;
-}
+}*/
+
+/* Debugging code */
+/*
+.col2 {background-color: red;border:3px solid red;}
+.leftcol {background-color: pink;border:3px solid pink;}
+#leftsearchcolumn {background-color: purple;border:3px solid purple;}
+#leftsearchcontainer {background-color: green;border:3px solid green;}
+*/
