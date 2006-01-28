@@ -18,10 +18,10 @@
                 <gsml:url var="splashPage" value="/?state=$STATE"/>
                 <c:choose>
                     <c:when test="${requestScope.pageHelper.logoLinked}">
-                        <a href="${splashPage}"><img alt="GreatSchools.net Logo" src="${logoImage}"/></a>
+                        <a href="${splashPage}"><img alt="GreatSchools.net logo" src="${logoImage}"/></a>
                     </c:when>
                     <c:otherwise>
-                        <img alt="GreatSchools.net Logo" src="${logoImage}"/>
+                        <img alt="GreatSchools.net logo" src="${logoImage}"/>
                     </c:otherwise>
                 </c:choose>
              </td>
@@ -111,7 +111,12 @@
                     </tr>
                     <tr>
                       <td><gsml:a href="/modperl/distlist/$STATE/">District</gsml:a></td>
-                      <td><gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE">Top-Rated</gsml:a></td>
+
+                      <td>
+                           <c:if test="${requestScope.context.state.subscriptionState}">
+                          <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE">Top-Rated</gsml:a>
+                          </c:if>
+                          </td>
                     </tr>
                 </table></td>
               <td class="rightside">&#160;</td>

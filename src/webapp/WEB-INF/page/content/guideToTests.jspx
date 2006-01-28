@@ -112,100 +112,77 @@
 
     <h2>Get Smart About Tests</h2>
     <ul class="plain">
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/68">Five Ways to Get Smart About Test Scores</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/160">Wondering What to Think About All These Tests?</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/205">What No Child Left Behind Means for Your Child</gsml:a></li>
+         <gsweb:articlelink articleId="68" wrappingElement="li"/>
+         <gsweb:articlelink articleId="160" wrappingElement="li"/>
+         <gsweb:articlelink articleId="205" wrappingElement="li"/>
     </ul>
 
-    <c:if test="${requestScope.context.state.subscriptionState}">
-        <h2>Members Only</h2>
+
         <c:if test="${requestScope.context.state.abbreviation == 'AZ'}">
             <ul class="plain">
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/66">
-                    Standardized Tests in Arizona</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/70">
-                    AIMS
-                    Update: Arizona Test Survives Growing Pains</gsml:a></li>
+                <gsweb:articlelink articleId="66" wrappingElement="li"/>
+                <gsweb:articlelink articleId="70" wrappingElement="li"/>
             </ul>
         </c:if>
 
         <c:if test="${requestScope.context.state.abbreviation == 'CA'}">
             <ul class="plain">
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/14">A
-                    Guide to the STAR Tests in California</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/72">
-                    The
-                    API: 10 Things Parents Should Know</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/194">
-                    The
-                    API: Where Does Your Child's School Stand?</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/238">A
-                    Guide to California's Standardized Tests for High School Students</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/276">
-                    Frequently Asked Questions about the California High School Exit Exam</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/170">A
-                    Clever Way to Get Your Child Reading: California's Reading List</gsml:a></li>
+                <gsweb:articlelink articleId="14" wrappingElement="li"/>
+                <gsweb:articlelink articleId="72" wrappingElement="li"/>
+                <gsweb:articlelink articleId="194" wrappingElement="li"/>
+                <gsweb:articlelink articleId="238" wrappingElement="li"/>
+                <gsweb:articlelink articleId="276" wrappingElement="li"/>
+                <gsweb:articlelink articleId="170" wrappingElement="li"/>
             </ul>
         </c:if>
 
         <c:if test="${requestScope.context.state.abbreviation == 'WA'}">
             <ul class="plain">
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/248">A
-                    Guide to Testing Talk in Washington</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/247">
-                    Testing in Washington: An Overview</gsml:a></li>
+                <gsweb:articlelink articleId="248" wrappingElement="li"/>
+                <gsweb:articlelink articleId="247" wrappingElement="li"/>
             </ul>
         </c:if>
 
         <c:if test="${requestScope.context.state.abbreviation == 'TX'}">
             <ul class="plain">
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/208">A
-                    Guide to Testing Talk in Texas</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/207">
-                    TAKS</gsml:a></li>
+                <gsweb:articlelink articleId="208" wrappingElement="li"/>
+                <gsweb:articlelink articleId="207" wrappingElement="li"/>
             </ul>
         </c:if>
 
         <c:if test="${requestScope.context.state.abbreviation == 'FL'}">
             <ul class="plain">
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/211">
-                    Testing in Florida: An Overview</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/214">A
-                    Guide to Testing Talk in Florida</gsml:a></li>
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showarticle/$STATE/216">
-                    A+
-                    Plan for Education: Florida's Blueprint for Improving Schools</gsml:a></li>
+                <gsweb:articlelink articleId="211" wrappingElement="li"/>
+
+                <gsweb:articlelink articleId="214" wrappingElement="li"/>
+
+                <gsweb:articlelink articleId="216" wrappingElement="li"/>
             </ul>
         </c:if>
 
         <c:if test="${requestScope.context.state.abbreviation == 'CO'}">
             <ul class="plain">
-                <li><gsml:img src="/res/img/st_icon.gif" alt="insider"/><gsml:a href="/cgi-bin/showpartarticle/$STATE/289">
-                    Testing in Colorado: An Overview</gsml:a></li>
+                <gsweb:articlelink articleId="289" wrappingElement="li"/>
+
             </ul>
         </c:if>
 
-    </c:if>
 
 
     <h2>Help Your Child, Your School Succeed</h2>
     <ul class="plain">
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/4">Is My Child on Track?</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/15">Checklist for Test "De-Stress"</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/99">The Achievement Gap: Is Your School Helping All Students
-            Succeed?</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/310">When to Hire a Tutor</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/366">Decided to Get a Tutor? Questions To Ask</gsml:a></li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/204">Five Key Skills to Academic Success</gsml:a></li>
+        <gsweb:articlelink articleId="4" wrappingElement="li"/>
+        <gsweb:articlelink articleId="151" wrappingElement="li"/>
+        <gsweb:articlelink articleId="99" wrappingElement="li"/>
+        <gsweb:articlelink articleId="310" wrappingElement="li"/>
+        <gsweb:articlelink articleId="366" wrappingElement="li"/>
+        <gsweb:articlelink articleId="204" wrappingElement="li"/>
     </ul>
 
     <h2>The SAT</h2>
     <ul class="plain">
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/243">The New SAT: College Admissions Test Gets Major
-            Overhaul</gsml:a>
-        </li>
-        <li><gsml:a href="/cgi-bin/showarticle/$STATE/244">Get Ready for the SAT: Help Your Child Score High</gsml:a>
-        </li>
+        <gsweb:articlelink articleId="243" wrappingElement="li"/>
+        <gsweb:articlelink articleId="244" wrappingElement="li"/>  
 
     </ul>
 </td>

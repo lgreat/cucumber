@@ -43,7 +43,7 @@
                 <table id="main" border="0">
                 <tr>
                     <td valign="top" class="map">
-                    <gsml:img src="/res/img/logo/logo_GS_260x40.gif" alt="GreatSchools Logo"/>
+                    <gsml:img src="/res/img/logo/logo_GS_260x40.gif" alt="GreatSchools logo"/>
                     <h2>${promotext}</h2>
                     <gsml:url var="mapImage" value="/res/img/map_US_splash_interstitial.gif" />
                     <img src="${mapImage}" width="519" height="310" border="0" usemap="#Map" href="${url}RI${extraParams}" alt="US Map" />

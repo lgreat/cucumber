@@ -111,26 +111,22 @@
 
         <h2>Where to Begin</h2>
         <ul class="plain">
-            <li><gsml:a href="/cgi-bin/showarticle/$STATE/308">Consider Your Child's Needs</gsml:a></li>
-            <li><gsml:a href="/cgi-bin/showarticle/$STATE/307">Consider Your Family's Needs</gsml:a></li>
-            <li><gsml:a href="/cgi-bin/showarticle/$STATE/87">Imagine Your Ideal School</gsml:a>
+            <gsweb:articlelink articleId="308" wrappingElement="li"/>
+            <gsweb:articlelink articleId="307" wrappingElement="li"/>
+            <gsweb:articlelink articleId="87" wrappingElement="li"/>
                 <ul class="pdfs">
                     <li><gsml:a href="/pdf/choosing_imagine.pdf">Printable worksheet</gsml:a></li>
                 </ul>
-            </li>
         </ul>
 
         <h2>Learn About Your Options</h2>
         <ul class="plain">
-            <li><gsml:a href="/cgi-bin/showarticle/$STATE/96">Choosing a School in ${stateLongName}</gsml:a></li>
-            <li><gsml:a href="/cgi-bin/showarticle/$STATE/197">Private vs. Public: What's the Difference?</gsml:a></li>
-            <li><gsml:a href="/cgi-bin/showarticle/$STATE/246">Frequently Asked Questions About Private Schools</gsml:a>
-            </li>
-            <li><gsml:a href="/cgi-bin/showarticle/$STATE/92">Online Resources for Charter Schools</gsml:a></li>
-            <li><gsml:a href="/cgi-bin/showarticle/$STATE/188">Homeschooling: Key Facts and Resources</gsml:a></li>
-            <li><gsml:a href="/cgi-bin/showarticle/$STATE/205">What No Child Left Behind Means to Your Child</gsml:a>
-            </li>
-
+            <gsweb:articlelink articleId="96" wrappingElement="li"/>
+            <gsweb:articlelink articleId="197" wrappingElement="li"/>
+            <gsweb:articlelink articleId="246" wrappingElement="li"/>
+            <gsweb:articlelink articleId="92" wrappingElement="li"/>
+            <gsweb:articlelink articleId="188" wrappingElement="li"/>
+            <gsweb:articlelink articleId="205" wrappingElement="li"/>
             <gsweb:articlelink articleId="456" wrappingElement="li"/>
             <gsweb:articlelink articleId="384" wrappingElement="li"/>
             <gsweb:articlelink articleId="352" wrappingElement="li"/>
@@ -157,7 +153,7 @@
         <h2>Make the Most of Your School Visit</h2>
         <ul class="plain">
             <li>
-                <gsml:a href="/cgi-bin/showarticle/$STATE/48">The School Visit: What to Look For</gsml:a>
+                <gsweb:articlelink articleId="48" wrappingElement="li"/>
                 <ul class="pdfs">
                     <li><gsml:a href="/pdf/schq_visit_elem.pdf">Elementary School: A printable worksheet</gsml:a></li>
                     <li><gsml:a href="/pdf/schq_visit_middle.pdf">Middle School: A printable worksheet</gsml:a></li>
