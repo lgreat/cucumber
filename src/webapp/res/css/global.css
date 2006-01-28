@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.90 2006/01/27 00:58:15 apeterson Exp $
+   $Id: global.css,v 1.91 2006/01/28 01:02:32 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -385,8 +385,6 @@
     }
 
     #adLeaderboard table {
-        border: 1px solid #bbb;
-        background-color:#eee;
         padding: 0;
         margin: 0;
         margin-left: auto;
@@ -398,7 +396,9 @@
         padding: 0 1px 0 2px;
     }
 
-    #adLeaderboard table td {
+    #adLeaderboard table td.ad {
+        background-color:#e9e9e9;
+        border: 1px solid #bbb;
         text-align: left;
     }
 

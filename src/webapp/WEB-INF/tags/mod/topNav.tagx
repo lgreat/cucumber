@@ -101,7 +101,7 @@
                   </form>
 
               </div></td>
-              <td id="browse_area"  nowrap="nowrap"><strong>Browse <h1>${requestScope.context.stateOrDefault.longName} schools</h1> by<br />
+              <td id="browse_area"  nowrap="nowrap"><strong>Browse <h1>${requestScope.context.stateOrDefault.longName} schools</h1>&#160;by<br />
                 </strong>
                   <table width="100%"  border="0" cellspacing="0">
                     <tr>

@@ -14,7 +14,7 @@ div#topnav { padding: 14px 9px 0 8px }
 #topnav .tab_off {font-family:  arial, verdana, sans-serif; font-size: 11px; color: #000; text-decoration: none; text-align: center; background-color: #FAD3AE; border-top: 1px solid #EB7A31;  white-space: nowrap;  }
 #topnav .tab_off A, #topnav .tab_off A:visited, #topnav .tab_off A:active { color: #000; text-decoration: none;}
 #topnav .tab_off A:hover {font-size: 11px; font-family: arial, verdana,  helvetica, sans-serif; color: #000; text-decoration: underline;}
-#topnav table .tab_on_left {background-image:url(../img/header/tab_on_left.gif); background-repeat: no-repeat; width: 10px;}
+#topnav table .tab_on_left {background-image:url(../img/header/tab_on_left.gif); background-repeat: no-repeat; width: 9px;}
 #topnav table .tab_on_right {background-image:url(../img/header/tab_on_right.gif); background-repeat: no-repeat; width: 8px;}
 #topnav table .tab_off_left {background-image:url(../img/header/tab_off_left.gif); background-repeat: no-repeat; width: 10px;}
 #topnav table .tab_off_right {background-image:url(../img/header/tab_off_right.gif); background-repeat: no-repeat; width: 8px;}
@@ -36,7 +36,7 @@ div#topnav { padding: 14px 9px 0 8px }
 
 #topnav #browse_area {font-family:  arial, verdana, sans-serif; font-size: 11px; color: #666; text-decoration: none; text-align: left; background-color: #DBDBDB;  width: 190px; padding-left: 18px; padding-top: 3px; white-space:nowrap;}
 #topnav #browse_area a {font-size:11px;}
-#topnav #browse_area h1 {display: inline; font-weight: inherit}
+#topnav #browse_area strong, #topnav #browse_area h1 {display: inline; font-weight: bold}
 
 #topnav .leftside { width: 7px;  background-color:#DBDBDB; border-left: 1px solid #EB7A31;}
 #topnav .leftside_corner { background-image:url(../img/header/left_round_corner.gif); width: 5px;  background-repeat: no-repeat; height: 5px; background-color:#DBDBDB; border: 0px;}
