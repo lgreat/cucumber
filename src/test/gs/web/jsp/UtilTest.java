@@ -41,4 +41,14 @@ public class UtilTest extends TestCase {
         assertTrue(rand >= 0);
         assertTrue(rand < 100);
     }
+
+    public void testToDelimitedString() {
+        String[] in1 = {"this", "is", "an", "array"};
+        String out1 = Util.toDelimitedString(in1);
+        assertEquals("this,is,an,array", out1);
+
+        Object[] in2 = {"foo", "count", null, "blah"};
+        String out2 = Util.toDelimitedString(in2);
+        assertEquals("foo,count,,blah", out2);
+    }
 }

@@ -69,4 +69,25 @@ public class Util {
         }
         return stateName;
     }
+
+    /**
+     * Takes an array of objects and returns a comma-delimited string of the
+     * objects String values concatinated together.  This method will always
+     * return an non-null String.  If the array argument is null or empty, an
+     * empty String is returned.
+     */
+    public static String toDelimitedString(Object[] array) {
+        StringBuffer buffer = new StringBuffer("");
+        if (array != null) {
+            for (int i = 0; i < array.length; i++) {
+                if (array[i] != null) {
+                    buffer.append(array[i].toString());
+                }
+                if (i < array.length-1) {
+                    buffer.append(",");
+                }
+            }
+        }
+        return buffer.toString();
+    }
 }
