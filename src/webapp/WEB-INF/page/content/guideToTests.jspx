@@ -115,57 +115,46 @@
          <gsweb:articlelink articleId="68" wrappingElement="li"/>
          <gsweb:articlelink articleId="160" wrappingElement="li"/>
          <gsweb:articlelink articleId="205" wrappingElement="li"/>
-    </ul>
 
 
         <c:if test="${requestScope.context.state.abbreviation == 'AZ'}">
-            <ul class="plain">
                 <gsweb:articlelink articleId="66" wrappingElement="li"/>
                 <gsweb:articlelink articleId="70" wrappingElement="li"/>
-            </ul>
         </c:if>
 
         <c:if test="${requestScope.context.state.abbreviation == 'CA'}">
-            <ul class="plain">
                 <gsweb:articlelink articleId="14" wrappingElement="li"/>
                 <gsweb:articlelink articleId="72" wrappingElement="li"/>
                 <gsweb:articlelink articleId="194" wrappingElement="li"/>
                 <gsweb:articlelink articleId="238" wrappingElement="li"/>
                 <gsweb:articlelink articleId="276" wrappingElement="li"/>
                 <gsweb:articlelink articleId="170" wrappingElement="li"/>
-            </ul>
         </c:if>
 
         <c:if test="${requestScope.context.state.abbreviation == 'WA'}">
-            <ul class="plain">
                 <gsweb:articlelink articleId="248" wrappingElement="li"/>
                 <gsweb:articlelink articleId="247" wrappingElement="li"/>
-            </ul>
         </c:if>
 
         <c:if test="${requestScope.context.state.abbreviation == 'TX'}">
-            <ul class="plain">
                 <gsweb:articlelink articleId="208" wrappingElement="li"/>
                 <gsweb:articlelink articleId="207" wrappingElement="li"/>
-            </ul>
         </c:if>
 
         <c:if test="${requestScope.context.state.abbreviation == 'FL'}">
-            <ul class="plain">
                 <gsweb:articlelink articleId="211" wrappingElement="li"/>
 
                 <gsweb:articlelink articleId="214" wrappingElement="li"/>
 
                 <gsweb:articlelink articleId="216" wrappingElement="li"/>
-            </ul>
         </c:if>
 
         <c:if test="${requestScope.context.state.abbreviation == 'CO'}">
-            <ul class="plain">
                 <gsweb:articlelink articleId="289" wrappingElement="li"/>
 
-            </ul>
         </c:if>
+
+        </ul>
 
 
 
@@ -182,7 +171,7 @@
     <h2>The SAT</h2>
     <ul class="plain">
         <gsweb:articlelink articleId="243" wrappingElement="li"/>
-        <gsweb:articlelink articleId="244" wrappingElement="li"/>  
+        <gsweb:articlelink articleId="244" wrappingElement="li"/>
 
     </ul>
 </td>
