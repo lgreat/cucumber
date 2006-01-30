@@ -8,6 +8,13 @@
     <short-name>gsweb</short-name>
     <uri>gstaglib</uri>
 
+
+    <function>
+        <name>toDelimitedString</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>java.lang.String toDelimitedString(java.lang.Object[])</function-signature>
+    </function>
+
     <function>
         <name>toLowercase</name>
         <function-class>gs.web.jsp.Util</function-class>
