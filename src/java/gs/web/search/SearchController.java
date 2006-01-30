@@ -118,7 +118,7 @@ public class SearchController extends AbstractFormController {
             }
 
             int pageSize = 10;
-            int schoolsPageSize = 10;
+            int schoolsPageSize = "true".equals(request.getParameter("showall")) ? -1 : 10;
 
             constraint = sc.getType();
 
@@ -158,16 +158,8 @@ public class SearchController extends AbstractFormController {
                     }
                 }
 
-                model.put("articlesTotal", new Integer(_resultsPager.getArticlesTotal()));
-                model.put("articles", _resultsPager.getArticles(page, pageSize));
                 model.put("schoolsTotal", new Integer(_resultsPager.getSchoolsTotal()));
                 model.put("schools", _resultsPager.getSchools(page, schoolsPageSize));
-                model.put("districtsTotal", new Integer(_resultsPager.getDistrictsTotal()));
-                model.put("districts", _resultsPager.getDistricts(page, pageSize));
-                model.put("citiesTotal", new Integer(_resultsPager.getCitiesTotal()));
-                model.put("cities", _resultsPager.getCities(page, pageSize));
-                model.put("termsTotal", new Integer(_resultsPager.getTermsTotal()));
-                model.put("terms", _resultsPager.getTerms(page, pageSize));
                 model.put("pageSize", new Integer(pageSize));
                 model.put("mainResults", _resultsPager.getResults(page, pageSize));
                 model.put("total", new Integer(hts.length()));
