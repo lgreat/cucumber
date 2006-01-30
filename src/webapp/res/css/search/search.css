@@ -154,6 +154,9 @@ tr td.checkbox {
 #searchagain { font-weight:bold;}
 #rollupfilters { font-weight:bold;}
 
+/* used on "Show all" and "View district profile" links on schoolresults */
+.minilink {font-size:.9em;}
+
 /*IE hack to make the font size similar to Firefox */
 /* html #searchpagetable tr td {
     font-size:80%;

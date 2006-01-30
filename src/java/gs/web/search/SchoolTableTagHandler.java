@@ -3,6 +3,7 @@ package gs.web.search;
 import gs.data.school.School;
 import gs.data.school.district.District;
 import gs.data.search.highlight.TextHighlighter;
+import gs.web.util.UrlUtil;
 
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * This tag handler generates a table of schools.
@@ -21,7 +23,7 @@ import org.apache.commons.logging.LogFactory;
 public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
     public static final String BEAN_ID = "schoolTableTagHandler";
-
+    private static UrlUtil uu = new UrlUtil();
     private List _schools = null;
     private static final Log _log = LogFactory.getLog(SchoolTableTagHandler.class);
 
@@ -35,12 +37,23 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
     public void doTag() throws IOException {
 
+        PageContext pc = (PageContext) getJspContext().findAttribute(PageContext.PAGECONTEXT);
+        String qString = "";
+        boolean showall = false;
+        String showAllHref = "";
+        HttpServletRequest request = null;
+        if (pc != null) {
+            request = (HttpServletRequest) pc.getRequest();
+            qString = request.getQueryString();
+            showall = "true".equals(request.getParameter("showall"));
+        }
+
         JspWriter out = getJspContext().getOut();
 
         out.println("<form action=\"/compareSchools.page\">");
         out.println("<table class=\"columns\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">");
 
-        out.println ("<tr><td class=\"mainresultsheader\">");
+        out.println("<tr><td class=\"mainresultsheader\">");
         out.println("<table width=\"100%\"><tr><td><span id=\"resultsheadline\">");
         out.print("Found ");
         out.print(_total);
@@ -49,45 +62,65 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             out.print("s");
         }
         out.print(" in ");
-        String city = (String)getJspContext().findAttribute("city");
+        String city = (String) getJspContext().findAttribute("city");
         if (city != null) {
             out.print(" the city of: ");
             out.print(city);
         } else {
-            String dist = (String)getJspContext().findAttribute("distname");
+            String dist = (String) getJspContext().findAttribute("distname");
             if (dist != null) {
-                out.print(" the distict of: ");
+                out.print(" the district of: ");
                 out.print(dist);
+
+                StringBuffer urlBuffer = new StringBuffer("http://");
+                urlBuffer.append(getHostname());
+                urlBuffer.append("/cgi-bin/");
+                urlBuffer.append(getState().getAbbreviationLowerCase());
+                urlBuffer.append("/district_profile/");
+                String distId = (String) getJspContext().findAttribute("district");
+                urlBuffer.append(StringUtils.isNotEmpty(distId) ? distId : "");
+                urlBuffer.append("/");
+                out.print("</span><a href=\"" + urlBuffer.toString() + "\">");
+                out.print("<span class=\"minilink\" style=\"padding-left:8px;\">View district profile</span></a><span>");
             }
         }
 
-        out.print("</span></td><td id=\"resultset\">");
+        out.print("</span></td><td align=\"right\" style=\"padding-right:15px;white-space:nowrap\">");
 
         if (_total > 0) {
-            int page = ((_page > 0) ? (_page-1) : 0);
-            out.print((page * PAGE_SIZE) + 1);
-            out.print(" - ");
-            int x = (page * PAGE_SIZE) + PAGE_SIZE;
-            if (_total > x) {
-                out.print(x);
+            if (!showall) {
+                int page = ((_page > 0) ? (_page - 1) : 0);
+                out.print((page * PAGE_SIZE) + 1);
+                out.print(" - ");
+                int x = (page * PAGE_SIZE) + PAGE_SIZE;
+                if (_total > x) {
+                    out.print(x);
+                } else {
+                    out.print(_total);
+                }
             } else {
+                out.print("1 - ");
                 out.print(_total);
             }
             out.print(" of ");
-            out.println(_total);
+            out.print(_total);
         }
+
+        if (!showall && (_total > PAGE_SIZE)) {
+
+            StringBuffer hrefBuffer = new StringBuffer("/search/search.page?");
+            hrefBuffer.append(qString);
+            hrefBuffer.append("&showall=true");
+            showAllHref = uu.buildUrl(hrefBuffer.toString(), request);
+            out.print("&nbsp;&nbsp;<a href=\"" + showAllHref + "\">");
+            out.println("<span class=\"minilink\">Show all</span></a>");
+        }
+
         out.println("</td></tr>");
 
         StringBuffer filterBuffer = new StringBuffer();
 
-        PageContext pc = (PageContext)getJspContext().findAttribute(PageContext.PAGECONTEXT);
-        String qString = "";
-        if (pc != null) {
-            HttpServletRequest request = (HttpServletRequest)pc.getRequest();
-            qString = request.getQueryString();
-        }
-
-        String[] gls = (String[])getJspContext().findAttribute("gl");
+        String[] gls = (String[]) getJspContext().findAttribute("gl");
         if (gls != null) {
             for (int i = 0; i < gls.length; i++) {
                 String qs = "";
@@ -96,11 +129,11 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 }
                 filterBuffer.append(capitalize(gls[i]));
                 if ("elementary".equals(gls[i])) {
-                    qs = qString.replaceAll("\\&gl=elementary","");
-                } else if("middle".equals(gls[i])) {
-                    qs = qString.replaceAll("\\&gl=middle","");
-                } else if("high".equals(gls[i])) {
-                    qs = qString.replaceAll("\\&gl=high","");
+                    qs = qString.replaceAll("\\&gl=elementary", "");
+                } else if ("middle".equals(gls[i])) {
+                    qs = qString.replaceAll("\\&gl=middle", "");
+                } else if ("high".equals(gls[i])) {
+                    qs = qString.replaceAll("\\&gl=high", "");
                 }
                 filterBuffer.append(" (<a href=\"/search/search.page?");
                 filterBuffer.append(qs);
@@ -108,7 +141,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             }
         }
 
-        String[] sts = (String[])getJspContext().findAttribute("st");
+        String[] sts = (String[]) getJspContext().findAttribute("st");
         if (sts != null) {
             for (int i = 0; i < sts.length; i++) {
                 String qs = "";
@@ -117,11 +150,11 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 }
                 filterBuffer.append(capitalize(sts[i]));
                 if ("public".equals(sts[i])) {
-                    qs = qString.replaceAll("\\&st=public","");
-                } else if("private".equals(sts[i])) {
-                    qs = qString.replaceAll("\\&st=private","");
-                } else if("charter".equals(sts[i])) {
-                    qs = qString.replaceAll("\\&st=charter","");
+                    qs = qString.replaceAll("\\&st=public", "");
+                } else if ("private".equals(sts[i])) {
+                    qs = qString.replaceAll("\\&st=private", "");
+                } else if ("charter".equals(sts[i])) {
+                    qs = qString.replaceAll("\\&st=charter", "");
                 }
                 filterBuffer.append(" (<a href=\"/search/search.page?");
                 filterBuffer.append(qs);
@@ -130,14 +163,15 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         }
 
 
-        out.println ("<tr><td id=\"filters\" colspan=\"2\">");
+        out.println("<tr><td id=\"filters\" colspan=\"2\">");
         if (filterBuffer.length() > 0) {
             out.print("Filtered: ");
-            out.println (filterBuffer.toString());
+            out.println(filterBuffer.toString());
         } else {
-            out.println ("To further narrow your list, use the filters on the left.");
+            out.print("To further narrow your list, use the filters on the left.");
         }
-        out.println ("</td></tr></table>");
+
+        out.println("</td></tr></table>");
         out.print("</td></tr><tr><td valign=\"top\">");
         out.println("<table class=\"school_results_only\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
 
@@ -197,7 +231,8 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                     out.println("<td align=\"center\">");
                     out.println(school.getType().getSchoolTypeName());
                     out.println("</td><td align=\"center\">");
-                    out.println(school.getGradeLevels().getRangeString());
+                    String gradeRange = school.getGradeLevels().getRangeString();
+                    out.println(StringUtils.isNotEmpty(gradeRange) ? gradeRange : "not available");
                     out.println("</td><td align=\"center\">");
                     try {
                         int enrollment = school.getEnrollment();
@@ -222,7 +257,14 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             writeButtons(out);
             out.println("</td><td class=\"results_pagenav\">");
 
-            writePageNumbers(out);
+            if (!showall) writePageNumbers(out);
+            out.println("</td><tr><td></td><td align=\"right\" style=\"padding-right:15px;padding-bottom:5px\">");
+            if (!showall && (_total > PAGE_SIZE)) {
+                out.print("<a href=\"");
+                out.print(showAllHref);
+                out.print("\"><span class=\"minilink\">Show all</span></a>");
+            }
+            out.println("</td></tr><td>");
 
         } else {
             if (filterBuffer.length() > 0) {
@@ -246,8 +288,8 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
     private static String capitalize(String s) {
         String capString = s;
         if (s != null && s.length() > 1) {
-            String initial = s.substring(0,1);
-            String rest = s.substring(1,s.length());
+            String initial = s.substring(0, 1);
+            String rest = s.substring(1, s.length());
             StringBuffer buffer = new StringBuffer(s.length());
             buffer.append(initial.toUpperCase());
             buffer.append(rest);

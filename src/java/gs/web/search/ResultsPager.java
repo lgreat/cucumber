@@ -146,8 +146,9 @@ public class ResultsPager {
             if (page < 1) {
                 page = 1;
             }
-            int startIndex = (page - 1) * pageSize;
-            int endIndex = startIndex + pageSize;
+
+            int startIndex = pageSize > 0 ? (page - 1) * pageSize : 0;
+            int endIndex =   pageSize > 0 ? startIndex + pageSize : hits.length();
 
             if (startIndex > hits.length()) {
                 return null;
