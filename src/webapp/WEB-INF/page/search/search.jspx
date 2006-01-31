@@ -123,8 +123,8 @@
                                    page="${param.p}"/>
                 <mod:tracking pageName="schools"
                               hier1="search,schools,${(empty param.city) ? 'district' : 'city'}"
-                              schoolType="${empty(param.st) ? 'public,private,charter' : gsweb:toDelimitedString(paramValues.st)}"
-                              schoolLevel="${empty(param.gl) ? 'elementary,middle,high' : gsweb:toDelimitedString(paramValues.gl)}"/>
+                              schoolType="${gsweb:toDelimitedString(paramValues.st)}"
+                              schoolLevel="${gsweb:toUglyDelimitedString(paramValues.gl)}"/>
             </gsml:box>
         </c:when>
         <c:otherwise>
