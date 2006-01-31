@@ -106,14 +106,14 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
 
     /**
      * @return The current <code>State</code> based on knowledge of location
-     *         awareness in the <code>SessionConetext</code> object, or null if there
+     *         awareness in the <code>SessionConetext</code> object, or CA if there
      *         is no current location awareness.
      */
     protected State getState() {
         ISessionFacade sc = getSessionContext();
-        State state = null; //State.CA;
+        State state = State.CA;
         if (sc != null) {
-            state = sc.getState();
+            state = sc.getStateOrDefault();
         }
         return state;
     }
