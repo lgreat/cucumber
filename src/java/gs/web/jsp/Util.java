@@ -90,4 +90,39 @@ public class Util {
         }
         return buffer.toString();
     }
+    /**
+     * Takes an array of objects and returns a +-delimited string of the
+     * objects String values concatinated together.  This method will always
+     * return an non-null String.  If the array argument is null or empty, an
+     * empty String is returned. The individual String values are capitalized
+     * first.
+     */
+    public static String toUglyDelimitedString(Object[] array) {
+        StringBuffer buffer = new StringBuffer("");
+        if (array != null) {
+            for (int i = 0; i < array.length; i++) {
+                if (array[i] != null) {
+                    buffer.append(capitalize(array[i].toString()));
+                }
+                if (i < array.length-1) {
+                    buffer.append("+");
+                }
+            }
+        }
+        return buffer.toString();
+    }
+
+    /**
+     * Returns a capitalized version of the supplied String.  If the argument
+     * is null, an empty String is returned.
+     * @param s
+     * @return
+     */
+    public static String capitalize(String s) {
+        if (s == null || s.length() == 0) {
+            return "";
+        } else {
+            return s.substring(0,1).toUpperCase() + s.substring(1);
+        }
+    }
 }

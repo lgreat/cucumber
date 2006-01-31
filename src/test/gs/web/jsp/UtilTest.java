@@ -51,4 +51,14 @@ public class UtilTest extends TestCase {
         String out2 = Util.toDelimitedString(in2);
         assertEquals("foo,count,,blah", out2);
     }
+
+    public void testToUglyDelimitedString() {
+        String[] in1 = {"this", "is", "an", "array"};
+        String out1 = Util.toUglyDelimitedString(in1);
+        assertEquals("This+Is+An+Array", out1);
+
+        Object[] in2 = {"foo", "count", null, "blah"};
+        String out2 = Util.toUglyDelimitedString(in2);
+        assertEquals("Foo+Count++Blah", out2);
+    }
 }

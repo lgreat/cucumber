@@ -16,6 +16,12 @@
     </function>
 
     <function>
+        <name>toUglyDelimitedString</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>java.lang.String toUglyDelimitedString(java.lang.Object[])</function-signature>
+    </function>
+
+    <function>
         <name>toLowercase</name>
         <function-class>gs.web.jsp.Util</function-class>
         <function-signature>java.lang.String toLowercase(java.lang.String)</function-signature>
