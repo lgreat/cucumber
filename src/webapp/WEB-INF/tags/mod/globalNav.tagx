@@ -20,12 +20,12 @@
                         </h1>
                         <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
                             <c:if test="${requestScope.context.paidSubscriber}">
-                                <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE">Top-Rated Schools</gsml:a>
+                                <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE">Top-rated schools</gsml:a>
                             </c:if>
                         </c:if>
                         <gsml:a href="/content/schoolChoiceCenter.page?state=$STATE">School Choosers Guide</gsml:a>
-                        <gsml:a href="/cgi-bin/cs_where/$STATE">Compare Schools</gsml:a>
-                        <gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">Search By Address</gsml:a>
+                        <gsml:a href="/cgi-bin/cs_where/$STATE">Compare schools</gsml:a>
+                        <gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">Search near address</gsml:a>
                         <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List</gsml:a>
                         <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
                             <c:if test="${requestScope.context.paidSubscriber}">
@@ -64,9 +64,9 @@
                         My Child's School
                         </h1>
                         <gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List</gsml:a>
-                        <gsml:a href="/cgi-bin/cs_where/$STATE">Compare Schools</gsml:a>
-                        <gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">Rate My School</gsml:a>
-                        <gsml:a href="/content/allArticles.page?state=$STATE">Browse List of Topics</gsml:a>
+                        <gsml:a href="/cgi-bin/cs_where/$STATE">Compare schools</gsml:a>
+                        <gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">Rate my school</gsml:a>
+                        <gsml:a href="/content/allArticles.page?state=$STATE">Browse list of topics</gsml:a>
 
                         <gsml:a href="/cgi-bin/newsletters/$STATE">Newsletter Center</gsml:a></td>
                 <td class="R"></td>
