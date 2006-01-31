@@ -90,11 +90,11 @@
                       <td height="21" colspan="2" >
                           <gsml:a
                                   href="/cgi-bin/msl_confirm/$STATE">My
-                              School List&#160;&#160;&#160;&#160;&#160;&#160;&#160;</gsml:a>|<gsml:a
-                              href="/cgi-bin/cs_where/$STATE">&#160;&#160;&#160;&#160;&#160;&#160;&#160;Compare
-                          schools &#160;&#160;&#160;&#160;&#160;&#160;</gsml:a> | <gsml:a
-                              href="/cgi-bin/template_plain/advanced/$STATE/#address">&#160;&#160;&#160;&#160;&#160;&#160;&#160;Search
-                          near address &#160; </gsml:a></td>
+                              School List</gsml:a>&#160;&#160;&#160;&#160;&#160;&#160;&#160;|&#160;&#160;&#160;&#160;&#160;&#160;&#160;<gsml:a
+                              href="/cgi-bin/cs_where/$STATE">Compare
+                          schools</gsml:a>&#160;&#160;&#160;&#160;&#160;&#160;|&#160;&#160;&#160;&#160;&#160;&#160;&#160;<gsml:a
+                              href="/cgi-bin/template_plain/advanced/$STATE/#address">Search
+                          near address</gsml:a>&#160;</td>
                     </tr>
                   </table>
 
