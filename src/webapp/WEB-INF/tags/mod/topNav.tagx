@@ -60,7 +60,7 @@
 
 
                 <form action="${a}" id="searchForm" method="get">
-                    <input type="hidden" name="state" value="${requestScope.context.state.abbreviation}"/>
+                    <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 
                 <table border="0" cellpadding="0" cellspacing="0" class="search_area">
                     <tr>
@@ -113,7 +113,7 @@
                       <td><gsml:a href="/modperl/distlist/$STATE/">District</gsml:a></td>
 
                       <td>
-                           <c:if test="${requestScope.context.state.subscriptionState}">
+                           <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
                           <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE">Top-Rated</gsml:a>
                           </c:if>
                           </td>
@@ -132,7 +132,7 @@
 
           </table>
         <div class="welcome_wide">
-            <mod:userInfo user="${requestScope.context.user}" state="${state}"
+            <mod:userInfo user="${requestScope.context.user}" state="${requestScope.context.stateOrDefault}"
                           paidSubscriber="${requestScope.context.paidSubscriber}"/>
 
 
