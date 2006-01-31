@@ -12,14 +12,14 @@
                 GreatSchools Members,
                 <gsml:a href="/cgi-bin/site/signin.cgi/$STATE/" state="${state}">sign in</gsml:a>
                 or
-                <gsml:a href="/cgi-bin/conversion/$STATE/overview" state="${state}">learn more</gsml:a>
+                <gsml:a href="/cgi-bin/conversion/$STATE/overview" state="${state}">learn more</gsml:a>.
             </c:if>
             <c:if test="${user!=null}">
                 Welcome,
                 ${user.email}.
                 <gsml:a href="/cgi-bin/logout/$STATE/?email=${user.email}&amp;mid=${user.id}">Sign out</gsml:a>
 or visit                 <gsml:a href="/cgi-bin/feedback_faq/${state}?fbtype=subentry&amp;email=${user.email}">Customer
-                    Support</gsml:a>
+                    Support</gsml:a>.
             </c:if>
      </c:if>
     <c:if test="${not requestScope.pageHelper.signInAvailable}">

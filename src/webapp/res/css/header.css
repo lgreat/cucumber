@@ -45,4 +45,4 @@ div#topnav { padding: 14px 9px 0 8px }
 
 
 /* welcome message */
-#topnav .welcome_wide { font-family:  arial, verdana, sans-serif; font-size: 11px; color: #666; text-decoration: none; text-align: center; width: 100%; padding-top: 8px;}
+#topnav .welcome_wide { font-family:  arial, verdana, sans-serif; font-size: 11px; color: #666; text-decoration: none; text-align: left; width: 100%; padding-top: 8px;}
