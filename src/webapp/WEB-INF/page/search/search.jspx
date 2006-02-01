@@ -35,6 +35,25 @@
         </c:choose>
     </title>
 
+    <![CDATA[
+       <script language="javascript" type="text/javascript">
+           function checkSelections() {
+               var checks = document.getElementsByTagName('input');
+
+               count = 0;
+               for (i=0;i < checks.length; i++) {
+                   if (checks.item(i).checked == true) {
+                       count++
+                   }
+               }
+               if (count == 0) {
+                   alert("Please select the checkbox for at least one school.");
+                   return false;
+               }
+           }
+       </script>
+    ]]>
+
     <c:if test="${not requestScope.context.cobranded}">
     <![CDATA[
     <style type="text/css">
