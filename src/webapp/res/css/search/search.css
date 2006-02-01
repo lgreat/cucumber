@@ -56,7 +56,7 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
 #suggestion {font-style: italic; font-weight: bold;}
 .searchbyaddress {padding-left:20mm; vertical-align:bottom;}
 #resultsheadline {
-    font-size:1.3em;
+    font-size:1.0em;
     padding-left:2px;
 }
 #schoolfilters {padding-bottom:13px}
