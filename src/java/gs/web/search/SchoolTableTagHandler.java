@@ -46,11 +46,17 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             request = (HttpServletRequest) pc.getRequest();
             qString = request.getQueryString();
             showall = "true".equals(request.getParameter("showall"));
+        } else {
+            _log.info("PageContext is null");
         }
 
         JspWriter out = getJspContext().getOut();
 
-        out.println("<form action=\"/compareSchools.page\">");
+        out.print("<form action=\"/compareSchools.page\">");
+        out.print("<input type=\"hidden\" name=\"state\" value=\"");
+        out.print(getStateOrDefault().getAbbreviation());
+        out.println ("\"/>");
+
         out.println("<table class=\"columns\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">");
 
         out.println("<tr><td class=\"mainresultsheader\">");
@@ -80,7 +86,9 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 String distId = (String) getJspContext().findAttribute("district");
                 urlBuffer.append(StringUtils.isNotEmpty(distId) ? distId : "");
                 urlBuffer.append("/");
-                out.print("</span><a href=\"" + urlBuffer.toString() + "\">");
+                out.print("</span><a href=\"");
+                out.print(uu.buildUrl(urlBuffer.toString(), request));
+                out.print("\">");
                 out.print("<span class=\"minilink\" style=\"padding-left:8px;\">View district profile</span></a><span>");
             }
         }
@@ -135,8 +143,11 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 } else if ("high".equals(gls[i])) {
                     qs = qString.replaceAll("\\&gl=high", "");
                 }
-                filterBuffer.append(" (<a href=\"/search/search.page?");
-                filterBuffer.append(qs);
+
+                StringBuffer urlBuffer = new StringBuffer("/search/search.page?");
+                urlBuffer.append(qs);
+                filterBuffer.append(" (<a href=\"");
+                filterBuffer.append(uu.buildUrl(urlBuffer.toString(), request));
                 filterBuffer.append("\">remove</a>)");
             }
         }
@@ -156,8 +167,12 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 } else if ("charter".equals(sts[i])) {
                     qs = qString.replaceAll("\\&st=charter", "");
                 }
-                filterBuffer.append(" (<a href=\"/search/search.page?");
-                filterBuffer.append(qs);
+
+                StringBuffer urlBuffer = new StringBuffer("/search/search.page?");
+                urlBuffer.append(qs);
+                filterBuffer.append(" (<a href=\"");
+                filterBuffer.append(uu.buildUrl(urlBuffer.toString(), request));
+
                 filterBuffer.append("\">remove</a>)");
             }
         }
@@ -208,12 +223,14 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
                     out.println("<td>");
 
-                    out.print("<a href=\"/modperl/browse_school/");
-                    out.print(school.getDatabaseState().getAbbreviation());
-                    out.print("/");
-                    out.print(school.getId().toString());
-                    out.println("\">");
+                    StringBuffer urlBuffer = new StringBuffer("/modperl/browse_school/");
+                    urlBuffer.append(school.getDatabaseState().getAbbreviation());
+                    urlBuffer.append("/");
+                    urlBuffer.append(school.getId().toString());
 
+                    out.print("<a href=\"");
+                    out.print(uu.buildUrl(urlBuffer.toString(), request));
+                    out.println("\">");
                     out.print(TextHighlighter.highlight(school.getName(), getQueryString(), "name"));
                     out.println("</a><br/>");
                     out.print(school.getPhysicalAddress().toString());

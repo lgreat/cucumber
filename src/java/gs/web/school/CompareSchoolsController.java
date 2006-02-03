@@ -20,15 +20,12 @@ import javax.servlet.http.HttpServletResponse;
 public class CompareSchoolsController extends AbstractController {
 
     public static final String BEAN_ID = "/compareSchools.page";
-    //private static final Logger _log = Logger.getLogger(CompareSchoolsController.class);
-
 
     public ModelAndView handleRequestInternal(HttpServletRequest request,
                                               HttpServletResponse response)
             throws Exception {
 
         ISessionFacade sc = SessionFacade.getInstance(request);
-
         StringBuffer urlBuffer = new StringBuffer(50);
         if (sc != null) {
             urlBuffer.append("http://");
@@ -43,6 +40,7 @@ public class CompareSchoolsController extends AbstractController {
         String idDelimiter = ",";
 
         String p1 = request.getParameter("compare.x");
+
         if (p1 != null) {
             urlBuffer.append("/modperl/msl_compare/");
         } else {
@@ -51,9 +49,9 @@ public class CompareSchoolsController extends AbstractController {
             idDelimiter = "&add_ids=";
         }
 
-        ISessionFacade sessionContext = SessionFacade.getInstance(request);
-        if (sessionContext != null) {
-            State currentState = sessionContext.getStateOrDefault();
+        if (sc != null) {
+
+            State currentState = sc.getStateOrDefault();
             urlBuffer.append(currentState.getAbbreviationLowerCase());
         } else {
             urlBuffer.append("ca");
