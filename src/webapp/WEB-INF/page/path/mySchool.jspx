@@ -73,7 +73,7 @@
                                         Compare schools</gsml:a>
                                     <gsml:a styleClass="nowrap"
                                             href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">
-                                        Advanced search</gsml:a>
+                                        Search near address</gsml:a>
                                 </div>
                             </div>
                         </td><td valign="top">
