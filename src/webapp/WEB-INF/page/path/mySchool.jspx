@@ -66,14 +66,14 @@
 
                                 <div class="browselinks">
                                     <gsml:a styleClass="nowrap"
-                                            href="/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}">
-                                        My School List</gsml:a>
+                                            href="/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}"
+                                            >My School List</gsml:a>
                                     <gsml:a styleClass="nowrap"
-                                            href="/cgi-bin/cs_where/${requestScope.context.stateOrDefault.abbreviation}">
-                                        Compare schools</gsml:a>
+                                            href="/cgi-bin/cs_where/${requestScope.context.stateOrDefault.abbreviation}"
+                                            >Compare schools</gsml:a>
                                     <gsml:a styleClass="nowrap"
-                                            href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address">
-                                        Search near address</gsml:a>
+                                            href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address"
+                                            >Search near address</gsml:a>
                                 </div>
                             </div>
                         </td><td valign="top">
