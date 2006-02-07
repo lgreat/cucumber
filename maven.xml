@@ -38,7 +38,7 @@
 
     <goal name="cruisecontrol">
         <attainGoal name="clean"/>
-        <attainGoal name="site"/>
+        <attainGoal name="test"/>
         <!-- avoid running tests again -->
         <j:if test="${maven.test.failure}">
             <fail message="There were test failures."/>
@@ -51,7 +51,6 @@
     <!-- This report is run nightly by conint to generate web documentation -->
     <goal name="webdocs">
         <attainGoal name="clean"/>
-        <attainGoal name="javadoc"/>
         <attainGoal name="site"/>
     </goal>
 </project>
