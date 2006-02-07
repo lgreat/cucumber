@@ -47,5 +47,12 @@
         <attainGoal name="war"/>
         <j:set var="maven.test.skip" value="false"/>
     </goal>
+
+    <!-- This report is run nightly by conint to generate web documentation -->
+    <goal name="webdocs">
+        <attainGoal name="clean"/>
+        <attainGoal name="javadoc"/>
+        <attainGoal name="site"/>
+    </goal>
 </project>
 

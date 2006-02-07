@@ -23,10 +23,6 @@
     <!-- a short but descriptive name for the project -->
     <name>GS Web Project</name>
 
-    <!-- The version of the project under development, e.g.
-         1.1, 1.2, 2.0-SNAPSHOT -->
-    <currentVersion>4.3</currentVersion>
-
     <!-- details about the organization that 'owns' the project -->
     <organization>
         <name>GreatSchools.net</name>
@@ -58,7 +54,7 @@
         <dependency>
             <groupId>gs</groupId>
             <artifactId>gs-data</artifactId>
-            <version>4.2</version>
+            <version>${pom.currentVersion}</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
