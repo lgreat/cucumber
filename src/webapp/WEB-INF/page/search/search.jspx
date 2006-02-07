@@ -141,6 +141,7 @@
                                    total="${results.total}"
                                    page="${param.p}"/>
                 <mod:tracking pageName="schools"
+                              pageType="search"
                               hier1="search,schools,${(empty param.city) ? 'district' : 'city'}"
                               schoolType="${gsweb:toDelimitedString(paramValues.st)}"
                               schoolLevel="${gsweb:toUglyDelimitedString(paramValues.gl)}"/>
@@ -185,6 +186,7 @@
             </div>
             <hr/>
             <mod:tracking pageName="mixed:${empty param.p ? '1' : param.p}"
+                          pageType="search"
                           constraint="${param.c}"
                           hier1="search,mixed,${param.c}"/>
             <jsp:include
