@@ -35,27 +35,55 @@
                 <div class="about">
                     <div class="page">
 
-                        <h3>How to Donate to GreatSchools</h3>
+                        <h3>Support GreatSchools with Your Contribution</h3>
 
-                        <h4>By Credit Card</h4>
 
+                        <p>A small contribution can go a long way! We appreciate your support of GreatSchools and our
+                            efforts to improve K-12 schools.</p>
+
+                        <p>If you find the information and tools on GreatSchools.net valuable, please help us bring that
+                            value to other parents. Choose the donor level that's right for you:</p>
+                        <table>
+                            <tr>
+                                <td style="padding-right: 10px;"><h5>$25</h5></td><td><h5>School Ambassador</h5></td>
+                            </tr>
+                            <tr><td></td><td>Sponsor updates for your child's school profile so all parents can access
+                                the data free of charge.</td></tr>
+
+                            <tr>
+                                <td style="padding-right: 10px;"><h5>$50</h5></td><td><h5>Parent Advisor</h5></td></tr>
+                            <tr><td></td><td>Support our efforts in writing newsletters and posting parent reviews and
+                                ratings.</td></tr>
+
+
+                            <tr><td style="padding-right: 10px;"><h5>$100</h5></td><td><h5>School Improver</h5></td>
+                            </tr>
+                            <tr><td></td><td>Help us produce workshop materials for our community-outreach efforts.</td>
+                            </tr>
+
+                            <tr><td style="padding-right: 10px;"><h5>$$$$</h5></td><td><h5>GreatSchools Champion</h5>
+                            </td></tr>
+                            <tr><td></td><td>Choose any contribution amount and we'll earmark it for upcoming projects
+                                and programs.</td></tr>
+
+                        </table>
                         <p></p>
+
+                        <p>Your contribution is tax-deductible and all transactions are completely secure. </p>
 
                         <p>
-                            <a href="https://secure.entango.com/donate/rpdfMtPPh2g">Click here to donate by credit
-                                card</a>
+                            <a href="https://secure.entango.com/donate/rpdfMtPPh2g">DONATE WITH CREDIT CARD</a>
                         </p>
 
-                        <h4>By Check or Money Order</h4>
 
-                        <p></p>
+                        <p>Or make your check payable to GreatSchools and mail it to:</p>
 
-                        <p>Make your check payable to GreatSchools and send it to:</p>
-
-                        <p>Development Office<br/>
-                            GreatSchools.net<br/>
+                        <p>GreatSchools Development Center<br/>
                             301 Howard Street, Suite 1440<br/>
                             San Francisco, CA 94105</p>
+
+                        <p>We appreciate your support of our mission: to improve K-12 schools by inspiring parents to
+                            get involved.</p>
 
 
                     </div>

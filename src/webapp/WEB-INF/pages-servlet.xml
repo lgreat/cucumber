@@ -170,11 +170,11 @@
         </property>
     </bean>
 
-     <bean name="/about/donate.page"
+     <bean name="/about/supportUs.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName">
         <property name="viewName">
-            <value>about/donate</value>
+            <value>about/supportUs</value>
         </property>
     </bean>
 

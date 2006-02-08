@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gsweb="gstaglib"
+        >
+    <jsp:directive.page import="gs.web.SessionContextUtil"/>
+    <jsp:directive.page import="gs.web.util.PageHelper"/>
+    <html lang="en">
+
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+    <jsp:scriptlet>
+        SessionContextUtil u = new SessionContextUtil();
+        u.setPathway(request, response, "5");
+        PageHelper.hideFooterAd(request);
+    </jsp:scriptlet>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <title>Donate to GreatSchools.net</title>
+    </head>
+
+    <gsml:body adPageName="donate">
+
+        <mod:tracking pageType="donate" pageName="donate"/>
+
+        <div class="gs">
+            <center>
+                <div class="about">
+                    <div class="page">
+
+                        <h3>Support Our Efforts</h3>
+
+                        <p>GreatSchools is an independent nonprofit organization that has been improving K-12 education
+                            since 1998 by inspiring parents like you to get involved.</p>
+
+                        <p>We give you several ways to make a difference - for your child, your school and your
+                            community. Find the best fit for you!</p>
+
+                        <p style="margin-bottom:0;"><gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
+                            Submit a parent
+                            review</gsml:a></p>
+
+                        <p>Test scores and teacher credentials only tell part of the story. Parents rely on reviews from
+                            other parents to give them the inside scoop - from school culture and after-school programs
+                            to principal leadership and building conditions. Help parents make smart school choices for
+                            their children.</p>
+
+                        <p style="margin-bottom:0;"><gsml:a href="/cgi-bin/newsletters/$STATE/">Sign up for our
+                            newsletters</gsml:a></p>
+
+                        <p>Stay on top of the latest teaching trends in the classroom, receive tips and advice from
+                            experts, get regular performance updates about your child's school, and more.</p>
+
+                        <p style="margin-bottom:0;"><gsml:a href="/cgi-bin/static/network.inc/$STATE">Join the
+                            GreatSchools Network</gsml:a></p>
+
+                        <p>We are conducting pilot programs in two cities to organize and support parents advocating for
+                            education excellence in their communities. Learn more about the programs and how you can get
+                            involved.</p>
+
+                        <p style="margin-bottom:0;"><gsml:a href="/cgi-bin/static/donation_bridge.html/$STATE">Make a
+                            donation</gsml:a></p>
+
+                        <p>GreatSchools is made possible through a unique combination of foundation support, corporate
+                            sponsorships and donations from people like you. Your contribution is tax-deductible and all
+                            transactions are completely secure.</p>
+
+
+                    </div>
+                </div></center>
+        </div>
+    </gsml:body>
+    </html>
+</jsp:root>
+

@@ -66,7 +66,7 @@
 
                         <gsml:a href="/about/aboutUs.page?state=${state}">About Us</gsml:a> &#124;
 
-                        <gsml:a href="/about/donate.page?state=${state}">Donate</gsml:a> &#124;
+                        <gsml:a href="/about/supportUs.page?state=${state}">Support Us</gsml:a> &#124;
 
                         <gsml:a href="/cgi-bin/newsletters/${state}">Free Newsletters</gsml:a> &#124;
 
