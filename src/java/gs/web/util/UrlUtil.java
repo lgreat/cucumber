@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.17 2006/01/26 21:05:27 apeterson Exp $
+ * $Id: UrlUtil.java,v 1.18 2006/02/08 23:35:03 thuss Exp $
  */
 
 package gs.web.util;
@@ -246,7 +246,8 @@ public final class UrlUtil {
 
         boolean secureDest = false;
         if ("https".equals(request.getScheme()) &&
-                (ref.indexOf("subscribe.page") > -1 || ref.indexOf("thankyou.page") > -1)) {
+                (ref.indexOf("subscribe.page") > -1 || ref.indexOf("thankyou.page") > -1
+                || ref.endsWith(".css") || ref.endsWith(".js"))) {
             secureDest = true;
         }
 
