@@ -32,10 +32,21 @@
 
         <div class="gs">
             <center>
-                <div class="about">
+                <div class="about" style="width:80em;">
                     <div class="page">
+                       <table>
+                           <tr><td style="vertical-align:top; width:10em;"></td>
+                               <td style="vertical-align:top; width:50em;">
+                                   <h3>Support GreatSchools with Your Contribution</h3></td></tr>
+                            <tr>
+                            <td style="vertical-align:top; width:10em;">
+                            <gsml:img src="/res/img/about/donatepic01_wide.jpg" alt=""/>
+                            <gsml:img src="/res/img/about/donatepic04_wide.jpg" alt=""/>
+                            <gsml:img src="/res/img/about/donatepic03_wide.jpg" alt=""/>
+                            </td>
 
-                        <h3>Support GreatSchools with Your Contribution</h3>
+                            <td style="vertical-align:top; width:50em;">
+
 
 
                         <p>A small contribution can go a long way! We appreciate your support of GreatSchools and our
@@ -83,7 +94,7 @@
                             San Francisco, CA 94105</p>
 
                         <p>We appreciate your support of our mission: to improve K-12 schools by inspiring parents to
-                            get involved.</p>
+                            get involved.</p>  </td></tr></table>
 
 
                     </div>
