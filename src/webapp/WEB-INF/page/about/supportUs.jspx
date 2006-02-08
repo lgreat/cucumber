@@ -46,7 +46,8 @@
                         <p>We give you several ways to make a difference - for your child, your school and your
                             community. Find the best fit for you!</p>
                         <table>
-                            <tr><td><gsml:img src="/res/img/donatepic01_50.jpg" alt=""/></td>
+                            <tr><td>
+                                   <gsml:img src="/res/img/donatepic01_50.jpg" alt=""/></td>
                             <td style="vertical-align:top;"><gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
                             Submit a parent
                             review</gsml:a><p>Test scores and teacher credentials only tell part of the story. Parents rely on reviews from
@@ -73,11 +74,6 @@
 
 
                             </table>
-
-
-
-
-
 
 
                     </div>
