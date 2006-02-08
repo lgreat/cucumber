@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.16 2006/01/25 18:14:56 apeterson Exp $
+ * $Id: UrlUtilSaTest.java,v 1.17 2006/02/08 23:35:03 thuss Exp $
  */
 
 package gs.web.util;
@@ -78,6 +78,7 @@ public class UrlUtilSaTest extends TestCase {
         // But Perl pages should stay unmodified by the context path
         assertEquals("/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/$STATE", request));
         assertEquals(ctxPath +"/res/css/global.css", _urlUtil.buildUrl("/res/css/global.css", request));
+        assertEquals(ctxPath +"/res/js/s_code.js", _urlUtil.buildUrl("/res/js/s_code.js", request));
         assertEquals("/gs-web/content/allArticles.page?state=CA", _urlUtil.buildUrl("/content/allArticles.page?state=$STATE", request));
         //assertEquals("/gs-web/content/guideToTests.page?state=CA", _urlUtil.buildUrl("vpage:seasonal", request));
         request.setContextPath("/");
@@ -91,6 +92,7 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("/subscribe.page", _urlUtil.buildUrl("/subscribe.page", request));
         assertEquals("http://www.greatschools.net/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/CA", request));
         assertEquals("http://www.greatschools.net/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/$STATE", request));
+        assertEquals("/res/js/s_code.js", _urlUtil.buildUrl("/res/js/s_code.js", request));
 
         // Test secure URL but coming from a cobrand
         request.setParameter("host", "sfgate.greatschools.net");
