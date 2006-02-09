@@ -4,10 +4,13 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
 import gs.data.school.School;
+import gs.web.util.UrlUtil;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -16,6 +19,12 @@ public class MainResultsTag extends ResultsTableTagHandler {
 
     private List _results;
     private String _constraint = null;
+    private UrlUtil _urlUtil;
+
+    public MainResultsTag() {
+        super();
+        _urlUtil = new UrlUtil();
+    }
 
     public void setResults(List results) {
         _results = results;
@@ -32,6 +41,11 @@ public class MainResultsTag extends ResultsTableTagHandler {
     public void doTag() throws IOException {
 
         JspWriter out = getJspContext().getOut();
+        PageContext pc = (PageContext) getJspContext().findAttribute(PageContext.PAGECONTEXT);
+        HttpServletRequest request = null;
+        if (pc != null) {
+            request = (HttpServletRequest) pc.getRequest();
+        }
 
         out.print("<table width=\"100%\">");
         out.println("<tr>");
@@ -45,35 +59,44 @@ public class MainResultsTag extends ResultsTableTagHandler {
                 out.print("<td class=\"headline\" colspan=\"3\">");
                 switch (result.getType()) {
                     case SearchResult.SCHOOL:
-                        out.print("<a href=\"http://");
-                        out.print(getHostname());
-                        out.print("/modperl/browse_school/");
-                        out.print(result.getState());
-                        out.print("/");
-                        out.print(result.getId());
+                        StringBuffer urlBuffer =
+                                new StringBuffer("/modperl/browse_school/");
+                        urlBuffer.append(result.getState());
+                        urlBuffer.append("/");
+                        urlBuffer.append(result.getId());
+
+                        out.print("<a href=\"");
+                        out.print(_urlUtil.buildUrl(urlBuffer.toString(), request));
                         out.println("\">");
+
                         break;
                     case SearchResult.ARTICLE:
-                        out.print("<a href=\"http://");
-                        out.print(getHostname());
-                        out.print("/cgi-bin/show");
+
+                        StringBuffer articleHrefBuffer =
+                                new StringBuffer("/cgi-bin/show");
                         if (result.isInsider()) {
-                            out.print("part");
+                            articleHrefBuffer.append("part");
                         }
-                        out.print("article/");
-                        out.print(getSessionContext().getState().getAbbreviation());
-                        out.print("/");
-                        out.print(result.getId());
+                        articleHrefBuffer.append("article/");
+                        articleHrefBuffer.append(getSessionContext().getState().getAbbreviation());
+                        articleHrefBuffer.append("/");
+                        articleHrefBuffer.append(result.getId());
+
+                        out.print("<a href=\"");
+                        out.print(_urlUtil.buildUrl(articleHrefBuffer.toString(), request));
                         out.print("\">");
+
                         break;
                     case SearchResult.TERM:
-                        out.print("<a href=\"http://");
-                        out.print(getHostname());
-                        out.print("/cgi-bin/glossary_single/");
-                        out.print(getStateOrDefault().getAbbreviationLowerCase());
-                        out.print("/?id=");
-                        out.print(result.getId());
+                        StringBuffer termBuffer = new StringBuffer("/cgi-bin/glossary_single/");
+                        termBuffer.append(getStateOrDefault().getAbbreviationLowerCase());
+                        termBuffer.append("/?id=");
+                        termBuffer.append(result.getId());
+
+                        out.print("<a href=\"");
+                        out.print(_urlUtil.buildUrl(termBuffer.toString(), request));
                         out.print("\">");
+
                         break;
                     default:
                 }
