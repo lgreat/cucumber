@@ -57,25 +57,26 @@
 
 
                             <gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
-                            Submit a parent
-                            review</gsml:a><p>Test scores and teacher credentials only tell part of the story. Parents rely on reviews from
+                            <b>Submit a Parent Review</b></gsml:a>
+                            <p>Test scores and teacher credentials tell only part of the story. Parents rely on reviews from
                             other parents to give them the inside scoop - from school culture and after-school programs
-                            to principal leadership and building conditions. Help parents make smart school choices for
+                            to principal leadership and parent involvement. Help parents make smart school choices for
                             their children.</p>
 
 
-                            <gsml:a href="/cgi-bin/newsletters/$STATE/">Sign up for our
-                            newsletters</gsml:a>
+                            <gsml:a href="/cgi-bin/newsletters/$STATE/">
+                            <b>Sign up for our newsletters</b></gsml:a>
                             <p>Stay on top of the latest teaching trends in the classroom, receive tips and advice from
                             experts, get regular performance updates about your child's school, and more.</p>
 
-                            <gsml:a href="/cgi-bin/static/network.inc/$STATE">Join the
-                            GreatSchools Network</gsml:a><p>We are conducting pilot programs in two cities to organize and support parents advocating for
+                            <gsml:a href="/cgi-bin/static/network.inc/$STATE">
+                            <b>Join the GreatSchools Network</b></gsml:a>
+                            <p>We are conducting pilot programs in two cities to organize and support parents advocating for
                             education excellence in their communities. Learn more about the programs and how you can get
                             involved.</p>
 
-                            <gsml:a href="/about/donationBridge.page?state=$STATE">Make a
-                            donation</gsml:a><p>GreatSchools is made possible through a unique combination of foundation support, corporate
+                            <gsml:a href="/about/donationBridge.page?state=$STATE">
+                            <b>Make a donation</b></gsml:a><p>GreatSchools is made possible through a unique combination of foundation support, corporate
                             sponsorships and donations from people like you. Your contribution is tax-deductible and all
                             transactions are completely secure.</p></td></tr>
 
