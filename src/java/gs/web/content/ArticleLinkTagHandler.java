@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.14 2006/01/26 20:41:53 apeterson Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.15 2006/02/09 18:36:40 apeterson Exp $
  */
 package gs.web.content;
 
@@ -12,7 +12,9 @@ import gs.web.jsp.BaseTagHandler;
 import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspFragment;
 import java.io.IOException;
 
@@ -69,7 +71,7 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
             IArticleDao articleDao = getArticleDao();
             article = articleDao.getArticleFromId(_articleId);
             if (article == null) {
-                _log.error("Cannot find article with id " + _articleId);
+                _log.warn("Cannot find article with id " + _articleId);
             }
         }
 
@@ -87,9 +89,12 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
             b.append("<" + _wrappingElement + ">");
         }
 
+        PageContext pageContext = (PageContext) getJspContext().findAttribute(PageContext.PAGECONTEXT);
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+
         if (_flaggedIfNew && article.isNew()) {
             String img = article.isSpanish() ? "/res/img/content/nuevo.jpg" : "/res/img/content/icon_newarticle.gif";
-            img = _urlUtil.buildHref(img, false, null, null);
+            img = _urlUtil.buildUrl(img, request);
             b.append("<img src=\"" + img + "\" alt=\"new\" class=\"newarticle\">&nbsp;");
         }
 
