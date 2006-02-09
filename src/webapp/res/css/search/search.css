@@ -21,21 +21,12 @@ TODO: name consistently.
 .rightcolumn {
     vertical-align: top;
 }
-/*
-* html #leftsearchcolumn {
-	border-left:150px solid #FFF;
-}
 
-* html #leftsearchcontainer {
-	margin-left:-150px;
-    position:relative;
+td #searchlinks a{
+    font-size:90%;
+    padding-left:7px;
+    padding-right:7px;
 }
-
-/*
-* html #leftsearchcolumn, * html #leftsearchcontainer {
-	height: 1px;
-}
-/**/
 
 th.result_title {padding:0px 20px 0px 0px;border-bottom:1px solid #999;margin-right:10px;font-size:1.1em}
 /** html th.result_title {font-size:80%}*/

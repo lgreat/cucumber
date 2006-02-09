@@ -1,0 +1,29 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+<jsp:directive.page contentType="text/html"/>    
+<html>
+  <head><title>Thank you</title>
+      <style type="text/css">
+          body {
+              text-align: center;
+              padding: 10px 0;
+              margin: 0;
+          }
+          #container {
+              text-align: left;
+              width: 670px;
+              margin: 0 auto;
+              padding-bottom:30px;
+              padding-top:10px;
+              font-size:120%;
+          }
+          </style>
+  </head>
+  <body>
+     <div id="container">
+      <p>Thanks for providing us with feedback to help us improve our site.</p>
+      <br/>
+      <p>We appreciate your assistance in making GreatSchools.net better.</p>
+     </div>
+  </body>
+</html>
+</jsp:root>

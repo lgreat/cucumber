@@ -175,6 +175,9 @@
                                 class="headerquery">${gsweb:highlight(param.q, 'private', 'text')}</span>&quot;
                         </td>
                         <td align="right">
+                            <gsml:a href="/search/feedback.page?q=${param.q}"><img src="/res/img/search/search_feedback.gif" alt="search feedback"/></gsml:a>
+                        </td>
+                        <td align="right">
                             <c:if test="${results.total gt 0}">
                                 <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
                                 <c:set var="px" value="${(page * 10)}"/>
@@ -221,6 +224,7 @@
                                 <td align="${(noresults == 'true') ? 'left' : 'center'}">
                                     <search:searchControl rememberQuery="true"
                                                           showStates="${noresults}"
+                                                          showLinks="true"
                                                           fieldLength="${requestScope.context.cobranded ? 20 : 38}"/>
                                 </td>
                             </tr>

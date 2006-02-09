@@ -24,11 +24,11 @@ public class LoginValidator implements Validator {
                     "Value required.");
         } else {
             _log.info("Validating user credentials for: " + identity.getUsername());
-            if (identity.getUsername().equals("admin") == false) {
+            if (identity.getUsername().equals("gsadmin") == false) {
                 _log.info("incorrect username:" + identity.getUsername());
                 errors.rejectValue("username", "error_invalid_username", null, "Incorrect Username.");
             } else {
-                if (identity.getPassword().equals("gsadmin") == false) {
+                if (identity.getPassword().equals("!nd8x") == false) {
                     _log.info("incorrect password:" + identity.getPassword());
                     errors.rejectValue("password", "error_invalid_password", null, "Incorrect Password.");
                 }

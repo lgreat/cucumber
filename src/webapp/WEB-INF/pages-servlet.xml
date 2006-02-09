@@ -62,6 +62,29 @@
 
     <bean id="subscribeValidator" class="gs.web.community.SubscribeValidator"></bean>
 
+    <bean name="/search/feedback.page"
+          class="gs.web.search.FeedbackController">
+        <property name="formView">
+            <value>search/feedback</value>
+        </property>
+        <property name="commandName">
+             <value>feedbackCommand</value>
+        </property>
+        <property name="commandClass">
+            <value>gs.web.search.FeedbackCommand</value>
+        </property>
+        <property name="successView">
+            <value>/search/feedbackSubmit.page</value>
+        </property>
+    </bean>
+
+    <bean name="/search/feedbackSubmit.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>search/feedbackSubmit</value>
+        </property>
+    </bean>
+
     <bean name="/thankyou.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">

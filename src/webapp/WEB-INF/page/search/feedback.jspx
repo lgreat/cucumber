@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+    <jsp:directive.page contentType="text/html"/>
+    <!--<jsp:directive.attribute name="term" required="true"/>-->
+
+    <html>
+    <jsp:directive.page contentType="text/html"/>
+    <head>
+        <title>Search Feedback</title>
+        <style type="text/css">
+            body {
+                text-align: center;
+                padding: 10px 0;
+                margin: 0;
+            }
+            #container {
+                text-align: left;
+                width: 670px;
+                margin: 0 auto;
+                padding-bottom:30px;
+                padding-top:10px;
+            }
+            #header {
+                padding-bottom:10px;
+                font-size:large;
+                font-weight:bold;
+            }
+            #textboxes {
+                padding-top:20px;
+            }
+            .question {
+                padding-bottom:10px;
+            }
+            #term {
+                font-weight:bold;
+            }
+            #maywetext {
+                padding-bottom:5px;
+            }
+        </style>
+    </head>
+
+    <body>
+
+    <div id="container">
+        <div id="header">Didn't find what you need?</div>
+        <p>Thanks for helping us improve our search.  While we aren't able to
+            respond directly to comments submitted with this form, the information
+            will be carefully review by our team.</p>
+        <br />
+        <p><span>You searched for&#32;&#32;&#32;</span>
+        <span id="term">
+            <c:out value="${param.q}"/>
+        </span>.</p>
+
+        <gsml:url var="searchfeedback" value="/search/feedback.page"/>
+        <gsml:form action="${searchfeedback}" method="post">
+            <div id="textboxes">
+                <div class="question">
+                    <p>Please describe the specific information you were seeking.</p>
+                    <textarea name="description" cols="55" rows="6">&#160;</textarea>
+                </div>
+
+                <div class="question">
+                    <p>Tell us what you expected the results to be.</p>
+                    <textarea name="expected" cols="55" rows="6">&#160;</textarea>
+                </div>
+
+                <div class="question">
+                    <p>And finally, tell us why you were dissatisfied with the
+                        search results you got.</p>
+                    <textarea name="comment" cols="55" rows="6">&#160;</textarea>
+                </div>
+            </div>
+
+            <div id="maywetext">
+                <p>You've been so helpful already to give us search feedback!&#32;&#32;If we
+                   have more questions after we read it, may we contact you?</p>
+             </div>
+             <div id="mayweemail">
+                <span>Email(optional):&#32;&#32;</span><input name="email" type="text" size="40"/>
+            </div>
+            <br/>
+            <input type="submit" value="Submit"/>
+        </gsml:form>
+        <br/>
+            <p/>Here's where to go for answers from customer support:
+             <gsml:a href="/cgi-bin/feedback/$STATE">GS customer support</gsml:a>
+            <br/>
+    </div>
+    </body>
+    </html>
+</jsp:root>

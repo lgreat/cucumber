@@ -8,6 +8,7 @@
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="rememberQuery" required="false"/>
     <jsp:directive.attribute name="showStates" required="false"/>
+    <jsp:directive.attribute name="showLinks" required="false"/>
     <jsp:directive.attribute name="fieldLength" required="false"/>
     <jsp:directive.attribute name="showLabel"
                              required="false"
@@ -62,6 +63,15 @@
                        value="go"/>
             </td>
         </tr>
+        <c:if test="${showLinks == 'true'}">
+           <tr>
+            <td id="searchlinks" colspan="3" align="center">
+                <gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">Search near address</gsml:a>|
+                <gsml:a href="/cgi-bin/static/searchtips.html/$STATE/">Search tips</gsml:a>|
+                <gsml:a href="/search/feedback.page?q=${param.q}">Didn't find what you need?</gsml:a>
+            </td>
+        </tr>
+        </c:if>
         </table>
         <c:if test="${showStates != 'true'}">
             <input type="hidden" name="state"
