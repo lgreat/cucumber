@@ -56,26 +56,36 @@
                             value to other parents. Choose the donor level that's right for you:</p>
                         <table>
                             <tr>
-                                <td style="padding-right: 10px;"><h5>$25</h5></td><td><h5>School Ambassador</h5></td>
-                            </tr>
-                            <tr><td></td><td>Sponsor updates for your child's school profile so all parents can access
-                                the data free of charge.</td></tr>
+                                <td style="padding-right: 10px;vertical-align:top;"><h5>$25</h5></td>
+                                <td style="vertical-align:top;padding-bottom:15px;">
+                                <h5>School Ambassador</h5>
+                                Sponsor updates for your child's school profile so all parents can access
+                                the data free of charge.</td>
+
+                             </tr>
 
                             <tr>
-                                <td style="padding-right: 10px;"><h5>$50</h5></td><td><h5>Parent Advisor</h5></td></tr>
-                            <tr><td></td><td>Support our efforts in writing newsletters and posting parent reviews and
-                                ratings.</td></tr>
+                                <td style="padding-right: 10px; vertical-align:top;"><h5>$50</h5></td>
+                                <td style="vertical-align:top;padding-bottom:15px;"><h5>Parent Advisor</h5>
+                                 Support our efforts in writing newsletters and posting parent reviews and
+                                ratings.</td>
 
+                             </tr>
 
-                            <tr><td style="padding-right: 10px;"><h5>$100</h5></td><td><h5>School Improver</h5></td>
-                            </tr>
-                            <tr><td></td><td>Help us produce workshop materials for our community-outreach efforts.</td>
-                            </tr>
+                             <tr>
+                                <td style="padding-right: 10px; vertical-align:top;"><h5>$100</h5></td>
+                                <td style="vertical-align:top;padding-bottom:15px;"><h5>School Improver</h5>
+                                 Help us produce workshop materials for our community-outreach efforts.</td>
 
-                            <tr><td style="padding-right: 10px;"><h5>$$$$</h5></td><td><h5>GreatSchools Champion</h5>
-                            </td></tr>
-                            <tr><td></td><td>Choose any contribution amount and we'll earmark it for upcoming projects
-                                and programs.</td></tr>
+                             </tr>
+
+                            <tr>
+                                <td style="padding-right: 10px; vertical-align:top;"><h5>$$$$</h5></td>
+                                <td style="vertical-align:top;padding-bottom:15px;"><h5>GreatSchools Champion</h5>
+                                 Choose any contribution amount and we'll earmark it for upcoming projects
+                                and programs.</td>
+
+                             </tr>
 
                         </table>
                         <p></p>
