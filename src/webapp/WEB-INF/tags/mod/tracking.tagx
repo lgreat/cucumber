@@ -61,6 +61,33 @@
     </script>
     <![CDATA[
 <script language="JavaScript"><!--
+
+/* Plugin Config */
+s.usePlugins=true
+function s_doPlugins(s) {
+/* Add calls to plugins here */
+s.eVar3=s.getQueryParam('cpn');
+}
+s.doPlugins=s_doPlugins
+/************************** PLUGINS SECTION *************************/
+/* You may insert any plugins you wish to use here.                 */
+
+/*
+ * Plugin: getQueryParam 1.3 - Return query string parameter values
+ */
+s.getQueryParam=new Function("qp","d",""
++"var s=this,v='',i,t;d=d?d:'';while(qp){i=qp.indexOf(',');i=i<0?qp.l"
++"ength:i;t=s.gcgi(qp.substring(0,i));if(t)v+=v?d+t:t;qp=qp.substring"
++"(i==qp.length?i:i+1)}return v");
+s.gcgi=new Function("k",""
++"var v='',s=this;if(k&&s.wd.location.search){var q=s.wd.location.sea"
++"rch.toLowerCase(),qq=q.indexOf('?');q=qq<0?q:q.substring(qq+1);v=s."
++"pt(q,'&','cgif',k.toLowerCase())}return v");
+s.cgif=new Function("t","k",""
++"if(t){var s=this,i=t.indexOf('='),sk=i<0?t:t.substring(0,i),sv=i<0?"
++"'True':t.substring(i+1);if(sk.toLowerCase()==k)return s.epa(sv)}ret"
++"urn ''");
+
 /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
 var s_code=s.t();if(s_code)document.write(s_code)//--></script>
 <script language="JavaScript"><!--
