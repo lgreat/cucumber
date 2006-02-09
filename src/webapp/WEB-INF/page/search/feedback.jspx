@@ -58,6 +58,7 @@
 
         <gsml:url var="searchfeedback" value="/search/feedback.page"/>
         <gsml:form action="${searchfeedback}" method="post">
+            <input type="hidden" name="query" value="${param.q}"/>
             <div id="textboxes">
                 <div class="question">
                     <p>Please describe the specific information you were seeking.</p>
