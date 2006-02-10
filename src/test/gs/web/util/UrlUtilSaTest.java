@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.17 2006/02/08 23:35:03 thuss Exp $
+ * $Id: UrlUtilSaTest.java,v 1.18 2006/02/10 20:06:04 apeterson Exp $
  */
 
 package gs.web.util;
@@ -80,7 +80,7 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals(ctxPath +"/res/css/global.css", _urlUtil.buildUrl("/res/css/global.css", request));
         assertEquals(ctxPath +"/res/js/s_code.js", _urlUtil.buildUrl("/res/js/s_code.js", request));
         assertEquals("/gs-web/content/allArticles.page?state=CA", _urlUtil.buildUrl("/content/allArticles.page?state=$STATE", request));
-        //assertEquals("/gs-web/content/guideToTests.page?state=CA", _urlUtil.buildUrl("vpage:seasonal", request));
+        assertEquals("/gs-web/content/guideToTests.page?state=CA", _urlUtil.buildUrl("vpage:content.seasonal", request));
         request.setContextPath("/");
 
         // Test https server links
@@ -206,13 +206,13 @@ public class UrlUtilSaTest extends TestCase {
     }
 
     public void testBuildHref() {
-        assertEquals("/search/search.page", _urlUtil.buildHref("/search/search.page", false, "http://localhost:8080/search/search.page", null));
-        assertEquals("http://dev.greatschools.net/modperl/bycity/CA", _urlUtil.buildHref("/modperl/bycity/CA", false, "http://localhost:8080/search/search.page", null));
-        assertEquals("/modperl/bycity/CA", _urlUtil.buildHref("/modperl/bycity/CA", false, "http://staging.greatschools.net/search/search.page", null));
-        assertEquals("/modperl/bycity/CA", _urlUtil.buildHref("/modperl/bycity/CA", false, "http://www.greatschools.net/search/search.page", null));
-        assertEquals("http://www.greatschools.net/modperl/bycity/CA", _urlUtil.buildHref("/modperl/bycity/CA", false, "https://www.greatschools.net/search/search.page", null));
-        assertEquals("/modperl/bycity/CA", _urlUtil.buildHref("/modperl/bycity/CA", false, null, null));
-        assertEquals("/something.page", _urlUtil.buildHref("/something.page", false, null, null));
+        assertEquals("/search/search.page", _urlUtil.buildHref(null, "/search/search.page", false, "http://localhost:8080/search/search.page"));
+        assertEquals("http://dev.greatschools.net/modperl/bycity/CA", _urlUtil.buildHref(null, "/modperl/bycity/CA", false, "http://localhost:8080/search/search.page"));
+        assertEquals("/modperl/bycity/CA", _urlUtil.buildHref(null, "/modperl/bycity/CA", false, "http://staging.greatschools.net/search/search.page"));
+        assertEquals("/modperl/bycity/CA", _urlUtil.buildHref(null, "/modperl/bycity/CA", false, "http://www.greatschools.net/search/search.page"));
+        assertEquals("http://www.greatschools.net/modperl/bycity/CA", _urlUtil.buildHref(null, "/modperl/bycity/CA", false, "https://www.greatschools.net/search/search.page"));
+        assertEquals("/modperl/bycity/CA", _urlUtil.buildHref(null, "/modperl/bycity/CA", false, null));
+        assertEquals("/something.page", _urlUtil.buildHref(null, "/something.page", false, null));
     }
 
 

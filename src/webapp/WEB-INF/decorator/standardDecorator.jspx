@@ -44,6 +44,7 @@
 
 <body onload="${onloadPopunder} ${requestScope.pageHelper.onload}">
 <cobrand:framebuster/>
+<div id="marginGS">
 <div id="pageGS" class="${pageClass}">
 <jsp:include page="/header/cobrand.module"/>
 <div id="bodyGS" class="bodyGS">
@@ -52,7 +53,9 @@
        <mod:topNav />
     </c:if>
 
+        <div id="contentGS">
         <decorator:body/>
+        </div>
 
         <c:if test="${requestScope.pageHelper.showingFooter}">
             <div id="footer">
@@ -89,6 +92,7 @@
             </div>
         </c:if>
     </div>
+</div>
 </div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.19 2006/02/08 23:37:20 thuss Exp $
+ * $Id: UrlUtil.java,v 1.20 2006/02/10 20:05:43 apeterson Exp $
  */
 
 package gs.web.util;
@@ -93,94 +93,59 @@ public final class UrlUtil {
      * Examines the dest URL and returns a URL that will work from the given
      * src location. It attempts to deliver the smallest possible URL
      * that will work.
+     * This is a low-level function, and you may want to use {@link #buildUrl(String, javax.servlet.http.HttpServletRequest)}
+     * instead.
      *
-     * @param dest         the site-relative link to the destination page or resource
+     * @param destHost     null or cobrand.gs.net when on secure.gs.net
+     * @param destPath     the site-relative link to the destination page or resource
      * @param isDestSecure should the dest page be access via https?
-     * @param src          the current location. Should be a Java page.
-     * @param orighost     null or cobrand.gs.net when on secure.gs.net
+     * @param srcUri       the current location. Should be a Java page.
      * @see javax.servlet.http.HttpServletRequest#getRequestURI()
      */
-    public String buildHref(String dest, boolean isDestSecure, String src, String orighost) {
+    public String buildHref(String destHost, String destPath, boolean isDestSecure, String srcUri) {
 
 
-        if (src == null) {
+        if (srcUri == null) {
             _log.warn("Unable to interpret current page 'null' as URL");
-            return dest; // no logic to do, but not a good case
+            return destPath; // no logic to do, but not a good case
         }
 
-        _log.debug("dest=" + dest + " isDestSecure?" + isDestSecure + " src=" + src);
+        _log.debug("dest=" + destPath + " isDestSecure?" + isDestSecure + " src=" + srcUri);
 
-        boolean destIsPerl = smellsLikePerl(dest);
+        boolean destIsPerl = smellsLikePerl(destPath);
         try {
-            URL sourceUrl = new URL(src);
+            URL sourceUrl = new URL(srcUri);
             if (isDeveloperWorkstation(sourceUrl.getHost())) {
                 if (destIsPerl) {
-                    return "http://dev.greatschools.net" + dest;
+                    return "http://dev.greatschools.net" + destPath;
                 } else {
-                    return dest;
+                    return destPath;
                 }
             } else {
                 if ("https".equals(sourceUrl.getProtocol())) {
                     String host = sourceUrl.getHost();
-                    if (orighost != null) {
-                        host = orighost;
+                    if (destHost != null) {
+                        host = destHost;
                     }
                     if (destIsPerl) {
-                        return "http://" + host + dest;
+                        return "http://" + host + destPath;
                     } else {
                         if (isDestSecure) {
-                            return dest;
+                            return destPath;
                         } else {
-                            return "http://" + host + dest;
+                            return "http://" + host + destPath;
                         }
                     }
                 }
                 // Anywhere but a developer workstation and we should be able to use the relative
                 // link.
-                return dest;
+                return destPath;
             }
 
         } catch (MalformedURLException e) {
             _log.warn("Unable to interpret current page as URL", e);
-            return dest;
+            return destPath;
         }
-    }
-
-
-    /**
-     * Returns true if it looks like the given resource needs to be sought from
-     * the perl site. This is useful in building out URLs during development. Since
-     * a programmers dev site is hosted on a different machine, this is usful to know
-     * if a non-relative URL must be used.
-     */
-    public boolean smellsLikePerl(String partialUrl) {
-        if ((partialUrl.indexOf("res/") == -1 && partialUrl.indexOf(".page") == -1)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Is this code running on a developers workstation?
-     */
-    public boolean isDeveloperWorkstation(String hostName) {
-        return hostName.indexOf("localhost") > -1 ||
-                hostName.indexOf("127.0.0.1") > -1 ||
-                hostName.indexOf("apeterson.office.greatschools.net") > -1;
-    }
-
-    /**
-     * Is this development code, either on the developers workstation
-     * or on one of the development servers?
-     * Is this not the live site? or a very near clone of it?
-     */
-    public boolean isDevEnvironment(String hostName) {
-        return hostName.indexOf("dev.") != -1 ||
-                hostName.indexOf("staging") != -1 ||
-                hostName.indexOf("apeterson.office") != -1 ||
-                hostName.equals("127.0.0.1") ||
-                hostName.equals("localhost");
     }
 
 
@@ -209,6 +174,8 @@ public final class UrlUtil {
         gs.data.util.NetworkUtil networkUtil = new gs.data.util.NetworkUtil();
 
         String href = ref;
+
+        href = vpageToUrl(href); // resolve vpage if necessary
 
         // If the application is deployed under say /gs-web instead of /
         if (href.startsWith("/") && request.getContextPath().length() > 1 &&
@@ -252,8 +219,46 @@ public final class UrlUtil {
             secureDest = true;
         }
 
-        return buildHref(href, secureDest, src, context != null ? context.getHostName() : null);
+        return buildHref(context != null ? context.getHostName() : null, href, secureDest, src);
     }
+
+
+    /**
+     * Returns true if it looks like the given resource needs to be sought from
+     * the perl site. This is useful in building out URLs during development. Since
+     * a programmers dev site is hosted on a different machine, this is usful to know
+     * if a non-relative URL must be used.
+     */
+    public boolean smellsLikePerl(String partialUrl) {
+        if ((partialUrl.indexOf("res/") == -1 && partialUrl.indexOf(".page") == -1)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Is this code running on a developers workstation?
+     */
+    public boolean isDeveloperWorkstation(String hostName) {
+        return hostName.indexOf("localhost") > -1 ||
+                hostName.indexOf("127.0.0.1") > -1 ||
+                hostName.indexOf("apeterson.office.greatschools.net") > -1;
+    }
+
+    /**
+     * Is this development code, either on the developers workstation
+     * or on one of the development servers?
+     * Is this not the live site? or a very near clone of it?
+     */
+    public boolean isDevEnvironment(String hostName) {
+        return hostName.indexOf("dev.") != -1 ||
+                hostName.indexOf("staging") != -1 ||
+                hostName.indexOf("apeterson.office") != -1 ||
+                hostName.equals("127.0.0.1") ||
+                hostName.equals("localhost");
+    }
+
 
     /**
      * Converts a "vpage" to a url that can be used on the site.
@@ -264,7 +269,7 @@ public final class UrlUtil {
      * @param url url or "vpage". A vpage starts with "vpage:"
      * @return a url
      */
-    public String vpageToUrl(String url) {
+    protected String vpageToUrl(String url) {
         if (url.startsWith("vpage:")) {
             String vpage = url.substring(6);
             if (StringUtils.equals("content.seasonal", vpage)) {
@@ -309,7 +314,7 @@ public final class UrlUtil {
                 s.getAbbreviationLowerCase() +
                 "/" +
                 article.getId();
-        link = buildHref(link, false, null, null);
+        link = buildHref(null, link, false, null);
         return link;
     }
 
