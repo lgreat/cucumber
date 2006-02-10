@@ -36,7 +36,8 @@ div#topnav { padding: 14px 9px 0 8px }
 
 #topnav #browse_area {font-family:  arial, verdana, sans-serif; font-size: 11px; color: #666; text-decoration: none; text-align: left; background-color: #DBDBDB;  width: 190px; padding-left: 18px; padding-top: 3px; white-space:nowrap;}
 #topnav #browse_area a {font-size:11px;}
-#topnav #browse_area strong, #topnav #browse_area h1 {display: inline; font-weight: bold}
+#topnav #browse_area strong,
+#topnav #browse_area h1 {display: inline; font-weight: bold; font-size: 11px}
 
 #topnav .leftside { width: 7px;  background-color:#DBDBDB; border-left: 1px solid #EB7A31;}
 #topnav .leftside_corner { background-image:url(../img/header/left_round_corner.gif); width: 5px;  background-repeat: no-repeat; height: 5px; background-color:#DBDBDB; border: 0px;}

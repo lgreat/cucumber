@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.94 2006/02/08 23:58:46 wbeck Exp $
+   $Id: global.css,v 1.95 2006/02/10 23:21:31 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -11,7 +11,8 @@
        ----------------------------------------------- */
     html, body {
         width: 100%;
-        height: 100%
+        height: 100%;
+        font-family: Arial, Helvetica, sans-serif;
     }
 
     body, form {
@@ -20,9 +21,7 @@
     }
 
     /* We use bodyGS so we don't affect the cobrand headers */
-    #bodyGS {
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 76%;
+    .contentGS {
         text-align: left;
     }
 
@@ -40,39 +39,46 @@
         margin: 0;
     }
 
-    a {
+    .contentGS a,
+    .contentGS a:link,
+    .contentGS a:visited,
+    .contentGS a:active {
         text-decoration: none;
         color: #00F;
     }
 
-    a:link {
-        color: #00F;
-    }
-
-    a:visited {
+    .contentGS  a:visited {
         color: #66C;
     }
 
-    a:hover {
+    .contentGS  a:hover {
         text-decoration: underline;
     }
 
-    a:active {
+    .contentGS  a:active {
         color: #66c;
     }
 
-    a.pad {
+    .contentGS a.pad {
         padding: 0px 10px 0px 0px;
         display: inline;
     }
 
-    a.nohover:hover {
+    .contentGS a.nohover:hover {
         text-decoration: none;
     }
 
-    ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, body, html, p, blockquote, fieldset, input, label, address, div {
+    .contentGS ul, .contentGS ol, .contentGS li,
+        .contentGS h1, .contentGS h2, .contentGS h3, .contentGS h4, .contentGS h5, .contentGS h6,
+        .contentGS pre,
+        .contentGS p,
+        .contentGS blockquote,
+        .contentGS fieldset,
+        .contentGS input,
+        .contentGS label,
+        .contentGS address {
         list-style: none;
-        font-size: 1.0em;
+        font-size: small;
         font-style: normal;
         font-weight: normal;
         margin: 0;
@@ -123,9 +129,9 @@
         margin: auto;
     }
 
-    /*
-    Cobrand doesn't quite fit in the width required, so I squish the text for them.
-    */
+        /*
+        Cobrand doesn't quite fit in the width required, so I squish the text for them.
+        */
     .cobranded .globalSearch {
         font-size: 90%;
     }
@@ -133,12 +139,15 @@
     .cobranded .topCities {
         font-size: 85%;
     }
+
     .cobranded .topCities li {
         white-space: normal;
     }
 
     /* patch for yahoo cobrand */
-    .yedsearchbar { font-size: 80%;}
+    .yedsearchbar {
+        font-size: 80%;
+    }
 
         /*   Header/Footer
        ----------------------------------------------- */
@@ -154,7 +163,7 @@
 
     }
 
-
+    .changeState { font-size: x-small; }
 
         /*  Structure
        ----------------------------------------------- */
@@ -193,8 +202,9 @@
         cursor: hand;
         width: 100%;
         color: #036;
-        font-size: 1.4em;
+        font-size: small;
         font-weight: bold;
+        white-space: normal;
     }
 
     .globalnav h1 a, .globalnav h1 a:visited {
@@ -206,7 +216,6 @@
         text-decoration: none;
         color: #FFF;
     }
-
 
     .globalnav a:link, .globalnav a:visited {
         display: block;
@@ -221,8 +230,6 @@
         text-decoration: underline;
         color: black;
     }
-
-
 
         /*  Search
        ----------------------------------------------- */
@@ -240,7 +247,7 @@
        ----------------------------------------------- */
     h1.moduleheader, span.moduleheader {
         color: #eb7a31;
-        font-size: 1.5em;
+        font-size: large;
         font-weight: bold;
         white-space: nowrap;
         padding: 0;
@@ -254,7 +261,7 @@
     h1.moduleheader span {
         color: #000;
         font-weight: normal;
-        font-size: 10px;
+        font-size: small;
         padding-left: 10px;
     }
 
@@ -268,7 +275,7 @@
 
     h2.segmentheader {
         color: #900;
-        font-size: 1em;
+        font-size: small; /* 1em; */
         font-weight: bold;
         padding: 0px 0px 3px 0px;
     }
@@ -280,7 +287,7 @@
     }
 
     h3.tagline {
-        font-size: 0.9em;
+        font-size: x-small;
     }
 
     h3.tagline {
@@ -289,16 +296,10 @@
         padding: 0px 0px 5px 0px;
     }
 
-    .changeState {
-        padding-left: .6em;
-        font-weight: normal;
-        font-size: 0.75em;
-    }
-
         /*  Lists
        ----------------------------------------------- */
     .result_title {
-        font-size: 1.1em;
+        font-size: small;
         padding: 0px 20px 0px 0px;
         font-weight: bold;
     }
@@ -311,7 +312,6 @@
         padding: 0px 20px 1px 0px;
     }
 
-
         /*  Forms
        ----------------------------------------------- */
     input.checkbox {
@@ -319,7 +319,7 @@
     }
 
     .smallform .textfield {
-        font-size: 90%;
+        font-size: small;
         color: #999;
         width: 75%;
         height: 1.8em;
@@ -358,7 +358,7 @@
 
     .parentPoll h3 {
         padding: 0;
-        font-size: 1.3em;
+        font-size: small;
         font-weight: bold;
         margin: 10px 0px 6px 0px;
         color: #036;
@@ -378,8 +378,8 @@
     }
 
     #adLeaderboard {
-        text-align:center;
-        margin-bottom:6px;
+        text-align: center;
+        margin-bottom: 6px;
         width: 100%;
         padding: 0;
     }
@@ -397,7 +397,7 @@
     }
 
     #adLeaderboard table td.ad {
-        background-color:#e9e9e9;
+        background-color: #e9e9e9;
         border: 1px solid #bbb;
         text-align: left;
     }
@@ -409,20 +409,6 @@
     #adSkyscraper img {
         margin-left: auto;
         margin-right: auto;
-    }
-
-    tr.login td {
-        font-size: 10px;
-    }
-
-    tr.login td.col1 {
-        text-align: left;
-        padding-left: 2px;
-    }
-
-    tr.login td.col2 {
-        text-align: right;
-        padding-right: 3px;
     }
 
         /* PROMOS
@@ -462,25 +448,20 @@
         padding-left: .5em;
     }
 
-
     .featuredarticles h3, div.hotTopics h3 {
-        font-size: 1.5em;
+        font-size: large;
         color: #036;
         font-weight: bold;
         padding: 3px 20px 3px 0;
         margin: 2px 0px 3px 0px;
     }
 
-/*    .topcontentcol2 .hotTopics h3 {
-        font-size: 1.3em;
-    }
-*/
     .promoNewsletterSmall {
         padding-bottom: 2em;
     }
 
     .promoNewsletterSmall h2 {
-        font-size: 1.5em;
+        font-size: large;
         font-weight: bold;
         margin: 4px 0 0 0;
         color: #036;
@@ -509,25 +490,24 @@
     }
 
     .promoNewsletterMedium h2 {
-        font-size: 1.5em;
+        font-size: large;
         font-weight: bold;
         margin: 0;
     }
 
     .promoNewsletterMedium h3 {
-        font-size: 1em;
+        font-size: small; /* 1em; */
         font-weight: bold;
         margin: 10px 0px 5px 0px;
     }
 
-    /*.promoNewsletterMedium .columnHeader  {font-size:1.3em;font-weight:bold;margin:10px 0px 6px 0px;color:#66C;}*/
     div.promoNewsletterMedium .smallform {
         margin: 10px 0px 2px 0px;
         white-space: nowrap;
     }
 
     .promoNewsletterMedium h4 {
-        font-size: 1.3em;
+        font-size: small;
         font-weight: bold;
         margin: 10px 0px 6px 0px;
         color: #036;
@@ -548,19 +528,19 @@
     }
 
     .promoNewsletterBig h2 {
-        font-size: 1.5em;
+        font-size: large;
         font-weight: bold;
         margin: 0;
     }
 
     .promoNewsletterBig h3 {
-        font-size: 1em;
+        font-size: small; /* 1em; */
         font-weight: bold;
         margin: 10px 0px 5px 0px;
     }
 
     div.promoNewsletterBig .columnHeader a:link {
-        font-size: 1.3em;
+        font-size: small;
         font-weight: bold;
         margin: 10px 0px 6px 0px;
     }
@@ -596,7 +576,7 @@
 
     .promoMembershipMedium th {
         text-align: center;
-        font-size: 0.9em;
+        font-size: x-small;
         font-weight: 100
     }
 
@@ -633,10 +613,11 @@
     }
 
     .schoolchoicecenter h3 {
-        font-size: 1.5em;
+        font-size: large;
+        font-weight: bold;
         color: #036;
         padding: 0px 5px .3em 10px;
-        white-space:nowrap;
+        white-space: nowrap;
     }
 
     .schoolchoicecenter ul {
@@ -645,7 +626,7 @@
     }
 
     .schoolchoicecenter li,
-    div.about li {
+        div.about li {
         padding: 3px 5px 3px 12px;
         margin: 2px 0px 3px 0px;
         background-image: url( ../img/bullet_blueball.gif );
@@ -656,16 +637,16 @@
     div.about li {
         padding-bottom: 0;
     }
+
     .schoolchoicecenter li.viewall {
         margin-bottom: -6px;
     }
 
     .schoolchoicecenter pdf_li {
-        margin-top:3px;
-        margin-bottom:3px;
-        list-style-image: url(../img/adobe/pdficon.gif)
+        margin-top: 3px;
+        margin-bottom: 3px;
+        list-style-image: url( ../img/adobe/pdficon.gif )
     }
-
 
         /* Boxes
        ----------------------------------------------- */
@@ -819,17 +800,20 @@
         height: 7px;
     }
 
+    /* About us pages */
+    .about a:link {
+        color: #039
+    }
 
-/* About us pages */
-    .about a:link { color: #039 }
     .about h3 {
         color: #f60;
         border-bottom: 1px solid #ccc;
         width: 551;
         font-weight: bold;
-        font-size:  1.2em;
+        font-size: medium;
         margin: 2em 0 1em 0;
     }
+
     .about h4 {
         font-weight: bold;
         margin-top: 0;
@@ -837,7 +821,7 @@
 
     .about h1 {
         color: #f60;
-        font-size: 2em;
+        font-size: large;
         font-weight: bold;
         margin: 2em 0 1em 0;
         text-align: center;
@@ -847,13 +831,14 @@
         color: #f60;
         width: 551;
         font-weight: bold;
-        font-size:  1.1em;
+        font-size: small;
         margin: 0 0 0 0;
     }
 
     .about p {
         margin: 0em 0 1.2em 0;
     }
+
     .about ul {
         margin-bottom: 1em;
     }
@@ -862,6 +847,7 @@
         width: 50em;
         padding: 0 2em 4em 2em;
     }
+
     div.about div.page {
         text-align: left;
     }

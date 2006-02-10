@@ -53,7 +53,7 @@
        <mod:topNav />
     </c:if>
 
-        <div id="contentGS">
+        <div id="contentGS" class="contentGS">
         <decorator:body/>
         </div>
 
