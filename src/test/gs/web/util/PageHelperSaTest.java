@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.4 2006/01/19 00:25:14 apeterson Exp $
+ * $Id: PageHelperSaTest.java,v 1.5 2006/02/10 02:10:29 thuss Exp $
  */
 
 package gs.web.util;
@@ -51,6 +51,7 @@ public class PageHelperSaTest extends TestCase {
         assertTrue(pageHelper.isShowingBannerAd());
         assertTrue(pageHelper.isShowingFooter());
         assertFalse(pageHelper.isAdFree());
+        assertFalse(pageHelper.isFramed());
     }
 
     public void testNumber1expert() {
@@ -65,6 +66,7 @@ public class PageHelperSaTest extends TestCase {
         assertFalse(pageHelper.isLogoLinked());
         assertFalse(pageHelper.isShowingFooter());
         assertTrue(pageHelper.isAdFree());
+        assertTrue(pageHelper.isFramed());
     }
 
     public void testSfgate() {
@@ -79,6 +81,7 @@ public class PageHelperSaTest extends TestCase {
         assertFalse(pageHelper.isLogoLinked());
         assertTrue(pageHelper.isShowingFooter());
         assertFalse(pageHelper.isAdFree());
+        assertFalse(pageHelper.isFramed());
     }
 
     public void testYahoo() {
@@ -92,6 +95,7 @@ public class PageHelperSaTest extends TestCase {
         assertFalse(pageHelper.isLogoLinked());
         assertFalse(pageHelper.isShowingFooter());
         assertFalse(pageHelper.isAdFree());
+        assertFalse(pageHelper.isFramed());
     }
 
     public void testAzCentral() {
@@ -105,6 +109,7 @@ public class PageHelperSaTest extends TestCase {
         assertFalse(pageHelper.isLogoLinked());
         assertTrue(pageHelper.isShowingFooter());
         assertFalse(pageHelper.isAdFree());
+        assertFalse(pageHelper.isFramed());
     }
 
 
@@ -248,5 +253,38 @@ public class PageHelperSaTest extends TestCase {
         assertTrue(pageHelper.isDevEnvironment());
     }
 
+    public void testAdvertising() {
+        // Test for the main website
+        MockSessionFacade sessionFacade = new MockSessionFacade();
+        sessionFacade.setHostName("www.greatschools.net");
+        PageHelper pageHelper = new PageHelper(sessionFacade);
+        assertFalse(pageHelper.isAdFree());
+        // In the case of an ad server outage we turn advertising off
+        sessionFacade.setAdvertisingOnline(false);
+        pageHelper = new PageHelper(sessionFacade);
+        assertTrue(pageHelper.isAdFree());
+
+        // Test for a cobrand that shows ads
+        sessionFacade = new MockSessionFacade();
+        sessionFacade.setHostName("sfgate.greatschools.net");
+        sessionFacade.setCobrand("sfgate");
+        pageHelper = new PageHelper(sessionFacade);
+        assertFalse(pageHelper.isAdFree());
+        // In the case of an ad server outage we turn advertising off
+        sessionFacade.setAdvertisingOnline(false);
+        pageHelper = new PageHelper(sessionFacade);
+        assertTrue(pageHelper.isAdFree());
+
+        // Test for an ad free cobrand
+        sessionFacade = new MockSessionFacade();
+        sessionFacade.setHostName("framed.greatschools.net");
+        sessionFacade.setCobrand("framed");
+        pageHelper = new PageHelper(sessionFacade);
+        assertTrue(pageHelper.isAdFree());
+        // Turning advertising off should have no effect
+        sessionFacade.setAdvertisingOnline(false);
+        pageHelper = new PageHelper(sessionFacade);
+        assertTrue(pageHelper.isAdFree());
+    }
 
 }

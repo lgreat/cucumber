@@ -23,6 +23,12 @@
         </copy>
     </preGoal>
 
+    <!-- Delete the webapp dirs explicitly since some deploy under src/webapp/WEB-INF -->
+    <preGoal name="clean:clean">
+        <delete dir="${maven.src.dir}/webapp/WEB-INF/lib"/>
+        <delete dir="${maven.war.webapp.dir}/webapp/WEB-INF/classes"/>
+    </preGoal>
+
     <!-- Create a version.properties file with the build info -->
     <goal name="create-build-version">
         <ant:propertyfile file="${maven.build.dest}/version.properties">

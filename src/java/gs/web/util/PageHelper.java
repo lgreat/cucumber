@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.6 2006/01/24 18:27:56 apeterson Exp $
+ * $Id: PageHelper.java,v 1.7 2006/02/10 02:10:28 thuss Exp $
  */
 
 package gs.web.util;
@@ -79,6 +79,7 @@ public class PageHelper {
     private boolean _showingHeader = true;
     private boolean _showingFooter = true;
     private boolean _showingFooterAd = true;
+    private boolean _advertisingOnline = true;
     private final String _cobrand;
     private final String _hostName;
     private final boolean _subscriptionState;
@@ -96,19 +97,20 @@ public class PageHelper {
         _cobrand = sessionFacade.getCobrand();
         _subscriptionState = sessionFacade.getStateOrDefault().isSubscriptionState();
         _hostName = sessionFacade.getHostName();
+        _advertisingOnline = sessionFacade.isAdvertisingOnline();
     }
 
     public boolean isShowingBannerAd() {
-        return StringUtils.isEmpty(_cobrand) ||
-                "charterschoolratings".equals(_cobrand);
+        return !isAdFree() && (StringUtils.isEmpty(_cobrand) ||
+                "charterschoolratings".equals(_cobrand));
     }
 
     public boolean isShowingLogo() {
-        return _showingHeader && !isAdFree();
+        return _showingHeader && !isFramed();
     }
 
     public boolean isShowingUserInfo() {
-        return _showingHeader && !isAdFree();
+        return _showingHeader && !isFramed();
     }
 
 
@@ -119,7 +121,7 @@ public class PageHelper {
      * @todo break this into smaller pieces?
      */
     public boolean isShowingFooter() {
-        return _showingFooter && !isAdFree() && !isYahooCobrand();
+        return _showingFooter && !isFramed() && !isYahooCobrand();
     }
 
     /**
@@ -157,13 +159,21 @@ public class PageHelper {
     }
 
     /**
-     * Determine if this site should be ad free
+     * Determine if this site is a totally ad free site
      *
      * @return true if it's ad free
      */
     public boolean isAdFree() {
+        return !_advertisingOnline || isFramed();
+    }
+
+    /**
+     * Determine if this site is a framed site, in other words, no ads and no nav
+     * @return true if it's framed
+     */
+    public boolean isFramed() {
         return _cobrand != null &&
-                (_cobrand.matches("mcguire|framed|number1expert|vreo"));
+                _cobrand.matches("mcguire|framed|number1expert|vreo");
     }
 
     /**

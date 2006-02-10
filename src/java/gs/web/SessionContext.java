@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.24 2005/12/21 23:01:14 apeterson Exp $
+ * $Id: SessionContext.java,v 1.25 2006/02/10 02:10:29 thuss Exp $
  */
 package gs.web;
 
@@ -8,6 +8,7 @@ import gs.data.community.ISubscriptionDao;
 import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
 import gs.data.state.State;
+import gs.data.admin.IPropertyDao;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,6 +47,7 @@ public class SessionContext
 
     private ApplicationContext _applicationContext;
     private ISubscriptionDao _subscriptionDao;
+    private IPropertyDao _propertyDao;
 
     /**
      * Created by Spring as needed.
@@ -98,6 +100,14 @@ public class SessionContext
         return _cobrand != null;
     }
 
+    /**
+     * We only turn advertising off when our ad serving company has an outage
+     * @return true if the ad server is working
+     */
+    public boolean isAdvertisingOnline() {
+        return "true".equals(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_ID, "true"));
+    }
+
     public boolean isYahooCobrand() {
         boolean sYahooCobrand = false;
         if (_cobrand != null &&
@@ -147,5 +157,13 @@ public class SessionContext
 
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
         _subscriptionDao = subscriptionDao;
+    }
+
+    public IPropertyDao getPropertyDao() {
+        return _propertyDao;
+    }
+
+    public void setPropertyDao(IPropertyDao propertyDao) {
+        _propertyDao = propertyDao;
     }
 }

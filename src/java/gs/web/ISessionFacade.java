@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ISessionFacade.java,v 1.6 2005/12/21 23:01:14 apeterson Exp $
+ * $Id: ISessionFacade.java,v 1.7 2006/02/10 02:10:29 thuss Exp $
  */
 
 package gs.web;
@@ -64,6 +64,12 @@ public interface ISessionFacade {
      * @return true if it's a cobrand
      */
     boolean isCobranded();
+
+    /**
+     * If our ad server company has an outage we can turn off advertising
+     * @return true if advertising it turned on
+     */
+    boolean isAdvertisingOnline();
 
     /**
      * Is this the yahoo cobrand?
