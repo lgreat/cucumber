@@ -16,7 +16,7 @@ div#topnav { padding: 14px 9px 0 8px }
 #topnav .tab_off A:hover {font-size: 11px; font-family: arial, verdana,  helvetica, sans-serif; color: #000; text-decoration: underline;}
 #topnav table .tab_on_left {background-image:url(../img/header/tab_on_left.gif); background-repeat: no-repeat; width: 9px;}
 #topnav table .tab_on_right {background-image:url(../img/header/tab_on_right.gif); background-repeat: no-repeat; width: 8px;}
-#topnav table .tab_off_left {background-image:url(../img/header/tab_off_left.gif); background-repeat: no-repeat; width: 10px;}
+#topnav table .tab_off_left {background-image:url(../img/header/tab_off_left.gif); background-repeat: no-repeat; width: 9px;}
 #topnav table .tab_off_right {background-image:url(../img/header/tab_off_right.gif); background-repeat: no-repeat; width: 8px;}
 
 

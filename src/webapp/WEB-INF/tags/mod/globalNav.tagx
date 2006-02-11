@@ -15,7 +15,7 @@
             </tr>
             <tr>
                 <td class="L"></td>
-                    <td class="BG" style="background-color: #FAD3ae !important"><h1 style="font-size:1.2em">
+                    <td class="BG" style="background-color: #FAD3ae !important"><h1>
                             Research &amp; Compare
                         </h1>
                         <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
