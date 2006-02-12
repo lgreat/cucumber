@@ -65,6 +65,9 @@
         </tr>
         <c:if test="${showLinks == 'true'}">
            <tr>
+            <c:if test="${showStates != 'true' and (empty showLabel or showLabel) }">
+                <td></td>
+            </c:if>
             <td id="searchlinks" colspan="3" align="center">
                 <gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">Search near address</gsml:a>|
                 <gsml:a href="/cgi-bin/static/searchtips.html/$STATE/">Search tips</gsml:a>|

@@ -82,14 +82,14 @@
                    have more questions after we read it, may we contact you?</p>
              </div>
              <div id="mayweemail">
-                <span>Email(optional):&#32;&#32;</span><input name="email" type="text" size="40"/>
+                <span>Email&#32;(optional):&#32;&#32;</span><input name="email" type="text" size="40"/>
             </div>
             <br/>
             <input type="submit" value="Submit"/>
         </gsml:form>
         <br/>
             <p/>Here's where to go for answers from customer support:
-             <gsml:a href="/cgi-bin/feedback/$STATE">GS customer support</gsml:a>
+             <gsml:a href="/cgi-bin/feedback/$STATE">GreatSchools customer support</gsml:a>
             <br/>
     </div>
     </body>
