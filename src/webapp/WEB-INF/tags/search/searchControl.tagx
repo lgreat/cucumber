@@ -68,11 +68,12 @@
             <c:if test="${showStates != 'true' and (empty showLabel or showLabel) }">
                 <td></td>
             </c:if>
-            <td id="searchlinks" colspan="3" align="center">
+            <td id="searchlinks" colspan="2" align="center">
                 <gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">Search near address</gsml:a>|
                 <gsml:a href="/cgi-bin/static/searchtips.html/$STATE/">Search tips</gsml:a>|
-                <gsml:a href="/search/feedback.page?q=${param.q}">Didn't find what you need?</gsml:a>
+                <gsml:a href="/search/feedback.page?state=$STATE&amp;q=${param.q}">Help us improve</gsml:a>
             </td>
+            <td></td>
         </tr>
         </c:if>
         </table>
