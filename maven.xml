@@ -57,6 +57,7 @@
     <!-- This report is run nightly by conint to generate web documentation -->
     <goal name="webdocs">
         <attainGoal name="clean"/>
+        <attainGoal name="clover:on"/>"
         <attainGoal name="site"/>
     </goal>
 </project>
