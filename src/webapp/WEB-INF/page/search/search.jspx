@@ -100,7 +100,6 @@
             <gsml:box tableClass="shade3 main">
                 <c:set var="state"
                        value="${requestScope.context.stateOrDefault}"/>
-
                 <h2 class="browseheader">Browse</h2>
                 <ul class="refinementlist">
                     <li><gsml:a href="/modperl/citylist/${state.abbreviation}">
@@ -192,8 +191,11 @@
                           pageType="search"
                           constraint="${param.c}"
                           hier1="search,mixed,${param.c}"/>
-            <jsp:include
-                    page="/search/citydistrict.module?${pageContext.request.queryString}"/>
+            <c:if test="${results.total gt 0}">
+                <jsp:include
+                        page="/search/citydistrict.module?${pageContext.request.queryString}"/>
+            </c:if>
+            
             <gsweb:mainResults results="${results.mainResults}"
                                page="${param.p}"
                                total="${results.total}"

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.11 2006/01/17 20:49:57 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.12 2006/02/13 20:15:34 chriskimm Exp $
  */
 
 package gs.web;
@@ -43,6 +43,9 @@ public class SessionContextUtil {
     public static final String MEMBER_PARAM = "member";
 
     public static final String PATHWAY_PARAM = "path";
+
+    // used for A/B or multivariate testing
+    public static final String VERSION_PARAM = "version";
 
     /**
      * Insider log-in cookie, from Java site. Domain is ".greatschools.net".
@@ -152,6 +155,7 @@ public class SessionContextUtil {
         if (s != null && s instanceof State) {
             context.setState((State) s);
         }
+        context.setRemoteAddress(httpServletRequest.getRemoteAddr());
     }
 
     /**
@@ -173,6 +177,12 @@ public class SessionContextUtil {
             cobrand = paramCobrand;
         } else {
             cobrand = _urlUtil.cobrandFromUrl(hostName);
+        }
+
+        // Set the a/b version - 'a' is the default
+        String versionParam = request.getParameter(VERSION_PARAM);
+        if (StringUtils.isNotBlank(versionParam)){
+            context.setAbVersion(versionParam.trim());
         }
 
         // Now see if we need to override the hostName

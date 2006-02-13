@@ -5,7 +5,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
     <c:if test="${param.c != 'topic'}">
-    <div class="citydistrict">
+    <div class="${requestScope.context.ABVersion == 'b' ? 'citydistrict citydistrictb' : 'citydistrict'}">
         <c:if test="${not empty model.filteredcities}">
             <div id="filteredlinks">
                 <span class="citydistlabel"><c:out escapeXml="false" value="${model.filters}" /></span>

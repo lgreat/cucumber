@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.25 2006/02/10 02:10:29 thuss Exp $
+ * $Id: SessionContext.java,v 1.26 2006/02/13 20:15:34 chriskimm Exp $
  */
 package gs.web;
 
@@ -44,6 +44,8 @@ public class SessionContext
     private User _user;
     private State _state;
     private String _pathway;
+    private String _remoteAddress;
+    private String _abVersion;
 
     private ApplicationContext _applicationContext;
     private ISubscriptionDao _subscriptionDao;
@@ -157,6 +159,49 @@ public class SessionContext
 
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
         _subscriptionDao = subscriptionDao;
+    }
+
+    /**
+     * Currently this is only used for determining A/B for multivariate testing,
+     * therefore there is no accessor method.
+     * @param address
+     */
+    public void setRemoteAddress(String address) {
+        if (address != null) {
+            _remoteAddress = address.trim();
+        }
+    }
+
+    public void setAbVersion(String s) {
+        _abVersion = s;
+    }
+
+    /**
+     * Returns either (lowercase) "a" or "b" based on the odd/even-ness of
+     * the remote host's ip address.  "a" is for even, "b" is for odd.
+     * @return a <code>String</code>type
+     */
+    public String getABVersion() {
+        if (_abVersion != null) {
+            return _abVersion;
+        } else {
+            String version = "a";
+            if (_remoteAddress != null) {
+                String digit =
+                        _remoteAddress.substring(_remoteAddress.length()-1,
+                                _remoteAddress.length());
+                try {
+                    int i = Integer.parseInt(digit);
+                    if (i % 2 != 0) {
+                        version = "b";
+                    }
+                } catch (NumberFormatException nfe) {
+                    // ignore
+                }
+            }
+            return version;
+        }
+        //return getMultivariateVersion(2);
     }
 
     public IPropertyDao getPropertyDao() {

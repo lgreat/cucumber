@@ -2,7 +2,6 @@ package gs.web;
 
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import junit.framework.TestCase;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
@@ -166,4 +165,25 @@ public class SessionContextTest extends BaseTestCase {
         assertEquals(State.CT, ctx.getState());
     }
 
+    public void testABVersion() {
+        SessionContextUtil util = new SessionContextUtil();
+        util.setStateManager(new StateManager());
+        SessionContext ctx = new SessionContext();
+
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setRemoteAddr("123.456.789.012");
+        util.updateFromRequestAttributes(request, ctx);
+        assertEquals("a", ctx.getABVersion());
+
+        MockHttpServletRequest bRequest = new MockHttpServletRequest();
+        bRequest.setRemoteAddr("123.456.789.123");
+        util.updateFromRequestAttributes(bRequest, ctx);
+        assertEquals("b", ctx.getABVersion());
+
+        MockHttpServletRequest cRequest = new MockHttpServletRequest();
+        cRequest.setRemoteAddr("123.456.789.000");
+        util.updateFromRequestAttributes(cRequest, ctx);
+        assertEquals("a", ctx.getABVersion());
+
+    }
 }
