@@ -23,6 +23,7 @@ to how your visitor data is collected.  Changes should only be made
 when instructed to do so by your account manager.*/
 s.visitorNamespace="greatschools"
 
+
 /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
 var s_objectID;function s_c2fe(f){var x='',s=0,e,a,b,c;while(1){e=
 f.indexOf('"',s);b=f.indexOf('\\',s);c=f.indexOf("\n",s);if(e<0||(b>=
@@ -250,3 +251,28 @@ s=s.co(s);s.un=un;s.uns();return s}}if(e>0){a=parseInt(i=v.substring(e
 'Opera')<0){eval(c);return new s_c(un,pg,ss)}else s=s_c2f(c);return s(
 un,pg,ss)}
 
+/* Plugin Config */
+s.usePlugins=true
+function s_doPlugins(s) {
+/* Add calls to plugins here */
+s.eVar3=s.getQueryParam('cpn');
+}
+s.doPlugins=s_doPlugins
+/************************** PLUGINS SECTION *************************/
+/* You may insert any plugins you wish to use here.                 */
+
+/*
+ * Plugin: getQueryParam 1.3 - Return query string parameter values
+ */
+s.getQueryParam=new Function("qp","d",""
++"var s=this,v='',i,t;d=d?d:'';while(qp){i=qp.indexOf(',');i=i<0?qp.l"
++"ength:i;t=s.gcgi(qp.substring(0,i));if(t)v+=v?d+t:t;qp=qp.substring"
++"(i==qp.length?i:i+1)}return v");
+s.gcgi=new Function("k",""
++"var v='',s=this;if(k&&s.wd.location.search){var q=s.wd.location.sea"
++"rch.toLowerCase(),qq=q.indexOf('?');q=qq<0?q:q.substring(qq+1);v=s."
++"pt(q,'&','cgif',k.toLowerCase())}return v");
+s.cgif=new Function("t","k",""
++"if(t){var s=this,i=t.indexOf('='),sk=i<0?t:t.substring(0,i),sv=i<0?"
++"'True':t.substring(i+1);if(sk.toLowerCase()==k)return s.epa(sv)}ret"
++"urn ''");
