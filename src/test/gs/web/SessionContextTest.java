@@ -10,7 +10,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
  *
  * @author Todd Huss <mailto:thuss@greatschools.net>
  */
-public class SessionContextTest extends TestCase {
+public class SessionContextTest extends BaseTestCase {
 
 
     private SessionContextUtil _sessionContextUtil;
@@ -46,6 +46,15 @@ public class SessionContextTest extends TestCase {
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
         assertTrue(ctx.isYahooCobrand());
 
+    }
+
+    /**
+     * Make sure we can get a value back for advertising being online
+     */
+    public void testAdvertising() {
+        ISessionFacade sess = (ISessionFacade) getApplicationContext().getBean("sessionContext");
+        assertNotNull(sess);
+        assertTrue(sess.isAdvertisingOnline());
     }
 
     public void testHostCobrandUrlOnLiveSite() {
