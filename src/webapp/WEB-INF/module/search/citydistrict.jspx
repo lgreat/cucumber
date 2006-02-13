@@ -8,7 +8,7 @@
     <div class="${requestScope.context.ABVersion == 'b' ? 'citydistrict citydistrictb' : 'citydistrict'}">
         <c:if test="${not empty model.filteredcities}">
             <div id="filteredlinks">
-                <span class="citydistlabel"><c:out escapeXml="false" value="${model.filters}" /></span>
+                <span><c:out escapeXml="false" value="${model.filters}" /></span>
                 <c:forEach var="city" items="${model.filteredcities}">
                     <span class="citydistresult">
                         <a href="/search/search.page?c=school&amp;state=${param.state}&amp;q=${param.q}&amp;city=${city}${model.filterparams}">
@@ -26,7 +26,7 @@
 
         <c:if test="${not empty model.cities}">
             <div class="citydistlinks">
-                <span class="citydistlabel">All <c:out value="${(param.st == 'charter') ? 'charter' : ''}"/> schools in the city of: </span>
+                <span>All <c:out value="${(param.st == 'charter') ? 'charter' : ''}"/> schools in the city of: </span>
                 <c:set var="count" value="0"/>
                 <c:forEach var="city" items="${model.cities}">
                     <span class="citydistresult">
@@ -48,7 +48,7 @@
 
         <c:if test="${not empty model.districts}">
 
-            <span class="citydistlabel">All <c:out value="${(param.st == 'charter') ? 'charter' : ''}"/> schools in the district of: </span>
+            <span>All <c:out value="${(param.st == 'charter') ? 'charter' : ''}"/> schools in the district of: </span>
             <c:set var="count" value="0"/>
             <c:forEach var="district" items="${model.districts}">
                 <span class="citydistresult">
