@@ -30,7 +30,6 @@
 
         <mod:tracking pageType="donationBridge" pageName="donationBridge"/>
 
-        <div class="gs">
             <center>
                 <div class="about" style="width:80em;">
                     <div class="page">
@@ -109,7 +108,6 @@
 
                     </div>
                 </div></center>
-        </div>
     </gsml:body>
     </html>
 </jsp:root>

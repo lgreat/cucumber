@@ -33,7 +33,6 @@
 
     <mod:tracking pageType="donate" pageName="donate" />
 
-<div class="gs">
 <center>
 <div class="about">
 <div class="page">
@@ -75,7 +74,6 @@ Help all parents guide and support <br />their children's education.</h1>
 
    </div>
    </div></center>
-   </div>
     </gsml:body>
     </html>
 </jsp:root>

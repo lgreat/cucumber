@@ -12,7 +12,6 @@
 <jsp:directive.page import="gs.web.SessionContextUtil"/>
 <jsp:directive.page import="gs.web.util.PageHelper"/>
     <html lang="en">
-
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
@@ -33,7 +32,6 @@
 
     <mod:tracking pageType="aboutUs" pageName="aboutUs" />
 
-<div class="gs">
 <center>
 <div class="about">
 <div class="page">
@@ -147,7 +145,6 @@
    </p>
    </div>
    </div></center>
-   </div>
     </gsml:body>
     </html>
 </jsp:root>
