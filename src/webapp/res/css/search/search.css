@@ -32,7 +32,7 @@ th.result_title {padding:0px 20px 0px 0px;border-bottom:1px solid #999;margin-ri
 /** html th.result_title {font-size:80%}*/
 .main li.citydist {padding-bottom: 5px}
 
-.citydistrict, #resultsheader { font-size:1.3em; }
+#resultsheader { font-size:1.3em; }
 td.headline {font-size:1.1em;}
 
 table.school_results_only th {padding:4px 0px 2px 5px;border-bottom:1px solid #aaa;}
@@ -77,10 +77,20 @@ pre.explanation {
 }
 
 
-.citydistrict { padding:5px; }
+.citydistrict {
+    padding:5px;
+    font-size:1.3em;
+}
 .citydistrict .citydistresult {
     padding-left:7px;
     padding-right:7px;
+}
+
+/* b version */
+.citydistrictb {
+    background-color:#E5E5E5;
+    padding:10px;
+    font-size:1.1em;
 }
 
 .refinementlist li{
