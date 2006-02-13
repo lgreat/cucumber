@@ -1,29 +1,87 @@
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0">
-<jsp:directive.page contentType="text/html"/>    
-<html>
-  <head><title>Thank you</title>
-      <style type="text/css">
-          body {
-              text-align: center;
-              padding: 10px 0;
-              margin: 0;
-          }
-          #container {
-              text-align: left;
-              width: 670px;
-              margin: 0 auto;
-              padding-bottom:30px;
-              padding-top:10px;
-              font-size:120%;
-          }
-          </style>
-  </head>
-  <body>
-     <div id="container">
-      <p>Thanks for providing us with feedback to help us improve our site.</p>
-      <br/>
-      <p>We appreciate your assistance in making GreatSchools.net better.</p>
-     </div>
-  </body>
-</html>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+    <jsp:directive.page contentType="text/html"/>
+    <html>
+    <head><title>Thank you</title>
+        <style type="text/css">
+            body {
+                text-align: left;
+                padding: 10px 0;
+                margin: 0;
+            }
+            #leftcol {
+                padding-left:10px;
+                width:160px;
+            }
+            #container {
+                text-align: left;
+                margin: 0 auto;
+                padding-bottom: 70px;
+                padding-left:30px;
+                padding-top: 10px;
+                font-size: 120%;
+            }
+        </style>
+
+        <gsml:url var="searchcss" value="/res/css/search/search.css"/>
+        <link rel="stylesheet" href="${searchcss}" type="text/css" media="screen"/>
+    </head>
+
+    <body>
+    <table width="100%">
+        <tr>
+            <td id="leftcol">
+                <gsml:box tableClass="shade3 main">
+                    <c:set var="state"
+                           value="${requestScope.context.stateOrDefault}"/>
+
+                    <h2 class="browseheader">Browse</h2>
+                    <ul class="refinementlist">
+                        <li><gsml:a
+                                href="/modperl/citylist/${state.abbreviation}">
+                            All <c:out value="${state.longName}"/> cities
+                        </gsml:a>
+                        </li>
+                        <li><gsml:a
+                                href="/modperl/distlist/${state.abbreviation}">
+                            All <c:out value="${state.longName}"/> districts
+                        </gsml:a></li>
+                        <li><gsml:a
+                                href="/content/allArticles.page?state=${requestScope.context.stateOrDefault.abbreviation}">
+                            All topics</gsml:a></li>
+                        <li><gsml:a href="/cgi-bin/glossary_home/${state}">All
+                            glossary terms</gsml:a></li>
+                    </ul>
+                </gsml:box>
+                <gsml:box tableClass="shade3 main">
+                    <c:set var="state"
+                           value="${requestScope.context.stateOrDefault}"/>
+
+                    <h2 class="browseheader">Advanced Search</h2>
+                    <ul class="refinementlist">
+                        <li><gsml:a
+                                href="/cgi-bin/template_plain/advanced/$STATE/#address">
+                            Search near address</gsml:a></li>
+                        <li><gsml:a
+                                href="/cgi-bin/template_plain/advanced/$STATE/#county">
+                            Search by county</gsml:a></li>
+                    </ul>
+                </gsml:box>
+            </td>
+            <td align="left" valign="top">
+                <div id="container">
+                    <p>Thanks for providing us with feedback to help us improve
+                        our site.</p>
+                    <br/>
+
+                    <p>We appreciate your assistance in making GreatSchools.net
+                        better.</p>
+                </div>
+            </td>
+        </tr>
+    </table>
+    </body>
+    </html>
 </jsp:root>
