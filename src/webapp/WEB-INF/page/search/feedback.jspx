@@ -37,8 +37,12 @@
             #term {
                 font-weight:bold;
             }
+            #intro {
+                width:500px;
+            }
             #maywetext {
                 padding-bottom:5px;
+                width:500px;
             }
         </style>
     </head>
@@ -47,9 +51,11 @@
 
     <div id="container">
         <div id="header">Help Us Improve</div>
+        <div id="intro">
         <p>Thanks for helping us improve our search.  While we aren't able to
             respond directly to comments submitted with this form, the information
             will be carefully review by our team.</p>
+        </div>
         <br />
         <p><span>You searched for&#32;&#32;&#32;</span>
         <span id="term">
@@ -82,7 +88,7 @@
                    have more questions after we read it, may we contact you?</p>
              </div>
              <div id="mayweemail">
-                <span>Email&#32;(optional):&#32;&#32;</span><input name="email" type="text" size="40"/>
+                <p>Email&#32;(optional):&#32;&#32;<input name="email" type="text" size="40"/></p>
             </div>
             <br/>
             <input type="submit" value="Submit"/>
