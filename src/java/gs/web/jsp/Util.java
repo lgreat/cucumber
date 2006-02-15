@@ -5,6 +5,8 @@ import gs.data.state.StateManager;
 
 import java.util.Random;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
@@ -119,7 +121,7 @@ public class Util {
      * @return
      */
     public static String capitalize(String s) {
-        if (s == null || s.length() == 0) {
+        if (StringUtils.isBlank(s)) {
             return "";
         } else {
             return s.substring(0,1).toUpperCase() + s.substring(1);
