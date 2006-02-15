@@ -56,7 +56,7 @@
                         <table>
                             <tr>
                                 <td style="padding-right: 10px;vertical-align:top;"><h5>$25</h5></td>
-                                <td style="vertical-align:top;padding-bottom:15px;">
+                                <td style="vertical-align:top;padding-bottom:0;">
                                 <h5>School Ambassador</h5>
                                 <p>Sponsor updates for your child's school profile so all parents can access
                                 the data free of charge.</p></td>
@@ -65,7 +65,7 @@
 
                             <tr>
                                 <td style="padding-right: 10px; vertical-align:top;"><h5>$50</h5></td>
-                                <td style="vertical-align:top;padding-bottom:15px;"><h5>Parent Advisor</h5>
+                                <td style="vertical-align:top;padding-bottom:0;"><h5>Parent Advisor</h5>
                                  <p>Support our efforts in writing newsletters and posting parent reviews and
                                 ratings.</p></td>
 
@@ -73,29 +73,27 @@
 
                              <tr>
                                 <td style="padding-right: 10px; vertical-align:top;"><h5>$100</h5></td>
-                                <td style="vertical-align:top;padding-bottom:15px;"><h5>School Improver</h5>
+                                <td style="vertical-align:top;padding-bottom:0;"><h5>School Improver</h5>
                                  <p>Help us produce workshop materials for our community-outreach efforts.</p></td>
 
                              </tr>
 
                             <tr>
                                 <td style="padding-right: 10px; vertical-align:top;"><h5>$$$$</h5></td>
-                                <td style="vertical-align:top;padding-bottom:15px;"><h5>GreatSchools Champion</h5>
+                                <td style="vertical-align:top;padding-bottom:0;"><h5>GreatSchools Champion</h5>
                                  <p>Choose any contribution amount and we'll earmark it for upcoming projects
                                 and programs.</p></td>
 
                              </tr>
 
                         </table>
-                        <p></p>
-
                         <p>Your contribution is tax-deductible and all transactions are completely secure. </p>
 
-                        <p>
-                            <a href="https://secure.entango.com/donate/rpdfMtPPh2g"><b>DONATE WITH CREDIT CARD</b></a>
-                        </p>
+                        <h4>
+                            <a href="https://secure.entango.com/donate/rpdfMtPPh2g">DONATE WITH CREDIT CARD</a>
+                        </h4>
 
-
+						<p> </p>
                         <p>Or make your check payable to GreatSchools and mail it to:</p>
 
                         <p>GreatSchools Development Center<br/>
