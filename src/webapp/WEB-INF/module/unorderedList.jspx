@@ -5,27 +5,26 @@
     xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
     >
 <c:if test="${not empty requestScope.header}">
-<h3 class="result_title">${requestScope.header}</h3>
+    <h3 class="result_title">${requestScope.header}</h3>
 </c:if>
-<ul>
-<c:forEach var="i" items="${requestScope.results}">
-<c:if test="${i.styleClass!=null}">
-<li class="${i.styleClass}">
-<gsml:a href="${i.href}">${i.contents}</gsml:a>
-    <c:if test="${i.image!=null}">
-        <img src="${i.image}" />
-    </c:if>
-</li>
-</c:if>
-<c:if test="${i.styleClass==null}">
-<li>
-<gsml:a href="${i.href}">${i.contents}</gsml:a>
-    <c:if test="${i.image!=null}">
-        <img src="${i.image}" />
-    </c:if>
-</li>
-</c:if>
-</c:forEach>
-</ul>
-
+    <ul>
+        <c:forEach var="i" items="${requestScope.results}">
+            <c:if test="${i.styleClass!=null}">
+                <li class="${i.styleClass}">
+                    <gsml:a href="${i.href}">${i.contents}</gsml:a>
+                    <c:if test="${i.image!=null}">
+                        <img src="${i.image}" />
+                    </c:if>
+                </li>
+            </c:if>
+            <c:if test="${i.styleClass==null}">
+                <li>
+                    <gsml:a href="${i.href}">${i.contents}</gsml:a>
+                    <c:if test="${i.image!=null}">
+                        <img src="${i.image}" />
+                    </c:if>
+                </li>
+            </c:if>
+        </c:forEach>
+    </ul>
 </jsp:root>
