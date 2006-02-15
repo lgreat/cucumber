@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.99 2006/02/15 18:37:27 apeterson Exp $
+   $Id: global.css,v 1.100 2006/02/15 20:13:17 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -823,8 +823,15 @@
         text-align: center;
     }
 
+    div.guideToTests h1 {
+        color: #f60;
+        font-size: large;
+        font-weight: bold;
+        margin: 0em 0 1em 0;
+    }
+
     div.about h2, div.guideToTests h2 {
-        color: #333;
+        color: #000;
         width: 551;
         font-weight: bold;
         font-size: small;
