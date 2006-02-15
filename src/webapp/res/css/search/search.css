@@ -16,7 +16,7 @@ TODO: name consistently.
 #leftsearchcolumn,
 #leftsearchcolumn .main
 {
-    width: 160px;
+    width:160px;
 }
 .rightcolumn {
     vertical-align: top;
@@ -97,7 +97,6 @@ pre.explanation {
 .refinementlist li{
     padding-bottom:6px;
     padding-right:5px;
-    white-space:nowrap;
 }
 
 .filterlist li{
@@ -170,10 +169,3 @@ tr td.checkbox {
 * html #searchpagetable tr td #resultsheader td {
     font-size:100%;
 }*/
-
-/* Debugging code */
-/*
-.col2 {background-color: red;border:3px solid red;}
-.leftcol {background-color: pink;border:3px solid pink;}
-#leftsearchcolumn {background-color: purple;border:3px solid purple;}
-*/
