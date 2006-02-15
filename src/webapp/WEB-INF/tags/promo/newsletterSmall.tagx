@@ -18,7 +18,7 @@ old user, add new subscriptions
 
     -->
     <div class="promoNewsletterSmall">
-        <gsml:form action="/cgi-bin/newsletterSubscribe" method="get">
+        <gsml:form id="nlsform" action="/cgi-bin/newsletterSubscribe" method="get">
             <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
             <input type="hidden" name="subscribe" value="Promo"/>
             <h2>

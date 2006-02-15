@@ -14,10 +14,10 @@
                 <tr>
                     <td>
                         <gsml:url var="sponsorImage" value="/res/img/ad/sponsor_vertical.gif"/>
-                        <img class="adSponsorImage" src="${sponsorImage}" width="10" height="90"/>
+                        <img alt="Ad" class="adSponsorImage" src="${sponsorImage}" width="10" height="90"/>
                     </td>
                     <td style="text-align: left" class="ad">
-                        <script language="JavaScript">OAS_AD('x22');</script>
+                        <script type="text/javascript">OAS_AD('x22');</script>
                     </td>
                 </tr>
             </table>

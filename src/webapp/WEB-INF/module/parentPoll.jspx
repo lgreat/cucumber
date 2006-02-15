@@ -13,13 +13,10 @@
     <div class="parentPoll">
         <h3><fmt:formatDate value="${d}" type="date" pattern="MMMMMMMMMMMMMMMMMM"  /> Poll</h3>
         <h4><gsml:a href="/cgi-bin/static/poll_results.tmpl/$STATE">View previous polls</gsml:a></h4>
-        <iframe name="wgpoll"
-                id="poll"
+        <iframe id="poll"
                 src="http://poll.websitegear.com/iframepoll.asp?pollID=${requestScope.parentPollId}"
-                border="0"
                 marginwidth="0"
                 marginheight="0"
-                align="middle"
                 frameborder="no"
                 scrolling="no"
                 style="width: 100%; height: 28em"

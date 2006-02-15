@@ -9,7 +9,6 @@
     <jsp:directive.attribute name="action" required="true" description="context-relative URL"/>
     <jsp:directive.attribute name="method" required="true" description="form submit method (get/post)"/>
     <jsp:directive.attribute name="onsubmit" required="false" description="onsubmit attribute"/>
-    <jsp:directive.attribute name="name" required="false" description="name of the form, used in Javascript functions"/>
     <jsp:directive.attribute name="id" required="false" description="id attribute"/>
     <jsp:scriptlet>
         if (state != null) {
@@ -22,8 +21,8 @@
     <jsp:element name="form">
         <jsp:attribute name="action">${action}</jsp:attribute>
         <jsp:attribute name="method">${method}</jsp:attribute>
-        <jsp:attribute name="name">${name}</jsp:attribute>
         <jsp:attribute name="id">${id}</jsp:attribute>
+        <!-- TH: We used to have a name attribute but that is a deprecated attribute -->
         <jsp:attribute name="onsubmit">${onsubmit}</jsp:attribute>
         <jsp:body>
             <jsp:doBody/>

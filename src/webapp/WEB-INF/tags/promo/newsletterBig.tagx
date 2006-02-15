@@ -25,7 +25,7 @@
             <gsml:popupWindow href="/cm/pa_sample.html" top="50" left="50" width="650" height="600">View
                 sample</gsml:popupWindow>
         </h3>
-        <gsml:form action="/cgi-bin/newsletterSubscribe" method="get">
+        <gsml:form id="nlsform" action="/cgi-bin/newsletterSubscribe" method="get">
 
             <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
             <input type="hidden" name="subscribe" value="Promo"/>

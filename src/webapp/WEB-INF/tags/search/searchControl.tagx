@@ -22,7 +22,7 @@
 
     <div class="globalSearch">
     <gsml:url var="search" value="/search/search.page"/>
-    <gsml:form id="searchform" name="sf" method="get" action="${search}">
+    <gsml:form id="searchform" method="get" action="${search}">
         <table style="padding:0px; margin:0px;">
             <c:if test="${showStates == 'true'}">
                 <tr>

@@ -28,7 +28,7 @@
             <td align="right" valign="bottom"><table cellpadding="0" cellspacing="0" class="toptabs_wide" >
 
                 <tr>
-                    <mod:topNavTab selected="${requestScope.context.pathway == 1}" href="/modperl/go/$STATE" label="Research &amp; Compare"/>
+                    <mod:topNavTab selected="${requestScope.context.pathway == 1}" href="/modperl/go/$STATE" label="Research &amp;amp; Compare"/>
                     <mod:topNavTab selected="${requestScope.context.pathway == 2}" href="/path/mySchool.page?state=$STATE" label="My Child's School"/>
                     <mod:topNavTab selected="${requestScope.context.pathway == 3}" href="/content/guideToTests.page?state=$STATE" label="Guide To Tests"/>
                     <mod:topNavTab selected="${requestScope.context.pathway == 4}" href="/about/aboutUs.page?state=$STATE" label="About Us"/>
@@ -70,7 +70,7 @@
                       <td width="120">Search within<br />
                           <select name="c" style="font-size: 11px;" >
                           <option value="all">
-                                                    Schools &amp; Topics
+                                                    Schools &amp;amp; Topics
                                                 </option>
                                                 <option value="school">
                                                     Schools only
@@ -101,9 +101,8 @@
                   </form>
 
               </div></td>
-              <td id="browse_area"  nowrap="nowrap"
-                      ><strong>Browse <h1>${requestScope.context.stateOrDefault.abbreviation eq "DC" ? "DC" : requestScope.context.stateOrDefault.longName} schools</h1>&#160;by<br />
-                </strong>
+              <td id="browse_area"  nowrap="nowrap">
+                      <strong>Browse </strong><h1><strong>${requestScope.context.stateOrDefault.abbreviation eq "DC" ? "DC" : requestScope.context.stateOrDefault.longName} schools</strong></h1><strong>&#160;by<br /></strong>
                   <table width="100%"  border="0" cellspacing="0">
                     <tr>
                       <td><gsml:a href="/modperl/citylist/$STATE/">City</gsml:a></td>
@@ -124,10 +123,11 @@
             </tr>
 
             <tr>
+              <gsml:url var="clearpix" value="/res/img/header/clear_pix.gif"/>
               <td class="leftside_corner"></td>
-              <td class="bottomborder"><img src="/res/img/header/clear_pix.gif" /></td>
-              <td class="bottomborder_white"><img src="/res/img/header/clear_pix.gif" /></td>
-              <td  class="bottomborder"><img src="/res/img/header/clear_pix.gif" /></td>
+              <td class="bottomborder"><img alt="" src="${clearpix}"/></td>
+              <td class="bottomborder_white"><img alt="" src="${clearpix}"/></td>
+              <td  class="bottomborder"><img alt="" src="${clearpix}"/></td>
               <td  class="rightside_corner"></td>
             </tr>
 

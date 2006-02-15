@@ -24,7 +24,7 @@
 
     <h1>GS Search Manager Login Page</h1>
 
-    <gsml:form id="loginform" action="/status/login.page" name="f" method="post">
+    <gsml:form id="loginform" action="/status/login.page" method="post">
         <input type="hidden" name="origURL"/>
         <table width="25%" border="1">
             <tr>
