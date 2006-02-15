@@ -62,7 +62,7 @@
                                     Find test scores, teacher stats and more
                                 <gsml:a styleClass="changeState" href="/stateLauncher.page?p=pathway2">Search another state</gsml:a></h3>
 
-                                <search:searchControl showConstraint="false" fieldLength="40" showLabel="false"/>
+                                <search:searchControl showConstraint="false" fieldLength="35" showLabel="false"/>
 
                                 <div class="browselinks">
                                     <gsml:a styleClass="nowrap"

@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.98 2006/02/13 23:19:41 apeterson Exp $
+   $Id: global.css,v 1.99 2006/02/15 18:37:27 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -132,12 +132,10 @@
         /*
         Cobrand doesn't quite fit in the width required, so I squish the text for them.
         */
-    .cobranded .globalSearch {
-        font-size: 90%;
-    }
 
-    .cobranded .topCities {
-        font-size: 85%;
+    .cobranded .topCities li,
+    .cobranded h3 {
+        font-size: x-small;
     }
 
     .cobranded .topCities li {
@@ -236,6 +234,7 @@
     .browselinks {
         padding: 10px 0px 10px 0px;
         width: 100%;
+		font-size: small;
     }
 
     .browselinks a {
@@ -569,18 +568,24 @@
         margin: .3em;
     }
 
-    .promoMembershipMedium h3 {
+    table.promoMembershipMedium h3 {
         color: #f60;
         color: #777;
+        font-size: small;
     }
 
-    .promoMembershipMedium th {
+    table.promoMembershipMedium th {
         text-align: center;
         font-size: x-small;
-        font-weight: 100
+        font-weight: 100;
     }
 
-    .promoMembershipMedium h5 {
+    table.promoMembershipMedium td {
+        font-size: x-small;
+        font-weight: 100;
+    }
+
+    table.promoMembershipMedium h5 {
         font-weight: 700;
         padding: .7em 0 0 0
     }
@@ -646,6 +651,11 @@
         margin-top: 3px;
         margin-bottom: 3px;
         list-style-image: url( ../img/adobe/pdficon.gif )
+    }
+    
+    
+    .featuredarticle {
+    	font-size: small;
     }
 
         /* Boxes
@@ -805,26 +815,34 @@
         color: #039
     }
 
-    .about h3 {
+    div.about h1 {
+        color: #f60;
+        font-size: medium;
+        font-weight: bold;
+        margin: 2em 0 1em 0;
+        text-align: center;
+    }
+
+    div.about h2, div.guideToTests h2 {
+        color: #333;
+        width: 551;
+        font-weight: bold;
+        font-size: small;
+        margin: 1em 0 0 0;
+    }
+
+    div.about h3 {
         color: #f60;
         border-bottom: 1px solid #ccc;
         width: 551;
         font-weight: bold;
-        font-size: large;
+        font-size: medium;
         margin: 1em 0 1em 0;
     }
 
     .about h4 {
         font-weight: bold;
         margin-top: 0;
-    }
-
-    .about h1 {
-        color: #f60;
-        font-size: medium;
-        font-weight: bold;
-        margin: 2em 0 1em 0;
-        text-align: center;
     }
 
     .about h5 {
@@ -844,7 +862,7 @@
     }
 
     div.about {
-        width: 50em;
+        width: 40em;
         padding: 0 2em 4em 2em;
     }
 

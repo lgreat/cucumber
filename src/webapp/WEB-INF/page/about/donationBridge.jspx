@@ -31,7 +31,7 @@
         <mod:tracking pageType="donationBridge" pageName="donationBridge"/>
 
             <center>
-                <div class="about" style="width:80em;">
+                <div class="about">
                     <div class="page">
                        <table>
                            <tr><td style="vertical-align:top; width:10em;"></td>
@@ -58,31 +58,31 @@
                                 <td style="padding-right: 10px;vertical-align:top;"><h5>$25</h5></td>
                                 <td style="vertical-align:top;padding-bottom:15px;">
                                 <h5>School Ambassador</h5>
-                                Sponsor updates for your child's school profile so all parents can access
-                                the data free of charge.</td>
+                                <p>Sponsor updates for your child's school profile so all parents can access
+                                the data free of charge.</p></td>
 
                              </tr>
 
                             <tr>
                                 <td style="padding-right: 10px; vertical-align:top;"><h5>$50</h5></td>
                                 <td style="vertical-align:top;padding-bottom:15px;"><h5>Parent Advisor</h5>
-                                 Support our efforts in writing newsletters and posting parent reviews and
-                                ratings.</td>
+                                 <p>Support our efforts in writing newsletters and posting parent reviews and
+                                ratings.</p></td>
 
                              </tr>
 
                              <tr>
                                 <td style="padding-right: 10px; vertical-align:top;"><h5>$100</h5></td>
                                 <td style="vertical-align:top;padding-bottom:15px;"><h5>School Improver</h5>
-                                 Help us produce workshop materials for our community-outreach efforts.</td>
+                                 <p>Help us produce workshop materials for our community-outreach efforts.</p></td>
 
                              </tr>
 
                             <tr>
                                 <td style="padding-right: 10px; vertical-align:top;"><h5>$$$$</h5></td>
                                 <td style="vertical-align:top;padding-bottom:15px;"><h5>GreatSchools Champion</h5>
-                                 Choose any contribution amount and we'll earmark it for upcoming projects
-                                and programs.</td>
+                                 <p>Choose any contribution amount and we'll earmark it for upcoming projects
+                                and programs.</p></td>
 
                              </tr>
 
