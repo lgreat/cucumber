@@ -47,7 +47,7 @@
     </c:if>
     <script language="JavaScript" src="${js}">
         <![CDATA[</script>
-                <script language = "JavaScript" > ]]>
+                <script language="JavaScript" > ]]>
         s.pageName = "${pageName}";
         s.server = "${requestScope.context.hostName}";
         s.channel = "${empty(state) ? requestScope.context.stateOrDefault.abbreviation : state}";
@@ -57,13 +57,14 @@
         s.prop3 = "${empty(schoolLevel) ? "" : schoolLevel}";
         s.prop4 = "${empty(locale) ? "" : locale}";
         s.prop5 = "${requestScope.context.stateOrDefault.subscriptionState ? 'subscription' : 'non-subscription'}";
+        s.prop6 = "${param.q}";
+        s.prop6 = s.prop6.toLowerCase();
         s.hier1 = "${hier1}";
         s.eVar4 = "${requestScope.context.ABVersion}";
     </script>
     <![CDATA[
 <script language="JavaScript"><!--
 
-s
 /************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
 var s_code=s.t();if(s_code)document.write(s_code)//--></script>
 <script language="JavaScript"><!--
