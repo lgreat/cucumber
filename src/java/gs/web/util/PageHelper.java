@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.7 2006/02/10 02:10:28 thuss Exp $
+ * $Id: PageHelper.java,v 1.8 2006/02/16 01:06:36 thuss Exp $
  */
 
 package gs.web.util;
@@ -173,7 +173,7 @@ public class PageHelper {
      */
     public boolean isFramed() {
         return _cobrand != null &&
-                _cobrand.matches("mcguire|framed|number1expert|vreo");
+                _cobrand.matches("mcguire|framed|number1expert|vreo|e-agent");
     }
 
     /**
