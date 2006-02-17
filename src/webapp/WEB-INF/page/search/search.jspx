@@ -73,7 +73,7 @@
 
     <gsml:url var="searchcss" value="/res/css/search/search.css"/>
     <link rel="stylesheet" href="${searchcss}" type="text/css" media="screen"/>
-
+    <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
 </head>
 
 <body>
@@ -94,8 +94,7 @@
             </c:if>
 
             <gsml:box tableClass="shade3 main">
-                <c:set var="state"
-                       value="${requestScope.context.stateOrDefault}"/>
+
                 <h2 class="browseheader">Browse</h2>
                 <ul class="refinementlist">
                     <li><gsml:a href="/modperl/citylist/${state.abbreviation}">
@@ -170,7 +169,7 @@
                                 class="headerquery">${gsweb:highlight(param.q, 'private', 'text')}</span>&quot;
                         </td>
                         <td align="right">
-                            <gsml:a href="/search/feedback.page?q=${param.q}"><img src="/res/img/search/search_feedback.gif" alt="search feedback"/></gsml:a>
+                            <gsml:a href="/search/feedback.page?state=${state.abbreviation}&amp;q=${param.q}"><img src="/res/img/search/search_feedback.gif" alt="search feedback"/></gsml:a>
                         </td>
                         <td align="right">
                             <c:if test="${results.total gt 0}">
