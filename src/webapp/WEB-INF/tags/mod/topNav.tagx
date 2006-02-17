@@ -113,7 +113,7 @@
                       <td><gsml:a href="/modperl/distlist/$STATE/">District</gsml:a></td>
 
                       <td>
-                           <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
+                           <c:if test="${requestScope.context.stateOrDefault.topRatedSchoolsState}">
                           <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE">Top-Rated</gsml:a>
                           </c:if>
                           </td>
