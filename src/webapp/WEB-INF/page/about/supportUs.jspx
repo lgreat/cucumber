@@ -29,64 +29,62 @@
         <title>Donate to GreatSchools.net</title>
     </head>
 
-    <gsml:body adPageName="donate">
+    <gsml:body adPageName="donate" pageLayout="oneMainColumn">
 
         <mod:tracking pageType="donate" pageName="donate"/>
 
-        <div class="gs">
-            <center>
-                <div class="about" >
-                    <div class="page">
 
-                        <table>
-                           <tr><td></td>
-                               <td style="vertical-align:top; width:50em;"> <h3>Support Our Efforts</h3></td></tr>
-                            <tr>
-                            <td style="vertical-align:top; width:10em;">
-                            <gsml:img src="/res/img/about/donatepic01_wide.jpg" alt="teacher and student"/>
-                            <gsml:img src="/res/img/about/donatepic02_wide.jpg" alt="girl and computer"/>
-                            <gsml:img src="/res/img/about/donatepic03_wide.jpg" alt="teacher and student"/>
-                            </td>
+        <table>
+            <tr><td></td>
+                <td style="vertical-align:top; width:50em;"><h3>Support Our Efforts</h3></td></tr>
+            <tr>
+                <td style="vertical-align:top; width:10em;">
+                    <gsml:img src="/res/img/about/donatepic01_wide.jpg" alt="teacher and student"/>
+                    <gsml:img src="/res/img/about/donatepic02_wide.jpg" alt="girl and computer"/>
+                    <gsml:img src="/res/img/about/donatepic03_wide.jpg" alt="teacher and student"/>
+                </td>
 
-                            <td style="vertical-align:top; width:50em;">
-                            <p>GreatSchools is an independent nonprofit organization that has been improving K-12 education
-                            since 1998 by inspiring parents like you to get involved.</p>
+                <td style="vertical-align:top; width:50em;">
+                    <p>GreatSchools is an independent nonprofit organization that has been improving K-12 education
+                        since 1998 by inspiring parents like you to get involved.</p>
 
-                            <p>We give you several ways to make a difference - for your child, your school and your
-                            community. Find the best fit for you!</p>
+                    <p>We give you several ways to make a difference - for your child, your school and your
+                        community. Find the best fit for you!</p>
 
 
-                            <h4><gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
-                            Submit a Parent Review</gsml:a></h4>
-                            <p>Test scores and teacher credentials tell only part of the story. Parents rely on reviews from
-                            other parents to give them the inside scoop - from school culture and after-school programs
-                            to principal leadership and parent involvement. Help parents make smart school choices for
-                            their children.</p>
+                    <h4><gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
+                        Submit a Parent Review</gsml:a></h4>
+
+                    <p>Test scores and teacher credentials tell only part of the story. Parents rely on reviews from
+                        other parents to give them the inside scoop - from school culture and after-school programs
+                        to principal leadership and parent involvement. Help parents make smart school choices for
+                        their children.</p>
 
 
-                            <h4><gsml:a href="/cgi-bin/newsletters/$STATE/">
-                            Sign up for our newsletters</gsml:a></h4>
-                            <p>Stay on top of the latest teaching trends in the classroom, receive tips and advice from
-                            experts, get regular performance updates about your child's school, and more.</p>
+                    <h4><gsml:a href="/cgi-bin/newsletters/$STATE/">
+                        Sign up for our newsletters</gsml:a></h4>
 
-                            <h4><gsml:a href="/cgi-bin/static/network.inc/$STATE">
-                            Join the GreatSchools Network</gsml:a></h4>
-                            <p>We are conducting pilot programs in two cities to organize and support parents advocating for
-                            education excellence in their communities. Learn more about the programs and how you can get
-                            involved.</p>
+                    <p>Stay on top of the latest teaching trends in the classroom, receive tips and advice from
+                        experts, get regular performance updates about your child's school, and more.</p>
 
-                            <h4><gsml:a href="/about/donationBridge.page?state=$STATE">
-                            Make a donation</gsml:a></h4><p>GreatSchools is made possible through a unique combination of foundation support, corporate
-                            sponsorships and donations from people like you. Your contribution is tax-deductible and all
-                            transactions are completely secure.</p></td></tr>
+                    <h4><gsml:a href="/cgi-bin/static/network.inc/$STATE">
+                        Join the GreatSchools Network</gsml:a></h4>
+
+                    <p>We are conducting pilot programs in two cities to organize and support parents advocating for
+                        education excellence in their communities. Learn more about the programs and how you can get
+                        involved.</p>
+
+                    <h4><gsml:a href="/about/donationBridge.page?state=$STATE">
+                        Make a donation</gsml:a></h4>
+
+                    <p>GreatSchools is made possible through a unique combination of foundation support, corporate
+                        sponsorships and donations from people like you. Your contribution is tax-deductible and all
+                        transactions are completely secure.</p></td></tr>
 
 
-                            </table>
+        </table>
 
 
-                    </div>
-                </div></center>
-        </div>
     </gsml:body>
     </html>
 </jsp:root>

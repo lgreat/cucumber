@@ -28,13 +28,9 @@
         <title>About Us</title>
     </head>
 
-    <gsml:body adPageName="aboutUs">
+    <gsml:body adPageName="aboutUs" pageLayout="oneMainColumn">
 
     <mod:tracking pageType="aboutUs" pageName="aboutUs" />
-
-<center>
-<div class="about">
-<div class="page">
 
    <h3>Our Story</h3>
    <p>A former teacher, Bill Jackson founded GreatSchools in 1998 to
@@ -142,8 +138,6 @@
    San Francisco, CA 94105<br />
    Fax: (415) 977-0704<br />
    </p>
-   </div>
-   </div></center>
     </gsml:body>
     </html>
 </jsp:root>

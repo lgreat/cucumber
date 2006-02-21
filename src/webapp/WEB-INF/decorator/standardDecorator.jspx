@@ -12,7 +12,8 @@
         xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
         >
 <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-<c:set var="pageClass"><c:if test="${requestScope.context.cobranded}">cobranded ${requestScope.context.cobrand}</c:if>
+<c:set var="pageClass"><c:if
+        test="${requestScope.context.cobranded}">cobranded ${requestScope.context.cobrand}</c:if> ${requestScope.pageLayout}" 
 </c:set>
 <html lang="en">
 <jsp:output doctype-root-element="html"
@@ -34,6 +35,9 @@
 
     <gsml:url var="globaljs" value="/res/js/global.js"/>
     <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
+
+    <gsml:url var="minmaxjs" value="/res/js/minmax.js"/>
+    <![CDATA[<script type="text/javascript" src="${minmaxjs}"></script>]]>
 
     <!-- This tag includes ad_popunder.js and sets onloadPopunder -->
     <ad:xPopunder/>
