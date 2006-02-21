@@ -15,6 +15,16 @@ public class FeedbackCommand {
     private String _description;
     private String _email;
 
+    public String getState() {
+        return _state;
+    }
+
+    public void setState(String state) {
+        _state = state;
+    }
+
+    private String _state;
+
     public String getQuery() {
         return _query;
     }
@@ -38,7 +48,6 @@ public class FeedbackCommand {
     public void setEmail(String email) {
         _email = email;
     }
-
 
     public void setComment(String s) {
         _comment = s;

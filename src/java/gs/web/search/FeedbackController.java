@@ -3,12 +3,9 @@ package gs.web.search;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.validation.BindException;
 import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.ServletException;
 import javax.mail.Session;
 import javax.mail.Message;
@@ -30,10 +27,7 @@ public class FeedbackController extends SimpleFormController {
     public static final String BEAN_ID = "/search/feedback.page";
     private static final Logger _log = Logger.getLogger(FeedbackController.class);
 
-    public ModelAndView onSubmit(HttpServletRequest request,
-                                 HttpServletResponse response,
-                                 Object command,
-                                 BindException errors) throws ServletException {
+    public ModelAndView onSubmit(Object command) throws ServletException {
 
         if (command != null) {
             try {
@@ -42,7 +36,6 @@ public class FeedbackController extends SimpleFormController {
                 _log.warn("Search Feedback could not be sent", e);
             }
         }
-        RedirectView rv = new RedirectView();
         return new ModelAndView(new RedirectView(getSuccessView()));
     }
 
@@ -52,17 +45,18 @@ public class FeedbackController extends SimpleFormController {
      * @param fc
      * @throws Exception
      */
-    private static void sendFeebackToHelpDesk(FeedbackCommand fc) throws Exception {
-        Properties props = new Properties();
-        props.setProperty("mail.transport.protocol", "smtp");
-        props.setProperty("mail.smtp.host", "mail.greatschools.net");
-        Session session = Session.getDefaultInstance(props, null);
+    static void sendFeebackToHelpDesk(FeedbackCommand fc) throws Exception {
 
         // Build the text of the message:
         StringBuffer buffer = new StringBuffer();
 
         buffer.append("QUERY: ");
-        buffer.append(StringUtils.isNotEmpty(fc.getQuery()) ? fc.getQuery() : "");
+        String query = StringUtils.isNotEmpty(fc.getQuery()) ? fc.getQuery() : "";
+        buffer.append(query);
+        buffer.append("\n\n");
+
+        buffer.append("STATE: ");
+        buffer.append(StringUtils.isNotEmpty(fc.getState()) ? fc.getState() : "");
         buffer.append("\n\n");
 
         buffer.append("DESCRIPTION:\n");
@@ -81,9 +75,14 @@ public class FeedbackController extends SimpleFormController {
         buffer.append(StringUtils.isNotEmpty(fc.getEmail()) ? fc.getEmail() : "");
         buffer.append("\n");
 
+        Properties props = new Properties();
+        props.setProperty("mail.transport.protocol", "smtp");
+        props.setProperty("mail.smtp.host", "mail.greatschools.net");
+        Session session = Session.getDefaultInstance(props, null);
+
         Message msg = new MimeMessage(session);
         msg.setFrom(new InternetAddress("search_feedback@greatschools.net"));
-        msg.setSubject("Search Feedback");
+        msg.setSubject("Search Feedback: " + query);
         msg.setSentDate(new Date());
         msg.setRecipient(Message.RecipientType.TO, new InternetAddress("search_feedback@greatschools.net"));
         msg.setText(buffer.toString());
