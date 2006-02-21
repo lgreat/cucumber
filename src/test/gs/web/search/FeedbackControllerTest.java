@@ -1,10 +1,6 @@
 package gs.web.search;
 
-import junit.framework.TestCase;
 import gs.web.BaseControllerTestCase;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,10 +10,15 @@ import org.springframework.web.servlet.ModelAndView;
 public class FeedbackControllerTest extends BaseControllerTestCase {
     public void testOnSubmit() throws Exception {
         FeedbackController feedbackController = new FeedbackController();
-        HttpServletRequest request = getRequest();
-        HttpServletResponse response = getResponse();
+        FeedbackCommand command = new FeedbackCommand();
+        command.setComment("This is a comment");
         ModelAndView modelAndView =
-                feedbackController.onSubmit(request, response, null, null);
+                feedbackController.onSubmit(command);
         assertNotNull(modelAndView.getView().toString());
+    }
+
+    public void testSendFeedbackToHelpdesk() throws Exception {
+        FeedbackCommand fc = new FeedbackCommand();
+        fc.setComment("This is a comment");
     }
 }
