@@ -224,8 +224,16 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                     out.println("<td>");
 
                     StringBuffer urlBuffer = new StringBuffer("/modperl/browse_school/");
-                    urlBuffer.append(school.getDatabaseState().getAbbreviation());
-                    urlBuffer.append("/");
+                    if ("private".equals(school.getType().getSchoolTypeName())) {
+                        urlBuffer = new StringBuffer("/cgi-bin/");
+                        urlBuffer.append(school.getDatabaseState().getAbbreviationLowerCase());
+                        urlBuffer.append("/private/");
+                    } else {
+                        urlBuffer =
+                                new StringBuffer("/modperl/browse_school/");
+                        urlBuffer.append(school.getDatabaseState().getAbbreviationLowerCase());
+                        urlBuffer.append("/");
+                    }
                     urlBuffer.append(school.getId().toString());
 
                     out.print("<a href=\"");

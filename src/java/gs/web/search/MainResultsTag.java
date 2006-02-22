@@ -2,12 +2,11 @@ package gs.web.search;
 
 import org.apache.commons.lang.StringUtils;
 
-import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.List;
+import java.io.Writer;
 
 import gs.data.school.School;
 import gs.web.util.UrlUtil;
@@ -17,17 +16,18 @@ import gs.web.util.UrlUtil;
  */
 public class MainResultsTag extends ResultsTableTagHandler {
 
-    private List _results;
+    //private List _results;
     private String _constraint = null;
     private UrlUtil _urlUtil;
+    private Writer _writer;
 
     public MainResultsTag() {
         super();
         _urlUtil = new UrlUtil();
     }
 
-    public void setResults(List results) {
-        _results = results;
+    public void setWriter(Writer writer) {
+        _writer = writer;
     }
 
     public void setConstraint(String c) {
@@ -38,36 +38,50 @@ public class MainResultsTag extends ResultsTableTagHandler {
         return _constraint;
     }
 
+    public Writer getWriter() {
+        if (_writer == null) {
+            _writer = getJspContext().getOut();
+        }
+        return _writer;
+    }
     public void doTag() throws IOException {
 
-        JspWriter out = getJspContext().getOut();
+        Writer out = getWriter();
         PageContext pc = (PageContext) getJspContext().findAttribute(PageContext.PAGECONTEXT);
         HttpServletRequest request = null;
         if (pc != null) {
             request = (HttpServletRequest) pc.getRequest();
         }
 
-        out.print("<table width=\"100%\">");
-        out.println("<tr>");
-        out.println("<td colspan=\"2\">");
-        if (_results != null && _total > 0) {
-            out.println("<table id=\"mainresults\">");
-            for (int i = 0; i < _results.size(); i++) {
-                SearchResult result = (SearchResult) _results.get(i);
-                out.println("<tr class=\"result_row\">");
+        out.write("<table width=\"100%\">");
+        out.write("<tr>");
+        out.write("<td colspan=\"2\">");
+        if (getResults() != null && _total > 0) {
+            out.write("<table id=\"mainresults\">");
+            for (int i = 0; i < getResults().size(); i++) {
+                SearchResult result = (SearchResult) getResults().get(i);
+                out.write("<tr class=\"result_row\">");
 
-                out.print("<td class=\"headline\" colspan=\"3\">");
+                out.write("<td class=\"headline\" colspan=\"3\">");
                 switch (result.getType()) {
                     case SearchResult.SCHOOL:
-                        StringBuffer urlBuffer =
-                                new StringBuffer("/modperl/browse_school/");
-                        urlBuffer.append(result.getState());
-                        urlBuffer.append("/");
+                        StringBuffer urlBuffer;
+                        if ("private".equals(result.getSchoolType())) {
+                            urlBuffer = new StringBuffer("/cgi-bin/");
+                            urlBuffer.append(result.getState());
+                            urlBuffer.append("/private/");
+
+                        } else {
+                            urlBuffer =
+                                    new StringBuffer("/modperl/browse_school/");
+                            urlBuffer.append(result.getState().toLowerCase());
+                            urlBuffer.append("/");
+                        }
                         urlBuffer.append(result.getId());
 
-                        out.print("<a href=\"");
-                        out.print(_urlUtil.buildUrl(urlBuffer.toString(), request));
-                        out.println("\">");
+                        out.write("<a href=\"");
+                        out.write(_urlUtil.buildUrl(urlBuffer.toString(), request));
+                        out.write("\">");
 
                         break;
                     case SearchResult.ARTICLE:
@@ -82,9 +96,9 @@ public class MainResultsTag extends ResultsTableTagHandler {
                         articleHrefBuffer.append("/");
                         articleHrefBuffer.append(result.getId());
 
-                        out.print("<a href=\"");
-                        out.print(_urlUtil.buildUrl(articleHrefBuffer.toString(), request));
-                        out.print("\">");
+                        out.write("<a href=\"");
+                        out.write(_urlUtil.buildUrl(articleHrefBuffer.toString(), request));
+                        out.write("\">");
 
                         break;
                     case SearchResult.TERM:
@@ -93,59 +107,59 @@ public class MainResultsTag extends ResultsTableTagHandler {
                         termBuffer.append("/?id=");
                         termBuffer.append(result.getId());
 
-                        out.print("<a href=\"");
-                        out.print(_urlUtil.buildUrl(termBuffer.toString(), request));
-                        out.print("\">");
+                        out.write("<a href=\"");
+                        out.write(_urlUtil.buildUrl(termBuffer.toString(), request));
+                        out.write("\">");
 
                         break;
                     default:
                 }
 
-                out.print(result.getHeadline());
-                out.println("</a>");
-                out.println("</td></tr>");
+                out.write(result.getHeadline());
+                out.write("</a>");
+                out.write("</td></tr>");
 
-                out.println("<tr class=\"contextrow\">");
+                out.write("<tr class=\"contextrow\">");
                 if (result.getType() == SearchResult.SCHOOL) {
-                    out.println("<td>");
+                    out.write("<td>");
                     School school = getSchool(result);
                     if (school != null) {
-                        out.println(school.getPhysicalAddress().toString());
-                        out.print("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
-                        out.println(school.getType().getSchoolTypeName());
+                        out.write(school.getPhysicalAddress().toString());
+                        out.write("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
+                        out.write(school.getType().getSchoolTypeName());
                         String gl = school.getGradeLevels().getRangeString();
                         if (StringUtils.isNotEmpty(gl)) {
-                            out.print("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
-                            out.println(gl);
+                            out.write("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
+                            out.write(gl);
                         }
                     }
-                    out.println("</td>");
+                    out.write("</td>");
                 } else {
                     String context = result.getContext();
                     if (context != null) {
-                        out.println("<td colspan=\"3\">");
-                        out.print("<span class=\"context\">");
-                        out.print(context);
-                        out.println("</span>");
-                        out.println("</td>");
+                        out.write("<td colspan=\"3\">");
+                        out.write("<span class=\"context\">");
+                        out.write(context);
+                        out.write("</span>");
+                        out.write("</td>");
                     }
                 }
 
-                out.println("</tr>");
+                out.write("</tr>");
                 if (_debug) {
-                    out.print("<tr><td><pre class=\"explanation\">");
-                    out.print(result.getExplanation());
-                    out.println("</pre></td></tr>");
+                    out.write("<tr><td><pre class=\"explanation\">");
+                    out.write(result.getExplanation());
+                    out.write("</pre></td></tr>");
                 }
             }
-            out.println("</table>");
+            out.write("</table>");
         } else {
             getJspBody().getJspContext().setAttribute("noresults", "true");
         }
 
-        out.println("</td></tr><tr><td class=\"results_pagenav\">");
-        writePageNumbers(out);
-        out.println("</td></tr></table>");
+        out.write("</td></tr><tr><td class=\"results_pagenav\">");
+        writePageNumbers(getJspContext().getOut());
+        out.write("</td></tr></table>");
 
         try {
             getJspBody().invoke(out);
