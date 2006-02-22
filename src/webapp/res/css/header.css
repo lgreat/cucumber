@@ -30,8 +30,12 @@ div#topnav {
     padding: 0px;
 }
 
-#topnav .tab_on {
+#topnav .tab_on,
+    #topnav .tab_off {
     font-size: 11px;
+}
+
+#topnav .tab_on {
     font-weight: bold;
     color: #FFF;
     text-decoration: none;
@@ -46,14 +50,12 @@ div#topnav {
 }
 
 #topnav .tab_on A:hover {
-    font-size: 11px;
     font-family: arial, verdana, helvetica, sans-serif;
     color: #FFF;
     text-decoration: none;
 }
 
 #topnav .tab_off {
-    font-size: 11px;
     color: #000;
     text-decoration: none;
     text-align: center;
@@ -68,8 +70,6 @@ div#topnav {
 }
 
 #topnav .tab_off A:hover {
-    font-size: 11px;
-    font-family: arial, verdana, helvetica, sans-serif;
     color: #000;
     text-decoration: underline;
 }
@@ -119,7 +119,6 @@ div#topnav {
 }
 
 #topnav #state_area {
-    font-size: small;
     color: #666;
     text-decoration: none;
     text-align: center;
@@ -140,7 +139,6 @@ div#topnav {
 
 #topnav #search {
     padding: 4px 10px 0px 10px;
-    font-size: small;
     color: #666;
     text-align: center;
 }
@@ -151,17 +149,12 @@ div#topnav {
     white-space: nowrap;
 }
 
-#topnav #search a {
-    font-size: small;
-}
 
 #topnav .search_area td {
-    font-size: small;
     white-space: nowrap;
 }
 
 #topnav #browse_area {
-    font-size: small;
     color: #666;
     text-decoration: none;
     text-align: left;
@@ -171,15 +164,10 @@ div#topnav {
     white-space: nowrap;
 }
 
-#topnav #browse_area a {
-    font-size: small;
-}
-
 #topnav #browse_area strong,
     #topnav #browse_area h1 {
     display: inline;
     font-weight: bold;
-    font-size: small;
     color: #666;
 }
 
@@ -214,10 +202,21 @@ div#topnav {
 
 /* welcome message */
 #topnav div.welcome_wide {
-    font-size: small;
     color: #666;
     text-decoration: none;
     text-align: left;
     width: 100%;
     padding: 6px 0 2px 8px;
 }
+
+
+#topnav #state_area,
+    #topnav #search,
+    #topnav #search a,
+    #topnav .search_area td,
+    #topnav #browse_area,
+    #topnav #browse_area a,
+    #topnav #browse_area strong,
+    #topnav #browse_area h1,
+    #topnav div.welcome_wide {
+    font-size: 11px;
