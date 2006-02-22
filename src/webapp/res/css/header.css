@@ -213,13 +213,11 @@ div#topnav {
 }
 
 /* welcome message */
-#topnav .welcome_wide {
+#topnav div.welcome_wide {
     font-size: small;
     color: #666;
     text-decoration: none;
     text-align: left;
     width: 100%;
-    padding-top: 8px;
-    padding-left: 8px;
-    padding-bottom: 8px
+    padding: 6px 0 2px 8px;
 }

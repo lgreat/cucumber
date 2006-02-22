@@ -138,13 +138,8 @@
     </tr>
 
 </table>
-<div class="welcome_wide">
-    <mod:userInfo user="${requestScope.context.user}" state="${requestScope.context.stateOrDefault}"
-                  paidSubscriber="${requestScope.context.paidSubscriber}"/>
-
-
-</div>
-
+<div class="welcome_wide"><mod:userInfo user="${requestScope.context.user}" state="${requestScope.context.stateOrDefault}"
+                  paidSubscriber="${requestScope.context.paidSubscriber}"/><gsml:img alt="" src="/res/img/header/clear_pix.gif"/></div>
 </div>
 
 </jsp:root>

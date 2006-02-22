@@ -22,8 +22,4 @@ or visit                 <gsml:a href="/cgi-bin/feedback_faq/$STATE?fbtype=suben
                     Support</gsml:a>.
             </c:if>
      </c:if>
-    <c:if test="${not requestScope.pageHelper.signInAvailable}">
-        <!--Welcome to GreatSchools, the parent's guide to K-12 success -->
-     </c:if>
-
 </jsp:root>
