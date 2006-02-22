@@ -1,145 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
-    xmlns:jsp="http://java.sun.com/JSP/Page"
-    xmlns:c="http://java.sun.com/jsp/jstl/core"
-    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-    xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-    xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         >
-    <jsp:directive.tag body-content="empty"/>
+<jsp:directive.tag body-content="empty"/>
 
-    <ad:x22 />
+<ad:x22/>
 
-    <div id="topnav">
-    <table cellpadding="0" cellspacing="0" id="outer">
-          <tr>
-            <td width="239">
-                <gsml:url var="logoImage" value="/res/img/header/logo_GS_small.gif"/>
-                <gsml:url var="splashPage" value="/?state=$STATE"/>
-                <c:choose>
-                    <c:when test="${requestScope.pageHelper.logoLinked}">
-                        <a href="${splashPage}"><img alt="GreatSchools.net logo" src="${logoImage}"/></a>
-                    </c:when>
-                    <c:otherwise>
-                        <img alt="GreatSchools.net logo" src="${logoImage}"/>
-                    </c:otherwise>
-                </c:choose>
-             </td>
-            <td align="right" valign="bottom"><table cellpadding="0" cellspacing="0" class="toptabs_wide" >
+<div id="topnav">
+<table cellpadding="0" cellspacing="0" id="outer">
+    <tr>
+        <td width="239">
+            <gsml:url var="logoImage" value="/res/img/header/logo_GS_small.gif"/>
+            <gsml:url var="splashPage" value="/?state=$STATE"/>
+            <c:choose>
+                <c:when test="${requestScope.pageHelper.logoLinked}">
+                    <a href="${splashPage}"><img alt="GreatSchools.net logo" src="${logoImage}"/></a>
+                </c:when>
+                <c:otherwise>
+                    <img alt="GreatSchools.net logo" src="${logoImage}"/>
+                </c:otherwise>
+            </c:choose>
+        </td>
+        <td align="right" valign="bottom">
+            <table cellpadding="0" cellspacing="0" class="toptabs_wide">
 
                 <tr>
-                    <mod:topNavTab selected="${requestScope.context.pathway == 1}" href="/modperl/go/$STATE" label="Research &amp;amp; Compare"/>
-                    <mod:topNavTab selected="${requestScope.context.pathway == 2}" href="/path/mySchool.page?state=$STATE" label="My Child's School"/>
-                    <mod:topNavTab selected="${requestScope.context.pathway == 3}" href="/content/guideToTests.page?state=$STATE" label="Guide To Tests"/>
-                    <mod:topNavTab selected="${requestScope.context.pathway == 4}" href="/about/aboutUs.page?state=$STATE" label="About Us"/>
-                    <mod:topNavTab selected="${requestScope.context.pathway == 5}" href="/about/supportUs.page?state=$STATE" label="Support Us"/>
+                    <mod:topNavTab selected="${requestScope.context.pathway == 1}" href="/modperl/go/$STATE"
+                                   label="Research &amp;amp; Compare"/>
+                    <mod:topNavTab selected="${requestScope.context.pathway == 2}"
+                                   href="/path/mySchool.page?state=$STATE" label="My Child's School"/>
+                    <mod:topNavTab selected="${requestScope.context.pathway == 3}"
+                                   href="/content/guideToTests.page?state=$STATE" label="Guide To Tests"/>
+                    <mod:topNavTab selected="${requestScope.context.pathway == 4}"
+                                   href="/about/aboutUs.page?state=$STATE" label="About Us"/>
+                    <mod:topNavTab selected="${requestScope.context.pathway == 5}"
+                                   href="/about/supportUs.page?state=$STATE" label="Support Us"/>
                 </tr>
-            </table></td>
-          </tr>
-    </table>
+            </table>
+        </td>
+    </tr>
+</table>
 
 
+<table cellpadding="0" cellspacing="0" class="lower">
+    <tr>
+        <td class="leftside"><gsml:img alt="" src="/res/img/header/clear_pix.gif"/></td>
+        <td id="state_area" nowrap="nowrap">You are browsing<br/>
 
-          <table cellpadding="0" cellspacing="0" class="lower">
-            <tr>
-              <td class="leftside">&#160;</td>
-              <td id="state_area" nowrap="nowrap">You are browsing<br />
+            <span class="state_abbrev">${requestScope.context.stateOrDefault.abbreviation}</span><br/>
+            <gsml:a href="/stateLauncher.page?p=pathway${requestScope.context.pathway}">Change state</gsml:a>
+        </td>
+        <td id="search">
 
-                  <span class="state_abbrev">${requestScope.context.stateOrDefault.abbreviation}</span><br />
-                  <gsml:a href="/stateLauncher.page?p=pathway${requestScope.context.pathway}">Change state</gsml:a>
-              </td>
-              <td id="search">
-
-              <div align="center">
+            <div align="center">
 
 
-                  <gsml:url var="a" value="/search/search.page"/>
-                  <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
-                      <input type="hidden" name="st" value="charter"/>
-                  </c:if>
-
+                <gsml:url var="a" value="/search/search.page"/>
 
                 <form action="${a}" id="searchForm" method="get">
                     <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+                    <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
+                        <input type="hidden" name="st" value="charter"/>
+                    </c:if>
 
-                <table border="0" cellpadding="0" cellspacing="0" class="search_area">
-                    <tr>
-                      <td>Enter school, city, district, or keyword<br />
+                    <table border="0" cellpadding="0" cellspacing="0" class="search_area">
+                        <tr>
+                            <td>Enter school, city, district, or keyword<br/>
 
-                          <input name="q"  style="width: 90%; font-size: 11px;" maxlength="70" type="text" /></td>
-                      <td width="120">Search within<br />
-                          <select name="c" style="font-size: 11px;" >
-                          <option value="all">
-                                                    Schools &amp;amp; Topics
-                                                </option>
-                                                <option value="school">
-                                                    Schools only
-                                                </option>
-                                                <option value="topic">
-                                                    Topics only
-                                                </option>
-                                            </select>
-                      </td>
-                      <td width="40" rowspan="2">
-                          <gsml:inputImage styleClass="btn" src="/res/img/header/btn_go.gif" alt="Go" />
+                                <input name="q" style="width: 90%; font-size: 11px;" maxlength="70" type="text"/></td>
+                            <td width="120">Search within<br/>
+                                <select name="c" style="font-size: 11px;">
+                                    <option value="all">
+                                        Schools &amp;amp; Topics
+                                    </option>
+                                    <option value="school">
+                                        Schools only
+                                    </option>
+                                    <option value="topic">
+                                        Topics only
+                                    </option>
+                                </select>
+                            </td>
+                            <td width="40" rowspan="2">
+                                <gsml:inputImage styleClass="btn" src="/res/img/header/btn_go.gif" alt="Go"/>
 
-                     </td>
-                    </tr>
+                            </td>
+                        </tr>
 
-                    <tr>
-                      <td height="21" colspan="2" >
-                          <gsml:a
-                              href="/cgi-bin/cs_where/$STATE">Compare
-                          schools</gsml:a>&#160;&#160;&#160;&#160;&#160;&#160;&#160;|&#160;&#160;&#160;&#160;&#160;&#160;&#160;<gsml:a
-                                  href="/cgi-bin/msl_confirm/$STATE">My
-                              School List</gsml:a>&#160;&#160;&#160;&#160;&#160;&#160;|&#160;&#160;&#160;&#160;&#160;&#160;&#160;<gsml:a
-                              href="/cgi-bin/template_plain/advanced/$STATE/#address">Search
-                          near address</gsml:a>&#160;</td>
-                    </tr>
-                  </table>
+                        <tr>
+                            <td height="21" colspan="2">
+                                <gsml:a
+                                        href="/cgi-bin/cs_where/$STATE">Compare
+                                    schools</gsml:a><span style="padding: 0 1em 0 1em">|</span><gsml:a
+                                    href="/cgi-bin/msl_confirm/$STATE">My
+                                School List</gsml:a><span style="padding: 0 1em 0 1em">|</span><gsml:a
+                                    href="/cgi-bin/template_plain/advanced/$STATE/#address">Search
+                                near address</gsml:a></td>
+                        </tr>
+                    </table>
 
-                  </form>
+                </form>
 
-              </div></td>
-              <td id="browse_area"  nowrap="nowrap">
-                      <strong>Browse </strong><h1><strong>${requestScope.context.stateOrDefault.abbreviation eq "DC" ? "DC" : requestScope.context.stateOrDefault.longName} schools</strong></h1><strong>&#160;by<br /></strong>
-                  <table width="100%"  border="0" cellspacing="0">
-                    <tr>
-                      <td><gsml:a href="/modperl/citylist/$STATE/">City</gsml:a></td>
-                      <td><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#county">County</gsml:a></td>
+            </div></td>
+        <td id="browse_area" nowrap="nowrap">
+            <strong>Browse </strong>
+            <h1>
+                <strong>${requestScope.context.stateOrDefault.abbreviation eq "DC" ? "DC" : requestScope.context.stateOrDefault.longName}
+                    schools</strong></h1><strong>&#160;by<br/></strong>
+            <table width="100%" border="0" cellspacing="0">
+                <tr>
+                    <td><gsml:a href="/modperl/citylist/$STATE/">City</gsml:a></td>
+                    <td><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#county">County</gsml:a></td>
+                </tr>
+                <tr>
+                    <td><gsml:a href="/modperl/distlist/$STATE/">District</gsml:a></td>
+                    <td>
+                        <c:if test="${requestScope.context.stateOrDefault.topRatedSchoolsState}">
+                            <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE">Top-Rated</gsml:a>
+                        </c:if>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="rightside"><gsml:img alt="" src="/res/img/header/clear_pix.gif"/></td>
+    </tr>
 
-                    </tr>
-                    <tr>
-                      <td><gsml:a href="/modperl/distlist/$STATE/">District</gsml:a></td>
+    <tr>
+        <td class="leftside_corner"></td>
+        <td class="bottomborder"><gsml:img alt="" src="/res/img/header/clear_pix.gif"/></td>
+        <td class="bottomborder_white"><gsml:img alt="" src="/res/img/header/clear_pix.gif"/></td>
+        <td class="bottomborder"><gsml:img alt="" src="/res/img/header/clear_pix.gif"/></td>
+        <td class="rightside_corner"></td>
+    </tr>
 
-                      <td>
-                           <c:if test="${requestScope.context.stateOrDefault.topRatedSchoolsState}">
-                          <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE">Top-Rated</gsml:a>
-                          </c:if>
-                          </td>
-                    </tr>
-                </table></td>
-              <td class="rightside">&#160;</td>
-            </tr>
-
-            <tr>
-              <gsml:url var="clearpix" value="/res/img/header/clear_pix.gif"/>
-              <td class="leftside_corner"></td>
-              <td class="bottomborder"><img alt="" src="${clearpix}"/></td>
-              <td class="bottomborder_white"><img alt="" src="${clearpix}"/></td>
-              <td  class="bottomborder"><img alt="" src="${clearpix}"/></td>
-              <td  class="rightside_corner"></td>
-            </tr>
-
-          </table>
-        <div class="welcome_wide">
-            <mod:userInfo user="${requestScope.context.user}" state="${requestScope.context.stateOrDefault}"
-                          paidSubscriber="${requestScope.context.paidSubscriber}"/>
+</table>
+<div class="welcome_wide">
+    <mod:userInfo user="${requestScope.context.user}" state="${requestScope.context.stateOrDefault}"
+                  paidSubscriber="${requestScope.context.paidSubscriber}"/>
 
 
+</div>
 
-        </div>
-
-        </div>
+</div>
 
 </jsp:root>
