@@ -78,6 +78,13 @@
         </property>
     </bean>
 
+    <bean name="/path/newPathway.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>path/newPathway</value>
+        </property>
+    </bean>
+
     <bean name="/search/feedbackSubmit.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
