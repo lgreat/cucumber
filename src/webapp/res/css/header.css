@@ -106,17 +106,20 @@ div#topnav {
     border: none;
 }
 
-#topnav .bottomborder {
+#topnav .bottomborder img {
     border-bottom: 1px solid #EB7A31;
     background-color: #DBDBDB;
     height: 4px;
+    width: 100%;
 }
 
-#topnav .bottomborder_white {
+#topnav .bottomborder_white img {
     border-bottom: 1px solid #EB7A31;
     background-color: #FFF;
     height: 4px;
+    width: 100%;
 }
+
 
 #topnav #state_area {
     color: #666;
@@ -180,9 +183,9 @@ div#topnav {
 #topnav .leftside_corner {
     background-image: url( ../img/header/left_round_corner.gif );
     width: 5px;
-    background-repeat: no-repeat;
     height: 5px;
-    background-color: #DBDBDB;
+    background-repeat: no-repeat;
+    background-color: transparent;
     border: 0px;
 }
 

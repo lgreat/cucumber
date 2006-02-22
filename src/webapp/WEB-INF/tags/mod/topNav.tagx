@@ -128,13 +128,12 @@
         </td>
         <td class="rightside"><gsml:img alt="" src="/res/img/header/clear_pix.gif"/></td>
     </tr>
-
     <tr>
-        <td class="leftside_corner"></td>
+        <td class="leftside_corner"><gsml:img alt="" src="/res/img/header/clear_pix.gif"/></td>
         <td class="bottomborder"><gsml:img alt="" src="/res/img/header/clear_pix.gif"/></td>
         <td class="bottomborder_white"><gsml:img alt="" src="/res/img/header/clear_pix.gif"/></td>
         <td class="bottomborder"><gsml:img alt="" src="/res/img/header/clear_pix.gif"/></td>
-        <td class="rightside_corner"></td>
+        <td class="rightside_corner"><gsml:img alt="" src="/res/img/header/clear_pix.gif"/></td>
     </tr>
 
 </table>
