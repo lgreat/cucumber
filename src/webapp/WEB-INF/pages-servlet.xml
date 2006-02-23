@@ -216,6 +216,54 @@
         </property>
     </bean>
 
+     <bean name="/about/sponsors.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>about/sponsors</value>
+        </property>
+    </bean>
+
+     <bean name="/about/gsNetwork.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>about/gsNetwork</value>
+        </property>
+    </bean>
+
+    <bean name="/about/pressRoom.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>about/pressRoom</value>
+        </property>
+    </bean>
+
+     <bean name="/about/pressKit.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>about/pressKit</value>
+        </property>
+    </bean>
+
+    <bean name="/about/gsFaq.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>about/gsFaq</value>
+        </property>
+    </bean>
+
+    <bean name="/about/privacyStatement.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>about/privacyStatement</value>
+        </property>
+    </bean>
+
 
     <bean name="/bill/jackson.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
