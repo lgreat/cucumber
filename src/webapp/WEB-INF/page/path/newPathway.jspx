@@ -12,6 +12,10 @@
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         >
 <jsp:directive.page import="gs.web.SessionContextUtil"/>
+<jsp:scriptlet>
+    SessionContextUtil u = new SessionContextUtil();
+    u.setPathway(request, response, "1");
+</jsp:scriptlet>
 <html lang="en">
 <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="stateLongName" value="${requestScope.context.stateOrDefault.longName}"/>
@@ -29,6 +33,7 @@
         </style>
             ]]>
     <style type="text/css">
+
         h3.result_title {
            font-weight:bold;
         }
