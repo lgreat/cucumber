@@ -15,9 +15,7 @@
     </span>
 
     <div style="padding-left:15px;padding-right:7px; padding-top:20px; font-size:85%;">
-        <!--<gsml:url value="/path/compareEntry.module" var="form_submit"/>-->
-        <!--<form action="${form_submit}">-->
-        <form action="/path/compareEntry.module" method="POST">
+        <gsml:form action="/path/compareEntry.page" method="POST">
         <table>
             <tr>
                 <td align="center">
@@ -63,6 +61,6 @@
                 </td>
             </tr>
         </table>
-        </form>
+        </gsml:form>
     </div>
 </jsp:root>

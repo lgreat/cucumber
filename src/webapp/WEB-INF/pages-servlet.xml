@@ -340,6 +340,20 @@
           <value>path/choose</value>
       </property>
   </bean>
+
+  <bean name="/path/compareEntry.page"
+          class="gs.web.path.CompareEntryController">
+      <property name="formView">
+        <value>/path/compareEntry</value>
+      </property>
+      <property name="commandName">
+        <value>compareEntryCommand</value>
+      </property>
+      <property name="commandClass">
+        <value>gs.web.path.CompareEntryCommand</value>
+      </property>
+    </bean>
+
   <!--
   <bean name="/path/choose.page"
         class="gs.web.path.ChoosingPathwayController"

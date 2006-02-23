@@ -75,17 +75,11 @@
     </bean>
 
   <bean name="/path/compareEntry.module"
-          class="gs.web.path.CompareEntryController">
-      <property name="formView">
-        <value>/path/compareEntry</value>
-      </property>
-      <property name="commandName">
-        <value>compareEntryCommand</value>
-      </property>
-      <property name="commandClass">
-        <value>gs.web.path.CompareEntryCommand</value>
-      </property>
-    </bean>
+        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+    <property name="viewName">
+      <value>/path/compareEntry</value>
+    </property>
+  </bean>
 
     <bean name="/state/topDistricts.module"
           class="gs.web.state.TopDistrictsController"
