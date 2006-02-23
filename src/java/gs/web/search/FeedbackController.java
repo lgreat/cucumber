@@ -38,10 +38,12 @@ public class FeedbackController extends SimpleFormController {
                                  Object command,
                                  BindException errors) throws ServletException {
 
-        State state = SessionContext.getInstance(request).getStateOrDefault();
+        String stateString = null;
+
         if (command != null && (command instanceof FeedbackCommand)) {
             try {
                 FeedbackCommand fc = (FeedbackCommand)command;
+                stateString = fc.getState();
                 Message msg = buildMessage(fc);
                 if (!fc.test) {
                     Transport.send(msg);
@@ -51,8 +53,13 @@ public class FeedbackController extends SimpleFormController {
             }
         }
 
+        if (stateString == null) {
+            State state = SessionContext.getInstance(request).getStateOrDefault();
+            stateString = state.getAbbreviationLowerCase();
+        }
+
         StringBuffer path = new StringBuffer("/search/feedbackSubmit.page?state=");
-        path.append(state.getAbbreviationLowerCase());
+        path.append(stateString.toLowerCase());
         RedirectView view = new RedirectView(path.toString(), true);
         return new ModelAndView(view);
     }
