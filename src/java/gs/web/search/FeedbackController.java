@@ -3,10 +3,13 @@ package gs.web.search;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.validation.BindException;
 import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.mail.Session;
 import javax.mail.Message;
 import javax.mail.Transport;
@@ -14,6 +17,9 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.InternetAddress;
 import java.util.Properties;
 import java.util.Date;
+
+import gs.data.state.State;
+import gs.web.SessionContext;
 
 /**
  * This controller handles the submit of the search feedback form.  There is
@@ -27,25 +33,36 @@ public class FeedbackController extends SimpleFormController {
     public static final String BEAN_ID = "/search/feedback.page";
     private static final Logger _log = Logger.getLogger(FeedbackController.class);
 
-    public ModelAndView onSubmit(Object command) throws ServletException {
+    public ModelAndView onSubmit(HttpServletRequest request,
+                                 HttpServletResponse response,
+                                 Object command,
+                                 BindException errors) throws ServletException {
 
-        if (command != null) {
+        State state = SessionContext.getInstance(request).getStateOrDefault();
+        if (command != null && (command instanceof FeedbackCommand)) {
             try {
-                sendFeebackToHelpDesk((FeedbackCommand)command);
+                FeedbackCommand fc = (FeedbackCommand)command;
+                Message msg = buildMessage(fc);
+                if (!fc.test) {
+                    Transport.send(msg);
+                }
             } catch (Exception e) {
                 _log.warn("Search Feedback could not be sent", e);
             }
         }
-        return new ModelAndView(new RedirectView(getSuccessView()));
+
+        StringBuffer path = new StringBuffer("/search/feedbackSubmit.page?state=");
+        path.append(state.getAbbreviationLowerCase());
+        RedirectView view = new RedirectView(path.toString(), true);
+        return new ModelAndView(view);
     }
 
     /**
-     * Assembles a message from the fields in the FeedbackCommand and sends
-     * it to the HelpDesk.
+     * Assembles a message from the fields in the FeedbackCommand.
      * @param fc
      * @throws Exception
      */
-    static void sendFeebackToHelpDesk(FeedbackCommand fc) throws Exception {
+    static Message buildMessage(FeedbackCommand fc) throws Exception {
 
         // Build the text of the message:
         StringBuffer buffer = new StringBuffer();
@@ -86,6 +103,6 @@ public class FeedbackController extends SimpleFormController {
         msg.setSentDate(new Date());
         msg.setRecipient(Message.RecipientType.TO, new InternetAddress("search_feedback@greatschools.net"));
         msg.setText(buffer.toString());
-        Transport.send(msg);
+        return msg;
     }
 }

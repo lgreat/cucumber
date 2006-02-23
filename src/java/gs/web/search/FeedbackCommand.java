@@ -9,6 +9,8 @@ package gs.web.search;
  */
 public class FeedbackCommand {
 
+    public boolean test = false;
+    
     private String _query;
     private String _expected;
     private String _comment;
