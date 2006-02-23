@@ -67,7 +67,7 @@
                     <p>Stay on top of the latest teaching trends in the classroom, receive tips and advice from
                         experts, get regular performance updates about your child's school, and more.</p>
 
-                    <h4><gsml:a href="/cgi-bin/static/network.inc/$STATE">
+                    <h4><gsml:a href="/about/gsNetwork.page?state=$STATE">
                         Join the GreatSchools Network</gsml:a></h4>
 
                     <p>We are conducting pilot programs in two cities to organize and support parents advocating for
