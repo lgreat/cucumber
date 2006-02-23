@@ -13,7 +13,7 @@
         >
 <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="pageClass"><c:if
-        test="${requestScope.context.cobranded}">cobranded ${requestScope.context.cobrand}</c:if> ${requestScope.pageLayout}" 
+        test="${requestScope.context.cobranded}">cobranded ${requestScope.context.cobrand}</c:if> ${requestScope.pageLayout}"
 </c:set>
 <html lang="en">
 <jsp:output doctype-root-element="html"
@@ -79,7 +79,7 @@
 
                         <gsml:a href="/cgi-bin/feedback/${state}">Contact Us</gsml:a> &#124;
 
-                        <gsml:a href="/cgi-bin/static/privacy.inc/${state}">Privacy Policy</gsml:a>
+                        <gsml:a href="/about/privacyStatement.page?state=${state}">Privacy Policy</gsml:a>
 
 
                         <div id="footerText">

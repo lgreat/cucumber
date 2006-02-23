@@ -74,7 +74,7 @@
    <p>See a <gsml:a href="/modperl/browse_school/$STATE/30/">sample school
    profile</gsml:a><br />
    Review answers to <gsml:a href=
-   "/cgi-bin/static/faq.inc/$STATE">Frequently Asked Questions</gsml:a></p>
+   "/about/gsFaq.page?state=$STATE">Frequently Asked Questions</gsml:a></p>
 
    <h4>Support your child's education</h4>
    <p>As you guide your child from kindergarten through high school,
@@ -103,7 +103,7 @@
    drive local demand for high-quality schools.</p>
 
    <p>Learn more about the <gsml:a href=
-   "/cgi-bin/static/network.inc/$STATE">GreatSchools Network</gsml:a></p>
+   "/about/gsNetwork.page?state=$STATE">GreatSchools Network</gsml:a></p>
 
 
 
@@ -119,7 +119,7 @@
    and the Walton Family Foundation.</p>
 
    <ul>
-   <li><gsml:a href="/cgi-bin/static/sponsors.inc/$STATE">Sponsors and
+   <li><gsml:a href="/about/sponsors.page?state=$STATE">Sponsors and
    Partners</gsml:a></li>
 
    <li><gsml:a href="/cgi-bin/static/whoweare.inc/$STATE">Board of
@@ -128,7 +128,7 @@
    <li><gsml:a href="/cgi-bin/static/jobs.inc/$STATE">Employment
    Opportunities</gsml:a></li>
 
-   <li><gsml:a href="/cgi-bin/static/press.inc/$STATE">Press Room</gsml:a></li>
+   <li><gsml:a href="/about/pressRoom.page?state=$STATE">Press Room</gsml:a></li>
 
    <li><gsml:a href="/cgi-bin/feedback/$STATE">Contact Us</gsml:a></li>
    </ul>

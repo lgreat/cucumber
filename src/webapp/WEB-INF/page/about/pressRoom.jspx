@@ -165,40 +165,40 @@
             href="/cgi-bin/static/GS_BP_Press_Release_05_08_10.htm">more...</gsml:a></p>
 
     <p><b>8/20/04:</b> GreatSchools.net Provides Parents with Vital Information About NCLB School Choice and Tutoring
-        Options <gsml:a href="/cgi-bin/static/press7.26.04_nclb.html/ca">more...</gsml:a></p>
+        Options <gsml:a href="/cgi-bin/static/press7.26.04_nclb.html/$STATE">more...</gsml:a></p>
 
-    <p><b>8/28/02:</b> GreatSchools.net Posts STAR Scores <gsml:a href="/cgi-bin/static/press8.28.02_ca.html/ca">
+    <p><b>8/28/02:</b> GreatSchools.net Posts STAR Scores <gsml:a href="/cgi-bin/static/press8.28.02_ca.html/$STATE">
         more...</gsml:a></p>
 
     <p><b>7/29/02:</b> GreatSchools.net Posts TAAS Scores and School Rankings <gsml:a
-            href="/cgi-bin/static/press7.29.02_tx.html/ca">more...</gsml:a></p>
+            href="/cgi-bin/static/press7.29.02_tx.html/$STATE">more...</gsml:a></p>
 
     <p><b>5/31/02:</b> GreatSchools.net Launches Parent-Friendly Online Guide to Florida Schools <gsml:a
-            href="/cgi-bin/static/press5.31.02_fl.html/ca">more...</gsml:a></p>
+            href="/cgi-bin/static/press5.31.02_fl.html/$STATE">more...</gsml:a></p>
 
     <p><b>5/13/02:</b> GreatSchools.net Helps Florida Parents Understand School Data <gsml:a
-            href="/cgi-bin/static/press5.13.02_fl.html/ca">more...</gsml:a></p>
+            href="/cgi-bin/static/press5.13.02_fl.html/$STATE">more...</gsml:a></p>
 
     <p><b>4/24/02:</b> GreatSchools Helps Parents Understand School Options <gsml:a
-            href="/cgi-bin/static/press4.24.02.html/ca">more...</gsml:a></p>
+            href="/cgi-bin/static/press4.24.02.html/$STATE">more...</gsml:a></p>
 
     <p><b>1/16/02:</b> GreatSchools Takes Mystery Out of Test Scores <gsml:a
-            href="/cgi-bin/static/press1.16.02_api.html/ca">more...</gsml:a></p>
+            href="/cgi-bin/static/press1.16.02_api.html/$STATE">more...</gsml:a></p>
 
     <p><b>1/8/02:</b> GreatSchools.net to Help Parents Get the Most Out of ESEA <gsml:a
-            href="/cgi-bin/static/press1.8.02_esea.html/ca"> more...</gsml:a></p>
+            href="/cgi-bin/static/press1.8.02_esea.html/$STATE"> more...</gsml:a></p>
 
     <p><b>10/15/01:</b> GreatSchools.net Offers Test Scores For Public Schools Across the USA<gsml:a
-            href="/cgi-bin/static/press10.15.01_national_data.html/ca"> more...</gsml:a></p>
+            href="/cgi-bin/static/press10.15.01_national_data.html/$STATE"> more...</gsml:a></p>
 
     <p><b>3/27/01:</b> GreatSchools.net Launches Free Online National School Directory<gsml:a
-            href="/cgi-bin/static/press3.27.01.html/ca"> more...</gsml:a></p>
+            href="/cgi-bin/static/press3.27.01.html/$STATE"> more...</gsml:a></p>
 
     <p><b>3/15/01:</b> Nonprofit Publishes First Comprehensive Guide to Phoenix Schools<gsml:a
-            href="/cgi-bin/static/press3.15.01.html/ca"> more...</gsml:a></p>
+            href="/cgi-bin/static/press3.15.01.html/$STATE"> more...</gsml:a></p>
 
     <p><b>1/30/01:</b> Tutor.com and GreatSchools.net Partner to Create GreatSchools.net Tutoring Network<gsml:a
-            href="/cgi-bin/static/press1.30.01.html/ca"> more...</gsml:a></p>
+            href="/cgi-bin/static/press1.30.01.html/$STATE"> more...</gsml:a></p>
     </ul>
     <![CDATA[ <a name="kit"></a> ]]>
 
@@ -206,7 +206,7 @@
 
     <p>Visit the GreatSchools Press Kit for facts, logos, sample school profiles, executive bios, archived news stories
         and reader testimonials.</p>
-    <p><gsml:a href="/cgi-bin/static/presskit.inc/ca">GreatSchools Press Kit</gsml:a>   </p>
+    <p><gsml:a href="/about/pressKit.page?state=$STATE">GreatSchools Press Kit</gsml:a>   </p>
 
     <![CDATA[ <a name="contact"></a> ]]>
 
