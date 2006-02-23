@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gsweb="gstaglib"
+        >
+<jsp:directive.page import="gs.web.util.PageHelper"/>
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+<jsp:scriptlet>
+    PageHelper.hideFooterAd(request);
+</jsp:scriptlet>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Sponsors and Partners</title>
+</head>
+
+<gsml:body adPageName="sponsors" pageLayout="oneMainColumn">
+
+<mod:tracking pageType="aboutUs" pageName="sponsors"/>
+
+<h3>Sponsors and Partners</h3>
+
+<p>
+    A range of foundations and business partners have been critical to GreatSchools' success. We are grateful to these
+    partners, a sampling of which can be found below: </p>
+
+<ul class="singleSpacedList">
+    <li><a href="#foundations">Foundations</a></li>
+    <li><a href="#media">Major Media Partners</a></li>
+    <li><a href="#education">Education Partners</a></li>
+    <li><a href="#corporate">Corporate/In-Kind Donations</a></li>
+    <li><a href="#realestate">Real Estate/Web Developer Partners</a></li>
+    <li><a href="#advertising">Advertising Sponsorships</a></li>
+</ul>
+
+<![CDATA[ <a name="foundations"></a> ]]>
+
+<h3>Foundations</h3>
+<ul class="singleSpacedList">
+
+    <li>Annie E. Casey Foundation</li>
+    <li>The William H. Donner Foundation</li>
+    <li>Fordham Foundation</li>
+    <li>Bill &amp; Melinda Gates Foundation</li>
+    <li>William and Flora Hewlett Foundation</li>
+    <li>New Schools Venture Fund</li>
+    <li>Pisces Foundation</li>
+    <li>Robertson Foundation</li>
+    <li>San Francisco Foundation</li>
+    <li>The Stuart Foundation</li>
+    <li>Walton Family Foundation</li>
+</ul>
+<![CDATA[ <a name="media"></a> ]]>
+
+<h3>Major Media Partners</h3>
+<ul class="singleSpacedList">
+
+    <li>AOL</li>
+    <li>Yahoo!</li>
+    <li>azcentral.com</li>
+    <li>BabyCenter.com</li>
+    <li>Cox Newspapers</li>
+    <li>Dallas Morning News</li>
+    <li>Knight Ridder Digital</li>
+    <li>latimes.com</li>
+    <li>MySanAntonio.com</li>
+    <li>OrlandoSentinel.com</li>
+    <li>SeattlePI.com</li>
+    <li>SFGate.com</li>
+    <li>SignOnSanDiego.com </li>
+</ul>
+
+<![CDATA[ <a name="education"></a> ]]>
+
+<h3>Education Partners</h3>
+<ul class="singleSpacedList">
+
+    <li>Denver Public Schools</li>
+    <li><i>Education Week</i></li>
+    <li>Just for the Kids</li>
+    <li>National Center for Education Statistics</li>
+    <li>New York City Public Schools</li>
+    <li>Partnership for Learning</li>
+    <li>Scholastic</li>
+    <li>United States Department of Education</li>
+</ul>
+
+<![CDATA[ <a name="corporate"></a> ]]>
+
+<h3>Corporate/In-Kind Donations</h3>
+<ul class="singleSpacedList">
+
+    <li>Adobe</li>
+    <li>Atlassian</li>
+    <li>Cenqua</li>
+    <li>Covington &amp; Burling</li>
+    <li>Jetbrains</li>
+    <li>Microsoft, Inc.</li>
+    <li>Orrick, Herrington and Sutcliffe</li>
+    <li>Symantec</li>
+</ul>
+
+<![CDATA[ <a name="realestate"></a> ]]>
+
+<h3>Real Estate/Web Developer Partners</h3>
+<ul class="singleSpacedList">
+
+    <li>#1 Best Expert</li>
+    <li>Alan Pinel Realtors</li>
+    <li>California Prudential Realty</li>
+    <li>Connecting Neighbors</li>
+    <li>E-Agent</li>
+    <li>OnBoard, LLC</li>
+    <li>Realtor Association of Greater Miami</li>
+    <li>RE/Max Greater Atlanta</li>
+    <li>Vreo Software, Inc.</li>
+</ul>
+
+<![CDATA[ <a name="advertising"></a> ]]>
+
+<h3>Advertising Sponsorships</h3>
+<ul class="singleSpacedList">
+
+    <li>Discovery Kids Channel</li>
+    <li>Disney</li>
+    <li>Honda</li>
+    <li>NickJr.com</li>
+    <li>PBS</li>
+    <li><i>SCORE!</i> Educational Centers</li>
+    <li>Staples</li>
+    <li>Sylvan Learning Systems</li>
+    <li>Zip Realty </li>
+</ul>
+
+
+</gsml:body>
+</html>
+        </jsp:root>
+

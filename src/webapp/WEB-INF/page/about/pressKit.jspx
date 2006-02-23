@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gsweb="gstaglib"
+        >
+<jsp:directive.page import="gs.web.util.PageHelper"/>
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+<jsp:scriptlet>
+    PageHelper.hideFooterAd(request);
+</jsp:scriptlet>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>GreatSchools Press Room</title>
+</head>
+
+<gsml:body adPageName="pressKit" pageLayout="oneMainColumn">
+
+    <mod:tracking pageType="aboutUs" pageName="pressKit"/>
+
+
+    <h3>GreatSchools Press Kit</h3>
+ <ul class="singleSpacedList">
+   <li><a href="#fact">Fact Sheet</a></li>
+
+    <li><a href="#bios">Executive Bios</a></li>
+
+    <li><a href="#samples">Sample School Profiles</a></li>
+
+    <li><a href="#testimonials">Reader Testimonials</a></li>
+
+    <li><a href="#archive">News Archives</a></li>
+
+    <li><a href="#logos">Logos for Download</a></li>
+   </ul>
+     <![CDATA[ <a name="fact"></a> ]]>
+    <h3>Fact Sheet</h3>
+
+    <p>The mission of GreatSchools is to improve the quality of education by inspiring parents to get involved.</p>
+
+    <p>
+        Features offered on GreatSchools.net include:</p>
+    <ul>
+        <li><b>Comprehensive school profiles</b> Based on data provided by each state's Department of Education and
+            other sources, profiles cover all K-12 public schools in each state. They include information about student
+            achievement (including standardized test scores), teacher qualifications, attendance rates, demographics and
+            more. GreatSchools.net also features hundreds of Enhanced School Profiles, created by principals, which move
+            beyond the numbers to provide rich insight into their school mission, curriculum, special programs and
+            volunteer needs. Basic information on private schools is also available.
+        </li><li><b>Superior searching</b> Parents can search for school profiles by name, city or district or by
+        entering their home address to find the nearest schools.
+    </li><li><b>Powerful comparing</b> Parents can also easily compare schools based upon test scores, teacher
+        qualifications, and other data.
+    </li><li><b>Practical advice</b> With the Web's most comprehensive collection of articles and "how-to" guides for
+        parents, GreatSchools.net provides information on choosing schools, navigating the school system and getting
+        involved with schools. GreatSchools.net also has an extensive glossary that decodes education jargon into terms
+        parents can understand.
+    </li><li><b>Parent Reviews</b> Parent ratings and reviews help parents get "beyond the numbers" to understand what
+        parents think about the quality of teachers, leadership, extracurricular activities, and other factors.
+
+    </li><li><b>GreatSchools.net Ratings</b> (selected states; paid subscription required) Our ratings provide insight
+        into the meaning behind the numbers. For example, the GreatSchools Test Score Rating provides more insight into
+        the quality of instruction at a school than raw test score numbers themselves. See top-rated schools within a
+        geographic area and see how public schools rate according to test scores, attendance, teacher-student ratio and
+        more. </li></ul>
+
+      <![CDATA[ <a name="bios"></a> ]]>
+    <h3>Executive Bios</h3>
+
+    <p>Learn more about our <gsml:a href="/cgi-bin/static/whoweare.inc/$STATE#mngmt">management team</gsml:a>.</p>
+       <![CDATA[ <a name="samples"></a> ]]>
+    <h3>Sample School Profiles</h3>
+
+    <p>The following are actual school profiles that can be used for screenshots, reference, etc.:</p>
+
+    <ul class="singleSpacedList">
+
+       <li> <gsml:a href="/cgi-bin/az/browse_school/857">Arizona elementary school</gsml:a> </li>
+     <li>   <gsml:a href="/cgi-bin/ca/browse_school/250">California elementary school</gsml:a></li>
+   <p></p>
+
+
+      <li>  <gsml:a href="/cgi-bin/az/browse_school/821">Arizona middle school</gsml:a>  </li>
+      <li>  <gsml:a href="/cgi-bin/ca/browse_school/6852">California middle school</gsml:a> </li>
+        <p></p>
+
+
+     <li>   <gsml:a href="/cgi-bin/az/browse_school/1613">Arizona high school</gsml:a></li>
+      <li>  <gsml:a href="/cgi-bin/ca/browse_school/6855">California high school</gsml:a>  </li>
+    </ul>
+
+    <p>
+        Need a sample profile for another region or school type? Please <a href="mailto:pr@greatschools.net">contact
+        us</a>.</p>
+
+    <![CDATA[ <a name="testimonials"></a> ]]>
+    <h3>Reader Testimonials</h3>
+
+    <p>Review <gsml:a href="/cgi-bin/static/testimonials.inc/$STATE">testimonials and accolades</gsml:a>.</p>
+    <![CDATA[ <a name="archive"></a> ]]>
+    <h3>News Archives</h3>
+
+    <ul class="singleSpacedList">
+    <li>Waco Tribune, 06/11/02</li>
+    <li><gsml:a href="/cgi-bin/static/Wacotrib.html">WEB SITES OFFER WEALTH OF INFORMATION ON SCHOOL DISTRICTS</gsml:a></li>
+    <p></p>
+
+     <li>Tampa Tribune, 05/31/02</li>
+     <li><gsml:a href="/cgi-bin/static/TampaTrib.html">SCHOOL PROFILES AVAILABLE ONLINE</gsml:a></li>
+        <p></p>
+
+     <li>USA Today, 08/14/01</li>
+     <li><gsml:a href="/cgi-bin/static/usaTODAY.html">SCHOOL PROFILES AVAILABLE ONLINE</gsml:a></li>
+
+
+    <p></p>
+        <li>eSchool News, 03/01/01</li>
+        <li><gsml:a href="/cgi-bin/static/eschoolnews.html">GREATSCHOOLS.NET SHOWS GREAT PROMISE</gsml:a></li>
+
+    <p></p>
+        <li>Arizona Daily Star, 08/30/00</li>
+        <li><gsml:a href="/cgi-bin/static/AZlaunchdailystar.html">KIDS' SCHOOLS CAN BE RESEARCHED ONLINE</gsml:a></li>
+
+    <p></p>
+        <li>Arizona Republic, 08/30/00</li>
+
+        <li><gsml:a href="/cgi-bin/static/AZlaunchrepublic.html">WEB SITE OFFERS GUIDE TO ARIZ. SCHOOLS</gsml:a></li>
+
+    <p></p>
+        <li>Los Angeles Times, 07/19/00</li>
+        <li><gsml:a href="/cgi-bin/static/news_latimes.inc">WEB SITE PROVIDES STANFORD 9 COMPARISONS</gsml:a></li>
+
+    <p></p>
+        <li>San Diego Union Tribune, 07/17/00</li>
+        <li><gsml:a href="/cgi-bin/static/Sandiegotrib.html">WEB SITE ALLOWS COMPARISON WITH CLASSMATES</gsml:a></li>
+
+    <p></p>
+        <li>Education Week, 02/17/99</li>
+        <li><a href="http://www.edweek.com/ew/1999/23great.h18">CALIF. WEB SITE PROVIDES PARENT-FRIENDLY PORTRAITS OF
+            SCHOOLS</a></li>
+
+    <p></p>
+        <li>New York Times, 09/30/98</li>
+        <li><a href="http://www.nytimes.com/library/tech/98/09/cyber/education/30education.html">NEW SITE SEEKS CHANGE
+            BY EDUCATING PARENTS</a></li>
+
+    </ul>
+    <![CDATA[ <a name="logos"></a> ]]>
+    <h3>Logos for Download</h3>
+
+    <p>Please <a href="mailto:pr@greatschools.net">contact us</a> if you need a logo or other material not available
+        below. </p>
+
+    <p>Logo options: small (201 X 38), medium (233 X 46) or large (304 X 58).
+
+    </p>
+     <p>
+        <gsml:img src="/res/img/logo/logo_GS_201x38.jpg" alt="GS logo 201x38"></gsml:img></p>
+    <p>
+        <gsml:img src="/res/img/logo/logo_GS_233x46.jpg" alt="GS logo 233x46"></gsml:img></p>
+
+
+
+    <p>
+        <gsml:img src="/res/img/logo/logo_GS_304x58.jpg" alt="GS logo 304x58"></gsml:img></p>
+</gsml:body>
+</html>
+</jsp:root>
+

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gsweb="gstaglib"
+        >
+<jsp:directive.page import="gs.web.util.PageHelper"/>
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+<jsp:scriptlet>
+    PageHelper.hideFooterAd(request);
+</jsp:scriptlet>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>GreatSchools Press Room</title>
+</head>
+
+<gsml:body adPageName="pressRoom" pageLayout="oneMainColumn">
+
+    <mod:tracking pageType="aboutUs" pageName="pressRoom"/>
+
+    <h3>GreatSchools Press Room</h3>
+<ul class="singleSpacedList">
+  <li>  <a href="#news">GreatSchools in the News</a></li>
+
+    <li><a href="#press">Press Releases</a></li>
+
+    <li><a href="#kit">Press Kit</a></li>
+
+    <li><a href="#contact">Contact GreatSchools</a></li>
+   </ul>
+
+    <![CDATA[ <a name="news"></a> ]]>
+    <h3>GreatSchools in the News</h3>
+
+    <p>
+        GreatSchools has received coverage in major national, state and local newspapers, as well as radio and
+        television broadcasts. Below are some highlights. Click on any title for the complete story. Note that you may
+        have to register for online news stories.</p>
+    <ul class="singleSpacedList">
+
+    <li>Sacramento Bee, 12/01/05</li>
+    <li><a href="http://www.sacbee.com/content/business/tech/story/13923881p-14760911c.html">LINKS TO LEARNING</a></li>
+<p></p>
+    <li>Daily Dayton News, 11/16/05</li>
+
+    <li><a href="http://www.daytondailynews.com/opinion/content/opinion/daily/1116great.html">PARENTS NEED GOOD INFO TO
+        CHOOSE WELL</a>
+    </li>
+        <p></p>
+
+    <li>
+        Daily Dayton News, 11/07/05</li>
+
+    <li><a href="http://www.daytondailynews.com/localnews/content/localnews/daily/1107schoolrate.html">NEW SITE TO HELP
+        PARENTS WEIGH SCHOOL OPTIONS</a>
+    </li>
+        <p></p>
+
+    <li>
+        The San Francisco Examiner, 11/01/05</li>
+
+    <li><a href="http://www.sfexaminer.com/articles/2005/11/01/news/20051101_ne08_conf.txt">CONFERENCES KEY TO
+        EDUCATION</a>
+    </li>
+        <p></p>
+
+    <li>
+        The Charlotte Observer, 10/24/05</li>
+
+    <li>
+        <a href="http://www.charlotte.com/mld/observer/news/opinion/12981787.htm">LARRY BUMGARNER</a>
+    </li>
+        <p></p>
+    <li>
+        The Paly Voice, 10/07/05</li>
+
+    <li><a href="http://voice.paly.net/view_story.php?id=3328">PAUSD CONTINUES KATRINA RELIEF</a>
+    </li>
+        <p></p>
+
+    <li>
+        CNN Money, 8/30/04</li>
+
+   <li>
+        <a href="http://money.cnn.com/2004/08/27/real_estate/buying_selling/schools/">SCHOOL, WHAT IS IT GOOD FOR?</a>
+    </li>
+        <p></p>
+
+    <li>
+        Napa Valley Register, 07/11/04</li>
+
+    <li>
+        <a href="http://www.napanews.com/templates/index.cfm?template=story_full&amp;id=B91F1D39-CCEE-4197-A24F-52FD7FF92FE3">SCHOOLS
+            DON'T TIE DOWN NEW HOME OWNERS IN NAPA COUNTY</a>
+
+    </li>
+    <p></p>
+
+    <li>
+        Ocala Star-Banner, 06/21/04</li>
+
+    <li>
+        <a href="http://www.starbanner.com/apps/pbcs.dll/artikkel?SearchID=73175649913051&amp;Avis=OS&amp;Dato=20040621&amp;Kategori=NEWS&amp;Lopenr=206210357&amp;Ref=AR">PARENTS
+            FACE TOUGH DECISIONS ON SCHOOLS</a>
+    </li>
+    <p></p>
+
+    <li>
+        The Washington Post, 05/25/04</li>
+
+    <li><a href="http://www.washingtonpost.com/wp-dyn/articles/A54305-2004May25.html">LEARNING THE BASIS FOR ADVANCED
+        PLACEMENT COURSES</a>
+    </li>
+    <p></p>
+
+    <li>
+        CUTigers, 04/22/04</li>
+
+    <li><a href="http://clemson.theinsiders.com/2/253551.html">COURT DECISION WILL IMPACT THREE SC HIGH SCHOOLS</a>
+    </li>
+    <p></p>
+
+    <li>
+        District Administration, 04/07/04</li>
+
+    <li>
+        <a href="http://www.districtadministration.com/page.cfm?p=504">THE ONLINE EDGE: FIXING DISTRICT REPORT CARDS</a>
+    </li>
+    <p></p>
+
+    <li>
+        Business Wire, 02/26/04</li>
+
+    <li><a href="http://articles.findarticles.com/p/articles/mi_m0EIN/is_2004_Feb_26/ai_113638653">PACE OF EDUCATION
+        IMPROVEMENT HELD STEADY IN 2003 IN NINE-COUNTY REGION, NEW BAY AREA COUNCIL STUDY FINDS</a>
+    </li>
+    <p></p>
+
+    <li>
+        The Detroit News, 02/17/04</li>
+
+    <li><a href="http://www.detnews.com/2004/techcolumns/0402/16/techcol-64900.htm">NET RIFE WITH SITES FOR FINDING A
+        HOME</a>
+    </li>
+    </ul>
+    <![CDATA[ <a name="press"></a> ]]>
+
+    <h3>Press Releases</h3>
+   <ul class="singleSpacedList">
+    <p><b>11/28/05:</b> Prudential California Reality, Alan Pinel Realtors, Real Advisor Reality and VREO Choose
+        GreatSchools.net <gsml:a href="/cgi-bin/static/press11.28.05">more...</gsml:a></p>
+
+    <p><b>08/10/05:</b> GreatSchools.net Teams Up With Sperling's Best Places <gsml:a
+            href="/cgi-bin/static/GS_BP_Press_Release_05_08_10.htm">more...</gsml:a></p>
+
+    <p><b>8/20/04:</b> GreatSchools.net Provides Parents with Vital Information About NCLB School Choice and Tutoring
+        Options <gsml:a href="/cgi-bin/static/press7.26.04_nclb.html/ca">more...</gsml:a></p>
+
+    <p><b>8/28/02:</b> GreatSchools.net Posts STAR Scores <gsml:a href="/cgi-bin/static/press8.28.02_ca.html/ca">
+        more...</gsml:a></p>
+
+    <p><b>7/29/02:</b> GreatSchools.net Posts TAAS Scores and School Rankings <gsml:a
+            href="/cgi-bin/static/press7.29.02_tx.html/ca">more...</gsml:a></p>
+
+    <p><b>5/31/02:</b> GreatSchools.net Launches Parent-Friendly Online Guide to Florida Schools <gsml:a
+            href="/cgi-bin/static/press5.31.02_fl.html/ca">more...</gsml:a></p>
+
+    <p><b>5/13/02:</b> GreatSchools.net Helps Florida Parents Understand School Data <gsml:a
+            href="/cgi-bin/static/press5.13.02_fl.html/ca">more...</gsml:a></p>
+
+    <p><b>4/24/02:</b> GreatSchools Helps Parents Understand School Options <gsml:a
+            href="/cgi-bin/static/press4.24.02.html/ca">more...</gsml:a></p>
+
+    <p><b>1/16/02:</b> GreatSchools Takes Mystery Out of Test Scores <gsml:a
+            href="/cgi-bin/static/press1.16.02_api.html/ca">more...</gsml:a></p>
+
+    <p><b>1/8/02:</b> GreatSchools.net to Help Parents Get the Most Out of ESEA <gsml:a
+            href="/cgi-bin/static/press1.8.02_esea.html/ca"> more...</gsml:a></p>
+
+    <p><b>10/15/01:</b> GreatSchools.net Offers Test Scores For Public Schools Across the USA<gsml:a
+            href="/cgi-bin/static/press10.15.01_national_data.html/ca"> more...</gsml:a></p>
+
+    <p><b>3/27/01:</b> GreatSchools.net Launches Free Online National School Directory<gsml:a
+            href="/cgi-bin/static/press3.27.01.html/ca"> more...</gsml:a></p>
+
+    <p><b>3/15/01:</b> Nonprofit Publishes First Comprehensive Guide to Phoenix Schools<gsml:a
+            href="/cgi-bin/static/press3.15.01.html/ca"> more...</gsml:a></p>
+
+    <p><b>1/30/01:</b> Tutor.com and GreatSchools.net Partner to Create GreatSchools.net Tutoring Network<gsml:a
+            href="/cgi-bin/static/press1.30.01.html/ca"> more...</gsml:a></p>
+    </ul>
+    <![CDATA[ <a name="kit"></a> ]]>
+
+    <h3>Press Kit</h3>
+
+    <p>Visit the GreatSchools Press Kit for facts, logos, sample school profiles, executive bios, archived news stories
+        and reader testimonials.</p>
+    <p><gsml:a href="/cgi-bin/static/presskit.inc/ca">GreatSchools Press Kit</gsml:a>   </p>
+
+    <![CDATA[ <a name="contact"></a> ]]>
+
+    <h3>Contact GreatSchools</h3>
+    <ul class="singleSpacedList">
+    <li>GreatSchools.net</li>
+    <li>301 Howard Street, Suite 1440</li>
+    <li>San Francisco, CA 94105</li>
+    <li>415.977.0700 phone</li>
+
+    <li>415.977.0704 fax</li>
+    <li><a href="mailto:pr@greatschools.net">pr@greatschools.net</a></li>
+</ul>
+</gsml:body>
+</html>
+</jsp:root>
+

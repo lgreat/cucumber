@@ -19,7 +19,13 @@
         <pattern>/content/guideToTests.page</pattern>
         <pattern>/about/aboutUs.page</pattern>
         <pattern>/about/supportUs.page</pattern>
-         <pattern>/about/donationBridge.page</pattern>
+        <pattern>/about/privacyStatement.page</pattern>
+        <pattern>/about/gsNetwork.page</pattern>
+        <pattern>/about/sponsors.page</pattern>
+        <pattern>/about/donationBridge.page</pattern>
+        <pattern>/about/pressRoom.page</pattern>
+        <pattern>/about/pressKit.page</pattern>
+        <pattern>/about/gsFaq.page</pattern>
         <pattern>/test/city.page</pattern>
     </decorator>
 
