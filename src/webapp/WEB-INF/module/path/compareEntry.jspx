@@ -5,8 +5,10 @@
         >
 
     <jsp:directive.page import="gs.web.SessionContextUtil"/>
-    <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-    <c:set var="stateLongName" value="${requestScope.context.stateOrDefault.longName}"/>
+    <c:set var="state"
+           value="${requestScope.context.stateOrDefault.abbreviation}"/>
+    <c:set var="stateLongName"
+           value="${requestScope.context.stateOrDefault.longName}"/>
 
     <span class="moduleheader">
         <h1 class="inline">
@@ -16,51 +18,55 @@
 
     <div style="padding-left:15px;padding-right:7px; padding-top:20px; font-size:85%;">
         <gsml:form action="/path/compareEntry.page" method="POST">
-        <table>
-            <tr>
-                <td align="center">
-                    Compare&#32;
-                    <select name="level">
-                        <option value="elementary">Elementary</option>
-                        <option value="middle">Middle</option>
-                        <option value="high">High</option>
-                    </select>
-                    &#32;schools
-                </td>
-            </tr>
-            <tr>
-                <td align="center">
-                    <table id="radiotable"
-                           style="padding-bottom:10px;padding-top:5px;">
-                        <tr>
-                            <td align="left">
-                                <input type="radio" name="type" checked="true" value="address"> near
-                                    an address</input>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="left">
-                                <input type="radio" name="type" value="district"> in a
-                                    district</input>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="left">
-                                <input type="radio" name="type" value="county"> in a
-                                    county</input>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td align="center">
-                    <input type="image" name=""
-                           src="/res/img/compare_schools.gif"
-                           alt="Compare Schools"/>
-                </td>
-            </tr>
-        </table>
+            <table>
+                <tr>
+                    <td align="center">
+                        Compare&#32;
+                        <select name="level">
+                            <option value="elementary">Elementary</option>
+                            <option value="middle">Middle</option>
+                            <option value="high">High</option>
+                        </select>
+                        &#32;schools
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <table id="radiotable"
+                               style="padding-bottom:10px;padding-top:5px;">
+                            <tr>
+                                <td align="left">
+                                    <input type="radio" name="type"
+                                           checked="true" value="address"> near
+                                        an address</input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <input type="radio" name="type"
+                                           value="district"> in a
+                                        district</input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <input type="radio" name="type"
+                                           value="county"> in a
+                                        county</input>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <input type="image" name=""
+                               src="/res/img/compare_schools.gif"
+                               alt="Compare Schools"/>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" name="state" value="${state}"/>
         </gsml:form>
     </div>
 </jsp:root>

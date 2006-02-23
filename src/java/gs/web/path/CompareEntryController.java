@@ -1,7 +1,6 @@
 package gs.web.path;
 
 import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
@@ -31,7 +30,6 @@ public class CompareEntryController extends SimpleFormController {
 
         String level = request.getParameter("level");
         String type = request.getParameter("type");
-
         String stateString = request.getParameter("state");
         if (StringUtils.isBlank(stateString)) {
             State state = SessionContext.getInstance(request).getStateOrDefault();
