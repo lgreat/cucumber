@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.18 2006/02/10 20:06:04 apeterson Exp $
+ * $Id: UrlUtilSaTest.java,v 1.19 2006/02/23 21:09:46 thuss Exp $
  */
 
 package gs.web.util;
@@ -71,6 +71,7 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/$STATE", request));
         assertEquals("/search/search.page", _urlUtil.buildUrl("/search/search.page", request));
 
+
         // Test having the page deployed under say gs-web
         String ctxPath = "/gs-web";
         request.setContextPath(ctxPath);
@@ -93,6 +94,8 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("http://www.greatschools.net/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/CA", request));
         assertEquals("http://www.greatschools.net/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/$STATE", request));
         assertEquals("/res/js/s_code.js", _urlUtil.buildUrl("/res/js/s_code.js", request));
+        // This should be a secure request because otherwise it sets off internet explorer
+        assertEquals("/modperl/promos/image//769/CA//3", _urlUtil.buildUrl("/modperl/promos/image//769/CA//3", request));
 
         // Test secure URL but coming from a cobrand
         request.setParameter("host", "sfgate.greatschools.net");
@@ -100,6 +103,7 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("/thankyou.page", _urlUtil.buildUrl("/thankyou.page", request));
         assertEquals("http://sfgate.greatschools.net/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/CA", request));
         assertEquals("http://sfgate.greatschools.net/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/$STATE", request));
+        assertEquals("/modperl/promos/image//769/CA//3", _urlUtil.buildUrl("/modperl/promos/image//769/CA//3", request));
     }
 
 

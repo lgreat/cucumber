@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.20 2006/02/10 20:05:43 apeterson Exp $
+ * $Id: UrlUtil.java,v 1.21 2006/02/23 21:09:46 thuss Exp $
  */
 
 package gs.web.util;
@@ -128,7 +128,13 @@ public final class UrlUtil {
                         host = destHost;
                     }
                     if (destIsPerl) {
-                        return "http://" + host + destPath;
+                        // With Perl pulling modperl/promos is an exception because it's
+                        // used for pulling images for tracking
+                        if (destPath.indexOf("modperl/promos") > -1) {
+                            return destPath;
+                        } else {
+                            return "http://" + host + destPath;
+                        }
                     } else {
                         if (isDestSecure) {
                             return destPath;
