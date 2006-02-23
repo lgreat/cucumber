@@ -42,5 +42,4 @@
         <pattern>*/community/conversion/*</pattern>
     </excludes>
 
-
 </decorators>
