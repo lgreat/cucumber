@@ -28,16 +28,6 @@ public class FeedbackControllerTest extends BaseControllerTestCase {
                 getResponse(), null, null);
         RedirectView view2 = (RedirectView)mv2.getView();
         assertEquals("/search/feedbackSubmit.page?state=ca", view2.getUrl());
-
-        FeedbackCommand akCommand = new FeedbackCommand();
-        akCommand.test = true;
-        akCommand.setComment("This is a comment");
-        akCommand.setState("AK");
-        ModelAndView akMV = feedbackController.onSubmit(getRequest(),
-                getResponse(), akCommand, null);
-        RedirectView akView = (RedirectView)akMV.getView();
-        assertEquals("/search/feedbackSubmit.page?state=ak", akView.getUrl());
-
     }
 
     public void testBuildMessage() throws Exception {
