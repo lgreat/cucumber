@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.108 2006/02/24 03:13:57 chriskimm Exp $
+   $Id: global.css,v 1.109 2006/02/24 17:39:52 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -154,7 +154,7 @@
 
     .cobranded .topCities li,
     .cobranded h3 {
-        font-size: x-small;
+        font-size: small;
     }
 
     .cobranded .topCities li {
