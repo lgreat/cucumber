@@ -259,6 +259,14 @@
         </property>
     </bean>
 
+    <bean name="/about/testimonials.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>about/testimonials</value>
+        </property>
+    </bean>
+
 
     <bean name="/bill/jackson.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gsweb="gstaglib"
+        >
+    <jsp:directive.page import="gs.web.util.PageHelper"/>
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+    <jsp:scriptlet>
+        PageHelper.hideFooterAd(request);
+    </jsp:scriptlet>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <title>Testimonials</title>
+
+
+    </head>
+
+    <gsml:body adPageName="testimonials" pageLayout="singleTextOnlyColumn">
+
+        <mod:tracking pageType="aboutUs" pageName="testimonials"/>
+
+        <h3>Sponsors and Partners</h3>
+
+        <p>
+            We appreciate the support and positive feedback from parents, analysts, education officials and the media.
+            Here's a sampling of unsolicited praise we've recently garnered: </p>
+
+        <ul class="singleSpacedList">
+            <li><a href="#parents">From Parents and Educators</a></li>
+            <li><a href="#media">From Policy Analysts, Advocates and the Media</a></li>
+        </ul>
+
+        <![CDATA[ <a name="parents"></a> ]]>
+
+        <h3>From Parents and Educators</h3>
+        <p>"This was absolutely informative. We are new to the area and are trying to enroll our daughter into school. We would have never thought to ask some of these very important questions. I'm glad that I found this article before we started doing school tours."
+        <br/><b>JaVonna E. Coley-Mustin<br/>
+        Washington</b></p>
+
+
+        <p>"Your site is informative and I love the graphs of the proficiency scores! What a great visual tool. I think
+            that I will use that at my next faculty meeting to show the staff how far we have come since 1999. Aren't
+            visuals great? Again, thank you."
+        <br/><b>Erin Olexo, principal<br/>
+        Union Local Middle School<br/>
+        Ohio</b></p>
+
+        <p>"This really is a wonderful site. I move often and this provides me with an abundance of invaluable
+            information I need. I depend on this site and its resources for the school choices I make for my children. I
+            would just like to say thank you, but I could never thank you enough."
+        <br/><b>Adrian King<br/>
+        Illinois</b></p>
+
+        <p>"This was an AWESOME article! I am a grade 8 teacher, student council advisor and PTA co-coordinator, and
+            this offered so many great ideas for projects that I almost wish school were starting next week...almost!
+            I'll be sure to put your site in my Favorites List! Thanks SO MUCH!"
+        <br/><b>Vicky Derbyshire<br/>
+        Missisquoi Valley Union Middle School<br/>
+        Vermont</b></p>
+
+        <p>"I was really amazed to find this site. I have only been in Illinois for a year and needed reliable
+            information on the new school I want to enroll my daughter in. I was able to get what I needed, thanks to
+            GreatSchools.net."
+        <br/><b>Susan M. Hendley-Spears<br/>
+        Illinois</b></p>
+
+        <p>"Thank you for taking the time to provide this information. As a new mother with a school-age child, this
+            article is a very helpful tool when you do not know just what questions to ask and anxieties are running
+            high."
+        <br/><b>Jeri Lewis<br/>
+        Maryland</b></p>
+
+        <p>"I am not a parent myself, but I am a mentor for three children and I cannot believe the information the Web
+            can offer. I received some great information and I will be sure to share this with my co-workers."
+        <br/><b>Bashiyra Morrow<br/>
+        New Jersey</b></p>
+
+        <![CDATA[ <a name="media"></a> ]]>
+
+        <h3>From Policy Analysts, Advocates and the Media</h3>
+
+        <p>"The GreatSchools site offers visitors a wealth of [information], using simple language to explain such
+            things as how to interpret scores on California's new statewide student testing program."<br/>
+        <b>New York Times</b></p>
+
+        <p>"GreatSchools.net allows us to provide our users with detailed school information in an easy-to-understand
+            format. We think it's an extremely valuable tool for parents of school-age children."<br/>
+
+        <b>Los Angeles Times</b></p>
+
+
+        <p>"Educational accountability depends on clear and comparative information about school performance, based on
+            meaningful standards and measurable results. That's how you get Great Schools."<br/>
+        <b>Democratic Leadership Council </b> </p>
+
+
+        <p>"A one-stop shop complete with school report cards, parent guides on what to look for when selecting schools
+            and relevant news articles, this site is a model of how the Internet can facilitate the process of deciding
+            where to send your children to school."<br/>
+        <b>The Heritage Foundation </b> </p>
+
+
+        <p>"Whether parents are relocating to another state or just looking to make a change as the fall term begins,
+            doing online research on the quality of schools has gotten a little easier. Of the top 10 sites that gauge
+            US school's strengths, no site earned an A, but GreatSchools earned [our top ranking] an A-."<br/>
+        <b>USA Today </b>  </p>
+
+        <p>"The good news [on GreatSchools] is that the school gets to tell some of the story, others tell another part
+            of the story, and then there's the straight facts."<br/>
+        <b>San Jose Mercury News </b> </p>
+
+
+    </gsml:body>
+    </html>
+</jsp:root>
+
