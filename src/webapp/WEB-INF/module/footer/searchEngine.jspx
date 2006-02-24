@@ -139,9 +139,14 @@
 <a name="bottom"> </a>
 </div>
 
+<!-- Crawlers such as Google and Yahoo always have http in their user agent string -->
 <script type="text/javascript">
-    document.getElementById('footerSearchStates').style.display = 'none';
-    document.getElementById('footerSearchCities').style.display = 'none';
-    document.getElementById('footerSearchStateSpecific').style.display = 'none';
+<![CDATA[
+    if (navigator.userAgent.toLowerCase().indexOf("http") < 0) {
+        document.getElementById('footerSearchStates').style.display = 'none';
+        document.getElementById('footerSearchCities').style.display = 'none';
+        document.getElementById('footerSearchStateSpecific').style.display = 'none';
+    }
+]]>
 </script>
 </jsp:root>
