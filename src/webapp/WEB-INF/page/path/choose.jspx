@@ -58,6 +58,11 @@
         #radiotable td {
             padding-top:7px;
         }
+
+        #compareButton {
+            padding-bottom:15px;
+        }
+        
     </style>
     <title>${stateLongName} Schools</title>
 </head>
@@ -80,7 +85,7 @@
                             <table style="vertical-align: top" border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td style="vertical-align: top" >
-                                        <jsp:include page="/path/compareEntry.module"/>
+                                        <jsp:include page="/path/compareEntry.module?state=${state}"/>
                                     </td>
                                     <td>
                                        <div style="border-left:1px solid #BBB;height:180px;"></div>

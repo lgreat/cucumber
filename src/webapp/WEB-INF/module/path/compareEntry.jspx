@@ -4,7 +4,6 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
 
-    <jsp:directive.page import="gs.web.SessionContextUtil"/>
     <c:set var="state"
            value="${requestScope.context.stateOrDefault.abbreviation}"/>
     <c:set var="stateLongName"
@@ -59,7 +58,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="center">
+                    <td align="center" id="compareButton">
                         <input type="image" name=""
                                src="/res/img/compare_schools.gif"
                                alt="Compare Schools"/>
