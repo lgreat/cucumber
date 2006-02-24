@@ -25,7 +25,7 @@
     if (GBrowserIsCompatible()) {
       var map = new GMap(document.getElementById("map"));
       map.addControl(new GSmallMapControl(GSmallMapControl.G_HYBRID_TYPE));
-      map.centerAndZoom(new GPoint(${requestScope.lon}, ${requestScope.lat}), 6);
+      map.centerAndZoom(new GPoint(${requestScope.lon}, ${requestScope.lat}), 7);
         //]]>
       <c:forEach var="s" items="${requestScope.schools}">
       <c:if test="${not empty s.lon}">

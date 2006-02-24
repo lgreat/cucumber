@@ -77,6 +77,16 @@
 .statsModule .better { color: green; }
 .statsModule .worse { color: red; }
 
+li.town {
+font-size: x-small;
+}
+li.city {
+font-size: medium;
+}
+li.bigCity {
+font-size: large;
+}
+
         </style>
             ]]>
         <c:if test="${pageContext.request.serverName == 'apeterson.office.greatschools.net'}">

@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.1 2006/01/21 03:56:50 apeterson Exp $
+* $Id: NearbyCitiesController.java,v 1.2 2006/02/24 23:41:42 apeterson Exp $
 */
 
 package gs.web.geo;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Provides...
+ * Provides an UnorderList model of cities near the provided param "city" and "state".
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
@@ -58,11 +58,17 @@ public class NearbyCitiesController extends AbstractController {
                 List items = new ArrayList(limit);
                 for (int i = 0; i < limit; i++) {
                     BpCity nearbyCity = (BpCity) nearbyCities.get(i);
+                    String styleClass = "town";
+                    if (nearbyCity.getPopulation().intValue() > 50000) {
+                        styleClass = (nearbyCity.getPopulation().intValue() > 500000) ? "bigCity" : "city";
+                    }
+
                     Anchor anchor = new Anchor("/test/city.page?state=" +
                             nearbyCity.getState() +
                             "&amp;city=" +
                             nearbyCity.getName(),
-                            nearbyCity.getName());
+                            nearbyCity.getName(),
+                            styleClass);
                     items.add(anchor);
                 }
                 model.put(UnorderedListModel.RESULTS, items);
