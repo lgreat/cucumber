@@ -16,7 +16,7 @@
     </span>
 
     <div style="padding-left:15px;padding-right:7px; padding-top:20px; font-size:85%;">
-        <gsml:form action="/path/compareEntry.page" method="POST">
+        <gsml:form action="/path/compareEntry.page" method="post">
             <table>
                 <tr>
                     <td align="center">
