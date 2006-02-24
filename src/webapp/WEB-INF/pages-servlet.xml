@@ -354,12 +354,6 @@
       </property>
     </bean>
 
-  <!--
-  <bean name="/path/choose.page"
-        class="gs.web.path.ChoosingPathwayController"
-        autowire="byName">
-  </bean>
--->
     <bean name="/path/mySchool.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">

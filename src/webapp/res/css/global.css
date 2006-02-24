@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.107 2006/02/24 02:48:33 apeterson Exp $
+   $Id: global.css,v 1.108 2006/02/24 03:13:57 chriskimm Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -615,11 +615,9 @@
     }
 
     .schoolchoicecenter {
+        padding-top:7px;
         margin: 0px 0px 5px 5px;
         height: 180px; /* image is 170px */
-        background-image: url( ../img/promo/bg_chalkboard.gif );
-        background-repeat: no-repeat;
-        background-position: center center;
     }
 
     .schoolchoicecenter h3 {
