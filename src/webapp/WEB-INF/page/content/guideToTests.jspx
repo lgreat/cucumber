@@ -29,12 +29,13 @@
     <title>GreatSchools.net: Guide to Tests</title>
 
     <style type="text/css">
-        .oneMainColumn .contentGS .newspromo {
+        .newspromo {
             color: #000;
             padding: 5px;
             margin: 10px 0 10px 0;
             border: 1px solid #BBB;
             font-weight: normal;
+            width: 300px;
         }
 
         div.contentGS .promoNewsletterSmall h2 {
@@ -175,7 +176,6 @@
 
     </div>
     <ad:x40/>
-    <div style="font-size: xx-small">&#160;</div>
     <div class="newspromo" >
         <promo:newsletterSmall/>
     </div>
