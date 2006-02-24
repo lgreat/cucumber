@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.21 2006/02/23 21:09:46 thuss Exp $
+ * $Id: UrlUtil.java,v 1.22 2006/02/24 01:37:16 thuss Exp $
  */
 
 package gs.web.util;
@@ -106,7 +106,8 @@ public final class UrlUtil {
 
 
         if (srcUri == null) {
-            _log.warn("Unable to interpret current page 'null' as URL");
+            _log.warn("Unable to interpret current page 'null' as URL where destHost = " + destHost +
+                " and destPath = " + destPath);
             return destPath; // no logic to do, but not a good case
         }
 
