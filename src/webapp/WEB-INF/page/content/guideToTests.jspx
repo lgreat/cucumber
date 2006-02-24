@@ -38,25 +38,6 @@
             width: 300px;
         }
 
-        div.contentGS .promoNewsletterSmall h2 {
-            font-size: large;
-            font-weight: bold;
-            margin: 4px 0 0 0;
-            color: #036;
-            border-bottom: 0;
-        }
-
-        div.contentGS .promoNewsletterSmall h3 {
-            margin: 10px 0px 2px 0px;
-            font-size:small;
-            color: #000;
-            border-bottom: 0;
-        }
-
-        div.contentGS .promoNewsletterSmall .smallform {
-            margin: 10px 0px 2px 0px;
-            white-space: nowrap;
-        }
 
         .oneMainColumn .contentGS UL.plain {
             list-style: none;
@@ -176,9 +157,7 @@
 
     </div>
     <ad:x40/>
-    <div class="newspromo" >
-        <promo:newsletterSmall/>
-    </div>
+    <promo:newsletterSmall/>
 
 </td>
 </tr>

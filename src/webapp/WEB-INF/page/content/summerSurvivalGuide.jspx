@@ -27,18 +27,9 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <title>GreatSchools.net: Guide to Tests</title>
+    <title>GreatSchools.net: Summer Survival Guide</title>
 
     <style type="text/css">
-
-
-        h2 {
-            font-size: 14px;
-            color: #000000;
-            font-weight: bold;
-            margin-top: 20px;
-            margin-bottom: 0px;
-        }
 
         .newspromo {
             color: #000;
@@ -69,128 +60,103 @@
             text-align: left;
         }
 
-        h1.guideToTests {
-            font-size: 2.0em;
-            font-weight: bold;
-            color: #eb7a31;
-            border-bottom: 1px solid #999;
-            margin-bottom: .6em;
-        }
-
-        div.guideToTests {
-            padding-top: 1em;
-            padding-bottom: 3em;
-        }
-
-        .guideToTests p {
-            margin: .5em 0 .5em 0;
-        }
-
         td#guidecontent {
-            padding-left:20px;
-            padding-right:20px;
+            padding-left: 20px;
+            padding-right: 20px;
         }
     </style>
 
 </head>
 
 <mod:tracking pageType="article" pageName="summerSurvivalGuide"/>
-<body>
-<div class="guideToTests">
-    <center>
+<gsml:body adPageName="article" pageLayout="oneMainColumn">
 
-        <table class="content" cellpadding="0" cellspacing="0">
-            <tr>
-                <td valign="top">
-                    <table>
-                        <tr>
-                            <td align="center" colspan="2">
-                                <gsml:img src="/res/img/content/liferaft.jpg"
-                                          alt="photo of life preserver"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td valign="top">
-                                <gsml:img src="/res/img/content/summerkid.jpg"
-                                          alt="photo of little girl in a bathing suit"/>
-                            </td>
+    <table class="content" cellpadding="0" cellspacing="0">
+        <tr>
+            <td valign="top">
+                <table>
+                    <tr>
+                        <td align="center" colspan="2">
+                            <gsml:img src="/res/img/content/liferaft.jpg"
+                                      alt="photo of life preserver"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <gsml:img src="/res/img/content/summerkid.jpg"
+                                      alt="photo of little girl in a bathing suit"/>
+                        </td>
 
-                            <td valign="top" id="guidecontent">
-                                <p>Summer presents new opportunities for your
-                                    child to learn
-                                    and grow- -and special challenges for
-                                    parents. Check
-                                    GreatSchools.net's resources for tips to
-                                    plan a healthy,
-                                    happy summer. </p>
-                                <br/>
-                                <h2>Where to Look, What to Ask When Choosing a
-                                    Program</h2>
-                                <ul class="plain">
-                                    <gsweb:articlelink articleId="543"
-                                                       wrappingElement="li"/>
-                                    <gsweb:articlelink articleId="547"
-                                                       wrappingElement="li"/>
-                                    <gsweb:articlelink articleId="313"
-                                                       wrappingElement="li"/>
-                                    <gsweb:articlelink articleId="537"
-                                                       wrappingElement="li"/>
-                                </ul>
+                        <td valign="top" id="guidecontent">
+                            <p>Summer presents new opportunities for your
+                                child to learn
+                                and grow- -and special challenges for
+                                parents. Check
+                                GreatSchools.net's resources for tips to
+                                plan a healthy,
+                                happy summer. </p>
+                            <br/>
 
-                                <h2>Plan for the Switch to Summer</h2>
-                                <ul class="plain">
-                                    <gsweb:articlelink articleId="542"
-                                                       wrappingElement="li"/>
-                                    <gsweb:articlelink articleId="534"
-                                                       wrappingElement="li"/>
-                                    <gsweb:articlelink articleId="535"
-                                                       wrappingElement="li"/>
-                                </ul>
+                            <h3>Where to Look, What to Ask When Choosing a
+                                Program</h3>
+                            <ul class="plain">
+                                <gsweb:articlelink articleId="543"
+                                                   wrappingElement="li"/>
+                                <gsweb:articlelink articleId="547"
+                                                   wrappingElement="li"/>
+                                <gsweb:articlelink articleId="313"
+                                                   wrappingElement="li"/>
+                                <gsweb:articlelink articleId="537"
+                                                   wrappingElement="li"/>
+                            </ul>
 
-                                <h2>Tips for Teens</h2>
-                                <ul class="plain">
-                                    <gsweb:articlelink articleId="536"
-                                                       wrappingElement="li"/>
-                                    <gsweb:articlelink articleId="544"
-                                                       wrappingElement="li"/>
-                                    <gsweb:articlelink articleId="549"
-                                                       wrappingElement="li"/>
-                                    <gsweb:articlelink articleId="545"
-                                                       wrappingElement="li"/>
-                                </ul>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td valign="top" width="230">
-                    <div class="newspromo">
-                        <table border="0" cellpadding="3" cellspacing="0">
-                            <tr>
-                                <td style="font-size:12px;">
-                                    <b>More advice for parents</b><br/>
-                                    Choosing a school? Looking for tips to
-                                    support your
-                                    child's learning?<br/>
-                                    <gsml:a href="/content/allArticles.page?state=$STATE">
-                                        Check out the GreatSchools.net
-                                        library</gsml:a><br/>
+                            <h3>Plan for the Switch to Summer</h3>
+                            <ul class="plain">
+                                <gsweb:articlelink articleId="542"
+                                                   wrappingElement="li"/>
+                                <gsweb:articlelink articleId="534"
+                                                   wrappingElement="li"/>
+                                <gsweb:articlelink articleId="535"
+                                                   wrappingElement="li"/>
+                            </ul>
 
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <ad:x40/>
+                            <h3>Tips for Teens</h3>
+                            <ul class="plain">
+                                <gsweb:articlelink articleId="536"
+                                                   wrappingElement="li"/>
+                                <gsweb:articlelink articleId="544"
+                                                   wrappingElement="li"/>
+                                <gsweb:articlelink articleId="549"
+                                                   wrappingElement="li"/>
+                                <gsweb:articlelink articleId="545"
+                                                   wrappingElement="li"/>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </td>
 
-                    <div class="newspromo">
-                        <promo:newsletterSmall/>
-                    </div>
 
-                </td>
-            </tr>
-        </table>
-    </center>
-</div>
-</body>
+            <td valign="top" width="230">
+                <div class="newspromo" style="font-size: small">
+                    <b>More advice for parents</b><br/>
+                    Choosing a school? Looking for tips to support your child's
+                    learning?<br/>
+                    <gsml:a href="/content/allArticles.page?state=$STATE">Check
+                        out the GreatSchools.net
+                        library</gsml:a>
+
+                </div>
+                <ad:x40/>
+
+                <div class="newspromo">
+                    <promo:newsletterSmall/>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+</gsml:body>
 
 </html>
 </jsp:root>

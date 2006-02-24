@@ -47,10 +47,13 @@
        }
 
         ul li.viewall {
-            list-style-image: url(/res/img/orange_arrow_right.gif);
-            margin-left:5mm;
-            padding-top:10px;
+            background-image: url(/res/img/orange_arrow_right.gif);
+            background-repeat:no-repeat;
+            background-position: 0% .6em;
+            padding-left:1.2em;
+            padding-top:8px;
         }
+
         .schoolchoicecenter li {
             list-style-type:none;
             background-image:none;
