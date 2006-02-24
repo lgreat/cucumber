@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.105 2006/02/22 21:34:08 apeterson Exp $
+   $Id: global.css,v 1.106 2006/02/24 02:36:05 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -479,25 +479,6 @@
         margin: 2px 0px 3px 0px;
     }
 
-    .promoNewsletterSmall {
-        padding-bottom: 2em;
-    }
-
-    .promoNewsletterSmall h2 {
-        font-size: large;
-        font-weight: bold;
-        margin: 4px 0 0 0;
-        color: #036;
-    }
-
-    .promoNewsletterSmall h3 {
-        margin: 10px 0px 2px 0px;
-    }
-
-    .promoNewsletterSmall .smallform {
-        margin: 10px 0px 2px 0px;
-        white-space: nowrap;
-    }
 
     .promoNewsletterMedium {
         margin: 0px 0px 0px 2px;
@@ -840,18 +821,19 @@
     All the "about us" corporate pages, and a few others share the
     "oneMainColumn" layout. Please use this when possible.
     */
-    .oneMainColumn a:link {
+    div.oneMainColumn .contentGS a:link {
         color: #039
     }
 
-    div.oneMainColumn h2, div.guideToTests h2 {
-        color: #333;
+    div.oneMainColumn .contentGS h2 {
+        color: #f60;
+        border-bottom: 1px solid #ccc;
         font-weight: bold;
-        font-size: small;
-        margin: 0;
+        font-size: x-large;
+        margin: 0 0 .3em 0;
     }
 
-    div.oneMainColumn h3 {
+    div.oneMainColumn .contentGS h3 {
         color: #f60;
         border-bottom: 1px solid #ccc;
         font-weight: bold;
@@ -859,31 +841,31 @@
         margin: 0em 0 1em 0;
     }
 
-    .oneMainColumn h4 {
+    .oneMainColumn .contentGS h4 {
         font-weight: bold;
         margin-top: 0;
     }
 
-    .oneMainColumn h5 {
+    .oneMainColumn .contentGS h5 {
         color: #f60;
         font-weight: bold;
         font-size: small;
         margin: 0 0 0 0;
     }
 
-    .oneMainColumn p {
+    .oneMainColumn .contentGS p {
         margin: 0em 0 1.2em 0;
     }
 
-    .oneMainColumn ul {
+    .oneMainColumn .contentGS ul {
         margin-bottom: 1em;
     }
 
     div.oneMainColumn .contentGS {
-        padding: 0 7em 4em 7em;
+        padding: 0 1em 4em 1em;
     }
 
-    .oneMainColumn img {
+    .oneMainColumn .contentGS img {
         margin-bottom: .7em;
     }
 

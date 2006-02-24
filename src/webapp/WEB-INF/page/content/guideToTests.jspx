@@ -29,27 +29,35 @@
     <title>GreatSchools.net: Guide to Tests</title>
 
     <style type="text/css">
-
-
-        h2 {
-            font-size: 14px;
-            color: #000000;
-            font-weight: bold;
-            margin-top: 20px;
-            margin-bottom: 0px;
-        }
-
-        .newspromo {
+        .oneMainColumn .contentGS .newspromo {
             color: #000;
-            width: 300px;
-            padding: 5px 5px 5px 5px;
-            margin: 0 0 10px 0;
+            padding: 5px;
+            margin: 10px 0 10px 0;
             border: 1px solid #BBB;
-            float: right;
             font-weight: normal;
         }
 
-        UL.plain {
+        div.contentGS .promoNewsletterSmall h2 {
+            font-size: large;
+            font-weight: bold;
+            margin: 4px 0 0 0;
+            color: #036;
+            border-bottom: 0;
+        }
+
+        div.contentGS .promoNewsletterSmall h3 {
+            margin: 10px 0px 2px 0px;
+            font-size:small;
+            color: #000;
+            border-bottom: 0;
+        }
+
+        div.contentGS .promoNewsletterSmall .smallform {
+            margin: 10px 0px 2px 0px;
+            white-space: nowrap;
+        }
+
+        .oneMainColumn .contentGS UL.plain {
             list-style: none;
             margin-top: 3px;
             margin-bottom: 0px;
@@ -58,32 +66,16 @@
             font-size: 12px;
         }
 
-        UL.plain li {
+        .oneMainColumn .contentGS UL.plain li {
             padding: 5px;
         }
 
         table.content {
-            width: 95%;
+            width: 100%;
             padding: 0 4px 10px 4px;
             text-align: left;
         }
 
-        h1.guideToTests {
-            font-size: 2.0em;
-            font-weight: bold;
-            color: #eb7a31;
-            border-bottom: 1px solid #999;
-            margin-bottom: .6em;
-        }
-
-        div.guideToTests {
-            padding-top: 1em;
-            padding-bottom: 3em;
-        }
-
-        .guideToTests p {
-            margin: .5em 0 .5em 0;
-        }
     </style>
 
 </head>
@@ -92,17 +84,15 @@
 <mod:tracking pageType="article" pageName="guideToTests"/>
 
 
-<body>
-<div class="guideToTests">
-<center>
+<gsml:body adPageName="article" pageLayout="oneMainColumn">
 <table class="content" cellpadding="0" cellspacing="0" >
 <tr>
 <td valign="top" width="130">
-    <h1 class="guideToTests" style="border-style: none">&#160;</h1>
+    <h2 style="border-style: none">&#160;</h2>
     <gsml:img src="/res/img/content/scantron.jpg" alt="photo of hand holding pencil taking multiple choice test"/>
 </td>
 <td valign="top" width="*" style="padding: 0 2em 0 1em">
-    <h1 class="guideToTests">Guide to Tests</h1>
+    <h2>Guide to Tests</h2>
 
     <p>Spring brings the annual rite of standardized testing to classrooms around the nation.</p>
 
@@ -110,7 +100,7 @@
         Check GreatSchools resources to help understand what the tests mean to your child and your school.</p>
 
 
-    <h2>Get Smart About Tests</h2>
+    <h3>Get Smart About Tests</h3>
     <ul class="plain">
          <gsweb:articlelink articleId="68" wrappingElement="li"/>
          <gsweb:articlelink articleId="160" wrappingElement="li"/>
@@ -158,7 +148,7 @@
 
 
 
-    <h2>Help Your Child, Your School Succeed</h2>
+    <h3>Help Your Child, Your School Succeed</h3>
     <ul class="plain">
         <gsweb:articlelink articleId="4" wrappingElement="li"/>
         <gsweb:articlelink articleId="151" wrappingElement="li"/>
@@ -168,7 +158,7 @@
         <gsweb:articlelink articleId="204" wrappingElement="li"/>
     </ul>
 
-    <h2>The SAT</h2>
+    <h3>The SAT</h3>
     <ul class="plain">
         <gsweb:articlelink articleId="243" wrappingElement="li"/>
         <gsweb:articlelink articleId="244" wrappingElement="li"/>
@@ -177,30 +167,23 @@
 </td>
 
 <td valign="top" width="230">
-    <div class="newspromo">
-        <table border="0" cellpadding="3" cellspacing="0">
-            <tr>
-                <td style="font-size:12px;">
+    <div class="newspromo" style="font-size: small">
                     <b>More advice for parents</b><br/>
                     Choosing a school? Looking for tips to support your child's learning?<br/>
                     <gsml:a href="/content/allArticles.page?state=$STATE">Check out the GreatSchools.net
-                        library</gsml:a><br/>
+                        library</gsml:a>
 
-                </td>
-            </tr>
-        </table>
     </div>
     <ad:x40/>
-    <div class="newspromo">
+    <div style="font-size: xx-small">&#160;</div>
+    <div class="newspromo" >
         <promo:newsletterSmall/>
     </div>
 
 </td>
 </tr>
 </table>
-</center>
-</div>
-</body>
+</gsml:body>
 </html>
 </jsp:root>
 
