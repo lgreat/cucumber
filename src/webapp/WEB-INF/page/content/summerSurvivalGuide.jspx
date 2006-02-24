@@ -88,13 +88,13 @@
                         </td>
 
                         <td valign="top" id="guidecontent">
-                            <p>Summer presents new opportunities for your
+                            <p><c:out value="Summer presents new opportunities for your
                                 child to learn
-                                and grow- -and special challenges for
+                                and grow - and special challenges for
                                 parents. Check
                                 GreatSchools.net's resources for tips to
                                 plan a healthy,
-                                happy summer. </p>
+                                happy summer. foo" escapeXml="true"></c:out> </p>
                             <br/>
 
                             <h3>Where to Look, What to Ask When Choosing a
@@ -135,7 +135,6 @@
                     </tr>
                 </table>
             </td>
-
 
             <td valign="top" width="230">
                 <div class="newspromo" style="font-size: small">
