@@ -25,7 +25,7 @@
     <title>GreatSchools Frequently Asked Questions</title>
 </head>
 
-<gsml:body adPageName="gsFaq" pageLayout="oneMainColumn">
+<gsml:body adPageName="gsFaq" pageLayout="singleTextOnlyColumn">
 
 <mod:tracking pageType="aboutUs" pageName="gsFaq"/>
 

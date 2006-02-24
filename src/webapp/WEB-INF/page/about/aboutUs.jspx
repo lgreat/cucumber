@@ -26,15 +26,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <title>About Us</title>
-        <style>
-            div.oneMainColumn .contentGS {
-                margin-left: 7em;
-                margin-right: 7em;
-            }
-        </style>
     </head>
 
-    <gsml:body adPageName="aboutUs" pageLayout="oneMainColumn">
+    <gsml:body adPageName="aboutUs" pageLayout="singleTextOnlyColumn">
 
     <mod:tracking pageType="aboutUs" pageName="aboutUs" />
 
@@ -96,7 +90,7 @@
    <p>GreatSchools' online library features hundreds of articles that
    help parents navigate the K-12 process, including advice from
    experts and real parents. <gsml:a href=
-   "/content/allArticles.page?$STATE">Visit our library</gsml:a></p>
+   "/content/allArticles.page?state=$STATE">Visit our library</gsml:a></p>
 
    <h4>Improve schools in your community</h4>
    <p>GreatSchools is currently conducting pilot programs to organize and

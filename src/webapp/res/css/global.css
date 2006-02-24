@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.106 2006/02/24 02:36:05 apeterson Exp $
+   $Id: global.css,v 1.107 2006/02/24 02:48:33 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -821,11 +821,13 @@
     All the "about us" corporate pages, and a few others share the
     "oneMainColumn" layout. Please use this when possible.
     */
-    div.oneMainColumn .contentGS a:link {
+    div.oneMainColumn .contentGS a:link,
+    div.singleTextOnlyColumn .contentGS a:link {
         color: #039
     }
 
-    div.oneMainColumn .contentGS h2 {
+    div.oneMainColumn .contentGS h2,
+    div.singleTextOnlyColumn .contentGS h2 {
         color: #f60;
         border-bottom: 1px solid #ccc;
         font-weight: bold;
@@ -833,7 +835,8 @@
         margin: 0 0 .3em 0;
     }
 
-    div.oneMainColumn .contentGS h3 {
+    div.oneMainColumn .contentGS h3,
+    div.singleTextOnlyColumn .contentGS h3 {
         color: #f60;
         border-bottom: 1px solid #ccc;
         font-weight: bold;
@@ -841,23 +844,27 @@
         margin: 0em 0 1em 0;
     }
 
-    .oneMainColumn .contentGS h4 {
+    .oneMainColumn .contentGS h4,
+    .singleTextOnlyColumn .contentGS h4 {
         font-weight: bold;
         margin-top: 0;
     }
 
-    .oneMainColumn .contentGS h5 {
+    .oneMainColumn .contentGS h5,
+    .singleTextOnlyColumn .contentGS h5 {
         color: #f60;
         font-weight: bold;
         font-size: small;
         margin: 0 0 0 0;
     }
 
-    .oneMainColumn .contentGS p {
+    .oneMainColumn .contentGS p,
+    .singleTextOnlyColumn .contentGS p {
         margin: 0em 0 1.2em 0;
     }
 
-    .oneMainColumn .contentGS ul {
+    .oneMainColumn .contentGS ul,
+    .singleTextOnlyColumn .contentGS ul {
         margin-bottom: 1em;
     }
 
@@ -865,7 +872,12 @@
         padding: 0 1em 4em 1em;
     }
 
-    .oneMainColumn .contentGS img {
+    div.singleTextOnlyColumn .contentGS {
+        padding: 0 7em 4em 7em;
+    }
+
+    .oneMainColumn .contentGS img,
+    .singleTextOnlyColumn .contentGS img {
         margin-bottom: .7em;
     }
 
