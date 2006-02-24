@@ -25,7 +25,7 @@
     <title>GreatSchools Press Room</title>
 </head>
 
-<gsml:body adPageName="pressKit" pageLayout="oneMainColumn">
+<gsml:body adPageName="pressKit" pageLayout="singleTextOnlyColumn">
 
     <mod:tracking pageType="aboutUs" pageName="pressKit"/>
 
@@ -107,7 +107,7 @@
     <![CDATA[ <a name="testimonials"></a> ]]>
     <h3>Reader Testimonials</h3>
 
-    <p>Review <gsml:a href="/cgi-bin/static/testimonials.inc/$STATE">testimonials and accolades</gsml:a>.</p>
+    <p>Review <gsml:a href="/about/testimonials.page?state=$STATE">testimonials and accolades</gsml:a>.</p>
     <![CDATA[ <a name="archive"></a> ]]>
     <h3>News Archives</h3>
 
