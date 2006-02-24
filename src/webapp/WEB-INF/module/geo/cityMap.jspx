@@ -3,6 +3,7 @@
           xmlns="http://www.w3c.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:spring="http://www.springframework.org/tags"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
@@ -13,15 +14,36 @@
     </div>
     <script type="text/javascript">
     //<![CDATA[
-
-    var map = new GMap(document.getElementById("map"));
-    map.addControl(new GSmallMapControl(GSmallMapControl.G_HYBRID_TYPE));
-    map.centerAndZoom(new GPoint(${requestScope.city.lon}, ${requestScope.city.lat}), 7);
-
+    function createMarker(point,html, color) {
+      html = '<div style="white-space:nowrap;">' + html + '</div>';
+      var marker = new GMarker(point);
+      GEvent.addListener(marker, "click", function() {
+        marker.openInfoWindowHtml(html);
+      });
+      return marker;
+    }
+    if (GBrowserIsCompatible()) {
+      var map = new GMap(document.getElementById("map"));
+      map.addControl(new GSmallMapControl(GSmallMapControl.G_HYBRID_TYPE));
+      map.centerAndZoom(new GPoint(${requestScope.lon}, ${requestScope.lat}), 6);
+        //]]>
+      <c:forEach var="s" items="${requestScope.schools}">
+      <c:if test="${not empty s.lon}">
+    //<![CDATA[
+       var point = new GPoint(${s.lon},${s.lat});
+       var marker = createMarker(point,
+            '<a href="http://dev.greatschools.net/modperl/browse_school/${s.databaseState.abbreviation}/${s.id}">${fn:escapeXml(s.name)}</a><h4><br />Grades: <b>${s.gradeLevels}</b><br />Type: <b>${s.type.name}</b></h4>',
+               "${s.levelCode == gs.data.school.LevelCode.HIGH ? "green" : "blue"}");
+       map.addOverlay(marker);
+        //]]>
+      </c:if>
+      </c:forEach>
+    //<![CDATA[
 /*map.centerAndZoom(new GPoint(${requestScope.city.lon}, ${requestScope.city.lat}), 4);
 map.openInfoWindow(map.getCenterLatLng(),
 				   document.createTextNode("Hello, world"))
 */
+        }
     //]]>
     </script>
 

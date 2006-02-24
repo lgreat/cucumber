@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.12 2006/02/13 20:15:34 chriskimm Exp $
+ * $Id: SessionContextUtil.java,v 1.13 2006/02/24 23:10:47 apeterson Exp $
  */
 
 package gs.web;
@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 import javax.servlet.http.Cookie;
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
-public class SessionContextUtil {
+public class SessionContextUtil implements ApplicationContextAware {
 
     public static final String BEAN_ID = "sessionContextUtil";
 
@@ -181,7 +182,7 @@ public class SessionContextUtil {
 
         // Set the a/b version - 'a' is the default
         String versionParam = request.getParameter(VERSION_PARAM);
-        if (StringUtils.isNotBlank(versionParam)){
+        if (StringUtils.isNotBlank(versionParam)) {
             context.setAbVersion(versionParam.trim());
         }
 
@@ -290,4 +291,31 @@ public class SessionContextUtil {
         _stateManager = stateManager;
     }
 
+    /**
+     * Create a new session context every time.
+     * Then, pull information out of cookies and parameters.
+     * We also pull things out the request because this is a convenient way
+     * to pass things in from include tags.
+     */
+    public SessionContext guaranteeSessionContext(HttpServletRequest request) {
+        SessionContext context =
+                (SessionContext) _applicationContext.getBean(SessionContext.BEAN_ID);
+
+        request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, context);
+        return context;
+    }
+
+    /**
+     * Do all that is necessary so that the SessionContext is in place and available.
+     * This is useful in unit tests.
+     */
+    public SessionContext prepareSessionContext(
+            HttpServletRequest request,
+            HttpServletResponse response) {
+        SessionContext context = guaranteeSessionContext(request);
+        readCookies(request, context);
+        updateFromRequestAttributes(request, context);
+        updateFromParams(request, response, context);
+        return context;
+    }
 }

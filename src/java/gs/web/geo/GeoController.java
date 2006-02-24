@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.2 2006/01/10 18:26:07 apeterson Exp $
+ * $Id: GeoController.java,v 1.3 2006/02/24 23:10:47 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -9,6 +9,8 @@ import gs.data.geo.IGeoDao;
 import gs.data.geo.bestplaces.BpCity;
 import gs.data.geo.bestplaces.BpState;
 import gs.data.geo.bestplaces.BpZip;
+import gs.data.school.ISchoolDao;
+import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.SessionContext;
 import org.apache.commons.lang.StringUtils;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Iterator;
 
 /**
  * Provides...
@@ -30,9 +33,21 @@ import java.util.Map;
  */
 public class GeoController implements Controller {
     private IGeoDao _geoDao;
+    private ISchoolDao _schoolDao;
     private String _viewName;
 
     protected final Log _log = LogFactory.getLog(getClass());
+
+    private static final String PARAM_CITY = "city";
+    private static final String PARAM_ZIP = "zip";
+
+    private static final String MODEL_SCHOOLS = "schools"; // list of local schools
+    private static final String MODEL_STATEWIDE = "statewide"; // BpCensus object for the state
+    private static final String MODEL_US = "us"; // BpCensus object for the U.S.
+    private static final String MODEL_ZIP = "zip"; // Zip BpCensus object
+    private static final String MODEL_CITY = "city"; // City BpCensus object
+    private static final String MODEL_LAT = "lat"; // Center lat
+    private static final String MODEL_LON = "lon"; // City BpCensus object
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -41,33 +56,62 @@ public class GeoController implements Controller {
 
         Map model = new HashMap();
 
+        Float lat = null;
+        Float lon = null;
 
-        String zipCodeParam = request.getParameter("zip");
+
+        String zipCodeParam = request.getParameter(PARAM_ZIP);
         if (StringUtils.isNotEmpty(zipCodeParam)) {
 
             BpZip zip = _geoDao.findZip(zipCodeParam);
 
             if (zip != null) {
-                model.put("zip", zip);
+                model.put(MODEL_ZIP, zip);
+                lat = zip.getLat();
+                lon = zip.getLon();
             }
         }
 
 
-        String cityNameParam = request.getParameter("city");
+        String cityNameParam = request.getParameter(PARAM_CITY);
         if (StringUtils.isNotEmpty(cityNameParam) && state != null) {
 
             BpCity city = _geoDao.findCity(state, cityNameParam);
 
             if (city != null) {
-                model.put("city", city);
+                model.put(MODEL_CITY, city);
+                if (lat == null) {
+                    lat = city.getLat();
+                    lon = city.getLon();
+                }
+            }
+
+            List schools = _schoolDao.findSchoolsInCity(state, cityNameParam, false);
+            if (schools!=null) {
+                if (schools.size() > 50) {
+                    schools = schools.subList(0,50);
+                }
+                model.put(MODEL_SCHOOLS, schools);
+                if (lat == null) {
+                    for (Iterator iter = schools.iterator(); iter.hasNext() && lat == null;) {
+                        School s = (School) iter.next();
+                        if (s.getLat() != null) {
+                            lat = new Float(s.getLat().floatValue());
+                            lon = new Float(s.getLon().floatValue());
+                        }
+                    }
+                }
             }
         }
 
         BpState bps = _geoDao.findState(state);
-        model.put("statewide", bps);
+        model.put(MODEL_STATEWIDE, bps);
 
         List list = _geoDao.getAllBpNation();
-        model.put("us", list.get(0));
+        model.put(MODEL_US, list.get(0));
+
+        model.put(MODEL_LAT, lat);
+        model.put(MODEL_LON, lon);
 
         ModelAndView modelAndView = new ModelAndView(_viewName, model);
 
@@ -89,5 +133,13 @@ public class GeoController implements Controller {
 
     public void setViewName(String viewName) {
         _viewName = viewName;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
     }
 }

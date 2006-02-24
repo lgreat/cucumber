@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextInterceptor.java,v 1.11 2005/12/22 23:41:17 dlee Exp $
+ * $Id: SessionContextInterceptor.java,v 1.12 2006/02/24 23:10:47 apeterson Exp $
  */
 package gs.web;
 
@@ -44,21 +44,7 @@ public class SessionContextInterceptor
                              HttpServletResponse response,
                              Object o) throws Exception {
 
-        /*
-         Create a new session context every time.
-         Then, pull information out of cookies and parameters.
-         We also pull things out the request because this is a convenient way
-         to pass things in from include tags.
-         */
-        SessionContext context =
-                (SessionContext) _applicationContext.getBean(SessionContext.BEAN_ID);
-
-        request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, context);
-
-        _sessionContextUtil.readCookies(request, context);
-        _sessionContextUtil.updateFromRequestAttributes(request, context);
-        _sessionContextUtil.updateFromParams(request, response, context);
-
+        SessionContext context = _sessionContextUtil.prepareSessionContext(request, response);
 
         PageHelper pageHelper = new PageHelper(context);
         request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
