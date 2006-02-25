@@ -39,6 +39,7 @@
     width: 330px; height: 200px;
     width: 500px; height: 330px;
     width: 600px; height: 400px;
+    width: 700px; height: 400px;
 }
 .statsModule {
     font-family: comic sans ms;
@@ -124,14 +125,17 @@ font-size: large;
             </c:if>
             <!--mod:stateSelectMedium state="${requestScope.context.stateOrDefault}" / -->
         </td>
-        <td class="" valign="top">
-            <gsml:box tableClass="shade3">
+        <td class="" valign="top" colspan="2">
                 <jsp:include page="/geo/cityMap.module?city=${city}&amp;state=${state}"/>
-                <jsp:include page="/geo/citySchoolStats.module?city=${city}&amp;state=${state}"/>
-            </gsml:box>
         </td>
     </tr>
         <tr>
+        <td class="" valign="top">
+            <gsml:box tableClass="shade3">
+                <jsp:include page="/geo/citySchoolStats.module?city=${city}&amp;state=${state}"/>
+            </gsml:box>
+        </td>
+
         <td class="" valign="top">
             <gsml:box tableClass="shade3">
                 <jsp:include page="/geo/cityStats.module?city=${city}&amp;state=${state}"/>

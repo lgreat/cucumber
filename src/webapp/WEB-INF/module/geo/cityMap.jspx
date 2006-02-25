@@ -7,7 +7,23 @@
           xmlns:spring="http://www.springframework.org/tags"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
+<!--
+The interface to this view is as follows:
+  requestScope.lon - center point for longitude of the map (required)
+  requestScope.lat - center point for lattitude of the map (required)
+  requestScope.schools - a Collection of School objects to map and link
 
+NOTES
+The map API must be previously initialized. I'd recommend we make package this a little
+nicer ast some point.
+Schools without lat/lon are skipped.
+Scaling is not parameterized.
+
+TODO
+I'd like to color the markers or use different icons depending on the level code. (The
+   beginnings of this are here.)
+I'd like to use a consistent display of school information in the info window.
+-->
 
     <div id="mapContainer">
         <div id="map" >&#160;</div>
@@ -39,10 +55,6 @@
       </c:if>
       </c:forEach>
     //<![CDATA[
-/*map.centerAndZoom(new GPoint(${requestScope.city.lon}, ${requestScope.city.lat}), 4);
-map.openInfoWindow(map.getCenterLatLng(),
-				   document.createTextNode("Hello, world"))
-*/
         }
     //]]>
     </script>
