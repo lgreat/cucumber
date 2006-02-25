@@ -48,7 +48,7 @@ I'd like to use a consistent display of school information in the info window.
     //<![CDATA[
        var point = new GPoint(${s.lon},${s.lat});
        var marker = createMarker(point,
-            '<a href="http://dev.greatschools.net/modperl/browse_school/${s.databaseState.abbreviation}/${s.id}">${fn:escapeXml(s.name)}</a><h4><br />Grades: <b>${s.gradeLevels}</b><br />Type: <b>${s.type.name}</b></h4>',
+            '<a href="http://dev.greatschools.net/modperl/browse_school/${s.databaseState.abbreviation}/${s.id}">${fn:escapeXml(s.name)}</a><h4><br />Grades: <b>${s.gradeLevels}</b><br />Type: <b>${s.type.name}</b><br />Students: <b>${s.enrollment > 0 ? s.enrollment : 'n/a'}</b></h4>',
                "${s.levelCode == gs.data.school.LevelCode.HIGH ? "green" : "blue"}");
        map.addOverlay(marker);
         //]]>
