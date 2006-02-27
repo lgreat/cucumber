@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ChoosingPathwayController.java,v 1.4 2005/12/05 21:47:56 apeterson Exp $
+ * $Id: ChoosingPathwayController.java,v 1.5 2006/02/27 20:24:16 apeterson Exp $
  */
 
 package gs.web.path;
@@ -25,6 +25,7 @@ import java.util.Date;
  * logged in and what state they are looking at.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @deprecated this class is no longer needed, but kept for reference (for a while) AJP 2/06
  */
 public class ChoosingPathwayController implements Controller {
 
