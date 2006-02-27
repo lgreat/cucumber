@@ -12,12 +12,12 @@ The interface to this view is as follows:
   requestScope.lon - center point for longitude of the map (required)
   requestScope.lat - center point for lattitude of the map (required)
   requestScope.schools - a Collection of School objects to map and link
+  requestScope.scale - a number from 1? to 7? (see google API)
 
 NOTES
 The map API must be previously initialized. I'd recommend we make package this a little
 nicer ast some point.
 Schools without lat/lon are skipped.
-Scaling is not parameterized.
 
 TODO
 I'd like to color the markers or use different icons depending on the level code. (The
@@ -41,7 +41,7 @@ I'd like to use a consistent display of school information in the info window.
     if (GBrowserIsCompatible()) {
       var map = new GMap(document.getElementById("map"));
       map.addControl(new GSmallMapControl(GSmallMapControl.G_HYBRID_TYPE));
-      map.centerAndZoom(new GPoint(${requestScope.lon}, ${requestScope.lat}), 7);
+      map.centerAndZoom(new GPoint(${requestScope.lon}, ${requestScope.lat}), ${requestScope.scale});
         //]]>
       <c:forEach var="s" items="${requestScope.schools}">
       <c:if test="${not empty s.lon}">

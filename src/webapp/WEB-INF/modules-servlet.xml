@@ -117,7 +117,7 @@
           class="gs.web.geo.GeoController"
           autowire="byName">
         <property name="viewName">
-            <value>/geo/cityMap</value>
+            <value>/geo/schoolsMap</value>
         </property>
     </bean>
 

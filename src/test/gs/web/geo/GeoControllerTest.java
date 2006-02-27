@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoControllerTest.java,v 1.4 2006/02/24 23:10:47 apeterson Exp $
+ * $Id: GeoControllerTest.java,v 1.5 2006/02/27 18:16:13 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -45,6 +45,9 @@ public class GeoControllerTest extends BaseControllerTestCase {
 
         assertNotNull(modelAndView.getModel().get("lat"));
         assertNotNull(modelAndView.getModel().get("lon"));
+
+        assertNotNull(modelAndView.getModel().get("scale"));
+        assertEquals(new Integer(7), modelAndView.getModel().get("scale"));
     }
 
     public void testAlameda() throws Exception {

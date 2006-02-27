@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.3 2006/02/24 23:10:47 apeterson Exp $
+ * $Id: GeoController.java,v 1.4 2006/02/27 18:16:13 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -22,14 +22,18 @@ import org.springframework.web.servlet.mvc.Controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Iterator;
 
 /**
- * Provides...
+ * Fetches all sorts of information about a city (or zip code) and puts
+ * it in the model for the view.  <code>PARAM_*</code> constants
+ * specify the expected values, and <code>MODEL_</code> specify the
+ * output model sent on to the view.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @todo separate out school information. This needs to be separate, more defined classes.
  */
 public class GeoController implements Controller {
     private IGeoDao _geoDao;
@@ -48,6 +52,7 @@ public class GeoController implements Controller {
     private static final String MODEL_CITY = "city"; // City BpCensus object
     private static final String MODEL_LAT = "lat"; // Center lat
     private static final String MODEL_LON = "lon"; // City BpCensus object
+    private static final String MODEL_SCALE = "scale"; // The scale of the map
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -87,9 +92,9 @@ public class GeoController implements Controller {
             }
 
             List schools = _schoolDao.findSchoolsInCity(state, cityNameParam, false);
-            if (schools!=null) {
+            if (schools != null) {
                 if (schools.size() > 50) {
-                    schools = schools.subList(0,50);
+                    schools = schools.subList(0, 50);
                 }
                 model.put(MODEL_SCHOOLS, schools);
                 if (lat == null) {
@@ -112,6 +117,8 @@ public class GeoController implements Controller {
 
         model.put(MODEL_LAT, lat);
         model.put(MODEL_LON, lon);
+
+        model.put(MODEL_SCALE, new Integer(7));
 
         ModelAndView modelAndView = new ModelAndView(_viewName, model);
 
