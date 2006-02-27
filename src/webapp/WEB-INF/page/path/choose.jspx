@@ -68,11 +68,6 @@
             padding-bottom: 15px;
         }
 
-        .schoolchoicecenter img {
-            float: right;
-            padding: 10px;
-        }
-
     </style>
     <title>${stateLongName} Schools</title>
 </head>
@@ -173,4 +168,3 @@
 </gsml:body>
 </html>
 </jsp:root>
-

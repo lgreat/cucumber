@@ -6,7 +6,8 @@
     <jsp:directive.tag body-content="empty"/>
     <div class="schoolchoicecenter">
         <img src="/res/img/content/scc/little_chalkboard.gif"
-             alt="photo of chalkboard" />
+             alt="photo of chalkboard"
+             style="float:right;padding:10px;" />
         <jsp:include page="/promo/featuredArticles.module?position=FOCUS_ON_CHOICE&amp;count=6" />
     </div>
 

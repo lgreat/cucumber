@@ -1,7 +1,7 @@
     /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.110 2006/02/24 20:11:25 chriskimm Exp $
+   $Id: global.css,v 1.111 2006/02/27 20:00:05 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -461,13 +461,16 @@
         margin: 0 .5em 0 .5em;
     }
 
-    .featuredarticles li, .hotTopics li {
+    .featuredarticles li,
+        .hotTopics li {
         padding: 3px 5px 3px 12px;
         margin: 2px 0px 3px 0px;
         background: url( ../img/bullet_blueball.gif ) 2px 7px no-repeat;
     }
 
-    .featuredarticles li.new  img, .schoolchoicecenter li.new img, .hotTopics li.new img {
+    .featuredarticles li.new  img,
+      .schoolchoicecenter li.new img,
+        .hotTopics li.new img {
         padding-left: .5em;
     }
 
