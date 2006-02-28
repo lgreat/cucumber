@@ -93,8 +93,7 @@
                                        width="100%">
                                     <tr>
                                         <td style="vertical-align: top">
-                                            <jsp:include
-                                                    page="/path/compareEntry.module?state=${state}"/>
+                                            <mod:compareEntry/>
                                         </td>
                                         <td>
                                             <div style="border-left:1px solid #BBB;height:180px;"></div>

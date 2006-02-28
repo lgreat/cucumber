@@ -1,14 +1,11 @@
 package gs.web.path;
 
-import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
-import org.springframework.validation.BindException;
-import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,17 +14,16 @@ import gs.web.SessionContext;
 import gs.data.state.State;
 
 /**
+ * This class handles the form submission from compareEntry.jspx.
+ * There is no validation of parameters: when a user hits the submit
+ * button, the controller should alway redirect to the compare schools page.
+ *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class CompareEntryController extends SimpleFormController {
+public class CompareEntryController extends AbstractController {
 
-    private static Logger _log = Logger.getLogger(CompareEntryController.class);
-
-    public ModelAndView onSubmit(HttpServletRequest request,
-                                 HttpServletResponse response,
-                                 Object command,
-                                 BindException errors) throws ServletException {
-
+    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+                                                 HttpServletResponse response) throws Exception {
         String level = request.getParameter("level");
         String type = request.getParameter("type");
         String stateString = request.getParameter("state");
@@ -36,7 +32,7 @@ public class CompareEntryController extends SimpleFormController {
             stateString = state.getAbbreviationLowerCase();
         }
 
-        StringBuffer urlBuffer = new StringBuffer();
+        StringBuffer urlBuffer = new StringBuffer(50);
         urlBuffer.append("/cgi-bin/cs_where?state=");
         urlBuffer.append(stateString);
         urlBuffer.append("&");

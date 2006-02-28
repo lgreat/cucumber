@@ -74,13 +74,6 @@
         </property>
     </bean>
 
-  <bean name="/path/compareEntry.module"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-    <property name="viewName">
-      <value>/path/compareEntry</value>
-    </property>
-  </bean>
-
     <bean name="/state/topDistricts.module"
           class="gs.web.state.TopDistrictsController"
           autowire="byName">

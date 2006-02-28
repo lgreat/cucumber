@@ -350,17 +350,8 @@
   </bean>
 
   <bean name="/path/compareEntry.page"
-          class="gs.web.path.CompareEntryController">
-      <property name="formView">
-        <value>/path/compareEntry</value>
-      </property>
-      <property name="commandName">
-        <value>compareEntryCommand</value>
-      </property>
-      <property name="commandClass">
-        <value>gs.web.path.CompareEntryCommand</value>
-      </property>
-    </bean>
+        class="gs.web.path.CompareEntryController">
+  </bean>
 
     <bean name="/path/mySchool.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
