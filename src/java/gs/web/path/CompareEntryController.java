@@ -29,13 +29,13 @@ public class CompareEntryController extends AbstractController {
         String stateString = request.getParameter("state");
         if (StringUtils.isBlank(stateString)) {
             State state = SessionContext.getInstance(request).getStateOrDefault();
-            stateString = state.getAbbreviationLowerCase();
+            stateString = state.getAbbreviation();
         }
 
         StringBuffer urlBuffer = new StringBuffer(50);
-        urlBuffer.append("/cgi-bin/cs_where?state=");
+        urlBuffer.append("/cgi-bin/cs_where/");
         urlBuffer.append(stateString);
-        urlBuffer.append("&");
+        urlBuffer.append("?");
         urlBuffer.append((level != null) ? level : "elementary");
         urlBuffer.append("=true#");
         urlBuffer.append((type != null) ? type : "");

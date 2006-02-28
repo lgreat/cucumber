@@ -13,16 +13,16 @@ public class CompareEntryControllerTest extends BaseControllerTestCase {
         CompareEntryController controller = new CompareEntryController();
         ModelAndView mAndV = controller.handleRequestInternal(getRequest(), getResponse());
         RedirectView view = (RedirectView)mAndV.getView();
-        assertEquals("/cgi-bin/cs_where?state=ca&elementary=true#", view.getUrl());
+        assertEquals("/cgi-bin/cs_where/CA?elementary=true#", view.getUrl());
     }
 
     public void testStateParameter() throws Exception {
         CompareEntryController controller = new CompareEntryController();
-        getRequest().setParameter("state", "ak");
+        getRequest().setParameter("state", "AK");
         getRequest().setParameter("level", "high");
         getRequest().setParameter("type", "address");
         ModelAndView mAndV = controller.handleRequestInternal(getRequest(), getResponse());
         RedirectView view = (RedirectView)mAndV.getView();
-        assertEquals("/cgi-bin/cs_where?state=ak&high=true#address", view.getUrl());
+        assertEquals("/cgi-bin/cs_where/AK?high=true#address", view.getUrl());
     }
 }
