@@ -18,8 +18,12 @@ the latest changes)
 cd ../GSData (you must go into the GSData project since it knows about the remote maven repos)
 maven -DartifactId=maven-tomcat-plugin -DgroupId=codeczar-tomcat -Dversion=1.1 plugin:download
 
-Also, make sure your tomcat has the admin user with password gsadmin.
-TODO: say where to do this.
+Also, make sure your tomcat has the admin user with password gsadmin by adding the following
+lines to conf/tomcat-users.xml:
+
+  <role rolename="manager"/>
+  <role rolename="admin"/>
+  <user username="admin" password="gsadmin" roles="admin,manager"/>
 
 2. To deploy the WAR directly into the src/webapp directory to allow live editing of JSP pages,
 create a build.properites file with the following line:
@@ -40,7 +44,7 @@ edit JSP files in the exploded war without redeploying.
 
 Currently it's in this folder:
 
-/usr2/local/certificates/
+/usr2/certificates/
 
 5. To make it so you can change a class in IDEA and see the changes, you
 must make the application reloadable in Tomcat.
@@ -57,12 +61,7 @@ path one line above the </Host> tag:
 Usage:
 Hit ctrl-shift-F9 to rebuild a class, and hit refresh in your browser and see the changes:
 
-
-
-
-Let Todd know if you have any questions or problems.
-
-
+Same as steps a, b, and c above
 Using IDEA to Compile into build directory
 ==========================================
 To compile gs-web Java classes into the maven build directory, do the following:
