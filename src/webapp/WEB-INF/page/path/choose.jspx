@@ -67,6 +67,9 @@
         #compareButton {
             padding-bottom: 15px;
         }
+        #chalkBoard {
+            float:right;padding:10px;
+        }
 
     </style>
     <title>${stateLongName} Schools</title>

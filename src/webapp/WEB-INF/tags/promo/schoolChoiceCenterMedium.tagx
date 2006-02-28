@@ -5,9 +5,9 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
     <jsp:directive.tag body-content="empty"/>
     <div class="schoolchoicecenter">
-        <img src="/res/img/content/scc/little_chalkboard.gif"
+        <gsml:img src="/res/img/content/scc/little_chalkboard.gif"
              alt="photo of chalkboard"
-             style="float:right;padding:10px;" />
+             id="chalkBoard" />
         <jsp:include page="/promo/featuredArticles.module?position=FOCUS_ON_CHOICE&amp;count=6" />
     </div>
 
