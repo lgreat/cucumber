@@ -116,7 +116,7 @@
                             <hr noshade="true" size="1"/>
                             <ul>
                             <c:forEach items="${insider_articles}" var="article">
-                                <gsweb:articlelink article="${article}" target="article"  flaggedIfNew="true" wrappingElement="li" />
+                                <gsweb:articlelink article="${article}" flaggedIfNew="true" wrappingElement="li" />
                             </c:forEach>
                             </ul>
                         </div>
@@ -145,7 +145,7 @@
 
                         <ul id="articlelist${index}" class="categorySection">
                             <c:forEach items="${category.value}" var="article">
-                                    <gsweb:articlelink article="${article}" target="article" flaggedIfNew="true" wrappingElement="li"/>
+                                    <gsweb:articlelink article="${article}" flaggedIfNew="true" wrappingElement="li"/>
                             </c:forEach>
                         </ul>
                         <c:set var="index" value="${index + 1}"/>
@@ -163,7 +163,7 @@
 
                 <ul id="articlelist${index}" class="categorySection">
                     <c:forEach items="${category.value}" var="article">
-                            <gsweb:articlelink article="${article}" target="article" flaggedIfNew="true" wrappingElement="li"/>
+                            <gsweb:articlelink article="${article}" flaggedIfNew="true" wrappingElement="li"/>
                     </c:forEach>
                 </ul>
                 <c:set var="index" value="${index + 1}"/>
