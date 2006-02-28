@@ -61,6 +61,8 @@
         s.prop3 = "${empty(schoolLevel) ? "" : schoolLevel}";
         s.prop4 = "${empty(locale) ? "" : locale}";
         s.prop5 = "${requestScope.context.stateOrDefault.subscriptionState ? 'subscription' : 'non-subscription'}";
+        s.prop6 = "${param.q}";
+        s.prop6 = s.prop6.toLowerCase();
         s.prop7 = "${requestScope.context.ABVersion}";
         s.hier1 = "${hier1}";
 
