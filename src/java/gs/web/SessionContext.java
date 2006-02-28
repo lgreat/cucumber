@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.26 2006/02/13 20:15:34 chriskimm Exp $
+ * $Id: SessionContext.java,v 1.27 2006/02/28 22:39:02 thuss Exp $
  */
 package gs.web;
 
@@ -124,7 +124,7 @@ public class SessionContext
 
         if (StringUtils.contains(_hostName, "dev.greatschools.net")) {
             sHost = "secure.dev.greatschools.net";
-        } else if (StringUtils.equalsIgnoreCase(_hostName, "staging.greatschools.net")) {
+        } else if (StringUtils.contains(_hostName, "staging.greatschools.net")) {
             sHost = "secure.staging.greatschools.net";
         }
 

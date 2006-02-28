@@ -44,6 +44,7 @@ public class SessionContextTest extends BaseTestCase {
         request.setParameter("cobrand", "yahoo");
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
         assertTrue(ctx.isYahooCobrand());
+        assertEquals("secure.dev.greatschools.net", ctx.getSecureHostName());
 
     }
 
@@ -79,6 +80,7 @@ public class SessionContextTest extends BaseTestCase {
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
         assertEquals("greatschools.babycenter.com", ctx.getHostName());
         assertTrue(ctx.isCobranded());
+        assertEquals("secure.greatschools.net", ctx.getSecureHostName());
     }
 
     public void testHostMainUrlOnLiveSiteWithCobrandParameter() {
@@ -91,6 +93,7 @@ public class SessionContextTest extends BaseTestCase {
         assertEquals("framed.greatschools.net", ctx.getHostName());
         assertTrue(ctx.isCobranded());
         assertEquals(ctx.getCobrand(), "framed");
+        assertEquals("secure.greatschools.net", ctx.getSecureHostName());
     }
 
     public void testHostCobrandUrlOnDevSite() {
@@ -101,7 +104,8 @@ public class SessionContextTest extends BaseTestCase {
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
         assertEquals("azcentral.dev.greatschools.net", ctx.getHostName());
         assertTrue(ctx.isCobranded());
-        assertEquals(ctx.getCobrand(), "azcentral");
+        assertEquals("azcentral", ctx.getCobrand());
+        assertEquals("secure.dev.greatschools.net", ctx.getSecureHostName());
     }
 
     public void testIsYahooCobrand() {
