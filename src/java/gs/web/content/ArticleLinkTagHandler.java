@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.15 2006/02/09 18:36:40 apeterson Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.16 2006/02/28 19:13:52 apeterson Exp $
  */
 package gs.web.content;
 
@@ -99,7 +99,8 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         }
 
         if (s.isSubscriptionState() && article.isInsider()) {
-            b.append("<img src=\"/res/img/st_icon.gif\" border=\"0\" />");
+            String img = _urlUtil.buildUrl("/res/img/st_icon.gif", request);
+            b.append("<img src=\"" + img + "\" border=\"0\" class=\"memberOnly\" />");
         }
 
         b.append("<a href=\"");
