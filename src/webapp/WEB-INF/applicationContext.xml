@@ -21,10 +21,6 @@
         class="gs.web.search.SchoolTableTagHandler">
     </bean>
 
-    <bean id="searchSummaryTagHandler"
-        class="gs.web.search.SearchSummaryTagHandler">
-    </bean>
-
     <!-- factory bean for user session information -->
     <bean id="sessionContext"
           class="gs.web.SessionContext"
@@ -43,7 +39,7 @@
             <map>
                 <entry key="pathway1"><value>/modperl/go</value></entry>
                 <entry key="pathway2"><value>/path/mySchool.page</value></entry>
-                <entry key="pathway3"><value>/content/guideToTests.page</value></entry>
+                <entry key="pathway3"><value>/content/summerSurvivalGuide.page</value></entry>
                 <entry key="pathway4"><value>/modperl/go</value></entry>
                 <entry key="search_single"><value>/search/search.page</value></entry>
                 <entry key="search_double"><value>/cgi-bin/search_switch</value></entry>

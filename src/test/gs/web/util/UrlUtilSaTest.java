@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.19 2006/02/23 21:09:46 thuss Exp $
+ * $Id: UrlUtilSaTest.java,v 1.20 2006/02/28 22:55:41 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -71,17 +71,16 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/$STATE", request));
         assertEquals("/search/search.page", _urlUtil.buildUrl("/search/search.page", request));
 
-
         // Test having the page deployed under say gs-web
         String ctxPath = "/gs-web";
         request.setContextPath(ctxPath);
         assertEquals(ctxPath + "/search/search.page", _urlUtil.buildUrl("/search/search.page", request));
         // But Perl pages should stay unmodified by the context path
         assertEquals("/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/$STATE", request));
-        assertEquals(ctxPath +"/res/css/global.css", _urlUtil.buildUrl("/res/css/global.css", request));
-        assertEquals(ctxPath +"/res/js/s_code.js", _urlUtil.buildUrl("/res/js/s_code.js", request));
+        assertEquals(ctxPath + "/res/css/global.css", _urlUtil.buildUrl("/res/css/global.css", request));
+        assertEquals(ctxPath + "/res/js/s_code.js", _urlUtil.buildUrl("/res/js/s_code.js", request));
         assertEquals("/gs-web/content/allArticles.page?state=CA", _urlUtil.buildUrl("/content/allArticles.page?state=$STATE", request));
-        assertEquals("/gs-web/content/guideToTests.page?state=CA", _urlUtil.buildUrl("vpage:content.seasonal", request));
+        assertEquals("/gs-web/content/summerSurvivalGuide.page?state=CA", _urlUtil.buildUrl("vpage:content.seasonal", request));
         request.setContextPath("/");
 
         // Test https server links
@@ -223,7 +222,7 @@ public class UrlUtilSaTest extends TestCase {
     public void testVpageToUrl() {
         assertEquals("/search/search.page", _urlUtil.vpageToUrl("/search/search.page"));
         assertEquals("/modperl/bycity/CA", _urlUtil.vpageToUrl("/modperl/bycity/CA"));
-        assertEquals("/content/guideToTests.page?state=$STATE", _urlUtil.vpageToUrl("vpage:content.seasonal"));
+        assertEquals("/content/summerSurvivalGuide.page?state=$STATE", _urlUtil.vpageToUrl("vpage:content.seasonal"));
         assertEquals("/modperl/go/$STATE", _urlUtil.vpageToUrl("vpage:path1"));
         assertEquals("/path/mySchool.page?state=$STATE", _urlUtil.vpageToUrl("vpage:path2"));
     }

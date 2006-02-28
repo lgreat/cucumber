@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.22 2006/02/24 01:37:16 thuss Exp $
+ * $Id: UrlUtil.java,v 1.23 2006/02/28 22:55:41 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -107,7 +107,7 @@ public final class UrlUtil {
 
         if (srcUri == null) {
             _log.warn("Unable to interpret current page 'null' as URL where destHost = " + destHost +
-                " and destPath = " + destPath);
+                    " and destPath = " + destPath);
             return destPath; // no logic to do, but not a good case
         }
 
@@ -237,7 +237,8 @@ public final class UrlUtil {
      * if a non-relative URL must be used.
      */
     public boolean smellsLikePerl(String partialUrl) {
-        if ((partialUrl.indexOf("res/") == -1 && partialUrl.indexOf(".page") == -1)) {
+        if ((partialUrl.indexOf("res/") == -1 && partialUrl.indexOf(".page") == -1))
+        {
             return true;
         } else {
             return false;
@@ -280,7 +281,7 @@ public final class UrlUtil {
         if (url.startsWith("vpage:")) {
             String vpage = url.substring(6);
             if (StringUtils.equals("content.seasonal", vpage)) {
-                return "/content/guideToTests.page?state=$STATE";
+                return "/content/summerSurvivalGuide.page?state=$STATE";
                 //return "/cgi-bin/site/january_parent_tips.cgi/$STATE";
                 // NOTE: was "/cgi-bin/site/parent_tips.cgi/$STATE"
             } else if (StringUtils.equals("path1", vpage)) {
