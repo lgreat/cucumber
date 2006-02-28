@@ -45,21 +45,24 @@
 
         UL.plain {
             list-style: none;
-            margin-top: 3px;
-            margin-bottom: 0px;
-            margin-left: 3px;
-            padding: 5px;
+            margin: 0 0 0 3px;
+            padding: 0 5px 5px 5px;
             font-size: 12px;
         }
 
         UL.plain li {
-            padding: 5px;
+            padding: 0 5px 10px 5px;
+            margin: 0;
         }
 
         table.content {
             margin: 1em 0 3em 0;
         }
 
+        table.content img.memberOnly {
+            vertical-align: baseline;
+            margin: 4px 4px 2px 0;
+        }
 
     </style>
 </head>
@@ -129,8 +132,8 @@
 
         <h3>Make the Most of Your School Visit</h3>
         <ul class="plain">
+            <gsweb:articlelink articleId="48" wrappingElement="li"/>
             <li>
-                <gsweb:articlelink articleId="48" wrappingElement="li"/>
                 <ul class="pdfs">
                     <li><gsml:a href="/pdf/schq_visit_elem.pdf">Elementary School: A printable worksheet</gsml:a></li>
                     <li><gsml:a href="/pdf/schq_visit_middle.pdf">Middle School: A printable worksheet</gsml:a></li>
@@ -150,9 +153,6 @@
         </ul>
     </td>
     <td valign="top" width="230">
-        <!--span class="bodycopy">See our <gsml:a href="/content/allArticles.page?state=$STATE">
-      full
-      library of articles</gsml:a></span-->
         <div class="newspromo">
             <table border="0" cellpadding="3" cellspacing="0">
                 <tr>
