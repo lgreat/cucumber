@@ -19,6 +19,8 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
 /**
+ * This abstract class provides access to varios DAOs.
+ *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public abstract class BaseTagHandler extends SimpleTagSupport {
@@ -29,6 +31,9 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
     private static IDistrictDao _districtDao;
     private static StateManager _stateManager = new StateManager();
 
+    /**
+     * @return <code>ISchoolDao</code>
+     */
     protected ISchoolDao getSchoolDao() {
         if (_schoolDao == null) {
             try {
@@ -74,6 +79,9 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
         return school;
     }
 
+    /**
+     * @return <code>IDistrictDao</code>
+     */
     protected IDistrictDao getDistrictDao() {
         if (_districtDao == null) {
             try {
