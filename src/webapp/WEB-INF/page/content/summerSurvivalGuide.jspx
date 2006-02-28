@@ -31,6 +31,10 @@
 
     <style type="text/css">
 
+        #headline {
+            font-size:larger;
+        }
+
         .newspromo {
             color: #000;
             width: 300px;
@@ -88,13 +92,10 @@
                         </td>
 
                         <td valign="top" id="guidecontent">
-                            <p><c:out value="Summer presents new opportunities for your
-                                child to learn
-                                and grow &#8212; and special challenges for
-                                parents. Check
-                                GreatSchools.net's resources for tips to
-                                plan a healthy,
-                                happy summer. foo" escapeXml="true"></c:out> </p>
+                            <p><span id="headline"><c:out value="Take the stress out of summer
+                            planning with GreatSchools' tips to help your child
+                            keep learning and growing."
+                                      escapeXml="true" /></span></p>
                             <br/>
 
                             <h3>Where to Look, What to Ask When Choosing a

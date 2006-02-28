@@ -64,9 +64,9 @@ public class CityDistrictController extends AbstractController {
         String queryString = request.getParameter("q");
         String state = request.getParameter("state");
 
-        int filteredListSize = LIST_SIZE,
-                cityListSize = LIST_SIZE,
-                districtListSize = LIST_SIZE;
+        int filteredListSize = LIST_SIZE;
+        int cityListSize = LIST_SIZE;
+        int districtListSize = LIST_SIZE;
 
         if (!StringUtils.isEmpty(request.getParameter("morefiltered"))) {
             filteredListSize = EXTENDED_LIST_SIZE;

@@ -92,7 +92,7 @@
             </div>
             <br/>
             <input type="submit" value="Submit"/>
-            <input name="state" type="hidden" value="${requestScope.context.stateOrDefault.longName}"/>
+            <input name="state" type="hidden" value="${requestScope.context.stateOrDefault.abbreviation}"/>
         </gsml:form>
         <br/>
             <p/>Here's where to go for answers from customer support:
