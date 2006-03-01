@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.24 2006/03/01 00:57:03 thuss Exp $
+ * $Id: UrlUtil.java,v 1.25 2006/03/01 01:00:32 thuss Exp $
  */
 
 package gs.web.util;
@@ -107,7 +107,7 @@ public final class UrlUtil {
 
         if (srcUri == null) {
             _log.warn("Unable to interpret current page 'null' as URL where destHost = " + destHost +
-                " and destPath = " + destPath);
+                    " and destPath = " + destPath);
             return destPath; // no logic to do, but not a good case
         }
 
@@ -175,11 +175,6 @@ public final class UrlUtil {
      * to do so.
      */
     public String buildUrl(final String ref, HttpServletRequest request) {
-        // If the URL has a STATE string in it (or more than one), replace it with the
-        // user's state.
-
-        gs.data.util.NetworkUtil networkUtil = new gs.data.util.NetworkUtil();
-
         String href = ref;
 
         href = vpageToUrl(href); // resolve vpage if necessary
@@ -190,6 +185,8 @@ public final class UrlUtil {
             href = request.getContextPath() + href;
         }
 
+        // If the URL has a STATE string in it (or more than one), replace it with the
+        // user's state.
         gs.web.ISessionFacade context = gs.web.SessionFacade.getInstance(request);
         if (href.indexOf("STATE") != -1) {
             // Allow a request attribute to override the session facade.
@@ -237,12 +234,7 @@ public final class UrlUtil {
      * if a non-relative URL must be used.
      */
     public boolean smellsLikePerl(String partialUrl) {
-        if ((partialUrl.indexOf("res/") == -1 && partialUrl.indexOf(".page") == -1))
-        {
-            return true;
-        } else {
-            return false;
-        }
+        return (partialUrl.indexOf("res/") == -1 && partialUrl.indexOf(".page") == -1);
     }
 
     /**
@@ -316,15 +308,14 @@ public final class UrlUtil {
         }
 
         // Calculate link
-        String link = "/cgi-bin/" +
+        // TH: Commented this out because buildHref is noop with a null request
+        // link = buildHref(null, link, false, null);
+        return "/cgi-bin/" +
                 page +
                 "/" +
                 s.getAbbreviationLowerCase() +
                 "/" +
                 article.getId();
-        // TH: Commented this out because buildHref is noop with a null request
-        // link = buildHref(null, link, false, null);
-        return link;
     }
 
 
