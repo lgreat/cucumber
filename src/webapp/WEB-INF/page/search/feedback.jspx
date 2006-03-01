@@ -45,6 +45,10 @@
                 width:500px;
             }
         </style>
+
+        <c:set target="${requestScope.context}"
+               property="pathway"
+               value="1"/>
     </head>
 
     <body>
