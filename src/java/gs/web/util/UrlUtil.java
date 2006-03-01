@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.23 2006/02/28 22:55:41 chriskimm Exp $
+ * $Id: UrlUtil.java,v 1.24 2006/03/01 00:57:03 thuss Exp $
  */
 
 package gs.web.util;
@@ -107,7 +107,7 @@ public final class UrlUtil {
 
         if (srcUri == null) {
             _log.warn("Unable to interpret current page 'null' as URL where destHost = " + destHost +
-                    " and destPath = " + destPath);
+                " and destPath = " + destPath);
             return destPath; // no logic to do, but not a good case
         }
 
@@ -322,7 +322,8 @@ public final class UrlUtil {
                 s.getAbbreviationLowerCase() +
                 "/" +
                 article.getId();
-        link = buildHref(null, link, false, null);
+        // TH: Commented this out because buildHref is noop with a null request
+        // link = buildHref(null, link, false, null);
         return link;
     }
 
