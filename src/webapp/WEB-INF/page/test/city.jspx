@@ -10,15 +10,13 @@
         xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
         xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
 <jsp:directive.page import="gs.data.state.State"/>
 <jsp:directive.page import="gs.web.SessionContext"/>
-<jsp:scriptlet>
-    State state = SessionContext.getInstance(request).getStateOrDefault();
-</jsp:scriptlet>
 <html lang="en">
-<c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-<c:set var="stateLongName" value="${requestScope.context.stateOrDefault.longName}"/>
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
@@ -90,18 +88,6 @@ font-size: large;
 
         </style>
             ]]>
-        <c:if test="${pageContext.request.serverName == 'apeterson.office.greatschools.net'}">
-<![CDATA[
-    <script src="http://maps.google.com/maps?file=api&amp;v=1&amp;key=ABQIAAAAfIbt4ypAXkQ3IPRD94rdpBQEcfRlX9STjQIboV_rOfY8lEtLuRRI5C9Gh1Qfx01C-MsuJfXh6-Go1w"
-        type="text/javascript"></script>
-            ]]>
-        </c:if>
-        <c:if test="${pageContext.request.serverName == 'dev.greatschools.net'}">
-<![CDATA[
-    <script src="http://maps.google.com/maps?file=api&amp;v=1&amp;key=ABQIAAAAfIbt4ypAXkQ3IPRD94rdpBStxM1kVa_Q8zB1RskfVGeHX8T-URQF3G1ZiOsBsXTW4_6sfwoFR0T6oA"
-        type="text/javascript"></script>
-            ]]>
-        </c:if>
     <c:set var="city">${param["city"]}</c:set>
     <title>${city} Schools</title>
 </head>
@@ -126,19 +112,24 @@ font-size: large;
             <!--mod:stateSelectMedium state="${requestScope.context.stateOrDefault}" / -->
         </td>
         <td class="" valign="top" colspan="2">
-                <jsp:include page="/geo/cityMap.module?city=${city}&amp;state=${state}"/>
+            <div id="mapContainer">
+                <div id="map" >&#160;</div>
+            </div>
+            <map:setup />
+             <jsp:include page="/geo/cityMap.module?city=${city}&amp;state=${stateAbbrev}&amp;id=map&amp;fn=createMap"/>
+            <pageHelper:addOnLoadHandler handler="createMap()" />
         </td>
     </tr>
         <tr>
         <td class="" valign="top">
             <gsml:box tableClass="shade3">
-                <jsp:include page="/geo/citySchoolStats.module?city=${city}&amp;state=${state}"/>
+                <jsp:include page="/geo/citySchoolStats.module?city=${city}&amp;state=${stateAbbrev}"/>
             </gsml:box>
         </td>
 
         <td class="" valign="top">
             <gsml:box tableClass="shade3">
-                <jsp:include page="/geo/cityStats.module?city=${city}&amp;state=${state}"/>
+                <jsp:include page="/geo/cityStats.module?city=${city}&amp;state=${stateAbbrev}"/>
             </gsml:box>
         </td>
     </tr>

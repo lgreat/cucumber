@@ -39,14 +39,17 @@
     <gsml:url var="minmaxjs" value="/res/js/minmax.js"/>
     <![CDATA[<script type="text/javascript" src="${minmaxjs}"></script>]]>
 
-    <!-- This tag includes ad_popunder.js and sets onloadPopunder -->
+    <!-- This tag includes ad_popunder.js -->
     <ad:xPopunder/>
     <ad:xAdSetup />
 
     <decorator:head/>
+
+    ${requestScope.pageHelper.headElements}
+
 </head>
 
-<body onload="${onloadPopunder} ${requestScope.pageHelper.onload}">
+<body onload="${requestScope.pageHelper.onload}">
 <cobrand:framebuster/>
 <div id="marginGS">
 <div id="pageGS" class="${pageClass}">

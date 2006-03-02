@@ -11,7 +11,7 @@ public class CompareSchoolsControllerTest extends BaseTestCase {
     private CompareSchoolsController controller;
 
     protected void setUp() {
-        controller = (CompareSchoolsController) _sApplicationContext.
+        controller = (CompareSchoolsController) getApplicationContext().
                 getBean(CompareSchoolsController.BEAN_ID);
     }
 

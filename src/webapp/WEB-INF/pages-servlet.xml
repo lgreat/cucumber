@@ -17,9 +17,6 @@
         </property>
     </bean>
 
-    <!--bean name="lecacyHandlerMapping"
-        class="gs.web.util.LegacyHandlerMapping">
-        </bean-->
     <bean id="responseInterceptor"
             class="gs.web.ResponseInterceptor"
             autowire="byName" />

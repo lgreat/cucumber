@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ContentControllerTest.java,v 1.10 2005/12/01 20:32:53 apeterson Exp $
+ * $Id: ContentControllerTest.java,v 1.11 2006/03/02 19:05:44 apeterson Exp $
  */
 package gs.web.content;
 
@@ -8,6 +8,7 @@ import gs.data.content.Article;
 import gs.data.content.ArticleManager;
 import gs.data.content.IArticleDao;
 import gs.data.state.State;
+import gs.data.admin.IPropertyDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.Anchor;
 import gs.web.util.UnorderedListModel;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The purpose is to test the AllArticlesController
+ * The purpose is to test the various controllers in the content package.
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
@@ -136,5 +137,24 @@ public class ContentControllerTest extends BaseControllerTestCase {
         modelAndView = c.handleRequestInternal(getRequest(), getResponse());
         articles = (List) modelAndView.getModel().get("articles");
         assertNull(articles);
+    }
+
+    public void testParentPollController() throws Exception {
+        ParentPollController controller = new ParentPollController();
+        controller.setPropertyDao(new IPropertyDao() {
+            public String getProperty(String key) {
+                return "8888";
+            }
+
+            public String getProperty(String key, String defaultValue) {
+                return "8888";
+            }
+        });
+        controller.setViewName("someView");
+
+        ModelAndView modelAndView = controller.handleRequestInternal(getRequest(), getResponse());
+
+        assertEquals("8888", modelAndView.getModel().get(ParentPollController.MODEL_PARENT_POLL_ID));
+
     }
 }

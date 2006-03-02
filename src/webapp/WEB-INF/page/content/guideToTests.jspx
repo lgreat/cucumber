@@ -8,9 +8,9 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
         >
-<jsp:directive.page import="gs.web.SessionContextUtil"/>
 <html lang="en">
 <c:set var="stateLongName" value="${requestScope.context.stateOrDefault.longName}"/>
 <jsp:output doctype-root-element="html"
@@ -19,10 +19,7 @@
 
 <jsp:directive.page contentType="text/html"/>
 
-<jsp:scriptlet>
-    SessionContextUtil u = new SessionContextUtil();
-    u.setPathway(request, response, "3");
-</jsp:scriptlet>
+     <pageHelper:setPathway pathway="3"/>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>

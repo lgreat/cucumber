@@ -9,13 +9,10 @@
         xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
         xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         >
-<jsp:directive.page import="gs.web.SessionContextUtil"/>
-<jsp:scriptlet>
-    SessionContextUtil u = new SessionContextUtil();
-    u.setPathway(request, response, "1");
-</jsp:scriptlet>
+     <pageHelper:setPathway pathway="1"/>
 <html lang="en">
 <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="stateLongName"

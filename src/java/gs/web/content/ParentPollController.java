@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ParentPollController.java,v 1.2 2005/12/13 20:37:38 thuss Exp $
+ * $Id: ParentPollController.java,v 1.3 2006/03/02 19:05:44 apeterson Exp $
  */
 
 package gs.web.content;
@@ -15,12 +15,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Provides...
+ * Retrieves the current parent poll id from the database and passes it on
+ * to the view.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class ParentPollController extends AbstractController {
 
+    /**
+     * The id of the parent poll, passed to the view, used to specify the
+     * iframe contents.
+     */
+    public static final String MODEL_PARENT_POLL_ID = "parentPollId";
 
     private String _viewName;
     private IPropertyDao _propertyDao;
@@ -29,7 +35,7 @@ public class ParentPollController extends AbstractController {
         Map model = new HashMap();
 
         String parentPollId = _propertyDao.getProperty(IPropertyDao.PARENT_POLL_ID);
-        model.put(IPropertyDao.PARENT_POLL_ID, parentPollId);
+        model.put(MODEL_PARENT_POLL_ID, parentPollId);
 
         return new ModelAndView(_viewName, model);
     }

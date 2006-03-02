@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.25 2006/03/01 01:00:32 thuss Exp $
+ * $Id: UrlUtil.java,v 1.26 2006/03/02 19:05:44 apeterson Exp $
  */
 
 package gs.web.util;
@@ -178,6 +178,11 @@ public final class UrlUtil {
         String href = ref;
 
         href = vpageToUrl(href); // resolve vpage if necessary
+
+        // Fully qualified URLs don't get any treatment here.
+        if (href.startsWith("http:")) {
+            return href;
+        }
 
         // If the application is deployed under say /gs-web instead of /
         if (href.startsWith("/") && request.getContextPath().length() > 1 &&

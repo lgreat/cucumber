@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MySchoolListController.java,v 1.7 2006/01/10 18:26:07 apeterson Exp $
+ * $Id: MySchoolListController.java,v 1.8 2006/03/02 19:05:43 apeterson Exp $
  */
 
 package gs.web.community;
@@ -25,9 +25,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
- * Provide the "member" and "limit".
+ * Provide the "member" and "limit". Returns data in the UnorderedListModel format.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @see #PARAM_LIMIT
+ * @see SessionContextUtil.MEMBER_PARAM
+ * @see UnorderedListModel
  */
 public class MySchoolListController extends AbstractController {
     private String _viewName;
@@ -35,11 +38,17 @@ public class MySchoolListController extends AbstractController {
     private IUserDao _userDao;
     public static final int DEFAULT_SCHOOL_LIMIT = 3;
 
+    /**
+     * The maximum number of schools to display.
+     */
+    public static final String PARAM_LIMIT = "limit";
+
+
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         ISessionFacade context = SessionFacade.getInstance(request);
         String memberId = request.getParameter(SessionContextUtil.MEMBER_PARAM);
-        String limitStr = request.getParameter("limit");
+        String limitStr = request.getParameter(PARAM_LIMIT);
         int limit = StringUtils.isNumeric(limitStr) ? Integer.valueOf(limitStr).intValue() : DEFAULT_SCHOOL_LIMIT;
 
 
@@ -63,7 +72,7 @@ public class MySchoolListController extends AbstractController {
                         "/" + school.getId() + "/",
                         school.getName());
                 items.add(anchor);
-                shown ++;
+                shown++;
             } else if (shown == limit) {
                 items.add(new Anchor("/cgi-bin/msl_confirm/" + state.getAbbreviation() + "/",
                         "" + (schools.size() - limit) + " more... (view)",

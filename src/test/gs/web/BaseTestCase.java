@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
  */
 public class BaseTestCase extends TestCase {
     protected final Log _log = LogFactory.getLog(getClass());
-    protected static final ApplicationContext _sApplicationContext;
+    private static ApplicationContext _sApplicationContext = null;
     private ResourceBundle _resourceBundle;
 
     // This static block ensures that Spring's BeanFactory is only loaded
@@ -24,14 +24,6 @@ public class BaseTestCase extends TestCase {
         // the dao.type is written to the database.properties file
         // in properties.xml
         ResourceBundle db = ResourceBundle.getBundle("conf/database");
-        String[] paths = {"gs/data/applicationContext-data.xml",
-                          "gs/data/dao/hibernate/applicationContext-hibernate.xml",
-                          "gs/data/school/performance/applicationContext-performance.xml",
-                          "applicationContext.xml",
-                          "modules-servlet.xml",
-                          "pages-servlet.xml"
-        };
-        _sApplicationContext = new ClassPathXmlApplicationContext(paths);
     }
 
     public BaseTestCase() {
@@ -47,6 +39,17 @@ public class BaseTestCase extends TestCase {
     }
 
     public ApplicationContext getApplicationContext() {
+        if (_sApplicationContext == null) {
+            String[] paths = {"gs/data/applicationContext-data.xml",
+                              "gs/data/dao/hibernate/applicationContext-hibernate.xml",
+                              "gs/data/school/performance/applicationContext-performance.xml",
+                              "applicationContext.xml",
+                              "modules-servlet.xml",
+                              "pages-servlet.xml"
+            };
+            _sApplicationContext = new ClassPathXmlApplicationContext(paths);
+        }
+
         return _sApplicationContext;
     }
 }

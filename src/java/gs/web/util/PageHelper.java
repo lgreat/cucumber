@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.8 2006/02/16 01:06:36 thuss Exp $
+ * $Id: PageHelper.java,v 1.9 2006/03/02 19:05:44 apeterson Exp $
  */
 
 package gs.web.util;
@@ -11,6 +11,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Helper class to render and decorate a JSP page correctly.
@@ -21,13 +24,14 @@ import javax.servlet.http.HttpServletRequest;
  * <li>Replaces untyped nature of page scoped attributes.
  * <li>Provides a place to make business rule and policy decisions for JSP pages.
  * </ul>
- * <p>There are basically two usages of this. One, is on actual JSP pages (or their
- * controllers or moduels). Here, the static functions are available to set
- * information about the page.
- * <p>The other usage is the rendering code, mostly in the sitemesh decorator.
+ * <p>Usage on pages should be done via the pageHelper tag library.
+ * There is an access (via static methods) that controllers can use, but this
+ * has not proven useful and may be phased out.
+ * <p>The sitemesh decorator has responsibility to handle some of the work
+ * here.
  * Those should access the current object under the request scoped "pageHelper"
  * attribute.
- * <p>There is also code in the page interceptor responsible for creating this object
+ * <p>There is code in the page interceptor responsible for creating this object
  * and setting its initial values.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
@@ -74,6 +78,40 @@ public class PageHelper {
     }
 
 
+    /**
+     * Adds the referenced code file to the list of files to be included
+     * at the top of the file. The sitemsh decorator is responsible for
+     * retrieving these and including them.
+     *
+     * @param javascriptSrc exact url to be included
+     */
+    public static void addJavascriptSource(HttpServletRequest request, String javascriptSrc) {
+        PageHelper pageHelper = getInstance(request);
+        if (pageHelper != null) {
+            pageHelper.addJavascriptSource(javascriptSrc);
+        } else {
+            _log.error("No PageHelper object available.");
+        }
+    }
+
+
+    /**
+     * Adds the referenced css file to the list of files to be included
+     * at the top of the file. The sitemsh decorator is responsible for
+     * retrieving these and including them.
+     *
+     * @param cssSrc exact url to be included
+     */
+    public static void addExternalCss(HttpServletRequest request, String cssSrc) {
+        PageHelper pageHelper = getInstance(request);
+        if (pageHelper != null) {
+            pageHelper.addCssSource(cssSrc);
+        } else {
+            _log.error("No PageHelper object available.");
+        }
+    }
+
+
     public static final String REQUEST_ATTRIBUTE_NAME = "pageHelper";
 
     private boolean _showingHeader = true;
@@ -86,6 +124,8 @@ public class PageHelper {
 
     private static final Log _log = LogFactory.getLog(PageHelper.class);
     private String _onload = "";
+    private List _javascriptFiles;
+    private List _cssFiles;
 
     private static UrlUtil _urlUtil = new UrlUtil();
 
@@ -169,6 +209,7 @@ public class PageHelper {
 
     /**
      * Determine if this site is a framed site, in other words, no ads and no nav
+     *
      * @return true if it's framed
      */
     public boolean isFramed() {
@@ -201,7 +242,48 @@ public class PageHelper {
         _onload += javascript;
     }
 
+    private void addJavascriptSource(String src) {
+        if (_javascriptFiles == null) {
+            _javascriptFiles = new ArrayList();
+        }
+        _javascriptFiles.add(src);
+    }
+
+    private void addCssSource(String src) {
+        if (_cssFiles == null) {
+            _cssFiles = new ArrayList();
+        }
+        _cssFiles.add(src);
+    }
+
     public boolean isDevEnvironment() {
         return _urlUtil.isDevEnvironment(_hostName);
+    }
+
+    /**
+     * Examines all the javascript and css includes and dumps out the
+     * appropriate header code. If no code is necessary, and empty string
+     * is returned.
+     *
+     * @return non-null String.
+     */
+    public String getHeadElements() {
+        if (_javascriptFiles != null || _cssFiles != null) {
+            StringBuffer sb = new StringBuffer();
+            if (_javascriptFiles != null) {
+                for (Iterator iter = _javascriptFiles.iterator(); iter.hasNext();) {
+                    String src = (String) iter.next();
+                    sb.append("<script type=\"text/javascript\" src=\"" + src + "\"></script>");
+                }
+            }
+            if (_cssFiles != null) {
+                for (Iterator iter = _cssFiles.iterator(); iter.hasNext();) {
+                    String src = (String) iter.next();
+                    sb.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + src + "\"></link>");
+                }
+            }
+            return sb.toString();
+        }
+        return "";
     }
 }

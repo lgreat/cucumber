@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.5 2006/02/10 02:10:29 thuss Exp $
+ * $Id: PageHelperSaTest.java,v 1.6 2006/03/02 19:05:44 apeterson Exp $
  */
 
 package gs.web.util;
@@ -139,6 +139,32 @@ public class PageHelperSaTest extends TestCase {
             // good, I didn't write code to handle that yet.
         }
 
+    }
+
+
+
+    public void testJavascriptAndCssInclude() {
+        ISessionFacade sessionFacade = new MockSessionFacade();
+        PageHelper pageHelper = new PageHelper(sessionFacade);
+
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+
+        assertEquals("", pageHelper.getHeadElements());
+
+        PageHelper.addJavascriptSource(request, "/res/js/something.js");
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\"></script>", pageHelper.getHeadElements());
+
+        PageHelper.addJavascriptSource(request, "/res/js/somethingElse.js");
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\">"+
+                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js\"></script>",
+                pageHelper.getHeadElements());
+
+        PageHelper.addExternalCss(request, "/res/css/special.css");
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\">" +
+                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js\"></script>" +
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css\"></link>",
+                pageHelper.getHeadElements());
     }
 
     public void testHideFooter() {

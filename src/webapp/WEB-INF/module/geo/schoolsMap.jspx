@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns="http://www.w3c.org/1999/xhtml"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:spring="http://www.springframework.org/tags"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
 <!--
 The interface to this view is as follows:
@@ -13,50 +9,15 @@ The interface to this view is as follows:
   requestScope.lat - center point for lattitude of the map (required)
   requestScope.schools - a Collection of School objects to map and link
   requestScope.scale - a number from 1? to 7? (see google API)
+  requestScope.id - the HTML element that will hold the map (see google API)
 
-NOTES
-The map API must be previously initialized. I'd recommend we make package this a little
-nicer ast some point.
-Schools without lat/lon are skipped.
-
-TODO
-I'd like to color the markers or use different icons depending on the level code. (The
-   beginnings of this are here.)
-I'd like to use a consistent display of school information in the info window.
 -->
-
-    <div id="mapContainer">
-        <div id="map" >&#160;</div>
-    </div>
-    <script type="text/javascript">
-    //<![CDATA[
-    function createMarker(point,html, color) {
-      html = '<div style="white-space:nowrap;">' + html + '</div>';
-      var marker = new GMarker(point);
-      GEvent.addListener(marker, "click", function() {
-        marker.openInfoWindowHtml(html);
-      });
-      return marker;
-    }
-    if (GBrowserIsCompatible()) {
-      var map = new GMap(document.getElementById("map"));
-      map.addControl(new GSmallMapControl(GSmallMapControl.G_HYBRID_TYPE));
-      map.centerAndZoom(new GPoint(${requestScope.lon}, ${requestScope.lat}), ${requestScope.scale});
-        //]]>
-      <c:forEach var="s" items="${requestScope.schools}">
-      <c:if test="${not empty s.lon}">
-    //<![CDATA[
-       var point = new GPoint(${s.lon},${s.lat});
-       var marker = createMarker(point,
-            '<a href="http://dev.greatschools.net/modperl/browse_school/${s.databaseState.abbreviation}/${s.id}">${fn:escapeXml(s.name)}</a><h4><br />Grades: <b>${s.gradeLevels}</b><br />Type: <b>${s.type.name}</b><br />Students: <b>${s.enrollment > 0 ? s.enrollment : 'n/a'}</b></h4>',
-               "${s.levelCode == gs.data.school.LevelCode.HIGH ? "green" : "blue"}");
-       map.addOverlay(marker);
-        //]]>
-      </c:if>
-      </c:forEach>
-    //<![CDATA[
-        }
-    //]]>
-    </script>
+    <map:schools
+            id="${requestScope.id}"
+            functionName="${requestScope.fn}"
+            lat="${requestScope.lat}"
+            lon="${requestScope.lon}"
+            scale="${requestScope.scale}"
+            schools="${requestScope.schools}" />
 
 </jsp:root>

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.15 2005/12/09 18:55:49 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.16 2006/03/02 19:05:44 apeterson Exp $
  */
 package gs.web.content;
 
@@ -22,7 +22,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
- * Controller to display all specified articles.
+ * Extracts one or more featured articles, based on
+ * parameters passed in, and forwards them to the view.
+ * There are two unique views supported:
+ * <li>single article</li>
+ * <li>multiple article</li>
+ * The single article view receives the article in the "article" model property.
+ * The multiple article view receives the UnorderedList model.
  *
  * @author Andrew Peterson <mailto:apeterson@greatschools.net>
  */
@@ -38,15 +44,20 @@ public class FeaturedArticlesController extends AbstractController {
     private IArticleDao _articleDao;
 
     /**
-     * One or more "article position" strings, comma separated.
+     * The "article position" string. Corresonds with values in the
+     * FEATURED column of the database and the article editor's constants.
      */
-    public static final String POSITION_PARAM = "position";
+    public static final String PARAM_POSITION = "position";
     /**
-     * Number of articles to display. The default is 1.
+     * Number of articles to display. The default is 1. If
+     * fewer articles are available, only those articles are displayed.
      */
-    private static final String COUNT_PARAM = "count";
+    private static final String PARAM_COUNT = "count";
 
-    public static final String HEAD_PARAM = "heading";
+    /**
+     * A string to be displayed as a heading above the articles.
+     */
+    public static final String PARAM_HEADING = "heading";
 
     /*
         Model property names.
@@ -57,13 +68,13 @@ public class FeaturedArticlesController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
 
 
-        String posStr = request.getParameter(POSITION_PARAM);
+        String posStr = request.getParameter(PARAM_POSITION);
         if (StringUtils.isEmpty(posStr)) {
             posStr = IArticleDao.HOT_TOPIC; // bad default
             _log.warn("Default position being used. Please fix.");
         }
 
-        String countStr = request.getParameter(COUNT_PARAM);
+        String countStr = request.getParameter(PARAM_COUNT);
         int count = 1;
         if (StringUtils.isNumeric(countStr)) {
             try {
@@ -89,7 +100,7 @@ public class FeaturedArticlesController extends AbstractController {
 
         Map model = new HashMap(2);
         model.put("article", article);
-        model.put(HEAD_PARAM, heading);
+        model.put(PARAM_HEADING, heading);
 
         return new ModelAndView(_singleArticleViewName, model);
     }
@@ -148,7 +159,7 @@ public class FeaturedArticlesController extends AbstractController {
 
     private String calcHeading(HttpServletRequest request, String posStr) {
         // Allow param override
-        final String paramHeading = request.getParameter(HEAD_PARAM);
+        final String paramHeading = request.getParameter(PARAM_HEADING);
         String heading;
         heading = "Today&#8217s Feature";
         if (StringUtils.isNotEmpty(paramHeading)) {

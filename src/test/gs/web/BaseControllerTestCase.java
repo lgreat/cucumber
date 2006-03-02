@@ -1,12 +1,13 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: BaseControllerTestCase.java,v 1.4 2005/11/29 23:24:49 thuss Exp $
+ * $Id: BaseControllerTestCase.java,v 1.5 2006/03/02 19:05:44 apeterson Exp $
  */
 
 package gs.web;
 
 import gs.data.state.State;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.context.ApplicationContext;
 
 /**
  * Provides...
@@ -23,8 +24,13 @@ public class BaseControllerTestCase extends BaseTestCase {
         _request = new MockHttpServletRequest();
         String hostname = "www.greatschools.net";
         _request.setServerName(hostname);
-        _sessionContext = new SessionContext();
-        _sessionContext.setApplicationContext(getApplicationContext());
+        _sessionContext = new SessionContext() {
+            // Implement a lazy 
+            public ApplicationContext getApplicationContext() {
+                return BaseControllerTestCase.this.getApplicationContext();
+            }
+        };
+        //_sessionContext.setApplicationContext();
         _sessionContext.setCobrand(null);
         _sessionContext.setHostName(hostname);
         _sessionContext.setState(State.CA);

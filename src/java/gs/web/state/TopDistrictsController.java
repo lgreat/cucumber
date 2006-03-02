@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopDistrictsController.java,v 1.10 2005/12/01 20:32:52 apeterson Exp $
+ * $Id: TopDistrictsController.java,v 1.11 2006/03/02 19:05:44 apeterson Exp $
  */
 
 package gs.web.state;
@@ -24,9 +24,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Provides...
+ * Given a state (in a "state" param), returns the largest districts
+ * in the state (hand-tuned by our employees).
+ * <p/>
+ * Uses UnorderedListModel to represent the districts.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @see UnorderedListModel
  */
 public class TopDistrictsController extends AbstractController {
     private String _viewName;
@@ -50,7 +54,7 @@ public class TopDistrictsController extends AbstractController {
         Integer[] districtIds = state.getTopDistricts();
         model.put(UnorderedListModel.HEAD,
                 state.getLongName() + " District" +
-                        (districtIds.length > 1 ? "s" : ""));
+                (districtIds.length > 1 ? "s" : ""));
 
         List items = new ArrayList(districtIds.length);
         for (int i = 0; i < districtIds.length; i++) {
@@ -77,7 +81,7 @@ public class TopDistrictsController extends AbstractController {
             Anchor anchor = new Anchor(url, name);
             items.add(anchor);
         }
-        if (!state.equals(State.HI)){
+        if (!state.equals(State.HI)) {
             items.add(new Anchor("/modperl/distlist/" + state.getAbbreviation(),
                     "View all " + state.getLongName() + " districts",
                     "viewall"));

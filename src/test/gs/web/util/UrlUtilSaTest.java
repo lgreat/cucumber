@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.20 2006/02/28 22:55:41 chriskimm Exp $
+ * $Id: UrlUtilSaTest.java,v 1.21 2006/03/02 19:05:44 apeterson Exp $
  */
 
 package gs.web.util;
@@ -41,6 +41,7 @@ public class UrlUtilSaTest extends TestCase {
         request.setServerPort(8080);
         request.setRequestURI("/search/search.page");
 
+        assertEquals("http://maps.google.com/maps?file=api", _urlUtil.buildUrl("http://maps.google.com/maps?file=api", request));
         assertEquals("/search/search.page", _urlUtil.buildUrl("/search/search.page", request));
         assertEquals("http://dev.greatschools.net/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/CA", request));
         assertEquals("http://dev.greatschools.net/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/$STATE", request));

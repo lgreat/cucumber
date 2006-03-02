@@ -1,7 +1,7 @@
 
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesController.java,v 1.9 2005/12/01 20:32:52 apeterson Exp $
+ * $Id: TopCitiesController.java,v 1.10 2006/03/02 19:05:44 apeterson Exp $
  */
 
 package gs.web.state;
@@ -25,13 +25,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Provides...
+ * Given a state (in the "state" param), creates a model of the largest
+ * cities in the state (hand-tuned by our employees).
+ * The number of cities returned is currently set by the State itself.
+ * <p>
+ * Uses the standard UnorderedListModel.
+ *
+ * @see UnorderedListModel
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class TopCitiesController extends AbstractController {
     private String _viewName;
-    private IDistrictDao _districtDao;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -90,11 +95,4 @@ public class TopCitiesController extends AbstractController {
         _viewName = viewName;
     }
 
-    public IDistrictDao getDistrictDao() {
-        return _districtDao;
-    }
-
-    public void setDistrictDao(IDistrictDao districtDao) {
-        _districtDao = districtDao;
-    }
 }

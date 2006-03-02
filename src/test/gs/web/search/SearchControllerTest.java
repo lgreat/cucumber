@@ -2,14 +2,7 @@ package gs.web.search;
 
 import gs.web.BaseTestCase;
 import gs.web.MockHttpServletRequest;
-import gs.data.search.SpellCheckSearcher;
-import gs.data.search.Searcher;
-import gs.data.search.IndexDir;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.apache.lucene.store.RAMDirectory;
-
-import java.util.Map;
 
 /**
  * @author Chris Kimm <chriskimm@greatschools.net>
@@ -27,7 +20,7 @@ public class SearchControllerTest extends BaseTestCase {
         SpellCheckSearcher scs = new SpellCheckSearcher(searcher);
         sc.setSpellCheckSearcher(scs);
         */
-        sc = (SearchController)_sApplicationContext.getBean(SearchController.BEAN_ID);
+        sc = (SearchController) getApplicationContext().getBean(SearchController.BEAN_ID);
     }
 
     public void testQueryOnly () throws Exception {

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 NDP Software. All Rights Reserved.
- * $Id: TestViewController.java,v 1.1 2005/11/18 22:49:44 apeterson Exp $
+ * $Id: TestViewController.java,v 1.2 2006/03/02 19:05:44 apeterson Exp $
  */
 
 package gs.web.util;
@@ -26,9 +26,7 @@ public class TestViewController implements Controller {
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
         String uri = request.getRequestURI();
-        _log.error(uri);
         String fileName = "/WEB-INF/page" + uri.replaceAll("gs\\-web/", "").replaceAll("\\.page", "") + ".jspx";
-        _log.error(fileName);
         View view = new InternalResourceView(fileName);
         return new ModelAndView(view);
     }

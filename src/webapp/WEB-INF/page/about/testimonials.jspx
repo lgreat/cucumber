@@ -8,17 +8,15 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gsweb="gstaglib"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
-    <jsp:directive.page import="gs.web.util.PageHelper"/>
     <html lang="en">
     <jsp:output doctype-root-element="html"
                 doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
     <jsp:directive.page contentType="text/html"/>
-    <jsp:scriptlet>
-        PageHelper.hideFooterAd(request);
-    </jsp:scriptlet>
+     <pageHelper:hideFooterAd/>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
