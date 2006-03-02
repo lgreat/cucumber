@@ -83,7 +83,7 @@ li.city {
 font-size: medium;
 }
 li.bigCity {
-font-size: large;
+font-size: x-large;
 }
 
         </style>
@@ -102,7 +102,8 @@ font-size: large;
         <td class="col1" valign="top" rowspan="2">
             <gsml:box tableClass="shade3"
                       tableWidth="100%">
-            <jsp:include page="/geo/nearbyCities.module?city=${city}" />
+            <jsp:include page="/geo/nearbyCities.module?city=${city}&amp;count=20" />
+                <br />
                 <jsp:include page="/state/topCities.module"/>
             </gsml:box>
             <c:if test="${requestScope.context.user != null}">

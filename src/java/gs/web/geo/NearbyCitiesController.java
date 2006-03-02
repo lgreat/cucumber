@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.2 2006/02/24 23:41:42 apeterson Exp $
+* $Id: NearbyCitiesController.java,v 1.3 2006/03/02 19:37:32 apeterson Exp $
 */
 
 package gs.web.geo;
@@ -27,11 +27,22 @@ import java.util.Map;
 /**
  * Provides an UnorderList model of cities near the provided param "city" and "state".
  *
+ * Parameters:
+ * <li>state
+ * <li>city
+ * <li>count - maximum number of cities to show. (optional)
+ *
+ * Uses the styles "town", "city" and "bigCity" based on population.
+ *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class NearbyCitiesController extends AbstractController {
     private String _viewName;
     private IGeoDao _geoDao;
+
+    private static final String PARAM_CITY = "city";
+    private static final String PARAM_COUNT = "count";
+    private static final int DEFAULT_MAX_CITIES = 15;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -42,15 +53,18 @@ public class NearbyCitiesController extends AbstractController {
 
         State state = context.getStateOrDefault();
 
-        String cityNameParam = request.getParameter("city");
+        String cityNameParam = request.getParameter(PARAM_CITY);
         if (StringUtils.isNotEmpty(cityNameParam) && state != null) {
 
             BpCity city = _geoDao.findCity(state, cityNameParam);
 
             if (city != null) {
-                model.put("city", city);
+                model.put(PARAM_CITY, city);
 
-                final int limit = 15;
+                int limit = DEFAULT_MAX_CITIES;
+                if (request.getParameter(PARAM_COUNT) != null) {
+                    limit = new Integer(request.getParameter(PARAM_COUNT)).intValue();
+                }
                 List nearbyCities = _geoDao.findNearbyCities(city, limit);
 
                 model.put(UnorderedListModel.HEAD, "Cities Near " + city.getName());
@@ -60,9 +74,8 @@ public class NearbyCitiesController extends AbstractController {
                     BpCity nearbyCity = (BpCity) nearbyCities.get(i);
                     String styleClass = "town";
                     if (nearbyCity.getPopulation().intValue() > 50000) {
-                        styleClass = (nearbyCity.getPopulation().intValue() > 500000) ? "bigCity" : "city";
+                        styleClass = (nearbyCity.getPopulation().longValue() > 200000) ? "bigCity" : PARAM_CITY;
                     }
-
                     Anchor anchor = new Anchor("/test/city.page?state=" +
                             nearbyCity.getState() +
                             "&amp;city=" +
