@@ -117,14 +117,17 @@ public class Util {
     /**
      * Returns a capitalized version of the supplied String.  If the argument
      * is null, an empty String is returned.
-     * @param s
-     * @return
+     * @param s A <code>String</code> object
+     * @return a non-null <code>String</code> type
      */
     public static String capitalize(String s) {
-        if (StringUtils.isBlank(s)) {
-            return "";
-        } else {
-            return s.substring(0,1).toUpperCase() + s.substring(1);
+        String capString = "";
+        if (!StringUtils.isBlank(s)) {
+            StringBuffer buffer = new StringBuffer(s.length());
+            buffer.append(s.substring(0, 1).toUpperCase());
+            buffer.append(s.substring(1));
+            capString = buffer.toString();
         }
+        return capString;
     }
 }
