@@ -44,6 +44,7 @@ public class MainResultsTag extends ResultsTableTagHandler {
         }
         return _writer;
     }
+    
     public void doTag() throws IOException {
 
         Writer out = getWriter();
