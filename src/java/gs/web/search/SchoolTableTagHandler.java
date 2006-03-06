@@ -159,13 +159,15 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
         out.println("</td></tr>");
 
-        out.println("<tr><td>");
-        out.print("<a href=\"");
-        out.print(urlUtil.buildUrl(districtUrlBuffer.toString(), request));
-        out.print("\">");
-        out.println("<span class=\"minilink\">View district information</span></a>");
-        out.println("</td></tr>");
-
+        if (distId != null) {
+            out.println("<tr><td>");
+            out.print("<a href=\"");
+            out.print(urlUtil.buildUrl(districtUrlBuffer.toString(), request));
+            out.print("\">");
+            out.println("<span class=\"minilink\">View district information</span></a>");
+            out.println("</td></tr>");
+        }
+        
         StringBuffer filterBuffer = new StringBuffer();
 
         String[] gls = (String[]) getJspContext().findAttribute("gl");
