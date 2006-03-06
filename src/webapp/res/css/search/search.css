@@ -48,12 +48,12 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
 .highlight {font-weight: 800;}
 #suggestion {font-style: italic; font-weight: bold;}
 .searchbyaddress {padding-left:20mm; vertical-align:bottom;}
+
 #resultsheadline {
-    font-size:small;
+    font-size:medium;
+    font-weight:700;
     padding-left:2px;
 }
-#schoolfilters {padding-bottom:13px}
-
 
 .context {display:block;}
 
@@ -101,14 +101,34 @@ pre.explanation {
 
 .filterlist li{
     padding-bottom:3px;
+    padding-left:18px;
+}
+
+li.filtertype {
+    font-weight:600;
+    padding-top:5px;
 }
 
 #filters {
+    background-image: url( /res/img/orange_arrow_right_trans.gif );
+    background-repeat: no-repeat;
+    background-position: .2em .4em;
+    background-color:#DDD;
+    padding-left:18px;
     padding-top:3px;
     padding-bottom:3px;
-    padding-left:3px;
-    background-color:#DDD;
     font-size: small;
+}
+
+#filterheader {
+    background-image: url( /res/img/orange_arrow_right_trans.gif );
+    background-repeat: no-repeat;
+    background-position: .2em .3em;
+    background-color:#DDD;
+    font-weight:600;
+    padding-left:18px;
+    padding-top:2px;
+    padding-bottom:2px;
 }
 
 .citydistlinks {
@@ -160,7 +180,10 @@ tr td.checkbox {
 #rollupfilters { font-weight:bold;}
 
 /* used on "Show all" and "View district profile" links on schoolresults */
-.minilink {font-size:xx-small;}
+.minilink {
+    font-size:xx-small;
+    padding-left:4px;
+}
 
 /*IE hack to make the font size similar to Firefox */
 /* html #searchpagetable tr td {
@@ -169,3 +192,15 @@ tr td.checkbox {
 * html #searchpagetable tr td #resultsheader td {
     font-size:100%;
 }*/
+
+#distinfo {
+   padding-left:10px;
+   padding-bottom:5px;
+   font-size:80%;
+}
+
+#comparelinks {
+   font-size:80%;
+   padding-left:10px;
+   padding:10px;
+}

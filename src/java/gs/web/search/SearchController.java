@@ -43,6 +43,8 @@ public class SearchController extends AbstractFormController {
     private static Logger searchLog = Logger.getLogger("search");
     private SpellCheckSearcher _spellCheckSearcher;
     private Searcher _searcher;
+    private ResultsPager _resultsPager;
+
     private boolean suggest = false;
 
     public boolean isFormSubmission(HttpServletRequest request) {
@@ -82,7 +84,6 @@ public class SearchController extends AbstractFormController {
         ISessionFacade sessionContext = SessionContext.getInstance(request);
 
         Map model = new HashMap();
-        ResultsPager _resultsPager = null;
         String queryString = request.getParameter("q");
         String constraint = null;
         String suggestion = null;
@@ -124,7 +125,6 @@ public class SearchController extends AbstractFormController {
             Hits hts = _searcher.search(sc);
             if (hts != null) {
 
-                _resultsPager = new ResultsPager();
                 _resultsPager.setQuery(sc.getQueryString());
 
                 if (debug) {
@@ -227,5 +227,13 @@ public class SearchController extends AbstractFormController {
      */
     public void setSearcher(Searcher searcher) {
         _searcher = searcher;
+    }
+
+    public ResultsPager getResultsPager() {
+        return _resultsPager;
+    }
+
+    public void setResultsPager(ResultsPager resultsPager) {
+        _resultsPager = resultsPager;
     }
 }

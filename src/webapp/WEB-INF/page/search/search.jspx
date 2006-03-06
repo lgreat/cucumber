@@ -89,7 +89,9 @@
         <div>
             <c:if test="${(not empty param.city) or (not empty param.district)}">
                 <gsml:box tableClass="shade3 main">
-                    <gsweb:filters/>
+                    <div style="padding-bottom:5px;">
+                        <gsweb:filters/>
+                    </div>
                 </gsml:box>
             </c:if>
 

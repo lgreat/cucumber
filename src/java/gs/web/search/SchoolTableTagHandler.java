@@ -3,7 +3,9 @@ package gs.web.search;
 import gs.data.school.School;
 import gs.data.school.district.District;
 import gs.data.search.highlight.TextHighlighter;
+import gs.data.util.Address;
 import gs.web.util.UrlUtil;
+import gs.web.jsp.Util;
 
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
@@ -17,16 +19,23 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * This tag handler generates a table of schools.
+ * This tag is used on search.jspx
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
+    /** used by Spring */
     public static final String BEAN_ID = "schoolTableTagHandler";
-    private static UrlUtil uu = new UrlUtil();
+
+    private static UrlUtil urlUtil = new UrlUtil();
     private List _schools = null;
     private static final Log _log = LogFactory.getLog(SchoolTableTagHandler.class);
 
+    /**
+     * This is the list of schools that fills the schools table
+     * @param sList a <code>List</code> of <code>gs.data.School</code> objects
+     */
     public void setSchools(List sList) {
         _schools = sList;
     }
@@ -42,6 +51,8 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         boolean showall = false;
         String showAllHref = "";
         HttpServletRequest request = null;
+        StringBuffer districtInfoBuffer = null;
+
         if (pc != null) {
             request = (HttpServletRequest) pc.getRequest();
             qString = request.getQueryString();
@@ -56,40 +67,62 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         out.print("<input type=\"hidden\" name=\"state\" value=\"");
         out.print(getStateOrDefault().getAbbreviation());
         out.println ("\"/>");
-
         out.println("<table class=\"columns\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">");
-
         out.println("<tr><td class=\"mainresultsheader\">");
         out.println("<table width=\"100%\"><tr><td><span id=\"resultsheadline\">");
         out.print("Found ");
         out.print(_total);
-        out.print(" school");
-        if (_total != 1) {
-            out.print("s");
-        }
-        out.print(" in ");
-        String city = (String) getJspContext().findAttribute("city");
-        if (city != null) {
-            out.print(" the city of: ");
-            out.print(city);
-        } else {
-            String dist = (String) getJspContext().findAttribute("distname");
-            if (dist != null) {
-                out.print(" the district of: ");
-                out.print(dist);
+        String cityOrDistrictName = (String) getJspContext().findAttribute("city");
+        String distId = null;
 
-                StringBuffer urlBuffer = new StringBuffer("http://");
-                urlBuffer.append(getHostname());
-                urlBuffer.append("/cgi-bin/");
-                urlBuffer.append(getState().getAbbreviationLowerCase());
-                urlBuffer.append("/district_profile/");
-                String distId = (String) getJspContext().findAttribute("district");
-                urlBuffer.append(StringUtils.isNotEmpty(distId) ? distId : "");
-                urlBuffer.append("/");
-                out.print("</span><a href=\"");
-                out.print(uu.buildUrl(urlBuffer.toString(), request));
-                out.print("\">");
-                out.print("<span class=\"minilink\" style=\"padding-left:8px;\">View district profile</span></a><span>");
+        String schoolString;
+        if (_total != 1) {
+            schoolString = " schools";
+        } else {
+            schoolString = " school";
+        }
+
+        StringBuffer districtUrlBuffer = new StringBuffer("/cgi-bin/");
+
+        if (cityOrDistrictName != null) {
+            out.print(" ");
+            out.print(cityOrDistrictName);
+            out.print(schoolString);
+        } else {
+            cityOrDistrictName = (String) getJspContext().findAttribute("distname");
+            if (cityOrDistrictName != null) {
+                out.print(schoolString);
+                out.print(" in ");
+                out.print(cityOrDistrictName);
+
+                districtUrlBuffer.append(getState().getAbbreviationLowerCase());
+                districtUrlBuffer.append("/district_profile/");
+                distId = (String) getJspContext().findAttribute("district");
+                if (StringUtils.isNotEmpty(distId)) {
+                    districtUrlBuffer.append(distId);
+                    District district = getDistrictDao().findDistrictById(getState(), new Integer(distId));
+                    if (district != null) {
+                        districtInfoBuffer = new StringBuffer(70);
+                        Address address = district.getPhysicalAddress();
+                        districtInfoBuffer.append(address.getStreet());
+                        districtInfoBuffer.append("<br/>");
+                        districtInfoBuffer.append(address.getCity());
+                        districtInfoBuffer.append(", ");
+                        districtInfoBuffer.append(address.getState());
+                        districtInfoBuffer.append("  ");
+                        districtInfoBuffer.append(address.getZip());
+                        districtInfoBuffer.append("<br/>");
+                        districtInfoBuffer.append(district.getCounty());
+                        districtInfoBuffer.append("<br/>");
+                        districtInfoBuffer.append("Phone: ");
+                        districtInfoBuffer.append(district.getPhone());
+                    }
+                } else {
+                    districtUrlBuffer.append("");
+                }
+
+                districtUrlBuffer.append("/");
+                out.println("</span>");
             }
         }
 
@@ -118,12 +151,19 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
             StringBuffer hrefBuffer = new StringBuffer("/search/search.page?");
             hrefBuffer.append(qString);
-            hrefBuffer.append("&showall=true");
-            showAllHref = uu.buildUrl(hrefBuffer.toString(), request);
-            out.print("&nbsp;&nbsp;<a href=\"" + showAllHref + "\">");
-            out.println("<span class=\"minilink\">Show all</span></a>");
+            hrefBuffer.append("&amp;showall=true");
+            showAllHref = urlUtil.buildUrl(hrefBuffer.toString(), request);
+            out.print("<a href=\"" + showAllHref + "\">");
+            out.println("<span class=\"minilink\" style=\"padding-left:8px;\">Show all</span></a>");
         }
 
+        out.println("</td></tr>");
+
+        out.println("<tr><td>");
+        out.print("<a href=\"");
+        out.print(urlUtil.buildUrl(districtUrlBuffer.toString(), request));
+        out.print("\">");
+        out.println("<span class=\"minilink\">View district information</span></a>");
         out.println("</td></tr>");
 
         StringBuffer filterBuffer = new StringBuffer();
@@ -135,19 +175,19 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 if (filterBuffer.length() > 0) {
                     filterBuffer.append(" | ");
                 }
-                filterBuffer.append(capitalize(gls[i]));
+                filterBuffer.append(Util.capitalize(gls[i]));
                 if ("elementary".equals(gls[i])) {
-                    qs = qString.replaceAll("\\&gl=elementary", "");
+                    qs = qString.replaceAll("\\&amp;gl=elementary", "");
                 } else if ("middle".equals(gls[i])) {
-                    qs = qString.replaceAll("\\&gl=middle", "");
+                    qs = qString.replaceAll("\\&amp;gl=middle", "");
                 } else if ("high".equals(gls[i])) {
-                    qs = qString.replaceAll("\\&gl=high", "");
+                    qs = qString.replaceAll("\\&amp;gl=high", "");
                 }
 
                 StringBuffer urlBuffer = new StringBuffer("/search/search.page?");
                 urlBuffer.append(qs);
                 filterBuffer.append(" (<a href=\"");
-                filterBuffer.append(uu.buildUrl(urlBuffer.toString(), request));
+                filterBuffer.append(urlUtil.buildUrl(urlBuffer.toString(), request));
                 filterBuffer.append("\">remove</a>)");
             }
         }
@@ -159,25 +199,97 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 if (filterBuffer.length() > 0) {
                     filterBuffer.append(" | ");
                 }
-                filterBuffer.append(capitalize(sts[i]));
+                filterBuffer.append(Util.capitalize(sts[i]));
                 if ("public".equals(sts[i])) {
-                    qs = qString.replaceAll("\\&st=public", "");
+                    qs = qString.replaceAll("\\&amp;st=public", "");
                 } else if ("private".equals(sts[i])) {
-                    qs = qString.replaceAll("\\&st=private", "");
+                    qs = qString.replaceAll("\\&amp;st=private", "");
                 } else if ("charter".equals(sts[i])) {
-                    qs = qString.replaceAll("\\&st=charter", "");
+                    qs = qString.replaceAll("\\&amp;st=charter", "");
                 }
 
                 StringBuffer urlBuffer = new StringBuffer("/search/search.page?");
                 urlBuffer.append(qs);
                 filterBuffer.append(" (<a href=\"");
-                filterBuffer.append(uu.buildUrl(urlBuffer.toString(), request));
+                filterBuffer.append(urlUtil.buildUrl(urlBuffer.toString(), request));
 
                 filterBuffer.append("\">remove</a>)");
             }
         }
 
+        // If we're displaying a district list, then show district info
+        /*
+        if (districtInfoBuffer != null) {
+            out.println("<tr><td>");
+            out.println("<div id=\"distinfo\">");
+            out.println(districtInfoBuffer.toString());
+            out.println("</div>");
+            out.println("</td></tr>");
+        }
+        */
 
+        // "compare all" links
+        StringBuffer compareBaseBuffer = new StringBuffer();
+        compareBaseBuffer.append("/cgi-bin/cs_compare/");
+        compareBaseBuffer.append(getState().getAbbreviationLowerCase());
+        compareBaseBuffer.append("/?area=");
+        if (distId != null) {
+            compareBaseBuffer.append("d");
+        } else {
+            compareBaseBuffer.append("m&amp;city=");
+            compareBaseBuffer.append(cityOrDistrictName.replaceAll("\\s", "+"));
+        }
+
+        compareBaseBuffer.append("&amp;sortby=");
+        if (distId != null) {
+            compareBaseBuffer.append("name");
+        } else {
+            compareBaseBuffer.append("distance");
+        }
+
+        compareBaseBuffer.append("&amp;tab=over&amp;level=");
+
+        String compareUrlBase = compareBaseBuffer.toString();
+        out.println("<tr><td>");
+        out.print("<div id=\"comparelinks\">Compare ");
+        out.print(cityOrDistrictName);
+        out.print(" public schools: ");
+
+        out.print("<a href=\"");
+        StringBuffer buffer = new StringBuffer(compareUrlBase);
+        buffer.append("e");
+        if (distId != null) {
+            buffer.append("&amp;district=");
+            buffer.append(distId);
+        }
+        out.print(urlUtil.buildUrl(buffer.toString(), request));
+        out.print("\">Elementary</a>");
+        out.print(" | ");
+
+        out.print("<a href=\"");
+        buffer = new StringBuffer(compareUrlBase);
+        buffer.append("m");
+        if (distId != null) {
+            buffer.append("&amp;district=");
+            buffer.append(distId);
+        }
+        out.print(urlUtil.buildUrl(buffer.toString(), request));
+        out.print("\">Middle</a>");
+        out.print(" | ");
+
+        out.print("<a href=\"");
+        buffer = new StringBuffer(compareUrlBase);
+        buffer.append("h");
+        if (distId != null) {
+            buffer.append("&amp;district=");
+            buffer.append(distId);
+        }
+        out.print(urlUtil.buildUrl(buffer.toString(), request));
+        out.print("\">High</a></div>");
+        out.println("<td><tr>");
+        // end "compare all" links
+
+        // start filter row
         out.println("<tr><td id=\"filters\" colspan=\"2\">");
         if (filterBuffer.length() > 0) {
             out.print("Filtered: ");
@@ -185,9 +297,11 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         } else {
             out.print("To further narrow your list, use the filters on the left.");
         }
-
         out.println("</td></tr></table>");
-        out.print("</td></tr><tr><td valign=\"top\">");
+        out.println("</td></tr>");
+        // end filter row
+
+        out.println("<tr><td valign=\"top\">");
         out.println("<table class=\"school_results_only\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
 
         if (_schools != null && _schools.size() > 0) {
@@ -210,8 +324,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
             for (int i = 0; i < _schools.size(); i++) {
 
-                SearchResult sResult = (SearchResult) _schools.get(i);
-                School school = getSchool(sResult);
+                School school = (School)_schools.get(i);
 
                 if (school != null) {
                     out.println("<tr class=\"result_row\">");
@@ -237,7 +350,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                     urlBuffer.append(school.getId().toString());
 
                     out.print("<a href=\"");
-                    out.print(uu.buildUrl(urlBuffer.toString(), request));
+                    out.print(urlUtil.buildUrl(urlBuffer.toString(), request));
                     out.println("\">");
                     out.print(TextHighlighter.highlight(school.getName(), getQueryString(), "name"));
                     out.println("</a><br/>");
@@ -308,19 +421,6 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
     private static void writeButtons(JspWriter out) throws IOException {
         out.println("<input type=\"image\" name=\"compare\" onclick=\"return checkSelections();\" src=\"/res/img/btn_comparechecked_149x21.gif\" alt=\"Compare checked Schools\"/>");
         out.println("<input type=\"image\" name=\"save\" onclick=\"return checkSelections();\" src=\"/res/img/btn_savechecked2msl_173x21.gif\" alt=\"Save checked to My School List\"/>");
-    }
-
-    private static String capitalize(String s) {
-        String capString = s;
-        if (s != null && s.length() > 1) {
-            String initial = s.substring(0, 1);
-            String rest = s.substring(1, s.length());
-            StringBuffer buffer = new StringBuffer(s.length());
-            buffer.append(initial.toUpperCase());
-            buffer.append(rest);
-            capString = buffer.toString();
-        }
-        return capString;
     }
 }
 
