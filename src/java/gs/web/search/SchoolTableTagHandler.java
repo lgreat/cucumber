@@ -179,11 +179,11 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 }
                 filterBuffer.append(Util.capitalize(gls[i]));
                 if ("elementary".equals(gls[i])) {
-                    qs = qString.replaceAll("\\&amp;gl=elementary", "");
+                    qs = qString.replaceAll("\\&gl=elementary", "");
                 } else if ("middle".equals(gls[i])) {
-                    qs = qString.replaceAll("\\&amp;gl=middle", "");
+                    qs = qString.replaceAll("\\&gl=middle", "");
                 } else if ("high".equals(gls[i])) {
-                    qs = qString.replaceAll("\\&amp;gl=high", "");
+                    qs = qString.replaceAll("\\&gl=high", "");
                 }
 
                 StringBuffer urlBuffer = new StringBuffer("/search/search.page?");

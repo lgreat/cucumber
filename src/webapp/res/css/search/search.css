@@ -106,7 +106,8 @@ pre.explanation {
 
 li.filtertype {
     font-weight:600;
-    padding-top:5px;
+    padding-top:7px;
+    padding-left:5px;
 }
 
 #filters {
