@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.22 2006/03/07 00:58:50 thuss Exp $
+ * $Id: UrlUtilSaTest.java,v 1.23 2006/03/07 01:09:29 thuss Exp $
  */
 
 package gs.web.util;
@@ -200,6 +200,8 @@ public class UrlUtilSaTest extends TestCase {
         assertFalse(_urlUtil.isDevEnvironment("charterschoolratings.org"));
 
         assertTrue(_urlUtil.isDevEnvironment("dev.greatschools.net"));
+        assertFalse(_urlUtil.isDevEnvironment("devwirefakecobrand.greatschools.net"));
+        assertTrue(_urlUtil.isDevEnvironment("dev"));
         assertTrue(_urlUtil.isDevEnvironment("cobrand.dev.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("charterschoolratings.dev.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("staging.greatschools.net"));

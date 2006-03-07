@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.27 2006/03/07 00:58:49 thuss Exp $
+ * $Id: UrlUtil.java,v 1.28 2006/03/07 01:09:29 thuss Exp $
  */
 
 package gs.web.util;
@@ -258,6 +258,7 @@ public final class UrlUtil {
      */
     public boolean isDevEnvironment(String hostName) {
         return hostName.indexOf("dev.") != -1 ||
+                hostName.endsWith("dev") ||
                 hostName.indexOf("staging") != -1 ||
                 hostName.indexOf("clone") != -1 ||
                 hostName.indexOf("apeterson.office") != -1 ||
