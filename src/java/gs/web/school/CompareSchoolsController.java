@@ -73,7 +73,6 @@ public class CompareSchoolsController extends AbstractController {
             }
         }
 
-        //_log.debug("redirect url: " + urlBuffer.toString());
         View redirectView = new RedirectView(urlBuffer.toString());
         return new ModelAndView(redirectView);
     }
