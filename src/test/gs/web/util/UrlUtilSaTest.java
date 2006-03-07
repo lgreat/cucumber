@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.21 2006/03/02 19:05:44 apeterson Exp $
+ * $Id: UrlUtilSaTest.java,v 1.22 2006/03/07 00:58:50 thuss Exp $
  */
 
 package gs.web.util;
@@ -205,6 +205,8 @@ public class UrlUtilSaTest extends TestCase {
         assertTrue(_urlUtil.isDevEnvironment("staging.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("apeterson.dev.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("apeterson.office.greatschools.net"));
+        assertTrue(_urlUtil.isDevEnvironment("clone.greatschools.net"));
+        assertTrue(_urlUtil.isDevEnvironment("azcentral.clone.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("localhost"));
         assertTrue(_urlUtil.isDevEnvironment("127.0.0.1"));
     }
