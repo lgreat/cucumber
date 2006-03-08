@@ -377,20 +377,18 @@
 
 <h4>What newsletters does GreatSchools provide?</h4>
 
-<p> We have a family of free email newsletters just for the asking! Our newsletters keep you informed about your child's
-    education. </p>
-<ul>
-    <li><i>Parent Advisor</i> is a monthly newsletter that provides timely tips on helping your child succeed in
-        school.</li>
-    <li><i>My School Stats</i> is a periodic newsletter, currently available in our in-depth states (currently
-        Arizona, California, Colorado, Florida, Illinois, New York, New Jersey, Ohio, Pennsylvania, Texas and
-        Washington), that provides the latest updates about test scores, teacher quality, funding and more at your
-        child's school, and shows you how your school compares to others in your state.</li>
-
-    <li><i>GreatSchools Grade-by-Grade</i>: Is your child in kindergarten through third grade? Keep your child on
-        track in the classroom with advice from experts and ideas for learning projects with these special
-        newsletters. Sign up for <i>My Kindergartner</i>, <i>My First-Grader</i>, <i>My Second-Grader</i> and <i>My
-        Third-Grader</i>.</li>
+<p>We have a family of free email newsletters to help your child succeed in school.  Choose newsletters for your child’s school, your child’s grade, or get timely tips and advice.</p>
+<ul class="indentedList">
+    <li><span class="boldItalic">Parent Advisor</span> is a monthly newsletter that provides timely tips on helping your child succeed in school.</li>
+    <li><span class="boldItalic">My School Stats</span>  is a periodic newsletter, currently available in many of our in-depth states that provides the latest updates about test scores, teacher quality, funding and more at your child's school, and shows you how your school compares to others in your state.</li>
+    <li><span class="boldItalic">GreatSchools Grade-by-Grade:</span> Find out what to expect in the classroom, get expert advice,
+        ideas for learning activities, book recommendations and more.  For parents of children in kindergarten
+        through fifth grade.  Sign up for <i>My Kindergartner</i>, <i>My First-Grader</i>, <i>My Second-Grader and My Third-Grader</i>.
+        We’re launching <i>My-Fourth Grader</i> and <i>My Fifth-Grader</i> this summer!</li>
+    <li>
+        <span class="boldItalic">Middle and High School College Prep:</span> Get your child ready for high school and college. Find expert tips and advice focused on academics, behavior issues,
+        financial planning and college preparation. For parents of middle and high school students. <i>Coming this summer</i>!
+    </li>
 </ul>
 
 
