@@ -1,5 +1,7 @@
 package gs.web.search;
 
+import gs.web.jsp.BaseTagHandler;
+
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +15,7 @@ import java.util.*;
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class SchoolFilters extends BaseQueryTagHandler {
+public class SchoolFilters extends BaseTagHandler {
 
     public void doTag() throws IOException {
 

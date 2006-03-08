@@ -11,6 +11,7 @@ import gs.web.ISessionFacade;
 import gs.web.SessionContext;
 import gs.web.search.SearchResult;
 import org.apache.log4j.Logger;
+import org.apache.taglibs.standard.functions.Functions;
 
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspWriter;
@@ -30,6 +31,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
     private static IArticleDao _articleDao;
     private static IDistrictDao _districtDao;
     private static StateManager _stateManager = new StateManager();
+    protected String _query = "";
 
     /**
      * @return <code>ISchoolDao</code>
@@ -161,5 +163,9 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
         out.print("/content/allArticles.page?state=");
         out.print(getStateOrDefault().getAbbreviation());
         out.print("\">Browse all articles</a>");
+    }
+
+    public void setQuery(String q) {
+        _query = Functions.escapeXml(q);
     }
 }
