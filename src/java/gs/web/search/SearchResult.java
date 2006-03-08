@@ -24,7 +24,7 @@ public class SearchResult {
     private Explanation _ex;
 
     public SearchResult(Document doc) {
-        _doc = doc;
+        this(doc, null);
     }
 
     public SearchResult(Document doc, String query) {

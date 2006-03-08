@@ -1,17 +1,15 @@
 package gs.web.jsp;
 
-import gs.data.content.Article;
 import gs.data.content.IArticleDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
-import gs.data.state.StateManager;
 import gs.web.ISessionFacade;
 import gs.web.SessionContext;
-import gs.web.search.SearchResult;
 import org.apache.log4j.Logger;
 import org.apache.taglibs.standard.functions.Functions;
+import org.springframework.context.ApplicationContext;
 
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspWriter;
@@ -30,8 +28,24 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
     private static ISchoolDao _schoolDao;
     private static IArticleDao _articleDao;
     private static IDistrictDao _districtDao;
-    private static StateManager _stateManager = new StateManager();
     protected String _query = "";
+    private ApplicationContext _applicationContext;
+
+    private ApplicationContext getApplicationContext() {
+        if (_applicationContext == null) {
+            ISessionFacade sc = getSessionContext();
+            _applicationContext = sc.getApplicationContext();
+        }
+        return _applicationContext;
+    }
+
+    /**
+     * Used for unit testing.
+     * @param context
+     */
+    protected void setApplicationContext(ApplicationContext context) {
+        _applicationContext = context;
+    }
 
     /**
      * @return <code>ISchoolDao</code>
@@ -39,10 +53,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
     protected ISchoolDao getSchoolDao() {
         if (_schoolDao == null) {
             try {
-                ISessionFacade sc = getSessionContext();
-                if (sc != null) {
-                    _schoolDao = (ISchoolDao) sc.getApplicationContext().getBean(ISchoolDao.BEAN_ID);
-                }
+                _schoolDao = (ISchoolDao)getApplicationContext().getBean(ISchoolDao.BEAN_ID);
             } catch (Exception e) {
                 _log.warn("problem getting ISchoolDao: ", e);
             }
@@ -64,19 +75,22 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
         return _articleDao;
     }
 
-    protected Article getArticle(SearchResult sr) {
-        return getArticleDao().getArticleFromId(Integer.decode(sr.getId()));
-    }
-
-    protected School getSchool(SearchResult sr) {
+    /**
+     * Returns a <code>School</code> obeject from the provided state.  If either
+     * the state or id parameters are null, null will be returned.  Excepections
+     * throws by the schoolDao are swallowed and logged in this method.
+     * @param state
+     * @param id
+     * @return a <code>School</code> object or null
+     */
+    protected School getSchool(State state, Integer id)  {
         School school = null;
-        try {
-            State state = _stateManager.getState(sr.getState());
-            if (state != null) {
-                school = getSchoolDao().getSchoolById(state, Integer.valueOf(sr.getId()));
+        if (state != null && id != null) {
+            try {
+                school = getSchoolDao().getSchoolById(state, id);
+            } catch (Exception e) {
+                _log.warn("error retrieving school: ", e);
             }
-        } catch (Exception e) {
-            _log.warn("error retrieving school: ", e);
         }
         return school;
     }

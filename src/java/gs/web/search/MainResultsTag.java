@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 import gs.data.school.School;
+import gs.data.state.StateManager;
 import gs.web.util.UrlUtil;
 
 /**
@@ -20,6 +21,7 @@ public class MainResultsTag extends ResultsTableTagHandler {
     private String _constraint = null;
     private UrlUtil _urlUtil;
     private Writer _writer;
+    private static StateManager _stateManager = new StateManager();
 
     public MainResultsTag() {
         super();
@@ -123,7 +125,8 @@ public class MainResultsTag extends ResultsTableTagHandler {
                 out.write("<tr class=\"contextrow\">");
                 if (result.getType() == SearchResult.SCHOOL) {
                     out.write("<td>");
-                    School school = getSchool(result);
+                    School school = getSchool(_stateManager.getState(result.getState()),
+                            Integer.valueOf(result.getId()));
                     if (school != null) {
                         out.write(school.getPhysicalAddress().toString());
                         out.write("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
