@@ -18,32 +18,48 @@
     <!--    </bean>-->
 
     <bean id="schoolTableTagHandler"
-        class="gs.web.search.SchoolTableTagHandler">
+          class="gs.web.search.SchoolTableTagHandler">
     </bean>
 
     <!-- factory bean for user session information -->
     <bean id="sessionContext"
           class="gs.web.SessionContext"
-          autowire="byName"
           singleton="false">
+        <!-- NOTE: not autowired for performance reasons. AJP 3/2006 -->
+        <property name="propertyDao" ref="propertyDao"/>
+        <property name="subscriptionDao" ref="subscriptionDao"/>
     </bean>
 
     <bean id="sessionContextUtil"
-        class="gs.web.SessionContextUtil"
-        autowire="byName">
+          class="gs.web.SessionContextUtil"
+          autowire="byName">
     </bean>
 
     <bean id="pathwaysMap"
-        class="java.util.HashMap">
+          class="java.util.HashMap">
         <constructor-arg>
             <map>
-                <entry key="pathway1"><value>/modperl/go</value></entry>
-                <entry key="pathway2"><value>/path/mySchool.page</value></entry>
-                <entry key="pathway3"><value>/content/summerSurvivalGuide.page</value></entry>
-                <entry key="pathway4"><value>/modperl/go</value></entry>
-                <entry key="search_single"><value>/search/search.page</value></entry>
-                <entry key="search_double"><value>/cgi-bin/search_switch</value></entry>
-                <entry key="default"><value>/modperl/go</value></entry>
+                <entry key="pathway1">
+                    <value>/modperl/go</value>
+                </entry>
+                <entry key="pathway2">
+                    <value>/path/mySchool.page</value>
+                </entry>
+                <entry key="pathway3">
+                    <value>/content/summerSurvivalGuide.page</value>
+                </entry>
+                <entry key="pathway4">
+                    <value>/modperl/go</value>
+                </entry>
+                <entry key="search_single">
+                    <value>/search/search.page</value>
+                </entry>
+                <entry key="search_double">
+                    <value>/cgi-bin/search_switch</value>
+                </entry>
+                <entry key="default">
+                    <value>/modperl/go</value>
+                </entry>
             </map>
         </constructor-arg>
     </bean>
