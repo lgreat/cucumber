@@ -182,7 +182,8 @@ tr td.checkbox {
 
 /* used on "Show all" and "View district profile" links on schoolresults */
 .minilink {
-    font-size:xx-small;
+    /*font-size:xx-small;*/
+    font-size:11px;
     padding-left:4px;
 }
 
