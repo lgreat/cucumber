@@ -16,6 +16,7 @@
             <a href="http://${requestScope.context.hostName}/modperl/go/${requestScope.context.stateOrDefault.abbreviation}/">Home</a>
             |
             <a href="http://${requestScope.context.hostName}/cgi-bin/static/terms.html/${requestScope.context.stateOrDefault.abbreviation}">Terms of Use</a>
+            <br/>GreatSchools is a 501(c)(3) not-for-profit organization
         </h6>
     </div>
 </jsp:root>
