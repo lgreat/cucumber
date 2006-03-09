@@ -249,7 +249,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             compareBaseBuffer.append("distance");
         }
 
-        compareBaseBuffer.append("&amp;tab=over&amp;level=");
+        compareBaseBuffer.append("&amp;tab=over&amp;type=public&amp;level=");
 
         String compareUrlBase = compareBaseBuffer.toString();
         out.println("<tr><td>");
