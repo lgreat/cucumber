@@ -153,6 +153,7 @@
             </td>
         </tr>
     </table>
+    <promo:newsletterSmall/>
 </gsml:body>
 
 </html>
