@@ -85,6 +85,7 @@ public class SearchController extends AbstractFormController {
 
         Map model = new HashMap();
         String queryString = request.getParameter("q");
+        request.setAttribute("q", queryString);
         String constraint = null;
         String suggestion = null;
         if (command != null && command instanceof SearchCommand) {
@@ -111,7 +112,8 @@ public class SearchController extends AbstractFormController {
             String p = request.getParameter("p");
             if (p != null) {
                 try {
-                    page = Integer.parseInt(p);
+                    request.setAttribute("p", p);
+                    page = Integer.parseInt(p); // this may not be needed any more.
                 } catch (Exception e) {
                     // ignore this and just assume the page is 1.
                 }

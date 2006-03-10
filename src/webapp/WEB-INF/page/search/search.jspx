@@ -133,9 +133,7 @@
         <c:when test="${(not empty param.city) or (not empty param.district)}">
             <gsml:box tableClass="shade3 main">
                 <gsweb:schooltable schools="${results.schools}"
-                                   query="${param.q}"
-                                   total="${results.total}"
-                                   page="${param.p}"/>
+                                   total="${results.total}"/>
                 <mod:tracking pageName="schools"
                               pageType="search"
                               hier1="search,schools,${(empty param.city) ? 'district' : 'city'}"
@@ -191,9 +189,7 @@
             </c:if>
 
             <gsweb:mainResults results="${results.mainResults}"
-                               page="${param.p}"
                                total="${results.total}"
-                               query="${param.q}"
                                constraint="${param.c}"
                                debug="${param.debug}">
 

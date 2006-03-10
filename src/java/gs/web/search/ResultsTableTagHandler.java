@@ -12,13 +12,14 @@ import org.apache.taglibs.standard.functions.Functions;
 import org.apache.commons.lang.StringUtils;
 
 /**
+ * This is a base class for tag handlers that display search results.  Various
+ * common methods are collected here.
+ *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public abstract class ResultsTableTagHandler extends BaseTagHandler {
 
     protected int _total = 0;
-    protected int _page = 0;
-    protected String _queryString = null;
     protected int PAGE_SIZE = 10;
     protected boolean _debug = false;
     private String _sortColumn = null;
@@ -33,37 +34,61 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
         return _results;
     }
 
-    public void setTotal(int total) {
-        _total = total;
-    }
-
-    public void setPage(int page) {
-        _page = page;
-    }
-
-    public void setQuery(String query) {
-        _queryString = query;
-    }
-
-    public String getQueryString() {
-        return _queryString;
-    }
-
     public void setSortColumn(String sort) {
-        if (sort != null) {
-            _sortColumn = sort;
-        }
+        _sortColumn = sort;
     }
 
     public String getSortColumn() {
         return _sortColumn;
     }
 
+    public void setTotal(int total) {
+        _total = total;
+    }
+
+    /**
+     * Guaranteed to return a number > 0.
+     * @return an int
+     */
+    public int getPage() {
+        int page = 1;
+        try {
+            String p = (String)getJspContext().findAttribute("p");
+            if (!StringUtils.isBlank(p)) {
+                int pageAttribute = Integer.parseInt(p);
+                if (pageAttribute > 1) {
+                    page = pageAttribute;
+                }
+            }
+        } catch (Exception e) {/* ignore */}
+        return page;
+    }
+
+    /**
+     * Returns the value of the "q" parameter or an empty string if
+     * there is no "q" param in the request.
+     * @return a non-null <code>String</code>
+     */
+    public String getQueryString() {
+        String qs = "";
+        JspContext jspContext = getJspContext();
+        if (jspContext != null) {
+            String qParam = (String)jspContext.findAttribute("q");
+            System.out.println ("qParam: " + qParam);
+            if (StringUtils.isNotBlank(qParam)) {
+                qs = qParam;
+            }
+        }
+        return qs;
+    }
+
     public abstract String getConstraint();
 
     public void setReverse(String reverse) {
-        if (reverse != null && reverse.equals("t")) {
+        if ("t".equals(reverse)) {
             _reverse = true;
+        } else {
+            _reverse = false;
         }
     }
 
@@ -84,6 +109,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
 
         if (jspContext != null) {
             cityParam = (String)jspContext.findAttribute("city");
+
             if (cityParam == null) {
                 distParam = (String)jspContext.findAttribute("district");
                 distNameParam = (String)jspContext.findAttribute("distname");
@@ -94,17 +120,13 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
 
             if (_total > PAGE_SIZE) {
 
-                if (_page < 1) { // when page has not be set yet.
-                    _page = 1;
-                }
-
-                int start = (_page < 10) ? 1 : (_page - 5);
+                int start = (getPage() < 10) ? 1 : (getPage() - 5);
                 int end = (_total / PAGE_SIZE) + ((_total % PAGE_SIZE) > 0 ? 1 : 0);
                 int counter = 1;
 
                 StringBuffer hrefBuffer = new StringBuffer(40);
                 hrefBuffer.append("<a class=\"pad\" href=\"/search/search.page?q=");
-                hrefBuffer.append(Functions.escapeXml(_queryString));
+                hrefBuffer.append(Functions.escapeXml(getQueryString()));
 
                 if (cityParam != null) {
                     hrefBuffer.append("&city=");
@@ -148,7 +170,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                     }
                 }
 
-                if (!StringUtils.isEmpty(_sortColumn)) {
+                if (!StringUtils.isBlank(_sortColumn)) {
                     hrefBuffer.append("&amp;sort=");
                     hrefBuffer.append(_sortColumn);
                 }
@@ -156,16 +178,16 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                 hrefBuffer.append("&amp;p=");
                 String hrefStart = hrefBuffer.toString();
 
-                if (_page > 1) {
+                if (getPage() > 1) {
                     out.print(hrefStart);
-                    out.print(_page-1);
+                    out.print(getPage()-1);
                     out.print("\">");
                     out.println("&lt;&nbsp;Previous</a>");
                 }
 
                 for (int i = start; i < end+1; i++) {
 
-                    if (i == _page) {
+                    if (i == getPage()) {
                         out.print("<span class=\"active pad\">");
                     } else {
                         out.print(hrefStart);
@@ -173,7 +195,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                         out.print("\">");
                     }
                     out.print(i);
-                    if (i == _page) {
+                    if (i == getPage()) {
                         out.print("</span>");
                     } else {
                         out.println("</a>");
@@ -184,12 +206,9 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                     }
                 }
 
-                if (_page < end) {
+                if (getPage() < end) {
                     out.print(hrefStart);
-                    if (_page < 1) { // when page has not be set yet.
-                        _page = 1;
-                    }
-                    out.print(_page+1);
+                    out.print(getPage()+1);
                     out.print("\">");
                     out.println("Next &nbsp;&gt;</a>");
                 }

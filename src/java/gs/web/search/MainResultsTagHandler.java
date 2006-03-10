@@ -15,7 +15,7 @@ import gs.web.util.UrlUtil;
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class MainResultsTag extends ResultsTableTagHandler {
+public class MainResultsTagHandler extends ResultsTableTagHandler {
 
     //private List _results;
     private String _constraint = null;
@@ -23,7 +23,7 @@ public class MainResultsTag extends ResultsTableTagHandler {
     private Writer _writer;
     private static StateManager _stateManager = new StateManager();
 
-    public MainResultsTag() {
+    public MainResultsTagHandler() {
         super();
         _urlUtil = new UrlUtil();
     }

@@ -130,7 +130,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
         if (_total > 0) {
             if (!showall) {
-                int page = ((_page > 0) ? (_page - 1) : 0);
+                int page = ((getPage() > 0) ? (getPage() - 1) : 0);
                 out.print((page * PAGE_SIZE) + 1);
                 out.print(" - ");
                 int x = (page * PAGE_SIZE) + PAGE_SIZE;

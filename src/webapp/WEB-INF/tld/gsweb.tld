@@ -101,44 +101,8 @@
   </tag>
 
   <tag>
-    <name>schooltable</name>
-    <tag-class>gs.web.search.SchoolTableTagHandler</tag-class>
-    <body-content>empty</body-content>
-    <attribute>
-      <name>schools</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>query</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>sortColumn</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>reverse</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>total</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>page</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-  </tag>
-
-  <tag>
     <name>mainResults</name>
-    <tag-class>gs.web.search.MainResultsTag</tag-class>
+    <tag-class>gs.web.search.MainResultsTagHandler</tag-class>
     <body-content>scriptless</body-content>
     <attribute>
       <name>results</name>
@@ -146,17 +110,7 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>page</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
       <name>total</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>query</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
@@ -182,11 +136,6 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>query</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
       <name>sortColumn</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -198,11 +147,6 @@
     </attribute>
     <attribute>
       <name>total</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>page</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
