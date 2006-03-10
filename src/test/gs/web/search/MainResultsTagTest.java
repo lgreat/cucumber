@@ -10,7 +10,7 @@ import java.io.StringWriter;
 public class MainResultsTagTest extends TestCase {
 
     public void testDoTag() throws Exception {
-        MainResultsTag tag = new MainResultsTag();
+        MainResultsTagHandler tag = new MainResultsTagHandler();
         StringWriter writer = new StringWriter();
         tag.setWriter(writer);
         assertNotNull(tag.getWriter());
@@ -21,7 +21,7 @@ public class MainResultsTagTest extends TestCase {
     }
 
     public void testSettersAndGetters() {
-        MainResultsTag tag = new MainResultsTag();
+        MainResultsTagHandler tag = new MainResultsTagHandler();
         tag.setConstraint("schools");
         assertEquals("schools", tag.getConstraint());
 
