@@ -252,7 +252,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         compareBaseBuffer.append("&amp;tab=over&amp;level=");
 
         String compareUrlBase = compareBaseBuffer.toString();
-        out.println("<tr><td>");
+        out.println("<tr><td colspan=\"2\">");
         out.print("<div id=\"comparelinks\">Compare ");
         out.print(cityOrDistrictName);
         out.print(" public schools: ");
@@ -288,7 +288,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         }
         out.print(urlUtil.buildUrl(buffer.toString(), request));
         out.print("\">High</a></div>");
-        out.println("<td><tr>");
+        out.println("</td></tr>");
         // end "compare all" links
 
         // start filter row

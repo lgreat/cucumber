@@ -40,7 +40,12 @@ td.headline {font-size:small;}
 
 table.school_results_only th {padding:4px 0px 2px 5px;border-bottom:1px solid #aaa;}
 table.school_results_only td {padding:4px 0px 6px 5px;border-bottom:1px solid #FFF;}
-td.results_pagenav {text-align:right; font-weight:bold;white-space:nowrap}
+td.results_pagenav {
+    text-align:right;
+    font-weight:normal;
+    font-size:80%;
+    white-space:nowrap;
+}
 .active {color:#000;padding-right:10px}
 tr.last_row td {padding:10px 0px 0px 0px;border-bottom:0px;}
 tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
