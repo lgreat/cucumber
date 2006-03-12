@@ -58,7 +58,12 @@ public class ResultsTableTagHandlerTest extends BaseTestCase {
     }
 
     public void testQueryString() {
-        assertEquals("", _rtth.getQueryString());
+        try {
+            _rtth.getQueryString();
+            fail("TagHandler should not work without a JspContext object");
+        } catch (NullPointerException e) {
+            assertTrue(true);
+        }
 
         MockPageContext context = new MockPageContext();
         _rtth.setJspContext(context);
