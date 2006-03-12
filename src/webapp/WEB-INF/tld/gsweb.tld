@@ -84,12 +84,6 @@
   </tag>
 
   <tag>
-    <name>filters</name>
-    <tag-class>gs.web.search.SchoolFilters</tag-class>
-    <body-content>empty</body-content>
-  </tag>
-
-  <tag>
     <name>longstate</name>
     <tag-class>gs.web.state.LongstateTagHandler</tag-class>
     <body-content>empty</body-content>
