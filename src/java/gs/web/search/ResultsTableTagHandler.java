@@ -4,7 +4,6 @@ import gs.web.jsp.BaseTagHandler;
 import gs.data.state.State;
 
 import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.JspContext;
 import java.io.IOException;
 import java.util.List;
 
@@ -71,13 +70,9 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
      */
     public String getQueryString() {
         String qs = "";
-        JspContext jspContext = getJspContext();
-        if (jspContext != null) {
-            String qParam = (String)jspContext.findAttribute("q");
-            System.out.println ("qParam: " + qParam);
-            if (StringUtils.isNotBlank(qParam)) {
-                qs = qParam;
-            }
+        String qParam = (String)getJspContext().findAttribute("q");
+        if (StringUtils.isNotBlank(qParam)) {
+            qs = qParam;
         }
         return qs;
     }
@@ -102,18 +97,15 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
     
     protected void writePageNumbers(JspWriter out) throws IOException {
 
-        JspContext jspContext = getJspContext();
         String cityParam = null;
         String distParam = null;
         String distNameParam = null;
 
-        if (jspContext != null) {
-            cityParam = (String)jspContext.findAttribute("city");
+        cityParam = (String)getJspContext().findAttribute("city");
 
-            if (cityParam == null) {
-                distParam = (String)jspContext.findAttribute("district");
-                distNameParam = (String)jspContext.findAttribute("distname");
-            }
+        if (cityParam == null) {
+            distParam = (String)getJspContext().findAttribute("district");
+            distNameParam = (String)getJspContext().findAttribute("distname");
         }
 
         if (_total > 0) {
