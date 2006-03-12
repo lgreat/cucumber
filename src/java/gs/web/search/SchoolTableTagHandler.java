@@ -203,11 +203,11 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 }
                 filterBuffer.append(Util.capitalize(sts[i]));
                 if ("public".equals(sts[i])) {
-                    qs = qString.replaceAll("\\&amp;st=public", "");
+                    qs = qString.replaceAll("\\&st=public", "");
                 } else if ("private".equals(sts[i])) {
-                    qs = qString.replaceAll("\\&amp;st=private", "");
+                    qs = qString.replaceAll("\\&st=private", "");
                 } else if ("charter".equals(sts[i])) {
-                    qs = qString.replaceAll("\\&amp;st=charter", "");
+                    qs = qString.replaceAll("\\&st=charter", "");
                 }
 
                 StringBuffer urlBuffer = new StringBuffer("/search/search.page?");
