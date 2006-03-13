@@ -29,6 +29,7 @@
             </h3>
             <input class="checkbox" type="checkbox" name="mss" value="mss"/>
             <label>My School Stats</label>
+            <br/>
 
             <h3>Timely tips and advice for each month of the year:
                 <gsml:popupWindow href="/cm/pa_sample.html" top="50" left="50" width="650" height="600">View sample</gsml:popupWindow>
@@ -36,10 +37,10 @@
             <input class="checkbox" type="checkbox" name="greatnews" value="greatnews" checked="checked"/>
             <label>Parent Advisor</label>
             <br/>
+
             <h3>What to expect in the classroom and more:
                 <gsml:popupWindow href="/cm/special.html" top="50" left="50" width="775" height="600">View sample</gsml:popupWindow>
             </h3>
-
             <input class="checkbox" type="checkbox" name="myk" value="myk"/>
             <label>My Kindergartner</label>
             <br/>
@@ -57,8 +58,9 @@
             <br/>
             <input class="checkbox" type="checkbox" name="my5" value="my5"/>
             <label>My Fifth-Grader</label> <span class="smallTeaser">Coming this summer!</span>
+            <br/>
 
-            <h3>Academics, behavior issues and college prep:</h3>
+            <h3>Academics, behavior issues, college prep:</h3>
             <input class="checkbox" type="checkbox" name="myms" value="myms"/>
             <label>Middle School Matters</label> <span class="smallTeaser">Coming this summer!</span>
             <br/>
