@@ -20,6 +20,8 @@ import org.apache.commons.lang.StringUtils;
 /**
  * This tag handler generates a table of schools.
  * This tag is used on search.jspx
+ * todo: This class is an <strong>ugly mess</strong> and badly needs to be
+ * refactored.
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
@@ -219,17 +221,6 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             }
         }
 
-        // If we're displaying a district list, then show district info
-        /*
-        if (districtInfoBuffer != null) {
-            out.println("<tr><td>");
-            out.println("<div id=\"distinfo\">");
-            out.println(districtInfoBuffer.toString());
-            out.println("</div>");
-            out.println("</td></tr>");
-        }
-        */
-
         // "compare all" links
         StringBuffer compareBaseBuffer = new StringBuffer();
         compareBaseBuffer.append("/cgi-bin/cs_compare/");
@@ -307,6 +298,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         out.println("<table class=\"school_results_only\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
 
         if (_schools != null && _schools.size() > 0) {
+
 
             /// start control row
             out.print("<tr class=\"control_row\"><td colspan=\"5\">");
