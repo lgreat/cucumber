@@ -25,7 +25,11 @@ public class CityDistrictControllerTest extends BaseControllerTestCase {
         }
     }
 
-    public void testCities() throws Exception {
+    /**
+     * @todo CK fix so that there are asserts
+     * @throws Exception
+     */
+    public void xtestCities() throws Exception {
 
         Directory mainDir = new RAMDirectory();
         Directory spellDir = new RAMDirectory();
