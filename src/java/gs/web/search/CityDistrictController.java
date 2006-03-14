@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import gs.data.search.Searcher;
 import gs.data.search.PorterStandardAnalyzer;
 import gs.data.search.SearchCommand;
+import gs.data.state.StateManager;
+import gs.data.state.State;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -53,6 +55,7 @@ public class CityDistrictController extends AbstractController {
     };
 
     private Searcher _searcher;
+    private StateManager _stateManager;
 
     public CityDistrictController(Searcher searcher) {
         _searcher = searcher;
@@ -62,7 +65,6 @@ public class CityDistrictController extends AbstractController {
                                                  HttpServletResponse response) throws Exception {
 
         String queryString = request.getParameter("q");
-        String state = request.getParameter("state");
 
         int filteredListSize = LIST_SIZE;
         int cityListSize = LIST_SIZE;
@@ -80,10 +82,13 @@ public class CityDistrictController extends AbstractController {
             districtListSize = EXTENDED_LIST_SIZE;
         }
 
-        state = (!StringUtils.isEmpty(state)) ? state.toLowerCase() : "ca";
+        String stateString = request.getParameter("state");
+        stateString = (!StringUtils.isEmpty(stateString)) ? stateString.toLowerCase() : "ca";
+        State state = _stateManager.getState(stateString);
+
         Map model = new HashMap();
         model.put("query", queryString);
-        model.put("state", state);
+        model.put("state", stateString);
 
         String st = null;
         String gl = null;
@@ -94,7 +99,7 @@ public class CityDistrictController extends AbstractController {
             parser.setOperator(QueryParser.DEFAULT_OPERATOR_AND);
 
             BooleanQuery baseQuery = new BooleanQuery();
-            baseQuery.add(new TermQuery(new Term("state", state)), true, false);
+            baseQuery.add(new TermQuery(new Term("state", stateString)), true, false);
 
             try {
                 Query keywordQuery = parser.parse(queryString);
@@ -165,7 +170,7 @@ public class CityDistrictController extends AbstractController {
                     command.setState(state);
                     String city = cityHits.doc(ii).get("city");
                     command.setCity(city);
-                    command.setC("school");
+                    command.setType("school");
                     if (st != null) {
                         command.setSt(new String[]{st});
                     }
@@ -212,5 +217,13 @@ public class CityDistrictController extends AbstractController {
             model.put("districts", districts);
         }
         return new ModelAndView("/search/citydistrict", "model", model);
+    }
+
+    public StateManager getStateManager() {
+        return _stateManager;
+    }
+
+    public void setStateManager(StateManager stateManager) {
+        _stateManager = stateManager;
     }
 }
