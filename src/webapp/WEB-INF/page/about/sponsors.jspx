@@ -100,10 +100,10 @@
 <ul class="singleSpacedList">
 
     <li>Adobe</li>
-    <li>Atlassian</li>
-    <li>Cenqua</li>
+    <li><a href="http://www.atlassian.com/software/jira/">Atlassian: Jira</a></li>
+    <li><a href="http://www.cenqua.com/clover/">Cenqua: Clover</a></li>
     <li>Covington &amp; Burling</li>
-    <li>Jetbrains</li>
+    <li><a href="http://www.jetbrains.com/idea/">Jetbrains: IntelliJ IDEA</a></li>
     <li>Microsoft, Inc.</li>
     <li>Orrick, Herrington and Sutcliffe</li>
     <li>Symantec</li>
