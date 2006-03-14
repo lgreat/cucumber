@@ -286,6 +286,11 @@
 
     <bean name="/compareSchools.page" class="gs.web.school.CompareSchoolsController"
           autowire="byName">
+
+    </bean>
+
+    <bean name="/school/sampleSchoolRedirect.page" class="gs.web.school.RedirectToSampleSchoolController"
+          autowire="byName">
     </bean>
 
     <bean name="/test/*"

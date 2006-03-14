@@ -67,7 +67,7 @@
    Other parent-friendly features include exclusive ratings, parent
    reviews, powerful search and compare tools, and helpful advice.
 </p>
-   <p>See a <gsml:a href="/modperl/browse_school/$STATE/30/">sample school
+   <p>See a <gsml:a href="/school/sampleSchoolRedirect.page?state=$STATE">sample school
    profile</gsml:a><br />
    Review answers to <gsml:a href=
    "/about/gsFaq.page?state=$STATE">Frequently Asked Questions</gsml:a></p>
