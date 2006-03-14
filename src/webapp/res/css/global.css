@@ -1,898 +1,883 @@
-    /*
+/*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.115 2006/03/13 22:36:23 dlee Exp $
+   $Id: global.css,v 1.116 2006/03/14 23:09:35 thuss Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
 */
 
-        /*   General
-       ----------------------------------------------- */
-    html, body {
-        width: 100%;
-        height: 100%;
-        font-family: Arial, Helvetica, sans-serif;
-    }
+/*   General
+----------------------------------------------- */
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-    body, form {
-        margin: 0;
-        padding: 0
-    }
+body, form {
+    margin: 0;
+    padding: 0
+}
 
-    /* We use bodyGS so we don't affect the cobrand headers */
-    .contentGS {
-        text-align: left;
-    }
+/* We use bodyGS so we don't affect the cobrand headers */
+.contentGS {
+    text-align: left;
+}
 
-    #pagemargin {
-        position: relative;
-        width: 100%;
-        margin: 0px auto;
-        padding: 6px 6px 6px 6px;
-    }
+#pagemargin {
+    position: relative;
+    width: 100%;
+    margin: 0px auto;
+    padding: 6px 6px 6px 6px;
+}
 
+/**
+Overall page placement
+See: http://ndpsoftware.com/experiment/css/stretch.php?width=780&css=stretchymaxcenter
+*/
+#marginGS {
+    width: 100%;
+    text-align: center;
+}
 
-    /**
-    Overall page placement
-    See: http://ndpsoftware.com/experiment/css/stretch.php?width=780&css=stretchymaxcenter
-    */
-    #marginGS {
-		width: 100%;
-        text-align: center;
-	}
-	#pageGS {
-		width: 100%;
-        max-width:1000px;
-        min-width:780px;
-        text-align: left;
-        margin-left: auto;
-        margin-right: auto;
-	}
+#pageGS {
+    width: 100%;
+    max-width: 1000px;
+    min-width: 780px;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+}
 
+/* Overrides of standard tags */
+img {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
 
-    /* Overrides of standard tags */
-    img {
-        border: 0;
-        padding: 0;
-        margin: 0;
-    }
-
-    .contentGS a,
+.contentGS a,
     .contentGS a:link,
     .contentGS a:visited,
     .contentGS a:active {
-        text-decoration: none;
-        color: #00F;
-    }
+    text-decoration: none;
+    color: #00F;
+}
 
-    .contentGS  a:visited {
-        color: #66C;
-    }
+.contentGS  a:visited {
+    color: #66C;
+}
 
-    .contentGS  a:hover {
-        text-decoration: underline;
-    }
+.contentGS  a:hover {
+    text-decoration: underline;
+}
 
-    .contentGS  a:active {
-        color: #66c;
-    }
+.contentGS  a:active {
+    color: #66c;
+}
 
-    .contentGS a.pad {
-        padding: 0px 10px 0px 0px;
-        display: inline;
-    }
+.contentGS a.pad {
+    padding: 0px 10px 0px 0px;
+    display: inline;
+}
 
-    .contentGS a.nohover:hover {
-        text-decoration: none;
-    }
+.contentGS a.nohover:hover {
+    text-decoration: none;
+}
 
-    .contentGS ul, .contentGS ol, .contentGS li,
-        .contentGS h1, .contentGS h2, .contentGS h3, .contentGS h4, .contentGS h5, .contentGS h6,
-        .contentGS pre,
-        .contentGS p,
-        .contentGS blockquote,
-        .contentGS fieldset,
-        .contentGS input,
-        .contentGS label,
-        .contentGS address {
-        list-style: none;
-        font-size: small;
-        font-style: normal;
-        font-weight: normal;
-        margin: 0;
-        padding: 0;
-    }
+.contentGS ul, .contentGS ol, .contentGS li,
+    .contentGS h1, .contentGS h2, .contentGS h3, .contentGS h4, .contentGS h5, .contentGS h6,
+    .contentGS pre,
+    .contentGS p,
+    .contentGS blockquote,
+    .contentGS fieldset,
+    .contentGS input,
+    .contentGS label,
+    .contentGS address {
+    list-style: none;
+    font-size: small;
+    font-style: normal;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+}
 
-    .border {
-        border: 1px solid #900;
-    }
+.border {
+    border: 1px solid #900;
+}
 
-    .small {
-        font-size: 80%;
-    }
+.small {
+    font-size: 80%;
+}
 
-    .lpad {
-        padding: 0px 0px 0px 10px;
-        display: inline;
-    }
+.lpad {
+    padding: 0px 0px 0px 10px;
+    display: inline;
+}
 
-    .block, .block a {
-        display: block;
-    }
+.block, .block a {
+    display: block;
+}
 
-    .bpad div {
-        padding-bottom: 6px;
-    }
+.bpad div {
+    padding-bottom: 6px;
+}
 
-    .left {
-        text-align: left;
-    }
+.left {
+    text-align: left;
+}
 
-    .bottomalign {
-        position: absolute;
-        bottom: 0px;
-    }
+.bottomalign {
+    position: absolute;
+    bottom: 0px;
+}
 
-    div.verticalcontainer {
-        position: relative;
-        height: 250px;
-    }
+div.verticalcontainer {
+    position: relative;
+    height: 250px;
+}
 
-    .nowrap {
-        white-space: nowrap;
-    }
+.nowrap {
+    white-space: nowrap;
+}
 
-    .cobranded div#bodyGS {
-        width: 770px;
-        margin: auto;
-    }
+.cobranded div#bodyGS {
+    width: 770px;
+    margin: auto;
+}
 
-        /*
-        Cobrand doesn't quite fit in the width required, so I squish the text for them.
-        */
+/*
+Cobrand doesn't quite fit in the width required, so I squish the text for them.
+*/
 
-    .cobranded .topCities li,
+.cobranded .topCities li,
     .cobranded h3 {
-        font-size: small;
-    }
-
-    .cobranded .topCities li {
-        white-space: normal;
-    }
-
-    /* patch for yahoo cobrand */
-    .yedsearchbar {
-        font-size: 80%;
-    }
-
-        /*   Header/Footer
-       ----------------------------------------------- */
-    img#logo {
-        width: 260px;
-        height: 40px;
-        padding: 0;
-        margin: 0px 0px 6px 0px;
-    }
-
-    div.globalSearch input.btn {
-        vertical-align: middle;
-
-    }
-
-    .changeState { font-size: x-small; }
-
-        /*  Structure
-       ----------------------------------------------- */
-    #main {
-        margin: 5px 0px 0px 0px;
-    }
-
-    #main td.col1 {
-        width: 11em;
-        height: 100%;
-        padding: 0;
-    }
-
-    #main td.col2 {
-        padding: 0;
-    }
-
-    table.bottomcontent tr {
-        padding-bottom: 5px;
-    }
-
-    table.bottomcontent tr td img {
-        text-align: center;
-    }
-
-        /*  Nav
-       ----------------------------------------------- */
-    /*.globalnav {height:50px;} pulls the whole table apart-- size from the middle */
-    .globalnav .BG {
-        padding: .5em 0 .5em 0;
-        white-space: nowrap;
-    }
-
-    .globalnav h1 {
-        padding: 0px 0px 4px 0px;
-        cursor: pointer;
-        width: 100%;
-        color: #036;
-        font-size: small;
-        font-weight: bold;
-        white-space: normal;
-    }
-
-    .globalnav h1 a, .globalnav h1 a:visited {
-        color: #000;
-        font-weight: normal;
-    }
-
-    .globalnav h1 a:hover {
-        text-decoration: none;
-        color: #FFF;
-    }
-
-    .globalnav a:link, .globalnav a:visited {
-        display: block;
-        margin: 0px 0px 3px 0px;
-        font-weight: normal;
-        font-size: 12px;
-        padding-bottom: 4px;
-        color: #036;
-    }
-
-    .globalnav a:hover {
-        text-decoration: underline;
-        color: black;
-    }
-
-        /*  Search
-       ----------------------------------------------- */
-    .browselinks {
-        padding: 10px 0px 10px 0px;
-        width: 100%;
-		font-size: small;
-    }
-
-    .browselinks a {
-        padding-right: 20px;
-        white-space: nowrap;
-    }
-
-        /*  Headings
-       ----------------------------------------------- */
-    h1.moduleheader, span.moduleheader {
-        color: #eb7a31;
-        font-size: large;
-        font-weight: bold;
-        white-space: nowrap;
-        padding: 0;
-    }
-
-    span.moduleheader h1 {
-        font-size: large;
-        font-weight: bold;
-    }
-
-    h1.moduleheader span {
-        color: #000;
-        font-weight: normal;
-        font-size: small;
-        padding-left: 10px;
-    }
-
-    h4.tagline b {
-        font-weight: bold;
-    }
-
-    .inline {
-        display: inline;
-    }
-
-    h2.segmentheader {
-        color: #900;
-        font-size: small; /* 1em; */
-        font-weight: bold;
-        padding: 0px 0px 3px 0px;
-    }
-
-    h3.tagline, h4.tagline {
-        color: #eb7a31;
-        font-weight: normal;
-        padding: 0px 0px 5px 0px;
-    }
-
-    h3.tagline {
-        font-size: x-small;
-    }
-
-    h3.tagline {
-        color: #eb7a31;
-        font-weight: normal;
-        padding: 0px 0px 5px 0px;
-    }
-
-        /*  Lists
-       ----------------------------------------------- */
-    .result_title {
-        font-size: small;
-        padding: 0px 20px 0px 0px;
-        font-weight: bold;
-    }
-
-    .topCities ul {
-        padding: 0;
-    }
-
-    .topCities ul li {
-        padding: 0px 20px 1px 0px;
-    }
-
-        /*  Forms
-       ----------------------------------------------- */
-    input.checkbox {
-        margin: 0px 0px -2px 0px;
-    }
-
-    .smallform .textfield {
-        font-size: small;
-        color: #999;
-        width: 75%;
-        height: 1.8em;
-        padding: 1px 0px 0px 3px;
-    }
-
-    .smallform input.btn {
-        width: 21px;
-        height: 18px;
-        margin: 0px 0px -3px 6px;
-        padding: 0;
-        border: 0;
-    }
-
-    .textfield {
-        color: #333;
-        min-width: 70%;
-    }
-
-    input.btn {
-        width: 28px;
-        height: 24px;
-        margin: 0px 0px 0px 6px;
-        padding: 0;
-        border: 0;
-    }
-
-        /*  Links
-       ----------------------------------------------- */
-
-        /*  Misc
-       ----------------------------------------------- */
-    .parentPoll {
-        text-align: center;
-    }
-
-    .parentPoll h3 {
-        padding: 0;
-        font-size: small;
-        font-weight: bold;
-        margin: 10px 0px 6px 0px;
-        color: #036;
-    }
-
-    .parentPoll h4 {
-        padding: 0 2em 0 2em;
-        white-space:nowrap;
-    }
-
-        /*  Advertising
-       ----------------------------------------------- */
-    #adSquare {
-        text-align: center;
-        color: #999;
-        width: 300px;
-        padding: 5px 5px 5px 5px;
-        margin: 0 0 10px 0;
-        border: 1px solid #BBB;
-        font-size: 10px;
-        float: right;
-    }
-
-    #adLeaderboard {
-        text-align: center;
-        margin-bottom: 6px;
-        width: 100%;
-        padding: 0;
-    }
-
-    #adLeaderboard table {
-        padding: 0;
-        margin: 0;
-        margin-left: auto;
-        margin-right: auto;
-        width: 738px;
-    }
-
-    #adLeaderboard table img {
-        padding: 0 1px 0 2px;
-    }
-
-    #adLeaderboard table td.ad {
-        background-color: #e9e9e9;
-        border: 1px solid #bbb;
-        text-align: left;
-    }
-
-    #adSkyscraper {
-        padding-top: 20px;
-    }
-
-    #adSkyscraper img {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-        /* PROMOS
-       ----------------------------------------------- */
-
-    .featuredarticle {
-        margin: 0px 0px 0px 5px;
-    }
-
-    .featuredarticle b {
-        font-weight: bold;
-        text-decoration: none;
-    }
-
-    /* margin right is IE bug fix */
-    img.newarticle {
-        margin-right: 5px;
-        margin-bottom: -2px;
-    }
-
-    div.featuredarticle h3 {
-        margin-top: 1em;
-    }
-
-    .featuredarticles,
-        .hotTopics {
-        margin: 0 .5em 0 .5em;
-    }
-
-    .featuredarticles li,
-        .hotTopics li {
-        padding: 3px 5px 3px 12px;
-        margin: 2px 0px 3px 0px;
-        background: url( ../img/bullet_blueball.gif ) 2px 7px no-repeat;
-    }
-
-    .featuredarticles li.new  img,
-      .schoolchoicecenter li.new img,
-        .hotTopics li.new img {
-        padding-left: .5em;
-    }
-
-    .featuredarticles h3, div.hotTopics h3 {
-        font-size: large;
-        color: #036;
-        font-weight: bold;
-        padding: 3px 20px 3px 0;
-        margin: 2px 0px 3px 0px;
-    }
-
-
-    .promoNewsletterMedium {
-        margin: 0px 0px 0px 2px;
-    }
-
-    .promoNewsletterMedium img {
-        float: right;
-        margin: 15px;
-    }
-
-    .promoNewsletterMedium a {
-        font-weight: normal;
-    }
-
-    .promoNewsletterMedium h2 {
-        font-size: large;
-        font-weight: bold;
-        margin: 0;
-    }
-
-    .promoNewsletterMedium h3 {
-        font-size: small; /* 1em; */
-        font-weight: bold;
-        margin: 10px 0px 5px 0px;
-        padding-top: 0.75em;
-    }
-
-    div.promoNewsletterMedium .smallform {
-        margin: 10px 0px 2px 0px;
-        white-space: nowrap;
-    }
-
-    .promoNewsletterMedium h4 {
-        font-size: small;
-        font-weight: bold;
-        margin: 10px 0px 6px 0px;
-        color: #036;
-
-    }
-
-    h3.membershipTagline {
-        color: #F60;
-        margin: 10px 0px 10px 0px;
-        font-weight: bold;
-    }
-
-    .promoMembershipBig td {
-        vertical-align: top;
-        padding: 0 0 .5em 0
-    }
-
-    table.promoMembershipBig {
-        margin: .1em 1em 1em 0;
-    }
-
-    .promoMembershipMedium {
-        margin: .3em;
-    }
-
-    table.promoMembershipMedium h3 {
-        color: #777;
-        font-size: small;
-    }
-
-    table.promoMembershipMedium th {
-        text-align: center;
-        font-size: x-small;
-        font-weight: 100;
-    }
-
-    table.promoMembershipMedium td {
-        font-size: x-small;
-        font-weight: 100;
-    }
-
-    table.promoMembershipMedium h5 {
-        font-weight: 700;
-        padding: .7em 0 0 0
-    }
-
-    .promoMembershipMedium td.learnMore a {
-        display: block;
-        padding: 1em
-    }
-
-    .promoArticles h3 {
-        font-weight: bold;
-    }
-
-    .promoArticles ul.promo {
-        margin: 10px 0px 15px 10px;
-    }
-
-    .promoArticles ul.promo li {
-        margin: 0px 0px 0px 20px;
-        list-style-type: disc;
-        line-height: 1.4em;
-    }
-
-    .schoolchoicecenter {
-        padding-top:7px;
-        margin: 0px 0px 5px 5px;
-        height: 180px; /* image is 170px */
-    }
-
-    .schoolchoicecenter h3 {
-        font-size: large;
-        font-weight: bold;
-        color: #036;
-        padding: 0px 5px .3em 10px;
-        white-space: nowrap;
-    }
-
-    .schoolchoicecenter ul {
-        /*border-left: 1px solid #999;*/
-        padding: 0px 5px .3em 10px;
-    }
-
-    .schoolchoicecenter li,
-        div.about li {
-        padding: 3px 5px 3px 0px;
-        margin: 2px 0px 3px 0px;
-        background-repeat: no-repeat;
-        background-position: 2px 7px;
-    }
-
+    font-size: small;
+}
+
+.cobranded .topCities li {
+    white-space: normal;
+}
+
+/* patch for yahoo cobrand */
+.yedsearchbar {
+    font-size: 80%;
+}
+
+/*   Header/Footer
+----------------------------------------------- */
+img#logo {
+    width: 260px;
+    height: 40px;
+    padding: 0;
+    margin: 0px 0px 6px 0px;
+}
+
+div.globalSearch input.btn {
+    vertical-align: middle;
+
+}
+
+.changeState {
+    font-size: x-small;
+}
+
+/*  Structure
+----------------------------------------------- */
+#main {
+    margin: 5px 0px 0px 0px;
+}
+
+#main td.col1 {
+    width: 11em;
+    height: 100%;
+    padding: 0;
+}
+
+#main td.col2 {
+    padding: 0;
+}
+
+table.bottomcontent tr {
+    padding-bottom: 5px;
+}
+
+table.bottomcontent tr td img {
+    text-align: center;
+}
+
+/*  Nav
+----------------------------------------------- */
+/*.globalnav {height:50px;} pulls the whole table apart-- size from the middle */
+.globalnav .BG {
+    padding: .5em 0 .5em 0;
+    white-space: nowrap;
+}
+
+.globalnav h1 {
+    padding: 0px 0px 4px 0px;
+    cursor: pointer;
+    width: 100%;
+    color: #036;
+    font-size: small;
+    font-weight: bold;
+    white-space: normal;
+}
+
+.globalnav h1 a, .globalnav h1 a:visited {
+    color: #000;
+    font-weight: normal;
+}
+
+.globalnav h1 a:hover {
+    text-decoration: none;
+    color: #FFF;
+}
+
+.globalnav a:link, .globalnav a:visited {
+    display: block;
+    margin: 0px 0px 3px 0px;
+    font-weight: normal;
+    font-size: 12px;
+    padding-bottom: 4px;
+    color: #036;
+}
+
+.globalnav a:hover {
+    text-decoration: underline;
+    color: black;
+}
+
+/*  Search
+----------------------------------------------- */
+.browselinks {
+    padding: 10px 0px 10px 0px;
+    width: 100%;
+    font-size: small;
+}
+
+.browselinks a {
+    padding-right: 20px;
+    white-space: nowrap;
+}
+
+/*  Headings
+----------------------------------------------- */
+h1.moduleheader, span.moduleheader {
+    color: #eb7a31;
+    font-size: large;
+    font-weight: bold;
+    white-space: nowrap;
+    padding: 0;
+}
+
+span.moduleheader h1 {
+    font-size: large;
+    font-weight: bold;
+}
+
+h1.moduleheader span {
+    color: #000;
+    font-weight: normal;
+    font-size: small;
+    padding-left: 10px;
+}
+
+h4.tagline b {
+    font-weight: bold;
+}
+
+.inline {
+    display: inline;
+}
+
+h2.segmentheader {
+    color: #900;
+    font-size: small; /* 1em; */
+    font-weight: bold;
+    padding: 0px 0px 3px 0px;
+}
+
+h3.tagline, h4.tagline {
+    color: #eb7a31;
+    font-weight: normal;
+    padding: 0px 0px 5px 0px;
+}
+
+h3.tagline {
+    font-size: x-small;
+}
+
+h3.tagline {
+    color: #eb7a31;
+    font-weight: normal;
+    padding: 0px 0px 5px 0px;
+}
+
+/*  Lists
+----------------------------------------------- */
+.result_title {
+    font-size: small;
+    padding: 0px 20px 0px 0px;
+    font-weight: bold;
+}
+
+.topCities ul {
+    padding: 0;
+}
+
+.topCities ul li {
+    padding: 0px 20px 1px 0px;
+}
+
+/*  Forms
+----------------------------------------------- */
+input.checkbox {
+    margin: 0px 0px -2px 0px;
+}
+
+.smallform .textfield {
+    font-size: small;
+    color: #999;
+    width: 75%;
+    height: 1.8em;
+    padding: 1px 0px 0px 3px;
+}
+
+.smallform input.btn {
+    width: 21px;
+    height: 18px;
+    margin: 0px 0px -3px 6px;
+    padding: 0;
+    border: 0;
+}
+
+.textfield {
+    color: #333;
+    min-width: 70%;
+}
+
+input.btn {
+    width: 28px;
+    height: 24px;
+    margin: 0px 0px 0px 6px;
+    padding: 0;
+    border: 0;
+}
+
+/*  Links
+----------------------------------------------- */
+
+/*  Misc
+----------------------------------------------- */
+.parentPoll {
+    text-align: center;
+}
+
+.parentPoll h3 {
+    padding: 0;
+    font-size: small;
+    font-weight: bold;
+    margin: 10px 0px 6px 0px;
+    color: #036;
+}
+
+.parentPoll h4 {
+    padding: 0 2em 0 2em;
+    white-space: nowrap;
+}
+
+/*  Advertising
+----------------------------------------------- */
+#adSquare {
+    text-align: center;
+    color: #999;
+    width: 300px;
+    padding: 5px 5px 5px 5px;
+    margin: 0 0 10px 0;
+    border: 1px solid #BBB;
+    font-size: 10px;
+    float: right;
+}
+
+#adLeaderboard {
+    text-align: center;
+    margin-bottom: 6px;
+    width: 100%;
+    padding: 0;
+}
+
+#adLeaderboard table {
+    padding: 0;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 738px;
+}
+
+#adLeaderboard table img {
+    padding: 0 1px 0 2px;
+}
+
+#adLeaderboard table td.ad {
+    background-color: #e9e9e9;
+    border: 1px solid #bbb;
+    text-align: left;
+}
+
+#adSkyscraper {
+    padding-top: 20px;
+}
+
+#adSkyscraper img {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* PROMOS
+----------------------------------------------- */
+
+.featuredarticle {
+    margin: 0px 0px 0px 5px;
+}
+
+.featuredarticle b {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* margin right is IE bug fix */
+img.newarticle {
+    margin-right: 5px;
+    margin-bottom: -2px;
+}
+
+div.featuredarticle h3 {
+    margin-top: 1em;
+}
+
+.featuredarticles,
+    .hotTopics {
+    margin: 0 .5em 0 .5em;
+}
+
+.featuredarticles li,
+    .hotTopics li {
+    padding: 3px 5px 3px 12px;
+    margin: 2px 0px 3px 0px;
+    background: url( ../img/bullet_blueball.gif ) 2px 7px no-repeat;
+}
+
+.featuredarticles li.new  img,
+    .schoolchoicecenter li.new img,
+    .hotTopics li.new img {
+    padding-left: .5em;
+}
+
+.featuredarticles h3, div.hotTopics h3 {
+    font-size: large;
+    color: #036;
+    font-weight: bold;
+    padding: 3px 20px 3px 0;
+    margin: 2px 0px 3px 0px;
+}
+
+.promoNewsletterMedium {
+    margin: 0px 0px 0px 2px;
+}
+
+.promoNewsletterMedium img {
+    float: right;
+    margin: 15px;
+}
+
+.promoNewsletterMedium a {
+    font-weight: normal;
+}
+
+.promoNewsletterMedium h2 {
+    font-size: large;
+    font-weight: bold;
+    margin: 0;
+}
+
+.promoNewsletterMedium h3 {
+    font-size: small; /* 1em; */
+    font-weight: bold;
+    margin: 10px 0px 5px 0px;
+    padding-top: 0.75em;
+}
+
+div.promoNewsletterMedium .smallform {
+    margin: 10px 0px 2px 0px;
+    white-space: nowrap;
+}
+
+.promoNewsletterMedium h4 {
+    font-size: small;
+    font-weight: bold;
+    margin: 10px 0px 6px 0px;
+    color: #036;
+
+}
+
+h3.membershipTagline {
+    color: #F60;
+    margin: 10px 0px 10px 0px;
+    font-weight: bold;
+}
+
+.promoMembershipBig td {
+    vertical-align: top;
+    padding: 0 0 .5em 0
+}
+
+table.promoMembershipBig {
+    margin: .1em 1em 1em 0;
+}
+
+.promoMembershipMedium {
+    margin: .3em;
+}
+
+table.promoMembershipMedium h3 {
+    color: #777;
+    font-size: small;
+}
+
+table.promoMembershipMedium th {
+    text-align: center;
+    font-size: x-small;
+    font-weight: 100;
+}
+
+table.promoMembershipMedium td {
+    font-size: x-small;
+    font-weight: 100;
+}
+
+table.promoMembershipMedium h5 {
+    font-weight: 700;
+    padding: .7em 0 0 0
+}
+
+.promoMembershipMedium td.learnMore a {
+    display: block;
+    padding: 1em
+}
+
+.promoArticles h3 {
+    font-weight: bold;
+}
+
+.promoArticles ul.promo {
+    margin: 10px 0px 15px 10px;
+}
+
+.promoArticles ul.promo li {
+    margin: 0px 0px 0px 20px;
+    list-style-type: disc;
+    line-height: 1.4em;
+}
+
+.schoolchoicecenter {
+    padding-top: 7px;
+    margin: 0px 0px 5px 5px;
+    height: 180px; /* image is 170px */
+}
+
+.schoolchoicecenter h3 {
+    font-size: large;
+    font-weight: bold;
+    color: #036;
+    padding: 0px 5px .3em 10px;
+    white-space: nowrap;
+}
+
+.schoolchoicecenter ul {
+/*border-left: 1px solid #999;*/
+    padding: 0px 5px .3em 10px;
+}
+
+.schoolchoicecenter li,
     div.about li {
-        padding-bottom: 0;
-    }
+    padding: 3px 5px 3px 0px;
+    margin: 2px 0px 3px 0px;
+    background-repeat: no-repeat;
+    background-position: 2px 7px;
+}
 
-    .schoolchoicecenter li.viewall {
-        margin-bottom: -6px;
-    }
+div.about li {
+    padding-bottom: 0;
+}
 
-    .schoolchoicecenter pdf_li {
-        margin-top: 3px;
-        margin-bottom: 3px;
-        list-style-image: url( ../img/adobe/pdficon.gif )
-    }
+.schoolchoicecenter li.viewall {
+    margin-bottom: -6px;
+}
 
+.schoolchoicecenter pdf_li {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    list-style-image: url( ../img/adobe/pdficon.gif )
+}
 
-    .featuredarticle {
-    	font-size: small;
-    }
+.featuredarticle {
+    font-size: small;
+}
 
-        /* Boxes
-       ----------------------------------------------- */
-    .BG {
-        vertical-align: middle;
-    }
+/* Boxes
+----------------------------------------------- */
+.BG {
+    vertical-align: middle;
+}
 
-    /* shade box styles */
-    table.shade3 {
-        margin-bottom: 3px;
-    }
+/* shade box styles */
+table.shade3 {
+    margin-bottom: 3px;
+}
 
-    table.shade3 td.TL {
-        background: #ececec url( ../img/box/border_shade3_TL.gif ) left top;
-        width: 7px;
-        height: 7px;
-    }
+table.shade3 td.TL {
+    background: #ececec url( ../img/box/border_shade3_TL.gif ) left top;
+    width: 7px;
+    height: 7px;
+}
 
-    table.shade3 td.T {
-        background: #ececec url( ../img/box/border_shade3_T.gif ) top repeat-x;
-    }
+table.shade3 td.T {
+    background: #ececec url( ../img/box/border_shade3_T.gif ) top repeat-x;
+}
 
-    table.shade3 td.TR {
-        background: #ececec url( ../img/box/border_shade3_TR.gif ) top right;
-        width: 7px;
-        height: 7px;
-    }
+table.shade3 td.TR {
+    background: #ececec url( ../img/box/border_shade3_TR.gif ) top right;
+    width: 7px;
+    height: 7px;
+}
 
-    table.shade3 td.L {
-        background: #FFFFFF url( ../img/box/bg_gradient.gif ) top left repeat-x;
-        border-left: 1px solid #ccc;
-        font-size: 1px;
-    }
+table.shade3 td.L {
+    background: #FFFFFF url( ../img/box/bg_gradient.gif ) top left repeat-x;
+    border-left: 1px solid #ccc;
+    font-size: 1px;
+}
 
-    table.shade3 td.BG {
-        background: #FFFFFF url( ../img/box/bg_gradient.gif ) top left repeat-x;
-        padding: 0;
-        vertical-align: top
-    }
+table.shade3 td.BG {
+    background: #FFFFFF url( ../img/box/bg_gradient.gif ) top left repeat-x;
+    padding: 0;
+    vertical-align: top
+}
 
-    table.shade3 td.R {
-        background: #FFFFFF url( ../img/box/border_shade3_R.gif ) right repeat-y;
-    }
+table.shade3 td.R {
+    background: #FFFFFF url( ../img/box/border_shade3_R.gif ) right repeat-y;
+}
 
-    table.shade3 td.BL {
-        background: #FFFFFF url( ../img/box/border_shade3_BL.gif ) left bottom;
-        width: 7px;
-        height: 7px;
-    }
+table.shade3 td.BL {
+    background: #FFFFFF url( ../img/box/border_shade3_BL.gif ) left bottom;
+    width: 7px;
+    height: 7px;
+}
 
-    table.shade3 td.B {
-        background: #FFFFFF url( ../img/box/border_shade3_B.gif ) bottom repeat-x;
-    }
+table.shade3 td.B {
+    background: #FFFFFF url( ../img/box/border_shade3_B.gif ) bottom repeat-x;
+}
 
-    table.shade3 td.BR {
-        background: #FFFFFF url( ../img/box/border_shade3_BR.gif ) bottom right;
-        width: 7px;
-        height: 7px;
-    }
+table.shade3 td.BR {
+    background: #FFFFFF url( ../img/box/border_shade3_BR.gif ) bottom right;
+    width: 7px;
+    height: 7px;
+}
 
-    /* shade box styles */
-    table.navOrange {
-        margin-bottom: 3px;
-    }
+/* shade box styles */
+table.navOrange {
+    margin-bottom: 3px;
+}
 
-    table.navOrange td.TL {
-        background: #fad3ae url( ../img/box/border_orange_TL.gif ) left top;
-        width: 7px;
-        height: 7px;
-    }
+table.navOrange td.TL {
+    background: #fad3ae url( ../img/box/border_orange_TL.gif ) left top;
+    width: 7px;
+    height: 7px;
+}
 
-    table.navOrange td.T {
-        background: #fad3ae url( ../img/box/border_orange_T.gif ) top repeat-x;
-    }
+table.navOrange td.T {
+    background: #fad3ae url( ../img/box/border_orange_T.gif ) top repeat-x;
+}
 
-    table.navOrange td.TR {
-        background: #fad3ae url( ../img/box/border_orange_TR.gif ) top right;
-        width: 7px;
-        height: 7px;
-    }
+table.navOrange td.TR {
+    background: #fad3ae url( ../img/box/border_orange_TR.gif ) top right;
+    width: 7px;
+    height: 7px;
+}
 
-    table.navOrange td.L {
-        background: #fad3ae url( ../img/box/border_orange_L.gif ) top left repeat-y;
-        border-left: 0px solid #eb7a31;
-        font-size: 1px;
-    }
+table.navOrange td.L {
+    background: #fad3ae url( ../img/box/border_orange_L.gif ) top left repeat-y;
+    border-left: 0px solid #eb7a31;
+    font-size: 1px;
+}
 
-    table.navOrange td.BG {
-        background-color: #fad3ae !important;
-        padding: 0;
-        vertical-align: top
-    }
+table.navOrange td.BG {
+    background-color: #fad3ae !important;
+    padding: 0;
+    vertical-align: top
+}
 
-    table.navOrange td.R {
-        background: #FFFFFF url( ../img/box/border_orange_R.gif ) right repeat-y;
-    }
+table.navOrange td.R {
+    background: #FFFFFF url( ../img/box/border_orange_R.gif ) right repeat-y;
+}
 
-    table.navOrange td.BL {
-        background: #FFFFFF url( ../img/box/border_orange_BL.gif ) left bottom;
-        width: 7px;
-        height: 7px;
-    }
+table.navOrange td.BL {
+    background: #FFFFFF url( ../img/box/border_orange_BL.gif ) left bottom;
+    width: 7px;
+    height: 7px;
+}
 
-    table.navOrange td.B {
-        background: #FFFFFF url( ../img/box/border_orange_B.gif ) bottom repeat-x;
-    }
+table.navOrange td.B {
+    background: #FFFFFF url( ../img/box/border_orange_B.gif ) bottom repeat-x;
+}
 
-    table.navOrange td.BR {
-        background: #FFFFFF url( ../img/box/border_orange_BR.gif ) bottom right;
-        width: 7px;
-        height: 7px;
-    }
+table.navOrange td.BR {
+    background: #FFFFFF url( ../img/box/border_orange_BR.gif ) bottom right;
+    width: 7px;
+    height: 7px;
+}
 
-    table.shade4 td.TL {
-        background: #FE894C url( ../img/box/border_shade4_TL.gif ) left top;
-        width: 7px;
-        height: 7px;
-    }
+table.shade4 td.TL {
+    background: #FE894C url( ../img/box/border_shade4_TL.gif ) left top;
+    width: 7px;
+    height: 7px;
+}
 
-    table.shade4 td.T {
-        background: #FE894C url( ../img/box/border_shade4_T.gif ) top repeat-x;
-    }
+table.shade4 td.T {
+    background: #FE894C url( ../img/box/border_shade4_T.gif ) top repeat-x;
+}
 
-    table.shade4 td.TR {
-        background: #FE894C url( ../img/box/border_shade4_TR.gif ) top right;
-        width: 7px;
-        height: 7px;
-    }
+table.shade4 td.TR {
+    background: #FE894C url( ../img/box/border_shade4_TR.gif ) top right;
+    width: 7px;
+    height: 7px;
+}
 
-    table.shade4 td.L {
-        background: #FE894C url( ../img/box/border_shade4_L.gif ) left repeat-y;
-    }
+table.shade4 td.L {
+    background: #FE894C url( ../img/box/border_shade4_L.gif ) left repeat-y;
+}
 
-    table.shade4 td.R {
-        background: #FE894C url( ../img/box/border_shade4_R.gif ) right repeat-y;
-    }
+table.shade4 td.R {
+    background: #FE894C url( ../img/box/border_shade4_R.gif ) right repeat-y;
+}
 
-    table.shade4 td.BL {
-        background: #FE894C url( ../img/box/border_shade4_BL.gif ) left bottom;
-        width: 7px;
-        height: 7px;
-    }
+table.shade4 td.BL {
+    background: #FE894C url( ../img/box/border_shade4_BL.gif ) left bottom;
+    width: 7px;
+    height: 7px;
+}
 
-    table.shade4 td.B {
-        background: #FE894C url( ../img/box/border_shade4_B.gif ) bottom repeat-x;
-    }
+table.shade4 td.B {
+    background: #FE894C url( ../img/box/border_shade4_B.gif ) bottom repeat-x;
+}
 
-    table.shade4 td.BR {
-        background: #FE894C url( ../img/box/border_shade4_BR.gif ) bottom right;
-        width: 7px;
-        height: 7px;
-    }
+table.shade4 td.BR {
+    background: #FE894C url( ../img/box/border_shade4_BR.gif ) bottom right;
+    width: 7px;
+    height: 7px;
+}
 
-
-    /**
-    Page Layout styles.
-    A surrounding div is set to have one of these classes.
-    All the "about us" corporate pages, and a few others share the
-    "oneMainColumn" layout. Please use this when possible.
-    */
-    div.oneMainColumn .contentGS a:link,
+/**
+Page Layout styles.
+A surrounding div is set to have one of these classes.
+All the "about us" corporate pages, and a few others share the
+"oneMainColumn" layout. Please use this when possible.
+*/
+div.oneMainColumn .contentGS a:link,
     div.singleTextOnlyColumn .contentGS a:link {
-        color: #039
-    }
+    color: #039
+}
 
-    .oneMainColumn .contentGS h2,
+.oneMainColumn .contentGS h2,
     .singleTextOnlyColumn .contentGS h2 {
-        color: #f60;
-        border-bottom: 1px solid #ccc;
-        font-weight: bold;
-        font-size: x-large;
-        margin: 0 0 .3em 0;
-    }
+    color: #f60;
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+    font-size: x-large;
+    margin: 0 0 .3em 0;
+}
 
-    div.oneMainColumn .contentGS h3,
+div.oneMainColumn .contentGS h3,
     div.singleTextOnlyColumn .contentGS h3 {
-        color: #f60;
-        border-bottom: 1px solid #ccc;
-        font-weight: bold;
-        font-size: medium;
-        margin: 0em 0 1em 0;
-    }
+    color: #f60;
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+    font-size: medium;
+    margin: 0em 0 1em 0;
+}
 
-    .oneMainColumn .contentGS h4,
+.oneMainColumn .contentGS h4,
     .singleTextOnlyColumn .contentGS h4 {
-        font-weight: bold;
-        margin-top: 0;
-    }
+    font-weight: bold;
+    margin-top: 0;
+}
 
-    .oneMainColumn .contentGS h5,
+.oneMainColumn .contentGS h5,
     .singleTextOnlyColumn .contentGS h5 {
-        color: #f60;
-        font-weight: bold;
-        font-size: small;
-        margin: 0 0 0 0;
-    }
+    color: #f60;
+    font-weight: bold;
+    font-size: small;
+    margin: 0 0 0 0;
+}
 
-    .oneMainColumn .contentGS p,
+.oneMainColumn .contentGS p,
     .singleTextOnlyColumn .contentGS p {
-        margin: 0em 0 1.2em 0;
-    }
+    margin: 0em 0 1.2em 0;
+}
 
-    .oneMainColumn .contentGS ul,
+.oneMainColumn .contentGS ul,
     .singleTextOnlyColumn .contentGS ul {
-        margin-bottom: 1em;
-    }
+    margin-bottom: 1em;
+}
 
-    div.oneMainColumn .contentGS {
-        padding: 0 1em 4em 1em;
-    }
+div.oneMainColumn .contentGS {
+    padding: 0 1em 4em 1em;
+}
 
-    div.singleTextOnlyColumn .contentGS {
-        padding: 0 7em 4em 7em;
-    }
+div.singleTextOnlyColumn .contentGS {
+    padding: 0 7em 4em 7em;
+}
 
-    .oneMainColumn .contentGS img,
+.oneMainColumn .contentGS img,
     .singleTextOnlyColumn .contentGS img {
-        margin-bottom: .7em;
-    }
+    margin-bottom: .7em;
+}
 
-    div.contentGS div.promoNewsletterSmall h2 {
-        font-size: large;
-        font-weight: bold;
-        margin: 4px 0 0 0;
-        color: #036;
-        border-bottom: 0;
-    }
+div.contentGS div.promoNewsletterSmall h2 {
+    font-size: large;
+    font-weight: bold;
+    margin: 4px 0 0 0;
+    color: #036;
+    border-bottom: 0;
+}
 
+div.contentGS div.promoNewsletterSmall h3 {
+    margin: 10px 0px 2px 0px;
+    font-size: small;
+    color: #000 !important;
+    border-bottom: 0;
+    font-weight: bold;
+}
 
-    div.contentGS div.promoNewsletterSmall h3 {
-        margin: 10px 0px 2px 0px;
-        font-size:small;
-        color: #000 !important;
-        border-bottom: 0;
-        font-weight:bold;
-    }
+div.contentGS div.promoNewsletterSmall .smallform {
+    margin: 10px 0px 2px 0px;
+    white-space: nowrap;
+}
 
-    div.contentGS div.promoNewsletterSmall .smallform {
-        margin: 10px 0px 2px 0px;
-        white-space: nowrap;
-    }
+.teaser, .smallTeaser {
+    font-style: italic;
+    font-weight: bold;
+    color: #EB7A31;
+}
 
-    .teaser, .smallTeaser  {
-        font-style: italic;
-        font-weight: bold;
-        color: #EB7A31;
-    }
+.smallTeaser {
+    font-size: 11px;
+    padding-left: 1em;
+}
 
-    .smallTeaser {
-        font-size: 11px;
-        padding-left: 1em;
-    }
-
-    .indentedList li {
-        margin-left: 2em;
-        margin-right: 1.5em;
-        list-style-type: disc;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
+.indentedList li {
+    margin-left: 2em;
+    margin-right: 1.5em;
+    list-style-type: disc;
+}
