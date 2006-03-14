@@ -45,9 +45,18 @@ public class FeedbackControllerTest extends BaseControllerTestCase {
 
         fc.setComment("This is a comment");
         fc.setQuery("foo");
-
+        fc.setDescription("Crayons taste like purple!");
+        fc.setEmail("count@blah.com");
+        fc.setExpected("It's like talking to Keanu Reeves!");
+        fc.setState("ca");
         Message message = FeedbackController.buildMessage(fc);
         assertEquals("Search Feedback: foo", message.getSubject());
+        String content = message.getContent().toString();
+        assertTrue(content.indexOf("QUERY: foo") != -1);
+        assertTrue(content.indexOf("DESCRIPTION:\nCrayons taste like purple!") != -1);
+        assertTrue(content.indexOf("EMAIL: count@blah.com") != -1);
+        assertTrue(content.indexOf("EXPECTED:\nIt's like talking to Keanu Reeves!") != -1);
+        assertTrue(content.indexOf("STATE: ca") != -1);
     }
 
     public void testNevadaNebraska() throws Exception {

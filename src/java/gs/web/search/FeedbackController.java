@@ -46,7 +46,7 @@ public class FeedbackController extends SimpleFormController {
                     Transport.send(msg);
                 }
             } catch (Exception e) {
-                _log.warn("Search Feedback could not be sent", e);
+                _log.warn("Feedback message could not be created");
             }
         }
 
