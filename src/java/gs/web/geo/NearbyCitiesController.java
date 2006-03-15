@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.4 2006/03/15 02:24:20 apeterson Exp $
+* $Id: NearbyCitiesController.java,v 1.5 2006/03/15 02:27:18 apeterson Exp $
 */
 
 package gs.web.geo;
@@ -70,7 +70,7 @@ public class NearbyCitiesController extends AbstractController {
                 model.put(ListModel.HEADING, "Cities Near " + city.getName());
 
                 List items = new ArrayList(limit);
-                for (int i = 0; i < limit; i++) {
+                for (int i = 0; i < limit && i < nearbyCities.size(); i++) {
                     BpCity nearbyCity = (BpCity) nearbyCities.get(i);
                     String styleClass = "town";
                     if (nearbyCity.getPopulation().intValue() > 50000) {

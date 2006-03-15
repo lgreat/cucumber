@@ -1,18 +1,17 @@
 
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesController.java,v 1.10 2006/03/02 19:05:44 apeterson Exp $
+ * $Id: TopCitiesController.java,v 1.11 2006/03/15 02:24:21 apeterson Exp $
  */
 
 package gs.web.state;
 
-import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.web.ISessionFacade;
 import gs.web.SessionContextUtil;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
-import gs.web.util.UnorderedListModel;
+import gs.web.util.ListModel;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -29,9 +28,9 @@ import java.util.Map;
  * cities in the state (hand-tuned by our employees).
  * The number of cities returned is currently set by the State itself.
  * <p>
- * Uses the standard UnorderedListModel.
+ * Uses the standard ListModel.
  *
- * @see UnorderedListModel
+ * @see ListModel
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
@@ -49,16 +48,16 @@ public class TopCitiesController extends AbstractController {
 
         // There is only one city in DC, so rewrite a little bit.
         if (state.equals(State.DC)) {
-            model.put(UnorderedListModel.HEAD, state.getLongName() + " Schools");
+            model.put(ListModel.HEADING, state.getLongName() + " Schools");
 
             List items = new ArrayList(1);
             Anchor anchor = new Anchor("/cgi-bin/schoollist/DC",
                     "View all schools");
             items.add(anchor);
-            model.put(UnorderedListModel.RESULTS, items);
+            model.put(ListModel.RESULTS, items);
 
         } else {
-            model.put(UnorderedListModel.HEAD, state.getLongName() + " Cities");
+            model.put(ListModel.HEADING, state.getLongName() + " Cities");
 
             String[] cities = state.getTopCities();
             int cityCount = state.getTopCityCount();
@@ -78,7 +77,7 @@ public class TopCitiesController extends AbstractController {
             items.add(new Anchor("/modperl/citylist/" + state.getAbbreviation() + "/",
                     "View all " + state.getLongName() + " cities",
                     "viewall"));
-            model.put(UnorderedListModel.RESULTS, items);
+            model.put(ListModel.RESULTS, items);
 
         }
 

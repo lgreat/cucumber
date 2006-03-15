@@ -359,6 +359,11 @@
         class="gs.web.path.CompareEntryController">
   </bean>
 
+    <bean name="/city/home.page"
+          class="gs.web.state.CityController"
+            autowire="byName">
+    </bean>
+
     <bean name="/path/mySchool.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">

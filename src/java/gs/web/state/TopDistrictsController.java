@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopDistrictsController.java,v 1.11 2006/03/02 19:05:44 apeterson Exp $
+ * $Id: TopDistrictsController.java,v 1.12 2006/03/15 02:24:21 apeterson Exp $
  */
 
 package gs.web.state;
@@ -12,7 +12,7 @@ import gs.web.ISessionFacade;
 import gs.web.SessionContextUtil;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
-import gs.web.util.UnorderedListModel;
+import gs.web.util.ListModel;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -27,10 +27,10 @@ import java.util.Map;
  * Given a state (in a "state" param), returns the largest districts
  * in the state (hand-tuned by our employees).
  * <p/>
- * Uses UnorderedListModel to represent the districts.
+ * Uses ListModel to represent the districts.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
- * @see UnorderedListModel
+ * @see ListModel
  */
 public class TopDistrictsController extends AbstractController {
     private String _viewName;
@@ -52,7 +52,7 @@ public class TopDistrictsController extends AbstractController {
         Map model = new HashMap();
 
         Integer[] districtIds = state.getTopDistricts();
-        model.put(UnorderedListModel.HEAD,
+        model.put(ListModel.HEADING,
                 state.getLongName() + " District" +
                 (districtIds.length > 1 ? "s" : ""));
 
@@ -86,7 +86,7 @@ public class TopDistrictsController extends AbstractController {
                     "View all " + state.getLongName() + " districts",
                     "viewall"));
         }
-        model.put(UnorderedListModel.RESULTS, items);
+        model.put(ListModel.RESULTS, items);
 
         ModelAndView modelAndView = new ModelAndView(_viewName, model);
         return modelAndView;

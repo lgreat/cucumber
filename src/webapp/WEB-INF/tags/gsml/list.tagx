@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        >
+    <jsp:directive.tag body-content="scriptless"/>
+    <jsp:directive.attribute name="model" required="false" type="gs.web.util.ListModel"
+                             description="model object; if not set, gets model from the request"/>
+
+
+    <c:if test="${not empty model}">
+        <c:set var="heading" value="${model.heading}"/>
+        <c:set var="list" value="${model.results}" />
+    </c:if>
+    <c:if test="${empty model}">
+        <c:set var="heading" value="${requestScope.heading}"/>
+        <c:set var="list" value="${requestScope.results}"/>
+    </c:if>
+
+
+    <c:if test="${not empty heading}">
+        <h3 class="result_title">${heading}</h3>
+    </c:if>
+    <ul>
+        <c:forEach var="i" items="${list}">
+            <c:if test="${i.styleClass!=null}">
+                <li class="${i.styleClass}">
+                    <gsml:a href="${i.href}">${i.contents}</gsml:a>
+                    <c:if test="${i.image!=null}">
+                        <img src="${i.image}"/>
+                    </c:if>
+                </li>
+            </c:if>
+            <c:if test="${i.styleClass==null}">
+                <li>
+                    <gsml:a href="${i.href}">${i.contents}</gsml:a>
+                    <c:if test="${i.image!=null}">
+                        <img src="${i.image}"/>
+                    </c:if>
+                </li>
+            </c:if>
+        </c:forEach>
+    </ul>
+</jsp:root>

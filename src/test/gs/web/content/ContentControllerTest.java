@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ContentControllerTest.java,v 1.11 2006/03/02 19:05:44 apeterson Exp $
+ * $Id: ContentControllerTest.java,v 1.12 2006/03/15 02:24:21 apeterson Exp $
  */
 package gs.web.content;
 
@@ -11,7 +11,7 @@ import gs.data.state.State;
 import gs.data.admin.IPropertyDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.Anchor;
-import gs.web.util.UnorderedListModel;
+import gs.web.util.ListModel;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collection;
@@ -89,19 +89,19 @@ public class ContentControllerTest extends BaseControllerTestCase {
         assertEquals("/unorderedList", modelAndView.getViewName());
         assertNull(model.get("article"));
 
-        List articles = (List) model.get(UnorderedListModel.RESULTS);
+        List articles = (List) model.get(ListModel.RESULTS);
         assertTrue(articles instanceof Collection);
         assertEquals(5, articles.size());
         assertEquals(Anchor.class, articles.get(0).getClass());
         assertEquals(Anchor.class, articles.get(1).getClass());
         assertEquals(Anchor.class, articles.get(2).getClass());
-        assertEquals("Grateful", model.get(UnorderedListModel.HEAD)); // Grateful Heading
+        assertEquals("Grateful", model.get(ListModel.HEADING)); // Grateful Heading
 
         // Ask for 4, but only get 3
         getRequest().setParameter("count", "4");
         modelAndView = c.handleRequestInternal(getRequest(), getResponse());
         model = modelAndView.getModel();
-        articles = (List) model.get(UnorderedListModel.RESULTS);
+        articles = (List) model.get(ListModel.RESULTS);
         assertTrue(articles instanceof Collection);
         assertEquals(5, articles.size());
 
@@ -112,7 +112,7 @@ public class ContentControllerTest extends BaseControllerTestCase {
         assertEquals("/unorderedList", modelAndView.getViewName());
         assertNull(model.get("article"));
 
-        articles = (List) model.get(UnorderedListModel.RESULTS);
+        articles = (List) model.get(ListModel.RESULTS);
         assertTrue(articles instanceof Collection);
         assertEquals(4, articles.size());
         assertEquals(Anchor.class, articles.get(0).getClass());
