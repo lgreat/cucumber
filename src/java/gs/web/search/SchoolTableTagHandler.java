@@ -1,8 +1,6 @@
 package gs.web.search;
 
-import gs.data.school.School;
 import gs.data.school.district.District;
-import gs.data.search.highlight.TextHighlighter;
 import gs.data.util.Address;
 import gs.web.util.UrlUtil;
 import gs.web.jsp.Util;
@@ -298,8 +296,6 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         out.println("<table class=\"school_results_only\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
 
         if (_schools != null && _schools.size() > 0) {
-
-
             /// start control row
             out.print("<tr class=\"control_row\"><td colspan=\"5\">");
             out.println("<table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
@@ -316,71 +312,13 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             out.println("<th align=\"center\" class=\"result_title\">Enrollment&nbsp;&nbsp;</th>");
             out.println("</tr>");
 
-            for (int i = 0; i < _schools.size(); i++) {
-
-                School school = (School)_schools.get(i);
-
-                if (school != null) {
-                    out.println("<tr class=\"result_row\">");
-                    out.println("<td class=\"checkbox\" width=\"1\">");
-                    out.print("<input name=\"sc\" type=\"checkbox\"  value=\"");
-                    out.print(school.getDatabaseState().getAbbreviationLowerCase());
-                    out.print(school.getId());
-                    out.print("\" /></td>");
-
-                    out.println("<td>");
-
-                    StringBuffer urlBuffer = new StringBuffer("/modperl/browse_school/");
-                    if ("private".equals(school.getType().getSchoolTypeName())) {
-                        urlBuffer = new StringBuffer("/cgi-bin/");
-                        urlBuffer.append(school.getDatabaseState().getAbbreviationLowerCase());
-                        urlBuffer.append("/private/");
-                    } else {
-                        urlBuffer =
-                                new StringBuffer("/modperl/browse_school/");
-                        urlBuffer.append(school.getDatabaseState().getAbbreviationLowerCase());
-                        urlBuffer.append("/");
-                    }
-                    urlBuffer.append(school.getId().toString());
-
-                    out.print("<a href=\"");
-                    out.print(urlUtil.buildUrl(urlBuffer.toString(), request));
-                    out.println("\">");
-                    out.print(TextHighlighter.highlight(school.getName(), getQueryString(), "name"));
-                    out.println("</a><br/>");
-                    out.print(school.getPhysicalAddress().toString());
-                    out.println("<br/>");
-
-                    District dist = school.getDistrict();
-                    if (dist != null) {
-                        String name = dist.getName();
-                        if (name != null) {
-                            out.print(name);
-                        }
-                    }
-
-                    out.println("</td>");
-                    out.println("<td align=\"center\">");
-                    out.println(school.getType().getSchoolTypeName());
-                    out.println("</td><td align=\"center\">");
-                    String gradeRange = school.getGradeLevels().getRangeString();
-                    out.println(StringUtils.isNotEmpty(gradeRange) ? gradeRange : "not available");
-                    out.println("</td><td align=\"center\">");
-                    try {
-                        int enrollment = school.getEnrollment();
-                        if (enrollment > -1) {
-                            out.print(enrollment);
-                        } else {
-                            out.print("not available");
-                        }
-                    } catch (Exception e) {
-                        _log.warn("Problem getting enrollment: " + school, e);
-                    }
-                    out.println("</td>");
-                    out.println("</tr>");
-                }
-
+            // writes the list of schools
+            try {
+                getJspBody().invoke(out);
+            } catch(Exception e) {
+                _log.warn("could not write school list", e);
             }
+
             out.print("<tr class=\"last_row\"><td colspan=\"5\">");
 
             out.println("</td></tr></table>");

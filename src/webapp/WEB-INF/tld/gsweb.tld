@@ -123,7 +123,7 @@
   <tag>
     <name>schooltable</name>
     <tag-class>gs.web.search.SchoolTableTagHandler</tag-class>
-    <body-content>empty</body-content>
+    <body-content>scriptless</body-content>
     <attribute>
       <name>schools</name>
       <required>true</required>
