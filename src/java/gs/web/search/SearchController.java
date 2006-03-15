@@ -13,7 +13,6 @@ import gs.data.search.Searcher;
 import gs.data.search.SearchCommand;
 import gs.data.state.State;
 import gs.web.SessionContext;
-import gs.web.ISessionFacade;
 
 import java.util.*;
 
@@ -40,7 +39,6 @@ public class SearchController extends AbstractFormController {
 
     public static final String BEAN_ID = "/search/search.page";
     private static Logger _log = Logger.getLogger(SearchController.class);
-    private static Logger searchLog = Logger.getLogger("search");
     private SpellCheckSearcher _spellCheckSearcher;
     private Searcher _searcher;
     private ResultsPager _resultsPager;
@@ -56,7 +54,6 @@ public class SearchController extends AbstractFormController {
             throws Exception {
         throw new RuntimeException("SearchController.showForm() should not be called");
     }
-
 
     /**
      * Though this method throws <code>Exception</code>, it should swallow most
@@ -74,20 +71,15 @@ public class SearchController extends AbstractFormController {
             HttpServletRequest request, HttpServletResponse response, Object command, BindException errors)
             throws Exception {
 
-        long requestStart = System.currentTimeMillis();
-
         boolean debug = false;
         if (request.getParameter("debug") != null) {
             debug = true;
         }
 
-        ISessionFacade sessionContext = SessionContext.getInstance(request);
-
         Map model = new HashMap();
         String queryString = request.getParameter("q");
         request.setAttribute("q", queryString);
-        String constraint = null;
-        String suggestion = null;
+
         if (command != null && command instanceof SearchCommand) {
             SearchCommand sc = (SearchCommand) command;
 
@@ -113,7 +105,7 @@ public class SearchController extends AbstractFormController {
             if (p != null) {
                 try {
                     request.setAttribute("p", p);
-                    page = Integer.parseInt(p); // this may not be needed any more.
+                    page = Integer.parseInt(p);
                 } catch (Exception e) {
                     // ignore this and just assume the page is 1.
                 }
@@ -122,43 +114,17 @@ public class SearchController extends AbstractFormController {
             int pageSize = 10;
             int schoolsPageSize = "true".equals(request.getParameter("showall")) ? -1 : 10;
 
-            constraint = sc.getType();
-
             Hits hts = _searcher.search(sc);
             if (hts != null) {
-
                 _resultsPager.setQuery(sc.getQueryString());
-
                 if (debug) {
                     _resultsPager.enableExplanation(_searcher, sc.getQuery());
                 }
-                _resultsPager.load(hts, constraint);
-
+                _resultsPager.load(hts, sc.getType());
                 if (suggest) {
-                    suggestion = _spellCheckSearcher.getSuggestion("name", queryString);
-                    if (suggestion == null) {
-                        suggestion = _spellCheckSearcher.getSuggestion("title", queryString);
-                    }
-                    if (suggestion == null) {
-                        suggestion = _spellCheckSearcher.getSuggestion("city", queryString);
-                    }
-                    if (suggestion != null) {
-                        // Check to see if the suggestion returns any results for the
-                        // current state. It's ok if the filter returned by
-                        // Searcher.getFilter is null.
-                        long s = System.currentTimeMillis();
-                        Filter filter = _searcher.getFilter(sessionContext.getState());
-                        Hits suggestHits = _searcher.search(suggestion, null, null, filter);
-                        if (suggestHits != null && suggestHits.length() > 0) {
-
-                            suggestion = suggestion.replaceAll("\\+", "");
-                            model.put("suggestion", suggestion);
-                        }
-                        long f = System.currentTimeMillis();
-                        searchLog.info("did-you-mean overhead: " + (f - s));
-                    }
+                    model.put("suggestion", getSuggestion(queryString,
+                            SessionContext.getInstance(request).getState()));
                 }
-
                 model.put("schoolsTotal", new Integer(_resultsPager.getSchoolsTotal()));
                 model.put("schools", _resultsPager.getSchools(page, schoolsPageSize));
                 model.put("pageSize", new Integer(pageSize));
@@ -169,53 +135,38 @@ public class SearchController extends AbstractFormController {
             }
         }
 
-        long requestEnd = System.currentTimeMillis();
-        long requestTime = requestEnd - requestStart;
-        if (debug) {
-            model.put("requesttime", Long.toString(requestTime));
-        }
-        if (_resultsPager != null) {
-            logIt(queryString, constraint, sessionContext.getState(),
-                    _resultsPager.getResultsTotal(), requestTime, suggestion);
-        }
         return new ModelAndView("search/search", "results", model);
     }
 
-    private static void logIt(String query, String type, State state, int results,
-                              long time, String suggestion) {
-        StringBuffer logBuffer = new StringBuffer(100);
-        logBuffer.append("query:[");
-        if (query != null) {
-            logBuffer.append(query);
-        } else {
-            logBuffer.append("null");
+    /**
+     * Supports "did-you-mean" functionality: returns a suggested query that
+     * might return better results than the original query.
+     * @param query
+     * @param state A state to filter search results.
+     * @return
+     */
+    private String getSuggestion(String query, State state) {
+        String suggestion = _spellCheckSearcher.getSuggestion("name", query);
+        if (suggestion == null) {
+            suggestion = _spellCheckSearcher.getSuggestion("title", query);
         }
-        logBuffer.append("] ");
-        logBuffer.append("type:[");
-        logBuffer.append(type);
-        logBuffer.append("] ");
-        if (state != null) {
-            logBuffer.append("state:[");
-            logBuffer.append(state.getAbbreviation());
-            logBuffer.append("] ");
+        if (suggestion == null) {
+            suggestion = _spellCheckSearcher.getSuggestion("city", query);
         }
-        logBuffer.append("results:[");
-        logBuffer.append(results);
-        logBuffer.append("] ");
-        logBuffer.append("time:[");
-        logBuffer.append(time);
-        logBuffer.append("] ");
         if (suggestion != null) {
-            logBuffer.append("suggestion:[");
-            logBuffer.append(suggestion);
-            logBuffer.append("] ");
+            // Check to see if the suggestion returns any results for the
+            // current state.
+            Hits suggestHits =
+                    _searcher.search(suggestion + " state:" + state.getAbbreviation());
+            if (suggestHits != null && suggestHits.length() > 0) {
+                suggestion = suggestion.replaceAll("\\+", "");
+            }
         }
-        searchLog.info(logBuffer.toString());
+        return suggestion;
     }
 
     /**
      * A setter for Spring
-     *
      * @param spellCheckSearcher
      */
     public void setSpellCheckSearcher(SpellCheckSearcher spellCheckSearcher) {
@@ -224,17 +175,16 @@ public class SearchController extends AbstractFormController {
 
     /**
      * A setter for Spring
-     *
      * @param searcher
      */
     public void setSearcher(Searcher searcher) {
         _searcher = searcher;
     }
 
-    public ResultsPager getResultsPager() {
-        return _resultsPager;
-    }
-
+    /**
+     * A setter for Spring
+     * @param resultsPager
+     */
     public void setResultsPager(ResultsPager resultsPager) {
         _resultsPager = resultsPager;
     }
