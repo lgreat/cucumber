@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.3 2006/03/02 19:37:32 apeterson Exp $
+* $Id: NearbyCitiesController.java,v 1.4 2006/03/15 02:24:20 apeterson Exp $
 */
 
 package gs.web.geo;
@@ -12,7 +12,7 @@ import gs.web.ISessionFacade;
 import gs.web.SessionContextUtil;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
-import gs.web.util.UnorderedListModel;
+import gs.web.util.ListModel;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -67,7 +67,7 @@ public class NearbyCitiesController extends AbstractController {
                 }
                 List nearbyCities = _geoDao.findNearbyCities(city, limit);
 
-                model.put(UnorderedListModel.HEAD, "Cities Near " + city.getName());
+                model.put(ListModel.HEADING, "Cities Near " + city.getName());
 
                 List items = new ArrayList(limit);
                 for (int i = 0; i < limit; i++) {
@@ -84,7 +84,7 @@ public class NearbyCitiesController extends AbstractController {
                             styleClass);
                     items.add(anchor);
                 }
-                model.put(UnorderedListModel.RESULTS, items);
+                model.put(ListModel.RESULTS, items);
             }
         }
 
