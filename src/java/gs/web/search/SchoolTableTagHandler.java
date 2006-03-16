@@ -296,22 +296,6 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         out.println("<table class=\"school_results_only\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
 
         if (_schools != null && _schools.size() > 0) {
-            /// start control row
-            out.print("<tr class=\"control_row\"><td colspan=\"5\">");
-            out.println("<table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
-            out.println("<tr><td style=\"padding-top:5px\">");
-            writeButtons(out);
-            out.println("</td><td class=\"results_pagenav\">");
-            out.println("</td></tr></table></td></tr>");
-            /// end control row
-
-            out.println("<tr><th class=\"result_title\" width=\"1\">&nbsp;</th>");
-            out.println("<th align=\"left\"   class=\"result_title\">Schools</th>");
-            out.println("<th align=\"center\" class=\"result_title\">Type</th>");
-            out.println("<th align=\"center\" class=\"result_title\">Grade</th>");
-            out.println("<th align=\"center\" class=\"result_title\">Enrollment&nbsp;&nbsp;</th>");
-            out.println("</tr>");
-
             // writes the list of schools
             try {
                 getJspBody().invoke(out);
@@ -320,11 +304,11 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             }
 
             out.print("<tr class=\"last_row\"><td colspan=\"5\">");
-
             out.println("</td></tr></table>");
             out.println("<table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"><tr>");
             out.println("<td>");
-            writeButtons(out);
+            out.println("<input type=\"image\" name=\"compare\" onclick=\"return checkSelections();\" src=\"/res/img/btn_comparechecked_149x21.gif\" alt=\"Compare checked Schools\"/>");
+            out.println("<input type=\"image\" name=\"save\" onclick=\"return checkSelections();\" src=\"/res/img/btn_savechecked2msl_173x21.gif\" alt=\"Save checked to My School List\"/>");
             out.println("</td><td class=\"results_pagenav\">");
 
             if (!showall) writePageNumbers(out);
@@ -348,11 +332,6 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         out.println("</td></tr></table>");
         out.println("</td></tr></table>");
         out.println("</form>");
-    }
-
-    private static void writeButtons(JspWriter out) throws IOException {
-        out.println("<input type=\"image\" name=\"compare\" onclick=\"return checkSelections();\" src=\"/res/img/btn_comparechecked_149x21.gif\" alt=\"Compare checked Schools\"/>");
-        out.println("<input type=\"image\" name=\"save\" onclick=\"return checkSelections();\" src=\"/res/img/btn_savechecked2msl_173x21.gif\" alt=\"Save checked to My School List\"/>");
     }
 }
 

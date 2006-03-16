@@ -135,7 +135,7 @@
             <gsml:box tableClass="shade3 main">
                 <gsweb:schooltable schools="${results.schools}"
                                    total="${results.total}">
-                    <search:schoolList schools="${results.schools}"/>
+                    <search:schoolTable schools="${results.schools}"/>
                 </gsweb:schooltable>
                 <mod:tracking pageName="schools"
                               pageType="search"
