@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RequiresStateInterceptor.java,v 1.3 2006/03/17 05:44:19 apeterson Exp $
+ * $Id: RequiresStateInterceptor.java,v 1.4 2006/03/17 06:09:08 apeterson Exp $
  */
 
 package gs.web.state;
 
 import gs.web.SessionContextUtil;
+import gs.data.state.StateManager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,12 +28,10 @@ import java.util.Iterator;
  * @author Andrew J. Peterson <mailto:apeterson@greatschools.net>
  */
 public class RequiresStateInterceptor
-        implements HandlerInterceptor,
-        ApplicationContextAware {
+        implements HandlerInterceptor {
 
     private static final Log _log = LogFactory.getLog(RequiresStateInterceptor.class);
-    private ApplicationContext _applicationContext;
-
+    private StateManager _stateManager;
 
     public boolean preHandle(HttpServletRequest httpServletRequest,
                              HttpServletResponse httpServletResponse,
@@ -41,7 +40,9 @@ public class RequiresStateInterceptor
         // If this page requires a state...
         if (httpServletRequest.getRequestURI().indexOf("selectAState.page") == -1) { // prevent recursion
             String state = httpServletRequest.getParameter(SessionContextUtil.STATE_PARAM);
-            if (StringUtils.isEmpty(state) || state.length() < 2) {
+            if (StringUtils.isEmpty(state) ||
+                    state.length() < 2 ||
+                    _stateManager.getState(state) == null) {
 
                 // Requires a state, so now generate a redirect to force the user to pick one.
                 String url = "http://" +
@@ -85,8 +86,11 @@ public class RequiresStateInterceptor
         // nothing
     }
 
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        _applicationContext = applicationContext;
+    public StateManager getStateManager() {
+        return _stateManager;
     }
 
+    public void setStateManager(StateManager stateManager) {
+        _stateManager = stateManager;
+    }
 }
