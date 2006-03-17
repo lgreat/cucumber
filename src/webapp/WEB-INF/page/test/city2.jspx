@@ -25,13 +25,115 @@
         <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
         <style type="text/css">
+#mapContainer {
+    margin: .3em;
+    border: 1px solid #00c;
+    background-color: #eee;
+    padding: .0em;
+}
+#map, #mapContainer {
+    width: 330px; height: 200px;
+    width: 500px; height: 330px;
+    width: 600px; height: 400px;
+    width: 700px; height: 400px;
+    width: 400px; height: 400px;
+}
+.statsModule {
+    font-family: comic sans ms;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .8em;
+    margin: .3em;
+}
+.statsModule h1 {
+    color: black;
+    font-size: 1.2em;
+    border: 0px solid #888;
+    border-width: 0 0 1px 0;
+    text-align: center;
+    text-align: left;
+}
+
+.statsModule table {
+            padding-top: 1em;
+			width: 100%;
+        }
+.statsModule td {
+            text-align: right;
+            padding: .1em 1em;
+            font-weight: bold;
+        }
+.statsModule th{
+            text-align: left;
+            font-weight: normal;
+            font-size: 85%;
+            text-transform: uppercase;
+        }
+.statsModule thead th{
+            text-align: center;
+            font-weight: normal;
+        }
+.statsModule .better { color: green; }
+.statsModule .worse { color: red; }
+
+div#nearbyCities {
+    border: 1px solid #f60;
+    margin: .5em;
+    padding: .3em;
+}
+div#nearbyCities h3 {
+    display: inline;
+    color: #888;
+    padding-right: 1em;
+    text-weight: bold;
+}
+div#nearbyCities ul {
+    display: inline;
+}
+div#nearbyCities li {
+    display: inline;
+    padding: .5em;
+}
+li.town {
+font-size: x-small;
+}
+li.city {
+font-size: medium;
+}
+li.bigCity {
+font-size: x-large;
+}
+
         </style>
             ]]>
-        <title>${param["city"]} Schools</title>
+        <c:set var="city">${param["city"]}</c:set>
+        <title>${city} Schools</title>
     </head>
 
     <gsml:body adPageName="city">
-        <gsml:list model="${schoolBreakdown}"/>
+        <div id="nearbyCities" >
+        <jsp:include page="/geo/nearbyCities.module?city=${city}&amp;count=20"/>
+        </div>
+
+        <div style="margin: .5em">
+        <gsml:box tableClass="shade3" tableWidth="66%">
+		<table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:50%; vertical-align: top">
+               <gsml:list model="${schoolBreakdown}"/>
+		</td><td style="width: 50%">
+            <div id="mapContainer">
+                <div id="map">&#160;</div>
+            </div>
+            <map:setup/>
+            <jsp:include page="/geo/cityMap.module?city=${city}&amp;state=${stateAbbrev}&amp;id=map&amp;fn=createMap"/>
+            <pageHelper:addOnLoadHandler handler="createMap()"/>
+        </td>
+                </tr></table>
+       </gsml:box>
+            <gsml:box tableClass="shade3" tableWidth="66%">
+                <jsp:include page="/geo/cityStats.module?city=${city}&amp;state=${stateAbbrev}"/>
+            </gsml:box>
+
+        </div>
+
     </gsml:body>
     </html>
 </jsp:root>

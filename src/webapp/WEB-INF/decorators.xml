@@ -8,16 +8,21 @@
     </decorator>
 
   <decorator name="cobrandHeaderGsFooter" page="standardDecorator.jspx">
+
     <pattern>/path/choose.page</pattern>
     <pattern>/path/mySchool.page</pattern>
+
     <pattern>/stateLauncher.page</pattern>
+
     <pattern>/search/search.page</pattern>
     <pattern>/search/feedback.page</pattern>
     <pattern>/search/feedbackSubmit.page</pattern>
+
     <pattern>/content/allArticles.page</pattern>
     <pattern>/content/schoolChoiceCenter.page</pattern>
     <pattern>/content/guideToTests.page</pattern>
     <pattern>/content/summerSurvivalGuide.page</pattern>
+
     <pattern>/about/aboutUs.page</pattern>
     <pattern>/about/supportUs.page</pattern>
     <pattern>/about/privacyStatement.page</pattern>
@@ -27,7 +32,10 @@
     <pattern>/about/pressRoom.page</pattern>
     <pattern>/about/pressKit.page</pattern>
     <pattern>/about/gsFaq.page</pattern>
-      <pattern>/about/testimonials.page</pattern>
+    <pattern>/about/testimonials.page</pattern>
+
+    <pattern>/city.page</pattern>
+
     <pattern>/test/city.page</pattern>
   </decorator>
 

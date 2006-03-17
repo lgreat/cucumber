@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.27 2006/02/28 22:39:02 thuss Exp $
+ * $Id: SessionContext.java,v 1.28 2006/03/17 20:10:02 apeterson Exp $
  */
 package gs.web;
 

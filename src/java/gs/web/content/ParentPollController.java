@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ParentPollController.java,v 1.3 2006/03/02 19:05:44 apeterson Exp $
+ * $Id: ParentPollController.java,v 1.4 2006/03/17 20:10:02 apeterson Exp $
  */
 
 package gs.web.content;

@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.5 2006/03/15 02:27:18 apeterson Exp $
+* $Id: NearbyCitiesController.java,v 1.6 2006/03/17 20:10:02 apeterson Exp $
 */
 
 package gs.web.geo;
@@ -76,7 +76,7 @@ public class NearbyCitiesController extends AbstractController {
                     if (nearbyCity.getPopulation().intValue() > 50000) {
                         styleClass = (nearbyCity.getPopulation().longValue() > 200000) ? "bigCity" : PARAM_CITY;
                     }
-                    Anchor anchor = new Anchor("/test/city.page?state=" +
+                    Anchor anchor = new Anchor("/city.page?state=" +
                             nearbyCity.getState() +
                             "&amp;city=" +
                             nearbyCity.getName(),
