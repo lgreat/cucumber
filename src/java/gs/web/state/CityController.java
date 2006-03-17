@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.1 2006/03/15 02:24:20 apeterson Exp $
+ * $Id: CityController.java,v 1.2 2006/03/17 05:44:19 apeterson Exp $
  */
 
 package gs.web.state;
@@ -27,7 +27,7 @@ import gs.data.state.State;
  */
 public class CityController extends AbstractController {
 
-    public static final String BEAN_ID = "/city/home.page";
+    public static final String BEAN_ID = "/city.page";
 
     public static final String SCHOOL_BREAKDOWN = "schoolBreakdown";
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RequiresStateInterceptor.java,v 1.2 2006/03/17 05:35:38 apeterson Exp $
+ * $Id: RequiresStateInterceptor.java,v 1.3 2006/03/17 05:44:19 apeterson Exp $
  */
 
 package gs.web.state;
@@ -49,7 +49,6 @@ public class RequiresStateInterceptor
                         ((httpServletRequest.getServerPort() != 80) ? ":" + httpServletRequest.getServerPort() : "") +
                         httpServletRequest.getContextPath() +
                         "/selectAState.page?prompt=Please+select+a+state+to+continue.&url=" +
-                        httpServletRequest.getContextPath() +
                         httpServletRequest.getRequestURI();
 
                 // Add the parameters manually
@@ -57,10 +56,12 @@ public class RequiresStateInterceptor
                     url += "?";
                     for (Iterator iter = httpServletRequest.getParameterMap().keySet().iterator(); iter.hasNext(); ) {
                         String key = (String) iter.next();
-                        String value = httpServletRequest.getParameter(key);
-                        url += key + "=" + value;
-                        if (iter.hasNext()) {
-                            url += "%26";
+                        if (!StringUtils.equals(key, "state")) {
+                            String value = httpServletRequest.getParameter(key);
+                            url += key + "=" + value;
+                            if (iter.hasNext()) {
+                                url += "%26";
+                            }
                         }
                     }
                 }
