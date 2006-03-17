@@ -1,18 +1,15 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RequiresStateInterceptor.java,v 1.4 2006/03/17 06:09:08 apeterson Exp $
+ * $Id: RequiresStateInterceptor.java,v 1.5 2006/03/17 20:43:14 apeterson Exp $
  */
 
 package gs.web.state;
 
-import gs.web.SessionContextUtil;
 import gs.data.state.StateManager;
+import gs.web.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,7 +35,8 @@ public class RequiresStateInterceptor
                              Object o) throws Exception {
 
         // If this page requires a state...
-        if (httpServletRequest.getRequestURI().indexOf("selectAState.page") == -1) { // prevent recursion
+        if (httpServletRequest.getRequestURI().indexOf("selectAState.page") == -1 &&
+                httpServletRequest.getRequestURI().indexOf("status") == -1) { // prevent recursion
             String state = httpServletRequest.getParameter(SessionContextUtil.STATE_PARAM);
             if (StringUtils.isEmpty(state) ||
                     state.length() < 2 ||
@@ -55,7 +53,7 @@ public class RequiresStateInterceptor
                 // Add the parameters manually
                 if (httpServletRequest.getParameterMap().size() != 0) {
                     url += "?";
-                    for (Iterator iter = httpServletRequest.getParameterMap().keySet().iterator(); iter.hasNext(); ) {
+                    for (Iterator iter = httpServletRequest.getParameterMap().keySet().iterator(); iter.hasNext();) {
                         String key = (String) iter.next();
                         if (!StringUtils.equals(key, "state")) {
                             String value = httpServletRequest.getParameter(key);
