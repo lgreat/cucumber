@@ -10,6 +10,7 @@ import java.io.Writer;
 
 import gs.data.school.School;
 import gs.data.state.StateManager;
+import gs.data.search.highlight.TextHighlighter;
 import gs.web.util.UrlUtil;
 
 /**
@@ -118,7 +119,9 @@ public class MainResultsTagHandler extends ResultsTableTagHandler {
                     default:
                 }
 
-                out.write(result.getHeadline());
+                out.write(TextHighlighter.highlight(result.getHeadline(),
+                        getQueryString(), "name"));
+
                 out.write("</a>");
                 out.write("</td></tr>");
 
@@ -143,7 +146,8 @@ public class MainResultsTagHandler extends ResultsTableTagHandler {
                     if (context != null) {
                         out.write("<td colspan=\"3\">");
                         out.write("<span class=\"context\">");
-                        out.write(context);
+                        out.write(TextHighlighter.highlight(context,
+                                getQueryString(), "address"));
                         out.write("</span>");
                         out.write("</td>");
                     }

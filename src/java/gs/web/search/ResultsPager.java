@@ -188,7 +188,7 @@ public class ResultsPager implements ApplicationContextAware {
             try {
                 for (int i = startIndex; i < endIndex; i++) {
                     Document d = hits.doc(i);
-                    SearchResult sr = new SearchResult(d, _query);
+                    SearchResult sr = new SearchResult(d);
                     if (_searcher != null) {
                         sr.setExplanation(_searcher.explain(_explanationQuery, _hits.id(i)));
                     }

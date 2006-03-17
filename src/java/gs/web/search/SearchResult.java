@@ -3,10 +3,11 @@ package gs.web.search;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.Explanation;
 import org.apache.commons.lang.StringUtils;
-import gs.data.search.highlight.TextHighlighter;
 import gs.data.search.IndexField;
 
 /**
+ * This is a data structure to hold search result values based on lucene
+ * <code>Document</code> objects.
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class SearchResult {
@@ -16,77 +17,42 @@ public class SearchResult {
     public final static int CITY     = 2;
     public final static int ARTICLE  = 3;
     public final static int TERM     = 4;
+    public final static int TOPIC    = 5;
 
     private String _address;
     private Document _doc;
-    private String _query;
-    private boolean _highlight = true;
     private Explanation _ex;
 
     public SearchResult(Document doc) {
-        this(doc, null);
-    }
-
-    public SearchResult(Document doc, String query) {
         _doc = doc;
-        _query = query;
-    }
-
-    public String getName() {
-        return _doc.get("name");
-    }
-
-    public String getId() {
-        return _doc.get("id");
     }
 
     public String getHeadline() {
         String headline = getName();
         if (headline == null) {
-            headline = getTitle();
+            headline = _doc.get("title");
             if (headline == null) {
-                headline = getTerm();
+                headline = _doc.get("term");
                 if (headline == null) {
                     headline = getCity();
                 }
             }
-        }
-
-        if (_highlight) {
-            headline = TextHighlighter.highlight(headline, _query, "name"); 
         }
         return headline;
     }
 
     public String getContext() {
         String context = null;
-        String type = _doc.get("type");
-        if ("school".equals(type)) {
+        int t = getType();
+        if (t == SCHOOL) {
             context = getAddress();
-        } else if ("topic".equals(type) ||
-                "article".equals(type) ||
-                "term".equals(type)) {
-            context = getAbstract();
+        } else if (t == TERM || t == ARTICLE || t == TOPIC) {
+            context = _doc.get("abstract");
             if (context == null) {
-                context = getDefinition();
+                context = _doc.get("definition");
             }
         }
         return context;
-    }
-
-    public String getGradeLevel() {
-        String gradeLevel = "";
-        String gl = _doc.get("gradelevel");
-        if (!StringUtils.isEmpty(gl)) {
-            if ("e".equals(gl)) {
-                gradeLevel = "elementary";
-            } else if ("m".equals(gl)) {
-                gradeLevel = "middle";
-            } else if ("h".equals(gl)) {
-                gradeLevel = "high";
-            }
-        }
-        return gradeLevel;
     }
 
     /**
@@ -113,28 +79,33 @@ public class SearchResult {
         return type;
     }
 
-    public String getAddress() {
+    protected String getAddress() {
         if (_address == null) {
             StringBuffer addressBuffer = new StringBuffer ();
-            addressBuffer.append(_doc.get("street"));
-            addressBuffer.append(",  ");
-            addressBuffer.append(_doc.get("city"));
-            addressBuffer.append(", ");
-            addressBuffer.append(getState().toUpperCase());
-            addressBuffer.append(" ");
-            addressBuffer.append(_doc.get("zip"));
+            String street = _doc.get("street");
+            if (StringUtils.isNotBlank(street)) {
+                addressBuffer.append(street);
+            }
+            String city = _doc.get("city");
+            if (StringUtils.isNotBlank(city)) {
+                addressBuffer.append(",  ");
+                addressBuffer.append(city);
+            }
+
+            String state = getState().toUpperCase();
+            if (StringUtils.isNotBlank(state)) {
+                addressBuffer.append(", ");
+                addressBuffer.append(state);
+            }
+
+            String zip = _doc.get("zip");
+            if (StringUtils.isNotBlank(zip)) {
+                addressBuffer.append(" ");
+                addressBuffer.append(zip);
+            }
             _address = addressBuffer.toString ();
         }
-
-        if (_highlight) {
-            _address = TextHighlighter.highlight(_address, _query, "address");
-        }
-
         return _address;
-    }
-
-    protected Document getDocument() {
-        return _doc;
     }
 
     public boolean isInsider() {
@@ -145,70 +116,24 @@ public class SearchResult {
      * @return The 2-letter state abreviation lowercased
      */
     public String getState () {
-        return _doc.get("state");
+        String state = _doc.get("state");
+        return (state != null) ? state : "";
     }
 
-    public String getPhone() {
-        return getDocument().get("phone");
+    public String getName() {
+        return _doc.get("name");
     }
 
-    public String getTitle() {
-        String title = _doc.get("title");
-        if (_highlight) {
-               title = TextHighlighter.highlight(title, _query, "title");
-        }
-        return title;
+    public String getId() {
+        return _doc.get("id");
     }
 
     public String getCity() {
         return _doc.get("city");
     }
 
-    public String getCityAndState() {
-        String cityAndState = _doc.get("citystate");
-        if (cityAndState == null || "".equals(cityAndState)) {
-            String c = getCity();
-            String s = getState();
-            if (c != null && s != null) {
-                StringBuffer buff = new StringBuffer(c);
-                buff.append(", ");
-                buff.append(s.toUpperCase());
-                cityAndState = buff.toString();
-            }
-        }
-        return cityAndState;
-    }
-
-    public String getAbstract() {
-        String abs = _doc.get("abstract");
-        if (_highlight) {
-               abs = TextHighlighter.highlight(abs, _query, "abstract");
-        }
-        return abs;
-    }
-
     public String getSchoolType() {
         return _doc.get("schooltype");
-    }
-
-    /**
-     * Turns highlighing on or off.  On by default.
-     * @param h
-     */
-    public void setHighlight(boolean h) {
-        _highlight = h;
-    }
-
-    public String getTerm() {
-        String term = _doc.get("term");
-        if (_highlight) {
-               term = TextHighlighter.highlight(term, _query, "term");
-        }
-        return term;
-    }
-
-    public String getDefinition() {
-        return _doc.get("definition");
     }
 
     public int getSchools() {
@@ -229,6 +154,6 @@ public class SearchResult {
         if (_ex != null) {
             explanation = _ex.toString();
         }
-        return explanation;
+        return explanation.trim();
     }
 }
