@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RequiresStateInterceptor.java,v 1.5 2006/03/17 20:43:14 apeterson Exp $
+ * $Id: RequiresStateInterceptor.java,v 1.6 2006/03/17 22:33:24 apeterson Exp $
  */
 
 package gs.web.state;
@@ -35,8 +35,8 @@ public class RequiresStateInterceptor
                              Object o) throws Exception {
 
         // If this page requires a state...
-        if (httpServletRequest.getRequestURI().indexOf("selectAState.page") == -1 &&
-                httpServletRequest.getRequestURI().indexOf("status") == -1) { // prevent recursion
+        if (httpServletRequest.getRequestURI().indexOf("selectAState.page") == -1 && // prevent recursion
+                httpServletRequest.getRequestURI().indexOf("status") == -1) {
             String state = httpServletRequest.getParameter(SessionContextUtil.STATE_PARAM);
             if (StringUtils.isEmpty(state) ||
                     state.length() < 2 ||
