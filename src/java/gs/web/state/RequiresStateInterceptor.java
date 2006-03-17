@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RequiresStateInterceptor.java,v 1.1 2006/03/17 05:33:43 apeterson Exp $
+ * $Id: RequiresStateInterceptor.java,v 1.2 2006/03/17 05:35:38 apeterson Exp $
  */
 
 package gs.web.state;
@@ -38,9 +38,12 @@ public class RequiresStateInterceptor
                              HttpServletResponse httpServletResponse,
                              Object o) throws Exception {
 
+        // If this page requires a state...
         if (httpServletRequest.getRequestURI().indexOf("selectAState.page") == -1) { // prevent recursion
             String state = httpServletRequest.getParameter(SessionContextUtil.STATE_PARAM);
             if (StringUtils.isEmpty(state) || state.length() < 2) {
+
+                // Requires a state, so now generate a redirect to force the user to pick one.
                 String url = "http://" +
                         httpServletRequest.getServerName() +
                         ((httpServletRequest.getServerPort() != 80) ? ":" + httpServletRequest.getServerPort() : "") +
@@ -48,6 +51,8 @@ public class RequiresStateInterceptor
                         "/selectAState.page?prompt=Please+select+a+state+to+continue.&url=" +
                         httpServletRequest.getContextPath() +
                         httpServletRequest.getRequestURI();
+
+                // Add the parameters manually
                 if (httpServletRequest.getParameterMap().size() != 0) {
                     url += "?";
                     for (Iterator iter = httpServletRequest.getParameterMap().keySet().iterator(); iter.hasNext(); ) {
@@ -59,6 +64,8 @@ public class RequiresStateInterceptor
                         }
                     }
                 }
+
+                // Execute the redirect...
                 final String redirect = httpServletResponse.encodeRedirectURL(url);
                 _log.info("Redirecting to " + url);
                 httpServletResponse.sendRedirect(redirect);

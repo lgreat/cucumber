@@ -10,19 +10,20 @@
           class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
         <property name="interceptors">
             <list>
-                <ref local="responseInterceptor"/>
-                <ref local="sessionContextInterceptor"/>
+                <ref bean="requiresStateInterceptor" />
+                <bean class="gs.web.ResponseInterceptor"
+                      autowire="byName"/>
+                <bean class="gs.web.SessionContextInterceptor"
+                      autowire="byName">
+                </bean>
                 <!--                <ref local="insiderOnlyInterceptor"/>-->
             </list>
         </property>
     </bean>
 
-    <bean id="responseInterceptor"
-            class="gs.web.ResponseInterceptor"
-            autowire="byName" />
 
-    <bean id="sessionContextInterceptor"
-          class="gs.web.SessionContextInterceptor"
+    <bean id="requiresStateInterceptor"
+          class="gs.web.state.RequiresStateInterceptor"
           autowire="byName">
     </bean>
 
@@ -65,12 +66,12 @@
             <value>search/feedback</value>
         </property>
         <property name="commandName">
-             <value>feedbackCommand</value>
+            <value>feedbackCommand</value>
         </property>
         <property name="commandClass">
             <value>gs.web.search.FeedbackCommand</value>
         </property>
-      <!--
+        <!--
         <property name="successView">
             <value>/search/feedbackSubmit.page</value>
         </property>
@@ -196,7 +197,7 @@
         </property>
     </bean>
 
-     <bean name="/about/supportUs.page"
+    <bean name="/about/supportUs.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName">
         <property name="viewName">
@@ -204,7 +205,7 @@
         </property>
     </bean>
 
-     <bean name="/about/donationBridge.page"
+    <bean name="/about/donationBridge.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName">
         <property name="viewName">
@@ -212,7 +213,7 @@
         </property>
     </bean>
 
-     <bean name="/about/sponsors.page"
+    <bean name="/about/sponsors.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName">
         <property name="viewName">
@@ -220,7 +221,7 @@
         </property>
     </bean>
 
-     <bean name="/about/gsNetwork.page"
+    <bean name="/about/gsNetwork.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName">
         <property name="viewName">
@@ -236,7 +237,7 @@
         </property>
     </bean>
 
-     <bean name="/about/pressKit.page"
+    <bean name="/about/pressKit.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName">
         <property name="viewName">
@@ -348,20 +349,28 @@
     </bean>
     <!-- End Conversion pages -->
 
-  <bean name="/path/choose.page"
-        class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-      <property name="viewName">
-          <value>path/choose</value>
-      </property>
-  </bean>
+    <bean name="/path/choose.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>path/choose</value>
+        </property>
+    </bean>
 
-  <bean name="/path/compareEntry.page"
-        class="gs.web.path.CompareEntryController">
-  </bean>
+    <bean name="/path/compareEntry.page"
+          class="gs.web.path.CompareEntryController">
+    </bean>
 
-    <bean name="/city/home.page"
+    <bean name="/city.page"
           class="gs.web.state.CityController"
-            autowire="byName">
+          autowire="byName">
+    </bean>
+
+    <bean name="/selectAState.page"
+          class="gs.web.state.SelectAStateController"
+          autowire="byName">
+        <property name="viewName">
+            <value>stateLauncher</value>
+        </property>
     </bean>
 
     <bean name="/path/mySchool.page"

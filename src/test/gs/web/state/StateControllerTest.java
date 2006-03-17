@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StateControllerTest.java,v 1.6 2006/03/15 02:24:21 apeterson Exp $
+ * $Id: StateControllerTest.java,v 1.7 2006/03/17 05:33:43 apeterson Exp $
  */
 
 package gs.web.state;
@@ -8,13 +8,15 @@ package gs.web.state;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
-import gs.web.SessionFacade;
 import gs.web.SessionContext;
+import gs.web.SessionFacade;
 import gs.web.util.Anchor;
 import gs.web.util.ListModel;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Provides...
@@ -49,7 +51,6 @@ public class StateControllerTest extends BaseControllerTestCase {
         assertEquals("/modperl/distlist/CA", veryLast.getHref());
         assertEquals("View all California districts", veryLast.getContents());
 
-
         // Test AK districts-- this should produce what?
         SessionContext context = (SessionContext) SessionFacade.getInstance(getRequest());
         context.setState(State.AK);
@@ -71,7 +72,6 @@ public class StateControllerTest extends BaseControllerTestCase {
         last = (Anchor) results.get(4);
         assertEquals("View all Alaska districts", last.getContents());
         assertEquals("/modperl/distlist/AK", last.getHref());
-
 
         // Test AK districts-- this should produce what?
         context.setState(State.HI);
@@ -117,7 +117,6 @@ public class StateControllerTest extends BaseControllerTestCase {
         assertEquals("/modperl/citylist/CA/", veryLast.getHref());
         assertEquals("View all California cities", veryLast.getContents());
 
-
         // Special case DC
         SessionContext context = (SessionContext) SessionFacade.getInstance(getRequest());
         context.setState(State.DC);
@@ -128,7 +127,6 @@ public class StateControllerTest extends BaseControllerTestCase {
         la = (Anchor) results.get(0);
         assertEquals("View all schools", la.getContents());
         assertEquals("/cgi-bin/schoollist/DC", la.getHref());
-
 
         // Special case NYC
         context = (SessionContext) SessionFacade.getInstance(getRequest());
@@ -144,5 +142,43 @@ public class StateControllerTest extends BaseControllerTestCase {
 
     }
 
+
+    public void testSelectAStateController() throws Exception {
+        SelectAStateController c = new SelectAStateController();
+        c.setApplicationContext(getApplicationContext());
+        c.setViewName("/stateLauncher");
+
+        // Check no parameters, which should just go to the home page
+        ModelAndView modelAndView = c.handleRequestInternal(getRequest(), getResponse());
+        RedirectView view = (RedirectView) modelAndView.getView();
+        assertEquals("/", view.getUrl());
+
+        // View will build links:
+        // {url}CA{extraParams}
+        // So we make sure URL gets set to what we want.
+        // Currently extraParams isn't needed
+
+        // We want it to add a state param, "?state="
+        getRequest().setParameter("url", "/welcome.page");
+
+        modelAndView = c.handleRequestInternal(getRequest(), getResponse());
+        assertEquals("/stateLauncher", modelAndView.getViewName());
+        Map model = modelAndView.getModel();
+        assertEquals("/welcome.page?state=", model.get("url"));
+        assertEquals("", model.get("extraParams"));
+        assertEquals("", model.get("promotext"));
+
+
+        getRequest().setParameter("url", "/districts.page?city=Lincoln");
+
+        modelAndView = c.handleRequestInternal(getRequest(), getResponse());
+        assertEquals("/stateLauncher", modelAndView.getViewName());
+        model = modelAndView.getModel();
+        assertEquals("/districts.page?city=Lincoln&amp;state=", model.get("url"));
+        assertEquals("", model.get("extraParams"));
+        assertEquals("", model.get("promotext"));
+
+
+    }
 
 }
