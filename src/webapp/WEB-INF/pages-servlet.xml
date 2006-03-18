@@ -365,6 +365,14 @@
           autowire="byName">
     </bean>
 
+    <bean name="/cities.page"
+          class="gs.web.geo.NearbyCitiesController"
+          autowire="byName">
+        <property name="viewName">
+            <value>test/selectACity</value>
+        </property>
+    </bean>
+
     <bean name="/selectAState.page"
           class="gs.web.state.SelectAStateController"
           autowire="byName">

@@ -36,6 +36,8 @@
 
     <pattern>/city.page</pattern>
 
+    <pattern>/cities.page</pattern>
+
     <pattern>/test/city.page</pattern>
   </decorator>
 

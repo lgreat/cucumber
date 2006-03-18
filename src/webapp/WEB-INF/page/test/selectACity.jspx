@@ -36,7 +36,7 @@
     width: 500px; height: 330px;
     width: 600px; height: 400px;
     width: 700px; height: 400px;
-    width: 400px; height: 400px;
+    width: 100%; height: 400px;
 }
 .statsModule {
     font-family: comic sans ms;
@@ -76,62 +76,61 @@
 .statsModule .worse { color: red; }
 
 div#nearbyCities {
-    border: 1px solid #f60;
-    margin: .5em;
-    padding: .3em;
+    margin: .5em 1em .5em 1em;
+    padding: .3em 1em .3 1em;
 }
 div#nearbyCities h3 {
-    display: inline;
     color: #888;
     padding-right: 1em;
     text-weight: bold;
-}
-div#nearbyCities ul {
-    display: inline;
+    font-size: large;
 }
 div#nearbyCities li {
-    display: inline;
-    padding: .5em;
 }
 li.town {
-font-size: x-small;
+font-size: medium;
 }
 li.city {
 font-size: medium;
 }
 li.bigCity {
-font-size: x-large;
+font-size: medium;
 }
 
         </style>
             ]]>
         <c:set var="city">${param["city"]}</c:set>
-        <title>${city} Schools</title>
+        <title>Select a City Near ${city}</title>
     </head>
 
     <gsml:body adPageName="city">
-        <div id="nearbyCities" >
-        <jsp:include page="/geo/nearbyCities.module?city=${city}&amp;count=6&amp;more=true"/>
-        </div>
 
         <div style="margin: .5em">
-        <gsml:box tableClass="shade3" tableWidth="66%">
-		<table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:50%; vertical-align: top">
-               <gsml:list model="${schoolBreakdown}"/>
-            <gsml:list model="${districts}"/>
-        </td><td style="width: 50%">
+        <gsml:box tableClass="shade3" tableWidth="100%">
+		<table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+            <td style="width:66%; vertical-align: top">
             <div id="mapContainer">
                 <div id="map">&#160;</div>
             </div>
             <map:setup/>
-            <jsp:include page="/geo/cityMap.module?city=${city}&amp;state=${stateAbbrev}&amp;id=map&amp;fn=createMap"/>
+                <map:cities functionName="createMap"
+                            id="map"
+                            lon="${cityObject.lon}"
+                            lat="${cityObject.lat}"
+                            scale="10"
+                            cities="${cities}" />
             <pageHelper:addOnLoadHandler handler="createMap()"/>
         </td>
+
+                <td style="width:33%; vertical-align: top">
+                <div id="nearbyCities">
+            <jsp:include page="/geo/nearbyCities.module?city=${city}&amp;count=20"/>
+        </div>
+    </td>
+
                 </tr></table>
        </gsml:box>
-            <gsml:box tableClass="shade3" tableWidth="66%">
-                <jsp:include page="/geo/cityStats.module?city=${city}&amp;state=${stateAbbrev}"/>
-            </gsml:box>
 
         </div>
 
