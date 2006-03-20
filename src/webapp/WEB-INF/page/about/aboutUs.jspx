@@ -29,13 +29,14 @@
     <mod:tracking pageType="aboutUs" pageName="aboutUs" />
 
    <h3>Our Story</h3>
+    
    <p>A former teacher, Bill Jackson founded GreatSchools in 1998 to
    catalyze a force that he believed was vital to the process of
-   achieving education excellence - <b><i>parent involvement</i></b>.
+   achieving excellence in education - <b><i>parent involvement</i></b>.
 </p>
    <p>Bill launched GreatSchools.net because he believed that:</p>
 
-   <ul class="noindent">
+    <ul class="indentedList">
    <li>When parents make <strong><em>informed choices</em></strong>,
    students and schools benefit</li>
 
