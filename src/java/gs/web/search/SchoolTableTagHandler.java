@@ -40,10 +40,6 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         _schools = sList;
     }
 
-    public String getConstraint() {
-        return "school";
-    }
-
     public void doTag() throws IOException {
 
         PageContext pc = (PageContext) getJspContext().findAttribute(PageContext.PAGECONTEXT);
@@ -71,7 +67,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         out.println("<tr><td class=\"mainresultsheader\">");
         out.println("<table width=\"100%\"><tr><td><span id=\"resultsheadline\">");
         out.print("Found ");
-        out.print(_total);
+        out.print(String.valueOf(_total));
         String cityOrDistrictName = (String) getJspContext().findAttribute("city");
         String distId = null;
 
@@ -131,20 +127,20 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         if (_total > 0) {
             if (!showall) {
                 int page = ((getPage() > 0) ? (getPage() - 1) : 0);
-                out.print((page * PAGE_SIZE) + 1);
+                out.print(String.valueOf((page * PAGE_SIZE) + 1));
                 out.print(" - ");
                 int x = (page * PAGE_SIZE) + PAGE_SIZE;
                 if (_total > x) {
-                    out.print(x);
+                    out.print(String.valueOf(x));
                 } else {
-                    out.print(_total);
+                    out.print(String.valueOf(_total));
                 }
             } else {
                 out.print("1 - ");
-                out.print(_total);
+                out.print(String.valueOf(_total));
             }
             out.print(" of ");
-            out.print(_total);
+            out.print(String.valueOf(_total));
         }
 
         if (!showall && (_total > PAGE_SIZE)) {
@@ -228,7 +224,9 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             compareBaseBuffer.append("d");
         } else {
             compareBaseBuffer.append("m&amp;city=");
-            compareBaseBuffer.append(cityOrDistrictName.replaceAll("\\s", "+"));
+            if (cityOrDistrictName != null) {
+                compareBaseBuffer.append(cityOrDistrictName.replaceAll("\\s", "+"));
+            }
         }
 
         compareBaseBuffer.append("&amp;sortby=");
