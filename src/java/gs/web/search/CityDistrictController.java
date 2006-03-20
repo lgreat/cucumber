@@ -26,11 +26,18 @@ import java.util.ArrayList;
 
 /**
  * This is the controller that manages the CityDistrict module.  This module
- * appears above the main search results on search.page.  Three parameters
+ * appears above the main search results on search.page.  Two required parameters
  * are used to construct the model returned to the CityDistrict view:
  * <ul>
  * <li>The search query string</li>
  * <li>The current State</li>
+ * </ul>
+ * There are three optional paramaters that may be used to display more city or
+ * district results:
+ * <ul>
+ * <li>morefiltered</li>
+ * <li>morecities</li>
+ * <li>moredistricts</li>
  * </ul>
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -56,53 +63,45 @@ public class CityDistrictController extends AbstractController {
 
     private Searcher _searcher;
     private StateManager _stateManager;
+    private QueryParser _queryParser;
 
     public CityDistrictController(Searcher searcher) {
         _searcher = searcher;
+        _queryParser = new QueryParser("text", new PorterStandardAnalyzer(CITY_DIST_STOP_WORDS));
+        _queryParser.setOperator(QueryParser.DEFAULT_OPERATOR_AND);
+
     }
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
 
-        String queryString = request.getParameter("q");
-
-        int filteredListSize = LIST_SIZE;
-        int cityListSize = LIST_SIZE;
-        int districtListSize = LIST_SIZE;
-
-        if (!StringUtils.isEmpty(request.getParameter("morefiltered"))) {
-            filteredListSize = EXTENDED_LIST_SIZE;
-        }
-
-        if (!StringUtils.isEmpty(request.getParameter("morecities"))) {
-            cityListSize = EXTENDED_LIST_SIZE;
-        }
-
-        if (!StringUtils.isEmpty(request.getParameter("moredistricts"))) {
-            districtListSize = EXTENDED_LIST_SIZE;
-        }
+        int filteredListSize =
+                StringUtils.isNotEmpty(request.getParameter("morefiltered")) ?
+                        EXTENDED_LIST_SIZE : LIST_SIZE;
+        int cityListSize =
+                StringUtils.isNotEmpty(request.getParameter("morecities")) ?
+                        EXTENDED_LIST_SIZE : LIST_SIZE;
+        int districtListSize =
+                StringUtils.isNotEmpty(request.getParameter("moredistricts")) ?
+                        EXTENDED_LIST_SIZE : LIST_SIZE;
 
         String stateString = request.getParameter("state");
         stateString = (!StringUtils.isEmpty(stateString)) ? stateString.toLowerCase() : "ca";
         State state = _stateManager.getState(stateString);
 
         Map model = new HashMap();
-        model.put("query", queryString);
-        model.put("state", stateString);
+        String queryString = request.getParameter("q");
 
         String st = null;
         String gl = null;
 
-        if (!StringUtils.isEmpty(queryString)) {
-            QueryParser parser =
-                    new QueryParser("text", new PorterStandardAnalyzer(CITY_DIST_STOP_WORDS));
-            parser.setOperator(QueryParser.DEFAULT_OPERATOR_AND);
+        if (StringUtils.isNotEmpty(queryString)) {
 
             BooleanQuery baseQuery = new BooleanQuery();
             baseQuery.add(new TermQuery(new Term("state", stateString)), true, false);
 
             try {
-                Query keywordQuery = parser.parse(queryString);
+                Query keywordQuery = _queryParser.parse(queryString);
                 baseQuery.add(keywordQuery, true, false);
             } catch (ParseException pe) {
                 _log.warn("error parsing: " + queryString, pe);
@@ -162,7 +161,6 @@ public class CityDistrictController extends AbstractController {
             model.put("districtstotal", new Integer(districtHits != null ? districtHits.length() : 0));
 
             List filteredCities = new ArrayList();
-
             if (cityHits != null && cityHits.length() > 0 && (gl != null || st != null)) {
                 int count = 0;
                 for (int ii = 0; ii < cityHits.length(); ii++) {
@@ -194,15 +192,15 @@ public class CityDistrictController extends AbstractController {
             }
 
             List cities = new ArrayList();
-            List districts = new ArrayList();
-
             for (int i = 0; i < cityListSize; i++) {
                 if (cityHits != null && cityHits.length() > i) {
                     Document cityDoc = cityHits.doc(i);
                     cities.add(cityDoc.get("city"));
                 }
             }
+            model.put("cities", cities);
 
+            List districts = new ArrayList();
             for (int j = 0; j < districtListSize; j++) {
                 if (districtHits != null && districtHits.length() > j) {
                     Document districtDoc = districtHits.doc(j);
@@ -212,15 +210,9 @@ public class CityDistrictController extends AbstractController {
                     districts.add(dMap);
                 }
             }
-
-            model.put("cities", cities);
             model.put("districts", districts);
         }
         return new ModelAndView("/search/citydistrict", "model", model);
-    }
-
-    public StateManager getStateManager() {
-        return _stateManager;
     }
 
     public void setStateManager(StateManager stateManager) {
