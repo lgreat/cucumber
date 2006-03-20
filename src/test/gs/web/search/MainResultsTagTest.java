@@ -19,16 +19,5 @@ public class MainResultsTagTest extends TestCase {
         //assertNotNull(tag.getWriter());
         //tag.doTag();
     }
-
-    public void testSettersAndGetters() {
-        MainResultsTagHandler tag = new MainResultsTagHandler();
-        tag.setConstraint("schools");
-        assertEquals("schools", tag.getConstraint());
-
-        //JspContext context = new MockPageContext();
-        //tag.setJspContext(context);
-        //assertNotNull(tag.getWriter());
-
-    }
 }
 

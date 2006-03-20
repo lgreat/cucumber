@@ -153,10 +153,10 @@
                             <c:choose>
                                 <c:when test="${results.total gt 0}">
                                     <c:choose>
-                                        <c:when test="${param.c == 'topic'}">
+                                        <c:when test="${param.type == 'topic'}">
                                             Topic results for
                                         </c:when>
-                                        <c:when test="${param.c == 'school'}">
+                                        <c:when test="${param.type == 'school'}">
                                             School results for
                                         </c:when>
                                         <c:otherwise>
@@ -184,8 +184,8 @@
             <hr/>
             <mod:tracking pageName="mixed:${results.total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"
                           pageType="search"
-                          constraint="${param.c}"
-                          hier1="search,mixed,${param.c}"/>
+                          constraint="${param.type}"
+                          hier1="search,mixed,${param.type}"/>
             <c:if test="${results.total gt 0}">
                 <jsp:include
                         page="/search/citydistrict.module?${pageContext.request.queryString}"/>
@@ -193,7 +193,6 @@
 
             <gsweb:mainResults results="${results.mainResults}"
                                total="${results.total}"
-                               constraint="${param.c}"
                                debug="${param.debug}">
 
                 <table width="100%"><tr><td align="left">

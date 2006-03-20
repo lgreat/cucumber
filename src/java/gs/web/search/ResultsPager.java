@@ -4,9 +4,6 @@ import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.document.Document;
 import org.apache.log4j.Logger;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.ApplicationContext;
-import org.springframework.beans.BeansException;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -24,7 +21,7 @@ import gs.data.school.ISchoolDao;
  * @author Chris Kimm<mailto:chriskimm@greatschools.net>
  * @noinspection CanBeFinal
  */
-public class ResultsPager implements ApplicationContextAware {
+public class ResultsPager {
 
     /** Spring bean id */
     public static final String BEAN_ID = "resultsPager";
@@ -35,11 +32,9 @@ public class ResultsPager implements ApplicationContextAware {
     private Hits _districtHits;
     private Hits _termHits;
     private Hits _cityHits;
-    private String _query;
     private Hits _hits;
     private Searcher _searcher;
     private Query _explanationQuery;
-    private ApplicationContext _applicationContext;
 
     private static StateManager _stateManager = new StateManager();
     private static final Logger _log = Logger.getLogger(ResultsPager.class);
@@ -53,9 +48,9 @@ public class ResultsPager implements ApplicationContextAware {
         _hits = hits;
         if (hits != null && constraint != null) {
             if (constraint.equals("school")) {
-                setSchools(hits);
+                _schoolHits = hits;
             } else if (constraint.equals("article")) {
-                setArticles(hits);
+                _articleHits = hits;
             } else if (constraint.equals("city")) {
                 setCities(hits);
             } else if (constraint.equals("term")) {
@@ -68,19 +63,6 @@ public class ResultsPager implements ApplicationContextAware {
 
     public List getResults(int page, int pageSize) {
         return getPage(_hits, page,  pageSize);
-    }
-
-    private void setArticles(Hits hits) {
-        _articleHits = hits;
-    }
-
-    private int getArticlesTotal() {
-        if (_articleHits == null) return 0;
-        return _articleHits.length();
-    }
-
-    private void setSchools(Hits hits) {
-        _schoolHits = hits;
     }
 
     public List getSchools(int page, int pageSize) {
@@ -107,7 +89,7 @@ public class ResultsPager implements ApplicationContextAware {
                     try {
                         State state = _stateManager.getState(d.get("state"));
                         if (state != null) {
-                            schools.add(getSchoolDao().getSchoolById(state,
+                            schools.add(_schoolDao.getSchoolById(state,
                                     Integer.valueOf(d.get("id"))));
                         }
                     } catch (Exception e) {
@@ -128,6 +110,11 @@ public class ResultsPager implements ApplicationContextAware {
 
     private void setDistricts(Hits hits) {
         _districtHits = hits;
+    }
+
+    private int getArticlesTotal() {
+        if (_articleHits == null) return 0;
+        return _articleHits.length();
     }
 
     private int getDistrictsTotal() {
@@ -202,38 +189,11 @@ public class ResultsPager implements ApplicationContextAware {
     }
 
     /**
-     * This is the query string that created the results loaded by this
-     * pager.
-     * @param q
-     */
-    public void setQuery(String q) {
-        _query = q;
-    }
-
-    /**
-     * @return an <code>ISchoolDao</code> type
-     */
-    public ISchoolDao getSchoolDao() {
-        if (_schoolDao == null) {
-            try {
-                _schoolDao = (ISchoolDao) _applicationContext.getBean(ISchoolDao.BEAN_ID);
-            } catch (Exception e) {
-                _log.warn("problem getting ISchoolDao: ", e);
-            }
-        }
-        return _schoolDao;
-    }
-
-    /**
      * Spring setter
      * @param schoolDao
      */
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
-    }
-
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        _applicationContext = applicationContext;
     }
 }
 

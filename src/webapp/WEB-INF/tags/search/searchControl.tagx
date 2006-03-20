@@ -49,7 +49,7 @@
             </td>
                 <c:if test="${(empty showConstraint) or showConstraint}">
                     <td>
-                        <select name="c">
+                        <select name="type">
                             <option value="all">Schools &amp; Topics </option>
                             <option value="school">Schools only</option>
                             <option value="topic">Topics only</option>

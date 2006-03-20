@@ -116,7 +116,6 @@ public class SearchController extends AbstractFormController {
 
             Hits hts = _searcher.search(sc);
             if (hts != null) {
-                _resultsPager.setQuery(sc.getQueryString());
                 if (debug) {
                     _resultsPager.enableExplanation(_searcher, sc.getQuery());
                 }

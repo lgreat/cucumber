@@ -18,8 +18,6 @@ import gs.web.util.UrlUtil;
  */
 public class MainResultsTagHandler extends ResultsTableTagHandler {
 
-    //private List _results;
-    private String _constraint = null;
     private UrlUtil _urlUtil;
     private Writer _writer;
     private static StateManager _stateManager = new StateManager();
@@ -31,14 +29,6 @@ public class MainResultsTagHandler extends ResultsTableTagHandler {
 
     public void setWriter(Writer writer) {
         _writer = writer;
-    }
-
-    public void setConstraint(String c) {
-        _constraint = c;
-    }
-
-    public String getConstraint() {
-        return _constraint;
     }
 
     public Writer getWriter() {

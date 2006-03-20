@@ -4,6 +4,8 @@ import gs.web.jsp.BaseTagHandler;
 import gs.data.state.State;
 
 import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
@@ -77,8 +79,6 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
         return qs;
     }
 
-    public abstract String getConstraint();
-
     public void setReverse(String reverse) {
         if ("t".equals(reverse)) {
             _reverse = true;
@@ -139,11 +139,19 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                     hrefBuffer.append(s.getAbbreviationLowerCase());
                 }
 
-                String c = getConstraint();
-                if (!StringUtils.isEmpty(c)) {
-                    hrefBuffer.append("&amp;c=");
-                    hrefBuffer.append(c);
+                PageContext pc = (PageContext) getJspContext().findAttribute(PageContext.PAGECONTEXT);
+                if (pc != null) {
+                    HttpServletRequest request = (HttpServletRequest) pc.getRequest();
+                    String c = request.getParameter("type");
+                    if (StringUtils.isBlank(c)) {
+                        c = request.getParameter("c");
+                    }
+                    if (StringUtils.isNotBlank(c)) {
+                        hrefBuffer.append("&amp;type=");
+                        hrefBuffer.append(c);
+                    }
                 }
+
 
                 String[] gls = (String[])getJspContext().findAttribute("gl");
                 if (gls != null) {
@@ -152,7 +160,6 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                         hrefBuffer.append(gls[jj]);
                     }
                 }
-
 
                 String[] sts = (String[])getJspContext().findAttribute("st");
                 if (sts != null) {
