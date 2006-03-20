@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.5 2006/03/02 19:05:44 apeterson Exp $
+ * $Id: GeoController.java,v 1.6 2006/03/20 23:05:47 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -43,7 +43,7 @@ public class GeoController implements Controller {
     protected final Log _log = LogFactory.getLog(getClass());
 
     private static final String PARAM_CITY = "city";
-    private static final String PARAM_ZIP = "zip"; 
+    private static final String PARAM_ZIP = "zip";
     private static final String PARAM_MAP_ID = "id"; // ID of the HTML element to hold the map (Req'd)
     private static final String PARAM_FUNCTION = "fn"; // Name of JS function to generate (Req'd)
 
@@ -122,7 +122,7 @@ public class GeoController implements Controller {
         model.put(MODEL_LAT, lat);
         model.put(MODEL_LON, lon);
 
-        model.put(MODEL_SCALE, new Integer(7)); // should be calculated better
+        model.put(MODEL_SCALE, new Integer(5)); // should be calculated better
 
         model.put(MODEL_MAP_ID, request.getParameter(PARAM_MAP_ID)); // forward directly to view
         model.put(MODEL_FN, request.getParameter(PARAM_FUNCTION)); // forward directly to view
