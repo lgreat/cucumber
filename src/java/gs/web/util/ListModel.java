@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ListModel.java,v 1.1 2006/03/15 02:24:21 apeterson Exp $
+ * $Id: ListModel.java,v 1.2 2006/03/21 01:43:06 apeterson Exp $
  */
 
 package gs.web.util;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Provides the model of what the unorderedList.jspx page expects.
+ * Provides the model of what the gsml:list.tagx expects.
  *
  * The model can either be an instance of this class itself, or it
  * can be a map using the static values identifying the properties.

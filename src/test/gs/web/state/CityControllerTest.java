@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.6 2006/03/21 01:27:06 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.7 2006/03/21 01:42:53 apeterson Exp $
  */
 
 package gs.web.state;
@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Collection;
 
 /**
  * Provides...
@@ -89,6 +90,82 @@ public class CityControllerTest extends BaseControllerTestCase {
         Map model = mav.getModel();
 
         assertEquals("Alameda", model.get(CityController.MODEL_CITY_NAME));
-
     }
+
+
+    public void testOakland() throws Exception {
+
+        MockHttpServletRequest request = getRequest();
+        request.addParameter("city", "Oakland");
+        request.addParameter("state", "CA");
+        ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
+
+        Object city = modelAndView.getModel().get("city");
+        assertNotNull(city);
+
+        Object schools = modelAndView.getModel().get("schools");
+        assertNull(schools);
+
+        assertNotNull(modelAndView.getModel().get("lat"));
+        assertNotNull(modelAndView.getModel().get("lon"));
+
+        assertNotNull(modelAndView.getModel().get("scale"));
+        assertEquals(new Integer(5), modelAndView.getModel().get("scale"));
+    }
+
+    public void testAlameda() throws Exception {
+
+        MockHttpServletRequest request = getRequest();
+        request.addParameter("city", "Alameda");
+        request.addParameter("state", "CA");
+        ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
+
+        Object city = modelAndView.getModel().get("city");
+        assertNotNull(city);
+
+        Object schools = modelAndView.getModel().get("schools");
+        assertNotNull(schools);
+        assertTrue(schools instanceof Collection);
+        assertTrue(((Collection) schools).size() >= 10);
+
+        assertNotNull(modelAndView.getModel().get("lat"));
+        assertNotNull(modelAndView.getModel().get("lon"));
+    }
+
+
+    public void testSF() throws Exception {
+
+
+        MockHttpServletRequest request = getRequest();
+        request.addParameter("city", "San Francisco");
+        request.addParameter("state", "CA");
+        ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
+
+        Object city = modelAndView.getModel().get("city");
+        assertNotNull(city);
+
+        assertNotNull(modelAndView.getModel().get("lat"));
+        assertNotNull(modelAndView.getModel().get("lon"));
+    }
+
+    public void testBuffaloNY() throws Exception {
+
+        MockHttpServletRequest request = getRequest();
+        request.addParameter("city", "Buffalo");
+        request.addParameter("state", "NY");
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+        ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
+
+        Object city = modelAndView.getModel().get("city");
+        assertNull(city);
+
+        Object schools = modelAndView.getModel().get("schools");
+        assertNotNull(schools);
+        assertTrue(schools instanceof Collection);
+        assertTrue(((Collection) schools).size() >= 3);
+
+        assertNotNull(modelAndView.getModel().get("lat"));
+        assertNotNull(modelAndView.getModel().get("lon"));
+    }
+
 }
