@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.4 2006/03/17 23:31:43 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.5 2006/03/21 01:18:49 apeterson Exp $
  */
 
 package gs.web.state;
@@ -73,5 +73,20 @@ public class CityControllerTest extends BaseControllerTestCase {
         List list = listModel.getResults();
         assertEquals(1, list.size());
         assertEquals("/cgi-bin/wy/district_profile/3/", ((Anchor) list.get(0)).getHref());
+    }
+
+    public void testCapitalization() {
+        // Alison complained that "city=oakland" fails to capitalize as "Oakland".
+        MockHttpServletRequest request = getRequest();
+        request.setParameter("state", "CA");
+        request.setParameter("city", "alameda");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+
+        ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
+
+        Map model = mav.getModel();
+
+        assertEquals("Alameda", model.get(CityController.MODEL_CITY_NAME));
+
     }
 }

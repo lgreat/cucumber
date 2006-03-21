@@ -124,7 +124,7 @@ font-size: x-large;
                 <div id="map">&#160;</div>
             </div>
             <map:setup/>
-            <jsp:include page="/geo/cityMap.module?city=${city}&amp;state=${stateAbbrev}&amp;id=map&amp;fn=createMap"/>
+            <map:schools functionName="createMap" id="map" lon="${lon}" lat="${lat}" scale="${scale}" schools="${schools}" />
             <pageHelper:addOnLoadHandler handler="createMap()"/>
         </td>
                 </tr></table>
