@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.4 2006/03/21 01:18:49 apeterson Exp $
+ * $Id: CityController.java,v 1.5 2006/03/21 01:27:18 apeterson Exp $
  */
 
 package gs.web.state;
@@ -44,7 +44,7 @@ public class CityController extends AbstractController {
     public static final String MODEL_STATEWIDE = "statewide"; // BpCensus object for the state
     public static final String MODEL_US = "us"; // BpCensus object for the U.S.
     public static final String MODEL_CITY = "city"; // City BpCensus object
-    public static final String MODEL_CITY_NAME = "cityName"; // City BpCensus object
+    public static final String MODEL_CITY_NAME = "cityName"; // name of the city, correctly capitalized
     public static final String MODEL_MAP_LAT = "lat"; // Center lat
     public static final String MODEL_MAP_LON = "lon"; // Center lon
     public static final String MODEL_MAP_SCALE = "scale"; // The scale of the map
@@ -83,6 +83,9 @@ public class CityController extends AbstractController {
         Float lon = null;
 
         if (StringUtils.isNotEmpty(cityNameParam) && state != null) {
+
+            String c = StringUtils.capitalize(cityNameParam);
+            model.put(MODEL_CITY_NAME, c);
 
             BpCity city = _geoDao.findCity(state, cityNameParam);
 

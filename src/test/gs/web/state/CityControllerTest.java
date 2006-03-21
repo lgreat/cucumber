@@ -1,12 +1,13 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.5 2006/03/21 01:18:49 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.6 2006/03/21 01:27:06 apeterson Exp $
  */
 
 package gs.web.state;
 
 import gs.data.school.ISchoolDao;
 import gs.data.school.district.IDistrictDao;
+import gs.data.geo.IGeoDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.MockHttpServletRequest;
 import gs.web.SessionContextUtil;
@@ -33,6 +34,7 @@ public class CityControllerTest extends BaseControllerTestCase {
         _controller.setApplicationContext(getApplicationContext());
         _controller.setSchoolDao((ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID));
         _controller.setDistrictDao((IDistrictDao) getApplicationContext().getBean(IDistrictDao.BEAN_ID));
+        _controller.setGeoDao((IGeoDao) getApplicationContext().getBean(IGeoDao.BEAN_ID));
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().
                 getBean(SessionContextUtil.BEAN_ID);
     }
@@ -75,7 +77,7 @@ public class CityControllerTest extends BaseControllerTestCase {
         assertEquals("/cgi-bin/wy/district_profile/3/", ((Anchor) list.get(0)).getHref());
     }
 
-    public void testCapitalization() {
+    public void testCapitalization() throws Exception {
         // Alison complained that "city=oakland" fails to capitalize as "Oakland".
         MockHttpServletRequest request = getRequest();
         request.setParameter("state", "CA");
