@@ -8,6 +8,7 @@ import org.springframework.web.servlet.mvc.AbstractFormController;
 import org.springframework.validation.BindException;
 import org.apache.lucene.search.*;
 import org.apache.log4j.Logger;
+import org.apache.commons.lang.StringUtils;
 import gs.data.search.*;
 import gs.data.search.Searcher;
 import gs.data.search.SearchCommand;
@@ -134,7 +135,14 @@ public class SearchController extends AbstractFormController {
             }
         }
 
-        return new ModelAndView("search/search", "results", model);
+        String viewName;
+        /* ${(not empty param.city) or (not empty param.district)} */
+        if (StringUtils.isNotEmpty(request.getParameter("city")) || StringUtils.isNotEmpty(request.getParameter("district"))) {
+            viewName = "search/schoolsOnly";
+        } else {
+            viewName = "search/mixed";
+        }
+        return new ModelAndView(viewName, "results", model);
     }
 
     /**

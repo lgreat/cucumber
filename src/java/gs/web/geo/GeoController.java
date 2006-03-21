@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.6 2006/03/20 23:05:47 apeterson Exp $
+ * $Id: GeoController.java,v 1.7 2006/03/21 20:18:47 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.awt.*;
 
 /**
  * Fetches all sorts of information about a city (or zip code) and puts

@@ -2,22 +2,21 @@ package gs.web.search;
 
 import gs.data.school.district.District;
 import gs.data.util.Address;
-import gs.web.util.UrlUtil;
 import gs.web.jsp.Util;
+import gs.web.util.UrlUtil;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
-
 /**
  * This tag handler generates a table of schools.
- * This tag is used on search.jspx
+ * This tag is used on search/mixed.jspx and search/schoolsOnly.jspx.
  * todo: This class is an <strong>ugly mess</strong> and badly needs to be
  * refactored.
  *
@@ -163,7 +162,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             out.println("<span class=\"minilink\">View district information</span></a>");
             out.println("</td></tr>");
         }
-        
+
         StringBuffer filterBuffer = new StringBuffer();
 
         String[] gls = (String[]) getJspContext().findAttribute("gl");

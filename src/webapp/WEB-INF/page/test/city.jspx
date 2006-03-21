@@ -112,14 +112,6 @@ font-size: x-large;
             </c:if>
             <!--mod:stateSelectMedium state="${requestScope.context.stateOrDefault}" / -->
         </td>
-        <td class="" valign="top" colspan="2">
-            <div id="mapContainer">
-                <div id="map" >&#160;</div>
-            </div>
-            <map:setup />
-             <jsp:include page="/geo/cityMap.module?city=${city}&amp;state=${stateAbbrev}&amp;id=map&amp;fn=createMap"/>
-            <pageHelper:addOnLoadHandler handler="createMap()" />
-        </td>
     </tr>
         <tr>
         <td class="" valign="top">

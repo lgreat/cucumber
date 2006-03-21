@@ -106,14 +106,6 @@
         </property>
     </bean>
 
-    <bean name="/geo/cityMap.module"
-          class="gs.web.geo.GeoController"
-          autowire="byName">
-        <property name="viewName">
-            <value>/geo/schoolsMap</value>
-        </property>
-    </bean>
-
     <bean name="/geo/cityStats.module"
           class="gs.web.geo.GeoController"
           autowire="byName">
