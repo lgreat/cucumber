@@ -1,20 +1,24 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.1 2006/03/22 00:55:22 apeterson Exp $
+ * $Id: SchoolsController.java,v 1.2 2006/03/22 01:40:54 apeterson Exp $
  */
 
 package gs.web.school;
 
-import org.springframework.web.servlet.mvc.AbstractFormController;
+import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.search.Hits;
-import gs.data.search.SpellCheckSearcher;
 import gs.data.search.Searcher;
 import gs.data.search.SearchCommand;
+import gs.data.school.district.IDistrictDao;
+import gs.data.school.district.District;
+import gs.data.state.State;
 import gs.web.search.ResultsPager;
+import gs.web.SessionContext;
+import gs.web.ISessionFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +31,7 @@ import java.util.HashMap;
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
-public class SchoolsController extends AbstractFormController {
+public class SchoolsController extends AbstractController {
 
     public static final String BEAN_ID = "/search/search.page";
 
@@ -35,6 +39,7 @@ public class SchoolsController extends AbstractFormController {
 
     private Searcher _searcher;
     private ResultsPager _resultsPager;
+    private IDistrictDao _districtDao;
 
     // INPUTS
     // see SearchCommand, which Spring wires up
@@ -64,6 +69,7 @@ public class SchoolsController extends AbstractFormController {
     public static final String MODEL_MAIN_RESULTS = "mainResults";
     public static final String MODEL_TOTAL = "total";
 
+
     /**
      * Though this method throws <code>Exception</code>, it should swallow most
      * (all?) searching errors while just logging appropriately and returning
@@ -74,21 +80,12 @@ public class SchoolsController extends AbstractFormController {
      *         search results and attendant parameters as the model.
      * @throws Exception
      */
-    public ModelAndView processFormSubmission(
-            HttpServletRequest request, HttpServletResponse response, Object command, BindException errors)
-            throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-
-        final SearchCommand searchCommand = (SearchCommand) command;
+        ISessionFacade context = SessionContext.getInstance(request);
+        State state = context.getState();
 
         request.setAttribute(REQ_ATTR_QUERY, request.getParameter(PARAM_QUERY));
-
-        if (searchCommand.getCity() != null) {
-            request.setAttribute(REQ_ATTR_CITY, searchCommand.getCity());
-        } else if (searchCommand.getDistrict() != null) {
-            request.setAttribute(REQ_ATTR_DISTRICT, searchCommand.getDistrict());
-            request.setAttribute(REQ_ATTR_DISTNAME, request.getParameter(PARAM_DISTRICT_NAME));
-        }
 
         String[] levels = request.getParameterValues(PARAM_LEVEL_CODE);
         if (levels != null) {
@@ -113,11 +110,39 @@ public class SchoolsController extends AbstractFormController {
 
         int pageSize = 10;
         String paramShowAll = request.getParameter(PARAM_SHOW_ALL);
-        int schoolsPageSize = StringUtils.equals(paramShowAll, "true") ? -1 : 10;
+        int schoolsPageSize = StringUtils.equals(paramShowAll, "true") ||
+                StringUtils.equals(paramShowAll, "1") ? -1 : 10;
+
+
+        SearchCommand searchCommand = new SearchCommand();
+        searchCommand.setC("school");
+        searchCommand.setGl(request.getParameterValues(PARAM_LEVEL_CODE));
+        searchCommand.setSt(request.getParameterValues(PARAM_SCHOOL_TYPE));
+
+        String city = StringUtils.capitalize(request.getParameter(PARAM_CITY));
+        if (city != null) {
+            request.setAttribute(REQ_ATTR_CITY, city);
+            searchCommand.setCity(city);
+            searchCommand.setQ(city);
+
+        } else {
+            String districtParam = request.getParameter(PARAM_DISTRICT);
+            if (districtParam != null) {
+
+                // Look up the district name
+                String districtIdStr = request.getParameter(PARAM_DISTRICT);
+                request.setAttribute(REQ_ATTR_DISTRICT, districtIdStr);
+                int districtId = Integer.parseInt(districtIdStr);
+                District district = _districtDao.findDistrictById(state, new Integer(districtId));
+                request.setAttribute(REQ_ATTR_DISTNAME, district.getName());
+                searchCommand.setDistrict(districtIdStr);
+                searchCommand.setQ(district.getName());
+            }
+        }
+
 
         // Build the results and the model
         Map model = new HashMap();
-
         Hits hts = _searcher.search(searchCommand);
         if (hts != null) {
 
@@ -126,27 +151,12 @@ public class SchoolsController extends AbstractFormController {
             model.put(MODEL_SCHOOLS_TOTAL, new Integer(_resultsPager.getSchoolsTotal()));
             model.put(MODEL_SCHOOLS, _resultsPager.getSchools(page, schoolsPageSize));
             model.put(MODEL_PAGE_SIZE, new Integer(pageSize));
-            model.put(MODEL_MAIN_RESULTS, _resultsPager.getResults(page, pageSize));
             model.put(MODEL_TOTAL, new Integer(hts.length()));
         } else {
             _log.warn("Hits object is null for SearchCommand: " + searchCommand);
         }
 
         return new ModelAndView("search/schoolsOnly", "results", model);
-    }
-
-    public boolean isFormSubmission(HttpServletRequest request) {
-        return true;
-    }
-
-    protected Object formBackingObject(HttpServletRequest request) throws Exception {
-        return new SearchCommand();
-    }
-
-    public ModelAndView showForm(HttpServletRequest request,
-                                 HttpServletResponse response, BindException errors)
-            throws Exception {
-        throw new OperationNotSupportedException();
     }
 
 
@@ -164,4 +174,11 @@ public class SchoolsController extends AbstractFormController {
         _resultsPager = resultsPager;
     }
 
+    public IDistrictDao getDistrictDao() {
+        return _districtDao;
+    }
+
+    public void setDistrictDao(IDistrictDao districtDao) {
+        _districtDao = districtDao;
+    }
 }
