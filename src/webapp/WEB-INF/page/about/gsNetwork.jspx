@@ -25,7 +25,7 @@
 
 <gsml:body adPageName="gsNetwork" pageLayout="singleTextOnlyColumn">
 
-<mod:tracking pageType="aboutUs" pageName="gsNetwork"/>
+<mod:tracking pageType="aboutUs" pageName="gsNetwork" hier1="Home,Corporate,AboutUs,GreatSchoolsNetwork"/>
 
 <h3>The GreatSchools Network</h3>
 
@@ -48,7 +48,7 @@
 
 <![CDATA[ <a name="core"></a> ]]>
 <h3>Core Beliefs</h3>
-<ul>
+<ul class="indentedList">
     <li> When parents make <b><i>informed choices</i></b>, students and schools benefit.</li>
 
     <li> Students are more successful when <b><i>parents are actively involved</i></b> in their education.</li>
@@ -65,7 +65,7 @@
     The <b><i>School Choice Toolkit </i></b>helps parents take advantage of the school options in their areas. The
     Toolkit includes:</p>
 
-<ul>
+<ul class="indentedList">
     <li> Individual, printed <b><i>GreatSchools Profiles </i></b></li>
     <li><b><i>Compare Schools</i></b>, a school-by-school comparison tool for all local schools</li>
     <li><b><i>GreatSchools Chooser</i></b>, a step-by-step worksheet</li>
@@ -86,7 +86,7 @@
 
 <p>To help parents understand what their children should be learning, we distribute:</p>
 
-<ul>
+<ul class="indentedList">
     <li><b><i>Understanding the Standards</i></b>, a parent-friendly guide to state standards</li>
     <li> Print versions of the newsletters, monthly advice from experts about what
         children should be learning, ideas for learning activities at home and school problem-solving tips</li>
@@ -96,7 +96,7 @@
     To help parents understand how well their children are learning in school, we distribute:</p>
 
 
-<ul>
+<ul class="indentedList">
     <li> The <b><i>Report Card Reader</i></b>, which helps parents understand their children's report cards</li>
     <li> The <b><i>Test Score Tracker</i></b>, a parent-friendly explanation of state tests and scores</li>
 </ul>
@@ -104,7 +104,7 @@
 <p>
     To help parents get involved, we offer:</p>
 
-<ul>
+<ul class="indentedList">
     <li> Workshops to develop parents' confidence and skills for participating in school and communicating with
         principals and teachers</li>
 
@@ -119,7 +119,7 @@
 <p>
     Tools available in 2006 include:</p>
 
-<ul>
+<ul class="indentedList">
     <li><b><i>Best Practices Reports</i></b>, to help parent leaders learn from what others have already accomplished
     </li>
 
