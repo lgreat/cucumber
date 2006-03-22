@@ -10,7 +10,7 @@
           class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
         <property name="interceptors">
             <list>
-                <ref bean="requiresStateInterceptor" />
+                <ref bean="requiresStateInterceptor"/>
                 <bean class="gs.web.ResponseInterceptor"
                       autowire="byName"/>
                 <bean class="gs.web.SessionContextInterceptor"
@@ -270,14 +270,6 @@
     </bean>
 
 
-    <bean name="/bill/jackson.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
-        <property name="viewName">
-            <value>about/aboutUs</value>
-        </property>
-    </bean>
-
     <bean name="/sorry.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
@@ -289,6 +281,10 @@
           autowire="byName">
 
     </bean>
+
+    <bean name="/schools.page"
+          class="gs.web.school.SchoolsController"
+          autowire="byName"/>
 
     <bean name="/school/sampleSchoolRedirect.page" class="gs.web.school.RedirectToSampleSchoolController"
           autowire="byName">
