@@ -1,15 +1,21 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.1 2006/03/22 01:40:54 apeterson Exp $
+ * $Id: SchoolsControllerTest.java,v 1.2 2006/03/22 02:12:24 apeterson Exp $
  */
 
 package gs.web.school;
 
 import gs.web.BaseControllerTestCase;
 import gs.web.SessionContextUtil;
+import gs.web.MockHttpServletRequest;
 import gs.web.search.ResultsPager;
 import gs.data.school.district.IDistrictDao;
+import gs.data.school.School;
 import gs.data.search.Searcher;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Map;
+import java.util.List;
 
 /**
  * Tests SchoolsControllerTest.
@@ -33,8 +39,32 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().getBean(SessionContextUtil.BEAN_ID);
     }
 
-    public void testByCity() {
+    public void testByCity() throws Exception {
 
+        MockHttpServletRequest request = getRequest();
+        request.setParameter("state", "CA");
+        request.setParameter("city", "Alameda");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+
+        ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
+
+        Map model = mav.getModel();
+        Map modelResults = (Map) model.get("results");
+
+        assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
+        assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
+        assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_TOTAL));
+        List list = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
+        for (int i = 0; i < list.size(); i++) {
+            School s = (School) list.get(i);
+            assertEquals("Wrong city for " + s, "Alameda", s.getPhysicalAddress().getCity());
+        }
+
+        // Check for other important stuff
+        assertEquals("1", request.getAttribute(SchoolsController.REQ_ATTR_PAGE));
+        assertEquals("Alameda", request.getAttribute(SchoolsController.REQ_ATTR_CITY));
+        assertEquals(null, request.getAttribute(SchoolsController.REQ_ATTR_LEVEL_CODE));
+        assertEquals(null, request.getAttribute(SchoolsController.REQ_ATTR_SCHOOL_TYPE));
     }
 
     public void testByDistrict() {
