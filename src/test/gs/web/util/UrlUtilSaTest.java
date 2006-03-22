@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.23 2006/03/07 01:09:29 thuss Exp $
+ * $Id: UrlUtilSaTest.java,v 1.24 2006/03/22 02:33:15 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.data.state.State;
+import gs.data.content.Article;
 import gs.web.SessionContext;
 import gs.web.SessionFacade;
 import gs.web.SessionContextUtil;
@@ -231,4 +232,22 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("/modperl/go/$STATE", _urlUtil.vpageToUrl("vpage:path1"));
         assertEquals("/path/mySchool.page?state=$STATE", _urlUtil.vpageToUrl("vpage:path2"));
     }
+
+    public void testGetArticleLink() {
+        Article article = new Article();
+        article.setId(new Integer(5));
+        article.setActive(true);
+        article.setInsider(false);
+        assertEquals("/cgi-bin/showarticlefeature/ca/5", _urlUtil.getArticleLink(State.CA, article, true));
+        assertEquals("/cgi-bin/showarticle/ca/5", _urlUtil.getArticleLink(State.CA, article, false));
+        assertEquals("/cgi-bin/showarticlefeature/wy/5", _urlUtil.getArticleLink(State.WY, article, true));
+        assertEquals("/cgi-bin/showarticle/wy/5", _urlUtil.getArticleLink(State.WY, article, false));
+
+        article.setInsider(true);
+        assertEquals("/cgi-bin/showpartarticle/ca/5", _urlUtil.getArticleLink(State.CA, article, true));
+        assertEquals("/cgi-bin/showpartarticle/ca/5", _urlUtil.getArticleLink(State.CA, article, false));
+        assertEquals("/cgi-bin/showarticlefeature/wy/5", _urlUtil.getArticleLink(State.WY, article, true));
+        assertEquals("/cgi-bin/showarticle/wy/5", _urlUtil.getArticleLink(State.WY, article, false));
+    }
+
 }
