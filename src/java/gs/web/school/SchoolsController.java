@@ -1,13 +1,12 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.2 2006/03/22 01:40:54 apeterson Exp $
+ * $Id: SchoolsController.java,v 1.3 2006/03/22 02:22:53 apeterson Exp $
  */
 
 package gs.web.school;
 
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.validation.BindException;
 import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
 import org.apache.lucene.search.Hits;
@@ -22,7 +21,6 @@ import gs.web.ISessionFacade;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.naming.OperationNotSupportedException;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -66,7 +64,6 @@ public class SchoolsController extends AbstractController {
     public static final String MODEL_SCHOOLS_TOTAL = "schoolsTotal";
     public static final String MODEL_SCHOOLS = "schools";
     public static final String MODEL_PAGE_SIZE = "pageSize";
-    public static final String MODEL_MAIN_RESULTS = "mainResults";
     public static final String MODEL_TOTAL = "total";
 
 
@@ -80,19 +77,23 @@ public class SchoolsController extends AbstractController {
      *         search results and attendant parameters as the model.
      * @throws Exception
      */
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request,
+                                                 HttpServletResponse response)
+            throws Exception {
 
         ISessionFacade context = SessionContext.getInstance(request);
         State state = context.getState();
 
         request.setAttribute(REQ_ATTR_QUERY, request.getParameter(PARAM_QUERY));
 
-        String[] levels = request.getParameterValues(PARAM_LEVEL_CODE);
+        final String[] paramLevelCode = request.getParameterValues(PARAM_LEVEL_CODE);
+        String[] levels = paramLevelCode;
         if (levels != null) {
             request.setAttribute(REQ_ATTR_LEVEL_CODE, levels);
         }
 
-        String[] sTypes = request.getParameterValues(PARAM_SCHOOL_TYPE);
+        final String[] paramSchoolType = request.getParameterValues(PARAM_SCHOOL_TYPE);
+        String[] sTypes = paramSchoolType;
         if (sTypes != null) {
             request.setAttribute(REQ_ATTR_SCHOOL_TYPE, sTypes);
         }
@@ -101,12 +102,12 @@ public class SchoolsController extends AbstractController {
         String p = request.getParameter(PARAM_PAGE);
         if (p != null) {
             try {
-                request.setAttribute(REQ_ATTR_PAGE, p);
                 page = Integer.parseInt(p);
             } catch (Exception e) {
                 // ignore this and just assume the page is 1.
             }
         }
+        request.setAttribute(REQ_ATTR_PAGE, Integer.toString(page));
 
         int pageSize = 10;
         String paramShowAll = request.getParameter(PARAM_SHOW_ALL);
@@ -116,8 +117,9 @@ public class SchoolsController extends AbstractController {
 
         SearchCommand searchCommand = new SearchCommand();
         searchCommand.setC("school");
-        searchCommand.setGl(request.getParameterValues(PARAM_LEVEL_CODE));
-        searchCommand.setSt(request.getParameterValues(PARAM_SCHOOL_TYPE));
+        searchCommand.setState(state);
+        searchCommand.setGl(paramLevelCode);
+        searchCommand.setSt(paramSchoolType);
 
         String city = StringUtils.capitalize(request.getParameter(PARAM_CITY));
         if (city != null) {
@@ -146,7 +148,7 @@ public class SchoolsController extends AbstractController {
         Hits hts = _searcher.search(searchCommand);
         if (hts != null) {
 
-            _resultsPager.load(hts, searchCommand.getType());
+            _resultsPager.load(hts, "school");
 
             model.put(MODEL_SCHOOLS_TOTAL, new Integer(_resultsPager.getSchoolsTotal()));
             model.put(MODEL_SCHOOLS, _resultsPager.getSchools(page, schoolsPageSize));
