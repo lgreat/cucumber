@@ -18,7 +18,7 @@
                     <td class="BG" style="background-color: #FAD3ae !important"><h1>
                             Research &amp;amp; Compare
                         </h1>
-                        <c:if test="${requestScope.context.stateOrDefault.topRatedSchoolsState and (requestScope.context.paidSubscriber or !requestScope.context.stateOrDefault.subscriptionState)}">
+                        <c:if test="${requestScope.context.stateOrDefault.ratingsState and (requestScope.context.paidSubscriber or !requestScope.context.stateOrDefault.subscriptionState)}">
                                 <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE">Top-rated schools</gsml:a>
                         </c:if>
                         <gsml:a href="/content/schoolChoiceCenter.page?state=$STATE">School Choosers Guide</gsml:a>
