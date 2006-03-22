@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.28 2006/03/07 01:09:29 thuss Exp $
+ * $Id: UrlUtil.java,v 1.29 2006/03/22 22:04:43 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -163,7 +163,8 @@ public final class UrlUtil {
      * It does substitution of $VARIABLES, per Perl world. The current variables
      * supported are:
      * <ul>
-     * <li>$STATE
+     * <li>$STATE - replaced with uppercase state abbreviation</li>
+      <li>$_STATE - replaced with lowercase state abbreviation</li>
      * </ul>
      * This variable is taken from the request attribute named of the same name,
      * and if not found there, it uses the ISessionFacade available from the
@@ -200,10 +201,12 @@ public final class UrlUtil {
                 State s = (State) request.getAttribute("STATE");
                 String sa = s.getAbbreviation();
                 href = href.replaceAll("\\$STATE", sa);
+                href = href.replaceAll("\\$_STATE", sa.toLowerCase());
             } else {
                 gs.data.state.State s = context.getStateOrDefault();
                 String sa = s.getAbbreviation();
                 href = href.replaceAll("\\$STATE", sa);
+                href = href.replaceAll("\\$_STATE", sa.toLowerCase());
             }
         }
 

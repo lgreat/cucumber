@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.24 2006/03/22 02:33:15 apeterson Exp $
+ * $Id: UrlUtilSaTest.java,v 1.25 2006/03/22 22:04:43 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -41,6 +41,10 @@ public class UrlUtilSaTest extends TestCase {
         request.setServerName("localhost");
         request.setServerPort(8080);
         request.setRequestURI("/search/search.page");
+
+        //test that $_STATE is replaced with lowercased state abbrevs.
+        assertEquals("http://dev.greatschools.net/cgi-bin/path/CA/1234", _urlUtil.buildUrl("/cgi-bin/path/$STATE/1234", request));
+        assertEquals("http://dev.greatschools.net/cgi-bin/path/ca/1234", _urlUtil.buildUrl("/cgi-bin/path/$_STATE/1234", request));
 
         assertEquals("http://maps.google.com/maps?file=api", _urlUtil.buildUrl("http://maps.google.com/maps?file=api", request));
         assertEquals("/search/search.page", _urlUtil.buildUrl("/search/search.page", request));
