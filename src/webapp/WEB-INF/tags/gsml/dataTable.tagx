@@ -1,0 +1,28 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:directive.attribute name="data" required="true" type="java.util.Map"
+                             description="A map containing data that will populate the table"/>
+    <jsp:directive.attribute name="title" required="false"
+                             description="A title for the table"/>
+    <jsp:directive.attribute name="footnote" required="false"
+                             description="A footnote displayed at the bottom of the data grid"/>
+
+    <c:set var="rowcount" value="1"/>
+
+    <div class="datatable">
+        <span class="title"><c:out value="${title}"/></span>
+
+        <table class="datagrid" cellspacing="0" cellpadding="0" border="0" width="100%">
+            <c:forEach var="item" items="${data}">
+                <c:set var="oddeven" value="${(rowcount % 2 == 0) ? 'even' : 'odd'}"/>
+                <tr>
+                    <td class="lcol ${oddeven}"><c:out value="${item.key}"/></td>
+                    <td class="rcol ${oddeven}"><c:out value="${item.value}"/></td>
+                </tr>
+                <c:set var="rowcount" value="${rowcount + 1}" />
+            </c:forEach>
+        </table>
+        <span class="footnote"><c:out value="${footnote}" /></span>
+    </div>
+</jsp:root>
