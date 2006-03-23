@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.1 2006/03/23 00:57:12 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.2 2006/03/23 01:32:12 apeterson Exp $
  */
 
 package gs.web.util;
@@ -9,6 +9,8 @@ import junit.framework.TestCase;
 import gs.data.content.Article;
 import gs.data.state.State;
 import gs.web.MockHttpServletRequest;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Provides...
@@ -16,6 +18,8 @@ import gs.web.MockHttpServletRequest;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class UrlBuilderSaTest extends TestCase {
+    private static final Log _log = LogFactory.getLog(UrlBuilderSaTest.class);
+
     public void testArticleLinkBuilder() {
         Article article = new Article();
         article.setId(new Integer(5));
@@ -64,8 +68,8 @@ public class UrlBuilderSaTest extends TestCase {
         request.setParameter("b", "2");
         UrlBuilder builder = new UrlBuilder(request);
         builder.addParametersFromRequest(request);
-        assertEquals("/index.page?a=1&amp;b=2", builder.asSiteRelativeUrl());
-        assertEquals("http://www.myserver.com/index.page?a=1&amp;b=2", builder.asFullUrl());
+        assertEquals("/index.page?a=1&b=2", builder.asSiteRelativeUrl());
+        assertEquals("http://www.myserver.com/index.page?a=1&b=2", builder.asFullUrl());
     }
 
     public void testUrlBuilder8080() {

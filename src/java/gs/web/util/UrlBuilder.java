@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.1 2006/03/23 00:56:56 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.2 2006/03/23 01:32:32 apeterson Exp $
  */
 
 package gs.web.util;
@@ -8,18 +8,23 @@ package gs.web.util;
 import gs.data.content.Article;
 import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.*;
 
 /**
  * Provides a builder utility for our URLs.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
- * @see UrlUtil#createBuilder(javax.servlet.http.HttpServletRequest)
  * @see UrlUtil
  */
 public class UrlBuilder {
+
+    private static final Log _log = LogFactory.getLog(UrlBuilder.class);
 
     private String _serverName;
     private int _serverPort = 80;
@@ -95,7 +100,12 @@ public class UrlBuilder {
         if (_parameters == null) {
             _parameters = new HashMap();
         }
-        _parameters.put(key, new String[] {value});
+        try {
+            _parameters.put(key, new String[]{URLEncoder.encode(value, "UTF-8")});
+        } catch (UnsupportedEncodingException e) {
+            _parameters.put(key, new String[]{value});
+            _log.warn("Unable to encode parameter");
+        }
     }
 
     public void removeParameter(String key) {
@@ -118,7 +128,7 @@ public class UrlBuilder {
             sb.append("?");
             List keys = new ArrayList(_parameters.keySet());
             Collections.sort(keys);
-            for (Iterator iter = keys.iterator(); iter.hasNext(); ) {
+            for (Iterator iter = keys.iterator(); iter.hasNext();) {
                 String key = (String) iter.next();
                 String[] values = (String[]) _parameters.get(key);
                 for (int i = 0; i < values.length; i++) {
