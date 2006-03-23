@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.4 2006/03/23 19:02:35 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.5 2006/03/23 19:09:16 apeterson Exp $
  */
 
 package gs.web.util;
@@ -102,10 +102,19 @@ public class UrlBuilder {
                 article.getId();
     }
 
+    /**
+     * Set the path to the page.
+     *
+     * @param path context-relative path
+     */
     public void setPath(String path) {
         _path = path;
     }
 
+    /**
+     * Takes all the parameters in the given requests and adds them to the URL.
+     * If some parameters already exist, they will be replaced completely.
+     */
     public void addParametersFromRequest(HttpServletRequest request) {
         if (_parameters == null) {
             _parameters = new HashMap(request.getParameterMap());
@@ -114,6 +123,12 @@ public class UrlBuilder {
         }
     }
 
+    /**
+     * Replaces the given parameter.
+     *
+     * @param value previously encoded value. Spaces should be represented by "+" signs,
+     *              and "=" and "&" should be encoded, along with other extended characters.
+     */
     public void setParameterNoEncoding(String key, String value) {
         if (_parameters == null) {
             _parameters = new HashMap();
@@ -121,6 +136,11 @@ public class UrlBuilder {
         _parameters.put(key, new String[]{value});
     }
 
+    /**
+     * Replaces the given parameter.
+     *
+     * @param value unencoded values. Spaces, ampersands, equal signs, etc. will be replaced.
+     */
     public void setParameter(String key, String value) {
         try {
             value = URLEncoder.encode(value, "UTF-8");
@@ -130,6 +150,9 @@ public class UrlBuilder {
         setParameterNoEncoding(key, value);
     }
 
+    /**
+     * Take away the parameter.
+     */
     public void removeParameter(String key) {
         if (_parameters != null) {
             _parameters.remove(key);
@@ -140,6 +163,9 @@ public class UrlBuilder {
         return asSiteRelativeUrl();
     }
 
+    /**
+     * Provides a site-relative path to the page, including the context path if needed.
+     */
     public String asSiteRelativeUrl() {
         StringBuffer sb = new StringBuffer();
         if (!_perlPage && StringUtils.isNotEmpty(_contextPath)) {
@@ -167,9 +193,14 @@ public class UrlBuilder {
     }
 
     public Anchor asAnchor(String label) {
-        return null;
+        return new Anchor(asSiteRelativeUrl(), label);
     }
 
+    /**
+     * Provides a full URL to the page. Generally not needed, but occassionally necessary.
+     *
+     * @see #asSiteRelativeUrl()
+     */
     public String asFullUrl() {
         String url = "http://" +
                 _serverName +
