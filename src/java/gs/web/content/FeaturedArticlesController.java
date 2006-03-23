@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.17 2006/03/15 02:24:20 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.18 2006/03/23 02:16:08 apeterson Exp $
  */
 package gs.web.content;
 
@@ -11,6 +11,7 @@ import gs.web.SessionFacade;
 import gs.web.util.Anchor;
 import gs.web.util.ListModel;
 import gs.web.util.UrlUtil;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -117,7 +118,8 @@ public class FeaturedArticlesController extends AbstractController {
 
                 if (article != null &&
                         !articles.contains(article)) {
-                    String articleLink = _urlUtil.getArticleLink(sessionFacade.getStateOrDefault(), article, false);
+                    UrlBuilder builder = new UrlBuilder(sessionFacade.getStateOrDefault(), article, false);
+                    String articleLink = builder.toString();
                     final Anchor anchor;
                     if (article.isNew()) {
                         String imageUrl = _urlUtil.buildUrl("/res/img/content/icon_newarticle.gif", request);

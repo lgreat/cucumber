@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.16 2006/02/28 19:13:52 apeterson Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.17 2006/03/23 02:16:08 apeterson Exp $
  */
 package gs.web.content;
 
@@ -10,6 +10,7 @@ import gs.data.state.State;
 import gs.web.ISessionFacade;
 import gs.web.jsp.BaseTagHandler;
 import gs.web.util.UrlUtil;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -105,7 +106,8 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
 
         b.append("<a href=\"");
 
-        String link = _urlUtil.getArticleLink(s, article, _featured);
+        UrlBuilder builder = new UrlBuilder(s, article, _featured);
+        String link = builder.toString();
         b.append(link);
 
         b.append("\" ");

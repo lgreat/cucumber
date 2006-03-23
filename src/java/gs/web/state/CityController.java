@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.5 2006/03/21 01:27:18 apeterson Exp $
+ * $Id: CityController.java,v 1.6 2006/03/23 02:16:08 apeterson Exp $
  */
 
 package gs.web.state;
@@ -154,27 +154,27 @@ public class CityController extends AbstractController {
 
         int sc = _schoolDao.countSchools(state, null, null, cityNameParam);
         if (sc > 0) {
-            Anchor a = new Anchor("/search/search.page?c=school&state=" + state.getAbbreviation() + "&city=" + cityNameParam,
+            Anchor a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam,
                     "All " + cityNameParam + " schools (" + sc + ")");
             schoolBreakdownList.addResult(a);
 
             sc = _schoolDao.countSchools(state, null, LevelCode.ELEMENTARY, cityNameParam);
             if (sc > 0) {
-                a = new Anchor("/search/search.page?c=school&state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&gl=elementary",
+                a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&gl=elementary",
                         "All Elementary (" + sc + ")");
                 schoolBreakdownList.addResult(a);
             }
 
             sc = _schoolDao.countSchools(state, null, LevelCode.MIDDLE, cityNameParam);
             if (sc > 0) {
-                a = new Anchor("/search/search.page?c=school&state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&gl=middle",
+                a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&gl=middle",
                         "All Middle (" + sc + ")");
                 schoolBreakdownList.addResult(a);
             }
 
             sc = _schoolDao.countSchools(state, null, LevelCode.HIGH, cityNameParam);
             if (sc > 0) {
-                a = new Anchor("/search/search.page?c=school&state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&gl=high",
+                a = new Anchor("/schools.page?c=school&state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&gl=high",
                         "All High (" + sc + ")");
                 schoolBreakdownList.addResult(a);
             }

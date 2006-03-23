@@ -11,7 +11,7 @@
                 <span><c:out escapeXml="false" value="${model.filters}" /></span>
                 <c:forEach var="city" items="${model.filteredcities}">
                     <span class="citydistresult">
-                        <gsml:a href="/search/search.page?c=school&amp;state=${param.state}&amp;q=${param.q}&amp;city=${city}${model.filterparams}">
+                        <gsml:a href="/schools.page?state=${param.state}&amp;q=${param.q}&amp;city=${city}${model.filterparams}">
                             <c:out escapeXml="false" value="${gsweb:highlight(city, param.q, 'city')}"/>
                         </gsml:a>
                     </span>
@@ -30,7 +30,7 @@
                 <c:set var="count" value="0"/>
                 <c:forEach var="city" items="${model.cities}">
                     <span class="citydistresult">
-                        <gsml:a href="/search/search.page?c=school&amp;state=${param.state}&amp;q=${param.q}&amp;city=${city}${param.st == 'charter' ? '&amp;st=charter' : ''}">
+                        <gsml:a href="/schools.page?state=${param.state}&amp;q=${param.q}&amp;city=${city}${param.st == 'charter' ? '&amp;st=charter' : ''}">
                             <c:out escapeXml="false" value="${gsweb:highlight(city, param.q, 'city')}"/>
                         </gsml:a>
                     </span>
@@ -52,7 +52,7 @@
             <c:set var="count" value="0"/>
             <c:forEach var="district" items="${model.districts}">
                 <span class="citydistresult">
-                    <a href="/search/search.page?c=school&amp;state=${param.state}&amp;district=${district.id}&amp;distname=${district.name}${param.st == 'charter' ? '&amp;st=charter' : ''}">
+                    <a href="/schools.page?state=${param.state}&amp;district=${district.id}&amp;distname=${district.name}${param.st == 'charter' ? '&amp;st=charter' : ''}">
                         <c:out escapeXml="false" value="${gsweb:highlight(district.name, param.q, 'name')}"/>
                     </a>
                 </span>

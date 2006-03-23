@@ -1,11 +1,10 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.29 2006/03/22 22:04:43 chriskimm Exp $
+ * $Id: UrlUtil.java,v 1.30 2006/03/23 02:16:08 apeterson Exp $
  */
 
 package gs.web.util;
 
-import gs.data.content.Article;
 import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -296,37 +295,5 @@ public final class UrlUtil {
             return url;
         }
     }
-
-    /**
-     * Generates a link to the given article, based on
-     *
-     * @param featured should the "featured" url be used instead of the normal one. This is
-     *                 for tracking.
-     * @return a usable link, relative to the site
-     */
-    public String getArticleLink(State s, Article article, boolean featured) {
-        // Calculate page to use
-        String page;
-        if (s.isSubscriptionState() && article.isInsider()) {
-            page = "showpartarticle";
-        } else {
-            if (featured) {
-                page = "showarticlefeature";
-            } else {
-                page = "showarticle";
-            }
-        }
-
-        // Calculate link
-        // TH: Commented this out because buildHref is noop with a null request
-        // link = buildHref(null, link, false, null);
-        return "/cgi-bin/" +
-                page +
-                "/" +
-                s.getAbbreviationLowerCase() +
-                "/" +
-                article.getId();
-    }
-
 
 }

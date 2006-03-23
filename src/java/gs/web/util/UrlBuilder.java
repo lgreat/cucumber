@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.2 2006/03/23 01:32:32 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.3 2006/03/23 02:16:08 apeterson Exp $
  */
 
 package gs.web.util;
@@ -96,16 +96,20 @@ public class UrlBuilder {
         }
     }
 
-    public void setParameter(String key, String value) {
+    public void setParameterNoEncoding(String key, String value) {
         if (_parameters == null) {
             _parameters = new HashMap();
         }
+        _parameters.put(key, new String[]{value});
+    }
+
+    public void setParameter(String key, String value) {
         try {
-            _parameters.put(key, new String[]{URLEncoder.encode(value, "UTF-8")});
+            value = URLEncoder.encode(value, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            _parameters.put(key, new String[]{value});
             _log.warn("Unable to encode parameter");
         }
+        setParameterNoEncoding(key, value);
     }
 
     public void removeParameter(String key) {

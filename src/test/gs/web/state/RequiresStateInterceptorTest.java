@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RequiresStateInterceptorTest.java,v 1.4 2006/03/17 06:09:08 apeterson Exp $
+ * $Id: RequiresStateInterceptorTest.java,v 1.5 2006/03/23 02:16:08 apeterson Exp $
  */
 
 package gs.web.state;
@@ -26,7 +26,7 @@ public class RequiresStateInterceptorTest extends BaseControllerTestCase {
 
     public void testRequiresStateInterceptorNoState() throws Exception {
         boolean b = _interceptor.preHandle(getRequest(), getResponse(), null);
-        assertEquals("http://www.greatschools.net/selectAState.page?prompt=Please+select+a+state+to+continue.&url=/path/mySchool.page",
+        assertEquals("http://www.greatschools.net/selectAState.page?prompt=Please+select+a+state+to+continue.&url=%2Fpath%2FmySchool.page",
                 getResponse().getRedirectedUrl());
         assertFalse(b);
     }
@@ -35,7 +35,7 @@ public class RequiresStateInterceptorTest extends BaseControllerTestCase {
     public void testRequiresStateInterceptorNoStateButOtherParam() throws Exception {
         getRequest().setParameter("city", "Lincoln");
         boolean b = _interceptor.preHandle(getRequest(), getResponse(), null);
-        assertEquals("http://www.greatschools.net/selectAState.page?prompt=Please+select+a+state+to+continue.&url=/path/mySchool.page?city=Lincoln",
+        assertEquals("http://www.greatschools.net/selectAState.page?prompt=Please+select+a+state+to+continue.&url=%2Fpath%2FmySchool.page%3Fcity%3DLincoln",
                 getResponse().getRedirectedUrl());
         assertFalse(b);
     }
@@ -44,7 +44,7 @@ public class RequiresStateInterceptorTest extends BaseControllerTestCase {
         getRequest().setParameter("city", "Lincoln");
         getRequest().setParameter("zip", "12345");
         boolean b = _interceptor.preHandle(getRequest(), getResponse(), null);
-        assertEquals("http://www.greatschools.net/selectAState.page?prompt=Please+select+a+state+to+continue.&url=/path/mySchool.page?city=Lincoln%26zip=12345",
+        assertEquals("http://www.greatschools.net/selectAState.page?prompt=Please+select+a+state+to+continue.&url=%2Fpath%2FmySchool.page%3Fcity%3DLincoln%26zip%3D12345",
                 getResponse().getRedirectedUrl());
         assertFalse(b);
     }
@@ -55,7 +55,7 @@ public class RequiresStateInterceptorTest extends BaseControllerTestCase {
 
         boolean b = _interceptor.preHandle(getRequest(), getResponse(), null);
 // Mock object differs in behavior from Tomcat: assertEquals("http://www.greatschools.net/gs-web/selectAState.page?prompt=Please+select+a+state+to+continue.&url=/gs-web/path/mySchool.page",
-        assertEquals("http://www.greatschools.net/gs-web/selectAState.page?prompt=Please+select+a+state+to+continue.&url=/path/mySchool.page",
+        assertEquals("http://www.greatschools.net/gs-web/selectAState.page?prompt=Please+select+a+state+to+continue.&url=%2Fgs-web%2Fpath%2FmySchool.page",
                 getResponse().getRedirectedUrl());
         assertFalse(b);
     }
@@ -63,7 +63,7 @@ public class RequiresStateInterceptorTest extends BaseControllerTestCase {
     public void testRequiresStateInterceptorBadState() throws Exception {
         getRequest().setParameter("state", "XX"); // bad state
         boolean b = _interceptor.preHandle(getRequest(), getResponse(), null);
-        assertEquals("http://www.greatschools.net/selectAState.page?prompt=Please+select+a+state+to+continue.&url=/path/mySchool.page?",
+        assertEquals("http://www.greatschools.net/selectAState.page?prompt=Please+select+a+state+to+continue.&url=%2Fpath%2FmySchool.page",
                 getResponse().getRedirectedUrl());
         assertFalse(b);
     }
@@ -71,7 +71,7 @@ public class RequiresStateInterceptorTest extends BaseControllerTestCase {
     public void testRequiresStateInterceptorShortState() throws Exception {
         getRequest().setParameter("state", "X"); // bad state
         boolean b = _interceptor.preHandle(getRequest(), getResponse(), null);
-        assertEquals("http://www.greatschools.net/selectAState.page?prompt=Please+select+a+state+to+continue.&url=/path/mySchool.page?",
+        assertEquals("http://www.greatschools.net/selectAState.page?prompt=Please+select+a+state+to+continue.&url=%2Fpath%2FmySchool.page",
                 getResponse().getRedirectedUrl());
         assertFalse(b);
     }

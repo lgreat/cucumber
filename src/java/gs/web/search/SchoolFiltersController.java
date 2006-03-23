@@ -1,130 +1,109 @@
 package gs.web.search;
 
-import org.springframework.web.servlet.mvc.AbstractController;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Builds the model backing the schoolFilters module.
+ *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class SchoolFiltersController extends AbstractController {
+
+    public static final String PARAM_SCHOOL_TYPES = "st";
+    public static final String PARAM_LEVEL_CODE = "gl";
+    private static final String PARAM_DEST_PAGE = "dest";
+
 
     /**
      * This method builds two lists of html markup - one to populate the
      * gradelevel unordered list and the other to populate the school type
      * unordered list.
-      * @param request
-     * @param response
-     * @return
+     *
      * @throws Exception
      */
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
 
-        ModelAndView mAndV = new ModelAndView("/search/schoolFilters");
         List levels = new ArrayList();
 
-        String[] gls = (String[])request.getParameterValues("gl");
+        String[] gls = request.getParameterValues(PARAM_LEVEL_CODE);
         List gradeLevels = null;
         if (gls != null) gradeLevels = Arrays.asList(gls);
 
         String qString = request.getQueryString();
+
         //remove page numbers from the url
         qString = qString.replaceAll("&p=\\p{Digit}[\\p{Digit}]?", "");
 
+        String destPage = request.getParameter(PARAM_DEST_PAGE);
+        if (StringUtils.isEmpty(destPage)) {
+            destPage = "/schools.page";
+        } else {
+            //remove page numbers from the url
+            qString = qString.replaceAll("&"+PARAM_DEST_PAGE+"=[^&]+", "");
+        }
+        destPage = request.getContextPath() + destPage;
+
         // Build the list for grade levels: e, m, h
+        levels.add(createLevelCodeHtml(destPage, "elementary", gradeLevels != null && gradeLevels.contains("elementary"), qString));
+        levels.add(createLevelCodeHtml(destPage, "middle", gradeLevels != null && gradeLevels.contains("middle"), qString));
+        levels.add(createLevelCodeHtml(destPage, "high", gradeLevels != null && gradeLevels.contains("high"), qString));
 
-        // Elementary
-        StringBuffer buffer = new StringBuffer();
-        if (gradeLevels != null && gradeLevels.contains("elementary")) {
-            buffer.append("Elementary (<a href=\"/search/search.page?");
-            buffer.append(qString.replaceAll("\\&gl=elementary",""));
-            buffer.append("\">remove</a>)");
-        } else {
-            buffer.append("<a href=\"/search/search.page?");
-            buffer.append(qString);
-            buffer.append("&gl=elementary\">Elementary</a>");
-        }
-        levels.add(buffer.toString());
 
-        buffer = new StringBuffer();
-        if (gradeLevels != null && gradeLevels.contains("middle")) {
-            buffer.append("Middle (<a href=\"/search/search.page?");
-            buffer.append(qString.replaceAll("\\&gl=middle",""));
-            buffer.append("\">remove</a>)");
-        } else {
-            buffer.append("<a href=\"/search/search.page?");
-            buffer.append(qString);
-            buffer.append("&gl=middle\">Middle</a>");
-        }
-        levels.add(buffer.toString());
-
-        // High
-        buffer = new StringBuffer();
-        if (gradeLevels != null && gradeLevels.contains("high")) {
-            buffer.append("High (<a href=\"/search/search.page?");
-            buffer.append(qString.replaceAll("\\&gl=high",""));
-            buffer.append("\">remove</a>)");
-        } else {
-            buffer.append("<a href=\"/search/search.page?");
-            buffer.append(qString);
-            buffer.append("&gl=high\">High</a>");
-        }
-        levels.add(buffer.toString());
-
-        mAndV.getModel().put("levels", levels);
-
-         // Build the list for school types: public, private, charter
+        // Build the list for school types: public, private, charter
         List types = new ArrayList();
-        String[] sts = (String[])request.getParameterValues("st");
+        String[] sts = request.getParameterValues(PARAM_SCHOOL_TYPES);
         List schoolTypes = null;
         if (sts != null) schoolTypes = Arrays.asList(sts);
 
-        // Public
+        types.add(createSchoolTypeHtml(destPage, "public", schoolTypes != null && schoolTypes.contains("public"), qString));
+        types.add(createSchoolTypeHtml(destPage, "charter", schoolTypes != null && schoolTypes.contains("charter"), qString));
+        types.add(createSchoolTypeHtml(destPage, "private", schoolTypes != null && schoolTypes.contains("private"), qString));
+
+        ModelAndView modelAndView = new ModelAndView("/search/schoolFilters");
+        modelAndView.getModel().put("levels", levels);
+        modelAndView.getModel().put("types", types);
+
+        return modelAndView;
+    }
+
+    private String createSchoolTypeHtml(String page, String schoolType, boolean hasSchoolType, String qString) {
+        final String schoolTypeLabel = StringUtils.capitalize(schoolType);
+        StringBuffer buffer;
         buffer = new StringBuffer();
-        if (schoolTypes != null && schoolTypes.contains("public")) {
-            buffer.append("Public (<a href=\"/search/search.page?");
-            buffer.append(qString.replaceAll("\\&st=public",""));
+        if (hasSchoolType) {
+            buffer.append(schoolTypeLabel + " (<a href=\"" + page + "?");
+            buffer.append(qString.replaceAll("\\&st=" + schoolType, ""));
             buffer.append("\">remove</a>)");
         } else {
-            buffer.append("<a href=\"/search/search.page?");
+            buffer.append("<a href=\"" + page + "?");
             buffer.append(qString);
-            buffer.append("&st=public\">Public</a>");
+            buffer.append("&st="+schoolType +"\">"+schoolTypeLabel +"</a>");
         }
-        types.add(buffer.toString());
+        final String s = buffer.toString();
+        return s;
+    }
 
-        // Charter
-        buffer = new StringBuffer();
-        if (schoolTypes != null && schoolTypes.contains("charter")) {
-            buffer.append("Charter (<a href=\"/search/search.page?");
-            buffer.append(qString.replaceAll("\\&st=charter",""));
+    private String createLevelCodeHtml(String page, String levelCode, boolean hasLevel, String qString) {
+        StringBuffer buffer = new StringBuffer();
+        if (hasLevel) {
+            buffer.append(StringUtils.capitalize(levelCode) + " (<a href=\"" + page + "?");
+            buffer.append(qString.replaceAll("\\&gl=" + levelCode, ""));
             buffer.append("\">remove</a>)");
         } else {
-            buffer.append("<a href=\"/search/search.page?");
+            buffer.append("<a href=\"" + page + "?");
             buffer.append(qString);
-            buffer.append("&st=charter\">Charter</a>");
+            buffer.append("&gl=" + levelCode + "\">" + StringUtils.capitalize(levelCode) + "</a>");
         }
-        types.add(buffer.toString());
-
-        // Private
-        buffer = new StringBuffer();
-        if (schoolTypes != null && schoolTypes.contains("private")) {
-            buffer.append("Private (<a href=\"/search/search.page?");
-            buffer.append(qString.replaceAll("\\&st=private",""));
-            buffer.append("\">remove</a>)");
-        } else {
-            buffer.append("<a href=\"/search/search.page?");
-            buffer.append(qString);
-            buffer.append("&st=private\">Private</a>");
-        }
-        types.add(buffer.toString());
-
-        mAndV.getModel().put("types", types);
-
-        return mAndV;
+        final String s = buffer.toString();
+        return s;
     }
 }

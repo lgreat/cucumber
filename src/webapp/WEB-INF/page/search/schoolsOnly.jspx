@@ -55,14 +55,14 @@
     ]]>
 
     <c:if test="${not requestScope.context.cobranded}">
-    <![CDATA[
+        <![CDATA[
     <style type="text/css">
            table#pagemargin, .pageWidth { width:100% !important; border:0}
     </style>
     ]]>
     </c:if>
     <c:if test="${requestScope.context.cobranded}">
-    <![CDATA[
+        <![CDATA[
     <style type="text/css">
     .rcopy { }
            table#pagemargin, .pageWidth { width:760px !important; border:0}
@@ -71,86 +71,70 @@
     ]]>
     </c:if>
 
-    <gsml:url var="searchcss" value="/res/css/search/search.css"/>
-    <link rel="stylesheet" href="${searchcss}" type="text/css" media="screen"/>
-    <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
 </head>
 
-<body>
+<gsml:body adPageName="search">
+    <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
+    <pageHelper:externalCss file="/res/css/search/search.css"/>
+    <table id="main" width="100%"><tr>
+        <td class="leftcol" valign="top">
+            <div id="leftsearchcolumn">
+                <div>
+                    <gsml:box tableClass="shade3 main">
+                        <div style="padding-bottom:5px;">
+                            <jsp:include
+                                    page="/search/schoolFilters.module?${pageContext.request.queryString}"/>
+                        </div>
+                    </gsml:box>
 
-<table id="searchpagetable" border="0" width="100%">
-<tr>
+                    <gsml:box tableClass="shade3 main">
 
-<td>
-
-<table id="main" width="100%"><tr>
-<td class="leftcol" valign="top">
-    <div id="leftsearchcolumn">
-        <div>
-                <gsml:box tableClass="shade3 main">
-                    <div style="padding-bottom:5px;">
-                        <jsp:include
-                                page="/search/schoolFilters.module?${pageContext.request.queryString}"/>
-                    </div>
-                </gsml:box>
-
-            <gsml:box tableClass="shade3 main">
-
-                <h2 class="browseheader">Browse</h2>
-                <ul class="refinementlist">
-                    <li><gsml:a href="/modperl/citylist/${state.abbreviation}">
-                        All <c:out value="${state.longName}"/> cities</gsml:a>
-                    </li>
-                    <li><gsml:a href="/modperl/distlist/${state.abbreviation}">
-                        All <c:out value="${state.longName}"/> districts
-                    </gsml:a></li>
-                    <li><gsml:a
-                            href="/content/allArticles.page?state=${state.abbreviation}">
-                        All topics</gsml:a></li>
-                    <li><gsml:a href="/cgi-bin/glossary_home/${state}">All
-                        glossary terms</gsml:a></li>
-                </ul>
-            </gsml:box>
-            <gsml:box tableClass="shade3 main">
-                <h2 class="browseheader">Advanced Search</h2>
-                <ul class="refinementlist">
-                    <li><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">
-                        Search near address</gsml:a></li>
-                    <li><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#county">
-                        Search by county</gsml:a></li>
-                </ul>
-            </gsml:box>
-        </div>
-    </div>
-</td>
-<td valign="top" class="col2">
+                        <h2 class="browseheader">Browse</h2>
+                        <ul class="refinementlist">
+                            <li><gsml:a href="/modperl/citylist/${state.abbreviation}">
+                                All <c:out value="${state.longName}"/> cities</gsml:a>
+                            </li>
+                            <li><gsml:a href="/modperl/distlist/${state.abbreviation}">
+                                All <c:out value="${state.longName}"/> districts
+                            </gsml:a></li>
+                            <li><gsml:a
+                                    href="/content/allArticles.page?state=${state.abbreviation}">
+                                All topics</gsml:a></li>
+                            <li><gsml:a href="/cgi-bin/glossary_home/${state}">All
+                                glossary terms</gsml:a></li>
+                        </ul>
+                    </gsml:box>
+                    <gsml:box tableClass="shade3 main">
+                        <h2 class="browseheader">Advanced Search</h2>
+                        <ul class="refinementlist">
+                            <li><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">
+                                Search near address</gsml:a></li>
+                            <li><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#county">
+                                Search by county</gsml:a></li>
+                        </ul>
+                    </gsml:box>
+                </div>
+            </div>
+        </td>
+        <td valign="top" class="col2">
 
             <gsml:box tableClass="shade3 main">
                 <gsweb:schooltable schools="${results.schools}"
                                    total="${results.total}">
                     <search:schoolTable schools="${results.schools}"/>
                 </gsweb:schooltable>
-                <mod:tracking pageName="schools"
-                              pageType="search"
-                              hier1="search,schools,page${results.total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"
-                              schoolType="${gsweb:toDelimitedString(paramValues.st)}"
-                              schoolLevel="${gsweb:toUglyDelimitedString(paramValues.gl)}"/>
             </gsml:box>
-
-</td>
-
-<td class="rightcolumn" align="center">
-    <ad:x33/>
-</td>
-
-</tr>
-
-</table>
-
-</td>
-
-</tr>
-</table>
-</body>
+        </td>
+        <td class="rightcolumn" align="center">
+            <ad:x33/>
+        </td>
+    </tr>
+    </table>
+    <mod:tracking pageName="schools"
+                  pageType="search"
+                  hier1="search,schools,page${results.total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"
+                  schoolType="${gsweb:toDelimitedString(paramValues.st)}"
+                  schoolLevel="${gsweb:toUglyDelimitedString(paramValues.gl)}"/>
+</gsml:body>
 </html>
 </jsp:root>

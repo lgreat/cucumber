@@ -1,12 +1,13 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RequiresStateInterceptor.java,v 1.6 2006/03/17 22:33:24 apeterson Exp $
+ * $Id: RequiresStateInterceptor.java,v 1.7 2006/03/23 02:16:08 apeterson Exp $
  */
 
 package gs.web.state;
 
 import gs.data.state.StateManager;
 import gs.web.SessionContextUtil;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Iterator;
 
 /**
  * The purpose to guarantee that the user that is going to a
@@ -42,28 +42,16 @@ public class RequiresStateInterceptor
                     state.length() < 2 ||
                     _stateManager.getState(state) == null) {
 
-                // Requires a state, so now generate a redirect to force the user to pick one.
-                String url = "http://" +
-                        httpServletRequest.getServerName() +
-                        ((httpServletRequest.getServerPort() != 80) ? ":" + httpServletRequest.getServerPort() : "") +
-                        httpServletRequest.getContextPath() +
-                        "/selectAState.page?prompt=Please+select+a+state+to+continue.&url=" +
-                        httpServletRequest.getRequestURI();
+                UrlBuilder finalPage = new UrlBuilder(httpServletRequest);
+                finalPage.addParametersFromRequest(httpServletRequest);
+                finalPage.removeParameter("state");
+                String finalPageParam = finalPage.asSiteRelativeUrl();//.replaceAll("&", "%26"); // TODO better encoding?
 
-                // Add the parameters manually
-                if (httpServletRequest.getParameterMap().size() != 0) {
-                    url += "?";
-                    for (Iterator iter = httpServletRequest.getParameterMap().keySet().iterator(); iter.hasNext();) {
-                        String key = (String) iter.next();
-                        if (!StringUtils.equals(key, "state")) {
-                            String value = httpServletRequest.getParameter(key);
-                            url += key + "=" + value;
-                            if (iter.hasNext()) {
-                                url += "%26";
-                            }
-                        }
-                    }
-                }
+                UrlBuilder redirectPage = new UrlBuilder(httpServletRequest);
+                redirectPage.setPath("/selectAState.page");
+                redirectPage.setParameter("prompt", "Please select a state to continue.");
+                redirectPage.setParameter("url", finalPageParam);
+                String url = redirectPage.asFullUrl();
 
                 // Execute the redirect...
                 final String redirect = httpServletResponse.encodeRedirectURL(url);

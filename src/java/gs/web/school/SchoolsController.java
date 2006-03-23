@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.3 2006/03/22 02:22:53 apeterson Exp $
+ * $Id: SchoolsController.java,v 1.4 2006/03/23 02:16:08 apeterson Exp $
  */
 
 package gs.web.school;
@@ -30,8 +30,6 @@ import java.util.HashMap;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class SchoolsController extends AbstractController {
-
-    public static final String BEAN_ID = "/search/search.page";
 
     private static Logger _log = Logger.getLogger(SchoolsController.class);
 
