@@ -100,7 +100,7 @@
 
     </style>
 </head>
-
+<mod:tracking pageType="Article" pageName="AllArticles" hier1="Article,AllArticles"/>
 <gsml:body adPageName="allArticles">
     <div class="allArticles">
     <div id="articletools">
