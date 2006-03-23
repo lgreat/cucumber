@@ -4,6 +4,7 @@ import gs.data.school.district.District;
 import gs.data.util.Address;
 import gs.web.jsp.Util;
 import gs.web.util.UrlUtil;
+import gs.web.util.UrlBuilder;
 import gs.web.school.SchoolsController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -310,7 +311,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             out.println("</td><td class=\"results_pagenav\">");
 
             if (!showall) {
-                writePageNumbers(out, "/search/search.page");
+                writePageNumbers(out, new UrlBuilder(request, "/schools.page"));
             }
             out.println("</td><tr><td></td><td align=\"right\" style=\"padding-right:15px;padding-bottom:5px\">");
             if (!showall && (_total > PAGE_SIZE)) {

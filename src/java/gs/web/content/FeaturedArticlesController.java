@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.18 2006/03/23 02:16:08 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.19 2006/03/23 19:02:35 apeterson Exp $
  */
 package gs.web.content;
 
@@ -118,7 +118,7 @@ public class FeaturedArticlesController extends AbstractController {
 
                 if (article != null &&
                         !articles.contains(article)) {
-                    UrlBuilder builder = new UrlBuilder(sessionFacade.getStateOrDefault(), article, false);
+                    UrlBuilder builder = new UrlBuilder(article, sessionFacade.getStateOrDefault(), false);
                     String articleLink = builder.toString();
                     final Anchor anchor;
                     if (article.isNew()) {

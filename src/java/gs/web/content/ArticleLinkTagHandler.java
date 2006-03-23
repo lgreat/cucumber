@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.17 2006/03/23 02:16:08 apeterson Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.18 2006/03/23 19:02:35 apeterson Exp $
  */
 package gs.web.content;
 
@@ -106,7 +106,7 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
 
         b.append("<a href=\"");
 
-        UrlBuilder builder = new UrlBuilder(s, article, _featured);
+        UrlBuilder builder = new UrlBuilder(article, s, _featured);
         String link = builder.toString();
         b.append(link);
 

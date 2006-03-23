@@ -2,6 +2,7 @@ package gs.web.search;
 
 import gs.data.state.State;
 import gs.web.jsp.BaseTagHandler;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.taglibs.standard.functions.Functions;
 
@@ -102,7 +103,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
      * @param path the page that should be send to, for example "/search/search.page"
      * @throws IOException
      */
-    protected void writePageNumbers(JspWriter out, String path) throws IOException {
+    protected void writePageNumbers(JspWriter out, UrlBuilder path) throws IOException {
 
         String cityParam = (String) getJspContext().findAttribute("city");
 
@@ -122,7 +123,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                 int counter = 1;
 
                 StringBuffer hrefBuffer = new StringBuffer(40);
-                hrefBuffer.append("<a class=\"pad\" href=\"" + path + "?q=");
+                hrefBuffer.append("<a class=\"pad\" href=\"" + path.asSiteRelativeUrl() + "?q=");
                 hrefBuffer.append(Functions.escapeXml(getQueryString()));
 
                 if (cityParam != null) {

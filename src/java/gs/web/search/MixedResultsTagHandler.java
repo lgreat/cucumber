@@ -4,6 +4,7 @@ import gs.data.school.School;
 import gs.data.search.highlight.TextHighlighter;
 import gs.data.state.StateManager;
 import gs.web.util.UrlUtil;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -155,7 +156,7 @@ public class MixedResultsTagHandler extends ResultsTableTagHandler {
         }
 
         out.write("</td></tr><tr><td class=\"results_pagenav\">");
-        writePageNumbers(getJspContext().getOut(), "/search/search.page");
+        writePageNumbers(getJspContext().getOut(), new UrlBuilder(request, "/search/search.page")); 
         out.write("</td></tr></table>");
 
         try {

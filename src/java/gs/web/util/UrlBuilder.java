@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.3 2006/03/23 02:16:08 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.4 2006/03/23 19:02:35 apeterson Exp $
  */
 
 package gs.web.util;
@@ -39,15 +39,34 @@ public class UrlBuilder {
 
 
     /**
-     * Create a builder to the same page.
+     * Create a builder to the given site page.
      *
-     * @param request the current request
+     * @param request             the current request
+     * @param contextRelativePath the requested page. Null asks for the same page, but it may or
+     *                            may not work. It would be great if you could always generate the link to the
+     *                            current page, but unfortunately this isn't available at all points.
+     *                            Tomcat, or possibly spring, has decorated the request so that it
+     *                            doesn't point to what the user really asked for. If you're in the midst of processing a page, it now points to the
+     *                            Jsp page that is being shown, not the user's request. It does seem to work in the controller, though.
+     *                            I solved this before by grabbing it earlier on in the servlet processing
+     *                            and stashing it away for later retrieval.
      */
-    public UrlBuilder(HttpServletRequest request) {
+    public UrlBuilder(HttpServletRequest request, String contextRelativePath) {
         _serverName = request.getServerName();
         _serverPort = request.getServerPort();
         _contextPath = request.getContextPath();
-        _path = request.getRequestURI();
+        _path = contextRelativePath;
+        if (contextRelativePath == null) {
+            _path = request.getRequestURI();
+            _path = StringUtils.removeStart(_path, _contextPath);
+        } else {
+            _path = contextRelativePath;
+        }
+        // _log.error("PathInfo="+request.getPathInfo()); // yields null
+        // _log.error("PathTranslated="+request.getPathTranslated()); // yields null
+        // _log.error("ServletPath="+request.getServletPath()); // yields "/WEB-INF/page/search/schoolsOnly.jspx"
+        // _log.error("requestURI="+request.getRequestURI()); // yields "/gs-web/WEB-INF/page/search/schoolsOnly.jspx"
+        // _log.error("requestURL="+request.getRequestURL()); // yields "http://apeterson.office.greatschools.net:8080/gs-web/WEB-INF/page/search/schoolsOnly.jspx"
     }
 
 
@@ -55,9 +74,8 @@ public class UrlBuilder {
      * Create a link to an article
      *
      * @param featured should the "featured" url be used instead of the normal one. This is
-     *                 for tracking.
      */
-    public UrlBuilder(State s, Article article, boolean featured) {
+    public UrlBuilder(Article article, State s, boolean featured) {
         _perlPage = true;
         _contextPath = "";
 
