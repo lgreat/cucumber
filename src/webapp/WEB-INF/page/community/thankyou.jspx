@@ -23,6 +23,8 @@
             ]]>
             <title>GreatSchools Thank You</title>
         </head>
+
+        <mod:tracking pageType="AboutUs" pageName="SubscriptionConfirm"hier1="Subscription,Payment,PaymentConfirmation"/>
         <body>
             <jsp:include page="/header/moveChoose.module"/>
             <gsml:boxRecessed>

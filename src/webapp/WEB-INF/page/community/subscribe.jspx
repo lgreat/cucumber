@@ -22,6 +22,8 @@
             ]]>
             <title>Subscribe to ${subCmd.subscriptionProduct.longName}</title>
         </head>
+          <mod:tracking pageType="AboutUs" pageName="AboutUs" hier1="Subscription,Payment"/>
+
         <body>
 
             <jsp:include page="/header/moveChoose.module"/>

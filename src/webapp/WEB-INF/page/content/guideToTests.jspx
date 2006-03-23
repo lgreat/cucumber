@@ -60,7 +60,9 @@
 </head>
 
 
-<mod:tracking pageType="article" pageName="guideToTests"/>
+<mod:tracking pageType="article"
+              pageName="guideToTests"
+              hier1 = "Article,GuideToTests"/>
 
 
 <gsml:body adPageName="article" pageLayout="oneMainColumn">

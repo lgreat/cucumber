@@ -124,7 +124,7 @@
 </td>
 </tr>
 </table>
-<mod:tracking pageType="home" pageName="my childs school"/>
+<mod:tracking pageType="home" pageName="my childs school" hier1="Home,MyChildsSchool"/>
 </gsml:body>
 </html>
 </jsp:root>

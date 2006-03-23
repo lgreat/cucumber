@@ -171,7 +171,7 @@
 <mod:tracking pageName="mixed:${results.total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"
               pageType="search"
               constraint="${param.type}"
-              hier1="search,mixed,${param.type}"/>
+              hier1="search,mixed,page${results.total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"/>
 </body>
 </html>
 </jsp:root>

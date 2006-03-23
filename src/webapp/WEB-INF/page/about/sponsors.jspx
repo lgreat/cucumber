@@ -25,7 +25,7 @@
 
 <gsml:body adPageName="sponsors" pageLayout="singleTextOnlyColumn">
 
-<mod:tracking pageType="aboutUs" pageName="sponsors"/>
+<mod:tracking pageType="aboutUs" pageName="sponsors" hier1="Home,Corporate,AboutUs,SponsorsAndPartners"/>
 
 <h3>Sponsors and Partners</h3>
 

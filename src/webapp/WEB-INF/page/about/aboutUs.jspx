@@ -26,7 +26,7 @@
 
     <gsml:body adPageName="aboutUs" pageLayout="singleTextOnlyColumn">
 
-    <mod:tracking pageType="aboutUs" pageName="aboutUs" />
+    <mod:tracking pageType="aboutUs" pageName="aboutUs" hier1="Home,Corporate,AboutUs,AboutUsOverview"/>
 
    <h3>Our Story</h3>
     

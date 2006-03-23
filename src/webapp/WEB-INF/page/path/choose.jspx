@@ -160,7 +160,7 @@
             </td>
         </tr>
     </table>
-    <mod:tracking pageType="home" pageName="state home"/>
+    <mod:tracking pageType="home" pageName="state home" hier1="Home,StateHome"/>
 </gsml:body>
 </html>
 </jsp:root>

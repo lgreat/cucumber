@@ -51,7 +51,7 @@
     </c:if>
     <script type="text/javascript" src="${js}">
         <![CDATA[</script>
-                <script type="text/javascript" > ]]>
+        <script type="text/javascript" > ]]>
         s.pageName = "${pageName}";
         s.server = "${requestScope.context.hostName}";
         s.channel = "${empty(state) ? requestScope.context.stateOrDefault.abbreviation : state}";
