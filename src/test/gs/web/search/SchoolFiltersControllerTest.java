@@ -18,59 +18,59 @@ public class SchoolFiltersControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV_noGL =
                 controller.handleRequestInternal(getRequest(), getResponse());
         List levels_noGL = (List)mAndV_noGL.getModel().get("levels");
-        assertEquals("<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&gl=elementary\">Elementary</a>", levels_noGL.get(0));
-        assertEquals("<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&gl=middle\">Middle</a>", levels_noGL.get(1));
-        assertEquals("<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&gl=high\">High</a>", levels_noGL.get(2));
+        assertEquals("<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&lc=e\">Elementary</a>", levels_noGL.get(0));
+        assertEquals("<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&lc=m\">Middle</a>", levels_noGL.get(1));
+        assertEquals("<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&lc=h\">High</a>", levels_noGL.get(2));
 
 
-        getRequest().addParameter("gl", "elementary");
-        getRequest().addParameter("gl", "middle");
-        getRequest().addParameter("gl", "high");
-        getRequest().setQueryString("c=school&state=ca&city=South%20San%20Francisco&gl=elementary&gl=middle&gl=high");
+        getRequest().addParameter(SchoolFiltersController.PARAM_LEVEL_CODE, "e");
+        getRequest().addParameter(SchoolFiltersController.PARAM_LEVEL_CODE, "m");
+        getRequest().addParameter(SchoolFiltersController.PARAM_LEVEL_CODE, "h");
+        getRequest().setQueryString("c=school&state=ca&city=South%20San%20Francisco&lc=e&lc=m&lc=h");
         ModelAndView mAndV =
                 controller.handleRequestInternal(getRequest(), getResponse());
         List levels = (List)mAndV.getModel().get("levels");
-        assertEquals("Elementary (<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&gl=middle&gl=high\">remove</a>)", levels.get(0));
-        assertEquals("Middle (<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&gl=elementary&gl=high\">remove</a>)", levels.get(1));
-        assertEquals("High (<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&gl=elementary&gl=middle\">remove</a>)", levels.get(2));
+        assertEquals("Elementary (<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&lc=m&lc=h\">remove</a>)", levels.get(0));
+        assertEquals("Middle (<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&lc=e&lc=h\">remove</a>)", levels.get(1));
+        assertEquals("High (<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&lc=e&lc=m\">remove</a>)", levels.get(2));
 
         List types = (List)mAndV.getModel().get("types");
-        assertEquals("<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&gl=elementary&gl=middle&gl=high&st=public\">Public</a>", types.get(0));
-        assertEquals("<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&gl=elementary&gl=middle&gl=high&st=charter\">Charter</a>", types.get(1));
-        assertEquals("<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&gl=elementary&gl=middle&gl=high&st=private\">Private</a>", types.get(2));
+        assertEquals("<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&lc=e&lc=m&lc=h&st=public\">Public</a>", types.get(0));
+        assertEquals("<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&lc=e&lc=m&lc=h&st=charter\">Charter</a>", types.get(1));
+        assertEquals("<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&lc=e&lc=m&lc=h&st=private\">Private</a>", types.get(2));
     }
 
     public void testTypes() throws Exception {
         SchoolFiltersController controller = new SchoolFiltersController();
 
-        getRequest().setQueryString("c=school&state=ca&city=South%20San%20Francisco&gl=elementary");
+        getRequest().setQueryString("c=school&state=ca&city=South%20San%20Francisco&lc=e");
         ModelAndView mAndV = controller.handleRequestInternal(getRequest(), getResponse());
         List types = (List)mAndV.getModel().get("types");
-        assertEquals("<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&gl=elementary&st=public\">Public</a>", types.get(0));
-        assertEquals("<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&gl=elementary&st=charter\">Charter</a>", types.get(1));
-        assertEquals("<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&gl=elementary&st=private\">Private</a>", types.get(2));
+        assertEquals("<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&lc=e&st=public\">Public</a>", types.get(0));
+        assertEquals("<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&lc=e&st=charter\">Charter</a>", types.get(1));
+        assertEquals("<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&lc=e&st=private\">Private</a>", types.get(2));
 
-        getRequest().setQueryString("c=school&state=ca&city=South%20San%20Francisco&gl=elementary&st=public&st=charter&st=private");
+        getRequest().setQueryString("c=school&state=ca&city=South%20San%20Francisco&lc=e&st=public&st=charter&st=private");
         getRequest().addParameter("st", "public");
         getRequest().addParameter("st", "charter");
         getRequest().addParameter("st", "private");
         ModelAndView mAndV2 = controller.handleRequestInternal(getRequest(), getResponse());
         List types2 = (List)mAndV2.getModel().get("types");
-        assertEquals("Public (<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&gl=elementary&st=charter&st=private\">remove</a>)", types2.get(0));
-        assertEquals("Charter (<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&gl=elementary&st=public&st=private\">remove</a>)", types2.get(1));
-        assertEquals("Private (<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&gl=elementary&st=public&st=charter\">remove</a>)", types2.get(2));
+        assertEquals("Public (<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&lc=e&st=charter&st=private\">remove</a>)", types2.get(0));
+        assertEquals("Charter (<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&lc=e&st=public&st=private\">remove</a>)", types2.get(1));
+        assertEquals("Private (<a href=\"/schools.page?c=school&state=ca&city=South%20San%20Francisco&lc=e&st=public&st=charter\">remove</a>)", types2.get(2));
     }
 
     public void testContext() throws Exception {
         SchoolFiltersController controller = new SchoolFiltersController();
 
-        getRequest().setQueryString("c=school&state=ca&city=South%20San%20Francisco&gl=elementary");
+        getRequest().setQueryString("c=school&state=ca&city=South%20San%20Francisco&lc=e");
         getRequest().setContextPath("/gs-web");
         ModelAndView mAndV = controller.handleRequestInternal(getRequest(), getResponse());
         List types = (List)mAndV.getModel().get("types");
-        assertEquals("<a href=\"/gs-web/schools.page?c=school&state=ca&city=South%20San%20Francisco&gl=elementary&st=public\">Public</a>", types.get(0));
-        assertEquals("<a href=\"/gs-web/schools.page?c=school&state=ca&city=South%20San%20Francisco&gl=elementary&st=charter\">Charter</a>", types.get(1));
-        assertEquals("<a href=\"/gs-web/schools.page?c=school&state=ca&city=South%20San%20Francisco&gl=elementary&st=private\">Private</a>", types.get(2));
+        assertEquals("<a href=\"/gs-web/schools.page?c=school&state=ca&city=South%20San%20Francisco&lc=e&st=public\">Public</a>", types.get(0));
+        assertEquals("<a href=\"/gs-web/schools.page?c=school&state=ca&city=South%20San%20Francisco&lc=e&st=charter\">Charter</a>", types.get(1));
+        assertEquals("<a href=\"/gs-web/schools.page?c=school&state=ca&city=South%20San%20Francisco&lc=e&st=private\">Private</a>", types.get(2));
 
     }
 

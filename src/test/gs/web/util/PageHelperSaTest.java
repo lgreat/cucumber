@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.6 2006/03/02 19:05:44 apeterson Exp $
+ * $Id: PageHelperSaTest.java,v 1.7 2006/03/23 18:21:38 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.web.ISessionFacade;
-import gs.web.MockHttpServletRequest;
+import gs.web.GsMockHttpServletRequest;
 import gs.data.state.State;
 import junit.framework.TestCase;
 
@@ -117,7 +117,7 @@ public class PageHelperSaTest extends TestCase {
         ISessionFacade sessionFacade = new MockSessionFacade();
         PageHelper pageHelper = new PageHelper(sessionFacade);
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
 
         assertTrue(pageHelper.isShowingBannerAd());
@@ -147,7 +147,7 @@ public class PageHelperSaTest extends TestCase {
         ISessionFacade sessionFacade = new MockSessionFacade();
         PageHelper pageHelper = new PageHelper(sessionFacade);
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
 
         assertEquals("", pageHelper.getHeadElements());
@@ -173,7 +173,7 @@ public class PageHelperSaTest extends TestCase {
 
         PageHelper pageHelper = new PageHelper(sessionFacade);
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
 
         PageHelper.hideFooter(request);
@@ -191,7 +191,7 @@ public class PageHelperSaTest extends TestCase {
 
         PageHelper pageHelper = new PageHelper(sessionFacade);
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
 
         PageHelper.hideHeader(request);

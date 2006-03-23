@@ -25,7 +25,7 @@ public class SessionContextTest extends BaseTestCase {
 
     public void testHostDeveloperWorkstation() {
         // Try developer workstation scenario
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setServerName("localhost");
 
         SessionContext ctx = new SessionContext();
@@ -58,7 +58,7 @@ public class SessionContextTest extends BaseTestCase {
     }
 
     public void testHostCobrandUrlOnLiveSite() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         SessionContext ctx = new SessionContext();
         request.setServerName("sfgate.greatschools.net");
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
@@ -74,7 +74,7 @@ public class SessionContextTest extends BaseTestCase {
         assertTrue(ctx.getState().equals(State.WY));
 
         // Now try a non-standard URL cobrand such as babycenter
-        request = new MockHttpServletRequest();
+        request = new GsMockHttpServletRequest();
         ctx = new SessionContext();
         request.setServerName("greatschools.babycenter.com");
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
@@ -85,7 +85,7 @@ public class SessionContextTest extends BaseTestCase {
 
     public void testHostMainUrlOnLiveSiteWithCobrandParameter() {
         // Try developer workstation scenario
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         SessionContext ctx = new SessionContext();
         request.setServerName("www.greatschools.net");
         request.setParameter("cobrand", "framed");
@@ -99,7 +99,7 @@ public class SessionContextTest extends BaseTestCase {
     public void testHostCobrandUrlOnDevSite() {
         // Try developer workstation scenario
         SessionContext ctx = new SessionContext();
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setServerName("azcentral.dev.greatschools.net");
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
         assertEquals("azcentral.dev.greatschools.net", ctx.getHostName());
@@ -109,7 +109,7 @@ public class SessionContextTest extends BaseTestCase {
     }
 
     public void testIsYahooCobrand() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         SessionContext ctx = new SessionContext();
         request.setServerName("yahoo.greatschools.net");
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
@@ -125,7 +125,7 @@ public class SessionContextTest extends BaseTestCase {
     }
 
     public void testHostWithoutPeriod() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         SessionContext ctx = new SessionContext();
         request.setServerName("maddy");
         _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
@@ -140,7 +140,7 @@ public class SessionContextTest extends BaseTestCase {
 
         SessionContext ctx = new SessionContext();
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
 
         assertEquals(null, ctx.getState());
 
@@ -174,17 +174,17 @@ public class SessionContextTest extends BaseTestCase {
         util.setStateManager(new StateManager());
         SessionContext ctx = new SessionContext();
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setRemoteAddr("123.456.789.012");
         util.updateFromRequestAttributes(request, ctx);
         assertEquals("a", ctx.getABVersion());
 
-        MockHttpServletRequest bRequest = new MockHttpServletRequest();
+        GsMockHttpServletRequest bRequest = new GsMockHttpServletRequest();
         bRequest.setRemoteAddr("123.456.789.123");
         util.updateFromRequestAttributes(bRequest, ctx);
         assertEquals("b", ctx.getABVersion());
 
-        MockHttpServletRequest cRequest = new MockHttpServletRequest();
+        GsMockHttpServletRequest cRequest = new GsMockHttpServletRequest();
         cRequest.setRemoteAddr("123.456.789.000");
         util.updateFromRequestAttributes(cRequest, ctx);
         assertEquals("a", ctx.getABVersion());

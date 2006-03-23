@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.4 2006/03/23 02:16:08 apeterson Exp $
+ * $Id: SchoolsController.java,v 1.5 2006/03/23 18:21:38 apeterson Exp $
  */
 
 package gs.web.school;
@@ -45,7 +45,7 @@ public class SchoolsController extends AbstractController {
     public static final String PARAM_DISTRICT_NAME = "distname";
     public static final String PARAM_SHOW_ALL = "showall";
     public static final String PARAM_CITY = "city";
-    public static final String PARAM_LEVEL_CODE = "gl";
+    public static final String PARAM_LEVEL_CODE = "lc";
     public static final String PARAM_SCHOOL_TYPE = "st";
 
     // OUTPUT
@@ -55,7 +55,7 @@ public class SchoolsController extends AbstractController {
     public static final String REQ_ATTR_PAGE = "p";
     public static final String REQ_ATTR_CITY = "city";
     public static final String REQ_ATTR_DISTRICT = "district";
-    public static final String REQ_ATTR_LEVEL_CODE = "gl";
+    public static final String REQ_ATTR_LEVEL_CODE = "lc";
     public static final String REQ_ATTR_SCHOOL_TYPE = "st";
 
     // model properties: request.*

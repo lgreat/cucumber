@@ -4,6 +4,7 @@ import gs.data.school.district.District;
 import gs.data.util.Address;
 import gs.web.jsp.Util;
 import gs.web.util.UrlUtil;
+import gs.web.school.SchoolsController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -144,7 +145,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
         if (!showall && (_total > PAGE_SIZE)) {
 
-            StringBuffer hrefBuffer = new StringBuffer("/search/search.page?");
+            StringBuffer hrefBuffer = new StringBuffer("/schools.page?");
             hrefBuffer.append(qString);
             hrefBuffer.append("&amp;showall=true");
             showAllHref = urlUtil.buildUrl(hrefBuffer.toString(), request);
@@ -165,7 +166,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
         StringBuffer filterBuffer = new StringBuffer();
 
-        String[] gls = (String[]) getJspContext().findAttribute("gl");
+        String[] gls = (String[]) getJspContext().findAttribute(SchoolsController.PARAM_LEVEL_CODE);
         if (gls != null) {
             for (int i = 0; i < gls.length; i++) {
                 String qs = "";
@@ -173,15 +174,15 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                     filterBuffer.append(" | ");
                 }
                 filterBuffer.append(Util.capitalize(gls[i]));
-                if ("elementary".equals(gls[i])) {
-                    qs = qString.replaceAll("\\&gl=elementary", "");
-                } else if ("middle".equals(gls[i])) {
-                    qs = qString.replaceAll("\\&gl=middle", "");
-                } else if ("high".equals(gls[i])) {
-                    qs = qString.replaceAll("\\&gl=high", "");
+                if ("e".equals(gls[i])) {
+                    qs = qString.replaceAll("\\&lc=e", "");
+                } else if ("m".equals(gls[i])) {
+                    qs = qString.replaceAll("\\&lc=m", "");
+                } else if ("h".equals(gls[i])) {
+                    qs = qString.replaceAll("\\&lc=h", "");
                 }
 
-                StringBuffer urlBuffer = new StringBuffer("/search/search.page?");
+                StringBuffer urlBuffer = new StringBuffer("/schools.page?");
                 urlBuffer.append(qs);
                 filterBuffer.append(" (<a href=\"");
                 filterBuffer.append(urlUtil.buildUrl(urlBuffer.toString(), request));
@@ -205,7 +206,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                     qs = qString.replaceAll("\\&st=charter", "");
                 }
 
-                StringBuffer urlBuffer = new StringBuffer("/search/search.page?");
+                StringBuffer urlBuffer = new StringBuffer("/schools.page?");
                 urlBuffer.append(qs);
                 filterBuffer.append(" (<a href=\"");
                 filterBuffer.append(urlUtil.buildUrl(urlBuffer.toString(), request));
@@ -308,7 +309,9 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             out.println("<input type=\"image\" name=\"save\" onclick=\"return checkSelections();\" src=\"/res/img/btn_savechecked2msl_173x21.gif\" alt=\"Save checked to My School List\"/>");
             out.println("</td><td class=\"results_pagenav\">");
 
-            if (!showall) writePageNumbers(out);
+            if (!showall) {
+                writePageNumbers(out, "/search/search.page");
+            }
             out.println("</td><tr><td></td><td align=\"right\" style=\"padding-right:15px;padding-bottom:5px\">");
             if (!showall && (_total > PAGE_SIZE)) {
                 out.print("<a href=\"");

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import gs.data.school.LevelCode;
+
 /**
  * Builds the model backing the schoolFilters module.
  *
@@ -18,7 +20,7 @@ import java.util.List;
 public class SchoolFiltersController extends AbstractController {
 
     public static final String PARAM_SCHOOL_TYPES = "st";
-    public static final String PARAM_LEVEL_CODE = "gl";
+    public static final String PARAM_LEVEL_CODE = "lc";
     private static final String PARAM_DEST_PAGE = "dest";
 
 
@@ -53,9 +55,9 @@ public class SchoolFiltersController extends AbstractController {
         destPage = request.getContextPath() + destPage;
 
         // Build the list for grade levels: e, m, h
-        levels.add(createLevelCodeHtml(destPage, "elementary", gradeLevels != null && gradeLevels.contains("elementary"), qString));
-        levels.add(createLevelCodeHtml(destPage, "middle", gradeLevels != null && gradeLevels.contains("middle"), qString));
-        levels.add(createLevelCodeHtml(destPage, "high", gradeLevels != null && gradeLevels.contains("high"), qString));
+        levels.add(createLevelCodeHtml(destPage, LevelCode.Level.ELEMENTARY_LEVEL, "Elementary", gradeLevels != null && gradeLevels.contains("e"), qString));
+        levels.add(createLevelCodeHtml(destPage, LevelCode.Level.MIDDLE_LEVEL, "Middle", gradeLevels != null && gradeLevels.contains("m"), qString));
+        levels.add(createLevelCodeHtml(destPage, LevelCode.Level.HIGH_LEVEL, "High", gradeLevels != null && gradeLevels.contains("h"), qString));
 
 
         // Build the list for school types: public, private, charter
@@ -92,16 +94,16 @@ public class SchoolFiltersController extends AbstractController {
         return s;
     }
 
-    private String createLevelCodeHtml(String page, String levelCode, boolean hasLevel, String qString) {
+    private String createLevelCodeHtml(String page, LevelCode.Level level, String label, boolean hasLevel, String qString) {
         StringBuffer buffer = new StringBuffer();
         if (hasLevel) {
-            buffer.append(StringUtils.capitalize(levelCode) + " (<a href=\"" + page + "?");
-            buffer.append(qString.replaceAll("\\&gl=" + levelCode, ""));
+            buffer.append(label + " (<a href=\"" + page + "?");
+            buffer.append(qString.replaceAll("\\&lc=" + level.getName(), ""));
             buffer.append("\">remove</a>)");
         } else {
             buffer.append("<a href=\"" + page + "?");
             buffer.append(qString);
-            buffer.append("&gl=" + levelCode + "\">" + StringUtils.capitalize(levelCode) + "</a>");
+            buffer.append("&lc=" + level.getName() + "\">" + label + "</a>");
         }
         final String s = buffer.toString();
         return s;

@@ -1,7 +1,7 @@
 package gs.web.search;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.MockHttpServletRequest;
+import gs.web.GsMockHttpServletRequest;
 import gs.data.search.Searcher;
 import gs.data.search.IndexDir;
 import gs.data.search.Indexer;
@@ -41,7 +41,7 @@ public class CityDistrictControllerTest extends BaseControllerTestCase {
     public void testNullSearcher() throws Exception {
         try {
             CityDistrictController controller = new CityDistrictController(null);
-            MockHttpServletRequest request = getRequest();
+            GsMockHttpServletRequest request = getRequest();
             request.setParameter("q", "foo");
             controller.handleRequestInternal(request, getResponse());
             fail("CityDistrictController must not accept a null Searcher");

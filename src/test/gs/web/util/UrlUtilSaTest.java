@@ -1,16 +1,15 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.26 2006/03/23 02:16:08 apeterson Exp $
+ * $Id: UrlUtilSaTest.java,v 1.27 2006/03/23 18:21:38 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.data.state.State;
-import gs.data.content.Article;
 import gs.web.SessionContext;
 import gs.web.SessionFacade;
 import gs.web.SessionContextUtil;
-import gs.web.MockHttpServletRequest;
+import gs.web.GsMockHttpServletRequest;
 import junit.framework.TestCase;
 import org.springframework.mock.web.MockHttpServletResponse;
 
@@ -34,7 +33,7 @@ public class UrlUtilSaTest extends TestCase {
         sessionFacade.setState(State.CA);
 
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
         request.setAttribute(SessionFacade.REQUEST_ATTRIBUTE_NAME, sessionFacade);
         request.setMethod("http");

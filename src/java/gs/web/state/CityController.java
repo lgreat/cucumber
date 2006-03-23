@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.6 2006/03/23 02:16:08 apeterson Exp $
+ * $Id: CityController.java,v 1.7 2006/03/23 18:21:38 apeterson Exp $
  */
 
 package gs.web.state;
@@ -160,21 +160,21 @@ public class CityController extends AbstractController {
 
             sc = _schoolDao.countSchools(state, null, LevelCode.ELEMENTARY, cityNameParam);
             if (sc > 0) {
-                a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&gl=elementary",
+                a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&lc=e",
                         "All Elementary (" + sc + ")");
                 schoolBreakdownList.addResult(a);
             }
 
             sc = _schoolDao.countSchools(state, null, LevelCode.MIDDLE, cityNameParam);
             if (sc > 0) {
-                a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&gl=middle",
+                a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&lc=m",
                         "All Middle (" + sc + ")");
                 schoolBreakdownList.addResult(a);
             }
 
             sc = _schoolDao.countSchools(state, null, LevelCode.HIGH, cityNameParam);
             if (sc > 0) {
-                a = new Anchor("/schools.page?c=school&state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&gl=high",
+                a = new Anchor("/schools.page?c=school&state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&lc=h",
                         "All High (" + sc + ")");
                 schoolBreakdownList.addResult(a);
             }

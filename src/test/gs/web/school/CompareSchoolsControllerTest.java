@@ -1,6 +1,6 @@
 package gs.web.school;
 
-import gs.web.MockHttpServletRequest;
+import gs.web.GsMockHttpServletRequest;
 import gs.web.BaseControllerTestCase;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -30,7 +30,7 @@ public class CompareSchoolsControllerTest extends BaseControllerTestCase {
     }
 
     public void testConfirm() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setParameter("confirm.x", "1234");
         String[] stateIds = {"ca1", "ca2", "ca3"};
         request.addParameter("sc", stateIds);
@@ -39,7 +39,7 @@ public class CompareSchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("/cgi-bin/msl_confirm/ca/?add_ids=1&add_ids=2&add_ids=3", view.getUrl());
     }
     public void testNullSessionContext() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setParameter("compare.x", "1234");
         ModelAndView mav = controller.handleRequestInternal(request, (HttpServletResponse)null);
         RedirectView view = (RedirectView)mav.getView();
@@ -47,7 +47,7 @@ public class CompareSchoolsControllerTest extends BaseControllerTestCase {
     }
 
     public void testCompareWithoutState() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         String[] stateIds = {"ca1", "ca2", "ca3"};
         request.addParameter("ids", stateIds);
         request.addParameter("compare.x", "1234");

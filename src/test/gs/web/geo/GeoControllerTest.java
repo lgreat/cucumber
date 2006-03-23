@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoControllerTest.java,v 1.6 2006/03/20 23:20:37 apeterson Exp $
+ * $Id: GeoControllerTest.java,v 1.7 2006/03/23 18:21:38 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -8,7 +8,7 @@ package gs.web.geo;
 import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
 import gs.web.BaseControllerTestCase;
-import gs.web.MockHttpServletRequest;
+import gs.web.GsMockHttpServletRequest;
 import gs.web.SessionContextUtil;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.context.ApplicationContext;
@@ -32,7 +32,7 @@ public class GeoControllerTest extends BaseControllerTestCase {
         c.setSchoolDao(_schoolDao);
         c.setViewName("/geo/cityViolence");
 
-        MockHttpServletRequest request = getRequest();
+        GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "Oakland");
         request.addParameter("state", "CA");
         ModelAndView modelAndView = c.handleRequest(request, getResponse());
@@ -57,7 +57,7 @@ public class GeoControllerTest extends BaseControllerTestCase {
         c.setSchoolDao(_schoolDao);
         c.setViewName("/geo/cityViolence");
 
-        MockHttpServletRequest request = getRequest();
+        GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "Alameda");
         request.addParameter("state", "CA");
         ModelAndView modelAndView = c.handleRequest(request, getResponse());
@@ -82,7 +82,7 @@ public class GeoControllerTest extends BaseControllerTestCase {
         c.setSchoolDao(_schoolDao);
         c.setViewName("/geo/cityViolence");
 
-        MockHttpServletRequest request = getRequest();
+        GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "San Francisco");
         request.addParameter("state", "CA");
         ModelAndView modelAndView = c.handleRequest(request, getResponse());
@@ -101,7 +101,7 @@ public class GeoControllerTest extends BaseControllerTestCase {
         c.setSchoolDao(_schoolDao);
         c.setViewName("/geo/cityViolence");
 
-        MockHttpServletRequest request = getRequest();
+        GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "Buffalo");
         request.addParameter("state", "NY");
         _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());

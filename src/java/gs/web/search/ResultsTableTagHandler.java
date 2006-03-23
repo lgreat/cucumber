@@ -1,16 +1,15 @@
 package gs.web.search;
 
-import gs.web.jsp.BaseTagHandler;
 import gs.data.state.State;
+import gs.web.jsp.BaseTagHandler;
+import org.apache.commons.lang.StringUtils;
+import org.apache.taglibs.standard.functions.Functions;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
-
-import org.apache.taglibs.standard.functions.Functions;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * This is a base class for tag handlers that display search results.  Various
@@ -49,12 +48,13 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
 
     /**
      * Guaranteed to return a number > 0.
+     *
      * @return an int
      */
     public int getPage() {
         int page = 1;
         try {
-            String p = (String)getJspContext().findAttribute("p");
+            String p = (String) getJspContext().findAttribute("p");
             if (!StringUtils.isBlank(p)) {
                 int pageAttribute = Integer.parseInt(p);
                 if (pageAttribute > 1) {
@@ -68,11 +68,12 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
     /**
      * Returns the value of the "q" parameter or an empty string if
      * there is no "q" param in the request.
+     *
      * @return a non-null <code>String</code>
      */
     public String getQueryString() {
         String qs = "";
-        String qParam = (String)getJspContext().findAttribute("q");
+        String qParam = (String) getJspContext().findAttribute("q");
         if (StringUtils.isNotBlank(qParam)) {
             qs = qParam;
         }
@@ -94,18 +95,22 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
     public void setDebug(boolean db) {
         _debug = db;
     }
-    
-    protected void writePageNumbers(JspWriter out) throws IOException {
 
-        String cityParam = null;
+    /**
+     * Draws the page numbers.
+     *
+     * @param path the page that should be send to, for example "/search/search.page"
+     * @throws IOException
+     */
+    protected void writePageNumbers(JspWriter out, String path) throws IOException {
+
+        String cityParam = (String) getJspContext().findAttribute("city");
+
         String distParam = null;
         String distNameParam = null;
-
-        cityParam = (String)getJspContext().findAttribute("city");
-
         if (cityParam == null) {
-            distParam = (String)getJspContext().findAttribute("district");
-            distNameParam = (String)getJspContext().findAttribute("distname");
+            distParam = (String) getJspContext().findAttribute("district");
+            distNameParam = (String) getJspContext().findAttribute("distname");
         }
 
         if (_total > 0) {
@@ -117,7 +122,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                 int counter = 1;
 
                 StringBuffer hrefBuffer = new StringBuffer(40);
-                hrefBuffer.append("<a class=\"pad\" href=\"/search/search.page?q=");
+                hrefBuffer.append("<a class=\"pad\" href=\"" + path + "?q=");
                 hrefBuffer.append(Functions.escapeXml(getQueryString()));
 
                 if (cityParam != null) {
@@ -130,7 +135,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
 
                 if (distNameParam != null) {
                     hrefBuffer.append("&distname=");
-                    hrefBuffer.append(distNameParam);                    
+                    hrefBuffer.append(distNameParam);
                 }
 
                 State s = getState();
@@ -153,17 +158,17 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                 }
 
 
-                String[] gls = (String[])getJspContext().findAttribute("gl");
+                String[] gls = (String[]) getJspContext().findAttribute("lc");
                 if (gls != null) {
                     for (int jj = 0; jj < gls.length; jj++) {
-                        hrefBuffer.append("&gl=");
+                        hrefBuffer.append("&lc=");
                         hrefBuffer.append(gls[jj]);
                     }
                 }
 
-                String[] sts = (String[])getJspContext().findAttribute("st");
+                String[] sts = (String[]) getJspContext().findAttribute("st");
                 if (sts != null) {
-                    for(int i = 0; i < sts.length; i++) {
+                    for (int i = 0; i < sts.length; i++) {
                         hrefBuffer.append("&st=");
                         hrefBuffer.append(sts[i]);
                     }
@@ -179,12 +184,12 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
 
                 if (getPage() > 1) {
                     out.print(hrefStart);
-                    out.print(getPage()-1);
+                    out.print(getPage() - 1);
                     out.print("\">");
                     out.println("&lt;&nbsp;Previous</a>");
                 }
 
-                for (int i = start; i < end+1; i++) {
+                for (int i = start; i < end + 1; i++) {
 
                     if (i == getPage()) {
                         out.print("<span class=\"active pad\">");
@@ -207,7 +212,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
 
                 if (getPage() < end) {
                     out.print(hrefStart);
-                    out.print(getPage()+1);
+                    out.print(getPage() + 1);
                     out.print("\">");
                     out.println("Next &nbsp;&gt;</a>");
                 }

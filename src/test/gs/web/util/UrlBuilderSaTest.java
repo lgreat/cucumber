@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.2 2006/03/23 01:32:12 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.3 2006/03/23 18:21:38 apeterson Exp $
  */
 
 package gs.web.util;
@@ -8,7 +8,7 @@ package gs.web.util;
 import junit.framework.TestCase;
 import gs.data.content.Article;
 import gs.data.state.State;
-import gs.web.MockHttpServletRequest;
+import gs.web.GsMockHttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -46,7 +46,7 @@ public class UrlBuilderSaTest extends TestCase {
     }
 
     public void testUrlBuilder() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setMethod("GET");
         request.setProtocol("http");
         request.setServerName("www.myserver.com");
@@ -58,7 +58,7 @@ public class UrlBuilderSaTest extends TestCase {
     }
 
     public void testUrlBuilderParams() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setMethod("GET");
         request.setProtocol("http");
         request.setServerName("www.myserver.com");
@@ -73,7 +73,7 @@ public class UrlBuilderSaTest extends TestCase {
     }
 
     public void testUrlBuilder8080() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setMethod("GET");
         request.setProtocol("http");
         request.setServerName("www.myserver.com");

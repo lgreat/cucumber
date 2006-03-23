@@ -1,7 +1,7 @@
 package gs.web.state;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.MockHttpServletRequest;
+import gs.web.GsMockHttpServletRequest;
 import gs.web.util.UrlUtil;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -35,7 +35,7 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
      * @throws Exception
      */
     public void testPathways() throws Exception {
-        MockHttpServletRequest request = getRequest();
+        GsMockHttpServletRequest request = getRequest();
         MockHttpServletResponse response = getResponse();
 
         StatePathwayController controller = new StatePathwayController();
@@ -123,7 +123,7 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         //state param, no search param
         String state = "CA";
         iter = pathways.keySet().iterator();
-        request = new MockHttpServletRequest();
+        request = new GsMockHttpServletRequest();
 
         String redirectUrl = "";
         while (iter.hasNext()) {
@@ -190,7 +190,7 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         return retUrl;
     }
 
-    private String buildRedirectUrl(final String url, String state, MockHttpServletRequest request) {
+    private String buildRedirectUrl(final String url, String state, GsMockHttpServletRequest request) {
         UrlUtil urlUtil = new UrlUtil();
 
         return urlUtil.buildUrl(buildTestUrl(url, state), request);

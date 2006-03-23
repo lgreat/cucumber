@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.7 2006/03/21 01:42:53 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.8 2006/03/23 18:21:38 apeterson Exp $
  */
 
 package gs.web.state;
@@ -9,7 +9,7 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.district.IDistrictDao;
 import gs.data.geo.IGeoDao;
 import gs.web.BaseControllerTestCase;
-import gs.web.MockHttpServletRequest;
+import gs.web.GsMockHttpServletRequest;
 import gs.web.SessionContextUtil;
 import gs.web.util.Anchor;
 import gs.web.util.ListModel;
@@ -41,7 +41,7 @@ public class CityControllerTest extends BaseControllerTestCase {
     }
 
     public void testSchoolBreakdown() throws Exception {
-        MockHttpServletRequest request = getRequest();
+        GsMockHttpServletRequest request = getRequest();
         request.setParameter("state", "AK");
         request.setParameter("city", "Anchorage");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
@@ -56,13 +56,13 @@ public class CityControllerTest extends BaseControllerTestCase {
         //assertEquals(4, list.size());
 
         //assertEquals("/search/search.page?c=school&state=AK&city=Anchorage", ((Anchor) list.get(0)).getHref());
-        //assertEquals("/search/search.page?c=school&state=AK&city=Anchorage&gl=middle", ((Anchor) list.get(2)).getHref());
+        //assertEquals("/search/search.page?c=school&state=AK&city=Anchorage&lc=middle", ((Anchor) list.get(2)).getHref());
         //assertEquals("All Middle (32)", ((Anchor) list.get(2)).getContents());
 
     }
 
     public void testFindDistricts() throws Exception {
-        MockHttpServletRequest request = getRequest();
+        GsMockHttpServletRequest request = getRequest();
         request.setParameter("state", "WY");
         request.setParameter("city", "Worland");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
@@ -80,7 +80,7 @@ public class CityControllerTest extends BaseControllerTestCase {
 
     public void testCapitalization() throws Exception {
         // Alison complained that "city=oakland" fails to capitalize as "Oakland".
-        MockHttpServletRequest request = getRequest();
+        GsMockHttpServletRequest request = getRequest();
         request.setParameter("state", "CA");
         request.setParameter("city", "alameda");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
@@ -95,7 +95,7 @@ public class CityControllerTest extends BaseControllerTestCase {
 
     public void testOakland() throws Exception {
 
-        MockHttpServletRequest request = getRequest();
+        GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "Oakland");
         request.addParameter("state", "CA");
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
@@ -115,7 +115,7 @@ public class CityControllerTest extends BaseControllerTestCase {
 
     public void testAlameda() throws Exception {
 
-        MockHttpServletRequest request = getRequest();
+        GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "Alameda");
         request.addParameter("state", "CA");
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
@@ -136,7 +136,7 @@ public class CityControllerTest extends BaseControllerTestCase {
     public void testSF() throws Exception {
 
 
-        MockHttpServletRequest request = getRequest();
+        GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "San Francisco");
         request.addParameter("state", "CA");
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
@@ -150,7 +150,7 @@ public class CityControllerTest extends BaseControllerTestCase {
 
     public void testBuffaloNY() throws Exception {
 
-        MockHttpServletRequest request = getRequest();
+        GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "Buffalo");
         request.addParameter("state", "NY");
         _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());

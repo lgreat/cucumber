@@ -129,18 +129,18 @@ public class CityDistrictController extends AbstractController {
             if (lowerCaseQuery.indexOf("elementary") != -1 ||
                     lowerCaseQuery.indexOf("primary") != -1) {
                 filtersBuffer.append(" elementary");
-                urlBuffer.append("&amp;gl=elementary");
+                urlBuffer.append("&amp;lc=e");
                 gl = "elementary";
             } else if (lowerCaseQuery.indexOf("middle") != -1 ||
                     lowerCaseQuery.indexOf("junior") != -1 ||
                     lowerCaseQuery.indexOf("jr") != -1) {
                 filtersBuffer.append(" middle");
-                urlBuffer.append("&amp;gl=middle");
+                urlBuffer.append("&amp;lc=m");
                 gl = "middle";
             } else if (lowerCaseQuery.indexOf("high") != -1 ||
                     lowerCaseQuery.indexOf("senior") != -1) {
                 filtersBuffer.append(" high");
-                urlBuffer.append("&amp;gl=high");
+                urlBuffer.append("&amp;lc=h");
                 gl = "high";
             }
 

@@ -96,7 +96,7 @@
 
   <tag>
     <name>mainResults</name>
-    <tag-class>gs.web.search.MainResultsTagHandler</tag-class>
+    <tag-class>gs.web.search.MixedResultsTagHandler</tag-class>
     <body-content>scriptless</body-content>
     <attribute>
       <name>results</name>

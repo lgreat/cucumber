@@ -1,7 +1,7 @@
 package gs.web.search;
 
 import gs.web.BaseTestCase;
-import gs.web.MockHttpServletRequest;
+import gs.web.GsMockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
@@ -25,7 +25,7 @@ public class SearchControllerTest extends BaseTestCase {
 
     public void testQueryOnly () throws Exception {
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
         request.setParameter("q", "San Bruno");
         //ModelAndView mv = sc.handleRequestInternal(request, response);
@@ -34,7 +34,7 @@ public class SearchControllerTest extends BaseTestCase {
 
     // This might be better off in in the gs.data.search tests.
     public void testSuggestion() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
         request.setParameter("q", "Alamefa");
         //ModelAndView mv = sc.handleRequestInternal(request, response);
@@ -46,7 +46,7 @@ public class SearchControllerTest extends BaseTestCase {
 
     public void testAllParams1() throws Exception {
 
-        MockHttpServletRequest request = new MockHttpServletRequest();
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
         request.setParameter("p", "1");
         request.setParameter("c", "schools");

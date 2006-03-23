@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: BaseControllerTestCase.java,v 1.5 2006/03/02 19:05:44 apeterson Exp $
+ * $Id: BaseControllerTestCase.java,v 1.6 2006/03/23 18:21:38 apeterson Exp $
  */
 
 package gs.web;
@@ -15,17 +15,17 @@ import org.springframework.context.ApplicationContext;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class BaseControllerTestCase extends BaseTestCase {
-    private MockHttpServletRequest _request;
+    private GsMockHttpServletRequest _request;
     private MockHttpServletResponse _response;
     private SessionContext _sessionContext;
 
     protected void setUp() throws Exception {
         super.setUp();
-        _request = new MockHttpServletRequest();
+        _request = new GsMockHttpServletRequest();
         String hostname = "www.greatschools.net";
         _request.setServerName(hostname);
         _sessionContext = new SessionContext() {
-            // Implement a lazy 
+            // Implement a lazy
             public ApplicationContext getApplicationContext() {
                 return BaseControllerTestCase.this.getApplicationContext();
             }
@@ -50,7 +50,7 @@ public class BaseControllerTestCase extends BaseTestCase {
         return _sessionContext;
     }
 
-    public MockHttpServletRequest getRequest() {
+    public GsMockHttpServletRequest getRequest() {
         return _request;
     }
 

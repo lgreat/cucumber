@@ -1,28 +1,27 @@
 package gs.web.search;
 
+import gs.data.school.School;
+import gs.data.search.highlight.TextHighlighter;
+import gs.data.state.StateManager;
+import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.Writer;
-
-import gs.data.school.School;
-import gs.data.state.StateManager;
-import gs.data.search.highlight.TextHighlighter;
-import gs.web.util.UrlUtil;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class MainResultsTagHandler extends ResultsTableTagHandler {
+public class MixedResultsTagHandler extends ResultsTableTagHandler {
 
     private UrlUtil _urlUtil;
     private Writer _writer;
     private static StateManager _stateManager = new StateManager();
 
-    public MainResultsTagHandler() {
+    public MixedResultsTagHandler() {
         super();
         _urlUtil = new UrlUtil();
     }
@@ -37,7 +36,7 @@ public class MainResultsTagHandler extends ResultsTableTagHandler {
         }
         return _writer;
     }
-    
+
     public void doTag() throws IOException {
 
         Writer out = getWriter();
@@ -156,7 +155,7 @@ public class MainResultsTagHandler extends ResultsTableTagHandler {
         }
 
         out.write("</td></tr><tr><td class=\"results_pagenav\">");
-        writePageNumbers(getJspContext().getOut());
+        writePageNumbers(getJspContext().getOut(), "/search/search.page");
         out.write("</td></tr></table>");
 
         try {

@@ -91,9 +91,9 @@ public class SearchController extends AbstractFormController {
                 request.setAttribute("distname", request.getParameter("distname"));
             }
 
-            String[] levels = request.getParameterValues("gl");
+            String[] levels = request.getParameterValues("lc");
             if (levels != null) {
-                request.setAttribute("gl", levels);
+                request.setAttribute("lc", levels);
             }
 
             String[] sTypes = request.getParameterValues("st");

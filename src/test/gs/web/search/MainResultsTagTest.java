@@ -10,7 +10,7 @@ import java.io.StringWriter;
 public class MainResultsTagTest extends TestCase {
 
     public void testDoTag() throws Exception {
-        MainResultsTagHandler tag = new MainResultsTagHandler();
+        MixedResultsTagHandler tag = new MixedResultsTagHandler();
         StringWriter writer = new StringWriter();
         tag.setWriter(writer);
         assertNotNull(tag.getWriter());
