@@ -37,6 +37,8 @@
         <pattern>/city.page</pattern>
         <pattern>/cities.page</pattern>
 
+        <pattern>/schools.page</pattern>
+
         <pattern>/school/authorizers.page</pattern>
 
         <pattern>/test/city.page</pattern>
