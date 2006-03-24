@@ -64,6 +64,7 @@
         s.prop6 = "${param.q}";
         s.prop6 = s.prop6.toLowerCase();
         s.prop7 = "${pageName}:${requestScope.context.ABVersion}";
+        s.prop8 = "${param.cpn}";
         s.hier1 = "${hier1}";
 
     </script>
