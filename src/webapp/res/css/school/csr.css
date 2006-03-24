@@ -1,0 +1,73 @@
+.i2bcopy {font-family: arial; font-size: 12px; font-style: normal; font-weight: bold; line-height: 10pt; color: #ff6600;}
+.ocopy {font-family: arial; font-size: 11px; font-style: normal; line-height: 10pt; color: #ff6600;}
+.bigwhitecopy {font-family: arial; font-size: 14px; font-style: normal; font-weight: bold; line-height: 12pt; color: #ffffff;}
+.bwhcopy {font-family: arial; font-size: 12px; font-style: normal; font-weight: bold; line-height: 10pt; height:20px; color: #ffffff;}
+
+div.datatable span.footnote {
+  float:right;
+  font-size:70%;
+  margin-top:5px;
+  margin-right:5px;
+}
+
+span.moreabout {
+  float:right;
+  font-size:80%;
+  padding-right:15px;
+}
+
+div#introtext {
+  padding:10px;
+  font-size:80%;
+}
+
+span#infolink {
+  font-size:80%;
+  padding:10px;
+}
+
+div.datatable{
+  margin-bottom:30px;
+  padding-left:10px;
+  padding-right:10px;
+  padding-top:20px;
+
+}
+    div.datatable table.datagrid {
+      border:thin solid black;
+      font-size:80%;
+    }
+
+    div.datatable .title {
+      padding-top:5px;
+      padding-bottom:5px;
+      padding-left:2px;
+      padding-right:5px;
+      font-weight:bold;
+      font-size:80%;
+      color:#003399;
+    }
+
+    div.datatable td.odd {
+      background:#FFFFCC;
+    }
+
+    div.datatable td.even {
+      background:#FFFFFF;
+    }
+
+    div.datatable td.lcol {
+      padding-left:5px;
+      padding-right:5px;
+      padding-top:3px;
+      padding-bottom:3px;
+      width:25%;
+      vertical-align:top;
+    }
+
+    div.datatable td.rcol {
+      padding-left:5px;
+      padding-top:3px;
+      padding-bottom:3px;
+      padding-right:8px;
+    }
