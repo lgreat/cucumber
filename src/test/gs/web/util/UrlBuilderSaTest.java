@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.4 2006/03/23 19:02:35 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.5 2006/03/24 01:17:58 apeterson Exp $
  */
 
 package gs.web.util;
@@ -53,7 +53,7 @@ public class UrlBuilderSaTest extends TestCase {
         request.setServerPort(80);
         request.setRequestURI("/index.page");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
-        assertEquals("/index.page", builder.asSiteRelativeUrl());
+        assertEquals("/index.page", builder.asSiteRelative());
         assertEquals("http://www.myserver.com/index.page", builder.asFullUrl());
     }
 
@@ -66,11 +66,11 @@ public class UrlBuilderSaTest extends TestCase {
         request.setContextPath("/gs-web");
         request.setRequestURI("/gs-web/index.page");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
-        assertEquals("/gs-web/index.page", builder.asSiteRelativeUrl());
+        assertEquals("/gs-web/index.page", builder.asSiteRelative());
         assertEquals("http://www.myserver.com/gs-web/index.page", builder.asFullUrl());
 
         builder = new UrlBuilder(request, null); // suck page path automatically from the request
-        assertEquals("/gs-web/index.page", builder.asSiteRelativeUrl());
+        assertEquals("/gs-web/index.page", builder.asSiteRelative());
         assertEquals("http://www.myserver.com/gs-web/index.page", builder.asFullUrl());
     }
 
@@ -85,7 +85,7 @@ public class UrlBuilderSaTest extends TestCase {
         request.setParameter("b", "2");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
         builder.addParametersFromRequest(request);
-        assertEquals("/index.page?a=1&b=2", builder.asSiteRelativeUrl());
+        assertEquals("/index.page?a=1&b=2", builder.asSiteRelative());
         assertEquals("http://www.myserver.com/index.page?a=1&b=2", builder.asFullUrl());
     }
 
@@ -97,7 +97,7 @@ public class UrlBuilderSaTest extends TestCase {
         request.setServerPort(8080);
         request.setRequestURI("/index.page");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
-        assertEquals("/index.page", builder.asSiteRelativeUrl());
+        assertEquals("/index.page", builder.asSiteRelative());
         assertEquals("http://www.myserver.com:8080/index.page", builder.asFullUrl());
     }
 

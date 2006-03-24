@@ -1,11 +1,12 @@
 package gs.web.search;
 
 import gs.data.school.district.District;
+import gs.data.school.LevelCode;
 import gs.data.util.Address;
 import gs.web.jsp.Util;
-import gs.web.util.UrlUtil;
-import gs.web.util.UrlBuilder;
 import gs.web.school.SchoolsController;
+import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,10 +16,11 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import java.io.IOException;
 import java.util.List;
+import java.util.Iterator;
 
 /**
  * This tag handler generates a table of schools.
- * This tag is used on search/mixed.jspx and search/schoolsOnly.jspx.
+ * This tag is used on and search/schoolsOnly.jspx.
  * todo: This class is an <strong>ugly mess</strong> and badly needs to be
  * refactored.
  *
@@ -26,7 +28,9 @@ import java.util.List;
  */
 public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
-    /** used by Spring */
+    /**
+     * used by Spring
+     */
     public static final String BEAN_ID = "schoolTableTagHandler";
 
     private static UrlUtil urlUtil = new UrlUtil();
@@ -35,6 +39,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
     /**
      * This is the list of schools that fills the schools table
+     *
      * @param sList a <code>List</code> of <code>gs.data.School</code> objects
      */
     public void setSchools(List sList) {
@@ -63,7 +68,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         out.print("<form action=\"/compareSchools.page\">");
         out.print("<input type=\"hidden\" name=\"state\" value=\"");
         out.print(getStateOrDefault().getAbbreviation());
-        out.println ("\"/>");
+        out.println("\"/>");
         out.println("<table class=\"columns\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">");
         out.println("<tr><td class=\"mainresultsheader\">");
         out.println("<table width=\"100%\"><tr><td><span id=\"resultsheadline\">");
@@ -167,26 +172,18 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
         StringBuffer filterBuffer = new StringBuffer();
 
-        String[] gls = (String[]) getJspContext().findAttribute(SchoolsController.PARAM_LEVEL_CODE);
-        if (gls != null) {
-            for (int i = 0; i < gls.length; i++) {
+        LevelCode levelCode = (LevelCode) getJspContext().findAttribute(SchoolsController.PARAM_LEVEL_CODE);
+        if (levelCode != null) {
+            for (Iterator i = levelCode.getIterator(); i.hasNext(); ) {
+                LevelCode.Level level = (LevelCode.Level) i.next();
                 String qs = "";
                 if (filterBuffer.length() > 0) {
                     filterBuffer.append(" | ");
                 }
-                filterBuffer.append(Util.capitalize(gls[i]));
-                if ("e".equals(gls[i])) {
-                    qs = qString.replaceAll("\\&lc=e", "");
-                } else if ("m".equals(gls[i])) {
-                    qs = qString.replaceAll("\\&lc=m", "");
-                } else if ("h".equals(gls[i])) {
-                    qs = qString.replaceAll("\\&lc=h", "");
-                }
-
-                StringBuffer urlBuffer = new StringBuffer("/schools.page?");
-                urlBuffer.append(qs);
+                filterBuffer.append(Util.capitalize(level.getLongName()));
+                qs = qString.replaceAll("\\&lc=" + level.getName(), "");
                 filterBuffer.append(" (<a href=\"");
-                filterBuffer.append(urlUtil.buildUrl(urlBuffer.toString(), request));
+                filterBuffer.append(urlUtil.buildUrl("/schools.page?" + qs, request));
                 filterBuffer.append("\">remove</a>)");
             }
         }
@@ -217,65 +214,36 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         }
 
         // "compare all" links
-        StringBuffer compareBaseBuffer = new StringBuffer();
-        compareBaseBuffer.append("/cgi-bin/cs_compare/");
-        compareBaseBuffer.append(getState().getAbbreviationLowerCase());
-        compareBaseBuffer.append("/?area=");
-        if (distId != null) {
-            compareBaseBuffer.append("d");
-        } else {
-            compareBaseBuffer.append("m&amp;city=");
-            if (cityOrDistrictName != null) {
-                compareBaseBuffer.append(cityOrDistrictName.replaceAll("\\s", "+"));
-            }
-        }
-
-        compareBaseBuffer.append("&amp;sortby=");
-        if (distId != null) {
-            compareBaseBuffer.append("name");
-        } else {
-            compareBaseBuffer.append("distance");
-        }
-
-        compareBaseBuffer.append("&amp;tab=over&amp;level=");
-
-        String compareUrlBase = compareBaseBuffer.toString();
         out.println("<tr><td colspan=\"2\">");
         out.print("<div id=\"comparelinks\">Compare ");
         out.print(cityOrDistrictName);
         out.print(" public schools: ");
 
-        out.print("<a href=\"");
-        StringBuffer buffer = new StringBuffer(compareUrlBase);
-        buffer.append("e");
+        UrlBuilder compareBuilder = new UrlBuilder(request,
+                "/cgi-bin/cs_compare/" + getState().getAbbreviationLowerCase());
+        compareBuilder.setParameter("tab", "over");
         if (distId != null) {
-            buffer.append("&amp;district=");
-            buffer.append(distId);
+            compareBuilder.setParameter("district", distId);
+            compareBuilder.setParameter("area", "d");
+            compareBuilder.setParameter("sortby", "name");
+        } else {
+            compareBuilder.setParameter("area", "m");
+            compareBuilder.setParameter("city", cityOrDistrictName != null ? cityOrDistrictName : "");
+            compareBuilder.setParameter("sortby", "distance");
         }
-        out.print(urlUtil.buildUrl(buffer.toString(), request));
-        out.print("\">Elementary</a>");
+
+        compareBuilder.setParameter("level", "e");
+        out.print(compareBuilder.asAHref("Elementary"));
         out.print(" | ");
 
-        out.print("<a href=\"");
-        buffer = new StringBuffer(compareUrlBase);
-        buffer.append("m");
-        if (distId != null) {
-            buffer.append("&amp;district=");
-            buffer.append(distId);
-        }
-        out.print(urlUtil.buildUrl(buffer.toString(), request));
-        out.print("\">Middle</a>");
-        out.print(" | ");
+        compareBuilder.setParameter("level", "m");
+        out.print(compareBuilder.asAHref("Middle"));
 
-        out.print("<a href=\"");
-        buffer = new StringBuffer(compareUrlBase);
-        buffer.append("h");
-        if (distId != null) {
-            buffer.append("&amp;district=");
-            buffer.append(distId);
-        }
-        out.print(urlUtil.buildUrl(buffer.toString(), request));
-        out.print("\">High</a></div>");
+        out.print(" | ");
+        compareBuilder.setParameter("level", "h");
+        out.print(compareBuilder.asAHref("High"));
+
+        out.print("</div>");
         out.println("</td></tr>");
         // end "compare all" links
 
@@ -298,7 +266,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             // writes the list of schools
             try {
                 getJspBody().invoke(out);
-            } catch(Exception e) {
+            } catch (Exception e) {
                 _log.warn("could not write school list", e);
             }
 

@@ -1,7 +1,9 @@
 package gs.web.search;
 
+import gs.data.school.LevelCode;
 import gs.data.state.State;
 import gs.web.jsp.BaseTagHandler;
+import gs.web.school.SchoolsController;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.taglibs.standard.functions.Functions;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -123,7 +126,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                 int counter = 1;
 
                 StringBuffer hrefBuffer = new StringBuffer(40);
-                hrefBuffer.append("<a class=\"pad\" href=\"" + path.asSiteRelativeUrl() + "?q=");
+                hrefBuffer.append("<a class=\"pad\" href=\"" + path.asSiteRelative() + "?q=");
                 hrefBuffer.append(Functions.escapeXml(getQueryString()));
 
                 if (cityParam != null) {
@@ -159,11 +162,20 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                 }
 
 
-                String[] gls = (String[]) getJspContext().findAttribute("lc");
-                if (gls != null) {
-                    for (int jj = 0; jj < gls.length; jj++) {
+                final Object lcObject = getJspContext().findAttribute(SchoolsController.MODEL_LEVEL_CODE);
+                if (lcObject != null) {
+                    // This comes in as either a String[] or a LevelCode object,
+                    // depending on the controller.
+                    LevelCode levelCode;
+                    if (lcObject instanceof String[]) {
+                        levelCode = LevelCode.createLevelCode((String[]) lcObject);
+                    } else {
+                        levelCode = (LevelCode) lcObject;
+                    }
+                    for (Iterator iter = levelCode.getIterator(); iter.hasNext();) {
+                        LevelCode.Level level = (LevelCode.Level) iter.next();
                         hrefBuffer.append("&lc=");
-                        hrefBuffer.append(gls[jj]);
+                        hrefBuffer.append(level.getName());
                     }
                 }
 

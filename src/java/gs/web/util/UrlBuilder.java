@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.5 2006/03/23 19:09:16 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.6 2006/03/24 01:17:58 apeterson Exp $
  */
 
 package gs.web.util;
@@ -36,6 +36,7 @@ public class UrlBuilder {
     private String _path;
     private Map _parameters;
     private boolean _perlPage = false;
+    private static UrlUtil _urlUtil = new UrlUtil();
 
 
     /**
@@ -56,6 +57,7 @@ public class UrlBuilder {
         _serverPort = request.getServerPort();
         _contextPath = request.getContextPath();
         _path = contextRelativePath;
+        _perlPage = _urlUtil.smellsLikePerl(_path);
         if (contextRelativePath == null) {
             _path = request.getRequestURI();
             _path = StringUtils.removeStart(_path, _contextPath);
@@ -109,6 +111,7 @@ public class UrlBuilder {
      */
     public void setPath(String path) {
         _path = path;
+        _perlPage = _urlUtil.smellsLikePerl(path);
     }
 
     /**
@@ -160,13 +163,13 @@ public class UrlBuilder {
     }
 
     public String toString() {
-        return asSiteRelativeUrl();
+        return asSiteRelative();
     }
 
     /**
      * Provides a site-relative path to the page, including the context path if needed.
      */
-    public String asSiteRelativeUrl() {
+    public String asSiteRelative() {
         StringBuffer sb = new StringBuffer();
         if (!_perlPage && StringUtils.isNotEmpty(_contextPath)) {
             sb.append(_contextPath);
@@ -193,21 +196,27 @@ public class UrlBuilder {
     }
 
     public Anchor asAnchor(String label) {
-        return new Anchor(asSiteRelativeUrl(), label);
+        return new Anchor(asSiteRelative(), label);
     }
 
     /**
      * Provides a full URL to the page. Generally not needed, but occassionally necessary.
      *
-     * @see #asSiteRelativeUrl()
+     * @see #asSiteRelative()
      */
     public String asFullUrl() {
         String url = "http://" +
                 _serverName +
                 ((_serverPort != 80) ? ":" + _serverPort : "") +
-                asSiteRelativeUrl();
+                asSiteRelative();
         return url;
     }
 
 
+    /**
+     * Provides a site-relative link wrapped in an a tag.
+     */
+    public String asAHref(String label) {
+        return "<a href=\"" + asSiteRelative() + "\">" + label + "</a>";
+    }
 }

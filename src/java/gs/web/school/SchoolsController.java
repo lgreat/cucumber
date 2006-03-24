@@ -1,28 +1,31 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.5 2006/03/23 18:21:38 apeterson Exp $
+ * $Id: SchoolsController.java,v 1.6 2006/03/24 01:17:58 apeterson Exp $
  */
 
 package gs.web.school;
 
-import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.ModelAndView;
-import org.apache.log4j.Logger;
-import org.apache.commons.lang.StringUtils;
-import org.apache.lucene.search.Hits;
-import gs.data.search.Searcher;
-import gs.data.search.SearchCommand;
-import gs.data.school.district.IDistrictDao;
+import gs.data.school.LevelCode;
 import gs.data.school.district.District;
+import gs.data.school.district.IDistrictDao;
+import gs.data.search.SearchCommand;
+import gs.data.search.Searcher;
 import gs.data.state.State;
-import gs.web.search.ResultsPager;
-import gs.web.SessionContext;
 import gs.web.ISessionFacade;
+import gs.web.SessionContext;
+import gs.web.search.ResultsPager;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.lucene.search.Hits;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.InternalResourceView;
+import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Provides...
@@ -38,31 +41,65 @@ public class SchoolsController extends AbstractController {
     private IDistrictDao _districtDao;
 
     // INPUTS
-    // see SearchCommand, which Spring wires up
-    public static final String PARAM_QUERY = "q";
     public static final String PARAM_PAGE = "p";
     public static final String PARAM_DISTRICT = "district";
     public static final String PARAM_DISTRICT_NAME = "distname";
     public static final String PARAM_SHOW_ALL = "showall";
+    /**
+     * The name of the city, if provided.
+     */
     public static final String PARAM_CITY = "city";
+    /**
+     * Zero or more of (e,m,h).
+     */
     public static final String PARAM_LEVEL_CODE = "lc";
+    /**
+     * Zero or more of (public,private,charter), as separate parameters.
+     */
     public static final String PARAM_SCHOOL_TYPE = "st";
 
     // OUTPUT
     // request attributes
-    public static final String REQ_ATTR_QUERY = "q";
-    public static final String REQ_ATTR_DISTNAME = "distname";
-    public static final String REQ_ATTR_PAGE = "p";
-    public static final String REQ_ATTR_CITY = "city";
-    public static final String REQ_ATTR_DISTRICT = "district";
-    public static final String REQ_ATTR_LEVEL_CODE = "lc";
-    public static final String REQ_ATTR_SCHOOL_TYPE = "st";
+    public static final String MODEL_PAGE = "p";
+    /**
+     * The name of the city, if provided.
+     */
+    public static final String MODEL_CITY = "city";
+    /**
+     * The ID of the district, if provided.
+     */
+    public static final String MODEL_DISTRICT = "district";
+    public static final String MODEL_DISTNAME = "distname";
+    /**
+     * An optional LevelCode object.
+     */
+    public static final String MODEL_LEVEL_CODE = "lc";
 
-    // model properties: request.*
+    /**
+     * Zero or more of (public,private,charter), in a String[].
+     */
+    public static final String MODEL_SCHOOL_TYPE = "st";
+
+
+
+    // model properties: request.* (as well)
+    /**
+     * Total number of results available for the query.
+     */
     public static final String MODEL_SCHOOLS_TOTAL = "schoolsTotal";
-    public static final String MODEL_SCHOOLS = "schools";
-    public static final String MODEL_PAGE_SIZE = "pageSize";
+    /**
+     * Total number of results available for the query (the same).
+     */
     public static final String MODEL_TOTAL = "total";
+    /**
+     * A List of School objects.
+     */
+    public static final String MODEL_SCHOOLS = "schools";
+    /**
+     * Requested page size. The number of items on the page is the size
+     * of the schools list.
+     */
+    public static final String MODEL_PAGE_SIZE = "pageSize";
 
 
     /**
@@ -82,18 +119,21 @@ public class SchoolsController extends AbstractController {
         ISessionFacade context = SessionContext.getInstance(request);
         State state = context.getState();
 
-        request.setAttribute(REQ_ATTR_QUERY, request.getParameter(PARAM_QUERY));
+        Map model = new HashMap();
 
         final String[] paramLevelCode = request.getParameterValues(PARAM_LEVEL_CODE);
-        String[] levels = paramLevelCode;
-        if (levels != null) {
-            request.setAttribute(REQ_ATTR_LEVEL_CODE, levels);
+        LevelCode levelCode = null;
+        if (paramLevelCode != null) {
+            levelCode = LevelCode.createLevelCode(paramLevelCode);
+            model.put(MODEL_LEVEL_CODE, levelCode);
+            request.setAttribute(MODEL_LEVEL_CODE, levelCode);
         }
 
         final String[] paramSchoolType = request.getParameterValues(PARAM_SCHOOL_TYPE);
         String[] sTypes = paramSchoolType;
         if (sTypes != null) {
-            request.setAttribute(REQ_ATTR_SCHOOL_TYPE, sTypes);
+            model.put(MODEL_SCHOOL_TYPE, sTypes);
+            request.setAttribute(MODEL_SCHOOL_TYPE, sTypes);
         }
 
         int page = 1;
@@ -105,7 +145,8 @@ public class SchoolsController extends AbstractController {
                 // ignore this and just assume the page is 1.
             }
         }
-        request.setAttribute(REQ_ATTR_PAGE, Integer.toString(page));
+        model.put(MODEL_PAGE, Integer.toString(page));
+        request.setAttribute(MODEL_PAGE, Integer.toString(page));
 
         int pageSize = 10;
         String paramShowAll = request.getParameter(PARAM_SHOW_ALL);
@@ -116,12 +157,15 @@ public class SchoolsController extends AbstractController {
         SearchCommand searchCommand = new SearchCommand();
         searchCommand.setC("school");
         searchCommand.setState(state);
-        searchCommand.setGl(paramLevelCode);
+        if (levelCode != null) {
+            searchCommand.setLevelCode(levelCode);
+        }
         searchCommand.setSt(paramSchoolType);
 
         String city = StringUtils.capitalize(request.getParameter(PARAM_CITY));
         if (city != null) {
-            request.setAttribute(REQ_ATTR_CITY, city);
+            model.put(MODEL_CITY, city);
+            request.setAttribute(MODEL_CITY, city);
             searchCommand.setCity(city);
             searchCommand.setQ(city);
 
@@ -131,32 +175,35 @@ public class SchoolsController extends AbstractController {
 
                 // Look up the district name
                 String districtIdStr = request.getParameter(PARAM_DISTRICT);
-                request.setAttribute(REQ_ATTR_DISTRICT, districtIdStr);
+                model.put(MODEL_DISTRICT, districtIdStr);
+                request.setAttribute(MODEL_DISTRICT, districtIdStr);
                 int districtId = Integer.parseInt(districtIdStr);
                 District district = _districtDao.findDistrictById(state, new Integer(districtId));
-                request.setAttribute(REQ_ATTR_DISTNAME, district.getName());
+                model.put(MODEL_DISTNAME, district.getName());
+                request.setAttribute(MODEL_DISTNAME, district.getName());
                 searchCommand.setDistrict(districtIdStr);
                 searchCommand.setQ(district.getName());
             }
         }
 
-
         // Build the results and the model
-        Map model = new HashMap();
         Hits hts = _searcher.search(searchCommand);
         if (hts != null) {
 
             _resultsPager.load(hts, "school");
-
-            model.put(MODEL_SCHOOLS_TOTAL, new Integer(_resultsPager.getSchoolsTotal()));
-            model.put(MODEL_SCHOOLS, _resultsPager.getSchools(page, schoolsPageSize));
-            model.put(MODEL_PAGE_SIZE, new Integer(pageSize));
-            model.put(MODEL_TOTAL, new Integer(hts.length()));
+            Map resultsModel = new HashMap();
+            resultsModel.put(MODEL_SCHOOLS_TOTAL, new Integer(_resultsPager.getSchoolsTotal()));
+            resultsModel.put(MODEL_SCHOOLS, _resultsPager.getSchools(page, schoolsPageSize));
+            resultsModel.put(MODEL_PAGE_SIZE, new Integer(pageSize));
+            resultsModel.put(MODEL_TOTAL, new Integer(hts.length()));
+            model.put("results", resultsModel);
         } else {
             _log.warn("Hits object is null for SearchCommand: " + searchCommand);
         }
 
-        return new ModelAndView("search/schoolsOnly", "results", model);
+        final ModelAndView modelAndView = new ModelAndView("search/schoolsOnly",model);
+        return modelAndView;
+
     }
 
 
