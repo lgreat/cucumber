@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.7 2006/03/24 01:35:49 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.8 2006/03/24 20:14:51 apeterson Exp $
  */
 
 package gs.web.util;
@@ -208,7 +208,7 @@ public class UrlBuilder {
         String url = "http://" +
                 _serverName +
                 ((_serverPort != 80) ? ":" + _serverPort : "") +
-                asSiteRelative();
+                asSiteRelative().replaceAll("&amp;", "&");
         return url;
     }
 

@@ -42,13 +42,13 @@ import java.util.ArrayList;
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class CityDistrictController extends AbstractController {
+public class CityDistrictRollupController extends AbstractController {
 
     public static final String BEAN_ID = "/search/citydistrict.module";
     private static int LIST_SIZE = 3;  // The # of city or dist results to show
     private static int EXTENDED_LIST_SIZE = 50;
     private static final Logger _log =
-            Logger.getLogger(CityDistrictController.class);
+            Logger.getLogger(CityDistrictRollupController.class);
 
     private static final String[] CITY_DIST_STOP_WORDS = {
             "a", "an", "and", "are", "as", "at", "be", "but", "by",
@@ -65,7 +65,7 @@ public class CityDistrictController extends AbstractController {
     private StateManager _stateManager;
     private QueryParser _queryParser;
 
-    public CityDistrictController(Searcher searcher) {
+    public CityDistrictRollupController(Searcher searcher) {
         _searcher = searcher;
         _queryParser = new QueryParser("text", new PorterStandardAnalyzer(CITY_DIST_STOP_WORDS));
         _queryParser.setOperator(QueryParser.DEFAULT_OPERATOR_AND);

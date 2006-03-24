@@ -13,16 +13,16 @@
         xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
-    <html lang="en">
-    <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-    <jsp:output doctype-root-element="html"
-                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<html lang="en">
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-    <jsp:directive.page contentType="text/html"/>
+<jsp:directive.page contentType="text/html"/>
 
-    <head>
-        <![CDATA[
+<head>
+    <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
         <style type="text/css">
 #mapContainer {
@@ -105,36 +105,57 @@ font-size: x-large;
 
         </style>
             ]]>
-        <c:set var="city">${param["city"]}</c:set>
-        <title>${city} Schools</title>
-    </head>
+    <c:set var="city">${param["city"]}</c:set>
+    <title>${city} Schools</title>
+</head>
 
-    <gsml:body adPageName="city">
-        <div id="nearbyCities" >
+<gsml:body adPageName="city">
+    <div id="nearbyCities">
         <jsp:include page="/geo/nearbyCities.module?city=${city}&amp;count=6&amp;more=true"/>
-        </div>
+    </div>
 
-        <div style="margin: .5em">
-        <gsml:box tableClass="shade3" tableWidth="66%">
-		<table width="100%" cellpadding="0" cellspacing="0"><tr><td style="width:50%; vertical-align: top">
-               <gsml:list model="${schoolBreakdown}"/>
-            <gsml:list model="${districts}"/>
-        </td><td style="width: 50%">
-            <div id="mapContainer">
-                <div id="map">&#160;</div>
-            </div>
-            <map:setup/>
-            <map:schools functionName="createMap" id="map" lon="${lon}" lat="${lat}" scale="${scale}" schools="${schools}" />
-            <pageHelper:addOnLoadHandler handler="createMap()"/>
-        </td>
-                </tr></table>
-       </gsml:box>
-            <gsml:box tableClass="shade3" tableWidth="66%">
-                <jsp:include page="/geo/cityStats.module?city=${city}&amp;state=${stateAbbrev}"/>
-            </gsml:box>
+    <div style="margin: .5em">
+        <table width="100%">
+            <tr>
+                <td width="33%" style="vertical-align:top">
+                    <gsml:box tableClass="shade3" tableWidth="100%">
+                    <jsp:include page="/school/review/recentParentReviews.module?city=${city}&amp;state=${stateAbbrev}"/>
+                    </gsml:box>
+                    <gsml:box tableClass="shade3" tableWidth="100%">
 
-        </div>
+                    <div class="hotTopics">
+                        <h3>Most Popular Articles</h3>
+                        <jsp:include page="/promo/featuredArticles.module?position=HOT_TOPIC&amp;count=7"/>
+                    </div>
+                    </gsml:box>
+                </td>
+                <td width="66%" style="vertical-align:top">
+                    <gsml:box tableClass="shade3" tableWidth="100%">
+                        <table width="100%" cellpadding="0" cellspacing="0"><tr><td
+                                style="width:50%; vertical-align: top">
+                            <gsml:list model="${schoolBreakdown}"/>
+                            <gsml:list model="${districts}"/>
+                        </td><td style="width: 50%">
+                            <div id="mapContainer">
+                                <div id="map">&#160;</div>
+                            </div>
+                            <map:setup/>
+                            <map:schools functionName="createMap" id="map" lon="${lon}" lat="${lat}" scale="${scale}"
+                                         schools="${schools}"/>
+                            <pageHelper:addOnLoadHandler handler="createMap()"/>
+                        </td>
+                        </tr></table>
+                    </gsml:box>
+                    <gsml:box tableClass="shade3" tableWidth="100%">
+                        <jsp:include page="/geo/cityStats.module?city=${city}&amp;state=${stateAbbrev}"/>
+                    </gsml:box>
 
-    </gsml:body>
-    </html>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</gsml:body>
+</html>
 </jsp:root>

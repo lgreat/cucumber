@@ -18,13 +18,13 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Tests gs.web.search.CityDistrictController
+ * Tests gs.web.search.CityDistrictRollupController
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class CityDistrictControllerTest extends BaseControllerTestCase {
+public class CityDistrictRollupControllerTest extends BaseControllerTestCase {
 
     private Directory _testDir;
-    private CityDistrictController _controller;
+    private CityDistrictRollupController _controller;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -34,17 +34,17 @@ public class CityDistrictControllerTest extends BaseControllerTestCase {
         indexer.indexCities(State.AK, writer);
         indexer.indexDistricts(getDistricts(), writer);
         _controller =
-                (CityDistrictController)getApplicationContext().
-                        getBean(CityDistrictController.BEAN_ID);
+                (CityDistrictRollupController)getApplicationContext().
+                        getBean(CityDistrictRollupController.BEAN_ID);
     }
 
     public void testNullSearcher() throws Exception {
         try {
-            CityDistrictController controller = new CityDistrictController(null);
+            CityDistrictRollupController controller = new CityDistrictRollupController(null);
             GsMockHttpServletRequest request = getRequest();
             request.setParameter("q", "foo");
             controller.handleRequestInternal(request, getResponse());
-            fail("CityDistrictController must not accept a null Searcher");
+            fail("CityDistrictRollupController must not accept a null Searcher");
         } catch (RuntimeException expected) {
             assertTrue(true);
         }
@@ -59,7 +59,7 @@ public class CityDistrictControllerTest extends BaseControllerTestCase {
 
         IndexDir testIndexDir = new IndexDir(_testDir, new RAMDirectory());
         Searcher searcher = new Searcher(testIndexDir);
-        CityDistrictController controller = (CityDistrictController)getApplicationContext().getBean(CityDistrictController.BEAN_ID);
+        CityDistrictRollupController controller = (CityDistrictRollupController)getApplicationContext().getBean(CityDistrictRollupController.BEAN_ID);
         ModelAndView mv = controller.handleRequestInternal(getRequest(), null);
     }
 

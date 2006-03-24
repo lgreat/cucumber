@@ -24,6 +24,11 @@
         </property>
     </bean>
 
+    <bean name="/school/review/recentParentReviews.module"
+            class="gs.web.school.review.RecentParentReviewsController"
+            autowire="byName">
+    </bean>
+
     <bean name="/content/parentPoll.module"
           class="gs.web.content.ParentPollController"
           autowire="byName">
@@ -134,7 +139,7 @@
     </bean>
 
     <bean name="/search/citydistrict.module"
-          class="gs.web.search.CityDistrictController"
+          class="gs.web.search.CityDistrictRollupController"
           autowire="byName">
         <constructor-arg>
             <ref bean="searcher"/>
