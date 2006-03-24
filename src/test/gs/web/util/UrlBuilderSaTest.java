@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.5 2006/03/24 01:17:58 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.6 2006/03/24 01:35:49 apeterson Exp $
  */
 
 package gs.web.util;
@@ -85,8 +85,8 @@ public class UrlBuilderSaTest extends TestCase {
         request.setParameter("b", "2");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
         builder.addParametersFromRequest(request);
-        assertEquals("/index.page?a=1&b=2", builder.asSiteRelative());
-        assertEquals("http://www.myserver.com/index.page?a=1&b=2", builder.asFullUrl());
+        assertEquals("/index.page?a=1&amp;b=2", builder.asSiteRelative());
+        assertEquals("http://www.myserver.com/index.page?a=1&amp;b=2", builder.asFullUrl());
     }
 
     public void testUrlBuilder8080() {

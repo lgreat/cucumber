@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.6 2006/03/24 01:17:58 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.7 2006/03/24 01:35:49 apeterson Exp $
  */
 
 package gs.web.util;
@@ -57,13 +57,13 @@ public class UrlBuilder {
         _serverPort = request.getServerPort();
         _contextPath = request.getContextPath();
         _path = contextRelativePath;
-        _perlPage = _urlUtil.smellsLikePerl(_path);
         if (contextRelativePath == null) {
             _path = request.getRequestURI();
             _path = StringUtils.removeStart(_path, _contextPath);
         } else {
             _path = contextRelativePath;
         }
+        _perlPage = _urlUtil.smellsLikePerl(_path);
         // _log.error("PathInfo="+request.getPathInfo()); // yields null
         // _log.error("PathTranslated="+request.getPathTranslated()); // yields null
         // _log.error("ServletPath="+request.getServletPath()); // yields "/WEB-INF/page/search/schoolsOnly.jspx"
@@ -186,7 +186,7 @@ public class UrlBuilder {
                     sb.append(key);
                     sb.append("=" + values[i]);
                     if (i < values.length && iter.hasNext()) {
-                        sb.append("&");
+                        sb.append("&amp;");
                     }
                 }
             }
