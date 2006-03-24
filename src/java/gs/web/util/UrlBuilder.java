@@ -1,12 +1,13 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.8 2006/03/24 20:14:51 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.9 2006/03/24 22:50:32 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.data.content.Article;
 import gs.data.state.State;
+import gs.data.school.School;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,6 +38,14 @@ public class UrlBuilder {
     private Map _parameters;
     private boolean _perlPage = false;
     private static UrlUtil _urlUtil = new UrlUtil();
+
+    public static class VPage extends org.apache.commons.lang.enums.Enum {
+
+        protected VPage(String s) {
+            super(s);
+        }
+    }
+    public static final VPage PARENT_REVIEWS = new VPage("vpage:parentReviews");
 
 
     /**
@@ -102,6 +111,19 @@ public class UrlBuilder {
                 s.getAbbreviationLowerCase() +
                 "/" +
                 article.getId();
+    }
+
+    public UrlBuilder(School school, VPage page) {
+        if (PARENT_REVIEWS.equals(page)) {
+            _perlPage = true;
+            _contextPath = "";
+            _path = "/modperl/parents/"+
+                    school.getDatabaseState().getAbbreviationLowerCase()+
+                    "/" +
+                    school.getId();
+        } else {
+            throw new IllegalArgumentException("VPage unknown");
+        }
     }
 
     /**

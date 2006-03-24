@@ -1,14 +1,15 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.7 2006/03/24 20:50:40 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.8 2006/03/24 22:50:32 apeterson Exp $
  */
 
 package gs.web.util;
 
-import junit.framework.TestCase;
 import gs.data.content.Article;
+import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.GsMockHttpServletRequest;
+import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -99,6 +100,22 @@ public class UrlBuilderSaTest extends TestCase {
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
         assertEquals("/index.page", builder.asSiteRelative());
         assertEquals("http://www.myserver.com:8080/index.page", builder.asFullUrl());
+    }
+
+    public void testSchoolBuilder() {
+        School school = new School();
+        school.setDatabaseState(State.WY);
+        school.setId(new Integer(8));
+        UrlBuilder builder = new UrlBuilder(school, UrlBuilder.PARENT_REVIEWS);
+        assertEquals("/modperl/parents/wy/8", builder.asSiteRelative());
+
+        try {
+            builder = new UrlBuilder(school, null);
+            fail("Shouldn't allow null VPage");
+        } catch (IllegalArgumentException e) {
+            // OK
+        }
+
     }
 
 

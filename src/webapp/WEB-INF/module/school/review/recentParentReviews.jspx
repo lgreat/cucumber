@@ -9,22 +9,43 @@
     <h3>Recent Parent Reviews</h3>
 
     <c:forEach var="review" items="${reviews}" >
-        <h4>${review.schoolName}</h4>
+        <h4>
+            <gsml:a href="${review.schoolLink}"><c:out value="${review.schoolName}" escapeXml="true"/></gsml:a></h4>
         <span class="stars">
-            <c:if test="${review.stars gt 0}">
-                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
+            <c:if test="${review.stars eq 1}">
+                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
             </c:if>
-            <c:if test="${review.stars gt 1}">
-                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
-            </c:if>
-            <c:if test="${review.stars gt 2}">
-                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
+            <c:if test="${review.stars eq 2}">
+                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
             </c:if>
             <c:if test="${review.stars gt 3}">
-                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
             </c:if>
             <c:if test="${review.stars gt 4}">
-                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
+            </c:if>
+            <c:if test="${review.stars gt 5}">
+                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
             </c:if>
         </span>
         <h5>${review.date}</h5>

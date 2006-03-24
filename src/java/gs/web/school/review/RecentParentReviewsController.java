@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsController.java,v 1.2 2006/03/24 20:51:26 apeterson Exp $
+ * $Id: RecentParentReviewsController.java,v 1.3 2006/03/24 22:50:32 apeterson Exp $
  */
 
 package gs.web.school.review;
@@ -12,10 +12,10 @@ import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.web.ISessionFacade;
 import gs.web.SessionFacade;
+import gs.web.util.UrlBuilder;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,7 +40,23 @@ public class RecentParentReviewsController extends AbstractController {
     public static final String PARAM_CITY = "city";
     public static final String PARAM_MAX = "max";
 
+    /**
+     * List of IParentReviewModel objects.
+     */
     public static final String MODEL_REVIEW_LIST = "reviews";
+
+    public interface IParentReviewModel {
+        String getSchoolName();
+
+        String getSchoolLink();
+
+        int getStars();
+
+        String getDate();
+
+        String getQuip();
+    }
+
 
     public static final int DEFAULT_MAX = 3;
 
@@ -106,6 +122,11 @@ public class RecentParentReviewsController extends AbstractController {
             return _school.getName();
         }
 
+        public String getSchoolLink() {
+            UrlBuilder builder = new UrlBuilder(_school, UrlBuilder.PARENT_REVIEWS);
+            return builder.asSiteRelative();
+        }
+
         public int getStars() {
             if (StringUtils.equals(_review.getQuality(), "1")) {
                 return 1;
@@ -118,13 +139,15 @@ public class RecentParentReviewsController extends AbstractController {
             } else if (StringUtils.equals(_review.getQuality(), "5")) {
                 return 5;
             }
-                return 0;
+            return 0;
         }
+
         public String getDate() {
             Calendar calendar = Calendar.getInstance();
             Date today = new Date();
             return "3 days ago";
         }
+
         public String getQuip() {
             String c = _review.getComments();
             String q = StringUtils.abbreviate(c, 80);
