@@ -137,7 +137,6 @@ font-size: x-large;
                                 <gsml:list model="${schoolBreakdown}"/>
                             </c:if>
                             <c:if test="${not empty districts.results}">
-                                <h3>${city} Districts</h3>
                             <gsml:list model="${districts}"/>
                             </c:if>
                         </td><td style="width: 50%">
