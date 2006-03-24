@@ -6,11 +6,28 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:gsweb="gstaglib">
 
-    <h2>Recent Parent Reviews</h2>
+    <h3>Recent Parent Reviews</h3>
 
     <c:forEach var="review" items="${reviews}" >
-        <h3>${review.schoolName}</h3>
-        <h4>${review.date}</h4>
+        <h4>${review.schoolName}</h4>
+        <span class="stars">
+            <c:if test="${review.stars gt 0}">
+                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
+            </c:if>
+            <c:if test="${review.stars gt 1}">
+                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
+            </c:if>
+            <c:if test="${review.stars gt 2}">
+                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
+            </c:if>
+            <c:if test="${review.stars gt 3}">
+                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
+            </c:if>
+            <c:if test="${review.stars gt 4}">
+                <gsml:img src="/res/img/community/icon_PRstar.gif" alt="star"/>
+            </c:if>
+        </span>
+        <h5>${review.date}</h5>
         <p>${review.quip}</p>
         <hr />
     </c:forEach>

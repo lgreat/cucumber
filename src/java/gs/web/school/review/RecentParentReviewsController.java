@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsController.java,v 1.1 2006/03/24 20:14:51 apeterson Exp $
+ * $Id: RecentParentReviewsController.java,v 1.2 2006/03/24 20:51:26 apeterson Exp $
  */
 
 package gs.web.school.review;
@@ -106,8 +106,19 @@ public class RecentParentReviewsController extends AbstractController {
             return _school.getName();
         }
 
-        public String getStars() {
-            return "***";
+        public int getStars() {
+            if (StringUtils.equals(_review.getQuality(), "1")) {
+                return 1;
+            } else if (StringUtils.equals(_review.getQuality(), "2")) {
+                return 2;
+            } else if (StringUtils.equals(_review.getQuality(), "3")) {
+                return 3;
+            } else if (StringUtils.equals(_review.getQuality(), "4")) {
+                return 4;
+            } else if (StringUtils.equals(_review.getQuality(), "5")) {
+                return 5;
+            }
+                return 0;
         }
         public String getDate() {
             Calendar calendar = Calendar.getInstance();

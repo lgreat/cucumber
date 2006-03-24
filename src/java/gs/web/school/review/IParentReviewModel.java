@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: IParentReviewModel.java,v 1.1 2006/03/24 20:14:51 apeterson Exp $
+ * $Id: IParentReviewModel.java,v 1.2 2006/03/24 20:51:26 apeterson Exp $
  */
 
 package gs.web.school.review;
@@ -13,7 +13,7 @@ package gs.web.school.review;
 public interface IParentReviewModel {
     String getSchoolName();
 
-    String getStars();
+    int  getStars();
 
     String getDate();
 
