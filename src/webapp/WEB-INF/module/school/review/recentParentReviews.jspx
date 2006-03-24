@@ -26,21 +26,21 @@
                 <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
                 <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
             </c:if>
-            <c:if test="${review.stars gt 3}">
+            <c:if test="${review.stars eq 3}">
                 <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
                 <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
                 <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
                 <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
                 <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
             </c:if>
-            <c:if test="${review.stars gt 4}">
+            <c:if test="${review.stars eq 4}">
                 <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
                 <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
                 <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
                 <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
                 <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
             </c:if>
-            <c:if test="${review.stars gt 5}">
+            <c:if test="${review.stars eq 5}">
                 <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
                 <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
                 <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
