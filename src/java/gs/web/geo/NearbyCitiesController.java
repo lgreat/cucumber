@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.7 2006/03/18 00:00:31 apeterson Exp $
+* $Id: NearbyCitiesController.java,v 1.8 2006/03/24 21:14:01 apeterson Exp $
 */
 
 package gs.web.geo;
@@ -13,16 +13,14 @@ import gs.web.SessionContextUtil;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
 import gs.web.util.ListModel;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Provides an ListModel of cities near the provided param "city" and "state".
@@ -46,7 +44,12 @@ public class NearbyCitiesController extends AbstractController {
      * Set if you want a "see more nearby cities..." link.
      */
     private static final String PARAM_MORE = "more";
-    private static final int DEFAULT_MAX_CITIES = 15;
+    /**
+     * How the cities are sorted. Default is by proximity, but also can use "alpha" for
+     * alphabetical.
+     */
+    private static final String PARAM_ORDER = "order";
+    private static final int DEFAULT_MAX_CITIES = 20;
 
     private static final String MODEL_CITY = "cityObject";
     public static final String MODEL_CITIES = "cities"; // List of nearby cities
@@ -73,6 +76,15 @@ public class NearbyCitiesController extends AbstractController {
                     limit = new Integer(request.getParameter(PARAM_COUNT)).intValue();
                 }
                 List nearbyCities = _geoDao.findNearbyCities(city, limit);
+
+                if (StringUtils.equals("alpha", request.getParameter(PARAM_ORDER))) {
+                    Collections.sort(nearbyCities, new Comparator() {
+                        public int compare(Object o, Object o1) {
+                            return ((BpCity) o).getName().compareToIgnoreCase(((BpCity) o1).getName());
+                        }
+                    });
+                }
+
                 model.put(MODEL_CITIES, nearbyCities);
 
                 model.put(ListModel.HEADING, "Cities Near " + city.getName());
@@ -97,10 +109,19 @@ public class NearbyCitiesController extends AbstractController {
                     Anchor anchor = new Anchor("/cities.page?state=" +
                             state +
                             "&amp;city=" +
-                            cityNameParam,
+                            cityNameParam +
+                            "&amp;order=alpha",
                             "More nearby cities...",
                             "more");
                     items.add(anchor);
+                } else {
+                    Anchor anchor = new Anchor("/modperl/citylist/" +
+                            state +
+                            "/",
+                            "Browse all "+ state.getLongName()+" cities...",
+                            "more");
+                    items.add(anchor);
+
                 }
                 model.put(ListModel.RESULTS, items);
             }
