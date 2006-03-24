@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsController.java,v 1.3 2006/03/24 22:50:32 apeterson Exp $
+ * $Id: RecentParentReviewsController.java,v 1.4 2006/03/24 23:18:19 apeterson Exp $
  */
 
 package gs.web.school.review;
@@ -14,12 +14,16 @@ import gs.web.ISessionFacade;
 import gs.web.SessionFacade;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Generates a model to show recent parent reviews in a geographical region.
@@ -143,9 +147,16 @@ public class RecentParentReviewsController extends AbstractController {
         }
 
         public String getDate() {
-            Calendar calendar = Calendar.getInstance();
             Date today = new Date();
-            return "3 days ago";
+            long diff = Math.abs(today.getTime() - _review.getPosted().getTime());
+            if (diff < DateUtils.MILLIS_PER_DAY) {
+                return "today";
+            }
+            if (diff < (DateUtils.MILLIS_PER_DAY + DateUtils.MILLIS_PER_DAY)) {
+                return "yesterday";
+            } else {
+                return "" + Math.round(diff / DateUtils.MILLIS_PER_DAY) + " days ago";
+            }
         }
 
         public String getQuip() {

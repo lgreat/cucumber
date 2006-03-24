@@ -48,7 +48,7 @@
                 <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
             </c:if>
         </span>
-        <h5>${review.date}</h5>
+        <h5>(${review.date})</h5>
         <p>${review.quip}</p>
         <hr />
     </c:forEach>
