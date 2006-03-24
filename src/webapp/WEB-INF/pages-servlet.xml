@@ -99,6 +99,11 @@
         </property>
     </bean>
 
+    <bean name="/school/authorizers.page"
+          class="gs.web.school.AuthorizersController"
+          autowire="byName">
+    </bean>
+
     <bean name="/fiveSteps.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">

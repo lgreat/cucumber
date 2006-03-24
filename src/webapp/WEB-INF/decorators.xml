@@ -35,13 +35,11 @@
         <pattern>/about/testimonials.page</pattern>
 
         <pattern>/city.page</pattern>
-
         <pattern>/cities.page</pattern>
 
-        <pattern>/schools.page</pattern>
+        <pattern>/school/authorizers.page</pattern>
 
         <pattern>/test/city.page</pattern>
-
         <pattern>/test/modal.page</pattern>
     </decorator>
 
