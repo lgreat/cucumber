@@ -10,7 +10,7 @@
           class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
         <property name="interceptors">
             <list>
-                <ref bean="requiresStateInterceptor"/>
+                <!--ref bean="requiresStateInterceptor"/-->
                 <bean class="gs.web.ResponseInterceptor"
                       autowire="byName"/>
                 <bean class="gs.web.SessionContextInterceptor"
