@@ -34,6 +34,6 @@
         />
 
     </body>
-    <mod:tracking pageType="conversion" pageName="school_choice" />
+    <mod:tracking pageType="conversion" pageName="school_choice" hier1="Subscription,Conversion,ConversionPopup"/>
 </html>
 </jsp:root>

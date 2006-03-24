@@ -43,6 +43,6 @@
             nextPage="compareSchools.page"
         />
     </body>
-    <mod:tracking pageType="conversion" pageName="parentreviews" />
+    <mod:tracking pageType="conversion" pageName="parentreviews"  hier1="Subscription,Conversion,ConversionPopup"/>
 </html>
 </jsp:root>

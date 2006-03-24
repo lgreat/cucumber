@@ -39,6 +39,6 @@
             nextPage="ratings.page"/>
 
     </body>
-    <mod:tracking pageType="conversion" pageName="top_rated" />
+    <mod:tracking pageType="conversion" pageName="top_rated"  hier1="Subscription,Conversion,ConversionPopup"/>
 </html>
 </jsp:root>

@@ -36,6 +36,6 @@
             nextPage="compareSchools.page"
         />
     </body>
-    <mod:tracking pageType="conversion" pageName="flags" />
+    <mod:tracking pageType="conversion" pageName="flags" hier1="Subscription,Conversion,ConversionPopup" />
 </html>
 </jsp:root>

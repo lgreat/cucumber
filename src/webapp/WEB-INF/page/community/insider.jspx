@@ -67,6 +67,7 @@ img {border:0;}
 ]]>
 </head>
 
+
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <table width="100%" border="0"  cellpadding="0" cellspacing="0" bgcolor="#3B468F">
   <tr>
@@ -473,7 +474,7 @@ Start here:
                 <jsp:include page="/footer/copyright.module?state=${requestScope.context.stateOrDefault.abbreviation}"/>
             </div>
 
-            <mod:tracking pageType="home" pageName="five steps"/>
+            <mod:tracking pageType="home" pageName="five steps" hier1="Subscription,UserPage"/>
 
         </body>
     </html>
