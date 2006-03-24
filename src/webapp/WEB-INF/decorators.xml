@@ -7,41 +7,43 @@
     <decorator name="perlWrapper" page="perlWrapper.jsp">
     </decorator>
 
-  <decorator name="cobrandHeaderGsFooter" page="standardDecorator.jspx">
+    <decorator name="cobrandHeaderGsFooter" page="standardDecorator.jspx">
 
-    <pattern>/path/choose.page</pattern>
-    <pattern>/path/mySchool.page</pattern>
+        <pattern>/path/choose.page</pattern>
+        <pattern>/path/mySchool.page</pattern>
 
-    <pattern>/stateLauncher.page</pattern>
+        <pattern>/stateLauncher.page</pattern>
 
-    <pattern>/search/search.page</pattern>
-    <pattern>/search/feedback.page</pattern>
-    <pattern>/search/feedbackSubmit.page</pattern>
+        <pattern>/search/search.page</pattern>
+        <pattern>/search/feedback.page</pattern>
+        <pattern>/search/feedbackSubmit.page</pattern>
 
-    <pattern>/content/allArticles.page</pattern>
-    <pattern>/content/schoolChoiceCenter.page</pattern>
-    <pattern>/content/guideToTests.page</pattern>
-    <pattern>/content/summerSurvivalGuide.page</pattern>
+        <pattern>/content/allArticles.page</pattern>
+        <pattern>/content/schoolChoiceCenter.page</pattern>
+        <pattern>/content/guideToTests.page</pattern>
+        <pattern>/content/summerSurvivalGuide.page</pattern>
 
-    <pattern>/about/aboutUs.page</pattern>
-    <pattern>/about/supportUs.page</pattern>
-    <pattern>/about/privacyStatement.page</pattern>
-    <pattern>/about/gsNetwork.page</pattern>
-    <pattern>/about/sponsors.page</pattern>
-    <pattern>/about/donationBridge.page</pattern>
-    <pattern>/about/pressRoom.page</pattern>
-    <pattern>/about/pressKit.page</pattern>
-    <pattern>/about/gsFaq.page</pattern>
-    <pattern>/about/testimonials.page</pattern>
+        <pattern>/about/aboutUs.page</pattern>
+        <pattern>/about/supportUs.page</pattern>
+        <pattern>/about/privacyStatement.page</pattern>
+        <pattern>/about/gsNetwork.page</pattern>
+        <pattern>/about/sponsors.page</pattern>
+        <pattern>/about/donationBridge.page</pattern>
+        <pattern>/about/pressRoom.page</pattern>
+        <pattern>/about/pressKit.page</pattern>
+        <pattern>/about/gsFaq.page</pattern>
+        <pattern>/about/testimonials.page</pattern>
 
-    <pattern>/city.page</pattern>
+        <pattern>/city.page</pattern>
 
-    <pattern>/cities.page</pattern>
-      
-    <pattern>/schools.page</pattern>
+        <pattern>/cities.page</pattern>
 
-    <pattern>/test/city.page</pattern>
-  </decorator>
+        <pattern>/schools.page</pattern>
+
+        <pattern>/test/city.page</pattern>
+
+        <pattern>/test/modal.page</pattern>
+    </decorator>
 
     <!-- We have to explicitly exclude due to a Sitemesh 2.2.1 bug that truncates the closing html tag -->
     <excludes>
