@@ -6,11 +6,31 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:gsweb="gstaglib">
 
-    <h3>Recent Parent Reviews</h3>
+    <c:if test="${empty reviews}">
+        <div class="featuredarticle">
+            <gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
+                <gsml:img src="/res/img/community/btn_rateyourschool.gif"
+                          alt="Rate your School"/>
+            </gsml:a>
+            <br/>
 
-    <c:forEach var="review" items="${reviews}" >
-        <h4>
-            <gsml:a href="${review.schoolLink}"><c:out value="${review.schoolName}" escapeXml="true"/></gsml:a></h4>
+            <h3 class="result_title">Sample Parent Review:</h3>
+            <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+            <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+            <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+            <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>(May 2005)
+            <br/>
+
+            <div class="parentQuote">
+                "Dynamic, creative principal. Teachers who provide attention and dedication.
+                Active group of parents..."</div>
+        </div>
+    </c:if>
+    <c:if test="${not empty reviews}">
+        <h3>Recent Parent Reviews</h3>
+        <c:forEach var="review" items="${reviews}">
+            <h4>
+                <gsml:a href="${review.schoolLink}"><c:out value="${review.schoolName}" escapeXml="true"/></gsml:a></h4>
         <span class="stars">
             <c:if test="${review.stars eq 1}">
                 <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
@@ -48,8 +68,14 @@
                 <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
             </c:if>
         </span>
-        <h5>(${review.date})</h5>
-        <p>${review.quip}</p>
-        <hr />
-    </c:forEach>
+            <h5>(${review.date})</h5>
+
+            <p>${review.quip}</p>
+            <br/>
+        </c:forEach>
+    </c:if>
+
+
+
+
 </jsp:root>
