@@ -24,7 +24,6 @@
             <title>GreatSchools Thank You</title>
         </head>
 
-        <mod:tracking pageType="AboutUs" pageName="SubscriptionConfirm"hier1="Subscription,Payment,PaymentConfirmation"/>
         <body>
             <jsp:include page="/header/moveChoose.module"/>
             <gsml:boxRecessed>
@@ -114,7 +113,7 @@
 
             <jsp:include page="/footer/copyright.module?state=${requestScope.context.stateOrDefault.abbreviation}"/>
 
-            <mod:tracking pageType="conversion" pageName="confirmation" />
+            <mod:tracking pageType="conversion" pageName="confirmation" hier1="Subscription,Payment,PaymentConfirmation"/>
                 <!--extraJavascriptVariable="var fc_track='confirmation';var fc_prod_buy='${param.longName}?1?${param.priceCents}';var fc_order='${param.priceCents}';" -->
         </body>
     </html>
