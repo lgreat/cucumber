@@ -5,7 +5,7 @@
 
 div.datatable span.footnote {
   float:right;
-  font-size:70%;
+  font-size:65%;
   margin-top:5px;
   margin-right:5px;
 }
@@ -23,7 +23,9 @@ div#introtext {
 
 span#infolink {
   font-size:80%;
-  padding:10px;
+  padding-right:10px;
+  padding-left:10px;
+  padding-top:10px;
 }
 
 div.datatable{
@@ -35,7 +37,7 @@ div.datatable{
 }
     div.datatable table.datagrid {
       border:thin solid black;
-      font-size:80%;
+      font-size:75%;
     }
 
     div.datatable .title {
