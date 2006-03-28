@@ -106,9 +106,10 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
      * @param path the page that should be send to, for example "/search/search.page"
      * @throws IOException
      */
-    protected void writePageNumbers(JspWriter out, UrlBuilder path) throws IOException {
+    protected void writePageNumbers(UrlBuilder path) throws IOException {
 
         String cityParam = (String) getJspContext().findAttribute("city");
+        JspWriter out = getJspContext().getOut();
 
         String distParam = null;
         String distNameParam = null;
@@ -126,7 +127,9 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                 int counter = 1;
 
                 StringBuffer hrefBuffer = new StringBuffer(40);
-                hrefBuffer.append("<a class=\"pad\" href=\"" + path.asSiteRelative() + "?q=");
+                hrefBuffer.append("<a class=\"pad\" href=\"");
+                hrefBuffer.append(path.asSiteRelative());
+                hrefBuffer.append("?q=");
                 hrefBuffer.append(Functions.escapeXml(getQueryString()));
 
                 if (cityParam != null) {
@@ -197,9 +200,9 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
 
                 if (getPage() > 1) {
                     out.print(hrefStart);
-                    out.print(getPage() - 1);
+                    out.print(String.valueOf(getPage() - 1));
                     out.print("\">");
-                    out.println("&lt;&nbsp;Previous</a>");
+                    out.println("&lt;&#160;Previous</a>");
                 }
 
                 for (int i = start; i < end + 1; i++) {
@@ -208,10 +211,10 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                         out.print("<span class=\"active pad\">");
                     } else {
                         out.print(hrefStart);
-                        out.print(i);
+                        out.print(String.valueOf(i));
                         out.print("\">");
                     }
-                    out.print(i);
+                    out.print(String.valueOf(i));
                     if (i == getPage()) {
                         out.print("</span>");
                     } else {
@@ -225,9 +228,9 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
 
                 if (getPage() < end) {
                     out.print(hrefStart);
-                    out.print(getPage() + 1);
+                    out.print(String.valueOf(getPage() + 1));
                     out.print("\">");
-                    out.println("Next &nbsp;&gt;</a>");
+                    out.println("Next &#160;&gt;</a>");
                 }
             }
         }

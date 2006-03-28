@@ -156,7 +156,7 @@ public class MixedResultsTagHandler extends ResultsTableTagHandler {
         }
 
         out.write("</td></tr><tr><td class=\"results_pagenav\">");
-        writePageNumbers(getJspContext().getOut(), new UrlBuilder(request, "/search/search.page")); 
+        writePageNumbers(new UrlBuilder(request, "/search/search.page"));
         out.write("</td></tr></table>");
 
         try {
