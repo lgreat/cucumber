@@ -3,17 +3,18 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           version="2.0">
     <html>
     <jsp:directive.page contentType="text/html"/>
     <head>
         <title><c:out value="${school.name}&#160;-&#160;${school.physicalAddress.city},&#160;${school.physicalAddress.state.longName}&#160;/&#160;${school.physicalAddress.state.abbreviation}" escapeXml="true"/> - school information</title>
 
-        <gsml:url var="sppcss" value="/css/spp2.css"/>
-        <link rel="stylesheet" href="${sppcss}" type="text/css" media="screen"/>
-        <gsml:url var="csr" value="/res/css/school/csr.css"/>
-        <link rel="stylesheet" href="${csr}" type="text/css" media="screen"/>
+        <pageHelper:externalCss file="/css/spp2.css"/>
+        <pageHelper:externalCss file="/res/css/school/csr.css"/>
+
         <style type="text/css">
             .contentGS td.tab a, a:active{ color: #FFF; }
             .contentGS td a:hover{ color: #000; }
@@ -77,8 +78,9 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td><gsml:a href="/cgi-bin/showarticle/$STATE/487">
-                                                                  <span id="infolink">Seven Things to Know About Charter Schools</span>
+                                                            <td align="right">
+                                                                <gsml:a href="/cgi-bin/showarticle/$STATE/487">
+                                                                  <span id="infolink">Read more about charter schools</span>
                                                                 </gsml:a>
                                                                 <br/>
                                                             </td>
@@ -129,6 +131,9 @@
             </tr>
         </table>
     </center>
+    <mod:tracking pageName="School Tab-Charter School Info"
+                  pageType="school"
+                  hier1="school,charterSchoolInfo"/>
     </body>
     </html>
 </jsp:root>
