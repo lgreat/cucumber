@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: CitiesController.java,v 1.1 2006/03/18 00:00:30 apeterson Exp $
+ * $Id: CitiesController.java,v 1.2 2006/03/28 00:17:38 apeterson Exp $
  */
 
 package gs.web.state;
@@ -9,12 +9,11 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.lang.StringUtils;
 import gs.data.geo.IGeoDao;
-import gs.data.geo.bestplaces.BpCity;
+import gs.data.geo.ICity;
 import gs.data.state.State;
 import gs.web.ISessionFacade;
 import gs.web.SessionFacade;
 import gs.web.SessionContextUtil;
-import gs.web.geo.NearbyCitiesController;
 import gs.web.util.ListModel;
 import gs.web.util.Anchor;
 
@@ -57,7 +56,7 @@ public class CitiesController extends AbstractController {
         String cityNameParam = request.getParameter(CitiesController.PARAM_CITY);
         if (StringUtils.isNotEmpty(cityNameParam) && state != null) {
 
-            BpCity city = _geoDao.findCity(state, cityNameParam);
+            ICity city = _geoDao.findCityInfo(state, cityNameParam);
 
             if (city != null) {
                 model.put(CitiesController.PARAM_CITY, city);
@@ -72,7 +71,7 @@ public class CitiesController extends AbstractController {
 
                 List items = new ArrayList(limit);
                 for (int i = 0; i < limit && i < nearbyCities.size(); i++) {
-                    BpCity nearbyCity = (BpCity) nearbyCities.get(i);
+                    ICity nearbyCity = (ICity) nearbyCities.get(i);
                     String styleClass = "town";
                     if (nearbyCity.getPopulation().intValue() > 50000) {
                         styleClass = (nearbyCity.getPopulation().longValue() > 200000) ? "bigCity" : CitiesController.PARAM_CITY;

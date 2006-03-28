@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.7 2006/03/21 20:18:47 apeterson Exp $
+ * $Id: GeoController.java,v 1.8 2006/03/28 00:17:38 apeterson Exp $
  */
 
 package gs.web.geo;
 
+import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
-import gs.data.geo.bestplaces.BpCity;
 import gs.data.geo.bestplaces.BpState;
 import gs.data.geo.bestplaces.BpZip;
 import gs.data.school.ISchoolDao;
@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.awt.*;
 
 /**
  * Fetches all sorts of information about a city (or zip code) and puts
@@ -77,8 +76,8 @@ public class GeoController implements Controller {
 
             if (zip != null) {
                 model.put(MODEL_ZIP, zip);
-                lat = zip.getLat();
-                lon = zip.getLon();
+                lat = new Float(zip.getLat());
+                lon = new Float(zip.getLon());
             }
         }
 
@@ -86,13 +85,13 @@ public class GeoController implements Controller {
         String cityNameParam = request.getParameter(PARAM_CITY);
         if (StringUtils.isNotEmpty(cityNameParam) && state != null) {
 
-            BpCity city = _geoDao.findCity(state, cityNameParam);
+            ICity city = _geoDao.findCityInfo(state, cityNameParam);
 
             if (city != null) {
                 model.put(MODEL_CITY, city);
                 if (lat == null) {
-                    lat = city.getLat();
-                    lon = city.getLon();
+                    lat = new Float(city.getLat());
+                    lon = new Float(city.getLon());
                 }
             }
 

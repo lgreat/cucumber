@@ -1,19 +1,18 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.8 2006/03/24 21:14:01 apeterson Exp $
+* $Id: NearbyCitiesController.java,v 1.9 2006/03/28 00:17:38 apeterson Exp $
 */
 
 package gs.web.geo;
 
 import gs.data.geo.IGeoDao;
-import gs.data.geo.bestplaces.BpCity;
+import gs.data.geo.ICity;
 import gs.data.state.State;
 import gs.web.ISessionFacade;
 import gs.web.SessionContextUtil;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
 import gs.web.util.ListModel;
-import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -66,7 +65,7 @@ public class NearbyCitiesController extends AbstractController {
         String cityNameParam = request.getParameter(PARAM_CITY);
         if (StringUtils.isNotEmpty(cityNameParam) && state != null) {
 
-            BpCity city = _geoDao.findCity(state, cityNameParam);
+            ICity city = _geoDao.findCityInfo(state, cityNameParam);
 
             if (city != null) {
                 model.put(MODEL_CITY, city);
@@ -80,7 +79,7 @@ public class NearbyCitiesController extends AbstractController {
                 if (StringUtils.equals("alpha", request.getParameter(PARAM_ORDER))) {
                     Collections.sort(nearbyCities, new Comparator() {
                         public int compare(Object o, Object o1) {
-                            return ((BpCity) o).getName().compareToIgnoreCase(((BpCity) o1).getName());
+                            return ((ICity) o).getName().compareToIgnoreCase(((ICity) o1).getName());
                         }
                     });
                 }
@@ -91,7 +90,7 @@ public class NearbyCitiesController extends AbstractController {
 
                 List items = new ArrayList(limit);
                 for (int i = 0; i < limit && i < nearbyCities.size(); i++) {
-                    BpCity nearbyCity = (BpCity) nearbyCities.get(i);
+                    ICity nearbyCity = (ICity) nearbyCities.get(i);
                     String styleClass = "town";
                     if (nearbyCity.getPopulation().intValue() > 50000) {
                         styleClass = (nearbyCity.getPopulation().longValue() > 200000) ? "bigCity" : "city";

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.7 2006/03/23 18:21:38 apeterson Exp $
+ * $Id: CityController.java,v 1.8 2006/03/28 00:17:38 apeterson Exp $
  */
 
 package gs.web.state;
@@ -11,9 +11,8 @@ import gs.data.school.School;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
-import gs.data.geo.bestplaces.BpCity;
-import gs.data.geo.bestplaces.BpState;
 import gs.data.geo.IGeoDao;
+import gs.data.geo.ICity;
 import gs.web.SessionContext;
 import gs.web.util.Anchor;
 import gs.web.util.ListModel;
@@ -87,13 +86,13 @@ public class CityController extends AbstractController {
             String c = StringUtils.capitalize(cityNameParam);
             model.put(MODEL_CITY_NAME, c);
 
-            BpCity city = _geoDao.findCity(state, cityNameParam);
+            ICity city = _geoDao.findCityInfo(state, cityNameParam);
 
             if (city != null) {
                 model.put(MODEL_CITY, city);
                 if (lat == null) {
-                    lat = city.getLat();
-                    lon = city.getLon();
+                    lat = new Float(city.getLat());
+                    lon = new Float(city.getLon());
                 }
             }
 
@@ -114,12 +113,6 @@ public class CityController extends AbstractController {
                 }
             }
         }
-
-        //BpState bps = _geoDao.findState(state);
-        //model.put(MODEL_STATEWIDE, bps);
-
-        //List list = _geoDao.getAllBpNation();
-        //model.put(MODEL_US, list.get(0));
 
         model.put(MODEL_MAP_LAT, lat);
         model.put(MODEL_MAP_LON, lon);
