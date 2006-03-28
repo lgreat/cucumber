@@ -130,4 +130,24 @@ public class Util {
         }
         return capString;
     }
+
+    /**
+     * Returns the supplied string with leading and trailing double quotes removed.
+     * Single quotes are ingored, as are double quotes within the string.  This method
+     * first calls trim() on the string to removed leading and trailing whitespace.
+     * A lone double quote returns an empty string.
+     * An empty string returns an empty string.
+     * null returns null.
+     * @param quoted - a quoted <code>String</code>
+     * @return an "unquoted" <code>String</code> 
+     */
+    public static String unquote(String quoted) {
+        String s = quoted;
+        if (StringUtils.isNotBlank(s)) {
+            s = s.trim();
+            s = s.replaceAll("^\"", ""); // remove leading quote
+            s = s.replaceAll("\"$", ""); // remove trailing quote
+        }
+        return s;
+    }
 }

@@ -85,4 +85,12 @@ public class UtilTest extends TestCase {
         assertEquals("", Util.capitalize(null));
         assertEquals("", Util.capitalize(" "));
     }
+
+    public void unquoteTest() {
+        assertEquals(null, Util.unquote(null));
+        assertEquals("", Util.unquote(""));
+        assertEquals("", Util.unquote("\""));
+        assertEquals("A \"quoted\" string", Util.unquote("\"A \"quoted\" string\""));
+        assertEquals("'\"inside single quotes\"'", Util.unquote("'\"inside single quotes\"'"));
+    }
 }
