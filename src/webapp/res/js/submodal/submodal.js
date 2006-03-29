@@ -22,11 +22,8 @@ if (!document.all) {
 	document.onkeypress = keyDownHandler;
 }
 
-/**
- * Override the loading page from loading.html to something else
- */
-function setPopUpLoadingPage(loading) {
-	gLoading = loading;
+function frameLoading() {
+    return '<html><body><p><center>Loading...</center></p></body></html>';
 }
 
 /**
@@ -47,7 +44,7 @@ function initPopUp() {
 					'<a onclick="hidePopWin(false);"><span>Close</span></a>' +
 				'</div>' +
 			'</div>' +
-			'<iframe style="width:100%;height:100%;background-color:transparent;" scrolling="auto" frameborder="0" allowtransparency="true" id="popupFrame" name="popupFrame" width="100%" height="100%"></iframe>' +
+			'<iframe src="javascript:parent.frameLoading()" style="width:100%;height:100%;background-color:transparent;" scrolling="auto" frameborder="0" allowtransparency="true" id="popupFrame" name="popupFrame" width="100%" height="100%"></iframe>' +
 		'</div>';
 	body.appendChild(popmask);
 	body.appendChild(popcont);
@@ -167,7 +164,7 @@ function hidePopWin(callReturnFunc) {
 	if (callReturnFunc == true && gReturnFunc != null) {
 		gReturnFunc(window.frames["popupFrame"].returnVal);
 	}
-	gPopFrame.src = gLoading;
+	gPopFrame.src = "javascript:parent.frameLoading()";
 	// display all select boxes
 	if (gHideSelects == true) {
 		displaySelectBoxes();

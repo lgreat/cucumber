@@ -27,7 +27,7 @@
             URL: http://localhost:8080/gs-web/test/modal.page
             <br/><br/>
             <gsml:url var="mss" value="/cgi-bin/mss_popup1/ca?id=6544"/>
-            <!-- <gsml:url var="mss" value="/test/boxes.page"/> -->
+            <gsml:url var="mss" value="/test/boxes.page"/>
             <button onclick="showPopWin('${mss}', 400, 400, null);">
                 show
                 modal window</button>
