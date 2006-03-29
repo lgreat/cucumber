@@ -110,7 +110,7 @@ function showPopWin(url, width, height, returnFunc) {
 	if (gHideSelects == true) {
 		hideSelectBoxes();
 	}
-	window.setTimeout("setPopTitleAndRewriteTargets();", 300);
+	window.setTimeout("setPopTitleAndRewriteTargets();", 600);
 }
 
 //

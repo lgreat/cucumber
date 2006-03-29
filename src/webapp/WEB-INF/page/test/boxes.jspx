@@ -13,6 +13,7 @@
         <jsp:directive.page contentType="text/html"/>
 
         <head>
+            <title>Boxes Test</title>
             <gsml:url var="globalcss" value="/res/css/global.css"/>
             <link rel="stylesheet" href="${globalcss}"></link>
         </head>
