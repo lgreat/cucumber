@@ -15,7 +15,7 @@ var gLoading = "loading.html";
 
 var gTabIndexes = new Array();
 // Pre-defined list of tags we want to disable/enable tabbing into
-var gTabbableTags = new Array("A","BUTTON","TEXTAREA","INPUT","IFRAME");	
+var gTabbableTags = new Array("A","BUTTON","TEXTAREA","INPUT","IFRAME");
 
 // If using Mozilla or Firefox, use Tab-key trap.
 if (!document.all) {
@@ -30,14 +30,14 @@ function setPopUpLoadingPage(loading) {
 }
 
 /**
- * Initializes popup code on load.	
+ * Initializes popup code on load.
  */
 function initPopUp() {
 	// Add the HTML to the body
-	body = document.getElementsByTagName('body')[0];
-	popmask = document.createElement('div');
+	var body = document.getElementsByTagName('body')[0];
+	var popmask = document.createElement('div');
 	popmask.id = 'popupMask';
-	popcont = document.createElement('div');
+	var popcont = document.createElement('div');
 	popcont.id = 'popupContainer';
 	popcont.innerHTML = '' +
 		'<div id="popupInner">' +
@@ -51,22 +51,22 @@ function initPopUp() {
 		'</div>';
 	body.appendChild(popmask);
 	body.appendChild(popcont);
-	
+
 	gPopupMask = document.getElementById("popupMask");
 	gPopupContainer = document.getElementById("popupContainer");
-	gPopFrame = document.getElementById("popupFrame");	
-	
+	gPopFrame = document.getElementById("popupFrame");
+
 	// check to see if this is IE version 6 or lower. hide select boxes if so
 	// maybe they'll fix this in version 7?
 	var brsVersion = parseInt(window.navigator.appVersion.charAt(0), 10);
 	if (brsVersion <= 6 && window.navigator.userAgent.indexOf("MSIE") > -1) {
 		gHideSelects = true;
 	}
-	
+
 	// Add onclick handlers to 'a' elements of class submodal or submodal-width-height
 	var elms = document.getElementsByTagName('a');
 	for (i = 0; i < elms.length; i++) {
-		if (elms[i].className.indexOf("submodal") == 0) { 
+		if (elms[i].className.indexOf("submodal") == 0) {
 			// var onclick = 'function (){showPopWin(\''+elms[i].href+'\','+width+', '+height+', null);return false;};';
 			// elms[i].onclick = eval(onclick);
 			elms[i].onclick = function(){
@@ -110,7 +110,7 @@ function showPopWin(url, width, height, returnFunc) {
 	if (gHideSelects == true) {
 		hideSelectBoxes();
 	}
-	window.setTimeout("setPopTitle();", 600);
+	window.setTimeout("setPopTitleAndRewriteTargets();", 300);
 }
 
 //
@@ -136,7 +136,7 @@ function centerPopWin(width, height) {
 		} else if (document.body) {
 			scLeft = document.body.scrollLeft;
 			scTop = document.body.scrollTop;
-		} 
+		}
 		gPopupMask.style.height = fullHeight + "px";
 		gPopupMask.style.width = fullWidth + "px";
 		gPopupMask.style.top = scTop + "px";
@@ -154,7 +154,7 @@ window.onscroll = centerPopWin;
 
 /**
  * @argument callReturnFunc - bool - determines if we call the return function specified
- * @argument returnVal - anything - return value 
+ * @argument returnVal - anything - return value
  */
 function hidePopWin(callReturnFunc) {
 	gPopupIsShown = false;
@@ -176,13 +176,26 @@ function hidePopWin(callReturnFunc) {
 
 /**
  * Sets the popup title based on the title of the html document it contains.
+ * Also adds a base attribute so links and forms will jump out out of the iframe
+ * unless a base or target is already explicitly set.
  * Uses a timeout to keep checking until the title is valid.
  */
-function setPopTitle() {
+function setPopTitleAndRewriteTargets() {
 	if (window.frames["popupFrame"].document.title == null) {
-		window.setTimeout("setPopTitle();", 10);
+		window.setTimeout("setPopTitleAndRewriteTargets();", 10);
 	} else {
-		document.getElementById("popupTitle").innerHTML = window.frames["popupFrame"].document.title;
+		var popupDocument = window.frames["popupFrame"].document;
+		document.getElementById("popupTitle").innerHTML = popupDocument.title;
+		if (popupDocument.getElementsByTagName('base').length < 1) {
+			var aList  = window.frames["popupFrame"].document.getElementsByTagName('a');
+			for (var i = 0; i < aList.length; i++) {
+				if (aList.target == null) aList[i].target='_parent';
+			}
+			var fList  = window.frames["popupFrame"].document.getElementsByTagName('form');
+			for (i = 0; i < fList.length; i++) {
+				if (fList.target == null) fList[i].target='_parent';
+			}
+		}
 	}
 }
 
@@ -277,13 +290,13 @@ function addEvent(obj, evType, fn){
 function getViewportHeight() {
 	if (window.innerHeight!=window.undefined) return window.innerHeight;
 	if (document.compatMode=='CSS1Compat') return document.documentElement.clientHeight;
-	if (document.body) return document.body.clientHeight; 
-	return window.undefined; 
+	if (document.body) return document.body.clientHeight;
+	return window.undefined;
 }
 
 function getViewportWidth() {
-	if (window.innerWidth!=window.undefined) return window.innerWidth; 
-	if (document.compatMode=='CSS1Compat') return document.documentElement.clientWidth; 
-	if (document.body) return document.body.clientWidth; 
-	return window.undefined; 
+	if (window.innerWidth!=window.undefined) return window.innerWidth;
+	if (document.compatMode=='CSS1Compat') return document.documentElement.clientWidth;
+	if (document.body) return document.body.clientWidth;
+	return window.undefined;
 }
