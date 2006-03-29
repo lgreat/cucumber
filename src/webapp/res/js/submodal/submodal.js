@@ -34,9 +34,11 @@ function initPopUp() {
 	var body = document.getElementsByTagName('body')[0];
 	var popmask = document.createElement('div');
 	popmask.id = 'popupMask';
-	var popcont = document.createElement('div');
+    popmask.setAttribute('style', 'display:none');
+    var popcont = document.createElement('div');
 	popcont.id = 'popupContainer';
-	popcont.innerHTML = '' +
+    popcont.setAttribute('style', 'display:none');
+    popcont.innerHTML = '' +
 		'<div id="popupInner">' +
 			'<div id="popupTitleBar">' +
 				'<div id="popupTitle"></div>' +
