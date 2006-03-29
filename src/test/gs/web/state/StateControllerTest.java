@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StateControllerTest.java,v 1.7 2006/03/17 05:33:43 apeterson Exp $
+ * $Id: StateControllerTest.java,v 1.8 2006/03/29 21:31:00 apeterson Exp $
  */
 
 package gs.web.state;
@@ -44,7 +44,7 @@ public class StateControllerTest extends BaseControllerTestCase {
         assertEquals("Fresno Unified", districtAnchor.getContents());
         Anchor last = (Anchor) results.get(4);
         assertEquals("San Francisco Unified", last.getContents());
-        assertEquals("/modperl/browse_district/717/ca", last.getHref());
+        assertEquals("/schools.page?district=717&amp;state=CA", last.getHref());
         assertNotNull(modelAndView.getModel().get(ListModel.RESULTS));
 
         Anchor veryLast = (Anchor) results.get(5);
@@ -68,7 +68,7 @@ public class StateControllerTest extends BaseControllerTestCase {
         assertEquals("AK District A", districtAnchor.getContents());
         districtAnchor = (Anchor) results.get(3);
         assertEquals("AK District D", districtAnchor.getContents());
-        assertEquals("/modperl/browse_district/25/ak", districtAnchor.getHref());
+        assertEquals("/schools.page?district=25&amp;state=AK", districtAnchor.getHref());
         last = (Anchor) results.get(4);
         assertEquals("View all Alaska districts", last.getContents());
         assertEquals("/modperl/distlist/AK", last.getHref());
@@ -87,7 +87,7 @@ public class StateControllerTest extends BaseControllerTestCase {
         assertEquals(1, results.size());
         districtAnchor = (Anchor) results.get(0);
         assertEquals("HI District A", districtAnchor.getContents());
-        assertEquals("/modperl/browse_district/1/hi", districtAnchor.getHref());
+        assertEquals("/schools.page?district=1&amp;state=HI", districtAnchor.getHref());
     }
 
     public void testTopCitiesController() throws Exception {
@@ -107,10 +107,10 @@ public class StateControllerTest extends BaseControllerTestCase {
         assertTrue(results.size() > 4);
         Anchor la = (Anchor) results.get(0);
         assertEquals("Los Angeles schools", la.getContents());
-        assertEquals("/modperl/bycity/ca/?city=Los+Angeles", la.getHref());
+        assertEquals("/schools.page?state=CA&city=Los+Angeles", la.getHref());
         Anchor sf = (Anchor) results.get(3);
         assertEquals("San Francisco schools", sf.getContents());
-        assertEquals("/modperl/bycity/ca/?city=San+Francisco", sf.getHref());
+        assertEquals("/schools.page?state=CA&city=San+Francisco", sf.getHref());
         assertNotNull(modelAndView.getModel().get(ListModel.RESULTS));
 
         Anchor veryLast = (Anchor) results.get(results.size() - 1);
@@ -136,7 +136,7 @@ public class StateControllerTest extends BaseControllerTestCase {
         assertNotNull(results);
         Anchor nyc = (Anchor) results.get(0);
         assertEquals("New York City schools", nyc.getContents());
-        assertEquals("/modperl/bycity/ny/?city=New+York", nyc.getHref());
+        assertEquals("/schools.page?state=NY&city=New+York", nyc.getHref());
         assertNotNull(modelAndView.getModel().get(ListModel.RESULTS));
 
 

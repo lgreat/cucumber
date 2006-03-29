@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopDistrictsController.java,v 1.13 2006/03/29 20:01:52 apeterson Exp $
+ * $Id: TopDistrictsController.java,v 1.14 2006/03/29 21:31:00 apeterson Exp $
  */
 
 package gs.web.state;
@@ -70,7 +70,7 @@ public class TopDistrictsController extends AbstractController {
                 NDP -- Nov 2005
             */
             String url = _urlTemplate;
-            url = url.replaceAll("\\$STATE", state.getAbbreviationLowerCase());
+            url = url.replaceAll("\\$STATE", state.getAbbreviation());
             url = url.replaceAll("\\$DISTRICT", districtIds[i].toString());
             String name;
             try {

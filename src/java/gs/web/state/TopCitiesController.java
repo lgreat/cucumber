@@ -1,7 +1,7 @@
 
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesController.java,v 1.12 2006/03/29 20:01:52 apeterson Exp $
+ * $Id: TopCitiesController.java,v 1.13 2006/03/29 21:31:00 apeterson Exp $
  */
 
 package gs.web.state;
@@ -71,8 +71,8 @@ public class TopCitiesController extends AbstractController {
                 String schools = ((city.equals(state.getLongName())) ? city + " City" : city) + " schools";
                 //Anchor anchor = new Anchor("/modperl/bycity/" + state.getAbbreviationLowerCase() +
                 //                        "/?city=" + urlEncodedCity + "", // removed &level=a 11/05 AJP
-                Anchor anchor = new Anchor("/schools.page?state=" + state.getAbbreviationLowerCase() +
-                        "&city=" + urlEncodedCity + "", 
+                Anchor anchor = new Anchor("/schools.page?state=" + state.getAbbreviation() +
+                        "&city=" + urlEncodedCity + "",
                         schools);
                 items.add(anchor);
             }
