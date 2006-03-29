@@ -1,12 +1,12 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.9 2006/03/28 00:17:38 apeterson Exp $
+* $Id: NearbyCitiesController.java,v 1.10 2006/03/29 01:13:09 apeterson Exp $
 */
 
 package gs.web.geo;
 
-import gs.data.geo.IGeoDao;
 import gs.data.geo.ICity;
+import gs.data.geo.IGeoDao;
 import gs.data.state.State;
 import gs.web.ISessionFacade;
 import gs.web.SessionContextUtil;
@@ -23,12 +23,10 @@ import java.util.*;
 
 /**
  * Provides an ListModel of cities near the provided param "city" and "state".
- *
  * Parameters:
  * <li>state
  * <li>city
  * <li>count - maximum number of cities to show. (optional)
- *
  * Uses the styles "town", "city" and "bigCity" based on population.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
@@ -65,7 +63,7 @@ public class NearbyCitiesController extends AbstractController {
         String cityNameParam = request.getParameter(PARAM_CITY);
         if (StringUtils.isNotEmpty(cityNameParam) && state != null) {
 
-            ICity city = _geoDao.findCityInfo(state, cityNameParam);
+            ICity city = _geoDao.findCity(state, cityNameParam);
 
             if (city != null) {
                 model.put(MODEL_CITY, city);
@@ -92,8 +90,12 @@ public class NearbyCitiesController extends AbstractController {
                 for (int i = 0; i < limit && i < nearbyCities.size(); i++) {
                     ICity nearbyCity = (ICity) nearbyCities.get(i);
                     String styleClass = "town";
-                    if (nearbyCity.getPopulation().intValue() > 50000) {
-                        styleClass = (nearbyCity.getPopulation().longValue() > 200000) ? "bigCity" : "city";
+                    long pop = 0;
+                    if (nearbyCity.getPopulation() != null) {
+                        pop = nearbyCity.getPopulation().intValue();
+                    }
+                    if (pop > 50000) {
+                        styleClass = (pop > 200000) ? "bigCity" : "city";
                     }
                     Anchor anchor = new Anchor("/city.page?state=" +
                             nearbyCity.getState() +
@@ -117,7 +119,7 @@ public class NearbyCitiesController extends AbstractController {
                     Anchor anchor = new Anchor("/modperl/citylist/" +
                             state +
                             "/",
-                            "Browse all "+ state.getLongName()+" cities...",
+                            "Browse all " + state.getLongName() + " cities...",
                             "more");
                     items.add(anchor);
 

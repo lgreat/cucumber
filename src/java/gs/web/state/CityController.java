@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.8 2006/03/28 00:17:38 apeterson Exp $
+ * $Id: CityController.java,v 1.9 2006/03/29 01:13:09 apeterson Exp $
  */
 
 package gs.web.state;
@@ -86,7 +86,7 @@ public class CityController extends AbstractController {
             String c = StringUtils.capitalize(cityNameParam);
             model.put(MODEL_CITY_NAME, c);
 
-            ICity city = _geoDao.findCityInfo(state, cityNameParam);
+            ICity city = _geoDao.findCity(state, cityNameParam);
 
             if (city != null) {
                 model.put(MODEL_CITY, city);
