@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopDistrictsController.java,v 1.12 2006/03/15 02:24:21 apeterson Exp $
+ * $Id: TopDistrictsController.java,v 1.13 2006/03/29 20:01:52 apeterson Exp $
  */
 
 package gs.web.state;
@@ -35,7 +35,8 @@ import java.util.Map;
 public class TopDistrictsController extends AbstractController {
     private String _viewName;
     private IDistrictDao _districtDao;
-    private String _urlTemplate = "/modperl/browse_district/$DISTRICT/$STATE";
+    private String _urlTemplate = "/schools.page?district=$DISTRICT&amp;state=$STATE";
+    //private String _urlTemplate = "/modperl/browse_district/$DISTRICT/$STATE";
     //                            "/cgi-bin/$STATE/district_profile/$DISTRICT"
 
 
