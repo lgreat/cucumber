@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.8 2006/03/23 18:21:38 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.9 2006/03/30 22:41:01 apeterson Exp $
  */
 
 package gs.web.state;
@@ -148,7 +148,7 @@ public class CityControllerTest extends BaseControllerTestCase {
         assertNotNull(modelAndView.getModel().get("lon"));
     }
 
-    public void testBuffaloNY() throws Exception {
+    public void xtestBuffaloNY() throws Exception {
 
         GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "Buffalo");
