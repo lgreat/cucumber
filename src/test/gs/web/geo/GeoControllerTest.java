@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoControllerTest.java,v 1.8 2006/03/30 22:57:53 apeterson Exp $
+ * $Id: GeoControllerTest.java,v 1.9 2006/03/30 23:11:57 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -26,6 +26,8 @@ public class GeoControllerTest extends BaseControllerTestCase {
     private ISchoolDao _schoolDao;
     private ApplicationContext _applicationContext;
 
+
+
     public void testAnchorage() throws Exception {
         GeoController c = new GeoController();
         c.setGeoDao(_geoDao);
@@ -35,13 +37,14 @@ public class GeoControllerTest extends BaseControllerTestCase {
         GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "Anchorage");
         request.addParameter("state", "AK");
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
         ModelAndView modelAndView = c.handleRequest(request, getResponse());
 
         Object city = modelAndView.getModel().get("city");
         assertNotNull(city);
 
         Object schools = modelAndView.getModel().get("schools");
-        assertNull(schools);
+        assertNotNull(schools);
 
         assertNotNull(modelAndView.getModel().get("lat"));
         assertNotNull(modelAndView.getModel().get("lon"));
@@ -60,6 +63,7 @@ public class GeoControllerTest extends BaseControllerTestCase {
         GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "Hope");
         request.addParameter("state", "AK");
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
         ModelAndView modelAndView = c.handleRequest(request, getResponse());
 
         Object city = modelAndView.getModel().get("city");
@@ -68,7 +72,7 @@ public class GeoControllerTest extends BaseControllerTestCase {
         Object schools = modelAndView.getModel().get("schools");
         assertNotNull(schools);
         assertTrue(schools instanceof Collection);
-        assertTrue( ((Collection)schools).size() >= 10);
+        assertTrue( ((Collection)schools).size() <= 2);
 
         assertNotNull(modelAndView.getModel().get("lat"));
         assertNotNull(modelAndView.getModel().get("lon"));
@@ -85,6 +89,7 @@ public class GeoControllerTest extends BaseControllerTestCase {
         GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "San Francisco");
         request.addParameter("state", "CA");
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
         ModelAndView modelAndView = c.handleRequest(request, getResponse());
 
         Object city = modelAndView.getModel().get("city");
@@ -125,5 +130,6 @@ public class GeoControllerTest extends BaseControllerTestCase {
         _sessionContextUtil = (SessionContextUtil) _applicationContext.getBean(SessionContextUtil.BEAN_ID);
         _geoDao = (IGeoDao) _applicationContext.getBean(IGeoDao.BEAN_ID);
         _schoolDao = (ISchoolDao) _applicationContext.getBean(ISchoolDao.BEAN_ID);
+
     }
 }
