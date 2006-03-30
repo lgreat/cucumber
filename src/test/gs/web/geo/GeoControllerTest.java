@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoControllerTest.java,v 1.7 2006/03/23 18:21:38 apeterson Exp $
+ * $Id: GeoControllerTest.java,v 1.8 2006/03/30 22:57:53 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -26,15 +26,15 @@ public class GeoControllerTest extends BaseControllerTestCase {
     private ISchoolDao _schoolDao;
     private ApplicationContext _applicationContext;
 
-    public void testOakland() throws Exception {
+    public void testAnchorage() throws Exception {
         GeoController c = new GeoController();
         c.setGeoDao(_geoDao);
         c.setSchoolDao(_schoolDao);
         c.setViewName("/geo/cityViolence");
 
         GsMockHttpServletRequest request = getRequest();
-        request.addParameter("city", "Oakland");
-        request.addParameter("state", "CA");
+        request.addParameter("city", "Anchorage");
+        request.addParameter("state", "AK");
         ModelAndView modelAndView = c.handleRequest(request, getResponse());
 
         Object city = modelAndView.getModel().get("city");
@@ -50,7 +50,7 @@ public class GeoControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(5), modelAndView.getModel().get("scale"));
     }
 
-    public void testAlameda() throws Exception {
+    public void testHopeAK() throws Exception {
         GeoController c = new GeoController();
 
         c.setGeoDao(_geoDao);
@@ -58,8 +58,8 @@ public class GeoControllerTest extends BaseControllerTestCase {
         c.setViewName("/geo/cityViolence");
 
         GsMockHttpServletRequest request = getRequest();
-        request.addParameter("city", "Alameda");
-        request.addParameter("state", "CA");
+        request.addParameter("city", "Hope");
+        request.addParameter("state", "AK");
         ModelAndView modelAndView = c.handleRequest(request, getResponse());
 
         Object city = modelAndView.getModel().get("city");

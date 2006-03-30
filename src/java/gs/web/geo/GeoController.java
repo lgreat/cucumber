@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.8 2006/03/28 00:17:38 apeterson Exp $
+ * $Id: GeoController.java,v 1.9 2006/03/30 22:58:01 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -9,6 +9,7 @@ import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.bestplaces.BpState;
 import gs.data.geo.bestplaces.BpZip;
+import gs.data.geo.bestplaces.BpCensus;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
@@ -85,7 +86,11 @@ public class GeoController implements Controller {
         String cityNameParam = request.getParameter(PARAM_CITY);
         if (StringUtils.isNotEmpty(cityNameParam) && state != null) {
 
-            ICity city = _geoDao.findCityInfo(state, cityNameParam);
+            BpCensus city = _geoDao.findCityInfo(state, cityNameParam);
+
+            if (city == null) {
+                city = _geoDao.findZip(state, cityNameParam);
+            }
 
             if (city != null) {
                 model.put(MODEL_CITY, city);
