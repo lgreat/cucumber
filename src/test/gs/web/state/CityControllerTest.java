@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.10 2006/03/30 22:57:04 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.11 2006/03/31 19:10:05 apeterson Exp $
  */
 
 package gs.web.state;
@@ -74,7 +74,8 @@ public class CityControllerTest extends BaseControllerTestCase {
         ListModel listModel = (ListModel) model.get(CityController.MODEL_DISTRICTS);
 
         List list = listModel.getResults();
-        assertEquals(1, list.size());
+        assertTrue(list.size() > 0);
+        assertTrue(list.size() <= 2);
         assertEquals("/cgi-bin/wy/district_profile/3/", ((Anchor) list.get(0)).getHref());
     }
 
