@@ -97,11 +97,18 @@ padding-left: 0;
 }
 #nearbyCities ul {
     display: inline;
+    line-height: 1em;
 }
 #nearbyCities li {
     display: inline;
-    padding: .5em;
+    padding: 0 .4em 0 .4em;
     font-size: small;
+    line-height: 1em;
+}
+#nearbyCities li.bigCity,
+#nearbyCities li.city,
+#nearbyCities li.town {
+    border-right: 1px solid #999;
 }
         #adSquare {
             clear: both;
