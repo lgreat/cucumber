@@ -86,7 +86,6 @@ padding-left: 0;
 }
 
 div#nearbyCities {
-    border: 1px solid #f60;
     margin: .5em;
     padding: .3em;
 }
@@ -116,8 +115,19 @@ div#nearbyCities li {
 </head>
 
 <gsml:body adPageName="city">
-    <div id="nearbyCities">
-        <jsp:include page="/geo/nearbyCities.module?city=${city}&amp;count=6&amp;more=true"/>
+    <div style="border-bottom: 1px solid #999; margin: 0.5em">
+        <table>
+            <tr>
+                <td style="white-space:nowrap; vertical-align: bottom">
+                    <h1 style="font-size: large; color: #eb7a31; ">GreatSchools ${city}</h1>
+                </td>
+                <td style="vertical-align: bottom">
+                    <div id="nearbyCities" style="vertical-align: bottom">
+                        <jsp:include page="/geo/nearbyCities.module?city=${city}&amp;count=5&amp;more=true"/>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 
     <div style="margin: .5em">

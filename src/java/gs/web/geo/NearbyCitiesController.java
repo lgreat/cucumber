@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.10 2006/03/29 01:13:09 apeterson Exp $
+* $Id: NearbyCitiesController.java,v 1.11 2006/03/31 19:28:32 apeterson Exp $
 */
 
 package gs.web.geo;
@@ -84,7 +84,7 @@ public class NearbyCitiesController extends AbstractController {
 
                 model.put(MODEL_CITIES, nearbyCities);
 
-                model.put(ListModel.HEADING, "Cities Near " + city.getName());
+                model.put(ListModel.HEADING, "Nearby cities");
 
                 List items = new ArrayList(limit);
                 for (int i = 0; i < limit && i < nearbyCities.size(); i++) {
@@ -112,7 +112,7 @@ public class NearbyCitiesController extends AbstractController {
                             "&amp;city=" +
                             cityNameParam +
                             "&amp;order=alpha",
-                            "More nearby cities...",
+                            "More...",
                             "more");
                     items.add(anchor);
                 } else {
