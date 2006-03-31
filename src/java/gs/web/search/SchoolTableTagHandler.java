@@ -74,8 +74,6 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         out.println("<table width=\"100%\"><tr><td><span id=\"resultsheadline\">");
         out.print("Found ");
         out.print(String.valueOf(_total));
-        String cityOrDistrictName = (String) getJspContext().findAttribute("city");
-        String distId = null;
 
         String schoolString;
         if (_total != 1) {
@@ -86,6 +84,8 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
         StringBuffer districtUrlBuffer = new StringBuffer("/cgi-bin/");
 
+        String cityOrDistrictName = (String) getJspContext().findAttribute("city");
+        String distId = null;
         if (cityOrDistrictName != null) {
             out.print(" ");
             out.print(cityOrDistrictName);

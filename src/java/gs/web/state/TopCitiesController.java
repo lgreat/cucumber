@@ -1,7 +1,7 @@
 
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesController.java,v 1.13 2006/03/29 21:31:00 apeterson Exp $
+ * $Id: TopCitiesController.java,v 1.14 2006/03/31 01:50:22 apeterson Exp $
  */
 
 package gs.web.state;
@@ -14,6 +14,7 @@ import gs.web.util.Anchor;
 import gs.web.util.ListModel;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +36,10 @@ import java.util.Map;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class TopCitiesController extends AbstractController {
+
+    public static final String PARAM_PATH = "path"; // path to the page
+    public static final String PARAM_COUNT = "count"; // maximum number to show
+
     private String _viewName;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -57,10 +62,19 @@ public class TopCitiesController extends AbstractController {
             model.put(ListModel.RESULTS, items);
 
         } else {
+            String page = "/schools.page";
+            if (!StringUtils.isEmpty(request.getParameter(PARAM_PATH))) {
+                page = request.getParameter(PARAM_PATH);
+            }
+
+            int cityCount = state.getTopCityCount();
+            if (!StringUtils.isEmpty(request.getParameter(PARAM_COUNT))) {
+                cityCount = Integer.parseInt(request.getParameter(PARAM_COUNT));
+            }
+
             model.put(ListModel.HEADING, state.getLongName() + " Cities");
 
             String[] cities = state.getTopCities();
-            int cityCount = state.getTopCityCount();
             if (cities.length < cityCount) {
                 cityCount = cities.length;
             }
@@ -71,7 +85,7 @@ public class TopCitiesController extends AbstractController {
                 String schools = ((city.equals(state.getLongName())) ? city + " City" : city) + " schools";
                 //Anchor anchor = new Anchor("/modperl/bycity/" + state.getAbbreviationLowerCase() +
                 //                        "/?city=" + urlEncodedCity + "", // removed &level=a 11/05 AJP
-                Anchor anchor = new Anchor("/schools.page?state=" + state.getAbbreviation() +
+                Anchor anchor = new Anchor(page + "?state=" + state.getAbbreviation() +
                         "&city=" + urlEncodedCity + "",
                         schools);
                 items.add(anchor);
