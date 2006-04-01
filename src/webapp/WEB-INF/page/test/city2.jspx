@@ -37,6 +37,7 @@
     width: 600px; height: 400px;
     width: 700px; height: 400px;
     width: 350px; height: 350px;
+    width: 250px; height: 250px;
 }
 .statsModule {
     font-size: small;
