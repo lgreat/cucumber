@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.11 2006/04/03 20:37:48 apeterson Exp $
+ * $Id: CityController.java,v 1.12 2006/04/03 21:37:08 apeterson Exp $
  */
 
 package gs.web.state;
@@ -9,7 +9,6 @@ import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
-import gs.data.school.School;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
@@ -25,10 +24,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Provides...
@@ -91,52 +87,54 @@ public class CityController extends AbstractController {
         model.put(MODEL_DISTRICTS, districtList);
 
 
-        Float lat = null;
-        Float lon = null;
-
         String c = StringUtils.capitalize(cityNameParam);
         model.put(MODEL_CITY_NAME, c);
 
         ICity city = _geoDao.findCity(state, cityNameParam);
 
+        Float lat = null;
+        Float lon = null;
         if (city != null) {
             model.put(MODEL_CITY, city);
-            if (lat == null) {
-                lat = new Float(city.getLat());
-                lon = new Float(city.getLon());
-            }
+            lat = new Float(city.getLat());
+            lon = new Float(city.getLon());
         }
 
-        List schools = _schoolDao.findSchoolsInCity(state, cityNameParam, false);
-        if (schools != null) {
-            if (schools.size() > 20) {
-                schools = schools.subList(0, 20);
-            }
-            model.put(MODEL_SCHOOLS, schools);
-            if (lat == null) {
-                for (Iterator iter = schools.iterator(); iter.hasNext() && lat == null;) {
-                    School s = (School) iter.next();
-                    if (s.getLat() != null) {
-                        lat = new Float(s.getLat().floatValue());
-                        lon = new Float(s.getLon().floatValue());
-                    }
-                }
-            }
-        }
-
-        // Find some sample schools
-        if (state.isRatingsState()) {
+        /*
+         * If top rated schools are available for this city, then get them and
+         * put them into the model.
+         */
+        if (state.isRatingsState() && city != null) {
             List topRatedSchools;
             topRatedSchools = _schoolDao.findTopRatedSchoolsInCity(city, 8, null, 5);
             //sampleSchools = _schoolDao.findSchoolsInCity(state, cityNameParam, 5);
-            model.put(MODEL_TOP_RATED_SCHOOLS, topRatedSchools);
+            if (topRatedSchools.size() > 0) {
+                model.put(MODEL_TOP_RATED_SCHOOLS, topRatedSchools);
+
+                List schools = new ArrayList(topRatedSchools.size());
+                for (Iterator iter = topRatedSchools.iterator(); iter.hasNext();) {
+                    ISchoolDao.ITopRatedSchool s = (ISchoolDao.ITopRatedSchool) iter.next();
+                    schools.add(s.getSchool());
+                }
+                model.put(MODEL_SCHOOLS, schools);
+            }
+        }
+
+        if (model.get(MODEL_TOP_RATED_SCHOOLS) == null) {
+            List schools = _schoolDao.findSchoolsInCity(state, cityNameParam, false);
+            if (schools != null) {
+                if (schools.size() > 20) {
+                    schools = schools.subList(0, 20);
+                }
+                model.put(MODEL_SCHOOLS, schools);
+            }
         }
 
 
         model.put(MODEL_MAP_LAT, lat);
         model.put(MODEL_MAP_LON, lon);
 
-        model.put(MODEL_MAP_SCALE, new Integer(5)); // should be calculated better
+        model.put(MODEL_MAP_SCALE, new Integer(6)); // should be calculated better
 
 
         return new ModelAndView("test/city2", model);
@@ -147,12 +145,31 @@ public class CityController extends AbstractController {
 
         List list = _districtDao.findDistrictsInCity(state, cityNameParam, true);
         if (list != null) {
-            districts.setHeading(cityNameParam + " Districts");
+
+            boolean needViewAll = false;
+
+            if (list.size() <= 6) {
+                _districtDao.sortDistrictsByName(list);
+                districts.setHeading(cityNameParam + " Districts");
+            } else {
+                // Too many districts to show... just show the largest
+                _districtDao.sortDistrictsByNumberOfSchools(list, false);
+                list = list.subList(0, 4);
+                districts.setHeading("Biggest " + cityNameParam + " Districts");
+                needViewAll = true;
+            }
+
             for (Iterator iter = list.iterator(); iter.hasNext();) {
                 District d = (District) iter.next();
                 String url = "/cgi-bin/" + state.getAbbreviationLowerCase() + "/district_profile/" + d.getId() + "/";
                 url = _urlUtil.buildUrl(url, request);
                 districts.addResult(new Anchor(url, d.getName()));
+            }
+
+            if (needViewAll) {
+                String url = "/modperl/distlist/" + state.getAbbreviation() + "/";
+                url = _urlUtil.buildUrl(url, request);
+                districts.addResult(new Anchor(url, "All " + state.getName() + " Districts"));
             }
         }
 
