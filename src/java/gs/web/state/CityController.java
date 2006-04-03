@@ -1,25 +1,27 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.9 2006/03/29 01:13:09 apeterson Exp $
+ * $Id: CityController.java,v 1.10 2006/04/03 19:21:51 apeterson Exp $
  */
 
 package gs.web.state;
 
+import gs.data.geo.ICity;
+import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
-import gs.data.geo.IGeoDao;
-import gs.data.geo.ICity;
 import gs.web.SessionContext;
 import gs.web.util.Anchor;
 import gs.web.util.ListModel;
 import gs.web.util.UrlUtil;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,6 +53,7 @@ public class CityController extends AbstractController {
 
     public static final String MODEL_DISTRICTS = "districts"; // ListModel object
     public static final String MODEL_SCHOOL_BREAKDOWN = "schoolBreakdown"; // ListModel object
+    public static final String MODEL_TOP_RATED_SCHOOLS = "topRatedSchools"; // List of schools
 
 
     private IGeoDao _geoDao;
@@ -66,7 +69,17 @@ public class CityController extends AbstractController {
                                                  HttpServletResponse response) throws Exception {
 
         State state = SessionContext.getInstance(request).getStateOrDefault();
+
+        if (state == null) {
+            View redirectView = new RedirectView("/");
+            return new ModelAndView(redirectView);
+        }
+
         String cityNameParam = request.getParameter(PARAM_CITY);
+        if (StringUtils.isEmpty(cityNameParam)) {
+            View redirectView = new RedirectView("/modperl/go/" + state.getAbbreviationLowerCase());
+            return new ModelAndView(redirectView);
+        }
 
 
         Map model = new HashMap();
@@ -81,38 +94,44 @@ public class CityController extends AbstractController {
         Float lat = null;
         Float lon = null;
 
-        if (StringUtils.isNotEmpty(cityNameParam) && state != null) {
+        String c = StringUtils.capitalize(cityNameParam);
+        model.put(MODEL_CITY_NAME, c);
 
-            String c = StringUtils.capitalize(cityNameParam);
-            model.put(MODEL_CITY_NAME, c);
+        ICity city = _geoDao.findCity(state, cityNameParam);
 
-            ICity city = _geoDao.findCity(state, cityNameParam);
-
-            if (city != null) {
-                model.put(MODEL_CITY, city);
-                if (lat == null) {
-                    lat = new Float(city.getLat());
-                    lon = new Float(city.getLon());
-                }
+        if (city != null) {
+            model.put(MODEL_CITY, city);
+            if (lat == null) {
+                lat = new Float(city.getLat());
+                lon = new Float(city.getLon());
             }
+        }
 
-            List schools = _schoolDao.findSchoolsInCity(state, cityNameParam, false);
-            if (schools != null) {
-                if (schools.size() > 50) {
-                    schools = schools.subList(0, 50);
-                }
-                model.put(MODEL_SCHOOLS, schools);
-                if (lat == null) {
-                    for (Iterator iter = schools.iterator(); iter.hasNext() && lat == null;) {
-                        School s = (School) iter.next();
-                        if (s.getLat() != null) {
-                            lat = new Float(s.getLat().floatValue());
-                            lon = new Float(s.getLon().floatValue());
-                        }
+        List schools = _schoolDao.findSchoolsInCity(state, cityNameParam, false);
+        if (schools != null) {
+            if (schools.size() > 30) {
+                schools = schools.subList(0, 30);
+            }
+            model.put(MODEL_SCHOOLS, schools);
+            if (lat == null) {
+                for (Iterator iter = schools.iterator(); iter.hasNext() && lat == null;) {
+                    School s = (School) iter.next();
+                    if (s.getLat() != null) {
+                        lat = new Float(s.getLat().floatValue());
+                        lon = new Float(s.getLon().floatValue());
                     }
                 }
             }
         }
+
+        // Find some sample schools
+        if (state.isRatingsState()) {
+            List topRatedSchools;
+            topRatedSchools = _schoolDao.findTopRatedSchoolsInCity(city, 8, null, 5);
+            //sampleSchools = _schoolDao.findSchoolsInCity(state, cityNameParam, 5);
+            model.put(MODEL_TOP_RATED_SCHOOLS, topRatedSchools);
+        }
+
 
         model.put(MODEL_MAP_LAT, lat);
         model.put(MODEL_MAP_LON, lon);

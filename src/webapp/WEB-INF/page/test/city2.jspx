@@ -22,7 +22,7 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <![CDATA[
+<![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
         <style type="text/css">
 #mapContainer {
@@ -37,18 +37,24 @@
     width: 600px; height: 400px;
     width: 700px; height: 400px;
     width: 350px; height: 350px;
-    width: 250px; height: 250px;
+    width: 270px; height: 270px;
 }
-.statsModule {
-    font-size: small;
-    margin: .3em;
+
+.cityPage #contentGS {
+    margin: .5em;
 }
+
+.cityPage h3,
 .statsModule h3 {
     color: #eb7a31;
     font-size: medium;
     text-align: left;
 }
 
+
+.statsModule {
+    font-size: small;
+}
 .statsModule table {
             padding-top: 1em;
 			width: 100%;
@@ -56,7 +62,7 @@
 
 .statsModule .census td,
 .statsModule .census th {
-            border-bottom: 1px dotted #ddd;
+            border-bottom: 1px dotted #999;
             font-size: small;
             font-weight: normal;
             padding: .4em 1em .5em 1em;
@@ -77,7 +83,7 @@ padding-left: 0;
             color: #555;
             font-size: x-small;
             font-weight: bold;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #ccc;
         }
 .statsModule .better { color: green; font-weight: bold; }
 .statsModule .worse { color: red; ; font-weight: bold;}
@@ -87,7 +93,6 @@ padding-left: 0;
 }
 
 #nearbyCities {
-    margin: .5em;
     padding: .3em;
 }
 #nearbyCities h3 {
@@ -95,6 +100,7 @@ padding-left: 0;
     color: #888;
     padding-right: 1em;
     text-weight: bold;
+    font-size: small;
 }
 #nearbyCities ul {
     display: inline;
@@ -116,87 +122,160 @@ padding-left: 0;
             margin-top: 2em;
         }
 
+
+        .cleanLineTopBox,
+        .cleanLineBottomBox,
+        .cleanLineLeftBox,
+        .cleanLineRightBox {
+            border: 0px solid #999;
+        }
+        .cleanLineTopBox {
+            margin-top: 3px;
+            padding-top: 6px;
+            border-top-width: 1px;
+        }
+        .cleanLineBottomBox {
+            border-bottom-width: 1px;
+            margin-bottom: 20px;
+        }
+        .cleanLineLeftBox {
+            margin-left: 10px;
+            border-left-width: 1px;
+        }
+
+        .dottedLineTopBox,
+        .dottedLineBottomBox,
+        .dottedLineLeftBox,
+        .dottedLineRightBox {
+            border: 0px dotted #999;
+        }
+        .dottedLineTopBox {
+            margin-top: 3px;
+            padding-top: 2px;
+            border-top-width: 1px;
+        }
+        .dottedLineBottomBox {
+            border-bottom-width: 1px;
+            margin-bottom: 3px;
+        }
+        .dottedLineLeftBox {
+            margin-left: 3px;
+            border-left-width: 1px;
+        }
+
         </style>
             ]]>
-    <c:set var="city">${param["city"]}</c:set>
-    <title>${city} Schools</title>
+<c:set var="city">${requestScope.cityName}</c:set>
+<title>${city} Schools</title>
 </head>
 
-<gsml:body adPageName="city">
-    <div style="border-bottom: 1px solid #999; margin: 0.5em">
-        <table width="100%">
-            <tr>
-                <td style="white-space:nowrap; vertical-align: bottom">
-                    <h1 style="font-size: large; color: #eb7a31; ">GreatSchools ${city}</h1>
-                </td>
-                <td id="nearbyCities" style="vertical-align: bottom; text-align: right">
-                        <jsp:include page="/geo/nearbyCities.module?city=${city}&amp;count=5&amp;more=true"/>
+<gsml:body adPageName="city" pageLayout="cityPage">
+<div class="cleanLineBottomBox">
+    <table width="100%">
+        <tr>
+            <td style="white-space:nowrap; vertical-align: bottom">
+                <h1 style="font-size: large; color: #eb7a31; ">GreatSchools ${city}</h1>
+            </td>
+            <td id="nearbyCities" style="vertical-align: bottom; text-align: right">
+                <jsp:include page="/geo/nearbyCities.module?city=${city}&amp;count=5&amp;more=true"/>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<table width="100%">
+    <tr>
+        <td width="66%" style="vertical-align:top">
+            <h3>
+                <c:if test="${not empty requestScope.topRatedSchools}">
+                    Top-rated ${city} Schools
+                </c:if>
+                <c:if test="${empty requestScope.topRatedSchools}">
+                    ${city} Schools
+                </c:if>
+            </h3>
+            <table width="100%" cellpadding="0" cellspacing="0"><tr><td
+                    style="width:270px; vertical-align: top">
+                <div id="mapContainer">
+                    <div id="map">&#160;</div>
+                </div>
+                <map:setup/>
+                <map:schools functionName="createMap" id="map" lon="${lon}" lat="${lat}" scale="${scale}"
+                             schools="${schools}"/>
+                <pageHelper:addOnLoadHandler handler="createMap()"/>
+            </td>
+                <td style="vertical-align: top">
+                    <c:if test="${not empty requestScope.topRatedSchools}">
+                        <c:forEach items="${requestScope.topRatedSchools}" var="s">
+                            <div class="dottedLineBottomBox" >
+                                <table><tr><td>${s.name}</td><td>${s.rating}</td></tr></table>
+                            </div>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${empty requestScope.topRatedSchools}">
+                        <gsml:list model="${schoolBreakdown}"/>
+                        <gsml:list model="${districts}"/>
+                    </c:if>
+
                 </td>
             </tr>
-        </table>
-    </div>
+            </table>
+            <c:if test="${not empty requestScope.topRatedSchools}">
 
-    <div style="margin: .5em">
-        <table width="100%">
-            <tr>
-                <td width="66%" style="vertical-align:top">
-                    <gsml:box tableClass="shade3" tableWidth="100%">
-                        <table width="100%" cellpadding="0" cellspacing="0"><tr><td
-                                style="width:50%; vertical-align: top">
+                <div width="100%" class="cleanLineTopBox">
+                    <h3>All ${city} Schools</h3>
+                    <table width="100%"><tr>
+                        <td style="vertical-align: top; width: 50%">
                             <c:if test="${not empty schoolBreakdown.results}">
                                 <gsml:list model="${schoolBreakdown}"/>
                             </c:if>
-                            <br />
-                            <br />
-                            <c:if test="${not empty districts.results}">
-                            <gsml:list model="${districts}"/>
-                            </c:if>
-                        </td><td style="width: 50%; vertical-align: top">
-                            <div id="mapContainer">
-                                <div id="map">&#160;</div>
-                            </div>
-                            <map:setup/>
-                            <map:schools functionName="createMap" id="map" lon="${lon}" lat="${lat}" scale="${scale}"
-                                         schools="${schools}"/>
-                            <pageHelper:addOnLoadHandler handler="createMap()"/>
+
                         </td>
-                        </tr></table>
-                    </gsml:box>
-                    <gsml:box tableClass="shade3" tableWidth="100%">
-                        <jsp:include page="/geo/cityStats.module?city=${city}&amp;state=${stateAbbrev}"/>
-                    </gsml:box>
-
-                </td>
-                <td width="33%" style="vertical-align:top">
-                    <table>
-                        <tr>
-                            <td>
-                                <jsp:include
-                                        page="/school/review/recentParentReviews.module?city=${city}&amp;state=${stateAbbrev}"/>
-
+                        <c:if test="${not empty districts.results}">
+                            <td style="vertical-align: top">
+                                <gsml:list model="${districts}"/>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <ad:x40/>
+                        </c:if>
+                    </tr></table>
+                </div>
+            </c:if>
 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="hotTopics">
-                                    <h3>Most Popular Articles</h3>
-                                    <jsp:include page="/promo/featuredArticles.module?position=HOT_TOPIC&amp;count=7"/>
-                                </div>
 
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
+            <div width="100%" class="cleanLineTopBox">
+                <jsp:include page="/geo/cityStats.module?city=${city}&amp;state=${stateAbbrev}"/>
+            </div>
 
-    </div>
+        </td>
+        <td><div class="cleanLineLeftBox" style="height: 100%;">&#160;</div></td>
+        <td width="33%" style="vertical-align:top">
+            <table>
+                <tr>
+                    <td class="recentParentReviews">
+                        <jsp:include
+                                page="/school/review/recentParentReviews.module?city=${city}&amp;state=${stateAbbrev}"/>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <ad:x40/>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="hotTopics">
+                            <h3>Most Popular Articles</h3>
+                            <jsp:include page="/promo/featuredArticles.module?position=HOT_TOPIC&amp;count=7"/>
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
 
 </gsml:body>
 </html>
