@@ -69,7 +69,7 @@
                                                             <td>
                                                                 <div id="introtext">
                                                                     Charter schools are public schools that operate under a contract
-                                                                    or "charter." They get their charters from an authorizer--a district,
+                                                                    or "charter." They get their charters from an authorizer &#8211; a district,
                                                                     state board of education (SBE), college or other organization charged
                                                                     with holding them accountable for meeting the expectations set up in
                                                                     the charters. The information below was provided by this school's
@@ -107,7 +107,7 @@
                                                                 </c:if>
                                                                 <c:if test="${not empty demandData}">
                                                                     <gsml:dataTable data="${demandData}" title="Demand/Return Rate" footnote="${source}"/>
-                                                                    <gsml:popupWindow width="610" height="600" left="50" top="50" href="/definitions/natl/csr_acad_eval.html">
+                                                                    <gsml:popupWindow width="610" height="600" left="50" top="50" href="/definitions/natl/csr_demand_return.html">
                                                                         <span class="moreabout">More about demand/return rate</span>
                                                                     </gsml:popupWindow>
                                                                 </c:if>
