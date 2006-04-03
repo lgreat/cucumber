@@ -71,7 +71,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         out.println("\"/>");
         out.println("<table class=\"columns\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">");
         out.println("<tr><td class=\"mainresultsheader\">");
-        out.println("<table width=\"100%\"><tr><td><span id=\"resultsheadline\">");
+        out.println("<table width=\"100%\"><tr><td><span class=\"resultsheadline\">");
         out.print("Found ");
         out.print(String.valueOf(_total));
 
@@ -86,10 +86,12 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
         String cityOrDistrictName = (String) getJspContext().findAttribute("city");
         String distId = null;
+        out.print("</span><h1 class=\"resultsheadline\">");
         if (cityOrDistrictName != null) {
             out.print(" ");
             out.print(cityOrDistrictName);
             out.print(schoolString);
+            out.print("</h1>");
         } else {
             cityOrDistrictName = (String) getJspContext().findAttribute("distname");
             if (cityOrDistrictName != null) {
@@ -124,11 +126,11 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 }
 
                 districtUrlBuffer.append("/");
-                out.println("</span>");
             }
+            out.print("</h1>");
         }
 
-        out.print("</span></td><td align=\"right\" style=\"padding-right:15px;white-space:nowrap\">");
+        out.print("</td><td align=\"right\" style=\"padding-right:15px;white-space:nowrap\">");
 
         if (_total > 0) {
             if (!showall) {
@@ -216,8 +218,9 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         // "compare all" links
         out.println("<tr><td colspan=\"2\">");
         out.print("<div id=\"comparelinks\">Compare ");
+        out.print("<h1 style=\"display:inline;\">");
         out.print(cityOrDistrictName);
-        out.print(" public schools: ");
+        out.print(" public schools</h1>: ");
 
         UrlBuilder compareBuilder = new UrlBuilder(request,
                 "/cgi-bin/cs_compare/" + getState().getAbbreviationLowerCase());
