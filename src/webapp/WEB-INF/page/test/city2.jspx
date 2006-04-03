@@ -45,9 +45,11 @@
 }
 
 .cityPage h3,
+.cityPage .hotTopics h3,
 .statsModule h3 {
     color: #eb7a31;
     font-size: medium;
+    font-weight: normal;
     text-align: left;
 }
 

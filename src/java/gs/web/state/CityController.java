@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.10 2006/04/03 19:21:51 apeterson Exp $
+ * $Id: CityController.java,v 1.11 2006/04/03 20:37:48 apeterson Exp $
  */
 
 package gs.web.state;
@@ -109,8 +109,8 @@ public class CityController extends AbstractController {
 
         List schools = _schoolDao.findSchoolsInCity(state, cityNameParam, false);
         if (schools != null) {
-            if (schools.size() > 30) {
-                schools = schools.subList(0, 30);
+            if (schools.size() > 20) {
+                schools = schools.subList(0, 20);
             }
             model.put(MODEL_SCHOOLS, schools);
             if (lat == null) {
