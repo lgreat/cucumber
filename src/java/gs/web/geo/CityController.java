@@ -1,9 +1,9 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.12 2006/04/03 21:37:08 apeterson Exp $
+ * $Id: CityController.java,v 1.1 2006/04/03 22:01:45 apeterson Exp $
  */
 
-package gs.web.state;
+package gs.web.geo;
 
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
@@ -27,13 +27,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
- * Provides...
+ * Given a city and state in the URL, populates model properties needed
+ * for the city view page. These are included in the MODEL_* constants.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class CityController extends AbstractController {
-
-    public static final String BEAN_ID = "/city.page";
 
     public static final String PARAM_CITY = "city";
 
@@ -134,7 +133,7 @@ public class CityController extends AbstractController {
         model.put(MODEL_MAP_LAT, lat);
         model.put(MODEL_MAP_LON, lon);
 
-        model.put(MODEL_MAP_SCALE, new Integer(6)); // should be calculated better
+        model.put(MODEL_MAP_SCALE, new Integer(5)); // should be calculated better
 
 
         return new ModelAndView("test/city2", model);

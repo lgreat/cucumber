@@ -1,9 +1,9 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.11 2006/03/31 19:10:05 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.1 2006/04/03 22:01:45 apeterson Exp $
  */
 
-package gs.web.state;
+package gs.web.geo;
 
 import gs.data.school.ISchoolDao;
 import gs.data.school.district.IDistrictDao;
@@ -11,6 +11,7 @@ import gs.data.geo.IGeoDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.SessionContextUtil;
+import gs.web.geo.CityController;
 import gs.web.util.Anchor;
 import gs.web.util.ListModel;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,7 +21,7 @@ import java.util.Map;
 import java.util.Collection;
 
 /**
- * Provides...
+ * Tests CityController.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
@@ -127,7 +128,8 @@ public class CityControllerTest extends BaseControllerTestCase {
         Object schools = modelAndView.getModel().get("schools");
         assertNotNull(schools);
         assertTrue(schools instanceof Collection);
-        assertTrue(((Collection) schools).size() >= 10);
+        assertTrue(((Collection) schools).size() >= 3);
+        assertTrue(((Collection) schools).size() <= 10);
 
         assertNotNull(modelAndView.getModel().get("lat"));
         assertNotNull(modelAndView.getModel().get("lon"));
