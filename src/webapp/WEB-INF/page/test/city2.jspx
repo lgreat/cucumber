@@ -37,7 +37,7 @@
     width: 600px; height: 400px;
     width: 700px; height: 400px;
     width: 350px; height: 350px;
-    width: 270px; height: 270px;
+    width: 250px; height: 230px;
 }
 
 .cityPage #contentGS {
@@ -48,8 +48,8 @@
 .cityPage .hotTopics h3,
 .statsModule h3 {
     color: #eb7a31;
-    font-size: medium;
-    font-weight: normal;
+    font-size: 0.9em;
+    font-weight: 700;
     text-align: left;
 }
 
@@ -138,7 +138,7 @@ padding-left: 0;
         }
         .cleanLineBottomBox {
             border-bottom-width: 1px;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
         .cleanLineLeftBox {
             margin-left: 10px;
@@ -197,10 +197,11 @@ padding-left: 0;
                 </c:if>
             </h3>
             <table width="100%" cellpadding="0" cellspacing="0"><tr><td
-                    style="width:270px; vertical-align: top">
+                    style="width:250px; vertical-align: top">
                 <div id="mapContainer">
                     <div id="map">&#160;</div>
                 </div>
+                View Larger Map
                 <map:setup/>
                 <map:schools functionName="createMap" id="map" lon="${lon}" lat="${lat}" scale="${scale}"
                              schools="${schools}"/>

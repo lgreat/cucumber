@@ -362,7 +362,7 @@
     </bean>
 
     <bean name="/city.page"
-          class="gs.web.state.CityController"
+          class="gs.web.geo.CityController"
           autowire="byName">
     </bean>
 
