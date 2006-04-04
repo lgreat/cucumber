@@ -249,7 +249,7 @@ padding-left: 0;
             </div>
 
         </td>
-        <td><div class="cleanLineLeftBox" style="height: 100%;">&#160;</div></td>
+        <td style="height: 100%;vertical-align: top; "><div class="cleanLineLeftBox" style="height: 30em;">&#160;</div></td>
         <td width="33%" style="vertical-align:top">
             <table>
                 <tr>

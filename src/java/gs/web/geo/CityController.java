@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.1 2006/04/03 22:01:45 apeterson Exp $
+ * $Id: CityController.java,v 1.2 2006/04/04 18:55:09 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -133,7 +133,8 @@ public class CityController extends AbstractController {
         model.put(MODEL_MAP_LAT, lat);
         model.put(MODEL_MAP_LON, lon);
 
-        model.put(MODEL_MAP_SCALE, new Integer(5)); // should be calculated better
+        model.put(MODEL_MAP_SCALE, new Integer(6)); // should be calculated better
+        // 1 = house, 10 = the earth
 
 
         return new ModelAndView("test/city2", model);
