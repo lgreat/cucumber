@@ -83,7 +83,6 @@ function initPopUp() {
 		}
 	}
 }
-addEvent(window, "load", initPopUp);
 
  /**
 	* @argument width - int in pixels
@@ -93,7 +92,10 @@ addEvent(window, "load", initPopUp);
 	*/
 
 function showPopWin(url, width, height, returnFunc) {
-	gPopupIsShown = true;
+    if (!gPopupMask) {
+        initPopUp();
+    }    	
+    gPopupIsShown = true;
 	disableTabIndexes();
 	gPopupMask.style.display = "block";
 	gPopupContainer.style.display = "block";
@@ -109,7 +111,7 @@ function showPopWin(url, width, height, returnFunc) {
 	if (gHideSelects == true) {
 		hideSelectBoxes();
 	}
-	window.setTimeout("setPopTitleAndRewriteTargets();", 600);
+	window.setTimeout("setPopTitleAndRewriteTargets();", 800);
 }
 
 //
