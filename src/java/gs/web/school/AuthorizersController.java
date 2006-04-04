@@ -158,9 +158,10 @@ public class AuthorizersController extends AbstractController {
 
     private static Map getDemandData(ICharterSchoolInfo info) {
         Map demandData = null;
-        if (info.getDemand() > -1) {
+        //if (info.getDemand() > -1) {
+        if (StringUtils.isNotEmpty(info.getDemand())) {
             if (demandData == null) { demandData = new ListOrderedMap(); }
-            demandData.put("Demand", new Integer(info.getDemand()));
+            demandData.put("Demand", info.getDemand());
         }
 
         if (info.getWaitlist() != -1) {
