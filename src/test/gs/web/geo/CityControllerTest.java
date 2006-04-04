@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.3 2006/04/04 18:55:09 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.4 2006/04/04 20:25:37 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -53,11 +53,11 @@ public class CityControllerTest extends BaseControllerTestCase {
         ListModel listModel = (ListModel) model.get(CityController.MODEL_SCHOOL_BREAKDOWN);
 
         List list = listModel.getResults();
-        //assertEquals(4, list.size());
+        assertEquals(4, list.size());
 
-        //assertEquals("/search/search.page?c=school&state=AK&city=Anchorage", ((Anchor) list.get(0)).getHref());
-        //assertEquals("/search/search.page?c=school&state=AK&city=Anchorage&lc=middle", ((Anchor) list.get(2)).getHref());
-        //assertEquals("All Middle (32)", ((Anchor) list.get(2)).getContents());
+        assertEquals("/schools.page?state=AK&city=Anchorage", ((Anchor) list.get(0)).getHref());
+        assertEquals("/schools.page?state=AK&city=Anchorage&lc=m", ((Anchor) list.get(2)).getHref());
+        assertEquals("All Middle (32)", ((Anchor) list.get(2)).getContents());
 
     }
 
