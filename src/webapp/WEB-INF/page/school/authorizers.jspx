@@ -94,13 +94,13 @@
                                                                     </gsml:popupWindow>
                                                                 </c:if>
                                                                 <c:if test="${not empty missionData}">
-                                                                    <gsml:dataTable data="${missionData}" title="School Mission and Climate" footnote="${source}"/>
+                                                                    <gsml:dataTable data="${missionData}" title="School Mission/Climate" footnote="${source}"/>
                                                                     <gsml:popupWindow width="610" height="600" left="50" top="50" href="/definitions/natl/csr_mission.html">
                                                                         <span class="moreabout">More about school mission and climate</span>
                                                                     </gsml:popupWindow>
                                                                 </c:if>
                                                                 <c:if test="${not empty academicData}">
-                                                                    <gsml:dataTable data="${academicData}" title="Academic Evaluation" footnote="${source}"/>
+                                                                    <gsml:dataTable data="${academicData}" title="Academic Evaluation" footnote="${source}" mono="true"/>
                                                                     <gsml:popupWindow width="610" height="600" left="50" top="50" href="/definitions/natl/csr_acad_eval.html">
                                                                         <span class="moreabout">More about academic evaluation</span>
                                                                     </gsml:popupWindow>

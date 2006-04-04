@@ -8,6 +8,8 @@
                              description="A title for the table"/>
     <jsp:directive.attribute name="footnote" required="false"
                              description="A footnote displayed at the bottom of the data grid"/>
+    <jsp:directive.attribute name="mono" required="false"
+                             description="If true, then render data in a single column"/>
 
     <c:set var="rowcount" value="1"/>
 
@@ -18,8 +20,15 @@
             <c:forEach var="item" items="${data}">
                 <c:set var="oddeven" value="${(rowcount % 2 == 0) ? 'even' : 'odd'}"/>
                 <tr>
-                    <td class="lcol ${oddeven}"><c:out value="${item.key}"/></td>
-                    <td class="rcol ${oddeven}"><c:out value="${gsweb:unquote(item.value)}"/></td>
+                    <c:choose>
+                        <c:when test="${mono == 'true'}">
+                            <td class="monocol ${oddeven}"><c:out value="${gsweb:unquote(item.value)}"/></td>
+                        </c:when>
+                        <c:otherwise>
+                            <td class="lcol ${oddeven}"><c:out value="${item.key}"/></td>
+                            <td class="rcol ${oddeven}"><c:out value="${gsweb:unquote(item.value)}"/></td>
+                        </c:otherwise>
+                    </c:choose>
                 </tr>
                 <c:set var="rowcount" value="${rowcount + 1}" />
             </c:forEach>

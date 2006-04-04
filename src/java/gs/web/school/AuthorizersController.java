@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import gs.web.SessionContext;
 import gs.web.ISessionFacade;
+import gs.web.jsp.Util;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.school.ICharterSchoolInfo;
@@ -78,7 +79,7 @@ public class AuthorizersController extends AbstractController {
                 mAndV.getModel().put("missionData", getMissionData(info));
                 mAndV.getModel().put("academicData", getAcademicData(info));
                 mAndV.getModel().put("demandData", getDemandData(info));
-                mAndV.getModel().put("source", "Source: " + info.getSource());
+                mAndV.getModel().put("source", "Source: " + Util.unquote(info.getSource()));
             } catch (Exception orfe) {
                 // log this and just return an empty page rather than vomiting
                 // a stack trace.  The page is responsible for handling this
@@ -166,12 +167,16 @@ public class AuthorizersController extends AbstractController {
 
         if (info.getWaitlist() != -1) {
             if (demandData == null) { demandData = new ListOrderedMap(); }
-            demandData.put("Waitlist", (info.getWaitlist() == 0 ? "no" : "yes"));
+            demandData.put("Waitlist", (info.getWaitlist() == 0 ? "No" : "Yes"));
         }
 
-        if (StringUtils.isNotEmpty(info.getRetention())) {
+        String retention = info.getRetention();
+        if (StringUtils.isNotEmpty(retention)) {
             if (demandData == null) { demandData = new ListOrderedMap(); }
-            demandData.put("Return rate", info.getRetention());
+            if (!retention.trim().endsWith("%")) {
+                retention = retention + "%";
+            }
+            demandData.put("Return rate", retention);
         }
         return demandData;
     }

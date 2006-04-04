@@ -58,6 +58,14 @@ div.datatable{
       background:#FFFFFF;
     }
 
+    div.datatable td.monocol {
+      padding-left:7px;
+      padding-right:7px;
+      padding-top:10px;
+      padding-bottom:10px;
+      vertical-align:top;
+    }
+
     div.datatable td.lcol {
       padding-left:5px;
       padding-right:5px;
