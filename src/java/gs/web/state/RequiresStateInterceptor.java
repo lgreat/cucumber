@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RequiresStateInterceptor.java,v 1.11 2006/04/05 19:26:05 apeterson Exp $
+ * $Id: RequiresStateInterceptor.java,v 1.12 2006/04/05 20:05:27 apeterson Exp $
  */
 
 package gs.web.state;
@@ -45,7 +45,7 @@ public class RequiresStateInterceptor
                 UrlBuilder finalPage = new UrlBuilder(httpServletRequest, null);
                 finalPage.addParametersFromRequest(httpServletRequest);
                 finalPage.removeParameter("state");
-                String finalPageParam = finalPage.asSiteRelative(null);
+                String finalPageParam = finalPage.asSiteRelative(httpServletRequest);
 
                 UrlBuilder redirectPage = new UrlBuilder(httpServletRequest, "/selectAState.page");
                 redirectPage.setParameter("prompt", "Please select a state to continue.");
