@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RequiresStateInterceptor.java,v 1.10 2006/04/05 17:24:21 apeterson Exp $
+ * $Id: RequiresStateInterceptor.java,v 1.11 2006/04/05 19:26:05 apeterson Exp $
  */
 
 package gs.web.state;
@@ -50,7 +50,7 @@ public class RequiresStateInterceptor
                 UrlBuilder redirectPage = new UrlBuilder(httpServletRequest, "/selectAState.page");
                 redirectPage.setParameter("prompt", "Please select a state to continue.");
                 redirectPage.setParameter("url", finalPageParam);
-                String url = redirectPage.asFullUrl();
+                String url = redirectPage.asFullUrl(httpServletRequest);
 
                 // Execute the redirect...
                 final String redirect = httpServletResponse.encodeRedirectURL(url);

@@ -2,6 +2,8 @@ package gs.web;
 
 import org.springframework.mock.web.MockHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * This is a temporary fix to workaround that the current 1.2.6 Spring Mock does not allow
  * updating request pararameters. This problem will go away if the Spring team implements:
@@ -10,7 +12,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
  *
  * @author thuss
  */
-public class GsMockHttpServletRequest extends MockHttpServletRequest {
+public class GsMockHttpServletRequest extends MockHttpServletRequest implements javax.servlet.http.HttpServletRequest  {
 
     /**
      * Sets the given parameter, removing any previous value.

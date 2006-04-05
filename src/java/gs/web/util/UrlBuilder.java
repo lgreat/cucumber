@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.12 2006/04/05 19:18:19 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.13 2006/04/05 19:24:59 apeterson Exp $
  */
 
 package gs.web.util;
@@ -226,6 +226,12 @@ public class UrlBuilder {
      * @param request option request object.
      */
     public String asSiteRelative(HttpServletRequest request) {
+        String s = buildSiteRelative(request);
+        s = encodeForXml(s);
+        return s;
+    }
+
+    private String buildSiteRelative(HttpServletRequest request) {
         StringBuffer sb = new StringBuffer();
         String contextPath = request != null ? request.getContextPath() : "";
         if (!_perlPage) {
@@ -250,16 +256,10 @@ public class UrlBuilder {
         }
 
         String s = sb.toString();
-        s = encodeForXml(s);
-
-        /*if (request != null) {
-            return _urlUtil.buildUrl(sb.toString(), request);
-        }*/
-
         return s;
     }
 
-    private String encodeForXml(String s) {
+    public static String encodeForXml(String s) {
         s = s.replaceAll("&", "&amp;");
         s = s.replaceAll("<", "&lt;");
         s = s.replaceAll(">", "&gt;");
@@ -285,7 +285,7 @@ public class UrlBuilder {
         String url = "http://" +
                 serverName +
                 ((serverPort != 80) ? ":" + serverPort : "") +
-                asSiteRelative(request).replaceAll("&amp;", "&");
+                buildSiteRelative(request);
         return url;
     }
 

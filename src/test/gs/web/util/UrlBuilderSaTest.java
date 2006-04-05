@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.10 2006/04/05 19:09:13 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.11 2006/04/05 19:24:51 apeterson Exp $
  */
 
 package gs.web.util;
@@ -166,6 +166,12 @@ public class UrlBuilderSaTest extends TestCase {
 
         builder = new UrlBuilder(UrlBuilder.CITY_PAGE, State.WY,  "Laramee");
         assertEquals("/city.page?city=Laramee&amp;state=WY", builder.asSiteRelative(null));
+    }
+
+    public void testEncodeForXml() {
+        assertEquals("X &amp; Y", UrlBuilder.encodeForXml("X & Y"));
+        assertEquals("X &gt; Y", UrlBuilder.encodeForXml("X > Y"));
+        assertEquals("X &lt; Y", UrlBuilder.encodeForXml("X < Y"));
     }
 
 
