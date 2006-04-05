@@ -130,14 +130,7 @@
         <property name="searcher">
             <ref bean="searcher"/>
         </property>
-        <property name="resultsPager">
-            <ref bean="resultsPager"/>
-        </property>
     </bean>
-
-    <bean id="resultsPager"
-          class="gs.web.search.ResultsPager"
-          autowire="byName"/>
 
     <!-- These beans control access to searchmanager.page -->
     <bean id="loginValidator" class="gs.web.status.LoginValidator"/>

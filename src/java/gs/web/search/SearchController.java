@@ -7,7 +7,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractFormController;
 import org.springframework.validation.BindException;
 import org.apache.lucene.search.*;
-import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
 import gs.data.search.*;
 import gs.data.search.Searcher;
@@ -39,10 +38,9 @@ import java.util.*;
 public class SearchController extends AbstractFormController {
 
     public static final String BEAN_ID = "/search/search.page";
-    private static Logger _log = Logger.getLogger(SearchController.class);
     private SpellCheckSearcher _spellCheckSearcher;
     private Searcher _searcher;
-    private ResultsPager _resultsPager;
+//    private ResultsPager _resultsPager;
 
     private boolean suggest = false;
 
@@ -116,11 +114,12 @@ public class SearchController extends AbstractFormController {
             int schoolsPageSize = "true".equals(request.getParameter("showall")) ? -1 : 10;
 
             Hits hts = _searcher.search(sc);
+            ResultsPager _resultsPager = new ResultsPager(hts, sc.getType());
             if (hts != null) {
                 if (debug) {
                     _resultsPager.enableExplanation(_searcher, sc.getQuery());
                 }
-                _resultsPager.load(hts, sc.getType());
+                //_resultsPager.load(hts, sc.getType());
                 if (suggest) {
                     model.put("suggestion", getSuggestion(queryString,
                             SessionContext.getInstance(request).getState()));
@@ -130,8 +129,6 @@ public class SearchController extends AbstractFormController {
                 model.put("pageSize", new Integer(pageSize));
                 model.put("mainResults", _resultsPager.getResults(page, pageSize));
                 model.put("total", new Integer(hts.length()));
-            } else {
-                _log.warn("Hits object is null for SearchCommand: " + sc);
             }
         }
 
@@ -191,8 +188,10 @@ public class SearchController extends AbstractFormController {
     /**
      * A setter for Spring
      * @param resultsPager
-     */
+
+
     public void setResultsPager(ResultsPager resultsPager) {
         _resultsPager = resultsPager;
     }
+         */
 }

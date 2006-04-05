@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.6 2006/03/24 01:17:58 apeterson Exp $
+ * $Id: SchoolsController.java,v 1.7 2006/04/05 00:11:09 chriskimm Exp $
  */
 
 package gs.web.school;
@@ -18,8 +18,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.search.Hits;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.view.InternalResourceView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +35,6 @@ public class SchoolsController extends AbstractController {
     private static Logger _log = Logger.getLogger(SchoolsController.class);
 
     private Searcher _searcher;
-    private ResultsPager _resultsPager;
     private IDistrictDao _districtDao;
 
     // INPUTS
@@ -130,10 +127,10 @@ public class SchoolsController extends AbstractController {
         }
 
         final String[] paramSchoolType = request.getParameterValues(PARAM_SCHOOL_TYPE);
-        String[] sTypes = paramSchoolType;
-        if (sTypes != null) {
-            model.put(MODEL_SCHOOL_TYPE, sTypes);
-            request.setAttribute(MODEL_SCHOOL_TYPE, sTypes);
+
+        if (paramSchoolType != null) {
+            model.put(MODEL_SCHOOL_TYPE, paramSchoolType);
+            request.setAttribute(MODEL_SCHOOL_TYPE, paramSchoolType);
         }
 
         int page = 1;
@@ -189,8 +186,7 @@ public class SchoolsController extends AbstractController {
         // Build the results and the model
         Hits hts = _searcher.search(searchCommand);
         if (hts != null) {
-
-            _resultsPager.load(hts, "school");
+            ResultsPager _resultsPager = new ResultsPager(hts, "school");
             Map resultsModel = new HashMap();
             resultsModel.put(MODEL_SCHOOLS_TOTAL, new Integer(_resultsPager.getSchoolsTotal()));
             resultsModel.put(MODEL_SCHOOLS, _resultsPager.getSchools(page, schoolsPageSize));
@@ -212,13 +208,6 @@ public class SchoolsController extends AbstractController {
      */
     public void setSearcher(Searcher searcher) {
         _searcher = searcher;
-    }
-
-    /**
-     * A setter for Spring
-     */
-    public void setResultsPager(ResultsPager resultsPager) {
-        _resultsPager = resultsPager;
     }
 
     public IDistrictDao getDistrictDao() {
