@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.10 2006/04/05 17:24:21 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.11 2006/04/05 19:09:22 apeterson Exp $
  */
 
 package gs.web.util;
@@ -29,9 +29,6 @@ public class UrlBuilder {
 
     private static final Log _log = LogFactory.getLog(UrlBuilder.class);
 
-    private String _serverName;
-    private int _serverPort = 80;
-    private String _contextPath;
 
     /**
      * Path relative to the host/context.
@@ -67,13 +64,10 @@ public class UrlBuilder {
      *                            and stashing it away for later retrieval.
      */
     public UrlBuilder(HttpServletRequest request, String contextRelativePath) {
-        _serverName = request.getServerName();
-        _serverPort = request.getServerPort();
-        _contextPath = request.getContextPath();
         _path = contextRelativePath;
         if (contextRelativePath == null) {
             _path = request.getRequestURI();
-            _path = StringUtils.removeStart(_path, _contextPath);
+            _path = StringUtils.removeStart(_path, request.getContextPath());
         } else {
             _path = contextRelativePath;
         }
@@ -93,7 +87,6 @@ public class UrlBuilder {
      */
     public UrlBuilder(Article article, State s, boolean featured) {
         _perlPage = true;
-        _contextPath = "";
 
         // Calculate page to use
         String page;
@@ -121,7 +114,6 @@ public class UrlBuilder {
     public UrlBuilder(School school, VPage page) {
         if (PARENT_REVIEWS.equals(page)) {
             _perlPage = true;
-            _contextPath = "";
             _path = "/modperl/parents/" +
                     school.getDatabaseState().getAbbreviationLowerCase() +
                     "/" +
@@ -134,7 +126,6 @@ public class UrlBuilder {
     public UrlBuilder(District district, VPage page) {
         if (DISTRICT_PROFILE.equals(page)) {
             _perlPage = true;
-            _contextPath = "";
 
             _path = "/cgi-bin/" +
                     district.getDatabaseState().getAbbreviationLowerCase() +
@@ -148,7 +139,6 @@ public class UrlBuilder {
     public UrlBuilder(ICity city, VPage page) {
         if (CITY_PAGE.equals(page)) {
             _perlPage = false;
-            _contextPath = "";
             _path = "/city.page";
             this.setParameter("city", city.getName());
             this.setParameter("state", city.getState().getAbbreviation());
@@ -160,7 +150,6 @@ public class UrlBuilder {
     public UrlBuilder(VPage page, State state, String param0) {
         if (CITY_PAGE.equals(page)) {
             _perlPage = false;
-            _contextPath = "";
             _path = "/city.page";
             this.setParameter("city", param0);
             this.setParameter("state", state.getAbbreviation());
@@ -173,11 +162,11 @@ public class UrlBuilder {
      * Set the path to the page.
      *
      * @param path context-relative path
-     */
+     *
     public void setPath(String path) {
         _path = path;
         _perlPage = _urlUtil.smellsLikePerl(path);
-    }
+    }*/
 
     /**
      * Takes all the parameters in the given requests and adds them to the URL.
@@ -237,9 +226,10 @@ public class UrlBuilder {
      */
     public String asSiteRelative(HttpServletRequest request) {
         StringBuffer sb = new StringBuffer();
-        if (!_perlPage && StringUtils.isNotEmpty(_contextPath)) {
-            sb.append(_contextPath);
-        }
+        /*String contextPath = request != null ? request.getContextPath() : "";
+        if (!_perlPage && StringUtils.isNotEmpty(contextPath)) {
+            sb.append(contextPath);
+        }*/
         sb.append(_path);
         if (_parameters != null && _parameters.size() > 0) {
             sb.append("?");
@@ -265,20 +255,25 @@ public class UrlBuilder {
         return sb.toString();
     }
 
-    public Anchor asAnchor(String label) {
-        return new Anchor(asSiteRelative(null), label);
+    public Anchor asAnchor(HttpServletRequest request, String label) {
+        return new Anchor(asSiteRelative(request), label);
     }
 
     /**
      * Provides a full URL to the page. Generally not needed, but occassionally necessary.
      *
      * @see #asSiteRelative(javax.servlet.http.HttpServletRequest)
+     * @param request
      */
-    public String asFullUrl() {
+    public String asFullUrl(HttpServletRequest request) {
+
+        String serverName = request.getServerName();
+        int serverPort = request.getServerPort();
+
         String url = "http://" +
-                _serverName +
-                ((_serverPort != 80) ? ":" + _serverPort : "") +
-                asSiteRelative(null).replaceAll("&amp;", "&");
+                serverName +
+                ((serverPort != 80) ? ":" + serverPort : "") +
+                asSiteRelative(request).replaceAll("&amp;", "&");
         return url;
     }
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.9 2006/04/05 17:24:21 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.10 2006/04/05 19:09:13 apeterson Exp $
  */
 
 package gs.web.util;
@@ -16,7 +16,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Provides...
+ * Tests UrlBuilder.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
@@ -57,7 +57,7 @@ public class UrlBuilderSaTest extends TestCase {
         request.setRequestURI("/index.page");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
         assertEquals("/index.page", builder.asSiteRelative(null));
-        assertEquals("http://www.myserver.com/index.page", builder.asFullUrl());
+        assertEquals("http://www.myserver.com/index.page", builder.asFullUrl(request));
     }
 
     public void testUrlBuilderContext() {
@@ -69,12 +69,14 @@ public class UrlBuilderSaTest extends TestCase {
         request.setContextPath("/gs-web");
         request.setRequestURI("/gs-web/index.page");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
-        assertEquals("/gs-web/index.page", builder.asSiteRelative(null));
-        assertEquals("http://www.myserver.com/gs-web/index.page", builder.asFullUrl());
+        assertEquals("/index.page", builder.asSiteRelative(null));
+        assertEquals("/gs-web/index.page", builder.asSiteRelative(request));
+        assertEquals("http://www.myserver.com/gs-web/index.page", builder.asFullUrl(request));
 
         builder = new UrlBuilder(request, null); // suck page path automatically from the request
-        assertEquals("/gs-web/index.page", builder.asSiteRelative(null));
-        assertEquals("http://www.myserver.com/gs-web/index.page", builder.asFullUrl());
+        assertEquals("/index.page", builder.asSiteRelative(null));
+        assertEquals("/gs-web/index.page", builder.asSiteRelative(request));
+        assertEquals("http://www.myserver.com/gs-web/index.page", builder.asFullUrl(request));
     }
 
     public void testUrlBuilderParams() {
@@ -89,7 +91,15 @@ public class UrlBuilderSaTest extends TestCase {
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
         builder.addParametersFromRequest(request);
         assertEquals("/index.page?a=1&amp;b=2", builder.asSiteRelative(null));
-        assertEquals("http://www.myserver.com/index.page?a=1&b=2", builder.asFullUrl());
+        assertEquals("http://www.myserver.com/index.page?a=1&b=2", builder.asFullUrl(request));
+
+        // Encoding
+        builder = new UrlBuilder(request, "/index.page");
+        builder.setParameter("city", "Batin Rooj");
+        assertEquals("/index.page?city=Batin+Rooj", builder.asSiteRelative(request));
+
+        builder.setParameter("city", "Crow's Neck");
+        assertEquals("/index.page?city=Crow%27s+Neck", builder.asSiteRelative(request));
     }
 
     public void testUrlBuilder8080() {
@@ -101,7 +111,7 @@ public class UrlBuilderSaTest extends TestCase {
         request.setRequestURI("/index.page");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
         assertEquals("/index.page", builder.asSiteRelative(null));
-        assertEquals("http://www.myserver.com:8080/index.page", builder.asFullUrl());
+        assertEquals("http://www.myserver.com:8080/index.page", builder.asFullUrl(request));
     }
 
     public void testSchoolBuilder() {
