@@ -9,7 +9,7 @@
     <c:if test="${empty reviews}">
         <div class="featuredarticle">
             <gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
-                <gsml:img src="/res/img/community/btn_rateyourschool.gif"
+                <gsml:img src="/res/img/community/btn_write_a_review.gif"
                           alt="Rate your School"/>
             </gsml:a>
             <br/>

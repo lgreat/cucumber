@@ -90,7 +90,7 @@
                         <fmt:formatNumber value="${bpCensus.sunnyDays}" maxFractionDigits="0"/>
                     </span>
                     </th>
-                    <td rowspan="2"><gsml:img src="/res/img/geo/bestplaces214x51.gif" alt="Sperling's Best Places"/></td>
+                    <td rowspan="2"><a href="http://bestplaces.net" target="_blank"><gsml:img src="/res/img/geo/bestPlaces135x34.gif" alt="Sperling's Best Places"/></a></td>
                 </tr>
                 <tr>
                     <th>
