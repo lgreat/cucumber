@@ -68,12 +68,6 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
         JspWriter out = getJspContext().getOut();
 
-        out.print("<form action=\"/compareSchools.page\">");
-        out.print("<input type=\"hidden\" name=\"state\" value=\"");
-        out.print(getStateOrDefault().getAbbreviation());
-        out.println("\"/>");
-        out.println("<table class=\"columns\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">");
-        out.println("<tr><td class=\"mainresultsheader\">");
         out.println("<table width=\"100%\"><tr><td>");
 
 
@@ -262,8 +256,6 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             out.println("Please try again.");
         }
         out.println("</td></tr></table>");
-        out.println("</td></tr></table>");
-        out.println("</form>");
     }
 
     public String getQueryString() {

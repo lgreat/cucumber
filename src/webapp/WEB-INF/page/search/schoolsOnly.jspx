@@ -77,59 +77,36 @@
     <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
     <pageHelper:externalCss file="/res/css/search/search.css"/>
     <table id="main" width="100%"><tr>
-        <td class="leftcol" valign="top">
-            <div id="leftsearchcolumn">
-                <div>
-                    <gsml:box tableClass="shade3 main">
-                        <div style="padding-bottom:5px;">
-                            <jsp:include
-                                    page="/search/schoolFilters.module?${pageContext.request.queryString}"/>
-                        </div>
-                    </gsml:box>
-
-                    <gsml:box tableClass="shade3 main">
-
-                        <h2 class="browseheader">Browse</h2>
-                        <ul class="refinementlist">
-                            <li><gsml:a href="/modperl/cities/${state.abbreviation}">
-                                All <c:out value="${state.longName}"/> cities</gsml:a>
-                            </li>
-                            <li><gsml:a href="/modperl/districts/${state.abbreviation}">
-                                All <c:out value="${state.longName}"/> districts
-                            </gsml:a></li>
-                            <li><gsml:a
-                                    href="/content/allArticles.page?state=${state.abbreviation}">
-                                All topics</gsml:a></li>
-                            <li><gsml:a href="/cgi-bin/glossary_home/${state}">All
-                                glossary terms</gsml:a></li>
-                        </ul>
-                    </gsml:box>
-                    <gsml:box tableClass="shade3 main">
-                        <h2 class="browseheader">Advanced Search</h2>
-                        <ul class="refinementlist">
-                            <li><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">
-                                Search near address</gsml:a></li>
-                            <li><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#county">
-                                Search by county</gsml:a></li>
-                        </ul>
-                    </gsml:box>
+        <td class="leftcol" id="leftsearchcolumn" valign="top">
+            <gsml:box tableClass="shade3 main">
+                <div style="padding-bottom:5px;">
+                    <jsp:include
+                            page="/search/schoolFilters.module?${pageContext.request.queryString}"/>
                 </div>
-            </div>
+            </gsml:box>
+
+            <mod:browseState state="${state}"/>
         </td>
         <td valign="top" class="col2">
 
             <gsml:box tableClass="shade3 main">
-                <gsweb:schooltable schools="${results.schools}"
-                                   total="${results.total}"
-                                    queryString="${request.queryString}"
-                                    showAll="${param.showall}"
-                                    cityName="${requestScope.city}"
-                                    districtId="${requestScope.district}"
-                                    schoolType="${requestScope.st}"
-                                    levelCode="${requestScope.lc}"
-                        >
-                    <search:schoolTable schools="${results.schools}"/>
-                </gsweb:schooltable>
+
+                <gsml:form action="/compareSchools.page" method="GET">
+                    <input type="hidden" name="state" value="${state}}"/>
+
+
+                    <gsweb:schooltable schools="${results.schools}"
+                                       total="${results.total}"
+                                       queryString="${request.queryString}"
+                                       showAll="${param.showall}"
+                                       cityName="${requestScope.city}"
+                                       districtId="${requestScope.district}"
+                                       schoolType="${requestScope.st}"
+                                       levelCode="${requestScope.lc}"
+                            >
+                        <search:schoolTable schools="${results.schools}"/>
+                    </gsweb:schooltable>
+                </gsml:form>
             </gsml:box>
         </td>
         <td class="rightcolumn" align="center">
@@ -137,24 +114,6 @@
         </td>
     </tr>
     </table>
-    <!--
-Spec:
-district page
-pagename = schools:district:all [all when user selects 'show all', else page
-number]
-pagename = schools:district:1 [when on page 1]
-h1=search.schools.district.page1 [or page2 or all]
-
-citypage
-pagename=schools:city:all
-h1=search.schools.city.al
-etc.
-
-and the c7 tag equals the pagename with the A or B version after it so for
-district page it would be
-c7=schools:district:all:A
-
-    -->
     <c:choose>
         <c:when test="${not empty param.city}">
             <mod:tracking pageName="schools:city:${(empty param.showall) ? ((empty param.p ? '1' : param.p)) : 'all'}"
