@@ -70,13 +70,12 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
         out.println("<table width=\"100%\"><tr><td>");
 
-
         out.print("<h1 class=\"resultsheadline\">");
         String cityOrDistrictName = "";
         if (StringUtils.isNotEmpty(_cityName)) {
             cityOrDistrictName = _cityName;
             out.print(cityOrDistrictName);
-            out.print((_total != 1) ? " schools" : "school");
+            out.print((_total != 1) ? " schools" : " school");
         } else if (district != null) {
             cityOrDistrictName = district.getName();
             out.print((_total != 1) ? "Schools" : "School");
@@ -117,6 +116,9 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         }
 
         out.println("</td></tr>");
+        out.println("</table>");
+
+        out.println("<table width=\"100%\">");
 
         out.println("<tr><td>");
         if (district != null) {
@@ -213,10 +215,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             out.print("To further narrow your list, use the filters on the left.");
         }
         out.println("</td></tr></table>");
-        out.println("</td></tr>");
-        // end filter row
 
-        out.println("<tr><td valign=\"top\">");
         out.println("<table class=\"school_results_only\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
 
         if (_schools != null && _schools.size() > 0) {
