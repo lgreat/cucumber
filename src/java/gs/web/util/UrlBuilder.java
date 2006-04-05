@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.11 2006/04/05 19:09:22 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.12 2006/04/05 19:18:19 apeterson Exp $
  */
 
 package gs.web.util;
@@ -222,14 +222,15 @@ public class UrlBuilder {
 
     /**
      * Provides a site-relative path to the page, including the context path if needed.
+     * Encoded correctly to dump directly to XHTML.
      * @param request option request object.
      */
     public String asSiteRelative(HttpServletRequest request) {
         StringBuffer sb = new StringBuffer();
-        /*String contextPath = request != null ? request.getContextPath() : "";
-        if (!_perlPage && StringUtils.isNotEmpty(contextPath)) {
+        String contextPath = request != null ? request.getContextPath() : "";
+        if (!_perlPage) {
             sb.append(contextPath);
-        }*/
+        }
         sb.append(_path);
         if (_parameters != null && _parameters.size() > 0) {
             sb.append("?");
@@ -242,17 +243,27 @@ public class UrlBuilder {
                     sb.append(key);
                     sb.append("=" + values[i]);
                     if (i < values.length && iter.hasNext()) {
-                        sb.append("&amp;");
+                        sb.append("&");
                     }
                 }
             }
         }
 
-        if (request != null) {
-            return _urlUtil.buildUrl(sb.toString(), request);
-        }
+        String s = sb.toString();
+        s = encodeForXml(s);
 
-        return sb.toString();
+        /*if (request != null) {
+            return _urlUtil.buildUrl(sb.toString(), request);
+        }*/
+
+        return s;
+    }
+
+    private String encodeForXml(String s) {
+        s = s.replaceAll("&", "&amp;");
+        s = s.replaceAll("<", "&lt;");
+        s = s.replaceAll(">", "&gt;");
+        return s;
     }
 
     public Anchor asAnchor(HttpServletRequest request, String label) {
@@ -260,7 +271,8 @@ public class UrlBuilder {
     }
 
     /**
-     * Provides a full URL to the page. Generally not needed, but occassionally necessary.
+     * Provides a full URL to the page. This is the raw URL, not encoded correctly
+     * for XHTML. This is generally not needed, but is needed for redirect usage.
      *
      * @see #asSiteRelative(javax.servlet.http.HttpServletRequest)
      * @param request
@@ -280,6 +292,7 @@ public class UrlBuilder {
 
     /**
      * Provides a site-relative link wrapped in an a tag.
+     * Encoded correctly to dump directly to XHTML.
      */
     public String asAHref(HttpServletRequest request, String label) {
         return "<a href=\"" + asSiteRelative(request) + "\">" + label + "</a>";
