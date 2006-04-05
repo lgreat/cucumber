@@ -58,10 +58,7 @@ public class ResultsPager {
         if (_schoolDao == null) {
             String[] paths = {"gs/data/applicationContext-data.xml",
                     "gs/data/dao/hibernate/applicationContext-hibernate.xml",
-                    "gs/data/school/performance/applicationContext-performance.xml",
-                    "applicationContext.xml",
-                    "modules-servlet.xml",
-                    "pages-servlet.xml"
+                    "gs/data/school/performance/applicationContext-performance.xml"
             };
             ApplicationContext _applicationContext = new ClassPathXmlApplicationContext(paths);
             _schoolDao = (ISchoolDao) _applicationContext.getBean(ISchoolDao.BEAN_ID);
