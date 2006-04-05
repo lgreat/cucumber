@@ -113,8 +113,9 @@
     <!-- Insider end -->
 
     <!-- Search begin -->
-    <bean name="/search/search.page" class="gs.web.search.SearchController"
-          autowire="byName">
+    <bean name="/search/search.page"
+          class="gs.web.search.SearchController"
+          >
         <property name="sessionForm">
             <value>false</value>
         </property>

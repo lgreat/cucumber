@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.13 2006/04/05 19:24:59 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.14 2006/04/05 22:09:41 apeterson Exp $
  */
 
 package gs.web.util;
@@ -162,11 +162,11 @@ public class UrlBuilder {
      * Set the path to the page.
      *
      * @param path context-relative path
-     *
+     */
     public void setPath(String path) {
         _path = path;
         _perlPage = _urlUtil.smellsLikePerl(path);
-    }*/
+    }
 
     /**
      * Takes all the parameters in the given requests and adds them to the URL.
@@ -223,6 +223,7 @@ public class UrlBuilder {
     /**
      * Provides a site-relative path to the page, including the context path if needed.
      * Encoded correctly to dump directly to XHTML.
+     *
      * @param request option request object.
      */
     public String asSiteRelative(HttpServletRequest request) {
@@ -275,7 +276,6 @@ public class UrlBuilder {
      * for XHTML. This is generally not needed, but is needed for redirect usage.
      *
      * @see #asSiteRelative(javax.servlet.http.HttpServletRequest)
-     * @param request
      */
     public String asFullUrl(HttpServletRequest request) {
 

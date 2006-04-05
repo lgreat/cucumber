@@ -1,7 +1,7 @@
 
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesController.java,v 1.14 2006/03/31 01:50:22 apeterson Exp $
+ * $Id: TopCitiesController.java,v 1.15 2006/04/05 22:10:42 apeterson Exp $
  */
 
 package gs.web.state;
@@ -12,6 +12,7 @@ import gs.web.SessionContextUtil;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
 import gs.web.util.ListModel;
+import gs.web.util.UrlBuilder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.apache.commons.lang.StringUtils;
@@ -62,10 +63,11 @@ public class TopCitiesController extends AbstractController {
             model.put(ListModel.RESULTS, items);
 
         } else {
-            String page = "/schools.page";
+            UrlBuilder builder = new UrlBuilder(request, "/schools.page");
             if (!StringUtils.isEmpty(request.getParameter(PARAM_PATH))) {
-                page = request.getParameter(PARAM_PATH);
+                builder.setPath(request.getParameter(PARAM_PATH));
             }
+            builder.setParameter("state", state.getAbbreviation());
 
             int cityCount = state.getTopCityCount();
             if (!StringUtils.isEmpty(request.getParameter(PARAM_COUNT))) {
@@ -81,16 +83,13 @@ public class TopCitiesController extends AbstractController {
             List items = new ArrayList(cityCount);
             for (int i = 0; i < cityCount; i++) {
                 String city = cities[i];
-                String urlEncodedCity = URLEncoder.encode(city, "UTF-8");
-                String schools = ((city.equals(state.getLongName())) ? city + " City" : city) + " schools";
-                //Anchor anchor = new Anchor("/modperl/bycity/" + state.getAbbreviationLowerCase() +
-                //                        "/?city=" + urlEncodedCity + "", // removed &level=a 11/05 AJP
-                Anchor anchor = new Anchor(page + "?state=" + state.getAbbreviation() +
-                        "&city=" + urlEncodedCity + "",
-                        schools);
+                builder.setParameter("city", city);
+                // special case for New York City...
+                String label = ((city.equals(state.getLongName())) ? city + " City" : city) + " schools";
+                Anchor anchor = builder.asAnchor(request, label);
                 items.add(anchor);
             }
-            items.add(new Anchor("/modperl/citylist/" + state.getAbbreviation() + "/",
+            items.add(new Anchor("/modperl/cities/" + state.getAbbreviation() + "/",
                     "View all " + state.getLongName() + " cities",
                     "viewall"));
             model.put(ListModel.RESULTS, items);
