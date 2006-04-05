@@ -1,13 +1,15 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.9 2006/03/24 22:50:32 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.10 2006/04/05 17:24:21 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.data.content.Article;
-import gs.data.state.State;
+import gs.data.geo.ICity;
 import gs.data.school.School;
+import gs.data.school.district.District;
+import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,11 +43,14 @@ public class UrlBuilder {
 
     public static class VPage extends org.apache.commons.lang.enums.Enum {
 
-        protected VPage(String s) {
+        private VPage(String s) {
             super(s);
         }
     }
+
     public static final VPage PARENT_REVIEWS = new VPage("vpage:parentReviews");
+    public static final VPage DISTRICT_PROFILE = new VPage("vpage:districtProfile");
+    public static final VPage CITY_PAGE = new VPage("vpage:city");
 
 
     /**
@@ -117,12 +122,50 @@ public class UrlBuilder {
         if (PARENT_REVIEWS.equals(page)) {
             _perlPage = true;
             _contextPath = "";
-            _path = "/modperl/parents/"+
-                    school.getDatabaseState().getAbbreviationLowerCase()+
+            _path = "/modperl/parents/" +
+                    school.getDatabaseState().getAbbreviationLowerCase() +
                     "/" +
                     school.getId();
         } else {
-            throw new IllegalArgumentException("VPage unknown");
+            throw new IllegalArgumentException("VPage unknown" + page);
+        }
+    }
+
+    public UrlBuilder(District district, VPage page) {
+        if (DISTRICT_PROFILE.equals(page)) {
+            _perlPage = true;
+            _contextPath = "";
+
+            _path = "/cgi-bin/" +
+                    district.getDatabaseState().getAbbreviationLowerCase() +
+                    "/district_profile/" +
+                    district.getId();
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
+        }
+    }
+
+    public UrlBuilder(ICity city, VPage page) {
+        if (CITY_PAGE.equals(page)) {
+            _perlPage = false;
+            _contextPath = "";
+            _path = "/city.page";
+            this.setParameter("city", city.getName());
+            this.setParameter("state", city.getState().getAbbreviation());
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
+        }
+    }
+
+    public UrlBuilder(VPage page, State state, String param0) {
+        if (CITY_PAGE.equals(page)) {
+            _perlPage = false;
+            _contextPath = "";
+            _path = "/city.page";
+            this.setParameter("city", param0);
+            this.setParameter("state", state.getAbbreviation());
+        } else {
+            throw new IllegalArgumentException("VPage unknown" + page);
         }
     }
 
@@ -185,13 +228,14 @@ public class UrlBuilder {
     }
 
     public String toString() {
-        return asSiteRelative();
+        return asSiteRelative(null);
     }
 
     /**
      * Provides a site-relative path to the page, including the context path if needed.
+     * @param request option request object.
      */
-    public String asSiteRelative() {
+    public String asSiteRelative(HttpServletRequest request) {
         StringBuffer sb = new StringBuffer();
         if (!_perlPage && StringUtils.isNotEmpty(_contextPath)) {
             sb.append(_contextPath);
@@ -214,23 +258,27 @@ public class UrlBuilder {
             }
         }
 
+        if (request != null) {
+            return _urlUtil.buildUrl(sb.toString(), request);
+        }
+
         return sb.toString();
     }
 
     public Anchor asAnchor(String label) {
-        return new Anchor(asSiteRelative(), label);
+        return new Anchor(asSiteRelative(null), label);
     }
 
     /**
      * Provides a full URL to the page. Generally not needed, but occassionally necessary.
      *
-     * @see #asSiteRelative()
+     * @see #asSiteRelative(javax.servlet.http.HttpServletRequest)
      */
     public String asFullUrl() {
         String url = "http://" +
                 _serverName +
                 ((_serverPort != 80) ? ":" + _serverPort : "") +
-                asSiteRelative().replaceAll("&amp;", "&");
+                asSiteRelative(null).replaceAll("&amp;", "&");
         return url;
     }
 
@@ -238,7 +286,7 @@ public class UrlBuilder {
     /**
      * Provides a site-relative link wrapped in an a tag.
      */
-    public String asAHref(String label) {
-        return "<a href=\"" + asSiteRelative() + "\">" + label + "</a>";
+    public String asAHref(HttpServletRequest request, String label) {
+        return "<a href=\"" + asSiteRelative(request) + "\">" + label + "</a>";
     }
 }

@@ -1,10 +1,11 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.7 2006/04/05 00:11:09 chriskimm Exp $
+ * $Id: SchoolsController.java,v 1.8 2006/04/05 17:24:21 apeterson Exp $
  */
 
 package gs.web.school;
 
+import gs.data.geo.IGeoDao;
 import gs.data.school.LevelCode;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
@@ -36,6 +37,7 @@ public class SchoolsController extends AbstractController {
 
     private Searcher _searcher;
     private IDistrictDao _districtDao;
+    private IGeoDao _geoDao;
 
     // INPUTS
     public static final String PARAM_PAGE = "p";
@@ -61,7 +63,7 @@ public class SchoolsController extends AbstractController {
     /**
      * The name of the city, if provided.
      */
-    public static final String MODEL_CITY = "city";
+    public static final String MODEL_CITY_NAME = "city";
     /**
      * The ID of the district, if provided.
      */
@@ -76,8 +78,6 @@ public class SchoolsController extends AbstractController {
      * Zero or more of (public,private,charter), in a String[].
      */
     public static final String MODEL_SCHOOL_TYPE = "st";
-
-
 
     // model properties: request.* (as well)
     /**
@@ -159,12 +159,14 @@ public class SchoolsController extends AbstractController {
         }
         searchCommand.setSt(paramSchoolType);
 
-        String city = StringUtils.capitalize(request.getParameter(PARAM_CITY));
-        if (city != null) {
-            model.put(MODEL_CITY, city);
-            request.setAttribute(MODEL_CITY, city);
-            searchCommand.setCity(city);
-            searchCommand.setQ(city);
+        String cityName = StringUtils.capitalize(request.getParameter(PARAM_CITY));
+        if (cityName != null) {
+            model.put(MODEL_CITY_NAME, cityName);
+            request.setAttribute(MODEL_CITY_NAME, cityName);
+            searchCommand.setCity(cityName);
+            searchCommand.setQ(cityName);
+
+            //model.put(MODEL_CITY_OBJECT, _geoDao.findCity(state, cityName));
 
         } else {
             String districtParam = request.getParameter(PARAM_DISTRICT);
@@ -197,7 +199,7 @@ public class SchoolsController extends AbstractController {
             _log.warn("Hits object is null for SearchCommand: " + searchCommand);
         }
 
-        final ModelAndView modelAndView = new ModelAndView("search/schoolsOnly",model);
+        final ModelAndView modelAndView = new ModelAndView("search/schoolsOnly", model);
         return modelAndView;
 
     }
@@ -216,5 +218,14 @@ public class SchoolsController extends AbstractController {
 
     public void setDistrictDao(IDistrictDao districtDao) {
         _districtDao = districtDao;
+    }
+
+
+    public IGeoDao getGeoDao() {
+        return _geoDao;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
     }
 }

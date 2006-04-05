@@ -1,10 +1,8 @@
 package gs.web.search;
 
-import gs.data.school.district.District;
 import gs.data.school.LevelCode;
-import gs.data.util.Address;
+import gs.data.school.district.District;
 import gs.web.jsp.Util;
-import gs.web.school.SchoolsController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
@@ -15,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import java.io.IOException;
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * This tag handler generates a table of schools.
@@ -35,6 +33,12 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
     private static UrlUtil urlUtil = new UrlUtil();
     private List _schools = null;
+    private String _queryString = null;
+    private Boolean _showAll;
+    private String _cityName;
+    private Integer _districtId;
+    private LevelCode _levelCode ;
+    private String[] _schoolType;
     private static final Log _log = LogFactory.getLog(SchoolTableTagHandler.class);
 
     /**
@@ -49,19 +53,18 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
     public void doTag() throws IOException {
 
         PageContext pc = (PageContext) getJspContext().findAttribute(PageContext.PAGECONTEXT);
-        String qString = "";
-        boolean showall = false;
-        String showAllHref = "";
-        HttpServletRequest request = null;
-        StringBuffer districtInfoBuffer = null;
+        HttpServletRequest request = (HttpServletRequest) pc.getRequest();
 
-        if (pc != null) {
-            request = (HttpServletRequest) pc.getRequest();
-            qString = request.getQueryString();
-            showall = "true".equals(request.getParameter("showall"));
-        } else {
-            _log.info("PageContext is null");
+        String qString = getQueryString();
+
+        boolean showall = _showAll != null && _showAll.booleanValue();
+
+
+        District district = null;
+        if (_districtId != null && _districtId.intValue() != 0) {
+            district = getDistrictDao().findDistrictById(getState(), _districtId);
         }
+
 
         JspWriter out = getJspContext().getOut();
 
@@ -71,64 +74,22 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         out.println("\"/>");
         out.println("<table class=\"columns\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">");
         out.println("<tr><td class=\"mainresultsheader\">");
-        out.println("<table width=\"100%\"><tr><td><span class=\"resultsheadline\">");
-        out.print("Found ");
-        out.print(String.valueOf(_total));
+        out.println("<table width=\"100%\"><tr><td>");
 
-        String schoolString;
-        if (_total != 1) {
-            schoolString = " schools";
-        } else {
-            schoolString = " school";
-        }
 
-        StringBuffer districtUrlBuffer = new StringBuffer("/cgi-bin/");
-
-        String cityOrDistrictName = (String) getJspContext().findAttribute("city");
-        String distId = null;
-        out.print("</span><h1 class=\"resultsheadline\">");
-        if (cityOrDistrictName != null) {
-            out.print(" ");
+        out.print("<h1 class=\"resultsheadline\">");
+        String cityOrDistrictName = "";
+        if (StringUtils.isNotEmpty(_cityName)) {
+            cityOrDistrictName = _cityName;
             out.print(cityOrDistrictName);
-            out.print(schoolString);
-            out.print("</h1>");
-        } else {
-            cityOrDistrictName = (String) getJspContext().findAttribute("distname");
-            if (cityOrDistrictName != null) {
-                out.print(schoolString);
-                out.print(" in ");
-                out.print(cityOrDistrictName);
-
-                districtUrlBuffer.append(getState().getAbbreviationLowerCase());
-                districtUrlBuffer.append("/district_profile/");
-                distId = (String) getJspContext().findAttribute("district");
-                if (StringUtils.isNotEmpty(distId)) {
-                    districtUrlBuffer.append(distId);
-                    District district = getDistrictDao().findDistrictById(getState(), new Integer(distId));
-                    if (district != null) {
-                        districtInfoBuffer = new StringBuffer(70);
-                        Address address = district.getPhysicalAddress();
-                        districtInfoBuffer.append(address.getStreet());
-                        districtInfoBuffer.append("<br/>");
-                        districtInfoBuffer.append(address.getCity());
-                        districtInfoBuffer.append(", ");
-                        districtInfoBuffer.append(address.getState());
-                        districtInfoBuffer.append("  ");
-                        districtInfoBuffer.append(address.getZip());
-                        districtInfoBuffer.append("<br/>");
-                        districtInfoBuffer.append(district.getCounty());
-                        districtInfoBuffer.append("<br/>");
-                        districtInfoBuffer.append("Phone: ");
-                        districtInfoBuffer.append(district.getPhone());
-                    }
-                } else {
-                    districtUrlBuffer.append("");
-                }
-
-                districtUrlBuffer.append("/");
-            }
-            out.print("</h1>");
+            out.print((_total != 1) ? " schools" : "school");
+        } else if (district != null) {
+            cityOrDistrictName = district.getName();
+            out.print((_total != 1) ? "Schools" : "School");
+            out.print(" in ");
+            out.print(district.getName());
         }
+        out.print("</h1>");
 
         out.print("</td><td align=\"right\" style=\"padding-right:15px;white-space:nowrap\">");
 
@@ -151,8 +112,8 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             out.print(String.valueOf(_total));
         }
 
+        String showAllHref = "";
         if (!showall && (_total > PAGE_SIZE)) {
-
             StringBuffer hrefBuffer = new StringBuffer("/schools.page?");
             hrefBuffer.append(qString);
             hrefBuffer.append("&amp;showall=true");
@@ -163,20 +124,20 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
         out.println("</td></tr>");
 
-        if (distId != null) {
-            out.println("<tr><td>");
-            out.print("<a href=\"");
-            out.print(urlUtil.buildUrl(districtUrlBuffer.toString(), request));
-            out.print("\">");
-            out.println("<span class=\"minilink\">View district information</span></a>");
-            out.println("</td></tr>");
+        out.println("<tr><td>");
+        if (district != null) {
+            UrlBuilder districtProfile = new UrlBuilder(district, UrlBuilder.DISTRICT_PROFILE);
+            out.print(districtProfile.asAHref(request, "<span class=\"minilink\">View district information</span>"));
+        } else if (StringUtils.isNotEmpty(_cityName)) {
+            UrlBuilder cityPage = new UrlBuilder(UrlBuilder.CITY_PAGE, getState(), _cityName);
+            out.print(cityPage.asAHref(request, "<span class=\"minilink\">View city information</span>"));
         }
+        out.println("</td></tr>");
 
         StringBuffer filterBuffer = new StringBuffer();
 
-        LevelCode levelCode = (LevelCode) getJspContext().findAttribute(SchoolsController.PARAM_LEVEL_CODE);
-        if (levelCode != null) {
-            for (Iterator i = levelCode.getIterator(); i.hasNext(); ) {
+        if (_levelCode != null) {
+            for (Iterator i = _levelCode.getIterator(); i.hasNext();) {
                 LevelCode.Level level = (LevelCode.Level) i.next();
                 String qs = "";
                 if (filterBuffer.length() > 0) {
@@ -190,19 +151,18 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             }
         }
 
-        String[] sts = (String[]) getJspContext().findAttribute("st");
-        if (sts != null) {
-            for (int i = 0; i < sts.length; i++) {
+        if (_schoolType != null) {
+            for (int i = 0; i < _schoolType.length; i++) {
                 String qs = "";
                 if (filterBuffer.length() > 0) {
                     filterBuffer.append(" | ");
                 }
-                filterBuffer.append(Util.capitalize(sts[i]));
-                if ("public".equals(sts[i])) {
+                filterBuffer.append(Util.capitalize(_schoolType[i]));
+                if ("public".equals(_schoolType[i])) {
                     qs = qString.replaceAll("\\&st=public", "");
-                } else if ("private".equals(sts[i])) {
+                } else if ("private".equals(_schoolType[i])) {
                     qs = qString.replaceAll("\\&st=private", "");
-                } else if ("charter".equals(sts[i])) {
+                } else if ("charter".equals(_schoolType[i])) {
                     qs = qString.replaceAll("\\&st=charter", "");
                 }
 
@@ -225,8 +185,8 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         UrlBuilder compareBuilder = new UrlBuilder(request,
                 "/cgi-bin/cs_compare/" + getState().getAbbreviationLowerCase());
         compareBuilder.setParameter("tab", "over");
-        if (distId != null) {
-            compareBuilder.setParameter("district", distId);
+        if (district != null) {
+            compareBuilder.setParameter("district", district.getId().toString());
             compareBuilder.setParameter("area", "d");
             compareBuilder.setParameter("sortby", "name");
         } else {
@@ -236,15 +196,15 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         }
 
         compareBuilder.setParameter("level", "e");
-        out.print(compareBuilder.asAHref("Elementary"));
+        out.print(compareBuilder.asAHref(request, "Elementary"));
         out.print(" | ");
 
         compareBuilder.setParameter("level", "m");
-        out.print(compareBuilder.asAHref("Middle"));
+        out.print(compareBuilder.asAHref(request, "Middle"));
 
         out.print(" | ");
         compareBuilder.setParameter("level", "h");
-        out.print(compareBuilder.asAHref("High"));
+        out.print(compareBuilder.asAHref(request, "High"));
 
         out.print("</div>");
         out.println("</td></tr>");
@@ -304,6 +264,54 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         out.println("</td></tr></table>");
         out.println("</td></tr></table>");
         out.println("</form>");
+    }
+
+    public String getQueryString() {
+        return _queryString;
+    }
+
+    public void setQueryString(String queryString) {
+        _queryString = queryString;
+    }
+
+    public Boolean getShowAll() {
+        return _showAll;
+    }
+
+    public void setShowAll(Boolean showAll) {
+        _showAll = showAll;
+    }
+
+    public String getCityName() {
+        return _cityName;
+    }
+
+    public void setCityName(String cityName) {
+        _cityName = cityName;
+    }
+
+    public Integer getDistrictId() {
+        return _districtId;
+    }
+
+    public void setDistrictId(Integer districtId) {
+        _districtId = districtId;
+    }
+
+    public LevelCode getLevelCode() {
+        return _levelCode;
+    }
+
+    public void setLevelCode(LevelCode levelCode) {
+        _levelCode = levelCode;
+    }
+
+    public String[] getSchoolType() {
+        return _schoolType;
+    }
+
+    public void setSchoolType(String[] schoolType) {
+        _schoolType = schoolType;
     }
 }
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.7 2006/04/05 00:11:09 chriskimm Exp $
+ * $Id: SchoolsControllerTest.java,v 1.8 2006/04/05 17:24:21 apeterson Exp $
  */
 
 package gs.web.school;
@@ -62,7 +62,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
 
         // Check for other important stuff
         assertEquals("1", request.getAttribute(SchoolsController.MODEL_PAGE));
-        assertEquals("Alameda", request.getAttribute(SchoolsController.MODEL_CITY));
+        assertEquals("Alameda", request.getAttribute(SchoolsController.MODEL_CITY_NAME));
         assertEquals(null, request.getAttribute(SchoolsController.MODEL_LEVEL_CODE));
         assertEquals(null, request.getAttribute(SchoolsController.MODEL_SCHOOL_TYPE));
     }
@@ -117,7 +117,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
 
         // Check for other important stuff
         assertEquals("1", request.getAttribute(SchoolsController.MODEL_PAGE));
-        assertEquals("Anchorage", request.getAttribute(SchoolsController.MODEL_CITY));
+        assertEquals("Anchorage", request.getAttribute(SchoolsController.MODEL_CITY_NAME));
         assertEquals(null, request.getAttribute(SchoolsController.MODEL_LEVEL_CODE));
         assertEquals(null, request.getAttribute(SchoolsController.MODEL_SCHOOL_TYPE));
 
@@ -205,7 +205,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
 
         // Check for other important stuff
         assertEquals("1", request.getAttribute(SchoolsController.MODEL_PAGE));
-        assertEquals("Anchorage", request.getAttribute(SchoolsController.MODEL_CITY));
+        assertEquals("Anchorage", request.getAttribute(SchoolsController.MODEL_CITY_NAME));
         assertEquals(LevelCode.createLevelCode("e"), request.getAttribute(SchoolsController.MODEL_LEVEL_CODE));
         assertEquals(null, request.getAttribute(SchoolsController.MODEL_SCHOOL_TYPE));
 
@@ -232,7 +232,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
 
         // Check for other important stuff
         assertEquals("1", request.getAttribute(SchoolsController.MODEL_PAGE));
-        assertEquals("Anchorage", request.getAttribute(SchoolsController.MODEL_CITY));
+        assertEquals("Anchorage", request.getAttribute(SchoolsController.MODEL_CITY_NAME));
         assertEquals(LevelCode.createLevelCode("m,h"), request.getAttribute(SchoolsController.MODEL_LEVEL_CODE));
         assertEquals(null, request.getAttribute(SchoolsController.MODEL_SCHOOL_TYPE));
 
@@ -264,7 +264,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
 
         // Check for other important stuff
         assertEquals("1", request.getAttribute(SchoolsController.MODEL_PAGE));
-        assertEquals("Anchorage", request.getAttribute(SchoolsController.MODEL_CITY));
+        assertEquals("Anchorage", request.getAttribute(SchoolsController.MODEL_CITY_NAME));
         assertEquals("public", ((String[])(request.getAttribute(SchoolsController.MODEL_SCHOOL_TYPE)))[0]);
 
 
@@ -288,7 +288,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
 
         // Check for other important stuff
         assertEquals("1", request.getAttribute(SchoolsController.MODEL_PAGE));
-        assertEquals("Anchorage", request.getAttribute(SchoolsController.MODEL_CITY));
+        assertEquals("Anchorage", request.getAttribute(SchoolsController.MODEL_CITY_NAME));
         assertEquals("private", ((String[]) (request.getAttribute(SchoolsController.MODEL_SCHOOL_TYPE)))[0]);
 
 

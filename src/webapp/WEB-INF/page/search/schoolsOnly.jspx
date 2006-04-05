@@ -91,10 +91,10 @@
 
                         <h2 class="browseheader">Browse</h2>
                         <ul class="refinementlist">
-                            <li><gsml:a href="/modperl/citylist/${state.abbreviation}">
+                            <li><gsml:a href="/modperl/cities/${state.abbreviation}">
                                 All <c:out value="${state.longName}"/> cities</gsml:a>
                             </li>
-                            <li><gsml:a href="/modperl/distlist/${state.abbreviation}">
+                            <li><gsml:a href="/modperl/districts/${state.abbreviation}">
                                 All <c:out value="${state.longName}"/> districts
                             </gsml:a></li>
                             <li><gsml:a
@@ -120,7 +120,14 @@
 
             <gsml:box tableClass="shade3 main">
                 <gsweb:schooltable schools="${results.schools}"
-                                   total="${results.total}">
+                                   total="${results.total}"
+                                    queryString="${request.queryString}"
+                                    showAll="${param.showall}"
+                                    cityName="${requestScope.city}"
+                                    districtId="${requestScope.district}"
+                                    schoolType="${requestScope.st}"
+                                    levelCode="${requestScope.lc}"
+                        >
                     <search:schoolTable schools="${results.schools}"/>
                 </gsweb:schooltable>
             </gsml:box>

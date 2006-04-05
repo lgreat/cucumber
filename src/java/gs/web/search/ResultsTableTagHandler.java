@@ -128,7 +128,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
 
                 StringBuffer hrefBuffer = new StringBuffer(40);
                 hrefBuffer.append("<a class=\"pad\" href=\"");
-                hrefBuffer.append(path.asSiteRelative());
+                hrefBuffer.append(path.asSiteRelative(null));
                 hrefBuffer.append("?q=");
                 hrefBuffer.append(Functions.escapeXml(getQueryString()));
 

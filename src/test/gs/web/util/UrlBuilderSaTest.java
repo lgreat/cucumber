@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.8 2006/03/24 22:50:32 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.9 2006/04/05 17:24:21 apeterson Exp $
  */
 
 package gs.web.util;
@@ -8,6 +8,8 @@ package gs.web.util;
 import gs.data.content.Article;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.data.geo.ICity;
+import gs.data.geo.LatLon;
 import gs.web.GsMockHttpServletRequest;
 import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
@@ -54,7 +56,7 @@ public class UrlBuilderSaTest extends TestCase {
         request.setServerPort(80);
         request.setRequestURI("/index.page");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
-        assertEquals("/index.page", builder.asSiteRelative());
+        assertEquals("/index.page", builder.asSiteRelative(null));
         assertEquals("http://www.myserver.com/index.page", builder.asFullUrl());
     }
 
@@ -67,11 +69,11 @@ public class UrlBuilderSaTest extends TestCase {
         request.setContextPath("/gs-web");
         request.setRequestURI("/gs-web/index.page");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
-        assertEquals("/gs-web/index.page", builder.asSiteRelative());
+        assertEquals("/gs-web/index.page", builder.asSiteRelative(null));
         assertEquals("http://www.myserver.com/gs-web/index.page", builder.asFullUrl());
 
         builder = new UrlBuilder(request, null); // suck page path automatically from the request
-        assertEquals("/gs-web/index.page", builder.asSiteRelative());
+        assertEquals("/gs-web/index.page", builder.asSiteRelative(null));
         assertEquals("http://www.myserver.com/gs-web/index.page", builder.asFullUrl());
     }
 
@@ -86,7 +88,7 @@ public class UrlBuilderSaTest extends TestCase {
         request.setParameter("b", "2");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
         builder.addParametersFromRequest(request);
-        assertEquals("/index.page?a=1&amp;b=2", builder.asSiteRelative());
+        assertEquals("/index.page?a=1&amp;b=2", builder.asSiteRelative(null));
         assertEquals("http://www.myserver.com/index.page?a=1&b=2", builder.asFullUrl());
     }
 
@@ -98,7 +100,7 @@ public class UrlBuilderSaTest extends TestCase {
         request.setServerPort(8080);
         request.setRequestURI("/index.page");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
-        assertEquals("/index.page", builder.asSiteRelative());
+        assertEquals("/index.page", builder.asSiteRelative(null));
         assertEquals("http://www.myserver.com:8080/index.page", builder.asFullUrl());
     }
 
@@ -107,7 +109,7 @@ public class UrlBuilderSaTest extends TestCase {
         school.setDatabaseState(State.WY);
         school.setId(new Integer(8));
         UrlBuilder builder = new UrlBuilder(school, UrlBuilder.PARENT_REVIEWS);
-        assertEquals("/modperl/parents/wy/8", builder.asSiteRelative());
+        assertEquals("/modperl/parents/wy/8", builder.asSiteRelative(null));
 
         try {
             builder = new UrlBuilder(school, null);
@@ -116,6 +118,44 @@ public class UrlBuilderSaTest extends TestCase {
             // OK
         }
 
+    }
+
+    public void testCityPageBuilder() {
+        ICity city = new ICity() {
+            public String getName() {
+                return "Talahasi";
+            }
+
+            public State getState() {
+                return State.FL;
+            }
+
+            public float getLat() {
+                return 0;
+            }
+
+            public float getLon() {
+                return 0;
+            }
+
+            public LatLon getLatLon() {
+                return null;
+            }
+
+            public String getCountyFips() {
+                return null;
+            }
+
+            public Long getPopulation() {
+                return null;
+            }
+        };
+
+        UrlBuilder builder = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
+        assertEquals("/city.page?city=Talahasi&amp;state=FL", builder.asSiteRelative(null));
+
+        builder = new UrlBuilder(UrlBuilder.CITY_PAGE, State.WY,  "Laramee");
+        assertEquals("/city.page?city=Laramee&amp;state=WY", builder.asSiteRelative(null));
     }
 
 

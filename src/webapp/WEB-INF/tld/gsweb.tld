@@ -151,6 +151,38 @@
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
     </attribute>
+    <attribute>
+      <name>queryString</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>showAll</name>
+      <required>false</required>
+        <type>java.lang.Boolean</type>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>cityName</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>districtId</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>levelCode</name>
+      <required>false</required>
+        <type>gs.data.school.LevelCode</type>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>schoolType</name>
+      <required>false</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
   </tag>
 
   <tag>
