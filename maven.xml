@@ -26,6 +26,7 @@
     <!-- Delete the webapp dirs explicitly since some deploy under src/webapp/WEB-INF -->
     <preGoal name="clean:clean">
         <delete dir="${maven.src.dir}/webapp/WEB-INF/lib"/>
+        <delete dir="${maven.src.dir}/webapp/WEB-INF/classes"/>
         <delete dir="${maven.war.webapp.dir}/webapp/WEB-INF/classes"/>
     </preGoal>
 
