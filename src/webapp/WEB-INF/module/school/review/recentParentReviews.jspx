@@ -8,30 +8,28 @@
 
     <c:if test="${empty reviews}">
         <div class="featuredarticle">
-            <gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
+            <h2>What do you think?</h2>
+            <p>Other parents want to hear the "inside scoop" about your child's school from your firsthand experiences!</p>
+
+            See a Sample Review
+            <div style="float: right"><gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
                 <gsml:img src="/res/img/community/btn_write_a_review.gif"
                           alt="Rate your School"/>
             </gsml:a>
-            <br/>
-
-            <h3 class="result_title">Sample Parent Review:</h3>
-            <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-            <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-            <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-            <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>(May 2005)
-            <br/>
-
-            <div class="parentQuote">
-                "Dynamic, creative principal. Teachers who provide attention and dedication.
-                Active group of parents..."</div>
-        </div>
+            </div>
+            </div>
     </c:if>
     <c:if test="${not empty reviews}">
-        <h3>Recent Parent Reviews</h3>
+        <h2>Recent Parent Reviews</h2>
+        <table cellpadding="0" cellspacing="0" width="100%">
+
         <c:forEach var="review" items="${reviews}">
+            <tr>
+            <td>
             <h4>
                 <gsml:a href="${review.schoolLink}"><c:out value="${review.schoolName}" escapeXml="true"/></gsml:a></h4>
-        <span class="stars">
+            </td>
+            <td class="stars">
             <c:if test="${review.stars eq 1}">
                 <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
                 <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
@@ -67,12 +65,26 @@
                 <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
                 <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
             </c:if>
-        </span>
+        </td>
+                </tr>
+            <tr>
+                <td colspan="2">
             <h5>(${review.date})</h5>
-
-            <p>${review.quip}</p>
-            <br/>
+                </td>
+            </tr>
+            <tr>
+            <td colspan="2" class="dottedLineBottomBox">
+                <p>${review.quip}</p>
+                </td>
+            </tr>
         </c:forEach>
+        </table>
+
+        <div style="margin-top: 10px; float: right"><gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
+            <gsml:img src="/res/img/community/btn_write_a_review.gif"
+                      alt="Rate your School"/>
+        </gsml:a>
+        </div>
     </c:if>
 
 

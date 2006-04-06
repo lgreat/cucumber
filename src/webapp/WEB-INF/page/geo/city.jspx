@@ -186,6 +186,16 @@ padding: 2px 5px 3px 0;
 
 }
 
+
+.recentParentReviews h4 {
+padding-top: 5px;
+font-size: small;
+}
+.recentParentReviews p {
+font-size: small;
+}
+
+
         </style>
             ]]>
 <title>${cityName} Schools</title>
