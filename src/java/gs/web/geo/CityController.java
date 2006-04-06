@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.3 2006/04/06 22:05:14 apeterson Exp $
+ * $Id: CityController.java,v 1.4 2006/04/06 23:27:06 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -36,25 +36,21 @@ public class CityController extends AbstractController {
 
     public static final String PARAM_CITY = "city";
 
-    public static final String MODEL_SCHOOLS = "schools"; // list of local schools
-    public static final String MODEL_STATEWIDE = "statewide"; // BpCensus object for the state
-    public static final String MODEL_US = "us"; // BpCensus object for the U.S.
-    public static final String MODEL_CITY = "city"; // City BpCensus object
-    public static final String MODEL_CITY_NAME = "cityName"; // name of the city, correctly capitalized
-    public static final String MODEL_MAP_LAT = "lat"; // Center lat
-    public static final String MODEL_MAP_LON = "lon"; // Center lon
-    public static final String MODEL_MAP_SCALE = "scale"; // The scale of the map
+    public static final String MODEL_SCHOOLS = "schools"; // list of local schools, either a sample or top-rated
+    public static final String MODEL_TOP_RATED_SCHOOLS = "topRatedSchools"; // List of ITopRatedSchool objects
 
+    public static final String MODEL_CITY = "cityObject"; // City BpCensus object
+    public static final String MODEL_CITY_NAME = "cityName"; // name of the city, correctly capitalized
 
     public static final String MODEL_DISTRICTS = "districts"; // ListModel object
     public static final String MODEL_SCHOOL_BREAKDOWN = "schoolBreakdown"; // ListModel object
-    public static final String MODEL_TOP_RATED_SCHOOLS = "topRatedSchools"; // List of schools
 
 
     private IGeoDao _geoDao;
     private ISchoolDao _schoolDao;
     private IDistrictDao _districtDao;
     private final UrlUtil _urlUtil;
+    public static final int MAX_SCHOOLS = 10;
 
     public CityController() {
         _urlUtil = new UrlUtil();
@@ -76,6 +72,12 @@ public class CityController extends AbstractController {
             return new ModelAndView(redirectView);
         }
 
+        ICity city = _geoDao.findCity(state, cityNameParam);
+        if (city == null) {
+            View redirectView = new RedirectView("/modperl/go/" + state.getAbbreviationLowerCase());
+            return new ModelAndView(redirectView);
+        }
+
 
         Map model = new HashMap();
 
@@ -89,24 +91,15 @@ public class CityController extends AbstractController {
         String c = StringUtils.capitalize(cityNameParam);
         model.put(MODEL_CITY_NAME, c);
 
-        ICity city = _geoDao.findCity(state, cityNameParam);
-
-        Float lat = null;
-        Float lon = null;
-        if (city != null) {
-            model.put(MODEL_CITY, city);
-            lat = new Float(city.getLat());
-            lon = new Float(city.getLon());
-        }
+        model.put(MODEL_CITY, city);
 
         /*
          * If top rated schools are available for this city, then get them and
          * put them into the model.
          */
-        if (state.isRatingsState() && city != null) {
+        if (state.isRatingsState()) {
             List topRatedSchools;
             topRatedSchools = _schoolDao.findTopRatedSchoolsInCity(city, 8, null, 5);
-            //sampleSchools = _schoolDao.findSchoolsInCity(state, cityNameParam, 5);
             if (topRatedSchools.size() > 0) {
                 model.put(MODEL_TOP_RATED_SCHOOLS, topRatedSchools);
 
@@ -122,20 +115,12 @@ public class CityController extends AbstractController {
         if (model.get(MODEL_TOP_RATED_SCHOOLS) == null) {
             List schools = _schoolDao.findSchoolsInCity(state, cityNameParam, false);
             if (schools != null) {
-                if (schools.size() > 20) {
-                    schools = schools.subList(0, 20);
+                if (schools.size() > MAX_SCHOOLS) {
+                    schools = schools.subList(0, MAX_SCHOOLS);
                 }
                 model.put(MODEL_SCHOOLS, schools);
             }
         }
-
-
-        model.put(MODEL_MAP_LAT, lat);
-        model.put(MODEL_MAP_LON, lon);
-
-        model.put(MODEL_MAP_SCALE, new Integer(6)); // should be calculated better
-        // 1 = house, 10 = the earth
-
 
         return new ModelAndView("geo/city", model);
     }

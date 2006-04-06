@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsController.java,v 1.5 2006/04/05 17:24:21 apeterson Exp $
+ * $Id: RecentParentReviewsController.java,v 1.6 2006/04/06 23:27:39 apeterson Exp $
  */
 
 package gs.web.school.review;
@@ -127,7 +127,7 @@ public class RecentParentReviewsController extends AbstractController {
         }
 
         public String getSchoolLink() {
-            UrlBuilder builder = new UrlBuilder(_school, UrlBuilder.PARENT_REVIEWS);
+            UrlBuilder builder = new UrlBuilder(_school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
             return builder.asSiteRelative(null);
         }
 
