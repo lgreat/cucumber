@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.14 2006/04/05 22:09:41 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.15 2006/04/06 23:13:33 apeterson Exp $
  */
 
 package gs.web.util;
@@ -8,6 +8,7 @@ package gs.web.util;
 import gs.data.content.Article;
 import gs.data.geo.ICity;
 import gs.data.school.School;
+import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
@@ -45,7 +46,8 @@ public class UrlBuilder {
         }
     }
 
-    public static final VPage PARENT_REVIEWS = new VPage("vpage:parentReviews");
+    public static final VPage SCHOOL_PARENT_REVIEWS = new VPage("vpage:schoolParentReviews");
+    public static final VPage SCHOOL_PROFILE = new VPage("vpage:schoolProfile");
     public static final VPage DISTRICT_PROFILE = new VPage("vpage:districtProfile");
     public static final VPage CITY_PAGE = new VPage("vpage:city");
 
@@ -112,7 +114,18 @@ public class UrlBuilder {
     }
 
     public UrlBuilder(School school, VPage page) {
-        if (PARENT_REVIEWS.equals(page)) {
+        if (SCHOOL_PROFILE.equals(page)) {
+            _perlPage = true;
+            if (school.getType().equals(SchoolType.PRIVATE)) {
+                _path = "/cgi-bin/" +
+                        school.getDatabaseState().getAbbreviationLowerCase() +
+                        "/private/" + school.getId();
+            } else {
+                _path = "/modperl/browse_school/" +
+                        school.getDatabaseState().getAbbreviationLowerCase() +
+                        "/" + school.getId();
+            }
+        } else if (SCHOOL_PARENT_REVIEWS.equals(page)) {
             _perlPage = true;
             _path = "/modperl/parents/" +
                     school.getDatabaseState().getAbbreviationLowerCase() +

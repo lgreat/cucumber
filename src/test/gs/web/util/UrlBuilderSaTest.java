@@ -1,12 +1,13 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.11 2006/04/05 19:24:51 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.12 2006/04/06 23:13:34 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.data.content.Article;
 import gs.data.school.School;
+import gs.data.school.SchoolType;
 import gs.data.state.State;
 import gs.data.geo.ICity;
 import gs.data.geo.LatLon;
@@ -118,7 +119,7 @@ public class UrlBuilderSaTest extends TestCase {
         School school = new School();
         school.setDatabaseState(State.WY);
         school.setId(new Integer(8));
-        UrlBuilder builder = new UrlBuilder(school, UrlBuilder.PARENT_REVIEWS);
+        UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
         assertEquals("/modperl/parents/wy/8", builder.asSiteRelative(null));
 
         try {
@@ -127,6 +128,20 @@ public class UrlBuilderSaTest extends TestCase {
         } catch (IllegalArgumentException e) {
             // OK
         }
+
+
+        school.setType(SchoolType.PUBLIC);
+        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+        assertEquals("/modperl/browse_school/wy/8", builder.asSiteRelative(null));
+
+        school.setType(SchoolType.CHARTER);
+        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+        assertEquals("/modperl/browse_school/wy/8", builder.asSiteRelative(null));
+
+        school.setType(SchoolType.PRIVATE);
+        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+        assertEquals("/cgi-bin/wy/private/8", builder.asSiteRelative(null));
+
 
     }
 
