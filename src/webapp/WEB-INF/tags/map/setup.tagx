@@ -32,6 +32,6 @@
     </c:choose>
 
     <pageHelper:externalJavascript
-            file="http://maps.google.com/maps?file=api&amp;v=1&amp;key=${key}"/>
+            file="http://maps.google.com/maps?file=api&amp;v=2&amp;key=${key}"/>
 
 </jsp:root>

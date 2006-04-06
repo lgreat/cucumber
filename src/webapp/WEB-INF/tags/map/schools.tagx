@@ -4,13 +4,16 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           >
+    <jsp:directive.tag import="java.util.Iterator"/>
+    <jsp:directive.tag import="gs.data.school.School"/>
+    <jsp:directive.tag import="gs.data.geo.LatLonRect"/>
+    <jsp:directive.tag import="gs.data.geo.LatLon"/>
     <jsp:directive.tag body-content="empty"
                        description="Draw a map of schools." />
     <jsp:directive.attribute name="functionName" required="true" description="Name of the javascript function. Caller must call this in the onload handler."/>
     <jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
-    <jsp:directive.attribute name="lon" required="true" description="Longitude (center of map)"/>
-    <jsp:directive.attribute name="lat" required="true" description="Lattitude (center of map)"/>
-    <jsp:directive.attribute name="scale" required="true" description="Scale of the map, in google terms"/>
+    <jsp:directive.attribute name="lon" required="false" type="java.lang.Float" description="Longitude (center of map)"/>
+    <jsp:directive.attribute name="lat" required="false" type="java.lang.Float" description="Lattitude (center of map)"/>
     <jsp:directive.attribute name="schools" required="true" description="Schools to map" type="java.util.Collection"/>
     <!--
 NOTES
@@ -22,9 +25,17 @@ I'd like to color the markers or use different icons depending on the level code
    beginnings of this are here.)
 I'd like to use a consistent display of school information in the info window.
     -->
+    <jsp:scriptlet>
+        if (schools != null) {
+            LatLonRect r = new LatLonRect(schools);
+            request.setAttribute("center", r.getCenter());
+        } else {
+            request.setAttribute("center", new LatLon(lat.floatValue(),lon.floatValue()));
+        }
+    </jsp:scriptlet>
     <script type="text/javascript">
  //<![CDATA[
- function createMarker(point,html, color) {
+ function createMarker(point,html) {
    html = '<div style="white-space:nowrap;">' + html + '</div>';
    var marker = new GMarker(point);
    GEvent.addListener(marker, "click", function() {
@@ -35,22 +46,27 @@ I'd like to use a consistent display of school information in the info window.
 function ${functionName}() {
    if (GBrowserIsCompatible()) {
       var map = new GMap(document.getElementById("${id}"));
-      map.addControl(new GSmallMapControl(GSmallMapControl.G_HYBRID_TYPE));
-      map.centerAndZoom(new GPoint(${lon}, ${lat}), ${scale});
-        //]]>
+       map.addControl(new GSmallMapControl(GSmallMapControl.G_NORMAL_MAP));
+       map.setCenter(new GLatLng(${center.lat}, ${center.lon}), ${17-scale});
+       var bounds = new GLatLngBounds;
+       //]]>
       <c:forEach var="s" items="${schools}">
       <c:if test="${not empty s.lon}">
     //<![CDATA[
        var point = new GPoint(${s.lon},${s.lat});
        var marker = createMarker(point,
-            '<a href="http://dev.greatschools.net/modperl/browse_school/${s.databaseState.abbreviation}/${s.id}">${fn:escapeXml(s.name)}</a><h4><br />Grades: <b>${s.gradeLevels}</b><br />Type: <b>${s.type.name}</b><br />Students: <b>${s.enrollment > 0 ? s.enrollment : 'n/a'}</b></h4>',
-               "${s.levelCode == gs.data.school.LevelCode.HIGH ? "green" : "blue"}");
+            '<a href="/modperl/browse_school/${s.databaseState.abbreviation}/${s.id}">${fn:escapeXml(s.name)}</a><h4><br />Grades: <b>${s.gradeLevels}</b><br />Type: <b>${s.type.name}</b><br />Students: <b>${s.enrollment > 0 ? s.enrollment : 'n/a'}</b></h4>');
        map.addOverlay(marker);
-        //]]>
+       bounds.extend(marker.point);
+       //]]>
       </c:if>
       </c:forEach>
     //<![CDATA[
-    }
+       var zoom = map.getBoundsZoomLevel(bounds);
+       if (zoom > 12) zoom = 12;
+       if (zoom < 9) zoom = 9;
+       map.setZoom(zoom);
+   }
  }
     //]]>
     </script>

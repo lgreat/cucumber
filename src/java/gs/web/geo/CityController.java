@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.2 2006/04/04 18:55:09 apeterson Exp $
+ * $Id: CityController.java,v 1.3 2006/04/06 22:05:14 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -137,7 +137,7 @@ public class CityController extends AbstractController {
         // 1 = house, 10 = the earth
 
 
-        return new ModelAndView("test/city2", model);
+        return new ModelAndView("geo/city", model);
     }
 
     private ListModel createDistrictList(State state, String cityNameParam, HttpServletRequest request) {

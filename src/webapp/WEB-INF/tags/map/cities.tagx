@@ -38,15 +38,15 @@ I'd like to use a consistent display of school information in the info window.
 }
 function ${functionName}() {
    if (GBrowserIsCompatible()) {
-      var map = new GMap(document.getElementById("${id}"));
-      map.addControl(new GSmallMapControl(GSmallMapControl.G_HYBRID_TYPE));
-      map.centerAndZoom(new GPoint(${lon}, ${lat}), ${scale});
+       var map = new GMap2(document.getElementById("${id}"));
+      map.addControl(new GSmallMapControl(GSmallMapControl.G_NORMAL_MAP));
+      map.setCenter(new GLatLng(${lat}, ${lon}), ${17-scale});
         //]]>
       <c:forEach var="s" items="${cities}">
       <c:if test="${not empty s.lon}">
     //<![CDATA[
-       var point = new GPoint(${s.lon},${s.lat});
-       var marker = createMarker(point,'<h2>${s.name}, ${s.state}</h2><h4>Population: ]]><fmt:formatNumber value="${s.population}" maxFractionDigits="0"/><![CDATA[</h4>',
+       var p = new GLatLng(${s.lat},${s.lon});
+       var marker = createMarker(p,'<h2>${s.name}, ${s.state}</h2><h4>Population: ]]><fmt:formatNumber value="${s.population}" maxFractionDigits="0"/><![CDATA[</h4>',
                'city.page?city=${s.name}&state=${s.state}');
        map.addOverlay(marker);
         //]]>

@@ -5,7 +5,6 @@ import gs.data.school.district.District;
 import gs.web.jsp.Util;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -37,7 +36,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
     private Boolean _showAll;
     private String _cityName;
     private Integer _districtId;
-    private LevelCode _levelCode ;
+    private LevelCode _levelCode;
     private String[] _schoolType;
     private static final Log _log = LogFactory.getLog(SchoolTableTagHandler.class);
 
@@ -68,70 +67,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
         JspWriter out = getJspContext().getOut();
 
-        out.println("<table width=\"100%\"><tr><td>");
-
-        out.print("<h1 class=\"resultsheadline\">");
-        String cityOrDistrictName = "";
-        if (StringUtils.isNotEmpty(_cityName)) {
-            cityOrDistrictName = _cityName;
-            out.print(cityOrDistrictName);
-            out.print((_total != 1) ? " schools" : " school");
-        } else if (district != null) {
-            cityOrDistrictName = district.getName();
-            out.print((_total != 1) ? "Schools" : "School");
-            out.print(" in ");
-            out.print(district.getName());
-        }
-        out.print("</h1>");
-
-        out.print("</td><td align=\"right\" style=\"padding-right:15px;white-space:nowrap\">");
-
-        if (_total > 0) {
-            if (!showall) {
-                int page = ((getPage() > 0) ? (getPage() - 1) : 0);
-                out.print(String.valueOf((page * PAGE_SIZE) + 1));
-                out.print(" - ");
-                int x = (page * PAGE_SIZE) + PAGE_SIZE;
-                if (_total > x) {
-                    out.print(String.valueOf(x));
-                } else {
-                    out.print(String.valueOf(_total));
-                }
-            } else {
-                out.print("1 - ");
-                out.print(String.valueOf(_total));
-            }
-            out.print(" of ");
-            out.print(String.valueOf(_total));
-        }
-
-        String showAllHref = "";
-        if (!showall && (_total > PAGE_SIZE)) {
-            StringBuffer hrefBuffer = new StringBuffer("/schools.page?");
-            hrefBuffer.append(qString);
-            hrefBuffer.append("&amp;showall=true");
-            showAllHref = urlUtil.buildUrl(hrefBuffer.toString(), request);
-            out.print("<a href=\"" + showAllHref + "\">");
-            out.println("<span class=\"minilink\" style=\"padding-left:8px;\">Show all</span></a>");
-        }
-
-        out.println("</td></tr>");
-        out.println("</table>");
-
-        out.println("<table width=\"100%\">");
-
-        out.println("<tr><td>");
-        if (district != null) {
-            UrlBuilder districtProfile = new UrlBuilder(district, UrlBuilder.DISTRICT_PROFILE);
-            out.print(districtProfile.asAHref(request, "<span class=\"minilink\">View district information</span>"));
-        } else if (StringUtils.isNotEmpty(_cityName)) {
-            UrlBuilder cityPage = new UrlBuilder(UrlBuilder.CITY_PAGE, getState(), _cityName);
-            out.print(cityPage.asAHref(request, "<span class=\"minilink\">View city information</span>"));
-        }
-        out.println("</td></tr>");
-
         StringBuffer filterBuffer = new StringBuffer();
-
         if (_levelCode != null) {
             for (Iterator i = _levelCode.getIterator(); i.hasNext();) {
                 LevelCode.Level level = (LevelCode.Level) i.next();
@@ -171,50 +107,6 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             }
         }
 
-        // "compare all" links
-        out.println("<tr><td colspan=\"2\">");
-        out.print("<div id=\"comparelinks\">Compare ");
-        out.print("<h1 style=\"display:inline;\">");
-        out.print(cityOrDistrictName);
-        out.print(" public schools</h1>: ");
-
-        UrlBuilder compareBuilder = new UrlBuilder(request,
-                "/cgi-bin/cs_compare/" + getState().getAbbreviationLowerCase());
-        compareBuilder.setParameter("tab", "over");
-        if (district != null) {
-            compareBuilder.setParameter("district", district.getId().toString());
-            compareBuilder.setParameter("area", "d");
-            compareBuilder.setParameter("sortby", "name");
-        } else {
-            compareBuilder.setParameter("area", "m");
-            compareBuilder.setParameter("city", cityOrDistrictName != null ? cityOrDistrictName : "");
-            compareBuilder.setParameter("sortby", "distance");
-        }
-
-        compareBuilder.setParameter("level", "e");
-        out.print(compareBuilder.asAHref(request, "Elementary"));
-        out.print(" | ");
-
-        compareBuilder.setParameter("level", "m");
-        out.print(compareBuilder.asAHref(request, "Middle"));
-
-        out.print(" | ");
-        compareBuilder.setParameter("level", "h");
-        out.print(compareBuilder.asAHref(request, "High"));
-
-        out.print("</div>");
-        out.println("</td></tr>");
-        // end "compare all" links
-
-        // start filter row
-        out.println("<tr><td id=\"filters\" colspan=\"2\">");
-        if (filterBuffer.length() > 0) {
-            out.print("Filtered: ");
-            out.println(filterBuffer.toString());
-        } else {
-            out.print("To further narrow your list, use the filters on the left.");
-        }
-        out.println("</td></tr></table>");
 
         out.println("<table class=\"school_results_only\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
 
@@ -240,6 +132,11 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             out.println("</td><tr><td></td><td align=\"right\" style=\"padding-right:15px;padding-bottom:5px\">");
             if (!showall && (_total > PAGE_SIZE)) {
                 out.print("<a href=\"");
+                String showAllHref = "";
+                StringBuffer hrefBuffer = new StringBuffer("/schools.page?");
+                hrefBuffer.append(qString);
+                hrefBuffer.append("&amp;showall=true");
+                showAllHref = urlUtil.buildUrl(hrefBuffer.toString(), request);
                 out.print(showAllHref);
                 out.print("\"><span class=\"minilink\">Show all</span></a>");
             }
