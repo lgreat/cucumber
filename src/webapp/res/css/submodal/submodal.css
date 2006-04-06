@@ -58,3 +58,12 @@
 	text-indent: -9000px;
 	background: url('../../img/submodal/close.gif') no-repeat;
 }
+#popupCloseBtn {
+    text-align:center;
+}
+
+#popupCloseBtn button{
+    background-color: #333344;
+    color: #FFFFFF;
+    font-weight: bold;
+}

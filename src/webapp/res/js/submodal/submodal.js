@@ -47,7 +47,8 @@ function initPopUp() {
 				'</div>' +
 			'</div>' +
 			'<iframe src="javascript:parent.frameLoading()" style="width:100%;height:100%;background-color:transparent;" scrolling="auto" frameborder="0" allowtransparency="true" id="popupFrame" name="popupFrame" width="100%" height="100%"></iframe>' +
-		'</div>';
+            '<div id="popupCloseBtn"><button onclick="hidePopWin(false);">Close Window</button></div>' +            
+        '</div>';
 	body.appendChild(popmask);
 	body.appendChild(popcont);
 
@@ -94,7 +95,7 @@ function initPopUp() {
 function showPopWin(url, width, height, returnFunc) {
     if (!gPopupMask) {
         initPopUp();
-    }    	
+    }
     gPopupIsShown = true;
 	disableTabIndexes();
 	gPopupMask.style.display = "block";
