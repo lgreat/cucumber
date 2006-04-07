@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.4 2006/04/04 20:25:37 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.5 2006/04/07 00:32:02 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -14,6 +14,8 @@ import gs.web.SessionContextUtil;
 import gs.web.util.Anchor;
 import gs.web.util.ListModel;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Collection;
 import java.util.List;
@@ -63,8 +65,8 @@ public class CityControllerTest extends BaseControllerTestCase {
 
     public void testFindDistricts() throws Exception {
         GsMockHttpServletRequest request = getRequest();
-        request.setParameter("state", "WY");
-        request.setParameter("city", "Worland");
+        request.setParameter("state", "NY");
+        request.setParameter("city", "Dolgeville");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
 
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
@@ -76,7 +78,19 @@ public class CityControllerTest extends BaseControllerTestCase {
         List list = listModel.getResults();
         assertTrue(list.size() > 0);
         assertTrue(list.size() <= 2);
-        assertEquals("/cgi-bin/wy/district_profile/3/", ((Anchor) list.get(0)).getHref());
+        assertEquals("/cgi-bin/ny/district_profile/1/", ((Anchor) list.get(0)).getHref());
+    }
+
+    public void testBadCity() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setParameter("state", "WY");
+        request.setParameter("city", "XXXWorland");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+
+        ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
+
+        View view = mav.getView();
+        assertTrue(view instanceof RedirectView);
     }
 
     public void testCapitalization() throws Exception {
@@ -101,17 +115,11 @@ public class CityControllerTest extends BaseControllerTestCase {
         request.addParameter("state", "CA");
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
 
-        Object city = modelAndView.getModel().get("city");
+        Object city = modelAndView.getModel().get(CityController.MODEL_CITY_NAME);
         assertNotNull(city);
 
         Object schools = modelAndView.getModel().get("schools");
         assertNull(schools);
-
-        assertNotNull(modelAndView.getModel().get("lat"));
-        assertNotNull(modelAndView.getModel().get("lon"));
-
-        assertNotNull(modelAndView.getModel().get("scale"));
-        assertEquals(new Integer(6), modelAndView.getModel().get("scale"));
     }
 
     public void testAlameda() throws Exception {
@@ -121,7 +129,7 @@ public class CityControllerTest extends BaseControllerTestCase {
         request.addParameter("state", "CA");
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
 
-        Object city = modelAndView.getModel().get("city");
+        Object city = modelAndView.getModel().get(CityController.MODEL_CITY_NAME);
         assertNotNull(city);
 
         Object schools = modelAndView.getModel().get("schools");
@@ -130,24 +138,18 @@ public class CityControllerTest extends BaseControllerTestCase {
         assertTrue(((Collection) schools).size() >= 3);
         assertTrue(((Collection) schools).size() <= 10);
 
-        assertNotNull(modelAndView.getModel().get("lat"));
-        assertNotNull(modelAndView.getModel().get("lon"));
     }
 
 
     public void testSF() throws Exception {
-
 
         GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "San Francisco");
         request.addParameter("state", "CA");
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
 
-        Object city = modelAndView.getModel().get("city");
+        Object city = modelAndView.getModel().get(CityController.MODEL_CITY_NAME);
         assertNotNull(city);
-
-        assertNotNull(modelAndView.getModel().get("lat"));
-        assertNotNull(modelAndView.getModel().get("lon"));
     }
 
     public void xtestBuffaloNY() throws Exception {
@@ -158,16 +160,14 @@ public class CityControllerTest extends BaseControllerTestCase {
         _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
 
-        Object city = modelAndView.getModel().get("city");
+        Object city = modelAndView.getModel().get(CityController.MODEL_CITY_NAME);
         assertNull(city);
 
-        Object schools = modelAndView.getModel().get("schools");
+        Object schools = modelAndView.getModel().get(CityController.MODEL_SCHOOLS);
         assertNotNull(schools);
         assertTrue(schools instanceof Collection);
         assertTrue(((Collection) schools).size() >= 3);
 
-        assertNotNull(modelAndView.getModel().get("lat"));
-        assertNotNull(modelAndView.getModel().get("lon"));
     }
 
 }
