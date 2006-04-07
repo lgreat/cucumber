@@ -113,11 +113,18 @@
                     schools</strong></h1><strong>&#160;by<br/></strong>
             <table width="100%" border="0" cellspacing="0">
                 <tr>
-                    <td><gsml:a href="/modperl/cities/$STATE/">City</gsml:a></td>
+                    <c:if test="${requestScope.context.state.abbreviation ne 'DC'}">
+                        <td><gsml:a href="/modperl/cities/$STATE/">City</gsml:a></td>
+                    </c:if>
                     <td><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#county">County</gsml:a></td>
                 </tr>
                 <tr>
-                    <td><gsml:a href="/modperl/districts/$STATE/">District</gsml:a></td>
+                    <td><gsml:a href="/modperl/districts/$STATE/">
+                        <c:if test="${requestScope.context.state.abbreviation eq 'DC'}">
+                            School
+                        </c:if>
+                        District
+                    </gsml:a></td>
                     <td>
                         <c:if test="${requestScope.context.stateOrDefault.ratingsState}">
                             <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE">Top-Rated</gsml:a>

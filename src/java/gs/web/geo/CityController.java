@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.6 2006/04/07 03:38:48 apeterson Exp $
+ * $Id: CityController.java,v 1.7 2006/04/07 17:35:47 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -42,10 +42,10 @@ public class CityController extends AbstractController {
     public static final String MODEL_TOP_RATED_SCHOOLS = "topRatedSchools"; // List of ITopRatedSchool objects
 
     public static final String MODEL_CITY = "cityObject"; // City BpCensus object
-    public static final String MODEL_CITY_NAME = "cityName"; // name of the city, correctly capitalized
+    public static final String MODEL_CITY_NAME = "displayName"; // name of the city, correctly capitalized
 
     public static final String MODEL_DISTRICTS = "districts"; // ListModel object
-    public static final String MODEL_SCHOOL_BREAKDOWN = "schoolBreakdown"; // ListModel object
+    //public static final String MODEL_SCHOOL_BREAKDOWN = "schoolBreakdown"; // ListModel object
 
     public static final String MODEL_SCHOOLS_BY_LEVEL = "schoolsByLevel"; // map [e,m,h] of ListModel object
 
@@ -85,11 +85,15 @@ public class CityController extends AbstractController {
 
         Map model = new HashMap();
 
-        model.put(MODEL_CITY_NAME, city.getName());
+        if (state.equals(State.DC)) {
+            model.put(MODEL_CITY_NAME, "Washington, D.C.");
+        } else {
+            model.put(MODEL_CITY_NAME, city.getName());
+        }
         model.put(MODEL_CITY, city);
 
-        ListModel schoolBreakdownList = createSchoolSummaryModel(state, cityNameParam);
-        model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownList);
+        //ListModel schoolBreakdownList = createSchoolSummaryModel(state, cityNameParam);
+        //model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownList);
 
         Map schoolsByLevel = createSchoolsByLevelModel(state, city, request);
         model.put(MODEL_SCHOOLS_BY_LEVEL, schoolsByLevel);

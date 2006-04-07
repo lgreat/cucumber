@@ -8,8 +8,7 @@
 <c:set var="usCensus" value="${requestScope.us}"/>
 <c:if test="${not empty bpCensus}">
         <div id="cityStats" class="statsModule">
-            <div style="float: right; width: 20%">Pop. <fmt:formatNumber value="${bpCensus.population}"
-                                                                         maxFractionDigits="0"/></div>
+
 
             <h3>What's it like to live in ${bpCensus.name}?</h3>
             <table cellpadding="0" cellspacing="0" class="census">
@@ -41,10 +40,10 @@
                         Cost of living
                     </th>
                     <td class="${bpCensus.costOfLiving lt usCensus.costOfLiving ? 'better' : 'worse'}">
-                        ${bpCensus.costOfLiving}%
+                        <fmt:formatNumber value="${bpCensus.costOfLiving}" maxFractionDigits="0"/>%
                     </td>
                     <td>
-                        ${stateCensus.costOfLiving}%
+                        <fmt:formatNumber value="${stateCensus.costOfLiving}" maxFractionDigits="0"/>%
                     </td>
                     <td>
                         100%
@@ -83,17 +82,16 @@
             </table>
             <table class="climate">
                 <tr>
-                    <th>
+                    <th style="text-align:left">
                         Days per year with some sun:
                     <span class="${bpCensus.sunnyDays gt 250 ? 'better' :
 					bpCensus.sunnyDays lt 75 ? 'worse' : ''}">
                         <fmt:formatNumber value="${bpCensus.sunnyDays}" maxFractionDigits="0"/>
                     </span>
                     </th>
-                    <td rowspan="2"><a href="http://bestplaces.net" target="_blank"><gsml:img src="/res/img/geo/bestPlaces135x34.gif" alt="Sperling's Best Places"/></a></td>
                 </tr>
                 <tr>
-                    <th>
+                    <th style="text-align:left">
                         Days per year with some precipitation:
                     <span class="${bpCensus.precipitationDays gt 150 ? 'worse' :
 					bpCensus.precipitationDays lt 75 ? 'better' : ''}">
@@ -102,9 +100,25 @@
                     </span>
                     </th>
                 </tr>
+                <tr>
+                    <th style="text-align:left" class="dottedLineTopBox">
+                        Population: <fmt:formatNumber
+                            value="${bpCensus.population}"
+                            maxFractionDigits="0"/>
+                    </th>
+                </tr>
+                <tr>
+                    <td style="vertical-align: bottom">
+                        Source: 
+                        <a href="http://bestplaces.net" target="_blank"><gsml:img
+                                src="/res/img/geo/bestPlaces135x34.gif" alt="Sperling's Best Places"/></a>
+                    </td>
+                    <td style="text-align: right; vertical-align: bottom; font-size: xx-small"><gsml:popupWindow href="/definitions/natl/community_city.html"
+                                                                    width="400" height="500" left="100"
+                                                                    top="100">More About This Data</gsml:popupWindow></td>
+                </tr>
             </table>
-            <gsml:popupWindow href="/definitions/natl/community_city.html" width="400" height="500" left="100"
-                              top="100">More About This Data</gsml:popupWindow>
+
         </div>
     </c:if>
 </jsp:root>

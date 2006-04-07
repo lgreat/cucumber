@@ -28,7 +28,7 @@
 
         </style>
             ]]>
-    <title>${cityName} Schools</title>
+    <title>${displayName} Schools</title>
 </head>
 
 <gsml:body adPageName="city" pageLayout="cityPage">
@@ -38,11 +38,11 @@
     <table width="100%">
         <tr>
             <td style="white-space:nowrap; vertical-align: bottom">
-                <h1 style="font-size: medium; color: #eb7a31; ">GreatSchools ${cityName}</h1>
+                <h1 style="font-size: medium; color: #eb7a31; ">GreatSchools ${displayName}</h1>
             </td>
             <td id="nearbyCities" style="vertical-align: bottom; text-align: right">
                 <jsp:include
-                        page="/geo/nearbyCities.module?city=${cityName}&amp;count=5&amp;more=true&amp;heading=Nearby+Cities"/>
+                        page="/geo/nearbyCities.module?city=${cityObject.name}&amp;count=5&amp;more=true&amp;heading=Nearby+Cities"/>
             </td>
         </tr>
     </table>
@@ -55,7 +55,7 @@
     <c:if test="${not empty requestScope.topRatedSchools}">
         Top-rated
     </c:if>
-    ${cityName} Schools
+    ${displayName} Schools
 </h2>
 <table width="100%" cellpadding="0" cellspacing="0"><tr><td
         style="width:250px; vertical-align: top">
@@ -64,7 +64,7 @@
     </div>
 
     <div style="font-size:xx-small;font-weight: bold"><gsml:a
-            href="/schools.page?city=${cityName}&amp;map=1&amp;state=$STATE">View Larger Map</gsml:a>
+            href="/schools.page?city=${cityObject.name}&amp;map=1&amp;state=$STATE">View Larger Map</gsml:a>
     </div>
     <map:setup/>
     <map:schools functionName="createMap" id="map" lon="${cityObject.lon}" lat="${cityObject.lat}"
@@ -106,7 +106,7 @@
                     </c:forEach>
                 </table>
                 <h5 style="margin: 8px 0 0 0; font-size: x-small">
-                    <gsml:a href="/modperl/rankings.pl?state=$STATE&amp;action=ratingbycity&amp;city=${cityName}&amp;rating=testscore">
+                    <gsml:a href="/modperl/rankings.pl?state=$STATE&amp;action=ratingbycity&amp;city=${cityObject.name}&amp;rating=testscore">
                         View All Top-Rated Schools</gsml:a>
                 </h5>
             </div>
@@ -135,7 +135,7 @@
 <c:if test="${not empty requestScope.topRatedSchools}">
 
     <div width="100%" class="cleanLineTopBox">
-        <h2>All ${cityName} Schools</h2>
+        <h2>All ${displayName} Schools</h2>
         <table width="100%"><tr>
             <td style="vertical-align: top; width: 50%">
                 <div class="schoolBreakdown">
@@ -161,7 +161,7 @@
 
 
 <div width="100%" class="cleanLineTopBox">
-    <jsp:include page="/geo/cityStats.module?city=${cityName}&amp;state=${stateAbbrev}"/>
+    <jsp:include page="/geo/cityStats.module?city=${cityObject.name}&amp;state=${stateAbbrev}"/>
 </div>
 
 </td>
@@ -172,7 +172,7 @@
         <tr>
             <td class="recentParentReviews">
                 <jsp:include
-                        page="/school/review/recentParentReviews.module?city=${cityName}&amp;state=${stateAbbrev}"/>
+                        page="/school/review/recentParentReviews.module?city=${cityObject.name}&amp;state=${stateAbbrev}"/>
 
             </td>
         </tr>

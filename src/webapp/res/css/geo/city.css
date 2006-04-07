@@ -72,8 +72,12 @@
     font-weight: bold;
 }
 
+.statsModule table.climate {
+    border: 0px solid red;
+}
 .statsModule .climate th {
     font-weight: normal;
+    border: 0px solid red;
 }
 
 #nearbyCities {
@@ -196,7 +200,6 @@ div.topRatedSchools {
 .recentParentReviews p {
     font-size: x-small;
 }
-
 
 .schoolBreakdown,
 .districts {

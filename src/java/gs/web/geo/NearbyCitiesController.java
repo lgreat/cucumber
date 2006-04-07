@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.14 2006/04/07 02:47:54 apeterson Exp $
+* $Id: NearbyCitiesController.java,v 1.15 2006/04/07 17:35:39 apeterson Exp $
 */
 
 package gs.web.geo;
@@ -134,7 +134,9 @@ public class NearbyCitiesController extends AbstractController {
                     UrlBuilder builder = new UrlBuilder(city, UrlBuilder.MORE_NEARBY_CITIES);
                     builder.setParameter(PARAM_ORDER, "alpha");
                     builder.setParameter(PARAM_INCLUDE_STATE, "1");
-                    builder.setParameter(PARAM_ALL, "1");
+                    if (!state.equals(State.DC)) {
+                        builder.setParameter(PARAM_ALL, "1");
+                    }
                     Anchor anchor = builder.asAnchor(request, "More...", "more");
                     items.add(anchor);
                 }

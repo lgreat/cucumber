@@ -36,7 +36,7 @@ I'd like to use a consistent display of school information in the info window.
     <script type="text/javascript">
  //<![CDATA[
  function createMarker(point,html) {
-   html = '<div style="white-space:nowrap;">' + html + '</div>';
+   html = '<div style="font-size:x-small;width: 200px;height: 20px">' + html + '</div>';
    var marker = new GMarker(point);
    GEvent.addListener(marker, "click", function() {
       marker.openInfoWindowHtml(html);
@@ -54,8 +54,18 @@ function ${functionName}() {
       <c:if test="${not empty s.lon}">
     //<![CDATA[
        var point = new GPoint(${s.lon},${s.lat});
-       var marker = createMarker(point,
-            '<a href="/modperl/browse_school/${s.databaseState.abbreviation}/${s.id}">${fn:escapeXml(s.name)}</a><h4><br />Grades: <b>${s.gradeLevels}</b><br />Type: <b>${s.type.name}</b><br />Students: <b>${s.enrollment > 0 ? s.enrollment : 'n/a'}</b></h4>');
+       var schInfo = "<br />${s.gradeLevels}, ${s.type.name}";
+       var stInfo = "";
+       //]]>
+   <c:if test="${s.enrollment > 0}">
+   //<![CDATA[
+       var stInfo = "<br />${s.enrollment} students";
+   //]]>
+   </c:if>
+   //<![CDATA[
+       var winInfo = '<a href="/modperl/browse_school/${s.databaseState.abbreviation}/${s.id}">${fn:escapeXml(s.name)}</a>' +
+                     schInfo + stInfo;
+       var marker = createMarker(point, winInfo);
        map.addOverlay(marker);
        bounds.extend(marker.point);
        //]]>
