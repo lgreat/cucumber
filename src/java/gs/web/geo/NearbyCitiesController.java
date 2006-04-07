@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.12 2006/04/07 00:53:28 apeterson Exp $
+* $Id: NearbyCitiesController.java,v 1.13 2006/04/07 01:03:15 apeterson Exp $
 */
 
 package gs.web.geo;
@@ -110,7 +110,7 @@ public class NearbyCitiesController extends AbstractController {
                     String name = nearbyCity.getName();
                     if (request.getParameter(PARAM_INCLUDE_STATE) != null ||
                             !nearbyCity.getState().equals(state)) {
-                        name += ", " + state.getAbbreviation();
+                        name += ", " + nearbyCity.getState().getAbbreviation();
                     }
 
                     // style class

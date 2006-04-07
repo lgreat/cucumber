@@ -40,10 +40,11 @@ div#nearbyCities {
     padding: .3em 1em .3 1em;
 }
 div#nearbyCities h3 {
-    color: #888;
-    padding-right: 1em;
-    text-weight: bold;
-    font-size: large;
+    color: #eb7a31;
+    font-size: medium;
+    font-weight: 700;
+    text-align: left;
+    padding-bottom: 5px;
 }
 div#nearbyCities li {
 font-size: small;
