@@ -47,7 +47,7 @@ function initPopUp() {
 				'</div>' +
 			'</div>' +
 			'<iframe src="javascript:parent.frameLoading()" style="width:100%;height:100%;background-color:transparent;" scrolling="auto" frameborder="0" allowtransparency="true" id="popupFrame" name="popupFrame" width="100%" height="100%"></iframe>' +
-            '<div id="popupCloseBtn"><button onclick="hidePopWin(false);">Close window</button></div>' +            
+            '<div id="popupCloseBtn"><button onclick="hidePopWin(false);">Close window</button></div>' +
         '</div>';
 	body.appendChild(popmask);
 	body.appendChild(popcont);
@@ -108,11 +108,9 @@ function showPopWin(url, width, height, returnFunc) {
 	gPopFrame.style.height = (height) + "px";
 	gPopFrame.src = url;
 	gReturnFunc = returnFunc;
-	// for IE
-	if (gHideSelects == true) {
-		hideSelectBoxes();
-	}
 	window.setTimeout("setPopTitleAndRewriteTargets();", 800);
+
+    hideContainers();
 }
 
 //
@@ -170,10 +168,8 @@ function hidePopWin(callReturnFunc) {
 		gReturnFunc(window.frames["popupFrame"].returnVal);
 	}
 	gPopFrame.src = "javascript:parent.frameLoading()";
-	// display all select boxes
-	if (gHideSelects == true) {
-		displaySelectBoxes();
-	}
+
+    showContainers();
 }
 
 /**
@@ -238,35 +234,6 @@ function restoreTabIndexes() {
 }
 
 /**
-* Hides all drop down form select boxes on the screen so they do not appear above the mask layer.
-* IE has a problem with wanted select form tags to always be the topmost z-index or layer
-* Thanks for the code Scott!
-*/
-function hideSelectBoxes() {
-	for(var i = 0; i < document.forms.length; i++) {
-		for(var e = 0; e < document.forms[i].length; e++){
-			if(document.forms[i].elements[e].tagName == "SELECT") {
-				document.forms[i].elements[e].style.visibility="hidden";
-			}
-		}
-	}
-}
-
-/**
-* Makes all drop down form select boxes on the screen visible so they do not reappear after the dialog is closed.
-* IE has a problem with wanted select form tags to always be the topmost z-index or layer
-*/
-function displaySelectBoxes() {
-	for(var i = 0; i < document.forms.length; i++) {
-		for(var e = 0; e < document.forms[i].length; e++){
-			if(document.forms[i].elements[e].tagName == "SELECT") {
-			document.forms[i].elements[e].style.visibility="visible";
-			}
-		}
-	}
-}
-
-/**
  * X-browser event handler attachment and detachment
  * @argument obj - the object to attach event to
  * @argument evType - name of the event - DONT ADD "on", pass only "mouseover", etc
@@ -301,4 +268,39 @@ function getViewportWidth() {
 	if (document.compatMode=='CSS1Compat') return document.documentElement.clientWidth;
 	if (document.body) return document.body.clientWidth;
 	return window.undefined;
+}
+
+
+function hideContainers() {
+var hidden = getElementsByCondition(
+    function(el) {
+        if(el.id.indexOf("ad")==0){el.style.display='none';return el}
+        //IE wants select boxes to have highest z-index
+        else if (gHideSelects && el.tagName == "SELECT") {el.style.visibility="hidden";return el}
+    }
+    )
+}
+
+function showContainers() {
+    var hidden = getElementsByCondition(
+        function(el){
+            if(el.id.indexOf("ad")==0){el.style.display='block';return el}
+            //IE wants select boxes to have highest z-index
+            else if (gHideSelects && el.tagName == "SELECT") {el.style.visibility="visible";return el}
+        }
+        )
+}
+//code from http://www.webmasterworld.com/forum91/1729.htm
+function getElementsByCondition(condition,container) {
+    container = container||document
+    var all = container.all||container.getElementsByTagName('*')
+
+    var arr = []
+    for(var k=0;k<all.length;k++)
+    {
+        var elm = all[k]
+        if(condition(elm,k))
+            arr[arr.length] = elm
+    }
+    return arr
 }
