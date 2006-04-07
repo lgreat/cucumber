@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.4 2006/04/06 23:27:06 apeterson Exp $
+ * $Id: CityController.java,v 1.5 2006/04/07 02:00:39 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -81,6 +81,9 @@ public class CityController extends AbstractController {
 
         Map model = new HashMap();
 
+        model.put(MODEL_CITY_NAME, city.getName());
+        model.put(MODEL_CITY, city);
+
         ListModel schoolBreakdownList = createSchoolSummaryModel(state, cityNameParam);
         model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownList);
 
@@ -88,18 +91,13 @@ public class CityController extends AbstractController {
         model.put(MODEL_DISTRICTS, districtList);
 
 
-        String c = StringUtils.capitalize(cityNameParam);
-        model.put(MODEL_CITY_NAME, c);
-
-        model.put(MODEL_CITY, city);
-
         /*
          * If top rated schools are available for this city, then get them and
          * put them into the model.
          */
         if (state.isRatingsState()) {
             List topRatedSchools;
-            topRatedSchools = _schoolDao.findTopRatedSchoolsInCity(city, 8, null, 5);
+            topRatedSchools = _schoolDao.findTopRatedSchoolsInCity(city, 9, null, 5);
             if (topRatedSchools.size() > 0) {
                 model.put(MODEL_TOP_RATED_SCHOOLS, topRatedSchools);
 

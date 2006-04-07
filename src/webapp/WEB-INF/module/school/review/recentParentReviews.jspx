@@ -69,7 +69,7 @@
                 </tr>
             <tr>
                 <td colspan="2">
-            <h5>(${review.date})</h5>
+            <h5>[Bell] ${review.date}</h5>
                 </td>
             </tr>
             <tr>

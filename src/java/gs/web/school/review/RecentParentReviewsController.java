@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsController.java,v 1.6 2006/04/06 23:27:39 apeterson Exp $
+ * $Id: RecentParentReviewsController.java,v 1.7 2006/04/07 02:00:39 apeterson Exp $
  */
 
 package gs.web.school.review;
@@ -161,7 +161,7 @@ public class RecentParentReviewsController extends AbstractController {
 
         public String getQuip() {
             String c = _review.getComments();
-            String q = StringUtils.abbreviate(c, 80);
+            String q = StringUtils.abbreviate(c, 50);
             return q;
         }
 

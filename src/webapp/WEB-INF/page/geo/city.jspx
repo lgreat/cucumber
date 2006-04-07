@@ -33,11 +33,6 @@
     padding: .0em;
 }
 #map, #mapContainer {
-    width: 330px; height: 200px;
-    width: 500px; height: 330px;
-    width: 600px; height: 400px;
-    width: 700px; height: 400px;
-    width: 350px; height: 350px;
     width: 250px; height: 230px;
 }
 
@@ -49,14 +44,14 @@
 .cityPage .hotTopics h3,
 .statsModule h3 {
     color: #eb7a31;
-    font-size: medium;
+    font-size: small;
     font-weight: 700;
     text-align: left;
 }
 
 
 .statsModule {
-    font-size: small;
+    font-size: x-small;
 }
 .statsModule table {
             padding-top: 1em;
@@ -66,7 +61,7 @@
 .statsModule .census td,
 .statsModule .census th {
             border-bottom: 1px dotted #999;
-            font-size: small;
+            font-size: x-small;
             font-weight: normal;
             padding: .4em 1em .5em 1em;
             text-align: left;
@@ -84,7 +79,7 @@ padding-left: 0;
             font-weight: normal;
             padding: 0 1em .3em 1em;
             color: #555;
-            font-size: x-small;
+            font-size: xx-small;
             font-weight: bold;
             border-bottom: 1px solid #ccc;
         }
@@ -103,7 +98,7 @@ padding-left: 0;
     color: #888;
     padding-right: 1em;
     text-weight: bold;
-    font-size: small;
+    font-size: x-small;
 }
 #nearbyCities ul {
     display: inline;
@@ -112,7 +107,7 @@ padding-left: 0;
 #nearbyCities li {
     display: inline;
     padding: 0 .4em 0 .4em;
-    font-size: small;
+    font-size: x-small;
     line-height: 1em;
 }
 #nearbyCities li.bigCity,
@@ -171,11 +166,11 @@ table#topRatedSchools {
 }
 #topRatedSchools td {
 margin:0;
-font-size:small;
+font-size:x-small;
 padding: 2px 5px 3px 0;
 }
 #topRatedSchools th {
-    font-size: x-small;
+    font-size: xx-small;
     color: #999;
     vertical-align: bottom;
 
@@ -186,14 +181,20 @@ padding: 2px 5px 3px 0;
 
 }
 
-
+.recentParentReviews h5 {
+    font-size: xx-small;
+    color: #999;
+}
+.recentParentReviews .stars {
+    white-space:nowrap;
+    }
 
 .recentParentReviews h4 {
 padding-top: 5px;
-font-size: small;
+font-size: x-small;
 }
 .recentParentReviews p {
-font-size: small;
+font-size: x-small;
 }
 
 
@@ -207,7 +208,7 @@ font-size: small;
     <table width="100%">
         <tr>
             <td style="white-space:nowrap; vertical-align: bottom">
-                <h1 style="font-size: large; color: #eb7a31; ">GreatSchools ${cityName}</h1>
+                <h1 style="font-size: medium; color: #eb7a31; ">GreatSchools ${cityName}</h1>
             </td>
             <td id="nearbyCities" style="vertical-align: bottom; text-align: right">
                 <jsp:include page="/geo/nearbyCities.module?city=${cityName}&amp;count=5&amp;more=true&amp;heading=Nearby+Cities"/>
@@ -230,7 +231,7 @@ font-size: small;
                 <div id="mapContainer">
                     <div id="map">&#160;</div>
                 </div>
-                <div style="font-size:x-small;font-weight: bold"><gsml:a href="/schools.page?city=${cityName}&amp;map=1&amp;state=$STATE">View Larger Map</gsml:a>
+                <div style="font-size:xx-small;font-weight: bold"><gsml:a href="/schools.page?city=${cityName}&amp;map=1&amp;state=$STATE">View Larger Map</gsml:a>
                 </div>
                 <map:setup/>
                 <map:schools functionName="createMap" id="map" lon="${cityObject.lon}" lat="${cityObject.lat}"
@@ -269,7 +270,7 @@ font-size: small;
                                 </tr>
                             </c:forEach>
                         </table>
-                        <h5 style="margin: 8px">
+                        <h5 style="margin: 8px; font-size: x-small">
                             <gsml:a href="/modperl/rankings.pl?state=$STATE&amp;action=ratingbycity&amp;city=${cityName}&amp;rating=testscore">View All Top-Rated Schools</gsml:a>
                         </h5>
                     </c:if>
