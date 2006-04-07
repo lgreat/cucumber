@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.11 2006/03/31 19:28:32 apeterson Exp $
+* $Id: NearbyCitiesController.java,v 1.12 2006/04/07 00:53:28 apeterson Exp $
 */
 
 package gs.web.geo;
@@ -42,10 +42,22 @@ public class NearbyCitiesController extends AbstractController {
      */
     private static final String PARAM_MORE = "more";
     /**
+     * Set if you want a "see Browse all cities in CA..." link.
+     */
+    private static final String PARAM_ALL = "all";
+    /**
+     * Set if you want to include the state in all names. Otherwise, only
+     * those in cities of other states are indicated.
+     */
+    private static final String PARAM_INCLUDE_STATE = "includeState";
+    /**
      * How the cities are sorted. Default is by proximity, but also can use "alpha" for
      * alphabetical.
      */
     private static final String PARAM_ORDER = "order";
+
+    private static final String PARAM_HEADING = "heading";
+
     private static final int DEFAULT_MAX_CITIES = 20;
 
     private static final String MODEL_CITY = "cityObject";
@@ -84,11 +96,24 @@ public class NearbyCitiesController extends AbstractController {
 
                 model.put(MODEL_CITIES, nearbyCities);
 
-                model.put(ListModel.HEADING, "Nearby cities");
+                String heading = "Cities Near " +city.getName();
+                if (request.getParameter(PARAM_HEADING) != null) {
+                    heading = request.getParameter(PARAM_HEADING);
+                }
+                model.put(ListModel.HEADING, heading);
 
                 List items = new ArrayList(limit);
                 for (int i = 0; i < limit && i < nearbyCities.size(); i++) {
                     ICity nearbyCity = (ICity) nearbyCities.get(i);
+
+                    // name
+                    String name = nearbyCity.getName();
+                    if (request.getParameter(PARAM_INCLUDE_STATE) != null ||
+                            !nearbyCity.getState().equals(state)) {
+                        name += ", " + state.getAbbreviation();
+                    }
+
+                    // style class
                     String styleClass = "town";
                     long pop = 0;
                     if (nearbyCity.getPopulation() != null) {
@@ -97,11 +122,13 @@ public class NearbyCitiesController extends AbstractController {
                     if (pop > 50000) {
                         styleClass = (pop > 200000) ? "bigCity" : "city";
                     }
+
+                    // anchor
                     Anchor anchor = new Anchor("/city.page?state=" +
                             nearbyCity.getState() +
                             "&amp;city=" +
                             nearbyCity.getName(),
-                            nearbyCity.getName(),
+                            name,
                             styleClass);
                     items.add(anchor);
                 }
@@ -109,13 +136,16 @@ public class NearbyCitiesController extends AbstractController {
                 if (request.getParameter(PARAM_MORE) != null) {
                     Anchor anchor = new Anchor("/cities.page?state=" +
                             state +
-                            "&amp;city=" +
-                            cityNameParam +
-                            "&amp;order=alpha",
+                            "&amp;" +
+                            PARAM_CITY + "=" + cityNameParam + "&amp;" +
+                            PARAM_ORDER + "=alpha" + "&amp;" +
+                            PARAM_INCLUDE_STATE + "=1" + "&amp;" +
+                            PARAM_ALL + "=1",
                             "More...",
                             "more");
                     items.add(anchor);
-                } else {
+                }
+                if (request.getParameter(PARAM_ALL) != null) {
                     Anchor anchor = new Anchor("/modperl/citylist/" +
                             state +
                             "/",

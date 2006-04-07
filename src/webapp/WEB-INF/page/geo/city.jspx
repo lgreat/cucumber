@@ -210,7 +210,7 @@ font-size: small;
                 <h1 style="font-size: large; color: #eb7a31; ">GreatSchools ${cityName}</h1>
             </td>
             <td id="nearbyCities" style="vertical-align: bottom; text-align: right">
-                <jsp:include page="/geo/nearbyCities.module?city=${cityName}&amp;count=5&amp;more=true"/>
+                <jsp:include page="/geo/nearbyCities.module?city=${cityName}&amp;count=5&amp;more=true&amp;heading=Nearby+Cities"/>
             </td>
         </tr>
     </table>
