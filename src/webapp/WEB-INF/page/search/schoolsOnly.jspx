@@ -92,21 +92,25 @@
 
             <!--gsml:box tableClass="shade3 main"-->
 
-                <gsml:form action="/compareSchools.page" method="GET">
-                    <input type="hidden" name="state" value="${state}}"/>
+            <gsml:form action="/compareSchools.page" method="GET">
+                <input type="hidden" name="state" value="${state}}"/>
 
-                    <gsweb:schoolTableHeader schools="${results.schools}"
-                                             total="${results.total}"
-                                             srcQuery="${pageContext.request.queryString}"
-                                             showAll="${param.showall}"
-                                             cityName="${requestScope.city}"
-                                             districtId="${requestScope.district}"
-                                             schoolType="${requestScope.st}"
-                                             levelCode="${requestScope.lc}"
-                            >
-                    </gsweb:schoolTableHeader>
+                <gsweb:schoolTableHeader schools="${results.schools}"
+                                         total="${results.total}"
+                                         srcQuery="${pageContext.request.queryString}"
+                                         showAll="${param.showall}"
+                                         cityName="${requestScope.city}"
+                                         districtId="${requestScope.district}"
+                                         schoolType="${requestScope.st}"
+                                         levelCode="${requestScope.lc}"
+                        >
+                </gsweb:schoolTableHeader>
 
-                    <c:if test="${results.total gt 0 and param.map eq 1}">
+                <c:if test="${results.total gt 0}">
+                    <c:if test="${param.map eq 1}">
+                        <div style="width:100%; text-align:right; padding-right: 5px;  font-size: small;font-weight:bold">
+                        <gsml:a href="/schools.page?map=0&amp;${pageContext.request.queryString}">Hide Map</gsml:a>
+                        </div>
                         <div id="mapContainer">
                             <div id="map" style="height: 400px; width: 100%">&#160;</div>
                         </div>
@@ -115,19 +119,42 @@
                                      schools="${results.schools}"/>
                         <pageHelper:addOnLoadHandler handler="createMap()"/>
                     </c:if>
+                    <c:if test="${param.map ne 1}">
+                        <div style="border: 1px solid #999; border-width: 1px 0 1px 0; font-size: small;">
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td rowspan="2">
+                                        <gsml:a href="/schools.page?map=1&amp;${pageContext.request.queryString}">
+                                            <gsml:img src="/res/img/geo/btn_map_it.gif" alt="map it"/>
+                                        </gsml:a>
+                                    </td>
+                                    <td style="text-align:right; padding-right: 5px; font-weight:bold">
+                                        <gsml:a href="/schools.page?map=1&amp;${pageContext.request.queryString}">Show
+                                            Map</gsml:a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-left: 15px; padding-bottom: 4px">See your
+                                            results on our interactive local map.
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </c:if>
+                </c:if>
 
-                    <gsweb:schoolTable schools="${results.schools}"
-                                       total="${results.total}"
-                                       srcQuery="${pageContext.request.queryString}"
-                                       showAll="${param.showall}"
-                                       cityName="${requestScope.city}"
-                                       districtId="${requestScope.district}"
-                                       schoolType="${requestScope.st}"
-                                       levelCode="${requestScope.lc}"
-                            >
-                        <search:schoolTable schools="${results.schools}"/>
-                    </gsweb:schoolTable>
-                </gsml:form>
+                <gsweb:schoolTable schools="${results.schools}"
+                                   total="${results.total}"
+                                   srcQuery="${pageContext.request.queryString}"
+                                   showAll="${param.showall}"
+                                   cityName="${requestScope.city}"
+                                   districtId="${requestScope.district}"
+                                   schoolType="${requestScope.st}"
+                                   levelCode="${requestScope.lc}"
+                        >
+                    <search:schoolTable schools="${results.schools}"/>
+                </gsweb:schoolTable>
+            </gsml:form>
             <!--/gsml:box-->
         </td>
         <td class="rightcolumn" align="center">
