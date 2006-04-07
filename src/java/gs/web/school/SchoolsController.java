@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.8 2006/04/05 17:24:21 apeterson Exp $
+ * $Id: SchoolsController.java,v 1.9 2006/04/07 03:38:49 apeterson Exp $
  */
 
 package gs.web.school;
@@ -56,6 +56,8 @@ public class SchoolsController extends AbstractController {
      * Zero or more of (public,private,charter), as separate parameters.
      */
     public static final String PARAM_SCHOOL_TYPE = "st";
+
+    public static final String PARAM_SHOW_MAP = "map";
 
     // OUTPUT
     // request attributes

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.5 2006/04/07 02:00:39 apeterson Exp $
+ * $Id: CityController.java,v 1.6 2006/04/07 03:38:48 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -13,9 +13,11 @@ import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.web.SessionContext;
+import gs.web.school.SchoolsController;
 import gs.web.util.Anchor;
 import gs.web.util.ListModel;
 import gs.web.util.UrlUtil;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
@@ -44,6 +46,8 @@ public class CityController extends AbstractController {
 
     public static final String MODEL_DISTRICTS = "districts"; // ListModel object
     public static final String MODEL_SCHOOL_BREAKDOWN = "schoolBreakdown"; // ListModel object
+
+    public static final String MODEL_SCHOOLS_BY_LEVEL = "schoolsByLevel"; // map [e,m,h] of ListModel object
 
 
     private IGeoDao _geoDao;
@@ -86,6 +90,9 @@ public class CityController extends AbstractController {
 
         ListModel schoolBreakdownList = createSchoolSummaryModel(state, cityNameParam);
         model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownList);
+
+        Map schoolsByLevel = createSchoolsByLevelModel(state, city, request);
+        model.put(MODEL_SCHOOLS_BY_LEVEL, schoolsByLevel);
 
         ListModel districtList = createDistrictList(state, cityNameParam, request);
         model.put(MODEL_DISTRICTS, districtList);
@@ -133,7 +140,7 @@ public class CityController extends AbstractController {
 
             if (list.size() <= 6) {
                 _districtDao.sortDistrictsByName(list);
-                districts.setHeading(cityNameParam + " Districts");
+                districts.setHeading(cityNameParam + " School Districts");
             } else {
                 // Too many districts to show... just show the largest
                 _districtDao.sortDistrictsByNumberOfSchools(list, false);
@@ -193,6 +200,53 @@ public class CityController extends AbstractController {
 
         }
         return schoolBreakdownList;
+    }
+
+    private Map createSchoolsByLevelModel(State state, ICity city, HttpServletRequest request) {
+        // the summaries of schools in a city
+        Map map = null;
+
+        int sc = _schoolDao.countSchools(state, null, null, city.getName());
+        if (sc > 0) {
+            map = new HashMap();
+
+            UrlBuilder builder = new UrlBuilder(city, UrlBuilder.SCHOOLS_IN_CITY);
+
+            sc = _schoolDao.countSchools(state, null, LevelCode.ELEMENTARY, city.getName());
+            if (sc > 0) {
+                ListModel m = new ListModel("Elementary Schools (" + sc + ")");
+                builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "e");
+                m.addResult( builder.asAnchor(request, "List"));
+                builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
+                m.addResult(builder.asAnchor(request, "Map & List"));
+                builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
+                map.put("e", m);
+            }
+
+            sc = _schoolDao.countSchools(state, null, LevelCode.MIDDLE, city.getName());
+            if (sc > 0) {
+                ListModel m = new ListModel("Middle Schools (" + sc + ")");
+                builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "m");
+                m.addResult(builder.asAnchor(request, "List"));
+                builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
+                m.addResult(builder.asAnchor(request, "Map & List"));
+                builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
+                map.put("m", m);
+            }
+
+            sc = _schoolDao.countSchools(state, null, LevelCode.HIGH, city.getName());
+            if (sc > 0) {
+                ListModel m = new ListModel("High Schools (" + sc + ")");
+                builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "h");
+                m.addResult(builder.asAnchor(request, "List"));
+                builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
+                m.addResult(builder.asAnchor(request, "Map & List"));
+                builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
+                map.put("h", m);
+            }
+
+        }
+        return map;
     }
 
     public ISchoolDao getSchoolDao() {

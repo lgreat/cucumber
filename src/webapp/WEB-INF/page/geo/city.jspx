@@ -13,7 +13,6 @@
         xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
-<jsp:directive.page import="gs.web.util.UrlBuilder"/>
 <html lang="en">
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <jsp:output doctype-root-element="html"
@@ -23,17 +22,18 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-<![CDATA[
+    <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
         <style type="text/css">
 
         </style>
             ]]>
-<title>${cityName} Schools</title>
+    <title>${cityName} Schools</title>
 </head>
 
 <gsml:body adPageName="city" pageLayout="cityPage">
 <pageHelper:externalCss file="/res/css/geo/city.css"/>
+
 <div class="cleanLineBottomBox">
     <table width="100%">
         <tr>
@@ -41,133 +41,158 @@
                 <h1 style="font-size: medium; color: #eb7a31; ">GreatSchools ${cityName}</h1>
             </td>
             <td id="nearbyCities" style="vertical-align: bottom; text-align: right">
-                <jsp:include page="/geo/nearbyCities.module?city=${cityName}&amp;count=5&amp;more=true&amp;heading=Nearby+Cities"/>
+                <jsp:include
+                        page="/geo/nearbyCities.module?city=${cityName}&amp;count=5&amp;more=true&amp;heading=Nearby+Cities"/>
             </td>
         </tr>
     </table>
 </div>
 
 <table width="100%">
-    <tr>
-        <td width="66%" style="vertical-align:top">
-            <h2>
-                <c:if test="${not empty requestScope.topRatedSchools}">
-                    Top-rated
+<tr>
+<td width="66%" style="vertical-align:top">
+<h2>
+    <c:if test="${not empty requestScope.topRatedSchools}">
+        Top-rated
+    </c:if>
+    ${cityName} Schools
+</h2>
+<table width="100%" cellpadding="0" cellspacing="0"><tr><td
+        style="width:250px; vertical-align: top">
+    <div id="mapContainer">
+        <div id="map">&#160;</div>
+    </div>
+
+    <div style="font-size:xx-small;font-weight: bold"><gsml:a
+            href="/schools.page?city=${cityName}&amp;map=1&amp;state=$STATE">View Larger Map</gsml:a>
+    </div>
+    <map:setup/>
+    <map:schools functionName="createMap" id="map" lon="${cityObject.lon}" lat="${cityObject.lat}"
+                 schools="${schools}"/>
+    <pageHelper:addOnLoadHandler handler="createMap()"/>
+</td>
+    <td style="vertical-align: top">
+        <c:if test="${not empty requestScope.topRatedSchools}">
+            <div class="topRatedSchools">
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <tr style="">
+                        <th style="text-align: left">Top-Rated Schools</th>
+                        <th style="text-align: right;">GreatSchools<br/>Rating</th>
+                    </tr>
+                    <c:forEach items="${requestScope.topRatedSchools}" var="s">
+                        <tr>
+                            <!--jsp:scriptlet>
+                                UrlBuilder builder = new UrlBuilder(s, UrlBuilder.SCHOOL_PROFILE);
+                                String href = builder.asAHref(request, s.getName());
+                            </jsp:scriptlet-->
+
+                            <c:choose>
+                                <c:when test="${'private' == s.school.type.schoolTypeName}">
+                                    <c:set var="hrefbase"
+                                           value="/cgi-bin/${stateAbbrev}/private/"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="hrefbase"
+                                           value="/modperl/browse_school/${stateAbbrev}/"/>
+                                </c:otherwise>
+                            </c:choose>
+
+                            <td class="dottedLineBottomBox"><gsml:a
+                                    href="${hrefbase}${s.school.id}">${s.name}</gsml:a></td>
+                            <td style="text-align: right" class="dottedLineBottomBox"><gsml:img
+                                    src="/res/img/school/ratings/r${s.rating lt 10 ? '0' : ''}${s.rating}.gif"
+                                    alt="${s.rating}"/></td>
+                        </tr>
+                    </c:forEach>
+                </table>
+                <h5 style="margin: 8px 0 0 0; font-size: x-small">
+                    <gsml:a href="/modperl/rankings.pl?state=$STATE&amp;action=ratingbycity&amp;city=${cityName}&amp;rating=testscore">
+                        View All Top-Rated Schools</gsml:a>
+                </h5>
+            </div>
+        </c:if>
+        <c:if test="${empty requestScope.topRatedSchools}">
+            <div class="schoolBreakdown">
+                <c:if test="${not empty schoolsByLevel.e}">
+                    <gsml:list model="${schoolsByLevel.e}"/>
                 </c:if>
-                ${cityName} Schools
-            </h2>
-            <table width="100%" cellpadding="0" cellspacing="0"><tr><td
-                    style="width:250px; vertical-align: top">
-                <div id="mapContainer">
-                    <div id="map">&#160;</div>
-                </div>
-                <div style="font-size:xx-small;font-weight: bold"><gsml:a href="/schools.page?city=${cityName}&amp;map=1&amp;state=$STATE">View Larger Map</gsml:a>
-                </div>
-                <map:setup/>
-                <map:schools functionName="createMap" id="map" lon="${cityObject.lon}" lat="${cityObject.lat}"
-                             schools="${schools}"/>
-                <pageHelper:addOnLoadHandler handler="createMap()"/>
-            </td>
-                <td style="vertical-align: top">
-                    <c:if test="${not empty requestScope.topRatedSchools}">
-                        <div class="topRatedSchools">
-                        <table width="100%" cellpadding="0" cellspacing="0" >
-                            <tr style="">
-                                <th style="text-align: left">Top-Rated Schools</th>
-                                <th style="text-align: right;">GreatSchools<br />Rating</th>
-                            </tr>
-                            <c:forEach items="${requestScope.topRatedSchools}" var="s" >
-                                <tr>
-                                    <!--jsp:scriptlet>
-                                        UrlBuilder builder = new UrlBuilder(s, UrlBuilder.SCHOOL_PROFILE);
-                                        String href = builder.asAHref(request, s.getName());
-                                    </jsp:scriptlet-->
-
-                                    <c:choose>
-                                        <c:when test="${'private' == s.school.type.schoolTypeName}">
-                                            <c:set var="hrefbase"
-                                                   value="/cgi-bin/${stateAbbrev}/private/"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <c:set var="hrefbase"
-                                                   value="/modperl/browse_school/${stateAbbrev}/"/>
-                                        </c:otherwise>
-                                    </c:choose>
-
-                                    <td class="dottedLineBottomBox"><gsml:a href="${hrefbase}${s.school.id}">${s.name}</gsml:a></td>
-                                    <td style="text-align: right" class="dottedLineBottomBox"><gsml:img
-                                            src="/res/img/school/ratings/r${s.rating lt 10 ? '0' : ''}${s.rating}.gif"
-                                            alt="${s.rating}"/></td>
-                                </tr>
-                            </c:forEach>
-                        </table>
-                        <h5 style="margin: 8px; font-size: x-small">
-                            <gsml:a href="/modperl/rankings.pl?state=$STATE&amp;action=ratingbycity&amp;city=${cityName}&amp;rating=testscore">View All Top-Rated Schools</gsml:a>
-                        </h5>
-                </div>
-                    </c:if>
-                    <c:if test="${empty requestScope.topRatedSchools}">
-                        <gsml:list model="${schoolBreakdown}"/>
-                        <gsml:list model="${districts}"/>
-                    </c:if>
-
-                </td>
-            </tr>
-            </table>
-            <c:if test="${not empty requestScope.topRatedSchools}">
-
-                <div width="100%" class="cleanLineTopBox">
-                    <h2>All ${cityName} Schools</h2>
-                    <table width="100%"><tr>
-                        <td style="vertical-align: top; width: 50%">
-                            <c:if test="${not empty schoolBreakdown.results}">
-                                <gsml:list model="${schoolBreakdown}"/>
-                            </c:if>
-                        </td>
-                        <c:if test="${not empty districts.results}">
-                            <td style="vertical-align: top">
-                                <gsml:list model="${districts}"/>
-                            </td>
-                        </c:if>
-                    </tr></table>
-                </div>
-            </c:if>
-
-
-            <div width="100%" class="cleanLineTopBox">
-                <jsp:include page="/geo/cityStats.module?city=${cityName}&amp;state=${stateAbbrev}"/>
+                <c:if test="${not empty schoolsByLevel.m}">
+                    <gsml:list model="${schoolsByLevel.m}"/>
+                </c:if>
+                <c:if test="${not empty schoolsByLevel.h}">
+                    <gsml:list model="${schoolsByLevel.h}"/>
+                </c:if>
             </div>
 
-        </td>
-        <td style="height: 100%;vertical-align: top; "><div class="cleanLineLeftBox" style="height: 30em;">&#160;</div>
-        </td>
-        <td width="33%" style="vertical-align:top">
-            <table>
-                <tr>
-                    <td class="recentParentReviews">
-                        <jsp:include
-                                page="/school/review/recentParentReviews.module?city=${cityName}&amp;state=${stateAbbrev}"/>
+            <div class="districts">
+                <gsml:list model="${districts}"/>
+            </div>
+        </c:if>
 
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <ad:x40/>
+    </td>
+</tr>
+</table>
+<c:if test="${not empty requestScope.topRatedSchools}">
 
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="hotTopics">
-                            <h2>Parents' Choice: Most Popular Articles</h2>
-                            <jsp:include page="/promo/featuredArticles.module?position=HOT_TOPIC&amp;count=7"/>
-                        </div>
+    <div width="100%" class="cleanLineTopBox">
+        <h2>All ${cityName} Schools</h2>
+        <table width="100%"><tr>
+            <td style="vertical-align: top; width: 50%">
+                <div class="schoolBreakdown">
+                    <c:if test="${not empty schoolsByLevel.e}">
+                        <gsml:list model="${schoolsByLevel.e}"/>
+                    </c:if>
+                    <c:if test="${not empty schoolsByLevel.m}">
+                        <gsml:list model="${schoolsByLevel.m}"/>
+                    </c:if>
+                    <c:if test="${not empty schoolsByLevel.h}">
+                        <gsml:list model="${schoolsByLevel.h}"/>
+                    </c:if>
+                </div>
+            </td>
+            <c:if test="${not empty districts.results}">
+                <td style="vertical-align: top" class="districts">
+                    <gsml:list model="${districts}"/>
+                </td>
+            </c:if>
+        </tr></table>
+    </div>
+</c:if>
 
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
+
+<div width="100%" class="cleanLineTopBox">
+    <jsp:include page="/geo/cityStats.module?city=${cityName}&amp;state=${stateAbbrev}"/>
+</div>
+
+</td>
+<td style="height: 100%;vertical-align: top; "><div class="cleanLineLeftBox" style="height: 30em;">&#160;</div>
+</td>
+<td width="33%" style="vertical-align:top">
+    <table>
+        <tr>
+            <td class="recentParentReviews">
+                <jsp:include
+                        page="/school/review/recentParentReviews.module?city=${cityName}&amp;state=${stateAbbrev}"/>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <ad:x40/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="hotTopics">
+                    <h2>Parents' Choice: Most Popular Articles</h2>
+                    <jsp:include page="/promo/featuredArticles.module?position=HOT_TOPIC&amp;count=7"/>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+</td>
+</tr>
 </table>
 
 

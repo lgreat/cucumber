@@ -196,3 +196,33 @@ div.topRatedSchools {
 .recentParentReviews p {
     font-size: x-small;
 }
+
+
+.schoolBreakdown,
+.districts {
+    margin: 0 5px 0 5px;
+}
+.schoolBreakdown h3,
+.districts h3{
+    font-size: x-small;
+    font-weight: bold;
+    padding: 4px 0 4px 0;
+}
+
+.schoolBreakdown ul {
+    display: inline;
+    line-height: 1em;
+    padding: 0 0 4px 0;
+}
+
+.schoolBreakdown li,
+.districts li {
+    display: inline;
+    font-size: x-small;
+    line-height: 1em;
+}
+
+.schoolBreakdown li a {
+    padding: 0 .4em 0 .4em;
+    border-right: 1px solid #999;
+}
