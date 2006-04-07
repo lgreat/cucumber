@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.1 2006/04/06 22:05:14 apeterson Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.2 2006/04/07 18:56:44 apeterson Exp $
  */
 
 package gs.web.search;
@@ -38,7 +38,7 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
 
     private static UrlUtil urlUtil = new UrlUtil();
     private List _schools = null;
-    private String _queryString = null;
+    private String _srcQuery = null;
     private Boolean _showAll;
     private String _cityName;
     private Integer _districtId;
@@ -59,8 +59,6 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
 
         PageContext pc = (PageContext) getJspContext().findAttribute(PageContext.PAGECONTEXT);
         HttpServletRequest request = (HttpServletRequest) pc.getRequest();
-
-        String qString = getQueryString();
 
         boolean showall = _showAll != null && _showAll.booleanValue();
 
@@ -113,7 +111,7 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         String showAllHref = "";
         if (!showall && (_total > PAGE_SIZE)) {
             StringBuffer hrefBuffer = new StringBuffer("/schools.page?");
-            hrefBuffer.append(qString);
+            hrefBuffer.append(getSrcQuery());
             hrefBuffer.append("&amp;showall=true");
             showAllHref = SchoolTableHeaderTagHandler.urlUtil.buildUrl(hrefBuffer.toString(), request);
             out.print("<a href=\"" + showAllHref + "\">");
@@ -135,46 +133,6 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         }
         out.println("</td></tr>");
 
-        StringBuffer filterBuffer = new StringBuffer();
-
-        if (_levelCode != null) {
-            for (Iterator i = _levelCode.getIterator(); i.hasNext();) {
-                LevelCode.Level level = (LevelCode.Level) i.next();
-                String qs = "";
-                if (filterBuffer.length() > 0) {
-                    filterBuffer.append(" | ");
-                }
-                filterBuffer.append(Util.capitalize(level.getLongName()));
-                qs = qString.replaceAll("\\&lc=" + level.getName(), "");
-                filterBuffer.append(" (<a href=\"");
-                filterBuffer.append(SchoolTableHeaderTagHandler.urlUtil.buildUrl("/schools.page?" + qs, request));
-                filterBuffer.append("\">remove</a>)");
-            }
-        }
-
-        if (_schoolType != null) {
-            for (int i = 0; i < _schoolType.length; i++) {
-                String qs = "";
-                if (filterBuffer.length() > 0) {
-                    filterBuffer.append(" | ");
-                }
-                filterBuffer.append(Util.capitalize(_schoolType[i]));
-                if ("public".equals(_schoolType[i])) {
-                    qs = qString.replaceAll("\\&st=public", "");
-                } else if ("private".equals(_schoolType[i])) {
-                    qs = qString.replaceAll("\\&st=private", "");
-                } else if ("charter".equals(_schoolType[i])) {
-                    qs = qString.replaceAll("\\&st=charter", "");
-                }
-
-                StringBuffer urlBuffer = new StringBuffer("/schools.page?");
-                urlBuffer.append(qs);
-                filterBuffer.append(" (<a href=\"");
-                filterBuffer.append(SchoolTableHeaderTagHandler.urlUtil.buildUrl(urlBuffer.toString(), request));
-
-                filterBuffer.append("\">remove</a>)");
-            }
-        }
 
         // "compare all" links
         out.println("<tr><td colspan=\"2\">");
@@ -212,6 +170,9 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         // end "compare all" links
 
         // start filter row
+
+        StringBuffer filterBuffer = createFilterBuffer(getSrcQuery(), request);
+
         out.println("<tr><td id=\"filters\" colspan=\"2\">");
         if (filterBuffer.length() > 0) {
             out.print("Filtered: ");
@@ -222,12 +183,59 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         out.println("</td></tr></table>");
     }
 
-    public String getQueryString() {
-        return _queryString;
+    private StringBuffer createFilterBuffer(String qString, HttpServletRequest request) {
+        StringBuffer filterBuffer = new StringBuffer();
+
+        if (_levelCode != null) {
+            for (Iterator i = _levelCode.getIterator(); i.hasNext();) {
+                LevelCode.Level level = (LevelCode.Level) i.next();
+
+                if (filterBuffer.length() > 0) {
+                    filterBuffer.append(" | ");
+                }
+
+                filterBuffer.append(Util.capitalize(level.getLongName()));
+                filterBuffer.append(" (<a href=\"");
+
+                String qs = qString.replaceAll("\\&lc=" + level.getName(), "");
+                filterBuffer.append(SchoolTableHeaderTagHandler.urlUtil.buildUrl("/schools.page?" + qs, request));
+
+                filterBuffer.append("\">remove</a>)");
+            }
+        }
+
+        if (_schoolType != null) {
+            for (int i = 0; i < _schoolType.length; i++) {
+                String qs = "";
+                if (filterBuffer.length() > 0) {
+                    filterBuffer.append(" | ");
+                }
+                filterBuffer.append(Util.capitalize(_schoolType[i]));
+                if ("public".equals(_schoolType[i])) {
+                    qs = qString.replaceAll("\\&st=public", "");
+                } else if ("private".equals(_schoolType[i])) {
+                    qs = qString.replaceAll("\\&st=private", "");
+                } else if ("charter".equals(_schoolType[i])) {
+                    qs = qString.replaceAll("\\&st=charter", "");
+                }
+
+                StringBuffer urlBuffer = new StringBuffer("/schools.page?");
+                urlBuffer.append(qs);
+                filterBuffer.append(" (<a href=\"");
+                filterBuffer.append(SchoolTableHeaderTagHandler.urlUtil.buildUrl(urlBuffer.toString(), request));
+
+                filterBuffer.append("\">remove</a>)");
+            }
+        }
+        return filterBuffer;
     }
 
-    public void setQueryString(String queryString) {
-        _queryString = queryString;
+    public String getSrcQuery() {
+        return _srcQuery;
+    }
+
+    public void setSrcQuery(String srcQuery) {
+        _srcQuery = srcQuery;
     }
 
     public Boolean getShowAll() {

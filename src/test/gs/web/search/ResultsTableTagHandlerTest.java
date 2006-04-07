@@ -65,7 +65,7 @@ public class ResultsTableTagHandlerTest extends BaseTestCase {
 
     public void testQueryString() {
         try {
-            _rtth.getQueryString();
+            _rtth.getSrcQuery();
             fail("TagHandler should not work without a JspContext object");
         } catch (NullPointerException e) {
             assertTrue(true);
@@ -75,13 +75,13 @@ public class ResultsTableTagHandlerTest extends BaseTestCase {
         _rtth.setJspContext(context);
 
         context.setAttribute("q", null);
-        assertEquals("", _rtth.getQueryString());
+        assertEquals("", _rtth.getSrcQuery());
 
         context.setAttribute("q", "  ");
-        assertEquals("", _rtth.getQueryString());
+        assertEquals("", _rtth.getSrcQuery());
 
         context.setAttribute("q", "This is a query");
-        assertEquals("This is a query", _rtth.getQueryString());
+        assertEquals("This is a query", _rtth.getSrcQuery());
     }
 
     public void testGettersAndSetters() {

@@ -90,14 +90,14 @@
         </td>
         <td valign="top" class="col2">
 
-            <gsml:box tableClass="shade3 main">
+            <!--gsml:box tableClass="shade3 main"-->
 
                 <gsml:form action="/compareSchools.page" method="GET">
                     <input type="hidden" name="state" value="${state}}"/>
 
                     <gsweb:schoolTableHeader schools="${results.schools}"
                                              total="${results.total}"
-                                             queryString="${request.queryString}"
+                                             srcQuery="${request.queryString}"
                                              showAll="${param.showall}"
                                              cityName="${requestScope.city}"
                                              districtId="${requestScope.district}"
@@ -118,7 +118,7 @@
 
                     <gsweb:schoolTable schools="${results.schools}"
                                        total="${results.total}"
-                                       queryString="${request.queryString}"
+                                       srcQuery="${request.queryString}"
                                        showAll="${param.showall}"
                                        cityName="${requestScope.city}"
                                        districtId="${requestScope.district}"
@@ -128,7 +128,7 @@
                         <search:schoolTable schools="${results.schools}"/>
                     </gsweb:schoolTable>
                 </gsml:form>
-            </gsml:box>
+            <!--/gsml:box-->
         </td>
         <td class="rightcolumn" align="center">
             <ad:x33/>

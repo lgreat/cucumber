@@ -32,7 +32,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
     private static UrlUtil urlUtil = new UrlUtil();
     private List _schools = null;
-    private String _queryString = null;
+    private String _srcQuery = null;
     private Boolean _showAll;
     private String _cityName;
     private Integer _districtId;
@@ -54,7 +54,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         PageContext pc = (PageContext) getJspContext().findAttribute(PageContext.PAGECONTEXT);
         HttpServletRequest request = (HttpServletRequest) pc.getRequest();
 
-        String qString = getQueryString();
+        String qString = getSrcQuery();
 
         boolean showall = _showAll != null && _showAll.booleanValue();
 
@@ -154,12 +154,12 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
         out.println("</td></tr></table>");
     }
 
-    public String getQueryString() {
-        return _queryString;
+    public String getSrcQuery() {
+        return _srcQuery;
     }
 
-    public void setQueryString(String queryString) {
-        _queryString = queryString;
+    public void setSrcQuery(String srcQuery) {
+        _srcQuery = srcQuery;
     }
 
     public Boolean getShowAll() {

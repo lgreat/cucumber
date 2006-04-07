@@ -110,7 +110,7 @@ public class MixedResultsTagHandler extends ResultsTableTagHandler {
                 }
 
                 out.write(TextHighlighter.highlight(result.getHeadline(),
-                        getQueryString(), "name"));
+                        getSrcQuery(), "name"));
 
                 out.write("</a>");
                 out.write("</td></tr>");
@@ -137,7 +137,7 @@ public class MixedResultsTagHandler extends ResultsTableTagHandler {
                         out.write("<td colspan=\"3\">");
                         out.write("<span class=\"context\">");
                         out.write(TextHighlighter.highlight(context,
-                                getQueryString(), "address"));
+                                getSrcQuery(), "address"));
                         out.write("</span>");
                         out.write("</td>");
                     }

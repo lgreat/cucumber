@@ -75,7 +75,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
      *
      * @return a non-null <code>String</code>
      */
-    public String getQueryString() {
+    public String getSrcQuery() {
         String qs = "";
         String qParam = (String) getJspContext().findAttribute("q");
         if (StringUtils.isNotBlank(qParam)) {
@@ -130,7 +130,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                 hrefBuffer.append("<a class=\"pad\" href=\"");
                 hrefBuffer.append(path.asSiteRelative(null));
                 hrefBuffer.append("?q=");
-                hrefBuffer.append(Functions.escapeXml(getQueryString()));
+                hrefBuffer.append(Functions.escapeXml(getSrcQuery()));
 
                 if (cityParam != null) {
                     hrefBuffer.append("&city=");
