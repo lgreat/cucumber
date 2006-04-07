@@ -215,11 +215,15 @@ div.topRatedSchools {
     padding: 0 0 4px 0;
 }
 
-.schoolBreakdown li,
-.districts li {
+.schoolBreakdown li {
     display: inline;
     font-size: x-small;
     line-height: 1em;
+}
+
+.districts li {
+    font-size: x-small;
+    padding-bottom: 2px;
 }
 
 .schoolBreakdown li a {
