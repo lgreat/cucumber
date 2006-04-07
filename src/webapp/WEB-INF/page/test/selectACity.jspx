@@ -77,7 +77,6 @@ xlist-style-image: url(res/img/geo/bigCity.gif);
     <gsml:body adPageName="city">
 
         <div style="margin: .5em">
-        <gsml:box tableClass="shade3" tableWidth="100%">
 		<table width="100%" cellpadding="0" cellspacing="0">
             <tr>
 
@@ -102,7 +101,6 @@ xlist-style-image: url(res/img/geo/bigCity.gif);
                 </td>
 
             </tr></table>
-       </gsml:box>
 
         </div>
 

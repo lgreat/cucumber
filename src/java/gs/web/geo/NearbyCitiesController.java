@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.13 2006/04/07 01:03:15 apeterson Exp $
+* $Id: NearbyCitiesController.java,v 1.14 2006/04/07 02:47:54 apeterson Exp $
 */
 
 package gs.web.geo;
@@ -13,6 +13,7 @@ import gs.web.SessionContextUtil;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
 import gs.web.util.ListModel;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -96,7 +97,7 @@ public class NearbyCitiesController extends AbstractController {
 
                 model.put(MODEL_CITIES, nearbyCities);
 
-                String heading = "Cities Near " +city.getName();
+                String heading = "Cities Near " + city.getName();
                 if (request.getParameter(PARAM_HEADING) != null) {
                     heading = request.getParameter(PARAM_HEADING);
                 }
@@ -124,32 +125,22 @@ public class NearbyCitiesController extends AbstractController {
                     }
 
                     // anchor
-                    Anchor anchor = new Anchor("/city.page?state=" +
-                            nearbyCity.getState() +
-                            "&amp;city=" +
-                            nearbyCity.getName(),
-                            name,
-                            styleClass);
+                    UrlBuilder builder = new UrlBuilder(nearbyCity, UrlBuilder.CITY_PAGE);
+                    Anchor anchor = builder.asAnchor(request, name, styleClass);
                     items.add(anchor);
                 }
 
                 if (request.getParameter(PARAM_MORE) != null) {
-                    Anchor anchor = new Anchor("/cities.page?state=" +
-                            state +
-                            "&amp;" +
-                            PARAM_CITY + "=" + cityNameParam + "&amp;" +
-                            PARAM_ORDER + "=alpha" + "&amp;" +
-                            PARAM_INCLUDE_STATE + "=1" + "&amp;" +
-                            PARAM_ALL + "=1",
-                            "More...",
-                            "more");
+                    UrlBuilder builder = new UrlBuilder(city, UrlBuilder.MORE_NEARBY_CITIES);
+                    builder.setParameter(PARAM_ORDER, "alpha");
+                    builder.setParameter(PARAM_INCLUDE_STATE, "1");
+                    builder.setParameter(PARAM_ALL, "1");
+                    Anchor anchor = builder.asAnchor(request, "More...", "more");
                     items.add(anchor);
                 }
                 if (request.getParameter(PARAM_ALL) != null) {
-                    Anchor anchor = new Anchor("/modperl/citylist/" +
-                            state +
-                            "/",
-                            "Browse all " + state.getLongName() + " cities...",
+                    UrlBuilder builder = new UrlBuilder(UrlBuilder.CITIES, state, null);
+                    Anchor anchor = builder.asAnchor(request, "Browse all " + state.getLongName() + " cities...",
                             "more");
                     items.add(anchor);
 

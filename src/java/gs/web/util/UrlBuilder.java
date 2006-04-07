@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.15 2006/04/06 23:13:33 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.16 2006/04/07 02:47:55 apeterson Exp $
  */
 
 package gs.web.util;
@@ -50,6 +50,8 @@ public class UrlBuilder {
     public static final VPage SCHOOL_PROFILE = new VPage("vpage:schoolProfile");
     public static final VPage DISTRICT_PROFILE = new VPage("vpage:districtProfile");
     public static final VPage CITY_PAGE = new VPage("vpage:city");
+    public static final VPage CITIES = new VPage("vpage:cities"); // all the cities in a state
+    public static final VPage MORE_NEARBY_CITIES = new VPage("vpage:moreNearbyCities");
 
 
     /**
@@ -155,6 +157,12 @@ public class UrlBuilder {
             _path = "/city.page";
             this.setParameter("city", city.getName());
             this.setParameter("state", city.getState().getAbbreviation());
+        } else if (MORE_NEARBY_CITIES.equals(page)) {
+            _perlPage = false;
+            _path = "/cities.page";
+            this.setParameter("city", city.getName());
+            this.setParameter("state", city.getState().getAbbreviation());
+
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
@@ -166,6 +174,11 @@ public class UrlBuilder {
             _path = "/city.page";
             this.setParameter("city", param0);
             this.setParameter("state", state.getAbbreviation());
+        } else if (CITIES.equals(page)) {
+            _perlPage = true;
+            _path = "/modperl/citylist/" +
+                    state.getAbbreviation() +
+                    "/";
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
@@ -282,6 +295,14 @@ public class UrlBuilder {
 
     public Anchor asAnchor(HttpServletRequest request, String label) {
         return new Anchor(asSiteRelative(request), label);
+    }
+
+    public Anchor asAnchor(HttpServletRequest request, String label, String styleClass) {
+        return new Anchor(asSiteRelative(request), label, styleClass);
+    }
+
+    public Anchor asAnchor(HttpServletRequest request, String label, String styleClass, String image) {
+        return new Anchor(asSiteRelative(request), label, styleClass, image);
     }
 
     /**
