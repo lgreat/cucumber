@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.5 2006/04/07 00:32:02 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.6 2006/04/07 17:43:04 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -42,6 +42,7 @@ public class CityControllerTest extends BaseControllerTestCase {
                 getBean(SessionContextUtil.BEAN_ID);
     }
 
+    /*
     public void testSchoolBreakdown() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setParameter("state", "AK");
@@ -61,7 +62,7 @@ public class CityControllerTest extends BaseControllerTestCase {
         assertEquals("/schools.page?state=AK&city=Anchorage&lc=m", ((Anchor) list.get(2)).getHref());
         assertEquals("All Middle (32)", ((Anchor) list.get(2)).getContents());
 
-    }
+    }*/
 
     public void testFindDistricts() throws Exception {
         GsMockHttpServletRequest request = getRequest();
