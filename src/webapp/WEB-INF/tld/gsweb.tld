@@ -152,7 +152,7 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>queryString</name>
+            <name>srcQuery</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -210,7 +210,7 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <name>queryString</name>
+            <name>srcQuery</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

@@ -97,7 +97,7 @@
 
                     <gsweb:schoolTableHeader schools="${results.schools}"
                                              total="${results.total}"
-                                             srcQuery="${request.queryString}"
+                                             srcQuery="${pageContext.request.queryString}"
                                              showAll="${param.showall}"
                                              cityName="${requestScope.city}"
                                              districtId="${requestScope.district}"
@@ -118,7 +118,7 @@
 
                     <gsweb:schoolTable schools="${results.schools}"
                                        total="${results.total}"
-                                       srcQuery="${request.queryString}"
+                                       srcQuery="${pageContext.request.queryString}"
                                        showAll="${param.showall}"
                                        cityName="${requestScope.city}"
                                        districtId="${requestScope.district}"
