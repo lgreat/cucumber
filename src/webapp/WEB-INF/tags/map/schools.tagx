@@ -48,12 +48,13 @@ function ${functionName}() {
       var map = new GMap(document.getElementById("${id}"));
        map.addControl(new GSmallMapControl(GSmallMapControl.G_NORMAL_MAP));
        map.setCenter(new GLatLng(${center.lat}, ${center.lon}), ${17-scale});
-       var bounds = new GLatLngBounds;
+       var bounds = new GLatLngBounds();
+       bounds.extend(new GLatLng(${center.lat}, ${center.lon}))
        //]]>
       <c:forEach var="s" items="${schools}">
       <c:if test="${not empty s.lon}">
     //<![CDATA[
-       var point = new GPoint(${s.lon},${s.lat});
+       var latlng = new GLatLng(${s.lat},${s.lon});
        var schInfo = "<br />${s.gradeLevels}, ${s.type.name}";
        var stInfo = "";
        //]]>
@@ -65,12 +66,12 @@ function ${functionName}() {
    //<![CDATA[
        var winInfo = '<a href="/modperl/browse_school/${s.databaseState.abbreviation}/${s.id}">${fn:escapeXml(s.name)}</a>' +
                      schInfo + stInfo;
-       var marker = createMarker(point, winInfo);
+       var marker = createMarker(latlng, winInfo);
        map.addOverlay(marker);
-       bounds.extend(marker.point);
+       bounds.extend(latlng);
        //]]>
       </c:if>
-      </c:forEach>
+   </c:forEach>
     //<![CDATA[
        var zoom = map.getBoundsZoomLevel(bounds);
        if (zoom > 12) zoom = 12;
