@@ -178,6 +178,10 @@ div.topRatedSchools {
 .recentParentReviews h5 {
     font-size: x-small;
     color: #999;
+    background-image: url(../../img/community/bell.gif);
+    background-repeat: no-repeat;
+    background-position: top left;
+    padding-left: 17px;
 }
 
 .recentParentReviews .stars {
