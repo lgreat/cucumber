@@ -37,10 +37,15 @@ I'd like to use a consistent display of school information in the info window.
     </jsp:scriptlet>
     <script type="text/javascript">
  //<![CDATA[
- function createMarker(point,html) {
-   return marker;
-}
-function ${functionName}() {
+ function addBubble(m, link, name, schInfo, stInfo) {
+     GEvent.addListener(m, "click", function() {
+         var s = '<div style="font-size:x-small;width: 200px;height: 20px"><a href="' + link + '">' + name + '</a>' +
+                 schInfo + stInfo + '</div>'
+         m.openInfoWindowHtml(s);
+     });
+ };
+
+ function ${functionName}() {
    if (GBrowserIsCompatible()) {
        var i = 0;
        map = new GMap2(document.getElementById("${id}"));
@@ -73,19 +78,15 @@ function ${functionName}() {
    </c:if>
    //<![CDATA[
        var marker = new GMarker(latlng);
-       gMarkers[i++] = marker;
        map.addOverlay(marker);
        bounds.extend(latlng);
-        //]]>
+       gMarkers[i++] = marker;
+       //]]>
        <c:if test="${tooltips}">
       setTooltipOnMarker(marker,"${s.name}");
        </c:if>
        <c:if test="${bubbles}">
-       function addBubble(m) {
-       GEvent.addListener(m, "click", function() { m.openInfoWindowHtml('<div style="font-size:x-small;width: 200px;height: 20px"><a href="/modperl/browse_school/${s.databaseState.abbreviation}/${s.id}">${fn:escapeXml(s.name)}</a>' +
-                     schInfo + stInfo + '</div>'); });
-           };
-            addBubble(marker);
+            addBubble(marker, "/modperl/browse_school/${s.databaseState.abbreviation}/${s.id}", '${fn:escapeXml(s.name)}', schInfo, stInfo);
        </c:if>
        <c:if test="${not bubbles}">
        GEvent.addListener(marker, "click", function() { location = '/modperl/browse_school/${s.databaseState.abbreviation}/${s.id}'; });
