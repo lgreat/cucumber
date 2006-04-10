@@ -51,23 +51,34 @@ font-size: small;
 display: list-item;
 border-top: 1px dotted #999;
 padding: 3px 0 3px 0;
-xlist-style-position: outside;
-xline-height: 1.5em;
 xmargin-left: 1.5em;
 }
 li.town {
 font-weight: 100;
-xlist-style-image: url(res/img/geo/town.gif);
 }
 li.city {
 font-weight: 500;
-xlist-style-image: url(res/img/geo/city.gif);
 }
 li.bigCity {
 font-weight: 900;
-xlist-style-image: url(res/img/geo/bigCity.gif);
 }
 
+span.mousedOver, span:hover {
+    color: #000;
+    background-color: #eee;
+    color: red;
+}
+
+.tooltip {
+    font-size: small;
+    font-weight: bold;
+    padding: 2px;
+    border: 1px #036 solid;
+    border-width: 1px 2px 2px 1px;
+    border-color: #000 #666 #666 #000;
+    background-color: #FF9;
+    color: #000;
+}
         </style>
             ]]>
         <c:set var="city">${param["city"]}</c:set>

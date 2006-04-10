@@ -4,7 +4,8 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          >
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
     <jsp:directive.tag body-content="empty"
                        description="Draw a map of cities." />
     <jsp:directive.attribute name="functionName" required="true" description="Name of the javascript function. Caller must call this in the onload handler."/>
@@ -23,14 +24,11 @@ I'd like to color the markers or use different icons depending on the level code
    beginnings of this are here.)
 I'd like to use a consistent display of school information in the info window.
     -->
+    <pageHelper:externalJavascript file="/res/js/mapTooltips.js"/>
     <script type="text/javascript">
  //<![CDATA[
- function createMarker(point,html,newpage) {
-   html = '<div style="white-space:nowrap;">' + html + '</div>';
+ function createMarker(point,newpage) {
    var marker = new GMarker(point);
-   GEvent.addListener(marker, "mouseover", function() {
-      marker.openInfoWindowHtml(html);
-   });
    GEvent.addListener(marker, "click", function() {
       location=newpage;
    });
@@ -38,18 +36,21 @@ I'd like to use a consistent display of school information in the info window.
 }
 function ${functionName}() {
    if (GBrowserIsCompatible()) {
-       var map = new GMap2(document.getElementById("${id}"));
-      map.addControl(new GSmallMapControl(GSmallMapControl.G_NORMAL_MAP));
+       map = new GMap2(document.getElementById("${id}"));
+       gTooltip = document.createElement("div");
+       map.getPane(G_MAP_FLOAT_PANE).appendChild(gTooltip);
+       gTooltip.style.visibility = "hidden";
+       map.addControl(new GSmallMapControl(GSmallMapControl.G_NORMAL_MAP));
       map.setCenter(new GLatLng(${lat}, ${lon}), ${17-scale});
         //]]>
       <c:forEach var="s" items="${cities}">
       <c:if test="${not empty s.lon}">
     //<![CDATA[
        var p = new GLatLng(${s.lat},${s.lon});
-       var marker = createMarker(p,'<h2>${s.name}, ${s.state}</h2><h4>Population: ]]><fmt:formatNumber value="${s.population}" maxFractionDigits="0"/><![CDATA[</h4>',
-               'city.page?city=${s.name}&state=${s.state}');
+       var marker = createMarker(p, 'city.page?city=${s.name}&state=${s.state}');
        map.addOverlay(marker);
-        //]]>
+       setTooltipOnMarker(marker, "${s.name}, ${s.state}");
+       //]]>
       </c:if>
       </c:forEach>
     //<![CDATA[
