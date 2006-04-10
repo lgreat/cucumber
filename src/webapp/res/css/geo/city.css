@@ -225,3 +225,20 @@ div.topRatedSchools {
     padding: 0 .4em 0 .4em;
     border-right: 1px solid #999;
 }
+
+span.mousedOver, span:hover {
+    color: #000;
+    background-color: #eee;
+    color: red;
+}
+
+.tooltip {
+    font-size: small;
+    font-weight: bold;
+    padding: 2px;
+    border: 1px #036 solid;
+    border-width: 1px 2px 2px 1px;
+    border-color: #000 #666 #666 #000;
+    background-color: #FF9;
+    color: #000;
+}

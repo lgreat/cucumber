@@ -116,6 +116,7 @@
                         </div>
                         <map:setup/>
                         <map:schools functionName="createMap" id="map"
+                                     bubbles="true"
                                      schools="${results.schools}"/>
                         <pageHelper:addOnLoadHandler handler="createMap()"/>
                     </c:if>

@@ -3,9 +3,8 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          >
-    <jsp:directive.tag import="java.util.Iterator"/>
-    <jsp:directive.tag import="gs.data.school.School"/>
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
     <jsp:directive.tag import="gs.data.geo.LatLonRect"/>
     <jsp:directive.tag import="gs.data.geo.LatLon"/>
     <jsp:directive.tag body-content="empty"
@@ -15,6 +14,8 @@
     <jsp:directive.attribute name="lon" required="false" type="java.lang.Float" description="Longitude (center of map)"/>
     <jsp:directive.attribute name="lat" required="false" type="java.lang.Float" description="Lattitude (center of map)"/>
     <jsp:directive.attribute name="schools" required="true" description="Schools to map" type="java.util.Collection"/>
+    <jsp:directive.attribute name="tooltips" required="false" description="Use tooltips?" />
+    <jsp:directive.attribute name="bubbles" required="false" description="Use Google's standard thought bubbles" />
     <!--
 NOTES
 The map API must be previously initialized.
@@ -25,6 +26,7 @@ I'd like to color the markers or use different icons depending on the level code
    beginnings of this are here.)
 I'd like to use a consistent display of school information in the info window.
     -->
+    <pageHelper:externalJavascript file="/res/js/mapTooltips.js" />
     <jsp:scriptlet>
         if (schools != null) {
             LatLonRect r = new LatLonRect(schools);
@@ -36,17 +38,23 @@ I'd like to use a consistent display of school information in the info window.
     <script type="text/javascript">
  //<![CDATA[
  function createMarker(point,html) {
-   html = '<div style="font-size:x-small;width: 200px;height: 20px">' + html + '</div>';
-   var marker = new GMarker(point);
-   GEvent.addListener(marker, "click", function() {
-      marker.openInfoWindowHtml(html);
-   });
    return marker;
 }
 function ${functionName}() {
    if (GBrowserIsCompatible()) {
-      var map = new GMap(document.getElementById("${id}"));
-       map.addControl(new GSmallMapControl(GSmallMapControl.G_NORMAL_MAP));
+       var i = 0;
+       map = new GMap2(document.getElementById("${id}"));
+
+       //]]>
+       <c:if test="${tooltips}">
+       //<![CDATA[
+       gTooltip = document.createElement("div");
+       map.getPane(G_MAP_FLOAT_PANE).appendChild(gTooltip);
+       gTooltip.style.visibility = "hidden";
+       //]]>
+       </c:if>
+       //<![CDATA[
+       map.addControl(new GSmallMapControl());
        map.setCenter(new GLatLng(${center.lat}, ${center.lon}), ${17-scale});
        var bounds = new GLatLngBounds();
        bounds.extend(new GLatLng(${center.lat}, ${center.lon}))
@@ -64,12 +72,24 @@ function ${functionName}() {
    //]]>
    </c:if>
    //<![CDATA[
-       var winInfo = '<a href="/modperl/browse_school/${s.databaseState.abbreviation}/${s.id}">${fn:escapeXml(s.name)}</a>' +
-                     schInfo + stInfo;
-       var marker = createMarker(latlng, winInfo);
+       var marker = new GMarker(latlng);
+       gMarkers[i++] = marker;
        map.addOverlay(marker);
        bounds.extend(latlng);
-       //]]>
+        //]]>
+       <c:if test="${tooltips}">
+      setTooltipOnMarker(marker,"${s.name}");
+       </c:if>
+       <c:if test="${bubbles}">
+       function addBubble(m) {
+       GEvent.addListener(m, "click", function() { m.openInfoWindowHtml('<div style="font-size:x-small;width: 200px;height: 20px"><a href="/modperl/browse_school/${s.databaseState.abbreviation}/${s.id}">${fn:escapeXml(s.name)}</a>' +
+                     schInfo + stInfo + '</div>'); });
+           };
+            addBubble(marker);
+       </c:if>
+       <c:if test="${not bubbles}">
+       GEvent.addListener(marker, "click", function() { location = '/modperl/browse_school/${s.databaseState.abbreviation}/${s.id}'; });
+       </c:if>
       </c:if>
    </c:forEach>
     //<![CDATA[
