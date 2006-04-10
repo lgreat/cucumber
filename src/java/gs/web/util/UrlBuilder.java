@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.17 2006/04/07 03:38:49 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.18 2006/04/10 19:26:54 apeterson Exp $
  */
 
 package gs.web.util;
@@ -185,7 +185,7 @@ public class UrlBuilder {
             this.setParameter("state", state.getAbbreviation());
         } else if (CITIES.equals(page)) {
             _perlPage = true;
-            _path = "/modperl/citylist/" +
+            _path = "/modperl/cities/" +
                     state.getAbbreviation() +
                     "/";
         } else {

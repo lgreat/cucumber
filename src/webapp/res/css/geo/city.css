@@ -62,13 +62,8 @@
     border-bottom: 1px solid #ccc;
 }
 
-.statsModule .better {
-    color: green;
-    font-weight: bold;
-}
-
+.statsModule .better,
 .statsModule .worse {
-    color: red;;
     font-weight: bold;
 }
 
