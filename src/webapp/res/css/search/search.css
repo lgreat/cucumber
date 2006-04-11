@@ -54,16 +54,22 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
 #suggestion {font-style: italic; font-weight: bold;}
 .searchbyaddress {padding-left:20mm; vertical-align:bottom;}
 
-.resultsheadline, h1.resultsheadline {
+.contentGS h1 {
+    color: #eb7a31;
+    font-size: large;
+    font-weight: 700;
+    padding-left: 2px;
+}
+div#comparelinks h1 {
+    font-size: small;
+    font-weight: normal;
+    color: #000;
+}
+.resultsheadline {
     display:inline;
-    font-size:medium;
-    font-weight:700;
     padding-left:2px;
 }
 
-h1 {
-    color: #eb7a31;
-}
 
 .context {display:block;}
 

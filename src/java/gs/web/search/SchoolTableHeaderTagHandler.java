@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.3 2006/04/11 19:41:40 apeterson Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.4 2006/04/11 21:46:35 apeterson Exp $
  */
 
 package gs.web.search;
@@ -75,13 +75,6 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
             out.print(district.getName());
         }
         out.print("</h1>");
-        /*if (district != null) {
-            UrlBuilder districtProfile = new UrlBuilder(district, UrlBuilder.DISTRICT_PROFILE);
-            out.print(districtProfile.asAHref(request, "<span class=\"minilink\">View district information</span>"));
-        } else if (StringUtils.isNotEmpty(_cityName)) {
-            UrlBuilder cityPage = new UrlBuilder(UrlBuilder.CITY_PAGE, getState(), _cityName);
-            out.print(cityPage.asAHref(request, "<span class=\"minilink\">View city information</span>"));
-        }*/
 
         out.print("</td><td align=\"right\" style=\"padding-right:15px;white-space:nowrap\">");
 
@@ -133,7 +126,7 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         // "compare all" links
         out.println("<tr><td colspan=\"2\">");
         out.print("<div id=\"comparelinks\">Compare ");
-        out.print("<h1 style=\"display:inline;\">");
+        out.print("<h1 style=\"display:inline;font-size:inherited; color: inherited\">");
         out.print(cityOrDistrictName);
         out.print(" public schools</h1>: ");
 

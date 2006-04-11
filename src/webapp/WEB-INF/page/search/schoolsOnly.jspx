@@ -74,7 +74,7 @@
 
 </head>
 
-<gsml:body adPageName="search">
+<gsml:body adPageName="search" >
     <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
     <pageHelper:externalCss file="/res/css/search/search.css"/>
     <table id="main" width="100%"><tr>
