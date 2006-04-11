@@ -14,6 +14,10 @@
     margin: .5em;
 }
 
+.cityPage h1 {
+    font-size: medium; 
+    color: #eb7a31;
+}
 .cityPage h2,
     .cityPage .hotTopics h3,
     .statsModule h3 {

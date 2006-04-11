@@ -39,7 +39,7 @@
     <table width="100%">
         <tr>
             <td style="white-space:nowrap; vertical-align: bottom">
-                <h1 style="font-size: medium; color: #eb7a31; ">GreatSchools ${displayName}</h1>
+                <h1>${displayName} schools</h1>
             </td>
             <td id="nearbyCities" style="vertical-align: bottom; text-align: right">
                 <jsp:include
@@ -54,7 +54,7 @@
 <td width="66%" style="vertical-align:top">
 <h2>
     <c:if test="${not empty requestScope.topRatedSchools}">
-        Top-rated
+        Top-Rated
     </c:if>
     ${displayName} Schools
 </h2>
@@ -64,12 +64,13 @@
         <div id="map">&#160;</div>
     </div>
 
-
-    <table style="font-size:x-small;width: 100%;margin-top:0;padding-top:0">
-        <tr><td style="font-weight: normal">Showing ${fn:length(schools)} schools</td><td style="font-weight: bold;text-align: right"><gsml:a
+    <c:if test="${empty requestScope.topRatedSchools}">
+        <table style="font-size:x-small;width: 100%;margin-top:0;padding-top:0">
+            <tr><td style="font-weight: normal">Showing ${fn:length(schools)} schools</td><td style="font-weight: bold;text-align: right"><gsml:a
             href="/schools.page?city=${cityObject.name}&amp;map=1&amp;state=$STATE">View Larger Map</gsml:a></td>
             </tr>
-    </table>
+         </table>
+    </c:if>
     <map:setup/>
     <map:schools functionName="createMap" id="map"
                  lon="${cityObject.lon}" lat="${cityObject.lat}"
@@ -171,7 +172,7 @@
 </div>
 
 </td>
-<td style="height: 100%;vertical-align: top; "><div class="cleanLineLeftBox" style="height: 30em;">&#160;</div>
+<td style="height: 100%;vertical-align: top; "><div class="cleanLineLeftBox" style="height: 40em;">&#160;</div>
 </td>
 <td width="33%" style="vertical-align:top">
     <table>
