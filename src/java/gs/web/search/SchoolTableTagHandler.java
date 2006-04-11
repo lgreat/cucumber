@@ -127,7 +127,9 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             out.println("</td><td class=\"results_pagenav\">");
 
             if (!showall) {
-                writePageNumbers(new UrlBuilder(request, "/schools.page"));
+                UrlBuilder builder = new UrlBuilder(request, "/schools.page");
+                builder.addParametersFromRequest(request);
+                writePageNumbers(getPage(), request, builder, _total);
             }
             out.println("</td><tr><td></td><td align=\"right\" style=\"padding-right:15px;padding-bottom:5px\">");
             if (!showall && (_total > PAGE_SIZE)) {

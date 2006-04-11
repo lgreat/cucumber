@@ -1,18 +1,12 @@
 package gs.web.search;
 
-import gs.data.school.LevelCode;
-import gs.data.state.State;
 import gs.web.jsp.BaseTagHandler;
-import gs.web.school.SchoolsController;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
-import org.apache.taglibs.standard.functions.Functions;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.PageContext;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -103,135 +97,43 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
     /**
      * Draws the page numbers.
      *
-     * @param path the page that should be send to, for example "/search/search.page"
+     * @param currentPage
+     * @param builder the page that should be send to, for example "/search/search.page"
+     * @param totalItems
      * @throws IOException
      */
-    protected void writePageNumbers(UrlBuilder path) throws IOException {
+    protected void writePageNumbers(final int currentPage, HttpServletRequest request, UrlBuilder builder, final int totalItems) throws IOException {
 
-        String cityParam = (String) getJspContext().findAttribute("city");
         JspWriter out = getJspContext().getOut();
 
-        String distParam = null;
-        String distNameParam = null;
-        if (cityParam == null) {
-            distParam = (String) getJspContext().findAttribute("district");
-            distNameParam = (String) getJspContext().findAttribute("distname");
-        }
+        if (totalItems > PAGE_SIZE) {
 
-        if (_total > 0) {
+            int start = (currentPage < 10) ? 1 : (currentPage - 5);
+            int end = (totalItems / PAGE_SIZE) + ((totalItems % PAGE_SIZE) > 0 ? 1 : 0);
 
-            if (_total > PAGE_SIZE) {
+            if (currentPage > 1) {
+                builder.setParameter("p", String.valueOf(currentPage - 1));
+                out.print(builder.asAHref(request, "&lt;&#160;Previous", "pad"));
+                out.println();
+            }
 
-                int start = (getPage() < 10) ? 1 : (getPage() - 5);
-                int end = (_total / PAGE_SIZE) + ((_total % PAGE_SIZE) > 0 ? 1 : 0);
-                int counter = 1;
+            for (int i = start; i < Math.min(end + 1, end + 10); i++) {
 
-                StringBuffer hrefBuffer = new StringBuffer(40);
-                hrefBuffer.append("<a class=\"pad\" href=\"");
-                hrefBuffer.append(path.asSiteRelative(null));
-                hrefBuffer.append("?q=");
-                hrefBuffer.append(Functions.escapeXml(getSrcQuery()));
-
-                if (cityParam != null) {
-                    hrefBuffer.append("&city=");
-                    hrefBuffer.append(cityParam);
-                } else if (distParam != null) {
-                    hrefBuffer.append("&district=");
-                    hrefBuffer.append(distParam);
-                }
-
-                if (distNameParam != null) {
-                    hrefBuffer.append("&distname=");
-                    hrefBuffer.append(distNameParam);
-                }
-
-                State s = getState();
-                if (s != null) {
-                    hrefBuffer.append("&state=");
-                    hrefBuffer.append(s.getAbbreviationLowerCase());
-                }
-
-                PageContext pc = (PageContext) getJspContext().findAttribute(PageContext.PAGECONTEXT);
-                if (pc != null) {
-                    HttpServletRequest request = (HttpServletRequest) pc.getRequest();
-                    String c = request.getParameter("type");
-                    if (StringUtils.isBlank(c)) {
-                        c = request.getParameter("c");
-                    }
-                    if (StringUtils.isNotBlank(c)) {
-                        hrefBuffer.append("&amp;type=");
-                        hrefBuffer.append(c);
-                    }
-                }
-
-
-                final Object lcObject = getJspContext().findAttribute(SchoolsController.MODEL_LEVEL_CODE);
-                if (lcObject != null) {
-                    // This comes in as either a String[] or a LevelCode object,
-                    // depending on the controller.
-                    LevelCode levelCode;
-                    if (lcObject instanceof String[]) {
-                        levelCode = LevelCode.createLevelCode((String[]) lcObject);
-                    } else {
-                        levelCode = (LevelCode) lcObject;
-                    }
-                    for (Iterator iter = levelCode.getIterator(); iter.hasNext();) {
-                        LevelCode.Level level = (LevelCode.Level) iter.next();
-                        hrefBuffer.append("&lc=");
-                        hrefBuffer.append(level.getName());
-                    }
-                }
-
-                String[] sts = (String[]) getJspContext().findAttribute("st");
-                if (sts != null) {
-                    for (int i = 0; i < sts.length; i++) {
-                        hrefBuffer.append("&st=");
-                        hrefBuffer.append(sts[i]);
-                    }
-                }
-
-                if (!StringUtils.isBlank(_sortColumn)) {
-                    hrefBuffer.append("&amp;sort=");
-                    hrefBuffer.append(_sortColumn);
-                }
-
-                hrefBuffer.append("&amp;p=");
-                String hrefStart = hrefBuffer.toString();
-
-                if (getPage() > 1) {
-                    out.print(hrefStart);
-                    out.print(String.valueOf(getPage() - 1));
-                    out.print("\">");
-                    out.println("&lt;&#160;Previous</a>");
-                }
-
-                for (int i = start; i < end + 1; i++) {
-
-                    if (i == getPage()) {
-                        out.print("<span class=\"active pad\">");
-                    } else {
-                        out.print(hrefStart);
-                        out.print(String.valueOf(i));
-                        out.print("\">");
-                    }
+                if (i == currentPage) {
+                    out.print("<span class=\"active pad\">");
                     out.print(String.valueOf(i));
-                    if (i == getPage()) {
-                        out.print("</span>");
-                    } else {
-                        out.println("</a>");
-                    }
-                    counter = counter + 1;
-                    if (counter > 10) {
-                        break;
-                    }
+                    out.print("</span>");
+                } else {
+                    builder.setParameter("p", String.valueOf(i));
+                    out.print(builder.asAHref(request, String.valueOf(i), "pad"));
+                    out.println();
                 }
+            }
 
-                if (getPage() < end) {
-                    out.print(hrefStart);
-                    out.print(String.valueOf(getPage() + 1));
-                    out.print("\">");
-                    out.println("Next &#160;&gt;</a>");
-                }
+            if (currentPage < end) {
+                builder.setParameter("p", String.valueOf(currentPage + 1));
+                out.print(builder.asAHref(request, "Next &#160;&gt;", "pad"));
+                out.println();
             }
         }
     }

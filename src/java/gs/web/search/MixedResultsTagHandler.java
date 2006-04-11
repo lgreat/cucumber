@@ -156,7 +156,9 @@ public class MixedResultsTagHandler extends ResultsTableTagHandler {
         }
 
         out.write("</td></tr><tr><td class=\"results_pagenav\">");
-        writePageNumbers(new UrlBuilder(request, "/search/search.page"));
+        UrlBuilder builder = new UrlBuilder(request, "/search/search.page");
+        builder.addParametersFromRequest(request);
+        writePageNumbers(getPage(), request, builder, _total);
         out.write("</td></tr></table>");
 
         try {

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.18 2006/04/10 19:26:54 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.19 2006/04/11 19:10:55 apeterson Exp $
  */
 
 package gs.web.util;
@@ -38,6 +38,7 @@ public class UrlBuilder {
     private Map _parameters;
     private boolean _perlPage = false;
     private static UrlUtil _urlUtil = new UrlUtil();
+
 
     public static class VPage extends org.apache.commons.lang.enums.Enum {
 
@@ -340,4 +341,16 @@ public class UrlBuilder {
     public String asAHref(HttpServletRequest request, String label) {
         return "<a href=\"" + asSiteRelative(request) + "\">" + label + "</a>";
     }
+
+    /**
+     * Provides a site-relative link wrapped in an a tag.
+     * Encoded correctly to dump directly to XHTML.
+     *
+     * @param label      the contents of the a tag
+     * @param styleClass the css class attribute
+     */
+    public String asAHref(HttpServletRequest request, String label, String styleClass) {
+        return "<a href=\"" + asSiteRelative(request) + "\" class=\"" + styleClass + "\">" + label + "</a>";
+    }
+
 }
