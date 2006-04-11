@@ -11,7 +11,7 @@
             <h2>What do you think?</h2>
             <p>Other parents want to hear the "inside scoop" about your child's school from your firsthand experiences!</p>
 
-            See a Sample Review
+            <gsml:a href="/cgi-bin/static/sample_reviews.tmpl/$STATE">See a Sample Review</gsml:a>
             <div style="float: right"><gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
                 <gsml:img src="/res/img/community/btn_write_a_review.gif"
                           alt="Rate your School"/>
