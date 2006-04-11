@@ -61,6 +61,10 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
     padding-left:2px;
 }
 
+h1 {
+    color: #eb7a31;
+}
+
 .context {display:block;}
 
 .mainresultsheader {

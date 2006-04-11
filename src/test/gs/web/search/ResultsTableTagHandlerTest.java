@@ -6,7 +6,6 @@ import gs.web.school.SchoolsController;
 import gs.web.util.UrlBuilder;
 import gs.web.jsp.MockJspWriter;
 import gs.web.jsp.MockPageContext;
-//import org.springframework.mock.web.MockHttpServletRequest;
 
 import java.util.List;
 import java.util.ArrayList;

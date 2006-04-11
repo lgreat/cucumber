@@ -190,11 +190,6 @@
         <tag-class>gs.web.search.SchoolTableHeaderTagHandler</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
-            <name>schools</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
             <name>sortColumn</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

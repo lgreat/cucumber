@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.2 2006/04/07 18:56:44 apeterson Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.3 2006/04/11 19:41:40 apeterson Exp $
  */
 
 package gs.web.search;
@@ -19,7 +19,6 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * This tag handler generates a table of schools.
@@ -37,7 +36,6 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
     public static final String BEAN_ID = "schoolTableHeaderTagHandler";
 
     private static UrlUtil urlUtil = new UrlUtil();
-    private List _schools = null;
     private String _srcQuery = null;
     private Boolean _showAll;
     private String _cityName;
@@ -45,15 +43,6 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
     private LevelCode _levelCode ;
     private String[] _schoolType;
     private static final Log _log = LogFactory.getLog(SchoolTableHeaderTagHandler.class);
-
-    /**
-     * This is the list of schools that fills the schools table
-     *
-     * @param sList a <code>List</code> of <code>gs.data.School</code> objects
-     */
-    public void setSchools(List sList) {
-        _schools = sList;
-    }
 
     public void doTag() throws IOException {
 
@@ -73,12 +62,12 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
 
         out.println("<table width=\"100%\"><tr><td>");
 
-        out.print("<h1 class=\"resultsheadline\">");
+        out.print("<h1>");
         String cityOrDistrictName = "";
         if (StringUtils.isNotEmpty(_cityName)) {
             cityOrDistrictName = _cityName;
             out.print(cityOrDistrictName);
-            out.print((_total != 1) ? " schools" : " school");
+            out.print((_total != 1) ? " Schools" : " School");
         } else if (district != null) {
             cityOrDistrictName = district.getName();
             out.print((_total != 1) ? "Schools" : "School");
@@ -86,6 +75,13 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
             out.print(district.getName());
         }
         out.print("</h1>");
+        /*if (district != null) {
+            UrlBuilder districtProfile = new UrlBuilder(district, UrlBuilder.DISTRICT_PROFILE);
+            out.print(districtProfile.asAHref(request, "<span class=\"minilink\">View district information</span>"));
+        } else if (StringUtils.isNotEmpty(_cityName)) {
+            UrlBuilder cityPage = new UrlBuilder(UrlBuilder.CITY_PAGE, getState(), _cityName);
+            out.print(cityPage.asAHref(request, "<span class=\"minilink\">View city information</span>"));
+        }*/
 
         out.print("</td><td align=\"right\" style=\"padding-right:15px;white-space:nowrap\">");
 

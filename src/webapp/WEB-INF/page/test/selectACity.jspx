@@ -90,6 +90,7 @@ span.mousedOver, span:hover {
                 <td style="width:66%; vertical-align: top">
                     <div id="mapContainer">
                         <div id="map">&#160;</div>
+                        <noscript>In order to view this map, enable JavaScript in your browser.</noscript>
                     </div>
                     <map:setup/>
                     <map:cities functionName="createMap"

@@ -90,13 +90,10 @@
         </td>
         <td valign="top" class="col2">
 
-            <!--gsml:box tableClass="shade3 main"-->
-
             <gsml:form action="/compareSchools.page" method="GET">
                 <input type="hidden" name="state" value="${state}}"/>
 
-                <gsweb:schoolTableHeader schools="${results.schools}"
-                                         total="${results.total}"
+                <gsweb:schoolTableHeader total="${results.total}"
                                          srcQuery="${pageContext.request.queryString}"
                                          showAll="${param.showall}"
                                          cityName="${requestScope.city}"
@@ -112,7 +109,8 @@
                         <gsml:a href="/schools.page?map=0&amp;${pageContext.request.queryString}">Hide Map</gsml:a>
                         </div>
                         <div id="mapContainer">
-                            <div id="map" style="height: 400px; width: 100%">&#160;</div>
+                            <script>document.write('<div id="map" style="height: 400px; width: 100%">&#160;</div>')</script>
+                            <noscript>In order to view this map, enable JavaScript in your browser.</noscript>
                         </div>
                         <map:setup/>
                         <map:schools functionName="createMap" id="map"
