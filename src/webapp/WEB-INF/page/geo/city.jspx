@@ -39,7 +39,7 @@
     <table width="100%">
         <tr>
             <td style="white-space:nowrap; vertical-align: bottom">
-                <h1>${displayName} schools</h1>
+                <h1>${displayName} Schools</h1>
             </td>
             <td id="nearbyCities" style="vertical-align: bottom; text-align: right">
                 <jsp:include
@@ -83,7 +83,7 @@
             <div class="topRatedSchools">
                 <table width="100%" cellpadding="0" cellspacing="0">
                     <tr style="">
-                        <th style="text-align: left">Top-Rated Schools</th>
+                        <th style="text-align: left">Top-Rated Public Schools</th>
                         <th style="text-align: right;">GreatSchools<br/>Rating</th>
                     </tr>
                     <c:forEach items="${requestScope.topRatedSchools}" var="s">

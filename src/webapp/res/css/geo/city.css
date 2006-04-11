@@ -15,7 +15,8 @@
 }
 
 .cityPage h1 {
-    font-size: medium; 
+    font-size: medium;
+    font-weight: bold; 
     color: #eb7a31;
 }
 .cityPage h2,
