@@ -1,7 +1,7 @@
 
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesController.java,v 1.15 2006/04/05 22:10:42 apeterson Exp $
+ * $Id: TopCitiesController.java,v 1.16 2006/04/11 04:37:32 apeterson Exp $
  */
 
 package gs.web.state;
@@ -57,7 +57,7 @@ public class TopCitiesController extends AbstractController {
             model.put(ListModel.HEADING, state.getLongName() + " Schools");
 
             List items = new ArrayList(1);
-            Anchor anchor = new Anchor("/cgi-bin/schoollist/DC",
+            Anchor anchor = new Anchor("/schools.page?city=Washington&state=DC",
                     "View all schools");
             items.add(anchor);
             model.put(ListModel.RESULTS, items);

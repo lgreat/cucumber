@@ -1,11 +1,10 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesControllerTest.java,v 1.1 2006/04/05 22:10:28 apeterson Exp $
+ * $Id: TopCitiesControllerTest.java,v 1.2 2006/04/11 04:37:32 apeterson Exp $
  */
 
 package gs.web.state;
 
-import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.web.util.ListModel;
 import gs.web.util.Anchor;
@@ -58,7 +57,7 @@ public class TopCitiesControllerTest extends BaseControllerTestCase {
         assertEquals(1, results.size());
         la = (Anchor) results.get(0);
         assertEquals("View all schools", la.getContents());
-        assertEquals("/cgi-bin/schoollist/DC", la.getHref());
+        assertEquals("/schools.page?city=Washington&state=DC", la.getHref());
 
         // Special case NYC
         context = (SessionContext) SessionFacade.getInstance(getRequest());
