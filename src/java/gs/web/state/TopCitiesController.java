@@ -1,7 +1,7 @@
 
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesController.java,v 1.16 2006/04/11 04:37:32 apeterson Exp $
+ * $Id: TopCitiesController.java,v 1.17 2006/04/11 20:13:48 apeterson Exp $
  */
 
 package gs.web.state;
@@ -93,7 +93,7 @@ public class TopCitiesController extends AbstractController {
                     "View all " + state.getLongName() + " cities",
                     "viewall"));
             model.put(ListModel.RESULTS, items);
-
+            model.put(ListModel.COLUMNS, new Integer(items.size() > 5 ? 2 : 1));
         }
 
         ModelAndView modelAndView = new ModelAndView(_viewName, model);

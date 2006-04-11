@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ListModel.java,v 1.2 2006/03/21 01:43:06 apeterson Exp $
+ * $Id: ListModel.java,v 1.3 2006/04/11 20:13:48 apeterson Exp $
  */
 
 package gs.web.util;
@@ -17,15 +17,18 @@ import java.util.ArrayList;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class ListModel {
+
     public static final String HEADING = "heading";
 
     /**
      * Collection of Anchor objects.
      */
     public static final String RESULTS = "results";
+    public static final String COLUMNS = "columns";
 
 
     private String _heading;
+    private int _columns;
 
     /**
      * Collection of Anchor objects.
@@ -57,4 +60,11 @@ public class ListModel {
         return _results;
     }
 
+    public int getColumns() {
+        return _columns;
+    }
+
+    public void setColumns(int columns) {
+        _columns = columns;
+    }
 }
