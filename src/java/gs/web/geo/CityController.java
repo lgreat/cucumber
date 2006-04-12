@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.12 2006/04/12 18:29:27 apeterson Exp $
+ * $Id: CityController.java,v 1.13 2006/04/12 18:58:54 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -162,7 +162,7 @@ public class CityController extends AbstractController {
             }
 
             if (needViewAll) {
-                String url = "/modperl/distlist/" + state.getAbbreviation() + "/";
+                String url = "/modperl/districts/" + state.getAbbreviation() + "/";
                 url = _urlUtil.buildUrl(url, request);
                 districts.addResult(new Anchor(url, "View all " + state.getLongName() + " Districts", "viewall"));
             }
