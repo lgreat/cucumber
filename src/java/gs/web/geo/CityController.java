@@ -1,12 +1,11 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.8 2006/04/12 00:00:28 apeterson Exp $
+ * $Id: CityController.java,v 1.9 2006/04/12 08:44:42 apeterson Exp $
  */
 
 package gs.web.geo;
 
-import gs.data.geo.ICity;
-import gs.data.geo.IGeoDao;
+import gs.data.geo.*;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
@@ -48,7 +47,7 @@ public class CityController extends AbstractController {
     public static final String MODEL_DISTRICTS = "districts"; // ListModel object
     public static final String MODEL_SCHOOL_BREAKDOWN = "schoolBreakdown"; // ListModel object
 
-    public static final String MODEL_SCHOOLS_BY_LEVEL = "schoolsByLevel"; // map [e,m,h] of ListModel object
+    //public static final String MODEL_SCHOOLS_BY_LEVEL = "schoolsByLevel"; // map [e,m,h] of ListModel object
 
 
     private IGeoDao _geoDao;
@@ -64,14 +63,14 @@ public class CityController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
 
-        State state = SessionContext.getInstance(request).getStateOrDefault();
+        final State state = SessionContext.getInstance(request).getStateOrDefault();
 
         if (state == null) {
             View redirectView = new RedirectView("/");
             return new ModelAndView(redirectView);
         }
 
-        String cityNameParam = request.getParameter(PARAM_CITY);
+        final String cityNameParam = request.getParameter(PARAM_CITY);
         if (StringUtils.isEmpty(cityNameParam)) {
             View redirectView = new RedirectView("/modperl/go/" + state.getAbbreviationLowerCase());
             return new ModelAndView(redirectView);
@@ -79,8 +78,9 @@ public class CityController extends AbstractController {
 
         ICity city = _geoDao.findCity(state, cityNameParam);
         if (city == null) {
-            View redirectView = new RedirectView("/modperl/go/" + state.getAbbreviationLowerCase());
-            return new ModelAndView(redirectView);
+            //View redirectView = new RedirectView("/modperl/go/" + state.getAbbreviationLowerCase());
+            //return new ModelAndView(redirectView);
+            city = new FauxCity(cityNameParam, state);
         }
 
 
@@ -96,8 +96,8 @@ public class CityController extends AbstractController {
         ListModel schoolBreakdownList = createSchoolSummaryModel(state, cityNameParam, city.getName());
         model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownList);
 
-        Map schoolsByLevel = createSchoolsByLevelModel(state, city, request);
-        model.put(MODEL_SCHOOLS_BY_LEVEL, schoolsByLevel);
+        //Map schoolsByLevel = createSchoolsByLevelModel(state, city, request);
+        //model.put(MODEL_SCHOOLS_BY_LEVEL, schoolsByLevel);
 
         ListModel districtList = createDistrictList(state, cityNameParam, request);
         model.put(MODEL_DISTRICTS, districtList);
@@ -130,6 +130,12 @@ public class CityController extends AbstractController {
                 }
                 model.put(MODEL_SCHOOLS, schools);
             }
+        }
+
+        if (city instanceof FauxCity) {
+            Collection schools = (Collection) model.get(MODEL_SCHOOLS);
+            LatLonRect r = new LatLonRect(schools);
+            ((FauxCity)city).setLatLon(r.getCenter());
         }
 
         return new ModelAndView("geo/city", model);
@@ -292,5 +298,48 @@ public class CityController extends AbstractController {
 
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
+    }
+
+    private static class FauxCity implements ICity {
+        private final String _cityNameParam;
+        private final State _state;
+        private LatLon _latLon;
+
+        public FauxCity(String cityNameParam, State state) {
+            _cityNameParam = cityNameParam;
+            _state = state;
+        }
+
+        public String getName() {
+            return _cityNameParam;
+        }
+
+        public State getState() {
+            return _state;
+        }
+
+        public float getLat() {
+            return _latLon.getLat();
+        }
+
+        public float getLon() {
+            return _latLon.getLon();
+        }
+
+        public String getCountyFips() {
+            return null;
+        }
+
+        public Long getPopulation() {
+            return null;
+        }
+
+        public LatLon getLatLon() {
+            return _latLon;
+        }
+
+        public void setLatLon(LatLon latLon) {
+            _latLon = latLon;
+        }
     }
 }
