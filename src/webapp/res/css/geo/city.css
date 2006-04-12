@@ -258,4 +258,9 @@ span.mousedOver, span:hover {
     border-bottom-width: 1px;
 }
 
-
+div.statsModule {
+    border: 0px solid #999;
+    margin-top: 3px;
+    padding-top: 6px;
+    border-top-width: 1px;
+}

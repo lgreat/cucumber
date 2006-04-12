@@ -153,9 +153,7 @@
 </c:if>
 
 
-<div style="width:100%" class="cleanLineTopBox">
     <jsp:include page="/geo/cityStats.module?city=${cityObject.name}&amp;state=${stateAbbrev}"/>
-</div>
 
 <c:if test="${empty requestScope.topRatedSchools}">
     <div class="featuredArticles cleanLineTopBox">
