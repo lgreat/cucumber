@@ -25,6 +25,9 @@
         if (Boolean.TRUE.equals(request.getAttribute("x40"))) {
             ads += "x40,";
         }
+        if (Boolean.TRUE.equals(request.getAttribute("x66"))) {
+            ads += "x66,";
+        }
         request.setAttribute("ads", ads);
         ]]></jsp:scriptlet>
     <c:if test="${!requestScope.pageHelper.adFree and !empty ads}">
