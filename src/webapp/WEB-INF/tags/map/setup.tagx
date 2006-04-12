@@ -24,29 +24,6 @@
             request.setAttribute("key", c.getGoogleMapsKey());
         }
     </jsp:scriptlet>
-    <!--c:choose>
-        <c:when test="${pageContext.request.serverName == 'apeterson.office.greatschools.net'}">
-            <c:set var="key"
-                   value="ABQIAAAAfIbt4ypAXkQ3IPRD94rdpBQEcfRlX9STjQIboV_rOfY8lEtLuRRI5C9Gh1Qfx01C-MsuJfXh6-Go1w"/>
-        </c:when>
-        <c:when test="${pageContext.request.serverName == 'dev.greatschools.net'}">
-            <c:set var="key"
-                   value="ABQIAAAAfIbt4ypAXkQ3IPRD94rdpBStxM1kVa_Q8zB1RskfVGeHX8T-URQF3G1ZiOsBsXTW4_6sfwoFR0T6oA"/>
-        </c:when>
-        <c:when test="${pageContext.request.serverName == 'staging.greatschools.net'}">
-            <c:set var="key"
-                   value="ABQIAAAA8D76zjSU8YZNRk-CJpLOBRSMF6_HnFruCiBdIgoryqbwRDDRbhQSbFAje_eqZUcanQYJ8p5u9sg1MA"/>
-        </c:when>
-        <c:when test="${pageContext.request.serverName == 'www.greatschools.net'}">
-            <c:set var="key"
-                   value="ABQIAAAA8D76zjSU8YZNRk-CJpLOBRRYA3oPjq3gVzB5CV8NIJj5T7DOURR2vqAG3ukuamYChw44AXtFNLrJqQ"/>
-        </c:when>
-        <c:otherwise>
-            <c:set var="key"
-                   value="ABQIAAAA8D76zjSU8YZNRk-CJpLOBRTlYi0cubLobP4jWenHIIRI1PzF4hSSfrUP1PW8lX8Cr8_uXWlvuQmKXg"/>
-        </c:otherwise>
-    </c:choose-->
-
     <pageHelper:externalJavascript
             file="http://maps.google.com/maps?file=api&amp;v=2&amp;key=${requestScope.key}"/>
 

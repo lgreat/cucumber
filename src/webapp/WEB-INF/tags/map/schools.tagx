@@ -4,6 +4,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
     <jsp:directive.tag import="gs.data.geo.LatLonRect"/>
     <jsp:directive.tag import="gs.data.geo.LatLon"/>
@@ -66,30 +67,37 @@ I'd like to use a consistent display of school information in the info window.
        //]]>
       <c:forEach var="s" items="${schools}">
       <c:if test="${not empty s.lon}">
+                 <c:choose>
+                       <c:when test="${'private' == s.type.schoolTypeName}">
+                         <gsml:url var="hrefbase"
+                                           value="/cgi-bin/${s.databaseState.abbreviationLowerCase}/private/${s.id}"/>
+                       </c:when>
+                       <c:otherwise>
+                                    <gsml:url var="hrefbase"
+                                      value="/modperl/browse_school/${s.databaseState.abbreviationLowerCase}/${s.id}"/>
+                      </c:otherwise>
+                   </c:choose>
     //<![CDATA[
        var latlng = new GLatLng(${s.lat},${s.lon});
        var schInfo = "<br />${s.gradeLevels}, ${s.type.name}";
+       var e = ${s.enrollment};
        var stInfo = "";
-       //]]>
-   <c:if test="${s.enrollment > 0}">
-   //<![CDATA[
-       var stInfo = "<br />${s.enrollment} students";
-   //]]>
-   </c:if>
-   //<![CDATA[
+       if (e > 0) {
+           stInfo="<br />"+e+" students";
+       }
        var marker = new GMarker(latlng);
        map.addOverlay(marker);
        bounds.extend(latlng);
        gMarkers[i++] = marker;
        //]]>
        <c:if test="${tooltips}">
-      setTooltipOnMarker(marker,"<span style='white-space:nowrap'>${s.name}</span>");
+      setTooltipOnMarker(marker,'<span style="white-space:nowrap">${s.name}</span>');
        </c:if>
        <c:if test="${bubbles}">
-            addBubble(marker, "/modperl/browse_school/${s.databaseState.abbreviation}/${s.id}", '${fn:escapeXml(s.name)}', schInfo, stInfo);
+            addBubble(marker, "${hrefbase}", '${fn:escapeXml(s.name)}', schInfo, stInfo);
        </c:if>
        <c:if test="${not bubbles}">
-       GEvent.addListener(marker, "click", function() { location = '/modperl/browse_school/${s.databaseState.abbreviation}/${s.id}'; });
+       GEvent.addListener(marker, "click", function() { location = '${hrefbase}'; });
        </c:if>
       </c:if>
    </c:forEach>
