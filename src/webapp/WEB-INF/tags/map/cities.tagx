@@ -49,7 +49,7 @@ function ${functionName}() {
        var p = new GLatLng(${s.lat},${s.lon});
        var marker = createMarker(p, 'city.page?city=${s.name}&state=${s.state}');
        map.addOverlay(marker);
-       setTooltipOnMarker(marker, "${s.name}, ${s.state}");
+       setTooltipOnMarker(marker, "<span style='white-space:nowrap'>${s.name},</span> ${s.state}");
        //]]>
       </c:if>
       </c:forEach>

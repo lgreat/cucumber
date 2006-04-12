@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.7 2006/04/07 17:35:47 apeterson Exp $
+ * $Id: CityController.java,v 1.8 2006/04/12 00:00:28 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -9,6 +9,7 @@ import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
+import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
@@ -45,7 +46,7 @@ public class CityController extends AbstractController {
     public static final String MODEL_CITY_NAME = "displayName"; // name of the city, correctly capitalized
 
     public static final String MODEL_DISTRICTS = "districts"; // ListModel object
-    //public static final String MODEL_SCHOOL_BREAKDOWN = "schoolBreakdown"; // ListModel object
+    public static final String MODEL_SCHOOL_BREAKDOWN = "schoolBreakdown"; // ListModel object
 
     public static final String MODEL_SCHOOLS_BY_LEVEL = "schoolsByLevel"; // map [e,m,h] of ListModel object
 
@@ -92,8 +93,8 @@ public class CityController extends AbstractController {
         }
         model.put(MODEL_CITY, city);
 
-        //ListModel schoolBreakdownList = createSchoolSummaryModel(state, cityNameParam);
-        //model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownList);
+        ListModel schoolBreakdownList = createSchoolSummaryModel(state, cityNameParam, city.getName());
+        model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownList);
 
         Map schoolsByLevel = createSchoolsByLevelModel(state, city, request);
         model.put(MODEL_SCHOOLS_BY_LEVEL, schoolsByLevel);
@@ -170,35 +171,51 @@ public class CityController extends AbstractController {
         return districts;
     }
 
-    private ListModel createSchoolSummaryModel(State state, String cityNameParam) {
+    private ListModel createSchoolSummaryModel(State state, String cityNameParam, String cityName) {
         // the summaries of schools in a city
         ListModel schoolBreakdownList;
         schoolBreakdownList = new ListModel();
 
         int sc = _schoolDao.countSchools(state, null, null, cityNameParam);
         if (sc > 0) {
-            Anchor a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam,
-                    "All " + cityNameParam + " schools (" + sc + ")");
-            schoolBreakdownList.addResult(a);
+            //Anchor a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam,
+            //        "All " + cityNameParam + " schools (" + sc + ")");
+            //schoolBreakdownList.addResult(a);
+            Anchor a;
 
             sc = _schoolDao.countSchools(state, null, LevelCode.ELEMENTARY, cityNameParam);
             if (sc > 0) {
                 a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&lc=e",
-                        "All Elementary (" + sc + ")");
+                        cityName + " Elementary Schools (" + sc + ")");
                 schoolBreakdownList.addResult(a);
             }
 
             sc = _schoolDao.countSchools(state, null, LevelCode.MIDDLE, cityNameParam);
             if (sc > 0) {
                 a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&lc=m",
-                        "All Middle (" + sc + ")");
+                        cityName + " Middle Schools (" + sc + ")");
                 schoolBreakdownList.addResult(a);
             }
 
             sc = _schoolDao.countSchools(state, null, LevelCode.HIGH, cityNameParam);
             if (sc > 0) {
-                a = new Anchor("/schools.page?c=school&state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&lc=h",
-                        "All High (" + sc + ")");
+                a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&lc=h",
+                        cityName + " High Schools (" + sc + ")");
+                schoolBreakdownList.addResult(a);
+            }
+
+            sc = _schoolDao.countSchools(state, SchoolType.PUBLIC, null, cityNameParam) +
+                    _schoolDao.countSchools(state, SchoolType.CHARTER, null, cityNameParam);
+            if (sc > 0) {
+                a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&st=public&st=charter",
+                        cityName + " Public Schools (" + sc + ")");
+                schoolBreakdownList.addResult(a);
+            }
+
+            sc = _schoolDao.countSchools(state, SchoolType.PRIVATE, null, cityNameParam);
+            if (sc > 0) {
+                a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&st=private",
+                        cityName + " Private Schools (" + sc + ")");
                 schoolBreakdownList.addResult(a);
             }
 

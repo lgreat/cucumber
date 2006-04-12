@@ -16,7 +16,7 @@
 
 .cityPage h1 {
     font-size: medium;
-    font-weight: bold; 
+    font-weight: bold;
     color: #eb7a31;
 }
 .cityPage h2,
@@ -209,15 +209,18 @@ div.topRatedSchools {
 }
 
 .schoolBreakdown ul {
-    display: inline;
     line-height: 1em;
     padding: 0 0 4px 0;
 }
 
 .schoolBreakdown li {
-    display: inline;
     font-size: small;
-    line-height: 1em;
+    border: 0px dotted #999;
+    border-bottom-width: 1px;
+    padding: .4em .4em .4em .4em;
+}
+
+.schoolBreakdown li a {
 }
 
 .districts li {
@@ -225,10 +228,6 @@ div.topRatedSchools {
     padding-bottom: 2px;
 }
 
-.schoolBreakdown li a {
-    padding: 0 .4em 0 .4em;
-    border-right: 1px solid #999;
-}
 
 span.mousedOver, span:hover {
     color: #000;

@@ -88,11 +88,6 @@
                     </tr>
                     <c:forEach items="${requestScope.topRatedSchools}" var="s">
                         <tr>
-                            <!--jsp:scriptlet>
-                                UrlBuilder builder = new UrlBuilder(s, UrlBuilder.SCHOOL_PROFILE);
-                                String href = builder.asAHref(request, s.getName());
-                            </jsp:scriptlet-->
-
                             <c:choose>
                                 <c:when test="${'private' == s.school.type.schoolTypeName}">
                                     <c:set var="hrefbase"
@@ -120,7 +115,8 @@
         </c:if>
         <c:if test="${empty requestScope.topRatedSchools}">
             <div class="schoolBreakdown">
-                <c:if test="${not empty schoolsByLevel.e}">
+                <gsml:list model="${schoolBreakdown}"/>
+                <!--c:if test="${not empty schoolsByLevel.e}">
                     <gsml:list model="${schoolsByLevel.e}"/>
                 </c:if>
                 <c:if test="${not empty schoolsByLevel.m}">
@@ -128,7 +124,7 @@
                 </c:if>
                 <c:if test="${not empty schoolsByLevel.h}">
                     <gsml:list model="${schoolsByLevel.h}"/>
-                </c:if>
+                </c:if-->
             </div>
 
             <div class="districts">
@@ -146,7 +142,8 @@
         <table width="100%"><tr>
             <td style="vertical-align: top; width: 50%">
                 <div class="schoolBreakdown">
-                    <c:if test="${not empty schoolsByLevel.e}">
+                    <gsml:list model="${schoolBreakdown}"/>
+                    <!--c:if test="${not empty schoolsByLevel.e}">
                         <gsml:list model="${schoolsByLevel.e}"/>
                     </c:if>
                     <c:if test="${not empty schoolsByLevel.m}">
@@ -154,7 +151,7 @@
                     </c:if>
                     <c:if test="${not empty schoolsByLevel.h}">
                         <gsml:list model="${schoolsByLevel.h}"/>
-                    </c:if>
+                    </c:if-->
                 </div>
             </td>
             <c:if test="${not empty districts.results}">

@@ -39,7 +39,7 @@ I'd like to use a consistent display of school information in the info window.
  //<![CDATA[
  function addBubble(m, link, name, schInfo, stInfo) {
      GEvent.addListener(m, "click", function() {
-         var s = '<div style="font-size:x-small;width: 200px;height: 20px"><a href="' + link + '">' + name + '</a>' +
+         var s = '<div style="font-size:small;width: 200px;height: 20px"><a href="' + link + '">' + name + '</a>' +
                  schInfo + stInfo + '</div>'
          m.openInfoWindowHtml(s);
      });
@@ -83,7 +83,7 @@ I'd like to use a consistent display of school information in the info window.
        gMarkers[i++] = marker;
        //]]>
        <c:if test="${tooltips}">
-      setTooltipOnMarker(marker,"${s.name}");
+      setTooltipOnMarker(marker,"<span style='white-space:nowrap'>${s.name}</span>");
        </c:if>
        <c:if test="${bubbles}">
             addBubble(marker, "/modperl/browse_school/${s.databaseState.abbreviation}/${s.id}", '${fn:escapeXml(s.name)}', schInfo, stInfo);

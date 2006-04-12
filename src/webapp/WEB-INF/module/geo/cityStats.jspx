@@ -22,7 +22,7 @@
                 </thead>
                 <tr>
                     <th>
-                        Avg. household income
+                        Median household income
                     </th>
                     <td class="${bpCensus.householdMedianIncome gt stateCensus.householdMedianIncome ? 'better' : 'worse'}">
                         $<fmt:formatNumber value="${bpCensus.householdMedianIncome}" maxFractionDigits="0"/>
@@ -37,7 +37,7 @@
                 </tr>
                 <tr>
                     <th>
-                        Cost of living
+                        Cost of living <span style="font-size:xx-small">(% of national avg)</span>
                     </th>
                     <td class="${bpCensus.costOfLiving lt usCensus.costOfLiving ? 'better' : 'worse'}">
                         <fmt:formatNumber value="${bpCensus.costOfLiving}" maxFractionDigits="0"/>%
@@ -67,7 +67,7 @@
                 </tr>
                 <tr>
                     <th>
-                        Violent Crime
+                        Violent crime index <span style="font-size:xx-small">(1 is lowest)</span>
                     </th>
                     <td class="${bpCensus.crimeViolent lt usCensus.crimeViolent -1 ? 'better' : bpCensus.crimeViolent gt usCensus.crimeViolent + 1 ? 'worse' : ''}">
                         ${bpCensus.crimeViolent}
