@@ -12,13 +12,45 @@
         src = urlUtil.buildUrl(src, request);
         jspContext.setAttribute("src", src);
     </jsp:scriptlet>
-    <jsp:element name="img">
-        <jsp:attribute name="src">${src}</jsp:attribute>
-        <jsp:attribute name="alt">${alt}</jsp:attribute>
-        <jsp:attribute name="id">${id}</jsp:attribute>
-        <jsp:attribute name="class">${styleClass}</jsp:attribute>
-        <jsp:body>
-            <jsp:doBody/>
-        </jsp:body>
-    </jsp:element>
+    <c:choose>
+        <c:when test="${empty id and empty styleClass}">
+            <jsp:element name="img">
+                <jsp:attribute name="src">${src}
+                </jsp:attribute>
+                <jsp:attribute name="alt">${alt}
+                </jsp:attribute>
+                <jsp:body>
+                    <jsp:doBody/>
+                </jsp:body>
+            </jsp:element>
+        </c:when>
+        <c:when test="${empty id}">
+            <jsp:element name="img">
+                <jsp:attribute name="src">${src}
+                </jsp:attribute>
+                <jsp:attribute name="alt">${alt}
+                </jsp:attribute>
+                <jsp:attribute name="class">${styleClass}
+                </jsp:attribute>
+                <jsp:body>
+                    <jsp:doBody/>
+                </jsp:body>
+            </jsp:element>
+        </c:when>
+        <c:otherwise>
+            <jsp:element name="img">
+                <jsp:attribute name="src">${src}
+                </jsp:attribute>
+                <jsp:attribute name="alt">${alt}
+                </jsp:attribute>
+                <jsp:attribute name="id">${id}
+                </jsp:attribute>
+                <jsp:attribute name="class">${styleClass}
+                </jsp:attribute>
+                <jsp:body>
+                    <jsp:doBody/>
+                </jsp:body>
+            </jsp:element>
+        </c:otherwise>
+    </c:choose>
 </jsp:root>
