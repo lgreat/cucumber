@@ -232,6 +232,7 @@ div.topRatedSchools {
     padding-bottom: 2px;
 }
 
+.topRatedSchools h5,
 .districts li.viewall {
     background-image: url(../../img/orange_arrow_right_trans.gif);
     background-repeat: no-repeat;
