@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.11 2006/04/12 17:37:34 apeterson Exp $
+ * $Id: CityController.java,v 1.12 2006/04/12 18:29:27 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -143,7 +143,7 @@ public class CityController extends AbstractController {
 
             boolean needViewAll = false;
 
-            if (list.size() <= 6) {
+            if (list.size() <= 5) {
                 _districtDao.sortDistrictsByName(list);
                 districts.setHeading(cityNameParam + " School Districts");
             } else {
@@ -164,7 +164,7 @@ public class CityController extends AbstractController {
             if (needViewAll) {
                 String url = "/modperl/distlist/" + state.getAbbreviation() + "/";
                 url = _urlUtil.buildUrl(url, request);
-                districts.addResult(new Anchor(url, "All " + state.getName() + " Districts"));
+                districts.addResult(new Anchor(url, "View all " + state.getLongName() + " Districts", "viewall"));
             }
         }
 

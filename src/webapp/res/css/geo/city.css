@@ -102,6 +102,13 @@
     border-right: 1px solid #999;
 }
 
+#nearbyCities .more {
+    background-image: url(../../img/orange_arrow_right_trans.gif);
+    background-repeat: no-repeat;
+    background-position: center right;
+    padding-right: 16px;
+}
+
 #adSquare {
     clear: both;
     margin-top: 2em;
@@ -225,6 +232,12 @@ div.topRatedSchools {
     padding-bottom: 2px;
 }
 
+.districts li.viewall {
+    background-image: url(../../img/orange_arrow_right_trans.gif);
+    background-repeat: no-repeat;
+    background-position: center left;
+    padding-left: 16px;
+}
 
 span.mousedOver, span:hover {
     color: #000;

@@ -1,0 +1,57 @@
+#mapContainer {
+    margin: .3em;
+    border: 1px solid #00c;
+    background-color: #eee;
+    padding: .0em;
+}
+
+#map, #mapContainer {
+    width: 550px;
+    height: 500px;
+    float: right;
+}
+
+div#nearbyCities {
+    margin: .5em 1em .5em 1em;
+    padding: .3em 1em .3 1em;
+}
+
+div#nearbyCities h3 {
+    color: #eb7a31;
+    font-size: medium;
+    font-weight: 700;
+    text-align: left;
+    padding-bottom: 5px;
+}
+
+div#nearbyCities li {
+    font-size: small;
+    display: list-item;
+    border-top: 1px dotted #999;
+    padding: 3px 0 3px 0;
+}
+
+#nearbyCities .more {
+    background-image: url(../../img/orange_arrow_right_trans.gif);
+    background-repeat: no-repeat;
+    background-position: center left;
+    padding-left: 16px;
+}
+
+span.mousedOver, span:hover {
+    color: #000;
+    background-color: #eee;
+    color: red;
+}
+
+.tooltip {
+    font-size: small;
+    font-weight: bold;
+    padding: 2px;
+    border: 1px #036 solid;
+    border-width: 1px 2px 2px 1px;
+    border-color: #000 #666 #666 #000;
+    background-color: #FF9;
+    color: #000;
+}
+
