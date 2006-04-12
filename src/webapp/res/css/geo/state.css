@@ -1,0 +1,38 @@
+h3.result_title {
+    font-weight: bold;
+}
+
+h1.inline {
+    padding-bottom: 50px;
+}
+
+ul li.viewall,
+#topcitydist li.viewall {
+    background-image: url(../../img/orange_arrow_right.gif);
+    background-repeat: no-repeat;
+    background-position: 0% .6em;
+    padding-left: 1.2em;
+    padding-top: 8px;
+}
+
+.schoolchoicecenter li {
+    list-style-type: none;
+    background-image: none;
+}
+
+#radiotable td {
+    padding-top: 7px;
+}
+
+#compareButton {
+    padding-bottom: 15px;
+}
+
+#chalkBoard {
+    float: right;
+    padding: 10px;
+}
+
+#topcitydist li {
+    padding: 2px 0 2px 0;
+}
