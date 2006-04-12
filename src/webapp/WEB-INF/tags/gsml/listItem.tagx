@@ -8,7 +8,7 @@
     <jsp:directive.attribute name="anchor" required="true" type="gs.web.util.Anchor"
                              description="the anchor link model to use"/>
 
-    <c:if test="${anchor.styleClass!=null}">
+    <c:if test="${not empty anchor.styleClass}">
         <li class="${anchor.styleClass}">
             <a href="${anchor.href}">${anchor.contents}</a>
             <c:if test="${anchor.image!=null}">
@@ -16,7 +16,7 @@
             </c:if>
         </li>
     </c:if>
-    <c:if test="${anchor.styleClass==null}">
+    <c:if test="${empty anchor.styleClass}">
         <li>
             <a href="${anchor.href}">${anchor.contents}</a>
             <c:if test="${anchor.image!=null}">
