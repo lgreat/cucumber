@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.10 2006/04/12 09:24:57 apeterson Exp $
+ * $Id: CityController.java,v 1.11 2006/04/12 17:37:34 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -181,7 +181,7 @@ public class CityController extends AbstractController {
             //Anchor a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam,
             //        "All " + cityNameParam + " schools (" + sc + ")");
             //schoolBreakdownList.addResult(a);
-            Anchor a;
+            Anchor a = null;
 
             sc = _schoolDao.countSchools(state, null, LevelCode.ELEMENTARY, cityNameParam);
             if (sc > 0) {
@@ -217,6 +217,14 @@ public class CityController extends AbstractController {
                 a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&st=private",
                         cityName + " Private Schools (" + sc + ")");
                 schoolBreakdownList.addResult(a);
+            }
+
+            // Add a "last" to the last item
+            // It's already set!
+            // List results = schoolBreakdownList.getResults();
+            //a = (Anchor) results.get(results.size() - 1);
+            if (a != null) {
+                a.setStyleClass(a.getStyleClass() + " last");
             }
 
         }

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: Anchor.java,v 1.3 2006/04/07 02:47:55 apeterson Exp $
+ * $Id: Anchor.java,v 1.4 2006/04/12 17:37:34 apeterson Exp $
  */
 
 package gs.web.util;
@@ -13,8 +13,8 @@ package gs.web.util;
 public class Anchor {
     private final String _href;
     private final String _contents;
-    private final String _styleClass; // CSS class, or null
     private final String _image;
+    private String _styleClass; // CSS class, or null
 
     /**
      * Constructor.
@@ -65,6 +65,10 @@ public class Anchor {
 
     public String getStyleClass() {
         return _styleClass;
+    }
+
+    public void setStyleClass(String styleClass) {
+        _styleClass = styleClass;
     }
 
     public String getImage() {

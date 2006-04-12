@@ -216,7 +216,8 @@ div.topRatedSchools {
     padding: .4em .4em .4em 0;
 }
 
-.schoolBreakdown li a {
+.schoolBreakdown li.last {
+    border-width: 0;
 }
 
 .districts li {

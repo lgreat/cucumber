@@ -56,7 +56,11 @@
     <c:if test="${not empty requestScope.topRatedSchools}">
         Top-Rated
     </c:if>
-    ${displayName} Schools
+    ${displayName}
+    <c:if test="${not empty requestScope.topRatedSchools}">
+        Public
+    </c:if>
+    Schools
 </h2>
 <table width="100%" cellpadding="0" cellspacing="0"><tr><td
         style="width:230px; vertical-align: top">

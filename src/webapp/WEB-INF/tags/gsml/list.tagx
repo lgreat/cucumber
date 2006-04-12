@@ -38,14 +38,18 @@
             <table style="width:100%">
                 <tr>
                     <td style="vertical-align: top">
+                        <ul>
                         <c:forEach var="i" items="${list}" end="${((fn:length(list) + columns - 1) div columns) - 1}">
                             <gsml:listItem anchor="${i}"/>
                         </c:forEach>
+                        </ul>
                     </td>
                     <td style="vertical-align: top">
+                    <ul>
                         <c:forEach var="i" items="${list}" begin="${((fn:length(list) + columns - 1) div columns)}">
                             <gsml:listItem anchor="${i}"/>
                         </c:forEach>
+                    </ul>
                     </td>
                 </tr>
             </table>
