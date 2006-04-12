@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.12 2006/04/06 23:13:34 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.13 2006/04/12 19:47:12 apeterson Exp $
  */
 
 package gs.web.util;
@@ -189,5 +189,42 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("X &lt; Y", UrlBuilder.encodeForXml("X < Y"));
     }
 
+
+    public void testAddParameter() {
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
+        request.setMethod("GET");
+        request.setProtocol("http");
+        request.setServerName("www.myserver.com");
+        request.setServerPort(80);
+        request.setRequestURI("/index.page");
+
+        // Adding
+        UrlBuilder builder = new UrlBuilder(request, "/index.page");
+        builder.addParameter("city", "a");
+        assertEquals("/index.page?city=a", builder.asSiteRelative(request));
+        builder.addParameter("city", "b");
+        assertEquals("/index.page?city=a&amp;city=b", builder.asSiteRelative(request));
+
+        // Encoding
+        builder = new UrlBuilder(request, "/index.page");
+        builder.addParameter("city", "Batin Rooj");
+        assertEquals("/index.page?city=Batin+Rooj", builder.asSiteRelative(request));
+        builder.addParameter("city", "Gobber");
+        assertEquals("/index.page?city=Batin+Rooj&amp;city=Gobber", builder.asSiteRelative(request));
+
+        builder.addParameter("place", "Crow's Neck");
+        assertEquals("/index.page?city=Batin+Rooj&amp;city=Gobber&amp;place=Crow%27s+Neck", builder.asSiteRelative(request));
+
+// Bulk adding
+        request.setParameter("a", "1");
+        request.setParameter("b", "2");
+        request.setParameter("c", "bill gates");
+        request.setParameter("d", "steve's shop");
+        builder = new UrlBuilder(request, "/index.page");
+        builder.addParametersFromRequest(request);
+        assertEquals("/index.page?a=1&amp;b=2&amp;c=bill+gates&amp;d=steve%27s+shop", builder.asSiteRelative(null));
+        assertEquals("http://www.myserver.com/index.page?a=1&b=2&c=bill+gates&d=steve%27s+shop", builder.asFullUrl(request));
+
+    }
 
 }

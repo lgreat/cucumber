@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.19 2006/04/11 19:10:55 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.20 2006/04/12 19:47:12 apeterson Exp $
  */
 
 package gs.web.util;
@@ -206,13 +206,16 @@ public class UrlBuilder {
 
     /**
      * Takes all the parameters in the given requests and adds them to the URL.
-     * If some parameters already exist, they will be replaced completely.
+     * If some parameters already exist, they will be appended to.
      */
     public void addParametersFromRequest(HttpServletRequest request) {
-        if (_parameters == null) {
-            _parameters = new HashMap(request.getParameterMap());
-        } else {
-            _parameters.putAll(request.getParameterMap());
+        Map parameterMap = request.getParameterMap();
+        for (Iterator i = parameterMap.keySet().iterator(); i.hasNext();) {
+            String key = (String) i.next();
+            String[] value = request.getParameterValues(key);
+            for (int j = 0; j < value.length; j++) {
+                this.addParameter(key, value[j]);
+            }
         }
     }
 
@@ -232,6 +235,28 @@ public class UrlBuilder {
     /**
      * Replaces the given parameter.
      *
+     * @param value previously encoded value. Spaces should be represented by "+" signs,
+     *              and "=" and "&" should be encoded, along with other extended characters.
+     */
+    public void addParameterNoEncoding(String key, String value) {
+        if (_parameters == null) {
+            _parameters = new HashMap();
+            _parameters.put(key, new String[]{value});
+        } else {
+            String[] existingValues = (String[]) _parameters.get(key);
+            if (existingValues == null) {
+                _parameters.put(key, new String[]{value});
+            } else {
+                String [] newValues = org.springframework.util.StringUtils.addStringToArray(existingValues, value);
+                _parameters.put(key, newValues);
+            }
+
+        }
+    }
+
+    /**
+     * Replaces the given parameter.
+     *
      * @param value unencoded values. Spaces, ampersands, equal signs, etc. will be replaced.
      */
     public void setParameter(String key, String value) {
@@ -241,6 +266,20 @@ public class UrlBuilder {
             _log.warn("Unable to encode parameter");
         }
         setParameterNoEncoding(key, value);
+    }
+
+    /**
+     * Replaces the given parameter.
+     *
+     * @param value unencoded values. Spaces, ampersands, equal signs, etc. will be replaced.
+     */
+    public void addParameter(String key, String value) {
+        try {
+            value = URLEncoder.encode(value, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            _log.warn("Unable to encode parameter");
+        }
+        addParameterNoEncoding(key, value);
     }
 
     /**
@@ -285,7 +324,7 @@ public class UrlBuilder {
                 for (int i = 0; i < values.length; i++) {
                     sb.append(key);
                     sb.append("=" + values[i]);
-                    if (i < values.length && iter.hasNext()) {
+                    if (i < (values.length-1) || iter.hasNext()) {
                         sb.append("&");
                     }
                 }
