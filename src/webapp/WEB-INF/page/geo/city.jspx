@@ -62,7 +62,9 @@
     </c:if>
     Schools
 </h2>
-<table width="100%" cellpadding="0" cellspacing="0"><tr><td
+<table width="100%" cellpadding="0" cellspacing="0"><tr>
+<c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+    <td
         style="width:230px; vertical-align: top">
     <div id="mapContainer">
         <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its
@@ -85,6 +87,7 @@
                  schools="${schools}"/>
     <pageHelper:addOnLoadHandler handler="createMap()"/>
 </td>
+</c:if>
     <td style="vertical-align: top; padding-left: .3em">
         <c:if test="${not empty requestScope.topRatedSchools}">
             <div class="topRatedSchools" >

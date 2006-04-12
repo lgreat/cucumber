@@ -41,22 +41,22 @@
                             <gsml:list/>
                         </div>
                     </td>
-
-                    <td style="width:66%; vertical-align: top">
-                        <div id="mapContainer">
-                            <div id="map">&#160;</div>
-                            <noscript>In order to view this map, enable JavaScript in your browser.</noscript>
-                        </div>
-                        <map:setup/>
-                        <map:cities functionName="createMap"
-                                    id="map"
-                                    lon="${cityObject.lon}"
-                                    lat="${cityObject.lat}"
-                                    scale="7"
-                                    cities="${cities}"/>
-                        <pageHelper:addOnLoadHandler handler="createMap()"/>
-                    </td>
-
+                    <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+                        <td style="width:66%; vertical-align: top">
+                            <div id="mapContainer">
+                                <div id="map">&#160;</div>
+                                <noscript>In order to view this map, enable JavaScript in your browser.</noscript>
+                            </div>
+                            <map:setup/>
+                            <map:cities functionName="createMap"
+                                        id="map"
+                                        lon="${cityObject.lon}"
+                                        lat="${cityObject.lat}"
+                                        scale="7"
+                                        cities="${cities}"/>
+                            <pageHelper:addOnLoadHandler handler="createMap()"/>
+                        </td>
+                    </c:if>
                 </tr></table>
 
         </div>
