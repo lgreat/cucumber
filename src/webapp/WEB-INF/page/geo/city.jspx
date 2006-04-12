@@ -81,9 +81,9 @@
                  schools="${schools}"/>
     <pageHelper:addOnLoadHandler handler="createMap()"/>
 </td>
-    <td style="vertical-align: top">
+    <td style="vertical-align: top; padding-left: .3em">
         <c:if test="${not empty requestScope.topRatedSchools}">
-            <div class="topRatedSchools">
+            <div class="topRatedSchools" >
                 <table style="width: 100%" cellpadding="0" cellspacing="0">
                     <tr style="">
                         <th style="text-align: left">Top-Rated Public Schools</th>
@@ -134,13 +134,13 @@
     <div style="width: 100%" class="cleanLineTopBox">
         <h2>All ${displayName} Schools</h2>
         <table width="100%"><tr>
-            <td style="vertical-align: top; width: 50%">
+            <td style="vertical-align: top; width: 50%; padding-right: 1em">
                 <div class="schoolBreakdown">
                     <gsml:list model="${schoolBreakdown}" />
                 </div>
             </td>
             <c:if test="${not empty districts.results}">
-                <td style="vertical-align: top" class="districts">
+                <td style="vertical-align: top; padding-left: .5em" class="districts">
                     <gsml:list model="${districts}"/>
                 </td>
             </c:if>

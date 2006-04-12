@@ -197,10 +197,6 @@ div.topRatedSchools {
     font-size: small;
 }
 
-.schoolBreakdown,
-.districts {
-    margin: 0 5px 0 5px;
-}
 .schoolBreakdown h3,
 .districts h3{
     font-size: small;
@@ -217,7 +213,7 @@ div.topRatedSchools {
     font-size: small;
     border: 0px dotted #999;
     border-bottom-width: 1px;
-    padding: .4em .4em .4em .4em;
+    padding: .4em .4em .4em 0;
 }
 
 .schoolBreakdown li a {
