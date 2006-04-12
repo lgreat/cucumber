@@ -91,7 +91,7 @@ I'd like to use a consistent display of school information in the info window.
        gMarkers[i++] = marker;
        //]]>
        <c:if test="${tooltips}">
-      setTooltipOnMarker(marker,'<span style="white-space:nowrap">${s.name}</span>');
+      setTooltipOnMarker(marker,'<span style="white-space:nowrap"><c:out value="${s.name}" escapeXml="true" /></span>');
        </c:if>
        <c:if test="${bubbles}">
             addBubble(marker, "${hrefbase}", '${fn:escapeXml(s.name)}', schInfo, stInfo);
