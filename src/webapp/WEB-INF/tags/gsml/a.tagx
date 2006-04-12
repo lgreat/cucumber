@@ -16,7 +16,7 @@
     </jsp:scriptlet>
     <c:if test="${styleClass != null}">
         <jsp:element name="a">
-            <jsp:attribute name="href">${href}</jsp:attribute>
+            <jsp:attribute name="href"><c:out value="${href}" escapeXml="true" /></jsp:attribute>
             <jsp:attribute name="class">${styleClass}</jsp:attribute>
             <jsp:body>
                 <jsp:doBody/>

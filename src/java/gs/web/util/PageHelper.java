@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.9 2006/03/02 19:05:44 apeterson Exp $
+ * $Id: PageHelper.java,v 1.10 2006/04/12 06:56:35 apeterson Exp $
  */
 
 package gs.web.util;
@@ -273,12 +273,14 @@ public class PageHelper {
             if (_javascriptFiles != null) {
                 for (Iterator iter = _javascriptFiles.iterator(); iter.hasNext();) {
                     String src = (String) iter.next();
+                    src = StringUtils.replace(src, "&", "&amp;");
                     sb.append("<script type=\"text/javascript\" src=\"" + src + "\"></script>");
                 }
             }
             if (_cssFiles != null) {
                 for (Iterator iter = _cssFiles.iterator(); iter.hasNext();) {
                     String src = (String) iter.next();
+                    src = StringUtils.replace(src, "&", "&amp;");
                     sb.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + src + "\"></link>");
                 }
             }
