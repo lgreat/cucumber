@@ -245,3 +245,20 @@ span.mousedOver, span:hover {
     background-color: #FF9;
     color: #000;
 }
+
+.featuredArticles {
+    margin-top: 1em;
+    font-size: small;
+}
+.featuredArticles h4 {
+    margin: .5em 0 0em 0;
+}
+
+.featuredArticles p {
+    padding: 0 1em .6em 0;
+    margin: .3em 0 .3em 0;
+    border: 0px dotted #999;
+    border-bottom-width: 1px;
+}
+
+

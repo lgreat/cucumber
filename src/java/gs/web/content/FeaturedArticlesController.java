@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.19 2006/03/23 19:02:35 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.20 2006/04/12 05:48:59 apeterson Exp $
  */
 package gs.web.content;
 
@@ -50,6 +50,10 @@ public class FeaturedArticlesController extends AbstractController {
      */
     public static final String PARAM_POSITION = "position";
     /**
+     * Index into the sub feature position. The default is 0.
+     */
+    public static final String PARAM_SUB_POSITION = "sub";
+    /**
      * Number of articles to display. The default is 1. If
      * fewer articles are available, only those articles are displayed.
      */
@@ -59,6 +63,7 @@ public class FeaturedArticlesController extends AbstractController {
      * A string to be displayed as a heading above the articles.
      */
     public static final String PARAM_HEADING = "heading";
+    private static final String PARAM_VALUE_NO_HEADING = "none";
 
     /*
         Model property names.
@@ -94,7 +99,17 @@ public class FeaturedArticlesController extends AbstractController {
 
     private ModelAndView handleSingleArticle(HttpServletRequest request, String posStr) {
         ISessionFacade sessionFacade = SessionFacade.getInstance(request);
-        Article article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), posStr, 0);
+
+        int subPosition = 0;
+        if (StringUtils.isNumeric(request.getParameter(PARAM_SUB_POSITION))) {
+            subPosition = Integer.parseInt(request.getParameter(PARAM_SUB_POSITION));
+        }
+
+        Article article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), posStr, subPosition);
+
+        if (article == null) {
+            return null;
+        }
 
         // Allow param override
         final String heading = calcHeading(request, posStr);
@@ -164,7 +179,9 @@ public class FeaturedArticlesController extends AbstractController {
         final String paramHeading = request.getParameter(PARAM_HEADING);
         String heading;
         heading = "Today&#8217s Feature";
-        if (StringUtils.isNotEmpty(paramHeading)) {
+        if (StringUtils.equals(paramHeading,PARAM_VALUE_NO_HEADING)) {
+            heading = "";
+        } else if (StringUtils.isNotEmpty(paramHeading)) {
             heading = paramHeading;
         } else {
             if (StringUtils.equals(posStr, IArticleDao.FOCUS_ON_CHOICE)) {

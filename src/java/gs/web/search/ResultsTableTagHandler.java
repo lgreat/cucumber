@@ -117,8 +117,7 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                 out.println();
             }
 
-            int counter = 1;
-            for (int i = start; i < Math.min(end + 1, end + 10); i++) {
+            for (int i = start; i < Math.min(end + 1, start + 10); i++) {
 
                 if (i == currentPage) {
                     out.print("<span class=\"active pad\">");
@@ -128,10 +127,6 @@ public abstract class ResultsTableTagHandler extends BaseTagHandler {
                     builder.setParameter("p", String.valueOf(i));
                     out.print(builder.asAHref(request, String.valueOf(i), "pad"));
                     out.println();
-                }
-
-                if (counter++ == 10) { // write only 10 paging links
-                    break;
                 }
             }
 

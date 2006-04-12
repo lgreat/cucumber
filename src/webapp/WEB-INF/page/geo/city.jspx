@@ -61,15 +61,18 @@
 <table width="100%" cellpadding="0" cellspacing="0"><tr><td
         style="width:230px; vertical-align: top">
     <div id="mapContainer">
-        <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its schools.</noscript></div>
+        <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its
+            schools.</noscript></div>
     </div>
 
     <c:if test="${empty requestScope.topRatedSchools}">
         <table style="font-size:x-small;width: 100%;margin-top:0;padding-top:0">
-            <tr><td style="font-weight: normal">Showing ${fn:length(schools)} schools</td><td style="font-weight: bold;text-align: right"><gsml:a
-            href="/schools.page?city=${cityObject.name}&amp;map=1&amp;state=$STATE">View Larger Map</gsml:a></td>
+            <tr><td style="font-weight: normal">Showing ${fn:length(schools)} schools</td><td
+                    style="font-weight: bold;text-align: right"><gsml:a
+                    href="/schools.page?city=${cityObject.name}&amp;map=1&amp;state=$STATE">View Larger Map</gsml:a>
+            </td>
             </tr>
-         </table>
+        </table>
     </c:if>
     <map:setup/>
     <map:schools functionName="createMap" id="map"
@@ -168,6 +171,19 @@
     <jsp:include page="/geo/cityStats.module?city=${cityObject.name}&amp;state=${stateAbbrev}"/>
 </div>
 
+<c:if test="${empty requestScope.topRatedSchools}">
+    <div class="featuredArticles cleanLineTopBox">
+        <h2>Parents' Choice: Most Popular Articles</h2>
+        <table width="100%" cellpadding="0" cellspacing="0"><tr><td style="vertical-align: top;">
+            <jsp:include page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;heading=none"/>
+        </td>
+            <td style="vertical-align: top">
+                <jsp:include page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;sub=1&amp;heading=none"/>
+            </td></tr>
+        </table>
+    </div>
+</c:if>
+
 </td>
 <td style="height: 100%;vertical-align: top; "><div class="cleanLineLeftBox" style="height: 40em;">&#160;</div>
 </td>
@@ -185,15 +201,18 @@
                 <ad:x66/>
             </td>
         </tr>
-        <tr>
-            <td>
-                <div class="hotTopics">
-                    <h2>Parents' Choice: Most Popular Articles</h2>
-                    <jsp:include page="/promo/featuredArticles.module?position=HOT_TOPIC&amp;count=7"/>
-                </div>
-
-            </td>
-        </tr>
+        <c:if test="${not empty requestScope.topRatedSchools}">
+            <tr>
+                <td>
+                    <div class="featuredArticles">
+                        <h2>Parents' Choice: Most Popular Articles</h2>
+                        <jsp:include page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;heading=none"/>
+                        <jsp:include
+                                page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;sub=1&amp;heading=none"/>
+                    </div>
+                </td>
+            </tr>
+        </c:if>
     </table>
 </td>
 </tr>
