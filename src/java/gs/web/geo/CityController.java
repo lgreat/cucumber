@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.9 2006/04/12 08:44:42 apeterson Exp $
+ * $Id: CityController.java,v 1.10 2006/04/12 09:24:57 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -78,9 +78,9 @@ public class CityController extends AbstractController {
 
         ICity city = _geoDao.findCity(state, cityNameParam);
         if (city == null) {
-            //View redirectView = new RedirectView("/modperl/go/" + state.getAbbreviationLowerCase());
-            //return new ModelAndView(redirectView);
-            city = new FauxCity(cityNameParam, state);
+            View redirectView = new RedirectView("/modperl/go/" + state.getAbbreviationLowerCase() +
+                    "?error=Nothing+known+about+" + cityNameParam + ".");
+            return new ModelAndView(redirectView);
         }
 
 
@@ -130,12 +130,6 @@ public class CityController extends AbstractController {
                 }
                 model.put(MODEL_SCHOOLS, schools);
             }
-        }
-
-        if (city instanceof FauxCity) {
-            Collection schools = (Collection) model.get(MODEL_SCHOOLS);
-            LatLonRect r = new LatLonRect(schools);
-            ((FauxCity)city).setLatLon(r.getCenter());
         }
 
         return new ModelAndView("geo/city", model);
@@ -300,46 +294,4 @@ public class CityController extends AbstractController {
         _geoDao = geoDao;
     }
 
-    private static class FauxCity implements ICity {
-        private final String _cityNameParam;
-        private final State _state;
-        private LatLon _latLon;
-
-        public FauxCity(String cityNameParam, State state) {
-            _cityNameParam = cityNameParam;
-            _state = state;
-        }
-
-        public String getName() {
-            return _cityNameParam;
-        }
-
-        public State getState() {
-            return _state;
-        }
-
-        public float getLat() {
-            return _latLon.getLat();
-        }
-
-        public float getLon() {
-            return _latLon.getLon();
-        }
-
-        public String getCountyFips() {
-            return null;
-        }
-
-        public Long getPopulation() {
-            return null;
-        }
-
-        public LatLon getLatLon() {
-            return _latLon;
-        }
-
-        public void setLatLon(LatLon latLon) {
-            _latLon = latLon;
-        }
-    }
 }
