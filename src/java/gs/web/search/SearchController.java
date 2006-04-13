@@ -40,7 +40,6 @@ public class SearchController extends AbstractFormController {
     public static final String BEAN_ID = "/search/search.page";
     private SpellCheckSearcher _spellCheckSearcher;
     private Searcher _searcher;
-//    private ResultsPager _resultsPager;
 
     private boolean suggest = false;
 
@@ -119,7 +118,6 @@ public class SearchController extends AbstractFormController {
                 if (debug) {
                     _resultsPager.enableExplanation(_searcher, sc.getQuery());
                 }
-                //_resultsPager.load(hts, sc.getType());
                 if (suggest) {
                     model.put("suggestion", getSuggestion(queryString,
                             SessionContext.getInstance(request).getState()));
