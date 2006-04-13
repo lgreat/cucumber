@@ -205,6 +205,10 @@
 </tr>
 </table>
 
+<mod:tracking pageName="city"
+              pageType=""
+              hier1="city,${cityObject.name} ${cityObject.state.abbreviation}"/>
+
 
 </gsml:body>
 </html>

@@ -60,7 +60,11 @@
                 </tr></table>
 
         </div>
+        <mod:tracking pageName="nearbyCities"
+                      pageType=""
+                      hier1="nearbyCities,${city} ${requestScope.context.stateOrDefault.abbreviation}"/>
 
     </gsml:body>
+
     </html>
 </jsp:root>
