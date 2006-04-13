@@ -72,6 +72,8 @@
 
 
                 <div id="footerGS">
+                    <ad:webby/>
+                    
                     <div class="lowernavbar">
 
                         <gsml:a href="/about/aboutUs.page?state=${state}">About Us</gsml:a> &#124;
