@@ -160,4 +160,42 @@ public class ResultsTableTagHandlerTest extends BaseTestCase {
         buffer.append("<a href=\"/foo/bar?city=alameda&amp;p=4&amp;q=&amp;state=CA\" class=\"pad\">Next &#160;&gt;</a>\n");
         assertEquals(buffer.toString().trim(), mockWriter.getOutputBuffer().toString().trim());
     }
+
+    public void testWritePageNumbersMultiWord() throws IOException {
+        GsMockHttpServletRequest mockRequest = new GsMockHttpServletRequest();
+        mockRequest.setAttribute(SchoolsController.MODEL_LEVEL_CODE, new String[] {"elementary"});
+
+        MockPageContext context = new MockPageContext();
+        context.setAttribute("city", "alameda");
+        context.setAttribute("p", "3");
+        mockRequest.setParameter("city", "alameda");
+        mockRequest.setParameter("p", "3");
+        _rtth.setJspContext(context);
+        _rtth.setTotal(100);
+
+        UrlBuilder builder = new UrlBuilder(mockRequest, "/foo/bar");
+        builder.setParameter("state", "CA");
+        builder.setParameter("city", "San Francisco");
+        builder.setParameter("q", "");
+
+        _rtth.writePageNumbers(3, mockRequest, builder, 100);
+
+
+        MockJspWriter mockWriter = (MockJspWriter)context.getOut();
+
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("<a href=\"/foo/bar?city=San+Francisco&amp;p=2&amp;q=&amp;state=CA\" class=\"pad\">&lt;&#160;Previous</a>\n");
+        buffer.append("<a href=\"/foo/bar?city=San+Francisco&amp;p=1&amp;q=&amp;state=CA\" class=\"pad\">1</a>\n");
+        buffer.append("<a href=\"/foo/bar?city=San+Francisco&amp;p=2&amp;q=&amp;state=CA\" class=\"pad\">2</a>\n");
+        buffer.append("<span class=\"active pad\">3</span>");
+        buffer.append("<a href=\"/foo/bar?city=San+Francisco&amp;p=4&amp;q=&amp;state=CA\" class=\"pad\">4</a>\n");
+        buffer.append("<a href=\"/foo/bar?city=San+Francisco&amp;p=5&amp;q=&amp;state=CA\" class=\"pad\">5</a>\n");
+        buffer.append("<a href=\"/foo/bar?city=San+Francisco&amp;p=6&amp;q=&amp;state=CA\" class=\"pad\">6</a>\n");
+        buffer.append("<a href=\"/foo/bar?city=San+Francisco&amp;p=7&amp;q=&amp;state=CA\" class=\"pad\">7</a>\n");
+        buffer.append("<a href=\"/foo/bar?city=San+Francisco&amp;p=8&amp;q=&amp;state=CA\" class=\"pad\">8</a>\n");
+        buffer.append("<a href=\"/foo/bar?city=San+Francisco&amp;p=9&amp;q=&amp;state=CA\" class=\"pad\">9</a>\n");
+        buffer.append("<a href=\"/foo/bar?city=San+Francisco&amp;p=10&amp;q=&amp;state=CA\" class=\"pad\">10</a>\n");
+        buffer.append("<a href=\"/foo/bar?city=San+Francisco&amp;p=4&amp;q=&amp;state=CA\" class=\"pad\">Next &#160;&gt;</a>\n");
+        assertEquals(buffer.toString().trim(), mockWriter.getOutputBuffer().toString().trim());
+    }
 }
