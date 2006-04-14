@@ -1,0 +1,117 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          version="2.0">
+    <html>
+    <jsp:directive.page contentType="text/html"/>
+    <head>
+        <title><c:out value="Best Public School Values: ${subtitle}"/></title>
+        <style type="text/css">
+            div.contentGS {
+                margin-top: 10px;
+            }
+            .contentGS h1 {
+                font-size: medium;
+                font-weight: bold;
+                color: #eb7a31;
+            }
+            .contentGS p {
+                font-size:small;
+            }
+
+            table.bpsv {
+                border: 1px dotted #000;
+                border-width: 1px 0 1px 0;
+            }
+            table.bpsv th {
+                font-size: x-small;
+                font-weight: normal;
+                vertical-align: bottom;
+                text-align: center;
+                background-color: #EB7A31;
+                background-color: #FAD3AE;
+                background-color: #e5e5e5;
+                padding: 2px;
+                border: 1px dotted #000;
+                border-width: 0px 0 0px 0;
+            }
+            table.bpsv td {
+                font-size: small;
+                font-weight: normal;
+                padding: 2px;
+            }
+            table.bpsv tr.even td {
+                background-color: #FAD3AE;
+            }
+            table.bpsv td.name {
+                white-space:nowrap;
+                font-weight: bold;
+                padding-right: 1em;
+            }
+            table.bpsv td.rank
+            {
+                width: 2em;
+                text-align: center;
+            }
+            table.bpsv td.e,
+            table.bpsv td.m,
+            table.bpsv td.h
+            {
+                width: 7em;
+                text-align: center;
+            }
+            table.bpsv td.medianHomePrice,
+            table.bpsv td.averageApiRank
+            {
+                text-align: right;
+                padding-right: 3em;
+                padding-left: 1em;
+            }
+        </style>
+    </head>
+    <gsml:body adPageName="fixme" pageLayout="oneMainColumn">
+
+        <h1><c:out value="Best Public School Values: ${subtitle}"/></h1>
+
+        <p>
+            Note: In order to be considered, a city had to have an average API Rank of 6.95 or greater, which means the
+            city's API Rank is above average (6.94 is the average API Rank of all Bay Area cities).</p>
+        <table class="bpsv" cellspacing="0" cellpadding="0">
+            <tr>
+                <th>Rank</th><th>City</th><th>County</th><th>Median Home Price</th><th>Average
+                    API Rank</th><th># schools serving elementary grades</th><th># schools serving
+                    middle school grades</th><th># schools serving
+                    high school grades</th><th>Find schools</th>
+            </tr>
+            <c:set var="i" value="1" />
+            <c:forEach items="${cities}" var="city" >
+                <tr class="${(i mod 2 == 1) ? 'odd' : 'even'}">
+                    <c:if test="${not empty city.rank}">
+                        <td class="rank">${city.rank}</td>
+                    </c:if>
+                    <td class="name"><gsml:a href="${city.cityPageHref}">${city.cityName}</gsml:a></td>
+                    <td class="county">${city.countyName}</td>
+                    <td class="medianHomePrice">$<fmt:formatNumber value="${city.medianHomePrice}"
+                                                                  maxFractionDigits="0"/></td>
+                    <td class="averageApiRank"><fmt:formatNumber value="${city.averageApiRank}"
+                                                                 maxFractionDigits="2"/></td>
+                    <td class="e">${city.elementarySchoolsCount}</td>
+                    <td class="m">${city.middleSchoolsCount}</td>
+                    <td class="h">${city.highSchoolsCount}</td>
+                    <td class="link"><gsml:a href="${city.schoolsPageHref}">Browse ${city.cityName} schools</gsml:a></td>
+                </tr>
+                <c:set var="i" value="${i + 1}"/>
+            </c:forEach>
+        </table>
+        <mod:tracking pageName="Best Public School Values:${title}"
+                      pageType="city"
+                      hier1="cities,best public school values,${title}"/>
+    </gsml:body>
+    </html>
+</jsp:root>

@@ -368,6 +368,13 @@
         </property>
     </bean>
 
+
+    <bean name="/metro/bestValues.page"
+          class="gs.web.school.performance.BestPublicSchoolValuesController"
+          autowire="byName">
+    </bean>
+
+
     <bean name="/selectAState.page"
           class="gs.web.state.SelectAStateController"
           autowire="byName">
