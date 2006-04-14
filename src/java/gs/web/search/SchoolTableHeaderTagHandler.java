@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.4 2006/04/11 21:46:35 apeterson Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.5 2006/04/14 23:14:24 chriskimm Exp $
  */
 
 package gs.web.search;
 
 import gs.data.school.LevelCode;
+import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.web.jsp.Util;
 import gs.web.util.UrlBuilder;
@@ -42,6 +43,7 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
     private Integer _districtId;
     private LevelCode _levelCode ;
     private String[] _schoolType;
+
     private static final Log _log = LogFactory.getLog(SchoolTableHeaderTagHandler.class);
 
     public void doTag() throws IOException {
@@ -133,26 +135,62 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         UrlBuilder compareBuilder = new UrlBuilder(request,
                 "/cgi-bin/cs_compare/" + getState().getAbbreviationLowerCase());
         compareBuilder.setParameter("tab", "over");
+
+        boolean showElementary = false, showMiddle = false, showHigh = false;
         if (district != null) {
             compareBuilder.setParameter("district", district.getId().toString());
             compareBuilder.setParameter("area", "d");
             compareBuilder.setParameter("sortby", "name");
+            String distId = String.valueOf(district.getId());
+            if (getSchoolDao().countSchoolsInDistrict(getState(),
+                    SchoolType.PUBLIC, LevelCode.ELEMENTARY, distId) > 0) {
+                showElementary = true;
+            }
+            if (getSchoolDao().countSchoolsInDistrict(getState(),
+                    SchoolType.PUBLIC, LevelCode.MIDDLE, distId) > 0) {
+                showMiddle = true;
+            }
+            if (getSchoolDao().countSchoolsInDistrict(getState(),
+                    SchoolType.PUBLIC, LevelCode.HIGH, distId) > 0) {
+                showHigh= true;
+            }
         } else {
             compareBuilder.setParameter("area", "m");
             compareBuilder.setParameter("city", cityOrDistrictName != null ? cityOrDistrictName : "");
             compareBuilder.setParameter("sortby", "distance");
+            if (getSchoolDao().countSchools(getState(),
+                    SchoolType.PUBLIC, LevelCode.ELEMENTARY, cityOrDistrictName) > 0) {
+                showElementary = true;
+            }
+            if (getSchoolDao().countSchools(getState(),
+                    SchoolType.PUBLIC, LevelCode.MIDDLE, cityOrDistrictName) > 0) {
+                showMiddle = true;
+            }
+            if (getSchoolDao().countSchools(getState(),
+                    SchoolType.PUBLIC, LevelCode.HIGH, cityOrDistrictName) > 0) {
+                showHigh= true;
+            }
         }
 
-        compareBuilder.setParameter("level", "e");
-        out.print(compareBuilder.asAHref(request, "Elementary"));
-        out.print(" | ");
+        StringBuffer sb = new StringBuffer();
+        if (showElementary) {
+            compareBuilder.setParameter("level", "e");
+            sb.append(compareBuilder.asAHref(request, "Elementary"));
+            sb.append(" | ");
+        }
 
-        compareBuilder.setParameter("level", "m");
-        out.print(compareBuilder.asAHref(request, "Middle"));
+        if (showMiddle) {
+            compareBuilder.setParameter("level", "m");
+            sb.append(compareBuilder.asAHref(request, "Middle"));
+            sb.append(" | ");
+        }
 
-        out.print(" | ");
-        compareBuilder.setParameter("level", "h");
-        out.print(compareBuilder.asAHref(request, "High"));
+        if (showHigh) {
+            compareBuilder.setParameter("level", "h");
+            sb.append(compareBuilder.asAHref(request, "High"));
+        }
+        String links = sb.toString();
+        out.print(links.replaceFirst("|.$", ""));
 
         out.print("</div>");
         out.println("</td></tr>");
