@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.3 2006/04/14 21:27:32 apeterson Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.4 2006/04/14 21:31:22 apeterson Exp $
  */
 
 package gs.web.school.performance;
@@ -231,19 +231,19 @@ public class BestPublicSchoolValuesController extends AbstractController {
             subtitle = "Bay Area Cities with a Below-Average API Rank";
             values = _citiesBelowApiCutoff;
             modelAndView.addObject(MODEL_SHOW_RANK, Boolean.FALSE);
-            links.addResult(new Anchor("/bestValues.page?metro=SFBay&limit=20", "Top 20 Bay Area Cities"));
-            links.addResult(new Anchor("/bestValues.page?metro=SFBay", "Bay Area Best Public School Values"));
+            links.addResult(new Anchor("/metro/bestValues.page?metro=SFBay&limit=20", "Top 20 Bay Area Cities"));
+            links.addResult(new Anchor("/metro/bestValues.page?metro=SFBay", "Bay Area Best Public School Values"));
         } else {
             values = _citiesAboveApiCutoff;
             if (limit == Integer.MAX_VALUE) {
                 subtitle = "All Bay Area Cities";
-                links.addResult(new Anchor("/bestValues.page?metro=SFBay&limit=20", "Top 20 Bay Area Cities"));
+                links.addResult(new Anchor("/metro/bestValues.page?metro=SFBay&limit=20", "Top 20 Bay Area Cities"));
             } else {
                 subtitle = "Top " + limit + " Bay Area Cities";
                 values = values.subList(0, limit);
-                links.addResult(new Anchor("/bestValues.page?metro=SFBay", "Bay Area Best Public School Values"));
+                links.addResult(new Anchor("/metro/bestValues.page?metro=SFBay", "Bay Area Best Public School Values"));
             }
-            links.addResult(new Anchor("/bestValues.page?metro=SFBay&list=below", "Bay Area Cities with a Below-Average API Rank"));
+            links.addResult(new Anchor("/metro/bestValues.page?metro=SFBay&list=below", "Bay Area Cities with a Below-Average API Rank"));
             modelAndView.addObject(MODEL_SHOW_RANK, Boolean.TRUE);
         }
 

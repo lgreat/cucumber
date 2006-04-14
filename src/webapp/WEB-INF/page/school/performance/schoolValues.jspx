@@ -73,15 +73,31 @@
                 padding-right: 3em;
                 padding-left: 1em;
             }
+            td.sidebar {
+                padding-left: 2em;
+                width: 33%;
+                font-size:x-small;
+            }
+            td.sidebar li {
+                border: 1px dotted #999;
+                border-width: 1px 0 0px 0;
+                padding: 2px 0 2px 0;
+            }
         </style>
     </head>
     <gsml:body adPageName="fixme" pageLayout="oneMainColumn">
 
         <h1><c:out value="Best Public School Values: ${subtitle}"/></h1>
+        <table><tr>
+            <td>
+                <p>
+                    Note: In order to be considered, a city had to have an average API Rank of 6.95 or greater, which
+                    means the
+                    city's API Rank is above average (6.94 is the average API Rank of all Bay Area cities).</p>
 
-        <p>
-            Note: In order to be considered, a city had to have an average API Rank of 6.95 or greater, which means the
-            city's API Rank is above average (6.94 is the average API Rank of all Bay Area cities).</p>
+            </td>
+            <td class="sidebar"><gsml:list model="${links}"/></td>
+            </tr></table>
         <table class="bpsv" cellspacing="0" cellpadding="0">
             <tr>
                 <c:if test="${showRank}">
