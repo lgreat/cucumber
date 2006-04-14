@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.2 2006/04/14 20:55:22 apeterson Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.3 2006/04/14 21:27:32 apeterson Exp $
  */
 
 package gs.web.school.performance;
@@ -9,6 +9,8 @@ import gs.data.state.State;
 import gs.web.ISessionFacade;
 import gs.web.SessionFacade;
 import gs.web.util.UrlBuilder;
+import gs.web.util.ListModel;
+import gs.web.util.Anchor;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -47,6 +49,7 @@ public class BestPublicSchoolValuesController extends AbstractController {
 
     public static final String MODEL_PAGE_SUBTITLE = "subtitle";
     public static final String MODEL_SHOW_RANK = "showRank"; // Boolean
+    public static final String MODEL_LINKS = "links"; // ListModel
 
     public interface IBestPublicSchoolValue {
         int getRank();
@@ -211,30 +214,44 @@ public class BestPublicSchoolValuesController extends AbstractController {
 
         ISessionFacade sc = SessionFacade.getInstance(request);
 
-
-        ModelAndView modelAndView = new ModelAndView("/school/performance/schoolValues");
-
-        List values = _citiesAboveApiCutoff;
-        if (StringUtils.equals(request.getParameter(PARAM_LIST), PARAM_LIST_VALUE_BELOW_AVG_API)) {
-            values = _citiesBelowApiCutoff;
-            modelAndView.addObject(MODEL_SHOW_RANK, Boolean.FALSE);
-        } else {
-            modelAndView.addObject(MODEL_SHOW_RANK, Boolean.TRUE);
-        }
+        boolean listBelowAverage = StringUtils.equals(request.getParameter(PARAM_LIST), PARAM_LIST_VALUE_BELOW_AVG_API);
 
         int limit = Integer.MAX_VALUE;
         if (StringUtils.isNumeric(request.getParameter(PARAM_LIMIT))) {
             limit = Integer.valueOf(request.getParameter(PARAM_LIMIT)).intValue();
         }
 
-        modelAndView.addObject(MODEL_CITY_LIST,
-                limit == Integer.MAX_VALUE ?
-                        values :
-                        values.subList(0, limit));
-        modelAndView.addObject(MODEL_PAGE_SUBTITLE,
-                limit == Integer.MAX_VALUE ?
-                        "All Bay Area Cities" :
-                        "Top " + limit + " Bay Area Cities");
+        ModelAndView modelAndView = new ModelAndView("/school/performance/schoolValues");
+
+        List values;
+        String subtitle;
+        ListModel links = new ListModel();
+        links.addResult(new Anchor("/article.html", "Back to Article"));
+        if (listBelowAverage) {
+            subtitle = "Bay Area Cities with a Below-Average API Rank";
+            values = _citiesBelowApiCutoff;
+            modelAndView.addObject(MODEL_SHOW_RANK, Boolean.FALSE);
+            links.addResult(new Anchor("/bestValues.page?metro=SFBay&limit=20", "Top 20 Bay Area Cities"));
+            links.addResult(new Anchor("/bestValues.page?metro=SFBay", "Bay Area Best Public School Values"));
+        } else {
+            values = _citiesAboveApiCutoff;
+            if (limit == Integer.MAX_VALUE) {
+                subtitle = "All Bay Area Cities";
+                links.addResult(new Anchor("/bestValues.page?metro=SFBay&limit=20", "Top 20 Bay Area Cities"));
+            } else {
+                subtitle = "Top " + limit + " Bay Area Cities";
+                values = values.subList(0, limit);
+                links.addResult(new Anchor("/bestValues.page?metro=SFBay", "Bay Area Best Public School Values"));
+            }
+            links.addResult(new Anchor("/bestValues.page?metro=SFBay&list=below", "Bay Area Cities with a Below-Average API Rank"));
+            modelAndView.addObject(MODEL_SHOW_RANK, Boolean.TRUE);
+        }
+
+
+        modelAndView.addObject(MODEL_CITY_LIST, values);
+        modelAndView.addObject(MODEL_PAGE_SUBTITLE,subtitle);
+        modelAndView.addObject(MODEL_LINKS, links);
+
         return modelAndView;
     }
 
