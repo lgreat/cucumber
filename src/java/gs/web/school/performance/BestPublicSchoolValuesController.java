@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.1 2006/04/14 20:46:03 apeterson Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.2 2006/04/14 20:55:22 apeterson Exp $
  */
 
 package gs.web.school.performance;
@@ -33,6 +33,12 @@ public class BestPublicSchoolValuesController extends AbstractController {
 
     private static final String PARAM_LIMIT = "limit";
     private static final String PARAM_METRO = "metro";
+    /**
+     * What data to list. Default is "
+     */
+    private static final String PARAM_LIST = "list";
+    private static final String PARAM_LIST_VALUE_ABOVE_AVG_API = "above";
+    private static final String PARAM_LIST_VALUE_BELOW_AVG_API = "below";
 
     /**
      * List of IBestPublicSchoolValue objects.
@@ -40,6 +46,7 @@ public class BestPublicSchoolValuesController extends AbstractController {
     public static final String MODEL_CITY_LIST = "cities";
 
     public static final String MODEL_PAGE_SUBTITLE = "subtitle";
+    public static final String MODEL_SHOW_RANK = "showRank"; // Boolean
 
     public interface IBestPublicSchoolValue {
         int getRank();
@@ -65,7 +72,7 @@ public class BestPublicSchoolValuesController extends AbstractController {
         String getSchoolsPageHref();
     }
 
-    static List _cities;
+    static List _citiesAboveApiCutoff;
     static List _citiesBelowApiCutoff;
 
 
@@ -77,67 +84,67 @@ public class BestPublicSchoolValuesController extends AbstractController {
 
                 values.add(new Bpsv("\1","\2",\3,\4,\5,\6,\7,\8,\9,\10,\11,"\12"));
         */
-        _cities = new ArrayList();
-        _cities.add(new Bpsv("Guerneville", "Sonoma", 370000, 0.5, 7.00, 12.8, 2, 1, 2, 0, 641200, "Urban Fringe of Mid-size City "));
-        _cities.add(new Bpsv("Albany", "Alameda", 595000, 0.9, 10.00, 11.3, 6, 3, 1, 2, 671000, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Walnut Creek", "Contra Costa", 624100, 0.9, 9.89, 10.7, 15, 9, 2, 4, 625200, "Mid-size City, Urban Fringe of Large City"));
-        _cities.add(new Bpsv("Benicia", "Solano", 579500, 0.9, 8.96, 10.4, 8, 5, 1, 2, 632000, "Urban Fringe of Mid-size City "));
-        _cities.add(new Bpsv("Martinez", "Contra Costa", 511000, 0.8, 7.53, 9.9, 10, 6, 3, 4, 515000, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Pleasant Hill", "Contra Costa", 619000, 0.9, 8.52, 9.3, 12, 7, 4, 3, 603000, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Dublin", "Alameda", 640000, 0.9, 8.68, 9.2, 9, 6, 2, 2, 630000, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Livermore", "Alameda", 599400, 0.9, 8.02, 9.0, 20, 12, 7, 5, 610000, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Fairfax", "Marin", 725000, 1.1, 9.66, 9.0, 2, 1, 1, 0, 770900, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Castro Valley", "Alameda", 637400, 0.9, 8.46, 9.0, 15, 10, 2, 3, 670000, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("San Ramon", "Contra Costa", 750000, 1.1, 9.91, 8.9, 15, 11, 4, 2, 712000, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Fremont", "Alameda", 656700, 1.0, 8.57, 8.8, 41, 29, 8, 8, 618000, "Mid-size City "));
-        _cities.add(new Bpsv("Clayton", "Contra Costa", 770000, 1.1, 10.00, 8.8, 2, 1, 1, 0, 828400, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Palo Alto", "Santa Clara", 773600, 1.1, 9.94, 8.7, 16, 11, 4, 3, 1073300, "Mid-size City "));
-        _cities.add(new Bpsv("Pleasanton", "Alameda", 774900, 1.1, 9.95, 8.7, 15, 9, 3, 3, 820000, "Mid-size City "));
-        _cities.add(new Bpsv("Milpitas", "Santa Clara", 605000, 0.9, 7.71, 8.6, 14, 9, 3, 3, 655500, "Mid-size City "));
-        _cities.add(new Bpsv("Foster City", "San Mateo", 783300, 1.2, 9.81, 8.5, 4, 3, 1, 0, 840800, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Petaluma", "Sonoma", 607200, 0.9, 7.51, 8.3, 33, 24, 6, 6, 634000, "Mid-size City"));
-        _cities.add(new Bpsv("Piedmont", "Alameda", 814000, 1.2, 10.00, 8.3, 6, 3, 1, 2, 1471300, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Moraga", "Contra Costa", 820000, 1.2, 10.00, 8.2, 5, 3, 1, 1, 821200, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Novato", "Marin", 712600, 1.1, 8.54, 8.1, 17, 10, 5, 5, 685000, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Alameda", "Alameda", 658200, 1.0, 7.77, 8.0, 21, 12, 5, 6, 675200, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("San Anselmo", "Marin", 875000, 1.3, 10.00, 7.7, 3, 2, 0, 1, 985900, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Sebastopol", "Sonoma", 687000, 1.0, 7.82, 7.7, 14, 9, 7, 3, 817600, "Urban Fringe of Mid-size City "));
-        _cities.add(new Bpsv("Kensington", "Alameda", 890450, 1.3, 10.00, 7.6, 1, 1, 0, 0, 920600, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Brisbane", "San Mateo", 673500, 1.0, 7.50, 7.5, 2, 1, 1, 0, 741200, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Glen Ellen", "Sonoma", 630000, 0.9, 7.00, 7.5, 1, 1, 0, 0, 893900, "Rural "));
-        _cities.add(new Bpsv("Pacifica", "San Mateo", 685000, 1.0, 7.57, 7.5, 9, 6, 5, 2, 671000, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Mountain View", "Santa Clara", 718000, 1.1, 7.89, 7.4, 12, 8, 2, 2, 664800, "Mid-size City "));
-        _cities.add(new Bpsv("Cupertino", "Santa Clara", 901000, 1.3, 9.88, 7.4, 15, 9, 3, 3, 924000, "Mid-size City, Urban Fringe of Large City"));
-        _cities.add(new Bpsv("Corte Madera", "Marin", 917300, 1.4, 10.00, 7.4, 1, 1, 0, 0, 957200, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("San Carlos", "San Mateo", 900000, 1.3, 9.61, 7.2, 7, 5, 3, 0, 826000, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Sunnyvale", "Santa Clara", 705300, 1.0, 7.45, 7.1, 20, 13, 5, 2, 660000, "Mid-size City "));
-        _cities.add(new Bpsv("Yountville", "Napa", 859000, 1.3, 9.00, 7.1, 1, 1, 0, 0, 807300, "Urban Fringe of Mid-size City "));
-        _cities.add(new Bpsv("Millbrae", "San Mateo", 900000, 1.3, 9.27, 7.0, 5, 3, 1, 1, 1076300, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Danville", "Contra Costa", 984700, 1.5, 10.00, 6.9, 13, 7, 3, 3, 960000, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Mill Valley", "Marin", 992500, 1.5, 10.00, 6.8, 7, 5, 1, 1, 918000, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Belmont", "San Mateo", 890000, 1.3, 8.97, 6.8, 6, 4, 1, 1, 855000, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Lafayette", "Contra Costa", 997000, 1.5, 10.00, 6.8, 6, 4, 1, 1, 1197800, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("San Rafael", "Marin", 770600, 1.1, 7.25, 6.4, 17, 11, 4, 5, 685800, "Mid-size City, Urban Fringe of Large City"));
-        _cities.add(new Bpsv("Los Gatos", "Santa Clara", 1065800, 1.6, 9.72, 6.2, 10, 6, 3, 1, 972500, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("San Mateo", "San Mateo", 778500, 1.2, 7.06, 6.1, 19, 13, 3, 3, 747500, "Mid-size City, Urban Fringe of Large City"));
-        _cities.add(new Bpsv("Orinda", "Contra Costa", 1116500, 1.7, 10.00, 6.0, 6, 4, 1, 1, 1151700, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Half Moon Bay", "San Mateo", 806500, 1.2, 7.00, 5.9, 5, 2, 1, 2, 921500, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Larkspur", "Marin", 1185000, 1.8, 9.94, 5.7, 4, 0, 1, 3, 1259800, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Angwin", "Napa", 971000, 1.4, 8.00, 5.6, 1, 1, 1, 0, 689800, "Rural "));
-        _cities.add(new Bpsv("Occidental", "Sonoma", 1027200, 1.5, 8.07, 5.3, 2, 1, 1, 0, 825700, "Rural "));
-        _cities.add(new Bpsv("Bolinas", "Marin", 1063800, 1.6, 8.00, 5.1, 1, 1, 1, 0, 833800, "Rural "));
-        _cities.add(new Bpsv("Woodside", "San Mateo", 1040000, 1.5, 7.56, 4.9, 2, 1, 1, 1, 1146900, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Alamo", "Contra Costa", 1392500, 2.1, 10.00, 4.8, 4, 3, 2, 1, 1553500, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Saratoga", "Santa Clara", 1367000, 2.0, 9.35, 4.6, 9, 6, 3, 2, 1455000, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Hillsborough", "San Mateo", 1471700, 2.2, 10.00, 4.6, 4, 3, 1, 0, 2846500, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Burlingame", "San Mateo", 1325000, 2.0, 8.91, 4.5, 7, 5, 1, 1, 1593400, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Los Altos", "Santa Clara", 1547200, 2.3, 9.71, 4.2, 10, 7, 2, 1, 1427500, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Tiburon", "Marin", 1755000, 2.6, 10.00, 3.8, 3, 2, 1, 0, 1616100, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Kentfield", "Marin", 1777000, 2.6, 10.00, 3.8, 2, 1, 1, 0, 1506200, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Stanford", "Santa Clara", 1827350, 2.7, 10.00, 3.7, 2, 2, 0, 0, 1560100, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Ross", "Marin", 2585000, 3.8, 10.00, 2.6, 1, 1, 1, 0, 1620800, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Atherton", "San Mateo", 2275000, 3.4, 7.51, 2.2, 5, 4, 1, 1, 1676500, "Urban Fringe of Large City "));
-        _cities.add(new Bpsv("Portola Valley", "San Mateo", 3857100, 5.7, 10.00, 1.8, 2, 2, 1, 0, 1684300, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff = new ArrayList();
+        _citiesAboveApiCutoff.add(new Bpsv("Guerneville", "Sonoma", 370000, 0.5, 7.00, 12.8, 2, 1, 2, 0, 641200, "Urban Fringe of Mid-size City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Albany", "Alameda", 595000, 0.9, 10.00, 11.3, 6, 3, 1, 2, 671000, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Walnut Creek", "Contra Costa", 624100, 0.9, 9.89, 10.7, 15, 9, 2, 4, 625200, "Mid-size City, Urban Fringe of Large City"));
+        _citiesAboveApiCutoff.add(new Bpsv("Benicia", "Solano", 579500, 0.9, 8.96, 10.4, 8, 5, 1, 2, 632000, "Urban Fringe of Mid-size City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Martinez", "Contra Costa", 511000, 0.8, 7.53, 9.9, 10, 6, 3, 4, 515000, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Pleasant Hill", "Contra Costa", 619000, 0.9, 8.52, 9.3, 12, 7, 4, 3, 603000, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Dublin", "Alameda", 640000, 0.9, 8.68, 9.2, 9, 6, 2, 2, 630000, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Livermore", "Alameda", 599400, 0.9, 8.02, 9.0, 20, 12, 7, 5, 610000, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Fairfax", "Marin", 725000, 1.1, 9.66, 9.0, 2, 1, 1, 0, 770900, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Castro Valley", "Alameda", 637400, 0.9, 8.46, 9.0, 15, 10, 2, 3, 670000, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("San Ramon", "Contra Costa", 750000, 1.1, 9.91, 8.9, 15, 11, 4, 2, 712000, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Fremont", "Alameda", 656700, 1.0, 8.57, 8.8, 41, 29, 8, 8, 618000, "Mid-size City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Clayton", "Contra Costa", 770000, 1.1, 10.00, 8.8, 2, 1, 1, 0, 828400, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Palo Alto", "Santa Clara", 773600, 1.1, 9.94, 8.7, 16, 11, 4, 3, 1073300, "Mid-size City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Pleasanton", "Alameda", 774900, 1.1, 9.95, 8.7, 15, 9, 3, 3, 820000, "Mid-size City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Milpitas", "Santa Clara", 605000, 0.9, 7.71, 8.6, 14, 9, 3, 3, 655500, "Mid-size City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Foster City", "San Mateo", 783300, 1.2, 9.81, 8.5, 4, 3, 1, 0, 840800, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Petaluma", "Sonoma", 607200, 0.9, 7.51, 8.3, 33, 24, 6, 6, 634000, "Mid-size City"));
+        _citiesAboveApiCutoff.add(new Bpsv("Piedmont", "Alameda", 814000, 1.2, 10.00, 8.3, 6, 3, 1, 2, 1471300, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Moraga", "Contra Costa", 820000, 1.2, 10.00, 8.2, 5, 3, 1, 1, 821200, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Novato", "Marin", 712600, 1.1, 8.54, 8.1, 17, 10, 5, 5, 685000, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Alameda", "Alameda", 658200, 1.0, 7.77, 8.0, 21, 12, 5, 6, 675200, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("San Anselmo", "Marin", 875000, 1.3, 10.00, 7.7, 3, 2, 0, 1, 985900, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Sebastopol", "Sonoma", 687000, 1.0, 7.82, 7.7, 14, 9, 7, 3, 817600, "Urban Fringe of Mid-size City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Kensington", "Alameda", 890450, 1.3, 10.00, 7.6, 1, 1, 0, 0, 920600, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Brisbane", "San Mateo", 673500, 1.0, 7.50, 7.5, 2, 1, 1, 0, 741200, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Glen Ellen", "Sonoma", 630000, 0.9, 7.00, 7.5, 1, 1, 0, 0, 893900, "Rural "));
+        _citiesAboveApiCutoff.add(new Bpsv("Pacifica", "San Mateo", 685000, 1.0, 7.57, 7.5, 9, 6, 5, 2, 671000, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Mountain View", "Santa Clara", 718000, 1.1, 7.89, 7.4, 12, 8, 2, 2, 664800, "Mid-size City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Cupertino", "Santa Clara", 901000, 1.3, 9.88, 7.4, 15, 9, 3, 3, 924000, "Mid-size City, Urban Fringe of Large City"));
+        _citiesAboveApiCutoff.add(new Bpsv("Corte Madera", "Marin", 917300, 1.4, 10.00, 7.4, 1, 1, 0, 0, 957200, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("San Carlos", "San Mateo", 900000, 1.3, 9.61, 7.2, 7, 5, 3, 0, 826000, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Sunnyvale", "Santa Clara", 705300, 1.0, 7.45, 7.1, 20, 13, 5, 2, 660000, "Mid-size City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Yountville", "Napa", 859000, 1.3, 9.00, 7.1, 1, 1, 0, 0, 807300, "Urban Fringe of Mid-size City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Millbrae", "San Mateo", 900000, 1.3, 9.27, 7.0, 5, 3, 1, 1, 1076300, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Danville", "Contra Costa", 984700, 1.5, 10.00, 6.9, 13, 7, 3, 3, 960000, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Mill Valley", "Marin", 992500, 1.5, 10.00, 6.8, 7, 5, 1, 1, 918000, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Belmont", "San Mateo", 890000, 1.3, 8.97, 6.8, 6, 4, 1, 1, 855000, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Lafayette", "Contra Costa", 997000, 1.5, 10.00, 6.8, 6, 4, 1, 1, 1197800, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("San Rafael", "Marin", 770600, 1.1, 7.25, 6.4, 17, 11, 4, 5, 685800, "Mid-size City, Urban Fringe of Large City"));
+        _citiesAboveApiCutoff.add(new Bpsv("Los Gatos", "Santa Clara", 1065800, 1.6, 9.72, 6.2, 10, 6, 3, 1, 972500, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("San Mateo", "San Mateo", 778500, 1.2, 7.06, 6.1, 19, 13, 3, 3, 747500, "Mid-size City, Urban Fringe of Large City"));
+        _citiesAboveApiCutoff.add(new Bpsv("Orinda", "Contra Costa", 1116500, 1.7, 10.00, 6.0, 6, 4, 1, 1, 1151700, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Half Moon Bay", "San Mateo", 806500, 1.2, 7.00, 5.9, 5, 2, 1, 2, 921500, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Larkspur", "Marin", 1185000, 1.8, 9.94, 5.7, 4, 0, 1, 3, 1259800, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Angwin", "Napa", 971000, 1.4, 8.00, 5.6, 1, 1, 1, 0, 689800, "Rural "));
+        _citiesAboveApiCutoff.add(new Bpsv("Occidental", "Sonoma", 1027200, 1.5, 8.07, 5.3, 2, 1, 1, 0, 825700, "Rural "));
+        _citiesAboveApiCutoff.add(new Bpsv("Bolinas", "Marin", 1063800, 1.6, 8.00, 5.1, 1, 1, 1, 0, 833800, "Rural "));
+        _citiesAboveApiCutoff.add(new Bpsv("Woodside", "San Mateo", 1040000, 1.5, 7.56, 4.9, 2, 1, 1, 1, 1146900, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Alamo", "Contra Costa", 1392500, 2.1, 10.00, 4.8, 4, 3, 2, 1, 1553500, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Saratoga", "Santa Clara", 1367000, 2.0, 9.35, 4.6, 9, 6, 3, 2, 1455000, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Hillsborough", "San Mateo", 1471700, 2.2, 10.00, 4.6, 4, 3, 1, 0, 2846500, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Burlingame", "San Mateo", 1325000, 2.0, 8.91, 4.5, 7, 5, 1, 1, 1593400, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Los Altos", "Santa Clara", 1547200, 2.3, 9.71, 4.2, 10, 7, 2, 1, 1427500, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Tiburon", "Marin", 1755000, 2.6, 10.00, 3.8, 3, 2, 1, 0, 1616100, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Kentfield", "Marin", 1777000, 2.6, 10.00, 3.8, 2, 1, 1, 0, 1506200, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Stanford", "Santa Clara", 1827350, 2.7, 10.00, 3.7, 2, 2, 0, 0, 1560100, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Ross", "Marin", 2585000, 3.8, 10.00, 2.6, 1, 1, 1, 0, 1620800, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Atherton", "San Mateo", 2275000, 3.4, 7.51, 2.2, 5, 4, 1, 1, 1676500, "Urban Fringe of Large City "));
+        _citiesAboveApiCutoff.add(new Bpsv("Portola Valley", "San Mateo", 3857100, 5.7, 10.00, 1.8, 2, 2, 1, 0, 1684300, "Urban Fringe of Large City "));
 
 
         _citiesBelowApiCutoff = new ArrayList();
@@ -204,15 +211,22 @@ public class BestPublicSchoolValuesController extends AbstractController {
 
         ISessionFacade sc = SessionFacade.getInstance(request);
 
+
+        ModelAndView modelAndView = new ModelAndView("/school/performance/schoolValues");
+
+        List values = _citiesAboveApiCutoff;
+        if (StringUtils.equals(request.getParameter(PARAM_LIST), PARAM_LIST_VALUE_BELOW_AVG_API)) {
+            values = _citiesBelowApiCutoff;
+            modelAndView.addObject(MODEL_SHOW_RANK, Boolean.FALSE);
+        } else {
+            modelAndView.addObject(MODEL_SHOW_RANK, Boolean.TRUE);
+        }
+
         int limit = Integer.MAX_VALUE;
         if (StringUtils.isNumeric(request.getParameter(PARAM_LIMIT))) {
             limit = Integer.valueOf(request.getParameter(PARAM_LIMIT)).intValue();
         }
 
-        List values = _cities;
-
-
-        ModelAndView modelAndView = new ModelAndView("/school/performance/schoolValues");
         modelAndView.addObject(MODEL_CITY_LIST,
                 limit == Integer.MAX_VALUE ?
                         values :
@@ -256,7 +270,7 @@ public class BestPublicSchoolValuesController extends AbstractController {
                     int highSchoolsCount,
                     int population,
                     String localeDescription) {
-            _rank = _cities.size() + 1;
+            _rank = _citiesAboveApiCutoff.size() + 1;
             _cityName = cityName;
             _countyName = countyName;
             _medianHomePrice = medianHomePrice;
