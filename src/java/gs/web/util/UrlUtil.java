@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.32 2006/03/29 23:56:55 thuss Exp $
+ * $Id: UrlUtil.java,v 1.33 2006/04/14 16:14:48 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -230,6 +230,8 @@ public final class UrlUtil {
                         || ref.endsWith(".jpg") || ref.endsWith(".jpeg"))) {
             secureDest = true;
         }
+
+        href = href.replaceAll("\\s", "+");
 
         return buildHref(context != null ? context.getHostName() : null, href, secureDest, src);
     }

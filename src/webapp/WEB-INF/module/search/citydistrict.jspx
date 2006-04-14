@@ -17,7 +17,7 @@
                     </span>
                 </c:forEach>
                 <c:if test="${model.filteredtotal > 3 and param.morefiltered != 'true'}">
-                    <a href="/search/search.page?${pageContext.request.queryString}&amp;morefiltered=true">more...</a>
+                    <gsml:a href="/search/search.page?${pageContext.request.queryString}&amp;morefiltered=true">more...</gsml:a>
                 </c:if>
                 <br/>
             </div>
@@ -52,9 +52,9 @@
             <c:set var="count" value="0"/>
             <c:forEach var="district" items="${model.districts}">
                 <span class="citydistresult">
-                    <a href="/schools.page?state=${param.state}&amp;district=${district.id}&amp;distname=${district.name}${param.st == 'charter' ? '&amp;st=charter' : ''}">
+                    <gsml:a href="/schools.page?state=${param.state}&amp;district=${district.id}&amp;distname=${district.name}${param.st == 'charter' ? '&amp;st=charter' : ''}">
                         <c:out escapeXml="false" value="${gsweb:highlight(district.name, param.q, 'name')}"/>
-                    </a>
+                    </gsml:a>
                 </span>
                 <c:set var="count" value="${count + 1}"/>
                 <c:if test="${(count lt (model.districtstotal > 50 ? 50 : model.districtstotal))}">
