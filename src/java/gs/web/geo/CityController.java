@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.13 2006/04/12 18:58:54 apeterson Exp $
+ * $Id: CityController.java,v 1.14 2006/04/17 23:36:18 apeterson Exp $
  */
 
 package gs.web.geo;
 
-import gs.data.geo.*;
+import gs.data.geo.ICity;
+import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
@@ -16,8 +17,8 @@ import gs.web.SessionContext;
 import gs.web.school.SchoolsController;
 import gs.web.util.Anchor;
 import gs.web.util.ListModel;
-import gs.web.util.UrlUtil;
 import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
@@ -39,6 +40,7 @@ public class CityController extends AbstractController {
     public static final String PARAM_CITY = "city";
 
     public static final String MODEL_SCHOOLS = "schools"; // list of local schools, either a sample or top-rated
+    public static final String MODEL_SCHOOL_COUNT = "schoolCount"; // number of schools in the city
     public static final String MODEL_TOP_RATED_SCHOOLS = "topRatedSchools"; // List of ITopRatedSchool objects
 
     public static final String MODEL_CITY = "cityObject"; // City BpCensus object
@@ -93,20 +95,24 @@ public class CityController extends AbstractController {
         }
         model.put(MODEL_CITY, city);
 
-        ListModel schoolBreakdownList = createSchoolSummaryModel(state, cityNameParam, city.getName());
-        model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownList);
+        int schoolCount = calcSchoolCount(state, city.getName());
+        model.put(MODEL_SCHOOL_COUNT, new Integer(schoolCount));
 
-        //Map schoolsByLevel = createSchoolsByLevelModel(state, city, request);
-        //model.put(MODEL_SCHOOLS_BY_LEVEL, schoolsByLevel);
+        if (schoolCount > 0) {
+            ListModel schoolBreakdownList = createSchoolSummaryModel(state, cityNameParam, city.getName());
+            model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownList);
+
+            //Map schoolsByLevel = createSchoolsByLevelModel(state, city, request);
+            //model.put(MODEL_SCHOOLS_BY_LEVEL, schoolsByLevel);
+        }
 
         ListModel districtList = createDistrictList(state, cityNameParam, request);
         model.put(MODEL_DISTRICTS, districtList);
 
-
         /*
-         * If top rated schools are available for this city, then get them and
-         * put them into the model.
-         */
+        * If top rated schools are available for this city, then get them and
+        * put them into the model.
+        */
         if (state.isRatingsState()) {
             List topRatedSchools;
             topRatedSchools = _schoolDao.findTopRatedSchoolsInCity(city, 9, null, 5);
@@ -176,105 +182,106 @@ public class CityController extends AbstractController {
         ListModel schoolBreakdownList;
         schoolBreakdownList = new ListModel();
 
-        int sc = _schoolDao.countSchools(state, null, null, cityNameParam);
+        int sc;
+        //Anchor a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam,
+        //        "All " + cityNameParam + " schools (" + sc + ")");
+        //schoolBreakdownList.addResult(a);
+        Anchor a = null;
+
+        sc = _schoolDao.countSchools(state, null, LevelCode.ELEMENTARY, cityNameParam);
         if (sc > 0) {
-            //Anchor a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam,
-            //        "All " + cityNameParam + " schools (" + sc + ")");
-            //schoolBreakdownList.addResult(a);
-            Anchor a = null;
-
-            sc = _schoolDao.countSchools(state, null, LevelCode.ELEMENTARY, cityNameParam);
-            if (sc > 0) {
-                a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&lc=e",
-                        cityName + " Elementary Schools (" + sc + ")");
-                schoolBreakdownList.addResult(a);
-            }
-
-            sc = _schoolDao.countSchools(state, null, LevelCode.MIDDLE, cityNameParam);
-            if (sc > 0) {
-                a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&lc=m",
-                        cityName + " Middle Schools (" + sc + ")");
-                schoolBreakdownList.addResult(a);
-            }
-
-            sc = _schoolDao.countSchools(state, null, LevelCode.HIGH, cityNameParam);
-            if (sc > 0) {
-                a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&lc=h",
-                        cityName + " High Schools (" + sc + ")");
-                schoolBreakdownList.addResult(a);
-            }
-
-            sc = _schoolDao.countSchools(state, SchoolType.PUBLIC, null, cityNameParam) +
-                    _schoolDao.countSchools(state, SchoolType.CHARTER, null, cityNameParam);
-            if (sc > 0) {
-                a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&st=public&st=charter",
-                        cityName + " Public Schools (" + sc + ")");
-                schoolBreakdownList.addResult(a);
-            }
-
-            sc = _schoolDao.countSchools(state, SchoolType.PRIVATE, null, cityNameParam);
-            if (sc > 0) {
-                a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&st=private",
-                        cityName + " Private Schools (" + sc + ")");
-                schoolBreakdownList.addResult(a);
-            }
-
-            // Add a "last" to the last item
-            // It's already set!
-            // List results = schoolBreakdownList.getResults();
-            //a = (Anchor) results.get(results.size() - 1);
-            if (a != null) {
-                a.setStyleClass(a.getStyleClass() + " last");
-            }
-
+            a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&lc=e",
+                    cityName + " Elementary Schools (" + sc + ")");
+            schoolBreakdownList.addResult(a);
         }
+
+        sc = _schoolDao.countSchools(state, null, LevelCode.MIDDLE, cityNameParam);
+        if (sc > 0) {
+            a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&lc=m",
+                    cityName + " Middle Schools (" + sc + ")");
+            schoolBreakdownList.addResult(a);
+        }
+
+        sc = _schoolDao.countSchools(state, null, LevelCode.HIGH, cityNameParam);
+        if (sc > 0) {
+            a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&lc=h",
+                    cityName + " High Schools (" + sc + ")");
+            schoolBreakdownList.addResult(a);
+        }
+
+        sc = _schoolDao.countSchools(state, SchoolType.PUBLIC, null, cityNameParam) +
+                _schoolDao.countSchools(state, SchoolType.CHARTER, null, cityNameParam);
+        if (sc > 0) {
+            a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&st=public&st=charter",
+                    cityName + " Public Schools (" + sc + ")");
+            schoolBreakdownList.addResult(a);
+        }
+
+        sc = _schoolDao.countSchools(state, SchoolType.PRIVATE, null, cityNameParam);
+        if (sc > 0) {
+            a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam + "&st=private",
+                    cityName + " Private Schools (" + sc + ")");
+            schoolBreakdownList.addResult(a);
+        }
+
+        // Add a "last" to the last item
+        // It's already set!
+        // List results = schoolBreakdownList.getResults();
+        //a = (Anchor) results.get(results.size() - 1);
+        if (a != null) {
+            a.setStyleClass(a.getStyleClass() + " last");
+        }
+
         return schoolBreakdownList;
+    }
+
+    private int calcSchoolCount(State state, String cityNameParam) {
+        int sc = _schoolDao.countSchools(state, null, null, cityNameParam);
+        return sc;
     }
 
     private Map createSchoolsByLevelModel(State state, ICity city, HttpServletRequest request) {
         // the summaries of schools in a city
         Map map = null;
 
-        int sc = _schoolDao.countSchools(state, null, null, city.getName());
+        map = new HashMap();
+
+        UrlBuilder builder = new UrlBuilder(city, UrlBuilder.SCHOOLS_IN_CITY);
+
+        int sc;
+        sc = _schoolDao.countSchools(state, null, LevelCode.ELEMENTARY, city.getName());
         if (sc > 0) {
-            map = new HashMap();
-
-            UrlBuilder builder = new UrlBuilder(city, UrlBuilder.SCHOOLS_IN_CITY);
-
-            sc = _schoolDao.countSchools(state, null, LevelCode.ELEMENTARY, city.getName());
-            if (sc > 0) {
-                ListModel m = new ListModel("Elementary Schools (" + sc + ")");
-                builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "e");
-                m.addResult( builder.asAnchor(request, "List"));
-                builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
-                m.addResult(builder.asAnchor(request, "Map & List"));
-                builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
-                map.put("e", m);
-            }
-
-            sc = _schoolDao.countSchools(state, null, LevelCode.MIDDLE, city.getName());
-            if (sc > 0) {
-                ListModel m = new ListModel("Middle Schools (" + sc + ")");
-                builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "m");
-                m.addResult(builder.asAnchor(request, "List"));
-                builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
-                m.addResult(builder.asAnchor(request, "Map & List"));
-                builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
-                map.put("m", m);
-            }
-
-            sc = _schoolDao.countSchools(state, null, LevelCode.HIGH, city.getName());
-            if (sc > 0) {
-                ListModel m = new ListModel("High Schools (" + sc + ")");
-                builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "h");
-                m.addResult(builder.asAnchor(request, "List"));
-                builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
-                m.addResult(builder.asAnchor(request, "Map & List"));
-                builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
-                map.put("h", m);
-            }
-
+            ListModel m = new ListModel("Elementary Schools (" + sc + ")");
+            builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "e");
+            m.addResult(builder.asAnchor(request, "List"));
+            builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
+            m.addResult(builder.asAnchor(request, "Map & List"));
+            builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
+            map.put("e", m);
         }
+
+        sc = _schoolDao.countSchools(state, null, LevelCode.MIDDLE, city.getName());
+        if (sc > 0) {
+            ListModel m = new ListModel("Middle Schools (" + sc + ")");
+            builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "m");
+            m.addResult(builder.asAnchor(request, "List"));
+            builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
+            m.addResult(builder.asAnchor(request, "Map & List"));
+            builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
+            map.put("m", m);
+        }
+
+        sc = _schoolDao.countSchools(state, null, LevelCode.HIGH, city.getName());
+        if (sc > 0) {
+            ListModel m = new ListModel("High Schools (" + sc + ")");
+            builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "h");
+            m.addResult(builder.asAnchor(request, "List"));
+            builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
+            m.addResult(builder.asAnchor(request, "Map & List"));
+            builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
+            map.put("h", m);
+        }
+
         return map;
     }
 
