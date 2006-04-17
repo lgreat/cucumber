@@ -17,8 +17,6 @@
     <gsml:body adPageName="fixme" pageLayout="oneMainColumn">
 
         <pageHelper:externalCss file="/res/css/school/bpsv.css" />
-        <pageHelper:externalCss file="/res/css/school/bpsv.css" />
-        <pageHelper:externalCss file="/res/css/school/csr.css"/>
 
         <table width="100%"><tr>
             <td style="vertical-align: top">
@@ -80,7 +78,7 @@
                     <c:set var="i" value="${i + 1}"/>
                 </c:forEach>
             </table>
-        </c:if>
+        </c:if>        
         <mod:tracking pageName="Best Public School Values:${title}:${showMap?':map':''}"
                       pageType="city"
                       hier1="cities,best public school values,${title},${showMap?',map':''}"/>
