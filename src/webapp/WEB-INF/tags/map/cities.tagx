@@ -68,8 +68,10 @@ function ${functionName}() {
        map.addOverlay(marker);
        //]]>
        <c:if test="${empty tooltips or tooltips}">
+   //<![CDATA[
                   setTooltipOnMarker(marker, "<span style='white-space:nowrap'>${s.name},</span> ${s.state}");
-       </c:if>
+   //]]>
+   </c:if>
       </c:if>
       </c:forEach>
     //<![CDATA[

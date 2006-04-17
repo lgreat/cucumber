@@ -86,3 +86,8 @@ td.sidebar li.selected {
     background-position: center left;
     padding-left: 16px;
 }
+
+#map, #mapContainer {
+    width: 600px;
+    height: 600px;
+}
