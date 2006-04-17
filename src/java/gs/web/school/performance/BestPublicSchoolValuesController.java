@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.7 2006/04/17 19:39:45 apeterson Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.8 2006/04/17 21:32:44 apeterson Exp $
  */
 
 package gs.web.school.performance;
@@ -230,6 +230,7 @@ public class BestPublicSchoolValuesController extends AbstractController {
 
         ISessionFacade sc = SessionFacade.getInstance(request);
 
+        final boolean showMap = StringUtils.equals(request.getParameter(PARAM_MAP), "1");
         boolean listBelowAverage = StringUtils.equals(request.getParameter(PARAM_LIST), PARAM_LIST_VALUE_BELOW_AVG_API);
 
         int limit = Integer.MAX_VALUE;
@@ -243,6 +244,7 @@ public class BestPublicSchoolValuesController extends AbstractController {
         String subtitle;
         ListModel links = new ListModel();
         String top20Class = null;
+        String top20MapClass = null;
         String allClass = null;
         String belowClass = null;
         if (listBelowAverage) {
@@ -258,12 +260,19 @@ public class BestPublicSchoolValuesController extends AbstractController {
             } else {
                 subtitle = "Top " + limit + " Bay Area Cities";
                 values = values.subList(0, limit);
-                top20Class = "selected";
+                if (showMap) {
+                    top20MapClass = "selected";
+                } else {
+                    top20Class = "selected";
+                }
             }
             modelAndView.addObject(MODEL_SHOW_RANK, Boolean.TRUE);
         }
         links.addResult(new Anchor("/bayareavalues", "Back to Article"));
         links.addResult(new Anchor(PATH + "?metro=SFBay&limit=20", "Top 20 Bay Area Cities", top20Class));
+        if (!sc.isYahooCobrand()) {
+            links.addResult(new Anchor(PATH + "?metro=SFBay&limit=20&map=1", "Map of Top 20 Bay Area Cities", top20MapClass));
+        }
         links.addResult(new Anchor(PATH + "?metro=SFBay", "All Bay Area Best Public School Values", allClass));
         links.addResult(new Anchor(PATH + "?metro=SFBay&list=below", "Bay Area Cities with a Below-Average API Rank", belowClass));
         modelAndView.addObject(MODEL_LINKS, links);
@@ -271,8 +280,7 @@ public class BestPublicSchoolValuesController extends AbstractController {
 
         modelAndView.addObject(MODEL_CITY_LIST, values);
         modelAndView.addObject(MODEL_PAGE_SUBTITLE, subtitle);
-        modelAndView.addObject(MODEL_SHOW_MAP,
-                Boolean.valueOf(StringUtils.equals(request.getParameter(PARAM_MAP), "1")));
+        modelAndView.addObject(MODEL_SHOW_MAP, Boolean.valueOf(showMap));
 
         return modelAndView;
     }

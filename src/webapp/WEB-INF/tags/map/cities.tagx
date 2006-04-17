@@ -19,7 +19,7 @@
     <pageHelper:externalJavascript file="/res/js/mapTooltips.js"/>
     <script type="text/javascript">
  //<![CDATA[
- function createMarker(point,newpage,rank,name) {
+ function createMarker(point,newpage,bubbleText) {
    var marker = new GMarker(point);
      //]]>
  <c:if test="${empty tooltips or tooltips}">
@@ -30,13 +30,9 @@
  //]]>
  </c:if>
        <c:if test="${not empty bubbles and bubbles}">
-        var r = "";
- if (rank >= 1) {
-     r = "#" + rank + " ";
- }
  //<![CDATA[
             GEvent.addListener(marker, "click", function() {
-               marker.openInfoWindowHtml(r+name);
+               marker.openInfoWindowHtml(bubbleText);
             });
  //]]>
  </c:if>
@@ -54,17 +50,26 @@ function ${functionName}() {
         //]]>
       <c:forEach var="s" items="${cities}" >
       <c:if test="${not empty s.lon}">
+                 <c:set var="city" scope="request" value="${s}" />
        <jsp:scriptlet>
-            Object s = request.getAttribute("s");
-            if (s instanceof gs.web.school.performance.BestPublicSchoolValuesController.IBestPublicSchoolValue) {
-                request.setAttribute("rank", "'" + ((gs.web.school.performance.BestPublicSchoolValuesController.IBestPublicSchoolValue)s).getRank() + "'");
+   /*Name of City
+Median home price: $999,999
+Average API Rank: 9.20*/
+            gs.data.geo.ICity c = (gs.data.geo.ICity)request.getAttribute("city");
+            if (c instanceof gs.web.school.performance.BestPublicSchoolValuesController.IBestPublicSchoolValue) {
+                gs.web.school.performance.BestPublicSchoolValuesController.IBestPublicSchoolValue bpsv =
+                    (gs.web.school.performance.BestPublicSchoolValuesController.IBestPublicSchoolValue)c;
+                java.text.NumberFormat formatter = java.text.NumberFormat.getInstance();
+                request.setAttribute("html", "#" + bpsv.getRank() + " " + bpsv.getName() + "&lt;br &gt;"
+                        + "Median home price: $" + formatter.format(bpsv.getMedianHomePrice()) + "&lt;br /&gt;" +
+                        "Average API Rank: " + bpsv.getAverageApiRank());
             } else {
-                request.setAttribute("rank", "-1");
+                request.setAttribute("html", c.getName());
             }
       </jsp:scriptlet>
     //<![CDATA[
        var p = new GLatLng(${s.lat},${s.lon});
-       var marker = createMarker(p, 'city.page?city=${s.name}&state=${s.state}',"${requestScope.rank}","${s.name}");
+       var marker = createMarker(p, 'city.page?city=${s.name}&state=${s.state}',"${requestScope.html}");
        map.addOverlay(marker);
        //]]>
        <c:if test="${empty tooltips or tooltips}">

@@ -91,3 +91,7 @@ td.sidebar li.selected {
     width: 600px;
     height: 600px;
 }
+
+#mapContainer {
+    border: 1px solid #999;
+}

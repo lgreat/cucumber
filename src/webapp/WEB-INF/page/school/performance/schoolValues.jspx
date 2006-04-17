@@ -47,40 +47,43 @@
                         cities="${cities}"/>
             <pageHelper:addOnLoadHandler handler="createMap()"/>
         </c:if>
-        <table class="bpsv" cellspacing="0" cellpadding="0">
-            <tr>
-                <c:if test="${showRank}">
-                    <th>Rank</th>
-                </c:if>
-                <th>City</th><th>County</th><th>Median Home Price</th><th>Average
+        <c:if test="${not showMap}" >
+            <table class="bpsv" cellspacing="0" cellpadding="0">
+                <tr>
+                    <c:if test="${showRank}">
+                        <th>Rank</th>
+                    </c:if>
+                    <th>City</th><th>County</th><th>Median Home Price</th><th>Average
                     API Rank</th><th># schools serving elementary grades</th><th># schools serving
                     middle school grades</th><th># schools serving
                     high school grades</th><th>Find schools</th>
-            </tr>
-            <c:set var="i" value="1" />
-            <c:forEach items="${cities}" var="city" >
-                <tr class="${(i mod 2 == 1) ? 'odd' : 'even'}">
-                    <c:if test="${showRank}">
-                        <td class="rank">${city.rank}</td>
-                    </c:if>
-                    <td class="name"><gsml:a href="${city.cityPageHref}">${city.cityName}</gsml:a></td>
-                    <td class="county">${city.countyName}</td>
-                    <td class="medianHomePrice">$<fmt:formatNumber value="${city.medianHomePrice}"
-                                                                  maxFractionDigits="0"/></td>
-                    <td class="averageApiRank"><fmt:formatNumber value="${city.averageApiRank}"
-                                                                 minFractionDigits="2"
-                                                                 maxFractionDigits="2"/></td>
-                    <td class="e">${city.elementarySchoolsCount}</td>
-                    <td class="m">${city.middleSchoolsCount}</td>
-                    <td class="h">${city.highSchoolsCount}</td>
-                    <td class="link"><gsml:a href="${city.schoolsPageHref}">Browse ${city.cityName} schools</gsml:a></td>
                 </tr>
-                <c:set var="i" value="${i + 1}"/>
-            </c:forEach>
-        </table>
-        <mod:tracking pageName="Best Public School Values:${title}"
+                <c:set var="i" value="1"/>
+                <c:forEach items="${cities}" var="city">
+                    <tr class="${(i mod 2 == 1) ? 'odd' : 'even'}">
+                        <c:if test="${showRank}">
+                            <td class="rank">${city.rank}</td>
+                        </c:if>
+                        <td class="name"><gsml:a href="${city.cityPageHref}">${city.cityName}</gsml:a></td>
+                        <td class="county">${city.countyName}</td>
+                        <td class="medianHomePrice">$<fmt:formatNumber value="${city.medianHomePrice}"
+                                                                       maxFractionDigits="0"/></td>
+                        <td class="averageApiRank"><fmt:formatNumber value="${city.averageApiRank}"
+                                                                     minFractionDigits="2"
+                                                                     maxFractionDigits="2"/></td>
+                        <td class="e">${city.elementarySchoolsCount}</td>
+                        <td class="m">${city.middleSchoolsCount}</td>
+                        <td class="h">${city.highSchoolsCount}</td>
+                        <td class="link"><gsml:a href="${city.schoolsPageHref}">Browse ${city.cityName} schools</gsml:a>
+                        </td>
+                    </tr>
+                    <c:set var="i" value="${i + 1}"/>
+                </c:forEach>
+            </table>
+        </c:if>
+        <mod:tracking pageName="Best Public School Values:${title}:${showMap?':map':''}"
                       pageType="city"
-                      hier1="cities,best public school values,${title}"/>
+                      hier1="cities,best public school values,${title},${showMap?',map':''}"/>
     </gsml:body>
     </html>
 </jsp:root>
