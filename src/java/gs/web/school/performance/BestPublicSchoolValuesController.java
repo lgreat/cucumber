@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.5 2006/04/14 21:38:21 apeterson Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.6 2006/04/17 18:05:59 apeterson Exp $
  */
 
 package gs.web.school.performance;
@@ -8,9 +8,9 @@ package gs.web.school.performance;
 import gs.data.state.State;
 import gs.web.ISessionFacade;
 import gs.web.SessionFacade;
-import gs.web.util.UrlBuilder;
-import gs.web.util.ListModel;
 import gs.web.util.Anchor;
+import gs.web.util.ListModel;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -34,12 +34,12 @@ import java.util.List;
 public class BestPublicSchoolValuesController extends AbstractController {
 
     private static final String PARAM_LIMIT = "limit";
-    private static final String PARAM_METRO = "metro";
+    private static final String PARAM_METRO = "metro"; // ignored for now, but passed for forward compatibility
     /**
      * What data to list. Default is "
      */
     private static final String PARAM_LIST = "list";
-    private static final String PARAM_LIST_VALUE_ABOVE_AVG_API = "above";
+    private static final String PARAM_LIST_VALUE_ABOVE_AVG_API = "above"; // ignored; default
     private static final String PARAM_LIST_VALUE_BELOW_AVG_API = "below";
 
     /**
@@ -50,6 +50,9 @@ public class BestPublicSchoolValuesController extends AbstractController {
     public static final String MODEL_PAGE_SUBTITLE = "subtitle";
     public static final String MODEL_SHOW_RANK = "showRank"; // Boolean
     public static final String MODEL_LINKS = "links"; // ListModel
+
+
+    final String PATH = "/school/performance/bestValues.page";
 
     public interface IBestPublicSchoolValue {
         int getRank();
@@ -86,6 +89,8 @@ public class BestPublicSchoolValuesController extends AbstractController {
         ^([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]+)$
 
                 values.add(new Bpsv("\1","\2",\3,\4,\5,\6,\7,\8,\9,\10,\11,"\12"));
+
+                NOTE: make sure home values don't have commas, and make sure school counts have 0s and not empty cells.
         */
         _citiesAboveApiCutoff = new ArrayList();
         _citiesAboveApiCutoff.add(new Bpsv("Guerneville", "Sonoma", 370000, 0.5, 7.00, 12.8, 2, 1, 2, 0, 641200, "Urban Fringe of Mid-size City "));
@@ -226,31 +231,35 @@ public class BestPublicSchoolValuesController extends AbstractController {
         List values;
         String subtitle;
         ListModel links = new ListModel();
-        links.addResult(new Anchor("/article.html", "Back to Article"));
+        String top20Class = null;
+        String allClass = null;
+        String belowClass = null;
         if (listBelowAverage) {
             subtitle = "Bay Area Cities with a Below-Average API Rank";
             values = _citiesBelowApiCutoff;
             modelAndView.addObject(MODEL_SHOW_RANK, Boolean.FALSE);
-            links.addResult(new Anchor("/metro/bestValues.page?metro=SFBay&limit=20", "Top 20 Bay Area Cities"));
-            links.addResult(new Anchor("/metro/bestValues.page?metro=SFBay", "All Bay Area Best Public School Values"));
+            belowClass = "selected";
         } else {
             values = _citiesAboveApiCutoff;
             if (limit == Integer.MAX_VALUE) {
                 subtitle = "All Bay Area Cities";
-                links.addResult(new Anchor("/metro/bestValues.page?metro=SFBay&limit=20", "Top 20 Bay Area Cities"));
+                allClass = "selected";
             } else {
                 subtitle = "Top " + limit + " Bay Area Cities";
                 values = values.subList(0, limit);
-                links.addResult(new Anchor("/metro/bestValues.page?metro=SFBay", "All Bay Area Best Public School Values"));
+                top20Class = "selected";
             }
-            links.addResult(new Anchor("/metro/bestValues.page?metro=SFBay&list=below", "Bay Area Cities with a Below-Average API Rank"));
             modelAndView.addObject(MODEL_SHOW_RANK, Boolean.TRUE);
         }
+        links.addResult(new Anchor("/bayareavalues", "Back to Article"));
+        links.addResult(new Anchor(PATH + "?metro=SFBay&limit=20", "Top 20 Bay Area Cities", top20Class));
+        links.addResult(new Anchor(PATH + "?metro=SFBay", "All Bay Area Best Public School Values", allClass));
+        links.addResult(new Anchor(PATH + "?metro=SFBay&list=below", "Bay Area Cities with a Below-Average API Rank", belowClass));
+        modelAndView.addObject(MODEL_LINKS, links);
 
 
         modelAndView.addObject(MODEL_CITY_LIST, values);
-        modelAndView.addObject(MODEL_PAGE_SUBTITLE,subtitle);
-        modelAndView.addObject(MODEL_LINKS, links);
+        modelAndView.addObject(MODEL_PAGE_SUBTITLE, subtitle);
 
         return modelAndView;
     }

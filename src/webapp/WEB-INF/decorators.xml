@@ -37,11 +37,10 @@
         <pattern>/city.page</pattern>
         <pattern>/cities.page</pattern>
 
-        <pattern>/metro/bestValues.page</pattern>
-
         <pattern>/schools.page</pattern>
 
         <pattern>/school/authorizers.page</pattern>
+        <pattern>/school/performance/bestValues.page</pattern>
 
         <pattern>/test/city.page</pattern>
         <pattern>/test/modal.page</pattern>

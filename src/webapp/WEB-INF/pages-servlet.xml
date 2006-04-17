@@ -369,7 +369,7 @@
     </bean>
 
 
-    <bean name="/metro/bestValues.page"
+    <bean name="/school/performance/bestValues.page"
           class="gs.web.school.performance.BestPublicSchoolValuesController"
           autowire="byName">
     </bean>

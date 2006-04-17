@@ -12,84 +12,16 @@
     <jsp:directive.page contentType="text/html"/>
     <head>
         <title><c:out value="Best Public School Values: ${subtitle}"/></title>
-        <style type="text/css">
-            div.contentGS {
-                margin-top: 10px;
-            }
-            .contentGS h1 {
-                font-size: medium;
-                font-weight: bold;
-                color: #eb7a31;
-            }
-            .contentGS p {
-                font-size:small;
-            }
-
-            table.bpsv {
-                border: 1px dotted #000;
-                border-width: 1px 0 1px 0;
-            }
-            table.bpsv th {
-                font-size: x-small;
-                font-weight: normal;
-                vertical-align: bottom;
-                text-align: center;
-                background-color: #EB7A31;
-                background-color: #FAD3AE;
-                background-color: #e5e5e5;
-                padding: 2px;
-                border: 1px dotted #000;
-                border-width: 0px 0 0px 0;
-            }
-            table.bpsv td {
-                font-size: small;
-                font-weight: normal;
-                padding: 2px;
-            }
-            table.bpsv tr.even td {
-                background-color: #FAD3AE;
-            }
-            table.bpsv td.name {
-                white-space:nowrap;
-                font-weight: bold;
-                padding-right: 1em;
-            }
-            table.bpsv td.rank
-            {
-                width: 2em;
-                text-align: center;
-            }
-            table.bpsv td.e,
-            table.bpsv td.m,
-            table.bpsv td.h
-            {
-                width: 7em;
-                text-align: center;
-            }
-            table.bpsv td.medianHomePrice,
-            table.bpsv td.averageApiRank
-            {
-                text-align: right;
-                padding-right: 3em;
-                padding-left: 1em;
-            }
-            td.sidebar {
-                padding-left: 2em;
-                width: 33%;
-                font-size:x-small;
-            }
-            td.sidebar li {
-                border: 1px dotted #999;
-                border-width: 1px 0 0px 0;
-                padding: 2px 0 2px 0;
-            }
-        </style>
     </head>
     <gsml:body adPageName="fixme" pageLayout="oneMainColumn">
 
-        <h1><c:out value="Best Public School Values: ${subtitle}"/></h1>
-        <table><tr>
-            <td>
+        <pageHelper:externalCss file="/res/css/school/bpsv.css" />
+        <pageHelper:externalCss file="/res/css/school/bpsv.css" />
+        <pageHelper:externalCss file="/res/css/school/csr.css"/>
+
+        <table width="100%"><tr>
+            <td style="vertical-align: top">
+                <h1><c:out value="Best Public School Values: ${subtitle}"/></h1>
                 <p>
                     Note: In order to be considered, a city had to have an average API Rank of 6.95 or greater, which
                     means the
@@ -119,6 +51,7 @@
                     <td class="medianHomePrice">$<fmt:formatNumber value="${city.medianHomePrice}"
                                                                   maxFractionDigits="0"/></td>
                     <td class="averageApiRank"><fmt:formatNumber value="${city.averageApiRank}"
+                                                                 minFractionDigits="2"
                                                                  maxFractionDigits="2"/></td>
                     <td class="e">${city.elementarySchoolsCount}</td>
                     <td class="m">${city.middleSchoolsCount}</td>
