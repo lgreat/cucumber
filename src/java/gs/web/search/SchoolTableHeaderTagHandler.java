@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.5 2006/04/14 23:14:24 chriskimm Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.6 2006/04/17 17:34:48 chriskimm Exp $
  */
 
 package gs.web.search;
@@ -190,7 +190,7 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
             sb.append(compareBuilder.asAHref(request, "High"));
         }
         String links = sb.toString();
-        out.print(links.replaceFirst("|.$", ""));
+        out.print(links.replaceFirst("\\|.$", ""));
 
         out.print("</div>");
         out.println("</td></tr>");
