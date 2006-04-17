@@ -7,6 +7,7 @@
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           version="2.0">
     <html>
     <jsp:directive.page contentType="text/html"/>
@@ -30,6 +31,22 @@
             </td>
             <td class="sidebar"><gsml:list model="${links}"/></td>
             </tr></table>
+        <c:if test="${showMap}" >
+            <div id="mapContainer">
+                <div id="map">&#160;</div>
+                <noscript>In order to view this map, enable JavaScript in your browser.</noscript>
+            </div>
+            <map:setup/>
+            <map:cities functionName="createMap"
+                        id="map"
+                        lon="-122.3"
+                        lat="38.0"
+                        scale="8"
+                        tooltips="false"
+                        bubbles="true"
+                        cities="${cities}"/>
+            <pageHelper:addOnLoadHandler handler="createMap()"/>
+        </c:if>
         <table class="bpsv" cellspacing="0" cellpadding="0">
             <tr>
                 <c:if test="${showRank}">

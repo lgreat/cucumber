@@ -1,17 +1,24 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.6 2006/04/17 18:05:59 apeterson Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.7 2006/04/17 19:39:45 apeterson Exp $
  */
 
 package gs.web.school.performance;
 
+import gs.data.geo.ICity;
+import gs.data.geo.IGeoDao;
+import gs.data.geo.LatLon;
 import gs.data.state.State;
+import gs.data.util.SpringUtil;
 import gs.web.ISessionFacade;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
 import gs.web.util.ListModel;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -41,6 +48,7 @@ public class BestPublicSchoolValuesController extends AbstractController {
     private static final String PARAM_LIST = "list";
     private static final String PARAM_LIST_VALUE_ABOVE_AVG_API = "above"; // ignored; default
     private static final String PARAM_LIST_VALUE_BELOW_AVG_API = "below";
+    private static final String PARAM_MAP = "map"; // set to 1 to show map
 
     /**
      * List of IBestPublicSchoolValue objects.
@@ -49,12 +57,14 @@ public class BestPublicSchoolValuesController extends AbstractController {
 
     public static final String MODEL_PAGE_SUBTITLE = "subtitle";
     public static final String MODEL_SHOW_RANK = "showRank"; // Boolean
+    public static final String MODEL_SHOW_MAP = "showMap"; // Boolean
     public static final String MODEL_LINKS = "links"; // ListModel
 
 
     final String PATH = "/school/performance/bestValues.page";
 
-    public interface IBestPublicSchoolValue {
+
+    public interface IBestPublicSchoolValue extends ICity {
         int getRank();
 
         String getCityName();
@@ -81,6 +91,7 @@ public class BestPublicSchoolValuesController extends AbstractController {
     static List _citiesAboveApiCutoff;
     static List _citiesBelowApiCutoff;
 
+    private static final Log _log = LogFactory.getLog(BestPublicSchoolValuesController.class);
 
     static {
 
@@ -260,6 +271,8 @@ public class BestPublicSchoolValuesController extends AbstractController {
 
         modelAndView.addObject(MODEL_CITY_LIST, values);
         modelAndView.addObject(MODEL_PAGE_SUBTITLE, subtitle);
+        modelAndView.addObject(MODEL_SHOW_MAP,
+                Boolean.valueOf(StringUtils.equals(request.getParameter(PARAM_MAP), "1")));
 
         return modelAndView;
     }
@@ -268,21 +281,20 @@ public class BestPublicSchoolValuesController extends AbstractController {
     private static class Bpsv
             implements BestPublicSchoolValuesController.IBestPublicSchoolValue {
 
-        private int _rank;
-        private String _cityName;
-        private String _countyName;
-        private int _medianHomePrice;
-        private double _averageApiRank;
-        private int _schoolsCount;
-        private int _elementarySchoolsCount;
-        private int _middleSchoolsCount;
-        private int _highSchoolsCount;
-        private String _cityPageHref;
-        private String _schoolsPageUrl;
+        private final int _rank;
+        private final String _cityName;
+        private final String _countyName;
+        private final int _medianHomePrice;
+        private final double _averageApiRank;
+        private final int _schoolsCount;
+        private final int _elementarySchoolsCount;
+        private final int _middleSchoolsCount;
+        private final int _highSchoolsCount;
+        private final String _cityPageHref;
+        private final String _schoolsPageUrl;
+        private final Long _population;
+        private final LatLon _latLon;
 
-
-        public Bpsv() {
-        }
 
         public Bpsv(String cityName,
                     String countyName,
@@ -309,6 +321,19 @@ public class BestPublicSchoolValuesController extends AbstractController {
             _cityPageHref = builder.asSiteRelative(null);
             builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.CA, _cityName);
             _schoolsPageUrl = builder.asSiteRelative(null);
+
+            // set _city
+            ApplicationContext context = SpringUtil.getApplicationContext();
+            IGeoDao geoDao = (IGeoDao) context.getBean(IGeoDao.BEAN_ID);
+            ICity c = geoDao.findCity(State.CA, cityName);
+            if (c != null) {
+                _latLon = new LatLon(c.getLat(), c.getLon());
+                _population = c.getPopulation();
+            } else {
+                _log.error("Cannot find city information for " + cityName);
+                _population = new Long(0);
+                _latLon = null;
+            }
         }
 
         public int getRank() {
@@ -353,6 +378,34 @@ public class BestPublicSchoolValuesController extends AbstractController {
 
         public String getSchoolsPageHref() {
             return _schoolsPageUrl;
+        }
+
+        public String getName() {
+            return _cityName;
+        }
+
+        public State getState() {
+            return State.CA;
+        }
+
+        public float getLat() {
+            return _latLon.getLat();
+        }
+
+        public float getLon() {
+            return _latLon.getLon();
+        }
+
+        public String getCountyFips() {
+            throw new UnsupportedOperationException();
+        }
+
+        public Long getPopulation() {
+            return _population;
+        }
+
+        public LatLon getLatLon() {
+            return _latLon;
         }
     }
 

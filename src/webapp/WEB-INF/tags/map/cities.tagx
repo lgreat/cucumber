@@ -14,24 +14,33 @@
     <jsp:directive.attribute name="lat" required="true" description="Lattitude (center of map)"/>
     <jsp:directive.attribute name="scale" required="true" description="Scale of the map, in google terms"/>
     <jsp:directive.attribute name="cities" required="true" description="Cities to map" type="java.util.Collection"/>
-    <!--
-NOTES
-The map API must be previously initialized.
-Schools without lat/lon are skipped.
-
-TODO
-I'd like to color the markers or use different icons depending on the level code. (The
-   beginnings of this are here.)
-I'd like to use a consistent display of school information in the info window.
-    -->
+    <jsp:directive.attribute name="tooltips" required="false" description="Use tooltips? Default is true"/>
+    <jsp:directive.attribute name="bubbles" required="false" description="Use Google's standard thought bubbles; default false"/>
     <pageHelper:externalJavascript file="/res/js/mapTooltips.js"/>
     <script type="text/javascript">
  //<![CDATA[
- function createMarker(point,newpage) {
+ function createMarker(point,newpage,rank,name) {
    var marker = new GMarker(point);
-   GEvent.addListener(marker, "click", function() {
-      location=newpage;
-   });
+     //]]>
+ <c:if test="${empty tooltips or tooltips}">
+ //<![CDATA[
+            GEvent.addListener(marker, "click", function() {
+                location = newpage;
+            });
+ //]]>
+ </c:if>
+       <c:if test="${not empty bubbles and bubbles}">
+        var r = "";
+ if (rank >= 1) {
+     r = "#" + rank + " ";
+ }
+ //<![CDATA[
+            GEvent.addListener(marker, "click", function() {
+               marker.openInfoWindowHtml(r+name);
+            });
+ //]]>
+ </c:if>
+ //<![CDATA[
    return marker;
 }
 function ${functionName}() {
@@ -43,14 +52,24 @@ function ${functionName}() {
        map.addControl(new GSmallMapControl(GSmallMapControl.G_NORMAL_MAP));
       map.setCenter(new GLatLng(${lat}, ${lon}), ${17-scale});
         //]]>
-      <c:forEach var="s" items="${cities}">
+      <c:forEach var="s" items="${cities}" >
       <c:if test="${not empty s.lon}">
+       <jsp:scriptlet>
+            Object s = request.getAttribute("s");
+            if (s instanceof gs.web.school.performance.BestPublicSchoolValuesController.IBestPublicSchoolValue) {
+                request.setAttribute("rank", "'" + ((gs.web.school.performance.BestPublicSchoolValuesController.IBestPublicSchoolValue)s).getRank() + "'");
+            } else {
+                request.setAttribute("rank", "-1");
+            }
+      </jsp:scriptlet>
     //<![CDATA[
        var p = new GLatLng(${s.lat},${s.lon});
-       var marker = createMarker(p, 'city.page?city=${s.name}&state=${s.state}');
+       var marker = createMarker(p, 'city.page?city=${s.name}&state=${s.state}',"${requestScope.rank}","${s.name}");
        map.addOverlay(marker);
-       setTooltipOnMarker(marker, "<span style='white-space:nowrap'>${s.name},</span> ${s.state}");
        //]]>
+       <c:if test="${empty tooltips or tooltips}">
+                  setTooltipOnMarker(marker, "<span style='white-space:nowrap'>${s.name},</span> ${s.state}");
+       </c:if>
       </c:if>
       </c:forEach>
     //<![CDATA[
