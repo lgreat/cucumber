@@ -13,6 +13,10 @@ var gPopupIsShown = false;
 var gHideSelects = false;
 var gLoading = "loading.html";
 
+//A reference to a link object.
+//If assigned, user will be redirected to this page when the modal dialog is closed.
+var gRedirectAnchor = null;
+
 var gTabIndexes = new Array();
 // Pre-defined list of tags we want to disable/enable tabbing into
 var gTabbableTags = new Array("A","BUTTON","TEXTAREA","INPUT","IFRAME");
@@ -169,7 +173,12 @@ function hidePopWin(callReturnFunc) {
 	}
 	gPopFrame.src = "javascript:parent.frameLoading()";
 
-    showContainers();
+    if (gRedirectAnchor != null && gRedirectAnchor.href != null) {
+        freeOnClickMem();
+        location = gRedirectAnchor.href;
+    } else {
+        showContainers();
+    }
 }
 
 /**
@@ -290,6 +299,25 @@ function showContainers() {
         }
         )
 }
+
+
+//Show the modal dialog when user exits the current page by way of an outbound link
+function showPopWinOnExit(url, width, height, returnFunc) {
+    var arr = getElementsByCondition(
+        function(el) {
+            if (el.tagName == "A" && el.href != "" && el.target == "") return el; else return false;
+        }
+    )
+
+    for (var i=0;i < arr.length;i++) {
+        arr[i].onclick = function () {
+            gRedirectAnchor = this;
+            showPopWin(url, width, height, returnFunc);
+            return false;
+        }
+    }
+}
+
 //code from http://www.webmasterworld.com/forum91/1729.htm
 function getElementsByCondition(condition,container) {
     container = container||document
@@ -302,5 +330,15 @@ function getElementsByCondition(condition,container) {
         if(condition(elm,k))
             arr[arr.length] = elm
     }
+    all = null
     return arr
+}
+
+//Clear onclick references for all links in order to free memory
+function freeOnClickMem() {
+    var alltags=document.getElementsByTagName("A");
+
+    for(var i=0;i<alltags.length;i++){
+        alltags[i].onclick=null;
+    }
 }
