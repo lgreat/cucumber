@@ -201,7 +201,7 @@
             </tr>
         </c:if>
         <tr>
-            <td><!-- Google box ad here --></td>
+            <td><ad:google300x250/></td>
         </tr>
     </table>
 </td>
