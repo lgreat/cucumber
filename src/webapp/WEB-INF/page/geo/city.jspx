@@ -200,6 +200,9 @@
                 </td>
             </tr>
         </c:if>
+        <tr>
+            <td><!-- Google box ad here --></td>
+        </tr>
     </table>
 </td>
 </tr>
