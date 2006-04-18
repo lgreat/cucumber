@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.10 2006/04/18 19:24:41 thuss Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.11 2006/04/18 23:53:30 thuss Exp $
  */
 
 package gs.web.school.performance;
@@ -94,7 +94,7 @@ public class BestPublicSchoolValuesController extends AbstractController {
 
     private static final Log _log = LogFactory.getLog(BestPublicSchoolValuesController.class);
 
-    static {
+    private static synchronized void initializeCities() {
 
         /*
         Note: I used these regex to convert from the excel spreadsheet to this form:
@@ -230,6 +230,10 @@ public class BestPublicSchoolValuesController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+        if (_citiesOfValue == null) {
+                initializeCities();
+        }
+
         ISessionFacade sc = SessionFacade.getInstance(request);
 
         final boolean showMap = StringUtils.equals(request.getParameter(PARAM_MAP), "1");
@@ -272,7 +276,7 @@ public class BestPublicSchoolValuesController extends AbstractController {
         }
         Article article = new Article();
         article.setId(new Integer(594));
-        UrlBuilder builder = new UrlBuilder(article, State.CA, false);        
+        UrlBuilder builder = new UrlBuilder(article, State.CA, false);
         links.addResult(new Anchor(builder.toString(), "Back to Article"));
         links.addResult(new Anchor(PATH + "?metro=SFBay&limit=20", "Top 20 Bay Area Cities", top20Class));
         if (!sc.isYahooCobrand()) {
