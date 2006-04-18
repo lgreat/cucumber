@@ -84,7 +84,12 @@ public class AuthorizersController extends AbstractController {
                 // log this and just return an empty page rather than vomiting
                 // a stack trace.  The page is responsible for handling this
                 // gracefully.
-                _log.warn("Couldn't get info for school: " + schoolId, orfe);
+                StringBuffer logBuffer = new StringBuffer();
+                logBuffer.append("Couldn't get info for school: ");
+                logBuffer.append(schoolId);
+                logBuffer.append(" in State: ");
+                logBuffer.append(sessionContext.getState().toString());
+                _log.warn(logBuffer.toString(), orfe);
                 mAndV.getModel().put("errormessage", errorMessage);
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             }
@@ -100,9 +105,10 @@ public class AuthorizersController extends AbstractController {
             demandData.put("Year opened", new Integer(info.getYearOpened()));
         }
 
-        if (StringUtils.isNotBlank(info.getTermsOfCharter())) {
+        String terms = info.getTermsOfCharter();
+        if (StringUtils.isNotBlank(terms)) {
             if (demandData == null) { demandData = new ListOrderedMap(); }
-            demandData.put("Terms of charter", info.getTermsOfCharter());
+            demandData.put("Terms of charter", terms);
         }
 
         if (StringUtils.isNotBlank(info.getRenewalStatus())) {
