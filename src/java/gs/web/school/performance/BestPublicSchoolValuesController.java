@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.9 2006/04/17 22:19:13 apeterson Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.10 2006/04/18 19:24:41 thuss Exp $
  */
 
 package gs.web.school.performance;
@@ -10,6 +10,7 @@ import gs.data.geo.IGeoDao;
 import gs.data.geo.LatLon;
 import gs.data.state.State;
 import gs.data.util.SpringUtil;
+import gs.data.content.Article;
 import gs.web.ISessionFacade;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
@@ -269,7 +270,10 @@ public class BestPublicSchoolValuesController extends AbstractController {
             }
             modelAndView.addObject(MODEL_SHOW_RANK, Boolean.TRUE);
         }
-        links.addResult(new Anchor("/bayareavalues", "Back to Article"));
+        Article article = new Article();
+        article.setId(new Integer(594));
+        UrlBuilder builder = new UrlBuilder(article, State.CA, false);        
+        links.addResult(new Anchor(builder.toString(), "Back to Article"));
         links.addResult(new Anchor(PATH + "?metro=SFBay&limit=20", "Top 20 Bay Area Cities", top20Class));
         if (!sc.isYahooCobrand()) {
             links.addResult(new Anchor(PATH + "?metro=SFBay&limit=20&map=1", "Map of Top 20 Bay Area Cities", top20MapClass));
