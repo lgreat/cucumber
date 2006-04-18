@@ -46,8 +46,7 @@
             <pageHelper:addOnLoadHandler handler="createMap()"/>
         </c:if>
         <c:if test="${not showMap}" >
-            <pageHelper:externalJavascript file="/res/js/sorttable.js"/>
-            <table id="tblResults" class="sortable bpsv" cellspacing="0" cellpadding="0">
+            <table class="bpsv" cellspacing="0" cellpadding="0">
                 <tr>
                     <c:if test="${showRank}">
                         <th>Rank</th>
