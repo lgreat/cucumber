@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.14 2006/04/17 23:36:18 apeterson Exp $
+ * $Id: CityController.java,v 1.15 2006/04/18 15:15:19 thuss Exp $
  */
 
 package gs.web.geo;
@@ -13,6 +13,7 @@ import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.SessionContext;
 import gs.web.school.SchoolsController;
 import gs.web.util.Anchor;
@@ -64,6 +65,10 @@ public class CityController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
+
+        // TH: Set this controller to read-only to avoid hibernate updating school_rating
+        ThreadLocalTransactionManager.setReadOnly();
+
 
         final State state = SessionContext.getInstance(request).getStateOrDefault();
 
@@ -236,13 +241,12 @@ public class CityController extends AbstractController {
     }
 
     private int calcSchoolCount(State state, String cityNameParam) {
-        int sc = _schoolDao.countSchools(state, null, null, cityNameParam);
-        return sc;
+        return _schoolDao.countSchools(state, null, null, cityNameParam);
     }
 
     private Map createSchoolsByLevelModel(State state, ICity city, HttpServletRequest request) {
         // the summaries of schools in a city
-        Map map = null;
+        Map map;
 
         map = new HashMap();
 
