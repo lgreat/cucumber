@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.15 2006/04/18 15:15:19 thuss Exp $
+ * $Id: CityController.java,v 1.16 2006/04/19 20:15:50 thuss Exp $
  */
 
 package gs.web.geo;
@@ -29,6 +29,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
+import java.net.URLEncoder;
 
 /**
  * Given a city and state in the URL, populates model properties needed
@@ -86,7 +87,7 @@ public class CityController extends AbstractController {
         ICity city = _geoDao.findCity(state, cityNameParam);
         if (city == null) {
             View redirectView = new RedirectView("/modperl/go/" + state.getAbbreviationLowerCase() +
-                    "?error=Nothing+known+about+" + cityNameParam + ".");
+                    "?error=Nothing+known+about+" + URLEncoder.encode(cityNameParam, "UTF-8") + ".");
             return new ModelAndView(redirectView);
         }
 
