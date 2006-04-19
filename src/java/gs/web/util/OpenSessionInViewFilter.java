@@ -14,8 +14,11 @@ public class OpenSessionInViewFilter implements Filter {
                          ServletResponse response,
                          FilterChain chain)
             throws IOException, ServletException {
-        chain.doFilter(request, response);
-        ThreadLocalTransactionManager.commitOrRollback();
+        try {
+            chain.doFilter(request, response);
+        } finally {
+            ThreadLocalTransactionManager.commitOrRollback();
+        }
     }
 
     public void init(FilterConfig filterConfig) throws ServletException {
