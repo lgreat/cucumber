@@ -23,5 +23,5 @@ or visit                 <gsml:a href="/cgi-bin/feedback_faq/$STATE?fbtype=suben
             </c:if>
         <br/>
      </c:if>
-     <span id="webbyText">We're up for a <a href="http://peoplesvoice.webbyawards.com/login.mhtml" target="_blank">Webby Award</a> and need your <a href="http://peoplesvoice.webbyawards.com/login.mhtml" target="_blank">vote!</a></span>
+     <span id="webbyText">GreatSchools is up for a <a href="http://peoplesvoice.webbyawards.com/login.mhtml" target="_blank">Webby Award</a> and we need your <a href="http://peoplesvoice.webbyawards.com/login.mhtml" target="_blank">vote!</a></span>
 </jsp:root>
