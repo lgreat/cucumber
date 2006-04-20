@@ -70,7 +70,7 @@
 </head>
 
 <mod:tracking pageType="article"
-              pageName="guideToTests"
+              pageName="SummerSurvivalGuide"
               hier1 = "Article,SummerSurvivalGuide"/>
 
 <gsml:body adPageName="article" pageLayout="oneMainColumn">
