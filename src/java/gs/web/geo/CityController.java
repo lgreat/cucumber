@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.16 2006/04/19 20:15:50 thuss Exp $
+ * $Id: CityController.java,v 1.17 2006/04/20 21:02:52 thuss Exp $
  */
 
 package gs.web.geo;
@@ -86,8 +86,9 @@ public class CityController extends AbstractController {
 
         ICity city = _geoDao.findCity(state, cityNameParam);
         if (city == null) {
-            View redirectView = new RedirectView("/modperl/go/" + state.getAbbreviationLowerCase() +
-                    "?error=Nothing+known+about+" + URLEncoder.encode(cityNameParam, "UTF-8") + ".");
+            // If we don't have census data on the city take the user to browse city
+            View redirectView = new RedirectView("/schools.page?state=" + state.getAbbreviation() +
+                    "&city=" + URLEncoder.encode(cityNameParam, "UTF-8"));
             return new ModelAndView(redirectView);
         }
 
