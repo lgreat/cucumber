@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.17 2006/04/20 21:02:52 thuss Exp $
+ * $Id: CityController.java,v 1.18 2006/04/20 21:07:48 thuss Exp $
  */
 
 package gs.web.geo;
@@ -80,7 +80,7 @@ public class CityController extends AbstractController {
 
         final String cityNameParam = request.getParameter(PARAM_CITY);
         if (StringUtils.isEmpty(cityNameParam)) {
-            View redirectView = new RedirectView("/modperl/go/" + state.getAbbreviationLowerCase());
+            View redirectView = new RedirectView("/modperl/go/" + state.getAbbreviation());
             return new ModelAndView(redirectView);
         }
 
