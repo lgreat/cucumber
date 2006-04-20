@@ -170,6 +170,12 @@
                     <include>*.properties</include>
                 </includes>
             </resource>
+            <resource>
+                <directory>${basedir}/../GSData/src/conf</directory>
+                <includes>
+                    <include>log4j-production.properties</include>
+                </includes>
+            </resource>
         </resources>
     </build>
 </project>
