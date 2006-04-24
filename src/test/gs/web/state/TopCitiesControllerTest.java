@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesControllerTest.java,v 1.3 2006/04/24 21:16:18 apeterson Exp $
+ * $Id: TopCitiesControllerTest.java,v 1.4 2006/04/24 21:55:00 apeterson Exp $
  */
 
 package gs.web.state;
@@ -67,10 +67,8 @@ public class TopCitiesControllerTest extends BaseControllerTestCase {
         assertNotNull(results);
         Anchor nyc = (Anchor) results.get(0);
         assertEquals("New York City schools", nyc.getContents());
-        assertEquals("/schools.page?city=New+York&amp;state=NY", nyc.getHref());
+        assertEquals("/schools.page?city=New+York&state=NY", nyc.getHref());
         assertNotNull(modelAndView.getModel().get(ListModel.RESULTS));
-
-
     }
 
 

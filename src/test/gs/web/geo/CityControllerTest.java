@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.7 2006/04/24 21:16:10 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.8 2006/04/24 21:54:10 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -58,11 +58,13 @@ public class CityControllerTest extends BaseControllerTestCase {
         assertEquals(5, list.size());
 
         assertEquals("/schools.page?city=Anchorage&lc=e&state=AK", ((Anchor) list.get(0)).getHref());
-        assertEquals("Anchorage Elementary Schools (77)", ((Anchor) list.get(0)).getContents());
+        assertEquals("Anchorage Elementary Schools", ((Anchor) list.get(0)).getContents());
+        assertEquals(" (77)", ((Anchor) list.get(0)).getAfter());
 
         assertEquals("/schools.page?city=Anchorage&lc=m&state=AK", ((Anchor) list.get(1)).getHref());
 
-        assertEquals("Anchorage High Schools (30)", ((Anchor) list.get(2)).getContents());
+        assertEquals("Anchorage High Schools", ((Anchor) list.get(2)).getContents());
+        assertEquals(" (30)", ((Anchor) list.get(2)).getAfter());
 
         assertEquals("/schools.page?city=Anchorage&st=public&st=charter&state=AK", ((Anchor) list.get(3)).getHref());
         assertEquals("/schools.page?city=Anchorage&st=private&state=AK", ((Anchor) list.get(4)).getHref());
