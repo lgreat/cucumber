@@ -233,10 +233,6 @@
             </tr></table>
     </td></tr></table>
     </div>
-
-
-
-    <mod:tracking pageType="home" pageName="stateLauncher" />
     </body>
     </html>
 </jsp:root>

@@ -146,8 +146,7 @@ Already a member? <a href="http://${requestScope.context.hostName}/cgi-bin/site/
                 <td align="right"></td>
             </tr>
         </table>
-        <mod:tracking pageType="conversion" pageName="promo" />
-            <!-- extraJavascriptVariable="var fc_track='view';var fc_prod_view='GreatSchools Insider';" -->
+
     </body>
 </html>
 </jsp:root>

@@ -399,8 +399,6 @@
             ]]>
             <jsp:include page="/footer/copyright.module?state=${requestScope.context.stateOrDefault.abbreviation}"/>
 
-            <mod:tracking pageType="conversion" pageName="subscribe"  />
-        <!-- extraJavascriptVariable="var fc_track='payment'; var fc_prod_add='${subCmd.subscriptionProduct.longName}';"-->
 
         </body>
     </html>

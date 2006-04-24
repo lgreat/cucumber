@@ -186,7 +186,6 @@
         }
         </script>
         ]]>
-    <mod:tracking pageType="article" pageName="library"/>
 </gsml:body>
 </html>
 </jsp:root>
