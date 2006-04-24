@@ -81,3 +81,11 @@ div.datatable{
       padding-bottom:3px;
       padding-right:8px;
     }
+
+#reportlink {
+   font-size:85%;
+   font-weight:bold;
+   padding-top:10px;
+   padding-left:15px;
+   text-decoration:underline;
+}

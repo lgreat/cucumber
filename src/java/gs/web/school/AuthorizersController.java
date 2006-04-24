@@ -16,6 +16,7 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.school.ICharterSchoolInfo;
 import gs.data.school.census.ICharterSchoolInfoDao;
+import gs.data.state.State;
 
 import java.util.Map;
 
@@ -80,6 +81,7 @@ public class AuthorizersController extends AbstractController {
                 mAndV.getModel().put("academicData", getAcademicData(info));
                 mAndV.getModel().put("demandData", getDemandData(info));
                 mAndV.getModel().put("source", "Source: " + Util.unquote(info.getSource()));
+                mAndV.getModel().put("report", getReport(school));
             } catch (Exception orfe) {
                 // log this and just return an empty page rather than vomiting
                 // a stack trace.  The page is responsible for handling this
@@ -96,6 +98,54 @@ public class AuthorizersController extends AbstractController {
         }
 
         return mAndV;
+    }
+
+    /** GS-1876 */
+    private static String getReport(School school) {
+        if (school != null && State.NY.equals(school.getDatabaseState())) {
+            int id = school.getId().intValue();
+            switch(id) {
+                case 6368:
+                    return "http://www.newyorkcharters.org/charterny/endyear/19/03_egenio.pdf";
+                case 6372:
+                    return "http://www.newyorkcharters.org/charterny/endyear/123/2003_roosevelt.pdf";
+                case 6377:
+                    return "http://www.newyorkcharters.org/charterny/endyear/20/FinalKingCenterThirdYearInspectionReport.pdf";
+                case 6378:
+                    return "http://www.newyorkcharters.org/charterny/endyear/25/Final%20SBCS%20Site%20Visit%20Report.3.20.pdf";
+                case 6379:
+                    return "http://www.newyorkcharters.org/charterny/endyear/57/COMBINED%20FinalSSACSThirdYearInspectionReport2004.pdf";
+                case 6380:
+                    return "http://www.newyorkcharters.org/charterny/endyear/58/COMBINED%20FinalTapestryThirdYearInspectionReport2004.pdf";
+                case 6382:
+                    return "http://www.newyorkcharters.org/charterny/endyear/52/COMBINED%20FinalArkThirdYearInspectionReport2003-04.pdf";
+                case 6384:
+                    return "http://www.newyorkcharters.org/charterny/endyear/9/03bronx.pdf";
+                case 6386:
+                    return "http://www.newyorkcharters.org/charterny/endyear/48/FinalCDCHThirdYear%20Inspection%20Report.pdf";
+                case 6388:
+                    return "http://www.newyorkcharters.org/charterny/endyear/17/FinalCPCSThirdYearInspectionReport.pdf";
+                case 6389:
+                    return "http://www.newyorkcharters.org/charterny/endyear/18/FinalHarborThirdYearInspectionReport.pdf";
+                case 6391:
+                    return "http://www.newyorkcharters.org/charterny/endyear/49/Icahn%202nd%20year%20visit.pdf";
+                case 6393:
+                    return "http://www.newyorkcharters.org/charterny/endyear/53/ICSS%202nd%20year%20visit.pdf";
+                case 6397:
+                    return "http://www.newyorkcharters.org/charterny/endyear/21/2003_merrick.pdf";
+                case 6399:
+                    return "http://www.newyorkcharters.org/charterny/endyear/50/COMBINED%20Final%20OWN%20Inspection%20Report%20Spring%202004.pdf";
+                case 6458:
+                    return "http://www.newyorkcharters.org/charterny/endyear/46/COMBINED%20Final%20FLACS%20Third%20Year%20Inspection%20Report%202004.pdf";
+                case 6460:
+                    return "http://www.newyorkcharters.org/charterny/endyear/44/COMBINED%20FinaHDCSInspectionReport2004.pdf";
+                case 7669:
+                    return "http://www.newyorkcharters.org/charterny/endyear/8/FinalAmberThirdYearInspectionReport.pdf";
+                case 7673:
+                    return "http://www.newyorkcharters.org/charterny/endyear/131/Buffalo%20United%20Charter%20School%20final.jdm.jgs.nr.%208-29-05.pdf";
+            }
+        }
+        return null;
     }
 
     private static Map getStructureData(ICharterSchoolInfo info) {

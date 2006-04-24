@@ -113,6 +113,15 @@
                                                                 </c:if>
                                                             </td>
                                                         </tr>
+                                                        <c:if test="${not empty report}">
+                                                            <tr>
+                                                                <td id="reportlink">
+                                                                    <a href="${report}">
+                                                                        <span id="">Read the full report from this school's authorizer</span>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </c:if>
                                                     </table>
                                                 </td>
                                                 <td width="124" valign="top">
