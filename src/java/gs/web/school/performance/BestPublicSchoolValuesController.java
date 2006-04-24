@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.11 2006/04/18 23:53:30 thuss Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.12 2006/04/24 21:16:09 apeterson Exp $
  */
 
 package gs.web.school.performance;
@@ -277,7 +277,7 @@ public class BestPublicSchoolValuesController extends AbstractController {
         Article article = new Article();
         article.setId(new Integer(594));
         UrlBuilder builder = new UrlBuilder(article, State.CA, false);
-        links.addResult(new Anchor(builder.toString(), "Back to Article"));
+        links.addResult(builder.asAnchor(request, "Back to Article"));
         links.addResult(new Anchor(PATH + "?metro=SFBay&limit=20", "Top 20 Bay Area Cities", top20Class));
         if (!sc.isYahooCobrand()) {
             links.addResult(new Anchor(PATH + "?metro=SFBay&limit=20&map=1", "Map of Top 20 Bay Area Cities", top20MapClass));
@@ -334,9 +334,9 @@ public class BestPublicSchoolValuesController extends AbstractController {
             _middleSchoolsCount = middleSchoolsCount;
             _highSchoolsCount = highSchoolsCount;
             UrlBuilder builder = new UrlBuilder(UrlBuilder.CITY_PAGE, State.CA, _cityName);
-            _cityPageHref = builder.asSiteRelative(null);
+            _cityPageHref = builder.asSiteRelativeXml(null);
             builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.CA, _cityName);
-            _schoolsPageUrl = builder.asSiteRelative(null);
+            _schoolsPageUrl = builder.asSiteRelativeXml(null);
 
             // set _city
             ApplicationContext context = SpringUtil.getApplicationContext();

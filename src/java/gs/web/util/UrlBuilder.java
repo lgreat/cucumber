@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.21 2006/04/14 20:46:03 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.22 2006/04/24 21:15:45 apeterson Exp $
  */
 
 package gs.web.util;
@@ -297,7 +297,7 @@ public class UrlBuilder {
     }
 
     public String toString() {
-        return asSiteRelative(null);
+        return asSiteRelativeXml(null);
     }
 
     /**
@@ -306,9 +306,20 @@ public class UrlBuilder {
      *
      * @param request option request object.
      */
-    public String asSiteRelative(HttpServletRequest request) {
+    public String asSiteRelativeXml(HttpServletRequest request) {
         String s = buildSiteRelative(request);
         s = encodeForXml(s);
+        return s;
+    }
+
+    /**
+     * Provides a site-relative path to the page, including the context path if needed.
+     * Not encoded for XHTML.
+     *
+     * @param request option request object.
+     */
+    public String asSiteRelative(HttpServletRequest request) {
+        String s = buildSiteRelative(request);
         return s;
     }
 
@@ -363,7 +374,7 @@ public class UrlBuilder {
      * Provides a full URL to the page. This is the raw URL, not encoded correctly
      * for XHTML. This is generally not needed, but is needed for redirect usage.
      *
-     * @see #asSiteRelative(javax.servlet.http.HttpServletRequest)
+     * @see #asSiteRelativeXml(javax.servlet.http.HttpServletRequest)
      */
     public String asFullUrl(HttpServletRequest request) {
 
@@ -383,7 +394,7 @@ public class UrlBuilder {
      * Encoded correctly to dump directly to XHTML.
      */
     public String asAHref(HttpServletRequest request, String label) {
-        return "<a href=\"" + asSiteRelative(request) + "\">" + label + "</a>";
+        return "<a href=\"" + asSiteRelativeXml(request) + "\">" + label + "</a>";
     }
 
     /**
@@ -394,7 +405,7 @@ public class UrlBuilder {
      * @param styleClass the css class attribute
      */
     public String asAHref(HttpServletRequest request, String label, String styleClass) {
-        return "<a href=\"" + asSiteRelative(request) + "\" class=\"" + styleClass + "\">" + label + "</a>";
+        return "<a href=\"" + asSiteRelativeXml(request) + "\" class=\"" + styleClass + "\">" + label + "</a>";
     }
 
 }

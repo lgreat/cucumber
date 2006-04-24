@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsController.java,v 1.7 2006/04/07 02:00:39 apeterson Exp $
+ * $Id: RecentParentReviewsController.java,v 1.8 2006/04/24 21:15:45 apeterson Exp $
  */
 
 package gs.web.school.review;
@@ -128,19 +128,20 @@ public class RecentParentReviewsController extends AbstractController {
 
         public String getSchoolLink() {
             UrlBuilder builder = new UrlBuilder(_school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
-            return builder.asSiteRelative(null);
+            return builder.asSiteRelativeXml(null);
         }
 
         public int getStars() {
-            if (StringUtils.equals(_review.getQuality(), "1")) {
+            final String quality = _review.getQuality();
+            if (StringUtils.equals(quality, "1")) {
                 return 1;
-            } else if (StringUtils.equals(_review.getQuality(), "2")) {
+            } else if (StringUtils.equals(quality, "2")) {
                 return 2;
-            } else if (StringUtils.equals(_review.getQuality(), "3")) {
+            } else if (StringUtils.equals(quality, "3")) {
                 return 3;
-            } else if (StringUtils.equals(_review.getQuality(), "4")) {
+            } else if (StringUtils.equals(quality, "4")) {
                 return 4;
-            } else if (StringUtils.equals(_review.getQuality(), "5")) {
+            } else if (StringUtils.equals(quality, "5")) {
                 return 5;
             }
             return 0;

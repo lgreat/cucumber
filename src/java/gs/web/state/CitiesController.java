@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: CitiesController.java,v 1.3 2006/03/31 01:50:22 apeterson Exp $
+ * $Id: CitiesController.java,v 1.4 2006/04/24 21:16:09 apeterson Exp $
  */
 
 package gs.web.state;
@@ -16,6 +16,7 @@ import gs.web.SessionFacade;
 import gs.web.SessionContextUtil;
 import gs.web.util.ListModel;
 import gs.web.util.Anchor;
+import gs.web.util.UrlBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -76,12 +77,8 @@ public class CitiesController extends AbstractController {
                     if (nearbyCity.getPopulation().intValue() > 50000) {
                         styleClass = (nearbyCity.getPopulation().longValue() > 200000) ? "bigCity" : CitiesController.PARAM_CITY;
                     }
-                    Anchor anchor = new Anchor("/city.page?state=" +
-                            nearbyCity.getState() +
-                            "&amp;city=" +
-                            nearbyCity.getName(),
-                            nearbyCity.getName(),
-                            styleClass);
+                    UrlBuilder builder = new UrlBuilder(nearbyCity, UrlBuilder.CITY_PAGE);
+                    Anchor anchor = builder.asAnchor(request, nearbyCity.getName(), styleClass);
                     items.add(anchor);
                 }
                 model.put(ListModel.RESULTS, items);

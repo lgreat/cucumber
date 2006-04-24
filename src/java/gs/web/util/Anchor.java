@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: Anchor.java,v 1.4 2006/04/12 17:37:34 apeterson Exp $
+ * $Id: Anchor.java,v 1.5 2006/04/24 21:16:09 apeterson Exp $
  */
 
 package gs.web.util;
@@ -15,11 +15,13 @@ public class Anchor {
     private final String _contents;
     private final String _image;
     private String _styleClass; // CSS class, or null
+    private String _before; // text that is drawn before the link
+    private String _after; // text that is drawn after the link
 
     /**
      * Constructor.
      *
-     * @param href     site-relative href
+     * @param href     site-relative href, not Xml encoded
      * @param contents contents of the anchor tag
      */
     public Anchor(String href, String contents) {
@@ -32,7 +34,7 @@ public class Anchor {
     /**
      * Constructor.
      *
-     * @param href     site-relative href
+     * @param href     site-relative href, not Xml encoded
      * @param contents contents of the anchor tag
      */
     public Anchor(String href, String contents, String styleClass) {
@@ -45,7 +47,7 @@ public class Anchor {
     /**
      * Constructor.
      *
-     * @param href     site-relative href
+     * @param href     site-relative href, not Xml encoded
      * @param contents contents of the anchor tag
      */
     public Anchor(String href, String contents, String styleClass, String image) {
@@ -55,9 +57,20 @@ public class Anchor {
         _image = image;
     }
 
+    /**
+     * The Href, not Xml encoded
+     */
     public String getHref() {
         return _href;
     }
+
+    /**
+     * Encodes the Href suitable for direct writing to an XHTML web page.
+     */
+    public String getHrefXml() {
+        return UrlBuilder.encodeForXml(_href);
+    }
+
 
     public String getContents() {
         return _contents;
@@ -73,5 +86,21 @@ public class Anchor {
 
     public String getImage() {
         return _image;
+    }
+
+    public String getBefore() {
+        return _before;
+    }
+
+    public void setBefore(String before) {
+        _before = before;
+    }
+
+    public String getAfter() {
+        return _after;
+    }
+
+    public void setAfter(String after) {
+        _after = after;
     }
 }

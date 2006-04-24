@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.6 2006/04/07 17:43:04 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.7 2006/04/24 21:16:10 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -42,7 +42,6 @@ public class CityControllerTest extends BaseControllerTestCase {
                 getBean(SessionContextUtil.BEAN_ID);
     }
 
-    /*
     public void testSchoolBreakdown() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setParameter("state", "AK");
@@ -56,13 +55,20 @@ public class CityControllerTest extends BaseControllerTestCase {
         ListModel listModel = (ListModel) model.get(CityController.MODEL_SCHOOL_BREAKDOWN);
 
         List list = listModel.getResults();
-        assertEquals(4, list.size());
+        assertEquals(5, list.size());
 
-        assertEquals("/schools.page?state=AK&city=Anchorage", ((Anchor) list.get(0)).getHref());
-        assertEquals("/schools.page?state=AK&city=Anchorage&lc=m", ((Anchor) list.get(2)).getHref());
-        assertEquals("All Middle (32)", ((Anchor) list.get(2)).getContents());
+        assertEquals("/schools.page?city=Anchorage&lc=e&state=AK", ((Anchor) list.get(0)).getHref());
+        assertEquals("Anchorage Elementary Schools (77)", ((Anchor) list.get(0)).getContents());
 
-    }*/
+        assertEquals("/schools.page?city=Anchorage&lc=m&state=AK", ((Anchor) list.get(1)).getHref());
+
+        assertEquals("Anchorage High Schools (30)", ((Anchor) list.get(2)).getContents());
+
+        assertEquals("/schools.page?city=Anchorage&st=public&st=charter&state=AK", ((Anchor) list.get(3)).getHref());
+        assertEquals("/schools.page?city=Anchorage&st=private&state=AK", ((Anchor) list.get(4)).getHref());
+    }
+
+
 
     public void testFindDistricts() throws Exception {
         GsMockHttpServletRequest request = getRequest();

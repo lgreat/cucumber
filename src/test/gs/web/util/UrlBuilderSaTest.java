@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.13 2006/04/12 19:47:12 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.14 2006/04/24 21:15:45 apeterson Exp $
  */
 
 package gs.web.util;
@@ -57,7 +57,7 @@ public class UrlBuilderSaTest extends TestCase {
         request.setServerPort(80);
         request.setRequestURI("/index.page");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
-        assertEquals("/index.page", builder.asSiteRelative(null));
+        assertEquals("/index.page", builder.asSiteRelativeXml(null));
         assertEquals("http://www.myserver.com/index.page", builder.asFullUrl(request));
     }
 
@@ -70,13 +70,13 @@ public class UrlBuilderSaTest extends TestCase {
         request.setContextPath("/gs-web");
         request.setRequestURI("/gs-web/index.page");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
-        assertEquals("/index.page", builder.asSiteRelative(null));
-        assertEquals("/gs-web/index.page", builder.asSiteRelative(request));
+        assertEquals("/index.page", builder.asSiteRelativeXml(null));
+        assertEquals("/gs-web/index.page", builder.asSiteRelativeXml(request));
         assertEquals("http://www.myserver.com/gs-web/index.page", builder.asFullUrl(request));
 
         builder = new UrlBuilder(request, null); // suck page path automatically from the request
-        assertEquals("/index.page", builder.asSiteRelative(null));
-        assertEquals("/gs-web/index.page", builder.asSiteRelative(request));
+        assertEquals("/index.page", builder.asSiteRelativeXml(null));
+        assertEquals("/gs-web/index.page", builder.asSiteRelativeXml(request));
         assertEquals("http://www.myserver.com/gs-web/index.page", builder.asFullUrl(request));
     }
 
@@ -91,16 +91,16 @@ public class UrlBuilderSaTest extends TestCase {
         request.setParameter("b", "2");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
         builder.addParametersFromRequest(request);
-        assertEquals("/index.page?a=1&amp;b=2", builder.asSiteRelative(null));
+        assertEquals("/index.page?a=1&amp;b=2", builder.asSiteRelativeXml(null));
         assertEquals("http://www.myserver.com/index.page?a=1&b=2", builder.asFullUrl(request));
 
         // Encoding
         builder = new UrlBuilder(request, "/index.page");
         builder.setParameter("city", "Batin Rooj");
-        assertEquals("/index.page?city=Batin+Rooj", builder.asSiteRelative(request));
+        assertEquals("/index.page?city=Batin+Rooj", builder.asSiteRelativeXml(request));
 
         builder.setParameter("city", "Crow's Neck");
-        assertEquals("/index.page?city=Crow%27s+Neck", builder.asSiteRelative(request));
+        assertEquals("/index.page?city=Crow%27s+Neck", builder.asSiteRelativeXml(request));
     }
 
     public void testUrlBuilder8080() {
@@ -111,7 +111,7 @@ public class UrlBuilderSaTest extends TestCase {
         request.setServerPort(8080);
         request.setRequestURI("/index.page");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
-        assertEquals("/index.page", builder.asSiteRelative(null));
+        assertEquals("/index.page", builder.asSiteRelativeXml(null));
         assertEquals("http://www.myserver.com:8080/index.page", builder.asFullUrl(request));
     }
 
@@ -120,7 +120,7 @@ public class UrlBuilderSaTest extends TestCase {
         school.setDatabaseState(State.WY);
         school.setId(new Integer(8));
         UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
-        assertEquals("/modperl/parents/wy/8", builder.asSiteRelative(null));
+        assertEquals("/modperl/parents/wy/8", builder.asSiteRelativeXml(null));
 
         try {
             builder = new UrlBuilder(school, null);
@@ -132,15 +132,15 @@ public class UrlBuilderSaTest extends TestCase {
 
         school.setType(SchoolType.PUBLIC);
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-        assertEquals("/modperl/browse_school/wy/8", builder.asSiteRelative(null));
+        assertEquals("/modperl/browse_school/wy/8", builder.asSiteRelativeXml(null));
 
         school.setType(SchoolType.CHARTER);
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-        assertEquals("/modperl/browse_school/wy/8", builder.asSiteRelative(null));
+        assertEquals("/modperl/browse_school/wy/8", builder.asSiteRelativeXml(null));
 
         school.setType(SchoolType.PRIVATE);
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-        assertEquals("/cgi-bin/wy/private/8", builder.asSiteRelative(null));
+        assertEquals("/cgi-bin/wy/private/8", builder.asSiteRelativeXml(null));
 
 
     }
@@ -177,10 +177,10 @@ public class UrlBuilderSaTest extends TestCase {
         };
 
         UrlBuilder builder = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
-        assertEquals("/city.page?city=Talahasi&amp;state=FL", builder.asSiteRelative(null));
+        assertEquals("/city.page?city=Talahasi&amp;state=FL", builder.asSiteRelativeXml(null));
 
         builder = new UrlBuilder(UrlBuilder.CITY_PAGE, State.WY,  "Laramee");
-        assertEquals("/city.page?city=Laramee&amp;state=WY", builder.asSiteRelative(null));
+        assertEquals("/city.page?city=Laramee&amp;state=WY", builder.asSiteRelativeXml(null));
     }
 
     public void testEncodeForXml() {
@@ -201,19 +201,21 @@ public class UrlBuilderSaTest extends TestCase {
         // Adding
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
         builder.addParameter("city", "a");
-        assertEquals("/index.page?city=a", builder.asSiteRelative(request));
+        assertEquals("/index.page?city=a", builder.asSiteRelativeXml(request));
         builder.addParameter("city", "b");
-        assertEquals("/index.page?city=a&amp;city=b", builder.asSiteRelative(request));
+        assertEquals("/index.page?city=a&amp;city=b", builder.asSiteRelativeXml(request));
+        assertEquals("/index.page?city=a&city=b", builder.asSiteRelative(request));
 
         // Encoding
         builder = new UrlBuilder(request, "/index.page");
         builder.addParameter("city", "Batin Rooj");
-        assertEquals("/index.page?city=Batin+Rooj", builder.asSiteRelative(request));
+        assertEquals("/index.page?city=Batin+Rooj", builder.asSiteRelativeXml(request));
         builder.addParameter("city", "Gobber");
-        assertEquals("/index.page?city=Batin+Rooj&amp;city=Gobber", builder.asSiteRelative(request));
+        assertEquals("/index.page?city=Batin+Rooj&amp;city=Gobber", builder.asSiteRelativeXml(request));
+        assertEquals("/index.page?city=Batin+Rooj&city=Gobber", builder.asSiteRelative(request));
 
         builder.addParameter("place", "Crow's Neck");
-        assertEquals("/index.page?city=Batin+Rooj&amp;city=Gobber&amp;place=Crow%27s+Neck", builder.asSiteRelative(request));
+        assertEquals("/index.page?city=Batin+Rooj&amp;city=Gobber&amp;place=Crow%27s+Neck", builder.asSiteRelativeXml(request));
 
 // Bulk adding
         request.setParameter("a", "1");
@@ -222,7 +224,7 @@ public class UrlBuilderSaTest extends TestCase {
         request.setParameter("d", "steve's shop");
         builder = new UrlBuilder(request, "/index.page");
         builder.addParametersFromRequest(request);
-        assertEquals("/index.page?a=1&amp;b=2&amp;c=bill+gates&amp;d=steve%27s+shop", builder.asSiteRelative(null));
+        assertEquals("/index.page?a=1&amp;b=2&amp;c=bill+gates&amp;d=steve%27s+shop", builder.asSiteRelativeXml(null));
         assertEquals("http://www.myserver.com/index.page?a=1&b=2&c=bill+gates&d=steve%27s+shop", builder.asFullUrl(request));
 
     }

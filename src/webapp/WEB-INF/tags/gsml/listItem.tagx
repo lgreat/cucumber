@@ -10,18 +10,22 @@
 
     <c:if test="${not empty anchor.styleClass}">
         <li class="${anchor.styleClass}">
-            <a href="${anchor.href}">${anchor.contents}</a>
+            ${not empty anchor.before ? anchor.before : ""}
+            <a href="${anchor.hrefXml}">${anchor.contents}</a>
             <c:if test="${anchor.image!=null}">
                 <img src="${anchor.image}"/>
             </c:if>
+            ${not empty anchor.after ? anchor.after : ""}
         </li>
     </c:if>
     <c:if test="${empty anchor.styleClass}">
         <li>
-            <a href="${anchor.href}">${anchor.contents}</a>
+            ${not empty anchor.before ? anchor.before : ""}
+            <a href="${anchor.hrefXml}">${anchor.contents}</a>
             <c:if test="${anchor.image!=null}">
                 <img src="${anchor.image}"/>
             </c:if>
+            ${not empty anchor.after ? anchor.after : ""}
         </li>
     </c:if>
 </jsp:root>

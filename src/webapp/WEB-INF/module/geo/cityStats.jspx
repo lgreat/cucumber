@@ -70,13 +70,19 @@
                         Violent crime index <span style="font-size:xx-small">(1 is lowest)</span>
                     </th>
                     <td class="${bpCensus.crimeViolent lt usCensus.crimeViolent -1 ? 'better' : bpCensus.crimeViolent gt usCensus.crimeViolent + 1 ? 'worse' : ''}">
-                        ${bpCensus.crimeViolent}
+                        <fmt:formatNumber
+                                value="${bpCensus.crimeViolent}"
+                                maxFractionDigits="0"/>
                     </td>
                     <td>
-                        ${stateCensus.crimeViolent}
+                        <fmt:formatNumber
+                                value="${stateCensus.crimeViolent}"
+                                maxFractionDigits="0"/>
                     </td>
                     <td>
-                        ${usCensus.crimeViolent}
+                        <fmt:formatNumber
+                            value="${usCensus.crimeViolent}"
+                            maxFractionDigits="0"/>
                     </td>
                 </tr>
                 <tr>
