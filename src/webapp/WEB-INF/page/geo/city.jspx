@@ -76,7 +76,7 @@
 
             <c:if test="${empty requestScope.topRatedSchools}">
                 <table style="font-size:x-small;width: 100%;margin-top:0;padding-top:0">
-                    <tr><td style="font-weight: normal">Showing ${fn:length(schools)} of ${schoolCount} schools</td><td
+                    <tr><td style="font-weight: normal">Showing ${fn:length(schools)} of ${schoolCount} school${schoolCount > 1 ? 's':''}</td><td
                             style="font-weight: bold;text-align: right"><gsml:a
                             href="/schools.page?city=${cityObject.name}&amp;map=1&amp;state=$STATE">View Larger
                         Map</gsml:a>
