@@ -1,0 +1,33 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+    <jsp:directive.page contentType="text/html"/>
+    <html>
+    <head>
+        <title>Thank you</title>
+        <gsml:url var="betacss" value="/res/css/community/beta.css"/>
+        <link rel="stylesheet" href="${betacss}" type="text/css" media="screen"/>
+    </head>
+    <body>
+    <div class="content">
+        <span id="headline">Thank you for signing up for our beta group!</span>
+        You will receive a confirmation email shortly.
+        <br/><br/>
+        <div id="innerbox">
+            <gsml:a href="http://www.greatschools.net">
+                <span class="betalink">Return to GreatSchools.net home</span>
+            </gsml:a>
+            <br/><br/>
+            <gsml:a href="/cgi-bin/newsletters/$STATE?email=${email}">
+                <span class="betalink">Sign up for our newsletters.</span>
+            </gsml:a>
+            GreatSchools produces a family of free email newsletters to help your child
+            succeed in school.  Choose newsletters for your child's school or your child's
+            grade.
+            <br/><br/>
+            <gsml:a href="/community/betaUnsubscribe.page?email=${email}"><span class="betalink">Unsubscribe</span></gsml:a>
+        </div>
+    </div>
+    </body>
+    </html>
+</jsp:root>

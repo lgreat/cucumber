@@ -71,11 +71,6 @@
         <property name="commandClass">
             <value>gs.web.search.FeedbackCommand</value>
         </property>
-        <!--
-        <property name="successView">
-            <value>/search/feedbackSubmit.page</value>
-        </property>
-        -->
     </bean>
 
     <bean name="/search/feedbackSubmit.page"
@@ -84,6 +79,62 @@
             <value>search/feedbackSubmit</value>
         </property>
     </bean>
+
+    <!-- ******************************************  -->
+    <!--BEGIN configuration for the Beta group pages -->
+    <!-- ******************************************  -->
+
+    <bean id="emailValidator" class="gs.web.community.EmailValidator"
+            autowire="byName" />
+    <bean id="betaSubNotExistsValidator" class="gs.web.community.BetaSubNotExistsValidator"
+            autowire="byName" />
+    <bean id="betaSubExistsValidator" class="gs.web.community.BetaSubExistsValidator"
+          autowire="byName" />
+
+    <bean name="/community/beta.page" class="gs.web.community.BetaController"
+            autowire="byName">
+        <property name="commandName"><value>betaEmailCommand</value></property>
+        <property name="commandClass">
+            <value>gs.web.community.BetaEmailCommand</value>
+        </property>
+        <property name="validators">
+            <list>
+                <ref local="emailValidator"/>
+                <ref local="betaSubNotExistsValidator"/>
+            </list>
+        </property>
+        <property name="formView"><value>community/beta</value></property>
+        <property name="successView"><value>community/betaThankyou</value></property>
+        <property name="mailSender"><ref bean="mailSender"/></property>
+    </bean>
+
+    <bean name="/community/betaThankyou.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>community/betaThankyou</value>
+        </property>
+    </bean>
+
+    <bean name="/community/betaUnsubscribe.page" class="gs.web.community.BetaUnsubscribeController"
+            autowire="byName">
+        <property name="commandName"><value>betaEmailCommand</value></property>
+        <property name="commandClass">
+            <value>gs.web.community.BetaEmailCommand</value>
+        </property>
+        <property name="validator"><ref bean="betaSubExistsValidator"/></property>
+        <property name="formView"><value>community/betaUnsubscribe</value></property>
+        <property name="successView"><value>community/betaUnsubscribeConfirm</value></property>
+    </bean>
+
+    <bean name="/community/betaUnsubscribeConfirm.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>community/betaUnsubscribeConfirm</value>
+        </property>
+    </bean>
+    <!-- *****************************************  -->
+    <!-- END configuration for the Beta group pages -->
+    <!-- *****************************************  -->
 
     <bean name="/thankyou.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
@@ -160,6 +211,13 @@
     <!-- This page allows the search indexes to be rebuilt. -->
     <bean name="/status/searchmanager.page"
           class="gs.web.status.SearchManagerController" autowire="byName">
+    </bean>
+
+    <bean name="/search/raw.page"
+          class="gs.web.search.RawSearchController" autowire="byName">
+        <property name="searcher">
+            <ref bean="searcher"/>
+        </property>
     </bean>
 
     <bean id="versionProperties"

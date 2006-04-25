@@ -44,6 +44,10 @@
 
         <pattern>/test/city.page</pattern>
         <pattern>/test/modal.page</pattern>
+
+        <pattern>/community/beta.page</pattern>
+        <pattern>/community/betaThankyou.page</pattern>
+        <pattern>/community/betaUnsubscribe.page</pattern>
     </decorator>
 
     <!-- We have to explicitly exclude due to a Sitemesh 2.2.1 bug that truncates the closing html tag -->

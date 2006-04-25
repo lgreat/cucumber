@@ -1,0 +1,53 @@
+.content {
+    width: 600px;
+    margin: 20px auto;
+    text-align: left;
+    padding: 15px;
+    border: 1px solid #BBB;
+    background-color: #eee;
+}
+
+#innerbox {
+  padding-left:25px;
+  padding-right:25px;
+}
+
+.content a span.betalink {
+    font-size:90%;
+    font-weight:bold;
+    text-decoration:underline;
+}
+
+#headline {
+    padding-top:10px;
+    padding-bottom:15px;
+    display: block;
+    font-size: large;
+    font-weight: bold;
+}
+
+ul#betalist li {
+    padding-left:5px;
+    padding-top:5px;
+    margin-left: 20px;
+    list-style: disc;
+}
+
+span#errorMessage {
+    color: red;
+    display:block;
+    padding:8px;
+}
+
+.smaller { font-size:70%; }
+
+.listheader {
+    font-size:90%;
+    font-weight:bold;
+}
+
+div.formtext {
+    padding-top:8px;
+    padding-bottom:5px;
+    font-size:90%;
+}
