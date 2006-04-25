@@ -213,13 +213,14 @@
           class="gs.web.status.SearchManagerController" autowire="byName">
     </bean>
 
+    <!--
     <bean name="/search/raw.page"
           class="gs.web.search.RawSearchController" autowire="byName">
         <property name="searcher">
             <ref bean="searcher"/>
         </property>
     </bean>
-
+    -->
     <bean id="versionProperties"
           class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="location">
