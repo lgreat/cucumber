@@ -11,14 +11,16 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-import javax.servlet.ServletException;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.*;
-import java.net.InetAddress;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+import java.util.TreeMap;
 
 /**
  * Controller for showing the build _versionProperties and database connectivity check
@@ -73,9 +75,9 @@ public class MonitorController implements Controller {
         Map model = new HashMap();
 
         // Set the version
-        model.put("buildtime", 
+        model.put("buildtime",
                   _versionProperties.getProperty("gsweb.buildtime"));
-        model.put("version", 
+        model.put("version",
                   _versionProperties.getProperty("gsweb.version"));
 
         // Set the hostname
@@ -194,6 +196,7 @@ public class MonitorController implements Controller {
         osBuffer.append(" ");
         osBuffer.append(props.getProperty("os.version"));
         env.put("Operating System", osBuffer.toString());
+        env.put("log4j.configuration", props.getProperty("log4j.configuration"));
 
         Runtime rt = Runtime.getRuntime();
         env.put("memory - total", new Long(rt.totalMemory()));
