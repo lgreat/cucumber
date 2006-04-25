@@ -176,7 +176,11 @@
 </c:if>
 
 </td>
-<td style="height: 100%;vertical-align: top; "><div class="cleanLineLeftBox" style="height: 40em;">&#160;</div>
+<td style="height: 100%;vertical-align: top; width: 10px" >
+    <gsml:img src="/res/img/header/clear_pix.gif" alt=""/>
+</td>
+<td style="height: 100%;vertical-align: top;" class="cleanLineLeftBox">
+    <gsml:img src="/res/img/header/clear_pix.gif" alt=""/>
 </td>
 <td width="33%" style="vertical-align:top">
     <table>

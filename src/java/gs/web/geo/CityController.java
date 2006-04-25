@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.19 2006/04/24 21:16:10 apeterson Exp $
+ * $Id: CityController.java,v 1.20 2006/04/25 17:36:25 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -21,6 +21,8 @@ import gs.web.util.ListModel;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -52,6 +54,7 @@ public class CityController extends AbstractController {
     public static final String MODEL_SCHOOL_BREAKDOWN = "schoolBreakdown"; // ListModel object
 
     //public static final String MODEL_SCHOOLS_BY_LEVEL = "schoolsByLevel"; // map [e,m,h] of ListModel object
+    private static final Log _log = LogFactory.getLog(CityController.class);
 
 
     private IGeoDao _geoDao;
@@ -74,12 +77,14 @@ public class CityController extends AbstractController {
         final State state = SessionContext.getInstance(request).getStateOrDefault();
 
         if (state == null) {
+            _log.error("No state name found on city page. Redirecting to /");
             View redirectView = new RedirectView("/");
             return new ModelAndView(redirectView);
         }
 
         final String cityNameParam = request.getParameter(PARAM_CITY);
         if (StringUtils.isEmpty(cityNameParam)) {
+            _log.error("No city name found in " + state + ". Redirecting to /modperl/go");
             View redirectView = new RedirectView("/modperl/go/" + state.getAbbreviation());
             return new ModelAndView(redirectView);
         }
@@ -87,6 +92,7 @@ public class CityController extends AbstractController {
         ICity city = _geoDao.findCity(state, cityNameParam);
         if (city == null) {
             // If we don't have census data on the city take the user to browse city
+            _log.error("No city record found for " + cityNameParam + ", " + state + ". Redirecting to schools.page");
             View redirectView = new RedirectView("/schools.page?state=" + state.getAbbreviation() +
                     "&city=" + URLEncoder.encode(cityNameParam, "UTF-8"));
             return new ModelAndView(redirectView);
