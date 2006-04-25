@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.22 2006/04/24 21:15:45 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.23 2006/04/25 17:41:27 apeterson Exp $
  */
 
 package gs.web.util;
@@ -351,6 +351,10 @@ public class UrlBuilder {
         return s;
     }
 
+    /**
+     * Simple encoding of a string to put into an Xml document. Note that it doesn't deal
+     * with real encoding-- only the specific XML characters, & < and >.
+     */
     public static String encodeForXml(String s) {
         s = s.replaceAll("&", "&amp;");
         s = s.replaceAll("<", "&lt;");
