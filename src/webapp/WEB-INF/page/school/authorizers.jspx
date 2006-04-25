@@ -117,7 +117,7 @@
                                                             <tr>
                                                                 <td id="reportlink">
                                                                     <a href="${report}">
-                                                                        <span id="">Read the full report from this school's authorizer</span>
+                                                                        Read the full report from this school's authorizer
                                                                     </a>
                                                                 </td>
                                                             </tr>
