@@ -16,7 +16,7 @@
         <span id="headline">Improve GreatSchools - Join Our Beta Group!</span>
         <p>
         Help us build a powerful community of parents who are passionate about
-        education! Get a sneak peek a brand new features and ratings developled
+        education! Get a sneak peek at brand new features and ratings developled
         just for GreatSchools!
         </p>
         <br/>
@@ -33,7 +33,7 @@
         </ul>
         <br/>
         <center>
-            <div class="formtext">To sign up for your beta group, please enter your email address:</div>
+            <div class="formtext">To sign up for our beta group, please enter your email address:</div>
             <gsml:form action="/community/beta.page" method="POST">
                 <spring:bind path="betaEmailCommand.email">
                     <input type="text" name="email" size="50"></input>

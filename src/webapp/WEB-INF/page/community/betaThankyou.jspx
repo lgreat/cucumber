@@ -26,6 +26,8 @@
             grade.
             <br/><br/>
             <gsml:a href="/community/betaUnsubscribe.page?email=${email}"><span class="betalink">Unsubscribe</span></gsml:a>
+            <br/>
+            <br/>
         </div>
     </div>
     </body>
