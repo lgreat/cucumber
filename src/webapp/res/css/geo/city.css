@@ -272,6 +272,10 @@ span.mousedOver, span:hover {
     border-bottom-width: 1px;
 }
 
+.featuredArticles div.cleanLineBottomBox p {
+    border-width: 0;
+}
+
 div.statsModule {
     border: 0px solid #999;
     margin-top: 3px;
