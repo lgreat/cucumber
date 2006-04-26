@@ -20,7 +20,7 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <title>GreatSchools Parner Opportunities</title>
+        <title>GreatSchools Partner Opportunities</title>
     </head>
 
     <gsml:body adPageName="partnerOpportunities" pageLayout="singleTextOnlyColumn">
@@ -55,10 +55,12 @@
         <h3>License our Content</h3>
 
         <p>Looking to add the GreatSchools content to your print materials or online site?
-            If so, please contact businessdevelopment@greatschools.net for pricing information.</p>
+            If so, please contact
+            <a href="mailto:businessdevelopment@greatschools.net">businessdevelopment@greatschools.net</a>
+            for pricing information.</p>
 
-        <p>Greatschools offers co-branding of our Web site content, an XML feed for school data
-            and opportunities to republish articles from www.GreatSchools.net.</p>
+        <p>Greatschools offers co-branding of our Web site content, an XML feed for school data and
+        opportunities to republish articles from <a href="http://www.greatschools.net">http://www.GreatSchools.net</a>.</p>
 
         <p>See some examples of how GreatSchools content integration:
             <br/><a href="http://education.yahoo.com/k12/" target="_blank">Yahoo! Education</a>
