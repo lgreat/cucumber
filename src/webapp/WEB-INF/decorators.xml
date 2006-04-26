@@ -31,6 +31,7 @@
         <pattern>/about/donationBridge.page</pattern>
         <pattern>/about/pressRoom.page</pattern>
         <pattern>/about/pressKit.page</pattern>
+        <pattern>/about/partnerOpportunities.page</pattern>
         <pattern>/about/gsFaq.page</pattern>
         <pattern>/about/testimonials.page</pattern>
 

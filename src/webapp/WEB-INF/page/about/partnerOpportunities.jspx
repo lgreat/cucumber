@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib"
+        >
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+    <pageHelper:hideFooterAd/>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <title>GreatSchools Parner Opportunities</title>
+    </head>
+
+    <gsml:body adPageName="partnerOpportunities" pageLayout="singleTextOnlyColumn">
+
+        <mod:tracking pageType="aboutUs" pageName="partnerOpportunity" hier1="Home,ContactUs,Partner Opportunities"/>
+
+
+        <h3>Partner with GreatSchools</h3>
+        <ul class="singleSpacedList">
+            <li><a href="#advertise">Advertise on GreatSchools.net</a></li>
+            <li><a href="#license">License our Content</a></li>
+        </ul>
+
+        <![CDATA[ <a name="advertise"></a> ]]>
+
+        <h3>Advertise on GreatSchools.Net</h3>
+
+        <p>Advertise on GreatSchools.net and get your message in front of our large audience of active,
+            educated and affluent parents. GreatSchools can target your campaign by state or grade-level
+            and we offer all traditional ad units as well as newsletter sponsorships.
+            Advertisers include Sylvan Learning Systems, Disney, Honda, Staples, Johnson &amp; Johnson,
+            Nickelodeon and many more.</p>
+
+        <p>
+            For advertising information, opportunities and rates, please contact:<br/>
+            Lee Horowitz<br/>
+            <a href="mailto:sponsorshipinfo@greatschools.net">sponsorshipinfo@greatschools.net</a><br/>
+            415.977-0700 ext. 126<br/>
+        </p>
+        <![CDATA[ <a name="license"></a> ]]>
+
+        <h3>License our Content</h3>
+
+        <p>Looking to add the GreatSchools content to your print materials or online site?
+            If so, please contact businessdevelopment@greatschools.net for pricing information.</p>
+
+        <p>Greatschools offers co-branding of our Web site content, an XML feed for school data
+            and opportunities to republish articles from www.GreatSchools.net.</p>
+
+        <p>See some examples of how GreatSchools content integration:
+            <br/><a href="http://education.yahoo.com/k12/" target="_blank">Yahoo! Education</a>
+            <br/><a href="http://www.columbusdispatch.com/greatschools/greatschools.php" target="_blank">Columbus
+            Dispatch</a>
+            <br/><a href="http://www.lodinews.com/realestate/schools/" target="_blank">Lodi News-Sentinel</a>
+            <br/><a
+                href="http://mcguire.com/(sfhbku45ifyp5445ibtzanf1)/property/great_schools.aspx?city=San%20Francisco&amp;address=1939+Judah+St"
+                target="_blank">McGuire Real Estate</a>
+        </p>
+
+        <h3>&amp;nbsp;</h3>
+
+        <p>
+            <gsml:a href="/about/sponsors.page?state=$STATE">View our current partners</gsml:a>
+
+            <br/><gsml:a href="/cgi-bin/static/link_to_us.tmpl/$STATE">Link to GreatSchools.net</gsml:a>
+
+            <br/><gsml:a href="/about/aboutUs.page?state=$STATE">About GreatSchools</gsml:a>
+        </p>
+    </gsml:body>
+    </html>
+</jsp:root>
+

@@ -311,6 +311,14 @@
         </property>
     </bean>
 
+    <bean name="/about/partnerOpportunities.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>about/partnerOpportunities</value>
+        </property>
+    </bean>
+
     <bean name="/about/privacyStatement.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName">
