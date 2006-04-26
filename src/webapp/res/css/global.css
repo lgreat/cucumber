@@ -1,7 +1,7 @@
 /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.116 2006/03/14 23:09:35 thuss Exp $
+   $Id: global.css,v 1.117 2006/04/26 17:19:13 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -807,10 +807,17 @@ div.oneMainColumn .contentGS h3,
     margin: 0em 0 1em 0;
 }
 
-.oneMainColumn .contentGS h4,
-    .singleTextOnlyColumn .contentGS h4 {
+.oneMainColumn .contentGS h4{
     font-weight: bold;
     margin-top: 0;
+}
+
+div.singleTextOnlyColumn .contentGS h4 {
+    font-size: small;
+    color: #25457a;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 1em;
 }
 
 .oneMainColumn .contentGS h5,
@@ -837,6 +844,11 @@ div.oneMainColumn .contentGS {
 
 div.singleTextOnlyColumn .contentGS {
     padding: 0 7em 4em 7em;
+}
+
+div.singleTextOnlyColumn em {
+    font-weight: bold;
+
 }
 
 .oneMainColumn .contentGS img,
