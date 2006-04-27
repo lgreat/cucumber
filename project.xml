@@ -34,6 +34,15 @@
     <inceptionYear>2004</inceptionYear>
     <package>gs.web</package>
 
+    <reports>
+        <report>maven-junit-report-plugin</report>
+        <report>maven-clover-plugin</report>
+        <report>maven-jdepend-plugin</report>
+        <report>maven-javadoc-plugin</report>
+        <report>maven-tasklist-plugin</report>
+        <report>taglib</report>
+    </reports>
+
     <dependencies>
 
         <dependency>
@@ -99,14 +108,14 @@
             <!--</properties>-->
         <!--</dependency>-->
 
-        <dependency>
+        <!--dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
             <version>1.0</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
-        </dependency>
+        </dependency-->
 
         <dependency>
             <groupId>springframework</groupId>
@@ -152,6 +161,14 @@
             </properties>
         </dependency>
         -->
+
+        <dependency>
+            <groupId>maven-taglib</groupId>
+            <artifactId>maven-taglib-plugin</artifactId>
+            <version>1.4.2</version>
+            <type>plugin</type>
+            <url>http://maven-taglib.sourceforge.net</url>
+        </dependency>
 
     </dependencies>
 
