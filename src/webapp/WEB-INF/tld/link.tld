@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+
+<taglib>
+
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>1.2</jsp-version>
+    <short-name>link</short-name>
+    <uri>urn:www.greatschools.net/taglib/link</uri>
+    <display-name>GreatSchools.net Link Tag Library</display-name>
+    <description>
+        <![CDATA[
+        The link tag library provides a centralized method for linking to GreatSchools.net pages
+        from JSP pages. There area several benefits to this:
+        <ul>
+        <li>a centralized place to change urls</li>
+        <li>a central place to find what pages are available</li>
+        <li>a consistent ordering and capitalization of parameters (for SEO purposes)</li>
+        <li>a place to deal with default parameter values centrally. For example, for
+        manually building URLs you need to pass in the state, but in generally this
+        can be retrieved from the session/page context. This allows us flexibility as
+        we change the notion of the user's locale.</li>
+        <li>convenient hiding of encoding problems</li>
+        </ul>
+         ]]>
+    </description>
+
+    <tag>
+        <name>articleLibrary</name>
+        <tag-class>gs.web.jsp.link.ArticleLibraryTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Article Library (all articles)</display-name>
+        <description>
+            <![CDATA[Link to our article library.
+            This page describes what articles are available.
+             Currently <code>/content/allArticles.page?state=$STATE</code>.]]>
+        </description>
+        <!--attribute>
+            <name>state</name>
+            <description>Optional state object. Generally not needed. It will be taken from the request when not specified.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+        </attribute-->
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+
+
+    <tag>
+        <name>mySchoolList</name>
+        <tag-class>gs.web.jsp.link.MySchoolListTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>mySchoolList</display-name>
+        <description>
+            <![CDATA[Link to our "My School List".
+            This page describes what my school list is and provides access to it.
+             Currently <code>/cgi-bin/msl_confirm/$STATE"</code>.]]>
+        </description>
+        <!--attribute>
+            <name>state</name>
+            <description>Optional state object. Generally not needed. It will be taken from the request when not specified.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+        </attribute-->
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>newsletterCenter</name>
+        <tag-class>gs.web.jsp.link.NewsletterCenterTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>newsletterCenter</display-name>
+        <description>
+            <![CDATA[Link to our "newsletter center".
+            This page describes what newsletters are available and provides
+            and entry to sign up. Currently <code>/cgi-bin/newsletters/$STATE".</code>]]>
+        </description>
+        <!--attribute>
+            <name>state</name>
+            <description>Optional state object. Generally not needed. It will be taken from the request when not specified.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+        </attribute-->
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>email</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Optional email address to forward to use as input to the newsletter center.
+                This currently pre-populates the email address for signing up for mailings.</description>
+        </attribute>
+    </tag>
+
+
+</taglib>
+

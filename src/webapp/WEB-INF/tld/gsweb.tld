@@ -24,30 +24,9 @@
   </function>
 
   <function>
-    <name>toLowercase</name>
-    <function-class>gs.web.jsp.Util</function-class>
-    <function-signature>java.lang.String
-      toLowercase(java.lang.String)</function-signature>
-  </function>
-
-  <function>
-    <name>oddOrEven</name>
-    <function-class>gs.web.jsp.Util</function-class>
-    <function-signature>java.lang.String
-      oddOrEven(java.lang.Integer)</function-signature>
-  </function>
-
-  <function>
     <name>randomNumber</name>
     <function-class>gs.web.jsp.Util</function-class>
     <function-signature>int randomNumber(int)</function-signature>
-  </function>
-
-  <function>
-    <name>getStateName</name>
-    <function-class>gs.web.jsp.Util</function-class>
-    <function-signature>java.lang.String
-      getStateName(java.lang.String)</function-signature>
   </function>
 
   <function>

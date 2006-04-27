@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AllArticlesController.java,v 1.3 2005/10/14 23:21:26 apeterson Exp $
+ * $Id: AllArticlesController.java,v 1.4 2006/04/27 22:53:47 apeterson Exp $
  */
 package gs.web.content;
 
@@ -25,8 +25,6 @@ import java.util.*;
  * @author David Lee <mailto:dlee@greatschools.net>
  */
 public class AllArticlesController extends AbstractController {
-
-    public static final String BEAN_ID = "/content/allArticles.page";
 
     private static final Log _log = LogFactory.getLog(AllArticlesController.class);
 

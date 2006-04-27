@@ -296,8 +296,7 @@ See which schools rank highest based on our exclusive ratings.
                             </li>
                         </ul>
                         <h4>
-                            <a href="http://${requestScope.context.hostName}/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}">My School List
-                            </a>
+                            <a href="http://${requestScope.context.hostName}/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}">My School List</a>
                         </h4>
                         <ul>
                             <li>

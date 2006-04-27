@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MySchoolListController.java,v 1.9 2006/03/15 02:24:20 apeterson Exp $
+ * $Id: MySchoolListController.java,v 1.10 2006/04/27 22:53:47 apeterson Exp $
  */
 
 package gs.web.community;
@@ -16,6 +16,7 @@ import gs.web.SessionContextUtil;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
 import gs.web.util.ListModel;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -74,7 +75,8 @@ public class MySchoolListController extends AbstractController {
                 items.add(anchor);
                 shown++;
             } else if (shown == limit) {
-                items.add(new Anchor("/cgi-bin/msl_confirm/" + state.getAbbreviation() + "/",
+                UrlBuilder builder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST, state);
+                items.add(builder.asAnchor(request,
                         "" + (schools.size() - limit) + " more... (view)",
                         "viewall"));
                 shown = schools.size();

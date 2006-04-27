@@ -9,6 +9,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
         >
 <html lang="en">
 <jsp:output doctype-root-element="html"
@@ -341,7 +342,7 @@
 </p>
 <h4>What is My School List?</h4>
 
-<p><gsml:a href="/cgi-bin/msl_confirm/$STATE">My School List</gsml:a> is a tool that lets you compile a list of schools,
+<p><link:mySchoolList>My School List</link:mySchoolList> is a tool that lets you compile a list of schools,
     save and
     compare them. To build a list, go to any school profile on GreatSchools.net and click on the link, "Add this
     school to My School List," next to the name of the school. Once you have a list of schools, you can compare a
@@ -398,14 +399,14 @@
 
 <h4>How do I sign up for free GreatSchools newsletters?</h4>
 
-<p>To see samples and sign up for any of our newsletters, <gsml:a href="/cgi-bin/newsletters/$STATE">click here</gsml:a>.
+<p>To see samples and sign up for any of our newsletters, <link:newsletterCenter>click here</link:newsletterCenter>.
 
 </p>
 
 
 <h4>How can I change my newsletter preferences or unsubscribe?</h4>
 
-<p> You can manage your GreatSchools newsletter subscriptions <gsml:a href="/cgi-bin/newsletters/$STATE">here</gsml:a>.
+<p> You can manage your GreatSchools newsletter subscriptions <link:newsletterCenter>here</link:newsletterCenter>.
 </p>
 
 <div style="text-align: right;">

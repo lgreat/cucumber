@@ -41,7 +41,6 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
 
     /**
      * Used for unit testing.
-     * @param context
      */
     protected void setApplicationContext(ApplicationContext context) {
         _applicationContext = context;
@@ -53,7 +52,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
     protected ISchoolDao getSchoolDao() {
         if (_schoolDao == null) {
             try {
-                _schoolDao = (ISchoolDao)getApplicationContext().getBean(ISchoolDao.BEAN_ID);
+                _schoolDao = (ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID);
             } catch (Exception e) {
                 _log.warn("problem getting ISchoolDao: ", e);
             }
@@ -79,11 +78,10 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
      * Returns a <code>School</code> obeject from the provided state.  If either
      * the state or id parameters are null, null will be returned.  Excepections
      * throws by the schoolDao are swallowed and logged in this method.
-     * @param state
-     * @param id
+     *
      * @return a <code>School</code> object or null
      */
-    protected School getSchool(State state, Integer id)  {
+    protected School getSchool(State state, Integer id) {
         School school = null;
         if (state != null && id != null) {
             try {
@@ -169,8 +167,12 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
      * Writes an <a href> tag which links to the all articles page.
      *
      * @throws IOException
+     * @todo rewrite to use UrlBuilder (which needs the request)
      */
     protected void writeBrowseAllArticlesLink(JspWriter out) throws IOException {
+        //UrlBuilder builder = new UrlBuilder(UrlBuilder.ARTICLE_LIBRARY, getStateOrDefault());
+        //out.print(builder.asAHref(request, "Browse all articles"));
+
         out.print("<a href=\"http://");
         out.print(getHostname());
         out.print("/content/allArticles.page?state=");

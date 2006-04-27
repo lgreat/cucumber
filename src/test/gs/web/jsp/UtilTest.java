@@ -7,27 +7,6 @@ import junit.framework.TestCase;
  */
 public class UtilTest extends TestCase {
 
-    public void testToLowercase() {
-        assertNull(Util.toLowercase(null));
-        String capString = "THIS IS A STRING IN ALL CAPS";
-        String lowerString = "this is a string in all caps";
-        String outString = Util.toLowercase(capString);
-        assertEquals(lowerString, outString);
-    }
-
-    public void testOddOrEven() {
-        Integer testNum = null;
-        try {
-            Util.oddOrEven(testNum);
-            fail("Should have thrown an NPE");
-        } catch (NullPointerException e) {            
-        }
-        testNum = new Integer(1);
-        assertEquals("odd", Util.oddOrEven(testNum));
-        testNum = new Integer(2);
-        assertEquals("even", Util.oddOrEven(testNum));
-    }
-
     public void testRandomNumber () {
         int rand = Util.randomNumber(1);
         assertTrue(rand == 0);
@@ -70,14 +49,6 @@ public class UtilTest extends TestCase {
         Object[] in2 = {"foo", "count", null, "blah"};
         String out2 = Util.toUglyDelimitedString(in2);
         assertEquals("Foo+Count++Blah", out2);
-    }
-
-    public void testGetStateName() {
-        assertNull(Util.getStateName(null));
-        assertNull(Util.getStateName("XX"));
-        assertEquals("California", Util.getStateName("CA"));
-        assertEquals("California", Util.getStateName("ca"));
-
     }
 
     public void testCapitalize() {

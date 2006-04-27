@@ -12,17 +12,21 @@
   padding-right:25px;
 }
 
-.content a span.betalink {
-    font-size:90%;
+.content #innerbox a {
     font-weight:bold;
     text-decoration:underline;
 }
 
-#headline {
+#bodyGS h3 {
     padding-top:10px;
     padding-bottom:15px;
     display: block;
     font-size: large;
+    font-weight: bold;
+}
+
+#bodyGS h4 {
+    font-size: medium;
     font-weight: bold;
 }
 
@@ -39,15 +43,12 @@ span#errorMessage {
     padding:8px;
 }
 
-.smaller { font-size:70%; }
-
-.listheader {
-    font-size:90%;
-    font-weight:bold;
+#bodyGS h6 {
+    font-size: x-small;
 }
 
 div.formtext {
     padding-top:8px;
     padding-bottom:5px;
-    font-size:90%;
+    font-size:small;
 }

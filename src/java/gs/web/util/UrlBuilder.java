@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.23 2006/04/25 17:41:27 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.24 2006/04/27 22:53:47 apeterson Exp $
  */
 
 package gs.web.util;
@@ -47,16 +47,22 @@ public class UrlBuilder {
         }
     }
 
-    public static final VPage SCHOOL_PARENT_REVIEWS = new VPage("vpage:schoolParentReviews");
-    public static final VPage SCHOOL_PROFILE = new VPage("vpage:schoolProfile");
-
-    public static final VPage DISTRICT_PROFILE = new VPage("vpage:districtProfile");
-
-    public static final VPage SCHOOLS_IN_CITY = new VPage("vpage:schoolsInCity");
+    public static final VPage ARTICLE_LIBRARY = new VPage("vpage:articleLibrary");
 
     public static final VPage CITY_PAGE = new VPage("vpage:city");
     public static final VPage CITIES = new VPage("vpage:cities"); // all the cities in a state
-    public static final VPage MORE_NEARBY_CITIES = new VPage("vpage:moreNearbyCities");
+    public static final VPage CITIES_MORE_NEARBY = new VPage("vpage:moreNearbyCities");
+
+    public static final VPage DISTRICT_PROFILE = new VPage("vpage:districtProfile");
+
+    public static final VPage MY_SCHOOL_LIST = new VPage("vpage:mySchoolList");
+    public static final VPage NEWSLETTER_CENTER = new VPage("vpage:newsletterCenter");
+
+    public static final VPage SCHOOL_PARENT_REVIEWS = new VPage("vpage:schoolParentReviews");
+    public static final VPage SCHOOL_PROFILE = new VPage("vpage:schoolProfile");
+
+    public static final VPage SCHOOLS_IN_CITY = new VPage("vpage:schoolsInCity");
+
 
 
     /**
@@ -162,7 +168,7 @@ public class UrlBuilder {
             _path = "/city.page";
             this.setParameter("city", city.getName());
             this.setParameter("state", city.getState().getAbbreviation());
-        } else if (MORE_NEARBY_CITIES.equals(page)) {
+        } else if (CITIES_MORE_NEARBY.equals(page)) {
             _perlPage = false;
             _path = "/cities.page";
             this.setParameter("city", city.getName());
@@ -178,22 +184,44 @@ public class UrlBuilder {
         }
     }
 
+    public UrlBuilder(VPage page, State state) {
+        init(page, state, null);
+    }
+
     public UrlBuilder(VPage page, State state, String param0) {
+        init(page, state, param0);
+    }
+
+    private void init(VPage page, State state, String param0) {
         if (CITY_PAGE.equals(page)) {
             _perlPage = false;
             _path = "/city.page";
-            this.setParameter("city", param0);
-            this.setParameter("state", state.getAbbreviation());
+            setParameter("city", param0);
+            setParameter("state", state.getAbbreviation());
         } else if (CITIES.equals(page)) {
             _perlPage = true;
             _path = "/modperl/cities/" +
                     state.getAbbreviation() +
                     "/";
+        } else if (MY_SCHOOL_LIST.equals(page)) {
+            _perlPage = true;
+            _path = "/cgi-bin/msl_confirm/" +
+                    state.getAbbreviation() +
+                    "/";
+        } else if (ARTICLE_LIBRARY.equals(page)) {
+            _perlPage = false;
+            _path = "/content/allArticles.page";
+            setParameter("state", state.getAbbreviation());
+        } else if (NEWSLETTER_CENTER.equals(page)) {
+            _perlPage = true;
+            _path = "/cgi-bin/newsletters/" +
+                    state.getAbbreviation() +
+                    "/";
         } else if (SCHOOLS_IN_CITY.equals(page)) {
             _perlPage = false;
             _path = "/schools.page";
-            this.setParameter("city", param0);
-            this.setParameter("state", state.getAbbreviation());
+            setParameter("city", param0);
+            setParameter("state", state.getAbbreviation());
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
@@ -340,7 +368,7 @@ public class UrlBuilder {
                 for (int i = 0; i < values.length; i++) {
                     sb.append(key);
                     sb.append("=" + values[i]);
-                    if (i < (values.length-1) || iter.hasNext()) {
+                    if (i < (values.length - 1) || iter.hasNext()) {
                         sb.append("&");
                     }
                 }

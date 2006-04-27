@@ -3,6 +3,7 @@ package gs.web.search;
 import gs.data.school.School;
 import gs.data.search.highlight.TextHighlighter;
 import gs.data.state.StateManager;
+import gs.data.util.SpringUtil;
 import gs.web.util.UrlUtil;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
@@ -20,7 +21,11 @@ public class MixedResultsTagHandler extends ResultsTableTagHandler {
 
     private UrlUtil _urlUtil;
     private Writer _writer;
-    private static StateManager _stateManager = new StateManager();
+    private static final StateManager _stateManager;
+
+    static {
+        _stateManager = (StateManager) SpringUtil.getApplicationContext().getBean(StateManager.BEAN_ID);
+    }
 
     public MixedResultsTagHandler() {
         super();

@@ -1,7 +1,9 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-          xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          version="2.0">
     <jsp:directive.page contentType="text/html"/>
     <html>
     <head><title>Thank you</title>
@@ -51,9 +53,8 @@
                                 href="/modperl/distlist/${state.abbreviation}">
                             All <c:out value="${state.longName}"/> districts
                         </gsml:a></li>
-                        <li><gsml:a
-                                href="/content/allArticles.page?state=${requestScope.context.stateOrDefault.abbreviation}">
-                            All topics</gsml:a></li>
+                        <li><link:articleLibrary>
+                            All topics</link:articleLibrary></li>
                         <li><gsml:a href="/cgi-bin/glossary_home/${state}">All
                             glossary terms</gsml:a></li>
                     </ul>

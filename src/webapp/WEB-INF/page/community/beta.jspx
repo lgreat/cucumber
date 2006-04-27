@@ -13,7 +13,7 @@
 
     <body>
     <div class="content">
-        <span id="headline">Improve GreatSchools - Join Our Beta Group!</span>
+        <h3>Improve GreatSchools - Join Our Beta Group!</h3>
         <p>
         Help us build a powerful community of parents who are passionate about
         education! Get a sneak peek at brand new features and ratings developled
@@ -25,7 +25,7 @@
         features on a test drive - and tell us what you think about them.
         </p>
         <br/>
-        <span class="listheader">How it works:</span>
+        <h4>How it works:</h4>
         <ul id="betalist">
             <li>We'll notify you occasionally about new features before they're released.</li>
             <li>If you decide to try them, we may ask you to fill out a short survey
@@ -47,7 +47,7 @@
                     </c:if>
                 </spring:bind>
             </gsml:form>
-            <span class="smaller">We value your privacy. <gsml:a href="/about/privacyStatement.page?state=$STATE">Privacy Policy</gsml:a></span>
+            <h6>We value your privacy. <gsml:a href="/about/privacyStatement.page?state=$STATE">Privacy Policy</gsml:a></h6>
         </center>
     </div>
     </body>

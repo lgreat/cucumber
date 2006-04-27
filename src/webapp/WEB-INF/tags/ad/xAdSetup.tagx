@@ -37,9 +37,9 @@
                 //configuration
                 OAS_url = 'http://oascentral.greatschools.net/RealMedia/ads/';
                 OAS_sitepage =
-                'www/${gsweb:toLowercase(requestScope.context.state.abbreviation)}/${requestScope.adPageName}';
+                'www/${requestScope.context.state.abbreviationLowerCase}/${requestScope.adPageName}';
                 OAS_listpos = '${ads}';
-                OAS_query = 'state=${gsweb:toLowercase(requestScope.context.state.abbreviation)}';
+                OAS_query = 'state=${requestScope.context.state.abbreviationLowerCase}';
                 OAS_target = '_top';
                 //end of configuration
                 OAS_version = 10;

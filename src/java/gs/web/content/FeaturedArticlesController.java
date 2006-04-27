@@ -1,17 +1,18 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.20 2006/04/12 05:48:59 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.21 2006/04/27 22:53:47 apeterson Exp $
  */
 package gs.web.content;
 
 import gs.data.content.Article;
 import gs.data.content.IArticleDao;
+import gs.data.state.State;
 import gs.web.ISessionFacade;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
 import gs.web.util.ListModel;
-import gs.web.util.UrlUtil;
 import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -124,16 +125,17 @@ public class FeaturedArticlesController extends AbstractController {
     private ModelAndView handleMultipleArticles(HttpServletRequest request, String posStr, int count) {
 
         ISessionFacade sessionFacade = SessionFacade.getInstance(request);
+        final State state = sessionFacade.getStateOrDefault();
 
         List items = new ArrayList(count);
         Set articles = new HashSet(count);
         for (int i = 0; i < count; i++) {
             try {
-                Article article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), posStr, i);
+                Article article = _articleDao.getFeaturedArticle(state, posStr, i);
 
                 if (article != null &&
                         !articles.contains(article)) {
-                    UrlBuilder builder = new UrlBuilder(article, sessionFacade.getStateOrDefault(), false);
+                    UrlBuilder builder = new UrlBuilder(article, state, false);
                     String articleLink = builder.toString();
                     final Anchor anchor;
                     if (article.isNew()) {
@@ -160,10 +162,9 @@ public class FeaturedArticlesController extends AbstractController {
             items.add(anchor);
         }
 
-        Anchor anchor = new Anchor(_urlUtil.buildUrl("/content/allArticles.page?state=$STATE", request),
-                "Browse all topics", "viewall");
+        UrlBuilder builder = new UrlBuilder(UrlBuilder.ARTICLE_LIBRARY, state);
+        Anchor anchor = builder.asAnchor(request, "Browse all topics", "viewall");
         items.add(anchor);
-
 
         final String heading = calcHeading(request, posStr);
 
@@ -179,7 +180,7 @@ public class FeaturedArticlesController extends AbstractController {
         final String paramHeading = request.getParameter(PARAM_HEADING);
         String heading;
         heading = "Today&#8217s Feature";
-        if (StringUtils.equals(paramHeading,PARAM_VALUE_NO_HEADING)) {
+        if (StringUtils.equals(paramHeading, PARAM_VALUE_NO_HEADING)) {
             heading = "";
         } else if (StringUtils.isNotEmpty(paramHeading)) {
             heading = paramHeading;

@@ -2,7 +2,9 @@
 <jsp:root version="2.0"
     xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
-    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
+    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+    xmlns:link="urn:www.greatschools.net/taglib/link"
+        >
     <jsp:directive.tag body-content="empty"/>
 
     <!--
@@ -62,7 +64,7 @@ old user, add new subscriptions
                 <input type="text" class="textfield" onfocus="if (this.value=='Enter email') this.value='';" value="Enter email" onblur="if (this.value=='') this.value='Enter email';" name="email" id="email"/>
                 <gsml:inputImage src="/res/img/button/btn_go_small.gif" styleClass="btn" alt="GO"/>
             </div>
-            <a class="small block" href="/cgi-bin/newsletters/${requestScope.context.stateOrDefault.abbreviation}">Learn More</a>
+            <link:newsletterCenter styleClass="small block">Learn More</link:newsletterCenter>
             <a class="small block" href="/about/privacyStatement.page?state=${requestScope.context.stateOrDefault.abbreviationLowerCase}">GreatSchools Privacy Policy</a>
         </gsml:form>
     </div>

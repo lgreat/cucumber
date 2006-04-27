@@ -3,6 +3,7 @@ package gs.web.state;
 import gs.web.jsp.BaseTagHandler;
 import gs.data.state.StateManager;
 import gs.data.state.State;
+import gs.data.util.SpringUtil;
 
 import javax.servlet.jsp.JspWriter;
 import java.util.List;
@@ -25,9 +26,17 @@ public class StateSelectorTagHandler extends BaseTagHandler {
     private boolean _useLongNames = false;
     private String _styleClass = null;
     private String _onChange = null;
-    private static StateManager _stateManager = new StateManager();
-    private static List stateAbbreviations = _stateManager.getSortedAbbreviations();
-    private static List statesList = StateManager.getList();
+
+    private static final StateManager _stateManager;
+    private static final List _stateAbbreviations;
+    private static final List _statesList;
+
+    static {
+        _stateManager = (StateManager) SpringUtil.getApplicationContext().getBean(StateManager.BEAN_ID);
+        _stateAbbreviations = _stateManager.getSortedAbbreviations();
+        _statesList = StateManager.getList();
+    }
+
 
     /**
      * When set to true, this option allows the state selector will include
@@ -84,9 +93,9 @@ public class StateSelectorTagHandler extends BaseTagHandler {
         State currentState = getStateOrDefault();
 
         if (_useLongNames) {
-            for (int i = 0; i < statesList.size(); i++) {
+            for (int i = 0; i < _statesList.size(); i++) {
                 out.print("<option value=\"");
-                State state = (State) statesList.get(i);
+                State state = (State) _statesList.get(i);
                 out.print(state.getAbbreviationLowerCase());
                 out.print("\" ");
                 if (currentState.equals(state)) {
@@ -97,9 +106,9 @@ public class StateSelectorTagHandler extends BaseTagHandler {
                 out.println("</option>");
             }
         } else {
-            for (int i = 0; i < stateAbbreviations.size(); i++) {
+            for (int i = 0; i < _stateAbbreviations.size(); i++) {
                 out.print("<option value=\"");
-                String state = (String) stateAbbreviations.get(i);
+                String state = (String) _stateAbbreviations.get(i);
                 out.print(state);
                 out.print("\" ");
                 if (currentState.getAbbreviation().equalsIgnoreCase(state)) {

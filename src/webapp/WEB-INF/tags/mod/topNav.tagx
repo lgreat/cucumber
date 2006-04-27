@@ -5,6 +5,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
         >
 <jsp:directive.tag body-content="empty"/>
 
@@ -95,9 +96,10 @@
                             <td height="21" colspan="2">
                                 <gsml:a
                                         href="/cgi-bin/cs_where/$STATE">Compare
-                                    schools</gsml:a><span style="padding: 0 1em 0 1em">|</span><gsml:a
-                                    href="/cgi-bin/msl_confirm/$STATE">My
-                                School List</gsml:a><span style="padding: 0 1em 0 1em">|</span><gsml:a
+                                    schools</gsml:a><span
+                                    style="padding: 0 1em 0 1em">|</span><link:mySchoolList>My School
+                                List</link:mySchoolList><span
+                                    style="padding: 0 1em 0 1em">|</span><gsml:a
                                     href="/cgi-bin/template_plain/advanced/$STATE/#address">Search
                                 near address</gsml:a></td>
                         </tr>

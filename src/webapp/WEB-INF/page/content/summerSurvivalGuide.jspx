@@ -9,6 +9,7 @@
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib"
         >
 <html lang="en">
@@ -142,10 +143,9 @@
                     <b>More advice for parents</b><br/>
                     Choosing a school? Looking for tips to support your child's
                     learning?<br/>
-                    <gsml:a href="/content/allArticles.page?state=$STATE">Check
+                    <link:articleLibrary>Check
                         out the GreatSchools.net
-                        library</gsml:a>
-
+                        library</link:articleLibrary>
                 </div>
                 <ad:x40/>
 

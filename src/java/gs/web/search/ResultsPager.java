@@ -1,21 +1,21 @@
 package gs.web.search;
 
-import org.apache.lucene.search.Hits;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.document.Document;
-import org.apache.log4j.Logger;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.ApplicationContext;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.io.IOException;
-
+import gs.data.school.ISchoolDao;
 import gs.data.search.Searcher;
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.data.school.ISchoolDao;
+import gs.data.util.SpringUtil;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.search.Hits;
+import org.apache.lucene.search.Query;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class handles the organization of <code>Hits</code> into
@@ -42,7 +42,12 @@ public class ResultsPager {
     /** Constant to indicate that the page has only school results */
     private static final int SCHOOL_PAGE = 1;
 
-    private static StateManager _stateManager = new StateManager();
+    private static final StateManager _stateManager;
+
+    static {
+        _stateManager = (StateManager) SpringUtil.getApplicationContext().getBean(StateManager.BEAN_ID);
+    }
+
     private static final Logger _log = Logger.getLogger(ResultsPager.class);
 
     public ResultsPager(Hits hits, String constraint) {

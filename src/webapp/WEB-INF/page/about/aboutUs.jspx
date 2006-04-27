@@ -9,6 +9,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
         >
     <html lang="en">
     <jsp:output doctype-root-element="html"
@@ -29,7 +30,7 @@
     <mod:tracking pageType="aboutUs" pageName="aboutUs" hier1="Home,Corporate,AboutUs,AboutUsOverview"/>
 
    <h3>Our Story</h3>
-    
+
    <p>A former teacher, Bill Jackson founded GreatSchools in 1998 to
    catalyze a force that he believed was vital to the process of
    achieving excellence in education - <b><i>parent involvement</i></b>.
@@ -82,12 +83,11 @@
 
    <p>Our personalized email newsletters provide school updates,
    grade-by-grade learning tools and seasonal advice on education
-   topics. <gsml:a href="/cgi-bin/newsletters/$STATE">Learn more</gsml:a></p>
+   topics. <link:newsletterCenter>Learn more</link:newsletterCenter></p>
 
    <p>GreatSchools' online library features hundreds of articles that
    help parents navigate the K-12 process, including advice from
-   experts and real parents. <gsml:a href=
-   "/content/allArticles.page?state=$STATE">Visit our library</gsml:a></p>
+   experts and real parents. <link:articleLibrary>Visit our library</link:articleLibrary></p>
 
    <h4>Improve schools in your community</h4>
    <p>GreatSchools is currently conducting pilot programs to organize and

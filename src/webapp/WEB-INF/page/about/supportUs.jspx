@@ -9,6 +9,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gsweb="gstaglib"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
         >
     <html lang="en">
 
@@ -63,8 +64,7 @@
                         their children.</p>
 
 
-                    <h4><gsml:a href="/cgi-bin/newsletters/$STATE/">
-                        Sign up for our newsletters</gsml:a></h4>
+                    <h4><link:newsletterCenter>Sign up for our newsletters</link:newsletterCenter></h4>
 
                     <p>Stay on top of the latest teaching trends in the classroom, receive tips and advice from
                         experts, get regular performance updates about your child's school, and more.</p>

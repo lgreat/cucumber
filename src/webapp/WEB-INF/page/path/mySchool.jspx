@@ -9,10 +9,11 @@
         xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
         xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        xmlns:link="urn:www.greatschools.net/taglib/link"
         >
-     <pageHelper:setPathway pathway="2"/>
+<pageHelper:setPathway pathway="2"/>
 <html lang="en">
 <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="stateLongName" value="${requestScope.context.stateOrDefault.longName}"/>
@@ -34,97 +35,102 @@
 </head>
 
 <gsml:body adPageName="home">
-<table id="pagemargin" border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td valign="top">
-<!-- INCLUDE TOP content with logo, etc. -->
-<table id="main" border="0" cellspacing="0" cellpadding="0" width="100%">
-    <tr>
-        <td class="col1" valign="top">
-            <mod:globalNav/>
-            <jsp:include page="/content/parentPoll.module"/>
-        </td>
-        <td class="col2" valign="top">
-            <gsml:box tableClass="shade3" tableWidth="100%">
-                <h1 class="moduleheader">My Child's School</h1>
-
-                <h3 class="tagline">Stats, tools and advice from GreatSchools, an independent nonprofit
-                    committed to helping parents</h3>
-
-                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <table id="pagemargin" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td valign="top">
+                <!-- INCLUDE TOP content with logo, etc. -->
+                <table id="main" border="0" cellspacing="0" cellpadding="0" width="100%">
                     <tr>
-                        <td width="60%" valign="top">
-                            <div class="topcontentcol1" style="padding-top: .75em; padding-right: 2em;">
-                                <h3 class="result_title">
-                                    Find test scores, teacher stats and more
-                                <gsml:a styleClass="changeState" href="/stateLauncher.page?p=pathway2">Search another state</gsml:a></h3>
+                        <td class="col1" valign="top">
+                            <mod:globalNav/>
+                            <jsp:include page="/content/parentPoll.module"/>
+                        </td>
+                        <td class="col2" valign="top">
+                            <gsml:box tableClass="shade3" tableWidth="100%">
+                                <h1 class="moduleheader">My Child's School</h1>
 
-                                <search:searchControl showConstraint="false" fieldLength="35" showLabel="false"/>
+                                <h3 class="tagline">Stats, tools and advice from GreatSchools, an independent nonprofit
+                                    committed to helping parents</h3>
 
-                                <div class="browselinks">
-                                    <gsml:a styleClass="nowrap"
-                                            href="/cgi-bin/cs_where/${requestScope.context.stateOrDefault.abbreviation}"
-                                            >Compare schools</gsml:a>
-                                    <gsml:a styleClass="nowrap"
-                                            href="/cgi-bin/msl_confirm/${requestScope.context.stateOrDefault.abbreviation}"
-                                            >My School List</gsml:a>
-                                    <gsml:a styleClass="nowrap"
-                                            href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address"
-                                            >Search near address</gsml:a>
-                                </div>
-                            </div>
-                        </td><td valign="top">
-                        <div class="topcontentcol2">
-                            <div class="featuredarticle">
-                                <gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
-                                    <gsml:img src="/res/img/community/btn_rateyourschool.gif"
-                                              alt="Rate your School"/>
-                                </gsml:a>
-                                <br/>
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td width="60%" valign="top">
+                                            <div class="topcontentcol1" style="padding-top: .75em; padding-right: 2em;">
+                                                <h3 class="result_title">
+                                                    Find test scores, teacher stats and more
+                                                    <gsml:a styleClass="changeState"
+                                                            href="/stateLauncher.page?p=pathway2">Search another
+                                                        state</gsml:a></h3>
 
-                                <h3 class="result_title">Sample Parent Review:</h3>
-                                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-                                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-                                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-                                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>(May 2005)
-                                <br/>
+                                                <search:searchControl showConstraint="false" fieldLength="35"
+                                                                      showLabel="false"/>
 
-                                <div class="parentQuote">
-                                    "Dynamic, creative principal. Teachers who provide attention and dedication.
-                                    Active group of parents..."</div>
-                            </div>
+                                                <div class="browselinks">
+                                                    <gsml:a styleClass="nowrap"
+                                                            href="/cgi-bin/cs_where/${requestScope.context.stateOrDefault.abbreviation}"
+                                                            >Compare schools</gsml:a>
+                                                    <link:mySchoolList styleClass="nowrap">My School
+                                                        List</link:mySchoolList>
+                                                    <gsml:a styleClass="nowrap"
+                                                            href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address"
+                                                            >Search near address</gsml:a>
+                                                </div>
+                                            </div>
+                                        </td><td valign="top">
+                                        <div class="topcontentcol2">
+                                            <div class="featuredarticle">
+                                                <gsml:a href="/cgi-bin/site/findschool2review.cgi/$STATE/?paid=1">
+                                                    <gsml:img src="/res/img/community/btn_rateyourschool.gif"
+                                                              alt="Rate your School"/>
+                                                </gsml:a>
+                                                <br/>
 
-                        </div>
-                    </td></tr></table>
-            </gsml:box>
-            <gsml:box tableClass="shade3" tableWidth="100%">
-                <gsml:a styleClass="nohover" href="/cgi-bin/newsletters/$STATE"><h1 class="moduleheader">Navigate the
-                    Year with FREE News, Tips and
-                    Advice!</h1></gsml:a>
-                <h4 class="tagline">Discover why <b>millions of parents</b> turn to GreatSchools each month</h4>
+                                                <h3 class="result_title">Sample Parent Review:</h3>
+                                                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+                                                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+                                                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+                                                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>(May 2005)
+                                                <br/>
 
-                <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tr>
-                        <td width="63%" valign="top">
-                            <div class="topcontentcol1">
-                                <promo:newsletterMedium/>
-                            </div>
-                        </td><td valign="top">
-                        <div class="topcontentcol2" style="padding-bottom: 180px;">
-                            <div class="hotTopics">
-                                <h3>Find Hot Topics Now</h3>
-                                <jsp:include page="/promo/featuredArticles.module?position=HOT_TOPIC&amp;count=7"/>
-                            </div>
-                        </div>
-                    </td></tr></table>
-            </gsml:box>
-        </td>
-    </tr>
-</table>
-</td>
-</tr>
-</table>
-<mod:tracking pageType="home" pageName="my childs school" hier1="Home,MyChildsSchool"/>
+                                                <div class="parentQuote">
+                                                    "Dynamic, creative principal. Teachers who provide attention and
+                                                    dedication.
+                                                    Active group of parents..."</div>
+                                            </div>
+
+                                        </div>
+                                    </td></tr></table>
+                            </gsml:box>
+                            <gsml:box tableClass="shade3" tableWidth="100%">
+                                <link:newsletterCenter styleClass="nohover"><h1 class="moduleheader">Navigate the
+                                    Year with FREE News, Tips and
+                                    Advice!</h1></link:newsletterCenter>
+                                <h4 class="tagline">Discover why <b>millions of parents</b> turn to GreatSchools each
+                                    month</h4>
+
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+                                        <td width="63%" valign="top">
+                                            <div class="topcontentcol1">
+                                                <promo:newsletterMedium/>
+                                            </div>
+                                        </td><td valign="top">
+                                        <div class="topcontentcol2" style="padding-bottom: 180px;">
+                                            <div class="hotTopics">
+                                                <h3>Find Hot Topics Now</h3>
+                                                <jsp:include
+                                                        page="/promo/featuredArticles.module?position=HOT_TOPIC&amp;count=7"/>
+                                            </div>
+                                        </div>
+                                    </td></tr></table>
+                            </gsml:box>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <mod:tracking pageType="home" pageName="my childs school" hier1="Home,MyChildsSchool"/>
 </gsml:body>
 </html>
 </jsp:root>
