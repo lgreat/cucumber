@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.14 2006/04/24 21:15:45 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.15 2006/04/28 05:22:20 apeterson Exp $
  */
 
 package gs.web.util;
@@ -229,4 +229,23 @@ public class UrlBuilderSaTest extends TestCase {
 
     }
 
+
+    public void testVPages() {
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
+        request.setMethod("GET");
+        request.setProtocol("http");
+        request.setServerName("www.myserver.com");
+        request.setServerPort(80);
+        request.setRequestURI("/index.page");
+
+        UrlBuilder builder = new UrlBuilder(UrlBuilder.ARTICLE_LIBRARY, State.WY);
+        assertEquals("/content/allArticles.page?state=WY", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST, State.WY);
+        assertEquals("/cgi-bin/msl_confirm/WY/", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.NEWSLETTER_CENTER, State.WY);
+        assertEquals("/cgi-bin/newsletters/WY/", builder.asSiteRelative(request));
+
+    }
 }
