@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeController.java,v 1.9 2005/12/14 19:04:32 apeterson Exp $
+ * $Id: SubscribeController.java,v 1.10 2006/04/28 06:27:39 apeterson Exp $
  */
 package gs.web.community;
 
@@ -38,8 +38,8 @@ public class SubscribeController extends org.springframework.web.servlet.mvc.Sim
     private ISubscriptionDao _subscriptionDao;
     private StateManager _stateManager;
 
-    private static final String EMAIL_PARAM = "email";
-    private static final String URL_PARAM = "url";
+    static final String EMAIL_PARAM = "email";
+    static final String URL_PARAM = "url";
     private static final String URL_LABEL_PARAM = "urlLabel";
     private static final String RENEW_PARAM = "renew"; // boolean set if the user is attempting renewal
 
