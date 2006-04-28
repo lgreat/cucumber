@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.12 2006/04/24 21:16:09 apeterson Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.13 2006/04/28 06:00:53 apeterson Exp $
  */
 
 package gs.web.school.performance;
@@ -44,12 +44,13 @@ public class BestPublicSchoolValuesController extends AbstractController {
     private static final String PARAM_LIMIT = "limit";
     private static final String PARAM_METRO = "metro"; // ignored for now, but passed for forward compatibility
     /**
-     * What data to list. Default is "
+     * What data to list. Default is our best values.
      */
-    private static final String PARAM_LIST = "list";
-    private static final String PARAM_LIST_VALUE_ABOVE_AVG_API = "above"; // ignored; default
-    private static final String PARAM_LIST_VALUE_BELOW_AVG_API = "below";
-    private static final String PARAM_MAP = "map"; // set to 1 to show map
+     static final String PARAM_LIST = "list";
+    static final String PARAM_LIST_VALUE_ABOVE_AVG_API = "above"; // ignored; default
+    static final String PARAM_LIST_VALUE_BELOW_AVG_API = "below";
+
+    static final String PARAM_MAP = "map"; // set to 1 to show map
 
     /**
      * List of IBestPublicSchoolValue objects.
