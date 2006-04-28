@@ -1,27 +1,15 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SubscribeControllerTest.java,v 1.1 2006/04/28 06:27:28 apeterson Exp $
+ * $Id: SubscribeControllerTest.java,v 1.2 2006/04/28 06:39:18 apeterson Exp $
  */
 
 package gs.web.community;
 
-import gs.web.BaseControllerTestCase;
-import gs.web.SessionContextUtil;
-import gs.web.GsMockHttpServletRequest;
-import gs.web.util.ListModel;
-import gs.web.school.SchoolsController;
-import gs.web.school.performance.BestPublicSchoolValuesController;
-import gs.data.school.district.IDistrictDao;
-import gs.data.school.School;
-import gs.data.school.LevelCode;
-import gs.data.school.SchoolType;
-import gs.data.search.Searcher;
 import gs.data.community.IUserDao;
 import gs.data.community.PurchaseManager;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Map;
-import java.util.List;
+import gs.web.BaseControllerTestCase;
+import gs.web.GsMockHttpServletRequest;
+import gs.web.SessionContextUtil;
 
 /**
  * Tests SchoolsController.
