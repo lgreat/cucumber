@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.22 2006/04/28 19:50:25 apeterson Exp $
+ * $Id: CityController.java,v 1.23 2006/04/28 21:17:47 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -46,6 +46,7 @@ public class CityController extends AbstractController {
     public static final String MODEL_SCHOOLS = "schools"; // list of local schools, either a sample or top-rated
     public static final String MODEL_SCHOOL_COUNT = "schoolCount"; // number of schools in the city
     public static final String MODEL_TOP_RATED_SCHOOLS = "topRatedSchools"; // List of ITopRatedSchool objects
+    public static final String MODEL_LINK_TO_TOP_RATED_SCHOOLS = "linkToTopRatedSchools"; // Boolean or null (meaning false)
 
     public static final String MODEL_CITY = "cityObject"; // City BpCensus object
     public static final String MODEL_CITY_NAME = "displayName"; // name of the city, correctly capitalized
@@ -137,9 +138,16 @@ public class CityController extends AbstractController {
                 model.put(MODEL_TOP_RATED_SCHOOLS, topRatedSchools);
 
                 List schools = new ArrayList(topRatedSchools.size());
-                for (Iterator iter = topRatedSchools.iterator(); iter.hasNext();) {
+                for (ListIterator iter = topRatedSchools.listIterator(); iter.hasNext();) {
                     ISchoolDao.ITopRatedSchool s = (ISchoolDao.ITopRatedSchool) iter.next();
                     schools.add(s.getSchool());
+
+                    // If this is the first (therefore toppest rated), figure out
+                    // whether or not to display a link to top-rated schools. Otherwise no.
+                    if (!iter.hasPrevious()) {
+                        model.put(MODEL_LINK_TO_TOP_RATED_SCHOOLS,
+                                Boolean.valueOf(s.getRating() >= 9));
+                    }
                 }
                 model.put(MODEL_SCHOOLS, schools);
             }
