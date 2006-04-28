@@ -219,9 +219,9 @@
 </tr>
 </table>
 
-<mod:tracking pageName="city"
+<mod:tracking pageName="city home:${cityObject.name}-${cityObject.state.abbreviation}"
               pageType=""
-              hier1="city,${cityObject.name} ${cityObject.state.abbreviation}"/>
+              hier1="Home,city home,${cityObject.name}-${cityObject.state.abbreviation}"/>
 
 
 </gsml:body>

@@ -60,9 +60,9 @@
                 </tr></table>
 
         </div>
-        <mod:tracking pageName="nearbyCities"
+        <mod:tracking pageName="nearbyCities:${city}-${requestScope.context.stateOrDefault.abbreviation}"
                       pageType=""
-                      hier1="nearbyCities,${city} ${requestScope.context.stateOrDefault.abbreviation}"/>
+                      hier1="Search,NearbyCities,${city}-${requestScope.context.stateOrDefault.abbreviation}"/>
 
     </gsml:body>
 
