@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.15 2006/04/28 05:22:20 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.16 2006/04/28 05:34:08 apeterson Exp $
  */
 
 package gs.web.util;
@@ -246,6 +246,18 @@ public class UrlBuilderSaTest extends TestCase {
 
         builder = new UrlBuilder(UrlBuilder.NEWSLETTER_CENTER, State.WY);
         assertEquals("/cgi-bin/newsletters/WY/", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.NEWSLETTER_CENTER, State.WY);
+        assertEquals("/cgi-bin/newsletters/WY/", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.CITIES, State.WY);
+        assertEquals("/modperl/cities/WY/", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.CITY_PAGE, State.WY, "Xyz");
+        assertEquals("/city.page?city=Xyz&amp;state=WY", builder.asSiteRelativeXml(request));
+
+        builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.WY, "Xyz");
+        assertEquals("/schools.page?city=Xyz&state=WY", builder.asSiteRelative(request));
 
     }
 }
