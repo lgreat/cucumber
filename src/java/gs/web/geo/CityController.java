@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.23 2006/04/28 21:17:47 apeterson Exp $
+ * $Id: CityController.java,v 1.24 2006/04/28 22:03:35 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -141,15 +141,16 @@ public class CityController extends AbstractController {
                 for (ListIterator iter = topRatedSchools.listIterator(); iter.hasNext();) {
                     ISchoolDao.ITopRatedSchool s = (ISchoolDao.ITopRatedSchool) iter.next();
                     schools.add(s.getSchool());
-
-                    // If this is the first (therefore toppest rated), figure out
-                    // whether or not to display a link to top-rated schools. Otherwise no.
-                    if (!iter.hasPrevious()) {
-                        model.put(MODEL_LINK_TO_TOP_RATED_SCHOOLS,
-                                Boolean.valueOf(s.getRating() >= 9));
-                    }
-                }
+               }
                 model.put(MODEL_SCHOOLS, schools);
+
+                // If this is the first (therefore toppest rated), figure out
+                // whether or not to display a link to top-rated schools. Otherwise no.
+                if (topRatedSchools.size() >= 1) {
+                    ISchoolDao.ITopRatedSchool s = (ISchoolDao.ITopRatedSchool)topRatedSchools.get(0);
+                    model.put(MODEL_LINK_TO_TOP_RATED_SCHOOLS, Boolean.valueOf(s.getRating() >= 9));
+                }
+
             }
         }
 
