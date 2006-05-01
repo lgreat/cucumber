@@ -1,5 +1,6 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
     <jsp:directive.page contentType="text/html"/>
     <html>
@@ -17,5 +18,6 @@
         </gsml:a>
     </div>
     </body>
+    <mod:tracking pageType="beta" pageName="Beta Unsubscribe Confirmation" hier1="Community,Beta Group,Beta Unsubscribe Confirmation"/>
     </html>
 </jsp:root>

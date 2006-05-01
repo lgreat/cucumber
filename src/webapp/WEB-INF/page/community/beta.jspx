@@ -2,6 +2,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:spring="http://www.springframework.org/tags"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
     <jsp:directive.page contentType="text/html"/>
     <html>
@@ -50,6 +51,7 @@
             <h6>We value your privacy. <gsml:a href="/about/privacyStatement.page?state=$STATE">Privacy Policy</gsml:a></h6>
         </center>
     </div>
+    <mod:tracking pageType="beta" pageName="Beta Sign Up" hier1="Community, Beta Group, Beta Sign Up"/>
     </body>
     </html>
 </jsp:root>

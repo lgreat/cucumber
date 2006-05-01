@@ -2,7 +2,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
           xmlns:link="urn:www.greatschools.net/taglib/link"
-        >
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
     <jsp:directive.page contentType="text/html"/>
     <html>
     <head>
@@ -31,5 +31,6 @@
         </div>
     </div>
     </body>
+    <mod:tracking pageType="beta" pageName="Beta Thank You" hier1="Community,Beta Group,Beta Thank You"/>
     </html>
 </jsp:root>
