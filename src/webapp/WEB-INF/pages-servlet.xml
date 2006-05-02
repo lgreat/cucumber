@@ -492,7 +492,7 @@
         </property>
     </bean>
 
-    <bean name="/content/box.page"
+    <bean name="/content/box/v1/*.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName">
          <property name="viewName">

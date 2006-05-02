@@ -5,6 +5,7 @@
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:spring="http://www.springframework.org/tags"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
 
     <jsp:output doctype-root-element="html"
@@ -13,6 +14,53 @@
 
     <jsp:directive.page contentType="text/html"/>
 
+    <c:set var="t">
     <c:import url="http://apeterson.dev.greatschools.net/content/box/${param.name}.html" />
+    </c:set>
+    <c:out value="${fn:replace(t,'$STATE',param.state)}" escapeXml="false"/>
 
+    <!--
+
+
+    <h4>March Madness Math</h4>
+    <p>Using a copy of the March Madness tournament bracket chart, have your child calculate a favorite team's winning percentage from its win-loss record or the percentage of games a favorite coach has won.</p>
+
+    <h4>Math on the Menu</h4>
+    <p>Practice mental math while you wait for dinner at your favorite restaurant. Have your child estimate the family's total dinner bill, based on what you ordered, or calculate how much it would cost to order every dessert on the menu!</p>
+
+    <h4>Kitchen Math</h4>
+    <p>Next time you bake cookies, give your child the recipe and let him calculate the quantities of ingredients you'll need to make twice as many cookies. Cooking is a great way to learn about ratios, and you get to eat the results!</p>
+
+    <h4>Tip for Reluctant Readers</h4>
+    <p>Is your child a reluctant reader? He may prefer books of lists to novels. Try books devoted to jokes, riddles or sports stats.  Leave them in the bathroom, the living room and take them on car trips.</p>
+
+    <h4>Tap Your Child's Interests</h4>
+    <p>Get your child a subscription to a magazine about what he loves, whether it's soccer, skateboarding or country music. His name on the address label is a personalized invitation to read.</p>
+
+    <h4>What's in the Jar?</h4>
+    <p>Collect household change in a jar, and when it is full have your child estimate how much money there is. Then she can count the change and compare the total to her estimate.</p>
+
+    <h4>Imagine the House of the Future</h4>
+    <p>What will a house in the future look like? Brainstorm with your child about what it might be made of, what technology might be used. Then have her draw the house.</p>
+
+    <h4>Bargain Shopping</h4>
+    <p>While shopping for clothes at a sale, ask your child to figure out the final cost of an item after the posted discount.  Don't forget to add the sales tax, if your state or city collects it.</p>
+
+    <h4>Restaurant Tipping</h4>
+    <p>When the bill comes to the table ask your child to figure out what the tip would be if it was 15% or 20% of the bill. Share your shortcuts for finding the answer.</p>
+
+    <h4>Plant Parts Salad</h4>
+    <p>Talk to your child about the function of each part of a plant: the leaf, root, stem, flower, fruit and seeds. Make a shopping list together that contains all the parts of a plant. Then make a salad with all the parts!</p>
+
+    <h4>Myth Making</h4>
+    <p>People throughout history have told myths that explain what happens in nature. On your next car trip, take turns making up myths to explain why there is thunder, why it rains or why the stars shine.</p>
+
+    <h4>How many miles to the gallon?</h4>
+    <p>Taking a road trip? Have your child calculate your car's gas mileage. When you get home, have him look up your car's fuel economy rating on the Internet and see how it compares.</p>
+
+    <h4>Where in the World is...?</h4>
+    <p>When planning your next family vacation, get out the maps and a globe, and talk with your child about where you'll be going, what direction you'll be heading and measure how far you'll be traveling.</p>
+
+
+    -->
     </jsp:root>
