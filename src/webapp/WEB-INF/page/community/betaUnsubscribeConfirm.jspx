@@ -17,7 +17,8 @@
             <span class="betalink">Return to GreatSchools home</span>
         </gsml:a>
     </div>
-    </body>
     <mod:tracking pageType="beta" pageName="Beta Unsubscribe Confirmation" hier1="Community,Beta Group,Beta Unsubscribe Confirmation"/>
+    </body>
+
     </html>
 </jsp:root>

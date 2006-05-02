@@ -51,7 +51,7 @@
             <h6>We value your privacy. <gsml:a href="/about/privacyStatement.page?state=$STATE">Privacy Policy</gsml:a></h6>
         </center>
     </div>
-    <mod:tracking pageType="beta" pageName="Beta Sign Up" hier1="Community, Beta Group, Beta Sign Up"/>
+    <mod:tracking pageType="beta" pageName="Beta Sign Up" hier1="Community,Beta Group,Beta Sign Up"/>
     </body>
     </html>
 </jsp:root>
