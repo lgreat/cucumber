@@ -87,11 +87,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <td valign="top">
-                            <gsml:img src="/res/img/content/summerkid.jpg"
-                                      alt="photo of little girl in a bathing suit"/>
-                        </td>
-
                         <td valign="top" id="guidecontent">
                             <p><span id="headline"><c:out value="Take the stress out of summer
                             planning with GreatSchools' tips to help your child
