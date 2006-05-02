@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ContentBoxViewController.java,v 1.1 2006/05/02 19:51:17 apeterson Exp $
+ * $Id: ContentBoxViewController.java,v 1.2 2006/05/02 20:57:05 apeterson Exp $
  */
 
 package gs.web.content;
@@ -13,9 +13,11 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 /**
- * Controller for the content box.
+ * Controller for the content box. Figures out what page to show and
+ * and sets cache control to cache the page.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
@@ -37,8 +39,15 @@ public class ContentBoxViewController extends ParameterizableViewController {
         String articleName = s[s.length-1];
         String stateStr = s[s.length -2];
 
-        request.setAttribute(MODEL_PERL_PAGE, "http://apeterson.dev.greatschools.net/content/box/"+articleName+".html");
+        request.setAttribute(MODEL_PERL_PAGE, "http://"+request.getServerName()+"/content/box/"+articleName+".html");
         request.setAttribute(MODEL_STATE_ABBREV, stateStr);
+
+        // Allow caching
+        response.setHeader("Cache-Control", "public; max-age: 300");
+        response.setHeader("Pragma", "");
+        Date date = new Date();
+        response.setDateHeader("Expires", date.getTime() + 300);
+
 
         return super.handleRequestInternal(request, response);
     }
