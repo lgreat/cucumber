@@ -1,15 +1,13 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ContentBoxViewController.java,v 1.2 2006/05/02 20:57:05 apeterson Exp $
+ * $Id: ContentBoxViewController.java,v 1.3 2006/05/02 20:57:31 apeterson Exp $
  */
 
 package gs.web.content;
 
-import org.springframework.web.servlet.mvc.ParameterizableViewController;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.view.InternalResourceView;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,13 +31,17 @@ public class ContentBoxViewController extends ParameterizableViewController {
 
         // This looks like this:
         //     /gs-web/content/box/v1/CA/articleName.page
-        uri = uri.replaceAll(".page","");
+        uri = uri.replaceAll(".page", "");
         //     /gs-web/content/box/v1/CA/articleName
         String[] s = StringUtils.split(uri, '/');
-        String articleName = s[s.length-1];
-        String stateStr = s[s.length -2];
+        String articleName = s[s.length - 1];
+        String stateStr = s[s.length - 2];
 
-        request.setAttribute(MODEL_PERL_PAGE, "http://"+request.getServerName()+"/content/box/"+articleName+".html");
+        request.setAttribute(MODEL_PERL_PAGE, "http://" +
+                request.getServerName() +
+                "/content/box/" +
+                articleName +
+                ".html");
         request.setAttribute(MODEL_STATE_ABBREV, stateStr);
 
         // Allow caching
