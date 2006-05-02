@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ContentBoxViewController.java,v 1.3 2006/05/02 20:57:31 apeterson Exp $
+ * $Id: ContentBoxViewController.java,v 1.4 2006/05/02 22:47:57 apeterson Exp $
  */
 
 package gs.web.content;
@@ -39,16 +39,17 @@ public class ContentBoxViewController extends ParameterizableViewController {
 
         request.setAttribute(MODEL_PERL_PAGE, "http://" +
                 request.getServerName() +
+                //"dev.greatschools.net" +
                 "/content/box/" +
                 articleName +
                 ".html");
         request.setAttribute(MODEL_STATE_ABBREV, stateStr);
 
         // Allow caching
-        response.setHeader("Cache-Control", "public; max-age: 300");
+        response.setHeader("Cache-Control", "public; max-age: 600");
         response.setHeader("Pragma", "");
         Date date = new Date();
-        response.setDateHeader("Expires", date.getTime() + 300);
+        response.setDateHeader("Expires", date.getTime() + 600000);
 
 
         return super.handleRequestInternal(request, response);
