@@ -13,11 +13,10 @@
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
     <jsp:directive.page contentType="text/html"/>
-
     <c:set var="t">
-    <c:import url="http://apeterson.dev.greatschools.net/content/box/${param.name}.html" />
+    <c:import url="${requestScope.framedUri}" />
     </c:set>
-    <c:out value="${fn:replace(t,'$STATE',param.state)}" escapeXml="false"/>
+    <c:out value="${fn:replace(t,'$STATE',requestScope.stateAbbrev)}" escapeXml="false"/>
 
     <!--
 

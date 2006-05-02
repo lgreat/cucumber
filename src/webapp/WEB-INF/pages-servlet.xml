@@ -492,8 +492,16 @@
         </property>
     </bean>
 
-    <bean name="/content/box/v1/*.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+    <!--
+        "v1" is here so that we can easily update to newer versions
+        of this.
+        "*" should be:
+        <code>$STATE/pagename</code>
+        where
+        pagename matches something on the perl side.
+    -->
+    <bean name="/content/box/v1/*/*.page"
+          class="gs.web.content.ContentBoxViewController"
           autowire="byName">
          <property name="viewName">
             <value>content/box</value>
