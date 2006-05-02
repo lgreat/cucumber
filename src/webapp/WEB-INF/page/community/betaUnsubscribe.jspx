@@ -3,20 +3,18 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:spring="http://www.springframework.org/tags"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
     <jsp:directive.page contentType="text/html"/>
     <html>
     <head>
         <title>Beta Unsubscribe</title>
-        <gsml:url var="betacss" value="/res/css/community/beta.css"/>
-        <link rel="stylesheet" href="${betacss}" type="text/css" media="screen"/>
+        <pageHelper:externalCss file="/res/css/community/beta.css"/>
     </head>
 
     <body>
     <div class="content">
-        <span class="listheader">Unsubscribe from the GreatSchools Beta Group</span>
-        <br/>
-
+        <h4>Unsubscribe from the GreatSchools beta group</h4>
         <br/>
         <center>
             <div class="formtext">To unsubscribe from our beta group, please enter your email address:</div>
@@ -34,6 +32,7 @@
                 </spring:bind>
             </gsml:form>
         </center>
+        <br/>
     </div>
     <mod:tracking pageType="beta" pageName="Beta Unsubscribe" hier1="Community,Beta Group,Beta Unsubscribe"/>
     </body>

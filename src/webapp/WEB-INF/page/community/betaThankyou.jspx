@@ -2,13 +2,13 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
           xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
     <jsp:directive.page contentType="text/html"/>
     <html>
     <head>
         <title>Thank you</title>
-        <gsml:url var="betacss" value="/res/css/community/beta.css"/>
-        <link rel="stylesheet" href="${betacss}" type="text/css" media="screen"/>
+        <pageHelper:externalCss file="/res/css/community/beta.css"/>
     </head>
     <body>
     <div class="content">
@@ -20,12 +20,12 @@
                 Return to GreatSchools.net home
             </gsml:a>
             <br/><br/>
-            <link:newsletterCenter email="${email}">Sign up for our newsletters.</link:newsletterCenter>
+            <gsml:a href="/community/betaUnsubscribe.page?email=${email}">Remove me from the GreatSchools beta group</gsml:a>
+            <br/><br/>
+            <gsml:a href="/cgi-bin/newsletterSubscribe?email=${email}">Sign up for our newsletters.</gsml:a>
             GreatSchools produces a family of free email newsletters to help your child
             succeed in school.  Choose newsletters for your child's school or your child's
             grade.
-            <br/><br/>
-            <gsml:a href="/community/betaUnsubscribe.page?email=${email}">Unsubscribe</gsml:a>
             <br/>
             <br/>
         </div>

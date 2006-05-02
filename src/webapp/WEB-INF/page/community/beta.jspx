@@ -3,13 +3,13 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:spring="http://www.springframework.org/tags"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
     <jsp:directive.page contentType="text/html"/>
     <html>
     <head>
         <title>GreatSchools.net Beta Signup</title>
-        <gsml:url var="betacss" value="/res/css/community/beta.css"/>
-        <link rel="stylesheet" href="${betacss}" type="text/css" media="screen"/>
+        <pageHelper:externalCss file="/res/css/community/beta.css"/>
     </head>
 
     <body>
@@ -48,7 +48,8 @@
                     </c:if>
                 </spring:bind>
             </gsml:form>
-            <h6>We value your privacy. <gsml:a href="/about/privacyStatement.page?state=$STATE">Privacy Policy</gsml:a></h6>
+            <h6>We won't sell or share your address. <gsml:popupWindow width="800" height="600" left="50" top="50"
+                    href="/about/privacyStatement.page?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></h6>
         </center>
     </div>
     <mod:tracking pageType="beta" pageName="Beta Sign Up" hier1="Community,Beta Group,Beta Sign Up"/>

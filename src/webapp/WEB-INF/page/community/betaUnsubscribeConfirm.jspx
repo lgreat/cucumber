@@ -1,17 +1,17 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
     <jsp:directive.page contentType="text/html"/>
     <html>
     <head>
         <title>Beta Unsubscribe Confirmation</title>
-        <gsml:url var="betacss" value="/res/css/community/beta.css"/>
-        <link rel="stylesheet" href="${betacss}" type="text/css" media="screen"/>
+        <pageHelper:externalCss file="/res/css/community/beta.css"/>
     </head>
     <body>
     <div class="content">
-        Thank you! You have been unsubscribed from our beta group.
+        Thank you! You have been removed from our beta group.
         <br/><br/>
         <gsml:a href="http://www.greatschools.net">
             <span class="betalink">Return to GreatSchools home</span>

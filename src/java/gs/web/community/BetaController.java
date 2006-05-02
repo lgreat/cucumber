@@ -89,9 +89,9 @@ public class BetaController extends SimpleFormController {
         messageBuffer.append("As a member of our beta group, you'll have the opportunity to take these new features<br/>");
         messageBuffer.append("on a test drive - and tell us what you think about them.<br/>");
         messageBuffer.append("Here's how it works:");
-        messageBuffer.append("<ul><li>We'll notify you occasionally about new features before they're released.</li>");
+        messageBuffer.append("<ul><li>We'll notify you occasionally about new features before they're released.</li><br/>");
         messageBuffer.append("<li>If you decide to try them, we may ask you to fill out a short survey or provide us<br/>");
-        messageBuffer.append("with feedback about your experience after you're done.</ul>");
+        messageBuffer.append("with feedback about your experience after you're done.</ul><br/>");
         messageBuffer.append("You'll have the opportunity to decide before each beta test whether or not you'd<br/>");
         messageBuffer.append("like to participate.");
         messageBuffer.append("<br/><br/>Thanks so much for your help!  Together, we can build great tools for parents!");
@@ -100,14 +100,19 @@ public class BetaController extends SimpleFormController {
         messageBuffer.append("GreatSchools is an independant nonprofit organization that has been improving K-12<br/> ");
         messageBuffer.append("education since 1998 by inspiring parents like you to get involved.  Learn more at<br/>");
         messageBuffer.append("<a href=\"http://www.greatschools.net/?cpn=beta\">GreatSchools.net</a>");
+
+        messageBuffer.append("<br/><br/>This email was sent to GreatSchools.net subscriber ");
+        messageBuffer.append(email);
+        messageBuffer.append("<br/><br/>");
+        messageBuffer.append("GreatSchools.net<br/>301 Howard St., Suite 1440<br/>San Francisco, CA 94105");
         messageBuffer.append("<br/><br/><a href=\"http://www.greatschools.net/community/betaUnsubscribe.page?email=");
         messageBuffer.append(email);
-        messageBuffer.append("\">Please click here to unsubscribe</a>");
+        messageBuffer.append("\">Remove me from the GreatSchools beta group</a>");
 
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
         helper.setTo(email);
         try {
-            helper.setFrom("beta@greatschools.net", "GreatSchools.net");
+            helper.setFrom("beta@greatschools.net", "GreatSchools");
         } catch (UnsupportedEncodingException uee) {
             helper.setFrom("beta@greatschools.net");
         }
