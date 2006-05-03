@@ -215,10 +215,13 @@ public class AuthorizersController extends AbstractController {
 
     private static Map getDemandData(ICharterSchoolInfo info) {
         Map demandData = null;
-        //if (info.getDemand() > -1) {
         if (StringUtils.isNotEmpty(info.getDemand())) {
             if (demandData == null) { demandData = new ListOrderedMap(); }
-            demandData.put("Demand", info.getDemand());
+            String demand = info.getDemand();
+            if (demand != null && (demand.indexOf("%") == -1)) {
+                demand = demand + "%";
+            }
+            demandData.put("Demand", demand);
         }
 
         if (info.getWaitlist() != -1) {
