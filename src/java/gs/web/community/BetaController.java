@@ -88,7 +88,7 @@ public class BetaController extends SimpleFormController {
         messageBuffer.append("new features on GreatSchools, including powerful community features, exclusive school<br/>");
         messageBuffer.append("ratings, and more!<br/><br/>");
         messageBuffer.append("As a member of our beta group, you'll have the opportunity to take these new features<br/>");
-        messageBuffer.append("on a test drive - and tell us what you think about them.<br/>");
+        messageBuffer.append("on a test drive - and tell us what you think about them.<br/><br/>");
         messageBuffer.append("Here's how it works:");
         messageBuffer.append("<ul><li>We'll notify you occasionally about new features before they're released.</li><br/>");
         messageBuffer.append("<li>If you decide to try them, we may ask you to fill out a short survey or provide us<br/>");
