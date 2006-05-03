@@ -111,7 +111,28 @@
                 This currently pre-populates the email address for signing up for mailings.</description>
         </attribute>
     </tag>
-
-
+    <tag>
+        <name>privacyPolicy</name>
+        <tag-class>gs.web.jsp.link.PrivacyPolicyTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Privacy Policy</display-name>
+        <description>
+            <![CDATA[Link to our privacy policy.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+    </tag>
 </taglib>
 

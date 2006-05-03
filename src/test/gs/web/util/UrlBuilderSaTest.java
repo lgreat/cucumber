@@ -1,16 +1,16 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.17 2006/04/28 05:35:20 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.18 2006/05/03 19:34:42 dlee Exp $
  */
 
 package gs.web.util;
 
 import gs.data.content.Article;
+import gs.data.geo.ICity;
+import gs.data.geo.LatLon;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.state.State;
-import gs.data.geo.ICity;
-import gs.data.geo.LatLon;
 import gs.web.GsMockHttpServletRequest;
 import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
@@ -259,5 +259,7 @@ public class UrlBuilderSaTest extends TestCase {
         builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.WY, "Xyz");
         assertEquals("/schools.page?city=Xyz&state=WY", builder.asSiteRelative(request));
 
+        builder = new UrlBuilder(UrlBuilder.PRIVACY_POLICY, State.WY, "Xyz");
+        assertEquals("/about/privacyStatement.page?state=WY", builder.asSiteRelative(request));
     }
 }

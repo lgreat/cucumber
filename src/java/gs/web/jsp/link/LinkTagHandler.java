@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandler.java,v 1.1 2006/04/27 22:53:47 apeterson Exp $
+ * $Id: LinkTagHandler.java,v 1.2 2006/05/03 19:34:42 dlee Exp $
  */
 
 package gs.web.jsp.link;
@@ -35,6 +35,7 @@ import java.io.IOException;
 public abstract class LinkTagHandler extends TagSupport {
     protected final Logger _log = Logger.getLogger(this.getClass());
     private String _styleClass;
+    private String _target;
 
     /**
      * Create a UrlBuilder object pointing to the correct page.
@@ -116,6 +117,12 @@ public abstract class LinkTagHandler extends TagSupport {
             pageContext.getOut().print("\"");
         }
 
+        if (StringUtils.isNotEmpty(_target)) {
+            pageContext.getOut().print(" target=\"");
+            pageContext.getOut().print(_target);
+            pageContext.getOut().print("\"");
+        }
+
         pageContext.getOut().print(" href=\"");
         pageContext.getOut().print(builder.asSiteRelativeXml((HttpServletRequest) pageContext.getRequest()));
         pageContext.getOut().print("\"");
@@ -152,5 +159,13 @@ public abstract class LinkTagHandler extends TagSupport {
 
     public void setStyleClass(String styleClass) {
         _styleClass = styleClass;
+    }
+
+    public String getTarget() {
+        return _target;
+    }
+
+    public void setTarget(String target) {
+        _target = target;
     }
 }
