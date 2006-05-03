@@ -51,10 +51,10 @@
                     <c:if test="${showRank}">
                         <th>Rank</th>
                     </c:if>
-                    <th>City</th><th>County</th><th>Median Home Price</th><th>Average
-                    API Rank</th><th># schools serving elementary grades</th><th># schools serving
+                    <th>City</th><!--th>County</th--><th>Median Home Price</th><th>Average
+                    API Rank</th><!--th># schools serving elementary grades</th><th># schools serving
                     middle school grades</th><th># schools serving
-                    high school grades</th><th>Find schools</th>
+                    high school grades</th><th>Find schools</th-->
                 </tr>
                 <c:set var="i" value="1"/>
                 <c:forEach items="${cities}" var="city">
@@ -63,17 +63,17 @@
                             <td class="rank">${city.rank}</td>
                         </c:if>
                         <td class="name"><gsml:a href="${city.cityPageHref}">${city.cityName}</gsml:a></td>
-                        <td class="county">${city.countyName}</td>
+                        <!--<td class="county">${city.countyName}</td>-->
                         <td class="medianHomePrice">$<fmt:formatNumber value="${city.medianHomePrice}"
                                                                        maxFractionDigits="0"/></td>
                         <td class="averageApiRank"><fmt:formatNumber value="${city.averageApiRank}"
-                                                                     minFractionDigits="2"
-                                                                     maxFractionDigits="2"/></td>
-                        <td class="e">${city.elementarySchoolsCount}</td>
-                        <td class="m">${city.middleSchoolsCount}</td>
-                        <td class="h">${city.highSchoolsCount}</td>
-                        <td class="link"><gsml:a href="${city.schoolsPageHref}">Browse ${city.cityName} schools</gsml:a>
-                        </td>
+                                                                     minFractionDigits="1"
+                                                                     maxFractionDigits="1"/></td>
+                        <!--<td class="e">${city.elementarySchoolsCount}</td>-->
+                        <!--<td class="m">${city.middleSchoolsCount}</td>-->
+                        <!--<td class="h">${city.highSchoolsCount}</td>-->
+                        <!--<td class="link"><gsml:a href="${city.schoolsPageHref}">Browse ${city.cityName} schools</gsml:a>-->
+                        <!--</td>-->
                     </tr>
                     <c:set var="i" value="${i + 1}"/>
                 </c:forEach>

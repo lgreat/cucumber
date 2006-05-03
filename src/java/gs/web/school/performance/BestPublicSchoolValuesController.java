@@ -1,16 +1,16 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.13 2006/04/28 06:00:53 apeterson Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.14 2006/05/03 22:45:28 apeterson Exp $
  */
 
 package gs.web.school.performance;
 
+import gs.data.content.Article;
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.LatLon;
 import gs.data.state.State;
 import gs.data.util.SpringUtil;
-import gs.data.content.Article;
 import gs.web.ISessionFacade;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
@@ -21,11 +21,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -39,7 +41,7 @@ import java.util.List;
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
-public class BestPublicSchoolValuesController extends AbstractController {
+public class BestPublicSchoolValuesController extends ParameterizableViewController {
 
     private static final String PARAM_LIMIT = "limit";
     private static final String PARAM_METRO = "metro"; // ignored for now, but passed for forward compatibility
@@ -91,142 +93,12 @@ public class BestPublicSchoolValuesController extends AbstractController {
     }
 
     static List _citiesOfValue;
-    static List _citiesNotMatchingCriteria;
+    static List _citiesNotMatchingApiCriteria;
+    static List _citiesTooSmall;
+    static List _citiesMissingData;
+    static List _allCities;
 
     private static final Log _log = LogFactory.getLog(BestPublicSchoolValuesController.class);
-
-    private static synchronized void initializeCities() {
-
-        /*
-        Note: I used these regex to convert from the excel spreadsheet to this form:
-        ^([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]+)$
-
-                values.add(new Bpsv("\1","\2",\3,\4,\5,\6,\7,\8,\9,\10,\11,"\12"));
-
-                NOTE: make sure home values don't have commas, and make sure school counts have 0s and not empty cells.
-        */
-        _citiesOfValue = new ArrayList();
-        _citiesOfValue.add(new Bpsv("Albany", "Alameda", 595000, 88, 10.00, 11.3, 6, 3, 1, 2, 671000));
-        _citiesOfValue.add(new Bpsv("Walnut Creek", "Contra Costa", 624100, 92, 9.89, 10.7, 15, 9, 2, 4, 625200));
-        _citiesOfValue.add(new Bpsv("Benicia", "Solano", 579500, 86, 8.96, 10.4, 8, 5, 1, 2, 632000));
-        _citiesOfValue.add(new Bpsv("Martinez", "Contra Costa", 511000, 76, 7.53, 9.9, 10, 6, 3, 4, 515000));
-        _citiesOfValue.add(new Bpsv("Pleasant Hill", "Contra Costa", 619000, 92, 8.52, 9.3, 12, 7, 4, 3, 603000));
-        _citiesOfValue.add(new Bpsv("Dublin", "Alameda", 640000, 95, 8.68, 9.2, 9, 6, 2, 2, 630000));
-        _citiesOfValue.add(new Bpsv("Livermore", "Alameda", 599400, 89, 8.02, 9.0, 20, 12, 7, 5, 610000));
-        _citiesOfValue.add(new Bpsv("Fairfax", "Marin", 725000, 107, 9.66, 9.0, 2, 1, 1, 0, 770900));
-        _citiesOfValue.add(new Bpsv("Castro Valley", "Alameda", 637400, 94, 8.46, 9.0, 15, 10, 2, 3, 670000));
-        _citiesOfValue.add(new Bpsv("San Ramon", "Contra Costa", 750000, 111, 9.91, 8.9, 15, 11, 4, 2, 712000));
-        _citiesOfValue.add(new Bpsv("Fremont", "Alameda", 656700, 97, 8.57, 8.8, 41, 29, 8, 8, 618000));
-        _citiesOfValue.add(new Bpsv("Clayton", "Contra Costa", 770000, 114, 10.00, 8.8, 2, 1, 1, 0, 828400));
-        _citiesOfValue.add(new Bpsv("Palo Alto", "Santa Clara", 773600, 115, 9.94, 8.7, 16, 11, 4, 3, 1073300));
-        _citiesOfValue.add(new Bpsv("Pleasanton", "Alameda", 774900, 115, 9.95, 8.7, 15, 9, 3, 3, 820000));
-        _citiesOfValue.add(new Bpsv("Milpitas", "Santa Clara", 605000, 90, 7.71, 8.6, 14, 9, 3, 3, 655500));
-        _citiesOfValue.add(new Bpsv("Foster City", "San Mateo", 783300, 116, 9.81, 8.5, 4, 3, 1, 0, 840800));
-        _citiesOfValue.add(new Bpsv("Petaluma", "Sonoma", 607200, 90, 7.51, 8.3, 33, 24, 6, 6, 634000));
-        _citiesOfValue.add(new Bpsv("Piedmont", "Alameda", 814000, 121, 10.00, 8.3, 6, 3, 1, 2, 1471300));
-        _citiesOfValue.add(new Bpsv("Moraga", "Contra Costa", 820000, 121, 10.00, 8.2, 5, 3, 1, 1, 821200));
-        _citiesOfValue.add(new Bpsv("Novato", "Marin", 712600, 106, 8.54, 8.1, 17, 10, 5, 5, 685000));
-        _citiesOfValue.add(new Bpsv("Alameda", "Alameda", 658200, 98, 7.77, 8.0, 21, 12, 5, 6, 675200));
-        _citiesOfValue.add(new Bpsv("San Anselmo", "Marin", 875000, 130, 10.00, 7.7, 3, 2, 0, 1, 985900));
-        _citiesOfValue.add(new Bpsv("Sebastopol", "Sonoma", 687000, 102, 7.82, 7.7, 14, 9, 7, 3, 817600));
-        _citiesOfValue.add(new Bpsv("Kensington", "Alameda", 890450, 132, 10.00, 7.6, 1, 1, 0, 0, 920600));
-        _citiesOfValue.add(new Bpsv("Brisbane", "San Mateo", 673500, 100, 7.50, 7.5, 2, 1, 1, 0, 741200));
-        _citiesOfValue.add(new Bpsv("Glen Ellen", "Sonoma", 630000, 93, 7.00, 7.5, 1, 1, 0, 0, 893900));
-        _citiesOfValue.add(new Bpsv("Pacifica", "San Mateo", 685000, 101, 7.57, 7.5, 9, 6, 5, 2, 671000));
-        _citiesOfValue.add(new Bpsv("Mountain View", "Santa Clara", 718000, 106, 7.89, 7.4, 12, 8, 2, 2, 664800));
-        _citiesOfValue.add(new Bpsv("Cupertino", "Santa Clara", 901000, 133, 9.88, 7.4, 15, 9, 3, 3, 924000));
-        _citiesOfValue.add(new Bpsv("Corte Madera", "Marin", 917300, 136, 10.00, 7.4, 1, 1, 0, 0, 957200));
-        _citiesOfValue.add(new Bpsv("San Carlos", "San Mateo", 900000, 133, 9.61, 7.2, 7, 5, 3, 0, 826000));
-        _citiesOfValue.add(new Bpsv("Sunnyvale", "Santa Clara", 705300, 104, 7.45, 7.1, 20, 13, 5, 2, 660000));
-        _citiesOfValue.add(new Bpsv("Yountville", "Napa", 859000, 127, 9.00, 7.1, 1, 1, 0, 0, 807300));
-        _citiesOfValue.add(new Bpsv("Millbrae", "San Mateo", 900000, 133, 9.27, 7.0, 5, 3, 1, 1, 1076300));
-        _citiesOfValue.add(new Bpsv("Belmont", "San Mateo", 890000, 132, 8.97, 6.8, 6, 4, 1, 1, 855000));
-        _citiesOfValue.add(new Bpsv("San Rafael", "Marin", 770600, 114, 7.25, 6.4, 17, 11, 4, 5, 685800));
-        _citiesOfValue.add(new Bpsv("San Mateo", "San Mateo", 778500, 115, 7.06, 6.1, 19, 13, 3, 3, 747500));
-        _citiesOfValue.add(new Bpsv("Half Moon Bay", "San Mateo", 806500, 119, 7.00, 5.9, 5, 2, 1, 2, 921500));
-
-
-
-        BestPublicSchoolValuesController._citiesNotMatchingCriteria = new ArrayList();
-        _citiesNotMatchingCriteria.add(new Bpsv("Alamo", "Contra Costa", 1392500, 206, 10.00, 4.8, 4, 3, 2, 1, 1553500));
-        _citiesNotMatchingCriteria.add(new Bpsv("American Canyon", "Solano", 634100, 94, 6.31, 6.7, 5, 3, 2, 0, 556800));
-        _citiesNotMatchingCriteria.add(new Bpsv("Angwin", "Napa", 971000, 144, 8.00, 5.6, 1, 1, 1, 0, 689800));
-        _citiesNotMatchingCriteria.add(new Bpsv("Antioch", "Contra Costa", 496300, 74, 4.99, 6.8, 24, 16, 8, 5, 520000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Atherton", "San Mateo", 2275000, 337, 7.51, 2.2, 5, 4, 1, 1, 1676500));
-        _citiesNotMatchingCriteria.add(new Bpsv("Berkeley", "Alameda", 730100, 108, 6.37, 5.9, 16, 11, 3, 2, 730000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Bolinas", "Marin", 1063800, 158, 8.00, 5.1, 1, 1, 1, 0, 833800));
-        _citiesNotMatchingCriteria.add(new Bpsv("Brentwood", "Contra Costa", 605500, 90, 6.83, 7.6, 14, 8, 3, 5, 685000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Burlingame", "San Mateo", 1325000, 196, 8.91, 4.5, 7, 5, 1, 1, 1593400));
-        _citiesNotMatchingCriteria.add(new Bpsv("Calistoga", "Napa", 615000, 91, 3.85, 4.2, 3, 1, 1, 2, 724000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Campbell", "Santa Clara", 645000, 96, 5.83, 6.1, 6, 4, 1, 1, 695000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Cloverdale", "Sonoma", 499000, 74, 5.00, 6.8, 4, 2, 1, 2, 588900));
-        _citiesNotMatchingCriteria.add(new Bpsv("Colma", "San Mateo", 717600, 106, 6.00, 5.6, 2, 1, 1, 0, 630400));
-        _citiesNotMatchingCriteria.add(new Bpsv("Concord", "Contra Costa", 504000, 75, 4.81, 6.4, 29, 16, 6, 10, 540000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Cotati", "Sonoma", 530000, 79, 6.00, 7.6, 1, 1, 0, 0, 640200));
-        _citiesNotMatchingCriteria.add(new Bpsv("Crockett", "Contra Costa", 551000, 82, 4.38, 5.4, 3, 1, 2, 2, 553100));
-        _citiesNotMatchingCriteria.add(new Bpsv("Daly City", "San Mateo", 675300, 100, 5.72, 5.7, 20, 15, 3, 3, 670000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Danville", "Contra Costa", 984700, 146, 10.00, 6.9, 13, 7, 3, 3, 960000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Dixon", "Solano", 469000, 69, 4.88, 7.0, 9, 5, 2, 3, 465000));
-        _citiesNotMatchingCriteria.add(new Bpsv("East Palo Alto", "San Mateo", 616700, 91, 2.75, 3.0, 8, 7, 6, 0, 616400));
-        _citiesNotMatchingCriteria.add(new Bpsv("El Cerrito", "Contra Costa", 616500, 91, 4.52, 5.0, 6, 4, 1, 1, 733000));
-        _citiesNotMatchingCriteria.add(new Bpsv("El Sobrante", "Contra Costa", 520000, 77, 4.05, 5.3, 4, 3, 1, 0, 546700));
-        _citiesNotMatchingCriteria.add(new Bpsv("Emeryville", "Alameda", 440000, 65, 3.08, 4.7, 2, 1, 1, 1, 460000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Fairfield", "Solano", 459400, 68, 5.71, 8.4, 29, 14, 9, 10, 465000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Forestville", "Sonoma", 420000, 62, 6.80, 10.9, 4, 1, 1, 3, 655700));
-        _citiesNotMatchingCriteria.add(new Bpsv("Gilroy", "Santa Clara", 675000, 100, 4.98, 5.0, 15, 8, 4, 4, 690000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Guerneville", "Sonoma", 370000, 55, 7.00, 12.8, 2, 1, 2, 0, 641200));
-        _citiesNotMatchingCriteria.add(new Bpsv("Hayward", "Alameda", 535300, 79, 3.61, 4.6, 39, 27, 10, 8, 545000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Healdsburg", "Sonoma", 575000, 85, 5.97, 7.0, 7, 4, 1, 2, 652900));
-        _citiesNotMatchingCriteria.add(new Bpsv("Hercules", "Contra Costa", 480000, 71, 6.38, 9.0, 5, 3, 1, 1, 525000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Hillsborough", "San Mateo", 1471700, 218, 10.00, 4.6, 4, 3, 1, 0, 2846500));
-        _citiesNotMatchingCriteria.add(new Bpsv("Kentfield", "Marin", 1777000, 263, 10.00, 3.8, 2, 1, 1, 0, 1506200));
-        _citiesNotMatchingCriteria.add(new Bpsv("Lafayette", "Contra Costa", 997000, 148, 10.00, 6.8, 6, 4, 1, 1, 1197800));
-        _citiesNotMatchingCriteria.add(new Bpsv("Larkspur", "Marin", 1185000, 176, 9.94, 5.7, 4, 0, 1, 3, 1259800));
-        _citiesNotMatchingCriteria.add(new Bpsv("Los Altos", "Santa Clara", 1547200, 229, 9.71, 4.2, 10, 7, 2, 1, 1427500));
-        _citiesNotMatchingCriteria.add(new Bpsv("Los Gatos", "Santa Clara", 1065800, 158, 9.72, 6.2, 10, 6, 3, 1, 972500));
-        _citiesNotMatchingCriteria.add(new Bpsv("Menlo Park", "San Mateo", 973400, 144, 5.40, 3.7, 8, 7, 7, 1, 1020500));
-        _citiesNotMatchingCriteria.add(new Bpsv("Mill Valley", "Marin", 992500, 147, 10.00, 6.8, 7, 5, 1, 1, 918000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Montara", "San Mateo", 776500, 115, 6.00, 5.2, 1, 1, 0, 0, 868600));
-        _citiesNotMatchingCriteria.add(new Bpsv("Monte Rio", "Sonoma", 512600, 76, 5.00, 6.6, 1, 1, 1, 0, 539600));
-        _citiesNotMatchingCriteria.add(new Bpsv("Morgan Hill", "Santa Clara", 725000, 107, 6.92, 6.4, 12, 8, 4, 4, 795000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Napa", "Napa", 569800, 84, 5.66, 6.7, 34, 24, 8, 7, 544000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Newark", "Alameda", 593000, 88, 5.20, 5.9, 16, 11, 5, 6, 588000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Oakland", "Alameda", 481700, 71, 3.19, 4.5, 127, 73, 40, 32, 500000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Oakley", "Contra Costa", 465000, 69, 5.89, 8.5, 7, 4, 2, 1, 501000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Occidental", "Sonoma", 1027200, 152, 8.07, 5.3, 2, 1, 1, 0, 825700));
-        _citiesNotMatchingCriteria.add(new Bpsv("Orinda", "Contra Costa", 1116500, 165, 10.00, 6.0, 6, 4, 1, 1, 1151700));
-        _citiesNotMatchingCriteria.add(new Bpsv("Pinole", "Contra Costa", 530000, 79, 4.45, 5.7, 7, 4, 2, 2, 545000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Pittsburg", "Contra Costa", 435000, 64, 2.71, 4.2, 17, 12, 4, 4, 452500));
-        _citiesNotMatchingCriteria.add(new Bpsv("Portola Valley", "San Mateo", 3857100, 571, 10.00, 1.8, 2, 2, 1, 0, 1684300));
-        _citiesNotMatchingCriteria.add(new Bpsv("Redwood City", "San Mateo", 712900, 106, 5.17, 4.9, 20, 15, 8, 5, 710000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Richmond", "Contra Costa", 418400, 62, 2.40, 3.9, 29, 18, 3, 8, 439000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Rio Vista", "Solano", 399000, 59, 4.56, 7.7, 3, 1, 1, 1, 386000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Rodeo", "Contra Costa", 511000, 76, 3.00, 4.0, 1, 1, 0, 0, 540600));
-        _citiesNotMatchingCriteria.add(new Bpsv("Rohnert Park", "Sonoma", 490000, 73, 6.38, 8.8, 14, 8, 4, 4, 507000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Ross", "Marin", 2585000, 383, 10.00, 2.6, 1, 1, 1, 0, 1620800));
-        _citiesNotMatchingCriteria.add(new Bpsv("San Bruno", "San Mateo", 665000, 99, 6.90, 7.0, 13, 9, 1, 3, 680000));
-        _citiesNotMatchingCriteria.add(new Bpsv("San Francisco", "San Francisco", 779300, 115, 6.18, 5.4, 125, 78, 29, 30, 750000));
-        _citiesNotMatchingCriteria.add(new Bpsv("San Jose", "Santa Clara", 622200, 92, 6.22, 6.8, 220, 134, 47, 51, 645000));
-        _citiesNotMatchingCriteria.add(new Bpsv("San Leandro", "Alameda", 526600, 78, 4.66, 6.0, 16, 10, 4, 3, 547000));
-        _citiesNotMatchingCriteria.add(new Bpsv("San Lorenzo", "Alameda", 540000, 80, 3.87, 4.8, 10, 6, 3, 2, 555000));
-        _citiesNotMatchingCriteria.add(new Bpsv("San Martin", "Santa Clara", 890000, 132, 4.00, 3.0, 1, 1, 0, 0, 955300));
-        _citiesNotMatchingCriteria.add(new Bpsv("San Pablo", "Contra Costa", 440000, 65, 1.67, 2.6, 11, 8, 3, 4, 488200));
-        _citiesNotMatchingCriteria.add(new Bpsv("Santa Clara", "Santa Clara", 622900, 92, 6.43, 7.0, 20, 15, 3, 4, 675000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Santa Rosa", "Sonoma", 533500, 79, 6.44, 8.1, 69, 44, 20, 16, 519000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Saratoga", "Santa Clara", 1367000, 203, 9.35, 4.6, 9, 6, 3, 2, 1455000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Sausalito", "Marin", 750000, 111, 4.00, 3.6, 2, 2, 1, 0, 818000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Sonoma", "Sonoma", 618000, 92, 5.61, 6.1, 12, 7, 5, 4, 699000));
-        _citiesNotMatchingCriteria.add(new Bpsv("South San Francisco", "San Mateo", 685000, 101, 6.35, 6.3, 12, 6, 4, 3, 720000));
-        _citiesNotMatchingCriteria.add(new Bpsv("St. Helena", "Napa", 844500, 125, 6.73, 5.4, 5, 2, 1, 2, 1047200));
-        _citiesNotMatchingCriteria.add(new Bpsv("Stanford", "Santa Clara", 1827350, 271, 10.00, 3.7, 2, 2, 0, 0, 1560100));
-        _citiesNotMatchingCriteria.add(new Bpsv("Suisun City", "Solano", 425000, 63, 5.34, 8.5, 3, 2, 1, 0, 439500));
-        _citiesNotMatchingCriteria.add(new Bpsv("Tiburon", "Marin", 1755000, 260, 10.00, 3.8, 3, 2, 1, 0, 1616100));
-        _citiesNotMatchingCriteria.add(new Bpsv("Union City", "Alameda", 617500, 91, 6.38, 7.0, 11, 7, 3, 1, 663000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Vacaville", "Solano", 438100, 65, 5.93, 9.1, 21, 13, 5, 7, 440000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Vallejo", "Solano", 423200, 63, 3.23, 5.1, 28, 17, 8, 7, 420000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Windsor", "Sonoma", 589500, 87, 6.13, 7.0, 6, 3, 2, 2, 602000));
-        _citiesNotMatchingCriteria.add(new Bpsv("Woodside", "San Mateo", 1040000, 154, 7.56, 4.9, 2, 1, 1, 1, 1146900));
-    }
 
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -256,7 +128,7 @@ public class BestPublicSchoolValuesController extends AbstractController {
         String belowClass = null;
         if (listBelowAverage) {
             subtitle = "Cities not meeting the API or median home price criteria";
-            values = _citiesNotMatchingCriteria;
+            values = _citiesNotMatchingApiCriteria;
             modelAndView.addObject(MODEL_SHOW_RANK, Boolean.FALSE);
             belowClass = "selected";
         } else {
@@ -425,5 +297,178 @@ public class BestPublicSchoolValuesController extends AbstractController {
             return _latLon;
         }
     }
+
+
+    private static synchronized void initializeCities() {
+
+        /*
+        Note: I used these regex to convert from the excel spreadsheet to this form:
+        ^([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]+)$
+
+                values.add(new Bpsv("\1","\2",\3,\4,\5,\6,\7,\8,\9,\10,\11,"\12"));
+
+                NOTE: make sure home values don't have commas, and make sure school counts have 0s and not empty cells.
+        */
+        _citiesOfValue = new ArrayList();
+        _citiesOfValue.add(new Bpsv("Albany", "Alameda", 590000, 88, 10.0, 11.4, 6, 3, 1, 2, 16216));
+        _citiesOfValue.add(new Bpsv("Walnut Creek", "Contra Costa", 644500, 96, 9.9, 10.3, 15, 9, 2, 4, 64822));
+        _citiesOfValue.add(new Bpsv("Benicia", "Solano", 600000, 90, 9.0, 10.0, 8, 5, 1, 2, 26828));
+        _citiesOfValue.add(new Bpsv("Martinez", "Contra Costa", 515500, 77, 7.5, 9.8, 10, 6, 3, 4, 36305));
+        _citiesOfValue.add(new Bpsv("Pleasant Hill", "Contra Costa", 616500, 92, 8.5, 9.3, 12, 7, 4, 3, 33529));
+        _citiesOfValue.add(new Bpsv("Dublin", "Alameda", 640000, 96, 8.7, 9.1, 9, 6, 2, 2, 36995));
+        _citiesOfValue.add(new Bpsv("Fremont", "Alameda", 635000, 95, 8.6, 9.0, 41, 29, 8, 8, 202373));
+        _citiesOfValue.add(new Bpsv("Livermore", "Alameda", 600000, 90, 8.0, 9.0, 20, 12, 7, 5, 77983));
+        _citiesOfValue.add(new Bpsv("Fairfax", "Marin", 723000, 108, 9.7, 8.9, 2, 1, 1, 0, 7159));
+        _citiesOfValue.add(new Bpsv("Castro Valley", "Alameda", 635000, 95, 8.5, 8.9, 15, 10, 2, 3, 58327));
+        _citiesOfValue.add(new Bpsv("Pleasanton", "Alameda", 758000, 113, 10.0, 8.8, 15, 9, 3, 3, 65951));
+        _citiesOfValue.add(new Bpsv("Clayton", "Contra Costa", 775000, 116, 10.0, 8.6, 2, 1, 1, 0, 11126));
+        _citiesOfValue.add(new Bpsv("Milpitas", "Santa Clara", 610000, 91, 7.7, 8.5, 14, 9, 3, 3, 62698));
+        _citiesOfValue.add(new Bpsv("Foster City", "San Mateo", 780000, 116, 9.8, 8.4, 4, 3, 1, 0, 28847));
+        _citiesOfValue.add(new Bpsv("Petaluma", "Sonoma", 605000, 90, 7.5, 8.3, 33, 24, 6, 6, 55359));
+        _citiesOfValue.add(new Bpsv("Kensington", "Alameda", 812500, 121, 10.0, 8.2, 1, 1, 0, 0, 5206));
+        _citiesOfValue.add(new Bpsv("Novato", "Marin", 701000, 105, 8.5, 8.2, 17, 10, 5, 5, 49238));
+        _citiesOfValue.add(new Bpsv("Moraga", "Contra Costa", 829000, 124, 10.0, 8.1, 5, 3, 1, 1, 16797));
+        _citiesOfValue.add(new Bpsv("Mountain View", "Santa Clara", 670000, 100, 7.9, 7.9, 12, 8, 2, 2, 69011));
+        _citiesOfValue.add(new Bpsv("Alameda", "Alameda", 669900, 100, 7.8, 7.8, 21, 12, 5, 6, 71136));
+        _citiesOfValue.add(new Bpsv("San Ramon", "Contra Costa", 855000, 128, 9.9, 7.8, 15, 11, 4, 2, 45616));
+        _citiesOfValue.add(new Bpsv("San Anselmo", "Marin", 876250, 131, 10.0, 7.6, 3, 2, 0, 1, 12110));
+        _citiesOfValue.add(new Bpsv("Sebastopol", "Sonoma", 690000, 103, 7.8, 7.6, 14, 9, 7, 3, 7685));
+        _citiesOfValue.add(new Bpsv("Pacifica", "San Mateo", 685000, 102, 7.6, 7.4, 9, 6, 5, 2, 37182));
+        _citiesOfValue.add(new Bpsv("Cupertino", "Santa Clara", 900000, 134, 9.9, 7.4, 15, 9, 3, 3, 51405));
+        _citiesOfValue.add(new Bpsv("Corte Madera", "Marin", 918500, 137, 10.0, 7.3, 1, 1, 0, 0, 9177));
+        _citiesOfValue.add(new Bpsv("Sunnyvale", "Santa Clara", 687500, 103, 7.5, 7.3, 20, 13, 5, 2, 128012));
+        _citiesOfValue.add(new Bpsv("San Carlos", "San Mateo", 900000, 134, 9.6, 7.2, 7, 5, 3, 0, 26915));
+        _citiesOfValue.add(new Bpsv("Los Gatos", "Santa Clara", 915000, 137, 9.7, 7.1, 10, 6, 3, 1, 27930));
+        _citiesOfValue.add(new Bpsv("Millbrae", "San Mateo", 894250, 133, 9.3, 6.9, 5, 3, 1, 1, 20419));
+        _citiesOfValue.add(new Bpsv("Palo Alto", "Santa Clara", 965000, 144, 9.9, 6.9, 16, 11, 4, 3, 56862));
+        _citiesOfValue.add(new Bpsv("Danville", "Contra Costa", 982000, 147, 10.0, 6.8, 13, 7, 3, 3, 42199));
+        _citiesOfValue.add(new Bpsv("Mill Valley", "Marin", 995000, 149, 10.0, 6.7, 7, 5, 1, 1, 13359));
+        _citiesOfValue.add(new Bpsv("Belmont", "San Mateo", 894000, 133, 9.0, 6.7, 6, 4, 1, 1, 24449));
+        _citiesOfValue.add(new Bpsv("Lafayette", "Contra Costa", 997000, 149, 10.0, 6.7, 6, 4, 1, 1, 24665));
+        _citiesOfValue.add(new Bpsv("San Rafael", "Marin", 753000, 112, 7.3, 6.5, 17, 11, 4, 5, 55560));
+        _citiesOfValue.add(new Bpsv("San Mateo", "San Mateo", 740000, 110, 7.1, 6.4, 19, 13, 3, 3, 91275));
+        _citiesOfValue.add(new Bpsv("Orinda", "Contra Costa", 1110000, 166, 10.0, 6.0, 6, 4, 1, 1, 18176));
+        _citiesOfValue.add(new Bpsv("Half Moon Bay", "San Mateo", 820000, 122, 7.0, 5.7, 5, 2, 1, 2, 12208));
+        _citiesOfValue.add(new Bpsv("Larkspur", "Marin", 1190000, 178, 9.9, 5.6, 4, 0, 1, 3, 11797));
+        _citiesOfValue.add(new Bpsv("Burlingame", "San Mateo", 1110000, 166, 8.9, 5.4, 7, 5, 1, 1, 27420));
+        _citiesOfValue.add(new Bpsv("Alamo", "Contra Costa", 1397000, 209, 10.0, 4.8, 4, 3, 2, 1, 16255));
+        _citiesOfValue.add(new Bpsv("Piedmont", "Alameda", 1400000, 209, 10.0, 4.8, 6, 3, 1, 2, 10713));
+        _citiesOfValue.add(new Bpsv("Saratoga", "Santa Clara", 1370000, 204, 9.3, 4.6, 9, 6, 3, 2, 29633));
+        _citiesOfValue.add(new Bpsv("Los Altos", "Santa Clara", 1535000, 229, 9.7, 4.2, 10, 7, 2, 1, 26992));
+        _citiesOfValue.add(new Bpsv("Kentfield", "Marin", 1600000, 239, 10.0, 4.2, 2, 1, 1, 0, 6335));
+        _citiesOfValue.add(new Bpsv("Tiburon", "Marin", 1717000, 256, 10.0, 3.9, 3, 2, 1, 0, 8691));
+        _citiesOfValue.add(new Bpsv("Woodside", "San Mateo", 1482500, 221, 7.6, 3.4, 2, 1, 1, 1, 5284));
+        _citiesOfValue.add(new Bpsv("Hillsborough", "San Mateo", 2450000, 366, 10.0, 2.7, 4, 3, 1, 0, 10600));
+        _citiesOfValue.add(new Bpsv("Atherton", "San Mateo", 2275000, 340, 7.5, 2.2, 5, 4, 1, 1, 7127));
+
+
+        _citiesNotMatchingApiCriteria = new ArrayList();
+        _citiesNotMatchingApiCriteria.add(new Bpsv("American Canyon", "Solano", 637705, 95, 6.3, 6.6, 5, 3, 2, 0, 13887));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Antioch", "Contra Costa", 490000, 73, 5.0, 6.8, 24, 16, 8, 5, 100923));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Berkeley", "Alameda", 690000, 103, 6.4, 6.2, 16, 11, 3, 2, 101517));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Brentwood", "Contra Costa", 621250, 93, 6.8, 7.4, 14, 8, 3, 5, 39827));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Byron", "Contra Costa", 610000, 91, 6.2, 6.8, 5, 3, 3, 1, -1));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Calistoga", "Napa", 625000, 93, 3.9, 4.1, 3, 1, 1, 2, 5207));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Campbell", "Santa Clara", 646250, 96, 5.8, 6.0, 6, 4, 1, 1, 37013));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Cloverdale", "Sonoma", 516750, 77, 5.0, 6.5, 4, 2, 1, 2, 7844));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Concord", "Contra Costa", 505000, 75, 4.8, 6.4, 29, 16, 6, 10, 124328));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Cotati", "Sonoma", 530000, 79, 6.0, 7.6, 1, 1, 0, 0, 7089));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Daly City", "San Mateo", 670000, 100, 5.7, 5.7, 20, 15, 3, 3, 100620));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Dixon", "Solano", 475000, 71, 4.9, 6.9, 9, 5, 2, 3, 16710));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("East Palo Alto", "San Mateo", 585000, 87, 2.8, 3.1, 8, 7, 6, 0, 32042));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("El Cerrito", "Contra Costa", 620000, 93, 4.5, 4.9, 6, 4, 1, 1, 23138));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("El Granada", "San Mateo", 775000, 116, 6.0, 5.2, 1, 1, 0, 0, 5714));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("El Sobrante", "Contra Costa", 491000, 73, 4.1, 5.5, 4, 3, 1, 0, 12458));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Emeryville", "Alameda", 408500, 61, 3.1, 5.1, 2, 1, 1, 1, 8023));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Fairfield", "Solano", 470000, 70, 5.7, 8.1, 29, 14, 9, 10, 103949));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Gilroy", "Santa Clara", 675000, 101, 5.0, 4.9, 15, 8, 4, 4, 44356));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Hayward", "Alameda", 535000, 80, 3.6, 4.5, 39, 27, 10, 8, 140795));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Healdsburg", "Sonoma", 583409, 87, 6.0, 6.9, 7, 4, 1, 2, 11130));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Hercules", "Contra Costa", 530000, 79, 6.4, 8.1, 5, 3, 1, 1, 23425));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Menlo Park", "San Mateo", 880000, 131, 5.4, 4.1, 8, 7, 7, 1, 29759));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Morgan Hill", "Santa Clara", 730500, 109, 6.9, 6.3, 12, 8, 4, 4, 34885));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Napa", "Napa", 565000, 84, 5.7, 6.7, 34, 24, 8, 7, 75465));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Newark", "Alameda", 595000, 89, 5.2, 5.9, 16, 11, 5, 6, 42511));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Oakland", "Alameda", 460000, 69, 3.2, 4.6, 127, 73, 40, 32, 397976));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Oakley", "Contra Costa", 465500, 69, 5.9, 8.5, 7, 4, 2, 1, 26818));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Pinole", "Contra Costa", 528000, 79, 4.4, 5.6, 7, 4, 2, 2, 19272));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Pittsburg", "Contra Costa", 441000, 66, 2.7, 4.1, 17, 12, 4, 4, 62600));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Redwood City", "San Mateo", 775000, 116, 5.2, 4.5, 20, 15, 8, 5, 73346));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Richmond", "Contra Costa", 435000, 65, 2.4, 3.7, 29, 18, 3, 8, 102318));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Rio Vista", "Solano", 392000, 59, 4.6, 7.8, 3, 1, 1, 1, 6556));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Rodeo", "Contra Costa", 507500, 76, 3.0, 4.0, 1, 1, 0, 0, 9310));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Rohnert Park", "Sonoma", 492500, 74, 6.4, 8.7, 14, 8, 4, 4, 41966));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("San Bruno", "San Mateo", 665000, 99, 6.9, 7.0, 13, 9, 1, 3, 39661));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("San Francisco", "San Francisco", 740000, 110, 6.2, 5.6, 125, 78, 29, 30, 744230));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("San Jose", "Santa Clara", 620000, 93, 6.2, 6.7, 220, 134, 47, 51, 904522));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("San Leandro", "Alameda", 530000, 79, 4.7, 5.9, 16, 10, 4, 3, 79183));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("San Lorenzo", "Alameda", 540000, 81, 3.9, 4.8, 10, 6, 3, 2, 22297));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("San Pablo", "Contra Costa", 430000, 64, 1.7, 2.6, 11, 8, 3, 4, 31041));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Santa Clara", "Santa Clara", 630250, 94, 6.4, 6.8, 20, 15, 3, 4, 104001));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Santa Rosa", "Sonoma", 525000, 78, 6.4, 8.2, 69, 44, 20, 16, 153636));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Sausalito", "Marin", 730000, 109, 4.0, 3.7, 2, 2, 1, 0, 7228));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Sonoma", "Sonoma", 625000, 93, 5.6, 6.0, 12, 7, 5, 4, 9680));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("South San Francisco", "San Mateo", 689000, 103, 6.4, 6.2, 12, 6, 4, 3, 59897));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("St. Helena", "Napa", 860000, 128, 6.7, 5.2, 5, 2, 1, 2, 6026));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Suisun City", "Solano", 425000, 63, 5.3, 8.4, 3, 2, 1, 0, 26945));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Union City", "Alameda", 595000, 89, 6.4, 7.2, 11, 7, 3, 1, 68938));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Vacaville", "Solano", 437000, 65, 5.9, 9.1, 21, 13, 5, 7, 94303));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Vallejo", "Solano", 415000, 62, 3.2, 5.2, 28, 17, 8, 7, 118349));
+        _citiesNotMatchingApiCriteria.add(new Bpsv("Windsor", "Sonoma", 581000, 87, 6.1, 7.1, 6, 3, 2, 2, 24751));
+
+        _citiesTooSmall = new ArrayList();
+        _citiesTooSmall.add(new Bpsv("Alviso", "Santa Clara", 454000, 68, 6.0, 8.9, 1, 1, 0, 0, -1));
+        _citiesTooSmall.add(new Bpsv("Angwin", "Napa", 225000, 34, 8.0, 23.8, 1, 1, 1, 0, 3340));
+        _citiesTooSmall.add(new Bpsv("Annapolis", "Sonoma", 335000, 50, 3.0, 6.0, 1, 1, 1, 0, -1));
+        _citiesTooSmall.add(new Bpsv("Bay Point", "Contra Costa", 405000, 60, 1.0, 1.7, 1, 0, 1, 0, -1));
+        _citiesTooSmall.add(new Bpsv("Bolinas", "Marin", 856000, 128, 8.0, 6.3, 1, 1, 1, 0, 1240));
+        _citiesTooSmall.add(new Bpsv("Brisbane", "San Mateo", 670000, 100, 7.5, 7.5, 2, 1, 1, 0, 3559));
+        _citiesTooSmall.add(new Bpsv("Cazadero", "Sonoma", 387500, 58, 6.6, 11.4, 2, 2, 2, 0, -1));
+        _citiesTooSmall.add(new Bpsv("Colma", "San Mateo", 800000, 119, 6.0, 5.0, 2, 1, 1, 0, 1410));
+        _citiesTooSmall.add(new Bpsv("Crockett", "Contra Costa", 469000, 70, 4.4, 6.3, 3, 1, 2, 2, 3538));
+        _citiesTooSmall.add(new Bpsv("Forestville", "Sonoma", 420000, 63, 6.8, 10.8, 4, 1, 1, 3, 2566));
+        _citiesTooSmall.add(new Bpsv("Geyserville", "Sonoma", 625000, 93, 2.6, 2.8, 5, 1, 2, 2, -1));
+        _citiesTooSmall.add(new Bpsv("Glen Ellen", "Sonoma", 632500, 94, 7.0, 7.4, 1, 1, 0, 0, 956));
+        _citiesTooSmall.add(new Bpsv("Guerneville", "Sonoma", 361250, 54, 7.0, 13.0, 2, 1, 2, 0, 2525));
+        _citiesTooSmall.add(new Bpsv("Kenwood", "Sonoma", 812000, 121, 9.0, 7.4, 1, 1, 0, 0, -1));
+        _citiesTooSmall.add(new Bpsv("Knightsen", "Contra Costa", 285000, 43, 6.0, 14.1, 1, 1, 1, 0, -1));
+        _citiesTooSmall.add(new Bpsv("La Honda", "San Mateo", 570000, 85, 10.0, 11.8, 1, 1, 0, 0, -1));
+        _citiesTooSmall.add(new Bpsv("Montara", "San Mateo", 800000, 119, 6.0, 5.0, 1, 1, 0, 0, 2935));
+        _citiesTooSmall.add(new Bpsv("Monte Rio", "Sonoma", 402000, 60, 5.0, 8.3, 1, 1, 1, 0, 1109));
+        _citiesTooSmall.add(new Bpsv("Nicasio", "Marin", 1450000, 216, 10.0, 4.6, 1, 1, 1, 0, -1));
+        _citiesTooSmall.add(new Bpsv("Occidental", "Sonoma", 735000, 110, 8.1, 7.4, 2, 1, 1, 0, 1529));
+        _citiesTooSmall.add(new Bpsv("Pescadero", "San Mateo", 765000, 114, 4.0, 3.5, 3, 1, 1, 2, -1));
+        _citiesTooSmall.add(new Bpsv("Pope Valley", "Napa", 895000, 134, 8.0, 6.0, 1, 1, 1, 0, -1));
+        _citiesTooSmall.add(new Bpsv("Portola Valley", "San Mateo", 1650000, 246, 10.0, 4.1, 2, 2, 1, 0, 4418));
+        _citiesTooSmall.add(new Bpsv("Ross", "Marin", 2585000, 386, 10.0, 2.6, 1, 1, 1, 0, 2294));
+        _citiesTooSmall.add(new Bpsv("San Martin", "Santa Clara", 894500, 134, 4.0, 3.0, 1, 1, 0, 0, 3959));
+        _citiesTooSmall.add(new Bpsv("Yountville", "Napa", 859000, 128, 9.0, 7.0, 1, 1, 0, 0, 3328));
+
+        _citiesMissingData = new ArrayList();
+        _citiesMissingData.add(new Bpsv("Penngrove", "Sonoma", 850000, 127, -1, 0, 1, 1, 0, 0, -1));
+        _citiesMissingData.add(new Bpsv("Los Altos Hills", "Santa Clara", 2150000, 321, -1, 0, 1, 1, 0, 0, 8122));
+        _citiesMissingData.add(new Bpsv("Sunol", "Alameda", -1, -1, 9.0, 0, 1, 1, 1, 0, -1));
+        _citiesMissingData.add(new Bpsv("Canyon", "Contra Costa", -1, -1, 9.0, 0, 1, 1, 1, 0, -1));
+        _citiesMissingData.add(new Bpsv("Travis AFB", "Solano", -1, -1, 8.7, 0, 3, 3, 0, 0, -1));
+        _citiesMissingData.add(new Bpsv("Point Reyes Station", "Marin", -1, -1, 7.0, 0, 2, 2, 1, 0, -1));
+        _citiesMissingData.add(new Bpsv("Tomales", "Marin", -1, -1, 6.5, 0, 5, 2, 2, 3, -1));
+        _citiesMissingData.add(new Bpsv("San Geronimo", "Marin", -1, -1, 6.0, 0, 2, 2, 1, 0, -1));
+        _citiesMissingData.add(new Bpsv("Suisun", "Solano", -1, -1, 5.0, 0, 1, 1, 0, 0, -1));
+        _citiesMissingData.add(new Bpsv("Treasure Island", "San Francisco", -1, -1, 2.5, 0, 2, 2, 1, 0, -1));
+        _citiesMissingData.add(new Bpsv("Marin City", "Marin", -1, -1, 2.0, 0, 1, 0, 1, 0, -1));
+        _citiesMissingData.add(new Bpsv("Mount Hamilton", "Santa Clara", -1, -1, -1, 0, 1, 1, 0, 0, -1));
+        _citiesMissingData.add(new Bpsv("Stewarts Point", "Sonoma", -1, -1, -1, 0, 1, 1, 1, 0, -1));
+
+        _allCities = new ArrayList(_citiesOfValue);
+        _allCities.addAll(_citiesNotMatchingApiCriteria);
+        _allCities.addAll(_citiesTooSmall);
+        _allCities.addAll(_citiesMissingData);
+        Collections.sort(_allCities, new Comparator() {
+            public int compare(Object o, Object o1) {
+                return ((Bpsv) o).getName().compareTo(((Bpsv) o1).getName());
+            }
+        });
+    }
+
 
 }
