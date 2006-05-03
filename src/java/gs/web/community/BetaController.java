@@ -1,17 +1,17 @@
 package gs.web.community;
 
-import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.web.servlet.ModelAndView;
+import gs.data.community.*;
+import org.apache.log4j.Logger;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.apache.log4j.Logger;
-import gs.data.community.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.SimpleFormController;
 
-import javax.mail.internet.MimeMessage;
 import javax.mail.MessagingException;
-import java.util.Date;
+import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 
 /**
  * This controller handles requests to subscribe to the Beta group
@@ -34,18 +34,18 @@ public class BetaController extends SimpleFormController {
     /**
      * Handles the form POST subscription request
      *
-     * @see EmailValidator
-     * @see BetaSubNotExistsValidator
      * @param command a <code>BetaEmailCommand</code> object
      * @return
+     * @see gs.web.util.validator.EmailValidator
+     * @see BetaSubNotExistsValidator
      */
     public ModelAndView onSubmit(Object command) {
 
-        BetaEmailCommand bsc = (BetaEmailCommand)command;
+        BetaEmailCommand bsc = (BetaEmailCommand) command;
         String email = bsc.getEmail();
         addToBetaGroup(email);
         try {
-             _mailSender.send(createMessage(_mailSender.createMimeMessage(), email));
+            _mailSender.send(createMessage(_mailSender.createMimeMessage(), email));
         } catch (MessagingException mess) {
             _log.warn(mess);
         } catch (MailException me) {
@@ -64,6 +64,7 @@ public class BetaController extends SimpleFormController {
      * This method adds the provided email address to the beta email list.  Validation
      * of the email address and user/subscription validation (such as: if the
      * subscription already exists) are done in the EmailValidator.
+     *
      * @param email A valid email address as a <code>String</code> type
      */
     private void addToBetaGroup(String email) {
@@ -71,7 +72,7 @@ public class BetaController extends SimpleFormController {
         if (user == null) {
             user = new User();
             user.setEmail(email);
-             _userDao.saveUser(user);
+            _userDao.saveUser(user);
         }
 
         Subscription subscription = new Subscription();
@@ -124,6 +125,7 @@ public class BetaController extends SimpleFormController {
 
     /**
      * Spring setter
+     *
      * @param _mailSender
      */
     public void setMailSender(JavaMailSender _mailSender) {
@@ -132,6 +134,7 @@ public class BetaController extends SimpleFormController {
 
     /**
      * Spring setter.
+     *
      * @param _userDao
      */
     public void setUserDao(IUserDao _userDao) {
@@ -140,6 +143,7 @@ public class BetaController extends SimpleFormController {
 
     /**
      * Spring setter
+     *
      * @param _subscriptionDao
      */
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {

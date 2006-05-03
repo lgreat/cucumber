@@ -1,16 +1,12 @@
 package gs.web.community;
 
+import gs.data.community.ISubscriptionDao;
+import gs.data.community.IUserDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.MockJavaMailSender;
-import gs.data.community.IUserDao;
-import gs.data.community.ISubscriptionDao;
-import gs.data.community.User;
-import gs.data.community.SubscriptionProduct;
+import gs.web.util.validator.EmailValidator;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.Validator;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>

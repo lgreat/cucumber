@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+        xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:spring="http://www.springframework.org/tags"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
+<html lang="en">
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <![CDATA[
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+        <style type="text/css">
+
+        </style>
+            ]]>
+    <title>Newsletters - My School Stats</title>
+</head>
+
+<gsml:body adPageName="newsletter" pageLayout="newsPop">
+<pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
+    <spring:bind path="newsCmd.schoolId">
+        <c:set var="schoolIdExpr" value="${status.expression}"/>
+        <c:set var="schoolId" value="${status.value}"/>
+    </spring:bind>
+
+    <spring:bind path="newsCmd.schoolName">
+        <c:set var="schoolName" value="${status.value}"/>
+    </spring:bind>
+
+    <spring:bind path="newsCmd.schoolName">
+        <c:set var="schoolName" value="${status.value}"/>
+    </spring:bind>
+
+    <spring:bind path="newsCmd.mystat">
+        <c:set var="mssExpr" value="${status.expression}"/>
+        <c:choose>
+            <c:when test="${status.value}">
+                <c:set var="mssChecked" value="checked"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="mssChecked" value=""/>
+            </c:otherwise>
+        </c:choose>
+        <c:forEach items="${status.errorMessages}" var="error">
+            <c:if test="${status.error}">
+                <c:set var="emailErrors" value="${error}"/>
+            </c:if>
+        </c:forEach>
+    </spring:bind>
+
+    <spring:bind path="newsCmd.gn">
+        <c:set var="gnExpr" value="${status.expression}"/>
+        <c:choose>
+            <c:when test="${status.value}">
+                <c:set var="gnChecked" value="checked"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="gnChecked" value=""/>
+            </c:otherwise>
+        </c:choose>
+    </spring:bind>
+
+    <spring:bind path="newsCmd.email">
+        <c:set var="emailExpr" value="${status.expression}"/>
+        <c:choose>
+            <c:when test="${status.value}">
+                <c:set var="email" value="${status.value}"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="email" value=""/>
+            </c:otherwise>
+        </c:choose>
+        <c:forEach items="${status.errorMessages}" var="error">
+            <c:if test="${status.error}">
+                <c:set var="emailErrors" value="${error}"/>
+            </c:if>
+        </c:forEach>
+    </spring:bind>
+
+    <spring:hasBindErrors name="newsCmd">
+        <c:set var="cbxError" value="${status.errorMessage}"/>        
+    </spring:hasBindErrors>
+
+    <div class="promo">
+        <h1>What's new at ${schoolName}?</h1>
+        <h3>Find out with our free monthly newsletters.</h3>
+    </div>
+    <div class="content">
+        <gsml:form action="/community/newsletters/popup/mss/page1.page" method="POST">
+            <div class="error">${cbxError}</div>
+            <div class="cbx">
+                <input type="hidden" name="state" value="${stateAbbrev}"/>
+                <input type="hidden" name="${schoolIdExpr}" value="${schoolId}"/>
+                <input type="checkbox" name="${mssExpr}" checked="${mssChecked}"/>
+                Yes, please send me free monthly stats and updates about ${schoolName}.
+            </div>
+            <div class="cbx">
+                <input type="checkbox" name="${gnExpr}" checked="${gnChecked}"/>
+                Please also send me tips and advice in the bi-monthly Parent Advisor.
+            </div>
+            <div class="email">
+                <span style="padding-right:1em;">My email address:</span>
+                <input type="text" name="${emailExpr}" value="${email}"/>
+                <input id="btnSudmit" type="submit" name="btnSubmit" value="Sign Me Up!"/>
+                <div class="error">${emailErrors}</div>
+                <div class="privacy">
+                    We won't share or sell your address.<span class="link">Privacy Policy</span>
+                </div>
+            </div>
+        </gsml:form>
+    </div>
+    <div id="blueTop">
+        <div class="quote">
+            <q>Thanks for explaining the test scores at my son's school.<br/>
+                Please continue the super job of keeping us parents updated!</q>
+            <div class="quotee">-a mom and newsletter subscriber</div>
+        </div>
+    </div>
+    <mod:tracking pageName=""
+                  pageType=""
+                  hier1=""/>
+</gsml:body>
+</html>
+</jsp:root>

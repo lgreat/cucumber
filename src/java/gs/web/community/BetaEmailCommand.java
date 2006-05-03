@@ -1,9 +1,11 @@
 package gs.web.community;
 
+import gs.web.util.IEmail;
+
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class BetaEmailCommand {
+public class BetaEmailCommand implements IEmail {
 
     private String _email;
 
@@ -12,6 +14,6 @@ public class BetaEmailCommand {
     }
 
     public void setEmail(String email) {
-        this._email = email;
+        _email = email;
     }
 }

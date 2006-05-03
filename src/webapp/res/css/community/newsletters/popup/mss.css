@@ -1,0 +1,101 @@
+a:link,
+a:visited,
+a:active {
+    text-decoration: underline;
+    color: #669acc;
+    font-size:14px;
+    font-weight:bold;
+}
+
+#marginGS {
+    margin: 0em 1em 0em 1em;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size:12px;
+    width: 500px;
+    text-align:left;
+}
+
+.promo h1 {
+    font-size: 25px;
+    color: #0066cc;
+    font-weight:normal;
+    margin-bottom:0;
+}
+
+.promo h2 {
+    font-size: 18px;
+    font-weight: normal;
+    color: #669acc;
+}
+
+.promo h3 {
+    margin-top:0;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.privacy {
+    font-size: smaller;
+    margin-left: 11em;
+    color: #666666;
+    margin-top:0;
+}
+
+.privacy .link {
+    padding-left: 1em;
+    color: #0066cc;
+}
+
+.cbx {
+    padding: 0.5em 0 0.5em 0;
+}
+.email {
+    padding: 1em 0 1em 1em;
+}
+
+.quote {
+    padding-top: 1em;
+    padding-bottom:1em;
+    font-size: 15px;
+    font-style: italic;
+    color: #666666;
+}
+
+.quote .quotee {
+    margin-left: 15em;
+    margin-top: 0.5em;
+}
+
+#blueTop {
+    border-top-style:dotted;
+    border-top-color: #6699cc;
+}
+
+#grayTop {
+    border-top-style:dotted;
+    border-top-color: #666666;
+}
+
+#blockMessage {
+    background-color: #669ACC;
+    height: 85px;
+}
+
+#blockMessage h1{
+    color: #ffffff;
+    font-size: 18px;
+    font-style:normal;
+    padding:0.5em;
+    font-weight:500;
+}
+li {
+    list-style-type:disc;
+    list-style-position:inherit;
+}
+
+.error {
+    color:red;
+    margin-left: 8em;
+}
+
+

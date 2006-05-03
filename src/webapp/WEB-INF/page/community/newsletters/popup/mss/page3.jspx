@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+        xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:spring="http://www.springframework.org/tags"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
+<html lang="en">
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <![CDATA[
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+        <style type="text/css">
+
+        </style>
+            ]]>
+    <title>Newsletters - My School Stats</title>
+</head>
+
+<gsml:body adPageName="newsletter" pageLayout="newsPop">
+<pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
+    <div id="blockMessage">
+        <h1>Thank You!</h1>
+    </div>
+    <div class="promo">
+        <h2>You have signed up for these GreatSchools newsletters:</h2>
+    </div>
+    <gsml:form action="${viewName}" method="POST">
+    <div id="blueTop">
+        <ul>
+        <li>Monthly Stats about Lowell High School</li>
+        <li>Parent Advisor</li>
+        </ul>
+    </div>
+    <div id="grayTop">
+        <ul>
+        <li>My Kindergartner</li>
+        <li>My First-Grader</li>
+        <li>My Second-Grader</li>
+        <li>My Third-Grader</li>
+        <li>My Fourth-Grader</li>
+        <li>My Fifth-Grader</li>
+        </ul>
+    </div>
+    <div id="grayTop">
+        <ul>
+        <li>Middle School Matters</li>
+        <li>Countdown to College</li>
+        </ul>
+    </div>
+        <div>
+            <gsml:a href="">Manage My Subscriptions</gsml:a>
+        </div>
+    </gsml:form>
+    <mod:tracking pageName=""
+                  pageType=""
+                  hier1=""/>
+</gsml:body>
+</html>
+</jsp:root>

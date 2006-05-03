@@ -7,6 +7,10 @@
     <decorator name="perlWrapper" page="perlWrapper.jsp">
     </decorator>
 
+    <decorator name="popupDecorator" page="popupDecorator.jspx">
+        <pattern>/community/newsletters/popup/mss/page*</pattern>
+    </decorator>
+
     <decorator name="cobrandHeaderGsFooter" page="standardDecorator.jspx">
 
         <pattern>/path/choose.page</pattern>

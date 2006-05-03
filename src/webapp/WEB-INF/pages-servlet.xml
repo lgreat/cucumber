@@ -84,7 +84,7 @@
     <!--BEGIN configuration for the Beta group pages -->
     <!-- ******************************************  -->
 
-    <bean id="emailValidator" class="gs.web.community.EmailValidator"
+    <bean id="emailValidator" class="gs.web.util.validator.EmailValidator"
             autowire="byName" />
     <bean id="betaSubNotExistsValidator" class="gs.web.community.BetaSubNotExistsValidator"
             autowire="byName" />
@@ -507,6 +507,50 @@
             <value>content/box</value>
         </property>
     </bean>
+
+    <bean id="newsCheckBoxValidator" class="gs.web.community.newsletters.popup.NewsletterCheckBoxValidator"
+            autowire="byName" />
+
+    <!--My School stats newsletter popups-->
+    <bean name="/community/newsletters/popup/mss/page1.page"
+          class="gs.web.community.newsletters.popup.MssPaController"
+          autowire="byName">
+        <property name="bindOnNewForm">
+            <value>true</value>
+        </property>
+        <property name="commandName"><value>newsCmd</value></property>
+        <property name="commandClass">
+            <value>gs.web.community.newsletters.popup.NewsletterCommand</value>
+        </property>
+
+        <property name="validators">
+            <list>
+                <ref bean="emailValidator"/>
+                <ref bean="newsCheckBoxValidator"/>
+            </list>
+        </property>
+        <property name="formView">
+            <value>/community/newsletters/popup/mss/page1</value>
+        </property>
+        <property name="successView">
+            <value>/community/newsletters/popup/mss/page2</value>
+        </property>
+    </bean>
+    <bean name="/community/newsletters/popup/mss/page2.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>/community/newsletters/popup/mss/page2</value>
+        </property>
+    </bean>
+    <bean name="/community/newsletters/popup/mss/page3.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>/community/newsletters/popup/mss/page3</value>
+        </property>
+    </bean>
+    <!--End Myschool stats newsletter popups -->
 
     <!-- WEB PAGE DEFINITIONS END -->
 

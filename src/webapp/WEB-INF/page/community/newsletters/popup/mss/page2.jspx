@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+        xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:spring="http://www.springframework.org/tags"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
+<html lang="en">
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <![CDATA[
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+        <style type="text/css">
+
+        </style>
+            ]]>
+    <title>Newsletters - My School Stats</title>
+</head>
+
+<gsml:body adPageName="newsletter" pageLayout="newsPop">
+<pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
+    <div id="blockMessage">
+        <h1>Thanks for signing up<br/> for GreatSchools newsletters.</h1>
+    </div>
+    <div class="promo">
+        <h2>Track your child's progress grade by grade<br/> with the free newsletters that parents rave about!</h2>
+    </div>
+    <gsml:form action="${viewName}" method="POST">
+    <div id="blueTop">
+        Yes, send me monthly tips about what to expect in the classroom for:
+
+            <table width="80%" align="center">
+            <tr>
+                <td><input type="checkbox" name="myk"/>My Kindergartner</td>
+                <td><input type="checkbox" name="my3"/>My Third-Grader</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="my1"/>My First-Grader</td>
+                <td><input type="checkbox" name="my4"/>My Fourth-Grader</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="my2"/>My Second-Grader</td>
+                <td><input type="checkbox" name="my5"/>My Fifth-Grader</td>
+            </tr>
+        </table>
+    </div>
+    <div id="grayTop">
+        Send me free advice about college and academic planning:
+        <table width="80%" align="center">
+        <tr>
+            <td><input type="checkbox" name="myms"/>Middle School Matters</td>
+            <td><input type="checkbox" name="myhs"/>Countdown to College</td>
+        </tr>
+        </table>
+
+    </div>
+    </gsml:form>
+    <mod:tracking pageName=""
+                  pageType=""
+                  hier1=""/>
+</gsml:body>
+</html>
+</jsp:root>
