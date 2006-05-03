@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NewsletterCommand.java,v 1.1 2006/05/03 01:16:16 dlee Exp $
+ * $Id: NewsletterCommand.java,v 1.2 2006/05/03 05:59:55 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -26,7 +26,7 @@ public class NewsletterCommand implements IEmail {
     private boolean _myMs;
     private boolean _myHs;
     private State _state;
-    private String _errors;
+    private boolean _checked;
 
 
     public String getEmail() {
@@ -43,6 +43,9 @@ public class NewsletterCommand implements IEmail {
 
     public void setMystat(boolean mystat) {
         _mystat = mystat;
+        if (mystat) {
+            _checked = true;
+        }
     }
 
     public int getSchoolId() {
@@ -65,8 +68,11 @@ public class NewsletterCommand implements IEmail {
         return _greatnews;
     }
 
-    public void setGreatnews(boolean greatnews) {
+    public void setGn(boolean greatnews) {
         _greatnews = greatnews;
+        if (greatnews) {
+            _checked = true;
+        }
     }
 
     public boolean isMy1() {
@@ -75,6 +81,9 @@ public class NewsletterCommand implements IEmail {
 
     public void setMy1(boolean my1) {
         _my1 = my1;
+        if (my1) {
+            _checked = true;
+        }
     }
 
     public boolean isMy2() {
@@ -83,6 +92,9 @@ public class NewsletterCommand implements IEmail {
 
     public void setMy2(boolean my2) {
         _my2 = my2;
+        if (my2) {
+            _checked = true;
+        }
     }
 
     public boolean isMy3() {
@@ -91,6 +103,9 @@ public class NewsletterCommand implements IEmail {
 
     public void setMy3(boolean my3) {
         _my3 = my3;
+        if (my3) {
+            _checked = true;
+        }
     }
 
     public boolean isMy4() {
@@ -99,6 +114,9 @@ public class NewsletterCommand implements IEmail {
 
     public void setMy4(boolean my4) {
         _my4 = my4;
+        if (my4) {
+            _checked = true;
+        }
     }
 
     public boolean isMy5() {
@@ -107,6 +125,9 @@ public class NewsletterCommand implements IEmail {
 
     public void setMy5(boolean my5) {
         _my5 = my5;
+        if (my5) {
+            _checked = true;
+        }
     }
 
     public boolean isMyMs() {
@@ -115,6 +136,9 @@ public class NewsletterCommand implements IEmail {
 
     public void setMyMs(boolean myMs) {
         _myMs = myMs;
+        if (myMs) {
+            _checked = true;
+        }
     }
 
     public boolean isMyHs() {
@@ -123,6 +147,9 @@ public class NewsletterCommand implements IEmail {
 
     public void setMyHs(boolean myHs) {
         _myHs = myHs;
+        if (myHs) {
+            _checked = true;
+        }
     }
 
     public State getState() {
@@ -133,11 +160,11 @@ public class NewsletterCommand implements IEmail {
         _state = state;
     }
 
-    public String getErrors() {
-        return _errors;
+    public boolean isChecked() {
+        return _checked;
     }
 
-    public void setErrors(String errors) {
-        errors = _errors;
+    public void setChecked(boolean checked) {
+        _checked = checked;
     }
 }

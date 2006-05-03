@@ -45,19 +45,9 @@
 
     <spring:bind path="newsCmd.mystat">
         <c:set var="mssExpr" value="${status.expression}"/>
-        <c:choose>
-            <c:when test="${status.value}">
-                <c:set var="mssChecked" value="checked"/>
-            </c:when>
-            <c:otherwise>
-                <c:set var="mssChecked" value=""/>
-            </c:otherwise>
-        </c:choose>
-        <c:forEach items="${status.errorMessages}" var="error">
-            <c:if test="${status.error}">
-                <c:set var="emailErrors" value="${error}"/>
-            </c:if>
-        </c:forEach>
+        <c:if test="${status.value}">
+            <c:set var="mssChecked" value="checked"/>
+        </c:if>
     </spring:bind>
 
     <spring:bind path="newsCmd.gn">
@@ -67,7 +57,7 @@
                 <c:set var="gnChecked" value="checked"/>
             </c:when>
             <c:otherwise>
-                <c:set var="gnChecked" value=""/>
+                <c:set var="gnChecked" value="OFF"/>
             </c:otherwise>
         </c:choose>
     </spring:bind>
@@ -89,9 +79,9 @@
         </c:forEach>
     </spring:bind>
 
-    <spring:hasBindErrors name="newsCmd">
+    <spring:bind path="newsCmd">
         <c:set var="cbxError" value="${status.errorMessage}"/>        
-    </spring:hasBindErrors>
+    </spring:bind>
 
     <div class="promo">
         <h1>What's new at ${schoolName}?</h1>
@@ -100,6 +90,7 @@
     <div class="content">
         <gsml:form action="/community/newsletters/popup/mss/page1.page" method="POST">
             <div class="error">${cbxError}</div>
+            <div class="error">${emailErrors}</div>
             <div class="cbx">
                 <input type="hidden" name="state" value="${stateAbbrev}"/>
                 <input type="hidden" name="${schoolIdExpr}" value="${schoolId}"/>
@@ -114,7 +105,6 @@
                 <span style="padding-right:1em;">My email address:</span>
                 <input type="text" name="${emailExpr}" value="${email}"/>
                 <input id="btnSudmit" type="submit" name="btnSubmit" value="Sign Me Up!"/>
-                <div class="error">${emailErrors}</div>
                 <div class="privacy">
                     We won't share or sell your address.<span class="link">Privacy Policy</span>
                 </div>
