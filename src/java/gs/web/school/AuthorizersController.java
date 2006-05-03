@@ -216,7 +216,7 @@ public class AuthorizersController extends AbstractController {
     private static Map getDemandData(ICharterSchoolInfo info) {
         Map demandData = null;
         if (StringUtils.isNotEmpty(info.getDemand())) {
-            if (demandData == null) { demandData = new ListOrderedMap(); }
+            demandData = new ListOrderedMap();
             String demand = info.getDemand();
             if (demand != null && (demand.indexOf("%") == -1)) {
                 demand = demand + "%";
@@ -232,7 +232,7 @@ public class AuthorizersController extends AbstractController {
         String retention = info.getRetention();
         if (StringUtils.isNotEmpty(retention)) {
             if (demandData == null) { demandData = new ListOrderedMap(); }
-            if (!retention.trim().endsWith("%")) {
+            if (retention.indexOf("%") == -1) {
                 retention = retention + "%";
             }
             demandData.put("Return rate", retention);
