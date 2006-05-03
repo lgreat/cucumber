@@ -30,9 +30,9 @@ public class ResponseInterceptor implements HandlerInterceptor {
          * Don't create a cookie for this URL.
          * This is somewhat poorly done since it's not configurable. I'd prefer some
          * way to turn off certain interceptors for certain URLs, but I don't see these
-         * the way things are set up. 
+         * the way things are set up.
          */
-        if (!request.getRequestURI().contains("/content/box/v1")) {
+        if (request.getRequestURI().indexOf("/content/box/v1") == -1) {
             setTrnoCookie(request, response);
         }
 
