@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ContentBoxViewController.java,v 1.4 2006/05/02 22:47:57 apeterson Exp $
+ * $Id: ContentBoxViewController.java,v 1.5 2006/05/03 01:22:50 apeterson Exp $
  */
 
 package gs.web.content;
@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Cookie;
 import java.util.Date;
 
 /**

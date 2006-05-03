@@ -2,10 +2,12 @@ package gs.web;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Cookie;
 
 /**
  * Interceptor to set http response headers
@@ -19,17 +21,26 @@ public class ResponseInterceptor implements HandlerInterceptor {
      */
     public static final String TRNO_COOKIE = "TRNO";
 
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
-        /*
-         * Set pages to not be cached since almost all pages include the member bar now or some
-         * other dynamic content. This should be in the decorator as gsml:nocache but since that
-         * tag doesn't work due to a sitemesh bug (see gsml:nocache tag for more info) it's here
-         * for the time being.
-         */
-        response.setHeader("Cache-Control", "no-cache");
-        response.setHeader("Pragma", "no-cache");
-        response.setDateHeader("Expires", 0);
+    private static final Log _log = LogFactory.getLog(ResponseInterceptor.class);
 
+
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
+
+        /*
+         * Don't create a cookie for this URL.
+         * This is somewhat poorly done since it's not configurable. I'd prefer some
+         * way to turn off certain interceptors for certain URLs, but I don't see these
+         * the way things are set up. 
+         */
+        if (!request.getRequestURI().contains("/content/box/v1")) {
+            setTrnoCookie(request, response);
+        }
+
+        return true;
+    }
+
+
+    private void setTrnoCookie(HttpServletRequest request, HttpServletResponse response) {
         boolean hasTrnoCookie = false;
         Cookie cookies [] = request.getCookies();
 
@@ -61,13 +72,26 @@ public class ResponseInterceptor implements HandlerInterceptor {
             c.setMaxAge(63113852);
             response.addCookie(c);
         }
-
-        return true;
     }
 
-    public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-        //do nothing
+    public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse response, Object o, ModelAndView modelAndView) throws Exception {
+        if (!response.containsHeader("Cache-Control")) {
+            setNoCacheHeaders(response);
+        }
     }
+
+    private void setNoCacheHeaders(HttpServletResponse response) {
+        /*
+        * Set pages to not be cached since almost all pages include the member bar now or some
+        * other dynamic content. This should be in the decorator as gsml:nocache but since that
+        * tag doesn't work due to a sitemesh bug (see gsml:nocache tag for more info) it's here
+        * for the time being.
+        */
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+    }
+
 
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
         //do nothing
