@@ -14,8 +14,7 @@
         >
 <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="pageClass"><c:if
-        test="${requestScope.context.cobranded}">cobranded ${requestScope.context.cobrand}</c:if> ${requestScope.pageLayout}"
-</c:set>
+        test="${requestScope.context.cobranded}">cobranded ${requestScope.context.cobrand}</c:if> ${requestScope.pageLayout}</c:set>
 <html lang="en">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
