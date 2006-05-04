@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandler.java,v 1.2 2006/05/03 19:34:42 dlee Exp $
+ * $Id: LinkTagHandler.java,v 1.3 2006/05/04 07:13:57 apeterson Exp $
  */
 
 package gs.web.jsp.link;
@@ -145,8 +145,8 @@ public abstract class LinkTagHandler extends TagSupport {
      *         is no current location awareness.
      */
     protected State getState() {
-        ISessionFacade sc = getSessionContext();
         State state = State.CA;
+        ISessionFacade sc = getSessionContext();
         if (sc != null) {
             state = sc.getStateOrDefault();
         }

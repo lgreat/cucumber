@@ -8,6 +8,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
           version="2.0">
     <html>
     <jsp:directive.page contentType="text/html"/>
@@ -27,7 +28,7 @@
                     city's API Rank is above average (6.94 is the average API Rank of all Bay Area cities).</p>
 
             </td>
-            <td class="sidebar"><gsml:list model="${links}"/></td>
+            <td class="sidebar"><link:article articleId="594" >Back to Article</link:article></td>
             </tr></table>
         <c:if test="${showMap}" >
             <div id="mapContainer">
@@ -52,9 +53,9 @@
                         <th>Rank</th>
                     </c:if>
                     <th>City</th><!--th>County</th--><th>Median Home Price</th><th>Average
-                    API Rank</th><!--th># schools serving elementary grades</th><th># schools serving
+                    API Rank</th><th># schools serving elementary grades</th><th># schools serving
                     middle school grades</th><th># schools serving
-                    high school grades</th><th>Find schools</th-->
+                    high school grades</th><!--th>Find schools</th-->
                 </tr>
                 <c:set var="i" value="1"/>
                 <c:forEach items="${cities}" var="city">
@@ -64,14 +65,17 @@
                         </c:if>
                         <td class="name"><gsml:a href="${city.cityPageHref}">${city.cityName}</gsml:a></td>
                         <!--<td class="county">${city.countyName}</td>-->
-                        <td class="medianHomePrice">$<fmt:formatNumber value="${city.medianHomePrice}"
-                                                                       maxFractionDigits="0"/></td>
-                        <td class="averageApiRank"><fmt:formatNumber value="${city.averageApiRank}"
-                                                                     minFractionDigits="1"
-                                                                     maxFractionDigits="1"/></td>
-                        <!--<td class="e">${city.elementarySchoolsCount}</td>-->
-                        <!--<td class="m">${city.middleSchoolsCount}</td>-->
-                        <!--<td class="h">${city.highSchoolsCount}</td>-->
+                        <td class="price"><c:if test="${city.medianHomePrice ge 0}">$<fmt:formatNumber value="${city.medianHomePrice}"
+                                                                       maxFractionDigits="0"/></c:if><c:if
+                                test="${city.medianHomePrice lt 0}">n/a</c:if></td>
+                        <td class="api"><c:if test="${city.averageApiRank ge 0}"><fmt:formatNumber
+                                value="${city.averageApiRank}"
+                                minFractionDigits="1"
+                                maxFractionDigits="1"/></c:if><c:if
+                                test="${city.averageApiRank lt 0}">n/a</c:if></td>
+                        <td class="e"><link:schools city="${city}" levelCode="e" schoolTypes="public,charter"><c:if test="${city.elementarySchoolsCount eq 1}">1 school</c:if><c:if test="${city.elementarySchoolsCount gt 1}">${city.elementarySchoolsCount} schools</c:if></link:schools></td>
+                        <td class="m"><link:schools city="${city}" levelCode="m" schoolTypes="public,charter"><c:if test="${city.middleSchoolsCount eq 1}">1 school</c:if><c:if test="${city.middleSchoolsCount gt 1}">${city.middleSchoolsCount} schools</c:if></link:schools></td>
+                        <td class="h"><link:schools city="${city}" levelCode="h" schoolTypes="public,charter"><c:if test="${city.highSchoolsCount eq 1}">1 school</c:if><c:if test="${city.highSchoolsCount gt 1}">${city.highSchoolsCount} schools</c:if></link:schools></td>
                         <!--<td class="link"><gsml:a href="${city.schoolsPageHref}">Browse ${city.cityName} schools</gsml:a>-->
                         <!--</td>-->
                     </tr>

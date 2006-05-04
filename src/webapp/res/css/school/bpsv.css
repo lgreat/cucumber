@@ -37,7 +37,7 @@ table.bpsv td {
 }
 
 table.bpsv tr.even td {
-    background-color: #FAD3AE;
+    background-color: #eeeeee;
 }
 
 table.bpsv td.name {
@@ -58,8 +58,8 @@ table.bpsv td.e,
     text-align: center;
 }
 
-table.bpsv td.medianHomePrice,
-    table.bpsv td.averageApiRank {
+table.bpsv td.price,
+    table.bpsv td.api {
     text-align: right;
     padding-right: 3em;
     padding-left: 1em;

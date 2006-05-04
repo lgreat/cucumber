@@ -53,6 +53,55 @@
 
 
     <tag>
+        <name>article</name>
+        <tag-class>gs.web.jsp.link.ArticleTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Article</display-name>
+        <description>
+            <![CDATA[Link to an article in our library.
+             Currently <code>/cgi-bin/showarticle/ca/5</code> or <code>/cgi-bin/showarticlefeature/ca/5</code>.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>article</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.content.Article</type>
+            <description>Desired article. Required if articleId is not specified.</description>
+        </attribute>
+        <attribute>
+            <name>articleId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>Desired article's id. Required if article is not specified.</description>
+        </attribute>
+        <attribute>
+            <name>featured</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Boolean</type>
+            <description>Should the article be tagged as featured? Generates a different path for tracking purposes, but points to the same article.</description>
+        </attribute>
+        <!--attribute>
+            <name>state</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>Optional state object. Generally not needed. It will be taken from the request when not
+                specified.</description>
+        </attribute-->
+
+    </tag>
+
+
+    <tag>
         <name>mySchoolList</name>
         <tag-class>gs.web.jsp.link.MySchoolListTagHandler</tag-class>
         <body-content>JSP</body-content>
@@ -69,6 +118,52 @@
             <rtexprvalue>true</rtexprvalue>
             <type>gs.data.state.State</type>
         </attribute-->
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>schools</name>
+        <tag-class>gs.web.jsp.link.SchoolsTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Schools List</display-name>
+        <description>
+            <![CDATA[Link to a list of schools  based on a city or a district.]]>
+        </description>
+        <attribute>
+            <name>state</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>Optional state object. It will be taken from the request when not
+                specified.</description>
+        </attribute>
+        <attribute>
+            <name>city</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.geo.ICity</type>
+            <description>Optional.</description>
+        </attribute>
+        <attribute>
+            <name>levelCode</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.school.LevelCode</type>
+            <description>Optional LevelCode restriction.</description>
+        </attribute>
+        <attribute>
+            <name>schoolTypes</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Optional SchoolType restriction, such as "private" or "public,charter".</description>
+        </attribute>
         <attribute>
             <name>styleClass</name>
             <required>false</required>

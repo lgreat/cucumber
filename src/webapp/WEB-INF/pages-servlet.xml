@@ -442,6 +442,12 @@
         <property name="viewName">
             <value>/school/performance/schoolValues</value>
         </property>
+        <property name="showingRank">
+            <value>true</value>
+        </property>
+        <property name="showingAll">
+            <value>false</value>
+        </property>
     </bean>
 
     <bean name="/school/performance/bestValuesMap.page"
@@ -450,6 +456,12 @@
         <property name="viewName">
             <value>/school/performance/schoolValues</value>
         </property>
+        <property name="showingRank">
+            <value>false</value>
+        </property>
+        <property name="showingAll">
+            <value>false</value>
+        </property>
     </bean>
 
     <bean name="/school/performance/allCities.page"
@@ -457,6 +469,12 @@
           autowire="byName">
         <property name="viewName">
             <value>/school/performance/schoolValues</value>
+        </property>
+        <property name="showingRank">
+            <value>false</value>
+        </property>
+        <property name="showingAll">
+            <value>true</value>
         </property>
     </bean>
 

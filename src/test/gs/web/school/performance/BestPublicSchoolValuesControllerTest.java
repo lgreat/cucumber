@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesControllerTest.java,v 1.2 2006/05/03 22:45:28 apeterson Exp $
+ * $Id: BestPublicSchoolValuesControllerTest.java,v 1.3 2006/05/04 07:13:57 apeterson Exp $
  */
 
 package gs.web.school.performance;
@@ -37,8 +37,8 @@ public class BestPublicSchoolValuesControllerTest extends BaseControllerTestCase
     public void testBpsv() throws Exception {
 
         GsMockHttpServletRequest request = getRequest();
-        request.setParameter(BestPublicSchoolValuesController.PARAM_LIST,
-                BestPublicSchoolValuesController.PARAM_LIST_VALUE_ABOVE_AVG_API);
+        _controller.setShowingRank(true);
+        _controller.setShowingAll(false);
         _sessionContextUtil.prepareSessionContext(request, getResponse());
 
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
