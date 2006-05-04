@@ -1,13 +1,13 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NewsletterCommand.java,v 1.6 2006/05/04 19:32:33 dlee Exp $
+ * $Id: NewsletterCommand.java,v 1.7 2006/05/04 23:24:37 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
 import gs.data.state.State;
-import gs.web.util.validator.IEmail;
-import gs.web.util.validator.ISchoolId;
-import gs.web.util.validator.IState;
+import gs.web.util.validator.EmailValidator.IEmail;
+import gs.web.util.validator.SchoolIdValidator.ISchoolId;
+import gs.web.util.validator.StateValidator.IState;
 
 /**
  * The purpose is ...

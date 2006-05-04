@@ -8,7 +8,9 @@ import org.springframework.validation.Validator;
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class EmailValidator implements Validator {
-
+    public static interface IEmail {
+        String getEmail();
+    }
     public static final String BEAN_ID = "emailValidator";
 
     public boolean supports(Class aClass) {

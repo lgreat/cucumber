@@ -1,9 +1,10 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StateValidator.java,v 1.1 2006/05/04 19:32:33 dlee Exp $
+ * $Id: StateValidator.java,v 1.2 2006/05/04 23:24:37 dlee Exp $
  */
 package gs.web.util.validator;
 
+import gs.data.state.State;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -14,6 +15,10 @@ import org.springframework.validation.Validator;
  */
 public class StateValidator implements Validator {
     public static final String BEAN_ID = "stateValidator";
+
+    public static interface IState {
+        State getState();
+    }
 
     public boolean supports(Class aClass) {
         Class [] iFaces = aClass.getInterfaces();
