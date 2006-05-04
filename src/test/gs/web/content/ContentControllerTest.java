@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ContentControllerTest.java,v 1.13 2006/03/17 20:10:02 apeterson Exp $
+ * $Id: ContentControllerTest.java,v 1.14 2006/05/04 18:53:10 chriskimm Exp $
  */
 package gs.web.content;
 
@@ -146,6 +146,9 @@ public class ContentControllerTest extends BaseControllerTestCase {
                 return "8888";
             }
 
+            public void setProperty(String key, String value) {
+            }
+            
             public String getProperty(String key, String defaultValue) {
                 return "8888";
             }
