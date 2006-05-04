@@ -1,3 +1,22 @@
+.header {
+    height:135px;
+    background-color: #669ACC;
+}
+.header .left {
+    float:left;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight:100;
+    margin-top:80px;
+    padding-left:8px;
+}
+
+.header .right {
+    float:right;
+    background-color: #ffffff;
+    padding-left:10px;
+}
+
 a:link,
 a:visited,
 a:active {
@@ -41,7 +60,10 @@ a:active {
     margin-top:0;
 }
 
-.privacy .link {
+.privacy a:link,
+a:visited,
+a:active {
+    font-size: smaller;
     padding-left: 1em;
     color: #0066cc;
 }
@@ -69,11 +91,16 @@ a:active {
 #blueTop {
     border-top-style:dotted;
     border-top-color: #6699cc;
+    padding-top:0.5em;
+    padding-bottom:0.5em;
 }
 
 #grayTop {
-    border-top-style:dotted;
+    border-top-style: solid;
     border-top-color: #666666;
+    border-top-width: 1px;
+    padding-top:0.5em;
+    padding-bottom:0.5em;
 }
 
 #blockMessage {
@@ -96,6 +123,19 @@ li {
 .error {
     color:red;
     margin-left: 8em;
+}
+
+.btnSignUp {
+    margin-top:10px;
+    padding-left:5px;
+}
+
+.centered {
+    text-align:center;
+}
+
+.padded {
+    padding:1em;
 }
 
 

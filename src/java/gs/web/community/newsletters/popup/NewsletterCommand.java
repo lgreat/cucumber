@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NewsletterCommand.java,v 1.2 2006/05/03 05:59:55 dlee Exp $
+ * $Id: NewsletterCommand.java,v 1.3 2006/05/04 00:25:45 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -18,6 +18,7 @@ public class NewsletterCommand implements IEmail {
     private int _schoolId;
     private String _schoolName;
     private boolean _greatnews;
+    private boolean _myk;
     private boolean _my1;
     private boolean _my2;
     private boolean _my3;
@@ -62,6 +63,14 @@ public class NewsletterCommand implements IEmail {
 
     public void setSchoolName(String schoolName) {
         _schoolName = schoolName;
+    }
+
+    public boolean isMyk() {
+        return _myk;
+    }
+
+    public void setMyk(boolean myk) {
+        _myk = myk;
     }
 
     public boolean isGn() {

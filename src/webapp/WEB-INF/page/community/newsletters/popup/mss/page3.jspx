@@ -9,6 +9,7 @@
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:link="urn:www.greatschools.net/taglib/link"
         >
 <html lang="en">
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
@@ -33,39 +34,45 @@
     <div id="blockMessage">
         <h1>Thank You!</h1>
     </div>
+
     <div class="promo">
         <h2>You have signed up for these GreatSchools newsletters:</h2>
     </div>
-    <gsml:form action="${viewName}" method="POST">
+
+
     <div id="blueTop">
         <ul>
-        <li>Monthly Stats about Lowell High School</li>
-        <li>Parent Advisor</li>
+            <c:if test="${!empty schoolName}">
+                <li>Monthly Stats about ${schoolName}</li>
+            </c:if>
+            <c:if test="${!empty parentAdvisor}">
+                <li>${parentAdvisor}</li>
+            </c:if>
         </ul>
     </div>
+
+
     <div id="grayTop">
         <ul>
-        <li>My Kindergartner</li>
-        <li>My First-Grader</li>
-        <li>My Second-Grader</li>
-        <li>My Third-Grader</li>
-        <li>My Fourth-Grader</li>
-        <li>My Fifth-Grader</li>
+        <c:forEach items="${setNth}" var="newsletterName">
+            <li>${newsletterName}</li>
+        </c:forEach>
         </ul>
     </div>
+
     <div id="grayTop">
         <ul>
-        <li>Middle School Matters</li>
-        <li>Countdown to College</li>
+        <c:forEach items="${setMsHs}" var="newsletterName">
+            <li>${newsletterName}</li>
+        </c:forEach>
         </ul>
     </div>
         <div>
-            <gsml:a href="">Manage My Subscriptions</gsml:a>
+            <link:newsletterCenter email="${email}">Manage my Subscriptions</link:newsletterCenter>
         </div>
-    </gsml:form>
-    <mod:tracking pageName=""
+    <mod:tracking pageName="Newsletter Hover Confirmation"
                   pageType=""
-                  hier1=""/>
+                  hier1="Newsletter, NL hover confirmation, school profile"/>
 </gsml:body>
 </html>
 </jsp:root>

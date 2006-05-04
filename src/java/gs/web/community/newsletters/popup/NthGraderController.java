@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.2 2006/05/04 00:25:45 dlee Exp $
+ * $Id: NthGraderController.java,v 1.1 2006/05/04 00:25:45 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -24,8 +24,8 @@ import java.util.List;
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
-public class MssPaController extends SimpleFormController {
-    public static final String BEAN_ID = "/community/newsletters/popup/mss/page1.page";
+public class NthGraderController extends SimpleFormController {
+    public static final String BEAN_ID = "/community/newsletters/popup/mss/page2.page";
     protected final Log _log = LogFactory.getLog(getClass());
 
     private IUserDao _userDao;
@@ -39,14 +39,14 @@ public class MssPaController extends SimpleFormController {
         ISessionFacade context = SessionFacade.getInstance(request);
         State state = context.getState();
         String schoolId = request.getParameter(PARAM_SCHOOL_ID);
-        School s = _schoolDao.getSchoolById(state,Integer.valueOf(schoolId));
+        School s = _schoolDao.getSchoolById(state, Integer.valueOf(schoolId));
         command.setSchoolId(s.getId().intValue());
         command.setSchoolName(s.getName());
         return command;
     }
 
     public ModelAndView onSubmit(Object command) {
-        NewsletterCommand nc = (NewsletterCommand)command;
+        NewsletterCommand nc = (NewsletterCommand) command;
         String email = nc.getEmail();
         User user = _userDao.getUserFromEmailIfExists(email);
         State state = nc.getState();
@@ -54,24 +54,71 @@ public class MssPaController extends SimpleFormController {
         if (user == null) {
             user = new User();
             user.setEmail(email);
-             _userDao.saveUser(user);
+            _userDao.saveUser(user);
         }
 
         List subscriptions = new ArrayList();
 
-        if (nc.isGn()) {
+        if (nc.isMyk()) {
             Subscription sub = new Subscription();
             sub.setUser(user);
-            sub.setProduct(SubscriptionProduct.PARENT_ADVISOR);
+            sub.setProduct(SubscriptionProduct.MY_KINDERGARTNER);
             sub.setState(state);
             subscriptions.add(sub);
         }
 
-        if (nc.isMystat()) {
+        if (nc.isMy1()) {
             Subscription sub = new Subscription();
             sub.setUser(user);
-            sub.setProduct(SubscriptionProduct.MYSTAT);
-            sub.setSchoolId(nc.getSchoolId());
+            sub.setProduct(SubscriptionProduct.MY_FIRST_GRADER);
+            sub.setState(state);
+            subscriptions.add(sub);
+        }
+
+        if (nc.isMy2()) {
+            Subscription sub = new Subscription();
+            sub.setUser(user);
+            sub.setProduct(SubscriptionProduct.MY_SECOND_GRADER);
+            sub.setState(state);
+            subscriptions.add(sub);
+        }
+
+        if (nc.isMy3()) {
+            Subscription sub = new Subscription();
+            sub.setUser(user);
+            sub.setProduct(SubscriptionProduct.MY_THIRD_GRADER);
+            sub.setState(state);
+            subscriptions.add(sub);
+        }
+
+        if (nc.isMy4()) {
+            Subscription sub = new Subscription();
+            sub.setUser(user);
+            sub.setProduct(SubscriptionProduct.MY_FOURTH_GRADER);
+            sub.setState(state);
+            subscriptions.add(sub);
+        }
+
+        if (nc.isMy5()) {
+            Subscription sub = new Subscription();
+            sub.setUser(user);
+            sub.setProduct(SubscriptionProduct.MY_FIFTH_GRADER);
+            sub.setState(state);
+            subscriptions.add(sub);
+        }
+
+        if (nc.isMyMs()) {
+            Subscription sub = new Subscription();
+            sub.setUser(user);
+            sub.setProduct(SubscriptionProduct.MY_MS);
+            sub.setState(state);
+            subscriptions.add(sub);
+        }
+
+        if (nc.isMyHs()) {
+            Subscription sub = new Subscription();
+            sub.setUser(user);
+            sub.setProduct(SubscriptionProduct.MY_HS);
             sub.setState(state);
             subscriptions.add(sub);
         }
@@ -79,12 +126,11 @@ public class MssPaController extends SimpleFormController {
         _subscriptionDao.addNewsletterSubscriptions(user, subscriptions);
 
         ModelAndView mAndV = new ModelAndView();
+        mAndV.setViewName(getSuccessView());
         mAndV.getModel().put("email", email);
         mAndV.getModel().put("state", state);
         mAndV.getModel().put("schoolId", String.valueOf(nc.getSchoolId()));
-        mAndV.getModel().put("newsCmd", nc);
-        mAndV.setViewName(getSuccessView());
-        
+
         return mAndV;
     }
 
@@ -111,5 +157,6 @@ public class MssPaController extends SimpleFormController {
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
     }
+
 
 }

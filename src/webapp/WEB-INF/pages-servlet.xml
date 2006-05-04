@@ -541,7 +541,6 @@
         <property name="commandClass">
             <value>gs.web.community.newsletters.popup.NewsletterCommand</value>
         </property>
-
         <property name="validators">
             <list>
                 <ref bean="emailValidator"/>
@@ -556,14 +555,30 @@
         </property>
     </bean>
     <bean name="/community/newsletters/popup/mss/page2.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.community.newsletters.popup.NthGraderController"
           autowire="byName">
-        <property name="viewName">
+        <property name="bindOnNewForm">
+            <value>true</value>
+        </property>
+        <property name="commandName"><value>newsCmd</value></property>
+        <property name="commandClass">
+            <value>gs.web.community.newsletters.popup.NewsletterCommand</value>
+        </property>
+        <property name="validators">
+            <list>
+                <ref bean="emailValidator"/>
+                <ref bean="newsCheckBoxValidator"/>
+            </list>
+        </property>
+        <property name="formView">
             <value>/community/newsletters/popup/mss/page2</value>
+        </property>
+        <property name="successView">
+            <value>/community/newsletters/popup/mss/page3</value>
         </property>
     </bean>
     <bean name="/community/newsletters/popup/mss/page3.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.community.newsletters.popup.SubscriptionSummaryController"
           autowire="byName">
         <property name="viewName">
             <value>/community/newsletters/popup/mss/page3</value>

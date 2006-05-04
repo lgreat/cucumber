@@ -9,6 +9,7 @@
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:link="urn:www.greatschools.net/taglib/link"
         >
 <html lang="en">
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
@@ -36,6 +37,7 @@
     </spring:bind>
 
     <spring:bind path="newsCmd.schoolName">
+        <c:set var="schoolNameExpr" value="${status.expression}"/>
         <c:set var="schoolName" value="${status.value}"/>
     </spring:bind>
 
@@ -80,8 +82,17 @@
     </spring:bind>
 
     <spring:bind path="newsCmd">
-        <c:set var="cbxError" value="${status.errorMessage}"/>        
+        <c:set var="cbxError" value="${status.errorMessage}"/>
     </spring:bind>
+
+    <div class="header">
+        <div class="left">
+            GreatSchools<br/> Newsletters
+        </div>
+        <div class="right">
+            <gsml:img src="/res/img/community/mom_daughter.gif" alt="Mom and daughter on computer" id="headerImg"/>
+        </div>
+    </div>
 
     <div class="promo">
         <h1>What's new at ${schoolName}?</h1>
@@ -94,6 +105,7 @@
             <div class="cbx">
                 <input type="hidden" name="state" value="${stateAbbrev}"/>
                 <input type="hidden" name="${schoolIdExpr}" value="${schoolId}"/>
+                <input type="hidden" name="${schoolNameExpr}" value="${schoolName}"/>
                 <input type="checkbox" name="${mssExpr}" checked="${mssChecked}"/>
                 Yes, please send me free monthly stats and updates about ${schoolName}.
             </div>
@@ -103,10 +115,10 @@
             </div>
             <div class="email">
                 <span style="padding-right:1em;">My email address:</span>
-                <input type="text" name="${emailExpr}" value="${email}"/>
-                <input id="btnSudmit" type="submit" name="btnSubmit" value="Sign Me Up!"/>
+                <input type="text" name="${emailExpr}" value="${email}" style="width:230px;"/>
+                <span class="btnSignUp"><gsml:inputImage src="/res/img/button/btn_sign_me_up_6699cc.gif" alt="Sign Me Up!"/></span>
                 <div class="privacy">
-                    We won't share or sell your address.<span class="link">Privacy Policy</span>
+                    We won't share or sell your address. <link:privacyPolicy target="_blank">Privacy Policy</link:privacyPolicy>
                 </div>
             </div>
         </gsml:form>
@@ -118,9 +130,9 @@
             <div class="quotee">-a mom and newsletter subscriber</div>
         </div>
     </div>
-    <mod:tracking pageName=""
+    <mod:tracking pageName="Newsletter Promo Hover"
                   pageType=""
-                  hier1=""/>
+                  hier1="Newsletter, NL hover promo - MSS, school profile"/>
 </gsml:body>
 </html>
 </jsp:root>

@@ -9,6 +9,7 @@
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:link="urn:www.greatschools.net/taglib/link"
         >
 <html lang="en">
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
@@ -30,28 +31,75 @@
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
 <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
+
+    <spring:bind path="newsCmd.email">
+        <c:set var="emailExpr" value="${status.expression}"/>
+        <c:set var="email" value="${status.value}"/>
+    </spring:bind>
+    <spring:bind path="newsCmd.schoolId">
+        <c:set var="schoolIdExpr" value="${status.expression}"/>
+        <c:set var="schoolId" value="${status.value}"/>
+    </spring:bind>
+
     <div id="blockMessage">
         <h1>Thanks for signing up<br/> for GreatSchools newsletters.</h1>
     </div>
     <div class="promo">
         <h2>Track your child's progress grade by grade<br/> with the free newsletters that parents rave about!</h2>
     </div>
-    <gsml:form action="${viewName}" method="POST">
-    <div id="blueTop">
+    <div class="error">
+        <spring:bind path="newsCmd">
+            <c:out value="${status.errorMessage}"/>
+        </spring:bind>
+    </div>
+    <gsml:form action="/community/newsletters/popup/mss/page2.page" method="POST">
+        <input type="hidden" name="state" value="${stateAbbrev}"/>
+        <input type="hidden" name="${schoolIdExpr}" value="${schoolId}"/>
+        <input type="hidden" name="${emailExpr}" value="${email}"/>
+        <div id="blueTop">
         Yes, send me monthly tips about what to expect in the classroom for:
-
             <table width="80%" align="center">
             <tr>
-                <td><input type="checkbox" name="myk"/>My Kindergartner</td>
-                <td><input type="checkbox" name="my3"/>My Third-Grader</td>
+                <td>
+                    <spring:bind path="newsCmd.myk">
+                        <input type="checkbox" name="${status.expression}"/>
+                    </spring:bind>
+                    My Kindergartner
+                </td>
+                <td>
+                    <spring:bind path="newsCmd.my3">
+                        <input type="checkbox" name="${status.expression}"/>
+                    </spring:bind>
+                    My Third-Grader
+                </td>
             </tr>
             <tr>
-                <td><input type="checkbox" name="my1"/>My First-Grader</td>
-                <td><input type="checkbox" name="my4"/>My Fourth-Grader</td>
+                <td>
+                    <spring:bind path="newsCmd.my1">
+                        <input type="checkbox" name="${status.expression}"/>
+                    </spring:bind>
+                    My First-Grader
+                </td>
+                <td>
+                    <spring:bind path="newsCmd.my4">
+                        <input type="checkbox" name="${status.expression}"/>
+                    </spring:bind>
+                    My Fourth-Grader
+                </td>
             </tr>
             <tr>
-                <td><input type="checkbox" name="my2"/>My Second-Grader</td>
-                <td><input type="checkbox" name="my5"/>My Fifth-Grader</td>
+                <td>
+                    <spring:bind path="newsCmd.my2">
+                        <input type="checkbox" name="${status.expression}"/>
+                    </spring:bind>
+                    My Second-Grader
+                </td>
+                <td>
+                    <spring:bind path="newsCmd.my5">
+                        <input type="checkbox" name="${status.expression}"/>
+                    </spring:bind>
+                    My Fifth-Grader
+                </td>
             </tr>
         </table>
     </div>
@@ -59,16 +107,36 @@
         Send me free advice about college and academic planning:
         <table width="80%" align="center">
         <tr>
-            <td><input type="checkbox" name="myms"/>Middle School Matters</td>
-            <td><input type="checkbox" name="myhs"/>Countdown to College</td>
+            <td>
+                <spring:bind path="newsCmd.myMs">
+                    <input type="checkbox" name="${status.expression}"/>
+                </spring:bind>
+                Middle School Matters
+            </td>
+            <td>
+                <spring:bind path="newsCmd.myHs">
+                    <input type="checkbox" name="${status.expression}"/>
+                </spring:bind>
+                Countdown to College
+            </td>
         </tr>
         </table>
-
+        <div class="centered">
+            <div class="padded">
+                <gsml:inputImage src="/res/img/button/btn_sign_me_up_6699cc.gif" alt="Sign Me Up!"/>
+            </div>
+            <div class="padded">
+                <link:newsletterCenter email="${email}" styleClass="">No thanks, I'm all done!</link:newsletterCenter>
+            </div>
+        </div>
+        <div class="privacy">
+            We won't share or sell your address. <link:privacyPolicy target="_blank">Privacy Policy</link:privacyPolicy>
+        </div>
     </div>
     </gsml:form>
-    <mod:tracking pageName=""
+    <mod:tracking pageName="Newsletter Hover Upsell"
                   pageType=""
-                  hier1=""/>
+                  hier1="Newsletter, NL hover upsell, school profile"/>
 </gsml:body>
 </html>
 </jsp:root>
