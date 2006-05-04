@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryController.java,v 1.1 2006/05/04 00:25:45 dlee Exp $
+ * $Id: SubscriptionSummaryController.java,v 1.2 2006/05/04 06:37:04 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -42,9 +42,9 @@ public class SubscriptionSummaryController extends AbstractCommandController {
 
     private String _viewName;
 
-    public SubscriptionSummaryController()
-    {
+    public SubscriptionSummaryController() {
         setCommandClass(NewsletterCommand.class);
+        setValidateOnBinding(true);
     }
 
     protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException bindException) throws Exception {

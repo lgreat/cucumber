@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.1 2006/05/04 00:25:45 dlee Exp $
+ * $Id: NthGraderController.java,v 1.2 2006/05/04 06:37:04 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -35,6 +35,7 @@ public class NthGraderController extends SimpleFormController {
     private static String PARAM_SCHOOL_ID = "schoolId";
 
     protected Object formBackingObject(HttpServletRequest request) {
+        setValidateOnBinding(true);
         NewsletterCommand command = new NewsletterCommand();
         ISessionFacade context = SessionFacade.getInstance(request);
         State state = context.getState();

@@ -102,6 +102,11 @@
         <gsml:form action="/community/newsletters/popup/mss/page1.page" method="POST">
             <div class="error">${cbxError}</div>
             <div class="error">${emailErrors}</div>
+            <div class="error">
+                <spring:bind path="newsCmd.schoolId">
+                    ${status.errorMessage}
+                </spring:bind>
+            </div>
             <div class="cbx">
                 <input type="hidden" name="state" value="${stateAbbrev}"/>
                 <input type="hidden" name="${schoolIdExpr}" value="${schoolId}"/>

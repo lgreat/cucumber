@@ -1,17 +1,15 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.2 2006/05/04 00:25:45 dlee Exp $
+ * $Id: MssPaController.java,v 1.3 2006/05/04 06:37:04 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
 import gs.data.community.*;
 import gs.data.school.ISchoolDao;
-import gs.data.school.School;
 import gs.data.state.State;
-import gs.web.ISessionFacade;
-import gs.web.SessionFacade;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
@@ -32,18 +30,31 @@ public class MssPaController extends SimpleFormController {
     private ISubscriptionDao _subscriptionDao;
     private ISchoolDao _schoolDao;
 
-    private static String PARAM_SCHOOL_ID = "schoolId";
-
-    protected Object formBackingObject(HttpServletRequest request) {
-        NewsletterCommand command = new NewsletterCommand();
-        ISessionFacade context = SessionFacade.getInstance(request);
-        State state = context.getState();
-        String schoolId = request.getParameter(PARAM_SCHOOL_ID);
-        School s = _schoolDao.getSchoolById(state,Integer.valueOf(schoolId));
-        command.setSchoolId(s.getId().intValue());
-        command.setSchoolName(s.getName());
-        return command;
+    public MssPaController() {
+        setValidateOnBinding(true);
+        setBindOnNewForm(true);
     }
+
+    protected void onBindOnNewForm(HttpServletRequest request,
+                                 Object command,
+                                 BindException errors) {
+        NewsletterCommand nc = (NewsletterCommand) command;
+        if (nc.getSchoolId() == 0 || nc.getState() == null) {
+
+            errors.reject("bindOnEntry","schoolId or state not passed in");
+            _log.error("No state or school id provided");
+        }
+    }
+    /*
+    protected void onBindAndValidate(HttpServletRequest request,
+                                     Object command,
+                                     BindException errors) {
+        NewsletterCommand nc = (NewsletterCommand) command;
+        State state = nc.getState();
+        School s = _schoolDao.getSchoolById(state,Integer.valueOf(nc.getSchoolId()));
+        nc.setSchoolName(s.getName());
+    }
+    */
 
     public ModelAndView onSubmit(Object command) {
         NewsletterCommand nc = (NewsletterCommand)command;

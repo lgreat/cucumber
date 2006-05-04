@@ -530,6 +530,9 @@
     <bean id="newsCheckBoxValidator" class="gs.web.community.newsletters.popup.NewsletterCheckBoxValidator"
             autowire="byName" />
 
+    <bean id="schoolIdValidator" class="gs.web.util.validator.SchoolIdValidator"
+            autowire="byName" />
+
     <!--My School stats newsletter popups-->
     <bean name="/community/newsletters/popup/mss/page1.page"
           class="gs.web.community.newsletters.popup.MssPaController"
@@ -543,6 +546,7 @@
         </property>
         <property name="validators">
             <list>
+                <ref bean="schoolIdValidator"/>
                 <ref bean="emailValidator"/>
                 <ref bean="newsCheckBoxValidator"/>
             </list>
