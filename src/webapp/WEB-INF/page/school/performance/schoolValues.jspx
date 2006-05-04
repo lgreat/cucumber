@@ -1,6 +1,5 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
@@ -13,7 +12,7 @@
     <html>
     <jsp:directive.page contentType="text/html"/>
     <head>
-        <title><c:out value="Best Public School Values: ${subtitle}"/></title>
+        <title><c:out value="${title}"/></title>
     </head>
     <gsml:body adPageName="fixme" pageLayout="oneMainColumn">
 
@@ -21,14 +20,9 @@
 
         <table width="100%"><tr>
             <td style="vertical-align: top">
-                <h1><c:out value="Best Public School Values: ${subtitle}"/></h1>
-                <p>
-                    Note: In order to be considered, a city had to have an average API Rank of 6.95 or greater, which
-                    means the
-                    city's API Rank is above average (6.94 is the average API Rank of all Bay Area cities).</p>
-
+                <h1><c:out value="${title}"/></h1>
             </td>
-            <td class="sidebar"><link:article articleId="594" >Back to Article</link:article></td>
+            <td class="sidebar" style="text-align: right"><link:article articleId="594" >Back to Article</link:article></td>
             </tr></table>
         <c:if test="${showMap}" >
             <div id="mapContainer">
@@ -52,10 +46,14 @@
                     <c:if test="${showRank}">
                         <th>Rank</th>
                     </c:if>
-                    <th>City</th><!--th>County</th--><th>Median Home Price</th><th>Average
-                    API Rank</th><th># schools serving elementary grades</th><th># schools serving
-                    middle school grades</th><th># schools serving
-                    high school grades</th><!--th>Find schools</th-->
+                    <th style="text-align: left">City</th>
+                    <!--th>County</th-->
+                    <th>Average API Rank</th>
+                    <th>Median Home Price</th>
+                    <th>Public Elementary</th>
+                    <th>Public Middle</th>
+                    <th>Public High</th>
+                    <!--th>Find schools</th-->
                 </tr>
                 <c:set var="i" value="1"/>
                 <c:forEach items="${cities}" var="city">
@@ -65,14 +63,15 @@
                         </c:if>
                         <td class="name"><gsml:a href="${city.cityPageHref}">${city.cityName}</gsml:a></td>
                         <!--<td class="county">${city.countyName}</td>-->
-                        <td class="price"><c:if test="${city.medianHomePrice ge 0}">$<fmt:formatNumber value="${city.medianHomePrice}"
-                                                                       maxFractionDigits="0"/></c:if><c:if
-                                test="${city.medianHomePrice lt 0}">n/a</c:if></td>
                         <td class="api"><c:if test="${city.averageApiRank ge 0}"><fmt:formatNumber
                                 value="${city.averageApiRank}"
                                 minFractionDigits="1"
                                 maxFractionDigits="1"/></c:if><c:if
                                 test="${city.averageApiRank lt 0}">n/a</c:if></td>
+                        <td class="price"><c:if test="${city.medianHomePrice ge 0}">$<fmt:formatNumber
+                                value="${city.medianHomePrice}"
+                                maxFractionDigits="0"/></c:if><c:if
+                                test="${city.medianHomePrice lt 0}">n/a</c:if></td>
                         <td class="e"><link:schools city="${city}" levelCode="e" schoolTypes="public,charter"><c:if test="${city.elementarySchoolsCount eq 1}">1 school</c:if><c:if test="${city.elementarySchoolsCount gt 1}">${city.elementarySchoolsCount} schools</c:if></link:schools></td>
                         <td class="m"><link:schools city="${city}" levelCode="m" schoolTypes="public,charter"><c:if test="${city.middleSchoolsCount eq 1}">1 school</c:if><c:if test="${city.middleSchoolsCount gt 1}">${city.middleSchoolsCount} schools</c:if></link:schools></td>
                         <td class="h"><link:schools city="${city}" levelCode="h" schoolTypes="public,charter"><c:if test="${city.highSchoolsCount eq 1}">1 school</c:if><c:if test="${city.highSchoolsCount gt 1}">${city.highSchoolsCount} schools</c:if></link:schools></td>

@@ -462,6 +462,9 @@
         <property name="showingAll">
             <value>false</value>
         </property>
+        <property name="title">
+            <value>San Francisco Bay Area Best Public School Values Map</value>
+        </property>
     </bean>
 
     <bean name="/school/performance/allCities.page"
@@ -475,6 +478,9 @@
         </property>
         <property name="showingAll">
             <value>true</value>
+        </property>
+        <property name="title">
+            <value>San Francisco Bay Area Cities</value>
         </property>
     </bean>
 
@@ -613,7 +619,7 @@
                 <ref bean="stateValidator"/>
                 <ref bean="schoolIdValidator"/>
             </list>
-        </property>        
+        </property>
     </bean>
     <!--End Myschool stats newsletter popups -->
 

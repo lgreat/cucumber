@@ -25,7 +25,7 @@ table.bpsv th {
     vertical-align: bottom;
     text-align: center;
     background-color: #e5e5e5;
-    padding: 2px;
+    padding: 4px;
     border: 1px dotted #000;
     border-width: 0px 0 0px 0;
 }
@@ -33,7 +33,7 @@ table.bpsv th {
 table.bpsv td {
     font-size: small;
     font-weight: normal;
-    padding: 2px;
+    padding: 4px;
 }
 
 table.bpsv tr.even td {
@@ -43,7 +43,6 @@ table.bpsv tr.even td {
 table.bpsv td.name {
     white-space: nowrap;
     font-weight: bold;
-    padding-right: 1em;
 }
 
 table.bpsv td.rank {
@@ -54,7 +53,7 @@ table.bpsv td.rank {
 table.bpsv td.e,
     table.bpsv td.m,
     table.bpsv td.h {
-    width: 7em;
+    width: 10em;
     text-align: center;
 }
 
@@ -71,15 +70,8 @@ td.sidebar {
     font-size: small;
 }
 
-td.sidebar li {
-    border: 1px dotted #999;
-    border-width: 1px 0 0px 0;
-    padding: 2px 0 2px 0;
-}
 
-td.sidebar li.selected {
-    border: 1px dotted #999;
-    border-width: 1px 0 0px 0;
+td.sidebar a {
     padding: 2px 0 2px 0;
     background-image: url( ../../img/orange_arrow_right_trans.gif );
     background-repeat: no-repeat;

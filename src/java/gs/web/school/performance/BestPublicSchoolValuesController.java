@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.15 2006/05/04 07:13:57 apeterson Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.16 2006/05/04 20:38:04 apeterson Exp $
  */
 
 package gs.web.school.performance;
@@ -50,7 +50,7 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
      */
     public static final String MODEL_CITY_LIST = "cities";
 
-    public static final String MODEL_PAGE_SUBTITLE = "subtitle";
+    public static final String MODEL_PAGE_SUBTITLE = "title";
     public static final String MODEL_SHOW_RANK = "showRank"; // Boolean
     public static final String MODEL_SHOW_MAP = "showMap"; // Boolean
 
@@ -88,8 +88,9 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
     private  List _citiesMissingData;
     private  List _allCities;
 
-    public boolean _showingAll;
-    public boolean _showingRank;
+    private boolean _showingAll;
+    private boolean _showingRank;
+    private String _title;
 
     private static final Log _log = LogFactory.getLog(BestPublicSchoolValuesController.class);
 
@@ -114,17 +115,12 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
         modelAndView.addObject(MODEL_SHOW_RANK, Boolean.valueOf(_showingRank));
 
         List values;
-        String subtitle;
         ListModel links = new ListModel();
         if (_showingAll) {
-            subtitle = "San Francisco Bay Area Cities";
             values = _allCities;
         } else {
             values = _citiesOfValue;
-            if (limit == Integer.MAX_VALUE) {
-                subtitle = "All Bay Area Cities";
-            } else {
-                subtitle = "Top " + limit + " Bay Area Cities";
+            if (limit != Integer.MAX_VALUE) {
                 values = values.subList(0, limit);
             }
         }
@@ -135,7 +131,7 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
 
 
         modelAndView.addObject(MODEL_CITY_LIST, values);
-        modelAndView.addObject(MODEL_PAGE_SUBTITLE, subtitle);
+        modelAndView.addObject(MODEL_PAGE_SUBTITLE, _title);
         modelAndView.addObject(MODEL_SHOW_MAP, Boolean.valueOf(showMap));
 
         return modelAndView;
@@ -436,7 +432,7 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
         _allCities = new ArrayList(_citiesOfValue);
         _allCities.addAll(_citiesNotMatchingApiCriteria);
         _allCities.addAll(_citiesTooSmall);
-        _allCities.addAll(_citiesMissingData);
+        //_allCities.addAll(_citiesMissingData);
         Collections.sort(_allCities, new Comparator() {
             public int compare(Object o, Object o1) {
                 return ((Bpsv) o).getName().compareTo(((Bpsv) o1).getName());
@@ -459,5 +455,13 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
 
     public void setShowingRank(boolean showingRank) {
         _showingRank = showingRank;
+    }
+
+    public String getTitle() {
+        return _title;
+    }
+
+    public void setTitle(String title) {
+        _title = title;
     }
 }
