@@ -39,6 +39,17 @@
         <h2>You have signed up for these GreatSchools newsletters:</h2>
     </div>
 
+    <div class="error">
+        <spring:hasBindErrors name="newsCmd">
+         <ul>
+            <c:forEach var="errMsgObj" items="${errors.allErrors}">
+               <li>
+                  <spring:message code="${errMsgObj.code}" text="${errMsgObj.defaultMessage}"/>
+               </li>
+            </c:forEach>
+         </ul>
+        </spring:hasBindErrors>
+    </div>
 
     <div id="blueTop">
         <ul>

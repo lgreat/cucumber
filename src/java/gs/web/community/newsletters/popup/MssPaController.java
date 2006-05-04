@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.4 2006/05/04 18:03:36 dlee Exp $
+ * $Id: MssPaController.java,v 1.5 2006/05/04 19:32:33 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -49,21 +49,26 @@ public class MssPaController extends SimpleFormController {
 
         if (!errors.hasErrors()) {
             State state = nc.getState();
-            School s = _schoolDao.getSchoolById(state, new Integer(nc.getSchoolId()));
-            nc.setSchoolName(s.getName());
+            School s = getSchoolDao().getSchoolById(state, new Integer(nc.getSchoolId()));
+            if (s != null) {
+                nc.setSchoolName(s.getName());
+            } else {
+                errors.reject("nokey","Invalid school");
+                _log.info("Invalid school passed" + state.getAbbreviation() + nc.getSchoolId());
+            }
         }
     }
 
     public ModelAndView onSubmit(Object command) {
         NewsletterCommand nc = (NewsletterCommand) command;
         String email = nc.getEmail();
-        User user = _userDao.getUserFromEmailIfExists(email);
+        User user = getUserDao().getUserFromEmailIfExists(email);
         State state = nc.getState();
 
         if (user == null) {
             user = new User();
             user.setEmail(email);
-            _userDao.saveUser(user);
+            getUserDao().saveUser(user);
         }
 
         List subscriptions = new ArrayList();
@@ -85,10 +90,14 @@ public class MssPaController extends SimpleFormController {
             subscriptions.add(sub);
         }
 
-        _subscriptionDao.addNewsletterSubscriptions(user, subscriptions);
+        getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
 
         ModelAndView mAndV = new ModelAndView();
-        mAndV.getModel().put("newsCmd", nc);
+
+        mAndV.getModel().put("state", nc.getState());
+        mAndV.getModel().put("email", nc.getEmail());
+        mAndV.getModel().put("schoolId", String.valueOf(nc.getSchoolId()));
+
         mAndV.setViewName(getSuccessView());
 
         return mAndV;

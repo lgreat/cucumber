@@ -551,19 +551,21 @@
     <bean id="schoolIdValidator" class="gs.web.util.validator.SchoolIdValidator"
             autowire="byName" />
 
+    <bean id="stateValidator" class="gs.web.util.validator.StateValidator"
+            autowire="byName" />
+
     <!--My School stats newsletter popups-->
     <bean name="/community/newsletters/popup/mss/page1.page"
           class="gs.web.community.newsletters.popup.MssPaController"
           autowire="byName">
-        <property name="bindOnNewForm">
-            <value>true</value>
-        </property>
-        <property name="commandName"><value>newsCmd</value></property>
-        <property name="commandClass">
-            <value>gs.web.community.newsletters.popup.NewsletterCommand</value>
-        </property>
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="newsCmd" />
+        <property name="commandClass" value="gs.web.community.newsletters.popup.NewsletterCommand"/>
+        <property name="formView" value="/community/newsletters/popup/mss/page1"/>
+        <property name="successView" value="redirect:/community/newsletters/popup/mss/page2.page"/>
         <property name="onLoadValidators">
             <list>
+                <ref bean="stateValidator"/>
                 <ref bean="schoolIdValidator"/>
             </list>
         </property>
@@ -573,23 +575,22 @@
                 <ref bean="emailValidator"/>
                 <ref bean="newsCheckBoxValidator"/>
             </list>
-        </property>
-        <property name="formView">
-            <value>/community/newsletters/popup/mss/page1</value>
-        </property>
-        <property name="successView">
-            <value>/community/newsletters/popup/mss/page2</value>
         </property>
     </bean>
     <bean name="/community/newsletters/popup/mss/page2.page"
           class="gs.web.community.newsletters.popup.NthGraderController"
           autowire="byName">
-        <property name="bindOnNewForm">
-            <value>true</value>
-        </property>
-        <property name="commandName"><value>newsCmd</value></property>
-        <property name="commandClass">
-            <value>gs.web.community.newsletters.popup.NewsletterCommand</value>
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="newsCmd"/>
+        <property name="commandClass" value="gs.web.community.newsletters.popup.NewsletterCommand"/>
+        <property name="formView" value="/community/newsletters/popup/mss/page2" />
+        <property name="successView" value="redirect:/community/newsletters/popup/mss/page3.page"/>
+        <property name="onLoadValidators">
+            <list>
+                <ref bean="emailValidator"/>
+                <ref bean="stateValidator"/>
+                <ref bean="schoolIdValidator"/>
+            </list>
         </property>
         <property name="validators">
             <list>
@@ -597,19 +598,22 @@
                 <ref bean="newsCheckBoxValidator"/>
             </list>
         </property>
-        <property name="formView">
-            <value>/community/newsletters/popup/mss/page2</value>
-        </property>
-        <property name="successView">
-            <value>/community/newsletters/popup/mss/page3</value>
-        </property>
     </bean>
     <bean name="/community/newsletters/popup/mss/page3.page"
           class="gs.web.community.newsletters.popup.SubscriptionSummaryController"
           autowire="byName">
-        <property name="viewName">
-            <value>/community/newsletters/popup/mss/page3</value>
-        </property>
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="newsCmd"/>
+        <property name="commandClass" value="gs.web.community.newsletters.popup.NewsletterCommand"/>
+        <property name="formView" value="/community/newsletters/popup/mss/page3" />
+        <property name="successView" value="/community/newsletters/popup/mss/page3"/>
+        <property name="onLoadValidators">
+            <list>
+                <ref bean="emailValidator"/>
+                <ref bean="stateValidator"/>
+                <ref bean="schoolIdValidator"/>
+            </list>
+        </property>        
     </bean>
     <!--End Myschool stats newsletter popups -->
 

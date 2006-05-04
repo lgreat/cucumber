@@ -107,6 +107,11 @@
                     ${status.errorMessage}
                 </spring:bind>
             </div>
+            <div class="error">
+                <spring:bind path="newsCmd.state">
+                    ${status.errorMessage}
+                </spring:bind>
+            </div>
             <div class="cbx">
                 <input type="hidden" name="state" value="${stateAbbrev}"/>
                 <input type="hidden" name="${schoolIdExpr}" value="${schoolId}"/>

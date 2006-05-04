@@ -1,13 +1,12 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.3 2006/05/04 18:03:36 dlee Exp $
+ * $Id: NthGraderController.java,v 1.4 2006/05/04 19:32:33 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
 import gs.data.community.*;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
-import gs.web.util.validator.EmailValidator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
@@ -17,6 +16,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -31,25 +31,32 @@ public class NthGraderController extends SimpleFormController {
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
     private ISchoolDao _schoolDao;
+    private List _onLoadValidators;
+
 
     protected void onBindOnNewForm(HttpServletRequest request,
                                    Object command,
                                    BindException errors) {
         NewsletterCommand nc = (NewsletterCommand) command;
-        Validator val = new EmailValidator();
-        val.validate(nc, errors);
+        List validators = getOnLoadValidators();
+        for (Iterator iter = validators.iterator(); iter.hasNext();) {
+            Validator val = (Validator) iter.next();
+            if (val.supports(nc.getClass())) {
+                val.validate(nc, errors);
+            }
+        }
     }
 
     public ModelAndView onSubmit(Object command) {
         NewsletterCommand nc = (NewsletterCommand) command;
         String email = nc.getEmail();
-        User user = _userDao.getUserFromEmailIfExists(email);
+        User user = getUserDao().getUserFromEmailIfExists(email);
         State state = nc.getState();
 
         if (user == null) {
             user = new User();
             user.setEmail(email);
-            _userDao.saveUser(user);
+            getUserDao().saveUser(user);
         }
 
         List subscriptions = new ArrayList();
@@ -118,12 +125,12 @@ public class NthGraderController extends SimpleFormController {
             subscriptions.add(sub);
         }
 
-        _subscriptionDao.addNewsletterSubscriptions(user, subscriptions);
+        getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
 
         ModelAndView mAndV = new ModelAndView();
         mAndV.setViewName(getSuccessView());
-        mAndV.getModel().put("email", email);
         mAndV.getModel().put("state", state);
+        mAndV.getModel().put("email", email);
         mAndV.getModel().put("schoolId", String.valueOf(nc.getSchoolId()));
 
         return mAndV;
@@ -153,5 +160,12 @@ public class NthGraderController extends SimpleFormController {
         _schoolDao = schoolDao;
     }
 
+    public List getOnLoadValidators() {
+        return _onLoadValidators;
+    }
+
+    public void setOnLoadValidators(List onLoadValidators) {
+        _onLoadValidators = onLoadValidators;
+    }
 
 }
