@@ -1,17 +1,17 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.2 2006/05/04 06:37:04 dlee Exp $
+ * $Id: NthGraderController.java,v 1.3 2006/05/04 18:03:36 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
 import gs.data.community.*;
 import gs.data.school.ISchoolDao;
-import gs.data.school.School;
 import gs.data.state.State;
-import gs.web.ISessionFacade;
-import gs.web.SessionFacade;
+import gs.web.util.validator.EmailValidator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.validation.BindException;
+import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
@@ -32,18 +32,12 @@ public class NthGraderController extends SimpleFormController {
     private ISubscriptionDao _subscriptionDao;
     private ISchoolDao _schoolDao;
 
-    private static String PARAM_SCHOOL_ID = "schoolId";
-
-    protected Object formBackingObject(HttpServletRequest request) {
-        setValidateOnBinding(true);
-        NewsletterCommand command = new NewsletterCommand();
-        ISessionFacade context = SessionFacade.getInstance(request);
-        State state = context.getState();
-        String schoolId = request.getParameter(PARAM_SCHOOL_ID);
-        School s = _schoolDao.getSchoolById(state, Integer.valueOf(schoolId));
-        command.setSchoolId(s.getId().intValue());
-        command.setSchoolName(s.getName());
-        return command;
+    protected void onBindOnNewForm(HttpServletRequest request,
+                                   Object command,
+                                   BindException errors) {
+        NewsletterCommand nc = (NewsletterCommand) command;
+        Validator val = new EmailValidator();
+        val.validate(nc, errors);
     }
 
     public ModelAndView onSubmit(Object command) {

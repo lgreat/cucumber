@@ -1,6 +1,5 @@
 package gs.web.util.validator;
 
-import gs.web.util.IEmail;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 

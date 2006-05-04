@@ -1,6 +1,6 @@
 package gs.web.community;
 
-import gs.web.util.IEmail;
+import gs.web.util.validator.IEmail;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>

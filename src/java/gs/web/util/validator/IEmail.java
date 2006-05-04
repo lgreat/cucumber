@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: IEmail.java,v 1.1 2006/05/03 01:16:16 dlee Exp $
+ * $Id: IEmail.java,v 1.1 2006/05/04 18:03:36 dlee Exp $
  */
-package gs.web.util;
+package gs.web.util.validator;
 
 /**
  * The purpose is ...

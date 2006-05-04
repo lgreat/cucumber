@@ -562,6 +562,11 @@
         <property name="commandClass">
             <value>gs.web.community.newsletters.popup.NewsletterCommand</value>
         </property>
+        <property name="onLoadValidators">
+            <list>
+                <ref bean="schoolIdValidator"/>
+            </list>
+        </property>
         <property name="validators">
             <list>
                 <ref bean="schoolIdValidator"/>

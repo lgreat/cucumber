@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NewsletterCommand.java,v 1.4 2006/05/04 06:37:04 dlee Exp $
+ * $Id: NewsletterCommand.java,v 1.5 2006/05/04 18:03:36 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
 import gs.data.state.State;
-import gs.web.util.IEmail;
+import gs.web.util.validator.IEmail;
 import gs.web.util.validator.ISchoolId;
 
 /**
