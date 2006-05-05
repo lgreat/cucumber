@@ -99,7 +99,7 @@
         <h3>Find out with free monthly newsletters from GreatSchools.</h3>
     </div>
     <div class="content">
-        <gsml:form action="/community/newsletters/popup/mss/page1.page" method="POST">
+        <gsml:form action="/community/newsletters/popup/mss/page1.page" method="POST" target="_self">
             <div class="error">${cbxError}</div>
             <div class="error">${emailErrors}</div>
             <div class="error">

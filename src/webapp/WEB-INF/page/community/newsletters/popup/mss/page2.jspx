@@ -52,7 +52,7 @@
             <c:out value="${status.errorMessage}"/>
         </spring:bind>
     </div>
-    <gsml:form action="/community/newsletters/popup/mss/page2.page" method="POST">
+    <gsml:form action="/community/newsletters/popup/mss/page2.page" method="POST" target="_self">
         <input type="hidden" name="state" value="${stateAbbrev}"/>
         <input type="hidden" name="${schoolIdExpr}" value="${schoolId}"/>
         <input type="hidden" name="${emailExpr}" value="${email}"/>

@@ -205,6 +205,13 @@
             <description>Optional email address to forward to use as input to the newsletter center.
                 This currently pre-populates the email address for signing up for mailings.</description>
         </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>        
     </tag>
     <tag>
         <name>privacyPolicy</name>

@@ -10,6 +10,7 @@
     <jsp:directive.attribute name="method" required="true" description="form submit method (get/post)"/>
     <jsp:directive.attribute name="onsubmit" required="false" description="onsubmit attribute"/>
     <jsp:directive.attribute name="id" required="false" description="id attribute"/>
+    <jsp:directive.attribute name="target" required="false" description="target attribute"/>
     <jsp:scriptlet>
         if (state != null) {
             request.setAttribute("STATE", state);
@@ -24,6 +25,7 @@
         <jsp:attribute name="id">${id}</jsp:attribute>
         <!-- TH: We used to have a name attribute but that is a deprecated attribute -->
         <jsp:attribute name="onsubmit">${onsubmit}</jsp:attribute>
+        <jsp:attribute name="target">${target}</jsp:attribute>
         <jsp:body>
             <jsp:doBody/>
         </jsp:body>
