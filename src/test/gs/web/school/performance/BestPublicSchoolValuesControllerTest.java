@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesControllerTest.java,v 1.4 2006/05/04 13:54:43 apeterson Exp $
+ * $Id: BestPublicSchoolValuesControllerTest.java,v 1.5 2006/05/05 16:43:42 apeterson Exp $
  */
 
 package gs.web.school.performance;
@@ -38,13 +38,14 @@ public class BestPublicSchoolValuesControllerTest extends BaseControllerTestCase
         GsMockHttpServletRequest request = getRequest();
         _controller.setShowingRank(true);
         _controller.setShowingAll(false);
+        _controller.setTitle("All Bay Area Cities");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
 
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
 
         Map model = mav.getModel();
         List cityList = (List) model.get(BestPublicSchoolValuesController.MODEL_CITY_LIST);
-        String subtitle = (String) model.get(BestPublicSchoolValuesController.MODEL_PAGE_SUBTITLE);
+        String subtitle = (String) model.get(BestPublicSchoolValuesController.MODEL_PAGE_TITLE);
         Boolean showMap = (Boolean) model.get(BestPublicSchoolValuesController.MODEL_SHOW_MAP);
         Boolean showRank = (Boolean) model.get(BestPublicSchoolValuesController.MODEL_SHOW_RANK);
 

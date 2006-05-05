@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.16 2006/05/04 20:38:04 apeterson Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.17 2006/05/05 16:43:42 apeterson Exp $
  */
 
 package gs.web.school.performance;
@@ -50,7 +50,7 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
      */
     public static final String MODEL_CITY_LIST = "cities";
 
-    public static final String MODEL_PAGE_SUBTITLE = "title";
+    public static final String MODEL_PAGE_TITLE = "title";
     public static final String MODEL_SHOW_RANK = "showRank"; // Boolean
     public static final String MODEL_SHOW_MAP = "showMap"; // Boolean
 
@@ -131,7 +131,7 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
 
 
         modelAndView.addObject(MODEL_CITY_LIST, values);
-        modelAndView.addObject(MODEL_PAGE_SUBTITLE, _title);
+        modelAndView.addObject(MODEL_PAGE_TITLE, _title);
         modelAndView.addObject(MODEL_SHOW_MAP, Boolean.valueOf(showMap));
 
         return modelAndView;
