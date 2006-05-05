@@ -33,7 +33,7 @@ table.bpsv th {
 table.bpsv td {
     font-size: small;
     font-weight: normal;
-    padding: 4px;
+    padding: 6px;
 }
 
 table.bpsv tr.even td {
@@ -79,6 +79,19 @@ td.sidebar a {
     padding-left: 16px;
 }
 
+p.footnote {
+    text-align: right;
+    padding: 4px;
+}
+
+p.footnote a {
+    padding: 2px 0 2px 0;
+    background-image: url( ../../img/orange_arrow_right_trans.gif );
+    background-repeat: no-repeat;
+    background-position: center left;
+    padding-left: 16px;
+}
+
 #map, #mapContainer {
     width: 600px;
     height: 600px;
@@ -86,4 +99,25 @@ td.sidebar a {
 
 #mapContainer {
     border: 1px solid #999;
+}
+
+div#cities {
+    margin: .5em 1em .5em 1em;
+    padding: .3em 1em .3 1em;
+}
+
+div#cities h3 {
+    color: #eb7a31;
+    font-size: medium;
+    font-weight: 700;
+    text-align: left;
+    padding-bottom: 5px;
+}
+
+div#cities li {
+    list-style: decimal inside;
+    font-size: small;
+    display: list-item;
+    border-top: 1px dotted #999;
+    padding: 3px 0 3px 0;
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+        xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        xmlns:spring="http://www.springframework.org/tags"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+        xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+        xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+        xmlns:link="urn:www.greatschools.net/taglib/link"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
+    <html lang="en">
+    <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+
+    <head>
+        <title><c:out value="${title}"/></title>
+    </head>
+
+    <gsml:body adPageName="city">
+        <pageHelper:externalCss file="/res/css/school/bpsv.css"/>
+
+
+        <div style="margin: .5em">
+            <table width="100%"><tr>
+                <td style="vertical-align: top">
+                    <h1><c:out value="${title}"/></h1>
+                </td>
+                <td class="sidebar" style="text-align: right"><link:article articleId="594">Back to
+                    Article</link:article></td>
+            </tr>
+            </table>
+
+            <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+
+                    <td style="width:33%; vertical-align: top">
+                        <div id="cities">
+                            <gsml:list model="${cityNames}"/>
+                        </div>
+                    </td>
+                    <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+                        <td style="width:66%; vertical-align: top">
+                            <div id="mapContainer">
+                                <div id="map">&#160;</div>
+                                <noscript>In order to view this map, enable JavaScript in your browser.</noscript>
+                            </div>
+                            <map:setup/>
+                            <map:cities functionName="createMap"
+                                        id="map"
+                                        lon="-122.3"
+                                        lat="38.0"
+                                        scale="8"
+                                        tooltips="false"
+                                        bubbles="true"
+                                        cities="${cities}"/>
+                            <pageHelper:addOnLoadHandler handler="createMap()"/>
+                        </td>
+                    </c:if>
+                </tr></table>
+
+        </div>
+        <mod:tracking pageName="Best Public School Values:top20 map"
+                      pageType=""
+                      hier1="cities,best public school values,top20 map"/>
+
+    </gsml:body>
+
+    </html>
+</jsp:root>

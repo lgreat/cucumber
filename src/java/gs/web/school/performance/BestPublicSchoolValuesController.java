@@ -1,11 +1,10 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.17 2006/05/05 16:43:42 apeterson Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.18 2006/05/05 18:54:27 apeterson Exp $
  */
 
 package gs.web.school.performance;
 
-import gs.data.content.Article;
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.LatLon;
@@ -24,10 +23,7 @@ import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Generates a model to show recent parent reviews in a geographical region.
@@ -42,8 +38,8 @@ import java.util.List;
  */
 public class BestPublicSchoolValuesController extends ParameterizableViewController   {
 
-    private static final String PARAM_LIMIT = "limit";
     private static final String PARAM_METRO = "metro"; // ignored for now, but passed for forward compatibility
+    private static final String PARAM_LIMIT = "limit"; // override of property
 
     /**
      * List of IBestPublicSchoolValue objects.
@@ -52,12 +48,12 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
 
     public static final String MODEL_PAGE_TITLE = "title";
     public static final String MODEL_SHOW_RANK = "showRank"; // Boolean
-    public static final String MODEL_SHOW_MAP = "showMap"; // Boolean
 
+    public static final String MODEL_CITY_NAME_LIST = "cityNames";
 
-    final String PATH = "/school/performance/bestValues.page";
-
-
+    /**
+     * A list of these is sent to the view.
+     */
     public interface IBestPublicSchoolValue extends ICity {
         int getRank();
 
@@ -91,6 +87,7 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
     private boolean _showingAll;
     private boolean _showingRank;
     private String _title;
+    private Integer _limit; // optional max number of cities to show
 
     private static final Log _log = LogFactory.getLog(BestPublicSchoolValuesController.class);
 
@@ -103,9 +100,11 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
 
         ISessionFacade sc = SessionFacade.getInstance(request);
 
-        final boolean showMap = false;//StringUtils.equals(request.getParameter(PARAM_MAP), "1");
-
+        // Limit can be configured with spring and then overriden by the URL.
         int limit = Integer.MAX_VALUE;
+        if (_limit != null) {
+            limit = _limit.intValue();
+        }
         if (StringUtils.isNumeric(request.getParameter(PARAM_LIMIT))) {
             limit = Integer.valueOf(request.getParameter(PARAM_LIMIT)).intValue();
         }
@@ -114,8 +113,8 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
 
         modelAndView.addObject(MODEL_SHOW_RANK, Boolean.valueOf(_showingRank));
 
+        // Figure out what cities we're talking about...
         List values;
-        ListModel links = new ListModel();
         if (_showingAll) {
             values = _allCities;
         } else {
@@ -124,15 +123,19 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
                 values = values.subList(0, limit);
             }
         }
-        Article article = new Article();
-        article.setId(new Integer(594));
-        UrlBuilder builder = new UrlBuilder(article, State.CA, false);
-        links.addResult(builder.asAnchor(request, "Back to Article"));
 
+        // Build a separate list of city names
+        ListModel links = new ListModel();
+        for (Iterator iter= values.iterator(); iter.hasNext();  ){
+            IBestPublicSchoolValue bpsv = (IBestPublicSchoolValue) iter.next();
+            UrlBuilder builder = new UrlBuilder(bpsv, UrlBuilder.CITY_PAGE);
+            String label = bpsv.getCityName();// + "<span>"+bpsv.getAverageApiRank()+"</span>";
+            links.addResult(builder.asAnchor(request, label));
+        }
+        modelAndView.addObject(MODEL_CITY_NAME_LIST, links);
 
         modelAndView.addObject(MODEL_CITY_LIST, values);
         modelAndView.addObject(MODEL_PAGE_TITLE, _title);
-        modelAndView.addObject(MODEL_SHOW_MAP, Boolean.valueOf(showMap));
 
         return modelAndView;
     }
@@ -337,7 +340,7 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
         _citiesNotMatchingApiCriteria.add(new Bpsv(rank++, "Antioch", "Contra Costa", 490000, 73, 5.0, 6.8, 24, 16, 8, 5, 100923));
         _citiesNotMatchingApiCriteria.add(new Bpsv(rank++, "Berkeley", "Alameda", 690000, 103, 6.4, 6.2, 16, 11, 3, 2, 101517));
         _citiesNotMatchingApiCriteria.add(new Bpsv(rank++, "Brentwood", "Contra Costa", 621250, 93, 6.8, 7.4, 14, 8, 3, 5, 39827));
-        _citiesNotMatchingApiCriteria.add(new Bpsv(rank++, "Byron", "Contra Costa", 610000, 91, 6.2, 6.8, 5, 3, 3, 1, -1));
+        _citiesNotMatchingApiCriteria.add(new Bpsv(rank++, "Byron", "Contra Costa", 610000, 91, 6.2, 6.8, 5, 3, 3, 1, 10711));
         _citiesNotMatchingApiCriteria.add(new Bpsv(rank++, "Calistoga", "Napa", 625000, 93, 3.9, 4.1, 3, 1, 1, 2, 5207));
         _citiesNotMatchingApiCriteria.add(new Bpsv(rank++, "Campbell", "Santa Clara", 646250, 96, 5.8, 6.0, 6, 4, 1, 1, 37013));
         _citiesNotMatchingApiCriteria.add(new Bpsv(rank++, "Cloverdale", "Sonoma", 516750, 77, 5.0, 6.5, 4, 2, 1, 2, 7844));
@@ -463,5 +466,13 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
 
     public void setTitle(String title) {
         _title = title;
+    }
+
+    public Integer getLimit() {
+        return _limit;
+    }
+
+    public void setLimit(Integer limit) {
+        _limit = limit;
     }
 }

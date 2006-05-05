@@ -24,23 +24,6 @@
             </td>
             <td class="sidebar" style="text-align: right"><link:article articleId="594" >Back to Article</link:article></td>
             </tr></table>
-        <c:if test="${showMap}" >
-            <div id="mapContainer">
-                <div id="map">&#160;</div>
-                <noscript>In order to view this map, enable JavaScript in your browser.</noscript>
-            </div>
-            <map:setup/>
-            <map:cities functionName="createMap"
-                        id="map"
-                        lon="-122.3"
-                        lat="38.0"
-                        scale="8"
-                        tooltips="false"
-                        bubbles="true"
-                        cities="${cities}"/>
-            <pageHelper:addOnLoadHandler handler="createMap()"/>
-        </c:if>
-        <c:if test="${not showMap}" >
             <table class="bpsv" cellspacing="0" cellpadding="0">
                 <tr>
                     <c:if test="${showRank}">
@@ -48,8 +31,8 @@
                     </c:if>
                     <th style="text-align: left">City</th>
                     <!--th>County</th-->
-                    <th>Average API Rank</th>
-                    <th>Median Home Price</th>
+                    <th>Average<br />API Rank</th>
+                    <th>Median<br/>Home Price</th>
                     <th>Public Elementary</th>
                     <th>Public Middle</th>
                     <th>Public High</th>
@@ -61,7 +44,9 @@
                         <c:if test="${showRank}">
                             <td class="rank">${city.rank}</td>
                         </c:if>
-                        <td class="name"><gsml:a href="${city.cityPageHref}">${city.cityName}</gsml:a></td>
+                        <td class="name"><gsml:a href="${city.cityPageHref}">${city.cityName}</gsml:a>
+                            <c:if test="${city.population lt 5000}"> *</c:if>
+                        </td>
                         <!--<td class="county">${city.countyName}</td>-->
                         <td class="api"><c:if test="${city.averageApiRank ge 0}"><fmt:formatNumber
                                 value="${city.averageApiRank}"
@@ -81,10 +66,16 @@
                     <c:set var="i" value="${i + 1}"/>
                 </c:forEach>
             </table>
-        </c:if>
-        <mod:tracking pageName="Best Public School Values:${title}:${showMap?':map':''}"
+<p class="footnote">
+    * Not included in the Best Public School Values calculation because the city has fewer than 5,000 residents.
+</p>
+<p class="footnote">
+    <gsml:popupWindow width="800" height="600" left="50" top="50"
+                      href="/definitions/natl/bpsv_sfba.html">More about this data</gsml:popupWindow>
+</p>
+        <mod:tracking pageName="Best Public School Values:allcities:SFBayArea"
                       pageType="city"
-                      hier1="cities,best public school values,${title},${showMap?',map':''}"/>
+                      hier1="cities,best public school values,allcities,SFBayArea"/>
     </gsml:body>
     </html>
 </jsp:root>

@@ -431,22 +431,7 @@
           class="gs.web.geo.NearbyCitiesController"
           autowire="byName">
         <property name="viewName">
-            <value>test/selectACity</value>
-        </property>
-    </bean>
-
-
-    <bean name="/school/performance/bestValues.page"
-          class="gs.web.school.performance.BestPublicSchoolValuesController"
-          autowire="byName">
-        <property name="viewName">
-            <value>/school/performance/schoolValues</value>
-        </property>
-        <property name="showingRank">
-            <value>true</value>
-        </property>
-        <property name="showingAll">
-            <value>false</value>
+            <value>/geo/selectACity</value>
         </property>
     </bean>
 
@@ -454,10 +439,10 @@
           class="gs.web.school.performance.BestPublicSchoolValuesController"
           autowire="byName">
         <property name="viewName">
-            <value>/school/performance/schoolValues</value>
+            <value>/school/performance/bestPublicSchoolValuesMap</value>
         </property>
         <property name="showingRank">
-            <value>false</value>
+            <value>true</value>
         </property>
         <property name="showingAll">
             <value>false</value>
@@ -465,13 +450,16 @@
         <property name="title">
             <value>San Francisco Bay Area Best Public School Values Map</value>
         </property>
+        <property name="limit">
+            <value>20</value>
+        </property>
     </bean>
 
     <bean name="/school/performance/allCities.page"
           class="gs.web.school.performance.BestPublicSchoolValuesController"
           autowire="byName">
         <property name="viewName">
-            <value>/school/performance/schoolValues</value>
+            <value>/school/performance/bestPublicSchoolValues</value>
         </property>
         <property name="showingRank">
             <value>false</value>
