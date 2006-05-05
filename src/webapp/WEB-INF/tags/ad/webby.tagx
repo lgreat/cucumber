@@ -7,9 +7,7 @@
     <jsp:directive.tag body-content="empty"/>
     <c:if test="${!requestScope.pageHelper.adFree}">
         <div class="adWebbyAwards">
-            <a href="http://peoplesvoice.webbyawards.com/login.mhtml" target="_blank">
-                <gsml:img alt="Vote for GreatSchools" src="/images/vote4us_108x108_trans.gif"/>
-            </a>
+                <gsml:img alt="Webby Nominee" src="/images/nominee_108x108_trans.gif"/>
         </div>
     </c:if>
 </jsp:root>
