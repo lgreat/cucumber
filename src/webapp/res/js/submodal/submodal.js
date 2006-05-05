@@ -50,8 +50,8 @@ function initPopUp() {
 					'<a onclick="hidePopWin(false);"><span>Close</span></a>' +
 				'</div>' +
 			'</div>' +
-			'<iframe src="javascript:parent.frameLoading()" style="width:100%;height:100%;background-color:transparent;" scrolling="auto" frameborder="0" allowtransparency="true" id="popupFrame" name="popupFrame" width="100%" height="100%"></iframe>' +
-            '<div id="popupCloseBtn"><button onclick="hidePopWin(false);">Close window</button></div>' +
+			'<iframe src="javascript:parent.frameLoading()" style="width:100%;height:100%;background-color:transparent;" scrolling="no" frameborder="0" allowtransparency="true" id="popupFrame" name="popupFrame" width="100%" height="100%"></iframe>' +
+            '<div id="popupCloseBtn"><div class="left">All information brought to you by:</div><div class="leftlogo"></div><div class="right"><a onclick="hidePopWin(false);"><span>Close</span></a></div></div>' +
         '</div>';
 	body.appendChild(popmask);
 	body.appendChild(popcont);

@@ -96,7 +96,7 @@
 
     <div class="promo">
         <h1>What's new at ${schoolName}?</h1>
-        <h3>Find out with our free monthly newsletters.</h3>
+        <h3>Find out with free monthly newsletters from GreatSchools.</h3>
     </div>
     <div class="content">
         <gsml:form action="/community/newsletters/popup/mss/page1.page" method="POST">
@@ -126,7 +126,7 @@
             <div class="email">
                 <span style="padding-right:1em;">My email address:</span>
                 <input type="text" name="${emailExpr}" value="${email}" style="width:230px;"/>
-                <span class="btnSignUp"><gsml:inputImage src="/res/img/button/btn_sign_me_up_6699cc.gif" alt="Sign Me Up!"/></span>
+                <span class="btnSignUp"><gsml:inputImage src="/res/img/button/btn_sign_me_up_6699cc.gif" alt="Sign me up!"/></span>
                 <div class="privacy">
                     We won't share or sell your address. <link:privacyPolicy target="_blank">Privacy Policy</link:privacyPolicy>
                 </div>

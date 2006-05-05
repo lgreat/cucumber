@@ -123,7 +123,7 @@
         </table>
         <div class="centered">
             <div class="padded">
-                <gsml:inputImage src="/res/img/button/btn_sign_me_up_6699cc.gif" alt="Sign Me Up!"/>
+                <gsml:inputImage src="/res/img/button/btn_sign_me_up_6699cc.gif" alt="Sign me up!"/>
             </div>
             <div class="padded">
                 <link:newsletterCenter email="${email}" styleClass="">No thanks, I'm all done!</link:newsletterCenter>

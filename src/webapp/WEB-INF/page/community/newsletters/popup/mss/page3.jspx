@@ -79,7 +79,7 @@
         </ul>
     </div>
         <div>
-            <link:newsletterCenter email="${email}">Manage my Subscriptions</link:newsletterCenter>
+            <link:newsletterCenter email="${email}">Manage my subscriptions</link:newsletterCenter>
         </div>
     <mod:tracking pageName="Newsletter Hover Confirmation"
                   pageType=""

@@ -28,7 +28,8 @@
             <br/><br/>
             <gsml:url var="mss" value="/cgi-bin/mss_popup1/ca?id=6544"/>
             <gsml:url var="mss" value="/test/boxes.page"/>
-            <button onclick="showPopWin('${mss}', 400, 400, null);">
+            <gsml:url var="mss" value="/community/newsletters/popup/mss/page1.page?schoolId=1&amp;state=CA"/>
+            <button onclick="showPopWin('${mss}', 540, 500, null);">
                 show
                 modal window</button>
             <br/><br/>
