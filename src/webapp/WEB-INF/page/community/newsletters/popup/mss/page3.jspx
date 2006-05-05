@@ -30,6 +30,7 @@
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
+<base target="_self"/>
 <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
     <div id="blockMessage">
         <h1>Thank You!</h1>

@@ -30,6 +30,7 @@
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
+<base target="_self"/>
 <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
     <spring:bind path="newsCmd.schoolId">
         <c:set var="schoolIdExpr" value="${status.expression}"/>

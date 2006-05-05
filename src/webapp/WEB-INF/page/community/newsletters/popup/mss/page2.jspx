@@ -30,6 +30,7 @@
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
+<base target="_self"/>
 <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
 
     <spring:bind path="newsCmd.email">
@@ -126,7 +127,7 @@
                 <gsml:inputImage src="/res/img/button/btn_sign_me_up_6699cc.gif" alt="Sign me up!"/>
             </div>
             <div class="padded">
-                <link:newsletterCenter email="${email}" styleClass="">No thanks, I'm all done!</link:newsletterCenter>
+                <link:newsletterCenter email="${email}" target="_blank">No thanks, I'm all done!</link:newsletterCenter>
             </div>
         </div>
         <div class="privacy">
