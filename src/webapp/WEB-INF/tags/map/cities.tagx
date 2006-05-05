@@ -60,7 +60,7 @@ Average API Rank: 9.20*/
                 gs.web.school.performance.BestPublicSchoolValuesController.IBestPublicSchoolValue bpsv =
                     (gs.web.school.performance.BestPublicSchoolValuesController.IBestPublicSchoolValue)c;
                 java.text.NumberFormat formatter = java.text.NumberFormat.getInstance();
-                request.setAttribute("html", "#" + bpsv.getRank() + " " + bpsv.getName() + "&lt;br &gt;"
+                request.setAttribute("html", "&lt;a href='/city.page?city="+ bpsv.getName()+"&amp;state="+bpsv.getState()+"'&gt;#" + bpsv.getRank() + " " + bpsv.getName() + "&lt;/a&gt;&lt;br &gt;"
                         + "Median home price: $" + formatter.format(bpsv.getMedianHomePrice()) + "&lt;br /&gt;" +
                         "Average API Rank: " + bpsv.getAverageApiRank());
             } else {

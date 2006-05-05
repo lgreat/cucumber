@@ -115,7 +115,6 @@ div#cities h3 {
 }
 
 div#cities li {
-    list-style: decimal inside;
     font-size: small;
     display: list-item;
     border-top: 1px dotted #999;
