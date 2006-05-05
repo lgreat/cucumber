@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.5 2006/05/04 19:32:33 dlee Exp $
+ * $Id: MssPaController.java,v 1.6 2006/05/05 20:31:57 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -14,8 +14,10 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.util.CookieGenerator;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -27,6 +29,7 @@ import java.util.List;
  */
 public class MssPaController extends SimpleFormController {
     public static final String BEAN_ID = "/community/newsletters/popup/mss/page1.page";
+    public static final String MEMBER_COOKIE = "MEMID";
     protected final Log _log = LogFactory.getLog(getClass());
 
     private IUserDao _userDao;
@@ -59,7 +62,10 @@ public class MssPaController extends SimpleFormController {
         }
     }
 
-    public ModelAndView onSubmit(Object command) {
+    public ModelAndView onSubmit(HttpServletRequest request,
+                                 HttpServletResponse response,
+                                 Object command,
+                                 BindException errors) {
         NewsletterCommand nc = (NewsletterCommand) command;
         String email = nc.getEmail();
         User user = getUserDao().getUserFromEmailIfExists(email);
@@ -91,6 +97,12 @@ public class MssPaController extends SimpleFormController {
         }
 
         getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
+        CookieGenerator cookieGenerator = new CookieGenerator();
+        cookieGenerator.setCookieDomain("greatschools.net");
+        cookieGenerator.setCookieMaxAge(-1);
+        cookieGenerator.setCookieName(MEMBER_COOKIE);
+        cookieGenerator.setCookiePath("/");
+        cookieGenerator.addCookie(response, user.getId().toString());
 
         ModelAndView mAndV = new ModelAndView();
 
