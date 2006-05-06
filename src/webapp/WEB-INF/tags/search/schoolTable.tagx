@@ -62,7 +62,9 @@
                             value="${school.name}"/>
                     </a><br/>
                     <c:out value="${school.physicalAddress}"/><br/>
-                    <c:out value="${school.district.name}"/><br/>
+                    <c:if test="${not empty school.district}">
+                        District: <c:out value="${school.district.name}"/><br/>
+                    </c:if>
                 </td>
                 <td align="center"><c:out
                         value="${school.type.schoolTypeName}"/></td>
