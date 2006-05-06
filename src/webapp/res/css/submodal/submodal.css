@@ -34,7 +34,7 @@
 	background-color: #666666;
 	color: #FFFFFF;
 	font-weight: bold;
-	height: 1em;
+	height: 5px;
 	padding: 5px;
 	border-bottom: 2px solid #000000;
 	border-top: 1px solid #78A3F2;
@@ -61,6 +61,7 @@
 #popupCloseBtn {
     padding-bottom: 30px;
     padding-right:1em;
+    padding-left:1em;
 }
 
 #popupCloseBtn .left{

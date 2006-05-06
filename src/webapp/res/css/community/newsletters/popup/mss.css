@@ -1,3 +1,11 @@
+#marginGS {
+    margin:0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size:12px;
+    width: 480px;
+    text-align:left;
+}
+
 .header {
     height:135px;
     background-color: #669ACC;
@@ -24,14 +32,6 @@ a:active {
     color: #669acc;
     font-size:14px;
     font-weight:bold;
-}
-
-#marginGS {
-    margin: 0em 0.5em 0em 0.5em;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size:12px;
-    width: 480px;
-    text-align:left;
 }
 
 .promo h1 {
@@ -134,8 +134,23 @@ li {
     text-align:center;
 }
 
-.padded {
-    padding:1em;
+.pLR {
+    padding: 0 1em 0 1em;
 }
 
+.pTB {
+    padding: 1em 0 1em 0;
+}
 
+.signMeUp {
+    padding-top:3em;
+}
+
+.bigLink a:link,
+a:visited,
+a:active {
+    text-decoration: underline;
+    color: #669acc;
+    font-size:14px;
+    font-weight:bold;
+}

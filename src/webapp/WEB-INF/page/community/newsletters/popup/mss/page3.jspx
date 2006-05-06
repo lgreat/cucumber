@@ -36,43 +36,50 @@
         <h1>Thank You!</h1>
     </div>
 
-    <div class="promo">
-        <h2>You have signed up for these GreatSchools newsletters:</h2>
-    </div>
+    <div class="pLR">
+        <div class="promo">
+            <h2>You have signed up for these GreatSchools newsletters:</h2>
+        </div>
 
-    <div class="error">
-        <spring:hasBindErrors name="newsCmd">
-         <ul>
-            <c:forEach var="errMsgObj" items="${errors.allErrors}">
-               <li>
-                  <spring:message code="${errMsgObj.code}" text="${errMsgObj.defaultMessage}"/>
-               </li>
-            </c:forEach>
-         </ul>
-        </spring:hasBindErrors>
+        <div class="error">
+            <spring:hasBindErrors name="newsCmd">
+             <ul>
+                <c:forEach var="errMsgObj" items="${errors.allErrors}">
+                   <li>
+                      <spring:message code="${errMsgObj.code}" text="${errMsgObj.defaultMessage}"/>
+                   </li>
+                </c:forEach>
+             </ul>
+            </spring:hasBindErrors>
+        </div>
     </div>
 
     <div id="blueTop">
-        <ul>
-            <c:if test="${!empty schoolName}">
-                <li>Monthly Stats about ${schoolName}</li>
-            </c:if>
-            <c:if test="${!empty parentAdvisor}">
-                <li>${parentAdvisor}</li>
-            </c:if>
-        </ul>
+        <div class="pLR">
+            <ul>
+                <c:if test="${!empty schoolName}">
+                    <li>Monthly Stats about ${schoolName}</li>
+                </c:if>
+                <c:if test="${!empty parentAdvisor}">
+                    <li>${parentAdvisor}</li>
+                </c:if>
+            </ul>
+        </div>
     </div>
 
 
     <div id="grayTop">
-        <ul>
-        <c:forEach items="${setNth}" var="newsletterName">
-            <li>${newsletterName}</li>
-        </c:forEach>
-        </ul>
+        <div class="pLR">
+            <ul>
+            <c:forEach items="${setNth}" var="newsletterName">
+                <li>${newsletterName}</li>
+            </c:forEach>
+            </ul>
+        </div>
     </div>
 
     <div id="grayTop">
+        <div class="pLR">
         <ul>
         <c:forEach items="${setMsHs}" var="newsletterName">
             <li>${newsletterName}</li>
@@ -82,6 +89,7 @@
         <div>
             <link:newsletterCenter email="${email}" target="_blank" styleClass="bigLink">Manage my subscriptions</link:newsletterCenter>
         </div>
+    </div>
     <mod:tracking pageName="Newsletter Hover Confirmation"
                   pageType=""
                   hier1="Newsletter, NL hover confirmation, school profile"/>

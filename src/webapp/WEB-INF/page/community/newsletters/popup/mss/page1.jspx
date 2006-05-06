@@ -32,87 +32,95 @@
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
 <base target="_self"/>
 <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
-    <spring:bind path="newsCmd.schoolId">
-        <c:set var="schoolIdExpr" value="${status.expression}"/>
-        <c:set var="schoolId" value="${status.value}"/>
-    </spring:bind>
+<spring:bind path="newsCmd.schoolId">
+    <c:set var="schoolIdExpr" value="${status.expression}"/>
+    <c:set var="schoolId" value="${status.value}"/>
+</spring:bind>
 
-    <spring:bind path="newsCmd.schoolName">
-        <c:set var="schoolNameExpr" value="${status.expression}"/>
-        <c:set var="schoolName" value="${status.value}"/>
-    </spring:bind>
+<spring:bind path="newsCmd.schoolName">
+    <c:set var="schoolNameExpr" value="${status.expression}"/>
+    <c:set var="schoolName" value="${status.value}"/>
+</spring:bind>
 
-    <spring:bind path="newsCmd.schoolName">
-        <c:set var="schoolName" value="${status.value}"/>
-    </spring:bind>
+<spring:bind path="newsCmd.schoolName">
+    <c:set var="schoolName" value="${status.value}"/>
+</spring:bind>
 
-    <spring:bind path="newsCmd.mystat">
-        <c:set var="mssExpr" value="${status.expression}"/>
-        <c:if test="${status.value}">
-            <c:set var="mssChecked" value="checked"/>
+<spring:bind path="newsCmd.mystat">
+    <c:set var="mssExpr" value="${status.expression}"/>
+    <c:if test="${status.value}">
+        <c:set var="mssChecked" value="checked"/>
+    </c:if>
+</spring:bind>
+
+<spring:bind path="newsCmd.gn">
+    <c:set var="gnExpr" value="${status.expression}"/>
+    <c:choose>
+        <c:when test="${status.value}">
+            <c:set var="gnChecked" value="checked"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="gnChecked" value="OFF"/>
+        </c:otherwise>
+    </c:choose>
+</spring:bind>
+
+<spring:bind path="newsCmd.email">
+    <c:set var="emailExpr" value="${status.expression}"/>
+    <c:choose>
+        <c:when test="${status.value}">
+            <c:set var="email" value="${status.value}"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="email" value=""/>
+        </c:otherwise>
+    </c:choose>
+    <c:forEach items="${status.errorMessages}" var="error">
+        <c:if test="${status.error}">
+            <c:set var="emailErrors" value="${error}"/>
         </c:if>
-    </spring:bind>
+    </c:forEach>
+</spring:bind>
 
-    <spring:bind path="newsCmd.gn">
-        <c:set var="gnExpr" value="${status.expression}"/>
-        <c:choose>
-            <c:when test="${status.value}">
-                <c:set var="gnChecked" value="checked"/>
-            </c:when>
-            <c:otherwise>
-                <c:set var="gnChecked" value="OFF"/>
-            </c:otherwise>
-        </c:choose>
-    </spring:bind>
+<spring:bind path="newsCmd">
+    <c:set var="cbxError" value="${status.errorMessage}"/>
+</spring:bind>
 
-    <spring:bind path="newsCmd.email">
-        <c:set var="emailExpr" value="${status.expression}"/>
-        <c:choose>
-            <c:when test="${status.value}">
-                <c:set var="email" value="${status.value}"/>
-            </c:when>
-            <c:otherwise>
-                <c:set var="email" value=""/>
-            </c:otherwise>
-        </c:choose>
-        <c:forEach items="${status.errorMessages}" var="error">
-            <c:if test="${status.error}">
-                <c:set var="emailErrors" value="${error}"/>
-            </c:if>
-        </c:forEach>
-    </spring:bind>
-
-    <spring:bind path="newsCmd">
-        <c:set var="cbxError" value="${status.errorMessage}"/>
-    </spring:bind>
-
-    <div class="header">
-        <div class="left">
-            GreatSchools<br/> Newsletters
-        </div>
-        <div class="right">
-            <gsml:img src="/res/img/community/mom_daughter.gif" alt="Mom and daughter on computer" id="headerImg"/>
-        </div>
+<div class="header">
+    <div class="left">
+        GreatSchools<br/> Newsletters
     </div>
 
+    <div class="right">
+        <gsml:img src="/res/img/community/mom_daughter.gif" alt="Mom and daughter on computer" id="headerImg"/>
+    </div>
+</div>
+
+<div class="pLR">
     <div class="promo">
         <h1>What's new at ${schoolName}?</h1>
+
         <h3>Find out with free monthly newsletters from GreatSchools.</h3>
     </div>
+
     <div class="content">
         <gsml:form action="/community/newsletters/popup/mss/page1.page" method="POST" target="_self">
             <div class="error">${cbxError}</div>
+
             <div class="error">${emailErrors}</div>
+
             <div class="error">
                 <spring:bind path="newsCmd.schoolId">
                     ${status.errorMessage}
                 </spring:bind>
             </div>
+
             <div class="error">
                 <spring:bind path="newsCmd.state">
                     ${status.errorMessage}
                 </spring:bind>
             </div>
+
             <div class="cbx">
                 <input type="hidden" name="state" value="${stateAbbrev}"/>
                 <input type="hidden" name="${schoolIdExpr}" value="${schoolId}"/>
@@ -120,30 +128,40 @@
                 <input type="checkbox" name="${mssExpr}" checked="${mssChecked}"/>
                 Yes, please send me free monthly stats and updates about ${schoolName}.
             </div>
+
             <div class="cbx">
                 <input type="checkbox" name="${gnExpr}" checked="${gnChecked}"/>
                 Please also send me tips and advice in the bi-monthly Parent Advisor.
             </div>
+
             <div class="email">
                 <span style="padding-right:1em;">My email address:</span>
-                <input type="text" name="${emailExpr}" value="${email}" style="width:230px;"/>
-                <span class="btnSignUp"><gsml:inputImage src="/res/img/button/btn_sign_me_up_6699cc.gif" alt="Sign me up!"/></span>
+                <input type="text" name="${emailExpr}" value="${email}" style="width:220px;"/>
+                <span class="btnSignUp"><gsml:inputImage src="/res/img/button/btn_sign_me_up_6699cc.gif"
+                                                         alt="Sign me up!"/></span>
+
                 <div class="privacy">
-                    We won't share or sell your address. <link:privacyPolicy target="_blank">Privacy Policy</link:privacyPolicy>
+                    We won't share or sell your address. <link:privacyPolicy target="_blank">Privacy
+                    Policy</link:privacyPolicy>
                 </div>
             </div>
         </gsml:form>
     </div>
-    <div id="blueTop">
+</div>
+
+<div id="blueTop">
+    <div class="pLR">
         <div class="quote">
             <q>Thanks for explaining the test scores at my son's school.<br/>
                 Please continue the super job of keeping us parents updated!</q>
+
             <div class="quotee">-a mom and newsletter subscriber</div>
         </div>
     </div>
-    <mod:tracking pageName="Newsletter Promo Hover"
-                  pageType=""
-                  hier1="Newsletter, NL hover promo - MSS, school profile"/>
+</div>
+<mod:tracking pageName="Newsletter Promo Hover"
+              pageType=""
+              hier1="Newsletter, NL hover promo - MSS, school profile"/>
 </gsml:body>
 </html>
 </jsp:root>
