@@ -126,12 +126,14 @@ public class MixedResultsTagHandler extends ResultsTableTagHandler {
                     School school = getSchool(_stateManager.getState(result.getState()),
                             Integer.valueOf(result.getId()));
                     if (school != null) {
+                        out.write(school.getPhone());
+                        out.write("&nbsp;&nbsp;&nbsp;&#183;&nbsp;&nbsp;&nbsp;");
                         out.write(school.getPhysicalAddress().toString());
-                        out.write("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
+                        out.write("&nbsp;&nbsp;&nbsp;&#183;&nbsp;&nbsp;&nbsp;");
                         out.write(school.getType().getSchoolTypeName());
                         String gl = school.getGradeLevels().getRangeString();
                         if (StringUtils.isNotEmpty(gl)) {
-                            out.write("&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;");
+                            out.write("&nbsp;&nbsp;&nbsp;&#183;&nbsp;&nbsp;&nbsp;");
                             out.write(gl);
                         }
                     }

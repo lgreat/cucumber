@@ -179,12 +179,11 @@ tr.result_row td {
 }
 
 tr.contextrow td {
-    padding-left:25px;
+    padding-left:0px;
     padding-right:40px;
     padding-bottom:10px;
     font-size:small;
 }
-
 
 tr td.checkbox {
     vertical-align:top;
