@@ -1,13 +1,16 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.8 2006/04/24 21:54:10 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.9 2006/05/06 05:19:34 apeterson Exp $
  */
 
 package gs.web.geo;
 
+import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.district.IDistrictDao;
+import gs.data.state.State;
+import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.SessionContextUtil;
@@ -38,6 +41,7 @@ public class CityControllerTest extends BaseControllerTestCase {
         _controller.setSchoolDao((ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID));
         _controller.setDistrictDao((IDistrictDao) getApplicationContext().getBean(IDistrictDao.BEAN_ID));
         _controller.setGeoDao((IGeoDao) getApplicationContext().getBean(IGeoDao.BEAN_ID));
+        _controller.setStateManager((StateManager) getApplicationContext().getBean(StateManager.BEAN_ID));
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().
                 getBean(SessionContextUtil.BEAN_ID);
     }
@@ -69,7 +73,6 @@ public class CityControllerTest extends BaseControllerTestCase {
         assertEquals("/schools.page?city=Anchorage&st=public&st=charter&state=AK", ((Anchor) list.get(3)).getHref());
         assertEquals("/schools.page?city=Anchorage&st=private&state=AK", ((Anchor) list.get(4)).getHref());
     }
-
 
 
     public void testFindDistricts() throws Exception {
@@ -131,7 +134,7 @@ public class CityControllerTest extends BaseControllerTestCase {
         assertNull(schools);
     }
 
-    public void testAlameda() throws Exception {
+    public void testAlamedaHasSchools() throws Exception {
 
         GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "Alameda");
@@ -150,7 +153,7 @@ public class CityControllerTest extends BaseControllerTestCase {
     }
 
 
-    public void testSF() throws Exception {
+    public void testSFIsAvalidCity() throws Exception {
 
         GsMockHttpServletRequest request = getRequest();
         request.addParameter("city", "San Francisco");
@@ -159,6 +162,52 @@ public class CityControllerTest extends BaseControllerTestCase {
 
         Object city = modelAndView.getModel().get(CityController.MODEL_CITY_NAME);
         assertNotNull(city);
+    }
+
+
+    public void testSearchEngineFriendlyUrlsWork() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setRequestURI("/city/CA/San_Francisco.page");
+        ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
+
+        ICity city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
+        assertNotNull(city);
+        assertEquals("San Francisco", city.getName());
+        assertEquals(State.CA, city.getState());
+
+        request.setRequestURI("/CA/city/San_Francisco.page");
+         modelAndView = _controller.handleRequestInternal(request, getResponse());
+
+         city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
+        assertNotNull(city);
+        assertEquals("San Francisco", city.getName());
+        assertEquals(State.CA, city.getState());
+
+        request.setRequestURI("/CA/San_Francisco/city.page");
+         modelAndView = _controller.handleRequestInternal(request, getResponse());
+
+         city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
+        assertNotNull(city);
+        assertEquals("San Francisco", city.getName());
+        assertEquals(State.CA, city.getState());
+
+        request.setRequestURI("/gs-web/CA/San_Francisco/city.page");
+         modelAndView = _controller.handleRequestInternal(request, getResponse());
+
+         city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
+        assertNotNull(city);
+        assertEquals("San Francisco", city.getName());
+        assertEquals(State.CA, city.getState());
+
+
+        request.setRequestURI("/CA/Alameda/city.page");
+         modelAndView = _controller.handleRequestInternal(request, getResponse());
+
+         city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
+        assertNotNull(city);
+        assertEquals("Alameda", city.getName());
+        assertEquals(State.CA, city.getState());
+
     }
 
     public void xtestBuffaloNY() throws Exception {

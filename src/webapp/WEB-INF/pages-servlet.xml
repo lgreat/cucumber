@@ -427,6 +427,22 @@
           autowire="byName">
     </bean>
 
+<!-- We don't know what we're going to do yet, so catch several possibilities -->
+    <bean name="/city/*/*.page"
+          class="gs.web.geo.CityController"
+          autowire="byName">
+    </bean>
+
+    <bean name="/*/city/*.page"
+          class="gs.web.geo.CityController"
+          autowire="byName">
+    </bean>
+
+    <bean name="/*/*/city.page"
+          class="gs.web.geo.CityController"
+          autowire="byName">
+    </bean>
+
     <bean name="/cities.page"
           class="gs.web.geo.NearbyCitiesController"
           autowire="byName">

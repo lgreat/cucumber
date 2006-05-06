@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.24 2006/04/28 22:03:35 apeterson Exp $
+ * $Id: CityController.java,v 1.25 2006/05/06 05:19:34 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -14,6 +14,7 @@ import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
+import gs.data.state.StateManager;
 import gs.web.SessionContext;
 import gs.web.school.SchoolsController;
 import gs.web.util.Anchor;
@@ -62,6 +63,8 @@ public class CityController extends AbstractController {
     private ISchoolDao _schoolDao;
     private IDistrictDao _districtDao;
     private final UrlUtil _urlUtil;
+    private StateManager _stateManager;
+
     public static final int MAX_SCHOOLS = 10;
 
     public CityController() {
@@ -74,16 +77,31 @@ public class CityController extends AbstractController {
         // TH: Set this controller to read-only to avoid hibernate updating school_rating
         ThreadLocalTransactionManager.setReadOnly();
 
+// Figure out the inputs
+         State state = SessionContext.getInstance(request).getStateOrDefault();
+         String cityNameParam = request.getParameter(PARAM_CITY);
 
-        final State state = SessionContext.getInstance(request).getStateOrDefault();
 
+        if (StringUtils.isEmpty(cityNameParam)) {
+            String r = request.getRequestURI();
+            r = r.replaceAll(".page","");
+            r = r.replaceAll("/city","");
+            r = r.replaceAll("/gs-web","");
+            String[] rs = StringUtils.split(r, "/");
+            if (rs.length == 2) {
+                state = _stateManager.getState(rs[0]);
+                cityNameParam = rs[1].replaceAll("_" , " ");
+            }
+        }
+
+
+        // Validate those inputs and give up if we can't build a reasonable page.
         if (state == null) {
             _log.error("No state name found on city page. Redirecting to /");
             View redirectView = new RedirectView("/");
             return new ModelAndView(redirectView);
         }
 
-        final String cityNameParam = request.getParameter(PARAM_CITY);
         if (StringUtils.isEmpty(cityNameParam)) {
             _log.error("No city name found in " + state + ". Redirecting to /modperl/go");
             View redirectView = new RedirectView("/modperl/go/" + state.getAbbreviation());
@@ -141,13 +159,13 @@ public class CityController extends AbstractController {
                 for (ListIterator iter = topRatedSchools.listIterator(); iter.hasNext();) {
                     ISchoolDao.ITopRatedSchool s = (ISchoolDao.ITopRatedSchool) iter.next();
                     schools.add(s.getSchool());
-               }
+                }
                 model.put(MODEL_SCHOOLS, schools);
 
                 // If this is the first (therefore toppest rated), figure out
                 // whether or not to display a link to top-rated schools. Otherwise no.
                 if (topRatedSchools.size() >= 1) {
-                    ISchoolDao.ITopRatedSchool s = (ISchoolDao.ITopRatedSchool)topRatedSchools.get(0);
+                    ISchoolDao.ITopRatedSchool s = (ISchoolDao.ITopRatedSchool) topRatedSchools.get(0);
                     model.put(MODEL_LINK_TO_TOP_RATED_SCHOOLS, Boolean.valueOf(s.getRating() >= 9));
                 }
 
@@ -342,4 +360,11 @@ public class CityController extends AbstractController {
         _geoDao = geoDao;
     }
 
+    public StateManager getStateManager() {
+        return _stateManager;
+    }
+
+    public void setStateManager(StateManager stateManager) {
+        _stateManager = stateManager;
+    }
 }
