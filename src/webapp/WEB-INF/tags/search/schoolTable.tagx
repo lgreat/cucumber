@@ -61,6 +61,7 @@
                     <a href="${schoolhref}"><c:out
                             value="${school.name}"/>
                     </a><br/>
+                    <c:out value="${school.phone}   &#183;   "/>
                     <c:out value="${school.physicalAddress}"/><br/>
                     <c:if test="${not empty school.district}">
                         District: <c:out value="${school.district.name}"/><br/>
