@@ -53,7 +53,8 @@
         <pattern>/school/performance/bestValuesMap.page</pattern>
         <pattern>/school/performance/allCities.page</pattern>
 
-        <pattern>/test/city.page</pattern>
+        <pattern>/test/stateHome.page</pattern>
+        <pattern>/test/splash.page</pattern>
         <pattern>/test/modal.page</pattern>
 
         <pattern>/community/beta.page</pattern>
