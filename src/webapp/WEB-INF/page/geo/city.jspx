@@ -16,6 +16,7 @@
         >
 <html lang="en">
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+<c:set var="stateAbbrevLowerCase" value="${requestScope.context.stateOrDefault.abbreviationLowerCase}"/>
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
@@ -106,11 +107,11 @@
                             <c:choose>
                                 <c:when test="${'private' == s.school.type.schoolTypeName}">
                                     <c:set var="hrefbase"
-                                           value="/cgi-bin/${stateAbbrev}/private/"/>
+                                           value="/cgi-bin/${stateAbbrevLowerCase}/private/"/>
                                 </c:when>
                                 <c:otherwise>
                                     <c:set var="hrefbase"
-                                           value="/modperl/browse_school/${stateAbbrev}/"/>
+                                           value="/modperl/browse_school/${stateAbbrevLowerCase}/"/>
                                 </c:otherwise>
                             </c:choose>
 
