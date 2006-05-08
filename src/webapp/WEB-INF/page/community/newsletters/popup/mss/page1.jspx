@@ -92,14 +92,13 @@
     </div>
 
     <div class="right">
-        <gsml:img src="/res/img/community/mom_daughter.gif" alt="Mom and daughter on computer" id="headerImg"/>
+        <gsml:img src="/res/img/community/mom_daughter.jpg" alt="Mom and daughter on computer" id="headerImg"/>
     </div>
 </div>
 
 <div class="pLR">
     <div class="promo">
         <h1>What's new at ${schoolName}?</h1>
-
         <h3>Find out with free monthly newsletters from GreatSchools.</h3>
     </div>
 
@@ -141,7 +140,7 @@
                                                          alt="Sign me up!"/></span>
 
                 <div class="privacy">
-                    We won't share or sell your address. <link:privacyPolicy target="_blank">Privacy
+                    We won't share or sell your address. <link:privacyPolicy target="_blank" styleClass="smallLink">Privacy
                     Policy</link:privacyPolicy>
                 </div>
             </div>
