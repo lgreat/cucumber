@@ -146,11 +146,16 @@ function centerPopWin(width, height) {
 		gPopupMask.style.top = scTop + "px";
 		gPopupMask.style.left = scLeft + "px";
 		window.status = gPopupMask.style.top + " " + gPopupMask.style.left + " " + gi++;
-		var titleBarHeight = parseInt(document.getElementById("popupTitleBar").offsetHeight, 10);
-		gPopupContainer.style.top = (scTop + ((fullHeight - (height+titleBarHeight)) / 2)) + "px";
-		gPopupContainer.style.left =  (scLeft + ((fullWidth - width) / 2)) + "px";
-		//alert(fullWidth + " " + width + " " + gPopupContainer.style.left);
-	}
+        var titleBarHeight = parseInt(document.getElementById("popupTitleBar").offsetHeight, 10);
+        //check that user's screen is big enough for auto centering...
+        if (fullHeight > height) {
+            gPopupContainer.style.top = (scTop + ((fullHeight - (height+titleBarHeight)) / 2)) + "px";
+        }
+        if (fullWidth > width) {
+            gPopupContainer.style.left =  (scLeft + ((fullWidth - width) / 2)) + "px";
+        }
+        //alert(fullWidth + " " + width + " " + gPopupContainer.style.left);
+    }
 }
 addEvent(window, "resize", centerPopWin);
 //addEvent(window, "scroll", centerPopWin);
