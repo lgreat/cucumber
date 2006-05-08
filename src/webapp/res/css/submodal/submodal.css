@@ -34,8 +34,7 @@
 	background-color: #666666;
 	color: #FFFFFF;
 	font-weight: bold;
-	height: 5px;
-	padding: 5px;
+	height: 14px;
 	border-bottom: 2px solid #000000;
 	border-top: 1px solid #78A3F2;
 	border-left: 1px solid #78A3F2;
@@ -45,7 +44,7 @@
 }
 #popupTitle {
 	float:left;
-	font-size: 1.1em;
+    height:0px;
 }
 #popupControls {
 	float: right;
@@ -59,7 +58,7 @@
 	background: url('../../img/submodal/close.gif') no-repeat;
 }
 #popupCloseBtn {
-    padding-bottom: 30px;
+    padding-bottom: 35px;
     padding-right:1em;
     padding-left:1em;
 }

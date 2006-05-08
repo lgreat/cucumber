@@ -131,9 +131,11 @@
                 </tr>
             </table>
             <div class="centered">
+                <br/>
                 <div class="signMeUp">
                     <gsml:inputImage src="/res/img/button/btn_sign_me_up_6699cc.gif" alt="Sign me up!"/>
                 </div>
+                <br/>
             </div>
 
             <div class="privacy">

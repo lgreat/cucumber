@@ -192,7 +192,7 @@ function setPopTitleAndRewriteTargets() {
 		window.setTimeout("setPopTitleAndRewriteTargets();", 10);
 	} else {
 		var popupDocument = window.frames["popupFrame"].document;
-		document.getElementById("popupTitle").innerHTML = popupDocument.title;
+		//document.getElementById("popupTitle").innerHTML = popupDocument.title;
 		if (popupDocument.getElementsByTagName('base').length < 1) {
 			var aList  = window.frames["popupFrame"].document.getElementsByTagName('a');
 			for (var i = 0; i < aList.length; i++) {

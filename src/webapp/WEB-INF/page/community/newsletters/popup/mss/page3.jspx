@@ -80,14 +80,14 @@
 
     <div id="grayTop">
         <div class="pLR">
-        <ul>
-        <c:forEach items="${setMsHs}" var="newsletterName">
-            <li>${newsletterName}</li>
-        </c:forEach>
-        </ul>
-    </div>
-        <div>
-            <link:newsletterCenter email="${email}" target="_blank" styleClass="bigLink">Manage my subscriptions</link:newsletterCenter>
+            <ul>
+                <c:forEach items="${setMsHs}" var="newsletterName">
+                    <li>${newsletterName}</li>
+                </c:forEach>
+            </ul>
+            <div>
+                <link:newsletterCenter email="${email}" target="_blank" styleClass="bigLink">Manage my subscriptions</link:newsletterCenter>
+            </div>            
         </div>
     </div>
     <mod:tracking pageName="Newsletter Hover Confirmation"
