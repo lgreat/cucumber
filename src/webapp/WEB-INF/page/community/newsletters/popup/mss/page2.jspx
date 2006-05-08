@@ -32,7 +32,6 @@
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
 <base target="_self"/>
 <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
-
 <spring:bind path="newsCmd.email">
     <c:set var="emailExpr" value="${status.expression}"/>
     <c:set var="email" value="${status.value}"/>
@@ -45,6 +44,7 @@
 <div id="blockMessage">
     <h1>Thanks for signing up<br/> for GreatSchools newsletters.</h1>
 </div>
+<div class="content">
 <gsml:form action="/community/newsletters/popup/mss/page2.page" method="POST" target="_self">
     <div class="pLR">
         <div class="promo">
@@ -134,20 +134,16 @@
                 <div class="signMeUp">
                     <gsml:inputImage src="/res/img/button/btn_sign_me_up_6699cc.gif" alt="Sign me up!"/>
                 </div>
-
-                <div class="pTB">
-                    <link:newsletterCenter email="${email}" target="_blank">No thanks, I'm all
-                        done!</link:newsletterCenter>
-                </div>
             </div>
 
             <div class="privacy">
-                We won't share or sell your address. <link:privacyPolicy target="_blank">Privacy
+                We won't share or sell your address. <link:privacyPolicy target="_blank" styleClass="smallLink">Privacy
                 Policy</link:privacyPolicy>
             </div>
         </div>
     </div>
 </gsml:form>
+</div>
 <mod:tracking pageName="Newsletter Hover Upsell"
               pageType=""
               hier1="Newsletter, NL hover upsell, school profile"/>
