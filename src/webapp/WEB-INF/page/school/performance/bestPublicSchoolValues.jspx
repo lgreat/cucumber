@@ -31,8 +31,8 @@
                     </c:if>
                     <th style="text-align: left">City</th>
                     <!--th>County</th-->
-                    <th>Average<br />API Rank</th>
-                    <th>Median<br/>Home Price</th>
+                    <th class="api">Average<br />API Rank</th>
+                    <th class="price">Median<br/>Home Price</th>
                     <th>Public Elementary</th>
                     <th>Public Middle</th>
                     <th>Public High</th>
