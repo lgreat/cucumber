@@ -60,8 +60,31 @@ table.bpsv td.e,
 table.bpsv td.price,
     table.bpsv td.api {
     text-align: right;
-    padding-right: 3em;
-    padding-left: 1em;
+}
+
+table.bpsv td.api,
+    table.bpsv th.api {
+    width: 14ex;
+    padding-right: 5ex;
+    padding-left: 1ex;
+}
+
+    table.bpsv th.api {
+        padding-right: 1ex;
+        padding-left: 1ex;
+    }
+
+table.bpsv td.price,
+    table.bpsv th.price {
+    width: 20ex;
+    padding-right: 1ex;
+    padding-left: 1ex;
+}
+
+table.bpsv td.price {
+    width: 20ex;
+    padding-right: 6ex;
+    padding-left: 1ex;
 }
 
 td.sidebar {
