@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NewsletterCheckBoxValidator.java,v 1.3 2006/05/04 18:03:36 dlee Exp $
+ * $Id: NewsletterCheckBoxValidator.java,v 1.4 2006/05/09 19:31:35 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -13,7 +13,7 @@ import org.springframework.validation.Validator;
  * @author David Lee <mailto:dlee@greatschools.net>
  */
 public class NewsletterCheckBoxValidator implements Validator {
-    private static String ERROR_MSG = "Please check at least one box next time.";
+    private static String ERROR_MSG = "Please check at least one box.";
 
     public boolean supports(Class aClass) {
         return aClass.equals(NewsletterCommand.class);

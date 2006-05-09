@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NewsletterCommand.java,v 1.7 2006/05/04 23:24:37 dlee Exp $
+ * $Id: NewsletterCommand.java,v 1.8 2006/05/09 19:31:35 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -73,6 +73,9 @@ public class NewsletterCommand implements IEmail, ISchoolId, IState {
 
     public void setMyk(boolean myk) {
         _myk = myk;
+        if (myk) {
+            _checked = true;
+        }
     }
 
     public boolean isGn() {
