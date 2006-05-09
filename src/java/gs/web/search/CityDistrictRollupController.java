@@ -114,33 +114,33 @@ public class CityDistrictRollupController extends AbstractController {
 
             if (lowerCaseQuery.indexOf("public") != -1) {
                 filtersBuffer.append(" public");
-                urlBuffer.append("&amp;st=public");
+                urlBuffer.append("&st=public");
                 st = "public";
             } else if (lowerCaseQuery.indexOf("private") != -1) {
                 filtersBuffer.append(" private");
-                urlBuffer.append("&amp;st=private");
+                urlBuffer.append("&st=private");
                 st = "private";
             } else if (lowerCaseQuery.indexOf("charter") != -1) {
                 filtersBuffer.append(" charter");
-                urlBuffer.append("&amp;st=charter");
+                urlBuffer.append("&st=charter");
                 st = "charter";
             }
 
             if (lowerCaseQuery.indexOf("elementary") != -1 ||
                     lowerCaseQuery.indexOf("primary") != -1) {
                 filtersBuffer.append(" elementary");
-                urlBuffer.append("&amp;lc=e");
+                urlBuffer.append("&lc=e");
                 gl = "elementary";
             } else if (lowerCaseQuery.indexOf("middle") != -1 ||
                     lowerCaseQuery.indexOf("junior") != -1 ||
                     lowerCaseQuery.indexOf("jr") != -1) {
                 filtersBuffer.append(" middle");
-                urlBuffer.append("&amp;lc=m");
+                urlBuffer.append("&lc=m");
                 gl = "middle";
             } else if (lowerCaseQuery.indexOf("high") != -1 ||
                     lowerCaseQuery.indexOf("senior") != -1) {
                 filtersBuffer.append(" high");
-                urlBuffer.append("&amp;lc=h");
+                urlBuffer.append("&lc=h");
                 gl = "high";
             }
 
