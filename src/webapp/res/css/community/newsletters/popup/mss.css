@@ -90,14 +90,14 @@ a:active {
     margin-top: 0.5em;
 }
 
-#blueTop {
+.blueTop {
     border-top-style:dotted;
     border-top-color: #6699cc;
     padding-top:0.5em;
     padding-bottom:0.5em;
 }
 
-#grayTop {
+.grayTop {
     border-top-style: solid;
     border-top-color: #666666;
     border-top-width: 1px;

@@ -27,10 +27,10 @@
         </style>
             ]]>
     <title>Newsletters - My School Stats</title>
+    <base target="_self"/>
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
-<base target="_self"/>
 <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
 <spring:bind path="newsCmd.schoolId">
     <c:set var="schoolIdExpr" value="${status.expression}"/>
@@ -103,7 +103,8 @@
     </div>
 
     <div class="content">
-        <gsml:form action="/community/newsletters/popup/mss/page1.page" method="POST" target="_self">
+        <gsml:form action="/community/newsletters/popup/mss/page1.page" method="post" target="_self"
+                id="frm">
             <div class="error">${cbxError}</div>
 
             <div class="error">${emailErrors}</div>
@@ -124,12 +125,12 @@
                 <input type="hidden" name="state" value="${stateAbbrev}"/>
                 <input type="hidden" name="${schoolIdExpr}" value="${schoolId}"/>
                 <input type="hidden" name="${schoolNameExpr}" value="${schoolName}"/>
-                <input type="checkbox" name="${mssExpr}" checked="${mssChecked}"/>
+                <input type="checkbox" name="${mssExpr}" checked="checked"/>
                 Yes, please send me free monthly stats and updates about ${schoolName}.
             </div>
 
             <div class="cbx">
-                <input type="checkbox" name="${gnExpr}" checked="${gnChecked}"/>
+                <input type="checkbox" name="${gnExpr}" checked="checked"/>
                 Please also send me tips and advice in the bi-monthly Parent Advisor.
             </div>
 
@@ -148,7 +149,7 @@
     </div>
 </div>
 
-<div id="blueTop">
+<div class="blueTop">
     <div class="pLR">
         <div class="quote">
             <q>Thanks for explaining the test scores at my son's school.<br/>

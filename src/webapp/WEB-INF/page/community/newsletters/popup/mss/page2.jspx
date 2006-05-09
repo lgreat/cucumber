@@ -27,10 +27,10 @@
         </style>
             ]]>
     <title>Newsletters - My School Stats</title>
+    <base target="_self"/>
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
-<base target="_self"/>
 <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
 <spring:bind path="newsCmd.email">
     <c:set var="emailExpr" value="${status.expression}"/>
@@ -45,7 +45,7 @@
     <h1>Thanks for signing up<br/> for GreatSchools newsletters.</h1>
 </div>
 <div class="content">
-<gsml:form action="/community/newsletters/popup/mss/page2.page" method="POST" target="_self">
+<gsml:form action="/community/newsletters/popup/mss/page2.page" method="post" target="_self" id="frm">
     <div class="pLR">
         <div class="promo">
             <h2>Track your child's progress grade by grade<br/> with the free newsletters that parents rave about!</h2>
@@ -61,7 +61,7 @@
         <input type="hidden" name="${emailExpr}" value="${email}"/>
     </div>
 
-    <div id="blueTop">
+    <div class="blueTop">
         <div class="pLR">
             Yes, send me monthly tips about what to expect in the classroom for:
             <table width="80%" align="center">
@@ -111,7 +111,7 @@
         </div>
     </div>
 
-    <div id="grayTop">
+    <div class="grayTop">
         <div class="pLR">
             Send me free advice about college and academic planning:
             <table width="80%" align="center">

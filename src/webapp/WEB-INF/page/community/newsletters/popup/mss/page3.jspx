@@ -27,10 +27,10 @@
         </style>
             ]]>
     <title>Newsletters - My School Stats</title>
+    <base target="_self"/>
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
-<base target="_self"/>
 <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
     <div id="blockMessage">
         <h1>Thank You!</h1>
@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    <div id="blueTop">
+    <div class="blueTop">
         <div class="pLR">
             <ul>
                 <c:if test="${!empty schoolName}">
@@ -68,7 +68,7 @@
     </div>
 
 
-    <div id="grayTop">
+    <div class="grayTop">
         <div class="pLR">
             <ul>
             <c:forEach items="${setNth}" var="newsletterName">
@@ -78,7 +78,7 @@
         </div>
     </div>
 
-    <div id="grayTop">
+    <div class="grayTop">
         <div class="pLR">
             <ul>
                 <c:forEach items="${setMsHs}" var="newsletterName">
@@ -87,7 +87,7 @@
             </ul>
             <div>
                 <link:newsletterCenter email="${email}" target="_blank" styleClass="bigLink">Manage my subscriptions</link:newsletterCenter>
-            </div>            
+            </div>
         </div>
     </div>
     <mod:tracking pageName="Newsletter Hover Confirmation"
