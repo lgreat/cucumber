@@ -105,7 +105,7 @@ public class SearchResultTest extends TestCase {
         assertEquals(0, result.getSchools());
 
         doc = new Document();
-        doc.add(Field.Text(IndexField.SCHOOLS, "1234"));
+        doc.add(Field.Text(IndexField.NUMBER_OF_SCHOOLS, "1234"));
         result = new SearchResult(doc);
         assertEquals(1234, result.getSchools());
     }

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: TopDistrictsControllerTest.java,v 1.1 2006/04/05 22:10:42 apeterson Exp $
+ * $Id: TopDistrictsControllerTest.java,v 1.2 2006/05/10 22:15:47 apeterson Exp $
  */
 
 package gs.web.state;
@@ -63,9 +63,9 @@ public class TopDistrictsControllerTest extends BaseControllerTestCase {
         assertNotNull(results);
         assertEquals(5, results.size());
         districtAnchor = (Anchor) results.get(0);
-        assertEquals("AK District A", districtAnchor.getContents());
+        assertEquals("Anchorage School District", districtAnchor.getContents());
         districtAnchor = (Anchor) results.get(3);
-        assertEquals("AK District D", districtAnchor.getContents());
+        assertEquals("Kenai Peninsula Borough Schools", districtAnchor.getContents());
         assertEquals("/schools.page?district=25&amp;state=AK", districtAnchor.getHref());
         last = (Anchor) results.get(4);
         assertEquals("View all Alaska districts", last.getContents());

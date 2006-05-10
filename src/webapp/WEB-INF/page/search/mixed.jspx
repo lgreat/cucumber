@@ -22,136 +22,87 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
     <title>
-        <c:out value="${param.q} - " escapeXml="false"/>
-        GreatSchools.net Search
+        <c:out value="${title}" escapeXml="false"/>
     </title>
-
-    <c:if test="${not requestScope.context.cobranded}">
-        <![CDATA[
-    <style type="text/css">
-           table#pagemargin, .pageWidth { width:100% !important; border:0}
-    </style>
-    ]]>
-    </c:if>
-    <c:if test="${requestScope.context.cobranded}">
-        <![CDATA[
-    <style type="text/css">
-    .rcopy { }
-           table#pagemargin, .pageWidth { width:760px !important; border:0}
-           #searchfooter { width: 400px !important;}
-    </style>
-    ]]>
-    </c:if>
-
-    <gsml:url var="searchcss" value="/res/css/search/search.css"/>
-    <link rel="stylesheet" href="${searchcss}" type="text/css" media="screen"/>
-    <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
 </head>
 
-<body>
+<gsml:body adPageName="search">
+    <pageHelper:externalCss file="/res/css/search/search.css"/>
 
-<table id="searchpagetable" border="0" width="100%">
-    <tr>
-        <td>
-            <table id="main" width="100%"><tr>
-                <td class="leftcol" valign="top">
-                    <div id="leftsearchcolumn">
-                        <mod:browseState state="${state}"/>
-                    </div>
-                </td>
+    <table id="main" width="100%">
+        <tr>
+            <td class="leftcol" valign="top">
+                <mod:browseState state="${requestScope.context.stateOrDefault}"/>
+            </td>
 
-                <td valign="top" class="col2">
-                    <div id="resultsheader">
-                        <table width="90%">
-                            <tr>
-                                <td align="left">
-                                    <c:choose>
-                                        <c:when test="${results.total gt 0}">
-                                            <c:choose>
-                                                <c:when test="${param.type == 'topic'}">
-                                                    Topic results for
-                                                </c:when>
-                                                <c:when test="${param.type == 'school'}">
-                                                    School results for
-                                                </c:when>
-                                                <c:otherwise>
-                                                    All results for
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </c:when>
-                                        <c:otherwise>
-                                            No results found for
-                                        </c:otherwise>
-                                    </c:choose>
-                                    &quot;<span
-                                        class="headerquery">${gsweb:highlight(param.q, 'private', 'text')}</span>&quot;
-                                </td>
-                                <td align="right">
-                                    <c:if test="${results.total gt 0}">
-                                        <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
-                                        <c:set var="px" value="${(page * 10)}"/>
-                                        <c:out value="${px + 1} - ${(results.total lt px + 10) ? results.total : px + 10} of ${results.total}"/>
-                                    </c:if>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <hr/>
-                    <c:if test="${results.total gt 0}">
-                        <jsp:include page="/search/citydistrict.module?${pageContext.request.queryString}"/>
-                    </c:if>
-                    <gsweb:mainResults results="${results.mainResults}"
-                                       total="${results.total}"
-                                       debug="${param.debug}">
-
-                        <table width="100%"><tr><td align="left">
-                            <div id="${(noresults == 'true') ? 'noresults' : 'searchfooter'}">
-                                <c:if test="${noresults == 'true'}">
-                                    <table><tr><td align="left">
-                                        <b>Suggestions:</b>
-                                        <ul>
-                                            <li>Make sure all words are spelled correctly.</li>
-                                            <li>Try different or fewer key words.</li>
-                                            <li>Try more general key words.</li>
-                                        </ul>
-                                    </td></tr></table>
+            <td valign="top" class="col2">
+                <div id="resultsheader">
+                    <table width="90%">
+                        <tr>
+                            <td align="left">
+                                ${heading1}
+                            </td>
+                            <td align="right">
+                                <c:if test="${total gt 0}">
+                                    <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
+                                    <c:set var="px" value="${(page * 10)}"/>
+                                    <c:out value="${px + 1} - ${(total lt px + 10) ? total : px + 10} of ${total}"/>
                                 </c:if>
-                                <table width="100%">
-                                    <c:if test="${noresults == 'true'}">
-                                        <tr><td id="searchagain">You searched in ${state.longName}.
-                                            &#160;&#160; </td></tr>
-                                    </c:if>
-                                    <tr>
-                                        <td align="${(noresults == 'true') ? 'left' : 'center'}">
-                                            <search:searchControl rememberQuery="true"
-                                                                  showStates="${noresults}"
-                                                                  showLinks="true"
-                                                                  fieldLength="${requestScope.context.cobranded ? 20 : 38}"/>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </td></tr></table>
-                    </gsweb:mainResults>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!--c:if test="${total gt 0}"-->
+                    <jsp:include page="/search/citydistrict.module?${pageContext.request.queryString}"/>
+                <!--/c:if-->
+                <gsweb:mainResults results="${mainResults}"
+                                   total="${total}"
+                                   debug="${param.debug}">
 
-                </td>
+                    <table width="100%"><tr><td align="left">
+                        <div id="${(noresults == 'true') ? 'noresults' : 'searchfooter'}">
+                            <c:if test="${noresults == 'true'}">
+                                <table><tr><td align="left">
+                                    <b>Suggestions:</b>
+                                    <ul>
+                                        <li>Make sure all words are spelled correctly.</li>
+                                        <li>Try different or fewer key words.</li>
+                                        <li>Try more general key words.</li>
+                                    </ul>
+                                </td></tr></table>
+                            </c:if>
+                            <table width="100%">
+                                <c:if test="${noresults == 'true'}">
+                                    <tr><td id="searchagain">You searched in ${requestScope.context.stateOrDefault.longName}.
+                                        &#160;&#160; </td></tr>
+                                </c:if>
+                                <tr>
+                                    <td align="${(noresults == 'true') ? 'left' : 'center'}">
+                                        <search:searchControl rememberQuery="true"
+                                                              showStates="${noresults}"
+                                                              showLinks="true"
+                                                              fieldLength="${requestScope.context.cobranded ? 20 : 38}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td></tr></table>
+                </gsweb:mainResults>
 
-                <td class="rightcolumn" align="center">
-                    <ad:x33/>
-                </td>
+            </td>
 
-            </tr>
+            <td class="rightcolumn" align="center">
+                <ad:x33/>
+            </td>
 
-            </table>
+        </tr>
 
-        </td>
+    </table>
 
-    </tr>
-</table>
-<mod:tracking pageName="mixed:${results.total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"
-              pageType="search"
-              constraint="${param.type}"
-              hier1="search,mixed,page${results.total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"/>
-</body>
+    <mod:tracking pageName="mixed:${total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"
+                  pageType="search"
+                  constraint="${param.type}"
+                  hier1="search,mixed,page${total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"/>
+</gsml:body>
 </html>
 </jsp:root>

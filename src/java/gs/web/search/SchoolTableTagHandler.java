@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * This tag handler generates a table of schools.
- * This tag is used on and search/schoolsOnly.jspx.
+ * This tag is used on and school/schoolsTable.jspx.
  * todo: This class is an <strong>ugly mess</strong> and badly needs to be
  * refactored.
  *

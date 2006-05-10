@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.25 2006/05/06 05:19:34 apeterson Exp $
+ * $Id: CityController.java,v 1.26 2006/05/10 22:15:46 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -77,23 +77,22 @@ public class CityController extends AbstractController {
         // TH: Set this controller to read-only to avoid hibernate updating school_rating
         ThreadLocalTransactionManager.setReadOnly();
 
-// Figure out the inputs
-         State state = SessionContext.getInstance(request).getStateOrDefault();
-         String cityNameParam = request.getParameter(PARAM_CITY);
+        // Figure out the inputs
+        State state = SessionContext.getInstance(request).getStateOrDefault();
+        String cityNameParam = request.getParameter(PARAM_CITY);
 
-
+        // Look in the URL if they aren't in parameters
         if (StringUtils.isEmpty(cityNameParam)) {
             String r = request.getRequestURI();
-            r = r.replaceAll(".page","");
-            r = r.replaceAll("/city","");
-            r = r.replaceAll("/gs-web","");
+            r = r.replaceAll(".page", "");
+            r = r.replaceAll("/city", "");
+            r = r.replaceAll("/gs-web", "");
             String[] rs = StringUtils.split(r, "/");
             if (rs.length == 2) {
                 state = _stateManager.getState(rs[0]);
-                cityNameParam = rs[1].replaceAll("_" , " ");
+                cityNameParam = rs[1].replaceAll("_", " ");
             }
         }
-
 
         // Validate those inputs and give up if we can't build a reasonable page.
         if (state == null) {
@@ -111,7 +110,7 @@ public class CityController extends AbstractController {
         ICity city = _geoDao.findCity(state, cityNameParam);
         if (city == null) {
             // If we don't have census data on the city take the user to browse city
-            _log.error("No city record found for " + cityNameParam + ", " + state + ". Redirecting to schools.page");
+            _log.error("No city record found for '" + cityNameParam + ", " + state + "'. Redirecting to schools.page");
             View redirectView = new RedirectView("/schools.page?state=" + state.getAbbreviation() +
                     "&city=" + URLEncoder.encode(cityNameParam, "UTF-8"));
             return new ModelAndView(redirectView);

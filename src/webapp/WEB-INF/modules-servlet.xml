@@ -144,6 +144,9 @@
         <constructor-arg>
             <ref bean="searcher"/>
         </constructor-arg>
+        <property name="viewName">
+            <value>/search/cityDistrictRollup</value>
+        </property>
     </bean>
 
     <bean name="/search/schoolFilters.module"

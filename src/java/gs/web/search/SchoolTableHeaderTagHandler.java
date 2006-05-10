@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.6 2006/04/17 17:34:48 chriskimm Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.7 2006/05/10 22:15:46 apeterson Exp $
  */
 
 package gs.web.search;
@@ -23,7 +23,7 @@ import java.util.Iterator;
 
 /**
  * This tag handler generates a table of schools.
- * This tag is used on and search/schoolsOnly.jspx.
+ * This tag is used on and school/schoolsTable.jspx.
  * todo: This class is an <strong>ugly mess</strong> and badly needs to be
  * refactored.
  *

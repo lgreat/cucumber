@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.25 2006/05/03 19:34:42 dlee Exp $
+ * $Id: UrlBuilder.java,v 1.26 2006/05/10 22:15:47 apeterson Exp $
  */
 
 package gs.web.util;
@@ -62,6 +62,7 @@ public class UrlBuilder {
     public static final VPage SCHOOL_PROFILE = new VPage("vpage:schoolProfile");
 
     public static final VPage SCHOOLS_IN_CITY = new VPage("vpage:schoolsInCity");
+    public static final VPage SCHOOLS_IN_DISTRICT = new VPage("vpage:schoolsInDistrict");
 
     public static final VPage PRIVACY_POLICY = new VPage("vpage:privacyPolicy");
 
@@ -223,6 +224,11 @@ public class UrlBuilder {
             _perlPage = false;
             _path = "/schools.page";
             setParameter("city", param0);
+            setParameter("state", state.getAbbreviation());
+        } else if (SCHOOLS_IN_DISTRICT.equals(page)) {
+            _perlPage = false;
+            _path = "/schools.page";
+            setParameter("district", param0);
             setParameter("state", state.getAbbreviation());
         } else if (PRIVACY_POLICY.equals(page)) {
             _perlPage = false;

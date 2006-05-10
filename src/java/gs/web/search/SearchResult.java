@@ -138,7 +138,7 @@ public class SearchResult {
 
     public int getSchools() {
         int count = 0;
-        String schools = _doc.get(IndexField.SCHOOLS);
+        String schools = _doc.get(IndexField.NUMBER_OF_SCHOOLS);
         if (schools != null) {
             count = Integer.parseInt(schools);
         }

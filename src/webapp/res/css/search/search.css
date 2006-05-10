@@ -1,3 +1,5 @@
+
+
 table#header {width:100%;margin: 0px 0px 0px 0px;}
 table#header td.left {width:180px;}
 div.verticalcontainer {position:relative;height:270px;}
@@ -13,8 +15,7 @@ TODO: name consistently.
 */
 .leftcol,
 .rightcolumn,
-#leftsearchcolumn,
-#leftsearchcolumn .main
+.leftcol .main
 {
     width:160px;
 }
@@ -94,21 +95,44 @@ pre.explanation {
 }
 
 
-.citydistrict {
-    padding:5px;
-    font-size:medium;
-}
-.citydistrict .citydistresult {
-    padding-left:7px;
-    padding-right:7px;
+
+/*
+City and district rollups
+*/
+.cityDistrictRollup {
+    /*background-color: #E5E5E5;*/
+    padding: 5px;
+    font-size: medium;
+    border: 0 dotted black;
+    border-top-width:1px;
+    border-bottom-width:1px;
+    margin-top: 5px;
+
 }
 
-/* b version */
-.citydistrictb {
-    background-color:#E5E5E5;
-    padding:10px;
-    font-size:small;
+
+.cityDistrictRollup  h3 {
+    background-image: url(../../img/orange_arrow_right_trans.gif);
+    background-repeat: no-repeat;
+    background-position: .1em .1em;
+    padding: 0 0 0 18px;
+    display: inline;
 }
+
+.cityDistrictRollup ul {
+    display: inline;
+}
+
+.cityDistrictRollup ul li {
+    padding-right: 1ex;
+    border-right: 1px solid #555;
+    margin-right: 1ex;
+    display: inline;
+}
+.cityDistrictRollup ul li.last {
+    border-right-width: 0;
+}
+
 
 .refinementlist li{
     padding-bottom:6px;
@@ -137,21 +161,6 @@ li.filtertype {
     font-size: small;
 }
 
-#filterheader {
-    background-image: url( /res/img/orange_arrow_right_trans.gif );
-    background-repeat: no-repeat;
-    background-position: .2em .3em;
-    background-color:#DDD;
-    font-weight:600;
-    padding-left:18px;
-    padding-top:2px;
-    padding-bottom:2px;
-}
-
-.citydistlinks {
-    padding-top:5px;
-    padding-bottom:6px;
-}
 
 #noresults ul {
     padding-top:5px;
@@ -174,15 +183,14 @@ li.filtertype {
 tr.result_row:hover {background: #EEE;}
 
 tr.result_row td {
-    padding:7px 0 8px 0;
+    padding:7px 0 3px 0;
     font-size: small;
 }
 
 tr.contextrow td {
-    padding-left:0px;
-    padding-right:40px;
-    padding-bottom:10px;
+    padding: 0 40px 10px 0em;
     font-size:small;
+    color: #555;
 }
 
 tr td.checkbox {
@@ -193,7 +201,6 @@ tr td.checkbox {
 }
 
 #searchagain { font-weight:bold;}
-#rollupfilters { font-weight:bold;}
 
 /* used on "Show all" and "View district profile" links on schoolresults */
 .minilink {
@@ -201,14 +208,6 @@ tr td.checkbox {
     font-size:11px;
     padding-left:4px;
 }
-
-/*IE hack to make the font size similar to Firefox */
-/* html #searchpagetable tr td {
-    font-size:80%;
-}
-* html #searchpagetable tr td #resultsheader td {
-    font-size:100%;
-}*/
 
 #distinfo {
    padding-left:10px;
@@ -220,4 +219,8 @@ tr td.checkbox {
    font-size:80%;
    padding-left:10px;
    padding:10px;
+}
+
+.cobranded #searchfooter {
+    width: 400px !important;
 }

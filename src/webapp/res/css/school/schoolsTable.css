@@ -1,0 +1,289 @@
+table#header {
+    width: 100%;
+    margin: 0px 0px 0px 0px;
+}
+
+table#header td.left {
+    width: 180px;
+}
+
+div.verticalcontainer {
+    position: relative;
+    height: 270px;
+}
+
+table#header td.stretchycolumn {
+    padding: 0px 6px 0px 6px;
+    height: 250px;
+}
+
+td.label {
+    color: #666;
+    vertical-align: middle;
+}
+
+.checkbox {
+    padding: 0;
+    margin: 0;
+    font-size: 90%;
+}
+
+.main, .columns {
+    width: 100%;
+}
+
+/*
+Note, main layout table is identified by .leftcol, .col2, .rightcolumn
+TODO: name consistently.
+*/
+.leftcol,
+    .rightcolumn,
+    .leftcol .main {
+    width: 160px;
+}
+
+.rightcolumn {
+    vertical-align: top;
+}
+
+td #searchlinks a {
+    font-size: small;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+th.result_title {
+    padding: 0px 20px 0px 0px;
+    border-bottom: 1px solid #999;
+    margin-right: 10px;
+    font-size: small;
+}
+
+#resultsheader {
+    font-size: medium;
+}
+
+td.headline {
+    font-size: small;
+}
+
+table.school_results_only th {
+    padding: 4px 0px 2px 5px;
+    border-bottom: 1px solid #aaa;
+}
+
+table.school_results_only td {
+    padding: 4px 0px 6px 5px;
+    border-bottom: 1px solid #FFF;
+}
+
+td.results_pagenav {
+    text-align: right;
+    font-weight: normal;
+    font-size: 80%;
+    white-space: nowrap;
+}
+
+.active {
+    color: #000;
+    padding-right: 10px
+}
+
+tr.last_row td {
+    padding: 10px 0px 0px 0px;
+    border-bottom: 0px;
+}
+
+tr.control_row td {
+    padding: 0px 0px 0px 0px;
+    border-bottom: 1px
+}
+
+.highlight {
+    font-weight: 800;
+}
+
+#suggestion {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.searchbyaddress {
+    padding-left: 20mm;
+    vertical-align: bottom;
+}
+
+.contentGS h1 {
+    color: #eb7a31;
+    font-size: large;
+    font-weight: 700;
+    padding-left: 2px;
+}
+
+div#comparelinks h1 {
+    font-size: small;
+    font-weight: normal;
+    color: #000;
+}
+
+.resultsheadline {
+    display: inline;
+    padding-left: 2px;
+}
+
+.context {
+    display: block;
+}
+
+.mainresultsheader {
+    padding-bottom: 10px;
+}
+
+.main h2.browseheader {
+    padding-bottom: 5px;
+    font-weight: 700;
+    font-size: small;
+}
+
+.headerquery {
+    padding-bottom: 5px;
+    font-weight: 700;
+    color: #FE894C;
+}
+
+pre.explanation {
+    font-size: large;
+}
+
+.citydistrict {
+    padding: 5px;
+    font-size: medium;
+}
+
+.citydistrict .citydistresult {
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+/* b version */
+.citydistrictb {
+    background-color: #E5E5E5;
+    padding: 10px;
+    font-size: small;
+}
+
+.refinementlist li {
+    padding-bottom: 6px;
+    padding-right: 5px;
+}
+
+.filterlist li {
+    padding-bottom: 3px;
+    padding-left: 18px;
+}
+
+li.filtertype {
+    font-weight: 600;
+    padding-top: 7px;
+    padding-left: 5px;
+}
+
+#filters {
+    background-image: url( /res/img/orange_arrow_right_trans.gif );
+    background-repeat: no-repeat;
+    background-position: .2em .4em;
+    background-color: #DDD;
+    padding-left: 18px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: small;
+}
+
+#filterheader {
+    background-image: url( /res/img/orange_arrow_right_trans.gif );
+    background-repeat: no-repeat;
+    background-position: .2em .3em;
+    background-color: #DDD;
+    font-weight: 600;
+    padding-left: 18px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.citydistlinks {
+    padding-top: 5px;
+    padding-bottom: 6px;
+}
+
+#noresults ul {
+    padding-top: 5px;
+    padding-bottom: 15px;
+}
+
+#noresults li {
+    padding-left: 20px;
+    padding-bottom: 3px;
+    list-style: disc;
+    list-style-type: disc;
+    list-style-position: inside;
+
+}
+
+#searchfooter {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+tr.result_row:hover {
+    background: #EEE;
+}
+
+tr.result_row td {
+    padding: 7px 0 8px 0;
+    font-size: small;
+}
+
+tr.contextrow td {
+    padding-left: 0px;
+    padding-right: 40px;
+    padding-bottom: 10px;
+    font-size: small;
+}
+
+tr td.checkbox {
+    vertical-align: top;
+    padding-top: 8px;
+    padding-left: 4px;
+    padding-right: 7px;
+}
+
+#searchagain {
+    font-weight: bold;
+}
+
+#rollupfilters {
+    font-weight: bold;
+}
+
+/* used on "Show all" and "View district profile" links on schoolresults */
+.minilink {
+/*font-size:xx-small;*/
+    font-size: 11px;
+    padding-left: 4px;
+}
+
+#distinfo {
+    padding-left: 10px;
+    padding-bottom: 5px;
+    font-size: 80%;
+}
+
+#comparelinks {
+    font-size: 80%;
+    padding-left: 10px;
+    padding: 10px;
+}
+
+.cobranded #searchfooter {
+    width: 400px !important;
+}

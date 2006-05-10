@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.9 2006/04/07 03:38:49 apeterson Exp $
+ * $Id: SchoolsController.java,v 1.10 2006/05/10 22:15:46 apeterson Exp $
  */
 
 package gs.web.school;
@@ -201,7 +201,7 @@ public class SchoolsController extends AbstractController {
             _log.warn("Hits object is null for SearchCommand: " + searchCommand);
         }
 
-        final ModelAndView modelAndView = new ModelAndView("search/schoolsOnly", model);
+        final ModelAndView modelAndView = new ModelAndView("school/schoolsTable", model);
         return modelAndView;
 
     }
