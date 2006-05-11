@@ -151,7 +151,7 @@ public class ResultsPager {
                                 } catch (NumberFormatException e) {
                                     _log.warn("Couldn't find school " + id + " in " + state, e);
                                 } catch (ObjectRetrievalFailureException e) {
-                                    _log.warn("Couldn't find school " + id + " in " + state, e);
+                                    _log.error("Couldn't find school " + id + " in " + state, e);
                                 }
                             }
                         }
