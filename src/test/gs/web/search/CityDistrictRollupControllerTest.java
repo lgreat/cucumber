@@ -2,6 +2,8 @@ package gs.web.search;
 
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.SessionContextUtil;
+import gs.web.util.ListModel;
 import gs.data.search.Searcher;
 import gs.data.search.IndexDir;
 import gs.data.search.Indexer;
@@ -25,6 +27,7 @@ public class CityDistrictRollupControllerTest extends BaseControllerTestCase {
 
     private Directory _testDir;
     private CityDistrictRollupController _controller;
+    private SessionContextUtil _sessionContextUtil;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -57,10 +60,15 @@ public class CityDistrictRollupControllerTest extends BaseControllerTestCase {
      */
     public void testCities() throws Exception {
 
-        IndexDir testIndexDir = new IndexDir(_testDir, new RAMDirectory());
-        Searcher searcher = new Searcher(testIndexDir);
         CityDistrictRollupController controller = (CityDistrictRollupController)getApplicationContext().getBean(CityDistrictRollupController.BEAN_ID);
-        ModelAndView mv = controller.handleRequestInternal(getRequest(), null);
+        final GsMockHttpServletRequest request = getRequest();
+        request.setParameter("q", "Eugene, OR");
+        request.setParameter("state", "CA");
+        _sessionContextUtil = (SessionContextUtil) getApplicationContext().
+                getBean(SessionContextUtil.BEAN_ID);
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+        ModelAndView mv = controller.handleRequestInternal(request, null);
+        ListModel cities = (ListModel) mv.getModel().get(CityDistrictRollupController.MODEL_CITIES);
     }
 
     private List getDistricts() {

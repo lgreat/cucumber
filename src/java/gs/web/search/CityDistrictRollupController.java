@@ -122,11 +122,13 @@ public class CityDistrictRollupController extends ParameterizableViewController 
 
 
             Hits cityHits = searchForCities(queryString, sessionContext.getState());
-            ListModel cities = createCitiesListModel(request, cityHits, state,
-                    StringUtils.equals("charter", request.getParameter("st")) ? SchoolType.CHARTER : null);
-            model.put(MODEL_CITIES, cities);
-            if (cities.getResults().size() > 0) {
-                stuffToShow = true;
+            if (cityHits != null && cityHits.length() != 0) {
+                ListModel cities = createCitiesListModel(request, cityHits, state,
+                        StringUtils.equals("charter", request.getParameter("st")) ? SchoolType.CHARTER : null);
+                model.put(MODEL_CITIES, cities);
+                if (cities.getResults().size() > 0) {
+                    stuffToShow = true;
+                }
             }
 
 
