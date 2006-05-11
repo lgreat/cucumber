@@ -320,7 +320,6 @@ public class CityDistrictRollupController extends ParameterizableViewController 
         BooleanQuery districtQuery = new BooleanQuery();
         districtQuery.add(new TermQuery(new Term("type", "district")), true, false);
         districtQuery.add(baseQuery, true, false);
-        _log.error(districtQuery);
         Hits districtHits = _searcher.search(districtQuery, null, null, null);
         return districtHits;
     }
