@@ -1,59 +1,103 @@
+table#header {
+    width: 100%;
+    margin: 0px 0px 0px 0px;
+}
 
+table#header td.left {
+    width: 180px;
+}
 
-table#header {width:100%;margin: 0px 0px 0px 0px;}
-table#header td.left {width:180px;}
-div.verticalcontainer {position:relative;height:270px;}
-table#header td.stretchycolumn {padding: 0px 6px 0px 6px;height:250px;}
-td.label {color:#666;vertical-align:middle;}
-.checkbox {padding:0;margin:0; font-size:90%;}
+div.verticalcontainer {
+    position: relative;
+    height: 270px;
+}
 
-.main, .columns {width:100%;}
+table#header td.stretchycolumn {
+    padding: 0px 6px 0px 6px;
+    height: 250px;
+}
+
+td.label {
+    color: #666;
+    vertical-align: middle;
+}
+
+.checkbox {
+    padding: 0;
+    margin: 0;
+    font-size: 90%;
+}
+
+.main, .columns {
+    width: 100%;
+}
 
 /*
-Note, main layout table is identified by .leftcol, .col2, .rightcolumn
 TODO: name consistently.
 */
-.leftcol,
-.leftcol .main
-{
+td.leftColumn {
     width: 160px;
+    vertical-align: top;
 }
+
 td.middleColumn {
     border-left: 1px solid #bbb;
     padding-left: 10px;
 }
+
 td.rightColumn {
     width: 160px;
     vertical-align: top;
 }
 
-td #searchlinks a{
-    font-size:small;
-    padding-left:7px;
-    padding-right:7px;
+td #searchlinks a {
+    font-size: small;
+    padding-left: 7px;
+    padding-right: 7px;
 }
 
 th.result_title {
-    padding:0px 20px 0px 0px;
-    border-bottom:1px solid #999;
-    margin-right:10px;
-    font-size:small;
+    padding: 0px 20px 0px 0px;
+    border-bottom: 1px solid #999;
+    margin-right: 10px;
+    font-size: small;
 }
-
 
 td.results_pagenav {
-    text-align:right;
-    font-weight:normal;
-    font-size:80%;
-    white-space:nowrap;
+    text-align: right;
+    font-weight: normal;
+    font-size: 80%;
+    white-space: nowrap;
 }
-.active {color:#000;padding-right:10px}
-tr.last_row td {padding:10px 0px 0px 0px;border-bottom:0px;}
-tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
 
-.highlight {font-weight: 800;}
-#suggestion {font-style: italic; font-weight: bold;}
-.searchbyaddress {padding-left:20mm; vertical-align:bottom;}
+.active {
+    color: #000;
+    padding-right: 10px
+}
+
+tr.last_row td {
+    padding: 10px 0px 0px 0px;
+    border-bottom: 0px;
+}
+
+tr.control_row td {
+    padding: 0px 0px 0px 0px;
+    border-bottom: 1px
+}
+
+.highlight {
+    font-weight: 800;
+}
+
+#suggestion {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.searchbyaddress {
+    padding-left: 20mm;
+    vertical-align: bottom;
+}
 
 .contentGS h1 {
     color: #eb7a31;
@@ -62,71 +106,61 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
     padding-left: 2px;
 }
 
-
 .mainresultsheader {
-    padding-bottom:10px;
+    padding-bottom: 10px;
 }
 
 .main h2.browseheader {
-    padding-bottom:5px;
-    font-weight:700;
-    font-size:small;
+    padding-bottom: 5px;
+    font-weight: 700;
+    font-size: small;
 }
 
 .headerquery {
-    padding-bottom:5px;
-    font-weight:700;
-    color:#FE894C;
+    padding-bottom: 5px;
+    font-weight: 700;
+    color: #FE894C;
 }
 
 pre.explanation {
-    font-size:large;
+    font-size: large;
 }
 
-
-
-
-.refinementlist li{
-    padding-bottom:6px;
-    padding-right:5px;
+.refinementlist li {
+    padding-bottom: 6px;
+    padding-right: 5px;
 }
 
-.filterlist li{
-    padding-bottom:3px;
-    padding-left:18px;
+#searchFooter {
+    padding: 10px 10px 20px 18px;
+    background-color: #eee;
 }
 
-li.filtertype {
-    font-weight:600;
-    padding-top:7px;
-    padding-left:5px;
+#searchFooter h4,
+    #searchFooter p {
+    font-size: medium;
+    padding: 5px 0 5px 0;
 }
 
-
-#noresults ul {
-    padding-top:5px;
-    padding-bottom:15px;
-}
-#noresults li {
-    padding-left:20px;
-    padding-bottom:3px;
-    list-style:disc;
-    list-style-type:disc;
-    list-style-position:inside;
-
+#searchFooter ul {
+    padding-top: 5px;
+    padding-bottom: 15px;
 }
 
-#searchfooter {
-    padding-top:20px;
-    padding-bottom:20px;
-}
+#searchFooter li {
+    padding-left: 20px;
+    padding-bottom: 3px;
+    list-style: disc;
+    list-style-type: disc;
+    list-style-position: inside;
 
+}
 
 /*
    List item
 */
 table#mainresults tr td {
-    margin:  0  0   15px 0;
+    margin: 0 0 15px 0;
     padding: 0 40px 10px 0;
     color: #333;
 }
@@ -136,32 +170,30 @@ table#mainresults h3 {
 }
 
 table#mainresults div.about,
-table#mainresults address,
-table#mainresults div.phone,
-table#mainresults p {
+    table#mainresults address,
+    table#mainresults div.phone,
+    table#mainresults p {
     font-size: small;
     padding-left: 18px;
 }
-table#mainresults span.st,
-table#mainresults span.gl {
-	font-weight: bold;
-}
 
+table#mainresults span.st,
+    table#mainresults span.gl {
+    font-weight: bold;
+}
 
 tr td.checkbox {
-    vertical-align:top;
-    padding-top:8px;
-    padding-left:4px;
-    padding-right:7px;
+    vertical-align: top;
+    padding-top: 8px;
+    padding-left: 4px;
+    padding-right: 7px;
 }
-
-#searchagain { font-weight:bold;}
 
 /* used on "Show all" and "View district profile" links on schoolresults */
 .minilink {
-    /*font-size:xx-small;*/
-    font-size:11px;
-    padding-left:4px;
+/*font-size:xx-small;*/
+    font-size: 11px;
+    padding-left: 4px;
 }
 
 .cobranded #searchfooter {
@@ -169,13 +201,11 @@ tr td.checkbox {
 }
 
 div#resultsheader {
-    font-size:medium;
+    font-size: medium;
     padding-bottom: 4px;
     border-bottom: 1px solid #bbb;
     margin-bottom: 5px;
 }
-
-
 
 /*
 City and district rollups

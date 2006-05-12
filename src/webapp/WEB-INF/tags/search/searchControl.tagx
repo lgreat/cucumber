@@ -58,8 +58,8 @@
                 </c:if>
             <td style="vertical-align:middle;padding-bottom:2px">
                 <gsml:url var="goButton"
-                          value="/res/img/search/btn_go.gif"/>
-                <input type="image" src="${goButton}" class="btn"
+                          value="/res/img/button/btn_go_tp.gif"/>
+                <input type="image" src="${goButton}" class="btn" style="height: 18px; width: 21px;"
                        value="go"/>
             </td>
         </tr>

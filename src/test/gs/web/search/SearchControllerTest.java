@@ -103,6 +103,25 @@ public class SearchControllerTest extends BaseControllerTestCase {
         assertNotNull(cities);
     }
 
+    public void testNoResultsQuery() throws Exception {
+
+        final GsMockHttpServletRequest request = getRequest();
+        request.setParameter("q", "xxx");
+        request.setParameter("state", "CA");
+        _sessionContextUtil = (SessionContextUtil) getApplicationContext().
+                getBean(SessionContextUtil.BEAN_ID);
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+
+        SearchCommand command = new SearchCommand();
+        command.setQ("xxx");
+        command.setState(State.CA);
+        BindException errors = new BindException(command, null);
+        ModelAndView mv = _controller.processFormSubmission(request, (HttpServletResponse) getResponse(), command, errors);
+
+        ListModel cities = (ListModel) mv.getModel().get(SearchController.MODEL_CITIES);
+        assertNull(cities);
+    }
+
     private List getDistricts() {
         List districts = new ArrayList();
 

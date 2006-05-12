@@ -1,3 +1,7 @@
+.contentGS {
+    padding: 0 10px 0 10px;
+}
+
 table#header {
     width: 100%;
     margin: 0px 0px 0px 0px;
@@ -125,11 +129,6 @@ td.middleColumn {
     padding-left: 2px;
 }
 
-div#comparelinks h1 {
-    font-size: small;
-    font-weight: normal;
-    color: #000;
-}
 
 .resultsheadline {
     display: inline;
@@ -182,37 +181,42 @@ pre.explanation {
     padding-right: 5px;
 }
 
-.filterlist li {
+
+/* Left margin filters */
+div.filters {
+    margin-bottom: 10px;
+}
+div.filters h2 {
+    background-color: #DDD;
+    font-weight: 600;
+    padding: 2px 0 2px 18px;
+}
+
+div.filters li.filtertype {
+    margin-top: 5px;
+    background-image: url( ../../img/orange_arrow_right_trans.gif );
+    background-repeat: no-repeat;
+    background-position: .2em .3em;
+    font-weight: 600;
+    padding-top: 2px;
+    padding-left: 18px;
+}
+
+div.filters .filterlist li {
     padding-bottom: 3px;
     padding-left: 18px;
 }
 
-li.filtertype {
-    font-weight: 600;
-    padding-top: 7px;
-    padding-left: 5px;
-}
-
-#filters {
-    background-image: url( /res/img/orange_arrow_right_trans.gif );
+/*
+A repeat of the information in the body of the page
+*/
+td #filters {
+    background-image: url( ../../img/orange_arrow_right_trans.gif );
     background-repeat: no-repeat;
     background-position: .2em .4em;
     background-color: #DDD;
-    padding-left: 18px;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding: 3px 0 3px 18px;
     font-size: small;
-}
-
-#filterheader {
-    background-image: url( /res/img/orange_arrow_right_trans.gif );
-    background-repeat: no-repeat;
-    background-position: .2em .3em;
-    background-color: #DDD;
-    font-weight: 600;
-    padding-left: 18px;
-    padding-top: 2px;
-    padding-bottom: 2px;
 }
 
 .citydistlinks {
@@ -284,9 +288,14 @@ tr td.checkbox {
 }
 
 #comparelinks {
-    font-size: 80%;
-    padding-left: 10px;
-    padding: 10px;
+    font-size: small;
+    padding: 10px 10px 10px 0;
+}
+
+div#comparelinks h1 {
+    font-size: small;
+    font-weight: normal;
+    color: #000;
 }
 
 .cobranded #searchfooter {

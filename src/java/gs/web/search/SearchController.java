@@ -68,21 +68,26 @@ public class SearchController extends AbstractFormController {
     public static final String PARAM_MORE_CITIES = "morecities";
     public static final String PARAM_MORE_DISTRICTS = "moredistricts";
 
+    private static final String PARAM_SCHOOL_TYPE = "st";
+
+
+    private static final String MODEL_PAGE_SIZE = "pageSize";
+    private static final String MODEL_RESULTS = "mainResults";
+    private static final String MODEL_TOTAL_HITS = "total";
 
     private static final String MODEL_QUERY = "q";
-    private static final String MODEL_DISTRICT_NAME = "distname";
-    private static final String MODEL_LEVEL_CODES = "lc";
-    private static final String MODEL_SCHOOL_TYPES = "st";
     private static final String MODEL_PAGE = "p";
-    private static final String MODEL_SHOW_ALL = "showall";
-    private static final String MODEL_CITY = "city";
-    private static final String MODEL_DISTRICT = "district";
+    /*private static final String MODEL_CITY = "city";
+    private static final String MODEL_DISTRICT = "district";*/
     private static final String MODEL_TITLE = "title";
     private static final String MODEL_HEADING1 = "heading1";
 
     public static final String MODEL_CITIES = "cities";
     public static final String MODEL_DISTRICTS = "districts";
     public static final String MODEL_FILTERED_CITIES = "filteredCities";
+    public static final String MODEL_SHOW_SUGGESTIONS = "showSuggestions"; // Boolean
+    public static final String MODEL_SHOW_QUERY_AGAIN = "showQueryAgain"; // Boolean
+    private static final String MODEL_SHOW_STATE_CHOOSER = "showStateChooser";
 
 
     private static int LIST_SIZE = 3;  // The # of city or dist results to show
@@ -136,6 +141,7 @@ public class SearchController extends AbstractFormController {
             HttpServletRequest request, HttpServletResponse response, Object command, BindException errors)
             throws Exception {
 
+        // Validate inputs
         if (command == null) {
             throw new IllegalArgumentException("no command");
         }
@@ -144,8 +150,8 @@ public class SearchController extends AbstractFormController {
             throw new IllegalArgumentException("command of wrong type");
         }
 
-        final ISessionFacade sessionContext = SessionContext.getInstance(request);
 
+        final ISessionFacade sessionContext = SessionContext.getInstance(request);
         SearchCommand searchCommand = (SearchCommand) command;
 
         boolean debug = false;
@@ -153,23 +159,31 @@ public class SearchController extends AbstractFormController {
             debug = true;
         }
 
+        Map model = createModel(request, searchCommand, sessionContext, debug);
+
+
+        String viewName;
+        viewName = "search/mixedResults";
+        return new ModelAndView(viewName, model);
+    }
+
+    private Map createModel(HttpServletRequest request, SearchCommand searchCommand, ISessionFacade sessionContext, boolean debug) throws IOException {
         Map model = new HashMap();
-        String queryString = request.getParameter(PARAM_QUERY);
-        request.setAttribute(MODEL_QUERY, queryString);
+        String queryString = searchCommand.getQueryString();
+        model.put(MODEL_QUERY, queryString);
 
-
-        if (searchCommand.getCity() != null) {
-            request.setAttribute(MODEL_CITY, searchCommand.getCity());
+        /*if (searchCommand.getCity() != null) {
+            model.put(MODEL_CITY, searchCommand.getCity());
         } else if (searchCommand.getDistrict() != null) {
-            request.setAttribute(MODEL_DISTRICT, searchCommand.getDistrict());
-        }
+            model.put(MODEL_DISTRICT, searchCommand.getDistrict());
+        }*/
 
 
         int page = 1;
         String p = request.getParameter(PARAM_PAGE);
         if (p != null) {
             try {
-                request.setAttribute(MODEL_PAGE, p);
+                model.put(MODEL_PAGE, p);
                 page = Integer.parseInt(p);
             } catch (Exception e) {
                 // ignore this and just assume the page is 1.
@@ -177,8 +191,8 @@ public class SearchController extends AbstractFormController {
         }
 
         int pageSize = 10;
-        int schoolsPageSize = "true".equals(request.getParameter(PARAM_SHOW_ALL)) ? -1 : 10;
 
+        boolean stuffToShow = false;
         Hits hts = _searcher.search(searchCommand);
         ResultsPager _resultsPager = new ResultsPager(hts, searchCommand.getType());
         if (hts != null) {
@@ -189,18 +203,19 @@ public class SearchController extends AbstractFormController {
                 model.put("suggestion", getSuggestion(queryString,
                         sessionContext.getState()));
             }
-            model.put("schoolsTotal", new Integer(_resultsPager.getSchoolsTotal()));
-            model.put("schools", _resultsPager.getSchools(page, schoolsPageSize));
-            model.put("pageSize", new Integer(pageSize));
-            model.put("mainResults", _resultsPager.getResults(page, pageSize));
-            model.put("total", new Integer(hts.length()));
+            model.put(MODEL_PAGE_SIZE, new Integer(pageSize));
+            model.put(MODEL_RESULTS, _resultsPager.getResults(page, pageSize));
+            model.put(MODEL_TOTAL_HITS, new Integer(hts.length()));
+            stuffToShow = hts.length() > 0;
         }
 
-        model.put(MODEL_TITLE, queryString + " - Greatschools.net Search");
+
+
+        model.put(MODEL_TITLE, "Greatschools.net Search: " + queryString);
 
         String heading1;
         if (hts != null && hts.length() > 0) {
-            String paramType = request.getParameter("type");
+            String paramType = searchCommand.getType();
             if ("topic".equals(paramType)) {
                 heading1 = "Topic results";
             } else if ("school".equals(paramType)) {
@@ -211,15 +226,12 @@ public class SearchController extends AbstractFormController {
             heading1 += " for \"<span class=\"headerquery\">" + queryString + "</span>\"";
         } else {
             heading1 = "No results found";
-            heading1 += " for \"<span class=\"headerquery\">" + queryString + "</span>\"";
             if (searchCommand.getState() != null) {
                 heading1 += " in " + searchCommand.getState().getLongName();
             }
+            heading1 += " for \"<span class=\"headerquery\">" + queryString + "</span>\"";
         }
         model.put(MODEL_HEADING1, heading1);
-        /*
-       ${gsweb:highlight(param.q, 'private', 'text')}</span>&quot;
-        */
 
         // Parse parameters
         int filteredListSize =
@@ -228,7 +240,6 @@ public class SearchController extends AbstractFormController {
 
 
         State state = sessionContext.getStateOrDefault();
-        boolean stuffToShow = false;
         if (StringUtils.isNotEmpty(queryString)) {
 
             BooleanQuery baseQuery = new BooleanQuery();
@@ -247,16 +258,15 @@ public class SearchController extends AbstractFormController {
             Hits cityHits = searchForCities(queryString, sessionContext.getState());
             if (cityHits != null && cityHits.length() != 0) {
                 ListModel cities = createCitiesListModel(request, cityHits, state,
-                        StringUtils.equals("charter", request.getParameter("st")) ? SchoolType.CHARTER : null);
-                model.put(MODEL_CITIES, cities);
+                        StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE)) ? SchoolType.CHARTER : null);
                 if (cities.getResults().size() > 0) {
+                    model.put(MODEL_CITIES, cities);
                     stuffToShow = true;
                 }
             }
 
 
             if (cityHits != null && cityHits.length() > 0) {
-
 
                 UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, "");
                 String lowerCaseQuery = queryString.toLowerCase();
@@ -275,6 +285,7 @@ public class SearchController extends AbstractFormController {
 
                     if (listModel.getResults().size() > 0) {
                         model.put(MODEL_FILTERED_CITIES, listModel);
+                        stuffToShow = true;
                     }
                 }
             }
@@ -282,17 +293,16 @@ public class SearchController extends AbstractFormController {
 
             Hits districtHits = searchForDistricts(baseQuery);
             ListModel districts = createDistrictsListModel(request, districtHits, state,
-                    StringUtils.equals("charter", request.getParameter("st")) ? SchoolType.CHARTER : null);
+                    StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE)) ? SchoolType.CHARTER : null);
             if (districts.getResults().size() > 0) {
+                model.put(MODEL_DISTRICTS, districts);
                 stuffToShow = true;
             }
-            model.put(MODEL_DISTRICTS, districts);
         }
-
-
-        String viewName;
-        viewName = "search/mixedResults";
-        return new ModelAndView(viewName, model);
+        model.put(MODEL_SHOW_QUERY_AGAIN, Boolean.TRUE);
+        model.put(MODEL_SHOW_SUGGESTIONS, Boolean.valueOf(!stuffToShow));
+        model.put(MODEL_SHOW_STATE_CHOOSER, Boolean.valueOf(!stuffToShow));
+        return model;
     }
 
     /**
@@ -326,34 +336,33 @@ public class SearchController extends AbstractFormController {
         ListModel listModel = new ListModel(filtersBuffer.toString());
 
         boolean needMore = false;
+        int displayed = 0;
         for (int ii = 0; ii < cityHits.length(); ii++) {
-            String cityName = cityHits.doc(ii).get("city");
-            State stateOfCity = _stateManager.getState(cityHits.doc(ii).get("state"));
+            if (displayed < filteredListSize) {
+                String cityName = cityHits.doc(ii).get("city");
+                State stateOfCity = _stateManager.getState(cityHits.doc(ii).get("state"));
 
-            SearchCommand command = new SearchCommand();
-            command.setCity(cityName);
-            command.setState(stateOfCity);
-            command.setType("school");
-            if (st != null) {
-                command.setSt(new String[]{st});
-            }
-            if (gl != null) {
-                command.setGl(new String[]{gl});
-            }
+                SearchCommand command = new SearchCommand();
+                command.setCity(cityName);
+                command.setState(stateOfCity);
+                command.setType("school");
+                if (st != null) {
+                    command.setSt(new String[]{st});
+                }
+                if (gl != null) {
+                    command.setGl(new String[]{gl});
+                }
 
-            Hits hits = _searcher.search(command);
-
-            if (hits != null && hits.length() > 0) {
-                if (ii < filteredListSize) {
+                Hits hits = _searcher.search(command);
+                if (hits != null && hits.length() > 0) {
                     urlBuilder.setParameter("city", cityName);
                     urlBuilder.setParameter("state", stateOfCity.getAbbreviation());
-                    if (!ObjectUtils.equals(state, stateOfCity)) {
-                        cityName += ", " + stateOfCity.getAbbreviation();
-                    }
+                    cityName += ", " + stateOfCity.getAbbreviation();
                     listModel.addResult(urlBuilder.asAnchor(request, cityName));
-                } else {
-                    needMore = true;
+                    displayed++;
                 }
+            } else {
+                needMore = true;
             }
         }
         if (needMore) {
@@ -373,15 +382,15 @@ public class SearchController extends AbstractFormController {
         String st = null;
         if (lowerCaseQuery.indexOf("public") != -1) {
             filtersBuffer.append(" public");
-            urlBuilder.setParameter("st", "public");
+            urlBuilder.setParameter(PARAM_SCHOOL_TYPE, "public");
             st = "public";
         } else if (lowerCaseQuery.indexOf("private") != -1) {
             filtersBuffer.append(" private");
-            urlBuilder.setParameter("st", "public");
+            urlBuilder.setParameter(PARAM_SCHOOL_TYPE, "public");
             st = "private";
         } else if (lowerCaseQuery.indexOf("charter") != -1) {
             filtersBuffer.append(" charter");
-            urlBuilder.setParameter("st", "charter");
+            urlBuilder.setParameter(PARAM_SCHOOL_TYPE, "charter");
             st = "charter";
         }
         return st;
@@ -462,7 +471,7 @@ public class SearchController extends AbstractFormController {
                 UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
                         stateOfCity,
                         cityName);
-                    cityName += ", " + stateOfCity;
+                cityName += ", " + stateOfCity;
                 listModel.addResult(builder.asAnchor(request, cityName));
             }
         }

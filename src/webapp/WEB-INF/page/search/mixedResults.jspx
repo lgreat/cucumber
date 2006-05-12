@@ -32,7 +32,7 @@
     <table id="main" width="100%" style="margin: 0 10px 0 10px">
 
         <tr>
-            <td class="leftcol" valign="top">
+            <td class="leftColumn">
                 <pageHelper:externalCss file="/res/css/mod/browseState.css"/>
                 <mod:browseState state="${requestScope.context.stateOrDefault}"/>
             </td>
@@ -78,35 +78,23 @@
                 <gsweb:mainResults results="${mainResults}"
                                    total="${total}"
                                    debug="${param.debug}">
-
-                    <table width="100%"><tr><td align="left">
-                        <div id="${(noresults == 'true') ? 'noresults' : 'searchfooter'}">
-                            <c:if test="${noresults == 'true'}">
-                                <table><tr><td align="left">
-                                    <b>Suggestions:</b>
-                                    <ul>
-                                        <li>Make sure all words are spelled correctly.</li>
-                                        <li>Try different or fewer key words.</li>
-                                        <li>Try more general key words.</li>
-                                    </ul>
-                                </td></tr></table>
-                            </c:if>
-                            <table width="100%">
-                                <c:if test="${noresults == 'true'}">
-                                    <tr><td id="searchagain">You searched in ${requestScope.context.stateOrDefault.longName}.
-                                        &#160;&#160; </td></tr>
-                                </c:if>
-                                <tr>
-                                    <td align="${(noresults == 'true') ? 'left' : 'center'}">
-                                        <search:searchControl rememberQuery="true"
-                                                              showStates="${noresults}"
-                                                              showLinks="true"
-                                                              fieldLength="${requestScope.context.cobranded ? 20 : 38}"/>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </td></tr></table>
+                    <div id="searchFooter">
+                        <c:if test="${showSuggestions}">
+                            <h4>Suggestions:</h4>
+                            <ul>
+                                <li>Make sure all words are spelled correctly.</li>
+                                <li>Try different or fewer key words.</li>
+                                <li>Try more general key words.</li>
+                            </ul>
+                        </c:if>
+                        <c:if test="${showQueryAgain}">
+                            <p id="searchagain">You searched in ${requestScope.context.stateOrDefault.longName}.</p>
+                            <search:searchControl rememberQuery="true"
+                                                  showStates="${showQueryAgain}"
+                                                  showLinks="true"
+                                                  fieldLength="${requestScope.context.cobranded ? 20 : 30}"/>
+                        </c:if>
+                    </div>
                 </gsweb:mainResults>
 
             </td>

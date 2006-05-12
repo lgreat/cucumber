@@ -12,7 +12,6 @@
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
         >
-<c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="pageClass"><c:if
         test="${requestScope.context.cobranded}">cobranded ${requestScope.context.cobrand}</c:if> ${requestScope.pageLayout}</c:set>
 <html lang="en">
@@ -75,6 +74,8 @@
                     <ad:webby/>
 
                     <div class="lowernavbar">
+
+                        <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 
                         <gsml:a href="/about/aboutUs.page?state=${state}">About Us</gsml:a> &#124;
 
