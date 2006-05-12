@@ -29,15 +29,23 @@
 <gsml:body adPageName="search">
     <pageHelper:externalCss file="/res/css/search/search.css"/>
 
-    <table id="main" width="100%">
+    <table id="main" width="100%" style="margin: 0 10px 0 10px">
+        <tr>
+            <td colspan="2">
+
+            </td>
+            <td class="rightColumn" align="center" rowspan="2">
+                <ad:x33/>
+            </td>
+        </tr>
         <tr>
             <td class="leftcol" valign="top">
                 <mod:browseState state="${requestScope.context.stateOrDefault}"/>
             </td>
 
-            <td valign="top" class="col2">
+            <td valign="top" class="middleColumn">
                 <div id="resultsheader">
-                    <table width="90%">
+                    <table width="100%">
                         <tr>
                             <td align="left">
                                 ${heading1}
@@ -52,9 +60,9 @@
                         </tr>
                     </table>
                 </div>
-                <!--c:if test="${total gt 0}"-->
-                    <jsp:include page="/search/citydistrict.module?${pageContext.request.queryString}"/>
-                <!--/c:if-->
+
+                <jsp:include page="/search/citydistrict.module?${pageContext.request.queryString}"/>
+
                 <gsweb:mainResults results="${mainResults}"
                                    total="${total}"
                                    debug="${param.debug}">
@@ -89,10 +97,6 @@
                     </td></tr></table>
                 </gsweb:mainResults>
 
-            </td>
-
-            <td class="rightcolumn" align="center">
-                <ad:x33/>
             </td>
 
         </tr>

@@ -14,12 +14,16 @@ Note, main layout table is identified by .leftcol, .col2, .rightcolumn
 TODO: name consistently.
 */
 .leftcol,
-.rightcolumn,
 .leftcol .main
 {
-    width:160px;
+    width: 160px;
 }
-.rightcolumn {
+td.middleColumn {
+    border-left: 1px dotted #999;
+    padding-left: 5px;
+}
+td.rightColumn {
+    width: 160px;
     vertical-align: top;
 }
 
@@ -36,11 +40,7 @@ th.result_title {
     font-size:small;
 }
 
-#resultsheader { font-size:medium; }
-td.headline {font-size:small;}
 
-table.school_results_only th {padding:4px 0px 2px 5px;border-bottom:1px solid #aaa;}
-table.school_results_only td {padding:4px 0px 6px 5px;border-bottom:1px solid #FFF;}
 td.results_pagenav {
     text-align:right;
     font-weight:normal;
@@ -61,16 +61,6 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
     font-weight: 700;
     padding-left: 2px;
 }
-div#comparelinks h1 {
-    font-size: small;
-    font-weight: normal;
-    color: #000;
-}
-.resultsheadline {
-    display:inline;
-    padding-left:2px;
-}
-
 
 .context {display:block;}
 
@@ -96,43 +86,6 @@ pre.explanation {
 
 
 
-/*
-City and district rollups
-*/
-.cityDistrictRollup {
-    /*background-color: #E5E5E5;*/
-    padding: 5px;
-    font-size: medium;
-    border: 0 dotted black;
-    border-top-width:1px;
-    border-bottom-width:1px;
-    margin-top: 5px;
-
-}
-
-
-.cityDistrictRollup  h3 {
-    background-image: url(../../img/orange_arrow_right_trans.gif);
-    background-repeat: no-repeat;
-    background-position: .1em .1em;
-    padding: 0 0 0 18px;
-    display: inline;
-}
-
-.cityDistrictRollup ul {
-    display: inline;
-}
-
-.cityDistrictRollup ul li {
-    padding-right: 1ex;
-    border-right: 1px solid #555;
-    margin-right: 1ex;
-    display: inline;
-}
-.cityDistrictRollup ul li.last {
-    border-right-width: 0;
-}
-
 
 .refinementlist li{
     padding-bottom:6px;
@@ -148,17 +101,6 @@ li.filtertype {
     font-weight:600;
     padding-top:7px;
     padding-left:5px;
-}
-
-#filters {
-    background-image: url( /res/img/orange_arrow_right_trans.gif );
-    background-repeat: no-repeat;
-    background-position: .2em .4em;
-    background-color:#DDD;
-    padding-left:18px;
-    padding-top:3px;
-    padding-bottom:3px;
-    font-size: small;
 }
 
 
@@ -180,17 +122,31 @@ li.filtertype {
     padding-bottom:20px;
 }
 
-tr.result_row:hover {background: #EEE;}
+table#mainresult tr:hover {
+    background: #EEE;
+}
 
-tr.result_row td {
+table#mainresult tr td {
     padding:7px 0 3px 0;
     font-size: small;
 }
 
+td.headline {
+    font-size: medium;
+    padding-bottom: 0;
+    margin-bottom:-6px;
+}
+
+span.grade {
+    font-weight:bold;
+    padding-left: 2px;
+}
+
 tr.contextrow td {
-    padding: 0 40px 10px 0em;
+    padding: 0 40px 10px 0;
+    margin-top: 0;
     font-size:small;
-    color: #555;
+    color: #333;
 }
 
 tr td.checkbox {
@@ -224,3 +180,66 @@ tr td.checkbox {
 .cobranded #searchfooter {
     width: 400px !important;
 }
+
+div#resultsheader {
+    font-size:medium;
+    padding-bottom: 4px;
+    border-bottom: 1px dotted #999;
+    margin-bottom: 5px;
+}
+
+
+/* browseState area */
+div.browseState {
+    padding: 0 5px 0 5px;
+}
+
+div.browseState h2 {
+    color: #555;
+    margin-bottom: 3px;
+}
+
+div.browseState .refinementlist {
+    margin-bottom: 1em;
+}
+
+div.browseState .refinementlist li {
+    font-size: small;
+}
+
+/*
+City and district rollups
+*/
+.cityDistrictRollup {
+    padding: 5px;
+    font-size: medium;
+    margin-top: 5px;
+
+}
+
+.cityDistrictRollup  h3 {
+    background-image: url( ../../img/orange_arrow_right_trans.gif );
+    background-repeat: no-repeat;
+    background-position: .1em .4em;
+    padding: 5px 0 0 18px;
+    margin-top: 5px;
+    display: inline;
+}
+
+.cityDistrictRollup ul {
+    margin: 0 0 5px 18px;
+    border-bottom: 1px dotted #999;
+    padding-bottom: 5px;
+}
+
+.cityDistrictRollup ul li {
+    padding-right: 1ex;
+    border-right: 1px solid #555;
+    margin-right: 1ex;
+    display: inline;
+}
+
+.cityDistrictRollup ul li.last {
+    border-right-width: 0;
+}
+

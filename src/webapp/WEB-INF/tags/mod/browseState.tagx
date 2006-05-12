@@ -8,9 +8,7 @@
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="state" type="gs.data.state.State" required="true"/>
 
-
-    <gsml:box tableClass="shade3 main">
-
+    <div class="browseState">
         <h2 class="browseheader">Browse</h2>
         <ul class="refinementlist">
             <li><gsml:a href="/modperl/cities/${state.abbreviation}">
@@ -20,19 +18,17 @@
                 All <c:out value="${state.longName}"/> districts
             </gsml:a></li>
             <li><link:articleLibrary>All topics</link:articleLibrary></li>
-            <li><gsml:a href="/cgi-bin/glossary_home/${state.abbreviation}" >All
+            <li><gsml:a href="/cgi-bin/glossary_home/${state.abbreviation}">All
                 glossary terms</gsml:a></li>
         </ul>
-    </gsml:box>
-    <gsml:box tableClass="shade3 main">
+
         <h2 class="browseheader">Advanced Search</h2>
         <ul class="refinementlist">
-            <li><gsml:a href="/cgi-bin/template_plain/advanced/${state.abbreviation}/#address" >
+            <li><gsml:a href="/cgi-bin/template_plain/advanced/${state.abbreviation}/#address">
                 Search near address</gsml:a></li>
-            <li><gsml:a href="/cgi-bin/template_plain/advanced/${state.abbreviation}/#county" >
+            <li><gsml:a href="/cgi-bin/template_plain/advanced/${state.abbreviation}/#county">
                 Search by county</gsml:a></li>
         </ul>
-    </gsml:box>
-
+    </div>
 
 </jsp:root>

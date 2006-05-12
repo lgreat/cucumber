@@ -4,8 +4,8 @@ import gs.data.school.School;
 import gs.data.search.highlight.TextHighlighter;
 import gs.data.state.StateManager;
 import gs.data.util.SpringUtil;
-import gs.web.util.UrlUtil;
 import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -126,16 +126,18 @@ public class MixedResultsTagHandler extends ResultsTableTagHandler {
                     School school = getSchool(_stateManager.getState(result.getState()),
                             Integer.valueOf(result.getId()));
                     if (school != null) {
-                        //out.write(school.getPhone());
-                        //out.write("&nbsp;&nbsp;&nbsp;&#183;&nbsp;&nbsp;&nbsp;");
-                        out.write(school.getPhysicalAddress().toString());
-                        out.write("&nbsp;&nbsp;&nbsp;&#183;&nbsp;&nbsp;&nbsp;");
+                        out.write("<span class=\"grade\">");
                         out.write(school.getType().getSchoolTypeName());
                         String gl = school.getGradeLevels().getRangeString();
                         if (StringUtils.isNotEmpty(gl)) {
-                            out.write("&nbsp;&nbsp;&nbsp;&#183;&nbsp;&nbsp;&nbsp;");
+                            out.write("&nbsp;&nbsp;&#183;&nbsp;&nbsp;");
                             out.write(gl);
                         }
+                        out.write("</span>");
+                        out.write("<br />&nbsp;&nbsp;");
+                        out.write(school.getPhysicalAddress().toString());
+                        out.write("<br />&nbsp;&nbsp;");
+                        out.write(school.getPhone());
                     }
                     out.write("</td>");
                 } else {
