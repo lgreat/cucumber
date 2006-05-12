@@ -19,7 +19,7 @@ TODO: name consistently.
     width: 160px;
 }
 td.middleColumn {
-    border-left: 1px dotted #999;
+    border-left: 1px solid #bbb;
     padding-left: 10px;
 }
 td.rightColumn {
@@ -135,19 +135,17 @@ table#mainresults h3 {
     font-size: medium;
 }
 
-table#mainresults div.type,
+table#mainresults div.about,
 table#mainresults address,
 table#mainresults div.phone,
 table#mainresults p {
     font-size: small;
     padding-left: 18px;
 }
-table#mainresults div.type {
+table#mainresults span.st,
+table#mainresults span.gl {
 	font-weight: bold;
 }
-
-
-
 
 
 tr td.checkbox {
@@ -166,18 +164,6 @@ tr td.checkbox {
     padding-left:4px;
 }
 
-#distinfo {
-   padding-left:10px;
-   padding-bottom:5px;
-   font-size:80%;
-}
-
-#comparelinks {
-   font-size:80%;
-   padding-left:10px;
-   padding:10px;
-}
-
 .cobranded #searchfooter {
     width: 400px !important;
 }
@@ -185,30 +171,11 @@ tr td.checkbox {
 div#resultsheader {
     font-size:medium;
     padding-bottom: 4px;
-    border-bottom: 1px dotted #999;
+    border-bottom: 1px solid #bbb;
     margin-bottom: 5px;
 }
 
 
-/* 
-	BrowseState area 
-*/
-div.browseState {
-    padding: 0 5px 0 5px;
-}
-
-div.browseState h2 {
-    color: #555;
-    margin-bottom: 3px;
-}
-
-div.browseState .refinementlist {
-    margin-bottom: 1em;
-}
-
-div.browseState .refinementlist li {
-    font-size: small;
-}
 
 /*
 City and district rollups
@@ -231,7 +198,7 @@ City and district rollups
 
 .cityDistrictRollup ul {
     margin: 0 0 5px 18px;
-    border-bottom: 1px dotted #999;
+    border-bottom: 1px solid #bbb;
     padding-bottom: 5px;
 }
 

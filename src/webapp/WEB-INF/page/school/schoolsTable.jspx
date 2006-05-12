@@ -79,16 +79,15 @@
 <pageHelper:externalCss file="/res/css/school/schoolsTable.css"/>
 <table id="main" width="100%"><tr>
     <td class="leftcol" id="leftsearchcolumn" valign="top">
-        <gsml:box tableClass="shade3 main">
-            <div style="padding-bottom:5px;">
+            <div class="filters">
                 <jsp:include
                         page="/search/schoolFilters.module?${pageContext.request.queryString}"/>
             </div>
-        </gsml:box>
 
+        <pageHelper:externalCss file="/res/css/mod/browseState.css"/>
         <mod:browseState state="${state}"/>
     </td>
-    <td valign="top" class="col2">
+    <td valign="top" class="middleColumn">
 
         <gsml:form action="/compareSchools.page" method="GET">
             <input type="hidden" name="state" value="${state}}"/>

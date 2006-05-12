@@ -27,19 +27,13 @@
 </head>
 
 <gsml:body adPageName="search">
-    <pageHelper:externalCss file="/res/css/search/search.css"/>
+    <pageHelper:externalCss file="/res/css/search/mixedResults.css"/>
 
     <table id="main" width="100%" style="margin: 0 10px 0 10px">
-        <tr>
-            <td colspan="2">
 
-            </td>
-            <td class="rightColumn" align="center" rowspan="2">
-                <ad:x33/>
-            </td>
-        </tr>
         <tr>
             <td class="leftcol" valign="top">
+                <pageHelper:externalCss file="/res/css/mod/browseState.css"/>
                 <mod:browseState state="${requestScope.context.stateOrDefault}"/>
             </td>
 
@@ -61,7 +55,25 @@
                     </table>
                 </div>
 
-                <jsp:include page="/search/citydistrict.module?${pageContext.request.queryString}"/>
+                <div class="cityDistrictRollup">
+                    <c:if test="${not empty filteredCities and not empty filteredCities.results}">
+                        <div id="filtered">
+                            <gsml:list model="${filteredCities}"/>
+                        </div>
+                    </c:if>
+
+                    <c:if test="${not empty cities and not empty cities.results}">
+                        <div class="city">
+                            <gsml:list model="${cities}"/>
+                        </div>
+                    </c:if>
+
+                    <c:if test="${not empty districts and not empty districts.results}">
+                        <div class="district">
+                            <gsml:list model="${districts}"/>
+                        </div>
+                    </c:if>
+                </div>
 
                 <gsweb:mainResults results="${mainResults}"
                                    total="${total}"
@@ -97,6 +109,9 @@
                     </td></tr></table>
                 </gsweb:mainResults>
 
+            </td>
+            <td class="rightColumn" align="center">
+                <ad:x33/>
             </td>
 
         </tr>

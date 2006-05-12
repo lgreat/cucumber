@@ -1,0 +1,19 @@
+/*
+	BrowseState area
+*/
+div.browseState {
+    padding: 0 5px 0 5px;
+}
+
+div.browseState h2 {
+    color: #000;
+    margin-bottom: 3px;
+}
+
+div.browseState .refinementlist {
+    margin-bottom: 1em;
+}
+
+div.browseState .refinementlist li {
+    font-size: small;
+}

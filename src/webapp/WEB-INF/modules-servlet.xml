@@ -138,17 +138,6 @@
         </property>
     </bean>
 
-    <bean name="/search/citydistrict.module"
-          class="gs.web.search.CityDistrictRollupController"
-          autowire="byName">
-        <constructor-arg>
-            <ref bean="searcher"/>
-        </constructor-arg>
-        <property name="viewName">
-            <value>/search/cityDistrictRollup</value>
-        </property>
-    </bean>
-
     <bean name="/search/schoolFilters.module"
           class="gs.web.search.SchoolFiltersController"
           autowire="byName">

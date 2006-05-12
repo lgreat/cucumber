@@ -166,7 +166,10 @@
     <!-- Search begin -->
     <bean name="/search/search.page"
           class="gs.web.search.SearchController"
-          >
+          autowire="byName">
+        <constructor-arg>
+            <ref bean="searcher"/>
+        </constructor-arg>
         <property name="sessionForm">
             <value>false</value>
         </property>

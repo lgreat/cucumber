@@ -39,7 +39,7 @@
 
 .statsModule .census td,
     .statsModule .census th {
-    border-bottom: 1px dotted #999;
+    border-bottom: 1px solid #bbb;
     font-size: small;
     font-weight: normal;
     padding: .4em 1em .5em 1em;
@@ -141,7 +141,7 @@
     .dottedLineBottomBox,
     .dottedLineLeftBox,
     .dottedLineRightBox {
-    border: 0px dotted #999;
+    border: 0px solid #bbb;
 }
 
 .dottedLineTopBox {
@@ -175,7 +175,7 @@ div.topRatedSchools {
     color: #999;
     vertical-align: bottom;
 
-    border: 0px dotted #999;
+    border: 0px solid #bbb;
     border-bottom-width: 1px;
     padding-bottom: 5px;
     margin-bottom: 5px;
@@ -218,7 +218,7 @@ div.topRatedSchools {
 
 .schoolBreakdown li {
     font-size: small;
-    border: 0px dotted #999;
+    border: 0px solid #bbb;
     border-bottom-width: 1px;
     padding: .4em .4em .4em 0;
 }
@@ -268,7 +268,7 @@ span.mousedOver, span:hover {
 .featuredArticles p {
     padding: 0 1em .6em 0;
     margin: .3em 0 .3em 0;
-    border: 0px dotted #999;
+    border: 0px solid #bbb;
     border-bottom-width: 1px;
 }
 
