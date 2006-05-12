@@ -12,14 +12,13 @@
         <h2 class="browseheader">Browse</h2>
         <ul class="refinementlist">
             <li><gsml:a href="/modperl/cities/${state.abbreviation}">
-                All <c:out value="${state.longName}"/> cities</gsml:a>
+                <c:out value="${state.longName}"/> cities</gsml:a>
             </li>
             <li><gsml:a href="/modperl/districts/${state.abbreviation}">
-                All <c:out value="${state.longName}"/> districts
+                <c:out value="${state.longName}"/> districts
             </gsml:a></li>
-            <li><link:articleLibrary>All topics</link:articleLibrary></li>
-            <li><gsml:a href="/cgi-bin/glossary_home/${state.abbreviation}">All
-                glossary terms</gsml:a></li>
+            <li><link:articleLibrary>Topics</link:articleLibrary></li>
+            <li><gsml:a href="/cgi-bin/glossary_home/${state.abbreviation}">Glossary terms</gsml:a></li>
         </ul>
 
         <h2 class="browseheader">Advanced Search</h2>

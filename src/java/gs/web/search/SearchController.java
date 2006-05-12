@@ -419,9 +419,9 @@ public class SearchController extends AbstractFormController {
     }
 
     private ListModel createDistrictsListModel(HttpServletRequest request, Hits districtHits, State state, SchoolType schoolType) throws IOException {
-        ListModel listModel = new ListModel("All " +
-                (SchoolType.CHARTER.equals(schoolType) ? "charter " : "") +
-                " schools in the district of:");
+        ListModel listModel = new ListModel("" +
+                (SchoolType.CHARTER.equals(schoolType) ? "Charter schools" : "Schools") +
+                " in the district of:");
 
         int districtListSize =
                 StringUtils.isNotEmpty(request.getParameter(PARAM_MORE_DISTRICTS)) ?
@@ -456,9 +456,9 @@ public class SearchController extends AbstractFormController {
     }
 
     private ListModel createCitiesListModel(HttpServletRequest request, Hits cityHits, State state, SchoolType schoolType) throws IOException {
-        ListModel listModel = new ListModel("All " +
-                (SchoolType.CHARTER.equals(schoolType) ? "charter " : "") +
-                "schools in the city of: ");
+        ListModel listModel = new ListModel("" +
+                (SchoolType.CHARTER.equals(schoolType) ? "Charter schools" : "Schools") +
+                " in the city of: ");
         int cityListSize =
                 StringUtils.isNotEmpty(request.getParameter(PARAM_MORE_CITIES)) ?
                         EXTENDED_LIST_SIZE : LIST_SIZE;

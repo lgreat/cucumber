@@ -159,7 +159,7 @@
         <!--/gsml:box-->
     </td>
     <td class="rightcolumn" align="center">
-        <c:if test="${param.map ne 1}">
+        <c:if test="${param.map ne 1 and results.total gt 0}">
         <gsml:a href="/schools.page?map=1&amp;${pageContext.request.queryString}">
             <gsml:img src="/res/img/geo/btn_map_it.gif" alt="map it"/>
         </gsml:a>
