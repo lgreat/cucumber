@@ -58,12 +58,18 @@ public class MixedResultsTagHandler extends ResultsTableTagHandler {
         if (getResults() != null && _total > 0) {
             out.write("<table id=\"mainresults\">");
             for (int i = 0; i < getResults().size(); i++) {
+
                 SearchResult result = (SearchResult) getResults().get(i);
+
+                String context = result.getContext();
+
                 out.write("<tr class=\"result_row\">");
 
-                out.write("<td class=\"headline\" colspan=\"3\">");
                 switch (result.getType()) {
+
                     case SearchResult.SCHOOL:
+
+                        out.write("<td class=\"school\" colspan=\"3\">");
                         StringBuffer urlBuffer;
                         if ("private".equals(result.getSchoolType())) {
                             urlBuffer = new StringBuffer("/cgi-bin/");
@@ -78,12 +84,37 @@ public class MixedResultsTagHandler extends ResultsTableTagHandler {
                         }
                         urlBuffer.append(result.getId());
 
-                        out.write("<a href=\"");
+                        out.write("<h3><a href=\"");
                         out.write(_urlUtil.buildUrl(urlBuffer.toString(), request));
                         out.write("\">");
+                        out.write(TextHighlighter.highlight(result.getHeadline(),
+                                getSrcQuery(), "name"));
+
+                        out.write("</a></h3>");
+                        School school = getSchool(_stateManager.getState(result.getState()),
+                                Integer.valueOf(result.getId()));
+                        if (school != null) {
+                            out.write("<div class=\"type\">");
+                            out.write(school.getType().getSchoolTypeName());
+                            String gl = school.getGradeLevels().getRangeString();
+                            if (StringUtils.isNotEmpty(gl)) {
+                                out.write("&nbsp;&#183;&nbsp;");
+                                out.write(gl);
+                            }
+                            out.write("</div>");
+                            out.write("<address>");
+                            out.write(school.getPhysicalAddress().toString());
+                            out.write("</address>");
+                            out.write("<div class=\"phone\">");
+                            out.write(school.getPhone());
+                            out.write("</div>");
+                        }
+                        out.write("</td>");
 
                         break;
                     case SearchResult.ARTICLE:
+
+                        out.write("<td class=\"article\" colspan=\"3\">");
 
                         StringBuffer articleHrefBuffer =
                                 new StringBuffer("/cgi-bin/show");
@@ -95,62 +126,50 @@ public class MixedResultsTagHandler extends ResultsTableTagHandler {
                         articleHrefBuffer.append("/");
                         articleHrefBuffer.append(result.getId());
 
-                        out.write("<a href=\"");
+                        out.write("<h3><a href=\"");
                         out.write(_urlUtil.buildUrl(articleHrefBuffer.toString(), request));
                         out.write("\">");
+                        out.write(TextHighlighter.highlight(result.getHeadline(),
+                                getSrcQuery(), "name"));
+
+                        out.write("</a></h3>");
+
+                        if (context != null) {
+                            out.write("<p>");
+                            out.write(TextHighlighter.highlight(context,
+                                    getSrcQuery(), "address"));
+                            out.write("</p>");
+                        }
+                        out.write("</td>");
 
                         break;
                     case SearchResult.TERM:
+
+                        out.write("<td class=\"glossary\" colspan=\"3\">");
                         StringBuffer termBuffer = new StringBuffer("/cgi-bin/glossary_single/");
                         termBuffer.append(getStateOrDefault().getAbbreviationLowerCase());
                         termBuffer.append("/?id=");
                         termBuffer.append(result.getId());
 
-                        out.write("<a href=\"");
+                        out.write("<h3><a href=\"");
                         out.write(_urlUtil.buildUrl(termBuffer.toString(), request));
                         out.write("\">");
+                        out.write(TextHighlighter.highlight(result.getHeadline(),
+                                getSrcQuery(), "name"));
+
+                        out.write("</a></h3>");
+                        if (context != null) {
+                            out.write("<p>");
+                            out.write(TextHighlighter.highlight(context,
+                                    getSrcQuery(), "address"));
+                            out.write("</p>");
+                        }
+                        out.write("</td>");
 
                         break;
                     default:
                 }
 
-                out.write(TextHighlighter.highlight(result.getHeadline(),
-                        getSrcQuery(), "name"));
-
-                out.write("</a>");
-                out.write("</td></tr>");
-
-                out.write("<tr class=\"contextrow\">");
-                if (result.getType() == SearchResult.SCHOOL) {
-                    out.write("<td>");
-                    School school = getSchool(_stateManager.getState(result.getState()),
-                            Integer.valueOf(result.getId()));
-                    if (school != null) {
-                        out.write("<span class=\"grade\">");
-                        out.write(school.getType().getSchoolTypeName());
-                        String gl = school.getGradeLevels().getRangeString();
-                        if (StringUtils.isNotEmpty(gl)) {
-                            out.write("&nbsp;&nbsp;&#183;&nbsp;&nbsp;");
-                            out.write(gl);
-                        }
-                        out.write("</span>");
-                        out.write("<br />&nbsp;&nbsp;");
-                        out.write(school.getPhysicalAddress().toString());
-                        out.write("<br />&nbsp;&nbsp;");
-                        out.write(school.getPhone());
-                    }
-                    out.write("</td>");
-                } else {
-                    String context = result.getContext();
-                    if (context != null) {
-                        out.write("<td colspan=\"3\">");
-                        out.write("<span class=\"context\">");
-                        out.write(TextHighlighter.highlight(context,
-                                getSrcQuery(), "address"));
-                        out.write("</span>");
-                        out.write("</td>");
-                    }
-                }
 
                 out.write("</tr>");
                 if (_debug) {

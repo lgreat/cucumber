@@ -20,7 +20,7 @@ TODO: name consistently.
 }
 td.middleColumn {
     border-left: 1px dotted #999;
-    padding-left: 5px;
+    padding-left: 10px;
 }
 td.rightColumn {
     width: 160px;
@@ -62,7 +62,6 @@ tr.control_row td {padding:0px 0px 0px 0px;border-bottom:1px}
     padding-left: 2px;
 }
 
-.context {display:block;}
 
 .mainresultsheader {
     padding-bottom:10px;
@@ -122,32 +121,41 @@ li.filtertype {
     padding-bottom:20px;
 }
 
-table#mainresult tr:hover {
-    background: #EEE;
-}
 
-table#mainresult tr td {
-    padding:7px 0 3px 0;
+/*
+   List item
+*/
+table#mainresults tr td {
+    padding:0px 0 0 0;
+    margin: 10px 0 15px 0;
     font-size: small;
 }
 
-td.headline {
+table#mainresults h3,
+table#mainresults td.headline {
     font-size: medium;
-    padding-bottom: 0;
-    margin-bottom:-6px;
 }
 
-span.grade {
-    font-weight:bold;
-    padding-left: 2px;
+table#mainresults div.type,
+table#mainresults address,
+table#mainresults div.phone,
+table#mainresults p {
+    font-size: small;
+    padding-left: 18px;
+}
+table#mainresults div.type {
+	font-weight: bold;
 }
 
-tr.contextrow td {
+table#mainresults tr td {
     padding: 0 40px 10px 0;
     margin-top: 0;
     font-size:small;
     color: #333;
 }
+
+
+
 
 tr td.checkbox {
     vertical-align:top;
@@ -189,7 +197,9 @@ div#resultsheader {
 }
 
 
-/* browseState area */
+/* 
+	BrowseState area 
+*/
 div.browseState {
     padding: 0 5px 0 5px;
 }
