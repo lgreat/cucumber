@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.11 2006/03/31 18:56:51 apeterson Exp $
+ * $Id: GeoController.java,v 1.12 2006/05/15 21:41:06 thuss Exp $
  */
 
 package gs.web.geo;
@@ -56,6 +56,7 @@ public class GeoController implements Controller {
         String cityNameParam = request.getParameter(PARAM_CITY);
         if (StringUtils.isNotEmpty(cityNameParam) && state != null) {
 
+            System.out.println("State: " + state.getAbbreviation() + " city: " + cityNameParam);
             BpCensus bpCensus = _geoDao.findBpCity(state, cityNameParam);
 
             if (bpCensus == null) {
@@ -69,6 +70,7 @@ public class GeoController implements Controller {
 
         BpState bps = _geoDao.findState(state);
         model.put(MODEL_STATE_CENSUS, bps);
+        System.out.println("Setting state to "+state+" and bps to "+bps );
 
         List list = _geoDao.getAllBpNation();
         model.put(MODEL_US_CENSUS, list.get(0));

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.33 2006/04/14 16:14:48 chriskimm Exp $
+ * $Id: UrlUtil.java,v 1.34 2006/05/15 21:41:06 thuss Exp $
  */
 
 package gs.web.util;
@@ -34,6 +34,7 @@ public final class UrlUtil {
         final boolean isCobrand = !hostName.startsWith("www")
                 && !hostName.startsWith("secure")
                 && !hostName.startsWith("staging")
+                && !hostName.startsWith("maddy")
                 && !hostName.startsWith("maddy")
                 && !hostName.startsWith("clone")
                 && !hostName.startsWith("dev")
