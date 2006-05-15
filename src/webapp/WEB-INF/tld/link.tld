@@ -211,7 +211,39 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>target window to open link in</description>
-        </attribute>        
+        </attribute>
+    </tag>
+    <tag>
+        <name>newsletterManagement</name>
+        <tag-class>gs.web.jsp.link.NewsletterManagementTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>newsletterManagement</display-name>
+        <description>
+            <![CDATA[Link to our "newsletter management page".
+            This page allows a user to alter or add newsletter subscriptions.
+            Currently <code>/cgi-bin/newsletterSubscribe?state=$STATE&email=$EMAIL.</code>]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>email</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Required email address</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
     </tag>
     <tag>
         <name>privacyPolicy</name>

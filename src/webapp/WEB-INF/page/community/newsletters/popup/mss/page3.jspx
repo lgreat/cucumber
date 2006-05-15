@@ -86,7 +86,7 @@
                 </c:forEach>
             </ul>
             <div>
-                <link:newsletterCenter email="${email}" target="_blank" styleClass="bigLink">Manage my subscriptions</link:newsletterCenter>
+                <link:newsletterManagement email="${email}" target="_blank" styleClass="bigLink">Manage my subscriptions</link:newsletterManagement>
             </div>
         </div>
     </div>

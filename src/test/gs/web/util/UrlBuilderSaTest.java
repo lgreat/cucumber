@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.18 2006/05/03 19:34:42 dlee Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.19 2006/05/15 21:31:01 dlee Exp $
  */
 
 package gs.web.util;
@@ -15,6 +15,9 @@ import gs.web.GsMockHttpServletRequest;
 import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 /**
  * Tests UrlBuilder.
@@ -230,7 +233,7 @@ public class UrlBuilderSaTest extends TestCase {
     }
 
 
-    public void testVPages() {
+    public void testVPages() throws UnsupportedEncodingException {
         GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setMethod("GET");
         request.setProtocol("http");
@@ -261,5 +264,12 @@ public class UrlBuilderSaTest extends TestCase {
 
         builder = new UrlBuilder(UrlBuilder.PRIVACY_POLICY, State.WY, "Xyz");
         assertEquals("/about/privacyStatement.page?state=WY", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.NEWSLETTER_MANAGEMENT, State.WY);
+        final String email = "dlee@greatschools.net";
+        String encodedEmail = URLEncoder.encode(email,"UTF-8");
+        builder.addParameter("email",email);
+        assertEquals("/cgi-bin/newsletterSubscribe?email="+encodedEmail +"&state=WY", builder.asSiteRelative(request));
+
     }
 }
