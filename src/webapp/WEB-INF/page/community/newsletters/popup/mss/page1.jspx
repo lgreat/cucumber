@@ -98,7 +98,13 @@
 
 <div class="pLR">
     <div class="promo">
-        <h1>What's new at ${schoolName}?</h1>
+        <h1>What's new at
+            <c:choose>
+                <c:when test="${fn:length(schoolName) > 20}"><br/>${schoolName}?</c:when>
+                <c:otherwise>${schoolName}?</c:otherwise>
+            </c:choose>
+        </h1>
+
         <h3>Find out with free monthly newsletters from GreatSchools.</h3>
     </div>
 
