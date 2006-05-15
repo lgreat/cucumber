@@ -243,14 +243,33 @@ td #filters {
     padding-bottom: 20px;
 }
 
-tr.result_row:hover {
+tr.school {
+    color: #333;
+}
+
+tr.school:hover {
     background: #EEE;
 }
 
-tr.result_row td {
+tr.school td {
     padding: 7px 0 8px 0;
     font-size: small;
 }
+
+tr.school h4 {
+    font-size: medium;
+}
+
+tr.school td.st,
+tr.school td.gl,
+tr.school td.enrollment {
+    text-align:center;
+}
+tr.school td.st {
+    text-transform:capitalize;
+}
+
+
 
 tr.contextrow td {
     padding-left: 0px;
@@ -301,3 +320,20 @@ div#comparelinks h1 {
 .cobranded #searchfooter {
     width: 400px !important;
 }
+
+
+div.mapIt {
+    margin-top: 5px;
+    border-top: 1px solid #bbb;
+    padding-top: 5px;
+    padding-bottom: 15px;
+}
+div.mapIt img {
+    width: 75%;
+    height: 75%;
+}
+
+div.mapIt p {
+    font-size: x-small;
+}
+

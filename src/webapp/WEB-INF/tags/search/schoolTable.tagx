@@ -52,29 +52,30 @@
 
             <gsml:url var="schoolhref" value="${hrefbase}${school.id}"/>
 
-            <tr class="result_row">
+            <tr class="school">
                 <td class="checkbox" width="1">
                     <input name="sc" type="checkbox"
                            value="${stateAbbrev}${school.id}"/>
                 </td>
                 <td>
-                    <a href="${schoolhref}"><c:out
+                    <h4><a href="${schoolhref}"><c:out
                             value="${school.name}"/>
-                    </a><br/>
-                    <c:out value="${school.physicalAddress}"/><br/>
-                    <c:out value="${school.phone}"/><br />
+                    </a></h4>
+                    <address><c:out value="${school.physicalAddress}"/></address>
+                    <div class="phone"><c:out value="${school.phone}"/></div>
                     <c:if test="${not empty school.district}">
-                        District: <c:out value="${school.district.name}"/><br/>
+                        <div class="district">
+                        District: <c:out value="${school.district.name}"/>
+                        </div>
                     </c:if>
                 </td>
-                <td align="center"><c:out
+                <td class="st" ><c:out
                         value="${school.type.schoolTypeName}"/></td>
-                <c:set var="grades"
-                       value="${school.gradeLevels.rangeString}"/>
-                <td align="center"><c:out
+                <td class="gl"><c:set var="grades"
+                                          value="${school.gradeLevels.rangeString}"/><c:out
                         value="${(empty grades) ? 'not available' : grades}"/>
                 </td>
-                <td align="center">
+                <td class="enrollment">
                     <c:choose>
                         <c:when test="${school.enrollment > -1}">
                             <c:out value="${school.enrollment}"/>

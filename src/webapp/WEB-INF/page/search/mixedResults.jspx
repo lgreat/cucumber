@@ -88,7 +88,9 @@
                             </ul>
                         </c:if>
                         <c:if test="${showQueryAgain}">
+                            <c:if test="${showWhatStateTheySearchedIn}">
                             <p id="searchagain">You searched in ${requestScope.context.stateOrDefault.longName}.</p>
+                                </c:if>
                             <search:searchControl rememberQuery="true"
                                                   showStates="${showQueryAgain}"
                                                   showLinks="true"

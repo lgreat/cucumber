@@ -32,10 +32,9 @@ td.label {
     width: 100%;
 }
 
-/*
-TODO: name consistently.
-*/
 td.leftColumn {
+    font-size: large;
+    padding-right: 5px;
     width: 160px;
     vertical-align: top;
 }
@@ -132,8 +131,11 @@ pre.explanation {
 }
 
 #searchFooter {
+    margin-top: 3ex;
     padding: 10px 10px 20px 18px;
     background-color: #eee;
+    border: 1px solid #bbb;
+    border-width: 1px 0 1px 0;
 }
 
 #searchFooter h4,
@@ -180,6 +182,7 @@ table#mainresults div.about,
 table#mainresults span.st,
     table#mainresults span.gl {
     font-weight: bold;
+    text-transform: capitalize;
 }
 
 tr td.checkbox {

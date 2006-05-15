@@ -2,10 +2,13 @@
 	BrowseState area
 */
 div.browseState {
-    padding: 0 5px 0 5px;
+    padding: 0 0 0 0;
 }
 
 div.browseState h2 {
+    margin-top: 0px;
+    border-top: 1px solid #bbb;
+    padding-top: 5px;
     color: #000;
     margin-bottom: 3px;
 }
