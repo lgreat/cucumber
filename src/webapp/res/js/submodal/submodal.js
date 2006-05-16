@@ -100,6 +100,7 @@ function showPopWin(url, width, height, returnFunc) {
     if (!gPopupMask) {
         initPopUp();
     }
+    document.cookie='gotHover=1;path=/';
     gPopupIsShown = true;
 	disableTabIndexes();
 	gPopupMask.style.display = "block";
