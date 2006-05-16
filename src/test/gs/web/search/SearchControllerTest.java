@@ -1,26 +1,24 @@
 package gs.web.search;
 
-import gs.web.BaseTestCase;
+import gs.data.school.district.District;
+import gs.data.search.*;
+import gs.data.state.State;
+import gs.data.util.Address;
+import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.SessionContextUtil;
-import gs.web.BaseControllerTestCase;
 import gs.web.util.ListModel;
-import gs.data.search.Indexer;
-import gs.data.search.GSAnalyzer;
-import gs.data.search.SearchCommand;
-import gs.data.state.State;
-import gs.data.school.district.District;
-import gs.data.util.Address;
-import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.validation.BindException;
-import org.apache.lucene.store.RAMDirectory;
-import org.apache.lucene.store.Directory;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.search.Hits;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.RAMDirectory;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Chris Kimm <chriskimm@greatschools.net>
@@ -28,25 +26,24 @@ import java.util.ArrayList;
 public class SearchControllerTest extends BaseControllerTestCase {
 
     private SearchController _controller;
-    private Directory _testDir;
     private SessionContextUtil _sessionContextUtil;
 
     protected void setUp () throws Exception {
         super.setUp ();
-        /*
-        sc = new SearchController();
-        IndexDir indexDir = new IndexDir(new RAMDirectory(), new RAMDirectory());
-        Searcher searcher = new Searcher(indexDir);
-        SpellCheckSearcher scs = new SpellCheckSearcher(searcher);
-        sc.setSpellCheckSearcher(scs);
-        */
+
         _controller = (SearchController) getApplicationContext().getBean(SearchController.BEAN_ID);
 
         Indexer indexer = (Indexer) getApplicationContext().getBean(Indexer.BEAN_ID);
-        _testDir = new RAMDirectory();
-        IndexWriter writer = new IndexWriter(_testDir, new GSAnalyzer(), true);
+
+        Directory testDir = new RAMDirectory();
+        IndexWriter writer = new IndexWriter(testDir, new GSAnalyzer(), true);
         indexer.indexCities(State.AK, writer);
+        indexer.indexCities(State.CA, writer);
+        indexer.indexCities(State.NY, writer);
         indexer.indexDistricts(getDistricts(), writer);
+
+        Searcher searcher = new Searcher(new IndexDir(testDir, new RAMDirectory()));
+        _controller.setSearcher(searcher);
     }
 
     public void testQueryOnly () throws Exception {
@@ -140,6 +137,39 @@ public class SearchControllerTest extends BaseControllerTestCase {
         address.setZip("12345");
         district.setPhysicalAddress(address);
         return district;
+    }
+
+    public void testFindCities() {
+        Hits hits = _controller.searchForCities("Anchorage");
+        assertTrue(hits.length() > 0);
+
+        hits = _controller.searchForCities("Anchorage, AK");
+        assertTrue(hits.length() > 0);
+
+        hits = _controller.searchForCities("Anchorage, Alaska");
+        assertTrue(hits.length() > 0);
+
+
+        hits = _controller.searchForCities("Flush*");
+        assertTrue(hits.length() > 0);
+
+        hits = _controller.searchForCities("Flush");
+        assertTrue(hits.length() > 0);
+
+        hits = _controller.searchForCities("Flushing, NY");
+        assertTrue(hits.length() > 0);
+
+        hits = _controller.searchForCities("Flushing, New York");
+        assertTrue(hits.length() > 0);
+
+        hits = _controller.searchForCities("Alameda");
+        assertTrue(hits.length() > 0);
+
+        hits = _controller.searchForCities("Alameda, CA");
+        assertTrue(hits.length() > 0);
+
+        hits = _controller.searchForCities("Alameda, California");
+        assertTrue(hits.length() > 0);
     }
 
 }

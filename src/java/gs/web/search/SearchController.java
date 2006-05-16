@@ -1,10 +1,7 @@
 package gs.web.search;
 
 import gs.data.school.SchoolType;
-import gs.data.search.PorterStandardAnalyzer;
-import gs.data.search.SearchCommand;
-import gs.data.search.Searcher;
-import gs.data.search.SpellCheckSearcher;
+import gs.data.search.*;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.ISessionFacade;
@@ -112,7 +109,7 @@ public class SearchController extends AbstractFormController {
 
     public SearchController(Searcher searcher) {
         _searcher = searcher;
-        _queryParser = new QueryParser("text", new PorterStandardAnalyzer(CITY_DIST_STOP_WORDS));
+        _queryParser = new QueryParser("text", new GSAnalyzer());
         _queryParser.setOperator(QueryParser.DEFAULT_OPERATOR_AND);
 
     }
@@ -169,7 +166,7 @@ public class SearchController extends AbstractFormController {
 
     private Map createModel(HttpServletRequest request, SearchCommand searchCommand, ISessionFacade sessionContext, boolean debug) throws IOException {
         Map model = new HashMap();
-        String queryString = searchCommand.getQueryString();
+        final String queryString = searchCommand.getQueryString();
         model.put(MODEL_QUERY, queryString);
 
         /*if (searchCommand.getCity() != null) {
@@ -255,7 +252,7 @@ public class SearchController extends AbstractFormController {
             }
 
 
-            Hits cityHits = searchForCities(queryString, sessionContext.getState());
+            Hits cityHits = searchForCities(queryString);
             if (cityHits != null && cityHits.length() != 0) {
                 ListModel cities = createCitiesListModel(request, cityHits, state,
                         StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE)) ? SchoolType.CHARTER : null);
@@ -501,16 +498,19 @@ public class SearchController extends AbstractFormController {
     /**
      * Query for cities matching query.
      *
-     * @param state optional base state. Will be used for weighting the results.
      */
-    private Hits searchForCities(String queryString, State state) {
+    protected Hits searchForCities(String queryString) {
         try {
-            Query keywordQuery = _queryParser.parse(queryString);
             BooleanQuery cityQuery = new BooleanQuery();
             cityQuery.add(new TermQuery(new Term("type", "city")), true, false);
+
+            Query keywordQuery = _queryParser.parse(queryString);
             cityQuery.add(keywordQuery, true, false);
+
             Hits cityHits = _searcher.search(cityQuery, null, null, null);
+
             return cityHits;
+
         } catch (ParseException pe) {
             _log.warn("error parsing: " + queryString, pe);
             return null;
@@ -522,27 +522,14 @@ public class SearchController extends AbstractFormController {
         _stateManager = stateManager;
     }
 
-    /**
-     * A setter for Spring
-     */
     public void setSpellCheckSearcher(SpellCheckSearcher spellCheckSearcher) {
         _spellCheckSearcher = spellCheckSearcher;
     }
 
-    /**
-     * A setter for Spring
-     */
     public void setSearcher(Searcher searcher) {
         _searcher = searcher;
     }
 
-    /**
-     * A setter for Spring
-     * @param resultsPager
 
 
-    public void setResultsPager(ResultsPager resultsPager) {
-    _resultsPager = resultsPager;
-    }
-     */
 }
