@@ -280,11 +280,11 @@ public class SearchController extends AbstractFormController {
                 if (!"topic".equals(searchCommand.getType()) &&
                         searchCommand.getState() != null) {
                     model.put(MODEL_NO_RESULTS_EXPLAINED,
-                            "There were no schools found in " +
+                            "No schools found in " +
                                     searchCommand.getState().getLongName() +
                                     " matching \"<span class='query'>" +
                                     searchCommand.getQueryString() +
-                                    "</span>.\"");
+                                    "</span>\"");
                 }
 
             }
