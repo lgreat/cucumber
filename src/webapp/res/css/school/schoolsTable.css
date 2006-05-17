@@ -149,12 +149,6 @@ td.middleColumn {
     font-size: small;
 }
 
-.headerquery {
-    padding-bottom: 5px;
-    font-weight: 700;
-    color: #FE894C;
-}
-
 pre.explanation {
     font-size: large;
 }
@@ -252,12 +246,26 @@ tr.school:hover {
 }
 
 tr.school td {
-    padding: 7px 0 8px 0;
+    padding: 7px 3ex 8px 0;
     font-size: small;
 }
 
-tr.school h4 {
+tr.school td h4 {
     font-size: medium;
+}
+.cobranded tr.school td h4 {
+    font-size: small;
+}
+
+tr.school td .district {
+    font-size: small;
+}
+
+tr.school td .district h5 {
+    display: inline;
+    padding-right: 1ex;
+    font-size: small;
+    color: #333;
 }
 
 tr.school td.st,
@@ -328,12 +336,12 @@ div.mapIt {
     padding-top: 5px;
     padding-bottom: 15px;
 }
-div.mapIt img {
-    width: 75%;
-    height: 75%;
-}
-
 div.mapIt p {
     font-size: x-small;
+}
+
+div.mapIt h4 {
+    margin-top: 4px;
+    font-size: small;
 }
 

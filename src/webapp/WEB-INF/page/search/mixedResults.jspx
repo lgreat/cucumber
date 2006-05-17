@@ -78,6 +78,12 @@
                 <gsweb:mainResults results="${mainResults}"
                                    total="${total}"
                                    debug="${param.debug}">
+                    <c:if test="${not empty noResultsExplanation}">
+                        <div class="noResultsExplanation">
+                            <h4>${noResultsExplanation}</h4>
+                        </div>
+                    </c:if>
+
                     <div id="searchFooter">
                         <c:if test="${showSuggestions}">
                             <h4>Suggestions:</h4>
@@ -89,8 +95,8 @@
                         </c:if>
                         <c:if test="${showQueryAgain}">
                             <c:if test="${showWhatStateTheySearchedIn}">
-                            <p id="searchagain">You searched in ${requestScope.context.stateOrDefault.longName}.</p>
-                                </c:if>
+                                <p id="searchagain">You searched in ${requestScope.context.stateOrDefault.longName}.</p>
+                            </c:if>
                             <search:searchControl rememberQuery="true"
                                                   showStates="${showQueryAgain}"
                                                   showLinks="true"

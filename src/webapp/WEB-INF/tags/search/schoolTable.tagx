@@ -65,7 +65,7 @@
                     <div class="phone"><c:out value="${school.phone}"/></div>
                     <c:if test="${not empty school.district}">
                         <div class="district">
-                        District: <c:out value="${school.district.name}"/>
+                        <h5>District:</h5><c:out value="${school.district.name}"/>
                         </div>
                     </c:if>
                 </td>

@@ -1,7 +1,10 @@
 package gs.web.search;
 
 import gs.data.school.SchoolType;
-import gs.data.search.*;
+import gs.data.search.GSAnalyzer;
+import gs.data.search.SearchCommand;
+import gs.data.search.Searcher;
+import gs.data.search.SpellCheckSearcher;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.ISessionFacade;
@@ -84,7 +87,8 @@ public class SearchController extends AbstractFormController {
     public static final String MODEL_FILTERED_CITIES = "filteredCities";
     public static final String MODEL_SHOW_SUGGESTIONS = "showSuggestions"; // Boolean
     public static final String MODEL_SHOW_QUERY_AGAIN = "showQueryAgain"; // Boolean
-    private static final String MODEL_SHOW_STATE_CHOOSER = "showStateChooser";
+    private static final String MODEL_SHOW_STATE_CHOOSER = "showStateChooser"; // Boolean
+    private static final String MODEL_NO_RESULTS_EXPLAINED = "noResultsExplanation";
 
 
     private static int LIST_SIZE = 3;  // The # of city or dist results to show
@@ -93,16 +97,6 @@ public class SearchController extends AbstractFormController {
     private static final Logger _log =
             Logger.getLogger(SearchController.class);
 
-    private static final String[] CITY_DIST_STOP_WORDS = {
-            "a", "an", "and", "are", "as", "at", "be", "but", "by",
-            "for", "if", "in", "into", "is", "it",
-            "no", "not", "of", "on", "or", "s", "such",
-            "t", "that", "the", "their", "then", "there", "these",
-            "they", "this", "to", "was", "will", "with",
-            // City/District specific stopwords
-            "charter", "city", "district", "elementary", "middle", "high",
-            "junior", "public", "private", "school", "schools"
-    };
 
     private StateManager _stateManager;
     private QueryParser _queryParser;
@@ -169,13 +163,6 @@ public class SearchController extends AbstractFormController {
         final String queryString = searchCommand.getQueryString();
         model.put(MODEL_QUERY, queryString);
 
-        /*if (searchCommand.getCity() != null) {
-            model.put(MODEL_CITY, searchCommand.getCity());
-        } else if (searchCommand.getDistrict() != null) {
-            model.put(MODEL_DISTRICT, searchCommand.getDistrict());
-        }*/
-
-
         int page = 1;
         String p = request.getParameter(PARAM_PAGE);
         if (p != null) {
@@ -189,10 +176,10 @@ public class SearchController extends AbstractFormController {
 
         int pageSize = 10;
 
-        boolean stuffToShow = false;
-        Hits hts = _searcher.search(searchCommand);
-        ResultsPager _resultsPager = new ResultsPager(hts, searchCommand.getType());
-        if (hts != null) {
+        boolean resultsToShow = false;
+        Hits hits = _searcher.search(searchCommand);
+        ResultsPager _resultsPager = new ResultsPager(hits, searchCommand.getType());
+        if (hits != null && hits.length() > 0) {
             if (debug) {
                 _resultsPager.enableExplanation(_searcher, searchCommand.getQuery());
             }
@@ -202,33 +189,11 @@ public class SearchController extends AbstractFormController {
             }
             model.put(MODEL_PAGE_SIZE, new Integer(pageSize));
             model.put(MODEL_RESULTS, _resultsPager.getResults(page, pageSize));
-            model.put(MODEL_TOTAL_HITS, new Integer(hts.length()));
-            stuffToShow = hts.length() > 0;
+            model.put(MODEL_TOTAL_HITS, new Integer(hits.length()));
+            resultsToShow = true;
         }
-
-
 
         model.put(MODEL_TITLE, "Greatschools.net Search: " + queryString);
-
-        String heading1;
-        if (hts != null && hts.length() > 0) {
-            String paramType = searchCommand.getType();
-            if ("topic".equals(paramType)) {
-                heading1 = "Topic results";
-            } else if ("school".equals(paramType)) {
-                heading1 = "School results";
-            } else {
-                heading1 = "All results";
-            }
-            heading1 += " for \"<span class=\"headerquery\">" + queryString + "</span>\"";
-        } else {
-            heading1 = "No results found";
-            if (searchCommand.getState() != null) {
-                heading1 += " in " + searchCommand.getState().getLongName();
-            }
-            heading1 += " for \"<span class=\"headerquery\">" + queryString + "</span>\"";
-        }
-        model.put(MODEL_HEADING1, heading1);
 
         // Parse parameters
         int filteredListSize =
@@ -251,54 +216,92 @@ public class SearchController extends AbstractFormController {
                 _log.warn("error parsing: " + queryString, pe);
             }
 
-
-            Hits cityHits = searchForCities(queryString);
-            if (cityHits != null && cityHits.length() != 0) {
-                ListModel cities = createCitiesListModel(request, cityHits, state,
-                        StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE)) ? SchoolType.CHARTER : null);
-                if (cities.getResults().size() > 0) {
-                    model.put(MODEL_CITIES, cities);
-                    stuffToShow = true;
-                }
-            }
-
-
-            if (cityHits != null && cityHits.length() > 0) {
-
-                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, "");
-                String lowerCaseQuery = queryString.toLowerCase();
-                StringBuffer filtersBuffer = new StringBuffer("All <span id=\"rollupfilters\">");
-                String st = determineSchoolType(lowerCaseQuery, filtersBuffer, urlBuilder);
-                String gl = determineGradeLevel(lowerCaseQuery, filtersBuffer, urlBuilder);
-
-                filtersBuffer.append("</span> schools in the city of:");
-                model.put("filters", filtersBuffer.toString());
-                model.put("filterparams", urlBuilder.toString());
-
-
-                if (gl != null || st != null) {
-
-                    ListModel listModel = createFilteredCitiesListModel(filtersBuffer, cityHits, st, gl, filteredListSize, urlBuilder, state, request);
-
-                    if (listModel.getResults().size() > 0) {
-                        model.put(MODEL_FILTERED_CITIES, listModel);
-                        stuffToShow = true;
+            if (!"topic".equals(searchCommand.getType())) {
+                Hits cityHits = searchForCities(queryString);
+                if (cityHits != null && cityHits.length() != 0) {
+                    ListModel cities = createCitiesListModel(request, cityHits, state,
+                            StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE)) ? SchoolType.CHARTER : null);
+                    if (cities.getResults().size() > 0) {
+                        model.put(MODEL_CITIES, cities);
+                        resultsToShow = true;
                     }
                 }
-            }
 
 
-            Hits districtHits = searchForDistricts(baseQuery);
-            ListModel districts = createDistrictsListModel(request, districtHits, state,
-                    StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE)) ? SchoolType.CHARTER : null);
-            if (districts.getResults().size() > 0) {
-                model.put(MODEL_DISTRICTS, districts);
-                stuffToShow = true;
+                if (cityHits != null && cityHits.length() > 0) {
+
+                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, "");
+                    String lowerCaseQuery = queryString.toLowerCase();
+                    StringBuffer filtersBuffer = new StringBuffer("All <span id=\"rollupfilters\">");
+                    String st = determineSchoolType(lowerCaseQuery, filtersBuffer, urlBuilder);
+                    String gl = determineGradeLevel(lowerCaseQuery, filtersBuffer, urlBuilder);
+
+                    filtersBuffer.append("</span> schools in the city of:");
+                    model.put("filters", filtersBuffer.toString());
+                    model.put("filterparams", urlBuilder.toString());
+
+
+                    if (gl != null || st != null) {
+
+                        ListModel listModel = createFilteredCitiesListModel(filtersBuffer, cityHits, st, gl, filteredListSize, urlBuilder, state, request);
+
+                        if (listModel.getResults().size() > 0) {
+                            model.put(MODEL_FILTERED_CITIES, listModel);
+                            resultsToShow = true;
+                        }
+                    }
+                }
+
+
+                Hits districtHits = searchForDistricts(baseQuery);
+                ListModel districts = createDistrictsListModel(request, districtHits, state,
+                        StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE)) ? SchoolType.CHARTER : null);
+                if (districts.getResults().size() > 0) {
+                    model.put(MODEL_DISTRICTS, districts);
+                    resultsToShow = true;
+                }
             }
+
         }
+
+        String heading1;
+        if (resultsToShow) { // was hits != null && hits.length() > 0
+            String paramType = searchCommand.getType();
+            if ("topic".equals(paramType)) {
+                heading1 = "Topic results";
+            } else if ("school".equals(paramType)) {
+                heading1 = "School results";
+            } else {
+                heading1 = "Results";
+            }
+            heading1 += " for \"<span class=\"query\">" + queryString + "</span>\"";
+
+            if (hits == null || hits.length() == 0) {
+                if (!"topic".equals(searchCommand.getType()) &&
+                        searchCommand.getState() != null) {
+                    model.put(MODEL_NO_RESULTS_EXPLAINED,
+                            "There were no schools found in " +
+                                    searchCommand.getState().getLongName() +
+                                    " matching \"<span class='query'>" +
+                                    searchCommand.getQueryString() +
+                                    "</span>.\"");
+                }
+
+            }
+        } else {
+            heading1 = "No " + ("topic".equals(searchCommand.getType()) ? "topic" : "") +
+                    " results found";
+            if (searchCommand.getState() != null) {
+                heading1 += " in " + searchCommand.getState().getLongName();
+            }
+            heading1 += " for \"<span class=\"query\">" + queryString + "</span>\"";
+        }
+        model.put(MODEL_HEADING1, heading1);
+
+
         model.put(MODEL_SHOW_QUERY_AGAIN, Boolean.TRUE);
-        model.put(MODEL_SHOW_SUGGESTIONS, Boolean.valueOf(!stuffToShow));
-        model.put(MODEL_SHOW_STATE_CHOOSER, Boolean.valueOf(!stuffToShow));
+        model.put(MODEL_SHOW_SUGGESTIONS, Boolean.valueOf(!resultsToShow));
+        model.put(MODEL_SHOW_STATE_CHOOSER, Boolean.valueOf(!resultsToShow));
         return model;
     }
 
@@ -497,7 +500,6 @@ public class SearchController extends AbstractFormController {
 
     /**
      * Query for cities matching query.
-     *
      */
     protected Hits searchForCities(String queryString) {
         try {
@@ -529,7 +531,6 @@ public class SearchController extends AbstractFormController {
     public void setSearcher(Searcher searcher) {
         _searcher = searcher;
     }
-
 
 
 }

@@ -115,7 +115,7 @@ tr.control_row td {
     font-size: small;
 }
 
-.headerquery {
+.query {
     padding-bottom: 5px;
     font-weight: 700;
     color: #FE894C;
@@ -130,6 +130,14 @@ pre.explanation {
     padding-right: 5px;
 }
 
+.noResultsExplanation h4 {
+    background-image: url( ../../img/orange_arrow_right_trans.gif );
+    background-repeat: no-repeat;
+    background-position: .1em .4em;
+    padding: 5px 0 0 18px;
+    display: block;
+}
+
 #searchFooter {
     margin-top: 3ex;
     padding: 10px 10px 20px 18px;
@@ -137,6 +145,8 @@ pre.explanation {
     border: 1px solid #bbb;
     border-width: 1px 0 1px 0;
 }
+
+
 
 #searchFooter h4,
     #searchFooter p {
