@@ -217,7 +217,7 @@ public class SearchController extends AbstractFormController {
             }
 
             if (!"topic".equals(searchCommand.getType())) {
-                Hits cityHits = searchForCities(queryString);
+                Hits cityHits = searchForCities(queryString, state);
                 if (cityHits != null && cityHits.length() != 0) {
                     ListModel cities = createCitiesListModel(request, cityHits, state,
                             StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE)) ? SchoolType.CHARTER : null);
@@ -501,10 +501,14 @@ public class SearchController extends AbstractFormController {
     /**
      * Query for cities matching query.
      */
-    protected Hits searchForCities(String queryString) {
+    protected Hits searchForCities(String queryString, State state) {
         try {
             BooleanQuery cityQuery = new BooleanQuery();
             cityQuery.add(new TermQuery(new Term("type", "city")), true, false);
+            if (state != null) {
+                cityQuery.add(new TermQuery(new Term("text", state.getLongName().toLowerCase())), false, false);
+                cityQuery.add(new TermQuery(new Term("text", state.getAbbreviationLowerCase())), false, false);
+            }
 
             Query keywordQuery = _queryParser.parse(queryString);
             cityQuery.add(keywordQuery, true, false);

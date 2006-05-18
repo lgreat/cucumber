@@ -12,6 +12,7 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
+import org.apache.lucene.document.Document;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
 
 /**
  * @author Chris Kimm <chriskimm@greatschools.net>
@@ -139,37 +141,55 @@ public class SearchControllerTest extends BaseControllerTestCase {
         return district;
     }
 
-    public void testFindCities() {
-        Hits hits = _controller.searchForCities("Anchorage");
+    public void testFindCities() throws IOException {
+        Hits hits = _controller.searchForCities("Anchorage", State.AK);
         assertTrue(hits.length() > 0);
 
-        hits = _controller.searchForCities("Anchorage, AK");
+        hits = _controller.searchForCities("Anchorage, AK", State.AK);
         assertTrue(hits.length() > 0);
 
-        hits = _controller.searchForCities("Anchorage, Alaska");
+        hits = _controller.searchForCities("Anchorage, Alaska", State.AK);
         assertTrue(hits.length() > 0);
 
 
-        hits = _controller.searchForCities("Flush*");
+        hits = _controller.searchForCities("Flush*", State.AK);
         assertTrue(hits.length() > 0);
 
-        hits = _controller.searchForCities("Flush");
+        hits = _controller.searchForCities("Flush", State.AK);
         assertTrue(hits.length() > 0);
 
-        hits = _controller.searchForCities("Flushing, NY");
+        hits = _controller.searchForCities("Flushing, NY", State.AK);
         assertTrue(hits.length() > 0);
 
-        hits = _controller.searchForCities("Flushing, New York");
+        hits = _controller.searchForCities("Flushing, New York", State.AK);
         assertTrue(hits.length() > 0);
 
-        hits = _controller.searchForCities("Alameda");
+        hits = _controller.searchForCities("Alameda", State.AK);
         assertTrue(hits.length() > 0);
 
-        hits = _controller.searchForCities("Alameda, CA");
+        hits = _controller.searchForCities("Alameda, CA", State.AK);
         assertTrue(hits.length() > 0);
 
-        hits = _controller.searchForCities("Alameda, California");
+        hits = _controller.searchForCities("Alameda, California", State.AK);
         assertTrue(hits.length() > 0);
+
+        // We want the results for the current state to show up first.
+        hits = _controller.searchForCities("Springs", State.AK);
+        assertTrue(hits.length() >= 3);
+        Document d = hits.doc(0);
+        assertEquals("ak", d.get("state")); // Manley
+        d = hits.doc(1);
+        assertEquals("ak", d.get("state")); // Tenekee
+        d = hits.doc(2);
+        assertEquals("ca", d.get("state")); // CA city
+        hits = _controller.searchForCities("Springs", State.CA); // and now from CA
+        assertTrue(hits.length() >= 3);
+        d = hits.doc(0);
+        assertEquals("ca", d.get("state"));
+        d = hits.doc(1);
+        assertEquals("ak", d.get("state"));
+        d = hits.doc(2);
+        assertEquals("ak", d.get("state"));
     }
 
 }
