@@ -57,22 +57,22 @@
                     </table>
                 </div>
 
-                <div class="cityDistrictRollup">
+                <div class="rollup">
                     <c:if test="${not empty filteredCities and not empty filteredCities.results}">
                         <div id="filtered">
-                            <gsml:list model="${filteredCities}"/>
+                            <gsml:list model="${filteredCities}" between="&#160;|&#160;"/>
                         </div>
                     </c:if>
 
                     <c:if test="${not empty cities and not empty cities.results}">
                         <div class="city">
-                            <gsml:list model="${cities}"/>
+                            <gsml:list model="${cities}" between="&#160;|&#160;"/>
                         </div>
                     </c:if>
 
                     <c:if test="${not empty districts and not empty districts.results}">
                         <div class="district">
-                            <gsml:list model="${districts}"/>
+                            <gsml:list model="${districts}" between="&#160;|&#160;"/>
                         </div>
                     </c:if>
                 </div>

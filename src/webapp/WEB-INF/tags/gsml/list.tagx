@@ -8,6 +8,8 @@
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="model" required="false" type="gs.web.util.ListModel"
                              description="model object; if not set, gets model from the request"/>
+    <jsp:directive.attribute name="between" required="false" type="java.lang.String"
+                             description="Text or Html to output between list items. This is available to overcome CSS deficiencies. Not yet available for mutiple column displays. See also Anchor#before and Anchor#after properties."/>
 
     <!-- ONLY SUPPORT 1 or 2 COLUMNS AT THIS TIME -->
     <c:if test="${not empty model}">
@@ -21,7 +23,6 @@
         <c:set var="columns" value="${requestScope.columns}"/>
     </c:if>
 
-
     <c:if test="${not empty heading}">
         <h3 class="result_title">${heading}</h3>
     </c:if>
@@ -30,6 +31,9 @@
         <c:when test="${empty columns or columns lt 2}">
             <ul>
                 <c:forEach var="i" items="${list}">
+                    <c:if test="${not empty between}">
+                        <c:if test="${i ne list[0]}">${between}</c:if>
+                    </c:if>
                     <gsml:listItem anchor="${i}"/>
                 </c:forEach>
             </ul>
@@ -39,17 +43,18 @@
                 <tr>
                     <td style="vertical-align: top">
                         <ul>
-                        <c:forEach var="i" items="${list}" end="${((fn:length(list) + columns - 1) div columns) - 1}">
-                            <gsml:listItem anchor="${i}"/>
-                        </c:forEach>
+                            <c:forEach var="i" items="${list}"
+                                       end="${((fn:length(list) + columns - 1) div columns) - 1}">
+                                <gsml:listItem anchor="${i}"/>
+                            </c:forEach>
                         </ul>
                     </td>
                     <td style="vertical-align: top">
-                    <ul>
-                        <c:forEach var="i" items="${list}" begin="${((fn:length(list) + columns - 1) div columns)}">
-                            <gsml:listItem anchor="${i}"/>
-                        </c:forEach>
-                    </ul>
+                        <ul>
+                            <c:forEach var="i" items="${list}" begin="${((fn:length(list) + columns - 1) div columns)}">
+                                <gsml:listItem anchor="${i}"/>
+                            </c:forEach>
+                        </ul>
                     </td>
                 </tr>
             </table>

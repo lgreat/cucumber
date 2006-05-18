@@ -223,14 +223,14 @@ div#resultsheader {
 /*
 City and district rollups
 */
-.cityDistrictRollup {
+.rollup {
     padding: 5px;
     font-size: medium;
     margin-top: 5px;
 
 }
 
-.cityDistrictRollup  h3 {
+.rollup  h3 {
     background-image: url( ../../img/orange_arrow_right_trans.gif );
     background-repeat: no-repeat;
     background-position: .1em .4em;
@@ -239,20 +239,18 @@ City and district rollups
     display: inline;
 }
 
-.cityDistrictRollup ul {
+.rollup ul {
     margin: 0 0 5px 18px;
     border-bottom: 1px solid #bbb;
     padding-bottom: 5px;
 }
 
-.cityDistrictRollup ul li {
-    padding-right: 1ex;
-    border-right: 1px solid #555;
-    margin-right: 1ex;
+.rollup ul li {
+    padding: 0;
     display: inline;
 }
 
-.cityDistrictRollup ul li.last {
+.rollup ul li.last {
     border-right-width: 0;
 }
 
