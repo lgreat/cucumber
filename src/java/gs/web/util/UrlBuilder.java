@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.27 2006/05/15 21:31:01 dlee Exp $
+ * $Id: UrlBuilder.java,v 1.28 2006/05/19 19:22:03 apeterson Exp $
  */
 
 package gs.web.util;
@@ -37,6 +37,7 @@ public class UrlBuilder {
     private String _path;
     private Map _parameters;
     private boolean _perlPage = false;
+    private VPage _vPage; // used for some urls
     private static UrlUtil _urlUtil = new UrlUtil();
 
 
@@ -167,9 +168,10 @@ public class UrlBuilder {
     }
 
     public UrlBuilder(ICity city, VPage page) {
+        _vPage = page;
         if (CITY_PAGE.equals(page)) {
             _perlPage = false;
-            _path = "/city.page";
+            _path = "/city/";
             this.setParameter("city", city.getName());
             this.setParameter("state", city.getState().getAbbreviation());
         } else if (CITIES_MORE_NEARBY.equals(page)) {
@@ -197,10 +199,12 @@ public class UrlBuilder {
     }
 
     private void init(VPage page, State state, String param0) {
+        _vPage = page;
+
         if (CITY_PAGE.equals(page)) {
             _perlPage = false;
-            _path = "/city.page";
-            setParameter("city", param0);
+            _path = "/city/";
+            setParameter("city", param0.replaceAll(" ", "_"));
             setParameter("state", state.getAbbreviation());
         } else if (CITIES.equals(page)) {
             _perlPage = true;
@@ -238,7 +242,7 @@ public class UrlBuilder {
         } else if (NEWSLETTER_MANAGEMENT.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/newsletterSubscribe";
-            setParameter("state", state.getAbbreviation());            
+            setParameter("state", state.getAbbreviation());
         }
         else {
             throw new IllegalArgumentException("VPage unknown" + page);
@@ -376,20 +380,34 @@ public class UrlBuilder {
             sb.append(contextPath);
         }
         sb.append(_path);
-        if (_parameters != null && _parameters.size() > 0) {
-            sb.append("?");
-            List keys = new ArrayList(_parameters.keySet());
-            Collections.sort(keys);
-            for (Iterator iter = keys.iterator(); iter.hasNext();) {
-                String key = (String) iter.next();
-                String[] values = (String[]) _parameters.get(key);
-                for (int i = 0; i < values.length; i++) {
-                    sb.append(key);
-                    sb.append("=" + values[i]);
-                    if (i < (values.length - 1) || iter.hasNext()) {
-                        sb.append("&");
+
+        // City page's parameters get stuck in the first part of the
+        // URL for SEO purposes.
+        if (CITY_PAGE.equals(_vPage)) {
+            String[] values = (String[]) _parameters.get("city");
+            final String cityName = values[0];
+            sb.append(cityName.replaceAll("%27", "'"));
+            // minimal encoding. See http://www.rfc-editor.org/rfc/rfc1738.txt
+            sb.append("/");
+            values = (String[]) _parameters.get("state");
+            sb.append(values[0]);
+        } else {
+            if (_parameters != null && _parameters.size() > 0) {
+                sb.append("?");
+                List keys = new ArrayList(_parameters.keySet());
+                Collections.sort(keys);
+                for (Iterator iter = keys.iterator(); iter.hasNext();) {
+                    String key = (String) iter.next();
+                    String[] values = (String[]) _parameters.get(key);
+                    for (int i = 0; i < values.length; i++) {
+                        sb.append(key);
+                        sb.append("=" + values[i]);
+                        if (i < (values.length - 1) || iter.hasNext()) {
+                            sb.append("&");
+                        }
                     }
                 }
+
             }
         }
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.19 2006/05/15 21:31:01 dlee Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.20 2006/05/19 19:22:10 apeterson Exp $
  */
 
 package gs.web.util;
@@ -180,10 +180,19 @@ public class UrlBuilderSaTest extends TestCase {
         };
 
         UrlBuilder builder = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
-        assertEquals("/city.page?city=Talahasi&amp;state=FL", builder.asSiteRelativeXml(null));
+        assertEquals("/city/Talahasi/FL", builder.asSiteRelativeXml(null));
 
         builder = new UrlBuilder(UrlBuilder.CITY_PAGE, State.WY,  "Laramee");
-        assertEquals("/city.page?city=Laramee&amp;state=WY", builder.asSiteRelativeXml(null));
+        assertEquals("/city/Laramee/WY", builder.asSiteRelativeXml(null));
+
+        builder = new UrlBuilder(UrlBuilder.CITY_PAGE, State.WY,  "Lar a Me");
+        assertEquals("/city/Lar_a_Me/WY", builder.asSiteRelativeXml(null));
+
+        builder = new UrlBuilder(UrlBuilder.CITY_PAGE, State.WY,  "L'aramee");
+        assertEquals("/city/L'aramee/WY", builder.asSiteRelativeXml(null));
+
+        builder = new UrlBuilder(UrlBuilder.CITY_PAGE, State.WY,  "Lar-a-mee");
+        assertEquals("/city/Lar-a-mee/WY", builder.asSiteRelativeXml(null));
     }
 
     public void testEncodeForXml() {
@@ -257,7 +266,7 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/modperl/cities/WY/", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.CITY_PAGE, State.WY, "Xyz");
-        assertEquals("/city.page?city=Xyz&amp;state=WY", builder.asSiteRelativeXml(request));
+        assertEquals("/city/Xyz/WY", builder.asSiteRelativeXml(request));
 
         builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.WY, "Xyz");
         assertEquals("/schools.page?city=Xyz&state=WY", builder.asSiteRelative(request));
