@@ -119,6 +119,7 @@
     <mod:tracking pageName="mixed:${total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"
                   pageType="search"
                   constraint="${param.type}"
+            query="${empty param.q ? '[blank]' : fn:toLowerCase(param.q)}"
                   hier1="search,mixed,page${total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"/>
 </gsml:body>
 </html>
