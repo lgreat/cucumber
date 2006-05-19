@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.29 2006/05/19 19:44:15 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.30 2006/05/19 20:41:58 apeterson Exp $
  */
 
 package gs.web.util;
@@ -21,10 +21,28 @@ import java.net.URLEncoder;
 import java.util.*;
 
 /**
- * Provides a builder utility for our URLs.
+ * Provides a builder utility for our URLs. Deals with the intricacies of:
+ * <ol>
+ * <li>URL encoding
+ * <li>modifying an existing URL string or parameters
+ * <li>multiple parameters with the same name
+ * <li>deleting parameters
+ * <li>our specific pages, or "vpages". This provides a centralized place to
+ * create URLs. These are fundamentally separate concepts, but they are
+ * intertwined here, at least for the time being.
+ * </ul>
+ * </p>
+ * In Java code, use this class to build URLs. On Jsps and within Tag files,
+ * use the "link" taglib, which is a thin wrapper around this class.
+ * </p>
+ * Test coverage should be near 100% for this class, as its functionality is
+ * quite critical.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @see <a href="http://www.rfc-editor.org/rfc/rfc1738.txt">RFC 1738</a>
  * @see UrlUtil
+ * @see gs.web.jsp.link
+ * @see gs.web.jsp.link.LinkTagHandler
  */
 public class UrlBuilder {
 
@@ -67,7 +85,6 @@ public class UrlBuilder {
     public static final VPage SCHOOLS_IN_DISTRICT = new VPage("vpage:schoolsInDistrict");
 
     public static final VPage PRIVACY_POLICY = new VPage("vpage:privacyPolicy");
-
 
 
     /**
@@ -243,8 +260,7 @@ public class UrlBuilder {
             _perlPage = true;
             _path = "/cgi-bin/newsletterSubscribe";
             setParameter("state", state.getAbbreviation());
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
     }

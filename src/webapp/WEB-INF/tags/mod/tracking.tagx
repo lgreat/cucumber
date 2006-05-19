@@ -62,7 +62,7 @@
         s.prop3 = "${empty(schoolLevel) ? "" : schoolLevel}";
         s.prop4 = "${empty(locale) ? "" : locale}";
         s.prop5 = "${requestScope.context.stateOrDefault.subscriptionState ? 'subscription' : 'non-subscription'}";
-        s.prop6 = "${empty param.q ? '' : fn:toLowerCase(param.q)}";
+        s.prop6 = "${empty param.q ? '[blank]' : fn:toLowerCase(param.q)}";
         s.prop7 = "${pageName}:${requestScope.context.ABVersion}";
         s.prop8 = "${param.cpn}";
         s.hier1 = "${hier1}";
