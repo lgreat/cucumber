@@ -176,7 +176,7 @@
                 <td>&#160;</td>
                 <td style="vertical-align: top;">
                     <jsp:include
-                            page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;sub=1&amp;heading=none"/>
+                            page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;sub=1&amp;heading=none&amp;state=${stateAbbrev}"/>
                 </td></tr>
             </table>
         </div>
@@ -209,9 +209,9 @@
                 <td>
                     <div class="featuredArticles">
                         <h2>Parents' Choice: Most Popular Articles</h2>
-                        <jsp:include page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;heading=none"/>
+                        <jsp:include page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;heading=none&amp;state=${stateAbbrev}"/>
                         <jsp:include
-                                page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;sub=1&amp;heading=none"/>
+                                page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;sub=1&amp;heading=none&amp;state=${stateAbbrev}"/>
                     </div>
                 </td>
             </tr>
