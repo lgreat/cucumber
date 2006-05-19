@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.9 2006/05/06 05:19:34 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.10 2006/05/19 19:35:24 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -167,46 +167,73 @@ public class CityControllerTest extends BaseControllerTestCase {
 
     public void testSearchEngineFriendlyUrlsWork() throws Exception {
         GsMockHttpServletRequest request = getRequest();
-        request.setRequestURI("/city/CA/San_Francisco.page");
+        request.setRequestURI("/city/Anchorage/AK");
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
-
         ICity city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
         assertNotNull(city);
-        assertEquals("San Francisco", city.getName());
-        assertEquals(State.CA, city.getState());
+        assertEquals("Anchorage", city.getName());
+        assertEquals(State.AK, city.getState());
 
-        request.setRequestURI("/CA/city/San_Francisco.page");
-         modelAndView = _controller.handleRequestInternal(request, getResponse());
-
+        request.setRequestURI("/city/Big_Lake/AK");
+        modelAndView = _controller.handleRequestInternal(request, getResponse());
          city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
         assertNotNull(city);
-        assertEquals("San Francisco", city.getName());
-        assertEquals(State.CA, city.getState());
+        assertEquals("Big Lake", city.getName());
+        assertEquals(State.AK, city.getState());
 
-        request.setRequestURI("/CA/San_Francisco/city.page");
-         modelAndView = _controller.handleRequestInternal(request, getResponse());
-
+        request.setRequestURI("/city/St._Marys/AK");
+        modelAndView = _controller.handleRequestInternal(request, getResponse());
          city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
         assertNotNull(city);
-        assertEquals("San Francisco", city.getName());
-        assertEquals(State.CA, city.getState());
+        assertEquals("St. Marys", city.getName());
+        assertEquals(State.AK, city.getState());
 
-        request.setRequestURI("/gs-web/CA/San_Francisco/city.page");
-         modelAndView = _controller.handleRequestInternal(request, getResponse());
-
+        // Make sure old one works
+        request.addParameter("city", "St. Marys");
+        request.addParameter("state", "AK");
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+        modelAndView = _controller.handleRequestInternal(request, getResponse());
          city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
         assertNotNull(city);
-        assertEquals("San Francisco", city.getName());
-        assertEquals(State.CA, city.getState());
+        assertEquals("St. Marys", city.getName());
+        assertEquals(State.AK, city.getState());
+        request.setParameter("city", null);
+        request.setParameter("state", null);
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
 
-
-        request.setRequestURI("/CA/Alameda/city.page");
+        // Make sure gs-web gets stripped off
+        request.setRequestURI("/gs-web/city/Anchorage/AK");
          modelAndView = _controller.handleRequestInternal(request, getResponse());
-
          city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
         assertNotNull(city);
-        assertEquals("Alameda", city.getName());
-        assertEquals(State.CA, city.getState());
+        assertEquals("Anchorage", city.getName());
+        assertEquals(State.AK, city.getState());
+
+        request.setRequestURI("/gs-web/city/Big_Lake/AK");
+        modelAndView = _controller.handleRequestInternal(request, getResponse());
+         city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
+        assertNotNull(city);
+        assertEquals("Big Lake", city.getName());
+        assertEquals(State.AK, city.getState());
+
+        request.setRequestURI("/gs-web/city/St._Marys/AK");
+        modelAndView = _controller.handleRequestInternal(request, getResponse());
+         city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
+        assertNotNull(city);
+        assertEquals("St. Marys", city.getName());
+        assertEquals(State.AK, city.getState());
+
+        // Make sure old one works
+        /*request.setRequestURI("/gs-web/city.page?city=St.+Marys&state=AK");
+        request.addParameter("city", "St. Marys");
+        request.addParameter("state", "AK");
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+        modelAndView = _controller.handleRequestInternal(request, getResponse());
+         city = (ICity) modelAndView.getModel().get(CityController.MODEL_CITY);
+        assertNotNull(city);
+        assertEquals("St. Marys", city.getName());
+        assertEquals(State.AK, city.getState());
+        */
 
     }
 

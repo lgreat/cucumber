@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.27 2006/05/19 17:56:14 apeterson Exp $
+ * $Id: CityController.java,v 1.28 2006/05/19 19:35:24 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -86,10 +86,10 @@ public class CityController extends AbstractController {
         // Look in the URL if they aren't in parameters
         if (StringUtils.isEmpty(cityNameParam)) {
             String r = request.getRequestURI();
-            _log.error(r);
+            //_log.error(r);
             r = r.replaceAll("/gs-web", "");
             r = r.replaceAll("/city/", "");
-            _log.error(r);
+            // _log.error(r);
             String[] rs = StringUtils.split(r, "/");
             if (rs.length == 2) {
                 cityNameParam = UNDERLINE_PATTERN.matcher(rs[0]).replaceAll(" ");
