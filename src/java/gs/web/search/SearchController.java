@@ -100,10 +100,12 @@ public class SearchController extends AbstractFormController {
 
     private StateManager _stateManager;
     private QueryParser _queryParser;
+    private QueryParser _cityQueryParser;
 
     public SearchController(Searcher searcher) {
         _searcher = searcher;
         _queryParser = new QueryParser("text", new GSAnalyzer());
+        _cityQueryParser = new QueryParser("city", new GSAnalyzer());
         _queryParser.setOperator(QueryParser.DEFAULT_OPERATOR_AND);
 
     }
@@ -510,12 +512,10 @@ public class SearchController extends AbstractFormController {
                 cityQuery.add(new TermQuery(new Term("text", state.getAbbreviationLowerCase())), false, false);
             }
 
-            Query keywordQuery = _queryParser.parse(queryString);
-            cityQuery.add(keywordQuery, true, false);
+            Query parsedCityQuery = _cityQueryParser.parse(queryString);
+            cityQuery.add(parsedCityQuery, true, false);
 
-            Hits cityHits = _searcher.search(cityQuery, null, null, null);
-
-            return cityHits;
+            return _searcher.search(cityQuery, null, null, null);
 
         } catch (ParseException pe) {
             _log.warn("error parsing: " + queryString, pe);

@@ -151,14 +151,7 @@ public class SearchControllerTest extends BaseControllerTestCase {
         hits = _controller.searchForCities("Anchorage, Alaska", State.AK);
         assertTrue(hits.length() > 0);
 
-
         hits = _controller.searchForCities("Flush*", State.AK);
-        assertTrue(hits.length() > 0);
-
-        hits = _controller.searchForCities("Flush", State.AK);
-        assertTrue(hits.length() > 0);
-
-        hits = _controller.searchForCities("Flushing, NY", State.AK);
         assertTrue(hits.length() > 0);
 
         hits = _controller.searchForCities("Flushing, New York", State.AK);
