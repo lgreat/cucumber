@@ -6,7 +6,7 @@
   -->
 
 <beans>
-    <bean name="defaultHandlerMapping"
+    <bean name="xxxdefaultHandlerMapping"
           class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
         <property name="interceptors">
             <list>
@@ -19,6 +19,28 @@
                 <!--                <ref local="insiderOnlyInterceptor"/>-->
             </list>
         </property>
+        <property name="alwaysUseFullPath" value="true" />
+    </bean>
+
+    <bean name="defaultHandlerMapping"
+          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="interceptors">
+            <list>
+                <!--ref bean="requiresStateInterceptor"/-->
+                <bean class="gs.web.ResponseInterceptor"
+                      autowire="byName"/>
+                <bean class="gs.web.SessionContextInterceptor"
+                      autowire="byName">
+                </bean>
+                <!--                <ref local="insiderOnlyInterceptor"/>-->
+            </list>
+        </property>
+        <property name="urlMap">
+            <map>
+                <entry key="/city/**" value="/city.page"></entry>
+            </map>
+        </property>
+        <property name="alwaysUseFullPath" value="true" />
     </bean>
 
 
@@ -428,20 +450,15 @@
     <bean name="/city.page"
           class="gs.web.geo.CityController"
           autowire="byName">
+        <!-- legacy URL -->
     </bean>
 
-<!-- We don't know what we're going to do yet, so catch several possibilities -->
-    <bean name="/city/*/*.page"
+    <bean name="/city/"
           class="gs.web.geo.CityController"
           autowire="byName">
     </bean>
 
-    <bean name="/*/city/*.page"
-          class="gs.web.geo.CityController"
-          autowire="byName">
-    </bean>
-
-    <bean name="/*/*/city.page"
+    <bean name="/Alameda/CA/"
           class="gs.web.geo.CityController"
           autowire="byName">
     </bean>

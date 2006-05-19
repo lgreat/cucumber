@@ -39,10 +39,14 @@
         <pattern>/about/gsFaq.page</pattern>
         <pattern>/about/testimonials.page</pattern>
 
+
         <pattern>/city.page</pattern>
-        <pattern>/city/*/*.page</pattern>
-        <pattern>/*/city/*.page</pattern>
-        <pattern>/*/*/city.page</pattern>
+        <!-- This next one is necessary to get /city/* matches, since what is matched against is
+             NOT the url, but rather the portion that is different than the server
+             config. There is a forum thread on this in sitemeshland, but no clear
+             resolution. One idea was "better integration with Spring", which makes
+             sense. -->
+        <pattern>/*</pattern>
 
         <pattern>/cities.page</pattern>
 

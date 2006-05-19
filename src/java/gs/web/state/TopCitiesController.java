@@ -1,7 +1,7 @@
 
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesController.java,v 1.17 2006/04/11 20:13:48 apeterson Exp $
+ * $Id: TopCitiesController.java,v 1.18 2006/05/19 17:56:36 apeterson Exp $
  */
 
 package gs.web.state;
@@ -38,7 +38,6 @@ import java.util.Map;
  */
 public class TopCitiesController extends AbstractController {
 
-    public static final String PARAM_PATH = "path"; // path to the page
     public static final String PARAM_COUNT = "count"; // maximum number to show
 
     private String _viewName;
@@ -63,11 +62,7 @@ public class TopCitiesController extends AbstractController {
             model.put(ListModel.RESULTS, items);
 
         } else {
-            UrlBuilder builder = new UrlBuilder(request, "/schools.page");
-            if (!StringUtils.isEmpty(request.getParameter(PARAM_PATH))) {
-                builder.setPath(request.getParameter(PARAM_PATH));
-            }
-            builder.setParameter("state", state.getAbbreviation());
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.CITY_PAGE, state, "");
 
             int cityCount = state.getTopCityCount();
             if (!StringUtils.isEmpty(request.getParameter(PARAM_COUNT))) {

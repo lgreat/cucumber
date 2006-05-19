@@ -8,148 +8,167 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pagehelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib">
-	<html lang="en">
-		<jsp:output doctype-root-element="html"
-                    doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                    doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
-		<jsp:directive.page contentType="text/html" />
-		<pagehelper:hideFooterAd />
-		<head>
-			<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-			<title>
-				About the GreatSchools Network
-			</title>
-        </head>
-		<gsml:body adPageName="gsNetwork" pageLayout="singleTextOnlyColumn">
-			<mod:tracking pageType="aboutUs" pageName="gsNetwork" hier1="Home,Corporate,AboutUs,GreatSchoolsNetwork" />
-			<h3>
-				GreatSchools Core Beliefs
-			</h3>
-			<ul class="indentedList">
-				<li>
-					When parents make
-					<em>
-						informed choices</em>, students and schools benefit.
-			</li>
-			<li>
-				Students are more successful when
-				<em>
-					parents are actively involved
-				</em>
-				in their education.
-			</li>
-			<li>
-				Schools improve when
-				<em>
-					parents advocate
-				</em>
-				for high-quality teaching and learning.
-			</li>
-		</ul>
-		<h3>
-			The GreatSchools Network
-		</h3>
-		<p>To support the GreatSchools Core Beliefs, the <em>GreatSchools Network</em> is engaged in the following activities:</p>
-		<h4>
-			GreatSchools Network—San Francisco
-		</h4>
-		<p>
-			GreatSchools is working with public elementary schools in San Francisco to help parents define their goals for
-		 school improvement and support their schools in reaching those goals. The GreatSchools Network in San Francisco has
-		 developed the following tools for parents:
-		</p>
-		<ul class="indentedList">
-			<li>
-				<em>Understanding the Standards</em>, a parent-friendly guide to state standards
-			</li>
-			<li>
-				<em>Network News</em>, monthly advice about what children should be learning, ideas for learning
-				activities at home and school problem-solving tips
-			</li>
-		</ul>
-		<p>
-			To help parents understand how well their children are learning in school, we offer:
-		</p>
-		<ul class="indentedList">
-			<li>
-				The <em>Report Card Reader</em>, which helps parents understand their children's report cards
-			</li>
-			<li>
-				The <em>Test Score Tracker</em>, a parent-friendly explanation of state tests and scores
-			</li>
-		</ul>
-		<p>
-			Tools to be developed in the future include:
-		</p>
-		<ul class="indentedList">
-			<li>
-				<em>Best Practices Reports</em>, to help parent leaders learn from what others have already accomplished
-			</li>
-			<li>
-				<em>The GreatSchools Evaluation</em>, a protocol parents can use to evaluate and improve their schools
-			</li>
-		</ul>
-		<p>
-			With school improvement in mind, the GreatSchools Network is building a community of parents and organizations
-            who can share information, anecdotes and best practices with other parents in their community and across the nation.
-		</p>
-		<p>
-			To search for schools in the San Francisco area, click
-			<gsml:a href="/city.page?city=San+Francisco&amp;state=CA">
-				here</gsml:a>.
-		</p>
-		<h4>
-			GreatSchools Network—Dayton
-		</h4>
-		<p>
-			GreatSchools is working in Dayton, OH, to ensure that parents act as informed school choosers. The
-			GreatSchools Network—Dayton puts basic school information and school choice tools in the hands of all parents,
-			particularly low-income parents.
-		</p>
-		<p>
-			The <em>GreatSchools Chooser</em> toolkit helps parents take advantage of the school options in their areas.
-			The Chooser includes:
-		</p>
-		<ul class="indentedList">
-			<li>
-				Local school choice information, such as enrollment deadlines, academic performance indicators and a directory of local partner organizations
-			</li>
-			<li>
-				A step-by-step guide with worksheets to help parents walk through the school choice process
-			</li>
-			<li>
-				Individual, printed <em>GreatSchools Profiles</em> for most public, private and charter schools in the city
-			</li>
-		</ul>
-		<p>
-			In addition to providing Dayton parents with the GreatSchools Chooser toolkit, we will be holding workshops
-            in Dayton, in connection with local partner organizations, to help walk parents through the process of choosing a school.
-            If you are a parent-serving organization in Dayton and are interested in a GreatSchools Chooser workshop for your
-            parents, contact us at <a href="mailto:GSNetwork@greatschools.net?subject=Dayton Chooser workshop">GSNetwork@greatschools.net</a>.
-		</p>
-		<p>
-			To search for schools in the Dayton area, click
-			<gsml:a href="/city.page?city=Dayton&amp;state=OH">
-				here</gsml:a>.
-		</p>
-		<h3>
-			Learn More About the GreatSchools Network
-		</h3>
-		<p>
-			As the
-			<em>
-				GreatSchools Network
-			</em>
-			grows, we plan to provide all Network tools online. We also plan to create message boards and online chat
-            communities so that parents can communicate with one another.
-            Stay tuned for more information on how you can access tools and resources for school choice and school improvement.
-		</p>
-		<p>
-			If you are interested in learning more about the work we are doing in San Francisco or Dayton, contact
-			<a href="mailto:GSNetwork@greatschools.net">
-				GSNetwork@greatschools.net</a>.
-		</p>
-	</gsml:body>
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html"/>
+<pagehelper:hideFooterAd/>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>
+        About the GreatSchools Network
+    </title>
+</head>
+<gsml:body adPageName="gsNetwork" pageLayout="singleTextOnlyColumn">
+<mod:tracking pageType="aboutUs" pageName="gsNetwork" hier1="Home,Corporate,AboutUs,GreatSchoolsNetwork"/>
+
+<h3>
+    GreatSchools Core Beliefs
+</h3>
+<ul class="indentedList">
+    <li>
+        When parents make
+        <em>
+            informed choices</em>, students and schools benefit.
+    </li>
+    <li>
+        Students are more successful when
+        <em>
+            parents are actively involved
+        </em>
+        in their education.
+    </li>
+    <li>
+        Schools improve when
+        <em>
+            parents advocate
+        </em>
+        for high-quality teaching and learning.
+    </li>
+</ul>
+
+<h3>
+    The GreatSchools Network
+</h3>
+
+<p>To support the GreatSchools Core Beliefs, the <em>GreatSchools Network</em> is engaged in the following activities:
+</p>
+<h4>
+    GreatSchools Network—San Francisco
+</h4>
+
+<p>
+    GreatSchools is working with public elementary schools in San Francisco to help parents define their goals for
+    school improvement and support their schools in reaching those goals. The GreatSchools Network in San Francisco has
+    developed the following tools for parents:
+</p>
+<ul class="indentedList">
+    <li>
+        <em>Understanding the Standards</em>, a parent-friendly guide to state standards
+    </li>
+    <li>
+        <em>Network News</em>, monthly advice about what children should be learning, ideas for learning
+        activities at home and school problem-solving tips
+    </li>
+</ul>
+
+<p>
+    To help parents understand how well their children are learning in school, we offer:
+</p>
+<ul class="indentedList">
+    <li>
+        The <em>Report Card Reader</em>, which helps parents understand their children's report cards
+    </li>
+    <li>
+        The <em>Test Score Tracker</em>, a parent-friendly explanation of state tests and scores
+    </li>
+</ul>
+
+<p>
+    Tools to be developed in the future include:
+</p>
+<ul class="indentedList">
+    <li>
+        <em>Best Practices Reports</em>, to help parent leaders learn from what others have already accomplished
+    </li>
+    <li>
+        <em>The GreatSchools Evaluation</em>, a protocol parents can use to evaluate and improve their schools
+    </li>
+</ul>
+
+<p>
+    With school improvement in mind, the GreatSchools Network is building a community of parents and organizations
+    who can share information, anecdotes and best practices with other parents in their community and across the nation.
+</p>
+
+<p>
+    To search for schools in the San Francisco area, click
+    <link:city city="San Francisco" state="CA">
+        here</link:city>.
+</p>
+<h4>
+    GreatSchools Network—Dayton
+</h4>
+
+<p>
+    GreatSchools is working in Dayton, OH, to ensure that parents act as informed school choosers. The
+    GreatSchools Network—Dayton puts basic school information and school choice tools in the hands of all parents,
+    particularly low-income parents.
+</p>
+
+<p>
+    The <em>GreatSchools Chooser</em> toolkit helps parents take advantage of the school options in their areas.
+    The Chooser includes:
+</p>
+<ul class="indentedList">
+    <li>
+        Local school choice information, such as enrollment deadlines, academic performance indicators and a directory
+        of local partner organizations
+    </li>
+    <li>
+        A step-by-step guide with worksheets to help parents walk through the school choice process
+    </li>
+    <li>
+        Individual, printed <em>GreatSchools Profiles</em> for most public, private and charter schools in the city
+    </li>
+</ul>
+
+<p>
+    In addition to providing Dayton parents with the GreatSchools Chooser toolkit, we will be holding workshops
+    in Dayton, in connection with local partner organizations, to help walk parents through the process of choosing a
+    school.
+    If you are a parent-serving organization in Dayton and are interested in a GreatSchools Chooser workshop for your
+    parents, contact us at <a href="mailto:GSNetwork@greatschools.net?subject=Dayton Chooser workshop">GSNetwork@greatschools.net</a>.
+</p>
+
+<p>
+    To search for schools in the Dayton area, click
+    <link:city city="Dayton" state="OH">
+        here</link:city>.
+</p>
+
+<h3>
+    Learn More About the GreatSchools Network
+</h3>
+
+<p>
+    As the
+    <em>
+        GreatSchools Network
+    </em>
+    grows, we plan to provide all Network tools online. We also plan to create message boards and online chat
+    communities so that parents can communicate with one another.
+    Stay tuned for more information on how you can access tools and resources for school choice and school improvement.
+</p>
+
+<p>
+    If you are interested in learning more about the work we are doing in San Francisco or Dayton, contact
+    <a href="mailto:GSNetwork@greatschools.net">
+        GSNetwork@greatschools.net</a>.
+</p>
+</gsml:body>
 </html>
 </jsp:root>

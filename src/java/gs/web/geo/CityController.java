@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.26 2006/05/10 22:15:46 apeterson Exp $
+ * $Id: CityController.java,v 1.27 2006/05/19 17:56:14 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * Given a city and state in the URL, populates model properties needed
@@ -66,6 +67,7 @@ public class CityController extends AbstractController {
     private StateManager _stateManager;
 
     public static final int MAX_SCHOOLS = 10;
+    private static final Pattern UNDERLINE_PATTERN = Pattern.compile("_");
 
     public CityController() {
         _urlUtil = new UrlUtil();
@@ -84,13 +86,14 @@ public class CityController extends AbstractController {
         // Look in the URL if they aren't in parameters
         if (StringUtils.isEmpty(cityNameParam)) {
             String r = request.getRequestURI();
-            r = r.replaceAll(".page", "");
-            r = r.replaceAll("/city", "");
+            _log.error(r);
             r = r.replaceAll("/gs-web", "");
+            r = r.replaceAll("/city/", "");
+            _log.error(r);
             String[] rs = StringUtils.split(r, "/");
             if (rs.length == 2) {
-                state = _stateManager.getState(rs[0]);
-                cityNameParam = rs[1].replaceAll("_", " ");
+                cityNameParam = UNDERLINE_PATTERN.matcher(rs[0]).replaceAll(" ");
+                state = _stateManager.getState(rs[1]);
             }
         }
 

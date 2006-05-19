@@ -57,6 +57,11 @@
         <url-pattern>*.page</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>pages</servlet-name>
+        <url-pattern>/city/*</url-pattern>
+    </servlet-mapping>
+
     <!--servlet>
         <servlet-name>legacy</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -80,7 +85,7 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>subscribe.page</welcome-file>
+        <welcome-file>test/splash.page</welcome-file>
     </welcome-file-list>
 
     <filter>
@@ -104,8 +109,18 @@
     </filter-mapping>
 
     <filter-mapping>
+        <filter-name>opensessioninview</filter-name>
+        <url-pattern>/city/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>*.page</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/city/*</url-pattern>
     </filter-mapping>
 
     <!--filter>

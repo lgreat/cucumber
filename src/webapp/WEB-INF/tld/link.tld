@@ -268,5 +268,35 @@
             <description>target window to open link in</description>
         </attribute>
     </tag>
+    <tag>
+        <name>city</name>
+        <tag-class>gs.web.jsp.link.CityTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>City Page</display-name>
+        <description>
+            <![CDATA[Link to a city page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>city</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>the name of the city</description>
+        </attribute>
+        <attribute>
+            <name>state</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>the name of the city's state</description>
+        </attribute>
+    </tag>
 </taglib>
 
