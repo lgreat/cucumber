@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.20 2006/05/19 19:22:10 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.21 2006/05/19 19:44:22 apeterson Exp $
  */
 
 package gs.web.util;
@@ -194,6 +194,18 @@ public class UrlBuilderSaTest extends TestCase {
         builder = new UrlBuilder(UrlBuilder.CITY_PAGE, State.WY,  "Lar-a-mee");
         assertEquals("/city/Lar-a-mee/WY", builder.asSiteRelativeXml(null));
     }
+
+    public void testSwitchingCitiesEncoding() {
+        UrlBuilder builder = new UrlBuilder(UrlBuilder.CITY_PAGE, State.WY, "Lar a Me");
+        assertEquals("/city/Lar_a_Me/WY", builder.asSiteRelativeXml(null));
+        builder.setParameter("city", "Lar a You");
+        assertEquals("/city/Lar_a_You/WY", builder.asSiteRelativeXml(null));
+        builder.setParameter("city",  "L'aramee");
+        assertEquals("/city/L'aramee/WY", builder.asSiteRelativeXml(null));
+        builder.setParameter("city",  "Lar-a-mee");
+        assertEquals("/city/Lar-a-mee/WY", builder.asSiteRelativeXml(null));
+    }
+
 
     public void testEncodeForXml() {
         assertEquals("X &amp; Y", UrlBuilder.encodeForXml("X & Y"));

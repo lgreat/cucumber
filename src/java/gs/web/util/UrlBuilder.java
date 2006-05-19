@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.28 2006/05/19 19:22:03 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.29 2006/05/19 19:44:15 apeterson Exp $
  */
 
 package gs.web.util;
@@ -204,7 +204,7 @@ public class UrlBuilder {
         if (CITY_PAGE.equals(page)) {
             _perlPage = false;
             _path = "/city/";
-            setParameter("city", param0.replaceAll(" ", "_"));
+            setParameter("city", param0);
             setParameter("state", state.getAbbreviation());
         } else if (CITIES.equals(page)) {
             _perlPage = true;
@@ -386,8 +386,9 @@ public class UrlBuilder {
         if (CITY_PAGE.equals(_vPage)) {
             String[] values = (String[]) _parameters.get("city");
             final String cityName = values[0];
-            sb.append(cityName.replaceAll("%27", "'"));
-            // minimal encoding. See http://www.rfc-editor.org/rfc/rfc1738.txt
+            // undo encoding...
+            sb.append(cityName.replaceAll("%27", "'").replaceAll("\\+", "_"));
+            // ...minimal encoding. See http://www.rfc-editor.org/rfc/rfc1738.txt
             sb.append("/");
             values = (String[]) _parameters.get("state");
             sb.append(values[0]);
