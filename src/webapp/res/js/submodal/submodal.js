@@ -320,7 +320,7 @@ function showPopWinOnExit(url, width, height, returnFunc) {
         arr[i].onclick = function () {
             gRedirectAnchor = this;
             var idx=parseInt(document.cookie.indexOf(gHoverCookieName));
-            if (idx >= -1) {return true;}
+            if (idx>-1) {return true;}
             showPopWin(url, width, height, returnFunc);
             return false;
         }
