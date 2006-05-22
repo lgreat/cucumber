@@ -1,0 +1,88 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+    <jsp:directive.page contentType="text/html"/>
+    <html>
+    <head>
+        <title>GS Raw Search</title>
+        <style type="text/css">
+            div.resulttable {
+                display:table;
+            }
+            div.resultrow {
+                display:table-row;
+            }
+            div.cell {
+                padding-left:10px;
+                padding-right:10px;
+                display:table-cell;
+            }
+            div.header {
+                font-weight:bold;
+                display:table-header-group;
+            }
+            ul {
+                margin-top:0px;
+            }
+        </style>
+    </head>
+    
+    <body onload="document.getElementById('qfield').focus()">
+    <center>
+        <gsml:form action="/search/raw.page" method="get">
+            <input id="qfield" type="text" name="q" size="70" value="${param.q}"/>
+            <c:out value=" " escapeXml="true"/>
+            <input type="submit" value="go"/>
+            <c:out value=" " escapeXml="true"/>
+            <select name="analyzer">
+                <![CDATA[<option ]]>
+                <c:if test="${param.analyzer eq 'standard'}">
+                    selected
+                </c:if>
+                <![CDATA[ value="standard">Standard Analyzer</option>
+                <option ]]>
+                <c:if test="${param.analyzer eq 'gs'}">
+                    selected
+                </c:if>
+                <![CDATA[ value="gs">GSAnalyzer</option> ]]>
+            </select>
+        </gsml:form>
+
+
+        <c:if test="${not empty param.q}">
+            <c:out value="query: ${query}" escapeXml="true"/>
+            <br/>
+            <c:out value="total results: ${total}" escapeXml="true"/>
+        </c:if>
+
+        <hr/>
+        <c:if test="${not empty results}">
+            <div class="resulttable">
+
+                <div class="header">
+                    <div class="cell">#</div>
+                    <div class="cell">Type</div>
+                    <div class="cell">State</div>
+                    <div class="cell">ID</div>
+                    <div class="cell">Result</div>
+                    <div class="cell">Explanation</div>
+
+                </div>
+                <c:forEach items="${results}" var="result">
+                    <div class="resultrow">
+                        <div class="cell type"><c:out value="${result.number}" escapeXml="true"/></div>
+                        <div class="cell type"><c:out value="${result.type}" escapeXml="true"/></div>
+                        <div class="cell state"><c:out value="${result.state}" escapeXml="true"/></div>
+                        <div class="cell id"><c:out value="${result.id}" escapeXml="true"/></div>
+                        <div class="cell value"><c:out value="${result.val}" escapeXml="true"/></div>
+                        <div class="cell explanation"><c:out value="${result.explanation}" escapeXml="false"/></div>
+                    </div>
+                </c:forEach>
+            </div>
+        </c:if>
+    </center>
+    </body>
+    </html>
+</jsp:root>
