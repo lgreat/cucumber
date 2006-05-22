@@ -12,6 +12,7 @@ var gReturnFunc;
 var gPopupIsShown = false;
 var gHideSelects = false;
 var gLoading = "loading.html";
+var gHoverCookieName = 'gotHover';
 
 //A reference to a link object.
 //If assigned, user will be redirected to this page when the modal dialog is closed.
@@ -100,7 +101,7 @@ function showPopWin(url, width, height, returnFunc) {
     if (!gPopupMask) {
         initPopUp();
     }
-    document.cookie='gotHover=1;path=/';
+    document.cookie=gHoverCookieName+'=1;path=/';
     gPopupIsShown = true;
 	disableTabIndexes();
 	gPopupMask.style.display = "block";
@@ -318,6 +319,8 @@ function showPopWinOnExit(url, width, height, returnFunc) {
     for (var i=0;i < arr.length;i++) {
         arr[i].onclick = function () {
             gRedirectAnchor = this;
+            var idx=parseInt(document.cookie.indexOf(gHoverCookieName));
+            if (idx >= -1) {return true;}
             showPopWin(url, width, height, returnFunc);
             return false;
         }
