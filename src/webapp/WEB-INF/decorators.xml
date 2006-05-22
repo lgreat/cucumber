@@ -9,6 +9,7 @@
 
     <decorator name="popupDecorator" page="popupDecorator.jspx">
         <pattern>/community/newsletters/popup/mss/page*</pattern>
+        <pattern>/test/splash.page</pattern>
     </decorator>
 
     <decorator name="cobrandHeaderGsFooter" page="standardDecorator.jspx">
@@ -58,7 +59,6 @@
         <pattern>/school/performance/allCities.page</pattern>
 
         <pattern>/test/stateHome.page</pattern>
-        <pattern>/test/splash.page</pattern>
         <pattern>/test/modal.page</pattern>
 
         <pattern>/community/beta.page</pattern>

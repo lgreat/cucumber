@@ -169,7 +169,14 @@
             <type>plugin</type>
             <url>http://maven-taglib.sourceforge.net</url>
         </dependency>
-
+        <dependency>
+          <groupId>rome</groupId>
+            <artifactId>rome</artifactId>
+          <version>0.8</version>
+          <properties>
+            <war.bundle>true</war.bundle>
+          </properties>
+        </dependency>
     </dependencies>
 
     <build>

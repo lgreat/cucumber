@@ -5,24 +5,226 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:rss="urn:jsptagdir:/WEB-INF/tags/rss"
         >
-    <html lang="en">
+<html lang="en">
 
-    <jsp:output doctype-root-element="html"
-                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-    <jsp:directive.page contentType="text/html"/>
+<jsp:directive.page contentType="text/html"/>
 
-    <head>
-        <title>GreatSchools.net</title>
-    </head>
+<head>
+    <title>GreatSchools.net</title>
+    <style type="text/css">
+        #marginGS {
+            width: 95%;
+            text-align: left;
+        }
 
-    <gsml:body adPageName="modal">
-        <h3 class="tagline">Stats, tools and advice from GreatSchools, an independent nonprofit
-            committed to helping parents</h3>
+        #h {
+            position: relative;
+            height: 140px;
+        }
 
-        SPLASH
-    </gsml:body>
-    </html>
+        #hTop {
+            position: relative;
+            float: left;
+            width: 100%;
+            height: 50%;
+        }
+
+        #hTopLogo {
+            clear: both;
+            float: left;
+            width: 44%;
+        }
+
+        #hTopSearch {
+            float: left;
+        }
+
+        #hBottom {
+            position: relative;
+            clear: both;
+            width: 100%;
+            height: 50%;
+        }
+
+        #hBottomUser {
+            float: left;
+            width: 44%;
+        }
+
+        #hBottomTabs {
+            float: left;
+        }
+
+        #c {
+            clear: both;
+            position: relative;
+            height: 350px;
+            border-bottom:3px dotted #cccccc;
+        }
+
+        #c h2 {
+            font-size: medium;
+            font-weight: 100;
+        }
+
+        #cLeft {
+            float: left;
+            width: 70%;
+            height: 100%;
+        }
+
+        #cRight {
+            float: left;
+            height: 100%;
+        }
+
+        #cRightTop {
+            height: 50%;
+        }
+
+        #cRightBottom {
+            height: 50%;
+        }
+
+        #d {
+            clear: both;
+            position: relative;
+            height: 180px;
+            padding-top: 30px;
+        }
+
+        #billsBlog {
+            float: left;
+            width: 70%;
+            height: 100%;
+            background-color: #f7f7f7;
+        }
+
+        #billsBlog .content {
+            padding:10px;
+        }
+
+        #dRight {
+            float: left;
+            height: 100%;
+        }
+
+        .huge {
+            font-size: 150%;
+            font-weight: bold;
+            color: #009edb;
+        }
+
+        #navcontainer ul {
+            padding-bottom: 5px;
+            padding-top: 5px;
+            padding-left: 0;
+            margin-top: 0; /* cancels gap caused by top padding in Opera 7.54 */
+            margin-left: 0;
+            background-color: #e7f7fb;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 18px; /* fixes Firefox 0.9.3 */
+        }
+
+        #navcontainer ul li {
+            display: inline;
+            padding-left: 0;
+            padding-right: 0;
+            padding-bottom: 5px; /* matches link padding except for left and right */
+            padding-top: 5px;
+        }
+
+        #navcontainer ul li a {
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 5px;
+            padding-top: 5px;
+            color: #009edb;
+            text-decoration: none;
+            border-right: 1px solid #fff;
+        }
+
+        #navcontainer ul li a:hover {
+            background-color: #009edb;
+            color: white;
+        }
+
+        #navcontainer #active {
+            padding-bottom: 5px;
+            padding-top: 5px;
+            text-decoration: none;
+        }
+
+        #navcontainer #active a {
+            padding-bottom: 5px;
+            padding-top: 5px;
+            text-decoration: none;
+            color: white;
+            background-color: #009edb;
+        }
+
+
+    </style>
+</head>
+
+<gsml:body adPageName="modal">
+    <div id="h">
+        <div id="hTop">
+            <div id="hTopLogo">logo</div>
+            <div id="hTopSearch">search</div>
+        </div>
+
+        <div id="hBottom">
+            <div id="hBottomUser">
+                <div style="float:left;"><span>My Page</span><span>picture</span></div>
+                <div style="float:left;position:relative;">
+                    <div style="border-bottom:1px dotted;padding-bottom:0.5em;">Welcome, alingane!</div>
+                    <div>Saved Schools - Sign Out</div>
+                </div>
+            </div>
+            <div id="hBottomTabs">
+                <div id="navcontainer">
+                    <ul id="navlist">
+                        <li id="active"><a href="#" id="current">Item one</a></li>
+                        <li><a href="#">Item two</a></li>
+                        <li><a href="#">Item three</a></li>
+                        <li><a href="#">Item four</a></li>
+                        <li><a href="#">Item five</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="c">
+        <div id="cLeft">left</div>
+
+        <div id="cRight">
+            <div id="cRightTop"><h2>Find the<br/><span class="huge">BEST SCHOOLS</span> in your city</h2></div>
+
+            <div id="cRightBottom"><h2>See how<br/><span class="huge ">YOUR SCHOOL</span> stacks up</h2></div>
+        </div>
+    </div>
+
+    <div id="d">
+        <div id="billsBlog">
+            <div class="content">
+                <span>BILL'S BLOG</span><br/>
+                <span>Founder &amp; CEO of GreatSchools</span>
+                <rss:billsBlog/>
+            </div>
+        </div>
+        <div id="dRight">did you know</div>
+    </div>
+
+</gsml:body>
+</html>
 </jsp:root>

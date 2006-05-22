@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          >
+    <jsp:directive.tag import="com.sun.syndication.feed.synd.SyndContent"/>
+    <jsp:directive.tag import="com.sun.syndication.feed.synd.SyndEntry"/>
+    <jsp:directive.tag import="com.sun.syndication.feed.synd.SyndFeed"/>
+    <jsp:directive.tag import="com.sun.syndication.io.SyndFeedInput"/>
+    <jsp:directive.tag import="com.sun.syndication.io.XmlReader"/>
+    <jsp:directive.tag import="java.net.URL"/>
+
+    <jsp:directive.tag body-content="empty"
+                       description="Bill's Blog"/>
+    <jsp:scriptlet>
+        final String BILLS_BLOG_HOME_URL = "http://billsblog.greatschools.net";
+        final String BILLS_BLOG_ATOM_URL = BILLS_BLOG_HOME_URL + "/atom.xml";
+        try {
+            URL feedUrl = new URL(BILLS_BLOG_ATOM_URL);
+            SyndFeedInput input = new SyndFeedInput();
+            SyndFeed feed = input.build(new XmlReader(feedUrl));
+            SyndEntry entry = (SyndEntry) feed.getEntries().get(0);
+            SyndContent content = (SyndContent) entry.getContents().get(0);
+
+            String title = entry.getTitle();
+            String link = entry.getLink();
+            String text = content.getValue();
+
+            jspContext.setAttribute("link", link);
+            jspContext.setAttribute("text", text);
+            jspContext.setAttribute("title", title);
+
+        } catch(Exception e) {
+            out.println("");
+        }
+    </jsp:scriptlet>
+    ${text}
+    <a href="${link}">Read More about ${title}</a>
+</jsp:root>
