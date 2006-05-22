@@ -31,7 +31,7 @@
             jspContext.setAttribute("title", title);
 
         } catch(Exception e) {
-            out.println("");
+            out.println(e);
         }
     </jsp:scriptlet>
     ${text}
