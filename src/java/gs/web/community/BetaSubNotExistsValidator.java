@@ -2,13 +2,10 @@ package gs.web.community;
 
 import org.springframework.validation.Validator;
 import org.springframework.validation.Errors;
-import org.apache.commons.lang.StringUtils;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.community.ISubscriptionDao;
 import gs.data.community.SubscriptionProduct;
-
-import java.util.regex.Pattern;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -20,11 +17,11 @@ public class BetaSubNotExistsValidator implements Validator {
     private ISubscriptionDao _subscriptionDao;
 
     public boolean supports(Class aClass) {
-        return aClass.equals(BetaEmailCommand.class);
+        return aClass.equals(BetaSignupCommand.class);
     }
 
     public void validate(Object object, Errors errors) {
-        BetaEmailCommand command = (BetaEmailCommand)object;
+        BetaSignupCommand command = (BetaSignupCommand)object;
         User user = _userDao.getUserFromEmailIfExists(command.getEmail());
         if (user != null) {
             if (_subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.BETA_GROUP) != null) {

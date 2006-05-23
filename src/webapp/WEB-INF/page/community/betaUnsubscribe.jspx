@@ -18,8 +18,8 @@
         <br/>
         <center>
             <div class="formtext">To unsubscribe from our beta group, please enter your email address:</div>
-            <gsml:form action="/community/betaUnsubscribe.page" method="POST">
-                <spring:bind path="betaEmailCommand.email">
+            <gsml:form action="/community/betaUnsubscribe.page?state=${requestScope.context.stateOrDefault}" method="POST">
+                <spring:bind path="betaSignupCommand.email">
                     <input type="text" value="${param.email}" name="email" size="50"/>
                     <input type="submit" value="Unsubscribe"/><br/>
                     <c:if test="${status.error}">

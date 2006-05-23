@@ -2,11 +2,6 @@ package gs.web.community;
 
 import gs.web.BaseTestCase;
 import gs.data.community.*;
-import org.springframework.validation.Errors;
-import org.springframework.validation.BindException;
-import org.springframework.validation.FieldError;
-
-import java.util.List;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -26,11 +21,11 @@ public class BetaValidatorsTest extends BaseTestCase {
     }
 
     public void testBetaSubExistsValidator() {
-        assertTrue(_validator.supports(BetaEmailCommand.class));
+        assertTrue(_validator.supports(BetaSignupCommand.class));
         assertFalse(_validator.supports(String.class));
 
         /*
-        BetaEmailCommand command = new BetaEmailCommand();
+        BetaSignupCommand command = new BetaSignupCommand();
         Errors errors = new BindException(command, "Test Errors");
         command.setEmail("foozxczxczc@baasdfasdfr.com");
         _validator.validate(command, errors);

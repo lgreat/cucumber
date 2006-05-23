@@ -1,7 +1,9 @@
 package gs.web.community;
 
 import gs.data.community.*;
+import gs.data.state.StateManager;
 import org.apache.log4j.Logger;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -10,6 +12,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
@@ -31,19 +34,47 @@ public class BetaController extends SimpleFormController {
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
 
+    /** Form param: an email address */
+    private static final String EMAIL_PARAM = "email";
+
+    /** Form param: a 2-letter State abbreviation */
+    private static final String STATE_PARAM = "state";
+
+    /**
+     * Binds the request parameters to the fields in <code>BetaSignupCommand</code>.
+     * @param httpServletRequest
+     * @return
+     * @throws Exception
+     */
+    protected Object formBackingObject(HttpServletRequest httpServletRequest) throws Exception {
+
+        BetaSignupCommand command = new BetaSignupCommand();
+        String paramEmail = httpServletRequest.getParameter(EMAIL_PARAM);
+        command.setEmail(paramEmail);
+
+        String paramState = httpServletRequest.getParameter(STATE_PARAM);
+        StateManager sm = new StateManager();
+        if (!StringUtils.isBlank(paramState)) {
+            command.setState(sm.getState(paramState));
+        }
+
+        return command;
+    }
+
     /**
      * Handles the form POST subscription request
      *
-     * @param command a <code>BetaEmailCommand</code> object
+     * @param command a <code>BetaSignupCommand</code> object
      * @return
      * @see gs.web.util.validator.EmailValidator
      * @see BetaSubNotExistsValidator
      */
     public ModelAndView onSubmit(Object command) {
 
-        BetaEmailCommand bsc = (BetaEmailCommand) command;
+        BetaSignupCommand bsc = (BetaSignupCommand) command;
+        addToBetaGroup(bsc);
         String email = bsc.getEmail();
-        addToBetaGroup(email);
+
         try {
             _mailSender.send(createMessage(_mailSender.createMimeMessage(), email));
         } catch (MessagingException mess) {
@@ -67,20 +98,30 @@ public class BetaController extends SimpleFormController {
      *
      * @param email A valid email address as a <code>String</code> type
      */
-    private void addToBetaGroup(String email) {
-        User user = _userDao.getUserFromEmailIfExists(email);
+    private void addToBetaGroup(BetaSignupCommand command) {
+        User user = _userDao.getUserFromEmailIfExists(command.getEmail());
         if (user == null) {
             user = new User();
-            user.setEmail(email);
+            user.setEmail(command.getEmail());
             _userDao.saveUser(user);
         }
 
         Subscription subscription = new Subscription();
         subscription.setUser(user);
+        subscription.setState(command.getState());
         subscription.setProduct(SubscriptionProduct.BETA_GROUP);
         _subscriptionDao.saveSubscription(subscription);
     }
 
+    /**
+     * This is a utility method to created the <code>MimeMessage</code object from a stub
+     * MimeMessage.
+     * 
+     * @param mimeMessage
+     * @param email
+     * @return
+     * @throws MessagingException
+     */
     private static MimeMessage createMessage(MimeMessage mimeMessage, String email) throws MessagingException {
 
         StringBuffer messageBuffer = new StringBuffer();

@@ -36,7 +36,7 @@
         <center>
             <div class="formtext">To sign up for our beta group, please enter your email address:</div>
             <gsml:form action="/community/beta.page" method="POST">
-                <spring:bind path="betaEmailCommand.email">
+                <spring:bind path="betaSignupCommand.email">
                     <input type="text" name="email" size="50"></input>
                     <input type="submit" value="Sign me up!" name="submit"/>
                     <c:if test="${status.error}">
@@ -47,6 +47,7 @@
                         </span>
                     </c:if>
                 </spring:bind>
+                <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}"/>
             </gsml:form>
             <h6>We won't sell or share your address. <gsml:popupWindow width="800" height="600" left="50" top="50"
                     href="/about/privacyStatement.page?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></h6>

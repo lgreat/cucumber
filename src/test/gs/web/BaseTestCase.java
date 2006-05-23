@@ -9,6 +9,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
+
 /**
  * BaseTestCase for classes in gs.web to subclass for easy access to Spring IoC
  */
@@ -51,5 +53,10 @@ public class BaseTestCase extends TestCase {
         }
 
         return _sApplicationContext;
+    }
+
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        ThreadLocalTransactionManager.commitOrRollback();
     }
 }

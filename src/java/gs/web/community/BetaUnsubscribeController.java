@@ -14,7 +14,7 @@ public class BetaUnsubscribeController extends SimpleFormController {
     private ISubscriptionDao _subscriptionDao;
 
     public ModelAndView onSubmit(Object command) {
-        BetaEmailCommand bsc = (BetaEmailCommand)command;
+        BetaSignupCommand bsc = (BetaSignupCommand)command;
         removeFromBetaGroup(bsc.getEmail());
         return new ModelAndView(getSuccessView());
     }

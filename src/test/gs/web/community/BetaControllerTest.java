@@ -1,12 +1,15 @@
 package gs.web.community;
 
-import gs.data.community.ISubscriptionDao;
-import gs.data.community.IUserDao;
+import gs.data.community.*;
+import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.MockJavaMailSender;
 import gs.web.util.validator.EmailValidator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.validation.Validator;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -26,8 +29,8 @@ public class BetaControllerTest extends BaseControllerTestCase {
         _controller.setMailSender(_sender);
         _controller.setSuccessView("/community/betaThankyou");
         _controller.setFormView("/community/beta");
-        _controller.setCommandClass(BetaEmailCommand.class);
-        _controller.setCommandName("betaEmailCommand");
+        _controller.setCommandClass(BetaSignupCommand.class);
+        _controller.setCommandName("betaSignupCommand");
         _controller.setValidators(new Validator[] {
                 (EmailValidator)appContext.getBean("emailValidator"),
                 (BetaSubNotExistsValidator)appContext.getBean("betaSubNotExistsValidator")});
@@ -40,30 +43,45 @@ public class BetaControllerTest extends BaseControllerTestCase {
     }
 
     public void testSubscribe() throws Exception {
-        /*
-        BetaEmailCommand command = new BetaEmailCommand();
-        String testEmail = "foo@bar.com";
+
+        BetaSignupCommand command = new BetaSignupCommand();
+        String testEmail = "foo@barfolblahhhhhhh.com";
         command.setEmail(testEmail);
+        command.setState(State.CA);
 
         assertNull(_userDao.getUserFromEmailIfExists(testEmail));
 
-        getRequest().setMethod("POST");
-        getRequest().setParameter("email", testEmail);
-
-        ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
+        ModelAndView mAndV = _controller.onSubmit(command);
         assertEquals("/community/betaThankyou", mAndV.getViewName());
 
         User u = _userDao.getUserFromEmailIfExists(testEmail);
-        assertNotNull(u);
+        assertEquals(testEmail, u.getEmail());
 
-        System.out.println ("fasd: " +
-                _subscriptionDao.getUserSubscriptions(u, SubscriptionProduct.BETA_GROUP));
+        List subs = _subscriptionDao.getUserSubscriptions(u, SubscriptionProduct.BETA_GROUP);
+        Subscription sub = (Subscription)subs.get(0);
+        assertEquals(SubscriptionProduct.BETA_GROUP, sub.getProduct());
+        assertEquals(State.CA, sub.getState());
 
-        mAndV = _controller.onSubmit(command);
-        //assertEquals("/community/beta", mAndV.getViewName());
-
-        System.out.println ("removing: " + u.getId());
+        _subscriptionDao.removeSubscription(sub.getId());
         _userDao.removeUser(u.getId());
-        */
+    }
+
+    public void testSubscribeStateAware() throws Exception {
+
+        BetaSignupCommand command = new BetaSignupCommand();
+        String testEmail = "foo@joestateaware.com";
+        command.setEmail(testEmail);
+        command.setState(State.AK);
+        assertNull(_userDao.getUserFromEmailIfExists(testEmail));
+        _controller.onSubmit(command);
+        User u = _userDao.getUserFromEmailIfExists(testEmail);
+        assertEquals(testEmail, u.getEmail());
+        List subs = _subscriptionDao.getUserSubscriptions(u, SubscriptionProduct.BETA_GROUP);
+        Subscription sub = (Subscription)subs.get(0);
+
+        assertEquals(SubscriptionProduct.BETA_GROUP, sub.getProduct());
+        assertEquals(State.AK, sub.getState());
+        _subscriptionDao.removeSubscription(sub.getId());
+        _userDao.removeUser(u.getId());
     }
 }

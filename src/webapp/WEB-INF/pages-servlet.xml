@@ -115,9 +115,9 @@
 
     <bean name="/community/beta.page" class="gs.web.community.BetaController"
             autowire="byName">
-        <property name="commandName"><value>betaEmailCommand</value></property>
+        <property name="commandName"><value>betaSignupCommand</value></property>
         <property name="commandClass">
-            <value>gs.web.community.BetaEmailCommand</value>
+            <value>gs.web.community.BetaSignupCommand</value>
         </property>
         <property name="validators">
             <list>
@@ -139,9 +139,9 @@
 
     <bean name="/community/betaUnsubscribe.page" class="gs.web.community.BetaUnsubscribeController"
             autowire="byName">
-        <property name="commandName"><value>betaEmailCommand</value></property>
+        <property name="commandName"><value>betaSignupCommand</value></property>
         <property name="commandClass">
-            <value>gs.web.community.BetaEmailCommand</value>
+            <value>gs.web.community.BetaSignupCommand</value>
         </property>
         <property name="validator"><ref bean="betaSubExistsValidator"/></property>
         <property name="formView"><value>community/betaUnsubscribe</value></property>

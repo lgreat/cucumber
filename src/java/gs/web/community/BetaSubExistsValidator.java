@@ -9,7 +9,7 @@ import gs.data.community.SubscriptionProduct;
 
 /**
  * This validator checks to make sure that the command class -
- * BetaEmailCommand contains an email that is currently
+ * BetaSignupCommand contains an email that is currently
  * subscribed to SubscriptionProduct.BETA_GROUP.
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -21,12 +21,11 @@ public class BetaSubExistsValidator implements Validator {
     private ISubscriptionDao _subscriptionDao;
 
     public boolean supports(Class aClass) {
-        return aClass.equals(BetaEmailCommand.class);
+        return aClass.equals(BetaSignupCommand.class);
     }
 
     public void validate(Object object, Errors errors) {
-        BetaEmailCommand command = (BetaEmailCommand)object;
-        System.out.println ("Validating sub exists for: " + command.getEmail());
+        BetaSignupCommand command = (BetaSignupCommand)object;
         User user = _userDao.getUserFromEmailIfExists(command.getEmail());
         if (user != null) {
             if (_subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.BETA_GROUP) == null) {
