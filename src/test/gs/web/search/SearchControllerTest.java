@@ -1,6 +1,7 @@
 package gs.web.search;
 
 import gs.data.school.district.IDistrictDao;
+import gs.data.school.ISchoolDao;
 import gs.data.search.*;
 import gs.data.state.State;
 import gs.data.content.IArticleDao;
@@ -9,6 +10,7 @@ import gs.web.GsMockHttpServletRequest;
 import gs.web.SessionContext;
 import gs.web.SessionContextUtil;
 import gs.web.util.ListModel;
+import gs.web.util.Anchor;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.search.BooleanQuery;
@@ -39,6 +41,7 @@ public class SearchControllerTest extends BaseControllerTestCase {
 
         _controller = (SearchController) getApplicationContext().getBean(SearchController.BEAN_ID);
 
+        _controller.setSchoolDao((ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID));
         _districtDao = (IDistrictDao) getApplicationContext().getBean(IDistrictDao.BEAN_ID);
         _articleDao = (IArticleDao) getApplicationContext().getBean(IArticleDao.BEAN_ID);
 
@@ -189,5 +192,31 @@ public class SearchControllerTest extends BaseControllerTestCase {
         results = (List) map.get(SearchController.MODEL_RESULTS);
         assertTrue(results.size() >= 3);
         assertEquals(kindergartenHits, results.size());
+    }
+
+    /**
+     * Regression test for GS-2028
+     * @throws IOException
+     */
+    public void testPrivateRollup() throws IOException {
+        final GsMockHttpServletRequest request = getRequest();
+        _sessionContextUtil = (SessionContextUtil) getApplicationContext(). getBean(SessionContextUtil.BEAN_ID);
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+        final SessionContext sessionContext = _sessionContextUtil.guaranteeSessionContext(request);
+
+
+        SearchCommand searchCommand = new SearchCommand();
+        searchCommand.setQ("private anchorage");
+        searchCommand.setState(State.AK);
+
+        Map map = _controller.createModel(request, searchCommand, sessionContext, false);
+
+        assertNotNull(map);
+        ListModel filteredListModel = (ListModel) map.get(SearchController.MODEL_FILTERED_CITIES);
+        assertNotNull(filteredListModel);
+        assertNotNull(filteredListModel.getResults());
+        assertTrue(filteredListModel.getResults().size() >= 1);
+        Anchor anchorage = (Anchor) filteredListModel.getResults().get(0);
+        assertEquals("/schools.page?city=Anchorage&st=private&state=AK", anchorage.getHref());
     }
 }

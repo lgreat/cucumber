@@ -1,5 +1,7 @@
 package gs.web.search;
 
+import gs.data.school.ISchoolDao;
+import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
 import gs.data.search.*;
 import gs.data.state.State;
@@ -81,7 +83,7 @@ public class SearchController extends AbstractFormController {
 
     public static final String MODEL_CITIES = "cities";
     public static final String MODEL_DISTRICTS = "districts";
-    public static final String MODEL_FILTERED_CITIES = "filteredCities";
+    public static final String MODEL_FILTERED_CITIES = "filteredCities"; // ListModel
     public static final String MODEL_SHOW_SUGGESTIONS = "showSuggestions"; // Boolean
     public static final String MODEL_SHOW_QUERY_AGAIN = "showQueryAgain"; // Boolean
     private static final String MODEL_SHOW_STATE_CHOOSER = "showStateChooser"; // Boolean
@@ -98,6 +100,7 @@ public class SearchController extends AbstractFormController {
     private StateManager _stateManager;
     private GSQueryParser _queryParser;
     private QueryParser _cityQueryParser;
+    private ISchoolDao _schoolDao;
 
     public SearchController(Searcher searcher) {
         _searcher = searcher;
@@ -354,20 +357,11 @@ public class SearchController extends AbstractFormController {
             if (displayed < filteredListSize) {
                 String cityName = cityHits.doc(ii).get("city");
                 State stateOfCity = _stateManager.getState(cityHits.doc(ii).get("state"));
-
-                SearchCommand command = new SearchCommand();
-                command.setCity(cityName);
-                command.setState(stateOfCity);
-                command.setType("school");
-                if (st != null) {
-                    command.setSt(new String[]{st});
-                }
-                if (gl != null) {
-                    command.setGl(new String[]{gl});
-                }
-
-                Hits hits = _searcher.search(command);
-                if (hits != null && hits.length() > 0) {
+                int count = _schoolDao.countSchools(stateOfCity,
+                        (st != null ? SchoolType.getSchoolType(st) : null),
+                        (gl != null ? LevelCode.createLevelCode(gl) : null),
+                        cityName);
+                if (count > 0) {
                     urlBuilder.setParameter("city", cityName);
                     urlBuilder.setParameter("state", stateOfCity.getAbbreviation());
                     cityName += ", " + stateOfCity.getAbbreviation();
@@ -394,18 +388,15 @@ public class SearchController extends AbstractFormController {
     private String determineSchoolType(String lowerCaseQuery, StringBuffer filtersBuffer, UrlBuilder urlBuilder) {
         String st = null;
         if (lowerCaseQuery.indexOf("public") != -1) {
-            filtersBuffer.append(" public");
-            urlBuilder.setParameter(PARAM_SCHOOL_TYPE, "public");
             st = "public";
         } else if (lowerCaseQuery.indexOf("private") != -1) {
-            filtersBuffer.append(" private");
-            urlBuilder.setParameter(PARAM_SCHOOL_TYPE, "public");
             st = "private";
         } else if (lowerCaseQuery.indexOf("charter") != -1) {
-            filtersBuffer.append(" charter");
-            urlBuilder.setParameter(PARAM_SCHOOL_TYPE, "charter");
             st = "charter";
         }
+        filtersBuffer.append(" " + st);
+        urlBuilder.setParameter(PARAM_SCHOOL_TYPE, st);
+
         return st;
     }
 
@@ -548,5 +539,12 @@ public class SearchController extends AbstractFormController {
         _searcher = searcher;
     }
 
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
+    }
 
 }
