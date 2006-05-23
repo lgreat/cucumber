@@ -394,8 +394,10 @@ public class SearchController extends AbstractFormController {
         } else if (lowerCaseQuery.indexOf("charter") != -1) {
             st = "charter";
         }
-        filtersBuffer.append(" " + st);
-        urlBuilder.setParameter(PARAM_SCHOOL_TYPE, st);
+        if (StringUtils.isNotEmpty(st)) {
+            filtersBuffer.append(" " + st);
+            urlBuilder.setParameter(PARAM_SCHOOL_TYPE, st);
+        }
 
         return st;
     }
