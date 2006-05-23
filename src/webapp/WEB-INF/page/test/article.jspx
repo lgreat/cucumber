@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:rss="urn:jsptagdir:/WEB-INF/tags/rss"
+        >
+    <jsp:directive.page import="org.springframework.context.ApplicationContext"/>
+    <jsp:directive.page import="org.springframework.web.context.support.WebApplicationContextUtils"/>
+    <jsp:directive.page import="gs.data.util.SpringUtil"/>
+    <jsp:directive.page import="gs.data.content.IArticleDao"/>
+    <jsp:directive.page import="gs.data.content.Article"/>
+<html lang="en">
+
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+<title>GreatSchools.net</title>
+<style type="text/css">
+#contentGS {
+    margin: 20px;
+    width: 95%;
+    text-align: left;
+}
+    #contentGS h1 {
+        font-size: large;
+        font-weight: bold;
+    }
+    #contentGS h2 {
+        margin: 10px 0 20px 0;
+    background-image: url(../res/img/orange_arrow_right_trans.gif);
+    background-repeat: no-repeat;
+    background-position: .1ex left;
+    padding-left: 16px;
+
+    }
+
+#articleText  ul li,
+#articleText ol li {
+    padding-top: .1ex;
+    padding-bottom: .1ex;
+    display: list-item;
+    list-style: inside square;
+}
+
+    #articleText span.rlbcopy {
+        padding-top: 1ex;
+        display: block;
+        font-size: medium;
+        font-weight: bold;
+        color: #333;
+    }
+    #articleText p {
+        color: black;
+        font-size: medium;
+        padding-top: .5ex;
+        padding-bottom: .5ex;
+        line-height: 2.0ex;
+    }
+    #toolsMenu {
+        float: right;
+       width: 300px;
+        margin-left: 20px;
+        margin-bottom: 20px;
+        border: 1px solid black;
+        padding: 5px;
+        background-color: #eee;
+    }
+</style>
+</head>
+<jsp:scriptlet>
+    ApplicationContext applicationContext = SpringUtil.getApplicationContext();
+    IArticleDao articleDao = (IArticleDao) applicationContext.getBean(IArticleDao.BEAN_ID);
+    Article article = articleDao.getArticleFromId(new Integer(request.getParameter("id")));
+//out.print(article.getTitle());
+//out.print(article.getAbstract());
+//out.print(article.getArticleText());
+    pageContext.setAttribute("article", article);
+</jsp:scriptlet>
+<gsml:body adPageName="">
+
+
+    <div id="toolsMenu" >
+        <h3>Article Tools</h3>
+        <ul>
+        <li><img src="/images/editorial/printer_friendly.gif" border="0" height="11" width="15" /><a
+                href="/cgi-bin/showarticle/CA/308/improve/print/">Print This Article</a><br /></li>
+        <li><img src="/images/editorial/mail_friend.gif" border="0" height="11" width="15"/><a
+                href="/cgi-bin/mail_to_friend_article/cgi-bin/showarticle/CA/308/improve">Email This
+            Article</a><br/></li>
+        <li><img src="/images/editorial/checkbox.gif" border="0" height="11" width="15" /><a
+                href="/cgi-bin/newsletters/CA/">Sign-up For Newsletters</a><br/></li>
+        <li><img src="/images/editorial/edit_article.gif" border="0" height="11" width="15"/><a
+                href="/cgi-bin/showarticle/CA/308/?page=4#commentbox">Give Us Your Feedback</a><br/></li>
+
+        <br/>
+        <li><a href="/content/allArticles.page?state=CA%20">See full library of
+            articles</a><br/></li>
+        </ul>
+    </div>
+
+    <div style="float: right; clear: right; width: 300px; margin-left: 20px">
+        <ad:x40 />
+    </div>
+
+    <h1>${article.title}</h1>
+
+    <h2>${article.abstract}</h2>
+    <div id="articleText">
+    ${article.articleText}
+    </div>
+
+</gsml:body>
+</html>
+</jsp:root>

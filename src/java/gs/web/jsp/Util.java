@@ -46,6 +46,7 @@ public class Util {
      * return an non-null String.  If the array argument is null or empty, an
      * empty String is returned. The individual String values are capitalized
      * first.
+     * @deprecated
      */
     public static String toUglyDelimitedString(Object[] array) {
         StringBuffer buffer = new StringBuffer("");

@@ -28,7 +28,7 @@
     </jsp:scriptlet>
 
     <head>
-        <title>Modal Dialog Test Page</title>
+        <title>State Home</title>
         <style>
             .stateHome h1 {
                 font-size: large;
@@ -51,20 +51,26 @@
                         <td colspan="4">
 
                             <h1>Research ${requestScope.context.stateOrDefault.longName} Schools: Information on ${pageScope.count}
-                                schools</h1>
+                                schools in ${pageScope.count} cities</h1>
 
                         </td>
                         </tr><tr>
                         <td style="width:50%; vertical-align: top">
                             <div style="padding-top: .75em; padding-right: 2em;">
-                                <h3>
-                                    Find test scores, teacher stats and more
-                                    <gsml:a styleClass="changeState"
-                                            href="/stateLauncher.page?p=pathway2">Search another
-                                        state</gsml:a></h3>
+                                <h3>Compare schools in your area</h3>
+
+                                lipsum opsilam gorem udal.
+                                lipsum opsilam gorem udal.
+                                lipsum opsilam gorem udal.
+                                lipsum opsilam gorem udal.
+                                lipsum opsilam gorem udal.
+                                lipsum opsilam gorem udal.
+                                lipsum opsilam gorem udal.
+
+                                <h3>See how your school stacks up</h3>
 
                                 <search:searchControl showConstraint="false" fieldLength="35"
-                                                      showLabel="false"/>
+                                                      showLabel="false" showStates="true"/>
 
                                 <div class="browselinks">
                                     <gsml:a styleClass="nowrap"
