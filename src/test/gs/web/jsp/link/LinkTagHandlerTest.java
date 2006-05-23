@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.1 2006/05/20 05:29:17 apeterson Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.2 2006/05/23 17:18:13 apeterson Exp $
  */
 
 package gs.web.jsp.link;
@@ -18,7 +18,7 @@ import gs.web.util.UrlBuilder;
 import javax.servlet.jsp.JspException;
 
 /**
- * Provides...
+ * Tests all the tags in the link package.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
@@ -98,12 +98,20 @@ tagHandler.setArticle(a);
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/newsletters/CA/", builder.asSiteRelative(null));
+
+        tagHandler.setEmail("whoever@whatever.how");
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/cgi-bin/newsletters/CA/?email=whoever%40whatever.how", builder.asSiteRelative(null));
     }
     public void testNewsletterManagement() {
         NewsletterManagementTagHandler tagHandler = new NewsletterManagementTagHandler();
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/newsletterSubscribe?state=CA", builder.asSiteRelative(null));
+
+        tagHandler.setEmail("whoever@whatever.how");
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/cgi-bin/newsletterSubscribe?email=whoever%40whatever.how&state=CA", builder.asSiteRelative(null));
     }
     public void testPrivacyPolicy() {
         PrivacyPolicyTagHandler tagHandler = new PrivacyPolicyTagHandler();
@@ -142,10 +150,24 @@ tagHandler.setArticle(a);
                 return null;
             }
         });
-        tagHandler.setLevelCode(LevelCode.HIGH);
-        tagHandler.setSchoolTypes("public");
+
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/schools.page?city=New+York&state=NY", builder.asSiteRelative(null));
+
+        tagHandler.setSchoolTypes("public");
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/schools.page?city=New+York&st=public&state=NY", builder.asSiteRelative(null));
+
+        tagHandler.setLevelCode(LevelCode.HIGH);
+        builder = tagHandler.createUrlBuilder();
         assertEquals("/schools.page?city=New+York&lc=h&st=public&state=NY", builder.asSiteRelative(null));
+
+        tagHandler.setSchoolTypes("private");
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/schools.page?city=New+York&lc=h&st=private&state=NY", builder.asSiteRelative(null));
+
+
+
     }
 }

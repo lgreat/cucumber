@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NewsletterManagementTagHandler.java,v 1.1 2006/05/15 21:55:51 dlee Exp $
+ * $Id: NewsletterManagementTagHandler.java,v 1.2 2006/05/23 17:18:02 apeterson Exp $
  */
 package gs.web.jsp.link;
 
@@ -8,7 +8,8 @@ import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * The purpose is ...
+ * Generate a tag to the page where the user manages their profile,
+ * or right now, newsletters.
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
@@ -24,10 +25,6 @@ public class NewsletterManagementTagHandler extends LinkTagHandler {
         }
 
         return builder;
-    }
-
-    public String getEmail() {
-        return _email;
     }
 
     public void setEmail(String email) {

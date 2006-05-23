@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: CityTagHandler.java,v 1.1 2006/05/19 17:56:14 apeterson Exp $
+ * $Id: CityTagHandler.java,v 1.2 2006/05/23 17:18:02 apeterson Exp $
  */
 
 package gs.web.jsp.link;
@@ -22,19 +22,10 @@ public class CityTagHandler extends LinkTagHandler {
         return new UrlBuilder(UrlBuilder.CITY_PAGE, _state, _city);
     }
 
-
-    public State getState() {
-        return _state;
-    }
-
     public void setState(State state) {
         _state = state;
     }
-
-    public String getCity() {
-        return _city;
-    }
-
+    
     public void setCity(String city) {
         _city = city;
     }

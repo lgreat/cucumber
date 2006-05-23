@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsTagHandler.java,v 1.1 2006/05/04 07:13:57 apeterson Exp $
+ * $Id: SchoolsTagHandler.java,v 1.2 2006/05/23 17:18:02 apeterson Exp $
  */
 
 package gs.web.jsp.link;
@@ -17,7 +17,7 @@ import org.apache.commons.lang.StringUtils;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  * @todo add param districtid
  * @todo handle no city or no district -- go to browse state schools page
- * @todo school type restriction
+ * @todo school type restriction with multiple school types
  */
 public class SchoolsTagHandler extends LinkTagHandler {
 
@@ -43,24 +43,12 @@ public class SchoolsTagHandler extends LinkTagHandler {
         return null;
     }
 
-    public ICity getCity() {
-        return _city;
-    }
-
     public void setCity(ICity city) {
         _city = city;
     }
 
-    public LevelCode getLevelCode() {
-        return _levelCode;
-    }
-
     public void setLevelCode(LevelCode levelCode) {
         _levelCode = levelCode;
-    }
-
-    public String getSchoolTypes() {
-        return _schoolTypes;
     }
 
     public void setSchoolTypes(String schoolTypes) {

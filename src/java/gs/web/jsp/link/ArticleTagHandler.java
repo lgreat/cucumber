@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleTagHandler.java,v 1.1 2006/05/04 07:13:57 apeterson Exp $
+ * $Id: ArticleTagHandler.java,v 1.2 2006/05/23 17:18:02 apeterson Exp $
  */
 
 package gs.web.jsp.link;
@@ -11,7 +11,7 @@ import gs.web.ISessionFacade;
 import gs.web.util.UrlBuilder;
 
 /**
- * Generates My School List tag.
+ * Generates link to an article.
  *
  * @author Andrew Peterson <mailto:apeterson@greatschools.net>
  */
@@ -48,10 +48,6 @@ public class ArticleTagHandler extends LinkTagHandler {
 
     public void setArticleId(Integer articleId) {
         _articleId = articleId;
-    }
-
-    public boolean isFeatured() {
-        return _featured;
     }
 
     public void setFeatured(Boolean featured) {

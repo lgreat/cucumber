@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: NewsletterCenterTagHandler.java,v 1.1 2006/04/27 22:53:47 apeterson Exp $
+ * $Id: NewsletterCenterTagHandler.java,v 1.2 2006/05/23 17:18:02 apeterson Exp $
  */
 
 package gs.web.jsp.link;
@@ -27,10 +27,6 @@ public class NewsletterCenterTagHandler extends LinkTagHandler {
         }
 
         return builder;
-    }
-
-    public String getEmail() {
-        return _email;
     }
 
     public void setEmail(String email) {
