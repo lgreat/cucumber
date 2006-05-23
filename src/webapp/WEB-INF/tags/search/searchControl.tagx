@@ -28,7 +28,7 @@
                 <tr>
                     <td colspan="2" class="label" align="left"
                         style="white-space:nowrap;">Search again in:
-                        <gsweb:stateSelector useLongNames="true"/>
+                        <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.stateOrDefault}"/>
                     </td>
                     <td></td>
                </tr>

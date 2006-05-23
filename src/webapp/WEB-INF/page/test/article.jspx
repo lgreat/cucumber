@@ -80,9 +80,6 @@
     ApplicationContext applicationContext = SpringUtil.getApplicationContext();
     IArticleDao articleDao = (IArticleDao) applicationContext.getBean(IArticleDao.BEAN_ID);
     Article article = articleDao.getArticleFromId(new Integer(request.getParameter("id")));
-//out.print(article.getTitle());
-//out.print(article.getAbstract());
-//out.print(article.getArticleText());
     pageContext.setAttribute("article", article);
 </jsp:scriptlet>
 <gsml:body adPageName="">
@@ -91,19 +88,19 @@
     <div id="toolsMenu" >
         <h3>Article Tools</h3>
         <ul>
-        <li><img src="/images/editorial/printer_friendly.gif" border="0" height="11" width="15" /><a
+        <li><gsml:img src="/images/editorial/printer_friendly.gif" alt="Print" /><a
                 href="/cgi-bin/showarticle/CA/308/improve/print/">Print This Article</a><br /></li>
-        <li><img src="/images/editorial/mail_friend.gif" border="0" height="11" width="15"/><a
+        <li><gsml:img src="/images/editorial/mail_friend.gif"  alt="Email"/><a
                 href="/cgi-bin/mail_to_friend_article/cgi-bin/showarticle/CA/308/improve">Email This
             Article</a><br/></li>
-        <li><img src="/images/editorial/checkbox.gif" border="0" height="11" width="15" /><a
+        <li><gsml:img src="/images/editorial/checkbox.gif"   alt="checkbox"/><a
                 href="/cgi-bin/newsletters/CA/">Sign-up For Newsletters</a><br/></li>
-        <li><img src="/images/editorial/edit_article.gif" border="0" height="11" width="15"/><a
+        <li><gsml:img src="/images/editorial/edit_article.gif"   alt="feedback"/><a
                 href="/cgi-bin/showarticle/CA/308/?page=4#commentbox">Give Us Your Feedback</a><br/></li>
 
         <br/>
-        <li><a href="/content/allArticles.page?state=CA%20">See full library of
-            articles</a><br/></li>
+        <li><gsml:a href="/content/allArticles.page?state=CA%20">See full library of
+            articles</gsml:a><br/></li>
         </ul>
     </div>
 

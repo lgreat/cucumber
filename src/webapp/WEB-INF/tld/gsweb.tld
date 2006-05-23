@@ -3,108 +3,109 @@
 
 <taglib>
 
-  <tlib-version>1.0</tlib-version>
-  <jsp-version>1.2</jsp-version>
-  <short-name>gsweb</short-name>
-  <uri>gstaglib</uri>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>1.2</jsp-version>
+    <short-name>gsweb</short-name>
+    <uri>gstaglib</uri>
 
 
-  <function>
-    <name>toDelimitedString</name>
-    <function-class>gs.web.jsp.Util</function-class>
-    <function-signature>java.lang.String
-      toDelimitedString(java.lang.Object[])</function-signature>
-  </function>
+    <function>
+        <name>toDelimitedString</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>java.lang.String
+            toDelimitedString(java.lang.Object[])</function-signature>
+    </function>
 
-  <function>
-    <name>toUglyDelimitedString</name>
-    <function-class>gs.web.jsp.Util</function-class>
-    <function-signature>java.lang.String
-      toUglyDelimitedString(java.lang.Object[])</function-signature>
-  </function>
+    <function>
+        <name>toUglyDelimitedString</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>java.lang.String
+            toUglyDelimitedString(java.lang.Object[])</function-signature>
+    </function>
 
-  <function>
-    <name>randomNumber</name>
-    <function-class>gs.web.jsp.Util</function-class>
-    <function-signature>int randomNumber(int)</function-signature>
-  </function>
+    <function>
+        <name>randomNumber</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>int randomNumber(int)</function-signature>
+    </function>
 
-  <function>
-    <name>highlight</name>
-    <function-class>gs.data.search.highlight.TextHighlighter</function-class>
-    <function-signature>java.lang.String
-      highlight(java.lang.String,java.lang.String,java.lang.String)</function-signature>
-  </function>
+    <function>
+        <name>highlight</name>
+        <function-class>gs.data.search.highlight.TextHighlighter</function-class>
+        <function-signature>java.lang.String
+            highlight(java.lang.String,java.lang.String,java.lang.String)</function-signature>
+    </function>
 
-  <function>
-    <name>unquote</name>
-    <function-class>gs.web.jsp.Util</function-class>
-    <function-signature>java.lang.String
-      unquote(java.lang.String)</function-signature>
-  </function>
+    <function>
+        <name>unquote</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>java.lang.String
+            unquote(java.lang.String)</function-signature>
+    </function>
 
-  <tag>
-    <name>stateSelector</name>
-    <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>
-    <body-content>empty</body-content>
-    <attribute>
-      <name>allowNoState</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>useLongNames</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>styleClass</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>onChange</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-  </tag>
+    <tag>
+        <name>stateSelector</name>
+        <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>allowNoState</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>usingLongNames</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>state</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+        </attribute>
+    </tag>
 
-  <tag>
-    <name>longstate</name>
-    <tag-class>gs.web.state.LongstateTagHandler</tag-class>
-    <body-content>empty</body-content>
-    <attribute>
-      <name>text</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-  </tag>
+    <tag>
+        <name>longstate</name>
+        <tag-class>gs.web.state.LongstateTagHandler</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>text</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
 
-  <tag>
-    <name>mainResults</name>
-    <tag-class>gs.web.search.MixedResultsTagHandler</tag-class>
-    <body-content>scriptless</body-content>
-    <attribute>
-      <name>results</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>total</name>
-      <required>true</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>constraint</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>debug</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-  </tag>
+    <tag>
+        <name>mainResults</name>
+        <tag-class>gs.web.search.MixedResultsTagHandler</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>results</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>total</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>constraint</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>debug</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
 
     <tag>
         <name>schoolTable</name>
@@ -218,52 +219,52 @@
     </tag>
 
     <tag>
-    <name>articlelink</name>
-    <tag-class>gs.web.content.ArticleLinkTagHandler</tag-class>
-    <body-content>tagdependent</body-content>
-    <attribute>
-      <name>article</name>
-      <description>an Article object. If not provided, articleId must be
-        set.</description>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>articleId</name>
-      <description>the article id, of an Article in the database. If not
-        provided, article must be set.</description>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>target</name>
-      <description>generates a "target" attribute within the a tag with this
-        value</description>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>featured</name>
-      <description>if set to true, generates a link to the featured article url
-        (showarticlefeature)</description>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>flaggedIfNew</name>
-      <description>draws a "new" image for new articles</description>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
-      <name>wrappingElement</name>
-      <description>if set, generates a wrapping element around the link to the
-        article. Useful for generating list items dynamically; if the article is
-        not available, this enclosing element is NOT generated.</description>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-  </tag>
+        <name>articlelink</name>
+        <tag-class>gs.web.content.ArticleLinkTagHandler</tag-class>
+        <body-content>tagdependent</body-content>
+        <attribute>
+            <name>article</name>
+            <description>an Article object. If not provided, articleId must be
+                set.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>articleId</name>
+            <description>the article id, of an Article in the database. If not
+                provided, article must be set.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <description>generates a "target" attribute within the a tag with this
+                value</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>featured</name>
+            <description>if set to true, generates a link to the featured article url
+                (showarticlefeature)</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>flaggedIfNew</name>
+            <description>draws a "new" image for new articles</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>wrappingElement</name>
+            <description>if set, generates a wrapping element around the link to the
+                article. Useful for generating list items dynamically; if the article is
+                not available, this enclosing element is NOT generated.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
 
 </taglib>
 
