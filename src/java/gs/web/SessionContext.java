@@ -1,14 +1,14 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.28 2006/03/17 20:10:02 apeterson Exp $
+ * $Id: SessionContext.java,v 1.29 2006/05/23 23:14:16 dlee Exp $
  */
 package gs.web;
 
+import gs.data.admin.IPropertyDao;
 import gs.data.community.ISubscriptionDao;
 import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
 import gs.data.state.State;
-import gs.data.admin.IPropertyDao;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -117,6 +117,15 @@ public class SessionContext
             sYahooCobrand = true;
         }
         return sYahooCobrand;
+    }
+
+    public boolean isFamilyCobrand() {
+        boolean sFamilyCobrand = false;
+        if (_cobrand != null &&
+                (_cobrand.matches("family"))) {
+            sFamilyCobrand = true;
+        }
+        return sFamilyCobrand;
     }
 
     public String getSecureHostName() {

@@ -16,7 +16,7 @@
     On yahoo, framed, number1expert, mcguire we show none
     -->
     <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviationLowerCase}"/>
-    <c:if test="${!requestScope.pageHelper.adFree and !requestScope.context.yahooCobrand}">
+    <c:if test="${!requestScope.pageHelper.adFree and !requestScope.context.yahooCobrand and !requestScope.context.familyCobrand}">
         <c:set var="triggerPopunder" scope="request" value="DisplayPopunderSpecial('${state}','x06|x17'); return true;"/>
         <pageHelper:addOnLoadHandler handler="DisplayPopunder('${state}','x06|x17')" />
         <pageHelper:externalJavascript file="/cm/ad_popunder.js" />

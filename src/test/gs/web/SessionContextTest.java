@@ -46,6 +46,10 @@ public class SessionContextTest extends BaseTestCase {
         assertTrue(ctx.isYahooCobrand());
         assertEquals("secure.dev.greatschools.net", ctx.getSecureHostName());
 
+        request.setParameter("cobrand", "family");
+        _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
+        assertTrue(ctx.isFamilyCobrand());
+
     }
 
     /**
@@ -122,6 +126,16 @@ public class SessionContextTest extends BaseTestCase {
         assertEquals(ctx.getHostName(), "yahooed.greatschools.net");
         assertTrue(ctx.isCobranded());
         assertTrue(ctx.isYahooCobrand());
+    }
+
+    public void testIsFamilyCobrand() {
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
+        SessionContext ctx = new SessionContext();
+        request.setServerName("family.greatschools.net");
+        _sessionContextUtil.updateFromParams(request, _mockHttpServletResponse, ctx);
+        assertEquals(ctx.getHostName(), "family.greatschools.net");
+        assertTrue(ctx.isCobranded());
+        assertTrue(ctx.isFamilyCobrand());
     }
 
     public void testHostWithoutPeriod() {

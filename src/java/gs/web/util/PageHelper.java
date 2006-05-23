@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.10 2006/04/12 06:56:35 apeterson Exp $
+ * $Id: PageHelper.java,v 1.11 2006/05/23 23:14:16 dlee Exp $
  */
 
 package gs.web.util;
@@ -169,7 +169,7 @@ public class PageHelper {
      * stuff. It's currently a google ad. Do we show it?
      */
     public boolean isShowingFooterAd() {
-        return _showingFooterAd && !isAdFree() && !isYahooCobrand();
+        return _showingFooterAd && !isAdFree() && !isYahooCobrand() && !isFamilyCobrand();
     }
 
     public void setShowingFooterAd(boolean showingFooterAd) {
@@ -186,6 +186,15 @@ public class PageHelper {
         return sYahooCobrand;
     }
 
+    private boolean isFamilyCobrand() {
+        // don't need to share this function externally.
+        boolean sFamilyCobrand = false;
+        if (_cobrand != null &&
+                (_cobrand.matches("family"))) {
+            sFamilyCobrand = true;
+        }
+        return sFamilyCobrand;
+    }
 
     public boolean isLogoLinked() {
         return StringUtils.isEmpty(_cobrand);

@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.7 2006/03/23 18:21:38 apeterson Exp $
+ * $Id: PageHelperSaTest.java,v 1.8 2006/05/23 23:14:16 dlee Exp $
  */
 
 package gs.web.util;
 
-import gs.web.ISessionFacade;
-import gs.web.GsMockHttpServletRequest;
 import gs.data.state.State;
+import gs.web.GsMockHttpServletRequest;
+import gs.web.ISessionFacade;
 import junit.framework.TestCase;
 
 /**
@@ -96,6 +96,21 @@ public class PageHelperSaTest extends TestCase {
         assertFalse(pageHelper.isShowingFooter());
         assertFalse(pageHelper.isAdFree());
         assertFalse(pageHelper.isFramed());
+    }
+
+    public void testFamily() {
+        MockSessionFacade sessionFacade = new MockSessionFacade();
+        sessionFacade.setCobrand("family");
+
+        PageHelper pageHelper = new PageHelper(sessionFacade);
+
+        assertFalse(pageHelper.isShowingBannerAd());
+        assertTrue(pageHelper.isShowingLogo() || pageHelper.isShowingUserInfo());
+        assertFalse(pageHelper.isLogoLinked());
+        assertTrue(pageHelper.isShowingFooter());
+        assertFalse(pageHelper.isAdFree());
+        assertFalse(pageHelper.isFramed());
+        assertFalse(pageHelper.isShowingFooterAd());
     }
 
     public void testAzCentral() {
