@@ -1,10 +1,7 @@
 package gs.web.search;
 
 import gs.data.school.SchoolType;
-import gs.data.search.GSAnalyzer;
-import gs.data.search.SearchCommand;
-import gs.data.search.Searcher;
-import gs.data.search.SpellCheckSearcher;
+import gs.data.search.*;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.ISessionFacade;
@@ -72,7 +69,7 @@ public class SearchController extends AbstractFormController {
 
 
     private static final String MODEL_PAGE_SIZE = "pageSize";
-    private static final String MODEL_RESULTS = "mainResults";
+    protected static final String MODEL_RESULTS = "mainResults";
     private static final String MODEL_TOTAL_HITS = "total";
 
     private static final String MODEL_QUERY = "q";
@@ -99,14 +96,17 @@ public class SearchController extends AbstractFormController {
 
 
     private StateManager _stateManager;
-    private QueryParser _queryParser;
+    private GSQueryParser _queryParser;
     private QueryParser _cityQueryParser;
 
     public SearchController(Searcher searcher) {
         _searcher = searcher;
-        _queryParser = new QueryParser("text", new GSAnalyzer());
+
+        //_queryParser = new GSQueryParser("text", new GSAnalyzer());
+        //_queryParser.setOperator(QueryParser.DEFAULT_OPERATOR_AND);
+        _queryParser = new GSQueryParser();
+
         _cityQueryParser = new QueryParser("city", new GSAnalyzer());
-        _queryParser.setOperator(QueryParser.DEFAULT_OPERATOR_AND);
 
     }
 
@@ -160,7 +160,7 @@ public class SearchController extends AbstractFormController {
         return new ModelAndView(viewName, model);
     }
 
-    private Map createModel(HttpServletRequest request, SearchCommand searchCommand, ISessionFacade sessionContext, boolean debug) throws IOException {
+    protected Map createModel(HttpServletRequest request, SearchCommand searchCommand, ISessionFacade sessionContext, boolean debug) throws IOException {
         Map model = new HashMap();
         final String queryString = searchCommand.getQueryString();
         model.put(MODEL_QUERY, queryString);
@@ -206,17 +206,7 @@ public class SearchController extends AbstractFormController {
         State state = sessionContext.getStateOrDefault();
         if (StringUtils.isNotEmpty(queryString)) {
 
-            BooleanQuery baseQuery = new BooleanQuery();
-            if (sessionContext.getState() != null) {
-                baseQuery.add(new TermQuery(new Term("state", state.getAbbreviationLowerCase())), true, false);
-            }
-
-            try {
-                Query keywordQuery = _queryParser.parse(queryString);
-                baseQuery.add(keywordQuery, true, false);
-            } catch (ParseException pe) {
-                _log.warn("error parsing: " + queryString, pe);
-            }
+            BooleanQuery baseQuery = createBaseQuery(sessionContext, state, queryString);
 
             if (!"topic".equals(searchCommand.getType())) {
                 Hits cityHits = searchForCities(queryString, state);
@@ -305,6 +295,27 @@ public class SearchController extends AbstractFormController {
         model.put(MODEL_SHOW_SUGGESTIONS, Boolean.valueOf(!resultsToShow));
         model.put(MODEL_SHOW_STATE_CHOOSER, Boolean.valueOf(!resultsToShow));
         return model;
+    }
+
+    /**
+     * Create a basic boolean query to be re-used by other queries.
+     *
+     * @param sessionContext required
+     * @param state          optional state
+     */
+    protected BooleanQuery createBaseQuery(ISessionFacade sessionContext, State state, String queryString) {
+        BooleanQuery baseQuery = new BooleanQuery();
+        if (sessionContext.getState() != null) {
+            baseQuery.add(new TermQuery(new Term("state", state.getAbbreviationLowerCase())), true, false);
+        }
+
+        try {
+            Query keywordQuery = _queryParser.parse(queryString);
+            baseQuery.add(keywordQuery, true, false);
+        } catch (ParseException pe) {
+            _log.warn("error parsing: " + queryString, pe);
+        }
+        return baseQuery;
     }
 
     /**
@@ -492,7 +503,7 @@ public class SearchController extends AbstractFormController {
         return listModel;
     }
 
-    private Hits searchForDistricts(BooleanQuery baseQuery) {
+    protected Hits searchForDistricts(BooleanQuery baseQuery) {
         BooleanQuery districtQuery = new BooleanQuery();
         districtQuery.add(new TermQuery(new Term("type", "district")), true, false);
         districtQuery.add(baseQuery, true, false);
@@ -507,13 +518,14 @@ public class SearchController extends AbstractFormController {
         try {
             BooleanQuery cityQuery = new BooleanQuery();
             cityQuery.add(new TermQuery(new Term("type", "city")), true, false);
-            if (state != null) {
-                cityQuery.add(new TermQuery(new Term("text", state.getLongName().toLowerCase())), false, false);
-                cityQuery.add(new TermQuery(new Term("text", state.getAbbreviationLowerCase())), false, false);
-            }
 
             Query parsedCityQuery = _cityQueryParser.parse(queryString);
             cityQuery.add(parsedCityQuery, true, false);
+
+            if (state != null) {
+                cityQuery.add(new TermQuery(new Term("city", state.getLongName().toLowerCase())), false, false);
+                cityQuery.add(new TermQuery(new Term("city", state.getAbbreviationLowerCase())), false, false);
+            }
 
             return _searcher.search(cityQuery, null, null, null);
 
