@@ -359,7 +359,7 @@ public class SearchController extends AbstractFormController {
                 State stateOfCity = _stateManager.getState(cityHits.doc(ii).get("state"));
                 int count = _schoolDao.countSchools(stateOfCity,
                         (st != null ? SchoolType.getSchoolType(st) : null),
-                        (gl != null ? LevelCode.createLevelCode(gl) : null),
+                        (gl != null ? LevelCode.createLevelCode(gl.substring(0,1)) : null),
                         cityName);
                 if (count > 0) {
                     urlBuilder.setParameter("city", cityName);

@@ -219,4 +219,29 @@ public class SearchControllerTest extends BaseControllerTestCase {
         Anchor anchorage = (Anchor) filteredListModel.getResults().get(0);
         assertEquals("/schools.page?city=Anchorage&st=private&state=AK", anchorage.getHref());
     }
+    /**
+     * Regression test for GS-1935
+     * @throws IOException
+     */
+    public void testShouldntCrashOnMiddleSchoolQuery() throws IOException {
+        final GsMockHttpServletRequest request = getRequest();
+        _sessionContextUtil = (SessionContextUtil) getApplicationContext(). getBean(SessionContextUtil.BEAN_ID);
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+        final SessionContext sessionContext = _sessionContextUtil.guaranteeSessionContext(request);
+
+
+        SearchCommand searchCommand = new SearchCommand();
+        searchCommand.setQ("middle anchorage");
+        searchCommand.setState(State.AK);
+
+        Map map = _controller.createModel(request, searchCommand, sessionContext, false);
+
+        assertNotNull(map);
+        ListModel filteredListModel = (ListModel) map.get(SearchController.MODEL_FILTERED_CITIES);
+        assertNotNull(filteredListModel);
+        assertNotNull(filteredListModel.getResults());
+        assertTrue(filteredListModel.getResults().size() >= 1);
+        Anchor anchorage = (Anchor) filteredListModel.getResults().get(0);
+        assertEquals("/schools.page?city=Anchorage&lc=m&state=AK", anchorage.getHref());
+    }
 }
