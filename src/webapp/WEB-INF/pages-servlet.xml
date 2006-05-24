@@ -547,6 +547,14 @@
         </property>
     </bean>
 
+    <bean name="/content/summerReading.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>/content/summerReading</value>
+        </property>
+    </bean>
+
     <bean name="/stateLauncher.page"
           class="gs.web.state.StatePathwayController"
           autowire="byName">
