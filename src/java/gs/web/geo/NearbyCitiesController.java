@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.17 2006/04/27 22:53:47 apeterson Exp $
+* $Id: NearbyCitiesController.java,v 1.18 2006/05/24 19:26:26 apeterson Exp $
 */
 
 package gs.web.geo;
@@ -33,36 +33,39 @@ import java.util.*;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class NearbyCitiesController extends AbstractController {
-    private String _viewName;
-    private IGeoDao _geoDao;
-
-    private static final String PARAM_CITY = "city";
-    private static final String PARAM_COUNT = "count";
+    protected static final String PARAM_CITY = "city";
+    protected static final String PARAM_COUNT = "count";
     /**
      * Set if you want a "see more nearby cities..." link.
      */
-    private static final String PARAM_MORE = "more";
+    protected static final String PARAM_MORE = "more";
     /**
      * Set if you want a "see Browse all cities in CA..." link.
      */
-    private static final String PARAM_ALL = "all";
+    protected static final String PARAM_ALL = "all";
     /**
      * Set if you want to include the state in all names. Otherwise, only
      * those in cities of other states are indicated.
      */
-    private static final String PARAM_INCLUDE_STATE = "includeState";
+    protected static final String PARAM_INCLUDE_STATE = "includeState";
     /**
      * How the cities are sorted. Default is by proximity, but also can use "alpha" for
      * alphabetical.
      */
-    private static final String PARAM_ORDER = "order";
+    protected static final String PARAM_ORDER = "order";
 
-    private static final String PARAM_HEADING = "heading";
+    protected static final String PARAM_HEADING = "heading";
+
+
+    // ListModel.RESULTS has a list of Anchor objects
+    protected static final String MODEL_CITY = "cityObject"; // Base city, ICity
+    public static final String MODEL_CITIES = "cities"; // List of nearby cities
 
     private static final int DEFAULT_MAX_CITIES = 20;
 
-    private static final String MODEL_CITY = "cityObject";
-    public static final String MODEL_CITIES = "cities"; // List of nearby cities
+    private String _viewName;
+    private IGeoDao _geoDao;
+
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
