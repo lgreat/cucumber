@@ -25,12 +25,12 @@
                 <c:when test='${requestScope.context.familyCobrand}'>
                     <![CDATA[
                     <center>
-                    <iframe src="http://3ps.go.com/DynamicAd?srvc=fcom&itype=MediumRectangle"
-                    width="300" height="260" marginwidth="0" marginheight="0"
-                    hspace="0" vspace="0" frameborder="0" scrolling=no bordercolor="#000000"></iframe>
+                    <iframe src="http://3ps.go.com/DynamicAd?srvc=fcom&itype=Vertical" width="160"
+                    height="610" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0"
+                    scrolling=no bordercolor="#000000"></iframe>
                     </center>
                     ]]>
-                </c:when>                
+                </c:when>
                 <c:otherwise>
                     <script language="JavaScript">OAS_AD('x33');</script>
                 </c:otherwise>
