@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.11 2006/05/24 17:50:28 apeterson Exp $
+ * $Id: SchoolsController.java,v 1.12 2006/05/24 19:07:12 apeterson Exp $
  */
 
 package gs.web.school;
@@ -183,7 +183,8 @@ public class SchoolsController extends AbstractController {
                 model.put(MODEL_DISTNAME, district.getName());
                 request.setAttribute(MODEL_DISTNAME, district.getName());
                 searchCommand.setDistrict(districtIdStr);
-                // not needed and breaks sometimes. See SearcherTest. searchCommand.setQ(district.getName());
+                // the following is not needed and breaks sometimes. See SearcherTest. 
+                // searchCommand.setQ(district.getName());
             }
         }
 
