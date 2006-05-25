@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ListModelFactoryTest.java,v 1.1 2006/05/24 19:26:26 apeterson Exp $
+ * $Id: ListModelFactoryTest.java,v 1.2 2006/05/25 17:23:19 apeterson Exp $
  */
 
 package gs.web;
@@ -25,7 +25,10 @@ public class ListModelFactoryTest extends BaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         _listModelFactory = (ListModelFactory) getApplicationContext().getBean(ListModelFactory.BEAN_ID);
-        _request = new GsMockHttpServletRequest();
+        final GsMockHttpServletRequest request = new GsMockHttpServletRequest();
+        request.setRequestURI("http://www.greatschools.net/index.html");
+        request.setRemoteHost("www.greatschools.net");
+                _request = request;
     }
 
     public void testSchoolBreakdown() throws Exception {
