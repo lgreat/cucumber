@@ -32,7 +32,7 @@
         <th align="left" class="result_title">Schools</th>
         <th align="center" class="result_title">Type</th>
         <th align="center" class="result_title">Grade</th>
-        <th align="center" class="result_title"><c:out value="Enrollment  " escapeXml="true" /></th>
+        <th align="center" class="result_title">Enrollment</th>
     </tr>
 
     <c:forEach items="${schools}" var="school">
@@ -69,11 +69,12 @@
                         </div>
                     </c:if>
                 </td>
-                <td class="st" ><c:out
-                        value="${school.type.schoolTypeName}"/></td>
-                <td class="gl"><c:set var="grades"
-                                          value="${school.gradeLevels.rangeString}"/><c:out
-                        value="${(empty grades) ? 'not available' : grades}"/>
+                <td class="st" >
+                    <c:out value="${school.type.schoolTypeName}"/>
+                </td>
+                <td class="gl">
+                    <c:set var="grades" value="${school.gradeLevels.rangeString}"/>
+                    <c:out value="${(empty grades) ? 'not available' : grades}"/>
                 </td>
                 <td class="enrollment">
                     <c:choose>
