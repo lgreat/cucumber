@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.10 2006/05/19 19:35:24 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.11 2006/05/25 17:08:32 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -14,6 +14,7 @@ import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.SessionContextUtil;
+import gs.web.ListModelFactory;
 import gs.web.util.Anchor;
 import gs.web.util.ListModel;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,6 +43,7 @@ public class CityControllerTest extends BaseControllerTestCase {
         _controller.setDistrictDao((IDistrictDao) getApplicationContext().getBean(IDistrictDao.BEAN_ID));
         _controller.setGeoDao((IGeoDao) getApplicationContext().getBean(IGeoDao.BEAN_ID));
         _controller.setStateManager((StateManager) getApplicationContext().getBean(StateManager.BEAN_ID));
+        _controller.setListModelFactory( (ListModelFactory) getApplicationContext().getBean(ListModelFactory.BEAN_ID));
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().
                 getBean(SessionContextUtil.BEAN_ID);
     }
