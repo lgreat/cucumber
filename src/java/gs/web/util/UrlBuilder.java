@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.30 2006/05/19 20:41:58 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.31 2006/05/25 17:45:00 apeterson Exp $
  */
 
 package gs.web.util;
@@ -30,7 +30,7 @@ import java.util.*;
  * <li>our specific pages, or "vpages". This provides a centralized place to
  * create URLs. These are fundamentally separate concepts, but they are
  * intertwined here, at least for the time being.
- * </ul>
+ * </ol>
  * </p>
  * In Java code, use this class to build URLs. On Jsps and within Tag files,
  * use the "link" taglib, which is a thin wrapper around this class.
@@ -58,7 +58,11 @@ public class UrlBuilder {
     private VPage _vPage; // used for some urls
     private static UrlUtil _urlUtil = new UrlUtil();
 
-
+    /**
+     * Provides type-safety for identifying our unique "pages".
+     * Currently we don't use the enum capabilities. Consider
+     * omitting this superclass.
+     */
     public static class VPage extends org.apache.commons.lang.enums.Enum {
 
         private VPage(String s) {
@@ -66,6 +70,9 @@ public class UrlBuilder {
         }
     }
 
+    /**
+     * A page that provides an overview of our entire article library.
+     */
     public static final VPage ARTICLE_LIBRARY = new VPage("vpage:articleLibrary");
 
     public static final VPage CITY_PAGE = new VPage("vpage:city");
@@ -74,12 +81,24 @@ public class UrlBuilder {
 
     public static final VPage DISTRICT_PROFILE = new VPage("vpage:districtProfile");
 
+    /**
+     * Allows a user to edit and create school lits.
+     */
     public static final VPage MY_SCHOOL_LIST = new VPage("vpage:mySchoolList");
+    /**
+     * Information about newsletters.
+     */
     public static final VPage NEWSLETTER_CENTER = new VPage("vpage:newsletterCenter");
+    /**
+     * Manage new or existing subscriptions.
+     */
     public static final VPage NEWSLETTER_MANAGEMENT = new VPage("vpage:newsletterManagement");
 
-    public static final VPage SCHOOL_PARENT_REVIEWS = new VPage("vpage:schoolParentReviews");
     public static final VPage SCHOOL_PROFILE = new VPage("vpage:schoolProfile");
+    /**
+     * Parent reviews about a specific school.
+     */
+    public static final VPage SCHOOL_PARENT_REVIEWS = new VPage("vpage:schoolParentReviews");
 
     public static final VPage SCHOOLS_IN_CITY = new VPage("vpage:schoolsInCity");
     public static final VPage SCHOOLS_IN_DISTRICT = new VPage("vpage:schoolsInDistrict");
@@ -97,8 +116,10 @@ public class UrlBuilder {
      *                            Tomcat, or possibly spring, has decorated the request so that it
      *                            doesn't point to what the user really asked for. If you're in the midst of processing a page, it now points to the
      *                            Jsp page that is being shown, not the user's request. It does seem to work in the controller, though.
-     *                            I solved this before by grabbing it earlier on in the servlet processing
-     *                            and stashing it away for later retrieval.
+     *                            I know of one solution that I haven't implemented here:
+     *                            Grab the path earlier on in the servlet processing
+     *                            and stash it away for later retrieval.
+     * @deprecated use VPage-oriented methods when possible
      */
     public UrlBuilder(HttpServletRequest request, String contextRelativePath) {
         _path = contextRelativePath;
@@ -304,10 +325,12 @@ public class UrlBuilder {
     }
 
     /**
-     * Replaces the given parameter.
+     * Adds the given parameter. If one exists already, this one is added as well.
      *
      * @param value previously encoded value. Spaces should be represented by "+" signs,
      *              and "=" and "&" should be encoded, along with other extended characters.
+     * @see #setParameterNoEncoding(String, String)
+     * @see #addParameter(String, String)
      */
     public void addParameterNoEncoding(String key, String value) {
         if (_parameters == null) {
@@ -340,9 +363,11 @@ public class UrlBuilder {
     }
 
     /**
-     * Replaces the given parameter.
+     * Adds the given parameter. If it exists already, then this one is also added.
      *
      * @param value unencoded values. Spaces, ampersands, equal signs, etc. will be replaced.
+     * @see #addParameterNoEncoding
+     * @see #setParameter(String, String)
      */
     public void addParameter(String key, String value) {
         try {
