@@ -1,10 +1,13 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryController.java,v 1.5 2006/05/05 22:35:57 dlee Exp $
+ * $Id: SubscriptionSummaryController.java,v 1.6 2006/05/25 21:47:17 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
-import gs.data.community.*;
+import gs.data.community.IUserDao;
+import gs.data.community.Subscription;
+import gs.data.community.SubscriptionProduct;
+import gs.data.community.User;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
@@ -28,15 +31,14 @@ public class SubscriptionSummaryController extends SimpleFormController {
     protected final Log _log = LogFactory.getLog(getClass());
 
     private IUserDao _userDao;
-    private ISubscriptionDao _subscriptionDao;
     private ISchoolDao _schoolDao;
     private List _onLoadValidators;
 
-    private static final String MODEL_SCHOOL_NAME = "schoolName";
-    private static final String MODEL_PARENT_ADVISOR = "parentAdvisor";
-    private static final String MODEL_SET_NTH_GRADER = "setNth";
-    private static final String MODEL_SET_MS_HS = "setMsHs";
-    private static final String MODEL_EMAIL = "email";
+    public static final String MODEL_SCHOOL_NAME = "schoolName";
+    public static final String MODEL_PARENT_ADVISOR = "parentAdvisor";
+    public static final String MODEL_SET_NTH_GRADER = "setNth";
+    public static final String MODEL_SET_MS_HS = "setMsHs";
+    public static final String MODEL_EMAIL = "email";
 
 
     private String _viewName;
@@ -110,14 +112,6 @@ public class SubscriptionSummaryController extends SimpleFormController {
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
-    }
-
-    public ISubscriptionDao getSubscriptionDao() {
-        return _subscriptionDao;
-    }
-
-    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
-        _subscriptionDao = subscriptionDao;
     }
 
     public ISchoolDao getSchoolDao() {
