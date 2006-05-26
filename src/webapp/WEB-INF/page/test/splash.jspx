@@ -18,121 +18,121 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <title>GreatSchools.net</title>
-    <style type="text/css">
-        #contentGS {
-            margin: 10px 10px 10px 10px;
-            text-align: left;
-            /*font-family: Skia,Gill Sans, arial, helvetica, sans-serif;*/
-        }
+<title>GreatSchools.net</title>
+<style type="text/css">
+#contentGS {
+    margin: 10px 10px 10px 10px;
+    text-align: left; /*font-family: Skia,Gill Sans, arial, helvetica, sans-serif;*/
+}
 
-        .bigDottedDivider {
-            margin-top: 20px;
-            border-bottom: 3px dotted #cccccc;
-            margin-bottom: 20px;
-        }
+.bigDottedDivider {
+    margin-top: 20px;
+    border-bottom: 3px dotted #cccccc;
+    margin-bottom: 20px;
+}
 
-        #billsBlog {
-            /*width: 100%; /**/
-            background-color: #f7f7f7;
-            color: #555;
-            font-weight: 100;
-            padding: 0px 20px 20px 0px;
-            height: 156px;
-        }
+#billsBlog {
+/*width: 100%; /**/
+    background-color: #f7f7f7;
+    color: #555;
+    font-weight: 100;
+    padding: 0px 20px 20px 0px;
+    height: 156px;
+}
 
-        #billsBlog img {
-            padding-right: 30px;
-        }
-        #billsBlog h3 {
-            padding-top: 30px;
-            font-size: large;
-            font-weight: 100;
-            text-transform: capitalize;
-        }
+#billsBlog img {
+    padding-right: 30px;
+}
 
-        #billsBlog h4 {
-            padding-top: 0px;
-            font-size: small;
-        }
+#billsBlog h3 {
+    padding-top: 30px;
+    font-size: large;
+    font-weight: 100;
+    text-transform: capitalize;
+}
 
-        #billsBlog div.rss {
-            padding-top: 10px;
-            font-size: small;
-            font-weight: normal;
-        }
+#billsBlog h4 {
+    padding-top: 0px;
+    font-size: small;
+}
+
+#billsBlog div.rss {
+    padding-top: 10px;
+    font-size: small;
+    font-weight: normal;
+}
+
+#findYourSchool {
+    margin-top: 40px;
+    border-top: 1px solid #bbb;
+    padding-top: 40px;
+}
+
+#findBestSchools h3,
+    #findYourSchool h3 {
+    font-size: large;
+    color: #999;
+    font-weight: 100;
+}
+
+#findBestSchools .huge,
+    #findYourSchool  .huge {
+    font-size: x-large;
+    font-weight: bold;
+    color: #009edb;
+}
+
+#navcontainer ul {
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 0;
+    margin-top: 0; /* cancels gap caused by top padding in Opera 7.54 */
+    margin-left: 0;
+    background-color: #e7f7fb;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 18px; /* fixes Firefox 0.9.3 */
+}
+
+#navcontainer ul li {
+    display: inline;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 5px; /* matches link padding except for left and right */
+    padding-top: 5px;
+}
+
+#navcontainer ul li a {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    color: #009edb;
+    text-decoration: none;
+    border-right: 1px solid #fff;
+}
+
+#navcontainer ul li a:hover {
+    background-color: #009edb;
+    color: white;
+}
+
+#navcontainer #active {
+    padding-bottom: 5px;
+    padding-top: 5px;
+    text-decoration: none;
+}
+
+#navcontainer #active a {
+    padding-bottom: 5px;
+    padding-top: 5px;
+    text-decoration: none;
+    color: white;
+    background-color: #009edb;
+}
 
 
-            #findYourSchool{
-                margin-top: 40px;
-                border-top: 1px solid #bbb;
-                padding-top: 40px;
-        }
-        #findBestSchools h3,
-            #findYourSchool h3 {
-            font-size: large;
-            color: #999;
-            font-weight: 100;
-        }
-
-        #findBestSchools .huge,
-            #findYourSchool  .huge{
-            font-size: x-large;
-            font-weight: bold;
-            color: #009edb;
-        }
-
-        #navcontainer ul {
-            padding-bottom: 5px;
-            padding-top: 5px;
-            padding-left: 0;
-            margin-top: 0; /* cancels gap caused by top padding in Opera 7.54 */
-            margin-left: 0;
-            background-color: #e7f7fb;
-            color: white;
-            font-family: Arial, Helvetica, sans-serif;
-            line-height: 18px; /* fixes Firefox 0.9.3 */
-        }
-
-        #navcontainer ul li {
-            display: inline;
-            padding-left: 0;
-            padding-right: 0;
-            padding-bottom: 5px; /* matches link padding except for left and right */
-            padding-top: 5px;
-        }
-
-        #navcontainer ul li a {
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-bottom: 5px;
-            padding-top: 5px;
-            color: #009edb;
-            text-decoration: none;
-            border-right: 1px solid #fff;
-        }
-
-        #navcontainer ul li a:hover {
-            background-color: #009edb;
-            color: white;
-        }
-
-        #navcontainer #active {
-            padding-bottom: 5px;
-            padding-top: 5px;
-            text-decoration: none;
-        }
-
-        #navcontainer #active a {
-            padding-bottom: 5px;
-            padding-top: 5px;
-            text-decoration: none;
-            color: white;
-            background-color: #009edb;
-        }
-
-
-    </style>
+</style>
 </head>
 
 <gsml:body adPageName="modal">
@@ -143,18 +143,20 @@
                 <div id="cLeft">left</div>
             </td>
             <td width="33%">
-                    <div id="findBestSchools">
-                        <h3>Find the<br/><span class="huge">BEST SCHOOLS</span> in your city</h3>
+                <div id="findBestSchools">
+                    <h3>Find the<br/><span class="huge">BEST SCHOOLS</span> in your city</h3>
+                    <gsml:form action="/browseCities.page" method="GET">
                         <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.stateOrDefault}"/>
-                        <input type="button" value="Go"/>
-                    </div>
+                        <input type="submit" value="Go"/>
+                    </gsml:form>
+                </div>
 
 
-                    <div id="findYourSchool">
-                        <h3>See how<br/><span class="huge ">YOUR SCHOOL</span> stacks up</h3>
-                        <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.stateOrDefault}"/>
-                        <input type="button" value="Go"/>
-                    </div>
+                <div id="findYourSchool">
+                    <h3>See how<br/><span class="huge ">YOUR SCHOOL</span> stacks up</h3>
+                    <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.stateOrDefault}"/>
+                    <input type="submit" value="Go"/>
+                </div>
             </td>
         </tr>
         <tr>
@@ -166,11 +168,13 @@
             <td width="66%">
 
                 <div id="billsBlog">
-                        <img src="http://www.chicagotelevision.com/freckDD.jpg" style="float: left; clear: none;"/>
-                        <h3>BILL'S BLOG</h3>
-                        <h4>Founder &amp; CEO of GreatSchools</h4>
-                        <div class="rss"><rss:billsBlog/></div>
-                    </div>
+                    <img src="http://www.chicagotelevision.com/freckDD.jpg" style="float: left; clear: none;"/>
+
+                    <h3>BILL'S BLOG</h3>
+                    <h4>Founder &amp; CEO of GreatSchools</h4>
+
+                    <div class="rss"><rss:billsBlog/></div>
+                </div>
 
 
             </td>
