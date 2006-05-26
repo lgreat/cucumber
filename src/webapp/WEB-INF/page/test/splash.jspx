@@ -140,7 +140,21 @@
     <table cellpadding="0" cellspacing="20" width="100%">
         <tr>
             <td width="66%">
-                <div id="cLeft">left</div>
+                <div id="cLeft">
+                    <p>
+                        As a user, I would like to see 2-4 large ads about GS features, and click on them to be directed
+                        to the feature that they're advertising.
+                        </p>
+                    <ol>
+                        <li>Newsletter ad that links to hover for Nth grader - Add email entry box to hover ad Nth
+                            grader page</li>
+                        <li>Back to school ad</li>
+                        <li>Content ad, linking to Your Child K-3, your Child 4-5, Your Child 6-12 [new pages that will
+                            be developed in the next release]</li>
+                        <li>Parent Reviews</li>
+                        <li>Troubleshooter</li>
+                    </ol>
+                </div>
             </td>
             <td width="33%">
                 <div id="findBestSchools">
