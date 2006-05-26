@@ -154,8 +154,12 @@
 
                 <div id="findYourSchool">
                     <h3>See how<br/><span class="huge ">YOUR SCHOOL</span> stacks up</h3>
+                    <gsml:form action="/search/search.page" method="GET" >
                     <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.stateOrDefault}"/>
+                    <input type="text" value="" name="q" size="20"/>
+                    <input type="hidden" value="school" name="type"/>
                     <input type="submit" value="Go"/>
+                    </gsml:form>
                 </div>
             </td>
         </tr>

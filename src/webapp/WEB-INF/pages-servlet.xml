@@ -470,6 +470,8 @@
         </property>
     </bean>
 
+    <bean name="/browseCities.page" class="gs.web.geo.BrowseCitiesController" autowire="byName"></bean>
+
     <bean name="/school/performance/bestValuesMap.page"
           class="gs.web.school.performance.BestPublicSchoolValuesController"
           autowire="byName">
