@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BrowseCitiesControllerTest.java,v 1.1 2006/05/26 19:03:58 apeterson Exp $
+ * $Id: BrowseCitiesControllerTest.java,v 1.2 2006/05/26 19:13:43 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -34,6 +34,20 @@ public class BrowseCitiesControllerTest extends BaseControllerTestCase {
         RedirectView view = (RedirectView) mav.getView();
         assertNotNull(view.getUrl());
         assertEquals("/modperl/cities/ak/", view.getUrl());
+    }
+
+    public void testAlaskaMapsFromDevWorkstation() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setServerName("localhost");
+        request.setContextPath("/gs-web");
+        request.setParameter("state", "AK");
+        getSessionContext().setState(State.AK);
+
+        ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
+
+        RedirectView view = (RedirectView) mav.getView();
+        assertNotNull(view.getUrl());
+        assertEquals("http://dev.greatschools.net/modperl/cities/ak/", view.getUrl());
     }
 
     public void testCaliforniaMaps() throws Exception {
