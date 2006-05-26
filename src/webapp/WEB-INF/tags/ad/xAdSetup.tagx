@@ -31,7 +31,7 @@
         request.setAttribute("ads", ads);
         ]]></jsp:scriptlet>
     <c:if test="${!requestScope.pageHelper.adFree and !empty ads}">
-        <c:if test="${!requestScope.context.yahooCobrand}">
+        <c:if test="${!requestScope.context.yahooCobrand and !requestScope.context.familyCobrand}">
             <!-- OAS SETUP begin -->
             <script type="text/javascript">
                 //configuration
