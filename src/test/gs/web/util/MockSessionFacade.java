@@ -1,14 +1,14 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MockSessionFacade.java,v 1.4 2006/02/10 02:10:29 thuss Exp $
+ * $Id: MockSessionFacade.java,v 1.5 2006/05/26 17:29:32 dlee Exp $
  */
 
 package gs.web.util;
 
-import gs.web.ISessionFacade;
-import gs.data.util.SpringUtil;
 import gs.data.community.User;
 import gs.data.state.State;
+import gs.data.util.SpringUtil;
+import gs.web.ISessionFacade;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -84,10 +84,14 @@ public class MockSessionFacade implements ISessionFacade {
     }
 
     public void setAdvertisingOnline(boolean online) {
-        _advertisingOnline = online; 
+        _advertisingOnline = online;
     }
 
     public boolean isYahooCobrand() {
+        return false;
+    }
+
+    public boolean isFamilyCobrand() {
         return false;
     }
 

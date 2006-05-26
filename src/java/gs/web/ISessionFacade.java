@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ISessionFacade.java,v 1.7 2006/02/10 02:10:29 thuss Exp $
+ * $Id: ISessionFacade.java,v 1.8 2006/05/26 17:27:52 dlee Exp $
  */
 
 package gs.web;
@@ -76,6 +76,12 @@ public interface ISessionFacade {
      * yahoo cobrands are yahooed and yahoo
      */
     boolean isYahooCobrand();
+
+    /**
+     * Is this disney's family cobrand?
+     * family.greatschools.net
+     */
+    boolean isFamilyCobrand();
 
     String getSecureHostName();
 }
