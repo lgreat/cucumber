@@ -9,61 +9,10 @@
 
     <decorator name="popupDecorator" page="popupDecorator.jspx">
         <pattern>/community/newsletters/popup/mss/page*</pattern>
-        <pattern>/test/splash.page</pattern>
     </decorator>
 
     <decorator name="cobrandHeaderGsFooter" page="standardDecorator.jspx">
-
-        <pattern>/path/choose.page</pattern>
-        <pattern>/path/mySchool.page</pattern>
-
-        <pattern>/stateLauncher.page</pattern>
-
-        <pattern>/search/search.page</pattern>
-        <pattern>/search/feedback.page</pattern>
-        <pattern>/search/feedbackSubmit.page</pattern>
-
-        <pattern>/content/allArticles.page</pattern>
-        <pattern>/content/schoolChoiceCenter.page</pattern>
-        <pattern>/content/guideToTests.page</pattern>
-        <pattern>/content/summerSurvivalGuide.page</pattern>
-
-        <pattern>/about/aboutUs.page</pattern>
-        <pattern>/about/supportUs.page</pattern>
-        <pattern>/about/privacyStatement.page</pattern>
-        <pattern>/about/gsNetwork.page</pattern>
-        <pattern>/about/sponsors.page</pattern>
-        <pattern>/about/donationBridge.page</pattern>
-        <pattern>/about/pressRoom.page</pattern>
-        <pattern>/about/pressKit.page</pattern>
-        <pattern>/about/partnerOpportunities.page</pattern>
-        <pattern>/about/gsFaq.page</pattern>
-        <pattern>/about/testimonials.page</pattern>
-
-
-        <pattern>/city.page</pattern>
-        <!-- This next one is necessary to get /city/* matches, since what is matched against is
-             NOT the url, but rather the portion that is different than the server
-             config. There is a forum thread on this in sitemeshland, but no clear
-             resolution. One idea was "better integration with Spring", which makes
-             sense. -->
         <pattern>/*</pattern>
-
-        <pattern>/cities.page</pattern>
-
-        <pattern>/schools.page</pattern>
-
-        <pattern>/school/authorizers.page</pattern>
-        <pattern>/school/performance/bestValues.page</pattern>
-        <pattern>/school/performance/bestValuesMap.page</pattern>
-        <pattern>/school/performance/allCities.page</pattern>
-
-        <pattern>/test/stateHome.page</pattern>
-        <pattern>/test/modal.page</pattern>
-
-        <pattern>/community/beta.page</pattern>
-        <pattern>/community/betaThankyou.page</pattern>
-        <pattern>/community/betaUnsubscribe.page</pattern>
     </decorator>
 
     <!-- We have to explicitly exclude due to a Sitemesh 2.2.1 bug that truncates the closing html tag -->
