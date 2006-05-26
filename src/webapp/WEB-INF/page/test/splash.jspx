@@ -7,6 +7,7 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:rss="urn:jsptagdir:/WEB-INF/tags/rss"
+          xmlns:gsweb="gstaglib"
         >
 <html lang="en">
 
@@ -19,105 +20,64 @@
 <head>
     <title>GreatSchools.net</title>
     <style type="text/css">
-        #marginGS {
-            width: 95%;
+        #contentGS {
+            margin: 10px 10px 10px 10px;
             text-align: left;
+            /*font-family: Skia,Gill Sans, arial, helvetica, sans-serif;*/
         }
 
-        #h {
-            position: relative;
-            height: 140px;
-        }
-
-        #hTop {
-            position: relative;
-            float: left;
-            width: 100%;
-            height: 50%;
-        }
-
-        #hTopLogo {
-            clear: both;
-            float: left;
-            width: 44%;
-        }
-
-        #hTopSearch {
-            float: left;
-        }
-
-        #hBottom {
-            position: relative;
-            clear: both;
-            width: 100%;
-            height: 50%;
-        }
-
-        #hBottomUser {
-            float: left;
-            width: 44%;
-        }
-
-        #hBottomTabs {
-            float: left;
-        }
-
-        #c {
-            clear: both;
-            position: relative;
-            height: 350px;
-            border-bottom:3px dotted #cccccc;
-        }
-
-        #c h2 {
-            font-size: medium;
-            font-weight: 100;
-        }
-
-        #cLeft {
-            float: left;
-            width: 70%;
-            height: 100%;
-        }
-
-        #cRight {
-            float: left;
-            height: 100%;
-        }
-
-        #cRightTop {
-            height: 50%;
-        }
-
-        #cRightBottom {
-            height: 50%;
-        }
-
-        #d {
-            clear: both;
-            position: relative;
-            height: 180px;
-            padding-top: 30px;
+        .bigDottedDivider {
+            margin-top: 20px;
+            border-bottom: 3px dotted #cccccc;
+            margin-bottom: 20px;
         }
 
         #billsBlog {
-            float: left;
-            width: 70%;
-            height: 100%;
+            /*width: 100%; /**/
             background-color: #f7f7f7;
+            color: #555;
+            font-weight: 100;
+            padding: 0px 20px 20px 0px;
+            height: 156px;
         }
 
-        #billsBlog .content {
-            padding:10px;
+        #billsBlog img {
+            padding-right: 30px;
+        }
+        #billsBlog h3 {
+            padding-top: 30px;
+            font-size: large;
+            font-weight: 100;
+            text-transform: capitalize;
         }
 
-        #dRight {
-            float: left;
-            height: 100%;
+        #billsBlog h4 {
+            padding-top: 0px;
+            font-size: small;
         }
 
-        .huge {
-            font-size: 150%;
+        #billsBlog div.rss {
+            padding-top: 10px;
+            font-size: small;
+            font-weight: normal;
+        }
+
+
+            #findYourSchool{
+                margin-top: 40px;
+                border-top: 1px solid #bbb;
+                padding-top: 40px;
+        }
+        #findBestSchools h3,
+            #findYourSchool h3 {
+            font-size: large;
+            color: #999;
+            font-weight: 100;
+        }
+
+        #findBestSchools .huge,
+            #findYourSchool  .huge{
+            font-size: x-large;
             font-weight: bold;
             color: #009edb;
         }
@@ -176,54 +136,49 @@
 </head>
 
 <gsml:body adPageName="modal">
-    <div id="h">
-        <div id="hTop">
-            <div id="hTopLogo">logo</div>
-            <div id="hTopSearch">search</div>
-        </div>
 
-        <div id="hBottom">
-            <div id="hBottomUser">
-                <div style="float:left;"><span>My Page</span><span>picture</span></div>
-                <div style="float:left;position:relative;">
-                    <div style="border-bottom:1px dotted;padding-bottom:0.5em;">Welcome, alingane!</div>
-                    <div>Saved Schools - Sign Out</div>
-                </div>
-            </div>
-            <div id="hBottomTabs">
-                <div id="navcontainer">
-                    <ul id="navlist">
-                        <li id="active"><a href="#" id="current">Item one</a></li>
-                        <li><a href="#">Item two</a></li>
-                        <li><a href="#">Item three</a></li>
-                        <li><a href="#">Item four</a></li>
-                        <li><a href="#">Item five</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+    <table cellpadding="0" cellspacing="20" width="100%">
+        <tr>
+            <td width="66%">
+                <div id="cLeft">left</div>
+            </td>
+            <td width="33%">
+                    <div id="findBestSchools">
+                        <h3>Find the<br/><span class="huge">BEST SCHOOLS</span> in your city</h3>
+                        <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.stateOrDefault}"/>
+                        <input type="button" value="Go"/>
+                    </div>
 
-    <div id="c">
-        <div id="cLeft">left</div>
 
-        <div id="cRight">
-            <div id="cRightTop"><h2>Find the<br/><span class="huge">BEST SCHOOLS</span> in your city</h2></div>
+                    <div id="findYourSchool">
+                        <h3>See how<br/><span class="huge ">YOUR SCHOOL</span> stacks up</h3>
+                        <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.stateOrDefault}"/>
+                        <input type="button" value="Go"/>
+                    </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="bigDottedDivider">&#160;</div>
+            </td>
+        </tr>
+        <tr>
+            <td width="66%">
 
-            <div id="cRightBottom"><h2>See how<br/><span class="huge ">YOUR SCHOOL</span> stacks up</h2></div>
-        </div>
-    </div>
+                <div id="billsBlog">
+                        <img src="http://www.chicagotelevision.com/freckDD.jpg" style="float: left; clear: none;"/>
+                        <h3>BILL'S BLOG</h3>
+                        <h4>Founder &amp; CEO of GreatSchools</h4>
+                        <div class="rss"><rss:billsBlog/></div>
+                    </div>
 
-    <div id="d">
-        <div id="billsBlog">
-            <div class="content">
-                <span>BILL'S BLOG</span><br/>
-                <span>Founder &amp; CEO of GreatSchools</span>
-                <rss:billsBlog/>
-            </div>
-        </div>
-        <div id="dRight">did you know</div>
-    </div>
+
+            </td>
+            <td width="33%">
+                <div id="dRight">did you know</div>
+            </td>
+        </tr>
+    </table>
 
 </gsml:body>
 </html>

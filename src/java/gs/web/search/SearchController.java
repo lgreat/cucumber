@@ -8,6 +8,7 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.ISessionFacade;
 import gs.web.SessionContext;
+import gs.web.ListModelFactory;
 import gs.web.util.Anchor;
 import gs.web.util.ListModel;
 import gs.web.util.UrlBuilder;
@@ -17,7 +18,6 @@ import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.ParseException;
-import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.Query;
@@ -99,8 +99,8 @@ public class SearchController extends AbstractFormController {
 
     private StateManager _stateManager;
     private GSQueryParser _queryParser;
-    private QueryParser _cityQueryParser;
     private ISchoolDao _schoolDao;
+    private ListModelFactory _listModelFactory;
 
     public SearchController(Searcher searcher) {
         _searcher = searcher;
@@ -108,9 +108,6 @@ public class SearchController extends AbstractFormController {
         //_queryParser = new GSQueryParser("text", new GSAnalyzer());
         //_queryParser.setOperator(QueryParser.DEFAULT_OPERATOR_AND);
         _queryParser = new GSQueryParser();
-
-        _cityQueryParser = new QueryParser("city", new GSAnalyzer());
-
     }
 
     public boolean isFormSubmission(HttpServletRequest request) {
@@ -212,10 +209,15 @@ public class SearchController extends AbstractFormController {
             BooleanQuery baseQuery = createBaseQuery(sessionContext, state, queryString);
 
             if (!"topic".equals(searchCommand.getType())) {
-                Hits cityHits = searchForCities(queryString, state);
+                Hits cityHits = _searcher.searchForCities(queryString, state);
                 if (cityHits != null && cityHits.length() != 0) {
-                    ListModel cities = createCitiesListModel(request, cityHits, state,
-                            StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE)) ? SchoolType.CHARTER : null);
+                    final int maxCities = StringUtils.isNotEmpty(request.getParameter(PARAM_MORE_CITIES)) ?
+                            EXTENDED_LIST_SIZE : LIST_SIZE;
+                    final boolean showMore = cityHits.length() > LIST_SIZE && maxCities == LIST_SIZE;
+                    ListModel cities = _listModelFactory.createCitiesListModel(request, cityHits,
+                            StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE)) ? SchoolType.CHARTER : null,
+                            maxCities,
+                            showMore);
                     if (cities.getResults().size() > 0) {
                         model.put(MODEL_CITIES, cities);
                         resultsToShow = true;
@@ -249,8 +251,11 @@ public class SearchController extends AbstractFormController {
 
 
                 Hits districtHits = searchForDistricts(baseQuery);
-                ListModel districts = createDistrictsListModel(request, districtHits, state,
-                        StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE)) ? SchoolType.CHARTER : null);
+                ListModel districts = _listModelFactory.createDistrictsListModel(request, districtHits, state,
+                        StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE)) ? SchoolType.CHARTER : null, StringUtils.isNotEmpty(request.getParameter(PARAM_MORE_DISTRICTS)) ?
+                        EXTENDED_LIST_SIZE : LIST_SIZE, districtHits.length() > LIST_SIZE &&
+                        (StringUtils.isNotEmpty(request.getParameter(PARAM_MORE_DISTRICTS)) ?
+                        EXTENDED_LIST_SIZE : LIST_SIZE) == LIST_SIZE);
                 if (districts.getResults().size() > 0) {
                     model.put(MODEL_DISTRICTS, districts);
                     resultsToShow = true;
@@ -359,7 +364,7 @@ public class SearchController extends AbstractFormController {
                 State stateOfCity = _stateManager.getState(cityHits.doc(ii).get("state"));
                 int count = _schoolDao.countSchools(stateOfCity,
                         (st != null ? SchoolType.getSchoolType(st) : null),
-                        (gl != null ? LevelCode.createLevelCode(gl.substring(0,1)) : null),
+                        (gl != null ? LevelCode.createLevelCode(gl.substring(0, 1)) : null),
                         cityName);
                 if (count > 0) {
                     urlBuilder.setParameter("city", cityName);
@@ -424,77 +429,7 @@ public class SearchController extends AbstractFormController {
         return gl;
     }
 
-    private ListModel createDistrictsListModel(HttpServletRequest request, Hits districtHits, State state, SchoolType schoolType) throws IOException {
-        ListModel listModel = new ListModel("" +
-                (SchoolType.CHARTER.equals(schoolType) ? "Charter schools" : "Schools") +
-                " in the district of:");
 
-        int districtListSize =
-                StringUtils.isNotEmpty(request.getParameter(PARAM_MORE_DISTRICTS)) ?
-                        EXTENDED_LIST_SIZE : LIST_SIZE;
-        for (int j = 0; j < districtListSize; j++) {
-            if (districtHits != null && districtHits.length() > j) {
-                Document districtDoc = districtHits.doc(j);
-                String id = districtDoc.get("id");
-                UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_DISTRICT, state, id);
-                String districtName = districtDoc.get("name");
-                String s = districtDoc.get("state");
-                State stateOfCity = _stateManager.getState(s);
-                if (!ObjectUtils.equals(state, stateOfCity)) {
-                    districtName += " (" + stateOfCity.getAbbreviation() + ")";
-                }
-                listModel.addResult(builder.asAnchor(request, districtName));
-            }
-        }
-        // add a more button if necessary
-        if (districtHits.length() > LIST_SIZE &&
-                districtListSize == LIST_SIZE) {
-            UrlBuilder builder = new UrlBuilder(request, "/search/search.page");
-            builder.addParametersFromRequest(request);
-            builder.setParameter(PARAM_MORE_DISTRICTS, "true");
-            listModel.addResult(builder.asAnchor(request, "more districts..."));
-        }
-        if (listModel.getResults().size() > 0) {
-            Anchor a = (Anchor) listModel.getResults().get(listModel.getResults().size() - 1);
-            a.setStyleClass("last");
-        }
-        return listModel;
-    }
-
-    private ListModel createCitiesListModel(HttpServletRequest request, Hits cityHits, State state, SchoolType schoolType) throws IOException {
-        ListModel listModel = new ListModel("" +
-                (SchoolType.CHARTER.equals(schoolType) ? "Charter schools" : "Schools") +
-                " in the city of: ");
-        int cityListSize =
-                StringUtils.isNotEmpty(request.getParameter(PARAM_MORE_CITIES)) ?
-                        EXTENDED_LIST_SIZE : LIST_SIZE;
-        for (int i = 0; i < cityListSize; i++) {
-            if (cityHits != null && cityHits.length() > i) {
-                Document cityDoc = cityHits.doc(i);
-                String cityName = cityDoc.get("city");
-                String s = cityDoc.get("state");
-                State stateOfCity = _stateManager.getState(s);
-                UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
-                        stateOfCity,
-                        cityName);
-                cityName += ", " + stateOfCity;
-                listModel.addResult(builder.asAnchor(request, cityName));
-            }
-        }
-        // add a more button if necessary
-        if (cityHits.length() > LIST_SIZE &&
-                cityListSize == LIST_SIZE) {
-            UrlBuilder builder = new UrlBuilder(request, "/search/search.page");
-            builder.addParametersFromRequest(request);
-            builder.setParameter(PARAM_MORE_CITIES, "true");
-            listModel.addResult(builder.asAnchor(request, "more cities..."));
-        }
-        if (listModel.getResults().size() > 0) {
-            Anchor a = (Anchor) listModel.getResults().get(listModel.getResults().size() - 1);
-            a.setStyleClass("last");
-        }
-        return listModel;
-    }
 
     protected Hits searchForDistricts(BooleanQuery baseQuery) {
         BooleanQuery districtQuery = new BooleanQuery();
@@ -502,31 +437,6 @@ public class SearchController extends AbstractFormController {
         districtQuery.add(baseQuery, true, false);
         Hits districtHits = _searcher.search(districtQuery, null, null, null);
         return districtHits;
-    }
-
-    /**
-     * Query for cities matching query.
-     */
-    protected Hits searchForCities(String queryString, State state) {
-        try {
-            BooleanQuery cityQuery = new BooleanQuery();
-            cityQuery.add(new TermQuery(new Term("type", "city")), true, false);
-
-            Query parsedCityQuery = _cityQueryParser.parse(queryString);
-            cityQuery.add(parsedCityQuery, true, false);
-
-            if (state != null) {
-                cityQuery.add(new TermQuery(new Term("city", state.getLongName().toLowerCase())), false, false);
-                cityQuery.add(new TermQuery(new Term("city", state.getAbbreviationLowerCase())), false, false);
-            }
-
-            return _searcher.search(cityQuery, null, null, null);
-
-        } catch (ParseException pe) {
-            _log.warn("error parsing: " + queryString, pe);
-            return null;
-        }
-
     }
 
     public void setStateManager(StateManager stateManager) {
@@ -549,4 +459,11 @@ public class SearchController extends AbstractFormController {
         _schoolDao = schoolDao;
     }
 
+    public ListModelFactory getListModelFactory() {
+        return _listModelFactory;
+    }
+
+    public void setListModelFactory(ListModelFactory listModelFactory) {
+        _listModelFactory = listModelFactory;
+    }
 }

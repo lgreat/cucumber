@@ -1,33 +1,42 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ListModelFactory.java,v 1.1 2006/05/24 19:26:26 apeterson Exp $
+ * $Id: ListModelFactory.java,v 1.2 2006/05/26 18:28:51 apeterson Exp $
  */
 
 package gs.web;
 
-import gs.data.geo.IGeoDao;
 import gs.data.geo.ICity;
+import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
-import gs.data.school.district.IDistrictDao;
 import gs.data.school.district.District;
-import gs.data.state.StateManager;
+import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
-import gs.web.util.ListModel;
+import gs.data.state.StateManager;
+import gs.web.school.SchoolsController;
+import gs.web.search.SearchController;
 import gs.web.util.Anchor;
+import gs.web.util.ListModel;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
-import gs.web.school.SchoolsController;
+import org.apache.commons.lang.ObjectUtils;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.search.Hits;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Iterator;
-import java.util.Map;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
- * Provides...
+ * Generates ListModel objects from all sorts of input. Created to reduce
+ * the size of the controller classes and to easily allow sharing of model
+ * generation code across controllers.
+ * </p>
+ * At some point, this could be divided into topic-specific factories.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
@@ -42,7 +51,11 @@ public class ListModelFactory {
     private final UrlUtil _urlUtil = new UrlUtil();
 
 
-
+    /**
+     * Provides a list of districts in a city. Currently it caps the list at 5. If there are
+     * five or fewer, it sorts them alphabetically. If there are more than 5, it shows them
+     * based on size.
+     */
     public ListModel createDistrictList(State state, String cityNameParam, HttpServletRequest request) {
         ListModel districts = new ListModel();
 
@@ -79,6 +92,22 @@ public class ListModelFactory {
         return districts;
     }
 
+    /**
+     * Summarizes the schools in a city. It creates an item for each of the following, if there are any:
+     * <ul>
+     * <li>elementary schools
+     * <li>middle schools
+     * <li>high schools
+     * <li>public schools (includes charter)
+     * <li>private schools
+     * <li>all schools
+     * </ul>
+     *
+     * @param cityName        the name as defined in the city table and associated with all schools
+     * @param cityDisplayName name to display, usually the same as cityName. Two cases
+     *                        where it is different "New York" is labeled "New York City", and "Washington" is
+     *                        labelled "Washington, D.C."
+     */
     public ListModel createSchoolSummaryModel(State state, String cityName, String cityDisplayName, HttpServletRequest request) {
         // the summaries of schools in a city
         ListModel schoolBreakdownList;
@@ -163,7 +192,7 @@ public class ListModelFactory {
      * @param request required
      * @return non-null, but possibly empty map
      */
-    private Map createSchoolsByLevelModel(State state, ICity city, HttpServletRequest request) {
+    public Map createSchoolsByLevelModel(State state, ICity city, HttpServletRequest request) {
         // the summaries of schools in a city
         Map map;
 
@@ -208,6 +237,93 @@ public class ListModelFactory {
         return map;
     }
 
+    /**
+     * Generates a list of links to schools in the given Hits cities.
+     *
+     * @throws IOException
+     */
+    public ListModel createCitiesListModel(HttpServletRequest request,
+                                           Hits cityHits,
+                                           SchoolType schoolType,
+                                           int maxCities,
+                                           boolean showMore) throws IOException {
+        ListModel listModel = new ListModel("" +
+                (SchoolType.CHARTER.equals(schoolType) ? "Charter schools" : "Schools") +
+                " in the city of: ");
+
+        for (int i = 0; i < maxCities; i++) {
+            if (cityHits != null && cityHits.length() > i) {
+                Document cityDoc = cityHits.doc(i);
+                String cityName = cityDoc.get("city");
+                String s = cityDoc.get("state");
+                State stateOfCity = _stateManager.getState(s);
+                UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
+                        stateOfCity,
+                        cityName);
+                cityName += ", " + stateOfCity;
+                listModel.addResult(builder.asAnchor(request, cityName));
+            }
+        }
+
+        // add a more button if necessary
+        if (showMore) {
+            UrlBuilder builder = new UrlBuilder(request, "/search/search.page");
+            builder.addParametersFromRequest(request);
+            builder.setParameter(SearchController.PARAM_MORE_CITIES, "true");
+            listModel.addResult(builder.asAnchor(request, "more cities..."));
+        }
+
+        if (listModel.getResults().size() > 0) {
+            Anchor a = (Anchor) listModel.getResults().get(listModel.getResults().size() - 1);
+            a.setStyleClass("last");
+        }
+        return listModel;
+    }
+
+    /**
+     * Creates list of links to the schools in the given districts.
+     *
+     * @throws IOException
+     */
+    public ListModel createDistrictsListModel(HttpServletRequest request,
+                                              Hits districtHits,
+                                              State state,
+                                              SchoolType schoolType,
+                                              int maxDistricts,
+                                              boolean showMore) throws IOException {
+        ListModel listModel = new ListModel("" +
+                (SchoolType.CHARTER.equals(schoolType) ? "Charter schools" : "Schools") +
+                " in the district of:");
+
+        for (int j = 0; j < maxDistricts; j++) {
+            if (districtHits != null && districtHits.length() > j) {
+                Document districtDoc = districtHits.doc(j);
+                String id = districtDoc.get("id");
+                UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_DISTRICT, state, id);
+                String districtName = districtDoc.get("name");
+                String s = districtDoc.get("state");
+                State stateOfCity = _stateManager.getState(s);
+                if (!ObjectUtils.equals(state, stateOfCity)) {
+                    districtName += " (" + stateOfCity.getAbbreviation() + ")";
+                }
+                listModel.addResult(builder.asAnchor(request, districtName));
+            }
+        }
+
+        // add a more button if necessary
+        if (showMore) {
+            UrlBuilder builder = new UrlBuilder(request, "/search/search.page");
+            builder.addParametersFromRequest(request);
+            builder.setParameter(SearchController.PARAM_MORE_DISTRICTS, "true");
+            listModel.addResult(builder.asAnchor(request, "more districts..."));
+        }
+
+        if (listModel.getResults().size() > 0) {
+            Anchor a = (Anchor) listModel.getResults().get(listModel.getResults().size() - 1);
+            a.setStyleClass("last");
+        }
+        return listModel;
+    }
 
     public IGeoDao getGeoDao() {
         return _geoDao;
