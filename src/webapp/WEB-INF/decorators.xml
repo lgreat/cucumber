@@ -27,6 +27,7 @@
         <pattern>*/compareSchools.page*</pattern>
         <pattern>*/community/conversion/*</pattern>
         <pattern>*/content/box/*</pattern>
+        <pattern>*/search/raw.page*</pattern>
     </excludes>
 
 </decorators>
