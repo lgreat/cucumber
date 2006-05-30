@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.14 2006/05/30 18:43:06 chriskimm Exp $
+ * $Id: SessionContextUtil.java,v 1.15 2006/05/30 20:19:57 dlee Exp $
  */
 
 package gs.web;
@@ -16,6 +16,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.web.util.CookieGenerator;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +34,8 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     // user can change state by passing a parameter on the command line
     public static final String STATE_PARAM = "state";
+    //cookie name for state
+    public static final String STATE_COOKIE = "state";
 
     // user can change the cobrand by passing a parameter on the command line
     public static final String COBRAND_PARAM = "cobrand";
@@ -105,6 +108,12 @@ public class SessionContextUtil implements ApplicationContextAware {
                     if (!path.equals(context.getPathway())) {
                         context.setPathway(path); // TODO validation
                     }
+                } else if (STATE_COOKIE.equals(thisCookie.getName())) {
+                    String state = thisCookie.getValue();
+                    State s = _stateManager.getState(state);
+                    if (s != null) {
+                        context.setState(s);
+                    }
                 }
             }
 
@@ -169,8 +178,8 @@ public class SessionContextUtil implements ApplicationContextAware {
     }
 
     /**
-     * Called at the beginning of the request. Allows this class to
-     * do common operations for all pages.
+     * Called at the beginning of the request; called after #readCookies is called.
+     * Allows this class to do common operations for all pages.
      */
     public void updateFromParams(HttpServletRequest request,
                                  HttpServletResponse response,
@@ -198,7 +207,7 @@ public class SessionContextUtil implements ApplicationContextAware {
         // Now see if we need to override the hostName
         hostName = _urlUtil.buildPerlHostName(hostName, cobrand);
 
-        updateStateFromParam(context, request);
+        updateStateFromParam(context, request, response);
 
         // Set state, or change, if necessary
         String paramPathwayStr = request.getParameter(PATHWAY_PARAM);
@@ -255,23 +264,35 @@ public class SessionContextUtil implements ApplicationContextAware {
     }
 
     /**
-     * Attempt to interpret a state= parameter and save it in the given context. If it can't recognize
-     * the state, it just uses what was there before, if anything.
+     * Attempt to interpret a state= parameter and save it in the given context and to a cookie.
+     * If it can't recognize the state, it just uses what was there before, if anything.
+     *
+     * #readCookies() already called at this point so state variable in sessionContext
+     * already populated with user's last known state value if available
      */
-    public void updateStateFromParam(SessionContext context, HttpServletRequest httpServletRequest) {
+    public void updateStateFromParam(SessionContext context,
+                                     HttpServletRequest httpServletRequest,
+                                     HttpServletResponse httpServletResponse) {
         // Set state, or change, if necessary
         String paramStateStr = httpServletRequest.getParameter(STATE_PARAM);
         if (!StringUtils.isEmpty(paramStateStr) && paramStateStr.length() >= 2) {
             final State currState = context.getState();
-            State state = currState;
             State s = _stateManager.getState(paramStateStr.substring(0, 2));
-            if (currState == null) {
-                state = s;
-            } else if (s != null && !currState.equals(s)) {
-                state = s;
+
+            if (currState == null && s == null) {
+                _log.debug("No existing state in session and bogus, non-empty state through url param.");
+            }
+
+            if (s != null) {
+                context.setState(s);
+                CookieGenerator cookieGenerator = new CookieGenerator();
+                cookieGenerator.setCookieDomain("greatschools.net");
+                cookieGenerator.setCookieMaxAge(CookieGenerator.DEFAULT_COOKIE_MAX_AGE);
+                cookieGenerator.setCookieName(STATE_COOKIE);
+                cookieGenerator.setCookiePath("/");
+                cookieGenerator.addCookie(httpServletResponse, s.getAbbreviation());
                 _log.debug("switching user's state: " + s);
             }
-            context.setState(state);
         }
     }
 

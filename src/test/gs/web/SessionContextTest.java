@@ -4,6 +4,8 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import org.springframework.mock.web.MockHttpServletResponse;
 
+import javax.servlet.http.Cookie;
+
 /**
  * Tests for the SessionContext object
  *
@@ -151,38 +153,80 @@ public class SessionContextTest extends BaseTestCase {
     public void testStateSetting() {
         SessionContextUtil util = new SessionContextUtil();
         util.setStateManager(new StateManager());
-
         SessionContext ctx = new SessionContext();
 
         GsMockHttpServletRequest request = new GsMockHttpServletRequest();
+        MockHttpServletResponse response = new MockHttpServletResponse();
 
         assertEquals(null, ctx.getState());
+
+        //do not set a state variable
+        request.setParameter("bogus", "");
+        util.updateStateFromParam(ctx, request, response);
+        assertEquals(null, ctx.getState());
+        assertEquals(null, getStateFromMockResponse(response));
+
+        //bogus state
+        request.setParameter("state", "bo");
+        util.updateStateFromParam(ctx, request, response);
+        assertEquals(null, ctx.getState());
+        assertEquals(null, getStateFromMockResponse(response));
 
         request.setParameter("state", "");
-        util.updateStateFromParam(ctx, request);
+        util.updateStateFromParam(ctx, request, response);
         assertEquals(null, ctx.getState());
+        assertEquals(null, getStateFromMockResponse(response));
 
         request.setParameter("state", "GA");
-        util.updateStateFromParam(ctx, request);
+        util.updateStateFromParam(ctx, request, response);
         assertEquals(State.GA, ctx.getState());
+        assertEquals(State.GA, getStateFromMockResponse(response));
 
         request.setParameter("state", "fl");
-        util.updateStateFromParam(ctx, request);
+        util.updateStateFromParam(ctx, request, response);
         assertEquals(State.FL, ctx.getState());
+        assertEquals(State.FL, getStateFromMockResponse(response));
 
         request.setParameter("state", "ct/");
-        util.updateStateFromParam(ctx, request);
+        util.updateStateFromParam(ctx, request, response);
         assertEquals(State.CT, ctx.getState());
+        assertEquals(State.CT, getStateFromMockResponse(response));
 
         request.setParameter("state", "x");
-        util.updateStateFromParam(ctx, request);
+        util.updateStateFromParam(ctx, request, response);
         assertEquals(State.CT, ctx.getState());
+        assertEquals(State.CT, getStateFromMockResponse(response));
 
         request.setParameter("state", "xx");
-        util.updateStateFromParam(ctx, request);
+        util.updateStateFromParam(ctx, request, response);
         assertEquals(State.CT, ctx.getState());
+        assertEquals(State.CT, getStateFromMockResponse(response));        
     }
 
+    /**
+     * MockHttpServletResponse stores cookie values in a list and not a map so
+     * it's possible to have cookies in the list with the same name.
+     *
+     * This method performs operations on the LAST cookie inserted into the response.
+     */
+    private State getStateFromMockResponse(MockHttpServletResponse response) {
+        StateManager sm = new StateManager();
+        Cookie [] cookies = response.getCookies();
+        String state = null;
+
+        for (int i=0; i<cookies.length; i++) {
+            Cookie c = cookies[i];
+            if ("state".equals(c.getName())) {
+                state = c.getValue();
+            }
+        }
+
+        if (state == null) {
+            return null;
+        } else {
+            return sm.getState(state);
+        }
+    }
     public void testABVersion() {
         SessionContextUtil util = new SessionContextUtil();
         util.setStateManager(new StateManager());
