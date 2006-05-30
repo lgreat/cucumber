@@ -88,7 +88,7 @@
                     </tr>
                     <tr>
                         <td valign="top" id="guidecontent">
-                            <p><span id="headline"><c:out value="SummerÕs a time kids can build on skills that will help them succeed in September. What can a parent do? Help your child find books he likes and the time to read them."
+                            <p><span id="headline"><c:out value="Summer's a time kids can build on skills that will help them succeed in September. What can a parent do? Help your child find books he likes and the time to read them."
                                       escapeXml="true" /></span></p>
                             <br/>
 
