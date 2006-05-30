@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ISessionFacade.java,v 1.8 2006/05/26 17:27:52 dlee Exp $
+ * $Id: ISessionFacade.java,v 1.9 2006/05/30 18:43:33 chriskimm Exp $
  */
 
 package gs.web;
@@ -84,4 +84,6 @@ public interface ISessionFacade {
     boolean isFamilyCobrand();
 
     String getSecureHostName();
+
+    boolean isBetaPage();
 }

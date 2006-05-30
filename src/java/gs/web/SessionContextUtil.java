@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.13 2006/02/24 23:10:47 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.14 2006/05/30 18:43:06 chriskimm Exp $
  */
 
 package gs.web;
@@ -157,6 +157,15 @@ public class SessionContextUtil implements ApplicationContextAware {
             context.setState((State) s);
         }
         context.setRemoteAddress(httpServletRequest.getRemoteAddr());
+
+        // a simple-minded way to determine if the page is a beta-related page
+        context.setIsBetaPage(false);
+        String uri = httpServletRequest.getRequestURI();
+        if (StringUtils.isNotBlank(uri)) {
+            if (uri.matches(".*/community/beta.*")) {
+                context.setIsBetaPage(true);
+            }
+        }
     }
 
     /**

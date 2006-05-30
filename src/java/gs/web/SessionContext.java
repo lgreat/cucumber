@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.29 2006/05/23 23:14:16 dlee Exp $
+ * $Id: SessionContext.java,v 1.30 2006/05/30 18:43:06 chriskimm Exp $
  */
 package gs.web;
 
@@ -46,7 +46,8 @@ public class SessionContext
     private String _pathway;
     private String _remoteAddress;
     private String _abVersion;
-
+    private boolean _isBetaPage = false; // default;
+    
     private ApplicationContext _applicationContext;
     private ISubscriptionDao _subscriptionDao;
     private IPropertyDao _propertyDao;
@@ -219,5 +220,13 @@ public class SessionContext
 
     public void setPropertyDao(IPropertyDao propertyDao) {
         _propertyDao = propertyDao;
+    }
+
+    public boolean isBetaPage() {
+        return _isBetaPage;
+    }
+
+    public void setIsBetaPage(boolean isBeta) {
+        _isBetaPage = isBeta;
     }
 }

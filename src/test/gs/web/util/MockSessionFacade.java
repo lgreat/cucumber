@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MockSessionFacade.java,v 1.5 2006/05/26 17:29:32 dlee Exp $
+ * $Id: MockSessionFacade.java,v 1.6 2006/05/30 18:43:50 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -97,6 +97,10 @@ public class MockSessionFacade implements ISessionFacade {
 
     public String getSecureHostName() {
         return "secure.greatschools.net";
+    }
+
+    public boolean isBetaPage() {
+        return false;
     }
 
     public void setState(State state) {

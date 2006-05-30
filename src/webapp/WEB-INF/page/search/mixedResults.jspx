@@ -32,7 +32,6 @@
     <pageHelper:externalCss file="/res/css/search/mixedResults.css"/>
 
     <table id="main" width="100%" style="margin: 0 10px 0 10px">
-
         <tr>
             <td class="leftColumn">
                 <pageHelper:externalCss file="/res/css/mod/browseState.css"/>
@@ -109,6 +108,7 @@
 
             </td>
             <td class="rightColumn" align="center">
+                <ad:beta/>
                 <ad:x33/>
             </td>
 

@@ -298,5 +298,28 @@
             <description>the name of the city's state</description>
         </attribute>
     </tag>
+    <tag>
+        <name>betaSignup</name>
+        <tag-class>gs.web.jsp.link.BetaSignupTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Beta Signup Page</display-name>
+        <description>
+            <![CDATA[Link to the Beta group signup page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>email</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>email address</description>
+        </attribute>
+    </tag>
 </taglib>
 
