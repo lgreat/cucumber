@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.21 2006/05/19 19:44:22 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.22 2006/05/30 21:20:26 apeterson Exp $
  */
 
 package gs.web.util;
@@ -291,6 +291,26 @@ public class UrlBuilderSaTest extends TestCase {
         String encodedEmail = URLEncoder.encode(email,"UTF-8");
         builder.addParameter("email",email);
         assertEquals("/cgi-bin/newsletterSubscribe?email="+encodedEmail +"&state=WY", builder.asSiteRelative(request));
+
+    }
+
+    public void testAdminPages() {
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
+        request.setMethod("GET");
+        request.setProtocol("http");
+        request.setServerName("www.myserver.com");
+        request.setServerPort(80);
+        request.setRequestURI("/index.page");
+
+        UrlBuilder builder = new UrlBuilder(UrlBuilder.ADMIN_NEWS_ITEMS, null);
+        assertEquals("/admin/news/list.page", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.ADMIN_NEWS_ITEMS_CREATE, null);
+        assertEquals("/admin/news/create.page", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.ADMIN_NEWS_ITEMS_DELETE, null, new Integer(1).toString() );
+        assertEquals("/admin/news/delete.page?id=1", builder.asSiteRelative(request));
+
 
     }
 }

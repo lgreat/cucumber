@@ -10,8 +10,6 @@
           xmlns:gsweb="gstaglib"
           xmlns:display="urn:jsptld:http://displaytag.sf.net"
         >
-    <jsp:directive.page import="java.util.List"/>
-    <jsp:directive.page import="java.util.ArrayList"/>
     <html lang="en">
 
     <jsp:output doctype-root-element="html"
@@ -23,25 +21,44 @@
     <head>
         <title>GreatSchools.net</title>
         <style type="text/css">
+            .contentGS {
+                margin: 20px;
+            }
+
+            h1 {
+                margin-top: 20px;
+                font-size: large;
+            }
+
+            label {
+                display: block;
+                font-size: small;
+            }
         </style>
     </head>
-    <jsp:scriptlet>
-        List list = new ArrayList();
-        list.add("A");
-        list.add("B");
-        list.add("B2");
-        list.add("C");
-        list.add("D");
-        list.add("E");
-        request.setAttribute("test", list);
-    </jsp:scriptlet>
 
     <gsml:body adPageName="splash">
 
-        Here's a page.
+        <a href="news.page">Back to All News Items</a>
 
-        <display:table name="test"/>
-That was the page.
+        <h1>New news item:</h1>
+
+        <gsml:form action="/admin/news/create.page" method="GET">
+            <label for="text">Text</label>
+            <textarea name="text" rows="5" cols="100">Enter text here.</textarea>
+            <label for="link">Link (optional)</label>
+            <input type="text" name="link" size="100" maxlength="100"/>
+            <label for="category">Category</label>
+            <select name="category">
+                <option value="NEWS">NEWS</option>
+                <option value="DATA">DATA</option>
+            </select>
+
+
+            <div style="text-align: right; width: 100ex">
+                <input type="submit" value="Create" name="submit"/>
+            </div>
+        </gsml:form>
     </gsml:body>
     </html>
 </jsp:root>

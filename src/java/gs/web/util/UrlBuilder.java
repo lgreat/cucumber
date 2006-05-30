@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.32 2006/05/30 18:43:06 chriskimm Exp $
+ * $Id: UrlBuilder.java,v 1.33 2006/05/30 21:20:26 apeterson Exp $
  */
 
 package gs.web.util;
@@ -63,10 +63,12 @@ public class UrlBuilder {
      * Currently we don't use the enum capabilities. Consider
      * omitting this superclass.
      */
-    public static class VPage extends org.apache.commons.lang.enums.Enum {
+    public static class VPage {
+
+        private String _name;
 
         private VPage(String s) {
-            super(s);
+            _name = s;
         }
     }
 
@@ -106,6 +108,11 @@ public class UrlBuilder {
     public static final VPage PRIVACY_POLICY = new VPage("vpage:privacyPolicy");
 
     public static final VPage BETA_SIGNUP = new VPage("vpage:betaSignup");
+
+    public static final VPage ADMIN_NEWS_ITEMS = new VPage("vpage:newItems");
+    public static final VPage ADMIN_NEWS_ITEMS_CREATE = new VPage("vpage:newItemsCreate");
+    public static final VPage ADMIN_NEWS_ITEMS_DELETE = new VPage("vpage:newItemsDelete");
+
 
     /**
      * Create a builder to the given site page.

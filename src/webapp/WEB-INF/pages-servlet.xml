@@ -19,7 +19,7 @@
                 <!--                <ref local="insiderOnlyInterceptor"/>-->
             </list>
         </property>
-        <property name="alwaysUseFullPath" value="true" />
+        <property name="alwaysUseFullPath" value="true"/>
     </bean>
 
     <bean name="defaultHandlerMapping"
@@ -40,7 +40,7 @@
                 <entry key="/city/**" value="/city.page"></entry>
             </map>
         </property>
-        <property name="alwaysUseFullPath" value="true" />
+        <property name="alwaysUseFullPath" value="true"/>
     </bean>
 
 
@@ -107,15 +107,17 @@
     <!-- ******************************************  -->
 
     <bean id="emailValidator" class="gs.web.util.validator.EmailValidator"
-            autowire="byName" />
+          autowire="byName"/>
     <bean id="betaSubNotExistsValidator" class="gs.web.community.BetaSubNotExistsValidator"
-            autowire="byName" />
+          autowire="byName"/>
     <bean id="betaSubExistsValidator" class="gs.web.community.BetaSubExistsValidator"
-          autowire="byName" />
+          autowire="byName"/>
 
     <bean name="/community/beta.page" class="gs.web.community.BetaController"
-            autowire="byName">
-        <property name="commandName"><value>betaSignupCommand</value></property>
+          autowire="byName">
+        <property name="commandName">
+            <value>betaSignupCommand</value>
+        </property>
         <property name="commandClass">
             <value>gs.web.community.BetaSignupCommand</value>
         </property>
@@ -125,9 +127,15 @@
                 <ref local="betaSubNotExistsValidator"/>
             </list>
         </property>
-        <property name="formView"><value>community/beta</value></property>
-        <property name="successView"><value>community/betaThankyou</value></property>
-        <property name="mailSender"><ref bean="mailSender"/></property>
+        <property name="formView">
+            <value>community/beta</value>
+        </property>
+        <property name="successView">
+            <value>community/betaThankyou</value>
+        </property>
+        <property name="mailSender">
+            <ref bean="mailSender"/>
+        </property>
     </bean>
 
     <bean name="/community/betaThankyou.page"
@@ -138,14 +146,22 @@
     </bean>
 
     <bean name="/community/betaUnsubscribe.page" class="gs.web.community.BetaUnsubscribeController"
-            autowire="byName">
-        <property name="commandName"><value>betaSignupCommand</value></property>
+          autowire="byName">
+        <property name="commandName">
+            <value>betaSignupCommand</value>
+        </property>
         <property name="commandClass">
             <value>gs.web.community.BetaSignupCommand</value>
         </property>
-        <property name="validator"><ref bean="betaSubExistsValidator"/></property>
-        <property name="formView"><value>community/betaUnsubscribe</value></property>
-        <property name="successView"><value>community/betaUnsubscribeConfirm</value></property>
+        <property name="validator">
+            <ref bean="betaSubExistsValidator"/>
+        </property>
+        <property name="formView">
+            <value>community/betaUnsubscribe</value>
+        </property>
+        <property name="successView">
+            <value>community/betaUnsubscribeConfirm</value>
+        </property>
     </bean>
 
     <bean name="/community/betaUnsubscribeConfirm.page"
@@ -568,6 +584,28 @@
         </property>
     </bean>
 
+    <bean name="/admin/news/list.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>/admin/news/list</value>
+        </property>
+    </bean>
+
+    <bean name="/admin/news/delete.page"
+          class="gs.web.admin.news.DeleteNewsItemController"
+          autowire="byName">
+    </bean>
+
+    <bean name="/admin/news/create.page"
+          class="gs.web.admin.news.EditNewsItemController"
+          autowire="byName">
+        <property name="commandName" value="newsItem"/>
+        <property name="commandClass" value="gs.data.content.NewsItem"/>
+        <property name="formView" value="admin/news/edit"/>
+        <property name="successView" value="redirect:/admin/news/list.page"/>
+    </bean>
+
     <!--
         "v1" is here so that we can easily update to newer versions
         of this.
@@ -579,26 +617,26 @@
     <bean name="/content/box/v1/*/*.page"
           class="gs.web.content.ContentBoxViewController"
           autowire="byName">
-         <property name="viewName">
+        <property name="viewName">
             <value>content/box</value>
         </property>
     </bean>
 
     <bean id="newsCheckBoxValidator" class="gs.web.community.newsletters.popup.NewsletterCheckBoxValidator"
-            autowire="byName" />
+          autowire="byName"/>
 
     <bean id="schoolIdValidator" class="gs.web.util.validator.SchoolIdValidator"
-            autowire="byName" />
+          autowire="byName"/>
 
     <bean id="stateValidator" class="gs.web.util.validator.StateValidator"
-            autowire="byName" />
+          autowire="byName"/>
 
     <!--My School stats newsletter popups-->
     <bean name="/community/newsletters/popup/mss/page1.page"
           class="gs.web.community.newsletters.popup.MssPaController"
           autowire="byName">
         <property name="bindOnNewForm" value="true"/>
-        <property name="commandName" value="newsCmd" />
+        <property name="commandName" value="newsCmd"/>
         <property name="commandClass" value="gs.web.community.newsletters.popup.NewsletterCommand"/>
         <property name="formView" value="/community/newsletters/popup/mss/page1"/>
         <property name="successView" value="redirect:/community/newsletters/popup/mss/page2.page"/>
@@ -622,7 +660,7 @@
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="newsCmd"/>
         <property name="commandClass" value="gs.web.community.newsletters.popup.NewsletterCommand"/>
-        <property name="formView" value="/community/newsletters/popup/mss/page2" />
+        <property name="formView" value="/community/newsletters/popup/mss/page2"/>
         <property name="successView" value="redirect:/community/newsletters/popup/mss/page3.page"/>
         <property name="onLoadValidators">
             <list>
@@ -644,7 +682,7 @@
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="newsCmd"/>
         <property name="commandClass" value="gs.web.community.newsletters.popup.NewsletterCommand"/>
-        <property name="formView" value="/community/newsletters/popup/mss/page3" />
+        <property name="formView" value="/community/newsletters/popup/mss/page3"/>
         <property name="successView" value="/community/newsletters/popup/mss/page3"/>
         <property name="onLoadValidators">
             <list>
