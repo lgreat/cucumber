@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.8 2006/05/23 23:14:16 dlee Exp $
+ * $Id: PageHelperSaTest.java,v 1.9 2006/05/30 19:31:15 thuss Exp $
  */
 
 package gs.web.util;
@@ -32,7 +32,22 @@ public class PageHelperSaTest extends TestCase {
     public void testFramed() {
         MockSessionFacade sessionFacade = new MockSessionFacade();
         sessionFacade.setCobrand("framed");
+        assertFramedOptions(sessionFacade);
+    }
 
+    public void testNumber1expert() {
+        MockSessionFacade sessionFacade = new MockSessionFacade();
+        sessionFacade.setCobrand("number1expert");
+        assertFramedOptions(sessionFacade);
+    }
+
+    public void testHomegain() {
+        MockSessionFacade sessionFacade = new MockSessionFacade();
+        sessionFacade.setCobrand("homegain");
+        assertFramedOptions(sessionFacade);
+    }
+
+    private void assertFramedOptions(MockSessionFacade sessionFacade) {
         PageHelper pageHelper = new PageHelper(sessionFacade);
 
         assertFalse(pageHelper.isShowingBannerAd());
@@ -41,6 +56,7 @@ public class PageHelperSaTest extends TestCase {
         assertFalse(pageHelper.isLogoLinked());
         assertFalse(pageHelper.isShowingFooter());
         assertTrue(pageHelper.isAdFree());
+        assertTrue(pageHelper.isFramed());
     }
 
     public void testCSR() {
@@ -52,21 +68,6 @@ public class PageHelperSaTest extends TestCase {
         assertTrue(pageHelper.isShowingFooter());
         assertFalse(pageHelper.isAdFree());
         assertFalse(pageHelper.isFramed());
-    }
-
-    public void testNumber1expert() {
-        MockSessionFacade sessionFacade = new MockSessionFacade();
-        sessionFacade.setCobrand("number1expert");
-
-        PageHelper pageHelper = new PageHelper(sessionFacade);
-
-        assertFalse(pageHelper.isShowingBannerAd());
-        assertFalse(pageHelper.isShowingLogo());
-        assertFalse(pageHelper.isShowingUserInfo());
-        assertFalse(pageHelper.isLogoLinked());
-        assertFalse(pageHelper.isShowingFooter());
-        assertTrue(pageHelper.isAdFree());
-        assertTrue(pageHelper.isFramed());
     }
 
     public void testSfgate() {
@@ -157,7 +158,6 @@ public class PageHelperSaTest extends TestCase {
     }
 
 
-
     public void testJavascriptAndCssInclude() {
         ISessionFacade sessionFacade = new MockSessionFacade();
         PageHelper pageHelper = new PageHelper(sessionFacade);
@@ -171,7 +171,7 @@ public class PageHelperSaTest extends TestCase {
         assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\"></script>", pageHelper.getHeadElements());
 
         PageHelper.addJavascriptSource(request, "/res/js/somethingElse.js");
-        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\">"+
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\">" +
                 "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js\"></script>",
                 pageHelper.getHeadElements());
 
