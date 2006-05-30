@@ -26,6 +26,7 @@
         <pattern>*/sorry.page*</pattern>
         <pattern>*/compareSchools.page*</pattern>
         <pattern>*/community/conversion/*</pattern>
+        <pattern>*/content/box/*</pattern>
     </excludes>
 
 </decorators>
