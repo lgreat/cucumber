@@ -103,7 +103,7 @@
                                                    wrappingElement="li"/>
                                 <gsweb:articlelink articleId="360"
                                                    wrappingElement="li"/>
-                                 <gsweb:articlelink articleId="44"
+                                <gsweb:articlelink articleId="44"
                                                    wrappingElement="li"/>
                             </ul>
 
