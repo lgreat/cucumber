@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.34 2006/05/15 21:41:06 thuss Exp $
+ * $Id: UrlUtil.java,v 1.35 2006/05/30 23:11:36 wbeck Exp $
  */
 
 package gs.web.util;
@@ -286,7 +286,7 @@ public final class UrlUtil {
         if (url.startsWith("vpage:")) {
             String vpage = url.substring(6);
             if (StringUtils.equals("content.seasonal", vpage)) {
-                return "/content/summerSurvivalGuide.page?state=$STATE";
+                return "/content/summerReading.page?state=$STATE";
                 //return "/cgi-bin/site/january_parent_tips.cgi/$STATE";
                 // NOTE: was "/cgi-bin/site/parent_tips.cgi/$STATE"
             } else if (StringUtils.equals("path1", vpage)) {
