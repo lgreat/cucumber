@@ -24,7 +24,8 @@ public class OpenSessionInViewFilterTest extends BaseControllerTestCase {
         osiv.doFilter(request, response, chain);
         // Make sure the osiv executes the transaction commit so it should
         // no longer be read-only
-        assert(!ThreadLocalTransactionManager.isReadOnly());
+
+        assertTrue(!ThreadLocalTransactionManager.isReadOnly());
 
         // This time with an exception
         ThreadLocalTransactionManager.setReadOnly();
@@ -37,7 +38,7 @@ public class OpenSessionInViewFilterTest extends BaseControllerTestCase {
         }
         // Make sure the osiv executes the transaction commit so it should
         // no longer be read-only
-        assert(!ThreadLocalTransactionManager.isReadOnly());
+        assertTrue(!ThreadLocalTransactionManager.isReadOnly());
 
     }
 

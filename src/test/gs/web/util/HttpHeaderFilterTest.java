@@ -19,7 +19,7 @@ public class HttpHeaderFilterTest extends BaseControllerTestCase {
         MockFilterChain chain = new MockFilterChain();
         headerFilter.init(new MockFilterConfig());
         headerFilter.doFilter(request, response, chain);
-        assert(response.containsHeader(MockFilterConfig.PARAM));
+        assertTrue(response.containsHeader(MockFilterConfig.PARAM));
     }
 
     protected class MockFilterConfig implements FilterConfig {
