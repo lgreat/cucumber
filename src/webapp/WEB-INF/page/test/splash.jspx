@@ -9,6 +9,11 @@
           xmlns:rss="urn:jsptagdir:/WEB-INF/tags/rss"
           xmlns:gsweb="gstaglib"
         >
+<jsp:directive.page import="gs.data.content.INewsItemDao"/>
+<jsp:directive.page import="gs.data.content.NewsItem"/>
+<jsp:directive.page import="gs.web.ISessionFacade"/>
+<jsp:directive.page import="gs.web.SessionContext"/>
+<jsp:directive.page import="org.springframework.context.ApplicationContext"/>
 <html lang="en">
 
 <jsp:output doctype-root-element="html"
@@ -40,11 +45,13 @@
     height: 156px;
 }
 
+
 #billsBlog img {
     padding-right: 30px;
 }
 
-#billsBlog h3 {
+#billsBlog h3,
+#didYouKnow h3 {
     padding-top: 30px;
     font-size: large;
     font-weight: 100;
@@ -60,6 +67,10 @@
     padding-top: 10px;
     font-size: small;
     font-weight: normal;
+}
+
+#didYouKnow {
+    vertical-align: top;
 }
 
 #findYourSchool {
@@ -133,6 +144,15 @@
 
 
 </style>
+<jsp:scriptlet>
+    ISessionFacade sessionContext = SessionContext.getInstance(request);
+    ApplicationContext ac = sessionContext.getApplicationContext();
+
+    INewsItemDao newsItemDao = (INewsItemDao) ac.getBean(INewsItemDao.BEAN_ID);
+    NewsItem newsItem = newsItemDao.nextInRotation("NEWS");
+    pageContext.setAttribute("newsItem", newsItem);
+</jsp:scriptlet>
+
 </head>
 
 <gsml:body adPageName="splash">
@@ -144,7 +164,7 @@
                     <p>
                         As a user, I would like to see 2-4 large ads about GS features, and click on them to be directed
                         to the feature that they're advertising.
-                        </p>
+                    </p>
                     <ol>
                         <li>Newsletter ad that links to hover for Nth grader - Add email entry box to hover ad Nth
                             grader page</li>
@@ -168,11 +188,11 @@
 
                 <div id="findYourSchool">
                     <h3>See how<br/><span class="huge ">YOUR SCHOOL</span> stacks up</h3>
-                    <gsml:form action="/search/search.page" method="GET" >
-                    <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.stateOrDefault}"/>
-                    <input type="text" value="" name="q" size="20"/>
-                    <input type="hidden" value="school" name="type"/>
-                    <input type="submit" value="Go"/>
+                    <gsml:form action="/search/search.page" method="GET">
+                        <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.stateOrDefault}"/>
+                        <input type="text" value="" name="q" size="20"/>
+                        <input type="hidden" value="school" name="type"/>
+                        <input type="submit" value="Go"/>
                     </gsml:form>
                 </div>
             </td>
@@ -196,8 +216,13 @@
 
 
             </td>
-            <td width="33%">
-                <div id="dRight">did you know</div>
+            <td width="33%" style="vertical-align: top; height: 100%;">
+                <c:if test="${not empty newsItem}">
+                    <div id="didYouKnow">
+                        <h3>did ya know</h3>
+                        ${newsItem.text}
+                    </div>
+                </c:if>
             </td>
         </tr>
     </table>

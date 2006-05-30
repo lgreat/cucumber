@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.28 2006/03/23 19:22:46 chriskimm Exp $
+ * $Id: UrlUtilSaTest.java,v 1.29 2006/05/30 23:57:35 apeterson Exp $
  */
 
 package gs.web.util;
@@ -85,7 +85,7 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals(ctxPath + "/res/css/global.css", _urlUtil.buildUrl("/res/css/global.css", request));
         assertEquals(ctxPath + "/res/js/s_code.js", _urlUtil.buildUrl("/res/js/s_code.js", request));
         assertEquals("/gs-web/content/allArticles.page?state=CA", _urlUtil.buildUrl("/content/allArticles.page?state=$STATE", request));
-        assertEquals("/gs-web/content/summerSurvivalGuide.page?state=CA", _urlUtil.buildUrl("vpage:content.seasonal", request));
+        assertEquals("/gs-web/content/summerReading.page?state=CA", _urlUtil.buildUrl("vpage:content.seasonal", request));
         request.setContextPath("/");
 
         // Test https server links
@@ -231,7 +231,7 @@ public class UrlUtilSaTest extends TestCase {
     public void testVpageToUrl() {
         assertEquals("/search/search.page", _urlUtil.vpageToUrl("/search/search.page"));
         assertEquals("/modperl/bycity/CA", _urlUtil.vpageToUrl("/modperl/bycity/CA"));
-        assertEquals("/content/summerSurvivalGuide.page?state=$STATE", _urlUtil.vpageToUrl("vpage:content.seasonal"));
+        assertEquals("/content/summerReading.page?state=$STATE", _urlUtil.vpageToUrl("vpage:content.seasonal"));
         assertEquals("/modperl/go/$STATE", _urlUtil.vpageToUrl("vpage:path1"));
         assertEquals("/path/mySchool.page?state=$STATE", _urlUtil.vpageToUrl("vpage:path2"));
     }
