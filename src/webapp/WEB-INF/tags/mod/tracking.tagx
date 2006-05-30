@@ -68,7 +68,7 @@
         s.prop5 = "${requestScope.context.stateOrDefault.subscriptionState ? 'subscription' : 'non-subscription'}";
         s.prop6 = "${query}";
         s.prop7 = "${pageName}:${requestScope.context.ABVersion}";
-        s.prop8 = "${empty(param.cpn) ? pageName : param.cpn}";
+        s.prop8 = "${param.cpn}";
         s.hier1 = "${hier1}";
 
     </script>
