@@ -94,6 +94,15 @@
     </filter>
 
     <filter>
+        <filter-name>httpcacheheader</filter-name>
+        <filter-class>gs.web.util.HttpHeaderFilter</filter-class>
+        <init-param>
+            <param-name>Cache-Control</param-name>
+            <param-value>max-age=3600</param-value>
+        </init-param>
+    </filter>
+
+    <filter>
         <filter-name>sitemesh</filter-name>
         <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
         <!--<init-param>-->
@@ -102,10 +111,15 @@
         <!--</init-param>-->
     </filter>
 
-    <!-- This should come before the sitemesh filter so that it wraps sitemesh -->
+    <!-- These should come before the sitemesh filter so that they wrap sitemesh -->
     <filter-mapping>
         <filter-name>opensessioninview</filter-name>
         <url-pattern>*.page</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>httpcacheheader</filter-name>
+        <url-pattern>/res/*</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
