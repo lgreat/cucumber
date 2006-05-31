@@ -45,13 +45,12 @@
     height: 156px;
 }
 
-
 #billsBlog img {
     padding-right: 30px;
 }
 
 #billsBlog h3,
-#didYouKnow h3 {
+    #didYouKnow h3 {
     padding-top: 30px;
     font-size: large;
     font-weight: 100;
@@ -219,8 +218,13 @@
             <td width="33%" style="vertical-align: top; height: 100%;">
                 <c:if test="${not empty newsItem}">
                     <div id="didYouKnow">
-                        <h3>did ya know</h3>
-                        ${newsItem.text}
+                        <h3>Did ya know?</h3>
+                        <c:if test="${not empty newsItem.link}">
+                            <gsml:a href="${newsItem.link}">${newsItem.text}</gsml:a>
+                        </c:if>
+                        <c:if test="${empty newsItem.link}">
+                            ${newsItem.text}
+                        </c:if>
                     </div>
                 </c:if>
             </td>
