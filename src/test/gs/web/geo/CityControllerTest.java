@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.12 2006/05/31 21:44:29 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.13 2006/05/31 23:24:15 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -43,7 +43,7 @@ public class CityControllerTest extends BaseControllerTestCase {
         _controller.setDistrictDao((IDistrictDao) getApplicationContext().getBean(IDistrictDao.BEAN_ID));
         _controller.setGeoDao((IGeoDao) getApplicationContext().getBean(IGeoDao.BEAN_ID));
         _controller.setStateManager((StateManager) getApplicationContext().getBean(StateManager.BEAN_ID));
-        _controller.setListModelFactory( (AnchorListModelFactory) getApplicationContext().getBean(AnchorListModelFactory.BEAN_ID));
+        _controller.setAnchorListModelFactory( (AnchorListModelFactory) getApplicationContext().getBean(AnchorListModelFactory.BEAN_ID));
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().
                 getBean(SessionContextUtil.BEAN_ID);
     }
