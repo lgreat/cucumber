@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.18 2006/05/24 19:26:26 apeterson Exp $
+* $Id: NearbyCitiesController.java,v 1.19 2006/05/31 21:44:29 apeterson Exp $
 */
 
 package gs.web.geo;
@@ -12,7 +12,7 @@ import gs.web.ISessionFacade;
 import gs.web.SessionContextUtil;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
-import gs.web.util.ListModel;
+import gs.web.util.AnchorListModel;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
- * Provides an ListModel of cities near the provided param "city" and "state".
+ * Provides an AnchorListModel of cities near the provided param "city" and "state".
  * Parameters:
  * <li>state
  * <li>city
@@ -57,7 +57,7 @@ public class NearbyCitiesController extends AbstractController {
     protected static final String PARAM_HEADING = "heading";
 
 
-    // ListModel.RESULTS has a list of Anchor objects
+    // AnchorListModel.RESULTS has a list of Anchor objects
     protected static final String MODEL_CITY = "cityObject"; // Base city, ICity
     public static final String MODEL_CITIES = "cities"; // List of nearby cities
 
@@ -104,7 +104,7 @@ public class NearbyCitiesController extends AbstractController {
                 if (request.getParameter(PARAM_HEADING) != null) {
                     heading = request.getParameter(PARAM_HEADING);
                 }
-                model.put(ListModel.HEADING, heading);
+                model.put(AnchorListModel.HEADING, heading);
 
                 List items = new ArrayList(limit);
                 for (int i = 0; i < limit && i < nearbyCities.size(); i++) {
@@ -150,7 +150,7 @@ public class NearbyCitiesController extends AbstractController {
                     items.add(anchor);
 
                 }
-                model.put(ListModel.RESULTS, items);
+                model.put(AnchorListModel.RESULTS, items);
             }
         }
 

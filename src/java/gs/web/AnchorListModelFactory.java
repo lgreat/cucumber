@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ListModelFactory.java,v 1.2 2006/05/26 18:28:51 apeterson Exp $
+ * $Id: AnchorListModelFactory.java,v 1.1 2006/05/31 21:44:29 apeterson Exp $
  */
 
 package gs.web;
@@ -17,7 +17,7 @@ import gs.data.state.StateManager;
 import gs.web.school.SchoolsController;
 import gs.web.search.SearchController;
 import gs.web.util.Anchor;
-import gs.web.util.ListModel;
+import gs.web.util.AnchorListModel;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import org.apache.commons.lang.ObjectUtils;
@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Generates ListModel objects from all sorts of input. Created to reduce
+ * Generates AnchorListModel objects from all sorts of input. Created to reduce
  * the size of the controller classes and to easily allow sharing of model
  * generation code across controllers.
  * </p>
@@ -40,7 +40,7 @@ import java.util.Map;
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
-public class ListModelFactory {
+public class AnchorListModelFactory {
 
     public static final String BEAN_ID = "listModelFactory";
 
@@ -56,8 +56,8 @@ public class ListModelFactory {
      * five or fewer, it sorts them alphabetically. If there are more than 5, it shows them
      * based on size.
      */
-    public ListModel createDistrictList(State state, String cityNameParam, HttpServletRequest request) {
-        ListModel districts = new ListModel();
+    public AnchorListModel createDistrictList(State state, String cityNameParam, HttpServletRequest request) {
+        AnchorListModel districts = new AnchorListModel();
 
         List list = _districtDao.findDistrictsInCity(state, cityNameParam, true);
         if (list != null) {
@@ -108,15 +108,15 @@ public class ListModelFactory {
      *                        where it is different "New York" is labeled "New York City", and "Washington" is
      *                        labelled "Washington, D.C."
      */
-    public ListModel createSchoolSummaryModel(State state, String cityName, String cityDisplayName, HttpServletRequest request) {
+    public AnchorListModel createSchoolSummaryModel(State state, String cityName, String cityDisplayName, HttpServletRequest request) {
         // the summaries of schools in a city
-        ListModel schoolBreakdownList;
-        schoolBreakdownList = new ListModel();
+        AnchorListModel schoolBreakdownAnchorList;
+        schoolBreakdownAnchorList = new AnchorListModel();
 
         int sc;
         //Anchor a = new Anchor("/schools.page?state=" + state.getAbbreviation() + "&city=" + cityNameParam,
         //        "All " + cityNameParam + " schools (" + sc + ")");
-        //schoolBreakdownList.addResult(a);
+        //schoolBreakdownAnchorList.addResult(a);
 
         UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, cityName);
 
@@ -125,7 +125,7 @@ public class ListModelFactory {
             builder.setParameter("lc", "e");
             final Anchor anchor = builder.asAnchor(request, cityDisplayName + " Elementary Schools");
             anchor.setAfter(" (" + sc + ")");
-            schoolBreakdownList.addResult(anchor);
+            schoolBreakdownAnchorList.addResult(anchor);
         }
 
         sc = _schoolDao.countSchools(state, null, LevelCode.MIDDLE, cityName);
@@ -133,7 +133,7 @@ public class ListModelFactory {
             builder.setParameter("lc", "m");
             final Anchor anchor = builder.asAnchor(request, cityDisplayName + " Middle Schools");
             anchor.setAfter(" (" + sc + ")");
-            schoolBreakdownList.addResult(anchor);
+            schoolBreakdownAnchorList.addResult(anchor);
         }
 
         sc = _schoolDao.countSchools(state, null, LevelCode.HIGH, cityName);
@@ -141,7 +141,7 @@ public class ListModelFactory {
             builder.setParameter("lc", "h");
             final Anchor anchor = builder.asAnchor(request, cityDisplayName + " High Schools");
             anchor.setAfter(" (" + sc + ")");
-            schoolBreakdownList.addResult(anchor);
+            schoolBreakdownAnchorList.addResult(anchor);
         }
         builder.removeParameter("lc");
 
@@ -152,7 +152,7 @@ public class ListModelFactory {
             builder.addParameter("st", "charter");
             final Anchor anchor = builder.asAnchor(request, cityDisplayName + " Public Schools");
             anchor.setAfter(" (" + sc + ")");
-            schoolBreakdownList.addResult(anchor);
+            schoolBreakdownAnchorList.addResult(anchor);
             builder.removeParameter("st");
         }
 
@@ -161,22 +161,22 @@ public class ListModelFactory {
             builder.addParameter("st", "private");
             final Anchor anchor = builder.asAnchor(request, cityDisplayName + " Private Schools");
             anchor.setAfter(" (" + sc + ")");
-            schoolBreakdownList.addResult(anchor);
+            schoolBreakdownAnchorList.addResult(anchor);
         }
 
         // Add a "last" to the last item
-        List results = schoolBreakdownList.getResults();
+        List results = schoolBreakdownAnchorList.getResults();
         Anchor a = (Anchor) results.get(results.size() - 1);
         if (a != null) {
             a.setStyleClass(a.getStyleClass() + " last");
         }
 
-        return schoolBreakdownList;
+        return schoolBreakdownAnchorList;
     }
 
 
     /**
-     * Returns a map of level letter (e,m or h) -> ListModel, where the list model has links to a list of schools and
+     * Returns a map of level letter (e,m or h) -> AnchorListModel, where the list model has links to a list of schools and
      * a Map & List link, both taking you to the schools page.
      * For example, the elementary school list model would be:
      * <code>
@@ -203,7 +203,7 @@ public class ListModelFactory {
         int sc;
         sc = _schoolDao.countSchools(state, null, LevelCode.ELEMENTARY, city.getName());
         if (sc > 0) {
-            ListModel m = new ListModel("Elementary Schools (" + sc + ")");
+            AnchorListModel m = new AnchorListModel("Elementary Schools (" + sc + ")");
             builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "e");
             m.addResult(builder.asAnchor(request, "List"));
             builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
@@ -214,7 +214,7 @@ public class ListModelFactory {
 
         sc = _schoolDao.countSchools(state, null, LevelCode.MIDDLE, city.getName());
         if (sc > 0) {
-            ListModel m = new ListModel("Middle Schools (" + sc + ")");
+            AnchorListModel m = new AnchorListModel("Middle Schools (" + sc + ")");
             builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "m");
             m.addResult(builder.asAnchor(request, "List"));
             builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
@@ -225,7 +225,7 @@ public class ListModelFactory {
 
         sc = _schoolDao.countSchools(state, null, LevelCode.HIGH, city.getName());
         if (sc > 0) {
-            ListModel m = new ListModel("High Schools (" + sc + ")");
+            AnchorListModel m = new AnchorListModel("High Schools (" + sc + ")");
             builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "h");
             m.addResult(builder.asAnchor(request, "List"));
             builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
@@ -242,12 +242,12 @@ public class ListModelFactory {
      *
      * @throws IOException
      */
-    public ListModel createCitiesListModel(HttpServletRequest request,
+    public AnchorListModel createCitiesListModel(HttpServletRequest request,
                                            Hits cityHits,
                                            SchoolType schoolType,
                                            int maxCities,
                                            boolean showMore) throws IOException {
-        ListModel listModel = new ListModel("" +
+        AnchorListModel anchorListModel = new AnchorListModel("" +
                 (SchoolType.CHARTER.equals(schoolType) ? "Charter schools" : "Schools") +
                 " in the city of: ");
 
@@ -261,7 +261,7 @@ public class ListModelFactory {
                         stateOfCity,
                         cityName);
                 cityName += ", " + stateOfCity;
-                listModel.addResult(builder.asAnchor(request, cityName));
+                anchorListModel.addResult(builder.asAnchor(request, cityName));
             }
         }
 
@@ -270,14 +270,14 @@ public class ListModelFactory {
             UrlBuilder builder = new UrlBuilder(request, "/search/search.page");
             builder.addParametersFromRequest(request);
             builder.setParameter(SearchController.PARAM_MORE_CITIES, "true");
-            listModel.addResult(builder.asAnchor(request, "more cities..."));
+            anchorListModel.addResult(builder.asAnchor(request, "more cities..."));
         }
 
-        if (listModel.getResults().size() > 0) {
-            Anchor a = (Anchor) listModel.getResults().get(listModel.getResults().size() - 1);
+        if (anchorListModel.getResults().size() > 0) {
+            Anchor a = (Anchor) anchorListModel.getResults().get(anchorListModel.getResults().size() - 1);
             a.setStyleClass("last");
         }
-        return listModel;
+        return anchorListModel;
     }
 
     /**
@@ -285,13 +285,13 @@ public class ListModelFactory {
      *
      * @throws IOException
      */
-    public ListModel createDistrictsListModel(HttpServletRequest request,
+    public AnchorListModel createDistrictsListModel(HttpServletRequest request,
                                               Hits districtHits,
                                               State state,
                                               SchoolType schoolType,
                                               int maxDistricts,
                                               boolean showMore) throws IOException {
-        ListModel listModel = new ListModel("" +
+        AnchorListModel anchorListModel = new AnchorListModel("" +
                 (SchoolType.CHARTER.equals(schoolType) ? "Charter schools" : "Schools") +
                 " in the district of:");
 
@@ -306,7 +306,7 @@ public class ListModelFactory {
                 if (!ObjectUtils.equals(state, stateOfCity)) {
                     districtName += " (" + stateOfCity.getAbbreviation() + ")";
                 }
-                listModel.addResult(builder.asAnchor(request, districtName));
+                anchorListModel.addResult(builder.asAnchor(request, districtName));
             }
         }
 
@@ -315,14 +315,14 @@ public class ListModelFactory {
             UrlBuilder builder = new UrlBuilder(request, "/search/search.page");
             builder.addParametersFromRequest(request);
             builder.setParameter(SearchController.PARAM_MORE_DISTRICTS, "true");
-            listModel.addResult(builder.asAnchor(request, "more districts..."));
+            anchorListModel.addResult(builder.asAnchor(request, "more districts..."));
         }
 
-        if (listModel.getResults().size() > 0) {
-            Anchor a = (Anchor) listModel.getResults().get(listModel.getResults().size() - 1);
+        if (anchorListModel.getResults().size() > 0) {
+            Anchor a = (Anchor) anchorListModel.getResults().get(anchorListModel.getResults().size() - 1);
             a.setStyleClass("last");
         }
-        return listModel;
+        return anchorListModel;
     }
 
     public IGeoDao getGeoDao() {

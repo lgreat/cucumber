@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.21 2006/04/27 22:53:47 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.22 2006/05/31 21:44:29 apeterson Exp $
  */
 package gs.web.content;
 
@@ -10,7 +10,7 @@ import gs.data.state.State;
 import gs.web.ISessionFacade;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
-import gs.web.util.ListModel;
+import gs.web.util.AnchorListModel;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
@@ -169,8 +169,8 @@ public class FeaturedArticlesController extends AbstractController {
         final String heading = calcHeading(request, posStr);
 
         Map model = new HashMap(2);
-        model.put(ListModel.RESULTS, items);
-        model.put(ListModel.HEADING, heading);
+        model.put(AnchorListModel.RESULTS, items);
+        model.put(AnchorListModel.HEADING, heading);
 
         return new ModelAndView(_multipleArticlesViewName, model);
     }

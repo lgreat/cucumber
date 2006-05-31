@@ -1,30 +1,30 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ListModelFactoryTest.java,v 1.2 2006/05/25 17:23:19 apeterson Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.1 2006/05/31 21:44:29 apeterson Exp $
  */
 
 package gs.web;
 
 import gs.data.state.State;
 import gs.web.util.Anchor;
-import gs.web.util.ListModel;
+import gs.web.util.AnchorListModel;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Tests ListModelFactory.
+ * Tests AnchorListModelFactory.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
-public class ListModelFactoryTest extends BaseTestCase {
+public class AnchorListModelFactoryTest extends BaseTestCase {
 
-    ListModelFactory _listModelFactory;
+    AnchorListModelFactory _anchorListModelFactory;
     private HttpServletRequest _request;
 
     protected void setUp() throws Exception {
         super.setUp();
-        _listModelFactory = (ListModelFactory) getApplicationContext().getBean(ListModelFactory.BEAN_ID);
+        _anchorListModelFactory = (AnchorListModelFactory) getApplicationContext().getBean(AnchorListModelFactory.BEAN_ID);
         final GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setRequestURI("http://www.greatschools.net/index.html");
         request.setRemoteHost("www.greatschools.net");
@@ -33,9 +33,9 @@ public class ListModelFactoryTest extends BaseTestCase {
 
     public void testSchoolBreakdown() throws Exception {
 
-        ListModel listModel = _listModelFactory.createSchoolSummaryModel(State.AK, "Anchorage", "Anchorage", _request);
+        AnchorListModel anchorListModel = _anchorListModelFactory.createSchoolSummaryModel(State.AK, "Anchorage", "Anchorage", _request);
 
-        List list = listModel.getResults();
+        List list = anchorListModel.getResults();
         assertEquals(5, list.size());
 
         assertEquals("/schools.page?city=Anchorage&lc=e&state=AK", ((Anchor) list.get(0)).getHref());
@@ -53,9 +53,9 @@ public class ListModelFactoryTest extends BaseTestCase {
 
 
     public void testFindDistricts() throws Exception {
-        ListModel listModel = _listModelFactory.createDistrictList(State.NY, "Dolgeville", _request);
+        AnchorListModel anchorListModel = _anchorListModelFactory.createDistrictList(State.NY, "Dolgeville", _request);
 
-        List list = listModel.getResults();
+        List list = anchorListModel.getResults();
         assertTrue(list.size() > 0);
         assertTrue(list.size() <= 2);
         assertEquals("/cgi-bin/ny/district_profile/1/", ((Anchor) list.get(0)).getHref());

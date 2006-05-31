@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.19 2006/05/05 22:21:35 apeterson Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.20 2006/05/31 21:44:29 apeterson Exp $
  */
 
 package gs.web.school.performance;
@@ -12,7 +12,7 @@ import gs.data.state.State;
 import gs.data.util.SpringUtil;
 import gs.web.ISessionFacade;
 import gs.web.SessionFacade;
-import gs.web.util.ListModel;
+import gs.web.util.AnchorListModel;
 import gs.web.util.UrlBuilder;
 import gs.web.util.Anchor;
 import org.apache.commons.lang.StringUtils;
@@ -126,7 +126,7 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
         }
 
         // Build a separate list of city names
-        ListModel links = new ListModel();
+        AnchorListModel links = new AnchorListModel();
         for (Iterator iter= values.iterator(); iter.hasNext();  ){
             IBestPublicSchoolValue bpsv = (IBestPublicSchoolValue) iter.next();
             UrlBuilder builder = new UrlBuilder(bpsv, UrlBuilder.CITY_PAGE);

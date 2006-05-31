@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ListModelSaTest.java,v 1.1 2006/03/15 02:24:21 apeterson Exp $
+ * $Id: AnchorListModelSaTest.java,v 1.1 2006/05/31 21:44:29 apeterson Exp $
  */
 
 package gs.web.util;
@@ -14,10 +14,10 @@ import java.util.List;
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
-public class ListModelSaTest extends TestCase {
+public class AnchorListModelSaTest extends TestCase {
 
     public void testBasic() {
-        ListModel model = new ListModel();
+        AnchorListModel model = new AnchorListModel();
         model.addResult(new Anchor("http://ndpsoftware.com", "NDP Software"));
         model.addResult(new Anchor("http://greatschools.net", "Great Schools"));
         model.setHeading("Great Web Sites!");
@@ -31,7 +31,7 @@ public class ListModelSaTest extends TestCase {
         assertEquals("Great Web Sites!", model.getHeading());
 
         // other constructor
-        model = new ListModel("Not much");
+        model = new AnchorListModel("Not much");
         assertEquals("Not much", model.getHeading());
     }
 }

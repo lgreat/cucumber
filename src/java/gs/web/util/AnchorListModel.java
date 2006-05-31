@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ListModel.java,v 1.3 2006/04/11 20:13:48 apeterson Exp $
+ * $Id: AnchorListModel.java,v 1.1 2006/05/31 21:44:29 apeterson Exp $
  */
 
 package gs.web.util;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
-public class ListModel {
+public class AnchorListModel {
 
     public static final String HEADING = "heading";
 
@@ -35,11 +35,11 @@ public class ListModel {
      */
     private final List _results;
 
-    public ListModel() {
+    public AnchorListModel() {
         _results = new ArrayList();
     }
 
-    public ListModel(String heading) {
+    public AnchorListModel(String heading) {
         _heading = heading;
         _results = new ArrayList();
     }

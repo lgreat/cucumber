@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.30 2006/05/24 19:26:26 apeterson Exp $
+ * $Id: CityController.java,v 1.31 2006/05/31 21:44:29 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -13,10 +13,9 @@ import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.ISessionFacade;
-import gs.web.ListModelFactory;
+import gs.web.AnchorListModelFactory;
 import gs.web.SessionContext;
-import gs.web.util.ListModel;
-import gs.web.util.UrlUtil;
+import gs.web.util.AnchorListModel;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -49,10 +48,10 @@ public class CityController extends AbstractController {
     public static final String MODEL_CITY = "cityObject"; // City BpCensus object
     public static final String MODEL_CITY_NAME = "displayName"; // name of the city, correctly capitalized
 
-    public static final String MODEL_DISTRICTS = "districts"; // ListModel object
-    public static final String MODEL_SCHOOL_BREAKDOWN = "schoolBreakdown"; // ListModel object
+    public static final String MODEL_DISTRICTS = "districts"; // AnchorListModel object
+    public static final String MODEL_SCHOOL_BREAKDOWN = "schoolBreakdown"; // AnchorListModel object
 
-    //public static final String MODEL_SCHOOLS_BY_LEVEL = "schoolsByLevel"; // map [e,m,h] of ListModel object
+    //public static final String MODEL_SCHOOLS_BY_LEVEL = "schoolsByLevel"; // map [e,m,h] of AnchorListModel object
     private static final Log _log = LogFactory.getLog(CityController.class);
 
 
@@ -60,7 +59,7 @@ public class CityController extends AbstractController {
     private ISchoolDao _schoolDao;
     private IDistrictDao _districtDao;
     private StateManager _stateManager;
-    private ListModelFactory _listModelFactory;
+    private AnchorListModelFactory _anchorListModelFactory;
 
     public static final int MAX_SCHOOLS = 10;
     private static final Pattern UNDERLINE_PATTERN = Pattern.compile("_");
@@ -134,15 +133,15 @@ public class CityController extends AbstractController {
         model.put(MODEL_SCHOOL_COUNT, new Integer(schoolCount));
 
         if (schoolCount > 0) {
-            ListModel schoolBreakdownList = _listModelFactory.createSchoolSummaryModel(state, cityNameParam, cityDisplayName, request);
-            model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownList);
+            AnchorListModel schoolBreakdownAnchorList = _anchorListModelFactory.createSchoolSummaryModel(state, cityNameParam, cityDisplayName, request);
+            model.put(MODEL_SCHOOL_BREAKDOWN, schoolBreakdownAnchorList);
 
             //Map schoolsByLevel = createSchoolsByLevelModel(state, city, request);
             //model.put(MODEL_SCHOOLS_BY_LEVEL, schoolsByLevel);
         }
 
-        ListModel districtList = _listModelFactory.createDistrictList(state, cityNameParam, request);
-        model.put(MODEL_DISTRICTS, districtList);
+        AnchorListModel districtAnchorList = _anchorListModelFactory.createDistrictList(state, cityNameParam, request);
+        model.put(MODEL_DISTRICTS, districtAnchorList);
 
         /*
         * If top rated schools are available for this city, then get them and
@@ -216,11 +215,11 @@ public class CityController extends AbstractController {
         _stateManager = stateManager;
     }
 
-    public ListModelFactory getListModelFactory() {
-        return _listModelFactory;
+    public AnchorListModelFactory getListModelFactory() {
+        return _anchorListModelFactory;
     }
 
-    public void setListModelFactory(ListModelFactory listModelFactory) {
-        _listModelFactory = listModelFactory;
+    public void setListModelFactory(AnchorListModelFactory anchorListModelFactory) {
+        _anchorListModelFactory = anchorListModelFactory;
     }
 }

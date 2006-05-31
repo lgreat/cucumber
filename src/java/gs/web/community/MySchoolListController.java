@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MySchoolListController.java,v 1.11 2006/04/28 06:53:09 apeterson Exp $
+ * $Id: MySchoolListController.java,v 1.12 2006/05/31 21:44:29 apeterson Exp $
  */
 
 package gs.web.community;
@@ -14,8 +14,7 @@ import gs.data.state.State;
 import gs.web.ISessionFacade;
 import gs.web.SessionContextUtil;
 import gs.web.SessionFacade;
-import gs.web.util.Anchor;
-import gs.web.util.ListModel;
+import gs.web.util.AnchorListModel;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,12 +25,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
- * Provide the "member" and "limit". Returns data in the ListModel format.
+ * Provide the "member" and "limit". Returns data in the AnchorListModel format.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  * @see #PARAM_LIMIT
  * @see SessionContextUtil.MEMBER_PARAM
- * @see ListModel
+ * @see AnchorListModel
  */
 public class MySchoolListController extends AbstractController {
     private String _viewName;
@@ -80,7 +79,7 @@ public class MySchoolListController extends AbstractController {
                 shown = schools.size();
             }
         }
-        model.put(ListModel.RESULTS, items);
+        model.put(AnchorListModel.RESULTS, items);
 
 
         ModelAndView modelAndView = new ModelAndView(_viewName, model);

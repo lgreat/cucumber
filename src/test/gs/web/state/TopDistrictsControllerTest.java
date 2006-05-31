@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: TopDistrictsControllerTest.java,v 1.2 2006/05/10 22:15:47 apeterson Exp $
+ * $Id: TopDistrictsControllerTest.java,v 1.3 2006/05/31 21:44:29 apeterson Exp $
  */
 
 package gs.web.state;
 
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
-import gs.web.util.ListModel;
+import gs.web.util.AnchorListModel;
 import gs.web.util.Anchor;
 import gs.web.SessionContext;
 import gs.web.SessionFacade;
@@ -31,11 +31,11 @@ public class TopDistrictsControllerTest extends BaseControllerTestCase {
 
         ModelAndView modelAndView = c.handleRequestInternal(getRequest(), getResponse());
 
-        Object header = modelAndView.getModel().get(ListModel.HEADING);
+        Object header = modelAndView.getModel().get(AnchorListModel.HEADING);
         assertNotNull(header);
         assertTrue(header instanceof String);
         assertEquals("California Districts", header);
-        List results = (List) modelAndView.getModel().get(ListModel.RESULTS);
+        List results = (List) modelAndView.getModel().get(AnchorListModel.RESULTS);
         assertNotNull(results);
         assertEquals(6, results.size());
         Anchor districtAnchor = (Anchor) results.get(0);
@@ -43,7 +43,7 @@ public class TopDistrictsControllerTest extends BaseControllerTestCase {
         Anchor last = (Anchor) results.get(4);
         assertEquals("San Francisco Unified", last.getContents());
         assertEquals("/schools.page?district=717&amp;state=CA", last.getHref());
-        assertNotNull(modelAndView.getModel().get(ListModel.RESULTS));
+        assertNotNull(modelAndView.getModel().get(AnchorListModel.RESULTS));
 
         Anchor veryLast = (Anchor) results.get(5);
         assertEquals("/modperl/distlist/CA", veryLast.getHref());
@@ -55,11 +55,11 @@ public class TopDistrictsControllerTest extends BaseControllerTestCase {
         context.setHostName("localhost");
         modelAndView = c.handleRequestInternal(getRequest(), getResponse());
 
-        header = modelAndView.getModel().get(ListModel.HEADING);
+        header = modelAndView.getModel().get(AnchorListModel.HEADING);
         assertNotNull(header);
         assertTrue(header instanceof String);
         assertEquals("Alaska Districts", header);
-        results = (List) modelAndView.getModel().get(ListModel.RESULTS);
+        results = (List) modelAndView.getModel().get(AnchorListModel.RESULTS);
         assertNotNull(results);
         assertEquals(5, results.size());
         districtAnchor = (Anchor) results.get(0);
@@ -76,11 +76,11 @@ public class TopDistrictsControllerTest extends BaseControllerTestCase {
         context.setHostName("localhost");
         modelAndView = c.handleRequestInternal(getRequest(), getResponse());
 
-        header = modelAndView.getModel().get(ListModel.HEADING);
+        header = modelAndView.getModel().get(AnchorListModel.HEADING);
         assertNotNull(header);
         assertTrue(header instanceof String);
         assertEquals("Hawaii District", header);
-        results = (List) modelAndView.getModel().get(ListModel.RESULTS);
+        results = (List) modelAndView.getModel().get(AnchorListModel.RESULTS);
         assertNotNull(results);
         assertEquals(1, results.size());
         districtAnchor = (Anchor) results.get(0);

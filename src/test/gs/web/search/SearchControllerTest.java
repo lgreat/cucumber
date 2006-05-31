@@ -10,7 +10,7 @@ import gs.web.GsMockHttpServletRequest;
 import gs.web.SessionContext;
 import gs.web.SessionContextUtil;
 import gs.web.util.Anchor;
-import gs.web.util.ListModel;
+import gs.web.util.AnchorListModel;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.Hits;
@@ -80,7 +80,7 @@ public class SearchControllerTest extends BaseControllerTestCase {
         BindException errors = new BindException(command, null);
         ModelAndView mv = _controller.processFormSubmission(request, getResponse(), command, errors);
 
-        ListModel cities = (ListModel) mv.getModel().get(SearchController.MODEL_CITIES);
+        AnchorListModel cities = (AnchorListModel) mv.getModel().get(SearchController.MODEL_CITIES);
         assertNotNull(cities);
     }
 
@@ -99,7 +99,7 @@ public class SearchControllerTest extends BaseControllerTestCase {
         BindException errors = new BindException(command, null);
         ModelAndView mv = _controller.processFormSubmission(request, (HttpServletResponse) getResponse(), command, errors);
 
-        ListModel cities = (ListModel) mv.getModel().get(SearchController.MODEL_CITIES);
+        AnchorListModel cities = (AnchorListModel) mv.getModel().get(SearchController.MODEL_CITIES);
         assertNull(cities);
     }
 
@@ -163,11 +163,11 @@ public class SearchControllerTest extends BaseControllerTestCase {
         Map map = _controller.createModel(request, searchCommand, sessionContext, false);
 
         assertNotNull(map);
-        ListModel filteredListModel = (ListModel) map.get(SearchController.MODEL_FILTERED_CITIES);
-        assertNotNull(filteredListModel);
-        assertNotNull(filteredListModel.getResults());
-        assertTrue(filteredListModel.getResults().size() >= 1);
-        Anchor anchorage = (Anchor) filteredListModel.getResults().get(0);
+        AnchorListModel filteredAnchorListModel = (AnchorListModel) map.get(SearchController.MODEL_FILTERED_CITIES);
+        assertNotNull(filteredAnchorListModel);
+        assertNotNull(filteredAnchorListModel.getResults());
+        assertTrue(filteredAnchorListModel.getResults().size() >= 1);
+        Anchor anchorage = (Anchor) filteredAnchorListModel.getResults().get(0);
         assertEquals("/schools.page?city=Anchorage&st=private&state=AK", anchorage.getHref());
     }
     /**
@@ -188,11 +188,11 @@ public class SearchControllerTest extends BaseControllerTestCase {
         Map map = _controller.createModel(request, searchCommand, sessionContext, false);
 
         assertNotNull(map);
-        ListModel filteredListModel = (ListModel) map.get(SearchController.MODEL_FILTERED_CITIES);
-        assertNotNull(filteredListModel);
-        assertNotNull(filteredListModel.getResults());
-        assertTrue(filteredListModel.getResults().size() >= 1);
-        Anchor anchorage = (Anchor) filteredListModel.getResults().get(0);
+        AnchorListModel filteredAnchorListModel = (AnchorListModel) map.get(SearchController.MODEL_FILTERED_CITIES);
+        assertNotNull(filteredAnchorListModel);
+        assertNotNull(filteredAnchorListModel.getResults());
+        assertTrue(filteredAnchorListModel.getResults().size() >= 1);
+        Anchor anchorage = (Anchor) filteredAnchorListModel.getResults().get(0);
         assertEquals("/schools.page?city=Anchorage&lc=m&state=AK", anchorage.getHref());
     }
 }

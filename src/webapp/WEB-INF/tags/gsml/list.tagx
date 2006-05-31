@@ -6,7 +6,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
     <jsp:directive.tag body-content="scriptless"/>
-    <jsp:directive.attribute name="model" required="false" type="gs.web.util.ListModel"
+    <jsp:directive.attribute name="model" required="false" type="gs.web.util.AnchorListModel"
                              description="model object; if not set, gets model from the request"/>
     <jsp:directive.attribute name="between" required="false" type="java.lang.String"
                              description="Text or Html to output between list items. This is available to overcome CSS deficiencies. Not yet available for mutiple column displays. See also Anchor#before and Anchor#after properties."/>

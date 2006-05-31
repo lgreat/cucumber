@@ -8,14 +8,12 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.ISessionFacade;
 import gs.web.SessionContext;
-import gs.web.ListModelFactory;
+import gs.web.AnchorListModelFactory;
 import gs.web.util.Anchor;
-import gs.web.util.ListModel;
+import gs.web.util.AnchorListModel;
 import gs.web.util.UrlBuilder;
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.apache.lucene.document.Document;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.search.BooleanQuery;
@@ -83,7 +81,7 @@ public class SearchController extends AbstractFormController {
 
     public static final String MODEL_CITIES = "cities";
     public static final String MODEL_DISTRICTS = "districts";
-    public static final String MODEL_FILTERED_CITIES = "filteredCities"; // ListModel
+    public static final String MODEL_FILTERED_CITIES = "filteredCities"; // AnchorListModel
     public static final String MODEL_SHOW_SUGGESTIONS = "showSuggestions"; // Boolean
     public static final String MODEL_SHOW_QUERY_AGAIN = "showQueryAgain"; // Boolean
     private static final String MODEL_SHOW_STATE_CHOOSER = "showStateChooser"; // Boolean
@@ -100,7 +98,7 @@ public class SearchController extends AbstractFormController {
     private StateManager _stateManager;
     private GSQueryParser _queryParser;
     private ISchoolDao _schoolDao;
-    private ListModelFactory _listModelFactory;
+    private AnchorListModelFactory _anchorListModelFactory;
 
     public SearchController(Searcher searcher) {
         _searcher = searcher;
@@ -214,7 +212,7 @@ public class SearchController extends AbstractFormController {
                     final int maxCities = StringUtils.isNotEmpty(request.getParameter(PARAM_MORE_CITIES)) ?
                             EXTENDED_LIST_SIZE : LIST_SIZE;
                     final boolean showMore = cityHits.length() > LIST_SIZE && maxCities == LIST_SIZE;
-                    ListModel cities = _listModelFactory.createCitiesListModel(request, cityHits,
+                    AnchorListModel cities = _anchorListModelFactory.createCitiesListModel(request, cityHits,
                             StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE)) ? SchoolType.CHARTER : null,
                             maxCities,
                             showMore);
@@ -240,10 +238,10 @@ public class SearchController extends AbstractFormController {
 
                     if (gl != null || st != null) {
 
-                        ListModel listModel = createFilteredCitiesListModel(filtersBuffer, cityHits, st, gl, filteredListSize, urlBuilder, state, request);
+                        AnchorListModel anchorListModel = createFilteredCitiesListModel(filtersBuffer, cityHits, st, gl, filteredListSize, urlBuilder, state, request);
 
-                        if (listModel.getResults().size() > 0) {
-                            model.put(MODEL_FILTERED_CITIES, listModel);
+                        if (anchorListModel.getResults().size() > 0) {
+                            model.put(MODEL_FILTERED_CITIES, anchorListModel);
                             resultsToShow = true;
                         }
                     }
@@ -251,7 +249,7 @@ public class SearchController extends AbstractFormController {
 
 
                 Hits districtHits = searchForDistricts(baseQuery);
-                ListModel districts = _listModelFactory.createDistrictsListModel(request, districtHits, state,
+                AnchorListModel districts = _anchorListModelFactory.createDistrictsListModel(request, districtHits, state,
                         StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE)) ? SchoolType.CHARTER : null, StringUtils.isNotEmpty(request.getParameter(PARAM_MORE_DISTRICTS)) ?
                         EXTENDED_LIST_SIZE : LIST_SIZE, districtHits.length() > LIST_SIZE &&
                         (StringUtils.isNotEmpty(request.getParameter(PARAM_MORE_DISTRICTS)) ?
@@ -353,8 +351,8 @@ public class SearchController extends AbstractFormController {
     }
 
 
-    private ListModel createFilteredCitiesListModel(StringBuffer filtersBuffer, Hits cityHits, String st, String gl, int filteredListSize, UrlBuilder urlBuilder, State state, HttpServletRequest request) throws IOException {
-        ListModel listModel = new ListModel(filtersBuffer.toString());
+    private AnchorListModel createFilteredCitiesListModel(StringBuffer filtersBuffer, Hits cityHits, String st, String gl, int filteredListSize, UrlBuilder urlBuilder, State state, HttpServletRequest request) throws IOException {
+        AnchorListModel anchorListModel = new AnchorListModel(filtersBuffer.toString());
 
         boolean needMore = false;
         int displayed = 0;
@@ -370,7 +368,7 @@ public class SearchController extends AbstractFormController {
                     urlBuilder.setParameter("city", cityName);
                     urlBuilder.setParameter("state", stateOfCity.getAbbreviation());
                     cityName += ", " + stateOfCity.getAbbreviation();
-                    listModel.addResult(urlBuilder.asAnchor(request, cityName));
+                    anchorListModel.addResult(urlBuilder.asAnchor(request, cityName));
                     displayed++;
                 }
             } else {
@@ -381,13 +379,13 @@ public class SearchController extends AbstractFormController {
             UrlBuilder builder = new UrlBuilder(request, "/search/search.page");
             builder.addParametersFromRequest(request);
             builder.setParameter(PARAM_MORE_FILTERED, "true");
-            listModel.addResult(builder.asAnchor(request, "more..."));
+            anchorListModel.addResult(builder.asAnchor(request, "more..."));
         }
-        if (listModel.getResults().size() > 0) {
-            Anchor a = (Anchor) listModel.getResults().get(listModel.getResults().size() - 1);
+        if (anchorListModel.getResults().size() > 0) {
+            Anchor a = (Anchor) anchorListModel.getResults().get(anchorListModel.getResults().size() - 1);
             a.setStyleClass("last");
         }
-        return listModel;
+        return anchorListModel;
     }
 
     private String determineSchoolType(String lowerCaseQuery, StringBuffer filtersBuffer, UrlBuilder urlBuilder) {
@@ -459,11 +457,11 @@ public class SearchController extends AbstractFormController {
         _schoolDao = schoolDao;
     }
 
-    public ListModelFactory getListModelFactory() {
-        return _listModelFactory;
+    public AnchorListModelFactory getListModelFactory() {
+        return _anchorListModelFactory;
     }
 
-    public void setListModelFactory(ListModelFactory listModelFactory) {
-        _listModelFactory = listModelFactory;
+    public void setListModelFactory(AnchorListModelFactory anchorListModelFactory) {
+        _anchorListModelFactory = anchorListModelFactory;
     }
 }

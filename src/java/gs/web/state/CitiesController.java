@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: CitiesController.java,v 1.4 2006/04/24 21:16:09 apeterson Exp $
+ * $Id: CitiesController.java,v 1.5 2006/05/31 21:44:29 apeterson Exp $
  */
 
 package gs.web.state;
@@ -14,7 +14,7 @@ import gs.data.state.State;
 import gs.web.ISessionFacade;
 import gs.web.SessionFacade;
 import gs.web.SessionContextUtil;
-import gs.web.util.ListModel;
+import gs.web.util.AnchorListModel;
 import gs.web.util.Anchor;
 import gs.web.util.UrlBuilder;
 
@@ -68,7 +68,7 @@ public class CitiesController extends AbstractController {
                 }
                 List nearbyCities = _geoDao.findNearbyCities(city, limit);
 
-                model.put(ListModel.HEADING, "Cities Near " + city.getName());
+                model.put(AnchorListModel.HEADING, "Cities Near " + city.getName());
 
                 List items = new ArrayList(limit);
                 for (int i = 0; i < limit && i < nearbyCities.size(); i++) {
@@ -81,7 +81,7 @@ public class CitiesController extends AbstractController {
                     Anchor anchor = builder.asAnchor(request, nearbyCity.getName(), styleClass);
                     items.add(anchor);
                 }
-                model.put(ListModel.RESULTS, items);
+                model.put(AnchorListModel.RESULTS, items);
             }
         }
 

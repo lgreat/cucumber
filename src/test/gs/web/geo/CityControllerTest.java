@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.11 2006/05/25 17:08:32 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.12 2006/05/31 21:44:29 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -14,9 +14,9 @@ import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.SessionContextUtil;
-import gs.web.ListModelFactory;
+import gs.web.AnchorListModelFactory;
 import gs.web.util.Anchor;
-import gs.web.util.ListModel;
+import gs.web.util.AnchorListModel;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
@@ -43,7 +43,7 @@ public class CityControllerTest extends BaseControllerTestCase {
         _controller.setDistrictDao((IDistrictDao) getApplicationContext().getBean(IDistrictDao.BEAN_ID));
         _controller.setGeoDao((IGeoDao) getApplicationContext().getBean(IGeoDao.BEAN_ID));
         _controller.setStateManager((StateManager) getApplicationContext().getBean(StateManager.BEAN_ID));
-        _controller.setListModelFactory( (ListModelFactory) getApplicationContext().getBean(ListModelFactory.BEAN_ID));
+        _controller.setListModelFactory( (AnchorListModelFactory) getApplicationContext().getBean(AnchorListModelFactory.BEAN_ID));
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().
                 getBean(SessionContextUtil.BEAN_ID);
     }
@@ -58,9 +58,9 @@ public class CityControllerTest extends BaseControllerTestCase {
 
         Map model = mav.getModel();
 
-        ListModel listModel = (ListModel) model.get(CityController.MODEL_SCHOOL_BREAKDOWN);
+        AnchorListModel anchorListModel = (AnchorListModel) model.get(CityController.MODEL_SCHOOL_BREAKDOWN);
 
-        List list = listModel.getResults();
+        List list = anchorListModel.getResults();
         assertEquals(5, list.size());
 
         assertEquals("/schools.page?city=Anchorage&lc=e&state=AK", ((Anchor) list.get(0)).getHref());
@@ -87,9 +87,9 @@ public class CityControllerTest extends BaseControllerTestCase {
 
         Map model = mav.getModel();
 
-        ListModel listModel = (ListModel) model.get(CityController.MODEL_DISTRICTS);
+        AnchorListModel anchorListModel = (AnchorListModel) model.get(CityController.MODEL_DISTRICTS);
 
-        List list = listModel.getResults();
+        List list = anchorListModel.getResults();
         assertTrue(list.size() > 0);
         assertTrue(list.size() <= 2);
         assertEquals("/cgi-bin/ny/district_profile/1/", ((Anchor) list.get(0)).getHref());

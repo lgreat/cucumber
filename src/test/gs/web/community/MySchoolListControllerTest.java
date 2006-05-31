@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: MySchoolListControllerTest.java,v 1.1 2006/04/28 06:53:09 apeterson Exp $
+ * $Id: MySchoolListControllerTest.java,v 1.2 2006/05/31 21:44:29 apeterson Exp $
  */
 
 package gs.web.community;
@@ -10,7 +10,7 @@ import gs.data.school.ISchoolDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.SessionContextUtil;
-import gs.web.util.ListModel;
+import gs.web.util.AnchorListModel;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -44,7 +44,7 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
 
         ModelAndView modelAndView = _controller.handleRequestInternal(request, getResponse());
 
-        List list = (List) modelAndView.getModel().get(ListModel.RESULTS);
+        List list = (List) modelAndView.getModel().get(AnchorListModel.RESULTS);
         assertEquals(4, list.size());
 
         // test limit
@@ -53,7 +53,7 @@ public class MySchoolListControllerTest extends BaseControllerTestCase {
 
         modelAndView = _controller.handleRequestInternal(request, getResponse());
 
-        list = (List) modelAndView.getModel().get(ListModel.RESULTS);
+        list = (List) modelAndView.getModel().get(AnchorListModel.RESULTS);
         assertEquals(3, list.size());
 
 

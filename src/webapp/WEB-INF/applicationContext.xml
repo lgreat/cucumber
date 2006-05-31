@@ -64,8 +64,8 @@
         </constructor-arg>
     </bean>
 
-    <bean id="listModelFactory"
-        class="gs.web.ListModelFactory"
+    <bean id="anchorListModelFactory"
+        class="gs.web.AnchorListModelFactory"
         autowire="byName" />
 
 </beans>

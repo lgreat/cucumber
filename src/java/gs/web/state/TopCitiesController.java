@@ -1,7 +1,7 @@
 
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesController.java,v 1.18 2006/05/19 17:56:36 apeterson Exp $
+ * $Id: TopCitiesController.java,v 1.19 2006/05/31 21:44:29 apeterson Exp $
  */
 
 package gs.web.state;
@@ -11,7 +11,7 @@ import gs.web.ISessionFacade;
 import gs.web.SessionContextUtil;
 import gs.web.SessionFacade;
 import gs.web.util.Anchor;
-import gs.web.util.ListModel;
+import gs.web.util.AnchorListModel;
 import gs.web.util.UrlBuilder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -19,7 +19,6 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,9 +29,9 @@ import java.util.Map;
  * cities in the state (hand-tuned by our employees).
  * The number of cities returned is currently set by the State itself.
  * <p>
- * Uses the standard ListModel.
+ * Uses the standard AnchorListModel.
  *
- * @see ListModel
+ * @see AnchorListModel
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
@@ -53,13 +52,13 @@ public class TopCitiesController extends AbstractController {
 
         // There is only one city in DC, so rewrite a little bit.
         if (state.equals(State.DC)) {
-            model.put(ListModel.HEADING, state.getLongName() + " Schools");
+            model.put(AnchorListModel.HEADING, state.getLongName() + " Schools");
 
             List items = new ArrayList(1);
             Anchor anchor = new Anchor("/schools.page?city=Washington&state=DC",
                     "View all schools");
             items.add(anchor);
-            model.put(ListModel.RESULTS, items);
+            model.put(AnchorListModel.RESULTS, items);
 
         } else {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.CITY_PAGE, state, "");
@@ -69,7 +68,7 @@ public class TopCitiesController extends AbstractController {
                 cityCount = Integer.parseInt(request.getParameter(PARAM_COUNT));
             }
 
-            model.put(ListModel.HEADING, state.getLongName() + " Cities");
+            model.put(AnchorListModel.HEADING, state.getLongName() + " Cities");
 
             String[] cities = state.getTopCities();
             if (cities.length < cityCount) {
@@ -87,8 +86,8 @@ public class TopCitiesController extends AbstractController {
             items.add(new Anchor("/modperl/cities/" + state.getAbbreviation() + "/",
                     "View all " + state.getLongName() + " cities",
                     "viewall"));
-            model.put(ListModel.RESULTS, items);
-            model.put(ListModel.COLUMNS, new Integer(items.size() > 5 ? 2 : 1));
+            model.put(AnchorListModel.RESULTS, items);
+            model.put(AnchorListModel.COLUMNS, new Integer(items.size() > 5 ? 2 : 1));
         }
 
         ModelAndView modelAndView = new ModelAndView(_viewName, model);
