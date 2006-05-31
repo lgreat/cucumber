@@ -457,11 +457,11 @@ public class SearchController extends AbstractFormController {
         _schoolDao = schoolDao;
     }
 
-    public AnchorListModelFactory getListModelFactory() {
+    public AnchorListModelFactory getAnchorListModelFactory() {
         return _anchorListModelFactory;
     }
 
-    public void setListModelFactory(AnchorListModelFactory anchorListModelFactory) {
+    public void setAnchorListModelFactory(AnchorListModelFactory anchorListModelFactory) {
         _anchorListModelFactory = anchorListModelFactory;
     }
 }

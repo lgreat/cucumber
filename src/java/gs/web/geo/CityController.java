@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.31 2006/05/31 21:44:29 apeterson Exp $
+ * $Id: CityController.java,v 1.32 2006/05/31 23:05:29 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -215,11 +215,11 @@ public class CityController extends AbstractController {
         _stateManager = stateManager;
     }
 
-    public AnchorListModelFactory getListModelFactory() {
+    public AnchorListModelFactory getAnchorListModelFactory() {
         return _anchorListModelFactory;
     }
 
-    public void setListModelFactory(AnchorListModelFactory anchorListModelFactory) {
+    public void setAnchorListModelFactory(AnchorListModelFactory anchorListModelFactory) {
         _anchorListModelFactory = anchorListModelFactory;
     }
 }
