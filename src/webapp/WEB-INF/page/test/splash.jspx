@@ -31,7 +31,7 @@
 }
 
 .bigDottedDivider {
-    margin-top: 20px;
+    margin-top: 0px;
     border-bottom: 3px dotted #cccccc;
     margin-bottom: 20px;
 }
@@ -158,8 +158,8 @@
 
     <table cellpadding="0" cellspacing="20" width="100%">
         <tr>
-            <td width="66%">
-                <div id="cLeft">
+            <td width="66%" style="padding: 10px;background-color: #bbb; ">
+                <div style="height:100%;">
                     <p>
                         As a user, I would like to see 2-4 large ads about GS features, and click on them to be directed
                         to the feature that they're advertising.
