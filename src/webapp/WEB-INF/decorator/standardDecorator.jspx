@@ -85,7 +85,7 @@
 
                         <gsml:a href="/cgi-bin/static/jobs.inc/${state}">Jobs</gsml:a> &#124;
 
-                        <gsml:a href="/cgi-bin/feedback/${state}">Contact Us</gsml:a> &#124;
+                        <link:contactUs>Contact Us</link:contactUs> &#124;
 
                         <gsml:a href="/about/privacyStatement.page?state=${state}">Privacy Policy</gsml:a>
 

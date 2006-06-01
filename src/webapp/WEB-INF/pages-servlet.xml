@@ -718,4 +718,20 @@
     <!--            </map>-->
     <!--        </property>-->
     <!--    </bean>-->
+    <bean name="/status/error500.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>status/error500</value>
+        </property>
+    </bean>
+
+    <bean name="/status/error404.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>status/error404</value>
+        </property>
+    </bean>
+
 </beans>

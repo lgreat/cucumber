@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.2 2006/05/23 17:18:13 apeterson Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.3 2006/06/01 18:46:36 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -118,6 +118,12 @@ tagHandler.setArticle(a);
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/about/privacyStatement.page?state=CA", builder.asSiteRelative(null));
+    }
+    public void testContactUs() {
+        ContactUsTagHandler tagHandler = new ContactUsTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/cgi-bin/feedback/CA", builder.asSiteRelative(null));
     }
     public void testSchools() {
         SchoolsTagHandler tagHandler = new SchoolsTagHandler();

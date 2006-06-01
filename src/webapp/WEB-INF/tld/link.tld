@@ -269,6 +269,29 @@
         </attribute>
     </tag>
     <tag>
+        <name>contactUs</name>
+        <tag-class>gs.web.jsp.link.ContactUsTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Contact Us</display-name>
+        <description>
+            <![CDATA[Contact Us.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+    </tag>
+    <tag>
         <name>city</name>
         <tag-class>gs.web.jsp.link.CityTagHandler</tag-class>
         <body-content>JSP</body-content>
