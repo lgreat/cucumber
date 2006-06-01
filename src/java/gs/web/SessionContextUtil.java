@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.16 2006/06/01 23:30:11 dlee Exp $
+ * $Id: SessionContextUtil.java,v 1.17 2006/06/01 23:31:24 dlee Exp $
  */
 
 package gs.web;
@@ -281,7 +281,7 @@ public class SessionContextUtil implements ApplicationContextAware {
             setDomainWideCookie(httpServletResponse,
                     STATE_COOKIE,
                     "",
-                    CookieGenerator.DEFAULT_COOKIE_MAX_AGE);
+                    0);
             _log.debug("Clearing user's state context");
             return;
         }

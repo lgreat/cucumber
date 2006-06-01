@@ -150,6 +150,27 @@ public class SessionContextTest extends BaseTestCase {
         assertTrue(!ctx.isYahooCobrand());
     }
 
+    public void testDomainWideCookie() {
+        SessionContextUtil util = new SessionContextUtil();
+        util.setStateManager(new StateManager());
+
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        util.setDomainWideCookie(response, "someCookie", "someValue", 100);
+        Cookie cookie = response.getCookie("someCookie");
+        assertNotNull(cookie);
+        assertEquals("someValue", cookie.getValue());
+        assertEquals("/", cookie.getPath());
+        assertEquals(100, cookie.getMaxAge());
+
+        response = new MockHttpServletResponse();
+        util.setDomainWideCookie(response, "someCookie", "someValue", 0);
+        cookie = response.getCookie("someCookie");
+        assertNotNull(cookie);
+        assertEquals("someValue", cookie.getValue());
+        assertEquals("/", cookie.getPath());
+        assertEquals(0, cookie.getMaxAge());
+    }
+
     public void testStateSetting() {
         SessionContextUtil util = new SessionContextUtil();
         util.setStateManager(new StateManager());
@@ -200,7 +221,13 @@ public class SessionContextTest extends BaseTestCase {
         request.setParameter("state", "xx");
         util.updateStateFromParam(ctx, request, response);
         assertEquals(State.CT, ctx.getState());
-        assertEquals(State.CT, getStateFromMockResponse(response));        
+        assertEquals(State.CT, getStateFromMockResponse(response));
+
+        request.setParameter("state", "US");
+        util.updateStateFromParam(ctx, request, response);
+        assertNull(ctx.getState());        
+        assertNull(getStateFromMockResponse(response));
+
     }
 
     /**
