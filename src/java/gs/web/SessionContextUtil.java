@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.15 2006/05/30 20:19:57 dlee Exp $
+ * $Id: SessionContextUtil.java,v 1.16 2006/06/01 23:30:11 dlee Exp $
  */
 
 package gs.web;
@@ -275,6 +275,17 @@ public class SessionContextUtil implements ApplicationContextAware {
                                      HttpServletResponse httpServletResponse) {
         // Set state, or change, if necessary
         String paramStateStr = httpServletRequest.getParameter(STATE_PARAM);
+
+        if ("US".equalsIgnoreCase(paramStateStr)) {
+            context.setState(null);
+            setDomainWideCookie(httpServletResponse,
+                    STATE_COOKIE,
+                    "",
+                    CookieGenerator.DEFAULT_COOKIE_MAX_AGE);
+            _log.debug("Clearing user's state context");
+            return;
+        }
+
         if (!StringUtils.isEmpty(paramStateStr) && paramStateStr.length() >= 2) {
             final State currState = context.getState();
             State s = _stateManager.getState(paramStateStr.substring(0, 2));
@@ -285,17 +296,33 @@ public class SessionContextUtil implements ApplicationContextAware {
 
             if (s != null) {
                 context.setState(s);
-                CookieGenerator cookieGenerator = new CookieGenerator();
-                cookieGenerator.setCookieDomain("greatschools.net");
-                cookieGenerator.setCookieMaxAge(CookieGenerator.DEFAULT_COOKIE_MAX_AGE);
-                cookieGenerator.setCookieName(STATE_COOKIE);
-                cookieGenerator.setCookiePath("/");
-                cookieGenerator.addCookie(httpServletResponse, s.getAbbreviation());
+                setDomainWideCookie(httpServletResponse, STATE_COOKIE, s.getAbbreviation(),
+                        CookieGenerator.DEFAULT_COOKIE_MAX_AGE);
                 _log.debug("switching user's state: " + s);
             }
         }
     }
 
+    /**
+     * Sets a cookie for 'greatschools.net' which means any cobrand
+     * will have access to cookie.  For example: www.greatschools.net,
+     * yahoo.greatschools.net,
+     * @param response
+     * @param cookieName
+     * @param cookieValue
+     * @param timeToLive
+     */
+    protected void setDomainWideCookie(final HttpServletResponse response,
+                                       final String cookieName,
+                                       final String cookieValue,
+                                       final int timeToLive) {
+
+        CookieGenerator cookieGenerator = new CookieGenerator();
+        cookieGenerator.setCookiePath(CookieGenerator.DEFAULT_COOKIE_PATH);
+        cookieGenerator.setCookieMaxAge(timeToLive);
+        cookieGenerator.setCookieName(cookieName);
+        cookieGenerator.addCookie(response, cookieValue);
+    }
 
     public ApplicationContext getApplicationContext() {
         return _applicationContext;
