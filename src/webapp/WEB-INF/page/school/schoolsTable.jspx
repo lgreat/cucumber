@@ -203,7 +203,7 @@
     <c:otherwise>
         <mod:tracking pageName="schools${param.map eq 1 ? ':map':''}"
                       pageType="search"
-                      hier1="search,schools,page${results.total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"
+                      hier1="Search,Schools,Page${results.total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"
                       schoolType="${gsweb:toDelimitedString(paramValues.st)}"
                       schoolLevel="${gsweb:toUglyDelimitedString(paramValues.gl)}"/>
 

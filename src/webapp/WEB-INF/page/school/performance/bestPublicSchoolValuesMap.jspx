@@ -71,7 +71,7 @@
         </div>
         <mod:tracking pageName="Best Public School Values:top20 map"
                       pageType=""
-                      hier1="cities,best public school values,top20 map"/>
+                      hier1="Cities,Best Public School Values,Top20 Map"/>
 
     </gsml:body>
 

@@ -92,7 +92,7 @@
     </div>
     <mod:tracking pageName="Newsletter Hover Confirmation"
                   pageType=""
-                  hier1="Newsletter, NL hover confirmation, school profile"/>
+                  hier1="Newsletter, NL hover confirmation, School profile"/>
 </gsml:body>
 </html>
 </jsp:root>

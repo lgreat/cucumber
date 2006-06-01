@@ -142,7 +142,7 @@
     </center>
     <mod:tracking pageName="School Tab-Charter School Info"
                   pageType="school"
-                  hier1="school,charterSchoolInfo"/>
+                  hier1="School,Charter School Info"/>
     </body>
     </html>
 </jsp:root>

@@ -75,7 +75,7 @@
 </p>
         <mod:tracking pageName="Best Public School Values:allcities:SFBayArea"
                       pageType="city"
-                      hier1="cities,best public school values,allcities,SFBayArea"/>
+                      hier1="Cities,Best Public School Values,All Cities,SFBayArea"/>
     </gsml:body>
     </html>
 </jsp:root>
