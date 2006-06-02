@@ -6,6 +6,7 @@
 <c:set var="bpCensus" value="${requestScope.bpCensus}"/>
 <c:set var="stateCensus" value="${requestScope.statewide}"/>
 <c:set var="usCensus" value="${requestScope.us}"/>
+<c:set var="showStateInfo" value="${stateCensus.state != gs.data.state.State.DC}" />
 <c:if test="${not empty bpCensus}">
         <div id="cityStats" class="statsModule">
 
@@ -16,7 +17,9 @@
                     <tr>
                         <td width="50%" class="empty"></td>
                         <th width="25%">${bpCensus.name}</th>
+                        <c:if test="${showStateInfo}">
                         <th width="25%">${stateCensus.name}</th>
+                        </c:if>
                         <th width="25%">U.S.</th>
                         </tr>
                 </thead>
@@ -27,10 +30,12 @@
                     <td class="${bpCensus.householdMedianIncome gt stateCensus.householdMedianIncome ? 'better' : 'worse'}">
                         $<fmt:formatNumber value="${bpCensus.householdMedianIncome}" maxFractionDigits="0"/>
                     </td>
+                    <c:if test="${showStateInfo}">
                     <td>
                         $<fmt:formatNumber value="${stateCensus.householdMedianIncome}"
                                            maxFractionDigits="0"/>
                     </td>
+                    </c:if>
                     <td>
                         $<fmt:formatNumber value="${usCensus.householdMedianIncome}" maxFractionDigits="0"/>
                     </td>
@@ -42,9 +47,11 @@
                     <td class="${bpCensus.costOfLiving lt usCensus.costOfLiving ? 'better' : 'worse'}">
                         <fmt:formatNumber value="${bpCensus.costOfLiving}" maxFractionDigits="0"/>%
                     </td>
+                    <c:if test="${showStateInfo}">
                     <td>
                         <fmt:formatNumber value="${stateCensus.costOfLiving}" maxFractionDigits="0"/>%
                     </td>
+                    </c:if>
                     <td>
                         100%
                     </td>
@@ -57,10 +64,12 @@
 
                         <fmt:formatNumber value="${bpCensus.unemploymentRate * 100}" maxFractionDigits="0"/>%
                     </td>
+                    <c:if test="${showStateInfo}">
                     <td>
                         <fmt:formatNumber value="${stateCensus.unemploymentRate * 100}"
                                           maxFractionDigits="0"/>%
                     </td>
+</c:if>
                     <td>
                         <fmt:formatNumber value="${usCensus.unemploymentRate * 100}" maxFractionDigits="0"/>%
                     </td>
@@ -74,11 +83,13 @@
                                 value="${bpCensus.crimeViolent}"
                                 maxFractionDigits="0"/>
                     </td>
+                    <c:if test="${showStateInfo}">
                     <td>
                         <fmt:formatNumber
                                 value="${stateCensus.crimeViolent}"
                                 maxFractionDigits="0"/>
                     </td>
+</c:if>
                     <td>
                         <fmt:formatNumber
                             value="${usCensus.crimeViolent}"
@@ -86,7 +97,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="text-align:left" colspan="2" rowspan="2">
+                    <th style="text-align:left" colspan="${showStateInfo ? 2 : 1}" rowspan="2">
                         Days per year with some sun:
                     <span class="${bpCensus.sunnyDays gt 250 ? 'better' :
 					bpCensus.sunnyDays lt 75 ? 'worse' : ''}">
@@ -113,7 +124,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="text-align:left; border-bottom-width: 0" colspan="2">
+                    <th style="text-align:left; border-bottom-width: 0" colspan="${showStateInfo ? 2 : 1}">
                         Population: <fmt:formatNumber
                             value="${bpCensus.population}"
                             maxFractionDigits="0"/>
