@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.18 2006/06/02 00:33:16 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.19 2006/06/02 00:50:12 dlee Exp $
  */
 
 package gs.web;
@@ -278,11 +278,7 @@ public class SessionContextUtil implements ApplicationContextAware {
 
         if ("US".equalsIgnoreCase(paramStateStr)) {
             context.setState(null);
-            setDomainWideCookie(httpServletResponse,
-                    STATE_COOKIE,
-                    "",
-                    0);
-            _log.debug("Clearing user's state context");
+            _log.debug("Internal testing:  clearing user's state context.");
             return;
         }
 
@@ -304,9 +300,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     }
 
     /**
-     * Sets a cookie for 'greatschools.net' which means any cobrand
-     * will have access to cookie.  For example: www.greatschools.net,
-     * yahoo.greatschools.net,
+     * Sets a cookie for 'COBRAND.greatschools.net'.  COBRAND is the current cobrand user is on
      * @param response
      * @param cookieName
      * @param cookieValue

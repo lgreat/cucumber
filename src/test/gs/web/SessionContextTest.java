@@ -226,8 +226,6 @@ public class SessionContextTest extends BaseTestCase {
         request.setParameter("state", "US");
         util.updateStateFromParam(ctx, request, response);
         assertNull(ctx.getState());        
-        assertNull(getStateFromMockResponse(response));
-
     }
 
     /**

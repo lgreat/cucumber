@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.2 2006/06/02 00:33:16 apeterson Exp $
+ * $Id: MssPaControllerTest.java,v 1.3 2006/06/02 00:50:12 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -101,7 +101,6 @@ public class MssPaControllerTest extends BaseControllerTestCase {
 
         Cookie cookie = getResponse().getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
         assertNotNull(cookie);
-        assertEquals("greatschools.net", cookie.getDomain());
         assertEquals(-1, cookie.getMaxAge());
         assertEquals("/", cookie.getPath());
 
