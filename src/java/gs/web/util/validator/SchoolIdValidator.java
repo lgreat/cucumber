@@ -26,8 +26,8 @@ public class SchoolIdValidator implements Validator {
 
     public void validate(Object object, Errors errors) {
         ISchoolId command = (ISchoolId)object;
-        if (command.getSchoolId() == 0) {
-            errors.rejectValue("schoolId", "invalid","School Id was not specified");
+        if (command.getSchoolId() <= 0) {
+            errors.rejectValue("schoolId", "invalid_schoolId", "A valid school id was not specified.");
         }
     }
 }

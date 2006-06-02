@@ -28,7 +28,7 @@ public class EmailValidator implements Validator {
         org.apache.commons.validator.EmailValidator emv = org.apache.commons.validator.EmailValidator.getInstance();
 
         if (!emv.isValid(command.getEmail())) {
-            errors.rejectValue("email", "invalid", "Please enter a valid email address");
+            errors.rejectValue("email", "invalid_email", "Please enter a valid email address.");
         }
     }
 }

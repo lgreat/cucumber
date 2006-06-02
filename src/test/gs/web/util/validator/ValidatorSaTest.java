@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ValidatorSaTest.java,v 1.1 2006/05/25 22:27:05 dlee Exp $
+ * $Id: ValidatorSaTest.java,v 1.2 2006/06/02 19:22:08 dlee Exp $
  */
 package gs.web.util.validator;
 
@@ -59,7 +59,7 @@ public class ValidatorSaTest extends TestCase {
 
     public void testSchoolIdValidator() {
         final int GOOD_SCHOOLID = 1;
-        final int BAD_SCHOOLID = 0;
+        int BAD_SCHOOLID = 0;
 
         Validator v = new SchoolIdValidator();
         NewsletterCommand command = new NewsletterCommand();
@@ -70,6 +70,11 @@ public class ValidatorSaTest extends TestCase {
         assertFalse(errors.hasErrors());
 
         command.setSchoolId(BAD_SCHOOLID);
+        v.validate(command, errors);
+        assertTrue(errors.hasErrors());
+
+        errors = new BindException(command, "");
+        BAD_SCHOOLID = -1;
         v.validate(command, errors);
         assertTrue(errors.hasErrors());
     }

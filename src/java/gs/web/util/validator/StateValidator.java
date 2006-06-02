@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StateValidator.java,v 1.2 2006/05/04 23:24:37 dlee Exp $
+ * $Id: StateValidator.java,v 1.3 2006/06/02 19:22:08 dlee Exp $
  */
 package gs.web.util.validator;
 
@@ -33,7 +33,7 @@ public class StateValidator implements Validator {
     public void validate(Object object, Errors errors) {
         IState command = (IState)object;
         if (command.getState() == null) {
-            errors.rejectValue("state", "invalid","State was not specified");
+            errors.rejectValue("state", "invalid_state", "A valid state was not specified.");
         }
     }
 }
