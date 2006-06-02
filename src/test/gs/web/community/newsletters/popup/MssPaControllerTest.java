@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.1 2006/05/25 21:47:17 dlee Exp $
+ * $Id: MssPaControllerTest.java,v 1.2 2006/06/02 00:33:16 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -9,6 +9,7 @@ import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
+import gs.web.SessionContextUtil;
 import gs.web.util.validator.EmailValidator;
 import gs.web.util.validator.SchoolIdValidator;
 import gs.web.util.validator.StateValidator;
@@ -98,7 +99,7 @@ public class MssPaControllerTest extends BaseControllerTestCase {
         assertEquals(command.getEmail(), model.get("email").toString());
         assertEquals(String.valueOf(command.getSchoolId()), model.get("schoolId").toString());
 
-        Cookie cookie = getResponse().getCookie(MssPaController.MEMBER_COOKIE);
+        Cookie cookie = getResponse().getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
         assertNotNull(cookie);
         assertEquals("greatschools.net", cookie.getDomain());
         assertEquals(-1, cookie.getMaxAge());

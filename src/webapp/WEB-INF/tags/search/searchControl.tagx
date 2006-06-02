@@ -18,11 +18,14 @@
                              required="false"
                              description="Should the constraint control (select) show in this control? Default yes."
                              type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="constraint"
+                             required="false"
+                             description="Constraint, or default if showConstraint is set to true."
+                             type="java.lang.String"/>
 
 
     <div class="globalSearch">
-    <gsml:url var="search" value="/search/search.page"/>
-    <gsml:form id="searchform" method="get" action="${search}">
+    <gsml:form id="searchform" method="get" action="/search/search.page">
         <table style="padding:0px; margin:0px;">
             <c:if test="${showStates == 'true'}">
                 <tr>
@@ -30,7 +33,6 @@
                         style="white-space:nowrap;">Search again in:
                         <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.stateOrDefault}"/>
                     </td>
-                    <td></td>
                </tr>
             </c:if>
             <tr>
@@ -55,6 +57,9 @@
                             <option value="topic">Topics only</option>
                         </select>
                     </td>
+                </c:if>
+                <c:if test="${not ((empty showConstraint) or showConstraint)}">
+                    <input type="hidden" name="type" value="${(not empty constraint) ? constraint : 'all'}" />
                 </c:if>
             <td style="vertical-align:middle;padding-bottom:2px">
                 <gsml:url var="goButton"

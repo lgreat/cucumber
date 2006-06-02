@@ -10,219 +10,254 @@
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
           xmlns:gsweb="gstaglib"
         >
-    <jsp:directive.page import="gs.data.school.ISchoolDao"/>
-    <jsp:directive.page import="gs.web.ISessionFacade"/>
-    <jsp:directive.page import="gs.web.SessionContext"/>
-    <jsp:directive.page import="org.springframework.context.ApplicationContext"/>
-    <jsp:directive.page import="gs.data.geo.IGeoDao"/>
-    <html lang="en">
+<jsp:directive.page import="gs.data.geo.IGeoDao"/>
+<jsp:directive.page import="gs.data.school.ISchoolDao"/>
+<jsp:directive.page import="gs.web.ISessionFacade"/>
+<jsp:directive.page import="gs.web.SessionContext"/>
+<jsp:directive.page import="org.springframework.context.ApplicationContext"/>
+<html lang="en">
 
-    <jsp:output doctype-root-element="html"
-                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-    <jsp:directive.page contentType="text/html"/>
-    <jsp:scriptlet>
-        ISessionFacade sessionContext = SessionContext.getInstance(request);
-        ApplicationContext ac = sessionContext.getApplicationContext();
+<jsp:directive.page contentType="text/html"/>
+<jsp:scriptlet>
+    ISessionFacade sessionContext = SessionContext.getInstance(request);
+    ApplicationContext ac = sessionContext.getApplicationContext();
 
-        if (sessionContext.getState() != null) {
-            pageContext.setAttribute("locale", sessionContext.getState().getLongName());
+    if (sessionContext.getState() != null) {
+        pageContext.setAttribute("locale", sessionContext.getState().getLongName());
 
-            ISchoolDao schoolDao = (ISchoolDao) ac.getBean(ISchoolDao.BEAN_ID);
-            int count = schoolDao.countSchools(sessionContext.getStateOrDefault(), null, null, null);
-            pageContext.setAttribute("schoolCount", new Integer(count));
+        ISchoolDao schoolDao = (ISchoolDao) ac.getBean(ISchoolDao.BEAN_ID);
+        int count = schoolDao.countSchools(sessionContext.getStateOrDefault(), null, null, null);
+        pageContext.setAttribute("schoolCount", new Integer(count));
 
-            IGeoDao geoDao = (IGeoDao) ac.getBean(IGeoDao.BEAN_ID);
-            count = geoDao.countCities(sessionContext.getStateOrDefault());
-            pageContext.setAttribute("cityCount", new Integer(count));
-        } else {
-            pageContext.setAttribute("locale", "U.S.");
-            pageContext.setAttribute("schoolCount", "over 110,000");
-            pageContext.setAttribute("cityCount", "20,000");
+        IGeoDao geoDao = (IGeoDao) ac.getBean(IGeoDao.BEAN_ID);
+        count = geoDao.countCities(sessionContext.getStateOrDefault());
+        pageContext.setAttribute("cityCount", new Integer(count));
+    } else {
+        pageContext.setAttribute("locale", "U.S.");
+        pageContext.setAttribute("schoolCount", "over 110,000");
+        pageContext.setAttribute("cityCount", "20,000");
 
+    }
+</jsp:scriptlet>
+
+<head>
+    <title>GreatSchools.net: Research &amp; Compare</title>
+    <style>
+        .contentGS {
+            padding: 0 10px 0 10px;
         }
-    </jsp:scriptlet>
 
-    <head>
-        <title>GreatSchools.net: Research &amp; Compare</title>
-        <style>
-            .research h1 {
-                font-size: large;
-                font-weight: bold;
-                color: #eb7a31;
-            }
+        .research h1 {
+            font-size: large;
+            font-weight: bold;
+            color: #eb7a31;
+        }
 
-            .research h3 {
-                padding-top: 1ex;
-                font-size: medium;
-            }
+        .research h3 {
+            padding-top: 1ex;
+            font-size: medium;
+        }
 
-            .research div.compareEntry {
-                margin-top: 3ex;
-            }
-            .research .compareEntry h1 {
-                font-size: medium;
-            }
-        </style>
-    </head>
+        .research h3 {
+            font-size: medium;
+            font-weight: bold;
+            color: #eb7a31;
+        }
 
-    <gsml:body adPageName="modal" pageLayout="research">
-        <pageHelper:externalCss file="/res/css/geo/state.css"/>
-        <pageHelper:externalCss file="/res/css/geo/city.css"/>
+        .research .compareEntry p {
+            margin: 0px 0 10px 0;
+        }
+    </style>
+</head>
 
-        <table>
-            <tr>
-                <td style="width:780px; vertical-align: top">
+<gsml:body adPageName="modal" pageLayout="research">
+<pageHelper:externalCss file="/res/css/geo/state.css"/>
+<pageHelper:externalCss file="/res/css/geo/city.css"/>
 
-                    <table><tr>
-                        <td colspan="4">
+<table>
+<tr>
+    <td colspan="4" style="border-bottom: 1px solid #aaa">
 
-                            <h1>Research ${pageScope.locale} Schools</h1>
-                            <h2>Up-to-date facts about ${pageScope.schoolCount}
-                                schools in ${pageScope.cityCount} cities</h2>
+        <h1>Research ${pageScope.locale} Schools</h1>
 
-                        </td>
-                        </tr><tr>
-                        <td style="width:50%; vertical-align: top">
-                                <c:choose>
-                                    <c:when test="${not empty requestScope.context.state}">
+        <h2>Up-to-date facts about ${pageScope.schoolCount}
+            schools in ${pageScope.cityCount} cities</h2>
 
-                                        <div class="compareEntry">
-                                        <mod:compareEntry/>
-                                        </div>
+    </td>
+</tr>
+<tr>
+<td style="width:780px; vertical-align: top">
 
-                                        <h3>See how your school stacks up</h3>
+    <table>
+    <tr>
+    <td style="width:50%; vertical-align: top">
 
-                                        <search:searchControl showConstraint="false" fieldLength="35"
-                                                              showLabel="false" showStates="true"/>
+        <div class="compareEntry">
+            <h3>Compare schools in your area</h3>
 
-                                        <div class="browselinks">
-                                            <gsml:a styleClass="nowrap"
-                                                    href="/cgi-bin/cs_where/${requestScope.context.stateOrDefault.abbreviation}"
-                                                    >Compare schools</gsml:a>
-                                            <link:mySchoolList styleClass="nowrap">My School
-                                                List</link:mySchoolList>
-                                            <gsml:a styleClass="nowrap"
-                                                    href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address"
-                                                    >Search near address</gsml:a>
-                                        </div>
+            <div style="padding:15px 7px 0 15px; font-size: small">
+                <gsml:form action="/path/compareEntry.page" method="post">
+                    <p><gsweb:stateSelector usingLongNames="true"
+                                            state="${requestScope.context.stateOrDefault}"/>
+                    </p>
 
-                                    </c:when>
-                                    <c:otherwise>
-                                        <h3>Choose a state to research and compare schools</h3>
-                                        <gsml:form action="/test/research.page" method="GET">
-                                            <gsweb:stateSelector usingLongNames="true"
-
-                                                                 state="${requestScope.context.stateOrDefault}"/>
-                                            <input type="submit" value="Go"/>
-                                        </gsml:form>
-
-                                    </c:otherwise>
-                                </c:choose>
-                        </td>
-                        <td style="height: 100%;vertical-align: top; width: 10px; padding-left: 2em">
-                            <gsml:img src="/res/img/header/clear_pix.gif" alt=""/>
-                        </td>
-                        <td style="height: 100%;vertical-align: top;" class="cleanLineLeftBox">
-                            <gsml:img src="/res/img/header/clear_pix.gif" alt=""/>
-                        </td>
-                        <td style="width:50%; vertical-align: top">
-                            <c:choose>
-                                <c:when test="${not empty requestScope.context.state}">
-                                    <img src="http://www.sitesatlas.com/Maps/Info/tusa${requestScope.context.stateOrDefault.abbreviationLowerCase}.gif"
-                                         style="display: block;margin:10px;"/>
-
-                                    <div id="topcitydist"
-                                         style="padding-top:15px;padding-bottom:20px;">
-                                        <!--c:if test="${not empty param.error}"><div style="border: 1px solid red; padding:.4em;margin:.3em;color:red;background-color: #fcc"><c:out value="afdsdfadfds${param.error}" escapeXml="true" /></div></c:if-->
-                                        <jsp:include
-                                                page="/state/topCities.module?count=11"/>
-                                    </div>
-                                    <jsp:include
-                                            page="/state/topDistricts.module"/>
-                                </c:when>
-                                <c:otherwise>
-
-                                    <h3>...or start in one of the country's 50 largest cities:</h3>
-                                    <ul>
-                                        <li><link:city city="New York" state="ny">New York</link:city></li>
-                                        <li><link:city city="Los Angeles" state="ca">Los Angeles</link:city></li>
-                                        <li><link:city city="Chicago" state="il">Chicago</link:city></li>
-                                        <li><link:city city="Houston" state="tx">Houston</link:city></li>
-                                        <li><link:city city="Philadelphia" state="pa">Philadelphia</link:city></li>
-                                        <li><link:city city="Phoenix" state="az">Phoenix</link:city></li>
-                                        <li><link:city city="San Diego" state="ca">San Diego</link:city></li>
-                                        <li><link:city city="San Antonio" state="tx">San Antonio</link:city></li>
-                                        <li><link:city city="Dallas" state="tx">Dallas</link:city></li>
-                                        <li><link:city city="San Jose" state="ca">San Jose</link:city></li>
-                                        <li><link:city city="Detroit" state="mi">Detroit</link:city></li>
-                                        <li><link:city city="Indianapolis" state="in">Indianapolis</link:city></li>
-                                        <li><link:city city="Jacksonville" state="fl">Jacksonville</link:city></li>
-                                        <li><link:city city="San Francisco" state="ca">San Francisco</link:city></li>
-                                        <li><link:city city="Boston" state="ma">Boston</link:city></li>
-                                        <li><link:city city="Columbus" state="oh">Columbus</link:city></li>
-                                        <li><link:city city="Austin" state="tx">Austin</link:city></li>
-                                        <li><link:city city="Memphis" state="tn">Memphis</link:city></li>
-                                        <li><link:city city="Baltimore" state="md">Baltimore</link:city></li>
-                                        <li><link:city city="Fort Worth" state="tx">Fort Worth</link:city></li>
-                                        <li><link:city city="Charlotte" state="nc">Charlotte</link:city></li>
-                                        <li><link:city city="El Paso" state="tx">El Paso</link:city></li>
-                                        <li><link:city city="Milwaukee" state="wi">Milwaukee</link:city></li>
-                                        <li><link:city city="Seattle" state="wa">Seattle</link:city></li>
-                                        <li><link:city city="Denver" state="co">Denver</link:city></li>
-                                        <li><link:city city="Louisville" state="ky">Louisville</link:city></li>
-                                        <li><link:city city="Washington" state="dc">Washington DC</link:city></li>
-                                        <li><link:city city="Nashville" state="tn">Nashville</link:city></li>
-                                        <li><link:city city="Las Vegas" state="nv">Las Vegas</link:city></li>
-                                        <li><link:city city="Portland" state="or">Portland</link:city></li>
-                                        <li><link:city city="Oklahoma City" state="ok">Oklahoma City</link:city></li>
-                                        <li><link:city city="Tucson" state="az">Tucson</link:city></li>
-                                        <li><link:city city="Albuquerque" state="nm">Albuquerque</link:city></li>
-                                        <li><link:city city="Long Beach" state="ca">Long Beach</link:city></li>
-                                        <li><link:city city="New Orleans" state="la">New Orleans</link:city></li>
-                                        <li><link:city city="Cleveland" state="oh">Cleveland</link:city></li>
-                                        <li><link:city city="Fresno" state="ca">Fresno</link:city></li>
-                                        <li><link:city city="Sacramento" state="ca">Sacramento</link:city></li>
-                                        <li><link:city city="Kansas City" state="mo">Kansas City</link:city></li>
-                                        <li><link:city city="Virginia Beach" state="va">Virginia Beach</link:city></li>
-                                        <li><link:city city="Mesa" state="az">Mesa</link:city></li>
-                                        <li><link:city city="Atlanta" state="ga">Atlanta</link:city></li>
-                                        <li><link:city city="Omaha" state="ne">Omaha</link:city></li>
-                                        <li><link:city city="Oakland" state="ca">Oakland</link:city></li>
-                                        <li><link:city city="Tulsa" state="ok">Tulsa</link:city></li>
-                                        <li><link:city city="Miami" state="fl">Miami</link:city></li>
-                                        <li><link:city city="Honolulu" state="hi">Honolulu</link:city></li>
-                                        <li><link:city city="Minneapolis" state="mn">Minneapolis</link:city></li>
-                                        <li><link:city city="Colorado Springs" state="co">Colorado Springs</link:city>
-                                        </li>
-                                        <li><link:city city="Arlington" state="tx">Arlington, TX</link:city></li>
+                    <p>
+                        <select name="level">
+                            <option value="elementary">Elementary</option>
+                            <option value="middle">Middle</option>
+                            <option value="high">High</option>
+                        </select>
+                        &#32;schools
+                    </p>
+                    <table id="radiotable"
+                           style="padding-bottom:10px;padding-top:5px;">
+                        <tr>
+                            <td align="left">
+                                <input type="radio" name="type"
+                                       checked="true" value="address"> near
+                                    an address</input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <input type="radio" name="type"
+                                       value="district"> in a
+                                    district</input>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left">
+                                <input type="radio" name="type"
+                                       value="county"> in a
+                                    county</input>
+                            </td>
+                        </tr>
+                    </table>
+                    <div align="center" id="compareButton">
+                        <gsml:url var="compareImage"
+                                  value="/res/img/compare_schools.gif"/>
+                        <input type="image" name=""
+                               src="${compareImage}"
+                               alt="Compare Schools"/>
+                    </div>
+                </gsml:form>
+            </div>
 
 
-                                    </ul>
+        </div>
 
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
+        <h3>See how your school stacks up</h3>
 
-                    </tr></table>
+        <search:searchControl showConstraint="false" fieldLength="35"
+                              showLabel="false" showStates="true"/>
 
-                </td>
-                <td style="height: 100%;vertical-align: top; width: 10px">
-                    <gsml:img src="/res/img/header/clear_pix.gif" alt=""/>
-                </td>
-                <td style="height: 100%;vertical-align: top;" class="cleanLineLeftBox">
-                    <gsml:img src="/res/img/header/clear_pix.gif" alt=""/>
-                </td>
-                <td style="width:200px; vertical-align: top">
-                    <jsp:include page="/content/parentPoll.module"/>
-                    <promo:newsletterSmall/>
+</td>
+<td style="height: 100%;vertical-align: top; width: 10px; padding-left: 2em">
+    <gsml:img src="/res/img/header/clear_pix.gif" alt=""/>
+</td>
+<td style="height: 100%;vertical-align: top;" class="cleanLineLeftBox">
+    <gsml:img src="/res/img/header/clear_pix.gif" alt=""/>
+</td>
+<td style="width:50%; vertical-align: top">
+    <c:choose>
+        <c:when test="${not empty requestScope.context.state}">
+            <img src="http://www.sitesatlas.com/Maps/Info/tusa${requestScope.context.stateOrDefault.abbreviationLowerCase}.gif"
+                 style="display: block;margin:10px;"/>
 
-                </td>
-            </tr>
-        </table>
+            <div id="topcitydist"
+                 style="padding-top:15px;padding-bottom:20px;">
+                <!--c:if test="${not empty param.error}"><div style="border: 1px solid red; padding:.4em;margin:.3em;color:red;background-color: #fcc"><c:out value="afdsdfadfds${param.error}" escapeXml="true" /></div></c:if-->
+                <jsp:include
+                        page="/state/topCities.module?count=11"/>
+            </div>
+            <jsp:include
+                    page="/state/topDistricts.module"/>
+        </c:when>
+        <c:otherwise>
+
+            <h3>...or start in one of the country's 50 largest cities:</h3>
+            <ul>
+                <li><link:city city="New York" state="ny">New York</link:city></li>
+                <li><link:city city="Los Angeles" state="ca">Los Angeles</link:city></li>
+                <li><link:city city="Chicago" state="il">Chicago</link:city></li>
+                <li><link:city city="Houston" state="tx">Houston</link:city></li>
+                <li><link:city city="Philadelphia" state="pa">Philadelphia</link:city></li>
+                <li><link:city city="Phoenix" state="az">Phoenix</link:city></li>
+                <li><link:city city="San Diego" state="ca">San Diego</link:city></li>
+                <li><link:city city="San Antonio" state="tx">San Antonio</link:city></li>
+                <li><link:city city="Dallas" state="tx">Dallas</link:city></li>
+                <li><link:city city="San Jose" state="ca">San Jose</link:city></li>
+                <li><link:city city="Detroit" state="mi">Detroit</link:city></li>
+                <li><link:city city="Indianapolis" state="in">Indianapolis</link:city></li>
+                <li><link:city city="Jacksonville" state="fl">Jacksonville</link:city></li>
+                <li><link:city city="San Francisco" state="ca">San Francisco</link:city></li>
+                <li><link:city city="Boston" state="ma">Boston</link:city></li>
+                <li><link:city city="Columbus" state="oh">Columbus</link:city></li>
+                <li><link:city city="Austin" state="tx">Austin</link:city></li>
+                <li><link:city city="Memphis" state="tn">Memphis</link:city></li>
+                <li><link:city city="Baltimore" state="md">Baltimore</link:city></li>
+                <li><link:city city="Fort Worth" state="tx">Fort Worth</link:city></li>
+                <li><link:city city="Charlotte" state="nc">Charlotte</link:city></li>
+                <li><link:city city="El Paso" state="tx">El Paso</link:city></li>
+                <li><link:city city="Milwaukee" state="wi">Milwaukee</link:city></li>
+                <li><link:city city="Seattle" state="wa">Seattle</link:city></li>
+                <li><link:city city="Denver" state="co">Denver</link:city></li>
+                <li><link:city city="Louisville" state="ky">Louisville</link:city></li>
+                <li><link:city city="Washington" state="dc">Washington DC</link:city></li>
+                <li><link:city city="Nashville" state="tn">Nashville</link:city></li>
+                <li><link:city city="Las Vegas" state="nv">Las Vegas</link:city></li>
+                <li><link:city city="Portland" state="or">Portland</link:city></li>
+                <li><link:city city="Oklahoma City" state="ok">Oklahoma City</link:city></li>
+                <li><link:city city="Tucson" state="az">Tucson</link:city></li>
+                <li><link:city city="Albuquerque" state="nm">Albuquerque</link:city></li>
+                <li><link:city city="Long Beach" state="ca">Long Beach</link:city></li>
+                <li><link:city city="New Orleans" state="la">New Orleans</link:city></li>
+                <li><link:city city="Cleveland" state="oh">Cleveland</link:city></li>
+                <li><link:city city="Fresno" state="ca">Fresno</link:city></li>
+                <li><link:city city="Sacramento" state="ca">Sacramento</link:city></li>
+                <li><link:city city="Kansas City" state="mo">Kansas City</link:city></li>
+                <li><link:city city="Virginia Beach" state="va">Virginia Beach</link:city></li>
+                <li><link:city city="Mesa" state="az">Mesa</link:city></li>
+                <li><link:city city="Atlanta" state="ga">Atlanta</link:city></li>
+                <li><link:city city="Omaha" state="ne">Omaha</link:city></li>
+                <li><link:city city="Oakland" state="ca">Oakland</link:city></li>
+                <li><link:city city="Tulsa" state="ok">Tulsa</link:city></li>
+                <li><link:city city="Miami" state="fl">Miami</link:city></li>
+                <li><link:city city="Honolulu" state="hi">Honolulu</link:city></li>
+                <li><link:city city="Minneapolis" state="mn">Minneapolis</link:city></li>
+                <li><link:city city="Colorado Springs" state="co">Colorado Springs</link:city>
+                </li>
+                <li><link:city city="Arlington" state="tx">Arlington, TX</link:city></li>
 
 
-    </gsml:body>
-    </html>
-</jsp:root>
+            </ul>
+
+        </c:otherwise>
+    </c:choose>
+</td>
+
+</tr></table>
+
+</td>
+<td style="height: 100%;vertical-align: top; width: 10px">
+    <gsml:img src="/res/img/header/clear_pix.gif" alt=""/>
+</td>
+<td style="height: 100%;vertical-align: top;" class="cleanLineLeftBox">
+    <gsml:img src="/res/img/header/clear_pix.gif" alt=""/>
+</td>
+<td style="width:200px; vertical-align: top">
+    <jsp:include page="/content/parentPoll.module"/>
+    <promo:newsletterSmall/>
+
+</td>
+</tr>
+</table>
+
+
+        </gsml:body>
+        </html>
+        </jsp:root>

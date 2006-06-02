@@ -219,11 +219,9 @@
                 <c:if test="${not empty newsItem}">
                     <div id="didYouKnow">
                         <h3>Did ya know?</h3>
+                        ${newsItem.text}
                         <c:if test="${not empty newsItem.link}">
-                            <gsml:a href="${newsItem.link}">${newsItem.text}</gsml:a>
-                        </c:if>
-                        <c:if test="${empty newsItem.link}">
-                            ${newsItem.text}
+                            <gsml:a href="${newsItem.link}">Read More</gsml:a>
                         </c:if>
                     </div>
                 </c:if>

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.17 2006/06/01 23:31:24 dlee Exp $
+ * $Id: SessionContextUtil.java,v 1.18 2006/06/02 00:33:16 apeterson Exp $
  */
 
 package gs.web;
@@ -59,7 +59,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     /**
      * My School List cookie, for backward compatibility. Domain is ".greatschools.net".
      */
-    private static final String MEMBER_ID_MSL_COOKIE = "MEMID";
+    public static final String MEMBER_ID_COOKIE = "MEMID";
     private static final String PATHWAY_COOKIE = "PATHWAY";
 
 
@@ -96,7 +96,7 @@ public class SessionContextUtil implements ApplicationContextAware {
                     } catch (NumberFormatException e) {
                         // ignore
                     }
-                } else if (MEMBER_ID_MSL_COOKIE.equals(thisCookie.getName())) {
+                } else if (MEMBER_ID_COOKIE.equals(thisCookie.getName())) {
                     String id = thisCookie.getValue();
                     try {
                         mslId = Integer.parseInt(id);
@@ -131,12 +131,12 @@ public class SessionContextUtil implements ApplicationContextAware {
                         if (mslId != -1 && mslId != insiderId) {
                             _log.warn("User with two conflicting cookies: " +
                                     MEMBER_ID_INSIDER_COOKIE + "=" + insiderId + " " +
-                                    MEMBER_ID_MSL_COOKIE + "=" + mslId);
+                                    MEMBER_ID_COOKIE + "=" + mslId);
                         }
                     } catch (ObjectRetrievalFailureException e) {
                         _log.warn("User not found for cookie: " +
                                 MEMBER_ID_INSIDER_COOKIE + "=" + insiderId + " " +
-                                MEMBER_ID_MSL_COOKIE + "=" + mslId);
+                                MEMBER_ID_COOKIE + "=" + mslId);
 
                     }
                 }
@@ -148,7 +148,7 @@ public class SessionContextUtil implements ApplicationContextAware {
                         context.setUser(user);
                     } catch (ObjectRetrievalFailureException e) {
                         _log.warn("User not found for MSL cookie: " +
-                                MEMBER_ID_MSL_COOKIE + "=" + mslId);
+                                MEMBER_ID_COOKIE + "=" + mslId);
                     }
                 }
             }
