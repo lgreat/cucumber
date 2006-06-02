@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ValidatorSaTest.java,v 1.2 2006/06/02 19:22:08 dlee Exp $
+ * $Id: ValidatorSaTest.java,v 1.3 2006/06/02 19:22:36 dlee Exp $
  */
 package gs.web.util.validator;
 
@@ -75,6 +75,7 @@ public class ValidatorSaTest extends TestCase {
 
         errors = new BindException(command, "");
         BAD_SCHOOLID = -1;
+        command.setSchoolId(BAD_SCHOOLID);
         v.validate(command, errors);
         assertTrue(errors.hasErrors());
     }
