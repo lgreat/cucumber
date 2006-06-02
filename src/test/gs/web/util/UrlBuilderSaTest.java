@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.24 2006/06/01 19:37:29 aroy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.25 2006/06/02 00:15:34 aroy Exp $
  */
 
 package gs.web.util;
@@ -10,6 +10,7 @@ import gs.data.geo.ICity;
 import gs.data.geo.LatLon;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
+import gs.data.school.LevelCode;
 import gs.data.state.State;
 import gs.web.GsMockHttpServletRequest;
 import junit.framework.TestCase;
@@ -280,8 +281,16 @@ public class UrlBuilderSaTest extends TestCase {
         builder = new UrlBuilder(UrlBuilder.CITY_PAGE, State.WY, "Xyz");
         assertEquals("/city/Xyz/WY", builder.asSiteRelativeXml(request));
 
-        builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.WY, "Xyz");
+        builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.WY, "Xyz", LevelCode.HIGH, "Type");
+        assertEquals("/schools.page?city=Xyz&lc=h&st=Type&state=WY", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.WY, "Xyz", null, null);
         assertEquals("/schools.page?city=Xyz&state=WY", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.WY, "Xyz", null, "Type");
+        assertEquals("/schools.page?city=Xyz&st=Type&state=WY", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.WY, "Xyz", LevelCode.HIGH, null);
+        assertEquals("/schools.page?city=Xyz&lc=h&state=WY", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.WY, "Xyz", LevelCode.MIDDLE_HIGH, "Type,Type2");
+        assertEquals("/schools.page?city=Xyz&lc=m&lc=h&st=Type&st=Type2&state=WY", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.PRIVACY_POLICY, State.WY, "Xyz");
         assertEquals("/about/privacyStatement.page?state=WY", builder.asSiteRelative(request));

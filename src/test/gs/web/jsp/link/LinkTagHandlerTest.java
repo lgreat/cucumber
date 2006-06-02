@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.3 2006/06/01 18:46:36 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.4 2006/06/02 00:15:34 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -173,6 +173,10 @@ tagHandler.setArticle(a);
         builder = tagHandler.createUrlBuilder();
         assertEquals("/schools.page?city=New+York&lc=h&st=private&state=NY", builder.asSiteRelative(null));
 
+        tagHandler.setLevelCode(LevelCode.MIDDLE_HIGH);
+        tagHandler.setSchoolTypes("public,charter");
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/schools.page?city=New+York&lc=m&lc=h&st=public&st=charter&state=NY", builder.asSiteRelative(null));
 
 
     }

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsTagHandler.java,v 1.2 2006/05/23 17:18:02 apeterson Exp $
+ * $Id: SchoolsTagHandler.java,v 1.3 2006/06/02 00:15:34 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -27,17 +27,7 @@ public class SchoolsTagHandler extends LinkTagHandler {
 
     protected UrlBuilder createUrlBuilder() {
         if (_city != null) {
-            UrlBuilder builder = new UrlBuilder(_city, UrlBuilder.SCHOOLS_IN_CITY);
-            if (_levelCode != null) {
-                builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, _levelCode.getCommaSeparatedString());
-                // TODO: make sure the mutiple levels work
-            }
-            if (StringUtils.isNotEmpty(_schoolTypes)) {
-                String[] sts = StringUtils.split(_schoolTypes, ",");
-                for (int i = 0; i < sts.length; i++) {
-                    builder.addParameter(SchoolsController.PARAM_SCHOOL_TYPE, sts[i]);
-                }
-            }
+            UrlBuilder builder = new UrlBuilder(_city, UrlBuilder.SCHOOLS_IN_CITY, _levelCode, _schoolTypes);
             return builder;
         }
         return null;
