@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.7 2006/05/10 22:15:46 apeterson Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.8 2006/06/03 06:32:09 apeterson Exp $
  */
 
 package gs.web.search;
@@ -31,15 +31,13 @@ import java.util.Iterator;
  */
 public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
 
-    /**
-     * used by Spring
-     */
     public static final String BEAN_ID = "schoolTableHeaderTagHandler";
 
     private static UrlUtil urlUtil = new UrlUtil();
     private String _srcQuery = null;
     private Boolean _showAll;
     private String _cityName;
+    private String _cityDisplayName;
     private Integer _districtId;
     private LevelCode _levelCode ;
     private String[] _schoolType;
@@ -279,6 +277,14 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
 
     public void setCityName(String cityName) {
         _cityName = cityName;
+    }
+
+    public String getCityDisplayName() {
+        return _cityDisplayName;
+    }
+
+    public void setCityDisplayName(String cityDisplayName) {
+        _cityDisplayName = cityDisplayName;
     }
 
     public Integer getDistrictId() {

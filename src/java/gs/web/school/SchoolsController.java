@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.13 2006/06/03 05:31:35 apeterson Exp $
+ * $Id: SchoolsController.java,v 1.14 2006/06/03 06:32:09 apeterson Exp $
  */
 
 package gs.web.school;
@@ -65,7 +65,8 @@ public class SchoolsController extends AbstractController {
     /**
      * The name of the city, if provided.
      */
-    public static final String MODEL_CITY_NAME = "city";
+    public static final String MODEL_CITY_NAME = "cityName";
+    public static final String MODEL_CITY_DISPLAY_NAME = "cityDisplayName";
 
     /**
      * The ID of the district, if provided.
@@ -168,7 +169,8 @@ public class SchoolsController extends AbstractController {
                     displayName.equals("Washington")) {
                 displayName += ", D.C.";
             }
-            model.put(MODEL_CITY_NAME, displayName);
+            model.put(MODEL_CITY_NAME, cityName);
+            model.put(MODEL_CITY_DISPLAY_NAME, displayName);
             searchCommand.setCity(cityName);
             searchCommand.setQ(cityName);
 
