@@ -38,7 +38,7 @@
 
                     <td style="width:33%; vertical-align: top">
                         <div id="nearbyCities">
-                            <gsml:list model="${gs.web.util.AnchorListModel.DEFAULT}"/>
+                            <gsml:list model="${anchorListModel}"/>
                         </div>
                     </td>
                     <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
