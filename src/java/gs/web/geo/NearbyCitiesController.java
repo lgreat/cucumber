@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.19 2006/05/31 21:44:29 apeterson Exp $
+* $Id: NearbyCitiesController.java,v 1.20 2006/06/03 03:03:37 apeterson Exp $
 */
 
 package gs.web.geo;
@@ -11,9 +11,8 @@ import gs.data.state.State;
 import gs.web.ISessionFacade;
 import gs.web.SessionContextUtil;
 import gs.web.SessionFacade;
-import gs.web.util.Anchor;
+import gs.web.AnchorListModelFactory;
 import gs.web.util.AnchorListModel;
-import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -42,17 +41,17 @@ public class NearbyCitiesController extends AbstractController {
     /**
      * Set if you want a "see Browse all cities in CA..." link.
      */
-    protected static final String PARAM_ALL = "all";
+    public static final String PARAM_ALL = "all";
     /**
      * Set if you want to include the state in all names. Otherwise, only
      * those in cities of other states are indicated.
      */
-    protected static final String PARAM_INCLUDE_STATE = "includeState";
+    public static final String PARAM_INCLUDE_STATE = "includeState";
     /**
      * How the cities are sorted. Default is by proximity, but also can use "alpha" for
      * alphabetical.
      */
-    protected static final String PARAM_ORDER = "order";
+    public static final String PARAM_ORDER = "order";
 
     protected static final String PARAM_HEADING = "heading";
 
@@ -65,6 +64,7 @@ public class NearbyCitiesController extends AbstractController {
 
     private String _viewName;
     private IGeoDao _geoDao;
+    private AnchorListModelFactory _anchorListModelFactory;
 
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -100,57 +100,14 @@ public class NearbyCitiesController extends AbstractController {
 
                 model.put(MODEL_CITIES, nearbyCities);
 
-                String heading = "Cities Near " + city.getName();
-                if (request.getParameter(PARAM_HEADING) != null) {
-                    heading = request.getParameter(PARAM_HEADING);
-                }
-                model.put(AnchorListModel.HEADING, heading);
+                AnchorListModel anchorListModel = _anchorListModelFactory.createNearbyCitiesAnchorListModel(
+                        city,
+                        state,
+                        nearbyCities,
+                        limit,
+                        request, request.getParameter(PARAM_HEADING), request.getParameter(PARAM_INCLUDE_STATE) != null, request.getParameter(PARAM_MORE) != null, request.getParameter(PARAM_ALL) != null);
 
-                List items = new ArrayList(limit);
-                for (int i = 0; i < limit && i < nearbyCities.size(); i++) {
-                    ICity nearbyCity = (ICity) nearbyCities.get(i);
-
-                    // name
-                    String name = nearbyCity.getName();
-                    if (request.getParameter(PARAM_INCLUDE_STATE) != null ||
-                            !nearbyCity.getState().equals(state)) {
-                        name += ", " + nearbyCity.getState().getAbbreviation();
-                    }
-
-                    // style class
-                    String styleClass = "town";
-                    long pop = 0;
-                    if (nearbyCity.getPopulation() != null) {
-                        pop = nearbyCity.getPopulation().intValue();
-                    }
-                    if (pop > 50000) {
-                        styleClass = (pop > 200000) ? "bigCity" : "city";
-                    }
-
-                    // anchor
-                    UrlBuilder builder = new UrlBuilder(nearbyCity, UrlBuilder.CITY_PAGE);
-                    Anchor anchor = builder.asAnchor(request, name, styleClass);
-                    items.add(anchor);
-                }
-
-                if (request.getParameter(PARAM_MORE) != null) {
-                    UrlBuilder builder = new UrlBuilder(city, UrlBuilder.CITIES_MORE_NEARBY);
-                    builder.setParameter(PARAM_ORDER, "alpha");
-                    builder.setParameter(PARAM_INCLUDE_STATE, "1");
-                    if (!state.equals(State.DC)) {
-                        builder.setParameter(PARAM_ALL, "1");
-                    }
-                    Anchor anchor = builder.asAnchor(request, "More", "more");
-                    items.add(anchor);
-                }
-                if (request.getParameter(PARAM_ALL) != null) {
-                    UrlBuilder builder = new UrlBuilder(UrlBuilder.CITIES, state, null);
-                    Anchor anchor = builder.asAnchor(request, "Browse all " + state.getLongName() + " cities",
-                            "more");
-                    items.add(anchor);
-
-                }
-                model.put(AnchorListModel.RESULTS, items);
+                model.put(AnchorListModel.DEFAULT, anchorListModel);
             }
         }
 
@@ -166,6 +123,14 @@ public class NearbyCitiesController extends AbstractController {
 
     public void setViewName(String viewName) {
         _viewName = viewName;
+    }
+
+    public AnchorListModelFactory getAnchorListModelFactory() {
+        return _anchorListModelFactory;
+    }
+
+    public void setAnchorListModelFactory(AnchorListModelFactory anchorListModelFactory) {
+        _anchorListModelFactory = anchorListModelFactory;
     }
 
     public IGeoDao getGeoDao() {

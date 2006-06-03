@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.2 2006/05/31 23:03:53 apeterson Exp $
+ * $Id: AnchorListModelFactory.java,v 1.3 2006/06/03 03:03:37 apeterson Exp $
  */
 
 package gs.web;
@@ -20,6 +20,7 @@ import gs.web.util.Anchor;
 import gs.web.util.AnchorListModel;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
+import gs.web.geo.NearbyCitiesController;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.Hits;
@@ -79,13 +80,13 @@ public class AnchorListModelFactory {
                 District d = (District) iter.next();
                 String url = "/cgi-bin/" + state.getAbbreviationLowerCase() + "/district_profile/" + d.getId() + "/";
                 url = _urlUtil.buildUrl(url, request);
-                districts.addResult(new Anchor(url, d.getName()));
+                districts.add(new Anchor(url, d.getName()));
             }
 
             if (needViewAll) {
                 String url = "/modperl/districts/" + state.getAbbreviation() + "/";
                 url = _urlUtil.buildUrl(url, request);
-                districts.addResult(new Anchor(url, "View all " + state.getLongName() + " Districts", "viewall"));
+                districts.add(new Anchor(url, "View all " + state.getLongName() + " Districts", "viewall"));
             }
         }
 
@@ -125,7 +126,7 @@ public class AnchorListModelFactory {
             builder.setParameter("lc", "e");
             final Anchor anchor = builder.asAnchor(request, cityDisplayName + " Elementary Schools");
             anchor.setAfter(" (" + sc + ")");
-            schoolBreakdownAnchorList.addResult(anchor);
+            schoolBreakdownAnchorList.add(anchor);
         }
 
         sc = _schoolDao.countSchools(state, null, LevelCode.MIDDLE, cityName);
@@ -133,7 +134,7 @@ public class AnchorListModelFactory {
             builder.setParameter("lc", "m");
             final Anchor anchor = builder.asAnchor(request, cityDisplayName + " Middle Schools");
             anchor.setAfter(" (" + sc + ")");
-            schoolBreakdownAnchorList.addResult(anchor);
+            schoolBreakdownAnchorList.add(anchor);
         }
 
         sc = _schoolDao.countSchools(state, null, LevelCode.HIGH, cityName);
@@ -141,7 +142,7 @@ public class AnchorListModelFactory {
             builder.setParameter("lc", "h");
             final Anchor anchor = builder.asAnchor(request, cityDisplayName + " High Schools");
             anchor.setAfter(" (" + sc + ")");
-            schoolBreakdownAnchorList.addResult(anchor);
+            schoolBreakdownAnchorList.add(anchor);
         }
         builder.removeParameter("lc");
 
@@ -152,7 +153,7 @@ public class AnchorListModelFactory {
             builder.addParameter("st", "charter");
             final Anchor anchor = builder.asAnchor(request, cityDisplayName + " Public Schools");
             anchor.setAfter(" (" + sc + ")");
-            schoolBreakdownAnchorList.addResult(anchor);
+            schoolBreakdownAnchorList.add(anchor);
             builder.removeParameter("st");
         }
 
@@ -161,7 +162,7 @@ public class AnchorListModelFactory {
             builder.addParameter("st", "private");
             final Anchor anchor = builder.asAnchor(request, cityDisplayName + " Private Schools");
             anchor.setAfter(" (" + sc + ")");
-            schoolBreakdownAnchorList.addResult(anchor);
+            schoolBreakdownAnchorList.add(anchor);
         }
 
         // Add a "last" to the last item
@@ -205,9 +206,9 @@ public class AnchorListModelFactory {
         if (sc > 0) {
             AnchorListModel m = new AnchorListModel("Elementary Schools (" + sc + ")");
             builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "e");
-            m.addResult(builder.asAnchor(request, "List"));
+            m.add(builder.asAnchor(request, "List"));
             builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
-            m.addResult(builder.asAnchor(request, "Map & List"));
+            m.add(builder.asAnchor(request, "Map & List"));
             builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
             map.put("e", m);
         }
@@ -216,9 +217,9 @@ public class AnchorListModelFactory {
         if (sc > 0) {
             AnchorListModel m = new AnchorListModel("Middle Schools (" + sc + ")");
             builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "m");
-            m.addResult(builder.asAnchor(request, "List"));
+            m.add(builder.asAnchor(request, "List"));
             builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
-            m.addResult(builder.asAnchor(request, "Map & List"));
+            m.add(builder.asAnchor(request, "Map & List"));
             builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
             map.put("m", m);
         }
@@ -227,9 +228,9 @@ public class AnchorListModelFactory {
         if (sc > 0) {
             AnchorListModel m = new AnchorListModel("High Schools (" + sc + ")");
             builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "h");
-            m.addResult(builder.asAnchor(request, "List"));
+            m.add(builder.asAnchor(request, "List"));
             builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
-            m.addResult(builder.asAnchor(request, "Map & List"));
+            m.add(builder.asAnchor(request, "Map & List"));
             builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
             map.put("h", m);
         }
@@ -261,7 +262,7 @@ public class AnchorListModelFactory {
                         stateOfCity,
                         cityName);
                 cityName += ", " + stateOfCity;
-                anchorListModel.addResult(builder.asAnchor(request, cityName));
+                anchorListModel.add(builder.asAnchor(request, cityName));
             }
         }
 
@@ -270,7 +271,7 @@ public class AnchorListModelFactory {
             UrlBuilder builder = new UrlBuilder(request, "/search/search.page");
             builder.addParametersFromRequest(request);
             builder.setParameter(SearchController.PARAM_MORE_CITIES, "true");
-            anchorListModel.addResult(builder.asAnchor(request, "more cities..."));
+            anchorListModel.add(builder.asAnchor(request, "more cities..."));
         }
 
         if (anchorListModel.getResults().size() > 0) {
@@ -306,7 +307,7 @@ public class AnchorListModelFactory {
                 if (!ObjectUtils.equals(state, stateOfCity)) {
                     districtName += " (" + stateOfCity.getAbbreviation() + ")";
                 }
-                anchorListModel.addResult(builder.asAnchor(request, districtName));
+                anchorListModel.add(builder.asAnchor(request, districtName));
             }
         }
 
@@ -315,7 +316,7 @@ public class AnchorListModelFactory {
             UrlBuilder builder = new UrlBuilder(request, "/search/search.page");
             builder.addParametersFromRequest(request);
             builder.setParameter(SearchController.PARAM_MORE_DISTRICTS, "true");
-            anchorListModel.addResult(builder.asAnchor(request, "more districts..."));
+            anchorListModel.add(builder.asAnchor(request, "more districts..."));
         }
 
         if (anchorListModel.getResults().size() > 0) {
@@ -324,6 +325,66 @@ public class AnchorListModelFactory {
         }
         return anchorListModel;
     }
+
+    public AnchorListModel createNearbyCitiesAnchorListModel(ICity city,
+                                                             State state,
+                                                             List nearbyCities,
+                                                             int limit,
+                                                             HttpServletRequest request, String headingOverride, final boolean alwaysIncludeState, final boolean includeMoreItem, final boolean includeBrowseAllItem) {
+        String heading;
+        if (headingOverride != null) {
+            heading = headingOverride;
+        } else {
+            heading = "Cities Near " + city.getName();
+        }
+        AnchorListModel anchorListModel = new AnchorListModel(heading);
+
+        for (int i = 0; i < limit && i < nearbyCities.size(); i++) {
+            ICity nearbyCity = (ICity) nearbyCities.get(i);
+
+            // name
+            String name = nearbyCity.getName();
+            if (alwaysIncludeState ||
+                    !nearbyCity.getState().equals(state)) {
+                name += ", " + nearbyCity.getState().getAbbreviation();
+            }
+
+            // style class
+            String styleClass = "town";
+            long pop = 0;
+            if (nearbyCity.getPopulation() != null) {
+                pop = nearbyCity.getPopulation().intValue();
+            }
+            if (pop > 50000) {
+                styleClass = (pop > 200000) ? "bigCity" : "city";
+            }
+
+            // anchor
+            UrlBuilder builder = new UrlBuilder(nearbyCity, UrlBuilder.CITY_PAGE);
+            Anchor anchor = builder.asAnchor(request, name, styleClass);
+            anchorListModel.add(anchor);
+        }
+
+        if (includeMoreItem) {
+            UrlBuilder builder = new UrlBuilder(city, UrlBuilder.CITIES_MORE_NEARBY);
+            builder.setParameter(NearbyCitiesController.PARAM_ORDER, "alpha");
+            builder.setParameter(NearbyCitiesController.PARAM_INCLUDE_STATE, "1");
+            if (!state.equals(State.DC)) {
+                builder.setParameter(NearbyCitiesController.PARAM_ALL, "1");
+            }
+            Anchor anchor = builder.asAnchor(request, "More", "more");
+            anchorListModel.add(anchor);
+        }
+        if (includeBrowseAllItem) {
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.CITIES, state, null);
+            Anchor anchor = builder.asAnchor(request, "Browse all " + state.getLongName() + " cities",
+                    "more");
+            anchorListModel.add(anchor);
+
+        }
+        return anchorListModel;
+    }
+
 
     public IGeoDao getGeoDao() {
         return _geoDao;

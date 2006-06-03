@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.20 2006/05/31 21:44:29 apeterson Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.21 2006/06/03 03:03:37 apeterson Exp $
  */
 
 package gs.web.school.performance;
@@ -133,7 +133,7 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
             String label = bpsv.getCityName();// + "<span>"+bpsv.getAverageApiRank()+"</span>";
             Anchor anchor = builder.asAnchor(request, label);
             anchor.setBefore("" + bpsv.getRank() + ". ");
-            links.addResult(anchor);
+            links.add(anchor);
         }
         modelAndView.addObject(MODEL_CITY_NAME_LIST, links);
 

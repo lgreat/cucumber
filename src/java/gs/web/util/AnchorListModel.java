@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModel.java,v 1.1 2006/05/31 21:44:29 apeterson Exp $
+ * $Id: AnchorListModel.java,v 1.2 2006/06/03 03:03:38 apeterson Exp $
  */
 
 package gs.web.util;
@@ -26,6 +26,7 @@ public class AnchorListModel {
     public static final String RESULTS = "results";
     public static final String COLUMNS = "columns";
 
+    public static final String DEFAULT = "anchorListModel";
 
     private String _heading;
     private int _columns;
@@ -44,7 +45,7 @@ public class AnchorListModel {
         _results = new ArrayList();
     }
 
-    public void addResult(Anchor anchor) {
+    public void add(Anchor anchor) {
         _results.add(anchor);
     }
 

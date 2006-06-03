@@ -368,7 +368,7 @@ public class SearchController extends AbstractFormController {
                     urlBuilder.setParameter("city", cityName);
                     urlBuilder.setParameter("state", stateOfCity.getAbbreviation());
                     cityName += ", " + stateOfCity.getAbbreviation();
-                    anchorListModel.addResult(urlBuilder.asAnchor(request, cityName));
+                    anchorListModel.add(urlBuilder.asAnchor(request, cityName));
                     displayed++;
                 }
             } else {
@@ -379,7 +379,7 @@ public class SearchController extends AbstractFormController {
             UrlBuilder builder = new UrlBuilder(request, "/search/search.page");
             builder.addParametersFromRequest(request);
             builder.setParameter(PARAM_MORE_FILTERED, "true");
-            anchorListModel.addResult(builder.asAnchor(request, "more..."));
+            anchorListModel.add(builder.asAnchor(request, "more..."));
         }
         if (anchorListModel.getResults().size() > 0) {
             Anchor a = (Anchor) anchorListModel.getResults().get(anchorListModel.getResults().size() - 1);

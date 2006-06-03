@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelSaTest.java,v 1.1 2006/05/31 21:44:29 apeterson Exp $
+ * $Id: AnchorListModelSaTest.java,v 1.2 2006/06/03 03:03:38 apeterson Exp $
  */
 
 package gs.web.util;
@@ -18,8 +18,8 @@ public class AnchorListModelSaTest extends TestCase {
 
     public void testBasic() {
         AnchorListModel model = new AnchorListModel();
-        model.addResult(new Anchor("http://ndpsoftware.com", "NDP Software"));
-        model.addResult(new Anchor("http://greatschools.net", "Great Schools"));
+        model.add(new Anchor("http://ndpsoftware.com", "NDP Software"));
+        model.add(new Anchor("http://greatschools.net", "Great Schools"));
         model.setHeading("Great Web Sites!");
 
         List results = model.getResults();
