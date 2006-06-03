@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: NearbyCitiesControllerTest.java,v 1.4 2006/06/03 03:44:31 apeterson Exp $
+ * $Id: NearbyCitiesControllerTest.java,v 1.5 2006/06/03 06:01:52 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -55,7 +55,8 @@ public class NearbyCitiesControllerTest extends BaseControllerTestCase {
         ICity nearestCity  = (ICity) cities.get(0);
         assertEquals("Elmendorf AFB", nearestCity.getName());
 
-        final List results = (List) model.get(AnchorListModel.RESULTS);
+        AnchorListModel anchorListModel = (AnchorListModel) model.get(AnchorListModel.DEFAULT);
+        final List results = anchorListModel.getResults();
         Anchor anchor = (Anchor) results.get(0);
         assertEquals("Elmendorf AFB", anchor.getContents());
         anchor = (Anchor) results.get(results.size() - 1);
@@ -73,7 +74,8 @@ public class NearbyCitiesControllerTest extends BaseControllerTestCase {
 
         Map model = mav.getModel();
 
-        assertEquals("Hey", (String)model.get(AnchorListModel.HEADING));
+        AnchorListModel anchorListModel = (AnchorListModel) model.get(AnchorListModel.DEFAULT);
+        assertEquals("Hey", anchorListModel.getHeading());
     }
     public void testCount() throws Exception {
         GsMockHttpServletRequest request = getRequest();
@@ -90,7 +92,8 @@ public class NearbyCitiesControllerTest extends BaseControllerTestCase {
         List cities = (List) model.get(NearbyCitiesController.MODEL_CITIES);
         assertEquals(4, cities.size());
 
-        List results = (List) model.get(AnchorListModel.RESULTS);
+        AnchorListModel anchorListModel = (AnchorListModel) model.get(AnchorListModel.DEFAULT);
+        List results = anchorListModel.getResults();
         assertEquals(4, results.size());
 
         // 3
@@ -104,7 +107,8 @@ public class NearbyCitiesControllerTest extends BaseControllerTestCase {
         cities = (List) model.get(NearbyCitiesController.MODEL_CITIES);
         assertEquals(3, cities.size());
 
-        results = (List) model.get(AnchorListModel.RESULTS);
+        anchorListModel = (AnchorListModel) model.get(AnchorListModel.DEFAULT);
+        results = anchorListModel.getResults();
         assertEquals(3, results.size());
 
         // 2
@@ -118,7 +122,8 @@ public class NearbyCitiesControllerTest extends BaseControllerTestCase {
         cities = (List) model.get(NearbyCitiesController.MODEL_CITIES);
         assertEquals(2, cities.size());
 
-        results = (List) model.get(AnchorListModel.RESULTS);
+        anchorListModel = (AnchorListModel) model.get(AnchorListModel.DEFAULT);
+        results = anchorListModel.getResults();
         assertEquals(2, results.size());
 
         // 1
@@ -132,7 +137,8 @@ public class NearbyCitiesControllerTest extends BaseControllerTestCase {
         cities = (List) model.get(NearbyCitiesController.MODEL_CITIES);
         assertEquals(1, cities.size());
 
-        results = (List) model.get(AnchorListModel.RESULTS);
+        anchorListModel = (AnchorListModel) model.get(AnchorListModel.DEFAULT);
+        results = anchorListModel.getResults();
         assertEquals(1, results.size());
     }
 
@@ -153,7 +159,8 @@ public class NearbyCitiesControllerTest extends BaseControllerTestCase {
         List cities = (List) model.get(NearbyCitiesController.MODEL_CITIES);
         assertEquals(4, cities.size());
 
-        List results = (List) model.get(AnchorListModel.RESULTS);
+        AnchorListModel anchorListModel = (AnchorListModel) model.get(AnchorListModel.DEFAULT);
+        List results = anchorListModel.getResults();
         assertEquals(5, results.size());
 
         Anchor anchor = (Anchor) results.get(results.size() - 1);
@@ -177,7 +184,8 @@ public class NearbyCitiesControllerTest extends BaseControllerTestCase {
         List cities = (List) model.get(NearbyCitiesController.MODEL_CITIES);
         assertEquals(4, cities.size());
 
-        List results = (List) model.get(AnchorListModel.RESULTS);
+        AnchorListModel anchorListModel = (AnchorListModel) model.get(AnchorListModel.DEFAULT);
+        List results = anchorListModel.getResults();
         assertEquals(5, results.size());
 
         Anchor anchor = (Anchor) results.get(results.size() - 1);
@@ -202,7 +210,8 @@ public class NearbyCitiesControllerTest extends BaseControllerTestCase {
         List cities = (List) model.get(NearbyCitiesController.MODEL_CITIES);
         assertEquals(4, cities.size());
 
-        List results = (List) model.get(AnchorListModel.RESULTS);
+        AnchorListModel anchorListModel = (AnchorListModel) model.get(AnchorListModel.DEFAULT);
+        List results = anchorListModel.getResults();
         assertEquals(6, results.size());
 
         Anchor anchor = (Anchor) results.get(results.size() - 2);
