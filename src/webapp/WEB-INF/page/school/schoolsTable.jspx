@@ -23,11 +23,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
     <c:set var="title"><c:choose>
-        <c:when test="${not empty requestScope.city}">
-            <c:out value="${requestScope.city} "/> schools
+        <c:when test="${not empty city}">
+            <c:out value="${city} "/> schools
         </c:when>
-        <c:when test="${not empty requestScope.distname}">
-            <c:out value="${requestScope.distname} "/> schools
+        <c:when test="${not empty distname}">
+            <c:out value="${distname} "/> schools
         </c:when>
         <c:otherwise>
             GreatSchools.net Search
@@ -116,10 +116,10 @@
             <gsweb:schoolTableHeader total="${results.total}"
                                      srcQuery="${pageContext.request.queryString}"
                                      showAll="${param.showall}"
-                                     cityName="${requestScope.city}"
-                                     districtId="${requestScope.district}"
-                                     schoolType="${requestScope.st}"
-                                     levelCode="${requestScope.lc}"
+                                     cityName="${city}"
+                                     districtId="${district}"
+                                     schoolType="${st}"
+                                     levelCode="${lc}"
                     >
             </gsweb:schoolTableHeader>
 
@@ -168,10 +168,10 @@
                                total="${results.total}"
                                srcQuery="${pageContext.request.queryString}"
                                showAll="${param.showall}"
-                               cityName="${requestScope.city}"
-                               districtId="${requestScope.district}"
-                               schoolType="${requestScope.st}"
-                               levelCode="${requestScope.lc}"
+                               cityName="${city}"
+                               districtId="${district}"
+                               schoolType="${st}"
+                               levelCode="${lc}"
                     >
                 <search:schoolTable schools="${results.schools}"/>
             </gsweb:schoolTable>
