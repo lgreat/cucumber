@@ -6,10 +6,9 @@
 <c:set var="bpCensus" value="${requestScope.bpCensus}"/>
 <c:set var="stateCensus" value="${requestScope.statewide}"/>
 <c:set var="usCensus" value="${requestScope.us}"/>
-<c:set var="showStateInfo" value="${requestScope.statewide.state != gs.data.state.State.DC}" />
+<c:set var="showStateInfo" value="${requestScope.statewide.state ne 'DC'}" />
 <c:if test="${not empty bpCensus}">
         <div id="cityStats" class="statsModule">
-
 
             <h3>What's it like to live in ${bpCensus.name}?</h3>
             <table cellpadding="0" cellspacing="0" class="census">
