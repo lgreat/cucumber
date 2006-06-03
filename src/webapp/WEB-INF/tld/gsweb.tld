@@ -201,6 +201,11 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>cityDisplayName</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>districtId</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

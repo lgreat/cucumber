@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.8 2006/06/03 06:32:09 apeterson Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.9 2006/06/03 06:34:22 apeterson Exp $
  */
 
 package gs.web.search;
@@ -64,8 +64,8 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
 
         out.print("<h1>");
         String cityOrDistrictName = "";
-        if (StringUtils.isNotEmpty(_cityName)) {
-            cityOrDistrictName = _cityName;
+        if (StringUtils.isNotEmpty(_cityDisplayName)) {
+            cityOrDistrictName = _cityDisplayName;
             out.print(cityOrDistrictName);
             out.print((_total != 1) ? " Schools" : " School");
         } else if (district != null) {

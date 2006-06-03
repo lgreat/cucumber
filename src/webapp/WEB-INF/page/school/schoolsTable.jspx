@@ -23,8 +23,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
     <c:set var="title"><c:choose>
-        <c:when test="${not empty city}">
-            <c:out value="${city} "/> schools
+        <c:when test="${not empty cityDisplayName}">
+            <c:out value="${cityDisplayName} "/> schools
         </c:when>
         <c:when test="${not empty distname}">
             <c:out value="${distname} "/> schools
@@ -116,7 +116,8 @@
             <gsweb:schoolTableHeader total="${results.total}"
                                      srcQuery="${pageContext.request.queryString}"
                                      showAll="${param.showall}"
-                                     cityName="${city}"
+                                     cityName="${cityName}"
+                                     cityDisplayName="${cityDisplayName}"
                                      districtId="${district}"
                                      schoolType="${st}"
                                      levelCode="${lc}"
@@ -168,7 +169,7 @@
                                total="${results.total}"
                                srcQuery="${pageContext.request.queryString}"
                                showAll="${param.showall}"
-                               cityName="${city}"
+                               cityName="${cityName}"
                                districtId="${district}"
                                schoolType="${st}"
                                levelCode="${lc}"
