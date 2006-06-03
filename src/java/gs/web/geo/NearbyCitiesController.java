@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.20 2006/06/03 03:03:37 apeterson Exp $
+* $Id: NearbyCitiesController.java,v 1.21 2006/06/03 03:44:31 apeterson Exp $
 */
 
 package gs.web.geo;
@@ -100,12 +100,16 @@ public class NearbyCitiesController extends AbstractController {
 
                 model.put(MODEL_CITIES, nearbyCities);
 
+                String heading = request.getParameter(PARAM_HEADING) != null ? request.getParameter(PARAM_HEADING) : "Cities Near " + city.getName();
                 AnchorListModel anchorListModel = _anchorListModelFactory.createNearbyCitiesAnchorListModel(
-                        city,
-                        state,
+                        heading, city,
                         nearbyCities,
                         limit,
-                        request, request.getParameter(PARAM_HEADING), request.getParameter(PARAM_INCLUDE_STATE) != null, request.getParameter(PARAM_MORE) != null, request.getParameter(PARAM_ALL) != null);
+                        request.getParameter(PARAM_INCLUDE_STATE) != null,
+                        request.getParameter(PARAM_MORE) != null,
+                        request.getParameter(PARAM_ALL) != null,
+                        request
+                );
 
                 model.put(AnchorListModel.DEFAULT, anchorListModel);
             }

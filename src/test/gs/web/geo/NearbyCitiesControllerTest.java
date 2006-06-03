@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: NearbyCitiesControllerTest.java,v 1.3 2006/05/31 21:44:29 apeterson Exp $
+ * $Id: NearbyCitiesControllerTest.java,v 1.4 2006/06/03 03:44:31 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -10,6 +10,7 @@ import gs.data.geo.IGeoDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.SessionContextUtil;
+import gs.web.AnchorListModelFactory;
 import gs.web.util.AnchorListModel;
 import gs.web.util.Anchor;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,6 +33,7 @@ public class NearbyCitiesControllerTest extends BaseControllerTestCase {
         _controller = new NearbyCitiesController();
         _controller.setApplicationContext(getApplicationContext());
         _controller.setGeoDao((IGeoDao) getApplicationContext().getBean(IGeoDao.BEAN_ID));
+        _controller.setAnchorListModelFactory((AnchorListModelFactory) getApplicationContext().getBean(AnchorListModelFactory.BEAN_ID));
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().
                 getBean(SessionContextUtil.BEAN_ID);
     }

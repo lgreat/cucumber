@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.3 2006/06/03 03:03:37 apeterson Exp $
+ * $Id: AnchorListModelFactory.java,v 1.4 2006/06/03 03:44:31 apeterson Exp $
  */
 
 package gs.web;
@@ -326,17 +326,25 @@ public class AnchorListModelFactory {
         return anchorListModel;
     }
 
-    public AnchorListModel createNearbyCitiesAnchorListModel(ICity city,
-                                                             State state,
+    /**
+     *
+     * @param heading
+     * @param city cities that this is near
+     * @param nearbyCities List of ICity objects
+     * @param limit maximum number of nearbyCities to show
+     * @param alwaysIncludeState
+     * @param includeMoreItem
+     * @param includeBrowseAllItem
+     * @param request
+
+     */
+    public AnchorListModel createNearbyCitiesAnchorListModel(final String heading, ICity city,
                                                              List nearbyCities,
                                                              int limit,
-                                                             HttpServletRequest request, String headingOverride, final boolean alwaysIncludeState, final boolean includeMoreItem, final boolean includeBrowseAllItem) {
-        String heading;
-        if (headingOverride != null) {
-            heading = headingOverride;
-        } else {
-            heading = "Cities Near " + city.getName();
-        }
+                                                             final boolean alwaysIncludeState,
+                                                             final boolean includeMoreItem,
+                                                             final boolean includeBrowseAllItem,
+                                                             HttpServletRequest request) {
         AnchorListModel anchorListModel = new AnchorListModel(heading);
 
         for (int i = 0; i < limit && i < nearbyCities.size(); i++) {
@@ -345,7 +353,7 @@ public class AnchorListModelFactory {
             // name
             String name = nearbyCity.getName();
             if (alwaysIncludeState ||
-                    !nearbyCity.getState().equals(state)) {
+                    !nearbyCity.getState().equals(city.getState())) {
                 name += ", " + nearbyCity.getState().getAbbreviation();
             }
 
@@ -369,15 +377,15 @@ public class AnchorListModelFactory {
             UrlBuilder builder = new UrlBuilder(city, UrlBuilder.CITIES_MORE_NEARBY);
             builder.setParameter(NearbyCitiesController.PARAM_ORDER, "alpha");
             builder.setParameter(NearbyCitiesController.PARAM_INCLUDE_STATE, "1");
-            if (!state.equals(State.DC)) {
+            if (!city.getState().equals(State.DC)) {
                 builder.setParameter(NearbyCitiesController.PARAM_ALL, "1");
             }
             Anchor anchor = builder.asAnchor(request, "More", "more");
             anchorListModel.add(anchor);
         }
         if (includeBrowseAllItem) {
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.CITIES, state, null);
-            Anchor anchor = builder.asAnchor(request, "Browse all " + state.getLongName() + " cities",
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.CITIES, city.getState(), null);
+            Anchor anchor = builder.asAnchor(request, "Browse all " + city.getState().getLongName() + " cities",
                     "more");
             anchorListModel.add(anchor);
 
