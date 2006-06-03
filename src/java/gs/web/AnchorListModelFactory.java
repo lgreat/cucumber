@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.4 2006/06/03 03:44:31 apeterson Exp $
+ * $Id: AnchorListModelFactory.java,v 1.5 2006/06/03 05:09:37 apeterson Exp $
  */
 
 package gs.web;
@@ -14,13 +14,13 @@ import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.web.geo.NearbyCitiesController;
 import gs.web.school.SchoolsController;
 import gs.web.search.SearchController;
 import gs.web.util.Anchor;
 import gs.web.util.AnchorListModel;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
-import gs.web.geo.NearbyCitiesController;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.search.Hits;
@@ -244,10 +244,10 @@ public class AnchorListModelFactory {
      * @throws IOException
      */
     public AnchorListModel createCitiesListModel(HttpServletRequest request,
-                                           Hits cityHits,
-                                           SchoolType schoolType,
-                                           int maxCities,
-                                           boolean showMore) throws IOException {
+                                                 Hits cityHits,
+                                                 SchoolType schoolType,
+                                                 int maxCities,
+                                                 boolean showMore) throws IOException {
         AnchorListModel anchorListModel = new AnchorListModel("" +
                 (SchoolType.CHARTER.equals(schoolType) ? "Charter schools" : "Schools") +
                 " in the city of: ");
@@ -287,11 +287,11 @@ public class AnchorListModelFactory {
      * @throws IOException
      */
     public AnchorListModel createDistrictsListModel(HttpServletRequest request,
-                                              Hits districtHits,
-                                              State state,
-                                              SchoolType schoolType,
-                                              int maxDistricts,
-                                              boolean showMore) throws IOException {
+                                                    Hits districtHits,
+                                                    State state,
+                                                    SchoolType schoolType,
+                                                    int maxDistricts,
+                                                    boolean showMore) throws IOException {
         AnchorListModel anchorListModel = new AnchorListModel("" +
                 (SchoolType.CHARTER.equals(schoolType) ? "Charter schools" : "Schools") +
                 " in the district of:");
@@ -327,16 +327,19 @@ public class AnchorListModelFactory {
     }
 
     /**
+     * Creates a list of city page links. Links are assigned a class of
+     * "town", "city" or "bigCity" depending on their size.
      *
-     * @param heading
-     * @param city cities that this is near
-     * @param nearbyCities List of ICity objects
-     * @param limit maximum number of nearbyCities to show
-     * @param alwaysIncludeState
-     * @param includeMoreItem
-     * @param includeBrowseAllItem
-     * @param request
-
+     * @param heading              of the list
+     * @param city                 cities that this is near
+     * @param nearbyCities         List of ICity objects
+     * @param limit                maximum number of nearbyCities to show
+     * @param alwaysIncludeState   if true, labels each city as City, ST; otherwise,
+     *                             it only includes the state for cities in a different state than <code>city</code>.
+     * @param includeMoreItem      includes a "More" link at the end that points to a
+     *                             nearby city.
+     * @param includeBrowseAllItem if true, includes "Browse all cities in ST" as the last
+     *                             item. (Ignored for Washington, D.C.)
      */
     public AnchorListModel createNearbyCitiesAnchorListModel(final String heading, ICity city,
                                                              List nearbyCities,
@@ -383,7 +386,7 @@ public class AnchorListModelFactory {
             Anchor anchor = builder.asAnchor(request, "More", "more");
             anchorListModel.add(anchor);
         }
-        if (includeBrowseAllItem) {
+        if (includeBrowseAllItem && !city.getState().equals(State.DC)) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.CITIES, city.getState(), null);
             Anchor anchor = builder.asAnchor(request, "Browse all " + city.getState().getLongName() + " cities",
                     "more");

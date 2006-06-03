@@ -1,15 +1,14 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.4 2006/06/02 00:15:34 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.5 2006/06/03 05:09:37 apeterson Exp $
  */
 
 package gs.web.jsp.link;
 
-import gs.data.state.State;
 import gs.data.content.Article;
+import gs.data.geo.City;
 import gs.data.school.LevelCode;
-import gs.data.geo.ICity;
-import gs.data.geo.LatLon;
+import gs.data.state.State;
 import gs.web.BaseTestCase;
 import gs.web.jsp.MockJspWriter;
 import gs.web.jsp.MockPageContext;
@@ -55,7 +54,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         handler.doStartTag();
         handler.doAfterBody();
         handler.doEndTag();
-         out = (MockJspWriter) pc.getOut();
+        out = (MockJspWriter) pc.getOut();
         assertEquals("<a class=\"theStyle\" href=\"/cgi-bin/msl_confirm/WY/\"></a>",
                 out.getOutputBuffer().toString());
     }
@@ -66,12 +65,13 @@ public class LinkTagHandlerTest extends BaseTestCase {
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/content/allArticles.page?state=CA", builder.asSiteRelative(null));
     }
+
     public void testArticleTag() {
         ArticleTagHandler tagHandler = new ArticleTagHandler();
         tagHandler.setPageContext(new MockPageContext());
         Article a = new Article();
         a.setId(new Integer(8));
-tagHandler.setArticle(a);
+        tagHandler.setArticle(a);
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/showarticle/ca/8", builder.asSiteRelative(null));
 
@@ -79,6 +79,7 @@ tagHandler.setArticle(a);
         builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/showarticlefeature/ca/8", builder.asSiteRelative(null));
     }
+
     public void testCity() {
         CityTagHandler tagHandler = new CityTagHandler();
         tagHandler.setCity("Stockton");
@@ -87,12 +88,14 @@ tagHandler.setArticle(a);
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/city/Stockton/AZ", builder.asSiteRelative(null));
     }
+
     public void testMySchoolList() {
         MySchoolListTagHandler tagHandler = new MySchoolListTagHandler();
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/msl_confirm/CA/", builder.asSiteRelative(null));
     }
+
     public void testNewsletterCenter() {
         NewsletterCenterTagHandler tagHandler = new NewsletterCenterTagHandler();
         tagHandler.setPageContext(new MockPageContext());
@@ -103,6 +106,7 @@ tagHandler.setArticle(a);
         builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/newsletters/CA/?email=whoever%40whatever.how", builder.asSiteRelative(null));
     }
+
     public void testNewsletterManagement() {
         NewsletterManagementTagHandler tagHandler = new NewsletterManagementTagHandler();
         tagHandler.setPageContext(new MockPageContext());
@@ -113,49 +117,24 @@ tagHandler.setArticle(a);
         builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/newsletterSubscribe?email=whoever%40whatever.how&state=CA", builder.asSiteRelative(null));
     }
+
     public void testPrivacyPolicy() {
         PrivacyPolicyTagHandler tagHandler = new PrivacyPolicyTagHandler();
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/about/privacyStatement.page?state=CA", builder.asSiteRelative(null));
     }
+
     public void testContactUs() {
         ContactUsTagHandler tagHandler = new ContactUsTagHandler();
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/feedback/CA", builder.asSiteRelative(null));
     }
+
     public void testSchools() {
         SchoolsTagHandler tagHandler = new SchoolsTagHandler();
-        tagHandler.setCity(new ICity() {
-            public String getName() {
-                return "New York";
-            }
-
-            public State getState() {
-                return State.NY;
-            }
-
-            public float getLat() {
-                return 0;
-            }
-
-            public float getLon() {
-                return 0;
-            }
-
-            public String getCountyFips() {
-                return null;
-            }
-
-            public Long getPopulation() {
-                return null;
-            }
-
-            public LatLon getLatLon() {
-                return null;
-            }
-        });
+        tagHandler.setCity(new City("New York", State.NY));
 
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.21 2006/06/03 03:03:37 apeterson Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.22 2006/06/03 05:09:37 apeterson Exp $
  */
 
 package gs.web.school.performance;
@@ -191,7 +191,7 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
             IGeoDao geoDao = (IGeoDao) context.getBean(IGeoDao.BEAN_ID);
             ICity c = geoDao.findCity(State.CA, cityName);
             if (c != null) {
-                _latLon = new LatLon(c.getLat(), c.getLon());
+                _latLon = new LatLon(c.getLatLon().getLat(), c.getLatLon().getLon());
                 _population = new Long(population);
             } else {
                 _log.error("Cannot find city information for " + cityName);

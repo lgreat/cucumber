@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.25 2006/06/02 00:15:34 aroy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.26 2006/06/03 05:09:37 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.data.content.Article;
 import gs.data.geo.ICity;
-import gs.data.geo.LatLon;
+import gs.data.geo.City;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.school.LevelCode;
@@ -150,35 +150,7 @@ public class UrlBuilderSaTest extends TestCase {
     }
 
     public void testCityPageBuilder() {
-        ICity city = new ICity() {
-            public String getName() {
-                return "Talahasi";
-            }
-
-            public State getState() {
-                return State.FL;
-            }
-
-            public float getLat() {
-                return 0;
-            }
-
-            public float getLon() {
-                return 0;
-            }
-
-            public LatLon getLatLon() {
-                return null;
-            }
-
-            public String getCountyFips() {
-                return null;
-            }
-
-            public Long getPopulation() {
-                return null;
-            }
-        };
+        ICity city = new City("Talahasi", State.FL);
 
         UrlBuilder builder = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
         assertEquals("/city/Talahasi/FL", builder.asSiteRelativeXml(null));
