@@ -1,15 +1,15 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.36 2006/06/02 00:15:34 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.37 2006/06/05 18:38:01 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.data.content.Article;
 import gs.data.geo.ICity;
+import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
-import gs.data.school.LevelCode;
 import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.web.school.SchoolsController;
@@ -99,6 +99,11 @@ public class UrlBuilder {
      * Manage new or existing subscriptions.
      */
     public static final VPage NEWSLETTER_MANAGEMENT = new VPage("vpage:newsletterManagement");
+
+    /**
+     * New state home page: research and compare, with optional state.
+     */
+    public static final VPage RESEARCH = new VPage("vpage:research");
 
     public static final VPage SCHOOL_PROFILE = new VPage("vpage:schoolProfile");
     /**
@@ -241,16 +246,15 @@ public class UrlBuilder {
     }
 
     /**
-     *
-     * @param levelCode can be null
+     * @param levelCode  can be null
      * @param schoolType can be null, can also be a comma-separated list
      */
     public UrlBuilder(ICity city, VPage page, LevelCode levelCode, String schoolType) {
-       this(city, page); // use existing method to set city/state
-       if (SCHOOLS_IN_CITY.equals(page)) {
-           if (levelCode != null && StringUtils.isNotEmpty(levelCode.getCommaSeparatedString())) {
+        this(city, page); // use existing method to set city/state
+        if (SCHOOLS_IN_CITY.equals(page)) {
+            if (levelCode != null && StringUtils.isNotEmpty(levelCode.getCommaSeparatedString())) {
                 String[] lcs = StringUtils.split(levelCode.getCommaSeparatedString(), ",");
-                for (int i=0; i < lcs.length; i++) {
+                for (int i = 0; i < lcs.length; i++) {
                     addParameter(SchoolsController.PARAM_LEVEL_CODE, lcs[i]);
                 }
             }
@@ -276,8 +280,7 @@ public class UrlBuilder {
     }
 
     /**
-     *
-     * @param levelCode can be null
+     * @param levelCode  can be null
      * @param schoolType can be null, can also be a comma-separated list
      */
     public UrlBuilder(VPage page, State state, String city, LevelCode levelCode, String schoolType) {
@@ -285,11 +288,10 @@ public class UrlBuilder {
     }
 
     /**
-     *
-     * @param levelCode can be null
+     * @param levelCode  can be null
      * @param schoolType can be null, can also be a comma-separated list
      */
-     private void init(VPage page, State state, String city, LevelCode levelCode, String schoolType) {
+    private void init(VPage page, State state, String city, LevelCode levelCode, String schoolType) {
         _vPage = page;
 
         // use existing code to set state/city
@@ -352,6 +354,12 @@ public class UrlBuilder {
             _path = "/schools.page";
             setParameter("district", param0);
             setParameter("state", state.getAbbreviation());
+        } else if (RESEARCH.equals(page)) {
+            _perlPage = false;
+            _path = "/test/research.page";
+            if (state != null) {
+                setParameter("state", state.getAbbreviation());
+            }
         } else if (PRIVACY_POLICY.equals(page)) {
             _perlPage = false;
             _path = "/about/privacyStatement.page";
@@ -377,7 +385,7 @@ public class UrlBuilder {
                 setParameter("email", param0);
             }
             setParameter("state", state.getAbbreviation());
-        }   else if (CONTACT_US.equals(page)) {
+        } else if (CONTACT_US.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/feedback/" + state.getAbbreviation();
         } else {
