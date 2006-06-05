@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.12 2006/05/15 21:41:06 thuss Exp $
+ * $Id: GeoController.java,v 1.13 2006/06/05 16:53:42 apeterson Exp $
  */
 
 package gs.web.geo;
 
 import gs.data.geo.IGeoDao;
-import gs.data.geo.bestplaces.BpState;
 import gs.data.geo.bestplaces.BpCensus;
+import gs.data.geo.bestplaces.BpState;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
 import gs.web.SessionContext;
@@ -44,6 +44,7 @@ public class GeoController implements Controller {
     public static final String MODEL_STATE_CENSUS = "statewide"; // BpCensus object for the state
     public static final String MODEL_US_CENSUS = "us"; // BpCensus object for the U.S.
     public static final String MODEL_LOCAL_CENSUS = "bpCensus"; // City BpCensus object
+    public static final String MODEL_DISPLAY_NAME = "displayName"; // String
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -56,7 +57,7 @@ public class GeoController implements Controller {
         String cityNameParam = request.getParameter(PARAM_CITY);
         if (StringUtils.isNotEmpty(cityNameParam) && state != null) {
 
-            System.out.println("State: " + state.getAbbreviation() + " city: " + cityNameParam);
+            _log.debug("State: " + state.getAbbreviation() + " city: " + cityNameParam);
             BpCensus bpCensus = _geoDao.findBpCity(state, cityNameParam);
 
             if (bpCensus == null) {
@@ -66,14 +67,28 @@ public class GeoController implements Controller {
             if (bpCensus != null) {
                 model.put(MODEL_LOCAL_CENSUS, bpCensus);
             }
+
+            // displayName needs minor tweaks
+            String displayName;
+            if (State.DC.equals(state)) {
+                displayName = "Washington, D.C.";
+            } else if (State.NY.equals(state) && "New York".equals(cityNameParam)) {
+                displayName = "New York City";
+            } else if (bpCensus != null) {
+                displayName = bpCensus.getName();
+            } else {
+                displayName = cityNameParam;
+            }
+            model.put(MODEL_DISPLAY_NAME, displayName);
         }
 
         BpState bps = _geoDao.findState(state);
         model.put(MODEL_STATE_CENSUS, bps);
-        System.out.println("Setting state to "+state+" and bps to "+bps );
+        _log.debug("Setting state to " + state + " and bps to " + bps);
 
         List list = _geoDao.getAllBpNation();
         model.put(MODEL_US_CENSUS, list.get(0));
+
 
         ModelAndView modelAndView = new ModelAndView(_viewName, model);
 
