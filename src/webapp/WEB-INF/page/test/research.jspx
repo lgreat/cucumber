@@ -94,6 +94,80 @@
 
     <table>
     <tr>
+    <c:if test="${empty requestScope.context.state}">
+        <td style="width:25%; vertical-align: top">
+            <h3>Research by state</h3>
+
+            <ul>
+                <li><link:research state="AL">Alabama</link:research></li>
+                <li><link:research state="AK">Alaska</link:research></li>
+                <li><link:research state="AZ">Arizona</link:research></li>
+                <li><link:research state="AR">Arkansas</link:research></li>
+                <li><link:research state="CA">California</link:research></li>
+
+                <li><link:research state="CO">Colorado</link:research></li>
+                <li><link:research state="CT">Connecticut</link:research></li>
+                <li><link:research state="DE">Delaware</link:research></li>
+                <li><link:research state="DC">District of Columbia</link:research></li>
+                <li><link:research state="FL">Florida</link:research></li>
+                <li><link:research state="GA">Georgia</link:research></li>
+
+                <li><link:research state="HI">Hawaii</link:research></li>
+                <li><link:research state="ID">Idaho</link:research></li>
+                <li><link:research state="IL">Illinois</link:research></li>
+                <li><link:research state="IN">Indiana</link:research></li>
+                <li><link:research state="IA">Iowa</link:research></li>
+                <li><link:research state="KS">Kansas</link:research></li>
+
+                <li><link:research state="KY">Kentucky</link:research></li>
+                <li><link:research state="LA">Louisiana</link:research></li>
+                <li><link:research state="ME">Maine</link:research></li>
+                <li><link:research state="MD">Maryland</link:research></li>
+                <li><link:research state="MA">Massachusetts</link:research></li>
+                <li><link:research state="MI">Michigan</link:research></li>
+
+                <li><link:research state="MN">Minnesota</link:research></li>
+                <li><link:research state="MS">Mississippi</link:research></li>
+                <li><link:research state="MO">Missouri</link:research></li>
+                <li><link:research state="MT">Montana</link:research></li>
+                <li><link:research state="NE">Nebraska</link:research></li>
+
+                <li><link:research state="NV">Nevada</link:research></li>
+                <li><link:research state="NH">New Hampshire</link:research></li>
+                <li><link:research state="NJ">New Jersey</link:research></li>
+                <li><link:research state="NM">New Mexico</link:research></li>
+                <li><link:research state="NY">New York</link:research></li>
+                <li><link:research state="NC">North Carolina</link:research></li>
+
+                <li><link:research state="ND">North Dakota</link:research></li>
+                <li><link:research state="OH">Ohio</link:research></li>
+                <li><link:research state="OK">Oklahoma</link:research></li>
+                <li><link:research state="OR">Oregon</link:research></li>
+                <li><link:research state="PA">Pennsylvania</link:research></li>
+                <li><link:research state="RI">Rhode Island</link:research></li>
+
+                <li><link:research state="SC">South Carolina</link:research></li>
+                <li><link:research state="SD">South Dakota</link:research></li>
+                <li><link:research state="TN">Tennessee</link:research></li>
+                <li><link:research state="TX">Texas</link:research></li>
+                <li><link:research state="UT">Utah</link:research></li>
+                <li><link:research state="VT">Vermont</link:research></li>
+
+                <li><link:research state="VA">Virginia</link:research></li>
+                <li><link:research state="WA">Washington</link:research></li>
+                <li><link:research state="WV">West Virginia</link:research></li>
+                <li><link:research state="WI">Wisconsin</link:research></li>
+                <li><link:research state="WY">Wyoming</link:research></li>
+
+
+            </ul>
+
+
+        </td>
+        <td style="height: 100%;vertical-align: top;" class="cleanLineLeftBox">
+            <gsml:img src="/res/img/header/clear_pix.gif" alt=""/>
+        </td>
+    </c:if>
     <td style="width:50%; vertical-align: top">
 
         <div class="compareEntry">
@@ -162,9 +236,9 @@
 <td style="height: 100%;vertical-align: top;" class="cleanLineLeftBox">
     <gsml:img src="/res/img/header/clear_pix.gif" alt=""/>
 </td>
-<td style="width:50%; vertical-align: top">
     <c:choose>
         <c:when test="${not empty requestScope.context.state}">
+            <td style="width:50%; vertical-align: top">
             <img src="http://www.sitesatlas.com/Maps/Info/tusa${requestScope.context.stateOrDefault.abbreviationLowerCase}.gif"
                  style="display: block;margin:10px;"/>
 
@@ -176,69 +250,70 @@
             </div>
             <jsp:include
                     page="/state/topDistricts.module"/>
+            </td>
         </c:when>
         <c:otherwise>
+            <td style="width:25%; vertical-align: top">
 
-            <h3>...or start in one of the country's 50 largest cities:</h3>
+            <h3>50 Largest U.S. Cities</h3>
             <ul>
-                <li><link:city city="New York" state="ny">New York</link:city></li>
-                <li><link:city city="Los Angeles" state="ca">Los Angeles</link:city></li>
+                <li><link:city city="Albuquerque" state="nm">Albuquerque</link:city></li>
+                <li><link:city city="Arlington" state="tx">Arlington, TX</link:city></li>
+                <li><link:city city="Atlanta" state="ga">Atlanta</link:city></li>
+                <li><link:city city="Austin" state="tx">Austin</link:city></li>
+                <li><link:city city="Baltimore" state="md">Baltimore</link:city></li>
+                <li><link:city city="Boston" state="ma">Boston</link:city></li>
+                <li><link:city city="Charlotte" state="nc">Charlotte</link:city></li>
                 <li><link:city city="Chicago" state="il">Chicago</link:city></li>
-                <li><link:city city="Houston" state="tx">Houston</link:city></li>
-                <li><link:city city="Philadelphia" state="pa">Philadelphia</link:city></li>
-                <li><link:city city="Phoenix" state="az">Phoenix</link:city></li>
-                <li><link:city city="San Diego" state="ca">San Diego</link:city></li>
-                <li><link:city city="San Antonio" state="tx">San Antonio</link:city></li>
+                <li><link:city city="Cleveland" state="oh">Cleveland</link:city></li>
+                <li><link:city city="Colorado Springs" state="co">Colorado Springs</link:city></li>
+                <li><link:city city="Columbus" state="oh">Columbus</link:city></li>
                 <li><link:city city="Dallas" state="tx">Dallas</link:city></li>
-                <li><link:city city="San Jose" state="ca">San Jose</link:city></li>
+                <li><link:city city="Denver" state="co">Denver</link:city></li>
                 <li><link:city city="Detroit" state="mi">Detroit</link:city></li>
+                <li><link:city city="El Paso" state="tx">El Paso</link:city></li>
+                <li><link:city city="Fort Worth" state="tx">Fort Worth</link:city></li>
+                <li><link:city city="Fresno" state="ca">Fresno</link:city></li>
+                <li><link:city city="Honolulu" state="hi">Honolulu</link:city></li>
+                <li><link:city city="Houston" state="tx">Houston</link:city></li>
                 <li><link:city city="Indianapolis" state="in">Indianapolis</link:city></li>
                 <li><link:city city="Jacksonville" state="fl">Jacksonville</link:city></li>
-                <li><link:city city="San Francisco" state="ca">San Francisco</link:city></li>
-                <li><link:city city="Boston" state="ma">Boston</link:city></li>
-                <li><link:city city="Columbus" state="oh">Columbus</link:city></li>
-                <li><link:city city="Austin" state="tx">Austin</link:city></li>
-                <li><link:city city="Memphis" state="tn">Memphis</link:city></li>
-                <li><link:city city="Baltimore" state="md">Baltimore</link:city></li>
-                <li><link:city city="Fort Worth" state="tx">Fort Worth</link:city></li>
-                <li><link:city city="Charlotte" state="nc">Charlotte</link:city></li>
-                <li><link:city city="El Paso" state="tx">El Paso</link:city></li>
-                <li><link:city city="Milwaukee" state="wi">Milwaukee</link:city></li>
-                <li><link:city city="Seattle" state="wa">Seattle</link:city></li>
-                <li><link:city city="Denver" state="co">Denver</link:city></li>
-                <li><link:city city="Louisville" state="ky">Louisville</link:city></li>
-                <li><link:city city="Washington" state="dc">Washington DC</link:city></li>
-                <li><link:city city="Nashville" state="tn">Nashville</link:city></li>
-                <li><link:city city="Las Vegas" state="nv">Las Vegas</link:city></li>
-                <li><link:city city="Portland" state="or">Portland</link:city></li>
-                <li><link:city city="Oklahoma City" state="ok">Oklahoma City</link:city></li>
-                <li><link:city city="Tucson" state="az">Tucson</link:city></li>
-                <li><link:city city="Albuquerque" state="nm">Albuquerque</link:city></li>
-                <li><link:city city="Long Beach" state="ca">Long Beach</link:city></li>
-                <li><link:city city="New Orleans" state="la">New Orleans</link:city></li>
-                <li><link:city city="Cleveland" state="oh">Cleveland</link:city></li>
-                <li><link:city city="Fresno" state="ca">Fresno</link:city></li>
-                <li><link:city city="Sacramento" state="ca">Sacramento</link:city></li>
                 <li><link:city city="Kansas City" state="mo">Kansas City</link:city></li>
-                <li><link:city city="Virginia Beach" state="va">Virginia Beach</link:city></li>
+                <li><link:city city="Las Vegas" state="nv">Las Vegas</link:city></li>
+                <li><link:city city="Long Beach" state="ca">Long Beach</link:city></li>
+                <li><link:city city="Los Angeles" state="ca">Los Angeles</link:city></li>
+                <li><link:city city="Louisville" state="ky">Louisville</link:city></li>
+                <li><link:city city="Memphis" state="tn">Memphis</link:city></li>
                 <li><link:city city="Mesa" state="az">Mesa</link:city></li>
-                <li><link:city city="Atlanta" state="ga">Atlanta</link:city></li>
-                <li><link:city city="Omaha" state="ne">Omaha</link:city></li>
-                <li><link:city city="Oakland" state="ca">Oakland</link:city></li>
-                <li><link:city city="Tulsa" state="ok">Tulsa</link:city></li>
                 <li><link:city city="Miami" state="fl">Miami</link:city></li>
-                <li><link:city city="Honolulu" state="hi">Honolulu</link:city></li>
+                <li><link:city city="Milwaukee" state="wi">Milwaukee</link:city></li>
                 <li><link:city city="Minneapolis" state="mn">Minneapolis</link:city></li>
-                <li><link:city city="Colorado Springs" state="co">Colorado Springs</link:city>
-                </li>
-                <li><link:city city="Arlington" state="tx">Arlington, TX</link:city></li>
+                <li><link:city city="Nashville" state="tn">Nashville</link:city></li>
+                <li><link:city city="New Orleans" state="la">New Orleans</link:city></li>
+                <li><link:city city="New York" state="ny">New York City</link:city></li>
+                <li><link:city city="Oakland" state="ca">Oakland, CA</link:city></li>
+                <li><link:city city="Oklahoma City" state="ok">Oklahoma City</link:city></li>
+                <li><link:city city="Omaha" state="ne">Omaha</link:city></li>
+                <li><link:city city="Philadelphia" state="pa">Philadelphia</link:city></li>
+                <li><link:city city="Phoenix" state="az">Phoenix</link:city></li>
+                <li><link:city city="Portland" state="or">Portland, OR</link:city></li>
+                <li><link:city city="Sacramento" state="ca">Sacramento</link:city></li>
+                <li><link:city city="San Antonio" state="tx">San Antonio</link:city></li>
+                <li><link:city city="San Diego" state="ca">San Diego</link:city></li>
+                <li><link:city city="San Francisco" state="ca">San Francisco</link:city></li>
+                <li><link:city city="San Jose" state="ca">San Jose</link:city></li>
+                <li><link:city city="Seattle" state="wa">Seattle</link:city></li>
+                <li><link:city city="Tucson" state="az">Tucson</link:city></li>
+                <li><link:city city="Tulsa" state="ok">Tulsa</link:city></li>
+                <li><link:city city="Virginia Beach" state="va">Virginia Beach</link:city></li>
+                <li><link:city city="Washington" state="dc">Washington DC</link:city></li>
 
 
             </ul>
 
+            </td>
         </c:otherwise>
     </c:choose>
-</td>
 
 </tr></table>
 
