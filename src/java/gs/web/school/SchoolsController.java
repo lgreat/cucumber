@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.14 2006/06/03 06:32:09 apeterson Exp $
+ * $Id: SchoolsController.java,v 1.15 2006/06/06 19:28:49 apeterson Exp $
  */
 
 package gs.web.school;
@@ -167,7 +167,7 @@ public class SchoolsController extends AbstractController {
                 displayName += " City";
             } else if (State.DC.equals(state) &&
                     displayName.equals("Washington")) {
-                displayName += ", D.C.";
+                displayName += ", DC";
             }
             model.put(MODEL_CITY_NAME, cityName);
             model.put(MODEL_CITY_DISPLAY_NAME, displayName);

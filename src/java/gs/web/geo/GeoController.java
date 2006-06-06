@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.13 2006/06/05 16:53:42 apeterson Exp $
+ * $Id: GeoController.java,v 1.14 2006/06/06 19:28:49 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -71,7 +71,7 @@ public class GeoController implements Controller {
             // displayName needs minor tweaks
             String displayName;
             if (State.DC.equals(state)) {
-                displayName = "Washington, D.C.";
+                displayName = "Washington, DC";
             } else if (State.NY.equals(state) && "New York".equals(cityNameParam)) {
                 displayName = "New York City";
             } else if (bpCensus != null) {

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.33 2006/06/05 16:53:42 apeterson Exp $
+ * $Id: CityController.java,v 1.34 2006/06/06 19:28:49 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -122,7 +122,7 @@ public class CityController extends AbstractController {
         // it as in the database and in URLs.
         String cityDisplayName;
         if (state.equals(State.DC)) {
-            cityDisplayName = "Washington, D.C.";
+            cityDisplayName = "Washington, DC";
         } else {
             cityDisplayName = city.getName();
         }
