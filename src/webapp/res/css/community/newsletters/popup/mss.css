@@ -41,11 +41,11 @@ a:active {
 
 .bigLink {
     font-weight:bold;
-    font-size:14px;
+    font-size:12px;
 }
 
 .promo h1 {
-    font-size: 25px;
+    font-size: 23px;
     color: #0066cc;
     font-weight:normal;
     margin-bottom:0;
@@ -54,7 +54,7 @@ a:active {
 .promo h2 {
     font-size: 18px;
     font-weight: normal;
-    color: #669acc;
+    color: #0066cc;
 }
 
 .promo h3 {
@@ -80,8 +80,7 @@ a:active {
 .quote {
     padding-top: 1em;
     padding-bottom:1em;
-    font-size: 15px;
-    font-style: italic;
+    font-size: 13px;
     color: #666666;
 }
 
@@ -91,8 +90,7 @@ a:active {
 }
 
 .blueTop {
-    border-top-style:dotted;
-    border-top-color: #6699cc;
+    border-top: dotted 2px #0066cc;
     padding-top:0.5em;
     padding-bottom:0.5em;
 }
@@ -142,11 +140,10 @@ li {
     padding: 0 1em 0 1em;
 }
 
-.pLR h3{
-    font-size:14px;
-    font-style:normal;
-    font-weight:100;
-    margin: 0 0 0.5em 0;
+.pLR h3 {
+    margin-top:0;
+    font-size: 15px;
+    font-weight: bold;
 }
 
 .pTB {
@@ -154,5 +151,5 @@ li {
 }
 
 .signMeUp {
-    padding-top:3em;
+    padding-top:2em;
 }

@@ -85,7 +85,7 @@
                     <li>${newsletterName}</li>
                 </c:forEach>
             </ul>
-            <div>
+            <div style="padding-left:26px;">
                 <link:newsletterManagement email="${email}" target="_blank" styleClass="bigLink">Manage my subscriptions</link:newsletterManagement>
             </div>
         </div>

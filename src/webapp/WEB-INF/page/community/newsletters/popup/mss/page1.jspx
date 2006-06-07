@@ -98,11 +98,7 @@
 
 <div class="pLR">
     <div class="promo">
-        <h1>What's new at
-            <c:choose>
-                <c:when test="${fn:length(schoolName) > 20}"><br/>${schoolName}?</c:when>
-                <c:otherwise>${schoolName}?</c:otherwise>
-            </c:choose>
+        <h1>Is ${schoolName} on track?
         </h1>
 
         <h3>Find out with free monthly newsletters from GreatSchools.</h3>
@@ -132,7 +128,7 @@
                 <input type="hidden" name="${schoolIdExpr}" value="${schoolId}"/>
                 <input type="hidden" name="${schoolNameExpr}" value="${schoolName}"/>
                 <input type="checkbox" name="${mssExpr}" checked="checked"/>
-                Yes, please send me free monthly stats and updates about ${schoolName}.
+                Yes, please send me monthly stats and updates about ${schoolName}.
             </div>
 
             <div class="cbx">
@@ -161,7 +157,7 @@
             <q>Thanks for explaining the test scores at my son's school.<br/>
                 Please continue the super job of keeping us parents updated!</q>
 
-            <div class="quotee">-a mom and newsletter subscriber</div>
+            <div class="quotee">- a mom and newsletter subscriber</div>
         </div>
     </div>
 </div>

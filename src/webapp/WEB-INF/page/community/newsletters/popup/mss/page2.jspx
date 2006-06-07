@@ -48,7 +48,7 @@
 <gsml:form action="/community/newsletters/popup/mss/page2.page" method="post" target="_self" id="frm">
     <div class="pLR">
         <div class="promo">
-            <h2>Track your child's progress grade by grade<br/> with the free newsletters that parents rave about!</h2>
+            <h2>Track your child's progress grade by grade<br/> with the free newsletters that parents love!</h2>
         </div>
 
         <div class="error">
@@ -63,7 +63,7 @@
 
     <div class="blueTop">
         <div class="pLR">
-            <h3>Yes, send me monthly tips about what to expect in the classroom for:</h3>
+            <h3>Send me monthly tips about what to expect in the classroom for:</h3>
             <table width="80%" align="center">
                 <tr>
                     <td>
@@ -132,13 +132,10 @@
                 </tr>
             </table>
             <div class="centered">
-                <br/>
                 <div class="signMeUp">
                     <gsml:inputImage src="/res/img/button/btn_sign_me_up_6699cc.gif" alt="Sign me up!"/>
                 </div>
-                <br/>
             </div>
-
             <div class="privacy">
                 We won't share or sell your address. <link:privacyPolicy target="_blank" styleClass="smallLink">Privacy
                 Policy</link:privacyPolicy>
