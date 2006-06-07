@@ -1,8 +1,7 @@
-
 /*
- * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesController.java,v 1.19 2006/05/31 21:44:29 apeterson Exp $
- */
+* Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
+* $Id: TopCitiesController.java,v 1.20 2006/06/07 17:22:37 apeterson Exp $
+*/
 
 package gs.web.state;
 
@@ -13,9 +12,9 @@ import gs.web.SessionFacade;
 import gs.web.util.Anchor;
 import gs.web.util.AnchorListModel;
 import gs.web.util.UrlBuilder;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,12 +27,10 @@ import java.util.Map;
  * Given a state (in the "state" param), creates a model of the largest
  * cities in the state (hand-tuned by our employees).
  * The number of cities returned is currently set by the State itself.
- * <p>
  * Uses the standard AnchorListModel.
  *
- * @see AnchorListModel
- *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @see AnchorListModel
  */
 public class TopCitiesController extends AbstractController {
 
@@ -58,6 +55,12 @@ public class TopCitiesController extends AbstractController {
             Anchor anchor = new Anchor("/schools.page?city=Washington&state=DC",
                     "View all schools");
             items.add(anchor);
+
+            if (State.DC.equals(state)) {
+                UrlBuilder dcCityPage = new UrlBuilder(UrlBuilder.CITY_PAGE, State.DC, "Washington");
+                items.add(dcCityPage.asAnchor(request, "View city information", "viewall"));
+            }
+
             model.put(AnchorListModel.RESULTS, items);
 
         } else {
