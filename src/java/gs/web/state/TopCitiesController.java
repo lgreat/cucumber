@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: TopCitiesController.java,v 1.20 2006/06/07 17:22:37 apeterson Exp $
+* $Id: TopCitiesController.java,v 1.21 2006/06/07 17:35:37 apeterson Exp $
 */
 
 package gs.web.state;
@@ -53,7 +53,7 @@ public class TopCitiesController extends AbstractController {
 
             List items = new ArrayList(1);
             Anchor anchor = new Anchor("/schools.page?city=Washington&state=DC",
-                    "View all schools");
+                    "View all schools", "viewall");
             items.add(anchor);
 
             if (State.DC.equals(state)) {
