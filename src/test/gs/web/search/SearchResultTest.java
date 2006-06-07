@@ -134,16 +134,6 @@ public class SearchResultTest extends TestCase {
         assertEquals("222 2nd St.,  Tahachepe, CA 12345", result.getAddress());
     }
 
-    public void testGetInsider() {
-        Document doc = new Document();
-        SearchResult result = new SearchResult(doc);
-        assertFalse(result.isInsider());
-
-        doc.add(Field.Text("insider", "true"));
-        result = new SearchResult(doc);
-        assertTrue(result.isInsider());
-    }
-
     public void testGetSchoolType() {
         Document doc = new Document();
         SearchResult result = new SearchResult(doc);

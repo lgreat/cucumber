@@ -65,7 +65,7 @@
         s.prop2 = "${empty(schoolType) ? "" : schoolType}";
         s.prop3 = "${empty(schoolLevel) ? "" : schoolLevel}";
         s.prop4 = "${empty(locale) ? "" : locale}";
-        s.prop5 = "${requestScope.context.stateOrDefault.subscriptionState ? 'subscription' : 'non-subscription'}";
+        s.prop5 = "";
         s.prop6 = "${query}";
         s.prop7 = "${pageName}:${requestScope.context.ABVersion}";
         s.prop8 = "${empty(param.cpn) ? pageName : param.cpn}";

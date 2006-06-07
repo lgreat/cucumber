@@ -18,10 +18,6 @@
     <!-- We have to explicitly exclude due to a Sitemesh 2.2.1 bug that truncates the closing html tag -->
     <excludes>
         <!-- Regularly used pages that shouldn't be decorated -->
-        <pattern>*/fiveSteps.page*</pattern>
-        <pattern>*/insider.page*</pattern>
-        <pattern>*/subscribe.page*</pattern>
-        <pattern>*/thankyou.page*</pattern>
         <pattern>*/monitor.page*</pattern>
         <pattern>*/sorry.page*</pattern>
         <pattern>*/compareSchools.page*</pattern>

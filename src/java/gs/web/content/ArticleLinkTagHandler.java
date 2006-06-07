@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.19 2006/05/31 19:33:08 wbeck Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.20 2006/06/07 22:47:13 apeterson Exp $
  */
 package gs.web.content;
 
@@ -97,11 +97,6 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
             String img = article.isSpanish() ? "/res/img/content/nuevo.jpg" : "/res/img/content/icon_newarticle.gif";
             img = _urlUtil.buildUrl(img, request);
             b.append("<img src=\"" + img + "\" alt=\"new\" class=\"newarticle\">&nbsp;");
-        }
-
-        if (s.isSubscriptionState() && article.isInsider()) {
-            String img = _urlUtil.buildUrl("/res/img/st_icon.gif", request);
-            b.append("<img src=\"" + img + "\" border=\"0\" class=\"memberOnly\" />");
         }
 
         b.append("<a href=\"");

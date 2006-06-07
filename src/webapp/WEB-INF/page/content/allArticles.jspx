@@ -105,24 +105,6 @@
     <div class="allArticles">
     <div id="articletools">
         <!-- Article Tools and Advert -->
-        <c:if test="${requestScope.context.state.subscriptionState}">
-        <table id="toolmenucontent" border="0" align="right" cellpadding="3" cellspacing="0" width="310">
-            <tr><td>
-                        <div id="toolsmenu">
-                            <center><h3>Membership Content:<br/>Your School Choice Options<br/><a
-                                    href="/cgi-bin/conversion/${requestScope.context.stateOrDefault.abbreviation}"><gsml:img
-                                    src="/res/img/learn_more_btn.gif" alt="Learn More"/></a></h3>
-                            </center>
-                            <hr noshade="true" size="1"/>
-                            <ul>
-                            <c:forEach items="${insider_articles}" var="article">
-                                <gsweb:articlelink article="${article}" flaggedIfNew="true" wrappingElement="li" />
-                            </c:forEach>
-                            </ul>
-                        </div>
-        </td></tr>
-        </table>
-        </c:if>
         <ad:x40/>
     </div>
 

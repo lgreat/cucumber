@@ -37,7 +37,6 @@
     <li><a href="#ratings">GreatSchools Ratings &amp; Alerts</a></li>
     <li><a href="#compare">Comparing Schools</a></li>
     <li><a href="#newsletters">GreatSchools Newsletters</a></li>
-    <li><a href="#membership">GreatSchools Insider Membership</a></li>
     <li><a href="#other">Other Questions About GreatSchools</a></li>
 </ul>
 
@@ -288,13 +287,6 @@
 
 <h3>GreatSchools Ratings &amp; Alerts</h3>
 
-<h4>Where can I find GreatSchools Ratings and Alerts?</h4>
-
-<p> Our Ratings and Alerts are available to GreatSchools Insider members. Please visit our <gsml:a
-        href="/cgi-bin/conversion/$STATE/overview/?general=yes">Insider Overview page</gsml:a> to see the list of states
-    for
-    which Ratings and Alerts are available, and to find out how to become a member. </p>
-
 <h4>How are the GreatSchools Test Score Ratings calculated?</h4>
 
 <p> GreatSchools analyzes each school's performance on state standardized tests and provides a one through ten
@@ -415,23 +407,12 @@
                 href="/cgi-bin/feedback_faq/$STATE?fbtype=newsletter">Contact us about our newsletters.</gsml:a></i></p>
 </div>
 
-<![CDATA[ <a name="membership"></a> ]]>
-
-<h3>GreatSchools Insider Membership</h3>
-
-<h4>What unique features come with membership that are not included in the rest of the site?</h4>
-
-<p>
-    GreatSchools Insider membership is currently available in selected states. Please visit our <gsml:a
-        href="/cgi-bin/conversion/$STATE/overview/?general=yes">Insider Overview page</gsml:a> to see the list of states
-    for
-    which membership is available and to get more details about the valuable features that GreatSchools membership
-    offers to help parents choose schools for their children. </p>
 
 <h4>What is my login?</h4>
 
 <p>
-    Your login is the email address you provided to us when you signed up for our membership service.
+    Your login is the email address you provided to us when you signed up for
+    our services.
 </p>
 
 
@@ -443,25 +424,15 @@
 </p>
 
 
-<h4>Will my membership be automatically renewed without my permission?</h4>
-
-<p> No. We will not use your credit card information to automatically renew your membership. When your annual
-    membership is due to expire, you will be sent a reminder email. If you choose to renew, you will be asked to
-    purchase a renewal membership.
-</p>
-
-
 <h4>I'm having trouble logging in. What is the problem?</h4>
 
 <p> Here are the three most common problems:
 </p><ul>
 
-    <li>Make sure that the browser you are using to view our site (Internet Explorer, Netscape, AOL), has cookies
-        enabled. This is necessary to log in to your membership.</li>
+    <li>Make sure that the browser you are using to view our site (Internet Explorer, Firefox, Safari), has cookies
+        enabled. This is necessary to log in.</li>
     <li>Your login is the email address you provided to us when you signed up for the service. Make sure there are no
         trailing or leading spaces when you type in your email address.</li>
-    <li>If after logging in, you aren't able to view the membership page you wish to access, press Ctrl+F5 to reload the
-        page.</li>
 </ul>
 
 <div style="text-align: right;">

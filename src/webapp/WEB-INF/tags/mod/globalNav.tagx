@@ -20,27 +20,14 @@
                     <td class="BG" style="background-color: #FAD3ae !important"><h1>
                             Research &amp;amp; Compare
                         </h1>
-                        <c:if test="${requestScope.context.stateOrDefault.ratingsState and (requestScope.context.paidSubscriber or !requestScope.context.stateOrDefault.subscriptionState)}">
+                        <c:if test="${requestScope.context.stateOrDefault.ratingsState}">
                                 <gsml:a href="/cgi-bin/site/rank_overview.cgi/$STATE">Top-rated schools</gsml:a>
                         </c:if>
                         <gsml:a href="/content/schoolChoiceCenter.page?state=$STATE">School Choosers Guide</gsml:a>
                         <gsml:a href="/cgi-bin/cs_where/$STATE">Compare schools</gsml:a>
                         <gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">Search near address</gsml:a>
                         <link:mySchoolList>My School List</link:mySchoolList>
-                        <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
-                            <c:if test="${requestScope.context.paidSubscriber}">
-                                <gsml:a href="/insider.page?state=$STATE">Member Center</gsml:a>
-                            </c:if>
-                        </c:if>
-
-                        <c:if test="${requestScope.context.stateOrDefault.subscriptionState}">
-                            <c:if test="${requestScope.context.user==null}">
-                                <gsml:a href="/cgi-bin/site/signin.cgi/$STATE/" state="${requestScope.context.stateOrDefault}">Sign In</gsml:a>
-                            </c:if>
-                            <c:if test="${requestScope.context.user!=null}">
-                                <gsml:a href="/cgi-bin/logout/$STATE/?email=${requestScope.context.user.email}&amp;mid=${requestScope.context.user.id}">Sign Out</gsml:a>
-                            </c:if>
-                        </c:if><br /></td>
+                        <br /></td>
                 <td class="R"></td>
             </tr>
             <tr>

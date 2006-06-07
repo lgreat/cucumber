@@ -6,12 +6,11 @@
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="user" type="gs.data.community.User" required="true"/>
     <jsp:directive.attribute name="state" type="gs.data.state.State" required="true"/>
-    <c:if test="${state.subscriptionState}">
         <c:if test="${user==null}">
             <table class="ch" border="0" cellspacing="0" cellpadding="0" width="100%">
                 <tr class="login">
                     <td class="col1">
-						GreatSchools Insider Members
+						GreatSchools Members
                         <gsml:a href="/cgi-bin/site/signin.cgi/$STATE/" state="${state}">Sign In Here</gsml:a>
                         or
                         <gsml:a href="/cgi-bin/conversion/$STATE/overview" state="${state}">Learn More</gsml:a>
@@ -27,7 +26,7 @@
             <table class="ch" border="0" cellspacing="0" cellpadding="0" width="100%">
                 <tr class="login">
                     <td class="col1">
-						Welcome to GreatSchools Insider,
+						Welcome to GreatSchools.net,
                         <a href="#">${user.email}</a>
                     </td>
                     <td class="col2">
@@ -38,6 +37,5 @@
                 </tr>
             </table>
         </c:if>
-    </c:if>
 
 </jsp:root>

@@ -1,11 +1,10 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.9 2006/05/30 19:31:15 thuss Exp $
+ * $Id: PageHelperSaTest.java,v 1.10 2006/06/07 22:47:13 apeterson Exp $
  */
 
 package gs.web.util;
 
-import gs.data.state.State;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.ISessionFacade;
 import junit.framework.TestCase;
@@ -218,28 +217,6 @@ public class PageHelperSaTest extends TestCase {
         assertFalse(pageHelper.isAdFree());
     }
 
-    public void testSubscriptionState() {
-
-        MockSessionFacade sessionFacade = new MockSessionFacade();
-        sessionFacade.setState(State.CT);
-        PageHelper pageHelper = new PageHelper(sessionFacade);
-
-        assertTrue(pageHelper.isShowingBannerAd());
-        assertTrue(pageHelper.isShowingLogo() || pageHelper.isShowingUserInfo());
-        assertTrue(pageHelper.isShowingFooter());
-        assertTrue(pageHelper.isLogoLinked());
-        assertFalse(pageHelper.isSignInAvailable());
-
-        sessionFacade.setState(State.TX);
-        pageHelper = new PageHelper(sessionFacade);
-
-        assertTrue(pageHelper.isShowingBannerAd());
-        assertTrue(pageHelper.isShowingLogo() || pageHelper.isShowingUserInfo());
-        assertTrue(pageHelper.isShowingFooter());
-        assertTrue(pageHelper.isLogoLinked());
-        assertTrue(pageHelper.isSignInAvailable());
-        assertFalse(pageHelper.isAdFree());
-    }
 
     public void testIsDevEnvironment() {
 

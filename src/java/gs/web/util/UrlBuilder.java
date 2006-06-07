@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.37 2006/06/05 18:38:01 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.38 2006/06/07 22:47:13 apeterson Exp $
  */
 
 package gs.web.util;
@@ -165,14 +165,10 @@ public class UrlBuilder {
 
         // Calculate page to use
         String page;
-        if (s.isSubscriptionState() && article.isInsider()) {
-            page = "showpartarticle";
+        if (featured) {
+            page = "showarticlefeature";
         } else {
-            if (featured) {
-                page = "showarticlefeature";
-            } else {
-                page = "showarticle";
-            }
+            page = "showarticle";
         }
 
         // Calculate link

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.12 2006/05/30 19:31:02 thuss Exp $
+ * $Id: PageHelper.java,v 1.13 2006/06/07 22:47:13 apeterson Exp $
  */
 
 package gs.web.util;
@@ -120,7 +120,6 @@ public class PageHelper {
     private boolean _advertisingOnline = true;
     private final String _cobrand;
     private final String _hostName;
-    private final boolean _subscriptionState;
 
     private static final Log _log = LogFactory.getLog(PageHelper.class);
     private String _onload = "";
@@ -135,7 +134,6 @@ public class PageHelper {
 
     public PageHelper(ISessionFacade sessionFacade) {
         _cobrand = sessionFacade.getCobrand();
-        _subscriptionState = sessionFacade.getStateOrDefault().isSubscriptionState();
         _hostName = sessionFacade.getHostName();
         _advertisingOnline = sessionFacade.isAdvertisingOnline();
     }
@@ -204,7 +202,7 @@ public class PageHelper {
      * Is the user allowed to sign in here?
      */
     public boolean isSignInAvailable() {
-        return _subscriptionState;
+        return false;
     }
 
     /**

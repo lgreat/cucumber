@@ -16,7 +16,6 @@
                 <bean class="gs.web.SessionContextInterceptor"
                       autowire="byName">
                 </bean>
-                <!--                <ref local="insiderOnlyInterceptor"/>-->
             </list>
         </property>
         <property name="alwaysUseFullPath" value="true"/>
@@ -32,7 +31,6 @@
                 <bean class="gs.web.SessionContextInterceptor"
                       autowire="byName">
                 </bean>
-                <!--                <ref local="insiderOnlyInterceptor"/>-->
             </list>
         </property>
         <property name="urlMap">
@@ -49,36 +47,8 @@
           autowire="byName">
     </bean>
 
-    <!--    <bean id="insiderOnlyInterceptor"-->
-    <!--        class="gs.web.community.InsiderOnlyInterceptor"-->
-    <!--        autowire="byName">-->
-    <!--    </bean>-->
-
     <!-- WEB PAGE DEFINITIONS BEGIN -->
 
-    <!-- Insider begin -->
-    <bean name="/subscribe.page"
-          class="gs.web.community.SubscribeController"
-          autowire="byName">
-        <property name="commandName">
-            <value>subCmd</value>
-        </property>
-        <property name="bindOnNewForm">
-            <value>true</value>
-        </property>
-        <property name="sessionForm">
-            <value>true</value>
-        </property>
-        <property name="formView">
-            <value>community/subscribe</value>
-        </property>
-        <property name="successView">
-            <value>redirected to /thankyou.page to prevent multiple submits</value>
-        </property>
-        <property name="validator">
-            <ref bean="subscribeValidator"/>
-        </property>
-    </bean>
 
     <bean id="subscribeValidator" class="gs.web.community.SubscribeValidator"></bean>
 
@@ -174,32 +144,10 @@
     <!-- END configuration for the Beta group pages -->
     <!-- *****************************************  -->
 
-    <bean name="/thankyou.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>community/thankyou</value>
-        </property>
-    </bean>
-
-    <bean name="/insider.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>community/insider</value>
-        </property>
-    </bean>
-
     <bean name="/school/authorizers.page"
           class="gs.web.school.AuthorizersController"
           autowire="byName">
     </bean>
-
-    <bean name="/fiveSteps.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>promo/insiderFiveSteps</value>
-        </property>
-    </bean>
-    <!-- Insider end -->
 
     <!-- Search begin -->
     <bean name="/search/search.page"
@@ -542,7 +490,7 @@
     </bean>
 
     <bean name="/content/schoolChoiceCenter.page"
-          class="gs.web.content.PremiumArticlesController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName">
         <property name="viewName">
             <value>/content/schoolChoiceCenter</value>

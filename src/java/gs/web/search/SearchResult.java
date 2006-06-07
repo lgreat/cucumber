@@ -107,11 +107,7 @@ public class SearchResult {
         }
         return _address;
     }
-
-    public boolean isInsider() {
-        return "true".equals(_doc.get("insider"));
-    }
-
+    
     /**
      * @return The 2-letter state abreviation lowercased
      */

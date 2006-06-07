@@ -121,16 +121,7 @@
             <gsweb:articlelink articleId="487" wrappingElement="li"/>
             <gsweb:articlelink articleId="490" wrappingElement="li"/>
         </ul>
-
-        <c:if test="${requestScope.context.state.subscriptionState}">
-            <h3>Members Only</h3>
-            <ul class="plain">
-                <c:forEach items="${articles}" var="article">
-                    <li><gsweb:articlelink article="${article}"/></li>
-                </c:forEach>
-            </ul>
-        </c:if>
-
+        
         <h3>Make the Most of Your School Visit</h3>
         <ul class="plain">
             <gsweb:articlelink articleId="48" wrappingElement="li"/>

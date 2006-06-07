@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.27 2006/06/05 18:38:01 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.28 2006/06/07 22:47:13 apeterson Exp $
  */
 
 package gs.web.util;
@@ -32,7 +32,6 @@ public class UrlBuilderSaTest extends TestCase {
         Article article = new Article();
         article.setId(new Integer(5));
         article.setActive(true);
-        article.setInsider(false);
         UrlBuilder builder12 = new UrlBuilder(article, State.CA, true);
         assertEquals("/cgi-bin/showarticlefeature/ca/5", builder12.toString());
         UrlBuilder builder11 = new UrlBuilder(article, State.CA, false);
@@ -41,16 +40,6 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/cgi-bin/showarticlefeature/wy/5", builder10.toString());
         UrlBuilder builder9 = new UrlBuilder(article, State.WY, false);
         assertEquals("/cgi-bin/showarticle/wy/5", builder9.toString());
-
-        article.setInsider(true);
-        UrlBuilder builder8 = new UrlBuilder(article, State.CA, true);
-        assertEquals("/cgi-bin/showpartarticle/ca/5", builder8.toString());
-        UrlBuilder builder7 = new UrlBuilder(article, State.CA, false);
-        assertEquals("/cgi-bin/showpartarticle/ca/5", builder7.toString());
-        UrlBuilder builder6 = new UrlBuilder(article, State.WY, true);
-        assertEquals("/cgi-bin/showarticlefeature/wy/5", builder6.toString());
-        UrlBuilder builder5 = new UrlBuilder(article, State.WY, false);
-        assertEquals("/cgi-bin/showarticle/wy/5", builder5.toString());
     }
 
     public void testUrlBuilder() {
