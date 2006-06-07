@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.1 2006/05/25 21:47:17 dlee Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.2 2006/06/07 23:21:12 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -30,8 +30,6 @@ import java.util.*;
  */
 public class SubscriptionSummaryTest extends BaseControllerTestCase {
     private SubscriptionSummaryController _controller;
-    private IUserDao _userDao;
-    private ISubscriptionDao _subscriptionDao;
     private static final String EMAIL = "someemail@greatschools.net";
 
     protected void setUp() throws Exception {
@@ -151,6 +149,10 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
 
         public List getUsersModifiedSince(Date date) {
             return null;
+        }
+
+        public List getUsersModifiedBetween(Date begin, Date end) {
+            return null;  
         }
     }
 
