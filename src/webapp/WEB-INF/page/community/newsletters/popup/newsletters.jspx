@@ -22,49 +22,54 @@
 <head>
     <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
-        <style type="text/css">
-
-        </style>
             ]]>
-    <title>Newsletters - My School Stats</title>
+    <title>Newsletters - Grade By Grade and Parent Advisor</title>
     <base target="_self"/>
 </head>
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
 <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
-<spring:bind path="newsCmd.email">
-    <c:set var="emailExpr" value="${status.expression}"/>
-    <c:set var="email" value="${status.value}"/>
-</spring:bind>
-<spring:bind path="newsCmd.schoolId">
-    <c:set var="schoolIdExpr" value="${status.expression}"/>
-    <c:set var="schoolId" value="${status.value}"/>
+
+<spring:bind path="newsCmd">
+    <c:set var="cbxError" value="${status.errorMessage}"/>
 </spring:bind>
 
-<div id="blockMessage">
-    <h1>Thanks for signing up<br/> for GreatSchools newsletters.</h1>
-</div>
-<div class="content">
-<gsml:form action="/community/newsletters/popup/mss/page2.page" method="post" target="_self" id="frm">
-    <div class="pLR">
-        <div class="promo">
-            <h2>Track your child's progress grade by grade<br/> with the free newsletters that parents love!</h2>
-        </div>
-
-        <div class="error">
-            <spring:bind path="newsCmd">
-                <c:out value="${status.errorMessage}"/>
-            </spring:bind>
-        </div>
-        <input type="hidden" name="state" value="${stateAbbrev}"/>
-        <input type="hidden" name="${schoolIdExpr}" value="${schoolId}"/>
-        <input type="hidden" name="${emailExpr}" value="${email}"/>
+<div class="header">
+    <div class="left">
+        GreatSchools<br/> Newsletters
     </div>
 
-    <div class="blueTop">
-        <div class="pLR">
-            <p>Send me monthly tips about what to expect in the classroom for:</p>
-            <table width="80%" align="center">
+    <div class="right">
+        <gsml:img src="/res/img/community/mom_daughter.jpg" alt="Mom and daughter on computer" id="headerImg"/>
+    </div>
+</div>
+
+<div class="pLR">
+<div class="promo">
+    <div style="padding-top:10px;"></div>
+    <h3>Track your child's progress grade by grade<br/>
+        with the free GreatSchools newsletters that parents rave about!
+    </h3>
+</div>
+
+<div class="content">
+    <gsml:form action="/community/newsletters/popup/newsletter.page" method="post" target="_self"
+               id="frm">
+        <div class="error">
+            <spring:hasBindErrors name="newsCmd">
+                <ul>
+                    <c:forEach var="errMsgObj" items="${errors.allErrors}">
+                        <li>
+                            <spring:message code="${errMsgObj.code}" text="${errMsgObj.defaultMessage}"/>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </spring:hasBindErrors>
+        </div>
+
+        <div class="grayTop">
+            <p>Yes, send me monthly tips for what to expect in the classroom for:</p>
+            <table width="100%" align="center">
                 <tr>
                     <td>
                         <spring:bind path="newsCmd.myk">
@@ -73,32 +78,30 @@
                         My Kindergartner
                     </td>
                     <td>
-                        <spring:bind path="newsCmd.my3">
-                            <input type="checkbox" name="${status.expression}"/>
-                        </spring:bind>
-                        My Third-Grader
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         <spring:bind path="newsCmd.my1">
                             <input type="checkbox" name="${status.expression}"/>
                         </spring:bind>
                         My First-Grader
                     </td>
                     <td>
-                        <spring:bind path="newsCmd.my4">
-                            <input type="checkbox" name="${status.expression}"/>
-                        </spring:bind>
-                        My Fourth-Grader
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         <spring:bind path="newsCmd.my2">
                             <input type="checkbox" name="${status.expression}"/>
                         </spring:bind>
                         My Second-Grader
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <spring:bind path="newsCmd.my3">
+                            <input type="checkbox" name="${status.expression}"/>
+                        </spring:bind>
+                        My Third-Grader
+                    </td>
+                    <td>
+                        <spring:bind path="newsCmd.my4">
+                            <input type="checkbox" name="${status.expression}"/>
+                        </spring:bind>
+                        My Fourth-Grader
                     </td>
                     <td>
                         <spring:bind path="newsCmd.my5">
@@ -108,14 +111,11 @@
                     </td>
                 </tr>
             </table>
-            <div style="padding:10px 0 10px 48px">Note: Please select your child's grade for the 2005-06 school year.</div>
         </div>
-    </div>
 
-    <div class="grayTop">
-        <div class="pLR">
+        <div class="grayTop">
             <p>Send me free advice about college and academic planning:</p>
-            <table width="80%" align="center">
+            <table width="100%" align="center">
                 <tr>
                     <td>
                         <spring:bind path="newsCmd.myMs">
@@ -131,22 +131,36 @@
                     </td>
                 </tr>
             </table>
-            <div class="centered">
-                <div class="signMeUp">
-                    <gsml:inputImage src="/res/img/button/btn_sign_me_up_6699cc.gif" alt="Sign me up!"/>
-                </div>
+        </div>
+
+        <div class="grayTop">
+            <p><spring:bind path="newsCmd.gn">
+                <input type="checkbox" name="${status.expression}" checked="checked"/>
+            </spring:bind>
+            Please also send me tips and advice in the bi-monthly Parent Advisor.</p>
+        </div>
+        <div class="email">
+            <div style="float:left;">
+                <span style="padding-right:1em;">My email address:</span>
+                <spring:bind path="newsCmd.email">
+                    <input type="text" name="${status.expression}" value="${status.value}" style="width:160px;"/>
+                </spring:bind>
+            </div>
+            <div style="float:left;padding-left:5px;">
+                <gsml:inputImage src="/res/img/button/btn_free_sign_up.gif" alt="Sign me up!"/>
             </div>
             <div class="privacy">
                 We won't share or sell your address. <link:privacyPolicy target="_blank" styleClass="smallLink">Privacy
                 Policy</link:privacyPolicy>
             </div>
         </div>
-    </div>
-</gsml:form>
+        <input type="hidden" name="state" value="${stateAbbrev}" />
+    </gsml:form>
 </div>
-<mod:tracking pageName="Newsletter Hover Upsell"
+</div>
+<mod:tracking pageName="Newsletter Promo Hover"
               pageType=""
-              hier1="Newsletter, NL hover upsell, School profile"/>
+              hier1="Newsletter, NL hover promo - MSS, School profile"/>
 </gsml:body>
 </html>
 </jsp:root>

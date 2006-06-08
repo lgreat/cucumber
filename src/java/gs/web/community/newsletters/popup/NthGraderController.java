@@ -1,20 +1,23 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.4 2006/05/04 19:32:33 dlee Exp $
+ * $Id: NthGraderController.java,v 1.5 2006/06/08 01:12:02 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
 import gs.data.community.*;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
+import gs.web.SessionContextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.util.CookieGenerator;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,7 +28,6 @@ import java.util.List;
  * @author David Lee <mailto:dlee@greatschools.net>
  */
 public class NthGraderController extends SimpleFormController {
-    public static final String BEAN_ID = "/community/newsletters/popup/mss/page2.page";
     protected final Log _log = LogFactory.getLog(getClass());
 
     private IUserDao _userDao;
@@ -45,9 +47,16 @@ public class NthGraderController extends SimpleFormController {
                 val.validate(nc, errors);
             }
         }
+
+        if (nc.getEmail() == null) {
+            nc.setEmail("");
+        }
     }
 
-    public ModelAndView onSubmit(Object command) {
+    public ModelAndView onSubmit(HttpServletRequest request,
+                                 HttpServletResponse response,
+                                 Object command,
+                                 BindException errors) {
         NewsletterCommand nc = (NewsletterCommand) command;
         String email = nc.getEmail();
         User user = getUserDao().getUserFromEmailIfExists(email);
@@ -57,6 +66,12 @@ public class NthGraderController extends SimpleFormController {
             user = new User();
             user.setEmail(email);
             getUserDao().saveUser(user);
+
+            CookieGenerator cookieGenerator = new CookieGenerator();
+            cookieGenerator.setCookieMaxAge(-1);
+            cookieGenerator.setCookieName(SessionContextUtil.MEMBER_ID_COOKIE);
+            cookieGenerator.setCookiePath("/");
+            cookieGenerator.addCookie(response, user.getId().toString());
         }
 
         List subscriptions = new ArrayList();
@@ -121,6 +136,14 @@ public class NthGraderController extends SimpleFormController {
             Subscription sub = new Subscription();
             sub.setUser(user);
             sub.setProduct(SubscriptionProduct.MY_HS);
+            sub.setState(state);
+            subscriptions.add(sub);
+        }
+
+        if (nc.isGn()) {
+            Subscription sub = new Subscription();
+            sub.setUser(user);
+            sub.setProduct(SubscriptionProduct.PARENT_ADVISOR);
             sub.setState(state);
             subscriptions.add(sub);
         }

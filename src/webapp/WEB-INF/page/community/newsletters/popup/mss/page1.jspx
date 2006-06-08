@@ -98,9 +98,7 @@
 
 <div class="pLR">
     <div class="promo">
-        <h1>Is ${schoolName} on track?
-        </h1>
-
+        <h1>Is ${schoolName} on track?</h1>
         <h3>Find out with free monthly newsletters from GreatSchools.</h3>
     </div>
 
@@ -137,11 +135,15 @@
             </div>
 
             <div class="email">
-                <span style="padding-right:1em;">My email address:</span>
-                <input type="text" name="${emailExpr}" value="${email}" style="width:220px;"/>
-                <span class="btnSignUp"><gsml:inputImage src="/res/img/button/btn_sign_me_up_6699cc.gif"
-                                                         alt="Sign me up!"/></span>
-
+                <div style="float:left;">
+                    <span style="padding-right:1em;">My email address:</span>
+                    <spring:bind path="newsCmd.email">
+                        <input type="text" name="${status.expression}" value="${status.value}" style="width:160px;"/>
+                    </spring:bind>
+                </div>
+                <div style="float:left;padding-left:5px;">
+                    <gsml:inputImage src="/res/img/button/btn_free_sign_up.gif" alt="Sign me up!"/>
+                </div>
                 <div class="privacy">
                     We won't share or sell your address. <link:privacyPolicy target="_blank" styleClass="smallLink">Privacy
                     Policy</link:privacyPolicy>

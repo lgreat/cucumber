@@ -8,7 +8,7 @@
     </decorator>
 
     <decorator name="popupDecorator" page="popupDecorator.jspx">
-        <pattern>/community/newsletters/popup/mss/page*</pattern>
+        <pattern>/community/newsletters/popup/*</pattern>
     </decorator>
 
     <decorator name="cobrandHeaderGsFooter" page="standardDecorator.jspx">

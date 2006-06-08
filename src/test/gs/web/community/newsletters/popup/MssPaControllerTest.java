@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.3 2006/06/02 00:50:12 dlee Exp $
+ * $Id: MssPaControllerTest.java,v 1.4 2006/06/08 01:12:02 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -65,7 +65,7 @@ public class MssPaControllerTest extends BaseControllerTestCase {
 
         //not passing in request parameters..should get errors
         assertTrue(errors.hasErrors());
-
+        assertEquals("", command.getEmail());
     }
 
     public void testGoodInputOnBindOnNewForm() {

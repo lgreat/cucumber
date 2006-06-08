@@ -579,6 +579,28 @@
     <bean id="stateValidator" class="gs.web.util.validator.StateValidator"
           autowire="byName"/>
 
+    <!--newsletter popup-->
+    <bean name="/community/newsletters/popup/newsletter.page"
+          class="gs.web.community.newsletters.popup.NthGraderController"
+          autowire="byName">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="newsCmd"/>
+        <property name="commandClass" value="gs.web.community.newsletters.popup.NewsletterCommand"/>
+        <property name="formView" value="/community/newsletters/popup/newsletters"/>
+        <property name="successView" value="redirect:/community/newsletters/popup/mss/page3.page"/>
+        <property name="onLoadValidators">
+            <list>
+                <ref bean="stateValidator"/>
+            </list>
+        </property>
+        <property name="validators">
+            <list>
+                <ref bean="emailValidator"/>
+                <ref bean="newsCheckBoxValidator"/>
+            </list>
+        </property>
+    </bean>
+
     <!--My School stats newsletter popups-->
     <bean name="/community/newsletters/popup/mss/page1.page"
           class="gs.web.community.newsletters.popup.MssPaController"
@@ -636,7 +658,6 @@
             <list>
                 <ref bean="emailValidator"/>
                 <ref bean="stateValidator"/>
-                <ref bean="schoolIdValidator"/>
             </list>
         </property>
     </bean>

@@ -68,6 +68,7 @@ a:active {
     margin-left: 11.5em;
     color: #666666;
     margin-top:0;
+    clear:left;
 }
 
 .cbx {
@@ -75,6 +76,7 @@ a:active {
 }
 .email {
     padding: 1em 0 1em 1em;
+    position:relative;
 }
 
 .quote {
@@ -96,11 +98,24 @@ a:active {
 }
 
 .grayTop {
+    border-top: dotted 1px #666666;
+    /*
     border-top-style: solid;
     border-top-color: #666666;
     border-top-width: 1px;
+    */
     padding-top:0.5em;
     padding-bottom:0.5em;
+}
+
+td {
+    color:#666666;
+}
+
+.pLR p {
+    padding:0 0 0 0;
+    margin:0 0 0 0;
+    font-weight:bold;
 }
 
 #blockMessage {
@@ -129,7 +144,6 @@ li {
 
 .btnSignUp {
     margin-top:10px;
-    padding-left:5px;
 }
 
 .centered {
@@ -138,12 +152,6 @@ li {
 
 .pLR {
     padding: 0 1em 0 1em;
-}
-
-.pLR h3 {
-    margin-top:0;
-    font-size: 15px;
-    font-weight: bold;
 }
 
 .pTB {

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.7 2006/06/02 00:33:16 apeterson Exp $
+ * $Id: MssPaController.java,v 1.8 2006/06/08 01:12:02 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -50,6 +50,10 @@ public class MssPaController extends SimpleFormController {
             }
         }
 
+        if (nc.getEmail() == null) {
+            nc.setEmail("");
+        }
+
         if (!errors.hasErrors()) {
             State state = nc.getState();
             School s = getSchoolDao().getSchoolById(state, new Integer(nc.getSchoolId()));
@@ -75,6 +79,11 @@ public class MssPaController extends SimpleFormController {
             user = new User();
             user.setEmail(email);
             getUserDao().saveUser(user);
+            CookieGenerator cookieGenerator = new CookieGenerator();
+            cookieGenerator.setCookieMaxAge(-1);
+            cookieGenerator.setCookieName(SessionContextUtil.MEMBER_ID_COOKIE);
+            cookieGenerator.setCookiePath("/");
+            cookieGenerator.addCookie(response, user.getId().toString());            
         }
 
         List subscriptions = new ArrayList();
@@ -97,11 +106,6 @@ public class MssPaController extends SimpleFormController {
         }
 
         getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
-        CookieGenerator cookieGenerator = new CookieGenerator();
-        cookieGenerator.setCookieMaxAge(-1);
-        cookieGenerator.setCookieName(SessionContextUtil.MEMBER_ID_COOKIE);
-        cookieGenerator.setCookiePath("/");
-        cookieGenerator.addCookie(response, user.getId().toString());
 
         ModelAndView mAndV = new ModelAndView();
 

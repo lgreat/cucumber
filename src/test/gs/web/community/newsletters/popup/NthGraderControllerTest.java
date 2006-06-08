@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderControllerTest.java,v 1.1 2006/05/25 21:47:17 dlee Exp $
+ * $Id: NthGraderControllerTest.java,v 1.2 2006/06/08 01:12:02 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -9,6 +9,7 @@ import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
+import gs.web.SessionContextUtil;
 import gs.web.util.validator.EmailValidator;
 import gs.web.util.validator.SchoolIdValidator;
 import gs.web.util.validator.StateValidator;
@@ -19,7 +20,15 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
 /**
- * The purpose is ...
+ * Test Nthgrader controller
+ *
+ * The test has multiple setup methods that are used to set up the controller under the various
+ * scenarios where it may be used.
+ *
+ * Scenario 1:  As part 2 in a multiple page process where email, schoolId, and state is supplied
+ *
+ * Scenario 2:  As a regular page where only the state is supplied and the user types in his email
+ * address
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
@@ -27,20 +36,22 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
     private NthGraderController _controller;
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
-    private static final String EMAIL = "someemail@greatschools.net";
 
     protected void setUp() throws Exception {
         super.setUp();
 
         _userDao = (IUserDao) getApplicationContext().getBean(IUserDao.BEAN_ID);
         _subscriptionDao = (ISubscriptionDao) getApplicationContext().getBean(ISubscriptionDao.BEAN_ID);
-
         _controller = new NthGraderController();
         _controller.setApplicationContext(getApplicationContext());
         _controller.setUserDao(_userDao);
         _controller.setSubscriptionDao(_subscriptionDao);
-        _controller.setSchoolDao((ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID));
         _controller.setCommandClass(NewsletterCommand.class);
+    }
+
+    //Scenario 1:  As part 2 in a multiple page process where email, schoolId, and state is supplied
+    protected void setUpScenarioOne() {
+        _controller.setSchoolDao((ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID));
         _controller.setFormView("/community/newsletters/popup/mss/page2");
         _controller.setSuccessView("redirect:/community/newsletters/popup/mss/page3.page");
         _controller.setValidators(new Validator[]{
@@ -49,41 +60,77 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
                 new NewsletterCheckBoxValidator(),});
 
         List onLoadValidators = new ArrayList();
+        onLoadValidators.add(new EmailValidator());
         onLoadValidators.add(new StateValidator());
         onLoadValidators.add(new SchoolIdValidator());
         _controller.setOnLoadValidators(onLoadValidators);
 
     }
 
-    public void testNoInputOnBindOnNewForm() {
-        NewsletterCommand command = new NewsletterCommand();
-        BindException errors = new BindException(command, "");
-        _controller.onBindOnNewForm(getRequest(), command, errors);
+    //Scenario 2:  As a regular page where only the state is supplied and the user types in his email
+    //address
+    protected void setUpScenarioTwo() {
+        _controller.setSchoolDao((ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID));
+        _controller.setFormView("/community/newsletters/popup/newsletters");
+        _controller.setSuccessView("redirect:/community/newsletters/popup/mss/page3.page");
 
-        //not passing in request parameters..should get errors
-        assertTrue(errors.hasErrors());
+        _controller.setValidators(new Validator[]{
+                new EmailValidator(),
+                new NewsletterCheckBoxValidator(),});
 
-    }
-
-    public void testGoodInputOnBindOnNewForm() {
-        NewsletterCommand command = new NewsletterCommand();
-        BindException errors = new BindException(command, "");
-
-        command.setSchoolId(1);
-        command.setState(State.CA);
-        command.setEmail(EMAIL);
-
-        _controller.onBindOnNewForm(getRequest(), command, errors);
-
-        assertFalse(errors.hasErrors());
+        List onLoadValidators = new ArrayList();
+        onLoadValidators.add(new StateValidator());
+        _controller.setOnLoadValidators(onLoadValidators);
     }
 
 
-    public void testOnSubmit() {
+    private boolean hasErrorOnPageLoad(final NewsletterCommand command) {
+        BindException errors = new BindException(command, "");
+        _controller.onBindOnNewForm(getRequest(), command, errors);
+        return errors.hasErrors();
+    }
+
+    public void testInputOnPageLoad() {
         NewsletterCommand command = new NewsletterCommand();
-        command.setSchoolId(1);
+        setUpScenarioOne();
+        assertTrue(hasErrorOnPageLoad(command));
+
         command.setState(State.CA);
-        command.setEmail(EMAIL);
+        assertTrue(hasErrorOnPageLoad(command));
+
+        command.setEmail("dlee@greatschools.net");
+        assertTrue(hasErrorOnPageLoad(command));
+
+        command.setSchoolId(1);
+        assertFalse(hasErrorOnPageLoad(command));
+
+
+        setUpScenarioTwo();
+        command = new NewsletterCommand();
+        assertTrue(hasErrorOnPageLoad(command));
+
+        command.setState(State.CA);
+        assertFalse(hasErrorOnPageLoad(command));
+    }
+
+    public void testOnSubmitScenarioOne() {
+        setUpScenarioOne();
+        NewsletterCommand command = new NewsletterCommand();
+        final String email = "wbeck+1234@greatschoo.net";
+
+        command.setEmail(email);
+        command.setState(State.CA);
+        command.setSchoolId(1);
+
+        Set products = new HashSet();
+        products.add(SubscriptionProduct.MY_KINDERGARTNER);
+        products.add(SubscriptionProduct.MY_FIRST_GRADER);
+        products.add(SubscriptionProduct.MY_SECOND_GRADER);
+        products.add(SubscriptionProduct.MY_THIRD_GRADER);
+        products.add(SubscriptionProduct.MY_FOURTH_GRADER);
+        products.add(SubscriptionProduct.MY_FIFTH_GRADER);
+        products.add(SubscriptionProduct.MY_MS);
+        products.add(SubscriptionProduct.MY_HS);
 
         command.setMyk(true);
         command.setMy1(true);
@@ -94,48 +141,44 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
         command.setMyMs(true);
         command.setMyHs(true);
 
-        ModelAndView modelView = _controller.onSubmit(command);
-        Map model = modelView.getModel();
-        assertEquals(_controller.getSuccessView(), modelView.getViewName());
-        assertEquals(command.getState().toString(), model.get("state").toString());
-        assertEquals(command.getEmail(), model.get("email").toString());
-        assertEquals(String.valueOf(command.getSchoolId()), model.get("schoolId").toString());
-
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, new BindException(command, null));
         ThreadLocalTransactionManager.commitOrRollback();
-
-        User user = _userDao.getUserFromEmail(EMAIL);
+        User user = _userDao.getUserFromEmail(email);
         assertNotNull(user);
+        assertEquals(email, user.getEmail());
 
-        Set subsriptions = user.getSubscriptions();
-        assertEquals(8, subsriptions.size());
+        String memberId = user.getId().toString();
+        assertEquals( memberId, getResponse().getCookie(SessionContextUtil.MEMBER_ID_COOKIE).getValue());
 
-        Map subMap = new HashMap();
-        subMap.put(SubscriptionProduct.MY_KINDERGARTNER.getName(), Integer.valueOf("0"));
-        subMap.put(SubscriptionProduct.MY_FIRST_GRADER.getName(), Integer.valueOf("0"));
-        subMap.put(SubscriptionProduct.MY_SECOND_GRADER.getName(), Integer.valueOf("0"));
-        subMap.put(SubscriptionProduct.MY_THIRD_GRADER.getName(), Integer.valueOf("0"));
-        subMap.put(SubscriptionProduct.MY_FOURTH_GRADER.getName(), Integer.valueOf("0"));
-        subMap.put(SubscriptionProduct.MY_FIFTH_GRADER.getName(), Integer.valueOf("0"));
-        subMap.put(SubscriptionProduct.MY_MS.getName(), Integer.valueOf("0"));
-        subMap.put(SubscriptionProduct.MY_HS.getName(), Integer.valueOf("0"));
-
-        for (Iterator iter = subsriptions.iterator(); iter.hasNext();) {
-            Subscription subscription = (Subscription) iter.next();
-            String productName = subscription.getProduct().getName();
-            subMap.put(productName, Integer.valueOf("1"));
-        }
-
-        Set keys = subMap.keySet();
-        for (Iterator iter = keys.iterator(); iter.hasNext();) {
-            String key = (String) iter.next();
-            Integer value = (Integer) subMap.get(key);
-
-            if (value.intValue() != 1) {
-                fail(key + " not saved in database");
-            }
+        for (Iterator iter = products.iterator(); iter.hasNext(); ) {
+            hasStoredSubscription(user, (SubscriptionProduct) iter.next());
         }
 
         _userDao.removeUser(user.getId());
+        ThreadLocalTransactionManager.commitOrRollback();
+        assertNull(_userDao.getUserFromEmailIfExists(email));
+
+        assertEquals(_controller.getSuccessView(), mAndV.getViewName());
+        assertEquals("CA", mAndV.getModel().get("state").toString());
+        assertEquals(email, mAndV.getModel().get("email").toString());
+        assertEquals("1", mAndV.getModel().get("schoolId").toString());
     }
 
+    private boolean hasStoredSubscription(final User user, final SubscriptionProduct newsletter) {
+        Set subscriptions = user.getSubscriptions();
+        assertNotNull(subscriptions);
+        boolean hasNewsletter = false;
+
+        for (Iterator iter = subscriptions.iterator(); iter.hasNext(); ) {
+            Subscription sub = (Subscription) iter.next();
+
+            if (sub.getProduct() == newsletter) {
+                if (sub.getState() == State.CA) {
+                    hasNewsletter = true;
+                }
+            }
+        }
+
+        return hasNewsletter;
+    }
 }
