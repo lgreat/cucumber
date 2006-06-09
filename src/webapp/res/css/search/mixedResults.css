@@ -131,7 +131,7 @@ pre.explanation {
 }
 
 .noResultsExplanation h4 {
-    background-image: url( ../../img/orange_arrow_right_trans.gif );
+    background-image: url( /res/img/bullet/orange_arrow_right_trans.gif );
     background-repeat: no-repeat;
     background-position: .1em .4em;
     padding: 5px 0 0 18px;
@@ -231,7 +231,7 @@ City and district rollups
 }
 
 .rollup  h3 {
-    background-image: url( ../../img/orange_arrow_right_trans.gif );
+    background-image: url( /res/img/bullet/orange_arrow_right_trans.gif );
     background-repeat: no-repeat;
     background-position: .1em .4em;
     padding: 5px 0 0 18px;

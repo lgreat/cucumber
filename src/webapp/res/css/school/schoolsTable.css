@@ -188,7 +188,7 @@ div.filters h2 {
 
 div.filters li.filtertype {
     margin-top: 5px;
-    background-image: url( ../../img/orange_arrow_right_trans.gif );
+    background-image: url( /res/img/bullet/orange_arrow_right_trans.gif );
     background-repeat: no-repeat;
     background-position: .2em .3em;
     font-weight: 600;
@@ -205,7 +205,7 @@ div.filters .filterlist li {
 A repeat of the information in the body of the page
 */
 td #filters {
-    background-image: url( ../../img/orange_arrow_right_trans.gif );
+    background-image: url( /res/img/bullet/orange_arrow_right_trans.gif );
     background-repeat: no-repeat;
     background-position: .2em .4em;
     background-color: #DDD;

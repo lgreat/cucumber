@@ -96,7 +96,7 @@ td.sidebar {
 
 td.sidebar a {
     padding: 2px 0 2px 0;
-    background-image: url( ../../img/orange_arrow_right_trans.gif );
+    background-image: url( /res/img/bullet/orange_arrow_right_trans.gif );
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 16px;
@@ -109,7 +109,7 @@ p.footnote {
 
 p.footnote a {
     padding: 2px 0 2px 0;
-    background-image: url( ../../img/orange_arrow_right_trans.gif );
+    background-image: url( /res/img/bullet/orange_arrow_right_trans.gif );
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 16px;

@@ -59,7 +59,7 @@
                 </tr>
                 <tr>
                     <td align="center" id="compareButton">
-                        <gsml:url var="compareImage" value="/res/img/compare_schools.gif"/>
+                        <gsml:url var="compareImage" value="/res/img/button/compare_schools.gif"/>
                         <input type="image" name=""
                                src="${compareImage}"
                                alt="Compare Schools"/>

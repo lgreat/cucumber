@@ -43,9 +43,9 @@
                                                             <td class="tab"><gsml:a href="/modperl/achievement/$STATE/${school.id}"> Test<br/>Scores</gsml:a></td>
                                                             <td class="tab"><gsml:a href="/cgi-bin/$LCSTATE/other/${school.id}"> Teachers/<br/>Students</gsml:a></td>
                                                             <c:if test="${requestScope.context.state.ratingsState}">
-                                                                <td class="tab"><gsml:a href="/cgi-bin/$LCSTATE/rankings/${school.id}"><img src="/res/img/st_icon.gif" width="9" height="9" border="0" alt="" style="float: left;margin-bottom:17px;margin-right:3px;margin-left:0px;"/>Ratings and<br/> Alerts</gsml:a></td>
+                                                                <td class="tab"><gsml:a href="/cgi-bin/$LCSTATE/rankings/${school.id}">Ratings and<br/> Alerts</gsml:a></td>
                                                             </c:if>
-                                                            <td class="tab"><gsml:a href="/modperl/parents/$STATE/${school.id}"><img src="/res/img/st_icon.gif" width="9" height="9" border="0" alt="" style="float: left;margin-bottom:17px;margin-right:3px;margin-left:0px;"/>Parent<br/> Reviews</gsml:a></td>
+                                                            <td class="tab"><gsml:a href="/modperl/parents/$STATE/${school.id}">Parent<br/> Reviews</gsml:a></td>
                                                             <td class="tab"><gsml:a href="/cgi-bin/$LCSTATE/pqview/${school.id}">Principal's <br/>View</gsml:a> </td>
                                                         </tr>
                                                     </table>

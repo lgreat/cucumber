@@ -122,8 +122,8 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             out.println("</td></tr></table>");
             out.println("<table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"><tr>");
             out.println("<td>");
-            out.println("<input type=\"image\" name=\"compare\" onclick=\"return checkSelections();\" src=\"/res/img/btn_comparechecked_149x21.gif\" alt=\"Compare checked Schools\"/>");
-            out.println("<input type=\"image\" name=\"save\" onclick=\"return checkSelections();\" src=\"/res/img/btn_savechecked2msl_173x21.gif\" alt=\"Save checked to My School List\"/>");
+            out.println("<input type=\"image\" name=\"compare\" onclick=\"return checkSelections();\" src=\"/res/img/button/btn_comparechecked_149x21.gif\" alt=\"Compare checked Schools\"/>");
+            out.println("<input type=\"image\" name=\"save\" onclick=\"return checkSelections();\" src=\"/res/img/button/btn_savechecked2msl_173x21.gif\" alt=\"Save checked to My School List\"/>");
             out.println("</td><td class=\"results_pagenav\">");
 
             if (!showall) {

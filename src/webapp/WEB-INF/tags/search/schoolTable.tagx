@@ -15,12 +15,12 @@
                 <td style="padding-top:5px">
                     <input type="image" name="compare"
                            onclick="return checkSelections();"
-                           src="/res/img/btn_comparechecked_149x21.gif"
+                           src="/res/img/button/btn_comparechecked_149x21.gif"
                            alt="Compare checked Schools"/>
                     <input type="image"
                            name="save"
                            onclick="return checkSelections();"
-                           src="/res/img/btn_savechecked2msl_173x21.gif"
+                           src="/res/img/button/btn_savechecked2msl_173x21.gif"
                            alt="Save checked to My School List"/>
                 </td>
                 <td class="results_pagenav">

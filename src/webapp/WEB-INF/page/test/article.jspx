@@ -36,7 +36,7 @@
     }
     #contentGS h2 {
         margin: 10px 0 20px 0;
-    background-image: url(../res/img/orange_arrow_right_trans.gif);
+    background-image: url(../res/img/bullet/orange_arrow_right_trans.gif);
     background-repeat: no-repeat;
     background-position: .1ex left;
     padding-left: 16px;

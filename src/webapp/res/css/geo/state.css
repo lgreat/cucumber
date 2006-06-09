@@ -8,7 +8,7 @@ h1.inline {
 
 ul li.viewall,
 #topcitydist li.viewall {
-    background-image: url(../../img/orange_arrow_right.gif);
+    background-image: url(/res/img/bullet/orange_arrow_right.gif );
     background-repeat: no-repeat;
     background-position: 0% .6em;
     padding-left: 1.2em;
