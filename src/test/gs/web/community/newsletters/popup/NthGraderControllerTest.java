@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderControllerTest.java,v 1.2 2006/06/08 01:12:02 dlee Exp $
+ * $Id: NthGraderControllerTest.java,v 1.3 2006/06/09 23:09:08 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -113,7 +113,8 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
         assertFalse(hasErrorOnPageLoad(command));
     }
 
-    public void testOnSubmitScenarioOne() {
+    //scenario1 includes scenario2  
+    public void testOnSubmitScenario() {
         setUpScenarioOne();
         NewsletterCommand command = new NewsletterCommand();
         final String email = "wbeck+1234@greatschoo.net";
@@ -131,6 +132,7 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
         products.add(SubscriptionProduct.MY_FIFTH_GRADER);
         products.add(SubscriptionProduct.MY_MS);
         products.add(SubscriptionProduct.MY_HS);
+        products.add(SubscriptionProduct.PARENT_ADVISOR);
 
         command.setMyk(true);
         command.setMy1(true);
@@ -140,6 +142,7 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
         command.setMy5(true);
         command.setMyMs(true);
         command.setMyHs(true);
+        command.setGn(true);
 
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, new BindException(command, null));
         ThreadLocalTransactionManager.commitOrRollback();
