@@ -27,7 +27,7 @@ public class BetaUnsubscribeController extends SimpleFormController {
      */
     private void removeFromBetaGroup(String email) {
         System.out.println ("removing: " + email);
-        User user = _userDao.getUserFromEmailIfExists(email);
+        User user = _userDao.findUserFromEmailIfExists(email);
         // Despite what I said in the comment, check for nulls just
         // to be safe.
         if (user != null) {

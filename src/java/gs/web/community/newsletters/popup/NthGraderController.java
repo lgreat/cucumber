@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.6 2006/06/12 21:48:17 dlee Exp $
+ * $Id: NthGraderController.java,v 1.7 2006/06/12 23:05:40 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -58,7 +58,7 @@ public class NthGraderController extends SimpleFormController {
                                  BindException errors) {
         NewsletterCommand nc = (NewsletterCommand) command;
         String email = nc.getEmail();
-        User user = getUserDao().getUserFromEmailIfExists(email);
+        User user = getUserDao().findUserFromEmailIfExists(email);
         State state = nc.getState();
 
         if (user == null) {

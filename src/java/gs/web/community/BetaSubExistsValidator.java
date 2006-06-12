@@ -26,7 +26,7 @@ public class BetaSubExistsValidator implements Validator {
 
     public void validate(Object object, Errors errors) {
         BetaSignupCommand command = (BetaSignupCommand)object;
-        User user = _userDao.getUserFromEmailIfExists(command.getEmail());
+        User user = _userDao.findUserFromEmailIfExists(command.getEmail());
         if (user != null) {
             if (_subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.BETA_GROUP) == null) {
                 errors.rejectValue("email", "notsub", "You are not subscribed to the beta group");

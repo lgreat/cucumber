@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.2 2006/06/07 23:21:12 chriskimm Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.3 2006/06/12 23:05:49 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -106,7 +106,7 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
 
     private static class MockUserDao implements IUserDao {
 
-        public User getUserFromEmail(String email) throws ObjectRetrievalFailureException {
+        public User findUserFromEmail(String email) throws ObjectRetrievalFailureException {
             Set subscriptions = new HashSet();
 
             for (Iterator iter = SubscriptionProduct.getNewsletterProducts().iterator(); iter.hasNext();) {
@@ -127,11 +127,11 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
             return user;
         }
 
-        public User getUserFromEmailIfExists(String string) {
+        public User findUserFromEmailIfExists(String string) {
             return null;
         }
 
-        public User getUserFromId(int i) throws ObjectRetrievalFailureException {
+        public User findUserFromId(int i) throws ObjectRetrievalFailureException {
             return null;
         }
 
@@ -147,12 +147,12 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
 
         }
 
-        public List getUsersModifiedSince(Date date) {
+        public List findUsersModifiedSince(Date date) {
             return null;
         }
 
-        public List getUsersModifiedBetween(Date begin, Date end) {
-            return null;  
+        public List findUsersModifiedBetween(Date begin, Date end) {
+            return null;
         }
     }
 

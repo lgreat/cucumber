@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryController.java,v 1.6 2006/05/25 21:47:17 dlee Exp $
+ * $Id: SubscriptionSummaryController.java,v 1.7 2006/06/12 23:05:40 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -63,7 +63,7 @@ public class SubscriptionSummaryController extends SimpleFormController {
         if (!errors.hasErrors()) {
             NewsletterCommand nc = (NewsletterCommand) command;
             String email = nc.getEmail();
-            User user = getUserDao().getUserFromEmail(email);
+            User user = getUserDao().findUserFromEmail(email);
             if (user == null) {
                 errors.reject("nokey", "User with email" + email + "does not exist");
             }

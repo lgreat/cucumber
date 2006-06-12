@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderControllerTest.java,v 1.4 2006/06/12 21:48:17 dlee Exp $
+ * $Id: NthGraderControllerTest.java,v 1.5 2006/06/12 23:05:49 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -148,7 +148,7 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
 
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, new BindException(command, null));
         ThreadLocalTransactionManager.commitOrRollback();
-        User user = _userDao.getUserFromEmail(email);
+        User user = _userDao.findUserFromEmail(email);
         assertNotNull(user);
         assertEquals(email, user.getEmail());
 
@@ -159,14 +159,14 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
         assertEquals(CookieGenerator.DEFAULT_COOKIE_MAX_AGE, cookie.getMaxAge());
         assertEquals(CookieGenerator.DEFAULT_COOKIE_PATH, cookie.getPath());
         assertEquals(cookie.getValue(), memberId);
-        
+
         for (Iterator iter = products.iterator(); iter.hasNext(); ) {
             hasStoredSubscription(user, (SubscriptionProduct) iter.next());
         }
 
         _userDao.removeUser(user.getId());
         ThreadLocalTransactionManager.commitOrRollback();
-        assertNull(_userDao.getUserFromEmailIfExists(email));
+        assertNull(_userDao.findUserFromEmailIfExists(email));
 
         assertEquals(_controller.getSuccessView(), mAndV.getViewName());
         assertEquals("CA", mAndV.getModel().get("state").toString());

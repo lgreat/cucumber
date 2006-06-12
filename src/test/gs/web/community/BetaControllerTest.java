@@ -49,12 +49,12 @@ public class BetaControllerTest extends BaseControllerTestCase {
         command.setEmail(testEmail);
         command.setState(State.CA);
 
-        assertNull(_userDao.getUserFromEmailIfExists(testEmail));
+        assertNull(_userDao.findUserFromEmailIfExists(testEmail));
 
         ModelAndView mAndV = _controller.onSubmit(command);
         assertEquals("/community/betaThankyou", mAndV.getViewName());
 
-        User u = _userDao.getUserFromEmailIfExists(testEmail);
+        User u = _userDao.findUserFromEmailIfExists(testEmail);
         assertEquals(testEmail, u.getEmail());
 
         List subs = _subscriptionDao.getUserSubscriptions(u, SubscriptionProduct.BETA_GROUP);
@@ -72,9 +72,9 @@ public class BetaControllerTest extends BaseControllerTestCase {
         String testEmail = "foo@joestateaware.com";
         command.setEmail(testEmail);
         command.setState(State.AK);
-        assertNull(_userDao.getUserFromEmailIfExists(testEmail));
+        assertNull(_userDao.findUserFromEmailIfExists(testEmail));
         _controller.onSubmit(command);
-        User u = _userDao.getUserFromEmailIfExists(testEmail);
+        User u = _userDao.findUserFromEmailIfExists(testEmail);
         assertEquals(testEmail, u.getEmail());
         List subs = _subscriptionDao.getUserSubscriptions(u, SubscriptionProduct.BETA_GROUP);
         Subscription sub = (Subscription)subs.get(0);

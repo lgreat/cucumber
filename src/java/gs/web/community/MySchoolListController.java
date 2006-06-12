@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MySchoolListController.java,v 1.12 2006/05/31 21:44:29 apeterson Exp $
+ * $Id: MySchoolListController.java,v 1.13 2006/06/12 23:05:40 apeterson Exp $
  */
 
 package gs.web.community;
@@ -54,7 +54,7 @@ public class MySchoolListController extends AbstractController {
 
         State state = context.getStateOrDefault();
 
-        User user = _userDao.getUserFromId(Integer.valueOf(memberId).intValue());
+        User user = _userDao.findUserFromId(Integer.valueOf(memberId).intValue());
 
         Map model = new HashMap();
 

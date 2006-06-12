@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.5 2006/06/12 21:48:17 dlee Exp $
+ * $Id: MssPaControllerTest.java,v 1.6 2006/06/12 23:05:49 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -105,7 +105,7 @@ public class MssPaControllerTest extends BaseControllerTestCase {
 
         ThreadLocalTransactionManager.commitOrRollback();
 
-        User user = _userDao.getUserFromEmailIfExists(email);
+        User user = _userDao.findUserFromEmailIfExists(email);
         assertEquals("blahblahblah@greatschools.net", user.getEmail());
         Set subscriptions = user.getSubscriptions();
 
@@ -114,7 +114,7 @@ public class MssPaControllerTest extends BaseControllerTestCase {
         assertEquals(CookieGenerator.DEFAULT_COOKIE_MAX_AGE, cookie.getMaxAge());
         assertEquals(CookieGenerator.DEFAULT_COOKIE_PATH, cookie.getPath());
         assertEquals(cookie.getValue(), user.getId().toString());
-        
+
         boolean hasMss = false;
         boolean hasGn = false;
 
@@ -141,6 +141,6 @@ public class MssPaControllerTest extends BaseControllerTestCase {
         assertTrue(hasGn);
 
         _userDao.removeUser(user.getId());
-        assertNull(_userDao.getUserFromEmailIfExists(email));
+        assertNull(_userDao.findUserFromEmailIfExists(email));
     }
 }

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.9 2006/06/12 21:48:17 dlee Exp $
+ * $Id: MssPaController.java,v 1.10 2006/06/12 23:05:40 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -71,7 +71,7 @@ public class MssPaController extends SimpleFormController {
                                  BindException errors) {
         NewsletterCommand nc = (NewsletterCommand) command;
         String email = nc.getEmail();
-        User user = getUserDao().getUserFromEmailIfExists(email);
+        User user = getUserDao().findUserFromEmailIfExists(email);
         State state = nc.getState();
 
         if (user == null) {

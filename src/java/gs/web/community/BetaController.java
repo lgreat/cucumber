@@ -99,7 +99,7 @@ public class BetaController extends SimpleFormController {
      * @param email A valid email address as a <code>String</code> type
      */
     private void addToBetaGroup(BetaSignupCommand command) {
-        User user = _userDao.getUserFromEmailIfExists(command.getEmail());
+        User user = _userDao.findUserFromEmailIfExists(command.getEmail());
         if (user == null) {
             user = new User();
             user.setEmail(command.getEmail());
@@ -116,7 +116,7 @@ public class BetaController extends SimpleFormController {
     /**
      * This is a utility method to created the <code>MimeMessage</code object from a stub
      * MimeMessage.
-     * 
+     *
      * @param mimeMessage
      * @param email
      * @return

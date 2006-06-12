@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.19 2006/06/02 00:50:12 dlee Exp $
+ * $Id: SessionContextUtil.java,v 1.20 2006/06/12 23:05:40 apeterson Exp $
  */
 
 package gs.web;
@@ -126,7 +126,7 @@ public class SessionContextUtil implements ApplicationContextAware {
                 if (context.getUser() == null || context.getUser().getId().intValue() != insiderId) {
                     final User user;
                     try {
-                        user = _userDao.getUserFromId(insiderId);
+                        user = _userDao.findUserFromId(insiderId);
                         context.setUser(user);
                         if (mslId != -1 && mslId != insiderId) {
                             _log.warn("User with two conflicting cookies: " +
@@ -144,7 +144,7 @@ public class SessionContextUtil implements ApplicationContextAware {
                 if (context.getUser() == null || context.getUser().getId().intValue() != mslId) {
                     final User user;
                     try {
-                        user = _userDao.getUserFromId(mslId);
+                        user = _userDao.findUserFromId(mslId);
                         context.setUser(user);
                     } catch (ObjectRetrievalFailureException e) {
                         _log.warn("User not found for MSL cookie: " +
@@ -223,7 +223,7 @@ public class SessionContextUtil implements ApplicationContextAware {
                 id = Integer.parseInt(paramMember);
                 try {
                     User user = null;
-                    user = _userDao.getUserFromId(id);
+                    user = _userDao.findUserFromId(id);
                     context.setUser(user);
                 } catch (ObjectRetrievalFailureException e) {
                     _log.warn("HACKER? Bad member id passed as parameter (ignoring): '" +
