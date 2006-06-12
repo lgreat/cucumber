@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.4 2006/06/08 01:12:02 dlee Exp $
+ * $Id: MssPaControllerTest.java,v 1.5 2006/06/12 21:48:17 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -17,6 +17,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.CookieGenerator;
 
 import javax.servlet.http.Cookie;
 import java.util.*;
@@ -99,11 +100,6 @@ public class MssPaControllerTest extends BaseControllerTestCase {
         assertEquals(command.getEmail(), model.get("email").toString());
         assertEquals(String.valueOf(command.getSchoolId()), model.get("schoolId").toString());
 
-        Cookie cookie = getResponse().getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
-        assertNotNull(cookie);
-        assertEquals(-1, cookie.getMaxAge());
-        assertEquals("/", cookie.getPath());
-
         _log.debug(modelView.getViewName());
         assertEquals(modelView.getViewName(), "redirect:/community/newsletters/popup/mss/page2.page");
 
@@ -112,6 +108,13 @@ public class MssPaControllerTest extends BaseControllerTestCase {
         User user = _userDao.getUserFromEmailIfExists(email);
         assertEquals("blahblahblah@greatschools.net", user.getEmail());
         Set subscriptions = user.getSubscriptions();
+
+        Cookie cookie = getResponse().getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
+        assertNotNull(cookie);
+        assertEquals(CookieGenerator.DEFAULT_COOKIE_MAX_AGE, cookie.getMaxAge());
+        assertEquals(CookieGenerator.DEFAULT_COOKIE_PATH, cookie.getPath());
+        assertEquals(cookie.getValue(), user.getId().toString());
+        
         boolean hasMss = false;
         boolean hasGn = false;
 

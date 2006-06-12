@@ -1,13 +1,19 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.10 2006/06/07 22:47:13 apeterson Exp $
+ * $Id: PageHelperSaTest.java,v 1.11 2006/06/12 21:48:17 dlee Exp $
  */
 
 package gs.web.util;
 
+import gs.data.community.User;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.ISessionFacade;
+import gs.web.SessionContextUtil;
 import junit.framework.TestCase;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.web.util.CookieGenerator;
+
+import javax.servlet.http.Cookie;
 
 /**
  * Provides...
@@ -305,4 +311,17 @@ public class PageHelperSaTest extends TestCase {
         assertTrue(pageHelper.isAdFree());
     }
 
+    public void testSetMemberCookie() {
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        User user = new User();
+        String memberId = "100";
+        user.setId(Integer.valueOf(memberId));
+        PageHelper.setMemberCookie(response, user);
+
+        Cookie cookie = response.getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
+        assertNotNull(cookie);
+        assertEquals(memberId, cookie.getValue());
+        assertEquals(CookieGenerator.DEFAULT_COOKIE_MAX_AGE, cookie.getMaxAge());
+        assertEquals(CookieGenerator.DEFAULT_COOKIE_PATH, cookie.getPath());
+    }
 }

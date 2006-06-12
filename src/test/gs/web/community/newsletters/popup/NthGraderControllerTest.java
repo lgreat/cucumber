@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderControllerTest.java,v 1.3 2006/06/09 23:09:08 dlee Exp $
+ * $Id: NthGraderControllerTest.java,v 1.4 2006/06/12 21:48:17 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -16,7 +16,9 @@ import gs.web.util.validator.StateValidator;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.CookieGenerator;
 
+import javax.servlet.http.Cookie;
 import java.util.*;
 
 /**
@@ -113,7 +115,7 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
         assertFalse(hasErrorOnPageLoad(command));
     }
 
-    //scenario1 includes scenario2  
+    //scenario1 includes scenario2
     public void testOnSubmitScenario() {
         setUpScenarioOne();
         NewsletterCommand command = new NewsletterCommand();
@@ -151,8 +153,13 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
         assertEquals(email, user.getEmail());
 
         String memberId = user.getId().toString();
-        assertEquals( memberId, getResponse().getCookie(SessionContextUtil.MEMBER_ID_COOKIE).getValue());
 
+        Cookie cookie = getResponse().getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
+        assertNotNull(cookie);
+        assertEquals(CookieGenerator.DEFAULT_COOKIE_MAX_AGE, cookie.getMaxAge());
+        assertEquals(CookieGenerator.DEFAULT_COOKIE_PATH, cookie.getPath());
+        assertEquals(cookie.getValue(), memberId);
+        
         for (Iterator iter = products.iterator(); iter.hasNext(); ) {
             hasStoredSubscription(user, (SubscriptionProduct) iter.next());
         }

@@ -1,16 +1,20 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.13 2006/06/07 22:47:13 apeterson Exp $
+ * $Id: PageHelper.java,v 1.14 2006/06/12 21:48:17 dlee Exp $
  */
 
 package gs.web.util;
 
+import gs.data.community.User;
 import gs.web.ISessionFacade;
+import gs.web.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.web.util.CookieGenerator;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -294,5 +298,20 @@ public class PageHelper {
             return sb.toString();
         }
         return "";
+    }
+
+    /**
+     * Static method to set a user's member cookie
+     */
+    public static void setMemberCookie(HttpServletResponse response, User user) {
+        if (user != null) {
+            CookieGenerator cg = new CookieGenerator();
+            cg.setCookiePath(CookieGenerator.DEFAULT_COOKIE_PATH);
+            cg.setCookieMaxAge(CookieGenerator.DEFAULT_COOKIE_MAX_AGE);
+            cg.setCookieName(SessionContextUtil.MEMBER_ID_COOKIE);
+            cg.addCookie(response, user.getId().toString());
+        } else {
+            _log.error("Tried to set member id for a null user");
+        }
     }
 }

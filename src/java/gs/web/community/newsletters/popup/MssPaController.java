@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.8 2006/06/08 01:12:02 dlee Exp $
+ * $Id: MssPaController.java,v 1.9 2006/06/12 21:48:17 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -8,14 +8,13 @@ import gs.data.community.*;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
-import gs.web.SessionContextUtil;
+import gs.web.util.PageHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.web.util.CookieGenerator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -79,11 +78,7 @@ public class MssPaController extends SimpleFormController {
             user = new User();
             user.setEmail(email);
             getUserDao().saveUser(user);
-            CookieGenerator cookieGenerator = new CookieGenerator();
-            cookieGenerator.setCookieMaxAge(-1);
-            cookieGenerator.setCookieName(SessionContextUtil.MEMBER_ID_COOKIE);
-            cookieGenerator.setCookiePath("/");
-            cookieGenerator.addCookie(response, user.getId().toString());            
+            PageHelper.setMemberCookie(response, user);
         }
 
         List subscriptions = new ArrayList();
