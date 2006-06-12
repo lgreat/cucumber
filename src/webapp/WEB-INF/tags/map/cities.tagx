@@ -49,7 +49,7 @@ function ${functionName}() {
       map.setCenter(new GLatLng(${lat}, ${lon}), ${17-scale});
         //]]>
       <c:forEach var="s" items="${cities}" >
-      <c:if test="${not empty s.lon}">
+      <c:if test="${not empty s.latLon and not empty s.latLon.lon}">
                  <c:set var="city" scope="request" value="${s}" />
        <jsp:scriptlet>
    /*Name of City
@@ -68,7 +68,7 @@ Average API Rank: 9.20*/
             }
       </jsp:scriptlet>
     //<![CDATA[
-       var p = new GLatLng(${s.lat},${s.lon});
+       var p = new GLatLng(${s.latLon.lat},${s.latLon.lon});
        var marker = createMarker(p, 'city.page?city=${s.name}&state=${s.state}',"${requestScope.html}");
        map.addOverlay(marker);
        //]]>
