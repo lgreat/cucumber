@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.22 2006/06/03 05:09:37 apeterson Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.23 2006/06/12 20:40:25 apeterson Exp $
  */
 
 package gs.web.school.performance;
@@ -196,7 +196,7 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
             } else {
                 _log.error("Cannot find city information for " + cityName);
                 _population = new Long(0);
-                _latLon = null;
+                _latLon = new LatLon(37.7599f, -122.437f);
             }
         }
 
@@ -250,14 +250,6 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
 
         public State getState() {
             return State.CA;
-        }
-
-        public float getLat() {
-            return _latLon.getLat();
-        }
-
-        public float getLon() {
-            return _latLon.getLon();
         }
 
         public String getCountyFips() {
