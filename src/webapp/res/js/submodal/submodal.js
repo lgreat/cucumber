@@ -101,7 +101,9 @@ function showPopWin(url, width, height, returnFunc) {
     if (!gPopupMask) {
         initPopUp();
     }
-    document.cookie=gHoverCookieName+'=1;path=/';
+    var oneDay=24 * 60 * 60 * 1000, expDate=new Date();
+    expDate.setTime(expDate.getTime()+oneDay * 7);
+    document.cookie=gHoverCookieName+'=1;expires='+expDate.toGMTString()+';path=/';
     gPopupIsShown = true;
 	disableTabIndexes();
 	gPopupMask.style.display = "block";
@@ -319,7 +321,9 @@ function showPopWinOnExit(url, width, height, returnFunc) {
     for (var i=0;i < arr.length;i++) {
         arr[i].onclick = function () {
             gRedirectAnchor = this;
-            var idx=parseInt(document.cookie.indexOf(gHoverCookieName));
+            var idx=parseInt(document.cookie.indexOf('MEMID'));
+            if (idx>-1) {return true;}
+            idx=parseInt(document.cookie.indexOf(gHoverCookieName));
             if (idx>-1) {return true;}
             showPopWin(url, width, height, returnFunc);
             return false;
