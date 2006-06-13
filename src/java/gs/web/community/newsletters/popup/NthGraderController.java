@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.7 2006/06/12 23:05:40 apeterson Exp $
+ * $Id: NthGraderController.java,v 1.8 2006/06/13 22:11:23 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -150,6 +150,9 @@ public class NthGraderController extends SimpleFormController {
         mAndV.getModel().put("email", email);
         mAndV.getModel().put("schoolId", String.valueOf(nc.getSchoolId()));
 
+        if (nc.getSchoolId() == 0) {
+            mAndV.getModel().put(SubscriptionSummaryController.PARAM_SHOW_FIND_SCHOOL_LINK, "1");
+        }
         return mAndV;
     }
 

@@ -18,18 +18,21 @@
     </head>
 
     <gsml:body adPageName="modal">
+        <gsml:url var="mss" value="/community/newsletters/popup/mss/page1.page?schoolId=1&amp;state=CA"/>
         <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
         <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
+        <pageHelper:addOnLoadHandler handler="showPopWinOnExit('${mss}', 480, 500, null, 'hoverNewsMss');"/>
         <br/><br/><br/>
         <center>
             <h1>Modal Dialog Test Page</h1>
             <br/><br/>
             URL: http://localhost:8080/gs-web/test/modal.page
             <br/><br/>
+            <!--
             <gsml:url var="mss" value="/cgi-bin/mss_popup1/ca?id=6544"/>
             <gsml:url var="mss" value="/test/boxes.page"/>
-            <gsml:url var="mss" value="/community/newsletters/popup/mss/page1.page?schoolId=1&amp;state=CA"/>
-            <button onclick="showPopWin('${mss}', 480, 500, null);">
+            -->
+            <button onclick="showPopWin('${mss}', 480, 500, null, 'hoverNewsMss');">
                 show
                 modal window</button>
             <br/><br/>

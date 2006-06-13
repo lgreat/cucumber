@@ -1,16 +1,16 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.28 2006/06/07 22:47:13 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.29 2006/06/13 22:11:23 dlee Exp $
  */
 
 package gs.web.util;
 
 import gs.data.content.Article;
-import gs.data.geo.ICity;
 import gs.data.geo.City;
+import gs.data.geo.ICity;
+import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
-import gs.data.school.LevelCode;
 import gs.data.state.State;
 import gs.web.GsMockHttpServletRequest;
 import junit.framework.TestCase;
@@ -273,6 +273,9 @@ public class UrlBuilderSaTest extends TestCase {
 
         builder = new UrlBuilder(UrlBuilder.RESEARCH, null, null);
         assertEquals("/test/research.page", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.ADD_PARENT_REVIEW_SEARCH, State.AZ, null);
+        assertEquals("/cgi-bin/regSearch/AZ", builder.asSiteRelative(request));
     }
 
     public void testAdminPages() {

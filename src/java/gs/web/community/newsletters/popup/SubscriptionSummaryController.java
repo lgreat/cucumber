@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryController.java,v 1.7 2006/06/12 23:05:40 apeterson Exp $
+ * $Id: SubscriptionSummaryController.java,v 1.8 2006/06/13 22:11:23 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -11,6 +11,7 @@ import gs.data.community.User;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
@@ -39,7 +40,8 @@ public class SubscriptionSummaryController extends SimpleFormController {
     public static final String MODEL_SET_NTH_GRADER = "setNth";
     public static final String MODEL_SET_MS_HS = "setMsHs";
     public static final String MODEL_EMAIL = "email";
-
+    public static final String MODEL_HAS_FIND_SCHOOL_LINK = "hasFindSchoolLink";
+    public static final String PARAM_SHOW_FIND_SCHOOL_LINK = "showFindSchool";
 
     private String _viewName;
 
@@ -63,44 +65,50 @@ public class SubscriptionSummaryController extends SimpleFormController {
         if (!errors.hasErrors()) {
             NewsletterCommand nc = (NewsletterCommand) command;
             String email = nc.getEmail();
-            User user = getUserDao().findUserFromEmail(email);
+            User user = getUserDao().findUserFromEmailIfExists(email);
+
             if (user == null) {
-                errors.reject("nokey", "User with email" + email + "does not exist");
-            }
+                errors.reject("nokey", "User with email " + email + " does not exist");
+            } else {
+                Set subcriptions = user.getSubscriptions();
+                State state = nc.getState();
 
-            Set subcriptions = user.getSubscriptions();
-            State state = nc.getState();
+                Set setNth = new HashSet();
+                Set setMsHs = new HashSet();
 
-            Set setNth = new HashSet();
-            Set setMsHs = new HashSet();
+                for (Iterator iter = subcriptions.iterator(); iter.hasNext();) {
+                    Subscription sub = (Subscription) iter.next();
+                    SubscriptionProduct sp = sub.getProduct();
 
-            for (Iterator iter = subcriptions.iterator(); iter.hasNext();) {
-                Subscription sub = (Subscription) iter.next();
-                SubscriptionProduct sp = sub.getProduct();
-                if (sp.isNewsletter()) {
-
-                    if (sp == SubscriptionProduct.MYSTAT ) {
-                        if (sub.getSchoolId() == nc.getSchoolId()
+                    if (sp.isNewsletter()) {
+                        if (sp == SubscriptionProduct.MYSTAT ) {
+                            if (sub.getSchoolId() == nc.getSchoolId()
                                 && sub.getState() == state) {
-                            int schoolId = nc.getSchoolId();
-                            School s = getSchoolDao().getSchoolById(state, new Integer(schoolId));
-                            model.put(MODEL_SCHOOL_NAME, s.getName());
+                                int schoolId = nc.getSchoolId();
+                                School s = getSchoolDao().getSchoolById(state, new Integer(schoolId));
+                                model.put(MODEL_SCHOOL_NAME, s.getName());
+                            }
+
+                        } else if (sp == SubscriptionProduct.PARENT_ADVISOR) {
+                            model.put(MODEL_PARENT_ADVISOR, sp.getLongName());
+                        } else if (sp == SubscriptionProduct.MY_MS
+                                || sp == SubscriptionProduct.MY_HS) {
+                            setMsHs.add(sp.getLongName());
+                        } else {
+                            setNth.add(sp.getLongName());
                         }
-
-                    } else if (sp == SubscriptionProduct.PARENT_ADVISOR) {
-                        model.put(MODEL_PARENT_ADVISOR, sp.getLongName());
-
-                    } else if (sp == SubscriptionProduct.MY_MS
-                            || sp == SubscriptionProduct.MY_HS) {
-                        setMsHs.add(sp.getLongName());
-                    } else {
-                        setNth.add(sp.getLongName());
                     }
                 }
+                model.put(MODEL_SET_MS_HS, setMsHs);
+                model.put(MODEL_SET_NTH_GRADER, setNth);
+                model.put(MODEL_EMAIL, email);
+
+                if (!StringUtils.isEmpty(request.getParameter(PARAM_SHOW_FIND_SCHOOL_LINK))) {
+                    model.put(MODEL_HAS_FIND_SCHOOL_LINK, Boolean.valueOf(true));
+                } else {
+                    model.put(MODEL_HAS_FIND_SCHOOL_LINK, Boolean.valueOf(false));
+                }
             }
-            model.put(MODEL_SET_MS_HS, setMsHs);
-            model.put(MODEL_SET_NTH_GRADER, setNth);
-            model.put(MODEL_EMAIL, email);
         }
         model.put(getCommandName(),command);
         return model;

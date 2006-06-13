@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderControllerTest.java,v 1.5 2006/06/12 23:05:49 apeterson Exp $
+ * $Id: NthGraderControllerTest.java,v 1.6 2006/06/13 22:11:23 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -172,6 +172,7 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
         assertEquals("CA", mAndV.getModel().get("state").toString());
         assertEquals(email, mAndV.getModel().get("email").toString());
         assertEquals("1", mAndV.getModel().get("schoolId").toString());
+        assertNull(mAndV.getModel().get(SubscriptionSummaryController.PARAM_SHOW_FIND_SCHOOL_LINK));
     }
 
     private boolean hasStoredSubscription(final User user, final SubscriptionProduct newsletter) {

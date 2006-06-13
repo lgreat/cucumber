@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.6 2006/06/05 18:51:19 apeterson Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.7 2006/06/13 22:11:23 dlee Exp $
  */
 
 package gs.web.jsp.link;
@@ -138,6 +138,14 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setState(State.AK);
         UrlBuilder builder = tagHandler.createUrlBuilder();
         UrlBuilder refBuilder = new UrlBuilder(UrlBuilder.RESEARCH, State.AK);
+        assertEquals(refBuilder.asSiteRelative(null), builder.asSiteRelative(null));
+    }
+
+    public void testAddParentReviewSearch() {
+        AddParentReviewSearchTagHandler tagHandler = new AddParentReviewSearchTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        UrlBuilder refBuilder = new UrlBuilder(UrlBuilder.ADD_PARENT_REVIEW_SEARCH, State.CA);
         assertEquals(refBuilder.asSiteRelative(null), builder.asSiteRelative(null));
     }
 

@@ -12,7 +12,6 @@ var gReturnFunc;
 var gPopupIsShown = false;
 var gHideSelects = false;
 var gLoading = "loading.html";
-var gHoverCookieName = 'gotHover';
 
 //A reference to a link object.
 //If assigned, user will be redirected to this page when the modal dialog is closed.
@@ -34,7 +33,7 @@ function frameLoading() {
 /**
  * Initializes popup code on load.
  */
-function initPopUp() {
+function initPopUp(hoverName) {
 	// Add the HTML to the body
 	var body = document.getElementsByTagName('body')[0];
 	var popmask = document.createElement('div');
@@ -84,7 +83,7 @@ function initPopUp() {
 					width = parseInt(params[1]);
 					height = parseInt(params[2]);
 				}
-				showPopWin(this.href,width,height,null); return false;
+				showPopWin(this.href,width,height,null,hoverName); return false;
 			}
 		}
 	}
@@ -97,13 +96,11 @@ function initPopUp() {
 	* @argument returnFunc - function to call when returning true from the window.
 	*/
 
-function showPopWin(url, width, height, returnFunc) {
+function showPopWin(url, width, height, returnFunc, hoverName) {
     if (!gPopupMask) {
-        initPopUp();
+        initPopUp(hoverName);
     }
-    var oneDay=24 * 60 * 60 * 1000, expDate=new Date();
-    expDate.setTime(expDate.getTime()+oneDay * 7);
-    document.cookie=gHoverCookieName+'=1;expires='+expDate.toGMTString()+';path=/';
+    setHoverCookie(hoverName);
     gPopupIsShown = true;
 	disableTabIndexes();
 	gPopupMask.style.display = "block";
@@ -309,28 +306,31 @@ function showContainers() {
         )
 }
 
-
 //Show the modal dialog when user exits the current page by way of an outbound link
-function showPopWinOnExit(url, width, height, returnFunc) {
-    var arr = getElementsByCondition(
-        function(el) {
-            if (el.tagName == "A" && el.href != "" && el.target == "") return el; else return false;
-        }
-    )
+function showPopWinOnExit(url, width, height, returnFunc, hoverName) {
+    if (showHover()) {
+        var arr = getElementsByCondition(
+            function(el) {
+                if (el.tagName == "A" && el.href != "" && el.target == "") return el; else return false;
+            }
+        )
 
-    for (var i=0;i < arr.length;i++) {
-        arr[i].onclick = function () {
-            gRedirectAnchor = this;
-            var idx=parseInt(document.cookie.indexOf('MEMID'));
-            if (idx>-1) {return true;}
-            idx=parseInt(document.cookie.indexOf(gHoverCookieName));
-            if (idx>-1) {return true;}
-            showPopWin(url, width, height, returnFunc);
-            return false;
+        for (var i=0;i < arr.length;i++) {
+            arr[i].onclick = function () {
+                gRedirectAnchor = this;
+                if (!showHover()) {return true;}
+                showPopWin(url, width, height, returnFunc, hoverName);
+                return false;
+            }
         }
     }
 }
 
+function showPopWinOnLoad(url, width, height, returnFunc, hoverName) {
+    if (showHover()) {
+        showPopWin(url, width, height, returnFunc, hoverName);
+    }
+}
 //code from http://www.webmasterworld.com/forum91/1729.htm
 function getElementsByCondition(condition,container) {
     container = container||document
@@ -354,4 +354,21 @@ function freeOnClickMem() {
     for(var i=0;i<alltags.length;i++){
         alltags[i].onclick=null;
     }
+}
+
+function setHoverCookie(hoverName) {
+    var oneDay=24 * 60 * 60 * 1000, expDate=new Date(), curDate=new Date();
+    //expire cookie in 20 years
+    expDate.setTime(expDate.getTime()+oneDay * 365 * 10);
+    document.cookie=hoverName+'='+curDate.toGMTString()+';expires='+expDate.toGMTString()+';path=/';
+}
+
+function showHover(hoverName) {
+    var idx=parseInt(document.cookie.indexOf('MEMID'));
+    if (idx>-1) {return false;}
+    idx=parseInt(document.cookie.indexOf(hoverName));
+    if (idx>-1) {return false;}
+    idx=parseInt(document.cookie.indexOf('hover'));
+    if (idx>-1) {return false;}
+    return true;
 }

@@ -367,5 +367,28 @@
             <description>optional state</description>
         </attribute>
     </tag>
+    <tag>
+        <name>addParentReviewSearch</name>
+        <tag-class>gs.web.jsp.link.AddParentReviewSearchTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Add a Parent Review Search</display-name>
+        <description>
+            <![CDATA[Add a parent review search page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+    </tag>
 </taglib>
 

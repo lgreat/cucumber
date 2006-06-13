@@ -38,7 +38,7 @@
 
     <div class="pLR">
         <div class="promo">
-            <h2>You have signed up for these GreatSchools newsletters:</h2>
+            <h3>Thanks for signing up for these GreatSchools newsletters:</h3>
         </div>
 
         <div class="error">
@@ -90,6 +90,17 @@
             </div>
         </div>
     </div>
+
+    <c:if test="${hasFindSchoolLink}">
+        <div class="blueTop">
+            <div class="pLR">
+                <center>
+                <h3>I'd also like free monthly updates about my child's school:</h3>
+                <link:addParentReviewSearch target="_blank"><gsml:img src="/res/img/button/btn_findmyschool.gif" alt="Search for your child's school."/></link:addParentReviewSearch>
+                </center>
+            </div>
+        </div>
+    </c:if>
     <mod:tracking pageName="Newsletter Hover Confirmation"
                   pageType=""
                   hier1="Newsletter, NL hover confirmation, School profile"/>

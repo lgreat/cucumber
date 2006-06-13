@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.38 2006/06/07 22:47:13 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.39 2006/06/13 22:11:23 dlee Exp $
  */
 
 package gs.web.util;
@@ -121,6 +121,11 @@ public class UrlBuilder {
     public static final VPage ADMIN_NEWS_ITEMS = new VPage("vpage:newItems");
     public static final VPage ADMIN_NEWS_ITEMS_CREATE = new VPage("vpage:newItemsCreate");
     public static final VPage ADMIN_NEWS_ITEMS_DELETE = new VPage("vpage:newItemsDelete");
+
+    /**
+     * Page that allows users to search for a school in order to add a parent review
+     */
+    public static final VPage ADD_PARENT_REVIEW_SEARCH = new VPage("vpage:addParentReviewSearch");
 
 
     /**
@@ -384,7 +389,11 @@ public class UrlBuilder {
         } else if (CONTACT_US.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/feedback/" + state.getAbbreviation();
-        } else {
+        } else if (ADD_PARENT_REVIEW_SEARCH.equals(page)) {
+            _perlPage = true;
+            _path = "/cgi-bin/regSearch/" + state.getAbbreviation();
+        }
+        else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
     }

@@ -1,10 +1,13 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.3 2006/06/12 23:05:49 apeterson Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.4 2006/06/13 22:11:23 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
-import gs.data.community.*;
+import gs.data.community.IUserDao;
+import gs.data.community.Subscription;
+import gs.data.community.SubscriptionProduct;
+import gs.data.community.User;
 import gs.data.geo.ICity;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
@@ -127,8 +130,8 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
             return user;
         }
 
-        public User findUserFromEmailIfExists(String string) {
-            return null;
+        public User findUserFromEmailIfExists(String email) {
+            return findUserFromEmail(email);
         }
 
         public User findUserFromId(int i) throws ObjectRetrievalFailureException {
