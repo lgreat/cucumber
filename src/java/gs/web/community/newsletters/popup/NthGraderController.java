@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.9 2006/06/14 17:43:32 dlee Exp $
+ * $Id: NthGraderController.java,v 1.10 2006/06/14 18:31:23 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -73,8 +73,8 @@ public class NthGraderController extends SimpleFormController {
             user = new User();
             user.setEmail(email);
             getUserDao().saveUser(user);
-            PageHelper.setMemberCookie(response, user);
         }
+        PageHelper.setMemberCookie(response, user);
 
         List subscriptions = new ArrayList();
 

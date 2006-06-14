@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.11 2006/06/14 17:43:32 dlee Exp $
+ * $Id: MssPaController.java,v 1.12 2006/06/14 18:31:23 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -87,8 +87,8 @@ public class MssPaController extends SimpleFormController {
             user = new User();
             user.setEmail(email);
             getUserDao().saveUser(user);
-            PageHelper.setMemberCookie(response, user);
         }
+        PageHelper.setMemberCookie(response, user);
 
         List subscriptions = new ArrayList();
 
