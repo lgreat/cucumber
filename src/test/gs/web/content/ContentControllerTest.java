@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ContentControllerTest.java,v 1.17 2006/06/07 22:47:13 apeterson Exp $
+ * $Id: ContentControllerTest.java,v 1.18 2006/06/14 22:16:02 apeterson Exp $
  */
 package gs.web.content;
 
@@ -16,11 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Date;
 
 /**
  * The purpose is to test the various controllers in the content package.
  *
  * @author David Lee <mailto:dlee@greatschools.net>
+ * @noinspection FeatureEnvy,ProhibitedExceptionDeclared,HardcodedFileSeparator
  */
 public class ContentControllerTest extends BaseControllerTestCase {
 
@@ -38,7 +40,7 @@ public class ContentControllerTest extends BaseControllerTestCase {
         assertTrue(catMap.size() > 0);
         String numberOfCatgegories = String.valueOf(catMap.size() + sccMap.size());
         assertEquals(numberOfCatgegories, (String) modelAndView.getModel().get("num_categories"));
-        assertEquals(new Integer(0), (Integer) modelAndView.getModel().get("index"));
+        assertEquals(new Integer(0), modelAndView.getModel().get("index"));
 
     }
 
@@ -73,6 +75,7 @@ public class ContentControllerTest extends BaseControllerTestCase {
         assertEquals("Featured Topics", modelAndView.getModel().get("heading"));
     }
 
+    /** @noinspection OverlyLongMethod*/
     public void testFeaturedArticlesControllerMultiple() throws Exception {
         FeaturedArticlesController c = (FeaturedArticlesController) getApplicationContext().getBean("/promo/featuredArticles.module");
 
@@ -132,6 +135,13 @@ public class ContentControllerTest extends BaseControllerTestCase {
 
             public String getProperty(String key, String defaultValue) {
                 return "8888";
+            }
+
+            public Date getPropertyAsDate(String key) {
+                return null;
+            }
+
+            public void setPropertyAsDate(String key, Date date) {
             }
         });
         controller.setViewName("someView");
