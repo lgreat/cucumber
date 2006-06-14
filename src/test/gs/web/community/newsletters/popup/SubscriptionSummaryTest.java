@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.6 2006/06/14 19:22:35 apeterson Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.7 2006/06/14 22:01:00 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -27,7 +27,7 @@ import org.springframework.validation.BindException;
 import java.util.*;
 
 /**
- * The purpose is ...
+ * Tests SubscriptionSummaryController.
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
@@ -241,7 +241,7 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
             return null;
         }
 
-        public List findRecentNameChanges(State state, Date since) {
+        public List findRecentNameChanges(State state, Date since, Date before) {
             return null;
         }
 
