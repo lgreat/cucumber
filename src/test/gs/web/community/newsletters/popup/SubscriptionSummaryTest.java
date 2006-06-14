@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.4 2006/06/13 22:11:23 dlee Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.5 2006/06/14 00:39:22 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -238,6 +238,10 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
         }
 
         public List findTopRatedSchoolsInCity(ICity iCity, int i, LevelCode.Level level, int i1) {
+            return null;
+        }
+
+        public List findRecentNameChanges(State state, Date since) {
             return null;
         }
     }
