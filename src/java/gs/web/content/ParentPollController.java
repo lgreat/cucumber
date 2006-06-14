@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ParentPollController.java,v 1.4 2006/03/17 20:10:02 apeterson Exp $
+ * $Id: ParentPollController.java,v 1.5 2006/06/14 00:16:33 apeterson Exp $
  */
 
 package gs.web.content;
@@ -34,7 +34,7 @@ public class ParentPollController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map model = new HashMap();
 
-        String parentPollId = _propertyDao.getProperty(IPropertyDao.PARENT_POLL_ID);
+        String parentPollId = _propertyDao.getProperty(IPropertyDao.PARENT_POLL_ID_KEY);
         model.put(MODEL_PARENT_POLL_ID, parentPollId);
 
         return new ModelAndView(_viewName, model);

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.30 2006/05/30 18:43:06 chriskimm Exp $
+ * $Id: SessionContext.java,v 1.31 2006/06/14 00:16:33 apeterson Exp $
  */
 package gs.web;
 
@@ -47,7 +47,7 @@ public class SessionContext
     private String _remoteAddress;
     private String _abVersion;
     private boolean _isBetaPage = false; // default;
-    
+
     private ApplicationContext _applicationContext;
     private ISubscriptionDao _subscriptionDao;
     private IPropertyDao _propertyDao;
@@ -108,7 +108,7 @@ public class SessionContext
      * @return true if the ad server is working
      */
     public boolean isAdvertisingOnline() {
-        return "true".equals(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_ID, "true"));
+        return "true".equals(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true"));
     }
 
     public boolean isYahooCobrand() {
