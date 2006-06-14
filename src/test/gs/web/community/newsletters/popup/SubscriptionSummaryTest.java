@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.5 2006/06/14 00:39:22 apeterson Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.6 2006/06/14 19:22:35 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -243,6 +243,10 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
 
         public List findRecentNameChanges(State state, Date since) {
             return null;
+        }
+
+        public void setModifiedInfo(School school, Date modified, String modifiedBy) {
+            // do nothing
         }
     }
 }
