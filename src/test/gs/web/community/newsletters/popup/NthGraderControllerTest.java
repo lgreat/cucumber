@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderControllerTest.java,v 1.6 2006/06/13 22:11:23 dlee Exp $
+ * $Id: NthGraderControllerTest.java,v 1.7 2006/06/14 17:43:32 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -111,8 +111,30 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
         command = new NewsletterCommand();
         assertTrue(hasErrorOnPageLoad(command));
 
+        assertEquals("", command.getEmail());
+
         command.setState(State.CA);
         assertFalse(hasErrorOnPageLoad(command));
+    }
+
+    public void testEmailFromSessionContext() {
+        NewsletterCommand command = new NewsletterCommand();
+
+        final String email = "dlee@greatschools.net";
+        User user = new User();
+        user.setEmail(email);
+        getSessionContext().setUser(user);
+        setUpScenarioTwo();
+
+        BindException errors = new BindException(command, "");
+        _controller.onBindOnNewForm(getRequest(), command, errors);
+        assertEquals(email, command.getEmail());
+        getSessionContext().setUser(null);
+        command.setEmail(null);
+
+        setUpScenarioTwo();
+        _controller.onBindOnNewForm(getRequest(), command, errors);
+        assertEquals("", command.getEmail());        
     }
 
     //scenario1 includes scenario2

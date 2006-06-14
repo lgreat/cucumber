@@ -307,8 +307,8 @@ function showContainers() {
 }
 
 //Show the modal dialog when user exits the current page by way of an outbound link
-function showPopWinOnExit(url, width, height, returnFunc, hoverName) {
-    if (showHover()) {
+function showPopWinOnExit(url, width, height, returnFunc, hoverName, forceShow) {
+    if (forceShow || showHover()) {
         var arr = getElementsByCondition(
             function(el) {
                 if (el.tagName == "A" && el.href != "" && el.target == "") return el; else return false;
@@ -318,16 +318,19 @@ function showPopWinOnExit(url, width, height, returnFunc, hoverName) {
         for (var i=0;i < arr.length;i++) {
             arr[i].onclick = function () {
                 gRedirectAnchor = this;
-                if (!showHover()) {return true;}
-                showPopWin(url, width, height, returnFunc, hoverName);
-                return false;
+                if (forceShow || showHover()) {
+                    showPopWin(url, width, height, returnFunc, hoverName);
+                    return false;
+                } else {
+                    return true;
+                }
             }
         }
     }
 }
 
-function showPopWinOnLoad(url, width, height, returnFunc, hoverName) {
-    if (showHover()) {
+function showPopWinOnLoad(url, width, height, returnFunc, hoverName, forceShow) {
+    if (forceShow || showHover()) {
         showPopWin(url, width, height, returnFunc, hoverName);
     }
 }

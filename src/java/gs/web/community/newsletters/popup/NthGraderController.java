@@ -1,12 +1,14 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.8 2006/06/13 22:11:23 dlee Exp $
+ * $Id: NthGraderController.java,v 1.9 2006/06/14 17:43:32 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
 import gs.data.community.*;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
+import gs.web.ISessionFacade;
+import gs.web.SessionContext;
 import gs.web.util.PageHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -48,7 +50,13 @@ public class NthGraderController extends SimpleFormController {
         }
 
         if (nc.getEmail() == null) {
-            nc.setEmail("");
+            ISessionFacade session = SessionContext.getInstance(request);
+            User user = session.getUser();
+            if (user != null) {
+                nc.setEmail(user.getEmail());
+            } else {
+                nc.setEmail("");
+            }
         }
     }
 

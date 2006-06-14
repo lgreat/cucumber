@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.6 2006/06/12 23:05:49 apeterson Exp $
+ * $Id: MssPaControllerTest.java,v 1.7 2006/06/14 17:43:32 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -73,14 +73,25 @@ public class MssPaControllerTest extends BaseControllerTestCase {
         NewsletterCommand command = new NewsletterCommand();
         BindException errors = new BindException(command, "");
 
+        final String email = "dlee@greatschools.net";
+
+        User user = new User();
+        user.setEmail(email);
+        getSessionContext().setUser(user);
+
         command.setSchoolId(1);
         command.setState(State.CA);
         _controller.onBindOnNewForm(getRequest(), command, errors);
 
         assertFalse(errors.hasErrors());
         assertFalse(StringUtils.isEmpty(command.getSchoolName()));
-    }
+        assertEquals(email, command.getEmail());
 
+        command.setEmail(null);
+        getSessionContext().setUser(null);
+        _controller.onBindOnNewForm(getRequest(), command, errors);
+        assertEquals("", command.getEmail());
+    }
 
     public void testGoodInputOnSubmit() {
         NewsletterCommand command = new NewsletterCommand();

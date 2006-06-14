@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.10 2006/06/12 23:05:40 apeterson Exp $
+ * $Id: MssPaController.java,v 1.11 2006/06/14 17:43:32 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -8,6 +8,8 @@ import gs.data.community.*;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.web.ISessionFacade;
+import gs.web.SessionContext;
 import gs.web.util.PageHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,7 +52,14 @@ public class MssPaController extends SimpleFormController {
         }
 
         if (nc.getEmail() == null) {
-            nc.setEmail("");
+            ISessionFacade session = SessionContext.getInstance(request);
+            User user = session.getUser();
+
+            if (user != null) {
+                nc.setEmail(user.getEmail());
+            } else {
+                nc.setEmail("");
+            }
         }
 
         if (!errors.hasErrors()) {
