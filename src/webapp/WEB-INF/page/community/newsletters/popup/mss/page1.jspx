@@ -48,21 +48,10 @@
 
 <spring:bind path="newsCmd.mystat">
     <c:set var="mssExpr" value="${status.expression}"/>
-    <c:if test="${status.value}">
-        <c:set var="mssChecked" value="checked"/>
-    </c:if>
 </spring:bind>
 
 <spring:bind path="newsCmd.gn">
     <c:set var="gnExpr" value="${status.expression}"/>
-    <c:choose>
-        <c:when test="${status.value}">
-            <c:set var="gnChecked" value="checked"/>
-        </c:when>
-        <c:otherwise>
-            <c:set var="gnChecked" value="OFF"/>
-        </c:otherwise>
-    </c:choose>
 </spring:bind>
 
 <spring:bind path="newsCmd.email">
@@ -75,16 +64,8 @@
             <c:set var="email" value=""/>
         </c:otherwise>
     </c:choose>
-    <c:forEach items="${status.errorMessages}" var="error">
-        <c:if test="${status.error}">
-            <c:set var="emailErrors" value="${error}"/>
-        </c:if>
-    </c:forEach>
 </spring:bind>
 
-<spring:bind path="newsCmd">
-    <c:set var="cbxError" value="${status.errorMessage}"/>
-</spring:bind>
 
 <div class="header">
     <div class="left">
@@ -105,29 +86,33 @@
     <div class="content">
         <gsml:form action="/community/newsletters/popup/mss/page1.page" method="post" target="_self"
                 id="frm">
-            <div class="error">${cbxError}</div>
 
-            <div class="error">${emailErrors}</div>
-
+            <c:set var="showMssCheckBox" value="true"/>
             <div class="error">
-                <spring:bind path="newsCmd.schoolId">
-                    ${status.errorMessage}
-                </spring:bind>
+                <spring:hasBindErrors name="newsCmd">
+                 <ul>
+                    <c:forEach var="errMsgObj" items="${errors.allErrors}">
+                       <li>
+                          <spring:message code="${errMsgObj.code}" text="${errMsgObj.defaultMessage}"/>
+                       </li>
+                        <c:if test="${errMsgObj.code eq 'max_mss_reached'}">
+                            <c:set var="showMssCheckBox" value="false"/>
+                        </c:if>
+                    </c:forEach>
+                 </ul>
+                </spring:hasBindErrors>
             </div>
 
-            <div class="error">
-                <spring:bind path="newsCmd.state">
-                    ${status.errorMessage}
-                </spring:bind>
-            </div>
+            <input type="hidden" name="${schoolIdExpr}" value="${schoolId}"/>
+            <input type="hidden" name="${schoolNameExpr}" value="${schoolName}"/>
+            <input type="hidden" name="state" value="${stateAbbrev}"/>
 
-            <div class="cbx">
-                <input type="hidden" name="state" value="${stateAbbrev}"/>
-                <input type="hidden" name="${schoolIdExpr}" value="${schoolId}"/>
-                <input type="hidden" name="${schoolNameExpr}" value="${schoolName}"/>
-                <input type="checkbox" name="${mssExpr}" checked="checked"/>
-                Yes, please send me monthly stats and updates about ${schoolName}.
-            </div>
+            <c:if test="${showMssCheckBox eq 'true'}">
+                <div class="cbx">
+                    <input type="checkbox" name="${mssExpr}" checked="checked"/>
+                    Yes, please send me monthly stats and updates about ${schoolName}.
+                </div>
+            </c:if>
 
             <div class="cbx">
                 <input type="checkbox" name="${gnExpr}" checked="checked"/>

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.8 2006/06/15 01:28:39 chriskimm Exp $
+ * $Id: MssPaControllerTest.java,v 1.9 2006/06/15 18:14:10 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -11,10 +11,14 @@ import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.SessionContextUtil;
 import gs.web.util.validator.EmailValidator;
+import gs.web.util.validator.MaximumMssValidator;
 import gs.web.util.validator.SchoolIdValidator;
 import gs.web.util.validator.StateValidator;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.validation.BindException;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.CookieGenerator;
@@ -93,6 +97,35 @@ public class MssPaControllerTest extends BaseControllerTestCase {
         assertEquals("", command.getEmail());
     }
 
+    public void testMaxedOutUserOnBindAndValidate() {
+        _controller.setUserDao(new MockMaxedOutMssUserDao());
+        NewsletterCommand command = new NewsletterCommand();
+        command.setMystat(true);
+        command.setEmail("anythingSinceWereUsingAMockDao");
+
+        BindException errors = new BindException(command, "");
+        _controller.onBindAndValidate(getRequest(), command, errors);
+
+        assertTrue(errors.hasErrors());
+        ObjectError error = errors.getGlobalError();
+
+        assertEquals(MaximumMssValidator.ERROR_CODE , error.getCode());
+        assertFalse(command.isMystat());
+
+        _controller.setUserDao(_userDao);
+    }
+
+    public void testNonMaxedOutUserOnBindAndValidate() {
+        NewsletterCommand command = new NewsletterCommand();
+        command.setMystat(true);
+        command.setEmail("anythingSinceWereUsingAMockDao");
+
+        BindException errors = new BindException(command, "");
+        _controller.onBindAndValidate(getRequest(), command, errors);
+
+        assertFalse(errors.hasErrors());
+    }
+
     public void testGoodInputOnSubmit() {
         NewsletterCommand command = new NewsletterCommand();
         BindException errors = new BindException(command, "");
@@ -158,5 +191,53 @@ public class MssPaControllerTest extends BaseControllerTestCase {
 
         _userDao.removeUser(user.getId());
         assertNull(_userDao.findUserFromEmailIfExists(email));
+    }
+
+    private class MockMaxedOutMssUserDao implements IUserDao {
+
+        public User findUserFromEmail(String string) throws ObjectRetrievalFailureException {
+            return null;  //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        public User findUserFromEmailIfExists(String string) {
+            User user = new User();
+            user.setEmail("dlee@greatschools.net");
+            Set subscriptions = new HashSet();
+
+            for (int i=0; i < SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER; i++ ) {
+                Subscription sub = new Subscription();
+                sub.setProduct(SubscriptionProduct.MYSTAT);
+                sub.setSchoolId(i);
+                sub.setState(State.CA);
+                subscriptions.add(sub);
+            }
+
+            user.setSubscriptions(subscriptions);
+            return user;
+        }
+
+        public User findUserFromId(int i) throws ObjectRetrievalFailureException {
+            return null;  //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        public void saveUser(User user) throws DataIntegrityViolationException {
+            //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        public void updateUser(User user) throws DataIntegrityViolationException {
+            //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        public void removeUser(Integer integer) {
+            //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        public List findUsersModifiedSince(Date date) {
+            return null;  //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        public List findUsersModifiedBetween(Date date, Date date1) {
+            return null;  //To change body of implemented methods use File | Settings | File Templates.
+        }
     }
 }

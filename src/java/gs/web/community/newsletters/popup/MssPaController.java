@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.13 2006/06/15 01:28:39 chriskimm Exp $
+ * $Id: MssPaController.java,v 1.14 2006/06/15 18:14:10 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -11,6 +11,7 @@ import gs.data.state.State;
 import gs.web.ISessionFacade;
 import gs.web.SessionContext;
 import gs.web.util.PageHelper;
+import gs.web.util.validator.MaximumMssValidator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
@@ -74,6 +75,21 @@ public class MssPaController extends SimpleFormController {
         }
     }
 
+    public void onBindAndValidate(HttpServletRequest request,
+                                 Object command,
+                                 BindException errors) {
+        NewsletterCommand nc = (NewsletterCommand) command;
+        if (nc.isMystat()) {
+            String email = nc.getEmail();
+            MaximumMssValidator validator = new MaximumMssValidator();
+            validator.validate(getUserDao().findUserFromEmailIfExists(email), errors);
+
+            if (errors.hasErrors()) {
+                nc.setMystat(false);
+            }
+        }
+    }
+
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
                                  Object command,
@@ -92,7 +108,6 @@ public class MssPaController extends SimpleFormController {
             mAndV.getModel().put("newuser", "true");
         }
         PageHelper.setMemberCookie(response, user);
-
         List subscriptions = new ArrayList();
 
         if (nc.isGn()) {
