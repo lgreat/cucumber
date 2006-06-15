@@ -144,9 +144,14 @@
     </div>
 </gsml:form>
 </div>
-<mod:tracking pageName="Newsletter Hover Upsell"
+<c:if test="${not empty param.newuser}">
+    <c:set var="events" value="event1"/>
+</c:if>
+ <mod:tracking pageName="Newsletter Hover Upsell"
               pageType=""
-              hier1="Newsletter, NL hover upsell, School profile"/>
+              hier1="Newsletter, NL hover upsell, School profile"
+              events="${events}"
+        />
 </gsml:body>
 </html>
 </jsp:root>

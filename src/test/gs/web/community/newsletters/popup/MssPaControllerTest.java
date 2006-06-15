@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.7 2006/06/14 17:43:32 dlee Exp $
+ * $Id: MssPaControllerTest.java,v 1.8 2006/06/15 01:28:39 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -110,6 +110,11 @@ public class MssPaControllerTest extends BaseControllerTestCase {
         assertEquals(command.getState().toString(), model.get("state").toString());
         assertEquals(command.getEmail(), model.get("email").toString());
         assertEquals(String.valueOf(command.getSchoolId()), model.get("schoolId").toString());
+        assertEquals("true", (String)model.get("newuser"));
+
+        // repeat the request with the same email and make sure that "newuser" is empty
+        modelView = _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        assertTrue(StringUtils.isBlank((String)modelView.getModel().get("newuser")));
 
         _log.debug(modelView.getViewName());
         assertEquals(modelView.getViewName(), "redirect:/community/newsletters/popup/mss/page2.page");

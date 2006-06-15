@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.10 2006/06/14 18:31:23 dlee Exp $
+ * $Id: NthGraderController.java,v 1.11 2006/06/15 01:28:39 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -69,10 +69,13 @@ public class NthGraderController extends SimpleFormController {
         User user = getUserDao().findUserFromEmailIfExists(email);
         State state = nc.getState();
 
+        ModelAndView mAndV = new ModelAndView();
+
         if (user == null) {
             user = new User();
             user.setEmail(email);
             getUserDao().saveUser(user);
+            mAndV.getModel().put("newuser", "true");
         }
         PageHelper.setMemberCookie(response, user);
 
@@ -152,7 +155,6 @@ public class NthGraderController extends SimpleFormController {
 
         getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
 
-        ModelAndView mAndV = new ModelAndView();
         mAndV.setViewName(getSuccessView());
         mAndV.getModel().put("state", state);
         mAndV.getModel().put("email", email);
