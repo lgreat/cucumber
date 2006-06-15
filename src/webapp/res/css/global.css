@@ -1,7 +1,7 @@
 /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.118 2006/06/09 21:34:32 apeterson Exp $
+   $Id: global.css,v 1.119 2006/06/15 23:00:24 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -816,8 +816,8 @@ div.singleTextOnlyColumn .contentGS h4 {
     font-size: small;
     color: #25457a;
     font-weight: bold;
-    margin-top: 0;
-    margin-bottom: 1em;
+    margin-top: 2ex;
+    margin-bottom: .5ex;
 }
 
 .oneMainColumn .contentGS h5,
@@ -836,6 +836,18 @@ div.singleTextOnlyColumn .contentGS h4 {
 .oneMainColumn .contentGS ul,
     .singleTextOnlyColumn .contentGS ul {
     margin-bottom: 1em;
+}
+
+.singleTextOnlyColumn .contentGS ul li {
+    padding: 3px 5px 3px 12px;
+    margin: 2px 0px 3px 0px;
+    background: url( ../img/bullet/bullet_blueball.gif ) 2px 7px no-repeat;
+}
+
+.singleTextOnlyColumn .contentGS ol li {
+    list-style: decimal;
+    list-style-position: inside;
+    padding: 0 0 1ex 0;
 }
 
 div.oneMainColumn .contentGS {
@@ -888,8 +900,3 @@ div.contentGS div.promoNewsletterSmall .smallform {
     padding-left: 1em;
 }
 
-.indentedList li {
-    margin-left: 2em;
-    margin-right: 1.5em;
-    list-style-type: disc;
-}

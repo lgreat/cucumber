@@ -26,7 +26,7 @@
 
 <gsml:body adPageName="gsFaq" pageLayout="singleTextOnlyColumn">
 
-<mod:tracking pageType="aboutUs" pageName="gsFaq" hier1="Home,ContactUs,FAQ"/>
+<mod:tracking pageType="faq" pageName="gsFaq" hier1="Home,ContactUs,FAQ"/>
 
 
 <h3>Frequently Asked Questions About GreatSchools</h3>
@@ -86,6 +86,7 @@
     principals to add a great deal of additional information about curriculum, programs, activities, school vision and
     leadership. Get more information in our <a href="#esps">FAQ about ESPs</a>.</p>
 
+<![CDATA[ <a name="data_where"></a> ]]>
 <h4>Where does GreatSchools acquire school data?</h4>
 
 <p>
@@ -105,6 +106,7 @@
 </p>
 
 <![CDATA[ <a name="data_sources"></a> ]]>
+<![CDATA[ <a name="data_when"></a> ]]>
 <h4>How often is the school information updated?</h4>
 
 <p> Different types of data are updated at different times throughout the year. Starting in 2006, our goal is to
@@ -115,6 +117,7 @@
 </p>
 
 
+<![CDATA[ <a name="data_incorrect"></a> ]]>
 <h4>What if I see an incorrect address or phone number on your site?</h4>
 
 <p> We strive to keep our school contact information up to date, but we realize there may be changes that are not
@@ -328,7 +331,8 @@
 <h4>How do I compare schools?</h4>
 
 <p> You can compare schools that are near an address, or within a specific district, county or state. Just click on the
-    "Compare Schools" link at the top of any profile or on the orange "Compare Schools" button at the top of the screen.
+    "Compare Schools" link at the top of any school profile or
+    visit the tab 'Research &amp; Compare' to get started.
     It's possible to compare schools in different counties by saving schools to <b>My School List</b>, then comparing
     those schools.
 </p>
@@ -337,8 +341,8 @@
 <p><link:mySchoolList>My School List</link:mySchoolList> is a tool that lets you compile a list of schools,
     save and
     compare them. To build a list, go to any school profile on GreatSchools.net and click on the link, "Add this
-    school to My School List," next to the name of the school. Once you have a list of schools, you can compare a
-    few or all of the schools.
+    school to My School List," next to the name of the school. Once you have a list of schools, you can easily
+    compare the schools in your list.
 </p>
 
 
@@ -370,21 +374,23 @@
 
 <h4>What newsletters does GreatSchools provide?</h4>
 
-<p>We have a family of free email newsletters to help your child succeed in school.  Choose newsletters for your child’s school, your child’s grade, or get timely tips and advice.</p>
-<ul class="indentedList">
+<p>We have a family of free email newsletters to help your child succeed in school.
+    Choose newsletters for your child’s school, your child’s grade, or get timely tips and advice.</p>
+<ul>
     <li><span class="teaser">Parent Advisor</span> is a monthly newsletter that provides timely tips on helping your child succeed in school.</li>
     <li><span class="teaser">My School Stats</span>  is a periodic newsletter, currently available in many of our in-depth states that provides the latest updates about test scores, teacher quality, funding and more at your child's school, and shows you how your school compares to others in your state.</li>
 
     <li>Keep your child on track in the classroom: Get expert advice, ideas for learning activities, book recommendations
         and more. For parents of children in kindergarten through fifth grade.
         Sign up for <span class="teaser">My Kindergartner</span>, <span class="teaser">My First-Grader</span>,
-        <span class="teaser">My Second-Grader</span> and <span class="teaser">My Third-Grader</span>.
-        We’re launching <span class="teaser">My-Fourth Grader</span> and <span class="teaser">My Fifth-Grader</span> this summer!</li>
+        <span class="teaser">My Second-Grader</span>, <span class="teaser">My Third-Grader</span>,
+        <span class="teaser">My-Fourth Grader</span> or <span class="teaser">My Fifth-Grader</span>.</li>
 
     <li>
         Get your child ready for high school and college: Find expert tips and advice focused on academics, behavior
         issues, financial planning and college preparation. For parents of middle and high school students.
-        <span class="teaser">Middle School Matters</span> and <span class="teaser">Countdown to College</span> <i> coming this summer!</i>
+        Sign up for
+        <span class="teaser">Middle School Matters</span> and <span class="teaser">Countdown to College</span>.
     </li>
 </ul>
 
@@ -438,7 +444,7 @@
 <div style="text-align: right;">
     <p>
         <i>Didn't find the answer you're looking for? <gsml:a
-                href="/cgi-bin/feedback_faq/$STATE?fbtype=subentry">Contact us about your membership.</gsml:a></i></p>
+                href="/cgi-bin/feedback_faq/$STATE?fbtype=gen">Contact us.</gsml:a></i></p>
 </div>
 <![CDATA[ <a name="other"></a> ]]>
 
