@@ -25,7 +25,7 @@
 
 <div id="footerSearchStateSpecific">
     <a href="/cgi-bin/schoollist/${state}">${longName} schools</a>, <a
-        href="/modperl/districs/${state}">${longName}
+        href="/modperl/districts/${state}">${longName}
     districts</a>, <a href="/modperl/cities/${state}">${longName} cities</a>
 </div>
 
