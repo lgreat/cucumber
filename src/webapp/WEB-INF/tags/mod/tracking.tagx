@@ -40,6 +40,10 @@
             name="hier1"
             description="A page hierarchy."
             required="false"/>
+    <jsp:directive.attribute
+            name="events"
+            description="A comma-separated list of events.  See SiteCatalyst for event types"
+            required="false"/>
 
     <jsp:scriptlet>
         request.setAttribute("scheme", request.getScheme());
@@ -69,6 +73,7 @@
         s.prop6 = "${query}";
         s.prop7 = "${pageName}:${requestScope.context.ABVersion}";
         s.prop8 = "${empty(param.cpn) ? pageName : param.cpn}";
+        s.events = "${events}";
         s.hier1 = "${hier1}";
 
     </script>
