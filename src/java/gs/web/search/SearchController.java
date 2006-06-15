@@ -6,6 +6,7 @@ import gs.data.school.SchoolType;
 import gs.data.search.*;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.ISessionFacade;
 import gs.web.SessionContext;
 import gs.web.AnchorListModelFactory;
@@ -131,6 +132,8 @@ public class SearchController extends AbstractFormController {
     public ModelAndView processFormSubmission(
             HttpServletRequest request, HttpServletResponse response, Object command, BindException errors)
             throws Exception {
+
+        ThreadLocalTransactionManager.setReadOnly();
 
         // Validate inputs
         if (command == null) {

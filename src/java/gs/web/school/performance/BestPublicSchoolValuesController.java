@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.23 2006/06/12 20:40:25 apeterson Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.24 2006/06/15 17:17:20 thuss Exp $
  */
 
 package gs.web.school.performance;
@@ -10,6 +10,7 @@ import gs.data.geo.IGeoDao;
 import gs.data.geo.LatLon;
 import gs.data.state.State;
 import gs.data.util.SpringUtil;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.ISessionFacade;
 import gs.web.SessionFacade;
 import gs.web.util.AnchorListModel;
@@ -94,6 +95,7 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
 
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ThreadLocalTransactionManager.setReadOnly();
 
         if (_citiesOfValue == null) {
             initializeCities();

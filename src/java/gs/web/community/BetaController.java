@@ -96,7 +96,7 @@ public class BetaController extends SimpleFormController {
      * of the email address and user/subscription validation (such as: if the
      * subscription already exists) are done in the EmailValidator.
      *
-     * @param email A valid email address as a <code>String</code> type
+     * @param command A valid email address as a <code>String</code> type
      */
     private void addToBetaGroup(BetaSignupCommand command) {
         User user = _userDao.findUserFromEmailIfExists(command.getEmail());
@@ -185,7 +185,7 @@ public class BetaController extends SimpleFormController {
     /**
      * Spring setter
      *
-     * @param _subscriptionDao
+     * @param subscriptionDao
      */
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
         this._subscriptionDao = subscriptionDao;

@@ -17,27 +17,9 @@ import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 public class BaseTestCase extends TestCase {
     protected final Log _log = LogFactory.getLog(getClass());
     private static ApplicationContext _sApplicationContext = null;
-    private ResourceBundle _resourceBundle;
 
-    // This static block ensures that Spring's BeanFactory is only loaded
-    // once for all tests. We should find a better way to do this though so that
-    // gs.data.BaseTestCase and this one don't have duplicated context paths
-    static {
-        // the dao.type is written to the database.properties file
-        // in properties.xml
-        ResourceBundle db = ResourceBundle.getBundle("conf/database");
-    }
 
     public BaseTestCase() {
-        // Since a ResourceBundle is not required for each class, just
-        // do a simple check to see if one exists
-        String className = this.getClass().getName();
-
-        try {
-            _resourceBundle = ResourceBundle.getBundle(className);
-        } catch (final MissingResourceException mre) {
-            //log.warn("No resource bundle found for: " + className);
-        }
     }
 
     public ApplicationContext getApplicationContext() {

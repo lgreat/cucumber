@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.14 2006/06/06 19:28:49 apeterson Exp $
+ * $Id: GeoController.java,v 1.15 2006/06/15 17:17:20 thuss Exp $
  */
 
 package gs.web.geo;
@@ -10,6 +10,7 @@ import gs.data.geo.bestplaces.BpCensus;
 import gs.data.geo.bestplaces.BpState;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.SessionContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -47,6 +48,7 @@ public class GeoController implements Controller {
     public static final String MODEL_DISPLAY_NAME = "displayName"; // String
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ThreadLocalTransactionManager.setReadOnly();
 
         State state = SessionContext.getInstance(request).getStateOrDefault();
 
