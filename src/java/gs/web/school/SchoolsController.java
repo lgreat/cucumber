@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.15 2006/06/06 19:28:49 apeterson Exp $
+ * $Id: SchoolsController.java,v 1.16 2006/06/16 00:27:14 thuss Exp $
  */
 
 package gs.web.school;
@@ -12,6 +12,7 @@ import gs.data.school.district.IDistrictDao;
 import gs.data.search.SearchCommand;
 import gs.data.search.Searcher;
 import gs.data.state.State;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.ISessionFacade;
 import gs.web.SessionContext;
 import gs.web.search.ResultsPager;
@@ -116,6 +117,7 @@ public class SchoolsController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response)
             throws Exception {
+        ThreadLocalTransactionManager.setReadOnly();
 
         ISessionFacade context = SessionContext.getInstance(request);
         State state = context.getState();
