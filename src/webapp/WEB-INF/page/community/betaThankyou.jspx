@@ -30,7 +30,7 @@
             <br/>
         </div>
     </div>
-    <mod:tracking pageType="beta" pageName="Beta Thank You" hier1="Community,Beta Group,Beta Thank You"/>
+    <mod:tracking pageType="beta" pageName="Beta Thank You" hier1="Community,Beta Group,Beta Thank You" events="${events}"/>
     </body>
     </html>
 </jsp:root>

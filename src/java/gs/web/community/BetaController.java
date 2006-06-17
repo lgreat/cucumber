@@ -72,7 +72,7 @@ public class BetaController extends SimpleFormController {
     public ModelAndView onSubmit(Object command) {
 
         BetaSignupCommand bsc = (BetaSignupCommand) command;
-        addToBetaGroup(bsc);
+        boolean isNewUser = addToBetaGroup(bsc);
         String email = bsc.getEmail();
 
         try {
@@ -88,6 +88,8 @@ public class BetaController extends SimpleFormController {
         // add email to the model so it can be used by the unsubscribe link
         mAndV.getModel().put("email", email);
 
+        // used for omniture conversion event tracking
+        mAndV.getModel().put("events", isNewUser ? "event1" : "");        
         return mAndV;
     }
 
@@ -98,12 +100,14 @@ public class BetaController extends SimpleFormController {
      *
      * @param command A valid email address as a <code>String</code> type
      */
-    private void addToBetaGroup(BetaSignupCommand command) {
+    private boolean addToBetaGroup(BetaSignupCommand command) {
+        boolean isNewsUser = false;
         User user = _userDao.findUserFromEmailIfExists(command.getEmail());
         if (user == null) {
             user = new User();
             user.setEmail(command.getEmail());
             _userDao.saveUser(user);
+            isNewsUser = true;
         }
 
         Subscription subscription = new Subscription();
@@ -111,6 +115,7 @@ public class BetaController extends SimpleFormController {
         subscription.setState(command.getState());
         subscription.setProduct(SubscriptionProduct.BETA_GROUP);
         _subscriptionDao.saveSubscription(subscription);
+        return isNewsUser;
     }
 
     /**
