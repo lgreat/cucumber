@@ -18,6 +18,7 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -62,6 +63,10 @@ public class SearchControllerTest extends BaseControllerTestCase {
 
         Searcher searcher = new Searcher(new IndexDir(directory, new RAMDirectory()));
         _controller.setSearcher(searcher);
+
+        _sessionContextUtil = (SessionContextUtil) getApplicationContext().
+                getBean(SessionContextUtil.BEAN_ID);
+
     }
 
 
@@ -70,8 +75,6 @@ public class SearchControllerTest extends BaseControllerTestCase {
         final GsMockHttpServletRequest request = getRequest();
         request.setParameter("q", "Alameda");
         request.setParameter("state", "CA");
-        _sessionContextUtil = (SessionContextUtil) getApplicationContext().
-                getBean(SessionContextUtil.BEAN_ID);
         _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
 
         SearchCommand command = new SearchCommand();
@@ -89,8 +92,6 @@ public class SearchControllerTest extends BaseControllerTestCase {
         final GsMockHttpServletRequest request = getRequest();
         request.setParameter("q", "xxx");
         request.setParameter("state", "CA");
-        _sessionContextUtil = (SessionContextUtil) getApplicationContext().
-                getBean(SessionContextUtil.BEAN_ID);
         _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
 
         SearchCommand command = new SearchCommand();
@@ -108,8 +109,6 @@ public class SearchControllerTest extends BaseControllerTestCase {
         final GsMockHttpServletRequest request = getRequest();
         request.setParameter("q", "xxx");
         request.setParameter("state", "CA");
-        _sessionContextUtil = (SessionContextUtil) getApplicationContext().
-                getBean(SessionContextUtil.BEAN_ID);
         _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
         final SessionContext sessionContext = _sessionContextUtil.guaranteeSessionContext(request);
 
@@ -124,7 +123,6 @@ public class SearchControllerTest extends BaseControllerTestCase {
 
     public void testKindergarden() throws IOException {
         final GsMockHttpServletRequest request = getRequest();
-        _sessionContextUtil = (SessionContextUtil) getApplicationContext(). getBean(SessionContextUtil.BEAN_ID);
         _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
         final SessionContext sessionContext = _sessionContextUtil.guaranteeSessionContext(request);
 
@@ -147,11 +145,11 @@ public class SearchControllerTest extends BaseControllerTestCase {
 
     /**
      * Regression test for GS-2028
+     *
      * @throws IOException
      */
     public void testPrivateRollup() throws IOException {
         final GsMockHttpServletRequest request = getRequest();
-        _sessionContextUtil = (SessionContextUtil) getApplicationContext(). getBean(SessionContextUtil.BEAN_ID);
         _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
         final SessionContext sessionContext = _sessionContextUtil.guaranteeSessionContext(request);
 
@@ -170,13 +168,14 @@ public class SearchControllerTest extends BaseControllerTestCase {
         Anchor anchorage = (Anchor) filteredAnchorListModel.getResults().get(0);
         assertEquals("/schools.page?city=Anchorage&st=private&state=AK", anchorage.getHref());
     }
+
     /**
      * Regression test for GS-1935
+     *
      * @throws IOException
      */
     public void testShouldntCrashOnMiddleSchoolQuery() throws IOException {
         final GsMockHttpServletRequest request = getRequest();
-        _sessionContextUtil = (SessionContextUtil) getApplicationContext(). getBean(SessionContextUtil.BEAN_ID);
         _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
         final SessionContext sessionContext = _sessionContextUtil.guaranteeSessionContext(request);
 
@@ -194,5 +193,66 @@ public class SearchControllerTest extends BaseControllerTestCase {
         assertTrue(filteredAnchorListModel.getResults().size() >= 1);
         Anchor anchorage = (Anchor) filteredAnchorListModel.getResults().get(0);
         assertEquals("/schools.page?city=Anchorage&lc=m&state=AK", anchorage.getHref());
+    }
+
+    public void testSendEmptyTopicQueriesToAllArticles() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setMethod("GET");
+        request.setParameter("state", "WY");
+        request.setParameter("type", "topic");
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+
+        ModelAndView mav = _controller.handleRequest(request, getResponse());
+
+        assertTrue(mav.getView() instanceof RedirectView);
+        RedirectView view = (RedirectView) mav.getView();
+        assertNotNull(view.getUrl());
+        assertEquals("/content/allArticles.page?state=WY", view.getUrl());
+
+    }
+
+    public void testSendEmptyTopicByConstriantQueriesToAllArticles() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setMethod("GET");
+        request.setParameter("state", "WY");
+        request.setParameter("c", "topic"); // pass in the type via "c" for backward compatibility
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+
+        ModelAndView mav = _controller.handleRequest(request, getResponse());
+
+        assertTrue(mav.getView() instanceof RedirectView);
+        RedirectView view = (RedirectView) mav.getView();
+        assertNotNull(view.getUrl());
+        assertEquals("/content/allArticles.page?state=WY", view.getUrl());
+
+    }
+
+    public void testSendEmptySchoolQueriesToStateHome() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setMethod("GET");
+        request.setParameter("state", "WY");
+        request.setParameter("type", "school");
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+
+        ModelAndView mav = _controller.handleRequest(request, getResponse());
+
+        assertTrue(mav.getView() instanceof RedirectView);
+        RedirectView view = (RedirectView) mav.getView();
+        assertNotNull(view.getUrl());
+        assertEquals("/modperl/go/WY", view.getUrl());
+    }
+
+    public void testSendEmptyGeneralQueriesToStateHome() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setMethod("GET");
+        request.setParameter("state", "WY");
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+
+        ModelAndView mav = _controller.handleRequest(request, getResponse());
+
+        assertTrue(mav.getView() instanceof RedirectView);
+        RedirectView view = (RedirectView) mav.getView();
+        assertNotNull(view.getUrl());
+        assertEquals("/modperl/go/WY", view.getUrl());
     }
 }

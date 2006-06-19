@@ -1,15 +1,18 @@
 package gs.web.search;
 
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
-import gs.data.search.*;
+import gs.data.search.GSQueryParser;
+import gs.data.search.SearchCommand;
+import gs.data.search.Searcher;
+import gs.data.search.SpellCheckSearcher;
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.data.dao.hibernate.ThreadLocalTransactionManager;
+import gs.web.AnchorListModelFactory;
 import gs.web.ISessionFacade;
 import gs.web.SessionContext;
-import gs.web.AnchorListModelFactory;
 import gs.web.util.Anchor;
 import gs.web.util.AnchorListModel;
 import gs.web.util.UrlBuilder;
@@ -24,6 +27,7 @@ import org.apache.lucene.search.TermQuery;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractFormController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -133,8 +137,6 @@ public class SearchController extends AbstractFormController {
             HttpServletRequest request, HttpServletResponse response, Object command, BindException errors)
             throws Exception {
 
-        ThreadLocalTransactionManager.setReadOnly();
-
         // Validate inputs
         if (command == null) {
             throw new IllegalArgumentException("no command");
@@ -152,6 +154,27 @@ public class SearchController extends AbstractFormController {
         if (request.getParameter(PARAM_DEBUG) != null) {
             debug = true;
         }
+
+        // Blank query string takes the user to browse pages
+        if (StringUtils.isBlank(searchCommand.getQueryString())) {
+            UrlBuilder builder;
+            if (StringUtils.equals("topic", searchCommand.getType())) {
+                builder = new UrlBuilder(UrlBuilder.ARTICLE_LIBRARY, sessionContext.getState());
+                final String url = builder.asSiteRelative(request);
+                final RedirectView view = new RedirectView(url, false);
+                ModelAndView mav = new ModelAndView(view);
+                return mav;
+            } else if (StringUtils.equals("school", searchCommand.getType())) {
+                builder = new UrlBuilder(UrlBuilder.RESEARCH, sessionContext.getState());
+                final String url = builder.asSiteRelative(request);
+                final RedirectView view = new RedirectView(url, false);
+                ModelAndView mav = new ModelAndView(view);
+                return mav;
+            }
+        }
+
+
+        ThreadLocalTransactionManager.setReadOnly();
 
         Map model = createModel(request, searchCommand, sessionContext, debug);
 
@@ -256,7 +279,7 @@ public class SearchController extends AbstractFormController {
                         StringUtils.equals("charter", request.getParameter(PARAM_SCHOOL_TYPE)) ? SchoolType.CHARTER : null, StringUtils.isNotEmpty(request.getParameter(PARAM_MORE_DISTRICTS)) ?
                         EXTENDED_LIST_SIZE : LIST_SIZE, districtHits.length() > LIST_SIZE &&
                         (StringUtils.isNotEmpty(request.getParameter(PARAM_MORE_DISTRICTS)) ?
-                        EXTENDED_LIST_SIZE : LIST_SIZE) == LIST_SIZE);
+                                EXTENDED_LIST_SIZE : LIST_SIZE) == LIST_SIZE);
                 if (districts.getResults().size() > 0) {
                     model.put(MODEL_DISTRICTS, districts);
                     resultsToShow = true;
@@ -429,7 +452,6 @@ public class SearchController extends AbstractFormController {
         }
         return gl;
     }
-
 
 
     protected Hits searchForDistricts(BooleanQuery baseQuery) {

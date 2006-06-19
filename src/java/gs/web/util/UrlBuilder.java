@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.39 2006/06/13 22:11:23 dlee Exp $
+ * $Id: UrlBuilder.java,v 1.40 2006/06/19 18:56:25 apeterson Exp $
  */
 
 package gs.web.util;
@@ -178,13 +178,13 @@ public class UrlBuilder {
 
         // Calculate link
         // TH: Commented this out because buildHref is noop with a null request
-        // link = buildHref(null, link, false, null);
+        Integer id = article != null ? article.getId() : new Integer(1);
         _path = "/cgi-bin/" +
                 page +
                 "/" +
                 s.getAbbreviationLowerCase() +
                 "/" +
-                article.getId();
+                id;
     }
 
     public UrlBuilder(School school, VPage page) {
@@ -356,11 +356,15 @@ public class UrlBuilder {
             setParameter("district", param0);
             setParameter("state", state.getAbbreviation());
         } else if (RESEARCH.equals(page)) {
+            /* TEST CODE
             _perlPage = false;
             _path = "/test/research.page";
             if (state != null) {
                 setParameter("state", state.getAbbreviation());
             }
+            */
+            _perlPage = true; // well, it looks like one
+            _path = "/modperl/go/" + state.getAbbreviation();
         } else if (PRIVACY_POLICY.equals(page)) {
             _perlPage = false;
             _path = "/about/privacyStatement.page";
