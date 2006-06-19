@@ -144,7 +144,7 @@ public class BetaController extends SimpleFormController {
         messageBuffer.append("<br/><br/>Thanks so much for your help!  Together, we can build great tools for parents!");
         messageBuffer.append("<br/><br/>- The Team at GreatSchools");
         messageBuffer.append("<br/><br/>********<br/><br/>");
-        messageBuffer.append("GreatSchools is an independant nonprofit organization that has been improving K-12<br/> ");
+        messageBuffer.append("GreatSchools is an independent nonprofit organization that has been improving K-12<br/> ");
         messageBuffer.append("education since 1998 by inspiring parents like you to get involved.  Learn more at<br/>");
         messageBuffer.append("<a href=\"http://www.greatschools.net/?cpn=beta\">GreatSchools.net</a>");
 
