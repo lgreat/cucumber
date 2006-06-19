@@ -160,17 +160,13 @@ public class SearchController extends AbstractFormController {
             UrlBuilder builder;
             if (StringUtils.equals("topic", searchCommand.getType())) {
                 builder = new UrlBuilder(UrlBuilder.ARTICLE_LIBRARY, sessionContext.getState());
-                final String url = builder.asSiteRelative(request);
-                final RedirectView view = new RedirectView(url, false);
-                ModelAndView mav = new ModelAndView(view);
-                return mav;
-            } else if (StringUtils.equals("school", searchCommand.getType())) {
+            } else {
                 builder = new UrlBuilder(UrlBuilder.RESEARCH, sessionContext.getState());
-                final String url = builder.asSiteRelative(request);
-                final RedirectView view = new RedirectView(url, false);
-                ModelAndView mav = new ModelAndView(view);
-                return mav;
             }
+            final String url = builder.asSiteRelative(request);
+            final RedirectView view = new RedirectView(url, false);
+            ModelAndView mav = new ModelAndView(view);
+            return mav;
         }
 
 
