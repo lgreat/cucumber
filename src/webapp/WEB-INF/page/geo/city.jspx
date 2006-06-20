@@ -68,30 +68,31 @@
 </h2>
 <table width="100%" cellpadding="0" cellspacing="0"><tr>
     <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
-        <td
-                style="width:230px; vertical-align: top">
+        <td style="width:230px; vertical-align: top">
             <div id="mapContainer">
                 <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its
                     schools.</noscript></div>
             </div>
 
-            <c:if test="${empty requestScope.topRatedSchools}">
-                <table style="font-size:x-small;width: 100%;margin-top:0;padding-top:0">
-                    <tr><td style="font-weight: normal">Showing 1-${fn:length(schools)} of ${schoolCount}
-                        school${schoolCount > 1 ? 's':''}</td><td
-                            style="font-weight: bold;text-align: right"><gsml:a
-                            href="/schools.page?city=${cityObject.name}&amp;map=1&amp;state=$STATE">View Larger
-                        Map</gsml:a>
-                    </td>
-                    </tr>
-                </table>
+            <c:if test="${not empty cityObject and not empty cityObject.lon and not empty cityObject.lat}">
+                <c:if test="${empty requestScope.topRatedSchools}">
+                    <table style="font-size:x-small;width: 100%;margin-top:0;padding-top:0">
+                        <tr><td style="font-weight: normal">Showing 1-${fn:length(schools)} of ${schoolCount}
+                            school${schoolCount > 1 ? 's':''}</td><td
+                                style="font-weight: bold;text-align: right"><gsml:a
+                                href="/schools.page?city=${cityObject.name}&amp;map=1&amp;state=$STATE">View Larger
+                            Map</gsml:a>
+                        </td>
+                        </tr>
+                    </table>
+                </c:if>
+                <map:setup/>
+                <map:schools functionName="createMap" id="map"
+                             lon="${cityObject.lon}" lat="${cityObject.lat}"
+                             tooltips="true"
+                             schools="${schools}"/>
+                <pageHelper:addOnLoadHandler handler="createMap()"/>
             </c:if>
-            <map:setup/>
-            <map:schools functionName="createMap" id="map"
-                         lon="${cityObject.lon}" lat="${cityObject.lat}"
-                         tooltips="true"
-                         schools="${schools}"/>
-            <pageHelper:addOnLoadHandler handler="createMap()"/>
         </td>
     </c:if>
     <td style="vertical-align: top; padding-left: .3em">
@@ -171,7 +172,8 @@
         <div class=" cleanLineBottomBox">
             <h2>Parents' Choice: Most Popular Articles</h2>
             <table width="100%" cellpadding="0" cellspacing="0"><tr><td style="vertical-align: top;">
-                <jsp:include page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;heading=none&amp;state=${stateAbbrev}"/>
+                <jsp:include
+                        page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;heading=none&amp;state=${stateAbbrev}"/>
             </td>
                 <td>&#160;</td>
                 <td style="vertical-align: top;">
@@ -209,7 +211,8 @@
                 <td>
                     <div class="featuredArticles">
                         <h2>Parents' Choice: Most Popular Articles</h2>
-                        <jsp:include page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;heading=none&amp;state=${stateAbbrev}"/>
+                        <jsp:include
+                                page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;heading=none&amp;state=${stateAbbrev}"/>
                         <jsp:include
                                 page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;sub=1&amp;heading=none&amp;state=${stateAbbrev}"/>
                     </div>
