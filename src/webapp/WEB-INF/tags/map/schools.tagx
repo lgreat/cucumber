@@ -8,6 +8,7 @@
         >
     <jsp:directive.tag import="gs.data.geo.LatLonRect"/>
     <jsp:directive.tag import="gs.data.geo.LatLon"/>
+    <jsp:directive.tag import="gs.data.school.School"/>
     <jsp:directive.tag body-content="empty"
                        description="Draw a map of schools." />
     <jsp:directive.attribute name="functionName" required="true" description="Name of the javascript function. Caller must call this in the onload handler."/>
@@ -31,7 +32,11 @@ I'd like to use a consistent display of school information in the info window.
     <jsp:scriptlet>
         if (schools != null) {
             LatLonRect r = new LatLonRect(schools);
-            request.setAttribute("center", r.getCenter());
+            if (r.isCentered()) {
+                request.setAttribute("center", r.getCenter());
+            } else {
+                request.setAttribute("center", new LatLon(lat.floatValue(), lon.floatValue()));
+            }
         } else {
             request.setAttribute("center", new LatLon(lat.floatValue(),lon.floatValue()));
         }
