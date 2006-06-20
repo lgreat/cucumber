@@ -31,14 +31,11 @@ I'd like to use a consistent display of school information in the info window.
     <jsp:scriptlet>
         if (schools != null) {
             LatLonRect r = new LatLonRect(schools);
-            if (r.isCentered()) {
-                request.setAttribute("center", r.getCenter());
-            }
+            request.setAttribute("center", r.getCenter());
         } else {
             request.setAttribute("center", new LatLon(lat.floatValue(),lon.floatValue()));
         }
     </jsp:scriptlet>
-    <c:if test="${not empty center}">
     <script type="text/javascript">
  //<![CDATA[
  function addBubble(m, link, name, schInfo, stInfo) {
@@ -113,5 +110,5 @@ I'd like to use a consistent display of school information in the info window.
  }
     //]]>
     </script>
-    </c:if>
+
 </jsp:root>
