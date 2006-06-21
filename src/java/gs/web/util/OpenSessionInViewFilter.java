@@ -5,6 +5,7 @@ import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Date;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -66,7 +67,7 @@ public class OpenSessionInViewFilter implements Filter {
             referrer = request.getHeader("Referer");
         }
 
-        _log.error("WEBSERVER: " + _hostname + " REQUEST: " + url + " REFERRER: " + referrer +
+        _log.error(new Date().toString() + " WEBSERVER: " + _hostname + " REQUEST: " + url + " REFERRER: " + referrer +
                 " REMOTEIP: " + remoteIp + " USER-AGENT: " + userAgent, e);
     }
 
