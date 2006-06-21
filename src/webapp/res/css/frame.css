@@ -1,0 +1,72 @@
+/*
+ Top of the gradiants is found in topnav.css
+*/
+/* PAGE FRAMING */
+#pageGS {
+    width: 100%;
+    text-align: left;
+    background-image: url( ../img/frame/bgGrad.jpg );
+    background-repeat: repeat-x;
+    margin: 0px;
+}
+
+#pageGS #frameLeftCornerOut {
+    background-image: url( ../img/frame/pageLeftCornerOut.gif );
+    width: 4px;
+    height: 13px;
+}
+
+#pageGS #frameLeftCornerIn {
+    background-image: url( ../img/frame/pageLeftCornerIn.gif );
+    width: 10px;
+    height: 13px;
+}
+
+#pageGS .frameTopBorder {
+    background-image: url( ../img/frame/pageTopBorder.gif );
+    height: 1px;
+}
+
+#pageGS #frameRightCornerIn {
+    background-image: url( ../img/frame/pageRightCornerIn.gif );
+    width: 10px;
+    height: 13px;
+}
+
+#pageGS #frameRightCornerOut {
+    background-image: url( ../img/frame/pageRightCornerOut.gif );
+    width: 4px;
+    height: 13px;
+}
+
+#pageGS td.frameLeft,
+    #pageGS td.frameLeft img {
+    background-image: url( ../img/frame/leftSideGrad.gif );
+    width: 4px;
+}
+
+#pageGS td.frameRight,
+    #pageGS td.frameRight img {
+    background-image: url( ../img/frame/rightSideGrad.gif );
+    width: 4px;
+}
+
+#pageGS td.frameBottom,
+    #pageGS td.frameBottom img{
+    background-image: url( ../img/frame/bottom.gif );
+    width: 908px;
+    height: 14px
+}
+
+
+/** Framed cobrands */
+.framed #pageGS,
+.framed #pageGS  td.frameLeft,
+    .framed #pageGS td.frameRight,
+    .framed #pageGS td.frameBottom,
+    .framed #pageGS td.frameBottom img {
+    background-color: #fff;
+    background-image: url( ../img/pixel.gif);
+}
+
+
