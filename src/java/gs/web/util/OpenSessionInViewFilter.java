@@ -38,12 +38,15 @@ public class OpenSessionInViewFilter implements Filter {
         try {
             chain.doFilter(request, response);
         } catch (IOException e) {
+            ThreadLocalTransactionManager.setRollbackOnly();
             logException(e, request);
             throw e;
         } catch (ServletException e) {
+            ThreadLocalTransactionManager.setRollbackOnly();
             logException(e, request);
             throw e;
         } catch (RuntimeException e) {
+            ThreadLocalTransactionManager.setRollbackOnly();
             logException(e, request);
             throw e;
         } finally {
