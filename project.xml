@@ -99,23 +99,6 @@
         </dependency>
 
         <dependency>
-            <groupId>cactus</groupId>
-            <artifactId>cactus</artifactId>
-            <version>13-1.6dev-20040115</version>
-        </dependency>
-
-        <!-- XDoclet dependencies -->
-        <!--<dependency>-->
-            <!--<groupId>xdoclet-plugins</groupId>-->
-            <!--<artifactId>xdoclet-plugin-web</artifactId>-->
-            <!--<version>1.0.2</version>-->
-            <!--<url>http://xdoclet.codehaus.org</url>-->
-            <!--<properties>-->
-                <!--<xdoclet.dependency>true</xdoclet.dependency>-->
-            <!--</properties>-->
-        <!--</dependency>-->
-
-        <dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
             <version>1.1</version>
@@ -140,34 +123,32 @@
             </properties>
         </dependency>
 
-        <dependency>
-          <groupId>jdom</groupId>
-            <artifactId>jdom</artifactId>
-          <version>1.0</version>
-          <properties>
-            <war.bundle>true</war.bundle>
-          </properties>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>jdom</groupId>-->
+        <!--<artifactId>jdom</artifactId>-->
+        <!--<version>1.0</version>-->
+        <!--<properties>-->
+        <!--<war.bundle>true</war.bundle>-->
+        <!--</properties>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>jtidy</groupId>-->
+        <!--<artifactId>jtidy</artifactId>-->
+        <!--<version>4aug2000r7-dev</version>-->
+        <!--<properties>-->
+        <!--<cactus.bundle>true</cactus.bundle>-->
+        <!--</properties>-->
+        <!--</dependency>-->
 
         <dependency>
-            <groupId>jtidy</groupId>
-            <artifactId>jtidy</artifactId>
-            <version>4aug2000r7-dev</version>
-            <properties>
-                <cactus.bundle>true</cactus.bundle>
-            </properties>
-        </dependency>
-
-        <!--
-        <dependency>
-            <groupId>net.java.dev.urlrewrite</groupId>
-            <artifactId>urlrewritefilter</artifactId>
-            <version>2.4</version>
+            <groupId>rome</groupId>
+            <artifactId>rome</artifactId>
+            <version>0.8</version>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
         </dependency>
-        -->
 
         <dependency>
             <groupId>maven-taglib</groupId>
@@ -176,14 +157,23 @@
             <type>plugin</type>
             <url>http://maven-taglib.sourceforge.net</url>
         </dependency>
-        <dependency>
-          <groupId>rome</groupId>
-            <artifactId>rome</artifactId>
-          <version>0.8</version>
-          <properties>
-            <war.bundle>true</war.bundle>
-          </properties>
-        </dependency>
+
+        <!--<dependency>-->
+        <!--<groupId>cactus</groupId>-->
+        <!--<artifactId>cactus-maven</artifactId>-->
+        <!--<version>1.7.2</version>-->
+        <!--<url>http://jakarta.apache.org/cactus/integration/maven/index.html</url>-->
+        <!--<type>plugin</type>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>maven</groupId>-->
+        <!--<artifactId>maven-ear-plugin</artifactId>-->
+        <!--<version>1.9</version>-->
+        <!--<url>http://maven.apache.org/maven-1.x/plugins/ear/</url>-->
+        <!--<type>plugin</type>-->
+        <!--</dependency>-->
+
     </dependencies>
 
     <build>
