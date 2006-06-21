@@ -6,6 +6,7 @@
     <jsp:directive.attribute name="src" required="true" description="context-relative URL"/>
     <jsp:directive.attribute name="alt" required="true" description="alt text"/>
     <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
+    <jsp:directive.attribute name="style" required="false" description="CSS style attribute"/>
     <jsp:directive.attribute name="id" required="false" description="CSS id"/>
     <jsp:scriptlet>
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
@@ -19,6 +20,7 @@
                 </jsp:attribute>
                 <jsp:attribute name="alt">${alt}
                 </jsp:attribute>
+                <jsp:attribute name="style">${style}</jsp:attribute>
                 <jsp:body>
                     <jsp:doBody/>
                 </jsp:body>
@@ -31,6 +33,8 @@
                 <jsp:attribute name="alt">${alt}
                 </jsp:attribute>
                 <jsp:attribute name="class">${styleClass}
+                </jsp:attribute>
+                <jsp:attribute name="style">${style}
                 </jsp:attribute>
                 <jsp:body>
                     <jsp:doBody/>
@@ -46,6 +50,8 @@
                 <jsp:attribute name="id">${id}
                 </jsp:attribute>
                 <jsp:attribute name="class">${styleClass}
+                </jsp:attribute>
+                <jsp:attribute name="style">${style}
                 </jsp:attribute>
                 <jsp:body>
                     <jsp:doBody/>
