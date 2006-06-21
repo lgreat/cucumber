@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.42 2006/06/21 00:32:53 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.43 2006/06/21 22:31:17 apeterson Exp $
  */
 
 package gs.web.util;
@@ -62,8 +62,6 @@ public class UrlBuilder {
 
     /**
      * Provides type-safety for identifying our unique "pages".
-     * Currently we don't use the enum capabilities. Consider
-     * omitting this superclass.
      */
     public static class VPage {
 
