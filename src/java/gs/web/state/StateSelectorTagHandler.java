@@ -30,6 +30,7 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
     private String _styleClass = null;
     private String _onChange = null;
     private State _state;
+    private String _noStateLabel = "all";
 
     private static final StateManager _stateManager;
 
@@ -76,6 +77,14 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
 
 
     /**
+     * The label for the "no state" option. Ignored if {@link #setAllowNoState(boolean)} not
+     * called.
+     */
+    public void setNoStateLabel(String noStateLabel) {
+        _noStateLabel = noStateLabel;
+    }
+
+    /**
      * The initial state chosen in the select. Null is the "all" selection,
      * if there is one; otherwise it will default to CA.
      *
@@ -98,16 +107,16 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
         out.println(">");
 
         if (_allowNoState) {
-            out.println("<option value=\"all\"");
+            out.println("<option value=\"\"");
             if (_state == null) {
                 out.print(" selected='selected' ");
             }
-            out.println(">State</option>");
+            out.println(">" + _noStateLabel +"</option>");
         }
 
         Iterator iterator;
         if (_usingLongNames) {
-            iterator= _stateManager.getIterator();
+            iterator = _stateManager.getIterator();
         } else {
             iterator = _stateManager.getListByAbbreviations().iterator();
         }

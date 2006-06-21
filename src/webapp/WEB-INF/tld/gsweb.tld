@@ -49,16 +49,25 @@
         <body-content>empty</body-content>
         <attribute>
             <name>allowNoState</name>
+            <description>Set to true if there is a "null" state option.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>noStateLabel</name>
+            <description>The label to use for the first menu item, representing no or all states.</description>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>usingLongNames</name>
+            <description>Set to true if the full state names (as opposed to an abbreviation) should be used.</description>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>styleClass</name>
+            <description>CSS class to assign to the select.</description>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
