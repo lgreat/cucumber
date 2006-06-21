@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.41 2006/06/19 19:46:48 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.42 2006/06/21 00:32:53 apeterson Exp $
  */
 
 package gs.web.util;
@@ -117,6 +117,9 @@ public class UrlBuilder {
     public static final VPage PRIVACY_POLICY = new VPage("vpage:privacyPolicy");
 
     public static final VPage BETA_SIGNUP = new VPage("vpage:betaSignup");
+
+    public static final VPage SIGN_IN = new VPage("vpage:signIn");
+    public static final VPage SIGN_OUT = new VPage("vpage:signOut");
 
     public static final VPage ADMIN_NEWS_ITEMS = new VPage("vpage:newItems");
     public static final VPage ADMIN_NEWS_ITEMS_CREATE = new VPage("vpage:newItemsCreate");
@@ -367,6 +370,19 @@ public class UrlBuilder {
             _perlPage = false;
             _path = "/about/privacyStatement.page";
             setParameter("state", state.getAbbreviation());
+        } else if (SIGN_IN.equals(page)) {
+            _perlPage = true;
+            _path = "/cgi-bin/site/signin.cgi/" + state.getAbbreviation();
+        } else if (SIGN_OUT.equals(page)) {
+            _perlPage = true;
+            _path = "/cgi-bin/logout/" + state.getAbbreviation();
+            if (param0 != null) {
+                if (StringUtils.isNumeric(param0)) {
+                    setParameter("mid", param0);
+                } else  {
+                    setParameter("email", param0);
+                }
+            }
         } else if (NEWSLETTER_MANAGEMENT.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/newsletterSubscribe";
@@ -394,8 +410,7 @@ public class UrlBuilder {
         } else if (ADD_PARENT_REVIEW_SEARCH.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/regSearch/" + state.getAbbreviation();
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
     }

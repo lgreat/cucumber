@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.30 2006/06/19 19:46:48 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.31 2006/06/21 00:32:53 apeterson Exp $
  */
 
 package gs.web.util;
@@ -276,6 +276,16 @@ public class UrlBuilderSaTest extends TestCase {
 
         builder = new UrlBuilder(UrlBuilder.ADD_PARENT_REVIEW_SEARCH, State.AZ, null);
         assertEquals("/cgi-bin/regSearch/AZ", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.SIGN_IN, State.AZ, null);
+        assertEquals("/cgi-bin/site/signin.cgi/AZ", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.SIGN_OUT, State.AZ, null);
+        assertEquals("/cgi-bin/logout/AZ", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.SIGN_OUT, State.AZ, "1001");
+        assertEquals("/cgi-bin/logout/AZ?mid=1001", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.SIGN_OUT, State.AZ, "eford@gs.net");
+        assertEquals("/cgi-bin/logout/AZ?email=eford%40gs.net", builder.asSiteRelative(request));
     }
 
     public void testAdminPages() {
