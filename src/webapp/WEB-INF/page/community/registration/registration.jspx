@@ -1,0 +1,83 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: UrbanaSoft
+  Date: Jun 15, 2006
+  Time: 9:21:58 AM
+  To change this template use File | Settings | File Templates.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+    <jsp:directive.page contentType="text/html"/><html>
+  <head>
+      <title>Registration</title>
+      <style type="text/css">
+           label.form, input.form {
+                margin-bottom: 10px;
+                display: block;
+                width: 150px;
+                float: left;
+            }
+
+            label.form {
+                text-align: right;
+                width: 120px;
+                padding-right: 20px;
+            }
+  </style>
+  </head>
+  <body>
+    <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
+    Register:
+    <br/><br/>
+    <gsml:form action="/community/registration.page" method="post">
+        <div class="error">
+            <spring:bind path="userCmd.email">
+                ${status.errorMessage}
+            </spring:bind>
+        </div>
+
+        <label for="email" class="form">My email address:</label>
+        <spring:bind path="userCmd.user.email">
+            <input id="email" class="form" type="text" name="email" value="${userCmd.user.email}" style="width:160px;"/>
+        </spring:bind>
+
+        <br style="clear: left;"/>
+
+        <div class="error">
+            <spring:bind path="userCmd.password">
+                ${status.errorMessage}
+            </spring:bind>
+        </div>
+
+        <label for="password" class="form">My password:</label>
+        <spring:bind path="userCmd.password">
+            <input id="password" class="form" type="password" name="password" value="${userCmd.password}" style="width:120px;"/>
+        </spring:bind>
+
+        <br style="clear: left;"/>
+
+        <div class="error">
+            <spring:bind path="userCmd.confirmPassword">
+                ${status.errorMessage}
+            </spring:bind>
+        </div>
+
+        <label for="confirmPassword" class="form">Confirm password:</label>
+        <spring:bind path="userCmd.confirmPassword">
+            <input id="confirmPassword" class="form" type="password" name="confirmPassword" value="${userCmd.confirmPassword}" style="width:120px;"/>
+        </spring:bind>
+
+        <br style="clear:left;"/>
+
+        <input class="form" type="submit" value="Register!" name="submit"/>
+        <div class="privacy">We won't sell or share your address. <gsml:popupWindow width="800" height="600" left="50" top="50"
+                href="/about/privacyStatement.page?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></div>
+    </gsml:form>
+  </body>
+</html>
+</jsp:root>

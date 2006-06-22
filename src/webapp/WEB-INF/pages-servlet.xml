@@ -83,6 +83,8 @@
           autowire="byName"/>
     <bean id="betaSubExistsValidator" class="gs.web.community.BetaSubExistsValidator"
           autowire="byName"/>
+    <bean id="userValidator" class="gs.web.util.validator.UserCommandValidator"
+          autowire="byName"/>
 
     <bean name="/community/beta.page" class="gs.web.community.BetaController"
           autowire="byName">
@@ -663,6 +665,22 @@
         </property>
     </bean>
     <!--End Myschool stats newsletter popups -->
+    <!--Begin Registration pages -->
+    <bean name="/community/registration.page"
+          class="gs.web.community.registration.RegistrationController"
+          autowire="byName">
+        <property name="commandName" value="userCmd"/>
+        <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
+        <property name="formView" value="/community/registration/registration"/>
+        <property name="successView" value="/community/registration/registrationSuccess"/>
+        <property name="validators">
+            <list>
+                <ref local="emailValidator"/>
+                <ref local="userValidator"/>
+            </list>
+        </property>
+    </bean>
+    <!--End Registration pages -->
 
     <!-- WEB PAGE DEFINITIONS END -->
 
