@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UserInfoTest.java,v 1.1 2006/06/23 01:00:37 apeterson Exp $
+ * $Id: UserInfoTest.java,v 1.2 2006/06/23 01:11:32 apeterson Exp $
  */
 
 package gs.web;
@@ -33,7 +33,6 @@ public class UserInfoTest extends BaseTestCase {
 
         User user = new User();
         user.setEmail("blahblahblah@whatever.org");
-        user.setId(Integer.valueOf(5));
 
         UserInfo userInfo = new UserInfo(user);
 
