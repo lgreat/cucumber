@@ -406,6 +406,13 @@
             <type>java.lang.String</type>
             <description>CSS class name(s)</description>
         </attribute>
+        <attribute>
+            <name>forwardTo</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>The path to forward the user on to.</description>
+        </attribute>
     </tag>
     <tag>
         <name>signOut</name>
