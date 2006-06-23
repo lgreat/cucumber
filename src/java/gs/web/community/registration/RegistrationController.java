@@ -7,6 +7,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.SimpleMailMessage;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +26,7 @@ public class RegistrationController extends SimpleFormController {
 
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
+    private JavaMailSender _mailSender;
 
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
@@ -45,7 +48,31 @@ public class RegistrationController extends SimpleFormController {
         ModelAndView mAndV = new ModelAndView();
 
         mAndV.setViewName(getSuccessView());
+        mAndV.getModel().put("email", userCommand.getEmail());
         return mAndV;
+    }
+
+    private SimpleMailMessage buildEmailMessage(UserCommand userCommand) {
+        StringBuffer emailContent = new StringBuffer();
+        emailContent.append("Welcome to the GreatSchools.net community!\n\n");
+        emailContent.append("This email is being sent to confirm a subscription request. ");
+        emailContent.append("The request was generated for the email address ");
+        emailContent.append(userCommand.getEmail()).append(".\n\n");
+        emailContent.append("To confirm this subscription request, please click on the following link:\n");
+        emailContent.append("http://localhost:8080/gs-web/community/registrationConfirm.page?email=");
+        emailContent.append(userCommand.getEmail());
+        emailContent.append("\n");
+
+        String subject = "GreatSchools subscription confirmation";
+        String fromAddress = "gs-batch@greatschools.net";
+
+        SimpleMailMessage smm = new SimpleMailMessage();
+        smm.setText(emailContent.toString());
+        smm.setTo(userCommand.getEmail());
+        smm.setSubject(subject);
+        smm.setFrom(fromAddress);
+
+        return smm;
     }
 
     public IUserDao getUserDao() {

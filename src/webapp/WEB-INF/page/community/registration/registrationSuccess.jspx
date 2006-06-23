@@ -8,6 +8,6 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0">
 <jsp:directive.page contentType="text/html"/><html>
   <head><title>Registration Successful!</title></head>
-  <body>Registration successful!</body>
+  <body>User ${param.email} successfully registered!</body>
 </html>
 </jsp:root>
