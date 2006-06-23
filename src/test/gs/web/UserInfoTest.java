@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UserInfoTest.java,v 1.2 2006/06/23 01:11:32 apeterson Exp $
+ * $Id: UserInfoTest.java,v 1.3 2006/06/23 01:12:35 apeterson Exp $
  */
 
 package gs.web;
@@ -103,12 +103,12 @@ public class UserInfoTest extends BaseTestCase {
 
         FavoriteSchool school = new FavoriteSchool();
         school.setState(State.CA);
-        school.setSchoolId(Integer.valueOf(1));
+        school.setSchoolId(new Integer(1));
         favoriteSchools.add(school);
 
         FavoriteSchool school2 = new FavoriteSchool();
         school2.setState(State.CA);
-        school2.setSchoolId(Integer.valueOf(5));
+        school2.setSchoolId(new Integer(5));
         favoriteSchools.add(school2);
 
         user.setFavoriteSchools(favoriteSchools);
