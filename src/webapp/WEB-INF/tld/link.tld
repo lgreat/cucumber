@@ -345,6 +345,29 @@
         </attribute>
     </tag>
     <tag>
+        <name>betaUnsubscribe</name>
+        <tag-class>gs.web.jsp.link.BetaUnsubscribeTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Beta Unsubscribe Page</display-name>
+        <description>
+            <![CDATA[Link to the Beta group unsubscribe page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>email</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>email address</description>
+        </attribute>
+    </tag>
+    <tag>
         <name>research</name>
         <tag-class>gs.web.jsp.link.ResearchTagHandler</tag-class>
         <body-content>JSP</body-content>

@@ -1,10 +1,45 @@
+div#container {
+  width:900px;
+  margin-right:auto;
+  margin-left:auto;
+  margin-top:0px;
+  padding:0px;
+  text-align:left;
+}
+
+#leftcol {
+  width:120px;
+  padding:0px;
+  float:left;
+  background:#fff;
+}
+
+#centercol {
+  width:600px;
+  padding:15px;
+  float:left;
+  background:#eee;
+  margin:20px auto;
+  text-align:left;
+  border: 1px solid #BBB
+}
+
+#rightcol {
+  width:10px;
+  padding:0px;
+  float:left;
+  margin-top:15px;
+  margin-left:10px;
+  background:#fff;
+}
+
 .content {
-    width: 600px;
-    margin: 20px auto;
-    text-align: left;
-    padding: 15px;
-    border: 1px solid #BBB;
-    background-color: #eee;
+  width:600px;
+  padding:15px;
+  background:#eee;
+  margin:20px auto;
+  text-align:left;
+  border: 1px solid #BBB
 }
 
 #innerbox {

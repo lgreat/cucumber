@@ -2,6 +2,7 @@ package gs.web.community;
 
 import gs.data.community.*;
 import gs.data.state.StateManager;
+import gs.data.admin.IPropertyDao;
 import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.mail.MailException;
@@ -9,11 +10,13 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.Date;
 
 /**
@@ -33,6 +36,9 @@ public class BetaController extends SimpleFormController {
     private static final Logger _log = Logger.getLogger(BetaController.class);
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
+
+    /** Used to find the index of the next shutterfly promo code */
+    private IPropertyDao _propertyDao;
 
     /** Form param: an email address */
     private static final String EMAIL_PARAM = "email";
@@ -127,35 +133,9 @@ public class BetaController extends SimpleFormController {
      * @return
      * @throws MessagingException
      */
-    private static MimeMessage createMessage(MimeMessage mimeMessage, String email) throws MessagingException {
+    MimeMessage createMessage(MimeMessage mimeMessage, String email) throws MessagingException {
 
-        StringBuffer messageBuffer = new StringBuffer();
-        messageBuffer.append("Thanks for joining the GreatSchools Beta Group! Over the next year, we'll be launching<br/>");
-        messageBuffer.append("new features on GreatSchools, including powerful community features, exclusive school<br/>");
-        messageBuffer.append("ratings, and more!<br/><br/>");
-        messageBuffer.append("As a member of our beta group, you'll have the opportunity to take these new features<br/>");
-        messageBuffer.append("on a test drive - and tell us what you think about them.<br/><br/>");
-        messageBuffer.append("Here's how it works:");
-        messageBuffer.append("<ul><li>We'll notify you occasionally about new features before they're released.</li><br/>");
-        messageBuffer.append("<li>If you decide to try them, we may ask you to fill out a short survey or provide us<br/>");
-        messageBuffer.append("with feedback about your experience after you're done.</ul><br/>");
-        messageBuffer.append("You'll have the opportunity to decide before each beta test whether or not you'd<br/>");
-        messageBuffer.append("like to participate.");
-        messageBuffer.append("<br/><br/>Thanks so much for your help!  Together, we can build great tools for parents!");
-        messageBuffer.append("<br/><br/>- The Team at GreatSchools");
-        messageBuffer.append("<br/><br/>********<br/><br/>");
-        messageBuffer.append("GreatSchools is an independent nonprofit organization that has been improving K-12<br/> ");
-        messageBuffer.append("education since 1998 by inspiring parents like you to get involved.  Learn more at<br/>");
-        messageBuffer.append("<a href=\"http://www.greatschools.net/?cpn=beta\">GreatSchools.net</a>");
-
-        messageBuffer.append("<br/><br/>This email was sent to GreatSchools.net subscriber ");
-        messageBuffer.append(email);
-        messageBuffer.append("<br/><br/>");
-        messageBuffer.append("GreatSchools.net<br/>301 Howard St., Suite 1440<br/>San Francisco, CA 94105");
-        messageBuffer.append("<br/><br/><a href=\"http://www.greatschools.net/community/betaUnsubscribe.page?email=");
-        messageBuffer.append(email);
-        messageBuffer.append("\">Remove me from the GreatSchools beta group</a>");
-
+        Resource resource = new ClassPathResource("gs/web/community/betaConfirmationEmail.txt");
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
         helper.setTo(email);
         try {
@@ -165,8 +145,82 @@ public class BetaController extends SimpleFormController {
         }
         helper.setSubject("Welcome to the GreatSchools Beta Group!");
         helper.setSentDate(new Date());
-        helper.setText(messageBuffer.toString(), true);
+
+        StringBuffer buffer = new StringBuffer();
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line);
+                buffer.append("\n");
+            }
+
+        } catch (IOException ioe) {
+            _log.error(ioe);
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                _log.error(e);
+            }
+        }
+        String emailText = buffer.toString();
+        String code = getShutterflyCode();
+        emailText = emailText.replaceAll("\\$BETA_PROMO_CODE\\$", code);
+        emailText = emailText.replaceAll("\\$EMAIL\\$", email);
+
+        StringBuffer logMessage = new StringBuffer("Beta email created using promo code:");
+        logMessage.append(code);
+        logMessage.append(" to:");
+        logMessage.append(email);
+        _log.info(logMessage.toString());
+
+        helper.setText(emailText, false);
         return helper.getMimeMessage();
+    }
+
+    /**
+     * Returns the next Shutterfly promotion code as determined by the index
+     * stored in the property table.
+     * @return a String promo code. see GS-2121
+     */
+    String getShutterflyCode() {
+        // get the index from the property table
+        int index = 1;
+        String indexProp = _propertyDao.getProperty(IPropertyDao.SHUTTERFLY_CODE_INDEX);
+        if (indexProp == null) {
+            _propertyDao.setProperty(IPropertyDao.SHUTTERFLY_CODE_INDEX, String.valueOf(index));
+        } else {
+            index = Integer.parseInt(indexProp);
+        }
+
+        // increment the index property now
+        _propertyDao.setProperty(IPropertyDao.SHUTTERFLY_CODE_INDEX,
+                String.valueOf(index + 1));
+
+        String code = null;
+        LineNumberReader lineReader = null;
+        try {
+            Resource resource = new ClassPathResource("gs/web/community/shutterfly_promo_codes.txt");
+            File codeFile = resource.getFile();
+            lineReader = new LineNumberReader(new BufferedReader(new FileReader(codeFile)));
+            lineReader.setLineNumber(index);
+            for (int i = 1; i < index; i++) {
+                lineReader.readLine();
+            }
+            code = lineReader.readLine();
+        } catch (IOException ioe) {
+            _log.error(ioe);
+        } finally {
+            try {
+                // NPE if lineReader could not be created
+                lineReader.close();
+            } catch(IOException ioe) {
+                _log.error("Can't close shutterfly promo file", ioe);
+            }
+        }
+        return code;
     }
 
     /**
@@ -194,5 +248,11 @@ public class BetaController extends SimpleFormController {
      */
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
         this._subscriptionDao = subscriptionDao;
+    }
+
+
+    /** Spring setter */
+    public void setPropertyDao(IPropertyDao propertyDao) {
+        _propertyDao = propertyDao;
     }
 }

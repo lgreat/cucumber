@@ -3,6 +3,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:spring="http://www.springframework.org/tags"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
     <jsp:directive.page contentType="text/html"/>
@@ -13,45 +14,66 @@
     </head>
 
     <body>
-    <div class="content">
-        <h3>Improve GreatSchools - Join Our Beta Group!</h3>
-        <p>
-        Help us build a powerful community of parents who are passionate about
-        education! Get a sneak peek at brand new features and ratings developed
-        just for GreatSchools!
-        </p>
-        <br/>
-        <p>
-        As a member of our beta group, you'll have the opportunity to take new
-        features on a test drive - and tell us what you think about them.
-        </p>
-        <br/>
-        <h4>How it works:</h4>
-        <ul id="betalist">
-            <li>We'll notify you occasionally about new features before they're released.</li>
-            <li>If you decide to try them, we may ask you to fill out a short survey
-                or provide us with feedback about your experience after you're done.</li>
-        </ul>
-        <br/>
-        <center>
-            <div class="formtext">To sign up for our beta group, please enter your email address:</div>
-            <gsml:form action="/community/beta.page" method="post">
-                <spring:bind path="betaSignupCommand.email">
-                    <input type="text" name="email" size="50"></input>
-                    <input type="submit" value="Sign me up!" name="submit"/>
-                    <c:if test="${status.error}">
+    <div id="container">
+        <div id="leftcol"><br/></div>
+
+        <div id="centercol">
+            <h3>Improve GreatSchools - Join Our Beta Group and get a Free Shutterfly Photo Calendar!</h3>
+
+            <p>
+                Help us build a powerful community of parents who are passionate about
+                education! Get a sneak peek at brand new features and ratings developed
+                just for GreatSchools!
+            </p>
+            <br/>
+
+            <p>
+                Plus, for a limited time, get a free 12-month photo calendar from Shutterfly. These
+                make perfect school-year calendars as they can start on any month you like. They
+                open to a full 11" x 17" so there's plenty of room to note important dates and
+                appointments.
+            </p>
+            <br/>
+            <h4>How it works:</h4>
+            <ul id="betalist">
+                <li>Sign up below and you'll receive an email confirming your beta registration
+                    with instructions for redeeming your free Shutterfly Photo Calendar.</li>
+                <li>We'll notify you occasionally about new features before they're released.</li>
+                <li>If you decide to try them, we may ask you to fill out a short survey or
+                    provide us with feedback about your experience.</li>
+            </ul>
+            <br/>
+            <center>
+                <div class="formtext">To sign up for our beta group, please enter your email address:</div>
+                <gsml:form action="/community/beta.page" method="post">
+                    <spring:bind path="betaSignupCommand.email">
+                        <input type="text" name="email" size="50"></input>
+                        <input type="submit" value="Sign me up!" name="submit"/>
+                        <c:if test="${status.error}">
                         <span id="errorMessage">
                             <c:forEach items="${status.errorMessages}" var="error">
                                 <c:out value="${error}"/>
                             </c:forEach>
                         </span>
-                    </c:if>
-                </spring:bind>
-                <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}"/>
-            </gsml:form>
-            <h6>We won't sell or share your address. <gsml:popupWindow width="800" height="600" left="50" top="50"
-                    href="/about/privacyStatement.page?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></h6>
-        </center>
+                        </c:if>
+                    </spring:bind>
+                    <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}"/>
+                </gsml:form>
+                <h6>We won't sell or share your address. <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                                                           href="/about/privacyStatement.page?state=$STATE">
+                    GreatSchools Privacy Policy</gsml:popupWindow></h6>
+                <br/>
+                <br/>
+                <br/>
+                <p>Existing beta group members can <link:betaUnsubscribe>unsubscribe</link:betaUnsubscribe> here.</p>
+            </center>
+        </div>
+
+        <div id="rightcol">
+            <a href="">
+                <gsml:img alt="Beta Group" src="/res/img/community/shutterfly_logo_120x90.gif"/>
+            </a>
+        </div>
     </div>
     <mod:tracking pageType="beta" pageName="Beta Sign Up" hier1="Community,Beta Group,Beta Sign Up"/>
     </body>

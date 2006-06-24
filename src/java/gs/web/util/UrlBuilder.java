@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.43 2006/06/21 22:31:17 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.44 2006/06/24 17:34:41 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -115,6 +115,7 @@ public class UrlBuilder {
     public static final VPage PRIVACY_POLICY = new VPage("vpage:privacyPolicy");
 
     public static final VPage BETA_SIGNUP = new VPage("vpage:betaSignup");
+    public static final VPage BETA_UNSUBSCRIBE = new VPage("vpage:betaUnsubscribe");
 
     public static final VPage SIGN_IN = new VPage("vpage:signIn");
     public static final VPage SIGN_OUT = new VPage("vpage:signOut");
@@ -398,6 +399,13 @@ public class UrlBuilder {
         } else if (BETA_SIGNUP.equals(page)) {
             _perlPage = false;
             _path = "/community/beta.page";
+            if (param0 != null) {
+                setParameter("email", param0);
+            }
+            setParameter("state", state.getAbbreviation());
+        } else if (BETA_UNSUBSCRIBE.equals(page)) {
+            _perlPage = false;
+            _path = "/community/betaUnsubscribe.page";
             if (param0 != null) {
                 setParameter("email", param0);
             }

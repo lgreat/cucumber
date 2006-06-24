@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.31 2006/06/21 00:32:53 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.32 2006/06/24 17:34:41 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -267,6 +267,9 @@ public class UrlBuilderSaTest extends TestCase {
 
         builder = new UrlBuilder(UrlBuilder.BETA_SIGNUP, State.WY, null);
         assertEquals("/community/beta.page?state=WY", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.BETA_UNSUBSCRIBE, State.CA, null);
+        assertEquals("/community/betaUnsubscribe.page?state=CA", builder.asSiteRelative(request));        
 
         builder = new UrlBuilder(UrlBuilder.RESEARCH, State.WY, null);
         assertEquals("/modperl/go/WY", builder.asSiteRelative(request));

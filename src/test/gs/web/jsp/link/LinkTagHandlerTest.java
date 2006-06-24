@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.7 2006/06/13 22:11:23 dlee Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.8 2006/06/24 17:34:40 chriskimm Exp $
  */
 
 package gs.web.jsp.link;
@@ -175,5 +175,23 @@ public class LinkTagHandlerTest extends BaseTestCase {
         assertEquals("/schools.page?city=New+York&lc=m&lc=h&st=public&st=charter&state=NY", builder.asSiteRelative(null));
 
 
+    }
+
+    public void testBetaTags() {
+        BetaSignupTagHandler signupTag = new BetaSignupTagHandler();
+        signupTag.setPageContext(new MockPageContext());
+        String url = signupTag.createUrlBuilder().asSiteRelative(null);
+        assertEquals("/community/beta.page?state=CA", url);
+
+        BetaUnsubscribeTagHandler unsubscribeTag = new BetaUnsubscribeTagHandler();
+        unsubscribeTag.setPageContext(new MockPageContext());
+        url = unsubscribeTag.createUrlBuilder().asSiteRelative(null);
+        assertEquals("/community/betaUnsubscribe.page?state=CA", url);
+
+        BetaUnsubscribeTagHandler unsubscribeTagWithEmail = new BetaUnsubscribeTagHandler();
+        unsubscribeTagWithEmail.setPageContext(new MockPageContext());
+        unsubscribeTagWithEmail.setEmail("foo@bar.com");
+        url = unsubscribeTagWithEmail.createUrlBuilder().asSiteRelative(null);
+        assertEquals("/community/betaUnsubscribe.page?email=foo%40bar.com&state=CA", url);        
     }
 }
