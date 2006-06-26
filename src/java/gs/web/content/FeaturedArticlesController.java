@@ -1,14 +1,14 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.22 2006/05/31 21:44:29 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.23 2006/06/26 21:26:00 apeterson Exp $
  */
 package gs.web.content;
 
 import gs.data.content.Article;
 import gs.data.content.IArticleDao;
 import gs.data.state.State;
-import gs.web.ISessionFacade;
-import gs.web.SessionFacade;
+import gs.web.ISessionContext;
+import gs.web.SessionContextUtil;
 import gs.web.util.Anchor;
 import gs.web.util.AnchorListModel;
 import gs.web.util.UrlBuilder;
@@ -99,14 +99,14 @@ public class FeaturedArticlesController extends AbstractController {
     }
 
     private ModelAndView handleSingleArticle(HttpServletRequest request, String posStr) {
-        ISessionFacade sessionFacade = SessionFacade.getInstance(request);
+        ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
 
         int subPosition = 0;
         if (StringUtils.isNumeric(request.getParameter(PARAM_SUB_POSITION))) {
             subPosition = Integer.parseInt(request.getParameter(PARAM_SUB_POSITION));
         }
 
-        Article article = _articleDao.getFeaturedArticle(sessionFacade.getStateOrDefault(), posStr, subPosition);
+        Article article = _articleDao.getFeaturedArticle(sessionContext.getStateOrDefault(), posStr, subPosition);
 
         if (article == null) {
             return null;
@@ -124,8 +124,8 @@ public class FeaturedArticlesController extends AbstractController {
 
     private ModelAndView handleMultipleArticles(HttpServletRequest request, String posStr, int count) {
 
-        ISessionFacade sessionFacade = SessionFacade.getInstance(request);
-        final State state = sessionFacade.getStateOrDefault();
+        ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        final State state = sessionContext.getStateOrDefault();
 
         List items = new ArrayList(count);
         Set articles = new HashSet(count);

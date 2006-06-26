@@ -19,7 +19,7 @@ import java.util.Properties;
 import java.util.Date;
 
 import gs.data.state.State;
-import gs.web.SessionContext;
+import gs.web.SessionContextUtil;
 
 /**
  * This controller handles the submit of the search feedback form.  There is
@@ -50,7 +50,7 @@ public class FeedbackController extends SimpleFormController {
             }
         }
 
-        State state = SessionContext.getInstance(request).getStateOrDefault();
+        State state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
         String stateString = state.getAbbreviationLowerCase();
 
         StringBuffer path = new StringBuffer("/search/feedbackSubmit.page?state=");

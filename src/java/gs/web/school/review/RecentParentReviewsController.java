@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsController.java,v 1.8 2006/04/24 21:15:45 apeterson Exp $
+ * $Id: RecentParentReviewsController.java,v 1.9 2006/06/26 21:26:17 apeterson Exp $
  */
 
 package gs.web.school.review;
@@ -10,8 +10,8 @@ import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.state.State;
-import gs.web.ISessionFacade;
-import gs.web.SessionFacade;
+import gs.web.ISessionContext;
+import gs.web.SessionContextUtil;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -69,7 +69,7 @@ public class RecentParentReviewsController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        ISessionFacade sc = SessionFacade.getInstance(request);
+        ISessionContext sc = SessionContextUtil.getSessionContext(request);
         State state = sc.getState();
 
         String city = request.getParameter(PARAM_CITY);

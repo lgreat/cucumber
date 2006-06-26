@@ -14,7 +14,7 @@
     <head>
         <title><c:out value="${title}"/></title>
     </head>
-    <gsml:body adPageName="fixme" pageLayout="oneMainColumn">
+    <gsml:body adPageName="fixme" pageLayout="twoColumnLayout">
 
         <pageHelper:externalCss file="/res/css/school/bpsv.css" />
 

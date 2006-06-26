@@ -1,7 +1,7 @@
 /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.119 2006/06/15 23:00:24 apeterson Exp $
+   $Id: global.css,v 1.120 2006/06/26 21:28:11 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -13,6 +13,7 @@ html, body {
     width: 100%;
     height: 100%;
     font-family: Arial, Helvetica, sans-serif;
+   /* color: #333333;*/
 }
 
 body, form {
@@ -43,11 +44,19 @@ See: http://ndpsoftware.com/experiment/css/stretch.php?width=780&css=stretchymax
 
 #pageGS {
     width: 100%;
+ /*   background-image: url( /res/img/frame/bgGrad.jpg );
+    background-repeat: repeat-x;*/
     max-width: 1000px;
     min-width: 780px;
     text-align: left;
     margin-left: auto;
     margin-right: auto;
+}
+
+#bodyGS {
+    width: 900px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 /* Overrides of standard tags */
@@ -57,6 +66,12 @@ img {
     margin: 0;
 }
 
+/*.contentGS {
+    text-align: left;
+    padding: 10px;
+    margin: 0px;
+    width: 880px;
+}*/
 .contentGS a,
     .contentGS a:link,
     .contentGS a:visited,
@@ -782,15 +797,15 @@ table.shade4 td.BR {
 Page Layout styles.
 A surrounding div is set to have one of these classes.
 All the "about us" corporate pages, and a few others share the
-"oneMainColumn" layout. Please use this when possible.
+"twoColumnLayout" layout. Please use this when possible.
 */
-div.oneMainColumn .contentGS a:link,
-    div.singleTextOnlyColumn .contentGS a:link {
+.twoColumnLayout div .contentGS a:link,
+    .singleTextOnlyColumnLayout div .contentGS a:link {
     color: #039
 }
 
-.oneMainColumn .contentGS h2,
-    .singleTextOnlyColumn .contentGS h2 {
+.twoColumnLayout .contentGS h2,
+    .singleTextOnlyColumnLayout .contentGS h2 {
     color: #f60;
     border-bottom: 1px solid #ccc;
     font-weight: bold;
@@ -798,8 +813,8 @@ div.oneMainColumn .contentGS a:link,
     margin: 0 0 .3em 0;
 }
 
-div.oneMainColumn .contentGS h3,
-    div.singleTextOnlyColumn .contentGS h3 {
+.twoColumnLayout div .contentGS h3,
+    .singleTextOnlyColumnLayout div .contentGS h3 {
     color: #f60;
     border-bottom: 1px solid #ccc;
     font-weight: bold;
@@ -807,12 +822,12 @@ div.oneMainColumn .contentGS h3,
     margin: 0em 0 1em 0;
 }
 
-.oneMainColumn .contentGS h4{
+.twoColumnLayout .contentGS h4{
     font-weight: bold;
     margin-top: 0;
 }
 
-div.singleTextOnlyColumn .contentGS h4 {
+.singleTextOnlyColumnLayout div .contentGS h4 {
     font-size: small;
     color: #25457a;
     font-weight: bold;
@@ -820,51 +835,45 @@ div.singleTextOnlyColumn .contentGS h4 {
     margin-bottom: .5ex;
 }
 
-.oneMainColumn .contentGS h5,
-    .singleTextOnlyColumn .contentGS h5 {
+.twoColumnLayout .contentGS h5,
+    .singleTextOnlyColumnLayout .contentGS h5 {
     color: #f60;
     font-weight: bold;
     font-size: small;
     margin: 0 0 0 0;
 }
 
-.oneMainColumn .contentGS p,
-    .singleTextOnlyColumn .contentGS p {
+.twoColumnLayout .contentGS p,
+    .singleTextOnlyColumnLayout .contentGS p {
     margin: 0em 0 1.2em 0;
+    line-height:1.8;
 }
 
-.oneMainColumn .contentGS ul,
-    .singleTextOnlyColumn .contentGS ul {
+.twoColumnLayout .contentGS ul,
+    .singleTextOnlyColumnLayout .contentGS ul {
     margin-bottom: 1em;
 }
 
-.singleTextOnlyColumn .contentGS ul li {
+.singleTextOnlyColumnLayout .contentGS ul li {
     padding: 3px 5px 3px 12px;
     margin: 2px 0px 3px 0px;
     background: url( ../img/bullet/bullet_blueball.gif ) 2px 7px no-repeat;
 }
 
-.singleTextOnlyColumn .contentGS ol li {
+.singleTextOnlyColumnLayout .contentGS ol li {
     list-style: decimal;
     list-style-position: inside;
     padding: 0 0 1ex 0;
 }
 
-div.oneMainColumn .contentGS {
-    padding: 0 1em 4em 1em;
-}
 
-div.singleTextOnlyColumn .contentGS {
-    padding: 0 7em 4em 7em;
-}
-
-div.singleTextOnlyColumn em {
+.singleTextOnlyColumnLayout div em {
     font-weight: bold;
 
 }
 
-.oneMainColumn .contentGS img,
-    .singleTextOnlyColumn .contentGS img {
+.twoColumnLayout .contentGS img,
+    .singleTextOnlyColumnLayout .contentGS img {
     margin-bottom: .7em;
 }
 

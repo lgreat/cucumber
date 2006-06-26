@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: TopCitiesControllerTest.java,v 1.7 2006/06/07 17:22:30 apeterson Exp $
+ * $Id: TopCitiesControllerTest.java,v 1.8 2006/06/26 21:28:11 apeterson Exp $
  */
 
 package gs.web.state;
@@ -9,8 +9,8 @@ import gs.data.state.State;
 import gs.web.util.AnchorListModel;
 import gs.web.util.Anchor;
 import gs.web.SessionContext;
-import gs.web.SessionFacade;
 import gs.web.BaseControllerTestCase;
+import gs.web.SessionContextUtil;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -49,7 +49,7 @@ public class TopCitiesControllerTest extends BaseControllerTestCase {
         assertEquals("View all California cities", veryLast.getContents());
 
         // Special case DC
-        SessionContext context = (SessionContext) SessionFacade.getInstance(getRequest());
+        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(getRequest());
         context.setState(State.DC);
         modelAndView = c.handleRequestInternal(getRequest(), getResponse());
         results = (List) modelAndView.getModel().get(AnchorListModel.RESULTS);
@@ -63,7 +63,7 @@ public class TopCitiesControllerTest extends BaseControllerTestCase {
         assertEquals("/city/Washington/DC", la.getHref());
 
         // Special case NYC
-        context = (SessionContext) SessionFacade.getInstance(getRequest());
+        context = (SessionContext) SessionContextUtil.getSessionContext(getRequest());
         context.setState(State.NY);
         modelAndView = c.handleRequestInternal(getRequest(), getResponse());
         results = (List) modelAndView.getModel().get(AnchorListModel.RESULTS);

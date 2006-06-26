@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.15 2006/06/15 17:17:20 thuss Exp $
+ * $Id: GeoController.java,v 1.16 2006/06/26 21:26:01 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -11,7 +11,7 @@ import gs.data.geo.bestplaces.BpState;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
-import gs.web.SessionContext;
+import gs.web.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,7 +50,7 @@ public class GeoController implements Controller {
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ThreadLocalTransactionManager.setReadOnly();
 
-        State state = SessionContext.getInstance(request).getStateOrDefault();
+        State state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
 
 
         Map model = new HashMap();

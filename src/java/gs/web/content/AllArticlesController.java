@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AllArticlesController.java,v 1.5 2006/06/07 22:47:13 apeterson Exp $
+ * $Id: AllArticlesController.java,v 1.6 2006/06/26 21:26:00 apeterson Exp $
  */
 package gs.web.content;
 
@@ -8,8 +8,8 @@ import gs.data.content.Article;
 import gs.data.content.ArticleCategory;
 import gs.data.content.ArticleManager;
 import gs.data.content.IArticleDao;
-import gs.web.ISessionFacade;
-import gs.web.SessionFacade;
+import gs.web.ISessionContext;
+import gs.web.SessionContextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,9 +37,9 @@ public class AllArticlesController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
 
 
-        ISessionFacade sessionFacade = SessionFacade.getInstance(request);
+        ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
 
-        List articles = _articleDao.getArticlesForState(sessionFacade.getStateOrDefault());
+        List articles = _articleDao.getArticlesForState(sessionContext.getStateOrDefault());
 
         Article article = null;
         ArticleCategory articleCategory = null;

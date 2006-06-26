@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.14 2006/06/15 18:14:10 dlee Exp $
+ * $Id: MssPaController.java,v 1.15 2006/06/26 21:26:00 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -8,8 +8,8 @@ import gs.data.community.*;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
-import gs.web.ISessionFacade;
-import gs.web.SessionContext;
+import gs.web.ISessionContext;
+import gs.web.SessionContextUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.validator.MaximumMssValidator;
 import org.apache.commons.logging.Log;
@@ -31,6 +31,7 @@ import java.util.List;
  * @author David Lee <mailto:dlee@greatschools.net>
  */
 public class MssPaController extends SimpleFormController {
+    
     public static final String BEAN_ID = "/community/newsletters/popup/mss/page1.page";
     protected final Log _log = LogFactory.getLog(getClass());
 
@@ -53,7 +54,7 @@ public class MssPaController extends SimpleFormController {
         }
 
         if (nc.getEmail() == null) {
-            ISessionFacade session = SessionContext.getInstance(request);
+            ISessionContext session = SessionContextUtil.getSessionContext(request);
             User user = session.getUser();
 
             if (user != null) {
@@ -107,7 +108,7 @@ public class MssPaController extends SimpleFormController {
             getUserDao().saveUser(user);
             mAndV.getModel().put("newuser", "true");
         }
-        PageHelper.setMemberCookie(response, user);
+        PageHelper.setMemberCookie(request, response, user);
         List subscriptions = new ArrayList();
 
         if (nc.isGn()) {

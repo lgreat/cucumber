@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.24 2006/06/15 17:17:20 thuss Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.25 2006/06/26 21:26:17 apeterson Exp $
  */
 
 package gs.web.school.performance;
@@ -11,8 +11,8 @@ import gs.data.geo.LatLon;
 import gs.data.state.State;
 import gs.data.util.SpringUtil;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
-import gs.web.ISessionFacade;
-import gs.web.SessionFacade;
+import gs.web.ISessionContext;
+import gs.web.SessionContextUtil;
 import gs.web.util.AnchorListModel;
 import gs.web.util.UrlBuilder;
 import gs.web.util.Anchor;
@@ -101,7 +101,7 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
             initializeCities();
         }
 
-        ISessionFacade sc = SessionFacade.getInstance(request);
+        ISessionContext sc = SessionContextUtil.getSessionContext(request);
 
         // Limit can be configured with spring and then overriden by the URL.
         int limit = Integer.MAX_VALUE;

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ClientSideSessionCacheTest.java,v 1.1 2006/06/23 17:28:48 apeterson Exp $
+ * $Id: ClientSideSessionCacheTest.java,v 1.2 2006/06/26 21:28:11 apeterson Exp $
  */
 
 package gs.web.community;
@@ -228,16 +228,8 @@ public class ClientSideSessionCacheTest extends TestCase {
     }
 
     private ClientSideSessionCache externalizeAndBringBack(ClientSideSessionCache clientSideSessionCache) throws IOException, ClassNotFoundException {
-        final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        final ObjectOutputStream objectOutput = new ObjectOutputStream(byteArrayOutputStream);
-        clientSideSessionCache.writeExternal(objectOutput);
-        objectOutput.flush();
-        final byte[] bytes = byteArrayOutputStream.toByteArray();
-
-        ClientSideSessionCache clientSideSessionCacheCopy = new ClientSideSessionCache();
-        final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-        clientSideSessionCacheCopy.readExternal(new ObjectInputStream(byteArrayInputStream));
-        return clientSideSessionCacheCopy;
+        String cookie = clientSideSessionCache.getCookieRepresentation();
+        return ClientSideSessionCache.createClientSideSessionCache(cookie);
     }
 
     private void addPaAndMyFirstSubscriptions(Set subscriptions) {

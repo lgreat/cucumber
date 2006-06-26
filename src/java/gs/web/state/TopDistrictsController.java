@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopDistrictsController.java,v 1.15 2006/05/31 21:44:29 apeterson Exp $
+ * $Id: TopDistrictsController.java,v 1.16 2006/06/26 21:26:17 apeterson Exp $
  */
 
 package gs.web.state;
@@ -8,9 +8,8 @@ package gs.web.state;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
-import gs.web.ISessionFacade;
+import gs.web.ISessionContext;
 import gs.web.SessionContextUtil;
-import gs.web.SessionFacade;
 import gs.web.util.Anchor;
 import gs.web.util.AnchorListModel;
 import org.springframework.web.servlet.ModelAndView;
@@ -45,7 +44,7 @@ public class TopDistrictsController extends AbstractController {
      */
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        ISessionFacade context = SessionFacade.getInstance(request);
+        ISessionContext context = SessionContextUtil.getSessionContext(request);
         request.getParameter(SessionContextUtil.STATE_PARAM);
 
         State state = context.getStateOrDefault();

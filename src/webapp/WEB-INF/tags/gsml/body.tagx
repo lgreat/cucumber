@@ -4,7 +4,7 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core">
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="adPageName" required="true" description="The name sent to the ad server. Ask David Lee about this."/>
-    <jsp:directive.attribute name="pageLayout" required="false" description="General page class, 'oneMainColumn'. This should match the styles in global.css."/>
+    <jsp:directive.attribute name="pageLayout" required="false" description="General page class, 'twoColumnLayout'. This should match the styles in global.css."/>
     <jsp:scriptlet>
         request.setAttribute("adPageName", adPageName);
         request.setAttribute("pageLayout", pageLayout);

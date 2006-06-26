@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.9 2006/06/15 18:14:10 dlee Exp $
+ * $Id: MssPaControllerTest.java,v 1.10 2006/06/26 21:28:11 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -109,7 +109,7 @@ public class MssPaControllerTest extends BaseControllerTestCase {
         assertTrue(errors.hasErrors());
         ObjectError error = errors.getGlobalError();
 
-        assertEquals(MaximumMssValidator.ERROR_CODE , error.getCode());
+        assertEquals(MaximumMssValidator.ERROR_CODE, error.getCode());
         assertFalse(command.isMystat());
 
         _controller.setUserDao(_userDao);
@@ -143,11 +143,11 @@ public class MssPaControllerTest extends BaseControllerTestCase {
         assertEquals(command.getState().toString(), model.get("state").toString());
         assertEquals(command.getEmail(), model.get("email").toString());
         assertEquals(String.valueOf(command.getSchoolId()), model.get("schoolId").toString());
-        assertEquals("true", (String)model.get("newuser"));
+        assertEquals("true", (String) model.get("newuser"));
 
         // repeat the request with the same email and make sure that "newuser" is empty
         modelView = _controller.onSubmit(getRequest(), getResponse(), command, errors);
-        assertTrue(StringUtils.isBlank((String)modelView.getModel().get("newuser")));
+        assertTrue(StringUtils.isBlank((String) modelView.getModel().get("newuser")));
 
         _log.debug(modelView.getViewName());
         assertEquals(modelView.getViewName(), "redirect:/community/newsletters/popup/mss/page2.page");
@@ -155,41 +155,43 @@ public class MssPaControllerTest extends BaseControllerTestCase {
         ThreadLocalTransactionManager.commitOrRollback();
 
         User user = _userDao.findUserFromEmailIfExists(email);
-        assertEquals("blahblahblah@greatschools.net", user.getEmail());
-        Set subscriptions = user.getSubscriptions();
+        try {
+            assertEquals("blahblahblah@greatschools.net", user.getEmail());
+            Set subscriptions = user.getSubscriptions();
 
-        Cookie cookie = getResponse().getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
-        assertNotNull(cookie);
-        assertEquals(CookieGenerator.DEFAULT_COOKIE_MAX_AGE, cookie.getMaxAge());
-        assertEquals(CookieGenerator.DEFAULT_COOKIE_PATH, cookie.getPath());
-        assertEquals(cookie.getValue(), user.getId().toString());
+            Cookie cookie = getResponse().getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
+            assertNotNull(cookie);
+            assertEquals(CookieGenerator.DEFAULT_COOKIE_MAX_AGE, cookie.getMaxAge());
+            assertEquals(CookieGenerator.DEFAULT_COOKIE_PATH, cookie.getPath());
+            assertEquals(cookie.getValue(), user.getId().toString());
 
-        boolean hasMss = false;
-        boolean hasGn = false;
+            boolean hasMss = false;
+            boolean hasGn = false;
 
-        assertEquals(2, subscriptions.size());
+            assertEquals(2, subscriptions.size());
 
-        for (Iterator iter = subscriptions.iterator(); iter.hasNext();) {
-            Subscription sub = (Subscription) iter.next();
-            SubscriptionProduct product = sub.getProduct();
+            for (Iterator iter = subscriptions.iterator(); iter.hasNext();) {
+                Subscription sub = (Subscription) iter.next();
+                SubscriptionProduct product = sub.getProduct();
 
-            if (product.isNewsletter()) {
-                if (product.getName().equals(SubscriptionProduct.MYSTAT.getName())) {
-                    if (sub.getSchoolId() == schoolId) {
-                        hasMss = true;
+                if (product.isNewsletter()) {
+                    if (product.getName().equals(SubscriptionProduct.MYSTAT.getName())) {
+                        if (sub.getSchoolId() == schoolId) {
+                            hasMss = true;
+                        }
+                    }
+
+                    if (product.getName().equals(SubscriptionProduct.PARENT_ADVISOR.getName())) {
+                        hasGn = true;
                     }
                 }
-
-                if (product.getName().equals(SubscriptionProduct.PARENT_ADVISOR.getName())) {
-                    hasGn = true;
-                }
             }
+
+            assertTrue(hasMss);
+            assertTrue(hasGn);
+        } finally {
+            _userDao.removeUser(user.getId());
         }
-
-        assertTrue(hasMss);
-        assertTrue(hasGn);
-
-        _userDao.removeUser(user.getId());
         assertNull(_userDao.findUserFromEmailIfExists(email));
     }
 
@@ -204,7 +206,7 @@ public class MssPaControllerTest extends BaseControllerTestCase {
             user.setEmail("dlee@greatschools.net");
             Set subscriptions = new HashSet();
 
-            for (int i=0; i < SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER; i++ ) {
+            for (int i = 0; i < SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER; i++) {
                 Subscription sub = new Subscription();
                 sub.setProduct(SubscriptionProduct.MYSTAT);
                 sub.setSchoolId(i);

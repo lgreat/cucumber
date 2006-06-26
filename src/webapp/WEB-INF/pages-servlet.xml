@@ -50,9 +50,6 @@
 
     <!-- WEB PAGE DEFINITIONS BEGIN -->
 
-
-    <bean id="subscribeValidator" class="gs.web.community.SubscribeValidator"></bean>
-
     <bean name="/search/feedback.page"
           class="gs.web.search.FeedbackController">
         <property name="formView">
@@ -212,12 +209,6 @@
         </property>
     </bean>
 
-    <bean id="versionProperties"
-          class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="location">
-            <value>classpath:version.properties</value>
-        </property>
-    </bean>
     <!-- Search end -->
 
     <!-- Status begin -->

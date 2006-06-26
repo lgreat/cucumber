@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.20 2006/06/12 23:05:40 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.21 2006/06/26 21:26:17 apeterson Exp $
  */
 
 package gs.web;
@@ -9,6 +9,7 @@ import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.web.community.ClientSideSessionCache;
 import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -21,6 +22,7 @@ import org.springframework.web.util.CookieGenerator;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Provides...
@@ -34,8 +36,6 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     // user can change state by passing a parameter on the command line
     public static final String STATE_PARAM = "state";
-    //cookie name for state
-    public static final String STATE_COOKIE = "state";
 
     // user can change the cobrand by passing a parameter on the command line
     public static final String COBRAND_PARAM = "cobrand";
@@ -57,10 +57,15 @@ public class SessionContextUtil implements ApplicationContextAware {
     private static final String MEMBER_ID_INSIDER_COOKIE = "MEMBER";
 
     /**
-     * My School List cookie, for backward compatibility. Domain is ".greatschools.net".
+     * My School List cookie, for backward compatibility. Domain used to be ".greatschools.net",
+     * but now it the default (www.greatschools.net or cobrand domain).
      */
     public static final String MEMBER_ID_COOKIE = "MEMID";
-    private static final String PATHWAY_COOKIE = "PATHWAY";
+
+    /* Browsing state session cookies */
+    // STATE, PATHWAY
+
+    /* User information cached cookies */
 
 
     private static final Log _log = LogFactory.getLog(SessionContextUtil.class);
@@ -70,8 +75,16 @@ public class SessionContextUtil implements ApplicationContextAware {
     private StateManager _stateManager;
     private UrlUtil _urlUtil = new UrlUtil();
 
+    private CookieGenerator _stateCookieGenerator;
+    private CookieGenerator _pathwayCookieGenerator;
+    private CookieGenerator _memberIdCookieGenerator;
+    private CookieGenerator _sessionCacheCookieGenerator;
 
-    public void readCookies(HttpServletRequest httpServletRequest,
+
+    public SessionContextUtil() {
+    }
+
+    private void readCookies(HttpServletRequest httpServletRequest,
                             final SessionContext context) {
         // Find the cookie that pertains to the user
         // We don't need to do this every time, but for now
@@ -103,16 +116,28 @@ public class SessionContextUtil implements ApplicationContextAware {
                     } catch (NumberFormatException e) {
                         // ignore
                     }
-                } else if (PATHWAY_COOKIE.equals(thisCookie.getName())) {
+                } else if (StringUtils.equals(_pathwayCookieGenerator.getCookieName(), thisCookie.getName())) {
                     String path = thisCookie.getValue();
                     if (!path.equals(context.getPathway())) {
                         context.setPathway(path); // TODO validation
                     }
-                } else if (STATE_COOKIE.equals(thisCookie.getName())) {
+                } else if (StringUtils.equals(_stateCookieGenerator.getCookieName(), thisCookie.getName())) {
                     String state = thisCookie.getValue();
                     State s = _stateManager.getState(state);
                     if (s != null) {
                         context.setState(s);
+                    }
+                } else if (StringUtils.equals(_sessionCacheCookieGenerator.getCookieName(), thisCookie.getName())) {
+                    String sessionCache = thisCookie.getValue();
+                    try {
+                        ClientSideSessionCache cache = ClientSideSessionCache.createClientSideSessionCache(sessionCache);
+                        // TODO finish writing
+                    } catch (IOException e) {
+                        _log.warn("Can't restore cookie", e);
+                        // Ignore
+                    } catch (ClassNotFoundException e) {
+                        _log.warn("Can't restore cookie #2", e);
+                        // Ignore
                     }
                 }
             }
@@ -124,9 +149,8 @@ public class SessionContextUtil implements ApplicationContextAware {
             */
             if (insiderId != -1) {
                 if (context.getUser() == null || context.getUser().getId().intValue() != insiderId) {
-                    final User user;
                     try {
-                        user = _userDao.findUserFromId(insiderId);
+                        final User user = _userDao.findUserFromId(insiderId);
                         context.setUser(user);
                         if (mslId != -1 && mslId != insiderId) {
                             _log.warn("User with two conflicting cookies: " +
@@ -142,9 +166,8 @@ public class SessionContextUtil implements ApplicationContextAware {
                 }
             } else if (mslId != -1) {
                 if (context.getUser() == null || context.getUser().getId().intValue() != mslId) {
-                    final User user;
                     try {
-                        user = _userDao.findUserFromId(mslId);
+                        final User user = _userDao.findUserFromId(mslId);
                         context.setUser(user);
                     } catch (ObjectRetrievalFailureException e) {
                         _log.warn("User not found for MSL cookie: " +
@@ -166,15 +189,6 @@ public class SessionContextUtil implements ApplicationContextAware {
             context.setState((State) s);
         }
         context.setRemoteAddress(httpServletRequest.getRemoteAddr());
-
-        // a simple-minded way to determine if the page is a beta-related page
-        context.setIsBetaPage(false);
-        String uri = httpServletRequest.getRequestURI();
-        if (StringUtils.isNotBlank(uri)) {
-            if (uri.matches(".*/community/beta.*")) {
-                context.setIsBetaPage(true);
-            }
-        }
     }
 
     /**
@@ -212,7 +226,7 @@ public class SessionContextUtil implements ApplicationContextAware {
         // Set state, or change, if necessary
         String paramPathwayStr = request.getParameter(PATHWAY_PARAM);
         if (StringUtils.isNotEmpty(paramPathwayStr)) {
-            setPathway(context, response, paramPathwayStr);
+            changePathway(context, response, paramPathwayStr);
         }
 
         // TODO make sure nobody can change IDs surreptitiously.
@@ -243,14 +257,11 @@ public class SessionContextUtil implements ApplicationContextAware {
     /**
      * Sets the pathway in both the context and the  pseudo-"session" (the cookie).
      */
-    public void setPathway(SessionContext context, HttpServletResponse response, String paramPathwayStr) {
+    public void changePathway(SessionContext context, HttpServletResponse response, String paramPathwayStr) {
         final String currPathway = context.getPathway();
         if (currPathway == null ||
                 !currPathway.equals(paramPathwayStr)) {
-            Cookie c = new Cookie(PATHWAY_COOKIE, paramPathwayStr);
-            c.setPath("/");
-            response.addCookie(c);
-
+            _pathwayCookieGenerator.addCookie(response, paramPathwayStr);
             context.setPathway(paramPathwayStr);
         }
     }
@@ -259,14 +270,29 @@ public class SessionContextUtil implements ApplicationContextAware {
      * Sets the pathway in both the context and the  pseudo-"session" (the cookie).
      */
     public void setPathway(HttpServletRequest request, HttpServletResponse response, String newPathway) {
-        SessionContext context = (SessionContext) SessionContext.getInstance(request);
-        setPathway(context, response, newPathway);
+        SessionContext context = (SessionContext) getSessionContext(request);
+        changePathway(context, response, newPathway);
+    }
+
+    public void setStateCookieGenerator(CookieGenerator stateCookieGenerator) {
+        _stateCookieGenerator = stateCookieGenerator;
+    }
+
+    public void setPathwayCookieGenerator(CookieGenerator pathwayCookieGenerator) {
+        _pathwayCookieGenerator = pathwayCookieGenerator;
+    }
+
+    public void setMemberIdCookieGenerator(CookieGenerator memberIdCookieGenerator) {
+        _memberIdCookieGenerator = memberIdCookieGenerator;
+    }
+
+    public void setSessionCacheCookieGenerator(CookieGenerator sessionCacheCookieGenerator) {
+        _sessionCacheCookieGenerator = sessionCacheCookieGenerator;
     }
 
     /**
      * Attempt to interpret a state= parameter and save it in the given context and to a cookie.
      * If it can't recognize the state, it just uses what was there before, if anything.
-     *
      * #readCookies() already called at this point so state variable in sessionContext
      * already populated with user's last known state value if available
      */
@@ -284,38 +310,18 @@ public class SessionContextUtil implements ApplicationContextAware {
 
         if (!StringUtils.isEmpty(paramStateStr) && paramStateStr.length() >= 2) {
             final State currState = context.getState();
-            State s = _stateManager.getState(paramStateStr.substring(0, 2));
+            State state = _stateManager.getState(paramStateStr.substring(0, 2));
 
-            if (currState == null && s == null) {
+            if (currState == null && state == null) {
                 _log.debug("No existing state in session and bogus, non-empty state through url param.");
             }
 
-            if (s != null) {
-                context.setState(s);
-                setDomainWideCookie(httpServletResponse, STATE_COOKIE, s.getAbbreviation(),
-                        CookieGenerator.DEFAULT_COOKIE_MAX_AGE);
-                _log.debug("switching user's state: " + s);
+            if (state != null) {
+                context.setState(state);
+                _stateCookieGenerator.addCookie(httpServletResponse, state.getAbbreviation());
+                _log.debug("switching user's state: " + state);
             }
         }
-    }
-
-    /**
-     * Sets a cookie for 'COBRAND.greatschools.net'.  COBRAND is the current cobrand user is on
-     * @param response
-     * @param cookieName
-     * @param cookieValue
-     * @param timeToLive
-     */
-    protected void setDomainWideCookie(final HttpServletResponse response,
-                                       final String cookieName,
-                                       final String cookieValue,
-                                       final int timeToLive) {
-
-        CookieGenerator cookieGenerator = new CookieGenerator();
-        cookieGenerator.setCookiePath(CookieGenerator.DEFAULT_COOKIE_PATH);
-        cookieGenerator.setCookieMaxAge(timeToLive);
-        cookieGenerator.setCookieName(cookieName);
-        cookieGenerator.addCookie(response, cookieValue);
     }
 
     public ApplicationContext getApplicationContext() {
@@ -368,5 +374,22 @@ public class SessionContextUtil implements ApplicationContextAware {
         updateFromRequestAttributes(request, context);
         updateFromParams(request, response, context);
         return context;
+    }
+
+    public ClientSideSessionCache createUserInfo(User user) {
+        return new ClientSideSessionCache(null);
+    }
+
+    public static ISessionContext getSessionContext(HttpServletRequest request) {
+        return (ISessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
+    }
+
+    public void changeUser(SessionContext context, HttpServletResponse response, User user) {
+        if (user != null) {
+            _memberIdCookieGenerator.addCookie(response, user.getId().toString());
+        } else {
+            _log.error("Tried to set member id for a null user");
+        }
+
     }
 }

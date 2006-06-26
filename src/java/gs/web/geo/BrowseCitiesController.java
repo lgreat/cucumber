@@ -1,14 +1,13 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BrowseCitiesController.java,v 1.2 2006/05/26 19:13:43 apeterson Exp $
+ * $Id: BrowseCitiesController.java,v 1.3 2006/06/26 21:26:01 apeterson Exp $
  */
 
 package gs.web.geo;
 
 import gs.data.state.State;
-import gs.web.ISessionFacade;
+import gs.web.ISessionContext;
 import gs.web.SessionContextUtil;
-import gs.web.SessionFacade;
 import gs.web.util.UrlUtil;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
@@ -30,7 +29,7 @@ public class BrowseCitiesController extends AbstractController {
                                               HttpServletResponse response)
             throws Exception {
 
-        ISessionFacade sessionContext = SessionFacade.getInstance(request);
+        ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
 
         State state = sessionContext.getState();
 

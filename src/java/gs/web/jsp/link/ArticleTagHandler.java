@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleTagHandler.java,v 1.2 2006/05/23 17:18:02 apeterson Exp $
+ * $Id: ArticleTagHandler.java,v 1.3 2006/06/26 21:26:01 apeterson Exp $
  */
 
 package gs.web.jsp.link;
 
 import gs.data.content.Article;
 import gs.data.content.IArticleDao;
-import gs.web.ISessionFacade;
+import gs.web.ISessionContext;
 import gs.web.util.UrlBuilder;
 
 /**
@@ -35,7 +35,7 @@ public class ArticleTagHandler extends LinkTagHandler {
         if (_article != null) {
             return _article;
         } else {
-            ISessionFacade context = getSessionContext();
+            ISessionContext context = getSessionContext();
             IArticleDao articleDao = (IArticleDao) context.getApplicationContext().getBean(IArticleDao.BEAN_ID);
             Article a = articleDao.getArticleFromId(_articleId);
             return a;

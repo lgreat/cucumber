@@ -23,7 +23,7 @@
     <title>GreatSchools Press Room</title>
 </head>
 
-<gsml:body adPageName="pressRoom" pageLayout="singleTextOnlyColumn">
+<gsml:body adPageName="pressRoom" pageLayout="singleTextOnlyColumnLayout">
 
     <mod:tracking pageType="aboutUs" pageName="pressRoom" hier1="Home,Corporate,AboutUs,PressRoom"/>
 

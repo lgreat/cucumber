@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandler.java,v 1.3 2006/05/04 07:13:57 apeterson Exp $
+ * $Id: LinkTagHandler.java,v 1.4 2006/06/26 21:26:01 apeterson Exp $
  */
 
 package gs.web.jsp.link;
 
 import gs.data.state.State;
-import gs.web.ISessionFacade;
-import gs.web.SessionFacade;
+import gs.web.ISessionContext;
+import gs.web.SessionContextUtil;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -130,11 +130,11 @@ public abstract class LinkTagHandler extends TagSupport {
         pageContext.getOut().print(">");
     }
 
-    protected ISessionFacade getSessionContext() {
+    protected ISessionContext getSessionContext() {
         HttpServletRequest request = (HttpServletRequest) this.pageContext.getRequest();
-        ISessionFacade sc = null;
+        ISessionContext sc = null;
         if (request != null) {
-            sc = SessionFacade.getInstance(request);
+            sc = SessionContextUtil.getSessionContext(request);
         }
         return sc;
     }
@@ -146,7 +146,7 @@ public abstract class LinkTagHandler extends TagSupport {
      */
     protected State getState() {
         State state = State.CA;
-        ISessionFacade sc = getSessionContext();
+        ISessionContext sc = getSessionContext();
         if (sc != null) {
             state = sc.getStateOrDefault();
         }

@@ -92,6 +92,13 @@ The we used Century Gothic, Helvetica and Verdana in the header. As you know any
     width: 10%;
     white-space: nowrap;
 }
+#topnav .saved a {
+    color: #729eca;
+    text-decoration: none;
+}
+#topnav .saved a:hover {
+    text-decoration: underline;
+}
 
 /* GLOBAL NAV MENUS */
 

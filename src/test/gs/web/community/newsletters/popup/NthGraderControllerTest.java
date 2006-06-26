@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderControllerTest.java,v 1.7 2006/06/14 17:43:32 dlee Exp $
+ * $Id: NthGraderControllerTest.java,v 1.8 2006/06/26 21:28:11 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -33,21 +33,21 @@ import java.util.*;
  * address
  *
  * @author David Lee <mailto:dlee@greatschools.net>
+ * @noinspection ProhibitedExceptionDeclared,HardcodedFileSeparator,FeatureEnvy
  */
 public class NthGraderControllerTest extends BaseControllerTestCase {
     private NthGraderController _controller;
     private IUserDao _userDao;
-    private ISubscriptionDao _subscriptionDao;
 
     protected void setUp() throws Exception {
         super.setUp();
 
         _userDao = (IUserDao) getApplicationContext().getBean(IUserDao.BEAN_ID);
-        _subscriptionDao = (ISubscriptionDao) getApplicationContext().getBean(ISubscriptionDao.BEAN_ID);
+        ISubscriptionDao subscriptionDao = (ISubscriptionDao) getApplicationContext().getBean(ISubscriptionDao.BEAN_ID);
         _controller = new NthGraderController();
         _controller.setApplicationContext(getApplicationContext());
         _controller.setUserDao(_userDao);
-        _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.setSubscriptionDao(subscriptionDao);
         _controller.setCommandClass(NewsletterCommand.class);
     }
 
@@ -134,11 +134,12 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
 
         setUpScenarioTwo();
         _controller.onBindOnNewForm(getRequest(), command, errors);
-        assertEquals("", command.getEmail());        
+        assertEquals("", command.getEmail());
     }
 
-    //scenario1 includes scenario2
+    /** @noinspection OverlyLongMethod*/
     public void testOnSubmitScenario() {
+        //scenario1 includes scenario2
         setUpScenarioOne();
         NewsletterCommand command = new NewsletterCommand();
         final String email = "wbeck+1234@greatschoo.net";
@@ -205,8 +206,8 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
         for (Iterator iter = subscriptions.iterator(); iter.hasNext(); ) {
             Subscription sub = (Subscription) iter.next();
 
-            if (sub.getProduct() == newsletter) {
-                if (sub.getState() == State.CA) {
+            if (sub.getProduct().equals(newsletter)) {
+                if (State.CA.equals(sub.getState())) {
                     hasNewsletter = true;
                 }
             }

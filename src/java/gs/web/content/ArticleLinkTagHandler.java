@@ -1,13 +1,13 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.20 2006/06/07 22:47:13 apeterson Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.21 2006/06/26 21:26:00 apeterson Exp $
  */
 package gs.web.content;
 
 import gs.data.content.Article;
 import gs.data.content.IArticleDao;
 import gs.data.state.State;
-import gs.web.ISessionFacade;
+import gs.web.ISessionContext;
 import gs.web.jsp.BaseTagHandler;
 import gs.web.util.UrlUtil;
 import gs.web.util.UrlBuilder;
@@ -62,7 +62,7 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
 
     public void doTag() throws IOException {
 
-        ISessionFacade sc = getSessionContext();
+        ISessionContext sc = getSessionContext();
         State s = sc.getStateOrDefault();
 
         Article article = _article;

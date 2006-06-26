@@ -24,7 +24,7 @@
     <title>GreatSchools Frequently Asked Questions</title>
 </head>
 
-<gsml:body adPageName="gsFaq" pageLayout="singleTextOnlyColumn">
+<gsml:body adPageName="gsFaq" pageLayout="singleTextOnlyColumnLayout">
 
 <mod:tracking pageType="faq" pageName="gsFaq" hier1="Home,ContactUs,FAQ"/>
 
@@ -469,8 +469,8 @@
 
 <p> If you are logging in or using the site as a member, your browser should be set to accept cookies. Otherwise,
     you can use the site without enabling cookies. The information we store in the cookie can never be read by any
-    Web site other than ours. For more information read our <gsml:a href="/cgi-bin/static/privacy.inc/$STATE">Privacy
-    Policy</gsml:a>.
+    Web site other than ours. For more information read our <link:privacyPolicy>Privacy
+    Policy</link:privacyPolicy>.
 </p>
 
 

@@ -1,16 +1,14 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RedirectToSampleSchoolController.java,v 1.1 2006/03/14 18:39:34 wbeck Exp $
+ * $Id: RedirectToSampleSchoolController.java,v 1.2 2006/06/26 21:26:17 apeterson Exp $
  */
 package gs.web.school;
 
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
-import gs.data.school.review.IReviewDao;
 import gs.data.state.State;
-import gs.web.ISessionFacade;
+import gs.web.ISessionContext;
 import gs.web.SessionContextUtil;
-import gs.web.SessionFacade;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -36,8 +34,8 @@ public class RedirectToSampleSchoolController extends AbstractController {
                                               HttpServletResponse response)
             throws Exception {
 
-       //ISessionFacade sessionContext = SessionContext.getInstance(request);
-        ISessionFacade sessionContext = SessionFacade.getInstance(request);
+       //ISessionContext sessionContext = SessionContext.getInstance(request);
+        ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
 
         State state = sessionContext.getState();
         School school = _schoolDao.getSampleSchool(state);

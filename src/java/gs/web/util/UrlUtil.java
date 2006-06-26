@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.35 2006/05/30 23:11:36 wbeck Exp $
+ * $Id: UrlUtil.java,v 1.36 2006/06/26 21:28:11 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.data.state.State;
+import gs.web.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -168,7 +169,7 @@ public final class UrlUtil {
       <li>$LCSTATE - replaced with lowercase state abbreviation</li>
      * </ul>
      * This variable is taken from the request attribute named of the same name,
-     * and if not found there, it uses the ISessionFacade available from the
+     * and if not found there, it uses the ISessionContext available from the
      * request.
      * It will add the appropriate server name if this is a link to a perl page.
      * This is most helpful in the dev environment, but this bottleneck allows us
@@ -194,7 +195,7 @@ public final class UrlUtil {
 
         // If the URL has a STATE string in it (or more than one), replace it with the
         // user's state.
-        gs.web.ISessionFacade context = gs.web.SessionFacade.getInstance(request);
+        gs.web.ISessionContext context = SessionContextUtil.getSessionContext(request);
         if (href.indexOf("STATE") != -1) {
             // Allow a request attribute to override the session facade.
             if (request.getAttribute("STATE") != null &&

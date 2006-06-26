@@ -23,7 +23,7 @@
         <title>GreatSchools Partner Opportunities</title>
     </head>
 
-    <gsml:body adPageName="partnerOpportunities" pageLayout="singleTextOnlyColumn">
+    <gsml:body adPageName="partnerOpportunities" pageLayout="singleTextOnlyColumnLayout">
 
         <mod:tracking pageType="aboutUs" pageName="partnerOpportunity" hier1="Home,ContactUs,Partner Opportunities"/>
 

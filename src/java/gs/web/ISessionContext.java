@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ISessionFacade.java,v 1.9 2006/05/30 18:43:33 chriskimm Exp $
+ * $Id: ISessionContext.java,v 1.1 2006/06/26 21:26:01 apeterson Exp $
  */
 
 package gs.web;
@@ -22,7 +22,8 @@ import org.springframework.context.ApplicationContext;
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
-public interface ISessionFacade {
+public interface ISessionContext {
+    String REQUEST_ATTRIBUTE_NAME = "context";
 
     ApplicationContext getApplicationContext();
 
@@ -31,11 +32,6 @@ public interface ISessionFacade {
      * user. Other tests must be used to protect paid content.
      */
     User getUser();
-
-    /**
-     * Is user subscribed as a member?
-     */
-    boolean isPaidSubscriber();
 
     /**
      * Current state (of the U.S.).
@@ -83,7 +79,4 @@ public interface ISessionFacade {
      */
     boolean isFamilyCobrand();
 
-    String getSecureHostName();
-
-    boolean isBetaPage();
 }

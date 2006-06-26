@@ -28,7 +28,7 @@
         <title>Error</title>
     </head>
 
-    <gsml:body adPageName="www" pageLayout="singleTextOnlyColumn">
+    <gsml:body adPageName="www" pageLayout="singleTextOnlyColumnLayout">
 
     <mod:tracking pageType="" pageName="Error:500" hier1="Error,500"/>
 

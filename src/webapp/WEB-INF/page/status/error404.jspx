@@ -28,7 +28,7 @@
         <title>Page Not Found</title>
     </head>
 
-    <gsml:body adPageName="www" pageLayout="singleTextOnlyColumn">
+    <gsml:body adPageName="www" pageLayout="singleTextOnlyColumnLayout">
 
     <mod:tracking pageType="" pageName="Error:404" hier1="Error,404"/>
 

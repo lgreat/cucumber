@@ -1,8 +1,8 @@
-<%@ page import="gs.web.ISessionFacade,
-                 gs.web.SessionFacade,
+<%@ page import="gs.web.ISessionContext,
                  gs.data.util.NetworkUtil"%>
 <%@ page import="gs.data.state.State"%>
 <%@ page import="gs.web.util.UrlUtil"%>
+<%@ page import="gs.web.SessionContextUtil"%>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -11,7 +11,7 @@
 
 <decorator:usePage id="smPage"/>
 <%
-    ISessionFacade ctx = SessionFacade.getInstance(request);
+    ISessionContext ctx = SessionContextUtil.getSessionContext(request);
 
     UrlUtil urlUtil = new UrlUtil();
 

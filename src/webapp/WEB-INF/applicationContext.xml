@@ -28,11 +28,34 @@
         <!-- NOTE: not autowired for performance reasons. AJP 3/2006 -->
         <property name="propertyDao" ref="propertyDao"/>
         <property name="subscriptionDao" ref="subscriptionDao"/>
+        <property name="sessionContextUtil" ref="sessionContextUtil"/>
     </bean>
 
     <bean id="sessionContextUtil"
           class="gs.web.SessionContextUtil"
           autowire="byName">
+        <property name="stateCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="STATE"/>
+            </bean>
+        </property>
+        <property name="pathwayCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="PATHWAY"/>
+                <property name="cookieMaxAge" value="-1"/>
+            </bean>
+        </property>
+        <property name="memberIdCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="MEMID"/>
+            </bean>
+        </property>
+        <property name="sessionCacheCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="SESSION_CACHE"/>
+                <property name="cookieMaxAge" value="-1"/>
+            </bean>
+        </property>
     </bean>
 
     <bean id="pathwaysMap"
@@ -65,7 +88,14 @@
     </bean>
 
     <bean id="anchorListModelFactory"
-        class="gs.web.AnchorListModelFactory"
-        autowire="byName" />
+          class="gs.web.AnchorListModelFactory"
+          autowire="byName"/>
+
+    <bean id="versionProperties"
+          class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location">
+            <value>classpath:version.properties</value>
+        </property>
+    </bean>
 
 </beans>

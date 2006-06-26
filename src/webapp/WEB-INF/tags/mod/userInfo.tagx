@@ -6,7 +6,6 @@
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="user" type="gs.data.community.User" required="true"/>
     <jsp:directive.attribute name="state" type="gs.data.state.State" required="true"/>
-    <jsp:directive.attribute name="paidSubscriber" type="java.lang.Boolean" required="true"/>
     <c:if test="${requestScope.pageHelper.signInAvailable}">
             <c:if test="${user==null}">
                 GreatSchools Members,

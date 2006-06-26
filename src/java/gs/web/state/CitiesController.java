@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: CitiesController.java,v 1.5 2006/05/31 21:44:29 apeterson Exp $
+ * $Id: CitiesController.java,v 1.6 2006/06/26 21:26:17 apeterson Exp $
  */
 
 package gs.web.state;
@@ -11,8 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.ICity;
 import gs.data.state.State;
-import gs.web.ISessionFacade;
-import gs.web.SessionFacade;
+import gs.web.ISessionContext;
 import gs.web.SessionContextUtil;
 import gs.web.util.AnchorListModel;
 import gs.web.util.Anchor;
@@ -49,7 +48,7 @@ public class CitiesController extends AbstractController {
 
         Map model = new HashMap();
 
-        ISessionFacade context = SessionFacade.getInstance(request);
+        ISessionContext context = SessionContextUtil.getSessionContext(request);
         request.getParameter(SessionContextUtil.STATE_PARAM);
 
         State state = context.getStateOrDefault();

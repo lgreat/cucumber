@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ClientSideSessionCache.java,v 1.1 2006/06/23 17:28:31 apeterson Exp $
+ * $Id: ClientSideSessionCache.java,v 1.2 2006/06/26 21:26:00 apeterson Exp $
  */
 
 package gs.web.community;
@@ -11,10 +11,7 @@ import gs.data.community.User;
 import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
 
-import java.io.Externalizable;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
+import java.io.*;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -46,11 +43,40 @@ public class ClientSideSessionCache implements Externalizable {
     private Set _nonMss;
 
     private static final String COOKIE_LIST_DELIMETER = ",";
+    private static final String COOKIE_ENCODING = "UTF-8";
 
     public ClientSideSessionCache() {
     }
 
-    /** @noinspection FeatureEnvy*/
+    /**
+     * Creates a ClientSideSessionCache from the specified cookie.
+     *
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @see #getCookieRepresentation()
+     */
+    public static ClientSideSessionCache createClientSideSessionCache(String cookie) throws IOException, ClassNotFoundException {
+        byte[] bytes = cookie.getBytes(); // default encoding
+        final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+
+        final ClientSideSessionCache sessionCache = new ClientSideSessionCache();
+        sessionCache.readExternal(new ObjectInputStream(byteArrayInputStream));
+        return sessionCache;
+    }
+
+    public String getCookieRepresentation() throws IOException {
+        final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        final ObjectOutputStream objectOutput = new ObjectOutputStream(outputStream);
+        this.writeExternal(objectOutput);
+        objectOutput.flush();
+        final byte[] bytes = outputStream.toByteArray();
+        String cookie = new String(bytes);  // default encoding
+        return cookie;
+    }
+
+    /**
+     * @noinspection FeatureEnvy
+     */
     public ClientSideSessionCache(User user) {
         _email = user.getEmail();
         final String[] p = _email.split("@");

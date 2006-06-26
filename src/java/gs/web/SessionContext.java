@@ -1,15 +1,13 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.31 2006/06/14 00:16:33 apeterson Exp $
+ * $Id: SessionContext.java,v 1.32 2006/06/26 21:26:17 apeterson Exp $
  */
 package gs.web;
 
 import gs.data.admin.IPropertyDao;
 import gs.data.community.ISubscriptionDao;
-import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
 import gs.data.state.State;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeansException;
@@ -17,18 +15,15 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
- * Implementation of the ISessionFacade interface based on Java servlet
+ * Implementation of the ISessionContext interface based on Java servlet
  * sessions.
  *
  * @author Andrew J. Peterson <mailto:apeterson@greatschools.net>
  * @see SessionContextInterceptor
  */
-public class SessionContext
-        extends SessionFacade
-        implements ApplicationContextAware, Serializable {
+public class SessionContext implements ISessionContext, ApplicationContextAware, Serializable {
 
     static final String BEAN_ID = "sessionContext";
 
@@ -46,11 +41,12 @@ public class SessionContext
     private String _pathway;
     private String _remoteAddress;
     private String _abVersion;
-    private boolean _isBetaPage = false; // default;
 
     private ApplicationContext _applicationContext;
     private ISubscriptionDao _subscriptionDao;
     private IPropertyDao _propertyDao;
+
+    private SessionContextUtil _sessionContextUtil;
 
     /**
      * Created by Spring as needed.
@@ -69,14 +65,6 @@ public class SessionContext
 
     public void setUser(final User user) {
         _user = user;
-    }
-
-    public boolean isPaidSubscriber() {
-        if (_user == null) {
-            return false;
-        }
-
-        return _subscriptionDao.isUserSubscribed(_user, SubscriptionProduct.ONE_YEAR_SUB, new Date());
     }
 
     public State getState() {
@@ -121,24 +109,8 @@ public class SessionContext
     }
 
     public boolean isFamilyCobrand() {
-        boolean sFamilyCobrand = false;
-        if (_cobrand != null &&
-                (_cobrand.matches("family"))) {
-            sFamilyCobrand = true;
-        }
-        return sFamilyCobrand;
-    }
-
-    public String getSecureHostName() {
-        String sHost = "secure.greatschools.net";
-
-        if (StringUtils.contains(_hostName, "dev.greatschools.net")) {
-            sHost = "secure.dev.greatschools.net";
-        } else if (StringUtils.contains(_hostName, "staging.greatschools.net")) {
-            sHost = "secure.staging.greatschools.net";
-        }
-
-        return sHost;
+        return isCobranded() &&
+                "family".equals(getCobrand());
     }
 
 
@@ -222,11 +194,12 @@ public class SessionContext
         _propertyDao = propertyDao;
     }
 
-    public boolean isBetaPage() {
-        return _isBetaPage;
+    public SessionContextUtil getSessionContextUtil() {
+        return _sessionContextUtil;
     }
 
-    public void setIsBetaPage(boolean isBeta) {
-        _isBetaPage = isBeta;
+    public void setSessionContextUtil(SessionContextUtil sessionContextUtil) {
+        _sessionContextUtil = sessionContextUtil;
     }
+
 }

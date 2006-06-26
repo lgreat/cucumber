@@ -1,14 +1,13 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: TopCitiesController.java,v 1.21 2006/06/07 17:35:37 apeterson Exp $
+* $Id: TopCitiesController.java,v 1.22 2006/06/26 21:26:17 apeterson Exp $
 */
 
 package gs.web.state;
 
 import gs.data.state.State;
-import gs.web.ISessionFacade;
+import gs.web.ISessionContext;
 import gs.web.SessionContextUtil;
-import gs.web.SessionFacade;
 import gs.web.util.Anchor;
 import gs.web.util.AnchorListModel;
 import gs.web.util.UrlBuilder;
@@ -40,7 +39,7 @@ public class TopCitiesController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        ISessionFacade context = SessionFacade.getInstance(request);
+        ISessionContext context = SessionContextUtil.getSessionContext(request);
         request.getParameter(SessionContextUtil.STATE_PARAM);
 
         State state = context.getStateOrDefault();

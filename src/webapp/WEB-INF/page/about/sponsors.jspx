@@ -23,7 +23,7 @@
     <title>Sponsors and Partners</title>
 </head>
 
-<gsml:body adPageName="sponsors" pageLayout="singleTextOnlyColumn">
+<gsml:body adPageName="sponsors" pageLayout="singleTextOnlyColumnLayout">
 
 <mod:tracking pageType="aboutUs" pageName="sponsors" hier1="Home,Corporate,AboutUs,SponsorsAndPartners"/>
 

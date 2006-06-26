@@ -23,7 +23,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <jsp:scriptlet>
-            PageHelper.hideHeader(request);
+            //PageHelper.hideHeader(request);
             PageHelper.hideFooter(request);
         </jsp:scriptlet>
         <title>Select a state</title>
@@ -31,23 +31,23 @@
             #bodyGS { font-size: 76%; }
             .state1 {padding:0px 15px 0px 15px;}
             #main {margin-left: auto; margin-right: auto;}
-            h2 {font-weight:bold;padding:15px 0px 20px 0px;font-size:1.5em;text-align:left;color:#666}
+            .contentGS h2 {font-weight:bold;padding:15px 0px 20px 0px;font-size:x-large;text-align:left;color:#666; text-align: center;}
             div#bodyGS .state1 a, div#bodyGS .state2 a  {font-size: 1.5em}
             </style>
+        <gsml:url var="mapImage" value="/res/img/map_US_splash_interstitial.gif"/>
     </head>
 
     <body bgcolor="#FFFFFF">
     <div id="bodyGS">
-        <table id="pagemargin" border="0">
+    <h2>${promotext}<c:if test="${empty promotext}">Please select a state to continue.</c:if></h2>
+    <table id="pagemargin" border="0">
         <tr>
             <td valign="top">
                 <table id="main" border="0">
                 <tr>
                     <td valign="top" class="map">
-                    <gsml:img src="/res/img/logo/logo_GS_260x40.gif" alt="GreatSchools logo"/>
-                    <h2>${promotext}</h2>
-                    <gsml:url var="mapImage" value="/res/img/map_US_splash_interstitial.gif" />
-                    <img src="${mapImage}" width="519" height="310" border="0" usemap="#Map" href="${url}RI${extraParams}" alt="US Map" />
+                    <!--gsml:img src="/res/img/logo/logo_GS_401x102.gif" alt="GreatSchools logo"/-->
+                    <img style="display: block" src="${mapImage}" width="519" height="310" border="0" usemap="#Map" href="${url}RI${extraParams}" alt="US Map" />
                     <map name="Map">
                         <area shape="poly" coords="315,183" href="#" />
                         <area shape="poly" coords="330,184" href="#" />

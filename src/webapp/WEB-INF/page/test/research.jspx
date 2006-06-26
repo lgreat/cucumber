@@ -12,9 +12,10 @@
         >
 <jsp:directive.page import="gs.data.geo.IGeoDao"/>
 <jsp:directive.page import="gs.data.school.ISchoolDao"/>
-<jsp:directive.page import="gs.web.ISessionFacade"/>
+<jsp:directive.page import="gs.web.ISessionContext"/>
 <jsp:directive.page import="gs.web.SessionContext"/>
 <jsp:directive.page import="org.springframework.context.ApplicationContext"/>
+<jsp:directive.page import="gs.web.SessionContextUtil"/>
 <html lang="en">
 
 <jsp:output doctype-root-element="html"
@@ -23,7 +24,7 @@
 
 <jsp:directive.page contentType="text/html"/>
 <jsp:scriptlet>
-    ISessionFacade sessionContext = SessionContext.getInstance(request);
+    ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
     ApplicationContext ac = sessionContext.getApplicationContext();
 
     if (sessionContext.getState() != null) {
@@ -47,10 +48,6 @@
 <head>
     <title>GreatSchools.net: Research &amp; Compare</title>
     <style>
-        .contentGS {
-            padding: 0 10px 0 10px;
-        }
-
         .research h1 {
             font-size: large;
             font-weight: bold;
@@ -72,6 +69,7 @@
             margin: 0px 0 10px 0;
         }
     </style>
+    <pageHelper:setPathway pathway="1"/>
 </head>
 
 <gsml:body adPageName="modal" pageLayout="research">

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import gs.web.util.UrlUtil;
-import gs.web.SessionContext;
+import gs.web.SessionContextUtil;
 import gs.data.state.State;
 
 /**
@@ -28,7 +28,7 @@ public class CompareEntryController extends AbstractController {
         String type = request.getParameter("type");
         String stateString = request.getParameter("state");
         if (StringUtils.isBlank(stateString)) {
-            State state = SessionContext.getInstance(request).getStateOrDefault();
+            State state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
             stateString = state.getAbbreviation();
         }
 

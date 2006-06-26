@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: TopDistrictsControllerTest.java,v 1.3 2006/05/31 21:44:29 apeterson Exp $
+ * $Id: TopDistrictsControllerTest.java,v 1.4 2006/06/26 21:28:11 apeterson Exp $
  */
 
 package gs.web.state;
@@ -10,8 +10,8 @@ import gs.data.state.State;
 import gs.web.util.AnchorListModel;
 import gs.web.util.Anchor;
 import gs.web.SessionContext;
-import gs.web.SessionFacade;
 import gs.web.BaseControllerTestCase;
+import gs.web.SessionContextUtil;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -50,7 +50,7 @@ public class TopDistrictsControllerTest extends BaseControllerTestCase {
         assertEquals("View all California districts", veryLast.getContents());
 
         // Test AK districts-- this should produce what?
-        SessionContext context = (SessionContext) SessionFacade.getInstance(getRequest());
+        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(getRequest());
         context.setState(State.AK);
         context.setHostName("localhost");
         modelAndView = c.handleRequestInternal(getRequest(), getResponse());

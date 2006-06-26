@@ -37,7 +37,7 @@
         }
 
 
-        .oneMainColumn .contentGS UL.plain {
+        .twoColumnLayout .contentGS UL.plain {
             list-style: none;
             margin-top: 3px;
             margin-bottom: 0px;
@@ -46,7 +46,7 @@
             font-size: 12px;
         }
 
-        .oneMainColumn .contentGS UL.plain li {
+        .twoColumnLayout .contentGS UL.plain li {
             padding: 5px;
         }
 
@@ -66,7 +66,7 @@
               hier1 = "Article,GuideToTests"/>
 
 
-<gsml:body adPageName="article" pageLayout="oneMainColumn">
+<gsml:body adPageName="article" pageLayout="twoColumnLayout">
 <table class="content" cellpadding="0" cellspacing="0" >
 <tr>
 <td valign="top" width="130">

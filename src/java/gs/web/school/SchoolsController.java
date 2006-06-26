@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.16 2006/06/16 00:27:14 thuss Exp $
+ * $Id: SchoolsController.java,v 1.17 2006/06/26 21:26:17 apeterson Exp $
  */
 
 package gs.web.school;
@@ -13,8 +13,8 @@ import gs.data.search.SearchCommand;
 import gs.data.search.Searcher;
 import gs.data.state.State;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
-import gs.web.ISessionFacade;
-import gs.web.SessionContext;
+import gs.web.ISessionContext;
+import gs.web.SessionContextUtil;
 import gs.web.search.ResultsPager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -119,7 +119,7 @@ public class SchoolsController extends AbstractController {
             throws Exception {
         ThreadLocalTransactionManager.setReadOnly();
 
-        ISessionFacade context = SessionContext.getInstance(request);
+        ISessionContext context = SessionContextUtil.getSessionContext(request);
         State state = context.getState();
 
         Map model = new HashMap();

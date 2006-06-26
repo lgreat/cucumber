@@ -8,7 +8,6 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
         >
 <jsp:directive.tag body-content="empty"/>
-
 <ad:x22/>
 
 <div id="topnav">
@@ -147,9 +146,8 @@
 
 </table>
 <div class="welcome_wide">
-    <mod:userInfo user="${requestScope.context.user}" state="${requestScope.context.stateOrDefault}"
-                  paidSubscriber="${requestScope.context.paidSubscriber}"/>
-    <c:if test="${!requestScope.context.betaPage}">
+    <mod:userInfo user="${requestScope.context.user}" state="${requestScope.context.stateOrDefault}"/>
+    <c:if test="${!requestScope.pageHelper.betaPage}">
         Sign up for <link:betaSignup>GreatSchools Beta Group</link:betaSignup>
     </c:if>
 </div>

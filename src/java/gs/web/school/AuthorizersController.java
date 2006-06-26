@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gs.web.SessionContext;
-import gs.web.ISessionFacade;
+import gs.web.ISessionContext;
+import gs.web.SessionContextUtil;
 import gs.web.jsp.Util;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
@@ -65,7 +65,7 @@ public class AuthorizersController extends AbstractController {
                                                  HttpServletResponse response) throws Exception {
 
         ModelAndView mAndV = new ModelAndView("school/authorizers");
-        ISessionFacade sessionContext = SessionContext.getInstance(request);
+        ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         String schoolId = request.getParameter(PARAM_SCHOOL);
 
         if (schoolId != null) {

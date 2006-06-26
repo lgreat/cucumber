@@ -1,14 +1,14 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.11 2006/06/15 01:28:39 chriskimm Exp $
+ * $Id: NthGraderController.java,v 1.12 2006/06/26 21:26:00 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
 import gs.data.community.*;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
-import gs.web.ISessionFacade;
-import gs.web.SessionContext;
+import gs.web.ISessionContext;
+import gs.web.SessionContextUtil;
 import gs.web.util.PageHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,7 +50,7 @@ public class NthGraderController extends SimpleFormController {
         }
 
         if (nc.getEmail() == null) {
-            ISessionFacade session = SessionContext.getInstance(request);
+            ISessionContext session = SessionContextUtil.getSessionContext(request);
             User user = session.getUser();
             if (user != null) {
                 nc.setEmail(user.getEmail());
@@ -77,7 +77,7 @@ public class NthGraderController extends SimpleFormController {
             getUserDao().saveUser(user);
             mAndV.getModel().put("newuser", "true");
         }
-        PageHelper.setMemberCookie(response, user);
+        PageHelper.setMemberCookie(request, response, user);
 
         List subscriptions = new ArrayList();
 

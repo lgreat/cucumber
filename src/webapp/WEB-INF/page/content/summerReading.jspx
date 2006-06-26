@@ -29,10 +29,6 @@
 
     <style type="text/css">
 
-        #headline {
-            font-size:larger;
-        }
-
         .newspromo {
             color: #000;
             width: 300px;
@@ -74,7 +70,7 @@
               pageName="SummerReading"
               hier1 = "Article,SummerReading"/>
 
-<gsml:body adPageName="article" pageLayout="oneMainColumn">
+<gsml:body adPageName="article" pageLayout="twoColumnLayout">
 
     <table class="content" cellpadding="0" cellspacing="0">
         <tr>
@@ -88,8 +84,8 @@
                     </tr>
                     <tr>
                         <td valign="top" id="guidecontent">
-                            <p><span id="headline"><c:out value="Summer's a time kids can build on reading skills. What can a parent do? Help your child find books he likes and the time to read them."
-                                      escapeXml="true" /></span></p>
+                            <p>Summer's a time kids can build on reading skills.
+                                What can a parent do? Help your child find books he likes and the time to read them.</p>
                             <br/>
 
                             <h3>Secrets of Raising a Reader</h3>

@@ -1,17 +1,17 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.15 2006/06/20 18:21:27 thuss Exp $
+ * $Id: PageHelper.java,v 1.16 2006/06/26 21:26:17 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.data.community.User;
-import gs.web.ISessionFacade;
+import gs.web.ISessionContext;
+import gs.web.SessionContext;
 import gs.web.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.web.util.CookieGenerator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -122,6 +122,7 @@ public class PageHelper {
     private boolean _showingFooter = true;
     private boolean _showingFooterAd = true;
     private boolean _advertisingOnline = true;
+    private boolean _betaPage = false;
     private final String _cobrand;
     private final String _hostName;
 
@@ -136,10 +137,19 @@ public class PageHelper {
         return (PageHelper) request.getAttribute(REQUEST_ATTRIBUTE_NAME);
     }
 
-    public PageHelper(ISessionFacade sessionFacade) {
-        _cobrand = sessionFacade.getCobrand();
-        _hostName = sessionFacade.getHostName();
-        _advertisingOnline = sessionFacade.isAdvertisingOnline();
+    public PageHelper(ISessionContext sessionContext, HttpServletRequest request) {
+        _cobrand = sessionContext.getCobrand();
+        _hostName = sessionContext.getHostName();
+        _advertisingOnline = sessionContext.isAdvertisingOnline();
+
+        // a simple-minded way to determine if the page is a beta-related page
+        String uri = request.getRequestURI();
+        if (StringUtils.isNotBlank(uri)) {
+            if (uri.matches(".*/community/beta.*")) {
+                _betaPage = true;
+            }
+        }
+
     }
 
     public boolean isShowingBannerAd() {
@@ -153,6 +163,10 @@ public class PageHelper {
 
     public boolean isShowingUserInfo() {
         return _showingHeader && !isFramed();
+    }
+
+    public boolean isBetaPage() {
+        return _betaPage;
     }
 
 
@@ -303,15 +317,16 @@ public class PageHelper {
     /**
      * Static method to set a user's member cookie
      */
-    public static void setMemberCookie(HttpServletResponse response, User user) {
-        if (user != null) {
-            CookieGenerator cg = new CookieGenerator();
-            cg.setCookiePath(CookieGenerator.DEFAULT_COOKIE_PATH);
-            cg.setCookieMaxAge(CookieGenerator.DEFAULT_COOKIE_MAX_AGE);
-            cg.setCookieName(SessionContextUtil.MEMBER_ID_COOKIE);
-            cg.addCookie(response, user.getId().toString());
-        } else {
-            _log.error("Tried to set member id for a null user");
-        }
+    public static void setMemberCookie(HttpServletRequest request, HttpServletResponse response, User user) {
+        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(request);
+        SessionContextUtil util = context.getSessionContextUtil();
+        util.changeUser(context, response, user);
     }
+
+    public static void setPathwayCookie(HttpServletRequest request, HttpServletResponse response, String pathway) {
+        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(request);
+        SessionContextUtil util = context.getSessionContextUtil();
+        util.changePathway(context, response, pathway);
+    }
+
 }

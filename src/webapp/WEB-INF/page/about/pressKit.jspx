@@ -22,7 +22,7 @@
     <title>GreatSchools Press Room</title>
 </head>
 
-<gsml:body adPageName="pressKit" pageLayout="singleTextOnlyColumn">
+<gsml:body adPageName="pressKit" pageLayout="singleTextOnlyColumnLayout">
 
     <mod:tracking pageType="aboutUs" pageName="pressKit"/>
 

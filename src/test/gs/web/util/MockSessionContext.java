@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MockSessionFacade.java,v 1.6 2006/05/30 18:43:50 chriskimm Exp $
+ * $Id: MockSessionContext.java,v 1.1 2006/06/26 21:28:11 apeterson Exp $
  */
 
 package gs.web.util;
@@ -8,7 +8,7 @@ package gs.web.util;
 import gs.data.community.User;
 import gs.data.state.State;
 import gs.data.util.SpringUtil;
-import gs.web.ISessionFacade;
+import gs.web.ISessionContext;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -16,7 +16,7 @@ import org.springframework.context.ApplicationContext;
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
-public class MockSessionFacade implements ISessionFacade {
+public class MockSessionContext implements ISessionContext {
     private State _state;
     private boolean _paidSubscriber;
     private boolean _advertisingOnline = true;
@@ -28,10 +28,6 @@ public class MockSessionFacade implements ISessionFacade {
 
     public User getUser() {
         return null;
-    }
-
-    public boolean isPaidSubscriber() {
-        return _paidSubscriber;
     }
 
     public void setPaidSubscriber(boolean paidSubscriber) {
@@ -92,14 +88,6 @@ public class MockSessionFacade implements ISessionFacade {
     }
 
     public boolean isFamilyCobrand() {
-        return false;
-    }
-
-    public String getSecureHostName() {
-        return "secure.greatschools.net";
-    }
-
-    public boolean isBetaPage() {
         return false;
     }
 

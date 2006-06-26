@@ -23,7 +23,7 @@
         <title>GreatSchools.net Privacy Statement</title>
     </head>
 
-    <gsml:body adPageName="privacyStatement" pageLayout="singleTextOnlyColumn">
+    <gsml:body adPageName="privacyStatement" pageLayout="singleTextOnlyColumnLayout">
 
         <mod:tracking pageType="aboutUs" pageName="privacyStatement" hier1="Home,Corporate,PrivacyPolicy"/>
 

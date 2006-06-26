@@ -1,14 +1,15 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.11 2006/06/12 21:48:17 dlee Exp $
+ * $Id: PageHelperSaTest.java,v 1.12 2006/06/26 21:28:11 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.data.community.User;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.ISessionFacade;
+import gs.web.ISessionContext;
 import gs.web.SessionContextUtil;
+import gs.web.SessionContext;
 import junit.framework.TestCase;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.util.CookieGenerator;
@@ -21,10 +22,13 @@ import javax.servlet.http.Cookie;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class PageHelperSaTest extends TestCase {
-    public void testMainSite() {
-        ISessionFacade sessionFacade = new MockSessionFacade();
+    private MockHttpServletResponse _response;
+    private GsMockHttpServletRequest _request;
 
-        PageHelper pageHelper = new PageHelper(sessionFacade);
+    public void testMainSite() {
+        ISessionContext sessionContext = new MockSessionContext();
+
+        PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
 
         assertTrue(pageHelper.isShowingBannerAd());
         assertTrue(pageHelper.isShowingLogo());
@@ -35,25 +39,25 @@ public class PageHelperSaTest extends TestCase {
     }
 
     public void testFramed() {
-        MockSessionFacade sessionFacade = new MockSessionFacade();
+        MockSessionContext sessionFacade = new MockSessionContext();
         sessionFacade.setCobrand("framed");
         assertFramedOptions(sessionFacade);
     }
 
     public void testNumber1expert() {
-        MockSessionFacade sessionFacade = new MockSessionFacade();
+        MockSessionContext sessionFacade = new MockSessionContext();
         sessionFacade.setCobrand("number1expert");
         assertFramedOptions(sessionFacade);
     }
 
     public void testHomegain() {
-        MockSessionFacade sessionFacade = new MockSessionFacade();
+        MockSessionContext sessionFacade = new MockSessionContext();
         sessionFacade.setCobrand("homegain");
         assertFramedOptions(sessionFacade);
     }
 
-    private void assertFramedOptions(MockSessionFacade sessionFacade) {
-        PageHelper pageHelper = new PageHelper(sessionFacade);
+    private void assertFramedOptions(MockSessionContext sessionFacade) {
+        PageHelper pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
 
         assertFalse(pageHelper.isShowingBannerAd());
         assertFalse(pageHelper.isShowingLogo());
@@ -65,9 +69,9 @@ public class PageHelperSaTest extends TestCase {
     }
 
     public void testCSR() {
-        MockSessionFacade sessionFacade = new MockSessionFacade();
+        MockSessionContext sessionFacade = new MockSessionContext();
         sessionFacade.setCobrand("charterschoolratings");
-        PageHelper pageHelper = new PageHelper(sessionFacade);
+        PageHelper pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
 
         assertTrue(pageHelper.isShowingBannerAd());
         assertTrue(pageHelper.isShowingFooter());
@@ -76,10 +80,10 @@ public class PageHelperSaTest extends TestCase {
     }
 
     public void testSfgate() {
-        MockSessionFacade sessionFacade = new MockSessionFacade();
+        MockSessionContext sessionFacade = new MockSessionContext();
         sessionFacade.setCobrand("sfgate");
 
-        PageHelper pageHelper = new PageHelper(sessionFacade);
+        PageHelper pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
 
         assertFalse(pageHelper.isShowingBannerAd());
         assertTrue(pageHelper.isShowingLogo());
@@ -91,10 +95,10 @@ public class PageHelperSaTest extends TestCase {
     }
 
     public void testYahoo() {
-        MockSessionFacade sessionFacade = new MockSessionFacade();
+        MockSessionContext sessionFacade = new MockSessionContext();
         sessionFacade.setCobrand("yahoo");
 
-        PageHelper pageHelper = new PageHelper(sessionFacade);
+        PageHelper pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
 
         assertFalse(pageHelper.isShowingBannerAd());
         assertTrue(pageHelper.isShowingLogo() || pageHelper.isShowingUserInfo());
@@ -105,10 +109,10 @@ public class PageHelperSaTest extends TestCase {
     }
 
     public void testFamily() {
-        MockSessionFacade sessionFacade = new MockSessionFacade();
+        MockSessionContext sessionFacade = new MockSessionContext();
         sessionFacade.setCobrand("family");
 
-        PageHelper pageHelper = new PageHelper(sessionFacade);
+        PageHelper pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
 
         assertFalse(pageHelper.isShowingBannerAd());
         assertTrue(pageHelper.isShowingLogo() || pageHelper.isShowingUserInfo());
@@ -120,10 +124,10 @@ public class PageHelperSaTest extends TestCase {
     }
 
     public void testAzCentral() {
-        MockSessionFacade sessionFacade = new MockSessionFacade();
+        MockSessionContext sessionFacade = new MockSessionContext();
         sessionFacade.setCobrand("azcentral");
 
-        PageHelper pageHelper = new PageHelper(sessionFacade);
+        PageHelper pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
 
         assertFalse(pageHelper.isShowingBannerAd());
         assertTrue(pageHelper.isShowingLogo() || pageHelper.isShowingUserInfo());
@@ -135,11 +139,10 @@ public class PageHelperSaTest extends TestCase {
 
 
     public void testOnload() {
-        ISessionFacade sessionFacade = new MockSessionFacade();
-        PageHelper pageHelper = new PageHelper(sessionFacade);
+        ISessionContext sessionContext = new MockSessionContext();
+        PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
 
-        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
-        request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
 
         assertTrue(pageHelper.isShowingBannerAd());
         assertTrue(pageHelper.isShowingLogo() || pageHelper.isShowingUserInfo());
@@ -148,13 +151,13 @@ public class PageHelperSaTest extends TestCase {
 
         assertEquals("", pageHelper.getOnload());
 
-        PageHelper.addOnLoadHandler(request, "window.alert('Hi')");
+        PageHelper.addOnLoadHandler(_request, "window.alert('Hi')");
         assertEquals("window.alert('Hi')", pageHelper.getOnload());
-        PageHelper.addOnLoadHandler(request, "window.alert('World')");
+        PageHelper.addOnLoadHandler(_request, "window.alert('World')");
         assertEquals("window.alert('Hi');window.alert('World')", pageHelper.getOnload());
 
         try {
-            PageHelper.addOnLoadHandler(request, "don't allow \"quotes\"");
+            PageHelper.addOnLoadHandler(_request, "don't allow \"quotes\"");
             fail("quotes were allowed to be inserted");
         } catch (IllegalArgumentException e) {
             // good, I didn't write code to handle that yet.
@@ -164,23 +167,22 @@ public class PageHelperSaTest extends TestCase {
 
 
     public void testJavascriptAndCssInclude() {
-        ISessionFacade sessionFacade = new MockSessionFacade();
-        PageHelper pageHelper = new PageHelper(sessionFacade);
+        ISessionContext sessionContext = new MockSessionContext();
+        PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
 
-        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
-        request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
 
         assertEquals("", pageHelper.getHeadElements());
 
-        PageHelper.addJavascriptSource(request, "/res/js/something.js");
+        PageHelper.addJavascriptSource(_request, "/res/js/something.js");
         assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\"></script>", pageHelper.getHeadElements());
 
-        PageHelper.addJavascriptSource(request, "/res/js/somethingElse.js");
+        PageHelper.addJavascriptSource(_request, "/res/js/somethingElse.js");
         assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\">" +
                 "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js\"></script>",
                 pageHelper.getHeadElements());
 
-        PageHelper.addExternalCss(request, "/res/css/special.css");
+        PageHelper.addExternalCss(_request, "/res/css/special.css");
         assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\">" +
                 "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js\"></script>" +
                 "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css\"></link>",
@@ -189,14 +191,13 @@ public class PageHelperSaTest extends TestCase {
 
     public void testHideFooter() {
 
-        ISessionFacade sessionFacade = new MockSessionFacade();
+        ISessionContext sessionContext = new MockSessionContext();
 
-        PageHelper pageHelper = new PageHelper(sessionFacade);
+        PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
 
-        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
-        request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
 
-        PageHelper.hideFooter(request);
+        PageHelper.hideFooter(_request);
 
         assertTrue(pageHelper.isShowingBannerAd());
         assertTrue(pageHelper.isShowingLogo() || pageHelper.isShowingUserInfo());
@@ -207,14 +208,13 @@ public class PageHelperSaTest extends TestCase {
 
     public void testHideHeader() {
 
-        ISessionFacade sessionFacade = new MockSessionFacade();
+        ISessionContext sessionContext = new MockSessionContext();
 
-        PageHelper pageHelper = new PageHelper(sessionFacade);
+        PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
 
-        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
-        request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
 
-        PageHelper.hideHeader(request);
+        PageHelper.hideHeader(_request);
 
         assertTrue(pageHelper.isShowingBannerAd());
         assertFalse(pageHelper.isShowingLogo() || pageHelper.isShowingUserInfo());
@@ -226,102 +226,127 @@ public class PageHelperSaTest extends TestCase {
 
     public void testIsDevEnvironment() {
 
-        MockSessionFacade sessionFacade = new MockSessionFacade();
+        MockSessionContext sessionFacade = new MockSessionContext();
 
         sessionFacade.setHostName("www.greatschools.net");
-        PageHelper pageHelper = new PageHelper(sessionFacade);
+        PageHelper pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertFalse(pageHelper.isDevEnvironment());
 
         sessionFacade.setHostName("cobrand.greatschools.net");
-        pageHelper = new PageHelper(sessionFacade);
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertFalse(pageHelper.isDevEnvironment());
 
         sessionFacade.setHostName("yahoo.greatschools.net");
-        pageHelper = new PageHelper(sessionFacade);
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertFalse(pageHelper.isDevEnvironment());
 
         sessionFacade.setHostName("charterschoolratings.org");
-        pageHelper = new PageHelper(sessionFacade);
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertFalse(pageHelper.isDevEnvironment());
 
         sessionFacade.setHostName("dev.greatschools.net");
-        pageHelper = new PageHelper(sessionFacade);
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isDevEnvironment());
 
         sessionFacade.setHostName("cobrand.dev.greatschools.net");
-        pageHelper = new PageHelper(sessionFacade);
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isDevEnvironment());
 
         sessionFacade.setHostName("charterschoolratings.dev.greatschools.net");
-        pageHelper = new PageHelper(sessionFacade);
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isDevEnvironment());
 
         sessionFacade.setHostName("staging.greatschools.net");
-        pageHelper = new PageHelper(sessionFacade);
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isDevEnvironment());
 
         sessionFacade.setHostName("apeterson.dev.greatschools.net");
-        pageHelper = new PageHelper(sessionFacade);
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isDevEnvironment());
 
         sessionFacade.setHostName("apeterson.office.greatschools.net");
-        pageHelper = new PageHelper(sessionFacade);
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isDevEnvironment());
 
         sessionFacade.setHostName("localhost");
-        pageHelper = new PageHelper(sessionFacade);
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isDevEnvironment());
 
         sessionFacade.setHostName("127.0.0.1");
-        pageHelper = new PageHelper(sessionFacade);
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isDevEnvironment());
     }
 
     public void testAdvertising() {
         // Test for the main website
-        MockSessionFacade sessionFacade = new MockSessionFacade();
+        MockSessionContext sessionFacade = new MockSessionContext();
         sessionFacade.setHostName("www.greatschools.net");
-        PageHelper pageHelper = new PageHelper(sessionFacade);
+        PageHelper pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertFalse(pageHelper.isAdFree());
         // In the case of an ad server outage we turn advertising off
         sessionFacade.setAdvertisingOnline(false);
-        pageHelper = new PageHelper(sessionFacade);
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isAdFree());
 
         // Test for a cobrand that shows ads
-        sessionFacade = new MockSessionFacade();
+        sessionFacade = new MockSessionContext();
         sessionFacade.setHostName("sfgate.greatschools.net");
         sessionFacade.setCobrand("sfgate");
-        pageHelper = new PageHelper(sessionFacade);
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertFalse(pageHelper.isAdFree());
         // In the case of an ad server outage we turn advertising off
         sessionFacade.setAdvertisingOnline(false);
-        pageHelper = new PageHelper(sessionFacade);
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isAdFree());
 
         // Test for an ad free cobrand
-        sessionFacade = new MockSessionFacade();
+        sessionFacade = new MockSessionContext();
         sessionFacade.setHostName("framed.greatschools.net");
         sessionFacade.setCobrand("framed");
-        pageHelper = new PageHelper(sessionFacade);
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isAdFree());
         // Turning advertising off should have no effect
         sessionFacade.setAdvertisingOnline(false);
-        pageHelper = new PageHelper(sessionFacade);
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isAdFree());
     }
 
     public void testSetMemberCookie() {
-        MockHttpServletResponse response = new MockHttpServletResponse();
         User user = new User();
         String memberId = "100";
         user.setId(Integer.valueOf(memberId));
-        PageHelper.setMemberCookie(response, user);
+        PageHelper.setMemberCookie(_request, _response, user);
 
-        Cookie cookie = response.getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
+        Cookie cookie = _response.getCookie(SessionContextUtil.MEMBER_ID_COOKIE);
         assertNotNull(cookie);
         assertEquals(memberId, cookie.getValue());
         assertEquals(CookieGenerator.DEFAULT_COOKIE_MAX_AGE, cookie.getMaxAge());
         assertEquals(CookieGenerator.DEFAULT_COOKIE_PATH, cookie.getPath());
+    }
+
+    public void testFindsBetaPage() {
+        PageHelper helper = new PageHelper(new MockSessionContext(), _request);
+        assertFalse(helper.isBetaPage());
+
+        _request.setRequestURI("/community/beta/signup");
+        helper = new PageHelper(new MockSessionContext(), _request);
+        assertTrue(helper.isBetaPage());
+    }
+
+    protected void setUp() throws Exception {
+        super.setUp();
+
+        _response = new MockHttpServletResponse();
+        _request = new GsMockHttpServletRequest();
+
+        SessionContextUtil sessionContextUtil = new SessionContextUtil();
+        final CookieGenerator memberIdCookieGenerator = new CookieGenerator();
+        memberIdCookieGenerator.setCookieName("MEMID");
+        sessionContextUtil.setMemberIdCookieGenerator(memberIdCookieGenerator);
+
+        SessionContext sessionContext = new SessionContext();
+        sessionContext.setSessionContextUtil(sessionContextUtil);
+        _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, sessionContext);
+
     }
 }
