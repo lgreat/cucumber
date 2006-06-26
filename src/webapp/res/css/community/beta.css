@@ -8,14 +8,14 @@ div#container {
 }
 
 #leftcol {
-  width:100px;
+  width:30px;
   padding:0px;
   float:left;
   background:#fff;
 }
 
 #centercol {
-  width:600px;
+  width:650px;
   padding:15px;
   float:left;
   background:#eee;
@@ -31,10 +31,15 @@ div#container {
   margin-top:20px;
   margin-left:10px;
   background:#fff;
-  border:1px solid #F38C11;
+  border:2px solid #F38C11;
 
 }
 
+span#adtext {
+    padding-left:10px;
+    font-size: x-small;
+    color:#A5A5A5;
+}
 .content {
   width:600px;
   padding:15px;

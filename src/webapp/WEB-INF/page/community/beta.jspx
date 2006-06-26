@@ -70,6 +70,7 @@
         </div>
 
         <div id="rightcol">
+            <span id="adtext">Promotional Sponsor</span>
             <a href="http://www.shutterfly.com">
                 <gsml:img alt="Beta Group" src="/res/img/community/shutterfly_logo_120x90.gif"/>
             </a>
