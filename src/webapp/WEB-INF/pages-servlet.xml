@@ -682,6 +682,19 @@
     </bean>
     <!--End Registration pages -->
 
+    <bean name="/community/login.page"
+          class="gs.web.community.LoginController"
+          autowire="byName">
+        <property name="commandName" value="loginCmd"/>
+        <property name="commandClass" value="gs.web.community.LoginCommand"/>
+        <property name="formView" value="/community/login"/>
+        <property name="validators">
+            <list>
+                <ref local="emailValidator"/>
+            </list>
+        </property>
+    </bean>
+
     <!-- WEB PAGE DEFINITIONS END -->
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

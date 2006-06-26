@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+        xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:spring="http://www.springframework.org/tags"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:link="urn:www.greatschools.net/taglib/link"
+        >
+    <html lang="en">
+    <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+
+    <head>
+        <![CDATA[
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+            ]]>
+        <title>Login or Register</title>
+    </head>
+
+    <gsml:body adPageName="login" pageLayout="">
+        <h1>Log In Or Register</h1>
+        <div style="height:300px; width: 300px; float: left; border-right: 1px solid #ccc; padding-right: 15px; text-align: right; position:inherit;">
+
+            <h3 style="text-align: left; margin-bottom: 1em">Existing Users</h3>
+
+            <gsml:form action="/community/login.page" method="post">
+
+                <spring:hasBindErrors name="loginCmd">
+                    <div class="error">
+                        <ul>
+                            <c:forEach var="errMsgObj" items="${errors.allErrors}">
+                                <li>
+                                    <spring:message code="${errMsgObj.code}" text="${errMsgObj.defaultMessage}"/>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </spring:hasBindErrors>
+
+                <div style="margin-bottom: 9px">Email
+                    <input type="text" name="email" value=""/>
+                </div>
+
+                <div style="margin-bottom: 9px">
+                    <input type="submit" value="Login"/>
+                </div>
+            </gsml:form>
+        </div>
+
+        <div style="width: 315px; float: left; text-align: center;position:inherit;">
+            <h3 style="margin-bottom: 1em">New Users:</h3>
+            <ul>
+                <li><link:newsletterCenter>Learn about newsletters</link:newsletterCenter></li>
+                <li><link:mySchoolList>Get Updates about your child's school</link:mySchoolList></li>
+            </ul>
+        </div>
+        <mod:tracking pageName="login"
+                      pageType=""
+                      hier1=""/>
+    </gsml:body>
+    </html>
+</jsp:root>
