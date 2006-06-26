@@ -8,7 +8,7 @@ div#container {
 }
 
 #leftcol {
-  width:120px;
+  width:100px;
   padding:0px;
   float:left;
   background:#fff;
@@ -25,12 +25,14 @@ div#container {
 }
 
 #rightcol {
-  width:10px;
+  width:120px;
   padding:0px;
   float:left;
-  margin-top:15px;
+  margin-top:20px;
   margin-left:10px;
   background:#fff;
+  border:1px solid #F38C11;
+
 }
 
 .content {
