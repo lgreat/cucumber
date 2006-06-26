@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.1 2006/06/26 20:51:51 dlee Exp $
+ * $Id: LoginController.java,v 1.2 2006/06/26 23:13:56 apeterson Exp $
  */
 package gs.web.community;
 
@@ -40,7 +40,7 @@ public class LoginController extends SimpleFormController {
         if (errors.hasErrors()) {
             return;
         }
-        
+
         LoginCommand loginCommand = (LoginCommand) command;
         User user = getUserDao().findUserFromEmailIfExists(loginCommand.getEmail());
 
@@ -60,7 +60,7 @@ public class LoginController extends SimpleFormController {
         LoginCommand loginCommand = (LoginCommand) command;
         String email = loginCommand.getEmail();
         User user = getUserDao().findUserFromEmail(email);
-        PageHelper.setMemberCookie(response, user);
+        PageHelper.setMemberCookie(request, response, user);
 
         ModelAndView mAndV = new ModelAndView();
         mAndV.setViewName("redirect:" + loginCommand.getRedirect());
