@@ -17,7 +17,7 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
-     <pageHelper:hideFooterAd/>
+<pageHelper:hideFooterAd/>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
@@ -198,19 +198,19 @@
 <![CDATA[ <a name="states"></a> ]]>
 <h4>Where does GreatSchools get its private school information?</h4>
 
-<p> Most of our private school information comes from the National Center for Education Statistics (NCES), which
-    conducts a Private School Universe Survey every two years. The most recent survey includes data for the
-    2003-2004 school year.
+<p> Our private school information comes from the National Center for Education Statistics (NCES) and some state
+    Departments of Education. The most recent NCES data is for the 2003-2004 school year, while state-supplied data is
+    much more current.
 </p>
 
 
 <h4>What if I know of a private school that is not listed on GreatSchools.net?</h4>
 
-<p>If a private school is missing from our site, it is usually because the source of our data failed to provide
-    the information--usually the National Center for Education Statistics (NCES). If you know of a private school
-    that is not listed, please ask the school's principal to <gsml:a href="/cgi-bin/feedback_private/$STATE">contact us
-    and have the school added to our database</gsml:a>. Please note: We can add private schools individually, but do
-    not have the resources to add public or charter schools individually.
+<p>If a private school is missing from our site, it is usually because the source of our data failed to provide the
+    information--either the state Department of Education or the National Center for Education Statistics (NCES). If you
+    know of a private school that is not listed, please <gsml:a href="/cgi-bin/feedback_private/$STATE">submit the
+    school's information to us</gsml:a>. Note: We can add private schools individually, but do not have the resources to
+    add public or charter schools individually.
 </p>
 
 
@@ -377,10 +377,14 @@
 <p>We have a family of free email newsletters to help your child succeed in school.
     Choose newsletters for your child’s school, your child’s grade, or get timely tips and advice.</p>
 <ul>
-    <li><span class="teaser">Parent Advisor</span> is a monthly newsletter that provides timely tips on helping your child succeed in school.</li>
-    <li><span class="teaser">My School Stats</span>  is a periodic newsletter, currently available in many of our in-depth states that provides the latest updates about test scores, teacher quality, funding and more at your child's school, and shows you how your school compares to others in your state.</li>
+    <li><span class="teaser">Parent Advisor</span> is a monthly newsletter that provides timely tips on helping your
+        child succeed in school.</li>
+    <li><span class="teaser">My School Stats</span> is a periodic newsletter, currently available in many of our
+        in-depth states that provides the latest updates about test scores, teacher quality, funding and more at your
+        child's school, and shows you how your school compares to others in your state.</li>
 
-    <li>Keep your child on track in the classroom: Get expert advice, ideas for learning activities, book recommendations
+    <li>Keep your child on track in the classroom: Get expert advice, ideas for learning activities, book
+        recommendations
         and more. For parents of children in kindergarten through fifth grade.
         Sign up for <span class="teaser">My Kindergartner</span>, <span class="teaser">My First-Grader</span>,
         <span class="teaser">My Second-Grader</span>, <span class="teaser">My Third-Grader</span>,
