@@ -113,10 +113,11 @@ public class BetaControllerTest extends BaseControllerTestCase {
     }
 
     public void testCreateMessage() throws Exception {
-        System.out.println("debug 1");
         JavaMailSender sender = new JavaMailSenderImpl();
-        System.out.println("debug 2");
-        MimeMessage mm = _controller.createMessage(sender.createMimeMessage(), "foo@bar.com");
-        System.out.println ("content: " + mm.getContent());
+        BetaSignupCommand bsc = (BetaSignupCommand)_controller.formBackingObject(getRequest());
+        bsc.setEmail("foo@bar.com");
+        bsc.setState(State.NY);
+        MimeMessage mm = _controller.createMessage(sender.createMimeMessage(), bsc);
+        assertNotNull(mm.getContent());
     }
 }

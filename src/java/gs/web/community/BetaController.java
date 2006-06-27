@@ -79,10 +79,9 @@ public class BetaController extends SimpleFormController {
 
         BetaSignupCommand bsc = (BetaSignupCommand) command;
         boolean isNewUser = addToBetaGroup(bsc);
-        String email = bsc.getEmail();
 
         try {
-            _mailSender.send(createMessage(_mailSender.createMimeMessage(), email));
+            _mailSender.send(createMessage(_mailSender.createMimeMessage(), bsc));
         } catch (MessagingException mess) {
             _log.warn(mess);
         } catch (MailException me) {
@@ -92,10 +91,10 @@ public class BetaController extends SimpleFormController {
         ModelAndView mAndV = new ModelAndView();
         mAndV.setViewName(getSuccessView());
         // add email to the model so it can be used by the unsubscribe link
-        mAndV.getModel().put("email", email);
+        mAndV.getModel().put("email", bsc.getEmail());
 
         // used for omniture conversion event tracking
-        mAndV.getModel().put("events", isNewUser ? "event1" : "");        
+        mAndV.getModel().put("events", isNewUser ? "event4" : "");
         return mAndV;
     }
 
@@ -133,11 +132,11 @@ public class BetaController extends SimpleFormController {
      * @return
      * @throws MessagingException
      */
-    MimeMessage createMessage(MimeMessage mimeMessage, String email) throws MessagingException {
+    MimeMessage createMessage(MimeMessage mimeMessage, BetaSignupCommand command) throws MessagingException {
 
         Resource resource = new ClassPathResource("gs/web/community/betaConfirmationEmail.txt");
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
-        helper.setTo(email);
+        helper.setTo(command.getEmail());
         try {
             helper.setFrom("beta@greatschools.net", "GreatSchools");
         } catch (UnsupportedEncodingException uee) {
@@ -168,15 +167,16 @@ public class BetaController extends SimpleFormController {
         String emailText = buffer.toString();
         String code = getShutterflyCode();
         emailText = emailText.replaceAll("\\$BETA_PROMO_CODE\\$", code);
-        emailText = emailText.replaceAll("\\$EMAIL\\$", email);
+        emailText = emailText.replaceAll("\\$EMAIL\\$", command.getEmail());
+        emailText = emailText.replaceAll("\\$STATE\\$", command.getState().getAbbreviation());
 
         StringBuffer logMessage = new StringBuffer("Beta email created using promo code:");
         logMessage.append(code);
         logMessage.append(" to:");
-        logMessage.append(email);
+        logMessage.append(command.getEmail());
         _log.info(logMessage.toString());
 
-        helper.setText(emailText, false);
+        helper.setText(emailText, true);
         return helper.getMimeMessage();
     }
 
