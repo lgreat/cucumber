@@ -1,12 +1,13 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.3 2006/06/27 19:58:18 apeterson Exp $
+ * $Id: LoginController.java,v 1.4 2006/06/27 23:32:55 dlee Exp $
  */
 package gs.web.community;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,12 +35,28 @@ public class LoginController extends SimpleFormController {
     private IUserDao _userDao;
 
 
+    //set up defaults if none supplied
+    protected void onBindOnNewForm(HttpServletRequest request,
+                                   Object command,
+                                   BindException errors) {
+
+        LoginCommand loginCommand = (LoginCommand) command;
+
+        if (StringUtils.isEmpty(loginCommand.getRedirect())) {
+            loginCommand.setRedirect(LoginController.DEFAULT_REDIRECT_URL);
+        }
+
+        if (null == loginCommand.getEmail()) {
+            loginCommand.setEmail("");
+        }
+    }
+
     /**
      * this method is called after validation but before submit.
      */
-    public void onBindAndValidate(HttpServletRequest request,
-                                 Object command,
-                                 BindException errors) {
+    protected void onBindAndValidate(HttpServletRequest request,
+                                     Object command,
+                                     BindException errors) {
         if (errors.hasErrors()) {
             return;
         }
@@ -49,10 +66,6 @@ public class LoginController extends SimpleFormController {
 
         if (user == null) {
             errors.reject(USER_DOES_NOT_EXIST_ERROR_CODE, "You're not a member yet.");
-        } else {
-            if (StringUtils.isEmpty(loginCommand.getRedirect())) {
-                loginCommand.setRedirect(LoginController.DEFAULT_REDIRECT_URL);
-            }
         }
     }
 
@@ -66,7 +79,10 @@ public class LoginController extends SimpleFormController {
         PageHelper.setMemberCookie(request, response, user);
 
         ModelAndView mAndV = new ModelAndView();
-        mAndV.setViewName("redirect:" + loginCommand.getRedirect());
+        UrlUtil urlUtil = new UrlUtil();
+        String redirectUrl = urlUtil.buildUrl(loginCommand.getRedirect(), request);
+        _log.debug(redirectUrl);
+        mAndV.setViewName("redirect:" + redirectUrl);
 
         return mAndV;
     }

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginControllerTest.java,v 1.1 2006/06/26 20:51:51 dlee Exp $
+ * $Id: LoginControllerTest.java,v 1.2 2006/06/27 23:32:55 dlee Exp $
  */
 package gs.web.community;
 
@@ -67,6 +67,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         LoginCommand command = new LoginCommand();
         command.setEmail(_testUser.getEmail());
         BindException errors = new BindException(command, "");
+        _controller.onBindOnNewForm(getRequest(), command, errors);
         _controller.onBindAndValidate(getRequest(), command, errors);
         assertFalse(errors.hasErrors());
 

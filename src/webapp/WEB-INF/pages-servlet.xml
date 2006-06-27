@@ -676,6 +676,7 @@
     <bean name="/community/login.page"
           class="gs.web.community.LoginController"
           autowire="byName">
+        <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="loginCmd"/>
         <property name="commandClass" value="gs.web.community.LoginCommand"/>
         <property name="formView" value="/community/login"/>

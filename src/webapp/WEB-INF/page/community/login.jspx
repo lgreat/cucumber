@@ -23,14 +23,19 @@
         <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
             ]]>
+        <style type="text/css">
+            .contentGS h1, .contentGS h3  {margin-bottom:10px;}
+            #existing {float:left;height:300px;width:350px;border-right:1px solid #000;text-align:center;}
+            #new {padding:10px;text-align:center;}
+            .error {color:red;font-size:small;margin-bottom:10px;}
+        </style>
         <title>Login or Register</title>
     </head>
 
     <gsml:body adPageName="login" pageLayout="">
         <h1>Log In Or Register</h1>
-        <div style="height:300px; width: 300px; float: left; border-right: 1px solid #ccc; padding-right: 15px; text-align: right; position:inherit;">
-
-            <h3 style="text-align: left; margin-bottom: 1em">Existing Users</h3>
+        <div id="existing">
+            <h3>Existing Users</h3>
 
             <gsml:form action="/community/login.page" method="post">
 
@@ -46,18 +51,24 @@
                     </div>
                 </spring:hasBindErrors>
 
-                <div style="margin-bottom: 9px">Email
-                    <input type="text" name="email" value=""/>
+                <div style="margin-bottom:10px;">Email
+                    <spring:bind path="loginCmd.email">
+                        <input type="text" name="${status.expression}" value="${status.value}" size="30"/>
+                    </spring:bind>
+
+                    <spring:bind path="loginCmd.redirect">
+                        <input type="hidden" name="${status.expression}" value="${status.value}"/>
+                    </spring:bind>
                 </div>
 
-                <div style="margin-bottom: 9px">
+                <div>
                     <input type="submit" value="Login"/>
                 </div>
             </gsml:form>
         </div>
 
-        <div style="width: 315px; float: left; text-align: center;position:inherit;">
-            <h3 style="margin-bottom: 1em">New Users:</h3>
+        <div id="new">
+            <h3>New Users:</h3>
             <ul>
                 <li><link:newsletterCenter>Learn about newsletters</link:newsletterCenter></li>
                 <li><link:mySchoolList>Get Updates about your child's school</link:mySchoolList></li>
