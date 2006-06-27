@@ -30,11 +30,13 @@
                 jspContext.setAttribute("title", title);
 
             } catch(Exception e) {
-                out.print(e.getMessage());
+                jspContext.setAttribute("link", BILLS_BLOG_HOME_URL);
+                jspContext.setAttribute("text", "");
+                jspContext.setAttribute("title", "Bill's thoughts on education.");
             }
         </jsp:scriptlet>
             ${text}
             <a onclick="Popup=window.open('${link}','Popup','toolbar=no,location=yes,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;"
                 href="${link}">Read More about ${title}</a>
-    </cache:cache>     
+    </cache:cache>
 </jsp:root>
