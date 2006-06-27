@@ -15,9 +15,7 @@
 
     <body>
     <div id="container">
-        <div id="leftcol"><br/></div>
-
-        <div id="centercol">
+        <div class="content">
             <div id="shutterfly">
                 <span id="adtext">Promotional Sponsor</span><br/>
                 <a href="http://www.shutterfly.com">
@@ -74,15 +72,6 @@
                 <p>Existing beta group members can <link:betaUnsubscribe>unsubscribe</link:betaUnsubscribe> here.</p>
             </center>
         </div>
-
-        <!--
-        <div id="rightcol">
-            <span id="adtext">Promotional Sponsor</span>
-            <a href="http://www.shutterfly.com">
-                <gsml:img alt="Beta Group" src="/res/img/community/shutterfly_logo_120x90.gif"/>
-            </a>
-        </div>
-        -->
     </div>
     <mod:tracking pageType="beta" pageName="Beta Sign Up" hier1="Community,Beta Group,Beta Sign Up"/>
     </body>

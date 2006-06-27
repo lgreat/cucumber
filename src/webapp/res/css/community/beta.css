@@ -13,41 +13,13 @@ div#shutterfly {
     background:#FFF;
 }
 
-#leftcol {
-  width:30px;
-  padding:0px;
-  float:left;
-  background:#fff;
-}
-
-#centercol {
-  width:650px;
-  padding:15px;
-  float:left;
-  background:#eee;
-  margin:20px auto;
-  text-align:left;
-  border: 1px solid #BBB
-}
-
-#rightcol {
-  width:120px;
-  padding:0px;
-  float:left;
-  margin-top:20px;
-  margin-left:10px;
-  background:#fff;
-  border:2px solid #F38C11;
-
-}
-
 span#adtext {
     padding-left:10px;
     font-size: x-small;
     color:#A5A5A5;
 }
 .content {
-  width:600px;
+  width:650px;
   padding:15px;
   background:#eee;
   margin:20px auto;
