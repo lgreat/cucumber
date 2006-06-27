@@ -7,6 +7,12 @@ div#container {
   text-align:left;
 }
 
+div#shutterfly {
+    float:right;
+    border: 1px solid #BBB;
+    background:#FFF;
+}
+
 #leftcol {
   width:30px;
   padding:0px;
