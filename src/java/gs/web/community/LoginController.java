@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.2 2006/06/26 23:13:56 apeterson Exp $
+ * $Id: LoginController.java,v 1.3 2006/06/27 19:58:18 apeterson Exp $
  */
 package gs.web.community;
 
@@ -18,14 +18,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Lets user sign in
+ * Lets user sign in.
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
 public class LoginController extends SimpleFormController {
+
     protected final Log _log = LogFactory.getLog(getClass());
-    public static final String USER_DOES_NOT_EXIST_ERROR_CODE = "not_a_member";
+
     public static final String BEAN_ID = "/community/login.page";
+
+    public static final String USER_DOES_NOT_EXIST_ERROR_CODE = "not_a_member";
     public static final String DEFAULT_REDIRECT_URL = "http://www.greatschools.net";
 
     private IUserDao _userDao;
