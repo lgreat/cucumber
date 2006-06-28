@@ -20,7 +20,7 @@
             .contentGS td a:hover{ color: #000; }
             td span#infolink, span.moreabout {text-decoration:underline; }
             #adSkyscraper { padding-top: 0px; }
-            div#bodyGS { width: 770px; margin: auto; }
+            div#pageGS { width: 770px; margin: auto; }
         </style>
     </head>
 
