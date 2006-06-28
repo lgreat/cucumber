@@ -86,7 +86,7 @@
                                 </select>
                             </td>
                             <td width="40" rowspan="2">
-                                <gsml:inputImage styleClass="btn" src="/res/img/header/btn_go.gif" alt="Go"/>
+                                <gsml:inputImage styleClass="btn" src="/res/img/button/btn_go.gif" alt="Go"/>
 
                             </td>
                         </tr>

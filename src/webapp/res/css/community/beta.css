@@ -37,7 +37,7 @@ span#adtext {
     text-decoration:underline;
 }
 
-#bodyGS h3 {
+#pageGS h3 {
     padding-top:10px;
     padding-bottom:15px;
     display: block;
@@ -45,7 +45,7 @@ span#adtext {
     font-weight: bold;
 }
 
-#bodyGS h4 {
+#pageGS h4 {
     font-size: medium;
     font-weight: bold;
 }
@@ -63,7 +63,7 @@ span#errorMessage {
     padding:8px;
 }
 
-#bodyGS h6 {
+#pageGS h6 {
     font-size: x-small;
 }
 

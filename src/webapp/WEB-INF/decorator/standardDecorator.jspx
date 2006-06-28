@@ -12,7 +12,7 @@
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
         >
-<c:set var="pageClass"><c:if
+<c:set var="bodyClass"><c:if
         test="${requestScope.context.cobranded}">cobranded ${requestScope.context.cobrand}</c:if> ${requestScope.pageLayout}</c:set>
 <html lang="en">
 <jsp:output doctype-root-element="html"
@@ -48,12 +48,11 @@
 
 </head>
 
-<body onload="${requestScope.pageHelper.onload}">
+<body onload="${requestScope.pageHelper.onload}" class="${bodyClass}">
 <cobrand:framebuster/>
-<div id="marginGS">
-<div id="pageGS" class="${pageClass}">
+<div id="marginGS" class="marginGS">
+<div id="pageGS" class="pageGS">
 <jsp:include page="/header/cobrand.module"/>
-<div id="bodyGS" class="bodyGS">
 
     <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
        <mod:topNav />
@@ -104,7 +103,6 @@
             </div>
         </c:if>
     </div>
-</div>
 </div>
 </body>
 </html>
