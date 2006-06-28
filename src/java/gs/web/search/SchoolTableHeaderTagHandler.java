@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.10 2006/06/06 19:28:49 apeterson Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.11 2006/06/28 22:49:45 apeterson Exp $
  */
 
 package gs.web.search;
@@ -180,6 +180,16 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
                 out.print(" Charter");
             } else {
                 out.print(" Public");
+            }
+        }
+        if (_levelCode != null &&
+                _levelCode.getCommaSeparatedString().length() == 1) {
+            if (_levelCode.containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
+                out.print(" Elementary");
+            } else if (_levelCode.containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
+                out.print(" Middle");
+            } else if (_levelCode.containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
+                out.print(" High");
             }
         }
         out.print(" Schools");
