@@ -14,7 +14,7 @@ whether or not you'd like to participate.<br/>
 To thank you for your participation, GreatSchools has partnered with Shutterfly to give you<br/>
 a free 12-month Photo Calendar. To redeem your calendar, follow these simple instructions.<br/>
 <ol>
-<li>Visit <a href="http://www.shutterfly.com/greatschools">Shutterfly</a> and sign up for your free Shutterfly account (or if you're already a member, sign in)</li>
+<li>Visit <a href="http://www.shutterfly.com/greatschools">Visit Shutterfly</a> and sign up for your free Shutterfly account (or if you're already a member, sign in)</li>
 <li>When prompted enter the unique promotion code printed below</li>
 <li>Add your photos and create your calendar by September 15, 2006</li>
 </ol>
@@ -24,7 +24,7 @@ Photo Calendar promo code: $BETA_PROMO_CODE$<br/>
 Add your promotion code now so you don't forget. You'll be reminded to<br/>
 redeem the offer before it expires!<br/>
 <br/>
-<a href="http://www.shutterfly.com/greatschools">Go!</a><br/>
+<a href="http://www.shutterfly.com/greatschools">Redeem your Photo Calendar</a><br/>
 <br/>
 <br/>
 Thanks so much for your help! Together, we can build great tools for parents!<br/>
