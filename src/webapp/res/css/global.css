@@ -1,7 +1,7 @@
 /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.121 2006/06/28 21:30:58 apeterson Exp $
+   $Id: global.css,v 1.122 2006/06/28 23:14:36 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -797,11 +797,23 @@ All the "about us" corporate pages, and a few others share the
     padding: 0 3ex 0 3ex;
 
 }
+.twoColumnLayout  .contentGS {
+    padding: 2ex 3ex 0 3ex;
+
+}
 .twoColumnLayout  .contentGS a:link,
     .singleTextOnlyColumnLayout  .contentGS a:link {
-    color: #039
+    color: #039;
 }
 
+.twoColumnLayout .contentGS h1,
+    .singleTextOnlyColumnLayout .contentGS h1 {
+    color: #039;
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+    font-size: x-large;
+    margin: 0 0 .3em 0;
+}
 .twoColumnLayout .contentGS h2,
     .singleTextOnlyColumnLayout .contentGS h2 {
     color: #f60;
@@ -841,10 +853,12 @@ All the "about us" corporate pages, and a few others share the
     margin: 0 0 0 0;
 }
 
-.twoColumnLayout .contentGS p,
     .singleTextOnlyColumnLayout .contentGS p {
     margin: 0em 0 1.2em 0;
-    line-height:1.8;
+        line-height:1.8;
+}
+.twoColumnLayout .contentGS p {
+    margin: 0em 0 1.2em 0;
 }
 
 .twoColumnLayout .contentGS ul,
