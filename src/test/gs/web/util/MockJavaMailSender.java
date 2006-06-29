@@ -8,12 +8,26 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * This was copied (slightly modified) from the Spring test classes.
+ * This class is based on the eponymous class from the Spring test code.
+ *
+ * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class MockJavaMailSender extends JavaMailSenderImpl {
 
+    private MockTransport _transport = null;
+
     protected Transport getTransport(Session session) throws NoSuchProviderException {
-        return new MockTransport(session, null);
+        if (_transport == null) {
+            _transport = new MockTransport(session, null);
+        }
+        return _transport;
+    }
+
+    public List getSentMessages() {
+        if (_transport != null) {
+            return _transport.getSentMessages();
+        }
+        return null;
     }
 
     private static class MockTransport extends Transport {
