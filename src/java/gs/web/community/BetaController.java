@@ -210,8 +210,13 @@ public class BetaController extends SimpleFormController {
                 lineReader.readLine();
             }
             code = lineReader.readLine();
+            if (index > 9999) {
+                sendShutterflyPromoLimitAlert(index);
+            }
         } catch (IOException ioe) {
             _log.error(ioe);
+        } catch (MessagingException me) {
+            _log.error("Could not send shutterfly alert message.", me);
         } finally {
             try {
                 // NPE if lineReader could not be created
@@ -223,6 +228,32 @@ public class BetaController extends SimpleFormController {
         return code;
     }
 
+    /**
+     * This method sends an email alert indicating that 10000 shutterfly promo
+     * codes have been used. Emails are sent to:
+     * chriskimm@greatschools.net
+     * alingane@greatschools.net
+     * mdavis@greatschools.net
+     */
+    void sendShutterflyPromoLimitAlert(int count) throws MessagingException {
+        if (count > 9999) {
+            MimeMessage mimeMessage = _mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
+            helper.addTo("chriskimm@greatschools.net");
+            helper.addTo("alingane@greatschools.net");
+            helper.addTo("mdavis@greatschools.net");
+            helper.setFrom("beta@greatschools.net");
+            helper.setSubject("Shutterfly Beta Promo Code limit reached");
+            helper.setSentDate(new Date());
+
+            StringBuffer buffer = new StringBuffer();
+            buffer.append(count);
+            buffer.append(" Shutterfly promotion codes have been sent.\n\n");
+            buffer.append("This is an auto generated email sent by the GreatSchools beta system.");
+            helper.setText(buffer.toString(), false);
+            _mailSender.send(helper.getMimeMessage());
+        }
+    }
     /**
      * Spring setter
      *

@@ -32,6 +32,7 @@ public class BetaControllerTest extends BaseControllerTestCase {
         _controller = (BetaController)getApplicationContext().getBean(BetaController.BEAN_ID);
         ApplicationContext appContext = getApplicationContext();
         _sender = new MockJavaMailSender();
+        _sender.setHost("mail.greatschools.net");
         _controller.setMailSender(_sender);
         _userDao = (IUserDao)getApplicationContext().getBean(IUserDao.BEAN_ID);
         _subscriptionDao = (ISubscriptionDao)getApplicationContext().getBean(ISubscriptionDao.BEAN_ID);
@@ -71,7 +72,6 @@ public class BetaControllerTest extends BaseControllerTestCase {
 
         _subscriptionDao.removeSubscription(sub.getId());
         _userDao.removeUser(u.getId());
-        //ThreadLocalTransactionManager.commitOrRollback();
     }
 
     public void testSubscribeStateAware() throws Exception {
@@ -119,5 +119,16 @@ public class BetaControllerTest extends BaseControllerTestCase {
         bsc.setState(State.NY);
         MimeMessage mm = _controller.createMessage(sender.createMimeMessage(), bsc);
         assertNotNull(mm.getContent());
+    }
+
+    public void testSendShutterFlyPromoLimitAlert() throws Exception {
+        _controller.sendShutterflyPromoLimitAlert(0);
+        assertNull(((MockJavaMailSender)_sender).getSentMessages());
+
+        _controller.sendShutterflyPromoLimitAlert(9999);
+        assertNull(((MockJavaMailSender)_sender).getSentMessages());
+
+        _controller.sendShutterflyPromoLimitAlert(10000);
+        assertNotNull(((MockJavaMailSender)_sender).getSentMessages());
     }
 }
