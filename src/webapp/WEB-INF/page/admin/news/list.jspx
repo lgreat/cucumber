@@ -27,53 +27,19 @@
 
     <head>
         <title>GreatSchools.net</title>
-        <style type="text/css">
-            .contentGS {
-                margin: 20px;
-            }
-            table.newsItems {
-                border: 1px solid orange;
-                padding: 3px;
-                margin-bottom: 2ex;
-            }
-            table.newsItems td {
-                padding: 1px 10px 1px 10px;
-            }
-            table.newsItems .odd {
-                background-color: #efefef;
-            }
-
-            .contentGS h2 {
-                text-align: right;
-                margin-bottom: 10px;
-            }
-
-            .contentGS h2 a {
-                border: 1px solid blue;
-                padding: 5px;
-                font-size: large;
-                font-weight: bold;
-            }
-
-            div.message {
-                margin: 20px;
-                border: 3px solid #faa;
-                background-color: #fee;
-                color: #f00;
-                padding: 10px;
-            }
-        </style>
+        <pageHelper:externalCss file="/res/css/admin/admin.css" />
+        <pageHelper:hideFooterAd />
     </head>
     <jsp:scriptlet>
         ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         ApplicationContext ac = sessionContext.getApplicationContext();
 
-            INewsItemDao schoolDao =  (INewsItemDao) ac.getBean(INewsItemDao.BEAN_ID);
+        INewsItemDao schoolDao =  (INewsItemDao) ac.getBean(INewsItemDao.BEAN_ID);
         List list = schoolDao.findNewsItems(null);
         request.setAttribute("test", list);
     </jsp:scriptlet>
 
-    <gsml:body adPageName="splash">
+    <gsml:body adPageName="none" pageLayout="singleColumnTextOnlyLayout">
 
         <c:if test="${not empty param.message}">
             <div class="message">
@@ -85,10 +51,11 @@
 
         <display:table name="test" class="newsItems" >
             <display:column property="id" title="ID"></display:column>
-            <display:column property="category" title="Cat."></display:column>
+            <display:column property="category" title="Cat." style="white-space:nowrap"></display:column>
+            <display:column property="title" title="Title"></display:column>
             <display:column property="text" title="Text"></display:column>
             <display:column property="link" title="Link"></display:column>
-            <display:column href="/gs-web/admin/news/delete.page" paramId="id" paramProperty="id">Delete</display:column>
+            <display:column href="/gs-web/admin/news/delete.page" paramId="id" paramProperty="id"  title="Action">Delete</display:column>
         </display:table>
     </gsml:body>
     </html>

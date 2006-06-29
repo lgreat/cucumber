@@ -20,37 +20,30 @@
 
     <head>
         <title>GreatSchools.net</title>
-        <style type="text/css">
-            .contentGS {
-                margin: 20px;
-            }
-
-            h1 {
-                margin-top: 20px;
-                font-size: large;
-            }
-
-            label {
-                display: block;
-                font-size: small;
-            }
-        </style>
+        <pageHelper:externalCss file="/res/css/admin/admin.css" />
+        <pageHelper:hideFooterAd />
     </head>
 
     <gsml:body adPageName="splash">
 
-        <a href="news.page">Back to All News Items</a>
+        <a href="list.page">Back to All News Items</a>
 
         <h1>New news item:</h1>
 
         <gsml:form action="/admin/news/create.page" method="GET">
+            <label for="title">Title (usage varies)</label>
+            <input type="text" name="title" size="100" maxlength="100"/>
             <label for="text">Text</label>
             <textarea name="text" rows="5" cols="100">Enter text here.</textarea>
             <label for="link">Link (optional)</label>
             <input type="text" name="link" size="100" maxlength="100"/>
             <label for="category">Category</label>
             <select name="category">
-                <option value="NEWS">NEWS</option>
+                <option value="SPLASH POSITION 1">SPLASH POSITION 1</option>
+                <option value="SPLASH POSITION 2">SPLASH POSITION 2</option>
+                <option value="SPLASH POSITION 3">SPLASH POSITION 3</option>
+                <option value="CONTENT BOX: ARTICLE">CONTENT BOX: ARTICLE</option>
+                <option value="CONTENT BOX: TIP OF THE WEEK">CONTENT BOX: TIP OF THE WEEK</option>
                 <option value="DATA">DATA</option>
             </select>
 

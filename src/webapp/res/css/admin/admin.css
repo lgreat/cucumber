@@ -1,0 +1,56 @@
+.contentGS {
+    margin: 20px;
+}
+
+h1 {
+    margin-top: 20px;
+    font-size: large;
+}
+
+label {
+    display: block;
+    font-size: small;
+}
+
+
+table.newsItems {
+    margin: 3ex;
+    width: 100%;
+    border: 0px solid #25487a;
+    padding: 1ex;
+}
+table.newsItems th {
+    padding: 1px 10px 1px 10px;
+    font-weight: lighter;
+    text-decoration: underline;
+    text-transform: uppercase;
+    font-size: x-small;
+    text-align:left;
+}
+table.newsItems td {
+    padding: 1px 10px 1px 10px;
+}
+table.newsItems .odd {
+    background-color: #efefef;
+}
+
+.contentGS h2 {
+    margin-bottom: 10px;
+}
+
+.contentGS h2 a {
+    border: 1px solid blue;
+    padding: 5px;
+    font-size: large;
+    font-weight: bold;
+    background-color: #dff;
+}
+
+div.message {
+    margin: 3ex;
+    border: 3px solid #faa;
+    background-color: #fee;
+    color: #f00;
+    padding: 10px;
+    text-align: left;
+}
