@@ -23,7 +23,22 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <title>GreatSchools.net: Summer Reading</title>
 
+
+
+
+
+
     <style type="text/css">
+        /* css */
+
+        #header {
+	      /*  text-indent: -5000px;
+	        background: url(sample-opaque.gif); */
+	        height: 35px;
+            color: #fff;
+
+        }
+
         #pageGS  {
             font-family: lucinda, lucida, lucida grande, lucida sans unicode, arial;
         }
@@ -116,15 +131,44 @@
     <table class="content" cellpadding="0" cellspacing="0">
         <tr>
             <td valign="top" style="width: 170px" class="left">
-                <h3>K-12 Education</h3>
+
+                <h3 id="helpYourChildSucceed">Help Your Child Succeed</h3>
                 <ul>
-                    <li><a href="#">Five Key Skills for Academic Success</a></li>
-                    <li>Go Online for homework help</li>
+                    <gsweb:articlelink articleId="204" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="477" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="46" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="22" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="97" wrappingElement="li"/>
+                    <li><link:articleLibrary>See full article library</link:articleLibrary></li>
                 </ul>
-                <h3 id="askTheExpert">Ask an Expert</h3>
-                <ul>
-                    <li>Why me?</li>
-                    <li>Really?</li>
+
+                <h3 id="askAnExpert">Ask an Expert</h3>
+                <ul class="plain">
+                    <gsweb:articlelink articleId="403" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="615" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="617" wrappingElement="li"/>
+                </ul>
+                <h3 id="bookPicks">Book Picks</h3>
+                <ul class="plain">
+                <li>Read our back-to-school book picks:</li>
+                <gsweb:articlelink articleId="326" wrappingElement="li"/>
+                <li>All book picks by grade:<br/>
+                    K 1 2 3 4 5        </li>
+                </ul>
+                <h3 id="learningGames">Learning Games</h3>
+                <ul class="plain">
+                    <gsweb:articlelink articleId="401" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="442" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="502" wrappingElement="li"/>
+
+                </ul>
+                <h3 id="healthyKids">Healthy Kids</h3>
+                <ul class="plain">
+                    <gsweb:articlelink articleId="330" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="350" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="333" wrappingElement="li"/>
+
+
                 </ul>
             </td>
             <td valign="top" style="width: 10px">
