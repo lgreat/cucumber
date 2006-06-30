@@ -165,7 +165,7 @@ public class BetaController extends SimpleFormController {
             }
         }
         String emailText = buffer.toString();
-        String code = getShutterflyCode();
+        String code = getShutterflyCode(command.getEmail());
         emailText = emailText.replaceAll("\\$BETA_PROMO_CODE\\$", code);
         emailText = emailText.replaceAll("\\$EMAIL\\$", command.getEmail());
         emailText = emailText.replaceAll("\\$STATE\\$", command.getState().getAbbreviation());
@@ -178,6 +178,27 @@ public class BetaController extends SimpleFormController {
 
         helper.setText(emailText, true);
         return helper.getMimeMessage();
+    }
+
+
+    /**
+     * This method first checks to see if the user already was sent a code.
+     * If she already has a code, then use that one, if not get a brand new
+     * code.
+     *
+     * @return
+     */
+    String getShutterflyCode(String emailAddress) {
+        String code = null;
+        if (StringUtils.isNotBlank(emailAddress)) {
+            String email = emailAddress.trim();
+            code = _propertyDao.getProperty(email);
+            if (code == null) {
+                code = getShutterflyCode();
+                _propertyDao.setProperty(email,  code);
+            }
+        }
+        return code;
     }
 
     /**

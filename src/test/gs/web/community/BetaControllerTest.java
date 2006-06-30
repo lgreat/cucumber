@@ -3,12 +3,8 @@ package gs.web.community;
 import gs.data.community.*;
 import gs.data.state.State;
 import gs.data.admin.IPropertyDao;
-import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.MockJavaMailSender;
-import gs.web.util.validator.EmailValidator;
-import org.springframework.context.ApplicationContext;
-import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -30,7 +26,6 @@ public class BetaControllerTest extends BaseControllerTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         _controller = (BetaController)getApplicationContext().getBean(BetaController.BEAN_ID);
-        ApplicationContext appContext = getApplicationContext();
         _sender = new MockJavaMailSender();
         _sender.setHost("mail.greatschools.net");
         _controller.setMailSender(_sender);
@@ -110,6 +105,30 @@ public class BetaControllerTest extends BaseControllerTestCase {
 
         // clean up
         _propertyDao.removeProperty(IPropertyDao.SHUTTERFLY_CODE_INDEX);
+    }
+
+    public void testGetShutterflyCodeWithEmail () {
+
+        String email_1 = "jorge@luis.borges";
+        String email_2 = "james@joyce.com";
+
+        if (_propertyDao.getProperty(email_1) != null) {_propertyDao.removeProperty(email_1);}
+        if (_propertyDao.getProperty(email_2) != null) {_propertyDao.removeProperty(email_2);}
+        if (_propertyDao.getProperty(email_1) != null) {_propertyDao.removeProperty(email_1);}
+
+        String code_1 = _controller.getShutterflyCode(email_1);
+        String code_2 = _controller.getShutterflyCode(email_2);
+        assertNotSame(code_1, code_2);
+
+        String code_3 = _controller.getShutterflyCode(email_1);
+        assertEquals(code_1, code_3);
+
+        assertNull(_controller.getShutterflyCode(null));
+        assertNull(_controller.getShutterflyCode(""));
+
+        // clean up
+        _propertyDao.removeProperty(email_1);
+        _propertyDao.removeProperty(email_2);
     }
 
     public void testCreateMessage() throws Exception {
