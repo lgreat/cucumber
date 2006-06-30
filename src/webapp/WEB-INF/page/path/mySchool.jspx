@@ -35,7 +35,7 @@
 </head>
 
 <gsml:body adPageName="home">
-    <table id="pagemargin" border="0" cellspacing="0" cellpadding="0">
+    <table border="0" cellspacing="0" cellpadding="0">
         <tr>
             <td valign="top">
                 <!-- INCLUDE TOP content with logo, etc. -->

@@ -1,108 +1,111 @@
-    #footer {
-        margin-left: auto;
-        margin-right: auto;
-        width: 100%;
-        line-height: 10pt;
-        font-size: .9em;
-        text-align: center;
-    }
 
-    #footerAd,
-    #footerGS {
-        text-align: center;
-    }
+#footer {
+    margin: 0 auto 40px 0;
+    padding-top: 10px;
+    width: 900px;
+    text-align: center;
+    background-color: #fff;
+}
 
-    #footerGS {
-        padding-top: 10px;
-    }
+#footerGS {
+    width: 900px;
+    line-height: 10pt;
+    font-size: .9em;
+    text-align: center;
+}
 
-    #footerText {
-        font-family: Arial, Helvetica, sans-serif;
-        font-size:12px;
-        color:#777;
-        font-weight:bold;
-        padding-top:10px;
-    }
+#footerAd {
+    text-align: center;
+}
 
-    #footerSearch {
-        text-align:center;
-        color:#999;
-        font-size:10px;
-    }
+#footerText {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #777;
+    font-weight: bold;
+    padding-top: 10px;
+}
 
-    #footerSearch a {
-        color:#039;
-        text-decoration: none;
-    }
+#footerSearch {
+    text-align: center;
+    color: #999;
+    font-size: 10px;
+}
 
-    #footerSearch a:hover {
-        text-decoration: underline;
-    }
+#footerSearch a {
+    color: #039;
+    text-decoration: none;
+}
 
-    #footerSearch span {
-        padding-left: 2px;
-        padding-right: 2px;
-    }
+#footerSearch a:hover {
+    text-decoration: underline;
+}
 
-    #footerSponsor {
-        padding: 20px 20px 0px 0px;
-    }
+#footerSearch span {
+    padding-left: 2px;
+    padding-right: 2px;
+}
 
-    #footerCopyright {
-        font-size:10px;
-        text-align:center;
-        color:#999;
-        padding-top:10px;
-        padding-bottom:10px;
-    }
+#footerSponsor {
+    padding: 20px 20px 0px 0px;
+}
 
-    #footerCopyright a:link {
-        color:#039;
-    }
+#footerCopyright {
+    font-size: 10px;
+    text-align: center;
+    color: #999;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 
-    #footerCopyright a:visited {
-        color:#039;
-    }
+#footerCopyright a:link {
+    color: #039;
+}
 
-    #footerGS table {
-        border-collapse: collapse;
-        width: 728px;
-    }
+#footerCopyright a:visited {
+    color: #039;
+}
 
-    #footerGS th {
-        text-align: left;
-        font-size: 10px;
-        color: rgb( 255, 255, 255 );
-        background: #003399;
-    }
+#footerGS table {
+    border-collapse: collapse;
+    width: 728px;
+}
 
-    #footerGS td {
-        font-size: 10px;
-        vertical-align: top;
-        line-height: 8pt
-    }
+#footerGS th {
+    text-align: left;
+    font-size: 10px;
+    color: rgb( 255, 255, 255 );
+    background: #003399;
+}
 
-    #footerGS .lowernavbar {
-        font-family: Arial, Helvetica, sans-serif;
-        font-size:12px;
-        text-align:center;
-        font-weight:bold;
-        padding-top:24px;
-    }
+#footerGS td {
+    font-size: 10px;
+    vertical-align: top;
+    line-height: 8pt
+}
 
-    #footerGS .lowernavbar a:link,
-        #footerGS .lowernavbar a:visited {
-        color:#039;padding: 0px 2px 0px 3px;
-        text-decoration: none;
-    }
+#footerGS .lowernavbar {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 24px;
+}
 
-    #footerGS .lowernavbar a:hover {
-        text-decoration: underline;
-    }
+#footerGS .lowernavbar a:link,
+    #footerGS .lowernavbar a:visited {
+    color: #039;
+    padding: 0px 2px 0px 3px;
+    text-decoration: none;
+}
 
-    #footerSearchStates,#footerSearchCities,#footerSearchStateSpecific {
-        font-family: Arial, Helvetica, sans-serif;
-        font-size:12px;
-        color:#666;
-        padding:0px 50px 10px 50px;
-    }
+#footerGS .lowernavbar a:hover {
+    text-decoration: underline;
+}
+
+#footerSearchStates, #footerSearchCities, #footerSearchStateSpecific {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #666;
+    padding: 0px 50px 10px 50px;
+}

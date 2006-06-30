@@ -13,7 +13,7 @@
         xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
         >
 <c:set var="bodyClass"><c:if
-        test="${requestScope.context.cobranded}">cobranded ${requestScope.context.cobrand}</c:if> ${requestScope.pageLayout}</c:set>
+        test="${requestScope.context.cobranded} ${requestScope.pageHelper.framed ? 'framed':'unframed'} ">cobranded ${requestScope.context.cobrand}</c:if> ${requestScope.pageLayout}</c:set>
 <html lang="en">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -26,8 +26,11 @@
     <gsml:url var="globalcss" value="/res/css/global.css"/>
     <![CDATA[<link rel="stylesheet" type="text/css" href="${globalcss}"></link>]]>
 
-    <gsml:url var="headercss" value="/res/css/header.css"/>
-    <![CDATA[<link rel="stylesheet" type="text/css" href="${headercss}"></link>]]>
+    <gsml:url var="topnavcss" value="/res/css/topnav.css"/>
+    <![CDATA[<link rel="stylesheet" type="text/css" href="${topnavcss}"></link>]]>
+
+    <gsml:url var="framecss" value="/res/css/frame.css"/>
+    <![CDATA[<link rel="stylesheet" type="text/css" href="${framecss}"></link>]]>
 
     <gsml:url var="footercss" value="/res/css/footer.css"/>
     <![CDATA[<link rel="stylesheet" type="text/css" href="${footercss}"></link>]]>
@@ -62,46 +65,43 @@
         <decorator:body/>
         </div>
 
-        <c:if test="${requestScope.pageHelper.showingFooter}">
-            <div id="footer">
-                <div id="footerAd">
-                    <ad:google728x90/>
-                </div>
-
-
-                <div id="footerGS">
-                    <ad:webby/>
-
-                    <div class="lowernavbar">
-
-                        <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-
-                        <gsml:a href="/about/aboutUs.page?state=${state}">About Us</gsml:a> &#124;
-
-                        <gsml:a href="/about/supportUs.page?state=${state}">Support Us</gsml:a> &#124;
-
-                        <link:newsletterCenter>Free Newsletters</link:newsletterCenter> &#124;
-
-                        <gsml:a href="/cgi-bin/static/jobs.inc/${state}">Jobs</gsml:a> &#124;
-
-                        <link:contactUs>Contact Us</link:contactUs> &#124;
-
-                        <gsml:a href="/about/privacyStatement.page?state=${state}">Privacy Policy</gsml:a>
-
-
-                        <div id="footerText">
-                            GreatSchools.net: Elementary, middle and high school information for public, private and
-                            charter
-                            schools
-                            nationwide.
-                        </div>
+            <c:if test="${requestScope.pageHelper.showingFooter}">
+                <div id="footer">
+                    <div id="footerAd">
+                        <ad:google728x90/>
                     </div>
-                    <jsp:include
-                            page="/footer/searchEngine.module?state=${requestScope.context.stateOrDefault.abbreviation}"/>
 
+
+                    <div id="footerGS">
+
+                        <div class="lowernavbar">
+
+                            <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+
+                            <gsml:a href="/about/aboutUs.page">About Us</gsml:a> &#124;
+
+                            <gsml:a href="/about/supportUs.page">Support Us</gsml:a> &#124;
+
+                            <link:newsletterCenter>Free Newsletters</link:newsletterCenter> &#124;
+
+                            <gsml:a href="/cgi-bin/static/jobs.inc/${state}">Jobs</gsml:a> &#124;
+
+                            <link:contactUs>Contact Us</link:contactUs> &#124;
+
+                            <gsml:a href="/about/privacyStatement.page">Privacy Policy</gsml:a>
+
+
+                            <div id="footerText">
+                                GreatSchools.net: Elementary, middle and high school information for public, private and
+                                charter
+                                schools
+                                nationwide.
+                            </div>
+                        </div>
+                        <mod:seoFooter/>
+                    </div>
                 </div>
-            </div>
-        </c:if>
+            </c:if>
     </div>
 </div>
 </body>

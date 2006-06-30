@@ -32,7 +32,7 @@
 
 <gsml:body adPageName="home">
     <pageHelper:externalCss file="/res/css/geo/state.css" />
-    <table id="pagemargin" border="0" cellspacing="0" cellpadding="0">
+    <table border="0" cellspacing="0" cellpadding="0">
         <tr>
             <td valign="top">
                 <table id="main" border="0" cellspacing="0" cellpadding="0"

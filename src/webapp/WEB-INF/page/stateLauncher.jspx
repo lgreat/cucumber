@@ -40,7 +40,7 @@
     <body bgcolor="#FFFFFF">
     <div id="bodyGS">
     <h2>${promotext}<c:if test="${empty promotext}">Please select a state to continue.</c:if></h2>
-    <table id="pagemargin" border="0">
+    <table border="0">
         <tr>
             <td valign="top">
                 <table id="main" border="0">

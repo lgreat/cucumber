@@ -1,7 +1,7 @@
 /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.122 2006/06/28 23:14:36 apeterson Exp $
+   $Id: global.css,v 1.123 2006/06/30 22:16:49 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -21,36 +21,7 @@ body, form {
     padding: 0
 }
 
-.contentGS {
-    text-align: left;
-}
 
-#pagemargin {
-    position: relative;
-    width: 100%;
-    margin: 0px auto;
-    padding: 6px 6px 6px 6px;
-}
-
-/**
-Overall page placement
-See: http://ndpsoftware.com/experiment/css/stretch.php?width=780&css=stretchymaxcenter
-*/
-#marginGS {
-    width: 100%;
-    text-align: center;
-}
-
-#pageGS {
-    width: 100%;
- /*   background-image: url( /res/img/frame/bgGrad.jpg );
-    background-repeat: repeat-x;*/
-    max-width: 1000px;
-    min-width: 780px;
-    text-align: left;
-    margin-left: auto;
-    margin-right: auto;
-}
 
 /* Overrides of standard tags */
 img {
@@ -59,12 +30,6 @@ img {
     margin: 0;
 }
 
-/*.contentGS {
-    text-align: left;
-    padding: 10px;
-    margin: 0px;
-    width: 880px;
-}*/
 .contentGS a,
     .contentGS a:link,
     .contentGS a:visited,
@@ -148,11 +113,6 @@ div.verticalcontainer {
 
 .nowrap {
     white-space: nowrap;
-}
-
-.cobranded div#pageGS {
-    width: 770px;
-    margin: auto;
 }
 
 /*
@@ -793,14 +753,6 @@ All the "about us" corporate pages, and a few others share the
 "twoColumnLayout" layout. Please use this when possible.
 */
 
-.singleTextOnlyColumnLayout .contentGS {
-    padding: 0 3ex 0 3ex;
-
-}
-.twoColumnLayout  .contentGS {
-    padding: 2ex 3ex 0 3ex;
-
-}
 .twoColumnLayout  .contentGS a:link,
     .singleTextOnlyColumnLayout  .contentGS a:link {
     color: #039;
