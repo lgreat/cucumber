@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:gsweb="gstaglib"
+        >
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+     <pageHelper:setPathway pathway="3"/>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>GreatSchools.net: Summer Reading</title>
+
+    <style type="text/css">
+        #pageGS  {
+            font-family: lucinda, lucida, lucida grande, lucida sans unicode, arial;
+        }
+        #pageGS #contentGS  a:hover {
+            color: #6cc;
+        }
+
+        /* Left, nav column */
+        #contentGS .left h3 {
+            font-family: century gothic;
+            font-size: small; /* 13pt */
+            font-weight: 100;
+
+            background-color: #6cc;
+            color: #fff;
+            padding: 4px 0 4px 16px;
+        }
+
+        #contentGS .left ul {
+            margin: 6px 0 6px 0px;
+        }
+        #contentGS .left ul li {
+            font-size: x-small; /* 11pt */
+            font-weight: bolder;
+            background-color: #eee;
+            color: #999;
+            padding: 4px 12px 4px 16px;
+            margin-bottom: 1px;
+        }
+        #contentGS .left ul li a {
+            color: #999;
+        }
+
+
+        /* Middle column */
+         #contentGS .middle h1 {
+             font-family: Rockwell light, courier, courier new;
+             font-size: xx-large;
+             font-weight: 100;
+             padding: 8ex 0 1ex 16px;
+             color: #fff;
+             background-color: #6cc;
+             margin-bottom: 16px;
+         }
+        #contentGS .middle h2 {
+            font-family: century gothic;
+            font-size: large;
+            font-weight: 100;
+            color: #fff;
+            background-color: #fb0;
+            padding: 4px 0 2px 16px;
+        }
+        #contentGS .middle li {
+            padding: 8px 0 2px 16px;
+            font-size: small; /* 13pt */
+            font-weight: bold;
+            background-color: #fff;
+            color: #5bc;
+        }
+        #contentGS .middle li a {
+            color: #5bc;
+        }
+       #contentGS .middle h3 {
+            font-family: rockwell;
+            padding: 8px 0 2px 16px;
+            font-size: medium;
+            font-weight: 100;
+            color: #5bc;
+        }
+        #contentGS .middle p {
+            padding: 8px 0 2px 16px;
+            font-size: small;
+            font-weight: 700;
+            color: #777;
+        }
+        #contentGS .middle p a {
+            color: #777;
+            font-weight: 300;
+        }
+    </style>
+
+</head>
+
+<mod:tracking pageType="article"
+              pageName="Back to School"
+              hier1 = "Article,Back to School"/>
+
+<gsml:body adPageName="article" pageLayout="backToSchool">
+
+    <table class="content" cellpadding="0" cellspacing="0">
+        <tr>
+            <td valign="top" style="width: 170px" class="left">
+                <h3>K-12 Education</h3>
+                <ul>
+                    <li><a href="#">Five Key Skills for Academic Success</a></li>
+                    <li>Go Online for homework help</li>
+                </ul>
+                <h3 id="askTheExpert">Ask an Expert</h3>
+                <ul>
+                    <li>Why me?</li>
+                    <li>Really?</li>
+                </ul>
+            </td>
+            <td valign="top" style="width: 10px">
+            </td>
+            <td valign="top" style="width: 365px" class="middle">
+                <h1>Back to <br />School</h1>
+                <h2>Get the Right Stuff</h2>
+                <ul>
+                    <li><a href="#">A School Supply List</a></li>
+                    <li>Tip for Smart Shoppers</li>
+                    <li>When to get a Cell Phone</li>
+                    <li>The Debate over Dress Codes</li>
+                    <li>Clothes for your Younger Child</li>
+                    <li>...</li>
+                </ul>
+                <h2>Get Ready, Get Set</h2>
+                <ul>
+                    <li><a href="#">Start your school routine now</a></li>
+                    <li>Start your school routine now</li>
+                    <li>Start your school routine now</li>
+                    <li>Start your school routine now</li>
+                </ul>
+                <h3 class="speech">Ask an Expert</h3>
+                <p>Q: My kindergartner doesn't want to go to school. What do I do?
+                    <a href="#">Read the answer</a>
+                    </p>
+                <h3 class="checkmark">Parent Poll</h3>
+                <p>Q: My kindergartner doesn't want to go to school. What do I do?
+                    <a>Read the answer</a>
+                    </p>
+                <h3 class="apple">The Twins Start Kindergarten</h3>
+                <p>Q: My kindergartner doesn't want to go to school. What do I do?
+                    <a>Read the answer</a>
+                    </p>
+                <h3 class="star">Free Newsletters</h3>
+                <p>Q: My kindergartner doesn't want to go to school. What do I do?
+                    <a>Read the answer</a>
+                    </p>
+                <h3 class="asterick">Our New Look</h3>
+                <p>Q: My kindergartner doesn't want to go to school. What do I do?
+                    <a>Read the answer</a>
+                    </p>
+            </td>
+            <td valign="top" style="width: 10px; border-right: 1px solid #ddd">
+            </td>
+            <td valign="top" style="width: 8px;">
+            </td>
+            <td valign="top" style="width: 317px"  class="right">
+                <a><img /></a>
+                <ad:x66 />
+                <h5>GreatSchools is sponsored by:</h5>
+                <table>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <div id="k3promo">
+                    <h2>Special for K-3 Parents:</h2>
+                    <h3>Your Child Grade by Grade</h3>
+                    <table style="width: 100%; color: #fff" cellspacing="10">
+                        <tr>
+                            <td><div style="height: 140px; width: 140px; background-color: #9c6">Your Kindergardener</div></td>
+                            <td><div style="height: 140px; width: 140px; background-color: #6cc">Your First-grader</div></td>
+                        </tr>
+                        <tr>
+                            <td><div style="height: 140px; width: 140px; background-color: #c56">Your Second-grader</div></td>
+                            <td><div style="height: 140px; width: 140px; background-color: #fb0">Your Third-grader</div></td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+</gsml:body>
+
+</html>
+</jsp:root>
+
