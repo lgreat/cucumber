@@ -170,6 +170,15 @@
 
 
                 </ul>
+                <ul>
+                    <h3 id="schoolImprovement">School Improvement</h3>
+                    <gsweb:articlelink articleId="41" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="311" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="291" wrappingElement="li"/>
+                    <li><link:articleLibrary>See full article library</link:articleLibrary></li>
+
+
+                </ul>
             </td>
             <td valign="top" style="width: 10px">
             </td>
@@ -177,39 +186,40 @@
                 <h1>Back to <br />School</h1>
                 <h2>Get the Right Stuff</h2>
                 <ul>
-                    <li><a href="#">A School Supply List</a></li>
-                    <li>Tip for Smart Shoppers</li>
-                    <li>When to get a Cell Phone</li>
-                    <li>The Debate over Dress Codes</li>
-                    <li>Clothes for your Younger Child</li>
-                    <li>...</li>
+                    <gsweb:articlelink articleId="327" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="327" wrappingElement="li"/>
+                     <gsweb:articlelink articleId="381" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="361" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="329" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="324" wrappingElement="li"/>
+                     <gsweb:articlelink articleId="256" wrappingElement="li"/>
                 </ul>
                 <h2>Get Ready, Get Set</h2>
                 <ul>
-                    <li><a href="#">Start your school routine now</a></li>
-                    <li>Start your school routine now</li>
-                    <li>Start your school routine now</li>
-                    <li>Start your school routine now</li>
+                  <gsweb:articlelink articleId="328" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="332" wrappingElement="li"/>
+                     <gsweb:articlelink articleId="331" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="325" wrappingElement="li"/>
                 </ul>
                 <h3 class="speech">Ask an Expert</h3>
-                <p>Q: My kindergartner doesn't want to go to school. What do I do?
-                    <a href="#">Read the answer</a>
+                <p>Q: My kindergartner doesn't want to go to school. What do I do?<br/>
+                    <gsweb:articlelink articleId="507" wrappingElement="li"/>
                     </p>
                 <h3 class="checkmark">Parent Poll</h3>
-                <p>Q: My kindergartner doesn't want to go to school. What do I do?
-                    <a>Read the answer</a>
+                <p>Share your opinion   <br/>
+                    <a>Vote in the poll</a>
                     </p>
                 <h3 class="apple">The Twins Start Kindergarten</h3>
-                <p>Q: My kindergartner doesn't want to go to school. What do I do?
-                    <a>Read the answer</a>
+                <p>Follow this family's story as their boy(?) and girl twins start kindergarten.<br/>
+                    <gsml:a href="http://back-to-school-blog.greatschools.net/">Read our back-to-school blog</gsml:a>
                     </p>
                 <h3 class="star">Free Newsletters</h3>
-                <p>Q: My kindergartner doesn't want to go to school. What do I do?
-                    <a>Read the answer</a>
+                <p>Sign up for GreatSchools' newsletters <br/>
+                    <gsml:a href="">Click here</gsml:a>
                     </p>
-                <h3 class="asterick">Our New Look</h3>
-                <p>Q: My kindergartner doesn't want to go to school. What do I do?
-                    <a>Read the answer</a>
+                <h3 class="asterisk">Our New Look</h3>
+                <p>What do you think of our new design?<br/>
+                    <gsml:a href="/cgi-bin/feedback_faq/ca?fbtype=design">Send us feedback</gsml:a>
                     </p>
             </td>
             <td valign="top" style="width: 10px; border-right: 1px solid #ddd">
