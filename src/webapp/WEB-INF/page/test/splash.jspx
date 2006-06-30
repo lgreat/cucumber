@@ -26,6 +26,10 @@
 <head>
 <title>GreatSchools.net</title>
 <style type="text/css">
+
+#contentGS {
+    padding-top: 12px;
+}
 .bigDottedDivider {
     margin-top: 0px;
     border-bottom: 3px dotted #cccccc;
@@ -68,75 +72,28 @@
     vertical-align: top;
 }
 
+#findAndCompare {
+    border: 3px solid #6cc;
+    padding: 40px 18px 40px 18px;
+}
 #findYourSchool {
-    margin-top: 40px;
-    border-top: 1px solid #bbb;
-    padding-top: 40px;
+    padding-bottom: 2ex;
+    border-bottom: 1px solid #bbb;
+    margin-bottom: 2ex;
 }
 
-#findBestSchools h3,
+#findArticles h3,
     #findYourSchool h3 {
     font-size: large;
     color: #999;
     font-weight: 100;
 }
 
-#findBestSchools .huge,
-    #findYourSchool  .huge {
-    font-size: x-large;
+#findArticles em,
+    #findYourSchool  em {
     font-weight: bold;
-    color: #009edb;
+    color: #9c6;
 }
-
-#navcontainer ul {
-    padding-bottom: 5px;
-    padding-top: 5px;
-    padding-left: 0;
-    margin-top: 0; /* cancels gap caused by top padding in Opera 7.54 */
-    margin-left: 0;
-    background-color: #e7f7fb;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 18px; /* fixes Firefox 0.9.3 */
-}
-
-#navcontainer ul li {
-    display: inline;
-    padding-left: 0;
-    padding-right: 0;
-    padding-bottom: 5px; /* matches link padding except for left and right */
-    padding-top: 5px;
-}
-
-#navcontainer ul li a {
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    color: #009edb;
-    text-decoration: none;
-    border-right: 1px solid #fff;
-}
-
-#navcontainer ul li a:hover {
-    background-color: #009edb;
-    color: white;
-}
-
-#navcontainer #active {
-    padding-bottom: 5px;
-    padding-top: 5px;
-    text-decoration: none;
-}
-
-#navcontainer #active a {
-    padding-bottom: 5px;
-    padding-top: 5px;
-    text-decoration: none;
-    color: white;
-    background-color: #009edb;
-}
-
 
 </style>
 <pageHelper:setPathway pathway="0"/>
@@ -154,9 +111,9 @@
 
 <gsml:body adPageName="splash">
 
-    <table cellpadding="0" cellspacing="20" width="100%">
+    <table cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td width="66%" style="padding: 10px;background-color: #bbb; ">
+            <td width="584" style="padding: 10px;background-color: #bbb; ">
                 <div style="height:100%;">
                     <p>
                         As a user, I would like to see 2-4 large ads about GS features, and click on them to be directed
@@ -173,18 +130,14 @@
                     </ol>
                 </div>
             </td>
-            <td width="33%">
-                <div id="findBestSchools">
-                    <h3>Find the<br/><span class="huge">BEST SCHOOLS</span> in your city</h3>
-                    <gsml:form action="/browseCities.page" method="GET">
-                        <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.stateOrDefault}"/>
-                        <input type="submit" value="Go"/>
-                    </gsml:form>
-                </div>
+            <td width="8">
+                </td>
+            <td width="275">
+                <div id="findAndCompare">
 
 
                 <div id="findYourSchool">
-                    <h3>See how<br/><span class="huge ">YOUR SCHOOL</span> stacks up</h3>
+                    <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
                     <gsml:form action="/search/search.page" method="GET">
                         <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.stateOrDefault}"/>
                         <input type="text" value="" name="q" size="20"/>
@@ -192,28 +145,33 @@
                         <input type="submit" value="Go"/>
                     </gsml:form>
                 </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <div class="bigDottedDivider">&#160;</div>
-            </td>
-        </tr>
-        <tr>
-            <td width="66%">
-
-                <div id="billsBlog">
-                    <img src="http://www.chicagotelevision.com/freckDD.jpg" style="float: left; clear: none;"/>
-
-                    <h3>BILL'S BLOG</h3>
-                    <h4>Founder &amp; CEO of GreatSchools</h4>
-
-                    <div class="rss"><rss:billsBlog/></div>
+                    <div id="findArticles">
+                        <h3>Get <em>IDEAS and LEARN MORE</em> about:</h3>
+                        <gsml:form action="/browseCities.page" method="GET">
+                            <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.stateOrDefault}"/>
+                            <input type="submit" value="Go"/>
+                        </gsml:form>
+                    </div>
                 </div>
-
-
             </td>
-            <td width="33%" style="vertical-align: top; height: 100%;">
+        </tr>
+        </table>
+                <div class="bigDottedDivider">&#160;</div>
+    <table cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td width="428">
+                        <h3>This Week at GreatSchools</h3>
+                <ul>
+                    <li><a href="#">Tips to Plan a Great Summer</a>
+                        Soccer camp, summer school or study abroad?
+                    </li>
+                    <li><a href="#">Our School Choosers Guide</a>
+                        Soccer camp, summer school or study abroad?
+                    </li>
+                    <li><a href="#">Vote Now</a>
+                        Soccer camp, summer school or study abroad?
+                    </li>
+                </ul>
                 <c:if test="${not empty newsItem}">
                     <div id="didYouKnow">
                         <h3>Did ya know?</h3>
@@ -223,6 +181,21 @@
                         </c:if>
                     </div>
                 </c:if>
+
+            </td>
+            <td width="8">
+            </td>
+            <td width="8">
+            </td>
+            <td width="424" style="vertical-align: top; height: 100%;">
+                <div id="billsBlog">
+                    <img src="http://www.chicagotelevision.com/freckDD.jpg" style="float: left; clear: none;"/>
+
+                    <h3>BILL'S BLOG</h3>
+                    <h4>Founder &amp; CEO of GreatSchools</h4>
+
+                    <div class="rss"><rss:billsBlog/></div>
+                </div>
             </td>
         </tr>
     </table>
