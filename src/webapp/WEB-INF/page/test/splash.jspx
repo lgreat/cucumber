@@ -12,9 +12,8 @@
 <jsp:directive.page import="gs.data.content.INewsItemDao"/>
 <jsp:directive.page import="gs.data.content.NewsItem"/>
 <jsp:directive.page import="gs.web.ISessionContext"/>
-<jsp:directive.page import="gs.web.SessionContext"/>
-<jsp:directive.page import="org.springframework.context.ApplicationContext"/>
 <jsp:directive.page import="gs.web.SessionContextUtil"/>
+<jsp:directive.page import="org.springframework.context.ApplicationContext"/>
 <html lang="en">
 
 <jsp:output doctype-root-element="html"
@@ -24,127 +23,44 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-<title>GreatSchools.net</title>
-<style type="text/css">
+    <title>GreatSchools.net</title>
+    <pageHelper:setPathway pathway="0"/>
 
-#contentGS {
-    padding-top: 12px;
-}
-.bigDottedDivider {
-    margin-top: 0px;
-    border-bottom: 3px dotted #cccccc;
-    margin-bottom: 20px;
-}
+    <jsp:scriptlet>
+        ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        ApplicationContext ac = sessionContext.getApplicationContext();
 
-#billsBlog {
-/*width: 100%; /**/
-    background-color: #f7f7f7;
-    color: #555;
-    font-weight: 100;
-    padding: 0px 20px 20px 0px;
-    height: 156px;
-}
-
-#billsBlog img {
-    padding-right: 30px;
-}
-
-#billsBlog h3,
-    #didYouKnow h3 {
-    padding-top: 30px;
-    font-size: large;
-    font-weight: 100;
-    text-transform: capitalize;
-}
-
-#billsBlog h4 {
-    padding-top: 0px;
-    font-size: small;
-}
-
-#billsBlog div.rss {
-    padding-top: 10px;
-    font-size: small;
-    font-weight: normal;
-}
-
-#didYouKnow {
-    vertical-align: top;
-}
-
-#findAndCompare {
-    border: 3px solid #6cc;
-    padding: 40px 18px 40px 18px;
-}
-#findYourSchool {
-    padding-bottom: 2ex;
-    border-bottom: 1px solid #bbb;
-    margin-bottom: 2ex;
-}
-
-#findArticles h3,
-    #findYourSchool h3 {
-    font-size: large;
-    color: #999;
-    font-weight: 100;
-}
-
-#findArticles em,
-    #findYourSchool  em {
-    font-weight: bold;
-    color: #9c6;
-}
-
-</style>
-<pageHelper:setPathway pathway="0"/>
-
-<jsp:scriptlet>
-    ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-    ApplicationContext ac = sessionContext.getApplicationContext();
-
-    INewsItemDao newsItemDao = (INewsItemDao) ac.getBean(INewsItemDao.BEAN_ID);
-    NewsItem newsItem = newsItemDao.nextInRotation("NEWS");
-    pageContext.setAttribute("newsItem", newsItem);
-</jsp:scriptlet>
+        INewsItemDao newsItemDao = (INewsItemDao) ac.getBean(INewsItemDao.BEAN_ID);
+        NewsItem newsItem = newsItemDao.nextInRotation("NEWS");
+        pageContext.setAttribute("newsItem", newsItem);
+    </jsp:scriptlet>
 
 </head>
 
 <gsml:body adPageName="splash">
+    <pageHelper:externalCss file="/res/css/splash.css"/>
 
     <table cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td width="584" style="padding: 10px;background-color: #bbb; ">
-                <div style="height:100%;">
-                    <p>
-                        As a user, I would like to see 2-4 large ads about GS features, and click on them to be directed
-                        to the feature that they're advertising.
-                    </p>
-                    <ol>
-                        <li>Newsletter ad that links to hover for Nth grader - Add email entry box to hover ad Nth
-                            grader page</li>
-                        <li>Back to school ad</li>
-                        <li>Content ad, linking to Your Child K-3, your Child 4-5, Your Child 6-12 [new pages that will
-                            be developed in the next release]</li>
-                        <li>Parent Reviews</li>
-                        <li>Troubleshooter</li>
-                    </ol>
-                </div>
+            <td id="houseAd">
+                <p><span>&#160;</span>Track you child's learning grade-by-grade with our free newsletters that parents
+                    love.</p>
+                <gsml:a href="#"><span>&#160;</span>Sign up for newsletters</gsml:a>
             </td>
             <td width="8">
-                </td>
-            <td width="275">
+            </td>
+            <td width="275" style="vertical-align: top; padding: 0;height: 100%">
                 <div id="findAndCompare">
+                    <div id="findYourSchool">
+                        <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
+                        <gsml:form action="/search/search.page" method="GET">
+                            <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.stateOrDefault}"/>
+                            <input type="text" value="" name="q" size="20"/>
+                            <input type="hidden" value="school" name="type"/>
+                            <input type="submit" value="Go"/>
+                        </gsml:form>
+                    </div>
 
-
-                <div id="findYourSchool">
-                    <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
-                    <gsml:form action="/search/search.page" method="GET">
-                        <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.stateOrDefault}"/>
-                        <input type="text" value="" name="q" size="20"/>
-                        <input type="hidden" value="school" name="type"/>
-                        <input type="submit" value="Go"/>
-                    </gsml:form>
-                </div>
                     <div id="findArticles">
                         <h3>Get <em>IDEAS and LEARN MORE</em> about:</h3>
                         <gsml:form action="/browseCities.page" method="GET">
@@ -155,44 +71,42 @@
                 </div>
             </td>
         </tr>
-        </table>
-                <div class="bigDottedDivider">&#160;</div>
+    </table>
+    <div class="bigDottedDivider">&#160;</div>
     <table cellpadding="0" cellspacing="0" width="100%">
         <tr>
-            <td width="428">
-                        <h3>This Week at GreatSchools</h3>
-                <ul>
-                    <li><a href="#">Tips to Plan a Great Summer</a>
-                        Soccer camp, summer school or study abroad?
-                    </li>
-                    <li><a href="#">Our School Choosers Guide</a>
-                        Soccer camp, summer school or study abroad?
-                    </li>
-                    <li><a href="#">Vote Now</a>
-                        Soccer camp, summer school or study abroad?
-                    </li>
-                </ul>
-                <c:if test="${not empty newsItem}">
-                    <div id="didYouKnow">
-                        <h3>Did ya know?</h3>
-                        ${newsItem.text}
-                        <c:if test="${not empty newsItem.link}">
-                            <gsml:a href="${newsItem.link}">Read More</gsml:a>
-                        </c:if>
-                    </div>
-                </c:if>
-
+            <td style="vertical-align: top; height: 100%; width: 428px">
+                <div id="week">
+                    <h3><span>&#160;</span>This Week at GreatSchools</h3>
+                    <ul>
+                        <li class="speech"><a href="#">Tips to Plan a Great Summer</a>
+                            Soccer camp, summer school or study abroad?
+                        </li>
+                        <li class="asterick"><a href="#">Our School Choosers Guide</a>
+                            Soccer camp, summer school or study abroad?
+                        </li>
+                        <li class="checkmark"><a href="#">Vote Now</a>
+                            Soccer camp, summer school or study abroad?
+                        </li>
+                    </ul>
+                    <c:if test="${not empty newsItem}">
+                        <div id="didYouKnow">
+                            <h3>Did ya know?</h3>
+                            ${newsItem.text}
+                            <c:if test="${not empty newsItem.link}">
+                                <gsml:a href="${newsItem.link}">Read More</gsml:a>
+                            </c:if>
+                        </div>
+                    </c:if>
+                </div>
             </td>
             <td width="8">
             </td>
             <td width="8">
             </td>
-            <td width="424" style="vertical-align: top; height: 100%;">
+            <td style="vertical-align: top; height: 100%; width: 424px">
                 <div id="billsBlog">
-                    <img src="http://www.chicagotelevision.com/freckDD.jpg" style="float: left; clear: none;"/>
-
-                    <h3>BILL'S BLOG</h3>
-                    <h4>Founder &amp; CEO of GreatSchools</h4>
+                    <h3><span>&#160;</span>BILL'S BLOG<h4>Founder &amp; CEO of GreatSchools</h4></h3>
 
                     <div class="rss"><rss:billsBlog/></div>
                 </div>

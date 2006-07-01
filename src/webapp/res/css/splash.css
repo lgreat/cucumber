@@ -1,0 +1,174 @@
+#contentGS {
+    padding-top: 12px;
+}
+
+.bigDottedDivider {
+    margin-top: 0px;
+    border-bottom: 3px dotted #cccccc;
+    margin-bottom: 20px;
+}
+
+/*
+
+  */
+#week {
+    background-color: #eee;
+    color: #555;
+    font-weight: 100;
+    padding: 20px 20px 16px 20px;
+    min-height: 130px;
+}
+
+#week h3 {
+    width: 384px;
+    height: 44px;
+    position: relative;
+}
+
+#week h3 span {
+    background-image: url( ../img/splash/thisWeek.gif );
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+ul li.speech {
+    padding-left: 32px;
+    background-image: url( ../img/bullet/orange/speech.gif );
+    background-repeat: no-repeat;
+}
+
+ul li.asterick {
+    padding-left: 32px;
+    background-image: url( ../img/bullet/orange/asterick.gif );
+    background-repeat: no-repeat;
+}
+
+ul li.checkmark {
+    padding-left: 32px;
+    background-image: url( ../img/bullet/orange/checkmark.gif );
+    background-repeat: no-repeat;
+}
+
+/*
+
+*/
+#billsBlog {
+    background-color: #eee;
+    color: #555;
+    font-weight: 100;
+    padding: 20px 20px 16px 147px;
+    min-height: 130px;
+    background-image: url( ../img/splash/billFamily.jpg );
+    background-position: 16px 16px;
+    background-repeat: no-repeat;
+}
+
+#billsBlog h3 {
+    width: 228px;
+    height: 31px;
+    position: relative;
+    font-size: large;
+    font-weight: 100;
+    text-transform: capitalize;
+}
+
+#billsBlog h3 span {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-image: url( ../img/splash/billsBlogHead.gif );
+}
+
+#billsBlog h4 {
+    font-size: small;
+}
+
+#billsBlog div.rss {
+    padding-top: 10px;
+    font-size: small;
+    font-weight: normal;
+}
+
+#didYouKnow {
+    vertical-align: top;
+}
+
+#didYouKnow h3 {
+    padding-top: 30px;
+    font-size: large;
+    font-weight: 100;
+    text-transform: capitalize;
+}
+
+#findAndCompare {
+    border: 3px solid #6cc;
+    padding: 40px 18px 40px 18px;
+    margin: 0;
+    height: 100%;
+}
+
+#findYourSchool {
+    padding-bottom: 2ex;
+    border-bottom: 1px solid #bbb;
+    margin-bottom: 2ex;
+}
+
+#findArticles h3,
+    #findYourSchool h3 {
+    font-size: large;
+    color: #999;
+    font-weight: 100;
+}
+
+#findArticles em,
+    #findYourSchool  em {
+    font-weight: bold;
+    color: #9c6;
+}
+
+#houseAd {
+    width: 584px;
+    height: 291px;
+    background-image: url( ../img/splash/childWriting.jpg );
+    background-position: top right;
+    background-repeat: no-repeat;
+    vertical-align: top;
+}
+
+#houseAd p {
+    width: 219px;
+    height: 180px;
+    position: relative;
+}
+
+#houseAd p span {
+    background-image: url( ../img/splash/trackLearning.gif );
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+#houseAd a {
+    display: block;
+    width: 219px;
+    height: 111px;
+    background-color: #6cc;
+    position: relative;
+}
+
+#houseAd a span {
+    width: 100%;
+    height: 100%;
+    background-image: url( ../img/splash/signUp.gif );
+    background-position: bottom left;
+    background-repeat: no-repeat;
+    background-color: #6cc;
+    position: absolute;
+}
+
+#houseAd a:hover span {
+    background-image: url( ../img/splash/signUpOver.gif );
+}
