@@ -108,7 +108,7 @@ The we used Century Gothic, Helvetica and Verdana in the header. As you know any
     background-color: #99cc67;
     height: 30px;
     width: 100%;
-    margin: 0 18px 0 18px;
+    margin: 0;
 }
 
 #topnav table#nav tr {
