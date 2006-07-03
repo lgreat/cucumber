@@ -14,14 +14,15 @@
 <div id="topnav">
 <table border="0" cellpadding="0" cellspacing="0" style="width: 100%">
 <tr>
-<td>
+<td><gsml:img src="/res/img/pixel.gif" alt="" style="height:102px; width: 18px"/></td>
+<td  style="width:401px;height:102px">
     <c:choose>
         <c:when test="${requestScope.pageHelper.logoLinked}">
-            <gsml:a href="/"><gsml:img src="/res/img/logo/logo_GS_401x102.gif" alt="GreatSchools.net logo"
-                                       style="width:401px;height:102px"/></gsml:a>
+            <gsml:a href="/"><gsml:img src="/res/img/logo/logo_GS_330x110.gif" alt="GreatSchools.net logo"
+                                       /></gsml:a>
         </c:when>
         <c:otherwise>
-            <gsml:img src="/res/img/logo/logo_GS_401x102.gif" alt="GreatSchools.net logo"
+            <gsml:img src="/res/img/logo/logo_GS_330x110.gif" alt="GreatSchools.net logo"
                       style="width:401px;height:102px"/>
         </c:otherwise>
     </c:choose>
@@ -123,7 +124,8 @@
                                                            style="width:10px;height:50px"/></td>
 </tr>
 <tr>
-    <td colspan="5">
+    <td><gsml:img src="/res/img/pixel.gif" alt="" style="width: 18px"/></td>
+    <td colspan="3">
         <table cellpadding="0" cellspacing="0" id="nav"><tr>
             <td style="width:32px">&#160;</td>
             <c:set var="pw" value="${requestScope.context.pathway}"/>
@@ -133,10 +135,13 @@
             <td><link:research
                     styleClass="${(pw == 0 ? 'lactive' : '')} ${(pw == 1 ? 'active' : 'inactive')} ${(pw == 3 ? 'ractive' : '')} "
                     >Research &amp;amp; Compare</link:research></td>
-            <td><gsml:a href="/content/summerReading.page?state=$STATE"
+            <td><gsml:a href="/content/summerReading.page"
                         styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 3 ? 'active' : 'inactive')} ${(pw == 4 ? 'ractive' : '')} "
                     >Summer Reading</gsml:a></td>
-            <td><gsml:a href="/about/aboutUs.page?state=$STATE"
+            <td><gsml:a href="/content/backToSchool.page"
+                        styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 7 ? 'active' : 'inactive')} ${(pw == 4 ? 'ractive' : '')} "
+                    >Back to School</gsml:a></td>
+            <td><gsml:a href="/about/aboutUs.page"
                         styleClass="${(pw == 3 ? 'lactive' : '')} ${(pw == 4 ? 'active' : 'inactive')} ${(pw == 5 ? 'ractive' : '')} "
                     >About Us</gsml:a></td>
             <td><link:contactUs
@@ -149,6 +154,7 @@
             <td style="width:32px">&#160;</td>
         </tr></table>
     </td>
+    <td><gsml:img src="/res/img/pixel.gif" alt="" style="width: 18px"/></td>
 </tr>
 <!--tr>
     <td class="frameLeft">&#160;</td>
