@@ -136,19 +136,22 @@
                     styleClass="${(pw == 0 ? 'lactive' : '')} ${(pw == 1 ? 'active' : 'inactive')} ${(pw == 3 ? 'ractive' : '')} "
                     >Research &amp;amp; Compare</link:research></td>
             <td><gsml:a href="/content/summerReading.page"
-                        styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 3 ? 'active' : 'inactive')} ${(pw == 4 ? 'ractive' : '')} "
+                        styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 3 ? 'active' : 'inactive')} ${(pw == 7 ? 'ractive' : '')} "
                     >Summer Reading</gsml:a></td>
             <td><gsml:a href="/content/backToSchool.page"
-                        styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 7 ? 'active' : 'inactive')} ${(pw == 4 ? 'ractive' : '')} "
+                        styleClass="${(pw == 3 ? 'lactive' : '')} ${(pw == 7 ? 'active' : 'inactive')} ${(pw == 8 ? 'ractive' : '')} "
                     >Back to School</gsml:a></td>
-            <td><gsml:a href="/about/aboutUs.page"
+            <td><link:articleLibrary
+                        styleClass="${(pw == 7 ? 'lactive' : '')} ${(pw == 8 ? 'active' : 'inactive')} ${(pw == 6 ? 'ractive' : '')} "
+                    >Library</link:articleLibrary></td>
+            <!--td><gsml:a href="/about/aboutUs.page"
                         styleClass="${(pw == 3 ? 'lactive' : '')} ${(pw == 4 ? 'active' : 'inactive')} ${(pw == 5 ? 'ractive' : '')} "
                     >About Us</gsml:a></td>
             <td><link:contactUs
                     styleClass="${(pw == 4 ? 'lactive' : '')} ${(pw == 5 ? 'active' : 'inactive')} ${(pw == 6 ? 'ractive' : '')} "
-                    >Contact Us</link:contactUs></td>
+                    >Contact Us</link:contactUs></td-->
             <td><link:newsletterCenter
-                    styleClass="${(pw == 5 ? 'lactive' : '')} ${(pw == 6 ? 'active ractive' : 'inactive')}"
+                    styleClass="${(pw == 8 ? 'lactive' : '')} ${(pw == 6 ? 'active ractive' : 'inactive')}"
                     email="${requestScope.context.user.email}"
                     >Free Newsletters</link:newsletterCenter></td>
             <td style="width:16px">&#160;</td>
