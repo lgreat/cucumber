@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.17 2006/06/26 21:26:17 apeterson Exp $
+ * $Id: SchoolsController.java,v 1.18 2006/07/03 17:50:14 apeterson Exp $
  */
 
 package gs.web.school;
@@ -235,4 +235,31 @@ public class SchoolsController extends AbstractController {
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
     }
+
+    public static String calcCitySchoolsTitle(String cityDisplayName, LevelCode levelCode, String[] schoolType) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(cityDisplayName);
+        if (schoolType != null && schoolType.length == 1) {
+            if ("private".equals(schoolType[0])) {
+                sb.append(" Private");
+            } else if ("charter".equals(schoolType[0])) {
+                sb.append(" Charter");
+            } else {
+                sb.append(" Public");
+            }
+        }
+        if (levelCode != null &&
+                levelCode.getCommaSeparatedString().length() == 1) {
+            if (levelCode.containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
+                sb.append(" Elementary");
+            } else if (levelCode.containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
+                sb.append(" Middle");
+            } else if (levelCode.containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
+                sb.append(" High");
+            }
+        }
+        sb.append(" Schools");
+        return sb.toString();
+    }
+
 }

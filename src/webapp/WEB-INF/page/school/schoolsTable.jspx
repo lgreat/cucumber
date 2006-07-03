@@ -12,6 +12,8 @@
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib">
+<jsp:directive.page import="gs.web.school.SchoolsController"/>
+<jsp:directive.page import="gs.data.school.LevelCode"/>
 
 <html lang="en">
 <jsp:output doctype-root-element="html"
@@ -24,7 +26,13 @@
     <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
     <c:set var="title"><c:choose>
         <c:when test="${not empty cityDisplayName}">
-            <c:out value="${cityDisplayName} "/> schools
+            <jsp:scriptlet>
+                String title = SchoolsController.calcCitySchoolsTitle(
+                        (String)request.getAttribute("cityDisplayName"),
+                        (LevelCode)request.getAttribute("lc"),
+                        request.getParameterValues("st"));
+                out.append(title);
+            </jsp:scriptlet>
         </c:when>
         <c:when test="${not empty distname}">
             <c:out value="${distname} "/> schools

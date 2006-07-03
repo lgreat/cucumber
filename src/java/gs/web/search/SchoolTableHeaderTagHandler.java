@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.11 2006/06/28 22:49:45 apeterson Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.12 2006/07/03 17:50:14 apeterson Exp $
  */
 
 package gs.web.search;
@@ -11,6 +11,7 @@ import gs.data.school.district.District;
 import gs.web.jsp.Util;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
+import gs.web.school.SchoolsController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -69,8 +70,7 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         out.println("<table width=\"100%\"><tr><td>");
 
         out.print("<h1>");
-        out.print((_total != 1) ? "Schools" : "School");
-        out.print(" in ");
+        out.print("Schools in ");
         out.print(district.getName());
         out.print("</h1>");
 
@@ -172,27 +172,7 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         out.println("<table width=\"100%\"><tr><td>");
 
         out.print("<h1>");
-        out.print(_cityDisplayName);
-        if (_schoolType != null && _schoolType.length == 1) {
-            if ("private".equals(_schoolType[0])) {
-                out.print(" Private");
-            } else if ("charter".equals(_schoolType[0])) {
-                out.print(" Charter");
-            } else {
-                out.print(" Public");
-            }
-        }
-        if (_levelCode != null &&
-                _levelCode.getCommaSeparatedString().length() == 1) {
-            if (_levelCode.containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
-                out.print(" Elementary");
-            } else if (_levelCode.containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
-                out.print(" Middle");
-            } else if (_levelCode.containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
-                out.print(" High");
-            }
-        }
-        out.print(" Schools");
+        out.print(SchoolsController.calcCitySchoolsTitle(_cityDisplayName, _levelCode, _schoolType));
         out.print("</h1>");
 
         out.print("</td><td align=\"right\" style=\"padding-right:15px;white-space:nowrap\">");

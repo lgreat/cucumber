@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.9 2006/06/03 05:31:35 apeterson Exp $
+ * $Id: SchoolsControllerTest.java,v 1.10 2006/07/03 17:50:14 apeterson Exp $
  */
 
 package gs.web.school;
@@ -292,6 +292,25 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("private", ((String[]) (model.get(SchoolsController.MODEL_SCHOOL_TYPE)))[0]);
 
 
+    }
+
+    public void testTitleCalcCode() {
+        // These all have standard headers
+        assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", null, null));
+        assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.ELEMENTARY_MIDDLE, null));
+        assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.MIDDLE_HIGH, null));
+        assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[] {"public", "private"}));
+        assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[] {"public", "charter"}));
+        assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[] {"private", "charter"}));
+
+        // These useful views get nice SEO friendly titles
+        assertEquals("San Francisco Elementary Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.ELEMENTARY, null));
+        assertEquals("San Francisco Middle Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.MIDDLE, null));
+        assertEquals("San Francisco High Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.HIGH, null));
+
+        assertEquals("San Francisco Public Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[] {"public"}));
+        assertEquals("San Francisco Private Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[] {"private"}));
+        assertEquals("San Francisco Charter Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[] {"charter"}));
     }
 
 }
