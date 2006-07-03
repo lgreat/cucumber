@@ -31,8 +31,8 @@
             #bodyGS { font-size: 76%; }
             .state1 {padding:0px 15px 0px 15px;}
             #main {margin-left: auto; margin-right: auto;}
-            .contentGS h2 {font-weight:bold;padding:15px 0px 20px 0px;font-size:x-large;text-align:left;color:#666; text-align: center;}
-            div#bodyGS .state1 a, div#bodyGS .state2 a  {font-size: 1.5em}
+            .contentGS h2 {font-weight:bold;padding:15px 0px 20px 0px;font-size:large;text-align:left;color:#666; text-align: center;}
+            div#bodyGS .state1 a, div#bodyGS .state2 a  {font-size: small}
             </style>
         <gsml:url var="mapImage" value="/res/img/map_US_splash_interstitial.gif"/>
     </head>
@@ -46,7 +46,6 @@
                 <table id="main" border="0">
                 <tr>
                     <td valign="top" class="map">
-                    <!--gsml:img src="/res/img/logo/logo_GS_401x102.gif" alt="GreatSchools logo"/-->
                     <img style="display: block" src="${mapImage}" width="519" height="310" border="0" usemap="#Map" href="${url}RI${extraParams}" alt="US Map" />
                     <map name="Map">
                         <area shape="poly" coords="315,183" href="#" />

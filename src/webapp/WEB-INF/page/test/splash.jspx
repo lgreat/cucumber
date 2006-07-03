@@ -5,9 +5,11 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:content="urn:www.greatschools.net/taglib/content"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:rss="urn:jsptagdir:/WEB-INF/tags/rss"
           xmlns:gsweb="gstaglib"
+          xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
         >
 <jsp:directive.page import="gs.data.content.INewsItemDao"/>
 <jsp:directive.page import="gs.data.content.NewsItem"/>
@@ -77,17 +79,11 @@
         <tr>
             <td style="vertical-align: top; height: 100%; width: 428px">
                 <div id="week">
-                    <h3><span>&#160;</span>This Week at GreatSchools</h3>
+                    <h3>This Week at GreatSchools</h3>
                     <ul>
-                        <li class="speech"><a href="#">Tips to Plan a Great Summer</a>
-                            Soccer camp, summer school or study abroad?
-                        </li>
-                        <li class="asterick"><a href="#">Our School Choosers Guide</a>
-                            Soccer camp, summer school or study abroad?
-                        </li>
-                        <li class="checkmark"><a href="#">Vote Now</a>
-                            Soccer camp, summer school or study abroad?
-                        </li>
+                        <li class="speech"><content:newsItem category="SPLASH POSITION 1" /></li>
+                        <li class="asterick"><content:newsItem category="SPLASH POSITION 2" /></li>
+                        <li class="checkmark"><content:newsItem category="SPLASH POSITION 3" /></li>
                     </ul>
                     <c:if test="${not empty newsItem}">
                         <div id="didYouKnow">
@@ -106,9 +102,15 @@
             </td>
             <td style="vertical-align: top; height: 100%; width: 424px">
                 <div id="billsBlog">
-                    <h3><span>&#160;</span>BILL'S BLOG<h4>Founder &amp; CEO of GreatSchools</h4></h3>
+                    <h3>BILL'S BLOG<h4>Founder &amp; CEO of GreatSchools</h4></h3>
 
-                    <div class="rss"><rss:billsBlog/></div>
+                    <div class="rss">
+                        <cache:cache scope="application" name="blog" key="bill">
+                            <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
+                                              defaultTitle="Bill's thoughts on education"
+                                              defaultUrl="http://billsblog.greatschools.net"/>
+                        </cache:cache>
+                    </div>
                 </div>
             </td>
         </tr>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+
+<taglib>
+
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>1.2</jsp-version>
+    <short-name>content</short-name>
+    <uri>urn:www.greatschools.net/taglib/content</uri>
+    <display-name>GreatSchools.net Content Tag Library</display-name>
+    <description>
+        <![CDATA[
+        The content tag library provides a centralized place for content related tags.
+         ]]>
+    </description>
+
+    <tag>
+        <name>blogFeed</name>
+        <tag-class>gs.web.content.BlogFeedTagHandler</tag-class>
+        <body-content>empty</body-content>
+        <display-name>Link to a blog.</display-name>
+        <description>
+            <![CDATA[Presents a teaser and a link to a blog entry.]]>
+        </description>
+        <!--attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute-->
+        <attribute>
+            <name>atomUrl</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Url to an Atom.xml file</description>
+        </attribute>
+        <attribute>
+            <name>defaultTitle</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Title to be used if the atom feed does not deliver a title for the most recent entry.</description>
+        </attribute>
+        <attribute>
+            <name>defaultUrl</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Link to the blog, used only if the feed doesn't return a link to the most recent entry.</description>
+        </attribute>
+    </tag>
+
+
+    <tag>
+        <name>newsItem</name>
+        <tag-class>gs.web.content.NewsItemTagHandler</tag-class>
+        <body-content>empty</body-content>
+        <display-name>News Item</display-name>
+        <description>
+            <![CDATA[Link to news item in the news_item table.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>category</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Category if the news item desired.</description>
+        </attribute>
+
+    </tag>
+
+
+</taglib>
+

@@ -20,35 +20,44 @@
 }
 
 #week h3 {
-    width: 384px;
     height: 44px;
-    position: relative;
-}
-
-#week h3 span {
+    text-indent: -50em;
+    overflow: hidden;
     background-image: url( ../img/splash/thisWeek.gif );
     background-repeat: no-repeat;
-    width: 100%;
-    height: 100%;
-    position: absolute;
+    background-position: -2px -12px;
+    margin-bottom: -12px;
 }
 
+#week ul li {
+    font-size: .9em;
+    padding-bottom: 10px;
+}
+#week ul li a {
+    color: #333;
+    font-weight: bold;
+    text-decoration: underline;
+    display: block;
+}
 ul li.speech {
     padding-left: 32px;
     background-image: url( ../img/bullet/orange/speech.gif );
     background-repeat: no-repeat;
+    background-position: -15px left;
 }
 
 ul li.asterick {
     padding-left: 32px;
     background-image: url( ../img/bullet/orange/asterick.gif );
     background-repeat: no-repeat;
+    background-position: -5px left;
 }
 
 ul li.checkmark {
     padding-left: 32px;
     background-image: url( ../img/bullet/orange/checkmark.gif );
     background-repeat: no-repeat;
+    background-position: top left;
 }
 
 /*
@@ -72,17 +81,15 @@ ul li.checkmark {
     font-size: large;
     font-weight: 100;
     text-transform: capitalize;
-}
-
-#billsBlog h3 span {
-    width: 100%;
-    height: 100%;
-    position: absolute;
     background-image: url( ../img/splash/billsBlogHead.gif );
+    text-indent: -50em;
+    overflow: hidden;
 }
 
 #billsBlog h4 {
     font-size: small;
+    text-indent: -50em;
+    overflow: hidden;
 }
 
 #billsBlog div.rss {
