@@ -7,6 +7,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
         >
 <html lang="en">
@@ -100,6 +101,7 @@
 
     </style>
 </head>
+<pageHelper:setPathway pathway="8" />
 <mod:tracking pageType="Article" pageName="AllArticles" hier1="Article,AllArticles"/>
 <gsml:body adPageName="allArticles">
     <div class="allArticles">
