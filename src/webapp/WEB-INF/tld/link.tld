@@ -221,7 +221,7 @@
         <description>
             <![CDATA[Link to our "newsletter management page".
             This page allows a user to alter or add newsletter subscriptions.
-            Currently <code>/cgi-bin/newsletterSubscribe?state=$STATE&email=$EMAIL.</code>]]>
+            Currently <code>/cgi-bin/newsletterSubscribe?state=$STATE&amp;email=$EMAIL.</code>]]>
         </description>
         <attribute>
             <name>styleClass</name>
