@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.17 2006/07/06 00:27:26 wbeck Exp $
+ * $Id: GeoController.java,v 1.18 2006/07/06 22:08:23 wbeck Exp $
  */
 
 package gs.web.geo;
@@ -65,9 +65,9 @@ public class GeoController implements Controller {
             if (bpCensus == null) {
                 bpCensus = _geoDao.findZip(state, cityNameParam);
             }
-
             if (bpCensus != null) {
                 if (bpCensus.getCostOfLiving() != null) {
+                    //Doing some funky rounding to the cost of living figure - see GS-2126
                     bpCensus.setCostOfLiving(new Float(Math.round(bpCensus.getCostOfLiving().floatValue())));
                 }
                 model.put(MODEL_LOCAL_CENSUS, bpCensus);
