@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.16 2006/06/26 21:26:01 apeterson Exp $
+ * $Id: GeoController.java,v 1.17 2006/07/06 00:27:26 wbeck Exp $
  */
 
 package gs.web.geo;
@@ -67,6 +67,9 @@ public class GeoController implements Controller {
             }
 
             if (bpCensus != null) {
+                if (bpCensus.getCostOfLiving() != null) {
+                    bpCensus.setCostOfLiving(new Float(Math.round(bpCensus.getCostOfLiving().floatValue())));
+                }
                 model.put(MODEL_LOCAL_CENSUS, bpCensus);
             }
 
