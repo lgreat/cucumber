@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: Anchor.java,v 1.5 2006/04/24 21:16:09 apeterson Exp $
+ * $Id: Anchor.java,v 1.6 2006/07/06 16:59:40 apeterson Exp $
  */
 
 package gs.web.util;
@@ -102,5 +102,14 @@ public class Anchor {
 
     public void setAfter(String after) {
         _after = after;
+    }
+
+    public String asATag() {
+        return "<a" +
+                " href=\"" +
+                _href +
+                "\">" +
+                _contents +
+                "</a>";
     }
 }
