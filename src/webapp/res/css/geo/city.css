@@ -99,7 +99,7 @@
 }
 
 #nearbyCities .more {
-    background-image: url(/res/img/bullet/orange_arrow_right_trans.gif );
+    background-image: url(../../img/bullet/orange_arrow_right_trans.gif );
     background-repeat: no-repeat;
     background-position: center right;
     padding-right: 16px;
@@ -230,7 +230,7 @@ div.topRatedSchools {
 
 .topRatedSchools h5,
 .districts li.viewall {
-    background-image: url(/res/img/bullet/orange_arrow_right_trans.gif );
+    background-image: url(../../img/bullet/orange_arrow_right_trans.gif );
     background-repeat: no-repeat;
     background-position: center left;
     padding-left: 16px;

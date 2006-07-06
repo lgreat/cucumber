@@ -32,31 +32,31 @@
     <gsml:body adPageName="city">
         <pageHelper:externalCss file="res/css/geo/cities.css"/>
 
-            <table width="100%" cellpadding="0" cellspacing="0">
-                <tr>
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
 
-                    <td style="width:33%; vertical-align: top">
-                        <div id="nearbyCities">
-                            <gsml:list model="${anchorListModel}"/>
+                <td style="width:33%; vertical-align: top">
+                    <div id="nearbyCities">
+                        <gsml:list model="${anchorListModel}"/>
+                    </div>
+                </td>
+                <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+                    <td style="width:66%; vertical-align: top">
+                        <div id="mapContainer">
+                            <div id="map">&#160;</div>
+                            <noscript>In order to view this map, enable JavaScript in your browser.</noscript>
                         </div>
+                        <map:setup/>
+                        <map:cities functionName="createMap"
+                                    id="map"
+                                    lon="${cityObject.lon}"
+                                    lat="${cityObject.lat}"
+                                    scale="7"
+                                    cities="${cities}"/>
+                        <pageHelper:addOnLoadHandler handler="createMap()"/>
                     </td>
-                    <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
-                        <td style="width:66%; vertical-align: top">
-                            <div id="mapContainer">
-                                <div id="map">&#160;</div>
-                                <noscript>In order to view this map, enable JavaScript in your browser.</noscript>
-                            </div>
-                            <map:setup/>
-                            <map:cities functionName="createMap"
-                                        id="map"
-                                        lon="${cityObject.lon}"
-                                        lat="${cityObject.lat}"
-                                        scale="7"
-                                        cities="${cities}"/>
-                            <pageHelper:addOnLoadHandler handler="createMap()"/>
-                        </td>
-                    </c:if>
-                </tr></table>
+                </c:if>
+            </tr></table>
 
         <mod:tracking pageName="nearbyCities:${city}-${requestScope.context.stateOrDefault.abbreviation}"
                       pageType=""
