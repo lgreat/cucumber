@@ -2,7 +2,7 @@
 Copyright (c) 2006 GreatSchools.net
 All Rights Reserved.
 
-$Id: global.js,v 1.2 2006/06/26 21:27:50 apeterson Exp $
+$Id: global.js,v 1.3 2006/07/07 23:07:31 apeterson Exp $
 */
 
 /* Finds the HTML element specified by the ID and switches it between
@@ -27,5 +27,21 @@ function setSearchPrompt(s) {
     e.select();
 }
 
+
+
+/* From the old perl code. Probably not needed */
+function issues(){
+    window.open("","issues",'width=400,height=300,scrollbars=yes')
+}
+function definitions(){
+    window.open("","issues",'width=500,height=400,scrollbars=yes')
+}
+function jumpCounty(newLoc) {
+newPage=newLoc.options[newLoc.selectedIndex].text;
+newPage=escape(newPage);
+newPage="/cgi-bin/search_switch/"+"$STATE"+"?selector=county&countySelect="+
+newPage;
+if(newPage !="") {window.location.href=newPage}
+}
 
 
