@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.44 2006/06/24 17:34:41 chriskimm Exp $
+ * $Id: UrlBuilder.java,v 1.45 2006/07/07 19:54:40 apeterson Exp $
  */
 
 package gs.web.util;
@@ -358,13 +358,15 @@ public class UrlBuilder {
             setParameter("district", param0);
             setParameter("state", state.getAbbreviation());
         } else if (RESEARCH.equals(page)) {
-            if (state == null) {
+            /*if (state == null) {
                 _perlPage = false;
                 _path = "/test/research.page";
             } else {
                 _perlPage = true; // well, it looks like one
                 _path = "/modperl/go/" + state.getAbbreviation();
-            }
+            } */
+            _perlPage = false;
+            _path = "/path/choose.page";
         } else if (PRIVACY_POLICY.equals(page)) {
             _perlPage = false;
             _path = "/about/privacyStatement.page";

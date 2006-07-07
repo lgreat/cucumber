@@ -1,7 +1,3 @@
-.contentGS {
-    margin: 20px;
-}
-
 h1 {
     margin-top: 20px;
     font-size: large;
@@ -12,38 +8,37 @@ label {
     font-size: small;
 }
 
-
 table.newsItems {
-    margin: 3ex;
-    width: 100%;
-    border: 0px solid #25487a;
-    padding: 1ex;
 }
+
 table.newsItems th {
     padding: 1px 10px 1px 10px;
     font-weight: lighter;
     text-decoration: underline;
     text-transform: uppercase;
     font-size: x-small;
-    text-align:left;
+    text-align: left;
 }
+
 table.newsItems td {
-    padding: 1px 10px 1px 10px;
+    padding: 8px 10px 1px 10px;
+    vertical-align: top;
 }
+
 table.newsItems .odd {
     background-color: #efefef;
 }
 
-.contentGS h2 {
-    margin-bottom: 10px;
-}
-
-.contentGS h2 a {
+#contentGS h2 {
+    margin-bottom: 2ex;
     border: 1px solid blue;
+    background-color: #dff;
     padding: 5px;
     font-size: large;
     font-weight: bold;
-    background-color: #dff;
+    display: block;
+    width: 20ex;
+    text-align: center;
 }
 
 div.message {

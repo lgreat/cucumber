@@ -10,6 +10,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:display="urn:jsptld:http://displaytag.sf.net"
         >
+    <jsp:directive.page import="gs.web.util.PageHelper"/>
     <html lang="en">
 
     <jsp:output doctype-root-element="html"
@@ -22,11 +23,16 @@
         <title>GreatSchools.net</title>
         <pageHelper:externalCss file="/res/css/admin/admin.css" />
         <pageHelper:hideFooterAd />
-    </head>
+    <jsp:scriptlet>
+        PageHelper.hideLeaderboard(request);
+        PageHelper.hideHeader(request);
+        PageHelper.hideFooterAd(request);
+        PageHelper.hideFooter(request);
+    </jsp:scriptlet>    </head>
 
     <gsml:body adPageName="splash">
 
-        <a href="list.page">Back to All News Items</a>
+        <h2><gsml:a href="list.page">Back to All News Items</gsml:a></h2>
 
         <h1>New news item:</h1>
 
@@ -48,9 +54,8 @@
             </select>
 
 
-            <div style="text-align: right; width: 100ex">
+            <br />
                 <input type="submit" value="Create" name="submit"/>
-            </div>
         </gsml:form>
     </gsml:body>
     </html>

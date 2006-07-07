@@ -11,12 +11,11 @@
           xmlns:display="urn:jsptld:http://displaytag.sf.net"
         >
     <jsp:directive.page import="java.util.List"/>
-    <jsp:directive.page import="java.util.ArrayList"/>
     <jsp:directive.page import="gs.web.ISessionContext"/>
-    <jsp:directive.page import="gs.web.SessionContext"/>
     <jsp:directive.page import="org.springframework.context.ApplicationContext"/>
     <jsp:directive.page import="gs.data.content.INewsItemDao"/>
     <jsp:directive.page import="gs.web.SessionContextUtil"/>
+    <jsp:directive.page import="gs.web.util.PageHelper"/>
     <html lang="en">
 
     <jsp:output doctype-root-element="html"
@@ -31,12 +30,16 @@
         <pageHelper:hideFooterAd />
     </head>
     <jsp:scriptlet>
+        PageHelper.hideLeaderboard(request);
+        PageHelper.hideHeader(request);
+        PageHelper.hideFooterAd(request);
+        PageHelper.hideFooter(request);
         ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         ApplicationContext ac = sessionContext.getApplicationContext();
 
         INewsItemDao schoolDao =  (INewsItemDao) ac.getBean(INewsItemDao.BEAN_ID);
         List list = schoolDao.findNewsItems(null);
-        request.setAttribute("test", list);
+        request.setAttribute("newsItems", list);
     </jsp:scriptlet>
 
     <gsml:body adPageName="none" pageLayout="singleColumnTextOnlyLayout">
@@ -49,13 +52,13 @@
 
         <h2><gsml:a href="/admin/news/create.page">Create News Item</gsml:a></h2>
 
-        <display:table name="test" class="newsItems" >
+        <display:table name="newsItems" class="newsItems" >
             <display:column property="id" title="ID"></display:column>
             <display:column property="category" title="Cat." style="white-space:nowrap"></display:column>
             <display:column property="title" title="Title"></display:column>
             <display:column property="text" title="Text"></display:column>
             <display:column property="link" title="Link"></display:column>
-            <display:column href="/gs-web/admin/news/delete.page" paramId="id" paramProperty="id"  title="Action">Delete</display:column>
+            <display:column href="delete.page" paramId="id" paramProperty="id"  title="Action">Delete</display:column>
         </display:table>
     </gsml:body>
     </html>
