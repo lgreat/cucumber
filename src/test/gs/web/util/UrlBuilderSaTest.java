@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.32 2006/06/24 17:34:41 chriskimm Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.33 2006/07/07 20:23:10 apeterson Exp $
  */
 
 package gs.web.util;
@@ -275,7 +275,7 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/modperl/go/WY", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.RESEARCH, null, null);
-        assertEquals("/test/research.page", builder.asSiteRelative(request));
+        assertEquals("/stateLauncher.page?p=pathway1", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.ADD_PARENT_REVIEW_SEARCH, State.AZ, null);
         assertEquals("/cgi-bin/regSearch/AZ", builder.asSiteRelative(request));
