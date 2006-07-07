@@ -23,7 +23,7 @@
     height: 44px;
     text-indent: -50em;
     overflow: hidden;
-    background-image: url( ../img/splash/thisWeek.gif );
+    background-image: url( ../img/splash/thisWeekAtGreatSchools.gif );
     background-repeat: no-repeat;
     background-position: -2px -12px;
     margin-bottom: -12px;
@@ -39,23 +39,23 @@
     text-decoration: underline;
     display: block;
 }
-ul li.speech {
+ul li.burst {
     padding-left: 32px;
-    background-image: url( ../img/bullet/orange/speech.gif );
+    background-image: url( ../img/bullet/yellow/trans/burst.gif );
     background-repeat: no-repeat;
     background-position: -15px left;
 }
 
-ul li.asterick {
+ul li.dialog {
     padding-left: 32px;
-    background-image: url( ../img/bullet/orange/asterick.gif );
+    background-image: url( ../img/bullet/yellow/trans/dialog.gif );
     background-repeat: no-repeat;
     background-position: -5px left;
 }
 
 ul li.checkmark {
     padding-left: 32px;
-    background-image: url( ../img/bullet/orange/checkmark.gif );
+    background-image: url( ../img/bullet/yellow/trans/check.gif );
     background-repeat: no-repeat;
     background-position: top left;
 }
@@ -81,7 +81,7 @@ ul li.checkmark {
     font-size: large;
     font-weight: 100;
     text-transform: capitalize;
-    background-image: url( ../img/splash/billsBlogHead.gif );
+    background-image: url( ../img/splash/billsBlogTrans.gif );
     text-indent: -50em;
     overflow: hidden;
 }
@@ -116,24 +116,39 @@ ul li.checkmark {
     height: 100%;
 }
 
-#findYourSchool {
-    padding-bottom: 2ex;
-    border-bottom: 1px solid #bbb;
-    margin-bottom: 2ex;
-}
-
-#findArticles h3,
-    #findYourSchool h3 {
+#findAndCompare h3 {
     font-size: large;
     color: #999;
     font-weight: 100;
+    margin-bottom: 9px;
+    text-indent: -50em;
+    height: 31px;
+    overflow: hidden;
+    background-repeat: no-repeat;
 }
 
-#findArticles em,
-    #findYourSchool  em {
+#findAndCompare h3 em {
     font-weight: bold;
     color: #9c6;
 }
+
+
+#findAndCompare #findAndCompareSchoolsNationwide {
+    padding-bottom: 2ex;
+    border-bottom: 2px dotted #bdfce8;
+    margin-bottom: 2ex;
+}
+
+#findAndCompare #findAndCompareSchoolsNationwide h3 {
+    background-image: url( ../img/splash/findAndCompare.gif );
+
+}
+
+#findAndCompare #getIdeasAndLearnMoreAbout h3 {
+    background-image: url( ../img/splash/getIdeasAndLearnMoreAboutTrans.gif );
+}
+
+
 
 #houseAd {
     width: 584px;
@@ -169,7 +184,7 @@ ul li.checkmark {
 #houseAd a span {
     width: 100%;
     height: 100%;
-    background-image: url( ../img/splash/signUp.gif );
+    background-image: url( ../img/splash/signMeUp.gif );
     background-position: bottom left;
     background-repeat: no-repeat;
     background-color: #6cc;
@@ -177,5 +192,5 @@ ul li.checkmark {
 }
 
 #houseAd a:hover span {
-    background-image: url( ../img/splash/signUpOver.gif );
+    background-image: url( ../img/splash/signMeUpOver.gif );
 }

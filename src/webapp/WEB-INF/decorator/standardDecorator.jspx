@@ -12,8 +12,7 @@
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
         >
-<c:set var="bodyClass"><c:if
-        test="${requestScope.context.cobranded} ${requestScope.pageHelper.framed ? 'framed':'unframed'} ">cobranded ${requestScope.context.cobrand}</c:if> ${requestScope.pageLayout}</c:set>
+<c:set var="bodyClass">${requestScope.context.cobranded ? "cobranded" : "www"} ${requestScope.context.cobranded ?  requestScope.context.cobrand : ""} ${requestScope.pageHelper.framed ? 'framed':'unframed'} ${requestScope.pageLayout}</c:set>
 <html lang="en">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -54,9 +53,11 @@
 <body onload="${requestScope.pageHelper.onload}" class="${bodyClass}">
 <cobrand:framebuster/>
 <div id="marginGS" class="marginGS">
-<div id="pageGS" class="pageGS">
-<jsp:include page="/header/cobrand.module"/>
+    <jsp:include page="/header/cobrand.module"/>
 
+    <ad:x22/>
+
+    <div id="pageGS" class="pageGS">
     <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
        <mod:topNav />
     </c:if>

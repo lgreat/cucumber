@@ -51,26 +51,69 @@
             </td>
             <td width="8">
             </td>
-            <td width="275" style="vertical-align: top; padding: 0;height: 100%">
-                <div id="findAndCompare">
-                    <div id="findYourSchool">
+            <td  id="findAndCompare" width="275" >
+                    <div id="findAndCompareSchoolsNationwide">
                         <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
                         <gsml:form action="/search/search.page" method="GET">
-                            <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.stateOrDefault}"/>
                             <input type="text" value="" name="q" size="20"/>
+                            &#160;
+                            <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.stateOrDefault}"/>
                             <input type="hidden" value="school" name="type"/>
-                            <input type="submit" value="Go"/>
+                            <br />
+                            <gsml:url var="go" value="/res/img/splash/go.gif"/>
+                                <input type="image" src="${go}" alt="go" style="width:41px;height:26px;margin-top: 10px"
+                                       class="button"/>
                         </gsml:form>
                     </div>
 
-                    <div id="findArticles">
+                    <div id="getIdeasAndLearnMoreAbout">
                         <h3>Get <em>IDEAS and LEARN MORE</em> about:</h3>
-                        <gsml:form action="/browseCities.page" method="GET">
-                            <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.stateOrDefault}"/>
-                            <input type="submit" value="Go"/>
+                        <gsml:form action="/redirect.page" method="GET" >
+                            <div style="display: block; ">
+                            <select name="page">
+                                <option value="/content/backToSchool.page">Back to school success tips</option>
+                                <option value="/content/backToSchool.page"> Back to school shopping </option>
+                                <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Ask an Expert </option>
+                                <option value="/search/search.page?q=reading tips&amp;type=topic"> Reading tips </option>
+                                <option value="/search/search.page?q=math tips&amp;type=topic"> Math tips </option>
+                                <option value="/content/summerReading.page"> Summer reading </option>
+                                <option value="/search/search.page?q=bullying&amp;type=topic"> Bullying </option>
+                                <option value="/search/search.page?q=homework&amp;type=topic"> Homework battles </option>
+                                <option value="/search/search.page?q=food&amp;type=topic"> Healthy food ideas </option>
+                                <option value="/content/schoolChoiceCenter"> Choosing a school </option>
+                                <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Private vs. public vs. charter </option>
+                                <option value="/content/guideToTests.page"> Standardized tests </option>
+                                <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Improving your school </option>
+                                <option value="/search/search.page?q=raise+funds&amp;type=topic"> Raising money for your school </option>
+
+                                <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> How schools work </option>
+
+
+                                <option value="/search/search.page?q=violence&amp;type=topic"> Making your school safe: </option>
+
+
+                                <option value="/search/search.page?q=special+education&amp;type=topic"> Learning disabilities </option>
+
+                                <option value="/cgi-bin/showarticle/CA/97"> Gifted and talented kids </option>
+
+
+                                <option value="/search/search.page?q=kindergarten&amp;type=topic"> Kindergarten </option>
+
+
+                                <option value="/search/search.page?q=first grade&amp;type=topic"> First grade </option>
+
+                                <option value="/search/search.page?q=second grade&amp;type=topic"> Second grade </option>
+
+
+                                <option value="/search/search.page?q=third grade&amp;type=topic"> Third grade </option>
+                            </select>
+                            &#160;
+                            <gsml:url var="go" value="/res/img/splash/go.gif"/>
+                                <input type="image" src="${go}" alt="go" style="width:41px;height:26px;"
+                                       class="button"/>
+                            </div>
                         </gsml:form>
                     </div>
-                </div>
             </td>
         </tr>
     </table>
@@ -81,8 +124,8 @@
                 <div id="week">
                     <h3>This Week at GreatSchools</h3>
                     <ul>
-                        <li class="speech"><content:newsItem category="SPLASH POSITION 1" /></li>
-                        <li class="asterick"><content:newsItem category="SPLASH POSITION 2" /></li>
+                        <li class="burst"><content:newsItem category="SPLASH POSITION 1" /></li>
+                        <li class="dialog"><content:newsItem category="SPLASH POSITION 2" /></li>
                         <li class="checkmark"><content:newsItem category="SPLASH POSITION 3" /></li>
                     </ul>
                     <c:if test="${not empty newsItem}">
