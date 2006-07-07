@@ -10,6 +10,7 @@ The we used Century Gothic, Helvetica and Verdana in the header. As you know any
     font-family: Century Gothic, Helvetica, sans-serif;
     width: 900px;
     background-color: #fff;
+    padding-bottom: 8px;
 }
 
 #topnav .arrowBlueRight {

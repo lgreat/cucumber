@@ -13,14 +13,13 @@
 <div id="topnav">
 <table border="0" cellpadding="0" cellspacing="0" style="width: 100%">
 <tr>
-<td><gsml:img src="/res/img/pixel.gif" alt="" style="height:102px; width: 18px"/></td>
-<td><gsml:img src="/res/img/pixel.gif" alt="" style="height:102px; width: 30px"/></td>
-<td  style="width:401px;height:102px">
-            <gsml:a href="/"><gsml:img src="/res/img/logo/logo_GS_330x110.gif" alt="GreatSchools.net logo"
-                                       /></gsml:a>
+<td style="padding-left: 40px">
+    <gsml:a href="/"><gsml:img src="/res/img/logo/logo_GS_330x110.gif" alt="GreatSchools.net logo"
+            /></gsml:a>
 </td>
-<td><gsml:img src="/res/img/pixel.gif" alt="" style="height:102px"/></td>
-<td>
+<td style="padding-right: 18px">
+
+
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
             <td><gsml:img src="/res/img/pixel.gif" alt=""/></td>
@@ -29,7 +28,7 @@
                     <tr>
                         <c:if test="${requestScope.context.user==null}">
                             <td class="welcome">Welcome!</td>
-                            <td class="signout"><gsml:a href="/community/login.page" >Sign
+                            <td class="signout"><gsml:a href="/community/login.page">Sign
                                 in</gsml:a></td>
                             <td class="saved"><gsml:a href="/cgi-bin/msl_confirm/$STATE">Start saving schools</gsml:a>
                             </td>
@@ -53,7 +52,7 @@
         <tr>
             <td>&#160;</td>
             <td class="search">
-                <gsml:form method="get" action="/stateLauncher.page" >
+                <gsml:form method="get" action="/stateLauncher.page">
                     <input name="p" value="search_single" type="hidden"/>
                     <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                         <input type="hidden" name="st" value="charter"/>
@@ -111,10 +110,14 @@
             <td>&#160;</td>
         </tr>
     </table>
+
+
 </td>
-<td style="background-color: #fff; width: 10px;"><gsml:img src="/res/img/pixel.gif" alt=""
-                                                           style="width:10px;height:50px"/></td>
 </tr>
+</table>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
     <td><gsml:img src="/res/img/pixel.gif" alt="" style="width: 18px"/></td>
     <td colspan="4">
@@ -122,7 +125,7 @@
             <td style="width:36px">&#160;</td>
             <c:set var="pw" value="${requestScope.context.pathway}"/>
             <td><link:home
-                        styleClass="${(pw == 0 ? 'lactive active' : 'inactive')} ${(pw == 1 ? 'ractive' : '')} "
+                    styleClass="${(pw == 0 ? 'lactive active' : 'inactive')} ${(pw == 1 ? 'ractive' : '')} "
                     >Home</link:home></td>
             <td><link:research
                     styleClass="${(pw == 0 ? 'lactive' : '')} ${(pw == 1 ? 'active' : 'inactive')} ${(pw == 3 ? 'ractive' : '')} "
@@ -134,7 +137,7 @@
                         styleClass="${(pw == 3 ? 'lactive' : '')} ${(pw == 7 ? 'active' : 'inactive')} ${(pw == 8 ? 'ractive' : '')} "
                     >Back to School</gsml:a></td>
             <td><link:articleLibrary
-                        styleClass="${(pw == 7 ? 'lactive' : '')} ${(pw == 8 ? 'active' : 'inactive')} ${(pw == 6 ? 'ractive' : '')} "
+                    styleClass="${(pw == 7 ? 'lactive' : '')} ${(pw == 8 ? 'active' : 'inactive')} ${(pw == 6 ? 'ractive' : '')} "
                     >Library</link:articleLibrary></td>
             <!--td><gsml:a href="/about/aboutUs.page"
                         styleClass="${(pw == 3 ? 'lactive' : '')} ${(pw == 4 ? 'active' : 'inactive')} ${(pw == 5 ? 'ractive' : '')} "
