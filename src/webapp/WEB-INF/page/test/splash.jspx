@@ -47,7 +47,7 @@
             <td id="houseAd">
                 <p><span>&#160;</span>Track you child's learning grade-by-grade with our free newsletters that parents
                     love.</p>
-                <gsml:a href="#"><span>&#160;</span>Sign up for newsletters</gsml:a>
+                <a href="/community/newsletters/popup/mss/page1.page?state=ca&amp;schoolId=1" target="mss" onclick="showPopWin('/community/newsletters/popup/mss/page1.page?state=ca',480,500,null,'hoverNewsMss'); return false"><span>&#160;</span>Sign up for newsletters</a>
             </td>
             <td width="8">
             </td>
@@ -61,8 +61,9 @@
                             <input type="hidden" value="school" name="type"/>
                             <br />
                             <gsml:url var="go" value="/res/img/splash/go.gif"/>
+                            <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
                                 <input type="image" src="${go}" alt="go" style="width:41px;height:26px;margin-top: 10px"
-                                       class="button"/>
+                                       class="button" onmouseover="this.src='${goOver}';" onmouseout="this.src='${go}';"/>
                         </gsml:form>
                     </div>
 
@@ -70,47 +71,39 @@
                         <h3>Get <em>IDEAS and LEARN MORE</em> about:</h3>
                         <gsml:form action="/redirect.page" method="GET" >
                             <div style="display: block; ">
-                            <select name="page">
-                                <option value="/content/backToSchool.page">Back to school success tips</option>
+                            <select name="page" style="color: #444;">
+                                <option value="/content/backToSchool.page" selected="selected">Back to school success tips</option>
                                 <option value="/content/backToSchool.page"> Back to school shopping </option>
-                                <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Ask an Expert </option>
-                                <option value="/search/search.page?q=reading tips&amp;type=topic"> Reading tips </option>
-                                <option value="/search/search.page?q=math tips&amp;type=topic"> Math tips </option>
                                 <option value="/content/summerReading.page"> Summer reading </option>
-                                <option value="/search/search.page?q=bullying&amp;type=topic"> Bullying </option>
-                                <option value="/search/search.page?q=homework&amp;type=topic"> Homework battles </option>
-                                <option value="/search/search.page?q=food&amp;type=topic"> Healthy food ideas </option>
-                                <option value="/content/schoolChoiceCenter"> Choosing a school </option>
-                                <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Private vs. public vs. charter </option>
-                                <option value="/content/guideToTests.page"> Standardized tests </option>
-                                <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Improving your school </option>
+                                <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Ask an Expert </option>
+
                                 <option value="/search/search.page?q=raise+funds&amp;type=topic"> Raising money for your school </option>
 
-                                <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> How schools work </option>
-
-
-                                <option value="/search/search.page?q=violence&amp;type=topic"> Making your school safe: </option>
-
-
                                 <option value="/search/search.page?q=special+education&amp;type=topic"> Learning disabilities </option>
-
                                 <option value="/cgi-bin/showarticle/CA/97"> Gifted and talented kids </option>
 
+                                <option value="/search/search.page?q=reading tips&amp;type=topic"> Reading tips </option>
+                                <option value="/search/search.page?q=math tips&amp;type=topic"> Math tips </option>
+                                <option value="/search/search.page?q=bullying&amp;type=topic"> Bullying </option>
+                                <option value="/search/search.page?q=food&amp;type=topic"> Healthy food ideas </option>
+                                <option value="/search/search.page?q=homework&amp;type=topic"> Homework battles </option>
 
+                                <option value="/content/guideToTests.page"> Standardized tests </option>
+                                <option value="/content/schoolChoiceCenter.page"> Choosing a school </option>
+                                <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Private vs. public vs. charter </option>
+
+                                <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Improving your school </option>
+
+                                <!--option value="/search/search.page?q=Troubleshooter&amp;type=topic"> How schools work </option>
+                                <option value="/search/search.page?q=violence&amp;type=topic"> Making your school safe: </option>
                                 <option value="/search/search.page?q=kindergarten&amp;type=topic"> Kindergarten </option>
-
-
                                 <option value="/search/search.page?q=first grade&amp;type=topic"> First grade </option>
-
                                 <option value="/search/search.page?q=second grade&amp;type=topic"> Second grade </option>
-
-
-                                <option value="/search/search.page?q=third grade&amp;type=topic"> Third grade </option>
+                                <option value="/search/search.page?q=third grade&amp;type=topic"> Third grade </option-->
                             </select>
                             &#160;
-                            <gsml:url var="go" value="/res/img/splash/go.gif"/>
                                 <input type="image" src="${go}" alt="go" style="width:41px;height:26px;"
-                                       class="button"/>
+                                       class="button" onmouseover="this.src='${goOver}';" onmouseout="this.src='${go}';"/>
                             </div>
                         </gsml:form>
                     </div>
