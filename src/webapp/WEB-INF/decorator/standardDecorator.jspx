@@ -55,7 +55,9 @@
 <div id="marginGS" class="marginGS">
     <jsp:include page="/header/cobrand.module"/>
 
+    <c:if test="${requestScope.pageHelper.showingLeaderboard}">
     <ad:x22/>
+    </c:if>
 
     <div id="pageGS" class="pageGS">
     <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">

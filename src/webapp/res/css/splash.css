@@ -194,3 +194,8 @@ ul li.checkmark {
 #houseAd a:hover span {
     background-image: url( ../img/splash/signMeUpOver.gif );
 }
+
+
+#topnav .searchLabel, #topnav .search {
+    display: none;
+}

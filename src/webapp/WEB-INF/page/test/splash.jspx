@@ -16,6 +16,7 @@
 <jsp:directive.page import="gs.web.ISessionContext"/>
 <jsp:directive.page import="gs.web.SessionContextUtil"/>
 <jsp:directive.page import="org.springframework.context.ApplicationContext"/>
+<jsp:directive.page import="gs.web.util.PageHelper"/>
 <html lang="en">
 
 <jsp:output doctype-root-element="html"
@@ -29,6 +30,8 @@
     <pageHelper:setPathway pathway="0"/>
 
     <jsp:scriptlet>
+        PageHelper.hideLeaderboard(request);
+        PageHelper.hideFooterAd(request);
         ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         ApplicationContext ac = sessionContext.getApplicationContext();
 

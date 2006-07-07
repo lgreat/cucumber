@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.16 2006/06/26 21:26:17 apeterson Exp $
+ * $Id: PageHelper.java,v 1.17 2006/07/07 17:45:59 apeterson Exp $
  */
 
 package gs.web.util;
@@ -41,6 +41,16 @@ import java.util.List;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class PageHelper {
+
+
+    public static void hideLeaderboard(HttpServletRequest request) {
+        PageHelper pageHelper = getInstance(request);
+        if (pageHelper != null) {
+            pageHelper.setShowingLeaderboard(false);
+        } else {
+            _log.error("No PageHelper object available.");
+        }
+    }
 
     public static void hideHeader(HttpServletRequest request) {
         PageHelper pageHelper = getInstance(request);
@@ -119,6 +129,7 @@ public class PageHelper {
     public static final String REQUEST_ATTRIBUTE_NAME = "pageHelper";
 
     private boolean _showingHeader = true;
+    private boolean _showingLeaderboard = true;
     private boolean _showingFooter = true;
     private boolean _showingFooterAd = true;
     private boolean _advertisingOnline = true;
@@ -190,6 +201,14 @@ public class PageHelper {
 
     public void setShowingFooterAd(boolean showingFooterAd) {
         _showingFooterAd = showingFooterAd;
+    }
+
+    public boolean isShowingLeaderboard() {
+        return _showingLeaderboard;
+    }
+
+    public void setShowingLeaderboard(boolean showingLeaderboard) {
+        _showingLeaderboard = showingLeaderboard;
     }
 
     private boolean isYahooCobrand() {
