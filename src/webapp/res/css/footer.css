@@ -7,105 +7,68 @@
     background-color: #fff;
 }
 
-#footerGS {
-    width: 900px;
-    line-height: 10pt;
-    font-size: .9em;
-    text-align: center;
-}
-
 #footerAd {
     text-align: center;
 }
 
-#footerText {
+#footerGS {
+    line-height: 10pt;
+    font-size: x-small;
+    text-align: center;
+    color: #888;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    color: #777;
-    font-weight: bold;
-    padding-top: 10px;
+    margin: 24px 18px 0 18px;
+    border-top: 1px solid #ccc;
+    padding: 18px 0 18px 0;
 }
-
-#footerSearch {
-    text-align: center;
-    color: #999;
-    font-size: 10px;
-}
-
-#footerSearch a {
-    color: #039;
-    text-decoration: none;
-}
-
-#footerSearch a:hover {
+#footerGS a {
     text-decoration: underline;
+    color: #888;
 }
-
-#footerSearch span {
-    padding-left: 2px;
-    padding-right: 2px;
+#footerGS a:visited {
+    color: #aaa;
 }
-
-#footerSponsor {
-    padding: 20px 20px 0px 0px;
-}
-
-#footerCopyright {
-    font-size: 10px;
-    text-align: center;
-    color: #999;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-#footerCopyright a:link {
-    color: #039;
-}
-
-#footerCopyright a:visited {
-    color: #039;
-}
-
-#footerGS table {
-    border-collapse: collapse;
-    width: 728px;
-}
-
-#footerGS th {
-    text-align: left;
-    font-size: 10px;
-    color: rgb( 255, 255, 255 );
-    background: #003399;
-}
-
-#footerGS td {
-    font-size: 10px;
-    vertical-align: top;
-    line-height: 8pt
+#footerGS a:hover {
+    color: #6cc;
 }
 
 #footerGS .lowernavbar {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
     text-align: center;
     font-weight: bold;
-    padding-top: 24px;
 }
 
 #footerGS .lowernavbar a:link,
     #footerGS .lowernavbar a:visited {
-    color: #039;
-    padding: 0px 2px 0px 3px;
+    padding: 0px 10px 0px 13px;
     text-decoration: none;
+    text-transform: uppercase;
 }
 
 #footerGS .lowernavbar a:hover {
     text-decoration: underline;
 }
 
+#footerGS #footerText {
+    padding-top: 10px;
+}
+
+#footerGS #footerSearch {
+     padding-top: 10px;
+}
+
+#footerGS #footerSearch span {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+#footerGS #footerCopyright {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+
+
 #footerSearchStates, #footerSearchCities, #footerSearchStateSpecific {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    color: #666;
     padding: 0px 50px 10px 50px;
 }

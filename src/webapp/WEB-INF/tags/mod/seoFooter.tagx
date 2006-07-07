@@ -38,6 +38,7 @@
         districts</a>, <a href="/modperl/cities/${state}">${longName} cities</a>
     </div>
 </c:if>
+
 <div id="footerSearchStates">
     <link:research state="AL">Alabama schools</link:research>,
     <link:research state="AK">Alaska schools</link:research>,
@@ -91,6 +92,7 @@
     <link:research state="WI">Wisconsin schools</link:research>,
     <link:research state="WY">Wyoming schools</link:research>.
 </div>
+
 <div id="footerSearchCities">
     <link:city city="New York" state="NY">New York schools</link:city>,
     <link:city city="Los Angeles" state="CA">Los Angeles schools</link:city>,

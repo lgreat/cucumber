@@ -16,16 +16,8 @@
 <td><gsml:img src="/res/img/pixel.gif" alt="" style="height:102px; width: 18px"/></td>
 <td><gsml:img src="/res/img/pixel.gif" alt="" style="height:102px; width: 30px"/></td>
 <td  style="width:401px;height:102px">
-    <c:choose>
-        <c:when test="${requestScope.pageHelper.logoLinked}">
             <gsml:a href="/"><gsml:img src="/res/img/logo/logo_GS_330x110.gif" alt="GreatSchools.net logo"
                                        /></gsml:a>
-        </c:when>
-        <c:otherwise>
-            <gsml:img src="/res/img/logo/logo_GS_330x110.gif" alt="GreatSchools.net logo"
-                      style="width:401px;height:102px"/>
-        </c:otherwise>
-    </c:choose>
 </td>
 <td><gsml:img src="/res/img/pixel.gif" alt="" style="height:102px"/></td>
 <td>
