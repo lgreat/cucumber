@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.45 2006/07/07 19:54:40 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.46 2006/07/07 20:09:42 apeterson Exp $
  */
 
 package gs.web.util;
@@ -84,6 +84,8 @@ public class UrlBuilder {
     public static final VPage CONTACT_US = new VPage("vpage:contactUs");
 
     public static final VPage DISTRICT_PROFILE = new VPage("vpage:districtProfile");
+
+    public static final VPage HOME = new VPage("vpage:home");
 
     /**
      * Allows a user to edit and create school lits.
@@ -367,6 +369,9 @@ public class UrlBuilder {
             } */
             _perlPage = false;
             _path = "/path/choose.page";
+        } else if (HOME.equals(page)) {
+            _perlPage = false;
+            _path = "/home.page";
         } else if (PRIVACY_POLICY.equals(page)) {
             _perlPage = false;
             _path = "/about/privacyStatement.page";

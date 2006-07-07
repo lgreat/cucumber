@@ -41,6 +41,9 @@
     text-decoration: underline;
     display: block;
 }
+#week ul li a:visited {
+    color: #555;
+}
 ul li.burst {
     background-image: url( ../img/bullet/yellow/trans/burst.gif );
 }

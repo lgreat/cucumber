@@ -26,6 +26,23 @@
     </description>
 
     <tag>
+        <name>home</name>
+        <tag-class>gs.web.jsp.link.HomeTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Home (splash) page</display-name>
+        <description>
+            <![CDATA[Link to our home page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
+
+    <tag>
         <name>articleLibrary</name>
         <tag-class>gs.web.jsp.link.ArticleLibraryTagHandler</tag-class>
         <body-content>JSP</body-content>
