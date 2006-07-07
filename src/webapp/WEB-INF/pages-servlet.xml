@@ -694,6 +694,10 @@
             </list>
         </property>
     </bean>
+    <bean name="/redirect.page"
+          class="gs.web.util.RedirectController"
+          autowire="byName">
+    </bean>
 
     <!-- WEB PAGE DEFINITIONS END -->
 
