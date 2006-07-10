@@ -27,7 +27,7 @@
           singleton="false">
         <!-- NOTE: not autowired for performance reasons. AJP 3/2006 -->
         <property name="propertyDao" ref="propertyDao"/>
-        <property name="subscriptionDao" ref="subscriptionDao"/>
+        <property name="userDao" ref="userDao"/>
         <property name="sessionContextUtil" ref="sessionContextUtil"/>
     </bean>
 

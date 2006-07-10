@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ISessionContext.java,v 1.1 2006/06/26 21:26:01 apeterson Exp $
+ * $Id: ISessionContext.java,v 1.2 2006/07/10 21:51:29 apeterson Exp $
  */
 
 package gs.web;
@@ -30,8 +30,20 @@ public interface ISessionContext {
     /**
      * Current user, if known. This does NOT guarantee that this is a subscribed
      * user. Other tests must be used to protect paid content.
+     * This may be a costly operation. You should use individual fields, like email or
+     * nickname, if they are sufficient.
      */
     User getUser();
+
+    String getNickname();
+
+    String getEmail();
+
+    Integer getMemberId();
+
+    int getMslCount();
+    int getMssCount();
+
 
     /**
      * Current state (of the U.S.).
@@ -63,6 +75,7 @@ public interface ISessionContext {
 
     /**
      * If our ad server company has an outage we can turn off advertising
+     *
      * @return true if advertising it turned on
      */
     boolean isAdvertisingOnline();
@@ -78,5 +91,6 @@ public interface ISessionContext {
      * family.greatschools.net
      */
     boolean isFamilyCobrand();
+
 
 }

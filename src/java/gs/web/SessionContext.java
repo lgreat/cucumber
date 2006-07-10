@@ -1,11 +1,11 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.32 2006/06/26 21:26:17 apeterson Exp $
+ * $Id: SessionContext.java,v 1.33 2006/07/10 21:51:38 apeterson Exp $
  */
 package gs.web;
 
 import gs.data.admin.IPropertyDao;
-import gs.data.community.ISubscriptionDao;
+import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.state.State;
 import org.apache.commons.logging.Log;
@@ -37,16 +37,22 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
     private String _cobrand;
     private String _hostName;
     private User _user;
+    private Integer _memberId;
+    private String _email;
+    private String _nickname;
+    private int _mslCount;
+    private int _mssCount;
     private State _state;
     private String _pathway;
     private String _remoteAddress;
     private String _abVersion;
 
     private ApplicationContext _applicationContext;
-    private ISubscriptionDao _subscriptionDao;
     private IPropertyDao _propertyDao;
 
     private SessionContextUtil _sessionContextUtil;
+    private IUserDao _userDao;
+    private boolean _readFromClient = false;
 
     /**
      * Created by Spring as needed.
@@ -60,6 +66,11 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
     }
 
     public User getUser() {
+        if (_user == null) {
+            if (_memberId != null) {
+                _user = _userDao.findUserFromId(_memberId.intValue());
+            }
+        }
         return _user;
     }
 
@@ -93,6 +104,7 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
 
     /**
      * We only turn advertising off when our ad serving company has an outage
+     *
      * @return true if the ad server is working
      */
     public boolean isAdvertisingOnline() {
@@ -135,18 +147,9 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
         _pathway = pathway;
     }
 
-    public ISubscriptionDao getSubscriptionDao() {
-        return _subscriptionDao;
-    }
-
-    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
-        _subscriptionDao = subscriptionDao;
-    }
-
     /**
      * Currently this is only used for determining A/B for multivariate testing,
      * therefore there is no accessor method.
-     * @param address
      */
     public void setRemoteAddress(String address) {
         if (address != null) {
@@ -161,6 +164,7 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
     /**
      * Returns either (lowercase) "a" or "b" based on the odd/even-ness of
      * the remote host's ip address.  "a" is for even, "b" is for odd.
+     *
      * @return a <code>String</code>type
      */
     public String getABVersion() {
@@ -170,7 +174,7 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
             String version = "a";
             if (_remoteAddress != null) {
                 String digit =
-                        _remoteAddress.substring(_remoteAddress.length()-1,
+                        _remoteAddress.substring(_remoteAddress.length() - 1,
                                 _remoteAddress.length());
                 try {
                     int i = Integer.parseInt(digit);
@@ -202,4 +206,59 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
         _sessionContextUtil = sessionContextUtil;
     }
 
+    public IUserDao getUserDao() {
+        return _userDao;
+    }
+
+    public void setUserDao(IUserDao userDao) {
+        _userDao = userDao;
+    }
+
+    public String getNickname() {
+        return _nickname;
+    }
+
+    public void setNickname(String nickname) {
+        _nickname = nickname;
+    }
+
+    public int getMslCount() {
+        return _mslCount;
+    }
+
+    public void setMslCount(int mslCount) {
+        _mslCount = mslCount;
+    }
+
+    public int getMssCount() {
+        return _mssCount;
+    }
+
+    public void setMssCount(int mssCount) {
+        _mssCount = mssCount;
+    }
+
+    public Integer getMemberId() {
+        return _memberId;
+    }
+
+    public void setMemberId(Integer memberId) {
+        _memberId = memberId;
+    }
+
+    public String getEmail() {
+        return _email;
+    }
+
+    public void setEmail(String email) {
+        _email = email;
+    }
+
+    public void setReadClientSideSessionCache(boolean readIt) {
+        _readFromClient = readIt;
+    }
+
+    public boolean isReadFromClient() {
+        return _readFromClient;
+    }
 }

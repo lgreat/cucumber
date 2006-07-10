@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.21 2006/06/26 21:26:17 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.22 2006/07/10 21:51:38 apeterson Exp $
  */
 
 package gs.web;
@@ -85,7 +85,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     }
 
     private void readCookies(HttpServletRequest httpServletRequest,
-                            final SessionContext context) {
+                             final SessionContext context) {
         // Find the cookie that pertains to the user
         // We don't need to do this every time, but for now
         // while we are jumping back and forth with the perl code, we do.
@@ -128,10 +128,10 @@ public class SessionContextUtil implements ApplicationContextAware {
                         context.setState(s);
                     }
                 } else if (StringUtils.equals(_sessionCacheCookieGenerator.getCookieName(), thisCookie.getName())) {
-                    String sessionCache = thisCookie.getValue();
                     try {
-                        ClientSideSessionCache cache = ClientSideSessionCache.createClientSideSessionCache(sessionCache);
-                        // TODO finish writing
+                        ClientSideSessionCache cache = ClientSideSessionCache.createClientSideSessionCache(thisCookie.getValue());
+                        updateContextFromCache(context, cache);
+                        context.setReadClientSideSessionCache(true);
                     } catch (IOException e) {
                         _log.warn("Can't restore cookie", e);
                         // Ignore
@@ -148,34 +148,18 @@ public class SessionContextUtil implements ApplicationContextAware {
                 different user. A member login overrides MSL cookie.
             */
             if (insiderId != -1) {
-                if (context.getUser() == null || context.getUser().getId().intValue() != insiderId) {
-                    try {
-                        final User user = _userDao.findUserFromId(insiderId);
-                        context.setUser(user);
-                        if (mslId != -1 && mslId != insiderId) {
-                            _log.warn("User with two conflicting cookies: " +
-                                    MEMBER_ID_INSIDER_COOKIE + "=" + insiderId + " " +
-                                    MEMBER_ID_COOKIE + "=" + mslId);
-                        }
-                    } catch (ObjectRetrievalFailureException e) {
-                        _log.warn("User not found for cookie: " +
-                                MEMBER_ID_INSIDER_COOKIE + "=" + insiderId + " " +
-                                MEMBER_ID_COOKIE + "=" + mslId);
-
-                    }
-                }
+                context.setMemberId(new Integer(insiderId));
             } else if (mslId != -1) {
-                if (context.getUser() == null || context.getUser().getId().intValue() != mslId) {
-                    try {
-                        final User user = _userDao.findUserFromId(mslId);
-                        context.setUser(user);
-                    } catch (ObjectRetrievalFailureException e) {
-                        _log.warn("User not found for MSL cookie: " +
-                                MEMBER_ID_COOKIE + "=" + mslId);
-                    }
-                }
+                context.setMemberId(new Integer(mslId));
             }
         }
+    }
+
+    private void updateContextFromCache(SessionContext context, ClientSideSessionCache cache) {
+        context.setEmail(cache.getEmail());
+        context.setMslCount(cache.getMslCount());
+        context.setMssCount(cache.getMssCount());
+        context.setNickname(cache.getNickname());
     }
 
     /**
@@ -369,11 +353,37 @@ public class SessionContextUtil implements ApplicationContextAware {
     public SessionContext prepareSessionContext(
             HttpServletRequest request,
             HttpServletResponse response) {
+        /*
+        The normal case is that things are persisted in individual cookies. We support
+        the ability to add request-level attributes for testing and a few other
+        cases. We allow parameter overriding as a standard way to test and in some
+        cases to change state. See the "state" parameter for an example of this.
+        */
         SessionContext context = guaranteeSessionContext(request);
         readCookies(request, context);
         updateFromRequestAttributes(request, context);
         updateFromParams(request, response, context);
+        saveCookies(response, context);
         return context;
+    }
+
+    private void saveCookies(HttpServletResponse response, SessionContext context) {
+
+        // Stash away member's information so we don't look it up every time.
+        if (context.getMemberId() != null && !context.isReadFromClient()) {
+            User user = context.getUser();
+            if (user != null) {
+                ClientSideSessionCache sessionCache = new ClientSideSessionCache(user);
+                updateContextFromCache(context, sessionCache);
+                try {
+                    String c = sessionCache.getCookieRepresentation();
+                    _sessionCacheCookieGenerator.addCookie(response, c);
+                } catch (IOException e) {
+                    _log.error("Unable to save user's cached information", e);
+                }
+            }
+        }
+
     }
 
     public ClientSideSessionCache createUserInfo(User user) {

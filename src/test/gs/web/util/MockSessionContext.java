@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MockSessionContext.java,v 1.1 2006/06/26 21:28:11 apeterson Exp $
+ * $Id: MockSessionContext.java,v 1.2 2006/07/10 21:51:29 apeterson Exp $
  */
 
 package gs.web.util;
@@ -93,5 +93,25 @@ public class MockSessionContext implements ISessionContext {
 
     public void setState(State state) {
         _state = state;
+    }
+
+    public String getNickname() {
+        return null;
+    }
+
+    public String getEmail() {
+        return null;
+    }
+
+    public Integer getMemberId() {
+        return null;
+    }
+
+    public int getMslCount() {
+        return 0;
+    }
+
+    public int getMssCount() {
+        return 0;
     }
 }

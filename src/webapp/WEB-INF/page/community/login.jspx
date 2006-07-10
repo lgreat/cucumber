@@ -92,7 +92,7 @@
             <p>Become a GreatSchools member by signing up for one of our free services:</p>
             <ul>
                 <li><link:newsletterCenter>Learn about newsletters</link:newsletterCenter></li>
-                <li><link:mySchoolList>Get Updates about your child's school</link:mySchoolList></li>
+                <li><link:mySchoolList>Keep bookmarks to your favorite schools</link:mySchoolList></li>
             </ul>
         </div>
         <mod:tracking pageName="login"

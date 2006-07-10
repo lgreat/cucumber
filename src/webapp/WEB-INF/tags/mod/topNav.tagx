@@ -26,20 +26,29 @@
             <td>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="member">
                     <tr>
-                        <c:if test="${requestScope.context.user==null}">
+                        <c:if test="${empty requestScope.context.memberId}">
                             <td class="welcome">Welcome!</td>
                             <td class="signout"><gsml:a href="/community/login.page">Sign
                                 in</gsml:a></td>
                             <td class="saved"><gsml:a href="/cgi-bin/msl_confirm/$STATE">Start saving schools</gsml:a>
                             </td>
                         </c:if>
-                        <c:if test="${requestScope.context.user!=null}">
-                            <td class="welcome">Welcome ${requestScope.context.user.email}</td>
+                        <c:if test="${not empty requestScope.context.memberId}">
+                            <td class="welcome">Welcome ${requestScope.context.nickname}</td>
                             <td class="signout"><gsml:a
-                                    href="/cgi-bin/logout/$STATE/?email=${requestScope.context.user.email}&amp;mid=${requestScope.context.user.id}">
+                                    href="/cgi-bin/logout/$STATE/?email=${requestScope.context.email}&amp;mid=${requestScope.context.memberId}">
                                 Sign
                                 out</gsml:a></td>
-                            <td class="saved"><gsml:a href="/cgi-bin/msl_confirm/$STATE">32 Saved schools</gsml:a></td>
+                            <td class="saved">
+                                <c:choose>
+                                    <c:when test="${not empty requestScope.context.mslCount and requestScope.context.mslCount gt 0}">
+                                        <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.email}">${requestScope.context.mslCount} Saved school${requestScope.context.mslCount gt 1 ? 's':''}</gsml:a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <gsml:a href="/cgi-bin/msl_confirm/$STATE">Start saving schools</gsml:a>
+                                    </c:otherwise>
+                                </c:choose>
+                                </td>
                         </c:if>
                     </tr>
                 </table>
@@ -147,7 +156,7 @@
                     >Contact Us</link:contactUs></td-->
             <td><link:newsletterCenter
                     styleClass="${(pw == 8 ? 'lactive' : '')} ${(pw == 6 ? 'active ractive' : 'inactive')}"
-                    email="${requestScope.context.user.email}"
+                    email="${requestScope.context.email}"
                     >Free Newsletters</link:newsletterCenter></td>
             <td style="width:36px">&#160;</td>
         </tr></table>

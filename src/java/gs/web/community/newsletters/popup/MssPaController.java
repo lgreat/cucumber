@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.15 2006/06/26 21:26:00 apeterson Exp $
+ * $Id: MssPaController.java,v 1.16 2006/07/10 21:51:29 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -14,6 +14,7 @@ import gs.web.util.PageHelper;
 import gs.web.util.validator.MaximumMssValidator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
@@ -55,10 +56,9 @@ public class MssPaController extends SimpleFormController {
 
         if (nc.getEmail() == null) {
             ISessionContext session = SessionContextUtil.getSessionContext(request);
-            User user = session.getUser();
-
-            if (user != null) {
-                nc.setEmail(user.getEmail());
+            String email = session.getEmail();
+            if (StringUtils.isNotEmpty(email)) {
+                nc.setEmail(email);
             } else {
                 nc.setEmail("");
             }
