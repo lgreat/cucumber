@@ -87,6 +87,14 @@ will need to become a graphic.
     padding-left: 6px;
     width: 80%; /* take any extra space */
 }
+#topnav .signout a {
+    color: #729eca;
+    text-decoration: none;
+}
+#topnav .signout a:hover {
+    text-decoration: underline;
+}
+
 
 #topnav .saved {
     color: #729eca;
