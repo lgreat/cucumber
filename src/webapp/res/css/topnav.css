@@ -1,9 +1,8 @@
-/* CSS Document for top section of page: ad banner + page banner + navigation section
+/* CSS Document for top section of page: page banner + navigation section
 
 Nathan W says:
-The we used Century Gothic, Helvetica and Verdana in the header. As you know anything with Century Gothic will need to become a graphic.
-
-
+The we used Century Gothic, Helvetica and Verdana in the header. As you know anything with Century Gothic
+will need to become a graphic.
 */
 
 #topnav {
@@ -16,6 +15,10 @@ The we used Century Gothic, Helvetica and Verdana in the header. As you know any
 #topnav .arrowBlueRight {
     margin-top: auto;
     margin-bottom: auto;
+}
+
+#topnav  a img {
+    border-width: 0;
 }
 
 #topnav .searchLabel {
