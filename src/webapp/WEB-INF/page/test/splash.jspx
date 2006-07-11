@@ -28,6 +28,8 @@
 <head>
     <title>GreatSchools.net</title>
     <pageHelper:setPathway pathway="0"/>
+    <pageHelper:externalJavascript file="/res/js/submodal/submodal.js" />
+    <pageHelper:externalCss file="/res/css/submodal/submodal.css" />
 
     <jsp:scriptlet>
         PageHelper.hideLeaderboard(request);
