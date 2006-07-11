@@ -91,6 +91,13 @@
         </property>
     </bean>
 
+    <bean name="/index.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>test/splash</value>
+        </property>
+    </bean>
+
 
     <bean name="/community/beta.page" class="gs.web.community.BetaController"
           autowire="byName">
