@@ -49,7 +49,7 @@ public class BetaController extends SimpleFormController {
     /**
      * Binds the request parameters to the fields in <code>BetaSignupCommand</code>.
      * @param httpServletRequest
-     * @return
+     * @return an Object of type BetaSignupCommand
      * @throws Exception
      */
     protected Object formBackingObject(HttpServletRequest httpServletRequest) throws Exception {
@@ -71,7 +71,7 @@ public class BetaController extends SimpleFormController {
      * Handles the form POST subscription request
      *
      * @param command a <code>BetaSignupCommand</code> object
-     * @return
+     * @return a ModelAndView
      * @see gs.web.util.validator.EmailValidator
      * @see BetaSubNotExistsValidator
      */
@@ -128,7 +128,6 @@ public class BetaController extends SimpleFormController {
      * MimeMessage.
      *
      * @param mimeMessage
-     * @param email
      * @return
      * @throws MessagingException
      */
