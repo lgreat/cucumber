@@ -134,11 +134,19 @@
                     <h3>BILL'S BLOG<h4>Founder &amp; CEO of GreatSchools</h4></h3>
 
                     <div class="rss">
-                        <cache:cache scope="application" name="blog" key="bill">
+                        <cache:cache scope="application" name="blog" key="bill3">
                             <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
                                               defaultTitle="Bill's thoughts on education"
                                               defaultUrl="http://billsblog.greatschools.net"/>
                         </cache:cache>
+                        <br />
+                        <gsml:url var="read" value="/res/img/splash/read.gif"/>
+                        <gsml:url var="readOver" value="/res/img/splash/readOver.gif"/>
+                        <a href="http://billsblog.greatschools.net" target="_new"><img
+                                src="${read}"
+                                alt="read"
+                                style="margin: 4px 0 4px -2px"
+                                onmouseover="this.src='${readOver}';" onmouseout="this.src='${read}';"/></a>
                     </div>
                 </div>
             </td>
