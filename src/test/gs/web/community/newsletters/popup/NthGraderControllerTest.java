@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderControllerTest.java,v 1.8 2006/06/26 21:28:11 apeterson Exp $
+ * $Id: NthGraderControllerTest.java,v 1.9 2006/07/11 05:06:38 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -124,6 +124,7 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
         User user = new User();
         user.setEmail(email);
         getSessionContext().setUser(user);
+        getSessionContext().setEmail(email);
         setUpScenarioTwo();
 
         BindException errors = new BindException(command, "");

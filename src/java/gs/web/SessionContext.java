@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.33 2006/07/10 21:51:38 apeterson Exp $
+ * $Id: SessionContext.java,v 1.34 2006/07/11 05:06:23 apeterson Exp $
  */
 package gs.web;
 
@@ -76,6 +76,13 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
 
     public void setUser(final User user) {
         _user = user;
+        if (user != null) {
+            _email = user.getEmail();
+            _memberId = user.getId();
+        } else {
+            _email = null;
+            _memberId = null;
+        }
     }
 
     public State getState() {

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.10 2006/06/26 21:28:11 apeterson Exp $
+ * $Id: MssPaControllerTest.java,v 1.11 2006/07/11 05:06:50 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -82,6 +82,7 @@ public class MssPaControllerTest extends BaseControllerTestCase {
         User user = new User();
         user.setEmail(email);
         getSessionContext().setUser(user);
+        getSessionContext().setEmail(email);
 
         command.setSchoolId(1);
         command.setState(State.CA);
@@ -93,6 +94,7 @@ public class MssPaControllerTest extends BaseControllerTestCase {
 
         command.setEmail(null);
         getSessionContext().setUser(null);
+        getSessionContext().setEmail(null);
         _controller.onBindOnNewForm(getRequest(), command, errors);
         assertEquals("", command.getEmail());
     }
