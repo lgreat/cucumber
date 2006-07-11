@@ -21,105 +21,8 @@
      <pageHelper:setPathway pathway="7"/>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-    <title>GreatSchools.net: Summer Reading</title>
-
-
-
-
-
-
-    <style type="text/css">
-        /* css */
-
-        #header {
-	      /*  text-indent: -5000px;
-	        background: url(sample-opaque.gif); */
-	        height: 35px;
-            color: #fff;
-
-        }
-
-        #pageGS  {
-            font-family: lucinda, lucida, lucida grande, lucida sans unicode, arial;
-        }
-        #pageGS #contentGS  a:hover {
-            color: #6cc;
-        }
-
-        /* Left, nav column */
-        #contentGS .left h3 {
-            font-family: century gothic;
-            font-size: small; /* 13pt */
-            font-weight: 100;
-
-            background-color: #6cc;
-            color: #fff;
-            padding: 4px 0 4px 16px;
-        }
-
-        #contentGS .left ul {
-            margin: 6px 0 6px 0px;
-        }
-        #contentGS .left ul li {
-            font-size: x-small; /* 11pt */
-            font-weight: bolder;
-            background-color: #eee;
-            color: #999;
-            padding: 4px 12px 4px 16px;
-            margin-bottom: 1px;
-        }
-        #contentGS .left ul li a {
-            color: #999;
-        }
-
-
-        /* Middle column */
-         #contentGS .middle h1 {
-             font-family: Rockwell light, courier, courier new;
-             font-size: xx-large;
-             font-weight: 100;
-             padding: 8ex 0 1ex 16px;
-             color: #fff;
-             background-color: #6cc;
-             margin-bottom: 16px;
-         }
-        #contentGS .middle h2 {
-            font-family: century gothic;
-            font-size: large;
-            font-weight: 100;
-            color: #fff;
-            background-color: #fb0;
-            padding: 4px 0 2px 16px;
-        }
-        #contentGS .middle li {
-            padding: 8px 0 2px 16px;
-            font-size: small; /* 13pt */
-            font-weight: bold;
-            background-color: #fff;
-            color: #5bc;
-        }
-        #contentGS .middle li a {
-            color: #5bc;
-        }
-       #contentGS .middle h3 {
-            font-family: rockwell;
-            padding: 8px 0 2px 16px;
-            font-size: medium;
-            font-weight: 100;
-            color: #5bc;
-        }
-        #contentGS .middle p {
-            padding: 8px 0 2px 16px;
-            font-size: small;
-            font-weight: 700;
-            color: #777;
-        }
-        #contentGS .middle p a {
-            color: #777;
-            font-weight: 300;
-        }
-    </style>
-
+    <title>GreatSchools.net: Back-to-School</title>
+     <pageHelper:externalCss file="/res/css/content/backToSchool.css"/>
 </head>
 
 <mod:tracking pageType="article"
@@ -150,10 +53,25 @@
                 </ul>
                 <h3 id="bookPicks">Book Picks</h3>
                 <ul class="plain">
-                <li>Read our back-to-school book picks:</li>
+                <li><table><tr><td>
+                    <gsml:img src="/res/img/content/backtoschool/amberBrownBook.gif" alt="Get Ready for Second Grade Amber Brown"></gsml:img></td>
+                    <td>Get Ready for Second Grade, Amber Brown</td></tr></table></li>
+
                 <gsweb:articlelink articleId="326" wrappingElement="li"/>
                 <li>All book picks by grade:<br/>
-                    K 1 2 3 4 5        </li>
+                <gsml:a href="/cgi-bin/showarticle/$STATE/322">
+                <gsml:img src="/res/img/content/backtoschool/redDot-K.gif" alt="Kindergarten icon"></gsml:img>
+                </gsml:a>
+                 <gsml:a href="/cgi-bin/showarticle/$STATE/323">
+                <gsml:img src="/res/img/content/backtoschool/redDot_1.gif" alt="First-grade icon"></gsml:img>
+                </gsml:a>
+                <gsml:a href="/cgi-bin/showarticle/$STATE/324">
+                <gsml:img src="/res/img/content/backtoschool/redDot_2.gif" alt="Second-grade icon"></gsml:img>
+                </gsml:a>
+                 <gsml:a href="/cgi-bin/showarticle/$STATE/325">
+                <gsml:img src="/res/img/content/backtoschool/redDot_3.gif" alt="Third-grade icon"></gsml:img>
+                </gsml:a>
+                </li>
                 </ul>
                 <h3 id="learningGames">Learning Games</h3>
                 <ul class="plain">
@@ -183,17 +101,26 @@
             <td valign="top" style="width: 10px">
             </td>
             <td valign="top" style="width: 365px" class="middle">
-                <h1>Back to <br />School</h1>
+                <table cellspacing="0" cellpadding="0">
+                    <tr><td>
+                        <gsml:img src="/res/img/content/backtoschool/headerleft.gif" alt="Back to school title"></gsml:img>
+                </td><td>
+                <gsml:img src="/res/img/content/backtoschool/headerright.jpg" alt="Back to school title"></gsml:img>
+                </td></tr></table>
+              <div class="bigDottedDivider">&#160;</div>
+
                 <h2>Get the Right Stuff</h2>
                 <ul>
                     <gsweb:articlelink articleId="327" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="327" wrappingElement="li"/>
-                     <gsweb:articlelink articleId="381" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="381" wrappingElement="li"/>
                     <gsweb:articlelink articleId="361" wrappingElement="li"/>
                     <gsweb:articlelink articleId="329" wrappingElement="li"/>
                     <gsweb:articlelink articleId="324" wrappingElement="li"/>
-                     <gsweb:articlelink articleId="256" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="256" wrappingElement="li"/>
                 </ul>
+                <div class="bigDottedDivider">&#160;</div>
+
                 <h2>Get Ready, Get Set</h2>
                 <ul>
                   <gsweb:articlelink articleId="328" wrappingElement="li"/>
@@ -201,33 +128,35 @@
                      <gsweb:articlelink articleId="331" wrappingElement="li"/>
                     <gsweb:articlelink articleId="325" wrappingElement="li"/>
                 </ul>
-                <h3 class="speech">Ask an Expert</h3>
+
+                <h3 class="dialog">Ask an Expert</h3>
                 <p>Q: My kindergartner doesn't want to go to school. What do I do?<br/>
-                    <gsweb:articlelink articleId="507" wrappingElement="li"/>
+                    <ul><gsweb:articlelink articleId="507" wrappingElement="li"/>  </ul>
                     </p>
                 <h3 class="checkmark">Parent Poll</h3>
                 <p>Share your opinion   <br/>
-                    <a>Vote in the poll</a>
+                    <gsml:a href="/cgi-bin/static/poll_results.tmpl/$STATE">Vote in our back-to-school poll now</gsml:a>
                     </p>
                 <h3 class="apple">The Twins Start Kindergarten</h3>
-                <p>Follow this family's story as their boy(?) and girl twins start kindergarten.<br/>
-                    <gsml:a href="http://back-to-school-blog.greatschools.net/">Read our back-to-school blog</gsml:a>
+                <p>Follow this family's story as their twins start kindergarten.<br/>
+                    <a href="http://back-to-school-blog.greatschools.net/" target="_blank">Read our back-to-school blog</a>
                     </p>
                 <h3 class="star">Free Newsletters</h3>
                 <p>Sign up for GreatSchools' newsletters <br/>
-                    <gsml:a href="">Click here</gsml:a>
+                    <gsml:a href="/cgi-bin/newsletters/$STATE">Click here</gsml:a>
                     </p>
                 <h3 class="asterisk">Our New Look</h3>
                 <p>What do you think of our new design?<br/>
-                    <gsml:a href="/cgi-bin/feedback_faq/ca?fbtype=design">Send us feedback</gsml:a>
+                    <gsml:a href="/cgi-bin/feedback_faq/$STATE?fbtype=design">Send us feedback</gsml:a>
                     </p>
+                <h3 class="bottom">&#160;</h3>
             </td>
-            <td valign="top" style="width: 10px; border-right: 1px solid #ddd">
+            <td valign="top" style="width: 5px; border-right: 1px solid #ddd">
             </td>
-            <td valign="top" style="width: 8px;">
+            <td valign="top" style="width: 9px;">
             </td>
             <td valign="top" style="width: 317px"  class="right">
-                <a><img /></a>
+               <a href="http://back-to-school-blog.greatschools.net/" target="_blank"><gsml:img src="/res/img/content/backtoschool/twins.gif" alt="Photo of twins" style="margin-bottom: 16px;"></gsml:img></a>
                 <ad:x66 />
                 <h5>GreatSchools is sponsored by:</h5>
                 <table>
@@ -242,16 +171,16 @@
                 </table>
 
                 <div id="k3promo">
-                    <h2>Special for K-3 Parents:</h2>
-                    <h3>Your Child Grade by Grade</h3>
+
                     <table style="width: 100%; color: #fff" cellspacing="10">
+                        <tr><td colspan="2"><gsml:img src="/res/img/content/backtoschool/special_K3.gif" alt=""></gsml:img></td></tr>
                         <tr>
-                            <td><div style="height: 140px; width: 140px; background-color: #9c6">Your Kindergardener</div></td>
-                            <td><div style="height: 140px; width: 140px; background-color: #6cc">Your First-grader</div></td>
+                            <td><link:articleLibrary><gsml:img src="/res/img/content/backtoschool/yourKinder.gif" alt="your kindergartner"></gsml:img></link:articleLibrary></td>
+                            <td><link:articleLibrary><gsml:img src="/res/img/content/backtoschool/yourFirst.gif" alt="your first-grader"></gsml:img></link:articleLibrary></td>
                         </tr>
                         <tr>
-                            <td><div style="height: 140px; width: 140px; background-color: #c56">Your Second-grader</div></td>
-                            <td><div style="height: 140px; width: 140px; background-color: #fb0">Your Third-grader</div></td>
+                            <td><link:articleLibrary><gsml:img src="/res/img/content/backtoschool/yourSecond.gif" alt="your second-grader"></gsml:img></link:articleLibrary></td>
+                            <td><link:articleLibrary><gsml:img src="/res/img/content/backtoschool/yourThird.gif" alt="your third-grader"></gsml:img></link:articleLibrary></td>
                         </tr>
                     </table>
                 </div>
