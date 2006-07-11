@@ -80,7 +80,7 @@
                                 <option value="/content/summerReading.page"> Summer reading </option>
                                 <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Ask an Expert </option>
 
-                                <option value="/search/search.page?q=raise+funds&amp;type=topic"> Raising money for your school </option>
+                                <option value="/cgi-bin/showarticle/CA/33"> Raising money for your school </option>
 
                                 <option value="/search/search.page?q=special+education&amp;type=topic"> Learning disabilities </option>
                                 <option value="/cgi-bin/showarticle/CA/97"> Gifted and talented kids </option>
@@ -93,9 +93,10 @@
 
                                 <option value="/content/guideToTests.page"> Standardized tests </option>
                                 <option value="/content/schoolChoiceCenter.page"> Choosing a school </option>
-                                <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Private vs. public vs. charter </option>
+                                <option value="/cgi-bin/showarticle/ca/197">Public vs. private vs. charter</option>
 
-                                <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Improving your school </option>
+                                <!--option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Improving your school </option-->
+                                <option value="/cgi-bin/showarticle/ca/41"> Get Involved</option>
 
                                 <!--option value="/search/search.page?q=Troubleshooter&amp;type=topic"> How schools work </option>
                                 <option value="/search/search.page?q=violence&amp;type=topic"> Making your school safe: </option>
