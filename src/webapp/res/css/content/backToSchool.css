@@ -3,7 +3,6 @@
 	        background: url(sample-opaque.gif); */
 	        height: 35px;
             color: #fff;
-
         }
         .bigDottedDivider {
              margin-top: 0px;
@@ -12,7 +11,7 @@
         }
 
         #pageGS  {
-            font-family: lucinda, lucida, lucida grande, lucida sans unicode, arial;
+            font-family: trebuchet ms, arial;
         }
         #pageGS #contentGS  a:hover {
             color: #6cc;
@@ -23,7 +22,6 @@
             font-family: century gothic;
             font-size: small; /* 13pt */
             font-weight: 100;
-
             background-color: #6cc;
             color: #fff;
             padding: 4px 0 4px 16px;
