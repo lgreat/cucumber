@@ -37,7 +37,7 @@
 
                 <h3 id="helpYourChildSucceed">Help Your Child Succeed</h3>
                 <ul>
-                    <gsweb:articlelink articleId="204" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="204" wrappingElement="li">jhjhjhjhj</gsweb:articlelink>
                     <gsweb:articlelink articleId="477" wrappingElement="li"/>
                     <gsweb:articlelink articleId="46" wrappingElement="li"/>
                     <gsweb:articlelink articleId="22" wrappingElement="li"/>
@@ -103,9 +103,9 @@
             <td valign="top" style="width: 365px" class="middle">
                 <table cellspacing="0" cellpadding="0">
                     <tr><td>
-                        <gsml:img src="/res/img/content/backtoschool/headerleft.gif" alt="Back to school title"></gsml:img>
+                        <gsml:img src="/res/img/content/backtoschool/backToSchool.gif" alt="Back to school title"></gsml:img>
                 </td><td>
-                <gsml:img src="/res/img/content/backtoschool/headerright.jpg" alt="Back to school title"></gsml:img>
+                <gsml:img src="/res/img/content/backtoschool/photoOfBoy.jpg" alt="Back to school title"></gsml:img>
                 </td></tr></table>
               <div class="bigDottedDivider">&#160;</div>
 
@@ -138,7 +138,7 @@
                     <gsml:a href="/cgi-bin/static/poll_results.tmpl/$STATE">Vote in our back-to-school poll now</gsml:a>
                     </p>
                 <h3 class="apple">The Twins Start Kindergarten</h3>
-                <p>Follow this family's story as their twins start kindergarten.<br/>
+                <p>Follow this family's story as their twins Margaret and Clara start kindergarten.<br/>
                     <a href="http://back-to-school-blog.greatschools.net/" target="_blank">Read our back-to-school blog</a>
                     </p>
                 <h3 class="star">Free Newsletters</h3>
