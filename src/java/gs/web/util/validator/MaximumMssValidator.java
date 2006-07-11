@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MaximumMssValidator.java,v 1.2 2006/07/11 21:14:04 dlee Exp $
+ * $Id: MaximumMssValidator.java,v 1.3 2006/07/11 21:26:38 dlee Exp $
  */
 package gs.web.util.validator;
 
@@ -45,7 +45,7 @@ public class MaximumMssValidator implements IRequestAwareValidator {
             String url = urlBuilder.asSiteRelative(request);
             _log.debug(url);
 
-            errors.rejectValue("email", MaximumMssValidator.ERROR_CODE, new Object[] {url}, MaximumMssValidator.DEFAULT_ERROR_MESSAGE);
+            errors.reject(MaximumMssValidator.ERROR_CODE, new Object[] {url}, MaximumMssValidator.DEFAULT_ERROR_MESSAGE);
         }
     }
 }
