@@ -1,12 +1,9 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ValidatorSaTest.java,v 1.4 2006/06/15 18:14:10 dlee Exp $
+ * $Id: ValidatorSaTest.java,v 1.5 2006/07/11 21:14:04 dlee Exp $
  */
 package gs.web.util.validator;
 
-import gs.data.community.Subscription;
-import gs.data.community.SubscriptionProduct;
-import gs.data.community.User;
 import gs.data.state.State;
 import gs.web.community.newsletters.popup.NewsletterCheckBoxValidator;
 import gs.web.community.newsletters.popup.NewsletterCommand;
@@ -16,9 +13,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Test Validators.
@@ -111,28 +105,5 @@ public class ValidatorSaTest extends TestCase {
         errors = new BindException(command, "");
         v.validate(command, errors);
         assertFalse(errors.hasErrors());
-    }
-
-    public void testMaximumMssValidator() {
-        Validator v = new MaximumMssValidator();
-        User user = new User();
-        Set subscriptions = new HashSet();
-        user.setSubscriptions(subscriptions);
-        Errors errors = new BindException(user, "");
-
-        v.validate(user, errors);
-        assertFalse(errors.hasErrors());
-
-        for (int i=0; i < SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER; i++ ) {
-            Subscription sub = new Subscription();
-            sub.setProduct(SubscriptionProduct.MYSTAT);
-            sub.setSchoolId(i);
-            sub.setState(State.CA);
-            subscriptions.add(sub);
-        }
-        user.setSubscriptions(subscriptions);
-
-        v.validate(user, errors);
-        assertTrue(errors.hasErrors());
     }
 }

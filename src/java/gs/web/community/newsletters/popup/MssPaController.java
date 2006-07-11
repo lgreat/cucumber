@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.16 2006/07/10 21:51:29 apeterson Exp $
+ * $Id: MssPaController.java,v 1.17 2006/07/11 21:14:04 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -12,9 +12,9 @@ import gs.web.ISessionContext;
 import gs.web.SessionContextUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.validator.MaximumMssValidator;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,7 +32,7 @@ import java.util.List;
  * @author David Lee <mailto:dlee@greatschools.net>
  */
 public class MssPaController extends SimpleFormController {
-    
+
     public static final String BEAN_ID = "/community/newsletters/popup/mss/page1.page";
     protected final Log _log = LogFactory.getLog(getClass());
 
@@ -83,7 +83,7 @@ public class MssPaController extends SimpleFormController {
         if (nc.isMystat()) {
             String email = nc.getEmail();
             MaximumMssValidator validator = new MaximumMssValidator();
-            validator.validate(getUserDao().findUserFromEmailIfExists(email), errors);
+            validator.validate(request, getUserDao().findUserFromEmailIfExists(email), errors);
 
             if (errors.hasErrors()) {
                 nc.setMystat(false);

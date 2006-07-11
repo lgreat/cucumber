@@ -88,20 +88,17 @@
                 id="frm">
 
             <c:set var="showMssCheckBox" value="true"/>
-            <div class="error">
-                <spring:hasBindErrors name="newsCmd">
-                 <ul>
-                    <c:forEach var="errMsgObj" items="${errors.allErrors}">
-                       <li>
-                          <spring:message code="${errMsgObj.code}" text="${errMsgObj.defaultMessage}"/>
-                       </li>
-                        <c:if test="${errMsgObj.code eq 'max_mss_reached'}">
+
+            <spring:hasBindErrors name="newsCmd">
+                <div class="error">
+                    <c:forEach var="error" items="${errors.allErrors}">
+                        <li><spring:message arguments="${error.arguments}" code="${error.code}"/></li>
+                        <c:if test="${error.code eq 'max_mss_reached'}">
                             <c:set var="showMssCheckBox" value="false"/>
                         </c:if>
                     </c:forEach>
-                 </ul>
-                </spring:hasBindErrors>
-            </div>
+                </div>
+            </spring:hasBindErrors>
 
             <input type="hidden" name="${schoolIdExpr}" value="${schoolId}"/>
             <input type="hidden" name="${schoolNameExpr}" value="${schoolName}"/>
