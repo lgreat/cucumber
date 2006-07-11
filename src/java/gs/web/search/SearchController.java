@@ -16,6 +16,7 @@ import gs.web.SessionContextUtil;
 import gs.web.util.Anchor;
 import gs.web.util.AnchorListModel;
 import gs.web.util.UrlBuilder;
+import gs.web.util.PageHelper;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.index.Term;
@@ -174,6 +175,12 @@ public class SearchController extends AbstractFormController {
 
         Map model = createModel(request, searchCommand, sessionContext, debug);
 
+        // Set the pathway: it's Research & Compare unless it's an article search.
+        if ("topic".equals(searchCommand.getType())) {
+            PageHelper.setPathwayCookie(request, response, "2");
+        } else {
+            PageHelper.setPathwayCookie(request, response, "1");
+        }
 
         String viewName;
         viewName = "search/mixedResults";

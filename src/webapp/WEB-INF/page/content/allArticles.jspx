@@ -101,7 +101,7 @@
 
     </style>
 </head>
-<pageHelper:setPathway pathway="8" />
+<pageHelper:setPathway pathway="2" />
 <mod:tracking pageType="Article" pageName="AllArticles" hier1="Article,AllArticles"/>
 <gsml:body adPageName="allArticles">
     <div class="allArticles">

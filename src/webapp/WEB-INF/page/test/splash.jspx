@@ -32,12 +32,6 @@
     <jsp:scriptlet>
         PageHelper.hideLeaderboard(request);
         PageHelper.hideFooterAd(request);
-        ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        ApplicationContext ac = sessionContext.getApplicationContext();
-
-        INewsItemDao newsItemDao = (INewsItemDao) ac.getBean(INewsItemDao.BEAN_ID);
-        NewsItem newsItem = newsItemDao.nextInRotation("NEWS");
-        pageContext.setAttribute("newsItem", newsItem);
     </jsp:scriptlet>
 
 </head>
@@ -50,7 +44,7 @@
             <td id="houseAd">
                 <p><span>&#160;</span>Track you child's learning grade-by-grade with our free newsletters that parents
                     love.</p>
-                <a href="/community/newsletters/popup/mss/page1.page?state=ca&amp;schoolId=1" target="mss" onclick="showPopWin('/community/newsletters/popup/mss/page1.page?state=ca',480,500,null,'hoverNewsMss'); return false"><span>&#160;</span>Sign up for newsletters</a>
+                <a href="/community/newsletters/popup/mss/page1.page?state=ca&amp;schoolId=1" target="mss" onclick="showPopWin('/community/newsletters/popup/mss/page1.page?state=ca',480,500,null,'hoverNewsMss'); return false">Sign up for newsletters</a>
             </td>
             <td width="8">
             </td>
@@ -58,7 +52,7 @@
                     <div id="findAndCompareSchoolsNationwide">
                         <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
                         <gsml:form action="/search/search.page" method="GET">
-                            <input type="text" value="" name="q" size="20"/>
+                            <input type="text" value="" name="q" size="16" />
                             &#160;
                             <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.stateOrDefault}"/>
                             <input type="hidden" value="school" name="type"/>
@@ -74,7 +68,7 @@
                         <h3>Get <em>IDEAS and LEARN MORE</em> about:</h3>
                         <gsml:form action="/redirect.page" method="GET" >
                             <div style="display: block; ">
-                            <select name="page" style="color: #444;">
+                            <select name="page" >
                                 <option value="/content/backToSchool.page" selected="selected">Back to school success tips</option>
                                 <option value="/content/backToSchool.page"> Back to school shopping </option>
                                 <option value="/content/summerReading.page"> Summer reading </option>
@@ -120,23 +114,16 @@
             <td style="vertical-align: top; height: 100%; width: 428px">
                 <div id="week">
                     <h3>This Week at GreatSchools</h3>
-                    <ul>
-                        <li class="burst"><content:newsItem category="SPLASH POSITION 1" /></li>
-                        <li class="dialog"><content:newsItem category="SPLASH POSITION 2" /></li>
-                        <li class="checkmark"><content:newsItem category="SPLASH POSITION 3" /></li>
-                    </ul>
-                    <c:if test="${not empty newsItem}">
-                        <div id="didYouKnow">
-                            <h3>Did ya know?</h3>
-                            ${newsItem.text}
-                            <c:if test="${not empty newsItem.link}">
-                                <gsml:a href="${newsItem.link}">Read More</gsml:a>
-                            </c:if>
-                        </div>
-                    </c:if>
+                    <cache:cache scope="application" name="news" key="splash">
+                        <ul>
+                            <li class="burst"><content:newsItem category="SPLASH POSITION 1"/></li>
+                            <li class="dialog"><content:newsItem category="SPLASH POSITION 2"/></li>
+                            <li class="checkmark"><content:newsItem category="SPLASH POSITION 3"/></li>
+                        </ul>
+                    </cache:cache>
                 </div>
             </td>
-            <td width="8">
+            <td width="8" style="border-right: 1px solid #ccc">
             </td>
             <td width="8">
             </td>

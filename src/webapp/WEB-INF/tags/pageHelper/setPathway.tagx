@@ -4,8 +4,6 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           >
     <jsp:directive.tag import="gs.web.util.PageHelper"/>
-    <jsp:directive.tag body-content="empty"
-                       description="Changes the user's current pathway. Should be used on the 'entry' pages to each pathway." />
     <jsp:directive.attribute name="pathway" required="true" />
     <jsp:scriptlet>
         PageHelper.setPathwayCookie(request, response, pathway);

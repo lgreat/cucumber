@@ -13,7 +13,6 @@
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:link="urn:www.greatschools.net/taglib/link"
         >
-<pageHelper:setPathway pathway="2"/>
 <html lang="en">
 <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="stateLongName" value="${requestScope.context.stateOrDefault.longName}"/>

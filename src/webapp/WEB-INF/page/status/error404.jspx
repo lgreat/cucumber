@@ -18,7 +18,6 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
- <pageHelper:setPathway pathway="4"/>
  <pageHelper:hideFooterAd/>
 
 <page:apply-decorator name="cobrandHeaderGsFooter">
