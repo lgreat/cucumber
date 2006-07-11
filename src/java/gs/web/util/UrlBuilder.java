@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.47 2006/07/07 20:23:18 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.48 2006/07/11 22:44:58 apeterson Exp $
  */
 
 package gs.web.util;
@@ -371,7 +371,7 @@ public class UrlBuilder {
             //_path = "/path/choose.page";
         } else if (HOME.equals(page)) {
             _perlPage = false;
-            _path = "/home.page";
+            _path = "/";
         } else if (PRIVACY_POLICY.equals(page)) {
             _perlPage = false;
             _path = "/about/privacyStatement.page";
