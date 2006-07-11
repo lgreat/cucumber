@@ -46,7 +46,7 @@
             <td id="houseAd">
                 <p><span>&#160;</span>Track you child's learning grade-by-grade with our free newsletters that parents
                     love.</p>
-                <a href="/community/newsletters/popup/mss/page1.page?state=ca&amp;schoolId=1" target="mss" onclick="showPopWin('/community/newsletters/popup/mss/page1.page?state=ca',480,500,null,'hoverNewsMss'); return false">Sign up for newsletters</a>
+                <a href="/community/newsletters/popup/newsletter.page?state=${requestScope.context.stateOrDefault}" target="mss" onclick="showPopWin('/community/newsletters/popup/newsletter.page?state=${requestScope.context.stateOrDefault}',480,500,null,'hoverNewsGs'); return false">Sign up for newsletters</a>
             </td>
             <td width="8">
             </td>
