@@ -84,7 +84,7 @@
                                 <option value="/search/search.page?q=reading tips&amp;type=topic"> Reading tips </option>
                                 <option value="/search/search.page?q=math tips&amp;type=topic"> Math tips </option>
                                 <option value="/search/search.page?q=bullying&amp;type=topic"> Bullying </option>
-                                <option value="/search/search.page?q=food&amp;type=topic"> Healthy food ideas </option>
+                                <option value="/search/search.page?q=healthy+food&amp;type=topic"> Healthy food ideas </option>
                                 <option value="/search/search.page?q=homework&amp;type=topic"> Homework battles </option>
 
                                 <option value="/content/guideToTests.page"> Standardized tests </option>
