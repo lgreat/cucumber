@@ -72,7 +72,7 @@
                             <div style="display: block; ">
                             <select name="page" >
                                 <option value="/content/backToSchool.page" selected="selected">Back to school success tips</option>
-                                <option value="/content/backToSchool.page"> Back to school shopping </option>
+                                <option value="/search/search.page?q=back+to+school+shopping&amp;type=topic"> Back to school shopping </option>
                                 <option value="/content/summerReading.page"> Summer reading </option>
                                 <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Ask an Expert </option>
 
