@@ -9,15 +9,19 @@
         <title>Beta Unsubscribe Confirmation</title>
         <pageHelper:externalCss file="/res/css/community/beta.css"/>
     </head>
+
     <body>
-    <div class="content">
-        Thank you! You have been removed from our beta group.
-        <br/><br/>
-        <gsml:a href="http://www.greatschools.net">
-            <span class="betalink">Return to GreatSchools home</span>
-        </gsml:a>
+    <div id="container">
+        <div class="content">
+            Thank you! You have been removed from our beta group.
+            <br/><br/>
+            <gsml:a href="http://www.greatschools.net">
+                <span class="betalink">Return to GreatSchools home</span>
+            </gsml:a>
+        </div>
     </div>
-    <mod:tracking pageType="beta" pageName="Beta Unsubscribe Confirmation" hier1="Community,Beta Group,Beta Unsubscribe Confirmation"/>
+    <mod:tracking pageType="beta" pageName="Beta Unsubscribe Confirmation"
+                  hier1="Community,Beta Group,Beta Unsubscribe Confirmation"/>
     </body>
 
     </html>

@@ -16,32 +16,23 @@
     <body>
     <div id="container">
         <div class="content">
-            <div id="shutterfly">
-                <span id="adtext">Promotional Sponsor</span><br/>
-                <a href="http://www.shutterfly.com">
-                    <gsml:img alt="Beta Group" src="/res/img/community/shutterfly_logo_120x90.gif"/>
-                </a>
-            </div>
-            <h3>Improve GreatSchools - Join Our Beta Group<br/>and get a free Shutterfly Photo Calendar!</h3>
 
+            <h3>Improve GreatSchools - Join Our Beta Group</h3>
+            <p>
+                Thanks to all of our users that signed up for the Beta Group and received
+                the free Photo Calendar from Shutterfly. Over 10,000 users signed up in just two days!
+            </p>
+            <br/>
             <p>
                 Help us build a powerful community of parents who are passionate about
                 education!<br/>Get a sneak peek at brand new features and ratings developed
                 just for GreatSchools!
             </p>
             <br/>
-
-            <p>
-                Plus, for a limited time, get a free 12-month photo calendar from Shutterfly. These
-                make perfect school-year calendars as they can start on any month you like. They
-                open to a full 11" x 17" so there's plenty of room to note important dates and
-                appointments.
-            </p>
             <br/>
             <h4>How it works:</h4>
             <ul id="betalist">
-                <li>Sign up below and you'll receive an email confirming your beta registration
-                    with instructions for redeeming your free Shutterfly Photo Calendar.</li>
+                <li>Sign up below and you'll receive an email confirming your beta registration.</li>
                 <li>We'll notify you occasionally about new features before they're released.</li>
                 <li>If you decide to try them, we may ask you to fill out a short survey or
                     provide us with feedback about your experience.</li>

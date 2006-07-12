@@ -10,27 +10,34 @@
         <title>Thank you</title>
         <pageHelper:externalCss file="/res/css/community/beta.css"/>
     </head>
+
     <body>
-    <div class="content">
-        <h3>Thank you for signing up for our beta group!</h3>
-        You will receive a confirmation email shortly.
-        <br/><br/>
-        <div id="innerbox">
-            <gsml:a href="/">
-                Return to GreatSchools.net home
-            </gsml:a>
+    <div id="container">
+        <div class="content">
+            <h3>Thank you for signing up for our beta group!</h3>
+            You will receive a confirmation email shortly.
             <br/><br/>
-            <gsml:a href="/community/betaUnsubscribe.page?email=${email}&amp;state=${requestScope.context.stateOrDefault}">Remove me from the GreatSchools beta group</gsml:a>
-            <br/><br/>
-            <gsml:a href="/cgi-bin/newsletterSubscribe?email=${email}&amp;state=${requestScope.context.stateOrDefault}">Sign up for our newsletters.</gsml:a>
-            GreatSchools produces a family of free email newsletters to help your child
-            succeed in school.  Choose newsletters for your child's school or your child's
-            grade.
-            <br/>
-            <br/>
+
+            <div id="innerbox">
+                <gsml:a href="/">
+                    Return to GreatSchools.net home
+                </gsml:a>
+                <br/><br/>
+                <gsml:a href="/community/betaUnsubscribe.page?email=${email}&amp;state=${requestScope.context.stateOrDefault}">
+                    Remove me from the GreatSchools beta group</gsml:a>
+                <br/><br/>
+                <gsml:a href="/cgi-bin/newsletterSubscribe?email=${email}&amp;state=${requestScope.context.stateOrDefault}">
+                    Sign up for our newsletters.</gsml:a>
+                GreatSchools produces a family of free email newsletters to help your child
+                succeed in school. Choose newsletters for your child's school or your child's
+                grade.
+                <br/>
+                <br/>
+            </div>
         </div>
     </div>
-    <mod:tracking pageType="beta" pageName="Beta Thank You" hier1="Community,Beta Group,Beta Thank You" events="${events}"/>
+    <mod:tracking pageType="beta" pageName="Beta Thank You" hier1="Community,Beta Group,Beta Thank You"
+                  events="${events}"/>
     </body>
     </html>
 </jsp:root>

@@ -3,14 +3,8 @@ div#container {
   margin-right:auto;
   margin-left:auto;
   margin-top:0px;
-  padding:0px;
+  padding:10px 0px 0px 0px;
   text-align:left;
-}
-
-div#shutterfly {
-    float:right;
-    border: 1px solid #BBB;
-    background:#FFF;
 }
 
 span#adtext {

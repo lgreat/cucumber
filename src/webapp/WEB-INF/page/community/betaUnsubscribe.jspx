@@ -13,26 +13,29 @@
     </head>
 
     <body>
-    <div class="content">
-        <h4>Unsubscribe from the GreatSchools beta group</h4>
-        <br/>
-        <center>
-            <div class="formtext">To unsubscribe from our beta group, please enter your email address:</div>
-            <gsml:form action="/community/betaUnsubscribe.page?state=${requestScope.context.stateOrDefault}" method="POST">
-                <spring:bind path="betaSignupCommand.email">
-                    <input type="text" value="${param.email}" name="email" size="50"/>
-                    <input type="submit" value="Unsubscribe"/><br/>
-                    <c:if test="${status.error}">
+    <div id="container">
+        <div class="content">
+            <h4>Unsubscribe from the GreatSchools beta group</h4>
+            <br/>
+            <center>
+                <div class="formtext">To unsubscribe from our beta group, please enter your email address:</div>
+                <gsml:form action="/community/betaUnsubscribe.page?state=${requestScope.context.stateOrDefault}"
+                           method="POST">
+                    <spring:bind path="betaSignupCommand.email">
+                        <input type="text" value="${param.email}" name="email" size="50"/>
+                        <input type="submit" value="Unsubscribe"/><br/>
+                        <c:if test="${status.error}">
                         <span id="errorMessage">
                             <c:forEach items="${status.errorMessages}" var="error">
                                 <c:out value="${error}"/>
                             </c:forEach>
                         </span>
-                    </c:if>
-                </spring:bind>
-            </gsml:form>
-        </center>
-        <br/>
+                        </c:if>
+                    </spring:bind>
+                </gsml:form>
+            </center>
+            <br/>
+        </div>
     </div>
     <mod:tracking pageType="beta" pageName="Beta Unsubscribe" hier1="Community,Beta Group,Beta Unsubscribe"/>
     </body>

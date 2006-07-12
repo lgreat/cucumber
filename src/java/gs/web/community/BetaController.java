@@ -2,7 +2,6 @@ package gs.web.community;
 
 import gs.data.community.*;
 import gs.data.state.StateManager;
-import gs.data.admin.IPropertyDao;
 import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.mail.MailException;
@@ -36,9 +35,6 @@ public class BetaController extends SimpleFormController {
     private static final Logger _log = Logger.getLogger(BetaController.class);
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
-
-    /** Used to find the index of the next shutterfly promo code */
-    private IPropertyDao _propertyDao;
 
     /** Form param: an email address */
     private static final String EMAIL_PARAM = "email";
@@ -164,117 +160,14 @@ public class BetaController extends SimpleFormController {
             }
         }
         String emailText = buffer.toString();
-        String code = getShutterflyCode(command.getEmail());
-        emailText = emailText.replaceAll("\\$BETA_PROMO_CODE\\$", code);
         emailText = emailText.replaceAll("\\$EMAIL\\$", command.getEmail());
         emailText = emailText.replaceAll("\\$STATE\\$", command.getState().getAbbreviation());
 
-        StringBuffer logMessage = new StringBuffer("Beta email created using promo code:");
-        logMessage.append(code);
-        logMessage.append(" to:");
-        logMessage.append(command.getEmail());
-        _log.info(logMessage.toString());
-
-        helper.setText(emailText, true);
+         helper.setText(emailText, true);
         return helper.getMimeMessage();
     }
 
-
-    /**
-     * This method first checks to see if the user already was sent a code.
-     * If she already has a code, then use that one, if not get a brand new
-     * code.
-     *
-     * @return
-     */
-    String getShutterflyCode(String emailAddress) {
-        String code = null;
-        if (StringUtils.isNotBlank(emailAddress)) {
-            String email = emailAddress.trim();
-            code = _propertyDao.getProperty(email);
-            if (code == null) {
-                code = getShutterflyCode();
-                _propertyDao.setProperty(email,  code);
-            }
-        }
-        return code;
-    }
-
-    /**
-     * Returns the next Shutterfly promotion code as determined by the index
-     * stored in the property table.
-     * @return a String promo code. see GS-2121
-     */
-    String getShutterflyCode() {
-        // get the index from the property table
-        int index = 1;
-        String indexProp = _propertyDao.getProperty(IPropertyDao.SHUTTERFLY_CODE_INDEX);
-        if (indexProp == null) {
-            _propertyDao.setProperty(IPropertyDao.SHUTTERFLY_CODE_INDEX, String.valueOf(index));
-        } else {
-            index = Integer.parseInt(indexProp);
-        }
-
-        // increment the index property now
-        _propertyDao.setProperty(IPropertyDao.SHUTTERFLY_CODE_INDEX,
-                String.valueOf(index + 1));
-
-        String code = null;
-        LineNumberReader lineReader = null;
-        try {
-            Resource resource = new ClassPathResource("gs/web/community/shutterfly_promo_codes.txt");
-            File codeFile = resource.getFile();
-            lineReader = new LineNumberReader(new BufferedReader(new FileReader(codeFile)));
-            lineReader.setLineNumber(index);
-            for (int i = 1; i < index; i++) {
-                lineReader.readLine();
-            }
-            code = lineReader.readLine();
-            if (index > 9999) {
-                sendShutterflyPromoLimitAlert(index);
-            }
-        } catch (IOException ioe) {
-            _log.error(ioe);
-        } catch (MessagingException me) {
-            _log.error("Could not send shutterfly alert message.", me);
-        } finally {
-            try {
-                // NPE if lineReader could not be created
-                lineReader.close();
-            } catch(IOException ioe) {
-                _log.error("Can't close shutterfly promo file", ioe);
-            }
-        }
-        return code;
-    }
-
-    /**
-     * This method sends an email alert indicating that 10000 shutterfly promo
-     * codes have been used. Emails are sent to:
-     * chriskimm@greatschools.net
-     * alingane@greatschools.net
-     * mdavis@greatschools.net
-     */
-    void sendShutterflyPromoLimitAlert(int count) throws MessagingException {
-        if (count > 9999) {
-            MimeMessage mimeMessage = _mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
-            helper.addTo("chriskimm@greatschools.net");
-            helper.addTo("alingane@greatschools.net");
-            helper.addTo("mdavis@greatschools.net");
-            helper.setFrom("beta@greatschools.net");
-            helper.setSubject("Shutterfly Beta Promo Code limit reached");
-            helper.setSentDate(new Date());
-
-            StringBuffer buffer = new StringBuffer();
-            buffer.append(count);
-            buffer.append(" Shutterfly promotion codes have been sent.\n\n");
-            buffer.append("This is an auto generated email sent by the GreatSchools beta system.");
-            helper.setText(buffer.toString(), false);
-            _mailSender.send(helper.getMimeMessage());
-        }
-    }
-    /**
+     /**
      * Spring setter
      *
      * @param _mailSender
@@ -299,11 +192,5 @@ public class BetaController extends SimpleFormController {
      */
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
         this._subscriptionDao = subscriptionDao;
-    }
-
-
-    /** Spring setter */
-    public void setPropertyDao(IPropertyDao propertyDao) {
-        _propertyDao = propertyDao;
     }
 }
