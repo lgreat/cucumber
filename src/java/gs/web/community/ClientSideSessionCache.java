@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ClientSideSessionCache.java,v 1.3 2006/07/12 20:34:47 apeterson Exp $
+ * $Id: ClientSideSessionCache.java,v 1.4 2006/07/12 21:37:56 apeterson Exp $
  */
 
 package gs.web.community;
@@ -43,8 +43,7 @@ public class ClientSideSessionCache  {
     private Set _nonMss;
 
     private static final String COOKIE_LIST_DELIMETER = ",";
-    private static final String COOKIE_ENCODING = "UTF-8";
-    private static final String INTRA_COOKIE_DELIMETER = ";";
+    private static final String INTRA_COOKIE_DELIMETER = "/";
 
     public ClientSideSessionCache() {
     }
@@ -187,9 +186,9 @@ public class ClientSideSessionCache  {
         b.append(INTRA_COOKIE_DELIMETER);
         b.append(_nickname);
         b.append(INTRA_COOKIE_DELIMETER);
-        b.append(getMssCookie() + " ");
+        b.append(getMssCookie());
         b.append(INTRA_COOKIE_DELIMETER);
-        b.append(getNonMssCookie() + " ");
+        b.append(getNonMssCookie());
         b.append(INTRA_COOKIE_DELIMETER);
         b.append(Integer.toString(getMslCount()));
         String cookie = b.toString();
@@ -198,7 +197,7 @@ public class ClientSideSessionCache  {
 
 
     public void readFromCookie(String cookie) throws IOException, ClassNotFoundException {
-        String[] s = StringUtils.split(cookie, INTRA_COOKIE_DELIMETER);
+        String[] s = StringUtils.splitPreserveAllTokens(cookie, INTRA_COOKIE_DELIMETER);
         if (s.length < 6) {
             throw new IllegalArgumentException("Not enough components to the cookie: " + cookie);
         }
