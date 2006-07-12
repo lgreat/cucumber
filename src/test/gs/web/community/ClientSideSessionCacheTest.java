@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ClientSideSessionCacheTest.java,v 1.2 2006/06/26 21:28:11 apeterson Exp $
+ * $Id: ClientSideSessionCacheTest.java,v 1.3 2006/07/12 20:34:40 apeterson Exp $
  */
 
 package gs.web.community;
@@ -135,7 +135,9 @@ public class ClientSideSessionCacheTest extends TestCase {
 
     public void testSetFromCookies() {
         User user = new User();
+        user.setId(new Integer(888));
         user.setEmail("wbeck@gs.net");
+        user.setHandle("beckmeister");
 
         ClientSideSessionCache clientSideSessionCache = new ClientSideSessionCache(user);
         clientSideSessionCache.setMssCookie("CA10");
@@ -190,11 +192,15 @@ public class ClientSideSessionCacheTest extends TestCase {
     public void testCanExternalize() throws IOException, ClassNotFoundException {
         // Create a simple one, and make sure it comes back
         User user = new User();
+        user.setId(new Integer(888));
         user.setEmail("apeterson@gs.net");
+
         ClientSideSessionCache clientSideSessionCache = new ClientSideSessionCache(user);
         assertEquals(0, clientSideSessionCache.getMslCount());
         assertEquals(0, clientSideSessionCache.getMssCount());
+
         ClientSideSessionCache clientSideSessionCacheCopy = externalizeAndBringBack(clientSideSessionCache);
+        
         assertEquals("apeterson@gs.net", clientSideSessionCacheCopy.getEmail());
         assertEquals("apeterson", clientSideSessionCacheCopy.getNickname());
         assertEquals(0, clientSideSessionCacheCopy.getMslCount());

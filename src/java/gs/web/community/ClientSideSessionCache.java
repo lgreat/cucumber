@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ClientSideSessionCache.java,v 1.2 2006/06/26 21:26:00 apeterson Exp $
+ * $Id: ClientSideSessionCache.java,v 1.3 2006/07/12 20:34:47 apeterson Exp $
  */
 
 package gs.web.community;
@@ -11,7 +11,7 @@ import gs.data.community.User;
 import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -26,7 +26,7 @@ import java.util.Set;
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
-public class ClientSideSessionCache implements Externalizable {
+public class ClientSideSessionCache  {
     private String _nickname;
     private String _email;
     private int _mslCount;
@@ -44,6 +44,7 @@ public class ClientSideSessionCache implements Externalizable {
 
     private static final String COOKIE_LIST_DELIMETER = ",";
     private static final String COOKIE_ENCODING = "UTF-8";
+    private static final String INTRA_COOKIE_DELIMETER = ";";
 
     public ClientSideSessionCache() {
     }
@@ -56,22 +57,9 @@ public class ClientSideSessionCache implements Externalizable {
      * @see #getCookieRepresentation()
      */
     public static ClientSideSessionCache createClientSideSessionCache(String cookie) throws IOException, ClassNotFoundException {
-        byte[] bytes = cookie.getBytes(); // default encoding
-        final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-
         final ClientSideSessionCache sessionCache = new ClientSideSessionCache();
-        sessionCache.readExternal(new ObjectInputStream(byteArrayInputStream));
+        sessionCache.readFromCookie(cookie);
         return sessionCache;
-    }
-
-    public String getCookieRepresentation() throws IOException {
-        final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        final ObjectOutputStream objectOutput = new ObjectOutputStream(outputStream);
-        this.writeExternal(objectOutput);
-        objectOutput.flush();
-        final byte[] bytes = outputStream.toByteArray();
-        String cookie = new String(bytes);  // default encoding
-        return cookie;
     }
 
     /**
@@ -191,23 +179,37 @@ public class ClientSideSessionCache implements Externalizable {
         return _nonMss == null ? "" : StringUtils.join(_nonMss.iterator(), COOKIE_LIST_DELIMETER);
     }
 
-
-    public void writeExternal(ObjectOutput objectOutput) throws IOException {
-        objectOutput.writeUTF(_email);
-        objectOutput.writeUTF(_nickname);
-        objectOutput.writeUTF(getMssCookie());
-        objectOutput.writeUTF(getNonMssCookie());
-        objectOutput.writeInt(getMslCount());
+    public String getCookieRepresentation() throws IOException {
+        StringBuffer b = new StringBuffer();
+        b.append("1"); // version
+        b.append(INTRA_COOKIE_DELIMETER);
+        b.append(_email);
+        b.append(INTRA_COOKIE_DELIMETER);
+        b.append(_nickname);
+        b.append(INTRA_COOKIE_DELIMETER);
+        b.append(getMssCookie() + " ");
+        b.append(INTRA_COOKIE_DELIMETER);
+        b.append(getNonMssCookie() + " ");
+        b.append(INTRA_COOKIE_DELIMETER);
+        b.append(Integer.toString(getMslCount()));
+        String cookie = b.toString();
+        return cookie;
     }
 
-    public void readExternal(ObjectInput objectInput) throws IOException, ClassNotFoundException {
-        _email = objectInput.readUTF();
-        _nickname = objectInput.readUTF();
-        String mssCookie = objectInput.readUTF();
+
+    public void readFromCookie(String cookie) throws IOException, ClassNotFoundException {
+        String[] s = StringUtils.split(cookie, INTRA_COOKIE_DELIMETER);
+        if (s.length < 6) {
+            throw new IllegalArgumentException("Not enough components to the cookie: " + cookie);
+        }
+        int version = Integer.parseInt(s[0]);
+        _email = s[1];
+        _nickname = s[2];
+        String mssCookie = StringUtils.trimToEmpty(s[3]);
         setMssCookie(mssCookie);
-        String nonMssCookie = objectInput.readUTF();
+        String nonMssCookie = StringUtils.trimToEmpty(s[4]);
         setNonMssCookie(nonMssCookie);
-        _mslCount = objectInput.readInt();
+        _mslCount = Integer.parseInt(s[5]);
     }
 
 }
