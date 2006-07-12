@@ -6,9 +6,12 @@ As a member of our beta group, you'll have the opportunity to take these new fea
 on a test drive - and tell us what you think about them.<br/>
 <br/>
 Here's how it works:<br/>
-We'll notify you occasionally about new features before they're released. If you decide to<br/>
-try them, we may ask you to fill out a short survey or provide us with feedback about your<br/>
-experience after you're done. You'll have the opportunity to decide before each beta test<br/>
+We'll notify you occasionally about new features before they're released.<br/>
+<br/>
+If you decide to try them, we may ask you to fill out a short survey or provide us<br/>
+with feedback about your experience after you're done.<br/>
+<br/>
+You'll have the opportunity to decide before each beta test<br/>
 whether or not you'd like to participate.<br/>
 <br/>
 <br/>
