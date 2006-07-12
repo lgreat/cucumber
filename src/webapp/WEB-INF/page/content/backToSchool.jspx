@@ -131,7 +131,7 @@
 
                 <h3 class="dialog">Ask an Expert</h3>
                 <p>Q: My kindergartner doesn't want to go to school. What do I do?<br/>
-                    <ul><gsweb:articlelink articleId="507" wrappingElement="li">Read the answer</gsweb:articlelink>  </ul>
+                    <gsweb:articlelink articleId="507">Read the answer</gsweb:articlelink>
                     </p>
                 <h3 class="checkmark">Parent Poll</h3>
                 <p>Share your opinion   <br/>
