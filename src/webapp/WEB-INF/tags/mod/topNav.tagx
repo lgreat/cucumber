@@ -12,18 +12,13 @@
 
 <div id="topnav">
 <table border="0" cellpadding="0" cellspacing="0" style="width: 100%">
-<tr>
-<td style="padding-left: 40px">
-    <gsml:a href="/"><gsml:img src="/res/img/logo/logo_GS_330x110.gif" alt="GreatSchools.net logo"
-            /></gsml:a>
-</td>
-<td style="padding-right: 18px">
-
-
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-            <td><gsml:img src="/res/img/pixel.gif" alt=""/></td>
-            <td>
+    <tr>
+        <td style="padding-left: 40px">
+            <gsml:a href="/"><gsml:img src="/res/img/logo/logo_GS_330x110.gif" alt="GreatSchools.net logo"
+                    /></gsml:a>
+        </td>
+        <td style="padding-right: 18px; width: 33%">
+            <div width="100%">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="member">
                     <tr>
                         <c:if test="${empty requestScope.context.memberId}">
@@ -42,25 +37,19 @@
                             <td class="saved">
                                 <c:choose>
                                     <c:when test="${not empty requestScope.context.mslCount and requestScope.context.mslCount gt 0}">
-                                        <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.email}">${requestScope.context.mslCount} Saved school${requestScope.context.mslCount gt 1 ? 's':''}</gsml:a>
+                                        <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.email}">${requestScope.context.mslCount}
+                                            Saved school${requestScope.context.mslCount gt 1 ? 's':''}</gsml:a>
                                     </c:when>
                                     <c:otherwise>
                                         <gsml:a href="/cgi-bin/msl_confirm/$STATE">Start saving schools</gsml:a>
                                     </c:otherwise>
                                 </c:choose>
-                                </td>
+                            </td>
                         </c:if>
                     </tr>
                 </table>
-            </td>
-            <td>&#160;</td>
-        </tr>
-        <tr>
-            <td colspan="3"><gsml:img src="/res/img/pixel.gif" alt="" style="width:29px;height:12px"/></td>
-        </tr>
-        <tr>
-            <td>&#160;</td>
-            <td class="search">
+            </div>
+            <div class="search" style="margin-top: 12px;">
                 <gsml:form method="get" action="/stateLauncher.page">
                     <input name="p" value="search_single" type="hidden"/>
                     <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
@@ -115,55 +104,50 @@
                         </tr>
                     </table>
                 </gsml:form>
-            </td>
-            <td>&#160;</td>
-        </tr>
-    </table>
-
-
-</td>
-</tr>
+            </div>
+        </td>
+    </tr>
 </table>
 
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
-<tr>
-    <td><gsml:img src="/res/img/pixel.gif" alt="" style="width: 18px"/></td>
-    <td colspan="4">
-        <table cellpadding="0" cellspacing="0" id="nav"><tr>
-            <td style="width:36px">&#160;</td>
-            <c:set var="pw" value="${requestScope.context.pathway}"/>
-            <!--#0--><td><link:home
+    <tr>
+        <td><gsml:img src="/res/img/pixel.gif" alt="" style="width: 18px"/></td>
+        <td colspan="4">
+            <table cellpadding="0" cellspacing="0" id="nav"><tr>
+                <td style="width:36px">&#160;</td>
+                <c:set var="pw" value="${requestScope.context.pathway}"/>
+                <!--#0--><td><link:home
                     styleClass="${(pw == 0 ? 'lactive active' : 'inactive')} ${(pw == 1 ? 'ractive' : '')} "
                     >Home</link:home></td>
-            <!--#1--><td><link:research
+                <!--#1--><td><link:research
                     styleClass="${(pw == 0 ? 'lactive' : '')} ${(pw == 1 ? 'active' : 'inactive')} ${(pw == 3 ? 'ractive' : '')} "
                     state="${requestScope.context.state}"
                     >Research &amp;amp; Compare</link:research></td>
-            <!--#3--><td><gsml:a href="/content/summerReading.page"
-                        styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 3 ? 'active' : 'inactive')} ${(pw == 7 ? 'ractive' : '')} "
+                <!--#3--><td><gsml:a href="/content/summerReading.page"
+                                     styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 3 ? 'active' : 'inactive')} ${(pw == 7 ? 'ractive' : '')} "
                     >Summer Reading</gsml:a></td>
-            <!--#7--><td><gsml:a href="/content/backToSchool.page"
-                        styleClass="${(pw == 3 ? 'lactive' : '')} ${(pw == 7 ? 'active' : 'inactive')} ${(pw == 2 ? 'ractive' : '')} "
+                <!--#7--><td><gsml:a href="/content/backToSchool.page"
+                                     styleClass="${(pw == 3 ? 'lactive' : '')} ${(pw == 7 ? 'active' : 'inactive')} ${(pw == 2 ? 'ractive' : '')} "
                     >Back to School</gsml:a></td>
-            <!--#2--><td><link:articleLibrary
+                <!--#2--><td><link:articleLibrary
                     styleClass="${(pw == 7 ? 'lactive' : '')} ${(pw == 2 ? 'active' : 'inactive')} ${(pw == 6 ? 'ractive' : '')} "
                     >Library</link:articleLibrary></td>
-            <!--#4--><!--td><gsml:a href="/about/aboutUs.page"
+                <!--#4--><!--td><gsml:a href="/about/aboutUs.page"
                         styleClass="${(pw == 3 ? 'lactive' : '')} ${(pw == 4 ? 'active' : 'inactive')} ${(pw == 5 ? 'ractive' : '')} "
                     >About Us</gsml:a></td>-->
-            <!--#5--><!--<td><link:contactUs
+                <!--#5--><!--<td><link:contactUs
                     styleClass="${(pw == 4 ? 'lactive' : '')} ${(pw == 5 ? 'active' : 'inactive')} ${(pw == 6 ? 'ractive' : '')} "
                     >Contact Us</link:contactUs></td-->
-            <!--#0--><td><link:newsletterCenter
+                <!--#0--><td><link:newsletterCenter
                     styleClass="${(pw == 2 ? 'lactive' : '')} ${(pw == 6 ? 'active ractive' : 'inactive')}"
                     email="${requestScope.context.email}"
                     >Free Newsletters</link:newsletterCenter></td>
-            <td style="width:36px">&#160;</td>
-        </tr></table>
-    </td>
-    <td><gsml:img src="/res/img/pixel.gif" alt="" style="width: 18px"/></td>
-</tr>
+                <td style="width:36px">&#160;</td>
+            </tr></table>
+        </td>
+        <td><gsml:img src="/res/img/pixel.gif" alt="" style="width: 18px"/></td>
+    </tr>
 </table>
 </div>
 

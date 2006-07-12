@@ -23,7 +23,7 @@ will need to become a graphic.
 
 #topnav .searchLabel {
     font-size: 10px;
-    color: #666666;
+    color: #666;
     text-transform: uppercase;
     white-space: nowrap;
     vertical-align: bottom;
@@ -42,7 +42,7 @@ will need to become a graphic.
 
 #topnav td.searchRadios {
     vertical-align: top;
-    text-align: right;
+    text-align: left;
 }
 
 #topnav .searchRadios span {
@@ -50,7 +50,7 @@ will need to become a graphic.
     font-size: x-small;
     font-weight: 900;
     color: #888;
-    margin: 0 0 0 0;
+    margin: 0;
     padding: 0;
     vertical-align: middle;
 }
