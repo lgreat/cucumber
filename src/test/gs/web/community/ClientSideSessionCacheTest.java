@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ClientSideSessionCacheTest.java,v 1.3 2006/07/12 20:34:40 apeterson Exp $
+ * $Id: ClientSideSessionCacheTest.java,v 1.4 2006/07/12 21:53:48 apeterson Exp $
  */
 
 package gs.web.community;
@@ -200,7 +200,7 @@ public class ClientSideSessionCacheTest extends TestCase {
         assertEquals(0, clientSideSessionCache.getMssCount());
 
         ClientSideSessionCache clientSideSessionCacheCopy = externalizeAndBringBack(clientSideSessionCache);
-        
+
         assertEquals("apeterson@gs.net", clientSideSessionCacheCopy.getEmail());
         assertEquals("apeterson", clientSideSessionCacheCopy.getNickname());
         assertEquals(0, clientSideSessionCacheCopy.getMslCount());
@@ -230,6 +230,16 @@ public class ClientSideSessionCacheTest extends TestCase {
         assertFalse(clientSideSessionCacheCopy.hasSubscription(SubscriptionProduct.BETA_GROUP));
         assertFalse(clientSideSessionCacheCopy.hasSubscription(SubscriptionProduct.MY_SECOND_GRADER));
         assertTrue(clientSideSessionCacheCopy.hasSubscription(SubscriptionProduct.MYSTAT));
+
+    }
+
+    public void testMangledCookieWorks() {
+        String cookie = "mangled";
+        assertNull(ClientSideSessionCache.createClientSideSessionCache(cookie));
+         cookie = "1/adsf/adsf/ads/sdaf/d/f/";
+        assertNull(ClientSideSessionCache.createClientSideSessionCache(cookie));
+         cookie = "\u0000\u000f\u0000\u0030\u0030\u0020\u0030\u0500\u0020\u0020";
+        assertNull(ClientSideSessionCache.createClientSideSessionCache(cookie));
 
     }
 

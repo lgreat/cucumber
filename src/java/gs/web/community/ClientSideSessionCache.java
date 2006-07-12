@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ClientSideSessionCache.java,v 1.4 2006/07/12 21:37:56 apeterson Exp $
+ * $Id: ClientSideSessionCache.java,v 1.5 2006/07/12 21:53:48 apeterson Exp $
  */
 
 package gs.web.community;
@@ -10,6 +10,8 @@ import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
 import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -26,10 +28,13 @@ import java.util.Set;
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
-public class ClientSideSessionCache  {
+public class ClientSideSessionCache {
     private String _nickname;
     private String _email;
     private int _mslCount;
+
+    private static final Log _log = LogFactory.getLog(ClientSideSessionCache.class);
+
     /**
      * of {@link #createMssKey(gs.data.state.State, int)} values
      * May be null.
@@ -50,15 +55,23 @@ public class ClientSideSessionCache  {
 
     /**
      * Creates a ClientSideSessionCache from the specified cookie.
+     * Returns null if it can't create the object for some reason.
      *
-     * @throws IOException
-     * @throws ClassNotFoundException
      * @see #getCookieRepresentation()
      */
-    public static ClientSideSessionCache createClientSideSessionCache(String cookie) throws IOException, ClassNotFoundException {
-        final ClientSideSessionCache sessionCache = new ClientSideSessionCache();
-        sessionCache.readFromCookie(cookie);
-        return sessionCache;
+    public static ClientSideSessionCache createClientSideSessionCache(String cookie) {
+        try {
+            final ClientSideSessionCache sessionCache = new ClientSideSessionCache();
+            sessionCache.readFromCookie(cookie);
+            return sessionCache;
+        } catch (IOException e) {
+            _log.info("Unparsable cookie: " + cookie);
+        } catch (IllegalArgumentException e) {
+            _log.info("Unparsable cookie: " + cookie);
+        } catch (ClassNotFoundException e) {
+            _log.info("Unparsable cookie: " + cookie);
+        }
+        return null;
     }
 
     /**

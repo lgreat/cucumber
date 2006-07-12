@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.22 2006/07/10 21:51:38 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.23 2006/07/12 21:53:58 apeterson Exp $
  */
 
 package gs.web;
@@ -128,16 +128,10 @@ public class SessionContextUtil implements ApplicationContextAware {
                         context.setState(s);
                     }
                 } else if (StringUtils.equals(_sessionCacheCookieGenerator.getCookieName(), thisCookie.getName())) {
-                    try {
-                        ClientSideSessionCache cache = ClientSideSessionCache.createClientSideSessionCache(thisCookie.getValue());
+                    ClientSideSessionCache cache = ClientSideSessionCache.createClientSideSessionCache(thisCookie.getValue());
+                    if (cache != null) {
                         updateContextFromCache(context, cache);
                         context.setReadClientSideSessionCache(true);
-                    } catch (IOException e) {
-                        _log.warn("Can't restore cookie", e);
-                        // Ignore
-                    } catch (ClassNotFoundException e) {
-                        _log.warn("Can't restore cookie #2", e);
-                        // Ignore
                     }
                 }
             }
