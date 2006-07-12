@@ -138,6 +138,7 @@
                     >Home</link:home></td>
             <!--#1--><td><link:research
                     styleClass="${(pw == 0 ? 'lactive' : '')} ${(pw == 1 ? 'active' : 'inactive')} ${(pw == 3 ? 'ractive' : '')} "
+                    state="${requestScope.context.state}"
                     >Research &amp;amp; Compare</link:research></td>
             <!--#3--><td><gsml:a href="/content/summerReading.page"
                         styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 3 ? 'active' : 'inactive')} ${(pw == 7 ? 'ractive' : '')} "
