@@ -107,6 +107,7 @@
     font-weight: 100;
     padding: 5px 20px 16px 20px;
     min-height: 145px; /* padding-top + min-height = 150px */
+    height: 100%;
 }
 
 #week h3 {
@@ -121,9 +122,9 @@
 #week ul li {
     font-size: .9em;
     margin: 0 0 0 0;
-    padding: 4px 0 10px 32px;
+    padding: 0px 0 10px 32px;
     background-repeat: no-repeat;
-    background-position: 4px 0px;
+    background-position: 4px 4px;
 }
 
 #week ul li a {
@@ -152,18 +153,20 @@ ul li.checkmark {
 /*
 
 */
-#billsBlog {
+td#billsBlog {
     background-color: #eee;
     color: #555;
     font-weight: 100;
     padding: 20px 20px 16px 147px;
     min-height: 130px; /* padding-top + min-height = 150px */
+    height: 100%;
     background-image: url( ../img/splash/billFamily.jpg );
     background-position: 16px 16px;
     background-repeat: no-repeat;
+    vertical-align: top;
 }
 
-#billsBlog h3 {
+td#billsBlog h3 {
     width: 228px;
     height: 31px;
     position: relative;

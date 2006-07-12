@@ -125,12 +125,14 @@
                     </cache:cache>
                 </div>
             </td>
-            <td width="8" style="border-right: 1px solid #ccc">
+            <td width="8">
+            </td>
+            <td width="1" style="background-color: #ccc">
             </td>
             <td width="8">
             </td>
-            <td style="vertical-align: top; height: 100%; width: 424px">
-                <div id="billsBlog">
+            <td  id="billsBlog" >
+                <div>
                     <h3>BILL'S BLOG<h4>Founder &amp; CEO of GreatSchools</h4></h3>
 
                     <div class="rss">
