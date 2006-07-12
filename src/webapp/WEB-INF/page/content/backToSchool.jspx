@@ -130,24 +130,20 @@
                 </ul>
 
                 <h3 class="dialog">Ask an Expert</h3>
-                <p>Q: My kindergartner doesn't want to go to school. What do I do?<br/>
+                <p>Q: My kindergartner doesn't want to go to school. What do I do?
                     <gsweb:articlelink articleId="507">Read the answer</gsweb:articlelink>
                     </p>
                 <h3 class="checkmark">Parent Poll</h3>
-                <p>Share your opinion   <br/>
-                    <gsml:a href="/cgi-bin/static/poll_results.tmpl/$STATE">Vote in our back-to-school poll now</gsml:a>
+                <p>Share your opinion <gsml:a href="/cgi-bin/static/poll_results.tmpl/$STATE">Vote in our back-to-school poll now</gsml:a>
                     </p>
                 <h3 class="apple">The Twins Start Kindergarten</h3>
-                <p>Follow this family's story as their twins Margaret and Clara start kindergarten.<br/>
-                    <a href="http://back-to-school-blog.greatschools.net/" target="_blank">Read our back-to-school blog</a>
+                <p>Follow this family's story as their twins Margaret and Clara start kindergarten. <a href="http://back-to-school-blog.greatschools.net/" target="_blank">Read our back-to-school blog</a>
                     </p>
                 <h3 class="star">Free Newsletters</h3>
-                <p>Sign up for GreatSchools' newsletters <br/>
-                    <gsml:a href="/cgi-bin/newsletters/$STATE">Click here</gsml:a>
+                <p><promo:nthGraderHover>Sign up for GreatSchools' newsletters </promo:nthGraderHover>
                     </p>
                 <h3 class="asterisk">Our New Look</h3>
-                <p>We're rolling out a new site design. What do you think about our new look?<br/>
-                    <gsml:a href="/cgi-bin/feedback_faq/$STATE?fbtype=design">Send us feedback</gsml:a>
+                <p>We're rolling out a new site design. What do you think about our new look? <gsml:a href="/cgi-bin/feedback_faq/$STATE?fbtype=design">Send us feedback</gsml:a>
                     </p>
                 <h3 class="bottom">&#160;</h3>
             </td>
