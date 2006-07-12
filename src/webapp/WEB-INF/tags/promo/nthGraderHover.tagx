@@ -8,9 +8,9 @@
 
     <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
     <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
+    <pageHelper:addOnLoadHandler handler="initPopUp('hoverNewsGn')"/>
 
-    <a href="/community/newsletters/popup/newsletter.page?state=${requestScope.context.stateOrDefault}" target="mss"
-       onclick="showPopWin('/community/newsletters/popup/newsletter.page?state=${requestScope.context.stateOrDefault}',480,500,null,'hoverNewsGs'); return false">
+    <a href="/community/newsletters/popup/newsletter.page?state=${requestScope.context.stateOrDefault}" class="submodal-480-500">
      <jsp:doBody/>
     </a>
 

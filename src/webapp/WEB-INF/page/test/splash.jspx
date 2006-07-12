@@ -8,6 +8,7 @@
           xmlns:content="urn:www.greatschools.net/taglib/content"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:rss="urn:jsptagdir:/WEB-INF/tags/rss"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:gsweb="gstaglib"
           xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
         >
@@ -28,8 +29,6 @@
 <head>
     <title>GreatSchools.net</title>
     <pageHelper:setPathway pathway="0"/>
-    <pageHelper:externalJavascript file="/res/js/submodal/submodal.js" />
-    <pageHelper:externalCss file="/res/css/submodal/submodal.css" />
 
     <jsp:scriptlet>
         PageHelper.hideLeaderboard(request);
@@ -46,7 +45,7 @@
             <td id="houseAd">
                 <p><span>&#160;</span>Track you child's learning grade-by-grade with our free newsletters that parents
                     love.</p>
-                <a href="/community/newsletters/popup/newsletter.page?state=${requestScope.context.stateOrDefault}" target="mss" onclick="showPopWin('/community/newsletters/popup/newsletter.page?state=${requestScope.context.stateOrDefault}',480,500,null,'hoverNewsGs'); return false">Sign up for newsletters</a>
+                <promo:nthGraderHover>Sign up for newsletters</promo:nthGraderHover>
             </td>
             <td width="8">
             </td>
