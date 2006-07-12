@@ -96,7 +96,7 @@
             <div class="pLR">
                 <center>
                 <h3>I'd also like free monthly updates about my child's school:</h3>
-                <link:addParentReviewSearch target="_blank"><gsml:img src="/res/img/button/btn_findmyschool.gif" alt="Search for your child's school."/></link:addParentReviewSearch>
+                    <link:research target="_blank" state="${stateAbbrev}"><gsml:img src="/res/img/button/btn_findmyschool.gif" alt="Search for your child's school."/></link:research>
                 </center>
             </div>
         </div>

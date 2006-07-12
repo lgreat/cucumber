@@ -406,6 +406,13 @@
             <type>gs.data.state.State</type>
             <description>optional state</description>
         </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>        
     </tag>
     <tag>
         <name>addParentReviewSearch</name>
