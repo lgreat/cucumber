@@ -261,6 +261,13 @@
             <type>java.lang.String</type>
             <description>target window to open link in</description>
         </attribute>
+        <attribute>
+            <name>anchor</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>anchor name on destination page ('#' is optional)</description>
+        </attribute>
     </tag>
     <tag>
         <name>privacyPolicy</name>
@@ -412,7 +419,7 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>target window to open link in</description>
-        </attribute>        
+        </attribute>
     </tag>
     <tag>
         <name>addParentReviewSearch</name>

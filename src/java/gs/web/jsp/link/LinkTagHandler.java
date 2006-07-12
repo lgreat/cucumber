@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandler.java,v 1.4 2006/06/26 21:26:01 apeterson Exp $
+ * $Id: LinkTagHandler.java,v 1.5 2006/07/12 21:37:49 dlee Exp $
  */
 
 package gs.web.jsp.link;
@@ -36,6 +36,7 @@ public abstract class LinkTagHandler extends TagSupport {
     protected final Logger _log = Logger.getLogger(this.getClass());
     private String _styleClass;
     private String _target;
+    private String _anchor;
 
     /**
      * Create a UrlBuilder object pointing to the correct page.
@@ -123,10 +124,19 @@ public abstract class LinkTagHandler extends TagSupport {
             pageContext.getOut().print("\"");
         }
 
-        pageContext.getOut().print(" href=\"");
-        pageContext.getOut().print(builder.asSiteRelativeXml((HttpServletRequest) pageContext.getRequest()));
-        pageContext.getOut().print("\"");
+        String href = builder.asSiteRelativeXml((HttpServletRequest) pageContext.getRequest());
 
+        if (StringUtils.isNotEmpty(_anchor)) {
+            //only set anchor if one is not found in url
+            if (!StringUtils.contains(href, '#')) {
+                _anchor = StringUtils.remove(_anchor, '#');
+                href = href + '#' + _anchor;
+            }
+        }
+
+        pageContext.getOut().print(" href=\"");
+        pageContext.getOut().print(href);
+        pageContext.getOut().print("\"");
         pageContext.getOut().print(">");
     }
 
@@ -167,5 +177,23 @@ public abstract class LinkTagHandler extends TagSupport {
 
     public void setTarget(String target) {
         _target = target;
+    }
+
+    public String getAnchor() {
+        return _anchor;
+    }
+
+    /**
+     * The name of the anchor on destination page.
+     * Some example anchors:
+     * somelink.html#anchor
+     * somelink.html?a=1&b=2#anchor
+     *
+     * If any anchor is already specified in the href, this anchor is ignored.
+     *
+     * @param anchor
+     */
+    public void setAnchor(String anchor) {
+        _anchor = anchor;
     }
 }

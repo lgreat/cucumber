@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.8 2006/06/24 17:34:40 chriskimm Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.9 2006/07/12 21:37:49 dlee Exp $
  */
 
 package gs.web.jsp.link;
@@ -13,8 +13,10 @@ import gs.web.BaseTestCase;
 import gs.web.jsp.MockJspWriter;
 import gs.web.jsp.MockPageContext;
 import gs.web.util.UrlBuilder;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
 
 /**
  * Tests all the tags in the link package.
@@ -57,6 +59,47 @@ public class LinkTagHandlerTest extends BaseTestCase {
         out = (MockJspWriter) pc.getOut();
         assertEquals("<a class=\"theStyle\" href=\"/cgi-bin/msl_confirm/WY/\"></a>",
                 out.getOutputBuffer().toString());
+    }
+
+    public void testAnchorAttribute() throws JspException {
+        LinkTagHandler handler = new LinkTagHandler() {
+            protected UrlBuilder createUrlBuilder() {
+                return new UrlBuilder(new MockHttpServletRequest(), "somepage");
+            }
+        };
+
+        PageContext pc = new MockPageContext();
+        handler.setPageContext(pc);
+        handler.setAnchor("#anchor");
+        handler.doStartTag();
+        handler.doAfterBody();
+        handler.doEndTag();
+        MockJspWriter out = (MockJspWriter) pc.getOut();
+        assertEquals("<a href=\"somepage#anchor\"></a>", out.getOutputBuffer().toString());
+
+        pc = new MockPageContext();
+        handler.setPageContext(pc);
+        handler.setAnchor("anchor");
+        handler.doStartTag();
+        handler.doAfterBody();
+        handler.doEndTag();
+        out = (MockJspWriter) pc.getOut();
+        assertEquals("<a href=\"somepage#anchor\"></a>", out.getOutputBuffer().toString());
+
+
+        handler = new LinkTagHandler() {
+            protected UrlBuilder createUrlBuilder() {
+                return new UrlBuilder(new MockHttpServletRequest(), "somepage#withanchor");
+            }
+        };
+        pc = new MockPageContext();
+        handler.setPageContext(pc);
+        handler.setAnchor("anchorShouldHaveNoEffect");
+        handler.doStartTag();
+        handler.doAfterBody();
+        handler.doEndTag();
+        out = (MockJspWriter) pc.getOut();
+        assertEquals("<a href=\"somepage#withanchor\"></a>", out.getOutputBuffer().toString());
     }
 
     public void testArticleLibrary() {
@@ -107,7 +150,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         assertEquals("/cgi-bin/newsletters/CA/?email=whoever%40whatever.how", builder.asSiteRelative(null));
     }
 
-    public void testNewsletterManagement() {
+    public void testNewsletterManagementandAnchors() {
         NewsletterManagementTagHandler tagHandler = new NewsletterManagementTagHandler();
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
@@ -192,6 +235,6 @@ public class LinkTagHandlerTest extends BaseTestCase {
         unsubscribeTagWithEmail.setPageContext(new MockPageContext());
         unsubscribeTagWithEmail.setEmail("foo@bar.com");
         url = unsubscribeTagWithEmail.createUrlBuilder().asSiteRelative(null);
-        assertEquals("/community/betaUnsubscribe.page?email=foo%40bar.com&state=CA", url);        
+        assertEquals("/community/betaUnsubscribe.page?email=foo%40bar.com&state=CA", url);
     }
 }
