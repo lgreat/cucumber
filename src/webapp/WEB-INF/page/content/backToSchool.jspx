@@ -54,22 +54,22 @@
                 <h3 id="bookPicks">Book Picks</h3>
                 <ul class="plain">
                 <li><table><tr><td>
-                    <gsml:img src="/res/img/content/backtoschool/amberBrownBook.gif" alt="Get Ready for Second Grade Amber Brown"></gsml:img></td>
+                    <gsml:img src="/res/img/content/backtoschool/amberBrownBook.gif" alt="Get Ready for Second Grade, Amber Brown"></gsml:img></td>
                     <td>Get Ready for Second Grade, Amber Brown</td></tr></table></li>
 
                 <gsweb:articlelink articleId="326" wrappingElement="li"/>
                 <li>All book picks by grade:<br/>
                 <gsml:a href="/cgi-bin/showarticle/$STATE/322">
-                <gsml:img src="/res/img/content/backtoschool/redDot-K.gif" alt="Kindergarten icon"></gsml:img>
+                <gsml:img src="/res/img/content/backtoschool/redDot-K.gif" alt="Kindergarten Book Picks"></gsml:img>
                 </gsml:a>
                  <gsml:a href="/cgi-bin/showarticle/$STATE/323">
-                <gsml:img src="/res/img/content/backtoschool/redDot_1.gif" alt="First-grade icon"></gsml:img>
+                <gsml:img src="/res/img/content/backtoschool/redDot_1.gif" alt="1st Grade Book Picks"></gsml:img>
                 </gsml:a>
                 <gsml:a href="/cgi-bin/showarticle/$STATE/324">
-                <gsml:img src="/res/img/content/backtoschool/redDot_2.gif" alt="Second-grade icon"></gsml:img>
+                <gsml:img src="/res/img/content/backtoschool/redDot_2.gif" alt="2nd Grade Book Picks"></gsml:img>
                 </gsml:a>
                  <gsml:a href="/cgi-bin/showarticle/$STATE/325">
-                <gsml:img src="/res/img/content/backtoschool/redDot_3.gif" alt="Third-grade icon"></gsml:img>
+                <gsml:img src="/res/img/content/backtoschool/redDot_3.gif" alt="3rd Grade Book Picks"></gsml:img>
                 </gsml:a>
                 </li>
                 </ul>
@@ -103,9 +103,9 @@
             <td valign="top" style="width: 365px" class="middle">
                 <table cellspacing="0" cellpadding="0">
                     <tr><td>
-                        <gsml:img src="/res/img/content/backtoschool/backToSchool.gif" alt="Back to school title"></gsml:img>
+                        <gsml:img src="/res/img/content/backtoschool/backToSchool.gif" alt="Back to School Page"></gsml:img>
                 </td><td>
-                <gsml:img src="/res/img/content/backtoschool/photoOfBoy.jpg" alt="Back to school title"></gsml:img>
+                <gsml:img src="/res/img/content/backtoschool/photoOfBoy.jpg" alt="Back to School Page"></gsml:img>
                 </td></tr></table>
               <div class="bigDottedDivider">&#160;</div>
 
@@ -152,7 +152,7 @@
             <td valign="top" style="width: 9px;">
             </td>
             <td valign="top" style="width: 317px"  class="right">
-               <a href="http://back-to-school-blog.greatschools.net/" target="_blank"><gsml:img src="/res/img/content/backtoschool/twins.gif" alt="Photo of twins" style="margin-bottom: 16px;"></gsml:img></a>
+               <a href="http://back-to-school-blog.greatschools.net/" target="_blank"><gsml:img src="/res/img/content/backtoschool/twins.gif" alt="Photo of Twins Starting Kindergarten Blog" style="margin-bottom: 16px;"></gsml:img></a>
                 <ad:x66 />
                 <h5>GreatSchools is sponsored by:</h5>
                 <table>
@@ -169,14 +169,14 @@
                 <div id="k3promo">
 
                     <table style="width: 100%; color: #fff" cellspacing="10">
-                        <tr><td colspan="2"><gsml:img src="/res/img/content/backtoschool/special_K3.gif" alt=""></gsml:img></td></tr>
+                        <tr><td colspan="2"><gsml:img src="/res/img/content/backtoschool/special_K3.gif" alt="Tips and Advice by Grade Level"></gsml:img></td></tr>
                         <tr>
-                            <td><link:articleLibrary><gsml:img src="/res/img/content/backtoschool/yourKinder.gif" alt="your kindergartner"></gsml:img></link:articleLibrary></td>
-                            <td><link:articleLibrary><gsml:img src="/res/img/content/backtoschool/yourFirst.gif" alt="your first-grader"></gsml:img></link:articleLibrary></td>
+                            <td><link:articleLibrary><gsml:img src="/res/img/content/backtoschool/yourKinder.gif" alt="Tips and Advice for Your Kindergartener"></gsml:img></link:articleLibrary></td>
+                            <td><link:articleLibrary><gsml:img src="/res/img/content/backtoschool/yourFirst.gif" alt="Tips and Advice for Your First-Grader"></gsml:img></link:articleLibrary></td>
                         </tr>
                         <tr>
-                            <td><link:articleLibrary><gsml:img src="/res/img/content/backtoschool/yourSecond.gif" alt="your second-grader"></gsml:img></link:articleLibrary></td>
-                            <td><link:articleLibrary><gsml:img src="/res/img/content/backtoschool/yourThird.gif" alt="your third-grader"></gsml:img></link:articleLibrary></td>
+                            <td><link:articleLibrary><gsml:img src="/res/img/content/backtoschool/yourSecond.gif" alt="Tips and Advice for Your Second-Grader"></gsml:img></link:articleLibrary></td>
+                            <td><link:articleLibrary><gsml:img src="/res/img/content/backtoschool/yourThird.gif" alt="Tips and Advice for Your Third-Grader"></gsml:img></link:articleLibrary></td>
                         </tr>
                     </table>
                 </div>
