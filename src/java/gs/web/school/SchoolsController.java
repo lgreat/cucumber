@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.20 2006/07/13 19:49:51 dlee Exp $
+ * $Id: SchoolsController.java,v 1.21 2006/07/13 20:14:13 dlee Exp $
  */
 
 package gs.web.school;
@@ -194,7 +194,7 @@ public class SchoolsController extends AbstractController {
                     // the following is not needed and breaks sometimes. See SearcherTest.
                     // searchCommand.setQ(district.getName());
                 } catch (ObjectRetrievalFailureException e) {
-                    _log.error(state + ": District Id " + districtId + " not found.");
+                    _log.warn(state + ": District Id " + districtId + " not found.");
                     BindException errors = new BindException(searchCommand, "searchCommand");
                     errors.reject("error_no_district", "District was not found.");
 
