@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.1 2006/07/13 07:52:30 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.2 2006/07/13 17:18:01 apeterson Exp $
  */
 
 package gs.web.util.context;
@@ -11,8 +11,6 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.community.ClientSideSessionCache;
 import gs.web.util.UrlUtil;
-import gs.web.util.context.ISessionContext;
-import gs.web.util.context.SessionContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,7 +22,6 @@ import org.springframework.web.util.CookieGenerator;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * Provides...
@@ -371,12 +368,9 @@ public class SessionContextUtil implements ApplicationContextAware {
             if (user != null) {
                 ClientSideSessionCache sessionCache = new ClientSideSessionCache(user);
                 updateContextFromCache(context, sessionCache);
-                try {
-                    String c = sessionCache.getCookieRepresentation();
-                    _sessionCacheCookieGenerator.addCookie(response, c);
-                } catch (IOException e) {
-                    _log.error("Unable to save user's cached information", e);
-                }
+                String c = sessionCache.getCookieRepresentation();
+                _sessionCacheCookieGenerator.addCookie(response, c);
+
             }
         }
 

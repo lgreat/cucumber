@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ClientSideSessionCache.java,v 1.5 2006/07/12 21:53:48 apeterson Exp $
+ * $Id: ClientSideSessionCache.java,v 1.6 2006/07/13 17:17:52 apeterson Exp $
  */
 
 package gs.web.community;
@@ -14,6 +14,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -48,7 +51,8 @@ public class ClientSideSessionCache {
     private Set _nonMss;
 
     private static final String COOKIE_LIST_DELIMETER = ",";
-    private static final String INTRA_COOKIE_DELIMETER = "/";
+    private static final String INTRA_COOKIE_DELIMETER = ";";
+    private static final String COOKIE_ENCODING = "ISO-8859-1";
 
     public ClientSideSessionCache() {
     }
@@ -191,7 +195,20 @@ public class ClientSideSessionCache {
         return _nonMss == null ? "" : StringUtils.join(_nonMss.iterator(), COOKIE_LIST_DELIMETER);
     }
 
-    public String getCookieRepresentation() throws IOException {
+    /**
+     * Represent this object as a cookie value.
+     * <br />
+     * Netscape's cookie definition says "This string is a sequence of
+     * characters excluding semi-colon, comma and white space. If there is a need
+     * to place such data in the name or value, some encoding method such as
+     * URL style %XX encoding is recommended, though no encoding is defined
+     * or required."
+     * <br />
+     * I had some problems with this, detailed at the web reference below.
+     *
+     * @see <a href="http://mail-archives.apache.org/mod_mbox/tomcat-dev/200210.mbox/%3CMGYSZTA6HD9375D8FBB0YSGAKE3X85C7.3d99546e@RAURAMO%3E">forum message</a>
+     */
+    public String getCookieRepresentation() {
         StringBuffer b = new StringBuffer();
         b.append("1"); // version
         b.append(INTRA_COOKIE_DELIMETER);
@@ -205,16 +222,24 @@ public class ClientSideSessionCache {
         b.append(INTRA_COOKIE_DELIMETER);
         b.append(Integer.toString(getMslCount()));
         String cookie = b.toString();
-        return cookie;
+        String encoded = null;
+        try {
+            encoded = URLEncoder.encode(cookie, COOKIE_ENCODING);
+        } catch (UnsupportedEncodingException e) {
+            encoded = cookie;
+            _log.error("Cannot encode the cookie using specified encoding.");
+        }
+        return encoded;
     }
 
 
-    public void readFromCookie(String cookie) throws IOException, ClassNotFoundException {
-        String[] s = StringUtils.splitPreserveAllTokens(cookie, INTRA_COOKIE_DELIMETER);
+    public void readFromCookie(final String cookie) throws IOException, ClassNotFoundException {
+        final String decoded = URLDecoder.decode(cookie, COOKIE_ENCODING);
+        String[] s = StringUtils.splitPreserveAllTokens(decoded, INTRA_COOKIE_DELIMETER);
         if (s.length < 6) {
-            throw new IllegalArgumentException("Not enough components to the cookie: " + cookie);
+            throw new IllegalArgumentException("Not enough components to the cookie: " + cookie + " (" + decoded + ")");
         }
-        int version = Integer.parseInt(s[0]);
+        //int version = Integer.parseInt(s[0]);
         _email = s[1];
         _nickname = s[2];
         String mssCookie = StringUtils.trimToEmpty(s[3]);

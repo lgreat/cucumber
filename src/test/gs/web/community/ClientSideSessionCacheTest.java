@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ClientSideSessionCacheTest.java,v 1.4 2006/07/12 21:53:48 apeterson Exp $
+ * $Id: ClientSideSessionCacheTest.java,v 1.5 2006/07/13 17:17:52 apeterson Exp $
  */
 
 package gs.web.community;
@@ -241,6 +241,28 @@ public class ClientSideSessionCacheTest extends TestCase {
          cookie = "\u0000\u000f\u0000\u0030\u0030\u0020\u0030\u0500\u0020\u0020";
         assertNull(ClientSideSessionCache.createClientSideSessionCache(cookie));
 
+    }
+
+    public void testCookieCharsAreLegal() throws IOException {
+        // Create a simple one, and make sure it comes back
+        User user = new User();
+        user.setId(new Integer(888));
+        user.setEmail("apeterson@gs.net");
+
+        // Create a rich user info object, with everything
+        Set subscriptions = new HashSet();
+        addMssSubscriptions(subscriptions);
+        addPaAndMyFirstSubscriptions(subscriptions);
+        user.setSubscriptions(subscriptions);
+
+        ClientSideSessionCache clientSideSessionCache = new ClientSideSessionCache(user);
+        String cookie=clientSideSessionCache.getCookieRepresentation();
+        assertTrue(cookie.indexOf(";") == -1);
+        assertTrue(cookie.indexOf(",") == -1);
+        assertTrue(cookie.indexOf(" ") == -1);
+        assertTrue(cookie.indexOf("\t") == -1);
+        assertTrue(cookie.indexOf("\r") == -1);
+        assertTrue(cookie.indexOf("\n") == -1);
     }
 
     private ClientSideSessionCache externalizeAndBringBack(ClientSideSessionCache clientSideSessionCache) throws IOException, ClassNotFoundException {
