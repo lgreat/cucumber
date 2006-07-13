@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginControllerTest.java,v 1.2 2006/06/27 23:32:55 dlee Exp $
+ * $Id: LoginControllerTest.java,v 1.3 2006/07/13 20:02:38 apeterson Exp $
  */
 package gs.web.community;
 
@@ -30,6 +30,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         _testUser = new User();
         _testUser.setEmail("logincontrollertest@greatschools.net");
         _userDao.saveUser(_testUser);
+
     }
 
     protected void tearDown() throws Exception {
@@ -57,13 +58,13 @@ public class LoginControllerTest extends BaseControllerTestCase {
         BindException errors = new BindException(command, "");
         assertFalse(errors.hasErrors());
 
-        ModelAndView mAndV = new ModelAndView();
-        mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
         assertEquals("redirect:" + command.getRedirect(), mAndV.getViewName());
     }
 
-    //should use default redirect url since one is not specified
     public void testOnSubmitNoRedirectSpecified() {
+        //should use default redirect url since one is not specified
+
         LoginCommand command = new LoginCommand();
         command.setEmail(_testUser.getEmail());
         BindException errors = new BindException(command, "");
@@ -71,8 +72,23 @@ public class LoginControllerTest extends BaseControllerTestCase {
         _controller.onBindAndValidate(getRequest(), command, errors);
         assertFalse(errors.hasErrors());
 
-        ModelAndView mAndV = new ModelAndView();
-        mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
-        assertEquals("redirect:" + LoginController.DEFAULT_REDIRECT_URL, mAndV.getViewName());
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        assertEquals("redirect:" + "http://" + getRequest().getServerName() + LoginController.DEFAULT_REDIRECT_URL, mAndV.getViewName());
+    }
+
+    //should use default redirect url since one is not specified
+    public void testOnSubmitReferrerGoToReferer() {
+        getRequest().addHeader("Referer", "http://dev.greatschools.net/modperl/go");
+
+        LoginCommand command = new LoginCommand();
+        command.setEmail(_testUser.getEmail());
+        command.setRedirect("referer");
+        BindException errors = new BindException(command, "");
+        _controller.onBindOnNewForm(getRequest(), command, errors);
+        _controller.onBindAndValidate(getRequest(), command, errors);
+        assertFalse(errors.hasErrors());
+
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        assertEquals("redirect:http://dev.greatschools.net/modperl/go", mAndV.getViewName());
     }
 }

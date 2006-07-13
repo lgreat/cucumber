@@ -24,18 +24,15 @@
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
             ]]>
         <style type="text/css">
-            #existing {
-                float:left;
-            }
-            #new {
-                float: right;
+            .choices {
+                width: 100%;
+                vertical-align: top;
             }
             .choice  {
                 height:20ex;
-                width: 38%;
+                vertical-align: top;
                 background-color: #eee;
-                padding: 3%;
-                margin:1%;
+                padding: 2ex 2ex 2ex 2ex;
                 text-align:center;
             }
             .choice label {
@@ -57,44 +54,53 @@
 
     <gsml:body adPageName="login" pageLayout="twoColumnLayout">
         <h1>Log In or Register</h1>
-        <div id="existing" class="choice">
-            <h3>Existing Users</h3>
+        <table class="choices">
+            <tr>
+                <td class="choice">
+                    <div id="existing">
+                        <h3>Existing Users</h3>
 
-            <gsml:form action="/community/login.page" method="post">
+                        <gsml:form action="/community/login.page" method="post">
 
-                <spring:hasBindErrors name="loginCmd">
-                    <div class="error">
+                            <spring:hasBindErrors name="loginCmd">
+                                <div class="error">
+                                    <ul>
+                                        <c:forEach var="errMsgObj" items="${errors.allErrors}">
+                                            <li>
+                                                <spring:message code="${errMsgObj.code}" text="${errMsgObj.defaultMessage}"/>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+                            </spring:hasBindErrors>
+
+                            <label>Enter Email</label>
+                                <spring:bind path="loginCmd.email">
+                                    <input type="text" name="${status.expression}" value="${status.value}" size="30"/>
+                                </spring:bind>
+
+                                <spring:bind path="loginCmd.redirect">
+                                    <input type="hidden" name="${status.expression}" value="${status.value}"/>
+                                </spring:bind>
+
+                                <input class="submit" type="submit" value="Login"/>
+                        </gsml:form>
+                    </div>
+                </td>
+                <td class="choice">
+                    <div id="new">
+                        <h3>New Users:</h3>
+                        <p>Become a GreatSchools member by signing up for one of our free services:</p>
                         <ul>
-                            <c:forEach var="errMsgObj" items="${errors.allErrors}">
-                                <li>
-                                    <spring:message code="${errMsgObj.code}" text="${errMsgObj.defaultMessage}"/>
-                                </li>
-                            </c:forEach>
+                            <li><link:newsletterCenter>Learn about newsletters</link:newsletterCenter></li>
+                            <li><link:mySchoolList>Keep bookmarks to your favorite schools</link:mySchoolList></li>
                         </ul>
                     </div>
-                </spring:hasBindErrors>
 
-                <label>Enter Email</label>
-                    <spring:bind path="loginCmd.email">
-                        <input type="text" name="${status.expression}" value="${status.value}" size="30"/>
-                    </spring:bind>
+                </td>
+            </tr>
+        </table>
 
-                    <spring:bind path="loginCmd.redirect">
-                        <input type="hidden" name="${status.expression}" value="${status.value}"/>
-                    </spring:bind>
-
-                    <input class="submit" type="submit" value="Login"/>
-            </gsml:form>
-        </div>
-
-        <div id="new"  class="choice">
-            <h3>New Users:</h3>
-            <p>Become a GreatSchools member by signing up for one of our free services:</p>
-            <ul>
-                <li><link:newsletterCenter>Learn about newsletters</link:newsletterCenter></li>
-                <li><link:mySchoolList>Keep bookmarks to your favorite schools</link:mySchoolList></li>
-            </ul>
-        </div>
         <mod:tracking pageName="login"
                       pageType=""
                       hier1=""/>

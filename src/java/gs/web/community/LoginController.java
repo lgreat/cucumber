@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.4 2006/06/27 23:32:55 dlee Exp $
+ * $Id: LoginController.java,v 1.5 2006/07/13 20:02:38 apeterson Exp $
  */
 package gs.web.community;
 
@@ -29,8 +29,10 @@ public class LoginController extends SimpleFormController {
 
     public static final String BEAN_ID = "/community/login.page";
 
+    public static final String REDIRECT_TO_REFERER_VALUE = "referer";
+
     public static final String USER_DOES_NOT_EXIST_ERROR_CODE = "not_a_member";
-    public static final String DEFAULT_REDIRECT_URL = "http://www.greatschools.net";
+    public static final String DEFAULT_REDIRECT_URL = "";
 
     private IUserDao _userDao;
 
@@ -42,8 +44,19 @@ public class LoginController extends SimpleFormController {
 
         LoginCommand loginCommand = (LoginCommand) command;
 
+        // Automatic redirecting to the referer is posible with special value
+        if (StringUtils.equals(loginCommand.getRedirect(), REDIRECT_TO_REFERER_VALUE)) {
+            // Clear it out, and then set it if possible.
+            loginCommand.setRedirect("");
+            // Some user agents don't send a referer.
+            if (StringUtils.isNotBlank(request.getHeader("Referer"))) {
+                loginCommand.setRedirect(request.getHeader("Referer"));
+            }
+        }
+
+        // If nothing specified, advance to go, do not collect $200.
         if (StringUtils.isEmpty(loginCommand.getRedirect())) {
-            loginCommand.setRedirect(LoginController.DEFAULT_REDIRECT_URL);
+            loginCommand.setRedirect("http://" + request.getServerName() + LoginController.DEFAULT_REDIRECT_URL);
         }
 
         if (null == loginCommand.getEmail()) {
@@ -51,9 +64,6 @@ public class LoginController extends SimpleFormController {
         }
     }
 
-    /**
-     * this method is called after validation but before submit.
-     */
     protected void onBindAndValidate(HttpServletRequest request,
                                      Object command,
                                      BindException errors) {
