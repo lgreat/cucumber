@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorTest.java,v 1.1 2006/07/06 16:59:21 apeterson Exp $
+ * $Id: AnchorTest.java,v 1.1 2006/07/13 07:52:30 apeterson Exp $
  */
 
-package gs.web.util;
+package gs.web.util.list;
 
 import junit.framework.TestCase;
+import gs.web.util.list.Anchor;
 
 /**
  * Tests Anchor objects.

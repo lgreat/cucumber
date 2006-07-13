@@ -1,14 +1,15 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.13 2006/07/10 21:51:29 apeterson Exp $
+ * $Id: NthGraderController.java,v 1.14 2006/07/13 07:53:58 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
 import gs.data.community.*;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
-import gs.web.ISessionContext;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

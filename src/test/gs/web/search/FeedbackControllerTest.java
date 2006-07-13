@@ -1,7 +1,7 @@
 package gs.web.search;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;

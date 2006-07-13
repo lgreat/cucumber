@@ -23,7 +23,7 @@
 
     <!-- factory bean for user session information -->
     <bean id="sessionContext"
-          class="gs.web.SessionContext"
+          class="gs.web.util.context.SessionContext"
           singleton="false">
         <!-- NOTE: not autowired for performance reasons. AJP 3/2006 -->
         <property name="propertyDao" ref="propertyDao"/>
@@ -32,7 +32,7 @@
     </bean>
 
     <bean id="sessionContextUtil"
-          class="gs.web.SessionContextUtil"
+          class="gs.web.util.context.SessionContextUtil"
           autowire="byName">
         <property name="stateCookieGenerator">
             <bean class="org.springframework.web.util.CookieGenerator">
@@ -88,7 +88,7 @@
     </bean>
 
     <bean id="anchorListModelFactory"
-          class="gs.web.AnchorListModelFactory"
+          class="gs.web.util.list.AnchorListModelFactory"
           autowire="byName"/>
 
     <bean id="versionProperties"

@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.23 2006/06/26 21:26:00 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.24 2006/07/13 07:53:58 apeterson Exp $
  */
 package gs.web.content;
 
 import gs.data.content.Article;
 import gs.data.content.IArticleDao;
 import gs.data.state.State;
-import gs.web.ISessionContext;
-import gs.web.SessionContextUtil;
-import gs.web.util.Anchor;
-import gs.web.util.AnchorListModel;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.list.Anchor;
+import gs.web.util.list.AnchorListModel;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

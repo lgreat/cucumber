@@ -1,13 +1,14 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RequiresStateInterceptor.java,v 1.13 2006/04/24 21:15:45 apeterson Exp $
+ * $Id: RequiresStateInterceptor.java,v 1.14 2006/07/13 07:53:59 apeterson Exp $
  */
 
 package gs.web.state;
 
 import gs.data.state.StateManager;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlBuilder;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

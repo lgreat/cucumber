@@ -12,10 +12,11 @@
         >
 <jsp:directive.page import="gs.data.geo.IGeoDao"/>
 <jsp:directive.page import="gs.data.school.ISchoolDao"/>
-<jsp:directive.page import="gs.web.ISessionContext"/>
-<jsp:directive.page import="gs.web.SessionContext"/>
+<jsp:directive.page import="gs.web.util.context.ISessionContext"/>
+<jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <jsp:directive.page import="org.springframework.context.ApplicationContext"/>
-<jsp:directive.page import="gs.web.SessionContextUtil"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 <html lang="en">
 
 <jsp:output doctype-root-element="html"

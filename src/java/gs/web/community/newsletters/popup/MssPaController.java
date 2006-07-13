@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.17 2006/07/11 21:14:04 dlee Exp $
+ * $Id: MssPaController.java,v 1.18 2006/07/13 07:53:58 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -8,9 +8,10 @@ import gs.data.community.*;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
-import gs.web.ISessionContext;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
+import gs.web.util.context.ISessionContext;
 import gs.web.util.validator.MaximumMssValidator;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;

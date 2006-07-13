@@ -1,14 +1,15 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RedirectToSampleSchoolController.java,v 1.2 2006/06/26 21:26:17 apeterson Exp $
+ * $Id: RedirectToSampleSchoolController.java,v 1.3 2006/07/13 07:53:59 apeterson Exp $
  */
 package gs.web.school;
 
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
-import gs.web.ISessionContext;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.ISessionContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.AbstractController;

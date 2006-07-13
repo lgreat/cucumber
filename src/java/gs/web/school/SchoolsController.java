@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.18 2006/07/03 17:50:14 apeterson Exp $
+ * $Id: SchoolsController.java,v 1.19 2006/07/13 07:53:59 apeterson Exp $
  */
 
 package gs.web.school;
@@ -13,8 +13,9 @@ import gs.data.search.SearchCommand;
 import gs.data.search.Searcher;
 import gs.data.state.State;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
-import gs.web.ISessionContext;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
 import gs.web.search.ResultsPager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;

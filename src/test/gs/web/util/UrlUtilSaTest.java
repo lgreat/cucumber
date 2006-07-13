@@ -1,15 +1,16 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.30 2006/06/26 21:28:11 apeterson Exp $
+ * $Id: UrlUtilSaTest.java,v 1.31 2006/07/13 07:54:00 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.data.state.State;
-import gs.web.SessionContext;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.ISessionContext;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContextUtil;
 import junit.framework.TestCase;
 import org.springframework.mock.web.MockHttpServletResponse;
 

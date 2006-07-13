@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.10 2006/07/03 17:50:14 apeterson Exp $
+ * $Id: SchoolsControllerTest.java,v 1.11 2006/07/13 07:54:00 apeterson Exp $
  */
 
 package gs.web.school;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
 import gs.web.GsMockHttpServletRequest;
 import gs.data.school.district.IDistrictDao;
 import gs.data.school.School;

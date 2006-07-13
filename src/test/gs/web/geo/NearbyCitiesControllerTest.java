@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: NearbyCitiesControllerTest.java,v 1.5 2006/06/03 06:01:52 apeterson Exp $
+ * $Id: NearbyCitiesControllerTest.java,v 1.6 2006/07/13 07:53:59 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -9,10 +9,11 @@ import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.SessionContextUtil;
-import gs.web.AnchorListModelFactory;
-import gs.web.util.AnchorListModel;
-import gs.web.util.Anchor;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.list.AnchorListModelFactory;
+import gs.web.util.list.AnchorListModel;
+import gs.web.util.list.Anchor;
+import gs.web.util.context.SessionContextUtil;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;

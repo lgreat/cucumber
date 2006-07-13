@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelSaTest.java,v 1.2 2006/06/03 03:03:38 apeterson Exp $
+ * $Id: AnchorListModelSaTest.java,v 1.3 2006/07/13 07:54:00 apeterson Exp $
  */
 
 package gs.web.util;
@@ -8,6 +8,9 @@ package gs.web.util;
 import junit.framework.TestCase;
 
 import java.util.List;
+
+import gs.web.util.list.Anchor;
+import gs.web.util.list.AnchorListModel;
 
 /**
  * Provides...

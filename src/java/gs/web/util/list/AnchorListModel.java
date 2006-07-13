@@ -1,9 +1,11 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModel.java,v 1.2 2006/06/03 03:03:38 apeterson Exp $
+ * $Id: AnchorListModel.java,v 1.1 2006/07/13 07:52:30 apeterson Exp $
  */
 
-package gs.web.util;
+package gs.web.util.list;
+
+import gs.web.util.list.Anchor;
 
 import java.util.List;
 import java.util.ArrayList;

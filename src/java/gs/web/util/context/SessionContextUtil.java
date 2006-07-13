@@ -1,9 +1,9 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.23 2006/07/12 21:53:58 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.1 2006/07/13 07:52:30 apeterson Exp $
  */
 
-package gs.web;
+package gs.web.util.context;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
@@ -11,6 +11,8 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.community.ClientSideSessionCache;
 import gs.web.util.UrlUtil;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

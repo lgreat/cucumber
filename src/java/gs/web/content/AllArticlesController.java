@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AllArticlesController.java,v 1.6 2006/06/26 21:26:00 apeterson Exp $
+ * $Id: AllArticlesController.java,v 1.7 2006/07/13 07:53:58 apeterson Exp $
  */
 package gs.web.content;
 
@@ -8,8 +8,8 @@ import gs.data.content.Article;
 import gs.data.content.ArticleCategory;
 import gs.data.content.ArticleManager;
 import gs.data.content.IArticleDao;
-import gs.web.ISessionContext;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;

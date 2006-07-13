@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.13 2006/05/31 23:24:15 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.14 2006/07/13 07:53:59 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -13,10 +13,11 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.SessionContextUtil;
-import gs.web.AnchorListModelFactory;
-import gs.web.util.Anchor;
-import gs.web.util.AnchorListModel;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.list.AnchorListModelFactory;
+import gs.web.util.list.Anchor;
+import gs.web.util.list.AnchorListModel;
+import gs.web.util.context.SessionContextUtil;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;

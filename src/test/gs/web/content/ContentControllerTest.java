@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ContentControllerTest.java,v 1.18 2006/06/14 22:16:02 apeterson Exp $
+ * $Id: ContentControllerTest.java,v 1.19 2006/07/13 07:53:59 apeterson Exp $
  */
 package gs.web.content;
 
@@ -9,8 +9,8 @@ import gs.data.content.Article;
 import gs.data.content.ArticleManager;
 import gs.data.content.IArticleDao;
 import gs.web.BaseControllerTestCase;
-import gs.web.util.Anchor;
-import gs.web.util.AnchorListModel;
+import gs.web.util.list.Anchor;
+import gs.web.util.list.AnchorListModel;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collection;

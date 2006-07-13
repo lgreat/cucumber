@@ -1,12 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.36 2006/06/26 21:28:11 apeterson Exp $
+ * $Id: UrlUtil.java,v 1.37 2006/07/13 07:53:59 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.data.state.State;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -195,7 +195,7 @@ public final class UrlUtil {
 
         // If the URL has a STATE string in it (or more than one), replace it with the
         // user's state.
-        gs.web.ISessionContext context = SessionContextUtil.getSessionContext(request);
+        gs.web.util.context.ISessionContext context = SessionContextUtil.getSessionContext(request);
         if (href.indexOf("STATE") != -1) {
             // Allow a request attribute to override the session facade.
             if (request.getAttribute("STATE") != null &&

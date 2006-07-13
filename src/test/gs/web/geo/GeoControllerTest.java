@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoControllerTest.java,v 1.10 2006/03/31 18:56:51 apeterson Exp $
+ * $Id: GeoControllerTest.java,v 1.11 2006/07/13 07:53:59 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -11,7 +11,8 @@ import gs.data.geo.bestplaces.BpState;
 import gs.data.school.ISchoolDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 

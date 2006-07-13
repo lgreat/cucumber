@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.48 2006/07/11 22:44:58 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.49 2006/07/13 07:53:59 apeterson Exp $
  */
 
 package gs.web.util;
@@ -13,6 +13,7 @@ import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.web.school.SchoolsController;
+import gs.web.util.list.Anchor;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

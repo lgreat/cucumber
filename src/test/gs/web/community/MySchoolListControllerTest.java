@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: MySchoolListControllerTest.java,v 1.2 2006/05/31 21:44:29 apeterson Exp $
+ * $Id: MySchoolListControllerTest.java,v 1.3 2006/07/13 07:53:59 apeterson Exp $
  */
 
 package gs.web.community;
@@ -9,8 +9,9 @@ import gs.data.community.IUserDao;
 import gs.data.school.ISchoolDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.SessionContextUtil;
-import gs.web.util.AnchorListModel;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.list.AnchorListModel;
+import gs.web.util.context.SessionContextUtil;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;

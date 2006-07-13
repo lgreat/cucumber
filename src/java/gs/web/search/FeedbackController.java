@@ -19,7 +19,8 @@ import java.util.Properties;
 import java.util.Date;
 
 import gs.data.state.State;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
 
 /**
  * This controller handles the submit of the search feedback form.  There is

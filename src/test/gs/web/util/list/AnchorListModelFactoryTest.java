@@ -1,15 +1,15 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactoryTest.java,v 1.2 2006/06/03 05:09:37 apeterson Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.1 2006/07/13 07:52:30 apeterson Exp $
  */
 
-package gs.web;
+package gs.web.util.list;
 
-import gs.data.geo.ICity;
 import gs.data.geo.City;
+import gs.data.geo.ICity;
 import gs.data.state.State;
-import gs.web.util.Anchor;
-import gs.web.util.AnchorListModel;
+import gs.web.BaseTestCase;
+import gs.web.GsMockHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         final GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setRequestURI("http://www.greatschools.net/index.html");
         request.setRemoteHost("www.greatschools.net");
-                _request = request;
+        _request = request;
     }
 
     public void testSchoolBreakdown() throws Exception {
@@ -67,7 +67,7 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
     public void testNearbyCities() {
 
         ICity city = new City("Here", State.AK);
-        List nearbyCities= new ArrayList();
+        List nearbyCities = new ArrayList();
         AnchorListModel anchorListModel = _anchorListModelFactory.createNearbyCitiesAnchorListModel(
                 "Hey!", city, nearbyCities, 4, true, true, true, _request);
         assertEquals(2, anchorListModel.getResults().size());
@@ -77,15 +77,15 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         assertEquals(1, anchorListModel.getResults().size());
 
         anchorListModel = _anchorListModelFactory.createNearbyCitiesAnchorListModel(
-                "Hey!", city, nearbyCities, 4, true, true, false,  _request);
+                "Hey!", city, nearbyCities, 4, true, true, false, _request);
         assertEquals(1, anchorListModel.getResults().size());
 
         anchorListModel = _anchorListModelFactory.createNearbyCitiesAnchorListModel(
-                "Hey!", city, nearbyCities, 4, true, false, false,  _request);
+                "Hey!", city, nearbyCities, 4, true, false, false, _request);
         assertEquals(0, anchorListModel.getResults().size());
 
         // Washington D.C. shouldn't have an "Browse other cities in D.C."
-        city= new City("Washington",State.DC);
+        city = new City("Washington", State.DC);
         anchorListModel = _anchorListModelFactory.createNearbyCitiesAnchorListModel(
                 "Hey!", city, nearbyCities, 4, true, true, false, _request);
         assertEquals(1, anchorListModel.getResults().size());

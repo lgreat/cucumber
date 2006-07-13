@@ -1,15 +1,15 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: TopCitiesController.java,v 1.22 2006/06/26 21:26:17 apeterson Exp $
+* $Id: TopCitiesController.java,v 1.23 2006/07/13 07:53:59 apeterson Exp $
 */
 
 package gs.web.state;
 
 import gs.data.state.State;
-import gs.web.ISessionContext;
-import gs.web.SessionContextUtil;
-import gs.web.util.Anchor;
-import gs.web.util.AnchorListModel;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.list.Anchor;
+import gs.web.util.list.AnchorListModel;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;

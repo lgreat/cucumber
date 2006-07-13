@@ -1,13 +1,14 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.34 2006/07/11 05:06:23 apeterson Exp $
+ * $Id: SessionContext.java,v 1.1 2006/07/13 07:52:30 apeterson Exp $
  */
-package gs.web;
+package gs.web.util.context;
 
 import gs.data.admin.IPropertyDao;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.state.State;
+import gs.web.util.context.ISessionContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeansException;
@@ -25,7 +26,7 @@ import java.io.Serializable;
  */
 public class SessionContext implements ISessionContext, ApplicationContextAware, Serializable {
 
-    static final String BEAN_ID = "sessionContext";
+    public static final String BEAN_ID = "sessionContext";
 
     private static final long serialVersionUID = -314159265358979323L;
 

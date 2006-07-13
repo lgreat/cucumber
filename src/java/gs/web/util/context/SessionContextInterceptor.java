@@ -1,10 +1,11 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextInterceptor.java,v 1.13 2006/06/26 21:26:17 apeterson Exp $
+ * $Id: SessionContextInterceptor.java,v 1.1 2006/07/13 07:52:30 apeterson Exp $
  */
-package gs.web;
+package gs.web.util.context;
 
 import gs.web.util.PageHelper;
+import gs.web.util.context.SessionContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.HandlerInterceptor;

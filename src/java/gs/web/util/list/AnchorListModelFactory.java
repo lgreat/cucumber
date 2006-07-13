@@ -1,9 +1,9 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.5 2006/06/03 05:09:37 apeterson Exp $
+ * $Id: AnchorListModelFactory.java,v 1.1 2006/07/13 07:52:30 apeterson Exp $
  */
 
-package gs.web;
+package gs.web.util.list;
 
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
@@ -17,8 +17,8 @@ import gs.data.state.StateManager;
 import gs.web.geo.NearbyCitiesController;
 import gs.web.school.SchoolsController;
 import gs.web.search.SearchController;
-import gs.web.util.Anchor;
-import gs.web.util.AnchorListModel;
+import gs.web.util.list.Anchor;
+import gs.web.util.list.AnchorListModel;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import org.apache.commons.lang.ObjectUtils;

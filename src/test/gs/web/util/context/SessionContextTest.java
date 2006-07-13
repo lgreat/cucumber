@@ -1,8 +1,12 @@
-package gs.web;
+package gs.web.util.context;
 
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.admin.IPropertyDao;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.BaseTestCase;
+import gs.web.GsMockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.util.CookieGenerator;
 

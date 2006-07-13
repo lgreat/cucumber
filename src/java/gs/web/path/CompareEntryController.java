@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import gs.web.util.UrlUtil;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
 import gs.data.state.State;
 
 /**

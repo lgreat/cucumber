@@ -1,14 +1,16 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandler.java,v 1.5 2006/07/12 21:37:49 dlee Exp $
+ * $Id: LinkTagHandler.java,v 1.6 2006/07/13 07:53:58 apeterson Exp $
  */
 
 package gs.web.jsp.link;
 
 import gs.data.state.State;
-import gs.web.ISessionContext;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlBuilder;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 

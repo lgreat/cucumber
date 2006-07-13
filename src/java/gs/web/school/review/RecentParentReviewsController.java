@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsController.java,v 1.9 2006/06/26 21:26:17 apeterson Exp $
+ * $Id: RecentParentReviewsController.java,v 1.10 2006/07/13 07:53:59 apeterson Exp $
  */
 
 package gs.web.school.review;
@@ -10,9 +10,10 @@ import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.state.State;
-import gs.web.ISessionContext;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlBuilder;
+import gs.web.util.context.ISessionContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.web.servlet.ModelAndView;

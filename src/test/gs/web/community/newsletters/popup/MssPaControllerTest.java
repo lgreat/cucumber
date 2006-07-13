@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.11 2006/07/11 05:06:50 apeterson Exp $
+ * $Id: MssPaControllerTest.java,v 1.12 2006/07/13 07:53:59 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -9,11 +9,12 @@ import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
 import gs.web.util.validator.EmailValidator;
 import gs.web.util.validator.MaximumMssValidator;
 import gs.web.util.validator.SchoolIdValidator;
 import gs.web.util.validator.StateValidator;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.ObjectRetrievalFailureException;

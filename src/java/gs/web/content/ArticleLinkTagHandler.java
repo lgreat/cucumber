@@ -1,16 +1,17 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.21 2006/06/26 21:26:00 apeterson Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.22 2006/07/13 07:53:58 apeterson Exp $
  */
 package gs.web.content;
 
 import gs.data.content.Article;
 import gs.data.content.IArticleDao;
 import gs.data.state.State;
-import gs.web.ISessionContext;
+import gs.web.util.context.ISessionContext;
 import gs.web.jsp.BaseTagHandler;
 import gs.web.util.UrlUtil;
 import gs.web.util.UrlBuilder;
+import gs.web.util.context.ISessionContext;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;

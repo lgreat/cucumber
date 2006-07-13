@@ -1,14 +1,15 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleTagHandler.java,v 1.3 2006/06/26 21:26:01 apeterson Exp $
+ * $Id: ArticleTagHandler.java,v 1.4 2006/07/13 07:53:58 apeterson Exp $
  */
 
 package gs.web.jsp.link;
 
 import gs.data.content.Article;
 import gs.data.content.IArticleDao;
-import gs.web.ISessionContext;
+import gs.web.util.context.ISessionContext;
 import gs.web.util.UrlBuilder;
+import gs.web.util.context.ISessionContext;
 
 /**
  * Generates link to an article.

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.18 2006/07/06 22:08:23 wbeck Exp $
+ * $Id: GeoController.java,v 1.19 2006/07/13 07:53:58 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -11,7 +11,7 @@ import gs.data.geo.bestplaces.BpState;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

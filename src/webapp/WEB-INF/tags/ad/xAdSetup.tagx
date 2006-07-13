@@ -6,7 +6,8 @@
     <jsp:directive.tag body-content="empty"
                        description="Generates necessary JavaScript to show the ads on a page. Generally you will not call this directly, but it will be called by the page decorator."/>
     <jsp:directive.tag import="gs.web.ISessionContext"/>
-    <jsp:directive.tag import="gs.web.SessionContextUtil"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+    <jsp:directive.tag import="gs.web.util.context.ISessionContext"/>
     <jsp:scriptlet><![CDATA[
         // On cobrands we don't show position x22 so check for it on cobrands
         ISessionContext context = SessionContextUtil.getSessionContext(request);

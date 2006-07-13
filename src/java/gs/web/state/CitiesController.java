@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: CitiesController.java,v 1.6 2006/06/26 21:26:17 apeterson Exp $
+ * $Id: CitiesController.java,v 1.7 2006/07/13 07:53:59 apeterson Exp $
  */
 
 package gs.web.state;
@@ -11,10 +11,10 @@ import org.apache.commons.lang.StringUtils;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.ICity;
 import gs.data.state.State;
-import gs.web.ISessionContext;
-import gs.web.SessionContextUtil;
-import gs.web.util.AnchorListModel;
-import gs.web.util.Anchor;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.list.AnchorListModel;
+import gs.web.util.list.Anchor;
 import gs.web.util.UrlBuilder;
 
 import javax.servlet.http.HttpServletRequest;

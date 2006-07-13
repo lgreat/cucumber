@@ -1,9 +1,11 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: Anchor.java,v 1.6 2006/07/06 16:59:40 apeterson Exp $
+ * $Id: Anchor.java,v 1.1 2006/07/13 07:52:30 apeterson Exp $
  */
 
-package gs.web.util;
+package gs.web.util.list;
+
+import gs.web.util.UrlBuilder;
 
 /**
  * Bean to hold attributes for an anchor tag.

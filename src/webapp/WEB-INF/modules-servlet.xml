@@ -13,7 +13,7 @@
 
 
     <bean id="sessionContextInterceptor"
-          class="gs.web.SessionContextInterceptor"
+          class="gs.web.util.context.SessionContextInterceptor"
           autowire="byName">
     </bean>
 
@@ -64,7 +64,7 @@
             <value>/footer/searchEngine</value>
         </property>
     </bean>
-    
+
     <bean name="/state/topDistricts.module"
           class="gs.web.state.TopDistrictsController"
           autowire="byName">

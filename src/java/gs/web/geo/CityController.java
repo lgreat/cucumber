@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.35 2006/06/26 21:26:01 apeterson Exp $
+ * $Id: CityController.java,v 1.36 2006/07/13 07:53:58 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -12,11 +12,13 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.web.ISessionContext;
-import gs.web.AnchorListModelFactory;
-import gs.web.SessionContext;
-import gs.web.SessionContextUtil;
-import gs.web.util.AnchorListModel;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
+import gs.web.util.list.AnchorListModelFactory;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.list.AnchorListModel;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

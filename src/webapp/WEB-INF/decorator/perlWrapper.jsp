@@ -1,8 +1,9 @@
-<%@ page import="gs.web.ISessionContext,
+<%@ page import="gs.web.util.context.ISessionContext,
                  gs.data.util.NetworkUtil"%>
 <%@ page import="gs.data.state.State"%>
 <%@ page import="gs.web.util.UrlUtil"%>
-<%@ page import="gs.web.SessionContextUtil"%>
+<%@ page import="gs.web.util.context.SessionContextUtil"%>
+<%@ page import="gs.web.util.context.SessionContextUtil"%>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

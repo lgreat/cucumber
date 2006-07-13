@@ -1,9 +1,9 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ISessionContext.java,v 1.2 2006/07/10 21:51:29 apeterson Exp $
+ * $Id: ISessionContext.java,v 1.1 2006/07/13 07:52:30 apeterson Exp $
  */
 
-package gs.web;
+package gs.web.util.context;
 
 import gs.data.community.User;
 import gs.data.state.State;

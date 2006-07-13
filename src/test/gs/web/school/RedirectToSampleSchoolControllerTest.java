@@ -1,12 +1,13 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RedirectToSampleSchoolControllerTest.java,v 1.2 2006/03/23 18:21:38 apeterson Exp $
+ * $Id: RedirectToSampleSchoolControllerTest.java,v 1.3 2006/07/13 07:54:00 apeterson Exp $
  */
 package gs.web.school;
 
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 

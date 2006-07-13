@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesControllerTest.java,v 1.6 2006/05/05 18:54:28 apeterson Exp $
+ * $Id: BestPublicSchoolValuesControllerTest.java,v 1.7 2006/07/13 07:53:59 apeterson Exp $
  */
 
 package gs.web.school.performance;
 
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;

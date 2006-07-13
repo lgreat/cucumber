@@ -14,8 +14,8 @@
         >
 <jsp:directive.page import="gs.data.content.INewsItemDao"/>
 <jsp:directive.page import="gs.data.content.NewsItem"/>
-<jsp:directive.page import="gs.web.ISessionContext"/>
-<jsp:directive.page import="gs.web.SessionContextUtil"/>
+<jsp:directive.page import="gs.web.util.context.ISessionContext"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.page import="org.springframework.context.ApplicationContext"/>
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <html lang="en">

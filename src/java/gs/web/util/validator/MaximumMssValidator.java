@@ -1,14 +1,14 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MaximumMssValidator.java,v 1.3 2006/07/11 21:26:38 dlee Exp $
+ * $Id: MaximumMssValidator.java,v 1.4 2006/07/13 07:53:59 apeterson Exp $
  */
 package gs.web.util.validator;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.state.State;
-import gs.web.ISessionContext;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderControllerTest.java,v 1.9 2006/07/11 05:06:38 apeterson Exp $
+ * $Id: NthGraderControllerTest.java,v 1.10 2006/07/13 07:53:59 apeterson Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -9,7 +9,7 @@ import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
 import gs.web.util.validator.EmailValidator;
 import gs.web.util.validator.SchoolIdValidator;
 import gs.web.util.validator.StateValidator;

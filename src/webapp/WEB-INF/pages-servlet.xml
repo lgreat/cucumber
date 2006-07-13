@@ -13,7 +13,7 @@
                 <!--ref bean="requiresStateInterceptor"/-->
                 <bean class="gs.web.ResponseInterceptor"
                       autowire="byName"/>
-                <bean class="gs.web.SessionContextInterceptor"
+                <bean class="gs.web.util.context.SessionContextInterceptor"
                       autowire="byName">
                 </bean>
             </list>
@@ -28,7 +28,7 @@
                 <!--ref bean="requiresStateInterceptor"/-->
                 <bean class="gs.web.ResponseInterceptor"
                       autowire="byName"/>
-                <bean class="gs.web.SessionContextInterceptor"
+                <bean class="gs.web.util.context.SessionContextInterceptor"
                       autowire="byName">
                 </bean>
             </list>

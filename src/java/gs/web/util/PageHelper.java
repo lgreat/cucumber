@@ -1,14 +1,15 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.17 2006/07/07 17:45:59 apeterson Exp $
+ * $Id: PageHelper.java,v 1.18 2006/07/13 07:53:59 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.data.community.User;
-import gs.web.ISessionContext;
-import gs.web.SessionContext;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

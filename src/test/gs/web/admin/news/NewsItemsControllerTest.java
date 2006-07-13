@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: NewsItemsControllerTest.java,v 1.1 2006/05/30 21:20:26 apeterson Exp $
+ * $Id: NewsItemsControllerTest.java,v 1.2 2006/07/13 07:53:59 apeterson Exp $
  */
 
 package gs.web.admin.news;
@@ -9,7 +9,8 @@ import gs.data.content.INewsItemDao;
 import gs.data.content.NewsItem;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.SessionContextUtil;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Iterator;

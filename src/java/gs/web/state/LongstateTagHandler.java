@@ -1,7 +1,7 @@
 package gs.web.state;
 
 import gs.data.state.State;
-import gs.web.ISessionContext;
+import gs.web.util.context.ISessionContext;
 import gs.web.jsp.BaseTagHandler;
 
 import javax.servlet.jsp.JspWriter;

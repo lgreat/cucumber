@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MockSessionContext.java,v 1.2 2006/07/10 21:51:29 apeterson Exp $
+ * $Id: MockSessionContext.java,v 1.3 2006/07/13 07:54:00 apeterson Exp $
  */
 
 package gs.web.util;
@@ -8,7 +8,8 @@ package gs.web.util;
 import gs.data.community.User;
 import gs.data.state.State;
 import gs.data.util.SpringUtil;
-import gs.web.ISessionContext;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.ISessionContext;
 import org.springframework.context.ApplicationContext;
 
 /**
