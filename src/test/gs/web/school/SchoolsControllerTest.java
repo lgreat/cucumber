@@ -1,22 +1,23 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.11 2006/07/13 07:54:00 apeterson Exp $
+ * $Id: SchoolsControllerTest.java,v 1.12 2006/07/13 19:49:51 dlee Exp $
  */
 
 package gs.web.school;
 
-import gs.web.BaseControllerTestCase;
-import gs.web.util.context.SessionContextUtil;
-import gs.web.GsMockHttpServletRequest;
-import gs.data.school.district.IDistrictDao;
-import gs.data.school.School;
 import gs.data.school.LevelCode;
+import gs.data.school.School;
 import gs.data.school.SchoolType;
+import gs.data.school.district.IDistrictDao;
 import gs.data.search.Searcher;
+import gs.web.BaseControllerTestCase;
+import gs.web.GsMockHttpServletRequest;
+import gs.web.util.context.SessionContextUtil;
+import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Tests SchoolsController.
@@ -67,6 +68,32 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(null, model.get(SchoolsController.MODEL_SCHOOL_TYPE));
     }
 
+    public void testBadDistrict() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setParameter("state", "CA");
+        request.setParameter("district", "987654321");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+
+        ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
+
+        Map model = mav.getModel();
+        BindException errors = null;
+
+        errors = (BindException) model.get("errors");
+        assertNotNull(errors);
+        assertEquals(Integer.valueOf("1"), new Integer(errors.getAllErrors().size()));
+        assertEquals("error_no_district", errors.getGlobalError().getCode());
+
+        Boolean showSearchControl = (Boolean) model.get("showSearchControl");
+        assertTrue(showSearchControl.booleanValue());
+
+        String title = (String) model.get("title");
+        assertNotNull(title);
+        assertEquals(title, "District not found");
+
+        assertEquals("status/error", mav.getViewName());
+
+    }
     public void testByDistrict() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setParameter("state", "CA");

@@ -1,10 +1,11 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.19 2006/07/13 07:53:59 apeterson Exp $
+ * $Id: SchoolsController.java,v 1.20 2006/07/13 19:49:51 dlee Exp $
  */
 
 package gs.web.school;
 
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.geo.IGeoDao;
 import gs.data.school.LevelCode;
 import gs.data.school.district.District;
@@ -12,14 +13,14 @@ import gs.data.school.district.IDistrictDao;
 import gs.data.search.SearchCommand;
 import gs.data.search.Searcher;
 import gs.data.state.State;
-import gs.data.dao.hibernate.ThreadLocalTransactionManager;
+import gs.web.search.ResultsPager;
 import gs.web.util.context.ISessionContext;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.util.context.SessionContextUtil;
-import gs.web.search.ResultsPager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.search.Hits;
+import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
@@ -185,11 +186,25 @@ public class SchoolsController extends AbstractController {
                 String districtIdStr = request.getParameter(PARAM_DISTRICT);
                 model.put(MODEL_DISTRICT, districtIdStr);
                 int districtId = Integer.parseInt(districtIdStr);
-                District district = _districtDao.findDistrictById(state, new Integer(districtId));
-                model.put(MODEL_DISTNAME, district.getName());
-                searchCommand.setDistrict(districtIdStr);
-                // the following is not needed and breaks sometimes. See SearcherTest.
-                // searchCommand.setQ(district.getName());
+                District district = null;
+                try {
+                    district = _districtDao.findDistrictById(state, new Integer(districtId));
+                    model.put(MODEL_DISTNAME, district.getName());
+                    searchCommand.setDistrict(districtIdStr);
+                    // the following is not needed and breaks sometimes. See SearcherTest.
+                    // searchCommand.setQ(district.getName());
+                } catch (ObjectRetrievalFailureException e) {
+                    _log.error(state + ": District Id " + districtId + " not found.");
+                    BindException errors = new BindException(searchCommand, "searchCommand");
+                    errors.reject("error_no_district", "District was not found.");
+
+                    model.put("errors", errors);
+                    model.put("showSearchControl", Boolean.TRUE);
+                    model.put("title", "District not found");
+
+                    ModelAndView modelAndView = new ModelAndView("status/error", model);
+                    return modelAndView;
+                }
             }
         }
 
