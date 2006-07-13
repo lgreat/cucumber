@@ -27,7 +27,7 @@
 
 <mod:tracking pageType="article"
               pageName="Back to School"
-              hier1 = "Article,Back to School"/>
+              hier1 = "Article,Back to School Home"/>
 
 <gsml:body adPageName="article" pageLayout="backToSchool">
 

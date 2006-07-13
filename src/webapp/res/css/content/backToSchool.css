@@ -21,7 +21,7 @@
         #contentGS .left h3 {
             font-family: century gothic;
             font-size: small; /* 13pt */
-            font-weight: 100;
+            font-weight: bold;
             background-color: #6cc;
             color: #fff;
             padding: 4px 0 4px 16px;
@@ -31,15 +31,16 @@
             margin: 6px 0 6px 0px;
         }
         #contentGS .left ul li {
-            font-size: x-small; /* 11pt */
+            font-size: 11px;
             font-weight: bolder;
             background-color: #eee;
             color: #999;
             padding: 4px 12px 4px 16px;
             margin-bottom: 1px;
-          /*  background-image: url( ../../img/bullet/gs_horizDotBg.gif );
-           background-repeat: no-repeat;       */
+         /*   background-image: url( ../../img/bullet/orange_arrow_right_trans.gif );
+           background-repeat: no-repeat;    */
         }
+
         #contentGS .left ul li a {
             color: #999;
         }
