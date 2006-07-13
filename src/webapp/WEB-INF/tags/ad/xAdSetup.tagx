@@ -5,7 +5,6 @@
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"
                        description="Generates necessary JavaScript to show the ads on a page. Generally you will not call this directly, but it will be called by the page decorator."/>
-    <jsp:directive.tag import="gs.web.ISessionContext"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.tag import="gs.web.util.context.ISessionContext"/>
     <jsp:scriptlet><![CDATA[
