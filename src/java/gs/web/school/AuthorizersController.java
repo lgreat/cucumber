@@ -15,7 +15,7 @@ import gs.web.util.context.SessionContextUtil;
 import gs.web.jsp.Util;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
-import gs.data.school.ICharterSchoolInfo;
+import gs.data.school.charter.ICharterSchoolInfo;
 import gs.data.school.census.ICharterSchoolInfoDao;
 import gs.data.state.State;
 
