@@ -14,10 +14,10 @@
 <table border="0" cellpadding="0" cellspacing="0" style="width: 100%">
     <tr>
         <td style="padding-left: 40px">
-            <gsml:a href="/"><gsml:img src="/res/img/logo/logo_GS_330x110.gif" alt="GreatSchools.net logo"
+            <gsml:a href="/"><gsml:img src="/res/img/logo/logo_GS_330x110.gif" alt="GreatSchools: The Parents' Guide to K-12 Success"
                     /></gsml:a>
         </td>
-        <td style="padding-right: 18px; width: 33%">
+        <td style="padding-right: 18px; width: 33%; vertical-align: top; padding-top: 16px">
             <div width="100%">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="member">
                     <tr>
@@ -85,7 +85,7 @@
                             </td>
                             <td rowspan="2" style="width:43px;vertical-align: top">
                                 <gsml:url var="go" value="/res/img/header/btn_go.gif"/>
-                                <input type="image" src="${go}" alt="go" style="width:37px;height:20px"
+                                <input type="image" src="${go}" alt="GO" style="width:37px;height:20px"
                                        class="button"/>
                             </td>
                         </tr>
@@ -94,6 +94,7 @@
                             <td style="height:21px" class="searchRadios">
                                 <input name="c" type="radio" value="school" checked="checked"
                                        onclick="setSearchPrompt('Enter school, district or city'); return true;"/><span>Schools</span>
+                                &#160;
                                 <input name="c" type="radio" value="topic"
                                        onclick="setSearchPrompt('Enter keyword'); return true;"/>
                                 <span>Articles</span>

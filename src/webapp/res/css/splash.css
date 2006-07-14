@@ -1,6 +1,7 @@
 #contentGS {
     padding-top: 12px;
     padding-top: 0px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
 }
 
 .bigDottedDivider {
@@ -53,7 +54,7 @@
 
 #findAndCompare {
     border: 3px solid #6cc;
-    padding: 20px 18px 10px 18px;
+    padding: 20px 8px 10px 18px;
     margin: 0;
     width: 230px;
     height: 100%;
@@ -63,7 +64,6 @@
     font-size: large;
     color: #999;
     font-weight: 100;
-    margin-bottom: 9px;
     text-indent: -50em;
     height: 31px;
     overflow: hidden; /* Phark */
@@ -81,12 +81,15 @@
     margin-bottom: 2ex;
 }
 
+
 #findAndCompare #findAndCompareSchoolsNationwide h3 {
     background-image: url( ../img/splash/findAndCompare.gif ); /* Phark */
+    margin-bottom: 9px;
 }
 
 #findAndCompare #getIdeasAndLearnMoreAbout h3 {
     background-image: url( ../img/splash/getIdeasAndLearnMoreAboutTrans.gif ); /* Phark */
+    margin-bottom: 0px;
 }
 
 #findAndCompare input,
@@ -122,20 +125,20 @@
 #week ul li {
     font-size: .9em;
     margin: 0 0 0 0;
-    padding: 0px 0 10px 32px;
+    padding: 0px 0 0px 32px;
     background-repeat: no-repeat;
     background-position: 4px 4px;
 }
 
 #week ul li a {
-    color: #333;
+    color: #666;
     font-weight: bold;
     text-decoration: underline;
     display: block;
 }
 
 #week ul li a:visited {
-    color: #555;
+    color: #666;
 }
 
 ul li.burst {
@@ -185,16 +188,17 @@ td#billsBlog h3 {
 }
 
 #billsBlog div.rss {
-    padding-top: 10px;
+    margin-top: 12px;
     font-size: small;
+    font-size: 12px;
     font-weight: normal;
 }
 
 #billsBlog a {
-    color: #555;
+    color: #666;
 }
 #billsBlog a:visited {
-    color: #333;
+    color: #444;
 }
 #billsBlog a:hover {
     color: #6cc;

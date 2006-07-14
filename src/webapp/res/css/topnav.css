@@ -56,7 +56,7 @@ will need to become a graphic.
 }
 
 #topnav .searchRadios input {
-    margin: 0 0 0 1ex;
+    margin: 0;
     padding: 0;
     vertical-align: middle;
 }

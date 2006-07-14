@@ -60,7 +60,7 @@
                             <br />
                             <gsml:url var="go" value="/res/img/splash/go.gif"/>
                             <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
-                                <input type="image" src="${go}" alt="go" style="width:41px;height:26px;margin-top: 10px"
+                                <input type="image" src="${go}" alt="GO" style="width:41px;height:26px;margin-top: 10px"
                                        class="button" onmouseover="this.src='${goOver}';" onmouseout="this.src='${go}';"/>
                         </gsml:form>
                     </div>
@@ -68,14 +68,14 @@
                     <div id="getIdeasAndLearnMoreAbout">
                         <h3>Get <em>IDEAS and LEARN MORE</em> about:</h3>
                         <gsml:form action="/redirect.page" method="GET" >
-                            <div style="display: block; ">
-                            <select name="page" >
-                                <option value="/content/backToSchool.page" selected="selected">Back to school success tips</option>
+                            <table><tr>
+                                <td>                            <select name="page"  >
+                                <option value="/content/backToSchool.page" selected="selected">Back to school success </option>
                                 <option value="/search/search.page?q=back+to+school+shopping&amp;type=topic"> Back to school shopping </option>
                                 <option value="/content/summerReading.page"> Summer reading </option>
                                 <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Ask an Expert </option>
 
-                                <option value="/cgi-bin/showarticle/CA/33"> Raising money for your school </option>
+                                <option value="/cgi-bin/showarticle/CA/33"> Fundraising</option>
 
                                 <option value="/search/search.page?q=special+education&amp;type=topic"> Learning disabilities </option>
                                 <option value="/cgi-bin/showarticle/CA/97"> Gifted and talented kids </option>
@@ -88,7 +88,7 @@
 
                                 <option value="/content/guideToTests.page"> Standardized tests </option>
                                 <option value="/content/schoolChoiceCenter.page"> Choosing a school </option>
-                                <option value="/cgi-bin/showarticle/ca/197">Public vs. private vs. charter</option>
+                                <option value="/cgi-bin/showarticle/ca/197">Public vs. private</option>
 
                                 <!--option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Improving your school </option-->
                                 <option value="/cgi-bin/showarticle/ca/41"> Get Involved</option>
@@ -100,10 +100,13 @@
                                 <option value="/search/search.page?q=second grade&amp;type=topic"> Second grade </option>
                                 <option value="/search/search.page?q=third grade&amp;type=topic"> Third grade </option-->
                             </select>
-                            &#160;
-                                <input type="image" src="${go}" alt="go" style="width:41px;height:26px;"
+</td>
+                                <td>                            &#160;
+</td>
+                                <td>                                <input type="image" src="${go}" alt="GO" style="width:41px;height:26px;"
                                        class="button" onmouseover="this.src='${goOver}';" onmouseout="this.src='${go}';"/>
-                            </div>
+</td>
+                                </tr></table>
                         </gsml:form>
                     </div>
             </td>
@@ -126,7 +129,7 @@
             </td>
             <td width="8">
             </td>
-            <td width="1" style="background-color: #ccc">
+            <td width="1" style="background-color: #ddd">
             </td>
             <td width="8">
             </td>
@@ -145,8 +148,8 @@
                         <gsml:url var="readOver" value="/res/img/splash/readOver.gif"/>
                         <a href="http://billsblog.greatschools.net" target="_new"><img
                                 src="${read}"
-                                alt="read"
-                                style="margin: 4px 0 4px -2px"
+                                alt="Read Bill's Blog"
+                                style="margin: 12px 0 4px -2px"
                                 onmouseover="this.src='${readOver}';" onmouseout="this.src='${read}';"/></a>
                     </div>
                 </div>

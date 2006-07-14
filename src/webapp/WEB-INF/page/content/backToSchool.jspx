@@ -25,15 +25,11 @@
      <pageHelper:externalCss file="/res/css/content/backToSchool.css"/>
 </head>
 
-<mod:tracking pageType="article"
-              pageName="Back to School"
-              hier1 = "Article,Back to School Home"/>
-
 <gsml:body adPageName="article" pageLayout="backToSchool">
 
     <table class="content" cellpadding="0" cellspacing="0">
         <tr>
-            <td valign="top" style="width: 170px" class="left">
+            <td valign="top" style="width: 150px;" class="left">
 
                 <h3 id="helpYourChildSucceed">Grade K-12 Success</h3>
                 <ul>
@@ -42,7 +38,7 @@
                     <gsweb:articlelink articleId="46" wrappingElement="li"/>
                     <gsweb:articlelink articleId="22" wrappingElement="li"/>
                     <gsweb:articlelink articleId="97" wrappingElement="li"/>
-                    <li><link:articleLibrary>See full article library</link:articleLibrary></li>
+                    <li style="text-align: right"><link:articleLibrary>See article library &gt;</link:articleLibrary></li>
                 </ul>
 
                 <h3 id="askAnExpert">Ask an Expert</h3>
@@ -53,12 +49,11 @@
                 </ul>
                 <h3 id="bookPicks">Book Picks</h3>
                 <ul class="plain">
-                <li><table><tr><td>
-                    <gsml:img src="/res/img/content/backtoschool/amberBrownBook.gif" alt="Get Ready for Second Grade, Amber Brown"></gsml:img></td>
-                    <td>Get Ready for Second Grade, Amber Brown</td></tr></table></li>
+                <li style="min-height: 66px; color: #c56; padding-left: 3px; padding-right: 4px"><gsml:img src="/res/img/content/backtoschool/amberBrownBook.gif" alt="Get Ready for Second Grade, Amber Brown" style="float: left; padding-right: 1ex;"></gsml:img>
+                Get Ready for Second Grade, Amber Brown</li>
 
-                <gsweb:articlelink articleId="326" wrappingElement="li"/>
-                <li>All book picks by grade:<br/>
+                <li>Read our <gsweb:articlelink articleId="326">back-to-school book picks</gsweb:articlelink></li>
+                <li class="bookPicks"><h4 style="color: #c56">All book picks by grade:</h4>
                 <gsml:a href="/cgi-bin/showarticle/$STATE/322">
                 <gsml:img src="/res/img/content/backtoschool/redDot-K.gif" alt="Kindergarten Book Picks"></gsml:img>
                 </gsml:a>
@@ -93,12 +88,12 @@
                     <gsweb:articlelink articleId="41" wrappingElement="li"/>
                     <gsweb:articlelink articleId="311" wrappingElement="li"/>
                     <gsweb:articlelink articleId="291" wrappingElement="li"/>
-                    <li><link:articleLibrary>See full article library</link:articleLibrary></li>
+                    <li style="text-align: right"><link:articleLibrary>See article library &gt;</link:articleLibrary></li>
 
 
                 </ul>
             </td>
-            <td valign="top" style="width: 10px">
+            <td valign="top" style="width: 10px;">
             </td>
             <td valign="top" style="width: 365px" class="middle">
                 <table cellspacing="0" cellpadding="0">
@@ -119,7 +114,7 @@
                     <gsweb:articlelink articleId="324" wrappingElement="li"/>
                     <gsweb:articlelink articleId="256" wrappingElement="li"/>
                 </ul>
-                <div class="bigDottedDivider">&#160;</div>
+                <div class="mediumDottedDivider">&#160;</div>
 
                 <h2>Get Ready, Get Set</h2>
                 <ul>
@@ -134,24 +129,27 @@
                     <gsweb:articlelink articleId="507">Read the answer</gsweb:articlelink>
                     </p>
                 <h3 class="checkmark">Parent Poll</h3>
-                <p>Share your opinion <gsml:a href="/cgi-bin/static/poll_results.tmpl/$STATE">Vote in our back-to-school poll now</gsml:a>
+                <p>How does your child feel about going back to school? <gsml:a href="/cgi-bin/static/poll_results.tmpl/$STATE">Vote in our back-to-school poll</gsml:a>
                     </p>
                 <h3 class="apple">The Twins Start Kindergarten</h3>
                 <p>Follow this family's story as their twins Margaret and Clara start kindergarten. <a href="http://back-to-school-blog.greatschools.net/" target="_blank">Read our back-to-school blog</a>
                     </p>
                 <h3 class="star">Free Newsletters</h3>
-                <p><promo:nthGraderHover>Sign up for GreatSchools' newsletters </promo:nthGraderHover>
+
+                <p>Is your child on track?
+                    Find out with our free newsletters that parents love!<promo:nthGraderHover> Sign me up</promo:nthGraderHover>
                     </p>
                 <h3 class="asterisk">Our New Look</h3>
                 <p>We're rolling out a new site design. What do you think about our new look? <gsml:a href="/cgi-bin/feedback_faq/$STATE?fbtype=design">Send us feedback</gsml:a>
                     </p>
                 <h3 class="bottom">&#160;</h3>
             </td>
-            <td valign="top" style="width: 5px; border-right: 1px solid #ddd">
+            <td valign="top" style="height: 100%; vertical-align: top; width: 10px; border-right: 1px solid #ddd">
+                <gsml:img src="/res/img/header/clear_pix.gif" alt=""/>
             </td>
-            <td valign="top" style="width: 9px;">
+            <td valign="top" style="width: 7px;">
             </td>
-            <td valign="top" style="width: 317px"  class="right">
+            <td valign="top" style="width: 305px"  class="right">
                <a href="http://back-to-school-blog.greatschools.net/" target="_blank"><gsml:img src="/res/img/content/backtoschool/twins.gif" alt="Photo of Twins Starting Kindergarten Blog" style="margin-bottom: 16px;"></gsml:img></a>
                 <ad:x40 />
                 <h5>GreatSchools is sponsored by:</h5>
@@ -183,6 +181,11 @@
             </td>
         </tr>
     </table>
+    <mod:tracking pageType="article"
+                  pageName="Back to School"
+                  hier1 = "Article,Back to School Home"/>
+
+
 </gsml:body>
 
 </html>
