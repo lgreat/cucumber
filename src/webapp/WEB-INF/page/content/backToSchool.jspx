@@ -53,7 +53,7 @@
                 Get Ready for Second Grade, Amber Brown</li>
 
                 <li>Read our <gsweb:articlelink articleId="326">back-to-school book picks</gsweb:articlelink></li>
-                <li class="bookPicks"><h4 style="color: #c56">All book picks by grade:</h4>
+                <li class="bookPicks">All book picks by grade:<br />
                 <gsml:a href="/cgi-bin/showarticle/$STATE/322">
                 <gsml:img src="/res/img/content/backtoschool/redDot-K.gif" alt="Kindergarten Book Picks"></gsml:img>
                 </gsml:a>

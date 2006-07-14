@@ -52,7 +52,11 @@ background-repeat: no-repeat;       */
 }
 
 .bookPicks {
+      color: #c56 !important;
+}
 
+.bookPicks img {
+      padding: 3px 12px 3px 0;
 }
 
 /* Middle column */
