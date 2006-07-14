@@ -32,48 +32,9 @@
     padding: 4px 0 4px 16px;
 }
 
-        /* Middle column */
-         #contentGS .middle h1 {
-             font-family: Rockwell light, courier, courier new;
-             font-size: xx-large;
-             font-weight: 100;
-             padding: 8ex 0 1ex 16px;
-             color: #fff;
-             background-color: #6cc;
-             margin-bottom: 16px;
-         }
-        #contentGS .middle h2 {
-            font-family: century gothic;
-            font-size: large;
-            font-weight: 100;
-            color: #fff;
-            background-color: #fb0;
-            padding: 4px 0 2px 16px;
-            }
-        #contentGS .middle h2#getReady {
-            text-indent: -100em;
-            overflow: hidden;
-            background: url(../../img/content/backtoschool/get_ready.gif);
-            background-repeat: no-repeat;
-            background-color: #fb0;
-            background-position: 10px; 5px; 8px; 5px;
-            height: 25px;
-        }
-        #contentGS .middle h2#getTheRightStuff {
-            text-indent: -100em;
-            overflow: hidden;
-            background: url(../../img/content/backtoschool/right_stuff.gif);
-            background-repeat: no-repeat;
-            background-color: #fb0;
-            background-position: 10px; 5px; 8px; 5px;
-            height: 25px;
-        }
-        #contentGS .middle li {
-            padding: 8px 0 2px 16px;
-            font-size: small; /* 13pt */
-            font-weight: bold;
-            background-color: #fff;
-            color: #5bc;
+#contentGS .left ul {
+    margin: 6px 0 6px 0px;
+}
 
 #contentGS .left ul li {
     font-size: 11px; /* 11pt */
@@ -95,14 +56,6 @@
     color: #aaa;
 }
 
-   #contentGS .middle h3#parentPoll {
-            text-indent: -100em;
-            overflow: hidden;
-            background-image: url( ../../img/content/backtoschool/parentPoll.gif );
-            background-repeat: no-repeat;
-            background-position: 10px 20px;
-            height: 35px;
-        }
 
 #contentGS .left ul li.bookPicks {
       color: #c56 !important;
@@ -124,13 +77,116 @@
     margin-bottom: 16px;
 }
 
-        #contentGS .middle p {
-            padding: 2px 0 18px 16px;
-            font-size: small;
-            font-weight: 700;
-            color: #777;
-        }
-        #contentGS .middle p a {
-            color: #777;
-            font-weight: 300;
-        }
+#contentGS .middle h2 {
+    font-family: century gothic;
+    font-size: large;
+    font-weight: 100;
+    color: #fff;
+    background-color: #fb0;
+    padding: 4px 0 2px 16px;
+}
+
+#contentGS .middle li {
+    padding: 8px 0 2px 16px;
+    font-size: small; /* 13pt */
+    font-weight: 700;
+    background-color: #fff;
+    color: #5bc;
+}
+
+#contentGS .middle li a {
+    color: #39a;
+}
+
+#contentGS .middle h2#getReady {
+          text-indent: -100em;
+          overflow: hidden;
+          background: url(../../img/content/backtoschool/get_ready.gif);
+          background-repeat: no-repeat;
+          background-color: #fb0;
+          background-position: 10px; 5px; 8px; 5px;
+          height: 25px;
+      }
+      #contentGS .middle h2#getTheRightStuff {
+          text-indent: -100em;
+          overflow: hidden;
+          background: url(../../img/content/backtoschool/right_stuff.gif);
+          background-repeat: no-repeat;
+          background-color: #fb0;
+          background-position: 10px; 5px; 8px; 5px;
+          height: 25px;
+      }
+
+
+#contentGS .middle h3 {
+    font-family: rockwell;
+    padding: 13px 0 2px 16px;
+    font-size: medium;
+    font-weight: 100;
+    color: #5bc;
+    margin-top: 10px;
+    border-top: 1px dotted #cccccc;
+    background-position: 14px 12px;
+
+}
+
+#contentGS .middle h3#askAnExpert {
+          text-indent: -100em;
+          overflow: hidden;
+          background-image: url( ../../img/content/backtoschool/askAnExpert.gif );
+          background-repeat: no-repeat;
+          background-position: 10px 20px;
+          height: 35px;
+      }
+
+#contentGS .middle h3#parentPoll {
+          text-indent: -100em;
+          overflow: hidden;
+          background-image: url( ../../img/content/backtoschool/parentPoll.gif );
+          background-repeat: no-repeat;
+          background-position: 10px 20px;
+          height: 35px;
+      }
+
+#contentGS .middle h3#theTwinsStartKindergarten {
+          text-indent: -100em;
+          overflow: hidden;
+          background-image: url( ../../img/content/backtoschool/theTwinsStartKindergarten.gif );
+          background-repeat: no-repeat;
+          background-position: 10px 20px;
+          height: 35px;
+      }
+
+
+#contentGS .middle h3#freeNewsletters {
+          text-indent: -100em;
+          overflow: hidden;
+          background-image: url( ../../img/content/backtoschool/freeNewsletters.gif );
+          background-repeat: no-repeat;
+          background-position: 10px 20px;
+          height: 35px;
+      }
+
+#contentGS .middle h3#ourNewLook {
+          text-indent: -100em;
+          overflow: hidden;
+          background-image: url( ../../img/content/backtoschool/ourNewLook.gif );
+          background-repeat: no-repeat;
+          background-position: 10px 20px;
+          height: 35px;
+      }
+
+
+
+#contentGS .middle p {
+    padding: 0px 0 18px 16px;
+    font-size: small;
+    font-weight: 700;
+    color: #777;
+}
+
+#contentGS .middle p a {
+    color: #39a;
+    font-weight: 300;
+    text-decoration: underline;
+}
