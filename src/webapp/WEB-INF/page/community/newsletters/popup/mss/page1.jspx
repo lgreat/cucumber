@@ -87,15 +87,10 @@
         <gsml:form action="/community/newsletters/popup/mss/page1.page" method="post" target="_self"
                 id="frm">
 
-            <c:set var="showMssCheckBox" value="true"/>
-
             <spring:hasBindErrors name="newsCmd">
                 <div class="error">
                     <c:forEach var="error" items="${errors.allErrors}">
                         <li><spring:message arguments="${error.arguments}" code="${error.code}"/></li>
-                        <c:if test="${error.code eq 'max_mss_reached'}">
-                            <c:set var="showMssCheckBox" value="false"/>
-                        </c:if>
                     </c:forEach>
                 </div>
             </spring:hasBindErrors>
@@ -104,12 +99,10 @@
             <input type="hidden" name="${schoolNameExpr}" value="${schoolName}"/>
             <input type="hidden" name="state" value="${stateAbbrev}"/>
 
-            <c:if test="${showMssCheckBox eq 'true'}">
                 <div class="cbx">
                     <input type="checkbox" name="${mssExpr}" checked="checked"/>
                     Yes, please send me monthly stats and updates about ${schoolName}.
                 </div>
-            </c:if>
 
             <div class="cbx">
                 <input type="checkbox" name="${gnExpr}" checked="checked"/>
