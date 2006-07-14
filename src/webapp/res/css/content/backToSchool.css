@@ -43,19 +43,26 @@
     color: #999;
     padding: 4px 12px 4px 16px;
     margin-bottom: 1px;
-    /*  background-image: url( ../../img/bullet/gs_horizDotBg.gif );
-background-repeat: no-repeat;       */
+    background-image: url( ../../img/bullet/white/dotOnEee.gif);
+    background-repeat: no-repeat;
+    background-position: .8ex 2.1ex;
 }
 
+#contentGS .left ul li.seeAll {
+    text-align: right;
+    background-image: none;
+}
 #contentGS .left ul li a {
     color: #aaa;
 }
 
-.bookPicks {
+
+#contentGS .left ul li.bookPicks {
       color: #c56 !important;
+    background-image: none;
 }
 
-.bookPicks img {
+#contentGS .left ul li.bookPicks img {
       padding: 3px 12px 3px 0;
 }
 

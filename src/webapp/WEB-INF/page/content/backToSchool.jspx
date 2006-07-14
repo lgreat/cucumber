@@ -38,7 +38,7 @@
                     <gsweb:articlelink articleId="46" wrappingElement="li"/>
                     <gsweb:articlelink articleId="22" wrappingElement="li"/>
                     <gsweb:articlelink articleId="97" wrappingElement="li"/>
-                    <li style="text-align: right"><link:articleLibrary>See article library &gt;</link:articleLibrary></li>
+                    <li class="seeAll"><link:articleLibrary>See article library &gt;</link:articleLibrary></li>
                 </ul>
 
                 <h3 id="askAnExpert">Ask an Expert</h3>
@@ -88,7 +88,7 @@
                     <gsweb:articlelink articleId="41" wrappingElement="li"/>
                     <gsweb:articlelink articleId="311" wrappingElement="li"/>
                     <gsweb:articlelink articleId="291" wrappingElement="li"/>
-                    <li style="text-align: right"><link:articleLibrary>See article library &gt;</link:articleLibrary></li>
+                    <li class="seeAll"><link:articleLibrary>See article library &gt;</link:articleLibrary></li>
 
 
                 </ul>
