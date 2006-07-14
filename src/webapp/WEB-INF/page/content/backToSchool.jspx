@@ -104,7 +104,7 @@
                 </td></tr></table>
               <div class="bigDottedDivider">&#160;</div>
 
-                <h2>Get the Right Stuff</h2>
+                <h2 id="getTheRightStuff">Get the Right Stuff</h2>
                 <ul>
                     <gsweb:articlelink articleId="327" wrappingElement="li"/>
                     <gsweb:articlelink articleId="" wrappingElement="li"/>
@@ -116,7 +116,7 @@
                 </ul>
                 <div class="mediumDottedDivider">&#160;</div>
 
-                <h2>Get Ready, Get Set</h2>
+                <h2 id="getReady">Get Ready, Get Set</h2>
                 <ul>
                   <gsweb:articlelink articleId="328" wrappingElement="li"/>
                     <gsweb:articlelink articleId="332" wrappingElement="li"/>
@@ -124,22 +124,22 @@
                     <gsweb:articlelink articleId="325" wrappingElement="li"/>
                 </ul>
 
-                <h3 class="dialog">Ask an Expert</h3>
+                <h3 id="askAnExpert">Ask an Expert</h3>
                 <p>Q: My kindergartner doesn't want to go to school. What do I do?
                     <gsweb:articlelink articleId="507">Read the answer</gsweb:articlelink>
                     </p>
-                <h3 class="checkmark">Parent Poll</h3>
+                <h3 id="parentPoll">Parent Poll</h3>
                 <p>How does your child feel about going back to school? <gsml:a href="/cgi-bin/static/poll_results.tmpl/$STATE">Vote in our back-to-school poll</gsml:a>
                     </p>
-                <h3 class="apple">The Twins Start Kindergarten</h3>
+                <h3 id="theTwinsStartKindergarten">The Twins Start Kindergarten</h3>
                 <p>Follow this family's story as their twins Margaret and Clara start kindergarten. <a href="http://back-to-school-blog.greatschools.net/" target="_blank">Read our back-to-school blog</a>
                     </p>
-                <h3 class="star">Free Newsletters</h3>
+                <h3 id="freeNewsletters">Free Newsletters</h3>
 
                 <p>Is your child on track?
                     Find out with our free newsletters that parents love!<promo:nthGraderHover> Sign me up</promo:nthGraderHover>
                     </p>
-                <h3 class="asterisk">Our New Look</h3>
+                <h3 id="ourNewLook">Our New Look</h3>
                 <p>We're rolling out a new site design. What do you think about our new look? <gsml:a href="/cgi-bin/feedback_faq/$STATE?fbtype=design">Send us feedback</gsml:a>
                     </p>
                 <h3 class="bottom">&#160;</h3>
