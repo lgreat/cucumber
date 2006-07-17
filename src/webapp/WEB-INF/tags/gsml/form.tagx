@@ -21,6 +21,7 @@
     </jsp:scriptlet>
     <jsp:element name="form">
         <jsp:attribute name="action">${action}</jsp:attribute>
+        <jsp:attribute name="accept-charset">UTF-8</jsp:attribute>
         <jsp:attribute name="method">${method}</jsp:attribute>
         <jsp:attribute name="id">${id}</jsp:attribute>
         <!-- TH: We used to have a name attribute but that is a deprecated attribute -->
