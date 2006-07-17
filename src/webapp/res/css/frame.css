@@ -5,6 +5,9 @@
 body {
     background-color: #acd;
 }
+body.cobranded {
+    background-color: #fff;
+}
 
 /**
 Overall page placement
@@ -20,6 +23,10 @@ See: http://ndpsoftware.com/experiment/css/stretch.php?width=780&css=stretchymax
     text-align: left;
     margin-left: auto;
     margin-right: auto;
+    background-color: #fff;
+}
+body.unframed #pageGS {
+    border: 4px solid   #acd;
 }
 
 #adLeaderboard {
@@ -32,26 +39,14 @@ See: http://ndpsoftware.com/experiment/css/stretch.php?width=780&css=stretchymax
 
 #contentGS {
     background-color: #fff;
-    padding: 0 18px 0 18px;
-    margin: 0;
+    padding: 0;
+    margin: 0 18px 0 18px;
     border-top: 1px solid #fff; /* IE hack-- otherwise it leaves a gap */
     border-bottom: 1px solid #fff;
-    width: 900px;
+    width: 864px;
 }
 
-* html #contentGS {
-    width: 864px; /* IE only: 900px - 18 - 18 (box model hack) */
-}
-
-body.cobranded {
-    background-color: #fff;
-}
-body.unframed #pageGS {
-    border: 4px solid   #acd;
-}
-
-
-
+/* Cobrand specific */
 body.xcontracostatimes #pageGS {
     border: 0px solid   #acd;
 }
