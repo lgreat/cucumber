@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.22 2006/07/13 07:53:58 apeterson Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.23 2006/07/17 19:25:54 wbeck Exp $
  */
 package gs.web.content;
 
@@ -12,6 +12,7 @@ import gs.web.jsp.BaseTagHandler;
 import gs.web.util.UrlUtil;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.ISessionContext;
+import gs.web.ISessionContext;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -95,7 +96,7 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 
         if (_flaggedIfNew && article.isNew()) {
-            String img = article.isSpanish() ? "/res/img/content/nuevo.jpg" : "/res/img/content/icon_newarticle.gif";
+            String img = article.isSpanish() ? "/res/img/content/nuevo.gif" : "/res/img/content/icon_newarticle.gif";
             img = _urlUtil.buildUrl(img, request);
             b.append("<img src=\"" + img + "\" alt=\"new\" class=\"newarticle\">&nbsp;");
         }
