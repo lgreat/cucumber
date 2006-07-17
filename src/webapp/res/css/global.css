@@ -1,7 +1,7 @@
 /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.124 2006/07/11 21:59:36 apeterson Exp $
+   $Id: global.css,v 1.125 2006/07/17 21:14:51 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -13,6 +13,7 @@ html, body {
     width: 100%;
     height: 100%;
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
    /* color: #333333;*/
 }
 
