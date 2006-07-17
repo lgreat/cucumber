@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.23 2006/07/17 19:25:54 wbeck Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.24 2006/07/17 19:32:45 wbeck Exp $
  */
 package gs.web.content;
 
@@ -11,8 +11,6 @@ import gs.web.util.context.ISessionContext;
 import gs.web.jsp.BaseTagHandler;
 import gs.web.util.UrlUtil;
 import gs.web.util.UrlBuilder;
-import gs.web.util.context.ISessionContext;
-import gs.web.ISessionContext;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
