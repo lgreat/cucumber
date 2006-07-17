@@ -11,8 +11,6 @@ import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
-import gs.web.util.context.SessionContext;
-import gs.web.util.context.SessionContextUtil;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.Hits;
@@ -209,7 +207,7 @@ public class SearchControllerTest extends BaseControllerTestCase {
         assertTrue(mav.getView() instanceof RedirectView);
         RedirectView view = (RedirectView) mav.getView();
         assertNotNull(view.getUrl());
-        assertEquals("/content/allArticles.page?state=WY", view.getUrl());
+        assertEquals("/content/allArticles.page", view.getUrl());
 
     }
 
@@ -225,7 +223,7 @@ public class SearchControllerTest extends BaseControllerTestCase {
         assertTrue(mav.getView() instanceof RedirectView);
         RedirectView view = (RedirectView) mav.getView();
         assertNotNull(view.getUrl());
-        assertEquals("/content/allArticles.page?state=WY", view.getUrl());
+        assertEquals("/content/allArticles.page", view.getUrl());
 
     }
 
