@@ -9,17 +9,66 @@ will need to become a graphic.
     font-family: Century Gothic, Helvetica, sans-serif;
     width: 900px;
     background-color: #fff;
-    padding-bottom: 8px;
-}
-
-#topnav .arrowBlueRight {
-    margin-top: auto;
-    margin-bottom: auto;
+    padding: 0 0 8px 0;
 }
 
 #topnav  a img {
     border-width: 0;
 }
+
+
+/* Member area */
+#topnav .member {
+    font-family: Verdana, Geneva, Helvetica, sans-serif;
+    font-size: xx-small;
+}
+
+#topnav .member .welcome {
+    text-align: left;
+    font-weight: 900;
+    color: #666666;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: #CCCCCC;
+    padding-right: 6px;
+    width: 5%;
+    white-space: nowrap;
+}
+
+#topnav .member .signout {
+    text-align: left;
+    color: #729eca;
+    padding-left: 6px;
+    width: 80%; /* take any extra space */
+}
+#topnav .member .signout a {
+    color: #729eca;
+    text-decoration: none;
+}
+#topnav .member .signout a:hover {
+    text-decoration: underline;
+}
+
+#topnav .member .saved {
+    color: #729eca;
+    text-align: right;
+    padding-right: 9px;
+    background-image: url( ../img/header/arrowBlueRight.gif );
+    background-repeat: no-repeat;
+    background-position: right;
+    width: 10%;
+    white-space: nowrap;
+}
+#topnav .member .saved a {
+    color: #729eca;
+    text-decoration: none;
+}
+#topnav .member .saved a:hover {
+    text-decoration: underline;
+}
+
+
+/* Search area */
 
 #topnav .searchLabel {
     font-size: 10px;
@@ -65,54 +114,8 @@ will need to become a graphic.
     margin: 0 0 10px 6px;
 }
 
-#topnav .member {
-    font-family: Verdana, Geneva, Helvetica, sans-serif;
-    font-size: x-small;
-    text-align: left;
-}
-
-#topnav .welcome {
-    font-weight: 900;
-    color: #666666;
-    border-right-width: 1px;
-    border-right-style: solid;
-    border-right-color: #CCCCCC;
-    padding-right: 6px;
-    width: 5%;
-    white-space: nowrap;
-}
-
-#topnav .signout {
-    color: #729eca;
-    padding-left: 6px;
-    width: 80%; /* take any extra space */
-}
-#topnav .signout a {
-    color: #729eca;
-    text-decoration: none;
-}
-#topnav .signout a:hover {
-    text-decoration: underline;
-}
 
 
-#topnav .saved {
-    color: #729eca;
-    text-align: right;
-    padding-right: 9px;
-    background-image: url( ../img/header/arrowBlueRight.gif );
-    background-repeat: no-repeat;
-    background-position: right;
-    width: 10%;
-    white-space: nowrap;
-}
-#topnav .saved a {
-    color: #729eca;
-    text-decoration: none;
-}
-#topnav .saved a:hover {
-    text-decoration: underline;
-}
 
 /* GLOBAL NAV MENUS */
 
