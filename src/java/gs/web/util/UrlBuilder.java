@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.50 2006/07/17 16:51:05 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.51 2006/07/17 20:41:40 apeterson Exp $
  */
 
 package gs.web.util;
@@ -102,7 +102,7 @@ public class UrlBuilder {
     public static final VPage NEWSLETTER_MANAGEMENT = new VPage("vpage:newsletterManagement");
 
     /**
-     * New state home page: research and compare, with optional state.
+     * New state page: research and compare, with optional state.
      */
     public static final VPage RESEARCH = new VPage("vpage:research");
 
@@ -344,7 +344,6 @@ public class UrlBuilder {
         } else if (ARTICLE_LIBRARY.equals(page)) {
             _perlPage = false;
             _path = "/content/allArticles.page";
-            setParameter("state", state.getAbbreviation());
         } else if (NEWSLETTER_CENTER.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/newsletters/" +
