@@ -54,16 +54,16 @@
 
                 <li>Read our <gsweb:articlelink articleId="326">back-to-school book picks</gsweb:articlelink></li>
                 <li class="bookPicks">All book picks by grade:<br />
-                <gsml:a href="/cgi-bin/showarticle/$STATE/322">
+                <gsml:a href="/cgi-bin/showarticle/$STATE/622">
                 <gsml:img src="/res/img/content/backtoschool/redDot-K.gif" alt="Kindergarten Book Picks"></gsml:img>
                 </gsml:a>
-                 <gsml:a href="/cgi-bin/showarticle/$STATE/323">
+                 <gsml:a href="/cgi-bin/showarticle/$STATE/623">
                 <gsml:img src="/res/img/content/backtoschool/redDot_1.gif" alt="1st Grade Book Picks"></gsml:img>
                 </gsml:a>
-                <gsml:a href="/cgi-bin/showarticle/$STATE/324">
+                <gsml:a href="/cgi-bin/showarticle/$STATE/624">
                 <gsml:img src="/res/img/content/backtoschool/redDot_2.gif" alt="2nd Grade Book Picks"></gsml:img>
                 </gsml:a>
-                 <gsml:a href="/cgi-bin/showarticle/$STATE/325">
+                 <gsml:a href="/cgi-bin/showarticle/$STATE/625">
                 <gsml:img src="/res/img/content/backtoschool/redDot_3.gif" alt="3rd Grade Book Picks"></gsml:img>
                 </gsml:a>
                 </li>
@@ -149,7 +149,7 @@
             </td>
             <td valign="top" style="width: 7px;">
             </td>
-            <td valign="top" style="width: 305px"  class="right">
+            <td valign="top" style="width: 300px"  class="right">
                <a href="http://back-to-school-blog.greatschools.net/" target="_blank"><gsml:img src="/res/img/content/backtoschool/twins.gif" alt="Photo of Twins Starting Kindergarten Blog" style="margin-bottom: 16px;"></gsml:img></a>
                 <ad:x40 />
                 <h5>GreatSchools is sponsored by:</h5>
