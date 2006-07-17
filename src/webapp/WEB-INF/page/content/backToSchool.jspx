@@ -137,7 +137,7 @@
                 <h3 id="freeNewsletters">Free Newsletters</h3>
 
                 <p>Is your child on track?
-                    Find out with our free newsletters that parents love!<promo:nthGraderHover> Sign me up</promo:nthGraderHover>
+                    Find out with our free newsletters that parents love! <promo:nthGraderHover>Sign me up</promo:nthGraderHover>
                     </p>
                 <h3 id="ourNewLook">Our New Look</h3>
                 <p>We're rolling out a new site design. What do you think about our new look? <gsml:a href="/cgi-bin/feedback_faq/$STATE?fbtype=design">Send us feedback</gsml:a>
