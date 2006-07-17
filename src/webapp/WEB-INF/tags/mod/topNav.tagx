@@ -23,8 +23,7 @@
                     <tr>
                         <c:if test="${empty requestScope.context.memberId}">
                             <td class="welcome">Welcome!</td>
-                            <td class="signout"><gsml:a href="/community/login.page">Sign
-                                in</gsml:a></td>
+                            <td class="signout"><link:signIn forwardTo="referer">Sign in</link:signIn></td>
                             <td class="saved"><gsml:a href="/cgi-bin/msl_confirm/$STATE">Start saving schools</gsml:a>
                             </td>
                         </c:if>

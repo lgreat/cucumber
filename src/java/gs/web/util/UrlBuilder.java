@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.49 2006/07/13 07:53:59 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.50 2006/07/17 16:51:05 apeterson Exp $
  */
 
 package gs.web.util;
@@ -379,7 +379,7 @@ public class UrlBuilder {
             setParameter("state", state.getAbbreviation());
         } else if (SIGN_IN.equals(page)) {
             _perlPage = true;
-            _path = "/cgi-bin/site/signin.cgi/" + state.getAbbreviation();
+            _path = "/cgi-bin/msl_login/" + state.getAbbreviationLowerCase();
         } else if (SIGN_OUT.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/logout/" + state.getAbbreviation();

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.33 2006/07/07 20:23:10 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.34 2006/07/17 16:50:56 apeterson Exp $
  */
 
 package gs.web.util;
@@ -281,7 +281,7 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/cgi-bin/regSearch/AZ", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.SIGN_IN, State.AZ, null);
-        assertEquals("/cgi-bin/site/signin.cgi/AZ", builder.asSiteRelative(request));
+        assertEquals("/cgi-bin/msl_login/az", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.SIGN_OUT, State.AZ, null);
         assertEquals("/cgi-bin/logout/AZ", builder.asSiteRelative(request));
