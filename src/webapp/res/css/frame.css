@@ -28,6 +28,9 @@ See: http://ndpsoftware.com/experiment/css/stretch.php?width=780&css=stretchymax
 body.unframed #pageGS {
     border: 4px solid   #acd;
 }
+body.framed #pageGS {
+    width: 765px;
+}
 
 #adLeaderboard {
     background-color: #fff;
@@ -45,8 +48,12 @@ body.unframed #pageGS {
     border-bottom: 1px solid #fff;
     width: 864px;
 }
+body.framed #pageGS #contentGS {
+    width: 729px;       /* 765 - 18 -18 */
+}
 
-/* Cobrand specific */
+
+/* Cobrand specific -- not implemented yet */
 body.xcontracostatimes #pageGS {
     border: 0px solid   #acd;
 }
