@@ -155,11 +155,13 @@
                 <h5>GreatSchools is sponsored by:</h5>
                 <table>
                     <tr>
-                        <td></td>
-                        <td></td>
+                        <td><gsml:a href="http://media.nyadmcncserve-05y06a.com/click?spacedesc=1058577_1017185_1x1_1027412_1001647"><gsml:img src="/res/img/content/backtoschool/ParentsTheAntiDrug.JPG" alt=""/></gsml:a></td>
+
+                        <td><gsml:a href="http://www.staples.com/webapp/wcs/stores/servlet/StaplesCategoryDisplay?storeId=10001&amp;identifier=SC84&amp;catalogIdentifier=2&amp;cm_sp=marketing-_-half%20wow-_-Back%20to%20School%20Center"><gsml:img src="/res/img/content/backtoschool/staples.gif" alt="Staples logo"/></gsml:a></td>
                     </tr>
                     <tr>
-                        <td></td>
+                        <td><gsml:a href="https://www.shutterfly.com/secure/sign_up.jsp?http=www.shutterfly.com&amp;lid=sign+up"> <gsml:img src="/res/img/content/backtoschool/shutterfly.gif" alt="Shutterfly logo"/></gsml:a></td>
+                        
                         <td></td>
                     </tr>
                 </table>
