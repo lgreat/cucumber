@@ -16,6 +16,7 @@
 <jsp:directive.page import="gs.data.school.LevelCode"/>
 
 <html lang="en">
+<pageHelper:setPathway pathway="1" />
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>

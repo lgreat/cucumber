@@ -27,6 +27,7 @@
 </head>
 
 <gsml:body adPageName="search">
+    <pageHelper:setPathway pathway="1"/>
     <pageHelper:externalCss file="/res/css/search/mixedResults.css"/>
 
     <table id="main" width="100%" >
