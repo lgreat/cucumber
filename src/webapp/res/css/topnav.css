@@ -147,7 +147,7 @@ will need to become a graphic.
 
 * html #topnav table#nav td a {
 /* IE ONLY */
-    font-family: Lucinda Grande, Lucida Grande, licida, verdana,sans-serif;
+    font-family: Lucinda Grande, Lucida Grande, lucida, verdana,sans-serif;
     font-weight: 900;
     font-size: 12px;
 }
