@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.2 2006/07/13 17:18:01 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.3 2006/07/18 18:55:42 apeterson Exp $
  */
 
 package gs.web.util.context;
@@ -96,6 +96,7 @@ public class SessionContextUtil implements ApplicationContextAware {
         int mslId = -1;
 
         Cookie[] cookies = httpServletRequest.getCookies();
+        ClientSideSessionCache cache = null;
         if (cookies != null) {
 
             // Collect all the cookies
@@ -127,11 +128,7 @@ public class SessionContextUtil implements ApplicationContextAware {
                         context.setState(s);
                     }
                 } else if (StringUtils.equals(_sessionCacheCookieGenerator.getCookieName(), thisCookie.getName())) {
-                    ClientSideSessionCache cache = ClientSideSessionCache.createClientSideSessionCache(thisCookie.getValue());
-                    if (cache != null) {
-                        updateContextFromCache(context, cache);
-                        context.setReadClientSideSessionCache(true);
-                    }
+                    cache = ClientSideSessionCache.createClientSideSessionCache(thisCookie.getValue());
                 }
             }
 
@@ -144,6 +141,16 @@ public class SessionContextUtil implements ApplicationContextAware {
                 context.setMemberId(new Integer(insiderId));
             } else if (mslId != -1) {
                 context.setMemberId(new Integer(mslId));
+            }
+
+            // Bring in the client cache only if it matches the member cookie set above--
+            // The perl side may have logged the user in as someone else
+            if (context.getMemberId() != null &&
+                    cache != null &&
+                    cache.getMemberId() != null &&
+                    cache.getMemberId().equals(context.getMemberId())) {
+                updateContextFromCache(context, cache);
+                context.setReadClientSideSessionCache(true);
             }
         }
     }

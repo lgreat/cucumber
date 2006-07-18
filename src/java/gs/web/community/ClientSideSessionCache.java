@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ClientSideSessionCache.java,v 1.6 2006/07/13 17:17:52 apeterson Exp $
+ * $Id: ClientSideSessionCache.java,v 1.7 2006/07/18 18:55:54 apeterson Exp $
  */
 
 package gs.web.community;
@@ -34,6 +34,7 @@ import java.util.Set;
 public class ClientSideSessionCache {
     private String _nickname;
     private String _email;
+    private Integer _memberId;
     private int _mslCount;
 
     private static final Log _log = LogFactory.getLog(ClientSideSessionCache.class);
@@ -49,6 +50,7 @@ public class ClientSideSessionCache {
      * May be null.
      */
     private Set _nonMss;
+
 
     private static final String COOKIE_LIST_DELIMETER = ",";
     private static final String INTRA_COOKIE_DELIMETER = ";";
@@ -210,7 +212,7 @@ public class ClientSideSessionCache {
      */
     public String getCookieRepresentation() {
         StringBuffer b = new StringBuffer();
-        b.append("1"); // version
+        b.append("2"); // version
         b.append(INTRA_COOKIE_DELIMETER);
         b.append(_email);
         b.append(INTRA_COOKIE_DELIMETER);
@@ -221,6 +223,8 @@ public class ClientSideSessionCache {
         b.append(getNonMssCookie());
         b.append(INTRA_COOKIE_DELIMETER);
         b.append(Integer.toString(getMslCount()));
+        b.append(INTRA_COOKIE_DELIMETER);
+        b.append(getMemberId().toString());
         String cookie = b.toString();
         String encoded = null;
         try {
@@ -239,7 +243,7 @@ public class ClientSideSessionCache {
         if (s.length < 6) {
             throw new IllegalArgumentException("Not enough components to the cookie: " + cookie + " (" + decoded + ")");
         }
-        //int version = Integer.parseInt(s[0]);
+        int version = Integer.parseInt(s[0]);
         _email = s[1];
         _nickname = s[2];
         String mssCookie = StringUtils.trimToEmpty(s[3]);
@@ -247,6 +251,12 @@ public class ClientSideSessionCache {
         String nonMssCookie = StringUtils.trimToEmpty(s[4]);
         setNonMssCookie(nonMssCookie);
         _mslCount = Integer.parseInt(s[5]);
+        if (version > 1) {
+            _memberId = new Integer(s[6]);
+        }
     }
 
+    public Integer getMemberId() {
+        return _memberId;
+    }
 }
