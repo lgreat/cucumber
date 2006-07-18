@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ClientSideSessionCache.java,v 1.7 2006/07/18 18:55:54 apeterson Exp $
+ * $Id: ClientSideSessionCache.java,v 1.8 2006/07/18 18:58:17 apeterson Exp $
  */
 
 package gs.web.community;
@@ -84,6 +84,7 @@ public class ClientSideSessionCache {
      * @noinspection FeatureEnvy
      */
     public ClientSideSessionCache(User user) {
+        _memberId = user.getId();
         _email = user.getEmail();
         final String[] p = _email.split("@");
         _nickname = p[0];
