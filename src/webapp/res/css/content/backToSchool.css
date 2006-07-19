@@ -60,6 +60,7 @@
 #contentGS .left ul li.bookPicks {
       color: #c56 !important;
     background-image: none;
+    font-size: 11px;
 }
 
 #contentGS .left ul li.bookPicks img {

@@ -58,7 +58,7 @@
                 <gsweb:articlelink articleId="326">Get Ready for Second Grade, Amber Brown</gsweb:articlelink></li>
 
                 <li>Read our <gsweb:articlelink articleId="326">back-to-school book picks</gsweb:articlelink></li>
-                <li class="bookPicks">All book picks by grade:<br />
+                <li class="bookPicks">Book picks by grade:<br />
                 <gsml:a href="/cgi-bin/showarticle/$STATE/622">
                 <gsml:img src="/res/img/content/backtoschool/redDot-K.gif" alt="Kindergarten Book Picks"></gsml:img>
                 </gsml:a>
@@ -159,7 +159,7 @@
                <div><ad:x40 /><span style="font-size: xx-small;">&#160;</span></div>
 
 
-                <h5 style="padding-top: 10px; padding-bottom: 10px;border-top: 1px dotted #cccccc;">
+                <h5 style="padding-top: 10px; padding-bottom: 10px;border-top: 1px dotted #cccccc;font-size: 11px; color: #999;">
                     A special thanks to our back-to-school advertisers:</h5>
                 <table style="width: 100%;">
                     <tr>
