@@ -123,7 +123,7 @@ public class MixedResultsTagHandler extends ResultsTableTagHandler {
                         StringBuffer articleHrefBuffer =
                                 new StringBuffer("/cgi-bin/show");
                         articleHrefBuffer.append("article/");
-                        articleHrefBuffer.append(getSessionContext().getState().getAbbreviation());
+                        articleHrefBuffer.append(getSessionContext().getStateOrDefault().getAbbreviation());
                         articleHrefBuffer.append("/");
                         articleHrefBuffer.append(result.getId());
 
