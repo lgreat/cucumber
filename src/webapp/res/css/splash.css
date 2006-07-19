@@ -14,7 +14,7 @@
 
 
 #houseAd {
-    width: 584px; /* 365 + 219     900 - 36-36 = 828 - 584 =  244  */
+    width: 563px; /* 365 + 219     900 - 36-36 = 828 - 584 =  244  */
     height: 291px;
     background-image: url( ../img/splash/childWriting.jpg );
     background-position: top right;
