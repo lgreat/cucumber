@@ -176,6 +176,10 @@
           height: 35px;
       }
 
+#contentGS .right p#k3promo {
+     padding: 20px 0px 20px 0px;
+     border-top: 1px dotted #cccccc;
+ }
 
 
 #contentGS .middle p {
