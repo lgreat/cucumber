@@ -58,7 +58,7 @@
                 <gsweb:articlelink articleId="326">Get Ready for Second Grade, Amber Brown</gsweb:articlelink></li>
 
                 <li>Read our <gsweb:articlelink articleId="326">back-to-school book picks</gsweb:articlelink></li>
-                <li class="bookPicks"><gsml:img src="/res/img/content/backtoschool/by_grade_text.gif" alt="Book picks by grade"/><br />
+                <li class="bookPicks">All book picks by grade:<br />
                 <gsml:a href="/cgi-bin/showarticle/$STATE/622">
                 <gsml:img src="/res/img/content/backtoschool/redDot-K.gif" alt="Kindergarten Book Picks"></gsml:img>
                 </gsml:a>
@@ -156,12 +156,12 @@
             </td>
             <td valign="top" style="width: 300px"  class="right">
                <a href="http://back-to-school-blog.greatschools.net/" target="_blank"><gsml:img src="/res/img/content/backtoschool/twins.gif" alt="Photo of Twins Starting Kindergarten Blog" style="margin-bottom: 16px;"></gsml:img></a>
-                <ad:x40 />
+               <div><ad:x40 /><span style="font-size: xx-small;">&#160;</span></div>
 
-                <p id="k3promo">
 
-                <h5>A special thanks to our back-to-school advertisers:</h5>
-                <table style="width: 100%">
+                <h5 style="padding-top: 10px; padding-bottom: 10px;border-top: 1px dotted #cccccc;">
+                    A special thanks to our back-to-school advertisers:</h5>
+                <table style="width: 100%;">
                     <tr>
 
                         <td align="right"><a href="http://www.staples.com/webapp/wcs/stores/servlet/StaplesCategoryDisplay?storeId=10001&amp;identifier=SC84&amp;catalogIdentifier=2&amp;cm_sp=marketing-_-half%20wow-_-Back%20to%20School%20Center" target="_blank"><gsml:img src="/res/img/content/backtoschool/staples.gif" alt="Staples logo"/></a></td>
@@ -175,12 +175,11 @@
 
                     </tr>
                 </table>
-                </p>
 
 
 
 
-                 <table style="width: 100%; color: #fff" cellspacing="10">
+                 <table style="width: 100%; color: #fff;padding-top: 10px; margin-top: 10px;border-top: 1px dotted #cccccc;" cellspacing="10">
                         <tr><td colspan="2"><gsml:img src="/res/img/content/backtoschool/special_K3.gif" alt="Tips and Advice by Grade Level"></gsml:img></td></tr>
                         <tr>
                             <td><promo:nthGraderHover><gsml:img src="/res/img/content/backtoschool/yourKinder.gif" alt="Tips and Advice for Your Kindergartener"></gsml:img></promo:nthGraderHover></td>
