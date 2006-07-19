@@ -95,7 +95,7 @@
         <div class="blueTop">
             <div class="pLR">
                 <center>
-                <h3>I'd also like free monthly updates about my child's school:</h3>
+                <div class="promo"><h3>I'd also like free monthly updates about my child's school:</h3></div> 
                     <link:newsletterManagement email="${email}" target="_blank" anchor="mss"><gsml:img src="/res/img/button/btn_findmyschool.gif" alt="Search for your child's school."/></link:newsletterManagement>
                 </center>
             </div>
