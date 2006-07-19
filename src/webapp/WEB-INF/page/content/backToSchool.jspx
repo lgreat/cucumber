@@ -54,7 +54,7 @@
 
                     <gsml:img src="/res/img/content/backtoschool/amberBrownBook.gif"
                               alt="Get Ready for Second Grade, Amber Brown"
-                              style="float: left; padding-right: 1ex;"/>   </gsml:a>
+                              style="float: left;"/>   </gsml:a>
                 <gsweb:articlelink articleId="326">Get Ready for Second Grade, Amber Brown</gsweb:articlelink></li>
 
                 <li>Read our <gsweb:articlelink articleId="326">back-to-school book picks</gsweb:articlelink></li>
@@ -157,24 +157,26 @@
             <td valign="top" style="width: 300px"  class="right">
                <a href="http://back-to-school-blog.greatschools.net/" target="_blank"><gsml:img src="/res/img/content/backtoschool/twins.gif" alt="Photo of Twins Starting Kindergarten Blog" style="margin-bottom: 16px;"></gsml:img></a>
                 <ad:x40 />
+
+                <p id="k3promo">
+
                 <h5>A special thanks to our back-to-school advertisers:</h5>
                 <table style="width: 100%">
                     <tr>
 
-                        <td><a href="http://www.staples.com/webapp/wcs/stores/servlet/StaplesCategoryDisplay?storeId=10001&amp;identifier=SC84&amp;catalogIdentifier=2&amp;cm_sp=marketing-_-half%20wow-_-Back%20to%20School%20Center" target="_blank"><gsml:img src="/res/img/content/backtoschool/staples.gif" alt="Staples logo"/></a></td>
-                        <td><a href="https://www.shutterfly.com/secure/sign_up.jsp?http=www.shutterfly.com&amp;lid=sign+up" target="_blank"> <gsml:img src="/res/img/content/backtoschool/shutterfly.gif" alt="Shutterfly logo"/></a></td>
+                        <td align="right"><a href="http://www.staples.com/webapp/wcs/stores/servlet/StaplesCategoryDisplay?storeId=10001&amp;identifier=SC84&amp;catalogIdentifier=2&amp;cm_sp=marketing-_-half%20wow-_-Back%20to%20School%20Center" target="_blank"><gsml:img src="/res/img/content/backtoschool/staples.gif" alt="Staples logo"/></a></td>
+                        <td align="left"><a href="https://www.shutterfly.com/secure/sign_up.jsp?http=www.shutterfly.com&amp;lid=sign+up" target="_blank"> <gsml:img src="/res/img/content/backtoschool/shutterfly.gif" alt="Shutterfly logo"/></a></td>
 
                     </tr>
                     <tr>
 
-                        <td><a href="http://ad.doubleclick.net/clk;25792358;12500657;k?http://www.concerta.net/html/concerta/support/kit.jsp" target="_blank"><gsml:img src="/res/img/content/backtoschool/concerta.gif" alt="Concerta logo"/></a></td>
-                        <td><a href="http://media.nyadmcncserve-05y06a.com/click?spacedesc=1058577_1017185_1x1_1027412_1001647" target="_blank"><gsml:img src="/res/img/content/backtoschool/parents.gif" alt="Parents the anti-drug"/></a></td>
+                        <td align="right"><a href="http://ad.doubleclick.net/clk;25792358;12500657;k?http://www.concerta.net/html/concerta/support/kit.jsp" target="_blank"><gsml:img src="/res/img/content/backtoschool/concerta.gif" alt="Concerta logo"/></a></td>
+                        <td align="left"><a href="http://media.nyadmcncserve-05y06a.com/click?spacedesc=1058577_1017185_1x1_1027412_1001647" target="_blank"><gsml:img src="/res/img/content/backtoschool/parents.gif" alt="Parents the anti-drug"/></a></td>
 
                     </tr>
                 </table>
+                </div>
 
-
-               <div id="k3promo">
 
 
 
@@ -189,7 +191,6 @@
                             <td><promo:nthGraderHover><gsml:img src="/res/img/content/backtoschool/yourThird.gif" alt="Tips and Advice for Your Third-Grader"></gsml:img></promo:nthGraderHover></td>
                         </tr>
                     </table>
-                </div>
             </td>
         </tr>
     </table>
