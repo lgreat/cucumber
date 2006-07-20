@@ -1,13 +1,11 @@
 package gs.web.util.validator;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.validation.Errors;
-import org.springframework.validation.BindException;
-import gs.web.community.registration.UserCommand;
-import gs.web.BaseTestCase;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.web.BaseTestCase;
+import gs.web.community.registration.UserCommand;
+import org.springframework.validation.BindException;
+import org.springframework.validation.Errors;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,8 +15,6 @@ import gs.data.community.User;
  * To change this template use File | Settings | File Templates.
  */
 public class UserCommandValidatorTest extends BaseTestCase {
-    private static final Log _log = LogFactory.getLog(UserCommandValidatorTest.class);
-
     private static final String GOOD_EMAIL = "UserCommandValidatorTest@greatschools.net";
     private static final String GOOD_PASSWORD6 = "123456";
     private static final String GOOD_PASSWORD16 = "1234567890123456";
@@ -39,6 +35,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         Errors errors = new BindException(command, "");
 
         command.setEmail(GOOD_EMAIL);
+        command.setConfirmEmail(GOOD_EMAIL);
         command.setPassword(GOOD_PASSWORD6);
         command.setConfirmPassword(GOOD_PASSWORD6);
 
@@ -60,11 +57,18 @@ public class UserCommandValidatorTest extends BaseTestCase {
         Errors errors = new BindException(command, "");
 
         command.setEmail(user.getEmail());
+        command.setConfirmEmail(user.getEmail());
         command.setPassword(GOOD_PASSWORD6);
         command.setConfirmPassword(GOOD_PASSWORD6);
 
         _validator.validate(command, errors);
         assertTrue(errors.hasErrors());
+
+        // existing emails allowed if id is set
+        command.setId("1");
+        errors = new BindException(command, "");
+        _validator.validate(command, errors);
+        assertFalse(errors.hasErrors());
     }
 
     public void testShortPassword() {
@@ -72,6 +76,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         Errors errors = new BindException(command, "");
 
         command.setEmail(GOOD_EMAIL);
+        command.setConfirmEmail(GOOD_EMAIL);
         command.setPassword(SHORT_PASSWORD5);
         command.setConfirmPassword(SHORT_PASSWORD5);
 
@@ -84,6 +89,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         Errors errors = new BindException(command, "");
 
         command.setEmail(GOOD_EMAIL);
+        command.setConfirmEmail(GOOD_EMAIL);
         command.setPassword("");
         command.setConfirmPassword("");
 
@@ -96,6 +102,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         Errors errors = new BindException(command, "");
 
         command.setEmail(GOOD_EMAIL);
+        command.setConfirmEmail(GOOD_EMAIL);
         command.setPassword(LONG_PASSWORD17);
         command.setConfirmPassword(LONG_PASSWORD17);
 
@@ -108,10 +115,31 @@ public class UserCommandValidatorTest extends BaseTestCase {
         Errors errors = new BindException(command, "");
 
         command.setEmail(GOOD_EMAIL);
+        command.setConfirmEmail(GOOD_EMAIL);
         command.setPassword(GOOD_PASSWORD6);
         command.setConfirmPassword(GOOD_PASSWORD16);
 
         _validator.validate(command, errors);
         assertTrue(errors.hasErrors());
     }
+
+    public void testMismatchedEmails() {
+        UserCommand command = new UserCommand();
+        Errors errors = new BindException(command, "");
+
+        command.setEmail(GOOD_EMAIL);
+        command.setConfirmEmail(GOOD_EMAIL + "2");
+        command.setPassword(GOOD_PASSWORD6);
+        command.setConfirmPassword(GOOD_PASSWORD6);
+
+        _validator.validate(command, errors);
+        assertTrue(errors.hasErrors());
+
+        // confirm email field not checked if id is set
+        command.setId("1");
+        errors = new BindException(command, "");
+        _validator.validate(command, errors);
+        assertFalse(errors.hasErrors());
+    }
+
 }

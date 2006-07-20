@@ -484,5 +484,59 @@
             <description>CSS class name(s)</description>
         </attribute>
     </tag>
+    <tag>
+        <name>registration</name>
+        <tag-class>gs.web.jsp.link.RegistrationTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Register</display-name>
+        <description>
+            <![CDATA[Register for GreatSchools.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>forgotPassword</name>
+        <tag-class>gs.web.jsp.link.ForgotPasswordTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Forgot password?</display-name>
+        <description>
+            <![CDATA[Choose a new password.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>email</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Email to pre-populate field with</description>
+        </attribute>
+    </tag>
+
 </taglib>
 

@@ -36,10 +36,18 @@
                 margin-top:0;
                 clear:left;
             }
+          h2.intro {
+              font-size: large;
+          }
+          div.error {
+                color: red;
+                display:block;
+                padding:8px;
+            }
       </style>
   </head>
   <body>
-    Register:
+    <h2 class="intro">Tell us about yourself:</h2>
     <br/><br/>
     <gsml:form action="/community/registration.page" method="post">
         <div class="error">
@@ -47,13 +55,52 @@
                 ${status.errorMessage}
             </spring:bind>
         </div>
-
         <label for="email" class="form">My email address:</label>
         <spring:bind path="userCmd.user.email">
             <input id="email" class="form" type="text" name="email" value="${userCmd.user.email}" style="width:160px;"/>
         </spring:bind>
 
         <br style="clear: left;"/>
+
+        <c:if test="${userCmd.user.id == null}">
+            <!-- This is a new user -->
+
+            <div class="error">
+                <spring:bind path="userCmd.confirmEmail">
+                ${status.errorMessage}
+                </spring:bind>
+            </div>
+            <label for="confirmEmail" class="form">Confirm email:</label>
+            <spring:bind path="userCmd.confirmEmail">
+                <input id="confirmEmail" class="form" type="text" name="confirmEmail" value="${userCmd.confirmEmail}" style="width:160px;"/>
+            </spring:bind>
+
+            <br style="clear: left;"/>
+
+            <div class="error">
+                <spring:bind path="userCmd.user.firstName">
+                ${status.errorMessage}
+                </spring:bind>
+            </div>
+            <label for="firstName" class="form">First name:</label>
+            <spring:bind path="userCmd.user.firstName">
+                <input id="firstName" class="form" type="text" name="firstName" value="${userCmd.user.firstName}" style="width:160px;"/>
+            </spring:bind>
+
+            <br style="clear: left;"/>
+
+            <div class="error">
+                <spring:bind path="userCmd.user.lastName">
+                ${status.errorMessage}
+                </spring:bind>
+            </div>
+            <label for="lastName" class="form">Last name:</label>
+            <spring:bind path="userCmd.user.lastName">
+                <input id="lastName" class="form" type="text" name="lastName" value="${userCmd.user.lastName}" style="width:160px;"/>
+            </spring:bind>
+
+            <br style="clear: left;"/>
+        </c:if>
 
         <div class="error">
             <spring:bind path="userCmd.password">
@@ -79,6 +126,10 @@
             <input id="confirmPassword" class="form" type="password" name="confirmPassword" value="${userCmd.confirmPassword}" style="width:120px;"/>
         </spring:bind>
 
+
+        <spring:bind path="userCmd.user.id">
+            <input id="id" type="hidden" name="id" value="${userCmd.user.id}"/>
+        </spring:bind>
         <br style="clear:left;"/>
 
         <input class="form" type="submit" value="Register!" name="submit"/>

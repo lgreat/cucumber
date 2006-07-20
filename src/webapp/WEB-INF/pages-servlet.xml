@@ -684,6 +684,7 @@
     <bean name="/community/registration.page"
           class="gs.web.community.registration.RegistrationController"
           autowire="byName">
+        <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="userCmd"/>
         <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
         <property name="formView" value="/community/registration/registration"/>
@@ -692,6 +693,63 @@
             <list>
                 <ref local="emailValidator"/>
                 <ref local="userValidator"/>
+            </list>
+        </property>
+        <property name="mailSender">
+            <ref bean="mailSender"/>
+        </property>
+    </bean>
+
+    <bean name="/community/registrationConfirm.page"
+        class="gs.web.community.registration.RegistrationConfirmController"
+        autowire="byName">
+        <property name="viewName" value="/community/registration/registrationConfirm"/>
+    </bean>
+
+    <bean name="/community/registrationRemove.page"
+        class="gs.web.community.registration.RegistrationRemoveController"
+        autowire="byName">
+        <property name="viewName" value="/community/registration/registrationRemove"/>
+    </bean>
+
+    <bean name="/community/forgotPassword.page"
+        class="gs.web.community.registration.ForgotPasswordController"
+        autowire="byName">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="userCmd"/>
+        <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
+        <property name="formView" value="/community/registration/forgotPassword"/>
+        <property name="successView" value="/community/registration/forgotPasswordSuccess"/>
+        <property name="validators">
+            <list>
+                <ref local="emailValidator"/>
+            </list>
+        </property>
+        <property name="mailSender">
+            <ref bean="mailSender"/>
+        </property>
+    </bean>
+
+    <bean name="/community/resetPassword.page"
+        class="gs.web.community.registration.ResetPasswordController"
+        autowire="byName">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="userCmd"/>
+        <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
+        <property name="formView" value="/community/registration/resetPassword"/>
+        <property name="successView" value="/community/registration/resetPasswordSuccess"/>
+    </bean>
+
+    <bean name="/community/loginOrRegister.page"
+          class="gs.web.community.registration.LoginController"
+          autowire="byName">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="loginCmd"/>
+        <property name="commandClass" value="gs.web.community.registration.LoginCommand"/>
+        <property name="formView" value="/community/registration/loginOrRegister"/>
+        <property name="validators">
+            <list>
+                <ref local="emailValidator"/>
             </list>
         </property>
     </bean>

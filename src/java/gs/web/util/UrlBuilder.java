@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.51 2006/07/17 20:41:40 apeterson Exp $
+ * $Id: UrlBuilder.java,v 1.52 2006/07/20 22:53:44 aroy Exp $
  */
 
 package gs.web.util;
@@ -105,6 +105,12 @@ public class UrlBuilder {
      * New state page: research and compare, with optional state.
      */
     public static final VPage RESEARCH = new VPage("vpage:research");
+
+    public static final VPage REGISTRATION = new VPage("vpage:registration");
+    public static final VPage REGISTRATION_REMOVE = new VPage("vpage:registrationRemove");
+    public static final VPage REGISTRATION_VALIDATION = new VPage("vpage:registrationValidation");
+    public static final VPage FORGOT_PASSWORD = new VPage("vpage:forgotPassword");
+    public static final VPage RESET_PASSWORD = new VPage("vpage:resetPassword");
 
     public static final VPage SCHOOL_PROFILE = new VPage("vpage:schoolProfile");
     /**
@@ -423,6 +429,32 @@ public class UrlBuilder {
         } else if (ADD_PARENT_REVIEW_SEARCH.equals(page)) {
             _perlPage = true;
             _path = "/cgi-bin/regSearch/" + state.getAbbreviation();
+        } else if (REGISTRATION.equals(page)) {
+            _perlPage = false;
+            if (param0 != null) {
+                setParameter("email", param0);
+            }
+            _path = "/community/registration.page";
+        } else if (REGISTRATION_REMOVE.equals(page)) {
+            _perlPage = false;
+            _path = "/community/registrationRemove.page";
+            if (param0 != null) {
+                setParameter("id", param0);
+            }
+        } else if (REGISTRATION_VALIDATION.equals(page)) {
+            _perlPage = false;
+            _path = "/community/registrationConfirm.page";
+            setParameter("id", param0);
+        } else if (FORGOT_PASSWORD.equals(page)) {
+            _perlPage = false;
+            _path = "/community/forgotPassword.page";
+            if (param0 != null) {
+                setParameter("email", param0);
+            }
+        } else if (RESET_PASSWORD.equals(page)) {
+            _perlPage = false;
+            _path = "/community/resetPassword.page";
+            setParameter("id", param0);
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
@@ -620,6 +652,10 @@ public class UrlBuilder {
 
     public Anchor asAnchor(HttpServletRequest request, String label, String styleClass, String image) {
         return new Anchor(asSiteRelative(request), label, styleClass, image);
+    }
+
+    public Anchor asAbsoluteAnchor(HttpServletRequest request, String label) {
+        return new Anchor(asFullUrl(request), label);
     }
 
     /**

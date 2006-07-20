@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.35 2006/07/17 20:41:49 apeterson Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.36 2006/07/20 22:53:44 aroy Exp $
  */
 
 package gs.web.util;
@@ -289,6 +289,19 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/cgi-bin/logout/AZ?mid=1001", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.SIGN_OUT, State.AZ, "eford@gs.net");
         assertEquals("/cgi-bin/logout/AZ?email=eford%40gs.net", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, null);
+        assertEquals("/community/registration.page", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.REGISTRATION_VALIDATION, null, "myParam");
+        assertEquals("/community/registrationConfirm.page?id=myParam", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.REGISTRATION_REMOVE, null, "myParam2");
+        assertEquals("/community/registrationRemove.page?id=myParam2", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null, null);
+        assertEquals("/community/forgotPassword.page", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null, "myEmail");
+        assertEquals("/community/forgotPassword.page?email=myEmail", builder.asSiteRelative(request));        
+        builder = new UrlBuilder(UrlBuilder.RESET_PASSWORD, null, "myParam");
+        assertEquals("/community/resetPassword.page?id=myParam", builder.asSiteRelative(request));
     }
 
     public void testAdminPages() {

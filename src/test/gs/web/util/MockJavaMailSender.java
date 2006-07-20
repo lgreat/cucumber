@@ -15,11 +15,13 @@ import java.util.ArrayList;
 public class MockJavaMailSender extends JavaMailSenderImpl {
 
     private MockTransport _transport = null;
+    private boolean _throwOnSendMessage = false;
 
     protected Transport getTransport(Session session) throws NoSuchProviderException {
         if (_transport == null) {
             _transport = new MockTransport(session, null);
         }
+        _transport.setThrowOnSendMessage(isThrowOnSendMessage());
         return _transport;
     }
 
@@ -38,9 +40,18 @@ public class MockJavaMailSender extends JavaMailSenderImpl {
         private String connectedPassword = null;
         private boolean closeCalled = false;
         private List sentMessages = new ArrayList();
+        private boolean _throwOnSendMessage = false;
 
         public MockTransport(Session session, URLName urlName) {
             super(session, urlName);
+        }
+
+        public boolean isThrowOnSendMessage() {
+            return _throwOnSendMessage;
+        }
+
+        public void setThrowOnSendMessage(boolean throwOnSendMessage) {
+            _throwOnSendMessage = throwOnSendMessage;
         }
 
         public String getConnectedHost() {
@@ -86,7 +97,18 @@ public class MockJavaMailSender extends JavaMailSenderImpl {
         }
 
         public void sendMessage(Message message, Address[] addresses) throws MessagingException {
+            if (isThrowOnSendMessage()) {
+                throw new MessagingException("Mock error sending message");
+            }
             this.sentMessages.add(message);
         }
+    }
+
+    public boolean isThrowOnSendMessage() {
+        return _throwOnSendMessage;
+    }
+
+    public void setThrowOnSendMessage(boolean throwOnSendMessage) {
+        _throwOnSendMessage = throwOnSendMessage;
     }
 }

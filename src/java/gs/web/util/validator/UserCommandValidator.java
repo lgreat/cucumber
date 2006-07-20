@@ -1,9 +1,12 @@
 package gs.web.util.validator;
 
+import gs.data.community.IUserDao;
+import gs.web.community.registration.UserCommand;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import gs.web.community.registration.UserCommand;
-import gs.data.community.IUserDao;
 
 /**
  * Validates a UserCommand object, created for use in community registration
@@ -14,6 +17,7 @@ import gs.data.community.IUserDao;
  */
 public class UserCommandValidator implements Validator {
 
+    protected final Log _log = LogFactory.getLog(getClass());
     public static final String BEAN_ID = "userValidator";
     private IUserDao _userDao;
 
@@ -30,15 +34,30 @@ public class UserCommandValidator implements Validator {
     public void validate(Object object, Errors errors) {
         UserCommand command = (UserCommand)object;
 
-        String password = command.getPassword();
-        String confirmPassword = command.getConfirmPassword();
         String email = command.getEmail();
+        String confirmEmail = command.getConfirmEmail();
 
-        if (_userDao.findUserFromEmailIfExists(email) != null) {
-            errors.rejectValue("email", "existing_user", "This email already exists");
+        // Don't allow people to pick existing emails unless they've been redirected here
+        // (redirection is detected by checking id)
+        if (command.getUser().getId() == null &&_userDao.findUserFromEmailIfExists(email) != null) {
+            errors.rejectValue("email", "existing_user", "This email already exists, please choose a different one.");
         }
 
-        if (password == null) {
+        if (command.getUser().getId() == null) {
+            // verify confirm email matches email
+            if (!confirmEmail.equals(email)) {
+                errors.rejectValue("email", "mismatched_email", "Please enter the same email into both fields.");
+            }
+        }
+
+        validatePassword(command, errors);
+    }
+     
+    public void validatePassword(UserCommand command, Errors errors) {
+        String password = command.getPassword();
+        String confirmPassword = command.getConfirmPassword();
+
+        if (StringUtils.isEmpty(password)) {
             errors.rejectValue("password", "empty_password", "Please enter a password.");
             return; // to prevent NPE's
         }
@@ -47,7 +66,7 @@ public class UserCommandValidator implements Validator {
             errors.rejectValue("password", "bad_length_password", "Please choose a password between 6 and 16 characters long.");
         }
 
-        if (confirmPassword == null || !confirmPassword.equals(password)) {
+        if (StringUtils.isEmpty(confirmPassword) || !confirmPassword.equals(password)) {
             errors.rejectValue("password", "mismatched_password", "Please enter the same password into both fields.");
         }
     }

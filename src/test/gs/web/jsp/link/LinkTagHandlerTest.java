@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.10 2006/07/17 22:59:29 apeterson Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.11 2006/07/20 22:53:44 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -236,5 +236,19 @@ public class LinkTagHandlerTest extends BaseTestCase {
         unsubscribeTagWithEmail.setEmail("foo@bar.com");
         url = unsubscribeTagWithEmail.createUrlBuilder().asSiteRelative(null);
         assertEquals("/community/betaUnsubscribe.page?email=foo%40bar.com&state=CA", url);
+    }
+
+    public void testRegistration() {
+        RegistrationTagHandler tagHandler = new RegistrationTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/community/registration.page", builder.asSiteRelative(null));
+    }
+
+    public void testForgotPassword() {
+        ForgotPasswordTagHandler tagHandler = new ForgotPasswordTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/community/forgotPassword.page", builder.asSiteRelative(null));
     }
 }

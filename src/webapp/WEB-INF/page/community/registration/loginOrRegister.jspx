@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+        xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:spring="http://www.springframework.org/tags"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:link="urn:www.greatschools.net/taglib/link"
+        >
+    <html lang="en">
+    <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+
+    <head>
+        <![CDATA[
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+            ]]>
+        <style type="text/css">
+            #existing {
+                float:left;
+            }
+            #new {
+                float: right;
+            }
+            .choice  {
+                height:20ex;
+                width: 38%;
+                background-color: #eee;
+                padding: 3%;
+                margin:1%;
+                text-align:center;
+            }
+            .choice label {
+                padding-right: 1ex;
+            }
+            .choice input.submit {
+                margin-top: 1ex;
+            }
+            .choice p {
+                text-align: left;
+            }
+            .choice ul li {
+                line-height:2em;
+            }
+            .error {color:red;font-size:small;margin-bottom:10px;}
+
+            label.form, input.form {
+                 margin-bottom: 10px;
+                 display: block;
+                 width: 150px;
+                 float: left;
+             }
+
+             label.form {
+                 text-align: right;
+                 width: 120px;
+                 padding-right: 20px;
+             }
+        </style>
+        <title>Log In or Register</title>
+    </head>
+
+    <gsml:body adPageName="login" pageLayout="twoColumnLayout">
+        <h1>Log In or Register</h1>
+        <div id="existing" class="choice">
+            <h3>Existing Users</h3>
+
+            <gsml:form action="/community/loginOrRegister.page" method="post">
+
+                <spring:hasBindErrors name="loginCmd">
+                    <div class="error">
+                        <ul>
+                            <c:forEach var="errMsgObj" items="${errors.allErrors}">
+                                <li>
+                                    <spring:message code="${errMsgObj.code}" text="${errMsgObj.defaultMessage}"/>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </spring:hasBindErrors>
+
+                <label class="form">Enter Email</label>
+                    <spring:bind path="loginCmd.email">
+                        <input type="text" name="${status.expression}" value="${status.value}" size="30" class="form"/>
+                    </spring:bind>
+
+                <label class="form">Enter Password</label>
+                    <spring:bind path="loginCmd.password">
+                        <input type="password" name="${status.expression}" value="${status.value}" size="15" class="form"/>
+                    </spring:bind>
+
+                    <spring:bind path="loginCmd.redirect">
+                        <input type="hidden" name="${status.expression}" value="${status.value}"/>
+                    </spring:bind>
+
+                    <input class="form" type="submit" value="Login"/>
+            </gsml:form>
+            <br style="clear: left;"/>
+            <c:if test="${loginCmd.email != null and loginCmd.email != ''}">
+                <link:forgotPassword email="${loginCmd.email}">Forgot password?</link:forgotPassword>
+            </c:if>
+            <c:if test="${loginCmd.email == null or loginCmd.email == ''}">
+                <link:forgotPassword>Forgot password?</link:forgotPassword>
+            </c:if>
+        </div>
+
+        <div id="new"  class="choice">
+            <h3>New Users</h3>
+            <ul>
+                <li><link:registration>I'm a parent</link:registration></li>
+            </ul>
+        </div>
+        <mod:tracking pageName="login"
+                      pageType=""
+                      hier1=""/>
+    </gsml:body>
+    </html>
+</jsp:root>

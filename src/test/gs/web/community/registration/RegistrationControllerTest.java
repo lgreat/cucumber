@@ -1,10 +1,9 @@
 package gs.web.community.registration;
 
-import gs.data.community.ISubscriptionDao;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
-import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.BaseControllerTestCase;
+import gs.web.util.MockJavaMailSender;
 import org.springframework.context.ApplicationContext;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,19 +21,24 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     private RegistrationController _controller;
 
     private IUserDao _userDao;
-    private ISubscriptionDao _subscriptionDao;
+    private MockJavaMailSender _mailSender;
 
     protected void setUp() throws Exception {
         super.setUp();
         ApplicationContext appContext = getApplicationContext();
         _controller = (RegistrationController) appContext.getBean(RegistrationController.BEAN_ID);
-
-        _userDao = (IUserDao)getApplicationContext().getBean(IUserDao.BEAN_ID);
-        //_controller.setUserDao(_userDao);
-        _subscriptionDao = (ISubscriptionDao)getApplicationContext().getBean(ISubscriptionDao.BEAN_ID);
-        //_controller.setSubscriptionDao(_subscriptionDao);
+        _mailSender = new MockJavaMailSender();
+        // have to set host else the mock mail sender will throw an exception
+        // actual value is irrelevant
+        _mailSender.setHost("greatschools.net");
+        _controller.setMailSender(_mailSender);
+        _userDao = (IUserDao)appContext.getBean(IUserDao.BEAN_ID);
     }
 
+    /**
+     * Test successful registration with a new user
+     * @throws Exception
+     */
     public void testRegistration() throws Exception {
         UserCommand userCommand = new UserCommand();
         BindException errors = new BindException(userCommand, "");
@@ -60,26 +64,105 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         }
     }
 
+    /**
+     * Test successful registration with an existing user
+     * @throws NoSuchAlgorithmException
+     */
     public void testExistingUser() throws NoSuchAlgorithmException {
-        User user = _userDao.findUserFromId(1);
-        // existing DB must have user with id==1
-        assertNotNull("Cannot find existing user with id=1", user);
-        String email = user.getEmail();
+        User user = new User();
+        user.setEmail("testExistingUser@greatschools.net");
+        _userDao.saveUser(user);
+        Integer userId = user.getId();
+        try {
+            user = _userDao.findUserFromId(user.getId().intValue());
+            assertTrue(user.isPasswordEmpty());
+            String email = user.getEmail();
 
+            UserCommand userCommand = new UserCommand();
+            BindException errors = new BindException(userCommand, "");
+            String password = "foobar";
+            userCommand.getUser().setEmail(email);
+
+            userCommand.setPassword(password);
+            userCommand.setConfirmPassword(password);
+
+            try {
+                _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
+                user = _userDao.findUserFromId(user.getId().intValue());
+                assertTrue(user.isEmailProvisional());
+            } catch (Exception e) {
+                fail(e.getMessage());
+            }
+        } finally {
+            _userDao.removeUser(userId);
+        }
+    }
+
+    /**
+     * Test that on serious error during the registration process, no partially completed records
+     * are left in the database.
+     */
+    public void testRegistrationFailureOnNewUser() {
         UserCommand userCommand = new UserCommand();
         BindException errors = new BindException(userCommand, "");
+        String email = "testRegistrationFailureOnNewUser@RegistrationControllerTest.com";
         String password = "foobar";
-        userCommand.getUser().setEmail(email);
-
+        userCommand.setEmail(email);
         userCommand.setPassword(password);
         userCommand.setConfirmPassword(password);
 
+        assertNull("Fake user already exists??", _userDao.findUserFromEmailIfExists(email));
+
+        // set the mock mail sender to throw an exception
+        _mailSender.setThrowOnSendMessage(true);
+
         try {
             _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
-            fail("Didn't get expected exception on onSubmit");
+            fail("Expected mail exception not thrown");
         } catch (Exception ex) {
-            // tell session not to try to commit since a Hibernate error has occurred
-            ThreadLocalTransactionManager.setRollbackOnly();
+            assertNull("Record for new user was not deleted on failed registration",
+                    _userDao.findUserFromEmailIfExists(email));
+        } finally {
+            _mailSender.setThrowOnSendMessage(false);
+        }
+    }
+
+    /**
+     * Test that on serious error during the registration process, no partially completed records
+     * are left in the database.
+     */
+    public void testRegistrationFailureOnExistingUser() {
+        User user = new User();
+        user.setEmail("testRegistrationFailureOnExistingUser@greatschools.net");
+        _userDao.saveUser(user);
+        Integer userId = user.getId();
+
+        try {
+            user = _userDao.findUserFromId(user.getId().intValue());
+            assertTrue(user.isPasswordEmpty());
+            String email = user.getEmail();
+
+            UserCommand userCommand = new UserCommand();
+            BindException errors = new BindException(userCommand, "");
+            String password = "foobar";
+            userCommand.getUser().setEmail(email);
+
+            userCommand.setPassword(password);
+            userCommand.setConfirmPassword(password);
+
+            // set the mock mail sender to throw an exception
+            _mailSender.setThrowOnSendMessage(true);
+            try {
+                _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
+                fail("Expected mail exception not thrown");
+            } catch (Exception e) {
+                user = _userDao.findUserFromId(user.getId().intValue());
+                assertTrue("Record for existing user remains modified after failed registration",
+                        user.isPasswordEmpty());
+            }
+        } finally {
+            _userDao.removeUser(userId);
+            _mailSender.setThrowOnSendMessage(false);
         }
     }
 }

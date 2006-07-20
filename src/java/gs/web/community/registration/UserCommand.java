@@ -17,6 +17,7 @@ public class UserCommand implements EmailValidator.IEmail {
 
     private String _confirmPassword;
     private String _password;
+    private String _confirmEmail;
     private User _user;
 
     public UserCommand() {
@@ -71,4 +72,39 @@ public class UserCommand implements EmailValidator.IEmail {
         getUser().setEmail(email);
     }
 
+    public String getId() {
+        return String.valueOf(getUser().getId());
+    }
+
+    public void setId(String id) {
+        try {
+            getUser().setId(new Integer(Integer.parseInt(id)));
+        } catch (NumberFormatException _nfe) {
+            // ignore - this is an expected case for new users
+        }
+    }
+
+    public String getConfirmEmail() {
+        return _confirmEmail;
+    }
+
+    public void setConfirmEmail(String confirmEmail) {
+        _confirmEmail = confirmEmail;
+    }
+
+    public String getFirstName() {
+        return getUser().getFirstName();
+    }
+
+    public void setFirstName(String firstName) {
+        getUser().setFirstName(firstName);
+    }
+
+    public String getLastName() {
+        return getUser().getLastName();
+    }
+
+    public void setLastName(String lastName) {
+        getUser().setLastName(lastName);
+    }
 }
