@@ -69,13 +69,13 @@ public class RegistrationConfirmController extends AbstractController {
             _log.warn("Community registration request with no id, redirecting to registration");
             return redirectToRegistration(request);
         }
-        if (idString.length() != 26) {
+        if (idString.length() < DigestUtil.MD5_HASH_LENGTH + 1) {
             _log.warn("Community registration request with badly formed idString: " + idString + 
                     ", redirecting to registration");
             return redirectToRegistration(request);
         }
-        String hash = idString.substring(0, 24);
-        int id = Integer.parseInt(idString.substring(24));
+        String hash = idString.substring(0, DigestUtil.MD5_HASH_LENGTH);
+        int id = Integer.parseInt(idString.substring(DigestUtil.MD5_HASH_LENGTH));
 
         User user;
         try {

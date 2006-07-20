@@ -46,9 +46,9 @@ public class ResetPasswordController extends SimpleFormController {
         User user = null;
         try {
             String idString = request.getParameter("id");
-            hash = idString.substring(0, 24);
+            hash = idString.substring(0, DigestUtil.MD5_HASH_LENGTH);
 
-            int id = Integer.parseInt(idString.substring(24));
+            int id = Integer.parseInt(idString.substring(DigestUtil.MD5_HASH_LENGTH));
 
             try {
                 user = getUserDao().findUserFromId(id);

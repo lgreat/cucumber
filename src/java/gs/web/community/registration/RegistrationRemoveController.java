@@ -2,7 +2,6 @@ package gs.web.community.registration;
 
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.orm.ObjectRetrievalFailureException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -52,8 +51,8 @@ public class RegistrationRemoveController  extends AbstractController {
 
         String idString = request.getParameter("id");
 
-        String hash = idString.substring(0, 24);
-        int id = Integer.parseInt(idString.substring(24));
+        String hash = idString.substring(0, DigestUtil.MD5_HASH_LENGTH);
+        int id = Integer.parseInt(idString.substring(DigestUtil.MD5_HASH_LENGTH));
 
         User user = getUserDao().findUserFromId(id);
         String email = user.getEmail();
