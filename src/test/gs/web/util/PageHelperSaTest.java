@@ -1,16 +1,15 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.13 2006/07/13 07:54:00 apeterson Exp $
+ * $Id: PageHelperSaTest.java,v 1.14 2006/07/20 00:10:28 dlee Exp $
  */
 
 package gs.web.util;
 
 import gs.data.community.User;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.ISessionContext;
 import gs.web.util.context.SessionContext;
-import gs.web.util.context.*;
+import gs.web.util.context.SessionContextUtil;
 import junit.framework.TestCase;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.util.CookieGenerator;
@@ -164,6 +163,12 @@ public class PageHelperSaTest extends TestCase {
             // good, I didn't write code to handle that yet.
         }
 
+        //add javascript that already exists in the onload
+        PageHelper.addOnLoadHandler(_request, "window.alert('Hi')");
+        PageHelper.addOnLoadHandler(_request, "window.alert('World')");
+        PageHelper.addOnLoadHandler(_request, "window.alert('Hi')");
+        PageHelper.addOnLoadHandler(_request, "window.alert('World')");
+        assertEquals("window.alert('Hi');window.alert('World')", pageHelper.getOnload());
     }
 
 

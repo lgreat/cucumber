@@ -1,15 +1,14 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.18 2006/07/13 07:53:59 apeterson Exp $
+ * $Id: PageHelper.java,v 1.19 2006/07/20 00:10:28 dlee Exp $
  */
 
 package gs.web.util;
 
 import gs.data.community.User;
-import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.ISessionContext;
 import gs.web.util.context.SessionContext;
-import gs.web.util.context.*;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -281,10 +280,13 @@ public class PageHelper {
         if (javascript.indexOf('\"') != -1) {
             throw new IllegalArgumentException("Quotes not coded correctly.");
         }
-        if (StringUtils.isNotEmpty(_onload)) {
-            _onload += ";";
+
+        if (!StringUtils.contains(_onload, javascript)) {
+            if (StringUtils.isNotEmpty(_onload)) {
+                _onload += ";";
+            }
+            _onload += javascript;
         }
-        _onload += javascript;
     }
 
     private void addJavascriptSource(String src) {
