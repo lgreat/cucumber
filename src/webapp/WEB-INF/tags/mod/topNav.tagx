@@ -18,7 +18,7 @@
                     /></gsml:a>
         </td>
         <td style="padding-right: 18px; width: 33%; vertical-align: top; padding-top: 16px">
-                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="member">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="member noprint">
                     <tr>
                         <c:if test="${empty requestScope.context.memberId}">
                             <td class="welcome">Welcome!</td>
@@ -107,7 +107,7 @@
     </tr>
 </table>
 
-
+<div id="navbar" class="noprint">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
         <td><gsml:img src="/res/img/pixel.gif" alt="" style="width: 18px"/></td>
@@ -147,6 +147,7 @@
         <td><gsml:img src="/res/img/pixel.gif" alt="" style="width: 18px"/></td>
     </tr>
 </table>
+</div>
 </div>
 
 </jsp:root>

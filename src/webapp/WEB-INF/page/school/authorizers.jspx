@@ -34,10 +34,16 @@
             padding-top: 0px;
         }
 
+        @media print {
+            .search, #adLeaderboard, #footer, .noprint  { display:none; }
+        }
     </style>
 </head>
 
 <gsml:body adPageName="">
+<div id="printandemail" class="noprint">
+    <a href="%" onClick=" window.print(); return false">Print this page</a>&amp;nbsp;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&amp;nbsp;<a href="/cgi-bin/mail_to_friend/modperl/browse_school/${requestScope.context.state.abbreviationLowerCase}/${school.id}" onClick=" window.open('/cgi-bin/mail_to_friend/modperl/browse_school/${requestScope.context.state.abbreviationLowerCase}/${school.id}', 'win', 'width=600,height=550,scrollbars=yes'); return false">Email to a friend</a>
+</div>
 <div class="wrap0">
 <div class="wrap1">
 <div class="wrap2">
@@ -147,7 +153,7 @@
                             </c:if>
                         </table>
                     </td>
-                    <td width="124" valign="top">
+                    <td class="noprint" width="124" valign="top">
                         <ad:x33/>
                     </td>
                 </tr>

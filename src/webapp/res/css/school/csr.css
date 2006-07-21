@@ -90,3 +90,13 @@ div.datatable{
    text-decoration:underline;
    color:blue;
 }
+
+div#printandemail {
+    font-family:arial;
+    font-size: 11px;
+    padding:0px 24px 6px 8px;
+    text-align:right;
+}
+    div#printandemail a {
+        text-decoration:underline;
+    }
