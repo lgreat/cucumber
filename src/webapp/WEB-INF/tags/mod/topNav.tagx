@@ -107,7 +107,7 @@
     </tr>
 </table>
 
-<div id="navbar" class="noprint">
+<div class="noprint">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr>
         <td><gsml:img src="/res/img/pixel.gif" alt="" style="width: 18px"/></td>
