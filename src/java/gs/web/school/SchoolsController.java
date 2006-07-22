@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.21 2006/07/13 20:14:13 dlee Exp $
+ * $Id: SchoolsController.java,v 1.22 2006/07/22 00:48:02 wbeck Exp $
  */
 
 package gs.web.school;
@@ -275,6 +275,53 @@ public class SchoolsController extends AbstractController {
             }
         }
         sb.append(" Schools");
+        return sb.toString();
+    }
+
+    public static String calcMetaDesc(String districtDisplayName, String cityDisplayName, LevelCode levelCode, String[] schoolType) {
+        StringBuffer sb = new StringBuffer();
+        StringBuffer cityWithModifier = new StringBuffer();
+        StringBuffer districtWithModifier = new StringBuffer();
+        StringBuffer modifier = new StringBuffer();
+
+        if (schoolType != null && schoolType.length == 1) {
+            if ("private".equals(schoolType[0])) {
+                modifier.append("private");
+            } else if ("charter".equals(schoolType[0])) {
+                modifier.append("charter");
+            } else {
+                modifier.append("public");
+            }
+            modifier.append(" ");
+
+        }
+
+         if (levelCode != null &&
+                levelCode.getCommaSeparatedString().length() == 1) {
+            if (levelCode.containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
+                modifier.append("elementary");
+            } else if (levelCode.containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
+                modifier.append("middle");
+            } else if (levelCode.containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
+                modifier.append("high");
+            }
+             modifier.append(" ");
+
+        }
+
+
+
+        if (districtDisplayName == null) {
+            cityWithModifier.append(cityDisplayName+" "+modifier);
+        sb.append("View and map all "+cityWithModifier+"schools. Plus, compare or save "+modifier+"schools.");
+        }
+         else if (districtDisplayName != null)
+        {
+           
+
+           sb.append("View and map all "+modifier+"schools in the "+districtDisplayName+". Plus, compare or save "+modifier+"schools in this district.");
+        }
+
         return sb.toString();
     }
 

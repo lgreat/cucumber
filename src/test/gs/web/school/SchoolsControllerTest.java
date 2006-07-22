@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.12 2006/07/13 19:49:51 dlee Exp $
+ * $Id: SchoolsControllerTest.java,v 1.13 2006/07/22 00:48:02 wbeck Exp $
  */
 
 package gs.web.school;
@@ -338,6 +338,22 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("San Francisco Public Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[] {"public"}));
         assertEquals("San Francisco Private Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[] {"private"}));
         assertEquals("San Francisco Charter Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[] {"charter"}));
+    }
+
+    public void testMetaDescCalc() {
+        assertEquals("View and map all San Francisco schools. Plus, compare or save schools.",
+                _controller.calcMetaDesc(null,"San Francisco",null,null));
+        assertEquals("View and map all San Francisco middle schools. Plus, compare or save middle schools.",
+                _controller.calcMetaDesc(null,"San Francisco", LevelCode.MIDDLE, null));
+        assertEquals("View and map all San Francisco public elementary schools. Plus, compare or save public elementary schools.",
+                _controller.calcMetaDesc(null,"San Francisco",LevelCode.ELEMENTARY, new String[]{"public"}));
+
+        assertEquals("View and map all schools in the Oakland Unified School District. Plus, compare or save schools in this district.",
+                _controller.calcMetaDesc("Oakland Unified School District","Oakland",null,null));
+        assertEquals("View and map all middle schools in the Oakland Unified School District. Plus, compare or save middle schools in this district.",
+                _controller.calcMetaDesc("Oakland Unified School District","Oakland", LevelCode.MIDDLE, null));
+        assertEquals("View and map all public elementary schools in the Oakland Unified School District. Plus, compare or save public elementary schools in this district.",
+                _controller.calcMetaDesc("Oakland Unified School District","Oakland",LevelCode.ELEMENTARY, new String[]{"public"}));
     }
 
 }

@@ -35,6 +35,9 @@
                 out.print(title);
             </jsp:scriptlet>
         </c:when>
+
+
+
         <c:when test="${not empty distname}">
             <c:out value="${distname} "/> schools
         </c:when>
@@ -43,6 +46,25 @@
         </c:otherwise>
     </c:choose>
     </c:set>
+
+    <c:set var="metadesc">
+        <c:choose>
+        <c:when test="${not empty cityDisplayName}">
+            <jsp:scriptlet>
+                String metadesc = SchoolsController.calcMetaDesc(
+                      (String)request.getAttribute("districtDisplayName"),
+                      (String)request.getAttribute("cityDisplayName"),
+                      (LevelCode)request.getAttribute("lc"),
+                      request.getParameterValues("st"));
+                out.print(metadesc);
+            </jsp:scriptlet>
+
+        </c:when>
+
+    </c:choose>
+    </c:set>
+
+    <meta name="Description" content="${metadesc}"></meta>
     <title>${title}</title>
 
     <![CDATA[
