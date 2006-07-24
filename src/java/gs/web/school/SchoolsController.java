@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.23 2006/07/24 20:03:58 wbeck Exp $
+ * $Id: SchoolsController.java,v 1.24 2006/07/24 21:01:23 wbeck Exp $
  */
 
 package gs.web.school;
@@ -318,7 +318,7 @@ public class SchoolsController extends AbstractController {
         {
            
 
-           sb.append("View and map all "+modifier+"schools in the "+districtDisplayName+" District. Plus, compare or save "+modifier+"schools in this district.");
+           sb.append("View and map all "+modifier+"schools in the "+districtDisplayName+". Plus, compare or save "+modifier+"schools in this district.");
         }
 
         return sb.toString();

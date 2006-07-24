@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.14 2006/07/24 20:03:58 wbeck Exp $
+ * $Id: SchoolsControllerTest.java,v 1.15 2006/07/24 21:01:24 wbeck Exp $
  */
 
 package gs.web.school;
@@ -349,11 +349,11 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
                 _controller.calcMetaDesc(null,"San Francisco",LevelCode.ELEMENTARY, new String[]{"public"}));
 
         assertEquals("View and map all schools in the Oakland Unified School District. Plus, compare or save schools in this district.",
-                _controller.calcMetaDesc("Oakland Unified School","Oakland",null,null));
+                _controller.calcMetaDesc("Oakland Unified School District","Oakland",null,null));
         assertEquals("View and map all middle schools in the Oakland Unified School District. Plus, compare or save middle schools in this district.",
-                _controller.calcMetaDesc("Oakland Unified School","Oakland", LevelCode.MIDDLE, null));
+                _controller.calcMetaDesc("Oakland Unified School District","Oakland", LevelCode.MIDDLE, null));
         assertEquals("View and map all public elementary schools in the Oakland Unified School District. Plus, compare or save public elementary schools in this district.",
-                _controller.calcMetaDesc("Oakland Unified School","Oakland",LevelCode.ELEMENTARY, new String[]{"public"}));
+                _controller.calcMetaDesc("Oakland Unified School District","Oakland",LevelCode.ELEMENTARY, new String[]{"public"}));
     }
 
 }
