@@ -163,14 +163,14 @@
 
     </p>
      <p>
-        <gsml:img src="/res/img/logo/logo_GS_201x38.jpg" alt="GS logo 201x38"></gsml:img></p>
+        <gsml:img src="/res/img/logo/logo_GS_201x38.gif" alt="GS logo 201x38"></gsml:img></p>
     <p>
-        <gsml:img src="/res/img/logo/logo_GS_233x46.jpg" alt="GS logo 233x46"></gsml:img></p>
+        <gsml:img src="/res/img/logo/logo_GS_233x46.gif" alt="GS logo 233x46"></gsml:img></p>
 
 
 
     <p>
-        <gsml:img src="/res/img/logo/logo_GS_304x58.jpg" alt="GS logo 304x58"></gsml:img></p>
+        <gsml:img src="/res/img/logo/logo_GS_304x58.gif" alt="GS logo 304x58"></gsml:img></p>
 </gsml:body>
 </html>
 </jsp:root>
