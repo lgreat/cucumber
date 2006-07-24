@@ -36,6 +36,7 @@
 
         @media print {
             .search, #adLeaderboard, #footer, .noprint  { display:none; }
+            .wrap0 { width:75%; background:white; }
         }
     </style>
 </head>

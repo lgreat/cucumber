@@ -1,7 +1,7 @@
 /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.125 2006/07/17 21:14:51 apeterson Exp $
+   $Id: global.css,v 1.126 2006/07/24 21:58:40 chriskimm Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -374,7 +374,7 @@ input.btn {
     text-align: center;
     margin-bottom: 6px;
     width: 100%;
-    padding: 0;
+    padding: 7px 0px 0px 0px;
 }
 
 #adLeaderboard table {
