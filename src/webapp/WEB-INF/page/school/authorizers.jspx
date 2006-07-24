@@ -42,7 +42,7 @@
 
 <gsml:body adPageName="">
 <div id="printandemail" class="noprint">
-    <a href="%" onClick=" window.print(); return false">Print this page</a>&amp;nbsp;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&amp;nbsp;<a href="/cgi-bin/mail_to_friend/modperl/browse_school/${requestScope.context.state.abbreviationLowerCase}/${school.id}" onClick=" window.open('/cgi-bin/mail_to_friend/modperl/browse_school/${requestScope.context.state.abbreviationLowerCase}/${school.id}', 'win', 'width=600,height=550,scrollbars=yes'); return false">Email to a friend</a>
+    <a href="%" onClick=" window.print(); return false">Print this page</a>&amp;nbsp;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&amp;nbsp;<a href="/cgi-bin/mail_to_friend/authorizer/${requestScope.context.state.abbreviationLowerCase}/${school.id}" onClick=" window.open('/cgi-bin/mail_to_friend/authorizer/${requestScope.context.state.abbreviationLowerCase}/${school.id}', 'win', 'width=600,height=550,scrollbars=yes'); return false">Email to a friend</a>
 </div>
 <div class="wrap0">
 <div class="wrap1">
