@@ -52,10 +52,14 @@
             <td  id="findAndCompare" width="275" >
                     <div id="findAndCompareSchoolsNationwide">
                         <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
-                        <gsml:form action="/search/search.page" method="GET">
+                        <gsml:form method="get" action="/search/search.page"
+                                   onsubmit="return checkSearchStateSelected('splashStateSelector')">
                             <input type="text" value="" name="q" size="16" />
                             &#160;
-                            <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}" useNoState="true" noStateLabel="--" />
+                            <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}"
+                                                 useNoState="${not requestScope.context.hasSearched}"
+                                                 styleId="splashStateSelector"
+                                                 noStateLabel="--" />
                             <input type="hidden" value="school" name="type"/>
                             <br />
                             <gsml:url var="go" value="/res/img/splash/go.gif"/>

@@ -28,6 +28,7 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
     private boolean _useNoState = false;
     private boolean _usingLongNames = false;
     private String _styleClass = null;
+    private String _styleId = "stateSelector"; // default
     private String _onChange = null;
     private State _state;
     private String _noStateLabel = "--";
@@ -57,6 +58,17 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
      */
     public void setStyleClass(String styleClass) {
         _styleClass = styleClass;
+    }
+
+    /**
+     * Sets the value to be used as the id for this element.  Defaults to
+     * "stateSelector".
+     * @param styleId a String id.
+     */
+    public void setStyleId(String styleId) {
+        if (styleId != null) {
+            _styleId = styleId;
+        }
     }
 
     /**
@@ -98,7 +110,9 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
     public void doTag() throws IOException {
 
         JspWriter out = getJspContext().getOut();
-        out.print("<select id=\"stateSelector\" name=\"state\"");
+        out.print("<select id=\"");
+        out.print(_styleId);
+        out.print("\" name=\"state\"");
         if (_styleClass != null) {
             out.print(" class=\"" + _styleClass + "\"");
         }

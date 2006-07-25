@@ -47,7 +47,9 @@
                     </tr>
                 </table>
             <div class="search" style="margin-top: 12px;">
-                <gsml:form method="get" action="/stateLauncher.page" onsubmit="return checkSearchStateSelected()">
+                <gsml:form method="get"
+                           action="/stateLauncher.page" 
+                           onsubmit="return checkSearchStateSelected('stateSelector')">
                     <input name="p" value="search_single" type="hidden"/>
                     <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                         <input type="hidden" name="st" value="charter"/>

@@ -72,6 +72,12 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>styleId</name>
+            <description>CSS id to assign to the select. Defaults to "stateSelector"</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>state</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
