@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AllArticlesController.java,v 1.7 2006/07/13 07:53:58 apeterson Exp $
+ * $Id: AllArticlesController.java,v 1.8 2006/07/25 23:24:17 thuss Exp $
  */
 package gs.web.content;
 
@@ -8,6 +8,7 @@ import gs.data.content.Article;
 import gs.data.content.ArticleCategory;
 import gs.data.content.ArticleManager;
 import gs.data.content.IArticleDao;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.util.context.ISessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.logging.Log;
@@ -36,6 +37,7 @@ public class AllArticlesController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
 
+        ThreadLocalTransactionManager.setReadOnly();
 
         ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
 
