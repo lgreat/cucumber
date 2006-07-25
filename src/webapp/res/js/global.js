@@ -2,7 +2,7 @@
 Copyright (c) 2006 GreatSchools.net
 All Rights Reserved.
 
-$Id: global.js,v 1.3 2006/07/07 23:07:31 apeterson Exp $
+$Id: global.js,v 1.4 2006/07/25 00:47:24 chriskimm Exp $
 */
 
 /* Finds the HTML element specified by the ID and switches it between
@@ -44,4 +44,18 @@ newPage;
 if(newPage !="") {window.location.href=newPage}
 }
 
-
+/*
+ * Used by the global search widget to make sure that a user
+ * selects a state.
+ */
+function checkSearchStateSelected() {
+    var val = document.getElementById('stateSelector').value;
+    var returnVal;
+    if (val == "--" || val == "") {
+        alert ("Please select a state.");
+        returnVal = false;
+    } else {
+        returnVal = true;
+    }
+    return returnVal;
+}

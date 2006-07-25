@@ -18,19 +18,19 @@ import java.util.Iterator;
  * state abbreviations in alphabetical order of the abbreviations, not
  * the long state name.  When usingLongNames == true, then the names are listed
  * in the alphabetical order of the long names.
- * The tag accept all optional parameter to allow a non-state selection.  This
- * appears with the option name="state" value="all".
+ * The tag accepts an optional parameter to allow a non-state selection.  This
+ * appears with the option name="state" value="--".
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class StateSelectorTagHandler extends SimpleTagSupport {
 
-    private boolean _allowNoState = false;
+    private boolean _useNoState = false;
     private boolean _usingLongNames = false;
     private String _styleClass = null;
     private String _onChange = null;
     private State _state;
-    private String _noStateLabel = "all";
+    private String _noStateLabel = "--";
 
     private static final StateManager _stateManager;
 
@@ -40,13 +40,14 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
 
 
     /**
-     * When set to true, this option allows the state selector will include
-     * a "state" option with a value of "all".
+     * When set to true, the selector will show "--" no matter what the
+     * state value is.  When set to false, then the "--" is not shown and
+     * the option selection is set to the current state.
      *
-     * @param allow - defaults to false;
+     * @param noState - defaults to false;
      */
-    public void setAllowNoState(boolean allow) {
-        _allowNoState = allow;
+    public void setUseNoState(boolean noState) {
+        _useNoState = noState;
     }
 
     /**
@@ -77,7 +78,7 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
 
 
     /**
-     * The label for the "no state" option. Ignored if {@link #setAllowNoState(boolean)} not
+     * The label for the "no state" option. Ignored if {@link #setUseNoState(boolean)} not
      * called.
      */
     public void setNoStateLabel(String noStateLabel) {
@@ -97,7 +98,7 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
     public void doTag() throws IOException {
 
         JspWriter out = getJspContext().getOut();
-        out.print("<select name=\"state\"");
+        out.print("<select id=\"stateSelector\" name=\"state\"");
         if (_styleClass != null) {
             out.print(" class=\"" + _styleClass + "\"");
         }
@@ -106,11 +107,8 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
         }
         out.println(">");
 
-        if (_allowNoState) {
-            out.println("<option value=\"\"");
-            if (_state == null) {
-                out.print(" selected='selected' ");
-            }
+        if (_useNoState) {
+            out.println("<option value=\"\" selected='selected' ");
             out.println(">" + _noStateLabel +"</option>");
         }
 
@@ -127,7 +125,7 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
             out.print(state.getAbbreviation());
             out.print("\" ");
 
-            if (ObjectUtils.equals(_state, state)) {
+            if (ObjectUtils.equals(_state, state) && !_useNoState) {
                 out.print(" selected='selected' ");
             }
             out.print(">");

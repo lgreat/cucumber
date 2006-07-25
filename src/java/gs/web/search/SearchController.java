@@ -166,12 +166,14 @@ public class SearchController extends AbstractFormController {
             }
             final String url = builder.asSiteRelative(request);
             final RedirectView view = new RedirectView(url, false);
-            ModelAndView mav = new ModelAndView(view);
-            return mav;
+            return new ModelAndView(view);
         }
 
 
         ThreadLocalTransactionManager.setReadOnly();
+
+        // ok, this seems like a valid search, set the "hasSearched" cookie
+        PageHelper.setHasSearchedCookie(request, response);
 
         Map model = createModel(request, searchCommand, sessionContext, debug);
 
@@ -427,14 +429,15 @@ public class SearchController extends AbstractFormController {
             st = "charter";
         }
         if (StringUtils.isNotEmpty(st)) {
-            filtersBuffer.append(" " + st);
+            filtersBuffer.append(" ");
+            filtersBuffer.append(st);
             urlBuilder.setParameter(PARAM_SCHOOL_TYPE, st);
         }
 
         return st;
     }
 
-    private String determineGradeLevel(String lowerCaseQuery, StringBuffer filtersBuffer, UrlBuilder urlBuilder) {
+    private static String determineGradeLevel(String lowerCaseQuery, StringBuffer filtersBuffer, UrlBuilder urlBuilder) {
         String gl = null;
         if (lowerCaseQuery.indexOf("elementary") != -1 ||
                 lowerCaseQuery.indexOf("primary") != -1) {

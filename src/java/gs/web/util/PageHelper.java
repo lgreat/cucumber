@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.19 2006/07/20 00:10:28 dlee Exp $
+ * $Id: PageHelper.java,v 1.20 2006/07/25 00:47:24 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -351,4 +351,10 @@ public class PageHelper {
         util.changePathway(context, response, pathway);
     }
 
+    public static void setHasSearchedCookie(HttpServletRequest request, HttpServletResponse response) {
+        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(request);
+        context.setHasSearched(true);
+        SessionContextUtil util = context.getSessionContextUtil();
+        util.setHasSearched(response);
+    }
 }

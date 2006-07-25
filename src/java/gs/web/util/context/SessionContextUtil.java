@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.3 2006/07/18 18:55:42 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.4 2006/07/25 00:47:24 chriskimm Exp $
  */
 
 package gs.web.util.context;
@@ -77,6 +77,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     private CookieGenerator _stateCookieGenerator;
     private CookieGenerator _pathwayCookieGenerator;
     private CookieGenerator _memberIdCookieGenerator;
+    private CookieGenerator _hasSearchedCookieGenerator;
     private CookieGenerator _sessionCacheCookieGenerator;
 
 
@@ -120,6 +121,10 @@ public class SessionContextUtil implements ApplicationContextAware {
                     String path = thisCookie.getValue();
                     if (!path.equals(context.getPathway())) {
                         context.setPathway(path); // TODO validation
+                    }
+                } else if (StringUtils.equals(_hasSearchedCookieGenerator.getCookieName(), thisCookie.getName())) {
+                    if (StringUtils.isNotBlank(thisCookie.getValue())) {
+                        context.setHasSearched(true); // default is false
                     }
                 } else if (StringUtils.equals(_stateCookieGenerator.getCookieName(), thisCookie.getName())) {
                     String state = thisCookie.getValue();
@@ -258,6 +263,15 @@ public class SessionContextUtil implements ApplicationContextAware {
         changePathway(context, response, newPathway);
     }
 
+    /**
+     * Sets a marker to indicate that the user has executed a search.
+     * @param request
+     * @param response
+     */
+    public void setHasSearched(HttpServletResponse response) {
+        _hasSearchedCookieGenerator.addCookie(response, "true");
+    }
+
     public void setStateCookieGenerator(CookieGenerator stateCookieGenerator) {
         _stateCookieGenerator = stateCookieGenerator;
     }
@@ -268,6 +282,10 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     public void setMemberIdCookieGenerator(CookieGenerator memberIdCookieGenerator) {
         _memberIdCookieGenerator = memberIdCookieGenerator;
+    }
+
+    public void setHasSearchedCookieGenerator(CookieGenerator hasSearchedCookieGenerator) {
+        _hasSearchedCookieGenerator = hasSearchedCookieGenerator;
     }
 
     public void setSessionCacheCookieGenerator(CookieGenerator sessionCacheCookieGenerator) {

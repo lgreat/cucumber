@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.1 2006/07/13 07:52:30 apeterson Exp $
+ * $Id: SessionContext.java,v 1.2 2006/07/25 00:47:24 chriskimm Exp $
  */
 package gs.web.util.context;
 
@@ -54,6 +54,7 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
     private SessionContextUtil _sessionContextUtil;
     private IUserDao _userDao;
     private boolean _readFromClient = false;
+    private boolean _hasSearched = false;
 
     /**
      * Created by Spring as needed.
@@ -268,5 +269,13 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
 
     public boolean isReadFromClient() {
         return _readFromClient;
+    }
+
+    public boolean getHasSearched() {
+        return _hasSearched;
+    }
+
+    public void setHasSearched(boolean hasSearched) {
+        _hasSearched = hasSearched;
     }
 }

@@ -50,6 +50,11 @@
                 <property name="cookieName" value="MEMID"/>
             </bean>
         </property>
+        <property name="hasSearchedCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+                <property name="cookieName" value="HAS_SEARCHED"/>
+            </bean>
+        </property>
         <property name="sessionCacheCookieGenerator">
             <bean class="org.springframework.web.util.CookieGenerator">
                 <property name="cookieName" value="SESSION_CACHE"/>

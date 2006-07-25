@@ -48,7 +48,7 @@
         <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>
         <body-content>empty</body-content>
         <attribute>
-            <name>allowNoState</name>
+            <name>useNoState</name>
             <description>Set to true if there is a "null" state option.</description>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
