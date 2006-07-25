@@ -277,4 +277,6 @@ div.statsModule {
     margin-top: 3px;
     padding-top: 6px;
     border-top-width: 1px;
+    border-bottom-width: 1px;
+    margin-bottom: 18px;
 }
