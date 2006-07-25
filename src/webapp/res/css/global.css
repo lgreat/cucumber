@@ -1,7 +1,7 @@
 /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.126 2006/07/24 21:58:40 chriskimm Exp $
+   $Id: global.css,v 1.127 2006/07/25 16:10:32 apeterson Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -134,23 +134,6 @@ Cobrand doesn't quite fit in the width required, so I squish the text for them.
     font-size: 80%;
 }
 
-/*   Header/Footer
------------------------------------------------ */
-img#logo {
-    width: 260px;
-    height: 40px;
-    padding: 0;
-    margin: 0px 0px 6px 0px;
-}
-
-div.globalSearch input.btn {
-    vertical-align: middle;
-
-}
-
-.changeState {
-    font-size: x-small;
-}
 
 /*  Structure
 ----------------------------------------------- */
@@ -176,47 +159,6 @@ table.bottomcontent tr td img {
     text-align: center;
 }
 
-/*  Nav
------------------------------------------------ */
-/*.globalnav {height:50px;} pulls the whole table apart-- size from the middle */
-.globalnav .BG {
-    padding: .5em 0 .5em 0;
-    white-space: nowrap;
-}
-
-.globalnav h1 {
-    padding: 0px 0px 4px 0px;
-    cursor: pointer;
-    width: 100%;
-    color: #036;
-    font-size: small;
-    font-weight: bold;
-    white-space: normal;
-}
-
-.globalnav h1 a, .globalnav h1 a:visited {
-    color: #000;
-    font-weight: normal;
-}
-
-.globalnav h1 a:hover {
-    text-decoration: none;
-    color: #FFF;
-}
-
-.globalnav a:link, .globalnav a:visited {
-    display: block;
-    margin: 0px 0px 3px 0px;
-    font-weight: normal;
-    font-size: 12px;
-    padding-bottom: 4px;
-    color: #036;
-}
-
-.globalnav a:hover {
-    text-decoration: underline;
-    color: black;
-}
 
 /*  Search
 ----------------------------------------------- */
