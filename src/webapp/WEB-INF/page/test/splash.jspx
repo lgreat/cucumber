@@ -55,7 +55,7 @@
                         <gsml:form action="/search/search.page" method="GET">
                             <input type="text" value="" name="q" size="16" />
                             &#160;
-                            <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}" allowNoState="true" noStateLabel="--" />
+                            <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}" useNoState="true" noStateLabel="--" />
                             <input type="hidden" value="school" name="type"/>
                             <br />
                             <gsml:url var="go" value="/res/img/splash/go.gif"/>
