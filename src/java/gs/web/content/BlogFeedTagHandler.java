@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.2 2006/07/11 07:03:26 apeterson Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.3 2006/07/25 16:09:44 apeterson Exp $
  */
 
 package gs.web.content;
@@ -60,7 +60,7 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
                 "','Popup','toolbar=no,location=yes,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;\"\n" +
                 " href=\"" +
                 link +
-                "\">Read More about " + title + "</a>");
+                "\">Read More about \"" + title + "\"</a>");
 
     }
 
