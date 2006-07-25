@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.7 2006/06/14 22:01:00 apeterson Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.8 2006/07/25 00:22:42 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -247,6 +247,10 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
 
         public void setModifiedInfo(School school, Date modified, String modifiedBy) {
             // do nothing
+        }
+
+        public List findSchoolsInDataLimbo(State state, boolean activeOnly) {
+            return null;
         }
     }
 }
