@@ -67,7 +67,7 @@ public class AuthorizersControllerTest extends BaseControllerTestCase {
         getRequest().setMethod("GET");
         getRequest().setParameter("state", "CA");
         getRequest().setParameter("school", "1");
-        _mockDao.setCharterSchoolInfo(MockCharterSchoolInfoDao.CharterSchoolInfoStub.NO_STRUCTURE);
+        _mockDao.setCharterSchoolInfo(MockCharterSchoolInfoDao.getStubNoStructure());
 
         ModelAndView mAndV =
                 _controller.handleRequest(getRequest(), getResponse());
