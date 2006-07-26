@@ -3,7 +3,6 @@ package gs.web.school;
 import gs.web.BaseControllerTestCase;
 import gs.data.school.ISchoolDao;
 import gs.data.school.census.MockCharterSchoolInfoDao;
-import gs.data.school.census.TestCharterSchoolInfo;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
@@ -68,7 +67,7 @@ public class AuthorizersControllerTest extends BaseControllerTestCase {
         getRequest().setMethod("GET");
         getRequest().setParameter("state", "CA");
         getRequest().setParameter("school", "1");
-        _mockDao.setTestInfo(TestCharterSchoolInfo.NO_STRUCTURE);
+        _mockDao.setCharterSchoolInfo(MockCharterSchoolInfoDao.CharterSchoolInfoStub.NO_STRUCTURE);
 
         ModelAndView mAndV =
                 _controller.handleRequest(getRequest(), getResponse());

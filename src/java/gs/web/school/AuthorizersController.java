@@ -1,43 +1,45 @@
 package gs.web.school;
 
-import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.ModelAndView;
-import org.apache.commons.lang.StringUtils;
+import gs.data.school.ISchoolDao;
+import gs.data.school.School;
+import gs.data.school.census.ICharterSchoolInfoDao;
+import gs.data.school.charter.ICharterSchoolInfo;
+import gs.data.state.State;
+import gs.web.jsp.Util;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.collections.map.ListOrderedMap;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import gs.web.util.context.ISessionContext;
-import gs.web.util.context.SessionContextUtil;
-import gs.web.jsp.Util;
-import gs.data.school.ISchoolDao;
-import gs.data.school.School;
-import gs.data.school.charter.ICharterSchoolInfo;
-import gs.data.school.census.ICharterSchoolInfoDao;
-import gs.data.state.State;
-
 import java.util.Map;
 
 /**
- * This controller manages requests to autherizers.page for charter school
- * authorizer supplemental info.  The following query parameters are required:
- * <ul>
- * <li>state  : the school's database state</li>
- * <li>school : the charter school's id</li>
- * </ul>
+ * This controller manages requests to autherizers.page for charter school authorizer supplemental info.  The following
+ * query parameters are required: <ul> <li>state  : the school's database state</li> <li>school : the charter school's
+ * id</li> </ul>
+ *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class AuthorizersController extends AbstractController {
 
-    /** Spring bean ID */
+    /**
+     * Spring bean ID
+     */
     public static final String BEAN_ID = "/school/authorizers";
 
-    /** used to retrieve the school using the id */
+    /**
+     * used to retrieve the school using the id
+     */
     private ISchoolDao _schoolDao;
 
-    /** used to get the ICharterSchoolInfo object given a school */
+    /**
+     * used to get the ICharterSchoolInfo object given a school
+     */
     private ICharterSchoolInfoDao _charterSchoolInfoDao;
 
     private static final Logger _log =
@@ -48,17 +50,14 @@ public class AuthorizersController extends AbstractController {
     private static final String errorMessage = "Sorry, no school could be found";
 
     /**
-     * In addition to passing the school object and a source string to the page,
-     * this request handler gathers together <code>java.util.Map</code> objects
-     * with the data for the following data groups: School Structure;
-     * School Mission and Climate; Academic Evaluation; Demand.  If a group does
-     * not have any data, a null <code>Map</code> should be returned.  The maps
-     * returned by (within) the model retain the insertion order upon iteration
-     * because they are backed by
-     * <code>org.apache.commons.collections.map.ListOrderedMap</code>s.
-     * @param request
-     * @param response
+     * In addition to passing the school object and a source string to the page, this request handler gathers together
+     * <code>java.util.Map</code> objects with the data for the following data groups: School Structure; School Mission
+     * and Climate; Academic Evaluation; Demand.  If a group does not have any data, a null <code>Map</code> should be
+     * returned.  The maps returned by (within) the model retain the insertion order upon iteration because they are
+     * backed by <code>org.apache.commons.collections.map.ListOrderedMap</code>s.
+     *
      * @return a Map model.
+     *
      * @throws Exception
      */
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
@@ -71,7 +70,7 @@ public class AuthorizersController extends AbstractController {
         if (schoolId != null) {
             try {
                 School school = _schoolDao.getSchoolById(sessionContext.getState(),
-                        Integer.valueOf(schoolId));
+                                                         Integer.valueOf(schoolId));
                 // Don't worry about a null school.  The DAO will throw an
                 // Exception if it can't find a school.
                 ICharterSchoolInfo info = _charterSchoolInfoDao.getInfo(school);
@@ -100,11 +99,13 @@ public class AuthorizersController extends AbstractController {
         return mAndV;
     }
 
-    /** GS-1876 */
+    /**
+     * GS-1876
+     */
     private static String getReport(School school) {
         if (school != null && State.NY.equals(school.getDatabaseState())) {
             int id = school.getId().intValue();
-            switch(id) {
+            switch (id) {
                 case 6368:
                 case 6372:
                 case 6377:
@@ -133,38 +134,52 @@ public class AuthorizersController extends AbstractController {
     private static Map getStructureData(ICharterSchoolInfo info) {
         Map demandData = null;
         if (info.getYearOpened() > -1) {
-            if (demandData == null) { demandData = new ListOrderedMap(); }
+            if (demandData == null) {
+                demandData = new ListOrderedMap();
+            }
             demandData.put("Year opened", new Integer(info.getYearOpened()));
         }
 
         String terms = info.getTermsOfCharter();
         if (StringUtils.isNotBlank(terms)) {
-            if (demandData == null) { demandData = new ListOrderedMap(); }
+            if (demandData == null) {
+                demandData = new ListOrderedMap();
+            }
             demandData.put("Terms of charter", terms);
         }
 
         if (StringUtils.isNotBlank(info.getRenewalStatus())) {
-            if (demandData == null) { demandData = new ListOrderedMap(); }
+            if (demandData == null) {
+                demandData = new ListOrderedMap();
+            }
             demandData.put("Renewal status", info.getRenewalStatus());
         }
 
         if (StringUtils.isNotBlank(info.getAuthorizer())) {
-            if (demandData == null) { demandData = new ListOrderedMap(); }
+            if (demandData == null) {
+                demandData = new ListOrderedMap();
+            }
             demandData.put("Authorizer", info.getAuthorizer());
         }
 
         if (StringUtils.isNotBlank(info.getOperator())) {
-            if (demandData == null) { demandData = new ListOrderedMap(); }
+            if (demandData == null) {
+                demandData = new ListOrderedMap();
+            }
             demandData.put("Operator", info.getOperator());
         }
 
         if (StringUtils.isNotBlank(info.getAdminStatus())) {
-            if (demandData == null) { demandData = new ListOrderedMap(); }
+            if (demandData == null) {
+                demandData = new ListOrderedMap();
+            }
             demandData.put("Board/administrative status", info.getAdminStatus());
         }
 
         if (StringUtils.isNotBlank(info.getFinancialStatus())) {
-            if (demandData == null) { demandData = new ListOrderedMap(); }
+            if (demandData == null) {
+                demandData = new ListOrderedMap();
+            }
             demandData.put("Financial status", info.getFinancialStatus());
         }
         return demandData;
@@ -174,12 +189,16 @@ public class AuthorizersController extends AbstractController {
         Map missionData = null;
 
         if (StringUtils.isNotBlank(info.getSchoolFocus())) {
-            if (missionData == null) { missionData = new ListOrderedMap(); }
+            if (missionData == null) {
+                missionData = new ListOrderedMap();
+            }
             missionData.put("Mission", info.getSchoolFocus());
         }
 
         if (StringUtils.isNotBlank(info.getSchoolClimate())) {
-            if (missionData == null) { missionData = new ListOrderedMap(); }
+            if (missionData == null) {
+                missionData = new ListOrderedMap();
+            }
             missionData.put("Climate", info.getSchoolClimate());
         }
 
@@ -189,7 +208,9 @@ public class AuthorizersController extends AbstractController {
     private static Map getAcademicData(ICharterSchoolInfo info) {
         Map academicData = null;
         if (StringUtils.isNotBlank(info.getAcademicEvaluation())) {
-            if (academicData == null) { academicData = new ListOrderedMap(); }
+            if (academicData == null) {
+                academicData = new ListOrderedMap();
+            }
             academicData.put("Academic Evaluation", info.getAcademicEvaluation());
         }
         return academicData;
@@ -207,13 +228,17 @@ public class AuthorizersController extends AbstractController {
         }
 
         if (info.getWaitlist() != -1) {
-            if (demandData == null) { demandData = new ListOrderedMap(); }
+            if (demandData == null) {
+                demandData = new ListOrderedMap();
+            }
             demandData.put("Waitlist", (info.getWaitlist() == 0 ? "No" : "Yes"));
         }
 
         String retention = info.getRetention();
         if (StringUtils.isNotEmpty(retention)) {
-            if (demandData == null) { demandData = new ListOrderedMap(); }
+            if (demandData == null) {
+                demandData = new ListOrderedMap();
+            }
             if (retention.indexOf("%") == -1) {
                 retention = retention + "%";
             }
