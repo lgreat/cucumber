@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.11 2006/07/20 22:53:44 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.12 2006/07/26 21:49:16 dlee Exp $
  */
 
 package gs.web.jsp.link;
@@ -61,7 +61,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
                 out.getOutputBuffer().toString());
     }
 
-    public void testAnchorAttribute() throws JspException {
+    public void testAnchorandIdAttribute() throws JspException {
         LinkTagHandler handler = new LinkTagHandler() {
             protected UrlBuilder createUrlBuilder() {
                 return new UrlBuilder(new MockHttpServletRequest(), "somepage");
@@ -100,6 +100,22 @@ public class LinkTagHandlerTest extends BaseTestCase {
         handler.doEndTag();
         out = (MockJspWriter) pc.getOut();
         assertEquals("<a href=\"somepage#withanchor\"></a>", out.getOutputBuffer().toString());
+
+        handler = new LinkTagHandler() {
+            protected UrlBuilder createUrlBuilder() {
+                return new UrlBuilder(new MockHttpServletRequest(), "somepage#withanchor");
+            }
+        };
+        pc = new MockPageContext();
+        handler.setPageContext(pc);
+        handler.setAnchor("anchorShouldHaveNoEffect");
+        handler.setId("myID");
+        handler.doStartTag();
+        handler.doAfterBody();
+        handler.doEndTag();
+        out = (MockJspWriter) pc.getOut();
+        assertEquals("<a id=\"myID\" href=\"somepage#withanchor\"></a>", out.getOutputBuffer().toString());
+
     }
 
     public void testArticleLibrary() {

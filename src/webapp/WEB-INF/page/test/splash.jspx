@@ -12,11 +12,6 @@
           xmlns:gsweb="gstaglib"
           xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
         >
-<jsp:directive.page import="gs.data.content.INewsItemDao"/>
-<jsp:directive.page import="gs.data.content.NewsItem"/>
-<jsp:directive.page import="gs.web.util.context.ISessionContext"/>
-<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
-<jsp:directive.page import="org.springframework.context.ApplicationContext"/>
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <html lang="en">
 
@@ -25,6 +20,8 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
+
+<gsml:url var="stateWidgetUrl" value="/miniSelectAState.page"/>
 
 <head>
     <title>GreatSchools.net</title>
@@ -35,10 +32,25 @@
         PageHelper.hideFooterAd(request);
     </jsp:scriptlet>
 
+    <script type="text/javascript" language="javascript">
+        function hoverHome() {
+            if (getState() != '') {return;}
+            if (getElement('topnav_research')) {
+                var link = getElement('topnav_research');
+                link.onclick = function () {toggleStateSelector(this); return false;}
+            }
+        }
+        function toggleStateSelector(thisItem) {
+            if (thisItem) {
+                showStateWidget('${stateWidgetUrl}', 270, 320);
+            }
+        }
+    </script>
 </head>
 
 <gsml:body adPageName="splash">
     <pageHelper:externalCss file="/res/css/splash.css"/>
+    <pageHelper:addOnLoadHandler handler="hoverHome()"/>
 
     <table cellpadding="0" cellspacing="0" width="100%">
         <tr>
@@ -108,7 +120,7 @@
                                 <td>                            &#160;
 </td>
                                 <td>                                <input type="image" src="${go}" alt="GO" style="width:41px;height:26px;"
-                                       class="button" onmouseover="this.src='${goOver}';" onmouseout="this.src='${go}';"/>
+                                                                           class="button" onmouseover="this.src='${goOver}';" onmouseout="this.src='${go}';"/>
 </td>
                                 </tr></table>
                         </gsml:form>

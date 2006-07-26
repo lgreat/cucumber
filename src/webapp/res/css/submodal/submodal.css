@@ -88,4 +88,30 @@
     background: url('../../img/button/btn_close_999999.gif') no-repeat;
 }
 
+#stateWidget #popupInner {
+    padding:5px 10px 10px 10px;
+    background-color:#aaccdd;
+    color:#aaccdd;
+    border:none;
+}
 
+#stateWidget #popupInner #popupTitleBar {
+    font-family:"Trebuchet MS", sans-serif;
+    background-color: #aaccdd;
+    color: #fff;
+    font-size: small;
+    height: 1px;
+    position: relative;
+    z-index: 203;
+    border:none;
+    padding: 0;
+    padding-bottom:5px;
+}
+
+#stateWidget #popupControls a span {
+	display: block;
+	height: 16px;
+	width: 16px;
+	text-indent: -9000px;
+	background: url('../../img/submodal/closeblue.gif') no-repeat;
+}

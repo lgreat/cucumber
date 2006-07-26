@@ -48,7 +48,7 @@
                 </table>
             <div class="search" style="margin-top: 12px;">
                 <gsml:form method="get"
-                           action="/stateLauncher.page" 
+                           action="/stateLauncher.page"
                            onsubmit="return checkSearchStateSelected('stateSelector')">
                     <input name="p" value="search_single" type="hidden"/>
                     <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
@@ -123,6 +123,7 @@
                 <!--#1--><td><link:research
                     styleClass="${(pw == 0 ? 'lactive' : '')} ${(pw == 1 ? 'active' : 'inactive')} ${(pw == 3 ? 'ractive' : '')} "
                     state="${requestScope.context.state}"
+                    id="topnav_research"
                     >Research &amp;amp; Compare</link:research></td>
                 <!--#3--><td><gsml:a href="/content/summerReading.page"
                                      styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 3 ? 'active' : 'inactive')} ${(pw == 7 ? 'ractive' : '')} "

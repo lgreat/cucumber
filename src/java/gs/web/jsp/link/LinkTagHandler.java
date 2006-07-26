@@ -1,13 +1,11 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandler.java,v 1.6 2006/07/13 07:53:58 apeterson Exp $
+ * $Id: LinkTagHandler.java,v 1.7 2006/07/26 21:49:16 dlee Exp $
  */
 
 package gs.web.jsp.link;
 
 import gs.data.state.State;
-import gs.web.util.context.ISessionContext;
-import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.ISessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -134,6 +132,12 @@ public abstract class LinkTagHandler extends TagSupport {
                 _anchor = StringUtils.remove(_anchor, '#');
                 href = href + '#' + _anchor;
             }
+        }
+
+        if (StringUtils.isNotEmpty(getId())) {
+            pageContext.getOut().print(" id=\"");
+            pageContext.getOut().print(getId());
+            pageContext.getOut().print("\"");
         }
 
         pageContext.getOut().print(" href=\"");

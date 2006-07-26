@@ -487,9 +487,13 @@
     <bean name="/selectAState.page"
           class="gs.web.state.SelectAStateController"
           autowire="byName">
-        <property name="viewName">
-            <value>stateLauncher</value>
-        </property>
+        <property name="viewName" value="stateLauncher" />
+        <property name="miniViewName" value="miniStateLauncher" />
+    </bean>
+
+    <bean name="/miniSelectAState.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName" value="miniStateLauncher" />
     </bean>
 
     <bean name="/path/mySchool.page"

@@ -2,7 +2,7 @@
 Copyright (c) 2006 GreatSchools.net
 All Rights Reserved.
 
-$Id: global.js,v 1.5 2006/07/25 18:52:03 chriskimm Exp $
+$Id: global.js,v 1.6 2006/07/26 21:49:16 dlee Exp $
 */
 
 /* Finds the HTML element specified by the ID and switches it between
@@ -58,4 +58,24 @@ function checkSearchStateSelected(selectorId) {
         returnVal = true;
     }
     return returnVal;
+}
+
+//get element by id
+function getElement(id) {
+	return document.getElementById(id);
+}
+
+//read cookie, return "" if cookie not found or cookie not set
+function readCookie(cookieName) {
+    var cookie=""+document.cookie;
+    var i=cookie.indexOf(cookieName);
+    if (i==-1 || cookieName=="") return "";
+    var j=cookie.indexOf(';',i);
+    if (j==-1) j=cookie.length;
+    return unescape(cookie.substring(i+cookieName.length+1,j));
+}
+
+//get state from cookie
+function getState() {
+    return readCookie('state');
 }

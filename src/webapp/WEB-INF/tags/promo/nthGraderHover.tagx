@@ -5,9 +5,9 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
             xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
     <jsp:directive.tag body-content="scriptless"/>
-
-    <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
-    <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
+    <!--Make sure version numbers match those in Template.pm-->
+    <pageHelper:externalCss file="/res/css/submodal/submodal.css?v=6"/>
+    <pageHelper:externalJavascript file="/res/js/submodal/submodal.js?v=6"/>
     <pageHelper:addOnLoadHandler handler="initPopUp('hoverNewsGn')"/>
 
     <gsml:a href="/community/newsletters/popup/newsletter.page?state=${requestScope.context.stateOrDefault}" styleClass="submodal-480-500">

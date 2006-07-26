@@ -42,17 +42,7 @@ function initPopUp(hoverName) {
     var popcont = document.createElement('div');
 	popcont.id = 'popupContainer';
     popcont.setAttribute('style', 'display:none');
-    popcont.innerHTML = '' +
-		'<div id="popupInner">' +
-			'<div id="popupTitleBar">' +
-				'<div id="popupTitle"></div>' +
-				'<div id="popupControls">' +
-					'<a onclick="hidePopWin(false);"><span>Close</span></a>' +
-				'</div>' +
-			'</div>' +
-			'<iframe src="javascript:parent.frameLoading()" style="width:100%;height:100%;background-color:transparent;" scrolling="no" frameborder="0" allowtransparency="true" id="popupFrame" name="popupFrame" width="100%" height="100%"></iframe>' +
-            '<div id="popupCloseBtn"><div class="left">All information brought to you by:</div><div class="leftlogo"></div><div class="right"><a onclick="hidePopWin(false);"><span>Close</span></a></div></div>' +
-        '</div>';
+    popcont.innerHTML = defaultHolder();
 	body.appendChild(popmask);
 	body.appendChild(popcont);
 
@@ -100,12 +90,18 @@ function showPopWin(url, width, height, returnFunc, hoverName) {
     if (!gPopupMask) {
         initPopUp(hoverName);
     }
-    setHoverCookie(hoverName);
     gPopupIsShown = true;
 	disableTabIndexes();
 	gPopupMask.style.display = "block";
 	gPopupContainer.style.display = "block";
-	centerPopWin(width, height);
+    if (hoverName == 'stateWidget') {
+        gPopupContainer.innerHTML = stateHolder();
+    } else {
+        gPopupContainer.innerHTML = defaultHolder();
+        setHoverCookie(hoverName);
+    }
+    gPopFrame = document.getElementById("popupFrame");
+    centerPopWin(width, height);
 	var titleBarHeight = parseInt(document.getElementById("popupTitleBar").offsetHeight, 10);
 	gPopupContainer.style.width = width + "px";
 	gPopupContainer.style.height = (height+titleBarHeight) + "px";
@@ -374,4 +370,38 @@ function showHover(hoverName) {
     idx=parseInt(document.cookie.indexOf('hover'));
     if (idx>-1) {return false;}
     return true;
+}
+
+function showStateWidget(url, width, height) {
+    var hoverName = 'stateWidget';
+    showPopWin(url, width, height, null, hoverName);
+}
+
+function stateHolder() {
+    var iHtml = '' +
+                '<div id="stateWidget"><div id="popupInner">' +
+                    '<div id="popupTitleBar">' +
+                        '<div id="popupTitle">GreatSchools</div>' +
+                        '<div id="popupControls">' +
+                            '<a onclick="hidePopWin(false);"><span>Close</span></a>' +
+                        '</div>' +
+                    '</div>' +
+                    '<iframe src="javascript:parent.frameLoading()" style="width:100%;height:100%;background-color:transparent;" scrolling="no" frameborder="0" allowtransparency="false" id="popupFrame" name="popupFrame" width="100%" height="100%"></iframe>' +
+                '</div></div>';
+    return iHtml;
+}
+
+function defaultHolder() {
+    var iHtml = '' +
+                '<div id="popupInner">' +
+                    '<div id="popupTitleBar">' +
+                        '<div id="popupTitle"></div>' +
+                        '<div id="popupControls">' +
+                            '<a onclick="hidePopWin(false);"><span>Close</span></a>' +
+                        '</div>' +
+                    '</div>' +
+                    '<iframe src="javascript:parent.frameLoading()" style="width:100%;height:100%;background-color:transparent;" scrolling="no" frameborder="0" allowtransparency="true" id="popupFrame" name="popupFrame" width="100%" height="100%"></iframe>' +
+                    '<div id="popupCloseBtn"><div class="left">All information brought to you by:</div><div class="leftlogo"></div><div class="right"><a onclick="hidePopWin(false);"><span>Close</span></a></div></div>' +
+                '</div>';
+    return iHtml;
 }

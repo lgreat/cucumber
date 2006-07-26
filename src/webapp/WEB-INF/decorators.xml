@@ -9,6 +9,7 @@
 
     <decorator name="popupDecorator" page="popupDecorator.jspx">
         <pattern>/community/newsletters/popup/*</pattern>
+        <pattern>/miniSelectAState.page*</pattern>
     </decorator>
 
     <decorator name="cobrandHeaderGsFooter" page="standardDecorator.jspx">
