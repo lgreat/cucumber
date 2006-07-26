@@ -1,12 +1,13 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: EditNewsItemController.java,v 1.1 2006/05/30 21:20:26 apeterson Exp $
+ * $Id: EditNewsItemController.java,v 1.2 2006/07/26 22:29:20 thuss Exp $
  */
 
 package gs.web.admin.news;
 
 import gs.data.content.INewsItemDao;
 import gs.data.content.NewsItem;
+import gs.web.util.ReadWriteController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
-public class EditNewsItemController extends SimpleFormController {
+public class EditNewsItemController extends SimpleFormController implements ReadWriteController {
 
     private static final Log _log = LogFactory.getLog(EditNewsItemController.class);
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: DeleteNewsItemController.java,v 1.1 2006/05/30 21:20:26 apeterson Exp $
+ * $Id: DeleteNewsItemController.java,v 1.2 2006/07/26 22:29:20 thuss Exp $
  */
 
 package gs.web.admin.news;
@@ -9,9 +9,9 @@ import gs.data.content.INewsItemDao;
 import gs.data.content.NewsItem;
 import gs.data.state.State;
 import gs.web.util.UrlBuilder;
+import gs.web.util.ReadWriteController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
-public class DeleteNewsItemController implements Controller {
+public class DeleteNewsItemController implements ReadWriteController {
 
     private INewsItemDao newsItemDao;
 

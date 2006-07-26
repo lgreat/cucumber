@@ -38,6 +38,10 @@ public class MonitorControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(1), getRequest().getSession(false).getAttribute("hitcount"));
         assertNotNull(getRequest().getSession(false).getAttribute("thishost"));
         assertNotNull(getRequest().getSession(false).getAttribute("lasthost"));
+        Map environment = (Map)model.get("environment");
+        assertNotNull(environment);
+        // assertNotNull(environment.get("log4j.configuration"));
+        assertNotNull(environment.get("log4j.mailappender"));
     }
 
 }

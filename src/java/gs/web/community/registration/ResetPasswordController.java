@@ -10,6 +10,7 @@ import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
 import gs.web.util.UrlBuilder;
+import gs.web.util.ReadWriteController;
 import gs.web.util.validator.UserCommandValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,7 @@ import java.security.NoSuchAlgorithmException;
  * Time: 4:06:00 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ResetPasswordController extends SimpleFormController {
+public class ResetPasswordController extends SimpleFormController implements ReadWriteController {
     public static final String BEAN_ID = "/community/resetPassword.page";
     protected final Log _log = LogFactory.getLog(getClass());
 

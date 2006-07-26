@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.18 2006/07/13 07:53:58 apeterson Exp $
+ * $Id: MssPaController.java,v 1.19 2006/07/26 22:29:20 thuss Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -11,6 +11,7 @@ import gs.data.state.State;
 import gs.web.util.context.ISessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
+import gs.web.util.ReadWriteController;
 import gs.web.util.context.ISessionContext;
 import gs.web.util.validator.MaximumMssValidator;
 import org.apache.commons.lang.StringUtils;
@@ -32,7 +33,7 @@ import java.util.List;
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
-public class MssPaController extends SimpleFormController {
+public class MssPaController extends SimpleFormController implements ReadWriteController {
 
     public static final String BEAN_ID = "/community/newsletters/popup/mss/page1.page";
     protected final Log _log = LogFactory.getLog(getClass());

@@ -89,11 +89,6 @@
     </welcome-file-list>
 
     <filter>
-        <filter-name>opensessioninview</filter-name>
-        <filter-class>gs.web.util.OpenSessionInViewFilter</filter-class>
-    </filter>
-
-    <filter>
         <filter-name>httpcacheheader</filter-name>
         <filter-class>gs.web.util.HttpHeaderFilter</filter-class>
         <init-param>
@@ -114,20 +109,6 @@
     <filter-mapping>
         <filter-name>httpcacheheader</filter-name>
         <url-pattern>/res/*</url-pattern>
-    </filter-mapping>
-
-    <!-- These should come before the sitemesh filter so that they wrap sitemesh -->
-    <filter-mapping>
-        <filter-name>opensessioninview</filter-name>
-        <url-pattern>*.page</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <!-- We want this to run for error pages also! -->
-        <dispatcher>ERROR</dispatcher>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>opensessioninview</filter-name>
-        <url-pattern>/city/*</url-pattern>
     </filter-mapping>
 
     <filter-mapping>

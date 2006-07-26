@@ -3,11 +3,12 @@ package gs.web.community;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.ModelAndView;
 import gs.data.community.*;
+import gs.web.util.ReadWriteController;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class BetaUnsubscribeController extends SimpleFormController {
+public class BetaUnsubscribeController extends SimpleFormController implements ReadWriteController {
 
     public static final String BEAN_ID = "/community/betaUnsubscribe.page";
     private IUserDao _userDao;

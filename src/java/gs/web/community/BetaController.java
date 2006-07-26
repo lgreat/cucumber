@@ -2,6 +2,7 @@ package gs.web.community;
 
 import gs.data.community.*;
 import gs.data.state.StateManager;
+import gs.web.util.ReadWriteController;
 import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.mail.MailException;
@@ -27,7 +28,7 @@ import java.util.Date;
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class BetaController extends SimpleFormController {
+public class BetaController extends SimpleFormController implements ReadWriteController {
 
     public static final String BEAN_ID = "/community/beta.page";
 

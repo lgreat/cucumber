@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextInterceptor.java,v 1.1 2006/07/13 07:52:30 apeterson Exp $
+ * $Id: SessionContextInterceptor.java,v 1.2 2006/07/26 22:29:21 thuss Exp $
  */
 package gs.web.util.context;
 
@@ -36,13 +36,9 @@ public class SessionContextInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object o) throws Exception {
-
         SessionContext context = _sessionContextUtil.prepareSessionContext(request, response);
-
         PageHelper pageHelper = new PageHelper(context, request);
-
         request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
-
         return true; // go on
     }
 

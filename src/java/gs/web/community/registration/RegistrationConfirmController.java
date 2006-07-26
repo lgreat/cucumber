@@ -9,6 +9,7 @@ import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
 import gs.web.util.UrlBuilder;
+import gs.web.util.ReadWriteController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +24,7 @@ import java.util.HashMap;
  * Time: 9:57:36 AM
  * To change this template use File | Settings | File Templates.
  */
-public class RegistrationConfirmController extends AbstractController {
+public class RegistrationConfirmController extends AbstractController implements ReadWriteController {
     public static final String BEAN_ID = "/community/registrationConfirm.page";
     protected final Log _log = LogFactory.getLog(getClass());
 

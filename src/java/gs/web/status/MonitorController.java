@@ -6,10 +6,11 @@ import gs.data.state.State;
 import gs.data.test.Test;
 import gs.data.test.TestState;
 import gs.data.util.StackTraceUtil;
+import gs.web.util.ReadWriteController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -25,7 +26,7 @@ import java.util.TreeMap;
 /**
  * Controller for showing the build _versionProperties and database connectivity check
  */
-public class MonitorController implements Controller {
+public class MonitorController implements ReadWriteController {
 
     /**
      * The bean name configured in pages-servlet.xml
@@ -123,7 +124,7 @@ public class MonitorController implements Controller {
         model.put("stateReadWrite", new Boolean(stateReadWrite));
         model.put("stateError", stateError);
         if (request != null) {
-            model.put("environment", getEnvironmentMap(request.getSession().getServletContext()));
+            model.put("environment", getEnvironmentMap());
         }
 
         // Test setting some values in the session to try session replication
@@ -178,7 +179,7 @@ public class MonitorController implements Controller {
         this._versionProperties = versionProperties;
     }
 
-    private Map getEnvironmentMap(ServletContext context) {
+    private Map getEnvironmentMap() {
 
         Properties props = System.getProperties();
         Map env = new TreeMap();
@@ -197,6 +198,11 @@ public class MonitorController implements Controller {
         osBuffer.append(props.getProperty("os.version"));
         env.put("Operating System", osBuffer.toString());
         env.put("log4j.configuration", props.getProperty("log4j.configuration"));
+        String mailappender = "not configured";
+//        if (((Logger)_log).getAppender("mail") != null) {
+//            mailappender = "configured";
+//        }
+        env.put("log4j.mailappender", mailappender);
 
         Runtime rt = Runtime.getRuntime();
         env.put("memory - total", new Long(rt.totalMemory()));

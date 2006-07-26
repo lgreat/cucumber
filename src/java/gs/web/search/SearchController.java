@@ -169,9 +169,6 @@ public class SearchController extends AbstractFormController {
             return new ModelAndView(view);
         }
 
-
-        ThreadLocalTransactionManager.setReadOnly();
-
         // ok, this seems like a valid search, set the "hasSearched" cookie
         PageHelper.setHasSearchedCookie(request, response);
 

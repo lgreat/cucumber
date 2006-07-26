@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.24 2006/07/24 21:01:23 wbeck Exp $
+ * $Id: SchoolsController.java,v 1.25 2006/07/26 22:29:21 thuss Exp $
  */
 
 package gs.web.school;
@@ -119,7 +119,6 @@ public class SchoolsController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response)
             throws Exception {
-        ThreadLocalTransactionManager.setReadOnly();
 
         ISessionContext context = SessionContextUtil.getSessionContext(request);
         State state = context.getState();

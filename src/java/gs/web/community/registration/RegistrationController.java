@@ -4,6 +4,7 @@ import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
 import gs.web.util.UrlBuilder;
+import gs.web.util.ReadWriteController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
@@ -19,13 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created by IntelliJ IDEA.
- * User: UrbanaSoft
- * Date: Jun 15, 2006
- * Time: 9:21:05 AM
- * To change this template use File | Settings | File Templates.
+ * @author <a href="mailto:aroy@urbanasoft.com">Anthony Roy</a>
  */
-public class RegistrationController extends SimpleFormController {
+public class RegistrationController extends SimpleFormController implements ReadWriteController {
     public static final String BEAN_ID = "/community/registration.page";
     protected final Log _log = LogFactory.getLog(getClass());
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BestPublicSchoolValuesController.java,v 1.26 2006/07/13 07:53:58 apeterson Exp $
+ * $Id: BestPublicSchoolValuesController.java,v 1.27 2006/07/26 22:29:21 thuss Exp $
  */
 
 package gs.web.school.performance;
@@ -96,7 +96,6 @@ public class BestPublicSchoolValuesController extends ParameterizableViewControl
 
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ThreadLocalTransactionManager.setReadOnly();
 
         if (_citiesOfValue == null) {
             initializeCities();

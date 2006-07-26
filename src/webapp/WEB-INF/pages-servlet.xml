@@ -10,6 +10,7 @@
           class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
         <property name="interceptors">
             <list>
+                <bean class="gs.web.util.OpenSessionInViewInterceptor"/>
                 <!--ref bean="requiresStateInterceptor"/-->
                 <bean class="gs.web.ResponseInterceptor"
                       autowire="byName"/>
@@ -25,6 +26,7 @@
           class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="interceptors">
             <list>
+                <bean class="gs.web.util.OpenSessionInViewInterceptor"/>
                 <!--ref bean="requiresStateInterceptor"/-->
                 <bean class="gs.web.ResponseInterceptor"
                       autowire="byName"/>

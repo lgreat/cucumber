@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
+import gs.web.util.ReadWriteController;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -22,7 +23,7 @@ import java.util.HashMap;
  * Time: 4:11:59 PM
  * To change this template use File | Settings | File Templates.
  */
-public class RegistrationRemoveController  extends AbstractController {
+public class RegistrationRemoveController  extends AbstractController implements ReadWriteController {
     public static final String BEAN_ID = "/community/registrationRemove.page";
     protected final Log _log = LogFactory.getLog(getClass());
 

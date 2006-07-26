@@ -2,20 +2,9 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-    <bean name="defaultHandlerMapping"
-          class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
-        <property name="interceptors">
-            <list>
-                <ref local="sessionContextInterceptor"/>
-            </list>
-        </property>
-    </bean>
 
-
-    <bean id="sessionContextInterceptor"
-          class="gs.web.util.context.SessionContextInterceptor"
-          autowire="byName">
-    </bean>
+    <!-- TH: DO NOT put a defaultHandlerMapping here with a interceptors that are also in pages-servlet -->
+    <!-- They will be run multiple times causing performance problems -->
 
     <bean name="/search.module"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">

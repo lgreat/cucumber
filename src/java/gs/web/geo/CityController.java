@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.36 2006/07/13 07:53:58 apeterson Exp $
+ * $Id: CityController.java,v 1.37 2006/07/26 22:29:20 thuss Exp $
  */
 
 package gs.web.geo;
@@ -72,9 +72,6 @@ public class CityController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
-
-        // TH: Set this controller to read-only to avoid hibernate updating school_rating
-        ThreadLocalTransactionManager.setReadOnly();
 
         // Figure out the inputs
         final ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);

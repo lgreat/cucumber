@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.14 2006/07/13 07:53:58 apeterson Exp $
+ * $Id: NthGraderController.java,v 1.15 2006/07/26 22:29:20 thuss Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -11,6 +11,7 @@ import gs.web.util.context.ISessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
+import gs.web.util.ReadWriteController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
@@ -30,7 +31,7 @@ import java.util.List;
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
-public class NthGraderController extends SimpleFormController {
+public class NthGraderController extends SimpleFormController implements ReadWriteController {
     protected final Log _log = LogFactory.getLog(getClass());
 
     private IUserDao _userDao;

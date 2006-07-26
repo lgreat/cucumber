@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.19 2006/07/13 07:53:58 apeterson Exp $
+ * $Id: GeoController.java,v 1.20 2006/07/26 22:29:20 thuss Exp $
  */
 
 package gs.web.geo;
@@ -48,7 +48,6 @@ public class GeoController implements Controller {
     public static final String MODEL_DISPLAY_NAME = "displayName"; // String
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ThreadLocalTransactionManager.setReadOnly();
 
         State state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
 
