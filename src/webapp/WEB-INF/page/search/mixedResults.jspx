@@ -48,7 +48,7 @@
                                 <c:if test="${total gt 0}">
                                     <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
                                     <c:set var="px" value="${(page * 10)}"/>
-                                    <c:out value="${px + 1} - ${(total lt px + 10) ? total : px + 10} of ${total}"/>
+                                    <c:out value="${px + 1} - ${(total lt px + 10) ? (total) : (px + 10)} of ${total}"/>
                                 </c:if>
                             </td>
                         </tr>
@@ -115,17 +115,17 @@
 
     </table>
     <c:choose>
-        <c:when test="${param.type eq 'schools'}">
-           <c:set var="pagename" value="School Search"/>
+        <c:when test="${(param.c eq 'topic') or (param.c eq 'article')}">
+           <c:set var="pagename" value="Article Search"/>
         </c:when>
         <c:otherwise>
-            <c:set var="pagename" value="Article Search"/>
+            <c:set var="pagename" value="School Search"/>
         </c:otherwise>
     </c:choose>
     <mod:tracking pageName="${pagename}:${total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"
                   pageType="search"
                   constraint="${param.type}"
-            query="${empty param.q ? '[blank]' : fn:toLowerCase(param.q)}"
+                  query="${empty param.q ? '[blank]' : fn:toLowerCase(param.q)}"
                   hier1="Search,${pagename},Page${total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"/>
 </gsml:body>
 </html>
