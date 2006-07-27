@@ -34,7 +34,7 @@
 
     <script type="text/javascript" language="javascript">
         function hoverHome() {
-            //if (getState() != '') {return;}
+            if (getState() != '') {return;}
             if (getElement('topnav_research')) {
                 var link = getElement('topnav_research');
                 link.onclick = function () {toggleStateSelector(this); return false;}
