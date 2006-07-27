@@ -114,12 +114,19 @@
         </tr>
 
     </table>
-
-    <mod:tracking pageName="mixed:${total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"
+    <c:choose>
+        <c:when test="${param.type eq 'schools'}">
+           <c:set var="pagename" value="School Search"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="pagename" value="Article Search"/>
+        </c:otherwise>
+    </c:choose>
+    <mod:tracking pageName="${pagename}:${total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"
                   pageType="search"
                   constraint="${param.type}"
             query="${empty param.q ? '[blank]' : fn:toLowerCase(param.q)}"
-                  hier1="Search,Mixed,Page${total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"/>
+                  hier1="Search,${pagename},Page${total gt 0 ? (empty param.p ? '1' : param.p) : 'noresults'}"/>
 </gsml:body>
 </html>
 </jsp:root>
