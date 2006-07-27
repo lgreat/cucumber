@@ -36,7 +36,11 @@
 
         @media print {
             .search, #adLeaderboard, #footer, .noprint  { display:none; }
-            .wrap0 { width:75%; background:white; }
+            .wrap0  { width:75%; background:white; }
+            body, body.unframed #pageGS {
+                background-color:#fff;
+                border: 0px solid   #fff;
+            }
         }
     </style>
 </head>
