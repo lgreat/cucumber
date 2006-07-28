@@ -72,6 +72,10 @@
                 <gsml:form method="get"
                            action="/stateLauncher.page"
                            onsubmit="return checkSearchStateSelected('splashStateSelector')">
+                    <input name="p" value="search_single" type="hidden"/>
+                    <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
+                        <input type="hidden" name="st" value="charter"/>
+                    </c:if>
                     <input type="text" value="" name="q" size="16"/>
                     &#160;
                     <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}"
