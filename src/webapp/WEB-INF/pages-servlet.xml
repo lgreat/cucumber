@@ -236,6 +236,9 @@
         <property name="viewName">
             <value>status/monitor</value>
         </property>
+        <property name="searcher">
+            <ref bean="searcher"/>
+        </property>
     </bean>
     <!-- Status end -->
 

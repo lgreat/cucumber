@@ -79,9 +79,14 @@
         <td class="statusvalue">${lasthost}</td>
         <td class="statuserror"></td>
     </tr>
-        <tr>
+    <tr>
         <td class="statustitle">Session test view count</td>
         <td class="statusvalue">${hitcount}</td>
+        <td class="statuserror"></td>
+    </tr>
+    <tr>
+        <td class="statustitle">Lucene index version</td>
+        <td class="statusvalue">${indexVersion}</td>
         <td class="statuserror"></td>
     </tr>
 </table>

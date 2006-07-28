@@ -6,6 +6,7 @@ import gs.data.state.State;
 import gs.data.test.Test;
 import gs.data.test.TestState;
 import gs.data.util.StackTraceUtil;
+import gs.data.search.Searcher;
 import gs.web.util.ReadWriteController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -54,6 +55,11 @@ public class MonitorController implements ReadWriteController {
      * The version of GSWeb
      */
     private Properties _versionProperties;
+
+    /**
+     * Used to determine index version number
+     */
+    private Searcher _searcher;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -143,6 +149,7 @@ public class MonitorController implements ReadWriteController {
         }
         session.setAttribute("hitcount", hitcount);
 
+        model.put("indexVersion", getIndexVersion());
 
         return new ModelAndView(_viewName, model);
     }
@@ -179,6 +186,10 @@ public class MonitorController implements ReadWriteController {
         this._versionProperties = versionProperties;
     }
 
+    private String getIndexVersion() {
+        return String.valueOf(_searcher.getIndexVersion());
+    }
+
     private Map getEnvironmentMap() {
 
         Properties props = System.getProperties();
@@ -211,5 +222,10 @@ public class MonitorController implements ReadWriteController {
 
 
         return env;
+    }
+
+
+    public void setSearcher(Searcher searcher) {
+        _searcher = searcher;
     }
 }
