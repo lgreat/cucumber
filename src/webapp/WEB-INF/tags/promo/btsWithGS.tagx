@@ -10,13 +10,25 @@
     <pageHelper:externalCss file="/res/css/promo/btsWithGS.css"/>
 
     <div id="btsWithGSPromo">
-        <gsml:a href="/content/backToSchool.page">
-            <p><span>&#160;</span>Go back to school with GreatSchools!
-                School supply tips,
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td id="goBackToSchool">
+                    <gsml:img src="/res/img/promo/btsWithGS/goBackToSchoolsWithUs.gif"
+                              alt="Go back to school with GreatSchools! School supply tips,
                 Healthy lunch ideas,
-                Advice to help your child succeed
-            </p>
-        <span id="go">Go</span>
-        </gsml:a>
+                Advice to help your child succeed"/>
+
+                </td>
+                <td rowspan="2">
+                    <gsml:img src="/res/img/promo/btsWithGS/4kids.jpg" alt="four children's faces"/>
+                </td>
+            </tr>
+            <tr>
+                <td id="go"><gsml:a href="/content/backToSchool.page">
+                    <gsml:img src="/res/img/promo/btsWithGS/go.gif" alt="Go" />
+                </gsml:a>
+                </td>
+            </tr>
+        </table>
     </div>
 </jsp:root>

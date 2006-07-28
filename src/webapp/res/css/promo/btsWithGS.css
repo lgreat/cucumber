@@ -1,36 +1,18 @@
 #btsWithGSPromo {
     width: 584px; /* 365 + 219     900 - 36-36 = 828 - 584 =  244  */
     height: 290px;
-    background-image: url( ../../img/promo/btsWithGS/4kids.jpg );
-    background-position: top right;
-    background-repeat: no-repeat;
-    vertical-align: top;
+    border:0;
 }
 
-#btsWithGSPromo p {
+#btsWithGSPromo #goBackToSchool img {
     width: 219px;
     height: 199px;
-    position: relative;
 }
 
-#btsWithGSPromo p span {
-    background-image: url( ../../img/promo/btsWithGS/goBackToSchoolsWithUs.gif );
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-}
-
-#btsWithGSPromo #go {
-    display: block;
+#btsWithGSPromo #go a {
     width: 219px;
     height: 91px;
-    background-image: url( ../../img/promo/btsWithGS/go.gif );
-    background-position: bottom left;
-    background-repeat: no-repeat;
     background-color: #6cc;
-    overflow: hidden;
-    text-indent: -50em;
 }
 
 #btsWithGSPromo #go:hover {
