@@ -55,6 +55,8 @@
 
 <gsml:body adPageName="splash">
 <pageHelper:externalCss file="/res/css/splash.css"/>
+<pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
+<pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
 <pageHelper:addOnLoadHandler handler="hoverHome()"/>
 
 <table cellpadding="0" cellspacing="0" width="100%">
