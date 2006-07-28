@@ -2,20 +2,20 @@
 Copyright (c) 2006 GreatSchools.net
 All Rights Reserved.
 
-$Id: global.js,v 1.6 2006/07/26 21:49:16 dlee Exp $
+$Id: global.js,v 1.7 2006/07/28 22:29:49 apeterson Exp $
 */
 
 /* Finds the HTML element specified by the ID and switches it between
    block and 'none' display. Should not be used on other types of elements
    as its behavior is not defined. */
 function toggleById(elementId) {
-	var layer = document.getElementById(elementId);
+    var layer = document.getElementById(elementId);
 
-	if (layer.style.display == 'block') {
-		layer.style.display = 'none';
-	} else {
-		layer.style.display = 'block';
-	}
+    if (layer.style.display == 'block') {
+        layer.style.display = 'none';
+    } else {
+        layer.style.display = 'block';
+    }
 }
 
 /* Sets the search prompt in the global header */
@@ -30,18 +30,20 @@ function setSearchPrompt(s) {
 
 
 /* From the old perl code. Probably not needed */
-function issues(){
-    window.open("","issues",'width=400,height=300,scrollbars=yes')
+function issues() {
+    window.open("", "issues", 'width=400,height=300,scrollbars=yes')
 }
-function definitions(){
-    window.open("","issues",'width=500,height=400,scrollbars=yes')
+function definitions() {
+    window.open("", "issues", 'width=500,height=400,scrollbars=yes')
 }
-function jumpCounty(newLoc) {
-newPage=newLoc.options[newLoc.selectedIndex].text;
-newPage=escape(newPage);
-newPage="/cgi-bin/search_switch/"+"$STATE"+"?selector=county&countySelect="+
-newPage;
-if(newPage !="") {window.location.href=newPage}
+
+function jumpToCounty(newLoc, state) {
+    newPage = newLoc.options[newLoc.selectedIndex].text;
+    newPage = escape(newPage);
+    newPage = "/cgi-bin/search_switch/" + state + "?selector=county&countySelect=" + newPage;
+    if (newPage != "") {
+        window.location.href = newPage
+    }
 }
 
 /*
