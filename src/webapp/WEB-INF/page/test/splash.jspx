@@ -135,13 +135,16 @@
         <td style="vertical-align: top; height: 100%; width: 428px">
             <div id="week">
                 <h3>This Week at GreatSchools</h3>
-                <cache:cache scope="application" name="news" key="splash">
+                <!--<cache:cache scope="application" name="news" key="splash">-->
                     <ul>
-                        <li class="burst"><content:newsItem category="SPLASH POSITION 1"/></li>
-                        <li class="dialog"><content:newsItem category="SPLASH POSITION 2"/></li>
-                        <li class="checkmark"><content:newsItem category="SPLASH POSITION 3"/></li>
+                        <li class="burst"><content:newsItem category="SPLASH POSITION 1"
+                                                            state="${requestScope.context.state}"/></li>
+                        <li class="dialog"><content:newsItem category="SPLASH POSITION 2"
+                                                             state="${requestScope.context.state}"/></li>
+                        <li class="checkmark"><content:newsItem category="SPLASH POSITION 3"
+                                                                state="${requestScope.context.state}"/></li>
                     </ul>
-                </cache:cache>
+                <!--</cache:cache>-->
             </div>
         </td>
         <td width="8">
