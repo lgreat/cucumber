@@ -13,19 +13,27 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <td id="goBackToSchool">
+                    <gsml:a href="/content/backToSchool.page" >
                     <gsml:img src="/res/img/promo/btsWithGS/goBackToSchoolsWithUs.gif"
                               alt="Go back to school with GreatSchools! School supply tips,
                 Healthy lunch ideas,
                 Advice to help your child succeed"/>
-
+</gsml:a>
                 </td>
                 <td rowspan="2">
+                    <gsml:a href="/content/backToSchool.page" >
                     <gsml:img src="/res/img/promo/btsWithGS/4kids.jpg" alt="four children's faces"/>
+                    </gsml:a>
                 </td>
             </tr>
             <tr>
-                <td id="go"><gsml:a href="/content/backToSchool.page">
-                    <gsml:img src="/res/img/promo/btsWithGS/go.gif" alt="Go" />
+                <td id="go"><gsml:a href="/content/backToSchool.page" >
+                    <gsml:url var="go" value="/res/img/promo/btsWithGS/go.gif" />
+                    <gsml:url var="goOver" value="/res/img/promo/btsWithGS/goOver.gif" />
+                    <img src="${go}"
+                         alt="GO"
+                         onmouseover="this.src='${goOver}';"
+                         onmouseout="this.src='${go}';"/>
                 </gsml:a>
                 </td>
             </tr>

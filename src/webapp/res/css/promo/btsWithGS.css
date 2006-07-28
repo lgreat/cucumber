@@ -9,12 +9,18 @@
     height: 199px;
 }
 
+#btsWithGSPromo #go {
+    width: 219px;
+    height: 91px;
+    background-image: url( ../../img/promo/btsWithGS/goOver.gif );
+}
+
 #btsWithGSPromo #go a {
     width: 219px;
     height: 91px;
     background-color: #6cc;
 }
 
-#btsWithGSPromo #go:hover {
+#btsWithGSPromo #go a:hover {
     background-image: url( ../../img/promo/btsWithGS/goOver.gif );
 }
