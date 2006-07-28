@@ -52,14 +52,13 @@
                 <c:if test="${(empty showConstraint) or showConstraint}">
                     <td>
                         <select name="type">
-                            <option value="all">Schools &amp; Topics </option>
                             <option value="school">Schools only</option>
                             <option value="topic">Topics only</option>
                         </select>
                     </td>
                 </c:if>
                 <c:if test="${not ((empty showConstraint) or showConstraint)}">
-                    <input type="hidden" name="type" value="${(not empty constraint) ? constraint : 'all'}" />
+                    <input type="hidden" name="type" value="${(not empty constraint) ? (constraint) : 'all'}" />
                 </c:if>
             <td style="vertical-align:middle;padding-bottom:2px">
                 <gsml:url var="goButton"
