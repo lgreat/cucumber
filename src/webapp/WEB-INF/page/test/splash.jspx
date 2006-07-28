@@ -64,7 +64,8 @@
             <td  id="findAndCompare" width="275" >
                     <div id="findAndCompareSchoolsNationwide">
                         <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
-                        <gsml:form method="get" action="/search/search.page"
+                        <gsml:form method="get"
+                                   action="/stateLauncher.page"
                                    onsubmit="return checkSearchStateSelected('splashStateSelector')">
                             <input type="text" value="" name="q" size="16" />
                             &#160;
