@@ -12,11 +12,9 @@
     <div id="btsWithGSPromo">
         <gsml:a href="/content/backToSchool.page">
             <p><span>&#160;</span>Go back to school with GreatSchools!
-            <!--ul>
-                <li>School supply tips</li>
-                <li>Healthy lunch ideas</li>
-                <li>Advice to help your child succeed</li>
-            </ul-->
+                School supply tips,
+                Healthy lunch ideas,
+                Advice to help your child succeed
             </p>
         <span id="go">Go</span>
         </gsml:a>

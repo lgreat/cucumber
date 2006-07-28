@@ -34,10 +34,15 @@
 
     <script type="text/javascript" language="javascript">
         function hoverHome() {
-            if (getState() != '') {return;}
+            if (getState() != '') {
+                return;
+            }
             if (getElement('topnav_research')) {
                 var link = getElement('topnav_research');
-                link.onclick = function () {toggleStateSelector(this); return false;}
+                link.onclick = function () {
+                    toggleStateSelector(this);
+                    return false;
+                }
             }
         }
         function toggleStateSelector(thisItem) {
@@ -49,131 +54,133 @@
 </head>
 
 <gsml:body adPageName="splash">
-    <pageHelper:externalCss file="/res/css/splash.css"/>
-    <pageHelper:addOnLoadHandler handler="hoverHome()"/>
+<pageHelper:externalCss file="/res/css/splash.css"/>
+<pageHelper:addOnLoadHandler handler="hoverHome()"/>
 
-    <table cellpadding="0" cellspacing="0" width="100%">
-        <tr>
-            <td id="houseAd">
-                <p><span>&#160;</span>Track you child's learning grade-by-grade with our free newsletters that parents
-                    love.</p>
-                <promo:nthGraderHover>Sign up for newsletters</promo:nthGraderHover>
-            </td>
-            <td width="8">
-            </td>
-            <td  id="findAndCompare" width="275" >
-                    <div id="findAndCompareSchoolsNationwide">
-                        <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
-                        <gsml:form method="get"
-                                   action="/stateLauncher.page"
-                                   onsubmit="return checkSearchStateSelected('splashStateSelector')">
-                            <input type="text" value="" name="q" size="16" />
-                            &#160;
-                            <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}"
-                                                 useNoState="${not requestScope.context.hasSearched}"
-                                                 styleId="splashStateSelector"
-                                                 noStateLabel="--" />
-                            <input type="hidden" value="school" name="type"/>
-                            <br />
-                            <gsml:url var="go" value="/res/img/splash/go.gif"/>
-                            <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
-                                <input type="image" src="${go}" alt="GO" style="width:41px;height:26px;margin-top: 10px"
-                                       class="button" onmouseover="this.src='${goOver}';" onmouseout="this.src='${go}';"/>
-                        </gsml:form>
-                    </div>
+<table cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td>
+            <promo:btsWithGS />
+        </td>
+        <td width="8">
+        </td>
+        <td id="findAndCompare" width="275">
+            <div id="findAndCompareSchoolsNationwide">
+                <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
+                <gsml:form method="get"
+                           action="/stateLauncher.page"
+                           onsubmit="return checkSearchStateSelected('splashStateSelector')">
+                    <input type="text" value="" name="q" size="16"/>
+                    &#160;
+                    <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}"
+                                         useNoState="${not requestScope.context.hasSearched}"
+                                         styleId="splashStateSelector"
+                                         noStateLabel="--"/>
+                    <input type="hidden" value="school" name="type"/>
+                    <br/>
+                    <gsml:url var="go" value="/res/img/splash/go.gif"/>
+                    <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
+                    <input type="image" src="${go}" alt="GO" style="width:41px;height:26px;margin-top: 10px"
+                           class="button" onmouseover="this.src='${goOver}';" onmouseout="this.src='${go}';"/>
+                </gsml:form>
+            </div>
 
-                    <div id="getIdeasAndLearnMoreAbout">
-                        <h3>Get <em>IDEAS and LEARN MORE</em> about:</h3>
-                        <gsml:form action="/redirect.page" method="GET" >
-                            <table><tr>
-                                <td>                            <select name="page"  >
-                                <option value="/content/backToSchool.page" selected="selected">Back-to-school success </option>
-                                <option value="/search/search.page?q=back+to+school+shopping&amp;type=topic">Back-to-school shopping </option>
-                                <option value="/content/summerReading.page"> Summer reading </option>
-                                <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Ask the experts </option>
+            <div id="getIdeasAndLearnMoreAbout">
+                <h3>Get <em>IDEAS and LEARN MORE</em> about:</h3>
+                <gsml:form action="/redirect.page" method="GET">
+                    <table><tr>
+                        <td><select name="page">
+                            <option value="/content/backToSchool.page" selected="selected">Back-to-school
+                                success </option>
+                            <option value="/search/search.page?q=back+to+school+shopping&amp;type=topic">Back-to-school
+                                shopping </option>
+                            <option value="/content/summerReading.page"> Summer reading </option>
+                            <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Ask the
+                                experts </option>
 
-                                <option value="/cgi-bin/showarticle/CA/33"> Fundraising</option>
+                            <option value="/cgi-bin/showarticle/CA/33"> Fundraising</option>
 
-                                <option value="/cgi-bin/showarticle/CA/22"> Learning disabilities </option>
-                                <option value="/cgi-bin/showarticle/CA/97"> Gifted and talented kids </option>
+                            <option value="/cgi-bin/showarticle/CA/22"> Learning disabilities </option>
+                            <option value="/cgi-bin/showarticle/CA/97"> Gifted and talented kids </option>
 
-                                <option value="/search/search.page?q=reading tips&amp;type=topic"> Reading tips </option>
-                                <option value="/search/search.page?q=math tips&amp;type=topic"> Math tips </option>
-                                <option value="/search/search.page?q=bullying&amp;type=topic"> Bullying </option>
-                                <option value="/search/search.page?q=healthy+food&amp;type=topic"> Healthy food ideas </option>
-                                <option value="/search/search.page?q=homework&amp;type=topic"> Homework battles </option>
+                            <option value="/search/search.page?q=reading tips&amp;type=topic"> Reading tips </option>
+                            <option value="/search/search.page?q=math tips&amp;type=topic"> Math tips </option>
+                            <option value="/search/search.page?q=bullying&amp;type=topic"> Bullying </option>
+                            <option value="/search/search.page?q=healthy+food&amp;type=topic"> Healthy food
+                                ideas </option>
+                            <option value="/search/search.page?q=homework&amp;type=topic"> Homework battles </option>
 
-                                <option value="/content/guideToTests.page"> Standardized tests </option>
-                                <option value="/content/schoolChoiceCenter.page"> Choosing a school </option>
-                                <option value="/cgi-bin/showarticle/ca/197">Public vs. private</option>
+                            <option value="/content/guideToTests.page"> Standardized tests </option>
+                            <option value="/content/schoolChoiceCenter.page"> Choosing a school </option>
+                            <option value="/cgi-bin/showarticle/ca/197">Public vs. private</option>
 
-                                <!--option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Improving your school </option-->
-                                <option value="/cgi-bin/showarticle/ca/41"> Get involved</option>
+                            <!--option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Improving your school </option-->
+                            <option value="/cgi-bin/showarticle/ca/41"> Get involved</option>
 
-                                <!--option value="/search/search.page?q=Troubleshooter&amp;type=topic"> How schools work </option>
-                                <option value="/search/search.page?q=violence&amp;type=topic"> Making your school safe: </option>
-                                <option value="/search/search.page?q=kindergarten&amp;type=topic"> Kindergarten </option>
-                                <option value="/search/search.page?q=first grade&amp;type=topic"> First grade </option>
-                                <option value="/search/search.page?q=second grade&amp;type=topic"> Second grade </option>
-                                <option value="/search/search.page?q=third grade&amp;type=topic"> Third grade </option-->
-                            </select>
-</td>
-                                <td>                            &#160;
-</td>
-                                <td>                                <input type="image" src="${go}" alt="GO" style="width:41px;height:26px;"
-                                                                           class="button" onmouseover="this.src='${goOver}';" onmouseout="this.src='${go}';"/>
-</td>
-                                </tr></table>
-                        </gsml:form>
-                    </div>
-            </td>
-        </tr>
-    </table>
-    <div class="bigDottedDivider">&#160;</div>
-    <table cellpadding="0" cellspacing="0" width="100%">
-        <tr>
-            <td style="vertical-align: top; height: 100%; width: 428px">
-                <div id="week">
-                    <h3>This Week at GreatSchools</h3>
-                    <cache:cache scope="application" name="news" key="splash">
-                        <ul>
-                            <li class="burst"><content:newsItem category="SPLASH POSITION 1"/></li>
-                            <li class="dialog"><content:newsItem category="SPLASH POSITION 2"/></li>
-                            <li class="checkmark"><content:newsItem category="SPLASH POSITION 3"/></li>
-                        </ul>
+                            <!--option value="/search/search.page?q=Troubleshooter&amp;type=topic"> How schools work </option>
+                       <option value="/search/search.page?q=violence&amp;type=topic"> Making your school safe: </option>
+                       <option value="/search/search.page?q=kindergarten&amp;type=topic"> Kindergarten </option>
+                       <option value="/search/search.page?q=first grade&amp;type=topic"> First grade </option>
+                       <option value="/search/search.page?q=second grade&amp;type=topic"> Second grade </option>
+                       <option value="/search/search.page?q=third grade&amp;type=topic"> Third grade </option-->
+                        </select>
+                        </td>
+                        <td>                            &#160;
+                        </td>
+                        <td><input type="image" src="${go}" alt="GO" style="width:41px;height:26px;"
+                                   class="button" onmouseover="this.src='${goOver}';" onmouseout="this.src='${go}';"/>
+                        </td>
+                    </tr></table>
+                </gsml:form>
+            </div>
+        </td>
+    </tr>
+</table>
+<div class="bigDottedDivider">&#160;</div>
+<table cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td style="vertical-align: top; height: 100%; width: 428px">
+            <div id="week">
+                <h3>This Week at GreatSchools</h3>
+                <cache:cache scope="application" name="news" key="splash">
+                    <ul>
+                        <li class="burst"><content:newsItem category="SPLASH POSITION 1"/></li>
+                        <li class="dialog"><content:newsItem category="SPLASH POSITION 2"/></li>
+                        <li class="checkmark"><content:newsItem category="SPLASH POSITION 3"/></li>
+                    </ul>
+                </cache:cache>
+            </div>
+        </td>
+        <td width="8">
+        </td>
+        <td width="1" style="background-color: #ddd">
+        </td>
+        <td width="8">
+        </td>
+        <td id="billsBlog">
+            <div>
+                <h3>BILL'S BLOG<h4>Founder &amp; CEO of GreatSchools</h4></h3>
+
+                <div class="rss">
+                    <cache:cache scope="application" name="blog" key="bill3">
+                        <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
+                                          defaultTitle="Bill's thoughts on education"
+                                          defaultUrl="http://billsblog.greatschools.net"/>
                     </cache:cache>
+                    <br/>
+                    <gsml:url var="read" value="/res/img/splash/read.gif"/>
+                    <gsml:url var="readOver" value="/res/img/splash/readOver.gif"/>
+                    <a href="http://billsblog.greatschools.net" target="_new"><img
+                            src="${read}"
+                            alt="Read Bill's Blog"
+                            style="margin: 12px 0 4px -2px"
+                            onmouseover="this.src='${readOver}';" onmouseout="this.src='${read}';"/></a>
                 </div>
-            </td>
-            <td width="8">
-            </td>
-            <td width="1" style="background-color: #ddd">
-            </td>
-            <td width="8">
-            </td>
-            <td  id="billsBlog" >
-                <div>
-                    <h3>BILL'S BLOG<h4>Founder &amp; CEO of GreatSchools</h4></h3>
-
-                    <div class="rss">
-                        <cache:cache scope="application" name="blog" key="bill3">
-                            <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
-                                              defaultTitle="Bill's thoughts on education"
-                                              defaultUrl="http://billsblog.greatschools.net"/>
-                        </cache:cache>
-                        <br />
-                        <gsml:url var="read" value="/res/img/splash/read.gif"/>
-                        <gsml:url var="readOver" value="/res/img/splash/readOver.gif"/>
-                        <a href="http://billsblog.greatschools.net" target="_new"><img
-                                src="${read}"
-                                alt="Read Bill's Blog"
-                                style="margin: 12px 0 4px -2px"
-                                onmouseover="this.src='${readOver}';" onmouseout="this.src='${read}';"/></a>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <mod:tracking pageType="splash" pageName="splash" hier1="Home,Splash"/>
+            </div>
+        </td>
+    </tr>
+</table>
+<mod:tracking pageType="splash" pageName="splash" hier1="Home,Splash"/>
 </gsml:body>
 </html>
 </jsp:root>
