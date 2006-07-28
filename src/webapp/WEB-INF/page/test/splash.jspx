@@ -114,15 +114,8 @@
                             <option value="/content/schoolChoiceCenter.page"> Choosing a school </option>
                             <option value="/cgi-bin/showarticle/ca/197">Public vs. private</option>
 
-                            <!--option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Improving your school </option-->
                             <option value="/cgi-bin/showarticle/ca/41"> Get involved</option>
 
-                            <!--option value="/search/search.page?q=Troubleshooter&amp;type=topic"> How schools work </option>
-                       <option value="/search/search.page?q=violence&amp;type=topic"> Making your school safe: </option>
-                       <option value="/search/search.page?q=kindergarten&amp;type=topic"> Kindergarten </option>
-                       <option value="/search/search.page?q=first grade&amp;type=topic"> First grade </option>
-                       <option value="/search/search.page?q=second grade&amp;type=topic"> Second grade </option>
-                       <option value="/search/search.page?q=third grade&amp;type=topic"> Third grade </option-->
                         </select>
                         </td>
                         <td>                            &#160;
