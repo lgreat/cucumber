@@ -1,12 +1,13 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: NewsItemTagHandler.java,v 1.1 2006/07/03 22:14:36 apeterson Exp $
+ * $Id: NewsItemTagHandler.java,v 1.2 2006/07/28 15:36:58 apeterson Exp $
  */
 
 package gs.web.content;
 
 import gs.data.content.INewsItemDao;
 import gs.data.content.NewsItem;
+import gs.data.state.State;
 import gs.data.util.SpringUtil;
 import org.apache.commons.lang.StringUtils;
 
@@ -24,6 +25,7 @@ import java.util.List;
 public class NewsItemTagHandler extends SimpleTagSupport {
 
     private String _category;
+    private State _state = State.CA;
 
     public void doTag() throws JspException, IOException {
         INewsItemDao newsItemDao = (INewsItemDao) SpringUtil.getApplicationContext().getBean(INewsItemDao.BEAN_ID);
@@ -32,21 +34,29 @@ public class NewsItemTagHandler extends SimpleTagSupport {
         JspWriter out = this.getJspContext().getOut();
         if (newsItems.size() > 0) {
             NewsItem newsItem = (NewsItem) newsItems.get(0);
-            if (StringUtils.isNotEmpty(newsItem.getLink())) {
-                out.print("<a href=\""+newsItem.getLink()+"\">");
+            String link = newsItem.getLink();
+            if (StringUtils.isNotEmpty(link)) {
+                if (link.indexOf("STATE") != -1) {
+                    State state = _state != null ? _state : State.CA;
+                    link = link.replaceAll("\\$STATE", state.getAbbreviation());
+                }
+                out.print("<a href=\"" + link + "\">");
             }
             out.print(newsItem.getTitle());
-            if (StringUtils.isNotEmpty(newsItem.getLink())) {
+            if (StringUtils.isNotEmpty(link)) {
                 out.print("</a>");
             }
             out.print(" ");
             out.print(newsItem.getText());
-        }   else {
+        } else {
             out.print("News item not available");
         }
 
     }
 
+    public void setState(State state) {
+        _state = state;
+    }
 
     public void setCategory(String category) {
         _category = category;
