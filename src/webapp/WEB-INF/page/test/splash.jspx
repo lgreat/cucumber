@@ -87,14 +87,14 @@
                         <gsml:form action="/redirect.page" method="GET" >
                             <table><tr>
                                 <td>                            <select name="page"  >
-                                <option value="/content/backToSchool.page" selected="selected">Back to school success </option>
-                                <option value="/search/search.page?q=back+to+school+shopping&amp;type=topic"> Back to school shopping </option>
+                                <option value="/content/backToSchool.page" selected="selected">Back-to-school success </option>
+                                <option value="/search/search.page?q=back+to+school+shopping&amp;type=topic">Back-to-school shopping </option>
                                 <option value="/content/summerReading.page"> Summer reading </option>
-                                <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Ask an Expert </option>
+                                <option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Ask the experts </option>
 
                                 <option value="/cgi-bin/showarticle/CA/33"> Fundraising</option>
 
-                                <option value="/search/search.page?q=special+education&amp;type=topic"> Learning disabilities </option>
+                                <option value="/cgi-bin/showarticle/CA/22"> Learning disabilities </option>
                                 <option value="/cgi-bin/showarticle/CA/97"> Gifted and talented kids </option>
 
                                 <option value="/search/search.page?q=reading tips&amp;type=topic"> Reading tips </option>
@@ -108,7 +108,7 @@
                                 <option value="/cgi-bin/showarticle/ca/197">Public vs. private</option>
 
                                 <!--option value="/search/search.page?q=Troubleshooter&amp;type=topic"> Improving your school </option-->
-                                <option value="/cgi-bin/showarticle/ca/41"> Get Involved</option>
+                                <option value="/cgi-bin/showarticle/ca/41"> Get involved</option>
 
                                 <!--option value="/search/search.page?q=Troubleshooter&amp;type=topic"> How schools work </option>
                                 <option value="/search/search.page?q=violence&amp;type=topic"> Making your school safe: </option>

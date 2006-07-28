@@ -180,9 +180,9 @@
 
                     <p>
                         <select name="level">
-                            <option value="elementary">Elementary</option>
-                            <option value="middle">Middle</option>
-                            <option value="high">High</option>
+                            <option value="elementary">elementary</option>
+                            <option value="middle">middle</option>
+                            <option value="high">high</option>
                         </select>
                         &#32;schools
                     </p>
