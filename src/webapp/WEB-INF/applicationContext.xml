@@ -37,6 +37,20 @@
         <property name="stateCookieGenerator">
             <bean class="org.springframework.web.util.CookieGenerator">
                 <property name="cookieName" value="STATE"/>
+                <!--
+                    The Java site uses a cookie to track the user's locale.
+
+                    On the perl site it is tracked in the URL like always.
+
+                    When one site calls the other, they must communicate in the other site's language.
+                    It's clear that when the java site calls perl, it passes the state in the URL.
+                    The perl site to tell the java site that it's in MA, it doesn't set the cookie,
+                    but pass state=MA in the URL, which coaxes the java site to set the cookie.
+                    The cookies aren't set on the perl side.
+
+                    There will be one additional cookie, "has the user searched?",
+                    which will be used on both sites to determine how to draw the state popup.
+                -->
             </bean>
         </property>
         <property name="pathwayCookieGenerator">
