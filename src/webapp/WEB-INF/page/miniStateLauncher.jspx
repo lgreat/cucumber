@@ -116,7 +116,7 @@
         </gsml:form>
     </div>
 
-<mod:tracking pageType="search" pageName="miniStateLauncher" hier1="Search,miniStateSelectPage"/>
+<mod:tracking pageType="search" pageName="State Selection Hover" hier1="Search,State select page,Hover"/>
 </body>
 </html>
 </jsp:root>
