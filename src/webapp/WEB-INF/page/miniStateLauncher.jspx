@@ -41,7 +41,7 @@
 
 <body>
     <div style="height:360px;padding-left:20px;padding-top:10px;background-color:#fff;">
-        <h2>Please<br/>Select Your State:</h2>
+        <h2>Please<br/>select your state:</h2>
 
 
         <gsml:form action="${url}" method="get">

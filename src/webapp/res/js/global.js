@@ -2,7 +2,7 @@
 Copyright (c) 2006 GreatSchools.net
 All Rights Reserved.
 
-$Id: global.js,v 1.7 2006/07/28 22:29:49 apeterson Exp $
+$Id: global.js,v 1.8 2006/07/31 16:38:00 dlee Exp $
 */
 
 /* Finds the HTML element specified by the ID and switches it between
@@ -79,5 +79,5 @@ function readCookie(cookieName) {
 
 //get state from cookie
 function getState() {
-    return readCookie('state');
+    return readCookie('STATE');
 }
