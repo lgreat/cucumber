@@ -61,7 +61,7 @@
                     </th>
                     <td class="${bpCensus.unemploymentRate lt usCensus.unemploymentRate-.01 ? 'better' : bpCensus.unemploymentRate gt usCensus.unemploymentRate+.01 ? 'worse' : ''}">
 
-                        <fmt:formatNumber value="${bpCensus.unemploymentRate * 100}" maxFractionDigits="0"/>%
+                        <fmt:formatNumber value="${(bpCensus.unemploymentRate + .001) * 100}" maxFractionDigits="0"/>%
                     </td>
                     <c:if test="${showStateInfo}">
                     <td>
