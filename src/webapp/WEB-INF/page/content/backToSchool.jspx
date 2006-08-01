@@ -133,9 +133,7 @@
                 <p>Q: My kindergartner doesn't want to go to school. What do I do?
                     <gsweb:articlelink articleId="507">Read the answer</gsweb:articlelink>
                     </p>
-                <h3 id="parentPoll">Parent Poll</h3>
-                <p>How does your child feel about going back to school? <gsml:a href="/cgi-bin/static/poll_results.tmpl/$STATE">Vote in our back-to-school poll</gsml:a>
-                    </p>
+              
                 <h3 id="theTwinsStartKindergarten">The Twins Start Kindergarten</h3>
                 <p>Follow this family's story as their twins Anna and Beth start kindergarten. <a href="http://back-to-school-blog.greatschools.net/" target="_blank">Read our Back to School Blog</a>
                     </p>
