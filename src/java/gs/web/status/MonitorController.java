@@ -2,18 +2,16 @@ package gs.web.status;
 
 import gs.data.dao.IDao;
 import gs.data.dao.IPartitionDao;
+import gs.data.dao.DatabaseTestEntity;
 import gs.data.state.State;
-import gs.data.test.Test;
-import gs.data.test.TestState;
+import gs.data.dao.PartitionedDatabaseTestEntity;
 import gs.data.util.StackTraceUtil;
 import gs.data.search.Searcher;
 import gs.web.util.ReadWriteController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -102,10 +100,10 @@ public class MonitorController implements ReadWriteController {
         boolean mainReadWrite = false;
         String mainError = "";
         try {
-            Test testWrite = new Test();
+            DatabaseTestEntity testWrite = new DatabaseTestEntity();
             _dao.saveObject(testWrite);
-            Test testRead = (Test) _dao.getObject(Test.class, testWrite.getId());
-            _dao.removeObject(Test.class, testRead.getId());
+            DatabaseTestEntity testRead = (DatabaseTestEntity) _dao.getObject(DatabaseTestEntity.class, testWrite.getId());
+            _dao.removeObject(DatabaseTestEntity.class, testRead.getId());
             mainReadWrite = true;
         } catch (Exception e) {
             _log.error("Error reading and writing to the main database", e);
@@ -118,10 +116,10 @@ public class MonitorController implements ReadWriteController {
         boolean stateReadWrite = false;
         String stateError = "";
         try {
-            TestState testStateWrite = new TestState();
+            PartitionedDatabaseTestEntity testStateWrite = new PartitionedDatabaseTestEntity();
             _partitionDao.saveObject(testStateWrite, State.CA);
-            TestState testStateRead = (TestState) _partitionDao.getObject(TestState.class, State.CA, testStateWrite.getId());
-            _partitionDao.removeObject(TestState.class, State.CA, testStateRead.getId());
+            PartitionedDatabaseTestEntity testStateRead = (PartitionedDatabaseTestEntity) _partitionDao.getObject(PartitionedDatabaseTestEntity.class, State.CA, testStateWrite.getId());
+            _partitionDao.removeObject(PartitionedDatabaseTestEntity.class, State.CA, testStateRead.getId());
             stateReadWrite = true;
         } catch (Exception e) {
             _log.error("Error reading and writing to the state database", e);
