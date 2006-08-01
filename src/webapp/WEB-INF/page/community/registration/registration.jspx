@@ -9,14 +9,16 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:spring="http://www.springframework.org/tags"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:gsweb="gstaglib">
     <jsp:directive.page contentType="text/html"/><html>
   <head>
       <title>Registration</title>
       <style type="text/css">
-           label.form, input.form {
+           label.form, input.form, select.form {
                 margin-bottom: 10px;
                 display: block;
                 width: 150px;
@@ -126,6 +128,134 @@
             <input id="confirmPassword" class="form" type="password" name="confirmPassword" value="${userCmd.confirmPassword}" style="width:120px;"/>
         </spring:bind>
 
+        <br style="clear: left;"/>
+        <div class="error">
+            <spring:bind path="userCmd.state">
+                ${status.errorMessage}
+            </spring:bind>
+        </div>
+
+        <label for="stateSelector" class="form">State:</label>
+        <spring:bind path="userCmd.state">
+            <gsweb:stateSelector state="${requestScope.context.stateOrDefault}"/>
+        </spring:bind>
+
+        <br style="clear: left;"/>
+        <div class="error">
+            <spring:bind path="userCmd.city">
+                ${status.errorMessage}
+            </spring:bind>
+        </div>
+
+        <label for="city" class="form">City:</label>
+        <spring:bind path="userCmd.city">
+            <input id="city" class="form" type="text" name="city" value="${userCmd.city}" style="width:120px;"/>
+        </spring:bind>
+
+        <br style="clear: left;"/>
+        <div class="error">
+            <spring:bind path="userCmd.numSchoolChildren">
+                ${status.errorMessage}
+            </spring:bind>
+        </div>
+
+        <label for="numSchoolChildren" class="form">I have:</label>
+        <spring:bind path="userCmd.numSchoolChildren">
+            <select name="numSchoolChildren" id="numSchoolChildren" class="form">
+                <![CDATA[<option ]]>
+                <c:if test="${userCmd.numSchoolChildren eq '0'}">
+                    selected
+                </c:if>
+                <![CDATA[ value="0">0</option>]]>
+                <![CDATA[<option ]]>
+                <c:if test="${userCmd.numSchoolChildren eq '1'}">
+                    selected
+                </c:if>
+                <![CDATA[ value="1">1</option>]]>
+                <![CDATA[<option ]]>
+                <c:if test="${userCmd.numSchoolChildren eq '2'}">
+                    selected
+                </c:if>
+                <![CDATA[ value="2">2</option>]]>
+                <![CDATA[<option ]]>
+                <c:if test="${userCmd.numSchoolChildren eq '3'}">
+                    selected
+                </c:if>
+                <![CDATA[ value="3">3</option>]]>
+                <![CDATA[<option ]]>
+                <c:if test="${userCmd.numSchoolChildren eq '4'}">
+                    selected
+                </c:if>
+                <![CDATA[ value="4">4</option>]]>
+                <![CDATA[<option ]]>
+                <c:if test="${userCmd.numSchoolChildren eq '5'}">
+                    selected
+                </c:if>
+                <![CDATA[ value="5">5</option>]]>
+                <![CDATA[<option ]]>
+                <c:if test="${userCmd.numSchoolChildren eq '6'}">
+                    selected
+                </c:if>
+                <![CDATA[ value="6">6</option>]]>
+                <![CDATA[<option ]]>
+                <c:if test="${userCmd.numSchoolChildren eq '7'}">
+                    selected
+                </c:if>
+                <![CDATA[ value="7">7</option>]]>
+                <![CDATA[<option ]]>
+                <c:if test="${userCmd.numSchoolChildren eq '8'}">
+                    selected
+                </c:if>
+                <![CDATA[ value="8">8</option>]]>
+
+            </select>
+        </spring:bind>
+        <label for="numSchoolChildren" class="form">children in K-12</label>
+
+
+        <br style="clear: left;"/>
+        <div class="error">
+            <spring:bind path="userCmd.numPreKChildren">
+                ${status.errorMessage}
+            </spring:bind>
+        </div>
+
+        <label for="numPreKChildren" class="form">I have:</label>
+        <spring:bind path="userCmd.numPreKChildren">
+            <select name="numPreKChildren" id="numPreKChildren" class="form">
+                <![CDATA[<option ]]>
+                <c:if test="${userCmd.numPreKChildren eq '0'}">
+                    selected
+                </c:if>
+                <![CDATA[ value="0">0</option>]]>
+                <![CDATA[<option ]]>
+                <c:if test="${userCmd.numPreKChildren eq '1'}">
+                    selected
+                </c:if>
+                <![CDATA[ value="1">1</option>]]>
+                <![CDATA[<option ]]>
+                <c:if test="${userCmd.numPreKChildren eq '2'}">
+                    selected
+                </c:if>
+                <![CDATA[ value="2">2</option>]]>
+                <![CDATA[<option ]]>
+                <c:if test="${userCmd.numPreKChildren eq '3'}">
+                    selected
+                </c:if>
+                <![CDATA[ value="3">3</option>]]>
+                <![CDATA[<option ]]>
+                <c:if test="${userCmd.numPreKChildren eq '4'}">
+                    selected
+                </c:if>
+                <![CDATA[ value="4">4</option>]]>
+                <![CDATA[<option ]]>
+                <c:if test="${userCmd.numPreKChildren eq '5'}">
+                    selected
+                </c:if>
+                <![CDATA[ value="5">5</option>]]>
+            </select>
+        </spring:bind>
+        <label for="numPreKChildren" class="form">children younger than kindergarten</label>
 
         <spring:bind path="userCmd.user.id">
             <input id="id" type="hidden" name="id" value="${userCmd.user.id}"/>
@@ -133,6 +263,7 @@
         <br style="clear:left;"/>
 
         <input class="form" type="submit" value="Register!" name="submit"/>
+        <div class="privacy">By submitting, I agree to the <link:termsOfUse>Terms of Service</link:termsOfUse></div>
         <div class="privacy">We won't sell or share your address. <gsml:popupWindow width="800" height="600" left="50" top="50"
                 href="/about/privacyStatement.page?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></div>
     </gsml:form>

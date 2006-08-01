@@ -2,6 +2,8 @@ package gs.web.community.registration;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.community.IUserProfileDao;
+import gs.data.community.UserProfile;
 import gs.data.util.DigestUtil;
 import gs.web.util.UrlBuilder;
 import gs.web.util.ReadWriteController;
@@ -27,6 +29,7 @@ public class RegistrationController extends SimpleFormController implements Read
     protected final Log _log = LogFactory.getLog(getClass());
 
     private IUserDao _userDao;
+    private IUserProfileDao _userProfileDao;
     private JavaMailSender _mailSender;
 
     //set up defaults if none supplied
@@ -59,6 +62,7 @@ public class RegistrationController extends SimpleFormController implements Read
                                  BindException errors) throws Exception {
         UserCommand userCommand = (UserCommand) command;
         User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
+        
         boolean userExists = false;
 
         if (user != null) {
@@ -98,10 +102,28 @@ public class RegistrationController extends SimpleFormController implements Read
             }
             throw me;
         }
+
+        // gotten this far, now let's update their user profile
+        UserProfile userProfile = userCommand.getUserProfile();
+
+        userProfile.setUser(userCommand.getUser());
+        _userProfileDao.saveUserProfile(userProfile);
+        userCommand.getUser().setUserProfile(userProfile);
+        _userDao.updateUser(userCommand.getUser());
+
+
         ModelAndView mAndV = new ModelAndView();
 
         mAndV.setViewName(getSuccessView());
+        FollowUpCommand fupCommand = new FollowUpCommand();
+        fupCommand.setUser(userCommand.getUser());
+        fupCommand.setUserProfile(userProfile);
+
+        // generate secure hash so if the followup profile page is submitted, we know who it is
+        String hash = DigestUtil.hashStringInt(userCommand.getEmail(), userCommand.getUser().getId());
+        mAndV.getModel().put("idString", hash);
         mAndV.getModel().put("email", userCommand.getEmail());
+        mAndV.getModel().put("followUpCmd", fupCommand);
         return mAndV;
     }
 
@@ -141,6 +163,14 @@ public class RegistrationController extends SimpleFormController implements Read
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public IUserProfileDao getUserProfileDao() {
+        return _userProfileDao;
+    }
+
+    public void setUserProfileDao(IUserProfileDao userProfileDao) {
+        _userProfileDao = userProfileDao;
     }
 
     public JavaMailSender getMailSender() {

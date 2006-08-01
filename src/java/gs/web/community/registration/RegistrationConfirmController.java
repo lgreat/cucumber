@@ -70,9 +70,10 @@ public class RegistrationConfirmController extends AbstractController implements
             _log.warn("Community registration request with no id, redirecting to registration");
             return redirectToRegistration(request);
         }
-        if (idString.length() < DigestUtil.MD5_HASH_LENGTH + 1) {
+        if (idString.length() <= DigestUtil.MD5_HASH_LENGTH) {
             _log.warn("Community registration request with badly formed idString: " + idString + 
-                    ", redirecting to registration");
+                    ", redirecting to registration. Expecting hash of length " +
+                    DigestUtil.MD5_HASH_LENGTH + " followed by id.");
             return redirectToRegistration(request);
         }
         String hash = idString.substring(0, DigestUtil.MD5_HASH_LENGTH);

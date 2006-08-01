@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.12 2006/07/26 21:49:16 dlee Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.13 2006/08/01 21:54:13 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -266,5 +266,12 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/community/forgotPassword.page", builder.asSiteRelative(null));
+    }
+
+    public void testTermsOfUse() {
+        TermsOfUseTagHandler tagHandler = new TermsOfUseTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/cgi-bin/static/terms.html/CA", builder.asSiteRelative(null));
     }
 }

@@ -2,6 +2,8 @@ package gs.web.community.registration;
 
 import gs.web.util.validator.EmailValidator;
 import gs.data.community.User;
+import gs.data.community.UserProfile;
+import gs.data.state.State;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -19,9 +21,11 @@ public class UserCommand implements EmailValidator.IEmail {
     private String _password;
     private String _confirmEmail;
     private User _user;
+    private UserProfile _userProfile;
 
     public UserCommand() {
         _user = new User();
+        _userProfile = new UserProfile();
     }
 
     public String getConfirmPassword() {
@@ -54,6 +58,14 @@ public class UserCommand implements EmailValidator.IEmail {
 
     public void setUser(User user) {
         _user = user;
+    }
+
+    public UserProfile getUserProfile() {
+        return _userProfile;
+    }
+
+    public void setUserProfile(UserProfile user) {
+        _userProfile = user;
     }
 
     /**
@@ -106,5 +118,37 @@ public class UserCommand implements EmailValidator.IEmail {
 
     public void setLastName(String lastName) {
         getUser().setLastName(lastName);
+    }
+
+    public State getState() {
+        return getUserProfile().getState();
+    }
+
+    public void setState(State state) {
+        getUserProfile().setState(state);
+    }
+
+    public String getCity() {
+        return getUserProfile().getCity();
+    }
+
+    public void setCity(String city) {
+        getUserProfile().setCity(city);
+    }
+
+    public Integer getNumSchoolChildren() {
+        return getUserProfile().getNumSchoolChildren();
+    }
+
+    public void setNumSchoolChildren(Integer numChildren) {
+        getUserProfile().setNumSchoolChildren(numChildren);
+    }
+
+    public Integer getNumPreKChildren() {
+        return getUserProfile().getNumPreKChildren();
+    }
+
+    public void setNumPreKChildren(Integer numYoungChildren) {
+        getUserProfile().setNumPreKChildren(numYoungChildren);
     }
 }

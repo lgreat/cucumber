@@ -2,6 +2,7 @@ package gs.web.community.registration;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.MockJavaMailSender;
 import org.springframework.context.ApplicationContext;
@@ -47,6 +48,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         userCommand.setEmail(email);
         userCommand.setPassword(password);
         userCommand.setConfirmPassword(password);
+        userCommand.setState(State.CA);
 
         assertNull("Fake user already exists??", _userDao.findUserFromEmailIfExists(email));
 
@@ -59,6 +61,8 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
                     "/community/registration/registrationSuccess", mAndV.getViewName());
             assertEquals(email, u.getEmail());
             assertTrue("Password failing compare", u.matchesPassword(password));
+            assertNotNull("User wasn't given a user profile", u.getUserProfile());
+            assertEquals(State.CA, u.getUserProfile().getState());
         } finally {
             _userDao.removeUser(u.getId());
         }

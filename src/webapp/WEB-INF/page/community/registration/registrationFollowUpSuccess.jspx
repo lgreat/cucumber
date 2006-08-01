@@ -1,0 +1,23 @@
+<!--
+  Created by IntelliJ IDEA.
+  User: UrbanaSoft
+  Date: Jun 15, 2006
+  Time: 4:29:17 PM
+  To change this template use File | Settings | File Templates.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+<jsp:directive.page contentType="text/html"/><html>
+  <head>
+      <title>Registration Successful!</title>
+      <style type="text/css">
+          h2.intro {
+              font-size: large;
+              margin-bottom: 5px;
+          }
+      </style>
+  </head>
+  <body>
+    <h2 class="intro">${name}, your profile has been updated!</h2>
+  </body>
+</html>
+</jsp:root>

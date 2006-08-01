@@ -5,22 +5,121 @@
   Time: 4:29:17 PM
   To change this template use File | Settings | File Templates.
 -->
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:gsweb="gstaglib">
 <jsp:directive.page contentType="text/html"/><html>
   <head>
       <title>Registration Successful!</title>
       <style type="text/css">
-          h2.intro {
+          h2.header {
               font-size: large;
               margin-bottom: 5px;
           }
+          label.form, input.form, select.form {
+               margin-bottom: 10px;
+               display: block;
+               width: 150px;
+               float: left;
+           }
+
+          input.checkbox {
+              margin-top: 5px;
+              display: block;
+              float: left;
+          }
+
+          label.checkbox {
+              text-align: left;
+              width:120px;
+              padding-left: 20px;
+          }
+
+          label.textarea {
+              padding-bottom: 5px;
+          }
+
+           label.form {
+               text-align: right;
+               width: 120px;
+               padding-right: 20px;
+           }
+
+          .privacy {
+               font-size: smaller;
+               margin-left: 11.5em;
+               color: #666666;
+               margin-top:0;
+               clear:left;
+           }
+          div.error {
+                color: red;
+                display:block;
+                padding:8px;
+            }
       </style>
   </head>
   <body>
-    <h2 class="intro">Thanks for registering, and welcome to the Greatschools Network!</h2>
-    <p>A confirmation email has been sent to you at: ${param.email}</p>
+    <h2 class="header">Thanks for registering, and welcome to the Greatschools Network!</h2>
+    <p>A confirmation email has been sent to you at: ${email}</p>
     <p>Click the link in that email to confirm your address and fully activate
     your account.</p>
+  <hr/>
+  <p>Take a minute to fill out your profile - it is an opportunity to share a little
+  about yourself with others in the GreatSchools Network.</p>
+
+    <br/>
+
+  <gsml:form action="/community/registrationSuccess.page" method="post">
+
+      <!--
+      <p>You have <c:out value="${followUpCmd.userProfile.numSchoolChildren}"/> children K-12.</p>
+      <c:if test="${followUpCmd.userProfile.numSchoolChildren > 0}">
+          <h2>My Family</h2>
+          <c:forEach var="child" begin="1" end="${followUpCmd.userProfile.numSchoolChildren}">
+              <p>Child #<c:out value="${child}"/>.</p>
+          </c:forEach>
+      </c:if>
+      <hr/>
+      -->
+
+      <h2 class="header">A little about me</h2>
+      <div class="error">
+          <spring:bind path="followUpCmd.userProfile.aboutMe">
+                ${status.errorMessage}
+          </spring:bind>
+      </div>
+      <label for="aboutMe" class="textarea">I'm proud of my kids because (3000 characters or less):</label>
+      <spring:bind path="followUpCmd.userProfile.aboutMe">
+          <textarea id="aboutMe" rows="5" cols="75" name="aboutMe">${followUpCmd.userProfile.aboutMe}</textarea>
+      </spring:bind>
+      <br style="clear: left;"/>
+
+      <spring:bind path="followUpCmd.userProfile.private">
+          <input class="checkbox" type="checkbox" name="private" id="private"/>
+      </spring:bind>
+      <label for="private" class="checkbox">Check the box if you wish for this to be private.</label>
+
+      <br style="clear: left;"/>
+      <br style="clear: left;"/>
+
+      <spring:bind path="followUpCmd.user.id">
+          <input id="id" type="hidden" name="id" value="${followUpCmd.user.id}"/>
+      </spring:bind>
+
+      <input id="marker" type="hidden" name="marker" value="${idString}"/>
+
+      <input class="form" type="submit" value="Submit" name="submit"/>
+      <div class="privacy">By submitting, I agree to the <link:termsOfUse>Terms of Service</link:termsOfUse></div>
+      <div class="privacy">We won't sell or share your address. <gsml:popupWindow width="800" height="600" left="50" top="50"
+              href="/about/privacyStatement.page?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></div>
+  </gsml:form>
   </body>
 </html>
 </jsp:root>

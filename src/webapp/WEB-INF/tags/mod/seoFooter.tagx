@@ -27,8 +27,7 @@
 
 <div id="footerCopyright">
     &amp;#169;1998-2006 GreatSchools Inc. All Rights Reserved.
-    <a href="/cgi-bin/static/terms.html/${requestScope.context.stateOrDefault.abbreviation}">Terms of
-        Use</a>
+    <link:termsOfUse>Terms of Use</link:termsOfUse>
     <br/>GreatSchools is a 501(c)(3) not-for-profit organization
 </div>
 <c:if test="${not empty requestScope.context.state}">

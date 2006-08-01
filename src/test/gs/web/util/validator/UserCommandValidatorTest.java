@@ -2,6 +2,8 @@ package gs.web.util.validator;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.state.State;
+import gs.data.geo.IGeoDao;
 import gs.web.BaseTestCase;
 import gs.web.community.registration.UserCommand;
 import org.springframework.validation.BindException;
@@ -20,6 +22,9 @@ public class UserCommandValidatorTest extends BaseTestCase {
     private static final String GOOD_PASSWORD16 = "1234567890123456";
     private static final String SHORT_PASSWORD5 = "12345";
     private static final String LONG_PASSWORD17 = "12345678901234567";
+    private static final State GOOD_STATE = State.CA;
+    private static final String GOOD_CITY = "Oakland";
+    private static final String BAD_CITY = "Juneau";
 
     private IUserDao _userDao;
     private UserCommandValidator _validator = new UserCommandValidator();
@@ -27,17 +32,25 @@ public class UserCommandValidatorTest extends BaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         _userDao = (IUserDao)getApplicationContext().getBean(IUserDao.BEAN_ID);
+        IGeoDao geoDao = (IGeoDao) getApplicationContext().getBean(IGeoDao.BEAN_ID);
         _validator.setUserDao(_userDao);
+        _validator.setGeoDao(geoDao);
     }
 
-    public void testSuccess() {
+    private UserCommand setupCommand() {
         UserCommand command = new UserCommand();
-        Errors errors = new BindException(command, "");
-
         command.setEmail(GOOD_EMAIL);
         command.setConfirmEmail(GOOD_EMAIL);
         command.setPassword(GOOD_PASSWORD6);
         command.setConfirmPassword(GOOD_PASSWORD6);
+        command.setState(GOOD_STATE);
+        command.setCity(GOOD_CITY);
+        return command;
+    }
+
+    public void testSuccess() {
+        UserCommand command = setupCommand();
+        Errors errors = new BindException(command, "");
 
         _validator.validate(command, errors);
         assertFalse(errors.hasErrors());
@@ -53,7 +66,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         User user = _userDao.findUserFromId(1);
         assertNotNull(user); // expect DB to have pre-existing user
 
-        UserCommand command = new UserCommand();
+        UserCommand command = setupCommand();
         Errors errors = new BindException(command, "");
 
         command.setEmail(user.getEmail());
@@ -63,6 +76,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
 
         _validator.validate(command, errors);
         assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
 
         // existing emails allowed if id is set
         command.setId("1");
@@ -72,68 +86,62 @@ public class UserCommandValidatorTest extends BaseTestCase {
     }
 
     public void testShortPassword() {
-        UserCommand command = new UserCommand();
+        UserCommand command = setupCommand();
         Errors errors = new BindException(command, "");
 
-        command.setEmail(GOOD_EMAIL);
-        command.setConfirmEmail(GOOD_EMAIL);
         command.setPassword(SHORT_PASSWORD5);
         command.setConfirmPassword(SHORT_PASSWORD5);
 
         _validator.validate(command, errors);
         assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
     }
 
     public void testEmptyPassword() {
-        UserCommand command = new UserCommand();
+        UserCommand command = setupCommand();
         Errors errors = new BindException(command, "");
 
-        command.setEmail(GOOD_EMAIL);
-        command.setConfirmEmail(GOOD_EMAIL);
         command.setPassword("");
         command.setConfirmPassword("");
 
         _validator.validate(command, errors);
         assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
     }
 
     public void testLongPassword() {
-        UserCommand command = new UserCommand();
+        UserCommand command = setupCommand();
         Errors errors = new BindException(command, "");
 
-        command.setEmail(GOOD_EMAIL);
-        command.setConfirmEmail(GOOD_EMAIL);
         command.setPassword(LONG_PASSWORD17);
         command.setConfirmPassword(LONG_PASSWORD17);
 
         _validator.validate(command, errors);
         assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
     }
 
     public void testMismatchedPasswords() {
-        UserCommand command = new UserCommand();
+        UserCommand command = setupCommand();
         Errors errors = new BindException(command, "");
 
-        command.setEmail(GOOD_EMAIL);
-        command.setConfirmEmail(GOOD_EMAIL);
         command.setPassword(GOOD_PASSWORD6);
         command.setConfirmPassword(GOOD_PASSWORD16);
 
         _validator.validate(command, errors);
         assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
     }
 
     public void testMismatchedEmails() {
-        UserCommand command = new UserCommand();
+        UserCommand command = setupCommand();
         Errors errors = new BindException(command, "");
 
-        command.setEmail(GOOD_EMAIL);
         command.setConfirmEmail(GOOD_EMAIL + "2");
-        command.setPassword(GOOD_PASSWORD6);
-        command.setConfirmPassword(GOOD_PASSWORD6);
 
         _validator.validate(command, errors);
         assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
 
         // confirm email field not checked if id is set
         command.setId("1");
@@ -142,4 +150,36 @@ public class UserCommandValidatorTest extends BaseTestCase {
         assertFalse(errors.hasErrors());
     }
 
+    public void testEmptyState() {
+        UserCommand command = setupCommand();
+        Errors errors = new BindException(command, "");
+
+        command.setState(null);
+
+        _validator.validate(command, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    }
+
+    public void testEmptyCity() {
+        UserCommand command = setupCommand();
+        Errors errors = new BindException(command, "");
+
+        command.setCity("");
+
+        _validator.validate(command, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    }
+
+    public void testMismatchedStateCity() {
+        UserCommand command = setupCommand();
+        Errors errors = new BindException(command, "");
+
+        command.setCity(BAD_CITY);
+
+        _validator.validate(command, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    }
 }

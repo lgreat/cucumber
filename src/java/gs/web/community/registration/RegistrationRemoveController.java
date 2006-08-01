@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.community.IUserProfileDao;
+import gs.data.community.UserProfile;
 import gs.data.util.DigestUtil;
 import gs.web.util.ReadWriteController;
 
@@ -30,6 +32,7 @@ public class RegistrationRemoveController  extends AbstractController implements
     private String _viewName;
 
     private IUserDao _userDao;
+    private IUserProfileDao _userProfileDao;
 
     public IUserDao getUserDao() {
         return _userDao;
@@ -37,6 +40,14 @@ public class RegistrationRemoveController  extends AbstractController implements
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public IUserProfileDao getUserProfileDao() {
+        return _userProfileDao;
+    }
+
+    public void setUserProfileDao(IUserProfileDao userProfileDao) {
+        _userProfileDao = userProfileDao;
     }
 
     public String getViewName() {
@@ -67,8 +78,13 @@ public class RegistrationRemoveController  extends AbstractController implements
         }
 
         if (user.isEmailProvisional()) {
+            UserProfile userProfile = user.getUserProfile();
             user.setPasswordMd5(null);
+            user.setUserProfile(null);
             _userDao.updateUser(user);
+            if (userProfile != null) {
+                _userProfileDao.removeUserProfile(userProfile.getId());
+            }
         }
         model.put("email", email);
         return new ModelAndView(_viewName, model);

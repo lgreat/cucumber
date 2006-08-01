@@ -1,6 +1,9 @@
 package gs.web.util.validator;
 
 import gs.data.community.IUserDao;
+import gs.data.community.UserProfile;
+import gs.data.geo.IGeoDao;
+import gs.data.geo.ICity;
 import gs.web.community.registration.UserCommand;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -20,17 +23,12 @@ public class UserCommandValidator implements Validator {
     protected final Log _log = LogFactory.getLog(getClass());
     public static final String BEAN_ID = "userValidator";
     private IUserDao _userDao;
+    private IGeoDao _geoDao;
 
     public boolean supports(Class aClass) {
         return aClass == UserCommand.class;
     }
 
-    /**
-     * Checks the password field in the UserCommand object. The password must be between
-     * 6 and 16 characters long, and must match the confirmPassword field.
-     * @param object
-     * @param errors
-     */
     public void validate(Object object, Errors errors) {
         UserCommand command = (UserCommand)object;
 
@@ -51,8 +49,29 @@ public class UserCommandValidator implements Validator {
         }
 
         validatePassword(command, errors);
+
+        UserProfile userProfile = command.getUserProfile();
+        if (userProfile.getState() == null) {
+            errors.rejectValue("state", "no_state", "You must specify a state");
+            return; // avoid NPEs
+        }
+        if (StringUtils.isEmpty(userProfile.getCity())) {
+            errors.rejectValue("city", "no_city", "You must specify a city");
+        } else {
+            ICity city = _geoDao.findCity(userProfile.getState(), userProfile.getCity());
+            if (city == null) {
+                errors.rejectValue("city", "bad_city", "That city does not exist in " +
+                        userProfile.getState().getLongName());
+            }
+        }
     }
      
+    /**
+     * Checks the password field in the UserCommand object. The password must be between
+     * 6 and 16 characters long, and must match the confirmPassword field.
+     * @param command
+     * @param errors
+     */
     public void validatePassword(UserCommand command, Errors errors) {
         String password = command.getPassword();
         String confirmPassword = command.getConfirmPassword();
@@ -77,5 +96,13 @@ public class UserCommandValidator implements Validator {
 
     public void setUserDao(IUserDao _userDao) {
         this._userDao = _userDao;
+    }
+
+    public IGeoDao getGeoDao() {
+        return _geoDao;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
     }
 }
