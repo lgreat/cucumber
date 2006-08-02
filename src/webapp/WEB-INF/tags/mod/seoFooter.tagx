@@ -150,10 +150,12 @@
 <!-- Crawlers such as Google and Yahoo always have http in their user agent string -->
 <script type="text/javascript">
     <![CDATA[
+    <!--
     if (navigator.userAgent.toLowerCase().indexOf("http") < 0) {
         document.getElementById('footerSearchStates').style.display = 'none';
         document.getElementById('footerSearchCities').style.display = 'none';
     }
+
     ]]>
     <c:if test="${not empty requestScope.context.state}">
     <![CDATA[
@@ -162,5 +164,6 @@
     }
     ]]>
     </c:if>
+    <![CDATA[-->]]>
 </script>
 </jsp:root>

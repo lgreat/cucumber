@@ -25,7 +25,7 @@
         <jsp:attribute name="method">${method}</jsp:attribute>
         <jsp:attribute name="id">${id}</jsp:attribute>
         <!-- TH: We used to have a name attribute but that is a deprecated attribute -->
-        <jsp:attribute name="onSubmit">${onsubmit}</jsp:attribute>
+        <jsp:attribute name="onsubmit">${onsubmit}</jsp:attribute>
         <jsp:attribute name="target">${target}</jsp:attribute>
         <jsp:body>
             <jsp:doBody/>

@@ -7,10 +7,14 @@
     <jsp:directive.tag body-content="empty"/>
     <c:if test="${!requestScope.context.cobranded}">
         <script language="javascript" type="text/javascript">
-            if (parent.frames.length > 0 &amp;&amp;
+            <![CDATA[
+            <!--
+            if (parent.frames.length > 0 &&
                 document.referrer.indexOf("greatschools.net") != 13) {
                 parent.location.href = self.document.location
             }
+            -->
+            ]]>
         </script>
     </c:if>
 </jsp:root>

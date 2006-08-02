@@ -34,34 +34,39 @@
         <c:if test="${!requestScope.context.yahooCobrand and !requestScope.context.familyCobrand}">
             <!-- OAS SETUP begin -->
             <script type="text/javascript">
-                //configuration
+                <!-- NOTE CDATA WITH COMMENTS ARE HERE TO MAKE THIS XHTML VALIDATE -->
+                <![CDATA[
+                <!--
                 OAS_url = 'http://oascentral.greatschools.net/RealMedia/ads/';
                 OAS_sitepage =
                 'www/${requestScope.context.state.abbreviationLowerCase}/${requestScope.adPageName}';
                 OAS_listpos = '${ads}';
                 OAS_query = 'state=${requestScope.context.state.abbreviationLowerCase}';
                 OAS_target = '_top';
-                //end of configuration
                 OAS_version = 10;
                 OAS_rn = '001234567890'; OAS_rns = '1234567890';
                 OAS_rn = new String (Math.random()); OAS_rns = OAS_rn.substring (2, 11);
                 function OAS_NORMAL(pos) {
-                <![CDATA[
-                      document.write('<a href="' + OAS_url + 'click_nx.ads/' + OAS_sitepage + '/1' + OAS_rns + '@' + OAS_listpos + '!' + pos + '?' + OAS_query + '" target="' + OAS_target + '">');
-                      document.write('<img src="' + OAS_url + 'adstream_nx.ads/' + OAS_sitepage + '/1' + OAS_rns + '@' + OAS_listpos + '!' + pos + '?' + OAS_query + '" border="0" /><\/a>');
-                    ]]>
+                    document.write('<a href="' + OAS_url + 'click_nx.ads/' + OAS_sitepage + '/1' + OAS_rns + '@' + OAS_listpos + '!' + pos + '?' + OAS_query + '" target="' + OAS_target + '">');
+                    document.write('<img src="' + OAS_url + 'adstream_nx.ads/' + OAS_sitepage + '/1' + OAS_rns + '@' + OAS_listpos + '!' + pos + '?' + OAS_query + '" border="0" /><\/a>');
                 }
+                -->
+                ]]>
             </script>
             <script type="text/javascript">
                 <![CDATA[
+                  <!--
                   OAS_version = 11;
                   if (navigator.userAgent.indexOf('Mozilla/3') != -1 || navigator.userAgent.indexOf('Mozilla/4.0 WebTV') != -1)
                     OAS_version = 10;
                   if (OAS_version >= 11)
                     document.write('<scr' + 'ipt language=JavaScript1.1 src="' + OAS_url + 'adstream_mjx.ads/' + OAS_sitepage + '/1' + OAS_rns + '@' + OAS_listpos + '?' + OAS_query + '"><\/scr' + 'ipt>');
+                  -->
                   ]]>
             </script>
             <script type="text/javascript">
+                <![CDATA[
+                <!--
                 document.write('');
                 function OAS_AD(pos) {
                 if (OAS_version >= 11)
@@ -69,6 +74,8 @@
                 else
                 OAS_NORMAL(pos);
                 }
+                -->
+                ]]>
             </script>
         </c:if>
     </c:if>
