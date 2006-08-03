@@ -44,7 +44,7 @@
         <h2>Please<br/>select your state:</h2>
 
 
-        <gsml:form action="${url}" method="get">
+        <gsml:form action="${url}" target="_parent" method="get">
             <select size="12" name="state" id="state">
                 <option value="AL" selected="true">&amp;nbsp;&amp;nbsp;Alabama</option>
                 <option value="AK">&amp;nbsp;&amp;nbsp;Alaska</option>
