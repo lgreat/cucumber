@@ -15,10 +15,7 @@
                 <td id="goBackToSchool">
                     <gsml:a href="/content/backToSchool.page" >
                     <gsml:img src="/res/img/promo/btsWithGS/goBackToSchoolsWithUs.gif"
-                              alt="Go back to school with GreatSchools! School supply tips,
-                Healthy lunch ideas,
-                Advice to help your child succeed"/>
-</gsml:a>
+                              alt="Go back to school with GreatSchools! School supply tips, healthy lunch ideas, and advice to help your child succeed"/></gsml:a>
                 </td>
                 <td rowspan="2">
                     <gsml:a href="/content/backToSchool.page" >
