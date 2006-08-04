@@ -102,7 +102,7 @@
         </div>
     </c:if>
     <c:if test="${not empty param.newuser}">
-        <c:set var="events" value="event1"/>
+        <c:set var="events" value="event5"/>
     </c:if>
     <mod:tracking pageName="Newsletter Hover Confirmation"
                   pageType=""
