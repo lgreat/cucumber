@@ -95,8 +95,10 @@
             Article</a><br/></li>
         <li><gsml:img src="/images/editorial/checkbox.gif"   alt="checkbox"/><a
                 href="/cgi-bin/newsletters/CA/">Sign-up For Newsletters</a><br/></li>
+        <!--li><gsml:img src="/images/editorial/edit_article.gif"   alt="feedback"/><a
+                href="/cgi-bin/showarticle/CA/308/?page=4#commentbox">Give Us Your Feedback</a><br/></li-->
         <li><gsml:img src="/images/editorial/edit_article.gif"   alt="feedback"/><a
-                href="/cgi-bin/showarticle/CA/308/?page=4#commentbox">Give Us Your Feedback</a><br/></li>
+                href="http://skylark118.webcrossing.com/.598dc4f2">Read the Discussions</a><br/></li>
 
         <br/>
         <li><gsml:a href="/content/allArticles.page?state=CA%20">See full library of
@@ -113,6 +115,9 @@
     <h2>${article.abstract}</h2>
     <div id="articleText">
     ${article.articleText}
+    </div>
+    <div>
+        <a href="http://skylark118.webcrossing.com/.598dc4f2">What are people saying about this?</a>
     </div>
 
 </gsml:body>
