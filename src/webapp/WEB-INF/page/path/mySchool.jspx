@@ -117,8 +117,8 @@
                                         <div class="topcontentcol2" style="padding-bottom: 180px;">
                                             <div class="hotTopics">
                                                 <h3>Find Hot Topics Now</h3>
-                                                <jsp:include
-                                                        page="/promo/featuredArticles.module?position=HOT_TOPIC&amp;count=7"/>
+                                                <!--jsp:include
+                                                        page="/promo/featuredArticles.module?position=HOT_TOPIC&amp;count=7" -->
                                             </div>
                                         </div>
                                     </td></tr></table>
