@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.24 2006/07/13 07:53:58 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.25 2006/08/07 22:51:38 apeterson Exp $
  */
 package gs.web.content;
 
@@ -157,9 +157,9 @@ public class FeaturedArticlesController extends AbstractController {
                     "Browse all school choice resources", "viewall");
             items.add(anchor);
         } else if (StringUtils.equals(IArticleDao.HOT_TOPIC, posStr)) {
-            Anchor anchor = new Anchor(_urlUtil.buildUrl("vpage:content.seasonal", request),
+            /*Anchor anchor = new Anchor(_urlUtil.buildUrl("vpage:content.seasonal", request),
                     "Browse the latest topics", "viewall");
-            items.add(anchor);
+            items.add(anchor);*/
         }
 
         UrlBuilder builder = new UrlBuilder(UrlBuilder.ARTICLE_LIBRARY, state);
