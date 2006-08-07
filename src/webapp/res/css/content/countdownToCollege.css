@@ -1,0 +1,418 @@
+.bigDottedDivider {
+    margin-top: 0px;
+    height: 14px;
+    font-size: xx-small;
+    border-bottom: 2px dotted #c56;
+    margin-bottom: 6px;
+}
+
+#pageGS {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+}
+
+#pageGS #contentGS  a:hover {
+    color: #6cc;
+}
+
+/* Left, nav column */
+#contentGS .left h3 {
+    font-size: small; /* 13pt */
+    font-weight: 700;
+    background-color: #6cc;
+    color: #fff;
+    padding: 4px 0 4px 16px;
+}
+
+#contentGS .left ul {
+    margin: 5px 0px 6px 0px;
+}
+
+#contentGS .left ul li {
+    font-size: 11px; /* 11pt */
+    font-weight: bolder;
+    background-color: #eee;
+    color: #999;
+    padding: 0px 12px 4px 16px;
+    margin-bottom: 1px;
+    background-image: url("/res/img/content/countdownToCollege/dotOnEee.gif");
+    background-repeat: no-repeat;
+    background-position: .8ex 1.5ex;
+}
+
+#contentGS .left li.empty {
+    font-size: 11px; /* 11pt */
+    font-weight: bolder;
+    background-color: #eee;
+    color: #999;
+    padding: 0px 12px 4px 16px;
+    margin-bottom: 1px;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: .8ex 1.5ex;
+	height: 100%;
+}
+
+#contentGS .leftBottom {
+    background-color: #eee;
+    padding: 4px 12px 4px 16px;
+    margin-bottom: 1px;
+}
+
+#contentGS .left h3.seeAll {
+    text-align: right;
+	font-size: 12px; /* 13pt */
+    font-weight: bold;
+    background-color: #6cc;
+    color: #fff;
+    padding: 4px 5px 4px 16px;
+}
+
+#contentGS .left a.seeAll:link, a.seeAll:active, a.seeAll:visited {
+    text-align: right;
+	font-size: 12px; /* 13pt */
+    font-weight: bold;
+    background-color: #6cc;
+    color: #fff;
+    padding: 4px 5px 4px 0px;
+}
+
+#pageGS #contentGS .left h3.seeAll a:hover {
+    text-align: right;
+	font-size: 12px; /* 13pt */
+    font-weight: bold;
+    background-color: #6cc;
+    color: #8ee;
+    padding: 4px 5px 4px 0px;
+}
+
+#contentGS .left ul li a {
+    color: #aaa;
+}
+
+
+#contentGS .left ul li.bookPicks {
+	color: #c56 !important;
+    background-image: none;
+    font-size: 11px;
+}
+
+#contentGS .left ul li.bookPicks img {
+      padding: 3px 12px 3px 0;
+}
+
+/* Middle column */
+#contentGS .middle h1 {
+    font-family: Rockwell light, courier, courier new;
+    font-size: xx-large;
+    font-weight: 100;
+    padding: 8ex 0 1ex 16px;
+    color: #fff;
+    background-color: #6cc;
+    margin-bottom: 16px;
+}
+
+#contentGS .middle h2 {
+    font-family: century gothic;
+    font-size: large;
+    font-weight: 100;
+    color: #fff;
+    background-color: #fb0;
+    padding: 4px 0 2px 16px;
+}
+
+#contentGS .middle li {
+    padding: 8px 0 2px 16px;
+    font-size: small; /* 13pt */
+    font-weight: 700;
+    background-color: #fff;
+    color: #5bc;
+}
+
+#contentGS .middle li a {
+    color: #39a;
+}
+
+#contentGS .middle h2#whatYourChildNeeds {
+    text-indent: -100em;
+    overflow: hidden;
+    background: url(/res/img/content/countdownToCollege/t_whatYourChildNeeds.gif);
+    background-repeat: no-repeat;
+    background-color: #fb0;
+    background-position: 0px; 0px; 0px; 0px;
+    height: 26px;
+	margin-bottom: 4px;
+	margin-top: 0px;
+}
+
+#contentGS .middle h2#resources {
+    text-indent: -100em;
+    overflow: hidden;
+    background: url(/res/img/content/countdownToCollege/t_resources.gif);
+    background-repeat: no-repeat;
+    background-color: #fb0;
+    background-position: 0px; 0px; 0px; 0px;
+    height: 26px;
+	margin-top: 0px;
+}
+
+#contentGS .middle h2#collegeBoard {
+    /*
+    overflow: hidden;
+	background-position: 0px; 0px; 0px; 0px;*/
+	text-indent: -100em;
+    background: url(/res/img/content/countdownToCollege/collegeboard_logo.gif);
+    background-repeat: no-repeat;
+    background-color: #fff;
+    height: 40px;
+	width: 179px;
+	margin-top: 8px;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#contentGS .middle ul#module, td#module {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	color: #999999;
+	padding: 0px 20px 0px 20px;
+	line-height: 15px;
+	background-color: #fff;
+	margin-top: 20px;
+}
+
+.moduleTitle {
+    font-family: "LucidaGrande", Arial, sans-serif;
+	font-size: 14px;
+	color: #55BBCC;
+	padding: 7px 20px 0px 18px;
+	line-height: 16px;
+	background-color: #fff;
+	font-weight: bold;
+	margin-bottom: 4px;
+}
+
+.module {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	color: #999999;
+	padding: 0px 20px 0px 18px;
+	line-height: 15px;
+	background-color: #fff;
+}
+
+#contentGS .middle p {
+    padding: 0px 0 18px 16px;
+    font-size: small;
+    font-weight: 700;
+    color: #777;
+}
+
+#contentGS .middle p a {
+    color: #39a;
+    font-weight: 300;
+    text-decoration: underline;
+}
+
+h2#actionTipsTitle {
+
+    text-indent: -100em;
+    background: url(/res/img/content/countdownToCollege/t_actionTips.gif);
+    background-repeat: no-repeat;
+    background-color: #fff;
+    height: 25px;
+	margin-top: 0px;
+	margin-bottom: 16px;
+    margin-left:-20px;
+    display: block;
+}
+
+table#actionTips {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	color: #999999;
+}
+
+h2#financialAidPlanner {
+    height: 269px;
+	width: 305px;
+	margin-top: 13px;
+	margin-bottom: 8px;
+}
+
+h2#collegeBoard2 {
+	text-indent: -100em;
+    background: url(/res/img/content/countdownToCollege/collegeboard_logo.gif);
+    background-repeat: no-repeat;
+    background-color: #fff;
+    height: 40px;
+	width: 179px;
+	margin-top: 13px;
+	margin-bottom: 8px;
+	display: block;
+    margin-left: auto;
+    margin-right: 0px;
+}
+
+#childOnTrack a {
+    display: block;
+    width: 302px;
+    height: 137px;
+    background-image: url("/res/img/content/countdownToCollege/child_on_track.gif");
+	margin-bottom: 20px;
+}
+
+#childOnTrack a:hover  {
+    background-image: url("/res/img/content/countdownToCollege/child_on_track_h.gif");
+}
+
+.empty ul li {
+    font-size: 11px; /* 11pt */
+    font-weight: bolder;
+    background-color: #eee;
+    color: #999;
+	height: 100%;
+    padding: 0px 12px 4px 16px;
+    margin-bottom: 1px;
+    background-repeat: no-repeat;
+    background-position: .8ex 2.1ex;
+}
+
+.midDotLine {
+    height: 24px;
+	font-size: xx-small;
+    background-image: url("/res/img/content/countdownToCollege/mid_dot_line.gif");
+	background-repeat: repeat-x;
+    padding-top:33px;
+    margin-bottom: 9px;
+}
+
+.grayLine {
+    margin-top: 20px;
+    font-size: xx-small;
+    border-top: 1px solid #CACACA;
+    padding-top:7px;
+}
+
+.redDotLine {
+	display: block;
+	height: 25px;
+    padding-top:25px;
+    background-image: url(/res/img/content/countdownToCollege/red_dot.gif);
+	background-repeat: repeat-x;
+}
+
+.yellowbar {
+    margin-top: 2px;
+    border-top: 1px solid #FCE398;
+    margin-bottom: 10px;
+    padding-top:7px;
+}
+
+.midDashLine {
+    margin-top: 0px;
+	margin-bottom: 8px;
+    height: 20px;
+    padding-top:30px;
+    background-image: url("/res/img/content/countdownToCollege/dash_line.gif");
+	background-repeat: repeat-x;
+}
+
+.quickFinderTable {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	color: #999999;
+	padding: 0px 0px 0px 18px;
+	line-height: 15px;
+	background-color: #fff;
+}
+
+#quickFindSubSquare radio {
+    font-size: 11px; /* 11pt */
+    font-weight: bolder;
+    background-color: #eee;
+    color: #999;
+    padding: 0px 0px 0px 0px;
+}
+
+A.seeFullArticle:link {
+	font-size: 11px;
+	color: #3399AA;
+	font-weight: bold;
+	line-height: 30px;
+	text-decoration: none;
+}
+
+a.actionTipsLink:Link  {
+	font-size: 11px;
+	color: #3399AA;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+div#bottomAdd {
+    font-size: 12px;
+	margin-top: 20px;
+	color: #000000;
+	text-align: left;
+    padding: 10px 20px 20px 20px;
+    border: 1px solid #CBCBCB;
+	width: 264px;
+}
+
+a#bottomAddLink  {
+	font-size: 11px;
+	color: #0033CC;
+	text-decoration: underline;
+}
+
+h2#sponsor {
+	font-size: 12px;
+	text-align: center;
+	margin-bottom: 8px;
+}
+
+#quickFindSquare {
+    font-size: 11px;
+	color: #373737;
+	text-align: center;
+	font-weight: bold;
+    padding: 2px 2px 2px 2px;
+    border: 1px solid #CBCBCB;
+}
+
+#quickFindSubSquare {
+    width: 170px;
+	text-align: left;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.quickFindText {
+	font-size: 11px;
+	color: #373737;
+	font-weight: bold;
+	text-align: left;
+}
+
+.quickFindLinks {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 13px;
+	color: #55BBCC;
+	font-weight: bold;
+	margin: 11px 0px 6px -4px;
+	text-decoration: underline;
+}
+
+a.quickFindLetters:link {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 10px;
+	color: #232323;
+	font-weight: bold;
+	text-decoration: underline;
+	margin: 0px 2px 0px 0px;
+}
+
+.right {
+    vertical-align:top;
+}
