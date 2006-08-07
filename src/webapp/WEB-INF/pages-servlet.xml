@@ -96,7 +96,7 @@
     <bean name="/index.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
-            <value>test/splash</value>
+            <value>index</value>
         </property>
     </bean>
 
