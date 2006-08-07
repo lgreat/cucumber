@@ -121,15 +121,15 @@
                     styleClass="${(pw == 0 ? 'lactive active' : 'inactive')} ${(pw == 1 ? 'ractive' : '')} "
                     >Home</link:home></td>
                 <!--#1--><td><link:research
-                    styleClass="${(pw == 0 ? 'lactive' : '')} ${(pw == 1 ? 'active' : 'inactive')} ${(pw == 3 ? 'ractive' : '')} "
+                    styleClass="${(pw == 0 ? 'lactive' : '')} ${(pw == 1 ? 'active' : 'inactive')} ${(pw == 9 ? 'ractive' : '')} "
                     state="${requestScope.context.state}"
                     id="topnav_research"
                     >Research &amp;amp; Compare</link:research></td>
-                <!--#3--><td><gsml:a href="/content/summerReading.page"
-                                     styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 3 ? 'active' : 'inactive')} ${(pw == 7 ? 'ractive' : '')} "
-                    >Summer Reading</gsml:a></td>
+                <!--#3--><td><gsml:a href="/content/countdownToCollege.page"
+                                     styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 9 ? 'active' : 'inactive')} ${(pw == 7 ? 'ractive' : '')} "
+                    >Countdown To College</gsml:a></td>
                 <!--#7--><td><gsml:a href="/content/backToSchool.page"
-                                     styleClass="${(pw == 3 ? 'lactive' : '')} ${(pw == 7 ? 'active' : 'inactive')} ${(pw == 2 ? 'ractive' : '')} "
+                                     styleClass="${(pw == 9 ? 'lactive' : '')} ${(pw == 7 ? 'active' : 'inactive')} ${(pw == 2 ? 'ractive' : '')} "
                     >Back to School</gsml:a></td>
                 <!--#2--><td><link:articleLibrary
                     styleClass="${(pw == 7 ? 'lactive' : '')} ${(pw == 2 ? 'active' : 'inactive')} ${(pw == 6 ? 'ractive' : '')} "

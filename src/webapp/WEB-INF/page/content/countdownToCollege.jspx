@@ -3,6 +3,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:link="urn:www.greatschools.net/taglib/link"
@@ -15,6 +16,7 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
+<pageHelper:setPathway pathway="9"/>
 
 <head>
     <title>College Prep from College Board and GreatSchools</title>
@@ -225,7 +227,10 @@
 			</tr>
 			</table></td>
 		</tr>
-		</table>
+        </table>
+        <mod:tracking pageType="article"
+                      pageName="CountdownToCollege"
+                      hier1 = "Article,CountdownToCollege"/>
 </gsml:body>
 </html>
 </jsp:root>
