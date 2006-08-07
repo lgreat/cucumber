@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.20 2006/07/25 00:47:24 chriskimm Exp $
+ * $Id: PageHelper.java,v 1.21 2006/08/07 19:08:16 apeterson Exp $
  */
 
 package gs.web.util;
@@ -20,23 +20,18 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Helper class to render and decorate a JSP page correctly.
- * Provides a place to encapsulate logic about our pages to answer
- * fine-grained questions about what shows and doesn't show in a testable manner.
- * <ul>
- * <li>Replaces somewhat haphazard nature of sitemesh's meta tags.
- * <li>Replaces untyped nature of page scoped attributes.
- * <li>Provides a place to make business rule and policy decisions for JSP pages.
- * </ul>
- * <p>Usage on pages should be done via the pageHelper tag library.
- * There is an access (via static methods) that controllers can use, but this
- * has not proven useful and may be phased out.
- * <p>The sitemesh decorator has responsibility to handle some of the work
- * here.
- * Those should access the current object under the request scoped "pageHelper"
- * attribute.
- * <p>There is code in the page interceptor responsible for creating this object
- * and setting its initial values.
+ * Helper class to render and decorate a JSP page correctly. Provides a place to encapsulate logic about our pages to
+ * answer fine-grained questions about what shows and doesn't show in a testable manner.
+ * <p/>
+ * <ul> <li>Replaces somewhat haphazard nature of sitemesh's meta tags. <li>Replaces untyped nature of page scoped
+ * attributes. <li>Provides a place to make business rule and policy decisions for JSP pages. </ul>
+ * <p/>
+ * Usage on pages should be done via the pageHelper tag library. There is an access (via static methods) that
+ * controllers can use, but this has not proven useful and may be phased out. <p>The sitemesh decorator has
+ * responsibility to handle some of the work here. Those should access the current object under the request scoped
+ * "pageHelper" attribute.
+ * <p/>
+ * There is code in the page interceptor responsible for creating this object and setting its initial values.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
@@ -93,9 +88,8 @@ public class PageHelper {
 
 
     /**
-     * Adds the referenced code file to the list of files to be included
-     * at the top of the file. The sitemsh decorator is responsible for
-     * retrieving these and including them.
+     * Adds the referenced code file to the list of files to be included at the top of the file. The sitemsh decorator
+     * is responsible for retrieving these and including them.
      *
      * @param javascriptSrc exact url to be included
      */
@@ -110,9 +104,8 @@ public class PageHelper {
 
 
     /**
-     * Adds the referenced css file to the list of files to be included
-     * at the top of the file. The sitemsh decorator is responsible for
-     * retrieving these and including them.
+     * Adds the referenced css file to the list of files to be included at the top of the file. The sitemsh decorator is
+     * responsible for retrieving these and including them.
      *
      * @param cssSrc exact url to be included
      */
@@ -182,8 +175,7 @@ public class PageHelper {
 
 
     /**
-     * Is all the stuff in the footer (SE links, About us links, copyright)
-     * shown?
+     * Is all the stuff in the footer (SE links, About us links, copyright) shown?
      *
      * @todo break this into smaller pieces?
      */
@@ -192,8 +184,8 @@ public class PageHelper {
     }
 
     /**
-     * There's a footer ad at the bottom of the page, above the nav elements and SEO
-     * stuff. It's currently a google ad. Do we show it?
+     * There's a footer ad at the bottom of the page, above the nav elements and SEO stuff. It's currently a google ad.
+     * Do we show it?
      */
     public boolean isShowingFooterAd() {
         return _showingFooterAd && !isAdFree() && !isYahooCobrand() && !isFamilyCobrand();
@@ -243,7 +235,8 @@ public class PageHelper {
     }
 
     /**
-     * Determine if this site is a totally ad free site
+     * Determine if this site is a totally ad free site. This will return TRUE if advertising is turned off either
+     * because of a cobrand agreement or advertising is manually turned off.
      *
      * @return true if it's ad free
      */
@@ -308,9 +301,8 @@ public class PageHelper {
     }
 
     /**
-     * Examines all the javascript and css includes and dumps out the
-     * appropriate header code. If no code is necessary, and empty string
-     * is returned.
+     * Examines all the javascript and css includes and dumps out the appropriate header code. If no code is necessary,
+     * and empty string is returned.
      *
      * @return non-null String.
      */
