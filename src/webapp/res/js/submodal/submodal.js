@@ -8,6 +8,13 @@
 var gPopupMask = null;
 var gPopupContainer = null;
 var gPopFrame = null;
+
+//popup container names
+var POP_CONTAINER_ID    = 'popupContainer';
+var POP_MASK_ID         = 'popupMask';
+var POP_FRAME_ID        = 'popupFrame';
+var STATE_WIDGET        = 'stateWidget'
+
 var gReturnFunc;
 var gPopupIsShown = false;
 var gHideSelects = false;
@@ -26,6 +33,11 @@ if (!document.all) {
 	document.onkeypress = keyDownHandler;
 }
 
+//getElementById shortname
+function getElement(id) {
+	return document.getElementById(id);
+}
+
 function frameLoading() {
     return '<html><body><p><center>Loading...</center></p></body></html>';
 }
@@ -34,23 +46,12 @@ function frameLoading() {
  * Initializes popup code on load.
  */
 function initPopUp(hoverName) {
-	// Add the HTML to the body
-	var body = document.getElementsByTagName('body')[0];
-	var popmask = document.createElement('div');
-	popmask.id = 'popupMask';
-    popmask.setAttribute('style', 'display:none');
-    var popcont = document.createElement('div');
-	popcont.id = 'popupContainer';
-    popcont.setAttribute('style', 'display:none');
-    popcont.innerHTML = defaultHolder();
-	body.appendChild(popmask);
-	body.appendChild(popcont);
 
-	gPopupMask = document.getElementById("popupMask");
-	gPopupContainer = document.getElementById("popupContainer");
-	gPopFrame = document.getElementById("popupFrame");
+    var body = document.getElementsByTagName('body')[0];
+    var popmask = createContainer(body, POP_MASK_ID, true);
+    var popcont = createContainer(body, POP_CONTAINER_ID, true);
 
-	// check to see if this is IE version 6 or lower. hide select boxes if so
+    // check to see if this is IE version 6 or lower. hide select boxes if so
 	// maybe they'll fix this in version 7?
 	var brsVersion = parseInt(window.navigator.appVersion.charAt(0), 10);
 	if (brsVersion <= 6 && window.navigator.userAgent.indexOf("MSIE") > -1) {
@@ -61,8 +62,6 @@ function initPopUp(hoverName) {
 	var elms = document.getElementsByTagName('a');
 	for (i = 0; i < elms.length; i++) {
 		if (elms[i].className.indexOf("submodal") == 0) {
-			// var onclick = 'function (){showPopWin(\''+elms[i].href+'\','+width+', '+height+', null);return false;};';
-			// elms[i].onclick = eval(onclick);
 			elms[i].onclick = function(){
 				// default width and height
 				var width = 400;
@@ -87,42 +86,49 @@ function initPopUp(hoverName) {
 	*/
 
 function showPopWin(url, width, height, returnFunc, hoverName) {
-    if (!gPopupMask) {
+    if (!getElement(POP_MASK_ID)) {
         initPopUp(hoverName);
     }
+
+    getElement(POP_MASK_ID).style.display = "block";
+    var popContainer = getElement(POP_CONTAINER_ID);
+    popContainer.style.display = "block";
     gPopupIsShown = true;
 	disableTabIndexes();
-	gPopupMask.style.display = "block";
-	gPopupContainer.style.display = "block";
-    if (hoverName == 'stateWidget') {
-        gPopupContainer.innerHTML = stateHolder();
+
+    if (hoverName == STATE_WIDGET) {
+        innerStateWidget(popContainer);
     } else {
-        gPopupContainer.innerHTML = defaultHolder();
+        innerDefaultWidget(popContainer);
         setHoverCookie(hoverName);
     }
-    gPopFrame = document.getElementById("popupFrame");
     centerPopWin(width, height);
-	var titleBarHeight = parseInt(document.getElementById("popupTitleBar").offsetHeight, 10);
-	gPopupContainer.style.width = width + "px";
-	gPopupContainer.style.height = (height+titleBarHeight) + "px";
-	gPopFrame.style.width = parseInt(document.getElementById("popupTitleBar").offsetWidth, 10) + "px";
-	gPopFrame.style.height = (height) + "px";
-	gPopFrame.src = url;
-	gReturnFunc = returnFunc;
-	window.setTimeout("setPopTitleAndRewriteTargets();", 800);
+    var titleBarHeight = parseInt(document.getElementById("popupTitleBar").offsetHeight, 10);
 
+    popContainer.style.width = width + "px";
+	popContainer.style.height = (height+titleBarHeight) + "px";
+
+    var popFrame = getElement(POP_FRAME_ID);
+    popFrame.style.width = parseInt(document.getElementById("popupTitleBar").offsetWidth, 10) + "px";
+	popFrame.style.height = (height) + "px";
+	popFrame.src = url;
+
+    gReturnFunc = returnFunc;
+	window.setTimeout("setPopTitleAndRewriteTargets();", 800);
     hideContainers();
 }
 
 //
 var gi = 0;
 function centerPopWin(width, height) {
-	if (gPopupIsShown == true) {
+	var popContainer = getElement(POP_CONTAINER_ID);
+
+    if (gPopupIsShown == true) {
 		if (width == null || isNaN(width)) {
-			width = gPopupContainer.offsetWidth;
+			width = popContainer.offsetWidth;
 		}
 		if (height == null) {
-			height = gPopupContainer.offsetHeight;
+			height = popContainer.offsetHeight;
 		}
 		var fullHeight = getViewportHeight();
 		var fullWidth = getViewportWidth();
@@ -138,18 +144,20 @@ function centerPopWin(width, height) {
 			scLeft = document.body.scrollLeft;
 			scTop = document.body.scrollTop;
 		}
-		gPopupMask.style.height = fullHeight + "px";
-		gPopupMask.style.width = fullWidth + "px";
-		gPopupMask.style.top = scTop + "px";
-		gPopupMask.style.left = scLeft + "px";
-		window.status = gPopupMask.style.top + " " + gPopupMask.style.left + " " + gi++;
+
+        var popMask = getElement(POP_MASK_ID);
+        popMask.style.height = fullHeight + "px";
+		popMask.style.width = fullWidth + "px";
+		popMask.style.top = scTop + "px";
+		popMask.style.left = scLeft + "px";
+		window.status = popMask.style.top + " " + popMask.style.left + " " + gi++;
         var titleBarHeight = parseInt(document.getElementById("popupTitleBar").offsetHeight, 10);
         //check that user's screen is big enough for auto centering...
         if (fullHeight > height) {
-            gPopupContainer.style.top = (scTop + ((fullHeight - (height+titleBarHeight)) / 2)) + "px";
+            popContainer.style.top = (scTop + ((fullHeight - (height+titleBarHeight)) / 2)) + "px";
         }
         if (fullWidth > width) {
-            gPopupContainer.style.left =  (scLeft + ((fullWidth - width) / 2)) + "px";
+            popContainer.style.left =  (scLeft + ((fullWidth - width) / 2)) + "px";
         }
         //alert(fullWidth + " " + width + " " + gPopupContainer.style.left);
     }
@@ -165,15 +173,22 @@ window.onscroll = centerPopWin;
 function hidePopWin(callReturnFunc) {
 	gPopupIsShown = false;
 	restoreTabIndexes();
-	if (gPopupMask == null) {
+
+    var popMask = getElement(POP_MASK_ID);
+    if (popMask == null) {
 		return;
 	}
-	gPopupMask.style.display = "none";
-	gPopupContainer.style.display = "none";
+	popMask.style.display = "none";
+
+
+    var popContainer = getElement(POP_CONTAINER_ID);
+    popContainer.style.display = "none";
 	if (callReturnFunc == true && gReturnFunc != null) {
 		gReturnFunc(window.frames["popupFrame"].returnVal);
 	}
-	gPopFrame.src = "javascript:parent.frameLoading()";
+
+    var popFrame = getElement(POP_FRAME_ID);
+    popFrame.src = "javascript:parent.frameLoading()";
 
     if (gRedirectAnchor != null && gRedirectAnchor.href != null) {
         freeOnClickMem();
@@ -373,35 +388,51 @@ function showHover(hoverName) {
 }
 
 function showStateWidget(url, width, height) {
-    var hoverName = 'stateWidget';
-    showPopWin(url, width, height, null, hoverName);
+    showPopWin(url, width, height, null, STATE_WIDGET);
 }
 
-function stateHolder() {
-    var iHtml = '' +
-                '<div id="stateWidget"><div id="popupInner">' +
-                    '<div id="popupTitleBar">' +
-                        '<div id="popupTitle">GreatSchools</div>' +
-                        '<div id="popupControls">' +
-                            '<a onclick="hidePopWin(false);"><span>Close</span></a>' +
-                        '</div>' +
-                    '</div>' +
-                    '<iframe src="javascript:parent.frameLoading()" style="width:100%;height:100%;background-color:transparent;" scrolling="no" frameborder="0" allowtransparency="false" id="popupFrame" name="popupFrame" width="100%" height="100%"></iframe>' +
-                '</div></div>';
-    return iHtml;
+function innerStateWidget(parent) {
+    if (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+    parent.innerHTML = parent.innerHTML = '<div id="' + STATE_WIDGET+ '">' + modalWindowHtml('GreatSchools', false) + '</div>';;
+    return parent;
 }
 
-function defaultHolder() {
-    var iHtml = '' +
-                '<div id="popupInner">' +
-                    '<div id="popupTitleBar">' +
-                        '<div id="popupTitle"></div>' +
-                        '<div id="popupControls">' +
-                            '<a onclick="hidePopWin(false);"><span>Close</span></a>' +
-                        '</div>' +
-                    '</div>' +
-                    '<iframe src="javascript:parent.frameLoading()" style="width:100%;height:100%;background-color:transparent;" scrolling="no" frameborder="0" allowtransparency="true" id="popupFrame" name="popupFrame" width="100%" height="100%"></iframe>' +
-                    '<div id="popupCloseBtn"><div class="left">All information brought to you by:</div><div class="leftlogo"></div><div class="right"><a onclick="hidePopWin(false);"><span>Close</span></a></div></div>' +
-                '</div>';
-    return iHtml;
+function innerDefaultWidget(parent) {
+    if (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+    parent.innerHTML = modalWindowHtml('', true);
+    return parent;
+}
+
+function modalWindowHtml(title,showCloseWindow) {
+    var html =
+    '<div id="popupInner">' +
+        '<div id="popupTitleBar">' +
+            '<div id="popupTitle">'+title+'</div>' +
+            '<div id="popupControls">' +
+                '<a onclick="hidePopWin(false);"><span>Close</span></a>' +
+            '</div>' +
+        '</div>' +
+        '<iframe src="javascript:parent.frameLoading()" style="width:100%;height:100%;background-color:transparent;" scrolling="no" frameborder="0" allowtransparency="true" id="popupFrame" name="popupFrame" width="100%" height="100%"></iframe>';
+        if (showCloseWindow) {
+            html += '<div id="popupCloseBtn"><div class="left">All information brought to you by:</div><div class="leftlogo"></div><div class="right"><a onclick="hidePopWin(false);"><span>Close</span></a></div></div>';
+        }
+        html += '</div>';
+    return html;
+}
+
+/*
+ * Create a container, default is hidden
+ */
+function createContainer(parent, id, hidden) {
+    var _div = document.createElement('div');
+    _div.id = id;
+
+    if (hidden) {_div.setAttribute('style', 'display:none');}
+    parent.appendChild(_div);
+
+    return _div;
 }
