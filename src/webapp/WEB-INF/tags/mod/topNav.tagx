@@ -127,7 +127,7 @@
                     >Research &amp;amp; Compare</link:research></td>
                 <!--#3--><td><gsml:a href="/content/countdownToCollege.page"
                                      styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 9 ? 'active' : 'inactive')} ${(pw == 7 ? 'ractive' : '')} "
-                    >Countdown To College</gsml:a></td>
+                    >Countdown to College</gsml:a></td>
                 <!--#7--><td><gsml:a href="/content/backToSchool.page"
                                      styleClass="${(pw == 9 ? 'lactive' : '')} ${(pw == 7 ? 'active' : 'inactive')} ${(pw == 2 ? 'ractive' : '')} "
                     >Back to School</gsml:a></td>
