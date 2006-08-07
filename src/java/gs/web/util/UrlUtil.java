@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.37 2006/07/13 07:53:59 apeterson Exp $
+ * $Id: UrlUtil.java,v 1.38 2006/08/07 22:56:44 apeterson Exp $
  */
 
 package gs.web.util;
@@ -180,8 +180,6 @@ public final class UrlUtil {
     public String buildUrl(final String ref, HttpServletRequest request) {
         String href = ref;
 
-        href = vpageToUrl(href); // resolve vpage if necessary
-
         // Fully qualified URLs don't get any treatment here.
         if (href.startsWith("http:")) {
             return href;
@@ -285,17 +283,7 @@ public final class UrlUtil {
      */
     protected String vpageToUrl(String url) {
         if (url.startsWith("vpage:")) {
-            String vpage = url.substring(6);
-            if (StringUtils.equals("content.seasonal", vpage)) {
-                return "/content/summerReading.page?state=$STATE";
-                //return "/cgi-bin/site/january_parent_tips.cgi/$STATE";
-                // NOTE: was "/cgi-bin/site/parent_tips.cgi/$STATE"
-            } else if (StringUtils.equals("path1", vpage)) {
-                return "/modperl/go/$STATE";
-            } else if (StringUtils.equals("path2", vpage)) {
-                return "/path/mySchool.page?state=$STATE";
-            }
-            throw new IllegalArgumentException("Unknown vpage indicated: " + vpage);
+            throw new IllegalArgumentException("vpage no longer suported");
         } else {
             return url;
         }

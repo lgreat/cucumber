@@ -1,15 +1,14 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.31 2006/07/13 07:54:00 apeterson Exp $
+ * $Id: UrlUtilSaTest.java,v 1.32 2006/08/07 22:56:44 apeterson Exp $
  */
 
 package gs.web.util;
 
 import gs.data.state.State;
-import gs.web.util.context.SessionContext;
-import gs.web.util.context.SessionContextUtil;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import junit.framework.TestCase;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -86,7 +85,6 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals(ctxPath + "/res/css/global.css", _urlUtil.buildUrl("/res/css/global.css", request));
         assertEquals(ctxPath + "/res/js/s_code.js", _urlUtil.buildUrl("/res/js/s_code.js", request));
         assertEquals("/gs-web/content/allArticles.page?state=CA", _urlUtil.buildUrl("/content/allArticles.page?state=$STATE", request));
-        assertEquals("/gs-web/content/summerReading.page?state=CA", _urlUtil.buildUrl("vpage:content.seasonal", request));
         request.setContextPath("/");
 
         // Test https server links
@@ -226,15 +224,6 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("http://www.greatschools.net/modperl/bycity/CA", _urlUtil.buildHref(null, "/modperl/bycity/CA", false, "https://www.greatschools.net/search/search.page"));
         assertEquals("/modperl/bycity/CA", _urlUtil.buildHref(null, "/modperl/bycity/CA", false, null));
         assertEquals("/something.page", _urlUtil.buildHref(null, "/something.page", false, null));
-    }
-
-
-    public void testVpageToUrl() {
-        assertEquals("/search/search.page", _urlUtil.vpageToUrl("/search/search.page"));
-        assertEquals("/modperl/bycity/CA", _urlUtil.vpageToUrl("/modperl/bycity/CA"));
-        assertEquals("/content/summerReading.page?state=$STATE", _urlUtil.vpageToUrl("vpage:content.seasonal"));
-        assertEquals("/modperl/go/$STATE", _urlUtil.vpageToUrl("vpage:path1"));
-        assertEquals("/path/mySchool.page?state=$STATE", _urlUtil.vpageToUrl("vpage:path2"));
     }
 
 }
