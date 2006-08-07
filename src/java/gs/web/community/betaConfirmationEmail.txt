@@ -2,7 +2,7 @@ Thanks for joining the GreatSchools Beta Group! Over the next year, we'll be lau
 new features on GreatSchools, including powerful community features, exclusive school<br/>
 ratings, and more!<br/>
 <br/>
-As a member of our beta group, you'll have the opportunity to take these new features<br/>
+As a member of our Beta Group, you'll have the opportunity to take these new features<br/>
 on a test drive - and tell us what you think about them.<br/>
 <br/>
 First we'd like to get to know you better: your interests, how you currently use<br/>
@@ -12,15 +12,15 @@ and would really help us understand how we can build community features to best 
 <a href="http://www.surveymonkey.com/s.asp?u=709332289793">Fill out the survey</a><br/>
 <br/>
 Here's more detail on how the Beta Group works:<br/>
-We'll notify you occasionally about new features before they're released.<br/>
+<ul>
+<li>We'll notify you occasionally about new features before they're released.</li>
 <br/>
-If you decide to try them, we may ask you to fill out a short survey or provide us<br/>
-with feedback about your experience after you're done.<br/>
+<li>If you decide to try them, we may ask you to fill out a short survey or provide us<br/>
+with feedback about your experience after you're done.</li>
 <br/>
-You'll have the opportunity to decide before each beta test<br/>
-whether or not you'd like to participate.<br/>
-<br/>
-<br/>
+<li>You'll have the opportunity to decide before each beta test<br/>
+whether or not you'd like to participate.</li>
+</ul>
 Thanks so much for your help! Together, we can build great tools for parents!<br/>
 <br/>
 -The Team at GreatSchools<br/>
@@ -31,7 +31,7 @@ GreatSchools is an independent nonprofit organization that has been improving K-
 education since 1998 by inspiring parents like you to get involved. Learn more at<br/>
 <a href="http://www.greatschools.net/?cpn=beta">GreatSchools.net</a>.<br/>
 <br/>
-This email was sent to GreatSchools.net subscriber $EMAIL$.<br/>
+This email was sent to GreatSchools.net subscriber <b>$EMAIL$</b>.<br/>
 <br/>
 GreatSchools.net<br/>
 301 Howard St., Suite 1440<br/>
