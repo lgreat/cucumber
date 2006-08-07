@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AllArticlesController.java,v 1.9 2006/07/26 22:29:20 thuss Exp $
+ * $Id: AllArticlesController.java,v 1.10 2006/08/07 19:06:52 apeterson Exp $
  */
 package gs.web.content;
 
@@ -8,7 +8,6 @@ import gs.data.content.Article;
 import gs.data.content.ArticleCategory;
 import gs.data.content.ArticleManager;
 import gs.data.content.IArticleDao;
-import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.util.context.ISessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.logging.Log;
@@ -41,35 +40,28 @@ public class AllArticlesController extends AbstractController {
 
         List articles = _articleDao.getArticlesForState(sessionContext.getStateOrDefault());
 
-        Article article = null;
-        ArticleCategory articleCategory = null;
         Map catMap = new LinkedHashMap();
         Map sccMap = new LinkedHashMap();
         Map model = new HashMap();
 
-
         //initialize the map that holds all the categories
         List categories = _articleManager.getAllCategories();
         for (int i = 0; i < categories.size(); i++) {
-            articleCategory = (ArticleCategory) categories.get(i);
+            ArticleCategory articleCategory = (ArticleCategory) categories.get(i);
             catMap.put(articleCategory, null);
             sccMap.put(articleCategory, null);
         }
 
-        //iterate through all articles
         for (int i = 0; i < articles.size(); i++) {
-            article = (Article) articles.get(i);
+            Article article = (Article) articles.get(i);
             categories = _articleManager.getCategories(article.getCategory());
 
             for (int j = 0; j < categories.size(); j++) {
-                articleCategory = (ArticleCategory) categories.get(j);
+                ArticleCategory articleCategory = (ArticleCategory) categories.get(j);
 
-                if (_articleManager.isSchoolChoiceCenterCategory(articleCategory)) {
+                if (articleCategory.isSchoolChoiceCenterCategory()) {
                     addArticleToMap(sccMap, articleCategory, article);
                 } else {
-                    if (articleCategory == ArticleCategory.SPANISH) {
-                        _log.debug(articleCategory.getCategoryName());
-                    }
                     addArticleToMap(catMap, articleCategory, article);
                 }
             }
