@@ -154,7 +154,7 @@
     </td>
     <td valign="top" class="middleColumn">
 
-        <gsml:form action="/compareSchools.page" method="GET">
+        <gsml:form action="/compareSchools.page" method="get">
             <input type="hidden" name="state" value="${state}}"/>
 
             <gsweb:schoolTableHeader total="${results.total}"
