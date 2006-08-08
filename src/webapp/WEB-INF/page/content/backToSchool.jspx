@@ -41,7 +41,7 @@
                     <li class="seeAll"><link:articleLibrary>See article library &gt;</link:articleLibrary></li>
                 </ul>
 
-                <h3 id="askAnExpert">Ask an Expert</h3>
+                <h3 id="askAnExpertNav">Ask an Expert</h3>
                 <ul class="plain">
                     <gsweb:articlelink articleId="403" wrappingElement="li"/>
                     <gsweb:articlelink articleId="615" wrappingElement="li"/>
@@ -88,14 +88,12 @@
 
 
                 </ul>
+                <h3 id="schoolImprovement">School Improvement</h3>
                 <ul>
-                    <h3 id="schoolImprovement">School Improvement</h3>
                     <gsweb:articlelink articleId="41" wrappingElement="li"/>
                     <gsweb:articlelink articleId="311" wrappingElement="li"/>
                     <gsweb:articlelink articleId="291" wrappingElement="li"/>
                     <li class="seeAll"><link:articleLibrary>See article library &gt;</link:articleLibrary></li>
-
-
                 </ul>
             </td>
             <td valign="top" style="width: 10px;">
@@ -162,8 +160,8 @@
                 <table style="width: 100%;">
                     <tr>
 
-                        <td align="right"><a href="http://www.staples.com/webapp/wcs/stores/servlet/StaplesCategoryDisplay?storeId=10001&amp;identifier=SC84&amp;catalogIdentifier=2&amp;cm_sp=marketing-_-half%20wow-_-Back%20to%20School%20Center" target="_blank"><gsml:img src="/res/img/content/backtoschool/staples.gif" alt="Staples logo"/></a></td>
-                        <td align="left"><a href="https://www.shutterfly.com/secure/sign_up.jsp?http=www.shutterfly.com&amp;lid=sign+up" target="_blank"> <gsml:img src="/res/img/content/backtoschool/shutterfly.gif" alt="Shutterfly logo"/></a></td>
+                        <td align="right"><a href="http://www.staples.com/webapp/wcs/stores/servlet/StaplesCategoryDisplay?storeId=10001&amp;amp;identifier=SC84&amp;amp;catalogIdentifier=2&amp;amp;cm_sp=marketing-_-half%20wow-_-Back%20to%20School%20Center" target="_blank"><gsml:img src="/res/img/content/backtoschool/staples.gif" alt="Staples logo"/></a></td>
+                        <td align="left"><a href="https://www.shutterfly.com/secure/sign_up.jsp?http=www.shutterfly.com&amp;amp;lid=sign+up" target="_blank"> <gsml:img src="/res/img/content/backtoschool/shutterfly.gif" alt="Shutterfly logo"/></a></td>
 
                     </tr>
                     <tr>

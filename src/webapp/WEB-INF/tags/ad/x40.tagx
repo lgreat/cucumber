@@ -15,7 +15,7 @@
                             <c:when test='${requestScope.context.yahooCobrand}'>
                                     <![CDATA[
                                     <center>
-                                    <script language="JavaScript" type="text/javascript" src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=r"></script>
+                                    <script type="text/javascript" src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=r"></script>
                                     <noscript>
                                     <iframe src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=sh&bg=white" align="center" width="300" height="265" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
                                     </noscript>
@@ -32,7 +32,7 @@
                                 ]]>
                             </c:when>
                             <c:otherwise>
-                                <script language="JavaScript">OAS_AD('x40');</script>
+                                <script type="text/javascript">OAS_AD('x40');</script>
                             </c:otherwise>
                         </c:choose>
                     </td></tr>
