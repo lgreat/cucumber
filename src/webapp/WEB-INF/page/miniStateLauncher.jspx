@@ -111,7 +111,7 @@
 
             <div style="padding-left:69px;padding-top:0;margin-top:0;">
                 <a onclick="window.top.hidePopWin(false);"><gsml:img src="res/img/button/btn_cancel_aaccdd.gif" alt="Cancel"/></a>&amp;nbsp;&amp;nbsp;
-                <gsml:inputImage src="res/img/splash/go.gif" alt="Go"/>
+                <gsml:inputImage src="res/img/button/btn_go_aaccdd.gif" alt="Go"/>
             </div>
         </gsml:form>
     </div>
