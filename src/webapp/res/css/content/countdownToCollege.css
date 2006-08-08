@@ -241,7 +241,8 @@ h2#financialAidPlanner {
 }
 
 h2#collegeBoard2 {
-	text-indent: -100em;
+    color:#fff;
+    text-indent: -100em;
     background: url(/res/img/content/countdownToCollege/collegeboard_logo.gif);
     background-repeat: no-repeat;
     background-color: #fff;

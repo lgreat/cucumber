@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.15 2006/07/26 22:29:20 thuss Exp $
+ * $Id: NthGraderController.java,v 1.16 2006/08/08 18:20:50 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -8,7 +8,6 @@ import gs.data.community.*;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
 import gs.web.util.context.ISessionContext;
-import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
@@ -32,6 +31,9 @@ import java.util.List;
  * @author David Lee <mailto:dlee@greatschools.net>
  */
 public class NthGraderController extends SimpleFormController implements ReadWriteController {
+
+    public static final String PARAM_AUTOCHECK = "autocheck";
+
     protected final Log _log = LogFactory.getLog(getClass());
 
     private IUserDao _userDao;
@@ -43,6 +45,9 @@ public class NthGraderController extends SimpleFormController implements ReadWri
     protected void onBindOnNewForm(HttpServletRequest request,
                                    Object command,
                                    BindException errors) {
+
+        String autocheck = request.getParameter(PARAM_AUTOCHECK);
+
         NewsletterCommand nc = (NewsletterCommand) command;
         List validators = getOnLoadValidators();
         for (Iterator iter = validators.iterator(); iter.hasNext();) {
@@ -50,6 +55,11 @@ public class NthGraderController extends SimpleFormController implements ReadWri
             if (val.supports(nc.getClass())) {
                 val.validate(nc, errors);
             }
+        }
+
+        if (StringUtils.isNotBlank(autocheck)) {
+            if ("myms".equalsIgnoreCase(autocheck)) { nc.setMyMs(true); }
+            if ("myhs".equalsIgnoreCase(autocheck)) { nc.setMyHs(true); }
         }
 
         if (nc.getEmail() == null) {

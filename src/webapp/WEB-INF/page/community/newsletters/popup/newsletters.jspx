@@ -73,19 +73,19 @@
                 <tr>
                     <td>
                         <spring:bind path="newsCmd.myk">
-                            <input type="checkbox" name="${status.expression}"/>
+                            <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                         </spring:bind>
                         My Kindergartner
                     </td>
                     <td>
                         <spring:bind path="newsCmd.my1">
-                            <input type="checkbox" name="${status.expression}"/>
+                            <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                         </spring:bind>
                         My First-Grader
                     </td>
                     <td>
                         <spring:bind path="newsCmd.my2">
-                            <input type="checkbox" name="${status.expression}"/>
+                            <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                         </spring:bind>
                         My Second-Grader
                     </td>
@@ -93,19 +93,19 @@
                 <tr>
                     <td>
                         <spring:bind path="newsCmd.my3">
-                            <input type="checkbox" name="${status.expression}"/>
+                            <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                         </spring:bind>
                         My Third-Grader
                     </td>
                     <td>
                         <spring:bind path="newsCmd.my4">
-                            <input type="checkbox" name="${status.expression}"/>
+                            <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                         </spring:bind>
                         My Fourth-Grader
                     </td>
                     <td>
                         <spring:bind path="newsCmd.my5">
-                            <input type="checkbox" name="${status.expression}"/>
+                            <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                         </spring:bind>
                         My Fifth-Grader
                     </td>
@@ -119,13 +119,13 @@
                 <tr>
                     <td>
                         <spring:bind path="newsCmd.myMs">
-                            <input type="checkbox" name="${status.expression}"/>
+                            <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                         </spring:bind>
                         Middle School Matters
                     </td>
                     <td>
                         <spring:bind path="newsCmd.myHs">
-                            <input type="checkbox" name="${status.expression}"/>
+                            <gsml:checkbox name="${status.expression}" checked="${status.value}" />
                         </spring:bind>
                         Countdown to College
                     </td>
@@ -135,7 +135,7 @@
 
         <div class="grayTop">
             <p><spring:bind path="newsCmd.gn">
-                <input type="checkbox" name="${status.expression}" checked="checked"/>
+                <gsml:checkbox name="${status.expression}" checked="true" />
             </spring:bind>
             Please also send me tips and advice in the bi-monthly Parent Advisor.</p>
         </div>

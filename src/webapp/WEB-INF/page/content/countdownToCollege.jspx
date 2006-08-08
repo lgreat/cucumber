@@ -4,6 +4,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:link="urn:www.greatschools.net/taglib/link"
@@ -113,7 +114,7 @@
 
 				<h2 id="resources">Resources from the College Board</h2>
 
-				<h2 id="collegeBoard">CollegeBoard.com</h2>
+				<a href="http://www.collegeboard.com" target="_blank"><h2 id="collegeBoard">CollegeBoard.com</h2></a>
 
 				<div class="yellowbar"></div>
 
@@ -155,20 +156,25 @@
 				<td style="width: 5px;" valign="top"><img style="width: 5px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
 
                 <td class="right" style="width: 302px" valign="bottom">
+
                     <div id="childOnTrack">
-                        <a target="_blank" href="#"><gsml:img src="/res/img/header/clear_pix.gif" alt=""/></a>
+                        <promo:nthGraderHover autocheck="myhs"/>
                     </div>
 
                     <table cellspacing="0" cellpadding="0">
                         <tr>
-                            <td><img src="/res/img/content/countdownToCollege/placeholder_ad.jpg" width="300" height="250" alt="" border="0" /></td>
+                            <td>
+                                <ad:x40/>
+                            </td>
                         </tr>
                     </table>
 
                     <div class="grayLine"><gsml:img src="/res/img/header/clear_pix.gif" alt=""/></div>
 
                     <h2 id="financialAidPlanner">
-                        <img src="/res/img/content/countdownToCollege/financial_aid_planner.gif" width="305" height="269" alt="" border="0" />
+                        <gsml:a href="http://apps.collegeboard.com/fincalc/ep/step1-1.jsp">
+                            <img src="/res/img/content/countdownToCollege/financial_aid_planner.gif" width="305" height="269" alt="Financial Aid EasyPlanner proved by the College Board" border="0" />
+                        </gsml:a>
                     </h2>
 
                     <div id="bottomAdd">
@@ -217,7 +223,7 @@
 				</tr>
 				<tr>
 					<td align="right" colspan="3">
-                        <a href="http://www.collegeboard.com"><h2 id="collegeBoard2"></h2></a>
+                        <a href="http://www.collegeboard.com" target="_blank"><h2 id="collegeBoard2">.</h2></a>
                     </td>
 				</tr>
 				</table>
@@ -229,8 +235,8 @@
 		</tr>
         </table>
         <mod:tracking pageType="article"
-                      pageName="CountdownToCollege"
-                      hier1 = "Article,CountdownToCollege"/>
+                      pageName="Countdown To College"
+                      hier1 = "Article,Countdown To College"/>
 </gsml:body>
 </html>
 </jsp:root>

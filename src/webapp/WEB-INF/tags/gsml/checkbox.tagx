@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:directive.tag body-content="scriptless"/>
+    <jsp:directive.attribute name="name" required="true" description="the name attribute"/>
+    <jsp:directive.attribute name="checked" required="false" description="checked or not - defaults to not checked"/>
+    <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
+    <![CDATA[<input type="checkbox" ]]>
+    <c:out value='name="${name}"' escapeXml="false"/>
+    <c:if test="${not empty styleClass}">
+        <c:out value=' class="${styleClass}"' escapeXml="true"/>
+    </c:if>
+    <c:if test="${checked eq 'true'}">
+        <c:out value=' checked="true"' escapeXml="false"/>
+    </c:if>
+    <c:out value=" />" escapeXml="false"/>
+</jsp:root>

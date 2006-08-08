@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderControllerTest.java,v 1.10 2006/07/13 07:53:59 apeterson Exp $
+ * $Id: NthGraderControllerTest.java,v 1.11 2006/08/08 18:20:50 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -85,6 +85,15 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
         _controller.setOnLoadValidators(onLoadValidators);
     }
 
+
+    public void testSetNthGraderSelection() {
+        setUpScenarioOne();
+        NewsletterCommand command = new NewsletterCommand();
+        BindException errors = new BindException(command, "");
+        getRequest().setParameter(NthGraderController.PARAM_AUTOCHECK, "myhs");
+        _controller.onBindOnNewForm(getRequest(), command, errors);
+        assertTrue(command.isMyHs());
+    }
 
     private boolean hasErrorOnPageLoad(final NewsletterCommand command) {
         BindException errors = new BindException(command, "");
