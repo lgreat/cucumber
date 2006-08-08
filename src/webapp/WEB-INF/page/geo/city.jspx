@@ -25,9 +25,9 @@
 
 <head>
     <![CDATA[
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <meta name="description" content="Find the top-rated ]]>${cityObject.name}
-    <![CDATA[ schools, read recent parent reviews, or browse schools by grade level."></meta>
+    <![CDATA[ schools, read recent parent reviews, or browse schools by grade level."/>
         <style type="text/css">
 
         </style>

@@ -77,7 +77,7 @@
 
     </c:set>
 
-    <meta name="description" content="${metadesc}"></meta>
+    <meta name="description" content="${metadesc}"/>
     <title>${title}</title>
 
     <![CDATA[

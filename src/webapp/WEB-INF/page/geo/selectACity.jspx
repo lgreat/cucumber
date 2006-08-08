@@ -23,7 +23,7 @@
 
     <head>
         <![CDATA[
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"></meta>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
             ]]>
         <c:set var="city">${param["city"]}</c:set>
         <title>Select a City Near ${city}</title>
