@@ -15,7 +15,7 @@
                 <thead>
                     <tr>
                         <td width="50%" class="empty"></td>
-                        <th width="25%">${displayName}</th>
+                        <th width="25%">${displayName}<c:if test="${not empty requestScope.zipCode}"><sup>*</sup></c:if></th>
                         <c:if test="${showStateInfo}">
                         <th width="25%">${stateCensus.name}</th>
                         </c:if>
@@ -127,6 +127,7 @@
                         Population: <fmt:formatNumber
                             value="${bpCensus.population}"
                             maxFractionDigits="0"/>
+                        <c:if test="${not empty requestScope.zipCode}"><div style="font-size:xx-small"><sup>*</sup> Based on zip code ${requestScope.zipCode}</div></c:if>
                     </th>
                 </tr>
             </table>

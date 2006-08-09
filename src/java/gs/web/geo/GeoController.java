@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.20 2006/07/26 22:29:20 thuss Exp $
+ * $Id: GeoController.java,v 1.21 2006/08/09 21:25:25 apeterson Exp $
  */
 
 package gs.web.geo;
@@ -10,7 +10,6 @@ import gs.data.geo.bestplaces.BpCensus;
 import gs.data.geo.bestplaces.BpState;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
-import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -25,10 +24,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Fetches all sorts of information about a city (or zip code) and puts
- * it in the model for the view.  <code>PARAM_*</code> constants
- * specify the expected values, and <code>MODEL_</code> specify the
- * output model sent on to the view.
+ * Fetches all sorts of information about a city (or zip code) and puts it in the model for the view.
+ * <code>PARAM_*</code> constants specify the expected values, and <code>MODEL_</code> specify the output model sent on
+ * to the view.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  * @todo separate out school information. This needs to be separate, more defined classes.
@@ -46,6 +44,7 @@ public class GeoController implements Controller {
     public static final String MODEL_US_CENSUS = "us"; // BpCensus object for the U.S.
     public static final String MODEL_LOCAL_CENSUS = "bpCensus"; // City BpCensus object
     public static final String MODEL_DISPLAY_NAME = "displayName"; // String
+    public static final String MODEL_ZIP_CODE_USED = "zipCode"; // String, if the city data is based on a zip code not a city name
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -63,6 +62,9 @@ public class GeoController implements Controller {
 
             if (bpCensus == null) {
                 bpCensus = _geoDao.findZip(state, cityNameParam);
+                if (bpCensus != null) {
+                    model.put(MODEL_ZIP_CODE_USED, bpCensus.getZip());
+                }
             }
             if (bpCensus != null) {
                 if (bpCensus.getCostOfLiving() != null) {
@@ -79,7 +81,7 @@ public class GeoController implements Controller {
             } else if (State.NY.equals(state) && "New York".equals(cityNameParam)) {
                 displayName = "New York City";
             } else if (bpCensus != null) {
-                displayName = bpCensus.getName();
+                displayName = bpCensus.getGsName();
             } else {
                 displayName = cityNameParam;
             }
