@@ -48,8 +48,7 @@
                 </table>
             <div class="search" style="margin-top: 12px;">
                 <gsweb:form method="get"
-                           action="/stateLauncher.page"
-                           onsubmit="return checkSearchStateSelected('stateSelector')">
+                           action="/search/search.page">
                     <input name="p" value="search_single" type="hidden"/>
                     <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                         <input type="hidden" name="st" value="charter"/>
