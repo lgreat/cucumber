@@ -39,10 +39,9 @@
                     <gsweb:articlelink articleId="46" wrappingElement="li"/>
                     <gsweb:articlelink articleId="22" wrappingElement="li"/>
                     <gsweb:articlelink articleId="97" wrappingElement="li"/>
-                    <li class="seeAll"><link:articleLibrary>See article library &gt;</link:articleLibrary></li>
                 </ul>
 
-                <h3 id="askAnExpertNav">Ask an Expert</h3>
+                <h3 id="askAnExpertNav">Ask the Experts</h3>
                 <ul class="plain">
                     <gsweb:articlelink articleId="403" wrappingElement="li"/>
                     <gsweb:articlelink articleId="615" wrappingElement="li"/>
@@ -53,24 +52,24 @@
                 <li style="min-height: 66px; color: #c56; padding-left: 3px; padding-right: 4px">
                     <gsml:a href="/cgi-bin/showarticle/$STATE/326">
 
-                    <gsml:img src="/res/img/content/backtoschool/amberBrownBook.gif"
+                    <gsml:img src="/res/img/content/backToSchool/amberBrownBook.gif"
                               alt="Get Ready for Second Grade, Amber Brown"
                               style="float: left;"/>   </gsml:a>
-                <gsweb:articlelink articleId="326">Get Ready for Second Grade, Amber Brown</gsweb:articlelink></li>
+                <gsweb:articlelink articleId="326"><span class="bookPicks">Get Ready for Second Grade, Amber Brown</span></gsweb:articlelink></li>
 
                 <li>Read our <gsweb:articlelink articleId="326">back-to-school book picks</gsweb:articlelink></li>
                 <li class="bookPicks">Book picks by grade:<br />
                 <gsml:a href="/cgi-bin/showarticle/$STATE/622">
-                <gsml:img src="/res/img/content/backtoschool/redDot-K.gif" alt="Kindergarten Book Picks"></gsml:img>
+                <gsml:img src="/res/img/content/backToSchool/redDot-K.gif" alt="Kindergarten Book Picks"></gsml:img>
                 </gsml:a>
                  <gsml:a href="/cgi-bin/showarticle/$STATE/623">
-                <gsml:img src="/res/img/content/backtoschool/redDot_1.gif" alt="1st Grade Book Picks"></gsml:img>
+                <gsml:img src="/res/img/content/backToSchool/redDot_1.gif" alt="1st Grade Book Picks"></gsml:img>
                 </gsml:a>
                 <gsml:a href="/cgi-bin/showarticle/$STATE/624">
-                <gsml:img src="/res/img/content/backtoschool/redDot_2.gif" alt="2nd Grade Book Picks"></gsml:img>
+                <gsml:img src="/res/img/content/backToSchool/redDot_2.gif" alt="2nd Grade Book Picks"></gsml:img>
                 </gsml:a>
                  <gsml:a href="/cgi-bin/showarticle/$STATE/625">
-                <gsml:img src="/res/img/content/backtoschool/redDot_3.gif" alt="3rd Grade Book Picks"></gsml:img>
+                <gsml:img src="/res/img/content/backToSchool/redDot_3.gif" alt="3rd Grade Book Picks"></gsml:img>
                 </gsml:a>
                 </li>
                 </ul>
@@ -86,29 +85,29 @@
                     <gsweb:articlelink articleId="330" wrappingElement="li"/>
                     <gsweb:articlelink articleId="350" wrappingElement="li"/>
                     <gsweb:articlelink articleId="333" wrappingElement="li"/>
-
-
                 </ul>
-                <h3 id="schoolImprovement">School Improvement</h3>
+                <h3 id="schoolImprovement">Get Involved</h3>
                 <ul>
                     <gsweb:articlelink articleId="41" wrappingElement="li"/>
                     <gsweb:articlelink articleId="311" wrappingElement="li"/>
                     <gsweb:articlelink articleId="291" wrappingElement="li"/>
-                    <li class="seeAll"><link:articleLibrary>See article library &gt;</link:articleLibrary></li>
                 </ul>
+                <h3 class="seeAll"><link:articleLibrary styleClass="seeAll">Full article library &gt;</link:articleLibrary></h3>
             </td>
             <td valign="top" style="width: 10px;">
             </td>
             <td valign="top" style="width: 365px" class="middle">
                 <table cellspacing="0" cellpadding="0">
                     <tr><td>
-                        <gsml:img src="/res/img/content/backtoschool/backToSchool.gif" alt="Back to School Page"></gsml:img>
+                        <gsml:img src="/res/img/content/backToSchool/backToSchool.gif" alt="Back to School Page"></gsml:img>
                 </td><td>
-                <gsml:img src="/res/img/content/backtoschool/photo4kids.jpg" alt="Photo of 4 kids"></gsml:img>
+                <gsml:img src="/res/img/content/backToSchool/photo4kids.jpg" alt="Back to School"></gsml:img>
                 </td></tr></table>
               <div class="bigDottedDivider">&#160;</div>
 
-                <h2 id="getTheRightStuff">Get the Right Stuff</h2>
+                <h2 id="getTheRightStuff">
+                    <gsml:img src="/res/img/content/backToSchool/right_stuff.gif" alt="Get the Right Stuff to Go Back to School" />
+                </h2>
                 <ul>
                     <gsweb:articlelink articleId="327" wrappingElement="li"/>
                     <gsweb:articlelink articleId="657" wrappingElement="li"/>
@@ -120,7 +119,9 @@
                 </ul>
                 <div class="mediumDottedDivider">&#160;</div>
 
-                <h2 id="getReady">Get Ready, Get Set</h2>
+                <h2 id="getReady">
+                    <gsml:img src="/res/img/content/backToSchool/get_ready.gif" alt="Get Ready, Get Set to Go Back to School" />
+                </h2>
                 <ul>
                   <gsweb:articlelink articleId="328" wrappingElement="li"/>
                     <gsweb:articlelink articleId="332" wrappingElement="li"/>
@@ -142,7 +143,7 @@
                     Find out with our free newsletters that parents love! <promo:nthGraderHover referredBy="${pageName}">Sign me up</promo:nthGraderHover>
                     </p>
                 <h3 id="ourNewLook">Our New Look</h3>
-                <p>We're rolling out a new site design. What do you think about our new look? <gsml:a href="/cgi-bin/feedback_faq/$STATE?fbtype=design">Send us feedback</gsml:a>
+                <p>We're rolling out a new site design. What do you think about our new look? <gsml:a href="/cgi-bin/feedback_faq/$STATE?fbtype=design">Tell us now</gsml:a>
                     </p>
                 <h3 class="bottom">&#160;</h3>
             </td>
@@ -152,7 +153,7 @@
             <td valign="top" style="width: 7px;">
             </td>
             <td valign="top" style="width: 300px"  class="right">
-               <a href="http://back-to-school-blog.greatschools.net/" target="_blank"><gsml:img src="/res/img/content/backtoschool/twins.gif" alt="Photo of Twins Starting Kindergarten Blog" style="margin-bottom: 16px;"></gsml:img></a>
+               <a href="http://back-to-school-blog.greatschools.net/" target="_blank"><gsml:img src="/res/img/content/backToSchool/twins.gif" alt="Back to School Blog: Photo of Twins Starting Kindergarten" style="margin-bottom: 16px;"></gsml:img></a>
                <div><ad:x40 /><span style="font-size: xx-small;">&#160;</span></div>
 
 
@@ -161,30 +162,27 @@
                 <table style="width: 100%;">
                     <tr>
 
-                        <td align="right"><a href="http://www.staples.com/webapp/wcs/stores/servlet/StaplesCategoryDisplay?storeId=10001&amp;amp;identifier=SC84&amp;amp;catalogIdentifier=2&amp;amp;cm_sp=marketing-_-half%20wow-_-Back%20to%20School%20Center" target="_blank"><gsml:img src="/res/img/content/backtoschool/staples.gif" alt="Staples logo"/></a></td>
-                        <td align="left"><a href="https://www.shutterfly.com/secure/sign_up.jsp?http=www.shutterfly.com&amp;amp;lid=sign+up" target="_blank"> <gsml:img src="/res/img/content/backtoschool/shutterfly.gif" alt="Shutterfly logo"/></a></td>
+                        <td align="right"><a href="http://www.staples.com/webapp/wcs/stores/servlet/StaplesCategoryDisplay?storeId=10001&amp;amp;identifier=SC84&amp;amp;catalogIdentifier=2&amp;amp;cm_sp=marketing-_-half%20wow-_-Back%20to%20School%20Center" target="_blank"><gsml:img src="/res/img/content/backToSchool/staples.gif" alt="Staples logo"/></a></td>
+                        <td align="left"><a href="https://www.shutterfly.com/secure/sign_up.jsp?http=www.shutterfly.com&amp;amp;lid=sign+up" target="_blank"> <gsml:img src="/res/img/content/backToSchool/shutterfly.gif" alt="Shutterfly logo"/></a></td>
 
                     </tr>
                     <tr>
 
-                        <td align="right"><a href="http://ad.doubleclick.net/clk;25792358;12500657;k?http://www.concerta.net/html/concerta/support/kit.jsp" target="_blank"><gsml:img src="/res/img/content/backtoschool/concerta.gif" alt="Concerta logo"/></a></td>
-                        <td align="left"><a href="http://media.nyadmcncserve-05y06a.com/click?spacedesc=1058577_1017185_1x1_1027412_1001647" target="_blank"><gsml:img src="/res/img/content/backtoschool/parents.gif" alt="Parents the anti-drug"/></a></td>
+                        <td align="right"><a href="http://ad.doubleclick.net/clk;25792358;12500657;k?http://www.concerta.net/html/concerta/support/kit.jsp" target="_blank"><gsml:img src="/res/img/content/backToSchool/concerta.gif" alt="Concerta logo"/></a></td>
+                        <td align="left"><a href="http://media.nyadmcncserve-05y06a.com/click?spacedesc=1058577_1017185_1x1_1027412_1001647" target="_blank"><gsml:img src="/res/img/content/backToSchool/parents.gif" alt="Parents the anti-drug"/></a></td>
 
                     </tr>
                 </table>
 
-
-
-
                  <table style="width: 100%; color: #fff;padding-top: 10px; margin-top: 10px;border-top: 1px dotted #cccccc;" cellspacing="10">
-                        <tr><td colspan="2"><gsml:img src="/res/img/content/backtoschool/special_K3.gif" alt="Tips and Advice by Grade Level"></gsml:img></td></tr>
+                        <tr><td colspan="2"><gsml:img src="/res/img/content/backToSchool/special_K3.gif" alt="Tips and Advice by Grade Level"></gsml:img></td></tr>
                         <tr>
-                            <td><promo:nthGraderHover referredBy="${pageName}"><gsml:img src="/res/img/content/backtoschool/yourKinder.gif" alt="Tips and Advice for Your Kindergartener"></gsml:img></promo:nthGraderHover></td>
-                            <td><promo:nthGraderHover referredBy="${pageName}"><gsml:img src="/res/img/content/backtoschool/yourFirst.gif" alt="Tips and Advice for Your First-Grader"></gsml:img></promo:nthGraderHover></td>
+                            <td><promo:nthGraderHover referredBy="${pageName}"><gsml:img src="/res/img/content/backToSchool/yourKinder.gif" alt="Tips and Advice for Your Kindergartener"></gsml:img></promo:nthGraderHover></td>
+                            <td><promo:nthGraderHover referredBy="${pageName}"><gsml:img src="/res/img/content/backToSchool/yourFirst.gif" alt="Tips and Advice for Your First-Grader"></gsml:img></promo:nthGraderHover></td>
                         </tr>
                         <tr>
-                            <td><promo:nthGraderHover referredBy="${pageName}"><gsml:img src="/res/img/content/backtoschool/yourSecond.gif" alt="Tips and Advice for Your Second-Grader"></gsml:img></promo:nthGraderHover></td>
-                            <td><promo:nthGraderHover referredBy="${pageName}"><gsml:img src="/res/img/content/backtoschool/yourThird.gif" alt="Tips and Advice for Your Third-Grader"></gsml:img></promo:nthGraderHover></td>
+                            <td><promo:nthGraderHover referredBy="${pageName}"><gsml:img src="/res/img/content/backToSchool/yourSecond.gif" alt="Tips and Advice for Your Second-Grader"></gsml:img></promo:nthGraderHover></td>
+                            <td><promo:nthGraderHover referredBy="${pageName}"><gsml:img src="/res/img/content/backToSchool/yourThird.gif" alt="Tips and Advice for Your Third-Grader"></gsml:img></promo:nthGraderHover></td>
                         </tr>
                     </table>
             </td>

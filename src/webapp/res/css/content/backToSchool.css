@@ -1,10 +1,4 @@
-.bigDottedDivider {
-    margin-top: 0px;
-    height: 14px;
-    font-size: xx-small;
-    border-bottom: 2px dotted #c56;
-    margin-bottom: 6px;
-}
+@import "microsite.css";
 
 .mediumDottedDivider {
     margin-top: 0px;
@@ -12,24 +6,6 @@
     font-size: xx-small;
     border-bottom: 2px dotted #ccc;
     margin-bottom: 6px;
-}
-
-#pageGS {
-    font-family: "Trebuchet MS", Arial, sans-serif;
-}
-
-#pageGS #contentGS  a:hover {
-    color: #6cc;
-}
-
-
-/* Left, nav column */
-#contentGS .left h3 {
-    font-size: small; /* 13pt */
-    font-weight: 700;
-    background-color: #6cc;
-    color: #fff;
-    padding: 4px 0 4px 16px;
 }
 
 #contentGS .left ul {
@@ -43,7 +19,7 @@
     color: #999;
     padding: 4px 12px 4px 16px;
     margin-bottom: 1px;
-    background-image: url( ../../img/bullet/white/dotOnEee.gif);
+    background-image: url(/res/img/bullet/white/dotOnEee.gif);
     background-repeat: no-repeat;
     background-position: .8ex 2.1ex;
 }
@@ -52,71 +28,18 @@
     text-align: right;
     background-image: none;
 }
-#contentGS .left ul li a {
-    color: #aaa;
-}
-
-
-#contentGS .left ul li.bookPicks {
-      color: #c56 !important;
-    background-image: none;
-    font-size: 11px;
-}
-
-#contentGS .left ul li.bookPicks img {
-      padding: 3px 12px 3px 0;
-}
-
-/* Middle column */
-#contentGS .middle h1 {
-    font-family: Rockwell light, courier, courier new;
-    font-size: xx-large;
-    font-weight: 100;
-    padding: 8ex 0 1ex 16px;
-    color: #fff;
-    background-color: #6cc;
-    margin-bottom: 16px;
-}
-
-#contentGS .middle h2 {
-    font-family: century gothic;
-    font-size: large;
-    font-weight: 100;
-    color: #fff;
-    background-color: #fb0;
-    padding: 4px 0 2px 16px;
-}
-
-#contentGS .middle li {
-    padding: 8px 0 2px 16px;
-    font-size: small; /* 13pt */
-    font-weight: 700;
-    background-color: #fff;
-    color: #5bc;
-}
-
-#contentGS .middle li a {
-    color: #39a;
-}
 
 #contentGS .middle h2#getReady {
-          text-indent: -100em;
-          overflow: hidden;
-          background: url(../../img/content/backtoschool/get_ready.gif);
-          background-repeat: no-repeat;
           background-color: #fb0;
           background-position: 10px; 5px; 8px; 5px;
           height: 25px;
       }
-      #contentGS .middle h2#getTheRightStuff {
-          text-indent: -100em;
-          overflow: hidden;
-          background: url(../../img/content/backtoschool/right_stuff.gif);
-          background-repeat: no-repeat;
-          background-color: #fb0;
-          background-position: 10px; 5px; 8px; 5px;
-          height: 25px;
-      }
+
+#contentGS .middle h2#getTheRightStuff {
+      background-color: #fb0;
+      background-position: 10px; 5px; 8px; 5px;
+      height: 25px;
+}
 
 
 #contentGS .middle h3 {
@@ -128,13 +51,12 @@
     margin-top: 10px;
     border-top: 1px dotted #cccccc;
     background-position: 14px 12px;
-
 }
 
 #contentGS .middle h3#askAnExpert {
           text-indent: -100em;
           overflow: hidden;
-          background-image: url( ../../img/content/backtoschool/askAnExpert.gif );
+          background-image: url(/res/img/content/backToSchool/askAnExpert.gif);
           background-repeat: no-repeat;
           background-position: 10px 20px;
           height: 35px;
@@ -143,7 +65,7 @@
 #contentGS .middle h3#parentPoll {
           text-indent: -100em;
           overflow: hidden;
-          background-image: url( ../../img/content/backtoschool/parentPoll.gif );
+          background-image: url(/res/img/content/backToSchool/parentPoll.gif);
           background-repeat: no-repeat;
           background-position: 10px 20px;
           height: 35px;
@@ -152,7 +74,7 @@
 #contentGS .middle h3#theTwinsStartKindergarten {
           text-indent: -100em;
           overflow: hidden;
-          background-image: url( ../../img/content/backtoschool/theTwinsStartKindergarten.gif );
+          background-image: url(/res/img/content/backToSchool/theTwinsStartKindergarten.gif);
           background-repeat: no-repeat;
           background-position: 10px 20px;
           height: 35px;
@@ -162,7 +84,7 @@
 #contentGS .middle h3#freeNewsletters {
           text-indent: -100em;
           overflow: hidden;
-          background-image: url( ../../img/content/backtoschool/freeNewsletters.gif );
+          background-image: url(/res/img/content/backToSchool/freeNewsletters.gif);
           background-repeat: no-repeat;
           background-position: 10px 20px;
           height: 35px;
@@ -171,22 +93,18 @@
 #contentGS .middle h3#ourNewLook {
           text-indent: -100em;
           overflow: hidden;
-          background-image: url( ../../img/content/backtoschool/ourNewLook.gif );
+          background-image: url(/res/img/content/backToSchool/ourNewLook.gif);
           background-repeat: no-repeat;
           background-position: 10px 20px;
           height: 35px;
       }
 
 
-#contentGS .middle p {
-    padding: 0px 0 18px 16px;
-    font-size: small;
-    font-weight: 700;
-    color: #777;
+#pageGS #contentGS h3.seeAll a.seeAll {
+    color: #FFF;
 }
 
-#contentGS .middle p a {
-    color: #39a;
-    font-weight: 300;
-    text-decoration: underline;
+#pageGS #contentGS h3.seeAll a.seeAll:hover {
+    color: #8ee;
 }
+
