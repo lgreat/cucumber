@@ -318,7 +318,7 @@ a.quickFindLetters:link {
     vertical-align:top;
 }
 
-.seeFullArticle {
+#contentGS a.seeFullArticle {
 	font-size: 11px;
 	color: #3399AA;
 	font-weight: bold;
