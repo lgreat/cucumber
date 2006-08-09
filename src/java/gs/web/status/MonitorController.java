@@ -17,10 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.TreeMap;
+import java.util.*;
+import java.text.SimpleDateFormat;
 
 /**
  * Controller for showing the build _versionProperties and database connectivity check
@@ -185,7 +183,9 @@ public class MonitorController implements ReadWriteController {
     }
 
     private String getIndexVersion() {
-        return String.valueOf(_searcher.getIndexVersion());
+        SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+        Date d = new Date(_searcher.getIndexVersion());
+        return format.format(d);
     }
 
     private Map getEnvironmentMap() {
