@@ -2,7 +2,7 @@
 Copyright (c) 2006 GreatSchools.net
 All Rights Reserved.
 
-$Id: global.js,v 1.8 2006/07/31 16:38:00 dlee Exp $
+$Id: global.js,v 1.9 2006/08/09 22:25:14 wbeck Exp $
 */
 
 /* Finds the HTML element specified by the ID and switches it between
@@ -10,13 +10,15 @@ $Id: global.js,v 1.8 2006/07/31 16:38:00 dlee Exp $
    as its behavior is not defined. */
 function toggleById(elementId) {
     var layer = document.getElementById(elementId);
-
     if (layer.style.display == 'block') {
         layer.style.display = 'none';
+
     } else {
         layer.style.display = 'block';
     }
 }
+
+
 
 /* Sets the search prompt in the global header */
 function setSearchPrompt(s) {
@@ -26,6 +28,11 @@ function setSearchPrompt(s) {
     e.focus();
     e.select();
 }
+
+function changeColSize(elementId,size,colspan) {
+	document.getElementById(elementId).style.width = size+"px;";
+    document.getElementById(elementId).colSpan = colspan;
+    }
 
 
 

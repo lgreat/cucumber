@@ -52,8 +52,8 @@
                 <c:if test="${(empty showConstraint) or showConstraint}">
                     <td>
                         <select name="type">
-                            <option value="school">Schools only</option>
-                            <option value="topic">Topics only</option>
+                            <option value="school">Schools</option>
+                            <option value="topic">Articles</option>
                         </select>
                     </td>
                 </c:if>

@@ -11,16 +11,20 @@
     <div class="browseState">
         <h2 class="browseheader">Browse</h2>
         <ul class="refinementlist">
+            <c:if test="${param.c ne 'topic' || param.c eq 'school'}">
             <li><gsml:a href="/modperl/cities/${state.abbreviation}">
                 <c:out value="${state.longName}"/> cities</gsml:a>
             </li>
             <li><gsml:a href="/modperl/districts/${state.abbreviation}">
                 <c:out value="${state.longName}"/> districts
             </gsml:a></li>
+            </c:if>
+            <c:if test="${param.c eq 'topic' || param.c ne 'school'}">
             <li><link:articleLibrary>Topics</link:articleLibrary></li>
             <li><gsml:a href="/cgi-bin/glossary_home/${state.abbreviation}">Glossary terms</gsml:a></li>
+            </c:if>
         </ul>
-
+         <c:if test="${param.c ne 'topic' || param.c eq 'school'}">
         <h2 class="browseheader">Advanced Search</h2>
         <ul class="refinementlist">
             <li><gsml:a href="/cgi-bin/template_plain/advanced/${state.abbreviation}/#address">
@@ -28,6 +32,7 @@
             <li><gsml:a href="/cgi-bin/template_plain/advanced/${state.abbreviation}/#county">
                 Search by county</gsml:a></li>
         </ul>
+        </c:if>
     </div>
 
 </jsp:root>
