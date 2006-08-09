@@ -9,6 +9,7 @@
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:gsweb="gstaglib"
         xmlns:link="urn:www.greatschools.net/taglib/link"
         >
 <html lang="en">
@@ -45,7 +46,7 @@
     <h1>Thanks for signing up<br/> for GreatSchools newsletters.</h1>
 </div>
 <div class="content">
-<gsml:form action="/community/newsletters/popup/mss/page2.page" method="post" target="_self" id="frm">
+<gsweb:form action="/community/newsletters/popup/mss/page2.page" method="post" target="_self" id="frm">
     <div class="pLR">
         <div class="promo">
             <h2>Track your child's progress grade by grade<br/> with the free newsletters that parents love!</h2>
@@ -142,7 +143,7 @@
             </div>
         </div>
     </div>
-</gsml:form>
+</gsweb:form>
 </div>
 <c:if test="${not empty param.newuser}">
     <c:set var="events" value="event5"/>

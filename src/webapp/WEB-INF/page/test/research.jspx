@@ -173,7 +173,7 @@
             <h3>Compare schools in your area</h3>
 
             <div style="padding:15px 7px 0 15px; font-size: small">
-                <gsml:form action="/path/compareEntry.page" method="post">
+                <gsweb:form action="/path/compareEntry.page" method="post">
                     <p><gsweb:stateSelector usingLongNames="true"
                                             state="${requestScope.context.stateOrDefault}"/>
                     </p>
@@ -217,7 +217,7 @@
                                src="${compareImage}"
                                alt="Compare Schools"/>
                     </div>
-                </gsml:form>
+                </gsweb:form>
             </div>
 
 

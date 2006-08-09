@@ -9,6 +9,7 @@
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:gsweb="gstaglib"
         xmlns:link="urn:www.greatschools.net/taglib/link"
         >
 <html lang="en">
@@ -88,7 +89,7 @@
     </div>
 
     <div class="content">
-        <gsml:form action="/community/newsletters/popup/mss/page1.page" method="post" target="_self"
+        <gsweb:form action="/community/newsletters/popup/mss/page1.page" method="post" target="_self"
                 id="frm">
 
             <spring:hasBindErrors name="newsCmd">
@@ -128,7 +129,7 @@
                     Policy</link:privacyPolicy>
                 </div>
             </div>
-        </gsml:form>
+        </gsweb:form>
     </div>
 </div>
 

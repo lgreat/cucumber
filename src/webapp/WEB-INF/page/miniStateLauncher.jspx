@@ -44,7 +44,7 @@
         <h2>Please<br/>select your state:</h2>
 
 
-        <gsml:form action="${url}" target="_parent" method="get">
+        <gsweb:form action="${url}" target="_parent" method="get">
             <select size="12" name="state" id="state">
                 <option value="AL" selected="true">&amp;nbsp;&amp;nbsp;Alabama</option>
                 <option value="AK">&amp;nbsp;&amp;nbsp;Alaska</option>
@@ -113,7 +113,7 @@
                 <a onclick="window.top.hidePopWin(false);"><gsml:img src="res/img/button/btn_cancel_aaccdd.gif" alt="Cancel"/></a>&amp;nbsp;&amp;nbsp;
                 <gsml:inputImage src="res/img/button/btn_go_aaccdd.gif" alt="Go"/>
             </div>
-        </gsml:form>
+        </gsweb:form>
     </div>
 
 <mod:tracking pageType="search" pageName="State Selection Hover" hier1="Search,State select page,Hover"/>

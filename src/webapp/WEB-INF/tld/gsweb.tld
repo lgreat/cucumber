@@ -61,7 +61,8 @@
         </attribute>
         <attribute>
             <name>usingLongNames</name>
-            <description>Set to true if the full state names (as opposed to an abbreviation) should be used.</description>
+            <description>Set to true if the full state names (as opposed to an abbreviation) should be
+                used.</description>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -281,6 +282,42 @@
             <description>if set, generates a wrapping element around the link to the
                 article. Useful for generating list items dynamically; if the article is
                 not available, this enclosing element is NOT generated.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>form</name>
+        <tag-class>gs.web.jsp.FormTagHandler</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>id</name>
+            <description>CSS id</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>action</name>
+            <description>action url</description>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>method</name>
+            <description>get or post (lowercase please)</description>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>onsubmit</name>
+            <description>javascript to call when the form is submitted</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <description>target window to open result in _top, _parent, _blank, etc...</description>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

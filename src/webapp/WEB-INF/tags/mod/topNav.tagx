@@ -47,7 +47,7 @@
                     </tr>
                 </table>
             <div class="search" style="margin-top: 12px;">
-                <gsml:form method="get"
+                <gsweb:form method="get"
                            action="/stateLauncher.page"
                            onsubmit="return checkSearchStateSelected('stateSelector')">
                     <input name="p" value="search_single" type="hidden"/>
@@ -103,7 +103,7 @@
                             </td>
                         </tr>
                     </table>
-                </gsml:form>
+                </gsweb:form>
             </div>
         </td>
     </tr>

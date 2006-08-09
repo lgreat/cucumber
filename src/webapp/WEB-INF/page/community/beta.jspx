@@ -5,6 +5,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
     <jsp:directive.page contentType="text/html"/>
     <html>
@@ -18,12 +19,14 @@
         <div class="content">
 
             <h3>Improve GreatSchools - Join Our Beta Group</h3>
+
             <p>
                 Due to an overwhelming response, we reached our limit for providing free
                 Shutterfly Photo Calendars to GreatSchools beta group members.
                 But we still need your help!
             </p>
             <br/>
+
             <p>
                 Join us as we build a powerful community of parents who are passionate
                 about education!<br/> Get a sneak peek at brand new features and ratings
@@ -40,7 +43,7 @@
             <br/>
             <center>
                 <div class="formtext">To sign up for our beta group, please enter your email address:</div>
-                <gsml:form action="/community/beta.page" method="post">
+                <gsweb:form action="/community/beta.page" method="post">
                     <spring:bind path="betaSignupCommand.email">
                         <input type="text" name="email" size="50"></input>
                         <input type="submit" value="Sign me up!" name="submit"/>
@@ -53,13 +56,14 @@
                         </c:if>
                     </spring:bind>
                     <input type="hidden" name="state" value="${requestScope.context.stateOrDefault}"/>
-                </gsml:form>
+                </gsweb:form>
                 <h6>We won't sell or share your address. <gsml:popupWindow width="800" height="600" left="50" top="50"
                                                                            href="/about/privacyStatement.page?state=$STATE">
                     GreatSchools Privacy Policy</gsml:popupWindow></h6>
                 <br/>
                 <br/>
                 <br/>
+
                 <p>Existing beta group members can <link:betaUnsubscribe>unsubscribe</link:betaUnsubscribe> here.</p>
             </center>
         </div>

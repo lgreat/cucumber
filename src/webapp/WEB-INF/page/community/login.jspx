@@ -60,7 +60,7 @@
                     <div id="existing">
                         <h3>Existing Users</h3>
 
-                        <gsml:form action="/community/login.page" method="post">
+                        <gsweb:form action="/community/login.page" method="post">
 
                             <spring:hasBindErrors name="loginCmd">
                                 <div class="error">
@@ -84,7 +84,7 @@
                                 </spring:bind>
 
                                 <input class="submit" type="submit" value="Login"/>
-                        </gsml:form>
+                        </gsweb:form>
                     </div>
                 </td>
                 <td class="choice">

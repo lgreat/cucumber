@@ -70,7 +70,7 @@
         <td id="findAndCompare" width="275">
             <div id="findAndCompareSchoolsNationwide">
                 <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
-                <gsml:form method="get"
+                <gsweb:form method="get"
                            action="/stateLauncher.page"
                            onsubmit="return checkSearchStateSelected('splashStateSelector')">
                     <input name="p" value="search_single" type="hidden"/>
@@ -89,12 +89,12 @@
                     <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
                     <input type="image" src="${go}" alt="GO" style="width:41px;height:26px;margin-top: 10px"
                            class="button" onmouseover="this.src='${goOver}';" onmouseout="this.src='${go}';"/>
-                </gsml:form>
+                </gsweb:form>
             </div>
 
             <div id="getIdeasAndLearnMoreAbout">
                 <h3>Get <em>IDEAS and LEARN MORE</em> about:</h3>
-                <gsml:form action="/redirect.page" method="get">
+                <gsweb:form action="/redirect.page" method="get">
                     <table><tr>
                         <td><select name="page">
                             <option value="/content/backToSchool.page" selected="selected">Back-to-school
@@ -131,7 +131,7 @@
                                    class="button" onmouseover="this.src='${goOver}';" onmouseout="this.src='${go}';"/>
                         </td>
                     </tr></table>
-                </gsml:form>
+                </gsweb:form>
             </div>
         </td>
     </tr>

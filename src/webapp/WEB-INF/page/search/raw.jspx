@@ -31,7 +31,7 @@
     
     <body onload="document.getElementById('qfield').focus()">
     <center>
-        <gsml:form action="/search/raw.page" method="get">
+        <gsweb:form action="/search/raw.page" method="get">
             <input id="qfield" type="text" name="q" size="70" value="${param.q}"/>
             <c:out value=" " escapeXml="true"/>
             <input type="submit" value="go"/>
@@ -48,7 +48,7 @@
                 </c:if>
                 <![CDATA[ value="gs">GSAnalyzer</option> ]]>
             </select>
-        </gsml:form>
+        </gsweb:form>
 
 
         <c:if test="${not empty param.q}">

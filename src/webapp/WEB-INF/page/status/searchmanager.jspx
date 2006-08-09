@@ -5,6 +5,7 @@
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:spring="http://www.springframework.org/tags"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         >
     <c:if test="${sessionScope.authenticated == null}">
@@ -33,12 +34,12 @@
     <h2>Host: <c:out value="${pageContext.request.serverName}" /></h2>
 
     Reindex data. This deletes any existing indexes!
-    <gsml:form action="/status/searchmanager.page" method="post">
+    <gsweb:form action="/status/searchmanager.page" method="post">
         <input type="submit" name="all" value="Index All States"/>
         <input type="submit" name="test" value="Index Test States"/>
         <input type="submit" name="logout" value="logout"/>
         <input type="hidden" name="index" value="true" />
-    </gsml:form>
+    </gsweb:form>
     <c:if test="${!empty time}">
         <c:out value="Indexing time ${time}"/> 
     </c:if>

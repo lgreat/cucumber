@@ -76,7 +76,7 @@
 
     <br/>
 
-  <gsml:form action="/community/registrationSuccess.page" method="post">
+  <gsweb:form action="/community/registrationSuccess.page" method="post">
 
       <!--
       <p>You have <c:out value="${followUpCmd.userProfile.numSchoolChildren}"/> children K-12.</p>
@@ -119,7 +119,7 @@
       <div class="privacy">By submitting, I agree to the <link:termsOfUse>Terms of Service</link:termsOfUse></div>
       <div class="privacy">We won't sell or share your address. <gsml:popupWindow width="800" height="600" left="50" top="50"
               href="/about/privacyStatement.page?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></div>
-  </gsml:form>
+  </gsweb:form>
   </body>
 </html>
 </jsp:root>

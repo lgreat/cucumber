@@ -25,7 +25,7 @@
 
 
     <div class="globalSearch">
-    <gsml:form id="searchform" method="get" action="/search/search.page">
+    <gsweb:form id="searchform" method="get" action="/search/search.page">
         <table style="padding:0px; margin:0px;">
             <c:if test="${showStates == 'true'}">
                 <tr>
@@ -88,7 +88,7 @@
         <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
             <input type="hidden" name="st" value="charter"/>
         </c:if>
-    </gsml:form>
+    </gsweb:form>
 
     </div>
 </jsp:root>
