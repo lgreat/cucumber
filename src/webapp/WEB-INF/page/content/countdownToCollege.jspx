@@ -179,10 +179,7 @@
                     </h2>
 
                     <div id="bottomAdd">
-                        <h2 id="sponsor">Countdown to College Sponsored By:</h2>
-                        <b>K12 Inc. Education for a Lifetime.</b><br />
-                        K12 Inc. is the leading provider of home-based curriculum for students in grades K-10. With courses in six subjects, delivered online,<br />
-                        <a href="#" id="bottomAddLink">K12 provides an education for a lifetime</a>.
+                        <ad:x49 blurb="Countdown to College Sponsored By:"/>
                     </div>
                 </td>
 			</tr>

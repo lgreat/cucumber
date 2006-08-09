@@ -25,6 +25,9 @@
         if (Boolean.TRUE.equals(request.getAttribute("x40"))) {
             ads += "x40,";
         }
+        if (Boolean.TRUE.equals(request.getAttribute("x49"))) {
+            ads += "x49,";
+        }
         if (Boolean.TRUE.equals(request.getAttribute("x66"))) {
             ads += "x66,";
         }
