@@ -24,6 +24,7 @@
     <title>GreatSchools.net: Back-to-School</title>
      <pageHelper:externalCss file="/res/css/content/backToSchool.css"/>
 </head>
+<c:set var="pageName" value="Back to School"/>
 
 <gsml:body adPageName="article" pageLayout="backToSchool">
 
@@ -131,14 +132,14 @@
                 <p>Q: My kindergartner doesn't want to go to school. What do I do?
                     <gsweb:articlelink articleId="507">Read the answer</gsweb:articlelink>
                     </p>
-              
+
                 <h3 id="theTwinsStartKindergarten">The Twins Start Kindergarten</h3>
                 <p>Follow this family's story as their twins Anna and Beth start kindergarten. <a href="http://back-to-school-blog.greatschools.net/" target="_blank">Read our Back to School Blog</a>
                     </p>
                 <h3 id="freeNewsletters">Free Newsletters</h3>
 
                 <p>Is your child on track?
-                    Find out with our free newsletters that parents love! <promo:nthGraderHover>Sign me up</promo:nthGraderHover>
+                    Find out with our free newsletters that parents love! <promo:nthGraderHover referredBy="${pageName}">Sign me up</promo:nthGraderHover>
                     </p>
                 <h3 id="ourNewLook">Our New Look</h3>
                 <p>We're rolling out a new site design. What do you think about our new look? <gsml:a href="/cgi-bin/feedback_faq/$STATE?fbtype=design">Send us feedback</gsml:a>
@@ -178,19 +179,19 @@
                  <table style="width: 100%; color: #fff;padding-top: 10px; margin-top: 10px;border-top: 1px dotted #cccccc;" cellspacing="10">
                         <tr><td colspan="2"><gsml:img src="/res/img/content/backtoschool/special_K3.gif" alt="Tips and Advice by Grade Level"></gsml:img></td></tr>
                         <tr>
-                            <td><promo:nthGraderHover><gsml:img src="/res/img/content/backtoschool/yourKinder.gif" alt="Tips and Advice for Your Kindergartener"></gsml:img></promo:nthGraderHover></td>
-                            <td><promo:nthGraderHover><gsml:img src="/res/img/content/backtoschool/yourFirst.gif" alt="Tips and Advice for Your First-Grader"></gsml:img></promo:nthGraderHover></td>
+                            <td><promo:nthGraderHover referredBy="${pageName}"><gsml:img src="/res/img/content/backtoschool/yourKinder.gif" alt="Tips and Advice for Your Kindergartener"></gsml:img></promo:nthGraderHover></td>
+                            <td><promo:nthGraderHover referredBy="${pageName}"><gsml:img src="/res/img/content/backtoschool/yourFirst.gif" alt="Tips and Advice for Your First-Grader"></gsml:img></promo:nthGraderHover></td>
                         </tr>
                         <tr>
-                            <td><promo:nthGraderHover><gsml:img src="/res/img/content/backtoschool/yourSecond.gif" alt="Tips and Advice for Your Second-Grader"></gsml:img></promo:nthGraderHover></td>
-                            <td><promo:nthGraderHover><gsml:img src="/res/img/content/backtoschool/yourThird.gif" alt="Tips and Advice for Your Third-Grader"></gsml:img></promo:nthGraderHover></td>
+                            <td><promo:nthGraderHover referredBy="${pageName}"><gsml:img src="/res/img/content/backtoschool/yourSecond.gif" alt="Tips and Advice for Your Second-Grader"></gsml:img></promo:nthGraderHover></td>
+                            <td><promo:nthGraderHover referredBy="${pageName}"><gsml:img src="/res/img/content/backtoschool/yourThird.gif" alt="Tips and Advice for Your Third-Grader"></gsml:img></promo:nthGraderHover></td>
                         </tr>
                     </table>
             </td>
         </tr>
     </table>
     <mod:tracking pageType="article"
-                  pageName="Back to School"
+                  pageName="${pageName}"
                   hier1 = "Article,Back to School Home"/>
 
 

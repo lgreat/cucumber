@@ -44,6 +44,10 @@
             name="events"
             description="A comma-separated list of events.  See SiteCatalyst for event types"
             required="false"/>
+    <jsp:directive.attribute
+            name="referringPage"
+            description="The omniture page name of the referring page"
+            required="false"/>
 
     <jsp:scriptlet>
         request.setAttribute("scheme", request.getScheme());
@@ -73,6 +77,7 @@
         s.prop6 = "${query}";
         s.prop7 = "${pageName}:${requestScope.context.ABVersion}";
         s.prop8 = "${empty(param.cpn) ? pageName : param.cpn}";
+        s.prop9 = "${empty(referringPage) ? "" : referringPage}";
         s.events = "${events}";
         s.hier1 = "${hier1}";
 

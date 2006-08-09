@@ -25,6 +25,7 @@
 	<meta name="Description" content="College prep advice and help from College Board and GreatSchools to help parents of high school and middle school students with academics, behavior issues and financial planning."/>
     <pageHelper:externalCss file="/res/css/content/countdownToCollege.css"/>
 </head>
+<c:set var="pageName" value="Countdown To College"/>
 <gsml:body adPageName="article" pageLayout="countdownToCollege">
 		<table cellspacing="0" cellpadding="0" class="content" border="0">
 		<tr>
@@ -158,7 +159,7 @@
                 <td class="right" style="width: 302px" valign="bottom">
 
                     <div id="childOnTrack">
-                        <promo:nthGraderHover autocheck="myhs"/>
+                        <promo:nthGraderHover referredBy="${pageName}" autocheck="myhs"/>
                     </div>
 
                     <table cellspacing="0" cellpadding="0">
@@ -235,7 +236,7 @@
 		</tr>
         </table>
         <mod:tracking pageType="article"
-                      pageName="Countdown To College"
+                      pageName="${pageName}"
                       hier1 = "Article,Countdown To College"/>
 </gsml:body>
 </html>

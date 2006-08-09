@@ -11,6 +11,6 @@
     <div id="trackChildsLearningNewsletterPromo">
         <p><span>&#160;</span>Track you child's learning grade-by-grade with our free newsletters that parents
             love.</p>
-        <promo:nthGraderHover>Sign up for newsletters</promo:nthGraderHover>
+        <promo:nthGraderHover referredBy="Track Childs Learning Newsletter Promo">Sign up for newsletters</promo:nthGraderHover>
     </div>
 </jsp:root>

@@ -66,6 +66,10 @@
     </c:choose>
 </spring:bind>
 
+<spring:bind path="newsCmd.referrer">
+    <c:set var="referrer" value="${status.value}"/>
+</spring:bind>
+
 
 <div class="header">
     <div class="left">
@@ -140,7 +144,9 @@
 </div>
 <mod:tracking pageName="Newsletter Promo Hover"
               pageType=""
-              hier1="Newsletter, NL hover promo - MSS, School profile"/>
+              hier1="Newsletter, NL hover promo - MSS, School profile"
+              referringPage="${referrer}"
+        />
 </gsml:body>
 </html>
 </jsp:root>

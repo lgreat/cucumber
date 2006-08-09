@@ -34,6 +34,11 @@
     <c:set var="cbxError" value="${status.errorMessage}"/>
 </spring:bind>
 
+<spring:bind path="newsCmd.referrer">
+    <c:set var="referrer" value="${status.value}"/>
+</spring:bind>
+
+
 <div class="header">
     <div class="left">
         GreatSchools<br/> Newsletters
@@ -160,7 +165,9 @@
 </div>
 <mod:tracking pageName="Newsletter Promo Hover Nthgrader"
               pageType=""
-              hier1=""/>
+              hier1=""
+              referringPage="${referrer}"
+        />
 </gsml:body>
 </html>
 </jsp:root>

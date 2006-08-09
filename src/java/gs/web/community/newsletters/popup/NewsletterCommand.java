@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NewsletterCommand.java,v 1.8 2006/05/09 19:31:35 dlee Exp $
+ * $Id: NewsletterCommand.java,v 1.9 2006/08/09 00:33:02 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -30,6 +30,7 @@ public class NewsletterCommand implements IEmail, ISchoolId, IState {
     private boolean _myHs;
     private State _state;
     private boolean _checked;
+    private String _referrer;
 
 
     public String getEmail() {
@@ -180,5 +181,16 @@ public class NewsletterCommand implements IEmail, ISchoolId, IState {
 
     public void setChecked(boolean checked) {
         _checked = checked;
+    }
+
+    public String getReferrer() {
+        if (_referrer == null) {
+            return "";
+        }
+        return _referrer;
+    }
+
+    public void setReferrer(String referrer) {
+        _referrer = referrer;
     }
 }
