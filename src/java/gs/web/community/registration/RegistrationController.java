@@ -2,7 +2,6 @@ package gs.web.community.registration;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
-import gs.data.community.IUserProfileDao;
 import gs.data.community.UserProfile;
 import gs.data.util.DigestUtil;
 import gs.web.util.UrlBuilder;
@@ -19,7 +18,10 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.mail.internet.*;
+import javax.mail.*;
 import java.security.NoSuchAlgorithmException;
+import java.util.Properties;
 
 /**
  * @author <a href="mailto:aroy@urbanasoft.com">Anthony Roy</a>
@@ -29,7 +31,6 @@ public class RegistrationController extends SimpleFormController implements Read
     protected final Log _log = LogFactory.getLog(getClass());
 
     private IUserDao _userDao;
-    private IUserProfileDao _userProfileDao;
     private JavaMailSender _mailSender;
 
     //set up defaults if none supplied
@@ -62,7 +63,7 @@ public class RegistrationController extends SimpleFormController implements Read
                                  BindException errors) throws Exception {
         UserCommand userCommand = (UserCommand) command;
         User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
-        
+
         boolean userExists = false;
 
         if (user != null) {
@@ -107,10 +108,8 @@ public class RegistrationController extends SimpleFormController implements Read
         UserProfile userProfile = userCommand.getUserProfile();
 
         userProfile.setUser(userCommand.getUser());
-        _userProfileDao.saveUserProfile(userProfile);
         userCommand.getUser().setUserProfile(userProfile);
         _userDao.updateUser(userCommand.getUser());
-
 
         ModelAndView mAndV = new ModelAndView();
 
@@ -125,6 +124,48 @@ public class RegistrationController extends SimpleFormController implements Read
         mAndV.getModel().put("email", userCommand.getEmail());
         mAndV.getModel().put("followUpCmd", fupCommand);
         return mAndV;
+    }
+
+    private MimeMessage buildMultipartEmail(HttpServletRequest request, UserCommand userCommand) throws NoSuchAlgorithmException, MessagingException {
+        MimeMessage msg = _mailSender.createMimeMessage();
+
+        InternetAddress fromAddress = new InternetAddress("gs-batch@greatschools.net");
+        msg.setFrom(fromAddress);
+        InternetAddress toAddress = new InternetAddress(userCommand.getEmail());
+        msg.addRecipient(Message.RecipientType.TO, toAddress);
+        msg.setSubject("GreatSchools subscription confirmation");
+
+        Multipart mp = new MimeMultipart("alternative");
+
+        BodyPart plainTextBodyPart = new MimeBodyPart();
+        plainTextBodyPart.setText(getEmailPlainText(request, userCommand));
+        mp.addBodyPart(plainTextBodyPart);
+
+        MimeBodyPart htmlBodyPart = new MimeBodyPart();
+        htmlBodyPart.setText(getEmailPlainText(request, userCommand), "US-ASCII", "html");
+
+        return msg;
+    }
+
+    private String getEmailPlainText(HttpServletRequest request, UserCommand userCommand) throws NoSuchAlgorithmException {
+        StringBuffer emailContent = new StringBuffer();
+        emailContent.append("Welcome to the GreatSchools.net community!\n\n");
+        emailContent.append("This email is being sent to confirm a subscription request. ");
+        emailContent.append("The request was generated for the email address ");
+        emailContent.append(userCommand.getEmail()).append(".\n\n");
+        emailContent.append("To confirm this subscription request, please click on the following link:\n");
+        String hash = DigestUtil.hashStringInt(userCommand.getEmail(), userCommand.getUser().getId());
+        UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION_VALIDATION, null, hash + userCommand.getUser().getId());
+        emailContent.append(builder.asFullUrl(request));
+        emailContent.append("\n");
+        emailContent.append("\nIf you did not make this request, or you do not remember the password ");
+        emailContent.append("you chose, then please click on the following link to cancel the request ");
+        emailContent.append("and leave your account unchanged:\n");
+        builder = new UrlBuilder(UrlBuilder.REGISTRATION_REMOVE, null, hash + userCommand.getUser().getId());
+        emailContent.append(builder.asFullUrl(request));
+        emailContent.append("\n");
+
+        return emailContent.toString();
     }
 
     private SimpleMailMessage buildEmailMessage(HttpServletRequest request, UserCommand userCommand) throws NoSuchAlgorithmException {
@@ -163,14 +204,6 @@ public class RegistrationController extends SimpleFormController implements Read
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
-    }
-
-    public IUserProfileDao getUserProfileDao() {
-        return _userProfileDao;
-    }
-
-    public void setUserProfileDao(IUserProfileDao userProfileDao) {
-        _userProfileDao = userProfileDao;
     }
 
     public JavaMailSender getMailSender() {

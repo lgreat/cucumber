@@ -2,7 +2,6 @@ package gs.web.community.registration;
 
 import gs.web.BaseControllerTestCase;
 import gs.data.community.IUserDao;
-import gs.data.community.IUserProfileDao;
 import gs.data.community.User;
 import gs.data.community.UserProfile;
 import gs.data.util.DigestUtil;
@@ -16,14 +15,12 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
     private RegistrationFollowUpController _controller;
 
     private IUserDao _userDao;
-    private IUserProfileDao _userProfileDao;
 
     protected void setUp() throws Exception {
         super.setUp();
         ApplicationContext appContext = getApplicationContext();
         _controller = (RegistrationFollowUpController) appContext.getBean(RegistrationFollowUpController.BEAN_ID);
         _userDao = (IUserDao)appContext.getBean(IUserDao.BEAN_ID);
-        _userProfileDao = (IUserProfileDao)appContext.getBean(IUserProfileDao.BEAN_ID);
     }
 
     public void testRegistrationFollowUp() throws Exception {
@@ -36,7 +33,6 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
         try {
             userProfile.setUser(user);
-            _userProfileDao.saveUserProfile(userProfile);
             user.setUserProfile(userProfile);
             _userDao.updateUser(user);
 
@@ -51,10 +47,10 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
             _controller.onSubmit(getRequest(), getResponse(), command, errors);
             assertFalse(errors.hasErrors());
-            userProfile = _userProfileDao.findUserProfileFromId(user.getId());
+            user = _userDao.findUserFromId(user.getId().intValue());
+            userProfile = user.getUserProfile();
             assertEquals("My children are so unique!", userProfile.getAboutMe());
             assertFalse(userProfile.isPrivate());
-            _userProfileDao.removeUserProfile(user.getId());
         } finally {
             _userDao.removeUser(user.getId());
         }
@@ -70,7 +66,6 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
         try {
             userProfile.setUser(user);
-            _userProfileDao.saveUserProfile(userProfile);
             user.setUserProfile(userProfile);
             _userDao.updateUser(user);
 

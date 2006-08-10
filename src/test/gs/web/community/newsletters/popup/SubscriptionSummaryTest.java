@@ -1,13 +1,10 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.8 2006/07/25 00:22:42 dlee Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.9 2006/08/10 16:43:37 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
-import gs.data.community.IUserDao;
-import gs.data.community.Subscription;
-import gs.data.community.SubscriptionProduct;
-import gs.data.community.User;
+import gs.data.community.*;
 import gs.data.geo.ICity;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;

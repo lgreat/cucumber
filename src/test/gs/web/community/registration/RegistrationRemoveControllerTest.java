@@ -3,7 +3,6 @@ package gs.web.community.registration;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.community.UserProfile;
-import gs.data.community.IUserProfileDao;
 import gs.data.util.DigestUtil;
 import gs.web.BaseControllerTestCase;
 import org.springframework.context.ApplicationContext;
@@ -19,7 +18,6 @@ public class RegistrationRemoveControllerTest extends BaseControllerTestCase {
     private RegistrationRemoveController _controller;
 
     private IUserDao _userDao;
-    private IUserProfileDao _userProfileDao;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -27,7 +25,6 @@ public class RegistrationRemoveControllerTest extends BaseControllerTestCase {
         _controller = (RegistrationRemoveController) appContext.getBean(RegistrationRemoveController.BEAN_ID);
 
         _userDao = (IUserDao)appContext.getBean(IUserDao.BEAN_ID);
-        _userProfileDao = (IUserProfileDao)appContext.getBean(IUserProfileDao.BEAN_ID);
     }
 
     public void testRegistrationRemove() {
@@ -38,7 +35,6 @@ public class RegistrationRemoveControllerTest extends BaseControllerTestCase {
         try {
             UserProfile userProfile = new UserProfile();
             userProfile.setUser(user);
-            _userProfileDao.saveUserProfile(userProfile);
             user.setUserProfile(userProfile);
             user.setPlaintextPassword("foobar");
             user.setEmailProvisional();
@@ -57,17 +53,15 @@ public class RegistrationRemoveControllerTest extends BaseControllerTestCase {
             // 5) verify that password has become empty
             assertTrue(_userDao.findUserFromId(user.getId().intValue()).isPasswordEmpty());
             assertNull(_userDao.findUserFromId(user.getId().intValue()).getUserProfile());
-            try {
-                _userProfileDao.findUserProfileFromId(userProfile.getId());
-                fail("Registration cancellation left user profile in DB");
-            } catch (Exception e) {
-                // OK
-            }
         } catch (Exception e) {
             fail(e.getMessage());
         } finally {
             // 6) remove user record (finally block)
-            _userDao.removeUser(user.getId());
+            try {
+                _userDao.removeUser(user.getId());
+            }   catch (Exception e) {
+                _log.error(e);
+            }
         }
     }
     public void testRegistrationRemoveBadHash() {
@@ -78,7 +72,7 @@ public class RegistrationRemoveControllerTest extends BaseControllerTestCase {
         try {
             user.setPlaintextPassword("foobar");
             user.setEmailProvisional();
-            _userDao.saveUser(user);
+            _userDao.updateUser(user);
 
             // 2) generate hash for user from email/id, add to request
             Integer badId = new Integer(user.getId().intValue()+1);

@@ -6,7 +6,6 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import gs.data.community.IUserDao;
-import gs.data.community.IUserProfileDao;
 import gs.data.community.User;
 import gs.data.community.UserProfile;
 import gs.data.util.DigestUtil;
@@ -24,7 +23,6 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     protected final Log _log = LogFactory.getLog(getClass());
 
     private IUserDao _userDao;
-    private IUserProfileDao _userProfileDao;
 
     /**
      * this method is called after validation but before submit.
@@ -60,12 +58,12 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         User user = fupCommand.getUser();
         UserProfile profile = fupCommand.getUserProfile();
         // get existing profile
-        UserProfile existingProfile = _userProfileDao.findUserProfileFromId(user.getId());
+        UserProfile existingProfile = user.getUserProfile();
         // update existing profile with new information
         existingProfile.setAboutMe(profile.getAboutMe());
         existingProfile.setPrivate(profile.isPrivate());
         // save
-        _userProfileDao.updateUserProfile(existingProfile);
+        _userDao.updateUser(user);
 
         mAndV.setViewName(getSuccessView());
         mAndV.getModel().put("name", user.getFirstName());
@@ -78,14 +76,6 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
-    }
-
-    public IUserProfileDao getUserProfileDao() {
-        return _userProfileDao;
-    }
-
-    public void setUserProfileDao(IUserProfileDao userProfileDao) {
-        _userProfileDao = userProfileDao;
     }
 
 }
