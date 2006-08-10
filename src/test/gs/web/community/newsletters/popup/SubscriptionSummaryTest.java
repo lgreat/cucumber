@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.9 2006/08/10 16:43:37 aroy Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.10 2006/08/10 19:40:10 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -105,6 +105,10 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
     }
 
     private static class MockUserDao implements IUserDao {
+
+        public void evict(User user) {
+            
+        }
 
         public User findUserFromEmail(String email) throws ObjectRetrievalFailureException {
             Set subscriptions = new HashSet();

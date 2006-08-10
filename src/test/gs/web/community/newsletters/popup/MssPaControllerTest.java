@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.12 2006/07/13 07:53:59 apeterson Exp $
+ * $Id: MssPaControllerTest.java,v 1.13 2006/08/10 19:40:10 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -199,6 +199,10 @@ public class MssPaControllerTest extends BaseControllerTestCase {
     }
 
     private class MockMaxedOutMssUserDao implements IUserDao {
+
+        public void evict(User user) {
+            
+        }
 
         public User findUserFromEmail(String string) throws ObjectRetrievalFailureException {
             return null;  //To change body of implemented methods use File | Settings | File Templates.
