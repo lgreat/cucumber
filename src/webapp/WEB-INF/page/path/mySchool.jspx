@@ -28,6 +28,7 @@
         <style type="text/css">
 .topcontentcol1 {padding-right:7px; padding-bottom: 2em}
 .topcontentcol2 {border-left:1px solid #999;padding:0px 2em 0px 10px;margin:0px 0px 10px 0px;}
+.shade3 {width:100%}
         </style>
             ]]>
     <title>GreatSchools.net: My Child's School</title>
@@ -45,7 +46,7 @@
                             <jsp:include page="/content/parentPoll.module"/>
                         </td>
                         <td class="col2" valign="top">
-                            <gsml:box tableClass="shade3" tableWidth="100%">
+                            <gsml:box tableClass="shade3">
                                 <h1 class="moduleheader">My Child's School</h1>
 
                                 <h3 class="tagline">Stats, tools and advice from GreatSchools, an independent nonprofit
@@ -100,7 +101,7 @@
                                         </div>
                                     </td></tr></table>
                             </gsml:box>
-                            <gsml:box tableClass="shade3" tableWidth="100%">
+                            <gsml:box tableClass="shade3">
                                 <link:newsletterCenter styleClass="nohover"><h1 class="moduleheader">Navigate the
                                     Year with FREE News, Tips and
                                     Advice!</h1></link:newsletterCenter>
