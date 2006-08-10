@@ -85,14 +85,6 @@
     <bean id="userValidator" class="gs.web.util.validator.UserCommandValidator"
           autowire="byName"/>
 
-
-    <bean name="/home.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>test/splash</value>
-        </property>
-    </bean>
-
     <bean name="/index.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
