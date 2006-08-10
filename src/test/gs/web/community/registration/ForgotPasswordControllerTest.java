@@ -6,9 +6,6 @@ import gs.data.community.IUserDao;
 import gs.data.community.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.validation.BindException;
-import org.springframework.mail.SimpleMailMessage;
-
-import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -97,30 +94,6 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
 
             _controller.onBindAndValidate(getRequest(), command, errors);
             assertTrue("Controller missing expected errors on validation", errors.hasErrors());
-        } finally {
-            _userDao.removeUser(user.getId());
-        }
-    }
-
-    public void testBuildEmailMessage() throws NoSuchAlgorithmException {
-        User user = new User();
-        user.setEmail("forgotPasswordTest@greatschools.net");
-        _userDao.saveUser(user);
-        try {
-            UserCommand command = new UserCommand();
-            command.setUser(user);
-            SimpleMailMessage message;
-            message = _controller.buildEmailMessageForExistingUser(getRequest(), command);
-            assertEquals(message.getTo()[0], command.getEmail());
-            assertNotNull(message.getFrom());
-            assertNotNull(message.getSubject());
-            assertNotNull(message.getText());
-
-            message = _controller.buildEmailMessageForNewUser(getRequest(), command);
-            assertEquals(message.getTo()[0], command.getEmail());
-            assertNotNull(message.getFrom());
-            assertNotNull(message.getSubject());
-            assertNotNull(message.getText());
         } finally {
             _userDao.removeUser(user.getId());
         }

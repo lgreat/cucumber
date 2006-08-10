@@ -5,7 +5,6 @@ import gs.data.community.User;
 import gs.data.util.DigestUtil;
 import gs.web.util.UrlBuilder;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.validation.BindException;
@@ -14,6 +13,14 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.MessagingException;
+import javax.mail.Message;
+import javax.mail.Multipart;
+import javax.mail.BodyPart;
 import java.security.NoSuchAlgorithmException;
 
 /**
@@ -73,16 +80,16 @@ public class ForgotPasswordController extends SimpleFormController {
                                  BindException errors) throws Exception {
         UserCommand userCommand = (UserCommand) command;
         User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
-        SimpleMailMessage smm;
+        MimeMessage mm;
         if (user != null) {
             userCommand.setUser(user);
-            smm = buildEmailMessageForExistingUser(request, userCommand);
+            mm = buildMultipartEmail(request, userCommand, true);
         } else {
-            smm = buildEmailMessageForNewUser(request, userCommand);
+            mm = buildMultipartEmail(request, userCommand, false);
         }
 
 
-        _mailSender.send(smm);
+        _mailSender.send(mm);
         ModelAndView mAndV = new ModelAndView();
 
         mAndV.setViewName(getSuccessView());
@@ -90,59 +97,107 @@ public class ForgotPasswordController extends SimpleFormController {
         return mAndV;
     }
 
-    protected SimpleMailMessage buildEmailMessageForExistingUser
-            (HttpServletRequest request, UserCommand userCommand) throws NoSuchAlgorithmException {
-        StringBuffer emailContent = new StringBuffer();
-        String hash = DigestUtil.hashStringInt(userCommand.getEmail(), userCommand.getUser().getId());
-        UrlBuilder builder = new UrlBuilder(UrlBuilder.RESET_PASSWORD, null, hash + userCommand.getUser().getId());
-        emailContent.append("Hi!\n\n");
-        emailContent.append("We recently received a request to ");
-        emailContent.append(builder.asAbsoluteAnchor(request, "reset your password").asATag());
-        emailContent.append(" (").append(userCommand.getEmail()).append(").\n\n");
-        emailContent.append("If you are unable to open the link above, try copying and");
-        emailContent.append("pasting the following link into your browser:\n");
-        emailContent.append(builder.asFullUrl(request)).append("\n\n");
-        emailContent.append("If you did not make this request, please ignore and delete this email.\n\n");
-        emailContent.append("Thanks!\nThe GreatSchools Team\n");
+    /**
+     * Builds a multipart email message.
+     * @param request
+     * @param userCommand
+     * @param userExists true if the email corresponds to a user, false otherwise
+     * @return multipart email message
+     * @throws NoSuchAlgorithmException
+     * @throws javax.mail.MessagingException
+     */
+    private MimeMessage buildMultipartEmail(HttpServletRequest request, UserCommand userCommand, boolean userExists) throws NoSuchAlgorithmException, MessagingException {
+        MimeMessage msg = _mailSender.createMimeMessage();
 
-        String subject = "GreatSchools reset password link";
-        String fromAddress = "gs-batch@greatschools.net";
+        msg.setFrom(new InternetAddress("gs-batch@greatschools.net"));
+        msg.addRecipient(Message.RecipientType.TO, new InternetAddress(userCommand.getEmail()));
+        msg.setSubject("GreatSchools reset password link");
 
-        SimpleMailMessage smm = new SimpleMailMessage();
-        smm.setText(emailContent.toString());
-        smm.setTo(userCommand.getEmail());
-        smm.setSubject(subject);
-        smm.setFrom(fromAddress);
+        // now we construct the body of the email, which is a Multipart.
+        // alternative means the email consists of multiple parts, each of which contains the same content,
+        // but in different formats
+        Multipart mp = new MimeMultipart("alternative");
 
-        return smm;
+        // plain text part
+        BodyPart plainTextBodyPart = new MimeBodyPart();
+        plainTextBodyPart.setText(getEmailPlainText(request, userCommand, userExists));
+        mp.addBodyPart(plainTextBodyPart);
+
+        // HTML part
+        MimeBodyPart htmlBodyPart = new MimeBodyPart();
+        htmlBodyPart.setText(getEmailHTML(request, userCommand, userExists), "US-ASCII", "html");
+        mp.addBodyPart(htmlBodyPart);
+
+        msg.setContent(mp);
+
+        return msg;
     }
 
-    protected SimpleMailMessage buildEmailMessageForNewUser(HttpServletRequest request, UserCommand userCommand) {
+    protected String getEmailPlainText(HttpServletRequest request, UserCommand userCommand, boolean userExists) throws NoSuchAlgorithmException {
         StringBuffer emailContent = new StringBuffer();
-        UrlBuilder builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null);
-        emailContent.append("Hi!\n\n");
-        emailContent.append("You requested your username and password on GreatSchools.net.");
-        emailContent.append(" Unfortunately, we don't have an account associated with this email address ");
-        emailContent.append(userCommand.getEmail()).append(".\n\n");
-        emailContent.append("Please visit the ");
-        emailContent.append(builder.asAbsoluteAnchor(request, "forgot password page").asATag());
-        emailContent.append(" and try a different email address.\n\n");
-        emailContent.append("Don't have an account on GreatSchools.net? ");
-        builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, userCommand.getEmail());
-        emailContent.append(builder.asAbsoluteAnchor(request, "Create an account").asATag());
-        emailContent.append("If you did not make this request, please ignore and delete this email.\n\n");
-        emailContent.append("Thanks!\nThe GreatSchools Team\n");
 
-        String subject = "GreatSchools reset password link";
-        String fromAddress = "gs-batch@greatschools.net";
+        if (userExists) {
+            String hash = DigestUtil.hashStringInt(userCommand.getEmail(), userCommand.getUser().getId());
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.RESET_PASSWORD, null, hash + userCommand.getUser().getId());
+            emailContent.append("Hi!\n\n");
+            emailContent.append("We recently received a request to reset your password");
+            emailContent.append(" (").append(userCommand.getEmail()).append(").\n\n");
+            emailContent.append("Please click on the following link to choose a new password: ");
+            emailContent.append(builder.asFullUrl(request)).append("\n\n");
+            emailContent.append("If you are unable to click on the link above, try copying and ");
+            emailContent.append("pasting the link into your browser.\n");
+            emailContent.append("If you did not make this request, please ignore and delete this email.\n\n");
+            emailContent.append("Thanks!\nThe GreatSchools Team\n");
+        } else {
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null);
+            emailContent.append("Hi!\n\n");
+            emailContent.append("You requested your username and password on GreatSchools.net.");
+            emailContent.append(" Unfortunately, we don't have an account associated with this email address ");
+            emailContent.append(userCommand.getEmail()).append(".\n\n");
+            emailContent.append("Please visit the forgot password page (");
+            emailContent.append(builder.asFullUrl(request));
+            emailContent.append(") and try a different email address.\n\n");
+            emailContent.append("Don't have an account on GreatSchools.net? Click here to create one: ");
+            builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, userCommand.getEmail());
+            emailContent.append(builder.asFullUrl(request));
+            emailContent.append("\n\n");
+            emailContent.append("If you did not make this request, please ignore and delete this email.\n\n");
+            emailContent.append("Thanks!\nThe GreatSchools Team\n");
+        }
+        return emailContent.toString();
+    }
 
-        SimpleMailMessage smm = new SimpleMailMessage();
-        smm.setText(emailContent.toString());
-        smm.setTo(userCommand.getEmail());
-        smm.setSubject(subject);
-        smm.setFrom(fromAddress);
+    protected String getEmailHTML(HttpServletRequest request, UserCommand userCommand, boolean userExists) throws NoSuchAlgorithmException {
+        StringBuffer emailContent = new StringBuffer();
 
-        return smm;
+        emailContent.append("<html><body>\n");
+        if (userExists) {
+            String hash = DigestUtil.hashStringInt(userCommand.getEmail(), userCommand.getUser().getId());
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.RESET_PASSWORD, null, hash + userCommand.getUser().getId());
+            emailContent.append("<p>Hi!</p>\n\n");
+            emailContent.append("<p>We recently received a request to reset your password. Please ");
+            emailContent.append(builder.asAbsoluteAnchor(request, "click here").asATag());
+            emailContent.append(" to choose a new password.</p>\n\n");
+            emailContent.append("<p>If you did not make this request, please ignore and delete this email.</p>\n\n");
+            emailContent.append("<p>Thanks!</p>\n<p>The GreatSchools Team</p>\n");
+        } else {
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null);
+            emailContent.append("<p>Hi!</p>\n\n");
+            emailContent.append("<p>You requested your username and password on GreatSchools.net.");
+            emailContent.append(" Unfortunately, we don't have an account associated with this email address: ");
+            emailContent.append(userCommand.getEmail()).append(".</p>\n\n");
+            emailContent.append("<p>Please visit the ");
+            emailContent.append(builder.asAbsoluteAnchor(request, "forgot password page").asATag());
+            emailContent.append(" and try a different email address.</p>\n\n");
+            emailContent.append("<p>Don't have an account on GreatSchools.net? ");
+            builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, userCommand.getEmail());
+            emailContent.append(builder.asAbsoluteAnchor(request, "Create an account").asATag());
+            emailContent.append(".</p>\n\n");
+            emailContent.append("<p>If you did not make this request, please ignore and delete this email.</p>\n\n");
+            emailContent.append("<p>Thanks!</p>\n<p>The GreatSchools Team</p>\n");
+        }
+        emailContent.append("</body></html>");
+        return emailContent.toString();
     }
 
     public IUserDao getUserDao() {
