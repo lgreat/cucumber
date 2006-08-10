@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StatePathwayController.java,v 1.20 2006/01/13 01:16:54 apeterson Exp $
+ * $Id: StatePathwayController.java,v 1.21 2006/08/10 19:26:16 thuss Exp $
  */
 package gs.web.state;
 
@@ -78,7 +78,7 @@ public class StatePathwayController extends AbstractController {
         }
 
         if (hasSelectedState) {
-            redirectUrl += state + extraParam;
+            redirectUrl += state.toUpperCase() + extraParam;
             redirectUrl = urlUtil.buildUrl(redirectUrl, request);
             httpServletResponse.sendRedirect(redirectUrl);
 
