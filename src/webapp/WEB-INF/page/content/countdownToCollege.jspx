@@ -221,7 +221,7 @@
 				</tr>
 				<tr>
 					<td align="right" colspan="3">
-                        <a href="http://www.collegeboard.com" target="_blank"><h2 id="collegeBoard2"></h2></a>
+                        <a href="http://www.collegeboard.com" target="_blank"><h2 id="collegeBoard2"><span style="display:none;">.</span></h2></a>
                     </td>
 				</tr>
 				</table>
