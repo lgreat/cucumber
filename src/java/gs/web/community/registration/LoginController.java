@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.1 2006/07/20 22:53:44 aroy Exp $
+ * $Id: LoginController.java,v 1.2 2006/08/10 23:18:27 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -113,9 +113,9 @@ public class LoginController extends SimpleFormController {
         String redirectUrl;
         if (user.isPasswordEmpty()) {
             // for users who need passwords, send them to the registration page
-            // TODO: this loses their original destination
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null);
             builder.addParameter("email", email);
+            builder.addParameter("redirect", loginCommand.getRedirect());
             redirectUrl = builder.asFullUrl(request);
         } else {
             redirectUrl = urlUtil.buildUrl(loginCommand.getRedirect(), request);

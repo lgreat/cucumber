@@ -9,16 +9,13 @@
   <head>
       <title>Registration Successful!</title>
       <style type="text/css">
-          input.form {
-              margin-top: 10px;
-          }
-          p.error {
 
-          }
       </style>
   </head>
   <body>
     <h2>Congratulations!  Your GreatSchools community registration is complete!</h2>
+  <br/>
+  <p><c:if test="${param.redirect != null}"><a href="${param.redirect}">Click here</a> to continue to your original destination.</c:if></p>
   </body>
 </html>
 </jsp:root>

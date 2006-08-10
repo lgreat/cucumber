@@ -37,6 +37,7 @@ public class RegistrationController extends SimpleFormController implements Read
                                    BindException errors) {
 
         UserCommand userCommand = (UserCommand) command;
+        userCommand.setRedirectUrl(request.getParameter("redirect"));
 
         if (StringUtils.isNotEmpty(userCommand.getEmail())) {
             User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
@@ -181,6 +182,9 @@ public class RegistrationController extends SimpleFormController implements Read
         emailContent.append("<p>To confirm this subscription request, please ");
         String hash = DigestUtil.hashStringInt(userCommand.getEmail(), userCommand.getUser().getId());
         UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION_VALIDATION, null, hash + userCommand.getUser().getId());
+        if (userCommand.getRedirectUrl() != null) {
+            builder.addParameter("redirect", userCommand.getRedirectUrl());
+        }
         emailContent.append(builder.asAbsoluteAnchor(request, "click here").asATag());
         emailContent.append(".</p>\n\n");
         emailContent.append("<p>If you did not make this request, or you do not remember the password ");
@@ -205,6 +209,9 @@ public class RegistrationController extends SimpleFormController implements Read
         emailContent.append("To confirm this subscription request, please click on the following link:\n");
         String hash = DigestUtil.hashStringInt(userCommand.getEmail(), userCommand.getUser().getId());
         UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION_VALIDATION, null, hash + userCommand.getUser().getId());
+        if (userCommand.getRedirectUrl() != null) {
+            builder.addParameter("redirect", userCommand.getRedirectUrl());
+        }
         emailContent.append(builder.asFullUrl(request));
         emailContent.append("\n");
         emailContent.append("\nIf you did not make this request, or you do not remember the password ");

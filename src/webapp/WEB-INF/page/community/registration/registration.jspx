@@ -260,6 +260,9 @@
         <spring:bind path="userCmd.user.id">
             <input id="id" type="hidden" name="id" value="${userCmd.user.id}"/>
         </spring:bind>
+        <spring:bind path="userCmd.redirectUrl">
+            <input id="redirectUrl" type="hidden" name="redirectUrl" value="${userCmd.redirectUrl}"/>
+        </spring:bind>
         <br style="clear:left;"/>
 
         <input class="form" type="submit" value="Register!" name="submit"/>

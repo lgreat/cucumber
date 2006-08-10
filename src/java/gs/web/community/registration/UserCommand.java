@@ -22,10 +22,19 @@ public class UserCommand implements EmailValidator.IEmail {
     private String _confirmEmail;
     private User _user;
     private UserProfile _userProfile;
+    private String redirectUrl;
 
     public UserCommand() {
         _user = new User();
         _userProfile = new UserProfile();
+    }
+
+    public String getRedirectUrl() {
+        return redirectUrl;
+    }
+
+    public void setRedirectUrl(String redirectUrl) {
+        this.redirectUrl = redirectUrl;
     }
 
     public String getConfirmPassword() {
