@@ -44,6 +44,11 @@ public class RegistrationController extends SimpleFormController implements Read
                 // only allow setting the password on people with empty or provisional password
                 // existing users have to authenticate and change account settings through other channels
                 userCommand.setUser(user);
+                // detach user from session so clearing the names has no effect
+                getUserDao().evict(user);
+                // clear first/last name for existing users
+                userCommand.setFirstName(null);
+                userCommand.setLastName(null);
                 if (request.getParameter("reset") != null &&
                         request.getParameter("reset").equals("true") &&
                         user.isEmailProvisional()) {
@@ -66,6 +71,13 @@ public class RegistrationController extends SimpleFormController implements Read
 
         if (user != null) {
             userExists = true;
+            // update the user's name if they specified a new one
+            if (userCommand.getFirstName() != null && userCommand.getFirstName().length() > 0) {
+                user.setFirstName(userCommand.getFirstName());
+            }
+            if (userCommand.getLastName() != null && userCommand.getLastName().length() > 0) {
+                user.setLastName(userCommand.getLastName());
+            }
             userCommand.setUser(user);
         } else {
             // only create the user if the user is new
