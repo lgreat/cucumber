@@ -21,7 +21,7 @@
             <td class="BG" height="${bodyHeight}">
                 <jsp:doBody/>
             </td>
-            <td class="R"></td>
+            <td class="R"> </td>
         </tr>
         <tr>
             <td class="BL"></td>

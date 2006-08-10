@@ -17,7 +17,7 @@
                 src="http://poll.websitegear.com/iframepoll.asp?pollID=${requestScope.parentPollId}"
                 marginwidth="0"
                 marginheight="0"
-                frameborder="no"
+                frameborder="0"
                 scrolling="no"
                 style="width: 100%; height: 20em"
                 >Web Poll: requires newer web browser to view</iframe>

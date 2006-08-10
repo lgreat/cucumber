@@ -10,11 +10,11 @@
     <c:set var="stateLongName"
            value="${requestScope.context.stateOrDefault.longName}"/>
 
-    <span class="moduleheader">
-        <h1 class="inline">
+
+        <h1 class="inline"><span class="moduleheader">
             Compare ${stateLongName}
-            Schools</h1>
-    </span>
+            Schools</span></h1>
+
 
     <div style="padding-left:15px;padding-right:7px; padding-top:15px; font-size:85%;">
         <gsweb:form action="/path/compareEntry.page" method="post">
@@ -37,22 +37,19 @@
                             <tr>
                                 <td align="left">
                                     <input type="radio" name="type"
-                                           checked="true" value="address"> near
-                                        an address</input>
+                                           checked="checked" value="address"/> near an address
                                 </td>
                             </tr>
                             <tr>
                                 <td align="left">
                                     <input type="radio" name="type"
-                                           value="district"> in a
-                                        district</input>
+                                           value="district"/> in a district
                                 </td>
                             </tr>
                             <tr>
                                 <td align="left">
                                     <input type="radio" name="type"
-                                           value="county"> in a
-                                        county</input>
+                                           value="county"/> in a county
                                 </td>
                             </tr>
                         </table>
