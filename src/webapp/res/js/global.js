@@ -2,7 +2,7 @@
 Copyright (c) 2006 GreatSchools.net
 All Rights Reserved.
 
-$Id: global.js,v 1.9 2006/08/09 22:25:14 wbeck Exp $
+$Id: global.js,v 1.10 2006/08/10 17:55:22 wbeck Exp $
 */
 
 /* Finds the HTML element specified by the ID and switches it between
@@ -60,7 +60,9 @@ function jumpToCounty(newLoc, state) {
 function checkSearchStateSelected(selectorId) {
     var val = document.getElementById(selectorId).value;
     var returnVal;
-    if (val == "--" || val == "") {
+    var searchType = document.getElementById('c').value;
+
+    if ((val == "--" || val == "") && searchType == "school") {
         alert ("Please select a state.");
         returnVal = false;
     } else {
