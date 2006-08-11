@@ -172,7 +172,8 @@ will need to become a graphic.
     border-right-color: #FFFFFF;
 }
 
-#topnav table#nav td a.inactive:hover {
+#topnav table#nav td a.inactive:hover,
+#topnav table#nav td a.inactive:active {
     color: #FFFFFF;
     background-color: #639c31;
     border-right-color: #FFFFFF;
