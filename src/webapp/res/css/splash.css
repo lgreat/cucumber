@@ -5,9 +5,10 @@
 }
 
 .bigDottedDivider {
-    margin-top: 0px;
+    margin-top: 10px;
     border-bottom: 3px dotted #cccccc;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    font-size: xx-small;
 }
 
 /* TOP SECTION */

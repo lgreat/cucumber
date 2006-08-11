@@ -129,8 +129,7 @@
 
                         </select>
                         </td>
-                        <td>                            &#160;
-                        </td>
+                        <td>&#160;</td>
                         <td><input type="image" src="${go}" alt="GO" style="width:41px;height:26px;"
                                    class="button" onmouseover="this.src='${goOver}';" onmouseout="this.src='${go}';"/>
                         </td>
@@ -140,7 +139,7 @@
         </td>
     </tr>
 </table>
-<div class="bigDottedDivider">&#160;</div>
+<div class="bigDottedDivider"><gsml:img src="/pixel.gif" alt="" style="height: 1px; width: 1px;"/></div>
 <table cellpadding="0" cellspacing="0" width="100%">
     <tr>
         <td style="vertical-align: top; height: 100%; width: 428px">
