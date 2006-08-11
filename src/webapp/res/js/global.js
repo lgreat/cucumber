@@ -2,7 +2,7 @@
 Copyright (c) 2006 GreatSchools.net
 All Rights Reserved.
 
-$Id: global.js,v 1.11 2006/08/10 18:11:11 wbeck Exp $
+$Id: global.js,v 1.12 2006/08/11 02:03:49 wbeck Exp $
 */
 
 /* Finds the HTML element specified by the ID and switches it between
@@ -29,8 +29,7 @@ function setSearchPrompt(s) {
     e.select();
 }
 
-function changeColSize(elementId,size,colspan) {
-	document.getElementById(elementId).style.width = size+"px;";
+function changeColSize(elementId,colspan) {
     document.getElementById(elementId).colSpan = colspan;
     }
 
@@ -53,17 +52,32 @@ function jumpToCounty(newLoc, state) {
     }
 }
 
+function getRadioValue(radioButtons)
+{
+for (var i=0; i < radioButtons.length; i++)
+   {
+   if (radioButtons[i].checked) {
+      return radioButtons[i].value;
+      }
+   }
+}
+
+
 /*
  * Used by the global search widget to make sure that a user
  * selects a state.
  */
-function checkSearchStateSelected(selectorId) {
+function checkSearchStateSelected(theForm, selectorId) {
     var val = document.getElementById(selectorId).value;
-    var returnVal;
-    var searchTypeC = document.getElementById('c').value;
-    var searchTypeType = document.getElementById('type').value;
 
-    if ((val == "--" || val == "") && (searchTypeC == "school" || searchTypeType == "school")) {
+    var c = getRadioValue(theForm.c);
+
+    if(c == 'topic')
+    {
+         window.location = "/search/search.page";
+    }
+
+    if (val == "--" || val == "") {
         alert ("Please select a state.");
         returnVal = false;
     } else {

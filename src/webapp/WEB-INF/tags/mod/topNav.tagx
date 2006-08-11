@@ -49,7 +49,7 @@
             <div class="search" style="margin-top: 12px;">
                 <gsweb:form method="get"
                             action="/stateLauncher.page"
-                            onsubmit="return checkSearchStateSelected('stateSelector')">
+                            onsubmit="return checkSearchStateSelected(this,'stateSelector')">
                     <input name="p" value="search_single" type="hidden"/>
                     <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                         <input type="hidden" name="st" value="charter"/>
@@ -77,8 +77,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td id="searchBox" style="width:202px">
-                                <input type="text" maxlength="40" style="width: 100%; font-size: 11px;" name="q"
+                            <td id="searchBox">
+                                <input type="text" style="width: 100%; font-size: 11px;" name="q"
                                        id="q"/>
                             </td>
                             <td style="width:10px">
@@ -105,10 +105,10 @@
 
                             <td style="height:21px" class="searchRadios">
                                 <input name="c" type="radio" value="school" checked="checked"
-                                       onclick="setSearchPrompt('Enter school, district or city'); toggleById('stateDropDown'); toggleById('searchInLabel'); changeColSize('searchBox',202,1); return true;"/><span>Schools</span>
+                                       onclick="setSearchPrompt('Enter school, district or city'); toggleById('stateDropDown'); toggleById('searchInLabel'); changeColSize('searchBox',1); return true;"/><span>Schools</span>
                                 &#160;
                              <input name="c" type="radio" value="topic"
-                                       onclick="setSearchPrompt('Enter keyword'); toggleById('stateDropDown'); toggleById('searchInLabel'); changeColSize('searchBox',385,5); return true;"/>
+                                       onclick="setSearchPrompt('Enter keyword'); toggleById('stateDropDown'); toggleById('searchInLabel'); changeColSize('searchBox',5); return true;"/>
                                 <span>Articles</span>
                             </td>
 

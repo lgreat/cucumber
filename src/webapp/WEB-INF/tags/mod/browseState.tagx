@@ -20,7 +20,7 @@
             </gsml:a></li>
             </c:if>
             <c:if test="${(param.c eq 'topic' or param.type eq 'topic') or (param.c ne 'school' and param.type ne 'school')}">
-            <li><link:articleLibrary>Topics</link:articleLibrary></li>
+            <li><link:articleLibrary>Articles</link:articleLibrary></li>
             <li><gsml:a href="/cgi-bin/glossary_home/${state.abbreviation}">Glossary terms</gsml:a></li>
             </c:if>
         </ul>
