@@ -19,15 +19,18 @@
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-<jsp:directive.page contentType="text/html"/>
+<jsp:directive.page contentType="text/html; charset=UTF-8"/>
 
 <gsml:url var="stateWidgetUrl" value="/miniSelectAState.page"/>
 
 <head>
     <title>GreatSchools.net</title>
-    <META NAME="description" CONTENT="Elementary, middle and high school information for public, private and charter schools nationwide. Search and compare schools; view test scores and class sizes; and find advice about going back to school, college prep, No Child Left Behind, summer reading lists and more."/>
-    
+
+    <meta name="description"
+          content="Elementary, middle and high school information for public, private and charter schools nationwide. Search and compare schools; view test scores and class sizes; and find advice about going back to school, college prep, No Child Left Behind, summer reading lists and more."/>
+
     <pageHelper:setPathway pathway="0"/>
+
     <jsp:scriptlet>
         PageHelper.hideLeaderboard(request);
         PageHelper.hideFooterAd(request);
