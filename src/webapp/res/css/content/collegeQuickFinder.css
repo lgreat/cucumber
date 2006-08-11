@@ -1,0 +1,58 @@
+.quickFinderTable {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	color: #999999;
+	padding: 0px 0px 0px 18px;
+	line-height: 15px;
+	background-color: #fff;
+}
+
+
+#quickFindSubSquare radio {
+    font-size: 11px; /* 11pt */
+    font-weight: bolder;
+    background-color: #eee;
+    color: #999;
+    padding: 0px 0px 0px 0px;
+}
+
+#quickFindSquare {
+    font-size: 11px;
+	color: #373737;
+	text-align: center;
+	font-weight: bold;
+    padding: 2px 2px 2px 2px;
+    border: 1px solid #CBCBCB;
+}
+
+#quickFindSubSquare {
+    width: 170px;
+	text-align: left;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.quickFindText {
+	font-size: 11px;
+	color: #373737;
+	font-weight: bold;
+	text-align: left;
+}
+
+.quickFindLinks, div#textAd a {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 13px;
+	color: #3399AA;
+	font-weight: bold;
+	margin: 11px 0px 6px 0px;
+	text-decoration:none;
+}
+
+a.quickFindLetters:link, a.quickFindLetters:visited {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 10px;
+	color: #232323;
+	font-weight: bold;
+	text-decoration: underline;
+	margin: 0px 2px 0px 0px;
+}

@@ -1,4 +1,5 @@
 @import "microsite.css";
+@import "collegeQuickFinder.css";
 
 #contentGS .left ul {
     margin: 5px 0px 6px 0px;
@@ -34,23 +35,9 @@
     padding: 4px 12px 4px 16px;
     margin-bottom: 1px;
 }
-
-#contentGS .left a.seeAll:link, a.seeAll:active, a.seeAll:visited {
-    text-align: right;
-	font-size: 12px; /* 13pt */
-    font-weight: bold;
-    background-color: #6cc;
+#pageGS #contentGS .left a.seeAll:link, a.seeAll:active, a.seeAll:visited {
     color: #fff;
-    padding: 4px 5px 4px 0px;
-}
-
-#pageGS #contentGS .left h3.seeAll a:hover {
-    text-align: right;
-	font-size: 12px; /* 13pt */
-    font-weight: bold;
-    background-color: #6cc;
-    color: #8ee;
-    padding: 4px 5px 4px 0px;
+    text-align:right;
 }
 
 #contentGS .middle h2#whatYourChildNeeds {
@@ -168,7 +155,7 @@ h2#collegeBoard2 {
     width: 302px;
     height: 137px;
     background-image: url("/res/img/content/countdownToCollege/child_on_track.gif");
-	margin-bottom: 20px;
+	margin-bottom: 6px;
 }
 
 #childOnTrack a:hover  {
@@ -197,7 +184,7 @@ h2#collegeBoard2 {
 }
 
 .grayLine {
-    margin-top: 20px;
+    margin-top: 7px;
     font-size: xx-small;
     border-top: 1px solid #CACACA;
     padding-top:7px;
@@ -225,23 +212,6 @@ h2#collegeBoard2 {
     padding-top:30px;
     background-image: url("/res/img/content/countdownToCollege/dash_line.gif");
 	background-repeat: repeat-x;
-}
-
-.quickFinderTable {
-    font-family: "Trebuchet MS", Arial, sans-serif;
-	font-size: 12px;
-	color: #999999;
-	padding: 0px 0px 0px 18px;
-	line-height: 15px;
-	background-color: #fff;
-}
-
-#quickFindSubSquare radio {
-    font-size: 11px; /* 11pt */
-    font-weight: bolder;
-    background-color: #eee;
-    color: #999;
-    padding: 0px 0px 0px 0px;
 }
 
 a.actionTipsLink:Link  {
@@ -273,46 +243,6 @@ h2#adBlurb {
 	margin-bottom: 8px;
 }
 
-#quickFindSquare {
-    font-size: 11px;
-	color: #373737;
-	text-align: center;
-	font-weight: bold;
-    padding: 2px 2px 2px 2px;
-    border: 1px solid #CBCBCB;
-}
-
-#quickFindSubSquare {
-    width: 170px;
-	text-align: left;
-	margin-left:auto;
-	margin-right:auto;
-}
-
-.quickFindText {
-	font-size: 11px;
-	color: #373737;
-	font-weight: bold;
-	text-align: left;
-}
-
-.quickFindLinks {
-    font-family: "Trebuchet MS", Arial, sans-serif;
-	font-size: 13px;
-	color: #55BBCC;
-	font-weight: bold;
-	margin: 11px 0px 6px -4px;
-	text-decoration: underline;
-}
-
-a.quickFindLetters:link {
-	font-family: "Trebuchet MS", Arial, sans-serif;
-	font-size: 10px;
-	color: #232323;
-	font-weight: bold;
-	text-decoration: underline;
-	margin: 0px 2px 0px 0px;
-}
 
 .right {
     vertical-align:top;

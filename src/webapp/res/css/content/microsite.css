@@ -11,7 +11,7 @@
 }
 
 #pageGS #contentGS  a:hover {
-    color: #6cc;
+    text-decoration:underline;
 }
 
 /* Left, nav column */
@@ -65,8 +65,13 @@
     color: #5bc;
 }
 
-#contentGS .middle li a {
+#contentGS .middle li a, #contentGS .middle li a:visited {
     color: #39a;
+    text-decoration:none;
+}
+
+#contentGS .middle li a:hover {
+    text-decoration:none;
 }
 
 #contentGS .middle p {
@@ -76,9 +81,12 @@
     color: #777;
 }
 
-#contentGS .middle p a {
+#contentGS .middle p a, #contentGS .middle p a:visited {
     color: #39a;
     font-weight: 300;
+    text-decoration:none;
+}
+#contentGS .middle p a:hover {
     text-decoration: underline;
 }
 
@@ -87,4 +95,9 @@
     background-color: #6cc;
     color: #fff;
     padding: 4px 5px 4px 16px;
+    text-align:right;
+}
+
+a.noHover:hover {
+   text-decoration:none;
 }

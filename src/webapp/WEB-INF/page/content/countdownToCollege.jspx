@@ -53,8 +53,8 @@
 
 			<h3 id="askTheExperts">Ask the Experts</h3>
 			<ul class="plain">
-                <gsweb:articlelink articleId="654" wrappingElement="li"/>
-                <gsweb:articlelink articleId="653" wrappingElement="li"/>
+                <gsweb:articlelink articleId="676" wrappingElement="li"/>
+                <gsweb:articlelink articleId="675" wrappingElement="li"/>
 			</ul>
 
 			<h3 id="choosingASchool">Choosing a School</h3>
@@ -103,12 +103,14 @@
 				<div class="redDotLine"></div>
 
 				<h2 id="whatYourChildNeeds">What Your Chiled Needs to Succeed</h2>
-				<div class="moduleTitle">Getting Ready for College Reading</div>
-
-				<div class="module">Your student is more likely to avoid pulling all-nighters if he's prepared and knows the
-				skills necessary to meet the demands of a college curriculum. What's the best way to be prepared?
-				Stretching reading skills in high school.</div>
-
+                    <gsml:a href="/cgi-bin/showarticle/$STATE/655" styleClass="noHover">
+                <div class="moduleTitle">Get Ready for College Reading</div>
+				<div class="module">
+                    Your student is more likely to avoid pulling all-nighters if he's prepared and knows the
+                    skills necessary to meet the demands of a college curriculum. What's the best way to be prepared?
+                    Stretching reading skills in high school.
+                </div>
+                    </gsml:a>
                 <div align="right"><gsml:a href="/cgi-bin/showarticle/$STATE/655" styleClass="seeFullArticle">See full article &gt;</gsml:a></div>
 
                 <div class="midDotLine"></div>
@@ -118,17 +120,17 @@
 				<a href="http://www.collegeboard.com" target="_blank"><h2 id="collegeBoard">CollegeBoard.com</h2></a>
 
 				<div class="yellowbar"></div>
-
-				<div class="moduleTitle">
+                    <gsml:a href="/cgi-bin/showarticle/$STATE/652" styleClass="noHover">
+                <div class="moduleTitle">
 					The College Search:<br />
 					How You Can Help Your Child
 				</div>
 				<div class="module">
-					Applying to college can be a stressful time. This is likely the first decision your child will make that
-					has such lasting and important consequences. So, how to help your child determine what he wants and select
-					a school that will provide it?
+                    Applying to college is stressful. This is likely the first decision your child will make that has
+                    such important consequences. How do you help your child determine what he wants and select a
+                    school that will provide it?
 				</div>
-
+                    </gsml:a>
                 <div align="right"><gsml:a href="/cgi-bin/showarticle/$STATE/652" styleClass="seeFullArticle">See full article &gt;</gsml:a></div>
 
 				<div class="midDashLine"></div>
@@ -141,11 +143,11 @@
 						</td>
 						<td>
 						<ul class="quickFindLinks">
-							<li><a href="http://www.collegeboard.com/parents/csearch/know-the-options/21348.html">What Selectivity Means for Your Child </a></li>
-							<li><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21402.html">How to Apply for a Scholarship</a></li>
-							<li><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21404.html">Financial Aid Calendar</a></li>
-							<li><a href="http://www.collegeboard.com/parents/plan/getting-ready/26304.html">College Prep Glossary</a></li>
-							<li><a href="http://www.collegeboard.com/parents/csearch/know-the-options/21177.html">Your Child's College Degree Options</a></li>
+							<li><a href="http://www.collegeboard.com/parents/csearch/know-the-options/21348.html" target="_blank">What Selectivity Means for Your Child </a></li>
+							<li><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21402.html" target="_blank">How to Apply for a Scholarship</a></li>
+							<li><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21404.html" target="_blank">Financial Aid Calendar</a></li>
+							<li><a href="http://www.collegeboard.com/parents/plan/getting-ready/26304.html" target="_blank">College Prep Glossary</a></li>
+							<li><a href="http://www.collegeboard.com/parents/csearch/know-the-options/21177.html" target="_blank">Your Child's College Degree Options</a></li>
 						</ul></td>
 					</tr>
 					</table>
@@ -196,8 +198,9 @@
 				</tr>
 				<tr>
 					<td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
-					Your child should meet with high school counselor to make sure he is enrolled in classes that satisfy
-					graduation and college admission requirements, and to learn what extracurricular activities are available.<br />
+                        <span class="module">
+                    Your child should meet with his high school counselor to make sure he is enrolled in classes that satisfy
+					graduation and college admission requirements, and to learn what extracurricular activities are available.</span><br />
 					<a href="http://www.collegeboard.com/student/plan/action/freshmen.html" target="_blank" class="actionTipsLink">Freshman Action Plan</a></td>
 					<td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
 					<td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
@@ -210,8 +213,10 @@
 				</tr>
 				<tr>
 					<td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
-					The PSAT is a good way to practice for the SAT and can qualify your child for a National Merit Scholarship.
-					Be sure she is signed up to take the test in October.<br />
+                        Taking the Preliminary SAT/National Merit Scholarship Qualifying Test is a good way to practice
+                        for the SAT. A high score can qualify your child for a National Merit Scholarship or other
+                        scholarship programs. Be sure she is signed up to take the test in October.
+                        <br />
 					<a href="http://www.collegeboard.com/student/plan/action/juniors.html" target="_blank" class="actionTipsLink">Junior Action Plan</a></td>
 					<td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
 					<td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />

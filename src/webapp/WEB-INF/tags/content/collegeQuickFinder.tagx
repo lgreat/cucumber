@@ -24,7 +24,10 @@
                 </tr>
                 <tr>
                     <td>
-                        <form method="post" action="http://apps.collegeboard.com/search/servlet/qsearchservlet?action=start" name="advSearch">
+                        <form method="post"
+                              action="http://apps.collegeboard.com/search/servlet/qsearchservlet?action=start"
+                              name="advSearch"
+                              target="_blank">
                             <input value="1" name="formState" type="hidden" />
                             <table width="170" cellpadding="0" cellspacing="0" border="0" class="quickFindSubSquare">
                                 <tr>
