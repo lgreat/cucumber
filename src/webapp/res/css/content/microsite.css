@@ -98,6 +98,12 @@
     text-align:right;
 }
 
-a.noHover:hover {
+#pageGS #contentGS .left a.seeAll:link, a.seeAll:active, a.seeAll:visited {
+    color: #fff;
+    text-align:right;
+}
+
+#pageGS #contentGS a.noHover:hover {
    text-decoration:none;
 }
+

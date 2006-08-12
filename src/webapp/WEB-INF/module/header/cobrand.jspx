@@ -15,7 +15,7 @@
     <c:if test="${requestScope.context.cobranded and !requestScope.pageHelper.framed}">
         <div id="headerCobrand">
             <!-- Backup the onload function because some cobrands overwrite it -->
-            <script language="javascript">
+            <script type="text/javascript" language="javascript">
                 oldonload = window.onload;
             </script>
             <!-- We use a table here to box in the header, otherwise poorly written cobrand headers
@@ -32,7 +32,7 @@
                 </jsp:scriptlet>
             </td></tr></table>
             <!-- Restore the onload function because some cobrands overwrite it -->
-            <script language="javascript">
+            <script type="text/javascript" language="javascript">
                 window.onload = oldonload;
             </script>
         </div>

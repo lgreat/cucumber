@@ -100,37 +100,49 @@
 				</tr>
 				</table>
 
-				<div class="redDotLine"></div>
+				<div class="redDotLine" />
 
 				<h2 id="whatYourChildNeeds">What Your Chiled Needs to Succeed</h2>
-                    <gsml:a href="/cgi-bin/showarticle/$STATE/655" styleClass="noHover">
-                <div class="moduleTitle">Get Ready for College Reading</div>
-				<div class="module">
-                    Your student is more likely to avoid pulling all-nighters if he's prepared and knows the
-                    skills necessary to meet the demands of a college curriculum. What's the best way to be prepared?
-                    Stretching reading skills in high school.
+
+                <div class="moduleTitle">
+                    <gsml:a href="/cgi-bin/showarticle/$STATE/655" styleClass="noHover">Get Ready for College Reading</gsml:a>
                 </div>
+				<div class="module">
+                    <gsml:a href="/cgi-bin/showarticle/$STATE/655" styleClass="noHover">
+                        Your student is more likely to avoid pulling all-nighters if he's prepared and knows the
+                        skills necessary to meet the demands of a college curriculum. What's the best way to be prepared?
+                        Stretching reading skills in high school.
                     </gsml:a>
+                </div>
+
                 <div align="right"><gsml:a href="/cgi-bin/showarticle/$STATE/655" styleClass="seeFullArticle">See full article &gt;</gsml:a></div>
 
                 <div class="midDotLine"></div>
 
 				<h2 id="resources">Resources from the College Board</h2>
 
-				<a href="http://www.collegeboard.com" target="_blank"><h2 id="collegeBoard">CollegeBoard.com</h2></a>
+                    <div class="collegeBoardLogo">
+                        <a href="http://www.collegeboard.com" target="_blank">
+                            <gsml:img style="height: 40px; width: 179px" alt="The College Board" src="/res/img/content/countdownToCollege/collegeboard_logo.gif"></gsml:img>
+                        </a>
+                    </div>
 
 				<div class="yellowbar"></div>
-                    <gsml:a href="/cgi-bin/showarticle/$STATE/652" styleClass="noHover">
+
                 <div class="moduleTitle">
-					The College Search:<br />
-					How You Can Help Your Child
-				</div>
-				<div class="module">
-                    Applying to college is stressful. This is likely the first decision your child will make that has
-                    such important consequences. How do you help your child determine what he wants and select a
-                    school that will provide it?
-				</div>
+                    <gsml:a href="/cgi-bin/showarticle/$STATE/652" styleClass="noHover">
+                        The College Search:<br />
+                        How You Can Help Your Child
                     </gsml:a>
+                </div>
+				<div class="module">
+                    <gsml:a href="/cgi-bin/showarticle/$STATE/652" styleClass="noHover">
+                        Applying to college is stressful. This is likely the first decision your child will make that has
+                        such important consequences. How do you help your child determine what he wants and select a
+                        school that will provide it?
+                    </gsml:a>
+                </div>
+
                 <div align="right"><gsml:a href="/cgi-bin/showarticle/$STATE/652" styleClass="seeFullArticle">See full article &gt;</gsml:a></div>
 
 				<div class="midDashLine"></div>
@@ -152,8 +164,9 @@
 					</tr>
 					</table>
 				</div>
-
-				</td>
+                    <br/>
+                    <br/>
+                </td>
 
                 <td style="height: 100%; vertical-align: top; width: 10px; border-right: 1px solid #ddd" valign="top"><img style="width: 9px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
 				<td style="width: 5px;" valign="top"><img style="width: 5px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
@@ -175,9 +188,9 @@
                     <div class="grayLine"><gsml:img src="/res/img/header/clear_pix.gif" alt=""/></div>
 
                     <h2 id="financialAidPlanner">
-                        <gsml:a href="http://apps.collegeboard.com/fincalc/ep/step1-1.jsp">
+                        <a href="http://apps.collegeboard.com/fincalc/ep/step1-1.jsp" target="_blank" >
                             <img src="/res/img/content/countdownToCollege/financial_aid_planner.gif" width="305" height="269" alt="Financial Aid EasyPlanner proved by the College Board" border="0" />
-                        </gsml:a>
+                        </a>
                     </h2>
 
                     <div id="bottomAdd">
@@ -198,14 +211,16 @@
 				</tr>
 				<tr>
 					<td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
-                        <span class="module">
-                    Your child should meet with his high school counselor to make sure he is enrolled in classes that satisfy
-					graduation and college admission requirements, and to learn what extracurricular activities are available.</span><br />
+                        <span class="actionTip">
+                            Your child should meet with his high school counselor to make sure he is enrolled in classes that satisfy
+                            graduation and college admission requirements, and to learn what extracurricular activities are available.</span><br />
 					<a href="http://www.collegeboard.com/student/plan/action/freshmen.html" target="_blank" class="actionTipsLink">Freshman Action Plan</a></td>
 					<td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
 					<td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
-					Your child should review her academic schedule with her school counselor to make sure she's fulfilling
-					the minimum requirements for college admissions and that her electives are challenging enough.<br />
+                        <span class="actionTip">
+                            Your child should review her academic schedule with her school counselor to make sure she's fulfilling
+                            the minimum requirements for college admissions and that her electives are challenging enough.
+                        </span><br />
 					<a href="http://www.collegeboard.com/student/plan/action/sophomores.html" target="_blank" class="actionTipsLink">Sophomore Action Plan</a></td>
 				</tr>
 				<tr>
@@ -213,24 +228,29 @@
 				</tr>
 				<tr>
 					<td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
-                        Taking the Preliminary SAT/National Merit Scholarship Qualifying Test is a good way to practice
-                        for the SAT. A high score can qualify your child for a National Merit Scholarship or other
-                        scholarship programs. Be sure she is signed up to take the test in October.
+                        <span class="actionTip">
+                            Taking the Preliminary SAT/National Merit Scholarship Qualifying Test is a good way to practice
+                            for the SAT. A high score can qualify your child for a National Merit Scholarship or other
+                            scholarship programs. Be sure she is signed up to take the test in October.
+                        </span>
                         <br />
 					<a href="http://www.collegeboard.com/student/plan/action/juniors.html" target="_blank" class="actionTipsLink">Junior Action Plan</a></td>
 					<td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
 					<td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
-					Your child should request applications, brochures and financial aid information from the admissions offices
-					of colleges where he's applying.<br />
+                        <span class="actionTip">
+                            Your child should meet with his high school counselor to review and refine his list of
+                            colleges. He should request applications, brochures and financial aid information from the admissions offices.
+                        </span><br />
 					<a href="http://www.collegeboard.com/student/plan/action/seniors.html" target="_blank" class="actionTipsLink">Senior Action Plan</a></td>
 				</tr>
 				<tr>
 					<td align="right" colspan="3">
-                        <a href="http://www.collegeboard.com" target="_blank"><h2 id="collegeBoard2"><span style="display:none;">.</span></h2></a>
+                        <a href="http://www.collegeboard.com" target="_blank">
+                            <gsml:img style="height: 40px; width: 179px" alt="CollegeBoard.com" src="/res/img/content/countdownToCollege/collegeboard_logo.gif"></gsml:img>
+                        </a>
                     </td>
 				</tr>
 				</table>
-
 				<br /><br /><br /><br /><br />
 				</td>
 			</tr>

@@ -35,10 +35,6 @@
     padding: 4px 12px 4px 16px;
     margin-bottom: 1px;
 }
-#pageGS #contentGS .left a.seeAll:link, a.seeAll:active, a.seeAll:visited {
-    color: #fff;
-    text-align:right;
-}
 
 #contentGS .middle h2#whatYourChildNeeds {
     text-indent: -100em;
@@ -63,20 +59,13 @@
 	margin-top: 0px;
 }
 
-#contentGS .middle h2#collegeBoard {
-    /*
-    overflow: hidden;
-	background-position: 0px; 0px; 0px; 0px;*/
-	text-indent: -100em;
-    background: url(/res/img/content/countdownToCollege/collegeboard_logo.gif);
-    background-repeat: no-repeat;
+div.collegeBoardLogo {
     background-color: #fff;
-    height: 40px;
-	width: 179px;
-	margin-top: 8px;
-	display: block;
+    margin-top: 8px;
+    display: block;
     margin-left: auto;
     margin-right: auto;
+    padding:3px 0px 3px 90px;
 }
 
 #contentGS .middle ul#module, td#module {
@@ -98,6 +87,14 @@
 	background-color: #fff;
 	font-weight: bold;
 	margin-bottom: 4px;
+}
+
+div.moduleTitle a.noHover {
+     color: #55BBCC;
+}
+
+div.module a.noHover {
+     color: #999999;
 }
 
 .module {
@@ -135,20 +132,10 @@ h2#financialAidPlanner {
 	margin-bottom: 8px;
 }
 
-h2#collegeBoard2 {
-    color:#fff;
-    text-indent: -100em;
-    background: url(/res/img/content/countdownToCollege/collegeboard_logo.gif);
-    background-repeat: no-repeat;
-    background-color: #fff;
-    height: 40px;
-	width: 179px;
-	margin-top: 13px;
-	margin-bottom: 8px;
-	display: block;
-    margin-left: auto;
-    margin-right: 0px;
+span.actionTip {
+    line-height:15px;
 }
+
 
 #childOnTrack a {
     display: block;
