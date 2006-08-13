@@ -106,15 +106,9 @@ div.module a.noHover {
 	background-color: #fff;
 }
 
-h2#actionTipsTitle {
-
-    text-indent: -100em;
-    background: url(/res/img/content/countdownToCollege/t_actionTips.gif);
-    background-repeat: no-repeat;
-    background-color: #fff;
-    height: 25px;
+img.actionTipsTitle {
 	margin-top: 0px;
-	margin-bottom: 16px;
+	margin-bottom: 3px;
     margin-left:-20px;
     display: block;
 }

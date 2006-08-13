@@ -10,6 +10,7 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib"
         >
+<jsp:directive.page import="java.util.Calendar"/>
 <html lang="en">
 
 <jsp:output doctype-root-element="html"
@@ -24,10 +25,42 @@
 	<meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
 	<meta name="Description" content="College prep advice and help from College Board and GreatSchools to help parents of high school and middle school students with academics, behavior issues and financial planning."/>
     <pageHelper:externalCss file="/res/css/content/countdownToCollege.css"/>
+    <jsp:scriptlet>
+        Calendar now = Calendar.getInstance();
+        int month = now.get(Calendar.MONTH);
+        String s = "";
+        switch (month){
+            case Calendar.JANUARY: s = "January";
+                break;
+            case Calendar.FEBRUARY: s = "February";
+                break;
+            case Calendar.MARCH: s = "March";
+                break;
+            case Calendar.APRIL: s = "April";
+                break;
+            case Calendar.MAY: s = "May";
+                break;
+            case Calendar.JUNE: s = "June";
+                break;
+            case Calendar.JULY: s = "July";
+                break;
+            case Calendar.AUGUST: s = "August";
+                break;
+            case Calendar.SEPTEMBER: s = "September";
+                break;
+            case Calendar.OCTOBER: s = "October";
+                break;
+            case Calendar.NOVEMBER: s = "November";
+                break;
+            case Calendar.DECEMBER: s = "December";
+                break;
+        }
+        pageContext.setAttribute("tipMonth", s);
+    </jsp:scriptlet>
 </head>
 <c:set var="pageName" value="Countdown To College"/>
 <gsml:body adPageName="article" pageLayout="countdownToCollege">
-		<table cellspacing="0" cellpadding="0" class="content" border="0">
+    <table cellspacing="0" cellpadding="0" class="content" border="0">
 		<tr>
 			<td class="left" style="width: 173px;" valign="top">
 			<h3 id="backToSchool">Back To School</h3>
@@ -206,7 +239,9 @@
 				<table width="660" cellpadding="0" cellspacing="0" border="0" align="right" id="actionTips">
 				<tr>
 					<td colspan="3" valign="top">
-                        <h2 id="actionTipsTitle">Action Tips</h2>
+                        <gsml:img src="/res/img/content/countdownToCollege/actionTips_${tipMonth}.gif"
+                                  alt="Action Tips for ${tipMonth}"
+                                  styleClass="actionTipsTitle" />
                     </td>
 				</tr>
 				<tr>
