@@ -33,12 +33,12 @@ education since 1998 by inspiring parents like you to get involved. Learn more a
 <br/>
 This email was sent to GreatSchools.net subscriber <b>$EMAIL$</b>.<br/>
 <br/>
-GreatSchools.net<br/>
+GreatSchools<br/>
 301 Howard St., Suite 1440<br/>
 San Francisco, CA 94105<br/>
 <br/>
 <a href="http://www.greatschools.net/community/betaUnsubscribe.page?cpn=beta&state=$STATE$&email=$EMAIL$"><br/>
-Remove me from the GreatSchools beta group
+Remove me from the GreatSchools Beta Group
 </a>
 <br/>
 <br/>
