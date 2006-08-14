@@ -135,18 +135,18 @@
                     styleClass="${(pw == 0 ? 'lactive active' : 'inactive')} ${(pw == 1 ? 'ractive' : '')} "
                     >Home</link:home></td>
                 <!--#1--><td><link:research
-                    styleClass="${(pw == 0 ? 'lactive' : '')} ${(pw == 1 ? 'active' : 'inactive')} ${(pw == 9 ? 'ractive' : '')} "
+                    styleClass="${(pw == 0 ? 'lactive' : '')} ${(pw == 1 ? 'active' : 'inactive')} ${(pw == 7 ? 'ractive' : '')} "
                     state="${requestScope.context.state}"
                     id="topnav_research"
                     >Research &amp;amp; Compare</link:research></td>
-                <!--#3--><td><gsml:a href="/content/countdownToCollege.page"
-                                     styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 9 ? 'active' : 'inactive')} ${(pw == 7 ? 'ractive' : '')} "
-                    >Countdown to College</gsml:a></td>
                 <!--#7--><td><gsml:a href="/content/backToSchool.page"
-                                     styleClass="${(pw == 9 ? 'lactive' : '')} ${(pw == 7 ? 'active' : 'inactive')} ${(pw == 2 ? 'ractive' : '')} "
+                                     styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 7 ? 'active' : 'inactive')} ${(pw == 9 ? 'ractive' : '')} "
                     >Back to School</gsml:a></td>
+                <!--#9--><td><gsml:a href="/content/countdownToCollege.page"
+                                     styleClass="${(pw == 7 ? 'lactive' : '')} ${(pw == 9 ? 'active' : 'inactive')} ${(pw == 2 ? 'ractive' : '')} "
+                    >Countdown to College</gsml:a></td>
                 <!--#2--><td><link:articleLibrary
-                    styleClass="${(pw == 7 ? 'lactive' : '')} ${(pw == 2 ? 'active' : 'inactive')} ${(pw == 6 ? 'ractive' : '')} "
+                    styleClass="${(pw == 9 ? 'lactive' : '')} ${(pw == 2 ? 'active' : 'inactive')} ${(pw == 6 ? 'ractive' : '')} "
                     >Library</link:articleLibrary></td>
                 <!--#4--><!--td><gsml:a href="/about/aboutUs.page"
                         styleClass="${(pw == 3 ? 'lactive' : '')} ${(pw == 4 ? 'active' : 'inactive')} ${(pw == 5 ? 'ractive' : '')} "
@@ -154,7 +154,7 @@
                 <!--#5--><!--<td><link:contactUs
                     styleClass="${(pw == 4 ? 'lactive' : '')} ${(pw == 5 ? 'active' : 'inactive')} ${(pw == 6 ? 'ractive' : '')} "
                     >Contact Us</link:contactUs></td-->
-                <!--#0--><td><link:newsletterCenter
+                <!--#6--><td><link:newsletterCenter
                     styleClass="${(pw == 2 ? 'lactive' : '')} ${(pw == 6 ? 'active ractive' : 'inactive')}"
                     email="${requestScope.context.email}"
                     >Free Newsletters</link:newsletterCenter></td>
