@@ -89,12 +89,12 @@ div.collegeBoardLogo {
 	margin-bottom: 4px;
 }
 
-div.moduleTitle a.noHover {
+div.moduleTitle a.noHover, div.moduleTitle a.noHover:visited {
      color: #55BBCC;
 }
 
-div.module a.noHover {
-     color: #999999;
+div.module a.noHover, div.module a.noHover:visited {
+    color: #999999;
 }
 
 .module {
