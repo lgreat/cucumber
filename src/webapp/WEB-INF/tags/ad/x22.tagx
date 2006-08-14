@@ -16,7 +16,7 @@
                         <gsml:url var="sponsorImage" value="/res/img/ad/sponsor_vertical.gif"/>
                         <img alt="Ad" class="adSponsorImage" src="${sponsorImage}" width="10" height="90"/>
                     </td>
-                    <td style="text-align: left" class="ad">
+                    <td style="text-align:left;width:728px;height:90px" class="ad">
                         <script type="text/javascript">OAS_AD('x22');</script>
                     </td>
                 </tr>
