@@ -1,7 +1,7 @@
 /*
    -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.130 2006/08/08 19:23:40 chriskimm Exp $
+   $Id: global.css,v 1.131 2006/08/14 17:54:12 thuss Exp $
 
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 
@@ -305,6 +305,7 @@ input.btn {
     text-align: center;
     color: #999;
     width: 300px;
+    height: 250px;
     padding: 5px;
     margin: 0 0 10px 0;
     border: 0px;
