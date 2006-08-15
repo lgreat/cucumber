@@ -76,10 +76,14 @@ public class AuthorizersController extends AbstractController {
                 ICharterSchoolInfo info = _charterSchoolInfoDao.getInfo(school);
                 mAndV.getModel().put("school", school);
                 mAndV.getModel().put("structureData", getStructureData(info));
+                mAndV.getModel().put("statusData", getStatusData(info));
                 mAndV.getModel().put("missionData", getMissionData(info));
                 mAndV.getModel().put("academicData", getAcademicData(info));
                 mAndV.getModel().put("demandData", getDemandData(info));
-                mAndV.getModel().put("source", "Source: " + Util.unquote(info.getSource()));
+                String source = Util.unquote(info.getSource());
+                if (StringUtils.isNotBlank(source)) {
+                    mAndV.getModel().put("source", "Source: " + source);
+                }
                 mAndV.getModel().put("report", getReport(school));
             } catch (Exception orfe) {
                 // log this and just return an empty page rather than vomiting
@@ -132,57 +136,63 @@ public class AuthorizersController extends AbstractController {
     }
 
     private static Map getStructureData(ICharterSchoolInfo info) {
-        Map demandData = null;
+        Map structureData = null;
         if (info.getYearOpened() > -1) {
-            if (demandData == null) {
-                demandData = new ListOrderedMap();
+            if (structureData == null) {
+                structureData = new ListOrderedMap();
             }
-            demandData.put("Year opened", new Integer(info.getYearOpened()));
-        }
-
-        String terms = info.getTermsOfCharter();
-        if (StringUtils.isNotBlank(terms)) {
-            if (demandData == null) {
-                demandData = new ListOrderedMap();
-            }
-            demandData.put("Terms of charter", terms);
-        }
-
-        if (StringUtils.isNotBlank(info.getRenewalStatus())) {
-            if (demandData == null) {
-                demandData = new ListOrderedMap();
-            }
-            demandData.put("Renewal status", info.getRenewalStatus());
+            structureData.put("Year opened", new Integer(info.getYearOpened()));
         }
 
         if (StringUtils.isNotBlank(info.getAuthorizer())) {
-            if (demandData == null) {
-                demandData = new ListOrderedMap();
+            if (structureData == null) {
+                structureData = new ListOrderedMap();
             }
-            demandData.put("Authorizer", info.getAuthorizer());
+            structureData.put("Authorizer", info.getAuthorizer());
         }
 
         if (StringUtils.isNotBlank(info.getOperator())) {
-            if (demandData == null) {
-                demandData = new ListOrderedMap();
+            if (structureData == null) {
+                structureData = new ListOrderedMap();
             }
-            demandData.put("Operator", info.getOperator());
+            structureData.put("Operator", info.getOperator());
+        }
+
+        return structureData;
+    }
+
+    private static Map getStatusData(ICharterSchoolInfo info) {
+        Map statusData = null;
+
+        String terms = info.getTermsOfCharter();
+        if (StringUtils.isNotBlank(terms)) {
+            if (statusData == null) {
+                statusData = new ListOrderedMap();
+            }
+            statusData.put("Terms of charter", terms);
+        }
+
+        if (StringUtils.isNotBlank(info.getRenewalStatus())) {
+            if (statusData == null) {
+                statusData = new ListOrderedMap();
+            }
+            statusData.put("Renewal status", info.getRenewalStatus());
         }
 
         if (StringUtils.isNotBlank(info.getAdminStatus())) {
-            if (demandData == null) {
-                demandData = new ListOrderedMap();
+            if (statusData == null) {
+                statusData = new ListOrderedMap();
             }
-            demandData.put("Board/administrative status", info.getAdminStatus());
+            statusData.put("Board/administrative status", info.getAdminStatus());
         }
 
         if (StringUtils.isNotBlank(info.getFinancialStatus())) {
-            if (demandData == null) {
-                demandData = new ListOrderedMap();
+            if (statusData == null) {
+                statusData = new ListOrderedMap();
             }
-            demandData.put("Financial status", info.getFinancialStatus());
+            statusData.put("Financial status", info.getFinancialStatus());
         }
-        return demandData;
+        return statusData;
     }
 
     private static Map getMissionData(ICharterSchoolInfo info) {

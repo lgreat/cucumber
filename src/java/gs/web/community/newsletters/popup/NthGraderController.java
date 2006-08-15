@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.16 2006/08/08 18:20:50 chriskimm Exp $
+ * $Id: NthGraderController.java,v 1.17 2006/08/15 22:52:02 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -58,6 +58,12 @@ public class NthGraderController extends SimpleFormController implements ReadWri
         }
 
         if (StringUtils.isNotBlank(autocheck)) {
+            if ("myk".equalsIgnoreCase(autocheck)) { nc.setMyk(true); }
+            if ("my1".equalsIgnoreCase(autocheck)) { nc.setMy1(true); }
+            if ("my2".equalsIgnoreCase(autocheck)) { nc.setMy2(true); }
+            if ("my3".equalsIgnoreCase(autocheck)) { nc.setMy3(true); }
+            if ("my4".equalsIgnoreCase(autocheck)) { nc.setMy4(true); }
+            if ("my5".equalsIgnoreCase(autocheck)) { nc.setMy5(true); }
             if ("myms".equalsIgnoreCase(autocheck)) { nc.setMyMs(true); }
             if ("myhs".equalsIgnoreCase(autocheck)) { nc.setMyHs(true); }
         }

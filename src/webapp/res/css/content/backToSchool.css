@@ -29,18 +29,14 @@
     background-image: none;
 }
 
-#contentGS .middle h2#getReady {
-          background-color: #fb0;
-          background-position: 10px; 5px; 8px; 5px;
-          height: 25px;
-      }
-
-#contentGS .middle h2#getTheRightStuff {
-      background-color: #fb0;
-      background-position: 10px; 5px; 8px; 5px;
-      height: 25px;
+#contentGS .middle h2.headline {
+    padding: 2px 0px 2px 12px;
+    background-color: rgb(255, 187, 0);
+    font-family: Trebuchet MS;
+    font-weight:lighter;
+    color: rgb(255, 255, 255);
+    font-size: 17px;
 }
-
 
 #contentGS .middle h3 {
     font-family: rockwell;
@@ -53,10 +49,10 @@
     background-position: 14px 12px;
 }
 
-#contentGS .middle h3#askAnExpert {
+#contentGS .middle h3#askTheExperts {
           text-indent: -100em;
           overflow: hidden;
-          background-image: url(/res/img/content/backtoschool/askAnExpert.gif );
+          background-image: url(/res/img/content/backtoschool/askTheExperts.gif );
           background-repeat: no-repeat;
           background-position: 10px 20px;
           height: 35px;
@@ -99,4 +95,26 @@
           height: 35px;
       }
 
+.byGrade a{
+    display: block;
+    width: 17px;
+    height: 17px;
+    }
 
+    .byGrade a.by_k { background-image: url("/res/img/content/grade/hollowK.gif"); }
+    .byGrade a.by_k:hover  { background-image: url("/res/img/content/grade/blueK.gif"); }
+
+    .byGrade a.by_1 { background-image: url("/res/img/content/grade/hollow1.gif"); }
+    .byGrade a.by_1:hover  { background-image: url("/res/img/content/grade/blue1.gif"); }
+
+    .byGrade a.by_2 { background-image: url("/res/img/content/grade/hollow2.gif"); }
+    .byGrade a.by_2:hover  { background-image: url("/res/img/content/grade/blue2.gif"); }
+
+    .byGrade a.by_3 { background-image: url("/res/img/content/grade/hollow3.gif"); }
+    .byGrade a.by_3:hover  { background-image: url("/res/img/content/grade/blue3.gif"); }
+
+    .byGrade a.by_4 { background-image: url("/res/img/content/grade/hollow4.gif"); }
+    .byGrade a.by_4:hover  { background-image: url("/res/img/content/grade/blue4.gif"); }
+
+    .byGrade a.by_5 { background-image: url("/res/img/content/grade/hollow5.gif"); }
+    .byGrade a.by_5:hover  { background-image: url("/res/img/content/grade/blue5.gif"); }

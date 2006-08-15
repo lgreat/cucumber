@@ -33,6 +33,8 @@
                 <c:set var="rowcount" value="${rowcount + 1}" />
             </c:forEach>
         </table>
-        <span class="footnote"><c:out value="${footnote}" /></span>
+        <c:if test="${not empty footnote}" >
+            <span class="footnote"><c:out value="${footnote}" /></span>
+        </c:if>
     </div>
 </jsp:root>
