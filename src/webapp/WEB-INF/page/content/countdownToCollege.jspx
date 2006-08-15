@@ -156,7 +156,7 @@
 
                     <div class="collegeBoardLogo">
                         <a href="http://www.collegeboard.com" target="_blank">
-                            <gsml:img style="height: 40px; width: 179px" alt="The College Board" src="/res/img/content/countdownToCollege/collegeboard_logo.gif"></gsml:img>
+                            <gsml:img style="height: 40px; width: 179px" alt="Content provided by CollegeBoard.com" src="/res/img/content/countdownToCollege/collegeboard_logo.gif"></gsml:img>
                         </a>
                     </div>
 
@@ -281,7 +281,7 @@
 				<tr>
 					<td align="right" colspan="3">
                         <a href="http://www.collegeboard.com" target="_blank">
-                            <gsml:img style="height: 40px; width: 179px" alt="CollegeBoard.com" src="/res/img/content/countdownToCollege/collegeboard_logo.gif"></gsml:img>
+                            <gsml:img style="height: 40px; width: 179px" alt="Content provided by CollegeBoard.com" src="/res/img/content/countdownToCollege/collegeboard_logo.gif"></gsml:img>
                         </a>
                     </td>
 				</tr>
