@@ -65,6 +65,7 @@
             </bean>
         </property>
         <property name="hasSearchedCookieGenerator">
+            <!-- has the user searched in a specific state? -->
             <bean class="org.springframework.web.util.CookieGenerator">
                 <property name="cookieName" value="HAS_SEARCHED"/>
             </bean>

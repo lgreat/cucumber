@@ -12,158 +12,157 @@
 
 <div id="topnav">
 <table border="0" cellpadding="0" cellspacing="0" style="width: 100%">
+<tr>
+<td style="padding-left: 40px">
+    <gsml:a href="/"><gsml:img src="/res/img/logo/logo_GS_330x110.gif"
+                               alt="GreatSchools: The Parents' Guide to K-12 Success"
+            /></gsml:a>
+</td>
+<td style="padding-right: 18px; width: 33%; vertical-align: top; padding-top: 16px">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="member noprint">
     <tr>
-        <td style="padding-left: 40px">
-            <gsml:a href="/"><gsml:img src="/res/img/logo/logo_GS_330x110.gif" alt="GreatSchools: The Parents' Guide to K-12 Success"
-                    /></gsml:a>
-        </td>
-        <td style="padding-right: 18px; width: 33%; vertical-align: top; padding-top: 16px">
-                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="member noprint">
-                    <tr>
-                        <c:if test="${empty requestScope.context.memberId}">
-                            <td class="welcome">Welcome!</td>
-                            <td class="signout"><link:signIn forwardTo="referer">Sign in</link:signIn></td>
-                            <td class="saved"><gsml:a href="/cgi-bin/msl_confirm/$STATE">Start saving schools</gsml:a>
-                            </td>
-                        </c:if>
-                        <c:if test="${not empty requestScope.context.memberId}">
-                            <td class="welcome">Welcome ${requestScope.context.nickname}</td>
-                            <td class="signout"><gsml:a
-                                    href="/cgi-bin/logout/$STATE/?email=${requestScope.context.email}&amp;mid=${requestScope.context.memberId}">
-                                Sign
-                                out</gsml:a></td>
-                            <td class="saved">
-                                <c:choose>
-                                    <c:when test="${not empty requestScope.context.mslCount and requestScope.context.mslCount gt 0}">
-                                        <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.email}">${requestScope.context.mslCount}
-                                            Saved school${requestScope.context.mslCount gt 1 ? 's':''}</gsml:a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <gsml:a href="/cgi-bin/msl_confirm/$STATE">Start saving schools</gsml:a>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                        </c:if>
-                    </tr>
-                </table>
-            <div class="search" style="margin-top: 12px;">
-                <gsweb:form method="get"
-                            action="/stateLauncher.page"
-                            onsubmit="return checkSearchStateSelected(this,'stateSelector')">
-                    <input name="p" value="search_single" type="hidden"/>
-                    <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
-                        <input type="hidden" name="st" value="charter"/>
-                    </c:if>
-                    <input name="p" value="search_single" type="hidden"/>
-                    <table style="width:301px" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td style="width:202px">
-                                <span class="searchLabel" id="searchPrompt">Enter school, district or city</span>
-                            </td>
-                            <td style="width:10px">
-                                <gsml:img src="/res/img/pixel.gif" alt="" style="width:6px;height:6px"/>
-                            </td>
-
-                            <td style="width:50px">
-                                <div id="searchInLabel" style="display:block">
-
-                                <span class="searchLabel">Search in:</span>
-                                </div>
-
-                            </td>
-
-                            <td style="width:43px;vertical-align: middle">
-                                <gsml:img src="/res/img/pixel.gif" alt="" style="width:6px;height:6px"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td id="searchBox">
-                                <input type="text" style="width: 100%; font-size: 11px;" name="q"
-                                       id="q"/>
-                            </td>
-                            <td style="width:10px">
-                                <gsml:img src="/res/img/pixel.gif" alt="" style="width:6px;height:6px"/>
-                            </td>
-
-                                <td>
-                                    <div id="stateDropDown" style="display:block">
-                                <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}" noStateLabel="--" usingLongNames="false"
-                                                     state="${requestScope.context.state}" styleClass="stateSelect"/>
-                                    </div>
-                                </td>
-
-                            <td rowspan="2" style="width:43px;vertical-align: top">
-                                <gsml:url var="go" value="/res/img/header/btn_go.gif"/>
-                                <input type="image" src="${go}" alt="GO" style="width:37px;height:20px"
-                                       class="button"/>
-
-
-
-                            </td>
-                        </tr>
-                        <tr>
-
-                            <td style="height:21px" class="searchRadios">
-                                <input name="c" type="radio" value="school" checked="checked"
-                                       onclick="setSearchPrompt('Enter school, district or city'); toggleById('stateDropDown'); toggleById('searchInLabel'); changeColSize('searchBox',1); return true;"/><span>Schools</span>
-                                &#160;
-                             <input name="c" type="radio" value="topic"
-                                       onclick="setSearchPrompt('Enter keyword'); toggleById('stateDropDown'); toggleById('searchInLabel'); changeColSize('searchBox',5); return true;"/>
-                                <span>Articles</span>
-                            </td>
-
-                            <td style="height:21px">
-                                &#160;
-                            </td>
-                        </tr>
-                    </table>
-                </gsweb:form>
-            </div>
-        </td>
+        <c:if test="${empty requestScope.context.memberId}">
+            <td class="welcome">Welcome!</td>
+            <td class="signout"><link:signIn forwardTo="referer">Sign in</link:signIn></td>
+            <td class="saved"><gsml:a href="/cgi-bin/msl_confirm/$STATE">Start saving schools</gsml:a>
+            </td>
+        </c:if>
+        <c:if test="${not empty requestScope.context.memberId}">
+            <td class="welcome">Welcome ${requestScope.context.nickname}</td>
+            <td class="signout"><gsml:a
+                    href="/cgi-bin/logout/$STATE/?email=${requestScope.context.email}&amp;mid=${requestScope.context.memberId}">
+                Sign
+                out</gsml:a></td>
+            <td class="saved">
+                <c:choose>
+                    <c:when test="${not empty requestScope.context.mslCount and requestScope.context.mslCount gt 0}">
+                        <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.email}">${requestScope.context.mslCount}
+                            Saved school${requestScope.context.mslCount gt 1 ? 's':''}</gsml:a>
+                    </c:when>
+                    <c:otherwise>
+                        <gsml:a href="/cgi-bin/msl_confirm/$STATE">Start saving schools</gsml:a>
+                    </c:otherwise>
+                </c:choose>
+            </td>
+        </c:if>
     </tr>
+</table>
+<div class="search" style="margin-top: 12px;">
+    <gsweb:form method="get"
+                action="/search/search.page"
+                onsubmit="return topNavSubmitSearch(this)">
+        <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
+            <input type="hidden" name="st" value="charter"/>
+        </c:if>
+        <table style="width:301px" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="width:202px">
+                    <span class="searchLabel" id="searchPrompt">Enter school, district or city</span>
+                </td>
+                <td style="width:10px">
+                    <gsml:img src="/res/img/pixel.gif" alt="" style="width:6px;height:6px"/>
+                </td>
+
+                <td style="width:50px">
+                    <div id="searchInLabel" style="display:block">
+
+                        <span class="searchLabel">Search in:</span>
+                    </div>
+
+                </td>
+
+                <td style="width:43px;vertical-align: middle">
+                    <gsml:img src="/res/img/pixel.gif" alt="" style="width:6px;height:6px"/>
+                </td>
+            </tr>
+            <tr>
+                <td id="searchBox">
+                    <input type="text" style="width: 100%; font-size: 11px;" name="q" id="q"/>
+                </td>
+                <td style="width:10px">
+                    <gsml:img src="/res/img/pixel.gif" alt="" style="width:6px;height:6px"/>
+                </td>
+                <td>
+                    <div id="stateDropDown" style="display:block">
+                        <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
+                                             noStateLabel="--"
+                                             usingLongNames="false"
+                                             state="${requestScope.context.state}" styleClass="stateSelect"/>
+                    </div>
+                </td>
+
+                <td rowspan="2" style="width:43px;vertical-align: top">
+                    <gsml:url var="go" value="/res/img/header/btn_go.gif"/>
+                    <input type="image" src="${go}" alt="GO" style="width:37px;height:20px"
+                           class="button"/>
+
+
+                </td>
+            </tr>
+            <tr>
+
+                <td style="height:21px" class="searchRadios">
+                    <input name="c" type="radio" value="school" checked="checked"
+                           onclick="topNavSelectSchoolSearch(this)"/>
+                    <span>Schools</span>
+                    &#160;
+                    <input name="c" type="radio" value="topic"
+                           onclick="topNavSelectTopicSearch(this);"/>
+                    <span>Articles</span>
+                </td>
+
+                <td style="height:21px">
+                    &#160;
+                </td>
+            </tr>
+        </table>
+    </gsweb:form>
+</div>
+</td>
+</tr>
 </table>
 
 <div class="noprint">
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-    <tr>
-        <td><gsml:img src="/res/img/pixel.gif" alt="" style="width: 18px"/></td>
-        <td colspan="4">
-            <table cellpadding="0" cellspacing="0" id="nav"><tr>
-                <td style="width:36px">&#160;</td>
-                <c:set var="pw" value="${requestScope.context.pathway}"/>
-                <!--#0--><td><link:home
-                    styleClass="${(pw == 0 ? 'lactive active' : 'inactive')} ${(pw == 1 ? 'ractive' : '')} "
-                    >Home</link:home></td>
-                <!--#1--><td><link:research
-                    styleClass="${(pw == 0 ? 'lactive' : '')} ${(pw == 1 ? 'active' : 'inactive')} ${(pw == 7 ? 'ractive' : '')} "
-                    state="${requestScope.context.state}"
-                    id="topnav_research"
-                    >Research &amp;amp; Compare</link:research></td>
-                <!--#7--><td><gsml:a href="/content/backToSchool.page"
-                                     styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 7 ? 'active' : 'inactive')} ${(pw == 9 ? 'ractive' : '')} "
-                    >Back to School</gsml:a></td>
-                <!--#9--><td><gsml:a href="/content/countdownToCollege.page"
-                                     styleClass="${(pw == 7 ? 'lactive' : '')} ${(pw == 9 ? 'active' : 'inactive')} ${(pw == 2 ? 'ractive' : '')} "
-                    >Countdown to College</gsml:a></td>
-                <!--#2--><td><link:articleLibrary
-                    styleClass="${(pw == 9 ? 'lactive' : '')} ${(pw == 2 ? 'active' : 'inactive')} ${(pw == 6 ? 'ractive' : '')} "
-                    >Library</link:articleLibrary></td>
-                <!--#4--><!--td><gsml:a href="/about/aboutUs.page"
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td><gsml:img src="/res/img/pixel.gif" alt="" style="width: 18px"/></td>
+            <td colspan="4">
+                <table cellpadding="0" cellspacing="0" id="nav"><tr>
+                    <td style="width:36px">&#160;</td>
+                    <c:set var="pw" value="${requestScope.context.pathway}"/>
+                    <!--#0--><td><link:home
+                        styleClass="${(pw == 0 ? 'lactive active' : 'inactive')} ${(pw == 1 ? 'ractive' : '')} "
+                        >Home</link:home></td>
+                    <!--#1--><td><link:research
+                        styleClass="${(pw == 0 ? 'lactive' : '')} ${(pw == 1 ? 'active' : 'inactive')} ${(pw == 7 ? 'ractive' : '')} "
+                        state="${requestScope.context.state}"
+                        id="topnav_research"
+                        >Research &amp;amp; Compare</link:research></td>
+                    <!--#7--><td><gsml:a href="/content/backToSchool.page"
+                                         styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 7 ? 'active' : 'inactive')} ${(pw == 9 ? 'ractive' : '')} "
+                        >Back to School</gsml:a></td>
+                    <!--#9--><td><gsml:a href="/content/countdownToCollege.page"
+                                         styleClass="${(pw == 7 ? 'lactive' : '')} ${(pw == 9 ? 'active' : 'inactive')} ${(pw == 2 ? 'ractive' : '')} "
+                        >Countdown to College</gsml:a></td>
+                    <!--#2--><td><link:articleLibrary
+                        styleClass="${(pw == 9 ? 'lactive' : '')} ${(pw == 2 ? 'active' : 'inactive')} ${(pw == 6 ? 'ractive' : '')} "
+                        >Library</link:articleLibrary></td>
+                    <!--#4--><!--td><gsml:a href="/about/aboutUs.page"
                         styleClass="${(pw == 3 ? 'lactive' : '')} ${(pw == 4 ? 'active' : 'inactive')} ${(pw == 5 ? 'ractive' : '')} "
                     >About Us</gsml:a></td>-->
-                <!--#5--><!--<td><link:contactUs
+                    <!--#5--><!--<td><link:contactUs
                     styleClass="${(pw == 4 ? 'lactive' : '')} ${(pw == 5 ? 'active' : 'inactive')} ${(pw == 6 ? 'ractive' : '')} "
                     >Contact Us</link:contactUs></td-->
-                <!--#6--><td><link:newsletterCenter
-                    styleClass="${(pw == 2 ? 'lactive' : '')} ${(pw == 6 ? 'active ractive' : 'inactive')}"
-                    email="${requestScope.context.email}"
-                    >Free Newsletters</link:newsletterCenter></td>
-                <td style="width:36px">&#160;</td>
-            </tr></table>
-        </td>
-        <td><gsml:img src="/res/img/pixel.gif" alt="" style="width: 18px"/></td>
-    </tr>
-</table>
+                    <!--#6--><td><link:newsletterCenter
+                        styleClass="${(pw == 2 ? 'lactive' : '')} ${(pw == 6 ? 'active ractive' : 'inactive')}"
+                        email="${requestScope.context.email}"
+                        >Free Newsletters</link:newsletterCenter></td>
+                    <td style="width:36px">&#160;</td>
+                </tr></table>
+            </td>
+            <td><gsml:img src="/res/img/pixel.gif" alt="" style="width: 18px"/></td>
+        </tr>
+    </table>
 </div>
 </div>
 

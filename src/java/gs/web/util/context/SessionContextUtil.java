@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.4 2006/07/25 00:47:24 chriskimm Exp $
+ * $Id: SessionContextUtil.java,v 1.5 2006/08/15 20:38:07 apeterson Exp $
  */
 
 package gs.web.util.context;
@@ -265,8 +265,6 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     /**
      * Sets a marker to indicate that the user has executed a search.
-     * @param request
-     * @param response
      */
     public void setHasSearched(HttpServletResponse response) {
         _hasSearchedCookieGenerator.addCookie(response, "true");

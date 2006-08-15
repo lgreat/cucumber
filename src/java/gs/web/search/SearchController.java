@@ -1,6 +1,5 @@
 package gs.web.search;
 
-import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
@@ -10,13 +9,13 @@ import gs.data.search.Searcher;
 import gs.data.search.SpellCheckSearcher;
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.web.util.list.AnchorListModelFactory;
+import gs.web.util.PageHelper;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.ISessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
-import gs.web.util.UrlBuilder;
-import gs.web.util.PageHelper;
+import gs.web.util.list.AnchorListModelFactory;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.lucene.index.Term;
@@ -170,7 +169,9 @@ public class SearchController extends AbstractFormController {
         }
 
         // ok, this seems like a valid search, set the "hasSearched" cookie
-        PageHelper.setHasSearchedCookie(request, response);
+        if (!StringUtils.equals("topic", searchCommand.getType())) {
+            PageHelper.setHasSearchedCookie(request, response);
+        }
 
         Map model = createModel(request, searchCommand, sessionContext, debug);
 
