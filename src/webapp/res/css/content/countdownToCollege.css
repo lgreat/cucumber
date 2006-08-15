@@ -130,7 +130,6 @@ span.actionTip {
     line-height:15px;
 }
 
-
 #childOnTrack a {
     display: block;
     width: 302px;
@@ -195,7 +194,7 @@ span.actionTip {
 	background-repeat: repeat-x;
 }
 
-a.actionTipsLink:Link  {
+a.actionTipsLink:Link, a.actionTipsLink:visited {
 	font-size: 11px;
 	color: #3399AA;
 	font-weight: bold;
@@ -223,7 +222,6 @@ h2#adBlurb {
 	text-align: center;
 	margin-bottom: 8px;
 }
-
 
 .right {
     vertical-align:top;
