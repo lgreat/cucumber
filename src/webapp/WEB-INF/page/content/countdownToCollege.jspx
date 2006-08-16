@@ -207,7 +207,14 @@
                 <td class="right" style="width: 302px" valign="bottom">
 
                     <div id="childOnTrack">
-                        <promo:nthGraderHover referredBy="${pageName}" autocheck="myhs"/>
+                        <promo:nthGraderHover referredBy="${pageName}" autocheck="myhs" >
+                            <gsml:url var="cot" value="/res/img/content/countdownToCollege/child_on_track.gif" />
+                            <gsml:url var="cotOver" value="/res/img/content/countdownToCollege/child_on_track_h.gif" />
+                            <img src="${cot}"
+                                 alt="Is Your Child on Track for College?"
+                                 onmouseover="this.src='${cotOver}';"
+                                 onmouseout="this.src='${cot}';"/>
+                        </promo:nthGraderHover>
                     </div>
 
                     <table cellspacing="0" cellpadding="0">

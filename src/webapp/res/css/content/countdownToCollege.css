@@ -130,16 +130,8 @@ span.actionTip {
     line-height:15px;
 }
 
-#childOnTrack a {
-    display: block;
-    width: 302px;
-    height: 137px;
-    background-image: url("/res/img/content/countdownToCollege/child_on_track.gif");
-	margin-bottom: 6px;
-}
+#childOnTrack {
 
-#childOnTrack a:hover  {
-    background-image: url("/res/img/content/countdownToCollege/child_on_track_h.gif");
 }
 
 .empty ul li {
