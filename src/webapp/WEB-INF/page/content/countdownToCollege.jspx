@@ -226,9 +226,16 @@
                         </a>
                     </h2>
 
-                    <div id="bottomAdd">
-                        <ad:x49 blurb="Countdown to College Sponsored By:"/>
-                    </div>
+                    <c:choose>
+                        <c:when test="${!requestScope.context.yahooCobrand and !requestScope.context.familyCobrand}">
+                            <div id="bottomAdd">
+                                <ad:x49 blurb="Countdown to College Sponsored By:"/>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div id="bottomAdFiller" style="height:140px;"/>
+                        </c:otherwise>
+                    </c:choose>
                 </td>
 			</tr>
 			<tr>
