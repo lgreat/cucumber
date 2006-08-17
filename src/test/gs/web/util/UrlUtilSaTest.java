@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.32 2006/08/07 22:56:44 apeterson Exp $
+ * $Id: UrlUtilSaTest.java,v 1.33 2006/08/17 00:03:21 thuss Exp $
  */
 
 package gs.web.util;
@@ -117,7 +117,6 @@ public class UrlUtilSaTest extends TestCase {
         assertNull(_urlUtil.cobrandFromUrl("maddy.greatschools.net"));
         assertNull(_urlUtil.cobrandFromUrl("clone.greatschools.net"));
         assertNull(_urlUtil.cobrandFromUrl("apeterson.dev.greatschools.net"));
-        assertNull(_urlUtil.cobrandFromUrl("wbeck.dev.greatschools.net"));
         assertNull(_urlUtil.cobrandFromUrl("localhost"));
         assertNull(_urlUtil.cobrandFromUrl("maddy"));
         assertEquals("bob", _urlUtil.cobrandFromUrl("bob.greatschools.net"));
