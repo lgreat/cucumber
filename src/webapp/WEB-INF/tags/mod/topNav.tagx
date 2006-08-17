@@ -18,7 +18,7 @@
                                alt="GreatSchools: The Parents' Guide to K-12 Success"
             /></gsml:a>
 </td>
-<td style="padding-right: 18px; width: 33%; vertical-align: top; padding-top: 16px">
+<td class="member" >
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="member noprint">
     <tr>
         <c:if test="${empty requestScope.context.memberId}">
@@ -47,7 +47,7 @@
         </c:if>
     </tr>
 </table>
-<div class="search" style="margin-top: 12px;">
+<div class="search" >
     <gsweb:form method="get"
                 action="/search/search.page"
                 onsubmit="return topNavSubmitSearch(this)">

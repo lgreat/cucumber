@@ -17,12 +17,17 @@ will need to become a graphic.
 }
 
 
-/* Member area */
 #topnav .member {
     font-family: Verdana, Geneva, Helvetica, sans-serif;
     font-size: xx-small;
 }
 
+#topnav td.member {
+    vertical-align: top;
+    padding-top: 10px;
+    padding-right: 18px;
+    width: 33%;
+}
 #topnav .member .welcome {
     text-align: left;
     font-weight: 900;
@@ -70,6 +75,10 @@ will need to become a graphic.
 
 /* Search area */
 
+#topnav div.search {
+    margin-top:28px;
+}
+
 #topnav .searchLabel {
     font-size: 10px;
     color: #666;
@@ -78,11 +87,10 @@ will need to become a graphic.
     vertical-align: bottom;
 }
 
-* html #topnav #searchLabel {
+* html #topnav .searchLabel {
 /* IE ONLY */
-    color: #000;
-    font-size: 8px;
-    font-family: Verdana, Arial, Helvetica, san-serif;
+    color: #333;
+    font-size: 6pt;
 }
 
 #topnav .stateSelect {
@@ -102,6 +110,10 @@ will need to become a graphic.
     margin: 0;
     padding: 0;
     vertical-align: middle;
+}
+
+* html #topnav .searchRadios span { /* IE ONLY */
+    font-size: xx-small;
 }
 
 #topnav .searchRadios input {
