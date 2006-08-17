@@ -163,7 +163,7 @@
         </td>
         <td id="billsBlog">
             <div>
-                <h3>BILL'S BLOG</h3><h4>Founder &amp;amp; CEO of GreatSchools</h4>
+                <a href="http://billsblog.greatschools.net" target="_new"><h3>BILL'S BLOG</h3><h4>Founder &amp;amp; CEO of GreatSchools</h4></a>
 
                 <div class="rss">
                     <cache:cache scope="application" name="blog" key="bill3">
