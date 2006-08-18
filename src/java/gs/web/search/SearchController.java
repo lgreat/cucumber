@@ -295,7 +295,7 @@ public class SearchController extends AbstractFormController {
         if (resultsToShow) { // was hits != null && hits.length() > 0
             String paramType = searchCommand.getType();
             if ("topic".equals(paramType)) {
-                heading1 = "Topic results";
+                heading1 = "Article results";
             } else if ("school".equals(paramType)) {
                 heading1 = "School results";
             } else {
