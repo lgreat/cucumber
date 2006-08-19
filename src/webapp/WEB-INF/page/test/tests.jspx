@@ -9,24 +9,8 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
           xmlns:gsweb="gstaglib"
+          xmlns:display="urn:jsptld:http://displaytag.sf.net"
         >
-    <jsp:directive.page import="gs.data.geo.IGeoDao"/>
-    <jsp:directive.page import="gs.data.school.ISchoolDao"/>
-    <jsp:directive.page import="gs.web.util.context.ISessionContext"/>
-    <jsp:directive.page import="gs.web.util.context.SessionContext"/>
-    <jsp:directive.page import="org.springframework.context.ApplicationContext"/>
-    <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
-    <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
-    <jsp:directive.page import="gs.data.state.State"/>
-    <jsp:directive.page import="gs.data.test.ITestDataSetDao"/>
-    <jsp:directive.page import="java.util.List"/>
-    <jsp:directive.page import="gs.data.test.TestDataSetDaoHibernate"/>
-    <jsp:directive.page import="gs.data.test.TestDataTypeDaoHibernate"/>
-    <jsp:directive.page import="java.util.Iterator"/>
-    <jsp:directive.page import="gs.data.school.Grades"/>
-    <jsp:directive.page import="gs.data.school.Grade"/>
-    <jsp:directive.page import="java.util.ArrayList"/>
-    <jsp:directive.page import="gs.data.test.TestManager"/>
     <html lang="en">
 
     <jsp:output doctype-root-element="html"
@@ -34,79 +18,93 @@
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
     <jsp:directive.page contentType="text/html"/>
-    <jsp:scriptlet>
-        ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        ApplicationContext ac = sessionContext.getApplicationContext();
-
-        String yearStr = request.getParameter("year");
-        int year = Integer.parseInt(yearStr);
-
-        State state = sessionContext.getState();
-
-        TestDataSetDaoHibernate testDataSetDao = (TestDataSetDaoHibernate) ac.getBean(ITestDataSetDao.BEAN_ID);
-
-        List subjectIds = testDataSetDao.findSubjects(state, year);
-        pageContext.setAttribute("subjectIds", subjectIds);
-
-        TestManager testManager = (TestManager) ac.getBean(TestManager.BEAN_ID);
-        List subjects= new ArrayList();
-        for (Iterator iter = subjectIds.iterator(); iter.hasNext();) {
-            Integer id = (Integer) iter.next();
-            subjects.add(testManager.getSubjectFromId(id.intValue()));
-        }
-        pageContext.setAttribute("subjects", subjects);
-
-
-        List dataTypeIds = testDataSetDao.findDataTypeIds(state, year);
-        pageContext.setAttribute("dataTypeIds", dataTypeIds);
-
-        TestDataTypeDaoHibernate testDataTypeDao = (TestDataTypeDaoHibernate) ac.getBean(TestDataTypeDaoHibernate.BEAN_ID);
-        List dataTypes = new ArrayList();
-        for (Iterator iter = dataTypeIds.iterator(); iter.hasNext();) {
-            Integer id = (Integer) iter.next();
-            dataTypes.add(testDataTypeDao.getDataType(id.intValue()));
-        }
-        pageContext.setAttribute("dataTypes", dataTypes);
-
-        pageContext.setAttribute("allGrades", Grades.createGrades(Grade.KINDERGARTEN, Grade.G_12));
-
-        for (Iterator iter = Grade.iterator(); iter.hasNext();) {
-            Grade grade = (Grade) iter.next();
-            List list = testDataSetDao.findDataSets(state, year, null, null, grade, true);
-            pageContext.setAttribute(grade.getName(), list);
-        }
-
-    </jsp:scriptlet>
 
     <head>
-        <title></title>
+        <title>Title page</title>
         <style>
+            div#subjects, div#dataTypes {
+                float:right;
+                margin-left: 3ex;
+                margin-bottom: 1ex;
+                width: 30ex;
+                padding: 2ex;
+                clear: right;
+                background-color: cornsilk;
+            }
+            #contentGS h1 {
+                font-size: x-large;
+            }
+            #contentGS h2 {
+                font-size: small;
+                margin-bottom: 3ex;
+            }
+            #contentGS h3 {
+                font-weight: bold;
+                padding-bottom: 1ex;
+                color: #666;
+            }
+
+            table#testDataSets tr th {
+                background-color: cornsilk;
+            }
+            table#testDataSets tr td {
+                padding: 3px 20px 3px 20px;
+                text-align: center;
+            }
         </style>
-        <pageHelper:setPathway pathway="1"/>
     </head>
 
     <gsml:body adPageName="modal" pageLayout="research">
-        <table>
-            <tr>
-                <th>Subjects:</th>
-                <c:forEach var="dt" items="${pageScope.subjects}">
-                    <th>
-                        ${dt.name}
-                    </th>
+
+        <div id="subjects">
+            <h3>${requestScope.context.state} Subjects:</h3>
+            <ul>
+                <c:forEach var="s" items="${requestScope.subjectNames}">
+                    <li>${s}</li>
                 </c:forEach>
-            </tr>
-            <tr>
-                <c:forEach var="dt" items="${pageScope.dataTypeIds}">
-                    <th>
-                        ${dt}
-                    </th>
+            </ul>
+        </div>
+        <div id="dataTypes">
+
+            <h3>${requestScope.context.state} Data types:</h3>
+            <ul>
+                <c:forEach var="s" items="${requestScope.dataTypes}">
+                    <li>${s.name} - ${s.description}</li>
                 </c:forEach>
+            </ul>
+        </div>
+
+        <h1>${requestScope.context.state.longName} Tests ${requestScope.yearStr}</h1>
+        <h2>
+            <a href="tests.page?year=${year - 1}">&lt; Last Year</a> &#160;
+            <a href="tests.page?year=${year + 1}">Next Year &gt;</a>
+        </h2>
+
+        <h3>${requestScope.context.state} Test Data Sets:</h3>
+
+        <table id="testDataSets">
+            <tr>
+                <td>ID</td>
+                <td>Data Type</td>
+                <td>Level</td>
+                <td>Subject</td>
+                <td>Breakdown</td>
             </tr>
-            <c:forTokens delims="," var="g" items="${allGrades.commaSeparatedString}">
+            <c:forEach var="testInfo" items="${requestScope.testInfo}">
                 <tr>
-                    <td>${g}</td>
+                    <th colspan="6">Grade ${testInfo.grade}</th>
                 </tr>
-            </c:forTokens>
+
+                <c:forEach var="dataSet" items="${testInfo.testDataSets}">
+                    <tr>
+                        <td>${dataSet.id}</td>
+                        <td>${dataSet.dataTypeId}</td>
+                        <td>${dataSet.levelCode}</td>
+                        <td>${dataSet.subjectId}</td>
+                        <td>${dataSet.breakdownId}</td>
+                    </tr>
+                </c:forEach>
+            </c:forEach>
         </table>
 
 
