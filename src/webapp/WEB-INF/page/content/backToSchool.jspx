@@ -49,12 +49,12 @@
                     <li class="byGrade">Browse by grade:<br />
                         <table>
                             <tr>
-                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/622" styleClass="by_k"></gsml:a></td>
-                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/623" styleClass="by_1"></gsml:a></td>
-                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/624" styleClass="by_2"></gsml:a></td>
-                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/625" styleClass="by_3"></gsml:a></td>
-                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/625" styleClass="by_4"></gsml:a></td>
-                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/625" styleClass="by_5"></gsml:a></td>
+                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/661" styleClass="by_k"></gsml:a></td>
+                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/662" styleClass="by_1"></gsml:a></td>
+                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/664" styleClass="by_2"></gsml:a></td>
+                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/666" styleClass="by_3"></gsml:a></td>
+                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/653" styleClass="by_4"></gsml:a></td>
+                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/654" styleClass="by_5"></gsml:a></td>
                             </tr>
                         </table>
                     </li>
@@ -77,8 +77,8 @@
                                 <td><gsml:a href="/cgi-bin/showarticle/$STATE/623" styleClass="by_1"></gsml:a></td>
                                 <td><gsml:a href="/cgi-bin/showarticle/$STATE/624" styleClass="by_2"></gsml:a></td>
                                 <td><gsml:a href="/cgi-bin/showarticle/$STATE/625" styleClass="by_3"></gsml:a></td>
-                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/625" styleClass="by_4"></gsml:a></td>
-                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/625" styleClass="by_5"></gsml:a></td>
+                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/677" styleClass="by_4"></gsml:a></td>
+                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/678" styleClass="by_5"></gsml:a></td>
                             </tr>
                         </table>
                     </li>
@@ -88,15 +88,13 @@
                     <gsweb:articlelink articleId="691" wrappingElement="li"/>
                     <gsweb:articlelink articleId="340" wrappingElement="li"/>
                     <gsweb:articlelink articleId="399" wrappingElement="li"/>
-                    <li class="byGrade">Learning games by grade:<br />
+                    <li class="byGrade">Browse by grade:<br />
                         <table>
                             <tr>
-                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/622" styleClass="by_k"></gsml:a></td>
-                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/623" styleClass="by_1"></gsml:a></td>
-                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/624" styleClass="by_2"></gsml:a></td>
-                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/625" styleClass="by_3"></gsml:a></td>
-                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/625" styleClass="by_4"></gsml:a></td>
-                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/625" styleClass="by_5"></gsml:a></td>
+                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/660" styleClass="by_k"></gsml:a></td>
+                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/663" styleClass="by_1"></gsml:a></td>
+                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/665" styleClass="by_2"></gsml:a></td>
+                                <td><gsml:a href="/cgi-bin/showarticle/$STATE/668" styleClass="by_3"></gsml:a></td>
                             </tr>
                         </table>
                     </li>
@@ -132,7 +130,7 @@
                 <ul>
                     <gsweb:articlelink articleId="4" wrappingElement="li"/>
                     <gsweb:articlelink articleId="60" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="327" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="332" wrappingElement="li"/>
                     <gsweb:articlelink articleId="325" wrappingElement="li"/>
                     <gsweb:articlelink articleId="191" wrappingElement="li"/>
                     <gsweb:articlelink articleId="310" wrappingElement="li"/>
@@ -196,7 +194,7 @@
                 </table>
 
                  <table style="width: 100%; color: #fff;padding-top: 10px; margin-top: 10px;border-top: 1px dotted #cccccc;" cellspacing="10">
-                        <tr><td colspan="2"><gsml:img src="/res/img/content/backtoschool/special_K3.gif" alt="Tips and Advice by Grade Level"></gsml:img></td></tr>
+                        <tr><td colspan="2"><gsml:img src="/res/img/content/backtoschool/special_K5.gif" alt="Tips and Advice by Grade Level"></gsml:img></td></tr>
                         <tr>
                             <td><promo:nthGraderHover referredBy="${pageName}" autocheck="myk"><gsml:img src="/res/img/content/backtoschool/yourKinder.gif" alt="Tips and Advice for Your Kindergartener"></gsml:img></promo:nthGraderHover></td>
                             <td><promo:nthGraderHover referredBy="${pageName}" autocheck="my1"><gsml:img src="/res/img/content/backtoschool/yourFirst.gif" alt="Tips and Advice for Your First-Grader"></gsml:img></promo:nthGraderHover></td>
