@@ -154,6 +154,7 @@
             </div>
         </c:if>
     </c:forEach>
+    <gsml:a href="/cgi-bin/glossary_home/$STATE"><h2>Glossary of Education Terms</h2></gsml:a>
 </div>
     <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
