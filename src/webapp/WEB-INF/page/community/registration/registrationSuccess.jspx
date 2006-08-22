@@ -39,16 +39,24 @@
               text-align: center;
           }
 
-          label.familyInput {
-              width: 204px;
+          label.childname {
+              width: 154px;
+          }
+
+          label.schoolname {
+              width: 254px;
           }
 
           label.familySelect, select.family {
               width: 50px;
           }
 
-          input.family {
-              width: 200px;
+          input.childname {
+              width: 150px;
+          }
+
+          input.schoolname {
+              width: 250px;
           }
 
           label.form, input.form, select.form {
@@ -113,9 +121,9 @@
       <c:choose>
           <c:when test="${followUpCmd.userProfile.numSchoolChildren > 0}">
               <h2 class="header">My Family</h2>
-              <label class="familyInput">Child name</label>
+              <label class="familyInput childname">Child name</label>
               <label class="familySelect">Grade</label>
-              <label class="familyInput">School</label>
+              <label class="familyInput schoolname">School</label>
               <label class="familySelect">State</label>
               <c:forEach var="child" begin="1" end="${followUpCmd.userProfile.numSchoolChildren}">
                   <br style="clear: left;"/>
@@ -143,9 +151,9 @@
                           <c:set var="stateVal" value="${followUpCmd.students[child-1].state}"/>
                       </c:if>
                   </c:if>
-                  <input class="family" id="childname${child}" type="text" name="childname${child}" value="${nameVal}"/>
+                  <input class="family childname" id="childname${child}" type="text" name="childname${child}" value="${nameVal}"/>
                   <gsweb:gradeSelector name="grade${child}" styleClass="family" grade="${gradeVal}"/>
-                  <input class="family" id="school${child}" type="text" name="school${child}" value="${schoolVal}"/>
+                  <input class="family schoolname" id="school${child}" type="text" name="school${child}" value="${schoolVal}"/>
                   <input type="hidden" id="schoolId${child}" name="schoolId${child}" value="${schoolIdVal}"/>
                   <gsweb:stateSelector name="state${child}" styleId="state${child}" state="${stateVal}" styleClass="family"/>
 

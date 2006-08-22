@@ -137,7 +137,7 @@
 
         <label for="stateSelector" class="form">State:</label>
         <spring:bind path="userCmd.state">
-            <gsweb:stateSelector state="${requestScope.context.stateOrDefault}"/>
+            <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"/>
         </spring:bind>
 
         <br style="clear: left;"/>

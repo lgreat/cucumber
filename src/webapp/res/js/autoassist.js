@@ -115,6 +115,8 @@ CAPXOUS.AutoComplete.prototype = {visible:false,complete:false,initialize:functi
     this.options = options || {};
     this.options.frequency = this.options.frequency || 0.4;
     this.options.minChars = this.options.minChars || 1;
+    // added by aroy: pixel value added to width of parent text field when sizing div
+    this.options.widthOffset = this.options.widthOffset || 0;
     this.timeout = 0;
     this.getURL = f;
     this.buf = document.createElement('div');
@@ -270,7 +272,8 @@ CAPXOUS.AutoComplete.prototype = {visible:false,complete:false,initialize:functi
     var tt = pos[1];
     var th = this.text.offsetHeight;
     var tl = pos[0];
-    var tw = this.text.offsetWidth;
+    // added by aroy: add the widthOffset option into width of div
+    var tw = this.text.offsetWidth + this.options.widthOffset;
     var wh = CAPXOUS.getWindowHeight();
     var pt;
     var of;
