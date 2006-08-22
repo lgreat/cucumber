@@ -118,58 +118,55 @@
 
   <gsweb:form action="/community/registrationSuccess.page" method="post">
 
-      <c:choose>
-          <c:when test="${followUpCmd.userProfile.numSchoolChildren > 0}">
-              <h2 class="header">My Family</h2>
-              <label class="familyInput childname">Child name</label>
-              <label class="familySelect">Grade</label>
-              <label class="familyInput schoolname">School</label>
-              <label class="familySelect">State</label>
-              <c:forEach var="child" begin="1" end="${followUpCmd.userProfile.numSchoolChildren}">
-                  <br style="clear: left;"/>
-                  <c:set var="nameVal" value="Child #${child}"/>
-                  <c:set var="gradeVal" value=""/>
-                  <c:set var="schoolIdVal" value=""/>
-                  <c:set var="stateVal" value="${followUpCmd.userProfile.state}"/>
-                  <c:set var="schoolVal" value=""/>
-                  <c:if test="${followUpCmd.numStudents ge child}">
-                      <spring:hasBindErrors name="followUpCmd">
-                          <spring:bind path="followUpCmd.students[${child-1}]">
-                              <c:if test="${status.errorMessage > ''}">
-                                  <div class="error">
-                                      ${status.errorMessage}
-                                  </div>
-                                  <input type="hidden" name="ignoreError${child}"/>
-                              </c:if>
-                          </spring:bind>
-                      </spring:hasBindErrors>
-                      <c:set var="nameVal" value="${followUpCmd.students[child-1].name}"/>
-                      <c:set var="gradeVal" value="${followUpCmd.students[child-1].grade}"/>
-                      <c:set var="schoolVal" value="${followUpCmd.schoolNames[child-1]}"/>
-                      <c:set var="schoolIdVal" value="${followUpCmd.students[child-1].schoolId}"/>
-                      <c:if test="${followUpCmd.students[child-1].state != null}">
-                          <c:set var="stateVal" value="${followUpCmd.students[child-1].state}"/>
+      <h2 class="header">My Family</h2>
+      <label class="familyInput childname">Child name</label>
+      <label class="familySelect">Grade</label>
+      <label class="familyInput schoolname">School</label>
+      <label class="familySelect">State</label>
+      <c:set var="loopTimes" value="1"/>
+      <c:if test="${followUpCmd.userProfile.numSchoolChildren gt 1}">
+          <c:set var="loopTimes" value="${followUpCmd.userProfile.numSchoolChildren}"/>
+      </c:if>
+      <c:forEach var="child" begin="1" end="${loopTimes}">
+          <br style="clear: left;"/>
+          <c:set var="nameVal" value="Child #${child}"/>
+          <c:set var="gradeVal" value=""/>
+          <c:set var="schoolIdVal" value=""/>
+          <c:set var="stateVal" value="${followUpCmd.userProfile.state}"/>
+          <c:set var="schoolVal" value=""/>
+          <c:if test="${followUpCmd.numStudents ge child}">
+              <spring:hasBindErrors name="followUpCmd">
+                  <spring:bind path="followUpCmd.students[${child-1}]">
+                      <c:if test="${status.errorMessage > ''}">
+                          <div class="error">
+                      ${status.errorMessage}
+                          </div>
+                          <input type="hidden" name="ignoreError${child}"/>
                       </c:if>
-                  </c:if>
-                  <input class="family childname" id="childname${child}" type="text" name="childname${child}" value="${nameVal}"/>
-                  <gsweb:gradeSelector name="grade${child}" styleClass="family" grade="${gradeVal}"/>
-                  <input class="family schoolname" id="school${child}" type="text" name="school${child}" value="${schoolVal}"/>
-                  <input type="hidden" id="schoolId${child}" name="schoolId${child}" value="${schoolIdVal}"/>
-                  <gsweb:stateSelector name="state${child}" styleId="state${child}" state="${stateVal}" styleClass="family"/>
+                  </spring:bind>
+              </spring:hasBindErrors>
+              <c:set var="nameVal" value="${followUpCmd.students[child-1].name}"/>
+              <c:set var="gradeVal" value="${followUpCmd.students[child-1].grade}"/>
+              <c:set var="schoolVal" value="${followUpCmd.schoolNames[child-1]}"/>
+              <c:set var="schoolIdVal" value="${followUpCmd.students[child-1].schoolId}"/>
+              <c:if test="${followUpCmd.students[child-1].state != null}">
+                  <c:set var="stateVal" value="${followUpCmd.students[child-1].state}"/>
+              </c:if>
+          </c:if>
+          <input class="family childname" id="childname${child}" type="text" name="childname${child}" value="${nameVal}"/>
+          <gsweb:gradeSelector name="grade${child}" styleClass="family" grade="${gradeVal}"/>
+          <input class="family schoolname" id="school${child}" type="text" name="school${child}" value="${schoolVal}"/>
+          <input type="hidden" id="schoolId${child}" name="schoolId${child}" value="${schoolIdVal}"/>
+          <gsweb:stateSelector name="state${child}" styleId="state${child}" state="${stateVal}" styleClass="family"/>
 
-                  <c:if test="${child == followUpCmd.userProfile.numSchoolChildren and child gt 1}">
-                      <input class="form" type="submit" value="Remove this child" name="removeChild"/>
-                  </c:if>
-              </c:forEach>
-              <br style="clear: left;"/>
-              <input class="form" type="submit" value="Add another child" name="addChild"/>
-              <br style="clear: left;"/>
-              <hr/>
-          </c:when>
-          <c:otherwise>
-              <p></p>
-          </c:otherwise>
-      </c:choose>
+          <c:if test="${child == followUpCmd.userProfile.numSchoolChildren and child gt 1}">
+              <input class="form" type="submit" value="Remove this child" name="removeChild"/>
+          </c:if>
+      </c:forEach>
+      <br style="clear: left;"/>
+      <input class="form" type="submit" value="Add another child" name="addChild"/>
+      <br style="clear: left;"/>
+      <hr/>
 
       <h2 class="header">A little about me</h2>
       <div class="error">

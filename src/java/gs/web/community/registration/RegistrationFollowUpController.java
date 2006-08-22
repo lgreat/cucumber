@@ -61,76 +61,80 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         String realHash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
         if (!realHash.equals(hash)) {
             _log.warn("Registration follow-up request with invalid hash: " + hash);
+            // TODO: this error is never caught by the page
             errors.rejectValue("id", "bad_hash",
                     "We're sorry, we cannot validate your request at this time. Once " +
                             "your account is validated, please update your profile again.");
         }
 
-        if (user.getUserProfile().getNumSchoolChildren() != null) {
-            for (int x=0; x < user.getUserProfile().getNumSchoolChildren().intValue(); x++) {
-                int childNum = x+1;
-                // collect as much info as possible
-                String childname = request.getParameter("childname" + childNum);
-                String sGrade = request.getParameter("grade" + childNum);
-                String schoolName = request.getParameter("school" + childNum);
-                String schoolId = request.getParameter("schoolId" + childNum);
-                String sState = request.getParameter("state" + childNum);
+        int loopCount = 1; // always loop at least once
+        Integer numSchoolChildren = user.getUserProfile().getNumSchoolChildren();
+        if (numSchoolChildren != null && numSchoolChildren.intValue() > 1) {
+            loopCount = numSchoolChildren.intValue();
+        }
+        for (int x=0; x < loopCount; x++) {
+            int childNum = x+1;
+            // collect as much info as possible
+            String childname = request.getParameter("childname" + childNum);
+            String sGrade = request.getParameter("grade" + childNum);
+            String schoolName = request.getParameter("school" + childNum);
+            String schoolId = request.getParameter("schoolId" + childNum);
+            String sState = request.getParameter("state" + childNum);
 
-                Grade grade = null;
-                if (!StringUtils.isEmpty(sGrade)) {
-                    grade = Grade.getGradeLevel(sGrade);
+            Grade grade = null;
+            if (!StringUtils.isEmpty(sGrade)) {
+                grade = Grade.getGradeLevel(sGrade);
+            }
+            State state = null;
+            if (!StringUtils.isEmpty(sState)) {
+                state = _stateManager.getState(sState);
+            }
+            School school = null;
+            if (!StringUtils.isEmpty(schoolId)) {
+                try {
+                    school = _schoolDao.getSchoolById(state, new Integer(schoolId));
+                } catch (ObjectRetrievalFailureException orfe) {
+                    _log.warn("Can't find school corresponding to selection: " + schoolName + "(" +
+                            schoolId + ")");
                 }
-                State state = null;
-                if (!StringUtils.isEmpty(sState)) {
-                    state = _stateManager.getState(sState);
+            }
+            if (school != null && !school.getName().equals(schoolName)) {
+                // if the name doesn't match, ignore the school ... they've probably tried to blank out
+                // the field
+                school = null;
+            }
+            boolean gradeError = false;
+            if (school != null) {
+                Grades schoolGrades = school.getGradeLevels();
+                if (!schoolGrades.contains(grade)) {
+                    gradeError = true;
+                    // can't register error here because property hasn't been set yet
+                    // (will get an array index out of bounds exception)
                 }
-                School school = null;
-                if (!StringUtils.isEmpty(schoolId)) {
-                    try {
-                        school = _schoolDao.getSchoolById(state, new Integer(schoolId));
-                    } catch (ObjectRetrievalFailureException orfe) {
-                        _log.warn("Can't find school corresponding to selection: " + schoolName + "(" +
-                                schoolId + ")");
-                    }
-                }
-                if (school != null && !school.getName().equals(schoolName)) {
-                    // if the name doesn't match, ignore the school ... they've probably tried to blank out
-                    // the field
-                    school = null;
-                }
-                boolean gradeError = false;
-                if (school != null) {
-                    Grades schoolGrades = school.getGradeLevels();
-                    if (!schoolGrades.contains(grade)) {
-                        gradeError = true;
-                        // can't register error here because property hasn't been set yet
-                        // (will get an array index out of bounds exception)
-                    }
-                }
-                Student student = new Student();
-                student.setName(childname);
-                student.setGrade(grade);
-                student.setState(state);
-                if (school != null) {
-                    student.setSchool(school);
-                    fupCommand.addSchoolName(school.getName());
-                } else {
-                    fupCommand.addSchoolName(""); // to avoid index out of bounds exceptions
-                }
-                student.setOrder(new Integer(childNum));
-                fupCommand.addStudent(student);
-                if (gradeError) {
-                    // Always provide the error message if they are adding/removing children.
-                    // Only provide the error message once if they are submitting (i.e. allow them
-                    // to override).
-                    if (request.getParameter("addChild") != null ||
-                            request.getParameter("removeChild") != null ||
-                            request.getParameter("ignoreError" + childNum) == null) {
-                        errors.rejectValue("students[" + x + "]", "bad_grade",
-                                "According to our records, the selected grade does not " +
-                                        "exist in that school. Click on \"Submit\" below to " +
-                                        "override this error.");
-                    }
+            }
+            Student student = new Student();
+            student.setName(childname);
+            student.setGrade(grade);
+            student.setState(state);
+            if (school != null) {
+                student.setSchool(school);
+                fupCommand.addSchoolName(school.getName());
+            } else {
+                fupCommand.addSchoolName(""); // to avoid index out of bounds exceptions
+            }
+            student.setOrder(new Integer(childNum));
+            fupCommand.addStudent(student);
+            if (gradeError) {
+                // Always provide the error message if they are adding/removing children.
+                // Only provide the error message once if they are submitting (i.e. allow them
+                // to override).
+                if (request.getParameter("addChild") != null ||
+                        request.getParameter("removeChild") != null ||
+                        request.getParameter("ignoreError" + childNum) == null) {
+                    errors.rejectValue("students[" + x + "]", "bad_grade",
+                            "According to our records, the selected grade does not " +
+                                    "exist in that school. Click on \"Submit\" below to " +
+                                    "override this error.");
                 }
             }
         }
@@ -140,8 +144,10 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             // refresh the page with an additional child
             UserProfile userProfile = user.getUserProfile();
             Integer numChildren = userProfile.getNumSchoolChildren();
-            if (numChildren == null) {
-                numChildren = new Integer(1);
+            if (numChildren == null || numChildren.intValue() == 0) {
+                // there is always one row on the page, so the minimum outcome from clicking
+                // add is two rows.
+                numChildren = new Integer(2);
             } else {
                 numChildren = new Integer(numChildren.intValue() + 1);
             }
@@ -159,7 +165,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             // remove a child row. See addChild for additional notes
             UserProfile userProfile = user.getUserProfile();
             Integer numChildren = userProfile.getNumSchoolChildren();
-            if (numChildren == null || numChildren.intValue() <= 0) {
+            if (numChildren == null || numChildren.intValue() < 1) {
                 numChildren = new Integer(0);
             } else {
                 numChildren = new Integer(numChildren.intValue() - 1);
@@ -188,8 +194,25 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         // update existing profile with new information
         existingProfile.setAboutMe(profile.getAboutMe());
         existingProfile.setPrivate(profile.isPrivate());
-        for (int x=0; x < fupCommand.getStudents().size(); x++) {
-            user.addStudent((Student)fupCommand.getStudents().get(x));
+        if (existingProfile.getNumSchoolChildren().intValue() == 0) {
+            // there is an odd case where they specified 0 children but then entered
+            // a child's info in the default provided field.
+            // try to detect this case, and increment their number of children.
+            if (fupCommand.getStudents().size() == 1) {
+                Student student = (Student) fupCommand.getStudents().get(0);
+                // grade and state are automatically set, so only check the child name and
+                // school id fields. If either of those have changed, assume they changed
+                // their mind and actually have one child
+                if (student.getSchoolId() != null ||
+                        (student.getName() != null && !student.getName().equals("Child #1"))) {
+                    user.addStudent(student);
+                    existingProfile.setNumSchoolChildren(new Integer(1));
+                }
+            }
+        } else {
+            for (int x=0; x < fupCommand.getStudents().size(); x++) {
+                user.addStudent((Student)fupCommand.getStudents().get(x));
+            }
         }
         // save
         _userDao.updateUser(user);
