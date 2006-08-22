@@ -19,7 +19,7 @@ Event.observe(window, "load", function() {
             new AutoAssist("school" + i, function () {
                 var stateSelector = $("state" + i);
                 var state = stateSelector.options[stateSelector.selectedIndex].value;
-                return "http://apeterson.dev.greatschools.net/cgi-bin/ajax_autocomplete.pl?type=school&param3=" + i +
+                return "/cgi-bin/ajax_autocomplete.pl?type=school&param3=" + i +
                        "&fn=setKidsSchool&q=" + this.text.value + "&state=" + state;
             }, autoAssistOptions);
             loop(i+1);
