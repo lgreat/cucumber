@@ -43,6 +43,7 @@ I'd like to use a consistent display of school information in the info window.
     </jsp:scriptlet>
     <script type="text/javascript">
  //<![CDATA[
+ <!--
  function addBubble(m, link, name, schInfo, stInfo) {
      GEvent.addListener(m, "click", function() {
          var s = '<div style="font-size:small;width: 200px;height: 20px"><a href="' + link + '">' + name + '</a>' +
@@ -113,6 +114,7 @@ I'd like to use a consistent display of school information in the info window.
        map.setZoom(zoom);
    }
  }
+    -->
     //]]>
     </script>
 
