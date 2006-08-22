@@ -17,11 +17,40 @@
 <jsp:directive.page contentType="text/html"/><html>
   <head>
       <title>Registration Successful!</title>
+      <pageHelper:externalJavascript file="/res/js/prototype.js"/>
+      <pageHelper:externalJavascript file="/res/js/autoassist.js"/>
+      <pageHelper:externalCss file="/res/css/community/autoassist.css"/>
+      <pageHelper:externalJavascript file="/res/js/registrationSuccess.js"/>
       <style type="text/css">
           h2.header {
               font-size: large;
               margin-bottom: 5px;
           }
+
+          label.familyInput, label.familySelect, input.family, select.family {
+              margin-right: 15px;
+              margin-bottom: 10px;
+              display: block;
+              float: left;
+          }
+
+          label.familyInput, label.familySelect {
+              margin-top: 10px;
+              text-align: center;
+          }
+
+          label.familyInput {
+              width: 204px;
+          }
+
+          label.familySelect, select.family {
+              width: 50px;
+          }
+
+          input.family {
+              width: 200px;
+          }
+
           label.form, input.form, select.form {
                margin-bottom: 10px;
                display: block;
@@ -30,26 +59,23 @@
            }
 
           input.checkbox {
-              margin-top: 5px;
+              margin-top: 7px;
               display: block;
               float: left;
           }
 
           label.checkbox {
+              margin-top: 5px;
               text-align: left;
-              width:120px;
+              width:320px;
               padding-left: 20px;
+              display: block;
+              float: left;
           }
 
           label.textarea {
               padding-bottom: 5px;
           }
-
-           label.form {
-               text-align: right;
-               width: 120px;
-               padding-right: 20px;
-           }
 
           .privacy {
                font-size: smaller;
@@ -63,31 +89,79 @@
                 display:block;
                 padding:8px;
             }
+          p.intro {
+              margin-bottom: 10px;
+              font-size: medium;
+          }
       </style>
   </head>
   <body>
     <h2 class="header">Thanks for registering, and welcome to the Greatschools Network!</h2>
-    <p>A confirmation email has been sent to you at: ${email}</p>
-    <p>Click the link in that email to confirm your address and fully activate
-    your account.</p>
+    <c:if test="${email > ''}">
+        <p>A confirmation email has been sent to you at: ${email}</p>
+        <p>Click the link in that email to confirm your address and fully activate
+        your account.</p>
+    </c:if>
   <hr/>
-  <p>Take a minute to fill out your profile - it is an opportunity to share a little
+  <p class="intro">Take a minute to fill out your profile - it is an opportunity to share a little
   about yourself with others in the GreatSchools Network.</p>
 
     <br/>
 
   <gsweb:form action="/community/registrationSuccess.page" method="post">
 
-      <!--
-      <p>You have <c:out value="${followUpCmd.userProfile.numSchoolChildren}"/> children K-12.</p>
-      <c:if test="${followUpCmd.userProfile.numSchoolChildren > 0}">
-          <h2>My Family</h2>
-          <c:forEach var="child" begin="1" end="${followUpCmd.userProfile.numSchoolChildren}">
-              <p>Child #<c:out value="${child}"/>.</p>
-          </c:forEach>
-      </c:if>
-      <hr/>
-      -->
+      <c:choose>
+          <c:when test="${followUpCmd.userProfile.numSchoolChildren > 0}">
+              <h2 class="header">My Family</h2>
+              <label class="familyInput">Child name</label>
+              <label class="familySelect">Grade</label>
+              <label class="familyInput">School</label>
+              <label class="familySelect">State</label>
+              <c:forEach var="child" begin="1" end="${followUpCmd.userProfile.numSchoolChildren}">
+                  <br style="clear: left;"/>
+                  <c:set var="nameVal" value="Child #${child}"/>
+                  <c:set var="gradeVal" value=""/>
+                  <c:set var="schoolIdVal" value=""/>
+                  <c:set var="stateVal" value="${followUpCmd.userProfile.state}"/>
+                  <c:set var="schoolVal" value=""/>
+                  <c:if test="${followUpCmd.numStudents ge child}">
+                      <spring:hasBindErrors name="followUpCmd">
+                          <spring:bind path="followUpCmd.students[${child-1}]">
+                              <c:if test="${status.errorMessage > ''}">
+                                  <div class="error">
+                                      ${status.errorMessage}
+                                  </div>
+                                  <input type="hidden" name="ignoreError${child}"/>
+                              </c:if>
+                          </spring:bind>
+                      </spring:hasBindErrors>
+                      <c:set var="nameVal" value="${followUpCmd.students[child-1].name}"/>
+                      <c:set var="gradeVal" value="${followUpCmd.students[child-1].grade}"/>
+                      <c:set var="schoolVal" value="${followUpCmd.schoolNames[child-1]}"/>
+                      <c:set var="schoolIdVal" value="${followUpCmd.students[child-1].schoolId}"/>
+                      <c:if test="${followUpCmd.students[child-1].state != null}">
+                          <c:set var="stateVal" value="${followUpCmd.students[child-1].state}"/>
+                      </c:if>
+                  </c:if>
+                  <input class="family" id="childname${child}" type="text" name="childname${child}" value="${nameVal}"/>
+                  <gsweb:gradeSelector name="grade${child}" styleClass="family" grade="${gradeVal}"/>
+                  <input class="family" id="school${child}" type="text" name="school${child}" value="${schoolVal}"/>
+                  <input type="hidden" id="schoolId${child}" name="schoolId${child}" value="${schoolIdVal}"/>
+                  <gsweb:stateSelector name="state${child}" styleId="state${child}" state="${stateVal}" styleClass="family"/>
+
+                  <c:if test="${child == followUpCmd.userProfile.numSchoolChildren and child gt 1}">
+                      <input class="form" type="submit" value="Remove this child" name="removeChild"/>
+                  </c:if>
+              </c:forEach>
+              <br style="clear: left;"/>
+              <input class="form" type="submit" value="Add another child" name="addChild"/>
+              <br style="clear: left;"/>
+              <hr/>
+          </c:when>
+          <c:otherwise>
+              <p></p>
+          </c:otherwise>
+      </c:choose>
 
       <h2 class="header">A little about me</h2>
       <div class="error">
@@ -102,7 +176,14 @@
       <br style="clear: left;"/>
 
       <spring:bind path="followUpCmd.userProfile.private">
-          <input class="checkbox" type="checkbox" name="private" id="private"/>
+          <c:choose>
+              <c:when test="${followUpCmd.userProfile.private == true}">
+                  <input class="checkbox" type="checkbox" name="private" id="private" checked="checked"/>
+              </c:when>
+              <c:otherwise>
+                  <input class="checkbox" type="checkbox" name="private" id="private"/>
+              </c:otherwise>
+          </c:choose>
       </spring:bind>
       <label for="private" class="checkbox">Check the box if you wish for this to be private.</label>
 
@@ -113,7 +194,14 @@
           <input id="id" type="hidden" name="id" value="${followUpCmd.user.id}"/>
       </spring:bind>
 
-      <input id="marker" type="hidden" name="marker" value="${idString}"/>
+      <c:choose>
+          <c:when test="${idString != null}">
+              <input id="marker" type="hidden" name="marker" value="${idString}"/>
+          </c:when>
+          <c:otherwise>
+              <input id="marker" type="hidden" name="marker" value="${followUpCmd.marker}"/>
+          </c:otherwise>
+      </c:choose>
 
       <input class="form" type="submit" value="Submit" name="submit"/>
       <div class="privacy">By submitting, I agree to the <link:termsOfUse>Terms of Service</link:termsOfUse></div>

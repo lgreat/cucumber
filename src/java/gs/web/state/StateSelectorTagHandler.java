@@ -32,6 +32,7 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
     private String _onChange = null;
     private State _state;
     private String _noStateLabel = "--";
+    private String _name = "state"; // default
 
     private static final StateManager _stateManager;
 
@@ -58,6 +59,14 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
      */
     public void setStyleClass(String styleClass) {
         _styleClass = styleClass;
+    }
+
+    /**
+     * This option allows you to set the name of the state dropdown
+     * @param name - name for the tag
+     */
+    public void setName(String name) {
+        _name = name;
     }
 
     /**
@@ -112,7 +121,7 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
         JspWriter out = getJspContext().getOut();
         out.print("<select id=\"");
         out.print(_styleId);
-        out.print("\" name=\"state\"");
+        out.print("\" name=\"" + _name + "\"");
         if (_styleClass != null) {
             out.print(" class=\"" + _styleClass + "\"");
         }

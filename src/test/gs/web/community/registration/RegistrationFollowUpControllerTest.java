@@ -33,6 +33,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
         try {
             userProfile.setUser(user);
+            userProfile.setNumSchoolChildren(new Integer(0));
             user.setUserProfile(userProfile);
             _userDao.updateUser(user);
 

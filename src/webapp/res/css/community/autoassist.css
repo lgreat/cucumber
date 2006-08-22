@@ -1,0 +1,36 @@
+.aa * {
+	font-family:'Lucida Grande','Lucida Sans Unicode',sans-serif;
+	font-size:10px;
+}
+.aa {
+	background-color:#fafafa;
+	border-width:1px;
+	border-color:#666;
+	border-style:solid;
+	padding:1px;
+	margin:0;
+	text-align:left;
+	line-height:1.2em;
+}
+.aa a {
+	color:#1C5C9A;
+	text-decoration:none;
+}
+.aa a:hover {
+	color:#6398CD;
+}
+.aa_highlight {
+	background-color:#ffe600;
+	color:#000000;
+}
+.aa_wait {
+	background:transparent url(../../img/community/indicator.gif);
+	background-repeat:no-repeat;
+	background-position:98% center;
+}
+.aa .row {
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	padding:3px;
+	text-align:left;
+}

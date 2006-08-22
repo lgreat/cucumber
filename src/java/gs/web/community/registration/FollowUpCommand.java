@@ -2,6 +2,10 @@ package gs.web.community.registration;
 
 import gs.data.community.User;
 import gs.data.community.UserProfile;
+import gs.data.community.Student;
+
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -9,10 +13,15 @@ import gs.data.community.UserProfile;
 public class FollowUpCommand {
     private User _user;
     private UserProfile _userProfile;
+    private List _students;
+    private String _marker;
+    private List _schoolNames;
 
     public FollowUpCommand() {
         _user = new User();
         _userProfile = new UserProfile();
+        _students = new ArrayList();
+        _schoolNames = new ArrayList();
     }
 
     public User getUser() {
@@ -52,7 +61,51 @@ public class FollowUpCommand {
         getUserProfile().setPrivate(isPrivate);
     }
 
+    public boolean isPrivate() {
+        return getPrivate();
+    }
+
     public boolean getPrivate() {
         return getUserProfile().isPrivate();
+    }
+
+    public String getMarker() {
+        return _marker;
+    }
+
+    public void setMarker(String marker) {
+        _marker = marker;
+    }
+
+    public List getStudents() {
+        return _students;
+    }
+
+    public void setStudents(List students) {
+        _students = students;
+    }
+
+    public void addStudent(Student student) {
+        getStudents().add(student);
+    }
+
+    public int getNumStudents() {
+        return getStudents().size();
+    }
+
+    public void setNumStudents(int _num) {
+        // ignore -- this is so JSTL treats this as a bean property
+    }
+
+    public List getSchoolNames() {
+        return _schoolNames;
+    }
+
+    public void setSchoolNames(List schoolNames) {
+        _schoolNames = schoolNames;
+    }
+
+    public void addSchoolName(String name) {
+        getSchoolNames().add(name);
     }
 }

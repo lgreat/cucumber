@@ -84,6 +84,52 @@
             <rtexprvalue>true</rtexprvalue>
             <type>gs.data.state.State</type>
         </attribute>
+        <attribute>
+            <name>name</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>gradeSelector</name>
+        <tag-class>gs.web.jsp.link.GradeSelectorTagHandler</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>useNoGrade</name>
+            <description>Set to true if there is a "null" grade option.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>noGradeLabel</name>
+            <description>The label to use for the first menu item, representing no or all grades.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <description>CSS class to assign to the select.</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>styleId</name>
+            <description>CSS id to assign to the select. Defaults to "gradeSelector"</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>grade</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.school.Grade</type>
+        </attribute>
+        <attribute>
+            <name>name</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>
