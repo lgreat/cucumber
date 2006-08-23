@@ -42,7 +42,7 @@ I'd like to use a consistent display of school information in the info window.
         }
     </jsp:scriptlet>
     <script type="text/javascript">
- //<![CDATA[
+ <![CDATA[
  <!--
  function addBubble(m, link, name, schInfo, stInfo) {
      GEvent.addListener(m, "click", function() {
@@ -57,20 +57,20 @@ I'd like to use a consistent display of school information in the info window.
        var i = 0;
        map = new GMap2(document.getElementById("${id}"));
 
-       //]]>
+       ]]>
        <c:if test="${tooltips}">
-       //<![CDATA[
+       <![CDATA[
        gTooltip = document.createElement("div");
        map.getPane(G_MAP_FLOAT_PANE).appendChild(gTooltip);
        gTooltip.style.visibility = "hidden";
-       //]]>
+       ]]>
        </c:if>
-       //<![CDATA[
+       <![CDATA[
        map.addControl(new GSmallMapControl());
        map.setCenter(new GLatLng(${center.lat}, ${center.lon}), ${17-scale});
        var bounds = new GLatLngBounds();
        bounds.extend(new GLatLng(${center.lat}, ${center.lon}))
-       //]]>
+       ]]>
       <c:forEach var="s" items="${schools}">
       <c:if test="${not empty s.lon}">
                  <c:choose>
@@ -83,7 +83,7 @@ I'd like to use a consistent display of school information in the info window.
                                       value="/modperl/browse_school/${s.databaseState.abbreviationLowerCase}/${s.id}"/>
                       </c:otherwise>
                    </c:choose>
-    //<![CDATA[
+       <![CDATA[
        var latlng = new GLatLng(${s.lat},${s.lon});
        var schInfo = "<br />${s.gradeLevels}, ${s.type.name}";
        var e = ${s.enrollment};
@@ -95,7 +95,7 @@ I'd like to use a consistent display of school information in the info window.
        map.addOverlay(marker);
        bounds.extend(latlng);
        gMarkers[i++] = marker;
-       //]]>
+       ]]>
        <c:if test="${tooltips}">
       setTooltipOnMarker(marker,'<span style="white-space:nowrap"><c:out value="${s.name}" escapeXml="true" /></span>');
        </c:if>
@@ -107,7 +107,7 @@ I'd like to use a consistent display of school information in the info window.
        </c:if>
       </c:if>
    </c:forEach>
-    //<![CDATA[
+    <![CDATA[
        var zoom = map.getBoundsZoomLevel(bounds);
        if (zoom > 12) zoom = 12;
        if (zoom < 9) zoom = 9;
@@ -115,7 +115,7 @@ I'd like to use a consistent display of school information in the info window.
    }
  }
     -->
-    //]]>
+    ]]>
     </script>
 
 </jsp:root>
