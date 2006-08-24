@@ -183,7 +183,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
                                  Object command,
-                                 BindException errors) throws Exception {
+                                 BindException errors) {
         ModelAndView mAndV = new ModelAndView();
 
         FollowUpCommand fupCommand = (FollowUpCommand)command;

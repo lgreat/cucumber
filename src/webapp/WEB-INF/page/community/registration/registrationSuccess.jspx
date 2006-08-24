@@ -102,6 +102,14 @@
               font-size: medium;
           }
       </style>
+      <script type="text/javascript">
+          function clearText(field, number) {
+              var defaultVal = 'Child #' + number;
+              if (field.value == defaultVal) {
+                  field.value = '';
+              }
+          }
+      </script>
   </head>
   <body>
     <h2 class="header">Thanks for registering, and welcome to the Greatschools Network!</h2>
@@ -153,7 +161,7 @@
                   <c:set var="stateVal" value="${followUpCmd.students[child-1].state}"/>
               </c:if>
           </c:if>
-          <input class="family childname" id="childname${child}" type="text" name="childname${child}" value="${nameVal}"/>
+          <input class="family childname" id="childname${child}" type="text" name="childname${child}" value="${nameVal}" onclick="clearText(this, ${child});"/>
           <gsweb:gradeSelector name="grade${child}" styleClass="family" grade="${gradeVal}"/>
           <input class="family schoolname" id="school${child}" type="text" name="school${child}" value="${schoolVal}"/>
           <input type="hidden" id="schoolId${child}" name="schoolId${child}" value="${schoolIdVal}"/>

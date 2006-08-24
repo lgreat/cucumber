@@ -45,6 +45,8 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setConfirmPassword(GOOD_PASSWORD6);
         command.setState(GOOD_STATE);
         command.setCity(GOOD_CITY);
+        command.setFirstName("first");
+        command.setLastName("last");
         return command;
     }
 
@@ -62,7 +64,8 @@ public class UserCommandValidatorTest extends BaseTestCase {
         assertFalse(errors.hasErrors());
     }
 
-    public void testEmailExists() {
+    // we no longer use this rule
+    public void xtestEmailExists() {
         User user = _userDao.findUserFromId(1);
         assertNotNull(user); // expect DB to have pre-existing user
 
@@ -177,6 +180,28 @@ public class UserCommandValidatorTest extends BaseTestCase {
         Errors errors = new BindException(command, "");
 
         command.setCity(BAD_CITY);
+
+        _validator.validate(command, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    }
+
+    public void testNoFirstName() {
+        UserCommand command = setupCommand();
+        Errors errors = new BindException(command, "");
+
+        command.setFirstName("");
+
+        _validator.validate(command, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    }
+
+    public void testNoLastName() {
+        UserCommand command = setupCommand();
+        Errors errors = new BindException(command, "");
+
+        command.setLastName("");
 
         _validator.validate(command, errors);
         assertTrue(errors.hasErrors());

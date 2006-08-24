@@ -72,6 +72,8 @@ public class ResetPasswordController extends SimpleFormController implements Rea
             _log.warn("Reset password request has invalid hash: " + hash + " for user " +
                     user.getEmail());
             createGenericValidationError(request, errors);
+            // if hash doesn't validate, do not continue
+            return null;
         }
 
         if (user.isPasswordEmpty()) {

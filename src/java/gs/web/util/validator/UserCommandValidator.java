@@ -2,6 +2,7 @@ package gs.web.util.validator;
 
 import gs.data.community.IUserDao;
 import gs.data.community.UserProfile;
+import gs.data.community.User;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.ICity;
 import gs.web.community.registration.UserCommand;
@@ -35,10 +36,13 @@ public class UserCommandValidator implements Validator {
         String email = command.getEmail();
         String confirmEmail = command.getConfirmEmail();
 
+        User user = _userDao.findUserFromEmailIfExists(email);
+
         // Don't allow people to pick existing emails unless they've been redirected here
         // (redirection is detected by checking id)
-        if (command.getUser().getId() == null &&_userDao.findUserFromEmailIfExists(email) != null) {
-            errors.rejectValue("email", "existing_user", "This email already exists, please choose a different one.");
+        // per request, this rule is no longer enforced
+        if (command.getUser().getId() == null && user != null) {
+            //errors.rejectValue("email", "existing_user", "This email already exists, please choose a different one.");
         }
 
         if (command.getUser().getId() == null) {
@@ -46,6 +50,27 @@ public class UserCommandValidator implements Validator {
             if (!confirmEmail.equals(email)) {
                 errors.rejectValue("email", "mismatched_email", "Please enter the same email into both fields.");
             }
+        }
+
+        if (user != null) {
+            if (user.isEmailValidated()) {
+                errors.rejectValue("email", "user_already_registered",
+                        "You have already registered with GreatSchools!");
+                return; // other errors are irrelevant
+            } else if (user.isEmailProvisional()) {
+                errors.rejectValue("email", "user_already_registered",
+                        "You have already registered with GreatSchools! Please check your " +
+                                "email and follow the instructions to validate your account.");
+                return; // other errors are irrelevant
+            }
+        }
+
+        if (StringUtils.isEmpty(command.getFirstName())) {
+            errors.rejectValue("firstName", "missing_first_name", "Please enter your first name");
+        }
+
+        if (StringUtils.isEmpty(command.getLastName())) {
+            errors.rejectValue("lastName", "missing_last_name", "Please enter your last name");
         }
 
         validatePassword(command, errors);
