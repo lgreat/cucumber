@@ -73,7 +73,7 @@ public class AuthorizersControllerTest extends BaseControllerTestCase {
                 _controller.handleRequest(getRequest(), getResponse());
         Map model = mAndV.getModel();
         assertNotNull(model.get("school"));
-        assertNull(model.get("structureData"));
+        assertNotNull(model.get("structureData"));
         assertNotNull(model.get("missionData"));
         assertNotNull(model.get("academicData"));
         assertNotNull(model.get("demandData"));
