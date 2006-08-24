@@ -136,27 +136,23 @@ public class AuthorizersController extends AbstractController {
     }
 
     private static Map getStructureData(ICharterSchoolInfo info) {
-        Map structureData = null;
+        Map structureData = new ListOrderedMap();
+
         if (info.getYearOpened() > -1) {
-            if (structureData == null) {
-                structureData = new ListOrderedMap();
-            }
             structureData.put("Year opened", new Integer(info.getYearOpened()));
         }
 
-        if (StringUtils.isNotBlank(info.getAuthorizer())) {
-            if (structureData == null) {
-                structureData = new ListOrderedMap();
-            }
-            structureData.put("Authorizer", info.getAuthorizer());
+        String authorizer = info.getAuthorizer();
+        if (StringUtils.isBlank(authorizer)) {
+            authorizer = "N/A";
         }
+        structureData.put("Authorizer", authorizer);
 
-        if (StringUtils.isNotBlank(info.getOperator())) {
-            if (structureData == null) {
-                structureData = new ListOrderedMap();
-            }
-            structureData.put("Operator", info.getOperator());
+        String operator = info.getOperator();
+        if (StringUtils.isBlank(operator)) {
+            operator = "N/A";
         }
+        structureData.put("Operator", operator);
 
         return structureData;
     }
