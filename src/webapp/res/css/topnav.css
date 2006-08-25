@@ -42,12 +42,12 @@ will need to become a graphic.
 
 #topnav .member .signout {
     text-align: left;
-    color: #729eca;
+    color: #69C5D2;
     padding-left: 6px;
     width: 80%; /* take any extra space */
 }
 #topnav .member .signout a {
-    color: #729eca;
+    color: #69C5D2;
     text-decoration: none;
 }
 #topnav .member .signout a:hover {
@@ -55,7 +55,7 @@ will need to become a graphic.
 }
 
 #topnav .member .saved {
-    color: #729eca;
+    color: #69C5D2;
     text-align: right;
     padding-right: 9px;
     background-image: url( ../img/header/arrowBlueRight.gif );
@@ -65,7 +65,7 @@ will need to become a graphic.
     white-space: nowrap;
 }
 #topnav .member .saved a {
-    color: #729eca;
+    color: #69C5D2;
     text-decoration: none;
 }
 #topnav .member .saved a:hover {

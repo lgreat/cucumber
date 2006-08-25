@@ -126,7 +126,7 @@
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
             <td><gsml:img src="/res/img/pixel.gif" alt="" style="width: 18px"/></td>
-            <td colspan="4">
+            <td>
                 <table cellpadding="0" cellspacing="0" id="nav"><tr>
                     <td style="width:36px">&#160;</td>
                     <c:set var="pw" value="${requestScope.context.pathway}"/>
