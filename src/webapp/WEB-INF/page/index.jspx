@@ -163,7 +163,7 @@
         </td>
         <td id="billsBlog">
             <div>
-                <a href="http://billsblog.greatschools.net" target="_new"><h3>BILL'S BLOG</h3><h4>Founder &amp;amp; CEO of GreatSchools</h4></a>
+                <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><h3>BILL'S BLOG</h3><h4>Founder &amp;amp; CEO of GreatSchools</h4></gsml:popupWindow>
 
                 <div class="rss">
                     <cache:cache scope="application" name="blog" key="bill3">
@@ -174,11 +174,11 @@
                     <br/>
                     <gsml:url var="read" value="/res/img/splash/read.gif"/>
                     <gsml:url var="readOver" value="/res/img/splash/readOver.gif"/>
-                    <a href="http://billsblog.greatschools.net" target="_new"><img
+                    <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><img
                             src="${read}"
                             alt="Read Bill's Blog"
                             style="margin: 12px 0 4px -2px"
-                            onmouseover="this.src='${readOver}';" onmouseout="this.src='${read}';"/></a>
+                            onmouseover="this.src='${readOver}';" onmouseout="this.src='${read}';"/></gsml:popupWindow>
                 </div>
             </div>
         </td>
