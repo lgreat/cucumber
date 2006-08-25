@@ -369,5 +369,22 @@
         </attribute>
     </tag>
 
+    <tag>
+        <name>ratingTable</name>
+        <tag-class>gs.web.test.RatingsDisplayTagHandler</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>columns</name>
+            <description>list of column objects</description>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>rowGroups</name>
+            <description>list of rowGroup objects</description>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
 </taglib>
 

@@ -801,6 +801,14 @@
           autowire="byName">
     </bean>
 
+
+    <bean name="/ratings/ratings.page"
+          class="gs.web.test.RatingsController"
+          autowire="byName">
+        <property name="viewName">
+            <value>test/ratings</value>
+        </property>
+    </bean>
     <!-- WEB PAGE DEFINITIONS END -->
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
