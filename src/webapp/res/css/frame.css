@@ -4,6 +4,7 @@
 /* PAGE FRAMING */
 body {
     background-color: #acd;
+    margin-top: 0;
 }
 body.cobranded {
     background-color: #fff;
