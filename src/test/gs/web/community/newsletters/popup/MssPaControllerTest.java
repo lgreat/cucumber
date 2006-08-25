@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.13 2006/08/10 19:40:10 aroy Exp $
+ * $Id: MssPaControllerTest.java,v 1.14 2006/08/25 23:32:43 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -246,6 +246,10 @@ public class MssPaControllerTest extends BaseControllerTestCase {
         }
 
         public List findUsersModifiedBetween(Date date, Date date1) {
+            return null;  //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        public User findUserFromScreenNameIfExists(String screenName) {
             return null;  //To change body of implemented methods use File | Settings | File Templates.
         }
     }

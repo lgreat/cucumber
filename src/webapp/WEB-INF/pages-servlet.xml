@@ -716,6 +716,7 @@
         <property name="mailSender">
             <ref bean="mailSender"/>
         </property>
+        <property name="requireEmailValidation" value="true"/>
     </bean>
 
     <bean name="/community/registrationSuccess.page"

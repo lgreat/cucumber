@@ -45,6 +45,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         try {
             userProfile.setUser(user);
             userProfile.setNumSchoolChildren(new Integer(0));
+            userProfile.setScreenName("screeny");
             user.setUserProfile(userProfile);
             _userDao.updateUser(user);
 
@@ -78,6 +79,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
         try {
             userProfile.setUser(user);
+            userProfile.setScreenName("screeny");
             user.setUserProfile(userProfile);
             _userDao.updateUser(user);
 
@@ -104,6 +106,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
         try {
             userProfile.setUser(user);
+            userProfile.setScreenName("screeny");
             userProfile.setNumSchoolChildren(new Integer(1));
             user.setUserProfile(userProfile);
             _userDao.updateUser(user);
@@ -137,6 +140,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
         try {
             userProfile.setUser(user);
+            userProfile.setScreenName("screeny");
             userProfile.setNumSchoolChildren(new Integer(2));
             user.setUserProfile(userProfile);
             _userDao.updateUser(user);
@@ -205,6 +209,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
         try {
             userProfile.setUser(user);
+            userProfile.setScreenName("screeny");
             userProfile.setNumSchoolChildren(new Integer(1));
             user.setUserProfile(userProfile);
             _userDao.updateUser(user);
@@ -275,6 +280,10 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         }
 
         public List findUsersModifiedBetween(Date begin, Date end) {
+            return null;
+        }
+
+        public User findUserFromScreenNameIfExists(String screenName) {
             return null;
         }
     }

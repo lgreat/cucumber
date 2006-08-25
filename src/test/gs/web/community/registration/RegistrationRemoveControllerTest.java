@@ -34,6 +34,7 @@ public class RegistrationRemoveControllerTest extends BaseControllerTestCase {
         _userDao.saveUser(user);
         try {
             UserProfile userProfile = new UserProfile();
+            userProfile.setScreenName("screeny");
             userProfile.setUser(user);
             user.setUserProfile(userProfile);
             user.setPlaintextPassword("foobar");

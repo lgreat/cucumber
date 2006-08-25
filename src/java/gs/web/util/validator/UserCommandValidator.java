@@ -87,20 +87,30 @@ public class UserCommandValidator implements Validator {
 
         // screen name must be 5-20 characters and alphanumeric only (no space)
         String sn = command.getScreenName();
+        boolean snError = false;
         if (StringUtils.isEmpty(sn)) {
             errors.rejectValue("screenName", "missing_screen_name", "Please enter your screen name");
+            snError = true;
         } else if (sn.length() < SCREEN_NAME_MINIMUM_LENGTH) {
             errors.rejectValue("screenName", "short_screen_name",
                     "Your screen name must be at least " + SCREEN_NAME_MINIMUM_LENGTH +
                             " characters long.");
+            snError = true;
         } else if (sn.length() > SCREEN_NAME_MAXIMUM_LENGTH) {
             errors.rejectValue("screenName", "long_screen_name",
                     "Your screen name can be no more than " + SCREEN_NAME_MAXIMUM_LENGTH +
                             " characters long.");
+            snError = true;
         }
         if (!StringUtils.isAlphanumeric(sn)) { // this method is null-safe
             errors.rejectValue("screenName", "bad_screen_name",
                     "Your screen name must consist of only letters and numbers.");
+            snError = true;
+        }
+        // only bother checking the unique constraint if there is no other problem with the sn
+        if (!snError && _userDao.findUserFromScreenNameIfExists(sn) != null) {
+            errors.rejectValue("screenName", "screen_name_exists",
+                    "This screen name is already taken. Please try another.");
         }
 
         validatePassword(command, errors);

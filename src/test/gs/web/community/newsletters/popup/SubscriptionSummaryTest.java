@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.10 2006/08/10 19:40:10 aroy Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.11 2006/08/25 23:32:43 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -156,6 +156,10 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
         }
 
         public List findUsersModifiedBetween(Date begin, Date end) {
+            return null;
+        }
+
+        public User findUserFromScreenNameIfExists(String screenName) {
             return null;
         }
     }

@@ -30,6 +30,7 @@ public class RegistrationController extends SimpleFormController implements Read
 
     private IUserDao _userDao;
     private JavaMailSender _mailSender;
+    private boolean _requireEmailValidation = true;
 
     //set up defaults if none supplied
     protected void onBindOnNewForm(HttpServletRequest request,
@@ -87,8 +88,10 @@ public class RegistrationController extends SimpleFormController implements Read
 
         try {
             userCommand.getUser().setPlaintextPassword(userCommand.getPassword());
-            // mark password as unauthenticated
-            userCommand.getUser().setEmailProvisional();
+            if (_requireEmailValidation) {
+                // mark password as unauthenticated
+                userCommand.getUser().setEmailProvisional();
+            }
             getUserDao().updateUser(userCommand.getUser());
         } catch (Exception e) {
             _log.warn("Error setting password: " + e.getMessage());
@@ -99,20 +102,22 @@ public class RegistrationController extends SimpleFormController implements Read
             throw e;
         }
 
-        MimeMessage mm = buildMultipartEmail(request, userCommand);
-        try {
-            _mailSender.send(mm);
-        } catch (MailException me) {
-            _log.error("Error sending email message.", me);
-            if (userExists) {
-                // for existing users, set them back to no password
-                userCommand.getUser().setPasswordMd5(null);
-                getUserDao().updateUser(userCommand.getUser());
-            } else {
-                // for new users, cancel the account on error
-                getUserDao().removeUser(userCommand.getUser().getId());
+        if (_requireEmailValidation) {
+            MimeMessage mm = buildMultipartEmail(request, userCommand);
+            try {
+                _mailSender.send(mm);
+            } catch (MailException me) {
+                _log.error("Error sending email message.", me);
+                if (userExists) {
+                    // for existing users, set them back to no password
+                    userCommand.getUser().setPasswordMd5(null);
+                    getUserDao().updateUser(userCommand.getUser());
+                } else {
+                    // for new users, cancel the account on error
+                    getUserDao().removeUser(userCommand.getUser().getId());
+                }
+                throw me;
             }
-            throw me;
         }
 
         // gotten this far, now let's update their user profile
@@ -132,7 +137,9 @@ public class RegistrationController extends SimpleFormController implements Read
         // generate secure hash so if the followup profile page is submitted, we know who it is
         String hash = DigestUtil.hashStringInt(userCommand.getEmail(), userCommand.getUser().getId());
         mAndV.getModel().put("idString", hash);
-        mAndV.getModel().put("email", userCommand.getEmail());
+        if (_requireEmailValidation) {
+            mAndV.getModel().put("email", userCommand.getEmail());
+        }
         mAndV.getModel().put("followUpCmd", fupCommand);
         return mAndV;
     }
@@ -243,4 +250,11 @@ public class RegistrationController extends SimpleFormController implements Read
         _mailSender = mailSender;
     }
 
+    public boolean isRequireEmailValidation() {
+        return _requireEmailValidation;
+    }
+
+    public void setRequireEmailValidation(boolean requireEmailValidation) {
+        this._requireEmailValidation = requireEmailValidation;
+    }
 }

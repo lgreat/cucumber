@@ -49,6 +49,8 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         userCommand.setPassword(password);
         userCommand.setConfirmPassword(password);
         userCommand.setState(State.CA);
+        userCommand.setScreenName("screeny");
+
 
         assertNull("Fake user already exists??", _userDao.findUserFromEmailIfExists(email));
 
@@ -89,6 +91,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 
             userCommand.setPassword(password);
             userCommand.setConfirmPassword(password);
+            userCommand.setScreenName("screeny");
 
             try {
                 _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
