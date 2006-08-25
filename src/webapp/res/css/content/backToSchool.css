@@ -95,6 +95,10 @@
           height: 35px;
       }
 
+#contentGS .left ul li.byGrade {
+    padding-right:0px;
+}
+
 .byGrade a{
     display: block;
     width: 17px;
