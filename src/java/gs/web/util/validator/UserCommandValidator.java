@@ -25,6 +25,10 @@ public class UserCommandValidator implements Validator {
     public static final String BEAN_ID = "userValidator";
     private IUserDao _userDao;
     private IGeoDao _geoDao;
+    private static final int SCREEN_NAME_MINIMUM_LENGTH = 5;
+    private static final int SCREEN_NAME_MAXIMUM_LENGTH = 20;
+    private static final int FIRST_NAME_MAXIMUM_LENGTH = 64;
+    private static final int LAST_NAME_MAXIMUM_LENGTH = 64;
 
     public boolean supports(Class aClass) {
         return aClass == UserCommand.class;
@@ -67,10 +71,36 @@ public class UserCommandValidator implements Validator {
 
         if (StringUtils.isEmpty(command.getFirstName())) {
             errors.rejectValue("firstName", "missing_first_name", "Please enter your first name");
+        } else if (command.getFirstName().length() > FIRST_NAME_MAXIMUM_LENGTH) {
+            errors.rejectValue("firstName", "long_first_name",
+                    "Your first name can be no more than " + FIRST_NAME_MAXIMUM_LENGTH +
+                            " characters long.");
         }
 
         if (StringUtils.isEmpty(command.getLastName())) {
             errors.rejectValue("lastName", "missing_last_name", "Please enter your last name");
+        } else if (command.getLastName().length() > LAST_NAME_MAXIMUM_LENGTH) {
+            errors.rejectValue("lastName", "long_last_name",
+                    "Your last name can be no more than " + LAST_NAME_MAXIMUM_LENGTH +
+                            " characters long.");
+        }
+
+        // screen name must be 5-20 characters and alphanumeric only (no space)
+        String sn = command.getScreenName();
+        if (StringUtils.isEmpty(sn)) {
+            errors.rejectValue("screenName", "missing_screen_name", "Please enter your screen name");
+        } else if (sn.length() < SCREEN_NAME_MINIMUM_LENGTH) {
+            errors.rejectValue("screenName", "short_screen_name",
+                    "Your screen name must be at least " + SCREEN_NAME_MINIMUM_LENGTH +
+                            " characters long.");
+        } else if (sn.length() > SCREEN_NAME_MAXIMUM_LENGTH) {
+            errors.rejectValue("screenName", "long_screen_name",
+                    "Your screen name can be no more than " + SCREEN_NAME_MAXIMUM_LENGTH +
+                            " characters long.");
+        }
+        if (!StringUtils.isAlphanumeric(sn)) { // this method is null-safe
+            errors.rejectValue("screenName", "bad_screen_name",
+                    "Your screen name must consist of only letters and numbers.");
         }
 
         validatePassword(command, errors);

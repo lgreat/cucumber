@@ -25,6 +25,20 @@ public class UserCommandValidatorTest extends BaseTestCase {
     private static final State GOOD_STATE = State.CA;
     private static final String GOOD_CITY = "Oakland";
     private static final String BAD_CITY = "Juneau";
+    private static final String GOOD_SCREEN_NAME5 = "aroy2";
+    private static final String GOOD_SCREEN_NAME20 = "12345678901234567890";
+    private static final String SHORT_SCREEN_NAME4 = "aroy";
+    private static final String LONG_SCREEN_NAME21 = "123456789012345678901";
+    private static final String BAD_SCREEN_NAME_SPACE = "my name";
+    private static final String BAD_SCREEN_NAME_NONALPHANUMERIC = "Great$chools";
+    private static final String GOOD_FIRST_NAME64 =
+            "1234567890123456789012345678901234567890123456789012345678901234";
+    private static final String LONG_FIRST_NAME65 =
+            "12345678901234567890123456789012345678901234567890123456789012345";
+    private static final String GOOD_LAST_NAME64 =
+            "1234567890123456789012345678901234567890123456789012345678901234";
+    private static final String LONG_LAST_NAME65 =
+            "12345678901234567890123456789012345678901234567890123456789012345";
 
     private IUserDao _userDao;
     private UserCommandValidator _validator = new UserCommandValidator();
@@ -45,8 +59,9 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setConfirmPassword(GOOD_PASSWORD6);
         command.setState(GOOD_STATE);
         command.setCity(GOOD_CITY);
-        command.setFirstName("first");
-        command.setLastName("last");
+        command.setFirstName(GOOD_FIRST_NAME64);
+        command.setLastName(GOOD_LAST_NAME64);
+        command.setScreenName(GOOD_SCREEN_NAME5);
         return command;
     }
 
@@ -197,11 +212,95 @@ public class UserCommandValidatorTest extends BaseTestCase {
         assertEquals(1, errors.getErrorCount());
     }
 
+    public void testLongFirstName() {
+        UserCommand command = setupCommand();
+        Errors errors = new BindException(command, "");
+
+        command.setFirstName(LONG_FIRST_NAME65);
+
+        _validator.validate(command, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    }
+
     public void testNoLastName() {
         UserCommand command = setupCommand();
         Errors errors = new BindException(command, "");
 
         command.setLastName("");
+
+        _validator.validate(command, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    }
+
+    public void testLongLastName() {
+        UserCommand command = setupCommand();
+        Errors errors = new BindException(command, "");
+
+        command.setLastName(LONG_LAST_NAME65);
+
+        _validator.validate(command, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    }
+
+    public void testNoScreenName() {
+        UserCommand command = setupCommand();
+        Errors errors = new BindException(command, "");
+
+        command.setScreenName("");
+
+        _validator.validate(command, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    }
+
+    public void testShortScreenName() {
+        UserCommand command = setupCommand();
+        Errors errors = new BindException(command, "");
+
+        command.setScreenName(SHORT_SCREEN_NAME4);
+
+        _validator.validate(command, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    }
+
+    public void testLongScreenName() {
+        UserCommand command = setupCommand();
+        Errors errors = new BindException(command, "");
+
+        command.setScreenName(GOOD_SCREEN_NAME20);
+
+        _validator.validate(command, errors);
+        assertFalse(errors.hasErrors());
+
+        command.setScreenName(LONG_SCREEN_NAME21);
+
+        _validator.validate(command, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    }
+
+    /**
+     * Test for non-alphanumeric and space
+     */
+    public void testBadScreenName() {
+        UserCommand command = setupCommand();
+        // test space
+        Errors errors = new BindException(command, "");
+
+        command.setScreenName(BAD_SCREEN_NAME_SPACE);
+
+        _validator.validate(command, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+        
+        // test non-alphanumeric
+        errors = new BindException(command, "");
+
+        command.setScreenName(BAD_SCREEN_NAME_NONALPHANUMERIC);
 
         _validator.validate(command, errors);
         assertTrue(errors.hasErrors());

@@ -160,4 +160,12 @@ public class UserCommand implements EmailValidator.IEmail {
     public void setNumPreKChildren(Integer numYoungChildren) {
         getUserProfile().setNumPreKChildren(numYoungChildren);
     }
+
+    public String getScreenName() {
+        return getUserProfile().getScreenName();
+    }
+
+    public void setScreenName(String screenName) {
+        getUserProfile().setScreenName(screenName);
+    }
 }
