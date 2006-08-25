@@ -113,11 +113,15 @@
                             <tr>
                                 <td>
                                     <c:if test="${not empty structureData}">
-                                        <gsml:dataTable data="${structureData}" title="School Structure" />
-                                        <gsml:popupWindow width="610" height="600" left="50" top="50"
-                                                          href="/definitions/natl/csr_structure.html">
-                                            <span class="moreabout">More about school structure</span>
-                                        </gsml:popupWindow>
+                                        <div id="structureData">
+                                            <div id="structureTable">
+                                                <gsml:dataTable data="${structureData}" title="School Structure" />
+                                            </div>
+                                            <gsml:popupWindow width="610" height="600" left="50" top="50"
+                                                              href="/definitions/natl/csr_structure.html">
+                                                <span class="moreabout">More about school structure</span>
+                                            </gsml:popupWindow>
+                                        </div>
                                     </c:if>
                                     <c:if test="${not empty statusData}">
                                         <gsml:dataTable data="${statusData}" title="School Status"

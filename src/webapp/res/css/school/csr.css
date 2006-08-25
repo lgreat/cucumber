@@ -35,6 +35,13 @@ div.datatable{
   padding-top:20px;
 
 }
+    div#structureTable div.datatable {
+        margin-bottom:7px;
+    }
+    div#structureData {
+        margin-bottom:25px;
+    }
+
     div.datatable table.datagrid {
       border:thin solid black;
       font-size:75%;
