@@ -38,7 +38,6 @@
         <property name="urlMap">
             <map>
                 <entry key="/city/**" value="/city.page"></entry>
-                <entry key="/modperl/go/**" value="/path/choose.page"></entry>
             </map>
         </property>
         <property name="alwaysUseFullPath" value="true"/>
