@@ -741,6 +741,12 @@
         <property name="viewName" value="/community/registration/registrationRemove"/>
     </bean>
 
+    <bean name="/community/requestEmailValidation.page"
+        class="gs.web.community.registration.RequestEmailValidationController"
+        autowire="byName">
+        <property name="viewName" value="/community/registration/requestEmailValidation"/>
+    </bean>
+
     <bean name="/community/forgotPassword.page"
         class="gs.web.community.registration.ForgotPasswordController"
         autowire="byName">

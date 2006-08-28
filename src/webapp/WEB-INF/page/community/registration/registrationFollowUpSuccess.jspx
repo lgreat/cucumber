@@ -12,7 +12,8 @@
       <style type="text/css">
           h2.intro {
               font-size: large;
-              margin-bottom: 5px;
+              margin-top: 10px;
+              margin-bottom: 250px;
           }
       </style>
   </head>

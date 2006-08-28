@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.53 2006/08/01 21:54:13 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.54 2006/08/28 23:02:18 aroy Exp $
  */
 
 package gs.web.util;
@@ -112,6 +112,7 @@ public class UrlBuilder {
     public static final VPage REGISTRATION_VALIDATION = new VPage("vpage:registrationValidation");
     public static final VPage FORGOT_PASSWORD = new VPage("vpage:forgotPassword");
     public static final VPage RESET_PASSWORD = new VPage("vpage:resetPassword");
+    public static final VPage REQUEST_EMAIL_VALIDATION = new VPage("vpage:requestEmailValidation");
 
     public static final VPage SCHOOL_PROFILE = new VPage("vpage:schoolProfile");
     /**
@@ -459,6 +460,10 @@ public class UrlBuilder {
             _perlPage = false;
             _path = "/community/resetPassword.page";
             setParameter("id", param0);
+        } else if (REQUEST_EMAIL_VALIDATION.equals(page)) {
+            _perlPage = false;
+            _path = "/community/requestEmailValidation.page";
+            setParameter("email", param0);
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

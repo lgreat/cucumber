@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.37 2006/08/01 21:54:13 aroy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.38 2006/08/28 23:02:18 aroy Exp $
  */
 
 package gs.web.util;
@@ -305,6 +305,8 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/community/forgotPassword.page?email=myEmail", builder.asSiteRelative(request));        
         builder = new UrlBuilder(UrlBuilder.RESET_PASSWORD, null, "myParam");
         assertEquals("/community/resetPassword.page?id=myParam", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.REQUEST_EMAIL_VALIDATION, null, "myEmail");
+        assertEquals("/community/requestEmailValidation.page?email=myEmail", builder.asSiteRelative(request));        
     }
 
     public void testAdminPages() {

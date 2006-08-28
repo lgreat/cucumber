@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.3 2006/08/28 19:34:38 aroy Exp $
+ * $Id: LoginController.java,v 1.4 2006/08/28 23:02:18 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -82,8 +82,11 @@ public class LoginController extends SimpleFormController {
 
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION_REMOVE, null, hash + user.getId());
             String href = builder.asAnchor(request, "click here").asATag();
+            builder = new UrlBuilder(UrlBuilder.REQUEST_EMAIL_VALIDATION, null, user.getEmail());
+            String href2 = builder.asAnchor(request, "(Resend email)").asATag();
             errors.reject(USER_PROVISIONAL_CODE, "Your account is marked as provisional. " +
-                    "Please follow the link in your email to validate your account." +
+                    "Please follow the link in your email to validate your account " + 
+                    href2 + "." +
                     " If you believe this message to be in error, please " + href +
                     " to reset your account.");
         } else if (user.isPasswordEmpty()) {

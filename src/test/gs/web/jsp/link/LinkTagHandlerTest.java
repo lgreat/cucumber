@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.13 2006/08/01 21:54:13 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.14 2006/08/28 23:02:18 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -266,6 +266,15 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/community/forgotPassword.page", builder.asSiteRelative(null));
+    }
+
+    public void testRequestEmailValidation() {
+        RequestEmailValidationTagHandler tagHandler = new RequestEmailValidationTagHandler();
+        tagHandler.setEmail("testRequestEmailValidation@greatschools.net");
+        tagHandler.setPageContext(new MockPageContext());
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/community/requestEmailValidation.page?email=testRequestEmailValidation%40greatschools.net",
+                builder.asSiteRelative(null));
     }
 
     public void testTermsOfUse() {

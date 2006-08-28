@@ -567,6 +567,36 @@
             <description>Email to pre-populate field with</description>
         </attribute>
     </tag>
+    <tag>
+        <name>requestEmailValidation</name>
+        <tag-class>gs.web.jsp.link.RequestEmailValidationTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Request new email</display-name>
+        <description>
+            <![CDATA[Have a new email sent allowing you to confirm your registration.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>email</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Address to send email to</description>
+        </attribute>
+    </tag>
 
 </taglib>
 
