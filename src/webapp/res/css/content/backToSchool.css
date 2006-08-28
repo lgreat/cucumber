@@ -29,15 +29,6 @@
     background-image: none;
 }
 
-#contentGS .middle h2.headline {
-    padding: 2px 0px 2px 12px;
-    background-color: rgb(255, 187, 0);
-    font-family: Trebuchet MS;
-    color: rgb(255, 255, 255);
-    font-size: 16px;
-    font-weight:600;
-}
-
 #contentGS .middle h3 {
     font-family: rockwell;
     padding: 13px 0 2px 16px;
