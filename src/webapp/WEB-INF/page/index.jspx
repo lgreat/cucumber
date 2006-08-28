@@ -81,7 +81,7 @@
                     <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                         <input type="hidden" name="st" value="charter"/>
                     </c:if>
-                    <input type="text" value="" name="q" size="16"/>
+                    <input type="text" value="" name="q" size="20" class="textInput"/>
                     &#160;
                     <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}"
                                          useNoState="${not requestScope.context.hasSearched}"
