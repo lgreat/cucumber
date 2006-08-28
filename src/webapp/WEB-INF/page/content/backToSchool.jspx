@@ -125,7 +125,7 @@
               <div class="bigDottedDivider">&#160;</div>
 
                 <h2 class="headline">
-                    <gsml:img src="/res/img/content/backToSchool/yellow_banner_starthere.gif" alt="Start Here for School Success" />
+                    <gsml:img src="/res/img/content/backtoschool/yellow_banner_starthere.gif" alt="Start Here for School Success" />
                 </h2>
                 <ul>
                     <gsweb:articlelink articleId="4" wrappingElement="li"/>
@@ -138,7 +138,7 @@
                 <div class="mediumDottedDivider">&#160;</div>
 
                 <h2 class="headline">
-                    <gsml:img src="/res/img/content/backToSchool/yellow_banner_getthegear.gif" alt="Get the Gear for a Great Year" />
+                    <gsml:img src="/res/img/content/backtoschool/yellow_banner_getthegear.gif" alt="Get the Gear for a Great Year" />
                 </h2>
                 <ul>
                     <gsweb:articlelink articleId="327" wrappingElement="li"/>
