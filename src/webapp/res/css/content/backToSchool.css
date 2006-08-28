@@ -29,6 +29,10 @@
     background-image: none;
 }
 
+#contentGS .middle h2.headline {
+    padding: 4px 0px 2px 0px;
+}
+
 #contentGS .middle h3 {
     font-family: rockwell;
     padding: 13px 0 2px 16px;
