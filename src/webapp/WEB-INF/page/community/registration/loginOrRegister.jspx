@@ -119,6 +119,7 @@
                 <li><link:registration>I'm a parent</link:registration></li>
             </ul>
         </div>
+        <br style="clear: left;"/>
         <mod:tracking pageName="login"
                       pageType=""
                       hier1=""/>

@@ -25,7 +25,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
     private static final State GOOD_STATE = State.CA;
     private static final String GOOD_CITY = "Oakland";
     private static final String BAD_CITY = "Juneau";
-    private static final String GOOD_SCREEN_NAME5 = "aroy2";
+    private static final String GOOD_SCREEN_NAME5 = "jqlx5";
     private static final String GOOD_SCREEN_NAME20 = "12345678901234567890";
     private static final String SHORT_SCREEN_NAME4 = "aroy";
     private static final String LONG_SCREEN_NAME21 = "123456789012345678901";

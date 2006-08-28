@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.2 2006/08/10 23:18:27 aroy Exp $
+ * $Id: LoginController.java,v 1.3 2006/08/28 19:34:38 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -118,6 +118,9 @@ public class LoginController extends SimpleFormController {
             builder.addParameter("redirect", loginCommand.getRedirect());
             redirectUrl = builder.asFullUrl(request);
         } else {
+            if (StringUtils.isEmpty(loginCommand.getRedirect())) {
+                loginCommand.setRedirect(LoginController.DEFAULT_REDIRECT_URL);
+            }
             redirectUrl = urlUtil.buildUrl(loginCommand.getRedirect(), request);
         }
 

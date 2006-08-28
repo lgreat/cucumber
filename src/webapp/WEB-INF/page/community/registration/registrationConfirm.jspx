@@ -4,18 +4,52 @@
           xmlns:spring="http://www.springframework.org/tags"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
     <jsp:directive.page contentType="text/html"/><html>
   <head>
       <title>Registration Successful!</title>
       <style type="text/css">
+          .loginDiv label.form, .loginDiv input.form {
+               margin-bottom: 10px;
+               display: block;
+               width: 150px;
+               float: left;
+           }
 
+           .loginDiv label.form {
+               text-align: right;
+               width: 120px;
+               padding-right: 20px;
+           }
       </style>
   </head>
   <body>
     <h2>Congratulations!  Your GreatSchools community registration is complete!</h2>
   <br/>
   <p><c:if test="${param.redirect != null}"><a href="${param.redirect}">Click here</a> to continue to your original destination.</c:if></p>
+
+    <br style="clear: left;"/>
+    <br style="clear: left;"/>
+    
+    <div id="loginDiv" class="loginDiv">
+        <gsweb:form action="/community/loginOrRegister.page" method="post">
+
+            <label class="form">Enter Email</label>
+            <input type="text" name="email" value="" size="30" class="form"/>
+            <br style="clear: left;"/>
+            <label class="form">Enter Password</label>
+            <input type="password" name="password" value="" size="15" class="form"/>
+            <br style="clear: left;"/>
+
+            <input class="form" type="submit" value="Login"/>
+            <br style="clear: left;"/>
+        </gsweb:form>
+        <link:forgotPassword>Forgot password?</link:forgotPassword>
+    </div>
+    <br style="clear: left;"/>
+
   </body>
 </html>
 </jsp:root>
