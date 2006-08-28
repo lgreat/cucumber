@@ -144,13 +144,13 @@ public class AuthorizersController extends AbstractController {
 
         String authorizer = info.getAuthorizer();
         if (StringUtils.isBlank(authorizer)) {
-            authorizer = "N/A";
+            authorizer = "n/a";
         }
         structureData.put("Authorizer", authorizer);
 
         String operator = info.getOperator();
         if (StringUtils.isBlank(operator)) {
-            operator = "N/A";
+            operator = "n/a";
         }
         structureData.put("Operator", operator);
 
