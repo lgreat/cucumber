@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsDisplayTagHandler.java,v 1.1 2006/08/25 23:08:26 dlee Exp $
+ * $Id: RatingsDisplayTagHandler.java,v 1.2 2006/08/28 17:19:50 dlee Exp $
  */
 package gs.web.test;
 
@@ -38,8 +38,8 @@ public class RatingsDisplayTagHandler extends SimpleTagSupport {
         buffer.append("<th scope=\"col\">").append("All Students").append("</th>");
 
         for (int i = 0; i < _columns.size(); i++) {
-            Column column = (Column) _columns.get(i);
-            buffer.append("<th scope=\"col\">").append(column.getLabel()).append("</th>");
+            String columnLabel = (String) _columns.get(i);
+            buffer.append("<th scope=\"col\">").append(columnLabel).append("</th>");
         }
         buffer.append("<th scope=\"col\">").append("Combined").append("</th>");
         buffer.append("</tr>").append("</thead>");

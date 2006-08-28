@@ -1,11 +1,10 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsController.java,v 1.1 2006/08/25 23:08:26 dlee Exp $
+ * $Id: RatingsController.java,v 1.2 2006/08/28 17:19:50 dlee Exp $
  */
 package gs.web.test;
 
 import gs.data.test.IRatingsDisplay;
-import gs.data.test.TestDataSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,15 +46,10 @@ public class RatingsController extends AbstractController {
     }
 
     private List getColumns() {
-        TestDataSet [] testDataSets = new TestDataSet [2];
-
-        Column column1 = new Column(testDataSets, "English");
-        Column column2 = new Column(testDataSets, "Math");
-
         List columns = new ArrayList();
 
-        columns.add(column1);
-        columns.add(column2);
+        columns.add("English");
+        columns.add("Math");
 
         return columns;
     }
