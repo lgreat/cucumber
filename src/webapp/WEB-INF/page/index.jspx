@@ -142,7 +142,7 @@
 <div class="bigDottedDivider"><gsml:img src="/res/img/pixel.gif" alt="" style="height: 1px; width: 1px;"/></div>
 <table cellpadding="0" cellspacing="0" width="100%">
     <tr>
-        <td style="vertical-align: top; height: 100%; width: 428px">
+        <td style="vertical-align: top; height: 100%; background-color:#eee; width: 428px">
             <div id="week">
                 <h3>This Week at GreatSchools</h3>
                 <ul>
@@ -164,20 +164,18 @@
         <td id="billsBlog">
             <div>
                 <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><h3>BILL'S BLOG</h3><h4>Founder &amp;amp; CEO of GreatSchools</h4></gsml:popupWindow>
-
                 <div class="rss">
                     <cache:cache scope="application" name="blog" key="bill3">
                         <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
                                           defaultTitle="Bill's thoughts on education"
                                           defaultUrl="http://billsblog.greatschools.net"/>
                     </cache:cache>
-                    <br/>
                     <gsml:url var="read" value="/res/img/splash/read.gif"/>
                     <gsml:url var="readOver" value="/res/img/splash/readOver.gif"/>
                     <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><img
                             src="${read}"
                             alt="Read Bill's Blog"
-                            style="margin: 12px 0 4px -2px"
+                            style="margin: 5px 0 4px -2px"
                             onmouseover="this.src='${readOver}';" onmouseout="this.src='${read}';"/></gsml:popupWindow>
                 </div>
             </div>
