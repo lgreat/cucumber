@@ -147,18 +147,18 @@ td#billsBlog {
 
 td#billsBlog h3 {
     width: 228px;
-    height: 49px;
+    height: 50px;
     position: relative;
     font-size: large;
     font-weight: 100;
     text-transform: capitalize;
-    background-image: url( ../img/splash/billsBlogTrans2.png );
+    background-image: url( ../img/splash/billsBlogTrans2.gif );
     text-indent: -50em;
     overflow: hidden;
 }
 
 #billsBlog h4 {
-    max-height:7px;
+    max-height:8px;
     font-size: small;
     text-indent: -50em;
     overflow: hidden;

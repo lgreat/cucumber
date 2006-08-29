@@ -170,6 +170,7 @@
                                           defaultTitle="Bill's thoughts on education"
                                           defaultUrl="http://billsblog.greatschools.net"/>
                     </cache:cache>
+                    <br/>
                     <gsml:url var="read" value="/res/img/splash/read.gif"/>
                     <gsml:url var="readOver" value="/res/img/splash/readOver.gif"/>
                     <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><img
