@@ -66,13 +66,35 @@
                float: left;
            }
 
-          input.checkbox {
+          input.interests, label.interests {
+              display: block;
+              float: left;
+              margin-top: 10px;
+          }
+
+          label.interests {
+              margin-left: 10px;
+          }
+
+          input.other, label.other {
+              margin-top: 10px;
+          }
+
+          label.other {
+              margin-right: 10px;
+          }
+
+          input.other {
+              width: 250px;
+          }
+
+          input.private {
               margin-top: 7px;
               display: block;
               float: left;
           }
 
-          label.checkbox {
+          label.private {
               margin-top: 5px;
               text-align: left;
               width:320px;
@@ -176,6 +198,20 @@
       <br style="clear: left;"/>
       <hr/>
 
+      <h2 class="header">My Interests</h2>
+      <p>I am interested in (check all that apply)</p>
+
+      <!-- To add/remove interests from this list, see controller -->
+      <gsweb:interestsList styleClass="interests" interestChoices="${followUpCmd.interestsAsList}"/>
+
+      <label for="otherInterest" class="other">Other</label>
+      <spring:bind path="followUpCmd.userProfile.otherInterest">
+        <input class="other" id="otherInterest" name="otherInterest" value="${followUpCmd.userProfile.otherInterest}" type="text"/>
+      </spring:bind>
+
+      <br style="clear: left;"/>
+      <hr/>
+
       <h2 class="header">A little about me</h2>
       <div class="error">
           <spring:bind path="followUpCmd.userProfile.aboutMe">
@@ -191,14 +227,15 @@
       <spring:bind path="followUpCmd.userProfile.private">
           <c:choose>
               <c:when test="${followUpCmd.userProfile.private == true}">
-                  <input class="checkbox" type="checkbox" name="private" id="private" checked="checked"/>
+                  <input class="private" type="checkbox" name="private" id="private1" checked="checked"/>
+                  <label for="private1" class="private">Check the box if you wish for this to be private.</label>
               </c:when>
               <c:otherwise>
-                  <input class="checkbox" type="checkbox" name="private" id="private"/>
+                  <input class="private" type="checkbox" name="private" id="private2"/>
+                  <label for="private2" class="private">Check the box if you wish for this to be private.</label>
               </c:otherwise>
           </c:choose>
       </spring:bind>
-      <label for="private" class="checkbox">Check the box if you wish for this to be private.</label>
 
       <br style="clear: left;"/>
       <br style="clear: left;"/>
@@ -209,10 +246,10 @@
 
       <c:choose>
           <c:when test="${idString != null}">
-              <input id="marker" type="hidden" name="marker" value="${idString}"/>
+              <input type="hidden" name="marker" value="${idString}"/>
           </c:when>
           <c:otherwise>
-              <input id="marker" type="hidden" name="marker" value="${followUpCmd.marker}"/>
+              <input type="hidden" name="marker" value="${followUpCmd.marker}"/>
           </c:otherwise>
       </c:choose>
 

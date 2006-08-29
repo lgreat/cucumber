@@ -6,6 +6,7 @@ import gs.data.community.Student;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -93,7 +94,7 @@ public class FollowUpCommand {
         return getStudents().size();
     }
 
-    public void setNumStudents(int _num) {
+    public void setNumStudents(int num) {
         // ignore -- this is so JSTL treats this as a bean property
     }
 
@@ -107,5 +108,17 @@ public class FollowUpCommand {
 
     public void addSchoolName(String name) {
         getSchoolNames().add(name);
+    }
+
+    public List getInterestsAsList() {
+        return Arrays.asList(getUserProfile().getInterestsAsArray());
+    }
+
+    public String getOtherInterest() {
+        return getUserProfile().getOtherInterest();
+    }
+
+    public void setOtherInterest(String other) {
+        getUserProfile().setOtherInterest(other);
     }
 }

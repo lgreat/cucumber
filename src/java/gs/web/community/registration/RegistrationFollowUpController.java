@@ -35,6 +35,32 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     private StateManager _stateManager;
     private ISchoolDao _schoolDao;
 
+    // WARNING: This is the master list of interests. Only edit this if you know what you are doing!
+    // WARNING: These two arrays must be kept in sync.
+    // To add an interest, simply add the code and relevant value (don't forget the comma!).
+    // To remove an interest, remove the code and relevant value (don't forget the comma!).
+    // CODES are what the database stores.
+    // VALUES are what the user sees next to the check box.
+    public static final String[] INTEREST_CODES = {
+            "PTA",
+            "SCHOOL_IMPROVEMENT",
+            "SPECIAL_EDUCATION",
+            "PROGRAMS_GIFTED_STUDENTS",
+            "SPORTS",
+            "MUSIC_DRAMA",
+            "CHARTER_SCHOOLS"
+    };
+    // WARNING: This array must be kept in sync with INTEREST_CODES.
+    public static final String[] INTEREST_VALUES = {
+            "PTA",
+            "School Improvement",
+            "Special Education",
+            "Programs for Gifted Students",
+            "Sports",
+            "Music/Drama",
+            "Charter Schools"
+    };
+
     /**
      * this method is called after validation but before submit.
      */
@@ -49,12 +75,13 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         User user = _userDao.findUserFromId(userId.intValue());
         fupCommand.setUser(user);
         fupCommand.getUserProfile().setNumSchoolChildren(user.getUserProfile().getNumSchoolChildren());
-        String fupaboutme = fupCommand.getAboutMe();
+        fupCommand.getUserProfile().setState(user.getUserProfile().getState());
         boolean fupprivate = false;
         if (request.getParameter("private") != null) {
             fupprivate = true;
         }
         fupCommand.setPrivate(fupprivate);
+        parseInterests(request, fupCommand);
 
         String hash = request.getParameter("marker");
         fupCommand.setMarker(hash);
@@ -153,9 +180,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             }
             userProfile.setNumSchoolChildren(numChildren);
             _userDao.updateUser(user);
-            fupCommand.setUserProfile(userProfile);
-            fupCommand.setAboutMe(fupaboutme);
-            fupCommand.setPrivate(fupprivate);
+            fupCommand.getUserProfile().setNumSchoolChildren(numChildren);
             // now that the numSchoolChildren value has been updated, we need to return to the page
             // so it will refresh with an additional child row.
             // I do this by rejecting a non-existant value. No error is displayed, so from the user's
@@ -172,11 +197,18 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             }
             userProfile.setNumSchoolChildren(numChildren);
             _userDao.updateUser(user);
-            fupCommand.setUserProfile(userProfile);
-            fupCommand.setAboutMe(fupaboutme);
-            fupCommand.setPrivate(fupprivate);
+            fupCommand.getUserProfile().setNumSchoolChildren(numChildren);
             // see addChild above for why an error is generated
             errors.rejectValue("userProfile", "remove_child", "Removing child");
+        }
+    }
+
+    private void parseInterests(HttpServletRequest request, FollowUpCommand fupCommand) {
+        fupCommand.getUserProfile().setInterests(null);
+        for (int x=0; x < INTEREST_CODES.length; x++) {
+            if (request.getParameter(INTEREST_CODES[x]) != null) {
+                fupCommand.getUserProfile().addInterest(INTEREST_CODES[x]);
+            }
         }
     }
 
@@ -194,6 +226,11 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         // update existing profile with new information
         existingProfile.setAboutMe(profile.getAboutMe());
         existingProfile.setPrivate(profile.isPrivate());
+        existingProfile.setInterests(profile.getInterests());
+        existingProfile.setOtherInterest(profile.getOtherInterest());
+        if (user.getStudents() != null) {
+            user.getStudents().clear();
+        }
         if (existingProfile.getNumSchoolChildren().intValue() == 0) {
             // there is an odd case where they specified 0 children but then entered
             // a child's info in the default provided field.

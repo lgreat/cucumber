@@ -50,8 +50,10 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
             _userDao.updateUser(user);
 
             command.setAboutMe("My children are so unique!");
-            command.setPrivate(false);
+            getRequest().addParameter("private", "checked");
             command.setUser(user);
+            command.setOtherInterest("Other");
+            getRequest().addParameter(RegistrationFollowUpController.INTEREST_CODES[0], "checked");
 
             String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
             getRequest().addParameter("marker", hash);
@@ -63,7 +65,11 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
             user = _userDao.findUserFromId(user.getId().intValue());
             userProfile = user.getUserProfile();
             assertEquals("My children are so unique!", userProfile.getAboutMe());
-            assertFalse(userProfile.isPrivate());
+            assertTrue(userProfile.isPrivate());
+            assertEquals("Other", userProfile.getOtherInterest());
+            assertTrue(userProfile.getInterestsAsArray().length == 1);
+            assertEquals(RegistrationFollowUpController.INTEREST_CODES[0],
+                    userProfile.getInterestsAsArray()[0]);
         } finally {
             _userDao.removeUser(user.getId());
         }
