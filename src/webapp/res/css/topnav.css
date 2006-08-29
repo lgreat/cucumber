@@ -89,6 +89,7 @@ will need to become a graphic.
 
 * html #topnav .searchLabel {
 /* IE ONLY */
+    font-size: 9px;
     font-family: Arial, Helvetica, san-serif;
 }
 
