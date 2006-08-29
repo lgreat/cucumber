@@ -229,7 +229,7 @@
 
                     <h2 id="financialAidPlanner">
                         <a href="http://apps.collegeboard.com/fincalc/ep/step1-1.jsp" target="_blank" >
-                            <img src="/res/img/content/countdownToCollege/financial_aid_planner.gif" width="305" height="269" alt="Financial Aid EasyPlanner proved by the College Board" border="0" />
+                            <gsml:img src="/res/img/content/countdownToCollege/financial_aid_planner.gif" style="width:305px;height:269px;border:none" alt="Financial Aid EasyPlanner provided by the College Board"  />
                         </a>
                     </h2>
 

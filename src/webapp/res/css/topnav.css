@@ -89,9 +89,8 @@ will need to become a graphic.
 
 * html #topnav .searchLabel {
 /* IE ONLY */
-    color: #000;
     font-family: Verdana, Arial, Helvetica, san-serif;
-    font-size: 95%;
+    font-size: xx-small;
 }
 
 #topnav .stateSelect {
