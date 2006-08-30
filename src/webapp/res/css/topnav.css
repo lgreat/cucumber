@@ -80,16 +80,11 @@ will need to become a graphic.
 }
 
 #topnav .searchLabel {
-    font-size: 10px;
+    font-size: 9px;
     color: #666;
     text-transform: uppercase;
     white-space: nowrap;
     vertical-align: bottom;
-}
-
-* html #topnav .searchLabel {
-/* IE ONLY */
-    font-size: 9px;
     font-family: Arial, Helvetica, san-serif;
 }
 
