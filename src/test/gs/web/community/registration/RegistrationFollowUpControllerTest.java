@@ -1,10 +1,7 @@
 package gs.web.community.registration;
 
 import gs.web.BaseControllerTestCase;
-import gs.data.community.IUserDao;
-import gs.data.community.User;
-import gs.data.community.UserProfile;
-import gs.data.community.Student;
+import gs.data.community.*;
 import gs.data.util.DigestUtil;
 import gs.data.school.Grade;
 import gs.data.school.ISchoolDao;
@@ -25,6 +22,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
     private IUserDao _userDao;
     private ISchoolDao _schoolDao;
+    private ISubscriptionDao _subscriptionDao;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -32,6 +30,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _controller = (RegistrationFollowUpController) appContext.getBean(RegistrationFollowUpController.BEAN_ID);
         _userDao = (IUserDao)appContext.getBean(IUserDao.BEAN_ID);
         _schoolDao = (ISchoolDao)appContext.getBean(ISchoolDao.BEAN_ID);
+        _subscriptionDao = (ISubscriptionDao)appContext.getBean(ISubscriptionDao.BEAN_ID);
     }
 
     public void testRegistrationFollowUp() throws NoSuchAlgorithmException {
@@ -55,6 +54,11 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
             command.setOtherInterest("Other");
             getRequest().addParameter(RegistrationFollowUpController.INTEREST_CODES[0], "checked");
 
+            School school = _schoolDao.getSchoolById(State.CA, new Integer(1));
+            getRequest().addParameter("previousSchool1", school.getName());
+            getRequest().addParameter("previousSchoolId1", String.valueOf(school.getId()));
+            getRequest().addParameter("previousState1", State.CA.getAbbreviation());
+
             String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
             getRequest().addParameter("marker", hash);
             _controller.onBindAndValidate(getRequest(), command, errors);
@@ -70,7 +74,18 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
             assertTrue(userProfile.getInterestsAsArray().length == 1);
             assertEquals(RegistrationFollowUpController.INTEREST_CODES[0],
                     userProfile.getInterestsAsArray()[0]);
+            List subs = _subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.PREVIOUS_SCHOOLS);
+            assertNotNull(subs);
+            Subscription sub = (Subscription)subs.get(0);
+            assertEquals(1, sub.getSchoolId());
+            assertEquals(State.CA, sub.getState());
         } finally {
+            List subs = _subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.PREVIOUS_SCHOOLS);
+            if (subs != null) {
+                for (int x=0; x < subs.size(); x++) {
+                    _subscriptionDao.removeSubscription(((Subscription)subs.get(x)).getId());
+                }
+            }
             _userDao.removeUser(user.getId());
         }
     }

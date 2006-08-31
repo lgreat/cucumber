@@ -120,7 +120,7 @@
                 padding:8px;
             }
           p.intro {
-              margin-bottom: 10px;
+              margin-bottom: 30px;
               font-size: medium;
           }
       </style>
@@ -144,9 +144,17 @@
   <p class="intro">Take a minute to fill out your profile - it is an opportunity to share a little
   about yourself with others in the GreatSchools Network.</p>
 
-    <br/>
-
   <gsweb:form action="/community/registrationSuccess.page" method="post">
+
+      <spring:hasBindErrors name="followUpCmd">
+          <spring:bind path="followUpCmd.id">
+              <c:if test="${status.errorMessage > ''}">
+                  <div class="error">
+                    ${status.errorMessage}
+                  </div>
+              </c:if>
+          </spring:bind>
+      </spring:hasBindErrors>
 
       <h2 class="header">My Family</h2>
       <label class="familyInput childname">Child name</label>
@@ -169,7 +177,7 @@
                   <spring:bind path="followUpCmd.students[${child-1}]">
                       <c:if test="${status.errorMessage > ''}">
                           <div class="error">
-                      ${status.errorMessage}
+                              ${status.errorMessage}
                           </div>
                           <input type="hidden" name="ignoreError${child}"/>
                       </c:if>
@@ -211,6 +219,29 @@
 
       <br style="clear: left;"/>
       <hr/>
+
+      <h2 class="header">Previous Schools</h2>
+      <p>I've been a parent of a child at these schools in the past</p>
+
+      <label class="familyInput schoolname">School</label>
+      <label class="familySelect">State</label>
+      <br style="clear: left;"/>
+
+      <c:forEach var="rowNum" begin="1" end="3">
+          <c:set var="schoolVal" value=""/>
+          <c:set var="schoolIdVal" value=""/>
+          <c:set var="stateVal" value="${followUpCmd.userProfile.state}"/>
+          <c:if test="${followUpCmd.numSubscriptions ge rowNum}">
+              <c:set var="schoolVal" value="${followUpCmd.subscriptions[rowNum-1].school.name}"/>
+              <c:set var="schoolIdVal" value="${followUpCmd.subscriptions[rowNum-1].schoolId}"/>
+              <c:set var="stateVal" value="${followUpCmd.subscriptions[rowNum-1].state}"/>
+          </c:if>
+          <input class="family schoolname" id="previousSchool${rowNum}" type="text" name="previousSchool${rowNum}" value="${schoolVal}"/>
+          <input type="hidden" name="previousSchoolId${rowNum}" value="${schoolIdVal}"/>
+          <gsweb:stateSelector styleId="previousState${rowNum}" name="previousState${rowNum}" state="${stateVal}" styleClass="family"/>
+          <br style="clear: left;"/>
+      </c:forEach>
+
 
       <h2 class="header">A little about me</h2>
       <div class="error">

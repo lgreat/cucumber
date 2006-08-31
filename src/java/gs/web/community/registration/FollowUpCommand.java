@@ -3,6 +3,7 @@ package gs.web.community.registration;
 import gs.data.community.User;
 import gs.data.community.UserProfile;
 import gs.data.community.Student;
+import gs.data.community.Subscription;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -17,12 +18,14 @@ public class FollowUpCommand {
     private List _students;
     private String _marker;
     private List _schoolNames;
+    private List _subscriptions;
 
     public FollowUpCommand() {
         _user = new User();
         _userProfile = new UserProfile();
         _students = new ArrayList();
         _schoolNames = new ArrayList();
+        _subscriptions = new ArrayList();
     }
 
     public User getUser() {
@@ -120,5 +123,21 @@ public class FollowUpCommand {
 
     public void setOtherInterest(String other) {
         getUserProfile().setOtherInterest(other);
+    }
+
+    public void addSubscription(Subscription sub) {
+        getSubscriptions().add(sub);
+    }
+
+    public List getSubscriptions() {
+        return _subscriptions;
+    }
+
+    public void setSubscriptions(List subscriptions) {
+        _subscriptions = subscriptions;
+    }
+
+    public int getNumSubscriptions() {
+        return getSubscriptions().size();
     }
 }

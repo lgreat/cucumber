@@ -7,10 +7,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.orm.ObjectRetrievalFailureException;
-import gs.data.community.IUserDao;
-import gs.data.community.User;
-import gs.data.community.UserProfile;
-import gs.data.community.Student;
+import gs.data.community.*;
 import gs.data.util.DigestUtil;
 import gs.data.school.Grade;
 import gs.data.school.ISchoolDao;
@@ -23,6 +20,7 @@ import gs.web.util.ReadWriteController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -31,7 +29,10 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     public static final String BEAN_ID = "/community/registrationSuccess.page";
     protected final Log _log = LogFactory.getLog(getClass());
 
+    public static final int NUMBER_PREVIOUS_SCHOOLS = 3;
+
     private IUserDao _userDao;
+    private ISubscriptionDao _subscriptionDao;
     private StateManager _stateManager;
     private ISchoolDao _schoolDao;
 
@@ -73,27 +74,31 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         FollowUpCommand fupCommand = (FollowUpCommand)command;
         Integer userId = fupCommand.getUser().getId();
         User user = _userDao.findUserFromId(userId.intValue());
+        // update the command with some useful info from the previous stage of registration
         fupCommand.setUser(user);
         fupCommand.getUserProfile().setNumSchoolChildren(user.getUserProfile().getNumSchoolChildren());
         fupCommand.getUserProfile().setState(user.getUserProfile().getState());
+        // the private flag is not bound, so check for it here
         boolean fupprivate = false;
         if (request.getParameter("private") != null) {
             fupprivate = true;
         }
         fupCommand.setPrivate(fupprivate);
+        // the interests have to be parsed out of the request
         parseInterests(request, fupCommand);
 
+        // make sure the user is supposed to be here
         String hash = request.getParameter("marker");
         fupCommand.setMarker(hash);
         String realHash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
         if (!realHash.equals(hash)) {
             _log.warn("Registration follow-up request with invalid hash: " + hash);
-            // TODO: this error is never caught by the page
             errors.rejectValue("id", "bad_hash",
                     "We're sorry, we cannot validate your request at this time. Once " +
                             "your account is validated, please update your profile again.");
         }
 
+        // Parse the children out of the request and get them into the command
         int loopCount = 1; // always loop at least once
         Integer numSchoolChildren = user.getUserProfile().getNumSchoolChildren();
         if (numSchoolChildren != null && numSchoolChildren.intValue() > 1) {
@@ -139,12 +144,15 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                     // (will get an array index out of bounds exception)
                 }
             }
+            // now that we've assembled as much info as possible from the request, let's
+            // package it into a Student object and throw it in the command.
             Student student = new Student();
             student.setName(childname);
             student.setGrade(grade);
             student.setState(state);
             if (school != null) {
                 student.setSchool(school);
+                // a list of school names makes persisting the page MUCH easier
                 fupCommand.addSchoolName(school.getName());
             } else {
                 fupCommand.addSchoolName(""); // to avoid index out of bounds exceptions
@@ -166,6 +174,47 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             }
         }
 
+        // Now pull the previous schools out of the request and get them into the command
+        for (int x=0; x < NUMBER_PREVIOUS_SCHOOLS; x++) {
+            int schoolNum = x+1;
+            String schoolName = request.getParameter("previousSchool" + schoolNum);
+            String schoolId = request.getParameter("previousSchoolId" + schoolNum);
+            String sState = request.getParameter("previousState" + schoolNum);
+            State state = null;
+            if (!StringUtils.isEmpty(sState)) {
+                state = _stateManager.getState(sState);
+            }
+            School school = null;
+            if (!StringUtils.isEmpty(schoolId)) {
+                try {
+                    school = _schoolDao.getSchoolById(state, new Integer(schoolId));
+                } catch (ObjectRetrievalFailureException orfe) {
+                    _log.warn("Can't find school corresponding to selection: " + schoolName + "(" +
+                            schoolId + ")");
+                }
+            }
+            if (school != null && !school.getName().equals(schoolName)) {
+                // if the name doesn't match, ignore the school ... they've probably tried to blank out
+                // the field
+                school = null;
+            }
+            // package info into a Subscription object and throw it in the command
+            if (school != null) {
+                Subscription sub = new Subscription();
+                sub.setProduct(SubscriptionProduct.PREVIOUS_SCHOOLS);
+                sub.setSchoolId(school.getId().intValue());
+                // this method is deprecated but I need it to get the school name back to the page
+                // in case of refresh.
+                // an alternative would be to add a list of "previousSchoolNames" to the command like
+                // I did for the children.
+                sub.setSchool(school);
+                sub.setState(state);
+                sub.setUser(user);
+                fupCommand.addSubscription(sub);
+            }
+        }
+
+        // now check if they are adding/removing children
         if (request.getParameter("addChild") != null) {
             // they've requested to add a child
             // refresh the page with an additional child
@@ -203,6 +252,11 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         }
     }
 
+    /**
+     * Reads interest codes out of the request and puts them in the command
+     * @param request
+     * @param fupCommand
+     */
     private void parseInterests(HttpServletRequest request, FollowUpCommand fupCommand) {
         fupCommand.getUserProfile().setInterests(null);
         for (int x=0; x < INTEREST_CODES.length; x++) {
@@ -222,6 +276,8 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         User user = fupCommand.getUser();
         UserProfile profile = fupCommand.getUserProfile();
         // get existing profile
+        // in validation stage above, the command was populated with the actual DB user
+        // so this is getting the actual DB user profile
         UserProfile existingProfile = user.getUserProfile();
         // update existing profile with new information
         existingProfile.setAboutMe(profile.getAboutMe());
@@ -250,6 +306,17 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             for (int x=0; x < fupCommand.getStudents().size(); x++) {
                 user.addStudent((Student)fupCommand.getStudents().get(x));
             }
+        }
+        List oldSubs = _subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.PREVIOUS_SCHOOLS);
+        if (oldSubs != null) {
+            for (int x=0; x < oldSubs.size(); x++) {
+                _subscriptionDao.removeSubscription(((Subscription)oldSubs.get(x)).getId());
+            }
+        }
+        for (int x=0; x < fupCommand.getSubscriptions().size(); x++) {
+            Subscription sub = (Subscription)fupCommand.getSubscriptions().get(x);
+            sub.setUser(user);
+            _subscriptionDao.saveSubscription(sub);
         }
         // save
         _userDao.updateUser(user);
@@ -281,5 +348,13 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
+    }
+
+    public ISubscriptionDao getSubscriptionDao() {
+        return _subscriptionDao;
+    }
+
+    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
+        _subscriptionDao = subscriptionDao;
     }
 }
