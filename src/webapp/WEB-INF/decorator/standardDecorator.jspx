@@ -19,6 +19,7 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <jsp:directive.page contentType="text/html"/>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>
         <decorator:title default="REPLACE THIS REPLACE THIS REPLACE THIS REPLACE THIS"/>
     </title>
@@ -43,6 +44,7 @@
     <!-- This tag includes ad_popunder.js -->
     <ad:xPopunder/>
     <ad:xAdSetup />
+
 
     <decorator:head/>
 
