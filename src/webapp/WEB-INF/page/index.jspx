@@ -162,8 +162,10 @@
         <td width="8">
         </td>
         <td id="billsBlog">
-            <div>
-                <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><h3>BILL'S BLOG</h3><h4>Founder &amp;amp; CEO of GreatSchools</h4></gsml:popupWindow>
+            <div><!-- Doesn't validate, but doesn't work if inside the h3/h4s. Need to redo without image replacement to make this work. --><gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50">
+                <h3>BILL'S BLOG</h3>
+                <h4>Founder &amp;amp; CEO of GreatSchools
+                </h4></gsml:popupWindow>
                 <div class="rss">
                     <cache:cache scope="application" name="blog" key="bill3">
                         <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
