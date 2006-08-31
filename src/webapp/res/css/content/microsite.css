@@ -84,7 +84,7 @@
 #contentGS .middle p a, #contentGS .middle p a:visited {
     color: #39a;
     font-weight: 300;
-    text-decoration:none;
+    text-decoration:underline;
 }
 #contentGS .middle p a:hover {
     text-decoration: underline;
