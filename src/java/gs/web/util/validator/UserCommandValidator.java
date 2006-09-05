@@ -29,6 +29,7 @@ public class UserCommandValidator implements Validator {
     private static final int SCREEN_NAME_MAXIMUM_LENGTH = 20;
     private static final int FIRST_NAME_MAXIMUM_LENGTH = 64;
     private static final int LAST_NAME_MAXIMUM_LENGTH = 64;
+    private static final int EMAIL_MAXIMUM_LENGTH = 127;
 
     public boolean supports(Class aClass) {
         return aClass == UserCommand.class;
@@ -67,6 +68,11 @@ public class UserCommandValidator implements Validator {
                                 "email and follow the instructions to validate your account.");
                 return; // other errors are irrelevant
             }
+        }
+
+        if (email.length() > EMAIL_MAXIMUM_LENGTH) {
+            errors.rejectValue("email", "email_too_long",
+                    "Please limit your email address to " + EMAIL_MAXIMUM_LENGTH + " characters or less");
         }
 
         if (StringUtils.isEmpty(command.getFirstName())) {

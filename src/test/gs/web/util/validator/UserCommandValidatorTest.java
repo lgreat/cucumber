@@ -18,6 +18,10 @@ import org.springframework.validation.Errors;
  */
 public class UserCommandValidatorTest extends BaseTestCase {
     private static final String GOOD_EMAIL = "UserCommandValidatorTest@greatschools.net";
+    private static final String LONG_EMAIL128 =
+            "12345678901234567890123456789012345678901234567890" +
+                    "12345678901234567890123456789012345678901234567890" +
+                    "1234567890123456789012345678";
     private static final String GOOD_PASSWORD6 = "123456";
     private static final String GOOD_PASSWORD16 = "1234567890123456";
     private static final String SHORT_PASSWORD5 = "12345";
@@ -101,6 +105,16 @@ public class UserCommandValidatorTest extends BaseTestCase {
         errors = new BindException(command, "");
         _validator.validate(command, errors);
         assertFalse(errors.hasErrors());
+    }
+
+    public void testLongEmail() {
+        UserCommand command = setupCommand();
+        command.setEmail(LONG_EMAIL128);
+        Errors errors = new BindException(command, "");
+
+        _validator.validate(command, errors);
+        assertTrue(errors.hasErrors());
+        assertTrue(errors.hasFieldErrors("email"));
     }
 
     public void testShortPassword() {
