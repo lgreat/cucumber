@@ -42,14 +42,6 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
     private static final int MAX_CHILDREN = 11;
 
-    protected Object formBackingObject(HttpServletRequest request) throws Exception {
-        FollowUpCommand fupCommand = (FollowUpCommand) super.formBackingObject(request);
-
-        _log.info("formBackingObject");
-
-        return fupCommand;
-    }
-
     /**
      * this method is called after validation but before submit.
      */
@@ -142,7 +134,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 school = null;
             }
             boolean gradeError = false;
-            if (school != null) {
+            if (school != null && grade != null) {
                 Grades schoolGrades = school.getGradeLevels();
                 if (!schoolGrades.contains(grade)) {
                     gradeError = true;
