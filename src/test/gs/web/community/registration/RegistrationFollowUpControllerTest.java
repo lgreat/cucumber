@@ -1,12 +1,12 @@
 package gs.web.community.registration;
 
-import gs.web.BaseControllerTestCase;
 import gs.data.community.*;
-import gs.data.util.DigestUtil;
 import gs.data.school.Grade;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.data.util.DigestUtil;
+import gs.web.BaseControllerTestCase;
 import org.springframework.context.ApplicationContext;
 import org.springframework.validation.BindException;
 
@@ -52,7 +52,8 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
             getRequest().addParameter("private", "checked");
             command.setUser(user);
             command.setOtherInterest("Other");
-            getRequest().addParameter(RegistrationFollowUpController.INTEREST_CODES[0], "checked");
+            String interestCode = UserProfile.getInterestsMap().keySet().iterator().next().toString();
+            getRequest().addParameter(interestCode, "checked");
 
             School school = _schoolDao.getSchoolById(State.CA, new Integer(1));
             getRequest().addParameter("previousSchool1", school.getName());
@@ -72,7 +73,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
             assertTrue(userProfile.isPrivate());
             assertEquals("Other", userProfile.getOtherInterest());
             assertTrue(userProfile.getInterestsAsArray().length == 1);
-            assertEquals(RegistrationFollowUpController.INTEREST_CODES[0],
+            assertEquals(interestCode,
                     userProfile.getInterestsAsArray()[0]);
             List subs = _subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.PREVIOUS_SCHOOLS);
             assertNotNull(subs);
@@ -257,6 +258,108 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
             assertEquals(Grade.G_10, student.getGrade());
             assertEquals(new Integer(1), student.getSchoolId());
             assertEquals(State.CA, student.getState());
+        } finally {
+            _userDao.removeUser(user.getId());
+        }
+    }
+
+    public void testStudentNameLength() throws NoSuchAlgorithmException {
+        FollowUpCommand command = new FollowUpCommand();
+        BindException errors = new BindException(command, "");
+        User user = new User();
+        UserProfile userProfile = new UserProfile();
+        user.setEmail("RegistrationFollowUpControllerTest7@greatschools.net");
+        _userDao.saveUser(user);
+
+        try {
+            userProfile.setUser(user);
+            userProfile.setScreenName("screeny");
+            userProfile.setNumSchoolChildren(new Integer(1));
+            user.setUserProfile(userProfile);
+            _userDao.updateUser(user);
+
+            command.setUser(user);
+
+            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
+            getRequest().addParameter("marker", hash);
+
+            getRequest().addParameter("childname1",
+                    "123456789012345678901234567890123456789012345678901"); // too long: 51 chars
+            getRequest().addParameter("grade1", Grade.G_10.getName());
+            getRequest().addParameter("state1", "CA");
+            School school = _schoolDao.getSchoolById(State.CA, new Integer(1));
+            getRequest().addParameter("schoolId1", String.valueOf(school.getId()));
+            getRequest().addParameter("school1", school.getName());
+
+            _controller.onBindAndValidate(getRequest(), command, errors);
+            assertTrue(errors.hasErrors());
+            assertTrue(errors.hasFieldErrors("students[0]"));
+        } finally {
+            _userDao.removeUser(user.getId());
+        }
+    }
+
+    public void testAboutMeLength() throws NoSuchAlgorithmException {
+        FollowUpCommand command = new FollowUpCommand();
+        BindException errors = new BindException(command, "");
+        User user = new User();
+        UserProfile userProfile = new UserProfile();
+        user.setEmail("RegistrationFollowUpControllerTest8@greatschools.net");
+        _userDao.saveUser(user);
+
+        try {
+            userProfile.setUser(user);
+            userProfile.setScreenName("screeny");
+            userProfile.setNumSchoolChildren(new Integer(1));
+            user.setUserProfile(userProfile);
+            _userDao.updateUser(user);
+
+            command.setUser(user);
+
+            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
+            getRequest().addParameter("marker", hash);
+
+            StringBuffer aboutMeText = new StringBuffer();
+            for (int x=0; x < RegistrationFollowUpController.ABOUT_ME_MAX_LENGTH + 1; x++) {
+                aboutMeText.append("x");
+            } // too long
+            command.setAboutMe(aboutMeText.toString());
+            _controller.onBindAndValidate(getRequest(), command, errors);
+            assertTrue(errors.hasErrors());
+            assertTrue(errors.hasFieldErrors("aboutMe"));
+        } finally {
+            _userDao.removeUser(user.getId());
+        }
+    }
+
+    public void testOtherInterestLength() throws NoSuchAlgorithmException {
+        FollowUpCommand command = new FollowUpCommand();
+        BindException errors = new BindException(command, "");
+        User user = new User();
+        UserProfile userProfile = new UserProfile();
+        user.setEmail("RegistrationFollowUpControllerTest9@greatschools.net");
+        _userDao.saveUser(user);
+
+        try {
+            userProfile.setUser(user);
+            userProfile.setScreenName("screeny");
+            userProfile.setNumSchoolChildren(new Integer(1));
+            user.setUserProfile(userProfile);
+            _userDao.updateUser(user);
+
+            command.setUser(user);
+
+            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
+            getRequest().addParameter("marker", hash);
+
+            StringBuffer otherText = new StringBuffer();
+            for (int x=0; x < RegistrationFollowUpController.OTHER_INTEREST_MAX_LENGTH + 1; x++) {
+                otherText.append("x");
+            } // too long
+            command.setOtherInterest(otherText.toString());
+            _controller.onBindAndValidate(getRequest(), command, errors);
+            assertTrue(errors.hasErrors());
+            assertTrue(errors.hasFieldErrors("otherInterest"));
         } finally {
             _userDao.removeUser(user.getId());
         }

@@ -22,12 +22,12 @@ public class GradeSelectorTagHandler extends SimpleTagSupport {
     private String _styleId = "gradeSelector"; // default
     private String _onChange = null;
     private Grade _grade;
-    private String _noGradeLabel = "--";
+    private String _noGradeLabel = "--"; // default
     private String _name = "grade"; // default
 
     /**
-     * When set to true, the selector will show "--" no matter what the
-     * grade value is.  When set to false, then the "--" is not shown and
+     * When set to true, the selector will show "--" as the default option.
+     * When set to false, then the "--" is not shown and
      * the option selection is set to the current grade.
      *
      * @param noGrade - defaults to false;
@@ -107,7 +107,7 @@ public class GradeSelectorTagHandler extends SimpleTagSupport {
         out.println(">");
 
         if (_useNoGrade) {
-            out.println("<option value=\"\" selected='selected' ");
+            out.println("<option value=\"\"");
             out.println(">" + _noGradeLabel +"</option>");
         }
 
@@ -119,7 +119,7 @@ public class GradeSelectorTagHandler extends SimpleTagSupport {
                 out.print(grade.getName());
                 out.print("\" ");
 
-                if (ObjectUtils.equals(_grade, grade) && !_useNoGrade) {
+                if (ObjectUtils.equals(_grade, grade)) {
                     out.print(" selected='selected' ");
                 }
                 out.print(">");

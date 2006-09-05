@@ -18,6 +18,7 @@ public class FollowUpCommand {
     private List _students;
     private String _marker;
     private List _schoolNames;
+    private List _previousSchoolNames;
     private List _subscriptions;
 
     public FollowUpCommand() {
@@ -25,6 +26,7 @@ public class FollowUpCommand {
         _userProfile = new UserProfile();
         _students = new ArrayList();
         _schoolNames = new ArrayList();
+        _previousSchoolNames = new ArrayList();
         _subscriptions = new ArrayList();
     }
 
@@ -139,5 +141,17 @@ public class FollowUpCommand {
 
     public int getNumSubscriptions() {
         return getSubscriptions().size();
+    }
+
+    public List getPreviousSchoolNames() {
+        return _previousSchoolNames;
+    }
+
+    public void setPreviousSchoolNames(List previousSchoolNames) {
+        _previousSchoolNames = previousSchoolNames;
+    }
+
+    public void addPreviousSchoolName(String name) {
+        getPreviousSchoolNames().add(name);
     }
 }

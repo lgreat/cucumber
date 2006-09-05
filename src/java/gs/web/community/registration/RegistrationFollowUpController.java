@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Iterator;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -30,37 +31,24 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     protected final Log _log = LogFactory.getLog(getClass());
 
     public static final int NUMBER_PREVIOUS_SCHOOLS = 3;
+    public static final int ABOUT_ME_MAX_LENGTH = 3000;
+    public static final int STUDENT_NAME_MAX_LENGTH = 50;
+    public static final int OTHER_INTEREST_MAX_LENGTH = 255;
 
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
     private StateManager _stateManager;
     private ISchoolDao _schoolDao;
 
-    // WARNING: This is the master list of interests. Only edit this if you know what you are doing!
-    // WARNING: These two arrays must be kept in sync.
-    // To add an interest, simply add the code and relevant value (don't forget the comma!).
-    // To remove an interest, remove the code and relevant value (don't forget the comma!).
-    // CODES are what the database stores.
-    // VALUES are what the user sees next to the check box.
-    public static final String[] INTEREST_CODES = {
-            "PTA",
-            "SCHOOL_IMPROVEMENT",
-            "SPECIAL_EDUCATION",
-            "PROGRAMS_GIFTED_STUDENTS",
-            "SPORTS",
-            "MUSIC_DRAMA",
-            "CHARTER_SCHOOLS"
-    };
-    // WARNING: This array must be kept in sync with INTEREST_CODES.
-    public static final String[] INTEREST_VALUES = {
-            "PTA",
-            "School Improvement",
-            "Special Education",
-            "Programs for Gifted Students",
-            "Sports",
-            "Music/Drama",
-            "Charter Schools"
-    };
+    private static final int MAX_CHILDREN = 11;
+
+    protected Object formBackingObject(HttpServletRequest request) throws Exception {
+        FollowUpCommand fupCommand = (FollowUpCommand) super.formBackingObject(request);
+
+        _log.info("formBackingObject");
+
+        return fupCommand;
+    }
 
     /**
      * this method is called after validation but before submit.
@@ -68,11 +56,15 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     protected void onBindAndValidate(HttpServletRequest request,
                                      Object command,
                                      BindException errors) throws NoSuchAlgorithmException {
-        if (errors.hasErrors()) {
-            return;
-        }
         FollowUpCommand fupCommand = (FollowUpCommand)command;
         Integer userId = fupCommand.getUser().getId();
+        if (userId == null) {
+            _log.warn("Registration follow-up request with missing user id");
+            errors.rejectValue("id", "missing_id",
+                    "We're sorry, we cannot validate your request at this time. Once " +
+                            "your account is validated, please update your profile again.");
+            return;
+        }
         User user = _userDao.findUserFromId(userId.intValue());
         // update the command with some useful info from the previous stage of registration
         fupCommand.setUser(user);
@@ -86,6 +78,19 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         fupCommand.setPrivate(fupprivate);
         // the interests have to be parsed out of the request
         parseInterests(request, fupCommand);
+
+        if (!StringUtils.isEmpty(fupCommand.getAboutMe())) {
+            if (fupCommand.getAboutMe().length() > ABOUT_ME_MAX_LENGTH) {
+                errors.rejectValue("aboutMe", "about_me_too_long",
+                        "Please limit the text to " + ABOUT_ME_MAX_LENGTH + " characters or less");
+            }
+        }
+
+        if (fupCommand.getOtherInterest() != null &&
+                fupCommand.getOtherInterest().length() > OTHER_INTEREST_MAX_LENGTH) {
+            errors.rejectValue("otherInterest", "other_interest_too_long",
+                    "Please limit the text to " + OTHER_INTEREST_MAX_LENGTH + " characters or less");
+        }
 
         // make sure the user is supposed to be here
         String hash = request.getParameter("marker");
@@ -104,6 +109,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         if (numSchoolChildren != null && numSchoolChildren.intValue() > 1) {
             loopCount = numSchoolChildren.intValue();
         }
+        fupCommand.getSchoolNames().clear();
         for (int x=0; x < loopCount; x++) {
             int childNum = x+1;
             // collect as much info as possible
@@ -153,12 +159,18 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             if (school != null) {
                 student.setSchool(school);
                 // a list of school names makes persisting the page MUCH easier
+                // (order is preserved for students!!)
                 fupCommand.addSchoolName(school.getName());
             } else {
                 fupCommand.addSchoolName(""); // to avoid index out of bounds exceptions
             }
             student.setOrder(new Integer(childNum));
             fupCommand.addStudent(student);
+            if (student.getName() != null && student.getName().length() > STUDENT_NAME_MAX_LENGTH) {
+                errors.rejectValue("students[" + x + "]", "student_name_too_long",
+                        "Please limit your child's name to " + STUDENT_NAME_MAX_LENGTH +
+                                " characters or less");
+            }
             if (gradeError) {
                 // Always provide the error message if they are adding/removing children.
                 // Only provide the error message once if they are submitting (i.e. allow them
@@ -175,6 +187,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         }
 
         // Now pull the previous schools out of the request and get them into the command
+        fupCommand.getPreviousSchoolNames().clear();
         for (int x=0; x < NUMBER_PREVIOUS_SCHOOLS; x++) {
             int schoolNum = x+1;
             String schoolName = request.getParameter("previousSchool" + schoolNum);
@@ -203,14 +216,10 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 Subscription sub = new Subscription();
                 sub.setProduct(SubscriptionProduct.PREVIOUS_SCHOOLS);
                 sub.setSchoolId(school.getId().intValue());
-                // this method is deprecated but I need it to get the school name back to the page
-                // in case of refresh.
-                // an alternative would be to add a list of "previousSchoolNames" to the command like
-                // I did for the children.
-                sub.setSchool(school);
                 sub.setState(state);
                 sub.setUser(user);
                 fupCommand.addSubscription(sub);
+                fupCommand.addPreviousSchoolName(school.getName());
             }
         }
 
@@ -220,10 +229,12 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             // refresh the page with an additional child
             UserProfile userProfile = user.getUserProfile();
             Integer numChildren = userProfile.getNumSchoolChildren();
-            if (numChildren == null || numChildren.intValue() == 0) {
+            if (numChildren == null || numChildren.intValue() < 1) {
                 // there is always one row on the page, so the minimum outcome from clicking
                 // add is two rows.
                 numChildren = new Integer(2);
+            } else if (numChildren.intValue() >= MAX_CHILDREN) {
+                numChildren = new Integer(MAX_CHILDREN);
             } else {
                 numChildren = new Integer(numChildren.intValue() + 1);
             }
@@ -259,9 +270,12 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
      */
     private void parseInterests(HttpServletRequest request, FollowUpCommand fupCommand) {
         fupCommand.getUserProfile().setInterests(null);
-        for (int x=0; x < INTEREST_CODES.length; x++) {
-            if (request.getParameter(INTEREST_CODES[x]) != null) {
-                fupCommand.getUserProfile().addInterest(INTEREST_CODES[x]);
+        Iterator keys = UserProfile.getInterestsMap().keySet().iterator();
+        // if we locate an interest code in the request, add it to the command
+        while (keys.hasNext()) {
+            String code = String.valueOf(keys.next());
+            if (request.getParameter(code) != null) {
+                fupCommand.getUserProfile().addInterest(code);
             }
         }
     }

@@ -6,10 +6,9 @@ import org.apache.commons.logging.LogFactory;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
-import gs.web.community.registration.RegistrationFollowUpController;
+import gs.data.community.UserProfile;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -41,27 +40,29 @@ public class InterestsListTagHandler extends SimpleTagSupport {
 
     public void doTag() throws IOException {
         JspWriter out = getJspContext().getOut();
-        String[] interestCodes = RegistrationFollowUpController.INTEREST_CODES;
-        String[] interestValues = RegistrationFollowUpController.INTEREST_VALUES;
+        Iterator keys = UserProfile.getInterestsMap().keySet().iterator();
 
-        for (int x=0; x < interestCodes.length; x++) {
+        while (keys.hasNext()) {
+            String code = String.valueOf(keys.next());
+            String value = String.valueOf(UserProfile.getInterestsMap().get(code));
+
             out.print("<input class=\"");
             out.print(getStyleClass());
             out.print("\" id=\"");
-            out.print(interestCodes[x]);
+            out.print(code);
             out.print("\" name=\"");
-            out.print(interestCodes[x]);
+            out.print(code);
             out.print("\" type=\"checkbox\"");
-            if (getInterestChoices().contains(interestCodes[x])) {
+            if (getInterestChoices().contains(code)) {
                 out.print(" checked=\"checked\"");
             }
             out.println("/>");
             out.print("<label for=\"");
-            out.print(interestCodes[x]);
+            out.print(code);
             out.print("\" class=\"");
             out.print(getStyleClass());
             out.print("\">");
-            out.print(interestValues[x]);
+            out.print(value);
             out.println("</label>");
             out.println("<br style=\"clear: left;\"/>");
         }

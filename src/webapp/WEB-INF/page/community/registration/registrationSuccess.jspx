@@ -123,15 +123,31 @@
               margin-bottom: 30px;
               font-size: medium;
           }
-      </style>
-      <script type="text/javascript">
-          function clearText(field, number) {
-              var defaultVal = 'Child #' + number;
-              if (field.value == defaultVal) {
-                  field.value = '';
-              }
+
+          .previous p {
+              margin-bottom: 10px;
           }
-      </script>
+          .previous input, .previous label, .previous select {
+              margin-right: 15px;
+              margin-bottom: 10px;
+              display: block;
+              float: left;
+          }
+          .previous label.schoolname {
+              width: 258px;
+          }
+          .previous label.state, .previous select {
+              width: 50px;
+          }
+          .previous .schoolname {
+              width: 250px;
+          }
+          .previous label {
+              text-align: center;
+          }
+
+
+      </style>
   </head>
   <body>
     <h2 class="header">Thanks for registering, and welcome to the Greatschools Network!</h2>
@@ -161,17 +177,20 @@
       <label class="familySelect">Grade</label>
       <label class="familyInput schoolname">School</label>
       <label class="familySelect">State</label>
+      <!-- Default to always show one row -->
       <c:set var="loopTimes" value="1"/>
       <c:if test="${followUpCmd.userProfile.numSchoolChildren gt 1}">
           <c:set var="loopTimes" value="${followUpCmd.userProfile.numSchoolChildren}"/>
       </c:if>
       <c:forEach var="child" begin="1" end="${loopTimes}">
           <br style="clear: left;"/>
+          <!-- Default values -->
           <c:set var="nameVal" value="Child #${child}"/>
           <c:set var="gradeVal" value=""/>
           <c:set var="schoolIdVal" value=""/>
           <c:set var="stateVal" value="${followUpCmd.userProfile.state}"/>
           <c:set var="schoolVal" value=""/>
+          <!-- override default values if set. Also show error message if exists -->
           <c:if test="${followUpCmd.numStudents ge child}">
               <spring:hasBindErrors name="followUpCmd">
                   <spring:bind path="followUpCmd.students[${child-1}]">
@@ -191,12 +210,13 @@
                   <c:set var="stateVal" value="${followUpCmd.students[child-1].state}"/>
               </c:if>
           </c:if>
-          <input class="family childname" id="childname${child}" type="text" name="childname${child}" value="${nameVal}" onclick="clearText(this, ${child});"/>
-          <gsweb:gradeSelector name="grade${child}" styleClass="family" grade="${gradeVal}"/>
+          <input class="family childname" id="childname${child}" type="text" name="childname${child}" value="${nameVal}"/>
+          <gsweb:gradeSelector name="grade${child}" styleClass="family" grade="${gradeVal}" useNoGrade="true"/>
           <input class="family schoolname" id="school${child}" type="text" name="school${child}" value="${schoolVal}"/>
           <input type="hidden" id="schoolId${child}" name="schoolId${child}" value="${schoolIdVal}"/>
           <gsweb:stateSelector name="state${child}" styleId="state${child}" state="${stateVal}" styleClass="family"/>
 
+          <!-- Show remove button for last row shown if more than 1 row is shown -->
           <c:if test="${child == followUpCmd.userProfile.numSchoolChildren and child gt 1}">
               <input class="form" type="submit" value="Remove this child" name="removeChild"/>
           </c:if>
@@ -209,9 +229,18 @@
       <h2 class="header">My Interests</h2>
       <p>I am interested in (check all that apply)</p>
 
-      <!-- To add/remove interests from this list, see controller -->
+      <!-- To add/remove interests from this list, see UserProfile -->
       <gsweb:interestsList styleClass="interests" interestChoices="${followUpCmd.interestsAsList}"/>
 
+      <spring:hasBindErrors name="followUpCmd">
+          <spring:bind path="followUpCmd.otherInterest">
+              <c:if test="${status.errorMessage > ''}">
+                  <div class="error">
+                    ${status.errorMessage}
+                  </div>
+              </c:if>
+          </spring:bind>
+      </spring:hasBindErrors>
       <label for="otherInterest" class="other">Other</label>
       <spring:bind path="followUpCmd.userProfile.otherInterest">
         <input class="other" id="otherInterest" name="otherInterest" value="${followUpCmd.userProfile.otherInterest}" type="text"/>
@@ -221,31 +250,14 @@
       <hr/>
 
       <h2 class="header">Previous Schools</h2>
-      <p>I've been a parent of a child at these schools in the past</p>
-
-      <label class="familyInput schoolname">School</label>
-      <label class="familySelect">State</label>
-      <br style="clear: left;"/>
-
-      <c:forEach var="rowNum" begin="1" end="3">
-          <c:set var="schoolVal" value=""/>
-          <c:set var="schoolIdVal" value=""/>
-          <c:set var="stateVal" value="${followUpCmd.userProfile.state}"/>
-          <c:if test="${followUpCmd.numSubscriptions ge rowNum}">
-              <c:set var="schoolVal" value="${followUpCmd.subscriptions[rowNum-1].school.name}"/>
-              <c:set var="schoolIdVal" value="${followUpCmd.subscriptions[rowNum-1].schoolId}"/>
-              <c:set var="stateVal" value="${followUpCmd.subscriptions[rowNum-1].state}"/>
-          </c:if>
-          <input class="family schoolname" id="previousSchool${rowNum}" type="text" name="previousSchool${rowNum}" value="${schoolVal}"/>
-          <input type="hidden" name="previousSchoolId${rowNum}" value="${schoolIdVal}"/>
-          <gsweb:stateSelector styleId="previousState${rowNum}" name="previousState${rowNum}" state="${stateVal}" styleClass="family"/>
-          <br style="clear: left;"/>
-      </c:forEach>
-
+      <div class="previous">
+          <p>I've been a parent of a child at these schools in the past</p>
+          <gsweb:previousSchoolsList schoolValues="${followUpCmd.subscriptions}" schoolNames="${followUpCmd.previousSchoolNames}"/>
+      </div>
 
       <h2 class="header">A little about me</h2>
       <div class="error">
-          <spring:bind path="followUpCmd.userProfile.aboutMe">
+          <spring:bind path="followUpCmd.aboutMe">
                 ${status.errorMessage}
           </spring:bind>
       </div>
