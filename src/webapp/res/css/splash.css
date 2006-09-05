@@ -5,10 +5,20 @@
 
 .bigDottedDivider {
     margin-top: 10px;
-    border-bottom: 3px dotted #cccccc;
+    text-align:center;
+    background-image: url( ../img/splash/greyDot.gif );
+    background-repeat:repeat-x;
+    background-position:bottom;
+    padding:5px;
     margin-bottom: 10px;
-    font-size: xx-small;
+    width: 848px;
 }
+
+.bigDottedDivider hr {
+    display:none;
+    width:0;
+}
+
 
 /* TOP SECTION */
 
