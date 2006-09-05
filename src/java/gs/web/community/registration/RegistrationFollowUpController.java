@@ -104,12 +104,23 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         fupCommand.getSchoolNames().clear();
         for (int x=0; x < loopCount; x++) {
             int childNum = x+1;
+
+            // add student into command now so we can register errors as they occur
+            Student student = new Student();
+            fupCommand.addStudent(student);
+
             // collect as much info as possible
             String childname = request.getParameter("childname" + childNum);
             String sGrade = request.getParameter("grade" + childNum);
             String schoolName = request.getParameter("school" + childNum);
             String schoolId = request.getParameter("schoolId" + childNum);
             String sState = request.getParameter("state" + childNum);
+
+            if (childname != null && childname.length() > STUDENT_NAME_MAX_LENGTH) {
+                errors.rejectValue("students[" + x + "]", "student_name_too_long",
+                        "Please limit your child's name to " + STUDENT_NAME_MAX_LENGTH +
+                                " characters or less");
+            }
 
             Grade grade = null;
             if (!StringUtils.isEmpty(sGrade)) {
@@ -125,7 +136,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                     school = _schoolDao.getSchoolById(state, new Integer(schoolId));
                 } catch (ObjectRetrievalFailureException orfe) {
                     _log.warn("Can't find school corresponding to selection: " + schoolName + "(" +
-                            schoolId + ")");
+                            schoolId + ") in " + state);
                 }
             }
             if (school != null && !school.getName().equals(schoolName)) {
@@ -133,18 +144,33 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 // the field
                 school = null;
             }
-            boolean gradeError = false;
+            if (school == null && StringUtils.isNotEmpty(schoolName)) {
+                // the school name is not empty, but we couldn't find the school ...
+                // generate an error
+                errors.rejectValue("students[" + x + "]", "bad_school",
+                        "We can't match the school name to our database. Please try typing the " +
+                                "school name again and selecting the right school from the list. If " +
+                                "you can't find the school in the list, leave the field blank");
+            }
+
             if (school != null && grade != null) {
                 Grades schoolGrades = school.getGradeLevels();
                 if (!schoolGrades.contains(grade)) {
-                    gradeError = true;
-                    // can't register error here because property hasn't been set yet
-                    // (will get an array index out of bounds exception)
+                    // Always provide the error message if they are adding/removing children.
+                    // Only provide the error message once if they are submitting (i.e. allow them
+                    // to override).
+                    if (request.getParameter("addChild") != null ||
+                            request.getParameter("removeChild") != null ||
+                            request.getParameter("ignoreError" + childNum) == null) {
+                        errors.rejectValue("students[" + x + "]", "bad_grade",
+                                "According to our records, the selected grade does not " +
+                                        "exist in that school. Click on \"Submit\" below to " +
+                                        "override this error.");
+                    }
                 }
             }
             // now that we've assembled as much info as possible from the request, let's
             // package it into a Student object and throw it in the command.
-            Student student = new Student();
             student.setName(childname);
             student.setGrade(grade);
             student.setState(state);
@@ -154,28 +180,11 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 // (order is preserved for students!!)
                 fupCommand.addSchoolName(school.getName());
             } else {
-                fupCommand.addSchoolName(""); // to avoid index out of bounds exceptions
+                // to avoid index out of bounds exceptions, we have to add something to the list
+                fupCommand.addSchoolName((schoolName == null)?"":schoolName);
             }
             student.setOrder(new Integer(childNum));
-            fupCommand.addStudent(student);
-            if (student.getName() != null && student.getName().length() > STUDENT_NAME_MAX_LENGTH) {
-                errors.rejectValue("students[" + x + "]", "student_name_too_long",
-                        "Please limit your child's name to " + STUDENT_NAME_MAX_LENGTH +
-                                " characters or less");
-            }
-            if (gradeError) {
-                // Always provide the error message if they are adding/removing children.
-                // Only provide the error message once if they are submitting (i.e. allow them
-                // to override).
-                if (request.getParameter("addChild") != null ||
-                        request.getParameter("removeChild") != null ||
-                        request.getParameter("ignoreError" + childNum) == null) {
-                    errors.rejectValue("students[" + x + "]", "bad_grade",
-                            "According to our records, the selected grade does not " +
-                                    "exist in that school. Click on \"Submit\" below to " +
-                                    "override this error.");
-                }
-            }
+            // student object was already added to command, so we're done.
         }
 
         // Now pull the previous schools out of the request and get them into the command
@@ -203,6 +212,9 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 // the field
                 school = null;
             }
+
+            // TODO: generate error if school name is not recognized, like with students
+            
             // package info into a Subscription object and throw it in the command
             if (school != null) {
                 Subscription sub = new Subscription();
