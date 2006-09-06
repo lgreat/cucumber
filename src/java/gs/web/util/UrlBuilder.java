@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.54 2006/08/28 23:02:18 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.55 2006/09/06 22:32:09 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -86,6 +86,11 @@ public class UrlBuilder {
     public static final VPage TERMS_OF_USE = new VPage("vpage:termsOfUse");
 
     public static final VPage DISTRICT_PROFILE = new VPage("vpage:districtProfile");
+
+    /**
+     * This page lists all districts in a state
+     */
+    public static final VPage DISTRICTS_PAGE = new VPage("vpage:districts");
 
     public static final VPage HOME = new VPage("vpage:home");
 
@@ -464,6 +469,9 @@ public class UrlBuilder {
             _perlPage = false;
             _path = "/community/requestEmailValidation.page";
             setParameter("email", param0);
+        } else if (DISTRICTS_PAGE.equals(page)) {
+            _perlPage = true;
+            _path = "/modperl/districts/" + state.getAbbreviation();
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

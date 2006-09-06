@@ -23,7 +23,10 @@
     to expand</a>)</span>
 <span onclick="toggleById('footerSearchCities');">School information by city (<a href="#bottom">click
     to expand</a>)</span>
-
+<c:if test="${empty requestScope.context.state}">
+<span onclick="toggleById('footerSearchDistricts');">School information by district (<a href="#bottom">click
+    to expand</a>)</span>
+</c:if>
 
 <div id="footerCopyright">
     &amp;#169;1998-2006 GreatSchools Inc. All Rights Reserved.
@@ -91,7 +94,6 @@
     <link:research state="WI">Wisconsin schools</link:research>,
     <link:research state="WY">Wyoming schools</link:research>.
 </div>
-
 <div id="footerSearchCities">
     <link:city city="New York" state="NY">New York schools</link:city>,
     <link:city city="Los Angeles" state="CA">Los Angeles schools</link:city>,
@@ -144,6 +146,59 @@
     <link:city city="Colorado Springs" state="CO">Colorado Springs schools</link:city>,
     <link:city city="Arlington" state="TX">Arlington schools</link:city>.
 </div>
+<div id="footerSearchDistricts">
+    <link:districts state="AL">Alabama districts</link:districts>,
+    <link:districts state="AK">Alaska districts</link:districts>,
+    <link:districts state="AZ">Arizona districts</link:districts>,
+    <link:districts state="AR">Arkansas districts</link:districts>,
+    <link:districts state="CA">California districts</link:districts>,
+    <link:districts state="CO">Colorado districts</link:districts>,
+    <link:districts state="CT">Connecticut districts</link:districts>,
+    <link:districts state="DE">Delaware districts</link:districts>,
+    <link:districts state="FL">Florida districts</link:districts>,
+    <link:districts state="GA">Georgia districts</link:districts>,
+    <link:districts state="HI">Hawaii districts</link:districts>,
+    <link:districts state="ID">Idaho districts</link:districts>,
+    <link:districts state="IL">Illinois districts</link:districts>,
+    <link:districts state="IN">Indiana districts</link:districts>,
+    <link:districts state="IA">Iowa districts</link:districts>,
+    <link:districts state="KS">Kansas districts</link:districts>,
+    <link:districts state="KY">Kentucky districts</link:districts>,
+    <link:districts state="LA">Louisiana districts</link:districts>,
+    <link:districts state="ME">Maine districts</link:districts>,
+    <link:districts state="MD">Maryland districts</link:districts>,
+    <link:districts state="MA">Massachusetts districts</link:districts>,
+    <link:districts state="MI">Michigan districts</link:districts>,
+    <link:districts state="MN">Minnesota districts</link:districts>,
+    <link:districts state="MS">Mississippi districts</link:districts>,
+    <link:districts state="MO">Missouri districts</link:districts>,
+    <link:districts state="MT">Montana districts</link:districts>,
+    <link:districts state="NE">Nebraska districts</link:districts>,
+    <link:districts state="NV">Nevada districts</link:districts>,
+    <link:districts state="NH">New Hampshire districts</link:districts>,
+    <link:districts state="NJ">New Jersey districts</link:districts>,
+    <link:districts state="NM">New Mexico districts</link:districts>,
+    <link:districts state="NY">New York districts</link:districts>,
+    <link:districts state="NC">North Carolina districts</link:districts>,
+    <link:districts state="ND">North Dakota districts</link:districts>,
+    <link:districts state="OH">Ohio districts</link:districts>,
+    <link:districts state="OK">Oklahoma districts</link:districts>,
+    <link:districts state="OR">Oregon districts</link:districts>,
+    <link:districts state="PA">Pennsylvania districts</link:districts>,
+    <link:districts state="RI">Rhode Island districts</link:districts>,
+    <link:districts state="SC">South Carolina districts</link:districts>,
+    <link:districts state="SD">South Dakota districts</link:districts>,
+    <link:districts state="TN">Tennessee districts</link:districts>,
+    <link:districts state="TX">Texas districts</link:districts>,
+    <link:districts state="UT">Utah districts</link:districts>,
+    <link:districts state="VT">Vermont districts</link:districts>,
+    <link:districts state="VA">Virginia districts</link:districts>,
+    <link:districts state="WA">Washington districts</link:districts>,
+    <link:districts state="DC">Washington DC districts</link:districts>,
+    <link:districts state="WV">West Virginia districts</link:districts>,
+    <link:districts state="WI">Wisconsin districts</link:districts>,
+    <link:districts state="WY">Wyoming districts</link:districts>.
+</div>
 <a name="bottom"> </a>
 </div>
 
@@ -154,6 +209,7 @@
     if (navigator.userAgent.toLowerCase().indexOf("http") < 0) {
         document.getElementById('footerSearchStates').style.display = 'none';
         document.getElementById('footerSearchCities').style.display = 'none';
+        document.getElementById('footerSearchDistricts').style.display = 'none';
     }
 
     ]]>
