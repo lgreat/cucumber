@@ -72,30 +72,8 @@
         <td width="8">
         </td>
         <td id="findAndCompare" width="275">
-            <div id="findAndCompareSchoolsNationwide">
-                <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
-                <gsweb:form method="get"
-                           action="/stateLauncher.page"
-                           onsubmit="return checkSearchStateSelected('splashStateSelector')">
-                    <input name="p" value="search_single" type="hidden"/>
-                    <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
-                        <input type="hidden" name="st" value="charter"/>
-                    </c:if>
-                    <input type="text" value="" name="q" size="21" class="textInput"/>
-                    &#160;
-                    <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}"
-                                         useNoState="${not requestScope.context.hasSearched}"
-                                         styleId="splashStateSelector"
-                                         noStateLabel="--"/>
-                    <input type="hidden" value="school" name="type"/>
-                    <br/>
-                    <gsml:url var="go" value="/res/img/splash/go.gif"/>
-                    <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
-                    <input type="image" src="${go}" alt="GO" style="width:41px;height:26px;margin-top: 10px"
-                           class="button" onmouseover="this.src='${goOver}';" onmouseout="this.src='${go}';"/>
-                </gsweb:form>
-            </div>
-
+            <gsml:url var="go" value="/res/img/splash/go.gif"/>
+            <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
             <div id="getIdeasAndLearnMoreAbout">
                 <h3>Get <em>IDEAS and LEARN MORE</em> about:</h3>
                 <gsweb:form action="/redirect.page" method="get">
@@ -136,6 +114,29 @@
                     </tr></table>
                 </gsweb:form>
             </div>
+
+            <div id="findAndCompareSchoolsNationwide">
+                <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
+                <gsweb:form method="get"
+                            action="/stateLauncher.page"
+                            onsubmit="return checkSearchStateSelected('splashStateSelector')">
+                    <input name="p" value="search_single" type="hidden"/>
+                    <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
+                        <input type="hidden" name="st" value="charter"/>
+                    </c:if>
+                    <input type="text" value="" name="q" size="21" class="textInput"/>
+                    &#160;
+                    <gsweb:stateSelector usingLongNames="false" state="${requestScope.context.state}"
+                                         useNoState="${not requestScope.context.hasSearched}"
+                                         styleId="splashStateSelector"
+                                         noStateLabel="--"/>
+                    <input type="hidden" value="school" name="type"/>
+                    <br/>
+                    <input type="image" src="${go}" alt="GO" style="width:41px;height:26px;margin-top: 10px"
+                           class="button" onmouseover="this.src='${goOver}';" onmouseout="this.src='${go}';"/>
+                </gsweb:form>
+            </div>
+
         </td>
     </tr>
 </table>
