@@ -72,7 +72,6 @@ will need to become a graphic.
     text-decoration: underline;
 }
 
-
 /* Search area */
 
 #topnav div.search {
@@ -86,6 +85,7 @@ will need to become a graphic.
     white-space: nowrap;
     vertical-align: bottom;
     font-family: Arial, Helvetica, san-serif;
+    padding: 0px 0px 4px 0px;
 }
 
 #topnav .stateSelect {
@@ -197,6 +197,4 @@ will need to become a graphic.
     padding-bottom: 8px;
     padding-left: 10px;
 }
-
-
 

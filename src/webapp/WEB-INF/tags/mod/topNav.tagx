@@ -56,16 +56,17 @@
         <table style="width:301px" border="0" cellpadding="0" cellspacing="0">
             <tr>
                 <td style="width:202px">
-                    <span class="searchLabel" id="searchPrompt">Enter school, district or city</span>
+                    <div id="slabel" class="searchLabel">
+                        <gsml:img id="searchPrompt" src="/res/img/search/enter_school.gif" alt="Enter School"/>
+                    </div>
                 </td>
                 <td style="width:10px">
                     <gsml:img src="/res/img/pixel.gif" alt="" style="width:6px;height:6px"/>
                 </td>
 
                 <td style="width:50px">
-                    <div id="searchInLabel" style="display:block">
-
-                        <span class="searchLabel">Search in:</span>
+                    <div class="searchLabel" style="display:block">
+                        <gsml:img id="searchInLabel" src="/res/img/search/search_in.gif" alt="Search In"/>
                     </div>
 
                 </td>

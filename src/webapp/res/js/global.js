@@ -2,7 +2,7 @@
 Copyright (c) 2006 GreatSchools.net
 All Rights Reserved.
 
-$Id: global.js,v 1.13 2006/08/15 20:43:50 apeterson Exp $
+$Id: global.js,v 1.14 2006/09/06 01:48:35 chriskimm Exp $
 */
 
 /*
@@ -136,8 +136,24 @@ function topNavSelectTopicSearch(x) {
 @todo remove in 5.9 or later
 */
 function setSearchPrompt(s) {
-    var e = document.getElementById("searchPrompt");
-    e.innerHTML = s;
+
+    var d = document.getElementById('slabel');
+    var olddiv = document.getElementById('searchPrompt');
+    d.removeChild(olddiv);
+
+    var newdiv = document.createElement('img');
+    newdiv.setAttribute('id', 'searchPrompt');
+
+    if (s == 'Enter keyword') {
+        newdiv.setAttribute('src', '/res/img/search/enter_keyword.gif');
+        newdiv.setAttribute('alt', 'Enter Keyword')
+    } else {
+        newdiv.setAttribute('src', '/res/img/search/enter_school.gif');
+        newdiv.setAttribute('alt', 'Enter School, City or District')
+    }
+
+    d.appendChild(newdiv);
+
     var e = document.getElementById("q");
     e.focus();
     e.select();
