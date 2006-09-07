@@ -157,9 +157,7 @@ td#billsBlog {
     vertical-align: top;
 }
 
-td#billsBlog img {
-    margin-bottom: 7px;
-}
+td#billsBlog img { margin-bottom: 7px; }
 
 #billsBlog div.rss {
     margin-top: 0px;
