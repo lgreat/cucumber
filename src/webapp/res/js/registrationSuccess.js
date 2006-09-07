@@ -1,5 +1,3 @@
-var startTime;
-var endTime;
 var MAX_KIDS = 11;
 
 // valid options:
@@ -38,8 +36,7 @@ function declareStudentListener(i) {
     new AutoAssist("school" + i, function () {
         var stateSelector = $("state" + i);
         var state = stateSelector.options[stateSelector.selectedIndex].value;
-        startTime = Date();
-        return "http://dev.greatschools.net/cgi-bin/ajax_autocomplete.pl?type=school&param3=" + i +
+        return "/cgi-bin/ajax_autocomplete.pl?type=school&param3=" + i +
                "&fn=setKidsSchool&q=" + this.text.value + "&state=" + state;
     }, autoAssistOptions);
 }
@@ -49,26 +46,19 @@ function declarePreviousSchoolListener(i) {
     new AutoAssist("previousSchool" + i, function () {
         var stateSelector = $("previousState" + i);
         var state = stateSelector.options[stateSelector.selectedIndex].value;
-        startTime = Date();
-        return "http://dev.greatschools.net/cgi-bin/ajax_autocomplete.pl?type=school&param3=" + i +
+        return "/cgi-bin/ajax_autocomplete.pl?type=school&param3=" + i +
                "&fn=setPreviousSchool&q=" + this.text.value + "&state=" + state;
     }, autoAssistOptions);
 }
 
 // callback function, called by the external script that does the search for school names
 function setKidsSchool(schoolId, school, num) {
-    endTime = Date();
     $("schoolId" + num).value=schoolId;
     $("school" + num).value=school;
-
-    $("AjaxProfiling").value= (endTime.getTime() - startTime.getTime());
 }
 
 // callback function, called by the external script that does the search for school names
 function setPreviousSchool(schoolId, school, num) {
-    endTime = Date();
     $("previousSchoolId" + num).value=schoolId;
     $("previousSchool" + num).value=school;
-
-    $("AjaxProfiling").value= (endTime.getTime() - startTime.getTime());
 }

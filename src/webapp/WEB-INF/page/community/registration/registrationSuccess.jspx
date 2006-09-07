@@ -295,8 +295,6 @@
               <input type="hidden" name="marker" value="${followUpCmd.marker}"/>
           </c:otherwise>
       </c:choose>
-      
-      <input type="hidden" id="AjaxProfiling" name="AjaxProfiling" value=""/>
 
       <input class="form" type="submit" value="Submit" name="submit"/>
       <div class="privacy">By submitting, I agree to the <link:termsOfUse>Terms of Service</link:termsOfUse></div>
