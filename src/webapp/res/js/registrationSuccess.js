@@ -7,7 +7,7 @@ var MAX_KIDS = 11;
 //            by the CSS)
 // widthOffset: The popup containing the list of school matches has width equal to the width
 //              of the parent text field plus this offset value (in pixels). Defaults to 0.
-var autoAssistOptions = {frequency:0.01, minChars:3, widthOffset:100};
+var autoAssistOptions = {frequency:0.2, minChars:1, widthOffset:100};
 
 // run the following function on window load
 Event.observe(window, "load", function() {
@@ -34,11 +34,11 @@ function declareStudentListener(i) {
     // it is a function so you can query other fields if necessary (in this case, the state selector)
     // the final paramter is an options map (see comment on the options map declaration above).
     new AutoAssist("school" + i, function () {
-                var stateSelector = $("state" + i);
-                var state = stateSelector.options[stateSelector.selectedIndex].value;
-                return "/cgi-bin/ajax_autocomplete.pl?type=school&param3=" + i +
-                       "&fn=setKidsSchool&q=" + this.text.value + "&state=" + state;
-            }, autoAssistOptions);
+        var stateSelector = $("state" + i);
+        var state = stateSelector.options[stateSelector.selectedIndex].value;
+        return "/cgi-bin/ajax_autocomplete.pl?type=school&param3=" + i +
+               "&fn=setKidsSchool&q=" + this.text.value + "&state=" + state;
+    }, autoAssistOptions);
 }
 
 function declarePreviousSchoolListener(i) {
