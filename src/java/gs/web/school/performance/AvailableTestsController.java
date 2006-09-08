@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 NDP Software. All Rights Reserved.
- * $Id: AvailableTestsController.java,v 1.1 2006/08/19 22:41:35 apeterson Exp $
+ * $Id: AvailableTestsController.java,v 1.2 2006/09/08 23:23:34 apeterson Exp $
  */
 
 package gs.web.school.performance;
@@ -69,7 +69,7 @@ public final class AvailableTestsController extends ParameterizableViewControlle
         List testInfo = new ArrayList();
         for (Iterator iter = Grade.iterator(); iter.hasNext();) {
             final Grade grade = (Grade) iter.next();
-            final List list = _testDataSetDao.findDataSets(state, year, null, null, grade, new Integer(1), true);
+            final List list = _testDataSetDao.findDataSets(state, year, null, null, grade, new Integer(1), ITestDataSetDao.UNSPECIFIED_PROFICIENCY_BAND, true);
             _log.error("Grade="+grade+" count="+list.size());
             if (list.size() > 0) {
                 testInfo.add(new GradeInfo(grade, list));
