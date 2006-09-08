@@ -113,7 +113,13 @@
             <version>1.2.6</version>
         </dependency>
 
-        <!-- HttpUnit dependencies -->
+        <dependency>
+            <groupId>easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>1.1</version>
+        </dependency>
+
+         <!-- HttpUnit dependencies -->
         <dependency>
             <groupId>httpunit</groupId>
             <artifactId>httpunit</artifactId>
