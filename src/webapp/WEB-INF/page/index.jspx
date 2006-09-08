@@ -79,37 +79,28 @@
                 <gsweb:form action="/redirect.page" method="get">
                     <table><tr>
                         <td><select name="page">
-                            <option value="/content/backToSchool.page" selected="selected">Back-to-school
-                                success </option>
-                            <option value="/search/search.page?q=back+to+school+shopping&amp;amp;type=topic">Back-to-school
-                                shopping </option>
+                            <option value="/content/backToSchool.page" selected="selected">Back-to-school success </option>
+                            <option value="/search/search.page?q=back+to+school+shopping&amp;amp;type=topic">Back-to-school shopping </option>
                             <option value="/content/countdownToCollege.page"> College prep </option>
-                            <option value="/search/search.page?q=Troubleshooter&amp;amp;type=topic"> Ask the
-                                experts </option>
-
+                            <option value="/search/search.page?q=Troubleshooter&amp;amp;type=topic"> Ask the experts </option>
                             <option value="/cgi-bin/showarticle/CA/33"> Fundraising</option>
-
                             <option value="/cgi-bin/showarticle/CA/22"> Learning disabilities </option>
                             <option value="/cgi-bin/showarticle/CA/97"> Gifted and talented kids </option>
-
                             <option value="/search/search.page?q=reading tips&amp;amp;type=topic"> Reading tips </option>
                             <option value="/search/search.page?q=math tips&amp;amp;type=topic"> Math tips </option>
                             <option value="/search/search.page?q=bullying&amp;amp;type=topic"> Bullying </option>
-                            <option value="/search/search.page?q=healthy+food&amp;amp;type=topic"> Healthy food
-                                ideas </option>
+                            <option value="/search/search.page?q=healthy+food&amp;amp;type=topic"> Healthy food ideas </option>
                             <option value="/search/search.page?q=homework&amp;amp;type=topic"> Homework battles </option>
-
                             <option value="/content/guideToTests.page"> Standardized tests </option>
                             <option value="/content/schoolChoiceCenter.page"> Choosing a school </option>
                             <option value="/cgi-bin/showarticle/ca/197">Public vs. private</option>
-
                             <option value="/cgi-bin/showarticle/ca/41"> Get involved</option>
-
                         </select>
                         </td>
                         <td>&#160;</td>
                         <td><input type="image" src="${go}" alt="GO" style="width:41px;height:26px;"
-                                   class="button" onmouseover="this.src='${goOver}';" onmouseout="this.src='${go}';"/>
+                                   class="button" onmouseover="this.src='${goOver}';"
+                                   onmouseout="this.src='${go}';" onclick="s_objectID='splash_ed_go';"/>
                         </td>
                     </tr></table>
                 </gsweb:form>
@@ -133,7 +124,8 @@
                     <input type="hidden" value="school" name="type"/>
                     <br/>
                     <input type="image" src="${go}" alt="GO" style="width:41px;height:26px;margin-top: 10px"
-                           class="button" onmouseover="this.src='${goOver}';" onmouseout="this.src='${go}';"/>
+                           class="button" onmouseover="this.src='${goOver}';"
+                           onmouseout="this.src='${go}';" onclick="s_objectID='splash_schools_go';"/>
                 </gsweb:form>
             </div>
 
@@ -164,7 +156,7 @@
         </td>
         <td id="billsBlog">
             <div><!-- Doesn't validate, but doesn't work if inside the h3/h4s. Need to redo without image replacement to make this work. -->
-                <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><gsml:img src="/res/img/splash/billsBlogTrans2.gif" alt="Bill's Blog On School Improvement" /></gsml:popupWindow>                
+                <gsml:popupWindow href="http://billsblog.greatschools.net" width="800" height="600" left="50" top="50"><gsml:img src="/res/img/splash/billsBlogTrans2.gif" alt="Bill's Blog On School Improvement" /></gsml:popupWindow>
                 <div class="rss">
                     <cache:cache scope="application" name="blog" key="bill3">
                         <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
