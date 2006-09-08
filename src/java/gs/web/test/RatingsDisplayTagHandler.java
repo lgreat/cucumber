@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsDisplayTagHandler.java,v 1.4 2006/09/08 17:59:35 apeterson Exp $
+ * $Id: RatingsDisplayTagHandler.java,v 1.5 2006/09/08 18:30:52 apeterson Exp $
  */
 package gs.web.test;
 
@@ -65,7 +65,7 @@ public class RatingsDisplayTagHandler extends SimpleTagSupport {
                 for (int k = 0; k < _columns.size(); k++) {
                     Integer rating = row.getRating(k);
                     buffer.append("<td>")
-                            .append(rating != null ? rating : "n/a")
+                            .append(rating != null ? rating.toString() : "n/a")
                             .append("</td>");
                 }
 
