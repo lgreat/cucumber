@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsController.java,v 1.3 2006/09/07 19:05:53 apeterson Exp $
+ * $Id: RatingsController.java,v 1.4 2006/09/08 17:59:35 apeterson Exp $
  */
 package gs.web.test;
 
@@ -112,8 +112,12 @@ public class RatingsController extends AbstractController {
             return _label;
         }
 
-        public int[] getDataSetIds(int column) {
-            return new int[] {1,2,3};
+        public Integer getRating(int column) {
+            return new Integer(1);
+        }
+
+        public Integer getTrend(int subjectGroupIndex) {
+            return null;
         }
     }
 }
