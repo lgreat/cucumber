@@ -1,19 +1,19 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.17 2006/08/15 22:52:02 chriskimm Exp $
+ * $Id: NthGraderController.java,v 1.18 2006/09/08 19:13:02 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
 import gs.data.community.*;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
-import gs.web.util.context.ISessionContext;
-import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,7 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * The purpose is ...
+ * Allows user to subscribe to parent advisor and nth grader newsletters
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
@@ -48,7 +48,17 @@ public class NthGraderController extends SimpleFormController implements ReadWri
 
         String autocheck = request.getParameter(PARAM_AUTOCHECK);
 
+
         NewsletterCommand nc = (NewsletterCommand) command;
+
+        //state is an optional parameter.
+        //If no state is supplied, defaults to CA else use parameter passed state
+        if (null == nc.getState()) {
+            //set state to value from cookie or default state
+            ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            nc.setState(sessionContext.getStateOrDefault());
+        }
+
         List validators = getOnLoadValidators();
         for (Iterator iter = validators.iterator(); iter.hasNext();) {
             Validator val = (Validator) iter.next();
