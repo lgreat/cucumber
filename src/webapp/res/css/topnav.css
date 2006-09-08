@@ -75,7 +75,7 @@ will need to become a graphic.
 /* Search area */
 
 #topnav div.search {
-    margin-top:28px;
+    margin-top:24px;
 }
 
 #topnav .searchLabel {
@@ -85,7 +85,7 @@ will need to become a graphic.
     white-space: nowrap;
     vertical-align: bottom;
     font-family: Arial, Helvetica, san-serif;
-    padding: 0px 0px 4px 0px;
+    padding: 0px 0px 1px 0px;
 }
 
 #topnav .stateSelect {
