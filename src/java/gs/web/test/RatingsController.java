@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsController.java,v 1.4 2006/09/08 17:59:35 apeterson Exp $
+ * $Id: RatingsController.java,v 1.5 2006/09/08 18:37:07 apeterson Exp $
  */
 package gs.web.test;
 
@@ -94,6 +94,10 @@ public class RatingsController extends AbstractController {
 
         public IRow getRow(int i) {
             return (IRow) _rows.get(i);
+        }
+
+        public List getRows() {
+            return _rows;
         }
 
         public void addRow(IRow row) {
