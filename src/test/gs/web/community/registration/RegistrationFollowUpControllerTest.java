@@ -9,10 +9,10 @@ import gs.data.util.DigestUtil;
 import gs.web.BaseControllerTestCase;
 import org.springframework.context.ApplicationContext;
 import org.springframework.validation.BindException;
+import org.easymock.MockControl;
+import org.easymock.AbstractMatcher;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.Date;
-import java.util.List;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -22,15 +22,18 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
     private IUserDao _userDao;
     private ISchoolDao _schoolDao;
-    private ISubscriptionDao _subscriptionDao;
+    private ISubscriptionDao _mockSubscriptionDao;
+    private MockControl _subscriptionControl;
 
     protected void setUp() throws Exception {
         super.setUp();
         ApplicationContext appContext = getApplicationContext();
+        _subscriptionControl = MockControl.createControl(ISubscriptionDao.class);
         _controller = (RegistrationFollowUpController) appContext.getBean(RegistrationFollowUpController.BEAN_ID);
         _userDao = (IUserDao)appContext.getBean(IUserDao.BEAN_ID);
         _schoolDao = (ISchoolDao)appContext.getBean(ISchoolDao.BEAN_ID);
-        _subscriptionDao = (ISubscriptionDao)appContext.getBean(ISubscriptionDao.BEAN_ID);
+        _mockSubscriptionDao = (ISubscriptionDao)_subscriptionControl.getMock();
+        _controller.setSubscriptionDao(_mockSubscriptionDao);
     }
 
     public void testRegistrationFollowUp() throws NoSuchAlgorithmException {
@@ -65,6 +68,36 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
             _controller.onBindAndValidate(getRequest(), command, errors);
             assertFalse(errors.hasErrors());
 
+            // controller checks for previous subscriptions
+            _mockSubscriptionDao.getUserSubscriptions(user, SubscriptionProduct.PREVIOUS_SCHOOLS);
+            // detects none
+            _subscriptionControl.setReturnValue(null);
+            Subscription expectedSubscription = new Subscription();
+            expectedSubscription.setUser(user);
+            expectedSubscription.setProduct(SubscriptionProduct.PREVIOUS_SCHOOLS);
+            expectedSubscription.setSchoolId(school.getId().intValue());
+            // saves the new subscription
+            _mockSubscriptionDao.saveSubscription(expectedSubscription);
+            // I check that the correct user is matched to the correct subscription product
+            // and the correct school id
+            _subscriptionControl.setMatcher(new AbstractMatcher() {
+                protected boolean argumentMatches(Object first, Object second) {
+                    Subscription one = (Subscription)first;
+                    Subscription two = (Subscription)second;
+                    // protect against NPE's
+                    if (one.getUser() == null || one.getUser().getId() == null ||
+                            two.getUser() == null || two.getUser().getId() == null ||
+                            one.getProduct() == null || two.getProduct() == null) {
+                        return false;
+                    }
+                    return one.getUser().getId().equals(two.getUser().getId()) &&
+                            one.getProduct().equals(two.getProduct()) &&
+                            one.getSchoolId() == two.getSchoolId();
+                }
+        });
+            // and that's it
+            _subscriptionControl.replay();
+
             _controller.onSubmit(getRequest(), getResponse(), command, errors);
             assertFalse(errors.hasErrors());
             user = _userDao.findUserFromId(user.getId().intValue());
@@ -73,20 +106,9 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
             assertTrue(userProfile.isPrivate());
             assertEquals("Other", userProfile.getOtherInterest());
             assertTrue(userProfile.getInterestsAsArray().length == 1);
-            assertEquals(interestCode,
-                    userProfile.getInterestsAsArray()[0]);
-            List subs = _subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.PREVIOUS_SCHOOLS);
-            assertNotNull(subs);
-            Subscription sub = (Subscription)subs.get(0);
-            assertEquals(1, sub.getSchoolId());
-            assertEquals(State.CA, sub.getState());
+            assertEquals(interestCode, userProfile.getInterestsAsArray()[0]);
+            _subscriptionControl.verify();
         } finally {
-            List subs = _subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.PREVIOUS_SCHOOLS);
-            if (subs != null) {
-                for (int x=0; x < subs.size(); x++) {
-                    _subscriptionDao.removeSubscription(((Subscription)subs.get(x)).getId());
-                }
-            }
             _userDao.removeUser(user.getId());
         }
     }
@@ -206,14 +228,15 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         command.addStudent(student);
         assertNull(user.getStudents());
 
-        MockUserDao mockUserDao = new MockUserDao();
+        MockControl userControl = MockControl.createControl(IUserDao.class);
+        IUserDao mockUserDao = (IUserDao) userControl.getMock();
+        mockUserDao.updateUser(user);
+        userControl.replay();
         try {
             _controller.setUserDao(mockUserDao);
-            assertFalse(mockUserDao.hasUpdateBeenCalled());
 
             _controller.onSubmit(getRequest(), getResponse(), command, errors);
             assertFalse(errors.hasErrors());
-            assertTrue(mockUserDao.hasUpdateBeenCalled());
             assertNotNull(user.getStudents());
             assertEquals(user.getStudents().iterator().next(), student);
         } finally {
@@ -362,53 +385,6 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
             assertTrue(errors.hasFieldErrors("otherInterest"));
         } finally {
             _userDao.removeUser(user.getId());
-        }
-    }
-
-    // TODO: convert to easymock
-    private static class MockUserDao implements IUserDao {
-
-        private boolean _updateCalled = false;
-
-        public boolean hasUpdateBeenCalled() {
-            return _updateCalled;
-        }
-
-        public void evict(User user) {
-        }
-
-        public User findUserFromEmail(String email) {
-            return null;
-        }
-
-        public User findUserFromEmailIfExists(String email) {
-            return findUserFromEmail(email);
-        }
-
-        public User findUserFromId(int i) {
-            return null;
-        }
-
-        public void saveUser(User user) {
-        }
-
-        public void updateUser(User user) {
-            _updateCalled = true;
-        }
-
-        public void removeUser(Integer integer) {
-        }
-
-        public List findUsersModifiedSince(Date date) {
-            return null;
-        }
-
-        public List findUsersModifiedBetween(Date begin, Date end) {
-            return null;
-        }
-
-        public User findUserFromScreenNameIfExists(String screenName) {
-            return null;
         }
     }
 }
