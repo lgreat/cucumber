@@ -158,7 +158,7 @@ public class SearchController extends AbstractFormController {
         // Blank query string takes the user to browse pages
         if (StringUtils.isBlank(searchCommand.getQueryString())) {
             UrlBuilder builder;
-            if (StringUtils.equals("topic", searchCommand.getType())) {
+            if (searchCommand.isTopicsOnly()) {
                 builder = new UrlBuilder(UrlBuilder.ARTICLE_LIBRARY, sessionContext.getState());
             } else {
                 builder = new UrlBuilder(UrlBuilder.RESEARCH, sessionContext.getState());
@@ -169,14 +169,14 @@ public class SearchController extends AbstractFormController {
         }
 
         // ok, this seems like a valid search, set the "hasSearched" cookie
-        if (!StringUtils.equals("topic", searchCommand.getType())) {
+        if (!searchCommand.isTopicsOnly()) {
             PageHelper.setHasSearchedCookie(request, response);
         }
 
         Map model = createModel(request, searchCommand, sessionContext, debug);
 
         // Set the pathway: it's Research & Compare unless it's an article search.
-        if ("topic".equals(searchCommand.getType())) {
+        if (searchCommand.isTopicsOnly()) {
             PageHelper.setPathwayCookie(request, response, "2");
         } else {
             PageHelper.setPathwayCookie(request, response, "1");
@@ -235,7 +235,7 @@ public class SearchController extends AbstractFormController {
 
             BooleanQuery baseQuery = createBaseQuery(sessionContext, state, queryString);
 
-            if (!"topic".equals(searchCommand.getType())) {
+            if (!searchCommand.isTopicsOnly()) {
                 Hits cityHits = _searcher.searchForCities(queryString, state);
                 if (cityHits != null && cityHits.length() != 0) {
                     final int maxCities = StringUtils.isNotEmpty(request.getParameter(PARAM_MORE_CITIES)) ?
@@ -293,10 +293,9 @@ public class SearchController extends AbstractFormController {
 
         String heading1;
         if (resultsToShow) { // was hits != null && hits.length() > 0
-            String paramType = searchCommand.getType();
-            if ("topic".equals(paramType)) {
+            if (searchCommand.isTopicsOnly()) {
                 heading1 = "Article results";
-            } else if ("school".equals(paramType)) {
+            } else if (searchCommand.isSchoolsOnly()) {
                 heading1 = "School results";
             } else {
                 heading1 = "Results";
@@ -304,7 +303,7 @@ public class SearchController extends AbstractFormController {
             heading1 += " for \"<span class=\"query\">" + queryString + "</span>\"";
 
             if (hits == null || hits.length() == 0) {
-                if (!"topic".equals(searchCommand.getType()) &&
+                if (!searchCommand.isTopicsOnly() &&
                         searchCommand.getState() != null) {
                     model.put(MODEL_NO_RESULTS_EXPLAINED,
                             "No schools found in " +
@@ -316,7 +315,14 @@ public class SearchController extends AbstractFormController {
 
             }
         } else {
-            heading1 = "No " + ("topic".equals(searchCommand.getType()) ? "topic" : "") +
+            String type="";
+            if (searchCommand.isTopicsOnly()) {
+                type = "topic";
+            } else if (searchCommand.isSchoolsOnly()) {
+                type = "school";
+            }
+
+            heading1 = "No " + type +
                     " results found";
             if (searchCommand.getState() != null) {
                 heading1 += " in " + searchCommand.getState().getLongName();
