@@ -11,12 +11,11 @@
     variables (triggerPopunder) that can be used
     as part of an onsubmit on a form to get around popup blockers.
 
-    On the main website we show 2 popunders, on cobrands we only display 1 popunder
-    The ad_popunder.js code determines if we should display 1 or 2
-    On yahoo, framed, number1expert, mcguire we show none
+    On the main website we show 2 popunders, on cobrands we do not display popunders
+    The ad_popunder.js code contains all logic for the popunders.
     -->
     <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviationLowerCase}"/>
-    <c:if test="${!requestScope.pageHelper.adFree and !requestScope.context.yahooCobrand and !requestScope.context.familyCobrand}">
+    <c:if test="${!requestScope.pageHelper.adFree and !requestScope.context.cobranded}">
         <c:set var="triggerPopunder" scope="request" value="DisplayPopunderSpecial('${state}','x06|x17'); return true;"/>
         <pageHelper:addOnLoadHandler handler="DisplayPopunder('${state}','x06|x17')" />
         <pageHelper:externalJavascript file="/cm/ad_popunder.js" />
