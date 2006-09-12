@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.2 2006/07/25 00:47:24 chriskimm Exp $
+ * $Id: SessionContext.java,v 1.3 2006/09/12 21:45:52 apeterson Exp $
  */
 package gs.web.util.context;
 
@@ -8,12 +8,12 @@ import gs.data.admin.IPropertyDao;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.state.State;
-import gs.web.util.context.ISessionContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 import java.io.Serializable;
 
@@ -70,7 +70,11 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
     public User getUser() {
         if (_user == null) {
             if (_memberId != null) {
-                _user = _userDao.findUserFromId(_memberId.intValue());
+                try {
+                    _user = _userDao.findUserFromId(_memberId.intValue());
+                }   catch (ObjectRetrievalFailureException e) {
+                    _log.warn("Cookie pointed to non-existent user with id " + _memberId);
+                }
             }
         }
         return _user;

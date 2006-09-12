@@ -1,14 +1,15 @@
 package gs.web.util.context;
 
+import gs.data.admin.IPropertyDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.data.admin.IPropertyDao;
-import gs.web.util.context.SessionContext;
-import gs.web.util.context.SessionContextUtil;
+import gs.data.community.IUserDao;
 import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.util.CookieGenerator;
+import org.springframework.orm.ObjectRetrievalFailureException;
+import org.easymock.MockControl;
 
 import javax.servlet.http.Cookie;
 import java.util.Date;
@@ -28,7 +29,9 @@ public class SessionContextTest extends BaseTestCase {
     private SessionContext _sessionContext;
     private static final String STATE_COOKIE = "state";
 
-    /** @noinspection ProhibitedExceptionDeclared*/
+    /**
+     * @noinspection ProhibitedExceptionDeclared
+     */
     protected void setUp() throws Exception {
         super.setUp();
 
@@ -110,7 +113,7 @@ public class SessionContextTest extends BaseTestCase {
         assertTrue(_sessionContext.isCobranded());
         assertEquals("sfgate", _sessionContext.getCobrand());
         assertNull(_sessionContext.getState());
-        assertEquals(State.CA,  _sessionContext.getStateOrDefault());
+        assertEquals(State.CA, _sessionContext.getStateOrDefault());
 
         // Add the state parameter
         _request.setParameter("state", "wy");
@@ -204,7 +207,9 @@ public class SessionContextTest extends BaseTestCase {
         assertEquals(0, cookie.getMaxAge());
     }
 
-    /** @noinspection OverlyLongMethod*/
+    /**
+     * @noinspection OverlyLongMethod
+     */
     public void testStateSetting() {
 
         assertNull(_sessionContext.getState());
@@ -257,9 +262,9 @@ public class SessionContextTest extends BaseTestCase {
     }
 
     /**
-     * MockHttpServletResponse stores cookie values in a list and not a map so
-     * it's possible to have cookies in the list with the same name.
-     *
+     * MockHttpServletResponse stores cookie values in a list and not a map so it's possible to have cookies in the list
+     * with the same name.
+     * <p/>
      * This method performs operations on the LAST cookie inserted into the response.
      */
     private State getStateFromMockResponse(MockHttpServletResponse response) {
@@ -267,7 +272,7 @@ public class SessionContextTest extends BaseTestCase {
         Cookie [] cookies = response.getCookies();
         String state = null;
 
-        for (int i=0; i<cookies.length; i++) {
+        for (int i = 0; i < cookies.length; i++) {
             Cookie c = cookies[i];
             if (STATE_COOKIE.equals(c.getName())) {
                 state = c.getValue();
@@ -280,6 +285,7 @@ public class SessionContextTest extends BaseTestCase {
             return sm.getState(state);
         }
     }
+
     public void testABVersion() {
         SessionContextUtil util = new SessionContextUtil();
         util.setStateManager(new StateManager());
@@ -300,5 +306,23 @@ public class SessionContextTest extends BaseTestCase {
         util.updateFromRequestAttributes(cRequest, ctx);
         assertEquals("a", ctx.getABVersion());
 
+    }
+
+
+    /**
+     * Regression test of GS-2259.
+     */
+    public void testBadMemberId() {
+
+        final Integer id = new Integer(-999);
+
+        MockControl mockControl = MockControl.createControl(IUserDao.class);
+        IUserDao userDao = (IUserDao) mockControl.getMock();
+        mockControl.expectAndThrow(userDao.findUserFromId(id.intValue()), new ObjectRetrievalFailureException("Can't find it", id));
+        mockControl.replay();
+
+        _sessionContext.setUserDao(userDao);
+        _sessionContext.setMemberId(id);
+        assertNull(_sessionContext.getUser());
     }
 }
