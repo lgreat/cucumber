@@ -36,26 +36,48 @@
 
         <h1>New news item:</h1>
 
+        <c:set var="submitValue" value="Create"/>
+        <c:if test="${newsItem.id gt ''}">
+            <c:set var="isEdit" value="true"/>
+            <c:set var="submitValue" value="Edit"/>
+        </c:if>
+
         <gsweb:form action="/admin/news/create.page" method="get">
             <label for="title">Title (usage varies)</label>
-            <input type="text" name="title" size="100" maxlength="100"/>
+            <input type="text" name="title" size="100" maxlength="100" value="${newsItem.title}"/>
             <label for="text">Text</label>
-            <textarea name="text" rows="5" cols="100">Enter text here.</textarea>
+            <c:choose>
+                <c:when test="${isEdit or newsItem.text gt ''}">
+                    <textarea name="text" rows="5" cols="100">${newsItem.text}</textarea>
+                </c:when>
+                <c:otherwise>
+                    <textarea name="text" rows="5" cols="100">Enter text here.</textarea>
+                </c:otherwise>
+            </c:choose>
             <label for="link">Link (optional)</label>
-            <input type="text" name="link" size="100" maxlength="100"/>
+            <input type="text" name="link" size="100" maxlength="100" value="${newsItem.link}"/>
             <label for="category">Category</label>
+            <c:set var="catNames" value="SPLASH POSITION 1,SPLASH POSITION 2,SPLASH POSITION 3,CONTENT BOX: ARTICLE,CONTEXT BOX: TIP OF THE WEEK,DATA"/>
             <select name="category">
-                <option value="SPLASH POSITION 1">SPLASH POSITION 1</option>
-                <option value="SPLASH POSITION 2">SPLASH POSITION 2</option>
-                <option value="SPLASH POSITION 3">SPLASH POSITION 3</option>
-                <option value="CONTENT BOX: ARTICLE">CONTENT BOX: ARTICLE</option>
-                <option value="CONTENT BOX: TIP OF THE WEEK">CONTENT BOX: TIP OF THE WEEK</option>
-                <option value="DATA">DATA</option>
+                <c:forEach var="catName" items="${catNames}">
+                    <c:choose>
+                        <c:when test="${newsItem.category eq catName}">
+                            <option value="${catName}" selected="selected">${catName}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${catName}">${catName}</option>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
             </select>
-
+            <label for="states">States</label>
+            <gsweb:stateSelector useNoState="true" noStateLabel="All" name="stateSelect" multiple="true" size="10" stateSet="${newsItem.states}"/>
+            <c:if test="${isEdit}">
+                <input type="hidden" name="id" value="${newsItem.id}"/>
+            </c:if>
 
             <br />
-                <input type="submit" value="Create" name="submit"/>
+            <input type="submit" value="${submitValue}" name="submit"/>
         </gsweb:form>
     </gsml:body>
     </html>

@@ -9,6 +9,7 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Set;
 
 /**
  * This tag handler produces a drop-down &lt;select&gt; element, where the
@@ -33,6 +34,9 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
     private State _state;
     private String _noStateLabel = "--";
     private String _name = "state"; // default
+    private boolean _multiple = false; // default
+    private int _size = 0;
+    private Set _stateSet;
 
     private static final StateManager _stateManager;
 
@@ -40,6 +44,37 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
         _stateManager = (StateManager) SpringUtil.getApplicationContext().getBean(StateManager.BEAN_ID);
     }
 
+    public Set getStateSet() {
+        return _stateSet;
+    }
+
+    public void setStateSet(Set stateSet) {
+        _stateSet = stateSet;
+    }
+
+    public boolean isMultiple() {
+        return _multiple;
+    }
+
+    /**
+     * Sets this select to be a multiple-select
+     */
+    public void setMultiple(boolean multiple) {
+        _multiple = multiple;
+    }
+
+    public int getSize() {
+        return _size;
+    }
+
+    /**
+     * When isMultiple() is true, this provides a hint to the browser about how many items to
+     * display in the select box before needing scrolling
+     * @param size number of rows
+     */
+    public void setSize(int size) {
+        _size = size;
+    }
 
     /**
      * When set to true, the selector will show "--" no matter what the
@@ -128,10 +163,19 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
         if (_onChange != null) {
             out.print(" onchange=\"" + _onChange + "\"");
         }
+        if (_multiple) {
+            out.print(" multiple=\"multiple\"");
+            if (_size > 0) {
+                out.print(" size=\"" + _size + "\"");
+            }
+        }
         out.println(">");
 
         if (_useNoState) {
-            out.println("<option value=\"\" selected='selected' ");
+            out.print("<option value=\"\"");
+            if (!_multiple || _stateSet == null) {
+                out.print(" selected='selected' ");
+            }
             out.println(">" + _noStateLabel +"</option>");
         }
 
@@ -148,8 +192,12 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
             out.print(state.getAbbreviation());
             out.print("\" ");
 
-            if (ObjectUtils.equals(_state, state) && !_useNoState) {
+            if (ObjectUtils.equals(_state, state) && !_useNoState && !_multiple) {
                 out.print(" selected='selected' ");
+            } else if (_multiple && _stateSet != null) {
+                if (_stateSet.contains(state)) {
+                    out.print(" selected='selected' ");
+                }
             }
             out.print(">");
 

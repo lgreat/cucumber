@@ -89,6 +89,26 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>multiple</name>
+            <description>Whether the select be multiple or single</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>size</name>
+            <description>For multiple selects, the size of the select box</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>stateSet</name>
+            <description>For multiple selects, specify the states to pre-select</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.util.Set</type>
+        </attribute>
     </tag>
 
     <tag>

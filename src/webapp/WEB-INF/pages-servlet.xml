@@ -581,6 +581,15 @@
           autowire="byName">
     </bean>
 
+    <bean name="/admin/news/edit.page"
+        class="gs.web.admin.news.EditNewsItemController"
+        autowire="byName">
+        <property name="commandName" value="newsItem"/>
+        <property name="commandClass" value="gs.data.content.NewsItem"/>
+        <property name="formView" value="admin/news/edit"/>
+        <property name="successView" value="redirect:/admin/news/list.page"/>
+    </bean>
+
     <bean name="/admin/news/create.page"
           class="gs.web.admin.news.EditNewsItemController"
           autowire="byName">
