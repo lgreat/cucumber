@@ -3,7 +3,6 @@ package gs.web.jsp;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 
@@ -23,7 +22,6 @@ public class DeferredContentTagHandler extends SimpleTagSupport {
 
     public void doTag() throws JspException, IOException {
         PageContext pageContext = (PageContext) getJspContext();
-        JspWriter out = pageContext.getOut();
 
         // Append the body
         StringWriter bodyWriter = new StringWriter();
@@ -40,10 +38,17 @@ public class DeferredContentTagHandler extends SimpleTagSupport {
         StringBuffer xhtml = new StringBuffer();
         try {
             xhtml.append("<div id=\"").append(_id).append("\"></div>");
-            out.println(xhtml);
+            writeOutput(xhtml);
         } catch (Exception e) {
             throw new JspException(e);
         }
+    }
+
+    /**
+     * Made this a separate method to make this class easier to test
+     */
+    protected void writeOutput(StringBuffer xhtml) throws IOException {
+        getJspContext().getOut().println(xhtml);
     }
 
     public void setId(String id) {
