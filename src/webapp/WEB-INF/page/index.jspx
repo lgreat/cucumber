@@ -70,7 +70,9 @@
         <td>
             <div id="houseAd">
                 <![CDATA[
-                <script language="JavaScript1.1" type="text/javascript">
+
+                <script type="text/javascript">
+                    <!--
                     var MM_contentVersion = 6;
                     var plugin = (navigator.mimeTypes && navigator.mimeTypes["application/x-shockwave-flash"]) ? navigator.mimeTypes["application/x-shockwave-flash"].enabledPlugin : 0;
                     if (plugin) {
@@ -83,11 +85,11 @@
                         var MM_FlashCanPlay = MM_PluginVersion >= MM_contentVersion;
                     } else if (navigator.userAgent && navigator.userAgent.indexOf("MSIE") >= 0
                             && (navigator.appVersion.indexOf("Win") != -1)) {
-                        document.write('<SCR' + 'IPT LANGUAGE=VBScript\> \n');
+                        document.write('<scr' + 'ipt language=VBScript\> \n');
                         //FS hide this from IE4.5 Mac by splitting the tag
                         document.write('on error resume next \n');
                         document.write('MM_FlashCanPlay = ( IsObject(CreateObject("ShockwaveFlash.ShockwaveFlash." & MM_contentVersion)))\n');
-                        document.write('</SCR' + 'IPT\> \n');
+                        document.write('</scr' + 'ipt\> \n');
                     }
                     if (MM_FlashCanPlay) {
                         AC_FL_RunContent(
@@ -104,7 +106,7 @@
                         document.write('<img width="584" height="291" alt="Go back to school with GreatSchools!" src="/res/img/splash/backToSchool.jpg" />');
                         document.write('</a>');
                     }
-
+                    -->
                 </script>
                 <noscript>
                     <a href="/content/backToSchool.page">
