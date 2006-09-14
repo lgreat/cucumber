@@ -6,7 +6,7 @@
         >
     <c:choose>
         <c:when test="${requestScope.pageHelper.adServerControlledFooterAd}">
-            <ad:google728x90/>
+            <ad:x24/>
         </c:when>
         <c:otherwise>
             <ad:google728x90/>
