@@ -11,6 +11,7 @@
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
 <c:set var="bodyClass">${requestScope.context.cobranded ? "cobranded" : "www"} ${requestScope.context.cobranded ?  requestScope.context.cobrand : ""} ${requestScope.pageHelper.framed ? 'framed':'unframed'} ${requestScope.pageLayout}</c:set>
 <html lang="en">
@@ -41,10 +42,12 @@
     <gsml:url var="minmaxjs" value="/res/js/minmax.js"/>
     <![CDATA[<script type="text/javascript" src="${minmaxjs}"></script>]]>
 
+    <gsml:url var="deferredcontent" value="/res/js/deferredcontent.js"/>
+    <![CDATA[<script type="text/javascript" src="${deferredcontent}"></script>]]>
+    <pageHelper:addOnLoadHandler handler="relocateDeferredContent()" />
+
     <!-- This tag includes ad_popunder.js -->
     <ad:xPopunder/>
-    <ad:xAdSetup />
-
 
     <decorator:head/>
 
@@ -107,6 +110,10 @@
                     </div>
                 </div>
             </c:if>
+    </div>
+    <div id="deferredContent" style="display:none">
+        <ad:xAdSetup />
+        ${deferredContent}
     </div>
 </div>
 </body>

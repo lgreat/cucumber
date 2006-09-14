@@ -408,6 +408,18 @@
     </tag>
 
     <tag>
+        <name>defer</name>
+        <tag-class>gs.web.jsp.DeferredContentTagHandler</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>id</name>
+            <description>CSS id</description>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
         <name>form</name>
         <tag-class>gs.web.jsp.FormTagHandler</tag-class>
         <body-content>scriptless</body-content>
