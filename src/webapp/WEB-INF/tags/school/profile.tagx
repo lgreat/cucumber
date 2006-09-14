@@ -39,9 +39,9 @@
                     </table>
 
                     <div class="boxBody">
-                    <h1>${school.name}</h1>
+                        <h1>${school.name}</h1>
 
-                        <div class="school_info">
+                        <div id="school_info">
                             <c:if test="${not empty school.gradeLevels}">Grades: ${school.gradeLevels}<br/></c:if>
 
                             Type: ${school.type.schoolTypeName} <br/>
@@ -67,39 +67,40 @@
                                 <a href="${school.webSite}" target="_blank">School Web site</a><br/>
                             </c:if>
 
-                            District: <gsml:a href="/cgi-bin/ca/district_profile/717">${school.district.name}</gsml:a>
+                            District: <gsml:a href="/cgi-bin/${state}/district_profile/${school.districtId}">${school.district.name}</gsml:a>
                             <br/>
                             More about <link:city city="${city}" state="${state}">${city} schools</link:city>
                         </div>
 
-                        <div class="school_links">
-                            <ul class="arrow">
-                                <li>
-                                    <promo:mssHover referredBy="schoolProfile" school="${school}">Email updates<br/>
-                                        about this school</promo:mssHover>
-                                </li>
-                                <li><gsml:a
-                                        href="/cgi-bin/cs_compare/ca/?street=1101+Eucalyptus+Dr.&amp;school_selected=6397&amp;city=San+Francisco&amp;zip=94132&amp;area=m&amp;miles=1000&amp;level=h&amp;sortby=distance&amp;tab=over&amp;showall=1">
-                                    Compare this school</gsml:a></li>
-                                <li><gsml:a href="/cgi-bin/msl_confirm/ca/?add_ids=6397">Add to My
-                                    SchoolList</gsml:a></li>
-                                <li><gsml:a href="/cgi-bin/addcomments/ca/6397/">Rate this school</gsml:a></li>
-                                <li>
-                                    <a href="http://maps.google.com/maps?oi=map&amp;q=1101+Eucalyptus+Dr.+San+Francisco+CA"
-                                       target="_blank">Map</a></li>
-                            </ul>
-                        </div>
+                        <ul id="school_links">
+                            <li>
+                                <promo:mssHover referredBy="schoolProfile" school="${school}">Email updates<br/>
+                                    about this school</promo:mssHover>
+                            </li>
+                            <li><gsml:a
+                                    href="/cgi-bin/cs_compare/ca/?street=1101+Eucalyptus+Dr.&amp;school_selected=6397&amp;city=San+Francisco&amp;zip=94132&amp;area=m&amp;miles=1000&amp;level=h&amp;sortby=distance&amp;tab=over&amp;showall=1">
+                                Compare this school</gsml:a></li>
+                            <li><gsml:a href="/cgi-bin/msl_confirm/ca/?add_ids=${school.id}">Add to My
+                                SchoolList</gsml:a></li>
+                            <li><gsml:a href="/cgi-bin/addcomments/ca/${school.id}/">Rate this school</gsml:a></li>
+                            <li>
+                                <a href="http://maps.google.com/maps?oi=map&amp;q=1101+Eucalyptus+Dr.+San+Francisco+CA"
+                                   target="_blank">Map</a>
+                            </li>
+                        </ul>
 
-                        <div class="school_promo">
+                        <div id="school_promo">
                             <promo:backToSchool/>
                         </div>
 
-                        <div class="site_promo">
+                        <div id="site_promo">
                             <ad:beta/>
                         </div>
+
                         <br style="clear:both;"/>
                         <jsp:doBody/>
-                        </div>
+
+                    </div>
                     <br style="clear:both;"/>
                 </div>
             </div>

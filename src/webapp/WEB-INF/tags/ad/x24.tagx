@@ -6,22 +6,12 @@
           xmlns:gsweb="gstaglib"
         >
     <jsp:directive.tag body-content="empty"/>
-    <c:if test="${!requestScope.pageHelper.adFree  and !requestScope.context.cobranded}">
+    <c:if test="${!requestScope.pageHelper.adFree}">
         <jsp:scriptlet>
             request.setAttribute("x24", Boolean.TRUE);
         </jsp:scriptlet>
-        <div id="adLeaderboard">
-            <table cellpadding="0" cellspacing="0">
-                <tr>
-                    <td>
-                        <gsml:url var="sponsorImage" value="/res/img/ad/sponsor_vertical.gif"/>
-                        <img alt="Ad" class="adSponsorImage" src="${sponsorImage}" width="10" height="90"/>
-                    </td>
-                    <td style="text-align:left;width:728px;height:90px" class="ad">
-                        <gsweb:defer id="ad-x24"><script type="text/javascript">OAS_AD('x24');</script></gsweb:defer>
-                    </td>
-                </tr>
-            </table>
-        </div>
+        <gsweb:defer id="ad-x24">
+            <script type="text/javascript">OAS_AD('x24');</script>
+        </gsweb:defer>
     </c:if>
 </jsp:root>

@@ -34,7 +34,9 @@
                                 ]]>
                 </c:when>
                 <c:otherwise>
-                    <gsweb:defer id="ad-x48"><script type="text/javascript">OAS_AD('x48');</script></gsweb:defer>
+                    <gsweb:defer id="ad-x48">
+                        <script type="text/javascript">OAS_AD('x48');</script>
+                    </gsweb:defer>
                 </c:otherwise>
             </c:choose>
         </div></c:if>

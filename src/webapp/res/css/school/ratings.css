@@ -48,13 +48,18 @@
     font-weight:bold;
 }
 
-#schoolProfile #legend {
+#schoolProfile #legendWrapper {
     border: 2px solid #66cccc;
-    height:160px;
-    width: 100%;
     position: relative;
-    padding: 10px 0 10px 0;
+    margin:-1px;
+    width: 100%;
 }
+
+#schoolProfile #legend {
+    padding:10px;
+    height:160px;
+}
+
 #schoolProfile #legend p{
     padding-top: 15px;
     color: #666;
@@ -62,7 +67,7 @@
 
 #schoolProfile #testScoreTrend{
     text-indent:-5000px;
-    background: url("../../img/school/ratings/testscoretrend.gif") no-repeat;
+    background: url("../../img/school/ratings/testScoreTrend.gif") no-repeat;
     width: 180px;
     height: 72px;
 }
