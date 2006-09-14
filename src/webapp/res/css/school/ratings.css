@@ -1,0 +1,76 @@
+#schoolProfile .ratingSummaryWrapper {
+    border-top:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+    padding:10px 0 10px 0;
+}
+
+#schoolProfile .ratingSummaryContent {
+    height:121px;
+    background-color:#eee;
+    margin:0 0 0 0;
+}
+
+#schoolProfile .ratingSummaryContent h2{
+    padding-top:10px;
+    color:#cc5566;
+    font-weight:bold;
+}
+
+#schoolProfile .ratingSummaryContent p{
+    line-height:110%;
+    color: #666;
+}
+
+#schoolProfile #moreResources {
+    border-bottom: dotted 2px #ccc;
+    padding-top:30px;
+    padding-bottom: 20px;
+}
+
+#schoolProfile #moreResources h2{
+    text-indent:-5000px;
+    background: url("../../img/content/moreResources.gif") no-repeat;
+    width: 300px;
+    height: 26px;
+}
+
+#schoolProfile #moreResources ul {
+    list-style-type:none;
+    padding: 20px 0 0 20px;
+}
+
+#schoolProfile #moreResources li {
+    background: url("../../img/bullet/ffba00_bullet.gif") no-repeat 0 20%;
+    padding-left:10px;
+    padding-bottom:10px;
+    line-height:100%;
+    color: #3399aa;
+    font-weight:bold;
+}
+
+#schoolProfile #legend {
+    border: 2px solid #66cccc;
+    height:160px;
+    width: 100%;
+    position: relative;
+    padding: 10px 0 10px 0;
+}
+#schoolProfile #legend p{
+    padding-top: 15px;
+    color: #666;
+}
+
+#schoolProfile #testScoreTrend{
+    text-indent:-5000px;
+    background: url("../../img/school/ratings/testscoretrend.gif") no-repeat;
+    width: 180px;
+    height: 72px;
+}
+
+#schoolProfile #legend ul {
+    list-style-type:none;
+}
+
+#schoolProfile #legend li {
+    color: #666;
+}

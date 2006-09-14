@@ -1,0 +1,147 @@
+#schoolProfile {
+    font-size:12px;
+    text-align:left;
+}
+
+#schoolProfile h1{
+    font-weight:bold;
+    font-size:16px;
+    padding: 10px 0 3px 0;
+}
+
+#schoolProfile a {
+    text-decoration:underline;
+}
+
+#schoolProfile table {
+    text-align:left;
+}
+
+#schoolProfile .wrap0 {
+    float: left;
+    background: url( '../../img/box/onion/shadow.png' ) right bottom no-repeat;
+}
+
+#schoolProfile .wrap1 {
+    background: url( '../../img/box/onion/shadow180.png' ) no-repeat;
+}
+
+#schoolProfile .wrap2 {
+    background: url( '../../img/box/onion/corner_bl.gif' ) -16px 100% no-repeat;
+}
+
+#schoolProfile .wrap3 {
+    padding: 4px 6px 6px 4px;
+    background: url( '../../img/box/onion/corner_tr.gif' ) 100% -16px no-repeat;
+}
+
+#schoolProfile .box {
+    background-color: #FFFFF4;
+    background-image: url( '../../img/box/gradient_d1caff.gif' );
+    background-repeat: repeat-x;
+    background-position: top;
+    border: 1px solid;
+    border-color: #ddd #999 #999 #ccc;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    width: 100%;
+}
+
+#schoolProfile .boxBody {
+    padding: 0px 10px 4px 7px;
+}
+
+#schoolProfile .school_info {
+    position: relative;
+    float: left;
+    width: 245px;
+    font-size: 11px;
+    padding: 0px 0px 4px 0;
+    vertical-align: top;
+}
+
+#schoolProfile .school_info address {
+    font-style: normal;
+    font-size: 11px;
+}
+
+#schoolProfile .school_links {
+    position: relative;
+    float: left;
+    width: 187px;
+}
+
+#schoolProfile .school_links ul.arrow {
+    list-style-image: url('../../img/bullet/arrow_orange.gif');
+}
+
+#schoolProfile .school_links ul.arrow li {
+    list-style-image: url('../../img/bullet/arrow_orange.gif');
+    padding-bottom: 5px;
+	line-height: 115%;
+}
+#schoolProfile .school_links ul.arrow li a {color:#00F;}
+#schoolProfile .school_links ul.arrow li a:hover {color:#FF6600;}
+
+
+#schoolProfile .school_promo {
+    position: relative;
+    float: left;
+}
+
+#schoolProfile .site_promo {
+    position: relative;
+    float: right;
+}
+#schoolProfile .rollmenu {
+    width: 100%;
+}
+
+#schoolProfile .rollmenu td {
+    width: 10%;
+    margin: 0;
+    padding: 0;
+    background-color:#003499;
+}
+
+#schoolProfile .rollmenu table {
+    width: 100%
+}
+
+#schoolProfile .rollmenu a {
+    font-weight: normal;
+    line-height: 95%;
+    height: 100%;
+    text-decoration: none;
+    color: #FFF;
+    background-color: transparent;
+    margin: 0;
+    width: auto;
+    border-right: 1px solid #D1CAFF;
+    display: block;
+    padding-left: 10px;
+    padding-top: 8px;
+    padding-right: 10px;
+    padding-bottom: 0px;
+}
+
+#schoolProfile .rollmenu a:visited {
+    text-decoration: none;
+    color: #FFF;
+}
+
+#schoolProfile .rollmenu a:hover {
+    color: #000;
+    text-decoration: none;
+    background-color: #D1CAFF;
+}
+
+#schoolProfile .rollmenu .active a {
+    color: #000;
+    background-color: #D1CAFF;
+    text-decoration: none;
+}
+
+#schoolProfile .rollmenu .active {
+    border-left: 0px;
+}
