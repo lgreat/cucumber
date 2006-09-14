@@ -10,6 +10,8 @@
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
           xmlns:gsweb="gstaglib"
           xmlns:display="urn:jsptld:http://displaytag.sf.net"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
 <html lang="en">
 
@@ -18,46 +20,24 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
-<pageHelper:externalCss file="/css/spp2.css"/>
+
+<jsp:scriptlet>
+    gs.web.util.PageHelper.setAdServerControlledFooterAd(request, true);
+</jsp:scriptlet>
+
 
 <head>
     <title>Rating page</title>
 
-    <pageHelper:externalCss file="/css/spp2.css"/>
-
     <style type="text/css">
-        .contentGS td.tab a, a:active {
-            color: #FFF;
-        }
-
-        .contentGS td a:hover {
-            color: #000;
-        }
-
-        td span#infolink, span.moreabout {
-            text-decoration: underline;
-        }
-
-        #adSkyscraper {
-            padding-top: 0px;
-        }
-
-        @media print {
-            .search, #adLeaderboard, #footer, .noprint  { display:none; }
-            .wrap0  { width:75%; background:white; }
-            body, body.unframed #pageGS {
-                background-color:#fff;
-                border: 0px solid   #fff;
-            }
-        }
-
-        #rating table {
-            border: 1px solid #000;
+        #rating {
+            position: relative;
+            border: 2px solid #deeeee;
             border-collapse: collapse;
             font-family: arial, sans-serif;
-            font-size: 80%;
             text-align: center;
             background-color: #ffffff;
+            width:100%;
         }
 
         #rating thead, #rating tbody {
@@ -67,8 +47,8 @@
         #rating th {
             border-bottom: 1px solid #000;
             border-collapse: collapse;
-            padding: 5px;
-            background-color: #65CDCB;
+            padding: 5px 0 5px 0;
+            background-color: #66cccc;
             color: #ffffff
         }
 
@@ -98,13 +78,16 @@
             border-collapse: collapse;
             font-weight: bold;
             text-align: left;
-            background-color: #E0EDEE;
-            color: #65CDCB;
+            background-color: #deeeee;
+            color: #55bbcc;
+            padding-left: 20px;
+            margin-left:10px;
         }
 
-        /*td[scope='row'] TODO remove class="rowgroup" when IE supports attribute selectors*/
+        /*td[scope='row'] TODO remove class="row" when IE supports attribute selectors*/
         .row {
             text-align: left;
+            padding-left: 20px;
         }
 
         #rating tr:hover {
@@ -114,63 +97,163 @@
         .heading:hover {
             background-color: #fff;
         }
+
     </style>
 </head>
 
+
+<pageHelper:externalCss file="/res/css/school/ratings.css"/>
 <gsml:body adPageName="ratings" pageLayout="research">
 
-    <div id="printandemail" class="noprint">
-        <a href="%" onClick=" window.print(); return false">Print this page</a>&amp;nbsp;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&amp;nbsp;<a
-            href="/cgi-bin/mail_to_friend/authorizer/${requestScope.context.state.abbreviationLowerCase}/${school.id}"
-            onClick=" window.open('/cgi-bin/mail_to_friend/authorizer/${requestScope.context.state.abbreviationLowerCase}/${school.id}', 'win', 'width=600,height=550,scrollbars=yes'); return false">Email
-        to a friend</a>
-    </div>
+<div class="marginGS" id="marginGS">
+    <school:profile school="${school}">
+        <div class="ratingSummaryWrapper">
+            <div class="ratingSummaryContent">
+                <gsml:img src="/res/img/school/ratings/ratings_01.gif" alt="ratings" style="float:left;padding-right:20px;"/>
+                <h2>What do these ratings mean?</h2>
 
-    <div class="wrap0">
-        <div class="wrap1">
-            <div class="wrap2">
-                <div class="wrap3">
-                    <div class="box">
-                        <table cellspacing="0" cellpadding="0" width="100%" border="0">
-                            <tr>
-                                <td colspan="4">
-                                    <table class="rollmenu" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td class="tab"><gsml:a href="/modperl/browse_school/$STATE/${school.id}">
-                                                School<br/>
-                                                Overview</gsml:a></td>
-                                            <td class="tab"><gsml:a href="/modperl/achievement/$STATE/${school.id}">
-                                                Test<br/>Scores
-                                            </gsml:a></td>
-                                            <td class="tab"><gsml:a href="/cgi-bin/$LCSTATE/other/${school.id}">
-                                                Teachers/<br/>
-                                                Students</gsml:a></td>
-                                            <c:if test="${requestScope.context.state.ratingsState}">
-                                                <td class="tab"><gsml:a href="/cgi-bin/$LCSTATE/rankings/${school.id}">
-                                                    Ratings and
-                                                    <br/> Alerts</gsml:a></td>
-                                            </c:if>
-                                            <td class="tab"><gsml:a href="/modperl/parents/$STATE/${school.id}">Parent
-                                                <br/> Reviews
-                                            </gsml:a></td>
-                                            <td class="tab"><gsml:a href="/cgi-bin/$LCSTATE/pqview/${school.id}">
-                                                Principal's <br/>
-                                                View</gsml:a></td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
+                <p>These ratings provide a quick overview of how students<br/>
+                    in this school performed on standardized tests.
+                </p>
+                <br/>
+                <p>
+                    A "10" means that the group is in the top 10% for test scores<br/>
+                    when compared to students in the same group statewide.<br/>
+                    A "1" means that the group is in the bottom 10%.
+                </p>
+            </div>
+        </div>
 
-                        <gsweb:ratingTable columns="${columns}" rowGroups="${rowGroups}"/>
+        <div style="padding-top:15px;">
+
+            <div style="float:left;width:498px;">
+                <!--<gsweb:ratingTable columns="${columns}" rowGroups="${rowGroups}"/>-->
+<table id="rating">
+  <thead>
+    <tr class="heading">
+      <th scope="col">All Students</th>
+
+      <th scope="col">English</th>
+
+      <th scope="col">Math</th>
+
+      <th scope="col">Combined</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td colspan="4" scope="rowgroup" class="rowgroup">By Gender</td>
+    </tr>
+
+    <tr>
+      <td scope="row" class="row">Male</td>
+
+      <td>1</td>
+
+      <td>1</td>
+
+      <td>Combined score</td>
+    </tr>
+
+    <tr>
+      <td scope="row" class="row">Female</td>
+
+      <td>1</td>
+
+      <td>1</td>
+
+      <td>Combined score</td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <td colspan="4" scope="rowgroup" class="rowgroup">By
+      Category</td>
+    </tr>
+
+    <tr>
+      <td scope="row" class="row">Rich</td>
+
+      <td>1</td>
+
+      <td>1</td>
+
+      <td>Combined score</td>
+    </tr>
+
+    <tr>
+      <td scope="row" class="row">Poor</td>
+
+      <td>1</td>
+
+      <td>1</td>
+
+      <td>Combined score</td>
+    </tr>
+  </tbody>
+
+  <tbody>
+    <tr>
+      <td colspan="4" scope="rowgroup" class="rowgroup">By
+      Ethnicity</td>
+    </tr>
+
+    <tr>
+      <td scope="row" class="row">Black</td>
+
+      <td>1</td>
+
+      <td>1</td>
+
+      <td>Combined score</td>
+    </tr>
+
+    <tr>
+      <td scope="row" class="row">White</td>
+
+      <td>1</td>
+
+      <td>1</td>
+
+      <td>Combined score</td>
+    </tr>
+  </tbody>
+</table>
+                <br/>
+                <div id="legend">
+                    <div style="float:left;width:200px;padding:10px">
+                        <h2 id="testScoreTrend">Test Score Trend</h2>
+                        <p>Based on changed between<br/>spring 2005 and spring 2006</p>
+                    </div>
+                    <div style="float:left;border-left: dotted 1px #66cccc; padding: 10px; padding-left:36px; height:100%;">
+                        <ul>
+                            <li>Strong improvement</li>
+                            <li>Some improvement</li>
+                            <li>No change</li>
+                            <li>Some decline</li>
+                            <li>Strong decline</li>
+                        </ul>
                     </div>
                 </div>
             </div>
+
+            <div style="float:right;">
+                <ad:x48/>
+
+                <div id="moreResources">
+                    <h2>More Resources</h2>
+                    <ul>
+                        <li>More About GreatSchools Ratings</li>
+                        <li>Compare with GreatSchools Ratings<br/> from nearby schools</li>
+                        <li>See this school's performance data</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-
-
+   </school:profile>
+</div>
 </gsml:body>
-
 </html>
 </jsp:root>

@@ -76,7 +76,7 @@
             <c:if test="${requestScope.pageHelper.showingFooter}">
                 <div id="footer">
                     <div id="footerAd">
-                        <ad:google728x90/>
+                        <ad:footerAd/>
                     </div>
 
 

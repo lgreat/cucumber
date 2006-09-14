@@ -1,9 +1,12 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsController.java,v 1.5 2006/09/08 18:37:07 apeterson Exp $
+ * $Id: RatingsController.java,v 1.6 2006/09/14 17:33:51 dlee Exp $
  */
 package gs.web.test;
 
+import gs.data.school.ISchoolDao;
+import gs.data.school.School;
+import gs.data.state.State;
 import gs.data.test.rating.IRatingsDisplay;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,12 +30,16 @@ public class RatingsController extends AbstractController {
     private static final Log _log = LogFactory.getLog(RatingsController.class);
 
     private String _viewName;
+    private ISchoolDao _schoolDao;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map model = new HashMap();
 
+        School school = _schoolDao.getSchoolById(State.CA, Integer.valueOf("1"));
+
         model.put("columns", getColumns());
         model.put("rowGroups", getRowGroups());
+        model.put("school", school);
 
         return new ModelAndView(_viewName, model);
     }
@@ -43,6 +50,14 @@ public class RatingsController extends AbstractController {
 
     public void setViewName(String viewName) {
         _viewName = viewName;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
     }
 
     private List getColumns() {
@@ -124,4 +139,5 @@ public class RatingsController extends AbstractController {
             return null;
         }
     }
+
 }

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.14 2006/07/20 00:10:28 dlee Exp $
+ * $Id: PageHelperSaTest.java,v 1.15 2006/09/14 17:33:51 dlee Exp $
  */
 
 package gs.web.util;
@@ -337,6 +337,17 @@ public class PageHelperSaTest extends TestCase {
         _request.setRequestURI("/community/beta/signup");
         helper = new PageHelper(new MockSessionContext(), _request);
         assertTrue(helper.isBetaPage());
+    }
+
+    public void testAdServerControlledFooterAd() {
+        ISessionContext sessionContext = new MockSessionContext();
+        PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+        assertEquals(false, pageHelper.isAdServerControlledFooterAd());
+
+        PageHelper.setAdServerControlledFooterAd(_request, true);
+        assertEquals(true, pageHelper.isAdServerControlledFooterAd());        
     }
 
     protected void setUp() throws Exception {

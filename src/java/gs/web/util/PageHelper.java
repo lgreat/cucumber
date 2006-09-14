@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.21 2006/08/07 19:08:16 apeterson Exp $
+ * $Id: PageHelper.java,v 1.22 2006/09/14 17:33:51 dlee Exp $
  */
 
 package gs.web.util;
@@ -118,6 +118,15 @@ public class PageHelper {
         }
     }
 
+    public static void setAdServerControlledFooterAd(HttpServletRequest request, boolean isAdServerControlled) {
+        PageHelper pageHelper = getInstance(request);
+        if (pageHelper != null) {
+            pageHelper.setAdServerControlledFooterAd(isAdServerControlled);
+        } else {
+            _log.error("No PageHelper object available.");
+        }
+    }
+
 
     public static final String REQUEST_ATTRIBUTE_NAME = "pageHelper";
 
@@ -127,6 +136,8 @@ public class PageHelper {
     private boolean _showingFooterAd = true;
     private boolean _advertisingOnline = true;
     private boolean _betaPage = false;
+    private boolean _adServerFooterAd = false;
+
     private final String _cobrand;
     private final String _hostName;
 
@@ -154,6 +165,14 @@ public class PageHelper {
             }
         }
 
+    }
+
+    public boolean isAdServerControlledFooterAd() {
+        return _adServerFooterAd;
+    }
+
+    public void setAdServerControlledFooterAd(boolean adServerFooterAd) {
+        _adServerFooterAd = adServerFooterAd;
     }
 
     public boolean isShowingBannerAd() {

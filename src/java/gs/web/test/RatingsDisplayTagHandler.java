@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsDisplayTagHandler.java,v 1.5 2006/09/08 18:30:52 apeterson Exp $
+ * $Id: RatingsDisplayTagHandler.java,v 1.6 2006/09/14 17:33:51 dlee Exp $
  */
 package gs.web.test;
 
@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Generate the ratings table
- *
+ * TODO: replace this with a tagx file.  make controller calculate the ratings
  * @author David Lee <mailto:dlee@greatschools.net>
  */
 public class RatingsDisplayTagHandler extends SimpleTagSupport {

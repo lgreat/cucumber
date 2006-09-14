@@ -5,8 +5,8 @@
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"
                        description="Generates necessary JavaScript to show the ads on a page. Generally you will not call this directly, but it will be called by the page decorator."/>
-    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.tag import="gs.web.util.context.ISessionContext"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
     <jsp:scriptlet><![CDATA[
         // On cobrands we don't show position x22 so check for it on cobrands
         ISessionContext context = SessionContextUtil.getSessionContext(request);
@@ -19,11 +19,17 @@
         if (Boolean.TRUE.equals(request.getAttribute("x20"))) {
             ads += "x20,";
         }
+        if (Boolean.TRUE.equals(request.getAttribute("x24"))) {
+            ads += "x24,";
+        }
         if (Boolean.TRUE.equals(request.getAttribute("x33"))) {
             ads += "x33,";
         }
         if (Boolean.TRUE.equals(request.getAttribute("x40"))) {
             ads += "x40,";
+        }
+        if (Boolean.TRUE.equals(request.getAttribute("x48"))) {
+            ads += "x48,";
         }
         if (Boolean.TRUE.equals(request.getAttribute("x49"))) {
             ads += "x49,";
