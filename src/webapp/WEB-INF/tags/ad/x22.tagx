@@ -18,9 +18,7 @@
                         <img alt="Ad" class="adSponsorImage" src="${sponsorImage}" width="10" height="90"/>
                     </td>
                     <td style="text-align:left;width:728px;height:90px" class="ad">
-                        <gsweb:defer id="ad-x22">
-                            <script type="text/javascript">OAS_AD('x22');</script>
-                        </gsweb:defer>
+                        <gsweb:defer id="ad-x22"><script type="text/javascript">OAS_AD('x22');</script></gsweb:defer>
                     </td>
                 </tr>
             </table>

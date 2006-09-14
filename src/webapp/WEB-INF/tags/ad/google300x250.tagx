@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core">
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
+        >
     <c:if test="${!requestScope.pageHelper.adFree}">
         <c:if test='${!requestScope.context.yahooCobrand and !requestScope.context.familyCobrand}'>
             <div class="ad">
+                <gsweb:defer id="ad-google300x250">
                 <script type="text/javascript">
                     google_ad_client = "pub-9662012843341888";
                     google_ad_width = 300;
@@ -23,6 +26,7 @@
                         src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
                 </script>
                 ]]>
+                </gsweb:defer>
             </div>
         </c:if>
     </c:if>
