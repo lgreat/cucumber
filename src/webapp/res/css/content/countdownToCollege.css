@@ -130,8 +130,8 @@ span.actionTip {
     line-height:15px;
 }
 
-#childOnTrack {
-
+#contentGS span.actionTip a {
+   color:#3399AA;
 }
 
 .empty ul li {
