@@ -1,10 +1,6 @@
 /*
-   -----------------------------------------------
    Greatschools.net Base Styles
-   $Id: global.css,v 1.131 2006/08/14 17:54:12 thuss Exp $
-
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
-
 */
 
 /*   General
@@ -22,8 +18,6 @@ body, form {
     padding: 0
 }
 
-
-
 /* Overrides of standard tags */
 img {
     border: 0;
@@ -39,16 +33,8 @@ img {
     color: #00F;
 }
 
-.contentGS  a:visited {
-    color: #66C;
-}
-
 .contentGS  a:hover {
     text-decoration: underline;
-}
-
-.contentGS  a:active {
-    color: #66c;
 }
 
 .contentGS a.pad {
@@ -792,4 +778,3 @@ div.contentGS div.promoNewsletterSmall .smallform {
     font-size: 11px;
     padding-left: 1em;
 }
-
