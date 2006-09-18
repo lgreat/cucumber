@@ -186,7 +186,7 @@ span.actionTip {
 	background-repeat: repeat-x;
 }
 
-a.actionTipsLink:Link, a.actionTipsLink:visited {
+a.actionTipsLink {
 	font-size: 11px;
 	color: #3399AA;
 	font-weight: bold;
