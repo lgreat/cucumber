@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.5 2006/09/18 19:13:18 aroy Exp $
+ * $Id: LoginController.java,v 1.6 2006/09/18 22:50:34 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -10,6 +10,8 @@ import gs.data.util.DigestUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlUtil;
 import gs.web.util.UrlBuilder;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -54,7 +56,12 @@ public class LoginController extends SimpleFormController {
         }
 
         if (null == loginCommand.getEmail()) {
-            loginCommand.setEmail("");
+            ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            if (StringUtils.isNotEmpty(sessionContext.getEmail())) {
+                loginCommand.setEmail(sessionContext.getEmail());
+            } else {
+                loginCommand.setEmail("");
+            }
         }
     }
 
