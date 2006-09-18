@@ -6,7 +6,6 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-          xmlns:rss="urn:jsptagdir:/WEB-INF/tags/rss"
           xmlns:gsweb="gstaglib"
           xmlns:display="urn:jsptld:http://displaytag.sf.net"
         >
@@ -52,13 +51,13 @@
 
         <h2><gsml:a href="/admin/news/create.page">Create News Item</gsml:a></h2>
 
-        <display:table name="newsItems" class="newsItems" >
-            <display:column property="id" title="ID"></display:column>
-            <display:column property="category" title="Cat." style="white-space:nowrap"></display:column>
-            <display:column property="title" title="Title"></display:column>
-            <display:column property="text" title="Text"></display:column>
-            <display:column property="link" title="Link"></display:column>
-            <display:column property="states" title="States">All</display:column>
+        <display:table name="newsItems" class="newsItems" requestURI="list.page" defaultsort="1" defaultorder="descending">
+            <display:column property="id" title="ID" sortable="true"></display:column>
+            <display:column property="category" title="Cat." sortable="true"></display:column>
+            <display:column property="title" title="Title" sortable="true"></display:column>
+            <display:column property="text" title="Text" sortable="true" maxLength="75"></display:column>
+            <display:column property="link" title="Link" sortable="true"></display:column>
+            <display:column property="states" title="States" sortable="true">All</display:column>
             <display:column href="edit.page" paramId="id" paramProperty="id"  title="Action">Edit</display:column>
             <display:column href="delete.page" paramId="id" paramProperty="id"  title="Action">Delete</display:column>
         </display:table>
