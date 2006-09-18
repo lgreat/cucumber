@@ -89,11 +89,11 @@ div.collegeBoardLogo {
 	margin-bottom: 4px;
 }
 
-div.moduleTitle a.noHover, div.moduleTitle a.noHover:visited {
+#contentGS div.moduleTitle a.noHover, #contentGS div.moduleTitle a.noHover:visited {
      color: #55BBCC;
 }
 
-div.module a.noHover, div.module a.noHover:visited {
+#contentGS div.module a.noHover, #contentGS div.module a.noHover:visited {
     color: #999999;
 }
 
@@ -128,10 +128,6 @@ h2#financialAidPlanner {
 
 span.actionTip {
     line-height:15px;
-}
-
-#contentGS span.actionTip a {
-   color:#3399AA;
 }
 
 .empty ul li {
@@ -186,13 +182,6 @@ span.actionTip {
 	background-repeat: repeat-x;
 }
 
-a.actionTipsLink {
-	font-size: 11px;
-	color: #3399AA;
-	font-weight: bold;
-	text-decoration: underline;
-}
-
 div#bottomAdd {
     font-size: 12px;
 	margin-top: 20px;
@@ -225,4 +214,15 @@ h2#adBlurb {
 	font-weight: bold;
 	line-height: 30px;
 	text-decoration: none;
+}
+
+#contentGS span.actionTip a {
+   color:#3399AA;
+}
+
+#contentGS a.actionTipsLink {
+	font-size: 11px;
+	color: #3399AA;
+	font-weight: bold;
+	text-decoration: underline;
 }
