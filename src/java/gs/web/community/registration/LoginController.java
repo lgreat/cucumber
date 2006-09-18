@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.4 2006/08/28 23:02:18 aroy Exp $
+ * $Id: LoginController.java,v 1.5 2006/09/18 19:13:18 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -37,10 +37,10 @@ public class LoginController extends SimpleFormController {
     public static final String NOT_MATCHING_PASSWORDS_CODE = "not_matching_passwords";
     public static final String USER_PROVISIONAL_CODE = "provisional";
     public static final String USER_NO_PASSWORD_CODE = "user_no_password";
-    public static final String DEFAULT_REDIRECT_URL = "http://www.greatschools.net";
+    public static final String DEFAULT_REDIRECT_URL = "http://www.greatschools.net/";
 
     private IUserDao _userDao;
-
+    private AuthenticationManager _authenticationManager;
 
     //set up defaults if none supplied
     protected void onBindOnNewForm(HttpServletRequest request,
@@ -105,7 +105,7 @@ public class LoginController extends SimpleFormController {
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
                                  Object command,
-                                 BindException errors) {
+                                 BindException errors) throws NoSuchAlgorithmException {
         LoginCommand loginCommand = (LoginCommand) command;
         String email = loginCommand.getEmail();
         User user = getUserDao().findUserFromEmail(email);
@@ -115,6 +115,7 @@ public class LoginController extends SimpleFormController {
         UrlUtil urlUtil = new UrlUtil();
         String redirectUrl;
         if (user.isPasswordEmpty()) {
+            // TODO: how to deal with this case and authentication
             // for users who need passwords, send them to the registration page
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null);
             builder.addParameter("email", email);
@@ -126,6 +127,9 @@ public class LoginController extends SimpleFormController {
             }
             redirectUrl = urlUtil.buildUrl(loginCommand.getRedirect(), request);
         }
+
+        AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
+        redirectUrl = _authenticationManager.addParameterIfNecessary(redirectUrl, authInfo);
 
         _log.debug(redirectUrl);
 
@@ -140,5 +144,13 @@ public class LoginController extends SimpleFormController {
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public AuthenticationManager getAuthenticationManager() {
+        return _authenticationManager;
+    }
+
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        _authenticationManager = authenticationManager;
     }
 }

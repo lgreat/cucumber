@@ -1,0 +1,74 @@
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        version="2.0">
+<jsp:directive.page contentType="text/xml"/>
+    <members>
+        <c:forEach var="member" items="${members}">
+            <profile member-id="${member.user.id}">
+                <email>${member.user.email}</email>
+                <screen-name>${member.userProfile.screenName}</screen-name>
+                <first-name>${member.user.firstName}</first-name>
+                <last-name>${member.user.lastName}</last-name>
+                <city>${member.userProfile.city}</city>
+                <state>${member.userProfile.state}</state>
+                <interests>
+                    <c:forEach var="interest" items="${member.interests}">
+                        <interest>${interest.value}</interest>
+                    </c:forEach>
+                </interests>
+                <other-interest>${member.userProfile.otherInterest}</other-interest>
+                <about-me private="${member.userProfile.private}">${member.userProfile.aboutMe}</about-me>
+                <num-pre-k-children>${member.userProfile.numPreKChildren}</num-pre-k-children>
+                <num-school-children>${member.userProfile.numSchoolChildren}</num-school-children>
+
+                <school-children>
+                    <c:forEach var="child" items="${member.students}">
+                        <child>
+                        <child-name>${child.name}</child-name>
+                            <c:choose>
+                                <c:when test="${child.schoolId gt ''}">
+                                    <school school-id="${child.schoolId}">
+                                        <state>${child.state}</state>
+                                    </school>
+                                </c:when>
+                                <c:otherwise>
+                                    <school>
+                                        <state>${child.state}</state>
+                                    </school>
+                                </c:otherwise>
+                            </c:choose>
+                            <child-grade>${child.grade.value}</child-grade>
+                        </child>
+                    </c:forEach>
+                </school-children>
+
+                <my-school-list>
+                    <c:forEach var="mySchool" items="${member.favoriteSchools}">
+                        <school school-id="${mySchool.schoolId}">
+                            <state>${mySchool.state}</state>
+                        </school>
+                    </c:forEach>
+                </my-school-list>
+
+                <previous-schools>
+                    <c:forEach var="previous" items="${member.previousSchools}">
+                        <school school-id="${previous.schoolId}">
+                            <state>${previous.state}</state>
+                        </school>
+                    </c:forEach>
+                </previous-schools>
+
+                <my-school-stats>
+                    <c:forEach var="stats" items="${member.myStats}">
+                        <school school-id="${stats.schoolId}">
+                            <state>${stats.state}</state>
+                        </school>
+                    </c:forEach>
+                </my-school-stats>
+
+            </profile>
+        </c:forEach>
+    </members>
+</jsp:root>

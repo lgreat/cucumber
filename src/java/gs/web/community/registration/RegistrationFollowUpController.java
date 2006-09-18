@@ -340,7 +340,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         _userDao.updateUser(user);
 
         mAndV.setViewName(getSuccessView());
-        mAndV.getModel().put("name", user.getFirstName());
+        mAndV.getModel().put("id", user.getId());
         return mAndV;
     }
 
