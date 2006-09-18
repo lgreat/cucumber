@@ -54,8 +54,8 @@
         <display:table name="newsItems" class="newsItems" requestURI="list.page" defaultsort="1" defaultorder="descending">
             <display:column property="id" title="ID" sortable="true"></display:column>
             <display:column property="category" title="Cat." sortable="true"></display:column>
-            <display:column property="title" title="Title" sortable="true"></display:column>
-            <display:column property="text" title="Text" sortable="true" maxLength="75"></display:column>
+            <display:column property="title" title="Title" sortable="true" escapeXml="true"></display:column>
+            <display:column property="text" title="Text" sortable="true" maxLength="75" escapeXml="true"></display:column>
             <display:column property="link" title="Link" sortable="true"></display:column>
             <display:column property="states" title="States" sortable="true">All</display:column>
             <display:column href="edit.page" paramId="id" paramProperty="id"  title="Action">Edit</display:column>
