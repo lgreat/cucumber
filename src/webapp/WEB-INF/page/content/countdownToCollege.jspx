@@ -138,12 +138,12 @@
 				<h2 id="whatYourChildNeeds">What Your Chiled Needs to Succeed</h2>
 
                 <div class="moduleTitle">
-                    <gsml:a href="/cgi-bin/showarticle/$STATE/728" styleClass="noHover">2006 College Admissions Trends</gsml:a>
+                    <gsml:a href="/cgi-bin/showarticle/$STATE/728" styleClass="noHover">2006-2007 College Admissions Trends</gsml:a>
                 </div>
 				<div class="module">
                     <gsml:a href="/cgi-bin/showarticle/$STATE/728" styleClass="noHover">
                         Applications to colleges are up and will continue to rise through 2014. A combination of factors
-                        has driven the increase &#8212; and lead to fears that colleges are harder to get into.
+                        has driven the increase &#8212; and led to fears that colleges are harder to get into.
                     </gsml:a>
                 </div>
 
@@ -168,7 +168,7 @@
                 </div>
 				<div class="module">
                     <gsml:a href="/cgi-bin/showarticle/$STATE/690" styleClass="noHover">
-                        Do I give up now in dispair or just do it myself? This is the question many parents ask during
+                        Do I give up now in despair or just do it myself? This is the question many parents ask during
                         the college application process. The challenge is to be supportive while doing neither.
                     </gsml:a>
                 </div>
