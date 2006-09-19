@@ -1,0 +1,128 @@
+<cobrand-ad-codes>
+    <cobrand id="yahoo">
+        <ad id="x20">
+            <![CDATA[
+            <center>
+            <script type="text/javascript" src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=SKY&c=r"></script>
+            <noscript>
+            <iframe src="http://us.adserver.yahoo.com/a?f=96345362&amp;p=ed&amp;l=SKY&amp;c=h&amp;bg=white"
+                width="160" height="600" marginwidth="0" marginheight="0" hspace="0" vspace="0"
+                frameborder="0" scrolling="no">
+            </iframe>
+            </noscript>
+            </center>
+            ]]>
+        </ad>
+        <ad id="x33">
+            <![CDATA[
+            <center>
+            <script type="text/javascript" src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=SKY&c=r"></script>
+            <noscript>
+            <iframe src="http://us.adserver.yahoo.com/a?f=96345362&amp;p=ed&amp;l=SKY&amp;c=h&amp;bg=white"
+                width="160" height="600" marginwidth="0" marginheight="0" hspace="0" vspace="0"
+                frameborder="0" scrolling="no">
+            </iframe>
+            </noscript>
+            </center>
+            ]]>
+        </ad>
+        <ad id="x40">
+            <![CDATA[
+            <center>
+            <script type="text/javascript" src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=r"></script>
+            <noscript>
+            <iframe src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=sh&bg=white" align="center" width="300" height="265" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+            </noscript>
+            </center>
+               ]]>
+        </ad>
+        <ad id="x48">
+            <![CDATA[
+                <center>
+                <script type="text/javascript" src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=r"></script>
+                <noscript>
+                <iframe src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=sh&bg=white" align="center" width="300" height="265" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+                </noscript>
+                </center>
+               ]]>
+        </ad>
+        <ad id="x66">
+            <![CDATA[
+                <center>
+                <script type="text/javascript" src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=r"></script>
+                <noscript>
+                <iframe src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=sh&bg=white" align="center" width="300" height="265" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+                </noscript>
+                </center>
+               ]]>
+        </ad>
+    </cobrand>
+
+    <cobrand id="family">
+        <ad id="x20">
+            <![CDATA[
+            <center>
+            <iframe src="http://3ps.go.com/DynamicAd?srvc=fcom&itype=Vertical" width="160"
+            height="610" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0"
+            scrolling=no bordercolor="#000000"></iframe>
+            </center>
+            ]]>
+        </ad>
+        <ad id="x33">
+            <![CDATA[
+            <center>
+            <iframe src="http://3ps.go.com/DynamicAd?srvc=fcom&itype=Vertical" width="160"
+            height="610" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0"
+            scrolling=no bordercolor="#000000"></iframe>
+            </center>
+            ]]>
+        </ad>
+        <ad id="x40">
+            <![CDATA[
+            <center>
+            <iframe src="http://3ps.go.com/DynamicAd?srvc=fcom&itype=MediumRectangle"
+            width="300" height="260" marginwidth="0" marginheight="0"
+            hspace="0" vspace="0" frameborder="0" scrolling=no bordercolor="#000000"></iframe>
+            </center>
+            ]]>
+        </ad>
+        <ad id="x48">
+            <![CDATA[
+            <center>
+            <iframe src="http://3ps.go.com/DynamicAd?srvc=fcom&itype=MediumRectangle"
+            width="300" height="260" marginwidth="0" marginheight="0"
+            hspace="0" vspace="0" frameborder="0" scrolling=no bordercolor="#000000"></iframe>
+            </center>
+            ]]>
+        </ad>
+        <ad id="x66">
+            <![CDATA[
+            <center>
+            <iframe src="http://3ps.go.com/DynamicAd?srvc=fcom&itype=MediumRectangle"
+            width="300" height="260" marginwidth="0" marginheight="0"
+            hspace="0" vspace="0" frameborder="0" scrolling=no bordercolor="#000000"></iframe>
+            </center>
+            ]]>
+        </ad>
+    </cobrand>
+    <cobrand id="encarta">
+        <ad id="x40">
+            <![CDATA[
+                <script type="text/javascript" src="http://Ads1.msn.com/library/dap.js"></script>
+                <script type="text/javascript">dap("&PG=ENCEE1&AP=1089",300,250);</script>
+            ]]>
+        </ad>
+        <ad id="x48">
+            <![CDATA[
+                <script type="text/javascript" src="http://Ads1.msn.com/library/dap.js"></script>
+                <script type="text/javascript">dap("&PG=ENCEE1&AP=1089",300,250);</script>
+            ]]>
+        </ad>
+        <ad id="x66">
+            <![CDATA[
+                <script type="text/javascript" src="http://Ads1.msn.com/library/dap.js"></script>
+                <script type="text/javascript">dap("&PG=ENCEE1&AP=1089",300,250);</script>
+            ]]>
+        </ad>
+    </cobrand>
+</cobrand-ad-codes>

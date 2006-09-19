@@ -7,11 +7,8 @@
         >
     <jsp:directive.tag body-content="empty"/>
     <c:if test="${!requestScope.pageHelper.adFree}">
-        <jsp:scriptlet>
-            request.setAttribute("x24", Boolean.TRUE);
-        </jsp:scriptlet>
         <gsweb:defer id="ad-x24">
-            <script type="text/javascript">OAS_AD('x24');</script>
+            <gsweb:adTagGenerator position="x24"/>
         </gsweb:defer>
     </c:if>
 </jsp:root>

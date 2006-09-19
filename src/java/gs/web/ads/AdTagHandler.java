@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.1 2006/09/19 23:31:10 dlee Exp $
+ * $Id: AdTagHandler.java,v 1.2 2006/09/19 23:34:43 dlee Exp $
  */
 package gs.web.ads;
 
@@ -33,7 +33,7 @@ public class AdTagHandler extends SimpleTagSupport {
         if (!pageHelper.isAdFree()) {
             String adPosition = _adPosition.getName();
 
-            if (pageHelper.isAdFree()) {
+            if (pageHelper.isAdServedByCobrand()) {
                 AdTagManager adManager = AdTagManager.getInstance();
                 String customAdTag = adManager.getAdTag(sc.getCobrand(), _adPosition);
                 buffer.append(customAdTag);

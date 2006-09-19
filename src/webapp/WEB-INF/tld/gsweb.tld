@@ -472,5 +472,17 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+
+    <tag>
+        <name>adTagGenerator</name>
+        <tag-class>gs.web.ads.AdTagHandler</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>position</name>
+            <description>name of ad position</description>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
 </taglib>
 

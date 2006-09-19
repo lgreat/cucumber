@@ -5,42 +5,25 @@
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"
                        description="Generates necessary JavaScript to show the ads on a page. Generally you will not call this directly, but it will be called by the page decorator."/>
-    <jsp:directive.tag import="gs.web.util.context.ISessionContext"/>
-    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
-    <jsp:scriptlet><![CDATA[
-        // On cobrands we don't show position x22 so check for it on cobrands
-        ISessionContext context = SessionContextUtil.getSessionContext(request);
-        // TODO Perhaps this stuff should be passed in so this tag is usable by non-decorators.
+    <jsp:directive.tag import="gs.web.ads.AdPosition"/>
+    <jsp:directive.tag import="java.util.Iterator"/>
+    <jsp:directive.tag import="java.util.List"/>
+    <jsp:scriptlet>
         String ads = "";
-        out.print(ads);
-        if (!context.isCobranded()) { //  && Boolean.TRUE.equals(request.getAttribute("x22")
-            ads += "x22,";
-        }
-        if (Boolean.TRUE.equals(request.getAttribute("x20"))) {
-            ads += "x20,";
-        }
-        if (Boolean.TRUE.equals(request.getAttribute("x24"))) {
-            ads += "x24,";
-        }
-        if (Boolean.TRUE.equals(request.getAttribute("x33"))) {
-            ads += "x33,";
-        }
-        if (Boolean.TRUE.equals(request.getAttribute("x40"))) {
-            ads += "x40,";
-        }
-        if (Boolean.TRUE.equals(request.getAttribute("x48"))) {
-            ads += "x48,";
-        }
-        if (Boolean.TRUE.equals(request.getAttribute("x49"))) {
-            ads += "x49,";
-        }
-        if (Boolean.TRUE.equals(request.getAttribute("x66"))) {
-            ads += "x66,";
+        List adPositions = AdPosition.getAllAdPositions();
+
+        for (Iterator iter = adPositions.iterator(); iter.hasNext();) {
+            AdPosition ad = (AdPosition) iter.next();
+            String adName = ad.getName();
+
+            if (Boolean.TRUE.equals(request.getAttribute(adName))) {
+                ads += adName + ",";
+            }
         }
         request.setAttribute("ads", ads);
-        ]]></jsp:scriptlet>
+    </jsp:scriptlet>
     <c:if test="${!requestScope.pageHelper.adFree and !empty ads}">
-        <c:if test="${!requestScope.context.yahooCobrand and !requestScope.context.familyCobrand}">
+        <c:if test='${!requestScope.pageHelper.adServedByCobrand}'>
             <!-- OAS SETUP begin -->
             <script type="text/javascript">
                 <!-- NOTE CDATA WITH COMMENTS ARE HERE TO MAKE THIS XHTML VALIDATE -->
@@ -64,14 +47,14 @@
             </script>
             <script type="text/javascript">
                 <![CDATA[
-                  <!--
-                  OAS_version = 11;
-                  if (navigator.userAgent.indexOf('Mozilla/3') != -1 || navigator.userAgent.indexOf('Mozilla/4.0 WebTV') != -1)
-                    OAS_version = 10;
-                  if (OAS_version >= 11)
-                    document.write('<scr' + 'ipt language=JavaScript1.1 src="' + OAS_url + 'adstream_mjx.ads/' + OAS_sitepage + '/1' + OAS_rns + '@' + OAS_listpos + '?' + OAS_query + '"><\/scr' + 'ipt>');
-                  -->
-                  ]]>
+                <!--
+                OAS_version = 11;
+                if (navigator.userAgent.indexOf('Mozilla/3') != -1 || navigator.userAgent.indexOf('Mozilla/4.0 WebTV') != -1)
+                  OAS_version = 10;
+                if (OAS_version >= 11)
+                  document.write('<scr' + 'ipt language=JavaScript1.1 src="' + OAS_url + 'adstream_mjx.ads/' + OAS_sitepage + '/1' + OAS_rns + '@' + OAS_listpos + '?' + OAS_query + '"><\/scr' + 'ipt>');
+                -->
+                ]]>
             </script>
             <script type="text/javascript">
                 <![CDATA[

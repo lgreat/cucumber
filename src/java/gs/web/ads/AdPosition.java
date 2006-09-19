@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdPosition.java,v 1.1 2006/09/19 23:31:10 dlee Exp $
+ * $Id: AdPosition.java,v 1.2 2006/09/19 23:38:46 dlee Exp $
  */
 package gs.web.ads;
 
@@ -15,16 +15,44 @@ import java.util.List;
  */
 public class AdPosition extends Enum {
 
+    /**
+     * skyscraper 120x600
+     */
     public static final AdPosition X_20 = new AdPosition("x20");
+
+    /**
+     * top banner 728x90
+     */
     public static final AdPosition X_22 = new AdPosition("x22");
 
+    /**
+     * footer 728x90
+     */
     public static final AdPosition X_24 = new AdPosition("x24");
+
+    /**
+     * skyscraper 160x600
+     */
     public static final AdPosition X_33 = new AdPosition("x33");
 
+    /**
+     * box ad 300x250
+     */
     public static final AdPosition X_40 = new AdPosition("x40");
+
+    /**
+     * box ad on school profile pages 300x250
+     */
     public static final AdPosition X_48 = new AdPosition("x48");
 
+    /**
+     * text ad
+     */
     public static final AdPosition X_49 = new AdPosition("x49");
+
+    /**
+     * box ad on city pages 300x250 
+     */
     public static final AdPosition X_66 = new AdPosition("x66");
 
 

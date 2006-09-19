@@ -6,38 +6,10 @@
         >
     <jsp:directive.tag body-content="empty"/>
     <c:if test="${!requestScope.pageHelper.adFree}">
-        <jsp:scriptlet>
-            request.setAttribute("x48", Boolean.TRUE);
-        </jsp:scriptlet>
-
-
         <div id="adx48">
-            <!--<c:if test='${!requestScope.context.yahooCobrand}'>AD<br/></c:if>-->
-            <c:choose>
-                <c:when test='${requestScope.context.yahooCobrand}'>
-                    <![CDATA[
-                                    <center>
-                                    <script type="text/javascript" src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=r"></script>
-                                    <noscript>
-                                    <iframe src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=sh&bg=white" align="center" width="300" height="265" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
-                                    </noscript>
-                                    </center>
-                                       ]]>
-                </c:when>
-                <c:when test='${requestScope.context.familyCobrand}'>
-                    <![CDATA[
-                                <center>
-                                <iframe src="http://3ps.go.com/DynamicAd?srvc=fcom&itype=MediumRectangle"
-                                width="300" height="260" marginwidth="0" marginheight="0"
-                                hspace="0" vspace="0" frameborder="0" scrolling=no bordercolor="#000000"></iframe>
-                                </center>
-                                ]]>
-                </c:when>
-                <c:otherwise>
-                    <gsweb:defer id="ad-x48">
-                        <script type="text/javascript">OAS_AD('x48');</script>
-                    </gsweb:defer>
-                </c:otherwise>
-            </c:choose>
-        </div></c:if>
+            <gsweb:defer id="ad-x48">
+                <gsweb:adTagGenerator position="x48"/>
+            </gsweb:defer>
+        </div>
+    </c:if>
 </jsp:root>
