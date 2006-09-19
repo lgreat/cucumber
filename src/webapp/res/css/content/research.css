@@ -1,0 +1,472 @@
+
+
+a.border10Links:link, a.border10Links:visited, a.border10Links:hover {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 15px;
+	color: #3399AA;
+	text-decoration: underline;
+	letter-spacing: 0px;
+}
+
+a.boldUnderline:link, a.boldUnderline:visited, a.boldUnderline:hover {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 15px;
+	color: #3399AA;
+	text-decoration: underline;
+	letter-spacing: 0px;
+	font-weight: bold;
+}
+
+a.dearParentsLink:link, a.dearParentsLink:visited {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 15px;
+	color: #3399AA;
+	text-decoration: none;
+	letter-spacing: 0px;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+a.dearParentsLink:hover {
+	text-decoration: underline;
+}
+
+a.arrowLink:link, a.arrowLink:visited {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 15px;
+	color: #3399AA;
+	text-decoration: none;
+	letter-spacing: 0px;
+}
+
+a.arrowLink:hover {
+	text-decoration: underline;
+}
+
+.dashedBorder {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 7px 3px 0px;
+	border: 1px dashed #DDEEEE;
+}
+
+.greyBar {
+	padding: 0px 0px 17px 0px;
+	margin: 0px 0px 0px 0px;
+	border-top: 1px solid #cccccc;
+}
+
+.findBox {
+	border: 3px solid #66CCCC;
+	border-top: 0px;
+	padding: 24px 11px 0px 23px;
+    font-family: "Century Gothic", Arial, sans-serif;
+	font-size: 13px;
+	line-height: 17px;
+	color: #777777;
+	width: 283px;
+	height: 299px;
+	letter-spacing: 0px;
+}
+
+.compareBox {
+	border: 3px solid #66CCCC;
+	border-top: 0px;
+	padding: 24px 11px 0px 23px;
+    font-family: "Century Gothic", Arial, sans-serif;
+	font-size: 13px;
+	line-height: 17px;
+	color: #777777;
+	width: 282px;
+	height: 299px;
+	letter-spacing: 0px;
+}
+
+.middleBottom {
+	padding: 0px 0px 8px 0px;
+	text-align: right;
+	font-weight: bold;
+}
+
+.middleTitle {
+	padding: 10px 0px 7px 26px;
+    font-family: "Century Gothic", Arial, sans-serif;
+	font-size: 20px;
+	line-height: 17px;
+	color: #ffffff;
+	background-color: #66CCCC;
+	letter-spacing: 0px;
+}
+
+.yellowArrow {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	background-image: url("../../img/content/research/yellow_arrow.gif");
+	background-repeat: no-repeat;
+	background-position: 7px 0px;
+	width: 22px;
+}
+
+.goBlue {
+	padding: 5px 0px 0px 0px;
+	background-image: url("../../img/content/research/go_blue.gif");
+	background-repeat: no-repeat;
+	width: 39px;
+	height: 20px;
+}
+
+.districtText {
+	padding: 0px 0px 0px 15px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 11px;
+	line-height: 14px;
+	color: #777777;
+	letter-spacing: 0px;
+}
+
+.districtText2 {
+	padding: 0px 0px 0px 0px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 11px;
+	line-height: 14px;
+	color: #777777;
+	letter-spacing: 0px;
+}
+
+.zip {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	width: 50px;
+	font-size: 11px;
+}
+
+.school {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	width: 100px;
+	font-size: 11px;
+}
+
+.district {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	width: 127px;
+	font-size: 11px;
+}
+
+.state {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	width: 100px;
+	font-size: 11px;
+}
+
+.state2 {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	width: 40px;
+	font-size: 11px;
+}
+
+.miles {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	width: 35px;
+	font-size: 11px;
+}
+
+.keyword {
+	border: 1px solid #A7A6AA;
+	width: 97px;
+	height: 17px;
+	margin: 0px 3px 0px 0px;
+	vertical-align: top;
+}
+
+.blueDash {
+	padding: 0px 0px 0px 0px;
+    margin-top: 0px;
+	margin-right: 10px;
+    height: 21px;
+    background-image: url("../../img/content/research/blue_dash.gif");
+	background-repeat: repeat-x;
+}
+
+.blueDot {
+    background-image: url("../../img/content/research/blue_dot.gif");
+	background-repeat: repeat-x;
+}
+
+.blueDotVert {
+    background-image: url("../../img/content/research/blue_dot_vert.gif");
+	background-repeat: repeat-y;
+}
+
+.redDotVert {
+	background-image: url("../../img/content/research/red_dot_vert.gif");
+	background-repeat: repeat-y;
+}
+
+.greyDash {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+    background-image: url("../../img/content/research/grey_dash2.gif");
+	background-repeat: repeat-x;
+	height: 15px;
+}
+
+.blueTitleText {
+	padding: 0px 0px 6px 0px;
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 14px;
+	line-height: 18px;
+	color: #55BBCC;
+	font-weight: bold;
+	letter-spacing: 0px;
+}
+
+.k12Success {
+	display: block;
+	padding: 3px 27px 0px 13px;
+	width: 154px;
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 16px;
+	color: #666666;
+	letter-spacing: -1px;
+}
+
+.k12SuccessImg {
+	padding: 0px 0px 16px 0px;
+	background-image: url("../../img/content/research/img_pencil.jpg");
+	background-repeat: no-repeat;
+	margin: 0px auto 0px auto;
+	width: 94px;
+	height: 94px;
+}
+
+.k12SuccessSearch {
+	padding: 5px 0px 10px 12px;
+	width: 182px;
+	font-family: "Century Gothic", Arial, sans-serif;
+	font-size: 14px;
+	line-height: 18px;
+	color: #FFFFFF;
+	background-color: #66CCCC;
+	letter-spacing: 0px;
+}
+
+.k12SuccessSearchBold {
+	font-weight: bold;
+}
+
+.k12SuccessSearchKeyword {
+	padding: 7px 0px 0px 0px;
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 18px;
+}
+
+
+.askExperts {
+	padding: 2px 14px 0px 15px;
+	width: 117px;
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 17px;
+	color: #666666;
+	letter-spacing:0px;
+}
+
+.askExpertsImg {
+	padding: 0px 0px 21px 0px;
+	background-image: url("../../img/content/research/img_books.jpg");
+	background-repeat: no-repeat;
+	margin: 0px auto 0px auto;
+	width: 65px;
+	height: 86px;
+}
+
+.billsBlog {
+	padding: 2px 12px 0px 15px;
+	width: 119px;
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 17px;
+	color: #666666;
+	letter-spacing:0px;
+}
+
+.billsBlogImg {
+	padding: 0px 0px 21px 0px;
+	background-image: url("../../img/content/research/img_bills_blog.jpg");
+	background-repeat: no-repeat;
+	margin: 0px auto 0px auto;
+	width: 65px;
+	height: 85px;
+}
+
+.backToSchool {
+	padding: 2px 19px 0px 11px;
+	width: 115px;
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 16px;
+	color: #666666;
+	letter-spacing: -1px;
+}
+
+.backToSchoolImg {
+	padding: 0px 0px 21px 0px;
+	background-image: url("../../img/content/research/img_apple.jpg");
+	background-repeat: no-repeat;
+	margin: 0px auto 0px auto;
+	width: 65px;
+	height: 86px;
+}
+
+.editorsPick {
+	padding: 0px 43px 0px 13px;
+	width: 145px;
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 17px;
+	color: #666666;
+	letter-spacing:0px;
+}
+
+.editorsPickImg {
+	padding: 0px 0px 18px 0px;
+	background-image: url("../../img/content/research/img_chalk.jpg");
+	background-repeat: no-repeat;
+	margin: 0px auto 0px auto;
+	width: 94px;
+	height: 94px;
+}
+
+#contentGS .arrowUL {
+	padding: 7px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	list-style: none;
+	color: #666666;
+	font-weight: normal;
+}
+
+#contentGS .arrowLI {
+	padding: 0px 0px 2px 10px;
+	background-image: url("../../img/content/research/pink_arrow.gif");
+	background-repeat: no-repeat;
+	background-position: 0ex .5ex;
+	color: #3399AA;
+	font-weight: normal;
+}
+
+.lisa {
+	border: 1px solid #DDEEEE;
+	padding: 2px 2px 2px 2px;
+	background-image: url("../../img/content/research/img_lisa.jpg");
+	background-repeat: no-repeat;
+	background-position: 2px; 2px; 2px; 2px;
+	width: 53px;
+	height: 69px;
+}
+
+.lisaSignature {
+	padding: 21px 0px 2px 1px;
+	background-image: url("../../img/content/research/lisa_signature.gif");
+	background-repeat: no-repeat;
+	background-position: 0px; 0px; 0px; 0px;
+	width: 147px;
+	height: 26px;
+}
+
+.printName {
+	padding: 0px 0px 0px 2px;
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 13px;
+	line-height: 16px;
+	font-weight: bold;
+	color: #55BBCC;
+	letter-spacing: 0px;
+}
+
+.italicTitle {
+	padding: 0px 0px 28px 2px;
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 13px;
+	line-height: 16px;
+	font-weight: bold;
+	font-style: italic;
+	color: #55BBCC;
+	letter-spacing: 0px;
+}
+
+.border10 {
+	border: 6px solid #DDEEEE;
+	padding: 8px 10px 10px 10px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 17px;
+	color: #666666;
+	letter-spacing: 0px;
+	width: 172px;
+}
+
+h2#dearParents {
+	margin: 65px 0px 0px 0px;
+	background-image: url("../../img/content/research/t_dearparents.gif");
+	background-repeat: no-repeat;
+	width: 104px;
+	height: 100%
+}
+
+#contentGS .dearParentsUL {
+	padding: 4px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	list-style: none;
+	color: #666666;
+	font-weight: normal;
+}
+
+#contentGS .dearParentsLI {
+	padding: 0px 0px 5px 10px;
+	background-image: url("../../img/content/research/grey_dot.gif");
+	background-repeat: no-repeat;
+	background-position: 0ex .8ex;
+	color: #666666;
+	font-weight: normal;
+}
+
+h2#caSchools {
+	padding: 9px 0px 9px 17px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 19px;
+	line-height: 17px;
+	color: #55BBCC;
+	background-color: #DDEEEE;
+	letter-spacing: 0px;
+}
+
+.updatesTitle {
+	padding: 0px 0px 8px 0px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 13px;
+	line-height: 19px;
+	color: #FFBB00;
+	font-weight: bold;
+	letter-spacing: 0px;
+}
+
+.updatesText {
+	padding: 0px 0px 13px 0px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 12px;
+	color: #666666;
+	letter-spacing: 0px;
+}
