@@ -5,7 +5,7 @@
           xmlns:gsweb="gstaglib"
         >
     <c:if test="${!requestScope.pageHelper.adFree}">
-        <c:if test='${!requestScope.context.yahooCobrand and !requestScope.context.familyCobrand}'>
+        <c:if test='${!requestScope.pageHelper.adServedByCobrand}'>
             <div class="ad">
                 <gsweb:defer id="ad-google120x600">
                 <script type="text/javascript">

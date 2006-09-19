@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.22 2006/09/14 17:33:51 dlee Exp $
+ * $Id: PageHelper.java,v 1.23 2006/09/19 23:31:08 dlee Exp $
  */
 
 package gs.web.util;
@@ -273,6 +273,10 @@ public class PageHelper {
                 _cobrand.matches("mcguire|framed|number1expert|vreo|e-agent|homegain|envirian");
     }
 
+    public boolean isAdServedByCobrand() {
+        return _cobrand != null &&
+                _cobrand.matches("yahoo|yahooed|family|encarta");
+    }
     /**
      * A String of the onload script(s) to be included in the body tag.
      */

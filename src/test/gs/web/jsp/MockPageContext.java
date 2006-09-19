@@ -9,6 +9,13 @@ public class MockPageContext extends org.springframework.mock.web.MockPageContex
 
     private MockJspWriter _out;
 
+    public MockPageContext() {
+    }
+
+    public MockPageContext(javax.servlet.ServletContext servletContext, javax.servlet.http.HttpServletRequest request) {
+        super(servletContext, request);
+    }
+
     public JspWriter getOut() {
         if (_out == null) {
             _out = new MockJspWriter();

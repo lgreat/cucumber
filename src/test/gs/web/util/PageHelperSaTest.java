@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.15 2006/09/14 17:33:51 dlee Exp $
+ * $Id: PageHelperSaTest.java,v 1.16 2006/09/19 23:31:08 dlee Exp $
  */
 
 package gs.web.util;
@@ -347,7 +347,30 @@ public class PageHelperSaTest extends TestCase {
         assertEquals(false, pageHelper.isAdServerControlledFooterAd());
 
         PageHelper.setAdServerControlledFooterAd(_request, true);
-        assertEquals(true, pageHelper.isAdServerControlledFooterAd());        
+        assertEquals(true, pageHelper.isAdServerControlledFooterAd());
+    }
+
+    public void testAdServedByCobrand() {
+        MockSessionContext sessionContext = new MockSessionContext();
+        PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+
+        assertEquals(false, pageHelper.isAdServedByCobrand());
+
+        sessionContext.setCobrand("yahoo");
+        pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        assertEquals(true, pageHelper.isAdServedByCobrand());
+
+        sessionContext.setCobrand("yahooed");
+        pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        assertEquals(true, pageHelper.isAdServedByCobrand());
+
+        sessionContext.setCobrand("family");
+        pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        assertEquals(true, pageHelper.isAdServedByCobrand());
+
+        sessionContext.setCobrand("encarta");
+        pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        assertEquals(true, pageHelper.isAdServedByCobrand());
     }
 
     protected void setUp() throws Exception {
