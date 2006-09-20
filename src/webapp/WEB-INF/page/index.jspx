@@ -157,8 +157,9 @@
                 <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
                 <gsweb:form method="get"
                             action="/stateLauncher.page"
-                            onsubmit="return checkSearchStateSelected('splashStateSelector')">
-                    <input name="p" value="search_single" type="hidden"/>
+                            onsubmit="return checkSearchStateSelected(this, 'splashStateSelector')">
+                    <input name="p" type="hidden" value="search_single" />
+                    <input name="type" type="hidden" value="school"/>
                     <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
                         <input type="hidden" name="st" value="charter"/>
                     </c:if>
@@ -168,7 +169,6 @@
                                          useNoState="${not requestScope.context.hasSearched}"
                                          styleId="splashStateSelector"
                                          noStateLabel="--"/>
-                    <input type="hidden" value="school" name="type"/>
                     <br/>
                     <input type="image" src="${go}" alt="GO" style="width:41px;height:26px;margin-top: 10px"
                            class="button" onmouseover="this.src='${goOver}';"

@@ -2,7 +2,7 @@
 Copyright (c) 2006 GreatSchools.net
 All Rights Reserved.
 
-$Id: global.js,v 1.14 2006/09/06 01:48:35 chriskimm Exp $
+$Id: global.js,v 1.15 2006/09/20 21:08:00 apeterson Exp $
 */
 
 /*
@@ -172,14 +172,8 @@ function getElement(id) {
  * @todo legacy, remove 5.9 or after
  */
 function checkSearchStateSelected(theForm, selectorId) {
+    var returnVal = true;
     var val = document.getElementById(selectorId).value;
-
-    var c = getRadioValue(theForm.c);
-
-    if (c == 'topic')
-    {
-        window.location = "/search/search.page";
-    }
 
     if (val == "--" || val == "") {
         alert("Please select a state.");
