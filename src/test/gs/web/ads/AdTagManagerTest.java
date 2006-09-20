@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagManagerTest.java,v 1.1 2006/09/19 23:31:10 dlee Exp $
+ * $Id: AdTagManagerTest.java,v 1.2 2006/09/20 17:06:39 dlee Exp $
  */
 package gs.web.ads;
 
@@ -34,5 +34,12 @@ public class AdTagManagerTest extends BaseTestCase {
     public void testSingleton() {
         AdTagManager adTagManager2 = AdTagManager.getInstance();
         assertTrue(_adTagManager == adTagManager2);
+    }
+
+    public void testCobrandKey() {
+        AdTagManager adTagManager = AdTagManager.getInstance();
+        assertEquals("yahoox20", adTagManager.getCobrandKey("yahoo",AdPosition.X_20));
+        assertEquals("yahoox20", adTagManager.getCobrandKey("yahooed",AdPosition.X_20));
+        assertEquals("sfgatex20", adTagManager.getCobrandKey("sfgate",AdPosition.X_20));
     }
 }
