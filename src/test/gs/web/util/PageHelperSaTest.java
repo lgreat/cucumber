@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.16 2006/09/19 23:31:08 dlee Exp $
+ * $Id: PageHelperSaTest.java,v 1.17 2006/09/21 17:28:25 dlee Exp $
  */
 
 package gs.web.util;
@@ -183,6 +183,11 @@ public class PageHelperSaTest extends TestCase {
         PageHelper.addJavascriptSource(_request, "/res/js/something.js");
         assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\"></script>", pageHelper.getHeadElements());
 
+        //add a duplicate, should not get multiple
+        PageHelper.addJavascriptSource(_request, "/res/js/something.js");
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\"></script>", pageHelper.getHeadElements());
+
+
         PageHelper.addJavascriptSource(_request, "/res/js/somethingElse.js");
         assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\">" +
                 "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js\"></script>",
@@ -193,6 +198,13 @@ public class PageHelperSaTest extends TestCase {
                 "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js\"></script>" +
                 "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css\"></link>",
                 pageHelper.getHeadElements());
+
+        //add a duplicate, should not get multiple
+        PageHelper.addExternalCss(_request, "/res/css/special.css");
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\">" +
+                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js\"></script>" +
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css\"></link>",
+                pageHelper.getHeadElements());        
     }
 
     public void testHideFooter() {

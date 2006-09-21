@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.23 2006/09/19 23:31:08 dlee Exp $
+ * $Id: PageHelper.java,v 1.24 2006/09/21 17:28:25 dlee Exp $
  */
 
 package gs.web.util;
@@ -15,9 +15,9 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Helper class to render and decorate a JSP page correctly. Provides a place to encapsulate logic about our pages to
@@ -143,8 +143,11 @@ public class PageHelper {
 
     private static final Log _log = LogFactory.getLog(PageHelper.class);
     private String _onload = "";
-    private List _javascriptFiles;
-    private List _cssFiles;
+
+    //Insertion order is probably important so we'll used LinkedHashSet
+    private Set _javascriptFiles;
+    private Set _cssFiles;
+
 
     private static UrlUtil _urlUtil = new UrlUtil();
 
@@ -307,16 +310,20 @@ public class PageHelper {
 
     private void addJavascriptSource(String src) {
         if (_javascriptFiles == null) {
-            _javascriptFiles = new ArrayList();
+            _javascriptFiles = new LinkedHashSet();
         }
-        _javascriptFiles.add(src);
+        if (!_javascriptFiles.contains(src)) {
+            _javascriptFiles.add(src);
+        }
     }
 
     private void addCssSource(String src) {
         if (_cssFiles == null) {
-            _cssFiles = new ArrayList();
+            _cssFiles = new LinkedHashSet();
         }
-        _cssFiles.add(src);
+        if (!_cssFiles.contains(src)) {
+            _cssFiles.add(src);
+        }
     }
 
     public boolean isDevEnvironment() {
