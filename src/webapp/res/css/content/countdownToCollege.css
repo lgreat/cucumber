@@ -147,7 +147,7 @@ span.actionTip {
 	font-size: xx-small;
     background-image: url("/res/img/content/countdownToCollege/mid_dot_line.gif");
 	background-repeat: repeat-x;
-    padding-top:33px;
+    padding-top:0px;
     margin-bottom: 9px;
 }
 
@@ -161,7 +161,7 @@ span.actionTip {
 .redDotLine {
 	display: block;
 	height: 25px;
-    padding-top:25px;
+    padding-top:5px;
     background-image: url(/res/img/content/countdownToCollege/red_dot.gif);
 	background-repeat: repeat-x;
 }
@@ -177,7 +177,7 @@ span.actionTip {
     margin-top: 0px;
 	margin-bottom: 8px;
     height: 20px;
-    padding-top:30px;
+    padding-top:3px;
     background-image: url("/res/img/content/countdownToCollege/dash_line.gif");
 	background-repeat: repeat-x;
 }

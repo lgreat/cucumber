@@ -22,37 +22,50 @@
 
 <head>
     <title>College Prep From College Board and GreatSchools</title>
-	<meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-	<meta name="Description" content="College prep advice and help from College Board and GreatSchools to help parents of high school and middle school students with academics, behavior issues and financial planning."/>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <meta name="Description"
+          content="College prep advice and help from College Board and GreatSchools to help parents of high school and middle school students with academics, behavior issues and financial planning."/>
     <pageHelper:externalCss file="/res/css/content/countdownToCollege.css"/>
     <jsp:scriptlet>
         Calendar now = Calendar.getInstance();
         int month = now.get(Calendar.MONTH);
         String s = "";
-        switch (month){
-            case Calendar.JANUARY: s = "January";
+        switch (month) {
+            case Calendar.JANUARY:
+                s = "January";
                 break;
-            case Calendar.FEBRUARY: s = "February";
+            case Calendar.FEBRUARY:
+                s = "February";
                 break;
-            case Calendar.MARCH: s = "March";
+            case Calendar.MARCH:
+                s = "March";
                 break;
-            case Calendar.APRIL: s = "April";
+            case Calendar.APRIL:
+                s = "April";
                 break;
-            case Calendar.MAY: s = "May";
+            case Calendar.MAY:
+                s = "May";
                 break;
-            case Calendar.JUNE: s = "June";
+            case Calendar.JUNE:
+                s = "June";
                 break;
-            case Calendar.JULY: s = "July";
+            case Calendar.JULY:
+                s = "July";
                 break;
-            case Calendar.AUGUST: s = "August";
+            case Calendar.AUGUST:
+                s = "August";
                 break;
-            case Calendar.SEPTEMBER: s = "September";
+            case Calendar.SEPTEMBER:
+                s = "September";
                 break;
-            case Calendar.OCTOBER: s = "October";
+            case Calendar.OCTOBER:
+                s = "October";
                 break;
-            case Calendar.NOVEMBER: s = "November";
+            case Calendar.NOVEMBER:
+                s = "November";
                 break;
-            case Calendar.DECEMBER: s = "December";
+            case Calendar.DECEMBER:
+                s = "December";
                 break;
         }
         pageContext.setAttribute("tipMonth", s);
@@ -60,260 +73,297 @@
 </head>
 <c:set var="pageName" value="Countdown To College"/>
 <gsml:body adPageName="article/countdownToCollege" pageLayout="countdownToCollege">
-    <table cellspacing="0" cellpadding="0" class="content" border="0">
-		<tr>
-			<td class="left" style="width: 173px;" valign="top">
-			<h3 id="helpYourChildSucceed">Grade 6-12 Success</h3>
-			<ul class="plain">
-                <gsweb:articlelink articleId="700" wrappingElement="li"/>
-                <gsweb:articlelink articleId="701" wrappingElement="li"/>
-                <gsweb:articlelink articleId="655" wrappingElement="li"/>
-                <gsweb:articlelink articleId="716" wrappingElement="li"/>
-                <gsweb:articlelink articleId="477" wrappingElement="li"/>
-                <gsweb:articlelink articleId="366" wrappingElement="li"/>
-                <gsweb:articlelink articleId="325" wrappingElement="li"/>
-            </ul>
+<table cellspacing="0" cellpadding="0" class="content" border="0">
+<tr>
+<td class="left" style="width: 173px;" valign="top">
+    <h3 id="helpYourChildSucceed">Grade 6-12 Success</h3>
+    <ul class="plain">
+        <gsweb:articlelink articleId="700" wrappingElement="li"/>
+        <gsweb:articlelink articleId="701" wrappingElement="li"/>
+        <gsweb:articlelink articleId="655" wrappingElement="li"/>
+        <gsweb:articlelink articleId="716" wrappingElement="li"/>
+        <gsweb:articlelink articleId="477" wrappingElement="li"/>
+        <gsweb:articlelink articleId="366" wrappingElement="li"/>
+        <gsweb:articlelink articleId="325" wrappingElement="li"/>
+    </ul>
 
-			<h3 id="testTips">Test Tips</h3>
-			<ul class="plain">
-                <gsweb:articlelink articleId="243" wrappingElement="li"/>
-                <gsweb:articlelink articleId="244" wrappingElement="li"/>
-                <gsweb:articlelink articleId="160" wrappingElement="li"/>
-			</ul>
+    <h3 id="testTips">Test Tips</h3>
+    <ul class="plain">
+        <gsweb:articlelink articleId="243" wrappingElement="li"/>
+        <gsweb:articlelink articleId="244" wrappingElement="li"/>
+        <gsweb:articlelink articleId="160" wrappingElement="li"/>
+    </ul>
 
-			<h3 id="askTheExperts">Ask the Experts</h3>
-			<ul class="plain">
-                <gsweb:articlelink articleId="676" wrappingElement="li"/>
-                <gsweb:articlelink articleId="675" wrappingElement="li"/>
-                <gsweb:articlelink articleId="726" wrappingElement="li"/>
-                <gsweb:articlelink articleId="727" wrappingElement="li"/>
-            </ul>
+    <h3 id="askTheExperts">Ask the Experts</h3>
+    <ul class="plain">
+        <gsweb:articlelink articleId="676" wrappingElement="li"/>
+        <gsweb:articlelink articleId="675" wrappingElement="li"/>
+        <gsweb:articlelink articleId="726" wrappingElement="li"/>
+        <gsweb:articlelink articleId="727" wrappingElement="li"/>
+    </ul>
 
-			<h3 id="choosingASchool">Choosing a School</h3>
-			<ul class="plain">
-                <gsweb:articlelink articleId="197" wrappingElement="li"/>
-                <gsweb:articlelink articleId="96" wrappingElement="li"/>
-                <gsweb:articlelink articleId="487" wrappingElement="li"/>
-			</ul>
+    <h3 id="choosingASchool">Choosing a School</h3>
+    <ul class="plain">
+        <gsweb:articlelink articleId="197" wrappingElement="li"/>
+        <gsweb:articlelink articleId="96" wrappingElement="li"/>
+        <gsweb:articlelink articleId="487" wrappingElement="li"/>
+    </ul>
 
-			<h3 id="healthyKids">Healthy Kids</h3>
-			<ul class="plain">
-                <gsweb:articlelink articleId="551" wrappingElement="li"/>
-                <gsweb:articlelink articleId="215" wrappingElement="li"/>
-                <gsweb:articlelink articleId="621" wrappingElement="li"/>
-			</ul>
+    <h3 id="healthyKids">Healthy Kids</h3>
+    <ul class="plain">
+        <gsweb:articlelink articleId="551" wrappingElement="li"/>
+        <gsweb:articlelink articleId="215" wrappingElement="li"/>
+        <gsweb:articlelink articleId="621" wrappingElement="li"/>
+    </ul>
 
-			<h3 id="getInvolved">Get Involved</h3>
-			<ul class="plain">
-                <gsweb:articlelink articleId="41" wrappingElement="li"/>
-                <gsweb:articlelink articleId="291" wrappingElement="li"/>
-                <gsweb:articlelink articleId="34" wrappingElement="li"/>
-            </ul>
+    <h3 id="getInvolved">Get Involved</h3>
+    <ul class="plain">
+        <gsweb:articlelink articleId="41" wrappingElement="li"/>
+        <gsweb:articlelink articleId="291" wrappingElement="li"/>
+        <gsweb:articlelink articleId="34" wrappingElement="li"/>
+    </ul>
 
-            <h3 class="seeAll"><link:articleLibrary styleClass="seeAll">Full article library &gt;</link:articleLibrary></h3>
-			<ul class="empty">
-				<li class="empty"><gsml:img style="height: 250px; width: 100px" alt="" src="/res/img/header/clear_pix.gif"></gsml:img></li>
-			</ul>
+    <h3 class="seeAll"><link:articleLibrary styleClass="seeAll">Full article library &gt;</link:articleLibrary></h3>
+    <ul class="empty">
+        <li class="empty"><gsml:img style="height: 250px; width: 100px" alt=""
+                                    src="/res/img/header/clear_pix.gif"></gsml:img></li>
+    </ul>
 
-			<gsml:img style="height: 38px; width: 173px" alt="" src="/res/img/header/clear_pix.gif"></gsml:img>
-			</td>
+    <gsml:img style="height: 38px; width: 173px" alt="" src="/res/img/header/clear_pix.gif"></gsml:img>
+</td>
 
-			<td style="width: 9px;" valign="top"><gsml:img style="width: 9px;" alt="" src="/res/img/header/clear_pix.gif"></gsml:img></td>
+<td style="width: 9px;" valign="top"><gsml:img style="width: 9px;" alt=""
+                                               src="/res/img/header/clear_pix.gif"></gsml:img></td>
 
 <!-- middle and right -->
 
-			<td style="width: 685px" valign="top">
-			<table width="685" cellpadding="0" cellspacing="0" border="0">
-			<tr>
-				<td valign="top" style="width: 365px" class="middle">
-				<table width="365" cellpadding="0" cellspacing="0">
-				<tr>
-					<td><gsml:img src="/res/img/content/countdownToCollege/countDown_text.gif" style="width=155; height=192;  border=0" alt="Countdown to College" /></td>
-					<td><gsml:img src="/res/img/content/countdownToCollege/countdown_img.jpg" style="border:0; width=210; height=192" alt="Countdown to College" /></td>
-				</tr>
-				</table>
+<td style="width: 685px" valign="top">
+<table width="685" cellpadding="0" cellspacing="0" border="0">
 
-				<div class="redDotLine" />
+<tr>
+<td valign="top" style="width: 365px" class="middle">
 
-				<h2 id="whatYourChildNeeds">What Your Chiled Needs to Succeed</h2>
+    <table width="365" cellpadding="0" cellspacing="0">
+        <tr>
+            <td><gsml:img src="/res/img/content/countdownToCollege/countDown_text.gif"
+                          style="width=155; height=192;  border=0" alt="Countdown to College"/></td>
+            <td><gsml:img src="/res/img/content/countdownToCollege/countdown_img.jpg"
+                          style="border:0; width=210; height=192" alt="Countdown to College"/></td>
+        </tr>
+    </table>
 
-                <div class="moduleTitle">
-                    <gsml:a href="/cgi-bin/showarticle/$STATE/728" styleClass="noHover">2006-2007 College Admissions Trends</gsml:a>
-                </div>
-				<div class="module">
-                    <gsml:a href="/cgi-bin/showarticle/$STATE/728" styleClass="noHover">
-                        Applications to colleges are up and will continue to rise through 2014. A combination of factors
-                        has driven the increase &#8212; and led to fears that colleges are harder to get into.
-                    </gsml:a>
-                </div>
+    <div class="redDotLine">
+        <gsml:img style="height: 1px; width: 1px" alt=""
+                  src="/res/img/header/clear_pix.gif"></gsml:img>
+    </div>
 
-                <div align="right"><gsml:a href="/cgi-bin/showarticle/$STATE/728" styleClass="seeFullArticle">See full article &gt;</gsml:a></div>
+    <h2 id="whatYourChildNeeds">What Your Chiled Needs to Succeed</h2>
 
-                <div class="midDotLine"></div>
+    <div class="moduleTitle">
+        <gsml:a href="/cgi-bin/showarticle/$STATE/728" styleClass="noHover">2006-2007 College Admissions Trends</gsml:a>
+    </div>
+    <div class="module">
+        <gsml:a href="/cgi-bin/showarticle/$STATE/728" styleClass="noHover">
+            Applications to colleges are up and will continue to rise through 2014. A combination of factors
+            has driven the increase &#8212; and led to fears that colleges are harder to get into.
+        </gsml:a>
+    </div>
 
-				<h2 id="resources">Resources From the College Board</h2>
+    <div align="right">
+        <gsml:a href="/cgi-bin/showarticle/$STATE/728" styleClass="seeFullArticle">See full article &gt;</gsml:a>
+    </div>
 
-                    <div class="collegeBoardLogo">
-                        <a href="http://www.collegeboard.com" target="_blank">
-                            <gsml:img style="height: 40px; width: 179px" alt="Content provided by CollegeBoard.com" src="/res/img/content/countdownToCollege/collegeboard_logo.gif"></gsml:img>
-                        </a>
-                    </div>
+    <div class="midDotLine" >
+        <gsml:img style="height: 1px; width: 1px" alt=""
+                  src="/res/img/header/clear_pix.gif"></gsml:img>
+    </div>
 
-				<div class="yellowbar"></div>
+    <h2 id="resources">Resources From the College Board</h2>
 
-                <div class="moduleTitle">
-                    <gsml:a href="/cgi-bin/showarticle/$STATE/690" styleClass="noHover">
-                        Applications: A Parent's Role
-                    </gsml:a>
-                </div>
-				<div class="module">
-                    <gsml:a href="/cgi-bin/showarticle/$STATE/690" styleClass="noHover">
-                        Do I give up now in despair or just do it myself? This is the question many parents ask during
-                        the college application process. The challenge is to be supportive while doing neither.
-                    </gsml:a>
-                </div>
+    <div class="collegeBoardLogo">
+        <a href="http://www.collegeboard.com" target="_blank">
+            <gsml:img style="height: 40px; width: 179px" alt="Content provided by CollegeBoard.com"
+                      src="/res/img/content/countdownToCollege/collegeboard_logo.gif"></gsml:img>
+        </a>
+    </div>
 
-                <div align="right"><gsml:a href="/cgi-bin/showarticle/$STATE/690" styleClass="seeFullArticle">See full article &gt;</gsml:a></div>
+    <div class="yellowbar"></div>
 
-				<div class="midDashLine"></div>
+    <div class="moduleTitle">
+        <gsml:a href="/cgi-bin/showarticle/$STATE/690" styleClass="noHover">
+            Applications: A Parent's Role
+        </gsml:a>
+    </div>
 
-                <div class="quickFinderTable">
-					<table width="340" cellpadding="0" cellspacing="0" border="0">
-					<tr>
-						<td>
-                            <content:collegeQuickFinder />
-						</td>
-						<td>
-						<ul class="quickFindLinks">
-							<li><a href="http://www.collegeboard.com/parents/plan/getting-ready/26304.html" target="_blank">College Prep Glossary</a></li>
-							<li><a href="http://www.collegeboard.com/parents/apply/college-applications/21342.html" target="_blank">Early Descision and Early Action</a></li>
-							<li><a href="http://www.collegeboard.com/parents/apply/college-applications/21359.html" target="_blank">Inside the Admissions Process</a></li>
-							<li><a href="http://www.collegeboard.com/parents/apply/college-applications/21352.html" target="_blank">Application FAQs</a></li>
-							<li><a href="http://www.collegeboard.com/student/apply/the-application/27012.html" target="_blank">Apply Online</a></li>
-						</ul></td>
-					</tr>
-					</table>
-				</div>
-                    <br/>
-                    <br/>
+    <div class="module">
+        <gsml:a href="/cgi-bin/showarticle/$STATE/690" styleClass="noHover">
+            Do I give up now in despair or just do it myself? This is the question many parents ask during
+            the college application process. The challenge is to be supportive while doing neither.
+        </gsml:a>
+    </div>
+
+    <div align="right"><gsml:a href="/cgi-bin/showarticle/$STATE/690" styleClass="seeFullArticle">See full article
+        &gt;</gsml:a></div>
+
+    <div class="midDashLine">
+        <gsml:img style="height: 1px; width: 1px" alt=""
+                  src="/res/img/header/clear_pix.gif"></gsml:img>
+    </div>
+
+    <div class="quickFinderTable">
+        <table width="340" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td>
+                    <content:collegeQuickFinder/>
+                </td>
+                <td>
+                    <ul class="quickFindLinks">
+                        <li><a href="http://www.collegeboard.com/parents/plan/getting-ready/26304.html" target="_blank">College
+                            Prep Glossary</a></li>
+                        <li><a href="http://www.collegeboard.com/parents/apply/college-applications/21342.html"
+                               target="_blank">Early Descision and Early Action</a></li>
+                        <li><a href="http://www.collegeboard.com/parents/apply/college-applications/21359.html"
+                               target="_blank">Inside the Admissions Process</a></li>
+                        <li><a href="http://www.collegeboard.com/parents/apply/college-applications/21352.html"
+                               target="_blank">Application FAQs</a></li>
+                        <li><a href="http://www.collegeboard.com/student/apply/the-application/27012.html"
+                               target="_blank">Apply Online</a></li>
+                    </ul>
                 </td>
 
-                <td style="height: 100%; vertical-align: top; width: 10px; border-right: 1px solid #ddd" valign="top"><img style="width: 9px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
-				<td style="width: 5px;" valign="top"><img style="width: 5px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
-
-                <td class="right" style="width: 302px" valign="bottom">
-
-                    <div id="childOnTrack">
-                        <promo:nthGraderHover referredBy="${pageName}" autocheck="myhs" >
-                            <gsml:url var="cot" value="/res/img/content/countdownToCollege/child_on_track.gif" />
-                            <gsml:url var="cotOver" value="/res/img/content/countdownToCollege/child_on_track_h.gif" />
-                            <img src="${cot}"
-                                 alt="Is Your Child on Track for College?"
-                                 onmouseover="this.src='${cotOver}';"
-                                 onmouseout="this.src='${cot}';"/>
-                        </promo:nthGraderHover>
-                    </div>
-
-                    <table cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td>
-                                <ad:x40/>
-                            </td>
-                        </tr>
-                    </table>
-
-                    <div class="grayLine"><gsml:img src="/res/img/header/clear_pix.gif" alt=""/></div>
-
-                    <h2 id="financialAidPlanner">
-                        <a href="http://apps.collegeboard.com/fincalc/ep/step1-1.jsp" target="_blank" >
-                            <gsml:img src="/res/img/content/countdownToCollege/financial_aid_planner.gif" style="width:305px;height:269px;border:none" alt="Financial Aid EasyPlanner provided by the College Board"  />
-                        </a>
-                    </h2>
-
-                    <c:choose>
-                        <c:when test="${!requestScope.context.yahooCobrand and !requestScope.context.familyCobrand}">
-                            <div id="bottomAdd">
-                                <ad:x49 blurb="Countdown to College Sponsored By:"/>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <div id="bottomAdFiller" style="height:140px;"/>
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-			</tr>
-			<tr>
-				<td colspan="4" style="width: 685px">
-
-				<div class="midDashLine"></div>
-
-				<table width="660" cellpadding="0" cellspacing="0" border="0" align="right" id="actionTips">
-				<tr>
-					<td colspan="3" valign="top">
-                        <gsml:img src="/res/img/content/countdownToCollege/actionTips_${tipMonth}.gif"
-                                  alt="Action Tips for ${tipMonth}"
-                                  styleClass="actionTipsTitle" />
-                    </td>
-				</tr>
-				<tr>
-					<td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
-                        <span class="actionTip">
-                            Encourage your child to get involved with extracurricular activities. Colleges are looking
-                            for a student who makes a long-term commitment to an activity outside the classroom, rather
-                            than one who joins every campus club.  They want a student who can manage her time and priorities.
-                        </span><br/>
-                        <a href="http://www.collegeboard.com/student/plan/action/freshmen.html" target="_blank" class="actionTipsLink">Freshman Action Plan</a></td>
-					<td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
-					<td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
-                        <span class="actionTip">
-                            If your child hasn't found an extracurricular activity he likes, encourage him to look off
-                            campus, at community or religious organizations.  Work experience &#8212; paid or volunteer &#8212; can
-                            help identify career interests.  He might consider arranging for an internship or to
-                            shadow an adult on the job.
-                        </span><br />
-					<a href="http://www.collegeboard.com/student/plan/action/sophomores.html" target="_blank" class="actionTipsLink">Sophomore Action Plan</a></td>
-				</tr>
-				<tr>
-					<td colspan="3" valign="top"><img style="height: 19px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
-				</tr>
-				<tr>
-					<td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
-                        <span class="actionTip">
-                            Encourage your child to start her college search by making lists of her abilities,
-                            preferences and personal qualities. Have her list things she may want to study and do in
-                            college. She can jumpstart her college planning by reading about
-                            <a href="http://www.collegeboard.com/student/csearch/majors_careers/" target="_blank">majors and careers.</a>
-                        </span>
-                        <br />
-					<a href="http://www.collegeboard.com/student/plan/action/juniors.html" target="_blank" class="actionTipsLink">Junior Action Plan</a></td>
-					<td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
-					<td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
-                        <span class="actionTip">
-                            You senior should make a <a href="http://www.collegeboard.com/student/apply/the-application/23626.html" target="_blank">calendar</a>
-                            showing deadlines for all tests and applications, including his school's deadline to request
-                            transcripts. He should ask his counselor and teachers for recommendation letters.
-                            Is he applying <a href="http://www.collegeboard.com/student/apply/the-application/104.html" target="_blank">early action or early decision</a>?
-                            Colleges may require test scores and applications in early November.
-                        </span><br />
-					<a href="http://www.collegeboard.com/student/plan/action/seniors.html" target="_blank" class="actionTipsLink">Senior Action Plan</a></td>
-				</tr>
-				<tr>
-					<td align="right" colspan="3">
-                        <a href="http://www.collegeboard.com" target="_blank">
-                            <gsml:img style="height: 40px; width: 179px" alt="Content provided by CollegeBoard.com" src="/res/img/content/countdownToCollege/collegeboard_logo.gif"></gsml:img>
-                        </a>
-                    </td>
-				</tr>
-				</table>
-				<br /><br /><br /><br /><br />
-				</td>
-			</tr>
-			</table></td>
-		</tr>
+            </tr>
         </table>
-        <mod:tracking pageType="article"
-                      pageName="${pageName}"
-                      hier1 = "Article,Countdown To College"/>
+    </div>
+</td>
+
+<td style="height: 100%; vertical-align: top; width: 10px; border-right: 1px solid #ddd" valign="top">
+    <img style="width: 9px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img>
+</td>
+<td style="width: 5px;" valign="top">
+    <img style="width: 5px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img>
+</td>
+
+<td class="right" style="width: 302px" valign="bottom">
+
+    <div id="childOnTrack">
+        <promo:nthGraderHover referredBy="${pageName}" autocheck="myhs">
+            <gsml:url var="cot" value="/res/img/content/countdownToCollege/child_on_track.gif"/>
+            <gsml:url var="cotOver" value="/res/img/content/countdownToCollege/child_on_track_h.gif"/>
+            <img src="${cot}"
+                 alt="Is Your Child on Track for College?"
+                 onmouseover="this.src='${cotOver}';"
+                 onmouseout="this.src='${cot}';"/>
+        </promo:nthGraderHover>
+    </div>
+
+    <table cellspacing="0" cellpadding="0">
+        <tr>
+            <td>
+                <ad:x40/>
+            </td>
+        </tr>
+    </table>
+
+    <div class="grayLine"><gsml:img src="/res/img/header/clear_pix.gif" alt=""/></div>
+
+    <h2 id="financialAidPlanner">
+        <a href="http://apps.collegeboard.com/fincalc/ep/step1-1.jsp" target="_blank">
+            <gsml:img src="/res/img/content/countdownToCollege/financial_aid_planner.gif"
+                      style="width:305px;height:269px;border:none"
+                      alt="Financial Aid EasyPlanner provided by the College Board"/>
+        </a>
+    </h2>
+
+    <c:choose>
+        <c:when test="${!requestScope.context.yahooCobrand and !requestScope.context.familyCobrand}">
+            <div id="bottomAdd">
+                <ad:x49 blurb="Countdown to College Sponsored By:"/>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <div id="bottomAdFiller" style="height:140px;"/>
+        </c:otherwise>
+    </c:choose>
+</td>
+</tr>
+<tr>
+    <td colspan="4" style="width: 685px">
+
+        <div class="midDashLine">
+            <gsml:img style="height: 1px; width: 1px" alt=""
+                      src="/res/img/header/clear_pix.gif"></gsml:img>            
+        </div>
+        <table width="660" cellpadding="0" cellspacing="0" border="0" align="right" id="actionTips">
+            <tr>
+                <td colspan="3" valign="top">
+                    <gsml:img src="/res/img/content/countdownToCollege/actionTips_${tipMonth}.gif"
+                              alt="Action Tips for ${tipMonth}"
+                              styleClass="actionTipsTitle"/>
+                </td>
+            </tr>
+
+                   <tr>
+                       <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
+                           <span class="actionTip">
+                               Encourage your child to get involved with extracurricular activities. Colleges are looking
+                               for a student who makes a long-term commitment to an activity outside the classroom, rather
+                               than one who joins every campus club.  They want a student who can manage her time and priorities.
+                           </span><br/>
+                           <a href="http://www.collegeboard.com/student/plan/action/freshmen.html" target="_blank" class="actionTipsLink">Freshman Action Plan</a></td>
+                       <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
+                       <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
+                           <span class="actionTip">
+                               If your child hasn't found an extracurricular activity he likes, encourage him to look off
+                               campus, at community or religious organizations.  Work experience &#8212; paid or volunteer &#8212; can
+                               help identify career interests.  He might consider arranging for an internship or to
+                               shadow an adult on the job.
+                           </span><br />
+                       <a href="http://www.collegeboard.com/student/plan/action/sophomores.html" target="_blank" class="actionTipsLink">Sophomore Action Plan</a></td>
+                   </tr>
+                   <tr>
+                       <td colspan="3" valign="top"><img style="height: 19px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
+                   </tr>
+                   <tr>
+                       <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
+                           <span class="actionTip">
+                               Encourage your child to start her college search by making lists of her abilities,
+                               preferences and personal qualities. Have her list things she may want to study and do in
+                               college. She can jumpstart her college planning by reading about
+                               <a href="http://www.collegeboard.com/student/csearch/majors_careers/" target="_blank">majors and careers.</a>
+                           </span>
+                           <br />
+                       <a href="http://www.collegeboard.com/student/plan/action/juniors.html" target="_blank" class="actionTipsLink">Junior Action Plan</a></td>
+                       <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
+                       <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
+                           <span class="actionTip">
+                               You senior should make a <a href="http://www.collegeboard.com/student/apply/the-application/23626.html" target="_blank">calendar</a>
+                               showing deadlines for all tests and applications, including his school's deadline to request
+                               transcripts. He should ask his counselor and teachers for recommendation letters.
+                               Is he applying <a href="http://www.collegeboard.com/student/apply/the-application/104.html" target="_blank">early action or early decision</a>?
+                               Colleges may require test scores and applications in early November.
+                           </span><br />
+                       <a href="http://www.collegeboard.com/student/plan/action/seniors.html" target="_blank" class="actionTipsLink">Senior Action Plan</a></td>
+                   </tr>
+                   <tr>
+                       <td align="right" colspan="3">
+                           <a href="http://www.collegeboard.com" target="_blank">
+                               <gsml:img style="height: 40px; width: 179px" alt="Content provided by CollegeBoard.com" src="/res/img/content/countdownToCollege/collegeboard_logo.gif"></gsml:img>
+                           </a>
+                       </td>
+                   </tr>
+
+        </table>
+
+        <br/><br/><br/><br/><br/>
+    </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<mod:tracking pageType="article"
+              pageName="${pageName}"
+              hier1="Article,Countdown To College"/>
 </gsml:body>
 </html>
 </jsp:root>
