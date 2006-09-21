@@ -266,7 +266,7 @@
     </h2>
 
     <c:choose>
-        <c:when test="${!requestScope.context.yahooCobrand and !requestScope.context.familyCobrand}">
+        <c:when test="${!requestScope.pageHelper.adServedByCobrand}">
             <div id="bottomAdd">
                 <ad:x49 blurb="Countdown to College Sponsored By:"/>
             </div>
