@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: EditNewsItemController.java,v 1.4 2006/09/21 17:28:31 aroy Exp $
+ * $Id: EditNewsItemController.java,v 1.5 2006/09/21 17:59:05 aroy Exp $
  */
 
 package gs.web.admin.news;
@@ -31,6 +31,13 @@ import java.util.Date;
 public class EditNewsItemController extends SimpleFormController implements ReadWriteController {
 
     private static final Log _log = LogFactory.getLog(EditNewsItemController.class);
+    public static final String NO_CHANGE = "noChange"; // leave stop date unchanged
+    public static final String ONE_DAY = "oneDay";
+    public static final String ONE_WEEK = "oneWeek";
+    public static final String ONE_MONTH = "oneMonth";
+    public static final String THREE_MONTHS = "threeMonths";
+    public static final String STATE_SELECT_NAME = "stateSelect";
+    public static final String EXPIRATION_SELECT_NAME = "stopSelect";
 
     INewsItemDao _newsItemDao;
     StateManager _stateManager;
@@ -39,7 +46,7 @@ public class EditNewsItemController extends SimpleFormController implements Read
         NewsItem newsItem = (NewsItem) command;
         newsItem.setStates(null); // clear out existing states
 
-        String[] states = request.getParameterValues("stateSelect");
+        String[] states = request.getParameterValues(STATE_SELECT_NAME);
         if (states != null && states.length > 0) {
             Set stateSet = new HashSet();
             for (int x=0; x < states.length; x++) {
@@ -52,20 +59,20 @@ public class EditNewsItemController extends SimpleFormController implements Read
                 newsItem.setStates(stateSet);
             }
         }
-        String stopSelect = request.getParameter("stopSelect");
+        String stopSelect = request.getParameter(EXPIRATION_SELECT_NAME);
         if (StringUtils.isEmpty(stopSelect)) {
             newsItem.setStop(null);
-        } else if (!stopSelect.equals("noChange")) {
+        } else if (!stopSelect.equals(NO_CHANGE)) {
             Calendar cal = Calendar.getInstance();
             final Date now = new Date();
             cal.setTime(now);
-            if (stopSelect.equals("oneDay")) {
+            if (stopSelect.equals(ONE_DAY)) {
                 cal.add(Calendar.DAY_OF_YEAR, 1);
-            } else if (stopSelect.equals("oneWeek")) {
+            } else if (stopSelect.equals(ONE_WEEK)) {
                 cal.add(Calendar.WEEK_OF_YEAR, 1);
-            } else if (stopSelect.equals("oneMonth")) {
+            } else if (stopSelect.equals(ONE_MONTH)) {
                 cal.add(Calendar.MONTH, 1);
-            } else if (stopSelect.equals("threeMonths")) {
+            } else if (stopSelect.equals(THREE_MONTHS)) {
                 cal.add(Calendar.MONTH, 3);
             }
             newsItem.setStop(cal.getTime());

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: NewsItemsControllerTest.java,v 1.3 2006/09/12 21:00:45 aroy Exp $
+ * $Id: NewsItemsControllerTest.java,v 1.4 2006/09/21 17:59:05 aroy Exp $
  */
 
 package gs.web.admin.news;
@@ -15,6 +15,7 @@ import org.springframework.validation.BindException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Date;
 
 /**
  * Provides tests for Edit/DeleteNewsItemController.
@@ -146,8 +147,8 @@ public class NewsItemsControllerTest extends BaseControllerTestCase {
         NewsItem item = new NewsItem();
         assertNull(item.getStates());
 
-        getRequest().addParameter("stateSelect", "CA");
-        getRequest().addParameter("stateSelect", "MD");
+        getRequest().addParameter(EditNewsItemController.STATE_SELECT_NAME, "CA");
+        getRequest().addParameter(EditNewsItemController.STATE_SELECT_NAME, "MD");
 
         EditNewsItemController controller = new EditNewsItemController();
         controller.setStateManager((StateManager) getApplicationContext().getBean(StateManager.BEAN_ID));
@@ -160,9 +161,51 @@ public class NewsItemsControllerTest extends BaseControllerTestCase {
 
         GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setServerName("www.greatschools.net");
-        getRequest().setParameter("stateSelect", "");
         controller.onBind(request, item, errors);
         assertEquals(0, errors.getErrorCount());
         assertNull(item.getStates());
+    }
+
+    public void testBindStopDateFromRequest() throws Exception {
+        NewsItem item = new NewsItem();
+        assertNull(item.getStop());
+
+        Date now = new Date();
+
+        getRequest().setParameter(EditNewsItemController.EXPIRATION_SELECT_NAME,
+                EditNewsItemController.ONE_DAY);
+
+        EditNewsItemController controller = new EditNewsItemController();
+        controller.setStateManager((StateManager) getApplicationContext().getBean(StateManager.BEAN_ID));
+
+        BindException errors = new BindException(item, "");
+        controller.onBind(getRequest(), item, errors);
+        assertEquals(0, errors.getErrorCount());
+        assertNotNull(item.getStop());
+        assertTrue(now.before(item.getStop()));
+        Date oneDay = item.getStop();
+
+        getRequest().setParameter(EditNewsItemController.EXPIRATION_SELECT_NAME,
+                EditNewsItemController.NO_CHANGE);
+        controller.onBind(getRequest(), item, errors);
+        assertEquals(0, errors.getErrorCount());
+        assertNotNull(item.getStop());
+        assertTrue(now.before(item.getStop()));
+        assertEquals(oneDay, item.getStop());
+
+        getRequest().setParameter(EditNewsItemController.EXPIRATION_SELECT_NAME,
+                EditNewsItemController.ONE_WEEK);
+        controller.onBind(getRequest(), item, errors);
+        assertEquals(0, errors.getErrorCount());
+        assertNotNull(item.getStop());
+        assertTrue(now.before(item.getStop()));
+        assertFalse(oneDay.equals(item.getStop()));
+        assertTrue(oneDay.before(item.getStop()));
+
+        getRequest().setParameter(EditNewsItemController.EXPIRATION_SELECT_NAME,
+                "");
+        controller.onBind(getRequest(), item, errors);
+        assertEquals(0, errors.getErrorCount());
+        assertNull(item.getStop());
     }
 }
