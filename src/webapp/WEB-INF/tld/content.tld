@@ -86,21 +86,15 @@
     </tag>
 
     <tag>
-        <name>newsItemByState</name>
-        <tag-class>gs.web.content.NewsItemByStateTagHandler</tag-class>
+        <name>researchAndCompareNewsBlurb</name>
+        <tag-class>gs.web.content.ResearchAndCompareNewsBlurbTagHandler</tag-class>
         <body-content>empty</body-content>
-        <attribute>
-            <name>category</name>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-            <description>Category of news item to retrieve</description>
-        </attribute>
         <attribute>
             <name>state</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <type>gs.data.state.State</type>
-            <description>State of news item to retrieve, do not provide for ALL</description>
+            <description>State of news item to retrieve, do not provide for national</description>
         </attribute>
     </tag>
 

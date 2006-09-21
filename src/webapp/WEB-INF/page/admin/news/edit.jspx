@@ -31,9 +31,12 @@
 
         NewsItem newsItem = (NewsItem) request.getAttribute("newsItem");
         if (newsItem != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy 'at' hh:mm aaa");
             if (newsItem.getStop() != null) {
-                SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy 'at' hh:mm aaa");
                 request.setAttribute("stopString", sdf.format(newsItem.getStop()));
+            }
+            if (newsItem.getStart() != null) {
+                request.setAttribute("startString", sdf.format(newsItem.getStart()));
             }
         }
 
@@ -55,7 +58,7 @@
         <gsweb:form action="/admin/news/create.page" method="get">
             <label for="title">Title (usage varies)</label>
             <input type="text" name="title" size="100" maxlength="100" value="${newsItem.title}"/>
-            <label for="text">Text</label>
+            <label for="text">Text (HTML will be escaped and will not work)</label>
             <c:choose>
                 <c:when test="${isEdit or newsItem.text gt ''}">
                     <textarea name="text" rows="5" cols="100">${newsItem.text}</textarea>
@@ -83,6 +86,11 @@
             <label for="states">States</label>
             <gsweb:stateSelector useNoState="true" noStateLabel="All" name="stateSelect" multiple="true" size="10" stateSet="${newsItem.states}"/>
 
+            <c:if test="${isEdit}">
+                <label for="created">Created on</label>
+                <input type="text" readonly="readonly" value="${startString}" size="30"/>
+            </c:if>
+
             <label for="stopSelect">Expiration date<c:if test="${isEdit and newsItem.stop gt ''}"> (currently ${stopString})</c:if></label>
             <select name="stopSelect">
                 <c:if test="${isEdit and newsItem.stop > ''}">
@@ -92,6 +100,7 @@
                 <option value="oneDay">One day from now</option>
                 <option value="oneWeek">One week from now</option>
                 <option value="oneMonth">One month from now</option>
+                <option value="twoMonths">Two months from now</option>
                 <option value="threeMonths">Three months from now</option>
             </select>
             <c:if test="${isEdit}">

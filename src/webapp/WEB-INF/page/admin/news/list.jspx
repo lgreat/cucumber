@@ -28,6 +28,12 @@
         <title>GreatSchools.net</title>
         <pageHelper:externalCss file="/res/css/admin/admin.css" />
         <pageHelper:hideFooterAd />
+        <style type="text/css">
+            /* Used by expiration date column decorator if date is in the past. */
+            span.expired {
+                color: red;
+            }
+        </style>
     </head>
     <jsp:scriptlet>
         PageHelper.hideLeaderboard(request);
@@ -53,12 +59,12 @@
         <h2><gsml:a href="/admin/news/create.page">Create News Item</gsml:a></h2>
 
         <display:table name="newsItems" class="newsItems" requestURI="list.page"
-                       defaultsort="1" defaultorder="descending" decorator="gs.web.admin.news.NewsItemTableDecorator">
+                       defaultsort="1" defaultorder="descending">
             <display:column property="id" title="ID" sortable="true"></display:column>
             <display:column property="category" title="Cat." sortable="true"></display:column>
             <display:column property="title" title="Title" sortable="true"></display:column>
-            <display:column property="text" title="Text" sortable="true" maxLength="75" escapeXml="true"></display:column>
-            <display:column property="stop" title="Expires" sortable="true"></display:column>
+            <display:column property="text" title="Text" sortable="true" maxLength="75"></display:column>
+            <display:column property="stop" title="Expires" sortable="true" sortProperty="stop" decorator="gs.web.admin.news.NewsItemExpirationColumnDecorator"></display:column>
             <display:column property="states" title="States" sortable="true"></display:column>
             <display:column href="edit.page" paramId="id" paramProperty="id"  title="Action">Edit</display:column>
             <display:column href="delete.page" paramId="id" paramProperty="id"  title="Action">Delete</display:column>
