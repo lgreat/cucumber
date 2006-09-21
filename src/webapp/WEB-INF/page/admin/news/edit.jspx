@@ -6,11 +6,11 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-          xmlns:rss="urn:jsptagdir:/WEB-INF/tags/rss"
           xmlns:gsweb="gstaglib"
-          xmlns:display="urn:jsptld:http://displaytag.sf.net"
         >
     <jsp:directive.page import="gs.web.util.PageHelper"/>
+    <jsp:directive.page import="java.text.SimpleDateFormat"/>
+    <jsp:directive.page import="gs.data.content.NewsItem"/>
     <html lang="en">
 
     <jsp:output doctype-root-element="html"
@@ -28,7 +28,17 @@
         PageHelper.hideHeader(request);
         PageHelper.hideFooterAd(request);
         PageHelper.hideFooter(request);
-    </jsp:scriptlet>    </head>
+
+        NewsItem newsItem = (NewsItem) request.getAttribute("newsItem");
+        if (newsItem != null) {
+            if (newsItem.getStop() != null) {
+                SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy 'at' hh:mm aaa");
+                request.setAttribute("stopString", sdf.format(newsItem.getStop()));
+            }
+        }
+
+    </jsp:scriptlet>
+    </head>
 
     <gsml:body adPageName="splash">
 
@@ -57,7 +67,7 @@
             <label for="link">Link (optional)</label>
             <input type="text" name="link" size="100" maxlength="100" value="${newsItem.link}"/>
             <label for="category">Category</label>
-            <c:set var="catNames" value="SPLASH POSITION 1,SPLASH POSITION 2,SPLASH POSITION 3,CONTENT BOX: ARTICLE,CONTEXT BOX: TIP OF THE WEEK,DATA"/>
+            <c:set var="catNames" value="SPLASH POSITION 1,SPLASH POSITION 2,SPLASH POSITION 3,CONTENT BOX: ARTICLE,CONTEXT BOX: TIP OF THE WEEK,DATA,RESEARCH AND COMPARE DATA UPDATE"/>
             <select name="category">
                 <c:forEach var="catName" items="${catNames}">
                     <c:choose>
@@ -72,6 +82,18 @@
             </select>
             <label for="states">States</label>
             <gsweb:stateSelector useNoState="true" noStateLabel="All" name="stateSelect" multiple="true" size="10" stateSet="${newsItem.states}"/>
+
+            <label for="stopSelect">Expiration date<c:if test="${isEdit and newsItem.stop gt ''}"> (currently ${stopString})</c:if></label>
+            <select name="stopSelect">
+                <c:if test="${isEdit and newsItem.stop > ''}">
+                    <option value="noChange">Leave unchanged</option>
+                </c:if>
+                <option value="">None</option>
+                <option value="oneDay">One day from now</option>
+                <option value="oneWeek">One week from now</option>
+                <option value="oneMonth">One month from now</option>
+                <option value="threeMonths">Three months from now</option>
+            </select>
             <c:if test="${isEdit}">
                 <input type="hidden" name="id" value="${newsItem.id}"/>
             </c:if>

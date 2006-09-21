@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: EditNewsItemController.java,v 1.3 2006/09/12 21:00:45 aroy Exp $
+ * $Id: EditNewsItemController.java,v 1.4 2006/09/21 17:28:31 aroy Exp $
  */
 
 package gs.web.admin.news;
@@ -12,6 +12,7 @@ import gs.data.state.StateManager;
 import gs.web.util.ReadWriteController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.validation.BindException;
@@ -19,6 +20,8 @@ import org.springframework.validation.BindException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Provides...
@@ -48,6 +51,24 @@ public class EditNewsItemController extends SimpleFormController implements Read
             if (stateSet.size() > 0) { // avoid null case
                 newsItem.setStates(stateSet);
             }
+        }
+        String stopSelect = request.getParameter("stopSelect");
+        if (StringUtils.isEmpty(stopSelect)) {
+            newsItem.setStop(null);
+        } else if (!stopSelect.equals("noChange")) {
+            Calendar cal = Calendar.getInstance();
+            final Date now = new Date();
+            cal.setTime(now);
+            if (stopSelect.equals("oneDay")) {
+                cal.add(Calendar.DAY_OF_YEAR, 1);
+            } else if (stopSelect.equals("oneWeek")) {
+                cal.add(Calendar.WEEK_OF_YEAR, 1);
+            } else if (stopSelect.equals("oneMonth")) {
+                cal.add(Calendar.MONTH, 1);
+            } else if (stopSelect.equals("threeMonths")) {
+                cal.add(Calendar.MONTH, 3);
+            }
+            newsItem.setStop(cal.getTime());
         }
         super.onBind(request, newsItem, errors);
     }
@@ -82,7 +103,7 @@ public class EditNewsItemController extends SimpleFormController implements Read
     }
 
     protected Object formBackingObject(HttpServletRequest request) throws java.lang.Exception {
-        if (request.getParameter("id") != null && !isFormSubmission(request)) {
+        if (request.getParameter("id") != null) {
             return _newsItemDao.findNewsItem(Integer.parseInt(request.getParameter("id")));
         }
         return super.formBackingObject(request);
