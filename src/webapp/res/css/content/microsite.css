@@ -107,3 +107,57 @@
    text-decoration:none;
 }
 
+.byGrade a {
+    display: block;
+    width: 16px;
+    height: 17px;
+}
+
+.byGrade a.by_k {
+    background-image: url( "../../img/content/grade/hollowK.gif" );
+}
+
+.byGrade a.by_k:hover {
+    background-image: url( "../../img/content/grade/blueK.gif" );
+}
+
+.byGrade a.by_1 {
+    background-image: url( "../../img/content/grade/hollow1.gif" );
+}
+
+.byGrade a.by_1:hover {
+    background-image: url( "../../img/content/grade/blue1.gif" );
+}
+
+.byGrade a.by_2 {
+    background-image: url( "../../img/content/grade/hollow2.gif" );
+}
+
+.byGrade a.by_2:hover {
+    background-image: url( "../../img/content/grade/blue2.gif" );
+}
+
+.byGrade a.by_3 {
+    background-image: url( "../../img/content/grade/hollow3.gif" );
+}
+
+.byGrade a.by_3:hover {
+    background-image: url( "../../img/content/grade/blue3.gif" );
+}
+
+.byGrade a.by_4 {
+    background-image: url( "../../img/content/grade/hollow4.gif" );
+}
+
+.byGrade a.by_4:hover {
+    background-image: url( "../../img/content/grade/blue4.gif" );
+}
+
+.byGrade a.by_5 {
+    background-image: url( "../../img/content/grade/hollow5.gif" );
+}
+
+.byGrade a.by_5:hover {
+    background-image: url( "../../img/content/grade/blue5.gif" );
+}
+

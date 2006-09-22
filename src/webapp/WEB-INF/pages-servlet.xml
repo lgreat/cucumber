@@ -557,6 +557,14 @@
         </property>
     </bean>
 
+    <bean name="/content/schoolChoiceTips.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>/content/schoolChoiceTips</value>
+        </property>
+    </bean>
+
     <bean name="/stateLauncher.page"
           class="gs.web.state.StatePathwayController"
           autowire="byName">

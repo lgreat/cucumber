@@ -1,0 +1,236 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:gsweb="gstaglib"
+        >
+<html lang="en">
+
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+<pageHelper:setPathway pathway="9"/>
+
+<head>
+    <title>School Choice Tips</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <meta name="Description"
+          content="School Choice Tips"/>
+    <pageHelper:externalCss file="/res/css/content/schoolChoiceTips.css"/>
+</head>
+<c:set var="pageName" value="School Choice Tips"/>
+<gsml:body adPageName="article/schoolChoiceTips" pageLayout="schoolChoiceTips">
+<div>
+<div class="left">
+    <h3>K-12 Success</h3>
+    <ul class="plain">
+        <gsweb:articlelink articleId="416" wrappingElement="li"/>
+        <gsweb:articlelink articleId="4" wrappingElement="li"/>
+        <gsweb:articlelink articleId="46" wrappingElement="li"/>
+        <gsweb:articlelink articleId="191" wrappingElement="li"/>
+        <gsweb:articlelink articleId="209" wrappingElement="li"/>
+    </ul>
+
+    <h3>Ask the Experts</h3>
+    <ul class="plain">
+        <gsweb:articlelink articleId="570" wrappingElement="li"/>
+        <gsweb:articlelink articleId="473" wrappingElement="li"/>
+        <gsweb:articlelink articleId="581" wrappingElement="li"/>
+        <li class="byGrade">Browse by grade:<br/>
+            <table>
+                <tr>
+                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/661" styleClass="by_k"></gsml:a></td>
+                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/662" styleClass="by_1"></gsml:a></td>
+                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/664" styleClass="by_2"></gsml:a></td>
+                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/666" styleClass="by_3"></gsml:a></td>
+                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/653" styleClass="by_4"></gsml:a></td>
+                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/654" styleClass="by_5"></gsml:a></td>
+                </tr>
+            </table>
+        </li>
+    </ul>
+
+    <h3>Book Picks</h3>
+    <ul class="plain">
+        <gsweb:articlelink articleId="677" wrappingElement="li"/>
+        <li style="background-image:none;">
+            Lunch Money
+            <gsml:a href="/cgi-bin/showarticle/$STATE/622">
+                <gsml:img src="/res/img/content/schoolChoiceTips/lunchMoney.jpg" alt="Lunch Money"/>
+            </gsml:a>
+        </li>
+        <li class="byGrade">Book picks by grade:<br/>
+            <table>
+                <tr>
+                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/622" styleClass="by_k"></gsml:a></td>
+                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/623" styleClass="by_1"></gsml:a></td>
+                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/624" styleClass="by_2"></gsml:a></td>
+                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/625" styleClass="by_3"></gsml:a></td>
+                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/677" styleClass="by_4"></gsml:a></td>
+                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/678" styleClass="by_5"></gsml:a></td>
+                </tr>
+            </table>
+        </li>
+    </ul>
+
+    <h3>Learning Games</h3>
+    <ul class="plain">
+        <gsweb:articlelink articleId="414" wrappingElement="li"/>
+        <gsweb:articlelink articleId="415" wrappingElement="li"/>
+        <gsweb:articlelink articleId="479" wrappingElement="li"/>
+        <li class="byGrade">Browse by grade:<br/>
+            <table>
+                <tr>
+                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/660" styleClass="by_k"></gsml:a></td>
+                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/663" styleClass="by_1"></gsml:a></td>
+                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/665" styleClass="by_2"></gsml:a></td>
+                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/668" styleClass="by_3"></gsml:a></td>
+                </tr>
+            </table>
+        </li>
+    </ul>
+
+    <h3>Healthy Kids</h3>
+    <ul class="plain">
+        <gsweb:articlelink articleId="412" wrappingElement="li"/>
+        <gsweb:articlelink articleId="517" wrappingElement="li"/>
+        <gsweb:articlelink articleId="621" wrappingElement="li"/>
+    </ul>
+
+    <h3>Get Involved</h3>
+    <ul class="plain">
+        <gsweb:articlelink articleId="34" wrappingElement="li"/>
+        <gsweb:articlelink articleId="298" wrappingElement="li"/>
+        <gsweb:articlelink articleId="33" wrappingElement="li"/>
+    </ul>
+
+    <h3 class="seeAll"><link:articleLibrary styleClass="seeAll">Full article library &gt;</link:articleLibrary></h3>
+</div>
+
+<div class="middle">
+    <div id="contentHeaderImage">
+        <h3 id="schoolChoiceTips">School Choice Tips</h3>
+        <gsml:img src="/res/img/content/schoolChoiceTips/studentRaisingHand.jpg" alt="Student raising hand" style="float:left;"/>
+    </div>
+
+    <div>
+        <h3 id="idPriority">Identify Your Priorities</h3>
+        <ul class="plain">
+            <gsweb:articlelink articleId="308" wrappingElement="li"/>
+            <gsweb:articlelink articleId="307" wrappingElement="li"/>
+            <gsweb:articlelink articleId="87" wrappingElement="li"/>
+            <li><gsml:a href="/pdf/choosing_imagine.pdf">With printable worksheet</gsml:a></li>
+        </ul>
+    </div>
+
+    <div>
+        <h3 id="learnOptions">Learn About Your Options</h3>
+        <ul class="plain">
+            <gsweb:articlelink articleId="96" wrappingElement="li"/>
+            <gsweb:articlelink articleId="197" wrappingElement="li"/>
+            <gsweb:articlelink articleId="241" wrappingElement="li"/>
+            <gsweb:articlelink articleId="93" wrappingElement="li"/>
+            <gsweb:articlelink articleId="487" wrappingElement="li"/>
+            <gsweb:articlelink articleId="188" wrappingElement="li"/>
+            <gsweb:articlelink articleId="205" wrappingElement="li"/>
+        </ul>
+    </div>
+
+    <div>
+        <h3 id="mostOfVisit">Make the Most of Your Visit</h3>
+        <ul class="plain">
+            <gsweb:articlelink articleId="48" wrappingElement="li"/>
+            <li>Take along our printable worksheets:
+                <ul class="pdf">
+                    <li><gsml:a href="/pdf/schq_visit_elem.pdf">Elementary School</gsml:a></li>
+                    <li><gsml:a href="/pdf/schq_visit_middle.pdf">Middle School</gsml:a></li>
+                    <li><gsml:a href="/pdf/schq_visit_high.pdf">High School</gsml:a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div>
+        <h3 id="applyAndEnroll">Apply and Enroll</h3>
+        <ul class="plain">
+            <gsweb:articlelink articleId="249" wrappingElement="li"/>
+            <gsweb:articlelink articleId="60" wrappingElement="li"/>
+            <gsweb:articlelink articleId="455" wrappingElement="li"/>
+            <gsweb:articlelink articleId="489" wrappingElement="li"/>
+            <gsweb:articlelink articleId="490" wrappingElement="li"/>
+            <gsweb:articlelink articleId="510" wrappingElement="li"/>
+            <gsweb:articlelink articleId="509" wrappingElement="li"/>
+        </ul>
+    </div>
+
+    <div>
+        <h3 id="askTheExperts">Ask an Expert</h3>
+        <p>Q: How Can I Get My Child to Finish Her Work?
+            <gsweb:articlelink articleId="570">Read the answer</gsweb:articlelink>
+            </p>
+    </div>
+
+    <div>
+        <h3 id="freeNewsletters">Free Newsletters</h3>
+        <p>Is your child on track?
+            Find out with our free newsletters that parents love! <promo:nthGraderHover referredBy="${pageName}">Sign me up</promo:nthGraderHover>
+            </p>
+    </div>
+</div>
+
+<div id="promos">
+    <promo:childOnTrack referredBy="${pageName}"/>
+
+    <ad:x40/>
+
+    <div id="bottomAdd">
+        <ad:x49 blurb="School Choice Tips Sponsored By:"/>
+    </div>
+
+    <div style="border-top: 1px solid #ccc;padding-top:20px;margin-top:10px;">
+    <table>
+        <tr><td colspan="2"><gsml:img src="/res/img/content/backtoschool/special_K5.gif"
+                                      alt="Tips and Advice by Grade Level"></gsml:img></td></tr>
+        <tr>
+            <td><promo:nthGraderHover referredBy="${pageName}" autocheck="myk"><gsml:img
+                    src="/res/img/content/backtoschool/yourKinder.gif"
+                    alt="Tips and Advice for Your Kindergartener"></gsml:img></promo:nthGraderHover></td>
+            <td><promo:nthGraderHover referredBy="${pageName}" autocheck="my1"><gsml:img
+                    src="/res/img/content/backtoschool/yourFirst.gif"
+                    alt="Tips and Advice for Your First-Grader"></gsml:img></promo:nthGraderHover></td>
+        </tr>
+        <tr>
+            <td><promo:nthGraderHover referredBy="${pageName}" autocheck="my2"><gsml:img
+                    src="/res/img/content/backtoschool/yourSecond.gif"
+                    alt="Tips and Advice for Your Second-Grader"></gsml:img></promo:nthGraderHover></td>
+            <td><promo:nthGraderHover referredBy="${pageName}" autocheck="my3"><gsml:img
+                    src="/res/img/content/backtoschool/yourThird.gif"
+                    alt="Tips and Advice for Your Third-Grader"></gsml:img></promo:nthGraderHover></td>
+        </tr>
+        <tr>
+            <td><promo:nthGraderHover referredBy="${pageName}" autocheck="my4"><gsml:img
+                    src="/res/img/content/backtoschool/yourFourth.gif"
+                    alt="Tips and Advice for Your Fourth-Grader"></gsml:img></promo:nthGraderHover></td>
+            <td><promo:nthGraderHover referredBy="${pageName}" autocheck="my5"><gsml:img
+                    src="/res/img/content/backtoschool/yourFifth.gif"
+                    alt="Tips and Advice for Your Fifth-Grader"></gsml:img></promo:nthGraderHover></td>
+        </tr>
+    </table>
+    </div>
+</div>
+<br style="clear:both;"/>
+</div>
+<mod:tracking pageType="article"
+              pageName="${pageName}"
+              hier1="Article,School Choice Tips"/>
+</gsml:body>
+</html>
+</jsp:root>

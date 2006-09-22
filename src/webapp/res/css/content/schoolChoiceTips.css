@@ -1,0 +1,149 @@
+@import "microsite.css";
+
+#contentGS .left {
+    float: left;
+    width: 164px;
+    padding-right: 5px;
+}
+
+#contentGS .left ul {
+    margin: 5px 0px 6px 0px;
+}
+
+#contentGS .left ul li {
+    font-size: 11px;
+    font-weight: bolder;
+    background-color: #eee;
+    color: #999;
+    padding: 0px 12px 4px 16px;
+    margin-bottom: 1px;
+    background-image: url( "../../img/content/countdownToCollege/dotOnEee.gif" );
+    background-repeat: no-repeat;
+    background-position: .8ex 1.5ex;
+}
+
+#contentGS .left h3 {
+    font-weight: bold;
+    background-color: #6cc;
+    color: #fff;
+    padding: 4px 5px 4px 16px;
+    text-align: left;
+}
+
+#contentGS .left h3 a {
+    color: #fff;
+    text-align: right;
+    display: block;
+}
+
+#contentGS .left ul li a {
+    color: #aaa;
+}
+
+#contentGS .middle {
+    float: left;
+    border-right: 1px solid #ccc;
+    padding: 0 5px 0 5px;
+    width: 370px;
+}
+
+#contentGS .middle div {
+    width: 365px;
+    border-bottom: 2px dotted #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+}
+
+#contentGS .middle div#contentHeaderImage {
+    height:200px;
+    border-bottom:none;
+    background: url("../../img/content/countdownToCollege/red_dot.gif") bottom repeat-x;
+}
+
+#contentGS #promos {
+    float: right;
+}
+
+h3#schoolChoiceTips {
+    text-indent: -5000px;
+    background: url( "../../img/content/schoolChoiceTips/schoolChoiceTips.gif" ) no-repeat;
+    width: 155px;
+    height: 192px;
+    float: left;
+}
+
+h3#idPriority {
+    text-indent: -5000px;
+    background: url( "../../img/content/schoolChoiceTips/identifyWhatMattersMost.gif" ) no-repeat;
+    width: 365px;
+    height: 26px;
+}
+
+h3#learnOptions {
+    text-indent: -5000px;
+    background: url( "../../img/content/schoolChoiceTips/learnAboutYourOptions.gif" ) no-repeat;
+    width: 365px;
+    height: 26px;
+}
+
+h3#mostOfVisit {
+    text-indent: -5000px;
+    background: url( "../../img/content/schoolChoiceTips/makeTheMostofYourVisit.gif" ) no-repeat;
+    width: 365px;
+    height: 26px;
+}
+
+h3#applyAndEnroll {
+    text-indent: -5000px;
+    background: url( "../../img/content/schoolChoiceTips/applyAndEnroll.gif" ) no-repeat;
+    width: 365px;
+    height: 26px;
+}
+
+h3#askTheExperts {
+    text-indent: -5000px;
+    background-image: url( "../../img/content/backtoschool/askTheExperts.gif" );
+    width: 169px;
+    height: 23px;
+}
+
+h3#freeNewsletters {
+    text-indent: -5000px;
+    background-image: url( "../../img/content/backtoschool/freeNewsletters.gif" );
+    width: 174px;
+    height: 20px;
+}
+
+#contentGS #promos {
+    float: right;
+}
+#contentGS #promos div {
+    padding-bottom:10px;
+}
+/*override global's*/
+#contentGS #adSquare {
+    text-align: center;
+    color: #999;
+    padding: 0;
+    margin: 0;
+    float: none;
+}
+
+#textAd {
+    font-size: 12px;
+	margin-top: 20px;
+	color: #000000;
+	text-align: left;
+    padding: 10px 20px 20px 20px;
+    border: 1px solid #cbcbcb;
+	width: 264px;
+}
+
+div#textAd a {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 13px;
+	color: #3399AA;
+	font-weight: bold;
+	margin: 11px 0px 6px 0px;
+	text-decoration:none;
+}
