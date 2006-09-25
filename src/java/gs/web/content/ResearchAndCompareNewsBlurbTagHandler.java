@@ -23,6 +23,8 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
     protected final Log _log = LogFactory.getLog(getClass());
     public static final String CATEGORY = "RESEARCH AND COMPARE DATA UPDATE";
     private State _state;
+    private INewsItemDao _newsItemDao; // use getter
+    private ISchoolDao _schoolDao; // use getter
 
     public State getState() {
         return _state;
@@ -32,9 +34,30 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
         _state = state;
     }
 
+    public INewsItemDao getNewsItemDao() {
+        if (_newsItemDao == null) {
+            _newsItemDao = (INewsItemDao) SpringUtil.getApplicationContext().getBean(INewsItemDao.BEAN_ID);
+        }
+        return _newsItemDao;
+    }
+
+    public void setNewsItemDao(INewsItemDao newsItemDao) {
+        _newsItemDao = newsItemDao;
+    }
+
+    public ISchoolDao getSchoolDao() {
+        if (_schoolDao == null) {
+            _schoolDao = (ISchoolDao) SpringUtil.getApplicationContext().getBean(ISchoolDao.BEAN_ID);
+        }
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
+    }
+
     public void doTag() throws IOException {
-        INewsItemDao newsItemDao = (INewsItemDao) SpringUtil.getApplicationContext().getBean(INewsItemDao.BEAN_ID);
-        NewsItem newsItem = newsItemDao.findNewsItemForState(CATEGORY, _state);
+        NewsItem newsItem = getNewsItemDao().findNewsItemForState(CATEGORY, _state);
 
         JspWriter out = getJspContext().getOut();
         if (newsItem != null) {
@@ -62,9 +85,8 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
         } else {
             // output default news item
             if (_state != null) {
-                ISchoolDao schoolDao = (ISchoolDao) SpringUtil.getApplicationContext().getBean(ISchoolDao.BEAN_ID);
-                int numSchools = schoolDao.countSchools(_state, null, null, null);
-                int charterSchools = schoolDao.countSchools(_state, SchoolType.CHARTER, null, null);
+                int numSchools = getSchoolDao().countSchools(_state, null, null, null);
+                int charterSchools = getSchoolDao().countSchools(_state, SchoolType.CHARTER, null, null);
                 out.print("<p>");
                 out.print("We have profiles for " + numSchools);
                 if (charterSchools > 0) {
