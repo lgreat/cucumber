@@ -25,6 +25,8 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
     private State _state;
     private INewsItemDao _newsItemDao; // use getter
     private ISchoolDao _schoolDao; // use getter
+    private String _paragraphTag = "div"; // default
+    private String _textClass = "updatesText"; // default
 
     public State getState() {
         return _state;
@@ -56,13 +58,37 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
         _schoolDao = schoolDao;
     }
 
+    public String getParagraphTag() {
+        return _paragraphTag;
+    }
+
+    public void setParagraphTag(String paragraphTag) {
+        _paragraphTag = paragraphTag;
+    }
+
+    public String getTextClass() {
+        return _textClass;
+    }
+
+    public void setTextClass(String textClass) {
+        _textClass = textClass;
+    }
+
+    protected String openParagraph() {
+        return "<" + getParagraphTag() + " class=\"" + getTextClass() + "\">";
+    }
+
+    protected String closeParagraph() {
+        return "</" + getParagraphTag() + ">";
+    }
+
     public void doTag() throws IOException {
         NewsItem newsItem = getNewsItemDao().findNewsItemForState(CATEGORY, _state);
 
         JspWriter out = getJspContext().getOut();
         if (newsItem != null) {
             String link = newsItem.getLink();
-            out.println("<h2>" + newsItem.getTitle() + "</h2>");
+            out.println("<h2 class=\"updatesTitle\">" + newsItem.getTitle() + "</h2>");
             String text = newsItem.getText();
             if (StringUtils.isNotEmpty(text)) {
                 String[] paragraphs = text.split("\n");
@@ -70,7 +96,7 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
                 for (int paragraphNum = 0; paragraphNum < numParagraphs; paragraphNum++) {
                     String curParagraph = paragraphs[paragraphNum];
                     if (StringUtils.isNotBlank(curParagraph)) {
-                        out.print("<p>");
+                        out.print(openParagraph());
                         if (paragraphNum == (numParagraphs - 1) && StringUtils.isNotEmpty(link)) {
                             out.print("<a href=\"" + link + "\">");
                             out.print(curParagraph);
@@ -78,7 +104,7 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
                         } else {
                             out.print(curParagraph);
                         }
-                        out.println("</p>");
+                        out.println(closeParagraph());
                     }
                 }
             }
@@ -87,7 +113,7 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
             if (_state != null) {
                 int numSchools = getSchoolDao().countSchools(_state, null, null, null);
                 int charterSchools = getSchoolDao().countSchools(_state, SchoolType.CHARTER, null, null);
-                out.print("<p>");
+                out.print(openParagraph());
                 out.print("We have profiles for " + numSchools);
                 if (charterSchools > 0) {
                     out.print(" public, private and charter ");
@@ -97,30 +123,31 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
                 out.print("schools in " + _state.getLongName() + ". ");
                 out.print("Search our site to find your school's test scores, ");
                 out.print("teacher/student stats and more.");
-                out.println("</p>");
-                out.print("<p>");
+                out.println(closeParagraph());
+                out.print(openParagraph());
                 out.print("Get monthly email updates about your school's data with our free newsletter:");
-                out.println("</p>");
+                out.println(closeParagraph());
 
-                out.print("<p>");
+                out.print(openParagraph());
                 out.print("<a href=\"/cgi-bin/newsletters/" + _state.getAbbreviation() + "\">" +
                         "Sign up for My School Stats</a>");
-                out.println("</p>");
+                out.println(closeParagraph());
             } else {
-                out.print("<p>");
+                out.print(openParagraph());
                 out.print("We have profiles for over 120,000 public, private and charter " +
                         "schools across the country, " +
                         "including test scores, student-teacher ratios and demographic info.");
-                out.println("</p>");
+                out.println(closeParagraph());
             }
         }
-        out.print("<p>Amy Rickerson, ");
+        out.print(openParagraph());
+        out.print("<span class=\"printName\">Amy Rickerson,</span> <span class=\"italicTitle\">");
         if (_state != null) {
             out.print(_state.getLongName());
         } else {
             out.print("GreatSchools");
         }
-        out.print(" Data Specialist");
-        out.println("</p>");
+        out.print(" Data Specialist</span>");
+        out.println(closeParagraph());
     }
 }
