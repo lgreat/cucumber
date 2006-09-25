@@ -1,5 +1,3 @@
-
-
 a.border10Links:link, a.border10Links:visited, a.border10Links:hover {
 	font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 12px;
@@ -90,7 +88,6 @@ a.arrowLink:hover {
 .middleBottom {
 	padding: 0px 0px 8px 0px;
 	text-align: right;
-	font-weight: bold;
 }
 
 .middleTitle {
@@ -121,10 +118,10 @@ a.arrowLink:hover {
 }
 
 .districtText {
-	padding: 0px 0px 0px 15px;
+	padding: 5px 0px 0px 15px;
     font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 11px;
-	line-height: 14px;
+	line-height: 10px;
 	color: #777777;
 	letter-spacing: 0px;
 }
@@ -198,7 +195,7 @@ a.arrowLink:hover {
 }
 
 .blueDot {
-    background-image: url("../../img/content/research/blue_dot.gif");
+    background-image: url(/res/img/content/research/blue_dot.gif);
 	background-repeat: repeat-x;
 }
 
@@ -213,9 +210,10 @@ a.arrowLink:hover {
 }
 
 .greyDash {
-	padding: 0px 0px 0px 0px;
+    text-indent:-50em;
+    padding: 0px 0px 0px 0px;
 	margin: 0px 0px 0px 0px;
-    background-image: url("../../img/content/research/grey_dash2.gif");
+    background-image: url(/res/img/content/research/grey_dash2.gif);
 	background-repeat: repeat-x;
 	height: 15px;
 }
@@ -242,6 +240,7 @@ a.arrowLink:hover {
 }
 
 .k12SuccessImg {
+    text-indent:-50em;
 	padding: 0px 0px 16px 0px;
 	background-image: url("../../img/content/research/img_pencil.jpg");
 	background-repeat: no-repeat;
@@ -251,7 +250,7 @@ a.arrowLink:hover {
 }
 
 .k12SuccessSearch {
-	padding: 5px 0px 10px 12px;
+    padding: 5px 0px 10px 12px;
 	width: 182px;
 	font-family: "Century Gothic", Arial, sans-serif;
 	font-size: 14px;
@@ -272,7 +271,6 @@ a.arrowLink:hover {
 	line-height: 18px;
 }
 
-
 .askExperts {
 	padding: 2px 14px 0px 15px;
 	width: 117px;
@@ -284,6 +282,7 @@ a.arrowLink:hover {
 }
 
 .askExpertsImg {
+    text-indent:-100em;
 	padding: 0px 0px 21px 0px;
 	background-image: url("../../img/content/research/img_books.jpg");
 	background-repeat: no-repeat;
@@ -303,8 +302,9 @@ a.arrowLink:hover {
 }
 
 .billsBlogImg {
-	padding: 0px 0px 21px 0px;
-	background-image: url("../../img/content/research/img_bills_blog.jpg");
+    text-indent:-150em;
+    padding: 0px 0px 21px 0px;
+	background-image: url(/res/img/content/research/img_bills_blog.jpg);
 	background-repeat: no-repeat;
 	margin: 0px auto 0px auto;
 	width: 65px;
@@ -322,8 +322,9 @@ a.arrowLink:hover {
 }
 
 .backToSchoolImg {
-	padding: 0px 0px 21px 0px;
-	background-image: url("../../img/content/research/img_apple.jpg");
+    text-indent:-150em;
+    padding: 0px 0px 21px 0px;
+	background-image: url(/res/img/content/research/img_apple.jpg);
 	background-repeat: no-repeat;
 	margin: 0px auto 0px auto;
 	width: 65px;
@@ -341,10 +342,11 @@ a.arrowLink:hover {
 }
 
 .editorsPickImg {
-	padding: 0px 0px 18px 0px;
-	background-image: url("../../img/content/research/img_chalk.jpg");
+    text-indent:-150em;
+    padding: 0px 0px 18px 0px;
+	background-image: url(/res/img/content/research/mmyers.jpg);
 	background-repeat: no-repeat;
-	margin: 0px auto 0px auto;
+	margin: 0px 15px 0px auto;
 	width: 94px;
 	height: 94px;
 }
@@ -369,19 +371,19 @@ a.arrowLink:hover {
 .lisa {
 	border: 1px solid #DDEEEE;
 	padding: 2px 2px 2px 2px;
-	background-image: url("../../img/content/research/img_lisa.jpg");
+	background-image: url("../../img/content/research/lrosenthal.jpg");
 	background-repeat: no-repeat;
 	background-position: 2px; 2px; 2px; 2px;
 	width: 53px;
 	height: 69px;
 }
 
-.lisaSignature {
-	padding: 21px 0px 2px 1px;
-	background-image: url("../../img/content/research/lisa_signature.gif");
-	background-repeat: no-repeat;
-	background-position: 0px; 0px; 0px; 0px;
-	width: 147px;
+#lisaSignature {
+    text-indent:-50em;
+    background-image: url(/res/img/content/research/lisa_signature.gif);
+    background-repeat: no-repeat;
+    margin:10px 0px 10px 0px;
+    width: 147px;
 	height: 26px;
 }
 
@@ -396,7 +398,7 @@ a.arrowLink:hover {
 }
 
 .italicTitle {
-	padding: 0px 0px 28px 2px;
+	padding: 0px 0px 0px 2px;
 	font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 13px;
 	line-height: 16px;
@@ -418,11 +420,18 @@ a.arrowLink:hover {
 }
 
 h2#dearParents {
-	margin: 65px 0px 0px 0px;
-	background-image: url("../../img/content/research/t_dearparents.gif");
+    margin: 65px 0px 0px 0px;
+	background-image: url(/res/img/content/research/t_dearparents.gif);
 	background-repeat: no-repeat;
+	/*background-position: 2px; 2px; 2px; 2px;*/
 	width: 104px;
-	height: 100%
+    height: 15px;
+	/*width: 104px;*/
+	/*height: 100%*/
+}
+
+td#leftBox {
+    padding-top:7px;
 }
 
 #contentGS .dearParentsUL {
@@ -469,4 +478,12 @@ h2#caSchools {
 	line-height: 12px;
 	color: #666666;
 	letter-spacing: 0px;
+}
+
+.formText {
+	color: #555555;
+}
+
+img#temp {
+   padding-left:30px;
 }

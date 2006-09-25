@@ -541,6 +541,14 @@
         </property>
     </bean>
 
+    <bean name="/content/research.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>/content/research</value>
+        </property>
+    </bean>
+
     <bean name="/content/backToSchool.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName">
