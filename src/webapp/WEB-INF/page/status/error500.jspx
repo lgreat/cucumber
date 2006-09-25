@@ -12,6 +12,8 @@
           xmlns:gsweb="gstaglib"
           xmlns:link="urn:www.greatschools.net/taglib/link"
         >
+    <jsp:directive.page import="java.io.StringWriter"/>
+    <jsp:directive.page import="java.io.PrintWriter"/>
 <html lang="en">
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -25,12 +27,27 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <title>Error</title>
+        <jsp:scriptlet>
+            Exception foo = (Exception) request.getAttribute("javax.servlet.error.exception");
+            if (foo != null) {
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+                foo.printStackTrace(pw);
+
+                request.setAttribute("printme", sw.getBuffer().toString());
+            }
+        </jsp:scriptlet>
     </head>
 
     <gsml:body adPageName="www" pageLayout="singleTextOnlyColumnLayout">
 
     <mod:tracking pageType="" pageName="Error:500" hier1="Error,500"/>
 
+    <![CDATA[
+    <!--
+        ${printme}
+    -->
+    ]]>
     <h3>Error</h3>
 
     <p>
