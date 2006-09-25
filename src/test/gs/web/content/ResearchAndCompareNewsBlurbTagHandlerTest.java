@@ -6,7 +6,6 @@ import gs.web.jsp.MockJspWriter;
 import gs.data.content.INewsItemDao;
 import gs.data.content.NewsItem;
 import gs.data.school.ISchoolDao;
-import gs.data.school.SchoolType;
 import gs.data.state.State;
 
 import javax.servlet.jsp.PageContext;
@@ -62,9 +61,7 @@ public class ResearchAndCompareNewsBlurbTagHandlerTest extends TestCase {
         _newsItemControl.setReturnValue(null);
         _newsItemControl.replay();
         _schoolDao.countSchools(State.CA, null, null, null);
-        _schoolControl.setReturnValue(8765);
-        _schoolDao.countSchools(State.CA, SchoolType.CHARTER, null, null);
-        _schoolControl.setReturnValue(432);
+        _schoolControl.setReturnValue(13224);
         _schoolControl.replay();
         _tag.doTag();
         _newsItemControl.verify();
@@ -75,7 +72,7 @@ public class ResearchAndCompareNewsBlurbTagHandlerTest extends TestCase {
         StringBuffer output = writer.getOutputBuffer();
         assertNotNull(output);
         assertTrue(output.length() > 0);
-        assertTrue(output.indexOf("8765") > -1);
+        assertTrue(output.indexOf("132") > -1);
         assertTrue(output.indexOf("charter") > -1);
     }
 

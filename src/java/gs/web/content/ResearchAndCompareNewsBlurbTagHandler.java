@@ -12,7 +12,6 @@ import gs.data.content.INewsItemDao;
 import gs.data.content.NewsItem;
 import gs.data.util.SpringUtil;
 import gs.data.school.ISchoolDao;
-import gs.data.school.SchoolType;
 
 import java.io.IOException;
 
@@ -27,6 +26,7 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
     private ISchoolDao _schoolDao; // use getter
     private String _paragraphTag = "div"; // default
     private String _textClass = "updatesText"; // default
+    public static final int ROUND_DOWN_TO_NEAREST = 50;
 
     public State getState() {
         return _state;
@@ -82,13 +82,23 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
         return "</" + getParagraphTag() + ">";
     }
 
+    protected String openTitle() {
+        return "<h2 class=\"updatesTitle\">";
+    }
+
+    protected String closeTitle() {
+        return "</h2>";
+    }
+
     public void doTag() throws IOException {
         NewsItem newsItem = getNewsItemDao().findNewsItemForState(CATEGORY, _state);
 
         JspWriter out = getJspContext().getOut();
         if (newsItem != null) {
             String link = newsItem.getLink();
-            out.println("<h2 class=\"updatesTitle\">" + newsItem.getTitle() + "</h2>");
+            out.print(openTitle());
+            out.print(newsItem.getTitle());
+            out.println(closeTitle());
             String text = newsItem.getText();
             if (StringUtils.isNotEmpty(text)) {
                 String[] paragraphs = text.split("\n");
@@ -112,10 +122,14 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
             // output default news item
             if (_state != null) {
                 int numSchools = getSchoolDao().countSchools(_state, null, null, null);
-                int charterSchools = getSchoolDao().countSchools(_state, SchoolType.CHARTER, null, null);
+                int roundedNumSchools = numSchools - (numSchools % ROUND_DOWN_TO_NEAREST);
+                boolean hasCharterSchools = _state.isCharterSchoolState();
+                out.print(openTitle());
+                out.print("About " + _state.getLongName() + " data");
+                out.println(closeTitle());
                 out.print(openParagraph());
-                out.print("We have profiles for " + numSchools);
-                if (charterSchools > 0) {
+                out.print("We have profiles for more than " + roundedNumSchools);
+                if (hasCharterSchools) {
                     out.print(" public, private and charter ");
                 } else {
                     out.print(" public and private ");
@@ -133,6 +147,9 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
                         "Sign up for My School Stats</a>");
                 out.println(closeParagraph());
             } else {
+                out.print(openTitle());
+                out.print("About GreatSchools data");
+                out.println(closeTitle());
                 out.print(openParagraph());
                 out.print("We have profiles for over 120,000 public, private and charter " +
                         "schools across the country, " +
