@@ -104,7 +104,7 @@ public class AuthorizersController extends AbstractController {
     }
 
     /**
-     * GS-1876
+     * GS-1876, GS-2243
      */
     private static String getReport(School school) {
         if (school != null && State.NY.equals(school.getDatabaseState())) {
