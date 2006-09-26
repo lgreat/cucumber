@@ -31,13 +31,38 @@
             PageHelper.hideFooter(request);
         </jsp:scriptlet>
         <title>Find school information</title>
-            <style type="text/css">
-            #bodyGS { font-size: 76%; }
-            .state1 {padding:0px 45px 0px 15px;}
-            #main {margin-left: auto; margin-right: auto;}
-            .contentGS h2 {font-weight:bold;padding:15px 0px 20px 0px;font-size:large;color:#666; text-align: left;}
-            div#bodyGS .state1 a, div#bodyGS .state2 a  {font-size: small}
-            </style>
+        <style type="text/css">
+            #bodyGS {
+                font-size: 76%;
+            }
+
+            .state1 {
+                padding:0px 45px 10px 15px;
+            }
+
+            .state2 {
+                padding: 0px 55px 0px 0px;
+            }
+
+            #main {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .contentGS h2 {
+                font-weight:bold;
+                padding:15px 0px 20px 15px;
+                font-size:large;
+                color:#666;
+                text-align: left;
+            }
+
+            table#main a  {
+                font-size: small;
+                font-weight: 700;
+                color: #3399aa;
+                text-decoration: none;
+            }
+        </style>
     </head>
 
     <body bgcolor="#FFFFFF">
@@ -48,26 +73,28 @@
             <td valign="top">
                 <table id="main" border="0">
                 <tr>
-                <td width="0" valign="top" class="state1"><a href="${url}AL${extraParams}" >Alabama schools</a><br/>
+                <td width="0" valign="top" class="state1">
+                    <a href="${url}AL${extraParams}" >Alabama schools</a><br/>
                     <a href="${url}AK${extraParams}" >Alaska schools</a><br/>
                     <a href="${url}AZ${extraParams}" >Arizona schools</a><br/>
                     <a href="${url}AR${extraParams}" >Arkansas schools</a><br/>
                     <a href="${url}CA${extraParams}" >California schools</a><br/>
-
                     <a href="${url}CO${extraParams}" >Colorado schools</a><br/>
+
                     <a href="${url}CT${extraParams}" >Connecticut schools</a><br/>
                     <a href="${url}DE${extraParams}" >Delaware schools</a><br/>
                     <a href="${url}DC${extraParams}" >District of Columbia schools</a><br/>
                     <a href="${url}FL${extraParams}" >Florida schools</a><br/>
                     <a href="${url}GA${extraParams}" >Georgia schools</a><br/>
-
                     <a href="${url}HI${extraParams}" >Hawaii schools</a><br/>
+
                     <a href="${url}ID${extraParams}" >Idaho schools</a><br/>
                     <a href="${url}IL${extraParams}" >Illinois schools</a><br/>
                     <a href="${url}IN${extraParams}" >Indiana schools</a><br/>
                     <a href="${url}IA${extraParams}" >Iowa schools</a><br/>
                     <a href="${url}KS${extraParams}" >Kansas schools</a><br/>
-
+                </td>
+                <td valign="top" class="state2">
                     <a href="${url}KY${extraParams}" >Kentucky schools</a><br/>
                     <a href="${url}LA${extraParams}" >Louisiana schools</a><br/>
                     <a href="${url}ME${extraParams}" >Maine schools</a><br/>
@@ -78,18 +105,17 @@
                     <a href="${url}MN${extraParams}" >Minnesota schools</a><br/>
                     <a href="${url}MS${extraParams}" >Mississippi schools</a><br/>
                     <a href="${url}MO${extraParams}" >Missouri schools</a><br/>
-                </td>
-                <td valign="top" class="state2">
                     <a href="${url}MT${extraParams}" >Montana schools</a><br/>
                     <a href="${url}NE${extraParams}" >Nebraska schools</a><br/>
-
                     <a href="${url}NV${extraParams}" >Nevada schools</a><br/>
+
                     <a href="${url}NH${extraParams}" >New Hampshire schools</a><br/>
                     <a href="${url}NJ${extraParams}" >New Jersey schools</a><br/>
                     <a href="${url}NM${extraParams}" >New Mexico schools</a><br/>
                     <a href="${url}NY${extraParams}" >New York schools</a><br/>
                     <a href="${url}NC${extraParams}" >North Carolina schools</a><br/>
-
+                </td>
+                <td valign="top" class="state3">
                     <a href="${url}ND${extraParams}" >North Dakota schools</a><br/>
                     <a href="${url}OH${extraParams}" >Ohio schools</a><br/>
                     <a href="${url}OK${extraParams}" >Oklahoma schools</a><br/>
