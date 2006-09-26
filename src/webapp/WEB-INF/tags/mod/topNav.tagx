@@ -138,9 +138,9 @@
                         state="${requestScope.context.state}"
                         id="topnav_research"
                         >Research &amp;amp; Compare</link:research></td>
-                    <!--#7--><td><gsml:a href="/content/backToSchool.page"
+                    <!--#7--><td><gsml:a href="/content/schoolChoiceTips.page"
                                          styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 7 ? 'active' : 'inactive')} ${(pw == 9 ? 'ractive' : '')} "
-                        >Back to School</gsml:a></td>
+                        >School Choice Tips</gsml:a></td>
                     <!--#9--><td><gsml:a href="/content/countdownToCollege.page"
                                          styleClass="${(pw == 7 ? 'lactive' : '')} ${(pw == 9 ? 'active' : 'inactive')} ${(pw == 2 ? 'ractive' : '')} "
                         >Countdown to College</gsml:a></td>
