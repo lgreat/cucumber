@@ -166,14 +166,8 @@ td#billsBlog img { margin-bottom: 7px; }
     line-height:15px;
 }
 
-#billsBlog a {
-    color: #666;
-}
-#billsBlog a:visited {
-    color: #444;
-}
-#billsBlog a:hover {
-    color: #6cc;
+#billsBlog a, #billBlog a:hover, #billsBlog a:visited {
+    color: #3399aa;
     text-decoration: underline;
 }
 
