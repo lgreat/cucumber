@@ -862,8 +862,8 @@
     </bean>
 
 
-    <bean name="/ratings/ratings.page"
-          class="gs.web.test.RatingsController"
+    <bean name="/school/rating.page"
+          class="gs.web.test.rating.RatingsController"
           autowire="byName">
         <property name="viewName">
             <value>test/ratings</value>

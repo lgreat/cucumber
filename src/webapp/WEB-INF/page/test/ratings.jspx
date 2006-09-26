@@ -121,69 +121,7 @@
         <div style="padding-top:15px;">
 
             <div style="float:left;width:498px;">
-                <!--<gsweb:ratingTable columns="${columns}" rowGroups="${rowGroups}"/>-->
-<table id="rating">
-  <thead>
-    <tr>
-      <th scope="col">STUDENTS</th>
-      <th scope="col">GREATSCHOOLS<br/><span style="padding-left:30px;">RATING</span></th>
-    </tr>
-  </thead>
-
-    <tbody>
-      <tr>
-        <td scope="row">All Students</td>
-        <td>Combined score</td>
-      </tr>
-    </tbody>
-
-  <tbody>
-    <tr>
-      <td colspan="2" scope="rowgroup" class="rowgroup"><span>By Gender</span></td>
-    </tr>
-    <tr>
-      <td scope="row">Male</td>
-      <td>Combined score</td>
-    </tr>
-
-    <tr>
-      <td scope="row">Female</td>
-      <td>Combined score</td>
-    </tr>
-  </tbody>
-
-  <tbody>
-    <tr>
-      <td colspan="2" scope="rowgroup" class="rowgroup"><span>By Category</span></td>
-    </tr>
-
-    <tr>
-      <td scope="row">Rich</td>
-      <td><span class="vb">a</span>Combined score</td>
-    </tr>
-
-    <tr>
-      <td scope="row">Poor</td>
-      <td>Combined score</td>
-    </tr>
-  </tbody>
-
-  <tbody>
-    <tr>
-      <td colspan="2" scope="rowgroup" class="rowgroup"><span>By Ethnicity</span></td>
-    </tr>
-
-    <tr>
-      <td scope="row">Black</td>
-      <td>Combined score</td>
-    </tr>
-
-    <tr>
-      <td scope="row">White</td>
-      <td>Combined score</td>
-    </tr>
-  </tbody>
-</table>
+                <gsweb:ratingTable columns="${columns}" rowGroups="${rowGroups}"/>
                 <br/>
 
                 <div id="legendWrapper">

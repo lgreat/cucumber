@@ -1,10 +1,10 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsDisplayTagHandler.java,v 1.6 2006/09/14 17:33:51 dlee Exp $
+ * $Id: RatingsDisplayTagHandler.java,v 1.1 2006/09/26 23:22:18 apeterson Exp $
  */
-package gs.web.test;
+package gs.web.test.rating;
 
-import gs.data.test.rating.IRatingsDisplay;
+import gs.web.test.rating.IRatingsDisplay;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;

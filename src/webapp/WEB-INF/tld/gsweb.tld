@@ -457,7 +457,7 @@
 
     <tag>
         <name>ratingTable</name>
-        <tag-class>gs.web.test.RatingsDisplayTagHandler</tag-class>
+        <tag-class>gs.web.test.rating.RatingsDisplayTagHandler</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
             <name>columns</name>
