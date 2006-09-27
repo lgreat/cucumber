@@ -2,14 +2,11 @@ Thanks for joining the GreatSchools Beta Group! Over the next year, we'll be lau
 new features on GreatSchools, including powerful community features, exclusive school<br/>
 ratings, and more!<br/>
 <br/>
-As a member of our Beta Group, you'll have the opportunity to take these new features<br/>
-on a test drive - and tell us what you think about them.<br/>
-<br/>
 First we'd like to get to know you better: your interests, how you currently use<br/>
 GreatSchools and your experience with online communities. It only takes a few minutes<br/>
 and would really help us understand how we can build community features to best meet your needs!<br/>
 <br/>
-<a href="http://www.surveymonkey.com/s.asp?u=709332289793">Fill out the survey</a><br/>
+<a href="http://www.surveymonkey.com/s.asp?u=709332289793&c=$EMAIL$">Fill out the survey</a><br/>
 <br/>
 Here's more detail on how the Beta Group works:<br/>
 <ul>
