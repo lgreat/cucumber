@@ -1,12 +1,13 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplayTest.java,v 1.1 2006/09/26 23:22:18 apeterson Exp $
+ * $Id: SchoolRatingsDisplayTest.java,v 1.2 2006/09/27 00:52:12 apeterson Exp $
  */
 
 package gs.web.test.rating;
 
 import gs.data.school.School;
 import gs.data.test.rating.IRatingsConfig;
+import gs.data.test.ITestDataSetDao;
 import junit.framework.TestCase;
 import org.easymock.MockControl;
 
@@ -31,12 +32,16 @@ public class SchoolRatingsDisplayTest extends TestCase {
         _ratingsConfigControl = MockControl.createControl(IRatingsConfig.class);
         _ratingsConfig = (IRatingsConfig) _ratingsConfigControl.getMock();
 
+        MockControl testDataSetDaoControl = MockControl.createControl(ITestDataSetDao.class);
+        ITestDataSetDao testDataSetDao = (ITestDataSetDao) testDataSetDaoControl.getMock();
+
+
         _school = new School();
 
         _ratingsConfigControl.expectAndReturn(_ratingsConfig.getSubjectGroupConfigs(), new IRatingsConfig.ISubjectGroupConfig[] {});
         _ratingsConfigControl.expectAndReturn(_ratingsConfig.getRowGroupConfigs(), new IRatingsConfig.IRowGroupConfig[] {});
         _ratingsConfigControl.replay();
-        _schoolRatingsDisplay = new SchoolRatingsDisplay(_ratingsConfig, _school);
+        _schoolRatingsDisplay = new SchoolRatingsDisplay(_ratingsConfig, _school, testDataSetDao);
         _ratingsConfigControl.reset();
     }
 
