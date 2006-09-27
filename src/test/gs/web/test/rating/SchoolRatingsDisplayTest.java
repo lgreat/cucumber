@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplayTest.java,v 1.2 2006/09/27 00:52:12 apeterson Exp $
+ * $Id: SchoolRatingsDisplayTest.java,v 1.3 2006/09/27 00:53:33 apeterson Exp $
  */
 
 package gs.web.test.rating;
@@ -56,6 +56,6 @@ public class SchoolRatingsDisplayTest extends TestCase {
 
         list = _schoolRatingsDisplay.getRowGroups();
         assertNotNull(list);
-        //assertEquals(0, list.size());
+        assertEquals(0, list.size());
     }
 }
