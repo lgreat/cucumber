@@ -13,6 +13,7 @@ import org.easymock.MockControl;
 import org.easymock.AbstractMatcher;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -383,6 +384,43 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
             _controller.onBindAndValidate(getRequest(), command, errors);
             assertTrue(errors.hasErrors());
             assertTrue(errors.hasFieldErrors("otherInterest"));
+        } finally {
+            _userDao.removeUser(user.getId());
+        }
+    }
+
+    public void testDuplicatePreviousSchools() throws NoSuchAlgorithmException {
+        FollowUpCommand command = new FollowUpCommand();
+        BindException errors = new BindException(command, "");
+        User user = new User();
+        UserProfile userProfile = new UserProfile();
+        user.setEmail("RegistrationFollowUpControllerTest10@greatschools.net");
+        _userDao.saveUser(user);
+
+        try {
+            userProfile.setUser(user);
+            userProfile.setScreenName("screeny");
+            user.setUserProfile(userProfile);
+            _userDao.updateUser(user);
+
+            command.setUser(user);
+
+            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
+            getRequest().addParameter("marker", hash);
+
+            School school = _schoolDao.getSchoolById(State.CA, new Integer(1));
+            getRequest().addParameter("previousSchool1", school.getName());
+            getRequest().addParameter("previousSchoolId1", String.valueOf(school.getId()));
+            getRequest().addParameter("previousState1", State.CA.getAbbreviation());
+            getRequest().addParameter("previousSchool2", school.getName());
+            getRequest().addParameter("previousSchoolId2", String.valueOf(school.getId()));
+            getRequest().addParameter("previousState2", State.CA.getAbbreviation());
+
+            _controller.onBindAndValidate(getRequest(), command, errors);
+            assertFalse(errors.hasErrors());
+            List subs = command.getSubscriptions();
+            assertNotNull(subs);
+            assertEquals(1, subs.size());
         } finally {
             _userDao.removeUser(user.getId());
         }

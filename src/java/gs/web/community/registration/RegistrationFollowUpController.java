@@ -22,8 +22,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Iterator;
+import java.util.ArrayList;
 
 /**
+ * Handles stage 2 of registration.
+ *
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class RegistrationFollowUpController extends SimpleFormController implements ReadWriteController {
@@ -189,6 +192,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
         // Now pull the previous schools out of the request and get them into the command
         fupCommand.getPreviousSchoolNames().clear();
+        List uniqueSchools = new ArrayList();
         for (int x=0; x < NUMBER_PREVIOUS_SCHOOLS; x++) {
             int schoolNum = x+1;
             String schoolName = request.getParameter("previousSchool" + schoolNum);
@@ -214,16 +218,20 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             }
 
             // TODO: generate error if school name is not recognized, like with students
-            
+
             // package info into a Subscription object and throw it in the command
             if (school != null) {
-                Subscription sub = new Subscription();
-                sub.setProduct(SubscriptionProduct.PREVIOUS_SCHOOLS);
-                sub.setSchoolId(school.getId().intValue());
-                sub.setState(state);
-                sub.setUser(user);
-                fupCommand.addSubscription(sub);
-                fupCommand.addPreviousSchoolName(school.getName());
+                String uniqueConstraint = state.getAbbreviation() + school.getId();
+                if (!uniqueSchools.contains(uniqueConstraint)) {
+                    Subscription sub = new Subscription();
+                    sub.setProduct(SubscriptionProduct.PREVIOUS_SCHOOLS);
+                    sub.setSchoolId(school.getId().intValue());
+                    sub.setState(state);
+                    sub.setUser(user);
+                    fupCommand.addSubscription(sub);
+                    fupCommand.addPreviousSchoolName(school.getName());
+                    uniqueSchools.add(uniqueConstraint);
+                }
             }
         }
 

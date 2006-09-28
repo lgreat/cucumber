@@ -87,6 +87,7 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
         user.addStudent(student);
         School school15 = new School();
         school15.setId(new Integer(15));
+        school15.setDatabaseState(State.CA);
         school15.setLevelCode(LevelCode.MIDDLE);
         _schoolControl.expectAndReturn(_mockSchoolDao.getSchoolById(State.CA, new Integer(15)),
                 school15);
@@ -116,15 +117,17 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
             Student student = new Student();
             student.setState(State.CA);
             student.setGrade(Grade.G_6);
-            student.setSchoolId(new Integer(15));
+            student.setSchoolId(new Integer(x+15));
             user.addStudent(student);
+
+            School school = new School();
+            school.setId(new Integer(x+15));
+            school.setDatabaseState(State.CA);
+            school.setLevelCode(LevelCode.MIDDLE);
+            _schoolControl.expectAndReturn(_mockSchoolDao.getSchoolById(State.CA, new Integer(x+15)),
+                    school);
         }
         assertEquals(SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER+1, user.getStudents().size());
-        School school15 = new School();
-        school15.setId(new Integer(15));
-        school15.setLevelCode(LevelCode.MIDDLE);
-        _schoolControl.expectAndReturn(_mockSchoolDao.getSchoolById(State.CA, new Integer(15)),
-                school15, MockControl.ONE_OR_MORE);
         _schoolControl.replay();
 
         NewsletterCommand command = _controller.populateCommand(99);
@@ -137,7 +140,7 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
         assertFalse(command.getAllMss());
     }
 
-    public void testPopulateCommandUserAlreadySubscribed() {
+    public void testPopulateCommandDuplicateSchools() {
         User user = new User();
         user.setId(new Integer(99));
 
@@ -146,11 +149,15 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
         _userControl.replay();
 
         List subscriptions = new ArrayList();
-        Subscription sub1 = new Subscription();
-        sub1.setProduct(SubscriptionProduct.MYSTAT);
-        sub1.setUser(user);
-        sub1.setSchoolId(15);
-        subscriptions.add(sub1);
+        Subscription sub1;
+        // leave only a single subscription spot open
+        for (int x=1; x < SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER; x++) {
+            sub1 = new Subscription();
+            sub1.setProduct(SubscriptionProduct.MYSTAT);
+            sub1.setUser(user);
+            sub1.setSchoolId(30);
+            subscriptions.add(sub1);
+        }
         _mockSubscriptionDao.getUserSubscriptions(user, SubscriptionProduct.MYSTAT);
         _subscriptionControl.setReturnValue(subscriptions);
         _subscriptionControl.replay();
@@ -160,24 +167,32 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
         student.setGrade(Grade.G_6);
         student.setSchoolId(new Integer(15));
         user.addStudent(student);
-        for (int x=0; x < SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER; x++) {
-            student = new Student();
-            student.setState(State.CA);
-            student.setGrade(Grade.G_6);
-            student.setSchoolId(new Integer(30));
-            user.addStudent(student);
-        }
-        assertEquals(SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER+1, user.getStudents().size());
+
+        student = new Student();
+        student.setState(State.CA);
+        student.setGrade(Grade.G_8);
+        student.setSchoolId(new Integer(15));
+        user.addStudent(student);
+
+        student = new Student();
+        student.setState(State.MD);
+        student.setGrade(Grade.G_10);
+        student.setSchoolId(new Integer(15));
+        user.addStudent(student);
+
         School school15 = new School();
         school15.setId(new Integer(15));
+        school15.setDatabaseState(State.CA);
         school15.setLevelCode(LevelCode.MIDDLE);
-        School school30 = new School();
-        school30.setId(new Integer(30));
-        school30.setLevelCode(LevelCode.HIGH);
         _schoolControl.expectAndReturn(_mockSchoolDao.getSchoolById(State.CA, new Integer(15)),
-                school15);
-        _schoolControl.expectAndReturn(_mockSchoolDao.getSchoolById(State.CA, new Integer(30)),
-                school30, SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER);
+                school15, MockControl.ONE_OR_MORE);
+
+        School schoolMD = new School();
+        schoolMD.setId(new Integer(15));
+        schoolMD.setDatabaseState(State.MD);
+        schoolMD.setLevelCode(LevelCode.HIGH);
+        _schoolControl.expectAndReturn(_mockSchoolDao.getSchoolById(State.MD, new Integer(15)),
+                schoolMD, MockControl.ONE_OR_MORE);
         _schoolControl.replay();
 
         NewsletterCommand command = _controller.populateCommand(99);
@@ -185,10 +200,68 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
         _subscriptionControl.verify();
         _schoolControl.verify();
         assertNotNull(command);
-        assertFalse(command.getAllMss());
-        assertEquals(SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER+1, command.getNumStudents());
+        assertEquals(3, command.getNumStudents());
+        // one of the duplicate schools was dropped out
+        assertEquals(2, command.getNumStudentSchools());
+    }
+
+    public void testPopulateCommandUserAlreadySubscribed() {
+        User user = new User();
+        user.setId(new Integer(99));
+
+        _mockUserDao.findUserFromId(99);
+        _userControl.setReturnValue(user);
+        _userControl.replay();
+
+        List subscriptions = new ArrayList();
+        Subscription sub1;
+        // leave only a single subscription spot open
+        for (int x=1; x < SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER; x++) {
+            sub1 = new Subscription();
+            sub1.setProduct(SubscriptionProduct.MYSTAT);
+            sub1.setUser(user);
+            sub1.setSchoolId(15);
+            subscriptions.add(sub1);
+        }
+        _mockSubscriptionDao.getUserSubscriptions(user, SubscriptionProduct.MYSTAT);
+        _subscriptionControl.setReturnValue(subscriptions);
+        _subscriptionControl.replay();
+
+        Student student = new Student();
+        student.setState(State.CA);
+        student.setGrade(Grade.G_6);
+        student.setSchoolId(new Integer(15));
+        user.addStudent(student);
+
+        student = new Student();
+        student.setState(State.CA);
+        student.setGrade(Grade.G_6);
+        student.setSchoolId(new Integer(30));
+        user.addStudent(student);
+
+        School school15 = new School();
+        school15.setId(new Integer(15));
+        school15.setDatabaseState(State.CA);
+        school15.setLevelCode(LevelCode.MIDDLE);
+        School school30 = new School();
+        school30.setId(new Integer(30));
+        school30.setDatabaseState(State.CA);
+        school30.setLevelCode(LevelCode.HIGH);
+        _schoolControl.expectAndReturn(_mockSchoolDao.getSchoolById(State.CA, new Integer(15)),
+                school15);
+        _schoolControl.expectAndReturn(_mockSchoolDao.getSchoolById(State.CA, new Integer(30)),
+                school30);
+        _schoolControl.replay();
+
+        NewsletterCommand command = _controller.populateCommand(99);
+        _userControl.verify();
+        _subscriptionControl.verify();
+        _schoolControl.verify();
+        assertNotNull(command);
+        assertEquals(2, command.getNumStudents());
         // one school has been removed ... the one the user is already subscribed to
-        assertEquals(SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER, command.getNumStudentSchools());
+        assertEquals(1, command.getNumStudentSchools());
+        assertEquals(30, ((School)command.getStudentSchools().get(0)).getId().intValue());
     }
 
     public void testAvailableSubs() {
@@ -240,11 +313,13 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
 
         School school15 = new School();
         school15.setId(new Integer(15));
+        school15.setDatabaseState(State.CA);
         school15.setLevelCode(LevelCode.MIDDLE);
         _schoolControl.expectAndReturn(_mockSchoolDao.getSchoolById(State.CA, new Integer(15)),
                 school15);
         School school30 = new School();
         school30.setId(new Integer(30));
+        school30.setDatabaseState(State.CA);
         school30.setLevelCode(LevelCode.HIGH);
         _schoolControl.expectAndReturn(_mockSchoolDao.getSchoolById(State.CA, new Integer(30)),
                 school30);

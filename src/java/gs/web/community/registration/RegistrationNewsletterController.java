@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
+ * Handles stage 3 of registration: allowing the user to sign up for the multitude of
+ * available and appropriate newsletters.
+ *
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class RegistrationNewsletterController extends SimpleFormController implements ReadWriteController {
@@ -43,32 +46,13 @@ public class RegistrationNewsletterController extends SimpleFormController imple
         int availableSubs = SubscriptionProduct.MAX_MSS_PRODUCT_FOR_ONE_USER -
                 ((subs != null)?subs.size():0);
         command.setAvailableMssSubs(availableSubs);
-        parseStudents(command, user.getStudents());
+        parseStudents(command, user.getStudents(), subs);
         List studentSchools = command.getStudentSchools();
         command.setStudentSchools(studentSchools);
         if (studentSchools.size() > 0) {
             // they have listed some schools we can offer to subscribe them to
             if (studentSchools.size() <= availableSubs) {
                 command.setAllMss(true); // we can offer to sign them up for all their children's schools
-            } else {
-                // we can only sign them up for a subset of their children's schools
-                // what if they are already signed up for one or more of their children's schools?
-                // I remove them from the list 
-                if (subs != null && subs.size() > 0) {
-                    List newStudentSchools = new ArrayList();
-                    // for each school
-                    for (int x=0; x < studentSchools.size(); x++) {
-                        School school = (School)studentSchools.get(x);
-                        // if there is not already an mss subscription to the school
-                        if (!hasMssToSchool(subs, school)) {
-                            // then add it to the list
-                            newStudentSchools.add(school);
-                        }
-                    }
-                    // this effectively removes schools that are already subscribed to
-                    // from the list.
-                    command.setStudentSchools(newStudentSchools);
-                }
             }
         }
         return command;
@@ -77,7 +61,8 @@ public class RegistrationNewsletterController extends SimpleFormController imple
     private boolean hasMssToSchool(List mssSubs, School school) {
         for (int subIndex=0; subIndex < mssSubs.size(); subIndex++) {
             Subscription sub = (Subscription)mssSubs.get(subIndex);
-            if (sub.getSchoolId() == school.getId().intValue()) {
+            if (sub.getSchoolId() == school.getId().intValue() &&
+                    sub.getState().equals(school.getDatabaseState())) {
                 return true;
             }
         }
@@ -159,55 +144,37 @@ public class RegistrationNewsletterController extends SimpleFormController imple
         return mAndV;
     }
 
-    private void parseStudents(NewsletterCommand command, Set students) {
+    private void parseStudents(NewsletterCommand command, Set students, List subs) {
         if (students == null) {
             return;
         }
+        List uniqueSchools = new ArrayList(); // to enforce unique constraint
+        School school = null;
         Iterator iter = students.iterator();
         List studentSchools = new ArrayList();
         while (iter.hasNext()) {
             Student student = (Student) iter.next();
-            Grade grade = student.getGrade();
-
+            // add school to our list
             if (student.getSchoolId() != null) {
-                School school = _schoolDao.getSchoolById(student.getState(), student.getSchoolId());
-                studentSchools.add(school);
-                // determine level code from school if possible
-                LevelCode levelCode = school.getLevelCode();
-                if (levelCode.containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
-                    if (grade != null) {
-                        if (grade.equals(Grade.KINDERGARTEN)) {
-                            command.setHasK(true);
-                        } else if (grade.equals(Grade.G_1)) {
-                            command.setHasFirst(true);
-                        } else if (grade.equals(Grade.G_2)) {
-                            command.setHasSecond(true);
-                        } else if (grade.equals(Grade.G_3)) {
-                            command.setHasThird(true);
-                        } else if (grade.equals(Grade.G_4)) {
-                            command.setHasFourth(true);
-                        } else if (grade.equals(Grade.G_5)) {
-                            command.setHasFifth(true);
-                        }
-                    } else {
-                        // they didn't tell us what grade the child is, so we'll give them
-                        // all the options
-                        command.setHasK(true);
-                        command.setHasFirst(true);
-                        command.setHasSecond(true);
-                        command.setHasThird(true);
-                        command.setHasFourth(true);
-                        command.setHasFifth(true);
-                    }
+                school = _schoolDao.getSchoolById(student.getState(), student.getSchoolId());
+                String uniqueConstraint = school.getDatabaseState().getAbbreviation() +
+                        school.getId();
+                // we can only sign them up for a subset of their children's schools
+                // what if they are already signed up for one or more of their children's schools?
+                // Those are not included
+                if ( (subs == null || !hasMssToSchool(subs, school)) &&
+                        !uniqueSchools.contains(uniqueConstraint)) {
+                    // if there is not already an mss subscription to the school
+                    // and if this school hasn't already been added to the list
+                    // then add it to the list
+                    studentSchools.add(school);
+                    uniqueSchools.add(uniqueConstraint);
                 }
-                if (levelCode.containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
-                    command.setHasMiddle(true);
-                }
-                if (levelCode.containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
-                    command.setHasHigh(true);
-                }
-            } else if (grade != null) {
-                // otherwise guess from the grade
+            }
+            // determine newsletter appropriate to grade of child/school
+            Grade grade = student.getGrade();
+            if (grade != null) {
+                // offer newsletter appropriate to the grade of the child
                 if (grade.equals(Grade.KINDERGARTEN)) {
                     command.setHasK(true);
                 } else if (grade.equals(Grade.G_1)) {
@@ -233,6 +200,24 @@ public class RegistrationNewsletterController extends SimpleFormController imple
                 } else if (grade.equals(Grade.G_11)) {
                     command.setHasHigh(true);
                 } else if (grade.equals(Grade.G_12)) {
+                    command.setHasHigh(true);
+                }
+            } else if (school != null) {
+                // they didn't tell us what grade the child is, so we'll give them
+                // all the options for the school
+                LevelCode levelCode = school.getLevelCode();
+                if (levelCode.containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
+                    command.setHasK(true);
+                    command.setHasFirst(true);
+                    command.setHasSecond(true);
+                    command.setHasThird(true);
+                    command.setHasFourth(true);
+                    command.setHasFifth(true);
+                }
+                if (levelCode.containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
+                    command.setHasMiddle(true);
+                }
+                if (levelCode.containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
                     command.setHasHigh(true);
                 }
             }
