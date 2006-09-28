@@ -1,0 +1,61 @@
+#rating {
+    border-left: 2px solid #deeeee;
+    border-right: 2px solid #deeeee;
+    border-bottom: 2px solid #deeeee;
+    border-collapse: collapse;
+    font-family: arial, sans-serif;
+    background-color: #ffffff;
+    width:100%;
+    color:#666;
+    font-weight:100;
+}
+
+#rating th {
+    padding: 5px 0 5px 40px;
+    border-collapse: collapse;
+    background-color: #66cccc;
+    color: #ffffff;
+    width:50%;
+}
+
+#rating td {
+    padding: 5px 0 5px 40px;
+}
+
+#rating td.rowgroup {
+    padding: 20px 0 0 0;
+    font-weight: bold;
+    color: #55bbcc;
+
+}
+
+#rating td.rowgroup span {
+    margin: 0 10px 0 10px;
+    padding: 0 30px 0 30px;
+    background-color: #deeeee;
+    display:block;
+}
+
+
+.vb {
+    background: url( 'http://www.greatschools.net/images/carrowts2dn.gif' ) no-repeat;
+    text-indent:-5000px;
+    width: 10px;
+    height: 30px;
+}
+
+.b {
+    background: url( 'http://www.greatschools.net/images/carrowts1dn.gif' ) no-repeat 78% 50%;
+}
+
+.nc {
+    background: url( 'http://www.greatschools.net/images/carrowts1right.gif' ) no-repeat 58% 50%;
+}
+
+.g {
+    background: url( 'http://www.greatschools.net/images/carrowts1.gif' ) no-repeat 78% 50%;
+}
+
+.vg {
+    background: url( 'http://www.greatschools.net/images/carrowts2.gif' ) no-repeat 63% 50%;
+}

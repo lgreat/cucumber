@@ -29,7 +29,7 @@
 
 #schoolProfile #moreResources h2{
     text-indent:-5000px;
-    background: url("../../img/content/moreResources.gif") no-repeat;
+    background: url("../../../img/content/moreResources.gif") no-repeat;
     width: 300px;
     height: 26px;
 }
@@ -40,7 +40,7 @@
 }
 
 #schoolProfile #moreResources li {
-    background: url("../../img/bullet/ffba00_bullet.gif") no-repeat 0 20%;
+    background: url("../../../img/bullet/ffba00_bullet.gif") no-repeat 0 20%;
     padding-left:10px;
     padding-bottom:10px;
     line-height:100%;
@@ -67,7 +67,7 @@
 
 #schoolProfile #testScoreTrend{
     text-indent:-5000px;
-    background: url("../../img/school/ratings/testScoreTrend.gif") no-repeat;
+    background: url("../../../img/school/ratings/testScoreTrend.gif") no-repeat;
     width: 180px;
     height: 72px;
 }

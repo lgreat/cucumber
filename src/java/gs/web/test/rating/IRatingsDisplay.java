@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: IRatingsDisplay.java,v 1.2 2006/09/28 01:04:16 dlee Exp $
+ * $Id: IRatingsDisplay.java,v 1.3 2006/09/28 21:04:45 dlee Exp $
  */
 
 package gs.web.test.rating;
@@ -40,15 +40,24 @@ public interface IRatingsDisplay {
             String getLabel();
 
             /**
-             * Returns null if there is no rating, otherwise the rating 1 - 10.
+             * Return a list of cells.  This should be non-null and non-empty.
+             * @return
              */
-            Integer getRating(int subjectGroupIndex);
+            List getCells();
 
-            /**
-             * Change from the previous values. Null value means that no trend is available. This is a raw difference
-             * between the rankings, as high as 9 (10-1).
-             */
-            Integer getTrend(int subjectGroupIndex);
+
+            interface ICell {
+                /**
+                 * Returns null if there is no rating, otherwise the rating 1 - 10.
+                 */
+                Integer getRating();
+
+                /**
+                 * Change from the previous values. Null value means that no trend is available. This is a raw difference
+                 * between the rankings, as high as 9 (10-1).
+                 */
+                Integer getTrend();
+            }
         }
     }
 }

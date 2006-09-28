@@ -456,24 +456,6 @@
     </tag>
 
     <tag>
-        <name>ratingTable</name>
-        <tag-class>gs.web.test.rating.RatingsDisplayTagHandler</tag-class>
-        <body-content>scriptless</body-content>
-        <attribute>
-            <name>columns</name>
-            <description>list of column objects</description>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>rowGroups</name>
-            <description>list of rowGroup objects</description>
-            <required>true</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-    </tag>
-
-    <tag>
         <name>adTagGenerator</name>
         <tag-class>gs.web.ads.AdTagHandler</tag-class>
         <body-content>scriptless</body-content>

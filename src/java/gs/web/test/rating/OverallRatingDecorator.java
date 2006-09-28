@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: OverallRatingDecorator.java,v 1.1 2006/09/28 01:04:16 dlee Exp $
+ * $Id: OverallRatingDecorator.java,v 1.2 2006/09/28 21:04:45 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -35,10 +35,11 @@ public class OverallRatingDecorator implements IRatingsDisplay {
                 IRowGroup.IRow row = (IRowGroup.IRow) rowIter.next();
                 int sumRatings = 0;
                 int subjectsWithRating = 0;
+                List cells = row.getCells();
 
-                for (int i = 0; i < subjects.size(); i++) {
-                    Integer rating = row.getRating(i);
-
+                for (Iterator cellIter = cells.iterator(); cellIter.hasNext(); ) {
+                    IRowGroup.IRow.ICell cell = (IRowGroup.IRow.ICell) cellIter.next();
+                    Integer rating = cell.getRating();
                     if (null != rating) {
                         sumRatings += rating.intValue();
                         subjectsWithRating++;
@@ -49,7 +50,6 @@ public class OverallRatingDecorator implements IRatingsDisplay {
                 Integer trend = null;
                 if (subjectsWithRating != 0) {
                     averageRating = new Integer(sumRatings / subjectsWithRating);
-                    //todo trend
                 }
                 decoratedRows.add(new Row(row.getLabel(), averageRating, trend));
             }
@@ -94,24 +94,37 @@ public class OverallRatingDecorator implements IRatingsDisplay {
 
     private class Row implements IRowGroup.IRow {
         private String _label;
-        private Integer _rating;
-        private Integer _trend;
+        private List _cells;
 
         Row(String label, Integer rating, Integer trend) {
             _label = label;
-            _rating = rating;
-            _trend = trend;
+            _cells = new ArrayList();
+            _cells.add(new Cell(rating, trend));
         }
 
         public String getLabel() {
             return _label;
         }
 
-        public Integer getRating(int subjectGroupIndex) {
+        public List getCells() {
+            return _cells;
+        }
+    }
+
+    private class Cell implements IRowGroup.IRow.ICell {
+        Integer _rating;
+        Integer _trend;
+
+        Cell(Integer rating, Integer trend) {
+            _rating = rating;
+            _trend = trend;
+        }
+
+        public Integer getRating() {
             return _rating;
         }
 
-        public Integer getTrend(int subjectGroupIndex) {
+        public Integer getTrend() {
             return _trend;
         }
     }

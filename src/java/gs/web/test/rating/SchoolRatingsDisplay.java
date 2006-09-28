@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.2 2006/09/28 01:04:16 dlee Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.3 2006/09/28 21:04:45 dlee Exp $
  */
 
 package gs.web.test.rating;
@@ -91,43 +91,66 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
 
     private class Row implements IRowGroup.IRow {
         private final IRatingsConfig.IRowConfig _rowConfig;
+        private List _cells;
+        private String _label;
 
-        public Row(final IRatingsConfig.IRowConfig rowConfig) {
+        Row(final IRatingsConfig.IRowConfig rowConfig) {
             _rowConfig = rowConfig;
+            _label = rowConfig.getLabel();
+            _cells = new ArrayList();
+
+            IRatingsConfig.ISubjectGroupConfig [] subjects = _ratingsConfig.getSubjectGroupConfigs();
+
+            for (int numSubjectGroups=0; numSubjectGroups < subjects.length; numSubjectGroups++) {
+                int[] ids = _ratingsConfig.getDataSetIds(subjects[numSubjectGroups], _rowConfig);
+
+                int count = 0;
+                int total = 0;
+                for (int i = 0; i < ids.length; i++) {
+                    int id = ids[i];
+                    TestDataSet testDataSet = _testDataSetDao.findTestDataSet(_ratingsConfig.getState(), id);
+                    SchoolTestValue value = _testDataSetDao.findValue(testDataSet, _school);
+                    if (value != null && value.getValueFloat() != null) {
+                        Float floatValue = value.getValueFloat();
+                        int decile = testDataSet.convertFloatValueToDecile(floatValue);
+                        if (decile > 0) {
+                            count ++;
+                            total += decile;
+                        }
+                    }
+                }
+                Integer rating = null;
+                if (count > 0) {
+                    rating = new Integer(total / count);
+                }
+                _cells.add(new Cell(rating, null));
+            }
         }
 
         public String getLabel() {
             return _rowConfig.getLabel();
         }
 
-        public Integer getRating(int subjectGroupIndex) {
-            int[] ids = _ratingsConfig.getDataSetIds(_ratingsConfig.getSubjectGroupConfigs()[subjectGroupIndex],
-                                                     _rowConfig);
+        public List getCells() {
+            return _cells;
+        }
+    }
 
-            int count = 0;
-            int total = 0;
-            for (int i = 0; i < ids.length; i++) {
-                int id = ids[i];
-                TestDataSet testDataSet = _testDataSetDao.findTestDataSet(_ratingsConfig.getState(), id);
-                SchoolTestValue value = _testDataSetDao.findValue(testDataSet, _school);
-                if (value != null && value.getValueFloat() != null) {
-                    Float floatValue = value.getValueFloat();
-                    int decile = testDataSet.convertFloatValueToDecile(floatValue);
-                    if (decile > 0) {
-                        count ++;
-                        total += decile;
-                    }
-                }
-            }
-            if (count > 0) {
-                return new Integer(total / count); // TODO round?
-            } else {
-                return null;
-            }
+    private class Cell implements IRowGroup.IRow.ICell {
+        private Integer _rating;
+        private Integer _trend;
+
+        Cell(Integer rating, Integer trend) {
+            _rating = rating;
+            _trend = trend;
         }
 
-        public Integer getTrend(int subjectGroupIndex) {
-            return null;
+        public Integer getRating() {
+            return _rating;
+        }
+
+        public Integer getTrend() {
+            return _trend;
         }
     }
 

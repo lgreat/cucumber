@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsController.java,v 1.2 2006/09/28 01:04:16 dlee Exp $
+ * $Id: RatingsController.java,v 1.3 2006/09/28 21:04:45 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -65,6 +65,7 @@ public class RatingsController extends AbstractController {
 
         model.put("columns", ratingDecorator.getSubjectGroupLabels());
         model.put("rowGroups", ratingDecorator.getRowGroups());
+        model.put("ratingsDisplay", ratingDecorator);
         model.put("school", school);
 
         return new ModelAndView(_viewName, model);
