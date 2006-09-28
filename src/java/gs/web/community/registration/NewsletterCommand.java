@@ -1,6 +1,8 @@
 package gs.web.community.registration;
 
 import gs.data.community.User;
+import gs.data.community.Subscription;
+import gs.data.community.SubscriptionProduct;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -134,6 +136,61 @@ public class NewsletterCommand {
 
     public void setHasHigh(boolean hasHigh) {
         _hasHigh = hasHigh;
+    }
+
+    // Now for some methods that help the page know which newsletters were selected
+    // Useful when re-displaying the page on an error to keep the check boxes in the same state
+
+    private boolean checkForSubscriptionProduct(SubscriptionProduct product) {
+        List subs = getSubscriptions();
+        if (subs == null) {
+            return true; // default to true
+        }
+        for (int x=0; x < subs.size(); x++) {
+            Subscription sub = (Subscription) subs.get(x);
+            if (sub.getProduct().equals(product)) {
+                return true;
+            }
+        }
+        // false gets returned only if subscriptions has been set but does not contain
+        // the appropriate subscription
+        return false;
+    }
+
+    public boolean getSubK() {
+        return checkForSubscriptionProduct(SubscriptionProduct.MY_KINDERGARTNER);
+    }
+
+    public boolean getSubFirst() {
+        return checkForSubscriptionProduct(SubscriptionProduct.MY_FIRST_GRADER);
+    }
+
+    public boolean getSubSecond() {
+        return checkForSubscriptionProduct(SubscriptionProduct.MY_SECOND_GRADER);
+    }
+
+    public boolean getSubThird() {
+        return checkForSubscriptionProduct(SubscriptionProduct.MY_THIRD_GRADER);
+    }
+
+    public boolean getSubFourth() {
+        return checkForSubscriptionProduct(SubscriptionProduct.MY_FOURTH_GRADER);
+    }
+
+    public boolean getSubFifth() {
+        return checkForSubscriptionProduct(SubscriptionProduct.MY_FIFTH_GRADER);
+    }
+
+    public boolean getSubMiddle() {
+        return checkForSubscriptionProduct(SubscriptionProduct.MY_MS);
+    }
+
+    public boolean getSubHigh() {
+        return checkForSubscriptionProduct(SubscriptionProduct.MY_HS);
+    }
+
+    public boolean getSubAdvisor() {
+        return checkForSubscriptionProduct(SubscriptionProduct.PARENT_ADVISOR);
     }
 
     /**

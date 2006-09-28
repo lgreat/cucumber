@@ -9,10 +9,10 @@
     <![CDATA[<input type="checkbox" ]]>
     <c:out value='name="${name}"' escapeXml="false"/>
     <c:if test="${not empty styleClass}">
-        <c:out value=' class="${styleClass}"' escapeXml="true"/>
+        <c:out value=' class="${styleClass}"' escapeXml="false"/>
     </c:if>
     <c:if test="${checked eq 'true'}">
-        <c:out value=' checked="true"' escapeXml="false"/>
+        <c:out value=' checked="checked"' escapeXml="false"/>
     </c:if>
     <c:out value=" />" escapeXml="false"/>
 </jsp:root>

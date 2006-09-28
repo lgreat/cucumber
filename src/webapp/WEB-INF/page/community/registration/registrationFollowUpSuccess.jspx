@@ -49,6 +49,11 @@
           p.noThanks {
               margin-top: 15px;
           }
+          div.error {
+              color: #ff0000;
+              display: block;
+              padding: 8px;
+          }
       </style>
   </head>
   <body>
@@ -56,6 +61,18 @@
 
     <div class="newsletterForm">
     <gsweb:form action="/community/registrationFollowUpSuccess.page" method="post">
+        <spring:hasBindErrors name="newsletterCmd">
+            <div class="error">
+                <ul>
+                    <c:forEach var="errMsgObj" items="${errors.allErrors}">
+                        <li>
+                            <spring:message code="${errMsgObj.code}" text="${errMsgObj.defaultMessage}"/>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </spring:hasBindErrors>
+
         <c:if test="${newsletterCmd.numStudents gt 0}">
             <c:if test="${newsletterCmd.numStudentSchools gt 0}">
                 <c:choose>
@@ -75,8 +92,10 @@
                                 Did you know that GreatSchools can send you free monthly updates about
                                 the schools your ${childWord} ${attendWord}?
                             </p>
-                            <input type="checkbox" id="allMss" name="allMss" checked="checked"/>
-                            <label for="allMss">It's FREE - Sign me up!</label>
+                            <label>
+                                <gsml:checkbox name="allMss" checked="true"/>
+                                It's FREE - Sign me up!
+                            </label>
                         </c:when>
                         <c:when test="${newsletterCmd.availableMssSubs gt 0}">
                             <p class="intro">
@@ -86,8 +105,10 @@
                             </p>
                             <c:forEach var="school" items="${newsletterCmd.studentSchools}">
                                 <div class="schools">
-                                    <input type="checkbox" id="${school.databaseState}${school.id}" name="${school.databaseState}${school.id}" checked="checked"/>
-                                    <label for="${school.databaseState}${school.id}">Yes, send me free monthly updates and stats for ${school.name}</label>
+                                    <label>
+                                        <gsml:checkbox name="${school.databaseState}${school.id}" checked="true"/>
+                                        Yes, send me free monthly updates and stats for ${school.name}
+                                    </label>
                                 </div>
                             </c:forEach>
                         </c:when>
@@ -100,61 +121,79 @@
                 the free monthly newsletters that parents rave about:
                 <c:if test="${newsletterCmd.hasK eq true}">
                     <div class="grades">
-                        <input type="checkbox" id="gradeK" name="gradeK" checked="checked"/>
-                        <label for="gradeK">Send me information about Kindergarten</label>
+                        <label>
+                            <gsml:checkbox name="gradeK" checked="${newsletterCmd.subK}"/>
+                            Send me information about Kindergarten
+                        </label>
                     </div>
                 </c:if>
                 <c:if test="${newsletterCmd.hasFirst eq true}">
                     <div class="grades">
-                        <input type="checkbox" id="grade1" name="grade1" checked="checked"/>
-                        <label for="grade1">Send me information about 1st Grade</label>
+                        <label>
+                            <gsml:checkbox name="grade1" checked="${newsletterCmd.subFirst}"/>
+                            Send me information about 1st Grade
+                        </label>
                     </div>
                 </c:if>
                 <c:if test="${newsletterCmd.hasSecond eq true}">
                     <div class="grades">
-                        <input type="checkbox" id="grade2" name="grade2" checked="checked"/>
-                        <label for="grade2">Send me information about 2nd Grade</label>
+                        <label>
+                            <gsml:checkbox name="grade2" checked="${newsletterCmd.subSecond}"/>
+                            Send me information about 2nd Grade
+                        </label>
                     </div>
                 </c:if>
                 <c:if test="${newsletterCmd.hasThird eq true}">
                     <div class="grades">
-                        <input type="checkbox" id="grade3" name="grade3" checked="checked"/>
-                        <label for="grade3">Send me information about 3rd Grade</label>
+                        <label>
+                            <gsml:checkbox name="grade3" checked="${newsletterCmd.subThird}"/>
+                            Send me information about 3rd Grade
+                        </label>
                     </div>
                 </c:if>
                 <c:if test="${newsletterCmd.hasFourth eq true}">
                     <div class="grades">
-                        <input type="checkbox" id="grade4" name="grade4" checked="checked"/>
-                        <label for="grade4">Send me information about 4th Grade</label>
+                        <label>
+                            <gsml:checkbox name="grade4" checked="${newsletterCmd.subFourth}"/>
+                            Send me information about 4th Grade
+                        </label>
                     </div>
                 </c:if>
                 <c:if test="${newsletterCmd.hasFifth eq true}">
                     <div class="grades">
-                        <input type="checkbox" id="grade5" name="grade5" checked="checked"/>
-                        <label for="grade5">Send me information about 5th Grade</label>
+                        <label>
+                            <gsml:checkbox name="grade5" checked="${newsletterCmd.subFifth}"/>
+                            Send me information about 5th Grade
+                        </label>
                     </div>
                 </c:if>
                 <c:if test="${newsletterCmd.hasMiddle eq true}">
                     <div class="grades">
-                        <input type="checkbox" id="gradeMiddle" name="gradeMiddle" checked="checked"/>
-                        <label for="gradeMiddle">Send me information about Middle School</label>
+                        <label>
+                            <gsml:checkbox name="gradeMiddle" checked="${newsletterCmd.subMiddle}"/>
+                            Send me information about Middle School
+                        </label>
                     </div>
                 </c:if>
                 <c:if test="${newsletterCmd.hasHigh eq true}">
                     <div class="grades">
-                        <input type="checkbox" id="gradeHigh" name="gradeHigh" checked="checked"/>
-                        <label for="gradeHigh">Send me information about High School</label>
+                        <label>
+                            <gsml:checkbox name="gradeHigh" checked="${newsletterCmd.subHigh}"/>
+                            Send me information about High School
+                        </label>
                     </div>
                 </c:if>
             </p>
         </c:if>
         <div class="advisor">
-            <input type="checkbox" id="advisor" name="advisor" checked="checked"/>
-            <label for="advisor">Please also send me tips and advice in the bi-monthly Parent Advisor.</label>
+            <label>
+                <gsml:checkbox name="advisor" checked="${newsletterCmd.subAdvisor}"/>
+                Please also send me tips and advice in the bi-monthly Parent Advisor.
+            </label>
         </div>
 
         <spring:bind path="newsletterCmd.user.id">
-            <input type="hidden" name="${status.expression}" value="${status.value}"/> 
+            <input type="hidden" name="${status.expression}" value="${status.value}"/>
         </spring:bind>
         <div class="submit">
             <gsml:inputImage src="/res/img/button/btn_free_sign_up.gif" alt="Sign me up!"/>

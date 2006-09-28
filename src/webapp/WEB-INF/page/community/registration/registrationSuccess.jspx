@@ -89,16 +89,12 @@
           }
 
           input.private {
-              margin-top: 7px;
-              display: block;
-              float: left;
+              margin-right: 7px;
           }
 
           label.private {
-              margin-top: 5px;
+              padding: 7px 0px 0px 20px;
               text-align: left;
-              width:320px;
-              padding-left: 20px;
               display: block;
               float: left;
           }
@@ -268,16 +264,10 @@
       <br style="clear: left;"/>
 
       <spring:bind path="followUpCmd.userProfile.private">
-          <c:choose>
-              <c:when test="${followUpCmd.userProfile.private == true}">
-                  <input class="private" type="checkbox" name="private" id="private1" checked="checked"/>
-                  <label for="private1" class="private">Check the box if you wish for this to be private.</label>
-              </c:when>
-              <c:otherwise>
-                  <input class="private" type="checkbox" name="private" id="private2"/>
-                  <label for="private2" class="private">Check the box if you wish for this to be private.</label>
-              </c:otherwise>
-          </c:choose>
+          <label class="private">
+              <gsml:checkbox name="${status.expression}" styleClass="private" checked="${status.value}"/>
+              Check the box if you wish for this to be private.
+          </label>
       </spring:bind>
 
       <br style="clear: left;"/>

@@ -77,13 +77,22 @@ public class RegistrationNewsletterController extends SimpleFormController imple
 
         List subscriptions = new ArrayList();
 
-        for (int x=0; x < command.getNumStudentSchools() && x < command.getAvailableMssSubs(); x++) {
+        int numMssSubscriptions = 0;
+        int availableMssSubs = command.getAvailableMssSubs();
+        for (int x=0; x < command.getNumStudentSchools(); x++) {
             School school = (School)command.getStudentSchools().get(x);
             // there are two cases:
             // 1) they are presented exactly one checkbox (allMss) to sign up for all their schools.
             // 2) they are presented one checkbox per school, with name "{state}{id}".
             String paramString = school.getDatabaseState().getAbbreviation() + school.getId();
             if (request.getParameter("allMss") != null || request.getParameter(paramString) != null) {
+                if (numMssSubscriptions >= availableMssSubs) {
+                    errors.reject("too_many_mss",
+                            "Please only select up to " + availableMssSubs +
+                                    ((availableMssSubs==1)?" subscription.":" subscriptions."));
+                    break;
+                }
+                numMssSubscriptions++;
                 Subscription mssSub = new Subscription();
                 mssSub.setUser(command.getUser());
                 mssSub.setState(school.getDatabaseState());
