@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.2 2006/09/19 23:34:43 dlee Exp $
+ * $Id: AdTagHandler.java,v 1.3 2006/09/28 19:17:23 dlee Exp $
  */
 package gs.web.ads;
 
@@ -26,8 +26,7 @@ public class AdTagHandler extends SimpleTagSupport {
         ISessionContext sc = (ISessionContext) getJspContext().findAttribute(ISessionContext.REQUEST_ATTRIBUTE_NAME);
         PageContext pageContext = (PageContext) getJspContext();
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-
-        PageHelper pageHelper = new PageHelper(sc, request);
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         StringBuffer buffer = new StringBuffer();
 
         if (!pageHelper.isAdFree()) {
