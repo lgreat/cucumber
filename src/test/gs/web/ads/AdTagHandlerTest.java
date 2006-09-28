@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandlerTest.java,v 1.1 2006/09/19 23:31:10 dlee Exp $
+ * $Id: AdTagHandlerTest.java,v 1.2 2006/09/28 19:37:28 dlee Exp $
  */
 package gs.web.ads;
 
@@ -8,6 +8,7 @@ import gs.web.BaseTestCase;
 import gs.web.jsp.MockJspWriter;
 import gs.web.jsp.MockPageContext;
 import gs.web.util.MockSessionContext;
+import gs.web.util.PageHelper;
 import gs.web.util.context.ISessionContext;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockServletContext;
@@ -26,6 +27,10 @@ public class AdTagHandlerTest extends BaseTestCase {
     public void testDeferredContent() throws IOException, JspException {
         HttpServletRequest request = new MockHttpServletRequest();
         MockSessionContext sc = new MockSessionContext();
+
+        PageHelper pageHelper = new PageHelper(sc, request);
+        request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+
         JspContext jspContext = new MockPageContext(new MockServletContext(), request);
         jspContext.setAttribute(ISessionContext.REQUEST_ATTRIBUTE_NAME, sc);
 
@@ -53,6 +58,8 @@ public class AdTagHandlerTest extends BaseTestCase {
         sc = new MockSessionContext();
         sc.setCobrand("yahoo");
 
+        pageHelper = new PageHelper(sc, request);
+        request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);        
         jspContext = new MockPageContext(new MockServletContext(), request);
         jspContext.setAttribute(ISessionContext.REQUEST_ATTRIBUTE_NAME, sc);
 
