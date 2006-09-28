@@ -1,15 +1,15 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsController.java,v 1.1 2006/09/26 23:22:18 apeterson Exp $
+ * $Id: RatingsController.java,v 1.2 2006/09/28 01:04:16 dlee Exp $
  */
 package gs.web.test.rating;
 
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.data.test.ITestDataSetDao;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
-import gs.data.test.ITestDataSetDao;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -61,9 +61,10 @@ public class RatingsController extends AbstractController {
         IRatingsConfig ratingsConfig = _ratingsConfigDao.restoreRatingsConfig(state);
 
         SchoolRatingsDisplay ratingsDisplay = new SchoolRatingsDisplay(ratingsConfig, school, _testDataSetDao);
+        OverallRatingDecorator ratingDecorator = new OverallRatingDecorator(ratingsDisplay);
 
-        model.put("columns", ratingsDisplay.getSubjectGroupLabels());
-        model.put("rowGroups", ratingsDisplay.getRowGroups());
+        model.put("columns", ratingDecorator.getSubjectGroupLabels());
+        model.put("rowGroups", ratingDecorator.getRowGroups());
         model.put("school", school);
 
         return new ModelAndView(_viewName, model);

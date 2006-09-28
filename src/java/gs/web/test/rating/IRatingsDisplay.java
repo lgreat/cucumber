@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: IRatingsDisplay.java,v 1.1 2006/09/26 23:22:17 apeterson Exp $
+ * $Id: IRatingsDisplay.java,v 1.2 2006/09/28 01:04:16 dlee Exp $
  */
 
 package gs.web.test.rating;
@@ -30,11 +30,6 @@ public interface IRatingsDisplay {
         String getLabel();
 
         int getNumRows();
-
-        /**
-         * @deprecated use #getRows()
-         */
-        IRow getRow(int i);
 
         /**
          * Returns list of rows. This should be non-null and non-empty.
