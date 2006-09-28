@@ -341,8 +341,7 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
         assertTrue(command.getHasHigh());
     }
 
-    public void testOnBindAndValidate() {
-        NewsletterCommand command = new NewsletterCommand();
+    private void setupBindAndValidate(NewsletterCommand command) {
         User user = new User();
         user.setId(new Integer(99));
         UserProfile profile = new UserProfile();
@@ -366,7 +365,6 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
         _userControl.setReturnValue(user, MockControl.ONE_OR_MORE);
         _userControl.replay();
 
-        BindException errors = new BindException(command, "");
         getRequest().setParameter("gradeK", "true");
         getRequest().setParameter("grade1", "true");
         getRequest().setParameter("grade2", "true");
@@ -376,38 +374,66 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
         getRequest().setParameter("gradeMiddle", "true");
         getRequest().setParameter("gradeHigh", "true");
         getRequest().setParameter("advisor", "true");
+
         assertNull(command.getSubscriptions());
+    }
+
+    public void testValidateFail() {
+        NewsletterCommand command = new NewsletterCommand();
+        BindException errors = new BindException(command, "");
+        setupBindAndValidate(command);
+
+        command.setAvailableMssSubs(0);
+        getRequest().setParameter("allMss", "true");
+        _controller.onBindAndValidate(getRequest(), command, errors);
+        _userControl.verify();
+        assertTrue(errors.hasErrors());
+        List subs = command.getSubscriptions();
+        assertNotNull(subs);
+        assertEquals(9, subs.size());
+    }
+
+    public void testOnBindAndValidateNoSchools() {
+        NewsletterCommand command = new NewsletterCommand();
+        BindException errors = new BindException(command, "");
+        setupBindAndValidate(command);
+
         _controller.onBindAndValidate(getRequest(), command, errors);
         _userControl.verify();
         assertFalse(errors.hasErrors());
         List subs = command.getSubscriptions();
         assertNotNull(subs);
         assertEquals(9, subs.size());
+    }
+
+    public void testOnBindAndValidateAllSchools() {
+        NewsletterCommand command = new NewsletterCommand();
+        BindException errors = new BindException(command, "");
+        setupBindAndValidate(command);
 
         command.setAvailableMssSubs(4);
         getRequest().setParameter("allMss", "true");
         _controller.onBindAndValidate(getRequest(), command, errors);
         _userControl.verify();
         assertFalse(errors.hasErrors());
-        subs = command.getSubscriptions();
+        List subs = command.getSubscriptions();
         assertNotNull(subs);
         assertEquals(11, subs.size());
+    }
 
-        getRequest().setParameter("allMss", null);
-        _controller.onBindAndValidate(getRequest(), command, errors);
-        _userControl.verify();
-        assertFalse(errors.hasErrors());
-        subs = command.getSubscriptions();
-        assertNotNull(subs);
-        assertEquals(9, subs.size());
+    public void testOnBindAndValidateSpecificSchools() {
+        NewsletterCommand command = new NewsletterCommand();
+        BindException errors = new BindException(command, "");
+        setupBindAndValidate(command);
 
         getRequest().setParameter("CA1", "true");
         getRequest().setParameter("CA2", "true");
         getRequest().setParameter("MD57", "true"); // bogus -- should be ignored
+        command.setAvailableMssSubs(4);
         _controller.onBindAndValidate(getRequest(), command, errors);
         _userControl.verify();
         assertFalse(errors.hasErrors());
-        subs = command.getSubscriptions();
+        List subs = command.getSubscriptions();
         assertNotNull(subs);
         assertEquals(11, subs.size());
     }
