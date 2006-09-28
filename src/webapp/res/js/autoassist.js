@@ -157,10 +157,20 @@ CAPXOUS.AutoComplete.prototype = {visible:false,complete:false,initialize:functi
         return;
     }
     ;
-    switch (keyCode) {case Event.KEY_TAB:case Event.KEY_LEFT:case Event.KEY_RIGHT:case Event.KEY_PAGE_UP:case Event.KEY_PAGE_DOWN:case Event.KEY_END:case Event.KEY_HOME:case Event.KEY_INSERT:case Event.KEY_SHIFT:case Event.KEY_CTRL:case Event.KEY_ALT:return;case Event.KEY_ESC:this.hide();return;case Event.KEY_RETURN:if (this.visible) {
-        this.select();
-        return;
-    };default:if (this.timeout != 0)clearTimeout(this.timeout);this.timeout = setTimeout(this.prepare.bind(this), this.options.frequency * 1000);this.hide();}
+    switch (keyCode) {
+        case Event.KEY_TAB:case Event.KEY_LEFT:case Event.KEY_RIGHT:case Event.KEY_PAGE_UP:case Event.KEY_PAGE_DOWN:case Event.KEY_END:case Event.KEY_HOME:case Event.KEY_INSERT:case Event.KEY_SHIFT:case Event.KEY_CTRL:case Event.KEY_ALT:return;case Event.KEY_ESC:this.hide();return;
+        case Event.KEY_RETURN:if (this.visible) {
+            this.select();
+            // added by aroy: prevent enter from submitting form
+            Event.stop(event);
+            return;
+        };
+        default:
+            if (this.timeout != 0)
+                clearTimeout(this.timeout);
+            this.timeout = setTimeout(this.prepare.bind(this), this.options.frequency * 1000);
+            this.hide();
+    }
 },select:function() {
     if (this.getCurrentEntry()) {
         var stat = this.getCurrentEntry().getAttribute(CAPXOUS.SEL);
