@@ -1,0 +1,246 @@
+/***********/
+/* Stage 1 */
+/***********/
+
+#registerDiv {
+    float: left;
+    border: solid black 1px;
+    border-top: 0px;
+    border-left: 0px;
+    border-bottom: 0px;
+    margin-right: 10px;
+    padding-right: 10px;
+}
+
+.registerDiv label.form, .registerDiv input.form, .registerDiv select.form {
+    margin-bottom: 10px;
+    display: block;
+    float: left;
+}
+
+.registerDiv select.form {
+    margin-right: 20px;
+}
+
+.registerDiv label.form {
+    text-align: left;
+    width: 160px;
+    padding-right: 20px;
+    font-weight: bold;
+}
+
+.registerDiv span.passwordSpec {
+    font-size: x-small;
+}
+
+.registerDiv span.screenNameSpec {
+    font-size: x-small;
+}
+
+.privacy {
+    font-size: smaller;
+    margin-left: 11.5em;
+    color: #666666;
+    margin-top: 0;
+    clear: left;
+}
+
+h1.intro {
+    font-size: x-large;
+}
+
+h2.intro {
+    font-size: large;
+    color: #898989;
+    margin-bottom: 10px;
+}
+
+h2.intro2 {
+    font-size: large;
+    color: #898989;
+    margin-bottom: 10px;
+}
+
+div.error {
+    color: red;
+    display: block;
+    padding: 8px;
+}
+
+.loginDiv label.form, .loginDiv input.form {
+    margin-bottom: 10px;
+    display: block;
+    width: 150px;
+    float: left;
+}
+
+.loginDiv label.form {
+    text-align: right;
+    width: 120px;
+    padding-right: 20px;
+}
+
+.loginDiv a {
+    position: relative;
+    top: 2em;
+    right: 5em;
+}
+
+.loginDiv input.button {
+    margin-left: 20px;
+}
+
+
+/***********/
+/* Stage 2 */
+/***********/
+
+h2.header {
+    font-size: large;
+    margin-bottom: 5px;
+}
+
+p.intro {
+    margin-bottom: 30px;
+    font-size: medium;
+}
+
+label.form, input.form, select.form {
+    margin-bottom: 10px;
+    display: block;
+    width: 150px;
+    float: left;
+}
+
+label.familyInput, label.familySelect, input.family, select.family {
+    margin-right: 15px;
+    margin-bottom: 10px;
+    display: block;
+    float: left;
+}
+
+label.familyInput, label.familySelect {
+    margin-top: 10px;
+    text-align: center;
+}
+
+label.childname {
+    width: 154px;
+}
+
+label.schoolname {
+    width: 254px;
+}
+
+label.familySelect, select.family {
+    width: 50px;
+}
+
+input.childname {
+    width: 150px;
+}
+
+input.schoolname {
+    width: 250px;
+}
+
+input.interests, label.interests {
+    display: block;
+    float: left;
+    margin-top: 10px;
+}
+
+label.interests {
+    margin-left: 10px;
+}
+
+input.other, label.other {
+    margin-top: 10px;
+}
+
+label.other {
+    margin-right: 10px;
+}
+
+input.other {
+    width: 250px;
+}
+
+input.private {
+    margin-right: 7px;
+}
+
+label.private {
+    padding: 7px 0px 0px 20px;
+    text-align: left;
+    display: block;
+    float: left;
+}
+
+label.textarea {
+    padding-bottom: 5px;
+}
+
+.previous p {
+    margin-bottom: 10px;
+}
+
+.previous input, .previous label, .previous select {
+    margin-right: 15px;
+    margin-bottom: 10px;
+    display: block;
+    float: left;
+}
+
+.previous label.schoolname {
+    width: 258px;
+}
+
+.previous label.state, .previous select {
+    width: 50px;
+}
+
+.previous .schoolname {
+    width: 250px;
+}
+
+.previous label {
+    text-align: center;
+}
+
+/***********/
+/* Stage 3 */
+/***********/
+
+h2.newsletterIntro {
+    font-size: large;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+div.newsletterForm p.intro {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+div.newsletterForm input {
+    margin-right: 10px;
+    margin-top: 10px;
+}
+div.newsletterForm hr {
+    margin-top: 35px;
+    margin-bottom: 15px;
+}
+div.newsletterForm div.submit {
+    margin-top: 15px;
+}
+div.newsletterForm div.grades input {
+    margin-left: 25px;
+}
+div.newsletterForm div.advisor {
+    margin-top: 25px;
+}
+div.newsletterForm div.mystats input {
+    margin-left: 25px;
+}
+div.newsletterForm p.noThanks {
+    margin-top: 15px;
+}
