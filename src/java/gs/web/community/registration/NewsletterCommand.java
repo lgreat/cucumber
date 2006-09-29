@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public class NewsletterCommand {
     private User _user;
+    private String _marker;
     private int _availableMssSubs;
     private boolean _allMss = false; // default
     private List _studentSchools;
@@ -38,6 +39,14 @@ public class NewsletterCommand {
         this._user = user;
     }
 
+    public String getMarker() {
+        return _marker;
+    }
+
+    public void setMarker(String marker) {
+        _marker = marker;
+    }
+
     public void setAvailableMssSubs(int availableSubs) {
         _availableMssSubs = availableSubs;
     }
@@ -48,6 +57,11 @@ public class NewsletterCommand {
 
     public void setAllMss(boolean b) {
         _allMss = b;
+    }
+
+    public boolean getHasGradeNewsletter() {
+        return getHasK() || getHasFirst() || getHasSecond() || getHasThird() ||
+                getHasFourth() || getHasFifth() || getHasMiddle() || getHasHigh();
     }
 
     /**

@@ -8,12 +8,14 @@ import org.apache.commons.logging.LogFactory;
 import gs.web.util.ReadWriteController;
 import gs.data.community.*;
 import gs.data.school.*;
+import gs.data.util.DigestUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Handles stage 3 of registration: allowing the user to sign up for the multitude of
@@ -29,11 +31,25 @@ public class RegistrationNewsletterController extends SimpleFormController imple
     private ISubscriptionDao _subscriptionDao;
     private ISchoolDao _schoolDao;
 
+    protected void onBindOnNewForm(HttpServletRequest request, Object objCommand, BindException errors) throws NoSuchAlgorithmException {
+        NewsletterCommand command = (NewsletterCommand) objCommand;
+        User user = _userDao.findUserFromId(command.getUser().getId().intValue());
+        command.setUser(user);
+
+        // make sure the user is supposed to be here
+        String hash = command.getMarker();
+        String realHash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
+        if (!realHash.equals(hash)) {
+            _log.warn("Registration newsletter request with invalid hash: " + hash);
+            errors.reject("bad_hash",
+                    "We're sorry, we cannot validate your request at this time. Once " +
+                            "your account is validated, please update your profile again.");
+        }
+    }
+
     protected Object formBackingObject(HttpServletRequest request) throws Exception {
         if (request.getParameter("id") != null) {
             return populateCommand(Integer.parseInt(request.getParameter("id")));
-        } else if (request.getParameter("user.id") != null) {
-            return populateCommand(Integer.parseInt(request.getParameter("user.id")));
         }
         return super.formBackingObject(request);
     }
@@ -69,11 +85,22 @@ public class RegistrationNewsletterController extends SimpleFormController imple
         return false;
     }
 
-    protected void onBindAndValidate(HttpServletRequest request, Object objCommand, BindException errors) {
+    protected void onBindAndValidate(HttpServletRequest request, Object objCommand, BindException errors) throws NoSuchAlgorithmException {
         NewsletterCommand command = (NewsletterCommand) objCommand;
 
         User user = _userDao.findUserFromId(command.getUser().getId().intValue());
         command.setUser(user);
+
+        // make sure the user is supposed to be here
+        String hash = command.getMarker();
+        String realHash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
+        if (!realHash.equals(hash)) {
+            _log.warn("Registration newsletter request with invalid hash: " + hash);
+            errors.reject("bad_hash",
+                    "We're sorry, we cannot validate your request at this time. Once " +
+                            "your account is validated, please update your profile again.");
+            return;
+        }
 
         List subscriptions = new ArrayList();
 

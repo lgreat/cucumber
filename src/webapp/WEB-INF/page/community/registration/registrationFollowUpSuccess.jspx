@@ -115,76 +115,78 @@
                     </c:choose>
                 </div>
             </c:if>
-            <hr/>
-            <p class="intro">
-                GreatSchools can also help you track your child's learning grade-by-grade with
-                the free monthly newsletters that parents rave about:
-                <c:if test="${newsletterCmd.hasK eq true}">
-                    <div class="grades">
-                        <label>
-                            <gsml:checkbox name="gradeK" checked="${newsletterCmd.subK}"/>
-                            Send me information about Kindergarten
-                        </label>
-                    </div>
-                </c:if>
-                <c:if test="${newsletterCmd.hasFirst eq true}">
-                    <div class="grades">
-                        <label>
-                            <gsml:checkbox name="grade1" checked="${newsletterCmd.subFirst}"/>
-                            Send me information about 1st Grade
-                        </label>
-                    </div>
-                </c:if>
-                <c:if test="${newsletterCmd.hasSecond eq true}">
-                    <div class="grades">
-                        <label>
-                            <gsml:checkbox name="grade2" checked="${newsletterCmd.subSecond}"/>
-                            Send me information about 2nd Grade
-                        </label>
-                    </div>
-                </c:if>
-                <c:if test="${newsletterCmd.hasThird eq true}">
-                    <div class="grades">
-                        <label>
-                            <gsml:checkbox name="grade3" checked="${newsletterCmd.subThird}"/>
-                            Send me information about 3rd Grade
-                        </label>
-                    </div>
-                </c:if>
-                <c:if test="${newsletterCmd.hasFourth eq true}">
-                    <div class="grades">
-                        <label>
-                            <gsml:checkbox name="grade4" checked="${newsletterCmd.subFourth}"/>
-                            Send me information about 4th Grade
-                        </label>
-                    </div>
-                </c:if>
-                <c:if test="${newsletterCmd.hasFifth eq true}">
-                    <div class="grades">
-                        <label>
-                            <gsml:checkbox name="grade5" checked="${newsletterCmd.subFifth}"/>
-                            Send me information about 5th Grade
-                        </label>
-                    </div>
-                </c:if>
-                <c:if test="${newsletterCmd.hasMiddle eq true}">
-                    <div class="grades">
-                        <label>
-                            <gsml:checkbox name="gradeMiddle" checked="${newsletterCmd.subMiddle}"/>
-                            Send me information about Middle School
-                        </label>
-                    </div>
-                </c:if>
-                <c:if test="${newsletterCmd.hasHigh eq true}">
-                    <div class="grades">
-                        <label>
-                            <gsml:checkbox name="gradeHigh" checked="${newsletterCmd.subHigh}"/>
-                            Send me information about High School
-                        </label>
-                    </div>
-                </c:if>
-            </p>
-        </c:if>
+            <c:if test="${newsletterCmd.hasGradeNewsletter}">
+                <hr/>
+                <p class="intro">
+                    GreatSchools can also help you track your child's learning grade-by-grade with
+                    the free monthly newsletters that parents rave about:
+                    <c:if test="${newsletterCmd.hasK eq true}">
+                        <div class="grades">
+                            <label>
+                                <gsml:checkbox name="gradeK" checked="${newsletterCmd.subK}"/>
+                                Send me information about Kindergarten
+                            </label>
+                        </div>
+                    </c:if>
+                    <c:if test="${newsletterCmd.hasFirst eq true}">
+                        <div class="grades">
+                            <label>
+                                <gsml:checkbox name="grade1" checked="${newsletterCmd.subFirst}"/>
+                                Send me information about 1st Grade
+                            </label>
+                        </div>
+                    </c:if>
+                    <c:if test="${newsletterCmd.hasSecond eq true}">
+                        <div class="grades">
+                            <label>
+                                <gsml:checkbox name="grade2" checked="${newsletterCmd.subSecond}"/>
+                                Send me information about 2nd Grade
+                            </label>
+                        </div>
+                    </c:if>
+                    <c:if test="${newsletterCmd.hasThird eq true}">
+                        <div class="grades">
+                            <label>
+                                <gsml:checkbox name="grade3" checked="${newsletterCmd.subThird}"/>
+                                Send me information about 3rd Grade
+                            </label>
+                        </div>
+                    </c:if>
+                    <c:if test="${newsletterCmd.hasFourth eq true}">
+                        <div class="grades">
+                            <label>
+                                <gsml:checkbox name="grade4" checked="${newsletterCmd.subFourth}"/>
+                                Send me information about 4th Grade
+                            </label>
+                        </div>
+                    </c:if>
+                    <c:if test="${newsletterCmd.hasFifth eq true}">
+                        <div class="grades">
+                            <label>
+                                <gsml:checkbox name="grade5" checked="${newsletterCmd.subFifth}"/>
+                                Send me information about 5th Grade
+                            </label>
+                        </div>
+                    </c:if>
+                    <c:if test="${newsletterCmd.hasMiddle eq true}">
+                        <div class="grades">
+                            <label>
+                                <gsml:checkbox name="gradeMiddle" checked="${newsletterCmd.subMiddle}"/>
+                                Send me information about Middle School
+                            </label>
+                        </div>
+                    </c:if>
+                    <c:if test="${newsletterCmd.hasHigh eq true}">
+                        <div class="grades">
+                            <label>
+                                <gsml:checkbox name="gradeHigh" checked="${newsletterCmd.subHigh}"/>
+                                Send me information about High School
+                            </label>
+                        </div>
+                    </c:if>
+                </p>
+            </c:if> <!-- end has grade newsletter -->
+        </c:if> <!-- end has students -->
         <div class="advisor">
             <label>
                 <gsml:checkbox name="advisor" checked="${newsletterCmd.subAdvisor}"/>
@@ -193,6 +195,9 @@
         </div>
 
         <spring:bind path="newsletterCmd.user.id">
+            <input type="hidden" name="${status.expression}" value="${status.value}"/>
+        </spring:bind>
+        <spring:bind path="newsletterCmd.marker">
             <input type="hidden" name="${status.expression}" value="${status.value}"/>
         </spring:bind>
         <div class="submit">

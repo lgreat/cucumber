@@ -349,6 +349,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
         mAndV.setViewName(getSuccessView());
         mAndV.getModel().put("id", user.getId());
+        mAndV.getModel().put("marker", fupCommand.getMarker());
         return mAndV;
     }
 

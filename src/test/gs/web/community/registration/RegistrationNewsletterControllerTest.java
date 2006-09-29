@@ -6,6 +6,7 @@ import gs.data.school.School;
 import gs.data.school.LevelCode;
 import gs.data.school.Grade;
 import gs.data.state.State;
+import gs.data.util.DigestUtil;
 import gs.web.BaseControllerTestCase;
 import org.easymock.MockControl;
 import org.springframework.context.ApplicationContext;
@@ -14,6 +15,7 @@ import org.springframework.validation.BindException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -44,6 +46,43 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
         _schoolControl = MockControl.createControl(ISchoolDao.class);
         _mockSchoolDao = (ISchoolDao)_schoolControl.getMock();
         _controller.setSchoolDao(_mockSchoolDao);
+    }
+
+    public void testOnNewFormFail() throws NoSuchAlgorithmException {
+        User user = new User();
+        user.setId(new Integer(99));
+        user.setEmail("RegistrationNewsletterControllerTest@greatschools.net");
+
+        NewsletterCommand command = new NewsletterCommand();
+        command.setUser(user);
+        BindException errors = new BindException(command, "");
+
+        _mockUserDao.findUserFromId(99);
+        _userControl.setReturnValue(user);
+        _userControl.replay();
+
+        _controller.onBindOnNewForm(getRequest(), command, errors);
+        _userControl.verify();
+        assertTrue(errors.hasErrors());
+    }
+
+    public void testOnNewForm() throws NoSuchAlgorithmException {
+        User user = new User();
+        user.setId(new Integer(99));
+        user.setEmail("RegistrationNewsletterControllerTest@greatschools.net");
+
+        NewsletterCommand command = new NewsletterCommand();
+        command.setUser(user);
+        command.setMarker(DigestUtil.hashStringInt(user.getEmail(), user.getId()));
+        BindException errors = new BindException(command, "");
+
+        _mockUserDao.findUserFromId(99);
+        _userControl.setReturnValue(user);
+        _userControl.replay();
+
+        _controller.onBindOnNewForm(getRequest(), command, errors);
+        _userControl.verify();
+        assertFalse(errors.hasErrors());
     }
 
     public void testFormBackingObject() throws Exception {
@@ -341,13 +380,15 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
         assertTrue(command.getHasHigh());
     }
 
-    private void setupBindAndValidate(NewsletterCommand command) {
+    private void setupBindAndValidate(NewsletterCommand command) throws NoSuchAlgorithmException {
         User user = new User();
         user.setId(new Integer(99));
+        user.setEmail("registrationNewsletterControllerTest@greatschools.net");
         UserProfile profile = new UserProfile();
         profile.setState(State.CA);
         user.setUserProfile(profile);
         command.setUser(user);
+        command.setMarker(DigestUtil.hashStringInt(user.getEmail(), user.getId()));
 
         List studentSchools = new ArrayList();
         School school1 = new School();
@@ -378,7 +419,7 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
         assertNull(command.getSubscriptions());
     }
 
-    public void testValidateFail() {
+    public void testValidateFail() throws NoSuchAlgorithmException {
         NewsletterCommand command = new NewsletterCommand();
         BindException errors = new BindException(command, "");
         setupBindAndValidate(command);
@@ -393,7 +434,7 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
         assertEquals(9, subs.size());
     }
 
-    public void testOnBindAndValidateNoSchools() {
+    public void testOnBindAndValidateNoSchools() throws NoSuchAlgorithmException {
         NewsletterCommand command = new NewsletterCommand();
         BindException errors = new BindException(command, "");
         setupBindAndValidate(command);
@@ -406,7 +447,7 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
         assertEquals(9, subs.size());
     }
 
-    public void testOnBindAndValidateAllSchools() {
+    public void testOnBindAndValidateAllSchools() throws NoSuchAlgorithmException {
         NewsletterCommand command = new NewsletterCommand();
         BindException errors = new BindException(command, "");
         setupBindAndValidate(command);
@@ -421,7 +462,7 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
         assertEquals(11, subs.size());
     }
 
-    public void testOnBindAndValidateSpecificSchools() {
+    public void testOnBindAndValidateSpecificSchools() throws NoSuchAlgorithmException {
         NewsletterCommand command = new NewsletterCommand();
         BindException errors = new BindException(command, "");
         setupBindAndValidate(command);
