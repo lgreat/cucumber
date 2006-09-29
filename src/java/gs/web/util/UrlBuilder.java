@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.55 2006/09/06 22:32:09 chriskimm Exp $
+ * $Id: UrlBuilder.java,v 1.56 2006/09/29 23:22:55 dlee Exp $
  */
 
 package gs.web.util;
@@ -119,11 +119,17 @@ public class UrlBuilder {
     public static final VPage RESET_PASSWORD = new VPage("vpage:resetPassword");
     public static final VPage REQUEST_EMAIL_VALIDATION = new VPage("vpage:requestEmailValidation");
 
-    public static final VPage SCHOOL_PROFILE = new VPage("vpage:schoolProfile");
     /**
-     * Parent reviews about a specific school.
+     * school profile pages
      */
+    public static final VPage SCHOOL_PROFILE = new VPage("vpage:schoolProfile");
     public static final VPage SCHOOL_PARENT_REVIEWS = new VPage("vpage:schoolParentReviews");
+    public static final VPage SCHOOL_PROFILE_TEST_SCORE = new VPage("vpage:schoolTestscores");
+    public static final VPage SCHOOL_PROFILE_CENSUS = new VPage("vpage:schoolCensus");
+    public static final VPage SCHOOL_PROFILE_PRINCIPAL_VIEW = new VPage("vpage:schoolPrincipalView");
+    public static final VPage SCHOOL_PROFILE_RATINGS = new VPage("vpage:schoolRatings");
+    public static final VPage SCHOOL_PROFILE_ADD_PARENT_REVIEW = new VPage("vpage:schoolAddParentReview");
+
 
     public static final VPage SCHOOLS_IN_CITY = new VPage("vpage:schoolsInCity");
     public static final VPage SCHOOLS_IN_DISTRICT = new VPage("vpage:schoolsInDistrict");
@@ -220,6 +226,35 @@ public class UrlBuilder {
         } else if (SCHOOL_PARENT_REVIEWS.equals(page)) {
             _perlPage = true;
             _path = "/modperl/parents/" +
+                    school.getDatabaseState().getAbbreviationLowerCase() +
+                    "/" +
+                    school.getId();
+        } else if (SCHOOL_PROFILE_CENSUS.equals(page)) {
+            _perlPage = true;
+            _path = "/cgi-bin/" +
+                    school.getDatabaseState().getAbbreviationLowerCase() +
+                    "/other/" +
+                    school.getId();
+        } else if (SCHOOL_PROFILE_TEST_SCORE.equals(page)) {
+            _perlPage = true;
+            _path = "/modperl/achievement/" +
+                    school.getDatabaseState().getAbbreviationLowerCase() +
+                    "/" +
+                    school.getId();
+        } else if (SCHOOL_PROFILE_PRINCIPAL_VIEW.equals(page)) {
+            _perlPage = true;
+            _path = "/cgi-bin/" +
+                    school.getDatabaseState().getAbbreviationLowerCase() +
+                    "/pqview/" +
+                    school.getId();
+        } else if (SCHOOL_PROFILE_RATINGS.equals(page)) {
+            _perlPage = false;
+            _path = "/school/ratings.page";
+            setParameter("state", school.getDatabaseState().getAbbreviation());
+            setParameter("id", String.valueOf(school.getId().intValue()));
+        } else if (SCHOOL_PROFILE_ADD_PARENT_REVIEW.equals(page)) {
+            _perlPage = true;
+            _path = "/cgi-bin/addcomments/" +
                     school.getDatabaseState().getAbbreviationLowerCase() +
                     "/" +
                     school.getId();

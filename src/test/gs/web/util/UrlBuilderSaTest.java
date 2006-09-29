@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.39 2006/09/06 22:32:09 chriskimm Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.40 2006/09/29 23:22:55 dlee Exp $
  */
 
 package gs.web.util;
@@ -135,6 +135,20 @@ public class UrlBuilderSaTest extends TestCase {
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
         assertEquals("/cgi-bin/wy/private/8", builder.asSiteRelativeXml(null));
 
+        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_CENSUS);
+        assertEquals("/cgi-bin/wy/other/8", builder.asSiteRelativeXml(null));
+
+        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_PRINCIPAL_VIEW);
+        assertEquals("/cgi-bin/wy/pqview/8", builder.asSiteRelativeXml(null));
+
+        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_RATINGS);
+        assertEquals("/school/ratings.page?id=8&amp;state=WY", builder.asSiteRelativeXml(null));
+
+        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_TEST_SCORE);
+        assertEquals("/modperl/achievement/wy/8", builder.asSiteRelativeXml(null));
+
+        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ADD_PARENT_REVIEW);
+        assertEquals("/cgi-bin/addcomments/wy/8", builder.asSiteRelativeXml(null));        
 
     }
 
@@ -272,7 +286,7 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/community/beta.page?state=WY", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.BETA_UNSUBSCRIBE, State.CA, null);
-        assertEquals("/community/betaUnsubscribe.page?state=CA", builder.asSiteRelative(request));        
+        assertEquals("/community/betaUnsubscribe.page?state=CA", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.RESEARCH, State.WY, null);
         assertEquals("/modperl/go/WY", builder.asSiteRelative(request));
@@ -302,13 +316,13 @@ public class UrlBuilderSaTest extends TestCase {
         builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null, null);
         assertEquals("/community/forgotPassword.page", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null, "myEmail");
-        assertEquals("/community/forgotPassword.page?email=myEmail", builder.asSiteRelative(request));        
+        assertEquals("/community/forgotPassword.page?email=myEmail", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.RESET_PASSWORD, null, "myParam");
         assertEquals("/community/resetPassword.page?id=myParam", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.REQUEST_EMAIL_VALIDATION, null, "myEmail");
         assertEquals("/community/requestEmailValidation.page?email=myEmail", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.DISTRICTS_PAGE, State.CA, null);
-        assertEquals("/modperl/districts/CA", builder.asSiteRelative(request));        
+        assertEquals("/modperl/districts/CA", builder.asSiteRelative(request));
     }
 
     public void testAdminPages() {
@@ -327,7 +341,6 @@ public class UrlBuilderSaTest extends TestCase {
 
         builder = new UrlBuilder(UrlBuilder.ADMIN_NEWS_ITEMS_DELETE, null, new Integer(1).toString() );
         assertEquals("/admin/news/delete.page?id=1", builder.asSiteRelative(request));
-
-
     }
+
 }

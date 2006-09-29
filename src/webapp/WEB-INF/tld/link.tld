@@ -620,6 +620,215 @@
             <description>Address to send email to</description>
         </attribute>
     </tag>
-
+    <tag>
+        <name>schoolProfileCensus</name>
+        <tag-class>gs.web.jsp.link.SchoolProfileCensusTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>School Profile Census Page</display-name>
+        <description>
+            <![CDATA[School Profile Census Page]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>school</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.school.School</type>
+            <description>School</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>schoolProfileOverview</name>
+        <tag-class>gs.web.jsp.link.SchoolProfileOverviewTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>School Profile Overview Page</display-name>
+        <description>
+            <![CDATA[School Profile Overview Page]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>school</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.school.School</type>
+            <description>School</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>schoolProfileParentReview</name>
+        <tag-class>gs.web.jsp.link.SchoolProfileParentReviewTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>School Profile Parent Review Page</display-name>
+        <description>
+            <![CDATA[School Profile Parent Review Page]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>school</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.school.School</type>
+            <description>School</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>schoolProfilePrincipalView</name>
+        <tag-class>gs.web.jsp.link.SchoolProfilePrincipalViewTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>School Profile Principal View Page</display-name>
+        <description>
+            <![CDATA[School Profile Principal's View Page]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>school</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.school.School</type>
+            <description>School</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>schoolProfileRating</name>
+        <tag-class>gs.web.jsp.link.SchoolProfileRatingsTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>School Profile Ratings Page</display-name>
+        <description>
+            <![CDATA[School Profile Ratings Page]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>school</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.school.School</type>
+            <description>School</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>schoolProfileTestscore</name>
+        <tag-class>gs.web.jsp.link.SchoolProfileTestScoreTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>School Profile Testscore Page</display-name>
+        <description>
+            <![CDATA[School Profile Testscore Page]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>school</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.school.School</type>
+            <description>School</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>schoolProfileAddParentReview</name>
+        <tag-class>gs.web.jsp.link.SchoolProfileAddParentReviewTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>School Profile Add Parent Review Page</display-name>
+        <description>
+            <![CDATA[School Profile Add Parent Review Page]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>school</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.school.School</type>
+            <description>School</description>
+        </attribute>
+    </tag>
 </taglib>
 

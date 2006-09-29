@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsController.java,v 1.3 2006/09/28 21:04:45 dlee Exp $
+ * $Id: RatingsController.java,v 1.4 2006/09/29 23:22:55 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -8,18 +8,22 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.test.ITestDataSetDao;
+import gs.data.test.SchoolTestValue;
+import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
-import gs.web.util.context.SessionContextUtil;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.validation.BindException;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,7 +31,7 @@ import java.util.Map;
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
-public class RatingsController extends AbstractController {
+public class RatingsController extends SimpleFormController {
 
     private static final Log _log = LogFactory.getLog(RatingsController.class);
 
@@ -35,40 +39,51 @@ public class RatingsController extends AbstractController {
     private ISchoolDao _schoolDao;
     private IRatingsConfigDao _ratingsConfigDao;
     private ITestDataSetDao _testDataSetDao;
+    private List _onLoadValidators;
+    private TestManager _testManager;
 
-    /**
-     * @todo deal with error of no id
-     * @param request
-     * @param response
-     * @return
-     * @throws Exception
-     */
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Map model = new HashMap();
+    protected void onBindOnNewForm(HttpServletRequest request,
+                                   Object command,
+                                   BindException errors) {
+        RatingsCommand ratingsCommand = (RatingsCommand) command;
+        List validators = getOnLoadValidators();
 
-        Integer schoolId = new Integer(1);
-        String schoolIdStr = request.getParameter("id");
-        if (StringUtils.isNumeric(schoolIdStr)) {
-            schoolId = new Integer(schoolIdStr);
+        for (Iterator iter = validators.iterator(); iter.hasNext();) {
+            Validator val = (Validator) iter.next();
+            if (val.supports(ratingsCommand.getClass())) {
+                val.validate(ratingsCommand, errors);
+            }
         }
 
-        String detailStr = request.getParameter("details");
+        if (!errors.hasErrors()) {
+            State state = ratingsCommand.getState();
+            try {
+                School s = getSchoolDao().getSchoolById(state, new Integer(ratingsCommand.getSchoolId()));
+                ratingsCommand.setSchool(s);
+            } catch (ObjectRetrievalFailureException e) {
+                errors.reject("nokey", "Invalid school");
+                _log.info("Invalid school passed" + state.getAbbreviation() + ratingsCommand.getSchoolId());
+            }
+        }
+    }
 
-        State state = SessionContextUtil.getSessionContext(request).getState();
+    protected Map referenceData(HttpServletRequest request, Object command, Errors errors) throws Exception {
+        Map model = new HashMap();
 
-        School school = _schoolDao.getSchoolById(state, schoolId);
+        if (!errors.hasErrors()) {
+            RatingsCommand ratingsCommand = (RatingsCommand) command;
+            IRatingsConfig ratingsConfig = _ratingsConfigDao.restoreRatingsConfig(ratingsCommand.getState());
+            SchoolRatingsDisplay ratingsDisplay =
+                    new SchoolRatingsDisplay(ratingsConfig, ratingsCommand.getSchool(), _testDataSetDao);
+            OverallRatingDecorator ratingDecorator = new OverallRatingDecorator(ratingsDisplay);
+            ratingsCommand.setRatingsDisplay(ratingDecorator);
 
-        IRatingsConfig ratingsConfig = _ratingsConfigDao.restoreRatingsConfig(state);
-
-        SchoolRatingsDisplay ratingsDisplay = new SchoolRatingsDisplay(ratingsConfig, school, _testDataSetDao);
-        OverallRatingDecorator ratingDecorator = new OverallRatingDecorator(ratingsDisplay);
-
-        model.put("columns", ratingDecorator.getSubjectGroupLabels());
-        model.put("rowGroups", ratingDecorator.getRowGroups());
-        model.put("ratingsDisplay", ratingDecorator);
-        model.put("school", school);
-
-        return new ModelAndView(_viewName, model);
+            SchoolTestValue schoolTestValue =
+                    getTestManager().getOverallRating(ratingsCommand.getSchool(), ratingsConfig.getYear());
+            ratingsCommand.setOverallRating(schoolTestValue.getValueInteger());
+        }
+        model.put(getCommandName(), command);
+        return model;
     }
 
     public String getViewName() {
@@ -93,5 +108,21 @@ public class RatingsController extends AbstractController {
 
     public void setTestDataSetDao(final ITestDataSetDao testDataSetDao) {
         _testDataSetDao = testDataSetDao;
+    }
+
+    public List getOnLoadValidators() {
+        return _onLoadValidators;
+    }
+
+    public void setOnLoadValidators(List onLoadValidators) {
+        _onLoadValidators = onLoadValidators;
+    }
+
+    public TestManager getTestManager() {
+        return _testManager;
+    }
+
+    public void setTestManager(TestManager testManager) {
+        _testManager = testManager;
     }
 }

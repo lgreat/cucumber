@@ -12,6 +12,7 @@
           xmlns:display="urn:jsptld:http://displaytag.sf.net"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:spring="http://www.springframework.org/tags"
         >
 <html lang="en">
 
@@ -30,15 +31,45 @@
     <title>Rating page</title>
 </head>
 
+<spring:bind path="ratingsCmd.school">
+    <c:set var="school" value="${status.value}"/>
+</spring:bind>
+
+<spring:bind path="ratingsCmd.ratingsDisplay">
+    <c:set var="ratingsDisplay" value="${status.value}"/>
+</spring:bind>
+
+<spring:bind path="ratingsCmd.overallRating">
+    <c:set var="overallRating" value="${status.value}"/>
+</spring:bind>
+
+<c:set var="ratingImagePath" value="/res/img/school/ratings/ratings_0${overallRating}.gif"/>
+<c:if test="${overallRating == 10}">
+    <c:set var="ratingImagePath" value="/res/img/school/ratings/ratings_${overallRating}.gif"/>
+</c:if>
+
+<c:set var="hasError" value="false"/>
 
 <pageHelper:externalCss file="/res/css/school/ratings/ratings.css"/>
 <gsml:body adPageName="ratings" pageLayout="research">
-
 <div class="marginGS" id="marginGS">
+
+    <spring:hasBindErrors name="ratingsCmd">
+        <c:set var="hasError" value="true"/>
+      <ul>
+        <c:forEach var="errMsgObj" items="${errors.allErrors}">
+           <li>
+              <spring:message code="${errMsgObj.code}" text="${errMsgObj.defaultMessage}"/>
+           </li>
+        </c:forEach>
+     </ul>
+    </spring:hasBindErrors>
+
+    <c:if test="${hasError eq 'false'}">
     <school:profile school="${school}">
         <div class="ratingSummaryWrapper">
             <div class="ratingSummaryContent">
-                <gsml:img src="/res/img/school/ratings/ratings_01.gif" alt="ratings" style="float:left;padding-right:20px;"/>
+                <gsml:img src="${ratingImagePath}" alt="ratings" style="float:left;padding-right:20px;"/>
                 <h2>What do these ratings mean?</h2>
 
                 <p>These ratings provide a quick overview of how students<br/>
@@ -55,7 +86,7 @@
 
         <div style="padding-top:15px;">
             <div style="float:left;width:498px;">
-                <school:ratingTable ratingsDisplay="${ratingsDisplay}"/>
+                <school:ratingTable ratingsDisplay="${ratingsDisplay}" overallRating="${overallRating}"/>
                 <br/>
 
                 <div id="legendWrapper">
@@ -84,13 +115,14 @@
                     <h2>More Resources</h2>
                     <ul>
                         <li>More About GreatSchools Ratings</li>
-                        <li>Compare with GreatSchools Ratings<br/> from nearby schools</li>
+                        <!--<li>Compare with GreatSchools Ratings<br/> from nearby schools</li>-->
                         <li>See this school's performance data</li>
                     </ul>
                 </div>
             </div>
         </div>
    </school:profile>
+    </c:if>
 </div>
 </gsml:body>
 </html>

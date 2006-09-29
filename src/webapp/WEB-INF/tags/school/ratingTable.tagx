@@ -8,42 +8,53 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
-<jsp:directive.tag body-content="scriptless"/>
-<jsp:directive.attribute name="ratingsDisplay" required="true" description="Ratings Display Interface" type="gs.web.test.rating.IRatingsDisplay"/>
+    <jsp:directive.tag body-content="scriptless"/>
+    <jsp:directive.attribute name="ratingsDisplay" required="true" description="Ratings Display Interface"
+                             type="gs.web.test.rating.IRatingsDisplay"/>
+    <jsp:directive.attribute name="overallRating" required="true" description="Overall Rating for the school"
+                             type="java.lang.Integer"/>
+
     <pageHelper:externalCss file="/res/css/school/ratings/table.css"/>
     <table id="rating">
-  <thead>
-    <tr>
-      <th scope="col">STUDENTS</th>
+        <thead>
+            <tr>
+                <th scope="col">STUDENTS</th>
 
-        <c:forEach var="subject" items="${ratingsDisplay.subjectGroupLabels}">
-            <th scope="col">${subject}</th>
-        </c:forEach>
-    </tr>
-  </thead>
-
-    <c:forEach var="rowGroup" items="${ratingsDisplay.rowGroups}">
+                <c:forEach var="subject" items="${ratingsDisplay.subjectGroupLabels}">
+                    <th scope="col">${subject}</th>
+                </c:forEach>
+            </tr>
+        </thead>
         <tbody>
-          <tr>
-            <td colspan="2" scope="rowgroup" class="rowgroup"><span>${rowGroup.label}</span></td>
-          </tr>
-            <c:forEach var="row" items="${rowGroup.rows}">
-                <tr>
-                    <td scope="row">${row.label}</td>
-                    <c:forEach var="cell" items="${row.cells}">
-                        <td>
-                            <c:choose>
-                                <c:when test="${not empty cell.rating}">
-                                    ${cell.rating}
-                                </c:when>
-                                <c:otherwise>
-                                    n/a
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
-                    </c:forEach>
-                </tr>
-            </c:forEach>
+            <tr>
+                <td>All Students</td>
+                <td>${overallRating}</td>
+            </tr>
         </tbody>
-    </c:forEach>
-</table></jsp:root>
+
+        <c:forEach var="rowGroup" items="${ratingsDisplay.rowGroups}">
+            <tbody>
+                <tr>
+                    <td colspan="2" scope="rowgroup" class="rowgroup"><span>${rowGroup.label}</span></td>
+                </tr>
+                <c:forEach var="row" items="${rowGroup.rows}">
+                    <tr>
+                        <td scope="row">${row.label}</td>
+                        <c:forEach var="cell" items="${row.cells}">
+                            <td>
+                                <c:choose>
+                                    <c:when test="${not empty cell.rating}">
+                                        ${cell.rating}
+                                    </c:when>
+                                    <c:otherwise>
+                                        n/a
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                        </c:forEach>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </c:forEach>
+    </table>
+</jsp:root>

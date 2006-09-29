@@ -23,18 +23,35 @@
                 <div class="box">
                     <table class="rollmenu" cellspacing="0" cellpadding="0">
                         <tr>
-                            <td><gsml:a href="/modperl/browse_school/$STATE/${school.id}"> School<br/>
-                                Overview</gsml:a></td>
-                            <td><gsml:a href="/modperl/achievement/$STATE/${school.id}"> Test<br/>Scores
-                            </gsml:a></td>
-                            <td><gsml:a href="/cgi-bin/$LCSTATE/other/${school.id}"> Teachers/<br/>
-                                Students</gsml:a></td>
-                            <td class="active"><gsml:a href="/cgi-bin/$LCSTATE/rankings/${school.id}">Ratings and<br/>
-                                Alerts</gsml:a></td>
-                            <td><gsml:a href="/modperl/parents/$STATE/${school.id}">Parent<br/> Reviews
-                            </gsml:a></td>
-                            <td><gsml:a href="/cgi-bin/$LCSTATE/pqview/${school.id}">Principal's <br/>
-                                View</gsml:a></td>
+                            <td>
+                                <link:schoolProfileOverview school="${school}">
+                                    School<br/>Overview
+                                </link:schoolProfileOverview></td>
+                            <td>
+                                <link:schoolProfileTestscore school="${school}">
+                                 Test<br/>Scores
+                                </link:schoolProfileTestscore>
+                            </td>
+                            <td>
+                                <link:schoolProfileCensus school="${school}">
+                                Teachers/<br/>Students
+                                </link:schoolProfileCensus>
+                            </td>
+                            <td class="active">
+                                <link:schoolProfileRating school="${school}">
+                                    Ratings and<br/>Alerts
+                                </link:schoolProfileRating>
+                            </td>
+                            <td>
+                                <link:schoolProfileParentReview school="${school}">
+                                    Parent<br/> Reviews
+                                </link:schoolProfileParentReview>
+                                </td>
+                            <td>
+                                <link:schoolProfilePrincipalView school="${school}">
+                                    Principal's <br/>View
+                                </link:schoolProfilePrincipalView>
+                            </td>
                         </tr>
                     </table>
 
@@ -82,7 +99,7 @@
                                 Compare this school</gsml:a></li>
                             <li><gsml:a href="/cgi-bin/msl_confirm/ca/?add_ids=${school.id}">Add to My
                                 SchoolList</gsml:a></li>
-                            <li><gsml:a href="/cgi-bin/addcomments/ca/${school.id}/">Rate this school</gsml:a></li>
+                            <li><link:schoolProfileAddParentReview school="${school}">Rate this school</link:schoolProfileAddParentReview></li>
                             <li>
                                 <a href="http://maps.google.com/maps?oi=map&amp;q=1101+Eucalyptus+Dr.+San+Francisco+CA"
                                    target="_blank">Map</a>
