@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.6 2006/09/18 22:50:34 aroy Exp $
+ * $Id: LoginController.java,v 1.7 2006/09/29 19:21:55 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -119,6 +119,13 @@ public class LoginController extends SimpleFormController {
         PageHelper.setMemberCookie(request, response, user);
 
         ModelAndView mAndV = new ModelAndView();
+
+        if (loginCommand.getRedirect() != null) {
+            AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
+            loginCommand.setRedirect(_authenticationManager.addParameterIfNecessary
+                    (loginCommand.getRedirect(), authInfo));
+        }
+
         UrlUtil urlUtil = new UrlUtil();
         String redirectUrl;
         if (user.isPasswordEmpty()) {
@@ -134,9 +141,6 @@ public class LoginController extends SimpleFormController {
             }
             redirectUrl = urlUtil.buildUrl(loginCommand.getRedirect(), request);
         }
-
-        AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
-        redirectUrl = _authenticationManager.addParameterIfNecessary(redirectUrl, authInfo);
 
         _log.debug(redirectUrl);
 

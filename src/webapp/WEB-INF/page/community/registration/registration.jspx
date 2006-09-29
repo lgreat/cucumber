@@ -41,7 +41,7 @@
 
         <label for="screenName" class="form">Choose a Screen Name<br/><span class="screenNameSpec">(5-20 characters)</span></label>
         <spring:bind path="userCmd.screenName">
-            <input id="screenName" class="form" type="text" name="screenName" value="${userCmd.screenName}" style="width:160px;"/>
+            <input id="screenName" class="form" type="text" name="${status.expression}" value="${status.value}" style="width:160px;"/>
         </spring:bind>
         <br style="clear:left;"/>
 
@@ -53,7 +53,7 @@
 
         <label for="password" class="form">Choose a Password<br/><span class="passwordSpec">(6-16 characters)</span></label>
         <spring:bind path="userCmd.password">
-            <input id="password" class="form" type="password" name="password" value="${userCmd.password}" style="width:120px;"/>
+            <input id="password" class="form" type="password" name="${status.expression}" value="${status.value}" style="width:120px;"/>
         </spring:bind>
 
         <br style="clear: left;"/>
@@ -66,7 +66,7 @@
 
         <label for="confirmPassword" class="form">Retype Password</label>
         <spring:bind path="userCmd.confirmPassword">
-            <input id="confirmPassword" class="form" type="password" name="confirmPassword" value="${userCmd.confirmPassword}" style="width:120px;"/>
+            <input id="confirmPassword" class="form" type="password" name="${status.expression}" value="${status.value}" style="width:120px;"/>
         </spring:bind>
 
         <br style="clear: left;"/>
@@ -78,7 +78,7 @@
         </div>
         <label for="firstName" class="form">First Name</label>
         <spring:bind path="userCmd.user.firstName">
-            <input id="firstName" class="form" type="text" name="firstName" value="${userCmd.user.firstName}" style="width:160px;"/>
+            <input id="firstName" class="form" type="text" name="${status.expression}" value="${status.value}" style="width:160px;"/>
         </spring:bind>
 
         <br style="clear: left;"/>
@@ -90,7 +90,7 @@
         </div>
         <label for="lastName" class="form">Last Name</label>
         <spring:bind path="userCmd.user.lastName">
-            <input id="lastName" class="form" type="text" name="lastName" value="${userCmd.user.lastName}" style="width:160px;"/>
+            <input id="lastName" class="form" type="text" name="${status.expression}" value="${status.value}" style="width:160px;"/>
         </spring:bind>
 
         <br style="clear: left;"/>
@@ -102,7 +102,7 @@
         </div>
         <label for="email" class="form">Email</label>
         <spring:bind path="userCmd.user.email">
-            <input id="email" class="form" type="text" name="email" value="${userCmd.user.email}" style="width:160px;"/>
+            <input id="email" class="form" type="text" name="${status.expression}" value="${status.value}" style="width:160px;"/>
         </spring:bind>
 
         <br style="clear: left;"/>
@@ -117,7 +117,7 @@
             </div>
             <label for="confirmEmail" class="form">Retype Email</label>
             <spring:bind path="userCmd.confirmEmail">
-                <input id="confirmEmail" class="form" type="text" name="confirmEmail" value="${userCmd.confirmEmail}" style="width:160px;"/>
+                <input id="confirmEmail" class="form" type="text" name="${status.expression}" value="${status.value}" style="width:160px;"/>
             </spring:bind>
 
             <br style="clear: left;"/>
@@ -143,7 +143,7 @@
 
         <label for="city" class="form">City</label>
         <spring:bind path="userCmd.city">
-            <input id="city" class="form" type="text" name="city" value="${userCmd.city}" style="width:160px;"/>
+            <input id="city" class="form" type="text" name="${status.expression}" value="${status.value}" style="width:160px;"/>
         </spring:bind>
 
         <br style="clear: left;"/>
@@ -155,53 +155,14 @@
 
         <label for="numSchoolChildren" class="form">I have</label>
         <spring:bind path="userCmd.numSchoolChildren">
-            <select name="numSchoolChildren" id="numSchoolChildren" class="form">
-                <![CDATA[<option ]]>
-                <c:if test="${userCmd.numSchoolChildren eq '0'}">
-                    selected
-                </c:if>
-                <![CDATA[ value="0">0</option>]]>
-                <![CDATA[<option ]]>
-                <c:if test="${userCmd.numSchoolChildren eq '1'}">
-                    selected
-                </c:if>
-                <![CDATA[ value="1">1</option>]]>
-                <![CDATA[<option ]]>
-                <c:if test="${userCmd.numSchoolChildren eq '2'}">
-                    selected
-                </c:if>
-                <![CDATA[ value="2">2</option>]]>
-                <![CDATA[<option ]]>
-                <c:if test="${userCmd.numSchoolChildren eq '3'}">
-                    selected
-                </c:if>
-                <![CDATA[ value="3">3</option>]]>
-                <![CDATA[<option ]]>
-                <c:if test="${userCmd.numSchoolChildren eq '4'}">
-                    selected
-                </c:if>
-                <![CDATA[ value="4">4</option>]]>
-                <![CDATA[<option ]]>
-                <c:if test="${userCmd.numSchoolChildren eq '5'}">
-                    selected
-                </c:if>
-                <![CDATA[ value="5">5</option>]]>
-                <![CDATA[<option ]]>
-                <c:if test="${userCmd.numSchoolChildren eq '6'}">
-                    selected
-                </c:if>
-                <![CDATA[ value="6">6</option>]]>
-                <![CDATA[<option ]]>
-                <c:if test="${userCmd.numSchoolChildren eq '7'}">
-                    selected
-                </c:if>
-                <![CDATA[ value="7">7</option>]]>
-                <![CDATA[<option ]]>
-                <c:if test="${userCmd.numSchoolChildren eq '8'}">
-                    selected
-                </c:if>
-                <![CDATA[ value="8">8</option>]]>
-
+            <select name="${status.expression}" id="numSchoolChildren" class="form">
+                <c:forEach var="schoolChildOption" items="0,1,2,3,4,5,6,7,8,9">
+                    <![CDATA[<option ]]>
+                    <c:if test="${userCmd.numSchoolChildren eq schoolChildOption}">
+                        selected
+                    </c:if>
+                    <![CDATA[ value="${schoolChildOption}">${schoolChildOption}</option>]]>
+                </c:forEach>
             </select>
         </spring:bind>
         <label for="numSchoolChildren" class="form">children in K-12</label>
@@ -216,46 +177,23 @@
 
         <label for="numPreKChildren" class="form">I have</label>
         <spring:bind path="userCmd.numPreKChildren">
-            <select name="numPreKChildren" id="numPreKChildren" class="form">
-                <![CDATA[<option ]]>
-                <c:if test="${userCmd.numPreKChildren eq '0'}">
-                    selected
-                </c:if>
-                <![CDATA[ value="0">0</option>]]>
-                <![CDATA[<option ]]>
-                <c:if test="${userCmd.numPreKChildren eq '1'}">
-                    selected
-                </c:if>
-                <![CDATA[ value="1">1</option>]]>
-                <![CDATA[<option ]]>
-                <c:if test="${userCmd.numPreKChildren eq '2'}">
-                    selected
-                </c:if>
-                <![CDATA[ value="2">2</option>]]>
-                <![CDATA[<option ]]>
-                <c:if test="${userCmd.numPreKChildren eq '3'}">
-                    selected
-                </c:if>
-                <![CDATA[ value="3">3</option>]]>
-                <![CDATA[<option ]]>
-                <c:if test="${userCmd.numPreKChildren eq '4'}">
-                    selected
-                </c:if>
-                <![CDATA[ value="4">4</option>]]>
-                <![CDATA[<option ]]>
-                <c:if test="${userCmd.numPreKChildren eq '5'}">
-                    selected
-                </c:if>
-                <![CDATA[ value="5">5</option>]]>
+            <select name="${status.expression}" id="numPreKChildren" class="form">
+                <c:forEach var="youngChildOption" items="0,1,2,3,4,5">
+                    <![CDATA[<option ]]>
+                    <c:if test="${userCmd.numPreKChildren eq youngChildOption}">
+                        selected
+                    </c:if>
+                    <![CDATA[ value="${youngChildOption}">${youngChildOption}</option>]]>
+                </c:forEach>
             </select>
         </spring:bind>
         <label for="numPreKChildren" class="form">children younger than kindergarten</label>
 
         <spring:bind path="userCmd.user.id">
-            <input id="id" type="hidden" name="id" value="${userCmd.user.id}"/>
+            <input id="id" type="hidden" name="${status.expression}" value="${status.value}"/>
         </spring:bind>
         <spring:bind path="userCmd.redirectUrl">
-            <input id="redirectUrl" type="hidden" name="redirectUrl" value="${userCmd.redirectUrl}"/>
+            <input id="redirectUrl" type="hidden" name="${status.expression}" value="${status.value}"/>
         </spring:bind>
         <br style="clear:left;"/>
 
