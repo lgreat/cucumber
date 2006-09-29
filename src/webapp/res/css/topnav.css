@@ -131,12 +131,14 @@ will need to become a graphic.
     height: 30px;
     width: 864px;
     margin: 0 0 0 18px;
+    padding: 0 28px 0 28px;
 }
 
 #topnav table#nav tr {
 }
 
 #topnav table#nav td {
+    padding: 0;
 }
 
 #topnav table#nav td a {
@@ -149,7 +151,7 @@ will need to become a graphic.
     margin: 0px;
     border-right: 1px dashed #99CC67;
     border-left: 1px dashed #99CC67;
-    padding: 8px 0px 8px 0px;
+    padding: 8px 16px 8px 16px;
 }
 
 * html #topnav table#nav td a {
