@@ -17,10 +17,10 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
-<pageHelper:setPathway pathway="9"/>
+<pageHelper:setPathway pathway="7"/>
 
 <head>
-    <title>School Choice Tips</title>
+    <title>Greatschools.net: School Choice Tips</title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="Description"
           content="School Choice Tips"/>
@@ -30,7 +30,7 @@
 <gsml:body adPageName="article/schoolChoiceTips" pageLayout="schoolChoiceTips">
 <div>
 <div class="left">
-    <h3>K-12 Success</h3>
+    <h3>Grade K-12 Success</h3>
     <ul class="plain">
         <gsweb:articlelink articleId="416" wrappingElement="li"/>
         <gsweb:articlelink articleId="4" wrappingElement="li"/>
@@ -116,7 +116,9 @@
         <gsweb:articlelink articleId="33" wrappingElement="li"/>
     </ul>
 
-    <h3 class="seeAll"><link:articleLibrary styleClass="seeAll">Full article library &gt;</link:articleLibrary></h3>
+    <div id="allArticles" style="height:175px;">
+        <h3 class="seeAll"><link:articleLibrary styleClass="seeAll">Full article library &gt;</link:articleLibrary></h3>
+    </div>
 </div>
 
 <div class="middle">

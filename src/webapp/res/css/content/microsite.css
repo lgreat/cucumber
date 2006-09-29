@@ -23,6 +23,10 @@
     padding: 4px 0 4px 16px;
 }
 
+#contentGS .left #allArticles {
+    background-color: #eee;    
+}
+
 #contentGS .left ul li a {
     color: #aaa;
 }

@@ -122,7 +122,7 @@
 
             <gsml:url var="go" value="/res/img/splash/go.gif"/>
             <gsml:url var="goOver" value="/res/img/splash/goOver.gif"/>
-            
+
             <div id="findAndCompareSchoolsNationwide">
                 <h3><em>FIND and COMPARE</em> schools nationwide:</h3>
                 <gsweb:form method="get"
@@ -153,8 +153,6 @@
                     <table>
                         <tr>
                             <td><select name="page">
-                                <option value="/content/backToSchool.page" selected="selected">Back-to-school success </option>
-                                <option value="/search/search.page?q=back+to+school+shopping&amp;amp;type=topic">Back-to-school shopping </option>
                                 <option value="/content/countdownToCollege.page"> College prep </option>
                                 <option value="/search/search.page?q=Troubleshooter&amp;amp;type=topic"> Ask the experts </option>
                                 <option value="/cgi-bin/showarticle/CA/33"> Fundraising</option>
