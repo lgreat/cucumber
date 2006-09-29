@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Created by IntelliJ IDEA.
-  User: chriskimm
-  Date: Sep 14, 2006
-  Time: 5:04:56 PM
-  To change this template use File | Settings | File Templates.
--->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
@@ -37,7 +30,7 @@
             <td valign="top"><h2 id="dearParents"></h2></td>
         </tr>
         <tr>
-            <td colspan="2" id="leftBox">Looking for a California school that's the
+            <td colspan="2" id="leftBox">Looking for a ${requestScope.context.state.longName} school that's the
                 <a href="http://www.greatschools.net" class="border10Links">right fit for your child</a>? As a
                 mom who has been through the
                 process, I know you probably
@@ -94,97 +87,102 @@
                                                alt="" border="0"/></div>
 
     <div class="compareBox">
-        <table width="264" cellpadding="0" cellspacing="0" border="0">
-            <tr>
-                <td rowspan="4" valign="top" class="yellowArrow"><img style="width: 22px;" alt=""
-                                                                      src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                </td>
-                <td colspan="2" valign="top"><img src="/res/img/content/research/t_compare_schools_address.gif"
-                                                  width="125" height="29" alt="" border="0"/><br/>
-                    <img style="height: 12px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                    <br/>
-                    Show me
-                    <select name="school" class="school formText">
-                        <option value="elementary">elementary</option>
-                        <option value="middle">middle</option>
-                        <option value="high">high</option>
-                    </select>
-                    schools</td>
-            </tr>
-            <tr>
-                <td colspan="2"><img style="height: 7px;" alt=""
-                                     src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-            </tr>
-            <tr>
-                <td valign="bottom" style="padding-bottom:3px;">within
-                    <select name="mile" class="miles formText">
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                    </select>
-                    miles of
-                    <input type="text" name="zip" class="zip formText"/></td>
-                <td valign="bottom"><input onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
-                                           onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
-                                           class="button" style="width:41px;height:26px;" alt="GO"
-                                           src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/></td>
-            </tr>
-            <tr>
-                <td><img style="width: 198px;height: 43px;" alt=""
-                         src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-                <td><img style="width: 44px;height: 43px;" alt=""
-                         src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-            </tr>
-        </table>
-
+        <gsweb:form action="" method="">
+            <table width="264" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td rowspan="4" valign="top" class="yellowArrow"><img style="width: 22px;" alt=""
+                                                                          src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                    </td>
+                    <td colspan="2" valign="top"><img src="/res/img/content/research/t_compare_schools_address.gif"
+                                                      width="125" height="29" alt="" border="0"/><br/>
+                        <img style="height: 12px;" alt=""
+                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                        <br/>
+                        Show me
+                        <select name="school" class="school formText">
+                            <option value="elementary">elementary</option>
+                            <option value="middle">middle</option>
+                            <option value="high">high</option>
+                        </select>
+                        schools</td>
+                </tr>
+                <tr>
+                    <td colspan="2"><img style="height: 7px;" alt=""
+                                         src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+                </tr>
+                <tr>
+                    <td valign="bottom" style="padding-bottom:3px;">within
+                        <select name="mile" class="miles formText">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                        </select>
+                        miles of
+                        <input type="text" name="zip" class="zip formText"/></td>
+                    <td valign="bottom"><input
+                            onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
+                            onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
+                            class="button" style="width:41px;height:26px;" alt="GO"
+                            src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/></td>
+                </tr>
+                <tr>
+                    <td><img style="width: 198px;height: 43px;" alt=""
+                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+                    <td><img style="width: 44px;height: 43px;" alt=""
+                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+                </tr>
+            </table>
+        </gsweb:form>
         <div class="blueDash"></div><br/>
-
-        <table width="264" cellpadding="0" cellspacing="0" border="0">
-            <tr>
-                <td rowspan="4" valign="top" class="yellowArrow"><img style="width: 22px;" alt=""
-                                                                      src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                </td>
-                <td colspan="2" valign="top"><img src="/res/img/content/research/t_compare_district.gif" width="120"
-                                                  height="29" alt="" border="0"/><br/>
-                    <img style="height: 13px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                    <br/>
-                    Show me
-                    <select name="school" class="school formText">
-                        <option value="elementary">elementary</option>
-                        <option value="middle">middle</option>
-                        <option value="high">high</option>
-                    </select>
-                    schools</td>
-            </tr>
-            <tr>
-                <td colspan="2" class="districtText">
-                    <img style="height: 4px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                    <br/>
-                    District</td>
-            </tr>
-            <tr>
-                <td valign="top" style="padding-top:2px;">in
-                    <input type="text" name="district" class="district formText"/>
-                    <img style="width:4px;height:10px;" alt=""
-                         src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                    <select name="state" class="state2 formText">
-                        <option value="CA">CA</option>
-                    </select>
-                </td>
-                <td valign="bottom">
-                    <input onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
-                           onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
-                           class="button" style="width:41px;height:26px;" alt="GO"
-                           src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
-                </td>
-            </tr>
-            <tr>
-                <td><img style="width: 199px;height: 18px;" alt=""
-                         src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-                <td><img style="width: 43px;height: 10px;" alt=""
-                         src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-            </tr>
-        </table>
-
+        <gsweb:form action="/cgi-bin/cs_distlist/ca" method="get">
+            <table width="264" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td rowspan="4" valign="top" class="yellowArrow"><img style="width: 22px;" alt=""
+                                                                          src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                    </td>
+                    <td colspan="2" valign="top"><img src="/res/img/content/research/t_compare_district.gif" width="120"
+                                                      height="29" alt="" border="0"/><br/>
+                        <img style="height: 13px;" alt=""
+                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                        <br/>
+                        Show me
+                        <select name="level" class="school formText">
+                            <option value="e">elementary</option>
+                            <option value="m">middle</option>
+                            <option value="h">high</option>
+                        </select>
+                        schools</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="districtText">
+                        <img style="height: 4px;" alt=""
+                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                        <br/>
+                        District</td>
+                </tr>
+                <tr>
+                    <td valign="top" style="padding-top:2px;">in
+                        <input type="text" name="district" class="district formText"/>
+                        <img style="width:4px;height:10px;" alt=""
+                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                        <gsweb:stateSelector useNoState="false"
+                                             usingLongNames="false"
+                                             state="${requestScope.context.state}" styleClass="state2 formText"/>
+                    </td>
+                    <td valign="bottom">
+                        <input onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
+                               onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
+                               class="button" style="width:41px;height:26px;" alt="GO"
+                               src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img style="width: 199px;height: 18px;" alt=""
+                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+                    <td><img style="width: 43px;height: 10px;" alt=""
+                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+                </tr>
+            </table>
+        </gsweb:form>
         <div class="middleBottom"><a href="#" class="boldUnderline">Advanced compare</a></div>
     </div></td>
 
@@ -196,90 +194,96 @@
     </div>
 
     <div class="findBox">
+        <gsweb:form action="/modperl/redirect" method="get">
+            <input name="page" value="/modperl/cities" type="hidden" />
+            <input name="biid" value="" type="hidden" />
+            <table width="254" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td rowspan="3" valign="top" class="yellowArrow"><img style="width: 22px;" alt=""
+                                                                          src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                    </td>
+                    <td colspan="2" valign="top"><img src="/res/img/content/research/t_find_city.gif" width="232"
+                                                      height="14" alt="" border="0"/><br/>
+                        <img style="height: 11px;" alt=""
+                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-top:3px;">All
 
-
-        <table width="254" cellpadding="0" cellspacing="0" border="0">
-            <tr>
-                <td rowspan="3" valign="top" class="yellowArrow"><img style="width: 22px;" alt=""
-                                                                      src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                </td>
-                <td colspan="2" valign="top"><img src="/res/img/content/research/t_find_city.gif" width="232"
-                                                  height="14" alt="" border="0"/><br/>
-                    <img style="height: 11px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                </td>
-            </tr>
-            <tr>
-                <td style="padding-top:3px;">All
-                    <select name="state" class="state formText">
-                        <option value="California">California</option>
-                    </select>
-                    cities<br/>
-                    <img style="height: 9px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                    <br/>
-                    <a href="http://www.greatschools.net/" class="arrowLink bold">San Francisco schools</a><br/>
-                    <a href="http://www.greatschools.net/" class="arrowLink bold">Los Angeles schools</a><br/>
-                    <a href="http://www.greatschools.net/" class="arrowLink bold">San Diego schools</a><br/>
-                    <a href="http://www.greatschools.net" class="arrowLink bold">Santa Barbara schools</a><br/>
-                    <a href="http://www.greatschools.net/" class="arrowLink bold">Sacramento schools</a></td>
-                <td valign="top"><input onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
-                                        onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
-                                        class="button" style="width:41px;height:26px;" alt="GO"
-                                        src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/></td>
-            </tr>
-            <tr>
-                <td><img style="width: 164px;height: 8px;" alt=""
-                         src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-                <td><img style="width: 68px;height: 8px;" alt=""
-                         src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-            </tr>
-        </table>
-
+                        <gsweb:stateSelector useNoState="false"
+                                             usingLongNames="true"
+                                             state="${requestScope.context.state}" styleClass="state formText"/>
+                        cities<br/>
+                        <img style="height: 9px;" alt=""
+                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                        <br/>
+                        <a href="http://www.greatschools.net/" class="arrowLink bold">San Francisco schools</a><br/>
+                        <a href="http://www.greatschools.net/" class="arrowLink bold">Los Angeles schools</a><br/>
+                        <a href="http://www.greatschools.net/" class="arrowLink bold">San Diego schools</a><br/>
+                        <a href="http://www.greatschools.net" class="arrowLink bold">Santa Barbara schools</a><br/>
+                        <a href="http://www.greatschools.net/" class="arrowLink bold">Sacramento schools</a></td>
+                    <td valign="top"><input onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
+                                            onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
+                                            class="button" style="width:41px;height:26px;" alt="GO"
+                                            src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/></td>
+                </tr>
+                <tr>
+                    <td><img style="width: 164px;height: 8px;" alt=""
+                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+                    <td><img style="width: 68px;height: 8px;" alt=""
+                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+                </tr>
+            </table>
+        </gsweb:form>
         <div class="blueDash"></div><br/>
-
-        <table width="264" cellpadding="0" cellspacing="0" border="0">
-            <tr>
-                <td rowspan="4" valign="top" class="yellowArrow"><img style="width: 22px;" alt=""
-                                                                      src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                </td>
-                <td colspan="2" valign="top"><img src="/res/img/content/research/t_search_schools.gif" width="137"
-                                                  height="28" alt="" border="0"/></td>
-            </tr>
-
-            <tr>
-                <td colspan="2" class="districtText2"><img style="height: 18px;" alt=""
-                                                           src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                    <br/>
-                    Name, District, or City</td>
-            </tr>
-            <tr>
-                <td valign="bottom" style="padding-bottom:4px;">
-                    <input type="text" name="district" class="district formText"/>
-                    <img style="width:4px;height:10px;" alt=""
-                         src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                    <select name="state" class="state2 formText">
-                        <option value="CA">CA</option>
-                    </select>
-                </td>
-                <td valign="bottom"><input onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
-                                           onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
-                                           class="button" style="width:41px;height:26px;padding-bottom:2px;" alt="GO"
-                                           src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <img style="width: 184px;height:33px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                </td>
-
-                <td>
-                    <img style="width: 50px;height:34px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                </td>
-
-            </tr>
-
-        </table>
-
+        <gsweb:form action="" method="get">
+            <table width="264" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td rowspan="4" valign="top" class="yellowArrow">
+                        <img style="width: 22px;" alt=""
+                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                    </td>
+                    <td colspan="2" valign="top">
+                        <img src="/res/img/content/research/t_search_schools.gif" width="137" height="28" alt=""
+                             border="0"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="districtText2">
+                        <img style="height: 18px;" alt=""
+                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                        <br/>
+                        Name, District, or City</td>
+                </tr>
+                <tr>
+                    <td valign="bottom" style="padding-bottom:4px;">
+                        <input type="text" name="district" class="district formText"/>
+                        <img style="width:4px;height:10px;" alt=""
+                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                        <gsweb:stateSelector useNoState="false"
+                                             usingLongNames="false"
+                                             state="${requestScope.context.state}" styleClass="state2 formText"/>
+                    </td>
+                    <td valign="bottom"><input
+                            onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
+                            onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
+                            class="button" style="width:41px;height:26px;padding-bottom:2px;" alt="GO"
+                            src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <img style="width: 184px;height:33px;" alt=""
+                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                    </td>
+                    <td>
+                        <img style="width: 50px;height:34px;" alt=""
+                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                    </td>
+                </tr>
+            </table>
+        </gsweb:form>
         <div class="middleBottom">
             <a href="#" class="boldUnderline">Search near an address</a>
         </div>
@@ -304,12 +308,9 @@
     </tr>
     <tr>
         <td valign="center" align="center">
-            <!--<img src="/res/img/content/research/map/GSmap_MA_250w.gif" width="250" height="135" alt="" border="0"/>-->
-            <gsml:img id="temp" src="/res/img/content/research/map/GSmap_${requestScope.context.stateOrDefault.abbreviation}_250w.gif" alt="US Map"/>
-            <!-- <img id="temp" src="/res/img/content/research/map/GSmap_${requestScope.context.stateOrDefault.abbreviation}_250w.gif" width="250" height="135" alt="US Map" border="0"/> -->
+            <gsml:img id="map" src="/res/img/content/research/map/${requestScope.context.stateOrDefault.abbreviationLowerCase}.gif" alt="US Map"/>
         </td>
         <td valign="top">
-            <!--<img style="width: 33px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>-->
         </td>
         <td valign="top" class="blueDotVert"><img style="width: 1px; height: 153px;" alt=""
                                                   src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>

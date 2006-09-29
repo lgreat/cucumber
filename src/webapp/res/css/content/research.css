@@ -166,7 +166,7 @@ a.arrowLink:hover {
 .state2 {
 	padding: 0px 0px 0px 0px;
 	margin: 0px 0px 0px 0px;
-	width: 40px;
+	width: 43px;
 	font-size: 11px;
 }
 
@@ -483,7 +483,7 @@ h2#caSchools {
 .formText {
 	color: #555555;
 }
-
-img#temp {
-   padding-left:30px;
+img#map {
+    padding-left:5px;
+    padding-right:5px;
 }
