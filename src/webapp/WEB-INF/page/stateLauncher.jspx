@@ -27,7 +27,7 @@
         <meta name="description"
               content="Find school information."/>
         <jsp:scriptlet>
-            //PageHelper.hideHeader(request);
+            PageHelper.hideLeaderboard(request);
             PageHelper.hideFooter(request);
         </jsp:scriptlet>
         <title>Find school information</title>
@@ -50,7 +50,7 @@
             }
             .contentGS h2 {
                 font-weight:bold;
-                padding:15px 0px 20px 15px;
+                padding:10px 0px 10px 15px;
                 font-size:large;
                 color:#666;
                 text-align: left;
