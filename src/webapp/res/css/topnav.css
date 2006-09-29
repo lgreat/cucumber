@@ -129,8 +129,8 @@ will need to become a graphic.
 #topnav table#nav {
     background-color: #99cc67;
     height: 30px;
-    width: 100%;
-    margin: 0;
+    width: 864px;
+    margin: 0 0 0 18px;
 }
 
 #topnav table#nav tr {
@@ -149,7 +149,7 @@ will need to become a graphic.
     margin: 0px;
     border-right: 1px dashed #99CC67;
     border-left: 1px dashed #99CC67;
-    padding: 8px 16px 8px 16px;
+    padding: 8px 0px 8px 0px;
 }
 
 * html #topnav table#nav td a {
