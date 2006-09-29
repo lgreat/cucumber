@@ -62,7 +62,7 @@
                             <c:if test="${not empty school.gradeLevels}">Grades: ${school.gradeLevels}<br/></c:if>
 
                             Type: ${school.type.schoolTypeName} <br/>
-                            <c:if test="${null != school.censusInfo}">Enrollment: ${school.enrollment}<br/></c:if>
+                            <c:if test="${not empty school.enrollment}">Enrollment: ${school.enrollment}<br/></c:if>
 
                             <c:if test="${not empty school.physicalAddress}">
                                 <address>

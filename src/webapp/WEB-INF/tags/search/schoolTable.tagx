@@ -78,7 +78,7 @@
                 </td>
                 <td class="enrollment">
                     <c:choose>
-                        <c:when test="${school.enrollment > -1}">
+                        <c:when test="${not empty school.enrollment}">
                             <c:out value="${school.enrollment}"/>
                         </c:when>
                         <c:otherwise>
