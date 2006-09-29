@@ -214,11 +214,11 @@
 
           <!-- Show remove button for last row shown if more than 1 row is shown -->
           <c:if test="${child == followUpCmd.userProfile.numSchoolChildren and child gt 1}">
-              <input class="form" type="submit" value="Remove this child" name="removeChild"/>
+              <a href="#" onclick="$('submit').name = 'removeChild';$('submit').click(); return false;">Remove this child</a>
           </c:if>
       </c:forEach>
       <br style="clear: left;"/>
-      <input class="form" type="submit" value="Add another child" name="addChild"/>
+      <a href="#" onclick="$('submit').name = 'addChild';$('submit').click(); return false;">Add another child</a>
       <br style="clear: left;"/>
       <hr/>
 
@@ -286,7 +286,7 @@
           </c:otherwise>
       </c:choose>
 
-      <input class="form" type="submit" value="Submit" name="submit"/>
+      <input class="form" type="submit" value="Submit" name="submit" id="submit"/>
       <div class="privacy">By submitting, I agree to the <link:termsOfUse>Terms of Service</link:termsOfUse></div>
       <div class="privacy">We won't sell or share your address. <gsml:popupWindow width="800" height="600" left="50" top="50"
               href="/about/privacyStatement.page?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></div>
