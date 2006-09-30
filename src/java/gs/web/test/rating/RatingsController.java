@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsController.java,v 1.6 2006/09/30 06:52:04 apeterson Exp $
+ * $Id: RatingsController.java,v 1.7 2006/09/30 06:52:34 apeterson Exp $
  */
 package gs.web.test.rating;
 
