@@ -61,8 +61,8 @@
     <h3>Book Picks</h3>
     <ul class="plain">
         <gsweb:articlelink articleId="677" wrappingElement="li"/>
-        <li style="background-image:none;vertical-align:text-top;height:75px;">
-            <gsml:img src="/res/img/content/schoolChoiceTips/lunchMoney.jpg" alt="Lunch Money" style="float:left;"/>
+        <li style="background-image:none;vertical-align:text-top;height:66px;">
+            <gsml:img src="/res/img/content/schoolChoiceTips/lunchMoney.gif" alt="Lunch Money" style="float:left;"/>
             <div style="padding-top:30px;">
                 <span style="padding-left:10px;">
                 <gsml:a href="/cgi-bin/showarticle/$STATE/622">
