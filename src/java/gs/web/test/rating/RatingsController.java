@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsController.java,v 1.5 2006/09/30 01:03:54 dlee Exp $
+ * $Id: RatingsController.java,v 1.6 2006/09/30 06:52:04 apeterson Exp $
  */
 package gs.web.test.rating;
 
@@ -77,8 +77,12 @@ public class RatingsController extends SimpleFormController {
             if (null != ratingsConfig) {
                 SchoolRatingsDisplay ratingsDisplay =
                         new SchoolRatingsDisplay(ratingsConfig, ratingsCommand.getSchool(), _testDataSetDao);
-                OverallRatingDecorator ratingDecorator = new OverallRatingDecorator(ratingsDisplay);
-                ratingsCommand.setRatingsDisplay(ratingDecorator);
+                if (ratingsCommand.isShowingSubjects()) {
+                    ratingsCommand.setRatingsDisplay(ratingsDisplay);
+                }   else {
+                    OverallRatingDecorator ratingDecorator = new OverallRatingDecorator(ratingsDisplay);
+                    ratingsCommand.setRatingsDisplay(ratingDecorator);
+                }
 
                 SchoolTestValue schoolTestValue =
                         getTestManager().getOverallRating(ratingsCommand.getSchool(), ratingsConfig.getYear());
