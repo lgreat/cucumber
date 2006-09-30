@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsCommand.java,v 1.1 2006/09/29 23:22:55 dlee Exp $
+ * $Id: RatingsCommand.java,v 1.2 2006/09/30 06:48:25 apeterson Exp $
  */
 package gs.web.test.rating;
 
@@ -20,6 +20,7 @@ public final class RatingsCommand implements SchoolIdValidator.ISchoolId {
     private Integer _overallRating;
     private IRatingsDisplay _ratingsDisplay;
     private School _school;
+    private boolean _showSubjects;
 
 
     public int getId() {
@@ -69,5 +70,13 @@ public final class RatingsCommand implements SchoolIdValidator.ISchoolId {
 
     public void setSchool(School school) {
         _school = school;
+    }
+
+    public boolean isShowSubjects() {
+        return _showSubjects;
+    }
+
+    public void setShowSubjects(final boolean showSubjects) {
+        _showSubjects = showSubjects;
     }
 }
