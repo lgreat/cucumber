@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsController.java,v 1.7 2006/09/30 06:52:34 apeterson Exp $
+ * $Id: RatingsController.java,v 1.8 2006/09/30 06:58:54 apeterson Exp $
  */
 package gs.web.test.rating;
 
@@ -41,6 +41,7 @@ public class RatingsController extends SimpleFormController {
     private ITestDataSetDao _testDataSetDao;
     private List _onLoadValidators;
     private TestManager _testManager;
+    private boolean   _showingSubjectGroups = false;
 
     protected void onBindOnNewForm(HttpServletRequest request,
                                    Object command,
@@ -77,7 +78,7 @@ public class RatingsController extends SimpleFormController {
             if (null != ratingsConfig) {
                 SchoolRatingsDisplay ratingsDisplay =
                         new SchoolRatingsDisplay(ratingsConfig, ratingsCommand.getSchool(), _testDataSetDao);
-                if (ratingsCommand.isShowingSubjects()) {
+                if (_showingSubjectGroups) {
                     ratingsCommand.setRatingsDisplay(ratingsDisplay);
                 }   else {
                     OverallRatingDecorator ratingDecorator = new OverallRatingDecorator(ratingsDisplay);
@@ -131,5 +132,9 @@ public class RatingsController extends SimpleFormController {
 
     public void setTestManager(TestManager testManager) {
         _testManager = testManager;
+    }
+
+    public void setShowingSubjectGroups(final boolean showingSubjectGroups) {
+        _showingSubjectGroups = showingSubjectGroups;
     }
 }

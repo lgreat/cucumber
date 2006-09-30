@@ -878,6 +878,23 @@
                 </list>
             </property>
     </bean>
+    <bean name="/school/rating2.page"
+          class="gs.web.test.rating.RatingsController"
+          autowire="byName">
+            <property name="showingSubjectGroups" value="true"/>
+            <property name="bindOnNewForm" value="true"/>
+            <property name="commandName" value="ratingsCmd"/>
+            <property name="commandClass" value="gs.web.test.rating.RatingsCommand"/>
+            <property name="formView" value="test/ratings"/>
+            <property name="successView" value="test/ratings"/>
+            <property name="onLoadValidators">
+                <list>
+                    <ref bean="stateValidator"/>
+                    <ref bean="schoolIdValidator"/>
+                    <ref bean="stateValidator"/>
+                </list>
+            </property>
+    </bean>
     <!-- WEB PAGE DEFINITIONS END -->
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
