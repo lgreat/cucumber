@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.40 2006/09/29 23:22:55 dlee Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.41 2006/09/30 01:03:54 dlee Exp $
  */
 
 package gs.web.util;
@@ -12,6 +12,7 @@ import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.state.State;
+import gs.data.util.Address;
 import gs.web.GsMockHttpServletRequest;
 import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
@@ -112,6 +113,10 @@ public class UrlBuilderSaTest extends TestCase {
         School school = new School();
         school.setDatabaseState(State.WY);
         school.setId(new Integer(8));
+        Address address = new Address("123 way", "CityName", State.WY, "12345");
+        school.setLevelCode(LevelCode.ELEMENTARY);
+        school.setPhysicalAddress(address);
+
         UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
         assertEquals("/modperl/parents/wy/8", builder.asSiteRelativeXml(null));
 
@@ -148,7 +153,12 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/modperl/achievement/wy/8", builder.asSiteRelativeXml(null));
 
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ADD_PARENT_REVIEW);
-        assertEquals("/cgi-bin/addcomments/wy/8", builder.asSiteRelativeXml(null));        
+        assertEquals("/cgi-bin/addcomments/wy/8", builder.asSiteRelativeXml(null));
+
+        builder = new UrlBuilder(school, UrlBuilder.COMPARE_SCHOOL);
+        //_log.debug(builder.asSiteRelativeXml(null));
+        assertEquals("/cgi-bin/cs_compare/wy/?area=m&amp;city=CityName&amp;level=e&amp;miles=1000&amp;school_selected=8&amp;showall=1&amp;sortby=distance&amp;street=123+way&amp;tab=over&amp;zip=12345",
+                builder.asSiteRelativeXml(null));
 
     }
 

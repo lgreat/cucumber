@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.15 2006/09/29 23:22:55 dlee Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.16 2006/09/30 01:03:54 dlee Exp $
  */
 
 package gs.web.jsp.link;
@@ -11,6 +11,7 @@ import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.state.State;
+import gs.data.util.Address;
 import gs.web.BaseTestCase;
 import gs.web.jsp.MockJspWriter;
 import gs.web.jsp.MockPageContext;
@@ -292,6 +293,11 @@ public class LinkTagHandlerTest extends BaseTestCase {
         school.setId(Integer.valueOf("8"));
         school.setType(SchoolType.PUBLIC);
 
+        Address address = new Address("123 way", "CityName", State.WY, "12345");
+        school.setLevelCode(LevelCode.ELEMENTARY);
+        school.setPhysicalAddress(address);
+
+
         BaseSchoolProfileTagHandler tagHandler = new SchoolProfileCensusTagHandler();
         tagHandler.setPageContext(new MockPageContext());
         tagHandler.setSchool(school);
@@ -329,5 +335,13 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setSchool(school);
         builder = tagHandler.createUrlBuilder();
         assertEquals("/school/ratings.page?id=8&state=WY", builder.asSiteRelative(null));
+
+        tagHandler = new CompareSchoolLinkTagHandler();
+        tagHandler.setSchool(school);
+        builder = tagHandler.createUrlBuilder();
+        _log.debug(builder.asSiteRelative(null));
+        assertEquals("/cgi-bin/cs_compare/wy/?area=m&city=CityName&level=e&miles=1000&school_selected=8&showall=1&sortby=distance&street=123+way&tab=over&zip=12345",
+                builder.asSiteRelative(null));
+
     }
 }

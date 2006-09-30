@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.56 2006/09/29 23:22:55 dlee Exp $
+ * $Id: UrlBuilder.java,v 1.57 2006/09/30 01:03:54 dlee Exp $
  */
 
 package gs.web.util;
@@ -12,6 +12,7 @@ import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.state.State;
+import gs.data.util.Address;
 import gs.web.school.SchoolsController;
 import gs.web.util.list.Anchor;
 import org.apache.commons.lang.StringUtils;
@@ -130,6 +131,7 @@ public class UrlBuilder {
     public static final VPage SCHOOL_PROFILE_RATINGS = new VPage("vpage:schoolRatings");
     public static final VPage SCHOOL_PROFILE_ADD_PARENT_REVIEW = new VPage("vpage:schoolAddParentReview");
 
+    public static final VPage COMPARE_SCHOOL = new VPage("vpage:compareSchool");
 
     public static final VPage SCHOOLS_IN_CITY = new VPage("vpage:schoolsInCity");
     public static final VPage SCHOOLS_IN_DISTRICT = new VPage("vpage:schoolsInDistrict");
@@ -258,6 +260,28 @@ public class UrlBuilder {
                     school.getDatabaseState().getAbbreviationLowerCase() +
                     "/" +
                     school.getId();
+        } else if (COMPARE_SCHOOL.equals(page)) {
+            //href="/cgi-bin/cs_compare/ca/?street=1101+Eucalyptus+Dr.&amp;school_selected=6397&amp;city=San+Francisco&amp;
+            //zip=94132&amp;area=m&amp;miles=1000&amp;level=h&amp;sortby=distance&amp;tab=over&amp;showall=1">
+            _perlPage = true;
+            _path = "/cgi-bin/cs_compare/" +
+                    school.getDatabaseState().getAbbreviationLowerCase() +
+                    "/";
+            setParameter("school_selected", school.getId().toString());
+            try {
+                Address address = school.getPhysicalAddress();
+                if (null != address) {
+                    setParameter("street", address.getStreet());
+                    setParameter("city", address.getCity());
+                    setParameter("zip", address.getZip());
+                }
+                setParameter("level", school.getLevelCode().getCommaSeparatedString());
+            } catch (NullPointerException e) {} //do nothing
+            setParameter("area", "m");
+            setParameter("miles", "1000");
+            setParameter("sortby", "distance");
+            setParameter("tab", "over");
+            setParameter("showall", "1");
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
