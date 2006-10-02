@@ -211,9 +211,8 @@ h2#adBlurb {
 #contentGS a.seeFullArticle {
 	font-size: 11px;
 	color: #3399AA;
-	font-weight: bold;
 	line-height: 30px;
-	text-decoration: none;
+	text-decoration: underline;
 }
 
 #contentGS span.actionTip a {
@@ -223,6 +222,5 @@ h2#adBlurb {
 #contentGS a.actionTipsLink {
 	font-size: 11px;
 	color: #3399AA;
-	font-weight: bold;
 	text-decoration: underline;
 }
