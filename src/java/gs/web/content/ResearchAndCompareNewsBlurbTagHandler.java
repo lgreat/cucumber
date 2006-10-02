@@ -26,7 +26,7 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
     private ISchoolDao _schoolDao; // use getter
     private String _paragraphTag = "div"; // default
     private String _textClass = "updatesText"; // default
-    public static final int ROUND_DOWN_TO_NEAREST = 50;
+    public static final int ROUND_DOWN_TO_NEAREST = 100;
 
     public State getState() {
         return _state;
@@ -90,6 +90,15 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
         return "</h2>";
     }
 
+    protected int roundToNearest(int numSchools, int roundToNearest) {
+        if (numSchools <= 0) {
+            return 0;
+        } else if (roundToNearest <= 1) {
+            return numSchools;
+        }
+        return (numSchools - (numSchools % roundToNearest));
+    }
+
     public void doTag() throws IOException {
         NewsItem newsItem = getNewsItemDao().findNewsItemForState(CATEGORY, _state);
 
@@ -97,7 +106,7 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
         if (newsItem != null) {
             String link = newsItem.getLink();
             out.print(openTitle());
-            out.print(newsItem.getTitle());
+            out.print(newsItem.getTitle().toUpperCase());
             out.println(closeTitle());
             String text = newsItem.getText();
             if (StringUtils.isNotEmpty(text)) {
@@ -122,10 +131,11 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
             // output default news item
             if (_state != null) {
                 int numSchools = getSchoolDao().countSchools(_state, null, null, null);
-                int roundedNumSchools = numSchools - (numSchools % ROUND_DOWN_TO_NEAREST);
+                int roundedNumSchools = roundToNearest(numSchools, ROUND_DOWN_TO_NEAREST);
                 boolean hasCharterSchools = _state.isCharterSchoolState();
                 out.print(openTitle());
-                out.print("About " + _state.getLongName() + " data");
+                String title = "About " + _state.getLongName() + " data";
+                out.print(title.toUpperCase());
                 out.println(closeTitle());
                 out.print(openParagraph());
                 out.print("We have profiles for more than " + roundedNumSchools);
@@ -148,7 +158,7 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
                 out.println(closeParagraph());
             } else {
                 out.print(openTitle());
-                out.print("About GreatSchools data");
+                out.print("About GreatSchools data".toUpperCase());
                 out.println(closeTitle());
                 out.print(openParagraph());
                 out.print("We have profiles for over 120,000 public, private and charter " +
@@ -158,7 +168,7 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
             }
         }
         out.print(openParagraph());
-        out.print("<span class=\"printName\">Amy Rickerson,</span> <span class=\"italicTitle\">");
+        out.print("<span class=\"printName\">Amy Rickerson</span> <span class=\"italicTitle\">");
         if (_state != null) {
             out.print(_state.getLongName());
         } else {

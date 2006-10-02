@@ -100,4 +100,22 @@ public class ResearchAndCompareNewsBlurbTagHandlerTest extends TestCase {
         assertTrue(output.indexOf("Text line 1") > -1);
         assertTrue(output.indexOf("Text line 2") > -1);
     }
+
+    public void testRoundSchoolsToNearest() {
+        assertEquals(150, _tag.roundToNearest(150, 50));
+        assertEquals(150, _tag.roundToNearest(151, 50));
+        assertEquals(150, _tag.roundToNearest(199, 50));
+        assertEquals(200, _tag.roundToNearest(200, 50));
+
+        assertEquals(200, _tag.roundToNearest(200, 100));
+        assertEquals(200, _tag.roundToNearest(201, 100));
+        assertEquals(200, _tag.roundToNearest(299, 100));
+        assertEquals(195, _tag.roundToNearest(200, 13));
+
+        assertEquals(0, _tag.roundToNearest(0, 50));
+        assertEquals(217, _tag.roundToNearest(217, 0));
+        assertEquals(217, _tag.roundToNearest(217, 1));
+        assertEquals(216, _tag.roundToNearest(217, 2));
+
+    }
 }

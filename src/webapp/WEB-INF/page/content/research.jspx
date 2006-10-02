@@ -308,7 +308,7 @@
     </tr>
     <tr>
         <td valign="center" align="center">
-            <gsml:img id="map" src="/res/img/content/research/map/${requestScope.context.stateOrDefault.abbreviationLowerCase}.gif" alt="US Map"/>
+            <gsml:img id="map" src="/res/img/content/research/map/GSmap_${requestScope.context.stateOrDefault.abbreviation}_250w.gif" alt="US Map"/>
         </td>
         <td valign="top">
         </td>

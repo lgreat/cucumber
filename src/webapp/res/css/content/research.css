@@ -461,8 +461,8 @@ h2#caSchools {
 	letter-spacing: 0px;
 }
 
-.updatesTitle {
-	padding: 0px 0px 8px 0px;
+h2.updatesTitle {
+	padding: 0px 0px 0px 0px;
     font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 13px;
 	line-height: 19px;
@@ -478,6 +478,14 @@ h2#caSchools {
 	line-height: 12px;
 	color: #666666;
 	letter-spacing: 0px;
+}
+
+.updatesText a:link, .updatesText a:visited, updatesText a:hover {
+    color: #3399aa;
+}
+
+.italicTitle {
+    display: block;
 }
 
 .formText {
