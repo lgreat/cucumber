@@ -11,7 +11,6 @@
           xmlns:gsweb="gstaglib"
         >
 
-    <jsp:directive.page import="gs.web.util.PageHelper"/>
     <pageHelper:setPathway pathway="1"/>
     <html lang="en">
 
@@ -26,10 +25,6 @@
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <meta name="description"
               content="Find school information."/>
-        <jsp:scriptlet>
-            PageHelper.hideLeaderboard(request);
-            PageHelper.hideFooter(request);
-        </jsp:scriptlet>
         <title>Find school information</title>
         <style type="text/css">
             #bodyGS {
@@ -37,7 +32,7 @@
             }
 
             .state1 {
-                padding:0px 45px 10px 15px;
+                padding:0px 45px 10px 100px;
             }
 
             .state2 {
@@ -50,7 +45,7 @@
             }
             .contentGS h2 {
                 font-weight:bold;
-                padding:10px 0px 10px 15px;
+                padding: 0px 0px 0px 15px;
                 font-size:large;
                 color:#666;
                 text-align: left;
