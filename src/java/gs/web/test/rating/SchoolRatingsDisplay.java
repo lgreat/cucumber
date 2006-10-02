@@ -1,10 +1,12 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.3 2006/09/28 21:04:45 dlee Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.4 2006/10/02 17:49:38 dlee Exp $
  */
 
 package gs.web.test.rating;
 
+import gs.data.school.Grade;
+import gs.data.school.Grades;
 import gs.data.school.School;
 import gs.data.test.ITestDataSetDao;
 import gs.data.test.SchoolTestValue;
@@ -12,6 +14,7 @@ import gs.data.test.TestDataSet;
 import gs.data.test.rating.IRatingsConfig;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -37,6 +40,8 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
         _ratingsConfig = ratingsConfig;
         _testDataSetDao = testDataSetDao;
 
+        Grades grades = school.getGradeLevels();
+        
         // Subject group labels are precalculated.
         _subjectGroupLabels = new ArrayList();
         for (int i = 0; i < _ratingsConfig.getSubjectGroupConfigs().length; i++) {
@@ -51,19 +56,34 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
         for (int j = 0; j < rowGroupConfigs.length; j++) {
             IRatingsConfig.IRowGroupConfig rowGroupConfig = rowGroupConfigs[j];
             RowGroup rowGroup = new RowGroup(rowGroupConfig);
+            String label = rowGroup.getLabel();
+            boolean isGradeRowgroup = false;
+
+            if (label.startsWith("By Grade")) {
+                isGradeRowgroup = true;
+            }
             _rowGroups.add(rowGroup);
+
             final IRatingsConfig.IRowConfig[] rowConfigs = rowGroupConfig.getRowConfigs();
             for (int i = 0; i < rowConfigs.length; i++) {
                 final IRatingsConfig.IRowConfig rowConfig = rowConfigs[i];
-                IRowGroup.IRow row = new Row(rowConfig);
-                rowGroup.add(row);
+                Row row = new Row(rowConfig);
+
+                if (isGradeRowgroup) {
+                    String rowLabel = row.getLabel();
+                    String grade = rowLabel.replaceAll("Grade ", "");
+
+                    if (grades.contains(Grade.getGradeLevel(grade))) {
+                        rowGroup.add(row);
+                    }
+                } else {
+                    if (!row.isAllEmptyCells()) rowGroup.add(row);
+                }
             }
         }
-
-
     }
 
-    class RowGroup implements IRowGroup {
+    private class RowGroup implements IRowGroup {
         final String _label;
         final List _rows;
 
@@ -133,6 +153,17 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
 
         public List getCells() {
             return _cells;
+        }
+
+        boolean isAllEmptyCells() {
+            for (Iterator iter = _cells.iterator(); iter.hasNext(); ) {
+                Cell cell = (Cell) iter.next();
+                if (cell.getRating() != null) {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 
