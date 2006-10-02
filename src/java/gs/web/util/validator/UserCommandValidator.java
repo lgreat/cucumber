@@ -50,11 +50,9 @@ public class UserCommandValidator implements Validator {
             //errors.rejectValue("email", "existing_user", "This email already exists, please choose a different one.");
         }
 
-        if (command.getUser().getId() == null) {
-            // verify confirm email matches email
-            if (!confirmEmail.equals(email)) {
-                errors.rejectValue("email", "mismatched_email", "Please enter the same email into both fields.");
-            }
+        // verify confirm email matches email
+        if (confirmEmail != null && !confirmEmail.equals(email)) {
+            errors.rejectValue("email", "mismatched_email", "Please enter the same email into both fields.");
         }
 
         if (user != null) {

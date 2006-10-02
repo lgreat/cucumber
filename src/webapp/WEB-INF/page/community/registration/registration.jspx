@@ -33,6 +33,17 @@
     <h2 class="intro">Tell us about yourself</h2>
     <div id="registerDiv" class="registerDiv">
     <gsweb:form id="regForm" action="/community/registration.page" method="post">
+    <spring:hasBindErrors name="userCmd">
+        <div class="error">
+            <ul>
+                <c:forEach var="errMsgObj" items="${errors.allErrors}">
+                    <li>
+                        <spring:message code="${errMsgObj.code}" text="${errMsgObj.defaultMessage}"/>
+                    </li>
+                </c:forEach>
+            </ul>
+        </div>
+    </spring:hasBindErrors>
         <div class="error">
             <spring:bind path="userCmd.screenName">
                     ${status.errorMessage}
@@ -189,9 +200,6 @@
         </spring:bind>
         <label for="numPreKChildren" class="form">children younger than kindergarten</label>
 
-        <spring:bind path="userCmd.user.id">
-            <input id="id" type="hidden" name="${status.expression}" value="${status.value}"/>
-        </spring:bind>
         <spring:bind path="userCmd.redirectUrl">
             <input id="redirectUrl" type="hidden" name="${status.expression}" value="${status.value}"/>
         </spring:bind>

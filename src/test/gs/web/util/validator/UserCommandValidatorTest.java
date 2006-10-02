@@ -174,12 +174,6 @@ public class UserCommandValidatorTest extends BaseTestCase {
         _validator.validate(command, errors);
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
-
-        // confirm email field not checked if id is set
-        command.setId("1");
-        errors = new BindException(command, "");
-        _validator.validate(command, errors);
-        assertFalse(errors.hasErrors());
     }
 
     public void testEmptyState() {
