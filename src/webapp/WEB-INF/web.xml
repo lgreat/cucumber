@@ -62,27 +62,6 @@
         <url-pattern>/city/*</url-pattern>
     </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>pages</servlet-name>
-        <url-pattern>/school/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>pages</servlet-name>
-        <url-pattern>/schools/*</url-pattern>
-    </servlet-mapping>
-
-    <!--servlet>
-        <servlet-name>legacy</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <load-on-startup>2</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>legacy</servlet-name>
-        <url-pattern>/modperl/go/*</url-pattern>
-    </servlet-mapping-->
-
     <servlet>
         <servlet-name>modules</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -95,7 +74,7 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>test/splash.page</welcome-file>
+        <welcome-file>index.page</welcome-file>
     </welcome-file-list>
 
     <filter>
