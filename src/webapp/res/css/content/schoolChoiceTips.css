@@ -147,3 +147,10 @@ div#textAd a {
 	margin: 11px 0px 6px 0px;
 	text-decoration:none;
 }
+
+ul .pdf{
+    text-indent:20px;
+}
+ul .pdf li {
+    background: url("../../../res/img/adobe/pdficon.gif") no-repeat left;
+}

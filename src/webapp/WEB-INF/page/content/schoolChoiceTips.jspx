@@ -60,7 +60,6 @@
 
     <h3>Book Picks</h3>
     <ul class="plain">
-        <gsweb:articlelink articleId="677" wrappingElement="li"/>
         <li style="background-image:none;vertical-align:text-top;height:66px;">
             <gsml:img src="/res/img/content/schoolChoiceTips/lunchMoney.gif" alt="Lunch Money" style="float:left;"/>
             <div style="padding-top:30px;">
@@ -71,6 +70,7 @@
                 </span>
             </div>
         </li>
+        <gsweb:articlelink articleId="677" wrappingElement="li">Read more Favorite Books for Fourth-Graders</gsweb:articlelink>
         <li class="byGrade">Book picks by grade:<br/>
             <table>
                 <tr>
@@ -133,7 +133,7 @@
             <gsweb:articlelink articleId="308" wrappingElement="li"/>
             <gsweb:articlelink articleId="307" wrappingElement="li"/>
             <gsweb:articlelink articleId="87" wrappingElement="li"/>
-            <li><gsml:a href="/pdf/choosing_imagine.pdf">With printable worksheet</gsml:a></li>
+            <li><ul class="pdf"><li><gsml:a href="/pdf/choosing_imagine.pdf">With printable worksheet</gsml:a></li></ul></li>
         </ul>
     </div>
 
@@ -164,7 +164,7 @@
         </ul>
     </div>
 
-    <div>
+    <div style="border-bottom: 1px solid #ccc;">
         <h3 id="applyAndEnroll">Apply and Enroll</h3>
         <ul class="plain">
             <gsweb:articlelink articleId="249" wrappingElement="li"/>
@@ -177,14 +177,14 @@
         </ul>
     </div>
 
-    <div>
+    <div style="border-bottom: 1px solid #ccc;">
         <h3 id="askTheExperts">Ask an Expert</h3>
         <p>Q: How Can I Get My Child to Finish Her Work?
             <gsweb:articlelink articleId="570">Read the answer</gsweb:articlelink>
             </p>
     </div>
 
-    <div>
+    <div style="border-bottom: 1px solid #ccc;">
         <h3 id="freeNewsletters">Free Newsletters</h3>
         <p>Is your child on track?
             Find out with our free newsletters that parents love! <promo:nthGraderHover referredBy="${pageName}">Sign me up</promo:nthGraderHover>
@@ -197,8 +197,10 @@
 
     <ad:x40/>
 
+    <div style="border-top: 1px solid #ccc;">
     <div id="bottomAdd">
         <ad:x51 blurb="School Choice Tips Sponsored By:"/>
+    </div>
     </div>
 
     <div style="border-top: 1px solid #ccc;padding-top:20px;margin-top:10px;">
