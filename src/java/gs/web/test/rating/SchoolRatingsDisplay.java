@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.4 2006/10/02 17:49:38 dlee Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.5 2006/10/02 23:02:42 dlee Exp $
  */
 
 package gs.web.test.rating;
@@ -41,7 +41,7 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
         _testDataSetDao = testDataSetDao;
 
         Grades grades = school.getGradeLevels();
-        
+
         // Subject group labels are precalculated.
         _subjectGroupLabels = new ArrayList();
         for (int i = 0; i < _ratingsConfig.getSubjectGroupConfigs().length; i++) {
@@ -62,7 +62,6 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
             if (label.startsWith("By Grade")) {
                 isGradeRowgroup = true;
             }
-            _rowGroups.add(rowGroup);
 
             final IRatingsConfig.IRowConfig[] rowConfigs = rowGroupConfig.getRowConfigs();
             for (int i = 0; i < rowConfigs.length; i++) {
@@ -79,6 +78,10 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 } else {
                     if (!row.isAllEmptyCells()) rowGroup.add(row);
                 }
+            }
+
+            if (rowGroup.getRows().size() > 0) {
+                _rowGroups.add(rowGroup);
             }
         }
     }

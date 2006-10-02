@@ -874,7 +874,6 @@
                 <list>
                     <ref bean="stateValidator"/>
                     <ref bean="schoolIdValidator"/>
-                    <ref bean="stateValidator"/>
                 </list>
             </property>
     </bean>
@@ -891,7 +890,6 @@
                 <list>
                     <ref bean="stateValidator"/>
                     <ref bean="schoolIdValidator"/>
-                    <ref bean="stateValidator"/>
                 </list>
             </property>
     </bean>

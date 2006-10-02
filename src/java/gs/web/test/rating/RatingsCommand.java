@@ -1,19 +1,20 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsCommand.java,v 1.4 2006/09/30 06:59:48 apeterson Exp $
+ * $Id: RatingsCommand.java,v 1.5 2006/10/02 23:02:42 dlee Exp $
  */
 package gs.web.test.rating;
 
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.util.validator.SchoolIdValidator;
+import gs.web.util.validator.StateValidator;
 
 /**
  * Ratings
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
-public final class RatingsCommand implements SchoolIdValidator.ISchoolId {
+public final class RatingsCommand implements SchoolIdValidator.ISchoolId, StateValidator.IState {
     private int _id;
     private int _schoolId;
     private State _state;

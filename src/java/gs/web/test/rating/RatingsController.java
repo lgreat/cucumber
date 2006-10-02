@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsController.java,v 1.8 2006/09/30 06:58:54 apeterson Exp $
+ * $Id: RatingsController.java,v 1.9 2006/10/02 23:02:42 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -76,18 +76,20 @@ public class RatingsController extends SimpleFormController {
             IRatingsConfig ratingsConfig = _ratingsConfigDao.restoreRatingsConfig(ratingsCommand.getState());
 
             if (null != ratingsConfig) {
-                SchoolRatingsDisplay ratingsDisplay =
-                        new SchoolRatingsDisplay(ratingsConfig, ratingsCommand.getSchool(), _testDataSetDao);
-                if (_showingSubjectGroups) {
-                    ratingsCommand.setRatingsDisplay(ratingsDisplay);
-                }   else {
-                    OverallRatingDecorator ratingDecorator = new OverallRatingDecorator(ratingsDisplay);
-                    ratingsCommand.setRatingsDisplay(ratingDecorator);
-                }
-
                 SchoolTestValue schoolTestValue =
                         getTestManager().getOverallRating(ratingsCommand.getSchool(), ratingsConfig.getYear());
-                ratingsCommand.setOverallRating(schoolTestValue.getValueInteger());
+
+                if (null != schoolTestValue) {
+                    ratingsCommand.setOverallRating(schoolTestValue.getValueInteger());
+                    SchoolRatingsDisplay ratingsDisplay =
+                            new SchoolRatingsDisplay(ratingsConfig, ratingsCommand.getSchool(), _testDataSetDao);
+                    if (_showingSubjectGroups) {
+                        ratingsCommand.setRatingsDisplay(ratingsDisplay);
+                    }   else {
+                        OverallRatingDecorator ratingDecorator = new OverallRatingDecorator(ratingsDisplay);
+                        ratingsCommand.setRatingsDisplay(ratingDecorator);
+                    }
+                }
             }
         }
         model.put(getCommandName(), command);
