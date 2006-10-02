@@ -131,10 +131,6 @@ will need to become a graphic.
     height: 30px;
     width: 864px;
     margin: 0 0 0 18px;
-    padding: 0 28px 0 28px;
-}
-
-#topnav table#nav td {
     padding: 0;
 }
 
@@ -152,7 +148,6 @@ will need to become a graphic.
 }
 
 * html #topnav table#nav td a {
-/* IE ONLY */
     font-family: Lucinda Grande, Lucida Grande, lucida, verdana,sans-serif;
     font-weight: 900;
     font-size: 12px;

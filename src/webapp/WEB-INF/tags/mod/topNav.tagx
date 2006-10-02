@@ -127,6 +127,7 @@
         <tr>
             <td>
                 <table cellpadding="0" cellspacing="0" id="nav"><tr>
+                    <td width="28px">&#160;</td>
                     <c:set var="pw" value="${requestScope.context.pathway}"/>
                     <!--#0--><td><link:home
                         styleClass="${(pw == 0 ? 'lactive active' : 'inactive')} ${(pw == 1 ? 'ractive' : '')} "
@@ -155,6 +156,7 @@
                         styleClass="${(pw == 2 ? 'lactive' : '')} ${(pw == 6 ? 'active ractive' : 'inactive')}"
                         email="${requestScope.context.email}"
                         >Free Newsletters</link:newsletterCenter></td>
+                    <td width="28px">&#160;</td>
                 </tr></table>
             </td>
         </tr>
