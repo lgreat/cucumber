@@ -39,14 +39,23 @@ public class RequestEmailValidationController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map model = new HashMap();
         String email = request.getParameter("email");
-        User user = _userDao.findUserFromEmail(email);
+        User user = _userDao.findUserFromEmailIfExists(email);
         UserCommand userCommand = new UserCommand();
         userCommand.setUser(user);
 
-        if (user.isEmailProvisional()) {
+        if (user == null || user.isPasswordEmpty()) {
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null);
+            // get registration form to auto fill in email
+            builder.addParameter("email", email);
+            String href = builder.asAnchor(request, "Register here").asATag();
+
+            model.put("message", "You are not a member yet. " + href + ".");
+        } else if (user.isEmailProvisional()) {
             MimeMessage mm = RequestEmailValidationController.buildMultipartEmail
                     (_mailSender.createMimeMessage(), request, userCommand);
             _mailSender.send(mm);
+        } else if (user.isEmailValidated()) {
+            model.put("message", "Your account has already been validated.");
         }
 
         return new ModelAndView(_viewName, model);

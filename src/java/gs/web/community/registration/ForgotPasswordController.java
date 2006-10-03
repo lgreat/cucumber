@@ -62,9 +62,11 @@ public class ForgotPasswordController extends SimpleFormController {
         if (user == null) {
             // do nothing
         } else if (user.isEmailProvisional()) {
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.REQUEST_EMAIL_VALIDATION, null, user.getEmail());
+            String href2 = builder.asAnchor(request, "(resend email)").asATag();
             errors.rejectValue("email", "password_empty", "You have chosen a new password, but haven't " +
                     "validated your email address yet. To validate your email address, follow the " +
-                    "instructions in the email sent to you.");
+                    "instructions in the email sent to you " + href2 + ".");
         } else if (user.isPasswordEmpty()) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null);
             builder.addParameter("email", userCommand.getEmail());

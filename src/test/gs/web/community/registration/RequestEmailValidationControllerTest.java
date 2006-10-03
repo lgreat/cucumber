@@ -42,7 +42,7 @@ public class RequestEmailValidationControllerTest extends BaseControllerTestCase
 
         getRequest().addParameter("email", email);
 
-        _userControl.expectAndReturn(_userDao.findUserFromEmail(email), user);
+        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email), user);
         _userControl.replay();
         // 3) call handleRequestInternal
         ModelAndView mAndV =_controller.handleRequestInternal(getRequest(), getResponse());

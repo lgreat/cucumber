@@ -16,10 +16,22 @@
               font-size: large;
               margin-bottom: 250px;
           }
+          div.error {
+              margin-top: 25px;
+              margin-bottom: 250px;
+              color: red;
+          }
       </style>
   </head>
   <body>
-    <h2 class="message">We have sent an email to the following address: ${param.email}</h2>
+    <c:choose>
+        <c:when test="${message ne null}">
+            <div class="error">${message}</div>
+        </c:when>
+        <c:otherwise>
+            <h2 class="message">We have sent an email to the following address: ${param.email}</h2>
+        </c:otherwise>
+    </c:choose>
   </body>
 </html>
 </jsp:root>
