@@ -173,7 +173,7 @@ a.arrowLink:hover {
 .miles {
 	padding: 0px 0px 0px 0px;
 	margin: 0px 0px 0px 0px;
-	width: 35px;
+	width: 40px;
 	font-size: 11px;
 }
 
@@ -371,7 +371,7 @@ a.arrowLink:hover {
 .lisa {
 	border: 1px solid #DDEEEE;
 	padding: 2px 2px 2px 2px;
-	background-image: url("../../img/content/research/lrosenthal.jpg");
+	background-image: url("/res/img/content/research/lrosenthal.jpg");
 	background-repeat: no-repeat;
 	background-position: 2px; 2px; 2px; 2px;
 	width: 53px;

@@ -541,11 +541,11 @@
         </property>
     </bean>
 
-    <bean name="/content/research.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+    <bean name="/school/research.page"
+          class="gs.web.school.ResearchController"
           autowire="byName">
         <property name="viewName">
-            <value>/content/research</value>
+            <value>/school/research</value>
         </property>
     </bean>
 
@@ -893,6 +893,15 @@
                 </list>
             </property>
     </bean>
+
+    <bean name="/school/overview.page"
+          class="gs.web.school.SchoolOverviewController"
+          autowire="byName">
+        <property name="viewName">
+            <value>school/overview</value>
+        </property>
+    </bean>
+
     <!-- WEB PAGE DEFINITIONS END -->
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
