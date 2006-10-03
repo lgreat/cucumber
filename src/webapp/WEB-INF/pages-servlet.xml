@@ -509,14 +509,6 @@
         </property>
     </bean>
 
-    <bean name="/content/schoolChoiceCenter.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
-        <property name="viewName">
-            <value>/content/schoolChoiceCenter</value>
-        </property>
-    </bean>
-
     <bean name="/content/guideToTests.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName">
@@ -565,7 +557,7 @@
         </property>
     </bean>
 
-    <bean name="/content/schoolChoiceTips.page"
+    <bean name="/content/schoolChoiceCenter.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName">
         <property name="viewName">

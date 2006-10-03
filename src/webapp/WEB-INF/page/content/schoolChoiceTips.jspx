@@ -133,7 +133,7 @@
             <gsweb:articlelink articleId="308" wrappingElement="li"/>
             <gsweb:articlelink articleId="307" wrappingElement="li"/>
             <gsweb:articlelink articleId="87" wrappingElement="li"/>
-            <li><ul class="pdf"><li><gsml:a href="/pdf/choosing_imagine.pdf">With printable worksheet</gsml:a></li></ul></li>
+            <li><ul class="pdf"><li><gsml:a href="/pdf/choosing_imagine.pdf">Ideal school worksheet</gsml:a></li></ul></li>
         </ul>
     </div>
 
@@ -156,9 +156,9 @@
             <gsweb:articlelink articleId="48" wrappingElement="li"/>
             <li>Take along our printable worksheets:
                 <ul class="pdf">
-                    <li><gsml:a href="/pdf/schq_visit_elem.pdf">Elementary School</gsml:a></li>
-                    <li><gsml:a href="/pdf/schq_visit_middle.pdf">Middle School</gsml:a></li>
-                    <li><gsml:a href="/pdf/schq_visit_high.pdf">High School</gsml:a></li>
+                    <li><gsml:a href="/pdf/schq_visit_elem.pdf">Elementary school worksheet</gsml:a></li>
+                    <li><gsml:a href="/pdf/schq_visit_middle.pdf">Middle school worksheet</gsml:a></li>
+                    <li><gsml:a href="/pdf/schq_visit_high.pdf">High school worksheet</gsml:a></li>
                 </ul>
             </li>
         </ul>

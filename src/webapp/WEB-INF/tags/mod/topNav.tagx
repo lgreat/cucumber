@@ -137,7 +137,7 @@
                         state="${requestScope.context.state}"
                         id="topnav_research"
                         >Research &amp;amp; Compare</link:research></td>
-                    <!--#7--><td><gsml:a href="/content/schoolChoiceTips.page"
+                    <!--#7--><td><gsml:a href="/content/schoolChoiceCenter.page"
                                          styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 7 ? 'active' : 'inactive')} ${(pw == 9 ? 'ractive' : '')} "
                         >School Choice Tips</gsml:a></td>
                     <!--#9--><td><gsml:a href="/content/countdownToCollege.page"
