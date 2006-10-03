@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.6 2006/10/03 18:43:55 dlee Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.7 2006/10/03 22:41:53 dlee Exp $
  */
 
 package gs.web.test.rating;
@@ -164,8 +164,8 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 Integer rating = null;
                 Integer prevRating = null;
 
-                if (count > 0) rating = new Integer(Math.round(total / count));
-                if (prevCount > 0) prevRating = new Integer(Math.round(prevTotal / prevCount));
+                if (count > 0) rating = new Integer(Math.round((float)total / (float)count));
+                if (prevCount > 0) prevRating = new Integer(Math.round((float)prevTotal / (float)prevCount));
 
                 _cells.add(new Cell(rating, prevRating));
             }

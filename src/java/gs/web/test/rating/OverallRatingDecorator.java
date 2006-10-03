@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: OverallRatingDecorator.java,v 1.4 2006/10/03 18:43:55 dlee Exp $
+ * $Id: OverallRatingDecorator.java,v 1.5 2006/10/03 22:41:53 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -59,10 +59,10 @@ public class OverallRatingDecorator implements IRatingsDisplay {
                 Integer averageRating = null;
                 Integer trend = null;
                 if (subjectsWithRating != 0) {
-                    averageRating = new Integer(Math.round(sumRatings / subjectsWithRating));
+                    averageRating = new Integer(Math.round((float)sumRatings / (float)subjectsWithRating));
                 }
                 if (subjectsWithTrend != 0) {
-                    trend = new Integer(Math.round(Math.round(sumTrend / subjectsWithTrend)));
+                    trend = new Integer(Math.round((float)sumTrend / (float)subjectsWithTrend));
                 }
 
                 decoratedRows.add(new Row(row.getLabel(), averageRating, trend));

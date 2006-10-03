@@ -41,10 +41,7 @@
 <c:if test="${not empty ratingsCmd.overallRating}">
     <c:set var="overallRating" value="${ratingsCmd.overallRating}"/>
     <c:set var="hasRating" value="true"/>
-    <c:set var="ratingImagePath" value="/res/img/school/ratings/ratings_0${overallRating}.gif"/>
-    <c:if test="${overallRating == 10}">
-        <c:set var="ratingImagePath" value="/res/img/school/ratings/ratings_${overallRating}.gif"/>
-    </c:if>
+    <c:set var="ratingImagePath" value="/res/img/school/ratings/ratings_${overallRating}.gif"/>
 </c:if>
 
 
@@ -109,6 +106,9 @@
             </school:profile>
         </c:if>
     </div>
+    <mod:tracking pageType="school"
+                  pageName="Ratings"
+                  hier1="Ratings"/>
 </gsml:body>
 </html>
 </jsp:root>
