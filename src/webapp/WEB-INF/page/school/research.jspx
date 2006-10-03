@@ -19,7 +19,8 @@
 </head>
 
 <body class="www  unframed ">
-
+<c:set var="stateOrNull" value="${requestScope.context.state}" />
+<c:set var="stateOrDefault" value="${requestScope.context.stateOrDefault}" />
 <table cellspacing="0" cellpadding="0" class="content" border="0">
 <tr>
 <td valign="top" class="border10">
@@ -30,7 +31,7 @@
             <td valign="top"><h2 id="dearParents"></h2></td>
         </tr>
         <tr>
-            <td colspan="2" id="leftBox">Looking for a ${requestScope.context.state.longName} school that's the
+            <td colspan="2" id="leftBox">Looking for a ${stateOrNull.longName} school that's the
                 <gsml:a href="/cgi-bin/showarticle/$STATE/308" styleClass="border10Links">right fit for your child</gsml:a>? As a
                 mom who has been through the
                 process, I know you probably
@@ -38,8 +39,8 @@
                 <gsml:a href="/cgi-bin/showarticle/$STATE/96" styleClass="border10Links">school choice tips</gsml:a> lead the
                 way. Armed with our <gsml:a href="/cgi-bin/showarticle/$STATE/489" styleClass="border10Links">practical
                 advice</gsml:a> on choosing the
-                best option, <gsml:a href="/cgi-bin/showarticle/$STATE/197" styleClass="border10Links">public vs. private</gsml:a>
-                schools, <gsml:a href="/cgi-bin/showarticle/$STATE/48" styleClass="border10Links">what to ask</gsml:a> on your
+                best option, <gsml:a href="/cgi-bin/showarticle/$STATE/197" styleClass="border10Links">public vs. private
+                schools</gsml:a>, <gsml:a href="/cgi-bin/showarticle/$STATE/48" styleClass="border10Links">what to ask</gsml:a> on your
                 school visit and more, you'll be
                 set to begin your search.<br/>
 
@@ -75,7 +76,7 @@
 <td style="width: 651px" valign="top">
 <table width="651" cellpadding="0" cellspacing="0" border="0">
 <tr>
-    <td colspan="3"><h1 id="stateSchools">${requestScope.context.stateOrDefault.longName} Schools</h1></td>
+    <td colspan="3"><h1 id="stateSchools">${stateOrNull.longName} Schools</h1></td>
 </tr>
 <tr>
     <td colspan="3"><gsml:img style="height: 5px;" alt="" src="/res/img/header/clear_pix.gif" />
@@ -85,7 +86,7 @@
 <!-- Compare Box -->
 <td valign="top">
 <div class="middleTitle">
-    <img src="/res/img/content/research/t_compare.gif" width="93" height="19" alt="" border="0"/>
+    <img src="/res/img/content/research/t_compare.gif" width="93" height="19" alt="Compare ${requestScope.context.state.longName} Schools" border="0"/>
 </div>
     <div class="compareBox">
         <gsweb:form action="/cgi-bin/cs_compare/${requestScope.context.stateOrDefault.abbreviationLowerCase}/" method="get">
@@ -98,7 +99,10 @@
                         <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
                     </td>
                     <td colspan="2" valign="top"><img src="/res/img/content/research/t_compare_schools_address.gif"
-                                                      width="125" height="29" alt="" border="0"/><br/>
+                                                      width="125"
+                                                      height="29"
+                                                      alt="Compare ${stateOrNull.longName} schools near an address"
+                                                      border="0"/><br/>
                         <img style="height: 12px;" alt=""
                              src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
                         <br/>
@@ -150,8 +154,11 @@
                     <td rowspan="4" valign="top" class="yellowArrow">
                         <img style="width: 22px;" alt="" src="/res/img/header/clear_pix.gif"/>
                     </td>
-                    <td colspan="2" valign="top"><img src="/res/img/content/research/t_compare_district.gif" width="120"
-                                                      height="29" alt="" border="0"/><br/>
+                    <td colspan="2" valign="top"><img src="/res/img/content/research/t_compare_district.gif"
+                                                      width="120"
+                                                      height="29"
+                                                      alt="Compare ${stateOrNull.longName} schools in a district"
+                                                      border="0"/><br/>
                         <img style="height: 13px;" alt="" src="/res/img/header/clear_pix.gif"/>
                         <br/>
                         Show me
@@ -202,7 +209,7 @@
 <!-- Find Box -->
 <td valign="top">
     <div class="middleTitle">
-        <img src="/res/img/content/research/t_find.gif" width="41" height="19" alt="" border="0"/>
+        <img src="/res/img/content/research/t_find.gif" width="41" height="19" alt="Find ${requestScope.context.state.longName} Schools" border="0"/>
     </div>
 
     <div class="findBox">
@@ -213,8 +220,11 @@
                     <td rowspan="3" valign="top" class="yellowArrow">
                         <img style="width: 22px;" alt="" src="/res/img/header/clear_pix.gif"/>
                     </td>
-                    <td colspan="2" valign="top"><img src="/res/img/content/research/t_find_city.gif" width="232"
-                                                      height="14" alt="" border="0"/><br/>
+                    <td colspan="2" valign="top"><img src="/res/img/content/research/t_find_city.gif"
+                                                      width="232"
+                                                      height="14"
+                                                      alt="Find Top-Rated ${stateOrNull.longName} schools in a city"
+                                                      border="0"/><br/>
                         <img style="height: 11px;" alt=""
                              src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
                     </td>
@@ -259,7 +269,10 @@
                              src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
                     </td>
                     <td colspan="2" valign="top">
-                        <img src="/res/img/content/research/t_search_schools.gif" width="137" height="28" alt=""
+                        <img src="/res/img/content/research/t_search_schools.gif"
+                             width="137"
+                             height="28"
+                             alt="Find schools nationwide"
                              border="0"/>
                     </td>
                 </tr>
