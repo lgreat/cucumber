@@ -103,14 +103,15 @@
     display: block;
     padding: 8px 10px 0 10px;
     margin: 0;
+    line-height: 95%;
     height: 100%;
     width: auto;
-    line-height: 95%;
     text-decoration: none;
     font-weight: normal;
     color: #FFF;
     border-right: 1px solid #D1CAFF;
     background-color: transparent;
+    font-size:99%;
 }
 
 #schoolProfile .rollmenu .active a {

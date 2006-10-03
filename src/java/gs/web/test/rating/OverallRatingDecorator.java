@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: OverallRatingDecorator.java,v 1.3 2006/09/29 23:22:55 dlee Exp $
+ * $Id: OverallRatingDecorator.java,v 1.4 2006/10/03 18:43:55 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -35,6 +35,10 @@ public class OverallRatingDecorator implements IRatingsDisplay {
                 IRowGroup.IRow row = (IRowGroup.IRow) rowIter.next();
                 int sumRatings = 0;
                 int subjectsWithRating = 0;
+
+                int sumTrend = 0;
+                int subjectsWithTrend = 0;
+
                 List cells = row.getCells();
 
                 for (Iterator cellIter = cells.iterator(); cellIter.hasNext(); ) {
@@ -44,6 +48,12 @@ public class OverallRatingDecorator implements IRatingsDisplay {
                         sumRatings += rating.intValue();
                         subjectsWithRating++;
                     }
+
+                    Integer trend = cell.getTrend();
+                    if (null != trend) {
+                        sumTrend += trend.intValue();
+                        subjectsWithTrend++;
+                    }
                 }
 
                 Integer averageRating = null;
@@ -51,6 +61,10 @@ public class OverallRatingDecorator implements IRatingsDisplay {
                 if (subjectsWithRating != 0) {
                     averageRating = new Integer(Math.round(sumRatings / subjectsWithRating));
                 }
+                if (subjectsWithTrend != 0) {
+                    trend = new Integer(Math.round(Math.round(sumTrend / subjectsWithTrend)));
+                }
+
                 decoratedRows.add(new Row(row.getLabel(), averageRating, trend));
             }
             _decoratedRowGroups.add(new RowGroup(rowGroup.getLabel(), rowGroup.getNumRows(), decoratedRows));
@@ -68,7 +82,7 @@ public class OverallRatingDecorator implements IRatingsDisplay {
         return _decoratedRowGroups;
     }
 
-    private class RowGroup implements IRowGroup {
+    protected class RowGroup implements IRowGroup {
         private String _label;
         private int _numRows;
         private List _rows;
@@ -92,13 +106,12 @@ public class OverallRatingDecorator implements IRatingsDisplay {
         }
     }
 
-    private class Row implements IRowGroup.IRow {
+    protected class Row implements IRowGroup.IRow {
         private String _label;
-        private List _cells;
+        private List _cells = new ArrayList();
 
         Row(String label, Integer rating, Integer trend) {
             _label = label;
-            _cells = new ArrayList();
             _cells.add(new Cell(rating, trend));
         }
 
@@ -111,13 +124,22 @@ public class OverallRatingDecorator implements IRatingsDisplay {
         }
     }
 
-    private class Cell implements IRowGroup.IRow.ICell {
+    protected class Cell implements IRowGroup.IRow.ICell {
         Integer _rating;
         Integer _trend;
 
         Cell(Integer rating, Integer trend) {
             _rating = rating;
-            _trend = trend;
+
+            if (null != trend) {
+                int trendValue = trend.intValue();
+                if (trendValue > 2) {
+                    trendValue = 2;
+                } else if (trendValue < -2) {
+                    trendValue = -2;
+                }
+                _trend = new Integer(trendValue);
+            }
         }
 
         public Integer getRating() {

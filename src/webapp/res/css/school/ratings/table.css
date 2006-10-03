@@ -37,25 +37,66 @@
 }
 
 
-.vb {
-    background: url( 'http://www.greatschools.net/images/carrowts2dn.gif' ) no-repeat;
+.strongDecline {
+    background: url( 'http://www.greatschools.net/images/carrowts2dn.gif' ) no-repeat right;
+    width: 20px;
+    height: 14px;
+    display:block;
+}
+
+.someDecline {
+    background: url( 'http://www.greatschools.net/images/carrowts1dn.gif' ) no-repeat right;
+    width: 20px;
+    height: 14px;
+    display:block;
+}
+
+.noChange {
+    background: url( 'http://www.greatschools.net/images/carrowts1right.gif' ) no-repeat right;
+    width: 20px;
+    height: 14px;
+    display:block;
+}
+
+.someImprovement {
+    background: url( 'http://www.greatschools.net/images/carrowts1.gif' ) no-repeat right;
+    width: 20px;
+    height: 14px;
+    display:block;
+}
+
+.strongImprovement {
+    background: url( 'http://www.greatschools.net/images/carrowts2.gif' ) no-repeat right;
+    width: 20px;
+    height: 14px;
+    display:block;
+}
+
+#legendWrapper {
+    border: 2px solid #66cccc;
+    position: relative;
+    margin:-1px;
+    width: 100%;
+}
+
+#legend {
+    padding:10px;
+    height:160px;
+}
+
+#legend p{
+    padding-top: 15px;
+    color: #666;
+}
+
+#testScoreTrend{
     text-indent:-5000px;
-    width: 10px;
-    height: 30px;
+    background: url("../../../img/school/ratings/testScoreTrend.gif") no-repeat;
+    width: 180px;
+    height: 72px;
 }
 
-.b {
-    background: url( 'http://www.greatschools.net/images/carrowts1dn.gif' ) no-repeat 78% 50%;
-}
-
-.nc {
-    background: url( 'http://www.greatschools.net/images/carrowts1right.gif' ) no-repeat 58% 50%;
-}
-
-.g {
-    background: url( 'http://www.greatschools.net/images/carrowts1.gif' ) no-repeat 78% 50%;
-}
-
-.vg {
-    background: url( 'http://www.greatschools.net/images/carrowts2.gif' ) no-repeat 63% 50%;
+#legend td {
+    color: #666;
+    padding-top:10px;
 }

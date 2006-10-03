@@ -86,32 +86,9 @@
 
 
                 <div style="padding-top:15px;">
-                    <c:if test="${hasRating == 'true'}">
                         <div style="float:left;width:498px;">
                             <school:ratingTable ratingsDisplay="${ratingsDisplay}" overallRating="${overallRating}"/>
-                            <br/>
-
-                            <div id="legendWrapper">
-                                <div id="legend">
-                                    <div style="float:left;">
-                                        <h2 id="testScoreTrend">Test Score Trend</h2>
-
-                                        <p>Based on changed between<br/>spring 2005 and spring 2006</p>
-                                    </div>
-
-                                    <div style="float:left;border-left: dotted 1px #66cccc;padding-left:36px; height:100%;">
-                                        <ul>
-                                            <li>Strong improvement</li>
-                                            <li>Some improvement</li>
-                                            <li>No change</li>
-                                            <li>Some decline</li>
-                                            <li>Strong decline</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                    </c:if>
 
                     <div style="float:right;">
                         <ad:x48/>

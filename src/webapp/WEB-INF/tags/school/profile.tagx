@@ -16,116 +16,101 @@
 <c:set var="city" value="${school.physicalAddress.city}"/>
 
 <div id="schoolProfile">
-<div class="wrap0">
-    <div class="wrap1">
-        <div class="wrap2">
-            <div class="wrap3">
-                <div class="box">
-                    <table class="rollmenu" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td>
-                                <link:schoolProfileOverview school="${school}">
-                                    School<br/>Overview
+    <div class="wrap0">
+        <div class="wrap1">
+            <div class="wrap2">
+                <div class="wrap3">
+                    <div class="box">
+                        <table class="rollmenu" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td><link:schoolProfileOverview school="${school}">School<br/>Overview
                                 </link:schoolProfileOverview></td>
-                            <td>
-                                <link:schoolProfileTestscore school="${school}">
-                                 Test<br/>Scores
-                                </link:schoolProfileTestscore>
-                            </td>
-                            <td>
-                                <link:schoolProfileCensus school="${school}">
-                                Teachers/<br/>Students
-                                </link:schoolProfileCensus>
-                            </td>
-                            <td class="active">
-                                <link:schoolProfileRating school="${school}">
-                                    Ratings and<br/>Alerts
-                                </link:schoolProfileRating>
-                            </td>
-                            <td>
-                                <link:schoolProfileParentReview school="${school}">
-                                    Parent<br/> Reviews
-                                </link:schoolProfileParentReview>
-                                </td>
-                            <td>
-                                <link:schoolProfilePrincipalView school="${school}">
-                                    Principal's <br/>View
-                                </link:schoolProfilePrincipalView>
-                            </td>
-                        </tr>
-                    </table>
+                                <td><link:schoolProfileTestscore school="${school}">Test<br/>Scores
+                                </link:schoolProfileTestscore></td>
+                                <td><link:schoolProfileCensus school="${school}">Teachers/<br/>Students
+                                </link:schoolProfileCensus></td>
+                                <td class="active"><link:schoolProfileRating school="${school}">Ratings<br/>&amp;nbsp;
+                                </link:schoolProfileRating></td>
+                                <td><link:schoolProfileParentReview school="${school}">Parent<br/> Reviews
+                                </link:schoolProfileParentReview></td>
+                                <td><link:schoolProfilePrincipalView school="${school}">Principal's <br/>View
+                                </link:schoolProfilePrincipalView></td>
+                            </tr>
+                        </table>
+                        <div class="boxBody">
+                            <h1>${school.name}</h1>
 
-                    <div class="boxBody">
-                        <h1>${school.name}</h1>
+                            <div id="school_info">
+                                <c:if test="${not empty school.gradeLevels}">Grades: ${school.gradeLevels}<br/></c:if>
 
-                        <div id="school_info">
-                            <c:if test="${not empty school.gradeLevels}">Grades: ${school.gradeLevels}<br/></c:if>
+                                Type: ${school.type.schoolTypeName} <br/>
+                                <c:if test="${not empty school.enrollment}">Enrollment: ${school.enrollment}<br/></c:if>
 
-                            Type: ${school.type.schoolTypeName} <br/>
-                            <c:if test="${not empty school.enrollment}">Enrollment: ${school.enrollment}<br/></c:if>
+                                <c:if test="${not empty school.physicalAddress}">
+                                    <address>
+                                        ${school.physicalAddress.street}<br/>
+                                        ${city}, ${state} ${school.physicalAddress.zip}<br/>
+                                        ${school.county} County
+                                    </address>
+                                </c:if>
 
-                            <c:if test="${not empty school.physicalAddress}">
-                                <address>
-                                    ${school.physicalAddress.street}<br/>
-                                    ${city}, ${state} ${school.physicalAddress.zip}<br/>
-                                    ${school.county} County
-                                </address>
-                            </c:if>
+                                <c:if test="${not empty school.phone}">
+                                    Phone: ${school.phone}<br/>
+                                </c:if>
 
-                            <c:if test="${not empty school.phone}">
-                                Phone: ${school.phone}<br/>
-                            </c:if>
+                                <c:if test="${not empty school.fax}">
+                                    Fax: ${school.fax}<br/>
+                                </c:if>
 
-                            <c:if test="${not empty school.fax}">
-                                Fax: ${school.fax}<br/>
-                            </c:if>
+                                <c:if test="${not empty school.webSite}">
+                                    <a href="${school.webSite}" target="_blank">School Web site</a><br/>
+                                </c:if>
 
-                            <c:if test="${not empty school.webSite}">
-                                <a href="${school.webSite}" target="_blank">School Web site</a><br/>
-                            </c:if>
+                                District: <gsml:a
+                                    href="/cgi-bin/${state}/district_profile/${school.districtId}">${school.district.name}</gsml:a>
+                                <br/>
+                                More about <link:city city="${city}" state="${state}">${city} schools</link:city>
+                            </div>
 
-                            District: <gsml:a href="/cgi-bin/${state}/district_profile/${school.districtId}">${school.district.name}</gsml:a>
-                            <br/>
-                            More about <link:city city="${city}" state="${state}">${city} schools</link:city>
-                        </div>
-
-                        <ul id="school_links">
-                            <li>
-                                <promo:mssHover referredBy="schoolProfile" school="${school}">Email updates<br/>
-                                    about this school</promo:mssHover>
-                            </li>
-                            <li>
-                                <link:schoolCompareSchool school="${school}">Compare this school</link:schoolCompareSchool> 
-                            </li>
-                            <li><gsml:a href="/cgi-bin/msl_confirm/ca/?add_ids=${school.id}">Add to My
-                                SchoolList</gsml:a></li>
-                            <li><link:schoolProfileAddParentReview school="${school}">Rate this school</link:schoolProfileAddParentReview></li>
-
-                            <c:if test="${not empty school.physicalAddress}">
+                            <ul id="school_links">
                                 <li>
-                                    <a href="http://maps.google.com/maps?oi=map&amp;q=${school.physicalAddress.street},+${school.physicalAddress.city}+${school.physicalAddress.state}"
-                                       target="_blank">Map</a>
+                                    <promo:mssHover referredBy="schoolProfile" school="${school}">Email updates<br/>
+                                        about this school</promo:mssHover>
                                 </li>
-                            </c:if>
-                        </ul>
+                                <li>
+                                    <link:schoolCompareSchool school="${school}">Compare this
+                                        school</link:schoolCompareSchool>
+                                </li>
+                                <li><gsml:a href="/cgi-bin/msl_confirm/ca/?add_ids=${school.id}">Add to My
+                                    SchoolList</gsml:a></li>
+                                <li><link:schoolProfileAddParentReview school="${school}">Rate this
+                                    school</link:schoolProfileAddParentReview></li>
 
-                        <div id="school_promo">
-                            <promo:backToSchool/>
+                                <c:if test="${not empty school.physicalAddress}">
+                                    <li>
+                                        <a href="http://maps.google.com/maps?oi=map&amp;q=${school.physicalAddress.street},+${school.physicalAddress.city}+${school.physicalAddress.state}"
+                                           target="_blank">Map</a>
+                                    </li>
+                                </c:if>
+                            </ul>
+
+                            <div id="school_promo">
+                                <promo:backToSchool/>
+                            </div>
+
+                            <div id="site_promo">
+                                <ad:beta/>
+                            </div>
+
+                            <br style="clear:both;"/>
+                            <jsp:doBody/>
+
                         </div>
-
-                        <div id="site_promo">
-                            <ad:beta/>
-                        </div>
-
                         <br style="clear:both;"/>
-                        <jsp:doBody/>
-
                     </div>
-                    <br style="clear:both;"/>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    </div>
+</div>
 </jsp:root>

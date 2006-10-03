@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplayTest.java,v 1.3 2006/09/27 00:53:33 apeterson Exp $
+ * $Id: SchoolRatingsDisplayTest.java,v 1.4 2006/10/03 18:43:55 dlee Exp $
  */
 
 package gs.web.test.rating;
 
 import gs.data.school.School;
-import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.ITestDataSetDao;
+import gs.data.test.rating.IRatingsConfig;
 import junit.framework.TestCase;
 import org.easymock.MockControl;
 
@@ -41,7 +41,7 @@ public class SchoolRatingsDisplayTest extends TestCase {
         _ratingsConfigControl.expectAndReturn(_ratingsConfig.getSubjectGroupConfigs(), new IRatingsConfig.ISubjectGroupConfig[] {});
         _ratingsConfigControl.expectAndReturn(_ratingsConfig.getRowGroupConfigs(), new IRatingsConfig.IRowGroupConfig[] {});
         _ratingsConfigControl.replay();
-        _schoolRatingsDisplay = new SchoolRatingsDisplay(_ratingsConfig, _school, testDataSetDao);
+        _schoolRatingsDisplay = new SchoolRatingsDisplay(_ratingsConfig, _school, testDataSetDao, null);
         _ratingsConfigControl.reset();
     }
 
