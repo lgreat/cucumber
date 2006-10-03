@@ -6,16 +6,15 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsweb="gstaglib"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           version="2.0">
 
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 
 <html lang="en">
 <head>
-    <title>Compare Schools from GreatSchools</title>
+    <title>${requestScope.context.state.longName} Schools</title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-    <meta name="Description"
-          content="College prep advice and help from College Board and GreatSchools to help parents of high school and middle school students with academics, behavior issues and financial planning."/>
     <pageHelper:externalCss file="/res/css/content/research.css"/>
 </head>
 
@@ -76,7 +75,7 @@
 <td style="width: 651px" valign="top">
 <table width="651" cellpadding="0" cellspacing="0" border="0">
 <tr>
-    <td colspan="3"><h2 id="caSchools">California Schools</h2></td>
+    <td colspan="3"><h2 id="caSchools">${requestScope.context.stateOrDefault.longName} Schools</h2></td>
 </tr>
 <tr>
     <td colspan="3"><gsml:img style="height: 5px;" alt="" src="/res/img/header/clear_pix.gif" />
@@ -187,7 +186,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><img style="width: 199px;height: 18px;" alt=""
+                    <td><img style="width: 199px;height: 14px;" alt=""
                              src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
                     <td><img style="width: 43px;height: 10px;" alt=""
                              src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
@@ -230,7 +229,10 @@
                              src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
                         <br/>
                         <c:forEach var="city" items="${cities}">
-                            <a href="${city.link}" class="arrowLink bold">${city.name} schools</a><br/>
+                            <c:if test="${not empty city.link}">
+                                <a href="${city.link}" class="arrowLink bold">${city.name} schools</a>
+                            </c:if>
+                            <br/>
                         </c:forEach>
                     </td>
 
@@ -320,7 +322,8 @@
     </tr>
     <tr>
         <td valign="center" align="center">
-            <gsml:img id="map" src="/res/img/content/research/map/${requestScope.context.stateOrDefault.abbreviationLowerCase}.gif" alt="US Map"/>
+            <gsml:img id="map" src="/res/img/content/research/map/${requestScope.context.stateOrDefault.abbreviationLowerCase}.gif"
+                      alt="${requestScope.context.stateOrDefault.longName} Schools"/>
         </td>
         <td valign="top">
         </td>
@@ -588,6 +591,14 @@
 <img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="600" height="50" border="0" alt=""/>
 
 <div class="greyBar"></div>
+<c:choose>
+    <c:when test="${not empty requestScope.context.state}">
+        <mod:tracking pageType="home" pageName="state home" hier1="Home,StateHome"/>
+    </c:when>
+    <c:otherwise>
+        <mod:tracking pageType="home" pageName="state home" hier1="Home,StateHome,National"/>    
+    </c:otherwise>
+</c:choose>
 </body>
 </html>
 
