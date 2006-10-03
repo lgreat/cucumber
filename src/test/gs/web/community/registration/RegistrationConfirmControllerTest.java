@@ -4,8 +4,9 @@ import gs.web.BaseControllerTestCase;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
-import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.orm.ObjectRetrievalFailureException;
+import org.easymock.MockControl;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -20,69 +21,78 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
     private RegistrationConfirmController _controller;
 
     private IUserDao _userDao;
+    private MockControl _userControl;
 
     protected void setUp() throws Exception {
         super.setUp();
-        ApplicationContext appContext = getApplicationContext();
-        _controller = (RegistrationConfirmController) appContext.getBean(RegistrationConfirmController.BEAN_ID);
+        _controller = new RegistrationConfirmController();
 
-        _userDao = (IUserDao)appContext.getBean(IUserDao.BEAN_ID);
+        _userControl = MockControl.createControl(IUserDao.class);
+        _userDao = (IUserDao)_userControl.getMock();
+        _controller.setUserDao(_userDao);
+        _controller.setViewName("/room/with/a/view");
     }
 
-    public void testRegistrationConfirm() {
+    public void testRegistrationConfirm() throws NoSuchAlgorithmException {
         // 1) create user record with non-validated password
         User user = new User();
         user.setEmail("testRegistrationConfirm@greatschools.net");
+        user.setId(new Integer(234));
+        user.setPlaintextPassword("foobar");
+        user.setEmailProvisional();
+        assertTrue(user.isEmailProvisional());
+        assertFalse(user.isEmailValidated());
+
+        _userControl.expectAndReturn(_userDao.findUserFromId(234), user);
         _userDao.saveUser(user);
-        try {
-            user.setPlaintextPassword("foobar");
-            user.setEmailProvisional();
-            _userDao.saveUser(user);
+        _userControl.replay();
 
-            // 2) generate hash for user from email/id, add to request
-            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
-            String id = hash + user.getId();
-            getRequest().addParameter("id", id);
+        // 2) generate hash for user from email/id, add to request
+        String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
+        String id = hash + user.getId();
+        getRequest().addParameter("id", id);
 
-            // 3) call handleRequestInternal
-            ModelAndView mAndV =_controller.handleRequestInternal(getRequest(), getResponse());
-            // 4) verify no errors
-            assertFalse(mAndV.getViewName().startsWith("redirect:"));
+        // 3) call handleRequestInternal
+        ModelAndView mAndV =_controller.handleRequestInternal(getRequest(), getResponse());
+        // 4) verify no errors
+        _userControl.verify();
+        assertFalse(mAndV.getViewName().startsWith("redirect:"));
 
-            // 5) verify that password has become validated
-            assertTrue(_userDao.findUserFromId(user.getId().intValue()).isEmailValidated());
-        } catch (Exception e) {
-            fail(e.getMessage());
-        } finally {
-            // 6) remove user record (finally block)
-            _userDao.removeUser(user.getId());
-        }
+        // 5) verify that password has become validated
+        assertFalse(user.isEmailProvisional());
+        assertTrue(user.isEmailValidated());
      }
 
     public void testInvalidId() throws NoSuchAlgorithmException {
         String email = "noSuchEmail@address.com";
-        // choose an id I know doesn't exist
         Integer id = new Integer(99999);
         String hash = DigestUtil.hashStringInt(email, id);
         getRequest().addParameter("id", hash + id);
 
-        assertNull("Fake user " + email + " already exists??", _userDao.findUserFromEmailIfExists(email));
+        _userControl.expectAndThrow(_userDao.findUserFromId(99999),
+                new ObjectRetrievalFailureException("Can not find user with id 99999", null));
+        _userControl.replay();
 
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        _userControl.verify();
 
         assertTrue("Validation not catching bad id", mAndV.getViewName().startsWith("redirect:"));
     }
 
     public void testInvalidHash() throws NoSuchAlgorithmException {
         String email = "noSuchEmail@address.com";
-        // choose an id I know exists, but have the wrong email (which will screw up the hash)
-        Integer id = new Integer(1);
+        Integer id = new Integer(3344);
         String hash = DigestUtil.hashStringInt(email, id);
         getRequest().addParameter("id", hash + id);
 
-        assertNull("Fake user " + email + " already exists??", _userDao.findUserFromEmailIfExists(email));
+        User user = new User();
+        user.setId(new Integer(3344));
+        user.setEmail("anotherEmail@address.com");
+        _userControl.expectAndReturn(_userDao.findUserFromId(3344), user);
+        _userControl.replay();
 
         ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
+        _userControl.verify();
 
         assertTrue("Validation not catching bad hash", mAndV.getViewName().startsWith("redirect:"));
     }

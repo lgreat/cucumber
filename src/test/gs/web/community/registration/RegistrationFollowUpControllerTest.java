@@ -4,10 +4,11 @@ import gs.data.community.*;
 import gs.data.school.Grade;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
+import gs.data.school.Grades;
 import gs.data.state.State;
+import gs.data.state.StateManager;
 import gs.data.util.DigestUtil;
 import gs.web.BaseControllerTestCase;
-import org.springframework.context.ApplicationContext;
 import org.springframework.validation.BindException;
 import org.easymock.MockControl;
 import org.easymock.AbstractMatcher;
@@ -22,407 +23,296 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
     private RegistrationFollowUpController _controller;
 
     private IUserDao _userDao;
+    private MockControl _userControl;
     private ISchoolDao _schoolDao;
+    private MockControl _schoolControl;
     private ISubscriptionDao _mockSubscriptionDao;
     private MockControl _subscriptionControl;
 
+    private FollowUpCommand _command;
+    private BindException _errors;
+    private User _user;
+    private UserProfile _userProfile;
+
     protected void setUp() throws Exception {
         super.setUp();
-        ApplicationContext appContext = getApplicationContext();
+        _userControl = MockControl.createControl(IUserDao.class);
+        _schoolControl = MockControl.createControl(ISchoolDao.class);
         _subscriptionControl = MockControl.createControl(ISubscriptionDao.class);
-        _controller = (RegistrationFollowUpController) appContext.getBean(RegistrationFollowUpController.BEAN_ID);
-        _userDao = (IUserDao)appContext.getBean(IUserDao.BEAN_ID);
-        _schoolDao = (ISchoolDao)appContext.getBean(ISchoolDao.BEAN_ID);
+        StateManager stateManager = new StateManager();
+
+        _controller = new RegistrationFollowUpController();
+        _userDao = (IUserDao)_userControl.getMock();
+        _controller.setUserDao(_userDao);
+        _schoolDao = (ISchoolDao)_schoolControl.getMock();
+        _controller.setSchoolDao(_schoolDao);
         _mockSubscriptionDao = (ISubscriptionDao)_subscriptionControl.getMock();
         _controller.setSubscriptionDao(_mockSubscriptionDao);
+        _controller.setStateManager(stateManager);
+
+        setupBindings();
+    }
+
+    private void setupBindings() throws NoSuchAlgorithmException {
+        _command = new FollowUpCommand();
+        _errors = new BindException(_command, "");
+        _user = new User();
+        _userProfile = new UserProfile();
+        _user.setEmail("RegistrationFollowUpControllerTest10@greatschools.net");
+        _user.setId(new Integer(456));
+
+        _userProfile.setUser(_user);
+        _userProfile.setScreenName("screeny");
+        _userProfile.setNumSchoolChildren(new Integer(0));
+        _user.setUserProfile(_userProfile);
+        _command.setUser(_user);
+
+        String hash = DigestUtil.hashStringInt(_user.getEmail(), _user.getId());
+        getRequest().addParameter("marker", hash);
+
+        _userControl.expectAndReturn(_userDao.findUserFromId(456), _user);
+        _userControl.replay();
     }
 
     public void testRegistrationFollowUp() throws NoSuchAlgorithmException {
-        FollowUpCommand command = new FollowUpCommand();
-        BindException errors = new BindException(command, "");
-        User user = new User();
-        UserProfile userProfile = new UserProfile();
-        user.setEmail("RegistrationFollowUpControllerTest1@greatschools.net");
-        _userDao.saveUser(user);
+        _command.setAboutMe("My children are so unique!");
+        getRequest().addParameter("private", "checked");
+        _command.setOtherInterest("Other");
+        String interestCode = UserProfile.getInterestsMap().keySet().iterator().next().toString();
+        getRequest().addParameter(interestCode, "checked");
 
-        try {
-            userProfile.setUser(user);
-            userProfile.setNumSchoolChildren(new Integer(0));
-            userProfile.setScreenName("screeny");
-            user.setUserProfile(userProfile);
-            _userDao.updateUser(user);
+        School school = new School();
+        school.setName("School");
+        school.setId(new Integer(1));
+        school.setDatabaseState(State.CA);
+        getRequest().addParameter("previousSchool1", school.getName());
+        getRequest().addParameter("previousSchoolId1", String.valueOf(school.getId()));
+        getRequest().addParameter("previousState1", State.CA.getAbbreviation());
 
-            command.setAboutMe("My children are so unique!");
-            getRequest().addParameter("private", "checked");
-            command.setUser(user);
-            command.setOtherInterest("Other");
-            String interestCode = UserProfile.getInterestsMap().keySet().iterator().next().toString();
-            getRequest().addParameter(interestCode, "checked");
+        String hash = DigestUtil.hashStringInt(_user.getEmail(), _user.getId());
+        getRequest().addParameter("marker", hash);
 
-            School school = _schoolDao.getSchoolById(State.CA, new Integer(1));
-            getRequest().addParameter("previousSchool1", school.getName());
-            getRequest().addParameter("previousSchoolId1", String.valueOf(school.getId()));
-            getRequest().addParameter("previousState1", State.CA.getAbbreviation());
+        _schoolControl.expectAndReturn(_schoolDao.getSchoolById(State.CA, school.getId()),
+                school);
+        _schoolControl.replay();
 
-            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
-            getRequest().addParameter("marker", hash);
-            _controller.onBindAndValidate(getRequest(), command, errors);
-            assertFalse(errors.hasErrors());
+        _controller.onBindAndValidate(getRequest(), _command, _errors);
+        _userControl.verify();
+        _schoolControl.verify();
+        assertFalse(_errors.hasErrors());
 
-            // controller checks for previous subscriptions
-            _mockSubscriptionDao.getUserSubscriptions(user, SubscriptionProduct.PREVIOUS_SCHOOLS);
-            // detects none
-            _subscriptionControl.setReturnValue(null);
-            Subscription expectedSubscription = new Subscription();
-            expectedSubscription.setUser(user);
-            expectedSubscription.setProduct(SubscriptionProduct.PREVIOUS_SCHOOLS);
-            expectedSubscription.setSchoolId(school.getId().intValue());
-            // saves the new subscription
-            _mockSubscriptionDao.saveSubscription(expectedSubscription);
-            // I check that the correct user is matched to the correct subscription product
-            // and the correct school id
-            _subscriptionControl.setMatcher(new AbstractMatcher() {
-                protected boolean argumentMatches(Object first, Object second) {
-                    Subscription one = (Subscription)first;
-                    Subscription two = (Subscription)second;
-                    // protect against NPE's
-                    if (one.getUser() == null || one.getUser().getId() == null ||
-                            two.getUser() == null || two.getUser().getId() == null ||
-                            one.getProduct() == null || two.getProduct() == null) {
-                        return false;
-                    }
-                    return one.getUser().getId().equals(two.getUser().getId()) &&
-                            one.getProduct().equals(two.getProduct()) &&
-                            one.getSchoolId() == two.getSchoolId();
+        // controller checks for previous subscriptions
+        _mockSubscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PREVIOUS_SCHOOLS);
+        // detects none
+        _subscriptionControl.setReturnValue(null);
+        Subscription expectedSubscription = new Subscription();
+        expectedSubscription.setUser(_user);
+        expectedSubscription.setProduct(SubscriptionProduct.PREVIOUS_SCHOOLS);
+        expectedSubscription.setSchoolId(school.getId().intValue());
+        // saves the new subscription
+        _mockSubscriptionDao.saveSubscription(expectedSubscription);
+        // I check that the correct user is matched to the correct subscription product
+        // and the correct school id
+        _subscriptionControl.setMatcher(new AbstractMatcher() {
+            protected boolean argumentMatches(Object first, Object second) {
+                Subscription one = (Subscription)first;
+                Subscription two = (Subscription)second;
+                // protect against NPE's
+                if (one.getUser() == null || one.getUser().getId() == null ||
+                        two.getUser() == null || two.getUser().getId() == null ||
+                        one.getProduct() == null || two.getProduct() == null) {
+                    return false;
                 }
+                return one.getUser().getId().equals(two.getUser().getId()) &&
+                        one.getProduct().equals(two.getProduct()) &&
+                        one.getSchoolId() == two.getSchoolId();
+            }
         });
-            // and that's it
-            _subscriptionControl.replay();
+        // and that's it
+        _subscriptionControl.replay();
 
-            _controller.onSubmit(getRequest(), getResponse(), command, errors);
-            assertFalse(errors.hasErrors());
-            user = _userDao.findUserFromId(user.getId().intValue());
-            userProfile = user.getUserProfile();
-            assertEquals("My children are so unique!", userProfile.getAboutMe());
-            assertTrue(userProfile.isPrivate());
-            assertEquals("Other", userProfile.getOtherInterest());
-            assertTrue(userProfile.getInterestsAsArray().length == 1);
-            assertEquals(interestCode, userProfile.getInterestsAsArray()[0]);
-            _subscriptionControl.verify();
-        } finally {
-            _userDao.removeUser(user.getId());
-        }
+        _userControl.reset();
+        _userDao.updateUser(_user);
+        _userControl.replay();
+
+        _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        _userControl.verify();
+        _subscriptionControl.verify();
+        assertFalse(_errors.hasErrors());
     }
 
     public void testBadHash() throws NoSuchAlgorithmException {
-        FollowUpCommand command = new FollowUpCommand();
-        BindException errors = new BindException(command, "");
-        User user = new User();
-        UserProfile userProfile = new UserProfile();
-        user.setEmail("RegistrationFollowUpControllerTest2@greatschools.net");
-        _userDao.saveUser(user);
+        _command.setAboutMe("My children are so unique!");
+        _command.setPrivate(false);
 
-        try {
-            userProfile.setUser(user);
-            userProfile.setScreenName("screeny");
-            user.setUserProfile(userProfile);
-            _userDao.updateUser(user);
-
-            command.setAboutMe("My children are so unique!");
-            command.setPrivate(false);
-            command.setUser(user);
-
-            // don't add hash to request
-            _controller.onBindAndValidate(getRequest(), command, errors);
-            assertTrue(errors.hasErrors());
-            assertEquals(1, errors.getErrorCount());
-        } finally {
-            _userDao.removeUser(user.getId());
-        }
+        // don't add hash to request
+        getRequest().setParameter("marker", null);
+        _controller.onBindAndValidate(getRequest(), _command, _errors);
+        _userControl.verify();
+        assertTrue(_errors.hasErrors());
+        assertEquals(1, _errors.getErrorCount());
     }
 
     public void testAddChild() throws NoSuchAlgorithmException {
-        FollowUpCommand command = new FollowUpCommand();
-        BindException errors = new BindException(command, "");
-        User user = new User();
-        UserProfile userProfile = new UserProfile();
-        user.setEmail("RegistrationFollowUpControllerTest3@greatschools.net");
-        _userDao.saveUser(user);
+        _userProfile.setNumSchoolChildren(new Integer(1));
 
-        try {
-            userProfile.setUser(user);
-            userProfile.setScreenName("screeny");
-            userProfile.setNumSchoolChildren(new Integer(1));
-            user.setUserProfile(userProfile);
-            _userDao.updateUser(user);
+        _userControl.reset(); // negate default settings from setupBindings
+        _userControl.expectAndReturn(_userDao.findUserFromId(456), _user);
+        _userDao.updateUser(_user);
+        _userControl.replay();
 
-            user = _userDao.findUserFromId(user.getId().intValue());
-            assertEquals(user.getUserProfile().getNumSchoolChildren(), new Integer(1));
+        String hash = DigestUtil.hashStringInt(_user.getEmail(), _user.getId());
+        getRequest().addParameter("marker", hash);
+        getRequest().addParameter("addChild", "addChild");
+        _controller.onBindAndValidate(getRequest(), _command, _errors);
+        _userControl.verify();
+        assertTrue(_errors.hasErrors());
 
-            command.setUser(user);
-
-            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
-            getRequest().addParameter("marker", hash);
-            getRequest().addParameter("addChild", "addChild");
-            _controller.onBindAndValidate(getRequest(), command, errors);
-            assertTrue(errors.hasErrors());
-
-            user = _userDao.findUserFromId(user.getId().intValue());
-            assertEquals(user.getUserProfile().getNumSchoolChildren(), new Integer(2));
-
-        } finally {
-            _userDao.removeUser(user.getId());
-        }
+        assertEquals(_user.getUserProfile().getNumSchoolChildren(), new Integer(2));
     }
 
     public void testRemoveChild() throws NoSuchAlgorithmException {
-        FollowUpCommand command = new FollowUpCommand();
-        BindException errors = new BindException(command, "");
-        User user = new User();
-        UserProfile userProfile = new UserProfile();
-        user.setEmail("RegistrationFollowUpControllerTest4@greatschools.net");
-        _userDao.saveUser(user);
+        _userProfile.setNumSchoolChildren(new Integer(2));
 
-        try {
-            userProfile.setUser(user);
-            userProfile.setScreenName("screeny");
-            userProfile.setNumSchoolChildren(new Integer(2));
-            user.setUserProfile(userProfile);
-            _userDao.updateUser(user);
+        _userControl.reset(); // negate default settings from setupBindings
+        _userControl.expectAndReturn(_userDao.findUserFromId(456), _user);
+        _userDao.updateUser(_user);
+        _userControl.replay();
 
-            user = _userDao.findUserFromId(user.getId().intValue());
-            assertEquals(user.getUserProfile().getNumSchoolChildren(), new Integer(2));
+        String hash = DigestUtil.hashStringInt(_user.getEmail(), _user.getId());
+        getRequest().addParameter("marker", hash);
+        getRequest().addParameter("removeChild", "removeChild");
+        _controller.onBindAndValidate(getRequest(), _command, _errors);
+        _userControl.verify();
+        assertTrue(_errors.hasErrors());
 
-            command.setUser(user);
-
-            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
-            getRequest().addParameter("marker", hash);
-            getRequest().addParameter("removeChild", "removeChild");
-            _controller.onBindAndValidate(getRequest(), command, errors);
-            assertTrue(errors.hasErrors());
-
-            user = _userDao.findUserFromId(user.getId().intValue());
-            assertEquals(user.getUserProfile().getNumSchoolChildren(), new Integer(1));
-
-        } finally {
-            _userDao.removeUser(user.getId());
-        }
+        assertEquals(_user.getUserProfile().getNumSchoolChildren(), new Integer(1));
     }
 
     /**
      * Test that if a student is in the command, that student is added to the user and updateUser
-     * is called on the dao. Uses mock so doesn't ever touch the DB.
+     * is called on the dao.
      */
-    public void testaddStudent() {
-        IUserDao oldDao = _controller.getUserDao();
-        FollowUpCommand command = new FollowUpCommand();
-        BindException errors = new BindException(command, "");
-        User user = new User();
-        UserProfile userProfile = new UserProfile();
-        user.setEmail("RegistrationFollowUpControllerTest5@greatschools.net");
-        userProfile.setUser(user);
-        userProfile.setNumSchoolChildren(new Integer(1));
-        user.setUserProfile(userProfile);
+    public void testaddStudent() throws NoSuchAlgorithmException {
+        _userProfile.setNumSchoolChildren(new Integer(1));
 
-        command.setUser(user);
         Student student = new Student();
-        command.addStudent(student);
-        assertNull(user.getStudents());
+        _command.addStudent(student);
+        assertNull(_user.getStudents());
 
-        MockControl userControl = MockControl.createControl(IUserDao.class);
-        IUserDao mockUserDao = (IUserDao) userControl.getMock();
-        mockUserDao.updateUser(user);
-        userControl.replay();
-        try {
-            _controller.setUserDao(mockUserDao);
+        _userControl.reset(); // negate default settings from setupBindings
+        _userDao.updateUser(_user);
+        _userControl.replay();
 
-            _controller.onSubmit(getRequest(), getResponse(), command, errors);
-            assertFalse(errors.hasErrors());
-            assertNotNull(user.getStudents());
-            assertEquals(user.getStudents().iterator().next(), student);
-        } finally {
-            _controller.setUserDao(oldDao);
-        }
+        _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        _userControl.verify();
+        assertFalse(_errors.hasErrors());
+        assertNotNull(_user.getStudents());
+        assertEquals(_user.getStudents().iterator().next(), student);
     }
 
     public void testValidateStudent() throws NoSuchAlgorithmException {
-        FollowUpCommand command = new FollowUpCommand();
-        BindException errors = new BindException(command, "");
-        User user = new User();
-        UserProfile userProfile = new UserProfile();
-        user.setEmail("RegistrationFollowUpControllerTest6@greatschools.net");
-        _userDao.saveUser(user);
+        _userProfile.setNumSchoolChildren(new Integer(1));
 
-        try {
-            userProfile.setUser(user);
-            userProfile.setScreenName("screeny");
-            userProfile.setNumSchoolChildren(new Integer(1));
-            user.setUserProfile(userProfile);
-            _userDao.updateUser(user);
+        getRequest().addParameter("childname1", "Anthony");
+        getRequest().addParameter("grade1", Grade.G_10.getName());
+        getRequest().addParameter("state1", "CA");
+        School school = new School();
+        school.setName("School");
+        school.setId(new Integer(1));
+        school.setDatabaseState(State.CA);
+        school.setGradeLevels(Grades.createGrades(Grade.G_9, Grade.G_12));
+        getRequest().addParameter("schoolId1", String.valueOf(school.getId()));
+        getRequest().addParameter("school1", school.getName());
 
-            command.setUser(user);
+        assertEquals(0, _command.getNumStudents());
 
-            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
-            getRequest().addParameter("marker", hash);
+        _schoolControl.expectAndReturn(_schoolDao.getSchoolById(State.CA, school.getId()),
+                school);
+        _schoolControl.replay();
 
-            getRequest().addParameter("childname1", "Anthony");
-            getRequest().addParameter("grade1", Grade.G_10.getName());
-            getRequest().addParameter("state1", "CA");
-            School school = _schoolDao.getSchoolById(State.CA, new Integer(1));
-            getRequest().addParameter("schoolId1", String.valueOf(school.getId()));
-            getRequest().addParameter("school1", school.getName());
-
-            assertEquals(0, command.getNumStudents());
-            // successful validation should insert the student into the command
-            _controller.onBindAndValidate(getRequest(), command, errors);
-            assertFalse(errors.hasErrors());
-            assertEquals(1, command.getNumStudents());
-            Student student = (Student) command.getStudents().get(0);
-            assertEquals("Anthony", student.getName());
-            assertEquals(Grade.G_10, student.getGrade());
-            assertEquals(new Integer(1), student.getSchoolId());
-            assertEquals(State.CA, student.getState());
-        } finally {
-            _userDao.removeUser(user.getId());
-        }
+        // successful validation should insert the student into the command
+        _controller.onBindAndValidate(getRequest(), _command, _errors);
+        _userControl.verify();
+        _schoolControl.verify();
+        assertFalse(_errors.hasErrors());
+        assertEquals(1, _command.getNumStudents());
+        Student student = (Student) _command.getStudents().get(0);
+        assertEquals("Anthony", student.getName());
+        assertEquals(Grade.G_10, student.getGrade());
+        assertEquals(new Integer(1), student.getSchoolId());
+        assertEquals(State.CA, student.getState());
     }
 
     public void testStudentNameLength() throws NoSuchAlgorithmException {
-        FollowUpCommand command = new FollowUpCommand();
-        BindException errors = new BindException(command, "");
-        User user = new User();
-        UserProfile userProfile = new UserProfile();
-        user.setEmail("RegistrationFollowUpControllerTest7@greatschools.net");
-        _userDao.saveUser(user);
+        _userProfile.setNumSchoolChildren(new Integer(1));
 
-        try {
-            userProfile.setUser(user);
-            userProfile.setScreenName("screeny");
-            userProfile.setNumSchoolChildren(new Integer(1));
-            user.setUserProfile(userProfile);
-            _userDao.updateUser(user);
+        StringBuffer childNameText = new StringBuffer();
+        for (int x=0; x < RegistrationFollowUpController.STUDENT_NAME_MAX_LENGTH + 1; x++) {
+            childNameText.append("x");
+        } // too long
 
-            command.setUser(user);
+        getRequest().addParameter("childname1", childNameText.toString());
+        getRequest().addParameter("grade1", Grade.G_10.getName());
+        getRequest().addParameter("state1", "CA");
 
-            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
-            getRequest().addParameter("marker", hash);
-
-            getRequest().addParameter("childname1",
-                    "123456789012345678901234567890123456789012345678901"); // too long: 51 chars
-            getRequest().addParameter("grade1", Grade.G_10.getName());
-            getRequest().addParameter("state1", "CA");
-            School school = _schoolDao.getSchoolById(State.CA, new Integer(1));
-            getRequest().addParameter("schoolId1", String.valueOf(school.getId()));
-            getRequest().addParameter("school1", school.getName());
-
-            _controller.onBindAndValidate(getRequest(), command, errors);
-            assertTrue(errors.hasErrors());
-            assertTrue(errors.hasFieldErrors("students[0]"));
-        } finally {
-            _userDao.removeUser(user.getId());
-        }
+        _controller.onBindAndValidate(getRequest(), _command, _errors);
+        _userControl.verify();
+        assertTrue(_errors.hasErrors());
+        assertTrue(_errors.hasFieldErrors("students[0]"));
     }
 
     public void testAboutMeLength() throws NoSuchAlgorithmException {
-        FollowUpCommand command = new FollowUpCommand();
-        BindException errors = new BindException(command, "");
-        User user = new User();
-        UserProfile userProfile = new UserProfile();
-        user.setEmail("RegistrationFollowUpControllerTest8@greatschools.net");
-        _userDao.saveUser(user);
+        StringBuffer aboutMeText = new StringBuffer();
+        for (int x=0; x < RegistrationFollowUpController.ABOUT_ME_MAX_LENGTH + 1; x++) {
+            aboutMeText.append("x");
+        } // too long
+        _command.setAboutMe(aboutMeText.toString());
 
-        try {
-            userProfile.setUser(user);
-            userProfile.setScreenName("screeny");
-            userProfile.setNumSchoolChildren(new Integer(1));
-            user.setUserProfile(userProfile);
-            _userDao.updateUser(user);
-
-            command.setUser(user);
-
-            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
-            getRequest().addParameter("marker", hash);
-
-            StringBuffer aboutMeText = new StringBuffer();
-            for (int x=0; x < RegistrationFollowUpController.ABOUT_ME_MAX_LENGTH + 1; x++) {
-                aboutMeText.append("x");
-            } // too long
-            command.setAboutMe(aboutMeText.toString());
-            _controller.onBindAndValidate(getRequest(), command, errors);
-            assertTrue(errors.hasErrors());
-            assertTrue(errors.hasFieldErrors("aboutMe"));
-        } finally {
-            _userDao.removeUser(user.getId());
-        }
+        _controller.onBindAndValidate(getRequest(), _command, _errors);
+        _userControl.verify();
+        assertTrue(_errors.hasErrors());
+        assertTrue(_errors.hasFieldErrors("aboutMe"));
     }
 
     public void testOtherInterestLength() throws NoSuchAlgorithmException {
-        FollowUpCommand command = new FollowUpCommand();
-        BindException errors = new BindException(command, "");
-        User user = new User();
-        UserProfile userProfile = new UserProfile();
-        user.setEmail("RegistrationFollowUpControllerTest9@greatschools.net");
-        _userDao.saveUser(user);
+        StringBuffer otherText = new StringBuffer();
+        for (int x=0; x < RegistrationFollowUpController.OTHER_INTEREST_MAX_LENGTH + 1; x++) {
+            otherText.append("x");
+        } // too long
+        _command.setOtherInterest(otherText.toString());
 
-        try {
-            userProfile.setUser(user);
-            userProfile.setScreenName("screeny");
-            userProfile.setNumSchoolChildren(new Integer(1));
-            user.setUserProfile(userProfile);
-            _userDao.updateUser(user);
-
-            command.setUser(user);
-
-            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
-            getRequest().addParameter("marker", hash);
-
-            StringBuffer otherText = new StringBuffer();
-            for (int x=0; x < RegistrationFollowUpController.OTHER_INTEREST_MAX_LENGTH + 1; x++) {
-                otherText.append("x");
-            } // too long
-            command.setOtherInterest(otherText.toString());
-            _controller.onBindAndValidate(getRequest(), command, errors);
-            assertTrue(errors.hasErrors());
-            assertTrue(errors.hasFieldErrors("otherInterest"));
-        } finally {
-            _userDao.removeUser(user.getId());
-        }
+        _controller.onBindAndValidate(getRequest(), _command, _errors);
+        _userControl.verify();
+        assertTrue(_errors.hasErrors());
+        assertTrue(_errors.hasFieldErrors("otherInterest"));
     }
 
     public void testDuplicatePreviousSchools() throws NoSuchAlgorithmException {
-        FollowUpCommand command = new FollowUpCommand();
-        BindException errors = new BindException(command, "");
-        User user = new User();
-        UserProfile userProfile = new UserProfile();
-        user.setEmail("RegistrationFollowUpControllerTest10@greatschools.net");
-        _userDao.saveUser(user);
+        String hash = DigestUtil.hashStringInt(_user.getEmail(), _user.getId());
+        getRequest().addParameter("marker", hash);
 
-        try {
-            userProfile.setUser(user);
-            userProfile.setScreenName("screeny");
-            user.setUserProfile(userProfile);
-            _userDao.updateUser(user);
+        School school = new School();
+        school.setName("School");
+        school.setId(new Integer(1));
+        school.setDatabaseState(State.CA);
+        getRequest().addParameter("previousSchool1", school.getName());
+        getRequest().addParameter("previousSchoolId1", String.valueOf(school.getId()));
+        getRequest().addParameter("previousState1", State.CA.getAbbreviation());
+        getRequest().addParameter("previousSchool2", school.getName());
+        getRequest().addParameter("previousSchoolId2", String.valueOf(school.getId()));
+        getRequest().addParameter("previousState2", State.CA.getAbbreviation());
 
-            command.setUser(user);
+        _schoolControl.expectAndReturn(_schoolDao.getSchoolById(State.CA, school.getId()),
+                school, 2);
+        _schoolControl.replay();
 
-            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
-            getRequest().addParameter("marker", hash);
-
-            School school = _schoolDao.getSchoolById(State.CA, new Integer(1));
-            getRequest().addParameter("previousSchool1", school.getName());
-            getRequest().addParameter("previousSchoolId1", String.valueOf(school.getId()));
-            getRequest().addParameter("previousState1", State.CA.getAbbreviation());
-            getRequest().addParameter("previousSchool2", school.getName());
-            getRequest().addParameter("previousSchoolId2", String.valueOf(school.getId()));
-            getRequest().addParameter("previousState2", State.CA.getAbbreviation());
-
-            _controller.onBindAndValidate(getRequest(), command, errors);
-            assertFalse(errors.hasErrors());
-            List subs = command.getSubscriptions();
-            assertNotNull(subs);
-            assertEquals(1, subs.size());
-        } finally {
-            _userDao.removeUser(user.getId());
-        }
+        _controller.onBindAndValidate(getRequest(), _command, _errors);
+        _userControl.verify();
+        _schoolControl.verify();
+        assertFalse(_errors.hasErrors());
+        List subs = _command.getSubscriptions();
+        assertNotNull(subs);
+        assertEquals(1, subs.size());
     }
 }

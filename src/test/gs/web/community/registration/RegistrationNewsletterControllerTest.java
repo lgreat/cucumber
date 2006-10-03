@@ -9,7 +9,6 @@ import gs.data.state.State;
 import gs.data.util.DigestUtil;
 import gs.web.BaseControllerTestCase;
 import org.easymock.MockControl;
-import org.springframework.context.ApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 
@@ -32,8 +31,8 @@ public class RegistrationNewsletterControllerTest extends BaseControllerTestCase
 
     protected void setUp() throws Exception {
         super.setUp();
-        ApplicationContext appContext = getApplicationContext();
-        _controller = (RegistrationNewsletterController) appContext.getBean(RegistrationNewsletterController.BEAN_ID);
+        _controller = new RegistrationNewsletterController();
+        _controller.setCommandClass(NewsletterCommand.class);
 
         _subscriptionControl = MockControl.createControl(ISubscriptionDao.class);
         _mockSubscriptionDao = (ISubscriptionDao)_subscriptionControl.getMock();

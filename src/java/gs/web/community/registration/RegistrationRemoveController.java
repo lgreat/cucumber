@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
-import gs.data.community.UserProfile;
 import gs.data.util.DigestUtil;
 import gs.web.util.ReadWriteController;
 

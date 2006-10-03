@@ -4,7 +4,6 @@ import gs.web.BaseControllerTestCase;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
-import org.springframework.context.ApplicationContext;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -28,8 +27,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        ApplicationContext appContext = getApplicationContext();
-        _controller = (ResetPasswordController) appContext.getBean(ResetPasswordController.BEAN_ID);
+        _controller = new ResetPasswordController();
         _userControl = MockControl.createControl(IUserDao.class);
         _userDao = (IUserDao) _userControl.getMock();
         _controller.setUserDao(_userDao);

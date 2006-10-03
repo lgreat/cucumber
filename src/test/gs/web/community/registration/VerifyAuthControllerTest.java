@@ -5,7 +5,6 @@ import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
 import org.easymock.MockControl;
-import org.springframework.context.ApplicationContext;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.apache.commons.lang.StringUtils;
 
@@ -22,11 +21,12 @@ public class VerifyAuthControllerTest extends BaseControllerTestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        ApplicationContext appContext = getApplicationContext();
         _userControl = MockControl.createControl(IUserDao.class);
-        _controller = (VerifyAuthController) appContext.getBean(VerifyAuthController.BEAN_ID);
+        _controller = new VerifyAuthController();
         _mockUserDao = (IUserDao)_userControl.getMock();
         _controller.setUserDao(_mockUserDao);
+
+        _controller.setAuthenticationManager(new AuthenticationManager());
     }
 
     public void testVerifyAuth() throws NoSuchAlgorithmException, IOException {

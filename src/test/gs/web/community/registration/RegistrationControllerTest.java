@@ -5,9 +5,9 @@ import gs.data.community.User;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.MockJavaMailSender;
-import org.springframework.context.ApplicationContext;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
+import org.easymock.MockControl;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -22,18 +22,23 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     private RegistrationController _controller;
 
     private IUserDao _userDao;
+    private MockControl _userControl;
     private MockJavaMailSender _mailSender;
+
+    private static final String SUCCESS_VIEW = "/community/registration/registrationSuccess";
 
     protected void setUp() throws Exception {
         super.setUp();
-        ApplicationContext appContext = getApplicationContext();
-        _controller = (RegistrationController) appContext.getBean(RegistrationController.BEAN_ID);
+        _controller = new RegistrationController();
         _mailSender = new MockJavaMailSender();
         // have to set host else the mock mail sender will throw an exception
         // actual value is irrelevant
         _mailSender.setHost("greatschools.net");
         _controller.setMailSender(_mailSender);
-        _userDao = (IUserDao)appContext.getBean(IUserDao.BEAN_ID);
+        _userControl = MockControl.createControl(IUserDao.class);
+        _userDao = (IUserDao)_userControl.getMock();
+        _controller.setUserDao(_userDao);
+        _controller.setSuccessView(SUCCESS_VIEW);
     }
 
     /**
@@ -51,23 +56,19 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         userCommand.setState(State.CA);
         userCommand.setScreenName("screeny");
 
+        userCommand.getUser().setId(new Integer(345)); // to fake the database save
 
-        assertNull("Fake user already exists??", _userDao.findUserFromEmailIfExists(email));
+        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email), null);
+        _userDao.saveUser(userCommand.getUser());
+        _userDao.updateUser(userCommand.getUser());
+        _userDao.updateUser(userCommand.getUser());
+        _userControl.replay();
 
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
+        _userControl.verify();
 
-        User u = _userDao.findUserFromEmailIfExists(email);
-        assertNotNull("User not inserted", u);
-        try {
-            assertEquals("Not getting expected success view",
-                    "/community/registration/registrationSuccess", mAndV.getViewName());
-            assertEquals(email, u.getEmail());
-            assertTrue("Password failing compare", u.matchesPassword(password));
-            assertNotNull("User wasn't given a user profile", u.getUserProfile());
-            assertEquals(State.CA, u.getUserProfile().getState());
-        } finally {
-            _userDao.removeUser(u.getId());
-        }
+        assertEquals("Not getting expected success view",
+                SUCCESS_VIEW, mAndV.getViewName());
     }
 
     /**
@@ -75,33 +76,35 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
      * @throws NoSuchAlgorithmException
      */
     public void testExistingUser() throws NoSuchAlgorithmException {
-        User user = new User();
-        user.setEmail("testExistingUser@greatschools.net");
-        _userDao.saveUser(user);
-        Integer userId = user.getId();
+        String email = "testExistingUser@greatschools.net";
+        Integer userId = new Integer(346);
+
+        UserCommand userCommand = new UserCommand();
+        BindException errors = new BindException(userCommand, "");
+        String password = "foobar";
+        userCommand.getUser().setEmail(email);
+
+        userCommand.setPassword(password);
+        userCommand.setConfirmPassword(password);
+        userCommand.setScreenName("screeny");
+        userCommand.getUser().setId(userId);
+
+        assertTrue(userCommand.getUser().isPasswordEmpty());
+        assertFalse(userCommand.getUser().isEmailProvisional());
+
+        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email),
+                userCommand.getUser());
+        _userDao.updateUser(userCommand.getUser());
+        _userDao.updateUser(userCommand.getUser());
+        _userControl.replay();
+
         try {
-            user = _userDao.findUserFromId(user.getId().intValue());
-            assertTrue(user.isPasswordEmpty());
-            String email = user.getEmail();
-
-            UserCommand userCommand = new UserCommand();
-            BindException errors = new BindException(userCommand, "");
-            String password = "foobar";
-            userCommand.getUser().setEmail(email);
-
-            userCommand.setPassword(password);
-            userCommand.setConfirmPassword(password);
-            userCommand.setScreenName("screeny");
-
-            try {
-                _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
-                user = _userDao.findUserFromId(user.getId().intValue());
-                assertTrue(user.isEmailProvisional());
-            } catch (Exception e) {
-                fail(e.getMessage());
-            }
-        } finally {
-            _userDao.removeUser(userId);
+            _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
+            _userControl.verify();
+            assertTrue(userCommand.getUser().isEmailProvisional());
+            assertFalse(userCommand.getUser().isPasswordEmpty());
+        } catch (Exception e) {
+            fail(e.getMessage());
         }
     }
 
@@ -114,11 +117,17 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         BindException errors = new BindException(userCommand, "");
         String email = "testRegistrationFailureOnNewUser@RegistrationControllerTest.com";
         String password = "foobar";
+        Integer userId = new Integer(347);
         userCommand.setEmail(email);
         userCommand.setPassword(password);
         userCommand.setConfirmPassword(password);
+        userCommand.getUser().setId(userId);
 
-        assertNull("Fake user already exists??", _userDao.findUserFromEmailIfExists(email));
+        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email), null);
+        _userDao.saveUser(userCommand.getUser());
+        _userDao.updateUser(userCommand.getUser());
+        _userDao.removeUser(userId);
+        _userControl.replay();
 
         // set the mock mail sender to throw an exception
         _mailSender.setThrowOnSendMessage(true);
@@ -127,8 +136,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
             _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
             fail("Expected mail exception not thrown");
         } catch (Exception ex) {
-            assertNull("Record for new user was not deleted on failed registration",
-                    _userDao.findUserFromEmailIfExists(email));
+            _userControl.verify();
         } finally {
             _mailSender.setThrowOnSendMessage(false);
         }
@@ -139,36 +147,33 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
      * are left in the database.
      */
     public void testRegistrationFailureOnExistingUser() {
-        User user = new User();
-        user.setEmail("testRegistrationFailureOnExistingUser@greatschools.net");
-        _userDao.saveUser(user);
-        Integer userId = user.getId();
+        UserCommand userCommand = new UserCommand();
+        BindException errors = new BindException(userCommand, "");
+        String email = "testRegistrationFailureOnExistingUser@greatschools.net";
+        String password = "foobar";
+        Integer userId = new Integer(348);
+        userCommand.setEmail(email);
+        userCommand.setPassword(password);
+        userCommand.setConfirmPassword(password);
+        userCommand.getUser().setId(userId);
 
+        User user = userCommand.getUser();
+        assertTrue(user.isPasswordEmpty());
+
+        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email), user);
+        _userDao.updateUser(userCommand.getUser());
+        _userDao.updateUser(userCommand.getUser());
+        _userControl.replay();
+
+        // set the mock mail sender to throw an exception
+        _mailSender.setThrowOnSendMessage(true);
         try {
-            user = _userDao.findUserFromId(user.getId().intValue());
+            _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
+            fail("Expected mail exception not thrown");
+        } catch (Exception e) {
+            _userControl.verify();
             assertTrue(user.isPasswordEmpty());
-            String email = user.getEmail();
-
-            UserCommand userCommand = new UserCommand();
-            BindException errors = new BindException(userCommand, "");
-            String password = "foobar";
-            userCommand.getUser().setEmail(email);
-
-            userCommand.setPassword(password);
-            userCommand.setConfirmPassword(password);
-
-            // set the mock mail sender to throw an exception
-            _mailSender.setThrowOnSendMessage(true);
-            try {
-                _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
-                fail("Expected mail exception not thrown");
-            } catch (Exception e) {
-                user = _userDao.findUserFromId(user.getId().intValue());
-                assertTrue("Record for existing user remains modified after failed registration",
-                        user.isPasswordEmpty());
-            }
         } finally {
-            _userDao.removeUser(userId);
             _mailSender.setThrowOnSendMessage(false);
         }
     }
