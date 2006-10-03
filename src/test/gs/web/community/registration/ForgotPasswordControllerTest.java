@@ -112,7 +112,7 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         Multipart mp = (Multipart) msg.getContent();
         assertEquals("Email contains more than 2 content types", 2, mp.getCount());
         for (int x=0; x < mp.getCount(); x++) {
-            if (mp.getBodyPart(x).getContentType().contains("text/plain")) {
+            if (mp.getBodyPart(x).getContentType().indexOf("text/plain") > -1) {
                 assertEquals(plainTextBody, String.valueOf(mp.getBodyPart(0).getContent()));
             } else {
                 assertEquals(HTMLBody, String.valueOf(mp.getBodyPart(1).getContent()));
