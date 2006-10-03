@@ -75,7 +75,7 @@
 <td style="width: 651px" valign="top">
 <table width="651" cellpadding="0" cellspacing="0" border="0">
 <tr>
-    <td colspan="3"><h2 id="caSchools">${requestScope.context.stateOrDefault.longName} Schools</h2></td>
+    <td colspan="3"><h1 id="stateSchools">${requestScope.context.stateOrDefault.longName} Schools</h1></td>
 </tr>
 <tr>
     <td colspan="3"><gsml:img style="height: 5px;" alt="" src="/res/img/header/clear_pix.gif" />
@@ -131,7 +131,7 @@
                     <td valign="bottom"><input
                             onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
                             onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
-                            class="button" style="width:41px;height:26px;" alt="GO"
+                            class="button" style="width:41px;height:26px;" alt="Compare ${requestScope.context.state.longName} Schools"
                             src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/></td>
                 </tr>
                 <tr>
@@ -181,7 +181,7 @@
                     <td valign="bottom">
                         <input onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
                                onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
-                               class="button" style="width:41px;height:26px;" alt="GO"
+                               class="button" style="width:41px;height:26px;" alt="Compare ${requestScope.context.state.longName} Schools"
                                src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
                     </td>
                 </tr>
@@ -238,7 +238,7 @@
 
                     <td valign="top"><input onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
                                             onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
-                                            class="button" style="width:41px;height:26px;" alt="GO"
+                                            class="button" style="width:41px;height:26px;" alt="Find ${requestScope.context.state.longName} Schools"
                                             src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/></td>
                 </tr>
                 <tr>
@@ -282,7 +282,7 @@
                     <td valign="bottom"><input
                             onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
                             onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
-                            class="button" style="width:41px;height:26px;padding-bottom:2px;" alt="GO"
+                            class="button" style="width:41px;height:26px;padding-bottom:2px;" alt="Find ${requestScope.context.state.longName} Schools"
                             src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
                     </td>
                 </tr>
@@ -596,7 +596,7 @@
         <mod:tracking pageType="home" pageName="state home" hier1="Home,StateHome"/>
     </c:when>
     <c:otherwise>
-        <mod:tracking pageType="home" pageName="state home" hier1="Home,StateHome,National"/>    
+        <mod:tracking pageType="home" pageName="state home" hier1="Home,StateHome,National"/>
     </c:otherwise>
 </c:choose>
 </body>

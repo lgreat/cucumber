@@ -62,28 +62,63 @@ public class ResearchController extends AbstractController {
         }
 
         ISessionContext context = SessionContextUtil.getSessionContext(request);
-        State state = context.getStateOrDefault();
+        State state = context.getState();
         Map model = new HashMap ();
         model.put("cities", getCitiesForState (state));
         return new ModelAndView (getViewName(), model);
     }
 
+    /**
+     * Populate a <code>List</code> with the top cities in the state.  If the
+     * supplied State arguement is null, then return a List of the top
+     * national cities:
+     *       New York
+     *       Los Angeles
+     *       Chicago
+     *       Houston
+     *       Miami
+     * @param state
+     * @return
+     */
     List getCitiesForState (State state) {
         List cities = new ArrayList();
-        String[] cityNames = state.getTopCities();
-        for (int i = 0; i < CITY_LIST_SIZE; i++) {
-            // If there is a city for this index, then use it.
-            Map data = new HashMap ();
-            if (!ArrayUtils.isEmpty(cityNames) && (i < cityNames.length)) {
-                data.put("name", cityNames[i]);
-                UrlBuilder cityPageUrl = new UrlBuilder(UrlBuilder.CITY_PAGE, state, cityNames[i]);
-                data.put("link", cityPageUrl);
-            } else {
-                // Otherwise, fill the list with filler data
-                data.put("name", "");
-                data.put("link", "");
+        if (state != null) {
+            String[] cityNames = state.getTopCities();
+            for (int i = 0; i < CITY_LIST_SIZE; i++) {
+                // If there is a city for this index, then use it.
+                Map data = new HashMap ();
+                if (!ArrayUtils.isEmpty(cityNames) && (i < cityNames.length)) {
+                    data.put("name", cityNames[i]);
+                    UrlBuilder cityPageUrl = new UrlBuilder(UrlBuilder.CITY_PAGE, state, cityNames[i]);
+                    data.put("link", cityPageUrl.toString());
+                } else {
+                    // Otherwise, fill the list with filler data
+                    data.put("name", "");
+                    data.put("link", "");
+                }
+                cities.add (data);
             }
-            cities.add (data);
+        } else {
+            Map data = new HashMap ();
+            data.put("name", "New York City");
+            data.put("link", new UrlBuilder(UrlBuilder.CITY_PAGE, State.NY, "New York"));
+            cities.add(data);
+            data = new HashMap ();
+            data.put("name", "Los Angeles");
+            data.put("link", new UrlBuilder(UrlBuilder.CITY_PAGE, State.CA, "Los Angeles"));
+            cities.add(data);
+            data = new HashMap ();
+            data.put("name", "Chicago");
+            data.put("link", new UrlBuilder(UrlBuilder.CITY_PAGE, State.IL, "Chicago"));
+            cities.add(data);
+            data = new HashMap ();
+            data.put("name", "Houston");
+            data.put("link", new UrlBuilder(UrlBuilder.CITY_PAGE, State.TX, "Houston"));
+            cities.add(data);
+            data = new HashMap ();
+            data.put("name", "Miami");
+            data.put("link", new UrlBuilder(UrlBuilder.CITY_PAGE, State.FL, "Miami"));
+            cities.add(data);
         }
         return cities;
     }
