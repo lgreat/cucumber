@@ -482,6 +482,7 @@ h2.updatesTitle {
 
 .updatesText a:link, .updatesText a:visited, updatesText a:hover {
     color: #3399aa;
+    text-decoration: underline;
 }
 
 .italicTitle {
