@@ -13,6 +13,9 @@
                              type="gs.web.test.rating.IRatingsDisplay"/>
     <jsp:directive.attribute name="overallRating" required="true" description="Overall Rating for the school"
                              type="java.lang.Integer"/>
+    <jsp:directive.attribute name="year" required="true" description="Year of this rating"
+                             type="java.lang.Integer"/>
+
 
     <pageHelper:externalCss file="/res/css/school/ratings/table.css"/>
     <table id="rating">
@@ -81,13 +84,13 @@
     </table>
 
     <br/>
-
+    <c:if test="${not empty trend}">
     <div id="legendWrapper">
         <div id="legend">
             <div style="float:left;">
                 <h2 id="testScoreTrend">Test Score Trend</h2>
 
-                <p>Based on changed between<br/>spring 2005 and spring 2006</p>
+                <p>Based on change between<br/>${year-1} and ${year}</p>
             </div>
 
             <div style="float:left;border-left: dotted 1px #66cccc;padding-left:36px; height:100%;">
@@ -101,5 +104,6 @@
             </div>
         </div>
     </div>
+    </c:if>
 
 </jsp:root>

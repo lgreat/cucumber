@@ -86,9 +86,12 @@
 
 
                 <div style="padding-top:15px;">
+                    <c:if test="${hasRating == 'true'}">
                         <div style="float:left;width:498px;">
-                            <school:ratingTable ratingsDisplay="${ratingsDisplay}" overallRating="${overallRating}"/>
+                            <school:ratingTable ratingsDisplay="${ratingsDisplay}" overallRating="${overallRating}"
+                                                year="2005"/>
                         </div>
+                    </c:if>
 
                     <div style="float:right;">
                         <ad:x48/>
