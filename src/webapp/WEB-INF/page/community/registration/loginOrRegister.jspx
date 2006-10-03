@@ -70,6 +70,24 @@
     </head>
 
     <gsml:body adPageName="login" pageLayout="twoColumnLayout">
+        <c:if test="${not empty requestScope.context.memberId and requestScope.context.user.emailValidated eq true}">
+            Welcome ${requestScope.context.nickname}. Some things you can do:
+            <ul>
+                <li>
+                    <gsml:a
+                    href="/cgi-bin/logout/$STATE/?email=${requestScope.context.email}&amp;mid=${requestScope.context.memberId}">
+                    Sign Out</gsml:a>
+                </li>
+                <li>
+                    <link:resetPassword>Change password</link:resetPassword>
+                </li>
+                <li>
+                    If you are not ${requestScope.context.email} and want to log in or register,
+                    you may do so below.
+                </li>
+            </ul>
+        </c:if>
+
         <h1>Log In or Register</h1>
         <div id="existing" class="choice">
             <h3>Existing Users</h3>
@@ -102,7 +120,7 @@
                         <input type="hidden" name="${status.expression}" value="${status.value}"/>
                     </spring:bind>
 
-                    <input class="form" type="submit" value="Login"/>
+                    <input class="form submit" type="submit" value="Login"/>
             </gsweb:form>
             <br style="clear: left;"/>
             <c:if test="${loginCmd.email != null and loginCmd.email != ''}">

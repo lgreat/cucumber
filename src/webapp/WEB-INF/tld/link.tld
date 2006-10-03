@@ -591,6 +591,29 @@
         </attribute>
     </tag>
     <tag>
+        <name>resetPassword</name>
+        <tag-class>gs.web.jsp.link.ResetPasswordTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Change Password</display-name>
+        <description>
+            <![CDATA[Choose a new password.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+    </tag>
+    <tag>
         <name>requestEmailValidation</name>
         <tag-class>gs.web.jsp.link.RequestEmailValidationTagHandler</tag-class>
         <body-content>JSP</body-content>

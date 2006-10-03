@@ -11,6 +11,8 @@ import gs.data.community.User;
 import gs.data.util.DigestUtil;
 import gs.web.util.UrlBuilder;
 import gs.web.util.ReadWriteController;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.ISessionContext;
 import gs.web.util.validator.UserCommandValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,35 +47,46 @@ public class ResetPasswordController extends SimpleFormController implements Rea
     protected User validateRequest(HttpServletRequest request, UserCommand command, BindException errors) throws NoSuchAlgorithmException {
         String hash = null;
         User user = null;
-        try {
-            String idString = request.getParameter("id");
-            hash = idString.substring(0, DigestUtil.MD5_HASH_LENGTH);
+        String idString = request.getParameter("id");
 
-            int id = Integer.parseInt(idString.substring(DigestUtil.MD5_HASH_LENGTH));
-
+        if (idString == null) {
+            ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            user = sessionContext.getUser();
+            if (user == null) {
+                _log.warn("Reset password request with no user specified.");
+                errors.reject("unknown_user", "Please log in to use this page.");
+                return null;
+            }
+        } else {
             try {
-                user = getUserDao().findUserFromId(id);
-            } catch (ObjectRetrievalFailureException orfe) {
-                _log.warn("Reset password request for unknown user id: " + id);
+                hash = idString.substring(0, DigestUtil.MD5_HASH_LENGTH);
+
+                int id = Integer.parseInt(idString.substring(DigestUtil.MD5_HASH_LENGTH));
+
+                try {
+                    user = getUserDao().findUserFromId(id);
+                } catch (ObjectRetrievalFailureException orfe) {
+                    _log.warn("Reset password request for unknown user id: " + id);
+                    createGenericValidationError(request, errors);
+                }
+            } catch (Exception ex2) {
+                _log.warn("Invalid hash string in reset password request: " + request.getParameter("id"));
                 createGenericValidationError(request, errors);
             }
-        } catch (Exception ex) {
-            _log.warn("Invalid hash string in reset password request: " + request.getParameter("id"));
-            createGenericValidationError(request, errors);
-        }
 
-        if (user == null) {
-            // id is malformed. This has already been logged and an error generated
-            return null;
-        }
-        // now confirm hash
-        String actualHash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
-        if (!hash.equals(actualHash)) {
-            _log.warn("Reset password request has invalid hash: " + hash + " for user " +
-                    user.getEmail());
-            createGenericValidationError(request, errors);
-            // if hash doesn't validate, do not continue
-            return null;
+            if (user == null) {
+                // id is malformed. This has already been logged and an error generated
+                return null;
+            }
+            // now confirm hash
+            String actualHash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
+            if (!hash.equals(actualHash)) {
+                _log.warn("Reset password request has invalid hash: " + hash + " for user " +
+                        user.getEmail());
+                createGenericValidationError(request, errors);
+                // if hash doesn't validate, do not continue
+                return null;
+            }
         }
 
         if (user.isPasswordEmpty()) {
@@ -115,6 +128,13 @@ public class ResetPasswordController extends SimpleFormController implements Rea
         User user = validateRequest(request, userCommand, errors);
         if (errors.hasErrors()) {
             return;
+        }
+
+        String oldPassword = request.getParameter("oldPassword");
+        if (oldPassword != null) {
+            if (!user.matchesPassword(oldPassword)) {
+                errors.reject("incorrect_password", "The old password is incorrect");
+            }
         }
 
         UserCommandValidator validator = new UserCommandValidator();

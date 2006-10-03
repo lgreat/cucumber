@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.57 2006/09/30 01:03:54 dlee Exp $
+ * $Id: UrlBuilder.java,v 1.58 2006/10/03 16:45:13 aroy Exp $
  */
 
 package gs.web.util;
@@ -523,7 +523,9 @@ public class UrlBuilder {
         } else if (RESET_PASSWORD.equals(page)) {
             _perlPage = false;
             _path = "/community/resetPassword.page";
-            setParameter("id", param0);
+            if (param0 != null) {
+                setParameter("id", param0);
+            }
         } else if (REQUEST_EMAIL_VALIDATION.equals(page)) {
             _perlPage = false;
             _path = "/community/requestEmailValidation.page";
