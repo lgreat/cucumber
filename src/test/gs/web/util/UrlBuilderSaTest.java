@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.42 2006/10/04 00:34:51 chriskimm Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.43 2006/10/04 19:58:57 dlee Exp $
  */
 
 package gs.web.util;
@@ -153,7 +153,7 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/cgi-bin/wy/pqview/8", builder.asSiteRelativeXml(null));
 
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_RATINGS);
-        assertEquals("/school/ratings.page?id=8&amp;state=WY", builder.asSiteRelativeXml(null));
+        assertEquals("/school/rating.page?id=8&amp;state=WY", builder.asSiteRelativeXml(null));
 
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_TEST_SCORE);
         assertEquals("/modperl/achievement/wy/8", builder.asSiteRelativeXml(null));
