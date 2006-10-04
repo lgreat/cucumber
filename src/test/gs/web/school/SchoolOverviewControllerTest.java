@@ -26,11 +26,12 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
 
     public void testHandleRequestInternal() throws Exception {
         GsMockHttpServletRequest request = getRequest();
-        System.out.println ("req: " + request);
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
         ModelAndView mAndV = _controller.handleRequestInternal(request, getResponse());
         School school = (School)mAndV.getModel().get("school");
         assertEquals("Alameda High School", school.getName());
+
+        //Integer reviewCount = (Integer)mAndV.getModel().get("reviewCount");
     }
 }
