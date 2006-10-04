@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingControllerTest.java,v 1.1 2006/10/02 23:02:42 dlee Exp $
+ * $Id: RatingControllerTest.java,v 1.2 2006/10/04 03:48:08 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -155,7 +155,7 @@ public class RatingControllerTest extends BaseControllerTestCase {
         Map model = _controller.referenceData(getRequest(), command, errors);
         command = (RatingsCommand) model.get(_controller.getCommandName());
 
-        assertEquals(Integer.valueOf("10"), command.getOverallRating());
+        assertEquals(Integer.valueOf("10"), command.getOverallRating().getRating());
         assertNotNull(command.getRatingsDisplay());
 
     }
