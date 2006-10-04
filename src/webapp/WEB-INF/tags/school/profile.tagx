@@ -27,13 +27,16 @@
                                 <td class="${(tab eq 'overview') ? 'active' : 'inactive'}"><link:schoolProfileOverview school="${school}">School<br/>Overview
                                 </link:schoolProfileOverview></td>
                                 <c:choose>
-                                    <c:when test="${school.type.schoolTypeName == 'public'}" >
+                                    <c:when test="${school.type.schoolTypeName != 'private'}" >
                                         <td><link:schoolProfileTestscore school="${school}">Test<br/>Scores
                                         </link:schoolProfileTestscore></td>
                                         <td><link:schoolProfileCensus school="${school}">Teachers/<br/>Students
                                         </link:schoolProfileCensus></td>
-                                        <td class="${(tab eq 'ratings') ? 'active' : 'inactive'}"><link:schoolProfileRating school="${school}">Ratings<br/>&amp;nbsp;
-                                        </link:schoolProfileRating></td>
+
+                                        <c:if test="${state.ratingsState}">
+                                            <td class="${(tab eq 'ratings') ? 'active' : 'inactive'}"><link:schoolProfileRating school="${school}">Ratings<br/>&amp;nbsp;
+                                            </link:schoolProfileRating></td>
+                                        </c:if>                                        
                                     </c:when>
                                     <c:otherwise>
                                         <td><link:schoolProfilePrivateQuickFacts school="${school}">Quick<br/>Facts

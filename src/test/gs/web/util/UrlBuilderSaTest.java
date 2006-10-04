@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.43 2006/10/04 19:58:57 dlee Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.44 2006/10/04 22:26:38 dlee Exp $
  */
 
 package gs.web.util;
@@ -152,9 +152,6 @@ public class UrlBuilderSaTest extends TestCase {
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_PRINCIPAL_VIEW);
         assertEquals("/cgi-bin/wy/pqview/8", builder.asSiteRelativeXml(null));
 
-        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_RATINGS);
-        assertEquals("/school/rating.page?id=8&amp;state=WY", builder.asSiteRelativeXml(null));
-
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_TEST_SCORE);
         assertEquals("/modperl/achievement/wy/8", builder.asSiteRelativeXml(null));
 
@@ -165,6 +162,13 @@ public class UrlBuilderSaTest extends TestCase {
         //_log.debug(builder.asSiteRelativeXml(null));
         assertEquals("/cgi-bin/cs_compare/wy/?area=m&amp;city=CityName&amp;level=e&amp;miles=1000&amp;school_selected=8&amp;showall=1&amp;sortby=distance&amp;street=123+way&amp;tab=over&amp;zip=12345",
                 builder.asSiteRelativeXml(null));
+
+        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_RATINGS);
+        assertEquals("/school/rating.page?id=8&amp;state=WY", builder.asSiteRelativeXml(null));
+
+        school.setDatabaseState(State.CA);
+        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_RATINGS);
+        assertEquals("/cgi-bin/ca/rankings/8", builder.asSiteRelativeXml(null));
 
     }
 
