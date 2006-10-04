@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
+        >
+    <jsp:directive.tag body-content="scriptless"/>
+    <jsp:directive.attribute name="ratingsDisplay" required="true" description="Ratings Display Interface"
+                             type="gs.web.test.rating.IRatingsDisplay"/>
+    <jsp:directive.attribute name="overallRatingCell" required="true" description="Overall Rating for the school"
+                             type="gs.web.test.rating.Cell"/>
+    <jsp:directive.attribute name="year" required="true" description="Year of this rating"
+                             type="java.lang.Integer"/>
+
+
+    <pageHelper:externalCss file="/res/css/school/ratings/table.css"/>
+    <table id="rating">
+        <thead>
+            <tr>
+                <th scope="col">STUDENTS</th>
+
+                <c:forEach var="subject" items="${ratingsDisplay.subjectGroupLabels}">
+                    <th scope="col">${subject}</th>
+                </c:forEach>
+            </tr>
+        </thead>
+
+        <c:if test="${not empty overallRatingCell.rating}">
+            <tbody>
+                <tr>
+                    <td>All Students</td>
+                    <td>
+                        <ratings:cell cell="${overallRatingCell}"/>
+                    </td>
+                </tr>
+            </tbody>
+        </c:if>
+
+        <c:forEach var="rowGroup" items="${ratingsDisplay.rowGroups}">
+            <tbody>
+                <tr>
+                    <td colspan="2" scope="rowgroup" class="rowgroup"><span>${rowGroup.label}</span></td>
+                </tr>
+                <c:forEach var="row" items="${rowGroup.rows}">
+                    <tr>
+                        <td scope="row">${row.label}</td>
+                        <c:forEach var="cell" items="${row.cells}">
+                            <td><ratings:cell cell="${cell}"/></td>
+                        </c:forEach>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </c:forEach>
+    </table>
+
+    <br/>
+    <c:if test="${not empty overallRatingCell.trend}">
+        <div id="legendWrapper">
+            <div id="legend">
+                <div style="float:left;">
+                    <h2 id="testScoreTrend">Test Score Trend</h2>
+
+                    <p>Based on change between<br/>${year-1} and ${year}</p>
+                </div>
+
+                <div style="float:left;border-left: dotted 1px #66cccc;padding-left:36px; height:100%;">
+                    <table>
+                        <tr><td><span class="strongImprovement">&amp;nbsp;</span></td><td>Strong Improvement</td></tr>
+                        <tr><td><span class="someImprovement">&amp;nbsp;</span></td><td>Some Improvement</td></tr>
+                        <tr><td><span class="noChange">&amp;nbsp;</span></td><td>No Change</td></tr>
+                        <tr><td><span class="someDecline">&amp;nbsp;</span></td><td>Some Decline</td></tr>
+                        <tr><td><span class="strongDecline">&amp;nbsp;</span></td><td>Strong Decline</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </c:if>
+
+</jsp:root>

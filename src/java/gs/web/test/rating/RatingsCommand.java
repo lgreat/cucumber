@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsCommand.java,v 1.5 2006/10/02 23:02:42 dlee Exp $
+ * $Id: RatingsCommand.java,v 1.6 2006/10/04 01:05:35 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -18,9 +18,9 @@ public final class RatingsCommand implements SchoolIdValidator.ISchoolId, StateV
     private int _id;
     private int _schoolId;
     private State _state;
-    private Integer _overallRating;
     private IRatingsDisplay _ratingsDisplay;
     private School _school;
+    private IRatingsDisplay.IRowGroup.IRow.ICell _overallRating;
 
 
     public int getId() {
@@ -48,14 +48,6 @@ public final class RatingsCommand implements SchoolIdValidator.ISchoolId, StateV
         _state = state;
     }
 
-    public Integer getOverallRating() {
-        return _overallRating;
-    }
-
-    public void setOverallRating(Integer overallRating) {
-        _overallRating = overallRating;
-    }
-
     public IRatingsDisplay getRatingsDisplay() {
         return _ratingsDisplay;
     }
@@ -72,4 +64,11 @@ public final class RatingsCommand implements SchoolIdValidator.ISchoolId, StateV
         _school = school;
     }
 
+    public IRatingsDisplay.IRowGroup.IRow.ICell getOverallRating() {
+        return _overallRating;
+    }
+
+    public void setOverallRating(IRatingsDisplay.IRowGroup.IRow.ICell overallRating) {
+        _overallRating = overallRating;
+    }
 }

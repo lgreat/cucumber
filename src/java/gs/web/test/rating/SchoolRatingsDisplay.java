@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.7 2006/10/03 22:41:53 dlee Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.8 2006/10/04 01:05:35 dlee Exp $
  */
 
 package gs.web.test.rating;
@@ -83,7 +83,9 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                         rowGroup.add(row);
                     }
                 } else {
-                    if (!row.isAllEmptyCells()) rowGroup.add(row);
+                    if (!row.isAllEmptyCells()) {
+                        rowGroup.add(row);
+                    }
                 }
             }
 
@@ -131,7 +133,7 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
 
             IRatingsConfig.ISubjectGroupConfig [] subjects = _ratingsConfig.getSubjectGroupConfigs();
 
-            for (int numSubjectGroups=0; numSubjectGroups < subjects.length; numSubjectGroups++) {
+            for (int numSubjectGroups = 0; numSubjectGroups < subjects.length; numSubjectGroups++) {
                 int[] ids = _ratingsConfig.getDataSetIds(subjects[numSubjectGroups], _rowConfig);
                 int count = 0;
                 int total = 0;
@@ -164,10 +166,14 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 Integer rating = null;
                 Integer prevRating = null;
 
-                if (count > 0) rating = new Integer(Math.round((float)total / (float)count));
-                if (prevCount > 0) prevRating = new Integer(Math.round((float)prevTotal / (float)prevCount));
+                if (count > 0) {
+                    rating = new Integer(Math.round((float) total / (float) count));
+                }
+                if (prevCount > 0) {
+                    prevRating = new Integer(Math.round((float) prevTotal / (float) prevCount));
+                }
 
-                _cells.add(new Cell(rating, prevRating));
+                _cells.add(new Cell(rating, TestManager.calculateRatingTrend(rating, prevRating)));
             }
         }
 
@@ -180,7 +186,7 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
         }
 
         boolean isAllEmptyCells() {
-            for (Iterator iter = _cells.iterator(); iter.hasNext(); ) {
+            for (Iterator iter = _cells.iterator(); iter.hasNext();) {
                 Cell cell = (Cell) iter.next();
                 if (cell.getRating() != null) {
                     return false;
@@ -198,35 +204,6 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 return decile;
             }
             return 0;
-        }
-    }
-
-    protected class Cell implements IRowGroup.IRow.ICell {
-        private Integer _rating;
-        private Integer _trend;
-
-        Cell(Integer rating, Integer prevRating) {
-            _rating = rating;
-
-            if (rating != null && prevRating != null) {
-                int diff = rating.intValue() - prevRating.intValue();
-
-                if (diff > 2) {
-                    diff = 2;
-                } else if (diff < -2) {
-                    diff = -2;
-                }
-
-                _trend = new Integer(diff);
-            }
-        }
-
-        public Integer getRating() {
-            return _rating;
-        }
-
-        public Integer getTrend() {
-            return _trend;
         }
     }
 

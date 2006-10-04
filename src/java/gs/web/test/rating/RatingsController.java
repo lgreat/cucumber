@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsController.java,v 1.10 2006/10/03 18:43:55 dlee Exp $
+ * $Id: RatingsController.java,v 1.11 2006/10/04 01:05:35 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -41,7 +41,7 @@ public class RatingsController extends SimpleFormController {
     private ITestDataSetDao _testDataSetDao;
     private List _onLoadValidators;
     private TestManager _testManager;
-    private boolean   _showingSubjectGroups = false;
+    private boolean _showingSubjectGroups = false;
 
     protected void onBindOnNewForm(HttpServletRequest request,
                                    Object command,
@@ -79,13 +79,28 @@ public class RatingsController extends SimpleFormController {
                 SchoolTestValue schoolTestValue =
                         getTestManager().getOverallRating(ratingsCommand.getSchool(), ratingsConfig.getYear());
 
-                if (null != schoolTestValue) {
-                    ratingsCommand.setOverallRating(schoolTestValue.getValueInteger());
+                if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
+                    SchoolTestValue previousYearOverallRating =
+                            getTestManager().getOverallRating(ratingsCommand.getSchool(), ratingsConfig.getYear() - 1);
+
+                    Integer currentRating = schoolTestValue.getValueInteger();
+                    Integer previousRating = null;
+
+                    if (previousYearOverallRating != null && previousYearOverallRating.getValueInteger() != null) {
+                        previousRating = previousYearOverallRating.getValueInteger();
+                    }
+
+                    IRatingsDisplay.IRowGroup.IRow.ICell overallRatingCell =
+                            new Cell(schoolTestValue.getValueInteger(),
+                                    TestManager.calculateRatingTrend(currentRating, previousRating));
+                    ratingsCommand.setOverallRating(overallRatingCell);
+
                     SchoolRatingsDisplay ratingsDisplay =
                             new SchoolRatingsDisplay(ratingsConfig, ratingsCommand.getSchool(), _testDataSetDao, getTestManager());
+
                     if (_showingSubjectGroups) {
                         ratingsCommand.setRatingsDisplay(ratingsDisplay);
-                    }   else {
+                    } else {
                         OverallRatingDecorator ratingDecorator = new OverallRatingDecorator(ratingsDisplay);
                         ratingsCommand.setRatingsDisplay(ratingDecorator);
                     }

@@ -1,9 +1,10 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: OverallRatingDecorator.java,v 1.5 2006/10/03 22:41:53 dlee Exp $
+ * $Id: OverallRatingDecorator.java,v 1.6 2006/10/04 01:05:35 dlee Exp $
  */
 package gs.web.test.rating;
 
+import gs.data.test.TestManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -112,6 +113,11 @@ public class OverallRatingDecorator implements IRatingsDisplay {
 
         Row(String label, Integer rating, Integer trend) {
             _label = label;
+
+            if (null != trend) {
+                trend = new Integer(TestManager.boundRatingTrend(trend.intValue()));
+            }
+
             _cells.add(new Cell(rating, trend));
         }
 
@@ -121,33 +127,6 @@ public class OverallRatingDecorator implements IRatingsDisplay {
 
         public List getCells() {
             return _cells;
-        }
-    }
-
-    protected class Cell implements IRowGroup.IRow.ICell {
-        Integer _rating;
-        Integer _trend;
-
-        Cell(Integer rating, Integer trend) {
-            _rating = rating;
-
-            if (null != trend) {
-                int trendValue = trend.intValue();
-                if (trendValue > 2) {
-                    trendValue = 2;
-                } else if (trendValue < -2) {
-                    trendValue = -2;
-                }
-                _trend = new Integer(trendValue);
-            }
-        }
-
-        public Integer getRating() {
-            return _rating;
-        }
-
-        public Integer getTrend() {
-            return _trend;
         }
     }
 }

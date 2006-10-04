@@ -12,7 +12,9 @@
           xmlns:display="urn:jsptld:http://displaytag.sf.net"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
           xmlns:spring="http://www.springframework.org/tags"
+
         >
 <html lang="en">
 
@@ -38,8 +40,8 @@
 <c:set var="overallRating" value="0"/>
 <c:set var="ratingImagePath" value="/res/img/school/ratings/ratings_unavailable.gif"/>
 
-<c:if test="${not empty ratingsCmd.overallRating}">
-    <c:set var="overallRating" value="${ratingsCmd.overallRating}"/>
+<c:if test="${not empty ratingsCmd.overallRating.rating}">
+    <c:set var="overallRating" value="${ratingsCmd.overallRating.rating}"/>
     <c:set var="hasRating" value="true"/>
     <c:set var="ratingImagePath" value="/res/img/school/ratings/ratings_${overallRating}.gif"/>
 </c:if>
@@ -85,7 +87,7 @@
                 <div style="padding-top:15px;">
                     <c:if test="${hasRating == 'true'}">
                         <div style="float:left;width:498px;">
-                            <school:ratingTable ratingsDisplay="${ratingsDisplay}" overallRating="${overallRating}"
+                            <ratings:table ratingsDisplay="${ratingsDisplay}" overallRatingCell="${ratingsCmd.overallRating}"
                                                 year="2005"/>
                         </div>
                     </c:if>

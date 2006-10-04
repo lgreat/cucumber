@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
+    <jsp:directive.tag body-content="scriptless"/>
+    <jsp:directive.attribute name="cell" required="true" description="Object that has a rating and trend"
+                             type="gs.web.test.rating.Cell"/>
+    <c:choose>
+        <c:when test="${not empty cell.rating}">
+            <c:choose>
+                <c:when test="${not empty cell.trend}">
+                    <c:set var="trend" value="${cell.trend}"/>
+                    <c:choose>
+                        <c:when test="${trend == 2}">
+                            <span class="strongImprovement">${cell.rating}</span>
+                        </c:when>
+                        <c:when test="${trend == 1}">
+                            <span class="someImprovement">${cell.rating}</span>
+                        </c:when>
+                        <c:when test="${trend == 0}">
+                            <span class="noChange">${cell.rating}</span>
+                        </c:when>
+                        <c:when test="${trend == -1}">
+                            <span class="someDecline">${cell.rating}</span>
+                        </c:when>
+                        <c:when test="${trend == -2}">
+                            <span class="strongDecline">${cell.rating}</span>
+                        </c:when>
+                        <c:otherwise>${cell.rating}</c:otherwise>
+                    </c:choose>
+                </c:when>
+                <c:otherwise>${cell.rating}</c:otherwise></c:choose>
+        </c:when>
+        <c:otherwise>n/a</c:otherwise>
+    </c:choose>
+</jsp:root>
