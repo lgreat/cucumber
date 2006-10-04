@@ -60,12 +60,12 @@
 
     <h3>Book Picks</h3>
     <ul class="plain">
-        <li style="background-image:none;vertical-align:text-top;height:66px;">
+        <li style="background-image:none;vertical-align:text-top;height:66px;padding-top:5px;">
             <gsml:img src="/res/img/content/schoolChoiceTips/lunchMoney.gif" alt="Lunch Money" style="float:left;"/>
             <div style="padding-top:30px;">
                 <span style="padding-left:10px;">
                 <gsml:a href="/cgi-bin/showarticle/$STATE/622">
-                    Lunch Money
+                    <span class="bookPicks">Lunch Money</span>
                 </gsml:a>
                 </span>
             </div>
@@ -116,8 +116,12 @@
         <gsweb:articlelink articleId="33" wrappingElement="li"/>
     </ul>
 
-    <div id="allArticles" style="height:175px;">
+    <div id="allArticles">
         <h3 class="seeAll"><link:articleLibrary styleClass="seeAll">Full article library &gt;</link:articleLibrary></h3>
+    </div>
+
+    <div style="height:190px;background-color:#eee;margin-top:5px;">
+        &amp;nbsp;
     </div>
 </div>
 
@@ -133,7 +137,7 @@
             <gsweb:articlelink articleId="308" wrappingElement="li"/>
             <gsweb:articlelink articleId="307" wrappingElement="li"/>
             <gsweb:articlelink articleId="87" wrappingElement="li"/>
-            <li><ul class="pdf"><li><gsml:a href="/pdf/choosing_imagine.pdf">Ideal school worksheet</gsml:a></li></ul></li>
+            <li><ul class="pdf" style="padding-left:30px;"><li><gsml:a href="/pdf/choosing_imagine.pdf">Ideal school worksheet</gsml:a></li></ul></li>
         </ul>
     </div>
 
@@ -154,8 +158,8 @@
         <h3 id="mostOfVisit">Make the Most of Your Visit</h3>
         <ul class="plain">
             <gsweb:articlelink articleId="48" wrappingElement="li"/>
-            <li>Take along our printable worksheets:
-                <ul class="pdf">
+            <li>
+                <ul class="pdf" style="padding-left:30px;">
                     <li><gsml:a href="/pdf/schq_visit_elem.pdf">Elementary school worksheet</gsml:a></li>
                     <li><gsml:a href="/pdf/schq_visit_middle.pdf">Middle school worksheet</gsml:a></li>
                     <li><gsml:a href="/pdf/schq_visit_high.pdf">High school worksheet</gsml:a></li>
@@ -164,7 +168,7 @@
         </ul>
     </div>
 
-    <div style="border-bottom: 1px solid #ccc;">
+    <div style="border-bottom: 1px dashed #ccc;">
         <h3 id="applyAndEnroll">Apply and Enroll</h3>
         <ul class="plain">
             <gsweb:articlelink articleId="249" wrappingElement="li"/>
@@ -177,14 +181,14 @@
         </ul>
     </div>
 
-    <div style="border-bottom: 1px solid #ccc;">
+    <div style="border-bottom: 1px dashed #ccc;">
         <h3 id="askTheExperts">Ask an Expert</h3>
         <p>Q: How Can I Help My Child Make Friends?
             <gsweb:articlelink articleId="375">Read the answer</gsweb:articlelink>
             </p>
     </div>
 
-    <div style="border-bottom: 1px solid #ccc;">
+    <div style="border-bottom: 1px dashed #ccc;">
         <h3 id="freeNewsletters">Free Newsletters</h3>
         <p>Is your child on track?
             Find out with our free newsletters that parents love! <promo:nthGraderHover referredBy="${pageName}">Sign me up</promo:nthGraderHover>
@@ -197,13 +201,13 @@
 
     <ad:x40/>
 
-    <div style="border-top: 1px solid #ccc;">
+    <div style="border-top: 1px dashed #ccc;">
     <div id="bottomAdd">
         <ad:x51 blurb="School Choice Tips Sponsored By:"/>
     </div>
     </div>
 
-    <div style="border-top: 1px solid #ccc;padding-top:20px;margin-top:10px;">
+    <div style="border-top: 1px dashed #ccc;padding-top:20px;margin-top:10px;">
     <table>
         <tr><td colspan="2"><gsml:img src="/res/img/content/backtoschool/special_K5.gif"
                                       alt="Tips and Advice by Grade Level"></gsml:img></td></tr>
