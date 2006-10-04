@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.41 2006/09/30 01:03:54 dlee Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.42 2006/10/04 00:34:51 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -142,6 +142,12 @@ public class UrlBuilderSaTest extends TestCase {
 
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_CENSUS);
         assertEquals("/cgi-bin/wy/other/8", builder.asSiteRelativeXml(null));
+
+        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_CENSUS_PRIVATE);
+        assertEquals("/cgi-bin/wy/otherprivate/8", builder.asSiteRelativeXml(null));
+
+        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_PRIVATE_QUICK_FACTS);
+        assertEquals("/modperl/quickprivate/wy/8", builder.asSiteRelativeXml(null));
 
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_PRINCIPAL_VIEW);
         assertEquals("/cgi-bin/wy/pqview/8", builder.asSiteRelativeXml(null));

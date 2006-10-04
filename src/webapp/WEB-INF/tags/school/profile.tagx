@@ -25,12 +25,22 @@
                             <tr>
                                 <td><link:schoolProfileOverview school="${school}">School<br/>Overview
                                 </link:schoolProfileOverview></td>
-                                <td><link:schoolProfileTestscore school="${school}">Test<br/>Scores
-                                </link:schoolProfileTestscore></td>
-                                <td><link:schoolProfileCensus school="${school}">Teachers/<br/>Students
-                                </link:schoolProfileCensus></td>
-                                <td class="active"><link:schoolProfileRating school="${school}">Ratings<br/>&amp;nbsp;
-                                </link:schoolProfileRating></td>
+                                <c:choose>
+                                    <c:when test="${school.type.schoolTypeName == 'public'}" >
+                                        <td><link:schoolProfileTestscore school="${school}">Test<br/>Scores
+                                        </link:schoolProfileTestscore></td>
+                                        <td><link:schoolProfileCensus school="${school}">Teachers/<br/>Students
+                                        </link:schoolProfileCensus></td>
+                                        <td class="active"><link:schoolProfileRating school="${school}">Ratings<br/>&amp;nbsp;
+                                        </link:schoolProfileRating></td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td><link:schoolProfilePrivateQuickFacts school="${school}">Quick<br/>Facts
+                                        </link:schoolProfilePrivateQuickFacts></td>
+                                        <td><link:schoolProfileCensus school="${school}">Teachers/<br/>Students
+                                        </link:schoolProfileCensus></td>
+                                    </c:otherwise>
+                                </c:choose>
                                 <td><link:schoolProfileParentReview school="${school}">Parent<br/> Reviews
                                 </link:schoolProfileParentReview></td>
                                 <td><link:schoolProfilePrincipalView school="${school}">Principal's <br/>View

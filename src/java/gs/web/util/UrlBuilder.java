@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.58 2006/10/03 16:45:13 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.59 2006/10/04 00:34:51 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -127,6 +127,8 @@ public class UrlBuilder {
     public static final VPage SCHOOL_PARENT_REVIEWS = new VPage("vpage:schoolParentReviews");
     public static final VPage SCHOOL_PROFILE_TEST_SCORE = new VPage("vpage:schoolTestscores");
     public static final VPage SCHOOL_PROFILE_CENSUS = new VPage("vpage:schoolCensus");
+    public static final VPage SCHOOL_PROFILE_CENSUS_PRIVATE = new VPage("vpage:schoolCensusPrivate");
+    public static final VPage SCHOOL_PROFILE_PRIVATE_QUICK_FACTS = new VPage("vpage:schoolPrivateQuickFacts");
     public static final VPage SCHOOL_PROFILE_PRINCIPAL_VIEW = new VPage("vpage:schoolPrincipalView");
     public static final VPage SCHOOL_PROFILE_RATINGS = new VPage("vpage:schoolRatings");
     public static final VPage SCHOOL_PROFILE_ADD_PARENT_REVIEW = new VPage("vpage:schoolAddParentReview");
@@ -236,6 +238,18 @@ public class UrlBuilder {
             _path = "/cgi-bin/" +
                     school.getDatabaseState().getAbbreviationLowerCase() +
                     "/other/" +
+                    school.getId();
+        } else if (SCHOOL_PROFILE_CENSUS_PRIVATE.equals(page)) {
+            _perlPage = true;
+            _path = "/cgi-bin/" +
+                    school.getDatabaseState().getAbbreviationLowerCase() +
+                    "/otherprivate/" +
+                    school.getId();
+        } else if (SCHOOL_PROFILE_PRIVATE_QUICK_FACTS.equals(page)) {
+            _perlPage = true;
+            _path = "/modperl/quickprivate/" +
+                    school.getDatabaseState().getAbbreviationLowerCase() +
+                    "/" +
                     school.getId();
         } else if (SCHOOL_PROFILE_TEST_SCORE.equals(page)) {
             _perlPage = true;
