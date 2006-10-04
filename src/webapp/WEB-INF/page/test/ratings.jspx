@@ -63,7 +63,7 @@
         </spring:hasBindErrors>
 
         <c:if test="${hasError eq 'false'}">
-            <school:profile school="${school}">
+            <school:profile school="${school}" tab="ratings">
                 <div class="ratingSummaryWrapper">
                     <div class="ratingSummaryContent">
                         <gsml:img src="${ratingImagePath}" alt="ratings" style="float:left;padding-right:20px;"/>

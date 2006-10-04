@@ -120,9 +120,9 @@ table.module1 td a:hover {
 </style>
 </head>
 
-<gsml:body adPageName="ratings" pageLayout="research">
+<gsml:body adPageName="overview" pageLayout="research">
 
-<school:profile school="${school}">
+<school:profile school="${school}" tab="overview">
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="sid" value="${school.id}"/>

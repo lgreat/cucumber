@@ -10,6 +10,7 @@
         >
 <jsp:directive.tag body-content="scriptless"/>
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
+<jsp:directive.attribute name="tab" required="false" description="The Selected Tab" type="java.lang.String"/>
 <pageHelper:externalCss file="/res/css/school/profile.css"/>
 
 <c:set var="state" value="${school.physicalAddress.state}"/>
@@ -23,7 +24,7 @@
                     <div class="box">
                         <table class="rollmenu" cellspacing="0" cellpadding="0">
                             <tr>
-                                <td><link:schoolProfileOverview school="${school}">School<br/>Overview
+                                <td class="${(tab eq 'overview') ? 'active' : 'inactive'}"><link:schoolProfileOverview school="${school}">School<br/>Overview
                                 </link:schoolProfileOverview></td>
                                 <c:choose>
                                     <c:when test="${school.type.schoolTypeName == 'public'}" >
@@ -31,7 +32,7 @@
                                         </link:schoolProfileTestscore></td>
                                         <td><link:schoolProfileCensus school="${school}">Teachers/<br/>Students
                                         </link:schoolProfileCensus></td>
-                                        <td class="active"><link:schoolProfileRating school="${school}">Ratings<br/>&amp;nbsp;
+                                        <td class="${(tab eq 'ratings') ? 'active' : 'inactive'}"><link:schoolProfileRating school="${school}">Ratings<br/>&amp;nbsp;
                                         </link:schoolProfileRating></td>
                                     </c:when>
                                     <c:otherwise>
