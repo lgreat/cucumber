@@ -25,7 +25,6 @@
     gs.web.util.PageHelper.setAdServerControlledFooterAd(request, true);
 </jsp:scriptlet>
 
-
 <head>
 <title>School Overview Page</title>
 
@@ -35,39 +34,6 @@ h3 {
     line-height: 110%;
     font-size: 130%;
     margin-bottom: 0px;
-}
-
-html>body table.rollmenu {
-    width: 100%;
-}
-
-td#box_pagetitle {
-    font-weight: bold;
-    font-size: 100%;
-    padding: 1ex 0 .5ex 1ex;
-}
-
-td .school_name {
-    font-weight: bold;
-    font-size: 100%;
-    padding: 0;
-    margin: 0;
-}
-
-td#box_schoolinfo {
-    font-size: 70%;
-    padding: 0px 0px 4px 7px;
-    vertical-align: top;
-}
-
-td#box_schoollinks {
-    vertical-align: top;
-}
-
-ul.arrow {
-    list-style-image: url( "/res/img/bullet/bullet_blueball.gif" );
-    list-style-image: url( "/images/arrow_orange.gif" );
-    padding: 0px;
 }
 
 ul.arrow li {
@@ -92,12 +58,12 @@ table#sky td {
     font-size: 10px;
 }
 
-table#box_ad {
+table.box_ad {
     border: 1px solid #ccc;
     height: 100%;
 }
 
-table#box_ad td {
+table.box_ad td {
     text-align: center;
     font-size: 10px;
 }
@@ -143,14 +109,22 @@ table.module1 td a:hover {
     color: #CCC;
 }
 
+#featuredArticles h4 a {
+    font-weight:bold;
+    color:black;
+    text-decoration:none;
+    white-space:normal;
+    font-size:90%;
+}
+
 </style>
 </head>
 
 <gsml:body adPageName="ratings" pageLayout="research">
 
-<div class="marginGS" id="marginGS">
 <school:profile school="${school}">
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="sid" value="${school.id}"/>
 <br/>
 <table class="module1container" border="0" cellpadding="5" cellspacing="0" width="100%">
@@ -166,9 +140,10 @@ table.module1 td a:hover {
                     <td class="module1_body" valign="top">
                         <c:choose>
                             <c:when test="${school.type.schoolTypeName == 'private'}">
-                                <gsml:a href="/cgi-bin/${state}/otherprivate/${sid}/">Teacher/Student Stats</gsml:a> <br />
+
+                                <link:schoolProfileCensus school="${school}">Teacher/Student Stats</link:schoolProfileCensus> <br />
                                 This school's student-teacher ratio and ethnicity breakdown<br /><br />
-                                <gsml:a href="/modperl/quickprivate/ca/8929/">Quick Facts</gsml:a><br />
+                                <link:schoolProfilePrivateQuickFacts school="${school}">Quick Facts</link:schoolProfilePrivateQuickFacts><br />
                                 Facts about this school's number of school days per year, its library facility, affiliation and more
                             </c:when>
                             <c:otherwise>
@@ -198,42 +173,34 @@ table.module1 td a:hover {
                 <tr>
                     <td class="module1_body" valign="top"><b>The Inside Scoop from Parents</b>
                         <br/>
-
-                        <p>Be the first to review this school - tell other parents what you think. <br/>
-                            <br/>
-                        </p><center>
-                        <a href=""><img src="" border="0"/></a>
-                    </center>
-
+                        <c:choose>
+                            <c:when test="${not empty reviewCount}">
+                                (${reviewCount} reviews of this school available)
+                                <br /><br />
+                                <c:out value="${reviewText}" escapeXml="true" />
+                                <br />
+                                <gsml:a href="/modperl/parents/${state}/${sid}">Read more...</gsml:a>
+                            </c:when>
+                            <c:otherwise>
+                                <p>Be the first to review this school - tell other parents what you think. <br/>
+                                    <br/>
+                                </p>
+                            </c:otherwise>
+                        </c:choose>
+                        <br /><br />
+                        <center>
+                            <gsml:a href="/cgi-bin/addcomments/${state}/${sid}"><img src="/res/img/school/share_btn.gif" border="0"/></gsml:a>
+                        </center>
                     </td>
                 </tr>
             </tbody></table>
     </td>
 
     <td colspan="2" id="box_ad" align="center" valign="top">
-        <table id="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
+        <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
             <tbody><tr>
                 <td><script language="javascript">document.write(adboxhead());</script>AD<br/>
-
-                    <div class="adSquare"><script language="JavaScript">OAS_AD('x48');</script>
-                        <!-- iframe/script/href/image tag -->
-
-                        <iframe src="http://media.nyadmcncserve-05y06a.com/iframe?spacedesc=1057746_1017185_300x250_1027136_1001555&amp;target=_blank&amp;@CPSC@="
-                                marginheight="0" marginwidth="0" frameborder="0" height="250" scrolling="no"
-                                width="300">
-                            &lt;SCRIPT
-                            SRC="http://media.nyadmcncserve-05y06a.com/jscript?spacedesc=1057746_1017185_300x250_1027136_1001555&amp;ML_NIF=Y&amp;target=_blank&amp;@CPSC@="&gt;&lt;/SCRIPT&gt;
-                            &lt;NOSCRIPT&gt;
-                            &lt;A
-                            HREF="http://media.nyadmcncserve-05y06a.com/click?spacedesc=1057746_1017185_300x250_1027136_1001555&amp;ML_NIF=Y"
-                            TARGET="_blank"&gt;
-                            &lt;IMG
-                            SRC="http://media.nyadmcncserve-05y06a.com/image?spacedesc=1057746_1017185_300x250_1027136_1001555&amp;ML_NIF=Y"
-                            WIDTH=300 HEIGHT=250 ALT="Click Here" BORDER=0&gt;
-                            &lt;/A&gt;
-                            &lt;/NOSCRIPT&gt;
-                        </iframe>
-                    </div>
+                    <ad:x48 />
                 </td>
             </tr>
             </tbody></table>
@@ -248,66 +215,53 @@ table.module1 td a:hover {
 
             </tr>
                 <tr>
-                    <td class="module1_body" valign="top"> <span class="rcopy">
-<b>How Much Homework Is Too Much?</b>
-<br/>Has your child shed tears over the amount of homework he has? Has he stayed up until 10 p.m. working on assignments? Have you sacrificed your weekends for homework?
-<br/><a href="">more...</a>
-</span>
-
-                        <p><span class="rcopy">
-<b><img src=""/> Back-to-School Night Basics</b>
-<br/>Make the most of back-to-school night. It's a valuable opportunity to learn important information about your child's classroom experience.
-
-
-<br/><a href="">more...</a>
-</span>
-                        </p></td>
+                    <td class="module1_body" id="featuredArticles" valign="top">
+                        <jsp:include
+                                page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;heading=none&amp;state=${stateAbbrev}"/>
+                        <br />
+                        <jsp:include
+                                page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;sub=1&amp;heading=none&amp;state=${stateAbbrev}"/>
+                    </td>
                 </tr>
             </tbody></table>
     </td>
     <td valign="top">
         <table class="module1" border="0" cellpadding="2" cellspacing="0" width="100%">
-            <tbody><tr>
-                <td class="module1_head">The Principal's View</td>
-
-            </tr>
+            <tbody>
+                <tr>
+                    <td class="module1_head">The Principal's View</td>
+                </tr>
                 <tr>
                     <td class="module1_body" valign="top"> An opportunity for the principal
                         at this school to speak about curriculum, special programs, activities,
                         goals and more.<br/> <a href="">Learn
-                        more...</a></td>
+                        more...</a>
+                    </td>
                 </tr>
-            </tbody></table>
+            </tbody>
+        </table>
     </td>
     <td colspan="2" valign="top">
-
-
-        <table id="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
+        <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
             <tbody><tr>
                 <td valign="top">
-                    <div id="sponsorlink">
                         <div class="sponsor">Advertiser links</div>
-
-                        <div class="ad"><div id="adSponsoredText"><script language="JavaScript">OAS_AD('x49');</script>
-                            <b>FREE ADHD Product Information Kit</b><br/>
-                            Includes DVD or CD-ROM and a helpful<br/>
-                            Doctor Discussion Guide. <br/>
-                            <a href="http://oascentral.greatschools.net/RealMedia/ads/click_lx.ads/www/ak/school/public/e/1365210590/x49/Gr8School/Concerta_text_AUG06/Concerta_text_AUG06.html/63363930636438313435316163613730"
-                               target="_blank">Click Here to get your FREE kit today!</a><br/></div>
-
-                        </div>
-
+                        <ad:x49 />
                         <div class="separator"><hr/></div>
 
-                        <div class="ad"><div id="adSponsoredText"><script language="JavaScript">OAS_AD('x50');</script>
-                            <b>K12 Inc. Education for a Lifetime.</b><br/>
-                            K12 Inc. is the leading provider of home-based<br/>
-                            curriculum for students in grades K-10.<br/>
-                            With courses in six subjects, delivered online,<br/>
-                            <a href="http://oascentral.greatschools.net/RealMedia/ads/click_lx.ads/www/ak/school/public/e/1805514166/x50/Gr8School/K12_SLSP_MAY06/K12_SLSP_MAY06.html/63363930636438313435316163613730"
-                               target="_blank">K12 provides an education for a lifetime.</a></div>
+                        <!--
+                        <div class="ad">
+                            <div id="adSponsoredText"><script language="JavaScript">OAS_AD('x50');</script>
+                                <b>K12 Inc. Education for a Lifetime.</b><br/>
+                                K12 Inc. is the leading provider of home-based<br/>
+                                curriculum for students in grades K-10.<br/>
+                                With courses in six subjects, delivered online,<br/>
+                                <a href="http://oascentral.greatschools.net/RealMedia/ads/click_lx.ads/www/ak/school/public/e/1805514166/x50/Gr8School/K12_SLSP_MAY06/K12_SLSP_MAY06.html/63363930636438313435316163613730"
+                                   target="_blank">K12 provides an education for a lifetime.</a>
+                            </div>
                         </div>
-                    </div>
+                            -->
+                    <!--</div>-->
 
                 </td>
             </tr>
@@ -318,7 +272,6 @@ table.module1 td a:hover {
 </tbody></table>
 
 </school:profile>
-</div>
 </gsml:body>
 </html>
 </jsp:root>

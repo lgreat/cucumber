@@ -182,6 +182,7 @@
                         <img style="width:4px;height:10px;" alt=""
                              src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
                         <gsweb:stateSelector useNoState="false"
+                                             styleId="stateSelector1"
                                              usingLongNames="false"
                                              state="${requestScope.context.state}" styleClass="state2 formText"/>
                     </td>
@@ -232,6 +233,7 @@
                 <tr>
                     <td style="padding-top:3px;">All
                         <gsweb:stateSelector useNoState="false"
+                                             styleId="stateSelector2"
                                              usingLongNames="true"
                                              state="${requestScope.context.state}" styleClass="state formText"/>
                         cities<br/>
@@ -289,6 +291,7 @@
                         <img style="width:4px;height:10px;" alt=""
                              src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
                         <gsweb:stateSelector useNoState="false"
+                                             styleId="stateSelector3"
                                              usingLongNames="false"
                                              state="${requestScope.context.state}" styleClass="state2 formText"/>
                     </td>
@@ -334,7 +337,7 @@
                                           src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
     </tr>
     <tr>
-        <td valign="center" align="center">
+        <td valign="middle" align="center">
             <gsml:img id="map" src="/res/img/content/research/map/${requestScope.context.stateOrDefault.abbreviationLowerCase}.gif"
                       alt="${requestScope.context.stateOrDefault.longName} Schools"/>
         </td>
