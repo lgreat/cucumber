@@ -4,6 +4,7 @@ import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
+import gs.data.school.review.IReviewDao;
 import gs.data.state.State;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,6 +22,8 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         _controller = new SchoolOverviewController();
         ISchoolDao schoolDao = (ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID);
         _controller.setSchoolDao(schoolDao);
+        IReviewDao reviewDao = (IReviewDao) getApplicationContext().getBean(IReviewDao.BEAN_ID);
+        _controller.setReviewDao(reviewDao);        
         _controller.setViewName("school/overview");
     }
 
