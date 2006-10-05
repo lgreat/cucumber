@@ -148,13 +148,15 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
                 out.print("Search our site to find your school's test scores, ");
                 out.print("teacher/student stats and more.");
                 out.println(closeParagraph());
-                out.print(openParagraph());
-                out.print("Get monthly email updates about your school's data with our free newsletter:");
-                out.println(closeParagraph());
+                //out.print(openParagraph());
+                //out.print("Get monthly email updates about your school's data with our free newsletter:");
+                //out.println(closeParagraph());
 
                 out.print(openParagraph());
+//                out.print("<a href=\"/cgi-bin/newsletters/" + _state.getAbbreviation() + "\">" +
+//                        "Sign up for My School Stats</a>");
                 out.print("<a href=\"/cgi-bin/newsletters/" + _state.getAbbreviation() + "\">" +
-                        "Sign up for My School Stats</a>");
+                        "Get free monthly email updates about your school</a>");
                 out.println(closeParagraph());
             } else {
                 out.print(openTitle());
