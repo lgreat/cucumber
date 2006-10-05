@@ -134,7 +134,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _userProfile.setNumSchoolChildren(new Integer(1));
 
         Student student = new Student();
-        student.setSchoolId(Integer.valueOf(1));
+        student.setSchoolId(new Integer(1));
         student.setState(State.CA);
         _command.addStudent(student);
         _command.addStudent(student); // second student shares school
