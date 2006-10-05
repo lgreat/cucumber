@@ -325,7 +325,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 if (student.getSchoolId() != null ||
                         (student.getName() != null && !student.getName().equals("Child #1"))) {
                     user.addStudent(student);
-                    if (Boolean.parseBoolean(fupCommand.getRecontact())) {
+                    if (Boolean.valueOf(fupCommand.getRecontact()).booleanValue()) {
                         addContactSubscriptionFromStudent(student, user);
                     }
                     existingProfile.setNumSchoolChildren(new Integer(1));
@@ -334,7 +334,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         } else {
             for (int x=0; x < fupCommand.getStudents().size(); x++) {
                 Student student = (Student) fupCommand.getStudents().get(x);
-                if (Boolean.parseBoolean(fupCommand.getRecontact())) {
+                if (Boolean.valueOf(fupCommand.getRecontact()).booleanValue()) {
                     addContactSubscriptionFromStudent(student, user);
                 }
                 user.addStudent(student);
@@ -356,7 +356,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             Subscription sub = (Subscription)fupCommand.getSubscriptions().get(x);
             sub.setUser(user);
             _subscriptionDao.saveSubscription(sub);
-            if (Boolean.parseBoolean(fupCommand.getRecontact())) {
+            if (Boolean.valueOf(fupCommand.getRecontact()).booleanValue()) {
                 addContactSubscriptionFromSubscription(sub);
             }
         }
