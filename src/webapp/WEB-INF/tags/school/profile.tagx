@@ -109,7 +109,7 @@
                             </ul>
 
                             <div id="school_promo">
-                                <promo:backToSchool/>
+                                <promo:schoolChoiceTips/>
                             </div>
 
                             <div id="site_promo">

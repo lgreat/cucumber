@@ -23,6 +23,9 @@ import java.util.List;
  */
 public class SchoolOverviewController extends AbstractController {
 
+    /** Spring Bean id */
+    public static final String BEAN_ID = "/school/overview.page";
+
     /** The allowed length of the parent review blurb */
     public static final int REVIEW_LENGTH = 100;
 
