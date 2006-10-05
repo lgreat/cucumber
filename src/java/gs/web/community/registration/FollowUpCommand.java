@@ -20,6 +20,7 @@ public class FollowUpCommand {
     private List _schoolNames;
     private List _previousSchoolNames;
     private List _subscriptions;
+    private String _recontact;
 
     public FollowUpCommand() {
         _user = new User();
@@ -153,5 +154,13 @@ public class FollowUpCommand {
 
     public void addPreviousSchoolName(String name) {
         getPreviousSchoolNames().add(name);
+    }
+
+    public String getRecontact() {
+        return _recontact;
+    }
+
+    public void setRecontact(String recontact) {
+        _recontact = recontact;
     }
 }

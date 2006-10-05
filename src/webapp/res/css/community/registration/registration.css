@@ -20,13 +20,42 @@
 
 .registerDiv select.form {
     margin-right: 20px;
+    width: 50px;
+}
+
+.registerDiv label.left {
+    width: 160px;
+}
+
+.registerDiv label.right {
+    width: 260px;
 }
 
 .registerDiv label.form {
     text-align: left;
-    width: 160px;
     padding-right: 20px;
     font-weight: bold;
+    line-height: 1.4em; /* try to eliminate ugly spacing introduced by superscripts */
+}
+
+.registerDiv input.checkbox {
+    width: 20px;
+    margin-right: 50px;
+    /* align check box with select above */
+    position: relative;
+    right: 3px;
+}
+/* try to eliminate ugly spacing introduced by superscripts */
+.registerDiv sup.footnote {
+    line-height: 0;
+}
+
+.registerDiv div.footnote {
+    font-size: smaller;
+    margin-left: 0.5em;
+    color: #666666;
+    margin-top: 20px;
+    clear: left;
 }
 
 .registerDiv span.passwordSpec {
@@ -105,106 +134,107 @@ p.intro {
     font-size: medium;
 }
 
-label.form, input.form, select.form {
+#registration2 label.form, #registration2 input.form, #registration2 select.form {
     margin-bottom: 10px;
     display: block;
     width: 150px;
     float: left;
 }
 
-label.familyInput, label.familySelect, input.family, select.family {
+#registration2 label.familyInput, #registration2 label.familySelect,
+    #registration2 input.family, #registration2 select.family {
     margin-right: 15px;
     margin-bottom: 10px;
     display: block;
     float: left;
 }
 
-label.familyInput, label.familySelect {
+#registration2 label.familyInput, #registration2 label.familySelect {
     margin-top: 10px;
     text-align: center;
 }
 
-label.childname {
+#registration2 label.childname {
     width: 154px;
 }
 
-label.schoolname {
+#registration2 label.schoolname {
     width: 254px;
 }
 
-label.familySelect, select.family {
+#registration2 label.familySelect, #registration2 select.family {
     width: 50px;
 }
 
-input.childname {
+#registration2 input.childname {
     width: 150px;
 }
 
-input.schoolname {
+#registration2 input.schoolname {
     width: 250px;
 }
 
-input.interests, label.interests {
+#registration2 input.interests, label.interests {
     display: block;
     float: left;
     margin-top: 10px;
 }
 
-label.interests {
+#registration2 label.interests {
     margin-left: 10px;
 }
 
-input.other, label.other {
+#registration2 input.other, #registration2 label.other {
     margin-top: 10px;
 }
 
-label.other {
+#registration2 label.other {
     margin-right: 10px;
 }
 
-input.other {
+#registration2 input.other {
     width: 250px;
 }
 
-input.private {
+#registration2 input.private {
     margin-right: 7px;
 }
 
-label.private {
+#registration2 label.private {
     padding: 7px 0px 0px 20px;
     text-align: left;
     display: block;
     float: left;
 }
 
-label.textarea {
+#registration2 label.textarea {
     padding-bottom: 5px;
 }
 
-.previous p {
+#registration2 .previous p {
     margin-bottom: 10px;
 }
 
-.previous input, .previous label, .previous select {
+#registration2 .previous input, #registration2 .previous label, #registration2 .previous select {
     margin-right: 15px;
     margin-bottom: 10px;
     display: block;
     float: left;
 }
 
-.previous label.schoolname {
+#registration2 .previous label.schoolname {
     width: 258px;
 }
 
-.previous label.state, .previous select {
+#registration2 .previous label.state, #registration2 .previous select {
     width: 50px;
 }
 
-.previous .schoolname {
+#registration2 .previous .schoolname {
     width: 250px;
 }
 
-.previous label {
+#registration2 .previous label {
     text-align: center;
 }
 

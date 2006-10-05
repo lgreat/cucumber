@@ -59,6 +59,11 @@ public class RegistrationController extends SimpleFormController implements Read
         }
     }
 
+    public void onBind(HttpServletRequest request, Object command) {
+        UserCommand userCommand = (UserCommand) command;
+        userCommand.setRecontact(request.getParameter("recontact") != null);
+    }
+
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
                                  Object command,
@@ -131,6 +136,7 @@ public class RegistrationController extends SimpleFormController implements Read
         FollowUpCommand fupCommand = new FollowUpCommand();
         fupCommand.setUser(userCommand.getUser());
         fupCommand.setUserProfile(userProfile);
+        fupCommand.setRecontact(String.valueOf(userCommand.isRecontact()));
 
         // generate secure hash so if the followup profile page is submitted, we know who it is
         String hash = DigestUtil.hashStringInt(userCommand.getEmail(), userCommand.getUser().getId());

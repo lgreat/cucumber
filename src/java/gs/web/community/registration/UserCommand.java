@@ -22,7 +22,8 @@ public class UserCommand implements EmailValidator.IEmail {
     private String _confirmEmail;
     private User _user;
     private UserProfile _userProfile;
-    private String redirectUrl;
+    private String _redirectUrl;
+    private boolean _recontact;
 
     public UserCommand() {
         _user = new User();
@@ -30,11 +31,11 @@ public class UserCommand implements EmailValidator.IEmail {
     }
 
     public String getRedirectUrl() {
-        return redirectUrl;
+        return _redirectUrl;
     }
 
     public void setRedirectUrl(String redirectUrl) {
-        this.redirectUrl = redirectUrl;
+        this._redirectUrl = redirectUrl;
     }
 
     public String getConfirmPassword() {
@@ -167,5 +168,13 @@ public class UserCommand implements EmailValidator.IEmail {
 
     public void setScreenName(String screenName) {
         getUserProfile().setScreenName(screenName);
+    }
+
+    public boolean isRecontact() {
+        return _recontact;
+    }
+
+    public void setRecontact(boolean recontact) {
+        _recontact = recontact;
     }
 }

@@ -20,9 +20,7 @@ import gs.web.util.ReadWriteController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Handles stage 2 of registration.
@@ -313,6 +311,8 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         if (user.getStudents() != null) {
             user.getStudents().clear();
         }
+        _contactSubs = new HashSet();
+        deleteSubscriptionsForProduct(user, SubscriptionProduct.PARENT_CONTACT);
         if (existingProfile.getNumSchoolChildren().intValue() == 0) {
             // there is an odd case where they specified 0 children but then entered
             // a child's info in the default provided field.
@@ -325,25 +325,23 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 if (student.getSchoolId() != null ||
                         (student.getName() != null && !student.getName().equals("Child #1"))) {
                     user.addStudent(student);
+                    if (Boolean.parseBoolean(fupCommand.getRecontact())) {
+                        addContactSubscriptionFromStudent(student, user);
+                    }
                     existingProfile.setNumSchoolChildren(new Integer(1));
                 }
             }
         } else {
             for (int x=0; x < fupCommand.getStudents().size(); x++) {
-                user.addStudent((Student)fupCommand.getStudents().get(x));
+                Student student = (Student) fupCommand.getStudents().get(x);
+                if (Boolean.parseBoolean(fupCommand.getRecontact())) {
+                    addContactSubscriptionFromStudent(student, user);
+                }
+                user.addStudent(student);
             }
         }
-        List oldSubs = _subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.PREVIOUS_SCHOOLS);
-        if (oldSubs != null) {
-            for (int x=0; x < oldSubs.size(); x++) {
-                _subscriptionDao.removeSubscription(((Subscription)oldSubs.get(x)).getId());
-            }
-        }
-        for (int x=0; x < fupCommand.getSubscriptions().size(); x++) {
-            Subscription sub = (Subscription)fupCommand.getSubscriptions().get(x);
-            sub.setUser(user);
-            _subscriptionDao.saveSubscription(sub);
-        }
+        deleteSubscriptionsForProduct(user, SubscriptionProduct.PREVIOUS_SCHOOLS);
+        saveSubscriptionsForUser(fupCommand, user);
         // save
         _userDao.updateUser(user);
 
@@ -351,6 +349,54 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         mAndV.getModel().put("id", user.getId());
         mAndV.getModel().put("marker", fupCommand.getMarker());
         return mAndV;
+    }
+
+    private void saveSubscriptionsForUser(FollowUpCommand fupCommand, User user) {
+        for (int x=0; x < fupCommand.getSubscriptions().size(); x++) {
+            Subscription sub = (Subscription)fupCommand.getSubscriptions().get(x);
+            sub.setUser(user);
+            _subscriptionDao.saveSubscription(sub);
+            if (Boolean.parseBoolean(fupCommand.getRecontact())) {
+                addContactSubscriptionFromSubscription(sub);
+            }
+        }
+    }
+
+    private void deleteSubscriptionsForProduct(User user, SubscriptionProduct product) {
+        List oldSubs = _subscriptionDao.getUserSubscriptions(user, product);
+        if (oldSubs != null) {
+            for (int x=0; x < oldSubs.size(); x++) {
+                _subscriptionDao.removeSubscription(((Subscription)oldSubs.get(x)).getId());
+            }
+        }
+    }
+
+    private void addContactSubscriptionFromSubscription(Subscription otherSub) {
+        if (otherSub.getProduct().equals(SubscriptionProduct.PREVIOUS_SCHOOLS)) {
+            addContactSubscription(otherSub.getUser(), otherSub.getSchoolId(), otherSub.getState());
+        }
+    }
+
+    private void addContactSubscriptionFromStudent(Student student, User user) {
+        if (student.getSchoolId() != null) {
+            addContactSubscription(user, student.getSchoolId().intValue(), student.getState());
+        }
+    }
+
+    private Set _contactSubs;
+
+    private void addContactSubscription(User user, int schoolId, State state) {
+        String uniqueString = state.getAbbreviation() + schoolId;
+        if (!_contactSubs.contains(uniqueString)) {
+            _log.info("Saving subscription: " + user + ";" + schoolId + ";" + state);
+            Subscription sub = new Subscription();
+            sub.setUser(user);
+            sub.setProduct(SubscriptionProduct.PARENT_CONTACT);
+            sub.setSchoolId(schoolId);
+            sub.setState(state);
+            _subscriptionDao.saveSubscription(sub);
+            _contactSubs.add(uniqueString);
+        }
     }
 
     public IUserDao getUserDao() {

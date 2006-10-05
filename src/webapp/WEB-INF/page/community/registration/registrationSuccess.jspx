@@ -34,7 +34,7 @@
   <p class="intro">Take a minute to fill out your profile - it is an opportunity to share a little
   about yourself with others in the GreatSchools Network.</p>
 
-  <gsweb:form action="/community/registrationSuccess.page" method="post">
+  <gsweb:form id="registration2" action="/community/registrationSuccess.page" method="post">
 
       <spring:hasBindErrors name="followUpCmd">
           <spring:bind path="followUpCmd.id">
@@ -153,6 +153,10 @@
 
       <spring:bind path="followUpCmd.user.id">
           <input id="id" type="hidden" name="id" value="${followUpCmd.user.id}"/>
+      </spring:bind>
+
+      <spring:bind path="followUpCmd.recontact">
+          <input type="hidden" name="${status.expression}" value="${status.value}"/>
       </spring:bind>
 
       <c:choose>

@@ -78,6 +78,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _command.setAboutMe("My children are so unique!");
         getRequest().addParameter("private", "checked");
         _command.setOtherInterest("Other");
+        _command.setRecontact("false");
         String interestCode = UserProfile.getInterestsMap().keySet().iterator().next().toString();
         getRequest().addParameter(interestCode, "checked");
 
@@ -89,9 +90,6 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         getRequest().addParameter("previousSchoolId1", String.valueOf(school.getId()));
         getRequest().addParameter("previousState1", State.CA.getAbbreviation());
 
-        String hash = DigestUtil.hashStringInt(_user.getEmail(), _user.getId());
-        getRequest().addParameter("marker", hash);
-
         _schoolControl.expectAndReturn(_schoolDao.getSchoolById(State.CA, school.getId()),
                 school);
         _schoolControl.replay();
@@ -101,6 +99,10 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _schoolControl.verify();
         assertFalse(_errors.hasErrors());
 
+        // controller checks for previous subscriptions
+        _mockSubscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PARENT_CONTACT);
+        // detects none
+        _subscriptionControl.setReturnValue(null);
         // controller checks for previous subscriptions
         _mockSubscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PREVIOUS_SCHOOLS);
         // detects none
@@ -113,21 +115,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _mockSubscriptionDao.saveSubscription(expectedSubscription);
         // I check that the correct user is matched to the correct subscription product
         // and the correct school id
-        _subscriptionControl.setMatcher(new AbstractMatcher() {
-            protected boolean argumentMatches(Object first, Object second) {
-                Subscription one = (Subscription)first;
-                Subscription two = (Subscription)second;
-                // protect against NPE's
-                if (one.getUser() == null || one.getUser().getId() == null ||
-                        two.getUser() == null || two.getUser().getId() == null ||
-                        one.getProduct() == null || two.getProduct() == null) {
-                    return false;
-                }
-                return one.getUser().getId().equals(two.getUser().getId()) &&
-                        one.getProduct().equals(two.getProduct()) &&
-                        one.getSchoolId() == two.getSchoolId();
-            }
-        });
+        _subscriptionControl.setMatcher(new SubscriptionMatcher());
         // and that's it
         _subscriptionControl.replay();
 
@@ -141,10 +129,66 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         assertFalse(_errors.hasErrors());
     }
 
-    public void testBadHash() throws NoSuchAlgorithmException {
-        _command.setAboutMe("My children are so unique!");
-        _command.setPrivate(false);
+    public void testRecontact() {
+        _command.setRecontact("true");
+        _userProfile.setNumSchoolChildren(new Integer(1));
 
+        Student student = new Student();
+        student.setSchoolId(Integer.valueOf(1));
+        student.setState(State.CA);
+        _command.addStudent(student);
+        _command.addStudent(student); // second student shares school
+        Student studentNoSchool = new Student();
+        studentNoSchool.setState(State.CA);
+        _command.addStudent(studentNoSchool);
+
+        _userControl.reset(); // negate default settings from setupBindings
+        _userDao.updateUser(_user);
+        _userControl.replay();
+
+        // controller checks for previous subscriptions
+        _mockSubscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PARENT_CONTACT);
+        // detects none
+        _subscriptionControl.setReturnValue(null);
+        // a recontact subscription for the student's school will be saved
+        Subscription sub = new Subscription();
+        sub.setUser(_user);
+        sub.setProduct(SubscriptionProduct.PARENT_CONTACT);
+        sub.setState(State.CA);
+        sub.setSchoolId(student.getSchoolId().intValue());
+        // but only one, because 2nd student shares school, and 3rd student has no school listed
+        _mockSubscriptionDao.saveSubscription(sub);
+        _subscriptionControl.setMatcher(new SubscriptionMatcher());
+
+        // controller checks for previous subscriptions
+        _mockSubscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PREVIOUS_SCHOOLS);
+        // detects none
+        _subscriptionControl.setReturnValue(null);
+        // a previous schools subscription will be saved
+        Subscription previousSub = new Subscription();
+        previousSub.setUser(_user);
+        previousSub.setProduct(SubscriptionProduct.PREVIOUS_SCHOOLS);
+        previousSub.setSchoolId(2);
+        previousSub.setState(State.CA);
+        _command.addSubscription(previousSub);
+        _mockSubscriptionDao.saveSubscription(previousSub);
+        // a recontact subscription for the previous school will be saved
+        Subscription previousSubContact = new Subscription();
+        previousSubContact.setUser(_user);
+        previousSubContact.setProduct(SubscriptionProduct.PARENT_CONTACT);
+        previousSubContact.setSchoolId(2);
+        previousSubContact.setState(State.CA);
+        _mockSubscriptionDao.saveSubscription(previousSubContact);
+
+        _subscriptionControl.replay();
+
+        _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
+        _userControl.verify();
+        _subscriptionControl.verify();
+        assertFalse(_errors.hasErrors());
+    }
+
+    public void testBadHash() throws NoSuchAlgorithmException {
         // don't add hash to request
         getRequest().setParameter("marker", null);
         _controller.onBindAndValidate(getRequest(), _command, _errors);
@@ -193,7 +237,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
      * Test that if a student is in the command, that student is added to the user and updateUser
      * is called on the dao.
      */
-    public void testaddStudent() throws NoSuchAlgorithmException {
+    public void testaddStudent() {
         _userProfile.setNumSchoolChildren(new Integer(1));
 
         Student student = new Student();
@@ -204,8 +248,19 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _userDao.updateUser(_user);
         _userControl.replay();
 
+        // controller checks for previous subscriptions
+        _mockSubscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PARENT_CONTACT);
+        // detects none
+        _subscriptionControl.setReturnValue(null);
+        // controller checks for previous subscriptions
+        _mockSubscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PREVIOUS_SCHOOLS);
+        // detects none
+        _subscriptionControl.setReturnValue(null);
+        _subscriptionControl.replay();
+
         _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
         _userControl.verify();
+        _subscriptionControl.verify();
         assertFalse(_errors.hasErrors());
         assertNotNull(_user.getStudents());
         assertEquals(_user.getStudents().iterator().next(), student);
@@ -314,5 +369,34 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         List subs = _command.getSubscriptions();
         assertNotNull(subs);
         assertEquals(1, subs.size());
+    }
+
+    private class SubscriptionMatcher extends AbstractMatcher {
+        public SubscriptionMatcher() {
+            // default
+        }
+        protected boolean argumentMatches(Object first, Object second) {
+            Subscription one = (Subscription)first;
+            Subscription two = (Subscription)second;
+            // protect against NPE's
+            if (one.getUser() == null || one.getUser().getId() == null ||
+                    two.getUser() == null || two.getUser().getId() == null ||
+                    one.getProduct() == null || two.getProduct() == null ||
+                    one.getState() == null || two.getState() == null) {
+                return false;
+            }
+            return one.getUser().getId().equals(two.getUser().getId()) &&
+                    one.getProduct().equals(two.getProduct()) &&
+                    one.getSchoolId() == two.getSchoolId() &&
+                    one.getState().equals(two.getState());
+        }
+        protected String argumentToString(Object argument) {
+            if (argument == null || !(argument instanceof Subscription)) {
+                return super.argumentToString(argument);
+            }
+            Subscription sub = (Subscription)argument;
+            return "user:" + sub.getUser().getId() + ";product:" + sub.getProduct().getName() +
+                    ";schoolId:" + sub.getSchoolId() + ";state:" + sub.getState();
+        }
     }
 }
