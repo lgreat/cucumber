@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: EditNewsItemController.java,v 1.6 2006/09/21 23:28:33 aroy Exp $
+ * $Id: EditNewsItemController.java,v 1.7 2006/10/06 18:30:00 aroy Exp $
  */
 
 package gs.web.admin.news;
@@ -24,9 +24,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Provides...
+ * Provides create and edit capabilities for news item blurbs.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @author <a href="mailto:aroy@greatschools.net">Anthony Roy</a>
  */
 public class EditNewsItemController extends SimpleFormController implements ReadWriteController {
 
@@ -78,10 +79,22 @@ public class EditNewsItemController extends SimpleFormController implements Read
             } else if (stopSelect.equals(THREE_MONTHS)) {
                 cal.add(Calendar.MONTH, 3);
             }
+            cal.clear(Calendar.MILLISECOND);
+            cal.clear(Calendar.SECOND);
+            cal.clear(Calendar.MINUTE);
+            cal.clear(Calendar.HOUR);
+            cal.clear(Calendar.HOUR_OF_DAY);
             newsItem.setStop(cal.getTime());
         }
         if (newsItem.getStart() == null) {
-            newsItem.setStart(now);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(now);
+            cal.clear(Calendar.MILLISECOND);
+            cal.clear(Calendar.SECOND);
+            cal.clear(Calendar.MINUTE);
+            cal.clear(Calendar.HOUR);
+            cal.clear(Calendar.HOUR_OF_DAY);
+            newsItem.setStart(cal.getTime());
         }
         super.onBind(request, newsItem, errors);
     }

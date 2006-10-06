@@ -31,11 +31,13 @@
 
         NewsItem newsItem = (NewsItem) request.getAttribute("newsItem");
         if (newsItem != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy 'at' hh:mm aaa");
+            SimpleDateFormat sdf = new SimpleDateFormat();
             if (newsItem.getStop() != null) {
+                sdf.applyPattern("'midnight on ' EEE'.' MMM d, yyyy");
                 request.setAttribute("stopString", sdf.format(newsItem.getStop()));
             }
             if (newsItem.getStart() != null) {
+                sdf.applyPattern("EEE'.' MMM d, yyyy");
                 request.setAttribute("startString", sdf.format(newsItem.getStart()));
             }
         }

@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class NewsItemExpirationColumnDecorator implements DisplaytagColumnDecorator {
-    public static final String EXPIRES_DATE_FORMAT = "MMM d, yyyy 'at' hh:mm aaa";
+    public static final String EXPIRES_DATE_FORMAT = "EEE'.' MMM d, yyyy";
     public static final String EXPIRED_DATE_CLASS_NAME = "expired";
     /**
      * Keep as member variable so it gets initialized only once per page view, and not
