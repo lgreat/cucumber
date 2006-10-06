@@ -6,6 +6,8 @@
     <jsp:directive.attribute name="state" required="false" description="Optional state to override session facade value"/>
     <jsp:directive.attribute name="href" required="true" description="context-relative URL, not Xml encoded"/>
     <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
+    <jsp:directive.attribute name="target" required="false" description="name of new window this link opens in"/>
+
     <jsp:scriptlet>
         if (state != null) {
             request.setAttribute("STATE", state);
@@ -26,6 +28,7 @@
     <c:if test="${styleClass == null}">
         <jsp:element name="a">
             <jsp:attribute name="href"><c:out value="${href}" escapeXml="true"/></jsp:attribute>
+            <jsp:attribute name="target"><c:out value="${target}"/></jsp:attribute>
             <jsp:body>
                 <jsp:doBody/>
             </jsp:body>

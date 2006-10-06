@@ -13,8 +13,25 @@
 <jsp:directive.attribute name="tab" required="false" description="The Selected Tab" type="java.lang.String"/>
 <pageHelper:externalCss file="/res/css/school/profile.css"/>
 
+
 <c:set var="state" value="${school.physicalAddress.state}"/>
 <c:set var="city" value="${school.physicalAddress.city}"/>
+<c:set var="schoolId" value="${school.id}"/>
+
+<c:choose>
+    <c:when test="${school.type.schoolTypeName != 'private'}">
+        <c:set var="schoolType" value="public"/>
+        <pageHelper:externalJavascript file="/cm/mss_modal.js"/>
+        <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}');"/>
+        <pageHelper:externalJavascript file="/cm/mss_modal.js"/>
+        <!--TODO pagehelper method just for adding hovers so we don;t have to keep track on version numbers in different places-->
+        <pageHelper:externalCss file="/res/css/submodal/submodal.css?v=7"/>
+        <pageHelper:externalJavascript file="/res/js/submodal/submodal.js?v=7"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="schoolType" value="private"/>
+    </c:otherwise>
+</c:choose>
 
 <div id="schoolProfile">
     <div class="wrap0">
@@ -27,7 +44,7 @@
                                 <td class="${(tab eq 'overview') ? 'active' : 'inactive'}"><link:schoolProfileOverview school="${school}">School<br/>Overview
                                 </link:schoolProfileOverview></td>
                                 <c:choose>
-                                    <c:when test="${school.type.schoolTypeName != 'private'}" >
+                                    <c:when test="${schoolType != 'private'}" >
                                         <td><link:schoolProfileTestscore school="${school}">Test<br/>Scores
                                         </link:schoolProfileTestscore></td>
                                         <td><link:schoolProfileCensus school="${school}">Teachers/<br/>Students
@@ -36,7 +53,7 @@
                                         <c:if test="${state.ratingsState}">
                                             <td class="${(tab eq 'ratings') ? 'active' : 'inactive'}"><link:schoolProfileRating school="${school}">Ratings<br/>&amp;nbsp;
                                             </link:schoolProfileRating></td>
-                                        </c:if>                                        
+                                        </c:if>
                                     </c:when>
                                     <c:otherwise>
                                         <td><link:schoolProfilePrivateQuickFacts school="${school}">Quick<br/>Facts
@@ -58,7 +75,16 @@
                                 <c:if test="${not empty school.gradeLevels}">Grades: ${school.gradeLevels}<br/></c:if>
 
                                 Type: ${school.type.schoolTypeName} <br/>
-                                <c:if test="${not empty school.enrollment}">Enrollment: ${school.enrollment}<br/></c:if>
+                                Enrollment:
+                                <c:choose>
+                                    <c:when test="${not empty school.enrollment}">
+                                        ${school.enrollment}
+                                    </c:when>
+                                    <c:otherwise>
+                                        n/a
+                                    </c:otherwise>
+                                </c:choose>
+                                <br/>
 
                                 <c:if test="${not empty school.physicalAddress}">
                                     <address>
@@ -80,22 +106,27 @@
                                     <a href="${school.webSite}" target="_blank">School Web site</a><br/>
                                 </c:if>
 
-                                District: <gsml:a
-                                    href="/cgi-bin/${state}/district_profile/${school.districtId}">${school.district.name}</gsml:a>
-                                <br/>
+                                <c:if test="${schoolType != 'private'}">
+                                    District: <gsml:a
+                                        href="/cgi-bin/${state.abbreviationLowerCase}/district_profile/${school.districtId}">${school.district.name}</gsml:a>
+                                    <br/>
+                                </c:if>
                                 More about <link:city city="${city}" state="${state}">${city} schools</link:city>
                             </div>
 
                             <ul id="school_links">
-                                <li>
-                                    <promo:mssHover referredBy="schoolProfile" school="${school}">Email updates<br/>
-                                        about this school</promo:mssHover>
-                                </li>
+                                <c:if test="${schoolType != 'private'}">
+                                    <li>
+                                        <promo:mssHover referredBy="schoolProfile" school="${school}">Email updates<br/>
+                                            about this school</promo:mssHover>
+                                    </li>
+                                </c:if>
+
                                 <li>
                                     <link:schoolCompareSchool school="${school}">Compare this
                                         school</link:schoolCompareSchool>
                                 </li>
-                                <li><gsml:a href="/cgi-bin/msl_confirm/ca/?add_ids=${school.id}">Add to My
+                                <li><gsml:a href="/cgi-bin/msl_confirm/${state.abbreviationLowerCase}/?add_ids=${school.id}">Add to My
                                     SchoolList</gsml:a></li>
                                 <li><link:schoolProfileAddParentReview school="${school}">Rate this
                                     school</link:schoolProfileAddParentReview></li>
