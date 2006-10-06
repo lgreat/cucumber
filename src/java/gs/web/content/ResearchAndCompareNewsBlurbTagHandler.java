@@ -163,20 +163,28 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
                 out.print("About GreatSchools data".toUpperCase());
                 out.println(closeTitle());
                 out.print(openParagraph());
-                out.print("We have profiles for over 120,000 public, private and charter " +
-                        "schools across the country, " +
-                        "including test scores, student-teacher ratios and demographic info.");
+                out.print("We have profiles for more than 120,000 public, private and charter " +
+                        "schools nationwide. ");
+                out.print("Search our site to find your school's test scores, teacher/student " +
+                        "stats and more.");
                 out.println(closeParagraph());
             }
         }
+        printFooter(out);
+    }
+
+    protected void printFooter(JspWriter out) throws IOException {
         out.print(openParagraph());
-        out.print("<span class=\"printName\">Amy Rickerson</span> <span class=\"italicTitle\">");
         if (_state != null) {
+            out.print("<span class=\"printName\">Amy Rickerson</span>");
+            out.print("<span class=\"italicTitle\">");
             out.print(_state.getLongName());
+            out.print(" Data Specialist</span>");
         } else {
-            out.print("GreatSchools");
+            out.print("<span class=\"printName\">Amy Rickerson & Elizabeth Gardner</span>");
+            out.print("<span class=\"italicTitle\">");
+            out.print("Education Data Specialists</span>");
         }
-        out.print(" Data Specialist</span>");
         out.println(closeParagraph());
     }
 }

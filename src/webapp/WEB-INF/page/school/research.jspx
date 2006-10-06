@@ -351,7 +351,7 @@
         <td valign="top"><img style="width: 305px; height: 5px;" alt=""
                               src="http://www.greatschools.net/res/img/header/clear_pix.gif"/><br/>
 
-            <content:researchAndCompareNewsBlurb state="${requestScope.context.stateOrDefault}"/>
+            <content:researchAndCompareNewsBlurb state="${requestScope.context.state}"/>
         </td>
         <td valign="top"><img style="width: 30px;" alt=""
                               src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
