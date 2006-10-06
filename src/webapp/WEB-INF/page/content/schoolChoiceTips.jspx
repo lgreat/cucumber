@@ -64,13 +64,13 @@
             <gsml:img src="/res/img/content/schoolChoiceTips/lunchMoney.gif" alt="Lunch Money" style="float:left;"/>
             <div style="padding-top:30px;">
                 <span style="padding-left:10px;">
-                <gsml:a href="/cgi-bin/showarticle/$STATE/622">
+                <gsml:a href="/cgi-bin/showarticle/$STATE/677">
                     <span class="bookPicks">Lunch Money</span>
                 </gsml:a>
                 </span>
             </div>
         </li>
-        <gsweb:articlelink articleId="677" wrappingElement="li">Read more Favorite Books for Fourth-Graders</gsweb:articlelink>
+        <gsweb:articlelink articleId="677" wrappingElement="li">Favorite Books for Fourth-Graders</gsweb:articlelink>
         <li class="byGrade">Book picks by grade:<br/>
             <table>
                 <tr>
@@ -104,7 +104,7 @@
 
     <h3>Healthy Kids</h3>
     <ul class="plain">
-        <gsweb:articlelink articleId="412" wrappingElement="li"/>
+        <gsweb:articlelink articleId="411" wrappingElement="li"/>
         <gsweb:articlelink articleId="517" wrappingElement="li"/>
         <gsweb:articlelink articleId="621" wrappingElement="li"/>
     </ul>
@@ -137,7 +137,7 @@
             <gsweb:articlelink articleId="308" wrappingElement="li"/>
             <gsweb:articlelink articleId="307" wrappingElement="li"/>
             <gsweb:articlelink articleId="87" wrappingElement="li"/>
-            <li><ul class="pdf" style="padding-left:30px;"><li><gsml:a href="/pdf/choosing_imagine.pdf">Ideal school worksheet</gsml:a></li></ul></li>
+            <li><ul class="pdf" style="padding-left:30px;"><li><gsml:a href="/pdf/choosing_imagine.pdf">Priorities worksheet</gsml:a></li></ul></li>
         </ul>
     </div>
 
