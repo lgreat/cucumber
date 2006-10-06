@@ -46,10 +46,6 @@ body.unframed #pageGS {
     border-bottom: 1px solid #fff;
     width: 864px;
 }
-body.framed #pageGS #contentGS {
-    width: 729px;       /* 765 - 18 -18 */
-}
-
 
 /* Cobrand specific -- not using these yet */
 body.xcontracostatimes #pageGS {
