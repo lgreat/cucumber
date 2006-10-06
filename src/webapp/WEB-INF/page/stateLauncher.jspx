@@ -55,7 +55,6 @@
                 font-size: small;
                 font-weight: 700;
                 color: #3399aa;
-                text-decoration: none;
             }
         </style>
     </head>
