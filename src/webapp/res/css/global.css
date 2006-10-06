@@ -287,7 +287,7 @@ input.btn {
 
 /*  Advertising
 ----------------------------------------------- */
-#adSquare {
+.adSquare {
     text-align: center;
     color: #999;
     width: 300px;
@@ -777,4 +777,24 @@ div.contentGS div.promoNewsletterSmall .smallform {
 .smallTeaser {
     font-size: 11px;
     padding-left: 1em;
+}
+
+div#printandemail {
+    font-family:arial;
+    font-size: 11px;
+    padding:0px 7px 6px 8px;
+    text-align:right;
+}
+    div#printandemail a:hover {
+        color:black;
+        text-decoration:none;
+    }
+
+@media print {
+    .search, #adLeaderboard, #footer, .noprint  { display:none; }
+    .wrap0  { width:75%; background:white; }
+    body, body.unframed #pageGS {
+        background-color:#fff;
+        border: 0px solid   #fff;
+    }
 }

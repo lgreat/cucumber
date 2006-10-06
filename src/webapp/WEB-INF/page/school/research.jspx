@@ -89,10 +89,12 @@
     <img src="/res/img/content/research/t_compare.gif" width="93" height="19" alt="Compare ${requestScope.context.state.longName} Schools" border="0"/>
 </div>
     <div class="compareBox">
-        <gsweb:form action="/cgi-bin/cs_compare/${requestScope.context.stateOrDefault.abbreviationLowerCase}/" method="get">
+        <!--<gsweb:form action="/cgi-bin/cs_compare/${requestScope.context.stateOrDefault.abbreviationLowerCase}/" method="get">-->
+        <gsweb:form action="/school/research.page" method="get">
             <input type="hidden" name="sortby" value="distance" />
             <input type="hidden" name="tab" value="over" />
             <input type="hidden" name="area" value="m" />
+            <input type="hidden" name="form" value="address" />
             <table width="264" cellpadding="0" cellspacing="0" border="0">
                 <tr>
                     <td rowspan="4" valign="top" class="yellowArrow">
@@ -139,8 +141,20 @@
                             src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/></td>
                 </tr>
                 <tr>
-                    <td><img style="width: 198px;height: 31px;" alt=""
-                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${not empty ziperror}">
+                                <span style="color:red;">
+                                    <c:out value="${ziperror}" escapeXml="true" />
+                                </span>
+                            </c:when>
+                            <c:otherwise>
+                                <img style="width: 198px;height: 31px;" alt=""
+                                     src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                            </c:otherwise>
+                        </c:choose>
+
+                    </td>
                     <td><img style="width: 44px;height: 31px;" alt=""
                              src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
                 </tr>

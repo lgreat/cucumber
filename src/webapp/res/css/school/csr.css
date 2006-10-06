@@ -98,13 +98,3 @@ div.datatable{
    color:blue;
 }
 
-div#printandemail {
-    font-family:arial;
-    font-size: 11px;
-    padding:0px 7px 6px 8px;
-    text-align:right;
-}
-    div#printandemail a:hover {
-        color:black;
-        text-decoration:none;
-    }

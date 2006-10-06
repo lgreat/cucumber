@@ -14,6 +14,8 @@ import gs.web.util.context.ISessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlBuilder;
 import gs.data.state.State;
+import gs.data.geo.IGeoDao;
+import gs.data.geo.bestplaces.BpZip;
 
 /**
  * Controls the research and compare page.  Currently we're letting the Perl pages
@@ -27,7 +29,7 @@ public class ResearchController extends AbstractController {
     /** Used to identify which form on the page was submitted */
     private final static String FORM_PARAM = "form";
 
-    /** Used by the "district" form */
+    /** Used by the "compare schools in district" form */
     private final static String DISTRICT_PARAM = "district";
 
     /** Used by the state pull-downs */
@@ -36,13 +38,28 @@ public class ResearchController extends AbstractController {
     /** Used for the school level codes */
     private final static String LEVEL_PARAM = "level";
 
+    /** Used for the "distance from" pull-down */
+    private final static String MILES_PARAM = "miles";
+
+    /** Used to collect the Zip-code  */
+    private final static String ZIP_PARAM = "zip";
+
     /** The # of cities to display in the top cities list */
     private final static int CITY_LIST_SIZE = 5;
 
     /** The form view - set in pages-servlet.xml */
     private String _viewName;
 
+    /** Used to determine State from zip code */
+    private IGeoDao _geoDao;
+
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        ISessionContext context = SessionContextUtil.getSessionContext(request);
+        State state = context.getState();
+
+        ModelAndView mAndV = new ModelAndView (getViewName());
+
         String form = request.getParameter(FORM_PARAM);
         if (StringUtils.isNotBlank (form)) {
             StringBuffer buf = new StringBuffer ();
@@ -54,18 +71,46 @@ public class ResearchController extends AbstractController {
                 buf.append(stateParam.toLowerCase());
                 buf.append("/?area=d&district=").append(district);
                 buf.append("&level=").append(level);
+                mAndV.setView(new RedirectView(buf.toString()));
+            } else if ("address".equals(form)) {
+                String level = request.getParameter(LEVEL_PARAM);
+                String miles = request.getParameter(MILES_PARAM);
+                String zip = request.getParameter(ZIP_PARAM);
+                buf.append("/cgi-bin/cs_compare/");
+
+                // For the state, try to use the session state, but if there isn't one
+                // as in for the National (no-state) page, then get the state from the
+                // zip code entered in the form.
+                BpZip bpZip = getGeoDao().findZip(zip);
+                State zipState = null;
+                if (bpZip != null) {
+                    zipState = bpZip.getState();
+                }
+
+                if (zipState != null) {
+                    buf.append(zipState.getAbbreviationLowerCase());
+                    buf.append("/?sortby=distance&tab=over&area=m&zip=");
+                    buf.append(zip);
+                    buf.append("&miles=").append(miles);
+                    buf.append("&level=").append(level);
+                    mAndV.setView(new RedirectView(buf.toString()));
+                } else {
+                    // ok, if we don't have a state, then there something was wrong with
+                    // the zip.  We could use validators, Spring binding, etc. to handle
+                    // this, but though the following is kinda whack, it makes things simpler
+                    // and allows all of the controller logic to be in one place.
+                    mAndV.getModel().put("ziperror", "Please enter a valid zip code.");
+                }
+
             } else if ("cities".equals(form)) {
                 buf.append("/modperl/cities/");
                 buf.append(stateParam).append("/");
+                mAndV.setView(new RedirectView(buf.toString()));
             }
-            return new ModelAndView (new RedirectView(buf.toString()));
         }
 
-        ISessionContext context = SessionContextUtil.getSessionContext(request);
-        State state = context.getState();
-        Map model = new HashMap ();
-        model.put("cities", getCitiesForState (state));
-        return new ModelAndView (getViewName(), model);
+        mAndV.getModel().put("cities", getCitiesForState (state));
+        return mAndV;
     }
 
     /**
@@ -129,5 +174,13 @@ public class ResearchController extends AbstractController {
 
     public void setViewName(String viewName) {
         _viewName = viewName;
+    }
+
+    public IGeoDao getGeoDao() {
+        return _geoDao;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
     }
 }

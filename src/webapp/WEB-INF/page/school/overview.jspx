@@ -102,7 +102,7 @@ table.module1 td.module1_body {
 
 table.module1 td a {
     line-height: 140%;
-    white-space: nowrap;
+    white-space: normal;
 }
 
 table.module1 td a:hover {
@@ -117,11 +117,21 @@ table.module1 td a:hover {
     font-size:90%;
 }
 
+.module1_body {
+    padding-right:4px;
+}
+
+.contentGS td.module1_body a.nolink {
+    color:#000;
+}
+
 </style>
 </head>
 
 <gsml:body adPageName="overview" pageLayout="research">
-
+<div id="printandemail" class="noprint">
+    <a href="%" onClick=" window.print(); return false">Print this page</a>&amp;nbsp;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&amp;nbsp;<a href="/cgi-bin/mail_to_friend/authorizer/${requestScope.context.state.abbreviationLowerCase}/${school.id}" onClick=" window.open('/cgi-bin/mail_to_friend/authorizer/${requestScope.context.state.abbreviationLowerCase}/${school.id}', 'win', 'width=600,height=550,scrollbars=yes'); return false">Email to a friend</a>
+</div>
 <school:profile school="${school}" tab="overview">
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
@@ -140,23 +150,25 @@ table.module1 td a:hover {
                     <td class="module1_body" valign="top">
                         <c:choose>
                             <c:when test="${school.type.schoolTypeName == 'private'}">
-
                                 <link:schoolProfileCensus school="${school}">Teacher/Student Stats</link:schoolProfileCensus> <br />
                                 This school's student-teacher ratio and ethnicity breakdown<br /><br />
                                 <link:schoolProfilePrivateQuickFacts school="${school}">Quick Facts</link:schoolProfilePrivateQuickFacts><br />
                                 Facts about this school's number of school days per year, its library facility, affiliation and more
                             </c:when>
                             <c:otherwise>
-                                <gsml:a href="/modperl/achievement/${state}/${sid}">Test Scores</gsml:a><br/>
-                                State standardized test results for this school<br/><br/>
-                                <gsml:a href="/cgi-bin/${state}/other/${sid}">Teacher Stats</gsml:a><br/>
-                                Teacher stats in relation to classroom environment<br/><br/>
-                                <gsml:a href="/cgi-bin/${state}/other/${sid}">Student Stats</gsml:a><br/>
-                                Facts about student ethnicity, economic level and more<br/><br/>
-                                <a href="/community/newsletters/popup/mss/page1.page?state=${state}&amp;schoolId=${sid}&amp;referrer=spp_email_link"
-                                   target="mss">Email
-                                    updates about this school</a><br/>
-                                Get the latest school data and learn what it means
+                                <!--<gsml:a href="/modperl/achievement/${state}/${sid}">Test Scores</gsml:a><br/>-->
+                                <b>Test Scores</b><br/>
+                                State standardized <a href="" style="text-decoration:none;" class="nolink">test scores for ${school.name}</a>
+                                <a href=""><img src="/res/img/school/more.jpg" style="padding-top:10px" alt=""></img></a> <br/><br/>
+                                <!--<gsml:a href="/cgi-bin/${state}/other/${sid}">Teacher Stats</gsml:a><br/>-->
+                                <b>Teacher Stats</b><br/>
+                                Learn about classroom environment with <a href="" style="text-decoration:none;" class="nolink">teacher stats for ${school.name}</a><a href="">&#32;more..</a><br/><br/>
+                                <!--<gsml:a href="/cgi-bin/${state}/other/${sid}">Student Stats</gsml:a><br/>-->
+                                <b>Student Stats</b><br/>
+                                Understand student ethnicity, economic level and more with <a href="" style="text-decoration:none;" class="nolink">student stats for ${school.name}</a>&#32;<a href="">more..</a><br/><br/>
+                                <b>Email updates</b><br/>
+                                Get the latest school data about ${school.name} and learn what it means. <a href="/community/newsletters/popup/mss/page1.page?state=${state}&amp;schoolId=${sid}&amp;referrer=spp_email_link"
+                                   target="mss">Sign me up, it's free</a>
                             </c:otherwise>
                         </c:choose>
                     </td>
@@ -175,7 +187,7 @@ table.module1 td a:hover {
                         <br/>
                         <c:choose>
                             <c:when test="${not empty reviewCount}">
-                                (${reviewCount} reviews of this school available)
+                                (${reviewCount} <a href="" style="text-decoration:none;" class="nolink">reviews of ${school.name}</a> available)
                                 <br /><br />
                                 <c:out value="${reviewText}" escapeXml="true" />
                                 <br />
@@ -233,9 +245,9 @@ table.module1 td a:hover {
                 </tr>
                 <tr>
                     <td class="module1_body" valign="top"> An opportunity for the principal
-                        at this school to speak about curriculum, special programs, activities,
-                        goals and more.<br/> <a href="">Learn
-                        more...</a>
+                        at ${school.name} to speak about curriculum, special programs, activities,
+                        goals and more.<br/> <gsml:a href="/cgi-bin/${state}/pqview/${sid}">Learn
+                        more...</gsml:a>
                     </td>
                 </tr>
             </tbody>
@@ -245,10 +257,10 @@ table.module1 td a:hover {
         <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
             <tbody><tr>
                 <td valign="top">
-                        <div class="sponsor">Advertiser links</div>
-                        <ad:x49 />
-                        <div class="separator"><hr/></div>
-
+                    <div class="sponsor">Advertiser links</div>
+                    <ad:x49 />
+                    <div class="separator"><hr/></div>
+                    <ad:x50 />
                         <!--
                         <div class="ad">
                             <div id="adSponsoredText"><script language="JavaScript">OAS_AD('x50');</script>
