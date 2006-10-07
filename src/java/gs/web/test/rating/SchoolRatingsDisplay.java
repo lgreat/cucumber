@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.8 2006/10/04 01:05:35 dlee Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.9 2006/10/07 00:42:10 dlee Exp $
  */
 
 package gs.web.test.rating;
@@ -71,7 +71,7 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 final IRatingsConfig.IRowConfig rowConfig = rowConfigs[i];
                 Row row = new Row(rowConfig);
 
-                if ("All".equals(row.getLabel())) {
+                if ("All Students".equals(row.getLabel())) {
                     continue;
                 }
 
