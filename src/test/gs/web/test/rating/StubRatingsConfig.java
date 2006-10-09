@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StubRatingsConfig.java,v 1.1 2006/10/07 00:42:10 dlee Exp $
+ * $Id: StubRatingsConfig.java,v 1.2 2006/10/09 00:35:12 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -10,7 +10,8 @@ import gs.data.test.Subject;
 import gs.data.test.TestDataSet;
 import gs.data.test.rating.IRatingsConfig;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The purpose is ...
@@ -20,64 +21,91 @@ import java.util.*;
 public class StubRatingsConfig implements IRatingsConfig {
     public static final State STATE = State.CA;
     public static final int YEAR = 2004;
+    private static final String DECILES = "1;1;2;3;4;5;6;7;8;9;10;";
 
-    private List _rowLabels;
-    private List _subjects;
     private Map _rowSubjectToDataSet;
     private Map _datasetToValue;
 
+    private String [] _subgectGroupLabels = {
+            "English",
+            "Math",
+            "Science",
+    };
+
+    private String [] _rowGroupLabels = {
+            "By Grade",
+            "By Gender",
+            "By Ethnicity",
+    };
+
+    private String [] _rowLabels = {
+            "Grade 1",
+            "Grade 2",
+            "Grade 3",
+            "Grade 4",
+            "Grade 5",
+            "Male",
+            "Female",
+            "All Students",
+            "African American",
+            "Asian",
+            "Hispanic",
+            "White",
+    };
+
+    private Subject [] _subjects = {
+            Subject.ENGLISH,
+            Subject.ENGLISH_LANGUAGE_ARTS,
+            Subject.MATH,
+            Subject.SCIENCE,
+    };
+
+    //english, reading, math, science
+    private float[][] _values = {
+            //By Grade RowGroup
+            {9f, 8f, 8f, 9f,},       //grade1 - test (9+8)/2 rounds up to 9
+            {9f, 8f, 8f, -1f,},      //grade2 - a null result
+            {9f, 8f, 8f, 9f,},       //grade3 -
+            {-1f, -1f, -1f, -1f},    //grade4 - null results appear
+            {-1f, -1f, -1f, -1f},    //grade5 - school does not have grade 5
+
+            //By Gender RowGroup
+            {9f, 8f, -1f, 9f,},      //male
+            {-1f, -1f, -1f, -1f},   //female - null results..row should not appear
+
+            //By Ethnicity RowGroup
+            {9f, 8f, 8f, 9f,},       //all students
+            {9f, 1f, 8f, 9f,},       //african american
+            {9f, 8f, 1f, 9f,},       //asian
+            {9f, 8f, 8f, 1f,},       //hispanic
+            {1f, 2f, 3f, 10f,},       //white
+    };
+
 
     public StubRatingsConfig() {
-        _rowLabels = new ArrayList();
-        _rowLabels.add("Grade 1");
-        _rowLabels.add("Grade 2");
-        _rowLabels.add("Grade 3");
-        _rowLabels.add("Grade 4");
-        _rowLabels.add("Grade 5");
-        _rowLabels.add("Male");
-        _rowLabels.add("Female");
-        _rowLabels.add("African American");
-        _rowLabels.add("Asian");
-        _rowLabels.add("Hispanic");
-        _rowLabels.add("White");
-        _rowLabels.add("All Students");
-        _rowLabels.add("Economically disadvantaged");
-        _rowLabels.add("Not economically disadvantaged");
-        _rowLabels.add("Students with disabilities");
-        _rowLabels.add("Students without disabilities");
-
-        _subjects = new ArrayList();
-        _subjects.add(Subject.ENGLISH);
-        _subjects.add(Subject.ENGLISH_LANGUAGE_ARTS);
-        _subjects.add(Subject.MATH);
-        _subjects.add(Subject.SCIENCE);
-
         _rowSubjectToDataSet = new HashMap();
         _datasetToValue = new HashMap();
 
-        int i = 1;
-        for (Iterator rowIter = _rowLabels.iterator(); rowIter.hasNext();) {
-            String rowLabel = (String) rowIter.next();
+        for (int i = 0; i < _rowLabels.length; i++) {
+            String rowLabel = _rowLabels[i];
 
-            for (Iterator subjectIter = _subjects.iterator(); subjectIter.hasNext();) {
-                Subject subject = (Subject) subjectIter.next();
-                String id = String.valueOf(subject.getSubjectId());
-                String key = rowLabel + id;
+            for (int j = 0; j < _subjects.length; j++) {
+                int subjectId = _subjects[j].getSubjectId();
 
                 TestDataSet testDataSet = new TestDataSet();
-                testDataSet.setId(new Integer(i));
-                testDataSet.setSubject(subject);
-                //testDataSet.setSchoolDecileTops("0;1;2;3;4;5;6;7;8;9;10");
+                testDataSet.setId(new Integer((i + 1) * (j + 1)));
+                testDataSet.setSchoolDecileTops(DECILES);
 
                 SchoolTestValue schoolTestValue = new SchoolTestValue();
                 schoolTestValue.setDataSet(testDataSet);
-                schoolTestValue.setValueFloat(new Float(i));
 
+                Float value = (_values[i][j] > 0) ? new Float(_values[i][j]) : null;
+                schoolTestValue.setValueFloat(value);
+
+                String key = rowLabel + String.valueOf(subjectId);
                 _rowSubjectToDataSet.put(key, testDataSet);
                 _datasetToValue.put(testDataSet, schoolTestValue);
-                i++;
             }
-
         }
     }
 
@@ -89,12 +117,16 @@ public class StubRatingsConfig implements IRatingsConfig {
         return _datasetToValue;
     }
 
-    public List getSubjects() {
+    public String[] getRowLabels() {
+        return _rowLabels;
+    }
+
+    public Subject[] getSubjects() {
         return _subjects;
     }
 
-    public List getRowLabels() {
-        return _rowLabels;
+    public float[][] getValues() {
+        return _values;
     }
 
     public State getState() {
@@ -106,45 +138,37 @@ public class StubRatingsConfig implements IRatingsConfig {
     }
 
     public ISubjectGroupConfig[] getSubjectGroupConfigs() {
-        ISubjectGroupConfig englishGroupConfig = new StubSubjectGroupConfig("English", new int []{Subject.ENGLISH.getSubjectId(), Subject.ENGLISH_LANGUAGE_ARTS.getSubjectId()});
-        ISubjectGroupConfig mathGroupConfig = new StubSubjectGroupConfig("Math", new int []{Subject.MATH.getSubjectId()});
-        ISubjectGroupConfig scienceGroup = new StubSubjectGroupConfig("Science", new int []{Subject.SCIENCE.getSubjectId()});
-
-        return new ISubjectGroupConfig[]{englishGroupConfig, mathGroupConfig, scienceGroup};
+        return new ISubjectGroupConfig[]{
+                new StubSubjectGroupConfig(_subgectGroupLabels[0], new int []{_subjects[0].getSubjectId(), _subjects[1].getSubjectId()}),
+                new StubSubjectGroupConfig(_subgectGroupLabels[1], new int []{_subjects[2].getSubjectId()}),
+                new StubSubjectGroupConfig(_subgectGroupLabels[2], new int []{_subjects[3].getSubjectId()}),
+        };
     }
 
     public IRowGroupConfig[] getRowGroupConfigs() {
         return new IRowGroupConfig []{
-                new StubRowGroupConfig("By Grade",
+                new StubRowGroupConfig(_rowGroupLabels[0],
                         new IRowConfig[]{
-                                new StubRowConfig("Grade 1", "By Grade"),
-                                new StubRowConfig("Grade 2", "By Grade"),
-                                new StubRowConfig("Grade 3", "By Grade"),
-                                new StubRowConfig("Grade 4", "By Grade"),
-                                new StubRowConfig("Grade 5", "By Grade"),
+                                new StubRowConfig(_rowLabels[0], _rowGroupLabels[0]),
+                                new StubRowConfig(_rowLabels[1], _rowGroupLabels[0]),
+                                new StubRowConfig(_rowLabels[2], _rowGroupLabels[0]),
+                                new StubRowConfig(_rowLabels[3], _rowGroupLabels[0]),
+                                new StubRowConfig(_rowLabels[4], _rowGroupLabels[0]),
                         }),
 
-                new StubRowGroupConfig("By Gender",
+                new StubRowGroupConfig(_rowGroupLabels[1],
                         new IRowConfig[]{
-                                new StubRowConfig("Male", "By Gender"),
-                                new StubRowConfig("Female", "By Gender"),
+                                new StubRowConfig(_rowLabels[5], _rowGroupLabels[1]),
+                                new StubRowConfig(_rowLabels[6], _rowGroupLabels[1]),
                         }),
 
-                new StubRowGroupConfig("By Ethnicity",
+                new StubRowGroupConfig(_rowGroupLabels[2],
                         new IRowConfig[]{
-                                new StubRowConfig("African American", "By Ethnicity"),
-                                new StubRowConfig("Asian", "By Ethnicity"),
-                                new StubRowConfig("Hispanic", "By Ethnicity"),
-                                new StubRowConfig("White", "By Ethnicity"),
-                        }),
-
-                new StubRowGroupConfig("By Category",
-                        new IRowConfig[]{
-                                new StubRowConfig("All Students", "By Category"),
-                                new StubRowConfig("Economically disadvantaged", "By Category"),
-                                new StubRowConfig("Not economically disadvantaged", "By Category"),
-                                new StubRowConfig("Students with disabilities", "By Category"),
-                                new StubRowConfig("Students without disabilities", "By Category"),
+                                new StubRowConfig(_rowLabels[7], _rowGroupLabels[2]),
+                                new StubRowConfig(_rowLabels[8], _rowGroupLabels[2]),
+                                new StubRowConfig(_rowLabels[9], _rowGroupLabels[2]),
+                                new StubRowConfig(_rowLabels[10], _rowGroupLabels[2]),
+                                new StubRowConfig(_rowLabels[11], _rowGroupLabels[2]),
                         }),
         };
     }

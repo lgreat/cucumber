@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplayTest.java,v 1.5 2006/10/07 00:42:10 dlee Exp $
+ * $Id: SchoolRatingsDisplayTest.java,v 1.6 2006/10/09 00:35:12 dlee Exp $
  */
 
 package gs.web.test.rating;
@@ -8,16 +8,13 @@ package gs.web.test.rating;
 import gs.data.school.Grade;
 import gs.data.school.Grades;
 import gs.data.school.School;
-import gs.data.test.ITestDataSetDao;
-import gs.data.test.SchoolTestValue;
-import gs.data.test.Subject;
-import gs.data.test.TestDataSet;
-import gs.data.test.rating.IRatingsConfig;
+import gs.data.test.*;
 import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.easymock.MockControl;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -28,76 +25,61 @@ import java.util.Map;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class SchoolRatingsDisplayTest extends TestCase {
-    private MockControl _ratingsConfigControl;
-    private IRatingsConfig _ratingsConfig;
-
-    private School _school;
-
-    private SchoolRatingsDisplay _schoolRatingsDisplay;
-
     protected final Log _log = LogFactory.getLog(SchoolRatingsDisplayTest.class);
 
     protected void setUp() throws Exception {
         super.setUp();
-
-        _ratingsConfigControl = MockControl.createControl(IRatingsConfig.class);
-        _ratingsConfig = (IRatingsConfig) _ratingsConfigControl.getMock();
-
-        MockControl testDataSetDaoControl = MockControl.createControl(ITestDataSetDao.class);
-        ITestDataSetDao testDataSetDao = (ITestDataSetDao) testDataSetDaoControl.getMock();
-
-
-        _school = new School();
-
-        _ratingsConfigControl.expectAndReturn(_ratingsConfig.getSubjectGroupConfigs(), new IRatingsConfig.ISubjectGroupConfig[] {});
-        _ratingsConfigControl.expectAndReturn(_ratingsConfig.getRowGroupConfigs(), new IRatingsConfig.IRowGroupConfig[] {});
-        _ratingsConfigControl.replay();
-        _schoolRatingsDisplay = new SchoolRatingsDisplay(_ratingsConfig, _school, testDataSetDao, null);
-        _ratingsConfigControl.reset();
     }
 
     public void testEmpty() {
-
         StubRatingsConfig stubRatingsConfig = new StubRatingsConfig();
 
         School school = new School();
-        school.setGradeLevels(Grades.createGrades(Grade.G_1, Grade.G_11));
+        school.setGradeLevels(Grades.createGrades(Grade.G_1, Grade.G_4));
 
         Map rowAndSubjectToDataSet = stubRatingsConfig.getRowSubjectToDataSet();
         Map dataSetToValue = stubRatingsConfig.getDatasetToValue();
-        List subjects = stubRatingsConfig.getSubjects();
-        List rowLabels = stubRatingsConfig.getRowLabels();
+
+        Subject [] subjects = stubRatingsConfig.getSubjects();
+        String [] rowLabels = stubRatingsConfig.getRowLabels();
 
         MockControl testDataSetDaoControl = MockControl.createControl(ITestDataSetDao.class);
         ITestDataSetDao testDataSetDao = (ITestDataSetDao) testDataSetDaoControl.getMock();
 
 
-        for (Iterator rowLabelIter = rowLabels.iterator(); rowLabelIter.hasNext(); ) {
-            String rowLabel = (String) rowLabelIter.next();
+        for (int i=0; i<rowLabels.length; i++) {
+            String rowLabel = rowLabels[i];
 
-            for (Iterator subjectIter = subjects.iterator(); subjectIter.hasNext(); ) {
-                Subject subject = (Subject) subjectIter.next();
+            for (int j=0; j<subjects.length; j++) {
+                Subject subject = (Subject) subjects[j];
 
                 String key = rowLabel + String.valueOf(subject.getSubjectId());
 
                 TestDataSet testDataSet = (TestDataSet) rowAndSubjectToDataSet.get(key);
                 SchoolTestValue schoolValue = (SchoolTestValue) dataSetToValue.get(testDataSet);
 
-                testDataSetDaoControl.expectAndReturn(testDataSetDao.findTestDataSet(StubRatingsConfig.STATE, testDataSet.getId().intValue()), testDataSet );
+                testDataSetDaoControl.expectAndReturn(testDataSetDao.findTestDataSet(StubRatingsConfig.STATE, testDataSet.getId().intValue()), testDataSet);
                 testDataSetDaoControl.expectAndReturn(testDataSetDao.findValue(testDataSet, school), schoolValue);
             }
         }
 
+        testDataSetDao.findDataSets(null, 2004, null, null, null, null, null, true);
+        testDataSetDaoControl.setDefaultReturnValue(new ArrayList());
         testDataSetDaoControl.replay();
 
-        SchoolRatingsDisplay schoolRatingsDisplay = new SchoolRatingsDisplay(stubRatingsConfig, school, testDataSetDao, null);
+        TestManager testManager = new TestManager();
+        testManager.setTestDataSetDao(testDataSetDao);
+
+        SchoolRatingsDisplay schoolRatingsDisplay = new SchoolRatingsDisplay(stubRatingsConfig, school,
+                testDataSetDao, testManager);
+
         assertNotNull(schoolRatingsDisplay.getRowGroups());
         assertNotNull(schoolRatingsDisplay.getSubjectGroupLabels());
 
 
         List rowGroups = schoolRatingsDisplay.getRowGroups();
 
-        for (Iterator rowGroupIter = rowGroups.iterator(); rowGroupIter.hasNext(); ) {
+        for (Iterator rowGroupIter = rowGroups.iterator(); rowGroupIter.hasNext();) {
             IRatingsDisplay.IRowGroup rowGroup = (IRatingsDisplay.IRowGroup) rowGroupIter.next();
             _log.debug(rowGroup.getLabel());
             List rows = rowGroup.getRows();
@@ -107,11 +89,36 @@ public class SchoolRatingsDisplayTest extends TestCase {
                 _log.debug(row.getLabel());
                 List cells = row.getCells();
 
-                for (Iterator cellIter = cells.iterator(); cellIter.hasNext(); ) {
+                for (Iterator cellIter = cells.iterator(); cellIter.hasNext();) {
                     IRatingsDisplay.IRowGroup.IRow.ICell cell = (IRatingsDisplay.IRowGroup.IRow.ICell) cellIter.next();
                     _log.debug(cell.getRating());
                 }
             }
         }
+
+        assertEquals(3, rowGroups.size());
+        assertEquals("By Grade", ((IRatingsDisplay.IRowGroup) rowGroups.get(0)).getLabel());
+        assertEquals("By Gender", ((IRatingsDisplay.IRowGroup) rowGroups.get(1)).getLabel());
+        assertEquals("By Ethnicity", ((IRatingsDisplay.IRowGroup) rowGroups.get(2)).getLabel());
+
+        //4 grades
+        assertEquals(4, ((IRatingsDisplay.IRowGroup) rowGroups.get(0)).getNumRows());
+        //1 gender
+        assertEquals(1, ((IRatingsDisplay.IRowGroup) rowGroups.get(1)).getNumRows());
+        //4 ethnicities
+        assertEquals(4, ((IRatingsDisplay.IRowGroup) rowGroups.get(2)).getNumRows());
+
+        assertEquals("Grade 1", ((IRatingsDisplay.IRowGroup.IRow)((IRatingsDisplay.IRowGroup) rowGroups.get(0)).getRows().get(0)).getLabel());
+        assertEquals("Grade 2", ((IRatingsDisplay.IRowGroup.IRow)((IRatingsDisplay.IRowGroup) rowGroups.get(0)).getRows().get(1)).getLabel());
+        assertEquals("Grade 3", ((IRatingsDisplay.IRowGroup.IRow)((IRatingsDisplay.IRowGroup) rowGroups.get(0)).getRows().get(2)).getLabel());
+        assertEquals("Grade 4", ((IRatingsDisplay.IRowGroup.IRow)((IRatingsDisplay.IRowGroup) rowGroups.get(0)).getRows().get(3)).getLabel());
+
+        assertEquals("Male", ((IRatingsDisplay.IRowGroup.IRow)((IRatingsDisplay.IRowGroup) rowGroups.get(1)).getRows().get(0)).getLabel());
+
+        assertEquals("African American", ((IRatingsDisplay.IRowGroup.IRow)((IRatingsDisplay.IRowGroup) rowGroups.get(2)).getRows().get(0)).getLabel());
+        assertEquals("Asian", ((IRatingsDisplay.IRowGroup.IRow)((IRatingsDisplay.IRowGroup) rowGroups.get(2)).getRows().get(1)).getLabel());
+        assertEquals("Hispanic", ((IRatingsDisplay.IRowGroup.IRow)((IRatingsDisplay.IRowGroup) rowGroups.get(2)).getRows().get(2)).getLabel());
+        assertEquals("White", ((IRatingsDisplay.IRowGroup.IRow)((IRatingsDisplay.IRowGroup) rowGroups.get(2)).getRows().get(3)).getLabel());
+
     }
 }
