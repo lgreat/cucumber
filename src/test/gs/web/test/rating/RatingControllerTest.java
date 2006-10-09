@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingControllerTest.java,v 1.2 2006/10/04 03:48:08 dlee Exp $
+ * $Id: RatingControllerTest.java,v 1.3 2006/10/09 18:27:19 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -78,7 +78,7 @@ public class RatingControllerTest extends BaseControllerTestCase {
     public void testReferenceDataNoRatingConfig() throws Exception {
         MockControl ratingsConfigControl = MockControl.createControl(IRatingsConfigDao.class);
         IRatingsConfigDao mockRatingsConfigDao = (IRatingsConfigDao) ratingsConfigControl.getMock();
-        mockRatingsConfigDao.restoreRatingsConfig(_state);
+        mockRatingsConfigDao.restoreRatingsConfig(_state, true);
         ratingsConfigControl.setDefaultReturnValue(null);
         ratingsConfigControl.replay();
         _controller.setRatingsConfigDao(mockRatingsConfigDao);
@@ -120,7 +120,7 @@ public class RatingControllerTest extends BaseControllerTestCase {
         //Set up IRatingConfigDao
         MockControl ratingsConfigDaoControl = MockControl.createControl(IRatingsConfigDao.class);
         IRatingsConfigDao mockRatingsConfigDao = (IRatingsConfigDao) ratingsConfigDaoControl.getMock();
-        mockRatingsConfigDao.restoreRatingsConfig(_state);
+        mockRatingsConfigDao.restoreRatingsConfig(_state, false);
         ratingsConfigDaoControl.setDefaultReturnValue(mockRatingsConfig);
         ratingsConfigDaoControl.replay();
         //end set up of IRatingConfigDao
