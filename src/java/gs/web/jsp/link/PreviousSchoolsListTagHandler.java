@@ -2,6 +2,8 @@ package gs.web.jsp.link;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
 
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import javax.servlet.jsp.JspWriter;
@@ -75,6 +77,9 @@ public class PreviousSchoolsListTagHandler extends SimpleTagSupport {
     public void doTag() throws IOException {
         JspWriter out = getJspContext().getOut();
 
+        BindException errors = (BindException)
+                getJspContext().findAttribute("org.springframework.validation.BindException.followUpCmd");
+
         out.print("<label class=\"");
         out.print(_schoolStyleClass);
         out.println("\">School</label>");
@@ -89,12 +94,21 @@ public class PreviousSchoolsListTagHandler extends SimpleTagSupport {
             State stateVal = _defaultState;
             if (getSchoolValues().size() >= x) {
                 Subscription sub = (Subscription) getSchoolValues().get(x-1);
-                if (getSchoolNames().size() >= x) {
-                    schoolVal = String.valueOf(getSchoolNames().get(x-1));
-                }
                 schoolIdVal = String.valueOf(sub.getSchoolId());
                 stateVal = sub.getState();
             }
+            if (getSchoolNames().size() >= x) {
+                schoolVal = String.valueOf(getSchoolNames().get(x-1));
+            }
+            if (errors != null) {
+                FieldError error = errors.getFieldError("previousSchoolNames[" + (x-1) + "]");
+                if (error != null) {
+                    out.print("<div class=\"error\">");
+                    out.print(error.getDefaultMessage());
+                    out.println("</div>");
+                }
+            }
+
             out.print("<input class=\"");
             out.print(_schoolStyleClass);
             out.print("\" id=\"previousSchool" + x + "\" name=\"previousSchool" + x + "\" ");

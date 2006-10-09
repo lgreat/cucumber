@@ -344,9 +344,6 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
     }
 
     public void testDuplicatePreviousSchools() throws NoSuchAlgorithmException {
-        String hash = DigestUtil.hashStringInt(_user.getEmail(), _user.getId());
-        getRequest().addParameter("marker", hash);
-
         School school = new School();
         school.setName("School");
         school.setId(new Integer(1));
@@ -369,6 +366,51 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         List subs = _command.getSubscriptions();
         assertNotNull(subs);
         assertEquals(1, subs.size());
+    }
+
+    public void testWrongPreviousSchoolName() throws NoSuchAlgorithmException {
+        School school = new School();
+        school.setName("School");
+        school.setId(new Integer(1));
+        school.setDatabaseState(State.CA);
+        getRequest().addParameter("previousSchool1", "someRandomName");
+        getRequest().addParameter("previousSchoolId1", String.valueOf(school.getId()));
+        getRequest().addParameter("previousState1", State.CA.getAbbreviation());
+
+        _schoolControl.expectAndReturn(_schoolDao.getSchoolById(State.CA, school.getId()),
+                school);
+        _schoolControl.replay();
+
+        _controller.onBindAndValidate(getRequest(), _command, _errors);
+        _userControl.verify();
+        _schoolControl.verify();
+        assertTrue(_errors.hasErrors());
+        assertEquals(1, _errors.getErrorCount());
+    }
+
+    public void testWrongChildSchoolName() throws NoSuchAlgorithmException {
+        _userProfile.setNumSchoolChildren(new Integer(1));
+
+        getRequest().addParameter("childname1", "Anthony");
+        getRequest().addParameter("grade1", Grade.G_10.getName());
+        getRequest().addParameter("state1", "CA");
+        School school = new School();
+        school.setName("School");
+        school.setId(new Integer(1));
+        school.setDatabaseState(State.CA);
+        school.setGradeLevels(Grades.createGrades(Grade.G_9, Grade.G_12));
+        getRequest().addParameter("schoolId1", String.valueOf(school.getId()));
+        getRequest().addParameter("school1", "someRandomSchoolName");
+
+        _schoolControl.expectAndReturn(_schoolDao.getSchoolById(State.CA, school.getId()),
+                school);
+        _schoolControl.replay();
+
+        _controller.onBindAndValidate(getRequest(), _command, _errors);
+        _userControl.verify();
+        _schoolControl.verify();
+        assertTrue(_errors.hasErrors());
+        assertEquals(1, _errors.getErrorCount());
     }
 
     private class SubscriptionMatcher extends AbstractMatcher {

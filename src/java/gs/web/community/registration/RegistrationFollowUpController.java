@@ -149,9 +149,10 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 // the school name is not empty, but we couldn't find the school ...
                 // generate an error
                 errors.rejectValue("students[" + x + "]", "bad_school",
-                        "We can't match the school name to our database. Please try typing the " +
-                                "school name again and selecting the right school from the list. If " +
-                                "you can't find the school in the list, leave the field blank");
+                        "We can't match the school name to our database in " + state.getLongName() +
+                                ". Please try typing the school name again and selecting the right " +
+                                "school from the list. If you can't find the school in the list, " +
+                                "leave the field blank");
             }
 
             if (school != null && grade != null) {
@@ -215,7 +216,16 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 school = null;
             }
 
-            // TODO: generate error if school name is not recognized, like with students
+            fupCommand.addPreviousSchoolName(schoolName);
+            if (school == null && StringUtils.isNotEmpty(schoolName)) {
+                // the school name is not empty, but we couldn't find the school ...
+                // generate an error
+                errors.rejectValue("previousSchoolNames[" + x + "]", "bad_school",
+                        "We can't match the school name to our database in " + state.getLongName() +
+                                ". Please try typing the school name again and selecting the right " +
+                                "school from the list. If you can't find the school in the list, " +
+                                "leave the field blank");
+            }
 
             // package info into a Subscription object and throw it in the command
             if (school != null) {
@@ -227,7 +237,6 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                     sub.setState(state);
                     sub.setUser(user);
                     fupCommand.addSubscription(sub);
-                    fupCommand.addPreviousSchoolName(school.getName());
                     uniqueSchools.add(uniqueConstraint);
                 }
             }
