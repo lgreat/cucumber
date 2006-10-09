@@ -48,12 +48,12 @@
 }
 
 #schoolProfile .boxBody {
-    padding: 0px 10px 4px 7px;
+    padding: 0px 10px 4px 10px;
 }
 
 #schoolProfile #school_info {
     float: left;
-    width: 260px;
+    width: 242px;
     font-size: 11px;
     padding: 0px 0px 4px 0;
     vertical-align: top;

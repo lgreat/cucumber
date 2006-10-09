@@ -48,7 +48,7 @@
 
 
 <pageHelper:externalCss file="/res/css/school/ratings/ratings.css"/>
-<gsml:body adPageName="ratings" pageLayout="research">
+<gsml:body adPageName="ratings" pageLayout="ratings">
     <div class="marginGS" id="marginGS">
 
         <spring:hasBindErrors name="ratingsCmd">
@@ -64,9 +64,10 @@
 
         <c:if test="${hasError eq 'false'}">
             <school:profile school="${school}" tab="ratings">
+                <div style="padding:10px 10px 0 0;">
                 <div class="ratingSummaryWrapper">
                     <div class="ratingSummaryContent">
-                        <gsml:img src="${ratingImagePath}" alt="ratings" style="float:left;padding-right:20px;"/>
+                        <gsml:img src="${ratingImagePath}" alt="ratings" style="float:left;padding-right:30px;"/>
 
                         <h2>What do these ratings mean?</h2>
 
@@ -86,7 +87,7 @@
 
                 <div style="padding-top:15px;">
                     <c:if test="${hasRating == 'true'}">
-                        <div style="float:left;width:498px;">
+                        <div style="float:left;width:520px;">
                             <ratings:table ratingsDisplay="${ratingsDisplay}" overallRatingCell="${ratingsCmd.overallRating}"
                                                 year="2005"/>
                         </div>
@@ -104,6 +105,7 @@
                             </ul>
                         </div>
                     </div>
+                </div>
                 </div>
             </school:profile>
         </c:if>

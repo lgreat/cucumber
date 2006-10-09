@@ -22,10 +22,10 @@
     <table id="rating">
         <thead>
             <tr>
-                <th scope="col">STUDENTS</th>
+                <th scope="col" style="width:60%;font-size:90%;">STUDENTS</th>
 
                 <c:forEach var="subject" items="${ratingsDisplay.subjectGroupLabels}">
-                    <th scope="col">${subject}</th>
+                    <th scope="col" style="padding-left:12px;">${subject}</th>
                 </c:forEach>
             </tr>
         </thead>
@@ -44,7 +44,7 @@
         <c:forEach var="rowGroup" items="${ratingsDisplay.rowGroups}">
             <tbody>
                 <tr>
-                    <td colspan="2" scope="rowgroup" class="rowgroup"><span>${rowGroup.label}</span></td>
+                    <td colspan="2" scope="rowgroup" class="rowgroup"><div>${rowGroup.label}</div></td>
                 </tr>
                 <c:forEach var="row" items="${rowGroup.rows}">
                     <tr>
