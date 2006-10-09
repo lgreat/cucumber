@@ -23,7 +23,7 @@
     <h2 class="newsletterIntro">${newsletterCmd.user.firstName}, your profile has been updated!</h2>
 
     <div class="newsletterForm">
-    <gsweb:form action="/community/registrationFollowUpSuccess.page" method="post">
+    <gsweb:form action="/community/registration3.page" method="post">
         <spring:hasBindErrors name="newsletterCmd">
             <div class="error">
                 <ul>

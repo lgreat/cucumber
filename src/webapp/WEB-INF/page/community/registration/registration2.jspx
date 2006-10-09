@@ -34,7 +34,7 @@
   <p class="intro">Take a minute to fill out your profile - it is an opportunity to share a little
   about yourself with others in the GreatSchools Network.</p>
 
-  <gsweb:form id="registration2" action="/community/registrationSuccess.page" method="post">
+  <gsweb:form id="registration2" action="/community/registration2.page" method="post">
 
       <spring:hasBindErrors name="followUpCmd">
           <spring:bind path="followUpCmd.id">

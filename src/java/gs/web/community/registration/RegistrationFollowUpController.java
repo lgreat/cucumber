@@ -28,7 +28,7 @@ import java.util.*;
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class RegistrationFollowUpController extends SimpleFormController implements ReadWriteController {
-    public static final String BEAN_ID = "/community/registrationSuccess.page";
+    public static final String BEAN_ID = "/community/registration2.page";
     protected final Log _log = LogFactory.getLog(getClass());
 
     public static final int NUMBER_PREVIOUS_SCHOOLS = 3;

@@ -96,6 +96,10 @@ div.error {
     padding: 8px;
 }
 
+.registerDiv div.error {
+    width: 450px;
+}
+
 .loginDiv label.form, .loginDiv input.form {
     margin-bottom: 10px;
     display: block;

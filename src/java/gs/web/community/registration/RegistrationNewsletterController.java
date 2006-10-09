@@ -24,7 +24,7 @@ import java.security.NoSuchAlgorithmException;
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class RegistrationNewsletterController extends SimpleFormController implements ReadWriteController {
-    public static final String BEAN_ID = "/community/registrationFollowUpSuccess.page";
+    public static final String BEAN_ID = "/community/registration3.page";
     protected final Log _log = LogFactory.getLog(getClass());
 
     private IUserDao _userDao;

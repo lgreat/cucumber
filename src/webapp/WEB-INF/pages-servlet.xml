@@ -723,7 +723,7 @@
         <property name="commandName" value="userCmd"/>
         <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
         <property name="formView" value="/community/registration/registration"/>
-        <property name="successView" value="/community/registration/registrationSuccess"/>
+        <property name="successView" value="/community/registration/registration2"/>
         <property name="validators">
             <list>
                 <ref local="emailValidator"/>
@@ -736,23 +736,23 @@
         <property name="requireEmailValidation" value="true"/>
     </bean>
 
-    <bean name="/community/registrationSuccess.page"
+    <bean name="/community/registration2.page"
         class="gs.web.community.registration.RegistrationFollowUpController"
         autowire="byName">
         <property name="bindOnNewForm" value="false"/>
         <property name="commandName" value="followUpCmd"/>
         <property name="commandClass" value="gs.web.community.registration.FollowUpCommand"/>
-        <property name="formView" value="/community/registration/registrationSuccess"/>
-        <property name="successView" value="redirect:/community/registrationFollowUpSuccess.page"/>
+        <property name="formView" value="/community/registration/registration2"/>
+        <property name="successView" value="redirect:/community/registration3.page"/>
     </bean>
 
-    <bean name="/community/registrationFollowUpSuccess.page"
+    <bean name="/community/registration3.page"
         class="gs.web.community.registration.RegistrationNewsletterController"
         autowire="byName">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="newsletterCmd"/>
         <property name="commandClass" value="gs.web.community.registration.NewsletterCommand"/>
-        <property name="formView" value="/community/registration/registrationFollowUpSuccess"/>
+        <property name="formView" value="/community/registration/registration3"/>
         <property name="successView" value="redirect:/community/loginOrRegister.page"/>
     </bean>
 
