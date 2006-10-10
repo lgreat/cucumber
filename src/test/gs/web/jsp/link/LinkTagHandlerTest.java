@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.18 2006/10/04 19:58:57 dlee Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.19 2006/10/10 18:21:53 dlee Exp $
  */
 
 package gs.web.jsp.link;
@@ -338,17 +338,18 @@ public class LinkTagHandlerTest extends BaseTestCase {
         assertEquals("/cgi-bin/addcomments/wy/8", builder.asSiteRelative(null));
 
 
-        tagHandler = new SchoolProfileRatingsTagHandler();
-        tagHandler.setSchool(school);
-        builder = tagHandler.createUrlBuilder();
-        assertEquals("/school/rating.page?id=8&state=WY", builder.asSiteRelative(null));
-
         tagHandler = new CompareSchoolLinkTagHandler();
         tagHandler.setSchool(school);
         builder = tagHandler.createUrlBuilder();
         _log.debug(builder.asSiteRelative(null));
         assertEquals("/cgi-bin/cs_compare/wy/?area=m&city=CityName&level=e&miles=1000&school_selected=8&showall=1&sortby=distance&street=123+way&tab=over&zip=12345",
                 builder.asSiteRelative(null));
+
+        tagHandler = new SchoolProfileRatingsTagHandler();
+        school.setDatabaseState(State.CA);
+        tagHandler.setSchool(school);
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/cgi-bin/ca/rankings/8", builder.asSiteRelative(null));
 
     }
 }
