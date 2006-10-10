@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.61 2006/10/04 22:26:38 dlee Exp $
+ * $Id: UrlBuilder.java,v 1.62 2006/10/10 17:19:44 dlee Exp $
  */
 
 package gs.web.util;
@@ -298,7 +298,7 @@ public class UrlBuilder {
                     setParameter("city", address.getCity());
                     setParameter("zip", address.getZip());
                 }
-                setParameter("level", school.getLevelCode().getCommaSeparatedString());
+                setParameter("level", String.valueOf(school.getLevelCode().getCommaSeparatedString().charAt(0)));
             } catch (NullPointerException e) {} //do nothing
             setParameter("area", "m");
             setParameter("miles", "1000");

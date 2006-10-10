@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.44 2006/10/04 22:26:38 dlee Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.45 2006/10/10 17:19:44 dlee Exp $
  */
 
 package gs.web.util;
@@ -162,6 +162,15 @@ public class UrlBuilderSaTest extends TestCase {
         //_log.debug(builder.asSiteRelativeXml(null));
         assertEquals("/cgi-bin/cs_compare/wy/?area=m&amp;city=CityName&amp;level=e&amp;miles=1000&amp;school_selected=8&amp;showall=1&amp;sortby=distance&amp;street=123+way&amp;tab=over&amp;zip=12345",
                 builder.asSiteRelativeXml(null));
+
+        //test that multilevel code school's level is shortened to level=e from level=e,m
+        school.setLevelCode(LevelCode.ELEMENTARY_MIDDLE);
+        builder = new UrlBuilder(school, UrlBuilder.COMPARE_SCHOOL);
+        //_log.debug(builder.asSiteRelativeXml(null));
+        assertEquals("/cgi-bin/cs_compare/wy/?area=m&amp;city=CityName&amp;level=e&amp;miles=1000&amp;school_selected=8&amp;showall=1&amp;sortby=distance&amp;street=123+way&amp;tab=over&amp;zip=12345",
+                builder.asSiteRelativeXml(null));
+
+
 
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_RATINGS);
         assertEquals("/school/rating.page?id=8&amp;state=WY", builder.asSiteRelativeXml(null));

@@ -15,6 +15,7 @@
     border-collapse: collapse;
     background-color: #66cccc;
     color: #ffffff;
+    font-size:90%;
 }
 
 #rating th span {

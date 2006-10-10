@@ -22,7 +22,7 @@
     <table id="rating">
         <thead>
             <tr>
-                <th scope="col" style="width:60%;font-size:90%;">STUDENTS</th>
+                <th scope="col" style="width:60%;">STUDENTS</th>
 
                 <c:forEach var="subject" items="${ratingsDisplay.subjectGroupLabels}">
                     <th scope="col" style="padding-left:12px;">${subject}</th>
