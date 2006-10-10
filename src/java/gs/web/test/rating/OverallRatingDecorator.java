@@ -1,10 +1,9 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: OverallRatingDecorator.java,v 1.7 2006/10/09 23:57:14 dlee Exp $
+ * $Id: OverallRatingDecorator.java,v 1.8 2006/10/10 01:21:30 dlee Exp $
  */
 package gs.web.test.rating;
 
-import gs.data.test.TestManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -115,7 +114,7 @@ public class OverallRatingDecorator implements IRatingsDisplay {
             _label = label;
 
             if (null != trend) {
-                trend = new Integer(TestManager.boundRatingTrend(trend.intValue()));
+                trend = new Integer(trend.intValue());
             }
 
             _cells.add(new Cell(rating, trend));

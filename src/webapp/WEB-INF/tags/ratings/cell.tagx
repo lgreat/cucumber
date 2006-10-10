@@ -17,7 +17,7 @@
                 <c:when test="${not empty cell.trend}">
                     <c:set var="trend" value="${cell.trend}"/>
                     <c:choose>
-                        <c:when test="${trend == 2}">
+                        <c:when test="${trend ge 2}">
                             <span class="strongImprovement">${cell.rating}</span>
                         </c:when>
                         <c:when test="${trend == 1}">
@@ -29,7 +29,7 @@
                         <c:when test="${trend == -1}">
                             <span class="someDecline">${cell.rating}</span>
                         </c:when>
-                        <c:when test="${trend == -2}">
+                        <c:when test="${trend le -2}">
                             <span class="strongDecline">${cell.rating}</span>
                         </c:when>
                         <c:otherwise>${cell.rating}</c:otherwise>
