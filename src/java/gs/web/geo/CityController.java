@@ -1,11 +1,10 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.37 2006/07/26 22:29:20 thuss Exp $
+ * $Id: CityController.java,v 1.38 2006/10/10 23:44:23 dlee Exp $
  */
 
 package gs.web.geo;
 
-import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
 import gs.data.school.ISchoolDao;
@@ -14,11 +13,9 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.util.context.ISessionContext;
 import gs.web.util.context.SessionContext;
-import gs.web.util.list.AnchorListModelFactory;
-import gs.web.util.context.SessionContext;
-import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
+import gs.web.util.list.AnchorListModelFactory;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,7 +27,9 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -146,7 +145,8 @@ public class CityController extends AbstractController {
         /*
         * If top rated schools are available for this city, then get them and
         * put them into the model.
-        */
+        TODO reenable as part of GS-2620
+
         if (state.isRatingsState()) {
             List topRatedSchools;
             topRatedSchools = _schoolDao.findTopRatedSchoolsInCity(city, 1, null, 5);
@@ -169,6 +169,7 @@ public class CityController extends AbstractController {
 
             }
         }
+        */
 
         if (model.get(MODEL_TOP_RATED_SCHOOLS) == null) {
             List schools = _schoolDao.findSchoolsInCity(state, cityNameParam, false);
