@@ -14,7 +14,7 @@
 
 <html lang="en">
 <head>
-    <title>${requestScope.context.state.longName} Schools</title>
+    <title>Research &amp; Compare Schools</title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <pageHelper:externalCss file="/res/css/content/research.css"/>
 </head>
@@ -74,7 +74,18 @@
 <td style="width: 651px" valign="top">
 <table width="651" cellpadding="0" cellspacing="0" border="0">
 <tr>
-    <td colspan="3"><h1 id="stateSchools">${stateOrNull.longName} Schools</h1></td>
+    <td colspan="3">
+        <h1 id="stateSchools">
+        <c:choose>
+            <c:when test="${not empty stateOrNull}">
+                ${stateOrNull.longName} Schools
+            </c:when>
+            <c:otherwise>
+                Research &amp; Compare Schools Nationwide
+            </c:otherwise>
+        </c:choose>
+        </h1>
+    </td>
 </tr>
 <tr>
     <td colspan="3"><gsml:img style="height: 5px;" alt="" src="/res/img/header/clear_pix.gif" />
@@ -87,7 +98,6 @@
     <img src="/res/img/content/research/t_compare.gif" width="93" height="19" alt="Compare ${requestScope.context.state.longName} Schools" border="0"/>
 </div>
     <div class="compareBox">
-        <!--<gsweb:form action="/cgi-bin/cs_compare/${requestScope.context.stateOrDefault.abbreviationLowerCase}/" method="get">-->
         <gsweb:form action="/school/research.page" method="get">
             <input type="hidden" name="sortby" value="distance" />
             <input type="hidden" name="tab" value="over" />
@@ -193,7 +203,7 @@
                         <input type="text" name="district" class="district formText"/>
                         <img style="width:4px;height:10px;" alt=""
                              src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                        <gsweb:stateSelector useNoState="false"
+                        <gsweb:stateSelector useNoState="${empty stateOrNull}"
                                              styleId="stateSelector1"
                                              usingLongNames="false"
                                              state="${requestScope.context.state}" styleClass="state2 formText"/>
@@ -214,7 +224,7 @@
             </table>
         </gsweb:form>
         <div class="middleBottom">
-            <gsml:a href="/cgi-bin/cs_where/${requestScope.context.state.abbreviation}" styleClass="boldUnderline">Advanced compare</gsml:a>
+            <gsml:a href="/cgi-bin/cs_where/${requestScope.context.state.abbreviation}" styleClass="underline">Advanced compare</gsml:a>
         </div>
     </div>
     </td>
@@ -244,7 +254,7 @@
                 </tr>
                 <tr>
                     <td style="padding-top:3px;">All
-                        <gsweb:stateSelector useNoState="false"
+                        <gsweb:stateSelector useNoState="${empty stateOrNull}"
                                              styleId="stateSelector2"
                                              usingLongNames="true"
                                              state="${requestScope.context.state}" styleClass="state formText"/>
@@ -254,7 +264,7 @@
                         <br/>
                         <c:forEach var="city" items="${cities}">
                             <c:if test="${not empty city.link}">
-                                <a href="${city.link}" class="arrowLink bold">${city.name} schools</a>
+                                <a href="${city.link}" class="arrowLink">${city.name} schools</a>
                             </c:if>
                             <br/>
                         </c:forEach>
@@ -266,10 +276,20 @@
                                             src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/></td>
                 </tr>
                 <tr>
-                    <td><img style="width: 164px;height: 8px;" alt=""
-                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-                    <td><img style="width: 68px;height: 8px;" alt=""
-                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+                    <c:choose>
+                        <c:when test="${stateOrDefault.abbreviation eq 'DC'}">
+                            <td><img style="width: 164px;height: 0px;" alt=""
+                                     src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+                            <td><img style="width: 68px;height: 0px;" alt=""
+                                     src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+                        </c:when>
+                        <c:otherwise>
+                            <td><img style="width: 164px;height: 8px;" alt=""
+                                     src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+                            <td><img style="width: 68px;height: 8px;" alt=""
+                                     src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+                        </c:otherwise>
+                    </c:choose>
                 </tr>
             </table>
         </gsweb:form>
@@ -302,7 +322,7 @@
                         <input type="text" name="q" class="district formText"/>
                         <img style="width:4px;height:10px;" alt=""
                              src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                        <gsweb:stateSelector useNoState="false"
+                        <gsweb:stateSelector useNoState="${empty stateOrNull}"
                                              styleId="stateSelector3"
                                              usingLongNames="false"
                                              state="${requestScope.context.state}" styleClass="state2 formText"/>
@@ -327,7 +347,7 @@
             </table>
         </gsweb:form>
         <div class="middleBottom">
-            <gsml:a href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address" styleClass="boldUnderline">Search near an address</gsml:a>
+            <gsml:a href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address" styleClass="underline">Search near an address</gsml:a>
         </div>
 
     </div></td>

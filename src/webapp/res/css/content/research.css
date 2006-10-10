@@ -8,14 +8,13 @@ a.border10Links:link, a.border10Links:visited, a.border10Links:hover, .contentGS
 	letter-spacing: 0px;
 }
 
-a.boldUnderline:link, a.boldUnderline:visited, a.boldUnderline:hover {
+a.underline:link, a.underline:visited, a.underline:hover {
 	font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 12px;
 	line-height: 15px;
 	color: #3399AA;
 	text-decoration: underline;
 	letter-spacing: 0px;
-	font-weight: bold;
 }
 
 a.dearParentsLink:link, a.dearParentsLink:visited {
