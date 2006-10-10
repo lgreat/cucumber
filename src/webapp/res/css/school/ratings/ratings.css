@@ -13,11 +13,13 @@
 
 #schoolProfile .ratingSummaryContent h2{
     padding-top:10px;
+    padding-bottom:10px;
     color:#cc5566;
     font-weight:bold;
 }
 
 #schoolProfile .ratingSummaryContent p{
+    font-size:98%;
     line-height:110%;
     color: #666;
 }

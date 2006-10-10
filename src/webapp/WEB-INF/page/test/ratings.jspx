@@ -29,16 +29,29 @@
 </jsp:scriptlet>
 
 
-<head>
-    <title>Rating page</title>
-</head>
-
 <c:set var="school" value="${ratingsCmd.school}"/>
 <c:set var="ratingsDisplay" value="${ratingsCmd.ratingsDisplay}"/>
 <c:set var="hasError" value="false"/>
 <c:set var="hasRating" value="false"/>
 <c:set var="overallRating" value="0"/>
 <c:set var="ratingImagePath" value="/res/img/school/ratings/ratings_unavailable.gif"/>
+
+<c:choose>
+    <c:when test="${not empty school}">
+        <c:set var="title" value="Test Score Ratings for ${school.name} - ${school.physicalAddress.city}, ${school.physicalAddress.state.longName} - ${school.physicalAddress.state}"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="title" value="Test Score Ratings"/>
+    </c:otherwise>
+</c:choose>
+
+<head>
+    <title>${title}</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <meta name="Description"
+          content="See ${title}"/>
+</head>
+
 
 <c:if test="${not empty ratingsCmd.overallRating.rating}">
     <c:set var="overallRating" value="${ratingsCmd.overallRating.rating}"/>
@@ -87,7 +100,7 @@
 
                 <div style="padding-top:15px;">
                     <c:if test="${hasRating == 'true'}">
-                        <div style="float:left;width:520px;">
+                        <div style="float:left;width:505px;">
                             <ratings:table ratingsDisplay="${ratingsDisplay}" overallRatingCell="${ratingsCmd.overallRating}"
                                                 year="2005"/>
                         </div>
@@ -113,7 +126,9 @@
     </div>
     <mod:tracking pageType="school"
                   pageName="Ratings"
-                  hier1="Ratings"/>
+                  hier1="School,Ratings"
+            school="${school}"
+            />
 </gsml:body>
 </html>
 </jsp:root>
