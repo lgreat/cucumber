@@ -115,7 +115,7 @@
                         <div id="moreResources">
                             <h2>More Resources</h2>
                             <ul>
-                                <li><gsml:a href="/definitions/$LCSTATE/data_definitions.html" onClick="issues();" target="issues">More About GreatSchools Ratings</gsml:a></li>
+                                <li><gsml:a href="/issues/$LCSTATE/ratings.html" onClick="issues();" target="issues">More About GreatSchools Ratings</gsml:a></li>
                                 <li><link:schoolProfileTestscore school="${school}">See this school's performance
                                     data</link:schoolProfileTestscore></li>
                             </ul>
