@@ -35,6 +35,7 @@
 <c:set var="hasRating" value="false"/>
 <c:set var="overallRating" value="0"/>
 <c:set var="ratingImagePath" value="/res/img/school/ratings/ratings_unavailable.gif"/>
+<c:set var="imageDesc" value="Test Score Rating: We're sorry, the relevant data is unavailable for this school."/>
 
 <c:choose>
     <c:when test="${not empty school}">
@@ -57,6 +58,7 @@
     <c:set var="overallRating" value="${ratingsCmd.overallRating.rating}"/>
     <c:set var="hasRating" value="true"/>
     <c:set var="ratingImagePath" value="/res/img/school/ratings/ratings_${overallRating}.gif"/>
+    <c:set var="imageDesc" value="GreatSchools Test Score Rating: ${overallRating} out of 10"/>
 </c:if>
 
 
@@ -76,11 +78,12 @@
         </spring:hasBindErrors>
 
         <c:if test="${hasError eq 'false'}">
+            <br/>
             <school:profile school="${school}" tab="ratings">
                 <div style="padding:10px 10px 0 0;">
                 <div class="ratingSummaryWrapper">
                     <div class="ratingSummaryContent">
-                        <gsml:img src="${ratingImagePath}" alt="ratings" style="float:left;padding-right:30px;"/>
+                        <gsml:img src="${ratingImagePath}" alt="${imageDesc}" style="float:left;padding-right:30px;"/>
 
                         <h2>What do these ratings mean?</h2>
 
