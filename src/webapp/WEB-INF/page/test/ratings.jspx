@@ -99,7 +99,8 @@
                         <div id="moreResources">
                             <h2>More Resources</h2>
                             <ul>
-                                <li>More About GreatSchools Ratings</li>
+                                <pageHelper:externalJavascript file="/cm/htdocs/gs.js"/>
+                                <li><gsml:a href="/definitions/$LCSTATE/data_definitions.html" onClick="issues();" target="issues">More About GreatSchools Ratings</gsml:a></li>
                                 <li><link:schoolProfileTestscore school="${school}">See this school's performance
                                     data</link:schoolProfileTestscore></li>
                             </ul>
