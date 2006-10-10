@@ -25,7 +25,7 @@
 }
 
 #schoolProfile #moreResources {
-    border-bottom: dotted 2px #ccc;
+    border-bottom: dashed 1px #ccc;
     padding-top:30px;
     padding-bottom: 20px;
 }
