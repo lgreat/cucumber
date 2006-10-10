@@ -78,7 +78,7 @@
         </spring:hasBindErrors>
 
         <c:if test="${hasError eq 'false'}">
-            <br/>>
+            <br/>
             <school:profile school="${school}" tab="ratings">
                 <div style="padding:10px 10px 0 0;">
                 <div class="ratingSummaryWrapper">
