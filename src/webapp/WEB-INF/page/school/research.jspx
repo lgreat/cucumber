@@ -7,6 +7,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsweb="gstaglib"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
           version="2.0">
 
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
@@ -40,7 +41,7 @@
                 way. Armed with our <gsml:a href="/cgi-bin/showarticle/$STATE/489" styleClass="border10Links">practical
                 advice</gsml:a> on choosing the
                 best option, <gsml:a href="/cgi-bin/showarticle/$STATE/197" styleClass="border10Links">public vs. private
-                schools</gsml:a>, <gsml:a href="/cgi-bin/showarticle/$STATE/48" styleClass="border10Links">what to ask</gsml:a> on your
+                </gsml:a> or <gsml:a href="/cgi-bin/showarticle/$STATE/487" styleClass="border10Links">charter schools</gsml:a>, <gsml:a href="/cgi-bin/showarticle/$STATE/48" styleClass="border10Links">what to ask</gsml:a> on your
                 school visit and more, you'll be
                 set to begin your search.<br/>
 
@@ -53,9 +54,6 @@
                     </li>
                     <li class="dearParentsLI">
                         <gsml:a href="/cgi-bin/showarticle/$STATE/96" styleClass="dearParentsLink"><span class="bold">Choosing a School:<br/>An Overview</span></gsml:a>
-                    </li>
-                    <li class="dearParentsLI">
-                        <gsml:a href="/cgi-bin/showarticle/$STATE/48/improve" styleClass="dearParentsLink"><span class="bold">The School Visit: What to<br/>Look For, What to Ask</span></gsml:a>
                     </li>
                     <li class="dearParentsLI">
                         <gsml:a href="/content/schoolChoiceCenter.page?state=$STATE" styleClass="dearParentsLink"><span class="bold">All school choice articles &gt;</span></gsml:a>
@@ -352,7 +350,7 @@
     </tr>
     <tr>
         <td valign="middle" align="center">
-            <gsml:img id="map" src="/res/img/content/research/map/${requestScope.context.stateOrDefault.abbreviationLowerCase}.gif"
+            <gsml:img id="map" src="/res/img/content/research/map/map_${requestScope.context.state.abbreviationLowerCase}.gif"
                       alt="${requestScope.context.stateOrDefault.longName} Schools"/>
         </td>
         <td valign="top">
@@ -477,7 +475,7 @@
                         <gsweb:form action="/search/search.page" method="get">
                             <input type="hidden" name="c" value="topic" />
                             <input type="text" name="q" class="keyword formText" style="margin-right:10px;"/>
-                            <input type="image" src="/res/img/content/research/go_pink.gif"
+                            <input type="image" src="/res/img/content/research/go_pink.gif" alt="GO"
                                    style="width:40px;height:18px;padding-left:8px;padding-top:2px;"/>
                         </gsweb:form>
                     </div>
@@ -531,15 +529,18 @@
                     <div class="billsBlogImg">Bill's Blog Image</div>
 
                     <div class="blueTitleText">Bill's Blog</div>
+
                     President and founder
                     of GreatSchools on
                     school improvement.
                     <img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1" height="6" alt=""/>
                     <br/>
-                    Last week I sat next
-                    to an 11-year-old on
-                    the plane as I...
-                    <a href="http://billsblog.greatschools.net" class="border10Links">Read More about "Hippy Valley Middle School"</a>
+
+                    <cache:cache scope="application" name="blog" key="bill3">
+                        <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
+                                          defaultTitle="Bill's thoughts on education"
+                                          defaultUrl="http://billsblog.greatschools.net"/>
+                    </cache:cache>
                 </div></td>
             <td valign="top" class="redDotVert"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif"
                                                      width="1" height="1" alt="" border="0"/></td>

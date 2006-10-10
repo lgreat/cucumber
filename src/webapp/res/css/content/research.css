@@ -1,4 +1,5 @@
-a.border10Links:link, a.border10Links:visited, a.border10Links:hover {
+a.border10Links:link, a.border10Links:visited, a.border10Links:hover, .contentGS .billsBlog a:link,
+    .contentGS .billsBlog a:visited, .contentGS .billsBlog a:hover{
 	font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 12px;
 	line-height: 15px;
@@ -34,7 +35,7 @@ a.dearParentsLink:hover {
 	text-decoration: underline;
 }
 
-a.arrowLink:link, a.arrowLink:visited {
+a.arrowLink:link, a.arrowLink:visited, a.arrowLink:active {
 	font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 12px;
 	line-height: 15px;
