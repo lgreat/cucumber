@@ -78,7 +78,7 @@
         </spring:hasBindErrors>
 
         <c:if test="${hasError eq 'false'}">
-            <br/>
+            <br/>>
             <school:profile school="${school}" tab="ratings">
                 <div style="padding:10px 10px 0 0;">
                 <div class="ratingSummaryWrapper">
@@ -115,7 +115,6 @@
                         <div id="moreResources">
                             <h2>More Resources</h2>
                             <ul>
-                                <pageHelper:externalJavascript file="/cm/htdocs/gs.js"/>
                                 <li><gsml:a href="/definitions/$LCSTATE/data_definitions.html" onClick="issues();" target="issues">More About GreatSchools Ratings</gsml:a></li>
                                 <li><link:schoolProfileTestscore school="${school}">See this school's performance
                                     data</link:schoolProfileTestscore></li>
