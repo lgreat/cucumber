@@ -88,7 +88,7 @@
         table#toolmenucontent .toolsmenu h3 img {
             margin: 1em;
         }
-        #adSquare {
+        .adSquare {
             clear: right;
             margin-top: 2em;
         }

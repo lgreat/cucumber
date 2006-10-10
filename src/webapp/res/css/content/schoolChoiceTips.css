@@ -121,7 +121,7 @@ h3#freeNewsletters {
     padding-bottom:10px;
 }
 /*override global's*/
-#contentGS #adSquare {
+#contentGS .adSquare {
     text-align: center;
     color: #999;
     padding: 0;

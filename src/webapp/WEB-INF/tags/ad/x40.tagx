@@ -6,7 +6,7 @@
         >
     <jsp:directive.tag body-content="empty"/>
     <c:if test="${!requestScope.pageHelper.adFree}">
-        <div id="adSquare">
+        <div class="adSquare">
             <c:if test='${!requestScope.pageHelper.adServedByCobrand}'>AD</c:if>
             <table cellpadding="0" cellspacing="0">
                 <tr><td>
