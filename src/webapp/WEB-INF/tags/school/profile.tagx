@@ -107,7 +107,7 @@
                                     <a href="${school.webSite}" target="_blank">School Web site</a><br/>
                                 </c:if>
 
-                                <c:if test="${schoolType != 'private'}">
+                                <c:if test="${school.districtId != 0}">
                                     District: <gsml:a
                                         href="/cgi-bin/${state.abbreviationLowerCase}/district_profile/${school.districtId}">${school.district.name}</gsml:a>
                                     <br/>

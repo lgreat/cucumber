@@ -104,3 +104,12 @@
     color: #666;
     padding-top:10px;
 }
+
+td#footerPadding {
+    padding:0 10px 0 10px;
+}
+
+td#footerPadding div {
+    margin: 30px 0 15px 0;
+    border-bottom: solid 5px #66cccc;
+}
