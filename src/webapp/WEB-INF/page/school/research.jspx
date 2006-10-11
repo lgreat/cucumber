@@ -380,7 +380,7 @@
     <tr>
         <td valign="middle" align="center">
             <gsml:img id="map" src="/res/img/content/research/map/map_${requestScope.context.state.abbreviationLowerCase}.gif"
-                      alt="${requestScope.context.stateOrDefault.longName} Schools"/>
+                      alt="${not empty stateOrNull ? stateOrNull.longName : 'Nationwide'} Schools"/>
         </td>
         <td valign="top">
         </td>
@@ -650,7 +650,6 @@
 
 <img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="600" height="50" border="0" alt=""/>
 
-<div class="greyBar"></div>
 <c:choose>
     <c:when test="${not empty requestScope.context.state}">
         <mod:tracking pageType="home" pageName="state home" hier1="Home,StateHome"/>
