@@ -13,15 +13,24 @@
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 
 <html lang="en">
+<c:set var="stateOrNull" value="${requestScope.context.state}" />
+<c:set var="stateOrDefault" value="${requestScope.context.stateOrDefault}" />
 <head>
-    <title>Research &amp; Compare Schools</title>
+    <c:choose>
+        <c:when test="${not empty stateOrNull}" >
+            <title>${stateOrNull.longName} Schools</title>
+        </c:when>
+        <c:otherwise>
+            <title>Research &amp; Compare Schools</title>
+        </c:otherwise>
+    </c:choose>
+
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <pageHelper:externalCss file="/res/css/content/research.css"/>
 </head>
 
 <body class="www  unframed ">
-<c:set var="stateOrNull" value="${requestScope.context.state}" />
-<c:set var="stateOrDefault" value="${requestScope.context.stateOrDefault}" />
+
 <table cellspacing="0" cellpadding="0" class="content" border="0">
 <tr>
 <td valign="top" class="border10">
@@ -40,7 +49,7 @@
                 <gsml:a href="/cgi-bin/showarticle/$STATE/96" styleClass="border10Links">school choice tips</gsml:a> lead the
                 way. Armed with our <gsml:a href="/cgi-bin/showarticle/$STATE/489" styleClass="border10Links">practical
                 advice</gsml:a> on choosing the
-                best option, <gsml:a href="/cgi-bin/showarticle/$STATE/197" styleClass="border10Links">public vs. private
+                best option, <gsml:a href="/cgi-bin/showarticle/$STATE/197" styleClass="border10Links">public vs. private schools
                 </gsml:a> or <gsml:a href="/cgi-bin/showarticle/$STATE/487" styleClass="border10Links">charter schools</gsml:a>, <gsml:a href="/cgi-bin/showarticle/$STATE/48" styleClass="border10Links">what to ask</gsml:a> on your
                 school visit and more, you'll be
                 set to begin your search.<br/>
