@@ -64,7 +64,6 @@
 
 <pageHelper:externalCss file="/res/css/school/ratings/ratings.css"/>
 <gsml:body adPageName="ratings" pageLayout="ratings">
-    <div class="marginGS" id="marginGS">
 
         <spring:hasBindErrors name="ratingsCmd">
             <c:set var="hasError" value="true"/>
@@ -125,7 +124,6 @@
                 </div>
             </school:profile>
         </c:if>
-    </div>
     <mod:tracking pageType="school"
                   pageName="Ratings"
                   hier1="School,Ratings"

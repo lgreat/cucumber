@@ -25,7 +25,7 @@
                 <th scope="col" style="width:60%;">STUDENTS</th>
 
                 <c:forEach var="subject" items="${ratingsDisplay.subjectGroupLabels}">
-                    <th scope="col" style="padding-left:12px;">${subject}</th>
+                    <th scope="col" style="padding-left:2px;">${subject}</th>
                 </c:forEach>
             </tr>
         </thead>
