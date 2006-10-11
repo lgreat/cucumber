@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.38 2006/10/10 23:44:23 dlee Exp $
+ * $Id: CityController.java,v 1.39 2006/10/11 00:36:05 dlee Exp $
  */
 
 package gs.web.geo;
@@ -27,9 +27,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
@@ -145,9 +143,11 @@ public class CityController extends AbstractController {
         /*
         * If top rated schools are available for this city, then get them and
         * put them into the model.
-        TODO reenable as part of GS-2620
-
-        if (state.isRatingsState()) {
+        * GS-2620
+          TODO once findTopRatedSchoolsInCity is modified to handle the new page,
+          can remove isNewRatingsState() check
+        */
+        if (state.isRatingsState() && !state.isNewRatingsState()) {
             List topRatedSchools;
             topRatedSchools = _schoolDao.findTopRatedSchoolsInCity(city, 1, null, 5);
             if (topRatedSchools.size() > 0) {
@@ -169,7 +169,7 @@ public class CityController extends AbstractController {
 
             }
         }
-        */
+
 
         if (model.get(MODEL_TOP_RATED_SCHOOLS) == null) {
             List schools = _schoolDao.findSchoolsInCity(state, cityNameParam, false);
