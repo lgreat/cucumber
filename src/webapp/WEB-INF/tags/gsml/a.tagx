@@ -27,7 +27,7 @@
         }
 
         if (StringUtils.isNotBlank(styleClass)) {
-            buffer.append(" style=\"").append(styleClass).append('"');
+            buffer.append(" class=\"").append(styleClass).append('"');
         }
 
         if (StringUtils.isNotBlank(target)) {
