@@ -246,6 +246,10 @@ p.intro {
 /* Stage 3 */
 /***********/
 
+div.newsletterForm {
+    min-height: 250px; /* try to get a minimum height going */
+}
+
 h2.newsletterIntro {
     font-size: large;
     margin-top: 10px;
@@ -277,4 +281,5 @@ div.newsletterForm div.mystats input {
 }
 div.newsletterForm p.noThanks {
     margin-top: 15px;
+    margin-bottom: 25px;
 }
