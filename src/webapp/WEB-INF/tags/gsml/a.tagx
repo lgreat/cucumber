@@ -3,6 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core">
     <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
+    <jsp:directive.tag import="org.apache.taglibs.standard.tag.common.core.Util"/>
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="state" required="false"
                              description="Optional state to override session facade value"/>
@@ -23,7 +24,7 @@
         buffer.append("<a");
 
         if (StringUtils.isNotBlank(href)) {
-            buffer.append(" href=\"").append(href).append('"');
+            buffer.append(" href=\"").append(Util.escapeXml(href)).append('"');
         }
 
         if (StringUtils.isNotBlank(styleClass)) {
