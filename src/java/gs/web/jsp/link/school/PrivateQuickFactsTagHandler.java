@@ -1,4 +1,4 @@
-package gs.web.jsp.link;
+package gs.web.jsp.link.school;
 
 import gs.web.util.UrlBuilder;
 
@@ -7,7 +7,7 @@ import gs.web.util.UrlBuilder;
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class SchoolProfilePrivateQuickFactsTagHandler extends BaseSchoolProfileTagHandler{
+public class PrivateQuickFactsTagHandler extends BaseSchoolTagHandler {
     protected UrlBuilder createUrlBuilder() {
         return new UrlBuilder(getSchool(), UrlBuilder.SCHOOL_PROFILE_PRIVATE_QUICK_FACTS);
     }

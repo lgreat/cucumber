@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.19 2006/10/10 18:21:53 dlee Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.20 2006/10/12 23:58:04 dlee Exp $
  */
 
 package gs.web.jsp.link;
@@ -15,6 +15,7 @@ import gs.data.util.Address;
 import gs.web.BaseTestCase;
 import gs.web.jsp.MockJspWriter;
 import gs.web.jsp.MockPageContext;
+import gs.web.jsp.link.school.*;
 import gs.web.util.UrlBuilder;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -305,47 +306,47 @@ public class LinkTagHandlerTest extends BaseTestCase {
         school.setPhysicalAddress(address);
 
 
-        BaseSchoolProfileTagHandler tagHandler = new SchoolProfileCensusTagHandler();
+        BaseSchoolTagHandler tagHandler = new CensusTagHandler();
         tagHandler.setPageContext(new MockPageContext());
         tagHandler.setSchool(school);
 
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/wy/other/8", builder.asSiteRelative(null));
 
-        tagHandler = new SchoolProfileOverviewTagHandler();
+        tagHandler = new OverviewTagHandler();
         tagHandler.setSchool(school);
         builder = tagHandler.createUrlBuilder();
         assertEquals("/modperl/browse_school/wy/8", builder.asSiteRelative(null));
 
-        tagHandler = new SchoolProfileParentReviewTagHandler();
+        tagHandler = new ParentReviewTagHandler();
         tagHandler.setSchool(school);
         builder = tagHandler.createUrlBuilder();
         assertEquals("/modperl/parents/wy/8", builder.asSiteRelative(null));
 
-        tagHandler = new SchoolProfilePrincipalViewTagHandler();
+        tagHandler = new PrincipalViewTagHandler();
         tagHandler.setSchool(school);
         builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/wy/pqview/8", builder.asSiteRelative(null));
 
-        tagHandler = new SchoolProfileTestScoreTagHandler();
+        tagHandler = new TestScoreTagHandler();
         tagHandler.setSchool(school);
         builder = tagHandler.createUrlBuilder();
         assertEquals("/modperl/achievement/wy/8", builder.asSiteRelative(null));
 
-        tagHandler = new SchoolProfileAddParentReviewTagHandler();
+        tagHandler = new AddParentReviewTagHandler();
         tagHandler.setSchool(school);
         builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/addcomments/wy/8", builder.asSiteRelative(null));
 
 
-        tagHandler = new CompareSchoolLinkTagHandler();
+        tagHandler = new CompareSchoolTagHandler();
         tagHandler.setSchool(school);
         builder = tagHandler.createUrlBuilder();
         _log.debug(builder.asSiteRelative(null));
         assertEquals("/cgi-bin/cs_compare/wy/?area=m&city=CityName&level=e&miles=1000&school_selected=8&showall=1&sortby=distance&street=123+way&tab=over&zip=12345",
                 builder.asSiteRelative(null));
 
-        tagHandler = new SchoolProfileRatingsTagHandler();
+        tagHandler = new RatingsTagHandler();
         school.setDatabaseState(State.CA);
         tagHandler.setSchool(school);
         builder = tagHandler.createUrlBuilder();

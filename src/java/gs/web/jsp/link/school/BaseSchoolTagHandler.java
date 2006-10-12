@@ -1,17 +1,18 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: BaseSchoolProfileTagHandler.java,v 1.1 2006/09/29 23:22:55 dlee Exp $
+ * $Id: BaseSchoolTagHandler.java,v 1.1 2006/10/12 23:58:04 dlee Exp $
  */
-package gs.web.jsp.link;
+package gs.web.jsp.link.school;
 
 import gs.data.school.School;
+import gs.web.jsp.link.LinkTagHandler;
 
 /**
  * The purpose is ...
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
-public abstract class BaseSchoolProfileTagHandler extends LinkTagHandler {
+public abstract class BaseSchoolTagHandler extends LinkTagHandler {
     private School _school;
 
     public School getSchool() {

@@ -645,7 +645,7 @@
     </tag>
     <tag>
         <name>schoolProfileCensus</name>
-        <tag-class>gs.web.jsp.link.SchoolProfileCensusTagHandler</tag-class>
+        <tag-class>gs.web.jsp.link.school.CensusTagHandler</tag-class>
         <body-content>JSP</body-content>
         <display-name>School Profile Census Page</display-name>
         <description>
@@ -675,7 +675,7 @@
     </tag>
     <tag>
         <name>schoolProfilePrivateQuickFacts</name>
-        <tag-class>gs.web.jsp.link.SchoolProfilePrivateQuickFactsTagHandler</tag-class>
+        <tag-class>gs.web.jsp.link.school.PrivateQuickFactsTagHandler</tag-class>
         <body-content>JSP</body-content>
         <display-name>School Profile Private Quick Facts Page</display-name>
         <description>
@@ -705,7 +705,7 @@
     </tag>
     <tag>
         <name>schoolProfileOverview</name>
-        <tag-class>gs.web.jsp.link.SchoolProfileOverviewTagHandler</tag-class>
+        <tag-class>gs.web.jsp.link.school.OverviewTagHandler</tag-class>
         <body-content>JSP</body-content>
         <display-name>School Profile Overview Page</display-name>
         <description>
@@ -735,7 +735,7 @@
     </tag>
     <tag>
         <name>schoolProfileParentReview</name>
-        <tag-class>gs.web.jsp.link.SchoolProfileParentReviewTagHandler</tag-class>
+        <tag-class>gs.web.jsp.link.school.ParentReviewTagHandler</tag-class>
         <body-content>JSP</body-content>
         <display-name>School Profile Parent Review Page</display-name>
         <description>
@@ -765,7 +765,7 @@
     </tag>
     <tag>
         <name>schoolProfilePrincipalView</name>
-        <tag-class>gs.web.jsp.link.SchoolProfilePrincipalViewTagHandler</tag-class>
+        <tag-class>gs.web.jsp.link.school.PrincipalViewTagHandler</tag-class>
         <body-content>JSP</body-content>
         <display-name>School Profile Principal View Page</display-name>
         <description>
@@ -795,7 +795,7 @@
     </tag>
     <tag>
         <name>schoolProfileRating</name>
-        <tag-class>gs.web.jsp.link.SchoolProfileRatingsTagHandler</tag-class>
+        <tag-class>gs.web.jsp.link.school.RatingsTagHandler</tag-class>
         <body-content>JSP</body-content>
         <display-name>School Profile Ratings Page</display-name>
         <description>
@@ -825,7 +825,7 @@
     </tag>
     <tag>
         <name>schoolProfileTestscore</name>
-        <tag-class>gs.web.jsp.link.SchoolProfileTestScoreTagHandler</tag-class>
+        <tag-class>gs.web.jsp.link.school.TestScoreTagHandler</tag-class>
         <body-content>JSP</body-content>
         <display-name>School Profile Testscore Page</display-name>
         <description>
@@ -855,7 +855,7 @@
     </tag>
     <tag>
         <name>schoolProfileAddParentReview</name>
-        <tag-class>gs.web.jsp.link.SchoolProfileAddParentReviewTagHandler</tag-class>
+        <tag-class>gs.web.jsp.link.school.AddParentReviewTagHandler</tag-class>
         <body-content>JSP</body-content>
         <display-name>School Profile Add Parent Review Page</display-name>
         <description>
@@ -885,7 +885,7 @@
     </tag>
     <tag>
         <name>schoolCompareSchool</name>
-        <tag-class>gs.web.jsp.link.CompareSchoolLinkTagHandler</tag-class>
+        <tag-class>gs.web.jsp.link.school.CompareSchoolTagHandler</tag-class>
         <body-content>JSP</body-content>
         <display-name>Compare School Page</display-name>
         <description>

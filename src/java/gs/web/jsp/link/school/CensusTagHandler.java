@@ -1,19 +1,19 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolProfileCensusTagHandler.java,v 1.2 2006/10/04 00:34:51 chriskimm Exp $
+ * $Id: CensusTagHandler.java,v 1.1 2006/10/12 23:58:04 dlee Exp $
  */
-package gs.web.jsp.link;
+package gs.web.jsp.link.school;
 
-import gs.web.util.UrlBuilder;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
+import gs.web.util.UrlBuilder;
 
 /**
  * School Profile Census
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
-public class SchoolProfileCensusTagHandler extends BaseSchoolProfileTagHandler{
+public class CensusTagHandler extends BaseSchoolTagHandler {
     protected UrlBuilder createUrlBuilder() {
         School school = getSchool();
         if (SchoolType.PRIVATE.equals (school.getType())) {

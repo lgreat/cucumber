@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CompareSchoolLinkTagHandler.java,v 1.1 2006/09/30 01:03:54 dlee Exp $
+ * $Id: CompareSchoolTagHandler.java,v 1.1 2006/10/12 23:58:04 dlee Exp $
  */
-package gs.web.jsp.link;
+package gs.web.jsp.link.school;
 
 import gs.web.util.UrlBuilder;
 
@@ -11,7 +11,7 @@ import gs.web.util.UrlBuilder;
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
-public class CompareSchoolLinkTagHandler extends BaseSchoolProfileTagHandler {
+public class CompareSchoolTagHandler extends BaseSchoolTagHandler {
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder builder = new UrlBuilder(getSchool(), UrlBuilder.COMPARE_SCHOOL);
         return builder;

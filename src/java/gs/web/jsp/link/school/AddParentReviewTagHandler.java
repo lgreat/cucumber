@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolProfileAddParentReviewTagHandler.java,v 1.1 2006/09/29 23:22:55 dlee Exp $
+ * $Id: AddParentReviewTagHandler.java,v 1.1 2006/10/12 23:58:04 dlee Exp $
  */
-package gs.web.jsp.link;
+package gs.web.jsp.link.school;
 
 import gs.web.util.UrlBuilder;
 
@@ -11,7 +11,7 @@ import gs.web.util.UrlBuilder;
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
-public class SchoolProfileAddParentReviewTagHandler extends BaseSchoolProfileTagHandler{
+public class AddParentReviewTagHandler extends BaseSchoolTagHandler {
     protected UrlBuilder createUrlBuilder() {
         UrlBuilder builder = new UrlBuilder(getSchool(), UrlBuilder.SCHOOL_PROFILE_ADD_PARENT_REVIEW);
         return builder;
