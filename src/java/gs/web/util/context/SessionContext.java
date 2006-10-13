@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.3 2006/09/12 21:45:52 apeterson Exp $
+ * $Id: SessionContext.java,v 1.4 2006/10/13 17:45:04 aroy Exp $
  */
 package gs.web.util.context;
 
@@ -8,6 +8,7 @@ import gs.data.admin.IPropertyDao;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.state.State;
+import gs.data.util.DigestUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeansException;
@@ -16,6 +17,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Implementation of the ISessionContext interface based on Java servlet
@@ -38,6 +40,7 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
     private String _cobrand;
     private String _hostName;
     private User _user;
+    private String _userHash;
     private Integer _memberId;
     private String _email;
     private String _nickname;
@@ -65,6 +68,24 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
 
     public ApplicationContext getApplicationContext() {
         return _applicationContext;
+    }
+
+    public boolean isUserValid() {
+        User user = getUser();
+        if (user != null && _userHash != null) {
+            try {
+                Object[] hashInput = new Object[] {User.SECRET_NUMBER, user.getId(), user.getEmail()};
+                String realHash = DigestUtil.hashObjectArray(hashInput);
+                return realHash.equals(_userHash);
+            } catch (NoSuchAlgorithmException e) {
+                // fall through to return false below
+            }
+        }
+        return false;
+    }
+
+    public void setUserValid(boolean ignored) {
+        // ignored
     }
 
     public User getUser() {
@@ -245,6 +266,14 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
 
     public int getMssCount() {
         return _mssCount;
+    }
+
+    public String getUserHash() {
+        return _userHash;
+    }
+
+    public void setUserHash(String userHash) {
+        _userHash = userHash;
     }
 
     public void setMssCount(int mssCount) {

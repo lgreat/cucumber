@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.7 2006/09/29 19:21:55 aroy Exp $
+ * $Id: LoginController.java,v 1.8 2006/10/13 17:45:04 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -117,6 +117,8 @@ public class LoginController extends SimpleFormController {
         String email = loginCommand.getEmail();
         User user = getUserDao().findUserFromEmail(email);
         PageHelper.setMemberCookie(request, response, user);
+        Object[] hashInput = new Object[] {User.SECRET_NUMBER, user.getId(), email};
+        PageHelper.setMemberAuthorized(request, response, user, DigestUtil.hashObjectArray(hashInput));
 
         ModelAndView mAndV = new ModelAndView();
 

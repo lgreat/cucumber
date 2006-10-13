@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.24 2006/09/21 17:28:25 dlee Exp $
+ * $Id: PageHelper.java,v 1.25 2006/10/13 17:45:05 aroy Exp $
  */
 
 package gs.web.util;
@@ -378,5 +378,19 @@ public class PageHelper {
         context.setHasSearched(true);
         SessionContextUtil util = context.getSessionContextUtil();
         util.setHasSearched(response);
+    }
+
+    /**
+     * Sets a user's authentication information. This gets checked on secure pages against a generated
+     * copy and must match. To clear, set to null.
+     * @param request
+     * @param response
+     * @param user used to initialize the cookie, should not be null
+     * @param hash auth info for user, can be null to clear.
+     */
+    public static void setMemberAuthorized(HttpServletRequest request, HttpServletResponse response, User user, String hash) {
+        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(request);
+        SessionContextUtil util = context.getSessionContextUtil();
+        util.changeAuthorization(request, response, user, hash);
     }
 }

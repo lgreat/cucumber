@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ClientSideSessionCache.java,v 1.8 2006/07/18 18:58:17 apeterson Exp $
+ * $Id: ClientSideSessionCache.java,v 1.9 2006/10/13 17:45:04 aroy Exp $
  */
 
 package gs.web.community;
@@ -36,6 +36,7 @@ public class ClientSideSessionCache {
     private String _email;
     private Integer _memberId;
     private int _mslCount;
+    private String _userHash;
 
     private static final Log _log = LogFactory.getLog(ClientSideSessionCache.class);
 
@@ -113,6 +114,14 @@ public class ClientSideSessionCache {
      */
     private String createMssKey(State state, int schoolId) {
         return state.getAbbreviation() + schoolId;
+    }
+
+    public String getUserHash() {
+        return _userHash;
+    }
+
+    public void setUserHash(String userHash) {
+        this._userHash = userHash;
     }
 
     public int getMslCount() {
@@ -208,12 +217,14 @@ public class ClientSideSessionCache {
      * or required."
      * <br />
      * I had some problems with this, detailed at the web reference below.
+     * <br />
+     * Version 3 adds user hash for community authentication.
      *
      * @see <a href="http://mail-archives.apache.org/mod_mbox/tomcat-dev/200210.mbox/%3CMGYSZTA6HD9375D8FBB0YSGAKE3X85C7.3d99546e@RAURAMO%3E">forum message</a>
      */
     public String getCookieRepresentation() {
         StringBuffer b = new StringBuffer();
-        b.append("2"); // version
+        b.append("3"); // version
         b.append(INTRA_COOKIE_DELIMETER);
         b.append(_email);
         b.append(INTRA_COOKIE_DELIMETER);
@@ -226,8 +237,10 @@ public class ClientSideSessionCache {
         b.append(Integer.toString(getMslCount()));
         b.append(INTRA_COOKIE_DELIMETER);
         b.append(getMemberId().toString());
+        b.append(INTRA_COOKIE_DELIMETER);
+        b.append(getUserHash()); // 7
         String cookie = b.toString();
-        String encoded = null;
+        String encoded;
         try {
             encoded = URLEncoder.encode(cookie, COOKIE_ENCODING);
         } catch (UnsupportedEncodingException e) {
@@ -254,6 +267,9 @@ public class ClientSideSessionCache {
         _mslCount = Integer.parseInt(s[5]);
         if (version > 1) {
             _memberId = new Integer(s[6]);
+        }
+        if (version > 2) {
+            _userHash = s[7];
         }
     }
 

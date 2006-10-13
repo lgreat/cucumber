@@ -70,7 +70,7 @@
     </head>
 
     <gsml:body adPageName="login" pageLayout="twoColumnLayout">
-        <c:if test="${not empty requestScope.context.memberId and requestScope.context.user.emailValidated eq true}">
+        <c:if test="${requestScope.context.userValid eq true}">
             Welcome ${requestScope.context.nickname}. Some things you can do:
             <ul>
                 <li>

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ClientSideSessionCacheTest.java,v 1.5 2006/07/13 17:17:52 apeterson Exp $
+ * $Id: ClientSideSessionCacheTest.java,v 1.6 2006/10/13 17:45:04 aroy Exp $
  */
 
 package gs.web.community;
@@ -213,6 +213,8 @@ public class ClientSideSessionCacheTest extends TestCase {
         user.setSubscriptions(subscriptions);
 
         clientSideSessionCache = new ClientSideSessionCache(user);
+        String myHash = "9e107d9d372bb6826bd81d3542a419==";
+        clientSideSessionCache.setUserHash(myHash);
 
         // Make sure it's all here
         assertTrue(clientSideSessionCache.hasSubscription(SubscriptionProduct.PARENT_ADVISOR));
@@ -220,6 +222,7 @@ public class ClientSideSessionCacheTest extends TestCase {
         assertFalse(clientSideSessionCache.hasSubscription(SubscriptionProduct.BETA_GROUP));
         assertFalse(clientSideSessionCache.hasSubscription(SubscriptionProduct.MY_SECOND_GRADER));
         assertTrue(clientSideSessionCache.hasSubscription(SubscriptionProduct.MYSTAT));
+        assertEquals(myHash, clientSideSessionCache.getUserHash());
 
         // Bring it back
         clientSideSessionCacheCopy = externalizeAndBringBack(clientSideSessionCache);
@@ -230,6 +233,7 @@ public class ClientSideSessionCacheTest extends TestCase {
         assertFalse(clientSideSessionCacheCopy.hasSubscription(SubscriptionProduct.BETA_GROUP));
         assertFalse(clientSideSessionCacheCopy.hasSubscription(SubscriptionProduct.MY_SECOND_GRADER));
         assertTrue(clientSideSessionCacheCopy.hasSubscription(SubscriptionProduct.MYSTAT));
+        assertEquals(myHash, clientSideSessionCacheCopy.getUserHash());
 
     }
 

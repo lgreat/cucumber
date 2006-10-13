@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ISessionContext.java,v 1.1 2006/07/13 07:52:30 apeterson Exp $
+ * $Id: ISessionContext.java,v 1.2 2006/10/13 17:45:03 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -44,6 +44,7 @@ public interface ISessionContext {
     int getMslCount();
     int getMssCount();
 
+    String getUserHash();
 
     /**
      * Current state (of the U.S.).

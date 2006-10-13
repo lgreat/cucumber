@@ -10,6 +10,7 @@
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         xmlns:link="urn:www.greatschools.net/taglib/link"
+        xmlns:gsweb="gstaglib"
         >
     <html lang="en">
     <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>

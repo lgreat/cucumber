@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.5 2006/08/15 20:38:07 apeterson Exp $
+ * $Id: SessionContextUtil.java,v 1.6 2006/10/13 17:45:04 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -165,6 +165,7 @@ public class SessionContextUtil implements ApplicationContextAware {
         context.setMslCount(cache.getMslCount());
         context.setMssCount(cache.getMssCount());
         context.setNickname(cache.getNickname());
+        context.setUserHash(cache.getUserHash());
     }
 
     /**
@@ -390,6 +391,8 @@ public class SessionContextUtil implements ApplicationContextAware {
             User user = context.getUser();
             if (user != null) {
                 ClientSideSessionCache sessionCache = new ClientSideSessionCache(user);
+                // make sure the newly created session cache persists the user hash
+                sessionCache.setUserHash(context.getUserHash());
                 updateContextFromCache(context, sessionCache);
                 String c = sessionCache.getCookieRepresentation();
                 _sessionCacheCookieGenerator.addCookie(response, c);
@@ -414,5 +417,15 @@ public class SessionContextUtil implements ApplicationContextAware {
             _log.error("Tried to set member id for a null user");
         }
 
+    }
+
+    public void changeAuthorization(HttpServletRequest request, HttpServletResponse response, User user, String hash) {
+        if (user != null) {
+            ClientSideSessionCache cache = new ClientSideSessionCache(user);
+            cache.setUserHash(hash);
+            _sessionCacheCookieGenerator.addCookie(response, cache.getCookieRepresentation());
+        } else {
+            _log.warn("Attempt to change authorization information on null user ignored.");
+        }
     }
 }

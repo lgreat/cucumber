@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MockSessionContext.java,v 1.3 2006/07/13 07:54:00 apeterson Exp $
+ * $Id: MockSessionContext.java,v 1.4 2006/10/13 17:45:04 aroy Exp $
  */
 
 package gs.web.util;
@@ -114,5 +114,9 @@ public class MockSessionContext implements ISessionContext {
 
     public int getMssCount() {
         return 0;
+    }
+
+    public String getUserHash() {
+        return null;
     }
 }

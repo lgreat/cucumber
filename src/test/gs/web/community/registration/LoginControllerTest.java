@@ -12,11 +12,7 @@ import org.easymock.MockControl;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created by IntelliJ IDEA.
- * User: UrbanaSoft
- * Date: Jul 18, 2006
- * Time: 12:03:41 PM
- * To change this template use File | Settings | File Templates.
+ * @author <a href="mailto:aroy@greatschools.net">Anthony Roy</a>
  */
 public class LoginControllerTest extends BaseControllerTestCase {
     private LoginController _controller;

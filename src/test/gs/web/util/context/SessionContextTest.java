@@ -4,6 +4,8 @@ import gs.data.admin.IPropertyDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.community.IUserDao;
+import gs.data.community.User;
+import gs.data.util.DigestUtil;
 import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -13,6 +15,7 @@ import org.easymock.MockControl;
 
 import javax.servlet.http.Cookie;
 import java.util.Date;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Tests for the SessionContext object
@@ -48,6 +51,17 @@ public class SessionContextTest extends BaseTestCase {
         _sessionContextUtil.setStateCookieGenerator(stateCookieGenerator);
 
         _sessionContext = new SessionContext();
+    }
+
+    public void testIsUserValid() throws NoSuchAlgorithmException {
+        User user = new User();
+        user.setId(new Integer(123));
+        user.setEmail("anEmail@greatschools.net");
+        _sessionContext.setUser(user);
+
+        Object[] inputs = {User.SECRET_NUMBER, user.getId(), user.getEmail()};
+        _sessionContext.setUserHash(DigestUtil.hashObjectArray(inputs));
+        assertTrue(_sessionContext.isUserValid());
     }
 
     public void testHostDeveloperWorkstation() {

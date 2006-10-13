@@ -1,12 +1,13 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.17 2006/09/21 17:28:25 dlee Exp $
+ * $Id: PageHelperSaTest.java,v 1.18 2006/10/13 17:45:04 aroy Exp $
  */
 
 package gs.web.util;
 
 import gs.data.community.User;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.community.ClientSideSessionCache;
 import gs.web.util.context.ISessionContext;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -342,6 +343,18 @@ public class PageHelperSaTest extends TestCase {
         assertEquals(CookieGenerator.DEFAULT_COOKIE_PATH, cookie.getPath());
     }
 
+    public void testSetMemberAuthorized() {
+        User user = new User();
+        user.setId(new Integer(123));
+        user.setEmail("testSetMemberCookie@greatschools.net");
+        String hash = "123abc!@#ABC==";
+        PageHelper.setMemberAuthorized(_request, _response, user, hash);
+        Cookie cookie = _response.getCookie("SESSION_CACHE");
+        assertNotNull(cookie);
+        ClientSideSessionCache sessionCache = ClientSideSessionCache.createClientSideSessionCache(cookie.getValue());
+        assertEquals(hash, sessionCache.getUserHash());
+    }
+
     public void testFindsBetaPage() {
         PageHelper helper = new PageHelper(new MockSessionContext(), _request);
         assertFalse(helper.isBetaPage());
@@ -395,6 +408,10 @@ public class PageHelperSaTest extends TestCase {
         final CookieGenerator memberIdCookieGenerator = new CookieGenerator();
         memberIdCookieGenerator.setCookieName("MEMID");
         sessionContextUtil.setMemberIdCookieGenerator(memberIdCookieGenerator);
+
+        final CookieGenerator sessionCacheCookieGenerator = new CookieGenerator();
+        sessionCacheCookieGenerator.setCookieName("SESSION_CACHE");
+        sessionContextUtil.setSessionCacheCookieGenerator(sessionCacheCookieGenerator);
 
         SessionContext sessionContext = new SessionContext();
         sessionContext.setSessionContextUtil(sessionContextUtil);
