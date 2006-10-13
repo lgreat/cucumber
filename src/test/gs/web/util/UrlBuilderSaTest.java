@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.46 2006/10/10 18:04:28 dlee Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.47 2006/10/13 21:38:15 eddie Exp $
  */
 
 package gs.web.util;
@@ -172,12 +172,16 @@ public class UrlBuilderSaTest extends TestCase {
 
 
         //wy not a ratings state anymore
-        //builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_RATINGS);
-        //assertEquals("/school/rating.page?id=8&amp;state=WY", builder.asSiteRelativeXml(null));
+        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_RATINGS);
+        assertEquals("/school/rating.page?id=8&amp;state=WY", builder.asSiteRelativeXml(null));
 
         school.setDatabaseState(State.CA);
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_RATINGS);
-        assertEquals("/cgi-bin/ca/rankings/8", builder.asSiteRelativeXml(null));
+        assertEquals("/school/rating.page?id=8&amp;state=CA", builder.asSiteRelativeXml(null));
+
+        school.setDatabaseState(State.NY);
+        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_RATINGS);
+        assertEquals("/cgi-bin/ny/rankings/8", builder.asSiteRelativeXml(null));
 
     }
 

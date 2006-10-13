@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.20 2006/10/12 23:58:04 dlee Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.21 2006/10/13 21:38:32 eddie Exp $
  */
 
 package gs.web.jsp.link;
@@ -350,7 +350,13 @@ public class LinkTagHandlerTest extends BaseTestCase {
         school.setDatabaseState(State.CA);
         tagHandler.setSchool(school);
         builder = tagHandler.createUrlBuilder();
-        assertEquals("/cgi-bin/ca/rankings/8", builder.asSiteRelative(null));
+        assertEquals("/school/rating.page?id=8&state=CA", builder.asSiteRelative(null));
+
+        tagHandler = new RatingsTagHandler();
+        school.setDatabaseState(State.NY);
+        tagHandler.setSchool(school);
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/cgi-bin/ny/rankings/8", builder.asSiteRelative(null));
 
     }
 }
