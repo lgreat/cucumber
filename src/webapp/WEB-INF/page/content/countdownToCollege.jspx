@@ -78,13 +78,11 @@
 <td class="left" style="width: 173px;" valign="top">
     <h3 id="helpYourChildSucceed">Grade 6-12 Success</h3>
     <ul class="plain">
+        <gsweb:articlelink articleId="752" wrappingElement="li"/>
         <gsweb:articlelink articleId="700" wrappingElement="li"/>
-        <gsweb:articlelink articleId="701" wrappingElement="li"/>
-        <gsweb:articlelink articleId="655" wrappingElement="li"/>
         <gsweb:articlelink articleId="716" wrappingElement="li"/>
-        <gsweb:articlelink articleId="477" wrappingElement="li"/>
-        <gsweb:articlelink articleId="366" wrappingElement="li"/>
-        <gsweb:articlelink articleId="325" wrappingElement="li"/>
+        <gsweb:articlelink articleId="655" wrappingElement="li"/>
+        <gsweb:articlelink articleId="728" wrappingElement="li"/>
     </ul>
 
     <h3 id="testTips">Test Tips</h3>
@@ -96,13 +94,12 @@
 
     <h3 id="askTheExperts">Ask the Experts</h3>
     <ul class="plain">
+        <gsweb:articlelink articleId="680" wrappingElement="li"/>
+        <gsweb:articlelink articleId="685" wrappingElement="li"/>
         <gsweb:articlelink articleId="676" wrappingElement="li"/>
-        <gsweb:articlelink articleId="675" wrappingElement="li"/>
-        <gsweb:articlelink articleId="726" wrappingElement="li"/>
-        <gsweb:articlelink articleId="727" wrappingElement="li"/>
     </ul>
 
-    <h3 id="choosingASchool">Choosing a School</h3>
+    <h3 id="choosingASchool">School Choice Tips</h3>
     <ul class="plain">
         <gsweb:articlelink articleId="197" wrappingElement="li"/>
         <gsweb:articlelink articleId="96" wrappingElement="li"/>
@@ -118,8 +115,8 @@
 
     <h3 id="getInvolved">Get Involved</h3>
     <ul class="plain">
-        <gsweb:articlelink articleId="41" wrappingElement="li"/>
-        <gsweb:articlelink articleId="291" wrappingElement="li"/>
+        <gsweb:articlelink articleId="325" wrappingElement="li"/>
+        <gsweb:articlelink articleId="703" wrappingElement="li"/>
         <gsweb:articlelink articleId="34" wrappingElement="li"/>
     </ul>
 
@@ -157,20 +154,21 @@
                   src="/res/img/header/clear_pix.gif"></gsml:img>
     </div>
 
-    <h2 id="whatYourChildNeeds">What Your Chiled Needs to Succeed</h2>
+    <h2 id="whatYourChildNeeds">What Your Child Needs to Succeed</h2>
 
     <div class="moduleTitle">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/728" styleClass="noHover">2006-2007 College Admissions Trends</gsml:a>
+        <gsml:a href="/cgi-bin/showarticle/$STATE/753" styleClass="noHover">Is Your Child Ready for College Math?</gsml:a>
     </div>
     <div class="module">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/728" styleClass="noHover">
-            Applications to colleges are up and will continue to rise through 2014. A combination of factors
-            has driven the increase &#8212; and led to fears that colleges are harder to get into.
+        <gsml:a href="/cgi-bin/showarticle/$STATE/753" styleClass="noHover">
+            Your high-school student is on track to complete the math classes required by your state university.
+            He may even have already passed the high school exit exam that your state requires.
+            Does that mean he's prepared for college math?
         </gsml:a>
     </div>
 
     <div align="right">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/728" styleClass="seeFullArticle">See full article &gt;</gsml:a>
+        <gsml:a href="/cgi-bin/showarticle/$STATE/753" styleClass="seeFullArticle">See full article &gt;</gsml:a>
     </div>
 
     <div class="midDotLine" >
@@ -190,19 +188,19 @@
     <div class="yellowbar"></div>
 
     <div class="moduleTitle">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/690" styleClass="noHover">
-            Applications: A Parent's Role
+        <gsml:a href="/cgi-bin/showarticle/$STATE/749" styleClass="noHover">
+            How Savings Affect Financial Aid
         </gsml:a>
     </div>
 
     <div class="module">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/690" styleClass="noHover">
-            Do I give up now in despair or just do it myself? This is the question many parents ask during
-            the college application process. The challenge is to be supportive while doing neither.
-        </gsml:a>
+        <gsml:a href="/cgi-bin/showarticle/$STATE/749" styleClass="noHover">
+            Despite what you may have heard, saving for college pays off, even if your family will be
+            applying for financial aid. The earlier you start the better, but don't pass altogether because
+            you think it's too little or too late. Here's why.</gsml:a>
     </div>
 
-    <div align="right"><gsml:a href="/cgi-bin/showarticle/$STATE/690" styleClass="seeFullArticle">See full article
+    <div align="right"><gsml:a href="/cgi-bin/showarticle/$STATE/749" styleClass="seeFullArticle">See full article
         &gt;</gsml:a></div>
 
     <div class="midDashLine">
@@ -218,16 +216,16 @@
                 </td>
                 <td>
                     <ul class="quickFindLinks">
-                        <li><a href="http://www.collegeboard.com/parents/plan/getting-ready/26304.html" target="_blank">College
-                            Prep Glossary</a></li>
-                        <li><a href="http://www.collegeboard.com/parents/apply/college-applications/21342.html"
-                               target="_blank">Early Decision and Early Action</a></li>
-                        <li><a href="http://www.collegeboard.com/parents/apply/college-applications/21359.html"
-                               target="_blank">Inside the Admissions Process</a></li>
-                        <li><a href="http://www.collegeboard.com/parents/apply/college-applications/21352.html"
-                               target="_blank">Application FAQs</a></li>
-                        <li><a href="http://www.collegeboard.com/student/apply/the-application/27012.html"
-                               target="_blank">Apply Online</a></li>
+                        <li><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21408.html"
+                               target="_blank">Your EFC (Expected Family Contribution): FAQs</a></li>
+                        <li><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21420.html"
+                               target="_blank">Your Family's Financing Options</a></li>
+                        <li><a href="http://www.collegeboard.com/parents/pay/aid-how-pay/42104.html"
+                               target="_blank">Short-term Planning for Financial Aid Needs</a></li>
+                        <li><a href="http://apps.collegeboard.com/fincalc/ep/wizard-home.jsp"
+                               target="_blank">Financial Aid EasyPlanner</a></li>
+                        <li><a href="http://www.collegeboard.com/student/pay/add-it-up/401.html"
+                               target="_blank">College Financing Calculators</a></li>                        
                     </ul>
                 </td>
 
@@ -296,19 +294,16 @@
                    <tr>
                        <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Encourage your child to get involved with extracurricular activities. Colleges are looking
-                               for a student who makes a long-term commitment to an activity outside the classroom, rather
-                               than one who joins every campus club.  They want a student who can manage her time and priorities.
+Your child can use <a href="http://apps.collegeboard.com/search/index.jsp">College Search</a> to research colleges she might be interested in attending and make sure she signs up for the required courses and tests. Watch for college fairs in your area so she can go and learn more.
                            </span><br/>
                            <a href="http://www.collegeboard.com/student/plan/action/freshmen.html" target="_blank" class="actionTipsLink">Freshman Action Plan</a></td>
                        <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                        <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               If your child hasn't found an extracurricular activity he likes, encourage him to look off
-                               campus, at community or religious organizations.  Work experience &#8212; paid or volunteer &#8212; can
-                               help identify career interests.  He might consider arranging for an internship or to
-                               shadow an adult on the job.
-                           </span><br />
+                            <a href="http://apps.collegeboard.com/search/index.jsp" target="_blank">College Search</a>
+                               can help your child find out the courses and tests required by the colleges that
+                               he might be interested in attending. He can also take advantage of college fairs
+                               in your area and start a calendar with important dates and deadlines.</span><br />
                        <a href="http://www.collegeboard.com/student/plan/action/sophomores.html" target="_blank" class="actionTipsLink">Sophomore Action Plan</a></td>
                    </tr>
                    <tr>
@@ -317,22 +312,20 @@
                    <tr>
                        <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Encourage your child to start her college search by making lists of her abilities,
-                               preferences and personal qualities. Have her list things she may want to study and do in
-                               college. She can jumpstart her college planning by reading about
-                               <a href="http://www.collegeboard.com/student/csearch/majors_careers/" target="_blank">majors and careers.</a>
-                           </span>
-                           <br />
+                           Your child can use <a href="http://apps.collegeboard.com/search/index.jsp" target="_blank">College Search</a>
+                               to find colleges that match his goals and interests. His counselor and college
+                               information night at school are good starting points to research financial aid.
+                               You can estimate your costs and aid eligibility with these
+                               <a href="http://www.collegeboard.com/student/pay/add-it-up/401.html" target="_blank">calculators</a>.</span><br />
                        <a href="http://www.collegeboard.com/student/plan/action/juniors.html" target="_blank" class="actionTipsLink">Junior Action Plan</a></td>
                        <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                        <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               You senior should make a <a href="http://www.collegeboard.com/student/apply/the-application/23626.html" target="_blank">calendar</a>
-                               showing deadlines for all tests and applications, including his school's deadline to request
-                               transcripts. He should ask his counselor and teachers for recommendation letters.
-                               Is he applying <a href="http://www.collegeboard.com/student/apply/the-application/104.html" target="_blank">early action or early decision</a>?
-                               Colleges may require test scores and applications in early November.
-                           </span><br />
+                            When she asks for recommendations, your child should give each person a resume;
+                               a stamped, addressed envelope; and any required forms. She should be working on
+                               her application essays and asking teachers, parents and friends to read first drafts.
+                               She can use <a href="http://apps.collegeboard.com/cbsearch_ss/welcome.jsp" target="_bank">Scholarship Search</a>
+                               to research scholarships.</span><br />
                        <a href="http://www.collegeboard.com/student/plan/action/seniors.html" target="_blank" class="actionTipsLink">Senior Action Plan</a></td>
                    </tr>
                    <tr>
