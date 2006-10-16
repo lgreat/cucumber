@@ -1,0 +1,133 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:gsweb="gstaglib"
+        >
+<html lang="en">
+
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+<pageHelper:setPathway pathway="7"/>
+
+<head>
+    <title>Greatschools.net: Healthy Kids</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <meta name="Description" content="Healthy Kids"/>
+    <pageHelper:externalCss file="/res/css/content/schoolChoiceTips.css"/>  <!--commmon-->
+    <pageHelper:externalCss file="/res/css/content/healthyKids.css"/>
+</head>
+<c:set var="pageName" value="Healthy Kids"/>
+<gsml:body adPageName="content/healthyKids" pageLayout="healthyKids">
+<div>
+
+<jsp:include page="/content/leftNav.module" />
+
+<div class="middle">
+    <div id="contentHeaderImage">
+        <h3 id="healthyKidsText">Health Kids</h3>
+        <gsml:img src="/res/img/content/healthyKids/healthykid.jpg" alt="Smiling girl with milk" style="float:left;"/>
+    </div>
+
+    <div>
+        <h3 id="fitnessRoutine">Making Fitness Part of Your Routine</h3>
+        <ul class="plain">
+            <gsweb:articlelink articleId="472" wrappingElement="li"/>
+            <gsweb:articlelink articleId="476" wrappingElement="li"/>
+            <gsweb:articlelink articleId="620" wrappingElement="li"/>
+            <gsweb:articlelink articleId="609" wrappingElement="li"/>
+            <gsweb:articlelink articleId="605" wrappingElement="li"/>
+            <gsweb:articlelink articleId="621" wrappingElement="li"/>
+            <gsweb:articlelink articleId="650" wrappingElement="li"/>
+            <gsweb:articlelink articleId="651" wrappingElement="li"/>
+        </ul>
+    </div>
+
+    <div>
+        <h3 id="healthyEating">Healthy Eating Made Easy</h3>
+        <ul class="plain">
+            <gsweb:articlelink articleId="552" wrappingElement="li"/>
+            <gsweb:articlelink articleId="720" wrappingElement="li"/>
+            <gsweb:articlelink articleId="721" wrappingElement="li"/>
+            <gsweb:articlelink articleId="339" wrappingElement="li"/>
+            <gsweb:articlelink articleId="693" wrappingElement="li"/>
+            <gsweb:articlelink articleId="722" wrappingElement="li"/>
+            <gsweb:articlelink articleId="723" wrappingElement="li"/>
+            <gsweb:articlelink articleId="469" wrappingElement="li"/>
+        </ul>
+    </div>
+
+    <div style="border-bottom: 1px dashed #ccc;">
+        <h3 id="askTheExperts">Ask an Expert</h3>
+        <p>Q: How Can I Help My Child With Homework?
+            <gsweb:articlelink articleId="403">Read the answer</gsweb:articlelink>
+            </p>
+    </div>
+
+    <div style="border-bottom: 1px dashed #ccc;">
+        <h3 id="freeNewsletters">Free Newsletters</h3>
+        <p>Is your child on track?
+            Find out with our free newsletters that parents love! <promo:nthGraderHover referredBy="${pageName}">Sign me up</promo:nthGraderHover>
+        </p>
+    </div>
+</div>
+
+<div id="promos">
+    <promo:childOnTrack referredBy="${pageName}"/>
+
+    <ad:x40/>
+
+    <div style="border-top: 1px dashed #ccc;">
+    <div id="bottomAdd">
+        <ad:x51 blurb="School Choice Tips Sponsored By:"/>
+    </div>
+    </div>
+
+    <div style="border-top: 1px dashed #ccc;padding-top:20px;margin-top:10px;">
+    <table>
+        <tr><td colspan="2"><gsml:img src="/res/img/content/backtoschool/special_K5.gif"
+                                      alt="Tips and Advice by Grade Level"></gsml:img></td></tr>
+        <tr>
+            <td><promo:nthGraderHover referredBy="${pageName}" autocheck="myk"><gsml:img
+                    src="/res/img/content/backtoschool/yourKinder.gif"
+                    alt="Tips and Advice for Your Kindergartener"></gsml:img></promo:nthGraderHover></td>
+            <td><promo:nthGraderHover referredBy="${pageName}" autocheck="my1"><gsml:img
+                    src="/res/img/content/backtoschool/yourFirst.gif"
+                    alt="Tips and Advice for Your First-Grader"></gsml:img></promo:nthGraderHover></td>
+        </tr>
+        <tr>
+            <td><promo:nthGraderHover referredBy="${pageName}" autocheck="my2"><gsml:img
+                    src="/res/img/content/backtoschool/yourSecond.gif"
+                    alt="Tips and Advice for Your Second-Grader"></gsml:img></promo:nthGraderHover></td>
+            <td><promo:nthGraderHover referredBy="${pageName}" autocheck="my3"><gsml:img
+                    src="/res/img/content/backtoschool/yourThird.gif"
+                    alt="Tips and Advice for Your Third-Grader"></gsml:img></promo:nthGraderHover></td>
+        </tr>
+        <tr>
+            <td><promo:nthGraderHover referredBy="${pageName}" autocheck="my4"><gsml:img
+                    src="/res/img/content/backtoschool/yourFourth.gif"
+                    alt="Tips and Advice for Your Fourth-Grader"></gsml:img></promo:nthGraderHover></td>
+            <td><promo:nthGraderHover referredBy="${pageName}" autocheck="my5"><gsml:img
+                    src="/res/img/content/backtoschool/yourFifth.gif"
+                    alt="Tips and Advice for Your Fifth-Grader"></gsml:img></promo:nthGraderHover></td>
+        </tr>
+    </table>
+    </div>
+</div>
+<br style="clear:both;"/>
+</div>
+<mod:tracking pageType="article"
+              pageName="${pageName}"
+              hier1="Article,School Choice Tips"/>
+</gsml:body>
+</html>
+</jsp:root>

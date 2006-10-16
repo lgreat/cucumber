@@ -1,0 +1,21 @@
+h3#healthyKidsText {
+    text-indent: -5000px;
+    background: url( "../../img/content/healthyKids/healthytext.jpg" ) no-repeat;
+    width: 155px;
+    height: 182px;
+    float: left;
+}
+
+h3#fitnessRoutine {
+    text-indent: -5000px;
+    background: url( "../../img/content/healthyKids/healthy_1.gif" ) no-repeat;
+    width: 365px;
+    height: 26px;
+}
+
+h3#healthyEating {
+    text-indent: -5000px;
+    background: url( "../../img/content/healthyKids/healthy_2.gif" ) no-repeat;
+    width: 365px;
+    height: 26px;
+}
