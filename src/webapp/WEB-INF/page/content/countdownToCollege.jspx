@@ -243,7 +243,7 @@
 
 <td class="right" style="width: 302px" valign="bottom">
 
-    <promo:childOnTrack referredBy="${pageName}"/>
+    <promo:childOnTrackCollege referredBy="${pageName}"/>
 
     <table cellspacing="0" cellpadding="0">
         <tr>

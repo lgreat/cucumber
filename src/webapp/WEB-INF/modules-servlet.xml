@@ -33,6 +33,13 @@
         </property>
     </bean>
 
+    <bean name="/content/leftNav.module"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>/content/leftNav</value>
+        </property>
+    </bean>
+
     <bean name="/header/cobrand.module"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
