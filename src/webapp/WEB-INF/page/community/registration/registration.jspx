@@ -17,6 +17,7 @@
     <jsp:directive.page contentType="text/html"/><html>
   <head>
       <title>Registration</title>
+      <pageHelper:externalJavascript file="/res/js/prototype.js"/>
       <pageHelper:externalCss file="/res/css/community/registration/registration.css"/>
       <script type="text/javascript">
           function insertFormField() {
@@ -24,6 +25,35 @@
               // escape angle brackets for validation
               _form.innerHTML = _form.innerHTML +
               '&lt;' + 'input type="hidden" name="javascriptEnabled" value="true"/' + '&gt;';
+          }
+          function stateChange(stateSelect) {
+              var url = 'registrationAjax.page';
+              var pars = 'state=' + stateSelect.value;
+              var myAjax = new Ajax.Request (
+                      url,
+                      {
+                          method: 'get',
+                          parameters: pars,
+                          onComplete: loadCounties
+                      });
+              $('city').innerHTML = '<![CDATA[<select name="city"><option value=""></option></select>]]>';
+          }
+          function loadCounties(originalRequest) {
+              $('county').innerHTML = originalRequest.responseText;
+          }
+          function countyChange(countySelect) {
+              var url = 'registrationAjax.page';
+              var pars = 'countyFips=' + countySelect.value;
+              var myAjax = new Ajax.Request (
+                      url,
+                      {
+                          method: 'get',
+                          parameters: pars,
+                          onComplete: loadCities
+                      });
+          }
+          function loadCities(originalRequest) {
+              $('city').innerHTML = originalRequest.responseText;
           }
       </script>
   </head>
@@ -131,8 +161,32 @@
 
         <label for="stateSelector" class="form left">State</label>
         <spring:bind path="userCmd.state">
-            <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState" styleClass="form"/>
+            <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState" styleClass="form small" onChange="stateChange(this);"/>
         </spring:bind>
+
+        <br style="clear: left;"/>
+
+        <div class="error">
+            <spring:bind path="userCmd.countyFips">
+                ${status.errorMessage}
+            </spring:bind>
+        </div>
+
+        <label for="county" class="form left">County</label>
+        <div id="county" class="county">
+            <select name="countyFips" class="form" onchange="countyChange(this);">
+                <c:if test="${userCmd.countyFips eq null or userCmd.countyFips eq ''}">
+                    <option selected="selected" value="">Choose county</option>
+                </c:if>
+                <c:forEach var="countyOption" items="${userCmd.countyList}">
+                    <![CDATA[<option ]]>
+                    <c:if test="${userCmd.countyFips eq countyOption.countyFips}">
+                        selected
+                    </c:if>
+                    <![CDATA[ value="${countyOption.countyFips}">${countyOption.name}</option>]]>
+                </c:forEach>
+            </select>
+        </div>
 
         <br style="clear: left;"/>
         <div class="error">
@@ -142,9 +196,20 @@
         </div>
 
         <label for="city" class="form left">City</label>
-        <spring:bind path="userCmd.city">
-            <input id="city" class="form" type="text" name="${status.expression}" value="${status.value}" style="width:160px;"/>
-        </spring:bind>
+        <div id="city" class="city">
+            <select name="city" class="form">
+                <c:if test="${userCmd.cityList ne null and (userCmd.city eq null or userCmd.city eq '')}">
+                    <option selected="selected" value="">Choose city</option>
+                </c:if>
+                <c:forEach var="cityOption" items="${userCmd.cityList}">
+                    <![CDATA[<option ]]>
+                    <c:if test="${userCmd.city eq cityOption.name}">
+                        selected
+                    </c:if>
+                    <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
+                </c:forEach>
+            </select>
+        </div>
 
         <br style="clear: left;"/>
         <div class="error">
@@ -155,7 +220,7 @@
 
         <label for="numSchoolChildren" class="form left">I have</label>
         <spring:bind path="userCmd.numSchoolChildren">
-            <select name="${status.expression}" id="numSchoolChildren" class="form">
+            <select name="${status.expression}" id="numSchoolChildren" class="form small">
                 <c:forEach var="schoolChildOption" items="0,1,2,3,4,5,6,7,8,9">
                     <![CDATA[<option ]]>
                     <c:if test="${userCmd.numSchoolChildren eq schoolChildOption}">
@@ -177,7 +242,7 @@
 
         <label for="numPreKChildren" class="form left">I have</label>
         <spring:bind path="userCmd.numPreKChildren">
-            <select name="${status.expression}" id="numPreKChildren" class="form">
+            <select name="${status.expression}" id="numPreKChildren" class="form small">
                 <c:forEach var="youngChildOption" items="0,1,2,3,4,5">
                     <![CDATA[<option ]]>
                     <c:if test="${userCmd.numPreKChildren eq youngChildOption}">

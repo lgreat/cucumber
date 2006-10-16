@@ -7,12 +7,10 @@ import gs.data.state.State;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.util.List;
+
 /**
- * Created by IntelliJ IDEA.
- * User: UrbanaSoft
- * Date: Jun 15, 2006
- * Time: 11:45:42 AM
- * To change this template use File | Settings | File Templates.
+ * @author <a href="aroy@greatschools.net">Anthony Roy</a>
  */
 public class UserCommand implements EmailValidator.IEmail {
     protected final Log _log = LogFactory.getLog(getClass());
@@ -23,11 +21,38 @@ public class UserCommand implements EmailValidator.IEmail {
     private User _user;
     private UserProfile _userProfile;
     private String _redirectUrl;
+    private String _countyFips;
+    private List _countyList;
+    private List _cityList;
     private boolean _recontact;
 
     public UserCommand() {
         _user = new User();
         _userProfile = new UserProfile();
+    }
+
+    public String getCountyFips() {
+        return _countyFips;
+    }
+
+    public void setCountyFips(String countyFips) {
+        _countyFips = countyFips;
+    }
+
+    public List getCountyList() {
+        return _countyList;
+    }
+
+    public void setCountyList(List countyList) {
+        _countyList = countyList;
+    }
+
+    public List getCityList() {
+        return _cityList;
+    }
+
+    public void setCityList(List cityList) {
+        _cityList = cityList;
     }
 
     public String getRedirectUrl() {

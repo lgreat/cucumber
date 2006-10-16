@@ -756,6 +756,11 @@
         <property name="successView" value="redirect:/community/loginOrRegister.page"/>
     </bean>
 
+    <bean name="/community/registrationAjax.page"
+        class="gs.web.community.registration.RegistrationAjaxController"
+        autowire="byName">
+    </bean>
+
     <bean name="/community/registrationConfirm.page"
         class="gs.web.community.registration.RegistrationConfirmController"
         autowire="byName">
