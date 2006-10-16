@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.11 2006/08/25 23:32:43 aroy Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.12 2006/10/16 22:46:04 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -167,6 +167,10 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
     private static class MockSchoolDao implements ISchoolDao {
         public static final String SCHOOL_NAME = "School's Name";
         public static final Integer SCHOOL_ID = Integer.valueOf("1");
+
+        public List findSchoolLike(State state, final String queryString) {
+            return null;
+        }
 
         public List getPublishedSchools(State state) {
             return null;
