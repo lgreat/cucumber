@@ -769,6 +769,11 @@
         autowire="byName">
     </bean>
 
+    <bean name="/community/registration2Ajax.page"
+        class="gs.web.community.registration.Registration2AjaxController"
+        autowire="byName">
+    </bean>
+
     <bean name="/community/registrationConfirm.page"
         class="gs.web.community.registration.RegistrationConfirmController"
         autowire="byName">
