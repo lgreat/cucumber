@@ -29,6 +29,7 @@
           function stateChange(stateSelect) {
               var url = 'registrationAjax.page';
               var pars = 'state=' + stateSelect.value;
+              $('county').innerHTML = '<![CDATA[<select name="countyFips"><option value="">Loading ...</option></select>]]>';
               var myAjax = new Ajax.Request (
                       url,
                       {
@@ -44,6 +45,7 @@
           function countyChange(countySelect) {
               var url = 'registrationAjax.page';
               var pars = 'countyFips=' + countySelect.value;
+              $('city').innerHTML = '<![CDATA[<select name="city"><option value="">Loading ...</option></select>]]>';
               var myAjax = new Ajax.Request (
                       url,
                       {
@@ -277,22 +279,8 @@
         <div class="footnote"><sup class="footnote">1</sup> Unless we are required by law to reveal your identity.</div>
     </gsweb:form>
     </div>
+    <br style="clear:left;"/>
 
-    <div id="loginDiv" class="loginDiv">
-        <h2 class="intro2">Welcome Back!</h2>
-        <gsweb:form action="/community/loginOrRegister.page" method="post">
-
-            <label class="form">Enter Email</label>
-            <input type="text" name="email" value="" size="30" class="form"/>
-
-            <label class="form">Enter Password</label>
-            <input type="password" name="password" value="" size="15" class="form"/>
-
-            <input class="form button" type="submit" value="Login"/>
-        </gsweb:form>
-        <link:forgotPassword>Forgot password?</link:forgotPassword>
-    </div>
-    <br style="clear: left;"/>
   </body>
 </html>
 </jsp:root>
