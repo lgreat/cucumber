@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.14 2006/07/13 07:53:59 apeterson Exp $
+ * $Id: CityControllerTest.java,v 1.15 2006/10/16 18:50:33 dlee Exp $
  */
 
 package gs.web.geo;
@@ -14,10 +14,9 @@ import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.util.list.AnchorListModelFactory;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
-import gs.web.util.context.SessionContextUtil;
+import gs.web.util.list.AnchorListModelFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
@@ -80,8 +79,8 @@ public class CityControllerTest extends BaseControllerTestCase {
 
     public void testFindDistricts() throws Exception {
         GsMockHttpServletRequest request = getRequest();
-        request.setParameter("state", "NY");
-        request.setParameter("city", "Dolgeville");
+        request.setParameter("state", "CA");
+        request.setParameter("city", "Alameda");
         _sessionContextUtil.prepareSessionContext(request, getResponse());
 
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
@@ -93,7 +92,7 @@ public class CityControllerTest extends BaseControllerTestCase {
         List list = anchorListModel.getResults();
         assertTrue(list.size() > 0);
         assertTrue(list.size() <= 2);
-        assertEquals("/cgi-bin/ny/district_profile/1/", ((Anchor) list.get(0)).getHref());
+        assertEquals("/cgi-bin/ca/district_profile/1/", ((Anchor) list.get(0)).getHref());
     }
 
     public void testBadCity() throws Exception {
