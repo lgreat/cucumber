@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.39 2006/10/11 00:36:05 dlee Exp $
+ * $Id: CityController.java,v 1.40 2006/10/16 18:33:00 dlee Exp $
  */
 
 package gs.web.geo;
@@ -140,14 +140,8 @@ public class CityController extends AbstractController {
         AnchorListModel districtAnchorList = _anchorListModelFactory.createDistrictList(state, cityNameParam, request);
         model.put(MODEL_DISTRICTS, districtAnchorList);
 
-        /*
-        * If top rated schools are available for this city, then get them and
-        * put them into the model.
-        * GS-2620
-          TODO once findTopRatedSchoolsInCity is modified to handle the new page,
-          can remove isNewRatingsState() check
-        */
-        if (state.isRatingsState() && !state.isNewRatingsState()) {
+        //TODO replace with isRatingState() once all previous old rating states have been converteed to new rating states
+        if (state.isNewRatingsState()) {
             List topRatedSchools;
             topRatedSchools = _schoolDao.findTopRatedSchoolsInCity(city, 1, null, 5);
             if (topRatedSchools.size() > 0) {
