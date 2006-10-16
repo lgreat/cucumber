@@ -110,7 +110,7 @@
     <ul class="plain">
         <gsweb:articlelink articleId="551" wrappingElement="li"/>
         <gsweb:articlelink articleId="215" wrappingElement="li"/>
-        <gsweb:articlelink articleId="621" wrappingElement="li"/>
+        <li><gsml:a href="/content/healthyKids.page">See more</gsml:a></li>
     </ul>
 
     <h3 id="getInvolved">Get Involved</h3>

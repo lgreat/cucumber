@@ -126,12 +126,6 @@
                         </tr>
                     </c:forEach>
                 </table>
-                <c:if test="${requestScope.linkToTopRatedSchools}">
-                    <h5 style="margin: 8px 0 0 0; font-size: small">
-                        <gsml:a href="/modperl/rankings.pl?state=$STATE&amp;action=ratingbycity&amp;city=${cityObject.name}&amp;rating=testscore">
-                            View All Top-Rated Schools</gsml:a>
-                    </h5>
-                </c:if>
             </div>
         </c:if>
         <c:if test="${empty requestScope.topRatedSchools}">
