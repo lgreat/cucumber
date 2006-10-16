@@ -23,39 +23,32 @@
           function insertFormField() {
               var _form = document.getElementById('regForm');
               // escape angle brackets for validation
-              _form.innerHTML = _form.innerHTML +
-              '&lt;' + 'input type="hidden" name="javascriptEnabled" value="true"/' + '&gt;';
+              _form.innerHTML += '<![CDATA[<input type="hidden" name="javascriptEnabled" value="true"/>]]>';
           }
           function stateChange(stateSelect) {
               var url = 'registrationAjax.page';
               var pars = 'state=' + stateSelect.value;
               $('county').innerHTML = '<![CDATA[<select name="countyFips"><option value="">Loading ...</option></select>]]>';
-              var myAjax = new Ajax.Request (
+              var myAjax = new Ajax.Updater (
+                      'county',
                       url,
                       {
                           method: 'get',
-                          parameters: pars,
-                          onComplete: loadCounties
+                          parameters: pars
                       });
               $('city').innerHTML = '<![CDATA[<select name="city"><option value=""></option></select>]]>';
-          }
-          function loadCounties(originalRequest) {
-              $('county').innerHTML = originalRequest.responseText;
           }
           function countyChange(countySelect) {
               var url = 'registrationAjax.page';
               var pars = 'countyFips=' + countySelect.value;
               $('city').innerHTML = '<![CDATA[<select name="city"><option value="">Loading ...</option></select>]]>';
-              var myAjax = new Ajax.Request (
+              var myAjax = new Ajax.Updater (
+                      'city',
                       url,
                       {
                           method: 'get',
-                          parameters: pars,
-                          onComplete: loadCities
+                          parameters: pars
                       });
-          }
-          function loadCities(originalRequest) {
-              $('city').innerHTML = originalRequest.responseText;
           }
       </script>
   </head>
