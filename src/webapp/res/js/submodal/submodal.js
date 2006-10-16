@@ -373,7 +373,7 @@ function freeOnClickMem() {
 function setHoverCookie(hoverName) {
     var oneDay=24 * 60 * 60 * 1000, expDate=new Date(), curDate=new Date();
     //expire cookie in 30 days
-    expDate.setTime(expDate.getTime()+oneDay * 30);
+    expDate.setTime(expDate.getTime()+oneDay * 15);
     document.cookie=hoverName+'='+curDate.toGMTString()+';expires='+expDate.toGMTString()+';path=/';
 }
 
