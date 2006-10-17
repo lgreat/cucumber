@@ -38,7 +38,9 @@ function declareStudentListener(i) {
         var state = stateSelector.options[stateSelector.selectedIndex].value;
         return "registration2Ajax.page?type=school&param3=" + i +
                "&fn=setKidsSchool&q=" + this.text.value + "&state=" + state;
-    }, autoAssistOptions);
+    }, autoAssistOptions, function () {
+        return this.text.value;
+    });
 }
 
 function declarePreviousSchoolListener(i) {
@@ -48,7 +50,9 @@ function declarePreviousSchoolListener(i) {
         var state = stateSelector.options[stateSelector.selectedIndex].value;
         return "/cgi-bin/ajax_autocomplete.pl?type=school&param3=" + i +
                "&fn=setPreviousSchool&q=" + this.text.value + "&state=" + state;
-    }, autoAssistOptions);
+    }, autoAssistOptions, function () {
+        return this.text.value;
+    });
 }
 
 // callback function, called by the external script that does the search for school names

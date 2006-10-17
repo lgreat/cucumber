@@ -103,7 +103,7 @@ CAPXOUS = {SEL:'onSelect',INX:'_index',inst:new Array(),name:'',key:'',sixty_fou
 Event.observe(window, 'load', CAPXOUS.init);
 Event.observe(window, 'unload', CAPXOUS.dispose);
 CAPXOUS.AutoComplete = Class.create();
-CAPXOUS.AutoComplete.prototype = {visible:false,complete:false,initialize:function(text, f, options) {
+CAPXOUS.AutoComplete.prototype = {visible:false,complete:false,initialize:function(text, f, options, callback_f) {
     text = $(text);
     if ((text == null) || (f == null) || (typeof f != 'function'))return;
     text.setAttribute('autocomplete', 'off');
@@ -117,8 +117,11 @@ CAPXOUS.AutoComplete.prototype = {visible:false,complete:false,initialize:functi
     this.options.minChars = this.options.minChars || 1;
     // added by aroy: pixel value added to width of parent text field when sizing div
     this.options.widthOffset = this.options.widthOffset || 0;
+    this.cache = new Object();
+    this.cachedContent = false;
     this.timeout = 0;
     this.getURL = f;
+    this.precheck_f = callback_f;
     this.buf = document.createElement('div');
     var p = document.createElement('div');
     p.CAPX = this;
@@ -197,7 +200,14 @@ CAPXOUS.AutoComplete.prototype = {visible:false,complete:false,initialize:functi
 },prepare:function() {
     this.request();
 },request:function(url) {
-    if (this.preRequest()) {
+    this.cachedContent = (this.precheck_f != null && typeof this.precheck_f == 'function' &&
+            this.cache[this.precheck_f()] != null);
+    if (this.preRequest() && this.cachedContent) {
+        this.complete = false;
+        this.buf.innerHTML = this.cache[this.precheck_f()];
+        this.onComplete();
+        //this.updateContent();
+    } else if (this.preRequest()) {
         if (url) {
             if (url.charAt(0) == "&")url = this.getURL() + url;
             this.onLoading(true);
@@ -224,19 +234,21 @@ CAPXOUS.AutoComplete.prototype = {visible:false,complete:false,initialize:functi
     setTimeout(this.updateContent.bind(this, arguments[0]), 10);
 },updateContent:function() {
     var t = ((this.req == null) || (this.req.transport == arguments[0]));
-    if (t) {
+    if (t || this.cachedContent) {
         this.complete = true;
         this.pop.innerHTML = this.buf.innerHTML;
         this.buf.innerHTML = '';
         this.i = -1;
         this.children = new Array();
-        var totalTime = (new Date()).getTime() - this.profiling.getTime(); // added by aroy for profiling
-        var timeSeconds = totalTime/1000;
-        var c = '\x3C\x64\x69\x76\x20\x73\x74\x79\x6C\x65\x3D\x22\x63\x6C\x65\x61\x72\x3A\x62\x6F\x74\x68\x3B\x70\x61\x64\x64\x69\x6E\x67\x3A\x32\x70\x78\x3B\x74\x65\x78\x74\x2D\x61\x6C\x69\x67\x6E\x3A\x63\x65\x6E\x74\x65\x72\x3B\x22\x3E\x3C\x61\x20\x68\x72\x65\x66\x3D\x22\x68\x74\x74\x70\x3A\x2F\x2F\x63\x61\x70\x78\x6F\x75\x73\x2E\x63\x6F\x6D\x2F\x22\x20\x73\x74\x79\x6C\x65\x3D\x22\x66\x6F\x6E\x74\x2D\x73\x69\x7A\x65\x3A\x31\x30\x70\x78\x22\x3E\x50\x6F\x77\x65\x72\x65\x64\x26\x6E\x62\x73\x70\x3B\x62\x79\x26\x6E\x62\x73\x70\x3B\x43\x61\x70\x78\x6F\x75\x73\x2E\x63\x6F\x6D\x3C\x2F\x61\x3E' + ' (' + timeSeconds + 's)' + '\x3C\x2F\x64\x69\x76\x3E';
-        var s = 0;
-        for (var i = 0; i < CAPXOUS.name.length; i++)s += CAPXOUS.name.charCodeAt(i);
-        var j = CAPXOUS.key.indexOf(CAPXOUS.sixty_four(s));
-        this.pop.innerHTML += (!j && j != CAPXOUS.length)?'':c;
+        if (!this.cachedContent) {
+            var totalTime = (new Date()).getTime() - this.profiling.getTime(); // added by aroy for profiling
+            var timeSeconds = totalTime/1000;
+            var c = '\x3C\x64\x69\x76\x20\x73\x74\x79\x6C\x65\x3D\x22\x63\x6C\x65\x61\x72\x3A\x62\x6F\x74\x68\x3B\x70\x61\x64\x64\x69\x6E\x67\x3A\x32\x70\x78\x3B\x74\x65\x78\x74\x2D\x61\x6C\x69\x67\x6E\x3A\x63\x65\x6E\x74\x65\x72\x3B\x22\x3E\x3C\x61\x20\x68\x72\x65\x66\x3D\x22\x68\x74\x74\x70\x3A\x2F\x2F\x63\x61\x70\x78\x6F\x75\x73\x2E\x63\x6F\x6D\x2F\x22\x20\x73\x74\x79\x6C\x65\x3D\x22\x66\x6F\x6E\x74\x2D\x73\x69\x7A\x65\x3A\x31\x30\x70\x78\x22\x3E\x50\x6F\x77\x65\x72\x65\x64\x26\x6E\x62\x73\x70\x3B\x62\x79\x26\x6E\x62\x73\x70\x3B\x43\x61\x70\x78\x6F\x75\x73\x2E\x63\x6F\x6D\x3C\x2F\x61\x3E' + ' (' + timeSeconds + 's)' + '\x3C\x2F\x64\x69\x76\x3E';
+            var s = 0;
+            for (var i = 0; i < CAPXOUS.name.length; i++)s += CAPXOUS.name.charCodeAt(i);
+            var j = CAPXOUS.key.indexOf(CAPXOUS.sixty_four(s));
+            this.pop.innerHTML += (!j && j != CAPXOUS.length)?'':c;
+        }
         $A(this.pop.getElementsByTagName('*')).inject([], function(es, c) {
             if (CAPXOUS.isSelectable(c)) {
                 c.setAttribute(CAPXOUS.INX, this.children.length);
@@ -244,6 +256,9 @@ CAPXOUS.AutoComplete.prototype = {visible:false,complete:false,initialize:functi
                 this.children.push(c);
             }
         }.bind(this));
+        if (!this.cachedContent && this.precheck_f != null && typeof this.precheck_f == 'function') {
+            this.cache[this.precheck_f()] = this.pop.innerHTML;
+        }
         this.down();
         this.show();
         this.stopIndicator();
