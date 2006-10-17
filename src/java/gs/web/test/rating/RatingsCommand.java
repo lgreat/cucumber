@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsCommand.java,v 1.6 2006/10/04 01:05:35 dlee Exp $
+ * $Id: RatingsCommand.java,v 1.7 2006/10/17 17:18:52 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -21,6 +21,7 @@ public final class RatingsCommand implements SchoolIdValidator.ISchoolId, StateV
     private IRatingsDisplay _ratingsDisplay;
     private School _school;
     private IRatingsDisplay.IRowGroup.IRow.ICell _overallRating;
+    private int _ratingYear;
 
 
     public int getId() {
@@ -70,5 +71,14 @@ public final class RatingsCommand implements SchoolIdValidator.ISchoolId, StateV
 
     public void setOverallRating(IRatingsDisplay.IRowGroup.IRow.ICell overallRating) {
         _overallRating = overallRating;
+    }
+
+
+    public int getRatingYear() {
+        return _ratingYear;
+    }
+
+    public void setRatingYear(int ratingYear) {
+        _ratingYear = ratingYear;
     }
 }

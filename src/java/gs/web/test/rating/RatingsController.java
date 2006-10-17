@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsController.java,v 1.12 2006/10/09 18:27:19 dlee Exp $
+ * $Id: RatingsController.java,v 1.13 2006/10/17 17:18:52 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -70,12 +70,14 @@ public class RatingsController extends SimpleFormController {
 
     protected Map referenceData(HttpServletRequest request, Object command, Errors errors) throws Exception {
         Map model = new HashMap();
+        RatingsCommand ratingsCommand = (RatingsCommand) command;
 
         if (!errors.hasErrors()) {
-            RatingsCommand ratingsCommand = (RatingsCommand) command;
             IRatingsConfig ratingsConfig = _ratingsConfigDao.restoreRatingsConfig(ratingsCommand.getState(), true);
 
             if (null != ratingsConfig) {
+                ratingsCommand.setRatingYear(ratingsConfig.getYear());
+
                 SchoolTestValue schoolTestValue =
                         getTestManager().getOverallRating(ratingsCommand.getSchool(), ratingsConfig.getYear());
 
@@ -107,7 +109,8 @@ public class RatingsController extends SimpleFormController {
                 }
             }
         }
-        model.put(getCommandName(), command);
+
+        model.put(getCommandName(), ratingsCommand);
         return model;
     }
 
