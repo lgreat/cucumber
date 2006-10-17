@@ -45,31 +45,39 @@ public class RegistrationAjaxController implements Controller {
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         PrintWriter out = response.getWriter();
         if (request.getParameter("state") != null) {
-            State state =_stateManager.getState(request.getParameter("state"));
-            List counties = _geoDao.findCounties(state);
-            if (counties != null && counties.size() > 0) {
-                out.print("<select name=\"countyFips\" class=\"form\" onchange=\"countyChange(this);\">");
-                outputOption(out, "", "Choose county", true);
-                for (int x=0; x < counties.size(); x++) {
-                    ICounty county = (ICounty) counties.get(x);
-                    outputOption(out, county.getCountyFips(), county.getName());
-                }
-                out.print("</select>");
-            }
+            outputCountySelect(request, out);
         } else {
-            String countyFips = request.getParameter("countyFips");
-            List cities = _geoDao.findCitiesByCounty(_geoDao.findCountyByFipsCode(countyFips));
-            if (cities != null && cities.size() > 0) {
-                out.print("<select name=\"city\" class=\"form\">");
-                outputOption(out, "", "Choose city", true);
-                for (int x=0; x < cities.size(); x++) {
-                    ICity city = (ICity) cities.get(x);
-                    outputOption(out, city.getName(), city.getName());
-                }
-                out.print("</select>");
-            }
+            outputCitySelect(request, out);
         }
         return null;
+    }
+
+    protected void outputCitySelect(HttpServletRequest request, PrintWriter out) {
+        String countyFips = request.getParameter("countyFips");
+        List cities = _geoDao.findCitiesByCounty(_geoDao.findCountyByFipsCode(countyFips));
+        if (cities != null && cities.size() > 0) {
+            out.print("<select name=\"city\" class=\"form\">");
+            outputOption(out, "", "Choose city", true);
+            for (int x=0; x < cities.size(); x++) {
+                ICity city = (ICity) cities.get(x);
+                outputOption(out, city.getName(), city.getName());
+            }
+            out.print("</select>");
+        }
+    }
+
+    protected void outputCountySelect(HttpServletRequest request, PrintWriter out) {
+        State state =_stateManager.getState(request.getParameter("state"));
+        List counties = _geoDao.findCounties(state);
+        if (counties != null && counties.size() > 0) {
+            out.print("<select name=\"countyFips\" class=\"form\" onchange=\"countyChange(this);\">");
+            outputOption(out, "", "Choose county", true);
+            for (int x=0; x < counties.size(); x++) {
+                ICounty county = (ICounty) counties.get(x);
+                outputOption(out, county.getCountyFips(), county.getName());
+            }
+            out.print("</select>");
+        }
     }
 
     protected void outputOption(PrintWriter out, String value, String name) {

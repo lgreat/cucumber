@@ -62,7 +62,14 @@
           <c:set var="nameVal" value="Child #${child}"/>
           <c:set var="gradeVal" value=""/>
           <c:set var="schoolIdVal" value=""/>
-          <c:set var="stateVal" value="${followUpCmd.userProfile.state}"/>
+          <c:choose>
+              <c:when test="${followUpCmd.userProfile.state eq null or followUpCmd.userProfile.state eq ''}">
+                  <c:set var="stateVal" value="${requestScope.context.stateOrDefault}"/>
+              </c:when>
+              <c:otherwise>
+                  <c:set var="stateVal" value="${followUpCmd.userProfile.state}"/>
+              </c:otherwise>
+          </c:choose>
           <c:set var="schoolVal" value=""/>
           <!-- override default values if set. Also show error message if exists -->
           <c:if test="${followUpCmd.numStudents ge child}">

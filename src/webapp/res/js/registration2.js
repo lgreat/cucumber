@@ -46,7 +46,7 @@ function declarePreviousSchoolListener(i) {
     new AutoAssist("previousSchool" + i, function () {
         var stateSelector = $("previousState" + i);
         var state = stateSelector.options[stateSelector.selectedIndex].value;
-        return "registration2Ajax.page??type=school&param3=" + i +
+        return "/cgi-bin/ajax_autocomplete.pl?type=school&param3=" + i +
                "&fn=setPreviousSchool&q=" + this.text.value + "&state=" + state;
     }, autoAssistOptions);
 }
