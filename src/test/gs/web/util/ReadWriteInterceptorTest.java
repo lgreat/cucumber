@@ -3,7 +3,6 @@ package gs.web.util;
 import gs.web.BaseControllerTestCase;
 import gs.web.status.MonitorController;
 import gs.web.content.AllArticlesController;
-import gs.web.search.SearchController;
 import gs.web.geo.CityController;
 import gs.web.community.registration.RegistrationController;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
@@ -19,9 +18,9 @@ import org.springframework.web.servlet.mvc.Controller;
 /**
  * @author <a href="mailto:thuss@greatschools.net">Todd Huss</a>
  */
-public class OpenSessionInViewInterceptorTest extends BaseControllerTestCase {
+public class ReadWriteInterceptorTest extends BaseControllerTestCase {
 
-    public void testOsivInterceptor() throws Exception {
+    public void testReadWriteInterceptor() throws Exception {
         // All controllers should be treated as read-only unless they are flagged as read-write
         Controller controller = new ParameterizableViewController();
         assertReadWriteStatus(controller, true, null);
@@ -42,12 +41,13 @@ public class OpenSessionInViewInterceptorTest extends BaseControllerTestCase {
     }
 
     private void assertReadWriteStatus(Controller controller, boolean isReadOnly, Exception e) throws Exception {
-        OpenSessionInViewInterceptor osiv = new OpenSessionInViewInterceptor();
+        ReadWriteInterceptor osiv = new ReadWriteInterceptor();
         ServletRequest request = getRequest();
         ServletResponse response = getResponse();
         osiv.preHandle((HttpServletRequest) request, (HttpServletResponse) response, controller);
         assertTrue(ThreadLocalTransactionManager.isReadOnly() == isReadOnly);
+        osiv.postHandle((HttpServletRequest) request, (HttpServletResponse) response, controller, null);
         osiv.afterCompletion((HttpServletRequest) request, (HttpServletResponse) response, controller, e);
-        assertFalse(ThreadLocalTransactionManager.isReadOnly());
+        ThreadLocalTransactionManager.commitOrRollback();
     }
 }
