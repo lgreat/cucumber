@@ -69,7 +69,7 @@
                     <textarea name="text" rows="5" cols="100">Enter text here.</textarea>
                 </c:otherwise>
             </c:choose>
-            <label for="link">Link (optional)</label>
+            <label for="link">Link (optional, use relative links for GreatSchools pages such as /cgi-bin/showarticle/ca/29 without the http://www.greatschools.net)</label>
             <input type="text" name="link" size="100" maxlength="100" value="${newsItem.link}"/>
             <label for="category">Category</label>
             <c:set var="catNames" value="SPLASH POSITION 1,SPLASH POSITION 2,SPLASH POSITION 3,CONTENT BOX: ARTICLE,CONTEXT BOX: TIP OF THE WEEK,DATA,RESEARCH AND COMPARE DATA UPDATE"/>
