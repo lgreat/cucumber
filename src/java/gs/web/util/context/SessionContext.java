@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.4 2006/10/13 17:45:04 aroy Exp $
+ * $Id: SessionContext.java,v 1.5 2006/10/17 22:13:14 thuss Exp $
  */
 package gs.web.util.context;
 
@@ -58,6 +58,7 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
     private IUserDao _userDao;
     private boolean _readFromClient = false;
     private boolean _hasSearched = false;
+    private boolean _crawler = false;
 
     /**
      * Created by Spring as needed.
@@ -184,6 +185,7 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
     /**
      * Currently this is only used for determining A/B for multivariate testing,
      * therefore there is no accessor method.
+     * @param address ip address for A/B testing
      */
     public void setRemoteAddress(String address) {
         if (address != null) {
@@ -310,5 +312,13 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
 
     public void setHasSearched(boolean hasSearched) {
         _hasSearched = hasSearched;
+    }
+
+    public boolean isCrawler() {
+        return _crawler;
+    }
+
+    public void setCrawler(boolean crawler) {
+        _crawler = crawler;
     }
 }

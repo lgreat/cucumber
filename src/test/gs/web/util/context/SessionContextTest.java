@@ -64,6 +64,23 @@ public class SessionContextTest extends BaseTestCase {
         assertTrue(_sessionContext.isUserValid());
     }
 
+    public void testIsCrawler() {
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
+        request.addHeader("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)");
+        _sessionContextUtil.updateFromParams(request, _response, _sessionContext);
+        assertFalse(_sessionContext.isCrawler());
+
+        request = new GsMockHttpServletRequest();        
+        request.addHeader("User-Agent", "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)");
+        _sessionContextUtil.updateFromParams(request, _response, _sessionContext);
+        assertTrue(_sessionContext.isCrawler());
+
+        request = new GsMockHttpServletRequest();
+        request.addHeader("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 5.1) Gecko/20060909 Firefox/1.5.0.7");
+        _sessionContextUtil.updateFromParams(request, _response, _sessionContext);
+        assertFalse(_sessionContext.isCrawler());
+    }
+
     public void testHostDeveloperWorkstation() {
         // Try developer workstation scenario
         _request.setServerName("localhost");
@@ -283,7 +300,7 @@ public class SessionContextTest extends BaseTestCase {
      */
     private State getStateFromMockResponse(MockHttpServletResponse response) {
         StateManager sm = new StateManager();
-        Cookie [] cookies = response.getCookies();
+        Cookie[] cookies = response.getCookies();
         String state = null;
 
         for (int i = 0; i < cookies.length; i++) {

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.6 2006/10/13 17:45:04 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.7 2006/10/17 22:13:14 thuss Exp $
  */
 
 package gs.web.util.context;
@@ -22,6 +22,7 @@ import org.springframework.web.util.CookieGenerator;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.regex.Pattern;
 
 /**
  * Provides...
@@ -200,6 +201,14 @@ public class SessionContextUtil implements ApplicationContextAware {
             cobrand = paramCobrand;
         } else {
             cobrand = _urlUtil.cobrandFromUrl(hostName);
+        }
+
+        // Determine if this is a crawler
+        String userAgent = request.getHeader("User-Agent");
+        if (userAgent != null && userAgent.toLowerCase().matches(".*(googlebot|slurp|mmcrawler|msnbot|teoma|ia_archiver).*")) {
+            context.setCrawler(true);
+        } else {
+            context.setCrawler(false);
         }
 
         // Set the a/b version - 'a' is the default
