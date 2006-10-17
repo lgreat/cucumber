@@ -104,7 +104,7 @@
                     <c:if test="${hasRating == 'true'}">
                         <div style="float:left;width:505px;">
                             <ratings:table ratingsDisplay="${ratingsDisplay}" overallRatingCell="${ratingsCmd.overallRating}"
-                                                year="${ratingsCmd.year}"/>
+                                                year="${ratingsCmd.ratingYear}"/>
                         </div>
                     </c:if>
 
