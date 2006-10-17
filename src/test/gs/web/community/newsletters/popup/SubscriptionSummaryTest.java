@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.12 2006/10/16 22:46:04 aroy Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.13 2006/10/17 18:52:24 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -168,7 +168,7 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
         public static final String SCHOOL_NAME = "School's Name";
         public static final Integer SCHOOL_ID = Integer.valueOf("1");
 
-        public List findSchoolLike(State state, final String queryString) {
+        public List findSchoolsLike(State state, final String queryString, Integer limit) {
             return null;
         }
 

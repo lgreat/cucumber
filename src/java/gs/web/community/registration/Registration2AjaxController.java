@@ -13,7 +13,6 @@ import java.util.List;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.school.ISchoolDao;
-import gs.data.school.School;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -56,11 +55,11 @@ public class Registration2AjaxController implements Controller {
 
     protected void handleRequestWithParams(PrintWriter out, State state, String param3,
                                            String function, String query) {
-        List schools = _schoolDao.findSchoolLike(state, query);
+        List schools = _schoolDao.findSchoolsLike(state, query, new Integer(10));
 
         if (schools != null && schools.size() > 0) {
             for (int x=0; x < schools.size() && x < MAX_RESULTS_TO_RETURN; x++) {
-                School school = (School) schools.get(x);
+                ISchoolDao.ITruncatedSchool school = (ISchoolDao.ITruncatedSchool) schools.get(x);
                 out.print(getSchoolDiv(function, school.getId(), school.getName(), param3));
             }
         } else {
@@ -68,7 +67,7 @@ public class Registration2AjaxController implements Controller {
         }
     }
 
-    protected String getSchoolDiv(String function, Integer id, String name, String param3) {
+    protected String getSchoolDiv(String function, int id, String name, String param3) {
         StringBuffer rval = new StringBuffer();
         rval.append("<div ");
         rval.append("onSelect=\"").append(function).append("('").append(id).append("', ");
