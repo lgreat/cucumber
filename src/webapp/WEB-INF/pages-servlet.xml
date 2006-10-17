@@ -10,7 +10,7 @@
           class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
         <property name="interceptors">
             <list>
-                <bean class="gs.web.util.OpenSessionInViewInterceptor"/>
+                <bean class="gs.web.util.ReadWriteInterceptor"/>
                 <bean class="gs.web.ResponseInterceptor"
                       autowire="byName"/>
                 <bean class="gs.web.util.context.SessionContextInterceptor"
@@ -26,7 +26,7 @@
         <!-- bean mappings for special SEO pages -->
         <property name="interceptors">
             <list>
-                <bean class="gs.web.util.OpenSessionInViewInterceptor"/>
+                <bean class="gs.web.util.ReadWriteInterceptor"/>
                 <!--ref bean="requiresStateInterceptor"/-->
                 <bean class="gs.web.ResponseInterceptor"
                       autowire="byName"/>
