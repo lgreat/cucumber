@@ -7,7 +7,8 @@ var MAX_KIDS = 11;
 //            by the CSS)
 // widthOffset: The popup containing the list of school matches has width equal to the width
 //              of the parent text field plus this offset value (in pixels). Defaults to 0.
-var autoAssistOptions = {frequency:0.2, minChars:1, widthOffset:100};
+// addProfiling: if true, appends profiling info to end of returned div. Defaults to false.
+var autoAssistOptions = {frequency:0.2, minChars:1, widthOffset:100, addProfiling:false};
 
 // run the following function on window load
 Event.observe(window, "load", function() {
@@ -48,7 +49,7 @@ function declarePreviousSchoolListener(i) {
     new AutoAssist("previousSchool" + i, function () {
         var stateSelector = $("previousState" + i);
         var state = stateSelector.options[stateSelector.selectedIndex].value;
-        return "/cgi-bin/ajax_autocomplete.pl?type=school&param3=" + i +
+        return "registration2Ajax.page?type=school&param3=" + i +
                "&fn=setPreviousSchool&q=" + this.text.value + "&state=" + state;
     }, autoAssistOptions, function () {
         return this.text.value;
