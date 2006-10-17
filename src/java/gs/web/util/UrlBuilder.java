@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.63 2006/10/17 17:18:52 dlee Exp $
+ * $Id: UrlBuilder.java,v 1.64 2006/10/17 19:35:29 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -440,7 +440,7 @@ public class UrlBuilder {
         } else if (RESEARCH.equals(page)) {
             if (state == null) {
                 _perlPage = false;
-                _path = "/stateLauncher.page?p=pathway1";
+                _path = "/school/research.page";
             } else {
                 _perlPage = true; // well, it looks like one
                 _path = "/modperl/go/" + state.getAbbreviation();
