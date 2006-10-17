@@ -135,7 +135,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" class="districtText">
-                        <img style="height:14px; width:122px" alt="" src="/res/img/header/clear_pix.gif"/>
+                        <img style="height:14px; width:123px" alt="" src="/res/img/header/clear_pix.gif"/>
                         Zip Code
                     </td>
                 </tr>
@@ -287,9 +287,9 @@
                 <tr>
                     <c:choose>
                         <c:when test="${stateOrDefault.abbreviation eq 'DC'}">
-                            <td><img style="width: 164px;height: 0px;" alt=""
+                            <td><img style="width: 164px;height: 0;" alt=""
                                      src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-                            <td><img style="width: 68px;height: 0px;" alt=""
+                            <td><img style="width: 68px;height: 0;" alt=""
                                      src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
                         </c:when>
                         <c:otherwise>
