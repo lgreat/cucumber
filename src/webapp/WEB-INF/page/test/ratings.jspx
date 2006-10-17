@@ -114,10 +114,9 @@
                             <h2>More Resources</h2>
                             <ul>
                                 <li><gsml:a href="/issues/$LCSTATE/ratings.html" onClick="issues();" target="issues">More about GreatSchools Ratings</gsml:a></li>
+                                <li><link:schoolCompareSchool school="${school}" sortBy="stars_newrating">Compare with GreatSchools Ratings<br/> from nearby schools</link:schoolCompareSchool></li>
                                 <li><link:schoolProfileTestscore school="${school}">See this school's performance
                                     data</link:schoolProfileTestscore></li>
-
-                                <li><link:schoolCompareSchool school="${school}" sortBy="${UrlBuilder.}"></li>
                             </ul>
                         </div>
                     </div>
