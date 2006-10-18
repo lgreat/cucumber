@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-<jsp:root version="2.0"
-          xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-          xmlns:gsweb="gstaglib">
-
-    <h1>blah test</h1>
-</jsp:root>
--->        
-
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns="http://www.w3c.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
@@ -28,21 +16,24 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <div class="left">
-    <h3>Grade K-12 Success</h3>
-
+    <h3>Grade K-5 Success</h3>
     <ul class="plain">
-        <gsweb:articlelink articleId="416" wrappingElement="li"/>
-        <gsweb:articlelink articleId="4" wrappingElement="li"/>
-        <gsweb:articlelink articleId="46" wrappingElement="li"/>
-        <gsweb:articlelink articleId="191" wrappingElement="li"/>
+        <gsweb:articlelink articleId="44" wrappingElement="li"/>
         <gsweb:articlelink articleId="209" wrappingElement="li"/>
+        <gsweb:articlelink articleId="204" wrappingElement="li"/>
+    </ul>
+
+    <h3>Grade 6-12 Success</h3>
+    <ul class="plain">
+        <gsweb:articlelink articleId="716" wrappingElement="li"/>
+        <gsweb:articlelink articleId="700" wrappingElement="li"/>
+        <gsweb:articlelink articleId="728" wrappingElement="li"/>
     </ul>
 
     <h3>Ask the Experts</h3>
     <ul class="plain">
-        <gsweb:articlelink articleId="570" wrappingElement="li"/>
-        <gsweb:articlelink articleId="473" wrappingElement="li"/>
-        <gsweb:articlelink articleId="581" wrappingElement="li"/>
+        <gsweb:articlelink articleId="470" wrappingElement="li"/>
+        <gsweb:articlelink articleId="452" wrappingElement="li"/>
         <li class="byGrade">Browse by grade:<br/>
             <table>
                 <tr>
@@ -85,33 +76,22 @@
     </ul>
     <h3>Learning Games</h3>
     <ul class="plain">
-        <gsweb:articlelink articleId="414" wrappingElement="li"/>
-        <gsweb:articlelink articleId="415" wrappingElement="li"/>
-        <gsweb:articlelink articleId="479" wrappingElement="li"/>
-        <li class="byGrade">Browse by grade:<br/>
-            <table>
-                <tr>
-                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/660" styleClass="by_k"></gsml:a></td>
-                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/663" styleClass="by_1"></gsml:a></td>
-                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/665" styleClass="by_2"></gsml:a></td>
-                    <td><gsml:a href="/cgi-bin/showarticle/$STATE/668" styleClass="by_3"></gsml:a></td>
-                </tr>
-            </table>
-        </li>
+        <gsweb:articlelink articleId="400" wrappingElement="li"/>
+        <gsweb:articlelink articleId="410" wrappingElement="li"/>
     </ul>
 
     <h3>Healthy Kids</h3>
     <ul class="plain">
-        <gsweb:articlelink articleId="411" wrappingElement="li"/>
-        <gsweb:articlelink articleId="517" wrappingElement="li"/>
-        <gsweb:articlelink articleId="621" wrappingElement="li"/>
+        <gsweb:articlelink articleId="350" wrappingElement="li"/>
+        <gsweb:articlelink articleId="215" wrappingElement="li"/>
+        <li style="list-style-type:none;text-align:right; padding-top:6px;"><gsml:a href="/content/healthyKids.page">See more &gt; </gsml:a></li>
     </ul>
 
     <h3>Get Involved</h3>
     <ul class="plain">
         <gsweb:articlelink articleId="34" wrappingElement="li"/>
-        <gsweb:articlelink articleId="298" wrappingElement="li"/>
-        <gsweb:articlelink articleId="33" wrappingElement="li"/>
+        <gsweb:articlelink articleId="41" wrappingElement="li"/>
+        <gsweb:articlelink articleId="737" wrappingElement="li"/>
     </ul>
 
     <div id="allArticles">
