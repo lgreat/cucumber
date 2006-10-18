@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.16 2006/10/18 00:32:11 thuss Exp $
+ * $Id: SchoolsControllerTest.java,v 1.17 2006/10/18 16:17:03 thuss Exp $
  */
 
 package gs.web.school;
@@ -48,20 +48,26 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         _sessionContextUtil.prepareSessionContext(request, getResponse());
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
         Map modelResults = (Map) mav.getModel().get("results");
-        assertTrue(((List)modelResults.get(SchoolsController.MODEL_SCHOOLS)).size() == 102);
+        assertEquals(102, ((List) modelResults.get(SchoolsController.MODEL_SCHOOLS)).size());
+        assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
+        assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
 
         // Switch it back to paging
         request.setParameter(SchoolsController.PARAM_SHOW_ALL, null);
         mav = _controller.handleRequestInternal(request, getResponse());
         modelResults = (Map) mav.getModel().get("results");
-        assertTrue(((List)modelResults.get(SchoolsController.MODEL_SCHOOLS)).size() == 10);
+        assertEquals(10, ((List) modelResults.get(SchoolsController.MODEL_SCHOOLS)).size());
+        assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
+        assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
 
         // Switch it to a crawler where it should disable paging
         request.addHeader("User-Agent", "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)");
-        _sessionContextUtil.prepareSessionContext(request, getResponse());        
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
         mav = _controller.handleRequestInternal(request, getResponse());
         modelResults = (Map) mav.getModel().get("results");
-        assertTrue(((List)modelResults.get(SchoolsController.MODEL_SCHOOLS)).size() == 102);
+        assertEquals(102, ((List) modelResults.get(SchoolsController.MODEL_SCHOOLS)).size());
+        assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_SCHOOLS_TOTAL));
+        assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
     }
 
     public void testByCity() throws Exception {
