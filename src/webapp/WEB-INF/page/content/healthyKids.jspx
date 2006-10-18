@@ -127,7 +127,7 @@
 </div>
 <mod:tracking pageType="article"
               pageName="${pageName}"
-              hier1="Article,School Choice Tips"/>
+              hier1="Article,Healthy Kids"/>
 </gsml:body>
 </html>
 </jsp:root>
