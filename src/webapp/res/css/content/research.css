@@ -311,7 +311,7 @@ a.arrowLink:hover {
 	height: 85px;
 }
 
-.backToSchool {
+.healthyKids {
 	padding: 2px 19px 0px 11px;
 	width: 115px;
 	font-family: "Trebuchet MS", Arial, sans-serif;
@@ -321,10 +321,10 @@ a.arrowLink:hover {
 	letter-spacing: -1px;
 }
 
-.backToSchoolImg {
+.healthyKidsImg {
     text-indent:-150em;
     padding: 0px 0px 21px 0px;
-	background-image: url(/res/img/content/research/img_apple.jpg);
+	background-image: url(/res/img/content/research/blueberries.jpg);
 	background-repeat: no-repeat;
 	margin: 0px auto 0px auto;
 	width: 65px;
@@ -371,7 +371,8 @@ a.arrowLink:hover {
 .lisa {
 	border: 1px solid #DDEEEE;
 	padding: 2px 2px 2px 2px;
-	background-image: url("/res/img/content/research/lrosenthal.jpg");
+    text-indent:-1000em;
+    background-image: url("/res/img/content/research/lrosenthal.jpg");
 	background-repeat: no-repeat;
 	background-position: 2px; 2px; 2px; 2px;
 	width: 53px;
@@ -423,11 +424,8 @@ h2#dearParents {
     margin: 65px 0px 0px 0px;
 	background-image: url(/res/img/content/research/t_dearparents.gif);
 	background-repeat: no-repeat;
-	/*background-position: 2px; 2px; 2px; 2px;*/
 	width: 104px;
     height: 15px;
-	/*width: 104px;*/
-	/*height: 100%*/
 }
 
 td#leftBox {
@@ -495,4 +493,8 @@ h2.updatesTitle {
 img#map {
     padding-left:5px;
     padding-right:5px;
+}
+/* Overrides frame.css */
+body.framed #pageGS {
+    width: 900px;
 }

@@ -29,15 +29,15 @@
     <pageHelper:externalCss file="/res/css/content/research.css"/>
 </head>
 
-<body class="www  unframed ">
-
+<!--<body class="www  unframed ">-->
+<gsml:body adPageName="research" >
 <table cellspacing="0" cellpadding="0" class="content" border="0">
 <tr>
 <td valign="top" class="border10">
 
     <table width="173" cellpadding="0" cellspacing="0" border="0">
         <tr>
-            <td><div class="dashedBorder"><div class="lisa"></div></div></td>
+            <td><div class="dashedBorder"><div class="lisa">Photo of GreatSchools editor, Lisa Rosenthal</div></div></td>
             <td valign="top"><h2 id="dearParents"></h2></td>
         </tr>
         <tr>
@@ -486,7 +486,7 @@
                                   alt=""/><br/>
 
                 <div class="k12Success">
-                    <div class="k12SuccessImg">K-12 Success</div>
+                    <div class="k12SuccessImg">Photo of open notebook with pencil</div>
                     <ul class="arrowUL">
                         <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/204" styleClass="arrowLink">5 skills for success</gsml:a></li>
                         <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/477" styleClass="arrowLink">Homework help online</gsml:a></li>
@@ -532,7 +532,7 @@
                                   alt="" border="0"/><br/>
 
                 <div class="askExperts">
-                    <div class="askExpertsImg">Ask the Experts Image</div>
+                    <div class="askExpertsImg">Photo of stack of books</div>
 
                     <div class="blueTitleText">Ask the Experts</div>
                     Q: My child is always
@@ -555,7 +555,7 @@
                                   border="0" alt=""/><br/>
 
                 <div class="billsBlog">
-                    <div class="billsBlogImg">Bill's Blog Image</div>
+                    <div class="billsBlogImg">Photo of Bill Jackson</div>
 
                     <div class="blueTitleText">Bill's Blog</div>
 
@@ -576,17 +576,17 @@
             <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="145" height="1"
                                   alt="" border="0"/><br/>
 
-                <div class="backToSchool">
-                    <div class="backToSchoolImg">Back to School Image</div>
-                    <div class="blueTitleText">Back To School</div>
+                <div class="healthyKids">
+                    <div class="healthyKidsImg">Photo of blueberries</div>
+                    <div class="blueTitleText">Healthy Kids</div>
                     <ul class="arrowUL">
-                        <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/327" styleClass="arrowLink">School supply list</gsml:a></li>
-                        <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/657" styleClass="arrowLink">Tips for shoppers</gsml:a></li>
-                        <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/361" styleClass="arrowLink">Dress for success</gsml:a></li>
-                        <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/350" styleClass="arrowLink">Healthy lunch tips</gsml:a></li>
-                        <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/332" styleClass="arrowLink">Getting organized</gsml:a></li>
+                        <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/350" styleClass="arrowLink">Creative lunches</gsml:a></li>
+                        <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/571" styleClass="arrowLink">Brain food</gsml:a></li>
+                        <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/256" styleClass="arrowLink">Backpack safety</gsml:a></li>
+                        <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/472" styleClass="arrowLink">Family fitness</gsml:a></li>
+                        <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/621" styleClass="arrowLink">Healthy schools</gsml:a></li>
                     </ul>
-                    <div class="middleBottom"><gsml:a href="/content/backToSchool.page" styleClass="border10Links">See all &gt;</gsml:a></div>
+                    <div class="middleBottom"><gsml:a href="/content/healthyKids.page" styleClass="border10Links">See all &gt;</gsml:a></div>
                 </div>
             </td>
         </tr>
@@ -605,7 +605,7 @@
                 <img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="201" height="25" alt=""/>
                 <br/>
                 <div class="editorsPick">
-                    <div class="editorsPickImg">Editors Pick Image</div>
+                    <div class="editorsPickImg">Photo of GreatSchools editor, Miriam Myers</div>
                     GreatSchools Editor Miriam
                     Myers shares her favorite
                     learning tips for:
@@ -658,7 +658,8 @@
         <mod:tracking pageType="home" pageName="state home" hier1="Home,StateHome,National"/>
     </c:otherwise>
 </c:choose>
-</body>
+<!--</body>-->
+</gsml:body>
 </html>
 
 </jsp:root>
