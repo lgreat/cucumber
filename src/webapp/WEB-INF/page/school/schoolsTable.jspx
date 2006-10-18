@@ -163,7 +163,7 @@
 
             <gsweb:schoolTableHeader total="${results.total}"
                                      srcQuery="${pageContext.request.queryString}"
-                                     showAll="${param.showall}"
+                                     showAll="${results.showAll}"
                                      cityName="${cityName}"
                                      cityDisplayName="${cityDisplayName}"
                                      districtId="${district}"
@@ -180,7 +180,7 @@
                         </div>
 
                         <div id="mapContainer">
-                            <script>document.write('<div id="map" style="height: 400px; width: 100%">&#160;</div>')</script>
+                            <script type="text/javascript">document.write('<div id="map" style="height: 400px; width: 100%">&#160;</div>')</script>
                             <noscript>In order to view this map, enable JavaScript in your browser.</noscript>
                         </div>
                         <map:setup/>
@@ -216,7 +216,7 @@
             <gsweb:schoolTable schools="${results.schools}"
                                total="${results.total}"
                                srcQuery="${pageContext.request.queryString}"
-                               showAll="${param.showall}"
+                               showAll="${results.showAll}"
                                cityName="${cityName}"
                                districtId="${district}"
                                schoolType="${st}"
@@ -235,17 +235,17 @@
 <c:choose>
     <c:when test="${not empty param.city}">
         <mod:tracking
-                pageName="schools:city:${(empty param.showall) ? ((empty param.p ? '1' : param.p)) : 'all'}${param.map eq 1 ? ':map':''}"
+                pageName="schools:city:${(empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all'}${param.map eq 1 ? ':map':''}"
                 pageType="search"
-                hier1="Search,Schools,City,${(results.total gt 0 ? ((empty param.showall) ? ((empty param.p ? '1' : param.p)) : 'all') : 'noresults') }"
+                hier1="Search,Schools,City,${(results.total gt 0 ? ((empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all') : 'noresults') }"
                 schoolType="${gsweb:toDelimitedString(paramValues.st)}"
                 schoolLevel="${gsweb:toUglyDelimitedString(paramValues.gl)}"/>
     </c:when>
     <c:when test="${not empty param.district}">
         <mod:tracking
-                pageName="schools:district:${(empty param.showall) ? ((empty param.p ? '1' : param.p)) : 'all'}${param.map eq 1 ? ':map':''}"
+                pageName="schools:district:${(empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all'}${param.map eq 1 ? ':map':''}"
                 pageType="search"
-                hier1="Search,Schools,District,${(results.total gt 0 ? ((empty param.showall) ? ((empty param.p ? '1' : param.p)) : 'all') : 'noresults') }"
+                hier1="Search,Schools,District,${(results.total gt 0 ? ((empty results.showAll) ? ((empty param.p ? '1' : param.p)) : 'all') : 'noresults') }"
                 schoolType="${gsweb:toDelimitedString(paramValues.st)}"
                 schoolLevel="${gsweb:toUglyDelimitedString(paramValues.gl)}"/>
     </c:when>

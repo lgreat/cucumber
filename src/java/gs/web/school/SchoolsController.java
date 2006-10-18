@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.27 2006/10/18 16:17:03 thuss Exp $
+ * $Id: SchoolsController.java,v 1.28 2006/10/18 17:26:02 thuss Exp $
  */
 
 package gs.web.school;
@@ -70,6 +70,11 @@ public class SchoolsController extends AbstractController {
      */
     public static final String MODEL_CITY_NAME = "cityName";
     public static final String MODEL_CITY_DISPLAY_NAME = "cityDisplayName";
+
+    /**
+     * Whether we should show all records
+     */
+    public static final String MODEL_SHOW_ALL = "showAll";
 
     /**
      * The ID of the district, if provided.
@@ -150,7 +155,7 @@ public class SchoolsController extends AbstractController {
         model.put(MODEL_PAGE, Integer.toString(page));
 
         int pageSize = 10;
-        String paramShowAll = context.isCrawler() ? "true" : request.getParameter(PARAM_SHOW_ALL);        
+        String paramShowAll = context.isCrawler() ? "true" : request.getParameter(PARAM_SHOW_ALL);
         int schoolsPageSize = StringUtils.equals(paramShowAll, "true") ||
                 StringUtils.equals(paramShowAll, "1") ? -1 : 10;
 
@@ -216,6 +221,7 @@ public class SchoolsController extends AbstractController {
             resultsModel.put(MODEL_SCHOOLS, _resultsPager.getSchools(page, schoolsPageSize));
             resultsModel.put(MODEL_PAGE_SIZE, new Integer(pageSize));
             resultsModel.put(MODEL_TOTAL, new Integer(hts.length()));
+            resultsModel.put(MODEL_SHOW_ALL, paramShowAll);
             model.put("results", resultsModel);
         } else {
             _log.warn("Hits object is null for SearchCommand: " + searchCommand);
