@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ISessionContext.java,v 1.2 2006/10/13 17:45:03 aroy Exp $
+ * $Id: ISessionContext.java,v 1.3 2006/10/18 00:32:11 thuss Exp $
  */
 
 package gs.web.util.context;
@@ -42,6 +42,7 @@ public interface ISessionContext {
     Integer getMemberId();
 
     int getMslCount();
+
     int getMssCount();
 
     String getUserHash();
@@ -73,6 +74,13 @@ public interface ISessionContext {
      * @return true if it's a cobrand
      */
     boolean isCobranded();
+
+    /**
+     * Determine if the user is a crawler
+     *
+     * @return true if it's a cobrand
+     */
+    boolean isCrawler();
 
     /**
      * If our ad server company has an outage we can turn off advertising

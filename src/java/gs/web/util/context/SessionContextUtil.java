@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.7 2006/10/17 22:13:14 thuss Exp $
+ * $Id: SessionContextUtil.java,v 1.8 2006/10/18 00:32:11 thuss Exp $
  */
 
 package gs.web.util.context;
@@ -205,7 +205,7 @@ public class SessionContextUtil implements ApplicationContextAware {
 
         // Determine if this is a crawler
         String userAgent = request.getHeader("User-Agent");
-        if (userAgent != null && userAgent.toLowerCase().matches(".*(googlebot|slurp|mmcrawler|msnbot|teoma|ia_archiver).*")) {
+        if (userAgent != null && userAgent.toLowerCase().matches(".*(googlebot|mediapartners-google|slurp|mmcrawler|msnbot|teoma|ia_archiver).*")) {
             context.setCrawler(true);
         } else {
             context.setCrawler(false);

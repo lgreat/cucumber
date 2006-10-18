@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.25 2006/07/26 22:29:21 thuss Exp $
+ * $Id: SchoolsController.java,v 1.26 2006/10/18 00:32:11 thuss Exp $
  */
 
 package gs.web.school;
@@ -152,6 +152,7 @@ public class SchoolsController extends AbstractController {
         int pageSize = 10;
         String paramShowAll = request.getParameter(PARAM_SHOW_ALL);
         int schoolsPageSize = StringUtils.equals(paramShowAll, "true") ||
+                context.isCrawler() ||
                 StringUtils.equals(paramShowAll, "1") ? -1 : 10;
 
 

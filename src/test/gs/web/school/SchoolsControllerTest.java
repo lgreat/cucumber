@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.15 2006/07/24 21:01:24 wbeck Exp $
+ * $Id: SchoolsControllerTest.java,v 1.16 2006/10/18 00:32:11 thuss Exp $
  */
 
 package gs.web.school;
@@ -38,6 +38,30 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         _controller.setSearcher((Searcher) getApplicationContext().getBean(Searcher.BEAN_ID));
 
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().getBean(SessionContextUtil.BEAN_ID);
+    }
+
+    public void testShowAllAndCrawlers() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setParameter("state", "AK");
+        request.setParameter("city", "Anchorage");
+        request.setParameter(SchoolsController.PARAM_SHOW_ALL, "true");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());
+        ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
+        Map modelResults = (Map) mav.getModel().get("results");
+        assertTrue(((List)modelResults.get(SchoolsController.MODEL_SCHOOLS)).size() == 102);
+
+        // Switch it back to paging
+        request.setParameter(SchoolsController.PARAM_SHOW_ALL, null);
+        mav = _controller.handleRequestInternal(request, getResponse());
+        modelResults = (Map) mav.getModel().get("results");
+        assertTrue(((List)modelResults.get(SchoolsController.MODEL_SCHOOLS)).size() == 10);
+
+        // Switch it to a crawler where it should disable paging
+        request.addHeader("User-Agent", "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());        
+        mav = _controller.handleRequestInternal(request, getResponse());
+        modelResults = (Map) mav.getModel().get("results");
+        assertTrue(((List)modelResults.get(SchoolsController.MODEL_SCHOOLS)).size() == 102);
     }
 
     public void testByCity() throws Exception {
@@ -94,6 +118,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("status/error", mav.getViewName());
 
     }
+
     public void testByDistrict() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setParameter("state", "CA");
@@ -176,13 +201,12 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(10), modelResults.get(SchoolsController.MODEL_PAGE_SIZE));
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
         List p10schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
-        for (int i = 0; i < p10schools .size(); i++) {
-            School s = (School) p10schools .get(i);
+        for (int i = 0; i < p10schools.size(); i++) {
+            School s = (School) p10schools.get(i);
             assertEquals("Wrong city for " + s, "Anchorage", s.getPhysicalAddress().getCity());
             assertTrue("Found the same school on two pages", p1schools.indexOf(s) == -1);
             assertTrue("Found the same school on two pages", p2schools.indexOf(s) == -1);
         }
-
 
         // Check page #11
         request.setParameter("p", "11");
@@ -196,8 +220,8 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
         List p11schools = (List) modelResults.get(SchoolsController.MODEL_SCHOOLS);
         assertEquals(2, p11schools.size());
-        for (int i = 0; i < p11schools .size(); i++) {
-            School s = (School) p11schools .get(i);
+        for (int i = 0; i < p11schools.size(); i++) {
+            School s = (School) p11schools.get(i);
             assertEquals("Wrong city for " + s, "Anchorage", s.getPhysicalAddress().getCity());
             assertTrue("Found the same school on two pages", p1schools.indexOf(s) == -1);
             assertTrue("Found the same school on two pages", p2schools.indexOf(s) == -1);
@@ -235,8 +259,6 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("Anchorage", model.get(SchoolsController.MODEL_CITY_NAME));
         assertEquals(LevelCode.createLevelCode("e"), model.get(SchoolsController.MODEL_LEVEL_CODE));
         assertEquals(null, model.get(SchoolsController.MODEL_SCHOOL_TYPE));
-
-
 
         // Look for all the m/h schools
         request.setParameter("lc", "m");
@@ -292,9 +314,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         // Check for other important stuff
         assertEquals("1", model.get(SchoolsController.MODEL_PAGE));
         assertEquals("Anchorage", model.get(SchoolsController.MODEL_CITY_NAME));
-        assertEquals("public", ((String[])(model.get(SchoolsController.MODEL_SCHOOL_TYPE)))[0]);
-
-
+        assertEquals("public", ((String[]) (model.get(SchoolsController.MODEL_SCHOOL_TYPE)))[0]);
 
         // Look for all the m/h schools
         request.setParameter("st", "private");
@@ -326,34 +346,34 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", null, null));
         assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.ELEMENTARY_MIDDLE, null));
         assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.MIDDLE_HIGH, null));
-        assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[] {"public", "private"}));
-        assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[] {"public", "charter"}));
-        assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[] {"private", "charter"}));
+        assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"public", "private"}));
+        assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"public", "charter"}));
+        assertEquals("San Francisco Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"private", "charter"}));
 
         // These useful views get nice SEO friendly titles
         assertEquals("San Francisco Elementary Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.ELEMENTARY, null));
         assertEquals("San Francisco Middle Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.MIDDLE, null));
         assertEquals("San Francisco High Schools", _controller.calcCitySchoolsTitle("San Francisco", LevelCode.HIGH, null));
 
-        assertEquals("San Francisco Public Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[] {"public"}));
-        assertEquals("San Francisco Private Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[] {"private"}));
-        assertEquals("San Francisco Charter Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[] {"charter"}));
+        assertEquals("San Francisco Public Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"public"}));
+        assertEquals("San Francisco Private Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"private"}));
+        assertEquals("San Francisco Charter Schools", _controller.calcCitySchoolsTitle("San Francisco", null, new String[]{"charter"}));
     }
 
     public void testMetaDescCalc() {
         assertEquals("View and map all San Francisco schools. Plus, compare or save schools.",
-                _controller.calcMetaDesc(null,"San Francisco",null,null));
+                _controller.calcMetaDesc(null, "San Francisco", null, null));
         assertEquals("View and map all San Francisco middle schools. Plus, compare or save middle schools.",
-                _controller.calcMetaDesc(null,"San Francisco", LevelCode.MIDDLE, null));
+                _controller.calcMetaDesc(null, "San Francisco", LevelCode.MIDDLE, null));
         assertEquals("View and map all San Francisco public elementary schools. Plus, compare or save public elementary schools.",
-                _controller.calcMetaDesc(null,"San Francisco",LevelCode.ELEMENTARY, new String[]{"public"}));
+                _controller.calcMetaDesc(null, "San Francisco", LevelCode.ELEMENTARY, new String[]{"public"}));
 
         assertEquals("View and map all schools in the Oakland Unified School District. Plus, compare or save schools in this district.",
-                _controller.calcMetaDesc("Oakland Unified School District","Oakland",null,null));
+                _controller.calcMetaDesc("Oakland Unified School District", "Oakland", null, null));
         assertEquals("View and map all middle schools in the Oakland Unified School District. Plus, compare or save middle schools in this district.",
-                _controller.calcMetaDesc("Oakland Unified School District","Oakland", LevelCode.MIDDLE, null));
+                _controller.calcMetaDesc("Oakland Unified School District", "Oakland", LevelCode.MIDDLE, null));
         assertEquals("View and map all public elementary schools in the Oakland Unified School District. Plus, compare or save public elementary schools in this district.",
-                _controller.calcMetaDesc("Oakland Unified School District","Oakland",LevelCode.ELEMENTARY, new String[]{"public"}));
+                _controller.calcMetaDesc("Oakland Unified School District", "Oakland", LevelCode.ELEMENTARY, new String[]{"public"}));
     }
 
 }

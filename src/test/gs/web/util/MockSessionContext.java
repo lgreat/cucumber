@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MockSessionContext.java,v 1.4 2006/10/13 17:45:04 aroy Exp $
+ * $Id: MockSessionContext.java,v 1.5 2006/10/18 00:32:11 thuss Exp $
  */
 
 package gs.web.util;
@@ -73,6 +73,10 @@ public class MockSessionContext implements ISessionContext {
     }
 
     public boolean isCobranded() {
+        return false;
+    }
+
+    public boolean isCrawler() {
         return false;
     }
 
