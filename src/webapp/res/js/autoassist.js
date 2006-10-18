@@ -201,10 +201,10 @@ CAPXOUS.AutoComplete.prototype = {visible:false,complete:false,initialize:functi
     this.request();
 },request:function(url) {
     this.cachedContent = (this.precheck_f != null && typeof this.precheck_f == 'function' &&
-            this.cache[this.precheck_f()] != null);
+            this.cache[this.precheck_f().toLowerCase()] != null);
     if (this.preRequest() && this.cachedContent) {
         this.complete = false;
-        this.buf.innerHTML = this.cache[this.precheck_f()];
+        this.buf.innerHTML = this.cache[this.precheck_f().toLowerCase()];
         this.onComplete();
         //this.updateContent();
     } else if (this.preRequest()) {
@@ -264,7 +264,7 @@ CAPXOUS.AutoComplete.prototype = {visible:false,complete:false,initialize:functi
             }
         }.bind(this));
         if (!this.cachedContent && this.precheck_f != null && typeof this.precheck_f == 'function') {
-            this.cache[this.precheck_f()] = this.pop.innerHTML;
+            this.cache[this.precheck_f().toLowerCase()] = this.pop.innerHTML;
         }
         this.down();
         this.show();
