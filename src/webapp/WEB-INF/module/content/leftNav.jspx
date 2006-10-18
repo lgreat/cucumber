@@ -84,7 +84,9 @@
     <ul class="plain">
         <gsweb:articlelink articleId="350" wrappingElement="li"/>
         <gsweb:articlelink articleId="215" wrappingElement="li"/>
-        <li style="list-style-type:none;text-align:right; padding-top:6px;"><gsml:a href="/content/healthyKids.page">See more &gt; </gsml:a></li>
+        <li style="background-image:none;text-align:right; padding-top:4px;">
+            <gsml:a href="/content/healthyKids.page">See more &gt;</gsml:a>
+        </li>
     </ul>
 
     <h3>Get Involved</h3>
