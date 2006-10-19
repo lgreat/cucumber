@@ -152,8 +152,14 @@
             </spring:bind>
             <p><input type="submit" name="Submit" value="Send" bgcolor="#fff" id="submit"/></p>
         </fieldset>
+        <spring:bind path="mailToFriendCmd.refer">
+            <input type="hidden" name="${status.expression}" value="${status.value}"/>
+            <mod:tracking pageType="mail"
+                          pageName="School Tell a Friend Form"
+                          hier1="School,Tell a Friend,Form,${status.value}"
+                    />
+        </spring:bind>        
     </form>
-
 </gsml:body>
 </html>
 </jsp:root>

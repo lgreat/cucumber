@@ -23,7 +23,7 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
-
+<pageHelper:setPathway pathway="1"/>
 <jsp:scriptlet>
     gs.web.util.PageHelper.setAdServerControlledFooterAd(request, true);
 </jsp:scriptlet>
@@ -77,7 +77,6 @@
         </spring:hasBindErrors>
 
         <c:if test="${hasError eq 'false'}">
-            <br/>
             <school:profile school="${school}" tab="ratings">
                 <div style="padding:10px 10px 0 0;">
                 <div class="ratingSummaryWrapper">
@@ -102,7 +101,7 @@
 
                 <div style="padding-top:15px;">
                     <c:if test="${hasRating == 'true'}">
-                        <div style="float:left;width:505px;">
+                        <div id="ratingContent">
                             <ratings:table ratingsDisplay="${ratingsDisplay}" overallRatingCell="${ratingsCmd.overallRating}"
                                                 year="${ratingsCmd.ratingYear}"/>
                         </div>

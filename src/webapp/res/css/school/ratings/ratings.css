@@ -26,7 +26,6 @@
 
 #schoolProfile #moreResources {
     border-bottom: dashed 1px #ccc;
-    padding-top:30px;
     padding-bottom: 20px;
 }
 
@@ -58,4 +57,16 @@
 
 #moreResources li a:hover {
     text-decoration:underline;
+}
+
+#schoolProfile #ratingContent {
+    float:left;width:505px;
+}
+
+.framed #schoolProfile #ratingContent {
+    float:left;width:380px;
+}
+
+#adx48 {
+    padding-bottom:30px;
 }

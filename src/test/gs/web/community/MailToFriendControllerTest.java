@@ -8,6 +8,7 @@ import gs.web.util.MockJavaMailSender;
 import gs.web.util.context.SessionContext;
 import org.easymock.MockControl;
 import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
@@ -76,25 +77,6 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
         assertTrue(command.getSubject().indexOf(SCHOOL_TEST_NAME) > -1);
     }
 
-    public void testFriendsStringtoFriendsArrayInCommand() {
-        MailToFriendCommand command = new MailToFriendCommand();
-        command.setFriendEmail("dlee@greatschools.net");
-
-        String [] emails = command.getFriendEmails();
-
-        assertEquals(1, emails.length);
-        assertEquals("dlee@greatschools.net", emails[0]);
-
-        //trim whitespace
-        command.setFriendEmail(" dlee@greatschools.net, david@greatschools.net ");
-        assertEquals("dlee@greatschools.net,david@greatschools.net", command.getFriendEmail());
-
-        emails = command.getFriendEmails();
-        assertEquals(2, emails.length);
-        assertEquals("dlee@greatschools.net", emails[0]);
-        assertEquals("david@greatschools.net", emails[1]);        
-    }
-
     //test emails validate correctly
     public void testValidation() {
         MailToFriendCommand command = new MailToFriendCommand();
@@ -150,11 +132,48 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
         command.setUserEmail("dlee@greatschools.net");
         command.setFriendEmail("dlee@greatschools.net");
 
+        command.setRefer("School Profile");
+
         _controller.setMailSender(sender);
-        _controller.doSubmitAction(command);
+        ModelAndView mv = _controller.onSubmit(command);
 
         assertEquals(1, sender.getSentMessages().size());
+        assertEquals("School Profile", (String) mv.getModel().get("refer"));
+    }
 
+
+    //command class tests
+    public void testReferForCommand() {
+        MailToFriendCommand command = new MailToFriendCommand();
+        command.setRefer("overview");
+
+        assertEquals("School Profile Overview", command.getRefer());
+
+        command.setRefer("ratings");
+        assertEquals("School Profile Rankings", command.getRefer());
+
+        command.setRefer("School Profile Overview");
+        assertEquals("School Profile Overview", command.getRefer());
+
+    }
+
+    public void testFriendsStringtoFriendsArrayInCommand() {
+        MailToFriendCommand command = new MailToFriendCommand();
+        command.setFriendEmail("dlee@greatschools.net");
+
+        String [] emails = command.getFriendEmails();
+
+        assertEquals(1, emails.length);
+        assertEquals("dlee@greatschools.net", emails[0]);
+
+        //trim whitespace
+        command.setFriendEmail(" dlee@greatschools.net, david@greatschools.net ");
+        assertEquals("dlee@greatschools.net,david@greatschools.net", command.getFriendEmail());
+
+        emails = command.getFriendEmails();
+        assertEquals(2, emails.length);
+        assertEquals("dlee@greatschools.net", emails[0]);
+        assertEquals("david@greatschools.net", emails[1]);
     }
 
 }

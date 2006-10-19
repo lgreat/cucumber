@@ -25,7 +25,7 @@
     <style type="text/css">
         /* inspired by sabine brings - www.brings-online.com - a form with style - www.cssplay.co.uk */
         body {
-            font-size: 1.4em;
+            font-size: 12px;
             width: 580px;
             padding: 10px;
             margin: 0 auto;
@@ -34,7 +34,7 @@
 
         h2 {
             color: #003399;
-            font-size: 1.4em;
+            font-size: 14px;
             font-weight: bold;
         }
 
@@ -45,6 +45,12 @@
 <gsml:body adPageName="mail" pageLayout="mail">
     <h2>Tell a friend about GreatSchools.net</h2>
     <p>Mail successfully sent!</p>
+
+    <mod:tracking pageType="mail"
+                  pageName="School Tell a Friend Confirm"
+                  hier1="School,Tell a Friend,${refer}"
+            />
+    
     <a href="javascript:window.close();">Close</a>
 </gsml:body>
 </html>

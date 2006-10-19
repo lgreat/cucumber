@@ -130,3 +130,12 @@
     text-decoration: none;
     background-color: #D1CAFF;
 }
+
+#schoolProfile #printEmail{
+    font-size: 11px;
+    text-align:right;
+}
+
+#schoolProfile #printEmail a {
+    text-decoration: none;
+}

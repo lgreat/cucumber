@@ -33,8 +33,11 @@
         <c:set var="schoolType" value="private"/>
     </c:otherwise>
 </c:choose>
-
 <div id="schoolProfile">
+<div id="printEmail">
+    <gsml:url var="mailToFriendUrl" value="/community/mailToFriend.page?schoolId=${school.id}&amp;refer=${tab}"/>
+    <a href="%" onClick=" window.print(); return false">Print this page</a>&amp;nbsp;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&amp;nbsp;<gsml:a href="${mailToFriendUrl}" onClick=" window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email to a friend</gsml:a>
+</div>
     <div class="wrap0">
         <div class="wrap1">
             <div class="wrap2">
@@ -46,15 +49,14 @@
                                 </link:schoolProfileOverview></td>
                                 <c:choose>
                                     <c:when test="${schoolType != 'private'}" >
+                                        <c:if test="${state.ratingsState}">
+                                            <td class="${(tab eq 'ratings') ? 'active' : 'inactive'}"><link:schoolProfileRating school="${school}">GreatSchools<br/>Ratings
+                                            </link:schoolProfileRating></td>
+                                        </c:if>
                                         <td><link:schoolProfileTestscore school="${school}">Test<br/>Scores
                                         </link:schoolProfileTestscore></td>
                                         <td><link:schoolProfileCensus school="${school}">Teachers/<br/>Students
                                         </link:schoolProfileCensus></td>
-
-                                        <c:if test="${state.ratingsState}">
-                                            <td class="${(tab eq 'ratings') ? 'active' : 'inactive'}"><link:schoolProfileRating school="${school}">Ratings<br/>&amp;nbsp;
-                                            </link:schoolProfileRating></td>
-                                        </c:if>
                                     </c:when>
                                     <c:otherwise>
                                         <td><link:schoolProfilePrivateQuickFacts school="${school}">Quick<br/>Facts

@@ -123,8 +123,13 @@ public class MailToFriendController extends SimpleFormController {
     }
 
     protected ModelAndView onSubmit(Object command) {
+        MailToFriendCommand mtc = (MailToFriendCommand) command;
         doSubmitAction(command);
-        return new ModelAndView(getSuccessView());
+
+        ModelAndView mv = new ModelAndView(getSuccessView());
+        mv.getModel().put("refer", mtc.getRefer());
+
+        return mv;
     }
 
     public JavaMailSender getMailSender() {

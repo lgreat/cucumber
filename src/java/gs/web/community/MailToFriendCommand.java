@@ -11,6 +11,7 @@ public class MailToFriendCommand {
     private String _subject = "";
     private String _message = "";
     private String [] _friendEmails;
+    private String _refer = "";
 
     private int _schoolId;
 
@@ -61,5 +62,22 @@ public class MailToFriendCommand {
 
     public void setSchoolId(int schoolId) {
         _schoolId = schoolId;
+    }
+
+
+    public String getRefer() {
+        return _refer;
+    }
+
+    public void setRefer(String refer) {
+        if (StringUtils.isNotEmpty(refer)) {
+            if (refer.equals("overview")) {
+                _refer = "School Profile Overview";
+            } else if (refer.equals("ratings")) {
+                _refer = "School Profile Rankings";
+            } else {
+                _refer = refer;
+            }
+        }
     }
 }
