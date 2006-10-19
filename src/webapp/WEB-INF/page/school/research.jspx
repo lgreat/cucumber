@@ -290,6 +290,8 @@
                     <c:choose>
                         <c:when test="${stateOrDefault.abbreviation eq 'DC'}">
                             <td  colspan="2">
+                                <img style="width: 164px;height: 2px;" alt=""
+                                     src="http://www.greatschools.net/res/img/header/clear_pix.gif"/><br/>
                                 <gsml:a href="/schools.page?city=Washington&amp;state=DC" styleClass="arrowLink">View all Washington DC schools</gsml:a><br />
                                 <gsml:a href="/city/washington/DC" styleClass="arrowLink">View Washington DC city information</gsml:a>
                                 <br/><br/><br/><br/>
