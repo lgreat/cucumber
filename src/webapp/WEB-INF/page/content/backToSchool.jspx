@@ -172,10 +172,10 @@
             <td valign="top" style="width: 7px;">
             </td>
             <td valign="top" style="width: 300px"  class="right">
-               <a href="http://back-to-school-blog.greatschools.net/" target="_blank"><gsml:img src="/res/img/content/backtoschool/twins.gif" alt="Back to School Blog: Photo of Twins Starting Kindergarten" style="margin-bottom: 16px;"></gsml:img></a>
-               <div><ad:x40 /><span style="font-size: xx-small;">&#160;</span></div>
+                <promo:childOnTrack referredBy="${pageName}"/>
+                <div><ad:x40 /><span style="font-size: xx-small;">&#160;</span></div>
 
-                 <table style="width: 100%; color: #fff;padding-top: 10px; margin-top: 10px;border-top: 1px dotted #cccccc;" cellspacing="10">
+                <table style="width: 100%; color: #fff;padding-top: 10px; margin-top: 10px;border-top: 1px dotted #cccccc;" cellspacing="10">
                         <tr><td colspan="2"><gsml:img src="/res/img/content/backtoschool/special_K5.gif" alt="Tips and Advice by Grade Level"></gsml:img></td></tr>
                         <tr>
                             <td><promo:nthGraderHover referredBy="${pageName}" autocheck="myk"><gsml:img src="/res/img/content/backtoschool/yourKinder.gif" alt="Tips and Advice for Your Kindergartener"></gsml:img></promo:nthGraderHover></td>
