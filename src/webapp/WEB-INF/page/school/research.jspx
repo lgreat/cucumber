@@ -271,12 +271,14 @@
                         <img style="height: 9px;" alt=""
                              src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
                         <br/>
-                        <c:forEach var="city" items="${cities}">
-                            <c:if test="${not empty city.link}">
-                                <a href="${city.link}" class="arrowLink">${city.name} schools</a>
-                            </c:if>
-                            <br/>
-                        </c:forEach>
+                        <c:if test="${stateOrNull ne 'DC'}">
+                            <c:forEach var="city" items="${cities}">
+                                <c:if test="${not empty city.link}">
+                                    <a href="${city.link}" class="arrowLink">${city.name} schools</a>
+                                </c:if>
+                                <br/>
+                            </c:forEach>
+                        </c:if>
                     </td>
 
                     <td valign="top"><input onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
@@ -287,10 +289,11 @@
                 <tr>
                     <c:choose>
                         <c:when test="${stateOrDefault.abbreviation eq 'DC'}">
-                            <td><img style="width: 164px;height: 0;" alt=""
-                                     src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-                            <td><img style="width: 68px;height: 0;" alt=""
-                                     src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+                            <td  colspan="2">
+                                <gsml:a href="/schools.page?city=Washington&amp;state=DC" styleClass="arrowLink">View all Washington DC schools</gsml:a><br />
+                                <gsml:a href="/city/washington/DC" styleClass="arrowLink">View Washington DC city information</gsml:a>
+                                <br/><br/><br/><br/>
+                            </td>
                         </c:when>
                         <c:otherwise>
                             <td><img style="width: 164px;height: 8px;" alt=""

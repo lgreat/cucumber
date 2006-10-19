@@ -27,13 +27,13 @@ import gs.data.geo.bestplaces.BpZip;
 public class ResearchController extends AbstractController {
 
     /** Used to identify which form on the page was submitted */
-    private final static String FORM_PARAM = "form";
+    public final static String FORM_PARAM = "form";
 
     /** Used by the "compare schools in district" form */
     private final static String DISTRICT_PARAM = "district";
 
     /** Used by the state pull-downs */
-    private final static String STATE_PARAM = "state";
+    public final static String STATE_PARAM = "state";
 
     /** Used for the school level codes */
     private final static String LEVEL_PARAM = "level";
@@ -103,8 +103,13 @@ public class ResearchController extends AbstractController {
                 }
 
             } else if ("cities".equals(form)) {
-                buf.append("/modperl/cities/");
-                buf.append(stateParam).append("/");
+                // special handling for DC
+                if ("DC".equals(stateParam)) {
+                    buf.append("/city/Washington/DC");
+                } else {
+                    buf.append("/modperl/cities/");
+                    buf.append(stateParam).append("/");
+                }
                 mAndV.setView(new RedirectView(buf.toString()));
             }
         }
