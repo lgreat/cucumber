@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: OverallRatingDecorator.java,v 1.9 2006/10/10 17:19:43 dlee Exp $
+ * $Id: OverallRatingDecorator.java,v 1.10 2006/10/19 18:29:20 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -74,7 +74,7 @@ public class OverallRatingDecorator implements IRatingsDisplay {
 
     public List getSubjectGroupLabels() {
         List subjects = new ArrayList();
-        subjects.add("GREATSCHOOLS<br/><span>RATING</span>");
+        subjects.add("GREATSCHOOLS<br/>RATING");
         return subjects;
     }
 

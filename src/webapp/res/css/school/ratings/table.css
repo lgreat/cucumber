@@ -18,19 +18,21 @@
     font-size:98%;
 }
 
-#rating th span {
-    padding-left:22px;
-}
-
 #rating td {
     padding: 5px 0 5px 40px;
+    text-align:center;
 }
 
 #rating td.rowgroup {
     padding: 20px 0 0 0;
     font-weight: bold;
     color: #55bbcc;
+    text-align:left;
 
+}
+
+#rating td.row {
+    text-align:left;
 }
 
 #rating td.rowgroup div {

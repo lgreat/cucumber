@@ -22,10 +22,10 @@
     <table id="rating">
         <thead>
             <tr>
-                <th scope="col" style="width:60%;">STUDENTS</th>
+                <th scope="col" style="width:35%;">STUDENTS</th>
 
                 <c:forEach var="subject" items="${ratingsDisplay.subjectGroupLabels}">
-                    <th scope="col" style="padding-left:2px;">${subject}</th>
+                    <th scope="col" style="text-align:center;">${subject}</th>
                 </c:forEach>
             </tr>
         </thead>
@@ -33,7 +33,7 @@
         <c:if test="${not empty overallRatingCell.rating}">
             <tbody>
                 <tr>
-                    <td>All Students</td>
+                    <td scope="row" class="row">All Students</td>
                     <td>
                         <ratings:cell cell="${overallRatingCell}"/>
                     </td>
@@ -48,7 +48,7 @@
                 </tr>
                 <c:forEach var="row" items="${rowGroup.rows}">
                     <tr>
-                        <td scope="row">${row.label}</td>
+                        <td scope="row" class="row">${row.label}</td>
                         <c:forEach var="cell" items="${row.cells}">
                             <td><ratings:cell cell="${cell}"/></td>
                         </c:forEach>
