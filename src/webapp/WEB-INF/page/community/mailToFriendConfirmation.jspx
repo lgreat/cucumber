@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+        xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:spring="http://www.springframework.org/tags"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:gsweb="gstaglib"
+        xmlns:link="urn:www.greatschools.net/taglib/link"
+        >
+<html lang="en">
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <style type="text/css">
+        /* inspired by sabine brings - www.brings-online.com - a form with style - www.cssplay.co.uk */
+        body {
+            font-size: 1.4em;
+            width: 580px;
+            padding: 10px;
+            margin: 0 auto;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h2 {
+            color: #003399;
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+
+    </style>
+    <title>Tell a friend about GreatSchools!</title>
+</head>
+
+<gsml:body adPageName="mail" pageLayout="mail">
+    <h2>Tell a friend about GreatSchools.net</h2>
+    <p>Mail successfully sent!</p>
+    <a href="javascript:window.close();">Close</a>
+</gsml:body>
+</html>
+</jsp:root>

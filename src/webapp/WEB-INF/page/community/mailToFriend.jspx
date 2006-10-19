@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+        xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:spring="http://www.springframework.org/tags"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:gsweb="gstaglib"
+        xmlns:link="urn:www.greatschools.net/taglib/link"
+        >
+<html lang="en">
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <style type="text/css">
+        #marginGS {
+            padding:0;
+        }
+
+        /* inspired by sabine brings - www.brings-online.com - a form with style - www.cssplay.co.uk */
+        form {
+            font-size: 1.4em;
+            width: 580px;
+            padding: 0 10px 10px 10px;
+            margin: 0 auto;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        form fieldset {
+            width: 450px;
+            display: block;
+            padding: 0 5px 5px 5px;
+            line-height: 1.5em;
+            border: none;
+            font-size: .75em;
+            margin: 15px 0 0 5px;
+        }
+
+        form legend {
+            color: #003399;
+            font-size: 1.4em;
+            font-weight: bold;
+            font-style: normal;
+            margin-bottom: 14px;
+            padding: 0 3px 3px 3px;
+            width: 254px;
+            background: none;
+        }
+
+        form label {
+            clear: left;
+            display: block;
+            float: left;
+            width: 150px;
+            text-align: right;
+            padding-right: 10px;
+            margin-bottom: 0.5em;
+            font-size: 1em;
+            line-height: 1.5em;
+            font-style: normal;
+        }
+
+        form input {
+            padding: 0;
+            margin-bottom: 0.8em;
+            width:260px;
+        }
+
+        #submit {
+            width: 50px;
+        }
+
+        form textarea {
+            width: 425px;
+            height: 12em;
+            border: 1px solid #e1e1e1;
+            padding: 5px;
+            margin: -8px 0 0 0;
+            overflow: auto;
+        }
+
+        #marginGS ul.error {
+            font-size:small;
+            border: 1px solid red;
+            padding:5px;
+        }
+
+        #marginGS ul.error li {
+            margin-left:10px;
+        }
+    </style>
+    <script type="text/javascript">
+        function f() {
+            document.mailForm.friendEmail.focus();
+        }
+    </script>
+    <pageHelper:addOnLoadHandler handler="f()"/>
+    <title>Tell a friend about GreatSchools!</title>
+</head>
+
+<gsml:body adPageName="mail" pageLayout="mail">
+    <gsweb:form action="/mailToFriend.page" method="post" id="mailForm"/>
+    <form method="post" id="mailForm" name="mailForm" action="">
+        <fieldset>
+            <legend>Tell a friend about GreatSchools.net</legend>
+
+            <spring:bind path="mailToFriendCmd.friendEmail">
+                <label for="${status.expression}">Friend's Email : </label>
+                <input name="${status.expression}" id="${status.expression}" type="text" tabindex="1"
+                       value="${status.value}"/>
+            </spring:bind>
+            <br/>
+
+            <spring:bind path="mailToFriendCmd.userEmail">
+                <label for="${status.expression}">Your email : </label>
+                <input name="${status.expression}" id="${status.expression}" type="text" tabindex="2"
+                       value="${status.value}"/>
+            </spring:bind>
+
+            <spring:hasBindErrors name="mailToFriendCmd">
+                <ul class="error">
+                    <c:forEach var="error" items="${errors.allErrors}">
+                        <li>${error.defaultMessage}</li>
+                    </c:forEach>
+                </ul>
+            </spring:hasBindErrors>            
+
+            <p style="font-size:small;">The e-mail address(es) that you supply to use this service will only be used to send the requested
+                email. <link:privacyPolicy target="_blank">GreatSchools Privacy Policy</link:privacyPolicy></p>
+
+            <spring:bind path="mailToFriendCmd.subject">
+                <label for="${status.expression}">Subject line : </label>
+                <input name="${status.expression}" id="${status.expression}" type="text" tabindex="3"
+                       value="${status.value}"/>
+            </spring:bind>
+
+            <p>Text of email (use our message or write your own note):</p>
+            <spring:bind path="mailToFriendCmd.message">
+                <![CDATA[
+              <textarea name="${status.expression}" rows="8" cols="60" warp="soft" tabindex="4">${status.value}</textarea>
+              ]]>
+            </spring:bind>
+            <p><input type="submit" name="Submit" value="Send" bgcolor="#fff" id="submit"/></p>
+        </fieldset>
+    </form>
+
+</gsml:body>
+</html>
+</jsp:root>
