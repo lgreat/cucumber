@@ -83,7 +83,7 @@
     <h3>Healthy Kids</h3>
     <ul class="plain">
         <gsweb:articlelink articleId="350" wrappingElement="li"/>
-        <gsweb:articlelink articleId="215" wrappingElement="li"/>
+        <gsweb:articlelink articleId="253" wrappingElement="li"/>
         <li style="background-image:none;text-align:right; padding-top:4px;">
             <gsml:a href="/content/healthyKids.page">See more &gt;</gsml:a>
         </li>
