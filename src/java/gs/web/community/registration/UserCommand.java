@@ -21,30 +21,12 @@ public class UserCommand implements EmailValidator.IEmail {
     private User _user;
     private UserProfile _userProfile;
     private String _redirectUrl;
-    private String _countyFips;
-    private List _countyList;
     private List _cityList;
     private boolean _recontact;
 
     public UserCommand() {
         _user = new User();
         _userProfile = new UserProfile();
-    }
-
-    public String getCountyFips() {
-        return _countyFips;
-    }
-
-    public void setCountyFips(String countyFips) {
-        _countyFips = countyFips;
-    }
-
-    public List getCountyList() {
-        return _countyList;
-    }
-
-    public void setCountyList(List countyList) {
-        _countyList = countyList;
     }
 
     public List getCityList() {

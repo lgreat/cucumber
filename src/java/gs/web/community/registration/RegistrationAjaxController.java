@@ -44,17 +44,13 @@ public class RegistrationAjaxController implements Controller {
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         PrintWriter out = response.getWriter();
-        if (request.getParameter("state") != null) {
-            outputCountySelect(request, out);
-        } else {
-            outputCitySelect(request, out);
-        }
+        outputCitySelect(request, out);
         return null;
     }
 
     protected void outputCitySelect(HttpServletRequest request, PrintWriter out) {
-        String countyFips = request.getParameter("countyFips");
-        List cities = _geoDao.findCitiesByCounty(_geoDao.findCountyByFipsCode(countyFips));
+        State state = _stateManager.getState(request.getParameter("state"));
+        List cities = _geoDao.findCitiesByState(state);
         if (cities != null && cities.size() > 0) {
             out.print("<select name=\"city\" class=\"form\">");
             outputOption(out, "", "Choose city", true);

@@ -5,6 +5,7 @@ import gs.data.community.User;
 import gs.data.community.UserProfile;
 import gs.data.util.DigestUtil;
 import gs.data.geo.IGeoDao;
+import gs.data.geo.ICity;
 import gs.data.state.State;
 import gs.web.util.ReadWriteController;
 import gs.web.util.context.SessionContextUtil;
@@ -21,6 +22,8 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * @author <a href="mailto:aroy@urbanasoft.com">Anthony Roy</a>
@@ -41,7 +44,6 @@ public class RegistrationController extends SimpleFormController implements Read
 
         UserCommand userCommand = (UserCommand) command;
         userCommand.setRedirectUrl(request.getParameter("redirect"));
-        loadCountyList(request, userCommand);
         loadCityList(request, userCommand);
 
         if (StringUtils.isNotEmpty(userCommand.getEmail())) {
@@ -69,27 +71,17 @@ public class RegistrationController extends SimpleFormController implements Read
     public void onBind(HttpServletRequest request, Object command) {
         UserCommand userCommand = (UserCommand) command;
         userCommand.setRecontact(request.getParameter("recontact") != null);
-        userCommand.setCountyFips(request.getParameter("countyFips"));
         userCommand.setCity(request.getParameter("city"));
-        loadCountyList(request, userCommand);
         loadCityList(request, userCommand);
     }
 
-    protected void loadCountyList(HttpServletRequest request, UserCommand userCommand) {
+    protected void loadCityList(HttpServletRequest request, UserCommand userCommand) {
         State state = userCommand.getState();
         if (state == null) {
             state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
         }
-        List counties = _geoDao.findCounties(state);
-        userCommand.setCountyList(counties);
-    }
-
-    protected void loadCityList(HttpServletRequest request, UserCommand userCommand) {
-        if (!StringUtils.isEmpty(userCommand.getCountyFips())) {
-            List cities = _geoDao.findCitiesByCounty(_geoDao.findCountyByFipsCode
-                    (userCommand.getCountyFips()));
-            userCommand.setCityList(cities);
-        }
+        List cities = _geoDao.findCitiesByState(state);
+        userCommand.setCityList(cities);
     }
 
     public ModelAndView onSubmit(HttpServletRequest request,

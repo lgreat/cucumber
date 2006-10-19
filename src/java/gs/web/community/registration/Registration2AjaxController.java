@@ -15,6 +15,8 @@ import gs.data.state.StateManager;
 import gs.data.school.ISchoolDao;
 
 /**
+ * The AJAX controller for registration stage 2.
+ *
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class Registration2AjaxController implements Controller {
@@ -48,8 +50,11 @@ public class Registration2AjaxController implements Controller {
         State state = _stateManager.getState(request.getParameter("state"));
 
         PrintWriter out = response.getWriter();
-
-        handleRequestWithParams(out, state, param3, function, query);
+        try {
+            handleRequestWithParams(out, state, param3, function, query);
+        } catch (Exception e) {
+            out.print("Error retrieving results");
+        }
         return null;
     }
 

@@ -21,26 +21,11 @@
       <pageHelper:externalCss file="/res/css/community/registration/registration.css"/>
       <script type="text/javascript">
           function insertFormField() {
-              var _form = document.getElementById('regForm');
-              // escape angle brackets for validation
-              _form.innerHTML += '<![CDATA[<input type="hidden" name="javascriptEnabled" value="true"/>]]>';
+             $('regForm').innerHTML += '<![CDATA[<input type="hidden" name="javascriptEnabled" value="true"/>]]>';
           }
           function stateChange(stateSelect) {
               var url = 'registrationAjax.page';
               var pars = 'state=' + stateSelect.value;
-              $('county').innerHTML = '<![CDATA[<select name="countyFips"><option value="">Loading ...</option></select>]]>';
-              var myAjax = new Ajax.Updater (
-                      'county',
-                      url,
-                      {
-                          method: 'get',
-                          parameters: pars
-                      });
-              $('city').innerHTML = '<![CDATA[<select name="city"><option value=""></option></select>]]>';
-          }
-          function countyChange(countySelect) {
-              var url = 'registrationAjax.page';
-              var pars = 'countyFips=' + countySelect.value;
               $('city').innerHTML = '<![CDATA[<select name="city"><option value="">Loading ...</option></select>]]>';
               var myAjax = new Ajax.Updater (
                       'city',
@@ -161,29 +146,6 @@
 
         <br style="clear: left;"/>
 
-        <div class="error">
-            <spring:bind path="userCmd.countyFips">
-                ${status.errorMessage}
-            </spring:bind>
-        </div>
-
-        <label for="county" class="form left">County</label>
-        <div id="county" class="county">
-            <select name="countyFips" class="form" onchange="countyChange(this);">
-                <c:if test="${userCmd.countyFips eq null or userCmd.countyFips eq ''}">
-                    <option selected="selected" value="">Choose county</option>
-                </c:if>
-                <c:forEach var="countyOption" items="${userCmd.countyList}">
-                    <![CDATA[<option ]]>
-                    <c:if test="${userCmd.countyFips eq countyOption.countyFips}">
-                        selected
-                    </c:if>
-                    <![CDATA[ value="${countyOption.countyFips}">${countyOption.name}</option>]]>
-                </c:forEach>
-            </select>
-        </div>
-
-        <br style="clear: left;"/>
         <div class="error">
             <spring:bind path="userCmd.city">
                 ${status.errorMessage}
