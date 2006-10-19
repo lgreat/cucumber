@@ -136,8 +136,8 @@
 
                                 <c:if test="${not empty school.physicalAddress}">
                                     <li>
-                                        <a href="http://maps.google.com/maps?oi=map&amp;q=${school.physicalAddress.street},+${school.physicalAddress.city}+${school.physicalAddress.state}"
-                                           target="_blank">Map</a>
+                                        <gsml:a href="http://maps.google.com/maps?oi=map&amp;q=${school.physicalAddress.street},${school.physicalAddress.city} ${school.physicalAddress.state}"
+                                           target="_blank">Map</gsml:a>
                                     </li>
                                 </c:if>
                             </ul>
