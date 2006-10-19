@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.39 2006/08/17 00:03:21 thuss Exp $
+ * $Id: UrlUtil.java,v 1.40 2006/10/19 22:46:17 dlee Exp $
  */
 
 package gs.web.util;
@@ -179,8 +179,9 @@ public final class UrlUtil {
     public String buildUrl(final String ref, HttpServletRequest request) {
         String href = ref;
 
-        // Fully qualified URLs don't get any treatment here.
+        // Fully qualified URLs don't get any treatment here escape white space
         if (href.startsWith("http:")) {
+            href = href.replaceAll("\\s+", "+");
             return href;
         }
 
@@ -230,7 +231,7 @@ public final class UrlUtil {
             secureDest = true;
         }
 
-        href = href.replaceAll("\\s", "+");
+        href = href.replaceAll("\\s+", "+");
 
         return buildHref(context != null ? context.getHostName() : null, href, secureDest, src);
     }

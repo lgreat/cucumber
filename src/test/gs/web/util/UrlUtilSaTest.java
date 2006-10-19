@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.33 2006/08/17 00:03:21 thuss Exp $
+ * $Id: UrlUtilSaTest.java,v 1.34 2006/10/19 22:46:17 dlee Exp $
  */
 
 package gs.web.util;
@@ -107,6 +107,9 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("http://sfgate.greatschools.net/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/CA", request));
         assertEquals("http://sfgate.greatschools.net/modperl/bycity/CA", _urlUtil.buildUrl("/modperl/bycity/$STATE", request));
         assertEquals("/modperl/promos/image//769/CA//3", _urlUtil.buildUrl("/modperl/promos/image//769/CA//3", request));
+
+        //test fully qualified has spaces removed
+        assertEquals("http://maps.google.com?address+,City,+CA", _urlUtil.buildUrl("http://maps.google.com?address   ,City, CA", request));
     }
 
 
