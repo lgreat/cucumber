@@ -34,7 +34,7 @@
 
 <div class="middle">
     <div id="contentHeaderImage">
-        <h3 id="healthyKidsText">Health Kids</h3>
+        <h3 id="healthyKidsText">Healthy Kids</h3>
         <gsml:img src="/res/img/content/healthyKids/healthykid.jpg" alt="Smiling girl with milk" style="float:left;"/>
     </div>
 
@@ -52,7 +52,7 @@
         </ul>
     </div>
 
-    <div>
+    <div id="lower">
         <h3 id="healthyEating">Healthy Eating Made Easy</h3>
         <ul class="plain">
             <gsweb:articlelink articleId="552" wrappingElement="li"/>
@@ -88,7 +88,7 @@
 
     <div style="border-top: 1px dashed #ccc;">
     <div id="bottomAdd">
-        <ad:x51 blurb="School Choice Tips Sponsored By:"/>
+        <ad:x51 blurb="Healthy Kids Sponsored By ..."/>
     </div>
     </div>
 

@@ -54,6 +54,10 @@
     margin-bottom: 5px;
 }
 
+#contentGS .middle div#lower{
+    border-bottom: 1px dashed #ccc;
+}
+
 #contentGS .middle div#contentHeaderImage {
     height:200px;
     border-bottom:none;
