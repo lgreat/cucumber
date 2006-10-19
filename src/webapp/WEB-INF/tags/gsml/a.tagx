@@ -36,7 +36,7 @@
         }
 
         if (StringUtils.isNotBlank(onClick)) {
-            buffer.append(" onClick=\"").append(onClick).append('"');
+            buffer.append(" onClick=\"").append(Util.escapeXml(onClick)).append('"');
         }
         buffer.append('>');
         out.print(buffer);
