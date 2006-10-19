@@ -24,6 +24,7 @@
         buffer.append("<a");
 
         if (StringUtils.isNotBlank(href)) {
+            href = href.replaceAll("\\s", "+");
             buffer.append(" href=\"").append(Util.escapeXml(href)).append('"');
         }
 
