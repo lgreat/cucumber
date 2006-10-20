@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
+import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -15,7 +16,9 @@ import gs.data.school.School;
 import gs.data.school.Grades;
 import gs.data.state.State;
 import gs.data.state.StateManager;
+import gs.data.geo.IGeoDao;
 import gs.web.util.ReadWriteController;
+import gs.web.util.context.SessionContextUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +34,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     public static final String BEAN_ID = "/community/registration2.page";
     protected final Log _log = LogFactory.getLog(getClass());
 
+    private static final int MAX_CHILDREN = 11;
     public static final int NUMBER_PREVIOUS_SCHOOLS = 3;
     public static final int ABOUT_ME_MAX_LENGTH = 3000;
     public static final int STUDENT_NAME_MAX_LENGTH = 50;
@@ -40,8 +44,95 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     private ISubscriptionDao _subscriptionDao;
     private StateManager _stateManager;
     private ISchoolDao _schoolDao;
+    private IGeoDao _geoDao;
 
-    private static final int MAX_CHILDREN = 11;
+    private Set _contactSubs;
+
+    protected void onBindOnNewForm(HttpServletRequest request, Object command, BindException errors) throws Exception {
+        super.onBindOnNewForm(request, command);
+        _log.info("onBindOnNewForm");
+        bindRequestData(request, (FollowUpCommand) command, errors);
+    }
+
+    protected void bindRequestData(HttpServletRequest request, FollowUpCommand fupCommand, BindException errors) throws NoSuchAlgorithmException {
+        String userId = request.getParameter("id");
+        String marker = request.getParameter("marker");
+        String recontact = request.getParameter("recontact");
+        if (userId != null) {
+
+            User user = _userDao.findUserFromId(Integer.parseInt(userId));
+            fupCommand.setUser(user);
+            fupCommand.setUserProfile(user.getUserProfile());
+
+            fupCommand.setMarker(marker);
+            String realHash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
+            if (!realHash.equals(marker)) {
+                _log.warn("Registration stage 2 request with invalid hash: " + marker);
+                errors.rejectValue("id", "bad_hash",
+                        "We're sorry, we cannot validate your request at this time. Once " +
+                                "your account is validated, please update your profile again.");
+            }
+        }
+        State state = fupCommand.getUserProfile().getState();
+        if (state == null) {
+            state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
+        }
+        Student student = new Student();
+        student.setState(state);
+        fupCommand.addStudent(student);
+        for (int x = 1; x < fupCommand.getUserProfile().getNumSchoolChildren().intValue(); x++) {
+            student = new Student();
+            student.setState(state);
+            fupCommand.addStudent(student);
+        }
+        fupCommand.setRecontact(recontact);
+        //loadSchoolLists(request, fupCommand);
+        //loadCityList(request, state, fupCommand);
+    }
+
+    protected void loadCityList(HttpServletRequest request, State state, FollowUpCommand fupCommand) {
+        if (state == null) {
+            state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
+        }
+        List cities = _geoDao.findCitiesByState(state);
+        fupCommand.addCityList(cities);
+        for (int x = 1; x < fupCommand.getUserProfile().getNumSchoolChildren().intValue(); x++) {
+            fupCommand.addCityList(cities);
+        }
+    }
+
+    protected void loadSchoolLists(HttpServletRequest request, FollowUpCommand fupCommand) {
+        State state = fupCommand.getUserProfile().getState();
+        String city = fupCommand.getUserProfile().getCity();
+
+        // TODO: remove debug code
+        if (state == null) {
+            state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
+        }
+        if (city == null) {
+            city = "Alameda";
+        }
+        _log.info("Obtaining school list for " + state + ": " + city);
+        List schools = _schoolDao.findSchoolsInCity(state, city, true);
+        _log.info("Adding school list (size=" + ((schools!=null)?schools.size():0) + ") for child #1");
+        fupCommand.addSchools(schools);
+
+        fupCommand.getCityNames().clear();
+        _log.info("Adding city (" + city + ") for child #1");
+        fupCommand.addCityName(city);
+        for (int x = 1; x < fupCommand.getNumStudents(); x++) {
+            _log.info("Adding school list for child #" + (x+1));
+            fupCommand.addSchools(schools);
+            _log.info("Adding city (" + city + ") for child #" + (x+1));
+            fupCommand.addCityName(city);
+        }
+    }
+
+    public void onBind(HttpServletRequest request, Object command, BindException errors) throws Exception {
+        super.onBind(request, command);
+        _log.info("onBind");
+        bindRequestData(request, (FollowUpCommand) command, errors);
+    }
 
     /**
      * this method is called after validation but before submit.
@@ -392,8 +483,6 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         }
     }
 
-    private Set _contactSubs;
-
     private void addContactSubscription(User user, int schoolId, State state) {
         String uniqueString = state.getAbbreviation() + schoolId;
         if (!_contactSubs.contains(uniqueString)) {
@@ -438,5 +527,14 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
     public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
         _subscriptionDao = subscriptionDao;
+    }
+
+
+    public IGeoDao getGeoDao() {
+        return _geoDao;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
     }
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:spring="http://www.springframework.org/tags"
+    >
+    <jsp:directive.tag body-content="scriptless"/>
+    <jsp:directive.attribute name="command" required="true" description="Name of command object to inspect for errors"/>
+    <jsp:directive.attribute name="field" required="false" description="Name of field in command object to inspect for errors. If not provided, all errors are shown in a list."/>
+    <jsp:directive.attribute name="styleClass" required="false" description="Class to apply to div (for field) or ul (for all errors). Defaults to 'error'"/>
+
+    <c:if test="${styleClass eq null or styleClass eq ''}">
+        <c:set var="styleClass" value="error"/>
+    </c:if>
+
+    <!-- TODO: How to get arguments from the status object?? -->
+    <spring:hasBindErrors name="${command}">
+        <c:choose>
+            <c:when test="${field ne null and field gt ''}">
+                <spring:bind path="${command}.${field}">
+                    <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
+                        <div class="${styleClass}">
+                          <spring:message code="${status.errorCode}" text="${status.errorMessage}"/>
+                        </div>
+                    </c:if>
+                </spring:bind>
+            </c:when>
+            <c:otherwise>
+                <ul class="${styleClass}">
+                    <c:forEach var="error" items="${errors.allErrors}">
+                        <li><spring:message arguments="${error.arguments}" code="${error.code}" text="${error.defaultMessage}"/></li>
+                    </c:forEach>
+                </ul>
+            </c:otherwise>
+        </c:choose>
+    </spring:hasBindErrors>
+</jsp:root>

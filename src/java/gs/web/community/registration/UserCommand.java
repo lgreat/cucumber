@@ -184,4 +184,12 @@ public class UserCommand implements EmailValidator.IEmail {
     public void setRecontact(boolean recontact) {
         _recontact = recontact;
     }
+
+    public String getGender() {
+        return getUser().getGender();
+    }
+
+    public void setGender(String gender) {
+        getUser().setGender(gender);
+    }
 }

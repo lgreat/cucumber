@@ -52,7 +52,7 @@ public class RegistrationAjaxController implements Controller {
         State state = _stateManager.getState(request.getParameter("state"));
         List cities = _geoDao.findCitiesByState(state);
         if (cities != null && cities.size() > 0) {
-            out.print("<select name=\"city\" class=\"form\">");
+            out.print("<select id=\"citySelect\" name=\"city\" class=\"form\">");
             outputOption(out, "", "Choose city", true);
             for (int x=0; x < cities.size(); x++) {
                 ICity city = (ICity) cities.get(x);

@@ -52,16 +52,16 @@ public class UserCommandValidator implements Validator {
 
         // verify confirm email matches email
         if (confirmEmail != null && !confirmEmail.equals(email)) {
-            errors.rejectValue("email", "mismatched_email", "Please enter the same email into both fields.");
+            errors.rejectValue("email", null, "Please enter the same email into both fields.");
         }
 
         if (user != null) {
             if (user.isEmailValidated()) {
-                errors.rejectValue("email", "user_already_registered",
+                errors.rejectValue("email", null,
                         "You have already registered with GreatSchools!");
                 return; // other errors are irrelevant
             } else if (user.isEmailProvisional()) {
-                errors.rejectValue("email", "user_already_registered",
+                errors.rejectValue("email", null,
                         "You have already registered with GreatSchools! Please check your " +
                                 "email and follow the instructions to validate your account.");
                 return; // other errors are irrelevant
@@ -69,67 +69,78 @@ public class UserCommandValidator implements Validator {
         }
 
         if (email.length() > EMAIL_MAXIMUM_LENGTH) {
-            errors.rejectValue("email", "email_too_long",
+            errors.rejectValue("email", null,
                     "Please limit your email address to " + EMAIL_MAXIMUM_LENGTH + " characters or less");
         }
 
         if (StringUtils.isEmpty(command.getFirstName())) {
-            errors.rejectValue("firstName", "missing_first_name", "Please enter your first name");
+            errors.rejectValue("firstName", null, "Please enter your first name");
         } else if (command.getFirstName().length() > FIRST_NAME_MAXIMUM_LENGTH) {
-            errors.rejectValue("firstName", "long_first_name",
+            errors.rejectValue("firstName", null,
                     "Your first name can be no more than " + FIRST_NAME_MAXIMUM_LENGTH +
                             " characters long.");
         }
 
-        if (StringUtils.isEmpty(command.getLastName())) {
-            errors.rejectValue("lastName", "missing_last_name", "Please enter your last name");
-        } else if (command.getLastName().length() > LAST_NAME_MAXIMUM_LENGTH) {
-            errors.rejectValue("lastName", "long_last_name",
-                    "Your last name can be no more than " + LAST_NAME_MAXIMUM_LENGTH +
-                            " characters long.");
-        }
+//        if (StringUtils.isEmpty(command.getLastName())) {
+//            errors.rejectValue("lastName", "missing_last_name", "Please enter your last name");
+//        } else if (command.getLastName().length() > LAST_NAME_MAXIMUM_LENGTH) {
+//            errors.rejectValue("lastName", "long_last_name",
+//                    "Your last name can be no more than " + LAST_NAME_MAXIMUM_LENGTH +
+//                            " characters long.");
+//        }
 
         // screen name must be 5-20 characters and alphanumeric only (no space)
         String sn = command.getScreenName();
         boolean snError = false;
         if (StringUtils.isEmpty(sn)) {
-            errors.rejectValue("screenName", "missing_screen_name", "Please enter your screen name");
+            errors.rejectValue("screenName", null, "Please enter your screen name");
             snError = true;
         } else if (sn.length() < SCREEN_NAME_MINIMUM_LENGTH) {
-            errors.rejectValue("screenName", "short_screen_name",
+            errors.rejectValue("screenName", null,
                     "Your screen name must be at least " + SCREEN_NAME_MINIMUM_LENGTH +
                             " characters long.");
             snError = true;
         } else if (sn.length() > SCREEN_NAME_MAXIMUM_LENGTH) {
-            errors.rejectValue("screenName", "long_screen_name",
+            errors.rejectValue("screenName", null,
                     "Your screen name can be no more than " + SCREEN_NAME_MAXIMUM_LENGTH +
                             " characters long.");
             snError = true;
         }
         if (!StringUtils.isAlphanumeric(sn)) { // this method is null-safe
-            errors.rejectValue("screenName", "bad_screen_name",
+            errors.rejectValue("screenName", null,
                     "Your screen name must consist of only letters and numbers.");
             snError = true;
         }
         // only bother checking the unique constraint if there is no other problem with the sn
         if (!snError && _userDao.findUserFromScreenNameIfExists(sn) != null) {
-            errors.rejectValue("screenName", "screen_name_exists",
+            errors.rejectValue("screenName", null,
                     "This screen name is already taken. Please try another.");
+        }
+
+        if (StringUtils.isEmpty(command.getGender())) {
+            errors.rejectValue("gender", null,
+                    "Please choose a value");
+        } else {
+            String gender = command.getGender();
+            if (gender.length() > 1 || (!"m".equals(gender) && !"f".equals(gender) && !"u".equals(gender))) {
+                errors.rejectValue("gender", null,
+                        "Please choose a value");
+            }
         }
 
         validatePassword(command, errors);
 
         UserProfile userProfile = command.getUserProfile();
         if (userProfile.getState() == null) {
-            errors.rejectValue("state", "no_state", "You must specify a state");
+            errors.rejectValue("state", null, "You must specify a state");
             return; // avoid NPEs
         }
         if (StringUtils.isEmpty(userProfile.getCity())) {
-            errors.rejectValue("city", "no_city", "You must specify a city");
+            errors.rejectValue("city", null, "You must specify a city");
         } else {
             ICity city = _geoDao.findCity(userProfile.getState(), userProfile.getCity());
             if (city == null) {
-                errors.rejectValue("city", "bad_city", "That city does not exist in " +
+                errors.rejectValue("city", null, "That city does not exist in " +
                         userProfile.getState().getLongName());
             }
         }

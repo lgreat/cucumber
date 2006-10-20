@@ -10,11 +10,9 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 
 /**
- * Created by IntelliJ IDEA.
- * User: UrbanaSoft
- * Date: Jun 20, 2006
- * Time: 11:51:22 AM
- * To change this template use File | Settings | File Templates.
+ * Provides ...
+ *
+ * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class UserCommandValidatorTest extends BaseTestCase {
     private static final String GOOD_EMAIL = "UserCommandValidatorTest@greatschools.net";
@@ -64,8 +62,9 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setState(GOOD_STATE);
         command.setCity(GOOD_CITY);
         command.setFirstName(GOOD_FIRST_NAME64);
-        command.setLastName(GOOD_LAST_NAME64);
+        //command.setLastName(GOOD_LAST_NAME64);
         command.setScreenName(GOOD_SCREEN_NAME5);
+        command.setGender("m");
         return command;
     }
 
@@ -231,7 +230,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         assertEquals(1, errors.getErrorCount());
     }
 
-    public void testNoLastName() {
+    public void xtestNoLastName() {
         UserCommand command = setupCommand();
         Errors errors = new BindException(command, "");
 
@@ -242,7 +241,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         assertEquals(1, errors.getErrorCount());
     }
 
-    public void testLongLastName() {
+    public void xtestLongLastName() {
         UserCommand command = setupCommand();
         Errors errors = new BindException(command, "");
 
@@ -309,6 +308,34 @@ public class UserCommandValidatorTest extends BaseTestCase {
         errors = new BindException(command, "");
 
         command.setScreenName(BAD_SCREEN_NAME_NONALPHANUMERIC);
+
+        _validator.validate(command, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    }
+
+    public void testNoGender() {
+        UserCommand command = setupCommand();
+        Errors errors = new BindException(command, "");
+        command.setGender(null);
+
+        _validator.validate(command, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    }
+
+    public void testBadGender() {
+        UserCommand command = setupCommand();
+        Errors errors = new BindException(command, "");
+        command.setGender("q");
+
+        _validator.validate(command, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+
+        errors = new BindException(command, "");
+
+        command.setGender("some weird String");
 
         _validator.validate(command, errors);
         assertTrue(errors.hasErrors());

@@ -5,7 +5,6 @@ import gs.data.community.User;
 import gs.data.community.UserProfile;
 import gs.data.util.DigestUtil;
 import gs.data.geo.IGeoDao;
-import gs.data.geo.ICity;
 import gs.data.state.State;
 import gs.web.util.ReadWriteController;
 import gs.web.util.context.SessionContextUtil;
@@ -22,8 +21,6 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * @author <a href="mailto:aroy@urbanasoft.com">Anthony Roy</a>
@@ -72,6 +69,10 @@ public class RegistrationController extends SimpleFormController implements Read
         UserCommand userCommand = (UserCommand) command;
         userCommand.setRecontact(request.getParameter("recontact") != null);
         userCommand.setCity(request.getParameter("city"));
+        String gender = request.getParameter("gender");
+        if (gender != null) {
+            userCommand.setGender(gender);
+        }
         loadCityList(request, userCommand);
     }
 
@@ -153,18 +154,20 @@ public class RegistrationController extends SimpleFormController implements Read
         ModelAndView mAndV = new ModelAndView();
 
         mAndV.setViewName(getSuccessView());
-        FollowUpCommand fupCommand = new FollowUpCommand();
-        fupCommand.setUser(userCommand.getUser());
-        fupCommand.setUserProfile(userProfile);
-        fupCommand.setRecontact(String.valueOf(userCommand.isRecontact()));
+//        FollowUpCommand fupCommand = new FollowUpCommand();
+//        fupCommand.setUser(userCommand.getUser());
+//        fupCommand.setUserProfile(userProfile);
+//        fupCommand.setRecontact(String.valueOf(userCommand.isRecontact()));
 
         // generate secure hash so if the followup profile page is submitted, we know who it is
         String hash = DigestUtil.hashStringInt(userCommand.getEmail(), userCommand.getUser().getId());
-        mAndV.getModel().put("idString", hash);
+        mAndV.getModel().put("marker", hash);
         if (_requireEmailValidation) {
             mAndV.getModel().put("email", userCommand.getEmail());
         }
-        mAndV.getModel().put("followUpCmd", fupCommand);
+        // mAndV.getModel().put("followUpCmd", fupCommand);
+        mAndV.getModel().put("id", userCommand.getUser().getId());
+        mAndV.getModel().put("recontact", String.valueOf(userCommand.isRecontact()));
         return mAndV;
     }
 

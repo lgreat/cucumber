@@ -18,15 +18,21 @@ public class FollowUpCommand {
     private List _students;
     private String _marker;
     private List _schoolNames;
+    private List _cityNames;
+    private List _cityList;
     private List _previousSchoolNames;
     private List _subscriptions;
     private String _recontact;
+    private List _schools;
 
     public FollowUpCommand() {
         _user = new User();
         _userProfile = new UserProfile();
         _students = new ArrayList();
         _schoolNames = new ArrayList();
+        _schools = new ArrayList();
+        _cityList = new ArrayList();
+        _cityNames = new ArrayList();
         _previousSchoolNames = new ArrayList();
         _subscriptions = new ArrayList();
     }
@@ -54,6 +60,30 @@ public class FollowUpCommand {
 
     public Integer getId() {
         return getUser().getId();
+    }
+
+    public List getCityNames() {
+        return _cityNames;
+    }
+
+    public void setCityNames(List cityNames) {
+        _cityNames = cityNames;
+    }
+
+    public void addCityName(String cityName) {
+        _cityNames.add(cityName);
+    }
+
+    public List getCityList() {
+        return _cityList;
+    }
+
+    public void addCityList(List list) {
+        getCityList().add(list);
+    }
+
+    public void setCityList(List cityList) {
+        _cityList = cityList;
     }
 
     public void setAboutMe(String aboutMe) {
@@ -162,5 +192,13 @@ public class FollowUpCommand {
 
     public void setRecontact(String recontact) {
         _recontact = recontact;
+    }
+
+    public void addSchools(List schools) {
+        _schools.add(schools);
+    }
+
+    public List getSchools() {
+        return _schools;
     }
 }

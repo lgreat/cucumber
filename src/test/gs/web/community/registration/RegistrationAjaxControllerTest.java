@@ -7,7 +7,6 @@ import gs.web.BaseControllerTestCase;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
 import gs.data.geo.bestplaces.BpCounty;
-import gs.data.geo.bestplaces.BpCity;
 import gs.data.state.StateManager;
 import gs.data.state.State;
 import org.easymock.MockControl;
