@@ -5,6 +5,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
 <html>
 <jsp:directive.page contentType="text/html"/>
@@ -14,7 +15,6 @@
             escapeXml="true"/> - school information</title>
 
     <pageHelper:setPathway pathway="1" />
-    <pageHelper:externalCss file="/css/spp2.css"/>
     <pageHelper:externalCss file="/res/css/school/csr.css"/>
 
     <style type="text/css">
@@ -34,47 +34,16 @@
             padding-top: 0px;
         }
 
+        table {
+            font-size:12px;
+        }
     </style>
 </head>
 
 <gsml:body adPageName="">
-<div id="printandemail" class="noprint">
-    <a href="%" onClick=" window.print(); return false">Print this page</a>&amp;nbsp;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&amp;nbsp;<a href="/cgi-bin/mail_to_friend/authorizer/${requestScope.context.state.abbreviationLowerCase}/${school.id}" onClick=" window.open('/cgi-bin/mail_to_friend/authorizer/${requestScope.context.state.abbreviationLowerCase}/${school.id}', 'win', 'width=600,height=550,scrollbars=yes'); return false">Email to a friend</a>
-</div>
-<div class="wrap0">
-<div class="wrap1">
-<div class="wrap2">
-    <div class="wrap3">
-        <div class="box">
-            <table cellspacing="0" cellpadding="0" width="100%" border="0">
-                <tr>
-                    <td colspan="4">
-                        <table class="rollmenu" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td class="tab"><gsml:a href="/modperl/browse_school/$STATE/${school.id}"> School<br/>
-                                    Overview</gsml:a></td>
-                                <td class="tab"><gsml:a href="/modperl/achievement/$STATE/${school.id}"> Test<br/>Scores
-                                </gsml:a></td>
-                                <td class="tab"><gsml:a href="/cgi-bin/$LCSTATE/other/${school.id}"> Teachers/<br/>
-                                    Students</gsml:a></td>
-                                <c:if test="${requestScope.context.state.ratingsState}">
-                                    <td class="tab"><gsml:a href="/cgi-bin/$LCSTATE/rankings/${school.id}">Ratings and
-                                        <br/> Alerts</gsml:a></td>
-                                </c:if>
-                                <td class="tab"><gsml:a href="/modperl/parents/$STATE/${school.id}">Parent<br/> Reviews
-                                </gsml:a></td>
-                                <td class="tab"><gsml:a href="/cgi-bin/$LCSTATE/pqview/${school.id}">Principal's <br/>
-                                    View</gsml:a></td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
 
+    <school:profile school="${school}" tab="authorizer">
             <table>
-                <tr>
-                    <td colspan="3" id="box_pagetitle"><c:out value="${school.name}"/></td>
-                </tr>
                 <tr>
                     <td valign="top">
                         <table>
@@ -165,11 +134,7 @@
                     </td>
                 </tr>
             </table>
-        </div>
-    </div>
-</div>
-</div>
-</div>
+    </school:profile>
 <mod:tracking pageName="School Tab-Charter School Info"
               pageType="school"
               hier1="School,Charter School Info"/>

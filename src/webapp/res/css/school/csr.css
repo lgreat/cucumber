@@ -5,24 +5,20 @@
 
 div.datatable span.footnote {
   float:right;
-  font-size:65%;
   margin-top:5px;
   margin-right:5px;
 }
 
 span.moreabout {
   float:right;
-  font-size:80%;
   padding-right:15px;
 }
 
 div#introtext {
   padding:10px;
-  font-size:80%;
 }
 
 span#infolink {
-  font-size:80%;
   padding-right:10px;
   padding-left:10px;
   padding-top:10px;
@@ -44,7 +40,6 @@ div.datatable{
 
     div.datatable table.datagrid {
       border:thin solid black;
-      font-size:75%;
     }
 
     div.datatable .title {
@@ -53,7 +48,6 @@ div.datatable{
       padding-left:2px;
       padding-right:5px;
       font-weight:bold;
-      font-size:80%;
       color:#003399;
     }
 
@@ -90,7 +84,6 @@ div.datatable{
     }
 
 #reportlink {
-   font-size:85%;
    font-weight:bold;
    padding-top:10px;
    padding-left:15px;

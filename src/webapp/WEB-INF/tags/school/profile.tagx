@@ -71,9 +71,10 @@
                                 </link:schoolProfilePrincipalView></td>
                             </tr>
                         </table>
+
                         <div class="boxBody">
                             <h1>${school.name}</h1>
-
+                            <c:if test="${tab ne 'authorizer'}">
                             <div id="school_info">
                                 <c:if test="${not empty school.gradeLevels}">Grades: ${school.gradeLevels}<br/></c:if>
 
@@ -156,7 +157,7 @@
                             <div id="site_promo" class="noprint">
                                 <ad:beta/>
                             </div>
-
+                            </c:if>
                             <br style="clear:both;"/>
                             <jsp:doBody/>
 

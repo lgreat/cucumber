@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.64 2006/10/17 19:35:29 chriskimm Exp $
+ * $Id: UrlBuilder.java,v 1.65 2006/10/20 01:19:55 dlee Exp $
  */
 
 package gs.web.util;
@@ -131,6 +131,7 @@ public class UrlBuilder {
     public static final VPage SCHOOL_PROFILE_PRINCIPAL_VIEW = new VPage("vpage:schoolPrincipalView");
     public static final VPage SCHOOL_PROFILE_RATINGS = new VPage("vpage:schoolRatings");
     public static final VPage SCHOOL_PROFILE_ADD_PARENT_REVIEW = new VPage("vpage:schoolAddParentReview");
+    public static final VPage SCHOOL_AUTHORIZER = new VPage("vpage:schoolAuthorizer");
 
     public static final VPage COMPARE_SCHOOL = new VPage("vpage:compareSchool");
 
@@ -288,6 +289,12 @@ public class UrlBuilder {
             _path = "/cgi-bin/cs_compare/" +
                     school.getDatabaseState().getAbbreviationLowerCase() +
                     "/";
+        } else if (SCHOOL_AUTHORIZER.equals(page)) {
+            _perlPage = false;
+            _perlPage = false;
+            _path = "/school/authorizers.page";
+            setParameter("school", String.valueOf(school.getId().intValue()));
+            setParameter("state", school.getDatabaseState().getAbbreviation());            
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

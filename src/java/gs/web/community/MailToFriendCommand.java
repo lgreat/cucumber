@@ -75,6 +75,8 @@ public class MailToFriendCommand {
                 _refer = "School Profile Overview";
             } else if (refer.equals("ratings")) {
                 _refer = "School Profile Rankings";
+            } else if (refer.equals("authorizer")) {
+                _refer = "authorizer";
             } else {
                 _refer = refer;
             }

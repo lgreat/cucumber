@@ -63,9 +63,13 @@ public class MailToFriendController extends SimpleFormController {
                         .append(school.getName())
                         .append(".\n\n");
 
-                UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+                UrlBuilder urlBuilder;
+                if (mtc.getRefer().equals("authorizer")) {
+                    urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_AUTHORIZER);
+                } else {
+                    urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+                }
                 msgBuffer.append(urlBuilder.asFullUrl(request));
-
                 mtc.setMessage(msgBuffer.toString());
             }
         }

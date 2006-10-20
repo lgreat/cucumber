@@ -141,6 +141,22 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
         assertEquals("School Profile", (String) mv.getModel().get("refer"));
     }
 
+    public void testDoSubmitActionAuthorizer() {
+        MockJavaMailSender sender = new MockJavaMailSender();
+        //must set a host to some value
+        sender.setHost("hithere.com");
+        MailToFriendCommand command = new MailToFriendCommand();
+        command.setUserEmail("dlee@greatschools.net");
+        command.setFriendEmail("dlee@greatschools.net");
+
+        command.setRefer("authorizer");
+
+        _controller.setMailSender(sender);
+        ModelAndView mv = _controller.onSubmit(command);
+
+        assertEquals(1, sender.getSentMessages().size());
+        assertEquals("authorizer", (String) mv.getModel().get("refer"));        
+    }
 
     //command class tests
     public void testReferForCommand() {
