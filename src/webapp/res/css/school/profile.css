@@ -138,4 +138,9 @@
 
 #schoolProfile #printEmail a {
     text-decoration: none;
+    color: #003399;
+}
+
+#schoolProfile #printEmail a:hover {
+    color: #000;
 }

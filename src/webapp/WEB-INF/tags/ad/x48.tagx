@@ -6,7 +6,7 @@
         >
     <jsp:directive.tag body-content="empty"/>
     <c:if test="${!requestScope.pageHelper.adFree}">
-        <div id="adx48">
+        <div id="adx48" class="noprint">
             <gsweb:defer id="ad-x48">
                 <gsweb:adTagGenerator position="x48"/>
             </gsweb:defer>

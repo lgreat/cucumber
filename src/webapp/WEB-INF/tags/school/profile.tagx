@@ -142,7 +142,7 @@
                                 </c:if>
                             </ul>
 
-                            <div id="school_promo">
+                            <div id="school_promo" class="noprint">
                                 <c:choose>
                                     <c:when test="${not empty school.authorizer}">
                                         <school:charterAuthorizerPromo school="${school}"/>
@@ -153,7 +153,7 @@
                                 </c:choose>
                             </div>
 
-                            <div id="site_promo">
+                            <div id="site_promo" class="noprint">
                                 <ad:beta/>
                             </div>
 
