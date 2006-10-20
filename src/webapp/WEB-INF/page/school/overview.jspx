@@ -130,7 +130,7 @@ table.module1 td a:hover {
 
 <gsml:body adPageName="overview" pageLayout="research">
 <div id="printandemail" class="noprint">
-    <a href="%" onClick=" window.print(); return false">Print this page</a>&amp;nbsp;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&amp;nbsp;<a href="/cgi-bin/mail_to_friend/authorizer/${requestScope.context.state.abbreviationLowerCase}/${school.id}" onClick=" window.open('/cgi-bin/mail_to_friend/authorizer/${requestScope.context.state.abbreviationLowerCase}/${school.id}', 'win', 'width=600,height=550,scrollbars=yes'); return false">Email to a friend</a>
+    <a href="#" onClick=" window.print(); return false">Print this page</a>&amp;nbsp;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&amp;nbsp;<a href="/cgi-bin/mail_to_friend/authorizer/${requestScope.context.state.abbreviationLowerCase}/${school.id}" onClick=" window.open('/cgi-bin/mail_to_friend/authorizer/${requestScope.context.state.abbreviationLowerCase}/${school.id}', 'win', 'width=600,height=550,scrollbars=yes'); return false">Email to a friend</a>
 </div>
 <school:profile school="${school}" tab="overview">
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
@@ -207,24 +207,24 @@ table.module1 td a:hover {
                 </tr>
             </tbody></table>
     </td>
-
-    <td colspan="2" id="box_ad" align="center" valign="top">
-        <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
-            <tbody><tr>
-                <td><script language="javascript">document.write(adboxhead());</script>AD<br/>
-                    <ad:x48 />
-                </td>
-            </tr>
-            </tbody></table>
-
-    </td>
+    <c:if test="${!requestScope.pageHelper.adFree}">
+        <td colspan="2" id="box_ad" align="center" valign="top">
+            <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
+                <tbody><tr>
+                    <td><script language="javascript">document.write(adboxhead());</script>AD<br/>
+                        <ad:x48 />
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </c:if>
 </tr>
 <tr>
     <td valign="top">
         <table class="module1" border="0" cellpadding="2" cellspacing="0" width="100%">
             <tbody><tr>
                 <td class="module1_head">Featured This Month</td>
-
             </tr>
                 <tr>
                     <td class="module1_body" id="featuredArticles" valign="top">
@@ -253,33 +253,21 @@ table.module1 td a:hover {
             </tbody>
         </table>
     </td>
-    <td colspan="2" valign="top">
-        <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
-            <tbody><tr>
-                <td valign="top">
-                    <div class="sponsor">Advertiser links</div>
-                    <ad:x49 />
-                    <div class="separator"><hr/></div>
-                    <ad:x50 />
-                        <!--
-                        <div class="ad">
-                            <div id="adSponsoredText"><script language="JavaScript">OAS_AD('x50');</script>
-                                <b>K12 Inc. Education for a Lifetime.</b><br/>
-                                K12 Inc. is the leading provider of home-based<br/>
-                                curriculum for students in grades K-10.<br/>
-                                With courses in six subjects, delivered online,<br/>
-                                <a href="http://oascentral.greatschools.net/RealMedia/ads/click_lx.ads/www/ak/school/public/e/1805514166/x50/Gr8School/K12_SLSP_MAY06/K12_SLSP_MAY06.html/63363930636438313435316163613730"
-                                   target="_blank">K12 provides an education for a lifetime.</a>
-                            </div>
-                        </div>
-                            -->
-                    <!--</div>-->
-
-                </td>
-            </tr>
-            </tbody></table>
-
-    </td>
+    <c:if test="${!requestScope.pageHelper.adFree}">
+        <td colspan="2" valign="top">
+            <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
+                <tbody><tr>
+                    <td valign="top">
+                        <div class="sponsor">Advertiser links</div>
+                        <ad:x49 />
+                        <div class="separator"><hr/></div>
+                        <ad:x50 />
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </c:if>
 </tr>
 </tbody></table>
 
