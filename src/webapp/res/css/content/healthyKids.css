@@ -1,21 +1,37 @@
-h3#healthyKidsText {
+h1#healthyKidsText {
     text-indent: -5000px;
     background: url( "../../img/content/healthyKids/healthykidstext.gif" ) no-repeat;
     width: 155px;
-    height: 195px;
+    height: 192px;
     float: left;
+    margin:0;
+    padding:0;
 }
 
-h3#fitnessRoutine {
+h2#fitnessRoutine {
     text-indent: -5000px;
     background: url( "../../img/content/healthyKids/healthy_1.gif" ) no-repeat;
     width: 365px;
     height: 26px;
 }
 
-h3#healthyEating {
+h2#healthyEating {
     text-indent: -5000px;
     background: url( "../../img/content/healthyKids/healthy_2.gif" ) no-repeat;
     width: 365px;
     height: 26px;
+}
+
+#contentGS .middle h2 {
+    padding:0;
+}
+
+#contentGS .middle h1 {
+    font-family:inherit;
+    font-size:100%;
+    font-weight:normal;
+    padding:0;
+    color: #fff;
+    background-color: #6cc;
+    margin-bottom:0;
 }

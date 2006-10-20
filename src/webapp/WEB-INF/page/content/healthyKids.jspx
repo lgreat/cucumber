@@ -34,12 +34,12 @@
 
 <div class="middle">
     <div id="contentHeaderImage">
-        <h3 id="healthyKidsText">Healthy Kids</h3>
+        <h1 id="healthyKidsText">Healthy Kids</h1>
         <gsml:img src="/res/img/content/healthyKids/healthykid.jpg" alt="Smiling girl with milk" style="float:left;"/>
     </div>
 
     <div>
-        <h3 id="fitnessRoutine">Making Fitness Part of Your Routine</h3>
+        <h2 id="fitnessRoutine">Making Fitness Part of Your Routine</h2>
         <ul class="plain">
             <gsweb:articlelink articleId="472" wrappingElement="li"/>
             <gsweb:articlelink articleId="476" wrappingElement="li"/>
@@ -53,7 +53,7 @@
     </div>
 
     <div id="lower">
-        <h3 id="healthyEating">Healthy Eating Made Easy</h3>
+        <h2 id="healthyEating">Healthy Eating Made Easy</h2>
         <ul class="plain">
             <gsweb:articlelink articleId="552" wrappingElement="li"/>
             <gsweb:articlelink articleId="720" wrappingElement="li"/>
