@@ -21,6 +21,9 @@
             }
         }
         request.setAttribute("ads", ads);
+        
+
+
     </jsp:scriptlet>
     <c:if test="${!requestScope.pageHelper.adFree and !empty ads}">
         <c:if test='${!requestScope.pageHelper.adServedByCobrand}'>
@@ -33,7 +36,7 @@
                 OAS_sitepage =
                 'www/${requestScope.context.state.abbreviationLowerCase}/${requestScope.adPageName}';
                 OAS_listpos = '${ads}';
-                OAS_query = 'state=${requestScope.context.state.abbreviationLowerCase}';
+                OAS_query = 'state=${requestScope.context.state.abbreviationLowerCase}]]><c:if test="${not empty requestScope.adKeywords}"><![CDATA[&${requestScope.adKeywords}]]></c:if><![CDATA[';
                 OAS_target = '_top';
                 OAS_version = 10;
                 OAS_rn = '001234567890'; OAS_rns = '1234567890';

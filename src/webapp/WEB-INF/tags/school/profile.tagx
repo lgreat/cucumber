@@ -14,6 +14,24 @@
 <jsp:directive.attribute name="tab" required="false" description="The Selected Tab" type="java.lang.String"/>
 <pageHelper:externalCss file="/res/css/school/profile.css"/>
 
+<jsp:scriptlet>
+    try {
+        String adPageName = "school/" + school.getType().getSchoolTypeName() + '/' + school.getLevelCode().getCommaSeparatedString().charAt(0);
+        StringBuffer keywordBuffer = new StringBuffer();
+        keywordBuffer.append("type=").append(school.getType().getSchoolTypeName())
+                .append("&amp;")
+                .append("level=").append(school.getLevelCode().getCommaSeparatedString().charAt(0))
+                .append("&amp;")
+                .append("county=").append(school.getCounty().replaceAll("\\s+","+"))
+                .append("&amp;")
+                .append("school_id=").append(school.getId());
+    
+        request.setAttribute("adPageName", adPageName);
+        request.setAttribute("adKeywords", keywordBuffer.toString());
+    } catch (Exception e){}
+</jsp:scriptlet>
+
+
 
 <c:set var="state" value="${school.physicalAddress.state}"/>
 <c:set var="city" value="${school.physicalAddress.city}"/>
