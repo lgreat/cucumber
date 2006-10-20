@@ -57,9 +57,9 @@
             </tbody>
         </c:forEach>
 
-        <tfoot>
+        <tbody>
             <tr><td colspan="2" id="footerPadding"><div><br/></div></td></tr>
-        </tfoot>
+        </tbody>
     </table>
 
     <br/>
