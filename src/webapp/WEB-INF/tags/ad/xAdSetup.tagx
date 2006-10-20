@@ -6,10 +6,11 @@
     <jsp:directive.tag body-content="empty"
                        description="Generates necessary JavaScript to show the ads on a page. Generally you will not call this directly, but it will be called by the page decorator."/>
     <jsp:directive.tag import="gs.web.ads.AdPosition"/>
+    <jsp:directive.tag import="gs.web.util.context.ISessionContext"/>
     <jsp:directive.tag import="java.util.Iterator"/>
     <jsp:directive.tag import="java.util.List"/>
     <jsp:scriptlet>
-        String ads = "";
+        StringBuffer ads = new StringBuffer(20);
         List adPositions = AdPosition.getAllAdPositions();
 
         for (Iterator iter = adPositions.iterator(); iter.hasNext();) {
@@ -17,13 +18,19 @@
             String adName = ad.getName();
 
             if (Boolean.TRUE.equals(request.getAttribute(adName))) {
-                ads += adName + ",";
+                ads.append(adName).append(",");
             }
         }
-        request.setAttribute("ads", ads);
-        
+        request.setAttribute("ads", ads.toString());
 
+        ISessionContext context = (ISessionContext) request.getAttribute(ISessionContext.REQUEST_ATTRIBUTE_NAME);
+        String oas_query = "state=" + context.getState().getAbbreviationLowerCase();
+        String keywords = (String) request.getAttribute("adKeywords");
 
+        if (null != keywords) {
+            oas_query += "&amp;" + keywords.replaceAll("\\s+", "+");
+        }
+        request.setAttribute("adKeywords", oas_query);
     </jsp:scriptlet>
     <c:if test="${!requestScope.pageHelper.adFree and !empty ads}">
         <c:if test='${!requestScope.pageHelper.adServedByCobrand}'>
@@ -36,7 +43,7 @@
                 OAS_sitepage =
                 'www/${requestScope.context.state.abbreviationLowerCase}/${requestScope.adPageName}';
                 OAS_listpos = '${ads}';
-                OAS_query = 'state=${requestScope.context.state.abbreviationLowerCase}]]><c:if test="${not empty requestScope.adKeywords}"><![CDATA[&${requestScope.adKeywords}]]></c:if><![CDATA[';
+                OAS_query = '${adKeywords}';
                 OAS_target = '_top';
                 OAS_version = 10;
                 OAS_rn = '001234567890'; OAS_rns = '1234567890';

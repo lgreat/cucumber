@@ -22,7 +22,7 @@
                 .append("&amp;")
                 .append("level=").append(school.getLevelCode().getCommaSeparatedString().charAt(0))
                 .append("&amp;")
-                .append("county=").append(school.getCounty().replaceAll("\\s+","+"))
+                .append("county=").append(school.getCounty())
                 .append("&amp;")
                 .append("school_id=").append(school.getId());
     
