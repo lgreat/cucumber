@@ -41,7 +41,7 @@
             <td valign="top"><h2 id="dearParents"></h2></td>
         </tr>
         <tr>
-            <td colspan="2" id="leftBox">Looking for a school in ${stateOrNull.longName} that's the
+            <td colspan="2" id="leftBox">Looking for a school ${not empty stateOrNull ? 'in' : ''} ${stateOrNull.longName} that's the
                 <gsml:a href="/cgi-bin/showarticle/$STATE/308" styleClass="border10Links">right fit for your child</gsml:a>? As a
                 mom who has been through the
                 process, I know you probably
