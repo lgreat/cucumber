@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingControllerTest.java,v 1.3 2006/10/09 18:27:19 dlee Exp $
+ * $Id: RatingControllerTest.java,v 1.4 2006/10/21 00:03:55 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -47,6 +47,7 @@ public class RatingControllerTest extends BaseControllerTestCase {
 
         _school = new School();
         _school.setGradeLevels(Grades.createGrades(Grade.G_1, Grade.G_10));
+        _school.setActive(true);
         schoolResultControl.setDefaultReturnValue(_school);
         schoolResultControl.replay();
         _controller.setSchoolDao(mockSchoolDao);
@@ -61,6 +62,26 @@ public class RatingControllerTest extends BaseControllerTestCase {
         BindException errors = new BindException(command, "");
         _controller.onBindOnNewForm(getRequest(), command, errors);
         assertEquals(false, errors.hasErrors());
+    }
+
+    public void testInactiveSchoolOnBind() {
+        School school = new School();
+        school.setActive(false);
+
+        MockControl schoolResultControl = MockControl.createControl(ISchoolDao.class);
+        ISchoolDao mockSchoolDao = (ISchoolDao) schoolResultControl.getMock();
+        mockSchoolDao.getSchoolById(_state, _schoolId);
+        schoolResultControl.setReturnValue(school);
+        schoolResultControl.replay();
+
+        RatingsCommand command = new RatingsCommand();
+        command.setId(_schoolId.intValue());
+        command.setState(_state);
+
+        BindException errors = new BindException(command, "");
+        _controller.setSchoolDao(mockSchoolDao);
+        _controller.onBindOnNewForm(getRequest(), command, errors);
+        assertEquals(true, errors.hasErrors());        
     }
 
     public void testReferenceDataSkipsProcessingIfError() throws Exception {

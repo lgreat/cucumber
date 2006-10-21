@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsController.java,v 1.13 2006/10/17 17:18:52 dlee Exp $
+ * $Id: RatingsController.java,v 1.14 2006/10/21 00:03:55 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -60,7 +60,11 @@ public class RatingsController extends SimpleFormController {
             State state = ratingsCommand.getState();
             try {
                 School s = getSchoolDao().getSchoolById(state, new Integer(ratingsCommand.getSchoolId()));
-                ratingsCommand.setSchool(s);
+                if (s.isActive()) {
+                    ratingsCommand.setSchool(s);
+                } else {
+                    errors.reject("nokey", "School is no longer active.");
+                }
             } catch (ObjectRetrievalFailureException e) {
                 errors.reject("nokey", "Invalid school");
                 _log.info("Invalid school passed" + state.getAbbreviation() + ratingsCommand.getSchoolId());
