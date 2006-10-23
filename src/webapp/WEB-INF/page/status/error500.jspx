@@ -37,17 +37,17 @@
                 request.setAttribute("printme", sw.getBuffer().toString());
             }
         </jsp:scriptlet>
+        <style type="text/css">
+            span.stackTrace {
+                display: none;
+            }
+        </style>
     </head>
 
     <gsml:body adPageName="www" pageLayout="singleTextOnlyColumnLayout">
 
     <mod:tracking pageType="" pageName="Error:500" hier1="Error,500"/>
 
-    <![CDATA[
-    <!--
-        ${printme}
-    -->
-    ]]>
     <h3>Error</h3>
 
     <p>
@@ -60,8 +60,11 @@
     </p>
     <p>Please accept our apologies.</p>
     <h3>What now?</h3>
-        <p><a href="javascript:history.back()">Go back</a> and hit refresh to try again, or visit our <gsml:a href="/">Homepage</gsml:a>.</p>
+    <p><a href="javascript:history.back()">Go back</a> and hit refresh to try again, or visit our <gsml:a href="/">Homepage</gsml:a>.</p>
 
+        <span class="stackTrace">
+            <pre>${printme}</pre>
+        </span>
     </gsml:body>
 </page:apply-decorator>
 </html>
