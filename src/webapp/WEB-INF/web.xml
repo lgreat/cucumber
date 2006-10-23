@@ -53,7 +53,6 @@
     </servlet>
 
 
-
     <servlet-mapping>
         <servlet-name>pages</servlet-name>
         <url-pattern>*.page</url-pattern>
@@ -80,7 +79,6 @@
     </welcome-file-list>
 
 
-
     <filter>
         <filter-name>httpcacheheader</filter-name>
         <filter-class>gs.web.util.HttpHeaderFilter</filter-class>
@@ -104,7 +102,6 @@
         <!--</init-param>-->
     </filter>
 
-    
 
     <filter-mapping>
         <filter-name>httpcacheheader</filter-name>
@@ -115,11 +112,17 @@
     <filter-mapping>
         <filter-name>opensessioninview</filter-name>
         <url-pattern>*.page</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <!-- We want this to run for error pages also! -->
+        <dispatcher>ERROR</dispatcher>
     </filter-mapping>
 
     <filter-mapping>
         <filter-name>opensessioninview</filter-name>
         <url-pattern>/city/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <!-- We want this to run for error pages also! -->
+        <dispatcher>ERROR</dispatcher>
     </filter-mapping>
     <!-- End OSIV -->
 
@@ -136,14 +139,12 @@
     <!-- End Sitemesh -->
 
 
-
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jspx</url-pattern>
             <is-xml>true</is-xml>
         </jsp-property-group>
     </jsp-config>
-
 
 
     <!--
@@ -158,7 +159,6 @@
     </listener>
 
 
-    
     <error-page>
         <error-code>500</error-code>
         <location>/status/error500.page</location>
