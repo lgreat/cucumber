@@ -125,13 +125,16 @@ table.module1 td a:hover {
     color:#000;
 }
 
+.moreImage {
+    position:relative;
+    top: 3px;
+    left: 7px;
+}
+
 </style>
 </head>
 
 <gsml:body adPageName="overview" pageLayout="research">
-<div id="printandemail" class="noprint">
-    <a href="#" onClick=" window.print(); return false">Print this page</a>&amp;nbsp;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&amp;nbsp;<a href="/cgi-bin/mail_to_friend/authorizer/${requestScope.context.state.abbreviationLowerCase}/${school.id}" onClick=" window.open('/cgi-bin/mail_to_friend/authorizer/${requestScope.context.state.abbreviationLowerCase}/${school.id}', 'win', 'width=600,height=550,scrollbars=yes'); return false">Email to a friend</a>
-</div>
 <school:profile school="${school}" tab="overview">
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
@@ -150,22 +153,29 @@ table.module1 td a:hover {
                     <td class="module1_body" valign="top">
                         <c:choose>
                             <c:when test="${school.type.schoolTypeName == 'private'}">
-                                <link:schoolProfileCensus school="${school}">Teacher/Student Stats</link:schoolProfileCensus> <br />
-                                This school's student-teacher ratio and ethnicity breakdown<br /><br />
-                                <link:schoolProfilePrivateQuickFacts school="${school}">Quick Facts</link:schoolProfilePrivateQuickFacts><br />
-                                Facts about this school's number of school days per year, its library facility, affiliation and more
+                                <b>Teacher/Student Stats</b><br/>
+                                Student-teacher ratio and ethnicity breakdown for ${school.name}
+                                <gsml:a href="/cgi-bin/$LCSTATE/otherprivate/${sid}"><img src="/res/img/school/more.jpg" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
+
+                                <b>Quick Facts</b><br/>
+                                Facts about the number of school days per year, library facility, and affiliation at ${school.name}
+                                <gsml:a href="/modperl/quickprivate/$LCSTATE/${sid}"><img src="/res/img/school/more.jpg" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
+
                             </c:when>
                             <c:otherwise>
-                                <!--<gsml:a href="/modperl/achievement/${state}/${sid}">Test Scores</gsml:a><br/>-->
+
                                 <b>Test Scores</b><br/>
-                                State standardized <a href="" style="text-decoration:none;" class="nolink">test scores for ${school.name}</a>
-                                <a href=""><img src="/res/img/school/more.jpg" style="padding-top:10px" alt=""></img></a> <br/><br/>
-                                <!--<gsml:a href="/cgi-bin/${state}/other/${sid}">Teacher Stats</gsml:a><br/>-->
+                                State standardized <a href="/modperl/achievement/${state}/${sid}" style="text-decoration:none;" class="nolink">test scores for ${school.name}</a>
+                                <gsml:a href="/modperl/achievement/${state}/${sid}"><img src="/res/img/school/more.jpg" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
+
                                 <b>Teacher Stats</b><br/>
-                                Learn about classroom environment with <a href="" style="text-decoration:none;" class="nolink">teacher stats for ${school.name}</a><a href="">&#32;more..</a><br/><br/>
-                                <!--<gsml:a href="/cgi-bin/${state}/other/${sid}">Student Stats</gsml:a><br/>-->
+                                Learn about classroom environment with <a href="/cgi-bin/${state}/other/${sid}" style="text-decoration:none;" class="nolink">teacher stats for ${school.name}</a>
+                                <gsml:a href="/cgi-bin/${state}/other/${sid}"><img src="/res/img/school/more.jpg" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
+
                                 <b>Student Stats</b><br/>
-                                Understand student ethnicity, economic level and more with <a href="" style="text-decoration:none;" class="nolink">student stats for ${school.name}</a>&#32;<a href="">more..</a><br/><br/>
+                                Understand student ethnicity, economic level and more with <a href="/cgi-bin/${state}/other/${sid}" style="text-decoration:none;" class="nolink">student stats for ${school.name}</a>
+                                <gsml:a href="/cgi-bin/${state}/other/${sid}"><img src="/res/img/school/more.jpg" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
+
                                 <b>Email updates</b><br/>
                                 Get the latest school data about ${school.name} and learn what it means. <a href="/community/newsletters/popup/mss/page1.page?state=${state}&amp;schoolId=${sid}&amp;referrer=spp_email_link"
                                    target="mss">Sign me up, it's free</a>
@@ -270,8 +280,12 @@ table.module1 td a:hover {
     </c:if>
 </tr>
 </tbody></table>
-
+n
 </school:profile>
+<mod:tracking pageType="school"
+              pageName="Overview"
+              hier1="School,Overview"
+              school="${school}" />
 </gsml:body>
 </html>
 </jsp:root>
