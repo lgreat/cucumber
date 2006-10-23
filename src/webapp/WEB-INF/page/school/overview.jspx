@@ -155,26 +155,26 @@ table.module1 td a:hover {
                             <c:when test="${school.type.schoolTypeName == 'private'}">
                                 <b>Teacher/Student Stats</b><br/>
                                 Student-teacher ratio and ethnicity breakdown for ${school.name}
-                                <gsml:a href="/cgi-bin/$LCSTATE/otherprivate/${sid}"><img src="/res/img/school/more.jpg" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
+                                <gsml:a href="/cgi-bin/$LCSTATE/otherprivate/${sid}"><img src="/res/img/school/more.gif" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
 
                                 <b>Quick Facts</b><br/>
                                 Facts about the number of school days per year, library facility, and affiliation at ${school.name}
-                                <gsml:a href="/modperl/quickprivate/$LCSTATE/${sid}"><img src="/res/img/school/more.jpg" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
+                                <gsml:a href="/modperl/quickprivate/$LCSTATE/${sid}"><img src="/res/img/school/more.gif" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
 
                             </c:when>
                             <c:otherwise>
 
                                 <b>Test Scores</b><br/>
                                 State standardized <a href="/modperl/achievement/${state}/${sid}" style="text-decoration:none;" class="nolink">test scores for ${school.name}</a>
-                                <gsml:a href="/modperl/achievement/${state}/${sid}"><img src="/res/img/school/more.jpg" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
+                                <gsml:a href="/modperl/achievement/${state}/${sid}"><img src="/res/img/school/more.gif" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
 
                                 <b>Teacher Stats</b><br/>
                                 Learn about classroom environment with <a href="/cgi-bin/${state}/other/${sid}" style="text-decoration:none;" class="nolink">teacher stats for ${school.name}</a>
-                                <gsml:a href="/cgi-bin/${state}/other/${sid}"><img src="/res/img/school/more.jpg" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
+                                <gsml:a href="/cgi-bin/${state}/other/${sid}"><img src="/res/img/school/more.gif" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
 
                                 <b>Student Stats</b><br/>
                                 Understand student ethnicity, economic level and more with <a href="/cgi-bin/${state}/other/${sid}" style="text-decoration:none;" class="nolink">student stats for ${school.name}</a>
-                                <gsml:a href="/cgi-bin/${state}/other/${sid}"><img src="/res/img/school/more.jpg" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
+                                <gsml:a href="/cgi-bin/${state}/other/${sid}"><img src="/res/img/school/more.gif" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
 
                                 <b>Email updates</b><br/>
                                 Get the latest school data about ${school.name} and learn what it means. <a href="/community/newsletters/popup/mss/page1.page?state=${state}&amp;schoolId=${sid}&amp;referrer=spp_email_link"
