@@ -13,6 +13,8 @@ import java.util.List;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.school.ISchoolDao;
+import gs.data.school.Grade;
+import gs.data.school.School;
 
 /**
  * The AJAX controller for registration stage 2.
@@ -44,46 +46,45 @@ public class Registration2AjaxController implements Controller {
     }
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String param3 = request.getParameter("param3");
-        String function = request.getParameter("fn");
-        String query = request.getParameter("q");
+        String city = request.getParameter("city");
         State state = _stateManager.getState(request.getParameter("state"));
+        String grade = request.getParameter("grade");
+        String childNum = request.getParameter("childNum");
+
+        _log.info("city=" + city);
+        _log.info("state=" + state);
+        _log.info("grade=" + grade);
+        _log.info("childNum=" + childNum);
 
         PrintWriter out = response.getWriter();
         try {
-            handleRequestWithParams(out, state, param3, function, query);
+            List schools = _schoolDao.findSchoolsInCityByGrade(state, city, Grade.getGradeLevel(grade));
+            out.print("<select name=\"school" + childNum + "\" id=\"school" + childNum);
+            out.println("\" class=\"form school\">");
+            outputOption(out, "", "--", true);
+            for (int x=0; x < schools.size(); x++) {
+                School school = (School) schools.get(x);
+                outputOption(out, school.getId().toString(), school.getName());
+            }
+            out.print("</select>");
         } catch (Exception e) {
             out.print("Error retrieving results");
         }
         return null;
     }
 
-    protected void handleRequestWithParams(PrintWriter out, State state, String param3,
-                                           String function, String query) {
-        List schools = _schoolDao.findSchoolsLike(state, query, new Integer(10));
-
-        if (schools != null && schools.size() > 0) {
-            for (int x=0; x < schools.size() && x < MAX_RESULTS_TO_RETURN; x++) {
-                ISchoolDao.ITruncatedSchool school = (ISchoolDao.ITruncatedSchool) schools.get(x);
-                out.print(getSchoolDiv(function, school.getId(), school.getName(), param3));
-            }
-        } else {
-            out.print("No matching school found");
-        }
+    protected void outputOption(PrintWriter out, String value, String name) {
+        outputOption(out, value, name, false);
     }
 
-    protected String getSchoolDiv(String function, int id, String name, String param3) {
-        StringBuffer rval = new StringBuffer();
-        rval.append("<div ");
-        rval.append("onSelect=\"").append(function).append("('").append(id).append("', ");
-        rval.append("'").append(name).append("'");
-        if (param3 != null) {
-            rval.append(", '").append(param3).append("'");
+    protected void outputOption(PrintWriter out, String value, String name, boolean selected) {
+        out.print("<option ");
+        if (selected) {
+            out.print("selected ");
         }
-        rval.append(");\">");
-        rval.append(name);
-        rval.append("</div>");
-
-        return rval.toString();
+        out.print("value=\"" + value + "\">");
+        out.print(name);
+        out.print("</option>");
     }
+
 }

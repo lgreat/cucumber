@@ -28,7 +28,7 @@
         <pageHelper:externalCss file="/res/css/community/registration/loginOrRegister.css"/>
     </head>
 
-    <gsml:body adPageName="login" pageLayout="twoColumnLayout">
+    <gsml:body adPageName="login">
         <table>
             <tr>
                 <td class="join">
@@ -39,7 +39,7 @@
                     <div class="new">
                         <span class="title">New User?</span>
 
-                        <p class="intro">Join our community!</p>
+                        <span class="intro">Join our community!</span>
 
                         <gsml:img src="/res/img/community/mom_daughter.jpg" alt="Mom and daughter"/>
 
@@ -51,7 +51,8 @@
                     </div>
                     <div class="existing">
                         <span class="title">Returning User?</span>
-                        <p class="intro">Yes! I'm already a member</p>
+                        <br style="clear: right;"/>
+                        <span class="intro">Yes! I'm already a member</span>
 
                         <gsweb:form action="/community/loginOrRegister.page" method="post">
 

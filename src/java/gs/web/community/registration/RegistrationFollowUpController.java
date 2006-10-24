@@ -12,7 +12,6 @@ import gs.data.util.DigestUtil;
 import gs.data.school.Grade;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
-import gs.data.school.Grades;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.geo.IGeoDao;
@@ -50,13 +49,38 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     protected void onBindOnNewForm(HttpServletRequest request, Object command, BindException errors) throws Exception {
         super.onBindOnNewForm(request, command);
         _log.info("onBindOnNewForm");
-        bindRequestData(request, (FollowUpCommand) command, errors);
+        FollowUpCommand fupCommand = (FollowUpCommand) command;
+
+        bindRequestData(request, fupCommand, errors);
+
+        State state = fupCommand.getUserProfile().getState();
+        if (state == null) {
+            state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
+        }
+        String city = fupCommand.getUserProfile().getCity();
+        for (int x = 0; x < 1 || x < fupCommand.getUserProfile().getNumSchoolChildren().intValue(); x++) {
+            Student student = new Student();
+            student.setState(state);
+            fupCommand.addStudent(student);
+            _log.info("Adding city (" + city + ") for child #" + (x+1));
+            fupCommand.addCityName(city);
+        }
+    }
+
+    public void onBind(HttpServletRequest request, Object command, BindException errors) throws Exception {
+        super.onBind(request, command);
+        _log.info("onBind");
+        FollowUpCommand fupCommand = (FollowUpCommand) command;
+
+        bindRequestData(request, fupCommand, errors);
     }
 
     protected void bindRequestData(HttpServletRequest request, FollowUpCommand fupCommand, BindException errors) throws NoSuchAlgorithmException {
         String userId = request.getParameter("id");
         String marker = request.getParameter("marker");
-        String recontact = request.getParameter("recontact");
+        if (request.getParameter("recontact") != null) {
+            fupCommand.setRecontact("true");
+        }
         if (userId != null) {
 
             User user = _userDao.findUserFromId(Integer.parseInt(userId));
@@ -67,74 +91,56 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             String realHash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
             if (!realHash.equals(marker)) {
                 _log.warn("Registration stage 2 request with invalid hash: " + marker);
-                errors.rejectValue("id", "bad_hash",
+                errors.rejectValue("id", null,
                         "We're sorry, we cannot validate your request at this time. Once " +
                                 "your account is validated, please update your profile again.");
             }
-        } else {
-            return; // exit early
         }
-        State state = fupCommand.getUserProfile().getState();
-        if (state == null) {
-            state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
+
+        for (int x=0; x < fupCommand.getUserProfile().getNumSchoolChildren().intValue(); x++) {
+            int childNum = x+1;
+            if (request.getParameter("grade" + childNum) != null) {
+                parseStudent(request, fupCommand, errors, childNum);
+            }
         }
+    }
+
+    protected void parseStudent(HttpServletRequest request, FollowUpCommand fupCommand, BindException errors, int childNum) {
+        _log.info("Parsing info for child #" + childNum);
+        String sGrade = request.getParameter("grade" + childNum);
+        State state = _stateManager.getState(request.getParameter("state" + childNum));
+        String sSchoolId = request.getParameter("school" + childNum);
+        String city = request.getParameter("city" + childNum);
+
         Student student = new Student();
+
+        if (!StringUtils.isEmpty(sGrade)) {
+            student.setGrade(Grade.getGradeLevel(sGrade));
+        }
+        if (!StringUtils.isEmpty(sSchoolId)) {
+            student.setSchoolId(new Integer(sSchoolId));
+        }
         student.setState(state);
+        student.setOrder(new Integer(childNum));
+
         fupCommand.addStudent(student);
-        for (int x = 1; x < fupCommand.getUserProfile().getNumSchoolChildren().intValue(); x++) {
-            student = new Student();
-            student.setState(state);
-            fupCommand.addStudent(student);
-        }
-        fupCommand.setRecontact(recontact);
-        loadSchoolLists(request, fupCommand);
-        //loadCityList(request, state, fupCommand);
-    }
-
-    protected void loadCityList(HttpServletRequest request, State state, FollowUpCommand fupCommand) {
-        if (state == null) {
-            state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
-        }
-        List cities = _geoDao.findCitiesByState(state);
-        fupCommand.addCityList(cities);
-        for (int x = 1; x < fupCommand.getUserProfile().getNumSchoolChildren().intValue(); x++) {
-            fupCommand.addCityList(cities);
-        }
-    }
-
-    protected void loadSchoolLists(HttpServletRequest request, FollowUpCommand fupCommand) {
-        State state = fupCommand.getUserProfile().getState();
-        String city = fupCommand.getUserProfile().getCity();
-
-        // TODO: remove debug code
-        if (state == null) {
-            state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
-        }
-        if (city == null) {
-            city = "Alameda";
-        }
-        _log.info("Obtaining school list for " + state + ": " + city);
-        List schools = _schoolDao.findSchoolsInCity(state, city, true);
-        _log.info("Adding school list (size=" + ((schools!=null)?schools.size():0) + ") for child #1");
-        fupCommand.addSchools(schools);
-        fupCommand.addSchoolName("");
-
-        fupCommand.getCityNames().clear();
-        _log.info("Adding city (" + city + ") for child #1");
         fupCommand.addCityName(city);
-        for (int x = 1; x < fupCommand.getNumStudents(); x++) {
-            _log.info("Adding school list for child #" + (x+1));
-            fupCommand.addSchools(schools);
-            fupCommand.addSchoolName("");
-            _log.info("Adding city (" + city + ") for child #" + (x+1));
-            fupCommand.addCityName(city);
-        }
+        loadSchoolList(student, city, fupCommand);
     }
 
-    public void onBind(HttpServletRequest request, Object command, BindException errors) throws Exception {
-        super.onBind(request, command);
-        _log.info("onBind");
-        bindRequestData(request, (FollowUpCommand) command, errors);
+    protected void loadSchoolList(Student student, String city, FollowUpCommand fupCommand) {
+        State state = student.getState();
+        Grade grade = student.getGrade();
+        if (grade != null) {
+            _log.info("Obtaining school list for " + state + ": " + city + ": " + grade);
+            List schools = _schoolDao.findSchoolsInCityByGrade(state, city, grade);
+            _log.info("Adding school list (size=" + ((schools!=null)?schools.size():0) +
+                    ") for child #" + student.getOrder());
+            fupCommand.addSchools(schools);
+        } else {
+            fupCommand.addSchools(new ArrayList());
+        }
+        fupCommand.addSchoolName("");
     }
 
     /**
@@ -152,98 +158,27 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                             "your account is validated, please update your profile again.");
             return;
         }
-        User user = _userDao.findUserFromId(userId.intValue());
-        // update the command with some useful info from the previous stage of registration
-        fupCommand.setUser(user);
-        fupCommand.getUserProfile().setNumSchoolChildren(user.getUserProfile().getNumSchoolChildren());
-        fupCommand.getUserProfile().setState(user.getUserProfile().getState());
-        // the recontact flag is not bound, so check for it here
-        boolean recontact = false;
-        if (request.getParameter("recontact") != null) {
-            fupCommand.setRecontact("true");
-            _log.info("recontact=" + fupCommand.getRecontact());
-        }
+        User user = fupCommand.getUser();
 
-        // make sure the user is supposed to be here
-        String hash = request.getParameter("marker");
-        fupCommand.setMarker(hash);
-        String realHash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
-        if (!realHash.equals(hash)) {
-            _log.warn("Registration follow-up request with invalid hash: " + hash);
-            errors.rejectValue("id", null,
-                    "We're sorry, we cannot validate your request at this time. Once " +
-                            "your account is validated, please update your profile again.");
-        }
-
-        // Parse the children out of the request and get them into the command
-        int loopCount = 1; // always loop at least once
-        Integer numSchoolChildren = user.getUserProfile().getNumSchoolChildren();
-        if (numSchoolChildren != null && numSchoolChildren.intValue() > 1) {
-            loopCount = numSchoolChildren.intValue();
-        }
         fupCommand.getSchoolNames().clear();
-        fupCommand.getStudents().clear();
-        for (int x=0; x < loopCount; x++) {
-            int childNum = x+1;
-
-            // add student into command now so we can register errors as they occur
-            Student student = new Student();
-            fupCommand.addStudent(student);
-
-            // collect as much info as possible
-            String sGrade = request.getParameter("grade" + childNum);
-            String schoolId = request.getParameter("school" + childNum);
-            String sState = request.getParameter("state" + childNum);
-
-            _log.info("grade=" + sGrade);
-            _log.info("schoolId=" + schoolId);
-            _log.info("state=" + sState);
-
-            Grade grade = null;
-            if (!StringUtils.isEmpty(sGrade)) {
-                grade = Grade.getGradeLevel(sGrade);
-            } else {
+        for (int x=0; x < user.getUserProfile().getNumSchoolChildren().intValue(); x++) {
+            Student student = (Student) fupCommand.getStudents().get(x);
+            if (student.getGrade() == null) {
                 errors.rejectValue("students[" + x + "]", null, "Please choose a grade");
             }
-            _log.info("grade=" + grade);
-            State state = null;
-            if (!StringUtils.isEmpty(sState)) {
-                state = _stateManager.getState(sState);
-            }
-            _log.info("state=" + state);
             School school = null;
-            if (!StringUtils.isEmpty(schoolId)) {
+            if (student.getSchoolId() != null) {
                 try {
-                    school = _schoolDao.getSchoolById(state, new Integer(schoolId));
+                    school = _schoolDao.getSchoolById(student.getState(), student.getSchoolId());
                 } catch (ObjectRetrievalFailureException orfe) {
                     _log.warn("Can't find school corresponding to id " +
-                            schoolId + " in " + state);
+                            student.getSchoolId() + " in " + student.getState());
                 }
             } else {
                 errors.rejectValue("students[" + x + "]", null, "Please choose a school");
             }
 
-            if (school != null && grade != null) {
-                Grades schoolGrades = school.getGradeLevels();
-                if (!schoolGrades.contains(grade)) {
-                    // Always provide the error message if they are adding/removing children.
-                    // Only provide the error message once if they are submitting (i.e. allow them
-                    // to override).
-                    if (request.getParameter("addChild") != null ||
-                            request.getParameter("removeChild") != null ||
-                            request.getParameter("ignoreError" + childNum) == null) {
-                        errors.rejectValue("students[" + x + "]", null,
-                                "According to our records, the selected grade does not " +
-                                        "exist in that school. Click on \"Submit\" below to " +
-                                        "override this error.");
-                    }
-                }
-            }
-            _log.info("school=" + school);            
-            // now that we've assembled as much info as possible from the request, let's
-            // package it into a Student object and throw it in the command.
-            student.setGrade(grade);
-            student.setState(state);
+            _log.info("school=" + school);
             if (school != null) {
                 student.setSchool(school);
                 // a list of school names makes persisting the page MUCH easier
@@ -253,48 +188,54 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 // to avoid index out of bounds exceptions, we have to add something to the list
                 fupCommand.addSchoolName("");
             }
-            student.setOrder(new Integer(childNum));
-            // student object was already added to command, so we're done.
         }
 
-        // now check if they are adding/removing children
-        if (request.getParameter("addChild") != null) {
-            // they've requested to add a child
-            // refresh the page with an additional child
-            UserProfile userProfile = user.getUserProfile();
-            Integer numChildren = userProfile.getNumSchoolChildren();
-            if (numChildren == null || numChildren.intValue() < 1) {
-                // there is always one row on the page, so the minimum outcome from clicking
-                // add is two rows.
-                numChildren = new Integer(2);
-            } else if (numChildren.intValue() >= MAX_CHILDREN) {
-                numChildren = new Integer(MAX_CHILDREN);
-            } else {
-                numChildren = new Integer(numChildren.intValue() + 1);
-            }
-            userProfile.setNumSchoolChildren(numChildren);
-            _userDao.updateUser(user);
-            fupCommand.getUserProfile().setNumSchoolChildren(numChildren);
-            // now that the numSchoolChildren value has been updated, we need to return to the page
-            // so it will refresh with an additional child row.
-            // I do this by rejecting a non-existant value. No error is displayed, so from the user's
-            // perspective the page simply reloads with an additional child
-            errors.rejectValue("userProfile", null, "Adding child");
-        } else if (request.getParameter("removeChild") != null) {
-            // remove a child row. See addChild for additional notes
-            UserProfile userProfile = user.getUserProfile();
-            Integer numChildren = userProfile.getNumSchoolChildren();
-            if (numChildren == null || numChildren.intValue() < 1) {
-                numChildren = new Integer(0);
-            } else {
-                numChildren = new Integer(numChildren.intValue() - 1);
-            }
-            userProfile.setNumSchoolChildren(numChildren);
-            _userDao.updateUser(user);
-            fupCommand.getUserProfile().setNumSchoolChildren(numChildren);
-            // see addChild above for why an error is generated
-            errors.rejectValue("userProfile", null, "Removing child");
+//        // now check if they are adding/removing children
+//        if (request.getParameter("addChild") != null) {
+//            addChild(user, fupCommand, errors);
+//        } else if (request.getParameter("removeChild") != null) {
+//            removeChild(user, fupCommand, errors);
+//        }
+    }
+
+    protected void removeChild(User user, FollowUpCommand fupCommand, BindException errors) {
+        // remove a child row. See addChild for additional notes
+        UserProfile userProfile = user.getUserProfile();
+        Integer numChildren = userProfile.getNumSchoolChildren();
+        if (numChildren == null || numChildren.intValue() < 1) {
+            numChildren = new Integer(0);
+        } else {
+            numChildren = new Integer(numChildren.intValue() - 1);
         }
+        userProfile.setNumSchoolChildren(numChildren);
+        _userDao.updateUser(user);
+        fupCommand.getUserProfile().setNumSchoolChildren(numChildren);
+        // see addChild above for why an error is generated
+        errors.rejectValue("userProfile", null, "Removing child");
+    }
+
+    protected void addChild(User user, FollowUpCommand fupCommand, BindException errors) {
+        // they've requested to add a child
+        // refresh the page with an additional child
+        UserProfile userProfile = user.getUserProfile();
+        Integer numChildren = userProfile.getNumSchoolChildren();
+        if (numChildren == null || numChildren.intValue() < 1) {
+            // there is always one row on the page, so the minimum outcome from clicking
+            // add is two rows.
+            numChildren = new Integer(2);
+        } else if (numChildren.intValue() >= MAX_CHILDREN) {
+            numChildren = new Integer(MAX_CHILDREN);
+        } else {
+            numChildren = new Integer(numChildren.intValue() + 1);
+        }
+        userProfile.setNumSchoolChildren(numChildren);
+        _userDao.updateUser(user);
+        fupCommand.getUserProfile().setNumSchoolChildren(numChildren);
+        // now that the numSchoolChildren value has been updated, we need to return to the page
+        // so it will refresh with an additional child row.
+        // I do this by rejecting a non-existant value. No error is displayed, so from the user's
+        // perspective the page simply reloads with an additional child
+        errors.rejectValue("userProfile", null, "Adding child");
     }
 
     public ModelAndView onSubmit(HttpServletRequest request,
@@ -350,6 +291,17 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         mAndV.getModel().put("id", user.getId());
         mAndV.getModel().put("marker", fupCommand.getMarker());
         return mAndV;
+    }
+
+    protected void loadCityList(HttpServletRequest request, State state, FollowUpCommand fupCommand) {
+        if (state == null) {
+            state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
+        }
+        List cities = _geoDao.findCitiesByState(state);
+        fupCommand.addCityList(cities);
+        for (int x = 1; x < fupCommand.getUserProfile().getNumSchoolChildren().intValue(); x++) {
+            fupCommand.addCityList(cities);
+        }
     }
 
     private void saveSubscriptionsForUser(FollowUpCommand fupCommand, User user) {

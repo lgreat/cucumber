@@ -1,15 +1,12 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.13 2006/10/17 18:52:24 aroy Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.14 2006/10/24 23:17:50 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
 import gs.data.community.*;
 import gs.data.geo.ICity;
-import gs.data.school.ISchoolDao;
-import gs.data.school.LevelCode;
-import gs.data.school.School;
-import gs.data.school.SchoolType;
+import gs.data.school.*;
 import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.data.util.Address;
@@ -227,6 +224,10 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
         }
 
         public List findSchoolsInCity(State state, String string, int i) {
+            return null;
+        }
+
+        public List findSchoolsInCityByGrade(State state, String city, Grade gradeLevel) {
             return null;
         }
 

@@ -167,7 +167,6 @@ public class RegistrationController extends SimpleFormController implements Read
         }
         // mAndV.getModel().put("followUpCmd", fupCommand);
         mAndV.getModel().put("id", userCommand.getUser().getId());
-        mAndV.getModel().put("recontact", String.valueOf(userCommand.isRecontact()));
         return mAndV;
     }
 

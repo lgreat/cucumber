@@ -22,6 +22,23 @@
       <pageHelper:externalCss file="/res/css/community/autoassist.css"/>
       <pageHelper:externalJavascript file="/res/js/registration2.js"/>
       <pageHelper:externalCss file="/res/css/community/registration/registration2.css"/>
+      <script type="text/javascript">
+          function gradeChange(gradeSelect, childNum) {
+              var url = 'registration2Ajax.page';
+              var pars = 'state=' + $('state' + childNum).value;
+              pars += '&amp;city=' + $('city' + childNum).value;
+              pars += '&amp;grade=' + gradeSelect.value;
+              pars += '&amp;childNum=' + childNum;
+              $('schoolDiv' + childNum).innerHTML = '<![CDATA[<select name="school${child}" id="school${child}" class="form school"><option value="">Loading ...</option></select>]]>';
+              var myAjax = new Ajax.Updater (
+                      'schoolDiv' + childNum,
+                      url,
+                      {
+                          method: 'get',
+                          parameters: pars
+                      });
+          }
+      </script>
   </head>
   <gsml:body adPageName="registration2">
   <table>
@@ -66,10 +83,11 @@
                     Child #${child}:
                 </div>
                 <div class="childRight">
-                    <div id="city${child}" class="form city">
+                    <div id="location${child}" class="form city">
                         ${followUpCmd.cityNames[child-1]},
                         ${followUpCmd.students[child-1].state}
-                        <input type="hidden" name="state${child}" value="${followUpCmd.students[child-1].state}"/>
+                        <input id="state${child}" type="hidden" name="state${child}" value="${followUpCmd.students[child-1].state}"/>
+                        <input id="city${child}" type="hidden" name="city${child}" value="${followUpCmd.cityNames[child-1]}"/>
                         <span class="change">
                             <a href="#" onclick="return false;">Change city</a>
                         </span>
@@ -77,20 +95,22 @@
                     <br style="clear: left;"/>
 
                     <label for="grade${child}" class="form grade">Grade</label>
-                    <gsweb:gradeSelector styleId="grade${child}" name="grade${child}" styleClass="form grade" grade="${gradeVal}" useNoGrade="${showNoGrade}"/>
+                    <gsweb:gradeSelector styleId="grade${child}" name="grade${child}" styleClass="form grade" grade="${gradeVal}" useNoGrade="${showNoGrade}" onChange="gradeChange(this, ${child});"/>
                     <label for="school${child}" class="form school">School</label>
-                    <select name="school${child}" id="school${child}" class="form school">
-                        <c:if test="${schoolVal eq null or schoolVal eq ''}">
-                            <option selected="selected" value="">--</option>
-                        </c:if>
-                        <c:forEach var="schoolOption" items="${followUpCmd.schools[child-1]}">
-                            <![CDATA[<option ]]>
-                            <c:if test="${schoolval eq schoolOption.name}">
-                                selected
+                    <div id="schoolDiv${child}">
+                        <select name="school${child}" id="school${child}" class="form school">
+                            <c:if test="${schoolVal eq null or schoolVal eq ''}">
+                                <option selected="selected" value="">--</option>
                             </c:if>
-                            <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
-                        </c:forEach>
-                    </select>
+                            <c:forEach var="schoolOption" items="${followUpCmd.schools[child-1]}">
+                                <![CDATA[<option ]]>
+                                <c:if test="${schoolVal eq schoolOption.name}">
+                                    selected
+                                </c:if>
+                                <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
+                            </c:forEach>
+                        </select>
+                    </div>
 
                     <!-- Show remove button for last row shown if more than 1 row is shown -->
                     <!--

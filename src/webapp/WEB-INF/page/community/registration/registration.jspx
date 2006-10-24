@@ -53,9 +53,9 @@
 
                 <gsml:errorMessage command="userCmd" field="gender"/>
                 <label class="form left">I'm a (P)</label>
-                <input type="radio" id="mom" name="gender" value="f" class="form radio"/><label for="mom" class="form radio">mom</label>
-                <input type="radio" id="dad" name="gender" value="m" class="form radio"/><label for="dad" class="form radio">dad</label>
-                <input type="radio" id="other" name="gender" value="u" class="form radio"/><label for="other" class="form radio">other</label>
+                <input type="radio" id="mom" name="gender" value="f" class="form radio"/><label for="mom" class="form radio">Mom</label>
+                <input type="radio" id="dad" name="gender" value="m" class="form radio"/><label for="dad" class="form radio">Dad</label>
+                <input type="radio" id="other" name="gender" value="u" class="form radio"/><label for="other" class="form radio">Other</label>
                 <br style="clear:left;"/>
 
                 <gsml:errorMessage command="userCmd" field="firstName"/>

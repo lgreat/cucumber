@@ -25,13 +25,25 @@ span.title {
     font-weight: bold;
 }
 
-p.intro {
+div.existing span.title {
+    padding-left: 15px;
+}
+
+span.intro {
     padding-top: 10px;
+    padding-bottom: 15px;
     font-size: large;
     color: #898989;
+    display: block;
+}
+
+div.existing span.intro {
+    position: relative;
+    left: 15px;
 }
 
 span.joinText {
+    margin-top: 10px;
     font-size: medium;
     color: #898989;
     float: left;
@@ -40,7 +52,7 @@ span.joinText {
 }
 
 span.join {
-    margin-top: 25px;
+    margin-top: 35px;
     margin-right: 50px;
     float: right;
     background-color: #CC5666;
