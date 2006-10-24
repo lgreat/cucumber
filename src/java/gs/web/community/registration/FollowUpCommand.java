@@ -9,10 +9,14 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class FollowUpCommand {
+    protected final Log _log = LogFactory.getLog(getClass());
     private User _user;
     private UserProfile _userProfile;
     private List _students;

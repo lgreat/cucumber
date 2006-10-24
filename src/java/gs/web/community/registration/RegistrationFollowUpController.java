@@ -4,7 +4,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.BindException;
-import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -72,6 +71,8 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                         "We're sorry, we cannot validate your request at this time. Once " +
                                 "your account is validated, please update your profile again.");
             }
+        } else {
+            return; // exit early
         }
         State state = fupCommand.getUserProfile().getState();
         if (state == null) {
@@ -86,7 +87,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             fupCommand.addStudent(student);
         }
         fupCommand.setRecontact(recontact);
-        //loadSchoolLists(request, fupCommand);
+        loadSchoolLists(request, fupCommand);
         //loadCityList(request, state, fupCommand);
     }
 
@@ -116,6 +117,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         List schools = _schoolDao.findSchoolsInCity(state, city, true);
         _log.info("Adding school list (size=" + ((schools!=null)?schools.size():0) + ") for child #1");
         fupCommand.addSchools(schools);
+        fupCommand.addSchoolName("");
 
         fupCommand.getCityNames().clear();
         _log.info("Adding city (" + city + ") for child #1");
@@ -123,6 +125,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         for (int x = 1; x < fupCommand.getNumStudents(); x++) {
             _log.info("Adding school list for child #" + (x+1));
             fupCommand.addSchools(schools);
+            fupCommand.addSchoolName("");
             _log.info("Adding city (" + city + ") for child #" + (x+1));
             fupCommand.addCityName(city);
         }
@@ -144,7 +147,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         Integer userId = fupCommand.getUser().getId();
         if (userId == null) {
             _log.warn("Registration follow-up request with missing user id");
-            errors.rejectValue("id", "missing_id",
+            errors.rejectValue("id", null,
                     "We're sorry, we cannot validate your request at this time. Once " +
                             "your account is validated, please update your profile again.");
             return;
@@ -154,26 +157,11 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         fupCommand.setUser(user);
         fupCommand.getUserProfile().setNumSchoolChildren(user.getUserProfile().getNumSchoolChildren());
         fupCommand.getUserProfile().setState(user.getUserProfile().getState());
-        // the private flag is not bound, so check for it here
-        boolean fupprivate = false;
-        if (request.getParameter("private") != null) {
-            fupprivate = true;
-        }
-        fupCommand.setPrivate(fupprivate);
-        // the interests have to be parsed out of the request
-        parseInterests(request, fupCommand);
-
-        if (!StringUtils.isEmpty(fupCommand.getAboutMe())) {
-            if (fupCommand.getAboutMe().length() > ABOUT_ME_MAX_LENGTH) {
-                errors.rejectValue("aboutMe", "about_me_too_long",
-                        "Please limit the text to " + ABOUT_ME_MAX_LENGTH + " characters or less");
-            }
-        }
-
-        if (fupCommand.getOtherInterest() != null &&
-                fupCommand.getOtherInterest().length() > OTHER_INTEREST_MAX_LENGTH) {
-            errors.rejectValue("otherInterest", "other_interest_too_long",
-                    "Please limit the text to " + OTHER_INTEREST_MAX_LENGTH + " characters or less");
+        // the recontact flag is not bound, so check for it here
+        boolean recontact = false;
+        if (request.getParameter("recontact") != null) {
+            fupCommand.setRecontact("true");
+            _log.info("recontact=" + fupCommand.getRecontact());
         }
 
         // make sure the user is supposed to be here
@@ -182,7 +170,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         String realHash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
         if (!realHash.equals(hash)) {
             _log.warn("Registration follow-up request with invalid hash: " + hash);
-            errors.rejectValue("id", "bad_hash",
+            errors.rejectValue("id", null,
                     "We're sorry, we cannot validate your request at this time. Once " +
                             "your account is validated, please update your profile again.");
         }
@@ -194,6 +182,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             loopCount = numSchoolChildren.intValue();
         }
         fupCommand.getSchoolNames().clear();
+        fupCommand.getStudents().clear();
         for (int x=0; x < loopCount; x++) {
             int childNum = x+1;
 
@@ -202,48 +191,36 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             fupCommand.addStudent(student);
 
             // collect as much info as possible
-            String childname = request.getParameter("childname" + childNum);
             String sGrade = request.getParameter("grade" + childNum);
-            String schoolName = request.getParameter("school" + childNum);
-            String schoolId = request.getParameter("schoolId" + childNum);
+            String schoolId = request.getParameter("school" + childNum);
             String sState = request.getParameter("state" + childNum);
 
-            if (childname != null && childname.length() > STUDENT_NAME_MAX_LENGTH) {
-                errors.rejectValue("students[" + x + "]", "student_name_too_long",
-                        "Please limit your child's name to " + STUDENT_NAME_MAX_LENGTH +
-                                " characters or less");
-            }
+            _log.info("grade=" + sGrade);
+            _log.info("schoolId=" + schoolId);
+            _log.info("state=" + sState);
 
             Grade grade = null;
             if (!StringUtils.isEmpty(sGrade)) {
                 grade = Grade.getGradeLevel(sGrade);
+            } else {
+                errors.rejectValue("students[" + x + "]", null, "Please choose a grade");
             }
+            _log.info("grade=" + grade);
             State state = null;
             if (!StringUtils.isEmpty(sState)) {
                 state = _stateManager.getState(sState);
             }
+            _log.info("state=" + state);
             School school = null;
             if (!StringUtils.isEmpty(schoolId)) {
                 try {
                     school = _schoolDao.getSchoolById(state, new Integer(schoolId));
                 } catch (ObjectRetrievalFailureException orfe) {
-                    _log.warn("Can't find school corresponding to selection: " + schoolName + "(" +
-                            schoolId + ") in " + state);
+                    _log.warn("Can't find school corresponding to id " +
+                            schoolId + " in " + state);
                 }
-            }
-            if (school != null && !school.getName().equals(schoolName)) {
-                // if the name doesn't match, ignore the school ... they've probably tried to blank out
-                // the field
-                school = null;
-            }
-            if (school == null && StringUtils.isNotEmpty(schoolName)) {
-                // the school name is not empty, but we couldn't find the school ...
-                // generate an error
-                errors.rejectValue("students[" + x + "]", "bad_school",
-                        "We can't match the school name to our database in " + state.getLongName() +
-                                ". Please try typing the school name again and selecting the right " +
-                                "school from the list. If you can't find the school in the list, " +
-                                "leave the field blank");
+            } else {
+                errors.rejectValue("students[" + x + "]", null, "Please choose a school");
             }
 
             if (school != null && grade != null) {
@@ -255,16 +232,16 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                     if (request.getParameter("addChild") != null ||
                             request.getParameter("removeChild") != null ||
                             request.getParameter("ignoreError" + childNum) == null) {
-                        errors.rejectValue("students[" + x + "]", "bad_grade",
+                        errors.rejectValue("students[" + x + "]", null,
                                 "According to our records, the selected grade does not " +
                                         "exist in that school. Click on \"Submit\" below to " +
                                         "override this error.");
                     }
                 }
             }
+            _log.info("school=" + school);            
             // now that we've assembled as much info as possible from the request, let's
             // package it into a Student object and throw it in the command.
-            student.setName(childname);
             student.setGrade(grade);
             student.setState(state);
             if (school != null) {
@@ -274,63 +251,10 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 fupCommand.addSchoolName(school.getName());
             } else {
                 // to avoid index out of bounds exceptions, we have to add something to the list
-                fupCommand.addSchoolName((schoolName == null)?"":schoolName);
+                fupCommand.addSchoolName("");
             }
             student.setOrder(new Integer(childNum));
             // student object was already added to command, so we're done.
-        }
-
-        // Now pull the previous schools out of the request and get them into the command
-        fupCommand.getPreviousSchoolNames().clear();
-        List uniqueSchools = new ArrayList();
-        for (int x=0; x < NUMBER_PREVIOUS_SCHOOLS; x++) {
-            int schoolNum = x+1;
-            String schoolName = request.getParameter("previousSchool" + schoolNum);
-            String schoolId = request.getParameter("previousSchoolId" + schoolNum);
-            String sState = request.getParameter("previousState" + schoolNum);
-            State state = null;
-            if (!StringUtils.isEmpty(sState)) {
-                state = _stateManager.getState(sState);
-            }
-            School school = null;
-            if (!StringUtils.isEmpty(schoolId)) {
-                try {
-                    school = _schoolDao.getSchoolById(state, new Integer(schoolId));
-                } catch (ObjectRetrievalFailureException orfe) {
-                    _log.warn("Can't find school corresponding to selection: " + schoolName + "(" +
-                            schoolId + ")");
-                }
-            }
-            if (school != null && !school.getName().equals(schoolName)) {
-                // if the name doesn't match, ignore the school ... they've probably tried to blank out
-                // the field
-                school = null;
-            }
-
-            fupCommand.addPreviousSchoolName(schoolName);
-            if (school == null && StringUtils.isNotEmpty(schoolName)) {
-                // the school name is not empty, but we couldn't find the school ...
-                // generate an error
-                errors.rejectValue("previousSchoolNames[" + x + "]", "bad_school",
-                        "We can't match the school name to our database in " + state.getLongName() +
-                                ". Please try typing the school name again and selecting the right " +
-                                "school from the list. If you can't find the school in the list, " +
-                                "leave the field blank");
-            }
-
-            // package info into a Subscription object and throw it in the command
-            if (school != null) {
-                String uniqueConstraint = state.getAbbreviation() + school.getId();
-                if (!uniqueSchools.contains(uniqueConstraint)) {
-                    Subscription sub = new Subscription();
-                    sub.setProduct(SubscriptionProduct.PREVIOUS_SCHOOLS);
-                    sub.setSchoolId(school.getId().intValue());
-                    sub.setState(state);
-                    sub.setUser(user);
-                    fupCommand.addSubscription(sub);
-                    uniqueSchools.add(uniqueConstraint);
-                }
-            }
         }
 
         // now check if they are adding/removing children
@@ -355,7 +279,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             // so it will refresh with an additional child row.
             // I do this by rejecting a non-existant value. No error is displayed, so from the user's
             // perspective the page simply reloads with an additional child
-            errors.rejectValue("userProfile", "add_child", "Adding child");
+            errors.rejectValue("userProfile", null, "Adding child");
         } else if (request.getParameter("removeChild") != null) {
             // remove a child row. See addChild for additional notes
             UserProfile userProfile = user.getUserProfile();
@@ -369,24 +293,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             _userDao.updateUser(user);
             fupCommand.getUserProfile().setNumSchoolChildren(numChildren);
             // see addChild above for why an error is generated
-            errors.rejectValue("userProfile", "remove_child", "Removing child");
-        }
-    }
-
-    /**
-     * Reads interest codes out of the request and puts them in the command
-     * @param request
-     * @param fupCommand
-     */
-    private void parseInterests(HttpServletRequest request, FollowUpCommand fupCommand) {
-        fupCommand.getUserProfile().setInterests(null);
-        Iterator keys = UserProfile.getInterestsMap().keySet().iterator();
-        // if we locate an interest code in the request, add it to the command
-        while (keys.hasNext()) {
-            String code = String.valueOf(keys.next());
-            if (request.getParameter(code) != null) {
-                fupCommand.getUserProfile().addInterest(code);
-            }
+            errors.rejectValue("userProfile", null, "Removing child");
         }
     }
 
@@ -398,16 +305,10 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
         FollowUpCommand fupCommand = (FollowUpCommand)command;
         User user = fupCommand.getUser();
-        UserProfile profile = fupCommand.getUserProfile();
         // get existing profile
         // in validation stage above, the command was populated with the actual DB user
         // so this is getting the actual DB user profile
         UserProfile existingProfile = user.getUserProfile();
-        // update existing profile with new information
-        existingProfile.setAboutMe(profile.getAboutMe());
-        existingProfile.setPrivate(profile.isPrivate());
-        existingProfile.setInterests(profile.getInterests());
-        existingProfile.setOtherInterest(profile.getOtherInterest());
         if (user.getStudents() != null) {
             user.getStudents().clear();
         }

@@ -1,0 +1,115 @@
+div.existing {
+    display: block;
+    padding: 35px 15px 15px 10px;
+}
+div.new {
+    padding: 35px 10px 15px 15px;
+    display: block;
+    float: left;
+    border-right-style: dashed;
+    border-right-color: #64CCCB;
+    border-right-width: 1px;
+    width: 300px;
+    height: 400px;
+}
+
+td.content {
+    border-style: solid;
+    border-color: #64CCCB;
+    border-width: medium;
+}
+
+span.title {
+    color: #99CC67;
+    font-size: large;
+    font-weight: bold;
+}
+
+p.intro {
+    padding-top: 10px;
+    font-size: large;
+    color: #898989;
+}
+
+span.joinText {
+    font-size: medium;
+    color: #898989;
+    float: left;
+    width: 12em;
+    text-align: left;
+}
+
+span.join {
+    margin-top: 25px;
+    margin-right: 50px;
+    float: right;
+    background-color: #CC5666;
+    color: #FFFFFF;
+    padding: 5px;
+    font-size: large;
+}
+
+span.join a, span.join a:link, span.join a:visited, span.join a:active {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+span.strong {
+    font-weight: bold;
+}
+
+.error {
+    color:red;
+    font-size:small;
+    margin-bottom:10px;
+}
+
+label.form, input.form {
+     margin-bottom: 10px;
+     display: block;
+     width: 150px;
+     float: left;
+ }
+
+label.form {
+     text-align: left;
+     width: 100px;
+     padding-right: 10px;
+     padding-left: 20px;
+}
+
+input.submit {
+    display: block;
+    float: right;
+    margin-top: 20px;
+    background-color: #56BBCD;
+    color: #FFFFFF;
+    font-size: large;
+    padding: 2px 25px 2px 25px;
+}
+
+span.forgotPassword {
+    margin-top: 10px;
+    display: block;
+    float: right;
+    font-weight: bold;
+    font-size: small;
+}
+
+span.forgotPassword a, span.forgotPassword a:link, span.forgotPassword a:visited,
+    span.forgotPassword a:active, span.forgotPassword a:hover {
+    color: #4DA4B7;
+    text-decoration: underline;
+}
+
+td.join {
+    background-color: #DEEEEE;
+    vertical-align: top;
+    width: 200px;
+    padding-left: 15px;
+    text-align: left;
+}
+
+td.join span {
+    font-size: xx-large;
+    color: #5CBBCF;
+}

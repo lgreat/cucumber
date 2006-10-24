@@ -21,165 +21,126 @@
       <pageHelper:externalJavascript file="/res/js/autoassist.js"/>
       <pageHelper:externalCss file="/res/css/community/autoassist.css"/>
       <pageHelper:externalJavascript file="/res/js/registration2.js"/>
-      <pageHelper:externalCss file="/res/css/community/registration/registration.css"/>
+      <pageHelper:externalCss file="/res/css/community/registration/registration2.css"/>
   </head>
-  <body>
-    <h2 class="header">Thanks for registering, and welcome to the Greatschools Network!</h2>
-    <c:if test="${email > ''}">
-        <p>A confirmation email has been sent to you at: ${email}</p>
-        <p>Click the link in that email to confirm your address and fully activate
-        your account.</p>
-    </c:if>
-  <hr/>
-  <p class="intro">Take a minute to fill out your profile - it is an opportunity to share a little
-  about yourself with others in the GreatSchools Network.</p>
+  <gsml:body adPageName="registration2">
+  <table>
+      <tr>
+          <td class="join">
+              <h2 class="join">Join</h2>
+          </td>
+          <td class="register2">
+          <div id="register2Div" class="register2Div">
+          <h1 class="intro">You're almost done!</h1>
+          <p class="intro">Over the next year, you'll be able to link up with other parents in your
+          school and school district - to discuss issues and join groups focused
+          on helping your child thrive in school.</p>
+          <p class="intro introBottom strong">We'll always keep your name, your child's grade,
+          and your email address private, to preserve your anonymity on our site.</p>
 
-  <gsweb:form id="registration2" action="/community/registration2.page" method="post">
+        <gsweb:form id="registration2" action="/community/registration2.page" method="post">
 
-      <spring:hasBindErrors name="followUpCmd">
-          <spring:bind path="followUpCmd.id">
-              <c:if test="${status.errorMessage > ''}">
-                  <div class="error">
-                    ${status.errorMessage}
-                  </div>
-              </c:if>
-          </spring:bind>
-      </spring:hasBindErrors>
+            <gsml:errorMessage command="followUpCmd" field="id"/>
 
-      <h2 class="header">My Family</h2>
-      <label class="familyInput childname">Child name</label>
-      <label class="familySelect">Grade</label>
-      <label class="familyInput schoolname">School</label>
-      <label class="familySelect">State</label>
-      <!-- Default to always show one row -->
-      <c:set var="loopTimes" value="1"/>
-      <c:if test="${followUpCmd.userProfile.numSchoolChildren gt 1}">
-          <c:set var="loopTimes" value="${followUpCmd.userProfile.numSchoolChildren}"/>
-      </c:if>
-      <c:forEach var="child" begin="1" end="${loopTimes}">
-          <br style="clear: left;"/>
-          <!-- Default values -->
-          <c:set var="nameVal" value="Child #${child}"/>
-          <c:set var="gradeVal" value=""/>
-          <c:set var="schoolIdVal" value=""/>
-          <c:choose>
-              <c:when test="${followUpCmd.userProfile.state eq null or followUpCmd.userProfile.state eq ''}">
-                  <c:set var="stateVal" value="${requestScope.context.stateOrDefault}"/>
-              </c:when>
-              <c:otherwise>
-                  <c:set var="stateVal" value="${followUpCmd.userProfile.state}"/>
-              </c:otherwise>
-          </c:choose>
-          <c:set var="schoolVal" value=""/>
-          <!-- override default values if set. Also show error message if exists -->
-          <c:if test="${followUpCmd.numStudents ge child}">
-              <spring:hasBindErrors name="followUpCmd">
-                  <spring:bind path="followUpCmd.students[${child-1}]">
-                      <c:if test="${status.errorMessage > ''}">
-                          <div class="error">
-                              ${status.errorMessage}
-                          </div>
-                          <input type="hidden" name="ignoreError${child}"/>
-                      </c:if>
-                  </spring:bind>
-              </spring:hasBindErrors>
-              <c:set var="nameVal" value="${followUpCmd.students[child-1].name}"/>
-              <c:set var="gradeVal" value="${followUpCmd.students[child-1].grade}"/>
-              <c:set var="schoolVal" value="${followUpCmd.schoolNames[child-1]}"/>
-              <c:set var="schoolIdVal" value="${followUpCmd.students[child-1].schoolId}"/>
-              <c:if test="${followUpCmd.students[child-1].state != null}">
-                  <c:set var="stateVal" value="${followUpCmd.students[child-1].state}"/>
-              </c:if>
-          </c:if>
-          <input class="family childname" id="childname${child}" type="text" name="childname${child}" value="${nameVal}"/>
-          <gsweb:gradeSelector name="grade${child}" styleClass="family" grade="${gradeVal}" useNoGrade="true"/>
-          <input class="family schoolname" id="school${child}" type="text" name="school${child}" value="${schoolVal}"/>
-          <input type="hidden" id="schoolId${child}" name="schoolId${child}" value="${schoolIdVal}"/>
-          <gsweb:stateSelector name="state${child}" styleId="state${child}" state="${stateVal}" styleClass="family"/>
+            <p class="intro">In the 2006-2007 school year, my children attend:</p>
 
-          <!-- Show remove button for last row shown if more than 1 row is shown -->
-          <c:if test="${child == followUpCmd.userProfile.numSchoolChildren and child gt 1}">
-              <a href="#" onclick="$('submit').name = 'removeChild';$('submit').click(); return false;">Remove this child</a>
-          </c:if>
-      </c:forEach>
-      <br style="clear: left;"/>
-      <a href="#" onclick="$('submit').name = 'addChild';$('submit').click(); return false;">Add another child</a>
-      <br style="clear: left;"/>
-      <hr/>
+            <!-- Default to always show one row -->
+            <c:set var="loopTimes" value="1"/>
+            <c:if test="${followUpCmd.userProfile.numSchoolChildren gt 1}">
+                <c:set var="loopTimes" value="${followUpCmd.userProfile.numSchoolChildren}"/>
+            </c:if>
+            <c:forEach var="child" begin="1" end="${loopTimes}">
+                <c:set var="gradeVal" value="${followUpCmd.students[child-1].grade}"/>
+                <c:set var="schoolVal" value="${followUpCmd.schoolNames[child-1]}"/>
+                <c:if test="${followUpCmd.students[child-1].state ne null}">
+                    <c:set var="stateVal" value="${followUpCmd.students[child-1].state}"/>
+                </c:if>
+                <c:set var="showNoGrade" value="true"/>
+                <c:if test="${gradeVal gt ''}">
+                    <c:set var="showNoGrade" value="false"/>
+                </c:if>
 
-      <h2 class="header">My Interests</h2>
-      <p>I am interested in (check all that apply)</p>
+                <hr/>
+                <gsml:errorMessage command="followUpCmd" field="students[${child-1}]"/>
+                <div class="childLeft">
+                    Child #${child}:
+                </div>
+                <div class="childRight">
+                    <div id="city${child}" class="form city">
+                        ${followUpCmd.cityNames[child-1]},
+                        ${followUpCmd.students[child-1].state}
+                        <input type="hidden" name="state${child}" value="${followUpCmd.students[child-1].state}"/>
+                        <span class="change">
+                            <a href="#" onclick="return false;">Change city</a>
+                        </span>
+                    </div>
+                    <br style="clear: left;"/>
 
-      <!-- To add/remove interests from this list, see UserProfile -->
-      <gsweb:interestsList styleClass="interests" interestChoices="${followUpCmd.interestsAsList}"/>
+                    <label for="grade${child}" class="form grade">Grade</label>
+                    <gsweb:gradeSelector styleId="grade${child}" name="grade${child}" styleClass="form grade" grade="${gradeVal}" useNoGrade="${showNoGrade}"/>
+                    <label for="school${child}" class="form school">School</label>
+                    <select name="school${child}" id="school${child}" class="form school">
+                        <c:if test="${schoolVal eq null or schoolVal eq ''}">
+                            <option selected="selected" value="">--</option>
+                        </c:if>
+                        <c:forEach var="schoolOption" items="${followUpCmd.schools[child-1]}">
+                            <![CDATA[<option ]]>
+                            <c:if test="${schoolval eq schoolOption.name}">
+                                selected
+                            </c:if>
+                            <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
+                        </c:forEach>
+                    </select>
 
-      <spring:hasBindErrors name="followUpCmd">
-          <spring:bind path="followUpCmd.otherInterest">
-              <c:if test="${status.errorMessage > ''}">
-                  <div class="error">
-                    ${status.errorMessage}
-                  </div>
-              </c:if>
-          </spring:bind>
-      </spring:hasBindErrors>
-      <label for="otherInterest" class="other">Other</label>
-      <spring:bind path="followUpCmd.userProfile.otherInterest">
-        <input class="other" id="otherInterest" name="otherInterest" value="${followUpCmd.userProfile.otherInterest}" type="text"/>
-      </spring:bind>
+                    <!-- Show remove button for last row shown if more than 1 row is shown -->
+                    <!--
+                    <c:if test="${child == followUpCmd.userProfile.numSchoolChildren and child gt 1}">
+                        <a href="#" onclick="$('submit').name = 'removeChild';$('submit').click(); return false;">Remove this child</a>
+                    </c:if>
+                    -->
+                </div>
+                <br style="clear: left;"/>
+            </c:forEach>
+            <!--
+            <a href="#" onclick="$('submit').name = 'addChild';$('submit').click(); return false;">Add another child</a>
+            -->
+            <br style="clear: left;"/>
+            <hr/>
 
-      <br style="clear: left;"/>
-      <hr/>
+            <label for="recontact" class="recontact">
+                Yes! I am willing to be contacted anonymously by other parents interested in learning
+                more about the schools that my children attend!
+            </label>
+            <gsml:checkbox name="recontact" styleClass="recontact" styleId="recontact" checked="${followUpCmd.recontact}"/>
 
-      <h2 class="header">Previous Schools</h2>
-      <div class="previous">
-          <p>I've been a parent of a child at these schools in the past</p>
-          <gsweb:previousSchoolsList schoolValues="${followUpCmd.subscriptions}" schoolNames="${followUpCmd.previousSchoolNames}"/>
-      </div>
+            <br style="clear: left;"/>
+            <hr/>
 
-      <h2 class="header">A little about me</h2>
-      <div class="error">
-          <spring:bind path="followUpCmd.aboutMe">
-                ${status.errorMessage}
-          </spring:bind>
-      </div>
-      <label for="aboutMe" class="textarea">I'm proud of my kids because (3000 characters or less):</label>
-      <spring:bind path="followUpCmd.userProfile.aboutMe">
-          <textarea id="aboutMe" rows="5" cols="75" name="aboutMe">${followUpCmd.userProfile.aboutMe}</textarea>
-      </spring:bind>
-      <br style="clear: left;"/>
+            <spring:bind path="followUpCmd.user.id">
+                <input id="id" type="hidden" name="id" value="${followUpCmd.user.id}"/>
+            </spring:bind>
 
-      <spring:bind path="followUpCmd.userProfile.private">
-          <label class="private">
-              <gsml:checkbox name="${status.expression}" styleClass="private" checked="${status.value}"/>
-              Check the box if you wish for this to be private.
-          </label>
-      </spring:bind>
+            <c:choose>
+                <c:when test="${idString != null}">
+                    <input type="hidden" name="marker" value="${idString}"/>
+                </c:when>
+                <c:otherwise>
+                    <input type="hidden" name="marker" value="${followUpCmd.marker}"/>
+                </c:otherwise>
+            </c:choose>
 
-      <br style="clear: left;"/>
-      <br style="clear: left;"/>
+            <input class="submit" type="submit" value="Join!" name="submit" id="submit"/>
+            <br style="clear: left;"/>
+            <br style="clear: left;"/>
+            <div class="privacy privacyFirst">By submitting, I agree to the <link:termsOfUse>Terms of Service</link:termsOfUse></div>
+            <div class="privacy">We won't sell or share your address. <gsml:popupWindow width="800" height="600" left="50" top="50"
+                    href="/about/privacyStatement.page?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></div>
+        </gsweb:form>
 
-      <spring:bind path="followUpCmd.user.id">
-          <input id="id" type="hidden" name="id" value="${followUpCmd.user.id}"/>
-      </spring:bind>
-
-      <spring:bind path="followUpCmd.recontact">
-          <input type="hidden" name="${status.expression}" value="${status.value}"/>
-      </spring:bind>
-
-      <c:choose>
-          <c:when test="${idString != null}">
-              <input type="hidden" name="marker" value="${idString}"/>
-          </c:when>
-          <c:otherwise>
-              <input type="hidden" name="marker" value="${followUpCmd.marker}"/>
-          </c:otherwise>
-      </c:choose>
-
-      <input class="form" type="submit" value="Submit" name="submit" id="submit"/>
-      <div class="privacy">By submitting, I agree to the <link:termsOfUse>Terms of Service</link:termsOfUse></div>
-      <div class="privacy">We won't sell or share your address. <gsml:popupWindow width="800" height="600" left="50" top="50"
-              href="/about/privacyStatement.page?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></div>
-  </gsweb:form>
-  </body>
+          </div>
+          </td>
+      </tr>
+  </table>
+  </gsml:body>
 </html>
 </jsp:root>

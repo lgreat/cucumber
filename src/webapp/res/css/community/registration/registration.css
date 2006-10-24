@@ -17,6 +17,14 @@
     float: left;
 }
 
+.registerDiv input.email {
+    width: 200px;
+}
+
+.registerDiv input.screenName, .registerDiv input.firstName {
+    width: 200px;
+}
+
 .registerDiv select.form {
     margin-right: 20px;
 }
@@ -29,13 +37,38 @@
     width: 160px;
 }
 
+.registerDiv label.live {
+    height: 60px;
+    width: 160px;
+}
+
+.registerDiv label.state, .registerDiv label.city {
+    text-align: left;
+    font-weight: bold;
+    line-height: 1.4em; /* try to eliminate ugly spacing introduced by superscripts */
+    display: block;
+    float: left;
+    width: 50px;
+}
+
+.registerDiv label.city {
+    margin-top: 10px;
+}
+
+.registerDiv select.city {
+    display: block;
+    float: left;
+    margin-top: 10px;
+}
+
 .registerDiv label.radio {
     padding-left: 5px;
+    margin-right: 20px;
 }
 
 .registerDiv label.form {
     text-align: left;
-    padding-right: 20px;
+    padding-right: 5px;
     font-weight: bold;
     line-height: 1.4em; /* try to eliminate ugly spacing introduced by superscripts */
 }
@@ -70,7 +103,7 @@
 
 .registerDiv input.submit {
     float: right;
-    margin-right: 100px;
+    margin-right: 150px;
     font-size: medium;
     font-weight: bold;
     background-color: #56BBCD;
@@ -81,13 +114,21 @@
 .privacy {
     font-size: smaller;
     margin-left: 11.5em;
-    margin-bottom: 0.5em;
+    margin-top: 1em;
     color: #666666;
     clear: left;
 }
 
-.registerDiv .privacyFirst {
-    margin-top: 4em;
+.registerDiv div.privacyIcon {
+    font-size: smaller;
+    color: #666666;
+    display: block;
+    float: left;
+    width: 200px;
+    border-style: solid;
+    border-color: #DEEEED;
+    border-width: 2px;
+    padding: 4px;
 }
 
 .registerDiv h1.intro {
@@ -125,125 +166,6 @@ h2.join {
     margin: 25px 0 0 20px;
     font-size: xx-large;
     color: #59BDCD;
-}
-
-
-/***********/
-/* Stage 2 */
-/***********/
-
-h2.header {
-    font-size: large;
-    margin-bottom: 5px;
-}
-
-p.intro {
-    margin-bottom: 30px;
-    font-size: medium;
-}
-
-#registration2 label.form, #registration2 input.form, #registration2 select.form {
-    margin-bottom: 10px;
-    display: block;
-    width: 150px;
-    float: left;
-}
-
-#registration2 label.familyInput, #registration2 label.familySelect,
-    #registration2 input.family, #registration2 select.family {
-    margin-right: 15px;
-    margin-bottom: 10px;
-    display: block;
-    float: left;
-}
-
-#registration2 label.familyInput, #registration2 label.familySelect {
-    margin-top: 10px;
-    text-align: center;
-}
-
-#registration2 label.childname {
-    width: 154px;
-}
-
-#registration2 label.schoolname {
-    width: 254px;
-}
-
-#registration2 label.familySelect, #registration2 select.family {
-    width: 50px;
-}
-
-#registration2 input.childname {
-    width: 150px;
-}
-
-#registration2 input.schoolname {
-    width: 250px;
-}
-
-#registration2 input.interests, label.interests {
-    display: block;
-    float: left;
-    margin-top: 10px;
-}
-
-#registration2 label.interests {
-    margin-left: 10px;
-}
-
-#registration2 input.other, #registration2 label.other {
-    margin-top: 10px;
-}
-
-#registration2 label.other {
-    margin-right: 10px;
-}
-
-#registration2 input.other {
-    width: 250px;
-}
-
-#registration2 input.private {
-    margin-right: 7px;
-}
-
-#registration2 label.private {
-    padding: 7px 0 0 20px;
-    text-align: left;
-    display: block;
-    float: left;
-}
-
-#registration2 label.textarea {
-    padding-bottom: 5px;
-}
-
-#registration2 .previous p {
-    margin-bottom: 10px;
-}
-
-#registration2 .previous input, #registration2 .previous label, #registration2 .previous select {
-    margin-right: 15px;
-    margin-bottom: 10px;
-    display: block;
-    float: left;
-}
-
-#registration2 .previous label.schoolname {
-    width: 258px;
-}
-
-#registration2 .previous label.state, #registration2 .previous select {
-    width: 50px;
-}
-
-#registration2 .previous .schoolname {
-    width: 250px;
-}
-
-#registration2 .previous label {
-    text-align: center;
 }
 
 /***********/

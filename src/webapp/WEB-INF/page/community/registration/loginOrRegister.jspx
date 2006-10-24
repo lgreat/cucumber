@@ -24,119 +24,74 @@
         <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
             ]]>
-        <style type="text/css">
-            #existing {
-                float:left;
-            }
-            #new {
-                float: right;
-            }
-            .choice  {
-                height:20ex;
-                width: 38%;
-                background-color: #eee;
-                padding: 3%;
-                margin:1%;
-                text-align:center;
-            }
-            .choice label {
-                padding-right: 1ex;
-            }
-            .choice input.submit {
-                margin-top: 1ex;
-            }
-            .choice p {
-                text-align: left;
-            }
-            .choice ul li {
-                line-height:2em;
-            }
-            .error {color:red;font-size:small;margin-bottom:10px;}
-
-            label.form, input.form {
-                 margin-bottom: 10px;
-                 display: block;
-                 width: 150px;
-                 float: left;
-             }
-
-             label.form {
-                 text-align: right;
-                 width: 120px;
-                 padding-right: 20px;
-             }
-        </style>
         <title>Log In or Register</title>
+        <pageHelper:externalCss file="/res/css/community/registration/loginOrRegister.css"/>
     </head>
 
     <gsml:body adPageName="login" pageLayout="twoColumnLayout">
-        <c:if test="${requestScope.context.userValid eq true}">
-            Welcome ${requestScope.context.nickname}. Some things you can do:
-            <ul>
-                <li>
-                    <gsml:a
-                    href="/cgi-bin/logout/$STATE/?email=${requestScope.context.email}&amp;mid=${requestScope.context.memberId}">
-                    Sign Out</gsml:a>
-                </li>
-                <li>
-                    <link:resetPassword>Change password</link:resetPassword>
-                </li>
-                <li>
-                    If you are not ${requestScope.context.email} and want to log in or register,
-                    you may do so below.
-                </li>
-            </ul>
-        </c:if>
+        <table>
+            <tr>
+                <td class="join">
+                    <span>Join &amp;<br/> Sign in</span>
+                </td>
+                <td class="content">
 
-        <h1>Log In or Register</h1>
-        <div id="existing" class="choice">
-            <h3>Existing Users</h3>
+                    <div class="new">
+                        <span class="title">New User?</span>
 
-            <gsweb:form action="/community/loginOrRegister.page" method="post">
+                        <p class="intro">Join our community!</p>
 
-                <spring:hasBindErrors name="loginCmd">
-                    <div class="error">
-                        <ul>
-                            <c:forEach var="errMsgObj" items="${errors.allErrors}">
-                                <li>
-                                    <spring:message code="${errMsgObj.code}" text="${errMsgObj.defaultMessage}"/>
-                                </li>
-                            </c:forEach>
-                        </ul>
+                        <gsml:img src="/res/img/community/mom_daughter.jpg" alt="Mom and daughter"/>
+
+                        <span class="joinText">Join the GreatSchools community and connect
+                        with parents who are passionate about education!
+                        <span class="strong">It's free!</span></span>
+
+                        <span class="join"><link:registration>JOIN!</link:registration></span>
                     </div>
-                </spring:hasBindErrors>
+                    <div class="existing">
+                        <span class="title">Returning User?</span>
+                        <p class="intro">Yes! I'm already a member</p>
 
-                <label class="form">Enter Email</label>
-                    <spring:bind path="loginCmd.email">
-                        <input type="text" name="${status.expression}" value="${status.value}" size="30" class="form"/>
-                    </spring:bind>
+                        <gsweb:form action="/community/loginOrRegister.page" method="post">
 
-                <label class="form">Enter Password</label>
-                    <spring:bind path="loginCmd.password">
-                        <input type="password" name="${status.expression}" value="${status.value}" size="15" class="form"/>
-                    </spring:bind>
+                            <gsml:errorMessage command="loginCmd"/>
 
-                    <spring:bind path="loginCmd.redirect">
-                        <input type="hidden" name="${status.expression}" value="${status.value}"/>
-                    </spring:bind>
+                            <label class="form">Email address</label>
+                            <spring:bind path="loginCmd.email">
+                                <input type="text" name="${status.expression}" value="${status.value}" size="30" class="form"/>
+                            </spring:bind>
 
-                    <input class="form submit" type="submit" value="Login"/>
-            </gsweb:form>
-            <br style="clear: left;"/>
-            <c:if test="${loginCmd.email != null and loginCmd.email != ''}">
-                <link:forgotPassword email="${loginCmd.email}">Forgot password?</link:forgotPassword>
-            </c:if>
-            <c:if test="${loginCmd.email == null or loginCmd.email == ''}">
-                <link:forgotPassword>Forgot password?</link:forgotPassword>
-            </c:if>
-        </div>
+                            <br style="clear: right;"/>
 
-        <div id="new"  class="choice">
-            <h3>New Users</h3>
-            <ul>
-                <li><link:registration>I'm a parent</link:registration></li>
-            </ul>
-        </div>
+                            <label class="form">Password</label>
+                            <spring:bind path="loginCmd.password">
+                                <input type="password" name="${status.expression}" value="${status.value}" size="15" class="form"/>
+                            </spring:bind>
+
+                            <spring:bind path="loginCmd.redirect">
+                                <input type="hidden" name="${status.expression}" value="${status.value}"/>
+                            </spring:bind>
+
+                            <br style="clear: right;"/>
+
+                            <input class="submit" type="submit" value="GO"/>
+
+                            <br style="clear: right;"/>
+
+                            <span class="forgotPassword">
+                                <c:if test="${loginCmd.email != null and loginCmd.email != ''}">
+                                    <link:forgotPassword email="${loginCmd.email}">Forgot password?</link:forgotPassword>
+                                </c:if>
+                                <c:if test="${loginCmd.email == null or loginCmd.email == ''}">
+                                    <link:forgotPassword>Forgot password?</link:forgotPassword>
+                                </c:if>
+                            </span>
+                        </gsweb:form>
+                    </div>
+                </td>
+            </tr>
+        </table>
         <br style="clear: left;"/>
         <mod:tracking pageName="login"
                       pageType=""

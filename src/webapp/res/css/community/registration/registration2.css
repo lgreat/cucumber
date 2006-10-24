@@ -1,0 +1,139 @@
+/***********/
+/* Stage 2 */
+/***********/
+
+div.register2Div {
+    float: left;
+    border-style: solid;
+    border-color: #64CCCB;
+    border-width: medium;
+    margin-left: 5px;
+    padding: 20px 20px 20px 20px;
+}
+
+hr {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+h1.intro {
+    font-size: x-large;
+    color: #98CC67;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+p.intro {
+    font-size: medium;
+    color: #898989;
+    margin-top: 10px;
+}
+
+p.strong {
+    font-weight: bold;
+}
+
+p.introBottom {
+    margin-bottom: 35px;
+}
+
+div.error {
+    color: red;
+    display: block;
+    padding: 8px;
+}
+
+div.childLeft {
+    float: left;
+    color: #898989;
+    padding-right: 25px;
+}
+
+div.childRight {
+    float: left;
+    margin-bottom: 10px;
+}
+
+div.city {
+    display: block;
+    float: left;
+    color: #898989;
+    margin-bottom: 15px;
+}
+
+span.change {
+    margin-left: 10px;
+}
+
+#register2Div span.change a {
+    text-decoration: underline;
+}
+
+label.form {
+    display: block;
+    float: left;
+    color: #898989;
+}
+
+select.form {
+    display: block;
+    float: left;
+}
+
+label.grade, label.school {
+    margin-right: 10px
+}
+
+label.school {
+    margin-left: 35px;
+}
+
+input.submit {
+    background-color: #CC5666;
+    color: #FFFFFF;
+    font-size: medium;
+    font-weight: bold;
+    padding: 5px;
+    float: right;
+    margin-top: 25px;
+    margin-right: 150px;
+    margin-bottom: 15px;
+}
+
+.privacy {
+    font-size: smaller;
+    margin-left: 11.5em;
+    margin-bottom: 0.5em;
+    color: #666666;
+    clear: left;
+}
+
+.privacyFirst {
+    margin-top: 4em;
+}
+
+td.join {
+    background-color: #DEEEEE;
+    vertical-align: top;
+    width: 250px;
+}
+
+h2.join {
+    margin: 25px 0 0 20px;
+    font-size: xx-large;
+    color: #59BDCD;
+}
+
+label.recontact {
+    color: #898989;
+    display: block;
+    float: left;
+    width: 415px;
+}
+
+input.recontact {
+    display: block;
+    float: left;
+    margin-top: 10px;
+    margin-left: 35px;
+}

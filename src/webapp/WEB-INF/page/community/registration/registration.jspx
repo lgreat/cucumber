@@ -26,7 +26,7 @@
           function stateChange(stateSelect) {
               var url = 'registrationAjax.page';
               var pars = 'state=' + stateSelect.value;
-              $('city').innerHTML = '<![CDATA[<select name="city" class="form"><option value="">Loading ...</option></select>]]>';
+              $('city').innerHTML = '<![CDATA[<select name="city" class="city"><option value="">Loading ...</option></select>]]>';
               var myAjax = new Ajax.Updater (
                       'city',
                       url,
@@ -47,8 +47,8 @@
             <td class="register">
             <div id="registerDiv" class="registerDiv">
                 <h1 class="intro">Welcome to the GreatSchools Community!</h1>
-                <p class="intro">You're about to join a national network of parents who are passionate
-                    about education. We're so excited to have you!</p>
+                <p class="intro">You're joining a national network of parents who are passionate
+                    about education. We're excited to have you!</p>
                 <gsweb:form id="regForm" action="/community/registration.page" method="post">
 
                 <gsml:errorMessage command="userCmd" field="gender"/>
@@ -61,7 +61,7 @@
                 <gsml:errorMessage command="userCmd" field="firstName"/>
                 <label for="firstName" class="form left">First name (P)</label>
                 <spring:bind path="userCmd.user.firstName">
-                    <input id="firstName" class="form" type="text" name="${status.expression}" value="${status.value}" style="width:160px;"/>
+                    <input id="firstName" class="form firstName" type="text" name="${status.expression}" value="${status.value}"/>
                 </spring:bind>
 
                 <br style="clear: left;"/>
@@ -69,14 +69,14 @@
                 <gsml:errorMessage command="userCmd" field="screenName"/>
                 <label for="screenName" class="form left">Screen name<br/><span class="screenNameSpec">(5-20 characters)</span></label>
                 <spring:bind path="userCmd.screenName">
-                    <input id="screenName" class="form" type="text" name="${status.expression}" value="${status.value}" style="width:160px;"/>
+                    <input id="screenName" class="form screenName" type="text" name="${status.expression}" value="${status.value}"/>
                 </spring:bind>
                 <br style="clear:left;"/>
 
                 <gsml:errorMessage command="userCmd" field="email"/>
                 <label for="email" class="form left">Email address (P)</label>
                 <spring:bind path="userCmd.user.email">
-                    <input id="email" class="form" type="text" name="${status.expression}" value="${status.value}" style="width:160px;"/>
+                    <input id="email" class="form email" type="text" name="${status.expression}" value="${status.value}"/>
                 </spring:bind>
 
                 <br style="clear: left;"/>
@@ -85,9 +85,9 @@
                     <!-- This is a new user -->
 
                     <gsml:errorMessage command="userCmd" field="confirmEmail"/>
-                    <label for="confirmEmail" class="form left">Repeat email address</label>
+                    <label for="confirmEmail" class="form left">Re-type email address</label>
                     <spring:bind path="userCmd.confirmEmail">
-                        <input id="confirmEmail" class="form" type="text" name="${status.expression}" value="${status.value}" style="width:160px;"/>
+                        <input id="confirmEmail" class="form email" type="text" name="${status.expression}" value="${status.value}"/>
                     </spring:bind>
 
                     <br style="clear: left;"/>
@@ -96,31 +96,32 @@
                 <gsml:errorMessage command="userCmd" field="password"/>
                 <label for="password" class="form left">Password (P)<br/><span class="passwordSpec">(6-16 characters)</span></label>
                 <spring:bind path="userCmd.password">
-                    <input id="password" class="form" type="password" name="${status.expression}" value="${status.value}" style="width:120px;"/>
+                    <input id="password" class="form password" type="password" name="${status.expression}" value="${status.value}"/>
                 </spring:bind>
 
                 <br style="clear: left;"/>
 
                 <gsml:errorMessage command="userCmd" field="confirmPassword"/>
-                <label for="confirmPassword" class="form left">Repeat password</label>
+                <label for="confirmPassword" class="form left">Re-type password</label>
                 <spring:bind path="userCmd.confirmPassword">
-                    <input id="confirmPassword" class="form" type="password" name="${status.expression}" value="${status.value}" style="width:120px;"/>
+                    <input id="confirmPassword" class="form password" type="password" name="${status.expression}" value="${status.value}"/>
                 </spring:bind>
 
                 <br style="clear: left;"/>
 
                 <gsml:errorMessage command="userCmd" field="state"/>
-                <label for="userState" class="form left">State</label>
+                <gsml:errorMessage command="userCmd" field="city"/>
+                <label class="form live">Where do you live?</label>
+                <label for="userState" class="state">State</label>
                 <spring:bind path="userCmd.state">
-                    <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState" styleClass="form small" onChange="stateChange(this);"/>
+                    <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState" styleClass="state" onChange="stateChange(this);"/>
                 </spring:bind>
 
-                <br style="clear: left;"/>
+                <br style="clear: right;"/>
 
-                <gsml:errorMessage command="userCmd" field="city"/>
-                <label for="citySelect" class="form left">City</label>
+                <label for="citySelect" class="city">City</label>
                 <div id="city" class="city">
-                    <select id="citySelect" name="city" class="form">
+                    <select id="citySelect" name="city" class="city">
                         <c:if test="${userCmd.cityList ne null and (userCmd.city eq null or userCmd.city eq '')}">
                             <option selected="selected" value="">Choose city</option>
                         </c:if>
@@ -136,7 +137,7 @@
 
                 <br style="clear: left;"/>
                 <gsml:errorMessage command="userCmd" field="numSchoolChildren"/>
-                <label for="numSchoolChildren" class="form left">I have</label>
+                <label for="numSchoolChildren" class="form">How many children do you have in K-12 schools?</label>
                 <spring:bind path="userCmd.numSchoolChildren">
                     <select name="${status.expression}" id="numSchoolChildren" class="form small">
                         <c:forEach var="schoolChildOption" items="0,1,2,3,4,5,6,7,8,9">
@@ -148,7 +149,6 @@
                         </c:forEach>
                     </select>
                 </spring:bind>
-                <label for="numSchoolChildren" class="form right">children in K-12</label>
 
                 <br style="clear:left;"/>
 
@@ -157,17 +157,15 @@
                 </spring:bind>
                 <br style="clear:left;"/>
 
+                <div class="privacyIcon">Items with a (P) will be private and not viewable to other users.</div>
+
                 <input class="submit" type="submit" value="Next &gt;" name="submit"/>
 
                 <br style="clear:left;"/>
 
-                <div class="privacy privacyFirst">P - Items with a privacy icon will be private and not viewable to other users. Items
-                without a privacy icon may be made public to other GreatSchools users, to facilitate
-                community discussions at the school and school district level.</div>
                 <div class="privacy">By submitting, I agree to the <link:termsOfUse>Terms of Service</link:termsOfUse></div>
                 <div class="privacy">We won't sell or share your address. <gsml:popupWindow width="800" height="600" left="50" top="50"
                         href="/about/privacyStatement.page?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></div>
-                <div class="footnote"><sup class="footnote">1</sup> Unless we are required by law to reveal your identity.</div>
             </gsweb:form>
             </div>
             </td>
