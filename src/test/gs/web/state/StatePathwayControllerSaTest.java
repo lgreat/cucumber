@@ -54,7 +54,7 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         ModelAndView modelAndView;
         modelAndView = controller.handleRequestInternal(request, response);
         assertEquals(randomUrl + "/", modelAndView.getModel().get("url"));
-        request.setParameter("url", null);
+        request.setParameter("url", (String)null);
 
         //bogus pathway
         request.setParameter("p", "boguspathway");
@@ -104,7 +104,7 @@ public class StatePathwayControllerSaTest extends BaseControllerTestCase {
         request.setParameter("p", PATHWAY_SINGLE_SEARCH);
         request.setParameter("q", "San Francisco");
         request.setParameter("c", "school");
-        request.setParameter("st", null);
+        request.setParameter("st", (String)null);
         modelAndView = controller.handleRequestInternal(request, response);
         url = (String) pathways.get(PATHWAY_SINGLE_SEARCH);
         assertEquals(url + "?state=", modelAndView.getModel().get("url"));

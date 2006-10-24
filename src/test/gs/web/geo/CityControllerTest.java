@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.15 2006/10/16 18:50:33 dlee Exp $
+ * $Id: CityControllerTest.java,v 1.16 2006/10/24 21:34:07 thuss Exp $
  */
 
 package gs.web.geo;
@@ -199,8 +199,8 @@ public class CityControllerTest extends BaseControllerTestCase {
         assertNotNull(city);
         assertEquals("St. Marys", city.getName());
         assertEquals(State.AK, city.getState());
-        request.setParameter("city", null);
-        request.setParameter("state", null);
+        request.setParameter("city", (String)null);
+        request.setParameter("state", (String)null);
         _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
 
         // Make sure gs-web gets stripped off

@@ -190,7 +190,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
     public void xxtestBadHash() throws NoSuchAlgorithmException {
         // don't add hash to request
-        getRequest().setParameter("marker", null);
+        getRequest().setParameter("marker", (String)null);
         _controller.onBindAndValidate(getRequest(), _command, _errors);
         _userControl.verify();
         assertTrue(_errors.hasErrors());

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
-<beans>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+    
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename">
             <value>app</value>
@@ -24,7 +26,7 @@
     <!-- factory bean for user session information -->
     <bean id="sessionContext"
           class="gs.web.util.context.SessionContext"
-          singleton="false">
+          scope="prototype">
         <!-- NOTE: not autowired for performance reasons. AJP 3/2006 -->
         <property name="propertyDao" ref="propertyDao"/>
         <property name="userDao" ref="userDao"/>

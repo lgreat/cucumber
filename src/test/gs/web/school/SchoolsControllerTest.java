@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.17 2006/10/18 16:17:03 thuss Exp $
+ * $Id: SchoolsControllerTest.java,v 1.18 2006/10/24 21:34:07 thuss Exp $
  */
 
 package gs.web.school;
@@ -53,7 +53,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         assertEquals(new Integer(102), modelResults.get(SchoolsController.MODEL_TOTAL));
 
         // Switch it back to paging
-        request.setParameter(SchoolsController.PARAM_SHOW_ALL, null);
+        request.setParameter(SchoolsController.PARAM_SHOW_ALL, (String)null);
         mav = _controller.handleRequestInternal(request, getResponse());
         modelResults = (Map) mav.getModel().get("results");
         assertEquals(10, ((List) modelResults.get(SchoolsController.MODEL_SCHOOLS)).size());
