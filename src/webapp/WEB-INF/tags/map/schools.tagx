@@ -86,7 +86,7 @@ I'd like to use a consistent display of school information in the info window.
        <![CDATA[
        var latlng = new GLatLng(${s.lat},${s.lon});
        var schInfo = "<br />${s.gradeLevels}, ${s.type.name}";
-       var e = ${s.enrollment};
+       var e = ${not empty s.enrollment?s.enrollment:0};
        var stInfo = "";
        if (e > 0) {
            stInfo="<br />"+e+" students";
