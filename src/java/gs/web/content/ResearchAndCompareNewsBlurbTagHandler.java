@@ -181,7 +181,7 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
             out.print(_state.getLongName());
             out.print(" Data Specialist</span>");
         } else {
-            out.print("<span class=\"printName\">Amy Rickerson & Elizabeth Gardner</span>");
+            out.print("<span class=\"printName\">Amy Rickerson &amp; Elizabeth Gardner</span>");
             out.print("<span class=\"italicTitle\">");
             out.print("Education Data Specialists</span>");
         }

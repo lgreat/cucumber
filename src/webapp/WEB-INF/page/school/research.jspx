@@ -25,13 +25,12 @@
             <title>${stateOrNull.longName} Schools</title>
         </c:when>
         <c:otherwise>
-            <title>Research &amp; Compare Schools</title>
+            <title><c:out value="Research &amp; Compare Schools" escapeXml="true"/></title>
         </c:otherwise>
     </c:choose>
     <pageHelper:externalCss file="/res/css/content/research.css"/>
 </head>
 
-<!--<body class="www  unframed ">-->
 <gsml:body adPageName="research" >
 <table cellspacing="0" cellpadding="0" class="content" border="0">
 <tr>
@@ -92,7 +91,7 @@
                 ${stateOrNull.longName} Schools
             </c:when>
             <c:otherwise>
-                Research &amp; Compare Schools Nationwide
+                <c:out value="Research &amp; Compare Schools Nationwide" escapeXml="true" />
             </c:otherwise>
         </c:choose>
         </h1>
