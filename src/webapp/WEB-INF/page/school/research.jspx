@@ -16,6 +16,7 @@
 <c:set var="stateOrNull" value="${requestScope.context.state}" />
 <c:set var="stateOrDefault" value="${requestScope.context.stateOrDefault}" />
 <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <c:choose>
         <c:when test="${not empty stateOrNull}" >
             <title>${stateOrNull.longName} Schools</title>
@@ -24,8 +25,6 @@
             <title>Research &amp; Compare Schools</title>
         </c:otherwise>
     </c:choose>
-
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <pageHelper:externalCss file="/res/css/content/research.css"/>
 </head>
 
