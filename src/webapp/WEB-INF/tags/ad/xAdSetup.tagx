@@ -25,17 +25,23 @@
         request.setAttribute("ads", ads.toString());
 
         ISessionContext context = (ISessionContext) request.getAttribute(ISessionContext.REQUEST_ATTRIBUTE_NAME);
+
+        String keywords = (String) request.getAttribute("adKeywords");
+        String oas_query = "";
+
         State state = context.getState();
-
         if (null != state) {
-            String oas_query = "state=" + state.getAbbreviationLowerCase();
-            String keywords = (String) request.getAttribute("adKeywords");
-
-            if (null != keywords) {
-                oas_query += "&amp;" + keywords.replaceAll("\\s+", "+");
-            }
-            request.setAttribute("adKeywords", oas_query);
+             oas_query = "state=" + state.getAbbreviationLowerCase();
         }
+
+        if (null != keywords) {
+            if (null != state) {
+                oas_query += "&";
+            }
+            oas_query += keywords.replaceAll("\\s+", "+");
+        }
+
+        request.setAttribute("adKeywords", oas_query);
         ]]></jsp:scriptlet>
     <c:if test="${!requestScope.pageHelper.adFree and !empty ads}">
         <c:if test='${!requestScope.pageHelper.adServedByCobrand}'>
