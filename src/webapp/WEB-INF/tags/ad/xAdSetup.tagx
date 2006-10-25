@@ -28,7 +28,7 @@
         State state = context.getState();
 
         if (null != state) {
-            String oas_query = "state=" + context.getStateOrDefault().getAbbreviationLowerCase();
+            String oas_query = "state=" + state.getAbbreviationLowerCase();
             String keywords = (String) request.getAttribute("adKeywords");
 
             if (null != keywords) {
