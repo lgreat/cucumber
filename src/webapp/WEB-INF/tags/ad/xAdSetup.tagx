@@ -5,11 +5,12 @@
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"
                        description="Generates necessary JavaScript to show the ads on a page. Generally you will not call this directly, but it will be called by the page decorator."/>
+    <jsp:directive.tag import="gs.data.state.State"/>
     <jsp:directive.tag import="gs.web.ads.AdPosition"/>
     <jsp:directive.tag import="gs.web.util.context.ISessionContext"/>
     <jsp:directive.tag import="java.util.Iterator"/>
     <jsp:directive.tag import="java.util.List"/>
-    <jsp:scriptlet>
+    <jsp:scriptlet><![CDATA[
         StringBuffer ads = new StringBuffer(20);
         List adPositions = AdPosition.getAllAdPositions();
 
@@ -24,14 +25,18 @@
         request.setAttribute("ads", ads.toString());
 
         ISessionContext context = (ISessionContext) request.getAttribute(ISessionContext.REQUEST_ATTRIBUTE_NAME);
-        String oas_query = "state=" + context.getState().getAbbreviationLowerCase();
-        String keywords = (String) request.getAttribute("adKeywords");
+        State state = context.getState();
 
-        if (null != keywords) {
-            oas_query += "&amp;" + keywords.replaceAll("\\s+", "+");
+        if (null != state) {
+            String oas_query = "state=" + context.getStateOrDefault().getAbbreviationLowerCase();
+            String keywords = (String) request.getAttribute("adKeywords");
+
+            if (null != keywords) {
+                oas_query += "&amp;" + keywords.replaceAll("\\s+", "+");
+            }
+            request.setAttribute("adKeywords", oas_query);
         }
-        request.setAttribute("adKeywords", oas_query);
-    </jsp:scriptlet>
+        ]]></jsp:scriptlet>
     <c:if test="${!requestScope.pageHelper.adFree and !empty ads}">
         <c:if test='${!requestScope.pageHelper.adServedByCobrand}'>
             <!-- OAS SETUP begin -->
