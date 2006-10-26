@@ -63,8 +63,8 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td align="right">
+                             <tr>
+                            <td align="right">
                                     <gsml:a href="/cgi-bin/showarticle/$STATE/487">
                                         <span id="infolink">Read more about charter schools</span>
                                     </gsml:a>
@@ -133,7 +133,21 @@
                         <ad:x33/>
                     </td>
                 </tr>
-            </table>
+                <c:if test="${school.physicalAddress.state == 'CA'}">
+                <tr>
+                    <td align="left">
+                        <ul style="padding-left:30px;" class="pdf">
+                            <li>
+                                <gsml:popupWindow width="610" height="600" left="50" top="50"
+                                                  href="/schoolreports/$STATE/GreatSchools_charter_school_report_${school.id}.pdf">
+                                    <span id="infolink">Special Report: This charter school's performance trends</span>
+                                </gsml:popupWindow>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                </c:if>
+              </table>
     </school:profile>
 <mod:tracking pageName="School Tab-Charter School Info"
               pageType="school"
