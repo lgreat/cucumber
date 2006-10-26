@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.10 2006/10/26 19:28:57 thuss Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.11 2006/10/26 20:47:06 thuss Exp $
  */
 
 package gs.web.test.rating;
@@ -143,8 +143,11 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
 
                 for (int i = 0; i < ids.length; i++) {
                     int id = ids[i];
+                    TestDataSet testDataSet = null;
                     SchoolTestValue value = _testDataSetDao.findValueAndTestDataSet(_ratingsConfig.getState(), new Integer(id), _school.getId());
-                    TestDataSet testDataSet = value.getDataSet();
+                    if (value != null) {
+                        testDataSet = value.getDataSet();
+                    }
                     int decile = getDecile(value);
 
                     if (decile > 0) {
