@@ -1,0 +1,12 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          version="2.0">
+<html>
+  <jsp:directive.page contentType="text/html"/>
+  <head><title>Simple jspx page</title></head>
+  <body>
+  <gsml:img src="/res/img/promo/shutterfly/ineligible.jpg" alt=""></gsml:img>
+  </body>
+</html>
+</jsp:root>
