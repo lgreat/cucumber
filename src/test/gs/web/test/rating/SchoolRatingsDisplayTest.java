@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplayTest.java,v 1.6 2006/10/09 00:35:12 dlee Exp $
+ * $Id: SchoolRatingsDisplayTest.java,v 1.7 2006/10/26 19:28:57 thuss Exp $
  */
 
 package gs.web.test.rating;
@@ -57,9 +57,9 @@ public class SchoolRatingsDisplayTest extends TestCase {
 
                 TestDataSet testDataSet = (TestDataSet) rowAndSubjectToDataSet.get(key);
                 SchoolTestValue schoolValue = (SchoolTestValue) dataSetToValue.get(testDataSet);
+                schoolValue.setDataSet(testDataSet);
 
-                testDataSetDaoControl.expectAndReturn(testDataSetDao.findTestDataSet(StubRatingsConfig.STATE, testDataSet.getId().intValue()), testDataSet);
-                testDataSetDaoControl.expectAndReturn(testDataSetDao.findValue(testDataSet, school), schoolValue);
+                testDataSetDaoControl.expectAndReturn(testDataSetDao.findValueAndTestDataSet(StubRatingsConfig.STATE, testDataSet.getId(), school.getId()), schoolValue);
             }
         }
 
