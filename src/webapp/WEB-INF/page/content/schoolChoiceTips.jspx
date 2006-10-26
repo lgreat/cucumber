@@ -29,7 +29,7 @@
 <c:set var="pageName" value="School Choice Tips"/>
 <gsml:body adPageName="article/schoolChoiceTips" pageLayout="schoolChoiceTips">
 <div>
-
+<div class="wrapBorder">
 <jsp:include page="/content/leftNav.module" />
 
 <div class="middle">
@@ -101,6 +101,7 @@
             </p>
     </div>
 </div>
+    </div>
 
 <div id="promos">
     <promo:childOnTrackCollege referredBy="${pageName}"/>
@@ -114,34 +115,7 @@
     </div>
 
     <div style="border-top: 1px dashed #ccc;padding-top:20px;margin-top:10px;">
-    <table>
-        <tr><td colspan="2"><gsml:img src="/res/img/content/backtoschool/special_K5.gif"
-                                      alt="Tips and Advice by Grade Level"></gsml:img></td></tr>
-        <tr>
-            <td><promo:nthGraderHover referredBy="${pageName}" autocheck="myk"><gsml:img
-                    src="/res/img/content/backtoschool/yourKinder.gif"
-                    alt="Tips and Advice for Your Kindergartener"></gsml:img></promo:nthGraderHover></td>
-            <td><promo:nthGraderHover referredBy="${pageName}" autocheck="my1"><gsml:img
-                    src="/res/img/content/backtoschool/yourFirst.gif"
-                    alt="Tips and Advice for Your First-Grader"></gsml:img></promo:nthGraderHover></td>
-        </tr>
-        <tr>
-            <td><promo:nthGraderHover referredBy="${pageName}" autocheck="my2"><gsml:img
-                    src="/res/img/content/backtoschool/yourSecond.gif"
-                    alt="Tips and Advice for Your Second-Grader"></gsml:img></promo:nthGraderHover></td>
-            <td><promo:nthGraderHover referredBy="${pageName}" autocheck="my3"><gsml:img
-                    src="/res/img/content/backtoschool/yourThird.gif"
-                    alt="Tips and Advice for Your Third-Grader"></gsml:img></promo:nthGraderHover></td>
-        </tr>
-        <tr>
-            <td><promo:nthGraderHover referredBy="${pageName}" autocheck="my4"><gsml:img
-                    src="/res/img/content/backtoschool/yourFourth.gif"
-                    alt="Tips and Advice for Your Fourth-Grader"></gsml:img></promo:nthGraderHover></td>
-            <td><promo:nthGraderHover referredBy="${pageName}" autocheck="my5"><gsml:img
-                    src="/res/img/content/backtoschool/yourFifth.gif"
-                    alt="Tips and Advice for Your Fifth-Grader"></gsml:img></promo:nthGraderHover></td>
-        </tr>
-    </table>
+        <promo:nthGraderMedallions referredBy="${pageName}"/>
     </div>
 </div>
 <br style="clear:both;"/>

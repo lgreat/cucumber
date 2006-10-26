@@ -18,50 +18,47 @@
 
 <jsp:directive.page contentType="text/html"/>
 <pageHelper:setPathway pathway="2"/>
-
+<c:set var="pageName" value="Holiday Learning"/>
 <head>
-    <title>Greatschools.net: Healthy Kids</title>
+    <title>Greatschools.net: ${pageName}</title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
-    <meta name="Description" content="Tips and tricks for parents to support healthy kids:  Making fitness a part of your routine and healthy eating made easy."/>
+    <meta name="Description" content="Make holiday learning fun with gifts and learning activities to spark the imagination."/>
     <pageHelper:externalCss file="/res/css/content/schoolChoiceTips.css"/>  <!--commmon-->
-    <pageHelper:externalCss file="/res/css/content/healthyKids.css"/>
+    <pageHelper:externalCss file="/res/css/content/holidayLearning.css"/>
 </head>
-<c:set var="pageName" value="Healthy Kids"/>
-<gsml:body adPageName="content/healthyKids" pageLayout="healthyKids">
+<gsml:body adPageName="content/holidayLearning" pageLayout="holidayLearning">
 <div>
 <div class="wrapBorder">
 <jsp:include page="/content/leftNav.module" />
 
 <div class="middle">
     <div id="contentHeaderImage">
-        <h1 id="healthyKidsText">Healthy Kids</h1>
-        <gsml:img src="/res/img/content/healthyKids/healthykid.jpg" alt="Smiling girl with milk" style="float:left;"/>
+        <h1 id="title">${pageName}</h1>
+        <gsml:img src="/res/img/content/holidayLearning/holidayKid.jpg" alt="Smiling girl with milk" style="float:left;"/>
     </div>
 
     <div>
-        <h2 id="fitnessRoutine">Making Fitness Part of Your Routine</h2>
+        <h2 id="subTitle1">Great Learning Gifts</h2>
         <ul class="plain">
-            <gsweb:articlelink articleId="472" wrappingElement="li"/>
-            <gsweb:articlelink articleId="476" wrappingElement="li"/>
-            <gsweb:articlelink articleId="620" wrappingElement="li"/>
-            <gsweb:articlelink articleId="609" wrappingElement="li"/>
-            <gsweb:articlelink articleId="605" wrappingElement="li"/>
-            <gsweb:articlelink articleId="621" wrappingElement="li"/>
-            <gsweb:articlelink articleId="650" wrappingElement="li"/>
-            <gsweb:articlelink articleId="651" wrappingElement="li"/>
+            <gsweb:articlelink articleId="304" wrappingElement="li"/>
+            <gsweb:articlelink articleId="303" wrappingElement="li"/>
+            <gsweb:articlelink articleId="315" wrappingElement="li"/>
+            <gsweb:articlelink articleId="431" wrappingElement="li"/>
         </ul>
     </div>
 
     <div id="lower">
-        <h2 id="healthyEating">Healthy Eating Made Easy</h2>
+        <h2 id="subTitle2">Engaging Holiday Activities</h2>
         <ul class="plain">
-            <gsweb:articlelink articleId="552" wrappingElement="li"/>
-            <gsweb:articlelink articleId="720" wrappingElement="li"/>
-            <gsweb:articlelink articleId="721" wrappingElement="li"/>
-            <gsweb:articlelink articleId="339" wrappingElement="li"/>
-            <gsweb:articlelink articleId="693" wrappingElement="li"/>
-            <gsweb:articlelink articleId="722" wrappingElement="li"/>
-            <gsweb:articlelink articleId="723" wrappingElement="li"/>
+            <gsweb:articlelink articleId="422" wrappingElement="li"/>
+            <gsweb:articlelink articleId="458" wrappingElement="li"/>
+            <gsweb:articlelink articleId="430" wrappingElement="li"/>
+            <gsweb:articlelink articleId="427" wrappingElement="li"/>
+            <gsweb:articlelink articleId="432" wrappingElement="li"/>
+            <gsweb:articlelink articleId="650" wrappingElement="li"/>
+            <gsweb:articlelink articleId="433" wrappingElement="li"/>
+            <gsweb:articlelink articleId="434" wrappingElement="li"/>
+            <gsweb:articlelink articleId="260" wrappingElement="li"/>
             <gsweb:articlelink articleId="469" wrappingElement="li"/>
         </ul>
     </div>
@@ -80,8 +77,7 @@
         </p>
     </div>
 </div>
-    </div>
-
+</div>
 <div id="promos">
     <promo:childOnTrack referredBy="${pageName}"/>
 
@@ -89,7 +85,7 @@
 
     <div style="border-top: 1px dashed #ccc;">
     <div id="bottomAdd">
-        <ad:x51 blurb="Healthy Kids Sponsored By:"/>
+        <ad:x51 blurb="Holiday Learning Sponsored by:"/>
     </div>
     </div>
 
@@ -97,6 +93,7 @@
         <promo:nthGraderMedallions referredBy="${pageName}"/>
     </div>
 </div>
+
 <br style="clear:both;"/>
 </div>
 <mod:tracking pageType="article"

@@ -573,6 +573,12 @@
         </property>
     </bean>
 
+    <bean name="/content/holidayLearning.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName">
+        <property name="viewName" value="/content/holidayLearning"/>
+    </bean>
+
     <bean name="/stateLauncher.page"
           class="gs.web.state.StatePathwayController"
           autowire="byName">
