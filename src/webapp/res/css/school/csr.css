@@ -91,3 +91,14 @@ div.datatable{
    color:blue;
 }
 
+ul .pdf{
+    text-indent:5px;
+
+}
+ul .pdf li {
+    background: url("../../../res/img/adobe/pdficon.gif") no-repeat left;
+    padding-left:30px;
+    padding-top:20px;
+    padding-bottom:20px;
+
+}
