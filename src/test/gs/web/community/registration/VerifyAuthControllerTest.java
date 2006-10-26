@@ -3,6 +3,8 @@ package gs.web.community.registration;
 import gs.web.BaseControllerTestCase;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.community.ISubscriptionDao;
+import gs.data.community.UserProfile;
 import gs.data.util.DigestUtil;
 import org.easymock.MockControl;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -18,13 +20,23 @@ public class VerifyAuthControllerTest extends BaseControllerTestCase {
     private VerifyAuthController _controller;
     private MockControl _userControl;
     private IUserDao _mockUserDao;
+    private MockControl _subscriptionControl;
+    private ISubscriptionDao _mockSubscriptionDao;
 
     protected void setUp() throws Exception {
         super.setUp();
         _userControl = MockControl.createControl(IUserDao.class);
+        _subscriptionControl = MockControl.createControl(ISubscriptionDao.class);
         _controller = new VerifyAuthController();
         _mockUserDao = (IUserDao)_userControl.getMock();
         _controller.setUserDao(_mockUserDao);
+        _mockSubscriptionDao = (ISubscriptionDao) _subscriptionControl.getMock();
+        _controller.setSubscriptionDao(_mockSubscriptionDao);
+
+        _mockSubscriptionDao.getUserSubscriptions(null, null);
+        _subscriptionControl.setMatcher(MockControl.ALWAYS_MATCHER);
+        _subscriptionControl.setDefaultReturnValue(null);
+        _subscriptionControl.replay();
 
         _controller.setAuthenticationManager(new AuthenticationManager());
     }
@@ -33,6 +45,8 @@ public class VerifyAuthControllerTest extends BaseControllerTestCase {
         User user = new User();
         user.setId(new Integer(99));
         user.setEmail("testVerifyAuth@greatschools.net");
+        UserProfile profile = new UserProfile();
+        user.setUserProfile(profile);
 
         _mockUserDao.findUserFromId(user.getId().intValue());
         _userControl.setReturnValue(user);
@@ -47,8 +61,7 @@ public class VerifyAuthControllerTest extends BaseControllerTestCase {
 
         _userControl.verify();
 
-        assertTrue(getResponse().getStatus() == 200);
-        assertTrue(getResponse().getContentAsString().equals(String.valueOf(user.getId())));
+        assertEquals(200, getResponse().getStatus());
     }
 
     public void testVerifyFail() throws NoSuchAlgorithmException, IOException {

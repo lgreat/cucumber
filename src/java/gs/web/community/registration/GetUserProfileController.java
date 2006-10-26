@@ -41,35 +41,40 @@ public class GetUserProfileController implements Controller {
                 Integer userId = new Integer(paramValues[x]);
 
                 User user = _userDao.findUserFromId(userId.intValue());
-                UserProfile userProfile = user.getUserProfile();
-                if (userProfile == null) {
-                    throw new IllegalStateException("getUserProfile called for user who has not " +
-                            "completed registration (userProfile is null): id=" + userId);
-                } else if (user.isEmailProvisional()) {
-                    throw new IllegalStateException("getUserProfile called for user who is " +
-                            "still provisional: id=" + userId);
-                }
-                Set students = user.getStudents();
-                List interestCodes = Arrays.asList(userProfile.getInterestsAsArray());
-                List interests = new ArrayList();
-                for (int y=0; y < interestCodes.size(); y++) {
-                    interests.add(new Interest((String)interestCodes.get(y),
-                            (String)UserProfile.getInterestsMap().get(interestCodes.get(y))));
-                }
 
-                List previousSchools = _subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.PREVIOUS_SCHOOLS);
-                List myStats = _subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.MYSTAT);
-                Set favoriteSchools = user.getFavoriteSchools();
-
-                userInfoList.add(new UserProfileInfo
-                        (user, userProfile, students, interests,
-                                previousSchools, myStats, favoriteSchools));
+                userInfoList.add(getUserProfileInfo(user, _subscriptionDao));
             } catch (Exception e) {
                 _log.error("Error loading user profile with memberId=" + paramValues[x], e);
             }
         }
         model.put(USER_LIST_PARAMETER_NAME, userInfoList);
         return new ModelAndView(_viewName, model);
+    }
+
+    public static UserProfileInfo getUserProfileInfo(User user, ISubscriptionDao subscriptionDao) throws IllegalStateException {
+        UserProfile userProfile = user.getUserProfile();
+        int userId = user.getId().intValue();
+        if (userProfile == null) {
+            throw new IllegalStateException("getUserProfile called for user who has not " +
+                    "completed registration (userProfile is null): id=" + userId);
+        } else if (user.isEmailProvisional()) {
+            throw new IllegalStateException("getUserProfile called for user who is " +
+                    "still provisional: id=" + userId);
+        }
+        Set students = user.getStudents();
+        List interestCodes = Arrays.asList(userProfile.getInterestsAsArray());
+        List interests = new ArrayList();
+        for (int y=0; y < interestCodes.size(); y++) {
+            interests.add(new Interest((String)interestCodes.get(y),
+                    (String)UserProfile.getInterestsMap().get(interestCodes.get(y))));
+        }
+
+        List previousSchools = subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.PREVIOUS_SCHOOLS);
+        List myStats = subscriptionDao.getUserSubscriptions(user, SubscriptionProduct.MYSTAT);
+        Set favoriteSchools = user.getFavoriteSchools();
+
+        return new UserProfileInfo(user, userProfile, students, interests,
+                previousSchools, myStats, favoriteSchools);
     }
 
     public IUserDao getUserDao() {

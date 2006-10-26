@@ -19,6 +19,7 @@ public class AuthenticationManager {
     private long _timeout = 1000 * 60 * 5; // 5 minutes
     private String _parameterName = "authInfo"; // default
     private int _userIdLength = 10; // default
+    public static final String WEBCROSSING_FORWARD_URL = "http://skylark118.webcrossing.com/entry/authInfo.";
 
     /**
      * Generates an AuthInfo object for the given user.
@@ -94,6 +95,16 @@ public class AuthenticationManager {
      */
     public String addParameterIfNecessary(String originalUrl, AuthInfo authInfo) {
         StringBuffer rval = new StringBuffer();
+        if (!originalUrl.startsWith("http")) {
+            // special case code for webcrossing
+            rval.append(WEBCROSSING_FORWARD_URL);
+            rval.append(getParameterValue(authInfo));
+            rval.append(originalUrl);
+            _log.info("Setting redirect URL to: " + rval.toString());
+            return rval.toString(); // exit early
+        }
+
+        // for URLs that look normal
         rval.append(originalUrl);
         if (originalUrl.toLowerCase().indexOf("webcrossing.com") > -1 ||
                 originalUrl.toLowerCase().indexOf("localhost") > -1) {
