@@ -78,6 +78,10 @@ public class ShutterflyCardsController extends AbstractController implements Ini
         String email = request.getParameter(PARAM_EMAIL);
         Calendar calendar = Calendar.getInstance();
         calendar.set(2006, Calendar.NOVEMBER, 8);
+        calendar.clear(Calendar.MILLISECOND);
+        calendar.clear(Calendar.SECOND);
+        calendar.clear(Calendar.MINUTE);
+        calendar.clear(Calendar.HOUR_OF_DAY);
 
 
         //Error checking

@@ -35,6 +35,10 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
 
     public void testUserMoreRecentJoinDate() throws Exception {
         Calendar calendar = Calendar.getInstance();
+        calendar.clear(Calendar.MILLISECOND);
+        calendar.clear(Calendar.SECOND);
+        calendar.clear(Calendar.MINUTE);
+        calendar.clear(Calendar.HOUR_OF_DAY);
         calendar.set(2006, Calendar.NOVEMBER, 9);
         Date joinDate = calendar.getTime();
 
@@ -45,6 +49,10 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
 
     public void testUserSameDayJoinDate() throws Exception {
         Calendar calendar = Calendar.getInstance();
+        calendar.clear(Calendar.MILLISECOND);
+        calendar.clear(Calendar.SECOND);
+        calendar.clear(Calendar.MINUTE);
+        calendar.clear(Calendar.HOUR_OF_DAY);
         calendar.set(2006, Calendar.NOVEMBER, 8);
         Date joinDate = calendar.getTime();
 
@@ -55,6 +63,10 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
 
     public void testUserPriorToCutOffDate() throws Exception {
         Calendar calendar = Calendar.getInstance();
+        calendar.clear(Calendar.MILLISECOND);
+        calendar.clear(Calendar.SECOND);
+        calendar.clear(Calendar.MINUTE);
+        calendar.clear(Calendar.HOUR_OF_DAY);
         calendar.set(2006, Calendar.NOVEMBER, 7);
         Date joinDate = calendar.getTime();
 
@@ -116,6 +128,10 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
         request.addParameter(ShutterflyCardsController.PARAM_EMAIL, "user@greatschools.net");
 
         Calendar calendar = Calendar.getInstance();
+        calendar.clear(Calendar.MILLISECOND);
+        calendar.clear(Calendar.SECOND);
+        calendar.clear(Calendar.MINUTE);
+        calendar.clear(Calendar.HOUR_OF_DAY);
         calendar.set(2006, Calendar.NOVEMBER, 7);
         Date joinDate = calendar.getTime();
 
