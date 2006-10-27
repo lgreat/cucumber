@@ -103,22 +103,36 @@
     font-size: x-small;
 }
 
+#joinButton input.join {
+    background-color: #CC5666;
+    color: #FFFFFF;
+}
+
+#nextButton input.next {
+    background-color: #56BBCD;
+    color: #FFFFFF;
+}
+
 .registerDiv input.submit {
     float: right;
     margin-right: 150px;
     font-size: medium;
     font-weight: bold;
-    background-color: #56BBCD;
-    color: #FFFFFF;
     padding: 5px;
 }
 
-.privacy {
-    font-size: smaller;
-    margin-left: 11.5em;
-    margin-top: 1em;
-    color: #666666;
+span.privacy {
+    font-size: x-small;
+    left: 165px;
+    position: relative;
+    top: -20px;
+    color: #898989;
     clear: left;
+}
+
+span.privacy a, span.privacy a:link, span.privacy a:visited, span.privacy a:active {
+    text-decoration: underline;
+    color: #64CCCB;
 }
 
 .registerDiv div.privacyIcon {
@@ -150,6 +164,15 @@
     font-size: large;
     color: #898989;
     margin-bottom: 10px;
+}
+
+#terms a, #terms a:link, #terms a:visited, #terms a:active {
+    text-decoration: underline;
+    color: #64CCCB; 
+}
+
+#terms label.terms {
+    padding-right: 30px;
 }
 
 div.error {

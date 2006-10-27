@@ -23,6 +23,7 @@ public class UserCommand implements EmailValidator.IEmail {
     private String _redirectUrl;
     private List _cityList;
     private boolean _recontact;
+    private boolean _terms;
 
     public UserCommand() {
         _user = new User();
@@ -191,5 +192,13 @@ public class UserCommand implements EmailValidator.IEmail {
 
     public void setGender(String gender) {
         getUser().setGender(gender);
+    }
+
+    public void setTerms(boolean b) {
+        _terms = b;
+    }
+
+    public boolean getTerms() {
+        return _terms;
     }
 }

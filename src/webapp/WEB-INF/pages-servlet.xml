@@ -859,6 +859,7 @@
     <bean name="/community/verifyAuth.page"
         class="gs.web.community.registration.VerifyAuthController"
         autowire="byName">
+        <property name="viewName" value="/community/registration/getUserProfile"/>
     </bean>
 
     <bean name="/community/getUserProfile.page"

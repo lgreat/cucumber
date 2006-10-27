@@ -25,11 +25,13 @@ public class UserCommandValidator implements Validator {
     public static final String BEAN_ID = "userValidator";
     private IUserDao _userDao;
     private IGeoDao _geoDao;
-    private static final int SCREEN_NAME_MINIMUM_LENGTH = 5;
-    private static final int SCREEN_NAME_MAXIMUM_LENGTH = 20;
-    private static final int FIRST_NAME_MAXIMUM_LENGTH = 64;
+    private static final int SCREEN_NAME_MINIMUM_LENGTH = 6;
+    private static final int SCREEN_NAME_MAXIMUM_LENGTH = 14;
+    private static final int FIRST_NAME_MAXIMUM_LENGTH = 50;
     private static final int LAST_NAME_MAXIMUM_LENGTH = 64;
     private static final int EMAIL_MAXIMUM_LENGTH = 127;
+    private static final int PASSWORD_MINIMUM_LENGTH = 6;
+    private static final int PASSWORD_MAXIMUM_LENGTH = 14;
 
     public boolean supports(Class aClass) {
         return aClass == UserCommand.class;
@@ -95,10 +97,10 @@ public class UserCommandValidator implements Validator {
         if (StringUtils.isEmpty(sn)) {
             errors.rejectValue("screenName", null, "Please enter your screen name");
             snError = true;
-        } else if (sn.length() < SCREEN_NAME_MINIMUM_LENGTH) {
+        } else if (sn.length() < SCREEN_NAME_MINIMUM_LENGTH || sn.length() > SCREEN_NAME_MAXIMUM_LENGTH) {
             errors.rejectValue("screenName", null,
-                    "Your screen name must be at least " + SCREEN_NAME_MINIMUM_LENGTH +
-                            " characters long.");
+                    "Please enter a screen name between " + SCREEN_NAME_MINIMUM_LENGTH + " and " +
+                            SCREEN_NAME_MAXIMUM_LENGTH + " characters long.");
             snError = true;
         } else if (sn.length() > SCREEN_NAME_MAXIMUM_LENGTH) {
             errors.rejectValue("screenName", null,
@@ -119,24 +121,29 @@ public class UserCommandValidator implements Validator {
 
         if (StringUtils.isEmpty(command.getGender())) {
             errors.rejectValue("gender", null,
-                    "Please choose a value");
+                    "Please choose a value.");
         } else {
             String gender = command.getGender();
             if (gender.length() > 1 || (!"m".equals(gender) && !"f".equals(gender) && !"u".equals(gender))) {
                 errors.rejectValue("gender", null,
-                        "Please choose a value");
+                        "Please choose a value.");
             }
+        }
+
+        if (command.getNumSchoolChildren() == null || command.getNumSchoolChildren().intValue() == -1) {
+            errors.rejectValue("numSchoolChildren", null, "Please make a selection.");
         }
 
         validatePassword(command, errors);
 
         UserProfile userProfile = command.getUserProfile();
         if (userProfile.getState() == null) {
-            errors.rejectValue("state", null, "You must specify a state");
+            errors.rejectValue("state", null, "You must specify a state.");
             return; // avoid NPEs
         }
         if (StringUtils.isEmpty(userProfile.getCity())) {
-            errors.rejectValue("city", null, "You must specify a city");
+            errors.rejectValue("city", null, "Please select a city. If your city is not listed, " +
+                    "please select \"My city is not listed.\"");
         } else {
             ICity city = _geoDao.findCity(userProfile.getState(), userProfile.getCity());
             if (city == null) {
@@ -161,8 +168,9 @@ public class UserCommandValidator implements Validator {
             return; // to prevent NPE's
         }
 
-        if (password.length() < 6 || password.length() > 16) {
-            errors.rejectValue("password", "bad_length_password", "Please choose a password between 6 and 16 characters long.");
+        if (password.length() < PASSWORD_MINIMUM_LENGTH || password.length() > PASSWORD_MAXIMUM_LENGTH) {
+            errors.rejectValue("password", null, "Please enter a password between " +
+                    PASSWORD_MINIMUM_LENGTH + " and " + PASSWORD_MAXIMUM_LENGTH + " characters long.");
         }
 
         if (StringUtils.isEmpty(confirmPassword) || !confirmPassword.equals(password)) {

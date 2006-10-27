@@ -5,6 +5,7 @@ import gs.data.community.User;
 import gs.data.community.UserProfile;
 import gs.data.util.DigestUtil;
 import gs.data.geo.IGeoDao;
+import gs.data.geo.City;
 import gs.data.state.State;
 import gs.web.util.ReadWriteController;
 import gs.web.util.context.SessionContextUtil;
@@ -16,6 +17,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.bind.ServletRequestDataBinder;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
@@ -65,6 +67,10 @@ public class RegistrationController extends SimpleFormController implements Read
         }
     }
 
+    public void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
+        super.initBinder(request, binder);
+    }
+
     public void onBind(HttpServletRequest request, Object command) {
         UserCommand userCommand = (UserCommand) command;
         userCommand.setRecontact(request.getParameter("recontact") != null);
@@ -72,6 +78,10 @@ public class RegistrationController extends SimpleFormController implements Read
         String gender = request.getParameter("gender");
         if (gender != null) {
             userCommand.setGender(gender);
+        }
+        String terms = request.getParameter("terms");
+        if (terms != null) {
+            userCommand.setTerms(terms.equals("y"));
         }
         loadCityList(request, userCommand);
     }
@@ -82,6 +92,9 @@ public class RegistrationController extends SimpleFormController implements Read
             state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
         }
         List cities = _geoDao.findCitiesByState(state);
+        City city = new City();
+        city.setName("My city is not listed");
+        cities.add(0, city);
         userCommand.setCityList(cities);
     }
 

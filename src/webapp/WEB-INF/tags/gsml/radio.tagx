@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:directive.tag body-content="scriptless"/>
+    <jsp:directive.attribute name="name" required="true" description="the name attribute"/>
+    <jsp:directive.attribute name="value" required="true" description="the value attribute"/>
+    <jsp:directive.attribute name="checked" required="false" description="checked or not - defaults to not checked"/>
+    <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
+    <jsp:directive.attribute name="styleId" required="false" description="CSS id"/>
+    <jsp:directive.attribute name="onclick" required="false" description="Javascript onclick handler"/>
+    <![CDATA[<input type="radio" ]]>
+    <c:out value='name="${name}"' escapeXml="false"/>
+    <c:out value='value="${value}"' escapeXml="false"/>
+    <c:if test="${not empty styleClass}">
+        <c:out value=' class="${styleClass}"' escapeXml="false"/>
+    </c:if>
+    <c:if test="${not empty styleId}">
+        <c:out value=' id="${styleId}"' escapeXml="false"/>
+    </c:if>
+    <c:if test="${checked eq true}">
+        <c:out value=' checked="checked"' escapeXml="false"/>
+    </c:if>
+    <c:if test="${not empty onclick}">
+        <c:out value=' onclick="${onclick}";' escapeXml="false"/>
+    </c:if>
+    <c:out value=" />" escapeXml="false"/>
+</jsp:root>
