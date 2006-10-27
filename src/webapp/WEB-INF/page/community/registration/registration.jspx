@@ -203,11 +203,12 @@
                 </div>
 
                 <div id="terms" style="${termsStyle}">
+                    <gsml:errorMessage command="userCmd" field="terms"/>
                     <label class="form terms">I agree to the <link:termsOfUse>terms of service</link:termsOfUse></label>
-                    <gsml:radio name="terms" value="y" styleId="yesTerms" styleClass="form radio"
+                    <gsml:radio name="termsStr" value="y" styleId="yesTerms" styleClass="form radio"
                                 checked="${userCmd.terms eq true}"/>
                     <label for="yesTerms" class="form radio">Yes</label>
-                    <gsml:radio name="terms" value="n" styleId="noTerms" styleClass="form radio"
+                    <gsml:radio name="termsStr" value="n" styleId="noTerms" styleClass="form radio"
                                 checked="${userCmd.terms eq false}"/>
                     <label for="noTerms" class="form radio">No</label>                    
                     <br style="clear:left;"/>

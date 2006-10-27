@@ -17,7 +17,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.web.bind.ServletRequestDataBinder;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
@@ -67,19 +66,10 @@ public class RegistrationController extends SimpleFormController implements Read
         }
     }
 
-    public void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
-        super.initBinder(request, binder);
-    }
-
     public void onBind(HttpServletRequest request, Object command) {
         UserCommand userCommand = (UserCommand) command;
-        userCommand.setRecontact(request.getParameter("recontact") != null);
         userCommand.setCity(request.getParameter("city"));
-        String gender = request.getParameter("gender");
-        if (gender != null) {
-            userCommand.setGender(gender);
-        }
-        String terms = request.getParameter("terms");
+        String terms = request.getParameter("termsStr");
         if (terms != null) {
             userCommand.setTerms(terms.equals("y"));
         }

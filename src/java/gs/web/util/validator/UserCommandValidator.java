@@ -28,7 +28,7 @@ public class UserCommandValidator implements Validator {
     private static final int SCREEN_NAME_MINIMUM_LENGTH = 6;
     private static final int SCREEN_NAME_MAXIMUM_LENGTH = 14;
     private static final int FIRST_NAME_MAXIMUM_LENGTH = 50;
-    private static final int LAST_NAME_MAXIMUM_LENGTH = 64;
+    //private static final int LAST_NAME_MAXIMUM_LENGTH = 64;
     private static final int EMAIL_MAXIMUM_LENGTH = 127;
     private static final int PASSWORD_MINIMUM_LENGTH = 6;
     private static final int PASSWORD_MAXIMUM_LENGTH = 14;
@@ -119,11 +119,12 @@ public class UserCommandValidator implements Validator {
                     "This screen name is already taken. Please try another.");
         }
 
+        String gender = "";
         if (StringUtils.isEmpty(command.getGender())) {
             errors.rejectValue("gender", null,
                     "Please choose a value.");
         } else {
-            String gender = command.getGender();
+            gender = command.getGender();
             if (gender.length() > 1 || (!"m".equals(gender) && !"f".equals(gender) && !"u".equals(gender))) {
                 errors.rejectValue("gender", null,
                         "Please choose a value.");
@@ -131,7 +132,15 @@ public class UserCommandValidator implements Validator {
         }
 
         if (command.getNumSchoolChildren() == null || command.getNumSchoolChildren().intValue() == -1) {
-            errors.rejectValue("numSchoolChildren", null, "Please make a selection.");
+            if (!"u".equals(gender)) {
+                errors.rejectValue("numSchoolChildren", null, "Please make a selection.");
+            }
+        }
+
+        if ("u".equals(gender)) {
+            if (!command.getTerms()) {
+                errors.rejectValue("terms", null, "You must accept the terms of service.");
+            }
         }
 
         validatePassword(command, errors);

@@ -36,8 +36,8 @@ public class UserCommandValidatorTest extends BaseTestCase {
     private static final String GOOD_FIRST_NAME_LONG =
             "12345678901234567890123456789012345678901234567890";
     private static final String LONG_FIRST_NAME = GOOD_FIRST_NAME_LONG + "1";
-    private static final String GOOD_LAST_NAME_LONG =
-            "1234567890123456789012345678901234567890123456789012345678901234";
+//    private static final String GOOD_LAST_NAME_LONG =
+//            "1234567890123456789012345678901234567890123456789012345678901234";
     private static final String LONG_LAST_NAME =
             "12345678901234567890123456789012345678901234567890123456789012345";
 
@@ -65,6 +65,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setScreenName(GOOD_SCREEN_NAME_SHORT);
         command.setGender("m");
         command.setNumSchoolChildren(new Integer(0));
+        command.setTerms(true);
         return command;
     }
 
@@ -353,6 +354,44 @@ public class UserCommandValidatorTest extends BaseTestCase {
 
         errors = new BindException(command, "");
         command.setNumSchoolChildren(new Integer(-1));
+
+        _validator.validate(command, errors);
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    }
+
+    /**
+     * No children should not generate an error if "other" is selected for gender.
+     */
+    public void testOtherGenderOnChildren() {
+        UserCommand command = setupCommand();
+        Errors errors = new BindException(command, "");
+        command.setNumSchoolChildren(null);
+        command.setGender("u");
+
+        _validator.validate(command, errors);
+        assertFalse(errors.hasErrors());
+        assertEquals(0, errors.getErrorCount());
+    }
+
+    /**
+     * No on terms should not generate an error unless "other" is selected for gender.
+     */
+    public void testNormalGenderOnTerms() {
+        UserCommand command = setupCommand();
+        Errors errors = new BindException(command, "");
+        command.setTerms(false);
+
+        _validator.validate(command, errors);
+        assertFalse(errors.hasErrors());
+        assertEquals(0, errors.getErrorCount());
+    }
+
+    public void testTermsOfService() {
+        UserCommand command = setupCommand();
+        Errors errors = new BindException(command, "");
+        command.setGender("u");
+        command.setTerms(false);
 
         _validator.validate(command, errors);
         assertTrue(errors.hasErrors());
