@@ -1,16 +1,26 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           version="2.0">
-<html>
-  <jsp:directive.page contentType="text/html"/>
-  <head><title>Simple jspx page</title></head>
-  <body>
-  <gsml:img src="/res/img/promo/shutterfly/ineligible.jpg" alt=""></gsml:img>
-  <mod:tracking pageType="promo"
-                pageName="Shutterfly Nov2006 ${pageName}"
-                hier1="Promotion,ShutterflyNov2006,${pageName}"/>
-  </body>
-</html>
+    <html>
+    <jsp:directive.page contentType="text/html"/>
+    <head><title>Simple jspx page</title></head>
+    <body>
+    <gsml:img src="/res/img/promo/shutterfly/ineligible.jpg" alt=""></gsml:img>
+    <div id="finePrint">
+        This special offer is only for GreatSchools.net users who subscribed to a GreatSchools newsletter before
+        November 8, 2006. To receive this offer, user must have or create a valid Shutterfly account at <a
+            href="http://www.shutterfly.com/greatschools?cid=OMQ406GSCHL">http://www.shutterfly.com/greatschools</a>. To
+        redeem, a unique promotional code must be inserted and used by December 8, 2006. Credit cannot be transferred to
+        other products or another account and cannot be combined with other offers, discounts or promotions. Users may
+        order additional holiday cards at their own expense. Shipping charges will apply to any card order. Limit one
+        per person. Shutterfly reserves the right to modify this offer should it be compromised in any manner including,
+        but not limited to, fraudulent activity.
+    </div>
+    <mod:tracking pageType="promo"
+                  pageName="Shutterfly Nov2006 ${pageName}"
+                  hier1="Promotion,ShutterflyNov2006,${pageName}"/>
+    </body>
+    </html>
 </jsp:root>

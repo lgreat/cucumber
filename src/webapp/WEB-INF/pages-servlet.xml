@@ -580,11 +580,9 @@
     </bean>
 
     <bean name="/promo/shutterfly/cards.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.promo.ShutterflyCardsController"
           autowire="byName">
-        <property name="viewName">
-            <value>/promo/shutterfly/cards</value>
-        </property>
+        <property name="mailSender" ref="mailSender"/>
     </bean>
     
     <bean name="/stateLauncher.page"
