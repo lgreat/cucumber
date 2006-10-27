@@ -91,7 +91,7 @@ public class ShutterflyCardsController extends AbstractController implements Ini
             return processInelgibleRequest();
         }
 
-        if (!user.getTimeAdded().before(calendar.getTime())) {
+        if (!user.getTimeAdded().before(calendar.getTime()) || user.getTimeAdded().equals(calendar.getTime())) {
             return processInelgibleRequest();
         }
 
