@@ -1,5 +1,6 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           version="2.0">
 <html>
@@ -7,6 +8,9 @@
   <head><title>Simple jspx page</title></head>
   <body>
   <gsml:img src="/res/img/promo/shutterfly/ineligible.jpg" alt=""></gsml:img>
+  <mod:tracking pageType="promo"
+                pageName="Shutterfly Nov2006 ${pageName}"
+                hier1="Promotion,ShutterflyNov2006,${pageName}"/>
   </body>
 </html>
 </jsp:root>
