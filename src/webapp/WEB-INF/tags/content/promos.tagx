@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+        >
+    <jsp:directive.tag body-content="scriptless"/>
+    <jsp:directive.attribute name="referredBy" required="true" description="Omniture page name of page that this hover appears on"/>
+
+    <promo:childOnTrack referredBy="${referredBy}"/>
+
+    <ad:x40/>
+
+    <div style="border-top: 1px dashed #ccc;">
+    <div id="bottomAdd">
+        <ad:x51 blurb="${referredBy} Sponsored by:"/>
+    </div>
+    </div>
+
+    <div style="border-top: 1px dashed #ccc;padding-top:20px;margin-top:10px;">
+        <promo:nthGraderMedallions referredBy="${referredBy}"/>
+    </div>
+</jsp:root>

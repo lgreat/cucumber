@@ -104,19 +104,7 @@
     </div>
 
 <div id="promos">
-    <promo:childOnTrackCollege referredBy="${pageName}"/>
-
-    <ad:x40/>
-
-    <div style="border-top: 1px dashed #ccc;">
-    <div id="bottomAdd">
-        <ad:x51 blurb="School Choice Tips Sponsored By:"/>
-    </div>
-    </div>
-
-    <div style="border-top: 1px dashed #ccc;padding-top:20px;margin-top:10px;">
-        <promo:nthGraderMedallions referredBy="${pageName}"/>
-    </div>
+    <content:promos referredBy="${pageName}"/>
 </div>
 <br style="clear:both;"/>
 </div>
