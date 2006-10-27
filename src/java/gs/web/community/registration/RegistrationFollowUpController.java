@@ -15,6 +15,7 @@ import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.geo.IGeoDao;
+import gs.data.geo.City;
 import gs.web.util.ReadWriteController;
 import gs.web.util.context.SessionContextUtil;
 
@@ -64,6 +65,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             fupCommand.addStudent(student);
             _log.info("Adding city (" + city + ") for child #" + (x+1));
             fupCommand.addCityName(city);
+            loadCityList(request, fupCommand, errors, x+1);
         }
     }
 
@@ -73,14 +75,16 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         FollowUpCommand fupCommand = (FollowUpCommand) command;
 
         bindRequestData(request, fupCommand, errors);
+        for (int x=0; x < fupCommand.getUserProfile().getNumSchoolChildren().intValue(); x++) {
+            loadCityList(request, fupCommand, errors, x+1);
+        }
     }
 
     protected void bindRequestData(HttpServletRequest request, FollowUpCommand fupCommand, BindException errors) throws NoSuchAlgorithmException {
         String userId = request.getParameter("id");
         String marker = request.getParameter("marker");
-        if (request.getParameter("recontact") != null) {
-            fupCommand.setRecontact("true");
-        }
+        fupCommand.setRecontact(request.getParameter("recontactStr"));
+        fupCommand.setTerms("y".equals(request.getParameter("termsStr")));
         if (userId != null) {
 
             User user = _userDao.findUserFromId(Integer.parseInt(userId));
@@ -103,6 +107,26 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 parseStudent(request, fupCommand, errors, childNum);
             }
         }
+        fupCommand.getCityList().clear();
+    }
+
+    protected void loadCityList(HttpServletRequest request, FollowUpCommand fupCommand, BindException errors, int childNum) {
+        State state;
+        if (fupCommand.getNumStudents() >= childNum) {
+            Student student = (Student) fupCommand.getStudents().get(childNum-1);
+            state = student.getState();
+        } else {
+            state = fupCommand.getUserProfile().getState();
+            if (state == null) {
+                state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
+            }
+        }
+        List cities = _geoDao.findCitiesByState(state);
+        City city = new City();
+        city.setName("My city is not listed");
+        cities.add(0, city);
+        _log.info("Adding city list (size=" + cities.size() + ") for child#" + childNum);
+        fupCommand.addCityList(cities);
     }
 
     protected void parseStudent(HttpServletRequest request, FollowUpCommand fupCommand, BindException errors, int childNum) {
@@ -134,7 +158,10 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         if (grade != null) {
             _log.info("Obtaining school list for " + state + ": " + city + ": " + grade);
             List schools = _schoolDao.findSchoolsInCityByGrade(state, city, grade);
-            _log.info("Adding school list (size=" + ((schools!=null)?schools.size():0) +
+            School school = new School();
+            school.setName("My school is not listed");
+            schools.add(0, school);
+            _log.info("Adding school list (size=" + schools.size() +
                     ") for child #" + student.getOrder());
             fupCommand.addSchools(schools);
         } else {
@@ -188,6 +215,10 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 // to avoid index out of bounds exceptions, we have to add something to the list
                 fupCommand.addSchoolName("");
             }
+        }
+
+        if (!fupCommand.getTerms()) {
+            errors.rejectValue("terms", null, "We're sorry, you must agree to the terms of service");
         }
 
 //        // now check if they are adding/removing children
@@ -276,32 +307,21 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         } else {
             for (int x=0; x < fupCommand.getStudents().size(); x++) {
                 Student student = (Student) fupCommand.getStudents().get(x);
-                if (Boolean.valueOf(fupCommand.getRecontact()).booleanValue()) {
+                if ("y".equals(fupCommand.getRecontact())) {
                     addContactSubscriptionFromStudent(student, user);
                 }
                 user.addStudent(student);
             }
         }
-        deleteSubscriptionsForProduct(user, SubscriptionProduct.PREVIOUS_SCHOOLS);
         saveSubscriptionsForUser(fupCommand, user);
         // save
         _userDao.updateUser(user);
 
         mAndV.setViewName(getSuccessView());
-        mAndV.getModel().put("id", user.getId());
-        mAndV.getModel().put("marker", fupCommand.getMarker());
+        mAndV.getModel().put("email", user.getEmail());
+//        mAndV.getModel().put("id", user.getId());
+//        mAndV.getModel().put("marker", fupCommand.getMarker());
         return mAndV;
-    }
-
-    protected void loadCityList(HttpServletRequest request, State state, FollowUpCommand fupCommand) {
-        if (state == null) {
-            state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
-        }
-        List cities = _geoDao.findCitiesByState(state);
-        fupCommand.addCityList(cities);
-        for (int x = 1; x < fupCommand.getUserProfile().getNumSchoolChildren().intValue(); x++) {
-            fupCommand.addCityList(cities);
-        }
     }
 
     private void saveSubscriptionsForUser(FollowUpCommand fupCommand, User user) {

@@ -28,6 +28,7 @@ public class FollowUpCommand {
     private List _subscriptions;
     private String _recontact;
     private List _schools;
+    private boolean _terms;
 
     public FollowUpCommand() {
         _user = new User();
@@ -204,5 +205,13 @@ public class FollowUpCommand {
 
     public List getSchools() {
         return _schools;
+    }
+
+    public boolean getTerms() {
+        return _terms;
+    }
+
+    public void setTerms(boolean terms) {
+        _terms = terms;
     }
 }

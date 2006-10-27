@@ -15,6 +15,9 @@ import gs.data.state.StateManager;
 import gs.data.school.ISchoolDao;
 import gs.data.school.Grade;
 import gs.data.school.School;
+import gs.data.geo.City;
+import gs.data.geo.ICity;
+import gs.data.geo.IGeoDao;
 
 /**
  * The AJAX controller for registration stage 2.
@@ -28,6 +31,7 @@ public class Registration2AjaxController implements Controller {
 
     private ISchoolDao _schoolDao;
     private StateManager _stateManager;
+    private IGeoDao _geoDao;
 
     public ISchoolDao getSchoolDao() {
         return _schoolDao;
@@ -35,6 +39,14 @@ public class Registration2AjaxController implements Controller {
 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
+    }
+
+    public IGeoDao getGeoDao() {
+        return _geoDao;
+    }
+
+    public void setGeoDao(IGeoDao geoDao) {
+        _geoDao = geoDao;
     }
 
     public StateManager getStateManager() {
@@ -58,15 +70,34 @@ public class Registration2AjaxController implements Controller {
 
         PrintWriter out = response.getWriter();
         try {
-            List schools = _schoolDao.findSchoolsInCityByGrade(state, city, Grade.getGradeLevel(grade));
-            out.print("<select name=\"school" + childNum + "\" id=\"school" + childNum);
-            out.println("\" class=\"form school\">");
-            outputOption(out, "", "--", true);
-            for (int x=0; x < schools.size(); x++) {
-                School school = (School) schools.get(x);
-                outputOption(out, school.getId().toString(), school.getName());
+            if (city != null) {
+                List schools = _schoolDao.findSchoolsInCityByGrade(state, city, Grade.getGradeLevel(grade));
+                School notListed = new School();
+                notListed.setName("My school is not listed");
+                schools.add(0, notListed);
+                out.print("<select name=\"school" + childNum + "\" id=\"school" + childNum);
+                out.println("\" class=\"form school\">");
+                outputOption(out, "", "--", true);
+                for (int x=0; x < schools.size(); x++) {
+                    School school = (School) schools.get(x);
+                    String idString = ((school.getId() != null)?school.getId().toString():"");
+                    outputOption(out, idString, school.getName());
+                }
+                out.print("</select>");
+            } else {
+                List cities = _geoDao.findCitiesByState(state);
+                City notListed = new City();
+                notListed.setName("My city is not listed");
+                cities.add(0, notListed);
+                out.print("<select id=\"citySelect\" name=\"city\" class=\"city\"");
+                out.print(" onchange=\"cityChange(this, " + childNum + ");\">");
+                outputOption(out, "", "--", true);
+                for (int x=0; x < cities.size(); x++) {
+                    ICity icity = (ICity) cities.get(x);
+                    outputOption(out, icity.getName(), icity.getName());
+                }
+                out.print("</select>");
             }
-            out.print("</select>");
         } catch (Exception e) {
             out.print("Error retrieving results");
         }

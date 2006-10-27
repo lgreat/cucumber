@@ -130,7 +130,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
     }
 
     public void testRecontact() {
-        _command.setRecontact("true");
+        _command.setRecontact("y");
         _userProfile.setNumSchoolChildren(new Integer(1));
 
         Student student = new Student();
@@ -159,26 +159,6 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         // but only one, because 2nd student shares school, and 3rd student has no school listed
         _mockSubscriptionDao.saveSubscription(sub);
         _subscriptionControl.setMatcher(new SubscriptionMatcher());
-
-        // controller checks for previous subscriptions
-        _mockSubscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PREVIOUS_SCHOOLS);
-        // detects none
-        _subscriptionControl.setReturnValue(null);
-        // a previous schools subscription will be saved
-        Subscription previousSub = new Subscription();
-        previousSub.setUser(_user);
-        previousSub.setProduct(SubscriptionProduct.PREVIOUS_SCHOOLS);
-        previousSub.setSchoolId(2);
-        previousSub.setState(State.CA);
-        _command.addSubscription(previousSub);
-        _mockSubscriptionDao.saveSubscription(previousSub);
-        // a recontact subscription for the previous school will be saved
-        Subscription previousSubContact = new Subscription();
-        previousSubContact.setUser(_user);
-        previousSubContact.setProduct(SubscriptionProduct.PARENT_CONTACT);
-        previousSubContact.setSchoolId(2);
-        previousSubContact.setState(State.CA);
-        _mockSubscriptionDao.saveSubscription(previousSubContact);
 
         _subscriptionControl.replay();
 

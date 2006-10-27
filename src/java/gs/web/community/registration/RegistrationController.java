@@ -34,6 +34,7 @@ public class RegistrationController extends SimpleFormController implements Read
     private IGeoDao _geoDao;
     private JavaMailSender _mailSender;
     private boolean _requireEmailValidation = true;
+    private String _completeView;
 
     //set up defaults if none supplied
     protected void onBindOnNewForm(HttpServletRequest request,
@@ -156,20 +157,21 @@ public class RegistrationController extends SimpleFormController implements Read
 
         ModelAndView mAndV = new ModelAndView();
 
-        mAndV.setViewName(getSuccessView());
-//        FollowUpCommand fupCommand = new FollowUpCommand();
-//        fupCommand.setUser(userCommand.getUser());
-//        fupCommand.setUserProfile(userProfile);
-//        fupCommand.setRecontact(String.valueOf(userCommand.isRecontact()));
-
-        // generate secure hash so if the followup profile page is submitted, we know who it is
-        String hash = DigestUtil.hashStringInt(userCommand.getEmail(), userCommand.getUser().getId());
-        mAndV.getModel().put("marker", hash);
-        if (_requireEmailValidation) {
+        if (request.getParameter("next") != null) {
+            mAndV.setViewName(getSuccessView());
+            String hash = DigestUtil.hashStringInt(userCommand.getEmail(), userCommand.getUser().getId());
+            mAndV.getModel().put("marker", hash);
+            if (_requireEmailValidation) {
+                mAndV.getModel().put("email", userCommand.getEmail());
+            }
+            // mAndV.getModel().put("followUpCmd", fupCommand);
+            mAndV.getModel().put("id", userCommand.getUser().getId());
+        } else {
+            mAndV.setViewName(getCompleteView());
             mAndV.getModel().put("email", userCommand.getEmail());
         }
-        // mAndV.getModel().put("followUpCmd", fupCommand);
-        mAndV.getModel().put("id", userCommand.getUser().getId());
+
+        // generate secure hash so if the followup profile page is submitted, we know who it is
         return mAndV;
     }
 
@@ -203,5 +205,13 @@ public class RegistrationController extends SimpleFormController implements Read
 
     public void setRequireEmailValidation(boolean requireEmailValidation) {
         this._requireEmailValidation = requireEmailValidation;
+    }
+
+    public String getCompleteView() {
+        return _completeView;
+    }
+
+    public void setCompleteView(String completeView) {
+        _completeView = completeView;
     }
 }

@@ -47,6 +47,7 @@ div.childLeft {
     float: left;
     color: #898989;
     padding-right: 25px;
+    font-weight: bold;
 }
 
 div.childRight {
@@ -65,14 +66,16 @@ span.change {
     margin-left: 10px;
 }
 
-#register2Div span.change a {
+#register2Div span.change a, #register2Div span.change a:link, #register2Div span.change a:visited, #register2Div span.change a:active {
     text-decoration: underline;
+    color: #64CCCB;
 }
 
 label.form {
     display: block;
     float: left;
     color: #898989;
+    font-weight: bold;
 }
 
 select.form {
@@ -100,18 +103,6 @@ input.submit {
     margin-bottom: 15px;
 }
 
-.privacy {
-    font-size: smaller;
-    margin-left: 11.5em;
-    margin-bottom: 0.5em;
-    color: #666666;
-    clear: left;
-}
-
-.privacyFirst {
-    margin-top: 4em;
-}
-
 td.join {
     background-color: #DEEEEE;
     vertical-align: top;
@@ -124,16 +115,36 @@ h2.join {
     color: #59BDCD;
 }
 
-label.recontact {
-    color: #898989;
-    display: block;
-    float: left;
-    width: 415px;
+label.radioMain a, label.radioMain a:link, label.radioMain a:visited, label.radioMain a:active {
+    text-decoration: underline;
+    color: #64CCCB;
 }
 
-input.recontact {
+#recontact, #terms {
     display: block;
     float: left;
-    margin-top: 10px;
-    margin-left: 35px;
+    position: relative;
+    left: 5px;
+}
+
+#recontact {
+    top: 1em;
+}
+
+label.radio {
+    color: #898989;
+    text-align: left;
+    padding-right: 15px;
+    padding-left: 5px;
+    font-weight: bold;
+}
+
+label.radioMain {
+    display: block;
+    float: left;
+    color: #898989;
+    text-align: left;
+    width: 300px;
+    margin-bottom: 20px;
+    font-weight: bold;
 }

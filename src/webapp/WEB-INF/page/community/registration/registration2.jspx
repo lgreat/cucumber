@@ -23,7 +23,12 @@
       <pageHelper:externalJavascript file="/res/js/registration2.js"/>
       <pageHelper:externalCss file="/res/css/community/registration/registration2.css"/>
       <script type="text/javascript">
+
           function gradeChange(gradeSelect, childNum) {
+              if (gradeSelect.value == '') {
+                  $('schoolDiv' + childNum).innerHTML = '<![CDATA[<select name="school${child}" id="school${child}" class="form school"><option value="">--</option></select>]]>';
+                  return;
+              }
               var url = 'registration2Ajax.page';
               var pars = 'state=' + $('state' + childNum).value;
               pars += '&amp;city=' + $('city' + childNum).value;
@@ -37,6 +42,53 @@
                           method: 'get',
                           parameters: pars
                       });
+          }
+
+          function cityChange(citySelect, childNum) {
+              resetGradeSchool(childNum);
+              $('cityText' + childNum).innerHTML = citySelect.value;
+              $('city' + childNum).value = citySelect.value;
+          }
+
+          function stateChange(stateSelect, childNum) {
+              resetGradeSchool(childNum);
+              $('stateText' + childNum).innerHTML = stateSelect.value;
+              $('state' + childNum).value = stateSelect.value;
+
+              var url = 'registration2Ajax.page';
+              var pars = 'state=' + stateSelect.value;
+              pars += '&amp;childNum=' + childNum;
+              $('citySelectDiv' + childNum).innerHTML = '<![CDATA[<select name="citySelect${child}" id="citySelect${child}" class="city"><option value="">Loading ...</option></select>]]>';
+              var myAjax = new Ajax.Updater (
+                      'citySelectDiv' + childNum,
+                      url,
+                      {
+                          method: 'get',
+                          parameters: pars
+                      });
+          }
+
+          function resetGradeSchool(childNum) {
+              $('grade' + childNum).value='';
+              gradeChange($('grade' + childNum), childNum);
+          }
+
+          function changeLocation(childNum) {
+              hideDiv('location' + childNum);
+              showDiv('chooseLocation' + childNum);
+          }
+
+          function changeLocationDone(childNum) {
+              hideDiv('chooseLocation' + childNum);
+              showDiv('location' + childNum);
+          }
+
+          function hideDiv(divId) {
+              $(divId).style.display = 'none';
+          }
+
+          function showDiv(divId) {
+              $(divId).style.display = 'block';
           }
       </script>
   </head>
@@ -72,10 +124,6 @@
                 <c:if test="${followUpCmd.students[child-1].state ne null}">
                     <c:set var="stateVal" value="${followUpCmd.students[child-1].state}"/>
                 </c:if>
-                <c:set var="showNoGrade" value="true"/>
-                <c:if test="${gradeVal gt ''}">
-                    <c:set var="showNoGrade" value="false"/>
-                </c:if>
 
                 <hr/>
                 <gsml:errorMessage command="followUpCmd" field="students[${child-1}]"/>
@@ -83,19 +131,39 @@
                     Child #${child}:
                 </div>
                 <div class="childRight">
+                    <div id="chooseLocation${child}" class="form city" style="display:none;">
+                        <div id="citySelectDiv${child}" style="display: inline;">
+                            <select id="citySelect${child}" name="citySelect${child}" class="city"
+                                    onchange="cityChange(this, ${child});">
+                                <c:forEach var="cityOption" items="${followUpCmd.cityList[child-1]}">
+                                    <![CDATA[<option ]]>
+                                    <c:if test="${followUpCmd.cityNames[child-1] eq cityOption.name}">
+                                        selected
+                                    </c:if>
+                                    <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <gsweb:stateSelector state="${followUpCmd.students[child-1].state}"
+                                             styleId="userState${child}" styleClass="state"
+                                             onChange="stateChange(this, ${child});"/>
+                        <span class="change">
+                            <a href="#" onclick="changeLocationDone(${child}); return false;">Done</a>
+                        </span>
+                    </div>
                     <div id="location${child}" class="form city">
-                        ${followUpCmd.cityNames[child-1]},
-                        ${followUpCmd.students[child-1].state}
+                        <span id="cityText${child}">${followUpCmd.cityNames[child-1]}</span>,
+                        <span id="stateText${child}">${followUpCmd.students[child-1].state}</span>
                         <input id="state${child}" type="hidden" name="state${child}" value="${followUpCmd.students[child-1].state}"/>
                         <input id="city${child}" type="hidden" name="city${child}" value="${followUpCmd.cityNames[child-1]}"/>
                         <span class="change">
-                            <a href="#" onclick="return false;">Change city</a>
+                            <a href="#" onclick="changeLocation(${child}); return false;">Change city</a>
                         </span>
                     </div>
                     <br style="clear: left;"/>
 
                     <label for="grade${child}" class="form grade">Grade</label>
-                    <gsweb:gradeSelector styleId="grade${child}" name="grade${child}" styleClass="form grade" grade="${gradeVal}" useNoGrade="${showNoGrade}" onChange="gradeChange(this, ${child});"/>
+                    <gsweb:gradeSelector styleId="grade${child}" name="grade${child}" styleClass="form grade" grade="${gradeVal}" useNoGrade="true" onChange="gradeChange(this, ${child});"/>
                     <label for="school${child}" class="form school">School</label>
                     <div id="schoolDiv${child}">
                         <select name="school${child}" id="school${child}" class="form school">
@@ -123,17 +191,37 @@
             </c:forEach>
             <!--
             <a href="#" onclick="$('submit').name = 'addChild';$('submit').click(); return false;">Add another child</a>
-            -->
             <br style="clear: left;"/>
+            -->
             <hr/>
 
-            <label for="recontact" class="recontact">
-                Yes! I am willing to be contacted anonymously by other parents interested in learning
-                more about the schools that my children attend!
+            <label class="radioMain recontact">
+                Yes! I am willing to answer questions from other parents interested
+                in learning more about the schools that my children attend. (GreatSchools
+                won't reveal my name or email address.)
             </label>
-            <gsml:checkbox name="recontact" styleClass="recontact" styleId="recontact" checked="${followUpCmd.recontact}"/>
-
+            <div id="recontact">
+                <gsml:radio name="recontactStr" value="y" styleId="yesRecontact"
+                            styleClass="radio recontact"
+                            checked="${followUpCmd.recontact eq null or followUpCmd.recontact eq 'y'}"/>
+                <label for="yesRecontact" class="radio">Yes</label>
+                <gsml:radio name="recontactStr" value="n" styleId="noRecontact"
+                            styleClass="radio recontact" checked="${followUpCmd.recontact eq 'n'}"/>
+                <label for="noRecontact" class="radio">No</label>
+            </div>
             <br style="clear: left;"/>
+
+            <gsml:errorMessage command="followUpCmd" field="terms"/>
+            <label class="radioMain terms">I agree to the <link:termsOfUse>terms of service</link:termsOfUse></label>
+            <div id="terms">
+                <gsml:radio name="termsStr" value="y" styleId="yesTerms" styleClass="radio"
+                            checked="${followUpCmd.terms eq true}"/>
+                <label for="yesTerms" class="radio">Yes</label>
+                <gsml:radio name="termsStr" value="n" styleId="noTerms" styleClass="radio"
+                            checked="${followUpCmd.terms eq false}"/>
+                <label for="noTerms" class="radio">No</label>
+            </div>
+            <br style="clear:left;"/>
             <hr/>
 
             <spring:bind path="followUpCmd.user.id">
@@ -151,10 +239,6 @@
 
             <input class="submit" type="submit" value="Join!" name="submit" id="submit"/>
             <br style="clear: left;"/>
-            <br style="clear: left;"/>
-            <div class="privacy privacyFirst">By submitting, I agree to the <link:termsOfUse>Terms of Service</link:termsOfUse></div>
-            <div class="privacy">We won't sell or share your address. <gsml:popupWindow width="800" height="600" left="50" top="50"
-                    href="/about/privacyStatement.page?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></div>
         </gsweb:form>
 
           </div>

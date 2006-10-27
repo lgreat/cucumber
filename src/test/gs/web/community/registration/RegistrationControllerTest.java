@@ -12,11 +12,9 @@ import org.easymock.MockControl;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created by IntelliJ IDEA.
- * User: UrbanaSoft
- * Date: Jun 15, 2006
- * Time: 2:05:20 PM
- * To change this template use File | Settings | File Templates.
+ * Provides ...
+ *
+ * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class RegistrationControllerTest extends BaseControllerTestCase {
     private RegistrationController _controller;
@@ -64,6 +62,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _userDao.updateUser(userCommand.getUser());
         _userControl.replay();
 
+        getRequest().addParameter("next", "next"); // submit button
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
         _userControl.verify();
 

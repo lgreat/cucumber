@@ -221,11 +221,11 @@
 
                 <div class="privacyIcon">Items with a (P) will be private and not viewable to other users.</div>
 
-                <div id="joinButton" style="display: none;">
-                    <input class="submit join" type="submit" value="Join!" name="submit"/>
+                <div id="joinButton" style="${termsStyle}">
+                    <input class="submit join" type="submit" value="Join!" name="join"/>
                 </div>
-                <div id="nextButton">
-                    <input class="submit next" type="submit" value="Next &gt;" name="submit"/>
+                <div id="nextButton" style="${childrenStyle}">
+                    <input class="submit next" type="submit" value="Next &gt;" name="next"/>
                 </div>
 
                 <br style="clear:left;"/>
