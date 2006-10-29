@@ -5,9 +5,25 @@
           version="2.0">
     <html>
     <jsp:directive.page contentType="text/html"/>
-    <head><title>Simple jspx page</title></head>
+    <head>
+        <title>GreatSchools Shutterfly Promo</title>
+        <style type="text/css" >
+            div#finePrint, div#finePrint a{
+                color:#2e9eAe
+            }
+            div#finePrint {
+                margin-top:8px;
+                padding:20px 20px 40px 20px;
+                background-color:#DDEEEE;
+                font-size:60%;
+                font-weight:bold;
+            }
+        </style>
+    </head>
     <body>
-    <gsml:img src="/res/img/promo/shutterfly/ineligible.jpg" alt=""></gsml:img>
+    <gsml:a href="http://www.shutterfly.com/greatschools?cid=OMQ406GSCHL">
+        <gsml:img src="${imageSrc}" alt="${imageAlt}"></gsml:img>
+    </gsml:a>
     <div id="finePrint">
         This special offer is only for GreatSchools.net users who subscribed to a GreatSchools newsletter before
         November 8, 2006. To receive this offer, user must have or create a valid Shutterfly account at <a

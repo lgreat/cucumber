@@ -44,7 +44,8 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
 
         testPromoEligibilityByJoinDate(joinDate,
                 ShutterflyCardsController.INELIGIBLE_ALT,
-                ShutterflyCardsController.INELIGIBLE_SRC);
+                ShutterflyCardsController.INELIGIBLE_SRC,
+                ShutterflyCardsController.INELIGIBLE_PAGE_NAME);
     }
 
     public void testUserSameDayJoinDate() throws Exception {
@@ -58,7 +59,8 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
 
         testPromoEligibilityByJoinDate(joinDate,
                 ShutterflyCardsController.INELIGIBLE_ALT,
-                ShutterflyCardsController.INELIGIBLE_SRC);
+                ShutterflyCardsController.INELIGIBLE_SRC,
+                ShutterflyCardsController.INELIGIBLE_PAGE_NAME);
     }
 
     public void testUserPriorToCutOffDate() throws Exception {
@@ -72,7 +74,8 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
 
         testPromoEligibilityByJoinDate(joinDate,
                 ShutterflyCardsController.ELIGIBLE_ALT,
-                ShutterflyCardsController.ELIGIBLE_SRC);
+                ShutterflyCardsController.ELIGIBLE_SRC,
+                ShutterflyCardsController.ELIGIBLE_PAGE_NAME);
 
         List messages = _sender.getSentMessages();
         assertEquals(1, messages.size());
@@ -88,9 +91,9 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
         Address[] from = msg.getFrom();
         assertNotNull("Empty from field", from);
         assertEquals("More than 1 in from", 1, from.length);
-        assertEquals("From field not right", "GreatSchools <beta@greatschools.net>", from[0].toString());
+        assertEquals("From field not right", "GreatSchools <shutterfly@greatschools.net>", from[0].toString());
 
-        assertEquals("Welcome to the GreatSchools Beta Group!", msg.getSubject());
+        assertEquals("Shutterfly Holiday Promotion Confirmation", msg.getSubject());
 
         String content = msg.getContent().toString();
         assertTrue(content.indexOf("ABCDEFGHIJKLMN") > -1);
@@ -102,7 +105,8 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
     //user has never received a promo before
     private void testPromoEligibilityByJoinDate(Date joinDate,
                                                 String expectedImageAlt,
-                                                String expectedImageSrc) throws Exception {
+                                                String expectedImageSrc,
+                                                String expectedPageName) throws Exception {
         MockHttpServletRequest request = getRequest();
         request.addParameter(ShutterflyCardsController.PARAM_EMAIL, "user@greatschools.net");
 
@@ -120,6 +124,7 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
         assertEquals("/promo/shutterfly/cards", mv.getViewName());
         assertEquals(expectedImageAlt, (String) mv.getModel().get(ShutterflyCardsController.MODEL_IMAGE_ALT));
         assertEquals(expectedImageSrc, (String) mv.getModel().get(ShutterflyCardsController.MODEL_IMAGE_SRC));
+        assertEquals(expectedPageName, (String) mv.getModel().get(ShutterflyCardsController.MODEL_PAGE_NAME));
     }
 
 

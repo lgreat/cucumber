@@ -15,6 +15,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -49,7 +50,7 @@ public class ShutterflyCardsController extends AbstractController implements Ini
 
     protected static final String MODEL_IMAGE_ALT = "imageAlt";
     protected static final String MODEL_IMAGE_SRC = "imageSrc";
-
+    protected static final String MODEL_PAGE_NAME = "pageName";    
 
     protected static final String ELIGIBLE_SRC = "/res/img/promo/shutterfly/eligible.jpg";
     protected static final String INELIGIBLE_SRC = "/res/img/promo/shutterfly/ineligible.jpg";
@@ -58,6 +59,10 @@ public class ShutterflyCardsController extends AbstractController implements Ini
     protected static final String ELIGIBLE_ALT = "Thank you for celebrating the holidays with Shutterfly! We have emailed you a promotional code good for 12 free 4x8 Shutterfly Holiday Cards. Hurry, this offer expires December 8, 2006.";
     protected static final String INELIGIBLE_ALT = "Thank you for celebrating the holidays with Shutterfly! Unfortunately, this email address is ineligible for this offer, according to the terms of the offer outlined below.";
     protected static final String REDEEMED_ALT = "Thank you for celebrating the holidays with Shutterfly! The email address you entered has already redeemed this offer. Limit one offer per customer.  See other ways Shutterfly can help you wrap up your holiday shopping!";
+
+    protected static final String ELIGIBLE_PAGE_NAME = "Success Page";
+    protected static final String INELIGIBLE_PAGE_NAME = "Not Eligible";
+    protected static final String REDEEMED_PAGE_NAME = "Already Redeemed";
 
     private static Promo PROMO;
 
@@ -89,7 +94,12 @@ public class ShutterflyCardsController extends AbstractController implements Ini
             return processInelgibleRequest();
         }
 
-        User user = _userDao.findUserFromEmail(email);
+        User user = null;
+        try {
+            user = _userDao.findUserFromEmail(email);
+        } catch (ObjectRetrievalFailureException e) {
+            _log.warn("Could not find user matching email:" + email);
+        }
 
         if (user == null) {
             return processInelgibleRequest();
@@ -104,16 +114,14 @@ public class ShutterflyCardsController extends AbstractController implements Ini
         PromoCode promoCode = _promoDao.findPromoCode(user, PROMO);
 
         if (null != promoCode) {
-            return processRequest(REDEEMED_ALT, REDEEMED_SRC, "redeemed code");
+            return processRequest(REDEEMED_ALT, REDEEMED_SRC, REDEEMED_PAGE_NAME);
         } else {
             promoCode = _promoDao.assignPromoCode(user, PROMO);
 
             //no more promo codes left
             if (null == promoCode) {
                 _log.error("No more promo codes left for promo: " + PROMO.getName() + " user: " + email);                
-
-                return processRequest(REDEEMED_ALT, REDEEMED_SRC, "no more left");
-
+                return processRequest(REDEEMED_ALT, REDEEMED_SRC, REDEEMED_PAGE_NAME);
             } else {
                 //send email
                 try {
@@ -123,21 +131,21 @@ public class ShutterflyCardsController extends AbstractController implements Ini
                 } catch (MailException me) {
                     _log.warn("User " + email + " did not receive promo code: " + promoCode.getCode() , me);
                 }
-
-                return processRequest(ELIGIBLE_ALT, ELIGIBLE_SRC, "elgible");
+                return processRequest(ELIGIBLE_ALT, ELIGIBLE_SRC, ELIGIBLE_PAGE_NAME);
             }
         }
     }
 
     private ModelAndView processInelgibleRequest() {
-        return processRequest(INELIGIBLE_ALT, INELIGIBLE_SRC, "inelgible");
+        return processRequest(INELIGIBLE_ALT, INELIGIBLE_SRC, INELIGIBLE_PAGE_NAME);
     }
 
-    private ModelAndView processRequest(String imageAlt, String imageSrc, String omnitureTracking) {
+    private ModelAndView processRequest(String imageAlt, String imageSrc, String pageName) {
         ModelAndView mv = new ModelAndView(VIEW);
 
         mv.getModel().put(MODEL_IMAGE_ALT, imageAlt);
         mv.getModel().put(MODEL_IMAGE_SRC, imageSrc);
+        mv.getModel().put(MODEL_PAGE_NAME, pageName);
 
         return mv;
     }
@@ -146,19 +154,21 @@ public class ShutterflyCardsController extends AbstractController implements Ini
      * This is a utility method to created the <code>MimeMessage</code object from a stub
      * MimeMessage.
      *
-     * @return
-     * @throws javax.mail.MessagingException
+     * @param email A valid email String
+     * @param promoCode A promo code to be included in the email.
+     * @return a MimeMessage type
+     * @throws javax.mail.MessagingException if there is a problem constructing the message.
      */
     MimeMessage createMessage(String email, String promoCode) throws MessagingException {
 
         MimeMessageHelper helper = new MimeMessageHelper(_mailSender.createMimeMessage(), false, "UTF-8");
         helper.setTo(email);
         try {
-            helper.setFrom("beta@greatschools.net", "GreatSchools");
+            helper.setFrom("shutterfly@greatschools.net", "GreatSchools");
         } catch (UnsupportedEncodingException uee) {
-            helper.setFrom("beta@greatschools.net");
+            helper.setFrom("shutterfly@greatschools.net");
         }
-        helper.setSubject("Welcome to the GreatSchools Beta Group!");
+        helper.setSubject("Shutterfly Holiday Promotion Confirmation");
         helper.setSentDate(new Date());
 
 
@@ -166,7 +176,7 @@ public class ShutterflyCardsController extends AbstractController implements Ini
                 "\n" +
                 "<p>$PROMO_CODE</p>\n" +
                 "\n" +
-                "<p><a href=\"http://www.shutterfly.com/greatschools?cid=OMQ406GSCHL\">Visit</a> Shutterfly today to enter your unique code!<p>\n" +
+                "<p><a href=\"http://www.shutterfly.com/greatschools?cid=OMQ406GSCHL\">Visit Shutterfly today</a> to enter your unique code!<p>\n" +
                 "\n" +
                 "<p>We wish you the best the season has to offer,</p>\n" +
                 "\n" +
@@ -213,28 +223,4 @@ public class ShutterflyCardsController extends AbstractController implements Ini
     public void setMailSender(JavaMailSender mailSender) {
         _mailSender = mailSender;
     }
-
-    /*
-
-<p>Thank you for celebrating the holidays with Shutterfly! Your promotional code good for 12 free 4x8 Shutterfly Holiday Cards is:</p>
-
-<p>$PROMO_CODE</p>
-
-<p><a href="http://www.shutterfly.com/greatschools?cid=OMQ406GSCHL">Visit</a> Shutterfly today to enter your unique code!<p>
-
-<p>We wish you the best the season has to offer,</p>
-
-<p>- The Shutterfly and GreatSchools teams</p>
-
-<small>
-This special offer is only for GreatSchools.net users who subscribed to a GreatSchools newsletter before
-November 8, 2006. To receive this offer, user must have or create a valid Shutterfly account at <a
-    href="http://www.shutterfly.com/greatschools?cid=OMQ406GSCHL">http://www.shutterfly.com/greatschools</a>. To
-redeem, a unique promotional code must be inserted and used by December 8, 2006. Credit cannot be transferred to
-other products or another account and cannot be combined with other offers, discounts or promotions. Users may
-order additional holiday cards at their own expense. Shipping charges will apply to any card order. Limit one
-per person. Shutterfly reserves the right to modify this offer should it be compromised in any manner including,
-but not limited to, fraudulent activity.
-</small>
-     */
 }
