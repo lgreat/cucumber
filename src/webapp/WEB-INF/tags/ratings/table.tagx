@@ -66,14 +66,14 @@
     <c:if test="${not empty overallRatingCell.trend}">
         <div id="legendWrapper">
             <div id="legend">
-                <div style="float:left;">
+                <div style="float:left;padding-right:25px;">
                     <h2 id="testScoreTrend">Test Score Trend</h2>
 
-                    <p>Based on change between<br/>${year-1} and ${year}</p>
+                    <p style="font-size:97%;">Based on change between<br/>${year-1} and ${year}</p>
                 </div>
 
-                <div style="float:left;border-left: dotted 1px #66cccc;padding-left:36px; height:100%;">
-                    <table>
+                <div style="float:left;border-left: dotted 2px #66cccc;padding-left:25px; height:100%;">
+                    <table cellpadding="3px">
                         <tr><td><span class="strongImprovement">&amp;nbsp;</span></td><td>Strong Improvement</td></tr>
                         <tr><td><span class="someImprovement">&amp;nbsp;</span></td><td>Some Improvement</td></tr>
                         <tr><td><span class="noChange">&amp;nbsp;</span></td><td>No Change</td></tr>

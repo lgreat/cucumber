@@ -81,12 +81,12 @@
 #legendWrapper {
     border: 2px solid #66cccc;
     position: relative;
-    margin:-1px;
-    width: 100%;
+    width: 99%;
+    margin-left:1px;
 }
 
 #legend {
-    padding:10px;
+    padding:20px 0 20px 30px;
     height:160px;
 }
 
@@ -112,6 +112,6 @@ td#footerPadding {
 }
 
 td#footerPadding div {
-    margin: 30px 0 15px 0;
+    margin: 30px 0 25px 0;
     border-bottom: solid 5px #66cccc;
 }
