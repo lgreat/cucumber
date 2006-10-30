@@ -3,8 +3,6 @@ package gs.web.util.validator;
 import gs.data.community.IUserDao;
 import gs.data.community.UserProfile;
 import gs.data.community.User;
-import gs.data.geo.IGeoDao;
-import gs.data.geo.ICity;
 import gs.web.community.registration.UserCommand;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -24,14 +22,31 @@ public class UserCommandValidator implements Validator {
     protected final Log _log = LogFactory.getLog(getClass());
     public static final String BEAN_ID = "userValidator";
     private IUserDao _userDao;
-    private IGeoDao _geoDao;
+
     private static final int SCREEN_NAME_MINIMUM_LENGTH = 6;
     private static final int SCREEN_NAME_MAXIMUM_LENGTH = 14;
-    private static final int FIRST_NAME_MAXIMUM_LENGTH = 50;
+    private static final int FIRST_NAME_MINIMUM_LENGTH = 2;
+    private static final int FIRST_NAME_MAXIMUM_LENGTH = 24;
     //private static final int LAST_NAME_MAXIMUM_LENGTH = 64;
     private static final int EMAIL_MAXIMUM_LENGTH = 127;
     private static final int PASSWORD_MINIMUM_LENGTH = 6;
     private static final int PASSWORD_MAXIMUM_LENGTH = 14;
+    private static final String ERROR_FIRST_NAME_LENGTH =
+            "We're sorry, your first name must be 2-24 characters long";
+    private static final String ERROR_SCREEN_NAME_LENGTH =
+            "We're sorry, your screen name must be 6-14 characters long";
+    private static final String ERROR_EMAIL_MISSING =
+            "We're sorry, you must enter your email address";
+    private static final String ERROR_PASSWORD_LENGTH =
+            "We're sorry, your password must be 6-14 characters long";
+    private static final String ERROR_STATE_MISSING =
+            "We're sorry, you must select your state";
+    private static final String ERROR_CITY_MISSING =
+            "We're sorry, you must select your city";
+    private static final String ERROR_NUM_CHILDREN_MISSING =
+            "We're sorry, you must select a number";
+    private static final String ERROR_TERMS_MISSING =
+            "We're sorry, you must accept the terms of service";
 
     public boolean supports(Class aClass) {
         return aClass == UserCommand.class;
@@ -41,46 +56,36 @@ public class UserCommandValidator implements Validator {
         UserCommand command = (UserCommand)object;
 
         String email = command.getEmail();
-        String confirmEmail = command.getConfirmEmail();
+        // String confirmEmail = command.getConfirmEmail();
 
-        User user = _userDao.findUserFromEmailIfExists(email);
+        if (email.length() > EMAIL_MAXIMUM_LENGTH) {
+            errors.rejectValue("email", null, ERROR_EMAIL_MISSING);
+        } else {
+            User user = _userDao.findUserFromEmailIfExists(email);
 
-        // Don't allow people to pick existing emails unless they've been redirected here
-        // (redirection is detected by checking id)
-        // per request, this rule is no longer enforced
-        if (command.getUser().getId() == null && user != null) {
-            //errors.rejectValue("email", "existing_user", "This email already exists, please choose a different one.");
-        }
+            // verify confirm email matches email
+//        if (confirmEmail != null && !confirmEmail.equals(email)) {
+//            errors.rejectValue("email", null, "Please enter the same email into both fields.");
+//        }
 
-        // verify confirm email matches email
-        if (confirmEmail != null && !confirmEmail.equals(email)) {
-            errors.rejectValue("email", null, "Please enter the same email into both fields.");
-        }
-
-        if (user != null) {
-            if (user.isEmailValidated()) {
-                errors.rejectValue("email", null,
-                        "You have already registered with GreatSchools!");
-                return; // other errors are irrelevant
-            } else if (user.isEmailProvisional()) {
-                errors.rejectValue("email", null,
-                        "You have already registered with GreatSchools! Please check your " +
-                                "email and follow the instructions to validate your account.");
-                return; // other errors are irrelevant
+            if (user != null) {
+                if (user.isEmailValidated()) {
+                    errors.rejectValue("email", null,
+                            "You have already registered with GreatSchools!");
+                    return; // other errors are irrelevant
+                } else if (user.isEmailProvisional()) {
+                    errors.rejectValue("email", null,
+                            "You have already registered with GreatSchools! Please check your " +
+                                    "email and follow the instructions to validate your account.");
+                    return; // other errors are irrelevant
+                }
             }
         }
 
-        if (email.length() > EMAIL_MAXIMUM_LENGTH) {
-            errors.rejectValue("email", null,
-                    "Please limit your email address to " + EMAIL_MAXIMUM_LENGTH + " characters or less");
-        }
-
-        if (StringUtils.isEmpty(command.getFirstName())) {
-            errors.rejectValue("firstName", null, "Please enter your first name");
-        } else if (command.getFirstName().length() > FIRST_NAME_MAXIMUM_LENGTH) {
-            errors.rejectValue("firstName", null,
-                    "Your first name can be no more than " + FIRST_NAME_MAXIMUM_LENGTH +
-                            " characters long.");
+        if (StringUtils.isEmpty(command.getFirstName()) ||
+                command.getFirstName().length() > FIRST_NAME_MAXIMUM_LENGTH ||
+                command.getFirstName().length() < FIRST_NAME_MINIMUM_LENGTH) {
+            errors.rejectValue("firstName", null, ERROR_FIRST_NAME_LENGTH);
         }
 
 //        if (StringUtils.isEmpty(command.getLastName())) {
@@ -94,18 +99,10 @@ public class UserCommandValidator implements Validator {
         // screen name must be 5-20 characters and alphanumeric only (no space)
         String sn = command.getScreenName();
         boolean snError = false;
-        if (StringUtils.isEmpty(sn)) {
-            errors.rejectValue("screenName", null, "Please enter your screen name");
-            snError = true;
-        } else if (sn.length() < SCREEN_NAME_MINIMUM_LENGTH || sn.length() > SCREEN_NAME_MAXIMUM_LENGTH) {
-            errors.rejectValue("screenName", null,
-                    "Please enter a screen name between " + SCREEN_NAME_MINIMUM_LENGTH + " and " +
-                            SCREEN_NAME_MAXIMUM_LENGTH + " characters long.");
-            snError = true;
-        } else if (sn.length() > SCREEN_NAME_MAXIMUM_LENGTH) {
-            errors.rejectValue("screenName", null,
-                    "Your screen name can be no more than " + SCREEN_NAME_MAXIMUM_LENGTH +
-                            " characters long.");
+        if (StringUtils.isEmpty(sn) ||
+                sn.length() < SCREEN_NAME_MINIMUM_LENGTH ||
+                sn.length() > SCREEN_NAME_MAXIMUM_LENGTH) {
+            errors.rejectValue("screenName", null, ERROR_SCREEN_NAME_LENGTH);
             snError = true;
         }
         if (!StringUtils.isAlphanumeric(sn)) { // this method is null-safe
@@ -119,27 +116,23 @@ public class UserCommandValidator implements Validator {
                     "This screen name is already taken. Please try another.");
         }
 
-        String gender = "";
-        if (StringUtils.isEmpty(command.getGender())) {
+        String gender = command.getGender();
+        if (StringUtils.isEmpty(gender) ||
+                (gender.length() > 1 || (!"m".equals(gender) &&
+                        !"f".equals(gender) && !"u".equals(gender)))) {
             errors.rejectValue("gender", null,
                     "Please choose a value.");
-        } else {
-            gender = command.getGender();
-            if (gender.length() > 1 || (!"m".equals(gender) && !"f".equals(gender) && !"u".equals(gender))) {
-                errors.rejectValue("gender", null,
-                        "Please choose a value.");
-            }
         }
 
         if (command.getNumSchoolChildren() == null || command.getNumSchoolChildren().intValue() == -1) {
             if (!"u".equals(gender)) {
-                errors.rejectValue("numSchoolChildren", null, "Please make a selection.");
+                errors.rejectValue("numSchoolChildren", null, ERROR_NUM_CHILDREN_MISSING);
             }
         }
 
         if ("u".equals(gender)) {
             if (!command.getTerms()) {
-                errors.rejectValue("terms", null, "You must accept the terms of service.");
+                errors.rejectValue("terms", null, ERROR_TERMS_MISSING);
             }
         }
 
@@ -147,18 +140,11 @@ public class UserCommandValidator implements Validator {
 
         UserProfile userProfile = command.getUserProfile();
         if (userProfile.getState() == null) {
-            errors.rejectValue("state", null, "You must specify a state.");
+            errors.rejectValue("state", null, ERROR_STATE_MISSING);
             return; // avoid NPEs
         }
         if (StringUtils.isEmpty(userProfile.getCity())) {
-            errors.rejectValue("city", null, "Please select a city. If your city is not listed, " +
-                    "please select \"My city is not listed.\"");
-        } else {
-            ICity city = _geoDao.findCity(userProfile.getState(), userProfile.getCity());
-            if (city == null) {
-                errors.rejectValue("city", null, "That city does not exist in " +
-                        userProfile.getState().getLongName());
-            }
+            errors.rejectValue("city", null, ERROR_CITY_MISSING);
         }
     }
      
@@ -172,18 +158,12 @@ public class UserCommandValidator implements Validator {
         String password = command.getPassword();
         String confirmPassword = command.getConfirmPassword();
 
-        if (StringUtils.isEmpty(password)) {
-            errors.rejectValue("password", "empty_password", "Please enter a password.");
-            return; // to prevent NPE's
-        }
-
-        if (password.length() < PASSWORD_MINIMUM_LENGTH || password.length() > PASSWORD_MAXIMUM_LENGTH) {
-            errors.rejectValue("password", null, "Please enter a password between " +
-                    PASSWORD_MINIMUM_LENGTH + " and " + PASSWORD_MAXIMUM_LENGTH + " characters long.");
-        }
-
-        if (StringUtils.isEmpty(confirmPassword) || !confirmPassword.equals(password)) {
-            errors.rejectValue("password", "mismatched_password", "Please enter the same password into both fields.");
+        if (StringUtils.isEmpty(password) ||
+                password.length() < PASSWORD_MINIMUM_LENGTH ||
+                password.length() > PASSWORD_MAXIMUM_LENGTH) {
+            errors.rejectValue("password", null, ERROR_PASSWORD_LENGTH);
+        } else if (StringUtils.isEmpty(confirmPassword) || !confirmPassword.equals(password)) {
+            errors.rejectValue("password", null, "Please enter the same password into both fields.");
         }
     }
 
@@ -193,13 +173,5 @@ public class UserCommandValidator implements Validator {
 
     public void setUserDao(IUserDao _userDao) {
         this._userDao = _userDao;
-    }
-
-    public IGeoDao getGeoDao() {
-        return _geoDao;
-    }
-
-    public void setGeoDao(IGeoDao geoDao) {
-        _geoDao = geoDao;
     }
 }

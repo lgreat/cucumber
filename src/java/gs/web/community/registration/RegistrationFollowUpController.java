@@ -59,7 +59,8 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
         }
         String city = fupCommand.getUserProfile().getCity();
-        for (int x = 0; x < 1 || x < fupCommand.getUserProfile().getNumSchoolChildren().intValue(); x++) {
+        for (int x = 0; x < 1 || (fupCommand.getUserProfile().getNumSchoolChildren() != null &&
+                x < fupCommand.getUserProfile().getNumSchoolChildren().intValue()); x++) {
             Student student = new Student();
             student.setState(state);
             fupCommand.addStudent(student);
@@ -101,7 +102,8 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             }
         }
 
-        for (int x=0; x < fupCommand.getUserProfile().getNumSchoolChildren().intValue(); x++) {
+        for (int x=0; fupCommand.getUserProfile().getNumSchoolChildren() != null &&
+                x < fupCommand.getUserProfile().getNumSchoolChildren().intValue(); x++) {
             int childNum = x+1;
             if (request.getParameter("grade" + childNum) != null) {
                 parseStudent(request, fupCommand, errors, childNum);

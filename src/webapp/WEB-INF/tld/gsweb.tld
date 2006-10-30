@@ -161,6 +161,12 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>useAlternateNames</name>
+            <description>Set to true to use alternate grade names. Currently just "K" for "KG".</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
     <tag>

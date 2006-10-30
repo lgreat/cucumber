@@ -74,7 +74,7 @@
                 <gsweb:form id="regForm" action="/community/registration.page" method="post">
 
                 <gsml:errorMessage command="userCmd" field="gender"/>
-                <label class="form left">I'm a (P)</label>
+                <label class="form left">I'm a</label>
                 <gsml:radio name="gender" value="f" styleId="mom" styleClass="form radio"
                             checked="${userCmd.gender eq 'f'}" onclick="parentSelected()"/>
                 <label for="mom" class="form radio">Mom</label>
@@ -115,19 +115,6 @@
                     <gsml:popupWindow width="800" height="600" left="50" top="50"
                         href="/about/privacyStatement.page?state=$STATE">Privacy Policy</gsml:popupWindow>
                 </span>
-
-                <c:if test="${userCmd.user.id == null}">
-                    <!-- This is a new user -->
-
-                    <gsml:errorMessage command="userCmd" field="confirmEmail"/>
-                    <label for="confirmEmail" class="form left">Re-type email address</label>
-                    <spring:bind path="userCmd.confirmEmail">
-                        <input id="confirmEmail" class="form email" type="text" name="${status.expression}"
-                               value="${status.value}"/>
-                    </spring:bind>
-
-                    <br style="clear: left;"/>
-                </c:if>
 
                 <gsml:errorMessage command="userCmd" field="password"/>
                 <label for="password" class="form left">Password (P)<br/><span class="passwordSpec">(6-14 characters)</span></label>
@@ -219,7 +206,7 @@
                 </spring:bind>
                 <br style="clear:left;"/>
 
-                <div class="privacyIcon">Items with a (P) will be private and not viewable to other users.</div>
+                <div class="privacyIcon">Items with a (P) will be private and not viewable by other users.</div>
 
                 <div id="joinButton" style="${termsStyle}">
                     <input class="submit join" type="submit" value="Join!" name="join"/>

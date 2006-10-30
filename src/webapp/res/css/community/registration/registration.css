@@ -8,7 +8,7 @@
     border-color: #64CCCB;
     border-width: medium;
     margin-left: 5px;
-    padding: 20px 20px 20px 20px;
+    padding: 40px;
 }
 
 .registerDiv label.form, .registerDiv input.form, .registerDiv select.form {
@@ -148,7 +148,7 @@ span.privacy a, span.privacy a:link, span.privacy a:visited, span.privacy a:acti
 }
 
 .registerDiv h1.intro {
-    font-size: x-large;
+    font-size: large;
     color: #98CC67;
     margin-bottom: 10px;
 }
@@ -156,7 +156,7 @@ span.privacy a, span.privacy a:link, span.privacy a:visited, span.privacy a:acti
 .registerDiv p.intro {
     font-size: medium;
     color: #898989;
-    margin-bottom: 35px;
+    margin-bottom: 45px;
     font-weight: bold;
 }
 

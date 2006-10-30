@@ -8,7 +8,7 @@ div.register2Div {
     border-color: #64CCCB;
     border-width: medium;
     margin-left: 5px;
-    padding: 20px 20px 20px 20px;
+    padding: 40px;
 }
 
 hr {
@@ -17,7 +17,7 @@ hr {
 }
 
 h1.intro {
-    font-size: x-large;
+    font-size: large;
     color: #98CC67;
     margin-bottom: 10px;
     font-weight: bold;
@@ -81,6 +81,10 @@ label.form {
 select.form {
     display: block;
     float: left;
+}
+
+select.school {
+    width: 175px;
 }
 
 label.grade, label.school {

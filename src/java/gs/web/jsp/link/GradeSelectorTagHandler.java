@@ -24,6 +24,11 @@ public class GradeSelectorTagHandler extends SimpleTagSupport {
     private Grade _grade;
     private String _noGradeLabel = "--"; // default
     private String _name = "grade"; // default
+    private boolean _useAlternateNames = false;
+
+    public void setUseAlternateNames(boolean useAlternateNames) {
+        _useAlternateNames = useAlternateNames;
+    }
 
     /**
      * When set to true, the selector will show "--" as the default option.
@@ -124,7 +129,11 @@ public class GradeSelectorTagHandler extends SimpleTagSupport {
                 }
                 out.print(">");
 
-                out.print(grade.getName());
+                if (_useAlternateNames && grade == Grade.KINDERGARTEN) {
+                    out.print("K");
+                } else {
+                    out.print(grade.getName());
+                }
                 out.println("</option>");
             }
         }

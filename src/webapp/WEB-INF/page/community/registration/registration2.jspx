@@ -103,9 +103,9 @@
           <h1 class="intro">You're almost done!</h1>
           <p class="intro">Over the next year, you'll be able to link up with other parents in your
           school and school district - to discuss issues and join groups focused
-          on helping your child thrive in school.</p>
-          <p class="intro introBottom strong">We'll always keep your name, your child's grade,
-          and your email address private, to preserve your anonymity on our site.</p>
+          on helping your children thrive in school.</p>
+          <p class="intro introBottom strong">We'll always keep your name
+          and your email address private to preserve your anonymity on our site.</p>
 
         <gsweb:form id="registration2" action="/community/registration2.page" method="post">
 
@@ -163,7 +163,10 @@
                     <br style="clear: left;"/>
 
                     <label for="grade${child}" class="form grade">Grade</label>
-                    <gsweb:gradeSelector styleId="grade${child}" name="grade${child}" styleClass="form grade" grade="${gradeVal}" useNoGrade="true" onChange="gradeChange(this, ${child});"/>
+                    <gsweb:gradeSelector styleId="grade${child}" name="grade${child}"
+                                         styleClass="form grade" grade="${gradeVal}"
+                                         useNoGrade="true" useAlternateNames="true"
+                                         onChange="gradeChange(this, ${child});"/>
                     <label for="school${child}" class="form school">School</label>
                     <div id="schoolDiv${child}">
                         <select name="school${child}" id="school${child}" class="form school">
