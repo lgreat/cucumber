@@ -70,6 +70,12 @@ public class SchoolLinkTagHandlerTest extends BaseTestCase {
         builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/ny/rankings/8", builder.asSiteRelative(null));
 
+        tagHandler = new CharterAuthorizerTagHandler();
+        school.setDatabaseState(State.NY);
+        tagHandler.setSchool(school);
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/school/authorizers.page?school=8&state=NY", builder.asSiteRelative(null));
+
     }
 
     public void testCompareSchoolLinkTagHandler() {

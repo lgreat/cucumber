@@ -1,0 +1,29 @@
+#mssPromo {
+display:block;
+height:108px;
+width:237px;
+background-color:#669acc;
+color: #ffffff;
+font-weight:bold;
+padding:10px;
+margin-right:5px;
+}
+
+#mssPromo .large {
+font-size:18px;
+}
+
+#mssPromo .medium {
+font-size:16px;
+padding-top:6px;
+}
+
+#mssPromo .signup {
+margin-top:25px;
+float:right;
+display: block;
+height: 20px;
+width: 96px;
+text-indent: -7000px;
+background: url('../../../img/button/btn_sign_up_now_b6d6f6.gif') left no-repeat;
+}

@@ -73,7 +73,7 @@
                 </div>
 
                 <div style="float:left;border-left: dotted 2px #66cccc;padding-left:25px; height:100%;">
-                    <table cellpadding="3px">
+                    <table cellpadding="3">
                         <tr><td><span class="strongImprovement">&amp;nbsp;</span></td><td>Strong Improvement</td></tr>
                         <tr><td><span class="someImprovement">&amp;nbsp;</span></td><td>Some Improvement</td></tr>
                         <tr><td><span class="noChange">&amp;nbsp;</span></td><td>No Change</td></tr>

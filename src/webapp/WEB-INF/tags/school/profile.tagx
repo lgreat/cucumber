@@ -162,14 +162,7 @@
                             </ul>
 
                             <div id="school_promo" class="noprint">
-                                <c:choose>
-                                    <c:when test="${not empty school.authorizer}">
-                                        <school:charterAuthorizerPromo school="${school}"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <promo:schoolChoiceTips/>
-                                    </c:otherwise>
-                                </c:choose>
+                                <school:promo school="${school}"/>
                             </div>
 
                             <div id="site_promo" class="noprint">
