@@ -39,6 +39,10 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     public static final int STUDENT_NAME_MAX_LENGTH = 50;
     public static final int OTHER_INTEREST_MAX_LENGTH = 255;
 
+    public static final String ERROR_GRADE_MISSING = "We're sorry, you must choose a grade";
+    public static final String ERROR_SCHOOL_MISSING = "We're sorry, you must choose a school";
+    public static final String ERROR_TERMS = "We're sorry, you must agree to the terms of service";
+
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
     private StateManager _stateManager;
@@ -185,7 +189,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         for (int x=0; x < user.getUserProfile().getNumSchoolChildren().intValue(); x++) {
             Student student = (Student) fupCommand.getStudents().get(x);
             if (student.getGrade() == null) {
-                errors.rejectValue("students[" + x + "]", null, "Please choose a grade");
+                errors.rejectValue("students[" + x + "]", null, ERROR_GRADE_MISSING);
             }
             School school = null;
             if (student.getSchoolId() != null) {
@@ -196,7 +200,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                             student.getSchoolId() + " in " + student.getState());
                 }
             } else {
-                errors.rejectValue("students[" + x + "]", null, "Please choose a school");
+                errors.rejectValue("students[" + x + "]", null, ERROR_SCHOOL_MISSING);
             }
 
             if (school != null) {
@@ -211,7 +215,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         }
 
         if (!fupCommand.getTerms()) {
-            errors.rejectValue("terms", null, "We're sorry, you must agree to the terms of service");
+            errors.rejectValue("terms", null, ERROR_TERMS);
         }
 
 //        // now check if they are adding/removing children

@@ -83,6 +83,14 @@ select.form {
     float: left;
 }
 
+select.city {
+    width: 175px;
+}
+
+select.state {
+    margin-left: 10px;
+}
+
 select.school {
     width: 175px;
 }
