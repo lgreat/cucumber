@@ -61,6 +61,7 @@
 
 #schoolProfile #ratingContent {
     float:left;width:505px;
+    padding-bottom:100px;
 }
 
 .framed #schoolProfile #ratingContent {

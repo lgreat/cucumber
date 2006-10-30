@@ -69,7 +69,7 @@
                 <div style="float:left;padding-right:25px;">
                     <h2 id="testScoreTrend">Test Score Trend</h2>
 
-                    <p style="font-size:97%;">Based on change between<br/>${year-1} and ${year}</p>
+                    <p>Based on change between<br/>${year-1} and ${year}</p>
                 </div>
 
                 <div style="float:left;border-left: dotted 2px #66cccc;padding-left:25px; height:100%;">
