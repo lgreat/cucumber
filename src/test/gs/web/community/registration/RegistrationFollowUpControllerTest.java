@@ -4,17 +4,17 @@ import gs.data.community.*;
 import gs.data.school.Grade;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
-import gs.data.school.Grades;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.DigestUtil;
+import gs.data.geo.IGeoDao;
 import gs.web.BaseControllerTestCase;
 import org.springframework.validation.BindException;
 import org.easymock.MockControl;
 import org.easymock.AbstractMatcher;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -26,8 +26,10 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
     private MockControl _userControl;
     private ISchoolDao _schoolDao;
     private MockControl _schoolControl;
-    private ISubscriptionDao _mockSubscriptionDao;
+    private ISubscriptionDao _subscriptionDao;
     private MockControl _subscriptionControl;
+    private IGeoDao _geoDao;
+    private MockControl _geoControl;
 
     private FollowUpCommand _command;
     private BindException _errors;
@@ -39,6 +41,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _userControl = MockControl.createControl(IUserDao.class);
         _schoolControl = MockControl.createControl(ISchoolDao.class);
         _subscriptionControl = MockControl.createControl(ISubscriptionDao.class);
+        _geoControl = MockControl.createControl(IGeoDao.class);
         StateManager stateManager = new StateManager();
 
         _controller = new RegistrationFollowUpController();
@@ -46,8 +49,10 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _controller.setUserDao(_userDao);
         _schoolDao = (ISchoolDao)_schoolControl.getMock();
         _controller.setSchoolDao(_schoolDao);
-        _mockSubscriptionDao = (ISubscriptionDao)_subscriptionControl.getMock();
-        _controller.setSubscriptionDao(_mockSubscriptionDao);
+        _subscriptionDao = (ISubscriptionDao)_subscriptionControl.getMock();
+        _controller.setSubscriptionDao(_subscriptionDao);
+        _geoDao = (IGeoDao) _geoControl.getMock();
+        _controller.setGeoDao(_geoDao);
         _controller.setStateManager(stateManager);
 
         setupBindings();
@@ -58,80 +63,73 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _errors = new BindException(_command, "");
         _user = new User();
         _userProfile = new UserProfile();
-        _user.setEmail("RegistrationFollowUpControllerTest10@greatschools.net");
+        _user.setEmail("RegistrationFollowUpControllerTest@greatschools.net");
         _user.setId(new Integer(456));
 
         _userProfile.setUser(_user);
         _userProfile.setScreenName("screeny");
-        _userProfile.setNumSchoolChildren(new Integer(0));
+        _userProfile.setNumSchoolChildren(new Integer(1));
         _user.setUserProfile(_userProfile);
-        _command.setUser(_user);
+        //_command.setUser(_user);
 
         String hash = DigestUtil.hashStringInt(_user.getEmail(), _user.getId());
         getRequest().addParameter("marker", hash);
+        getRequest().addParameter("id", _user.getId().toString());
+        getRequest().addParameter("recontactStr", "n");
+        getRequest().addParameter("termsStr", "y");
+
+        getRequest().addParameter("grade1", "6");
+        getRequest().addParameter("state1", "CA");
+        getRequest().addParameter("city1", "Alameda");
+        getRequest().addParameter("school1", "24");
+
+        _schoolDao.findSchoolsInCityByGrade(State.CA, "Alameda", Grade.G_6);
+        _schoolControl.setReturnValue(new ArrayList());
+        _schoolControl.replay();
 
         _userControl.expectAndReturn(_userDao.findUserFromId(456), _user);
         _userControl.replay();
     }
 
-    public void xxtestRegistrationFollowUp() throws NoSuchAlgorithmException {
-        _command.setAboutMe("My children are so unique!");
-        getRequest().addParameter("private", "checked");
-        _command.setOtherInterest("Other");
+    public void testBindRequestData() throws Exception {
         _command.setRecontact("false");
-        String interestCode = UserProfile.getInterestsMap().keySet().iterator().next().toString();
-        getRequest().addParameter(interestCode, "checked");
 
-        School school = new School();
-        school.setName("School");
-        school.setId(new Integer(1));
-        school.setDatabaseState(State.CA);
-        getRequest().addParameter("previousSchool1", school.getName());
-        getRequest().addParameter("previousSchoolId1", String.valueOf(school.getId()));
-        getRequest().addParameter("previousState1", State.CA.getAbbreviation());
+        assertNull(_command.getUser().getId());
+        assertFalse("n".equals(_command.getRecontact()));
+        assertFalse(_command.getTerms());
+        assertEquals(0, _command.getStudents().size());
+        assertEquals(0, _command.getCityNames().size());
+        assertEquals(0, _command.getSchools().size());
 
-        _schoolControl.expectAndReturn(_schoolDao.getSchoolById(State.CA, school.getId()),
-                school);
-        _schoolControl.replay();
-
-        _controller.onBindAndValidate(getRequest(), _command, _errors);
+        _controller.bindRequestData(getRequest(), _command, _errors);
         _userControl.verify();
         _schoolControl.verify();
+
         assertFalse(_errors.hasErrors());
+        assertNotNull(_command.getUser().getId());
+        assertTrue("n".equals(_command.getRecontact()));
+        assertTrue(_command.getTerms());
+        assertEquals(1, _command.getStudents().size());
+        assertEquals(1, _command.getCityNames().size());
+        assertEquals(1, _command.getSchools().size());
+    }
 
-        // controller checks for previous subscriptions
-        _mockSubscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PARENT_CONTACT);
-        // detects none
-        _subscriptionControl.setReturnValue(null);
-        // controller checks for previous subscriptions
-        _mockSubscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PREVIOUS_SCHOOLS);
-        // detects none
-        _subscriptionControl.setReturnValue(null);
-        Subscription expectedSubscription = new Subscription();
-        expectedSubscription.setUser(_user);
-        expectedSubscription.setProduct(SubscriptionProduct.PREVIOUS_SCHOOLS);
-        expectedSubscription.setSchoolId(school.getId().intValue());
-        // saves the new subscription
-        _mockSubscriptionDao.saveSubscription(expectedSubscription);
-        // I check that the correct user is matched to the correct subscription product
-        // and the correct school id
-        _subscriptionControl.setMatcher(new SubscriptionMatcher());
-        // and that's it
-        _subscriptionControl.replay();
+    public void testLoadSchoolList() {
+        Student student = new Student();
+        student.setState(State.CA);
+        student.setGrade(Grade.G_6);
+        student.setOrder(new Integer(1));
+        String city = "Alameda";
 
-        _userControl.reset();
-        _userDao.updateUser(_user);
-        _userControl.replay();
-
-        _controller.onSubmit(getRequest(), getResponse(), _command, _errors);
-        _userControl.verify();
-        _subscriptionControl.verify();
-        assertFalse(_errors.hasErrors());
+        assertEquals(0, _command.getSchools().size());
+        _controller.loadSchoolList(student, city, _command);
+        _schoolControl.verify();
+        assertEquals(1, _command.getSchools().size());
     }
 
     public void testRecontact() {
         _command.setRecontact("y");
-        _userProfile.setNumSchoolChildren(new Integer(1));
+        _command.setUser(_user);
 
         Student student = new Student();
         student.setSchoolId(new Integer(1));
@@ -147,7 +145,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _userControl.replay();
 
         // controller checks for previous subscriptions
-        _mockSubscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PARENT_CONTACT);
+        _subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PARENT_CONTACT);
         // detects none
         _subscriptionControl.setReturnValue(null);
         // a recontact subscription for the student's school will be saved
@@ -157,7 +155,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         sub.setState(State.CA);
         sub.setSchoolId(student.getSchoolId().intValue());
         // but only one, because 2nd student shares school, and 3rd student has no school listed
-        _mockSubscriptionDao.saveSubscription(sub);
+        _subscriptionDao.saveSubscription(sub);
         _subscriptionControl.setMatcher(new SubscriptionMatcher());
 
         _subscriptionControl.replay();
@@ -168,58 +166,26 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         assertFalse(_errors.hasErrors());
     }
 
-    public void xxtestBadHash() throws NoSuchAlgorithmException {
+    public void testBadHash() throws NoSuchAlgorithmException {
         // don't add hash to request
         getRequest().setParameter("marker", (String)null);
-        _controller.onBindAndValidate(getRequest(), _command, _errors);
+
+        _command.setRecontact("false");
+
+        _controller.bindRequestData(getRequest(), _command, _errors);
         _userControl.verify();
+        _schoolControl.verify();
+
         assertTrue(_errors.hasErrors());
         assertEquals(1, _errors.getErrorCount());
-    }
-
-    public void xtestAddChild() throws NoSuchAlgorithmException {
-        _userProfile.setNumSchoolChildren(new Integer(1));
-
-        _userControl.reset(); // negate default settings from setupBindings
-        _userControl.expectAndReturn(_userDao.findUserFromId(456), _user);
-        _userDao.updateUser(_user);
-        _userControl.replay();
-
-        String hash = DigestUtil.hashStringInt(_user.getEmail(), _user.getId());
-        getRequest().addParameter("marker", hash);
-        getRequest().addParameter("addChild", "addChild");
-        _controller.onBindAndValidate(getRequest(), _command, _errors);
-        _userControl.verify();
-        assertTrue(_errors.hasErrors());
-
-        assertEquals(_user.getUserProfile().getNumSchoolChildren(), new Integer(2));
-    }
-
-    public void xtestRemoveChild() throws NoSuchAlgorithmException {
-        _userProfile.setNumSchoolChildren(new Integer(2));
-
-        _userControl.reset(); // negate default settings from setupBindings
-        _userControl.expectAndReturn(_userDao.findUserFromId(456), _user);
-        _userDao.updateUser(_user);
-        _userControl.replay();
-
-        String hash = DigestUtil.hashStringInt(_user.getEmail(), _user.getId());
-        getRequest().addParameter("marker", hash);
-        getRequest().addParameter("removeChild", "removeChild");
-        _controller.onBindAndValidate(getRequest(), _command, _errors);
-        _userControl.verify();
-        assertTrue(_errors.hasErrors());
-
-        assertEquals(_user.getUserProfile().getNumSchoolChildren(), new Integer(1));
     }
 
     /**
      * Test that if a student is in the command, that student is added to the user and updateUser
      * is called on the dao.
      */
-    public void xxtestaddStudent() {
-        _userProfile.setNumSchoolChildren(new Integer(1));
-
+    public void testaddStudent() {
+        _command.setUser(_user);
         Student student = new Student();
         _command.addStudent(student);
         assertNull(_user.getStudents());
@@ -229,11 +195,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _userControl.replay();
 
         // controller checks for previous subscriptions
-        _mockSubscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PARENT_CONTACT);
-        // detects none
-        _subscriptionControl.setReturnValue(null);
-        // controller checks for previous subscriptions
-        _mockSubscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PREVIOUS_SCHOOLS);
+        _subscriptionDao.getUserSubscriptions(_user, SubscriptionProduct.PARENT_CONTACT);
         // detects none
         _subscriptionControl.setReturnValue(null);
         _subscriptionControl.replay();
@@ -246,151 +208,30 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         assertEquals(_user.getStudents().iterator().next(), student);
     }
 
-    public void xxtestValidateStudent() throws NoSuchAlgorithmException {
-        _userProfile.setNumSchoolChildren(new Integer(1));
-
-        getRequest().addParameter("childname1", "Anthony");
-        getRequest().addParameter("grade1", Grade.G_10.getName());
-        getRequest().addParameter("state1", "CA");
+    public void testOnBindAndValidate() {
+        _command.setUser(_user);
+        _command.setTerms(true);
         School school = new School();
         school.setName("School");
-        school.setId(new Integer(1));
-        school.setDatabaseState(State.CA);
-        school.setGradeLevels(Grades.createGrades(Grade.G_9, Grade.G_12));
-        getRequest().addParameter("schoolId1", String.valueOf(school.getId()));
-        getRequest().addParameter("school1", school.getName());
+        school.setId(new Integer(24));
 
-        assertEquals(0, _command.getNumStudents());
+        Student student = new Student();
+        student.setGrade(Grade.G_6);
+        student.setSchoolId(new Integer(24));
+        student.setState(State.CA);
+        _command.addStudent(student);
 
+        _schoolControl.reset();
         _schoolControl.expectAndReturn(_schoolDao.getSchoolById(State.CA, school.getId()),
                 school);
         _schoolControl.replay();
 
         // successful validation should insert the student into the command
         _controller.onBindAndValidate(getRequest(), _command, _errors);
-        _userControl.verify();
         _schoolControl.verify();
-        assertFalse(_errors.hasErrors());
-        assertEquals(1, _command.getNumStudents());
-        Student student = (Student) _command.getStudents().get(0);
-        assertEquals("Anthony", student.getName());
-        assertEquals(Grade.G_10, student.getGrade());
-        assertEquals(new Integer(1), student.getSchoolId());
-        assertEquals(State.CA, student.getState());
-    }
-
-    public void xtestStudentNameLength() throws NoSuchAlgorithmException {
-        _userProfile.setNumSchoolChildren(new Integer(1));
-
-        StringBuffer childNameText = new StringBuffer();
-        for (int x=0; x < RegistrationFollowUpController.STUDENT_NAME_MAX_LENGTH + 1; x++) {
-            childNameText.append("x");
-        } // too long
-
-        getRequest().addParameter("childname1", childNameText.toString());
-        getRequest().addParameter("grade1", Grade.G_10.getName());
-        getRequest().addParameter("state1", "CA");
-
-        _controller.onBindAndValidate(getRequest(), _command, _errors);
-        _userControl.verify();
-        assertTrue(_errors.hasErrors());
-        assertTrue(_errors.hasFieldErrors("students[0]"));
-    }
-
-    public void xtestAboutMeLength() throws NoSuchAlgorithmException {
-        StringBuffer aboutMeText = new StringBuffer();
-        for (int x=0; x < RegistrationFollowUpController.ABOUT_ME_MAX_LENGTH + 1; x++) {
-            aboutMeText.append("x");
-        } // too long
-        _command.setAboutMe(aboutMeText.toString());
-
-        _controller.onBindAndValidate(getRequest(), _command, _errors);
-        _userControl.verify();
-        assertTrue(_errors.hasErrors());
-        assertTrue(_errors.hasFieldErrors("aboutMe"));
-    }
-
-    public void xtestOtherInterestLength() throws NoSuchAlgorithmException {
-        StringBuffer otherText = new StringBuffer();
-        for (int x=0; x < RegistrationFollowUpController.OTHER_INTEREST_MAX_LENGTH + 1; x++) {
-            otherText.append("x");
-        } // too long
-        _command.setOtherInterest(otherText.toString());
-
-        _controller.onBindAndValidate(getRequest(), _command, _errors);
-        _userControl.verify();
-        assertTrue(_errors.hasErrors());
-        assertTrue(_errors.hasFieldErrors("otherInterest"));
-    }
-
-    public void xtestDuplicatePreviousSchools() throws NoSuchAlgorithmException {
-        School school = new School();
-        school.setName("School");
-        school.setId(new Integer(1));
-        school.setDatabaseState(State.CA);
-        getRequest().addParameter("previousSchool1", school.getName());
-        getRequest().addParameter("previousSchoolId1", String.valueOf(school.getId()));
-        getRequest().addParameter("previousState1", State.CA.getAbbreviation());
-        getRequest().addParameter("previousSchool2", school.getName());
-        getRequest().addParameter("previousSchoolId2", String.valueOf(school.getId()));
-        getRequest().addParameter("previousState2", State.CA.getAbbreviation());
-
-        _schoolControl.expectAndReturn(_schoolDao.getSchoolById(State.CA, school.getId()),
-                school, 2);
-        _schoolControl.replay();
-
-        _controller.onBindAndValidate(getRequest(), _command, _errors);
-        _userControl.verify();
-        _schoolControl.verify();
-        assertFalse(_errors.hasErrors());
-        List subs = _command.getSubscriptions();
-        assertNotNull(subs);
-        assertEquals(1, subs.size());
-    }
-
-    public void xtestWrongPreviousSchoolName() throws NoSuchAlgorithmException {
-        School school = new School();
-        school.setName("School");
-        school.setId(new Integer(1));
-        school.setDatabaseState(State.CA);
-        getRequest().addParameter("previousSchool1", "someRandomName");
-        getRequest().addParameter("previousSchoolId1", String.valueOf(school.getId()));
-        getRequest().addParameter("previousState1", State.CA.getAbbreviation());
-
-        _schoolControl.expectAndReturn(_schoolDao.getSchoolById(State.CA, school.getId()),
-                school);
-        _schoolControl.replay();
-
-        _controller.onBindAndValidate(getRequest(), _command, _errors);
-        _userControl.verify();
-        _schoolControl.verify();
-        assertTrue(_errors.hasErrors());
-        assertEquals(1, _errors.getErrorCount());
-    }
-
-    public void xtestWrongChildSchoolName() throws NoSuchAlgorithmException {
-        _userProfile.setNumSchoolChildren(new Integer(1));
-
-        getRequest().addParameter("childname1", "Anthony");
-        getRequest().addParameter("grade1", Grade.G_10.getName());
-        getRequest().addParameter("state1", "CA");
-        School school = new School();
-        school.setName("School");
-        school.setId(new Integer(1));
-        school.setDatabaseState(State.CA);
-        school.setGradeLevels(Grades.createGrades(Grade.G_9, Grade.G_12));
-        getRequest().addParameter("schoolId1", String.valueOf(school.getId()));
-        getRequest().addParameter("school1", "someRandomSchoolName");
-
-        _schoolControl.expectAndReturn(_schoolDao.getSchoolById(State.CA, school.getId()),
-                school);
-        _schoolControl.replay();
-
-        _controller.onBindAndValidate(getRequest(), _command, _errors);
-        _userControl.verify();
-        _schoolControl.verify();
-        assertTrue(_errors.hasErrors());
-        assertEquals(1, _errors.getErrorCount());
+        assertFalse(_errors.toString(), _errors.hasErrors());
+        assertEquals(1, _command.getSchoolNames().size());
+        assertEquals("School", _command.getSchoolNames().get(0).toString());
     }
 
     private class SubscriptionMatcher extends AbstractMatcher {

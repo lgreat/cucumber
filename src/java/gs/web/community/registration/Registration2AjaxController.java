@@ -63,45 +63,61 @@ public class Registration2AjaxController implements Controller {
         String grade = request.getParameter("grade");
         String childNum = request.getParameter("childNum");
 
-        _log.info("city=" + city);
-        _log.info("state=" + state);
-        _log.info("grade=" + grade);
-        _log.info("childNum=" + childNum);
-
         PrintWriter out = response.getWriter();
         try {
             if (city != null) {
-                List schools = _schoolDao.findSchoolsInCityByGrade(state, city, Grade.getGradeLevel(grade));
-                School notListed = new School();
-                notListed.setName("My school is not listed");
-                schools.add(0, notListed);
-                out.print("<select name=\"school" + childNum + "\" id=\"school" + childNum);
-                out.println("\" class=\"form school\">");
-                outputOption(out, "", "--", true);
-                for (int x=0; x < schools.size(); x++) {
-                    School school = (School) schools.get(x);
-                    String idString = ((school.getId() != null)?school.getId().toString():"");
-                    outputOption(out, idString, school.getName());
-                }
-                out.print("</select>");
+                outputSchoolSelect(state, city, grade, out, childNum);
             } else {
-                List cities = _geoDao.findCitiesByState(state);
-                City notListed = new City();
-                notListed.setName("My city is not listed");
-                cities.add(0, notListed);
-                out.print("<select id=\"citySelect\" name=\"city\" class=\"city\"");
-                out.print(" onchange=\"cityChange(this, " + childNum + ");\">");
-                outputOption(out, "", "--", true);
-                for (int x=0; x < cities.size(); x++) {
-                    ICity icity = (ICity) cities.get(x);
-                    outputOption(out, icity.getName(), icity.getName());
-                }
-                out.print("</select>");
+                outputCitySelect(state, out, childNum);
             }
         } catch (Exception e) {
             out.print("Error retrieving results");
         }
         return null;
+    }
+
+    protected void outputCitySelect(State state, PrintWriter out, String childNum) {
+        List cities = _geoDao.findCitiesByState(state);
+        City notListed = new City();
+        notListed.setName("My city is not listed");
+        cities.add(0, notListed);
+        openSelectTag(out, "city", "citySelect", "city", "cityChange(this, " + childNum + ");");
+        outputOption(out, "", "--", true);
+        for (int x=0; x < cities.size(); x++) {
+            ICity icity = (ICity) cities.get(x);
+            outputOption(out, icity.getName(), icity.getName());
+        }
+        out.print("</select>");
+    }
+
+    protected void outputSchoolSelect(State state, String city, String grade, PrintWriter out, String childNum) {
+        List schools = _schoolDao.findSchoolsInCityByGrade(state, city, Grade.getGradeLevel(grade));
+        School notListed = new School();
+        notListed.setName("My school is not listed");
+        schools.add(0, notListed);
+        openSelectTag(out, "school" + childNum, "school" + childNum, "form school", null);
+        outputOption(out, "", "--", true);
+        for (int x=0; x < schools.size(); x++) {
+            School school = (School) schools.get(x);
+            String idString = ((school.getId() != null)?school.getId().toString():"");
+            outputOption(out, idString, school.getName());
+        }
+        out.print("</select>");
+    }
+
+    protected void openSelectTag(PrintWriter out, String name, String cssId, String cssClass, String onChange) {
+        out.print("<select");
+        out.print(" name=\"" + name + "\"");
+        if (cssId != null) {
+            out.print(" id=\"" + cssId + "\"");
+        }
+        if (cssClass != null) {
+            out.print(" class=\"" + cssClass + "\"");
+        }
+        if (onChange != null) {
+            out.print(" onchange=\"" + onChange + "\"");
+        }
+        out.println(">");
     }
 
     protected void outputOption(PrintWriter out, String value, String name) {

@@ -49,7 +49,6 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
     protected void onBindOnNewForm(HttpServletRequest request, Object command, BindException errors) throws Exception {
         super.onBindOnNewForm(request, command);
-        _log.info("onBindOnNewForm");
         FollowUpCommand fupCommand = (FollowUpCommand) command;
 
         bindRequestData(request, fupCommand, errors);
@@ -64,7 +63,6 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             Student student = new Student();
             student.setState(state);
             fupCommand.addStudent(student);
-            _log.info("Adding city (" + city + ") for child #" + (x+1));
             fupCommand.addCityName(city);
             loadCityList(request, fupCommand, errors, x+1);
         }
@@ -72,7 +70,6 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
     public void onBind(HttpServletRequest request, Object command, BindException errors) throws Exception {
         super.onBind(request, command);
-        _log.info("onBind");
         FollowUpCommand fupCommand = (FollowUpCommand) command;
 
         bindRequestData(request, fupCommand, errors);
@@ -127,12 +124,10 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         City city = new City();
         city.setName("My city is not listed");
         cities.add(0, city);
-        _log.info("Adding city list (size=" + cities.size() + ") for child#" + childNum);
         fupCommand.addCityList(cities);
     }
 
     protected void parseStudent(HttpServletRequest request, FollowUpCommand fupCommand, BindException errors, int childNum) {
-        _log.info("Parsing info for child #" + childNum);
         String sGrade = request.getParameter("grade" + childNum);
         State state = _stateManager.getState(request.getParameter("state" + childNum));
         String sSchoolId = request.getParameter("school" + childNum);
@@ -158,13 +153,10 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         State state = student.getState();
         Grade grade = student.getGrade();
         if (grade != null) {
-            _log.info("Obtaining school list for " + state + ": " + city + ": " + grade);
             List schools = _schoolDao.findSchoolsInCityByGrade(state, city, grade);
             School school = new School();
             school.setName("My school is not listed");
             schools.add(0, school);
-            _log.info("Adding school list (size=" + schools.size() +
-                    ") for child #" + student.getOrder());
             fupCommand.addSchools(schools);
         } else {
             fupCommand.addSchools(new ArrayList());
@@ -177,7 +169,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
      */
     protected void onBindAndValidate(HttpServletRequest request,
                                      Object command,
-                                     BindException errors) throws NoSuchAlgorithmException {
+                                     BindException errors) {
         FollowUpCommand fupCommand = (FollowUpCommand)command;
         Integer userId = fupCommand.getUser().getId();
         if (userId == null) {
@@ -207,7 +199,6 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 errors.rejectValue("students[" + x + "]", null, "Please choose a school");
             }
 
-            _log.info("school=" + school);
             if (school != null) {
                 student.setSchool(school);
                 // a list of school names makes persisting the page MUCH easier
