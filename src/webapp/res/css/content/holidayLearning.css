@@ -21,17 +21,3 @@ h2#subTitle2 {
     width: 365px;
     height: 26px;
 }
-
-#contentGS .middle h2 {
-    padding:0;
-}
-
-#contentGS .middle h1 {
-    font-family:inherit;
-    font-size:100%;
-    font-weight:normal;
-    padding:0;
-    color: #fff;
-    background-color: #6cc;
-    margin-bottom:0;
-}

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdPosition.java,v 1.4 2006/10/06 23:43:37 chriskimm Exp $
+ * $Id: AdPosition.java,v 1.5 2006/10/31 19:05:26 dlee Exp $
  */
 package gs.web.ads;
 
@@ -64,6 +64,11 @@ public class AdPosition extends Enum {
      * box ad on city pages 300x250
      */
     public static final AdPosition X_66 = new AdPosition("x66");
+
+    /**
+     * box ad can either be 300x250 or 300x600
+     */
+    public static final AdPosition X_70 = new AdPosition("x70");
 
 
     private AdPosition(String s) {

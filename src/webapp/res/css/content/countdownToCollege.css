@@ -1,5 +1,109 @@
-@import "microsite.css";
 @import "collegeQuickFinder.css";
+
+#pageGS {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+}
+
+#pageGS #contentGS  a:hover {
+    text-decoration:underline;
+}
+
+/* Middle column */
+#contentGS .middle h1 {
+    font-family: Rockwell light, courier, courier new;
+    font-size: xx-large;
+    font-weight: 100;
+    padding: 8ex 0 1ex 16px;
+    color: #fff;
+    background-color: #6cc;
+    margin-bottom: 16px;
+}
+
+#contentGS .middle h2 {
+    font-family: century gothic;
+    font-size: large;
+    font-weight: 100;
+    color: #fff;
+    background-color: #fb0;
+    padding: 4px 0 2px 16px;
+}
+
+#contentGS .middle li {
+    padding: 8px 0 2px 16px;
+    font-size: small; /* 13pt */
+    font-weight: 700;
+    background-color: #fff;
+    color: #5bc;
+}
+
+#contentGS .middle li a, #contentGS .middle li a:visited {
+    color: #39a;
+    text-decoration:none;
+}
+
+#contentGS .middle li a:hover {
+    text-decoration:none;
+}
+
+#contentGS .middle p {
+    padding: 0px 0 18px 16px;
+    font-size: small;
+    font-weight: 700;
+    color: #777;
+}
+
+#contentGS .middle p a, #contentGS .middle p a:visited {
+    color: #39a;
+    font-weight: 300;
+    text-decoration:underline;
+}
+#contentGS .middle p a:hover {
+    text-decoration: underline;
+}
+
+#pageGS #contentGS .left h3.seeAll {
+    font-weight: bold;
+    background-color: #6cc;
+    color: #fff;
+    padding: 4px 5px 4px 16px;
+    text-align:right;
+}
+
+#pageGS #contentGS .left a.seeAll:link, a.seeAll:active, a.seeAll:visited {
+    color: #fff;
+    text-align:right;
+}
+
+#pageGS #contentGS a.noHover:hover {
+   text-decoration:none;
+}
+
+
+#contentGS .left h3 {
+    font-size: small; /* 13pt */
+    font-weight: 700;
+    background-color: #6cc;
+    color: #fff;
+    padding: 4px 0 4px 16px;
+}
+
+#contentGS .left #allArticles {
+    background-color: #eee;
+}
+
+#contentGS .left ul li a {
+    color: #aaa;
+}
+
+#contentGS .left ul .bookPicks {
+	color: #c56 !important;
+    background-image: none;
+    font-size: 11px;
+}
+
+#contentGS .left ul li.bookPicks img {
+      padding: 3px 3px 3px 0px;
+}
 
 #contentGS .left ul {
     margin: 5px 0px 6px 0px;
@@ -12,7 +116,7 @@
     color: #999;
     padding: 0px 12px 4px 16px;
     margin-bottom: 1px;
-    background-image: url("/res/img/content/countdownToCollege/dotOnEee.gif");
+    background-image: url("../../img/content/countdownToCollege/dotOnEee.gif");
     background-repeat: no-repeat;
     background-position: .8ex 1.5ex;
 }
@@ -39,7 +143,7 @@
 #contentGS .middle h2#whatYourChildNeeds {
     text-indent: -100em;
     overflow: hidden;
-    background: url(/res/img/content/countdownToCollege/t_whatYourChildNeeds.gif);
+    background: url("../../img/content/countdownToCollege/t_whatYourChildNeeds.gif");
     background-repeat: no-repeat;
     background-color: #fb0;
     background-position: 0px; 0px; 0px; 0px;
@@ -51,7 +155,7 @@
 #contentGS .middle h2#resources {
     text-indent: -100em;
     overflow: hidden;
-    background: url(/res/img/content/countdownToCollege/t_resources.gif);
+    background: url("../../img/content/countdownToCollege/t_resources.gif");
     background-repeat: no-repeat;
     background-color: #fb0;
     background-position: 0px; 0px; 0px; 0px;
@@ -145,7 +249,7 @@ span.actionTip {
 .midDotLine {
     height: 24px;
 	font-size: xx-small;
-    background-image: url("/res/img/content/countdownToCollege/mid_dot_line.gif");
+    background-image: url("../../img/content/countdownToCollege/mid_dot_line.gif");
 	background-repeat: repeat-x;
     padding-top:0px;
     margin-bottom: 9px;
@@ -162,7 +266,7 @@ span.actionTip {
 	display: block;
 	height: 25px;
     padding-top:5px;
-    background-image: url(/res/img/content/countdownToCollege/red_dot.gif);
+    background-image: url("../../img/content/countdownToCollege/red_dot.gif");
 	background-repeat: repeat-x;
 }
 
@@ -178,7 +282,7 @@ span.actionTip {
 	margin-bottom: 8px;
     height: 20px;
     padding-top:3px;
-    background-image: url("/res/img/content/countdownToCollege/dash_line.gif");
+    background-image: url("../../img/content/countdownToCollege/dash_line.gif");
 	background-repeat: repeat-x;
 }
 

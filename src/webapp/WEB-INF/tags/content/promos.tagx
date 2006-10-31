@@ -5,19 +5,23 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="referredBy" required="true" description="Omniture page name of page that this hover appears on"/>
 
     <promo:childOnTrack referredBy="${referredBy}"/>
 
-    <ad:x40/>
 
-    <div style="border-top: 1px dashed #ccc;">
-    <div id="bottomAdd">
-        <ad:x51 blurb="${referredBy} Sponsored by:"/>
+    <ad:x70/>
+
+    <!--
+    <div style="width:295px;text-align:center;padding-left:5px;">
+        <![CDATA[
+        <script type="text/javascript" src="http://findit.commonsensemedia.org/searchbox.php?bg=1"></script>
+        ]]>
     </div>
-    </div>
+    -->
 
     <div style="border-top: 1px dashed #ccc;padding-top:20px;margin-top:10px;">
         <promo:nthGraderMedallions referredBy="${referredBy}"/>

@@ -24,6 +24,7 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="Description"
           content="School Choice Tips"/>
+    <pageHelper:externalCss file="/res/css/content/microsite.css"/>
     <pageHelper:externalCss file="/res/css/content/schoolChoiceTips.css"/>
 </head>
 <c:set var="pageName" value="School Choice Tips"/>

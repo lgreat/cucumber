@@ -56,6 +56,16 @@
                 </center>
                ]]>
         </ad>
+        <ad id="x70">
+            <![CDATA[
+            <center>
+            <script type="text/javascript" src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=r"></script>
+            <noscript>
+            <iframe src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=sh&bg=white" align="center" width="300" height="265" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+            </noscript>
+            </center>
+               ]]>
+        </ad>
     </cobrand>
 
     <cobrand id="family">
@@ -104,6 +114,16 @@
             </center>
             ]]>
         </ad>
+        <ad id="x70">
+            <![CDATA[
+            <center>
+            <script type="text/javascript" src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=r"></script>
+            <noscript>
+            <iframe src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=sh&bg=white" align="center" width="300" height="265" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+            </noscript>
+            </center>
+               ]]>
+        </ad>
     </cobrand>
     <cobrand id="encarta">
         <ad id="x40">
@@ -123,6 +143,16 @@
                 <script type="text/javascript" src="http://Ads1.msn.com/library/dap.js"></script>
                 <script type="text/javascript">dap("&PG=ENCEE1&AP=1089",300,250);</script>
             ]]>
+        </ad>
+        <ad id="x70">
+            <![CDATA[
+            <center>
+            <script type="text/javascript" src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=r"></script>
+            <noscript>
+            <iframe src="http://us.adserver.yahoo.com/a?f=96345362&p=ed&l=LREC&c=sh&bg=white" align="center" width="300" height="265" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+            </noscript>
+            </center>
+               ]]>
         </ad>
     </cobrand>
 </cobrand-ad-codes>

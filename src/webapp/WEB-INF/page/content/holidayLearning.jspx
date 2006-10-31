@@ -23,7 +23,7 @@
     <title>Greatschools.net: ${pageName}</title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="Description" content="Make holiday learning fun with gifts and learning activities to spark the imagination."/>
-    <pageHelper:externalCss file="/res/css/content/schoolChoiceTips.css"/>  <!--commmon-->
+    <pageHelper:externalCss file="/res/css/content/microsite.css"/>  <!--commmon-->
     <pageHelper:externalCss file="/res/css/content/holidayLearning.css"/>
 </head>
 <gsml:body adPageName="content/holidayLearning" pageLayout="holidayLearning">
@@ -69,7 +69,6 @@
             <gsweb:articlelink articleId="403">Read the answer</gsweb:articlelink>
             </p>
     </div>
-
     <div style="border-bottom: 1px dashed #ccc;">
         <h3 id="freeNewsletters">Free Newsletters</h3>
         <p>Is your child on track?
