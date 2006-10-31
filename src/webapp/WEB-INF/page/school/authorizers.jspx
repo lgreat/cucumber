@@ -66,7 +66,7 @@
                              <tr>
                             <td align="right">
                                     <gsml:a href="/cgi-bin/showarticle/$STATE/487">
-                                        <span id="infolink">Read more about charter schools</span>
+                                        <span id="moreabout">Read more about charter schools</span>
                                     </gsml:a>
                                     <br/>
                                 </td>
@@ -127,19 +127,22 @@
                                     </td>
                                 </tr>
                             </c:if>
-                            <c:if test="${school.physicalAddress.state == 'CA'}">
+                            <c:if test="${school.physicalAddress.state == 'AK'}">
                                 <tr>
                                     <td align="left">
-                                         <ul class="plain">
+                                        
+                                        <div id="structureTable"><div class="datatable"><span class="title">Performance Trends</span>
+                                            <br>The downloadable report below summarizes student performance data for this charter school. Keeping in mind that a student population may change over time, this report gives some perspective on trends in student performance at this school in recent years. </br>
+                                        <ul class="plain">
                                         <ul class="pdf">
-                                            <li><gsml:popupWindow width="610" height="600" left="50" top="50"
-                                                               href="/schoolreports/$STATE/GreatSchools_charter_school_report_${school.id}.pdf">
+                                            <li><a href="/schoolreports/$STATE/GreatSchools_charter_school_report_${school.id}.pdf" target="_blank">
 
-                                                <span id="moreabout">Special Report: This charter school's performance trends</span>
-                                             </gsml:popupWindow>
+                                                <span id="moreabout">Download Report: This charter school's performance trends</span>
+                                             </a>
                                             </li>
                                         </ul>
                                              </ul>
+                                        </div></div>
                                     </td>
                                 </tr>
                             </c:if>
