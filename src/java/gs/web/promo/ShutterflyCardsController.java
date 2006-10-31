@@ -50,7 +50,8 @@ public class ShutterflyCardsController extends AbstractController implements Ini
 
     protected static final String MODEL_IMAGE_ALT = "imageAlt";
     protected static final String MODEL_IMAGE_SRC = "imageSrc";
-    protected static final String MODEL_PAGE_NAME = "pageName";    
+    protected static final String MODEL_PAGE_NAME = "pageName";
+    protected static final String MODEL_IMAGE_LINK = "imageLink";
 
     protected static final String ELIGIBLE_SRC = "/res/img/promo/shutterfly/eligible.jpg";
     protected static final String INELIGIBLE_SRC = "/res/img/promo/shutterfly/ineligible.jpg";
@@ -88,7 +89,6 @@ public class ShutterflyCardsController extends AbstractController implements Ini
         calendar.clear(Calendar.MINUTE);
         calendar.clear(Calendar.HOUR_OF_DAY);
 
-
         //Error checking
         if (StringUtils.isBlank(email)) {
             return processInelgibleRequest();
@@ -108,7 +108,6 @@ public class ShutterflyCardsController extends AbstractController implements Ini
         if (!user.getTimeAdded().before(calendar.getTime()) || user.getTimeAdded().equals(calendar.getTime())) {
             return processInelgibleRequest();
         }
-
 
         //start of promo processing
         PromoCode promoCode = _promoDao.findPromoCode(user, PROMO);
@@ -136,17 +135,17 @@ public class ShutterflyCardsController extends AbstractController implements Ini
         }
     }
 
-    private ModelAndView processInelgibleRequest() {
+    private static ModelAndView processInelgibleRequest() {
         return processRequest(INELIGIBLE_ALT, INELIGIBLE_SRC, INELIGIBLE_PAGE_NAME);
     }
 
-    private ModelAndView processRequest(String imageAlt, String imageSrc, String pageName) {
+    private static ModelAndView processRequest(String imageAlt, String imageSrc, String pageName) {
         ModelAndView mv = new ModelAndView(VIEW);
 
         mv.getModel().put(MODEL_IMAGE_ALT, imageAlt);
         mv.getModel().put(MODEL_IMAGE_SRC, imageSrc);
         mv.getModel().put(MODEL_PAGE_NAME, pageName);
-
+        mv.getModel().put(MODEL_IMAGE_LINK, IMAGE_LINK);
         return mv;
     }
 
@@ -168,20 +167,18 @@ public class ShutterflyCardsController extends AbstractController implements Ini
         } catch (UnsupportedEncodingException uee) {
             helper.setFrom("shutterfly@greatschools.net");
         }
-        helper.setSubject("Shutterfly Holiday Promotion Confirmation");
+        helper.setSubject("Your code for 12 free 4x8 Shutterfly Holiday Cards!");
         helper.setSentDate(new Date());
 
-
-        String emailText = "<p>Thank you for celebrating the holidays with Shutterfly! Your promotional code good for 12 free 4x8 Shutterfly Holiday Cards is:</p>\n" +
+        String emailText = "<p>Dear GreatSchools Subscriber,</p>\n\n" + 
+                "<p>Thank you for celebrating the holidays with Shutterfly! Your promotional code good for 12 free 4x8 Shutterfly Holiday Cards is:</p>\n" +
                 "\n" +
-                "<p>$PROMO_CODE</p>\n" +
+                "<p>$PROMO_CODE</p>\n\n" +
+                "<p><a href=\"http://www.shutterfly.com/greatschools?cid=OMQ406GSCHL\">Visit Shutterfly today</a> to enter your unique code and order your holiday cards.<p>\n" +
                 "\n" +
-                "<p><a href=\"http://www.shutterfly.com/greatschools?cid=OMQ406GSCHL\">Visit Shutterfly today</a> to enter your unique code!<p>\n" +
+                "<p>This benefit is a special thanks from GreatSchools just for our newsletter subscribers.  We wish you and your family the best the season has to offer!</p>\n" +
                 "\n" +
-                "<p>We wish you the best the season has to offer,</p>\n" +
-                "\n" +
-                "<p>- The Shutterfly and GreatSchools teams</p>\n" +
-                "\n" +
+                "<p>- The Shutterfly and GreatSchools teams</p>\n\n" +
                 "<small>\n" +
                 "This special offer is only for GreatSchools.net users who subscribed to a GreatSchools newsletter before\n" +
                 "November 8, 2006. To receive this offer, user must have or create a valid Shutterfly account at <a\n" +
@@ -194,7 +191,6 @@ public class ShutterflyCardsController extends AbstractController implements Ini
                 "</small>";
 
         emailText = emailText.replaceAll("\\$PROMO_CODE", promoCode);
-
         helper.setText(emailText, true);
         return helper.getMimeMessage();
     }
@@ -214,7 +210,6 @@ public class ShutterflyCardsController extends AbstractController implements Ini
     public void setPromoDao(IPromoDao promoDao) {
         _promoDao = promoDao;
     }
-
 
     public JavaMailSender getMailSender() {
         return _mailSender;

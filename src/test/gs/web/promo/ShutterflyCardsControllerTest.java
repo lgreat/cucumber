@@ -93,14 +93,13 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
         assertEquals("More than 1 in from", 1, from.length);
         assertEquals("From field not right", "GreatSchools <shutterfly@greatschools.net>", from[0].toString());
 
-        assertEquals("Shutterfly Holiday Promotion Confirmation", msg.getSubject());
+        assertEquals("Your code for 12 free 4x8 Shutterfly Holiday Cards!", msg.getSubject());
 
         String content = msg.getContent().toString();
         assertTrue(content.indexOf("ABCDEFGHIJKLMN") > -1);
         assertTrue(content.indexOf("http://www.shutterfly.com/greatschools?cid=OMQ406GSCHL") > -1);
         assertTrue(content.indexOf("$PROMO_CODE") == -1);
     }
-
 
     //user has never received a promo before
     private void testPromoEligibilityByJoinDate(Date joinDate,
