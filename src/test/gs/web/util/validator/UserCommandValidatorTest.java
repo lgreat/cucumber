@@ -423,12 +423,13 @@ public class UserCommandValidatorTest extends BaseTestCase {
     }
 
     /**
-     * No on terms should not generate an error unless "other" is selected for gender.
+     * No on terms should not generate an error unless "other" is selected for gender or 0 children.
      */
     public void testNormalGenderOnTerms() {
         UserCommand command = setupCommand();
         Errors errors = new BindException(command, "");
         command.setTerms(false);
+        command.setNumSchoolChildren(new Integer(1));
 
         _validator.validate(command, errors);
         _userControl.verify();
