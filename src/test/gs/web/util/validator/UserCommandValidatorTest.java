@@ -437,6 +437,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
     }
 
     public void testTermsOfService() {
+        // "other" gender requires terms of service
         UserCommand command = setupCommand();
         Errors errors = new BindException(command, "");
         command.setGender("u");
@@ -445,6 +446,18 @@ public class UserCommandValidatorTest extends BaseTestCase {
         _validator.validate(command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
-        assertEquals(1, errors.getErrorCount());
+        assertTrue(errors.hasFieldErrors("terms"));
+
+        // 0 children requires terms of service
+        errors = new BindException(command, "");
+        setupUserControl(GOOD_EMAIL, GOOD_SCREEN_NAME_SHORT);
+        command.setNumSchoolChildren(new Integer(0));
+        command.setGender("m");
+        command.setTerms(false);
+
+        _validator.validate(command, errors);
+        _userControl.verify();
+        assertTrue(errors.hasErrors());
+        assertTrue(errors.hasFieldErrors("terms"));
     }
 }

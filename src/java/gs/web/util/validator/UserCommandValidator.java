@@ -130,7 +130,8 @@ public class UserCommandValidator implements Validator {
             }
         }
 
-        if ("u".equals(gender)) {
+        if ("u".equals(gender) || (command.getNumSchoolChildren() != null &&
+                command.getNumSchoolChildren().intValue() == 0)) {
             if (!command.getTerms()) {
                 errors.rejectValue("terms", null, ERROR_TERMS_MISSING);
             }

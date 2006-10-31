@@ -35,19 +35,29 @@
                           parameters: pars
                       });
           }
+                  
+          function determinePageState() {
+              var otherGender = $('other');
+              var numChildren = $('numSchoolChildren');
 
-          function otherSelected() {
-              hideDiv('numChildren');
-              hideDiv('nextButton');
-              showDiv('terms');
-              showDiv('joinButton');
-          }
-
-          function parentSelected() {
-              hideDiv('terms');
-              hideDiv('joinButton');
-              showDiv('numChildren');
-              showDiv('nextButton');
+              if (otherGender.checked || numChildren.value == '0') {
+                  // show terms and join, hide next
+                  hideDiv('nextButton');
+                  showDiv('terms');
+                  showDiv('joinButton');
+                  if (otherGender.checked) {
+                      // hide numChildren
+                      hideDiv('numChildren');
+                  } else {
+                      showDiv('numChildren');
+                  }
+              } else {
+                  // hide terms and join, show next
+                  hideDiv('terms');
+                  hideDiv('joinButton');
+                  showDiv('numChildren');
+                  showDiv('nextButton');
+              }
           }
 
           function hideDiv(divId) {
@@ -75,13 +85,13 @@
 
                 <label class="form left">I'm a</label>
                 <gsml:radio name="gender" value="f" styleId="mom" styleClass="form radio"
-                            checked="${userCmd.gender eq 'f'}" onclick="parentSelected()"/>
+                            checked="${userCmd.gender eq 'f'}" onclick="determinePageState()"/>
                 <label for="mom" class="form radio">Mom</label>
                 <gsml:radio name="gender" value="m" styleId="dad" styleClass="form radio"
-                            checked="${userCmd.gender eq 'm'}" onclick="parentSelected()"/>
+                            checked="${userCmd.gender eq 'm'}" onclick="determinePageState()"/>
                 <label for="dad" class="form radio">Dad</label>
                 <gsml:radio name="gender" value="u" styleId="other" styleClass="form radio"
-                            checked="${userCmd.gender eq 'u'}" onclick="otherSelected()"/>
+                            checked="${userCmd.gender eq 'u'}" onclick="determinePageState()"/>
                 <label for="other" class="form radio">Other</label>
                 <gsml:errorMessage useImage="true" command="userCmd" field="gender"/>
                 <br style="clear:left;"/>
@@ -174,7 +184,8 @@
                 <div id="numChildren" style="${childrenStyle}">
                     <label for="numSchoolChildren" class="form">How many children do you have in K-12 schools?</label>
                     <spring:bind path="userCmd.numSchoolChildren">
-                        <select name="${status.expression}" id="numSchoolChildren" class="form small">
+                        <select name="${status.expression}" id="numSchoolChildren" class="form small"
+                                onchange="determinePageState();">
                             <c:if test="${userCmd.numSchoolChildren eq null or userCmd.numSchoolChildren eq -1}">
                                 <![CDATA[<option selected value="-1">--</option>]]>
                             </c:if>
