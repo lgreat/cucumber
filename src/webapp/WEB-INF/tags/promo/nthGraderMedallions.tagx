@@ -8,30 +8,33 @@
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="referredBy" required="true" description="Omniture page name of page that this hover appears on"/>
 
-    <table>
-        <tr><td colspan="3"><gsml:img src="/res/img/content/grade/specialGradeByGrade.gif"
-                                      alt="Tips and Advice by Grade Level"></gsml:img></td></tr>
-        <tr>
-            <td><promo:nthGraderHover referredBy="${referredBy}" autocheck="myk"><gsml:img
-                    src="/res/img/content/grade/k.gif"
-                    alt="Tips and Advice for Your Kindergartener"></gsml:img></promo:nthGraderHover></td>
-            <td><promo:nthGraderHover referredBy="${referredBy}" autocheck="my1"><gsml:img
-                    src="/res/img/content/grade/1st.gif"
-                    alt="Tips and Advice for Your First-Grader"></gsml:img></promo:nthGraderHover></td>
-            <td><promo:nthGraderHover referredBy="${referredBy}" autocheck="my2"><gsml:img
-                    src="/res/img/content/grade/2nd.gif"
-                    alt="Tips and Advice for Your Second-Grader"></gsml:img></promo:nthGraderHover></td>
-        </tr>
-        <tr>
-            <td><promo:nthGraderHover referredBy="${referredBy}" autocheck="my3"><gsml:img
-                    src="/res/img/content/grade/3rd.gif"
-                    alt="Tips and Advice for Your Third-Grader"></gsml:img></promo:nthGraderHover></td>
-            <td><promo:nthGraderHover referredBy="${referredBy}" autocheck="my4"><gsml:img
-                    src="/res/img/content/grade/4th.gif"
-                    alt="Tips and Advice for Your Fourth-Grader"></gsml:img></promo:nthGraderHover></td>
-            <td><promo:nthGraderHover referredBy="${referredBy}" autocheck="my5"><gsml:img
-                    src="/res/img/content/grade/5th.gif"
-                    alt="Tips and Advice for Your Fifth-Grader"></gsml:img></promo:nthGraderHover></td>
-        </tr>
-    </table>
+    <div style="text-align:center;">
+        <gsml:img src="/res/img/content/grade/specialGradeByGrade.gif"
+                                      alt="Tips and Advice by Grade Level"></gsml:img>
+        <table width="300">
+            <tr>
+                <td><promo:nthGraderHover referredBy="${referredBy}" autocheck="myk"><gsml:img
+                        src="/res/img/content/grade/k.gif"
+                        alt="Tips and Advice for Your Kindergartener"></gsml:img></promo:nthGraderHover></td>
+                <td><promo:nthGraderHover referredBy="${referredBy}" autocheck="my1"><gsml:img
+                        src="/res/img/content/grade/1st.gif"
+                        alt="Tips and Advice for Your First-Grader"></gsml:img></promo:nthGraderHover></td>
+                <td><promo:nthGraderHover referredBy="${referredBy}" autocheck="my2"><gsml:img
+                        src="/res/img/content/grade/2nd.gif"
+                        alt="Tips and Advice for Your Second-Grader"></gsml:img></promo:nthGraderHover></td>
+            </tr>
+            <tr>
+                <td><promo:nthGraderHover referredBy="${referredBy}" autocheck="my3"><gsml:img
+                        src="/res/img/content/grade/3rd.gif"
+                        alt="Tips and Advice for Your Third-Grader"></gsml:img></promo:nthGraderHover></td>
+                <td><promo:nthGraderHover referredBy="${referredBy}" autocheck="my4"><gsml:img
+                        src="/res/img/content/grade/4th.gif"
+                        alt="Tips and Advice for Your Fourth-Grader"></gsml:img></promo:nthGraderHover></td>
+                <td><promo:nthGraderHover referredBy="${referredBy}" autocheck="my5"><gsml:img
+                        src="/res/img/content/grade/5th.gif"
+                        alt="Tips and Advice for Your Fifth-Grader"></gsml:img></promo:nthGraderHover></td>
+            </tr>
+        </table>
+        
+    </div>
 </jsp:root>
