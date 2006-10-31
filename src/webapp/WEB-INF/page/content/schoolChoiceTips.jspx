@@ -45,7 +45,9 @@
             <gsweb:articlelink articleId="308" wrappingElement="li"/>
             <gsweb:articlelink articleId="307" wrappingElement="li"/>
             <gsweb:articlelink articleId="87" wrappingElement="li"/>
-            <li><ul class="pdf" style="padding-left:30px;"><li><gsml:a href="/pdf/choosing_imagine.pdf">Priorities worksheet</gsml:a></li></ul></li>
+        </ul>
+        <ul class="pdf">
+            <li><gsml:a href="/pdf/choosing_imagine.pdf">Priorities worksheet</gsml:a></li>
         </ul>
     </div>
 
@@ -65,14 +67,12 @@
         <h3 id="mostOfVisit">Make the Most of Your Visit</h3>
         <ul class="plain">
             <gsweb:articlelink articleId="48" wrappingElement="li"/>
-            <li>
-                <ul class="pdf" style="padding-left:30px;">
-                    <li><gsml:a href="/pdf/schq_visit_elem.pdf">Elementary school worksheet</gsml:a></li>
-                    <li><gsml:a href="/pdf/schq_visit_middle.pdf">Middle school worksheet</gsml:a></li>
-                    <li><gsml:a href="/pdf/schq_visit_high.pdf">High school worksheet</gsml:a></li>
-                </ul>
-            </li>
         </ul>
+        <ul class="pdf">
+            <li><gsml:a href="/pdf/schq_visit_elem.pdf">Elementary school worksheet</gsml:a></li>
+            <li><gsml:a href="/pdf/schq_visit_middle.pdf">Middle school worksheet</gsml:a></li>
+            <li><gsml:a href="/pdf/schq_visit_high.pdf">High school worksheet</gsml:a></li>
+        </ul>                    
     </div>
 
     <div style="border-bottom: 1px dashed #ccc;">
