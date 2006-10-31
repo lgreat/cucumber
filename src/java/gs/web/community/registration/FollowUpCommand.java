@@ -28,7 +28,7 @@ public class FollowUpCommand {
     private List _subscriptions;
     private String _recontact;
     private List _schools;
-    private boolean _terms;
+    private boolean _terms = true;
 
     public FollowUpCommand() {
         _user = new User();

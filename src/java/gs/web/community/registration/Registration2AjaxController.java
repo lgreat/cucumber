@@ -92,11 +92,9 @@ public class Registration2AjaxController implements Controller {
 
     protected void outputSchoolSelect(State state, String city, String grade, PrintWriter out, String childNum) {
         List schools = _schoolDao.findSchoolsInCityByGrade(state, city, Grade.getGradeLevel(grade));
-        School notListed = new School();
-        notListed.setName("My school is not listed");
-        schools.add(0, notListed);
         openSelectTag(out, "school" + childNum, "school" + childNum, "form school", null);
         outputOption(out, "", "--", true);
+        outputOption(out, "-1", "My school is not listed");
         for (int x=0; x < schools.size(); x++) {
             School school = (School) schools.get(x);
             String idString = ((school.getId() != null)?school.getId().toString():"");

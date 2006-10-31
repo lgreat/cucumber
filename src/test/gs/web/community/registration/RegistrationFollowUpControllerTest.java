@@ -96,7 +96,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
         assertNull(_command.getUser().getId());
         assertFalse("n".equals(_command.getRecontact()));
-        assertFalse(_command.getTerms());
+        assertTrue(_command.getTerms());
         assertEquals(0, _command.getStudents().size());
         assertEquals(0, _command.getCityNames().size());
         assertEquals(0, _command.getSchools().size());

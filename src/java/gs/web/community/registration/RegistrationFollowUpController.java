@@ -86,7 +86,9 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         String userId = request.getParameter("id");
         String marker = request.getParameter("marker");
         fupCommand.setRecontact(request.getParameter("recontactStr"));
-        fupCommand.setTerms("y".equals(request.getParameter("termsStr")));
+        if (request.getParameter("termsStr") != null) {
+            fupCommand.setTerms("y".equals(request.getParameter("termsStr")));
+        }
         if (userId != null) {
 
             User user = _userDao.findUserFromId(Integer.parseInt(userId));
@@ -159,6 +161,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         if (grade != null) {
             List schools = _schoolDao.findSchoolsInCityByGrade(state, city, grade);
             School school = new School();
+            school.setId(new Integer(-1));
             school.setName("My school is not listed");
             schools.add(0, school);
             fupCommand.addSchools(schools);
@@ -192,14 +195,14 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 errors.rejectValue("students[" + x + "]", null, ERROR_GRADE_MISSING);
             }
             School school = null;
-            if (student.getSchoolId() != null) {
+            if (student.getSchoolId() != null && student.getSchoolId().intValue() != -1) {
                 try {
                     school = _schoolDao.getSchoolById(student.getState(), student.getSchoolId());
                 } catch (ObjectRetrievalFailureException orfe) {
                     _log.warn("Can't find school corresponding to id " +
                             student.getSchoolId() + " in " + student.getState());
                 }
-            } else {
+            } else if (student.getSchoolId() == null) {
                 errors.rejectValue("students[" + x + "]", null, ERROR_SCHOOL_MISSING);
             }
 
@@ -208,6 +211,8 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 // a list of school names makes persisting the page MUCH easier
                 // (order is preserved for students!!)
                 fupCommand.addSchoolName(school.getName());
+            } else if (student.getSchoolId() != null && student.getSchoolId().intValue() == -1) {
+                fupCommand.addSchoolName("My school is not listed");
             } else {
                 // to avoid index out of bounds exceptions, we have to add something to the list
                 fupCommand.addSchoolName("");
@@ -306,6 +311,9 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 Student student = (Student) fupCommand.getStudents().get(x);
                 if ("y".equals(fupCommand.getRecontact())) {
                     addContactSubscriptionFromStudent(student, user);
+                }
+                if (student.getSchoolId() != null && student.getSchoolId().intValue() == -1) {
+                    student.setSchoolId(null);
                 }
                 user.addStudent(student);
             }
