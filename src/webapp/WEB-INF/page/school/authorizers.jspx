@@ -127,7 +127,7 @@
                                     </td>
                                 </tr>
                             </c:if>
-                            <c:if test="${school.physicalAddress.state == 'AK'}">
+                            <c:if test="${school.physicalAddress.state == 'CA'}">
                                 <tr>
                                     <td align="left">
                                         
