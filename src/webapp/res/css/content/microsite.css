@@ -185,7 +185,18 @@ h3#freeNewsletters {
     height: 20px;
 }
 
+
 /*override global's*/
+#contentGS .adSquareOrRect {
+    text-align: center;
+    color: #999;
+    padding: 0;
+    margin: 0;
+    float: none;
+    border: 0;
+    font-size: 10px;    
+}
+
 #contentGS .adSquare {
     text-align: center;
     color: #999;
