@@ -8,7 +8,7 @@
     border-color: #64CCCB;
     border-width: medium;
     margin-left: 5px;
-    padding: 40px;
+    padding: 40px 5px 40px 40px;
 }
 
 .registerDiv label.form, .registerDiv input.form, .registerDiv select.form {
@@ -23,10 +23,6 @@
 
 .registerDiv input.screenName, .registerDiv input.firstName {
     width: 200px;
-}
-
-.registerDiv select.form {
-    margin-right: 20px;
 }
 
 .registerDiv select.small {
@@ -60,11 +56,12 @@
     display: block;
     float: left;
     margin-top: 10px;
+    width: 150px;
 }
 
 .registerDiv label.radio {
-    padding-left: 5px;
-    margin-right: 20px;
+    padding-left: 3px;
+    margin-right: 12px;
 }
 
 .registerDiv label.form {
@@ -73,26 +70,6 @@
     padding-right: 5px;
     font-weight: bold;
     line-height: 1.4em; /* try to eliminate ugly spacing introduced by superscripts */
-}
-
-.registerDiv input.checkbox {
-    width: 20px;
-    margin-right: 50px;
-    /* align check box with select above */
-    position: relative;
-    right: 3px;
-}
-/* try to eliminate ugly spacing introduced by superscripts */
-.registerDiv sup.footnote {
-    line-height: 0;
-}
-
-.registerDiv div.footnote {
-    font-size: smaller;
-    margin-left: 0.5em;
-    color: #666666;
-    margin-top: 20px;
-    clear: left;
 }
 
 .registerDiv span.passwordSpec {
@@ -122,12 +99,11 @@
 }
 
 span.privacy {
-    font-size: x-small;
-    left: 165px;
     position: relative;
-    top: -20px;
+    left: 165px;
+    top: -15px;
+    font-size: x-small;
     color: #898989;
-    clear: left;
 }
 
 span.privacy a, span.privacy a:link, span.privacy a:visited, span.privacy a:active {
@@ -176,9 +152,28 @@ span.privacy a, span.privacy a:link, span.privacy a:visited, span.privacy a:acti
 }
 
 div.error {
+    float: left;
+    width: 150px;
+    position: relative;
+    top: -5px;
+    left: 8px;
+    font-size: 7pt;
+    font-style: italic;
     color: red;
-    display: block;
-    padding: 8px;
+}
+
+div.errorIcon {
+    float: left;
+    position: relative;
+    left: 5px;
+}
+
+div.cityErrorIcon {
+    top: 10px;
+}
+
+div.cityError {
+    top: 5px;
 }
 
 td.join {

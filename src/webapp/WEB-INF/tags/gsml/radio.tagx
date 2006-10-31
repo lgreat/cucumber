@@ -11,7 +11,7 @@
     <jsp:directive.attribute name="onclick" required="false" description="Javascript onclick handler"/>
     <![CDATA[<input type="radio" ]]>
     <c:out value='name="${name}"' escapeXml="false"/>
-    <c:out value='value="${value}"' escapeXml="false"/>
+    <c:out value=' value="${value}"' escapeXml="false"/>
     <c:if test="${not empty styleClass}">
         <c:out value=' class="${styleClass}"' escapeXml="false"/>
     </c:if>

@@ -73,7 +73,6 @@
                     about education. We're excited to have you!</p>
                 <gsweb:form id="regForm" action="/community/registration.page" method="post">
 
-                <gsml:errorMessage command="userCmd" field="gender"/>
                 <label class="form left">I'm a</label>
                 <gsml:radio name="gender" value="f" styleId="mom" styleClass="form radio"
                             checked="${userCmd.gender eq 'f'}" onclick="parentSelected()"/>
@@ -84,64 +83,65 @@
                 <gsml:radio name="gender" value="u" styleId="other" styleClass="form radio"
                             checked="${userCmd.gender eq 'u'}" onclick="otherSelected()"/>
                 <label for="other" class="form radio">Other</label>
+                <gsml:errorMessage useImage="true" command="userCmd" field="gender"/>
                 <br style="clear:left;"/>
 
-                <gsml:errorMessage command="userCmd" field="firstName"/>
                 <label for="firstName" class="form left">First name (P)</label>
                 <spring:bind path="userCmd.user.firstName">
                     <input id="firstName" class="form firstName" type="text" name="${status.expression}"
                            value="${status.value}"/>
                 </spring:bind>
+                <gsml:errorMessage useImage="true" command="userCmd" field="firstName"/>
 
                 <br style="clear: left;"/>
 
-                <gsml:errorMessage command="userCmd" field="screenName"/>
                 <label for="screenName" class="form left">Screen name<br/><span class="screenNameSpec">(6-14 characters)</span></label>
                 <spring:bind path="userCmd.screenName">
                     <input id="screenName" class="form screenName" type="text" name="${status.expression}"
                            value="${status.value}"/>
                 </spring:bind>
+                <gsml:errorMessage useImage="true" command="userCmd" field="screenName"/>
                 <br style="clear:left;"/>
 
-                <gsml:errorMessage command="userCmd" field="email"/>
                 <label for="email" class="form left">Email address (P)</label>
                 <spring:bind path="userCmd.user.email">
                     <input id="email" class="form email" type="text" name="${status.expression}"
                            value="${status.value}"/>
                 </spring:bind>
+                <gsml:errorMessage useImage="true" command="userCmd" field="email"/>
 
                 <br style="clear: left;"/>
                 <span class="privacy">We will NOT share your email address.
                     <gsml:popupWindow width="800" height="600" left="50" top="50"
                         href="/about/privacyStatement.page?state=$STATE">Privacy Policy</gsml:popupWindow>
                 </span>
+                <br style="clear: left;"/>
 
-                <gsml:errorMessage command="userCmd" field="password"/>
                 <label for="password" class="form left">Password (P)<br/><span class="passwordSpec">(6-14 characters)</span></label>
                 <spring:bind path="userCmd.password">
                     <input id="password" class="form password" type="password" name="${status.expression}"
                            value="${status.value}"/>
                 </spring:bind>
+                <gsml:errorMessage useImage="true" command="userCmd" field="password"/>
 
                 <br style="clear: left;"/>
 
-                <gsml:errorMessage command="userCmd" field="confirmPassword"/>
                 <label for="confirmPassword" class="form left">Re-type password</label>
                 <spring:bind path="userCmd.confirmPassword">
                     <input id="confirmPassword" class="form password" type="password"
                            name="${status.expression}" value="${status.value}"/>
                 </spring:bind>
+                <gsml:errorMessage useImage="true" command="userCmd" field="confirmPassword"/>
 
                 <br style="clear: left;"/>
 
-                <gsml:errorMessage command="userCmd" field="state"/>
-                <gsml:errorMessage command="userCmd" field="city"/>
                 <label class="form live">Where do you live?</label>
                 <label for="userState" class="state">State</label>
                 <spring:bind path="userCmd.state">
                     <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
                                          styleClass="state" onChange="stateChange(this);"/>
                 </spring:bind>
+                <gsml:errorMessage useImage="true" command="userCmd" field="state"/>
 
                 <br style="clear: right;"/>
 
@@ -160,6 +160,8 @@
                         </c:forEach>
                     </select>
                 </div>
+                <gsml:errorMessage useImage="true" command="userCmd" field="city" styleClass="error cityError"
+                        imageClass="errorIcon cityErrorIcon"/>
 
                 <br style="clear: left;"/>
                 <c:set var="termsStyle" value="display:none"/>
@@ -170,7 +172,6 @@
                 </c:if>
 
                 <div id="numChildren" style="${childrenStyle}">
-                    <gsml:errorMessage command="userCmd" field="numSchoolChildren"/>
                     <label for="numSchoolChildren" class="form">How many children do you have in K-12 schools?</label>
                     <spring:bind path="userCmd.numSchoolChildren">
                         <select name="${status.expression}" id="numSchoolChildren" class="form small">
@@ -186,18 +187,19 @@
                             </c:forEach>
                         </select>
                     </spring:bind>
+                    <gsml:errorMessage useImage="true" command="userCmd" field="numSchoolChildren"/>
                     <br style="clear:left;"/>
                 </div>
 
                 <div id="terms" style="${termsStyle}">
-                    <gsml:errorMessage command="userCmd" field="terms"/>
                     <label class="form terms">I agree to the <link:termsOfUse>terms of service</link:termsOfUse></label>
                     <gsml:radio name="termsStr" value="y" styleId="yesTerms" styleClass="form radio"
                                 checked="${userCmd.terms eq true}"/>
                     <label for="yesTerms" class="form radio">Yes</label>
                     <gsml:radio name="termsStr" value="n" styleId="noTerms" styleClass="form radio"
                                 checked="${userCmd.terms eq false}"/>
-                    <label for="noTerms" class="form radio">No</label>                    
+                    <label for="noTerms" class="form radio">No</label>
+                    <gsml:errorMessage useImage="true" command="userCmd" field="terms"/>
                     <br style="clear:left;"/>
                 </div>
 

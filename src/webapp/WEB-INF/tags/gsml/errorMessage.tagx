@@ -3,14 +3,23 @@
     xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:spring="http://www.springframework.org/tags"
+    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
     >
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="command" required="true" description="Name of command object to inspect for errors"/>
     <jsp:directive.attribute name="field" required="false" description="Name of field in command object to inspect for errors. If not provided, all errors are shown in a list."/>
     <jsp:directive.attribute name="styleClass" required="false" description="Class to apply to div (for field) or ul (for all errors). Defaults to 'error'"/>
+    <jsp:directive.attribute name="useImage" required="false" description="True to show image next to error message (field errors only). Defaults to false"/>
+    <jsp:directive.attribute name="imageClass" required="false" description="Class to apply to image div. Defaults to 'errorIcon'"/>
 
     <c:if test="${styleClass eq null or styleClass eq ''}">
         <c:set var="styleClass" value="error"/>
+    </c:if>
+    <c:if test="${imageClass eq null or imageClass eq ''}">
+        <c:set var="imageClass" value="errorIcon"/>
+    </c:if>
+    <c:if test="${useImage eq null or useImage ne 'true'}">
+        <c:set var="useImage" value="false"/>
     </c:if>
 
     <!-- TODO: How to get arguments from the status object?? -->
@@ -19,6 +28,11 @@
             <c:when test="${field ne null and field gt ''}">
                 <spring:bind path="${command}.${field}">
                     <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
+                        <c:if test="${useImage eq 'true'}">
+                            <div class="${imageClass}" style="color: red;">
+                                !
+                            </div>
+                        </c:if>
                         <div class="${styleClass}">
                           <spring:message code="${status.errorCode}" text="${status.errorMessage}"/>
                         </div>
