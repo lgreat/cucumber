@@ -163,8 +163,10 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
 
     /**
      * Return a mocked UserDao that returns the given user
+     * @return IUserDao
+     * @param user a valid user object
      */
-    private IUserDao getMockedUserDao(final User user) {
+    private static IUserDao getMockedUserDao(final User user) {
         MockControl mockUserDaoControl = MockControl.createControl(IUserDao.class);
         IUserDao userDao = (IUserDao) mockUserDaoControl.getMock();
         userDao.findUserFromEmail(user.getEmail());
@@ -177,11 +179,11 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
     /**
      * @param foundPromoCode    PromoCode that is returned by IPromoDao#findPromoCode
      * @param assignedPromoCode PromoCode that is returned by IPromoDao#assignPromoCode
-     * @return
+     * @return IPromoDao
      * @see gs.data.community.promo.IPromoDao#findPromoCode(gs.data.community.User,gs.data.community.promo.Promo)
      * @see gs.data.community.promo.IPromoDao#assignPromoCode(gs.data.community.User,gs.data.community.promo.Promo)
      */
-    private IPromoDao getMockedPromoDao(final PromoCode foundPromoCode, final PromoCode assignedPromoCode) {
+    private static IPromoDao getMockedPromoDao(final PromoCode foundPromoCode, final PromoCode assignedPromoCode) {
 
         MockControl mockPromoDaoControl = MockControl.createControl(IPromoDao.class);
         IPromoDao promoDao = (IPromoDao) mockPromoDaoControl.getMock();

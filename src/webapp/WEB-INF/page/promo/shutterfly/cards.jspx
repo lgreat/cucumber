@@ -21,7 +21,7 @@
         </style>
     </head>
     <body>
-    <gsml:a href="http://www.shutterfly.com/greatschools?cid=OMQ406GSCHL">
+    <gsml:a href="${imageLink}">
         <gsml:img src="${imageSrc}" alt="${imageAlt}"></gsml:img>
     </gsml:a>
     <div id="finePrint">
