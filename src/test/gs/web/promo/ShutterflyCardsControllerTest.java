@@ -91,7 +91,7 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
         Address[] from = msg.getFrom();
         assertNotNull("Empty from field", from);
         assertEquals("More than 1 in from", 1, from.length);
-        assertEquals("From field not right", "GreatSchools <shutterfly@greatschools.net>", from[0].toString());
+        assertEquals("From field not right", "GreatSchools <noreply@greatschools.net>", from[0].toString());
 
         assertEquals("Your code for 12 free 4x8 Shutterfly Holiday Cards!", msg.getSubject());
 

@@ -163,7 +163,7 @@ public class ShutterflyCardsController extends AbstractController implements Ini
         MimeMessageHelper helper = new MimeMessageHelper(_mailSender.createMimeMessage(), false, "UTF-8");
         helper.setTo(email);
         try {
-            helper.setFrom("shutterfly@greatschools.net", "GreatSchools");
+            helper.setFrom("noreply@greatschools.net", "GreatSchools");
         } catch (UnsupportedEncodingException uee) {
             helper.setFrom("shutterfly@greatschools.net");
         }
