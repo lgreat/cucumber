@@ -135,7 +135,7 @@
                                             <br>The downloadable report below summarizes student performance data for this charter school. Keeping in mind that a student population may change over time, this report gives some perspective on trends in student performance at this school in recent years. </br>
                                         <ul class="plain">
                                         <ul class="pdf">
-                                            <li><a href="/schoolreports/$STATE/GreatSchools_charter_school_report_${school.id}.pdf" target="_blank">
+                                            <li><a href="/schoolreports/${school.physicalAddress.state}/GreatSchools_charter_school_report_${school.id}.pdf" target="_blank">
 
                                                 <span id="moreabout">Download Report: This charter school's performance trends</span>
                                              </a>
