@@ -6,7 +6,7 @@
 #schoolProfile h1{
     font-weight:bold;
     font-size:16px;
-    padding: 10px 0 3px 0;
+    padding: 10px 0 3px 12px;
 }
 
 #schoolProfile a {
@@ -40,22 +40,22 @@
     background-image: url( 'http://www.greatschools.net/images/box_bg.gif' );
     background-repeat: repeat-x;
     background-position: top;
-    border: 1px solid;
+    /*border: 1px solid;*/
     border-color: #ddd #999 #999 #ccc;
-    padding-left: 5px;
+    /*padding-left: 5px;*/
     padding-bottom: 5px;
     width: 100%;
 }
 
 #schoolProfile .boxBody {
-    padding: 0px 10px 4px 5px;
+    padding: 0 5px 4px 0;
 }
 
 #schoolProfile #school_info {
     float: left;
     width: 230px;
     font-size: 11px;
-    padding: 0px 0px 4px 10px;
+    padding: 0 0 4px 13px;
     vertical-align: top;
 }
 
@@ -88,6 +88,7 @@
 
 #schoolProfile #site_promo {
     float: right;
+    padding-right:5px;
 }
 
 #schoolProfile .rollmenu {
