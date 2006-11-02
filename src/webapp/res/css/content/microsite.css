@@ -188,7 +188,7 @@ h3#freeNewsletters {
 
 
 /*override global's*/
-#contentGS .adSquareOrRect {
+#contentGS #adSquareOrRect {
     text-align: center;
     color: #999;
     padding: 0;
