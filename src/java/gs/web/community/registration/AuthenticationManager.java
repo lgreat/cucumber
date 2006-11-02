@@ -5,6 +5,8 @@ import gs.data.util.DigestUtil;
 
 import java.util.Date;
 import java.security.NoSuchAlgorithmException;
+import java.net.URLEncoder;
+import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -100,24 +102,23 @@ public class AuthenticationManager {
             rval.append(WEBCROSSING_FORWARD_URL);
             rval.append(getParameterValue(authInfo));
             rval.append(originalUrl);
-            _log.info("Setting redirect URL to: " + rval.toString());
-            return rval.toString(); // exit early
-        }
+        } else {
 
-        // for URLs that look normal
-        rval.append(originalUrl);
-        if (originalUrl.toLowerCase().indexOf("community.greatschools.net") > -1 ||
-                originalUrl.toLowerCase().indexOf("localhost") > -1) {
-            if (originalUrl.indexOf("!") > -1) {
-                rval.append("&");
-            } else {
-                rval.append("!");
+            // for URLs that look normal
+            rval.append(originalUrl);
+            if (originalUrl.toLowerCase().indexOf("community.greatschools.net") > -1 ||
+                    originalUrl.toLowerCase().indexOf("localhost") > -1) {
+                if (originalUrl.indexOf("!") > -1) {
+                    rval.append("&");
+                } else {
+                    rval.append("!");
+                }
+                rval.append(getParameterName());
+                rval.append("=");
+                rval.append(getParameterValue(authInfo));
             }
-            rval.append(getParameterName());
-            rval.append("=");
-            rval.append(getParameterValue(authInfo));
         }
-
+        _log.info("Setting redirect URL to: " + rval.toString());
         return rval.toString();
     }
 
@@ -131,7 +132,16 @@ public class AuthenticationManager {
         rval.append(authInfo.getHash());
         rval.append(StringUtils.leftPad(authInfo.getUserId().toString(),getUserIdLength(),'0'));
         rval.append(authInfo.getTimestamp().getTime());
-        return rval.toString();
+
+        String encodedParam;
+        try {
+            encodedParam = URLEncoder.encode(rval.toString(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            _log.warn("Failed to encode URL parameter " + rval.toString() + " because of error: " + e);
+            encodedParam = rval.toString();
+        }
+
+        return encodedParam;
     }
 
     /**

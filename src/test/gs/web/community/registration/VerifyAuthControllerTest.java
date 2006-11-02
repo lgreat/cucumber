@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.security.NoSuchAlgorithmException;
 import java.io.IOException;
+import java.net.URLDecoder;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -80,6 +81,7 @@ public class VerifyAuthControllerTest extends BaseControllerTestCase {
         AuthenticationManager.AuthInfo authInfo = _controller.getAuthenticationManager().generateAuthInfo(user);
 
         String paramValue = _controller.getAuthenticationManager().getParameterValue(authInfo);
+        paramValue = URLDecoder.decode(paramValue, "UTF-8");
         // spoof another user id
         paramValue = paramValue.substring(0, DigestUtil.MD5_HASH_LENGTH) +
                 StringUtils.leftPad("98", _controller.getAuthenticationManager().getUserIdLength(), '0') +
@@ -105,6 +107,7 @@ public class VerifyAuthControllerTest extends BaseControllerTestCase {
         AuthenticationManager.AuthInfo authInfo = _controller.getAuthenticationManager().generateAuthInfo(user);
 
         String paramValue = _controller.getAuthenticationManager().getParameterValue(authInfo);
+        paramValue = URLDecoder.decode(paramValue, "UTF-8");
         // spoof another user id
         paramValue = paramValue.substring(0, DigestUtil.MD5_HASH_LENGTH) +
                 StringUtils.leftPad("98", _controller.getAuthenticationManager().getUserIdLength(), '0') +

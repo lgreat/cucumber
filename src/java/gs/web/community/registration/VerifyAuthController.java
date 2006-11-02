@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.net.URLDecoder;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
@@ -36,9 +37,13 @@ public class VerifyAuthController implements Controller {
         Map model = new HashMap();
         GetUserProfileController.UserProfileInfo upi = null;
         String authInfo = request.getParameter(_authenticationManager.getParameterName());
+        _log.info("authInfo=" + authInfo);
         if (authInfo != null) {
             Integer id = null;
             try {
+                if (authInfo.indexOf('%') > -1) {
+                    authInfo = URLDecoder.decode(authInfo, "UTF-8");
+                }
                 id = _authenticationManager.getUserIdFromParameter(authInfo);
                 User user = _userDao.findUserFromId(id.intValue());
                 if (_authenticationManager.verifyAuthInfo(user, authInfo)) {

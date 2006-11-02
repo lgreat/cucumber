@@ -5,6 +5,8 @@ import gs.data.community.User;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.net.URLDecoder;
+import java.io.UnsupportedEncodingException;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -65,16 +67,23 @@ public class AuthenticationManagerSaTest extends TestCase {
         }
     }
 
-    public void testGetParameterValue() throws NoSuchAlgorithmException {
+    public void testGetParameterValue() throws NoSuchAlgorithmException, UnsupportedEncodingException {
         String value = _authManager.getParameterValue(_authInfo);
         assertNotNull(value);
+        if (value.indexOf('%') > -1) {
+            value = URLDecoder.decode(value, "UTF-8");
+        }
 
         Integer id = _authManager.getUserIdFromParameter(value);
         assertEquals(_user.getId(), id);
     }
 
-    public void testVerifyAuthInfoString() throws NoSuchAlgorithmException {
+    public void testVerifyAuthInfoString() throws NoSuchAlgorithmException, UnsupportedEncodingException {
         String paramString = _authManager.getParameterValue(_authInfo);
+        if (paramString.indexOf('%') > -1) {
+                paramString = URLDecoder.decode(paramString, "UTF-8");
+        }
+
         assertTrue(_authManager.verifyAuthInfo(_user, paramString));
 
         assertFalse(_authManager.verifyAuthInfo(_user, (String)null));
