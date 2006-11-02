@@ -72,7 +72,7 @@ public class LoginControllerTest extends BaseControllerTestCase {
         LoginCommand command = new LoginCommand();
         command.setEmail(user.getEmail());
         command.setPassword("foobar");
-        command.setRedirect("http://skylark118.webcrossing.com/?14@@.598dae0f");
+        command.setRedirect("/?14@@.598dae0f");
         BindException errors = new BindException(command, "");
 
         _controller.onBindOnNewForm(getRequest(), command, errors);

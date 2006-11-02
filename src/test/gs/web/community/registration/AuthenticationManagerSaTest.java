@@ -5,7 +5,6 @@ import gs.data.community.User;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-import java.util.Calendar;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -91,7 +90,7 @@ public class AuthenticationManagerSaTest extends TestCase {
     }
 
     public void testAddParameter() throws NoSuchAlgorithmException {
-        String url = "http://www.webcrossing.com/?14@@.598dae0f";
+        String url = "/?14@@.598dae0f";
         String newUrl = _authManager.addParameterIfNecessary(url, _authInfo);
 
         assertNotNull(newUrl);

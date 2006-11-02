@@ -18,9 +18,6 @@
   <head>
       <title>Registration Successful!</title>
       <pageHelper:externalJavascript file="/res/js/prototype.js"/>
-      <pageHelper:externalJavascript file="/res/js/autoassist.js"/>
-      <pageHelper:externalCss file="/res/css/community/autoassist.css"/>
-      <pageHelper:externalJavascript file="/res/js/registration2.js"/>
       <pageHelper:externalCss file="/res/css/community/registration/registration2.css"/>
       <script type="text/javascript">
 

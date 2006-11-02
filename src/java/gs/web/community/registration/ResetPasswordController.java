@@ -6,6 +6,7 @@ import org.springframework.validation.BindException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
@@ -20,11 +21,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created by IntelliJ IDEA.
- * User: UrbanaSoft
- * Date: Jul 18, 2006
- * Time: 4:06:00 PM
- * To change this template use File | Settings | File Templates.
+ * Provides ...
+ *
+ * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class ResetPasswordController extends SimpleFormController implements ReadWriteController {
     public static final String BEAN_ID = "/community/resetPassword.page";
@@ -49,7 +48,13 @@ public class ResetPasswordController extends SimpleFormController implements Rea
         User user = null;
         String idString = request.getParameter("id");
 
-        if (idString == null) {
+        if (!StringUtils.isEmpty(request.getParameter("oldPassword"))) {
+            // already authenticated user ... no need for fancy validation, them inputting their
+            // existing password will be good enough
+            user = SessionContextUtil.getSessionContext(request).getUser();
+            // do nothing
+        } else if (idString == null) {
+            // non-authenticated user, but no string identifying them. Cause error
             ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
             user = sessionContext.getUser();
             if (user == null) {
@@ -58,6 +63,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
                 return null;
             }
         } else {
+            // non-authenticated user. Validate the string identifying them
             try {
                 hash = idString.substring(0, DigestUtil.MD5_HASH_LENGTH);
 
@@ -119,9 +125,6 @@ public class ResetPasswordController extends SimpleFormController implements Rea
     protected void onBindAndValidate(HttpServletRequest request,
                                      Object command,
                                      BindException errors) throws NoSuchAlgorithmException {
-        if (errors.hasErrors()) {
-            return;
-        }
         UserCommand userCommand = (UserCommand) command;
 
         // we need to re-validate everything because this form submit may be spoofed
@@ -157,7 +160,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
         ModelAndView mAndV = new ModelAndView();
 
         mAndV.setViewName(getSuccessView());
-        mAndV.getModel().put("userCmd", userCommand);
+        mAndV.getModel().put("email", user.getEmail());
         return mAndV;
     }
 
