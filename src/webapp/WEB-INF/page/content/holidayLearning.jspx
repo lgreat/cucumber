@@ -34,7 +34,7 @@
 <div class="middle">
     <div id="contentHeaderImage">
         <h1 id="title">${pageName}</h1>
-        <gsml:img src="/res/img/content/holidayLearning/holidayKid.jpg" alt="Smiling girl with milk" style="float:left;"/>
+        <gsml:img src="/res/img/content/holidayLearning/holidayKid.jpg" alt="Father and daughter in the snow" style="float:left;"/>
     </div>
 
     <div>
