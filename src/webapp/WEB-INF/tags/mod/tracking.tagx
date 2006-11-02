@@ -7,6 +7,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
 <jsp:directive.tag import="gs.data.school.LevelCode"/>
 <jsp:directive.tag import="java.util.Iterator"/>
+<jsp:directive.tag import="gs.data.util.Address"/>
 <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="pageType" required="true"/>
     <jsp:directive.attribute name="pageName" required="true"/>
@@ -59,19 +60,25 @@
                 id = school.getId().toString();
                 jspContext.setAttribute("id", id);
                 jspContext.setAttribute("schoolType", school.getType().getSchoolTypeName());
-                jspContext.setAttribute("locale", school.getCounty());
+                Address address = school.getPhysicalAddress();
+                if (address != null) {
+                    jspContext.setAttribute("locale", address.getCity());
+                } else {
+                    jspContext.setAttribute("locale", school.getCounty());    
+                }
 
                 StringBuffer buffer = new StringBuffer(30);
                 Iterator iter = school.getLevelCode().getIterator();
                 while (iter.hasNext()) {
-                    buffer.append(((LevelCode.Level)iter.next()).getLongName());
+                    buffer.append(((LevelCode.Level) iter.next()).getLongName());
                     if (iter.hasNext()) {
                         buffer.append("+");
                     }
                 }
                 schoolLevel = buffer.toString();
                 jspContext.setAttribute("schoolLevel", schoolLevel);
-            } catch (Exception e){}
+            } catch (Exception e) {
+            }
         }
     </jsp:scriptlet>
 
