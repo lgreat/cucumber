@@ -1,3 +1,9 @@
+a #mssPromo {
+    text-decoration:none;
+    cursor: pointer;
+    cursor: hand;
+}
+
 #mssPromo {
 display:block;
 height:108px;
