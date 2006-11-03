@@ -72,8 +72,8 @@
                     <p>Based on change between<br/>${year-1} and ${year}</p>
                 </div>
 
-                <div style="float:left;border-left: dotted 2px #66cccc;padding-left:25px; height:100%;">
-                    <table cellpadding="2">
+                <div style="float:left;border-left: dotted 2px #66cccc;padding-left:25px;height:100%">
+                    <table cellpadding="2" height="50">
                         <tr><td><span class="strongImprovement">&amp;nbsp;</span></td><td>Strong Improvement</td></tr>
                         <tr><td><span class="someImprovement">&amp;nbsp;</span></td><td>Some Improvement</td></tr>
                         <tr><td><span class="noChange">&amp;nbsp;</span></td><td>No Change</td></tr>
