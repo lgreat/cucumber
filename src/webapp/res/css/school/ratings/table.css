@@ -19,7 +19,7 @@
 }
 
 #rating td {
-    padding: 5px 0 5px 40px;
+    padding: 5px 0 5px 50px;
     text-align:center;
 }
 
@@ -86,7 +86,7 @@
 }
 
 #legend {
-    padding:20px 0 20px 30px;
+    padding:18px 0 10px 25px;
     height:160px;
 }
 

@@ -78,7 +78,7 @@
 
         <c:if test="${hasError eq 'false'}">
             <school:profile school="${school}" tab="ratings">
-                <div style="padding:10px 10px 0 0;">
+                <div style="padding:10px 10px 0 10px;">
                 <div class="ratingSummaryWrapper">
                     <div class="ratingSummaryContent">
                         <gsml:img src="${ratingImagePath}" alt="${imageDesc}" style="float:left;padding-right:30px;"/>
