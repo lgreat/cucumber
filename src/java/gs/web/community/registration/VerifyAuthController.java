@@ -44,6 +44,10 @@ public class VerifyAuthController implements Controller {
                 if (authInfo.indexOf('%') > -1) {
                     authInfo = URLDecoder.decode(authInfo, "UTF-8");
                 }
+                if (authInfo.indexOf(' ') > -1) {
+                    authInfo = authInfo.replace(' ', '+');
+                    _log.info("Replacing spaces with +'s: " + authInfo);
+                }
                 id = _authenticationManager.getUserIdFromParameter(authInfo);
                 User user = _userDao.findUserFromId(id.intValue());
                 if (_authenticationManager.verifyAuthInfo(user, authInfo)) {
