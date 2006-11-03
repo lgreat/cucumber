@@ -46,7 +46,7 @@ public class UserCommandValidator implements Validator {
     private static final String ERROR_NUM_CHILDREN_MISSING =
             "We're sorry, you must select a number";
     private static final String ERROR_TERMS_MISSING =
-            "We're sorry, you must accept the terms of service";
+            "Please accept our Terms of Use to join the community";
 
     public boolean supports(Class aClass) {
         return aClass == UserCommand.class;

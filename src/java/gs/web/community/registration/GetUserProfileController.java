@@ -1,6 +1,6 @@
 package gs.web.community.registration;
 
-import org.springframework.web.servlet.mvc.Controller;
+import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,7 +15,7 @@ import gs.data.community.*;
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class GetUserProfileController implements Controller {
+public class GetUserProfileController extends AbstractController {
     protected final Log _log = LogFactory.getLog(getClass());
     public static final String BEAN_ID = "/community/getUserProfile.page";
     public static final String USER_ID_PARAMETER_NAME = "memberId";
@@ -26,7 +26,7 @@ public class GetUserProfileController implements Controller {
     private ISubscriptionDao _subscriptionDao;
     private String _viewName;
 
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map model = new HashMap();
 
         String paramValues[] = request.getParameterValues(USER_ID_PARAMETER_NAME);

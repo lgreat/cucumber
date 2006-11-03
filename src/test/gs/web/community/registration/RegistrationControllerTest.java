@@ -53,6 +53,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         userCommand.setConfirmPassword(password);
         userCommand.setState(State.CA);
         userCommand.setScreenName("screeny");
+        userCommand.setNumSchoolChildren(new Integer(0));
 
         userCommand.getUser().setId(new Integer(345)); // to fake the database save
 
@@ -86,6 +87,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         userCommand.setPassword(password);
         userCommand.setConfirmPassword(password);
         userCommand.setScreenName("screeny");
+        userCommand.setNumSchoolChildren(new Integer(0));
         userCommand.getUser().setId(userId);
 
         assertTrue(userCommand.getUser().isPasswordEmpty());
@@ -103,7 +105,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
             assertTrue(userCommand.getUser().isEmailProvisional());
             assertFalse(userCommand.getUser().isPasswordEmpty());
         } catch (Exception e) {
-            fail(e.getMessage());
+            fail(e.toString());
         }
     }
 

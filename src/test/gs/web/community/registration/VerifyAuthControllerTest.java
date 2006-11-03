@@ -10,8 +10,6 @@ import org.easymock.MockControl;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.apache.commons.lang.StringUtils;
 
-import java.security.NoSuchAlgorithmException;
-import java.io.IOException;
 import java.net.URLDecoder;
 
 /**
@@ -42,7 +40,7 @@ public class VerifyAuthControllerTest extends BaseControllerTestCase {
         _controller.setAuthenticationManager(new AuthenticationManager());
     }
 
-    public void testVerifyAuth() throws NoSuchAlgorithmException, IOException {
+    public void testVerifyAuth() throws Exception {
         User user = new User();
         user.setId(new Integer(99));
         user.setEmail("testVerifyAuth@greatschools.net");
@@ -58,14 +56,14 @@ public class VerifyAuthControllerTest extends BaseControllerTestCase {
         getRequest().addParameter(_controller.getAuthenticationManager().getParameterName(),
                 _controller.getAuthenticationManager().getParameterValue(authInfo));
 
-        _controller.handleRequest(getRequest(), getResponse());
+        _controller.handleRequestInternal(getRequest(), getResponse());
 
         _userControl.verify();
 
         assertEquals(200, getResponse().getStatus());
     }
 
-    public void testVerifyFail() throws NoSuchAlgorithmException, IOException {
+    public void testVerifyFail() throws Exception {
         User user = new User();
         user.setId(new Integer(99));
         user.setEmail("testVerifyAuth2@greatschools.net");
@@ -88,14 +86,14 @@ public class VerifyAuthControllerTest extends BaseControllerTestCase {
                 paramValue.substring(DigestUtil.MD5_HASH_LENGTH+10);
         getRequest().addParameter(_controller.getAuthenticationManager().getParameterName(), paramValue);
 
-        _controller.handleRequest(getRequest(), getResponse());
+        _controller.handleRequestInternal(getRequest(), getResponse());
 
         _userControl.verify();
 
         assertTrue(getResponse().getStatus() == 403);
     }
 
-    public void testFindUserError() throws NoSuchAlgorithmException, IOException {
+    public void testFindUserError() throws Exception {
         User user = new User();
         user.setId(new Integer(99));
         user.setEmail("testVerifyAuth4@greatschools.net");
@@ -114,23 +112,23 @@ public class VerifyAuthControllerTest extends BaseControllerTestCase {
                 paramValue.substring(DigestUtil.MD5_HASH_LENGTH+10);
         getRequest().addParameter(_controller.getAuthenticationManager().getParameterName(), paramValue);
 
-        _controller.handleRequest(getRequest(), getResponse());
+        _controller.handleRequestInternal(getRequest(), getResponse());
 
         _userControl.verify();
 
         assertTrue(getResponse().getStatus() == 403);
     }
 
-    public void testMissingParameter() throws NoSuchAlgorithmException, IOException {
-        _controller.handleRequest(getRequest(), getResponse());
+    public void testMissingParameter() throws Exception {
+        _controller.handleRequestInternal(getRequest(), getResponse());
 
         assertTrue(getResponse().getStatus() == 403);
     }
 
 
-    public void testMangledParameter() throws NoSuchAlgorithmException, IOException {
+    public void testMangledParameter() throws Exception {
         getRequest().addParameter(_controller.getAuthenticationManager().getParameterName(), "blahblah");
-        _controller.handleRequest(getRequest(), getResponse());
+        _controller.handleRequestInternal(getRequest(), getResponse());
 
         assertTrue(getResponse().getStatus() == 403);
     }

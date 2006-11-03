@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.25 2006/10/13 17:45:05 aroy Exp $
+ * $Id: PageHelper.java,v 1.26 2006/11/03 23:47:22 aroy Exp $
  */
 
 package gs.web.util;
 
 import gs.data.community.User;
+import gs.data.util.DigestUtil;
 import gs.web.util.context.ISessionContext;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Helper class to render and decorate a JSP page correctly. Provides a place to encapsulate logic about our pages to
@@ -381,14 +383,18 @@ public class PageHelper {
     }
 
     /**
-     * Sets a user's authentication information. This gets checked on secure pages against a generated
-     * copy and must match. To clear, set to null.
+     * Sets a user's member cookie and authentication information. Call when a user needs to be
+     * logged in to Community, or their email address has changed.
+     *
      * @param request
      * @param response
      * @param user used to initialize the cookie, should not be null
-     * @param hash auth info for user, can be null to clear.
      */
-    public static void setMemberAuthorized(HttpServletRequest request, HttpServletResponse response, User user, String hash) {
+    public static void setMemberAuthorized(HttpServletRequest request, HttpServletResponse response, User user) throws NoSuchAlgorithmException {
+        Object[] hashInput = new Object[] {User.SECRET_NUMBER, user.getId(), user.getEmail()};
+        String hash = DigestUtil.hashObjectArray(hashInput);
+
+        setMemberCookie(request, response, user);
         SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(request);
         SessionContextUtil util = context.getSessionContextUtil();
         util.changeAuthorization(request, response, user, hash);

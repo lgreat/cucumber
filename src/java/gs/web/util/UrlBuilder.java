@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.65 2006/10/20 01:19:55 dlee Exp $
+ * $Id: UrlBuilder.java,v 1.66 2006/11/03 23:47:22 aroy Exp $
  */
 
 package gs.web.util;
@@ -112,12 +112,15 @@ public class UrlBuilder {
      */
     public static final VPage RESEARCH = new VPage("vpage:research");
 
+    public static final VPage LOGIN_OR_REGISTER = new VPage("vpage:loginOrRegister");
     public static final VPage REGISTRATION = new VPage("vpage:registration");
     public static final VPage REGISTRATION_REMOVE = new VPage("vpage:registrationRemove");
     public static final VPage REGISTRATION_VALIDATION = new VPage("vpage:registrationValidation");
     public static final VPage FORGOT_PASSWORD = new VPage("vpage:forgotPassword");
     public static final VPage RESET_PASSWORD = new VPage("vpage:resetPassword");
     public static final VPage REQUEST_EMAIL_VALIDATION = new VPage("vpage:requestEmailValidation");
+    public static final VPage COMMUNITY_LANDING = new VPage("vpage:communityLanding");
+    public static final VPage CHANGE_EMAIL = new VPage("vpage:changeEmail");
 
     /**
      * school profile pages
@@ -539,10 +542,22 @@ public class UrlBuilder {
             if (param0 != null) {
                 setParameter("id", param0);
             }
+        } else if (CHANGE_EMAIL.equals(page)) {
+            _perlPage = false;
+            _path = "/community/changeEmail.page";
         } else if (REQUEST_EMAIL_VALIDATION.equals(page)) {
             _perlPage = false;
             _path = "/community/requestEmailValidation.page";
             setParameter("email", param0);
+        } else if (LOGIN_OR_REGISTER.equals(page)) {
+            _perlPage = false;
+            _path = "/community/loginOrRegister.page";
+            if (param0 != null) {
+                setParameter("redirect", param0);
+            }
+        } else if (COMMUNITY_LANDING.equals(page)) {
+            _perlPage = false;
+            _path = "/community/communityLanding.page";
         } else if (DISTRICTS_PAGE.equals(page)) {
             _perlPage = true;
             _path = "/modperl/districts/" + state.getAbbreviation();

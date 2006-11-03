@@ -1,6 +1,6 @@
 package gs.web.community.registration;
 
-import org.springframework.web.servlet.mvc.Controller;
+import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.apache.commons.logging.Log;
@@ -23,7 +23,7 @@ import gs.data.community.ISubscriptionDao;
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class VerifyAuthController implements Controller {
+public class VerifyAuthController extends AbstractController {
     protected final Log _log = LogFactory.getLog(getClass());
     public static final String BEAN_ID = "/community/verifyAuth.page";
     public static final int ERROR_CODE = HttpServletResponse.SC_FORBIDDEN;
@@ -33,7 +33,7 @@ public class VerifyAuthController implements Controller {
     private ISubscriptionDao _subscriptionDao;
     private String _viewName;
 
-    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException, IOException {
+    public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException, IOException {
         Map model = new HashMap();
         GetUserProfileController.UserProfileInfo upi = null;
         String authInfo = request.getParameter(_authenticationManager.getParameterName());

@@ -111,7 +111,7 @@ public class AuthenticationManager {
                 if (originalUrl.indexOf("!") > -1) {
                     rval.append("&");
                 } else {
-                    rval.append("!");
+                    rval.append("?");
                 }
                 rval.append(getParameterName());
                 rval.append("=");

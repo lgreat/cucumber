@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.51 2006/11/01 01:14:43 eddie Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.52 2006/11/03 23:47:22 aroy Exp $
  */
 
 package gs.web.util;
@@ -348,6 +348,13 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/community/resetPassword.page?id=myParam", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.REQUEST_EMAIL_VALIDATION, null, "myEmail");
         assertEquals("/community/requestEmailValidation.page?email=myEmail", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, "myParam");
+        assertEquals("/community/loginOrRegister.page?redirect=myParam", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.CHANGE_EMAIL, null, null);
+        assertEquals("/community/changeEmail.page", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
+        assertEquals("/community/communityLanding.page", builder.asSiteRelative(request));
+
         builder = new UrlBuilder(UrlBuilder.DISTRICTS_PAGE, State.CA, null);
         assertEquals("/modperl/districts/CA", builder.asSiteRelative(request));
     }

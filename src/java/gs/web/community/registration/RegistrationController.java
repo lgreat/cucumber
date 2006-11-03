@@ -8,6 +8,7 @@ import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
 import gs.data.state.State;
 import gs.web.util.ReadWriteController;
+import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -151,6 +152,9 @@ public class RegistrationController extends SimpleFormController implements Read
         // gotten this far, now let's update their user profile
         UserProfile userProfile = userCommand.getUserProfile();
 
+        if (userProfile.getNumSchoolChildren().intValue() == -1) {
+            userProfile.setNumSchoolChildren(new Integer(0));
+        }
         userProfile.setUser(userCommand.getUser());
         userCommand.getUser().setUserProfile(userProfile);
         _userDao.updateUser(userCommand.getUser());
@@ -167,8 +171,8 @@ public class RegistrationController extends SimpleFormController implements Read
             // mAndV.getModel().put("followUpCmd", fupCommand);
             mAndV.getModel().put("id", userCommand.getUser().getId());
         } else {
+            PageHelper.setMemberAuthorized(request, response, userCommand.getUser());
             mAndV.setViewName(getCompleteView());
-            mAndV.getModel().put("email", userCommand.getEmail());
         }
 
         // generate secure hash so if the followup profile page is submitted, we know who it is

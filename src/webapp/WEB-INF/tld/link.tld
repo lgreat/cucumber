@@ -614,6 +614,29 @@
         </attribute>
     </tag>
     <tag>
+        <name>changeEmail</name>
+        <tag-class>gs.web.jsp.link.ChangeEmailTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Change Email</display-name>
+        <description>
+            <![CDATA[Choose a new email address.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+    </tag>
+    <tag>
         <name>requestEmailValidation</name>
         <tag-class>gs.web.jsp.link.RequestEmailValidationTagHandler</tag-class>
         <body-content>JSP</body-content>

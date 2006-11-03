@@ -160,7 +160,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
         ModelAndView mAndV = new ModelAndView();
 
         mAndV.setViewName(getSuccessView());
-        mAndV.getModel().put("email", user.getEmail());
+        mAndV.getModel().put("message", "Your password has been changed");
         return mAndV;
     }
 

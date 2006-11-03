@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.18 2006/10/13 17:45:04 aroy Exp $
+ * $Id: PageHelperSaTest.java,v 1.19 2006/11/03 23:47:22 aroy Exp $
  */
 
 package gs.web.util;
@@ -16,6 +16,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.util.CookieGenerator;
 
 import javax.servlet.http.Cookie;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Provides...
@@ -343,12 +344,12 @@ public class PageHelperSaTest extends TestCase {
         assertEquals(CookieGenerator.DEFAULT_COOKIE_PATH, cookie.getPath());
     }
 
-    public void testSetMemberAuthorized() {
+    public void testSetMemberAuthorized() throws NoSuchAlgorithmException {
         User user = new User();
         user.setId(new Integer(123));
         user.setEmail("testSetMemberCookie@greatschools.net");
-        String hash = "123abc!@#ABC==";
-        PageHelper.setMemberAuthorized(_request, _response, user, hash);
+        String hash = "pdwKOjLbjY5HJtWQLzm5gA==";
+        PageHelper.setMemberAuthorized(_request, _response, user);
         Cookie cookie = _response.getCookie("SESSION_CACHE");
         assertNotNull(cookie);
         ClientSideSessionCache sessionCache = ClientSideSessionCache.createClientSideSessionCache(cookie.getValue());

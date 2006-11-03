@@ -17,6 +17,7 @@ import gs.data.state.StateManager;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
 import gs.web.util.ReadWriteController;
+import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContextUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,9 +40,10 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     public static final int STUDENT_NAME_MAX_LENGTH = 50;
     public static final int OTHER_INTEREST_MAX_LENGTH = 255;
 
-    public static final String ERROR_GRADE_MISSING = "We're sorry, you must choose a grade";
-    public static final String ERROR_SCHOOL_MISSING = "We're sorry, you must choose a school";
-    public static final String ERROR_TERMS = "We're sorry, you must agree to the terms of service";
+    public static final String ERROR_GRADE_MISSING = "Please select your child's grade and school";
+    public static final String ERROR_SCHOOL_MISSING = "Please select your child's school. " +
+            "If you cannot find the school, please select \"My child's school is not listed.\"";
+    public static final String ERROR_TERMS = "Please accept our Terms of Use to join the community";
 
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
@@ -274,7 +276,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
                                  Object command,
-                                 BindException errors) {
+                                 BindException errors) throws NoSuchAlgorithmException {
         ModelAndView mAndV = new ModelAndView();
 
         FollowUpCommand fupCommand = (FollowUpCommand)command;
@@ -322,10 +324,9 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         // save
         _userDao.updateUser(user);
 
+        PageHelper.setMemberAuthorized(request, response, user);
         mAndV.setViewName(getSuccessView());
-        mAndV.getModel().put("email", user.getEmail());
-//        mAndV.getModel().put("id", user.getId());
-//        mAndV.getModel().put("marker", fupCommand.getMarker());
+
         return mAndV;
     }
 

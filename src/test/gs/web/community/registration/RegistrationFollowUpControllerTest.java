@@ -127,7 +127,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         assertEquals(1, _command.getSchools().size());
     }
 
-    public void testRecontact() {
+    public void testRecontact() throws NoSuchAlgorithmException {
         _command.setRecontact("y");
         _command.setUser(_user);
 
@@ -184,7 +184,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
      * Test that if a student is in the command, that student is added to the user and updateUser
      * is called on the dao.
      */
-    public void testaddStudent() {
+    public void testaddStudent() throws NoSuchAlgorithmException {
         _command.setUser(_user);
         Student student = new Student();
         _command.addStudent(student);

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.8 2006/10/13 17:45:04 aroy Exp $
+ * $Id: LoginController.java,v 1.9 2006/11/03 23:47:21 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -39,7 +39,7 @@ public class LoginController extends SimpleFormController {
     public static final String NOT_MATCHING_PASSWORDS_CODE = "not_matching_passwords";
     public static final String USER_PROVISIONAL_CODE = "provisional";
     public static final String USER_NO_PASSWORD_CODE = "user_no_password";
-    public static final String DEFAULT_REDIRECT_URL = "http://www.greatschools.net/";
+    public static String DEFAULT_REDIRECT_URL = null;
 
     private IUserDao _userDao;
     private AuthenticationManager _authenticationManager;
@@ -48,6 +48,11 @@ public class LoginController extends SimpleFormController {
     protected void onBindOnNewForm(HttpServletRequest request,
                                    Object command,
                                    BindException errors) {
+
+        if (DEFAULT_REDIRECT_URL == null) {
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
+            DEFAULT_REDIRECT_URL = builder.asFullUrl(request);
+        }
 
         LoginCommand loginCommand = (LoginCommand) command;
 
@@ -116,9 +121,7 @@ public class LoginController extends SimpleFormController {
         LoginCommand loginCommand = (LoginCommand) command;
         String email = loginCommand.getEmail();
         User user = getUserDao().findUserFromEmail(email);
-        PageHelper.setMemberCookie(request, response, user);
-        Object[] hashInput = new Object[] {User.SECRET_NUMBER, user.getId(), email};
-        PageHelper.setMemberAuthorized(request, response, user, DigestUtil.hashObjectArray(hashInput));
+        PageHelper.setMemberAuthorized(request, response, user);
 
         ModelAndView mAndV = new ModelAndView();
 

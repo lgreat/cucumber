@@ -80,7 +80,7 @@ public class GetUserProfileControllerTest  extends BaseControllerTestCase {
 
         getRequest().addParameter("memberId", "99");
 
-        ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         _userControl.verify();
         _subscriptionControl.verify();
         assertEquals(HttpServletResponse.SC_OK, getResponse().getStatus());
@@ -110,7 +110,7 @@ public class GetUserProfileControllerTest  extends BaseControllerTestCase {
 
         getRequest().addParameter("memberId", "99");
 
-        ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         _userControl.verify();
         assertEquals(HttpServletResponse.SC_OK, getResponse().getStatus());
         assertNotNull(mAndV);
@@ -122,7 +122,7 @@ public class GetUserProfileControllerTest  extends BaseControllerTestCase {
     }
 
     public void testNoParameter() throws IOException {
-        ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         assertEquals(HttpServletResponse.SC_FORBIDDEN, getResponse().getStatus());
         assertNull(mAndV);
     }
@@ -137,7 +137,7 @@ public class GetUserProfileControllerTest  extends BaseControllerTestCase {
 
         getRequest().addParameter("memberId", "1234");
 
-        ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         assertEquals(HttpServletResponse.SC_OK, getResponse().getStatus());
         assertNotNull(mAndV);
         assertNotNull(mAndV.getViewName());
@@ -182,7 +182,7 @@ public class GetUserProfileControllerTest  extends BaseControllerTestCase {
         _subscriptionControl.replay();
         getRequest().addParameter("memberId", "1235");
 
-        ModelAndView mAndV = _controller.handleRequest(getRequest(), getResponse());
+        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
         assertEquals(HttpServletResponse.SC_OK, getResponse().getStatus());
         assertNotNull(mAndV);
         assertNotNull(mAndV.getViewName());
