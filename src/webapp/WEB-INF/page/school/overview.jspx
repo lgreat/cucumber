@@ -65,7 +65,6 @@ table#sky td {
 }
 
 table.box_ad {
-    border: 1px solid #ccc;
     height: 100%;
 }
 
@@ -79,14 +78,7 @@ table.module1container td {
     height: 100%;
 }
 
-#contentGS div#foodiv{
-    border: 1px solid #f00;
-    height: 100%;
-    width: 100%;
-}
-
 table.module1 {
-    border: 1px solid #ccc;
     height: 100%;
     width: 100%;
 }
@@ -141,17 +133,28 @@ table.module1 td a:hover {
     left: 0px;
 }
 
-</style>
+    table.module1container {
+        border-spacing:8px;
+    }
 
+    table.module1container tr td.mod {
+        border: 1px solid #ccc;
+        vertical-align:top;
+        height:100%;
+        padding:0px;
+        border-spacing:10px;
+    }
+
+</style>
 </head>
 
 <gsml:body adPageName="overview" pageLayout="research">
 <school:profile school="${school}" tab="overview">
 <br/>
-<table class="module1container" border="0" cellpadding="5" cellspacing="0" width="100%">
+<table class="module1container" border="0" cellpadding="5" cellspacing="7" width="100%">
 <tbody>
 <tr>
-    <td valign="top">
+    <td valign="top" class="mod">
         <table class="module1" border="0" cellpadding="2" cellspacing="0" width="100%">
             <tbody>
                 <tr>
@@ -227,7 +230,7 @@ table.module1 td a:hover {
             </tbody>
         </table>
     </td>
-    <td valign="top">
+    <td valign="top" class="mod">
         <table class="module1" border="0" cellpadding="2" cellspacing="0">
             <tbody>
                 <tr>
@@ -260,7 +263,7 @@ table.module1 td a:hover {
         </table>
     </td>
     <c:if test="${!requestScope.pageHelper.adFree}">
-        <td colspan="2" id="box_ad" align="center" valign="top">
+        <td colspan="2" id="box_ad" align="center" valign="top" class="mod">
             <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
                 <tbody><tr>
                     <td>
@@ -276,11 +279,12 @@ table.module1 td a:hover {
     </c:if>
 </tr>
 <tr>
-    <td valign="top">
+    <td valign="top" class="mod">
         <table class="module1" border="0" cellpadding="2" cellspacing="0" width="100%">
-            <tbody><tr>
-                <td class="module1_head">Featured This Month</td>
-            </tr>
+            <tbody>
+                <tr>
+                    <td class="module1_head">Featured This Month</td>
+                </tr>
                 <tr>
                     <td class="module1_body" id="featuredArticles" valign="top">
                         <jsp:include
@@ -292,7 +296,7 @@ table.module1 td a:hover {
                 </tr>
             </tbody></table>
     </td>
-    <td valign="top">
+    <td valign="top" class="mod">
         <table class="module1" border="0" cellpadding="2" cellspacing="0" width="100%">
             <tbody>
                 <tr>
@@ -309,7 +313,7 @@ table.module1 td a:hover {
         </table>
     </td>
     <c:if test="${!requestScope.pageHelper.adFree}">
-        <td colspan="2" valign="top">
+        <td colspan="2" valign="top" class="mod">
             <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
                 <tbody><tr>
                     <td valign="top">
