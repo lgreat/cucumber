@@ -8,6 +8,7 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
 <jsp:directive.tag body-content="scriptless"/>
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
@@ -125,7 +126,15 @@
                                 </c:if>
 
                                 <c:if test="${not empty school.webSite}">
-                                    <a href="${school.webSite}" target="_blank">School Web site</a><br/>
+                                    <c:choose>
+                                        <c:when test="${fn:startsWith(school.webSite,'http://')}">
+                                            <a href="${school.webSite}" target="_blank">School Web site</a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a href="http://${school.webSite}" target="_blank">School Web site</a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <br/>
                                 </c:if>
 
                                 <c:if test="${school.districtId != 0}">

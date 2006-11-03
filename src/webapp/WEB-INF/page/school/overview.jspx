@@ -79,6 +79,12 @@ table.module1container td {
     height: 100%;
 }
 
+#contentGS div#foodiv{
+    border: 1px solid #f00;
+    height: 100%;
+    width: 100%;
+}
+
 table.module1 {
     border: 1px solid #ccc;
     height: 100%;
@@ -132,10 +138,11 @@ table.module1 td a:hover {
 .moreImage {
     position:relative;
     top: 3px;
-    left: 3px;
+    left: 0px;
 }
 
 </style>
+
 </head>
 
 <gsml:body adPageName="overview" pageLayout="research">
@@ -155,27 +162,60 @@ table.module1 td a:hover {
                         <c:choose>
                             <c:when test="${school.type.schoolTypeName == 'private'}">
                                 <b>Teacher/Student Stats</b><br/>
-                                Student-teacher ratio and ethnicity breakdown for ${school.name}
-                                <gsml:a href="/cgi-bin/$LCSTATE/otherprivate/${sid}"><img src="/res/img/school/more.gif" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
+                                Student-teacher ratio and <a href="/cgi-bin/$LCSTATE/otherprivate/${sid}" style="text-decoration:none;" class="nolink">ethnicity breakdown for ${school.name}</a>
+                                &#160;
+                                <gsml:a href="/cgi-bin/$LCSTATE/otherprivate/${sid}">
+                                    <img src="/res/img/school/more.gif"
+                                         class="moreImage"
+                                         alt="More"
+                                         onmouseover="this.src='/res/img/school/more_over.gif';"
+                                         onmouseout="this.src='/res/img/school/more.gif';"/>
+                                </gsml:a> <br/><br/>
 
                                 <b>Quick Facts</b><br/>
                                 Facts about the number of school days per year, library facility, and affiliation at ${school.name}
-                                <gsml:a href="/modperl/quickprivate/$LCSTATE/${sid}"><img src="/res/img/school/more.gif" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
-
+                                &#160;
+                                <gsml:a href="/modperl/quickprivate/$LCSTATE/${sid}">
+                                    <img src="/res/img/school/more.gif"
+                                         class="moreImage"
+                                         alt="More"
+                                         onmouseover="this.src='/res/img/school/more_over.gif';"
+                                         onmouseout="this.src='/res/img/school/more.gif';"/>
+                                </gsml:a> <br/><br/>
                             </c:when>
                             <c:otherwise>
-
                                 <b>Test Scores</b><br/>
                                 State standardized <a href="/modperl/achievement/${state}/${sid}" style="text-decoration:none;" class="nolink">test scores for ${school.name}</a>
-                                <gsml:a href="/modperl/achievement/${state}/${sid}"><img src="/res/img/school/more.gif" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
+                                &#160;
+                                <gsml:a href="/modperl/achievement/${state}/${sid}">
+                                    <img src="/res/img/school/more.gif"
+                                         class="moreImage"
+                                         alt="More"
+                                         onmouseover="this.src='/res/img/school/more_over.gif';"
+                                         onmouseout="this.src='/res/img/school/more.gif';"/>
+                                </gsml:a> <br/><br/>
 
                                 <b>Teacher Stats</b><br/>
                                 Learn about classroom environment with <a href="/cgi-bin/${state}/other/${sid}" style="text-decoration:none;" class="nolink">teacher stats for ${school.name}</a>
-                                <gsml:a href="/cgi-bin/${state}/other/${sid}"><img src="/res/img/school/more.gif" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
+                                &#160;
+                                <gsml:a href="/cgi-bin/${state}/other/${sid}">
+                                    <img src="/res/img/school/more.gif"
+                                         class="moreImage"
+                                         alt="More"
+                                         onmouseover="this.src='/res/img/school/more_over.gif';"
+                                         onmouseout="this.src='/res/img/school/more.gif';"/>
+                                </gsml:a> <br/><br/>
 
                                 <b>Student Stats</b><br/>
                                 Understand student ethnicity, economic level and more with <a href="/cgi-bin/${state}/other/${sid}" style="text-decoration:none;" class="nolink">student stats for ${school.name}</a>
-                                <gsml:a href="/cgi-bin/${state}/other/${sid}"><img src="/res/img/school/more.gif" class="moreImage" alt="More"> </img></gsml:a> <br/><br/>
+                                &#160;
+                                <gsml:a href="/cgi-bin/${state}/other/${sid}">
+                                    <img src="/res/img/school/more.gif"
+                                         class="moreImage"
+                                         alt="More"
+                                         onmouseover="this.src='/res/img/school/more_over.gif';"
+                                         onmouseout="this.src='/res/img/school/more.gif';"/>
+                                </gsml:a> <br/><br/>
 
                                 <b>Email updates</b><br/>
                                 Get the latest school data about ${school.name} and learn what it means. <a href="/community/newsletters/popup/mss/page1.page?state=${state}&amp;schoolId=${sid}&amp;referrer=spp_email_link"
@@ -188,17 +228,17 @@ table.module1 td a:hover {
         </table>
     </td>
     <td valign="top">
-        <table class="module1" border="0" cellpadding="2" cellspacing="0" width="100%">
-            <tbody><tr>
-                <td class="module1_head">Parent Reviews</td>
-
-            </tr>
+        <table class="module1" border="0" cellpadding="2" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td class="module1_head">Parent Reviews</td>
+                </tr>
                 <tr>
                     <td class="module1_body" valign="top"><b>The Inside Scoop from Parents</b>
                         <br/>
                         <c:choose>
                             <c:when test="${not empty reviewCount}">
-                                (${reviewCount} <a href="" style="text-decoration:none;" class="nolink">reviews of ${school.name}</a> available)
+                                (${reviewCount} <a href="" style="text-decoration:none;" class="nolink">review${reviewCount == 1 ? '' : 's'} of ${school.name}</a> available)
                                 <br /><br />
                                 <c:out value="${reviewText}" escapeXml="true" />
                                 <br />
@@ -216,13 +256,17 @@ table.module1 td a:hover {
                         </center>
                     </td>
                 </tr>
-            </tbody></table>
+            </tbody>
+        </table>
     </td>
     <c:if test="${!requestScope.pageHelper.adFree}">
         <td colspan="2" id="box_ad" align="center" valign="top">
             <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
                 <tbody><tr>
-                    <td><script type="text/javascript">document.write(adboxhead());</script>AD<br/>
+                    <td>
+                        <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+                            <script type="text/javascript">document.write(adboxhead());</script>AD<br/>
+                        </c:if>
                         <ad:x48 />
                     </td>
                 </tr>
@@ -269,9 +313,13 @@ table.module1 td a:hover {
             <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
                 <tbody><tr>
                     <td valign="top">
-                        <div class="sponsor">Advertiser links</div>
+                        <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+                            <div class="sponsor">Advertiser links</div>
+                        </c:if>
                         <ad:x49 />
-                        <div class="separator"><hr/></div>
+                        <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+                            <div class="separator"><hr/></div>
+                        </c:if>
                         <ad:x50 />
                     </td>
                 </tr>
