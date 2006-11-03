@@ -72,9 +72,16 @@ public class ShutterflyCardsController extends AbstractController implements Ini
     private IUserDao _userDao;
     private IPromoDao _promoDao;
     private JavaMailSender _mailSender;
-
+    private Calendar _calendar;
+    
     public void afterPropertiesSet() throws Exception {
         PROMO = _promoDao.findPromoById(1);
+        _calendar = Calendar.getInstance();
+        _calendar.set(2006, Calendar.NOVEMBER, 8);
+        _calendar.clear(Calendar.MILLISECOND);
+        _calendar.clear(Calendar.SECOND);
+        _calendar.clear(Calendar.MINUTE);
+        _calendar.clear(Calendar.HOUR_OF_DAY);
     }
 
 
@@ -82,12 +89,6 @@ public class ShutterflyCardsController extends AbstractController implements Ini
                                                  HttpServletResponse response) throws Exception {
 
         String email = request.getParameter(PARAM_EMAIL);
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2006, Calendar.NOVEMBER, 8);
-        calendar.clear(Calendar.MILLISECOND);
-        calendar.clear(Calendar.SECOND);
-        calendar.clear(Calendar.MINUTE);
-        calendar.clear(Calendar.HOUR_OF_DAY);
 
         //Error checking
         if (StringUtils.isBlank(email)) {
@@ -105,7 +106,7 @@ public class ShutterflyCardsController extends AbstractController implements Ini
             return processInelgibleRequest();
         }
 
-        if (!user.getTimeAdded().before(calendar.getTime()) || user.getTimeAdded().equals(calendar.getTime())) {
+        if (!user.getTimeAdded().before(_calendar.getTime()) || user.getTimeAdded().equals(_calendar.getTime())) {
             return processInelgibleRequest();
         }
 
@@ -126,9 +127,9 @@ public class ShutterflyCardsController extends AbstractController implements Ini
                 try {
                     _mailSender.send(createMessage(email, promoCode.getCode()));
                 } catch (MessagingException mess) {
-                    _log.warn("User " + email + " did not receive promo code: " + promoCode.getCode() , mess);
+                    _log.error("User " + email + " did not receive promo code: " + promoCode.getCode() , mess);
                 } catch (MailException me) {
-                    _log.warn("User " + email + " did not receive promo code: " + promoCode.getCode() , me);
+                    _log.error("User " + email + " did not receive promo code: " + promoCode.getCode() , me);
                 }
                 return processRequest(ELIGIBLE_ALT, ELIGIBLE_SRC, ELIGIBLE_PAGE_NAME);
             }
