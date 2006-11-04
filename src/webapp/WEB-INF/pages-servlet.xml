@@ -840,6 +840,11 @@
         <property name="commandName" value="emailCmd"/>
         <property name="formView" value="/community/registration/changeEmail"/>
         <property name="successView" value="redirect:/community/communityLanding.page"/>
+        <property name="validators">
+            <list>
+                <ref local="emailValidator"/>
+            </list>
+        </property>
     </bean>
 
     <bean name="/community/loginOrRegister.page"

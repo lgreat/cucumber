@@ -10,6 +10,7 @@ import gs.data.community.User;
 import gs.web.util.ReadWriteController;
 import gs.web.util.UrlBuilder;
 import gs.web.util.PageHelper;
+import gs.web.util.validator.EmailValidator;
 import gs.web.util.context.SessionContextUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -86,7 +87,7 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
         _userDao = userDao;
     }
 
-    public static class ChangeEmailCommand {
+    public static class ChangeEmailCommand implements EmailValidator.IEmail {
         private String _newEmail;
         private String _confirmNewEmail;
 
@@ -104,6 +105,10 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
 
         public void setConfirmNewEmail(String confirmNewEmail) {
             _confirmNewEmail = confirmNewEmail;
+        }
+
+        public String getEmail() {
+            return getNewEmail();
         }
     }
 }
