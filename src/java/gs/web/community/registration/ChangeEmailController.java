@@ -16,8 +16,6 @@ import gs.web.util.context.SessionContextUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
-import java.util.Map;
-import java.util.HashMap;
 
 /**
  * Provides backing for the change email form, that allows a list_member to update their

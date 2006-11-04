@@ -13,11 +13,9 @@ import org.easymock.AbstractMatcher;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created by IntelliJ IDEA.
- * User: UrbanaSoft
- * Date: Jul 20, 2006
- * Time: 9:31:28 AM
- * To change this template use File | Settings | File Templates.
+ * Provides testing for the reset password controller.
+ *
+ * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class ResetPasswordControllerTest extends BaseControllerTestCase {
     private ResetPasswordController _controller;

@@ -18,11 +18,9 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * Created by IntelliJ IDEA.
- * User: UrbanaSoft
- * Date: Jun 27, 2006
- * Time: 9:57:36 AM
- * To change this template use File | Settings | File Templates.
+ * Final stage in the confirmation process when using email validation.
+ *
+ * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class RegistrationConfirmController extends AbstractController implements ReadWriteController {
     public static final String BEAN_ID = "/community/registrationConfirm.page";

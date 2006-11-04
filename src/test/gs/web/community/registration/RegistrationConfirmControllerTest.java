@@ -11,11 +11,9 @@ import org.easymock.MockControl;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created by IntelliJ IDEA.
- * User: UrbanaSoft
- * Date: Jun 27, 2006
- * Time: 1:56:24 PM
- * To change this template use File | Settings | File Templates.
+ * Provides testing for RegistrationConfirmController
+ *
+ * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
     private RegistrationConfirmController _controller;
