@@ -285,7 +285,7 @@ table.module1 td a:hover {
         <td colspan="2" id="box_ad" align="center" valign="top" class="mod">
             <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
                 <tbody><tr>
-                    <td>
+                    <td valign="top">
                         <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
                             <script type="text/javascript">document.write(adboxhead());</script>AD<br/>
                         </c:if>
