@@ -31,7 +31,7 @@
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="sid" value="${school.id}"/>
 <c:set var="addr" value="${school.physicalAddress.city}, ${school.physicalAddress.state.longName} - ${stateAbbrev}" />
-<title>${school.name} - ${addr} - school information</title>
+<title>${school.name} - ${addr} - school overview</title>
 <meta name="description" content="${school.name} located in ${addr}"/>
 
 <style type="text/css">
@@ -267,7 +267,7 @@ table.module1 td a:hover {
                                 <gsml:a href="/modperl/parents/${state}/${sid}">Read more...</gsml:a>
                             </c:when>
                             <c:otherwise>
-                                <p>Be the first to review this school - tell other parents what you think. <br/>
+                                <p>Be the first to review ${school.name} - tell other parents what you think. <br/>
                                     <br/>
                                 </p>
                             </c:otherwise>
@@ -282,7 +282,7 @@ table.module1 td a:hover {
         </table>
     </td>
     <c:if test="${!requestScope.pageHelper.adFree}">
-        <td colspan="2" id="box_ad" align="center" valign="top" class="mod">
+        <td colspan="2" id="box_ad" align="center" valign="top" class="mod noprint">
             <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
                 <tbody><tr>
                     <td valign="top">
@@ -332,7 +332,7 @@ table.module1 td a:hover {
         </table>
     </td>
     <c:if test="${!requestScope.pageHelper.adFree}">
-        <td colspan="2" valign="top" class="mod">
+        <td colspan="2" valign="top" class="mod noprint">
             <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
                 <tbody><tr>
                     <td valign="top">
