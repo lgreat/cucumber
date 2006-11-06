@@ -73,6 +73,25 @@ table.box_ad td {
     font-size: 10px;
 }
 
+table.box_ad td div.text_ad {
+    font-size: 12px;
+    text-align: left;
+    padding: 5px 5px 5px 5px;
+    height: 100%;
+}
+    table.box_ad td div.text_ad div.sponsor {
+        text-align: center;
+        height: 10%;
+        padding-bottom: 7px;
+        font-size: 11px;
+    }
+
+    table.box_ad td div.text_ad div.separator hr {
+        height: 1px;
+        width: 100%;
+        margin:10px 0 10px 0;
+    }
+
 table.module1container td {
     width: 50%;
     height: 100%;
@@ -317,14 +336,16 @@ table.module1 td a:hover {
             <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
                 <tbody><tr>
                     <td valign="top">
-                        <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
-                            <div class="sponsor">Advertiser links</div>
-                        </c:if>
-                        <ad:x49 />
-                        <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
-                            <div class="separator"><hr/></div>
-                        </c:if>
-                        <ad:x50 />
+                        <div class="text_ad">
+                            <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+                                <div class="sponsor">Advertiser links</div>
+                            </c:if>
+                            <ad:x49 />
+                            <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+                                <div class="separator"><hr/></div>
+                            </c:if>
+                            <ad:x50 />
+                        </div>
                     </td>
                 </tr>
                 </tbody>
