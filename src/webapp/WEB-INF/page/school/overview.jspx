@@ -255,7 +255,7 @@ table.module1 td a:hover {
                         </c:choose>
                         <br /><br />
                         <center>
-                            <gsml:a href="/cgi-bin/addcomments/${state}/${sid}"><img src="/res/img/school/share_btn.gif" border="0"/></gsml:a>
+                            <gsml:a href="/cgi-bin/addcomments/${state}/${sid}"><img alt="Share your views" src="/res/img/school/share_btn.gif" border="0"/></gsml:a>
                         </center>
                     </td>
                 </tr>
