@@ -53,7 +53,7 @@
     </c:otherwise>
 </c:choose>
 <div id="schoolProfile">
-<div id="printEmail">
+<div id="printEmail" class="noprint">
     <gsml:url var="mailToFriendUrl" value="/community/mailToFriend.page?schoolId=${school.id}&amp;refer=${tab}"/>
     <a href="%" onclick=" window.print(); return false">Print this page</a>&amp;nbsp;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&amp;nbsp;<gsml:a href="${mailToFriendUrl}" onClick=" window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email to a friend</gsml:a>
 </div>
