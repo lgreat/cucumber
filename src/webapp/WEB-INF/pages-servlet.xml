@@ -26,10 +26,26 @@
         <!-- bean mappings for special SEO pages -->
         <property name="urlMap">
             <map>
-                <entry key="/city/**" value="/city.page"></entry>
+                <entry key="/city/**" value="/city.page"/>
             </map>
         </property>
     </bean>
+
+
+    <!--<bean name="loginRequiredHandlerMapping" parent="defaultHandlerMapping"-->
+          <!--class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" lazy-init="true">       -->
+        <!--<property name="interceptors">            -->
+            <!-- Use merge="true" to add an interceptor to the parents list  -->
+            <!--<list merge="true">-->
+                <!--<bean class="gs.web.util.LoginRequiredInterceptor"/>-->
+            <!--</list>-->
+        <!--</property>-->
+        <!--<property name="urlMap">-->
+            <!--<map>-->
+                <!--<entry key="/community/some.page" value="someControllerBeanName"/>-->
+            <!--</map>-->
+        <!--</property>-->
+    <!--</bean>-->
 
 
     <bean id="requiresStateInterceptor"
@@ -712,6 +728,7 @@
         </property>
     </bean>
     <!--End Myschool stats newsletter popups -->
+    
     <!--Begin Registration pages -->
     <bean name="/community/registration.page"
           class="gs.web.community.registration.RegistrationController"
