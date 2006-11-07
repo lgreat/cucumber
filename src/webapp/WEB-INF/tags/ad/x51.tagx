@@ -8,7 +8,7 @@
     <jsp:directive.attribute name="blurb" required="false" description="A line of text to appear above the ad"/>
         <c:if test="${!requestScope.pageHelper.adFree}">
             <c:if test='${!requestScope.pageHelper.adServedByCobrand}'>
-                <div id="textAd">
+                <div class="textAd">
                     <c:if test="${not empty blurb}">
                         <h2 id="adBlurb">${blurb}</h2>
                     </c:if>

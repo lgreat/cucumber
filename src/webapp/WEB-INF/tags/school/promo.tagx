@@ -27,13 +27,13 @@
         </c:when>
         <c:when test="${school.type.schoolTypeName != 'private'}">
             <pageHelper:externalCss file="/res/css/school/promo/mss.css" />
-            <promo:mssHover referredBy="spp_email_link" school="${school}">
-                <div id="mssPromo">
-                    <div class="large">Get Free Updates for</div>
-                    <div class="medium">${school.name}</div>
-                    <div class="signup">Sign up now!</div>
-                </div>
-            </promo:mssHover>
+            <div id="mssPromo">
+                <promo:mssHover referredBy="spp_email_link" school="${school}">
+                    <span class="large">Get Free Updates for</span><br/>
+                    <span class="medium">${school.name}</span>
+                    <span class="signup">Sign up now!</span>
+                </promo:mssHover>
+            </div>
         </c:when>
         <c:otherwise>
             <promo:schoolChoiceTips/>

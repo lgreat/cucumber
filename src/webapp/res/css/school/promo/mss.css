@@ -1,7 +1,8 @@
-a #mssPromo {
+#mssPromo a {
     text-decoration:none;
     cursor: pointer;
     cursor: hand;
+    color:#ffffff;
 }
 
 #mssPromo {

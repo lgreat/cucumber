@@ -212,7 +212,7 @@ h3#freeNewsletters {
     float: none;
 }
 
-#textAd {
+.textAd {
     font-size: 12px;
 	margin-top: 20px;
 	color: #000000;
@@ -222,7 +222,7 @@ h3#freeNewsletters {
 	width: 259px;
 }
 
-div#textAd a {
+div.textAd a {
     font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 13px;
 	color: #3399AA;

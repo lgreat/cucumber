@@ -233,8 +233,8 @@ table.module1 td a:hover {
                                          onmouseout="this.src='/res/img/school/more.gif';"/>
                                 </gsml:a> <br/><br/>
                                 <b>Email updates</b><br/>
-                                Get the latest school data about ${school.name} and learn what it means. <a href="/community/newsletters/popup/mss/page1.page?state=${state}&amp;schoolId=${sid}&amp;referrer=spp_email_link"
-                                   class="submodal-480-500" target="mss">Sign me up, it's free</a>
+                                Get the latest school data about ${school.name} and learn what it means. <gsml:a href="/community/newsletters/popup/mss/page1.page?state=${state}&amp;schoolId=${sid}&amp;referrer=spp_email_link"
+                                   styleClass="submodal-480-500" target="mss">Sign me up, it's free</gsml:a>
                             </c:otherwise>
                         </c:choose>
                     </td>
