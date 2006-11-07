@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.27 2006/11/07 19:12:02 dlee Exp $
+ * $Id: PageHelper.java,v 1.28 2006/11/07 21:26:10 aroy Exp $
  */
 
 package gs.web.util;
@@ -402,5 +402,14 @@ public class PageHelper {
         SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(request);
         SessionContextUtil util = context.getSessionContextUtil();
         util.changeAuthorization(request, response, user, hash);
+    }
+
+    public static boolean isMemberAuthorized(HttpServletRequest request, User user) throws NoSuchAlgorithmException {
+        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(request);
+        Object[] hashInput = new Object[] {User.SECRET_NUMBER, user.getId(), user.getEmail()};
+        String realHash = DigestUtil.hashObjectArray(hashInput);
+        String storedHash = context.getUserHash();
+
+        return storedHash != null && realHash.equals(storedHash);
     }
 }

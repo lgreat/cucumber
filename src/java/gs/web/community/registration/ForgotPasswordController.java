@@ -24,11 +24,9 @@ import javax.mail.BodyPart;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created by IntelliJ IDEA.
- * User: UrbanaSoft
- * Date: Jul 18, 2006
- * Time: 10:13:00 AM
- * To change this template use File | Settings | File Templates.
+ * Provides ...
+ *
+ * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class ForgotPasswordController extends SimpleFormController {
     public static final String BEAN_ID = "/community/forgotPassword.page";
@@ -147,15 +145,11 @@ public class ForgotPasswordController extends SimpleFormController {
         StringBuffer emailContent = new StringBuffer();
         String hash = DigestUtil.hashStringInt(email, userId);
         UrlBuilder builder = new UrlBuilder(UrlBuilder.RESET_PASSWORD, null, hash + userId);
-        emailContent.append("Hi!\n\n");
-        emailContent.append("We recently received a request to reset your password");
-        emailContent.append(" (").append(email).append(").\n\n");
-        emailContent.append("Please click on the following link to choose a new password: ");
+        emailContent.append("Dear GreatSchools member,\n\n");
+        emailContent.append("You requested that we reset your password on GreatSchools. ");
+        emailContent.append("Please click on the following link to select a new password: ");
         emailContent.append(builder.asFullUrl(request)).append("\n\n");
-        emailContent.append("If you are unable to click on the link above, try copying and ");
-        emailContent.append("pasting the link into your browser.\n");
-        emailContent.append("If you did not make this request, please ignore and delete this email.\n\n");
-        emailContent.append("Thanks!\nThe GreatSchools Team\n");
+        emailContent.append("Thanks!\n\nThe GreatSchools Team\n");
         return emailContent.toString();
     }
 
@@ -183,11 +177,10 @@ public class ForgotPasswordController extends SimpleFormController {
         emailContent.append("<html><body>\n");
         String hash = DigestUtil.hashStringInt(email, userId);
         UrlBuilder builder = new UrlBuilder(UrlBuilder.RESET_PASSWORD, null, hash + userId);
-        emailContent.append("<p>Hi!</p>\n\n");
-        emailContent.append("<p>We recently received a request to reset your password. Please ");
-        emailContent.append(builder.asAbsoluteAnchor(request, "click here").asATag());
-        emailContent.append(" to choose a new password.</p>\n\n");
-        emailContent.append("<p>If you did not make this request, please ignore and delete this email.</p>\n\n");
+        emailContent.append("<p>Dear GreatSchools member,</p>\n\n");
+        emailContent.append("<p>You requested that we reset your password on GreatSchools. ");
+        emailContent.append("Please ").append(builder.asAbsoluteAnchor(request, "click here").asATag());
+        emailContent.append(" to select a new password.</p>\n\n");
         emailContent.append("<p>Thanks!</p>\n<p>The GreatSchools Team</p>\n");
         emailContent.append("</body></html>");
         return emailContent.toString();

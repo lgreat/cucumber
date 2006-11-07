@@ -9,6 +9,7 @@ import gs.data.state.StateManager;
 import gs.data.util.DigestUtil;
 import gs.data.geo.IGeoDao;
 import gs.web.BaseControllerTestCase;
+import gs.web.util.MockJavaMailSender;
 import org.springframework.validation.BindException;
 import org.easymock.MockControl;
 import org.easymock.AbstractMatcher;
@@ -30,11 +31,12 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
     private MockControl _subscriptionControl;
     private IGeoDao _geoDao;
     private MockControl _geoControl;
+    private MockJavaMailSender _mailSender;
+
 
     private FollowUpCommand _command;
     private BindException _errors;
     private User _user;
-    private UserProfile _userProfile;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -55,6 +57,10 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _controller.setGeoDao(_geoDao);
         _controller.setStateManager(stateManager);
 
+        _mailSender = new MockJavaMailSender();
+        _mailSender.setHost("greatschools.net");
+        _controller.setMailSender(_mailSender);
+
         setupBindings();
     }
 
@@ -62,14 +68,14 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _command = new FollowUpCommand();
         _errors = new BindException(_command, "");
         _user = new User();
-        _userProfile = new UserProfile();
+        UserProfile userProfile = new UserProfile();
         _user.setEmail("RegistrationFollowUpControllerTest@greatschools.net");
         _user.setId(new Integer(456));
 
-        _userProfile.setUser(_user);
-        _userProfile.setScreenName("screeny");
-        _userProfile.setNumSchoolChildren(new Integer(1));
-        _user.setUserProfile(_userProfile);
+        userProfile.setUser(_user);
+        userProfile.setScreenName("screeny");
+        userProfile.setNumSchoolChildren(new Integer(1));
+        _user.setUserProfile(userProfile);
         //_command.setUser(_user);
 
         String hash = DigestUtil.hashStringInt(_user.getEmail(), _user.getId());

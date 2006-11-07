@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.mail.internet.MimeMessage;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -111,21 +112,22 @@ public class RegistrationController extends SimpleFormController implements Read
             userCommand.setUser(user);
         } else {
             // only create the user if the user is new
-            getUserDao().saveUser(userCommand.getUser());
+            _userDao.saveUser(userCommand.getUser());
+            user = userCommand.getUser();
         }
 
         try {
-            userCommand.getUser().setPlaintextPassword(userCommand.getPassword());
+            user.setPlaintextPassword(userCommand.getPassword());
             if (_requireEmailValidation) {
                 // mark password as unauthenticated
-                userCommand.getUser().setEmailProvisional();
+                user.setEmailProvisional();
             }
-            getUserDao().updateUser(userCommand.getUser());
+            _userDao.updateUser(userCommand.getUser());
         } catch (Exception e) {
             _log.warn("Error setting password: " + e.getMessage());
             if (!userExists) {
                 // for new users, cancel the account on error
-                getUserDao().removeUser(userCommand.getUser().getId());
+                _userDao.removeUser(user.getId());
             }
             throw e;
         }
@@ -139,11 +141,11 @@ public class RegistrationController extends SimpleFormController implements Read
                 _log.error("Error sending email message.", me);
                 if (userExists) {
                     // for existing users, set them back to no password
-                    userCommand.getUser().setPasswordMd5(null);
-                    getUserDao().updateUser(userCommand.getUser());
+                    user.setPasswordMd5(null);
+                    _userDao.updateUser(user);
                 } else {
                     // for new users, cancel the account on error
-                    getUserDao().removeUser(userCommand.getUser().getId());
+                    _userDao.removeUser(user.getId());
                 }
                 throw me;
             }
@@ -155,23 +157,34 @@ public class RegistrationController extends SimpleFormController implements Read
         if (userProfile.getNumSchoolChildren().intValue() == -1) {
             userProfile.setNumSchoolChildren(new Integer(0));
         }
-        userProfile.setUser(userCommand.getUser());
-        userCommand.getUser().setUserProfile(userProfile);
-        _userDao.updateUser(userCommand.getUser());
+        userProfile.setUser(user);
+        user.setUserProfile(userProfile);
+        _userDao.updateUser(user);
 
         ModelAndView mAndV = new ModelAndView();
 
         if (request.getParameter("next") != null) {
             mAndV.setViewName(getSuccessView());
-            String hash = DigestUtil.hashStringInt(userCommand.getEmail(), userCommand.getUser().getId());
+            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
             mAndV.getModel().put("marker", hash);
             if (_requireEmailValidation) {
-                mAndV.getModel().put("email", userCommand.getEmail());
+                mAndV.getModel().put("email", user.getEmail());
             }
             // mAndV.getModel().put("followUpCmd", fupCommand);
-            mAndV.getModel().put("id", userCommand.getUser().getId());
+            mAndV.getModel().put("id", user.getId());
         } else {
-            PageHelper.setMemberAuthorized(request, response, userCommand.getUser());
+            if (!user.isEmailProvisional()) {
+                try {
+                    // registration is done, let's send a confirmation email
+                    MimeMessage mm = RegistrationConfirmController.buildMultipartEmail
+                            (_mailSender.createMimeMessage(), request, user);
+                    _mailSender.send(mm);
+                } catch (MessagingException me) {
+                    _log.error("Error sending community registration confirmation email to " +
+                            user);
+                }
+            }
+            PageHelper.setMemberAuthorized(request, response, user);
             mAndV.setViewName(getCompleteView());
         }
 

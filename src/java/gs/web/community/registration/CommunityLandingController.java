@@ -15,7 +15,6 @@ import java.util.HashMap;
 
 import gs.data.community.User;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.util.UrlBuilder;
 
 /**
  * Provides ...
@@ -31,13 +30,6 @@ public class CommunityLandingController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String targetView = _viewName;
         User user = SessionContextUtil.getSessionContext(request).getUser();
-        if (user == null) {
-            UrlBuilder homeUrl = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
-            UrlBuilder loginUrl = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null,
-                    homeUrl.asFullUrl(request));
-            targetView = "redirect:" + loginUrl.asFullUrl(request);
-            _log.info("Redirecting to " + targetView);
-        }
         Map model = new HashMap();
         model.put("user", user);
         return new ModelAndView(targetView, model);

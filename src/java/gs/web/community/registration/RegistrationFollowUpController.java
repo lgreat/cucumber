@@ -7,6 +7,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.mail.javamail.JavaMailSender;
 import gs.data.community.*;
 import gs.data.util.DigestUtil;
 import gs.data.school.Grade;
@@ -22,6 +23,8 @@ import gs.web.util.context.SessionContextUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.mail.internet.MimeMessage;
+import javax.mail.MessagingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
@@ -50,6 +53,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     private StateManager _stateManager;
     private ISchoolDao _schoolDao;
     private IGeoDao _geoDao;
+    private JavaMailSender _mailSender;
 
     private Set _contactSubs;
 
@@ -324,6 +328,17 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         // save
         _userDao.updateUser(user);
 
+        if (!user.isEmailProvisional()) {
+            // registration is done, let's send a confirmation email
+            try {
+                MimeMessage mm = RegistrationConfirmController.buildMultipartEmail
+                        (_mailSender.createMimeMessage(), request, user);
+                _mailSender.send(mm);
+            } catch (MessagingException e) {
+                _log.error("Error sending community registration confirmation email to " + user);
+            }
+        }
+
         PageHelper.setMemberAuthorized(request, response, user);
         mAndV.setViewName(getSuccessView());
 
@@ -408,12 +423,19 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         _subscriptionDao = subscriptionDao;
     }
 
-
     public IGeoDao getGeoDao() {
         return _geoDao;
     }
 
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
+    }
+
+    public JavaMailSender getMailSender() {
+        return _mailSender;
+    }
+
+    public void setMailSender(JavaMailSender mailSender) {
+        _mailSender = mailSender;
     }
 }

@@ -8,7 +8,6 @@ import org.apache.commons.logging.LogFactory;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.web.util.ReadWriteController;
-import gs.web.util.UrlBuilder;
 import gs.web.util.PageHelper;
 import gs.web.util.validator.EmailValidator;
 import gs.web.util.context.SessionContextUtil;
@@ -32,18 +31,6 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
 
     protected Object formBackingObject(HttpServletRequest request) {
         return new ChangeEmailCommand();
-    }
-
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws java.lang.Exception {
-        if (SessionContextUtil.getSessionContext(request).getUser() == null) {
-            UrlBuilder emailUrl = new UrlBuilder(UrlBuilder.CHANGE_EMAIL, null, null);
-            UrlBuilder loginUrl = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null,
-                    emailUrl.asFullUrl(request));
-            ModelAndView mAndV = new ModelAndView();
-            mAndV.setViewName("redirect:" + loginUrl.asFullUrl(request));
-            return mAndV;
-        }
-        return super.handleRequestInternal(request, response);
     }
 
     /**

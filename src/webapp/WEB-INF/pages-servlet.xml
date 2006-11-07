@@ -32,20 +32,21 @@
     </bean>
 
 
-    <!--<bean name="loginRequiredHandlerMapping" parent="defaultHandlerMapping"-->
-          <!--class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" lazy-init="true">       -->
-        <!--<property name="interceptors">            -->
-            <!-- Use merge="true" to add an interceptor to the parents list  -->
-            <!--<list merge="true">-->
-                <!--<bean class="gs.web.util.LoginRequiredInterceptor"/>-->
-            <!--</list>-->
-        <!--</property>-->
-        <!--<property name="urlMap">-->
-            <!--<map>-->
-                <!--<entry key="/community/some.page" value="someControllerBeanName"/>-->
-            <!--</map>-->
-        <!--</property>-->
-    <!--</bean>-->
+    <bean name="loginRequiredHandlerMapping" parent="defaultHandlerMapping"
+          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" lazy-init="true">
+        <property name="interceptors">
+             <!--Use merge="true" to add an interceptor to the parents list  -->
+            <list merge="true">
+                <bean class="gs.web.util.LoginRequiredInterceptor"/>
+            </list>
+        </property>
+        <property name="urlMap">
+            <map>
+                <entry key="/community/communityLanding.page" value="communityLandingController"/>
+                <entry key="/community/changeEmail.page" value="changeEmailController"/>
+            </map>
+        </property>
+    </bean>
 
 
     <bean id="requiresStateInterceptor"
@@ -825,7 +826,7 @@
         <property name="successView" value="redirect:/community/communityLanding.page"/>
     </bean>
 
-    <bean name="/community/changeEmail.page"
+    <bean name="changeEmailController"
           class="gs.web.community.registration.ChangeEmailController"
           autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
@@ -873,7 +874,7 @@
         <property name="viewName" value="/community/registration/getUserProfile"/>
     </bean>
 
-    <bean name="/community/communityLanding.page"
+    <bean name="communityLandingController"
           class="gs.web.community.registration.CommunityLandingController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/community/registration/communityLanding"/>

@@ -1,0 +1,27 @@
+<p>Welcome to GreatSchools!</p>
+
+<p>Navigating your child's education can be a challenging job in endless ways. But you can give yourself a big pat on the back today!  By signing up for the GreatSchools community, you've joined the more than 33 million parents who turn to GreatSchools each year to help get a great education for their children.</p>
+
+<p>GreatSchools offers a rich set of features and content to help you:</p>
+
+<p>CONNECT WITH PARENTS AND ADVOCATE FOR GREAT SCHOOLS</p>
+
+<p>Share success stories and debate education issues on our community message boards. $COMMUNITY_LANDING_PAGE$.</p>
+
+<p>CHOOSE THE BEST SCHOOL FOR YOUR FAMILY</p>
+
+<p>Let us guide you through the test scores and student stats, the Parent Reviews and GreatSchools ratings. $TEST_SCORES_PAGE$.</p>
+
+<p>CHAMPION YOUR CHILD'S EDUCATION</p>
+
+<p>Find out what to expect in the classroom, learn about the most important education issues and get advice from A-Z. $EXPECT_IN_CLASSROOM$.</p>
+
+<p>Seem like a lot all at once? Don't worry - we'll be here to make it easier whenever you're ready.</p>
+
+<p>Sincerely,</p>
+
+<p>Alison Lingane</p>
+
+<p>Mom and Senior Product Manager</p>
+
+<p>GreatSchools</p>

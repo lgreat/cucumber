@@ -33,12 +33,4 @@ public class CommunityLandingControllerTest extends BaseControllerTestCase {
         assertNotNull(mAndV);
         assertEquals("/successView", mAndV.getViewName());
     }
-
-    public void testNoUser() throws Exception {
-        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(getRequest());
-        context.setUser(null);
-        ModelAndView mAndV = _controller.handleRequestInternal(getRequest(), getResponse());
-        assertNotNull(mAndV);
-        assertTrue(mAndV.getViewName().indexOf("redirect:") > -1);
-    }
 }
