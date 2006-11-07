@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsControllerTest.java,v 1.1 2006/11/07 19:12:02 dlee Exp $
+ * $Id: RatingsControllerTest.java,v 1.2 2006/11/07 19:27:26 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -92,7 +92,7 @@ public class RatingsControllerTest extends BaseControllerTestCase {
 
         mockTestDataSetDao.findValue(null, null);
         SchoolTestValue value = new SchoolTestValue();
-        value.setValueFloat(Float.valueOf(10f));
+        value.setValueFloat(new Float(10.0));
         testDataSetDaoControl.setDefaultReturnValue(value);
         testDataSetDaoControl.replay();
 
