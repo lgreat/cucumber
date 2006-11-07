@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.40 2006/10/19 22:46:17 dlee Exp $
+ * $Id: UrlUtil.java,v 1.41 2006/11/07 19:12:02 dlee Exp $
  */
 
 package gs.web.util;
@@ -271,6 +271,9 @@ public final class UrlUtil {
                 hostName.equals("localhost");
     }
 
+    public boolean isStagingServer(String hostName) {
+        return hostName.indexOf("staging") != -1;
+    }
 
     /**
      * Converts a "vpage" to a url that can be used on the site.

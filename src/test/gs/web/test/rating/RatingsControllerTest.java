@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingControllerTest.java,v 1.4 2006/10/21 00:03:55 dlee Exp $
+ * $Id: RatingsControllerTest.java,v 1.1 2006/11/07 19:12:02 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -22,13 +22,14 @@ import org.springframework.validation.BindException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 /**
  * The purpose is ...
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
-public class RatingControllerTest extends BaseControllerTestCase {
+public class RatingsControllerTest extends BaseControllerTestCase {
     RatingsController _controller;
     State _state;
     Integer _schoolId;
@@ -51,20 +52,72 @@ public class RatingControllerTest extends BaseControllerTestCase {
         schoolResultControl.setDefaultReturnValue(_school);
         schoolResultControl.replay();
         _controller.setSchoolDao(mockSchoolDao);
+
+        //mock IRatingConfig
+        MockControl ratingsConfigControl = MockControl.createControl(IRatingsConfig.class);
+        IRatingsConfig mockRatingsConfig = (IRatingsConfig) ratingsConfigControl.getMock();
+        mockRatingsConfig.getDataSetIds(null, null);
+        ratingsConfigControl.setDefaultReturnValue(null);
+        mockRatingsConfig.getRowGroupConfigs();
+        ratingsConfigControl.setDefaultReturnValue(new IRatingsConfig.IRowGroupConfig[] {});
+        mockRatingsConfig.getState();
+        ratingsConfigControl.setDefaultReturnValue(_state);
+        mockRatingsConfig.getSubjectGroupConfigs();
+        ratingsConfigControl.setDefaultReturnValue(new IRatingsConfig.ISubjectGroupConfig[] {});
+        mockRatingsConfig.getYear();
+        ratingsConfigControl.setDefaultReturnValue(2004);
+        ratingsConfigControl.replay();
+
+        //Set up IRatingConfigDao
+        MockControl ratingsConfigDaoControl = MockControl.createControl(IRatingsConfigDao.class);
+        IRatingsConfigDao mockRatingsConfigDao = (IRatingsConfigDao) ratingsConfigDaoControl.getMock();
+        mockRatingsConfigDao.restoreRatingsConfig(null, false);
+        ratingsConfigDaoControl.setDefaultReturnValue(mockRatingsConfig);
+        ratingsConfigDaoControl.replay();
+
+        _controller.setRatingsConfigDao(mockRatingsConfigDao);
+
+        //Mock testdataset
+        //set up test manager
+        //1) mock testDataSetDao
+        MockControl testDataSetDaoControl = MockControl.createControl(ITestDataSetDao.class);
+        ITestDataSetDao mockTestDataSetDao = (ITestDataSetDao) testDataSetDaoControl.getMock();
+        mockTestDataSetDao.findDataSets(null, 0, null, null, null, null, null, true);
+        List dataSets = new ArrayList();
+        dataSets.add(new TestDataSet());
+        testDataSetDaoControl.setDefaultReturnValue(dataSets);
+
+        mockTestDataSetDao.findAllRawResults(null, null, false);
+        testDataSetDaoControl.setDefaultReturnValue(new HashMap());
+
+        mockTestDataSetDao.findValue(null, null);
+        SchoolTestValue value = new SchoolTestValue();
+        value.setValueFloat(Float.valueOf(10f));
+        testDataSetDaoControl.setDefaultReturnValue(value);
+        testDataSetDaoControl.replay();
+
+        TestManager testManager = new TestManager();
+        testManager.setTestDataSetDao(mockTestDataSetDao);
+        testManager.getOverallRating(_school, 2004);
+        testManager.setTestDataSetDao(mockTestDataSetDao);
+
+        _controller.setTestManager(testManager);
+        _controller.setTestDataSetDao(mockTestDataSetDao);
+
     }
 
-    public void testOnBindNewForm() {
+    public void testValidParametersPassed() throws Exception {
 
         RatingsCommand command = new RatingsCommand();
         command.setId(_schoolId.intValue());
         command.setState(_state);
 
         BindException errors = new BindException(command, "");
-        _controller.onBindOnNewForm(getRequest(), command, errors);
+        _controller.handle(getRequest(), getResponse(), command, errors);
         assertEquals(false, errors.hasErrors());
     }
 
-    public void testInactiveSchoolOnBind() {
+    public void testInactiveSchoolOnBind() throws Exception {
         School school = new School();
         school.setActive(false);
 
@@ -80,7 +133,7 @@ public class RatingControllerTest extends BaseControllerTestCase {
 
         BindException errors = new BindException(command, "");
         _controller.setSchoolDao(mockSchoolDao);
-        _controller.onBindOnNewForm(getRequest(), command, errors);
+        _controller.handle(getRequest(), getResponse(), command, errors);
         assertEquals(true, errors.hasErrors());        
     }
 
@@ -115,69 +168,16 @@ public class RatingControllerTest extends BaseControllerTestCase {
 
     public void testReferenceData() throws Exception {
         //set up IRatingConfig
-        MockControl ratingsConfigControl = MockControl.createControl(IRatingsConfig.class);
-        IRatingsConfig mockRatingsConfig = (IRatingsConfig) ratingsConfigControl.getMock();
-
-        mockRatingsConfig.getDataSetIds(null, null);
-        ratingsConfigControl.setDefaultReturnValue(null);
-
-        mockRatingsConfig.getRowGroupConfigs();
-        ratingsConfigControl.setDefaultReturnValue(new IRatingsConfig.IRowGroupConfig[] {});
-
-        mockRatingsConfig.getState();
-        ratingsConfigControl.setDefaultReturnValue(_state);
-
-        mockRatingsConfig.getSubjectGroupConfigs();
-        ratingsConfigControl.setDefaultReturnValue(new IRatingsConfig.ISubjectGroupConfig[] {});
-
-        mockRatingsConfig.getYear();
-        ratingsConfigControl.setDefaultReturnValue(2004);
-
-        ratingsConfigControl.replay();
         //end set up of IRatingConfig
-
-
-
-        //Set up IRatingConfigDao
-        MockControl ratingsConfigDaoControl = MockControl.createControl(IRatingsConfigDao.class);
-        IRatingsConfigDao mockRatingsConfigDao = (IRatingsConfigDao) ratingsConfigDaoControl.getMock();
-        mockRatingsConfigDao.restoreRatingsConfig(_state, false);
-        ratingsConfigDaoControl.setDefaultReturnValue(mockRatingsConfig);
-        ratingsConfigDaoControl.replay();
-        //end set up of IRatingConfigDao
-        _controller.setRatingsConfigDao(mockRatingsConfigDao);
-
-        //set up test manager
-        //1) mock testDataSetDao
-        MockControl testDataSetDaoControl = MockControl.createControl(ITestDataSetDao.class);
-        ITestDataSetDao mockTestDataSetDao = (ITestDataSetDao) testDataSetDaoControl.getMock();
-        mockTestDataSetDao.findDataSets(null, 0, null, null, null, null, null, true);
-        List dataSets = new ArrayList();
-        dataSets.add(new TestDataSet());
-        testDataSetDaoControl.setDefaultReturnValue(dataSets);
-        mockTestDataSetDao.findValue(null, null);
-        SchoolTestValue value = new SchoolTestValue();
-        value.setValueFloat(new Float("10"));
-        testDataSetDaoControl.setDefaultReturnValue(value);
-        testDataSetDaoControl.replay();
-
-        TestManager testManager = new TestManager();
-        testManager.setTestDataSetDao(mockTestDataSetDao);
-        testManager.getOverallRating(_school, 2004);
-        _controller.setTestManager(testManager);
-        _controller.setTestDataSetDao(mockTestDataSetDao);
-
         RatingsCommand command = new RatingsCommand();
         command.setSchool(_school);
         _controller.setShowingSubjectGroups(false);
         BindException errors = new BindException(command, "");
-
 
         Map model = _controller.referenceData(getRequest(), command, errors);
         command = (RatingsCommand) model.get(_controller.getCommandName());
 
         assertEquals(Integer.valueOf("10"), command.getOverallRating().getRating());
         assertNotNull(command.getRatingsDisplay());
-
     }
 }

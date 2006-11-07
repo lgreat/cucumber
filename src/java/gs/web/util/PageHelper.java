@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.26 2006/11/03 23:47:22 aroy Exp $
+ * $Id: PageHelper.java,v 1.27 2006/11/07 19:12:02 dlee Exp $
  */
 
 package gs.web.util;
@@ -330,6 +330,10 @@ public class PageHelper {
 
     public boolean isDevEnvironment() {
         return _urlUtil.isDevEnvironment(_hostName);
+    }
+
+    public boolean isStagingServer() {
+        return _urlUtil.isStagingServer(_hostName);
     }
 
     /**

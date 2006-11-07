@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.34 2006/10/19 22:46:17 dlee Exp $
+ * $Id: UrlUtilSaTest.java,v 1.35 2006/11/07 19:12:02 dlee Exp $
  */
 
 package gs.web.util;
@@ -216,6 +216,11 @@ public class UrlUtilSaTest extends TestCase {
         assertTrue(_urlUtil.isDevEnvironment("azcentral.clone.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("localhost"));
         assertTrue(_urlUtil.isDevEnvironment("127.0.0.1"));
+    }
+
+    public void testIsStagingServer() {
+        assertTrue(_urlUtil.isStagingServer("staging.greatschools.net"));
+        assertFalse(_urlUtil.isStagingServer("dev.greatschools.net"));
     }
 
     public void testBuildHref() {

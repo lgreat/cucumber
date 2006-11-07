@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsController.java,v 1.14 2006/10/21 00:03:55 dlee Exp $
+ * $Id: RatingsController.java,v 1.15 2006/11/07 19:12:03 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -12,6 +12,9 @@ import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
+import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.PageHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -19,8 +22,11 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.servlet.mvc.AbstractCommandController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -31,7 +37,7 @@ import java.util.Map;
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
-public class RatingsController extends SimpleFormController {
+public class RatingsController extends AbstractCommandController {
 
     private static final Log _log = LogFactory.getLog(RatingsController.class);
 
@@ -43,9 +49,7 @@ public class RatingsController extends SimpleFormController {
     private TestManager _testManager;
     private boolean _showingSubjectGroups = false;
 
-    protected void onBindOnNewForm(HttpServletRequest request,
-                                   Object command,
-                                   BindException errors) {
+    protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
         RatingsCommand ratingsCommand = (RatingsCommand) command;
         List validators = getOnLoadValidators();
 
@@ -56,6 +60,7 @@ public class RatingsController extends SimpleFormController {
             }
         }
 
+        //populate school
         if (!errors.hasErrors()) {
             State state = ratingsCommand.getState();
             try {
@@ -70,6 +75,13 @@ public class RatingsController extends SimpleFormController {
                 _log.info("Invalid school passed" + state.getAbbreviation() + ratingsCommand.getSchoolId());
             }
         }
+
+        //another check for errors since retrieving school could have set errors
+        if (!errors.hasErrors()) {
+            return new ModelAndView(getViewName(), referenceData(request, command, errors));
+        } else {
+            return new ModelAndView(getViewName(), errors.getModel());
+        }
     }
 
     protected Map referenceData(HttpServletRequest request, Object command, Errors errors) throws Exception {
@@ -77,7 +89,14 @@ public class RatingsController extends SimpleFormController {
         RatingsCommand ratingsCommand = (RatingsCommand) command;
 
         if (!errors.hasErrors()) {
-            IRatingsConfig ratingsConfig = _ratingsConfigDao.restoreRatingsConfig(ratingsCommand.getState(), true);
+
+            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+            boolean isFromCache = true;
+
+            if (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer()) {
+                isFromCache = false;
+            }
+            IRatingsConfig ratingsConfig = _ratingsConfigDao.restoreRatingsConfig(ratingsCommand.getState(), isFromCache);
 
             if (null != ratingsConfig) {
                 ratingsCommand.setRatingYear(ratingsConfig.getYear());
@@ -86,8 +105,9 @@ public class RatingsController extends SimpleFormController {
                         getTestManager().getOverallRating(ratingsCommand.getSchool(), ratingsConfig.getYear());
 
                 if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
-                    SchoolTestValue previousYearOverallRating =
-                            getTestManager().getOverallRating(ratingsCommand.getSchool(), ratingsConfig.getYear() - 1);
+                    //TODO turn back on once we support ratings for previous years
+                    SchoolTestValue previousYearOverallRating = null;
+                            //getTestManager().getOverallRating(ratingsCommand.getSchool(), ratingsConfig.getYear() - 1);
 
                     Integer currentRating = schoolTestValue.getValueInteger();
                     Integer previousRating = null;

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.19 2006/11/03 23:47:22 aroy Exp $
+ * $Id: PageHelperSaTest.java,v 1.20 2006/11/07 19:12:03 dlee Exp $
  */
 
 package gs.web.util;
@@ -295,6 +295,15 @@ public class PageHelperSaTest extends TestCase {
         sessionFacade.setHostName("127.0.0.1");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertTrue(pageHelper.isDevEnvironment());
+
+        sessionFacade.setHostName("staging.greatschools.net");
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
+        assertTrue(pageHelper.isStagingServer());
+
+        sessionFacade.setHostName("dev.greatschools.net");
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
+        assertFalse(pageHelper.isStagingServer());
+
     }
 
     public void testAdvertising() {

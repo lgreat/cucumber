@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.11 2006/10/26 20:47:06 thuss Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.12 2006/11/07 19:12:03 dlee Exp $
  */
 
 package gs.web.test.rating;
@@ -17,14 +17,12 @@ import gs.data.test.rating.IRatingsConfig;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Generates to display based on a RatingsConfig object.
  *
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
- * @todo implement other row groups. This should probably come from the ratings config, but it's not there yet.
- * @todo move to GSWeb?
- * @todo unit test
  */
 public class SchoolRatingsDisplay implements IRatingsDisplay {
 
@@ -34,6 +32,7 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
     private final List _rowGroups;
     private ITestDataSetDao _testDataSetDao;
     private TestManager _testManager;
+    private final Map _rawResults;
 
 
     public SchoolRatingsDisplay(final IRatingsConfig ratingsConfig, School school, final ITestDataSetDao testDataSetDao, TestManager testManager) {
@@ -42,6 +41,9 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
         _ratingsConfig = ratingsConfig;
         _testDataSetDao = testDataSetDao;
         _testManager = testManager;
+
+        _rawResults = _testDataSetDao.findAllRawResults(school,
+                new int [] {ratingsConfig.getYear() - 1, ratingsConfig.getYear()}, true);
 
         Grades grades = school.getGradeLevels();
 
@@ -124,11 +126,9 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
     protected class Row implements IRowGroup.IRow {
         private final IRatingsConfig.IRowConfig _rowConfig;
         private List _cells;
-        private String _label;
 
         Row(final IRatingsConfig.IRowConfig rowConfig) {
             _rowConfig = rowConfig;
-            _label = rowConfig.getLabel();
             _cells = new ArrayList();
 
             IRatingsConfig.ISubjectGroupConfig [] subjects = _ratingsConfig.getSubjectGroupConfigs();
@@ -142,26 +142,13 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 int prevTotal = 0;
 
                 for (int i = 0; i < ids.length; i++) {
-                    int id = ids[i];
-                    TestDataSet testDataSet = null;
-                    SchoolTestValue value = _testDataSetDao.findValueAndTestDataSet(_ratingsConfig.getState(), new Integer(id), _school.getId());
-                    if (value != null) {
-                        testDataSet = value.getDataSet();
-                    }
-                    int decile = getDecile(value);
-
-                    if (decile > 0) {
-                        count ++;
-                        total += decile;
-
-                        TestDataSet previousYearDataSet = _testManager.getPrevYearDataSet(_school.getDatabaseState(), testDataSet);
-                        if (null != previousYearDataSet) {
-                            SchoolTestValue prevSchoolTestValue = _testDataSetDao.findValue(previousYearDataSet, _school);
-                            int prevDecile = getDecile(prevSchoolTestValue);
-                            if (prevDecile > 0) {
-                                prevCount ++;
-                                prevTotal += prevDecile;
-                            }
+                    Integer testDataSetId = new Integer(ids[i]);
+                    if (_rawResults.containsKey(testDataSetId)) {
+                        ITestDataSetDao.IRawResult result = (ITestDataSetDao.IRawResult) _rawResults.get(testDataSetId);
+                        int decile = result.getDecile();
+                        if (decile > 0) {
+                            count ++;
+                            total += decile;
                         }
                     }
                 }
@@ -197,16 +184,6 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
             }
 
             return true;
-        }
-
-        private int getDecile(SchoolTestValue testDataSchoolValue) {
-            if (testDataSchoolValue != null && testDataSchoolValue.getValueFloat() != null) {
-                Float floatValue = testDataSchoolValue.getValueFloat();
-                TestDataSet testDataSet = testDataSchoolValue.getDataSet();
-                int decile = testDataSet.convertFloatValueToDecile(floatValue);
-                return decile;
-            }
-            return 0;
         }
     }
 

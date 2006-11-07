@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: StubRatingsConfig.java,v 1.2 2006/10/09 00:35:12 dlee Exp $
+ * $Id: StubRatingsConfig.java,v 1.3 2006/11/07 19:12:02 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -93,7 +93,7 @@ public class StubRatingsConfig implements IRatingsConfig {
                 int subjectId = _subjects[j].getSubjectId();
 
                 TestDataSet testDataSet = new TestDataSet();
-                testDataSet.setId(new Integer((i + 1) * (j + 1)));
+                testDataSet.setId(new Integer(String.valueOf(i + 1) + String.valueOf(j + 1)));
                 testDataSet.setSchoolDecileTops(DECILES);
 
                 SchoolTestValue schoolTestValue = new SchoolTestValue();

@@ -900,11 +900,9 @@
     <bean name="/school/rating.page"
           class="gs.web.test.rating.RatingsController"
           autowire="byName" lazy-init="true">
-        <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="ratingsCmd"/>
         <property name="commandClass" value="gs.web.test.rating.RatingsCommand"/>
-        <property name="formView" value="test/ratings"/>
-        <property name="successView" value="test/ratings"/>
+        <property name="viewName" value="test/ratings"/>
         <property name="onLoadValidators">
             <list>
                 <ref bean="stateValidator"/>
@@ -916,11 +914,9 @@
           class="gs.web.test.rating.RatingsController"
           autowire="byName" lazy-init="true">
         <property name="showingSubjectGroups" value="true"/>
-        <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="ratingsCmd"/>
         <property name="commandClass" value="gs.web.test.rating.RatingsCommand"/>
-        <property name="formView" value="test/ratings"/>
-        <property name="successView" value="test/ratings"/>
+        <property name="viewName" value="test/ratings"/>
         <property name="onLoadValidators">
             <list>
                 <ref bean="stateValidator"/>

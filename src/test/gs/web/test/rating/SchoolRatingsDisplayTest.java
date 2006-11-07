@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplayTest.java,v 1.7 2006/10/26 19:28:57 thuss Exp $
+ * $Id: SchoolRatingsDisplayTest.java,v 1.8 2006/11/07 19:12:02 dlee Exp $
  */
 
 package gs.web.test.rating;
@@ -14,10 +14,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.easymock.MockControl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Tests SchoolRatingsDisplay.
@@ -43,15 +40,12 @@ public class SchoolRatingsDisplayTest extends TestCase {
         Subject [] subjects = stubRatingsConfig.getSubjects();
         String [] rowLabels = stubRatingsConfig.getRowLabels();
 
-        MockControl testDataSetDaoControl = MockControl.createControl(ITestDataSetDao.class);
-        ITestDataSetDao testDataSetDao = (ITestDataSetDao) testDataSetDaoControl.getMock();
-
-
+        Map results = new HashMap();
         for (int i=0; i<rowLabels.length; i++) {
             String rowLabel = rowLabels[i];
 
             for (int j=0; j<subjects.length; j++) {
-                Subject subject = (Subject) subjects[j];
+                Subject subject = subjects[j];
 
                 String key = rowLabel + String.valueOf(subject.getSubjectId());
 
@@ -59,9 +53,17 @@ public class SchoolRatingsDisplayTest extends TestCase {
                 SchoolTestValue schoolValue = (SchoolTestValue) dataSetToValue.get(testDataSet);
                 schoolValue.setDataSet(testDataSet);
 
-                testDataSetDaoControl.expectAndReturn(testDataSetDao.findValueAndTestDataSet(StubRatingsConfig.STATE, testDataSet.getId(), school.getId()), schoolValue);
+                results.put(testDataSet.getId(),
+                        createMockedRawResultDao(testDataSet.getId(),
+                                testDataSet.convertFloatValueToDecile(schoolValue.getValueFloat()),
+                                testDataSet));
             }
         }
+
+        MockControl testDataSetDaoControl = MockControl.createControl(ITestDataSetDao.class);
+        ITestDataSetDao testDataSetDao = (ITestDataSetDao) testDataSetDaoControl.getMock();
+        testDataSetDao.findAllRawResults(null, new int [] {2002}, true);
+        testDataSetDaoControl.setDefaultReturnValue(results);
 
         testDataSetDao.findDataSets(null, 2004, null, null, null, null, null, true);
         testDataSetDaoControl.setDefaultReturnValue(new ArrayList());
@@ -75,7 +77,6 @@ public class SchoolRatingsDisplayTest extends TestCase {
 
         assertNotNull(schoolRatingsDisplay.getRowGroups());
         assertNotNull(schoolRatingsDisplay.getSubjectGroupLabels());
-
 
         List rowGroups = schoolRatingsDisplay.getRowGroups();
 
@@ -114,6 +115,9 @@ public class SchoolRatingsDisplayTest extends TestCase {
         assertEquals("Grade 4", ((IRatingsDisplay.IRowGroup.IRow)((IRatingsDisplay.IRowGroup) rowGroups.get(0)).getRows().get(3)).getLabel());
 
         assertEquals("Male", ((IRatingsDisplay.IRowGroup.IRow)((IRatingsDisplay.IRowGroup) rowGroups.get(1)).getRows().get(0)).getLabel());
+        assertEquals(Integer.valueOf("9"), ((IRatingsDisplay.IRowGroup.IRow.ICell)((IRatingsDisplay.IRowGroup.IRow)((IRatingsDisplay.IRowGroup) rowGroups.get(1)).getRows().get(0)).getCells().get(0)).getRating());
+        assertEquals(null, ((IRatingsDisplay.IRowGroup.IRow.ICell)((IRatingsDisplay.IRowGroup.IRow)((IRatingsDisplay.IRowGroup) rowGroups.get(1)).getRows().get(0)).getCells().get(1)).getRating());
+        assertEquals(Integer.valueOf("9"), ((IRatingsDisplay.IRowGroup.IRow.ICell)((IRatingsDisplay.IRowGroup.IRow)((IRatingsDisplay.IRowGroup) rowGroups.get(1)).getRows().get(0)).getCells().get(2)).getRating());
 
         assertEquals("African American", ((IRatingsDisplay.IRowGroup.IRow)((IRatingsDisplay.IRowGroup) rowGroups.get(2)).getRows().get(0)).getLabel());
         assertEquals("Asian", ((IRatingsDisplay.IRowGroup.IRow)((IRatingsDisplay.IRowGroup) rowGroups.get(2)).getRows().get(1)).getLabel());
@@ -121,4 +125,18 @@ public class SchoolRatingsDisplayTest extends TestCase {
         assertEquals("White", ((IRatingsDisplay.IRowGroup.IRow)((IRatingsDisplay.IRowGroup) rowGroups.get(2)).getRows().get(3)).getLabel());
 
     }
+
+    private ITestDataSetDao.IRawResult createMockedRawResultDao(Integer dataSetId, int decile, TestDataSet testDataSet) {
+
+        MockControl mockControl = MockControl.createControl(ITestDataSetDao.IRawResult.class);
+
+        ITestDataSetDao.IRawResult result = (ITestDataSetDao.IRawResult) mockControl.getMock();
+        mockControl.expectAndReturn(result.getDecile(), decile);
+        mockControl.expectAndReturn(result.getDataSetId(), dataSetId);
+        mockControl.expectAndReturn(result.getTestDataSet(), testDataSet);
+        mockControl.replay();
+
+        return result;
+    }
+
 }
