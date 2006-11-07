@@ -8,7 +8,7 @@
     <c:if test="${!requestScope.pageHelper.adFree}">
         <div class="betaAd">
             <link:betaSignup>
-                <gsml:img alt="Join Beta Group" src="/images/join_beta_group.gif"/>
+                <gsml:img alt="Improve GreatSchools. Join Beta Group." src="/images/join_beta_group.gif"/>
             </link:betaSignup>
         </div>
     </c:if>
