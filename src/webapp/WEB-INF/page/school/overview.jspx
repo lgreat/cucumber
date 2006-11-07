@@ -184,8 +184,7 @@ table.module1 td a:hover {
                         <c:choose>
                             <c:when test="${school.type.schoolTypeName == 'private'}">
                                 <b>Teacher/Student Stats</b><br/>
-                                Student-teacher ratio and <a href="/cgi-bin/$LCSTATE/otherprivate/${sid}" style="text-decoration:none;" class="nolink">ethnicity breakdown for ${school.name}</a>
-                                &#160;
+                                Student-teacher ratio and <a href="/cgi-bin/$LCSTATE/otherprivate/${sid}" style="text-decoration:none;" class="nolink">ethnicity breakdown for ${school.name}&#160;&#160;</a>
                                 <gsml:a href="/cgi-bin/$LCSTATE/otherprivate/${sid}">
                                     <img src="/res/img/school/more.gif"
                                          class="moreImage"
@@ -193,10 +192,8 @@ table.module1 td a:hover {
                                          onmouseover="this.src='/res/img/school/more_over.gif';"
                                          onmouseout="this.src='/res/img/school/more.gif';"/>
                                 </gsml:a> <br/><br/>
-
                                 <b>Quick Facts</b><br/>
-                                Facts about the number of school days per year, library facility, and affiliation at ${school.name}
-                                &#160;
+                                Facts about the number of school days per year, library facility, and affiliation at ${school.name}&#160;&#160;
                                 <gsml:a href="/modperl/quickprivate/$LCSTATE/${sid}">
                                     <img src="/res/img/school/more.gif"
                                          class="moreImage"
