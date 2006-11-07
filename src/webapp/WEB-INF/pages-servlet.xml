@@ -3,11 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-<!--
-  - Application context definition for "springapp" DispatcherServlet.
-  -->
-    <bean name="defaultHandlerMapping"
-          class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
+    <!--
+    - Application context definition for "springapp" DispatcherServlet.
+    -->
+    <bean name="defaultHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"
+          lazy-init="true">
         <property name="interceptors">
             <list>
                 <bean class="gs.web.util.ReadWriteInterceptor"/>
@@ -21,38 +21,26 @@
         <property name="alwaysUseFullPath" value="true"/>
     </bean>
 
-    <bean name="seoHandlerMapping"
-          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    <bean name="seoHandlerMapping" parent="defaultHandlerMapping"
+          class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" lazy-init="true">
         <!-- bean mappings for special SEO pages -->
-        <property name="interceptors">
-            <list>
-                <bean class="gs.web.util.ReadWriteInterceptor"/>
-                <!--ref bean="requiresStateInterceptor"/-->
-                <bean class="gs.web.ResponseInterceptor"
-                      autowire="byName"/>
-                <bean class="gs.web.util.context.SessionContextInterceptor"
-                      autowire="byName">
-                </bean>
-            </list>
-        </property>
         <property name="urlMap">
             <map>
                 <entry key="/city/**" value="/city.page"></entry>
             </map>
         </property>
-        <property name="alwaysUseFullPath" value="true"/>
     </bean>
 
 
     <bean id="requiresStateInterceptor"
           class="gs.web.state.RequiresStateInterceptor"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
     </bean>
 
     <!-- WEB PAGE DEFINITIONS BEGIN -->
 
     <bean name="/search/feedback.page"
-          class="gs.web.search.FeedbackController">
+          class="gs.web.search.FeedbackController" lazy-init="true">
         <property name="formView">
             <value>search/feedback</value>
         </property>
@@ -65,7 +53,7 @@
     </bean>
 
     <bean name="/search/feedbackSubmit.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>search/feedbackSubmit</value>
         </property>
@@ -76,16 +64,16 @@
     <!-- ******************************************  -->
 
     <bean id="emailValidator" class="gs.web.util.validator.EmailValidator"
-          autowire="byName"/>
+          autowire="byName" lazy-init="true"/>
     <bean id="betaSubNotExistsValidator" class="gs.web.community.BetaSubNotExistsValidator"
-          autowire="byName"/>
+          autowire="byName" lazy-init="true"/>
     <bean id="betaSubExistsValidator" class="gs.web.community.BetaSubExistsValidator"
-          autowire="byName"/>
+          autowire="byName" lazy-init="true"/>
     <bean id="userValidator" class="gs.web.util.validator.UserCommandValidator"
-          autowire="byName"/>
+          autowire="byName" lazy-init="true"/>
 
     <bean name="/index.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>index</value>
         </property>
@@ -93,7 +81,7 @@
 
 
     <bean name="/community/beta.page" class="gs.web.community.BetaController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="commandName">
             <value>betaSignupCommand</value>
         </property>
@@ -118,14 +106,14 @@
     </bean>
 
     <bean name="/community/betaThankyou.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>community/betaThankyou</value>
         </property>
     </bean>
 
     <bean name="/community/betaUnsubscribe.page" class="gs.web.community.BetaUnsubscribeController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="commandName">
             <value>betaSignupCommand</value>
         </property>
@@ -144,7 +132,7 @@
     </bean>
 
     <bean name="/community/betaUnsubscribeConfirm.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>community/betaUnsubscribeConfirm</value>
         </property>
@@ -155,13 +143,12 @@
 
     <bean name="/school/authorizers.page"
           class="gs.web.school.AuthorizersController"
-          autowire="byName">
-    </bean>
+          autowire="byName" lazy-init="true"/>
 
     <!-- Search begin -->
     <bean name="/search/search.page"
           class="gs.web.search.SearchController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <constructor-arg>
             <ref bean="searcher"/>
         </constructor-arg>
@@ -183,9 +170,9 @@
     </bean>
 
     <!-- These beans control access to searchmanager.page -->
-    <bean id="loginValidator" class="gs.web.status.LoginValidator"/>
+    <bean id="loginValidator" class="gs.web.status.LoginValidator" lazy-init="true"/>
     <bean name="/status/login.page"
-          class="gs.web.status.LoginController" autowire="byName">
+          class="gs.web.status.LoginController" autowire="byName" lazy-init="true">
         <property name="sessionForm">
             <value>true</value>
         </property>
@@ -208,11 +195,11 @@
 
     <!-- This page allows the search indexes to be rebuilt. -->
     <bean name="/status/searchmanager.page"
-          class="gs.web.status.SearchManagerController" autowire="byName">
+          class="gs.web.status.SearchManagerController" autowire="byName" lazy-init="true">
     </bean>
 
     <bean name="/search/raw.page"
-          class="gs.web.search.RawSearchController" autowire="byName">
+          class="gs.web.search.RawSearchController" autowire="byName" lazy-init="true">
         <property name="searcher">
             <ref bean="searcher"/>
         </property>
@@ -223,7 +210,7 @@
     <!-- Status begin -->
     <!-- Status monitor to verify that database access is working and build version -->
     <bean name="/status/monitor.page"
-          class="gs.web.status.MonitorController" autowire="byName">
+          class="gs.web.status.MonitorController" autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>status/monitor</value>
         </property>
@@ -235,7 +222,7 @@
 
     <bean name="/content/allArticles.page"
           class="gs.web.content.AllArticlesController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>content/allArticles</value>
         </property>
@@ -243,7 +230,7 @@
 
     <bean name="/about/aboutUs.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/aboutUs</value>
         </property>
@@ -251,7 +238,7 @@
 
     <bean name="/about/supportUs.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/supportUs</value>
         </property>
@@ -259,7 +246,7 @@
 
     <bean name="/about/donationBridge.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/donationBridge</value>
         </property>
@@ -267,7 +254,7 @@
 
     <bean name="/about/sponsors.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/sponsors</value>
         </property>
@@ -275,7 +262,7 @@
 
     <bean name="/about/gsNetwork.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/gsNetwork</value>
         </property>
@@ -283,7 +270,7 @@
 
     <bean name="/about/pressRoom.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/pressRoom</value>
         </property>
@@ -291,7 +278,7 @@
 
     <bean name="/about/pressKit.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/pressKit</value>
         </property>
@@ -299,7 +286,7 @@
 
     <bean name="/about/gsFaq.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/gsFaq</value>
         </property>
@@ -307,7 +294,7 @@
 
     <bean name="/about/partnerOpportunities.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/partnerOpportunities</value>
         </property>
@@ -315,7 +302,7 @@
 
     <bean name="/about/privacyStatement.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/privacyStatement</value>
         </property>
@@ -323,7 +310,7 @@
 
     <bean name="/about/testimonials.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/testimonials</value>
         </property>
@@ -331,74 +318,70 @@
 
 
     <bean name="/sorry.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>fatalError</value>
         </property>
     </bean>
 
     <bean name="/compareSchools.page" class="gs.web.school.CompareSchoolsController"
-          autowire="byName">
-
-    </bean>
+          autowire="byName" lazy-init="true"/>
 
     <bean name="/schools.page"
           class="gs.web.school.SchoolsController"
-          autowire="byName"/>
+          autowire="byName" lazy-init="true"/>
 
     <bean name="/school/sampleSchoolRedirect.page" class="gs.web.school.RedirectToSampleSchoolController"
-          autowire="byName">
-    </bean>
+          autowire="byName" lazy-init="true"/>
 
     <bean name="/test/*"
-          class="gs.web.util.TestViewController">
-    </bean>
+          class="gs.web.util.TestViewController" lazy-init="true"/>
 
     <!--Begin conversion pages -->
     <bean name="/community/conversion/conversion.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>community/conversion/conversion</value>
         </property>
     </bean>
 
     <bean name="/community/conversion/popup/schoolChoiceOptions.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>community/conversion/popup/schoolChoiceOptions</value>
         </property>
     </bean>
 
     <bean name="/community/conversion/popup/topRatedSchools.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>community/conversion/popup/topRatedSchools</value>
         </property>
     </bean>
 
     <bean name="/community/conversion/popup/ratings.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>community/conversion/popup/ratings</value>
         </property>
     </bean>
 
     <bean name="/community/conversion/popup/parentReviews.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>community/conversion/popup/parentReviews</value>
         </property>
     </bean>
 
     <bean name="/community/conversion/popup/flagAlerts.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>community/conversion/popup/flagAlerts</value>
         </property>
     </bean>
 
     <bean name="/community/conversion/popup/compareSchools.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>community/conversion/popup/compareSchools</value>
         </property>
@@ -406,45 +389,40 @@
     <!-- End Conversion pages -->
 
     <bean name="/path/choose.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>path/choose</value>
         </property>
     </bean>
 
     <bean name="/path/compareEntry.page"
-          class="gs.web.path.CompareEntryController">
-    </bean>
+          class="gs.web.path.CompareEntryController" lazy-init="true"/>
 
     <bean name="/city.page"
           class="gs.web.geo.CityController"
-          autowire="byName">
-        <!-- legacy URL -->
-    </bean>
+          autowire="byName" lazy-init="true"/>
 
     <bean name="/city/"
           class="gs.web.geo.CityController"
-          autowire="byName">
-    </bean>
+          autowire="byName" lazy-init="true"/>
 
     <bean name="/Alameda/CA/"
           class="gs.web.geo.CityController"
-          autowire="byName">
-    </bean>
+          autowire="byName" lazy-init="true"/>
 
     <bean name="/cities.page"
           class="gs.web.geo.NearbyCitiesController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>/geo/selectACity</value>
         </property>
     </bean>
 
-    <bean name="/browseCities.page" class="gs.web.geo.BrowseCitiesController" autowire="byName"></bean>
+    <bean name="/browseCities.page" class="gs.web.geo.BrowseCitiesController" autowire="byName" lazy-init="true"/>
 
     <bean name="/school/performance/bestValuesMap.page"
           class="gs.web.school.performance.BestPublicSchoolValuesController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>/school/performance/bestPublicSchoolValuesMap</value>
         </property>
@@ -464,7 +442,7 @@
 
     <bean name="/school/performance/allCities.page"
           class="gs.web.school.performance.BestPublicSchoolValuesController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>/school/performance/bestPublicSchoolValues</value>
         </property>
@@ -481,29 +459,29 @@
 
     <bean name="/school/tests.page"
           class="gs.web.school.performance.AvailableTestsController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>/test/tests</value>
         </property>
-        <property name="testDataSetDao" ref="testDataSetDao" />
-        <property name="subjectDao" ref="subjectDao" />
-        <property name="testDataTypeDao" ref="testDataTypeDao" />
+        <property name="testDataSetDao" ref="testDataSetDao"/>
+        <property name="subjectDao" ref="subjectDao"/>
+        <property name="testDataTypeDao" ref="testDataTypeDao"/>
     </bean>
 
 
     <bean name="/selectAState.page"
           class="gs.web.state.SelectAStateController"
-          autowire="byName">
-        <property name="viewName" value="stateLauncher" />
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="stateLauncher"/>
     </bean>
 
     <bean name="/miniSelectAState.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName" value="miniStateLauncher" />
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName" value="miniStateLauncher"/>
     </bean>
 
     <bean name="/path/mySchool.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
             <value>path/mySchool</value>
         </property>
@@ -511,7 +489,7 @@
 
     <bean name="/content/guideToTests.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>/content/guideToTests</value>
         </property>
@@ -519,7 +497,7 @@
 
     <bean name="/content/summerSurvivalGuide.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>/content/summerSurvivalGuide</value>
         </property>
@@ -527,7 +505,7 @@
 
     <bean name="/content/summerReading.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>/content/summerReading</value>
         </property>
@@ -535,7 +513,7 @@
 
     <bean name="/school/research.page"
           class="gs.web.school.ResearchController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>/school/research</value>
         </property>
@@ -543,7 +521,7 @@
 
     <bean name="/content/backToSchool.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>/content/backToSchool</value>
         </property>
@@ -551,7 +529,7 @@
 
     <bean name="/content/countdownToCollege.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>/content/countdownToCollege</value>
         </property>
@@ -559,7 +537,7 @@
 
     <bean name="/content/schoolChoiceCenter.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>/content/schoolChoiceTips</value>
         </property>
@@ -567,7 +545,7 @@
 
     <bean name="/content/healthyKids.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>/content/healthyKids</value>
         </property>
@@ -575,19 +553,19 @@
 
     <bean name="/content/holidayLearning.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName" value="/content/holidayLearning"/>
     </bean>
 
     <bean name="/promo/shutterfly/cards.page"
           class="gs.web.promo.ShutterflyCardsController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="mailSender" ref="mailSender"/>
     </bean>
-    
+
     <bean name="/stateLauncher.page"
           class="gs.web.state.StatePathwayController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>stateLauncher</value>
         </property>
@@ -598,7 +576,7 @@
 
     <bean name="/admin/news/list.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>/admin/news/list</value>
         </property>
@@ -606,12 +584,11 @@
 
     <bean name="/admin/news/delete.page"
           class="gs.web.admin.news.DeleteNewsItemController"
-          autowire="byName">
-    </bean>
+          autowire="byName" lazy-init="true"/>
 
     <bean name="/admin/news/edit.page"
-        class="gs.web.admin.news.EditNewsItemController"
-        autowire="byName">
+          class="gs.web.admin.news.EditNewsItemController"
+          autowire="byName" lazy-init="true">
         <property name="commandName" value="newsItem"/>
         <property name="commandClass" value="gs.data.content.NewsItem"/>
         <property name="formView" value="admin/news/edit"/>
@@ -620,7 +597,7 @@
 
     <bean name="/admin/news/create.page"
           class="gs.web.admin.news.EditNewsItemController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="commandName" value="newsItem"/>
         <property name="commandClass" value="gs.data.content.NewsItem"/>
         <property name="formView" value="admin/news/edit"/>
@@ -637,25 +614,25 @@
     -->
     <bean name="/content/box/v1/*/*.page"
           class="gs.web.content.ContentBoxViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>content/box</value>
         </property>
     </bean>
 
     <bean id="newsCheckBoxValidator" class="gs.web.community.newsletters.popup.NewsletterCheckBoxValidator"
-          autowire="byName"/>
+          autowire="byName" lazy-init="true"/>
 
     <bean id="schoolIdValidator" class="gs.web.util.validator.SchoolIdValidator"
-          autowire="byName"/>
+          autowire="byName" lazy-init="true"/>
 
     <bean id="stateValidator" class="gs.web.util.validator.StateValidator"
-          autowire="byName"/>
+          autowire="byName" lazy-init="true"/>
 
     <!--newsletter popup-->
     <bean name="/community/newsletters/popup/newsletter.page"
           class="gs.web.community.newsletters.popup.NthGraderController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="newsCmd"/>
         <property name="commandClass" value="gs.web.community.newsletters.popup.NewsletterCommand"/>
@@ -677,7 +654,7 @@
     <!--My School stats newsletter popups-->
     <bean name="/community/newsletters/popup/mss/page1.page"
           class="gs.web.community.newsletters.popup.MssPaController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="newsCmd"/>
         <property name="commandClass" value="gs.web.community.newsletters.popup.NewsletterCommand"/>
@@ -699,7 +676,7 @@
     </bean>
     <bean name="/community/newsletters/popup/mss/page2.page"
           class="gs.web.community.newsletters.popup.NthGraderController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="newsCmd"/>
         <property name="commandClass" value="gs.web.community.newsletters.popup.NewsletterCommand"/>
@@ -721,7 +698,7 @@
     </bean>
     <bean name="/community/newsletters/popup/mss/page3.page"
           class="gs.web.community.newsletters.popup.SubscriptionSummaryController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="newsCmd"/>
         <property name="commandClass" value="gs.web.community.newsletters.popup.NewsletterCommand"/>
@@ -738,7 +715,7 @@
     <!--Begin Registration pages -->
     <bean name="/community/registration.page"
           class="gs.web.community.registration.RegistrationController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="userCmd"/>
         <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
@@ -758,8 +735,8 @@
     </bean>
 
     <bean name="/community/registration2.page"
-        class="gs.web.community.registration.RegistrationFollowUpController"
-        autowire="byName">
+          class="gs.web.community.registration.RegistrationFollowUpController"
+          autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="followUpCmd"/>
         <property name="commandClass" value="gs.web.community.registration.FollowUpCommand"/>
@@ -768,8 +745,8 @@
     </bean>
 
     <bean name="/community/registration3.page"
-        class="gs.web.community.registration.RegistrationNewsletterController"
-        autowire="byName">
+          class="gs.web.community.registration.RegistrationNewsletterController"
+          autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="newsletterCmd"/>
         <property name="commandClass" value="gs.web.community.registration.NewsletterCommand"/>
@@ -778,36 +755,34 @@
     </bean>
 
     <bean name="/community/registrationAjax.page"
-        class="gs.web.community.registration.RegistrationAjaxController"
-        autowire="byName">
-    </bean>
+          class="gs.web.community.registration.RegistrationAjaxController"
+          autowire="byName" lazy-init="true"/>
 
     <bean name="/community/registration2Ajax.page"
-        class="gs.web.community.registration.Registration2AjaxController"
-        autowire="byName">
-    </bean>
+          class="gs.web.community.registration.Registration2AjaxController"
+          autowire="byName" lazy-init="true"/>
 
     <bean name="/community/registrationConfirm.page"
-        class="gs.web.community.registration.RegistrationConfirmController"
-        autowire="byName">
+          class="gs.web.community.registration.RegistrationConfirmController"
+          autowire="byName" lazy-init="true">
         <property name="viewName" value="/community/registration/registrationConfirm"/>
     </bean>
 
     <bean name="/community/registrationRemove.page"
-        class="gs.web.community.registration.RegistrationRemoveController"
-        autowire="byName">
+          class="gs.web.community.registration.RegistrationRemoveController"
+          autowire="byName" lazy-init="true">
         <property name="viewName" value="/community/registration/registrationRemove"/>
     </bean>
 
     <bean name="/community/requestEmailValidation.page"
-        class="gs.web.community.registration.RequestEmailValidationController"
-        autowire="byName">
+          class="gs.web.community.registration.RequestEmailValidationController"
+          autowire="byName" lazy-init="true">
         <property name="viewName" value="/community/registration/requestEmailValidation"/>
     </bean>
 
     <bean name="/community/forgotPassword.page"
-        class="gs.web.community.registration.ForgotPasswordController"
-        autowire="byName">
+          class="gs.web.community.registration.ForgotPasswordController"
+          autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="userCmd"/>
         <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
@@ -824,8 +799,8 @@
     </bean>
 
     <bean name="/community/resetPassword.page"
-        class="gs.web.community.registration.ResetPasswordController"
-        autowire="byName">
+          class="gs.web.community.registration.ResetPasswordController"
+          autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="userCmd"/>
         <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
@@ -834,8 +809,8 @@
     </bean>
 
     <bean name="/community/changeEmail.page"
-        class="gs.web.community.registration.ChangeEmailController"
-        autowire="byName">
+          class="gs.web.community.registration.ChangeEmailController"
+          autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="emailCmd"/>
         <property name="formView" value="/community/registration/changeEmail"/>
@@ -849,7 +824,7 @@
 
     <bean name="/community/loginOrRegister.page"
           class="gs.web.community.registration.LoginController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="loginCmd"/>
         <property name="commandClass" value="gs.web.community.registration.LoginCommand"/>
@@ -863,33 +838,33 @@
     <!--End Registration pages -->
 
     <bean id="authenticationManager" class="gs.web.community.registration.AuthenticationManager"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="timeout" value="300000"/>
         <property name="parameterName" value="authInfo"/>
         <property name="userIdLength" value="10"/>
     </bean>
 
     <bean name="/community/verifyAuth.page"
-        class="gs.web.community.registration.VerifyAuthController"
-        autowire="byName">
+          class="gs.web.community.registration.VerifyAuthController"
+          autowire="byName" lazy-init="true">
         <property name="viewName" value="/community/registration/getUserProfile"/>
     </bean>
 
     <bean name="/community/getUserProfile.page"
-        class="gs.web.community.registration.GetUserProfileController"
-        autowire="byName">
+          class="gs.web.community.registration.GetUserProfileController"
+          autowire="byName" lazy-init="true">
         <property name="viewName" value="/community/registration/getUserProfile"/>
     </bean>
 
     <bean name="/community/communityLanding.page"
-        class="gs.web.community.registration.CommunityLandingController"
-        autowire="byName">
+          class="gs.web.community.registration.CommunityLandingController"
+          autowire="byName" lazy-init="true">
         <property name="viewName" value="/community/registration/communityLanding"/>
     </bean>
 
     <bean name="/community/login.page"
           class="gs.web.community.LoginController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="loginCmd"/>
         <property name="commandClass" value="gs.web.community.LoginCommand"/>
@@ -902,53 +877,52 @@
     </bean>
     <bean name="/redirect.page"
           class="gs.web.util.RedirectController"
-          autowire="byName">
-    </bean>
+          autowire="byName" lazy-init="true"/>
 
 
     <bean name="/school/rating.page"
           class="gs.web.test.rating.RatingsController"
-          autowire="byName">
-            <property name="bindOnNewForm" value="true"/>
-            <property name="commandName" value="ratingsCmd"/>
-            <property name="commandClass" value="gs.web.test.rating.RatingsCommand"/>
-            <property name="formView" value="test/ratings"/>
-            <property name="successView" value="test/ratings"/>
-            <property name="onLoadValidators">
-                <list>
-                    <ref bean="stateValidator"/>
-                    <ref bean="schoolIdValidator"/>
-                </list>
-            </property>
+          autowire="byName" lazy-init="true">
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="ratingsCmd"/>
+        <property name="commandClass" value="gs.web.test.rating.RatingsCommand"/>
+        <property name="formView" value="test/ratings"/>
+        <property name="successView" value="test/ratings"/>
+        <property name="onLoadValidators">
+            <list>
+                <ref bean="stateValidator"/>
+                <ref bean="schoolIdValidator"/>
+            </list>
+        </property>
     </bean>
     <bean name="/school/rating2.page"
           class="gs.web.test.rating.RatingsController"
-          autowire="byName">
-            <property name="showingSubjectGroups" value="true"/>
-            <property name="bindOnNewForm" value="true"/>
-            <property name="commandName" value="ratingsCmd"/>
-            <property name="commandClass" value="gs.web.test.rating.RatingsCommand"/>
-            <property name="formView" value="test/ratings"/>
-            <property name="successView" value="test/ratings"/>
-            <property name="onLoadValidators">
-                <list>
-                    <ref bean="stateValidator"/>
-                    <ref bean="schoolIdValidator"/>
-                </list>
-            </property>
+          autowire="byName" lazy-init="true">
+        <property name="showingSubjectGroups" value="true"/>
+        <property name="bindOnNewForm" value="true"/>
+        <property name="commandName" value="ratingsCmd"/>
+        <property name="commandClass" value="gs.web.test.rating.RatingsCommand"/>
+        <property name="formView" value="test/ratings"/>
+        <property name="successView" value="test/ratings"/>
+        <property name="onLoadValidators">
+            <list>
+                <ref bean="stateValidator"/>
+                <ref bean="schoolIdValidator"/>
+            </list>
+        </property>
     </bean>
 
     <bean name="/school/overview.page"
           class="gs.web.school.SchoolOverviewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>school/overview</value>
         </property>
     </bean>
 
     <bean name="/community/mailToFriend.page"
-            autowire="byName"
-          class="gs.web.community.MailToFriendController">
+          autowire="byName"
+          class="gs.web.community.MailToFriendController" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
         <property name="formView" value="community/mailToFriend"/>
         <property name="successView" value="community/mailToFriendConfirmation"/>
@@ -958,10 +932,9 @@
     </bean>
 
 
-
     <!-- WEB PAGE DEFINITIONS END -->
 
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" lazy-init="true">
         <property name="viewClass">
             <value>org.springframework.web.servlet.view.JstlView</value>
         </property>
@@ -985,7 +958,7 @@
     <!--    </bean>-->
     <bean name="/status/error500.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>status/error500</value>
         </property>
@@ -993,7 +966,7 @@
 
     <bean name="/status/error404.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName">
+          autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>status/error404</value>
         </property>
