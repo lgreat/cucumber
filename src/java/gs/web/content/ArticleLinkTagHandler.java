@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.25 2006/10/19 18:11:22 dlee Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.26 2006/11/08 20:05:55 dlee Exp $
  */
 package gs.web.content;
 
@@ -128,11 +128,11 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
                 jspBody.invoke(getJspContext().getOut());
             } catch (JspException e) {
                 String title = article.getTitle().replaceAll("\\$LONGSTATE", s.getLongName());
-                getJspContext().getOut().print(title);
+                getJspContext().getOut().print(title.replaceAll("&", "&amp;"));
             }
         } else {
             String title = article.getTitle().replaceAll("\\$LONGSTATE", s.getLongName());
-            getJspContext().getOut().print(title);
+            getJspContext().getOut().print(title.replaceAll("&", "&amp;"));
         }
 
         getJspContext().getOut().print("</a>");
