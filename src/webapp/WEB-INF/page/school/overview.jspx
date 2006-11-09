@@ -32,7 +32,7 @@
 <c:set var="sid" value="${school.id}"/>
 <c:set var="addr" value="${school.physicalAddress.city}, ${school.physicalAddress.state.longName} - ${stateAbbrev}" />
 <title>${school.name} - ${addr} - school overview</title>
-<meta name="description" content="${school.name} located in ${addr}"/>
+<meta name="description" content="${school.name} located in ${addr}, including school test scores, student-teacher ratio, parent school reviews and teacher stats."/>
 
 <style type="text/css">
 
@@ -279,9 +279,6 @@ table.module1 td a:hover {
             <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
                 <tbody><tr>
                     <td valign="top">
-                        <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
-                            <script type="text/javascript">document.write(adboxhead());</script>AD<br/>
-                        </c:if>
                         <ad:x48 />
                     </td>
                 </tr>
