@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.22 2006/10/17 17:18:52 dlee Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.23 2006/11/09 20:01:53 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -268,11 +268,26 @@ public class LinkTagHandlerTest extends BaseTestCase {
         assertEquals("/community/forgotPassword.page", builder.asSiteRelative(null));
     }
 
+    public void testForgotPasswordWithEmail() {
+        ForgotPasswordTagHandler tagHandler = new ForgotPasswordTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+        tagHandler.setEmail("email@address.org");
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/community/forgotPassword.page?email=email%40address.org", builder.asSiteRelative(null));
+    }
+
     public void testResetPassword() {
         ResetPasswordTagHandler tagHandler = new ResetPasswordTagHandler();
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/community/resetPassword.page", builder.asSiteRelative(null));
+    }
+
+    public void testAccountInfo() {
+        AccountInfoTagHandler tagHandler = new AccountInfoTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/community/accountInfo.page", builder.asSiteRelative(null));
     }
 
     public void testRequestEmailValidation() {

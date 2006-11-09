@@ -22,6 +22,7 @@ public class AuthenticationManager {
     private String _parameterName = "authInfo"; // default
     private int _userIdLength = 10; // default
     public static final String WEBCROSSING_FORWARD_URL = "http://community.greatschools.net/entry/authInfo.";
+    public static final String BEAN_ID = "authenticationManager";
 
     /**
      * Generates an AuthInfo object for the given user.
@@ -106,9 +107,8 @@ public class AuthenticationManager {
 
             // for URLs that look normal
             rval.append(originalUrl);
-            if (originalUrl.toLowerCase().indexOf("community.greatschools.net") > -1 ||
-                    originalUrl.toLowerCase().indexOf("localhost") > -1) {
-                if (originalUrl.indexOf("!") > -1) {
+            if (originalUrl.toLowerCase().indexOf("community.greatschools.net") > -1) {
+                if (originalUrl.indexOf("?") > -1) {
                     rval.append("&");
                 } else {
                     rval.append("?");

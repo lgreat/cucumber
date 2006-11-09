@@ -384,6 +384,37 @@
     </tag>
 
     <tag>
+        <name>toCommunity</name>
+        <tag-class>gs.web.jsp.link.ToCommunityTagHandler</tag-class>
+        <body-content>tagdependent</body-content>
+        <display-name>To Community</display-name>
+        <description>
+            <![CDATA[Handles links to the community site.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>targetLink</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Target link to send user to</description>
+        </attribute>
+    </tag>
+
+    <tag>
         <name>articlelink</name>
         <tag-class>gs.web.content.ArticleLinkTagHandler</tag-class>
         <body-content>tagdependent</body-content>

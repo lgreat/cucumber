@@ -60,6 +60,7 @@
         <br class="clear"/>
 
         <input class="form" type="submit" value="Change email" name="submit"/>
+        <input class="form" type="submit" value="Cancel" name="cancel"/>
     </gsweb:form>
   </gsml:body>
 </html>

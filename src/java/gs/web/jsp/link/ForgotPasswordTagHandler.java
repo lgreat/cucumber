@@ -3,11 +3,9 @@ package gs.web.jsp.link;
 import gs.web.util.UrlBuilder;
 
 /**
- * Created by IntelliJ IDEA.
- * User: UrbanaSoft
- * Date: Jul 18, 2006
- * Time: 10:02:33 AM
- * To change this template use File | Settings | File Templates.
+ * Provides ...
+ *
+ * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class ForgotPasswordTagHandler  extends LinkTagHandler {
 

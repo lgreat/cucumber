@@ -39,6 +39,11 @@ public class ResetPasswordController extends SimpleFormController implements Rea
                 "sent to you. To request a new email, please " + href + ".");
     }
 
+    protected boolean suppressValidation(HttpServletRequest request) {
+        // don't do validation on a cancel
+        return request.getParameter("cancel") != null;
+    }
+
     /**
      * This grabs the hash string out of the request, makes sure a user can be obtained from it, and
      * checks that everything seems in order for the user to make a password change.
@@ -125,6 +130,9 @@ public class ResetPasswordController extends SimpleFormController implements Rea
     protected void onBindAndValidate(HttpServletRequest request,
                                      Object command,
                                      BindException errors) throws NoSuchAlgorithmException {
+        if (suppressValidation(request)) {
+            return;
+        }
         UserCommand userCommand = (UserCommand) command;
 
         // we need to re-validate everything because this form submit may be spoofed
@@ -150,17 +158,18 @@ public class ResetPasswordController extends SimpleFormController implements Rea
                                  HttpServletResponse response,
                                  Object command,
                                  BindException errors) throws NoSuchAlgorithmException {
-        // at this point everything has been validated. Proceed with the password change request
-        UserCommand userCommand = (UserCommand) command;
-        User user = userCommand.getUser();
-
-        user.setPlaintextPassword(userCommand.getPassword());
-        getUserDao().updateUser(user);
-
         ModelAndView mAndV = new ModelAndView();
+        if (!suppressValidation(request)) {
+            // at this point everything has been validated. Proceed with the password change request
+            UserCommand userCommand = (UserCommand) command;
+            User user = userCommand.getUser();
+
+            user.setPlaintextPassword(userCommand.getPassword());
+            getUserDao().updateUser(user);
+            mAndV.getModel().put("message", "Your password has been changed");
+        }
 
         mAndV.setViewName(getSuccessView());
-        mAndV.getModel().put("message", "Your password has been changed");
         return mAndV;
     }
 

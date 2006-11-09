@@ -1,16 +1,10 @@
-<!--
-  Created by IntelliJ IDEA.
-  User: UrbanaSoft
-  Date: Nov 3, 2006
-  Time: 10:01:17 AM
-  To change this template use File | Settings | File Templates.
--->
 <jsp:root
         xmlns:jsp="http://java.sun.com/JSP/Page"
         xmlns="http://www.w3.org/1999/xhtml" version="2.0"
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         xmlns:link="urn:www.greatschools.net/taglib/link"
+        xmlns:gsweb="gstaglib"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 <jsp:directive.page contentType="text/html"/>
@@ -21,22 +15,17 @@
           h1.welcome {
               font-size: x-large;
               color: #99CC67;
-              margin: 15px 0 35px 15px;
-          }
-
-          h2.intro {
-              font-size: large;
-              font-weight: bold;
-              margin-bottom: 25px;
+              margin: 15px 0 15px 15px;
           }
 
           div.box {
               border: groove 4px #99CC67;
-              padding: 25px;
-              margin: 25px 0 25px 15px;
+              padding: 8px;
+              margin: 25px 20px 25px 15px;
               display: block;
               float: left;
-              width: 13em;
+              width: 350px;
+              height: 60px;
           }
 
           div.box a, div.box a:link, div.box a:visited,
@@ -46,13 +35,30 @@
               text-align: center;
           }
 
+          div.title {
+              float: left;
+              width: 150px;
+              font-weight: bold;
+          }
+
+          div.link {
+              float: right;
+              width: 150px;
+              text-align: right;
+          }
+
+          div.text {
+              padding-top: 10px;
+              clear: left;
+          }
+
           div.messageBox {
               border: groove 4px #BBCC45;
               padding: 25px;
               margin: 25px 0 15px 15px;
               display: block;
               float: left;
-              width: 28em;
+              width: 700px;
           }
 
           div.messageBox span.message {
@@ -69,20 +75,12 @@
               padding: 0 15px 0 15px;
           }
 
-          ul.articleList {
-              margin-bottom: 15px;
-          }
-
-          ul.articleList li {
-              padding-top: 15px;
-          }
-
           br.clear {
               clear: both;
           }
       </style>
   </head>
-  <gsml:body adPageName="communityLanding">
+  <gsml:body adPageName="accountInfo">
       <c:if test="${param.message ne null and param.message gt ''}">
           <div class="messageBox">
               <span class="bang">!</span>
@@ -92,23 +90,38 @@
           <br class="clear"/>
       </c:if>
 
-      <h1 class="welcome">Welcome, ${user.userProfile.screenName}!</h1>
+      <h1 class="welcome">My Account Info</h1>
 
-      <hr/>
-
-      <h2 class="intro">Recent top articles</h2>
-      <ul class="articleList">
-          <li><link:article articleId="308">Choosing a school: considering your child's needs</link:article></li>
-          <li><link:article articleId="753">Is your child ready for college math?</link:article></li>
-      </ul>
-
-      <hr/>
-      
-      <div class="box accountSettings">
-          <ul>
-              <li><link:accountInfo>Account Info</link:accountInfo></li>
-          </ul>
+      <div class="box">
+          <div class="title">Email address</div>
+          <div class="link"><link:changeEmail>Edit email address</link:changeEmail></div>
+          <div class="text">${user.email}</div>
       </div>
+
+      <div class="box">
+          <div class="title">Newsletters</div>
+          <div class="link">
+              <link:newsletterManagement email="${user.email}">Manage newsletter subscriptions</link:newsletterManagement>
+          </div>
+      </div>
+      <br class="clear"/>
+
+      <div class="box">
+          <div class="title">Password</div>
+          <div class="link"><link:resetPassword>Edit password</link:resetPassword></div>
+      </div>
+
+      <div class="box">
+          <div class="title">My saved schools</div>
+          <div class="link"><link:mySchoolList>Manage my saved schools</link:mySchoolList></div>
+      </div>
+      <br class="clear"/>
+
+      <div class="box">
+          <div class="title">Photo</div>
+          <div class="link"><gsweb:toCommunity targetLink="/txPictureSetUser">Change photo</gsweb:toCommunity></div>
+      </div>
+
       <br class="clear"/>
   </gsml:body>
 </html>

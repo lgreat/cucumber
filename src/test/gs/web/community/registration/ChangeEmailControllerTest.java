@@ -74,6 +74,7 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         _userDao.updateUser(user);
         _userControl.replay();
 
+        getRequest().setParameter("submit", "submit");
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
         _userControl.verify();
         assertNotNull(mAndV);
@@ -81,4 +82,21 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         assertEquals(_controller.getSuccessView(), mAndV.getViewName());
     }
 
+    public void testCancel() throws NoSuchAlgorithmException {
+        ChangeEmailController.ChangeEmailCommand command = new ChangeEmailController.ChangeEmailCommand();
+        BindException errors = new BindException(command, "emailCmd");
+
+        command.setNewEmail("email@address.org");
+        command.setConfirmNewEmail("email@address.org");
+
+        User user = new User();
+        user.setEmail("oldEmail@address.org");
+        user.setId(new Integer(123));
+        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(getRequest());
+        context.setUser(user);
+
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        assertEquals("oldEmail@address.org", user.getEmail());
+        assertEquals(_controller.getSuccessView(), mAndV.getViewName());
+    }
 }

@@ -71,6 +71,25 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         assertEquals(mAndV.getViewName(), _controller.getSuccessView());
     }
 
+    public void testCancel() throws NoSuchAlgorithmException {
+        UserCommand command = new UserCommand();
+        BindException errors = new BindException(command, "");
+
+        getRequest().setParameter("cancel", "cancel");
+
+        User user = new User();
+        user.setId(new Integer(1234));
+        user.setPlaintextPassword("foobar");
+        command.setUser(user);
+        command.setPassword("barbaz");
+
+        assertTrue(command.getUser().matchesPassword("foobar"));
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        assertFalse(errors.hasErrors());
+        assertEquals(mAndV.getViewName(), _controller.getSuccessView());
+        assertTrue(command.getUser().matchesPassword("foobar"));
+    }
+
     public void testUserFromCookie() throws NoSuchAlgorithmException {
         UserCommand command = new UserCommand();
         BindException errors = new BindException(command, "");

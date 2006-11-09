@@ -33,12 +33,20 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
         return new ChangeEmailCommand();
     }
 
+    protected boolean suppressValidation(HttpServletRequest request) {
+        // don't do validation on a cancel
+        return request.getParameter("cancel") != null;
+    }
+
     /**
      * this method is called after validation but before submit.
      */
     protected void onBindAndValidate(HttpServletRequest request,
                                      Object objCommand,
                                      BindException errors) throws NoSuchAlgorithmException {
+        if (suppressValidation(request)) {
+            return;
+        }
         ChangeEmailCommand command = (ChangeEmailCommand) objCommand;
 
         if (!command.getConfirmNewEmail().equals(command.getNewEmail())) {
@@ -50,17 +58,19 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
                                  HttpServletResponse response,
                                  Object objCommand,
                                  BindException errors) throws NoSuchAlgorithmException {
-        ChangeEmailCommand command = (ChangeEmailCommand) objCommand;
-
-        User user = SessionContextUtil.getSessionContext(request).getUser();
-        user.setEmail(command.getNewEmail());
-        _userDao.updateUser(user);
-        PageHelper.setMemberAuthorized(request, response, user);
-
         ModelAndView mAndV = new ModelAndView();
 
+        if (request.getParameter("submit") != null) {
+            ChangeEmailCommand command = (ChangeEmailCommand) objCommand;
+
+            User user = SessionContextUtil.getSessionContext(request).getUser();
+            user.setEmail(command.getNewEmail());
+            _userDao.updateUser(user);
+            PageHelper.setMemberAuthorized(request, response, user);
+            mAndV.getModel().put("message", "Your email has been updated to " + user.getEmail());
+        }
+
         mAndV.setViewName(getSuccessView());
-        mAndV.getModel().put("message", "Your email has been updated to " + user.getEmail());
         return mAndV;
     }
 

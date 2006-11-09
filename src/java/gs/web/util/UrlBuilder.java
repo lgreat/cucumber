@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.66 2006/11/03 23:47:22 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.67 2006/11/09 20:01:53 aroy Exp $
  */
 
 package gs.web.util;
@@ -121,6 +121,7 @@ public class UrlBuilder {
     public static final VPage REQUEST_EMAIL_VALIDATION = new VPage("vpage:requestEmailValidation");
     public static final VPage COMMUNITY_LANDING = new VPage("vpage:communityLanding");
     public static final VPage CHANGE_EMAIL = new VPage("vpage:changeEmail");
+    public static final VPage ACCOUNT_INFO = new VPage("vpage:accountInfo");
 
     /**
      * school profile pages
@@ -558,6 +559,9 @@ public class UrlBuilder {
         } else if (COMMUNITY_LANDING.equals(page)) {
             _perlPage = false;
             _path = "/community/communityLanding.page";
+        } else if (ACCOUNT_INFO.equals(page)) {
+            _perlPage = false;
+            _path = "/community/accountInfo.page";
         } else if (DISTRICTS_PAGE.equals(page)) {
             _perlPage = true;
             _path = "/modperl/districts/" + state.getAbbreviation();

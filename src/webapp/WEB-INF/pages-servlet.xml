@@ -44,6 +44,7 @@
             <map>
                 <entry key="/community/communityLanding.page" value="communityLandingController"/>
                 <entry key="/community/changeEmail.page" value="changeEmailController"/>
+                <entry key="/community/accountInfo.page" value="accountInfoController"/>
             </map>
         </property>
     </bean>
@@ -823,7 +824,7 @@
         <property name="commandName" value="userCmd"/>
         <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
         <property name="formView" value="/community/registration/resetPassword"/>
-        <property name="successView" value="redirect:/community/communityLanding.page"/>
+        <property name="successView" value="redirect:/community/accountInfo.page"/>
     </bean>
 
     <bean name="changeEmailController"
@@ -832,7 +833,7 @@
         <property name="bindOnNewForm" value="true"/>
         <property name="commandName" value="emailCmd"/>
         <property name="formView" value="/community/registration/changeEmail"/>
-        <property name="successView" value="redirect:/community/communityLanding.page"/>
+        <property name="successView" value="redirect:/community/accountInfo.page"/>
         <property name="validators">
             <list>
                 <ref local="emailValidator"/>
@@ -855,13 +856,6 @@
     </bean>
     <!--End Registration pages -->
 
-    <bean id="authenticationManager" class="gs.web.community.registration.AuthenticationManager"
-          autowire="byName" lazy-init="true">
-        <property name="timeout" value="300000"/>
-        <property name="parameterName" value="authInfo"/>
-        <property name="userIdLength" value="10"/>
-    </bean>
-
     <bean name="/community/verifyAuth.page"
           class="gs.web.community.registration.VerifyAuthController"
           autowire="byName" lazy-init="true">
@@ -878,6 +872,12 @@
           class="gs.web.community.registration.CommunityLandingController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/community/registration/communityLanding"/>
+    </bean>
+
+    <bean name="accountInfoController"
+          class="gs.web.community.registration.AccountInfoController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/community/registration/accountInfo"/>
     </bean>
 
     <bean name="/community/login.page"
