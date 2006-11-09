@@ -32,7 +32,7 @@
 <c:set var="sid" value="${school.id}"/>
 <c:set var="addr" value="${school.physicalAddress.city}, ${school.physicalAddress.state.longName} - ${stateAbbrev}" />
 <title>${school.name} - ${addr} - school overview</title>
-<meta name="description" content="${school.name} located in ${addr}, including school test scores, student-teacher ratio, parent school reviews and teacher stats."/>
+<meta name="description" content="Overview of ${school.name} located in ${addr}, including school test scores, student-teacher ratio, parent school reviews and teacher stats."/>
 
 <style type="text/css">
 
