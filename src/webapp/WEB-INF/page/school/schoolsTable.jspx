@@ -23,6 +23,23 @@
 
 <jsp:directive.page contentType="text/html"/>
 
+<c:set var="queryStringNoMap">
+    <jsp:scriptlet>
+        String queryString = request.getQueryString();
+        if (queryString == null) {
+            queryString = "";
+        }
+        int mapIndex = queryString.indexOf("map=");
+        // avoid crash if query string is only "?map=0" (which should never happen anyway)
+        if (mapIndex > -1 &amp;&amp; queryString.length() > "map=0".length()) {
+            // exclude the map=0 along with the trailing separator (an ampersand)
+            queryString = queryString.substring(0, mapIndex) +
+                    queryString.substring(mapIndex + "map=0x".length());
+        }
+        out.print(queryString);
+    </jsp:scriptlet>
+</c:set>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
     <c:set var="title">
@@ -135,7 +152,7 @@
         <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
             <c:if test="${param.map ne 1 and results.total gt 0}">
                 <div class="mapIt">
-                <gsml:a href="/schools.page?map=1&amp;${pageContext.request.queryString}">
+                <gsml:a href="/schools.page?map=1&amp;${queryStringNoMap}">
                     <gsml:img src="/res/img/geo/btn_map_it.gif" alt="map it"/>
                     <p>See results on our<br />interactive local map</p>
                 </gsml:a>
@@ -143,7 +160,7 @@
             </c:if>
             <c:if test="${param.map eq 1 }">
                 <div class="mapIt">
-                <gsml:a href="/schools.page?map=0&amp;${pageContext.request.queryString}">
+                <gsml:a href="/schools.page?map=0&amp;${queryStringNoMap}">
                     <gsml:img src="/res/img/geo/btn_map_it.gif" alt="map it"/>
 
                     <h4>Hide Map</h4>
@@ -176,7 +193,7 @@
                 <c:if test="${results.total gt 0}">
                     <c:if test="${param.map eq 1}">
                         <div style="width:100%; text-align:right; padding-right: 5px;  font-size: small;font-weight:bold">
-                            <gsml:a href="/schools.page?map=0&amp;${pageContext.request.queryString}">Hide Map</gsml:a>
+                            <gsml:a href="/schools.page?map=0&amp;${queryStringNoMap}">Hide Map</gsml:a>
                         </div>
 
                         <div id="mapContainer">
@@ -194,12 +211,12 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td rowspan="2">
-                                        <gsml:a href="/schools.page?map=1&amp;${pageContext.request.queryString}">
+                                        <gsml:a href="/schools.page?map=1&amp;${queryStringNoMap}">
                                             <gsml:img src="/res/img/geo/btn_map_it.gif" alt="map it"/>
                                         </gsml:a>
                                     </td>
                                     <td style="text-align:right; padding-right: 5px; font-weight:bold">
-                                        <gsml:a href="/schools.page?map=1&amp;${pageContext.request.queryString}">Show
+                                        <gsml:a href="/schools.page?map=1&amp;${queryStringNoMap}">Show
                                             Map</gsml:a>
                                     </td>
                                 </tr>
