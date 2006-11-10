@@ -37,6 +37,11 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _userDao = (IUserDao)_userControl.getMock();
         _controller.setUserDao(_userDao);
         _controller.setSuccessView(SUCCESS_VIEW);
+
+        RegistrationConfirmationEmail email = (RegistrationConfirmationEmail)
+                getApplicationContext().getBean(RegistrationConfirmationEmail.BEAN_ID);
+        email.getEmailHelperFactory().setMailSender(_mailSender);
+        _controller.setRegistrationConfirmationEmail(email);
     }
 
     /**

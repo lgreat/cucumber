@@ -6,15 +6,15 @@
 
 <p>CONNECT WITH PARENTS AND ADVOCATE FOR GREAT SCHOOLS</p>
 
-<p>Share success stories and debate education issues on our community message boards. $COMMUNITY_LANDING_PAGE$.</p>
+<p>Share success stories and debate education issues on our community message boards. $COMMUNITY_LANDING_PAGE.</p>
 
 <p>CHOOSE THE BEST SCHOOL FOR YOUR FAMILY</p>
 
-<p>Let us guide you through the test scores and student stats, the Parent Reviews and GreatSchools ratings. $TEST_SCORES_PAGE$.</p>
+<p>Let us guide you through the test scores and student stats, the Parent Reviews and GreatSchools ratings. $TEST_SCORES_PAGE.</p>
 
 <p>CHAMPION YOUR CHILD'S EDUCATION</p>
 
-<p>Find out what to expect in the classroom, learn about the most important education issues and get advice from A-Z. $EXPECT_IN_CLASSROOM$.</p>
+<p>Find out what to expect in the classroom, learn about the most important education issues and get advice from A-Z. $EXPECT_IN_CLASSROOM.</p>
 
 <p>Seem like a lot all at once? Don't worry - we'll be here to make it easier whenever you're ready.</p>
 

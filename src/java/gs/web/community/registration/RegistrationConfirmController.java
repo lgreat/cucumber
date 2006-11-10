@@ -3,7 +3,6 @@ package gs.web.community.registration;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
-import gs.web.util.EmailUtil;
 import gs.web.util.ReadWriteController;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.logging.Log;
@@ -12,13 +11,13 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.mail.MessagingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
+import java.io.IOException;
 
 /**
  * Final stage in the confirmation process when using email validation.
@@ -32,6 +31,7 @@ public class RegistrationConfirmController extends AbstractController implements
     private String _viewName;
 
     private IUserDao _userDao;
+    private RegistrationConfirmationEmail _registrationConfirmationEmail;
 
     public IUserDao getUserDao() {
         return _userDao;
@@ -39,6 +39,14 @@ public class RegistrationConfirmController extends AbstractController implements
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public RegistrationConfirmationEmail getRegistrationConfirmationEmail() {
+        return _registrationConfirmationEmail;
+    }
+
+    public void setRegistrationConfirmationEmail(RegistrationConfirmationEmail registrationConfirmationEmail) {
+        _registrationConfirmationEmail = registrationConfirmationEmail;
     }
 
     public String getViewName() {
@@ -105,35 +113,14 @@ public class RegistrationConfirmController extends AbstractController implements
         if (!user.isEmailValidated()) {
             user.setEmailValidated();
             _userDao.saveUser(user);
+            try {
+                _registrationConfirmationEmail.sendToUser(user, request);
+            } catch (Exception e) {
+                _log.error("Error sending registration confirmation email to user: " + user);
+                _log.error(e);
+            }
         }
 
         return new ModelAndView(_viewName, model);
-    }
-
-    /**
-     * Builds a multipart email message.
-     * @param msg create msg with JavaMailSender.createMimeMessage()
-     * @param request
-     * @param user
-     * @return multipart email message
-     * @throws java.security.NoSuchAlgorithmException
-     * @throws javax.mail.MessagingException
-     */
-    public static MimeMessage buildMultipartEmail
-            (MimeMessage msg, HttpServletRequest request, User user) throws MessagingException {
-        EmailUtil.MultiPartEmailOptions options = new EmailUtil.MultiPartEmailOptions();
-        options.setToEmail(user.getEmail());
-        options.setSubject("Welcome to GreatSchools!");
-        options.setFromEmail("gs-batch@greatschools.net");
-        options.setFromName("GreatSchools");
-        options.setHtmlResourceName("/gs/web/community/registration/registrationConfirmationEmail-html.txt");
-        options.setTextResourceName("/gs/web/community/registration/registrationConfirmationEmail-plainText.txt");
-        UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null);
-        options.addInlineReplacement("COMMUNITY_LANDING_PAGE", builder.asAbsoluteAnchor(request, "Get started here").asATag());
-        builder = new UrlBuilder(UrlBuilder.RESEARCH, null);
-        options.addInlineReplacement("TEST_SCORES_PAGE", builder.asAbsoluteAnchor(request, "Begin your search here").asATag());
-        builder = new UrlBuilder(UrlBuilder.HOME, null);
-        options.addInlineReplacement("EXPECT_IN_CLASSROOM", builder.asAbsoluteAnchor(request, "Get started here").asATag());
-        return EmailUtil.createMessage(msg, options);
     }
 }

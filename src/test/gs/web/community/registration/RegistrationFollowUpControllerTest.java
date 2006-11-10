@@ -59,7 +59,10 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
 
         _mailSender = new MockJavaMailSender();
         _mailSender.setHost("greatschools.net");
-        _controller.setMailSender(_mailSender);
+        RegistrationConfirmationEmail email = (RegistrationConfirmationEmail)
+                getApplicationContext().getBean(RegistrationConfirmationEmail.BEAN_ID);
+        email.getEmailHelperFactory().setMailSender(_mailSender);
+        _controller.setRegistrationConfirmationEmail(email);
 
         setupBindings();
     }

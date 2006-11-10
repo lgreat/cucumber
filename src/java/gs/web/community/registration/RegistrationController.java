@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.mail.internet.MimeMessage;
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -35,6 +34,7 @@ public class RegistrationController extends SimpleFormController implements Read
     private IUserDao _userDao;
     private IGeoDao _geoDao;
     private JavaMailSender _mailSender;
+    private RegistrationConfirmationEmail _registrationConfirmationEmail;
     private boolean _requireEmailValidation = true;
     private String _completeView;
 
@@ -176,12 +176,11 @@ public class RegistrationController extends SimpleFormController implements Read
             if (!user.isEmailProvisional()) {
                 try {
                     // registration is done, let's send a confirmation email
-                    MimeMessage mm = RegistrationConfirmController.buildMultipartEmail
-                            (_mailSender.createMimeMessage(), request, user);
-                    _mailSender.send(mm);
-                } catch (MessagingException me) {
+                    _registrationConfirmationEmail.sendToUser(user, request);
+                } catch (Exception ex) {
                     _log.error("Error sending community registration confirmation email to " +
                             user);
+                    _log.error(ex);
                 }
             }
             PageHelper.setMemberAuthorized(request, response, user);
@@ -230,5 +229,13 @@ public class RegistrationController extends SimpleFormController implements Read
 
     public void setCompleteView(String completeView) {
         _completeView = completeView;
+    }
+
+    public RegistrationConfirmationEmail getRegistrationConfirmationEmail() {
+        return _registrationConfirmationEmail;
+    }
+
+    public void setRegistrationConfirmationEmail(RegistrationConfirmationEmail registrationConfirmationEmail) {
+        _registrationConfirmationEmail = registrationConfirmationEmail;
     }
 }

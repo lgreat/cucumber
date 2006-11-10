@@ -1,6 +1,7 @@
 package gs.web.community.registration;
 
 import gs.web.BaseControllerTestCase;
+import gs.web.util.MockJavaMailSender;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
@@ -20,6 +21,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
 
     private IUserDao _userDao;
     private MockControl _userControl;
+    private MockJavaMailSender _mailSender;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -29,6 +31,13 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         _userDao = (IUserDao)_userControl.getMock();
         _controller.setUserDao(_userDao);
         _controller.setViewName("/room/with/a/view");
+
+        _mailSender = new MockJavaMailSender();
+        _mailSender.setHost("greatschools.net");
+        RegistrationConfirmationEmail email = (RegistrationConfirmationEmail)
+                getApplicationContext().getBean(RegistrationConfirmationEmail.BEAN_ID);
+        email.getEmailHelperFactory().setMailSender(_mailSender);
+        _controller.setRegistrationConfirmationEmail(email);
     }
 
     public void testRegistrationConfirm() throws NoSuchAlgorithmException {
@@ -59,6 +68,7 @@ public class RegistrationConfirmControllerTest extends BaseControllerTestCase {
         // 5) verify that password has become validated
         assertFalse(user.isEmailProvisional());
         assertTrue(user.isEmailValidated());
+        assertEquals(1, _mailSender.getSentMessages().size());
      }
 
     public void testInvalidId() throws NoSuchAlgorithmException {
