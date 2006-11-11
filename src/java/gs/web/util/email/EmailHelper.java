@@ -23,11 +23,16 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 /**
- * Provides ...
+ * Provides for and hides all the messiness around sending emails. Obtain an instance of this
+ * class via the factory bean: gs.web.util.email.EmailHelperFactory, set the relevant fields, and
+ * fire it off with a call to send().
+ *
+ * The encoding defaults to "UTF-8", and the sentDate defaults to the date and time when the
+ * EmailHelper object is instantiated from the factory.
  *
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public final class EmailHelper {
+public class EmailHelper {
     protected static Map _resourceCache = new HashMap(); // test case needs access
     protected Logger _log = Logger.getLogger(getClass());
 
@@ -45,15 +50,21 @@ public final class EmailHelper {
     private String _textBody;
 
     /**
+     * Package-protected, for general use instantiate via the factory bean:
+     * gs.web.util.email.EmailHelperFactory.
      * Default values: <br/>
      * encoding = "UTF-8" <br/>
      * sentDate = new Date() <br/>
      */
-    protected EmailHelper() {
+    EmailHelper() {
         _encoding = "UTF-8";
         _sentDate = new Date();
         _inlineReplacements = new HashMap();
     }
+
+    /****************************
+     * Publicly exposed methods * (not including property getter/setters)
+     ****************************/
 
     /**
      * Send the message encapsulated by this object
@@ -71,6 +82,72 @@ public final class EmailHelper {
         _mailSender.send(createMimeMessage());
     }
 
+    /**
+     * Reads the plain text body part from a resource
+     * @param textResourceName
+     * @throws IOException on error reading resource
+     */
+    public void readPlainTextFromResource(String textResourceName) throws IOException {
+        setTextBody(readStringFromResource(textResourceName));
+    }
+
+    /**
+     * Reads the html body part from a resource
+     * @param htmlResourceName
+     * @throws IOException on error reading resource
+     */
+    public void readHtmlFromResource(String htmlResourceName) throws IOException {
+        setHtmlBody(readStringFromResource(htmlResourceName));
+    }
+
+    /**
+     * Clears the static resource cache. Not sure why this would be used.
+     */
+    public static void clearResourceCache() {
+        _resourceCache.clear();
+    }
+
+    /**
+     * Equivalent to getInlineReplacements().put(key, value);
+     * Tells this class to replace all instances of "$key" in the body of the email with "value",
+     * actual replacement occurs during creation of the MimeMessage when send() is called.
+     * @param key String to replace
+     * @param value Value to replace it with
+     */
+    public void addInlineReplacement(String key, String value) {
+        _inlineReplacements.put(key, value);
+    }
+
+    /**
+     * Checks the properties on this object and returns true only if enough properties are
+     * set to send a valid email.
+     * @return false if not enough properties are set for a valid email to be constructed.
+     */
+    public boolean isValid() {
+        // There must be a toEmail, fromEmail, and subject, along with either a plain text
+        // body or an html body
+        return StringUtils.isNotEmpty(_toEmail) && StringUtils.isNotEmpty(_fromEmail) &&
+                StringUtils.isNotEmpty(_subject) &&
+                (StringUtils.isNotEmpty(_textBody) || StringUtils.isNotEmpty(_htmlBody));
+    }
+
+    /**
+     * Checks if both the htmlBody and the textBody have been set.
+     * @return true only if both htmlBody and textBody are set
+     */
+    public boolean isMultipart() {
+        return _htmlBody != null && _textBody != null;
+    }
+
+    /****************************
+     * Protected helper methods *
+     ****************************/
+
+    /**
+     * Helper method used to get an instance of MimeMessage representing this object.
+     * @return MimeMessage populated off of this object
+     * @throws MessagingException on error populating the MimeMessage
+     */
     protected MimeMessage createMimeMessage() throws MessagingException {
         MimeMessage message = _mailSender.createMimeMessage();
 
@@ -99,24 +176,6 @@ public final class EmailHelper {
         }
 
         return helper.getMimeMessage();
-    }
-
-    /**
-     * Checks the properties on this object and returns true only if enough properties are
-     * set to send a valid email.
-     * @return false if not enough properties are set for a valid email to be constructed.
-     */
-    public boolean isValid() {
-        // There must be a toEmail, fromEmail, and subject, along with either a plain text
-        // body or an html body
-        return StringUtils.isNotEmpty(_toEmail) && StringUtils.isNotEmpty(_fromEmail) &&
-                StringUtils.isNotEmpty(_subject) &&
-                (StringUtils.isNotEmpty(_textBody) || StringUtils.isNotEmpty(_htmlBody));
-
-    }
-
-    public boolean isMultipart() {
-        return _htmlBody != null && _textBody != null;
     }
 
     protected String performReplacements(String text) {
@@ -190,42 +249,8 @@ public final class EmailHelper {
         return text;
     }
 
-    /**
-     * Reads the plain text body part from a resource
-     * @param textResourceName
-     * @throws IOException on error reading resource
-     */
-    public void readPlainTextFromResource(String textResourceName) throws IOException {
-        setTextBody(readStringFromResource(textResourceName));
-    }
-
-    /**
-     * Reads the html body part from a resource
-     * @param htmlResourceName
-     * @throws IOException on error reading resource
-     */
-    public void readHtmlFromResource(String htmlResourceName) throws IOException {
-        setHtmlBody(readStringFromResource(htmlResourceName));
-    }
-
-    /**
-     * Clears the static resource cache. Not sure why this would be used.
-     */
-    public static void clearResourceCache() {
-        _resourceCache.clear();
-    }
-
-    /**
-     * Replace all instances of "$key" in the body of the email with "value".
-     * @param key String to replace
-     * @param value Value to replace it with
-     */
-    public void addInlineReplacement(String key, String value) {
-        _inlineReplacements.put(key, value);
-    }
-
     /*********************
-     * SETTERS / GETTERS *
+     * GETTERS / SETTERS *
      *********************/
 
     public String getToEmail() {
