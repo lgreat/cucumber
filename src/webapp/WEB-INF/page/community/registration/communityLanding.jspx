@@ -35,8 +35,6 @@
               border: groove 4px #99CC67;
               padding: 25px;
               margin: 25px 0 25px 15px;
-              display: block;
-              float: left;
               width: 13em;
           }
 
@@ -78,6 +76,13 @@
               padding-top: 10px;
           }
 
+          ul.articleList li a, ul.articleList li a:link, ul.articleList li a:visited,
+              ul.articleList li a:active, ul.articleList li a:hover {
+              color: #4DA4B7;
+              text-decoration: none;
+              text-align: center;
+          }
+
           br.clear {
               clear: both;
           }
@@ -115,7 +120,6 @@
               <li><link:accountInfo>Account Info</link:accountInfo></li>
           </ul>
       </div>
-      <br class="clear"/>
   </gsml:body>
 </html>
 </jsp:root>
