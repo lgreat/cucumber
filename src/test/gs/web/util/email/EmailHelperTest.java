@@ -75,6 +75,9 @@ public class EmailHelperTest extends BaseTestCase {
         } catch (IOException e) {
             // good
         }
+
+        text = _emailHelper.readStringFromResource(null);
+        assertNull(text);
     }
     
     public void testReadPlainTextStringFromResource() throws IOException {
@@ -116,6 +119,21 @@ public class EmailHelperTest extends BaseTestCase {
         _emailHelper.setFromEmail("aroy+1@greatschools.net");
         _emailHelper.setSubject("Testing EmailHelper");
         _emailHelper.setTextBody("This is a $TEST of the EmailHelper");
+        Map replacements = new HashMap();
+        replacements.put("TEST", "test");
+        _emailHelper.setInlineReplacements(replacements);
+
+        MimeMessage mm = _emailHelper.createMimeMessage();
+        assertEquals("Testing EmailHelper", mm.getSubject());
+        assertEquals("aroy+1@greatschools.net", mm.getFrom()[0].toString());
+        assertEquals("This is a test of the EmailHelper", (String) mm.getContent());
+    }
+
+    public void testCreateMimeMessageHtml() throws MessagingException, IOException {
+        _emailHelper.setToEmail("aroy@greatschools.net");
+        _emailHelper.setFromEmail("aroy+1@greatschools.net");
+        _emailHelper.setSubject("Testing EmailHelper");
+        _emailHelper.setHtmlBody("This is a $TEST of the EmailHelper");
         Map replacements = new HashMap();
         replacements.put("TEST", "test");
         _emailHelper.setInlineReplacements(replacements);

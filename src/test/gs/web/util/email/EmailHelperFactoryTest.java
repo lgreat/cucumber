@@ -35,6 +35,7 @@ public class EmailHelperFactoryTest extends BaseTestCase {
 
         MockJavaMailSender _mailSender = new MockJavaMailSender();
         _factory.setMailSender(_mailSender);
+        assertEquals(_mailSender, _factory.getMailSender());
 
         helper = _factory.getEmailHelper();
         assertNotNull(helper.getMailSender());
