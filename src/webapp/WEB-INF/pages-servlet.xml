@@ -406,13 +406,6 @@
     </bean>
     <!-- End Conversion pages -->
 
-    <bean name="/path/choose.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
-        <property name="viewName">
-            <value>path/choose</value>
-        </property>
-    </bean>
-
     <bean name="/path/compareEntry.page"
           class="gs.web.path.CompareEntryController" lazy-init="true"/>
 
@@ -496,13 +489,6 @@
     <bean name="/miniSelectAState.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName" value="miniStateLauncher"/>
-    </bean>
-
-    <bean name="/path/mySchool.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
-        <property name="viewName">
-            <value>path/mySchool</value>
-        </property>
     </bean>
 
     <bean name="/content/guideToTests.page"

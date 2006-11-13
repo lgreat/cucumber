@@ -37,43 +37,6 @@
     <body>
     <table width="100%">
         <tr>
-            <td id="leftcol">
-                <gsml:box tableClass="shade3 main">
-                    <c:set var="state"
-                           value="${requestScope.context.stateOrDefault}"/>
-
-                    <h2 class="browseheader">Browse</h2>
-                    <ul class="refinementlist">
-                        <li><gsml:a
-                                href="/modperl/citylist/${state.abbreviation}">
-                            All <c:out value="${state.longName}"/> cities
-                        </gsml:a>
-                        </li>
-                        <li><gsml:a
-                                href="/modperl/distlist/${state.abbreviation}">
-                            All <c:out value="${state.longName}"/> districts
-                        </gsml:a></li>
-                        <li><link:articleLibrary>
-                            All topics</link:articleLibrary></li>
-                        <li><gsml:a href="/cgi-bin/glossary_home/${state}">All
-                            glossary terms</gsml:a></li>
-                    </ul>
-                </gsml:box>
-                <gsml:box tableClass="shade3 main">
-                    <c:set var="state"
-                           value="${requestScope.context.stateOrDefault}"/>
-
-                    <h2 class="browseheader">Advanced Search</h2>
-                    <ul class="refinementlist">
-                        <li><gsml:a
-                                href="/cgi-bin/template_plain/advanced/$STATE/#address">
-                            Search near address</gsml:a></li>
-                        <li><gsml:a
-                                href="/cgi-bin/template_plain/advanced/$STATE/#county">
-                            Search by county</gsml:a></li>
-                    </ul>
-                </gsml:box>
-            </td>
             <td align="left" valign="top">
                 <div id="container">
                     <p>Thanks for providing us with feedback to help us improve
