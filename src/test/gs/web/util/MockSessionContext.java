@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MockSessionContext.java,v 1.5 2006/10/18 00:32:11 thuss Exp $
+ * $Id: MockSessionContext.java,v 1.6 2006/11/13 23:44:26 aroy Exp $
  */
 
 package gs.web.util;
@@ -8,7 +8,6 @@ package gs.web.util;
 import gs.data.community.User;
 import gs.data.state.State;
 import gs.data.util.SpringUtil;
-import gs.web.util.context.ISessionContext;
 import gs.web.util.context.ISessionContext;
 import org.springframework.context.ApplicationContext;
 
@@ -22,13 +21,18 @@ public class MockSessionContext implements ISessionContext {
     private boolean _paidSubscriber;
     private boolean _advertisingOnline = true;
     private String _hostName = "www.greatschools.net";
+    private User _user;
 
     public ApplicationContext getApplicationContext() {
         return SpringUtil.getApplicationContext();
     }
 
     public User getUser() {
-        return null;
+        return _user;
+    }
+
+    public void setUser(User user) {
+        _user = user;
     }
 
     public void setPaidSubscriber(boolean paidSubscriber) {

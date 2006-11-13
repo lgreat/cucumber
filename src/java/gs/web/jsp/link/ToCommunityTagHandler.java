@@ -16,12 +16,16 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspFragment;
 import javax.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
+import java.io.IOException;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.context.ApplicationContext;
 
 /**
- * Provides ...
+ * Provides support for linking to arbitrary URLs on the community vendor site. This gets called
+ * with the targetLink set, and a URL is constructed that goes to the community vendor site,
+ * contains authentication information for the current user, and instructs the vendor site
+ * to redirect the user to the relative URL targetLink on their site after authentication.
  *
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
@@ -31,50 +35,50 @@ public class ToCommunityTagHandler extends BaseTagHandler {
     private String _styleClass;
     private String _target;
 
-    public void doTag() {
-        try {
-            JspWriter out = getJspContext().getOut();
-            out.print("<a");
+    public void doTag() throws IOException {
+        JspWriter out = getJspContext().getOut();
+        out.print("<a");
 
-            if (!StringUtils.isEmpty(_styleClass)) {
-                out.print(" class=\"" + _styleClass + "\"");
-            }
-
-            if (!StringUtils.isEmpty(_target)) {
-                out.print(" target=\"" + _target + "\"");
-            }
-
-            PageContext pageContext = (PageContext) getJspContext().findAttribute(PageContext.PAGECONTEXT);
-            HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-            User user = SessionContextUtil.getSessionContext(request).getUser();
-            String href;
-            if (user != null) {
-                // send user to community vendor site
-                href = constructUrl(_targetLink, user, getAuthenticationManager());
-            } else {
-                // what? No user?? Then send them to login with a redirect to the community vendor site
-                UrlBuilder builder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, _targetLink);
-                href = builder.asFullUrl(request);
-            }
-
-            out.print(" href=\"");
-            out.print(href);
-            out.print("\"");
-            out.print(">");
-
-            JspFragment jspBody = getJspBody();
-            if (jspBody != null && StringUtils.isNotEmpty(jspBody.toString())) {
-                try {
-                    jspBody.invoke(out);
-                } catch (JspException e) {
-                    _log.error(e);
-                }
-            }
-
-            out.print("</a>");
-        } catch (Exception e) {
-            _log.error(e);
+        if (!StringUtils.isEmpty(_styleClass)) {
+            out.print(" class=\"" + _styleClass + "\"");
         }
+
+        if (!StringUtils.isEmpty(_target)) {
+            out.print(" target=\"" + _target + "\"");
+        }
+
+        PageContext pageContext = (PageContext) getJspContext().findAttribute(PageContext.PAGECONTEXT);
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+        User user = SessionContextUtil.getSessionContext(request).getUser();
+        String href = "";
+        if (user != null) {
+            // send user to community vendor site
+            try {
+                href = constructUrl(_targetLink, user, getAuthenticationManager());
+            } catch (NoSuchAlgorithmException e) {
+                _log.error(e);
+            }
+        } else {
+            // what? No user?? Then send them to login with a redirect to the community vendor site
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null, _targetLink);
+            href = builder.asFullUrl(request);
+        }
+
+        out.print(" href=\"");
+        out.print(href);
+        out.print("\"");
+        out.print(">");
+
+        JspFragment jspBody = getJspBody();
+        if (jspBody != null && StringUtils.isNotEmpty(jspBody.toString())) {
+            try {
+                jspBody.invoke(out);
+            } catch (JspException e) {
+                _log.error(e);
+            }
+        }
+
+        out.print("</a>");
     }
 
     protected AuthenticationManager getAuthenticationManager() {
