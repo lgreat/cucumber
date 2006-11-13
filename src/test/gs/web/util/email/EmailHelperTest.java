@@ -9,9 +9,7 @@ import gs.web.util.MockJavaMailSender;
 import javax.mail.MessagingException;
 import javax.mail.Message;
 import javax.mail.internet.MimeMessage;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.io.IOException;
 
 import org.springframework.mail.MailSendException;
@@ -97,15 +95,20 @@ public class EmailHelperTest extends BaseTestCase {
 
     public void testResourceCache() throws IOException {
         EmailHelper._resourceCache.put("/gs/web/util/email/EmailHelperxyz.class", "text");
-        String text = "";
-
         try {
-            text = _emailHelper.readStringFromResource("/gs/web/util/email/EmailHelperxyz.class");
+            String text = _emailHelper.readStringFromResource("/gs/web/util/email/EmailHelperxyz.class");
+            assertEquals("text", text);
         } catch (IOException ioe) {
             fail("Reading from cache should avoid I/O");
         }
-        assertEquals("text", text);
-        EmailHelper._resourceCache.remove("/gs/web/util/email/EmailHelperxyz.class");
+        EmailHelper.clearResourceCache();
+
+        try {
+            _emailHelper.readStringFromResource("/gs/web/util/email/EmailHelperxyz.class");
+            fail("This call should have attempted I/O and failed");
+        } catch (IOException ioe) {
+            // okay
+        }
     }
 
     public void testCreateMimeMessage() throws MessagingException, IOException {
@@ -162,5 +165,30 @@ public class EmailHelperTest extends BaseTestCase {
             // okay
         }
         _mailSender.setThrowOnSendMessage(false);
+    }
+
+    public void testSetters() throws MessagingException, IOException {
+        _emailHelper.setToEmail("aroy@greatschools.net");
+        _emailHelper.setFromEmail("aroy@greatschools.net");
+        _emailHelper.setFromName("Anthony");
+        _emailHelper.setSubject("Testing EmailHelper");
+        _emailHelper.setTextBody("This is a test of the EmailHelper");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, -1);
+        Date sentTime = cal.getTime();
+        _emailHelper.setSentDate(sentTime);
+        _emailHelper.setEncoding("RoyEncoding");
+
+        _emailHelper.send();
+
+        assertEquals("Anthony", _emailHelper.getFromName());
+        assertEquals("aroy@greatschools.net", _emailHelper.getFromEmail());
+        assertEquals("Testing EmailHelper", _emailHelper.getSubject());
+        assertEquals(sentTime, _emailHelper.getSentDate());
+        assertEquals("RoyEncoding", _emailHelper.getEncoding());
+
+        List msgs = _mailSender.getSentMessages();
+        MimeMessage msg = (MimeMessage) msgs.get(0);
+        assertEquals(sentTime.toString(), msg.getSentDate().toString());
     }
 }

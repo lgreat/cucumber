@@ -229,10 +229,11 @@ public class EmailHelper {
             BufferedReader reader = null;
             try {
                 reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
-                String line;
-                while ((line = reader.readLine()) != null) {
+                String line = reader.readLine();
+                while (line != null) {
                     buffer.append(line);
                     buffer.append("\n");
+                    line = reader.readLine();
                 }
                 text = buffer.toString();
                 _resourceCache.put(resource.getFilename(), text);
