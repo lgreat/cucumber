@@ -297,10 +297,10 @@ table.module1 td a:hover {
                 <tr>
                     <td class="module1_body" id="featuredArticles" valign="top">
                         <jsp:include
-                                page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;heading=none&amp;state=${stateAbbrev}"/>
+                                page="/promo/featuredArticles.module?position=SPP&amp;heading=none&amp;state=${stateAbbrev}"/>
                         <br />
                         <jsp:include
-                                page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;sub=1&amp;heading=none&amp;state=${stateAbbrev}"/>
+                                page="/promo/featuredArticles.module?position=SPP&amp;sub=1&amp;heading=none&amp;state=${stateAbbrev}"/>
                     </td>
                 </tr>
             </tbody></table>
