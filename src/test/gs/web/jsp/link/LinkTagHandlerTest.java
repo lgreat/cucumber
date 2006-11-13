@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.23 2006/11/09 20:01:53 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.24 2006/11/13 18:55:54 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -8,6 +8,7 @@ package gs.web.jsp.link;
 import gs.data.content.Article;
 import gs.data.geo.City;
 import gs.data.school.LevelCode;
+import gs.data.school.Grade;
 import gs.data.state.State;
 import gs.web.BaseTestCase;
 import gs.web.jsp.MockJspWriter;
@@ -17,6 +18,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+import java.io.IOException;
 
 /**
  * Tests all the tags in the link package.
@@ -305,4 +307,55 @@ public class LinkTagHandlerTest extends BaseTestCase {
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/static/terms.html/CA", builder.asSiteRelative(null));
     }
+
+    public void testChangeEmail() {
+        ChangeEmailTagHandler tagHandler = new ChangeEmailTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/community/changeEmail.page", builder.asSiteRelative(null));
+    }
+
+    public void testGradeSelector() throws IOException {
+        PageContext pc = new MockPageContext();
+        MockJspWriter out = (MockJspWriter) pc.getOut();
+        GradeSelectorTagHandler tagHandler = new GradeSelectorTagHandler();
+        tagHandler.setJspContext(pc);
+        tagHandler.setName("name");
+        tagHandler.setOnChange("onchange");
+        tagHandler.setStyleClass("class");
+        tagHandler.setStyleId("id");
+        tagHandler.setUseNoGrade(true);
+        tagHandler.setNoGradeLabel("--");
+
+        tagHandler.doTag();
+
+        assertNotNull(out.getOutputBuffer());
+        String results = out.getOutputBuffer().toString();
+        assertNotNull(results);
+        assertTrue(results.indexOf("name=\"name\"") > -1);
+        assertTrue(results.indexOf("onchange=\"onchange\"") > -1);
+        assertTrue(results.indexOf("class=\"class\"") > -1);
+        assertTrue(results.indexOf("id=\"id\"") > -1);
+        assertTrue(results.indexOf("<option value=\"\">--</option>") > -1);
+        assertEquals(-1, results.indexOf("selected"));
+    }
+
+    public void testGradeSelectorAlternate() throws IOException {
+        PageContext pc = new MockPageContext();
+        MockJspWriter out = (MockJspWriter) pc.getOut();
+        GradeSelectorTagHandler tagHandler = new GradeSelectorTagHandler();
+        tagHandler.setJspContext(pc);
+        tagHandler.setUseAlternateNames(true);
+        tagHandler.setGrade(Grade.G_10);
+
+        tagHandler.doTag();
+
+        assertNotNull(out.getOutputBuffer());
+        String results = out.getOutputBuffer().toString();
+        assertNotNull(results);
+        assertTrue(results.indexOf("<option value=\"10\" selected=\"selected\">10</option>") > -1);
+        assertTrue(results.indexOf("<option value=\"KG\">K</option>") > -1);
+    }
+
+    
 }

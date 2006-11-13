@@ -112,7 +112,7 @@ public class GradeSelectorTagHandler extends SimpleTagSupport {
         out.println(">");
 
         if (_useNoGrade) {
-            out.println("<option value=\"\"");
+            out.print("<option value=\"\"");
             out.println(">" + _noGradeLabel +"</option>");
         }
 
@@ -122,10 +122,10 @@ public class GradeSelectorTagHandler extends SimpleTagSupport {
             if (grades.contains(grade)) {
                 out.print("<option value=\"");
                 out.print(grade.getName());
-                out.print("\" ");
+                out.print("\"");
 
                 if (ObjectUtils.equals(_grade, grade)) {
-                    out.print(" selected='selected' ");
+                    out.print(" selected=\"selected\"");
                 }
                 out.print(">");
 
