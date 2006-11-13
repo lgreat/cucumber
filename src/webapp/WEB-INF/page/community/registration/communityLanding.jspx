@@ -102,7 +102,7 @@
 
       <h2 class="intro">Top discussions</h2>
       <ul class="articleList">
-          <li><gsweb:toCommunity targetLink="/.598dcc7e">Choosing a school - discussion</gsweb:toCommunity></li>
+          <li><gsweb:toCommunity targetLink="/loc.598dcc7e">Choosing a school - discussion</gsweb:toCommunity></li>
       </ul>
 
       <hr/>
