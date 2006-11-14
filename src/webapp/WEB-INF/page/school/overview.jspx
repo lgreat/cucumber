@@ -65,7 +65,8 @@ table#sky td {
 }
 
 table.box_ad {
-    height: 100%;
+    width: 315px;
+    height: 250px;
 }
 
 table.box_ad td {
