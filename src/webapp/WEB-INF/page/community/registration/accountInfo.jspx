@@ -25,7 +25,6 @@
               display: block;
               float: left;
               width: 350px;
-              height: 60px;
           }
 
           div.box a, div.box a:link, div.box a:visited,
@@ -49,7 +48,7 @@
 
           div.text {
               padding-top: 10px;
-              clear: left;
+              clear: both;
           }
 
           div.messageBox {
@@ -103,23 +102,48 @@
           <div class="link">
               <link:newsletterManagement email="${user.email}">Manage newsletter subscriptions</link:newsletterManagement>
           </div>
+          <div class="text">
+              Sample text to take up space until real text is written by
+              someone who knows how to do such things.
+          </div>
       </div>
       <br class="clear"/>
 
       <div class="box">
           <div class="title">Password</div>
           <div class="link"><link:resetPassword>Edit password</link:resetPassword></div>
+          <div class="text">
+              Sample text to take up space until real text is written by
+              someone who knows how to do such things.
+          </div>
       </div>
 
       <div class="box">
           <div class="title">My saved schools</div>
           <div class="link"><link:mySchoolList>Manage my saved schools</link:mySchoolList></div>
+          <div class="text">
+              Sample text to take up space until real text is written by
+              someone who knows how to do such things.
+          </div>
       </div>
       <br class="clear"/>
 
       <div class="box">
           <div class="title">Photo</div>
-          <div class="link"><gsweb:toCommunity targetLink="/txPictureSetUser">Change photo</gsweb:toCommunity></div>
+          <div class="link"><gsweb:toCommunity targetLink="/cmd.txPictureSetUser">Change photo</gsweb:toCommunity></div>
+          <div class="text">
+              Sample text to take up space until real text is written by
+              someone who knows how to do such things.
+          </div>
+      </div>
+
+      <div class="box">
+          <div class="title">Email Notification Settings</div>
+          <div class="link"><gsweb:toCommunity targetLink="/cmd.txSetEmailNotifications">Manage your email notification settings</gsweb:toCommunity></div>
+          <div class="text">
+              Change how often you receive email notifications
+              for discussion boards to which you are subscribed.
+          </div>
       </div>
 
       <br class="clear"/>
