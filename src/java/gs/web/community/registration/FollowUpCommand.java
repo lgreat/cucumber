@@ -29,6 +29,7 @@ public class FollowUpCommand {
     private String _recontact;
     private List _schools;
     private boolean _terms = true;
+    private String _redirect;
 
     public FollowUpCommand() {
         _user = new User();
@@ -40,6 +41,14 @@ public class FollowUpCommand {
         _cityNames = new ArrayList();
         _previousSchoolNames = new ArrayList();
         _subscriptions = new ArrayList();
+    }
+
+    public String getRedirect() {
+        return _redirect;
+    }
+
+    public void setRedirect(String redirect) {
+        _redirect = redirect;
     }
 
     public User getUser() {

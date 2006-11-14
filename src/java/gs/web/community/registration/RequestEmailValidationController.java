@@ -44,9 +44,8 @@ public class RequestEmailValidationController extends AbstractController {
         userCommand.setUser(user);
 
         if (user == null || user.isPasswordEmpty()) {
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null);
             // get registration form to auto fill in email
-            builder.addParameter("email", email);
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, email);
             String href = builder.asAnchor(request, "Register here").asATag();
 
             model.put("message", "You are not a member yet. " + href + ".");

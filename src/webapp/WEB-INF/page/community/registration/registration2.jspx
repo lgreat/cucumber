@@ -239,6 +239,10 @@
                 </c:otherwise>
             </c:choose>
 
+            <spring:bind path="followUpCmd.redirect">
+                <input type="hidden" name="redirect" value="${followUpCmd.redirect}"/>
+            </spring:bind>
+
             <input class="submit" type="submit" value="Join!" name="submit" id="submit"/>
             <br style="clear: left;"/>
         </gsweb:form>

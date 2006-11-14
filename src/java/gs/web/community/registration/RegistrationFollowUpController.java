@@ -336,7 +336,11 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         }
 
         PageHelper.setMemberAuthorized(request, response, user);
-        mAndV.setViewName(getSuccessView());
+        if (StringUtils.isNotEmpty(fupCommand.getRedirect())) {
+            mAndV.setViewName("redirect:" + fupCommand.getRedirect());
+        } else {
+            mAndV.setViewName(getSuccessView());
+        }
 
         return mAndV;
     }

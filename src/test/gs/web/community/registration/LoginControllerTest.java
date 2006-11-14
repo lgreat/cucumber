@@ -50,9 +50,8 @@ public class LoginControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
         _userControl.verify();
         assertFalse(errors.hasErrors());
-        UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null);
-        builder.addParameter("email", user.getEmail());
-        builder.addParameter("redirect", LoginController.DEFAULT_REDIRECT_URL);
+        UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null,
+                user.getEmail(), LoginController.DEFAULT_REDIRECT_URL);
         String redirectUrl = "redirect:" + builder.asFullUrl(getRequest());
 
         assertEquals(redirectUrl, mAndV.getViewName());

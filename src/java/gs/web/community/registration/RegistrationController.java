@@ -170,6 +170,9 @@ public class RegistrationController extends SimpleFormController implements Read
             if (_requireEmailValidation) {
                 mAndV.getModel().put("email", user.getEmail());
             }
+            if (StringUtils.isNotEmpty(userCommand.getRedirectUrl())) {
+                mAndV.getModel().put("redirect", userCommand.getRedirectUrl());
+            }
             // mAndV.getModel().put("followUpCmd", fupCommand);
             mAndV.getModel().put("id", user.getId());
         } else {
@@ -184,7 +187,11 @@ public class RegistrationController extends SimpleFormController implements Read
                 }
             }
             PageHelper.setMemberAuthorized(request, response, user);
-            mAndV.setViewName(getCompleteView());
+            if (StringUtils.isNotEmpty(userCommand.getRedirectUrl())) {
+                mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
+            } else {
+                mAndV.setViewName(getCompleteView());
+            }
         }
 
         // generate secure hash so if the followup profile page is submitted, we know who it is

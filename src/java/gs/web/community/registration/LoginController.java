@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.9 2006/11/03 23:47:21 aroy Exp $
+ * $Id: LoginController.java,v 1.10 2006/11/14 22:17:54 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -84,9 +84,11 @@ public class LoginController extends SimpleFormController {
         User user = getUserDao().findUserFromEmailIfExists(loginCommand.getEmail());
 
         if (user == null) {
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null);
             // get registration form to auto fill in email
-            builder.addParameter("email", loginCommand.getEmail());
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, loginCommand.getEmail());
+            if (StringUtils.isNotEmpty(loginCommand.getRedirect())) {
+                builder.addParameter("redirect", loginCommand.getRedirect());
+            }
             String href = builder.asAnchor(request, "Register here.").asATag();
             errors.reject(USER_DOES_NOT_EXIST_ERROR_CODE + "_with_link", "You're not a member yet. " + href);
         } else if (user.isEmailProvisional()) {
@@ -136,9 +138,8 @@ public class LoginController extends SimpleFormController {
         if (user.isPasswordEmpty()) {
             // TODO: how to deal with this case and authentication
             // for users who need passwords, send them to the registration page
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null);
-            builder.addParameter("email", email);
-            builder.addParameter("redirect", loginCommand.getRedirect());
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null,
+                    email, loginCommand.getRedirect());
             redirectUrl = builder.asFullUrl(request);
         } else {
             if (StringUtils.isEmpty(loginCommand.getRedirect())) {

@@ -3,16 +3,31 @@ package gs.web.jsp.link;
 import gs.web.util.UrlBuilder;
 
 /**
- * Created by IntelliJ IDEA.
- * User: UrbanaSoft
- * Date: Jul 3, 2006
- * Time: 3:15:27 PM
- * To change this template use File | Settings | File Templates.
+ * Provides link handling for links to the main registration page.
+ *
+ * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class RegistrationTagHandler extends LinkTagHandler {
+    private String _redirect;
+    private String _email;
 
     protected UrlBuilder createUrlBuilder() {
-        UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, getState());
-        return builder;
+        return new UrlBuilder(UrlBuilder.REGISTRATION, null, _email, _redirect);
+    }
+
+    public String getEmail() {
+        return _email;
+    }
+
+    public void setEmail(String email) {
+        _email = email;
+    }
+
+    public String getRedirect() {
+        return _redirect;
+    }
+
+    public void setRedirect(String redirect) {
+        _redirect = redirect;
     }
 }

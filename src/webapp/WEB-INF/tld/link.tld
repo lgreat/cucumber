@@ -559,6 +559,20 @@
             <type>java.lang.String</type>
             <description>target window to open link in</description>
         </attribute>
+        <attribute>
+            <name>redirect</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>url to redirect to after registration</description>
+        </attribute>
+        <attribute>
+            <name>email</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Email address to pre-populate with on registration page</description>
+        </attribute>
     </tag>
     <tag>
         <name>forgotPassword</name>

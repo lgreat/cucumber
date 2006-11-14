@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.67 2006/11/09 20:01:53 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.68 2006/11/14 22:17:54 aroy Exp $
  */
 
 package gs.web.util;
@@ -409,6 +409,21 @@ public class UrlBuilder {
             }
         } else {
             throw new IllegalArgumentException("VPage unknown " + page);
+        }
+    }
+
+    public UrlBuilder(VPage page, State state, String email, String redirect) {
+        if (REGISTRATION.equals(page)) {
+            _perlPage = false;
+            if (email != null) {
+                setParameter("email", email);
+            }
+            if (redirect != null) {
+                setParameter("redirect", redirect);
+            }
+            _path = "/community/registration.page";
+        } else {
+            throw new IllegalArgumentException("VPage not valid for this constructor: " + page);
         }
     }
 

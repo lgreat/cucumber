@@ -46,7 +46,7 @@
                         with parents who are passionate about education!
                         <span class="strong">It's free!</span></span>
 
-                        <span class="join"><link:registration>JOIN!</link:registration></span>
+                        <span class="join"><link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}">JOIN!</link:registration></span>
                     </div>
                     <div class="existing">
                         <span class="title">Returning User?</span>

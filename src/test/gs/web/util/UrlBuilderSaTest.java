@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.54 2006/11/09 20:01:53 aroy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.55 2006/11/14 22:17:54 aroy Exp $
  */
 
 package gs.web.util;
@@ -336,6 +336,10 @@ public class UrlBuilderSaTest extends TestCase {
 
         builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, null);
         assertEquals("/community/registration.page", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, "email@address.org");
+        assertEquals("/community/registration.page?email=email%40address.org", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, null, "redirect");
+        assertEquals("/community/registration.page?redirect=redirect", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.REGISTRATION_VALIDATION, null, "myParam");
         assertEquals("/community/registrationConfirm.page?id=myParam", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.REGISTRATION_REMOVE, null, "myParam2");

@@ -60,10 +60,7 @@ public class RegistrationConfirmController extends AbstractController implements
     }
 
     protected ModelAndView redirectToRegistration(HttpServletRequest request, String email) {
-        UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null);
-        if (email != null) {
-            builder.addParameter("email", email);
-        }
+        UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, email);
         String redirectUrl = builder.asFullUrl(request);
         ModelAndView mAndV = new ModelAndView();
         mAndV.setViewName("redirect:" + redirectUrl);

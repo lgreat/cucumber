@@ -66,8 +66,8 @@ public class ForgotPasswordController extends SimpleFormController {
                     "validated your email address yet. To validate your email address, follow the " +
                     "instructions in the email sent to you " + href2 + ".");
         } else if (user.isPasswordEmpty()) {
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null);
-            builder.addParameter("email", userCommand.getEmail());
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null,
+                    userCommand.getEmail());
             String msg = "You haven't chosen a password yet. To choose a password, please " +
                     builder.asAnchor(request, "click here").asATag();
             errors.rejectValue("email", "password_empty", msg);
