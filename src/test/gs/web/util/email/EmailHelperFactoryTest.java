@@ -31,12 +31,15 @@ public class EmailHelperFactoryTest extends BaseTestCase {
 
     public void testInjection() {
         EmailHelper helper = _factory.getEmailHelper();
+        // no mail sender since the factory was instantiated outside of Spring
         assertNull(helper.getMailSender());
 
         MockJavaMailSender _mailSender = new MockJavaMailSender();
+        // set the mail sender
         _factory.setMailSender(_mailSender);
         assertEquals(_mailSender, _factory.getMailSender());
 
+        // now we should see the mail sender passed on to the helper
         helper = _factory.getEmailHelper();
         assertNotNull(helper.getMailSender());
         assertEquals(_mailSender, helper.getMailSender());

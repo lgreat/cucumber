@@ -6,7 +6,8 @@ package gs.web.util.email;
 import org.springframework.mail.javamail.JavaMailSender;
 
 /**
- * Provides ...
+ * Provides access to the EmailHelper. Since EmailHelper was not easily implemented as a bean,
+ * this class provides easy Spring access (and injection of the mail sender).
  *
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
