@@ -296,10 +296,9 @@ div#bottomAdd {
 	width: 264px;
 }
 
-a#bottomAddLink  {
-	font-size: 11px;
-	color: #0033CC;
-	text-decoration: underline;
+div#bottomAdd a {
+	color: #39a;
+	text-decoration: none;
 }
 
 h2#adBlurb {
