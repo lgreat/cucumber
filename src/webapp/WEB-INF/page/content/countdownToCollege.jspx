@@ -103,7 +103,9 @@
     <ul class="plain">
         <gsweb:articlelink articleId="197" wrappingElement="li"/>
         <gsweb:articlelink articleId="96" wrappingElement="li"/>
-        <gsweb:articlelink articleId="487" wrappingElement="li"/>
+        <li style="background-image:none;text-align:right; padding-top:4px;">
+            <gsml:a href="/content/schoolChoiceCenter.page">See more &gt;</gsml:a>
+        </li>
     </ul>
 
     <h3 id="healthyKids">Healthy Kids</h3>
@@ -210,9 +212,9 @@
                 <td>
                     <content:collegeQuickFinder/>
                 </td>
-                <td>
-                    <ul class="quickFindLinks">
-                        <li><a href="http://www.collegeboard.com/parents/csearch/know-the-options/38529.html"
+                <td valign="top">
+                    <ul class="quickFindLinks" style="padding-top:15px;">
+                        <li style="padding-top:0;margin-top:0"><a href="http://www.collegeboard.com/parents/csearch/know-the-options/38529.html"
                                target="_blank">Hidden Costs of a College Education</a></li>
                         <li><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/36990.html"
                                target="_blank">Are Four Years of College Financing Enough?</a></li>
