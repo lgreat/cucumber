@@ -15,7 +15,7 @@ import org.easymock.MockControl;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Provides ...
+ * Provides testing for the controller that changes a user's email address.
  *
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
@@ -41,8 +41,12 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         command.setNewEmail("email@address.org");
         command.setConfirmNewEmail("email@address.org");
 
+        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists("email@address.org"), null);
+        _userControl.replay();
+
         assertFalse(errors.hasErrors());
         _controller.onBindAndValidate(getRequest(), command, errors);
+        _userControl.verify();
         assertFalse(errors.hasErrors());
     }
 
@@ -98,5 +102,40 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
         assertEquals("oldEmail@address.org", user.getEmail());
         assertEquals(_controller.getSuccessView(), mAndV.getViewName());
+    }
+
+    public void testEmailLength() throws NoSuchAlgorithmException {
+        ChangeEmailController.ChangeEmailCommand command = new ChangeEmailController.ChangeEmailCommand();
+        BindException errors = new BindException(command, "emailCmd");
+
+        String email = "";
+        for (int x=0; x < 117; x++) {
+            email += (x % 10);
+        }
+        email += "@address.org";
+        command.setNewEmail(email);
+        command.setConfirmNewEmail(email);
+
+        assertFalse(errors.hasErrors());
+        _controller.onBindAndValidate(getRequest(), command, errors);
+        assertTrue(errors.hasErrors());
+    }
+
+    public void testUserExists() throws NoSuchAlgorithmException {
+        ChangeEmailController.ChangeEmailCommand command = new ChangeEmailController.ChangeEmailCommand();
+        BindException errors = new BindException(command, "emailCmd");
+
+        String email = "aroy@greatschools.net";
+        command.setNewEmail(email);
+        command.setConfirmNewEmail(email);
+
+        User user = new User();
+        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email), user);
+        _userControl.replay();
+
+        assertFalse(errors.hasErrors());
+        _controller.onBindAndValidate(getRequest(), command, errors);
+        _userControl.verify();
+        assertTrue(errors.hasErrors());
     }
 }

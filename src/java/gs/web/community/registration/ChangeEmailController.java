@@ -49,6 +49,20 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
         }
         ChangeEmailCommand command = (ChangeEmailCommand) objCommand;
 
+        if (command.getNewEmail().length() > 127) {
+            errors.rejectValue("newEmail", null,
+                    "We're sorry, your email must be less than 127 characters long");
+            return; // other errors are irrelevant
+        }
+
+        User user = _userDao.findUserFromEmailIfExists(command.getNewEmail());
+
+        if (user != null) {
+            errors.rejectValue("newEmail", null,
+                    "We're sorry, that email address is already in use");
+            return; // other errors are irrelevant
+        }
+
         if (!command.getConfirmNewEmail().equals(command.getNewEmail())) {
             errors.rejectValue("newEmail", null, NOT_MATCHING_ERROR);
         }
