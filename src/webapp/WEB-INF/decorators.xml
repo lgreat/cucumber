@@ -3,10 +3,6 @@
         NOTE: excludes have precendence over decorator patterns, so if a pattern is
         matched in both places, it will not be decorated
     -->
-
-    <decorator name="perlWrapper" page="perlWrapper.jsp">
-    </decorator>
-
     <decorator name="popupDecorator" page="popupDecorator.jspx">
         <pattern>/community/newsletters/popup/*</pattern>
         <pattern>/miniSelectAState.page*</pattern>
@@ -21,6 +17,7 @@
     <excludes>
         <!-- Regularly used pages that shouldn't be decorated -->
         <pattern>*/monitor.page*</pattern>
+        <pattern>*/batch.page*</pattern>
         <pattern>*/sorry.page*</pattern>
         <pattern>*/compareSchools.page*</pattern>
         <pattern>*/community/conversion/*</pattern>

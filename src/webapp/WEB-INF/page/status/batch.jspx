@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:display="urn:jsptld:http://displaytag.sf.net"
+        >
+    <jsp:directive.page import="gs.data.admin.batch.BatchLog"/>
+
+    <jsp:scriptlet>
+        request.setAttribute("decorator", new org.displaytag.decorator.TableDecorator() {
+            public String addRowClass() {
+                return ((BatchLog) getCurrentRowObject()).getSucceeded().booleanValue() ? null : "error";
+            }
+        });
+    </jsp:scriptlet>
+
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <jsp:directive.page contentType="text/html"/>
+
+    <head>
+        <title>GreatSchools GSWeb Status Page</title>
+        <gsml:url var="displayTagCss" value="/res/css/displaytag/displaytag.css"/>
+        <link rel="stylesheet" type="text/css" href="${displayTagCss}"></link>
+        <style type="text/css">
+
+        </style>
+    </head>
+
+    <body>
+    <h1>GSBatch Status Page</h1>
+
+    <c:if test="${!overview}"> 
+    <a href="batch.page">Home</a>
+    </c:if>
+
+    <display:table name="batchlogs" class="batchlogs" requestURI="batch.page"
+                   defaultsort="2" defaultorder="ascending" export="true" sort="list" pagesize="20" decorator="decorator">
+        <display:column property="id" title="ID" sortable="true"></display:column>
+        <display:column href="batch.page" paramId="name" paramProperty="name" property="name" title="Name" sortable="true"></display:column>
+        <display:column property="text" title="Text" sortable="true" maxLength="50"></display:column>
+        <display:column property="start" title="Started" sortable="true" sortProperty="start"
+                        decorator="gs.web.admin.news.NewsItemExpirationColumnDecorator"></display:column>
+        <display:column property="finish" title="Finished" sortable="true" sortProperty="finish"
+                        decorator="gs.web.admin.news.NewsItemExpirationColumnDecorator"></display:column>
+    </display:table>
+
+    </body>
+    </html>
+</jsp:root>
+

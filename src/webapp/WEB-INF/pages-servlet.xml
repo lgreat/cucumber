@@ -35,7 +35,7 @@
     <bean name="loginRequiredHandlerMapping" parent="defaultHandlerMapping"
           class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping" lazy-init="true">
         <property name="interceptors">
-             <!--Use merge="true" to add an interceptor to the parents list  -->
+            <!--Use merge="true" to add an interceptor to the parents list  -->
             <list merge="true">
                 <bean class="gs.web.util.LoginRequiredInterceptor"/>
             </list>
@@ -234,6 +234,13 @@
         </property>
         <property name="searcher">
             <ref bean="searcher"/>
+        </property>
+    </bean>
+
+    <bean name="/status/batch.page"
+          class="gs.web.status.BatchLogController" autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>status/batch</value>
         </property>
     </bean>
     <!-- Status end -->
@@ -716,7 +723,7 @@
         </property>
     </bean>
     <!--End Myschool stats newsletter popups -->
-    
+
     <!--Begin Registration pages -->
     <bean name="/community/registration.page"
           class="gs.web.community.registration.RegistrationController"
