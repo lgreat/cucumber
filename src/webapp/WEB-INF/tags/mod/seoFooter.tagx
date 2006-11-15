@@ -199,7 +199,7 @@
     <link:districts state="WI">Wisconsin districts</link:districts>,
     <link:districts state="WY">Wyoming districts</link:districts>.
 </div>
-<a name="bottom"> </a>
+   <a name="bottom"><span style="display:none;"></span></a>
 </div>
 
 <!-- Crawlers such as Google and Yahoo always have http in their user agent string -->

@@ -137,7 +137,7 @@
     <a href="/city/Colorado_Springs/CO">Colorado Springs schools</a>,
     <a href="/city/Arlington/TX">Arlington schools</a>.
 </div>
-<a name="bottom"> </a>
+    <a name="bottom"><span style="display:none;"></span></a>
 </div>
 
 <!-- Crawlers such as Google and Yahoo always have http in their user agent string -->
