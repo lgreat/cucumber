@@ -1,6 +1,7 @@
 // Take content in a div with id="defer-xyz" and move it to a div with id="xyz"
 function relocateDeferredContent() {
-    var divs=document.getElementsByTagName("div");
+    var dc=document.getElementById("deferredContent");
+    var divs=dc.getElementsByTagName("div");
     var replacements=new Array();
     for(var i=0;i<divs.length;i++){
         var deferredContent = divs[i];
