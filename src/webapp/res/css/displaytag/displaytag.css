@@ -185,3 +185,7 @@ tr.error td {
 	color: red;
     font-weight: bold;
 }
+tr.running td {
+	color: blue;
+    font-weight: bold;
+}
