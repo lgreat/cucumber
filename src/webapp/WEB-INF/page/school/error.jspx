@@ -1,0 +1,23 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          version="2.0">
+<html>
+<jsp:directive.page contentType="text/html"/>
+<head>
+    <style type="text/css">
+        div#error {
+            text-align:center;
+            padding:90px;
+            color:red;
+            font-weight:bold;
+        }
+    </style>
+    <title>GreatSchools.net - Error getting school</title>
+</head>
+<body>
+<div id="error">
+    <span class="errorMessage">Could not find school.</span>
+</div>
+</body>
+</html>
+</jsp:root>

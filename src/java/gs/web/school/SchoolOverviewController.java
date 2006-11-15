@@ -1,27 +1,23 @@
  package gs.web.school;
 
-import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.lang.StringUtils;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
-import gs.data.state.State;
-import gs.web.util.context.SessionContextUtil;
-
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 
 /**
+ * This controller builds handles requests for the School Profile Overview page:
+ * http://www.greatschools.net/school/overview.page?state=tx&id=10683
+ * 
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
-public class SchoolOverviewController extends AbstractController {
+public class SchoolOverviewController extends AbstractSchoolController {
 
     /** Spring Bean id */
     public static final String BEAN_ID = "/school/overview.page";
@@ -30,20 +26,26 @@ public class SchoolOverviewController extends AbstractController {
     public static final int REVIEW_LENGTH = 100;
 
     private String _viewName;
-    private ISchoolDao _schoolDao;
     private IReviewDao _reviewDao;
 
+    /**
+     * This method must be called using the standard Spring Controller workflow, that
+     * is, it must be called by the superclass handleRequest() method in order to
+     * assure that a valid school is available with the getSchool() method.
+     *
+     * @param request provided by servlet container
+     * @param response provided by servlet container
+     * @return a ModelAndView
+     * @throws Exception
+     */
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
         Map model = new HashMap();
 
         String schoolIdStr = request.getParameter("id");
         if (StringUtils.isNumeric(schoolIdStr)) {
-            Integer schoolId = new Integer(schoolIdStr);
-            State state = SessionContextUtil.getSessionContext(request).getState();
-            School school = _schoolDao.getSchoolById(state, schoolId);
+            School school = getSchool();
             model.put("school", school);
-
             List reviews = _reviewDao.getPublishedReviewsBySchool(school);
             if (reviews != null && reviews.size() > 0) {
                 model.put("reviewCount", new Integer(reviews.size()));
@@ -62,14 +64,6 @@ public class SchoolOverviewController extends AbstractController {
 
     public void setViewName(String viewName) {
         _viewName = viewName;
-    }
-
-    public ISchoolDao getSchoolDao() {
-        return _schoolDao;
-    }
-
-    public void setSchoolDao(ISchoolDao schoolDao) {
-        _schoolDao = schoolDao;
     }
 
     public IReviewDao getReviewDao() {

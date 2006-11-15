@@ -18,14 +18,13 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         _controller = (SchoolOverviewController)getApplicationContext().getBean(SchoolOverviewController.BEAN_ID);
     }
 
-    public void testHandleRequestInternal() throws Exception {
+    public void testHandleRequest() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
-        ModelAndView mAndV = _controller.handleRequestInternal(request, getResponse());
+        request.setMethod("GET");
+        ModelAndView mAndV = _controller.handleRequest(request, getResponse());
         School school = (School)mAndV.getModel().get("school");
         assertEquals("Alameda High School", school.getName());
-
-        //Integer reviewCount = (Integer)mAndV.getModel().get("reviewCount");
     }
 }

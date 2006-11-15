@@ -136,6 +136,8 @@
 #schoolProfile #printEmail{
     font-size: 11px;
     text-align:right;
+    margin-right:5px;
+    margin-bottom:2px;
 }
 
 #schoolProfile #printEmail a {

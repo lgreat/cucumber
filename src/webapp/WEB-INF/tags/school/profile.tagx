@@ -95,12 +95,17 @@
                             <h1>${school.name}</h1>
                             <c:if test="${tab ne 'authorizer'}">
                             <div id="school_info">
-                                <c:if test="${not empty school.gradeLevels}">Grades: ${school.gradeLevels}<br/></c:if>
+                                <c:choose>
+                                    <c:when test="${(not empty school.gradeLevels) and ('' ne school.gradeLevels) and ('ungraded' ne school.gradeLevels)}">
+                                        Grades: ${school.gradeLevels}<br/>
+                                    </c:when>
+                                    <c:otherwise>Grades: n/a<br/></c:otherwise>
+                                </c:choose>
 
                                 Type: ${school.type.schoolTypeName} <br/>
                                 Enrollment:
                                 <c:choose>
-                                    <c:when test="${not empty school.enrollment}">
+                                    <c:when test="${(not empty school.enrollment) and (school.enrollment > 0) }">
                                         ${school.enrollment}
                                     </c:when>
                                     <c:otherwise>

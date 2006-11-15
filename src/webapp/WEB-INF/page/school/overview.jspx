@@ -155,6 +155,7 @@ table.module1 td a:hover {
 
     table.module1container {
         border-spacing:8px;
+        margin-left:4px;
     }
 
     table.module1container tr td.mod {
@@ -185,7 +186,7 @@ table.module1 td a:hover {
                         <c:choose>
                             <c:when test="${school.type.schoolTypeName == 'private'}">
                                 <b>Teacher/Student Stats</b><br/>
-                                Student-teacher ratio and <a href="/cgi-bin/$LCSTATE/otherprivate/${sid}" style="text-decoration:none;" class="nolink">ethnicity breakdown for ${school.name}&#160;&#160;</a>
+                                Student-teacher ratio and <a href="/cgi-bin/$LCSTATE/otherprivate/${sid}" style="text-decoration:none;" class="nolink">ethnicity breakdown for ${school.name}.&#160;&#160;</a>
                                 <gsml:a href="/cgi-bin/$LCSTATE/otherprivate/${sid}">
                                     <img src="/res/img/school/more.gif"
                                          class="moreImage"
@@ -194,7 +195,7 @@ table.module1 td a:hover {
                                          onmouseout="this.src='/res/img/school/more.gif';"/>
                                 </gsml:a> <br/><br/>
                                 <b>Quick Facts</b><br/>
-                                Facts about the number of school days per year, library facility, and affiliation at ${school.name}&#160;&#160;
+                                Facts about the number of school days per year, library facility, and affiliation at ${school.name}.&#160;&#160;
                                 <gsml:a href="/modperl/quickprivate/$LCSTATE/${sid}">
                                     <img src="/res/img/school/more.gif"
                                          class="moreImage"
@@ -205,7 +206,7 @@ table.module1 td a:hover {
                             </c:when>
                             <c:otherwise>
                                 <b>Test Scores</b><br/>
-                                State standardized <a href="/modperl/achievement/${state}/${sid}" style="text-decoration:none;" class="nolink">test scores for ${school.name}&#160;&#160;</a>
+                                State standardized <a href="/modperl/achievement/${state}/${sid}" style="text-decoration:none;" class="nolink">test scores for ${school.name}.&#160;&#160;</a>
                                 <gsml:a href="/modperl/achievement/${state}/${sid}">
                                     <img src="/res/img/school/more.gif"
                                          class="moreImage"
@@ -215,7 +216,7 @@ table.module1 td a:hover {
                                 </gsml:a> <br/><br/>
 
                                 <b>Teacher Stats</b><br/>
-                                Learn about classroom environment with <a href="/cgi-bin/${state}/other/${sid}" style="text-decoration:none;" class="nolink">teacher stats for ${school.name}&#160;&#160;</a>
+                                Learn about classroom environment with <a href="/cgi-bin/${state}/other/${sid}" style="text-decoration:none;" class="nolink">teacher stats for ${school.name}.&#160;&#160;</a>
                                 <gsml:a href="/cgi-bin/${state}/other/${sid}">
                                     <img src="/res/img/school/more.gif"
                                          class="moreImage"
@@ -224,7 +225,7 @@ table.module1 td a:hover {
                                          onmouseout="this.src='/res/img/school/more.gif';"/>
                                 </gsml:a> <br/><br/>
                                 <b>Student Stats</b><br/>
-                                Understand student ethnicity, economic level and more with <a href="/cgi-bin/${state}/other/${sid}" style="text-decoration:none;" class="nolink">student stats for ${school.name}&#160;&#160;</a>
+                                Understand student ethnicity, economic level and more with <a href="/cgi-bin/${state}/other/${sid}" style="text-decoration:none;" class="nolink">student stats for ${school.name}.&#160;&#160;</a>
 
                                 <gsml:a href="/cgi-bin/${state}/other/${sid}">
                                     <img src="/res/img/school/more.gif"

@@ -890,7 +890,6 @@
           class="gs.web.util.RedirectController"
           autowire="byName" lazy-init="true"/>
 
-
     <bean name="/school/rating.page"
           class="gs.web.test.rating.RatingsController"
           autowire="byName" lazy-init="true">
@@ -904,6 +903,7 @@
             </list>
         </property>
     </bean>
+    
     <bean name="/school/rating2.page"
           class="gs.web.test.rating.RatingsController"
           autowire="byName" lazy-init="true">
@@ -916,6 +916,14 @@
                 <ref bean="stateValidator"/>
                 <ref bean="schoolIdValidator"/>
             </list>
+        </property>
+    </bean>
+
+    <bean name="/school/error.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>school/error</value>
         </property>
     </bean>
 
