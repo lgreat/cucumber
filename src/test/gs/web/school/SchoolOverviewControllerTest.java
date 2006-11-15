@@ -26,5 +26,7 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.handleRequest(request, getResponse());
         School school = (School)mAndV.getModel().get("school");
         assertEquals("Alameda High School", school.getName());
+        assertEquals(new Integer(2), mAndV.getModel().get("reviewCount"));
+        assertTrue(((String)mAndV.getModel().get("reviewText")).indexOf("My boys have") > -1);
     }
 }
