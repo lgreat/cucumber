@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.26 2006/11/08 20:05:55 dlee Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.28 2006/11/15 23:35:47 chriskimm Exp $
  */
 package gs.web.content;
 
@@ -101,7 +101,7 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         if (_flaggedIfNew && article.isNew()) {
             String img = article.isSpanish() ? "/res/img/content/nuevo.gif" : "/res/img/content/icon_newarticle.gif";
             img = _urlUtil.buildUrl(img, request);
-            b.append("<img src=\"" + img + "\" alt=\"new\" class=\"newarticle\">&nbsp;");
+            b.append("<img src=\"" + img + "\" alt=\"new\" class=\"newarticle\"/>&nbsp;");
         }
 
         b.append("<a href=\"");
