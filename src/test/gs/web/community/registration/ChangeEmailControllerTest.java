@@ -32,6 +32,10 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         _userDao = (IUserDao) _userControl.getMock();
 
         _controller.setUserDao(_userDao);
+
+        _controller.setRpcServerUrl
+                ("http://aroy.dev.greatschools.net/cgi-bin/xmlrpc/changeEmail.cgi");
+        _controller.setTimeOutMs(5000);
     }
 
     public void testValidate() throws Exception {
@@ -137,5 +141,60 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         _controller.onBindAndValidate(getRequest(), command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
+    }
+
+    public void testNotifyCommunity() {
+        User user = new User();
+        user.setEmail("aroy@greatschools.net");
+        user.setId(new Integer(123));
+        
+        String email = _controller.notifyCommunity(user);
+        assertNotNull(email);
+        assertEquals("aroy+1@greatschools.net", email);
+    }
+
+    public void testNotifyCommunityWithRpcFault() {
+        User user = new User();
+        user.setEmail("aroy@greatschools.net");
+        user.setId(new Integer(123));
+
+        _controller.setRpcServerUrl(_controller.getRpcServerUrl() + "?test=error");
+
+        String email = _controller.notifyCommunity(user);
+        assertNull(email);
+    }
+
+    public void testNotifyCommunityWithUnexpectedError() {
+        User user = new User();
+        user.setEmail("aroy@greatschools.net");
+        user.setId(new Integer(123));
+
+        _controller.setRpcServerUrl(_controller.getRpcServerUrl() + "?test=errorUnexpected");
+
+        String email = _controller.notifyCommunity(user);
+        assertNull(email);
+    }
+
+    public void testNotifyCommunityWithExpectedError() {
+        User user = new User();
+        user.setEmail("aroy@greatschools.net");
+        user.setId(new Integer(123));
+
+        _controller.setRpcServerUrl(_controller.getRpcServerUrl() + "?test=errorNoUser");
+
+        String email = _controller.notifyCommunity(user);
+        assertNotNull(email);
+        assertEquals("aroy@greatschools.net", email);
+    }
+
+    public void testNotifyCommunityWithBlankResponse() {
+        User user = new User();
+        user.setEmail("aroy@greatschools.net");
+        user.setId(new Integer(123));
+
+        _controller.setRpcServerUrl(_controller.getRpcServerUrl() + "?test=blank");
+
+        String email = _controller.notifyCommunity(user);
+        assertNull(email);
     }
 }

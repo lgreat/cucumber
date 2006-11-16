@@ -827,6 +827,8 @@
         <property name="commandName" value="emailCmd"/>
         <property name="formView" value="/community/registration/changeEmail"/>
         <property name="successView" value="redirect:/community/accountInfo.page"/>
+        <property name="rpcServerUrl" value="http://community.greatschools.net/RPC2"/>
+        <property name="timeOutMs" value="10000"/>
         <property name="validators">
             <list>
                 <ref local="emailValidator"/>

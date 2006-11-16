@@ -5,6 +5,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.BindException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
+import org.apache.xmlrpc.client.TimingOutCallback;
+import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+import org.apache.xmlrpc.client.XmlRpcClient;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.web.util.ReadWriteController;
@@ -15,6 +19,8 @@ import gs.web.util.context.SessionContextUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
+import java.net.URL;
+import java.net.MalformedURLException;
 
 /**
  * Provides backing for the change email form, that allows a list_member to update their
@@ -28,6 +34,8 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
     public static final String NOT_MATCHING_ERROR = "Please enter the same email address into both fields";
 
     private IUserDao _userDao;
+    private String _rpcServerUrl;
+    private int _timeOutMs;
 
     protected Object formBackingObject(HttpServletRequest request) {
         return new ChangeEmailCommand();
@@ -81,11 +89,58 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
             user.setEmail(command.getNewEmail());
             _userDao.updateUser(user);
             PageHelper.setMemberAuthorized(request, response, user);
+            notifyCommunity(user);
             mAndV.getModel().put("message", "Your email has been updated to " + user.getEmail());
         }
 
         mAndV.setViewName(getSuccessView());
         return mAndV;
+    }
+
+    protected String notifyCommunity(User user) {
+        String email = null;
+        //times out after _timeOutMs milliseconds
+        TimingOutCallback callback = new TimingOutCallback(_timeOutMs);
+        XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
+        try {
+            config.setServerURL(new URL(getRpcServerUrl()));
+            config.setEnabledForExtensions(false);
+        } catch (MalformedURLException e) {
+            _log.error("Error notifying community of changed email address for user " + user +
+                    ", error=" + e);
+        }
+
+        XmlRpcClient client = new XmlRpcClient();
+        client.setConfig(config);
+
+        Object[] params = new Object[]{
+                user.getId(), // id to identify user
+                user.getEmail() // new email address to update user with
+        };
+
+        String result;
+
+        try {
+            client.executeAsync("gsUpdateEmail", params, callback);
+            result = (String) callback.waitForResponse();
+            _log.info("gsUpdateEmail result: " + result);
+            if (StringUtils.isBlank(result)) {
+                _log.error("Error notifying community of changed email address for user " + user +
+                        ", error=empty response");
+            } else if (result.startsWith("error") && !result.startsWith("error: user not found")) {
+                _log.error("Error notifying community of changed email address for user " + user +
+                        ", error=" + result);
+            } else if (result.startsWith("error: user not found")) {
+                // we don't care if the user exists on their end or not
+                email = user.getEmail(); // fake a success here
+            } else {
+                email = result;
+            }
+        } catch (Throwable t) {
+            _log.error("Error notifying community of changed email address for user " + user +
+                    ", error=" + t);
+        }
+        return email;
     }
 
     public IUserDao getUserDao() {
@@ -94,6 +149,22 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public String getRpcServerUrl() {
+        return _rpcServerUrl;
+    }
+
+    public void setRpcServerUrl(String rpcServerUrl) {
+        _rpcServerUrl = rpcServerUrl;
+    }
+
+    public int getTimeOutMs() {
+        return _timeOutMs;
+    }
+
+    public void setTimeOutMs(int timeOutMs) {
+        _timeOutMs = timeOutMs;
     }
 
     public static class ChangeEmailCommand implements EmailValidator.IEmail {
