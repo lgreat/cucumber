@@ -54,13 +54,6 @@
         </property>
     </bean>
 
-    <bean name="/footer/searchEngine.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>/footer/searchEngine</value>
-        </property>
-    </bean>
-
     <bean name="/state/topDistricts.module"
           class="gs.web.state.TopDistrictsController"
           autowire="byName">
