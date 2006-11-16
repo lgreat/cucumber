@@ -35,60 +35,71 @@
                 </td>
                 <td class="content">
 
-                    <div class="new">
-                        <span class="title">New User?</span>
+                    <table>
+                        <tr>
+                            <td class="new">
+                                <span class="title">New User?</span>
 
-                        <span class="intro">Join our community!</span>
+                                <span class="intro">Join our community!</span>
 
-                        <gsml:img src="/res/img/community/mom_daughter.jpg" alt="Mom and daughter"/>
+                                <gsml:img src="/res/img/community/mom_daughter.jpg" alt="Mom and daughter"/>
 
-                        <span class="joinText">Join the GreatSchools community and connect
-                        with parents who are passionate about education!
-                        <span class="strong">It's free!</span></span>
+                                <span class="joinText">Join the GreatSchools community and connect
+                                with parents who are passionate about education!
+                                <span class="strong">It's free!</span></span>
 
-                        <span class="join"><link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}">JOIN!</link:registration></span>
-                    </div>
-                    <div class="existing">
-                        <span class="title">Returning User?</span>
-                        <br style="clear: right;"/>
-                        <span class="intro">Yes! I'm already a member</span>
+                                <span class="join"><link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}">JOIN!</link:registration></span>
+                            </td>
+                            <td class="existing">
+                                <span class="title">Returning User?</span>
+                                <br style="clear: right;"/>
+                                <span class="intro">Yes! I'm already a member</span>
 
-                        <gsweb:form action="/community/loginOrRegister.page" method="post">
-
-                            <gsml:errorMessage command="loginCmd"/>
-
-                            <label class="form">Email address</label>
-                            <spring:bind path="loginCmd.email">
-                                <input type="text" name="${status.expression}" value="${status.value}" size="30" class="form"/>
-                            </spring:bind>
-
-                            <br style="clear: right;"/>
-
-                            <label class="form">Password</label>
-                            <spring:bind path="loginCmd.password">
-                                <input type="password" name="${status.expression}" value="${status.value}" size="15" class="form"/>
-                            </spring:bind>
-
-                            <spring:bind path="loginCmd.redirect">
-                                <input type="hidden" name="${status.expression}" value="${status.value}"/>
-                            </spring:bind>
-
-                            <br style="clear: right;"/>
-
-                            <input class="submit" type="submit" value="GO"/>
-
-                            <br style="clear: right;"/>
-
-                            <span class="forgotPassword">
-                                <c:if test="${loginCmd.email != null and loginCmd.email != ''}">
-                                    <link:forgotPassword email="${loginCmd.email}">Forgot password?</link:forgotPassword>
+                                <c:if test="${param.message ne null and param.message gt ''}">
+                                    <div class="messageBox">
+                                        <span class="message">${param.message}</span>
+                                    </div>
+                                    <br style="clear: right"/>
                                 </c:if>
-                                <c:if test="${loginCmd.email == null or loginCmd.email == ''}">
-                                    <link:forgotPassword>Forgot password?</link:forgotPassword>
-                                </c:if>
-                            </span>
-                        </gsweb:form>
-                    </div>
+
+                                <gsweb:form action="/community/loginOrRegister.page" method="post">
+
+                                    <gsml:errorMessage command="loginCmd"/>
+
+                                    <label class="form">Email address</label>
+                                    <spring:bind path="loginCmd.email">
+                                        <input type="text" name="${status.expression}" value="${status.value}" size="30" class="form"/>
+                                    </spring:bind>
+
+                                    <br style="clear: right;"/>
+
+                                    <label class="form">Password</label>
+                                    <spring:bind path="loginCmd.password">
+                                        <input type="password" name="${status.expression}" value="${status.value}" size="15" class="form"/>
+                                    </spring:bind>
+
+                                    <spring:bind path="loginCmd.redirect">
+                                        <input type="hidden" name="${status.expression}" value="${status.value}"/>
+                                    </spring:bind>
+
+                                    <br style="clear: right;"/>
+
+                                    <input class="submit" type="submit" value="GO"/>
+
+                                    <br style="clear: right;"/>
+
+                                    <span class="forgotPassword">
+                                        <c:if test="${loginCmd.email != null and loginCmd.email != ''}">
+                                            <link:forgotPassword email="${loginCmd.email}">Forgot password?</link:forgotPassword>
+                                        </c:if>
+                                        <c:if test="${loginCmd.email == null or loginCmd.email == ''}">
+                                            <link:forgotPassword>Forgot password?</link:forgotPassword>
+                                        </c:if>
+                                    </span>
+                                </gsweb:form>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </table>

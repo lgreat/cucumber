@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.20 2006/11/07 19:12:03 dlee Exp $
+ * $Id: PageHelperSaTest.java,v 1.21 2006/11/16 19:18:56 aroy Exp $
  */
 
 package gs.web.util;
@@ -363,6 +363,38 @@ public class PageHelperSaTest extends TestCase {
         assertNotNull(cookie);
         ClientSideSessionCache sessionCache = ClientSideSessionCache.createClientSideSessionCache(cookie.getValue());
         assertEquals(hash, sessionCache.getUserHash());
+    }
+
+    public void testIsMemberAuthorized() throws NoSuchAlgorithmException {
+        assertFalse(PageHelper.isMemberAuthorized(_request));
+        User user = new User();
+
+        user.setId(new Integer(123));
+        user.setEmail("testSetMemberCookie@greatschools.net");
+        String hash = "pdwKOjLbjY5HJtWQLzm5gA==";
+        PageHelper.setMemberAuthorized(_request, _response, user);
+
+        // this step normally occurs automatically, but for this test must be done programmatically
+        SessionContext sessionContext = (SessionContext) SessionContextUtil.getSessionContext(_request);
+        sessionContext.setUserHash(hash);
+        sessionContext.setUser(user);
+
+        assertTrue(PageHelper.isMemberAuthorized(_request));
+    }
+
+    public void testIsCommunityCookieSet() {
+        assertFalse(PageHelper.isCommunityCookieSet(_request));
+        SessionContext sessionContext = (SessionContext) SessionContextUtil.getSessionContext(_request);
+        sessionContext.setUserHash("blahblah");
+        // no good ... must have member id AND cookie
+        assertFalse(PageHelper.isCommunityCookieSet(_request));
+        sessionContext.setUserHash(null);
+        sessionContext.setMemberId(new Integer(123));
+        // no good ... must have member id AND cookie
+        assertFalse(PageHelper.isCommunityCookieSet(_request));
+        sessionContext.setUserHash("blahblah");
+        // now it's good, even though the hash is garbage
+        assertTrue(PageHelper.isCommunityCookieSet(_request));
     }
 
     public void testFindsBetaPage() {

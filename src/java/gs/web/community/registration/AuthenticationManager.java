@@ -135,9 +135,7 @@ public class AuthenticationManager {
 
         String encodedParam;
         try {
-            _log.info("Original authInfo: " + rval.toString());
             encodedParam = URLEncoder.encode(rval.toString(), "UTF-8");
-            _log.info("Encoded authInfo: " + encodedParam);
         } catch (UnsupportedEncodingException e) {
             _log.warn("Failed to encode URL parameter " + rval.toString() + " because of error: " + e);
             encodedParam = rval.toString();

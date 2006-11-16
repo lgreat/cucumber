@@ -1,15 +1,15 @@
-div.existing {
-    display: block;
-    padding: 35px 15px 15px 10px;
+td.existing {
+    vertical-align: top;
+    padding: 30px 20px 15px 10px;
 }
-div.new {
-    padding: 35px 10px 15px 15px;
-    display: block;
-    float: left;
+
+td.new {
+    vertical-align: top;
+    padding: 30px 10px 15px 15px;
     border-right-style: dashed;
     border-right-color: #64CCCB;
     border-right-width: 1px;
-    width: 300px;
+    width: 275px;
     height: 400px;
 }
 
@@ -53,7 +53,7 @@ span.joinText {
 
 span.join {
     margin-top: 35px;
-    margin-right: 50px;
+    margin-right: 25px;
     float: right;
     background-color: #CC5666;
     color: #FFFFFF;
@@ -85,8 +85,8 @@ label.form, input.form {
 label.form {
      text-align: left;
      width: 100px;
-     padding-right: 10px;
-     padding-left: 20px;
+     padding-right: 0;
+     padding-left: 10px;
 }
 
 input.submit {
@@ -124,4 +124,9 @@ td.join {
 td.join span {
     font-size: xx-large;
     color: #5CBBCF;
+}
+
+span.message {
+    color: #FF3434;
+    font-size: small;
 }

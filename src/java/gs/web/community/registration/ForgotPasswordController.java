@@ -46,13 +46,20 @@ public class ForgotPasswordController extends SimpleFormController {
         }
     }
 
+    protected boolean suppressValidation(HttpServletRequest request) {
+        // don't do validation on a cancel
+        return request.getParameter("cancel") != null;
+    }
+
     /**
      * this method is called after validation but before submit.
      */
     protected void onBindAndValidate(HttpServletRequest request,
                                      Object command,
                                      BindException errors) throws NoSuchAlgorithmException {
-        if (errors.hasErrors()) {
+        // don't do validation on cancel
+        // also don't both checking for a user if the emailValidator rejects the address
+        if (suppressValidation(request) || errors.hasErrors()) {
             return;
         }
         UserCommand userCommand = (UserCommand) command;
@@ -78,22 +85,27 @@ public class ForgotPasswordController extends SimpleFormController {
                                  HttpServletResponse response,
                                  Object command,
                                  BindException errors) throws Exception {
-        UserCommand userCommand = (UserCommand) command;
-        User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
-        MimeMessage mm;
-        if (user != null) {
-            userCommand.setUser(user);
-            mm = buildMultipartEmail(request, userCommand.getEmail(), user.getId());
+        ModelAndView mAndV = new ModelAndView();
+        if (!suppressValidation(request)) {
+            UserCommand userCommand = (UserCommand) command;
+            User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
+            MimeMessage mm;
+            if (user != null) {
+                userCommand.setUser(user);
+                mm = buildMultipartEmail(request, userCommand.getEmail(), user.getId());
+            } else {
+                mm = buildMultipartEmail(request, userCommand.getEmail(), null);
+            }
+            _mailSender.send(mm);
+            mAndV.setViewName(getSuccessView());
+            String msg = "An email has been sent to " + userCommand.getEmail() +
+                    " with instructions on how to choose a new password.";
+            mAndV.getModel().put("message", msg);
         } else {
-            mm = buildMultipartEmail(request, userCommand.getEmail(), null);
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null);
+            mAndV.setViewName("redirect:" + builder.asFullUrl(request));
         }
 
-
-        _mailSender.send(mm);
-        ModelAndView mAndV = new ModelAndView();
-
-        mAndV.setViewName(getSuccessView());
-        mAndV.getModel().put("userCmd", userCommand);
         return mAndV;
     }
 

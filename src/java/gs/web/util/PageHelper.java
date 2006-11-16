@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.28 2006/11/07 21:26:10 aroy Exp $
+ * $Id: PageHelper.java,v 1.29 2006/11/16 19:18:56 aroy Exp $
  */
 
 package gs.web.util;
@@ -404,11 +404,50 @@ public class PageHelper {
         util.changeAuthorization(request, response, user, hash);
     }
 
-    public static boolean isMemberAuthorized(HttpServletRequest request, User user) throws NoSuchAlgorithmException {
+    /**
+     * This method checks only that the userHash cookie is set, it does not actually verify
+     * that the hash is valid. This method should perform no expensive operations (!IMPORTANT).
+     * @param request http request object
+     * @return true if the session context contains a member id and a user hash string.
+     */
+    public static boolean isCommunityCookieSet(HttpServletRequest request) {
         SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(request);
+        return context.getMemberId() != null && context.getUserHash() != null;
+    }
+
+    /**
+     * This method verifies that the session context contains a member id and a user hash, and
+     * that the user hash is valid for that member id. This method performs database access.
+     * @param request
+     * @return
+     */
+    public static boolean isMemberAuthorized(HttpServletRequest request) {
+        try {
+            SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(request);
+            Integer memberId = context.getMemberId();
+            String storedHash = context.getUserHash();
+            return memberId != null && StringUtils.isNotEmpty(storedHash) &&
+                    isMemberAuthorized(context.getUser(), storedHash);
+        } catch (NoSuchAlgorithmException e) {
+            _log.error(e);
+            return false;
+        }
+    }
+
+    /**
+     * Verifies that the storedHash is valid for the user.
+     * @param user
+     * @param storedHash
+     * @return
+     * @throws NoSuchAlgorithmException
+     */
+    public static boolean isMemberAuthorized(User user, String storedHash) throws NoSuchAlgorithmException {
+        // save time by exiting early
+        if (user == null || StringUtils.isEmpty(storedHash)) {
+            return false;
+        }
         Object[] hashInput = new Object[] {User.SECRET_NUMBER, user.getId(), user.getEmail()};
         String realHash = DigestUtil.hashObjectArray(hashInput);
-        String storedHash = context.getUserHash();
 
         return storedHash != null && realHash.equals(storedHash);
     }

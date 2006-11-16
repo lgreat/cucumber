@@ -15,11 +15,9 @@ import java.util.List;
 import java.io.IOException;
 
 /**
- * Created by IntelliJ IDEA.
- * User: UrbanaSoft
- * Date: Jul 18, 2006
- * Time: 10:07:38 AM
- * To change this template use File | Settings | File Templates.
+ * Provides testing for the controller managing the forgot password page.
+ *
+ * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
 public class ForgotPasswordControllerTest extends BaseControllerTestCase {
     private ForgotPasswordController _controller;
@@ -156,5 +154,22 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         _controller.onBindAndValidate(getRequest(), command, errors);
         _userControl.verify();
         assertTrue("Controller missing expected errors on validation", errors.hasErrors());
+    }
+
+    public void testSuppressValidation() throws Exception {
+        getRequest().setParameter("cancel", "cancel");
+        assertTrue(_controller.suppressValidation(getRequest()));
+
+        UserCommand command = new UserCommand();
+        BindException errors = new BindException(command, "");
+        _userControl.replay();
+
+        _controller.onBindAndValidate(getRequest(), command, errors);
+        _userControl.verify();
+        assertFalse(errors.hasErrors());
+
+        _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        _userControl.verify();
+        assertFalse(errors.hasErrors());
     }
 }

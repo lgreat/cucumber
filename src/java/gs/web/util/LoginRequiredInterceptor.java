@@ -10,11 +10,7 @@ import org.apache.commons.logging.LogFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gs.data.community.User;
-import gs.web.util.context.SessionContextUtil;
-
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * Provides ...
@@ -24,10 +20,9 @@ import java.security.NoSuchAlgorithmException;
 public class LoginRequiredInterceptor extends HandlerInterceptorAdapter {
     protected final Log _log = LogFactory.getLog(getClass());
 
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException, NoSuchAlgorithmException {
-        User user = SessionContextUtil.getSessionContext(request).getUser();
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         // you are authed only if you are logged in and your credentials match
-        if ((user != null && PageHelper.isMemberAuthorized(request, user))) {
+        if (PageHelper.isMemberAuthorized(request)) {
             return true;
         } else {
             String url = request.getRequestURL().toString();
