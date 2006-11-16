@@ -23,6 +23,7 @@ import java.util.Map;
  */
 public class RegistrationConfirmationEmailTest extends BaseControllerTestCase {
     private static final String FROM_EMAIL = "aroy@greatschools.net";
+    private static final String FROM_NAME = "Anthony";
     private static final String SUBJECT = "Testing";
     private RegistrationConfirmationEmail _email;
     private MockJavaMailSender _mailSender;
@@ -32,6 +33,7 @@ public class RegistrationConfirmationEmailTest extends BaseControllerTestCase {
         super.setUp();
         _email = new RegistrationConfirmationEmail();
         _email.setFromEmail(FROM_EMAIL);
+        _email.setFromName(FROM_NAME);
         _email.setSubject(SUBJECT);
         _mailSender = new MockJavaMailSender();
         _mailSender.setHost("greatschools.net");
@@ -41,6 +43,10 @@ public class RegistrationConfirmationEmailTest extends BaseControllerTestCase {
     }
 
     public void testSend() throws MessagingException, IOException {
+        // verify init
+        assertEquals(FROM_EMAIL, _email.getFromEmail());
+        assertEquals(SUBJECT, _email.getSubject());
+        assertEquals(FROM_NAME, _email.getFromName());
         // setup
         User user = new User();
         user.setEmail("aroy+1@greatschools.net");
@@ -52,7 +58,8 @@ public class RegistrationConfirmationEmailTest extends BaseControllerTestCase {
         assertEquals(1, msgs.size());
         Message msg = (Message) msgs.get(0);
         assertEquals(SUBJECT, msg.getSubject());
-        assertEquals(FROM_EMAIL, msg.getFrom()[0].toString());
+        assertTrue(msg.getFrom()[0].toString().indexOf(FROM_NAME) > -1);
+        assertTrue(msg.getFrom()[0].toString().indexOf(FROM_EMAIL) > -1);
         assertNotNull(msg.getContent());
     }
 
