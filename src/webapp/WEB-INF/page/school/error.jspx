@@ -1,23 +1,32 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           version="2.0">
 <html>
 <jsp:directive.page contentType="text/html"/>
 <head>
     <style type="text/css">
         div#error {
-            text-align:center;
+            text-align:left;
             padding:90px;
-            color:red;
+            color:#777777;
             font-weight:bold;
         }
     </style>
-    <title>GreatSchools.net - Error getting school</title>
+    <title>GreatSchools.net - School not found</title>
 </head>
 <body>
 <div id="error">
-    <span class="errorMessage">Could not find school.</span>
+    <span class="errorMessage">
+        Sorry, this school could not be found.
+        <br/><br/>
+        Please use the search box at the top of the page to <br/>
+        find schools by school name, district or city.
+    </span>
 </div>
 </body>
+<mod:tracking pageType="error"
+              pageName="School Profile Page Not Found"
+              hier1="School,Page Not Found"/>
 </html>
 </jsp:root>

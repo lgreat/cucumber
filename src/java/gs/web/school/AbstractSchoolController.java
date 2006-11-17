@@ -16,7 +16,7 @@ import gs.data.state.State;
 import gs.web.util.context.SessionContextUtil;
 
 /**
- * This class is intended to be the base class for School Profile pages and other pages need
+ * This class is intended to be the base class for School Profile pages and other pages that need
  * access to a single school.  The state and the school id are required url parameters.
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -25,10 +25,12 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
 
     private static final Logger _log = Logger.getLogger(AbstractSchoolController.class);
     private ISchoolDao _schoolDao;
-    protected School _school;
 
     /** The name of the error view - see pages-servlet.xml */
     private String _errorViewName = "/school/error";
+
+    /** Used when storing the school in the reqest */
+    public static final String SCHOOL_ATTRIBUTE = "school";
 
     /**
      * This method populates the protected _school parameter with a School object if a valid,
@@ -43,9 +45,6 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
     public final ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-        // reset the school for this request 
-        _school = null;
-
         // delegate to WebContentGenerator for checking and preparing
 		checkAndPrepare(request, response, this instanceof LastModified);
 
@@ -58,7 +57,8 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
                     Integer id = new Integer(schoolId);
                     School s = _schoolDao.getSchoolById(state, id);
                     if (s.isActive()) {
-                        _school = s;
+                        request.setAttribute(SCHOOL_ATTRIBUTE, s);
+                        return handleRequestInternal(request, response);
                     }
                 } catch (Exception e) {
                     _log.warn("Could not get a valid or active school: " +
@@ -67,16 +67,8 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
             }
         }
 
-        if (_school != null) {
-            return handleRequestInternal(request, response);
-        } else {
-            // display error view.
-            return new ModelAndView(getErrorViewName());
-        }
-    }
-
-    public School getSchool() {
-        return _school;
+        // display error view.
+        return new ModelAndView(getErrorViewName());
     }
 
     /**
@@ -90,7 +82,6 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
 	 */
 	protected abstract ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
 	    throws Exception;
-
 
     /**
      * @return An ISchoolDao type

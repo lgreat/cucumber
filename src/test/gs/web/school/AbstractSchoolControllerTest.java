@@ -39,7 +39,8 @@ public class AbstractSchoolControllerTest extends BaseControllerTestCase {
         request.setParameter("id", "1");
         mAndV = _controller.handleRequest(request, getResponse());
         assertNull(mAndV); // make sure handleRequestInternal *is* called.
-        School school = _controller.getSchool();
+
+        School school = (School)request.getAttribute(AbstractSchoolController.SCHOOL_ATTRIBUTE);
         assertNotNull(school);
         assertEquals("Alameda High School", school.getName());
     }

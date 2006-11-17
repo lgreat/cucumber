@@ -1,4 +1,4 @@
- package gs.web.school;
+package gs.web.school;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.lang.StringUtils;
@@ -44,7 +44,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
 
         String schoolIdStr = request.getParameter("id");
         if (StringUtils.isNumeric(schoolIdStr)) {
-            School school = getSchool();
+            School school = (School)request.getAttribute(SCHOOL_ATTRIBUTE);
             model.put("school", school);
             List reviews = _reviewDao.getPublishedReviewsBySchool(school);
             if (reviews != null && reviews.size() > 0) {
