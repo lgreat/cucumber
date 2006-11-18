@@ -131,7 +131,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         }
         List cities = _geoDao.findCitiesByState(state);
         City city = new City();
-        city.setName("My city is not listed");
+        city.setName("My child's city is not listed");
         cities.add(0, city);
         fupCommand.addCityList(cities);
     }
@@ -165,7 +165,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             List schools = _schoolDao.findSchoolsInCityByGrade(state, city, grade);
             School school = new School();
             school.setId(new Integer(-1));
-            school.setName("My school is not listed");
+            school.setName("My child's school is not listed");
             schools.add(0, school);
             fupCommand.addSchools(schools);
         } else {
@@ -215,7 +215,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 // (order is preserved for students!!)
                 fupCommand.addSchoolName(school.getName());
             } else if (student.getSchoolId() != null && student.getSchoolId().intValue() == -1) {
-                fupCommand.addSchoolName("My school is not listed");
+                fupCommand.addSchoolName("My child's school is not listed");
             } else {
                 // to avoid index out of bounds exceptions, we have to add something to the list
                 fupCommand.addSchoolName("");

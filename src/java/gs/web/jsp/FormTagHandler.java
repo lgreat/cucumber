@@ -37,6 +37,11 @@ public class FormTagHandler extends TagSupport {
      */
     private String _target;
 
+    /**
+     * The CSS class, if any.
+     */
+    private String _styleClass;
+
     public int doStartTag() throws JspException {
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
         _action = urlUtil.buildUrl(_action, (HttpServletRequest) pageContext.getRequest());
@@ -46,6 +51,7 @@ public class FormTagHandler extends TagSupport {
         if (_id != null) xhtml.append(" id=\"").append(_id).append("\"");
         if (_action != null) xhtml.append(" action=\"").append(_action).append("\"");
         if (_method != null) xhtml.append(" method=\"").append(_method).append("\"");
+        if (_styleClass != null) xhtml.append(" class=\"").append(_styleClass).append("\"");
         if (_onsubmit != null) xhtml.append(" onsubmit=\"").append(_onsubmit).append("\"");
         if (_target != null) xhtml.append(" target=\"").append(_target).append("\"");
         xhtml.append(">");
@@ -104,5 +110,13 @@ public class FormTagHandler extends TagSupport {
 
     public void setTarget(String target) {
         this._target = target;
+    }
+
+    public String getStyleClass() {
+        return _styleClass;
+    }
+
+    public void setStyleClass(String styleClass) {
+        _styleClass = styleClass;
     }
 }

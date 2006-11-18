@@ -1,231 +1,711 @@
-/***********/
-/* Stage 1 */
-/***********/
+/*
+   Greatschools.net Registration Styles
+   font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
+*/
 
-#registerDiv {
+/* Last updated by Paul Whitener Jr. on 11/13/06 */
+/* paul@empoweredmedia.org */
+
+	
+p {
+	font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	color: #777777;
+	margin: 0 0 0 3px;
+	padding: 0;
+}
+
+a {
+	color: #3399aa;
+	text-decoration: underline;
+}
+
+/* container classes */
+
+#reg_intro, #reg_1, #reg_3 {
+	width: 864px;
+	background: url(../../../img/community/registration/registration_bg.gif) repeat-y left;
+	margin: 0 0 30px 0;
+	float: left;
+	_margin: -18px 0 30px 0; /* corrects extra space between page header and content in IE 6 */
+}
+
+/* headers registration intro */
+
+#reg_intro h1 {
+	background: url(../../../img/community/registration/h1_join-signin_114x67.gif) no-repeat;
+	width: 114px;
+	height: 67px;
+	margin: 40px 0 0 22px;
+	_margin: 33px 0 0 11px;
+	float: left;
+}
+
+/* reg_intro h2 are in the reg_intro specific styles below */
+
+/* headers registration page 1 */
+
+#reg_1 h1 {
+	background: url(../../../img/community/registration/h1_join_65x33.gif) no-repeat;
+	width: 65px;
+	height: 33px;
+	margin: 40px 0 0 22px;
+	float: left;
+}
+
+#reg_1 h2 {
+	background: url(../../../img/community/registration/h2_welcome_345x15.gif) no-repeat;
+	width: 400px;
+	height: 24px;
+}
+
+/* headers registration page 3 */
+
+#reg_3 h1 {
+	background: url(../../../img/community/registration/h1_join_65x33.gif) no-repeat;
+	width: 65px;
+	height: 33px;
+	margin: 40px 0 0 22px;
+	float: left;
+}
+
+#reg_3 h2 {
+	background: url(../../../img/community/registration/h2_almostdone_164x15.gif) no-repeat;
+	width: 400px;
+	height: 24px;
+}
+
+h1 span, h2 span {
+	display: none;
+}
+	/* this "span trick" allows the text that appears in the graphic to also appear in the
+	markup. The <span> is styled as such so that the hypertext equivalent does not appear, however
+	it is still present in the markup. */
+
+#reg_1 .intro {
+	margin: 0 100px 0 3px;
+}
+
+#reg_3 .intro {
+	margin: 0 100px 15px 3px;
+}
+
+#reg_3 .lead {
+	margin: 0 100px 0 3px;
+	_margin: 0 0 0 3px;
+	padding-top: 15px;
+	padding-bottom: 24px;
+	border-bottom: 1px solid #ddd;
+	width: 500px;
+}
+
+/* container */
+
+#content {
+	float: right;
+	width: 542px; /* 579 true - 37 padding */
+	margin: 0;
+	padding: 40px 0 0 37px;
+	border: 2px solid #ddeeee;
+}
+
+#reg_intro #content {
+	float: right;
+	width: 579px; /* 579 true - 37 padding */
+	margin: 0;
+	padding: 0;
+	border: 2px solid #ddeeee;
+}
+
+#outline { /* creates the darker blue outer outline around #content, contains no other styling */
+	border: 3px solid #66cccc;
+	float: right;
+	width: 583px; /* Firefox is insisting on a width. Should be 4px larger than the true width (before removing padding) of #content */
+	_margin: 17px 0 0 0; /* adds some space at the bottom of #main */
+}
+
+/* reg_intro page */
+
+#newuser {
+	float: left;
+	width: 245px;
+	margin: 30px 0 0 25px;
+	_margin: 30px 0 0 10px;
+	_padding: 0;
+}
+
+#newuser h2 {
+	background: url(../../../img/community/registration/h2_newuser_126x72.gif) no-repeat;
+	width: 126px;
+	height: 72px;
+	float: left;
+}
+
+#newuser img {
+	margin: 12px 0 12px 0;
+}
+
+#newuser .join a {
+	background: url(../../../img/community/registration/submit_join.gif) no-repeat top transparent;
+	width: 69px;
+	height: 69px;
+	float: right;
+	margin: 0 20px 0 0;
+}
+
+#newuser .join a:hover {
+	background: url(../../../img/community/registration/submit_join.gif) no-repeat 0 -69px transparent;
+	width: 69px;
+	height: 69px;
+	float: right;
+}
+
+#reg_intro .intro {
+	font-size: 14px;
+	color: #888888;
+	margin: 2px 100px 0 0;
+	_margin: 0;
+	width: 245px;
+	float: left;
+}
+
+#returninguser {
+	height: 347px;
+	width: 260px;
+	margin: 1px 0 0 0;
+	padding: 30px 0 0 25px;
+	_padding: 30px 6px 0 25px;
+	float: right;
+	border-left: 1px dashed #66cccc;
+}
+
+#returninguser h2 {
+	background: url(../../../img/community/registration/h2_returninguser_171x65.gif) no-repeat;
+	width: 171px;
+	height: 100px;
+}
+
+#returninguser form {
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
+#returninguser label {
+	width: 93px;
+	font-size: 13px;
+	font-weight: normal;
+	color: #888888;
+	float: left;
+	margin: 0 0 15px 0;
+	padding: 2px 0 0 0;
+}
+
+#returninguser input {
+	width: 150px;
+	_width: 144px;
+	margin: 0 0 15px 0;
+}
+
+#returninguser .checkbox {
+	width: 13px;
+	margin: 0 7px 0 0;
+	_margin: 0 7px 0 1px;
+	float: left;
+}
+
+#returninguser .checkboxLabel {
+	width: 200px;
+	margin: -2px 0 0 0;
+	_margin: 2px 0 0 0;
+	padding: 0;
+}
+
+#returninguser .signin {
+	width: 89px;
+	height: 20px;
+	margin: 10px 16px 0 0;
+	float: right;
+}
+
+#returninguser a {
+	color: #3399aa;
+	font-size: 12px;
+	text-decoration: underline;
+	margin: 12px 16px 0 0;
+	float: right;
+}
+
+/* registration form */
+
+.registration {
+	margin: 40px 0 0 0;
+}
+
+#reg_3 .registration {
+	margin: 0;
+}
+
+.registration p {
+	font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	color: #777777;
+	margin: 0 0 14px 3px;
+	padding: 0;
+	float: left;
+	height: 30px;
+}
+
+.registration label {
+	width: 133px;
+	float: left;
+	margin: 2px 0 0 0;
+	font-weight: bold;
+}
+
+/* form elements custom classes */
+
+.registration .radiolabel {
+	width: 40px;
+	float: left;
+	margin: 0 14px 0 -2px;
+	_margin: 2px 14px 0 -2px;
+	padding: 0;
+}
+
+.registration .selectlabel {
+	width: 50px;
+	float: left;
+	margin: 2px 0 0 0;
+	padding: 0;
+}
+
+.registration .radio {
+	margin: 0 6px 0 0px;
+	width: 13px;
+}
+
+.registration input {
+	width: 215px;
+	_width: 210px; /* for IE 6 */
+	float: left;
+}
+
+.registration .private {
+	margin: 0 0 0 6px;
+	padding: 0;
+}
+
+#content .warning {
+	width: 174px;
+	margin: -3px 0 0 8px;
+	color: #cc5566;
+	font-size: 11px;
+	line-height: 13px;
+}
+
+#content .warning img {
+	float: left;
+	margin: 6px 7px 0 0;
+}
+
+.registration .details {
+	font-size: 11px;
+	_line-height: 10px;
+	font-style: italic;
+	color: #8f8f8f;
+	font-weight: normal;
+}
+
+.registration .disclaimer {
+	font-size: 10px;
+	font-style: italic;
+	color: #8f8f8f;
+	margin: -4px 0 12px 134px;
+	height: 12px;
+	_margin: -6px 0 12px 70px; /* for IE 6 */
+}
+
+.registration .disclaimer a {
+	color: #8f8f8f;
+	text-decoration: underline;
+}
+
+.registration .disclaimer a:visited {
+	color: #8f8f8f;
+	text-decoration: underline;
+}
+
+
+.registration .disclaimer a:hover {
+	color: #8f8f8f;
+	text-decoration: underline;
+}
+
+/* Email address */
+
+.registration .email {
+	height: 23px;
+	_height; 20px; /* for IE 6 */
+	_padding-bottom: -4px; /* for IE 6 */
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+/* How many children... in K-12 schools? */
+
+.registration .K12 {
+	width: 282px;
+	margin-left: 3px;
+}
+
+.registration .selectK12 {
+	width: 40px;
+	float: left;
+	margin-left: -10px;
+}
+
+#content .warning_K12 {
+	width: 140px;
+	margin: -3px 0 0 40px;
+	color: #cc5566;
+	font-size: 11px;
+	line-height: 13px;
+}
+
+#content .warning_K12 img {
+	float: left;
+	margin: 6px 6px 0 0;
+}
+
+/* Where do you live? City */
+
+.registration .selectCity {
+	width: 140px;
+	float: left;
+	margin-left: -10px;
+}
+
+.registration .whereliveCity {
+	margin: 0 0 20px 3px;
+	width: 325px;
+}
+
+#content .warning_city {
+	width: 140px;
+	margin: -3px 0 0 30px;
+	color: #cc5566;
+	font-size: 11px;
+	line-height: 13px;
+}
+
+#content .warning_city img {
+	float: left;
+	margin: 6px 6px 0 0;
+}
+
+/* Where do you live? State */
+
+.registration .selectState {
+	float: left;
+	margin-left: -10px;
+}
+
+.registration .whereliveState {
+	margin: 0 0 10px 3px;
+	width: 240px;
+}
+
+/* Agree to terms? */
+
+.registration .terms {
+	width: 220px;
+	margin-left: 3px;
+}
+
+#content .warning_terms {
+	width: 160px;
+	margin: -3px 0 0 -10px;
+	color: #cc5566;
+	font-size: 11px;
+	line-height: 13px;
+}
+
+#content .warning_terms img {
+	float: left;
+	margin: 6px 6px 0 0;
+}
+
+#reg_1 .registration .terms a {
+	color: #3399aa;
+	text-decoration: underline;
+}
+
+.registration .radiolabelTerms {
+	width: 40px;
+	float: left;
+	margin: 0 14px 0 -2px;
+	_margin: 2px 14px 0 -2px;
+	padding: 0;
+	color: #777777;
+}
+
+/* reg_3 child modules */
+
+.child {
+	width: 500px;
+    height: 100px;
     float: left;
-    border-style: solid;
-    border-color: #64CCCB;
-    border-width: medium;
-    margin-left: 5px;
-    padding: 40px 5px 40px 40px;
+	margin: 0 0 3px 0;
+	border-bottom: 1px solid #dddddd;
+	padding: 14px 0 0 0;
+	_padding: 4px 0 0 0;
 }
 
-.registerDiv label.form, .registerDiv input.form, .registerDiv select.form {
-    margin-bottom: 20px;
-    display: block;
-    float: left;
+.child label {
+	width: 70px;
+	_height: 22px;
 }
 
-.registerDiv input.email {
-    width: 200px;
-}
-
-.registerDiv input.screenName, .registerDiv input.firstName {
-    width: 200px;
-}
-
-.registerDiv select.small {
-    width: 50px;
-}
-
-.registerDiv label.left {
-    width: 160px;
-}
-
-.registerDiv label.live {
-    height: 60px;
-    width: 160px;
-}
-
-.registerDiv label.state, .registerDiv label.city {
-    color: #898989;
-    text-align: left;
-    font-weight: bold;
-    line-height: 1.4em; /* try to eliminate ugly spacing introduced by superscripts */
-    display: block;
-    float: left;
-    width: 50px;
-}
-
-.registerDiv label.city {
-    margin-top: 10px;
-}
-
-.registerDiv select.city {
-    display: block;
-    float: left;
-    margin-top: 10px;
+#reg_3 .selectChildCity {
     width: 150px;
+    margin: 0 10px 10px 0;
 }
 
-.registerDiv label.radio {
-    padding-left: 3px;
-    margin-right: 12px;
+#reg_3 .selectChildState {
+    margin: 0 10px 10px 0;
 }
 
-.registerDiv label.form {
-    color: #898989;
-    text-align: left;
-    padding-right: 5px;
-    font-weight: bold;
-    line-height: 1.4em; /* try to eliminate ugly spacing introduced by superscripts */
-}
-
-.registerDiv span.passwordSpec {
-    font-size: x-small;
-}
-
-.registerDiv span.screenNameSpec {
-    font-size: x-small;
-}
-
-#joinButton input.join {
-    background-color: #CC5666;
-    color: #FFFFFF;
-}
-
-#nextButton input.next {
-    background-color: #56BBCD;
-    color: #FFFFFF;
-}
-
-.registerDiv input.submit {
-    float: right;
-    margin-right: 150px;
-    font-size: medium;
-    font-weight: bold;
-    padding: 5px;
-}
-
-span.privacy {
+#reg_3 .saveChildCity {
     position: relative;
-    left: 165px;
-    top: -15px;
-    font-size: x-small;
-    color: #898989;
+    top: -10px;
 }
 
-span.privacy a, span.privacy a:link, span.privacy a:visited, span.privacy a:active {
-    text-decoration: underline;
-    color: #64CCCB;
+#reg_3 .child a {
+	color: #3399aa;
+	text-decoration: underline;
 }
 
-.registerDiv div.privacyIcon {
-    font-size: smaller;
-    color: #666666;
-    display: block;
-    float: left;
-    width: 200px;
-    border-style: solid;
-    border-color: #DEEEED;
-    border-width: 2px;
-    padding: 4px;
+.registration .childCityLabel {
+	width: 400px;
+	margin: 2px 0 10px 0;
 }
 
-.registerDiv h1.intro {
-    font-size: large;
-    color: #98CC67;
-    margin-bottom: 10px;
+.registration .childCityLabel a {
+	margin: 0 0 0 10px;
+	font-weight: normal;
+	color: #3399aa;
+	text-decoration: underline;
 }
 
-.registerDiv p.intro {
-    font-size: medium;
-    color: #898989;
-    margin-bottom: 45px;
-    font-weight: bold;
+.registration .childGradeLabel {
+	margin: 3px 0 10px 72px;
+	width: 50px;
 }
 
-.registerDiv h2.intro2 {
-    font-size: large;
-    color: #898989;
-    margin-bottom: 10px;
+.registration .selectChildGrade {
+	width: 50px;
+	float: left;
+	margin: 3px 20px 0 0;
 }
 
-#terms a, #terms a:link, #terms a:visited, #terms a:active {
-    text-decoration: underline;
-    color: #64CCCB; 
+.registration .childSchoolLabel {
+	width: 55px;
+	margin: 3px 0 0 0;
 }
 
-#terms label.terms {
-    padding-right: 30px;
+.registration .selectChildSchool {
+	width: 180px;
+	float: left;
+	margin: 3px 0 0 0;
 }
 
-div.error {
-    float: left;
-    width: 150px;
-    position: relative;
-    top: -5px;
-    left: 8px;
-    font-size: 7pt;
-    font-style: italic;
+/* warning: both fields (grade, school) */
+
+#content .warning_child_both {
+	width: 300px;
+	margin: 14px 0 -8px 75px;
+	_margin: -4px 0 -4px 40px;
+	padding: 0;
+	color: #cc5566;
+	font-size: 11px;
+	line-height: 13px;
+	_height: 25px;
+}
+
+#content .warning_child_both img {
+	float: left;
+	margin: 0 6px 0 0;
+}
+
+/* warning: school only */
+
+#content .warning_child_school {
+	width: 300px;
+	margin: 8px 0 0 185px;
+	_margin: -10px 0 0 95px;
+	padding: 0;
+	color: #cc5566;
+	font-size: 11px;
+	line-height: 13px;
+}
+
+#content .warning_child_school img {
+	float: left;
+	margin: 5px 6px 0 0;
+}
+
+/* Yes ... willing to answer questions */
+
+.willing {
+	float: left;
+	margin: 15px 0 20px 0;
+	_margin: 7px 0 20px 0;
+	_height: 71px;
+}
+
+.registration .willingLabel {
+	width: 290px;
+	margin: 2px 0 0 3px;
+	font-weight: normal;
+}
+
+.registration .willingRadio {
+	margin: 54px 0 0 0;
+	float: left;
+}
+
+.registration .willing a {
+	color: #3399aa;
+	text-decoration: underline;
+}
+
+/* reg_3 Agree to terms? */
+
+#reg_3 .registration .termsLabel {
+	width: 290px;
+	margin: 0 0 0 3px;
+	font-weight: normal;
+}
+
+#reg_3 .warning_terms {
+	width: 120px;
+	margin: -13px 5px 0 0;
+	float: right;
+	color: #cc5566;
+	font-size: 11px;
+	line-height: 13px;
+}
+
+#reg_3 .warning_terms img {
+	float: left;
+	margin: 0 6px 30px 0;
+}
+
+#reg_3 .registration .termsLabel a {
+	color: #3399aa;
+	text-decoration: underline;
+}
+
+#reg_3 .radiolabel {
+	font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	color: #777777;
+}
+
+.registration .divider {
+	background: #ddeeee;
+	height: 3px;
+	width: 500px;
+	float: left;
+	margin: 10px 0 0 7px;
+	_margin: -10px 0 0 7px;
+	_background: transparent;
+	_border-bottom: 3px solid #ddeeee; /* IE 6 will not display the 3px height correctly, this is an alternate method */
+}
+
+/* form submit custom buttons */
+
+.registration .next {
+	width: 104px;
+	height: 28px;
+	margin: 60px 170px 90px 0;
+	float: right;
+}
+
+#reg_1 .registration .join a {
+	background: url(../../../img/community/registration/submit_join.gif) no-repeat top transparent;
+    width: 69px;
+    height: 69px;
+	margin: 57px 175px 80px 0;
+	_margin: 67px 175px 80px 0;
+	float: right;
+}
+
+#reg_1 .registration .join a:hover {
+	background: url(../../../img/community/registration/submit_join.gif) no-repeat 0 -69px transparent;
+	width: 69px;
+	height: 69px;
+	margin: 57px 175px 80px 0;
+	_margin: 67px 175px 80px 0;
+	float: right;
+    text-decoration: none;
+}
+
+/*#reg_3 .registration .join {
+	width: 69px;
+	height: 69px;
+	margin: 27px 100px 30px 0;
+	_margin: 20px 100px 27px 0;
+	float: right;
+}*/
+
+#reg_3 .registration .join a {
+	background: url(../../../img/community/registration/submit_join.gif) no-repeat top transparent;
+	width: 69px;
+	height: 69px;
+	margin: 27px 100px 30px 0;
+	_margin: 20px 100px 27px 0;
+	float: right;
+}
+
+#reg_3 .registration .join a:hover {
+	background: url(../../../img/community/registration/submit_join.gif) no-repeat 0 -69px transparent;
+	width: 69px;
+	height: 69px;
+	margin: 27px 100px 30px 0;
+	_margin: 20px 100px 27px 0;
+	float: right;
+    text-decoration: none;
+}
+
+/* alert box */
+
+#alert_box {
+	width: 160px;
+	_width: 164px; /* for IE 6 */
+	padding: 8px 11px 8px 11px;
+	_padding: 5px 9px 6px 9px; /* for IE 6 */
+	border: 2px solid #ddeeee;
+	position: absolute;
+	margin: 550px 0 0 0;
+	_margin: 560px 0 0 0; /* for IE 6 */
+}
+
+#alert_box p {
+	font: 11px/13px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	color: #777777;
+}
+
+#alert_box img {
+	margin: 0 6px 0 6px;
+}
+
+.clear {
+	clear: both;
+}
+
+/* error messages */
+
+#reg_intro .error {
     color: red;
-}
-
-div.errorIcon {
-    float: left;
-    position: relative;
-    left: 5px;
-}
-
-div.cityErrorIcon {
-    top: 10px;
-}
-
-div.cityError {
-    top: 5px;
-}
-
-td.join {
-    background-color: #DEEEEE;
-    vertical-align: top;
-    width: 250px;
-}
-
-h2.join {
-    margin: 25px 0 0 20px;
-    font-size: xx-large;
-    color: #59BDCD;
-}
-
-/***********/
-/* Stage 3 */
-/***********/
-
-div.newsletterForm {
-    min-height: 250px; /* try to get a minimum height going */
-}
-
-h2.newsletterIntro {
-    font-size: large;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-div.newsletterForm p.intro {
-    margin-top: 10px;
-    margin-bottom: 5px;
-}
-div.newsletterForm input {
-    margin-right: 10px;
-    margin-top: 10px;
-}
-div.newsletterForm hr {
-    margin-top: 35px;
+    font-size: small;
     margin-bottom: 15px;
-}
-div.newsletterForm div.submit {
-    margin-top: 15px;
-}
-div.newsletterForm div.grades input {
-    margin-left: 25px;
-}
-div.newsletterForm div.advisor {
-    margin-top: 25px;
-}
-div.newsletterForm div.mystats input {
-    margin-left: 25px;
-}
-div.newsletterForm p.noThanks {
-    margin-top: 15px;
-    margin-bottom: 25px;
 }

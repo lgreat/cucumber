@@ -28,14 +28,12 @@
             <c:when test="${field ne null and field gt ''}">
                 <spring:bind path="${command}.${field}">
                     <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
-                        <c:if test="${useImage eq 'true'}">
-                            <div class="${imageClass}" style="color: red;">
-                                !
-                            </div>
-                        </c:if>
-                        <div class="${styleClass}">
-                          <spring:message code="${status.errorCode}" text="${status.errorMessage}"/>
-                        </div>
+                        <p class="${styleClass}">
+                            <c:if test="${useImage eq 'true'}">
+                                <gsml:img src="/res/img/community/registration/icon_warning_12x12.gif" alt="Error"/>
+                            </c:if>
+                            <spring:message code="${status.errorCode}" text="${status.errorMessage}"/>
+                        </p>
                     </c:if>
                 </spring:bind>
             </c:when>

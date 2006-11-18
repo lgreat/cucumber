@@ -1,10 +1,3 @@
-<!--
-  Created by IntelliJ IDEA.
-  User: UrbanaSoft
-  Date: Jun 15, 2006
-  Time: 9:21:58 AM
-  To change this template use File | Settings | File Templates.
--->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
@@ -26,7 +19,7 @@
           function stateChange(stateSelect) {
               var url = 'registrationAjax.page';
               var pars = 'state=' + stateSelect.value;
-              $('city').innerHTML = '<![CDATA[<select name="city" class="city"><option value="">Loading ...</option></select>]]>';
+              $('city').innerHTML = '<![CDATA[<select name="city" class="selectCity"><option value="">Loading ...</option></select>]]>';
               var myAjax = new Ajax.Updater (
                       'city',
                       url,
@@ -35,7 +28,7 @@
                           parameters: pars
                       });
           }
-                  
+
           function determinePageState() {
               var otherGender = $('other');
               var numChildren = $('numSchoolChildren');
@@ -71,169 +64,161 @@
   </head>
   <gsml:body adPageName="registration">
     <pageHelper:addOnLoadHandler handler="insertFormField()"/>
-    <table>
-        <tr>
-            <td class="join">
-                <h2 class="join">Join</h2>
-            </td>
-            <td class="register">
-            <div id="registerDiv" class="registerDiv">
-                <h1 class="intro">Welcome to the GreatSchools Community!</h1>
-                <p class="intro">You're joining a national network of parents who are passionate
-                    about education. We're excited to have you!</p>
-                <gsweb:form id="regForm" action="/community/registration.page" method="post">
-
-                <label class="form left">I'm a</label>
-                <gsml:radio name="gender" value="f" styleId="mom" styleClass="form radio"
-                            checked="${userCmd.gender eq 'f'}" onclick="determinePageState()"/>
-                <label for="mom" class="form radio">Mom</label>
-                <gsml:radio name="gender" value="m" styleId="dad" styleClass="form radio"
-                            checked="${userCmd.gender eq 'm'}" onclick="determinePageState()"/>
-                <label for="dad" class="form radio">Dad</label>
-                <gsml:radio name="gender" value="u" styleId="other" styleClass="form radio"
-                            checked="${userCmd.gender eq 'u'}" onclick="determinePageState()"/>
-                <label for="other" class="form radio">Other</label>
-                <gsml:errorMessage useImage="true" command="userCmd" field="gender"/>
-                <br style="clear:left;"/>
-
-                <label for="firstName" class="form left">First name (P)</label>
-                <spring:bind path="userCmd.user.firstName">
-                    <input id="firstName" class="form firstName" type="text" name="${status.expression}"
-                           value="${status.value}"/>
-                </spring:bind>
-                <gsml:errorMessage useImage="true" command="userCmd" field="firstName"/>
-
-                <br style="clear: left;"/>
-
-                <label for="screenName" class="form left">Screen name<br/><span class="screenNameSpec">(6-14 characters)</span></label>
-                <spring:bind path="userCmd.screenName">
-                    <input id="screenName" class="form screenName" type="text" name="${status.expression}"
-                           value="${status.value}"/>
-                </spring:bind>
-                <gsml:errorMessage useImage="true" command="userCmd" field="screenName"/>
-                <br style="clear:left;"/>
-
-                <label for="email" class="form left">Email address (P)</label>
-                <spring:bind path="userCmd.user.email">
-                    <input id="email" class="form email" type="text" name="${status.expression}"
-                           value="${status.value}"/>
-                </spring:bind>
-                <gsml:errorMessage useImage="true" command="userCmd" field="email"/>
-
-                <br style="clear: left;"/>
-                <span class="privacy">We will NOT share your email address.
-                    <gsml:popupWindow width="800" height="600" left="50" top="50"
-                        href="/about/privacyStatement.page?state=$STATE">Privacy Policy</gsml:popupWindow>
-                </span>
-                <br style="clear: left;"/>
-
-                <label for="password" class="form left">Password (P)<br/><span class="passwordSpec">(6-14 characters)</span></label>
-                <spring:bind path="userCmd.password">
-                    <input id="password" class="form password" type="password" name="${status.expression}"
-                           value="${status.value}"/>
-                </spring:bind>
-                <gsml:errorMessage useImage="true" command="userCmd" field="password"/>
-
-                <br style="clear: left;"/>
-
-                <label for="confirmPassword" class="form left">Re-type password</label>
-                <spring:bind path="userCmd.confirmPassword">
-                    <input id="confirmPassword" class="form password" type="password"
-                           name="${status.expression}" value="${status.value}"/>
-                </spring:bind>
-                <gsml:errorMessage useImage="true" command="userCmd" field="confirmPassword"/>
-
-                <br style="clear: left;"/>
-
-                <label class="form live">Where do you live?</label>
-                <label for="userState" class="state">State</label>
-                <spring:bind path="userCmd.state">
-                    <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
-                                         styleClass="state" onChange="stateChange(this);"/>
-                </spring:bind>
-                <gsml:errorMessage useImage="true" command="userCmd" field="state"/>
-
-                <br style="clear: right;"/>
-
-                <label for="citySelect" class="city">City</label>
-                <div id="city" class="city">
-                    <select id="citySelect" name="city" class="city">
-                        <c:if test="${userCmd.cityList ne null and (userCmd.city eq null or userCmd.city eq '')}">
-                            <option selected="selected" value="">Choose city</option>
-                        </c:if>
-                        <c:forEach var="cityOption" items="${userCmd.cityList}">
-                            <![CDATA[<option ]]>
-                            <c:if test="${userCmd.city eq cityOption.name}">
-                                selected
-                            </c:if>
-                            <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
-                        </c:forEach>
-                    </select>
+    <div id="reg_1">
+        <h1><span>Join</span></h1>
+        <div id="outline"><!-- creates darker blue outer outline -->
+            <div id="content">
+                <!-- begin alert box -->
+                <div id="alert_box">
+                    <p>Items with a <gsml:img src="/res/img/community/registration/icon_private_9x11.gif" alt="Private" styleClass="private"/> will be
+                        private and not viewable by other users.</p>
                 </div>
-                <gsml:errorMessage useImage="true" command="userCmd" field="city" styleClass="error cityError"
-                        imageClass="errorIcon cityErrorIcon"/>
+                <!-- end: alert_box -->
 
-                <br style="clear: left;"/>
-                <c:set var="termsStyle" value="display:none"/>
-                <c:set var="childrenStyle" value="display:block"/>
-                <c:if test="${userCmd.gender eq 'u'}">
-                    <c:set var="termsStyle" value="display:block"/>
-                    <c:set var="childrenStyle" value="display:none"/>
-                </c:if>
+                <h2><span>Welcome to the GreatSchools Community!</span></h2>
 
-                <div id="numChildren" style="${childrenStyle}">
-                    <label for="numSchoolChildren" class="form">How many children do you have in K-12 schools?</label>
-                    <spring:bind path="userCmd.numSchoolChildren">
-                        <select name="${status.expression}" id="numSchoolChildren" class="form small"
-                                onchange="determinePageState();">
-                            <c:if test="${userCmd.numSchoolChildren eq null or userCmd.numSchoolChildren eq -1}">
-                                <![CDATA[<option selected value="-1">--</option>]]>
-                            </c:if>
-                            <c:forEach var="schoolChildOption" items="0,1,2,3,4,5,6,7,8,9">
-                                <![CDATA[<option ]]>
-                                <c:if test="${userCmd.numSchoolChildren eq schoolChildOption}">
-                                    selected
+                <p class="intro">You're joining a national network of parents who are passionate about education. We're
+                    excited to have you!</p>
+
+                <!-- begin registration form -->
+                <gsweb:form action="/community/registration.page" method="post" styleClass="registration" id="reg1Form">
+
+                    <p><label>I'm a</label>
+                        <gsml:radio name="gender" value="f" styleId="mom" styleClass="radio" checked="${userCmd.gender eq 'f'}" onclick="determinePageState()"/>
+                        <label for="mom" class="radiolabel">Mom</label>
+                        <gsml:radio name="gender" value="m" styleId="dad" styleClass="radio" checked="${userCmd.gender eq 'm'}" onclick="determinePageState()"/>
+                        <label for="dad" class="radiolabel">Dad</label>
+                        <gsml:radio name="gender" value="u" styleId="other" styleClass="radio" checked="${userCmd.gender eq 'u'}" onclick="determinePageState()"/>
+                        <label for="other" class="radiolabel">Other</label>
+                    </p>
+
+                    <p><label>First name<gsml:img src="/res/img/community/registration/icon_private_9x11.gif" alt="Private" styleClass="private"/></label>
+                        <spring:bind path="userCmd.user.firstName">
+                            <input id="firstName" type="text" name="${status.expression}" value="${status.value}"/>
+                        </spring:bind>
+                    </p>
+                    <gsml:errorMessage command="userCmd" field="firstName" useImage="true" styleClass="warning"/>
+
+                    <p><label>Screen name<br/><span class="details">(6-14 characters)</span></label>
+                        <spring:bind path="userCmd.screenName">
+                            <input id="screenName" type="text" name="${status.expression}" value="${status.value}"/>
+                        </spring:bind>
+                    </p>
+                    <gsml:errorMessage command="userCmd" field="screenName" useImage="true" styleClass="warning"/>
+
+                    <p class="email"><label>Email address<gsml:img src="/res/img/community/registration/icon_private_9x11.gif" alt="Private"
+                                                              styleClass="private"/></label>
+                        <spring:bind path="userCmd.user.email">
+                            <input id="email" type="text" name="${status.expression}" value="${status.value}"/>
+                        </spring:bind>
+                    </p>
+                    <gsml:errorMessage command="userCmd" field="email" useImage="true" styleClass="warning"/>
+                    <p class="disclaimer">We will NOT share your email address. <gsml:popupWindow width="800" height="600" left="50" top="50"
+                        href="/about/privacyStatement.page?state=$STATE">Privacy Policy</gsml:popupWindow></p>
+
+                    <p><label>Password<gsml:img src="/res/img/community/registration/icon_private_9x11.gif" alt="Private" styleClass="private"/><br/><span
+                            class="details">(6-14 characters)</span></label>
+                        <spring:bind path="userCmd.password">
+                            <input id="password" type="password" name="${status.expression}" value="${status.value}"/>
+                        </spring:bind>
+                    </p>
+                    <gsml:errorMessage command="userCmd" field="password" useImage="true" styleClass="warning"/>
+
+                    <p><label>Re-type password</label>
+                        <spring:bind path="userCmd.confirmPassword">
+                            <input id="confirmPassword" type="password" name="${status.expression}" value="${status.value}"/>
+                        </spring:bind>
+                    </p>
+                    <gsml:errorMessage command="userCmd" field="confirmPassword" useImage="true" styleClass="warning"/>
+
+                    <p class="whereliveState"><label>Where do you live?</label><label class="selectlabel">State</label>
+                        <spring:bind path="userCmd.state">
+                            <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
+                                                 styleClass="selectState" onChange="stateChange(this);"/>
+                        </spring:bind>
+                    </p>
+                    <gsml:errorMessage command="userCmd" field="state" useImage="true" styleClass="warning"/>
+
+                    <p class="whereliveCity"><label>&amp;nbsp;</label><label class="selectlabel">City</label>
+                        <span id="city">
+                            <select name="city" class="selectCity">
+                                <c:if test="${userCmd.cityList ne null and (userCmd.city eq null or userCmd.city eq '')}">
+                                    <option selected="selected" value="">Choose city</option>
                                 </c:if>
-                                <![CDATA[ value="${schoolChildOption}">${schoolChildOption}</option>]]>
-                            </c:forEach>
-                        </select>
+                                <c:forEach var="cityOption" items="${userCmd.cityList}">
+                                    <![CDATA[<option ]]>
+                                    <c:if test="${userCmd.city eq cityOption.name}">
+                                        selected
+                                    </c:if>
+                                    <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
+                                </c:forEach>
+                            </select>
+                        </span>
+                    </p>
+                    <gsml:errorMessage command="userCmd" field="city" useImage="true" styleClass="warning_city"/>
+
+                    <c:set var="termsStyle" value="display:none"/>
+                    <c:set var="childrenStyle" value="display:block"/>
+                    <c:if test="${userCmd.gender eq 'u'}">
+                        <c:set var="termsStyle" value="display:block"/>
+                        <c:set var="childrenStyle" value="display:none"/>
+                    </c:if>
+
+                    <div id="numChildren" style="${childrenStyle}">
+                        <p><label class="K12">How many children do you<br/>have in K-12 schools?</label>
+                            <spring:bind path="userCmd.numSchoolChildren">
+                                <select name="${status.expression}" id="numSchoolChildren" class="selectK12"
+                                        onchange="determinePageState();">
+                                    <c:if test="${userCmd.numSchoolChildren eq null or userCmd.numSchoolChildren eq -1}">
+                                        <![CDATA[<option selected value="-1">--</option>]]>
+                                    </c:if>
+                                    <c:forEach var="schoolChildOption" items="0,1,2,3,4,5,6,7,8,9">
+                                        <![CDATA[<option ]]>
+                                        <c:if test="${userCmd.numSchoolChildren eq schoolChildOption}">
+                                            selected
+                                        </c:if>
+                                        <![CDATA[ value="${schoolChildOption}">${schoolChildOption}</option>]]>
+                                    </c:forEach>
+                                </select>
+                            </spring:bind>
+                        </p>
+                        <gsml:errorMessage command="userCmd" field="numSchoolChildren" useImage="true" styleClass="warning_K12"/>
+                    </div>
+
+                    <div id="terms" style="${termsStyle}">
+                        <p><label class="terms">I agree to the <link:termsOfUse>terms of
+                            service</link:termsOfUse></label></p>
+                        <gsml:radio name="termsStr" value="y" styleId="yesTerms" styleClass="radio"
+                                    checked="${userCmd.terms eq true}"/>
+                        <label class="radiolabelTerms">Yes</label>
+                        <gsml:radio name="termsStr" value="n" styleId="noTerms" styleClass="radio"
+                                    checked="${userCmd.terms eq false}"/>
+                        <label class="radiolabelTerms">No</label>
+                        <gsml:errorMessage command="userCmd" field="terms" useImage="true" styleClass="warning_terms"/>
+                    </div>
+
+                    <div id="joinButton" class="join" style="${termsStyle}">
+                        <a href="#" title="Join the GreatSchools community" onclick="$('invJoinButton').click(); return false;">&amp;nbsp;</a>
+                        <input id="invJoinButton" type="submit" name="join" value="join" style="display: none"/>
+                    </div>
+
+                    <div id="nextButton" style="${childrenStyle}">
+                        <gsml:inputImage src="/res/img/community/registration/submit_next.gif" alt="next" styleClass="next" name="next"/>
+                    </div>
+
+                    <div class="clear"></div>
+
+                    <spring:bind path="userCmd.redirectUrl">
+                        <input id="redirectUrl" type="hidden" name="${status.expression}" value="${status.value}"/>
                     </spring:bind>
-                    <gsml:errorMessage useImage="true" command="userCmd" field="numSchoolChildren"/>
-                    <br style="clear:left;"/>
-                </div>
 
-                <div id="terms" style="${termsStyle}">
-                    <label class="form terms">I agree to the <link:termsOfUse>terms of service</link:termsOfUse></label>
-                    <gsml:radio name="termsStr" value="y" styleId="yesTerms" styleClass="form radio"
-                                checked="${userCmd.terms eq true}"/>
-                    <label for="yesTerms" class="form radio">Yes</label>
-                    <gsml:radio name="termsStr" value="n" styleId="noTerms" styleClass="form radio"
-                                checked="${userCmd.terms eq false}"/>
-                    <label for="noTerms" class="form radio">No</label>
-                    <gsml:errorMessage useImage="true" command="userCmd" field="terms"/>
-                    <br style="clear:left;"/>
-                </div>
-
-                <spring:bind path="userCmd.redirectUrl">
-                    <input id="redirectUrl" type="hidden" name="${status.expression}" value="${status.value}"/>
-                </spring:bind>
-                <br style="clear:left;"/>
-
-                <div class="privacyIcon">Items with a (P) will be private and not viewable by other users.</div>
-
-                <div id="joinButton" style="${termsStyle}">
-                    <input class="submit join" type="submit" value="Join!" name="join"/>
-                </div>
-                <div id="nextButton" style="${childrenStyle}">
-                    <input class="submit next" type="submit" value="Next &gt;" name="next"/>
-                </div>
-
-                <br style="clear:left;"/>
-            </gsweb:form>
+                </gsweb:form>
             </div>
-            </td>
-        </tr>
-    </table>
+            <!-- end: content -->
+        </div>
+        <!-- end: outline -->
+    </div>
+    <!-- end: main -->
   </gsml:body>
 </html>
 </jsp:root>

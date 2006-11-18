@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.10 2006/11/14 22:17:54 aroy Exp $
+ * $Id: LoginController.java,v 1.11 2006/11/18 00:08:13 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -85,12 +85,12 @@ public class LoginController extends SimpleFormController {
 
         if (user == null) {
             // get registration form to auto fill in email
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, loginCommand.getEmail());
-            if (StringUtils.isNotEmpty(loginCommand.getRedirect())) {
-                builder.addParameter("redirect", loginCommand.getRedirect());
-            }
-            String href = builder.asAnchor(request, "Register here.").asATag();
-            errors.reject(USER_DOES_NOT_EXIST_ERROR_CODE + "_with_link", "You're not a member yet. " + href);
+//            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, loginCommand.getEmail());
+//            if (StringUtils.isNotEmpty(loginCommand.getRedirect())) {
+//                builder.addParameter("redirect", loginCommand.getRedirect());
+//            }
+//            String href = builder.asAnchor(request, "Register here.").asATag();
+            errors.reject(USER_DOES_NOT_EXIST_ERROR_CODE + "_with_link", "You're not a member yet.");
         } else if (user.isEmailProvisional()) {
             String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
 

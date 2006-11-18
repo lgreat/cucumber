@@ -81,7 +81,7 @@ public class Registration2AjaxController implements Controller {
         City notListed = new City();
         notListed.setName("My city is not listed");
         cities.add(0, notListed);
-        openSelectTag(out, "city", "citySelect", "city", "cityChange(this, " + childNum + ");");
+        openSelectTag(out, "city", "citySelect", "selectChildCity", "cityChange(this, " + childNum + ");");
         outputOption(out, "", "--", true);
         for (int x=0; x < cities.size(); x++) {
             ICity icity = (ICity) cities.get(x);
@@ -92,9 +92,9 @@ public class Registration2AjaxController implements Controller {
 
     protected void outputSchoolSelect(State state, String city, String grade, PrintWriter out, String childNum) {
         List schools = _schoolDao.findSchoolsInCityByGrade(state, city, Grade.getGradeLevel(grade));
-        openSelectTag(out, "school" + childNum, "school" + childNum, "form school", null);
+        openSelectTag(out, "school" + childNum, "school" + childNum, "selectChildSchool", null);
         outputOption(out, "", "--", true);
-        outputOption(out, "-1", "My school is not listed");
+        outputOption(out, "-1", "My child's school is not listed");
         for (int x=0; x < schools.size(); x++) {
             School school = (School) schools.get(x);
             String idString = ((school.getId() != null)?school.getId().toString():"");

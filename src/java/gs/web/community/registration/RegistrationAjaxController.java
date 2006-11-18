@@ -56,7 +56,7 @@ public class RegistrationAjaxController implements Controller {
         notListed.setName("My city is not listed");
         cities.add(0, notListed);
         if (cities.size() > 0) {
-            out.print("<select id=\"citySelect\" name=\"city\" class=\"city\">");
+            out.print("<select id=\"citySelect\" name=\"city\" class=\"selectCity\">");
             outputOption(out, "", "Choose city", true);
             for (int x=0; x < cities.size(); x++) {
                 ICity city = (ICity) cities.get(x);

@@ -24,86 +24,82 @@
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
             ]]>
         <title>Log In or Register</title>
-        <pageHelper:externalCss file="/res/css/community/registration/loginOrRegister.css"/>
+        <pageHelper:externalCss file="/res/css/community/registration/registration.css"/>
     </head>
 
     <gsml:body adPageName="login">
-        <table>
-            <tr>
-                <td class="join">
-                    <span>Join &amp;<br/> Sign in</span>
-                </td>
-                <td class="content">
 
-                    <table>
-                        <tr>
-                            <td class="new">
-                                <span class="title">New User?</span>
+    <div id="reg_intro">
+        <h1><span>Join &amp; Sign In</span></h1>
 
-                                <span class="intro">Join our community!</span>
+        <div id="outline"><!-- creates darker blue outer outline -->
+            <div id="content">
+                <div id="newuser">
+                    <h2><span>New User? Join our community!</span></h2>
 
-                                <gsml:img src="/res/img/community/mom_daughter.jpg" alt="Mom and daughter"/>
+                    <div class="join"><link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}"></link:registration></div>
 
-                                <span class="joinText">Join the GreatSchools community and connect
-                                with parents who are passionate about education!
-                                <span class="strong">It's free!</span></span>
+                    <gsml:img src="/res/img/community/registration/join-signin_photo.jpg" alt=""/>
 
-                                <span class="join"><link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}">JOIN!</link:registration></span>
-                            </td>
-                            <td class="existing">
-                                <span class="title">Returning User?</span>
-                                <br style="clear: right;"/>
-                                <span class="intro">Yes! I'm already a member</span>
+                    <p class="intro">Join the GreatSchools community<br/>and connect with parents who are<br/>passionate
+                        about education! <strong>It's free!</strong></p>
+                </div>
+                <!-- end: newuser -->
+                <div id="returninguser">
+                    <h2><span>Returning User? Yes! I'm already a member.</span></h2>
 
-                                <c:if test="${param.message ne null and param.message gt ''}">
-                                    <div class="messageBox">
-                                        <span class="message">${param.message}</span>
-                                    </div>
-                                    <br style="clear: right"/>
-                                </c:if>
+                    <gsweb:form action="/community/loginOrRegister.page" method="post">
 
-                                <gsweb:form action="/community/loginOrRegister.page" method="post">
+                        <c:if test="${param.message ne null and param.message gt ''}">
+                            <div class="messageBox">
+                                <span class="message">${param.message}</span>
+                            </div>
+                            <br style="clear: right"/>
+                        </c:if>
 
-                                    <gsml:errorMessage command="loginCmd"/>
+                        <gsml:errorMessage command="loginCmd"/>
+                        <p>
+                            <label>Email address</label>
+                            <spring:bind path="loginCmd.email">
+                                <input type="text" name="${status.expression}" value="${status.value}"/>
+                            </spring:bind>
+                        </p>
 
-                                    <label class="form">Email address</label>
-                                    <spring:bind path="loginCmd.email">
-                                        <input type="text" name="${status.expression}" value="${status.value}" size="30" class="form"/>
-                                    </spring:bind>
+                        <p>
+                            <label>Password</label>
+                                <spring:bind path="loginCmd.password">
+                                    <input type="password" name="${status.expression}" value="${status.value}"/>
+                                </spring:bind>
+                        </p>
 
-                                    <br style="clear: right;"/>
+                        <gsml:checkbox name="loginCmd.rememberMe" checked="${loginCmd.rememberMe}" styleClass="checkbox" styleId="rememberMe"/>
+                        <p><label class="checkboxLabel" for="rememberMe">Keep me signed in</label></p>
 
-                                    <label class="form">Password</label>
-                                    <spring:bind path="loginCmd.password">
-                                        <input type="password" name="${status.expression}" value="${status.value}" size="15" class="form"/>
-                                    </spring:bind>
+                        <spring:bind path="loginCmd.redirect">
+                            <input type="hidden" name="${status.expression}" value="${status.value}"/>
+                        </spring:bind>
 
-                                    <spring:bind path="loginCmd.redirect">
-                                        <input type="hidden" name="${status.expression}" value="${status.value}"/>
-                                    </spring:bind>
+                        <gsml:inputImage src="/res/img/community/registration/submit_signin.gif" alt="Sign in" styleClass="signin"/>
 
-                                    <br style="clear: right;"/>
+                    </gsweb:form>
 
-                                    <input class="submit" type="submit" value="GO"/>
+                    <p>
+                        <c:if test="${loginCmd.email != null and loginCmd.email != ''}">
+                            <link:forgotPassword email="${loginCmd.email}">Forgot password?</link:forgotPassword>
+                        </c:if>
+                        <c:if test="${loginCmd.email == null or loginCmd.email == ''}">
+                            <link:forgotPassword>Forgot password?</link:forgotPassword>
+                        </c:if>
+                    </p>
+                </div>
+                <!-- end: returninguser -->
+            </div>
+            <!-- end: content -->
+        </div>
+        <!-- end: outline -->
+    </div>
+    <!-- end: main -->
 
-                                    <br style="clear: right;"/>
-
-                                    <span class="forgotPassword">
-                                        <c:if test="${loginCmd.email != null and loginCmd.email != ''}">
-                                            <link:forgotPassword email="${loginCmd.email}">Forgot password?</link:forgotPassword>
-                                        </c:if>
-                                        <c:if test="${loginCmd.email == null or loginCmd.email == ''}">
-                                            <link:forgotPassword>Forgot password?</link:forgotPassword>
-                                        </c:if>
-                                    </span>
-                                </gsweb:form>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <br style="clear: left;"/>
         <mod:tracking pageName="login"
                       pageType=""
                       hier1=""/>

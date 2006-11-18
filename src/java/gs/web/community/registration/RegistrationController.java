@@ -98,6 +98,8 @@ public class RegistrationController extends SimpleFormController implements Read
         UserCommand userCommand = (UserCommand) command;
         User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
 
+        _log.info(request.getParameterMap());
+
         boolean userExists = false;
 
         if (user != null) {
@@ -163,7 +165,7 @@ public class RegistrationController extends SimpleFormController implements Read
 
         ModelAndView mAndV = new ModelAndView();
 
-        if (request.getParameter("next") != null) {
+        if (request.getParameter("join") == null) {
             mAndV.setViewName(getSuccessView());
             String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
             mAndV.getModel().put("marker", hash);
