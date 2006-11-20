@@ -518,6 +518,8 @@
 
     <tag>
         <name>adTagGenerator</name>
+        <description>Generate a cobrand specific ad.
+            Only ads served through GreatSchools' ad server will have body content parsed.</description>
         <tag-class>gs.web.ads.AdTagHandler</tag-class>
         <body-content>scriptless</body-content>
         <attribute>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+        >
+    <jsp:directive.tag body-content="empty"/>
+    <jsp:directive.attribute name="blurb" required="false" description="A line of text to appear above the ad"/>
+    <c:if test="${!requestScope.pageHelper.adFree}">
+        <c:if test='${!requestScope.pageHelper.adServedByCobrand}'>
+            <div class="multiTextAd">
+                <c:if test="${not empty blurb}">
+                    <h2>${blurb}</h2>
+                </c:if>
+                <ad:x49/>
+                <![CDATA[<span class="hr"></span>]]>
+                <ad:x50/>
+            </div>
+        </c:if>
+    </c:if>    
+</jsp:root>
+
+

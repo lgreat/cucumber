@@ -5,16 +5,8 @@
           xmlns:gsweb="gstaglib"
         >
     <jsp:directive.tag body-content="empty"/>
-    <c:if test="${!requestScope.pageHelper.adFree}">
-        <div class="noprint" id="adSquareOrRect">
-            <c:if test='${!requestScope.pageHelper.adServedByCobrand}'>AD</c:if>
-            <table cellpadding="0" cellspacing="0">
-                <tr><td>
-                    <gsweb:defer id="ad-x70">
-                        <gsweb:adTagGenerator position="x70"/>
-                    </gsweb:defer>
-                </td></tr>
-            </table>
-        </div>
-    </c:if>
+    <gsweb:adTagGenerator position="x70">
+        <span style="display:block;">AD</span>
+        $AD
+    </gsweb:adTagGenerator>
 </jsp:root>

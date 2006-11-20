@@ -36,6 +36,11 @@
     <gsml:url var="footercss" value="/res/css/footer.css"/>
     <![CDATA[<link rel="stylesheet" type="text/css" href="${footercss}"></link>]]>
 
+    <c:if test="${!requestScope.pageHelper.adFree}">
+        <gsml:url var="adscss" value="/res/css/ads.css"/>
+        <![CDATA[<link rel="stylesheet" type="text/css" href="${adscss}"></link>]]>        
+    </c:if>
+
     <gsml:url var="globaljs" value="/res/js/global.js?v=3"/>
     <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
 

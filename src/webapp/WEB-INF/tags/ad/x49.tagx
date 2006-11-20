@@ -6,16 +6,12 @@
         >
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="blurb" required="false" description="A line of text to appear above the ad"/>
-    <c:if test="${!requestScope.pageHelper.adFree}">
-        <c:if test='${!requestScope.pageHelper.adServedByCobrand}'>
-            <div class="textAd">
-                <c:if test="${not empty blurb}">
-                    <h2 id="adBlurb">${blurb}</h2>
-                </c:if>
-                <gsweb:defer id="ad-x49">
-                    <gsweb:adTagGenerator position="x49"/>
-                </gsweb:defer>
-            </div>
-        </c:if>
-    </c:if>
+    <gsweb:adTagGenerator position="x49">
+        <div class="textAd">
+            <c:if test="${not empty blurb}">
+                <h2 id="adBlurb">${blurb}</h2>
+            </c:if>
+            $AD
+        </div>
+    </gsweb:adTagGenerator>
 </jsp:root>

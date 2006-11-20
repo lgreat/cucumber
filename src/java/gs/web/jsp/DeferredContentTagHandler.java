@@ -1,8 +1,6 @@
 package gs.web.jsp;
 
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 import java.io.IOException;
 import java.io.StringWriter;
 
@@ -13,42 +11,22 @@ import java.io.StringWriter;
  *
  * @author Todd Huss <mailto:thuss@greatschools.net>
  */
-public class DeferredContentTagHandler extends SimpleTagSupport {
+public class DeferredContentTagHandler extends AbstractDeferredContentTagHandler {
 
     /**
      * The required CSS id
      */
     private String _id;
 
-    public void doTag() throws JspException, IOException {
-        PageContext pageContext = (PageContext) getJspContext();
-
-        // Append the body
-        StringWriter bodyWriter = new StringWriter();
-        getJspBody().invoke(bodyWriter);
-        StringBuffer defer = new StringBuffer();
-        String deferredContent = (String) pageContext.getAttribute("deferredContent", PageContext.REQUEST_SCOPE);
-        if (deferredContent != null) {
-            defer.append(deferredContent);
-        }
-        defer.append("<div id=\"defer-").append(_id).append("\">").append(bodyWriter).append("</div>");
-        pageContext.setAttribute("deferredContent", defer.toString(), PageContext.REQUEST_SCOPE);
-
-        // Write out the place holder
-        StringBuffer xhtml = new StringBuffer();
-        try {
-            xhtml.append("<div id=\"").append(_id).append("\"></div>");
-            writeOutput(xhtml);
-        } catch (Exception e) {
-            throw new JspException(e);
-        }
+    public String getId() {
+        return _id;
     }
 
-    /**
-     * Made this a separate method to make this class easier to test
-     */
-    protected void writeOutput(StringBuffer xhtml) throws IOException {
-        getJspContext().getOut().println(xhtml);
+    public String getDeferredContent() throws IOException, JspException {
+        // Append the body
+        StringWriter writer = new StringWriter();
+        getJspBody().invoke(writer);
+        return writer.toString();
     }
 
     public void setId(String id) {

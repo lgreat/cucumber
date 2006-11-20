@@ -5,11 +5,5 @@
           xmlns:gsweb="gstaglib"
         >
     <jsp:directive.tag body-content="empty"/>
-    <c:if test="${!requestScope.pageHelper.adFree}">
-        <div id="adSkyscraper">
-            <gsweb:defer id="ad-x33">
-                <gsweb:adTagGenerator position="x33"/>
-            </gsweb:defer>
-        </div>
-    </c:if>
+    <gsweb:adTagGenerator position="x33"/>
 </jsp:root>

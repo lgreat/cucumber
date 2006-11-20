@@ -1,54 +1,90 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.3 2006/09/28 19:17:23 dlee Exp $
+ * $Id: AdTagHandler.java,v 1.4 2006/11/20 22:33:54 dlee Exp $
  */
 package gs.web.ads;
 
+import gs.web.jsp.AbstractDeferredContentTagHandler;
 import gs.web.util.PageHelper;
 import gs.web.util.context.ISessionContext;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
+import javax.servlet.jsp.tagext.JspFragment;
 import java.io.IOException;
+import java.io.StringWriter;
 
 /**
  * Write an ad
  *
  * @author David Lee <mailto:dlee@greatschools.net>
  */
-public class AdTagHandler extends SimpleTagSupport {
+public class AdTagHandler extends AbstractDeferredContentTagHandler {
 
     private String _position;
     private AdPosition _adPosition;
+    private static final Log _log = LogFactory.getLog(AdTagManager.class);
 
-    public void doTag() throws IOException {
+
+    public String getId() {
+        return "ad" + _adPosition.getName();
+    }
+
+    public String getDeferredContent() throws IOException, JspException {
         ISessionContext sc = (ISessionContext) getJspContext().findAttribute(ISessionContext.REQUEST_ATTRIBUTE_NAME);
         PageContext pageContext = (PageContext) getJspContext();
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+
+        if (pageHelper.isAdFree()) {
+            return ""; //early exit
+        }
+
+        String adPosition = _adPosition.getName();
         StringBuffer buffer = new StringBuffer();
+        buffer.append("<div id=\"")
+                .append(getId())
+                .append("\" class=\"")
+                .append(getId()).append(" ")
+                .append("ad").append(" ")
+                .append("noprint")
+                .append("\">");
 
-        if (!pageHelper.isAdFree()) {
-            String adPosition = _adPosition.getName();
-
-            if (pageHelper.isAdServedByCobrand()) {
-                AdTagManager adManager = AdTagManager.getInstance();
-                String customAdTag = adManager.getAdTag(sc.getCobrand(), _adPosition);
-                buffer.append(customAdTag);
+        if (pageHelper.isAdServedByCobrand()) {
+            AdTagManager adManager = AdTagManager.getInstance();
+            String customAdTag = adManager.getAdTag(sc.getCobrand(), _adPosition);
+            buffer.append(customAdTag);
+        } else {
+            if (null != request.getAttribute(adPosition)) {
+                throw new IllegalArgumentException("Ad Position already defined: " + adPosition);
             } else {
-                if (null != request.getAttribute(adPosition)) {
-                    throw new IllegalArgumentException("Ad Position already defined: " + adPosition);
-                } else {
-                    request.setAttribute(adPosition, Boolean.TRUE);
-                }
+                request.setAttribute(adPosition, Boolean.TRUE);
+            }
 
-                buffer.append("<script type=\"text/javascript\">OAS_AD('")
-                        .append(_adPosition.getName())
-                        .append("');</script>");
+            String adCode = "<script type=\"text/javascript\">OAS_AD('" + _adPosition.getName() + "');</script>";
+            JspFragment body = getJspBody();
+
+            if (null != body) {
+                StringWriter bodyWriter = new StringWriter();
+                body.invoke(bodyWriter);
+                StringBuffer adBuffer = bodyWriter.getBuffer();
+
+                if (adBuffer.indexOf("$AD") == -1) {
+                    throw new IllegalStateException("Missing variable $AD in body content.");
+                } else {
+                    buffer.append(adBuffer.toString().replaceAll("\\$AD", adCode));    
+                }
+            } else {
+                buffer.append(adCode);
             }
         }
-        getJspContext().getOut().print(buffer.toString());
+
+        buffer.append("</div>");
+
+        return buffer.toString();
     }
 
     public String getPosition() {

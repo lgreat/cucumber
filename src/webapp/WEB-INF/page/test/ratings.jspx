@@ -81,6 +81,7 @@
                 <div style="padding:10px 10px 0 14px;">
                 <div class="ratingSummaryWrapper">
                     <div class="ratingSummaryContent">
+                        <div style="height:121px;">
                         <gsml:img src="${ratingImagePath}" alt="${imageDesc}" style="float:left;padding-right:30px;"/>
 
                         <h2>What do these ratings mean?</h2>
@@ -95,6 +96,7 @@
                             when compared to students in the same group statewide.<br/>
                             A "1" means that the group is in the bottom 10%.
                         </p>
+                            </div>
                     </div>
                 </div>
 
@@ -118,6 +120,9 @@
                                     data</link:schoolProfileTestscore></li>
                             </ul>
                         </div>
+
+                        <ad:multiTextAd blurb="Advertiser links"/>
+
                     </div>
                 </div>
                 </div>

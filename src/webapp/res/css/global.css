@@ -266,30 +266,6 @@ input.btn {
     white-space: nowrap;
 }
 
-/*  Advertising
------------------------------------------------ */
-.adSquare {
-    text-align: center;
-    color: #999;
-    width: 300px;
-    height: 250px;
-    padding: 5px;
-    margin: 0 0 10px 0;
-    border: 0px;
-    font-size: 10px;
-    float: right;
-}
-
-
-#adSkyscraper {
-    padding-top: 20px;
-}
-
-#adSkyscraper img {
-    margin-left: auto;
-    margin-right: auto;
-}
-
 /* PROMOS
 ----------------------------------------------- */
 

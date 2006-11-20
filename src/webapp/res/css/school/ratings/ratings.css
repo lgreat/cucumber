@@ -5,8 +5,7 @@
     margin-bottom:15px;
 }
 
-#schoolProfile .ratingSummaryContent {
-    height:121px;
+#schoolProfile .ratingSummaryContent {    
     background-color:#eee;
     margin:0 0 0 0;
 }
@@ -70,7 +69,8 @@
 
 #adx48 {
     padding-bottom:30px;
-    text-align:center;
-    font-size: 10px;
-    color: #999;
+}
+
+#contentGS .textAd a{
+    color: #666;
 }

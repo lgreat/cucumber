@@ -6,9 +6,5 @@
           xmlns:gsweb="gstaglib"
         >
     <jsp:directive.tag body-content="empty"/>
-    <c:if test="${!requestScope.pageHelper.adFree}">
-        <gsweb:defer id="ad-x24">
-            <gsweb:adTagGenerator position="x24"/>
-        </gsweb:defer>
-    </c:if>
+    <gsweb:adTagGenerator position="x24"/>
 </jsp:root>
