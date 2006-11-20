@@ -10,6 +10,6 @@
         </h3>
     </c:if>
     <h4><gsweb:articlelink article="${article}" featured="true" flaggedIfNew="true"/></h4>
-    <p><c:out value="${article.abstract}" escapeXml="true"/>
-    <gsweb:articlelink article="${article}" featured="true" flaggedIfNew="false">&#160;&#160;More...</gsweb:articlelink></p>
+    <p><c:out value="${article.abstract}&#160;&#160;" escapeXml="true"/>
+    <gsweb:articlelink article="${article}" featured="true" flaggedIfNew="false">More...</gsweb:articlelink></p>
 </jsp:root>
