@@ -1,7 +1,7 @@
 package gs.web.community.registration;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.util.MockJavaMailSender;
+import gs.data.util.email.MockJavaMailSender;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import org.springframework.web.servlet.ModelAndView;

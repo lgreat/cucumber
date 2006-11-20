@@ -38,10 +38,6 @@
         <property name="fromName" value="GreatSchools"/>
     </bean>
 
-    <bean id="emailHelperFactory" class="gs.web.util.email.EmailHelperFactory"
-          autowire="byName">
-    </bean>
-
     <!-- factory bean for user session information -->
     <bean id="sessionContext"
           class="gs.web.util.context.SessionContext"

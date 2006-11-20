@@ -4,7 +4,7 @@ import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
-import gs.web.util.MockJavaMailSender;
+import gs.data.util.email.MockJavaMailSender;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.easymock.MockControl;

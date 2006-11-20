@@ -4,10 +4,10 @@
 package gs.web.community.registration;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.util.MockJavaMailSender;
+import gs.data.util.email.MockJavaMailSender;
 import gs.web.util.UrlBuilder;
-import gs.web.util.email.EmailHelperFactory;
-import gs.web.util.email.EmailHelper;
+import gs.data.util.email.EmailHelperFactory;
+import gs.data.util.email.EmailHelper;
 import gs.data.community.User;
 
 import javax.mail.MessagingException;

@@ -2,8 +2,8 @@ package gs.web.community;
 
 import gs.data.community.*;
 import gs.data.state.State;
+import gs.data.util.email.MockJavaMailSender;
 import gs.web.BaseControllerTestCase;
-import gs.web.util.MockJavaMailSender;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
