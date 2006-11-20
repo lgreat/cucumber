@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.4 2006/11/20 22:33:54 dlee Exp $
+ * $Id: AdTagHandler.java,v 1.5 2006/11/20 23:49:03 dlee Exp $
  */
 package gs.web.ads;
 
@@ -30,7 +30,11 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
 
 
     public String getId() {
-        return "ad" + _adPosition.getName();
+        return _adPosition.getName();
+    }
+
+    private String getAdId() {
+        return "ad" + getId();
     }
 
     public String getDeferredContent() throws IOException, JspException {
@@ -46,9 +50,9 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
         String adPosition = _adPosition.getName();
         StringBuffer buffer = new StringBuffer();
         buffer.append("<div id=\"")
-                .append(getId())
+                .append(getAdId())
                 .append("\" class=\"")
-                .append(getId()).append(" ")
+                .append(getAdId()).append(" ")
                 .append("ad").append(" ")
                 .append("noprint")
                 .append("\">");
