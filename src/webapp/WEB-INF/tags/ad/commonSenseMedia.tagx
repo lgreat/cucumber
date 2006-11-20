@@ -7,7 +7,11 @@
         >
     <jsp:directive.tag body-content="empty"/>
         <div id="adCommonSenseMedia">
-            <span>FROM OUR PARTNER</span>
+            <span id="header">
+                FROM OUR PARTNER<br/>
+                Find the Movies, TV, games and<br/>
+                books that are right for your family.
+            </span>
             <gsweb:defer id="ad-adCommonSenseMedia">
                 <![CDATA[
                 <script type="text/javascript" src="http://findit.commonsensemedia.org/searchbox.php?bg=1"></script>

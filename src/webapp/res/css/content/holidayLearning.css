@@ -1,6 +1,6 @@
 h1#title {
     text-indent: -5000px;
-    background: url( "../../img/content/holidayLearning/holidayLearning.gif" ) no-repeat;
+    background: url( "../../img/content/holidayLearning/holidayLearning_red.gif" ) no-repeat;
     width: 155px;
     height: 192px;
     float: left;
@@ -10,14 +10,14 @@ h1#title {
 
 h2#subTitle1 {
     text-indent: -5000px;
-    background: url( "../../img/content/holidayLearning/greatLearningGifts.gif" ) no-repeat;
+    background: url( "../../img/content/holidayLearning/greatLearningGifts_red.gif" ) no-repeat;
     width: 365px;
     height: 26px;
 }
 
 h2#subTitle2 {
     text-indent: -5000px;
-    background: url( "../../img/content/holidayLearning/holidayActivities.gif" ) no-repeat;
+    background: url( "../../img/content/holidayLearning/engagingHolidayActivities_red.gif" ) no-repeat;
     width: 365px;
     height: 26px;
 }
