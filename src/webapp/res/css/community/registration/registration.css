@@ -325,7 +325,7 @@ h1 span, h2 span {
 	color: #8f8f8f;
 	margin: -4px 0 12px 134px;
 	height: 12px;
-	_margin: -6px 0 12px 70px; /* for IE 6 */
+	_margin: -3px 120px 12px 70px; /* for IE 6 */
 }
 
 .registration .disclaimer a {
@@ -348,7 +348,7 @@ h1 span, h2 span {
 
 .registration .email {
 	height: 23px;
-	_height; 20px; /* for IE 6 */
+	_height: 20px; /* for IE 6 */
 	_padding-bottom: -4px; /* for IE 6 */
 	margin-bottom: 0;
 	padding-bottom: 0;
