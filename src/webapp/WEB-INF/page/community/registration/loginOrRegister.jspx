@@ -37,9 +37,9 @@
                 <div id="newuser">
                     <h2><span>New User? Join our community!</span></h2>
 
-                    <div class="join"><link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}"></link:registration></div>
+                    <div class="join"><link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}" title="Join the GreatSchools Community"></link:registration></div>
 
-                    <gsml:img src="/res/img/community/registration/join-signin_photo.jpg" alt=""/>
+                    <gsml:img src="/res/img/community/registration/join-signin_photo.jpg" alt="Photo of mom and daughter"/>
 
                     <p class="intro">Join the GreatSchools community<br/>and connect with parents who are<br/>passionate
                         about education! <strong>It's free!</strong></p>
@@ -85,10 +85,10 @@
 
                     <p>
                         <c:if test="${loginCmd.email != null and loginCmd.email != ''}">
-                            <link:forgotPassword email="${loginCmd.email}">Forgot password?</link:forgotPassword>
+                            <link:forgotPassword email="${loginCmd.email}" title="Forgot password">Forgot password?</link:forgotPassword>
                         </c:if>
                         <c:if test="${loginCmd.email == null or loginCmd.email == ''}">
-                            <link:forgotPassword>Forgot password?</link:forgotPassword>
+                            <link:forgotPassword title="Forgot password">Forgot password?</link:forgotPassword>
                         </c:if>
                     </p>
                 </div>

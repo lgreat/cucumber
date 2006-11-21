@@ -3,9 +3,9 @@
  */
 package gs.web.community.registration;
 
-import gs.data.util.email.EmailHelperFactory;
 import gs.data.util.email.EmailHelper;
 import gs.web.util.UrlBuilder;
+import gs.web.util.AbstractSendEmailBean;
 import gs.data.community.User;
 
 import javax.mail.MessagingException;
@@ -21,18 +21,12 @@ import org.springframework.mail.MailException;
  *
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class RegistrationConfirmationEmail {
+public class RegistrationConfirmationEmail extends AbstractSendEmailBean {
     public static final String BEAN_ID = "registrationConfirmationEmail";
     public static final String HTML_EMAIL_LOCATION =
             "/gs/web/community/registration/registrationConfirmationEmail-html.txt";
     public static final String TEXT_EMAIL_LOCATION =
             "/gs/web/community/registration/registrationConfirmationEmail-plainText.txt";
-
-    /* Spring injected properties */
-    private EmailHelperFactory _emailHelperFactory;
-    private String _subject;
-    private String _fromEmail;
-    private String _fromName;
 
     /**
      * Creates and sends an email to the given user welcoming them to the GreatSchools
@@ -44,11 +38,8 @@ public class RegistrationConfirmationEmail {
      * @throws MailException on error sending email
      */
     public void sendToUser(User user, HttpServletRequest request) throws IOException, MessagingException, MailException {
-        EmailHelper emailHelper = _emailHelperFactory.getEmailHelper();
+        EmailHelper emailHelper = getEmailHelper();
         emailHelper.setToEmail(user.getEmail());
-        emailHelper.setSubject(_subject);
-        emailHelper.setFromEmail(_fromEmail);
-        emailHelper.setFromName(_fromName);
         emailHelper.readHtmlFromResource(HTML_EMAIL_LOCATION);
         emailHelper.readPlainTextFromResource(TEXT_EMAIL_LOCATION);
 
@@ -60,52 +51,5 @@ public class RegistrationConfirmationEmail {
                 "Get started here");
 
         emailHelper.send();
-    }
-
-    /**
-     * Helper method to register an href as a replacement.
-     * @param emailHelper object to register replacement with
-     * @param request for instantiating UrlBuilder
-     * @param vpage location to generate href to
-     * @param key key to register replacement under
-     * @param linkText text of the link (used in UrlBuilder.asAbsoluteAnchor)
-     */
-    protected void addLinkReplacement(EmailHelper emailHelper, HttpServletRequest request, 
-                                      UrlBuilder.VPage vpage, String key, String linkText) {
-        UrlBuilder builder = new UrlBuilder(vpage, null);
-        emailHelper.addInlineReplacement(key,
-                builder.asAbsoluteAnchor(request, linkText).asATag());
-    }
-
-    public String getSubject() {
-        return _subject;
-    }
-
-    public void setSubject(String subject) {
-        _subject = subject;
-    }
-
-    public String getFromEmail() {
-        return _fromEmail;
-    }
-
-    public void setFromEmail(String fromEmail) {
-        _fromEmail = fromEmail;
-    }
-
-    public String getFromName() {
-        return _fromName;
-    }
-
-    public void setFromName(String fromName) {
-        _fromName = fromName;
-    }
-
-    public EmailHelperFactory getEmailHelperFactory() {
-        return _emailHelperFactory;
-    }
-
-    public void setEmailHelperFactory(EmailHelperFactory emailHelperFactory) {
-        _emailHelperFactory = emailHelperFactory;
     }
 }

@@ -91,14 +91,16 @@
           <br class="clear"/>
       </c:if>
 
-      <h1 class="welcome">Welcome, ${user.userProfile.screenName}!</h1>
+      <c:if test="${user ne null}">
+          <h1 class="welcome">Welcome, ${user.userProfile.screenName}!</h1>
 
-      <h2 class="intro">Top discussions</h2>
-      <ul class="articleList">
-          <li><gsweb:toCommunity targetLink="/loc.598dcc7e">Choosing a school - discussion</gsweb:toCommunity></li>
-      </ul>
-
-      <hr/>
+          <h2 class="intro">Top discussions</h2>
+          <ul class="articleList">
+              <li><gsweb:toCommunity targetLink="/loc.598dcc7e">Choosing a school - discussion</gsweb:toCommunity></li>
+          </ul>
+    
+          <hr/>
+      </c:if>
 
       <h2 class="intro">Recent top articles</h2>
       <ul class="articleList">

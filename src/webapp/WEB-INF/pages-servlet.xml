@@ -42,7 +42,6 @@
         </property>
         <property name="urlMap">
             <map>
-                <entry key="/community/communityLanding.page" value="communityLandingController"/>
                 <entry key="/community/changeEmail.page" value="changeEmailController"/>
                 <entry key="/community/accountInfo.page" value="accountInfoController"/>
             </map>
@@ -863,7 +862,7 @@
         <property name="viewName" value="/community/registration/getUserProfile"/>
     </bean>
 
-    <bean name="communityLandingController"
+    <bean name="/community/communityLanding.page"
           class="gs.web.community.registration.CommunityLandingController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="/community/registration/communityLanding"/>

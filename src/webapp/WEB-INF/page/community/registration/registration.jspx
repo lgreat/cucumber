@@ -186,7 +186,7 @@
                     </div>
 
                     <div id="terms" style="${termsStyle}">
-                        <p><label class="terms">I agree to the <link:termsOfUse>terms of
+                        <p><label class="terms">I agree to the <link:termsOfUse title="GreatSchools Terms of Service">terms of
                             service</link:termsOfUse></label></p>
                         <gsml:radio name="termsStr" value="y" styleId="yesTerms" styleClass="radio"
                                     checked="${userCmd.terms eq true}"/>

@@ -125,6 +125,10 @@ h1 span, h2 span {
 
 /* reg_intro page */
 
+#reg_intro #returninguser input {
+    color: #444444;
+}
+
 #newuser {
 	float: left;
 	width: 245px;

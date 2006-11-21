@@ -191,8 +191,8 @@
       </div>
   </div>
 
-  <p><label class="termsLabel">I agree to the <a href="" title="GreatSchools Terms of Service">terms of
-      service</a></label>
+  <p><label class="termsLabel">I agree to the <link:termsOfUse title="GreatSchools Terms of Service">terms of
+                            service</link:termsOfUse></label>
   </p>
   <gsml:radio name="termsStr" value="y" styleId="yesTerms" styleClass="radio"
               checked="${followUpCmd.terms eq true}"/>

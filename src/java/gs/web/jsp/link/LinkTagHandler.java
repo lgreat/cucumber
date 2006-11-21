@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandler.java,v 1.7 2006/07/26 21:49:16 dlee Exp $
+ * $Id: LinkTagHandler.java,v 1.8 2006/11/21 00:53:49 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -37,6 +37,7 @@ public abstract class LinkTagHandler extends TagSupport {
     private String _styleClass;
     private String _target;
     private String _anchor;
+    private String _title;
 
     /**
      * Create a UrlBuilder object pointing to the correct page.
@@ -124,6 +125,12 @@ public abstract class LinkTagHandler extends TagSupport {
             pageContext.getOut().print("\"");
         }
 
+        if (StringUtils.isNotEmpty(_title)) {
+            pageContext.getOut().print(" title=\"");
+            pageContext.getOut().print(_title);
+            pageContext.getOut().print("\"");
+        }
+
         String href = builder.asSiteRelativeXml((HttpServletRequest) pageContext.getRequest());
 
         if (StringUtils.isNotEmpty(_anchor)) {
@@ -201,5 +208,13 @@ public abstract class LinkTagHandler extends TagSupport {
      */
     public void setAnchor(String anchor) {
         _anchor = anchor;
+    }
+
+    public String getTitle() {
+        return _title;
+    }
+
+    public void setTitle(String title) {
+        _title = title;
     }
 }
