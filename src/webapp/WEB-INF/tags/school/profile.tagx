@@ -41,9 +41,11 @@
 <c:choose>
     <c:when test="${school.type.schoolTypeName != 'private'}">
         <c:set var="schoolType" value="public"/>
+        <!--IE7 hack call relocate before other onload handler so ads can show-->
+        <pageHelper:addOnLoadHandler handler="relocateDeferredContent()"/>        
         <pageHelper:externalJavascript file="/cm/mss_modal.js"/>
-        <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}');"/>
-        <pageHelper:externalJavascript file="/cm/mss_modal.js"/>
+        <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}')"/>
+
         <!--TODO pagehelper method just for adding hovers so we don;t have to keep track on version numbers in different places-->
         <pageHelper:externalCss file="/res/css/submodal/submodal.css?v=7"/>
         <pageHelper:externalJavascript file="/res/js/submodal/submodal.js?v=7"/>
