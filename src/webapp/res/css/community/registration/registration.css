@@ -241,6 +241,10 @@ h1 span, h2 span {
 
 /* registration form */
 
+#reg_1 #content input, #reg_1 #content select {
+    color: #444444;
+}
+
 .registration {
 	margin: 40px 0 0 0;
 }
@@ -328,18 +332,11 @@ h1 span, h2 span {
 	_margin: -3px 120px 12px 70px; /* for IE 6 */
 }
 
-.registration .disclaimer a {
-	color: #8f8f8f;
-	text-decoration: underline;
-}
-
-.registration .disclaimer a:visited {
-	color: #8f8f8f;
-	text-decoration: underline;
-}
-
-
-.registration .disclaimer a:hover {
+.registration .disclaimer a,
+    .registration .disclaimer a:visited,
+    .registration .disclaimer a:link,
+    .registration .disclaimer a:active,
+    .registration .disclaimer a:hover {
 	color: #8f8f8f;
 	text-decoration: underline;
 }
@@ -453,6 +450,10 @@ h1 span, h2 span {
 }
 
 /* reg_3 child modules */
+
+#reg_3 #content .child input, #reg_3 #content .child select {
+    color: #444444;
+}
 
 .child {
 	width: 500px;
@@ -587,7 +588,7 @@ h1 span, h2 span {
 #reg_3 .registration .termsLabel {
 	width: 290px;
 	margin: 0 0 0 3px;
-	font-weight: normal;
+	font-weight: bold;
 }
 
 #reg_3 .warning_terms {

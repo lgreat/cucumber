@@ -8,6 +8,7 @@
     <jsp:directive.attribute name="height" required="true"/>
     <jsp:directive.attribute name="left" required="true"/>
     <jsp:directive.attribute name="top" required="true"/>
+    <jsp:directive.attribute name="title" required="false"/>
     <jsp:scriptlet>
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
         href = urlUtil.buildUrl(href, request);
@@ -16,6 +17,7 @@
 
     <a href="${href}"
             style="cursor:hand"
+            title="${title}"
         onclick="Popup=window.open('${href}','Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=${width},height=${height},left=${left},top=${top}'); return false;">
         <jsp:doBody/>
     </a>

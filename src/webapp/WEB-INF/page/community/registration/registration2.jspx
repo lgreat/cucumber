@@ -7,9 +7,11 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
           xmlns:gsweb="gstaglib">
-<jsp:directive.page contentType="text/html"/><html>
+<jsp:directive.page contentType="text/html"/>
+<html>
+  <pageHelper:setPathway pathway="99"/>
   <head>
-      <title>Registration Successful!</title>
+      <title>Join - GreatSchools.net</title>
       <pageHelper:externalJavascript file="/res/js/prototype.js"/>
       <pageHelper:externalCss file="/res/css/community/registration/registration.css"/>
       <script type="text/javascript">
@@ -135,7 +137,7 @@
                                        styleId="userState${child}" styleClass="selectChildState"
                                        onChange="stateChange(this, ${child});"/>
                   <span class="saveChildCity">
-                      <a href="#" onclick="changeLocationDone(${child}); return false;">Done</a>
+                      <a href="#" title="Choose current city/state" onclick="changeLocationDone(${child}); return false;">Done</a>
                   </span>
               </span>
 
@@ -176,7 +178,7 @@
 
   <!-- Yes ... willing to answer questions... -->
   <div class="willing">
-      <p><label class="willingLabel">Yes! I am willing to answer questions from other parents interested in learning
+      <p><label class="willingLabel"><strong>Yes!</strong> I am willing to answer questions from other parents interested in learning
           more about the schools that my children attend. (GreatSchools won’t reveal my name or email
           address.)</label></p>
 

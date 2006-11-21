@@ -98,8 +98,6 @@ public class RegistrationController extends SimpleFormController implements Read
         UserCommand userCommand = (UserCommand) command;
         User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
 
-        _log.info(request.getParameterMap());
-
         boolean userExists = false;
 
         if (user != null) {
