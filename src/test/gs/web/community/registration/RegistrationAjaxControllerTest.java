@@ -43,7 +43,7 @@ public class RegistrationAjaxControllerTest extends BaseControllerTestCase {
 
         _controller.outputOption(pw, "value", "name", true);
 
-        String expected = "<option selected value=\"value\">name</option>";
+        String expected = "<option selected=\"selected\" value=\"value\">name</option>";
         assertEquals(expected, sw.getBuffer().toString());
 
         sw = new StringWriter();
