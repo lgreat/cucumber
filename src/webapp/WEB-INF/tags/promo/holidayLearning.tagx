@@ -9,6 +9,6 @@
     <jsp:directive.tag body-content="empty"/>
 
 <gsml:a href="/content/holidayLearning.page">
-    <gsml:img src="/res/img/content/holidayLearning/HouseAd_small_holiday.jpg" alt="Holiday learning fun with gifts and learning activities to spark the imagination."/>
+    <gsml:img src="/res/img/content/holidayLearning/HouseAd_small_holiday.jpg" alt="Inspire learning with our Holiday Learning Guide."/>
 </gsml:a>
 </jsp:root>
