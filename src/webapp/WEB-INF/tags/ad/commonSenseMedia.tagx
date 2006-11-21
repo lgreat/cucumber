@@ -9,7 +9,7 @@
         <div id="adCommonSenseMedia">
             <span id="header">
                 FROM OUR PARTNER<br/>
-                Find the Movies, TV, games and<br/>
+                Find the movies, TV shows, games and<br/>
                 books that are right for your family.
             </span>
             <gsweb:defer id="ad-adCommonSenseMedia">
