@@ -15,75 +15,78 @@
       <pageHelper:externalJavascript file="/res/js/prototype.js"/>
       <pageHelper:externalCss file="/res/css/community/registration/registration.css"/>
       <script type="text/javascript">
+          <![CDATA[
+          <!--
+                  function gradeChange(gradeSelect, childNum) {
+                      if (gradeSelect.value == '') {
+                          $('schoolDiv' + childNum).innerHTML = '<select name="school' + childNum + '" id="school' + childNum + '" class="selectChildSchool"><option value="">-' + '-</option></select>';
+                          return;
+                      }
+                      var url = 'registration2Ajax.page';
+                      var pars = 'state=' + $('state' + childNum).value;
+                      pars += '&city=' + $('city' + childNum).value;
+                      pars += '&grade=' + gradeSelect.value;
+                      pars += '&childNum=' + childNum;
+                      $('schoolDiv' + childNum).innerHTML = '<select name="school' + childNum + '" id="school' + childNum + '" class="selectChildSchool"><option value="">Loading ...</option></select>';
+                      var myAjax = new Ajax.Updater (
+                              'schoolDiv' + childNum,
+                              url,
+                              {
+                                  method: 'get',
+                                  parameters: pars
+                              });
+                  }
 
-          function gradeChange(gradeSelect, childNum) {
-              if (gradeSelect.value == '') {
-                  $('schoolDiv' + childNum).innerHTML = '<![CDATA[<select name="school${child}" id="school${child}" class="selectChildSchool"><option value="">--</option></select>]]>';
-                  return;
-              }
-              var url = 'registration2Ajax.page';
-              var pars = 'state=' + $('state' + childNum).value;
-              pars += '&amp;city=' + $('city' + childNum).value;
-              pars += '&amp;grade=' + gradeSelect.value;
-              pars += '&amp;childNum=' + childNum;
-              $('schoolDiv' + childNum).innerHTML = '<![CDATA[<select name="school${child}" id="school${child}" class="selectChildSchool"><option value="">Loading ...</option></select>]]>';
-              var myAjax = new Ajax.Updater (
-                      'schoolDiv' + childNum,
-                      url,
-                      {
-                          method: 'get',
-                          parameters: pars
-                      });
-          }
+                  function cityChange(citySelect, childNum) {
+                      resetGradeSchool(childNum);
+                      $('cityText' + childNum).innerHTML = citySelect.value;
+                      $('city' + childNum).value = citySelect.value;
+                  }
 
-          function cityChange(citySelect, childNum) {
-              resetGradeSchool(childNum);
-              $('cityText' + childNum).innerHTML = citySelect.value;
-              $('city' + childNum).value = citySelect.value;
-          }
+                  function stateChange(stateSelect, childNum) {
+                      resetGradeSchool(childNum);
+                      $('cityText' + childNum).innerHTML = '-' + '-';
+                      $('city' + childNum).value = '-' + '-';
+                      $('stateText' + childNum).innerHTML = stateSelect.value;
+                      $('state' + childNum).value = stateSelect.value;
 
-          function stateChange(stateSelect, childNum) {
-              resetGradeSchool(childNum);
-              $('cityText' + childNum).innerHTML = '--';
-              $('city' + childNum).value = '--';
-              $('stateText' + childNum).innerHTML = stateSelect.value;
-              $('state' + childNum).value = stateSelect.value;
+                      var url = 'registration2Ajax.page';
+                      var pars = 'state=' + stateSelect.value;
+                      pars += '&childNum=' + childNum;
+                      $('citySelectDiv' + childNum).innerHTML = '<select name="citySelect' + childNum + '" id="citySelect' + childNum + '" class="selectChildCity"><option value="">Loading ...</option></select>';
+                      var myAjax = new Ajax.Updater (
+                              'citySelectDiv' + childNum,
+                              url,
+                              {
+                                  method: 'get',
+                                  parameters: pars
+                              });
+                  }
 
-              var url = 'registration2Ajax.page';
-              var pars = 'state=' + stateSelect.value;
-              pars += '&amp;childNum=' + childNum;
-              $('citySelectDiv' + childNum).innerHTML = '<![CDATA[<select name="citySelect${child}" id="citySelect${child}" class="selectChildCity"><option value="">Loading ...</option></select>]]>';
-              var myAjax = new Ajax.Updater (
-                      'citySelectDiv' + childNum,
-                      url,
-                      {
-                          method: 'get',
-                          parameters: pars
-                      });
-          }
+                  function resetGradeSchool(childNum) {
+                      $('grade' + childNum).value='';
+                      gradeChange($('grade' + childNum), childNum);
+                  }
 
-          function resetGradeSchool(childNum) {
-              $('grade' + childNum).value='';
-              gradeChange($('grade' + childNum), childNum);
-          }
+                  function changeLocation(childNum) {
+                      hideDiv('location' + childNum);
+                      showDiv('chooseLocation' + childNum);
+                  }
 
-          function changeLocation(childNum) {
-              hideDiv('location' + childNum);
-              showDiv('chooseLocation' + childNum);
-          }
+                  function changeLocationDone(childNum) {
+                      hideDiv('chooseLocation' + childNum);
+                      showDiv('location' + childNum);
+                  }
 
-          function changeLocationDone(childNum) {
-              hideDiv('chooseLocation' + childNum);
-              showDiv('location' + childNum);
-          }
+                  function hideDiv(divId) {
+                      $(divId).style.display = 'none';
+                  }
 
-          function hideDiv(divId) {
-              $(divId).style.display = 'none';
-          }
-
-          function showDiv(divId) {
-              $(divId).style.display = 'block';
-          }
+                  function showDiv(divId) {
+                      $(divId).style.display = 'block';
+                  }
+          -->
+          ]]>
       </script>
   </head>
   <gsml:body adPageName="registration2">
@@ -127,7 +130,7 @@
                           <c:forEach var="cityOption" items="${followUpCmd.cityList[child-1]}">
                               <![CDATA[<option ]]>
                               <c:if test="${followUpCmd.cityNames[child-1] eq cityOption.name}">
-                                  selected
+                                  selected="selected"
                               </c:if>
                               <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
                           </c:forEach>
@@ -164,7 +167,7 @@
                       <c:forEach var="schoolOption" items="${followUpCmd.schools[child-1]}">
                           <![CDATA[<option ]]>
                           <c:if test="${schoolVal eq schoolOption.name}">
-                              selected
+                              selected="selected"
                           </c:if>
                           <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
                       </c:forEach>

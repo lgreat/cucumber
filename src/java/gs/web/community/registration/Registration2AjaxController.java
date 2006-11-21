@@ -125,7 +125,7 @@ public class Registration2AjaxController implements Controller {
     protected void outputOption(PrintWriter out, String value, String name, boolean selected) {
         out.print("<option ");
         if (selected) {
-            out.print("selected ");
+            out.print("selected=\"selected\" ");
         }
         out.print("value=\"" + value + "\">");
         out.print(name);
