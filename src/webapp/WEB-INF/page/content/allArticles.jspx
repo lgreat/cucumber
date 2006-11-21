@@ -99,6 +99,9 @@
             display: none;
         }
 
+        #adx40 {
+            float:right;
+        }
     </style>
 </head>
 <pageHelper:setPathway pathway="2" />
