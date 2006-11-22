@@ -85,6 +85,12 @@
                   function showDiv(divId) {
                       $(divId).style.display = 'block';
                   }
+
+                  function doSingleClick(elem) {
+                      elem.onclick = new Function('return false;');
+                      $('registration2').submit();
+                      return false;
+                  }
           -->
           ]]>
       </script>
@@ -208,7 +214,7 @@
   <gsml:errorMessage command="followUpCmd" field="terms" useImage="true" styleClass="warning_terms"/>
 
   <div class="divider">&amp;nbsp;</div>
-  <div class="join"><a href="#" title="Join the GreatSchools community" onclick="$('registration2').submit();return false;">&amp;nbsp;</a></div>
+  <div class="join"><a href="communityLanding.page" title="Join the GreatSchools community" onclick="return doSingleClick(this);">&amp;nbsp;</a></div>
   <div class="clear">&amp;nbsp;</div>
 
   <spring:bind path="followUpCmd.user.id">

@@ -8,6 +8,7 @@
     <jsp:directive.attribute name="alt" required="true" description="alt text"/>
     <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
     <jsp:directive.attribute name="name" required="false" description="name for input"/>
+    <jsp:directive.attribute name="onclick" required="false" description="onclick handling"/>
     <jsp:scriptlet>
         if (state != null) {
             request.setAttribute("STATE", state);
@@ -21,5 +22,6 @@
         <jsp:attribute name="src">${src}</jsp:attribute>
         <jsp:attribute name="alt">${alt}</jsp:attribute>
         <jsp:attribute name="class">${styleClass}</jsp:attribute>
+        <jsp:attribute name="onclick" trim="true">${onclick}</jsp:attribute>
     </jsp:element>
 </jsp:root>

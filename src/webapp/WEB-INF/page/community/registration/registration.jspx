@@ -18,7 +18,7 @@
           <!--
 
           function insertFormField() {
-             $('regForm').innerHTML += '<input type="hidden" name="javascriptEnabled" value="true"/>';
+             $('reg1Form').innerHTML += '<input type="hidden" name="javascriptEnabled" value="true"/>';
           }
           function stateChange(stateSelect) {
               var url = 'registrationAjax.page';
@@ -63,6 +63,11 @@
 
           function showDiv(divId) {
               $(divId).style.display = 'block';
+          }
+
+          function doSingleClick(element) {
+              element.onclick = new Function('return false;');
+              return true;
           }
           -->
           ]]>
@@ -207,12 +212,13 @@
                     </div>
 
                     <div id="joinButton" class="join" style="${termsStyle}">
-                        <a href="#" title="Join the GreatSchools community" onclick="$('invJoinButton').click(); return false;">&amp;nbsp;</a>
-                        <input id="invJoinButton" type="submit" name="join" value="join" style="display: none"/>
+                        <a href="communityLanding.page" title="Join the GreatSchools community" onclick="$('invJoinButton').click(); return false;">&amp;nbsp;</a>
+                        <input id="invJoinButton" type="submit" name="join" value="join" style="display: none" onclick="return doSingleClick(this);"/>
                     </div>
 
                     <div id="nextButton" style="${childrenStyle}">
-                        <gsml:inputImage src="/res/img/community/registration/submit_next.gif" alt="next" styleClass="next" name="next"/>
+                        <gsml:inputImage src="/res/img/community/registration/submit_next.gif" alt="next" 
+                                         styleClass="next" name="next" onclick="return doSingleClick(this);"/>
                     </div>
 
                     <div class="clear"></div>
