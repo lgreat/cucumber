@@ -6,6 +6,7 @@
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="referredBy" required="true" description="Omniture page name of page that this hover appears on"/>
@@ -15,9 +16,11 @@
 
     <ad:x70/>
 
-    <div style="width:295px;text-align:center;padding-left:5px;border-top: 1px dashed #ccc;padding-top:20px;margin-top:10px;">
-        <ad:commonSenseMedia/>
-    </div>
+    <c:if test="${fn:contains(pageContext.request.requestURI,'holidayLearning')}">
+        <div style="width:295px;text-align:center;padding-left:5px;border-top: 1px dashed #ccc;padding-top:20px;margin-top:10px;">
+            <ad:commonSenseMedia/>
+        </div>
+    </c:if>
 
     <div style="border-top: 1px dashed #ccc;padding-top:20px;margin-top:10px;">
         <promo:nthGraderMedallions referredBy="${referredBy}"/>
