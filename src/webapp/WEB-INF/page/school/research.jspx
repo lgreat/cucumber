@@ -47,7 +47,7 @@
                 mom who has been through the
                 process, I know you probably
                 have many questions. Let our
-                <gsml:a href="/cgi-bin/showarticle/$STATE/96" styleClass="border10Links">school choice tips</gsml:a> lead the
+                <gsml:a href="/content/schoolChoiceCenter.page?state=$STATE" styleClass="border10Links">school choice tips</gsml:a> lead the
                 way. Armed with our <gsml:a href="/cgi-bin/showarticle/$STATE/489" styleClass="border10Links">practical
                 advice</gsml:a> on choosing the
                 best option, <gsml:a href="/cgi-bin/showarticle/$STATE/197" styleClass="border10Links">public vs. private schools
