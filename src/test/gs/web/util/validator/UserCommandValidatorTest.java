@@ -4,6 +4,7 @@ import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.state.State;
 import gs.web.BaseTestCase;
+import gs.web.GsMockHttpServletRequest;
 import gs.web.community.registration.UserCommand;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
@@ -44,6 +45,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
     private IUserDao _userDao;
     private MockControl _userControl;
     private UserCommandValidator _validator;
+    private GsMockHttpServletRequest _request;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -51,6 +53,8 @@ public class UserCommandValidatorTest extends BaseTestCase {
         _userControl = MockControl.createControl(IUserDao.class);
         _userDao = (IUserDao) _userControl.getMock();
         _validator.setUserDao(_userDao);
+        _request = new GsMockHttpServletRequest();
+        _request.setServerName("www.greatschools.net");
     }
 
     private UserCommand setupCommand() {
@@ -87,7 +91,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         UserCommand command = setupCommand();
         Errors errors = new BindException(command, "");
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertFalse(errors.toString(), errors.hasErrors());
 
@@ -96,7 +100,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setPassword(GOOD_PASSWORD_LONG);
         command.setConfirmPassword(GOOD_PASSWORD_LONG);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertFalse(errors.hasErrors());
     }
@@ -114,14 +118,14 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setPassword(GOOD_PASSWORD_SHORT);
         command.setConfirmPassword(GOOD_PASSWORD_SHORT);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
 
         // existing emails allowed if id is set
         command.setId("1");
         errors = new BindException(command, "");
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         assertFalse(errors.hasErrors());
     }
 
@@ -131,7 +135,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         setupUserControl(null, GOOD_SCREEN_NAME_SHORT);
         Errors errors = new BindException(command, "");
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertTrue(errors.hasFieldErrors("email"));
@@ -144,7 +148,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setPassword(SHORT_PASSWORD);
         command.setConfirmPassword(SHORT_PASSWORD);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
@@ -157,7 +161,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setPassword("");
         command.setConfirmPassword("");
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(errors.toString(), 1, errors.getErrorCount());
@@ -170,7 +174,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setPassword(LONG_PASSWORD);
         command.setConfirmPassword(LONG_PASSWORD);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
@@ -183,7 +187,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setPassword(GOOD_PASSWORD_SHORT);
         command.setConfirmPassword(GOOD_PASSWORD_LONG);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
@@ -195,7 +199,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
 
         command.setConfirmEmail(GOOD_EMAIL + "2");
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
     }
@@ -206,7 +210,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
 
         command.setState(null);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
@@ -218,7 +222,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
 
         command.setCity("");
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
@@ -230,7 +234,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
 
         command.setCity(BAD_CITY);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
     }
@@ -241,7 +245,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
 
         command.setFirstName("");
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
@@ -253,7 +257,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
 
         command.setFirstName(LONG_FIRST_NAME);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
@@ -265,7 +269,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
 
         command.setLastName("");
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
     }
@@ -276,7 +280,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
 
         command.setLastName(LONG_LAST_NAME);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
     }
@@ -288,7 +292,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setScreenName("");
         setupUserControl(GOOD_EMAIL, null);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
@@ -301,7 +305,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setScreenName(SHORT_SCREEN_NAME);
         setupUserControl(GOOD_EMAIL, null);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
@@ -314,14 +318,14 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setScreenName(GOOD_SCREEN_NAME_LONG);
         setupUserControl(GOOD_EMAIL, GOOD_SCREEN_NAME_LONG);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertFalse(errors.hasErrors());
 
         command.setScreenName(LONG_SCREEN_NAME);
         setupUserControl(GOOD_EMAIL, null);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
@@ -338,7 +342,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setScreenName(BAD_SCREEN_NAME_SPACE);
         setupUserControl(GOOD_EMAIL, null);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
@@ -349,7 +353,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setScreenName(BAD_SCREEN_NAME_NONALPHANUMERIC);
         setupUserControl(GOOD_EMAIL, null);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
@@ -360,7 +364,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         Errors errors = new BindException(command, "");
         command.setGender(null);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
@@ -371,7 +375,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         Errors errors = new BindException(command, "");
         command.setGender("q");
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
@@ -381,7 +385,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
 
         command.setGender("some weird String");
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
@@ -392,7 +396,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         Errors errors = new BindException(command, "");
         command.setNumSchoolChildren(null);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
@@ -401,7 +405,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         setupUserControl(GOOD_EMAIL, GOOD_SCREEN_NAME_SHORT);
         command.setNumSchoolChildren(new Integer(-1));
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
@@ -416,7 +420,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setNumSchoolChildren(null);
         command.setGender("u");
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertFalse(errors.hasErrors());
         assertEquals(0, errors.getErrorCount());
@@ -431,7 +435,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setTerms(false);
         command.setNumSchoolChildren(new Integer(1));
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertFalse(errors.hasErrors());
         assertEquals(0, errors.getErrorCount());
@@ -444,7 +448,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setGender("u");
         command.setTerms(false);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertTrue(errors.hasFieldErrors("terms"));
@@ -456,7 +460,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
         command.setGender("m");
         command.setTerms(false);
 
-        _validator.validate(command, errors);
+        _validator.validate(_request, command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertTrue(errors.hasFieldErrors("terms"));

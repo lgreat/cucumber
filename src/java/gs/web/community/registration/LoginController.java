@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.11 2006/11/18 00:08:13 aroy Exp $
+ * $Id: LoginController.java,v 1.12 2006/11/29 01:36:06 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -85,24 +85,25 @@ public class LoginController extends SimpleFormController {
 
         if (user == null) {
             // get registration form to auto fill in email
-//            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, loginCommand.getEmail());
-//            if (StringUtils.isNotEmpty(loginCommand.getRedirect())) {
-//                builder.addParameter("redirect", loginCommand.getRedirect());
-//            }
-//            String href = builder.asAnchor(request, "Register here.").asATag();
-            errors.reject(USER_DOES_NOT_EXIST_ERROR_CODE + "_with_link", "You're not a member yet.");
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, loginCommand.getEmail());
+            if (StringUtils.isNotEmpty(loginCommand.getRedirect())) {
+                builder.addParameter("redirect", loginCommand.getRedirect());
+            }
+            String href = builder.asAnchor(request, "join the community").asATag();
+            errors.reject(USER_DOES_NOT_EXIST_ERROR_CODE + "_with_link",
+                    "There is no account associated with that email address. Would you like to " +
+                            href + "?");
         } else if (user.isEmailProvisional()) {
             String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
 
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION_REMOVE, null, hash + user.getId());
-            String href = builder.asAnchor(request, "click here").asATag();
+            String href = builder.asAnchor(request, "reset your account").asATag();
             builder = new UrlBuilder(UrlBuilder.REQUEST_EMAIL_VALIDATION, null, user.getEmail());
             String href2 = builder.asAnchor(request, "(Resend email)").asATag();
-            errors.reject(USER_PROVISIONAL_CODE, "Your account is marked as provisional. " +
-                    "Please follow the link in your email to validate your account " + 
+            errors.reject(USER_PROVISIONAL_CODE, "Before signing in, you must validate your account " +
+                    "by clicking the link in your registration email. " +
                     href2 + "." +
-                    " If you believe this message to be in error, please " + href +
-                    " to reset your account.");
+                    " If you believe this message to be in error, please " + href + ".");
         } else if (user.isPasswordEmpty()) {
             //errors.reject(USER_NO_PASSWORD_CODE, "This user has no password.");
         } else {
@@ -111,7 +112,11 @@ public class LoginController extends SimpleFormController {
             if ( (StringUtils.isNotEmpty(password) && StringUtils.isEmpty(user.getPasswordMd5())) ||
                     (StringUtils.isEmpty(password) && StringUtils.isNotEmpty(user.getPasswordMd5())) ||
                     (!user.matchesPassword(password)) ) {
-                    errors.reject(INVALID_PASSWORD_CODE, "Your password is incorrect.");
+                UrlBuilder builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null,
+                        loginCommand.getEmail());
+                String href = builder.asAnchor(request, "forget your password").asATag();
+                errors.reject(INVALID_PASSWORD_CODE, "The password you entered is incorrect. Did " +
+                        "you " + href + "?");
             }
         }
     }

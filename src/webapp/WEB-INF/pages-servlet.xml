@@ -736,7 +736,6 @@
         <property name="validators">
             <list>
                 <ref local="emailValidator"/>
-                <ref local="userValidator"/>
             </list>
         </property>
         <property name="mailSender">

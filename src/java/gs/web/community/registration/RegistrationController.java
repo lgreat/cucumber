@@ -9,6 +9,7 @@ import gs.data.geo.City;
 import gs.data.state.State;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
+import gs.web.util.validator.UserCommandValidator;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -91,6 +92,13 @@ public class RegistrationController extends SimpleFormController implements Read
         userCommand.setCityList(cities);
     }
 
+    public void onBindAndValidate(HttpServletRequest request, Object command, BindException errors) throws Exception {
+        super.onBindAndValidate(request, command, errors);
+        UserCommandValidator validator = new UserCommandValidator();
+        validator.setUserDao(_userDao);
+        validator.validate(request, command, errors);
+    }
+
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
                                  Object command,
@@ -103,11 +111,17 @@ public class RegistrationController extends SimpleFormController implements Read
         if (user != null) {
             userExists = true;
             // update the user's name if they specified a new one
-            if (userCommand.getFirstName() != null && userCommand.getFirstName().length() > 0) {
+            if (StringUtils.isNotEmpty(userCommand.getFirstName())) {
                 user.setFirstName(userCommand.getFirstName());
             }
-            if (userCommand.getLastName() != null && userCommand.getLastName().length() > 0) {
+            if (StringUtils.isNotEmpty(userCommand.getLastName())) {
                 user.setLastName(userCommand.getLastName());
+            }
+            String gender = userCommand.getGender();
+            if (StringUtils.isNotEmpty(gender)) {
+                if (gender.equals("m") || gender.equals("f")) {
+                    user.setGender(userCommand.getGender());
+                }
             }
             userCommand.setUser(user);
         } else {

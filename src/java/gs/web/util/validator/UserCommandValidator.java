@@ -4,11 +4,13 @@ import gs.data.community.IUserDao;
 import gs.data.community.UserProfile;
 import gs.data.community.User;
 import gs.web.community.registration.UserCommand;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Validates a UserCommand object, created for use in community registration
@@ -17,7 +19,7 @@ import org.springframework.validation.Validator;
  * Time: 12:10:34 PM
  * To change this template use File | Settings | File Templates.
  */
-public class UserCommandValidator implements Validator {
+public class UserCommandValidator implements IRequestAwareValidator {
 
     protected final Log _log = LogFactory.getLog(getClass());
     public static final String BEAN_ID = "userValidator";
@@ -31,28 +33,36 @@ public class UserCommandValidator implements Validator {
     private static final int EMAIL_MAXIMUM_LENGTH = 127;
     private static final int PASSWORD_MINIMUM_LENGTH = 6;
     private static final int PASSWORD_MAXIMUM_LENGTH = 14;
+    private static final String GENDER_MISSING =
+            "Please select from one of the options.";
     private static final String ERROR_FIRST_NAME_LENGTH =
-            "We're sorry, your first name must be 2-24 characters long";
+            "Your first name must be 2-24 characters long.";
     private static final String ERROR_SCREEN_NAME_LENGTH =
-            "We're sorry, your screen name must be 6-14 characters long";
+            "Your screen name must be 6-14 characters long.";
+    private static final String ERROR_SCREEN_NAME_BAD =
+            "Your screen name may only contain letters and numbers.";
+    private static final String ERROR_SCREEN_NAME_TAKEN =
+            "We're sorry, that screen name is already taken. Please try another screen name.";
     private static final String ERROR_EMAIL_MISSING =
-            "We're sorry, you must enter your email address";
+            "Please enter your email address.";
+    private static final String ERROR_EMAIL_PROVISIONAL =
+            "You have already registered with GreatSchools! Please check your email and follow " +
+                    "the instructions to validate your account.";
     private static final String ERROR_PASSWORD_LENGTH =
-            "We're sorry, your password must be 6-14 characters long";
+            "Your password must be 6-14 characters long.";
+    private static final String ERROR_PASSWORD_MISMATCH =
+            "The two password fields don't match.";
     private static final String ERROR_STATE_MISSING =
-            "We're sorry, you must select your state";
+            "Please select your state.";
     private static final String ERROR_CITY_MISSING =
-            "We're sorry, you must select your city";
+            "Please select your city. If you cannot find your city, please select " +
+                    "\"My city is not listed.\"";
     private static final String ERROR_NUM_CHILDREN_MISSING =
-            "We're sorry, you must select a number";
+            "Please tell us the number of children you have in K-12 schools.";
     private static final String ERROR_TERMS_MISSING =
-            "Please accept our Terms of Use to join the community";
+            "Please accept our Terms of Use to join the community.";
 
-    public boolean supports(Class aClass) {
-        return aClass == UserCommand.class;
-    }
-
-    public void validate(Object object, Errors errors) {
+    public void validate(HttpServletRequest request, Object object, Errors errors) {
         UserCommand command = (UserCommand)object;
 
         String email = command.getEmail();
@@ -70,13 +80,15 @@ public class UserCommandValidator implements Validator {
 
             if (user != null) {
                 if (user.isEmailValidated()) {
+                    UrlBuilder builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null,
+                            user.getEmail());
+                    String href = builder.asAnchor(request, "forget your password").asATag();
                     errors.rejectValue("email", null,
-                            "You have already registered with GreatSchools!");
+                            "The email address you entered has already been registered " +
+                                    "with GreatSchools. Did you " + href + "?");
                     return; // other errors are irrelevant
                 } else if (user.isEmailProvisional()) {
-                    errors.rejectValue("email", null,
-                            "You have already registered with GreatSchools! Please check your " +
-                                    "email and follow the instructions to validate your account.");
+                    errors.rejectValue("email", null, ERROR_EMAIL_PROVISIONAL);
                     return; // other errors are irrelevant
                 }
             }
@@ -106,22 +118,19 @@ public class UserCommandValidator implements Validator {
             snError = true;
         }
         if (!StringUtils.isAlphanumeric(sn)) { // this method is null-safe
-            errors.rejectValue("screenName", null,
-                    "Your screen name must consist of only letters and numbers.");
+            errors.rejectValue("screenName", null, ERROR_SCREEN_NAME_BAD);
             snError = true;
         }
         // only bother checking the unique constraint if there is no other problem with the sn
         if (!snError && _userDao.findUserFromScreenNameIfExists(sn) != null) {
-            errors.rejectValue("screenName", null,
-                    "This screen name is already taken. Please try another.");
+            errors.rejectValue("screenName", null, ERROR_SCREEN_NAME_TAKEN);
         }
 
         String gender = command.getGender();
         if (StringUtils.isEmpty(gender) ||
                 (gender.length() > 1 || (!"m".equals(gender) &&
                         !"f".equals(gender) && !"u".equals(gender)))) {
-            errors.rejectValue("gender", null,
-                    "Please choose a value.");
+            errors.rejectValue("gender", null, GENDER_MISSING);
         }
 
         if (command.getNumSchoolChildren() == null || command.getNumSchoolChildren().intValue() == -1) {
@@ -164,7 +173,7 @@ public class UserCommandValidator implements Validator {
                 password.length() > PASSWORD_MAXIMUM_LENGTH) {
             errors.rejectValue("password", null, ERROR_PASSWORD_LENGTH);
         } else if (StringUtils.isEmpty(confirmPassword) || !confirmPassword.equals(password)) {
-            errors.rejectValue("password", null, "Please enter the same password into both fields.");
+            errors.rejectValue("password", null, ERROR_PASSWORD_MISMATCH);
         }
     }
 
