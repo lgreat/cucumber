@@ -23,6 +23,7 @@
         <pattern>*/community/conversion/*</pattern>
         <pattern>*/content/box/*</pattern>
         <pattern>*/search/raw.page*</pattern>
+        <pattern>*/gsHeader.page*</pattern>
     </excludes>
 
 </decorators>
