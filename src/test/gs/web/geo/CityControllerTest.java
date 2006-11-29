@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.16 2006/10/24 21:34:07 thuss Exp $
+ * $Id: CityControllerTest.java,v 1.17 2006/11/29 01:30:51 thuss Exp $
  */
 
 package gs.web.geo;
@@ -59,7 +59,7 @@ public class CityControllerTest extends BaseControllerTestCase {
         Map model = mav.getModel();
 
         AnchorListModel anchorListModel = (AnchorListModel) model.get(CityController.MODEL_SCHOOL_BREAKDOWN);
-
+        assertNotNull(anchorListModel);
         List list = anchorListModel.getResults();
         assertEquals(5, list.size());
 
