@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.12 2006/11/07 19:12:03 dlee Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.13 2006/11/29 07:35:01 eddie Exp $
  */
 
 package gs.web.test.rating;
@@ -13,6 +13,7 @@ import gs.data.test.SchoolTestValue;
 import gs.data.test.TestDataSet;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
+import gs.data.state.State;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -78,11 +79,17 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 }
 
                 if (isGradeRowgroup) {
-                    String rowLabel = row.getLabel();
+                    String rowLabel = row.getConfigLabel();
                     String grade = rowLabel.replaceAll("Grade ", "");
 
                     if (grades.contains(Grade.getGradeLevel(grade))) {
                         rowGroup.add(row);
+                    }  else if(rowLabel.startsWith("Grade All")  ){
+
+                        String gradeall = rowLabel.substring(6);
+                        if(_school.getLevelCode().containsSimilarLevelCode(Grade.getLevelCodeFromName(gradeall))){
+                            rowGroup.add(row);
+                        }
                     }
                 } else {
                     if (!row.isAllEmptyCells()) {
@@ -168,7 +175,21 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
         }
 
         public String getLabel() {
+            String label = _rowConfig.getLabel();
+            State state = _ratingsConfig.getState();
+            if(state.equals(State.MD)){
+                if(label.startsWith("Grade All")){
+                    label = "All HSA students";
+                }
+            }
+
+            return label;
+
+        }
+
+        public String getConfigLabel() {
             return _rowConfig.getLabel();
+
         }
 
         public List getCells() {

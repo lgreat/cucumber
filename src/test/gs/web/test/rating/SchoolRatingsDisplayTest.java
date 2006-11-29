@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplayTest.java,v 1.8 2006/11/07 19:12:02 dlee Exp $
+ * $Id: SchoolRatingsDisplayTest.java,v 1.9 2006/11/29 07:35:01 eddie Exp $
  */
 
 package gs.web.test.rating;
@@ -65,7 +65,7 @@ public class SchoolRatingsDisplayTest extends TestCase {
         testDataSetDao.findAllRawResults(null, new int [] {2002}, true);
         testDataSetDaoControl.setDefaultReturnValue(results);
 
-        testDataSetDao.findDataSets(null, 2004, null, null, null, null, null, true);
+        testDataSetDao.findDataSets(null, 2004, null, null, null, null, null, true,null);
         testDataSetDaoControl.setDefaultReturnValue(new ArrayList());
         testDataSetDaoControl.replay();
 

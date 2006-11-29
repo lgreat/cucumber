@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsControllerTest.java,v 1.2 2006/11/07 19:27:26 dlee Exp $
+ * $Id: RatingsControllerTest.java,v 1.3 2006/11/29 07:35:01 eddie Exp $
  */
 package gs.web.test.rating;
 
@@ -82,7 +82,7 @@ public class RatingsControllerTest extends BaseControllerTestCase {
         //1) mock testDataSetDao
         MockControl testDataSetDaoControl = MockControl.createControl(ITestDataSetDao.class);
         ITestDataSetDao mockTestDataSetDao = (ITestDataSetDao) testDataSetDaoControl.getMock();
-        mockTestDataSetDao.findDataSets(null, 0, null, null, null, null, null, true);
+        mockTestDataSetDao.findDataSets(null, 0, null, null, null, null, null, true,null);
         List dataSets = new ArrayList();
         dataSets.add(new TestDataSet());
         testDataSetDaoControl.setDefaultReturnValue(dataSets);
@@ -134,7 +134,7 @@ public class RatingsControllerTest extends BaseControllerTestCase {
         BindException errors = new BindException(command, "");
         _controller.setSchoolDao(mockSchoolDao);
         _controller.handle(getRequest(), getResponse(), command, errors);
-        assertEquals(true, errors.hasErrors());        
+        assertEquals(true, errors.hasErrors());
     }
 
     public void testReferenceDataSkipsProcessingIfError() throws Exception {
