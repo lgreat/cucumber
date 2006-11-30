@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.13 2006/11/29 07:35:01 eddie Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.14 2006/11/30 17:31:39 eddie Exp $
  */
 
 package gs.web.test.rating;
@@ -177,9 +177,15 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
         public String getLabel() {
             String label = _rowConfig.getLabel();
             State state = _ratingsConfig.getState();
-            if(state.equals(State.MD)){
-                if(label.startsWith("Grade All")){
-                    label = "All HSA students";
+            if(label.startsWith("Grade All")){
+                if(state.equals(State.MD)){
+                    label = "HSA";
+                }
+                if(state.equals(State.MS)){
+                    label = "SATP";
+                }
+                if(state.equals(State.UT)){
+                    label = "EOC";
                 }
             }
 
