@@ -109,7 +109,7 @@
                         </div>
                     </c:if>
 
-                    <div style="float:right;">
+                    <div style="float:right;padding-bottom:20px;">
                         <ad:x48/>
                         <div id="moreResources">
                             <h2>More Resources</h2>

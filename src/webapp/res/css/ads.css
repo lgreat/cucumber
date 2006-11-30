@@ -13,15 +13,16 @@
     color: #666;
     padding: 5px 0 5px 0;
     border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    margin: 20px 0 0 0;
+    border-bottom: 1px solid #ccc;    
+    padding-left:32px;
 }
 
 .multiTextAd .hr{
     display:block;
     border-bottom: 1px solid #ccc;
     padding-top:5px;
-    margin-bottom:5px;
+    margin-bottom:10px;
+    margin-left:-30px;
 }
 
 .multiTextAd h2 {
@@ -29,4 +30,8 @@
     text-align:center;
     color: #999;
     padding-bottom:5px;
+}
+
+.multiTextAd .textAd {
+    padding-bottom:10px;
 }

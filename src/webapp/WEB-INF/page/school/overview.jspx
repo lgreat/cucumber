@@ -166,6 +166,10 @@ table.module1 td a:hover {
         border-spacing:10px;
     }
 
+.multiTextAd {
+    border:none;
+}
+
 </style>
 </head>
 
@@ -328,16 +332,7 @@ table.module1 td a:hover {
             <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
                 <tbody><tr>
                     <td valign="top">
-                        <div class="text_ad">
-                            <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
-                                <div class="sponsor">Advertiser links</div>
-                            </c:if>
-                            <ad:x49 />
-                            <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
-                                <div class="separator"><hr/></div>
-                            </c:if>
-                            <ad:x50 />
-                        </div>
+                        <ad:multiTextAd blurb="Advertiser links"/>
                     </td>
                 </tr>
                 </tbody>
