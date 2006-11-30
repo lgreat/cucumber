@@ -8,6 +8,7 @@
     <jsp:directive.tag import="gs.data.state.State"/>
     <jsp:directive.tag import="gs.web.ads.AdPosition"/>
     <jsp:directive.tag import="gs.web.util.context.ISessionContext"/>
+    <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
     <jsp:directive.tag import="java.util.Iterator"/>
     <jsp:directive.tag import="java.util.List"/>
     <jsp:scriptlet><![CDATA[
@@ -31,7 +32,7 @@
 
         State state = context.getState();
         if (null != state) {
-             oas_query = "state=" + state.getAbbreviationLowerCase();
+            oas_query = "state=" + state.getAbbreviationLowerCase();
         }
 
         if (null != keywords) {
@@ -42,6 +43,22 @@
         }
 
         request.setAttribute("adKeywords", oas_query);
+
+        StringBuffer sitePageBuff  = new StringBuffer(30);
+        sitePageBuff.append("www/");
+        Boolean pageStartOfHier = (Boolean) request.getAttribute("startAdHierarchyAtPage");
+        String adPageName = (String) request.getAttribute("adPageName");
+        adPageName = StringUtils.isEmpty(adPageName) ? "" : adPageName;
+
+        if (Boolean.TRUE.equals(pageStartOfHier)) {
+            sitePageBuff.append(adPageName);
+        } else if (null != state) {
+            sitePageBuff.append(state.getAbbreviationLowerCase()).append("/").append(adPageName);
+        } else {
+            sitePageBuff.append(adPageName);
+        }
+
+        request.setAttribute("oas_sitepage", sitePageBuff.toString());
         ]]></jsp:scriptlet>
     <c:if test="${!requestScope.pageHelper.adFree and !empty ads}">
         <c:if test='${!requestScope.pageHelper.adServedByCobrand}'>
@@ -51,8 +68,7 @@
                 <![CDATA[
                 <!--
                 OAS_url = 'http://oascentral.greatschools.net/RealMedia/ads/';
-                OAS_sitepage =
-                'www/${requestScope.context.state.abbreviationLowerCase}/${requestScope.adPageName}';
+                OAS_sitepage = '${oas_sitepage}';
                 OAS_listpos = '${ads}';
                 OAS_query = '${adKeywords}';
                 OAS_target = '_top';

@@ -28,7 +28,7 @@
     <pageHelper:externalCss file="/res/css/content/schoolChoiceTips.css"/>
 </head>
 <c:set var="pageName" value="School Choice Tips"/>
-<gsml:body adPageName="article/schoolChoiceTips" pageLayout="schoolChoiceTips">
+<gsml:body adPageName="content/schoolChoiceTips" pageLayout="schoolChoiceTips" startAdHierarchyAtPage="true">
 <div>
 <div class="wrapBorder">
 <jsp:include page="/content/leftNav.module" />

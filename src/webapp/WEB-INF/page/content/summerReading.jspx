@@ -70,7 +70,7 @@
               pageName="SummerReading"
               hier1 = "Article,SummerReading"/>
 
-<gsml:body adPageName="article" pageLayout="twoColumnLayout">
+<gsml:body adPageName="content/summerReading" pageLayout="twoColumnLayout" startAdHierarchyAtPage="true">
 
     <table class="content" cellpadding="0" cellspacing="0">
         <tr>

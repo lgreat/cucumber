@@ -3,11 +3,13 @@
     xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
     <jsp:directive.tag body-content="scriptless"/>
-    <jsp:directive.attribute name="adPageName" required="true" description="The name hierarchy in the ad serving system.  Examples: 'article/schoolChoiceTips', 'registration'."/>
+    <jsp:directive.attribute name="adPageName" required="true" description="The name hierarchy in the ad serving system.  Examples: 'content/schoolChoiceTips', 'registration'."/>
     <jsp:directive.attribute name="pageLayout" required="false" description="General page class, 'twoColumnLayout'. This should match the styles in global.css."/>
+    <jsp:directive.attribute name="startAdHierarchyAtPage" required="false" type="java.lang.Boolean" description="Boolean that indicates whether the ad server should start its hierarchy at page name.  Pages that aren't state-aware or state-specific should set this flag to true.  Default value is false."/>
     <jsp:scriptlet>
         request.setAttribute("adPageName", adPageName);
         request.setAttribute("pageLayout", pageLayout);
+        request.setAttribute("startAdHierarchyAtPage", startAdHierarchyAtPage);
     </jsp:scriptlet>
     <jsp:element name="body">
         <jsp:body>

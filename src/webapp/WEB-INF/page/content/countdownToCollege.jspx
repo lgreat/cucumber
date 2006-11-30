@@ -72,7 +72,7 @@
     </jsp:scriptlet>
 </head>
 <c:set var="pageName" value="Countdown To College"/>
-<gsml:body adPageName="article/countdownToCollege" pageLayout="countdownToCollege">
+<gsml:body adPageName="content/countdownToCollege" pageLayout="countdownToCollege" startAdHierarchyAtPage="true">
 <table cellspacing="0" cellpadding="0" class="content" border="0">
 <tr>
 <td class="left" style="width: 173px;" valign="top">

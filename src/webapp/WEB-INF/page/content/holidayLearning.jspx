@@ -26,7 +26,7 @@
     <pageHelper:externalCss file="/res/css/content/microsite.css"/>  <!--commmon-->
     <pageHelper:externalCss file="/res/css/content/holidayLearning.css"/>
 </head>
-<gsml:body adPageName="content/holidayLearning" pageLayout="holidayLearning">
+<gsml:body adPageName="content/holidayLearning" pageLayout="holidayLearning" startAdHierarchyAtPage="true">
 <div>
 <div class="wrapBorder">
 <jsp:include page="/content/leftNav.module" />

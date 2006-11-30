@@ -30,7 +30,7 @@
 
 
 
-<gsml:body adPageName="article/backToSchool" pageLayout="healthyKids">
+<gsml:body adPageName="content/backToSchool" pageLayout="backToSchool" startAdHierarchyAtPage="true">
 <div>
 <div class="wrapBorder">
 <jsp:include page="/content/leftNav.module" />
