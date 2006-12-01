@@ -8,60 +8,43 @@
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
     <jsp:directive.page contentType="text/html"/><html>
   <head>
+      <pageHelper:externalCss file="/res/css/community/registration/myaccount.css"/>
       <title>Change Email</title>
-      <style type="text/css">
-          label.form, input.form {
-              margin-bottom: 10px;
-              display: block;
-              width: 120px;
-              float: left;
-          }
-
-          label.form {
-              text-align: right;
-              padding-right: 20px;
-          }
-
-          h2.intro {
-              font-size: large;
-              margin: 15px 0 25px 15px;
-          }
-
-          ul.error {
-              color: red;
-              display: block;
-              padding: 8px;
-          }
-
-          br.clear {
-              clear: both;
-          }
-      </style>
   </head>
   <gsml:body adPageName="changeEmail">
-    <h2 class="intro">Change Email:</h2>
-    <gsweb:form action="/community/changeEmail.page" method="post">
-        <gsml:errorMessage command="emailCmd"/>
+      <div id="myaccount_resetemail">
+          <h1><span>My Account</span></h1>
+          <div id="outline"><!-- creates darker blue outer outline -->
+              <div id="content">
+                  <h2><span>Reset Your Email Address</span></h2>
 
-        <label for="newEmail" class="form">New email:</label>
-        <spring:bind path="emailCmd.newEmail">
-            <input id="newEmail" class="form" type="text" name="${status.expression}"
-                   value="${status.value}"/>
-        </spring:bind>
+                  <gsweb:form action="/community/changeEmail.page" method="post">
+                      <gsml:errorMessage command="emailCmd"/>
 
-        <br class="clear"/>
+                      <label for="newEmail">New email address</label>
+                      <spring:bind path="emailCmd.newEmail">
+                          <input id="newEmail" type="text" name="${status.expression}"
+                                 value="${status.value}"/>
+                      </spring:bind>
 
-        <label for="confirmNewEmail" class="form">Re-type email:</label>
-        <spring:bind path="emailCmd.confirmNewEmail">
-            <input id="confirmNewEmail" class="form" type="text" name="${status.expression}"
-                   value="${status.value}"/>
-        </spring:bind>
+                      <label for="confirmNewEmail">Re-type email address</label>
+                      <spring:bind path="emailCmd.confirmNewEmail">
+                          <input id="confirmNewEmail" type="text" name="${status.expression}"
+                                 value="${status.value}"/>
+                      </spring:bind>
 
-        <br class="clear"/>
+                      <gsml:inputImage src="/res/img/community/registration/submit_resetemail.gif"
+                                       alt="Reset email address" styleClass="resetemail" name="submit"/>
 
-        <input class="form" type="submit" value="Change email" name="submit"/>
-        <input class="form" type="submit" value="Cancel" name="cancel"/>
-    </gsweb:form>
+                      <gsml:inputImage src="/res/img/community/registration/submit_cancel.gif"
+                                       alt="Cancel" styleClass="cancel" name="cancel"/>
+                  </gsweb:form>
+              </div>
+              <!-- end: content -->
+          </div>
+          <!-- end: outline -->
+      </div>
+      <!-- end: main -->
   </gsml:body>
 </html>
 </jsp:root>

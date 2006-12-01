@@ -75,7 +75,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         UserCommand command = new UserCommand();
         BindException errors = new BindException(command, "");
 
-        getRequest().setParameter("cancel", "cancel");
+        getRequest().setParameter("cancel.x", "cancel");
 
         User user = new User();
         user.setId(new Integer(1234));

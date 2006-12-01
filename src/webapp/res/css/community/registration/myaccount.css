@@ -1,0 +1,441 @@
+/*
+   Greatschools.net Registration Styles
+   font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
+*/
+
+/* Last updated by Paul Whitener Jr. on 11/13/06 */
+/* paul@empoweredmedia.org */
+
+	
+p {
+	font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	color: #777777;
+	margin: 0 0 0 3px;
+	padding: 0;
+}
+
+a {
+	color: #3399aa;
+	text-decoration: underline;
+}
+
+/* containter classes */
+
+#myaccount_info, #myaccount_forgotpassword, #myaccount_resetpassword, #myaccount_resetemail {
+	width: 864px;
+	background: url(../../../img/community/registration/myaccount_bg.gif) repeat-y left;
+	margin: 0 0 30px 0;
+	float: left;
+	_margin: -18px 0 30px 0; /* corrects extra space between page header and content in IE 6 */
+}
+
+/* myaccount_info header */
+
+#myaccount_info h1 {
+	background: url(../../../img/community/registration/h1_myaccount_136x60.gif) no-repeat;
+	width: 136px;
+	height: 60px;
+	margin: 40px 0 0 22px;
+	_margin: 33px 0 0 11px;
+	float: left;
+}
+
+#myaccount_info h2 {
+	background: url(../../../img/community/registration/h2_myaccountinfo_134x15.gif) no-repeat;
+	width: 134px;
+	height: 24px;
+}
+
+/* myaccount_forgotpassword header */
+
+#myaccount_forgotpassword h1 {
+	background: url(../../../img/community/registration/h1_myaccount_136x60.gif) no-repeat;
+	width: 136px;
+	height: 60px;
+	margin: 40px 0 0 22px;
+	_margin: 33px 0 0 11px;
+	float: left;
+}
+
+#myaccount_forgotpassword h2 {
+	background: url(../../../img/community/registration/h2_forgotpassword_180x17.gif) no-repeat;
+	width: 180px;
+	height: 40px;
+}
+
+/* myaccount_resetpassword header */
+
+#myaccount_resetpassword h1 {
+	background: url(../../../img/community/registration/h1_myaccount_136x60.gif) no-repeat;
+	width: 136px;
+	height: 60px;
+	margin: 40px 0 0 22px;
+	_margin: 33px 0 0 11px;
+	float: left;
+}
+
+#myaccount_resetpassword h2 {
+	background: url(../../../img/community/registration/h2_resetpassword_164x13.gif) no-repeat;
+	width: 180px;
+	height: 40px;
+}
+
+/* myaccount_resetemail header */
+
+#myaccount_resetemail h1 {
+	background: url(../../../img/community/registration/h1_myaccount_136x60.gif) no-repeat;
+	width: 136px;
+	height: 60px;
+	margin: 40px 0 0 22px;
+	_margin: 33px 0 0 11px;
+	float: left;
+}
+
+#myaccount_resetemail h2 {
+	background: url(../../../img/community/registration/h2_resetemail_202x13.gif) no-repeat;
+	width: 202px;
+	height: 40px;
+}
+
+h1 span, h2 span {
+	display: none;
+}
+	/* this "span trick" allows the text that appears in the graphic to also appear in the
+	markup. The <span> is styled as such so that the hypertext equivalent does not appear, however
+	it is still present in the markup. */
+
+
+/* container */
+
+#content {
+	float: right;
+	width: 542px; /* 579 true - 37 padding */
+	margin: 0;
+	padding: 40px 0 170px 37px;
+	border: 2px solid #ddeeee;
+}
+
+#outline { /* creates the darker blue outer outline around #content, contains no other styling */
+	border: 3px solid #66cccc;
+	float: right;
+	width: 583px; /* Firefox is insisting on a width. Should be 4px larger than the true width (before removing padding) of #content */
+	margin: 0 0 0 0; /* adds some space at the bottom of #main */
+}
+
+/* info message */
+
+#myaccount_info .infomessage {
+	width: 509px; /* 589 true width minus left padding */
+	height: 32px; /* 45 true width minus top padding */
+	float: right;
+	margin: 0 0 4px 0;
+	padding: 13px 0 0 80px;
+	color: #fff;
+	font-size: 17px;
+	background: url(../../../img/community/registration/icon_infomessage_27x27.gif) 40px 8px no-repeat #66cccc;
+}
+
+/*#infomessage {
+	width: 589px;
+	height: 45px;
+	float: right;
+	margin: 0 0 4px 0;
+	background: #66cccc;
+}
+
+#infomessage p {
+	color: #fff;
+	font-size: 17px;
+	font-weight: bold;
+	float: left;
+	margin: 14px 0 0 12px;
+}
+
+#infomessage img {
+	margin: 8px 0 0 40px;
+	float: left;
+}*/
+
+/* myaccount_info modules */
+
+#myaccount_info a {
+	color: #3399aa;
+	text-decoration: underline;
+	font-size: 13px;
+	line-height: 16px;
+	font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	background: url(../../../img/community/registration/icon_editlink_5x9.gif) left 3px no-repeat;
+	width: 180px;
+	float: left;
+	padding: 0 0 0 9px;
+	margin: 0 0 11px 9px;
+}
+
+/* Email Address */
+
+#emailAddress {
+	width: 243px;
+	height: 116px;
+	margin: 13px 13px 0 0;
+	float: left;
+	border: 1px solid #cbdddd;
+}
+
+#emailAddress h3 {
+	font-size: 15px;
+	font-weight: bold;
+	font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	color: #55bbcc;
+	background: #e4f2f2;
+	width: 222px; /* 237 true width minus padding */
+	margin: 3px 0 8px 3px;
+	padding: 3px 0 5px 15px;
+	_padding: 2px 0 3px 15px; /* for IE 6 */
+}
+
+#emailAddress p {
+	margin: 0 8px 9px 18px;
+	line-height: 14px;
+}
+
+/* Newsletters */
+
+#newsletters {
+	width: 243px;
+	height: 116px;
+	margin: 13px 0 0 0;
+	float: left;
+	border: 1px solid #cbdddd;
+}
+
+#newsletters h3 {
+	font-size: 15px;
+	font-weight: bold;
+	font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	color: #55bbcc;
+	background: #e4f2f2;
+	width: 222px; /* 237 true width minus padding */
+	margin: 3px 0 8px 3px;
+	padding: 3px 0 5px 15px;
+	_padding: 2px 0 3px 15px; /* for IE 6 */
+}
+
+#newsletters p {
+	margin: 0 8px 9px 18px;
+	line-height: 14px;
+}
+
+/* Password */
+
+#myaccount_info #password {
+	width: 243px;
+	height: 116px;
+	margin: 13px 13px 0 0;
+	float: left;
+	border: 1px solid #cbdddd;
+}
+
+#myaccount_info #password h3 {
+	font-size: 15px;
+	font-weight: bold;
+	font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	color: #55bbcc;
+	background: #e4f2f2;
+	width: 222px; /* 237 true width minus padding */
+	margin: 3px 0 8px 3px;
+	padding: 3px 0 5px 15px;
+	_padding: 2px 0 3px 15px; /* for IE 6 */
+}
+
+#myaccount_info #password p {
+	margin: 0 8px 9px 18px;
+	line-height: 14px;
+}
+
+/* My Saved Schools */
+
+#mySavedSchools {
+	width: 243px;
+	height: 116px;
+	margin: 13px 0 0 0;
+	float: left;
+	border: 1px solid #cbdddd;
+}
+
+#mySavedSchools h3 {
+	font-size: 15px;
+	font-weight: bold;
+	font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	color: #55bbcc;
+	background: #e4f2f2;
+	width: 222px; /* 237 true width minus padding */
+	margin: 3px 0 8px 3px;
+	padding: 3px 0 5px 15px;
+	_padding: 2px 0 3px 15px; /* for IE 6 */
+}
+
+#mySavedSchools p {
+	margin: 0 8px 9px 18px;
+	line-height: 14px;
+}
+
+/* Email Preferences */
+
+#emailPreferences {
+	width: 243px;
+	height: 116px;
+	margin: 13px 13px 0 0;
+	float: left;
+	border: 1px solid #cbdddd;
+}
+
+#emailPreferences h3 {
+	font-size: 15px;
+	font-weight: bold;
+	font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	color: #55bbcc;
+	background: #e4f2f2;
+	width: 222px; /* 237 true width minus padding */
+	margin: 3px 0 8px 3px;
+	padding: 3px 0 5px 15px;
+	_padding: 2px 0 3px 15px; /* for IE 6 */
+}
+
+#emailPreferences p {
+	margin: 0 12px 9px 18px;
+	line-height: 14px;
+}
+
+/* Photo */
+
+#photo {
+	width: 243px;
+	height: 116px;
+	margin: 13px 0 0 0;
+	float: left;
+	border: 1px solid #cbdddd;
+}
+
+#photo h3 {
+	font-size: 15px;
+	font-weight: bold;
+	font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	color: #55bbcc;
+	background: #e4f2f2;
+	width: 222px; /* 237 true width minus padding */
+	margin: 3px 0 8px 3px;
+	padding: 3px 0 5px 15px;
+	_padding: 2px 0 3px 15px; /* for IE 6 */
+}
+
+#photo p {
+	margin: 0 8px 9px 18px;
+	line-height: 14px;
+}
+
+/* Forgot Your Password? */
+
+#myaccount_forgotpassword p {
+	width: 300px;
+	margin: 0 0 15px 0;
+}
+
+#myaccount_forgotpassword input {
+	width: 230px;
+	margin: 0 0 30px 0;
+	padding: 0;
+}
+
+#myaccount_forgotpassword .resetpassword {
+	float: left;
+	width: 161px;
+	height: 24px;
+	margin: 0 20px 0 0;
+}
+
+#myaccount_forgotpassword .cancel {
+	float: left;
+	width: 95px;
+	height: 24px;
+}
+
+/* Reset Your Password */
+
+#myaccount_resetpassword p {
+	width: 260px;
+	margin: 0 0 15px 0;
+}
+
+#myaccount_resetpassword input {
+	width: 230px;
+	margin: 0 0 15px 0;
+	padding: 0;
+}
+
+#myaccount_resetpassword label {
+	font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	color: #777777;
+	margin: 0 0 2px 0;
+	display: block;
+}
+
+#myaccount_resetpassword .resetpassword {
+	float: left;
+	width: 161px;
+	height: 24px;
+	margin: 15px 20px 0 0;
+}
+
+#myaccount_resetpassword .cancel {
+	float: left;
+	width: 95px;
+	height: 24px;
+	margin: 15px 0 0 0;
+}
+
+/* Reset Your Email Address */
+
+#myaccount_resetemail input {
+	width: 230px;
+	margin: 0 0 15px 0;
+	padding: 0;
+}
+
+#myaccount_resetemail label {
+	font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+	color: #777777;
+	margin: 0 0 2px 0;
+	display: block;
+}
+
+#myaccount_resetemail .resetemail {
+	float: left;
+	width: 195px;
+	height: 24px;
+	margin: 15px 20px 0 0;
+}
+
+#myaccount_resetemail .cancel {
+	float: left;
+	width: 95px;
+	height: 24px;
+	margin: 15px 0 0 0;
+}
+
+.clear {
+	clear: both;
+}
+
+/* error messages */
+
+#myaccount_resetemail .error li {
+    color: red;
+    font-size: small;
+    margin-bottom: 15px;
+}
+
+#myaccount_resetpassword .error li {
+    color: red;
+    font-size: small;
+    margin-bottom: 15px;
+}

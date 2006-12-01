@@ -23,5 +23,6 @@
         <jsp:attribute name="alt">${alt}</jsp:attribute>
         <jsp:attribute name="class">${styleClass}</jsp:attribute>
         <jsp:attribute name="onclick" trim="true">${onclick}</jsp:attribute>
+        <jsp:attribute name="name">${name}</jsp:attribute>
     </jsp:element>
 </jsp:root>
