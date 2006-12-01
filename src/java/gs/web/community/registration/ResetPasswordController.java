@@ -12,6 +12,7 @@ import gs.data.community.User;
 import gs.data.util.DigestUtil;
 import gs.web.util.UrlBuilder;
 import gs.web.util.ReadWriteController;
+import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.ISessionContext;
 import gs.web.util.validator.UserCommandValidator;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Provides ...
+ * Provides controller backing for the form that lets a user change their password.
  *
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
@@ -166,6 +167,8 @@ public class ResetPasswordController extends SimpleFormController implements Rea
 
             user.setPlaintextPassword(userCommand.getPassword());
             getUserDao().updateUser(user);
+            // log in user automatically
+            PageHelper.setMemberAuthorized(request, response, user);            
             mAndV.getModel().put("message", "Your password has been changed");
         }
 

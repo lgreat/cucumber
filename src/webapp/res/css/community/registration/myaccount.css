@@ -428,13 +428,7 @@ h1 span, h2 span {
 
 /* error messages */
 
-#myaccount_resetemail .error li {
-    color: red;
-    font-size: small;
-    margin-bottom: 15px;
-}
-
-#myaccount_resetpassword .error li {
+.error li {
     color: red;
     font-size: small;
     margin-bottom: 15px;

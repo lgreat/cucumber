@@ -50,7 +50,7 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
     }
 
     protected boolean isCancel(HttpServletRequest request) {
-        return request.getParameter("cancel.x") != null;
+        return request.getParameter("cancel.x") != null || request.getParameter("cancel") != null;
     }
 
     /**
@@ -89,7 +89,7 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
                                  BindException errors) throws NoSuchAlgorithmException {
         ModelAndView mAndV = new ModelAndView();
 
-        if (request.getParameter("submit") != null) {
+        if (request.getParameter("submit") != null || request.getParameter("submit.x") != null) {
             ChangeEmailCommand command = (ChangeEmailCommand) objCommand;
 
             User user = SessionContextUtil.getSessionContext(request).getUser();
