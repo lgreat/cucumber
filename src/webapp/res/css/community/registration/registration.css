@@ -713,3 +713,19 @@ h1 span, h2 span {
     font-size: small;
     margin-bottom: 15px;
 }
+
+#reg_intro #content .error a {
+    /* undo some page settings for anchors */
+    float: none;
+    margin: 0;
+    color: #3399aa;
+	text-decoration: underline;
+}
+
+#content .warning a {
+    /* undo some page settings for anchors */
+    float: none;
+    margin: 0;
+    color: #3399aa;
+	text-decoration: underline;
+}
