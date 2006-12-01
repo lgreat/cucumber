@@ -119,7 +119,7 @@ h1 span, h2 span {
 	border: 3px solid #66cccc;
 	float: right;
 	width: 583px; /* Firefox is insisting on a width. Should be 4px larger than the true width (before removing padding) of #content */
-	margin: 0 0 0 0; /* adds some space at the bottom of #main */
+	_margin: 17px 0 0 0; /* adds some space at the bottom of #main */
 }
 
 /* info message */
@@ -129,7 +129,8 @@ h1 span, h2 span {
 	height: 32px; /* 45 true width minus top padding */
 	float: right;
 	margin: 0 0 4px 0;
-	padding: 13px 0 0 80px;
+    _margin: 17px 0 0 0;
+    padding: 13px 0 0 80px;
 	color: #fff;
 	font-size: 17px;
 	background: url(../../../img/community/registration/icon_infomessage_27x27.gif) 40px 8px no-repeat #66cccc;
