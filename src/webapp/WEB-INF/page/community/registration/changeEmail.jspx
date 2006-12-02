@@ -45,6 +45,9 @@
           <!-- end: outline -->
       </div>
       <!-- end: main -->
+      <mod:tracking pageName="Change Email"
+                    pageType="account"
+                    hier1="Account,Change Email"/>
   </gsml:body>
 </html>
 </jsp:root>

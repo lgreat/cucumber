@@ -234,6 +234,40 @@
         <!-- end: outline -->
     </div>
     <!-- end: main -->
+    <c:set var="pageName" value="Registration page 1"/>
+    <c:set var="hier" value="Entry"/>
+    <spring:hasBindErrors name="userCmd">
+        <c:if test="${errors.errorCount gt 0}">
+            <spring:bind path="userCmd.city">
+                <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
+                    <c:set var="cityError" value="true"/>
+                </c:if>
+            </spring:bind>
+            <spring:bind path="userCmd.numSchoolChildren">
+                <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
+                    <c:set var="numChildError" value="true"/>
+                </c:if>
+            </spring:bind>
+            <c:choose>
+                <c:when test="${cityError gt '' and numChildError gt ''}">
+                    <c:set var="hier" value="Error Select City, # of children"/>
+                </c:when>
+                <c:when test="${cityError gt ''}">
+                    <c:set var="hier" value="Error Select City"/>
+                </c:when>
+                <c:when test="${numChildError gt ''}">
+                    <c:set var="hier" value="Error # of children"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="hier" value="Error"/>
+                </c:otherwise>
+            </c:choose>
+            <c:set var="pageName" value="Registration page 1 Error"/>
+        </c:if>
+    </spring:hasBindErrors>
+    <mod:tracking pageName="${pageName}"
+                  pageType="account"
+                  hier1="Account,Registration,Page 1,${hier}"/>
   </gsml:body>
 </html>
 </jsp:root>

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.12 2006/11/29 01:36:06 aroy Exp $
+ * $Id: LoginController.java,v 1.13 2006/12/02 00:13:00 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -50,7 +50,8 @@ public class LoginController extends SimpleFormController {
                                    BindException errors) {
 
         if (DEFAULT_REDIRECT_URL == null) {
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
+            //UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.ACCOUNT_INFO, null, null);
             DEFAULT_REDIRECT_URL = builder.asFullUrl(request);
         }
 

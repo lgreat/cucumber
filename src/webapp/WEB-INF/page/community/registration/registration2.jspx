@@ -98,6 +98,7 @@
   <gsml:body adPageName="registration2">
   <div id="reg_3">
   <h1><span>Join</span></h1>
+
   <div id="outline"><!-- creates darker blue outer outline -->
   <div id="content">
 
@@ -146,23 +147,25 @@
                                        styleId="userState${child}" styleClass="selectChildState"
                                        onChange="stateChange(this, ${child});"/>
                   <span class="saveChildCity">
-                      <a href="#" title="Choose current city/state" onclick="changeLocationDone(${child}); return false;">Done</a>
+                      <a href="#" title="Choose current city/state"
+                         onclick="changeLocationDone(${child}); return false;">Done</a>
                   </span>
               </span>
 
               <label id="location${child}" class="childCityLabel">
                   <span id="cityText${child}">${followUpCmd.cityNames[child-1]}</span>,
                   <span id="stateText${child}">${followUpCmd.students[child-1].state}</span>
-                  <input id="state${child}" type="hidden" name="state${child}" value="${followUpCmd.students[child-1].state}"/>
+                  <input id="state${child}" type="hidden" name="state${child}"
+                         value="${followUpCmd.students[child-1].state}"/>
                   <input id="city${child}" type="hidden" name="city${child}" value="${followUpCmd.cityNames[child-1]}"/>
                   <a href="#" title="Change city" onclick="changeLocation(${child}); return false;">Change city</a>
               </label>
 
               <label for="grade${child}" class="childGradeLabel">Grade</label>
               <gsweb:gradeSelector styleId="grade${child}" name="grade${child}"
-                                         styleClass="selectChildGrade" grade="${gradeVal}"
-                                         useNoGrade="true" useAlternateNames="true"
-                                         onChange="gradeChange(this, ${child});"/>
+                                   styleClass="selectChildGrade" grade="${gradeVal}"
+                                   useNoGrade="true" useAlternateNames="true"
+                                   onChange="gradeChange(this, ${child});"/>
 
               <label for="school${child}" class="childSchoolLabel">School</label>
               <span id="schoolDiv${child}">
@@ -180,21 +183,33 @@
                   </select>
               </span>
           </p>
-          <gsml:errorMessage command="followUpCmd" field="students[${child-1}]" styleClass="warning_child_both"/>
+          <gsml:errorMessage command="followUpCmd" field="students[${child-1}]" styleClass="warning_child_both"
+                  useImage="true"/>
+          <!-- remember error for omniture tagging: see end of body. -->
+          <spring:hasBindErrors name="followUpCmd">
+              <c:if test="${errors.errorCount gt 0}">
+                  <spring:bind path="followUpCmd.students[${child-1}]">
+                      <c:if test="${status.errorMessage gt '' or status.errorCode gt ''}">
+                          <c:set var="schoolError" value="true"/>
+                      </c:if>
+                  </spring:bind>
+              </c:if>
+          </spring:hasBindErrors>
       </div>
   </c:forEach>
   <!-- end: child module -->
 
   <!-- Yes ... willing to answer questions... -->
   <div class="willing">
-      <p><label class="willingLabel"><strong>Yes!</strong> I am willing to answer questions from other parents interested in learning
+      <p><label class="willingLabel"><strong>Yes!</strong> I am willing to answer questions from other parents
+          interested in learning
           more about the schools that my children attend. (GreatSchools won’t reveal my name or email
           address.)</label></p>
 
       <div class="willingRadio">
           <gsml:radio name="recontactStr" value="y" styleId="yesRecontact"
-                            styleClass="radio"
-                            checked="${followUpCmd.recontact eq null or followUpCmd.recontact eq 'y'}"/>
+                      styleClass="radio"
+                      checked="${followUpCmd.recontact eq null or followUpCmd.recontact eq 'y'}"/>
           <label for="yesRecontact" class="radiolabel">Yes</label>
           <gsml:radio name="recontactStr" value="n" styleId="noRecontact"
                       styleClass="radio" checked="${followUpCmd.recontact eq 'n'}"/>
@@ -202,8 +217,11 @@
       </div>
   </div>
 
-  <p><label class="termsLabel">I agree to the <link:termsOfUse title="GreatSchools Terms of Service">terms of
-                            service</link:termsOfUse></label>
+  <p><label class="termsLabel">I agree to the
+      <link:termsOfUse title="GreatSchools Terms of Service">terms of
+          service
+      </link:termsOfUse>
+  </label>
   </p>
   <gsml:radio name="termsStr" value="y" styleId="yesTerms" styleClass="radio"
               checked="${followUpCmd.terms eq true}"/>
@@ -214,7 +232,8 @@
   <gsml:errorMessage command="followUpCmd" field="terms" useImage="true" styleClass="warning_terms"/>
 
   <div class="divider">&amp;nbsp;</div>
-  <div class="join"><a href="communityLanding.page" title="Join the GreatSchools community" onclick="return doSingleClick(this);">&amp;nbsp;</a></div>
+  <div class="join"><a href="communityLanding.page" title="Join the GreatSchools community"
+                       onclick="return doSingleClick(this);">&amp;nbsp;</a></div>
   <div class="clear">&amp;nbsp;</div>
 
   <spring:bind path="followUpCmd.user.id">
@@ -242,6 +261,24 @@
   </div>
   <!-- end: main -->
 
+  <c:set var="pageName" value="Registration page 2"/>
+  <c:set var="hier" value="Entry"/>
+  <spring:hasBindErrors name="followUpCmd">
+      <c:if test="${errors.errorCount gt 0}">
+          <c:choose>
+              <c:when test="${schoolError gt ''}">
+                  <c:set var="hier" value="Error Select child's school"/>
+              </c:when>
+              <c:otherwise>
+                  <c:set var="hier" value="Error"/>
+              </c:otherwise>
+          </c:choose>
+          <c:set var="pageName" value="Registration page 2 Error"/>
+      </c:if>
+  </spring:hasBindErrors>
+  <mod:tracking pageName="${pageName}"
+                pageType="account"
+                hier1="Account,Registration,Page 2,${hier}"/>
   </gsml:body>
 </html>
 </jsp:root>

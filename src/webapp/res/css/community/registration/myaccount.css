@@ -336,6 +336,10 @@ h1 span, h2 span {
 
 /* Forgot Your Password? */
 
+#myaccount_forgotpassword #content input {
+    color: #444444;
+}
+
 #myaccount_forgotpassword p {
 	width: 300px;
 	margin: 0 0 15px 0;
@@ -361,6 +365,10 @@ h1 span, h2 span {
 }
 
 /* Reset Your Password */
+
+#myaccount_resetpassword #content input {
+    color: #444444;
+}
 
 #myaccount_resetpassword p {
 	width: 260px;
@@ -395,6 +403,10 @@ h1 span, h2 span {
 }
 
 /* Reset Your Email Address */
+
+#myaccount_resetemail #content input {
+    color: #444444;
+}
 
 #myaccount_resetemail input {
 	width: 230px;

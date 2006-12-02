@@ -739,7 +739,7 @@
         <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
         <property name="formView" value="/community/registration/registration"/>
         <property name="successView" value="redirect:/community/registration2.page"/>
-        <property name="completeView" value="redirect:/community/communityLanding.page"/>
+        <property name="completeView" value="redirect:/community/accountInfo.page"/>
         <property name="validators">
             <list>
                 <ref local="emailValidator"/>
@@ -758,7 +758,7 @@
         <property name="commandName" value="followUpCmd"/>
         <property name="commandClass" value="gs.web.community.registration.FollowUpCommand"/>
         <property name="formView" value="/community/registration/registration2"/>
-        <property name="successView" value="redirect:/community/communityLanding.page"/>
+        <property name="successView" value="redirect:/community/accountInfo.page"/>
     </bean>
 
     <bean name="/community/registration3.page"
