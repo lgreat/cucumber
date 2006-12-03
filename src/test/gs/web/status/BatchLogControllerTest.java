@@ -38,6 +38,9 @@ public class BatchLogControllerTest extends BaseControllerTestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
+        SessionFactory sessionFactory = (SessionFactory) getApplicationContext().getBean("sessionFactory");
+        JdbcTemplate jdbc = new JdbcTemplate(new ThreadLocalHibernateDataSource(sessionFactory));
+        jdbc.execute("delete from batch_log");
         _controller = (BatchLogController) getApplicationContext().getBean(BatchLogController.BEAN_ID);
         _batchLogDao = (IBatchLogDao) getApplicationContext().getBean(IBatchLogDao.BEAN_ID);
         String name = "gs.batch.FirstBatchJob";
