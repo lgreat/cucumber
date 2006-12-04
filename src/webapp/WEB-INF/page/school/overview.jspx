@@ -31,6 +31,7 @@
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="sid" value="${school.id}"/>
 <c:set var="addr" value="${school.physicalAddress.city}, ${school.physicalAddress.state.longName} - ${stateAbbrev}" />
+<c:set var="pageName" value="Overview"/>
 <title>${school.name} - ${addr} - school overview</title>
 <meta name="description" content="Overview of ${school.name} located in ${addr}, including school test scores, student-teacher ratio, parent school reviews and teacher stats."/>
 
@@ -189,6 +190,7 @@ table.module1 td a:hover {
                     <td class="module1_body" valign="top">
                         <c:choose>
                             <c:when test="${school.type.schoolTypeName == 'private'}">
+                                <c:set var="pageName" value="Private School Overview"/>
                                 <b>Teacher/Student Stats</b><br/>
                                 Student-teacher ratio and <a href="/cgi-bin/$LCSTATE/otherprivate/${sid}" style="text-decoration:none;" class="nolink">ethnicity breakdown for ${school.name}.&#160;&#160;</a>
                                 <gsml:a href="/cgi-bin/$LCSTATE/otherprivate/${sid}">
@@ -343,7 +345,7 @@ table.module1 td a:hover {
 </tbody></table>
 </school:profile>
 <mod:tracking pageType="school"
-              pageName="Overview"
+              pageName="${pageName}"
               hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
               school="${school}" />
 </gsml:body>
