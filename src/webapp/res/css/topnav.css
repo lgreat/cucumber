@@ -26,25 +26,44 @@ will need to become a graphic.
     vertical-align: top;
     padding-top: 10px;
     padding-right: 18px;
-    width: 33%;
+    width: 50%; /* changed 12/1 aroy, old value 33% */
 }
 #topnav .member .welcome {
-    text-align: left;
+    text-align: right; /* changed 12/1 aroy, old value left */
     font-weight: 900;
     color: #666666;
     border-right-width: 1px;
     border-right-style: solid;
     border-right-color: #CCCCCC;
     padding-right: 6px;
-    width: 5%;
+    width: 52%; /* changed 12/1 aroy, old value 5% */
     white-space: nowrap;
+}
+
+/* following added 12/1 aroy */
+#topnav .member .account {
+    text-align: left;
+    color: #69C5D2;
+    padding-left: 6px;
+    text-decoration: none;
+    width: 25%;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: #CCCCCC;
+    margin: 0;
+}
+
+/* following added 12/1 aroy */
+#topnav .member .account a {
+    color: #69C5D2;
+    text-decoration: none;
 }
 
 #topnav .member .signout {
     text-align: left;
     color: #69C5D2;
     padding-left: 6px;
-    width: 80%; /* take any extra space */
+    width: 23%; /* changed 12/1 aroy, old value 80% */
 }
 #topnav .member .signout a {
     color: #69C5D2;
@@ -76,6 +95,7 @@ will need to become a graphic.
 
 #topnav div.search {
     margin-top:24px;
+    float: right; /* added 12/1 aroy */
 }
 
 #topnav .searchLabel {

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.29 2006/11/16 19:18:56 aroy Exp $
+ * $Id: PageHelper.java,v 1.30 2006/12/04 19:02:24 aroy Exp $
  */
 
 package gs.web.util;
@@ -412,7 +412,7 @@ public class PageHelper {
      */
     public static boolean isCommunityCookieSet(HttpServletRequest request) {
         SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(request);
-        return context.getMemberId() != null && context.getUserHash() != null;
+        return context.getMemberId() != null && StringUtils.isNotEmpty(context.getUserHash());
     }
 
     /**

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.8 2006/10/18 00:32:11 thuss Exp $
+ * $Id: SessionContextUtil.java,v 1.9 2006/12/04 19:02:24 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -167,6 +167,7 @@ public class SessionContextUtil implements ApplicationContextAware {
         context.setMssCount(cache.getMssCount());
         context.setNickname(cache.getNickname());
         context.setUserHash(cache.getUserHash());
+        context.setScreenName(cache.getScreenName());
     }
 
     /**
@@ -432,6 +433,9 @@ public class SessionContextUtil implements ApplicationContextAware {
         if (user != null) {
             ClientSideSessionCache cache = new ClientSideSessionCache(user);
             cache.setUserHash(hash);
+            if (user.getUserProfile() != null) {
+                cache.setScreenName(user.getUserProfile().getScreenName());
+            }
             _sessionCacheCookieGenerator.addCookie(response, cache.getCookieRepresentation());
         } else {
             _log.warn("Attempt to change authorization information on null user ignored.");

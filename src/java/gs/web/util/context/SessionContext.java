@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.5 2006/10/17 22:13:14 thuss Exp $
+ * $Id: SessionContext.java,v 1.6 2006/12/04 19:02:24 aroy Exp $
  */
 package gs.web.util.context;
 
@@ -41,6 +41,7 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
     private String _hostName;
     private User _user;
     private String _userHash;
+    private String _screenName;
     private Integer _memberId;
     private String _email;
     private String _nickname;
@@ -276,6 +277,14 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
 
     public void setUserHash(String userHash) {
         _userHash = userHash;
+    }
+
+    public String getScreenName() {
+        return _screenName;
+    }
+
+    public void setScreenName(String screenName) {
+        _screenName = screenName;
     }
 
     public void setMssCount(int mssCount) {

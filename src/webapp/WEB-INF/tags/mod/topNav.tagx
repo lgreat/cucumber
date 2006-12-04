@@ -8,6 +8,7 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib"
           xmlns:search="http://java.sun.com/jsp/jstl/core">
+<jsp:directive.tag import="gs.web.util.PageHelper"/>
 <jsp:directive.tag body-content="empty"/>
 
 <div id="topnav">
@@ -21,29 +22,59 @@
 <td class="member" >
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="member noprint">
     <tr>
-        <c:if test="${empty requestScope.context.memberId}">
-            <td class="welcome">Welcome!</td>
-            <td class="signout"><link:signIn forwardTo="referer">Sign In</link:signIn></td>
-            <td class="saved"><gsml:a href="/cgi-bin/msl_confirm/$STATE">Start Saving Schools</gsml:a>
-            </td>
-        </c:if>
-        <c:if test="${not empty requestScope.context.memberId}">
-            <td class="welcome">Welcome ${requestScope.context.nickname}</td>
-            <td class="signout"><gsml:a
-                    href="/cgi-bin/logout/$STATE/?email=${requestScope.context.email}&amp;mid=${requestScope.context.memberId}">
-                Sign Out</gsml:a></td>
-            <td class="saved">
+        <c:choose>
+            <c:when test="${empty requestScope.context.memberId}">
+                <td class="welcome">Welcome!</td>
+                <td class="signout"><link:signIn forwardTo="referer">Sign In</link:signIn></td>
+                <td class="saved"><gsml:a href="/cgi-bin/msl_confirm/$STATE">Start Saving Schools</gsml:a>
+                </td>
+            </c:when>
+            <c:otherwise>
+                <jsp:scriptlet>
+                    request.setAttribute("communityAuth", 
+                            Boolean.valueOf(PageHelper.isCommunityCookieSet(request)));
+                </jsp:scriptlet>
                 <c:choose>
-                    <c:when test="${not empty requestScope.context.mslCount and requestScope.context.mslCount gt 0}">
-                        <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.email}">${requestScope.context.mslCount}
-                            Saved School${requestScope.context.mslCount gt 1 ? 's':''}</gsml:a>
+                    <c:when test="${requestScope.context.cobranded eq false and communityAuth eq true}">
+                        <td class="welcome">Welcome ${requestScope.context.screenName}</td>
+                        <td class="account">
+                            <link:accountInfo>My Account</link:accountInfo>
+                        </td>
+                        <td class="signout"><gsml:a
+                                href="/cgi-bin/logout/$STATE/?email=${requestScope.context.email}&amp;mid=${requestScope.context.memberId}">
+                            Sign Out</gsml:a></td>
+                        <td class="saved">
+                            <c:choose>
+                                <c:when test="${not empty requestScope.context.mslCount and requestScope.context.mslCount gt 0}">
+                                    <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.email}">${requestScope.context.mslCount}
+                                        Saved School${requestScope.context.mslCount gt 1 ? 's':''}</gsml:a>
+                                </c:when>
+                                <c:otherwise>
+                                    <gsml:a href="/cgi-bin/msl_confirm/$STATE">Start Saving Schools</gsml:a>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
                     </c:when>
                     <c:otherwise>
-                        <gsml:a href="/cgi-bin/msl_confirm/$STATE">Start Saving Schools</gsml:a>
+                        <td class="welcome">Welcome ${requestScope.context.nickname}</td>
+                        <td class="signout"><gsml:a
+                                href="/cgi-bin/logout/$STATE/?email=${requestScope.context.email}&amp;mid=${requestScope.context.memberId}">
+                            Sign Out</gsml:a></td>
+                        <td class="saved">
+                            <c:choose>
+                                <c:when test="${not empty requestScope.context.mslCount and requestScope.context.mslCount gt 0}">
+                                    <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.email}">${requestScope.context.mslCount}
+                                        Saved School${requestScope.context.mslCount gt 1 ? 's':''}</gsml:a>
+                                </c:when>
+                                <c:otherwise>
+                                    <gsml:a href="/cgi-bin/msl_confirm/$STATE">Start Saving Schools</gsml:a>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
                     </c:otherwise>
                 </c:choose>
-            </td>
-        </c:if>
+            </c:otherwise>
+        </c:choose>
     </tr>
 </table>
 <div class="search" >

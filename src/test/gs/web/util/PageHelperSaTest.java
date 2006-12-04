@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.21 2006/11/16 19:18:56 aroy Exp $
+ * $Id: PageHelperSaTest.java,v 1.22 2006/12/04 19:02:24 aroy Exp $
  */
 
 package gs.web.util;
@@ -383,8 +383,10 @@ public class PageHelperSaTest extends TestCase {
     }
 
     public void testIsCommunityCookieSet() {
-        assertFalse(PageHelper.isCommunityCookieSet(_request));
         SessionContext sessionContext = (SessionContext) SessionContextUtil.getSessionContext(_request);
+        assertNull(sessionContext.getUserHash());
+        assertNull(sessionContext.getMemberId());
+        assertFalse(PageHelper.isCommunityCookieSet(_request));
         sessionContext.setUserHash("blahblah");
         // no good ... must have member id AND cookie
         assertFalse(PageHelper.isCommunityCookieSet(_request));
