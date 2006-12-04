@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.14 2006/11/30 17:31:39 eddie Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.15 2006/12/04 18:37:53 eddie Exp $
  */
 
 package gs.web.test.rating;
@@ -98,10 +98,34 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 }
             }
 
-            if (rowGroup.getRows().size() > 0) {
-                _rowGroups.add(rowGroup);
+            RowGroup rowGroup2 = putGradeALLAtEnd(rowGroup,rowGroupConfig);
+
+            if (rowGroup2.getRows().size() > 0) {
+                _rowGroups.add(rowGroup2);
+            }
+
+        }
+    }
+
+    private RowGroup putGradeALLAtEnd(RowGroup rowGroup,IRatingsConfig.IRowGroupConfig rowGroupConfig){
+        List rowGroup_xml = rowGroup.getRows();
+        RowGroup rowGroup2 = new RowGroup(rowGroupConfig);
+        for (int i = 0; i < rowGroup_xml.size(); i++) {
+            Row row = (Row) rowGroup_xml.get(i);
+            if(!(row.getConfigLabel().startsWith("Grade All"))) {
+                rowGroup2.add(row);
             }
         }
+
+        for (int i = 0; i < rowGroup_xml.size(); i++) {
+            Row row = (Row) rowGroup_xml.get(i);
+            if((row.getConfigLabel().startsWith("Grade All"))) {
+                rowGroup2.add(row);
+            }
+        }
+
+        return rowGroup2;
+
     }
 
     protected class RowGroup implements IRowGroup {
