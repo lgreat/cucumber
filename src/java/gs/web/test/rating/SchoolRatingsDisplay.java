@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.15 2006/12/04 18:37:53 eddie Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.16 2006/12/04 23:15:01 eddie Exp $
  */
 
 package gs.web.test.rating;
@@ -70,6 +70,7 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
             }
 
             final IRatingsConfig.IRowConfig[] rowConfigs = rowGroupConfig.getRowConfigs();
+            Row all = null;
             for (int i = 0; i < rowConfigs.length; i++) {
                 final IRatingsConfig.IRowConfig rowConfig = rowConfigs[i];
                 Row row = new Row(rowConfig);
@@ -88,7 +89,7 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
 
                         String gradeall = rowLabel.substring(6);
                         if(_school.getLevelCode().containsSimilarLevelCode(Grade.getLevelCodeFromName(gradeall))){
-                            rowGroup.add(row);
+                            all = row;
                         }
                     }
                 } else {
@@ -97,35 +98,15 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                     }
                 }
             }
+            if(all != null){
+                rowGroup.add(all);
+            }
 
-            RowGroup rowGroup2 = putGradeALLAtEnd(rowGroup,rowGroupConfig);
-
-            if (rowGroup2.getRows().size() > 0) {
-                _rowGroups.add(rowGroup2);
+            if (rowGroup.getRows().size() > 0) {
+                _rowGroups.add(rowGroup);
             }
 
         }
-    }
-
-    private RowGroup putGradeALLAtEnd(RowGroup rowGroup,IRatingsConfig.IRowGroupConfig rowGroupConfig){
-        List rowGroup_xml = rowGroup.getRows();
-        RowGroup rowGroup2 = new RowGroup(rowGroupConfig);
-        for (int i = 0; i < rowGroup_xml.size(); i++) {
-            Row row = (Row) rowGroup_xml.get(i);
-            if(!(row.getConfigLabel().startsWith("Grade All"))) {
-                rowGroup2.add(row);
-            }
-        }
-
-        for (int i = 0; i < rowGroup_xml.size(); i++) {
-            Row row = (Row) rowGroup_xml.get(i);
-            if((row.getConfigLabel().startsWith("Grade All"))) {
-                rowGroup2.add(row);
-            }
-        }
-
-        return rowGroup2;
-
     }
 
     protected class RowGroup implements IRowGroup {
