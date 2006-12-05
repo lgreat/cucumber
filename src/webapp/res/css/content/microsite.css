@@ -213,22 +213,10 @@ h3#freeNewsletters {
 }
 
 .textAd {
-    font-size: 12px;
 	margin-top: 20px;
-	color: #000000;
-	text-align: left;
     padding: 10px 20px 20px 20px;
     border: 1px solid #cbcbcb;
 	width: 259px;
-}
-
-div.textAd a {
-    font-family: "Trebuchet MS", Arial, sans-serif;
-	font-size: 13px;
-	color: #3399AA;
-	font-weight: bold;
-	margin: 11px 0px 6px 0px;
-	text-decoration:none;
 }
 
 ul.pdf{
