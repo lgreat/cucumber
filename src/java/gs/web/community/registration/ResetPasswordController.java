@@ -145,7 +145,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
         String oldPassword = request.getParameter("oldPassword");
         if (oldPassword != null) {
             if (!user.matchesPassword(oldPassword)) {
-                errors.reject("incorrect_password", "The old password is incorrect");
+                errors.reject("incorrect_password", "The old password is incorrect.");
             }
         }
 

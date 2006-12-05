@@ -31,7 +31,7 @@ import java.net.MalformedURLException;
 public class ChangeEmailController extends SimpleFormController implements ReadWriteController {
     public static final String BEAN_ID = "/community/changeEmail.page";
     protected final Log _log = LogFactory.getLog(getClass());
-    public static final String NOT_MATCHING_ERROR = "Please enter the same email address into both fields";
+    public static final String NOT_MATCHING_ERROR = "Please enter the same email address into both fields.";
 
     private IUserDao _userDao;
     private String _rpcServerUrl;
@@ -66,7 +66,7 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
 
         if (command.getNewEmail().length() > 127) {
             errors.rejectValue("newEmail", null,
-                    "We're sorry, your email must be less than 127 characters long");
+                    "We're sorry, your email must be less than 128 characters long.");
             return; // other errors are irrelevant
         }
 
@@ -74,7 +74,7 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
 
         if (user != null) {
             errors.rejectValue("newEmail", null,
-                    "We're sorry, that email address is already in use");
+                    "We're sorry, that email address is already in use.");
             return; // other errors are irrelevant
         }
 
