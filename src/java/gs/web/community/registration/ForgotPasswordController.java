@@ -65,7 +65,11 @@ public class ForgotPasswordController extends SimpleFormController {
         UserCommand userCommand = (UserCommand) command;
         User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
         if (user == null) {
-            // do nothing
+            // generate error
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, userCommand.getEmail());
+            String href = builder.asAnchor(request, "join the community").asATag();
+            errors.rejectValue("email", null, "There is no account associated with that email address. " +
+                    "Would you like to " + href + "?");
         } else if (user.isEmailProvisional()) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REQUEST_EMAIL_VALIDATION, null, user.getEmail());
             String href2 = builder.asAnchor(request, "(resend email)").asATag();
@@ -90,12 +94,8 @@ public class ForgotPasswordController extends SimpleFormController {
             UserCommand userCommand = (UserCommand) command;
             User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
             MimeMessage mm;
-            if (user != null) {
-                userCommand.setUser(user);
-                mm = buildMultipartEmail(request, userCommand.getEmail(), user.getId());
-            } else {
-                mm = buildMultipartEmail(request, userCommand.getEmail(), null);
-            }
+            userCommand.setUser(user);
+            mm = buildMultipartEmail(request, userCommand.getEmail(), user.getId());
             _mailSender.send(mm);
             mAndV.setViewName(getSuccessView());
             String msg = "An email has been sent to " + userCommand.getEmail() +
@@ -132,20 +132,12 @@ public class ForgotPasswordController extends SimpleFormController {
 
         // plain text part
         BodyPart plainTextBodyPart = new MimeBodyPart();
-        if (userId != null) {
-            plainTextBodyPart.setText(getEmailPlainTextUserExists(request, email, userId));
-        } else {
-            plainTextBodyPart.setText(getEmailPlainTextUserNotExist(request, email));
-        }
+        plainTextBodyPart.setText(getEmailPlainTextUserExists(request, email, userId));
         mp.addBodyPart(plainTextBodyPart);
 
         // HTML part
         MimeBodyPart htmlBodyPart = new MimeBodyPart();
-        if (userId != null) {
-            htmlBodyPart.setText(getEmailHTMLUserExists(request, email, userId), "US-ASCII", "html");
-        } else {
-            htmlBodyPart.setText(getEmailHTMLUserNotExist(request, email), "US-ASCII", "html");
-        }
+        htmlBodyPart.setText(getEmailHTMLUserExists(request, email, userId), "US-ASCII", "html");
         mp.addBodyPart(htmlBodyPart);
 
         msg.setContent(mp);
@@ -165,25 +157,6 @@ public class ForgotPasswordController extends SimpleFormController {
         return emailContent.toString();
     }
 
-    protected String getEmailPlainTextUserNotExist(HttpServletRequest request, String email) throws NoSuchAlgorithmException {
-        StringBuffer emailContent = new StringBuffer();
-        UrlBuilder builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null);
-        emailContent.append("Hi!\n\n");
-        emailContent.append("You requested your username and password on GreatSchools.net.");
-        emailContent.append(" Unfortunately, we don't have an account associated with this email address ");
-        emailContent.append(email).append(".\n\n");
-        emailContent.append("Please visit the forgot password page (");
-        emailContent.append(builder.asFullUrl(request));
-        emailContent.append(") and try a different email address.\n\n");
-        emailContent.append("Don't have an account on GreatSchools.net? Click here to create one: ");
-        builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, email);
-        emailContent.append(builder.asFullUrl(request));
-        emailContent.append("\n\n");
-        emailContent.append("If you did not make this request, please ignore and delete this email.\n\n");
-        emailContent.append("Thanks!\nThe GreatSchools Team\n");
-        return emailContent.toString();
-    }
-
     protected String getEmailHTMLUserExists(HttpServletRequest request, String email, Integer userId) throws NoSuchAlgorithmException {
         StringBuffer emailContent = new StringBuffer();
         emailContent.append("<html><body>\n");
@@ -191,29 +164,9 @@ public class ForgotPasswordController extends SimpleFormController {
         UrlBuilder builder = new UrlBuilder(UrlBuilder.RESET_PASSWORD, null, hash + userId);
         emailContent.append("<p>Dear GreatSchools member,</p>\n\n");
         emailContent.append("<p>You requested that we reset your password on GreatSchools. ");
-        emailContent.append("Please ").append(builder.asAbsoluteAnchor(request, "click here").asATag());
-        emailContent.append(" to select a new password.</p>\n\n");
-        emailContent.append("<p>Thanks!</p>\n<p>The GreatSchools Team</p>\n");
-        emailContent.append("</body></html>");
-        return emailContent.toString();
-    }
-
-    protected String getEmailHTMLUserNotExist(HttpServletRequest request, String email) throws NoSuchAlgorithmException {
-        StringBuffer emailContent = new StringBuffer();
-        emailContent.append("<html><body>\n");
-        UrlBuilder builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null);
-        emailContent.append("<p>Hi!</p>\n\n");
-        emailContent.append("<p>You requested your username and password on GreatSchools.net.");
-        emailContent.append(" Unfortunately, we don't have an account associated with this email address: ");
-        emailContent.append(email).append(".</p>\n\n");
-        emailContent.append("<p>Please visit the ");
-        emailContent.append(builder.asAbsoluteAnchor(request, "forgot password page").asATag());
-        emailContent.append(" and try a different email address.</p>\n\n");
-        emailContent.append("<p>Don't have an account on GreatSchools.net? ");
-        builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, email);
-        emailContent.append(builder.asAbsoluteAnchor(request, "Create an account").asATag());
+        emailContent.append("Please ");
+        emailContent.append(builder.asAbsoluteAnchor(request, "click here to select a new password").asATag());
         emailContent.append(".</p>\n\n");
-        emailContent.append("<p>If you did not make this request, please ignore and delete this email.</p>\n\n");
         emailContent.append("<p>Thanks!</p>\n<p>The GreatSchools Team</p>\n");
         emailContent.append("</body></html>");
         return emailContent.toString();

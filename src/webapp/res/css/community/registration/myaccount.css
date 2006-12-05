@@ -325,6 +325,11 @@ h1 span {
 	line-height: 14px;
 }
 
+/* Temporarily disable links to community for beta */
+#emailPreferences a {
+    text-decoration: none;
+}
+
 /* Photo */
 
 #photo {
@@ -350,6 +355,11 @@ h1 span {
 #photo p {
 	margin: 0 8px 9px 18px;
 	line-height: 14px;
+}
+
+/* Temporarily disable links to community for beta */
+#photo a {
+    text-decoration: none;
 }
 
 /* Forgot Your Password? */
@@ -480,8 +490,22 @@ p.field {
     float: left;
 }
 
+#myaccount_forgotpassword .warning {
+    width: 280px;
+    top: 0;
+}
+
+#myaccount_forgotpassword p.field {
+    width: 240px;
+}
+
 #content .warning img {
 	float: left;
 	margin: 6px 7px 0 0;
 }
 
+#content .warning a {
+    margin: 0;
+    color: #3399aa;
+	text-decoration: underline;
+}

@@ -59,7 +59,7 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
     protected void onBindAndValidate(HttpServletRequest request,
                                      Object objCommand,
                                      BindException errors) throws NoSuchAlgorithmException {
-        if (suppressValidation(request)) {
+        if (suppressValidation(request) || errors.hasErrors()) {
             return;
         }
         ChangeEmailCommand command = (ChangeEmailCommand) objCommand;

@@ -84,19 +84,7 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
 
         _controller.onBindAndValidate(getRequest(), command, errors);
         _userControl.verify();
-        assertFalse(errors.hasErrors());
-
-        _userControl.reset();
-        _userDao.findUserFromEmailIfExists(email);
-        _userControl.setReturnValue(null);
-        _userControl.replay();
-
-        _controller.onSubmit(getRequest(), getResponse(), command, errors);
-        _userControl.verify();
-        assertFalse(errors.hasErrors());
-        verifyEmail(_mailSender.getSentMessages(), email,
-                _controller.getEmailPlainTextUserNotExist(getRequest(), email),
-                _controller.getEmailHTMLUserNotExist(getRequest(), email));
+        assertTrue(errors.hasErrors());
     }
 
     private void verifyEmail(List messages, String email, String plainTextBody, String HTMLBody) throws MessagingException, IOException {

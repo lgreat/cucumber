@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.13 2006/12/02 00:13:00 aroy Exp $
+ * $Id: LoginController.java,v 1.14 2006/12/05 22:10:51 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -85,15 +85,8 @@ public class LoginController extends SimpleFormController {
         User user = getUserDao().findUserFromEmailIfExists(loginCommand.getEmail());
 
         if (user == null) {
-            // get registration form to auto fill in email
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, loginCommand.getEmail());
-            if (StringUtils.isNotEmpty(loginCommand.getRedirect())) {
-                builder.addParameter("redirect", loginCommand.getRedirect());
-            }
-            String href = builder.asAnchor(request, "join the community").asATag();
-            errors.reject(USER_DOES_NOT_EXIST_ERROR_CODE + "_with_link",
-                    "There is no account associated with that email address. Would you like to " +
-                            href + "?");
+            errors.reject(null,
+                    "There is no account associated with that email address.");
         } else if (user.isEmailProvisional()) {
             String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
 
@@ -113,11 +106,7 @@ public class LoginController extends SimpleFormController {
             if ( (StringUtils.isNotEmpty(password) && StringUtils.isEmpty(user.getPasswordMd5())) ||
                     (StringUtils.isEmpty(password) && StringUtils.isNotEmpty(user.getPasswordMd5())) ||
                     (!user.matchesPassword(password)) ) {
-                UrlBuilder builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null,
-                        loginCommand.getEmail());
-                String href = builder.asAnchor(request, "forget your password").asATag();
-                errors.reject(INVALID_PASSWORD_CODE, "The password you entered is incorrect. Did " +
-                        "you " + href + "?");
+                errors.reject(INVALID_PASSWORD_CODE, "The password you entered is incorrect.");
             }
         }
     }

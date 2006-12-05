@@ -55,12 +55,15 @@ public class UserCommandValidator implements IRequestAwareValidator {
     private static final String ERROR_STATE_MISSING =
             "Please select your state.";
     private static final String ERROR_CITY_MISSING =
-            "Please select your city. If you cannot find your city, please select " +
-                    "\"My city is not listed.\"";
+            "Please select your city, or select \"My city is not listed.\"";
     private static final String ERROR_NUM_CHILDREN_MISSING =
             "Please tell us the number of children you have in K-12 schools.";
     private static final String ERROR_TERMS_MISSING =
             "Please accept our Terms of Use to join the community.";
+    private static final char[] FIRST_NAME_DISALLOWED_CHARACTERS = {
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '<', '>', '&', '\\'
+    };
+    private static final String ERROR_FIRST_NAME_BAD = "Your first name contains invalid characters.";
 
     public void validate(HttpServletRequest request, Object object, Errors errors) {
         UserCommand command = (UserCommand)object;
@@ -98,6 +101,8 @@ public class UserCommandValidator implements IRequestAwareValidator {
                 command.getFirstName().length() > FIRST_NAME_MAXIMUM_LENGTH ||
                 command.getFirstName().length() < FIRST_NAME_MINIMUM_LENGTH) {
             errors.rejectValue("firstName", null, ERROR_FIRST_NAME_LENGTH);
+        } else if (!StringUtils.containsNone(command.getFirstName(), FIRST_NAME_DISALLOWED_CHARACTERS)) {
+            errors.rejectValue("firstName", null, ERROR_FIRST_NAME_BAD);
         }
 
 //        if (StringUtils.isEmpty(command.getLastName())) {

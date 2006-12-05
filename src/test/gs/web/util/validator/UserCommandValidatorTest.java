@@ -37,6 +37,7 @@ public class UserCommandValidatorTest extends BaseTestCase {
     private static final String GOOD_FIRST_NAME_LONG =
             "123456789012345678901234";
     private static final String LONG_FIRST_NAME = GOOD_FIRST_NAME_LONG + "1";
+    private static final String BAD_FIRST_NAME = "Anthony2";
 //    private static final String GOOD_LAST_NAME_LONG =
 //            "1234567890123456789012345678901234567890123456789012345678901234";
     private static final String LONG_LAST_NAME =
@@ -256,6 +257,18 @@ public class UserCommandValidatorTest extends BaseTestCase {
         Errors errors = new BindException(command, "");
 
         command.setFirstName(LONG_FIRST_NAME);
+
+        _validator.validate(_request, command, errors);
+        _userControl.verify();
+        assertTrue(errors.hasErrors());
+        assertEquals(1, errors.getErrorCount());
+    }
+
+    public void testBadFirstName() {
+        UserCommand command = setupCommand();
+        Errors errors = new BindException(command, "");
+
+        command.setFirstName(BAD_FIRST_NAME);
 
         _validator.validate(_request, command, errors);
         _userControl.verify();

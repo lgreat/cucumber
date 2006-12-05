@@ -65,7 +65,9 @@
               <div id="emailPreferences">
                   <h3>Email Preferences</h3>
                   <p>Manage how often you receive email updates about discussions you've signed up for.</p>
-                  <gsweb:toCommunity targetLink="/cmd.txSetEmailNotifications">Manage email preferences</gsweb:toCommunity>
+                  <!-- disable links to community for beta -->
+                  <!--<gsweb:toCommunity targetLink="/cmd.txSetEmailNotifications">Manage email preferences</gsweb:toCommunity>-->
+                  <a name="prefComing">Coming soon!</a>
               </div>
               <!-- end: Email Preferences module -->
 
@@ -73,7 +75,9 @@
               <div id="photo">
                   <h3>Photo</h3>
                   <p>Change photo</p>
-                  <gsweb:toCommunity targetLink="/cmd.txPictureSetUser">Update or change your photo</gsweb:toCommunity>
+                  <!-- disable links to community for beta -->
+                  <!--<gsweb:toCommunity targetLink="/cmd.txPictureSetUser">Update or change your photo</gsweb:toCommunity>-->
+                  <a name="photoComing">Coming soon!</a>
               </div>
               <!-- end: Photo module -->
           </div>
