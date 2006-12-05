@@ -35,8 +35,8 @@ public class UserCommandValidatorTest extends BaseTestCase {
     private static final String BAD_SCREEN_NAME_SPACE = "my name";
     private static final String BAD_SCREEN_NAME_NONALPHANUMERIC = "Great$chools";
     private static final String GOOD_FIRST_NAME_LONG =
-            "123456789012345678901234";
-    private static final String LONG_FIRST_NAME = GOOD_FIRST_NAME_LONG + "1";
+            "abcdefghijabcdefghijabcd";
+    private static final String LONG_FIRST_NAME = GOOD_FIRST_NAME_LONG + "e";
     private static final String BAD_FIRST_NAME = "Anthony2";
 //    private static final String GOOD_LAST_NAME_LONG =
 //            "1234567890123456789012345678901234567890123456789012345678901234";
