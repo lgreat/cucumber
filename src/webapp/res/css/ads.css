@@ -5,33 +5,38 @@
 }
 
 .textAd {
-    text-align:left;
+    text-align: left;
     font-size: 12px;
+}
+
+.multiTextAd .textAd a {
+    color: #3399aa;
 }
 
 .multiTextAd {
     color: #666;
     padding: 5px 0 5px 0;
     border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;    
-    padding-left:32px;
+    border-bottom: 1px solid #ccc;
+    padding-left: 32px;
 }
 
-.multiTextAd .hr{
-    display:block;
+.multiTextAd .hr {
+    display: block;
     border-bottom: 1px solid #ccc;
-    padding-top:5px;
-    margin-bottom:10px;
-    margin-left:-30px;
+    padding-top: 5px;
+    margin-bottom: 10px;
+    margin-left: -30px;
 }
 
 .multiTextAd h2 {
-    font-size:11px;
-    text-align:center;
+    font-size: 11px;
+    text-align: center;
     color: #999;
-    padding-bottom:5px;
+    padding-bottom: 5px;
+    margin-left: -30px;
 }
 
 .multiTextAd .textAd {
-    padding-bottom:10px;
+    padding-bottom: 10px;
 }

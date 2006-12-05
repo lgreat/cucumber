@@ -65,35 +65,6 @@ table#sky td {
     font-size: 10px;
 }
 
-table.box_ad {
-    width: 315px;
-    height: 250px;
-}
-
-table.box_ad td {
-    text-align: center;
-    font-size: 10px;
-}
-
-table.box_ad td div.text_ad {
-    font-size: 12px;
-    text-align: left;
-    padding: 5px 5px 5px 5px;
-    height: 100%;
-}
-    table.box_ad td div.text_ad div.sponsor {
-        text-align: center;
-        height: 10%;
-        padding-bottom: 7px;
-        font-size: 11px;
-    }
-
-    table.box_ad td div.text_ad div.separator hr {
-        height: 1px;
-        width: 100%;
-        margin:10px 0 10px 0;
-    }
-
 table.module1container td {
     width: 50%;
     height: 100%;
@@ -154,18 +125,23 @@ table.module1 td a:hover {
     left: 0px;
 }
 
-    table.module1container {
-        border-spacing:8px;
-        margin-left:4px;
-    }
+table.module1container {
+    border-spacing:8px;
+    margin-left:4px;
+}
 
-    table.module1container tr td.mod {
-        border: 1px solid #ccc;
-        vertical-align:top;
-        height:100%;
-        padding:0px;
-        border-spacing:10px;
-    }
+table.module1container tr td.mod {
+    border: 1px solid #ccc;
+    vertical-align:top;
+    height:100%;
+    padding:0px;
+    border-spacing:10px;
+}
+
+table.box_ad {
+    width: 315px;
+    height: 250px;
+}
 
 .multiTextAd {
     border:none;
