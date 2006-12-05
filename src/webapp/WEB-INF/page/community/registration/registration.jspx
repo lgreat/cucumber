@@ -94,7 +94,7 @@
                 <!-- begin registration form -->
                 <gsweb:form action="/community/registration.page" method="post" styleClass="registration" id="reg1Form">
 
-                    <p><label>I'm a</label>
+                    <p><label><span class="required">*</span>I'm a</label>
                         <gsml:radio name="gender" value="f" styleId="mom" styleClass="radio" checked="${userCmd.gender eq 'f'}" onclick="determinePageState();"/>
                         <label for="mom" class="radiolabel">Mom</label>
                         <gsml:radio name="gender" value="m" styleId="dad" styleClass="radio" checked="${userCmd.gender eq 'm'}" onclick="determinePageState();"/>
@@ -104,33 +104,33 @@
                     </p>
                     <gsml:errorMessage command="userCmd" field="gender" useImage="true" styleClass="warning"/>
 
-                    <p><label>First name<gsml:img src="/res/img/community/registration/icon_private_9x11.gif" alt="Private" styleClass="private"/></label>
+                    <p><label><span class="required">*</span>First name<gsml:img src="/res/img/community/registration/icon_private_9x11.gif" alt="Private" styleClass="private"/></label>
                         <spring:bind path="userCmd.user.firstName">
                             <input id="firstName" type="text" name="${status.expression}" value="${status.value}"/>
                         </spring:bind>
                     </p>
                     <gsml:errorMessage command="userCmd" field="firstName" useImage="true" styleClass="warning"/>
 
-                    <p><label>Screen name<br/><span class="details">(6-14 characters)</span></label>
+                    <p><label><span class="required">*</span>Screen name<br/><span class="details">(6-14 characters)</span></label>
                         <spring:bind path="userCmd.screenName">
                             <input id="screenName" type="text" name="${status.expression}" value="${status.value}"/>
                         </spring:bind>
                     </p>
                     <gsml:errorMessage command="userCmd" field="screenName" useImage="true" styleClass="warning"/>
 
-                    <p class="email"><label>Email address<gsml:img src="/res/img/community/registration/icon_private_9x11.gif" alt="Private"
+                    <p class="email"><label><span class="required">*</span>Email address<gsml:img src="/res/img/community/registration/icon_private_9x11.gif" alt="Private"
                                                               styleClass="private"/></label>
                         <spring:bind path="userCmd.user.email">
                             <input id="email" type="text" name="${status.expression}" value="${status.value}"/>
                         </spring:bind>
                     </p>
                     <gsml:errorMessage command="userCmd" field="email" useImage="true" styleClass="warning"/>
-                    <p class="disclaimer">We will NOT share your email address.
+                    <p class="disclaimer">We will NOT share your email.
                         <gsml:popupWindow width="800" height="600" left="50" top="50"
                                 title="GreatSchools Privacy Policy"
                                 href="/about/privacyStatement.page?state=$STATE">Privacy Policy</gsml:popupWindow></p>
 
-                    <p><label>Password<gsml:img src="/res/img/community/registration/icon_private_9x11.gif" alt="Private" styleClass="private"/><br/><span
+                    <p><label><span class="required">*</span>Password<gsml:img src="/res/img/community/registration/icon_private_9x11.gif" alt="Private" styleClass="private"/><br/><span
                             class="details">(6-14 characters)</span></label>
                         <spring:bind path="userCmd.password">
                             <input id="password" type="password" name="${status.expression}" value="${status.value}"/>
@@ -138,14 +138,14 @@
                     </p>
                     <gsml:errorMessage command="userCmd" field="password" useImage="true" styleClass="warning"/>
 
-                    <p><label>Re-type password</label>
+                    <p><label><span class="required">*</span>Re-type password</label>
                         <spring:bind path="userCmd.confirmPassword">
                             <input id="confirmPassword" type="password" name="${status.expression}" value="${status.value}"/>
                         </spring:bind>
                     </p>
                     <gsml:errorMessage command="userCmd" field="confirmPassword" useImage="true" styleClass="warning"/>
 
-                    <p class="whereliveState"><label>Where do you live?</label><label class="selectlabel">State</label>
+                    <p class="whereliveState"><label>Where do you live?</label><label class="selectlabel"><span class="required">*</span>State</label>
                         <spring:bind path="userCmd.state">
                             <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
                                                  styleClass="selectState" onChange="stateChange(this);"/>
@@ -153,7 +153,7 @@
                     </p>
                     <gsml:errorMessage command="userCmd" field="state" useImage="true" styleClass="warning"/>
 
-                    <p class="whereliveCity"><label>&amp;nbsp;</label><label class="selectlabel">City</label>
+                    <p class="whereliveCity"><label>&amp;nbsp;</label><label class="selectlabel"><span class="required">*</span>City</label>
                         <span id="city">
                             <select name="city" class="selectCity">
                                 <c:if test="${userCmd.cityList ne null and (userCmd.city eq null or userCmd.city eq '')}">
@@ -179,7 +179,7 @@
                     </c:if>
 
                     <div id="numChildren" style="${childrenStyle}">
-                        <p><label class="K12">How many children do you<br/>have in K-12 schools?</label>
+                        <p><label class="K12"><span class="required">*</span>How many children do you<br/>have in K-12 schools?</label>
                             <spring:bind path="userCmd.numSchoolChildren">
                                 <select name="${status.expression}" id="numSchoolChildren" class="selectK12"
                                         onchange="determinePageState();">
@@ -200,7 +200,7 @@
                     </div>
 
                     <div id="terms" style="${termsStyle}">
-                        <p><label class="terms">I agree to the <link:termsOfUse title="GreatSchools Terms of Service">terms of
+                        <p><label class="terms"><span class="required">*</span>I agree to the <link:termsOfUse title="GreatSchools Terms of Service">terms of
                             service</link:termsOfUse></label></p>
                         <gsml:radio name="termsStr" value="y" styleId="yesTerms" styleClass="radio"
                                     checked="${userCmd.terms eq true}"/>

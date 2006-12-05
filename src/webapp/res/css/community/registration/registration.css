@@ -53,7 +53,12 @@ a {
 }
 
 #reg_1 h2 {
-	background: url(../../../img/community/registration/h2_welcome_345x15.gif) no-repeat;
+    font-size: large;
+    font-weight: bold;
+    font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+    color: #99CC66;
+    position: relative;
+    top: -7px;
 	width: 400px;
 	height: 24px;
 }
@@ -69,15 +74,24 @@ a {
 }
 
 #reg_3 h2 {
-	background: url(../../../img/community/registration/h2_almostdone_164x15.gif) no-repeat;
+    font-size: large;
+    font-weight: bold;
+    font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+    color: #99CC66;
+    position: relative;
+    top: -7px;
 	width: 400px;
 	height: 24px;
 }
 
-h1 span, h2 span {
+h1 span {
 	display: none;
 }
-	/* this "span trick" allows the text that appears in the graphic to also appear in the
+
+#reg_intro h2 span {
+    display: none;
+}
+    /* this "span trick" allows the text that appears in the graphic to also appear in the
 	markup. The <span> is styled as such so that the hypertext equivalent does not appear, however
 	it is still present in the markup. */
 
@@ -327,7 +341,7 @@ h1 span, h2 span {
 	font-size: 10px;
 	font-style: italic;
 	color: #8f8f8f;
-	margin: -4px 0 12px 114px;
+	margin: -4px 0 12px 144px;
 	height: 12px;
 	_margin: -3px 120px 12px 70px; /* for IE 6 */
 }
@@ -728,4 +742,9 @@ h1 span, h2 span {
     margin: 0;
     color: #3399aa;
 	text-decoration: underline;
+}
+
+.required {
+    padding-right: 2px;
+    font-weight: normal;
 }

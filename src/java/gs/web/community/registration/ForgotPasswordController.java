@@ -99,7 +99,7 @@ public class ForgotPasswordController extends SimpleFormController {
             _mailSender.send(mm);
             mAndV.setViewName(getSuccessView());
             String msg = "An email has been sent to " + userCommand.getEmail() +
-                    " with instructions on how to choose a new password.";
+                    " with instructions for selecting a new password.";
             mAndV.getModel().put("message", msg);
         } else {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.LOGIN_OR_REGISTER, null);

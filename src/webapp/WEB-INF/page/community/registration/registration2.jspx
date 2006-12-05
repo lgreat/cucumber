@@ -161,13 +161,13 @@
                   <a href="#" title="Change city" onclick="changeLocation(${child}); return false;">Change city</a>
               </label>
 
-              <label for="grade${child}" class="childGradeLabel">Grade</label>
+              <label for="grade${child}" class="childGradeLabel"><span class="required">*</span>Grade</label>
               <gsweb:gradeSelector styleId="grade${child}" name="grade${child}"
                                    styleClass="selectChildGrade" grade="${gradeVal}"
                                    useNoGrade="true" useAlternateNames="true"
                                    onChange="gradeChange(this, ${child});"/>
 
-              <label for="school${child}" class="childSchoolLabel">School</label>
+              <label for="school${child}" class="childSchoolLabel"><span class="required">*</span>School</label>
               <span id="schoolDiv${child}">
                   <select name="school${child}" id="school${child}" class="selectChildSchool">
                       <c:if test="${schoolVal eq null or schoolVal eq ''}">
@@ -201,7 +201,7 @@
 
   <!-- Yes ... willing to answer questions... -->
   <div class="willing">
-      <p><label class="willingLabel"><strong>Yes!</strong> I am willing to answer questions from other parents
+      <p><label class="willingLabel"><span class="required">*</span><strong>Yes!</strong> I am willing to answer questions from other parents
           interested in learning
           more about the schools that my children attend. (GreatSchools won’t reveal my name or email
           address.)</label></p>
@@ -217,7 +217,7 @@
       </div>
   </div>
 
-  <p><label class="termsLabel">I agree to the
+  <p><label class="termsLabel"><span class="required">*</span>I agree to the
       <link:termsOfUse title="GreatSchools Terms of Service">terms of
           service
       </link:termsOfUse>

@@ -26,7 +26,7 @@ will need to become a graphic.
     vertical-align: top;
     padding-top: 10px;
     padding-right: 18px;
-    width: 50%; /* changed 12/1 aroy, old value 33% */
+    width: 55%; /* changed 12/1 aroy, old value 33% */
 }
 #topnav .member .welcome {
     text-align: right; /* changed 12/1 aroy, old value left */
@@ -36,7 +36,7 @@ will need to become a graphic.
     border-right-style: solid;
     border-right-color: #CCCCCC;
     padding-right: 6px;
-    width: 52%; /* changed 12/1 aroy, old value 5% */
+    width: 48%; /* changed 12/1 aroy, old value 5% */
     white-space: nowrap;
 }
 
@@ -46,7 +46,7 @@ will need to become a graphic.
     color: #69C5D2;
     padding-left: 6px;
     text-decoration: none;
-    width: 25%;
+    width: 22%;
     border-right-width: 1px;
     border-right-style: solid;
     border-right-color: #CCCCCC;
@@ -63,7 +63,7 @@ will need to become a graphic.
     text-align: left;
     color: #69C5D2;
     padding-left: 6px;
-    width: 23%; /* changed 12/1 aroy, old value 80% */
+    width: 30%; /* changed 12/1 aroy, old value 80% */
 }
 #topnav .member .signout a {
     color: #69C5D2;
