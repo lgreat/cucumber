@@ -26,9 +26,6 @@
                 font-size: 120%;
             }
         </style>
-
-        <gsml:url var="searchcss" value="/res/css/search/search.css"/>
-        <link rel="stylesheet" href="${searchcss}" type="text/css" media="screen"/>
         <c:set target="${requestScope.context}"
                property="pathway"
                value="1"/>
