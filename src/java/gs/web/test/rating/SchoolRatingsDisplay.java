@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.16 2006/12/04 23:15:01 eddie Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.17 2006/12/06 20:19:00 eddie Exp $
  */
 
 package gs.web.test.rating;
@@ -186,11 +186,17 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 if(state.equals(State.MD)){
                     label = "HSA";
                 }
-                if(state.equals(State.MS)){
+                else if(state.equals(State.MS)){
                     label = "SATP";
                 }
-                if(state.equals(State.UT)){
+                else if(state.equals(State.UT)){
                     label = "EOC";
+                }
+                else if(state.equals(State.VA)){
+                    label = "EOC";
+                }
+                else if(state.equals(State.VT)){
+                    label = "NECAP";
                 }
             }
 
