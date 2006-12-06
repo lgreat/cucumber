@@ -85,7 +85,7 @@ table.module1 td.module1_head {
 }
 
 table.module1 td.module1_body {
-    background-color: #FFFFF4;
+    background-color: #FFFFFF;
     color: #000;
     height: 100%;
     padding-bottom: 10px;
