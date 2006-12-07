@@ -819,8 +819,7 @@
           class="gs.web.community.registration.ResetPasswordController"
           autowire="byName" lazy-init="true">
         <property name="bindOnNewForm" value="true"/>
-        <property name="commandName" value="userCmd"/>
-        <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
+        <property name="commandName" value="passwordCmd"/>
         <property name="formView" value="/community/registration/resetPassword"/>
         <property name="successView" value="redirect:/community/accountInfo.page"/>
     </bean>

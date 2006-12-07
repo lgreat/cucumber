@@ -26,7 +26,6 @@ a {
 	background: url(../../../img/community/registration/registration_bg.gif) repeat-y left;
 	margin: 0 0 30px 0;
 	float: left;
-	_margin: -18px 0 30px 0; /* corrects extra space between page header and content in IE 6 */
 }
 
 /* headers registration intro */
@@ -134,7 +133,6 @@ h1 span {
 	border: 3px solid #66cccc;
 	float: right;
 	width: 583px; /* Firefox is insisting on a width. Should be 4px larger than the true width (before removing padding) of #content */
-	_margin: 17px 0 0 0; /* adds some space at the bottom of #main */
 }
 
 /* reg_intro page */

@@ -179,12 +179,16 @@ public class UserCommandValidator implements IRequestAwareValidator {
         String password = command.getPassword();
         String confirmPassword = command.getConfirmPassword();
 
-        if (StringUtils.isEmpty(password) ||
-                password.length() < PASSWORD_MINIMUM_LENGTH ||
-                password.length() > PASSWORD_MAXIMUM_LENGTH) {
-            errors.rejectValue("password", null, ERROR_PASSWORD_LENGTH);
-        } else if (StringUtils.isEmpty(confirmPassword) || !confirmPassword.equals(password)) {
-            errors.rejectValue("password", null, ERROR_PASSWORD_MISMATCH);
+        validatePasswordFields(password, confirmPassword, "password", errors);
+    }
+
+    public void validatePasswordFields(String passwordValue, String passwordConfirmValue, String fieldName, Errors errors) {
+        if (StringUtils.isEmpty(passwordValue) ||
+                passwordValue.length() < PASSWORD_MINIMUM_LENGTH ||
+                passwordValue.length() > PASSWORD_MAXIMUM_LENGTH) {
+            errors.rejectValue(fieldName, null, ERROR_PASSWORD_LENGTH);
+        } else if (StringUtils.isEmpty(passwordConfirmValue) || !passwordConfirmValue.equals(passwordValue)) {
+            errors.rejectValue(fieldName, null, ERROR_PASSWORD_MISMATCH);
         }
     }
 

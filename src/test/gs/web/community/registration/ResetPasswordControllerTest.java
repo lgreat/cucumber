@@ -32,7 +32,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     }
 
     public void testResetPassword() throws NoSuchAlgorithmException {
-        UserCommand command = new UserCommand();
+        ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
         User user = setupUser();
 
@@ -49,8 +49,8 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         assertFalse("Unexpected errors on onBindOnNewForm", errors.hasErrors());
 
         // set new password on command
-        command.setPassword("newPass");
-        command.setConfirmPassword("newPass");
+        command.setNewPassword("newPass");
+        command.setNewPasswordConfirm("newPass");
         _userControl.reset();
         setUserDaoToReturn(user);
         _controller.onBindAndValidate(getRequest(), command, errors);
@@ -72,7 +72,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     }
 
     public void testCancel() throws NoSuchAlgorithmException {
-        UserCommand command = new UserCommand();
+        ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
 
         getRequest().setParameter("cancel.x", "cancel");
@@ -81,7 +81,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         user.setId(new Integer(1234));
         user.setPlaintextPassword("foobar");
         command.setUser(user);
-        command.setPassword("barbaz");
+        command.setNewPassword("barbaz");
 
         assertTrue(command.getUser().matchesPassword("foobar"));
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
@@ -91,7 +91,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     }
 
     public void testUserFromCookie() throws NoSuchAlgorithmException {
-        UserCommand command = new UserCommand();
+        ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
         User user = setupUser();
         user.setPlaintextPassword("foobar");
@@ -101,8 +101,8 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
             _controller.onBindOnNewForm(getRequest(), command, errors);
             assertFalse("Unexpected errors on onBindOnNewForm", errors.hasErrors());
 
-            command.setPassword("newPass");
-            command.setConfirmPassword("newPass");
+            command.setNewPassword("newPass");
+            command.setNewPasswordConfirm("newPass");
             _controller.onBindAndValidate(getRequest(), command, errors);
             assertFalse("Unexpected errors on onBindAndValidate", errors.hasErrors());
 
@@ -154,7 +154,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     /////////////////////////
 
     public void testPasswordEmpty() throws NoSuchAlgorithmException {
-        UserCommand command = new UserCommand();
+        ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
         User user = setupUser();
 
@@ -168,7 +168,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     }
 
     public void testUserProvisional() throws NoSuchAlgorithmException {
-        UserCommand command = new UserCommand();
+        ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
         User user = setupUser();
 
@@ -186,7 +186,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     }
 
     public void testInvalidHash() throws NoSuchAlgorithmException {
-        UserCommand command = new UserCommand();
+        ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
         User user = setupUser();
 
@@ -203,7 +203,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     }
 
     public void testWrongUser() throws NoSuchAlgorithmException {
-        UserCommand command = new UserCommand();
+        ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
         User user = new User();
         user.setEmail("testResetPassword@greatschools.net");
@@ -228,7 +228,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     }
 
     public void testMissingUser() throws NoSuchAlgorithmException {
-        UserCommand command = new UserCommand();
+        ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
         User user = new User();
         user.setEmail("testResetPassword@greatschools.net");
@@ -251,7 +251,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     }
 
     public void testInvalidHashString() throws NoSuchAlgorithmException {
-        UserCommand command = new UserCommand();
+        ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
 
         String hashString = "randomGarbage";
@@ -261,7 +261,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     }
 
     public void testParameterMissing() throws NoSuchAlgorithmException {
-        UserCommand command = new UserCommand();
+        ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
         getSessionContext().setUser(null);
         assertNull(getSessionContext().getUser());
@@ -276,7 +276,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
     // This just tests that SOME password validation is done. Rigorous password validation testing is
     // done in the UserCommandValidatorTest
     public void testBadPassword() throws NoSuchAlgorithmException {
-        UserCommand command = new UserCommand();
+        ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
         BindException errors = new BindException(command, "");
         User user = setupUser();
 
@@ -297,8 +297,8 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         setUserDaoToReturn(user);
 
         // set new password on command
-        command.setPassword("newPass");
-        command.setConfirmPassword("newpass"); // typo
+        command.setNewPassword("newPass");
+        command.setNewPasswordConfirm("newpass"); // typo
         _controller.onBindAndValidate(getRequest(), command, errors);
         _userControl.verify();
         assertTrue("Failed to get expected errors on onBindAndValidate", errors.hasErrors());

@@ -40,7 +40,12 @@
             <c:otherwise>
                 <ul class="${styleClass}">
                     <c:forEach var="error" items="${errors.allErrors}">
-                        <li><spring:message arguments="${error.arguments}" code="${error.code}" text="${error.defaultMessage}"/></li>
+                        <li>
+                            <c:if test="${useImage eq 'true'}">
+                                <gsml:img src="/res/img/community/registration/icon_warning_12x12.gif" alt="Error"/>
+                            </c:if>
+                            <spring:message arguments="${error.arguments}" code="${error.code}" text="${error.defaultMessage}"/>
+                        </li>
                     </c:forEach>
                 </ul>
             </c:otherwise>

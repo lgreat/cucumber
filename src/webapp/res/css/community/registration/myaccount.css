@@ -19,14 +19,13 @@ a {
 	text-decoration: underline;
 }
 
-/* containter classes */
+/* container classes */
 
 #myaccount_info, #myaccount_forgotpassword, #myaccount_resetpassword, #myaccount_resetemail {
 	width: 864px;
 	background: url(../../../img/community/registration/myaccount_bg.gif) repeat-y left;
 	margin: 0 0 30px 0;
 	float: left;
-	_margin: -18px 0 30px 0; /* corrects extra space between page header and content in IE 6 */
 }
 
 #content h2 {
@@ -124,7 +123,6 @@ h1 span {
 	border: 3px solid #66cccc;
 	float: right;
 	width: 583px; /* Firefox is insisting on a width. Should be 4px larger than the true width (before removing padding) of #content */
-	_margin: 17px 0 0 0; /* adds some space at the bottom of #main */
 }
 
 /* info message */
@@ -134,7 +132,7 @@ h1 span {
 	height: 32px; /* 45 true width minus top padding */
 	float: right;
 	margin: 0 0 4px 0;
-    _margin: 17px 0 0 0;
+    _margin: 0 0 4px 0;
     padding: 13px 0 0 80px;
 	color: #fff;
 	font-size: 17px;
@@ -146,7 +144,7 @@ h1 span {
 	height: 42px; /* 55 true height minus top padding */
 	float: right;
 	margin: 0 0 4px 0;
-    _margin: 17px 0 0 0;
+    _margin: 0 0 4px 0;
     padding: 13px 0 0 80px;
 	color: #fff;
 	font-size: 17px;
@@ -508,4 +506,17 @@ p.field {
     margin: 0;
     color: #3399aa;
 	text-decoration: underline;
+}
+
+#myaccount_resetpassword #content .warning {
+    float: none;
+    display: inline;
+    position: relative;
+    top: -17px;
+}
+
+#myaccount_resetpassword #content .warning img {
+    float: none;
+    position: relative;
+    top: 2px;
 }

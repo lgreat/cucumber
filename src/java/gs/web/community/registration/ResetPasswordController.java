@@ -35,7 +35,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
     protected void createGenericValidationError(HttpServletRequest request, BindException errors) {
         UrlBuilder builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null);
         String href = builder.asAnchor(request, "click here").asATag();
-        errors.rejectValue("user", "invalid_hash", "We're sorry, we cannot process your password change " +
+        errors.rejectValue("oldPassword", null, "We're sorry, we cannot process your password change " +
                 "request. Please make sure you have entered the entire link in the email " +
                 "sent to you. To request a new email, please " + href + ".");
     }
@@ -49,12 +49,12 @@ public class ResetPasswordController extends SimpleFormController implements Rea
      * This grabs the hash string out of the request, makes sure a user can be obtained from it, and
      * checks that everything seems in order for the user to make a password change.
      */
-    protected User validateRequest(HttpServletRequest request, UserCommand command, BindException errors) throws NoSuchAlgorithmException {
+    protected User validateRequest(HttpServletRequest request, ResetPasswordCommand command, BindException errors) throws NoSuchAlgorithmException {
         String hash = null;
         User user = null;
         String idString = request.getParameter("id");
 
-        if (!StringUtils.isEmpty(request.getParameter("oldPassword"))) {
+        if (request.getParameter("oldPassword") != null) {
             // already authenticated user ... no need for fancy validation, them inputting their
             // existing password will be good enough
             user = SessionContextUtil.getSessionContext(request).getUser();
@@ -65,7 +65,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
             user = sessionContext.getUser();
             if (user == null) {
                 _log.warn("Reset password request with no user specified.");
-                errors.reject("unknown_user", "Please log in to use this page.");
+                errors.rejectValue("oldPassword", null, "Please log in to use this page.");
                 return null;
             }
         } else {
@@ -114,58 +114,56 @@ public class ResetPasswordController extends SimpleFormController implements Rea
 
     //set up defaults if none supplied
     protected void onBindOnNewForm(HttpServletRequest request,
-                                   Object command,
+                                   Object objCommand,
                                    BindException errors) throws NoSuchAlgorithmException {
 
-        UserCommand userCommand = (UserCommand) command;
+        ResetPasswordCommand command = (ResetPasswordCommand) objCommand;
 
-        User user = validateRequest(request, userCommand, errors);
-        if (user != null) {
-            userCommand.setUser(user);
-        }
+        validateRequest(request, command, errors);
     }
 
     /**
      * this method is called after validation but before submit.
      */
     protected void onBindAndValidate(HttpServletRequest request,
-                                     Object command,
+                                     Object objCommand,
                                      BindException errors) throws NoSuchAlgorithmException {
         if (suppressValidation(request)) {
             return;
         }
-        UserCommand userCommand = (UserCommand) command;
+        ResetPasswordCommand command = (ResetPasswordCommand) objCommand;
 
         // we need to re-validate everything because this form submit may be spoofed
-        User user = validateRequest(request, userCommand, errors);
+        User user = validateRequest(request, command, errors);
         if (errors.hasErrors()) {
             return;
         }
 
-        String oldPassword = request.getParameter("oldPassword");
-        if (oldPassword != null) {
+        if (request.getParameter("oldPassword") != null) {
+            String oldPassword = command.getOldPassword();
             if (!user.matchesPassword(oldPassword)) {
-                errors.reject("incorrect_password", "The old password is incorrect.");
+                errors.rejectValue("oldPassword", null, "The old password is incorrect.");
             }
         }
 
         UserCommandValidator validator = new UserCommandValidator();
-        validator.validatePassword(userCommand, errors);
+        validator.validatePasswordFields(command.getNewPassword(), command.getNewPasswordConfirm(),
+                "newPassword", errors);
 
-        userCommand.setUser(user); // this is so onSubmit can just grab the user from the command
+        command.setUser(user); // this is so onSubmit can just grab the user from the command
     }
 
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
-                                 Object command,
+                                 Object objCommand,
                                  BindException errors) throws NoSuchAlgorithmException {
         ModelAndView mAndV = new ModelAndView();
         if (!suppressValidation(request)) {
             // at this point everything has been validated. Proceed with the password change request
-            UserCommand userCommand = (UserCommand) command;
-            User user = userCommand.getUser();
+            ResetPasswordCommand command = (ResetPasswordCommand) objCommand;
+            User user = command.getUser();
 
-            user.setPlaintextPassword(userCommand.getPassword());
+            user.setPlaintextPassword(command.getNewPassword());
             getUserDao().updateUser(user);
             // log in user automatically
             PageHelper.setMemberAuthorized(request, response, user);            
@@ -176,11 +174,54 @@ public class ResetPasswordController extends SimpleFormController implements Rea
         return mAndV;
     }
 
+    protected Object formBackingObject(HttpServletRequest request) {
+        return new ResetPasswordCommand();
+    }
+
     public IUserDao getUserDao() {
         return _userDao;
     }
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public static class ResetPasswordCommand {
+        private String _oldPassword;
+        private String _newPassword;
+        private String _newPasswordConfirm;
+        private User _user;
+
+        public String getOldPassword() {
+            return _oldPassword;
+        }
+
+        public void setOldPassword(String oldPassword) {
+            _oldPassword = oldPassword;
+        }
+
+        public String getNewPassword() {
+            return _newPassword;
+        }
+
+        public void setNewPassword(String newPassword) {
+            _newPassword = newPassword;
+        }
+
+        public String getNewPasswordConfirm() {
+            return _newPasswordConfirm;
+        }
+
+        public void setNewPasswordConfirm(String newPasswordConfirm) {
+            _newPasswordConfirm = newPasswordConfirm;
+        }
+
+        public User getUser() {
+            return _user;
+        }
+
+        public void setUser(User user) {
+            _user = user;
+        }
     }
 }
