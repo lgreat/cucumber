@@ -64,18 +64,18 @@ public class ForgotPasswordController extends SimpleFormController {
         }
         UserCommand userCommand = (UserCommand) command;
         User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
-        if (user == null) {
+        if (user == null || user.isEmailProvisional()) {
             // generate error
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, userCommand.getEmail());
             String href = builder.asAnchor(request, "join the community").asATag();
             errors.rejectValue("email", null, "There is no account associated with that email address. " +
                     "Would you like to " + href + "?");
-        } else if (user.isEmailProvisional()) {
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.REQUEST_EMAIL_VALIDATION, null, user.getEmail());
-            String href2 = builder.asAnchor(request, "(resend email)").asATag();
-            errors.rejectValue("email", "password_empty", "You have chosen a new password, but haven't " +
-                    "validated your email address yet. To validate your email address, follow the " +
-                    "instructions in the email sent to you " + href2 + ".");
+//        } else if (user.isEmailProvisional()) {
+//            UrlBuilder builder = new UrlBuilder(UrlBuilder.REQUEST_EMAIL_VALIDATION, null, user.getEmail());
+//            String href2 = builder.asAnchor(request, "(resend email)").asATag();
+//            errors.rejectValue("email", "password_empty", "You have chosen a new password, but haven't " +
+//                    "validated your email address yet. To validate your email address, follow the " +
+//                    "instructions in the email sent to you " + href2 + ".");
         } else if (user.isPasswordEmpty()) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null,
                     userCommand.getEmail());

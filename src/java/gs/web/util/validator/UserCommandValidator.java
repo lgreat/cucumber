@@ -45,9 +45,9 @@ public class UserCommandValidator implements IRequestAwareValidator {
             "We're sorry, that screen name is already taken. Please try another screen name.";
     private static final String ERROR_EMAIL_MISSING =
             "Please enter your email address.";
-    private static final String ERROR_EMAIL_PROVISIONAL =
-            "You have already registered with GreatSchools! Please check your email and follow " +
-                    "the instructions to validate your account.";
+//    private static final String ERROR_EMAIL_PROVISIONAL =
+//            "You have already registered with GreatSchools! Please check your email and follow " +
+//                    "the instructions to validate your account.";
     private static final String ERROR_PASSWORD_LENGTH =
             "Your password must be 6-14 characters long.";
     private static final String ERROR_PASSWORD_MISMATCH =
@@ -71,10 +71,12 @@ public class UserCommandValidator implements IRequestAwareValidator {
         String email = command.getEmail();
         // String confirmEmail = command.getConfirmEmail();
 
+        User user = null;
+
         if (email.length() > EMAIL_MAXIMUM_LENGTH) {
             errors.rejectValue("email", null, ERROR_EMAIL_MISSING);
         } else {
-            User user = _userDao.findUserFromEmailIfExists(email);
+            user = _userDao.findUserFromEmailIfExists(email);
 
             // verify confirm email matches email
 //        if (confirmEmail != null && !confirmEmail.equals(email)) {
@@ -91,8 +93,9 @@ public class UserCommandValidator implements IRequestAwareValidator {
                                     "with GreatSchools. Did you " + href + "?");
                     return; // other errors are irrelevant
                 } else if (user.isEmailProvisional()) {
-                    errors.rejectValue("email", null, ERROR_EMAIL_PROVISIONAL);
-                    return; // other errors are irrelevant
+                    // let them register, just overwrite previous values
+                    //errors.rejectValue("email", null, ERROR_EMAIL_PROVISIONAL);
+                    //return; // other errors are irrelevant
                 }
             }
         }
@@ -128,7 +131,10 @@ public class UserCommandValidator implements IRequestAwareValidator {
         }
         // only bother checking the unique constraint if there is no other problem with the sn
         if (!snError && _userDao.findUserFromScreenNameIfExists(sn) != null) {
-            errors.rejectValue("screenName", null, ERROR_SCREEN_NAME_TAKEN);
+            if (user == null || user.getUserProfile() == null ||
+                    !StringUtils.equals(user.getUserProfile().getScreenName(), sn)) {
+                errors.rejectValue("screenName", null, ERROR_SCREEN_NAME_TAKEN);
+            }
         }
 
         String gender = command.getGender();

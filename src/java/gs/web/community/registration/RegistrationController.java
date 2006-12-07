@@ -132,7 +132,8 @@ public class RegistrationController extends SimpleFormController implements Read
 
         try {
             user.setPlaintextPassword(userCommand.getPassword());
-            if (_requireEmailValidation) {
+            if (_requireEmailValidation || request.getParameter("join") == null) {
+                // TODO: mark account as provisional until they complete stage 2
                 // mark password as unauthenticated
                 user.setEmailProvisional();
             }
@@ -165,14 +166,26 @@ public class RegistrationController extends SimpleFormController implements Read
             }
         }
 
-        // gotten this far, now let's update their user profile
-        UserProfile userProfile = userCommand.getUserProfile();
+        UserProfile userProfile;
+        if (user.getUserProfile() != null && user.getUserProfile().getId() != null) {
+            // hack to get provisional accounts working in least amount of development time
+            userProfile = user.getUserProfile();
+            userProfile.setCity(userCommand.getCity());
+            userProfile.setNumSchoolChildren(userCommand.getNumSchoolChildren());
+            userProfile.setScreenName(userCommand.getScreenName());
+            userProfile.setState(userCommand.getState());
+        } else {
+            // gotten this far, now let's update their user profile
+            userProfile = userCommand.getUserProfile();
+
+            userProfile.setUser(user);
+            user.setUserProfile(userProfile);
+        }
 
         if (userProfile.getNumSchoolChildren().intValue() == -1) {
             userProfile.setNumSchoolChildren(new Integer(0));
         }
-        userProfile.setUser(user);
-        user.setUserProfile(userProfile);
+
         _userDao.updateUser(user);
 
         ModelAndView mAndV = new ModelAndView();

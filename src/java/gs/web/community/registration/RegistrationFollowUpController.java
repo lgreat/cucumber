@@ -323,6 +323,9 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         }
         saveSubscriptionsForUser(fupCommand, user);
         // save
+        if (user.isEmailProvisional()) {
+            user.setEmailValidated();
+        }
         _userDao.updateUser(user);
 
         if (!user.isEmailProvisional()) {

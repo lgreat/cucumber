@@ -1,12 +1,11 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.14 2006/12/05 22:10:51 aroy Exp $
+ * $Id: LoginController.java,v 1.15 2006/12/07 18:24:28 aroy Exp $
  */
 package gs.web.community.registration;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
-import gs.data.util.DigestUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlUtil;
 import gs.web.util.UrlBuilder;
@@ -84,20 +83,20 @@ public class LoginController extends SimpleFormController {
         LoginCommand loginCommand = (LoginCommand) command;
         User user = getUserDao().findUserFromEmailIfExists(loginCommand.getEmail());
 
-        if (user == null) {
+        if (user == null || user.isEmailProvisional()) {
             errors.reject(null,
                     "There is no account associated with that email address.");
-        } else if (user.isEmailProvisional()) {
-            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
+//        } else if (user.isEmailProvisional()) {
+//            String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
 
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION_REMOVE, null, hash + user.getId());
-            String href = builder.asAnchor(request, "reset your account").asATag();
-            builder = new UrlBuilder(UrlBuilder.REQUEST_EMAIL_VALIDATION, null, user.getEmail());
-            String href2 = builder.asAnchor(request, "(Resend email)").asATag();
-            errors.reject(USER_PROVISIONAL_CODE, "Before signing in, you must validate your account " +
-                    "by clicking the link in your registration email. " +
-                    href2 + "." +
-                    " If you believe this message to be in error, please " + href + ".");
+//            UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION_REMOVE, null, hash + user.getId());
+//            String href = builder.asAnchor(request, "reset your account").asATag();
+//            builder = new UrlBuilder(UrlBuilder.REQUEST_EMAIL_VALIDATION, null, user.getEmail());
+//            String href2 = builder.asAnchor(request, "(Resend email)").asATag();
+//            errors.reject(USER_PROVISIONAL_CODE, "Before signing in, you must validate your account " +
+//                    "by clicking the link in your registration email. " +
+//                    href2 + "." +
+//                    " If you believe this message to be in error, please " + href + ".");
         } else if (user.isPasswordEmpty()) {
             //errors.reject(USER_NO_PASSWORD_CODE, "This user has no password.");
         } else {
