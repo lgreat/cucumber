@@ -746,3 +746,17 @@ h1 span {
     padding-right: 2px;
     font-weight: normal;
 }
+
+/* info message */
+
+#reg_intro .infomessage {
+	width: 509px; /* 589 true width minus left padding */
+	height: 42px; /* 55 true width minus top padding */
+	float: right;
+	margin: 0 0 4px 0;
+    _margin: 0 0 4px 0;
+    padding: 13px 0 0 80px;
+	color: #fff;
+	font-size: 17px;
+	background: url(../../../img/community/registration/icon_infomessage_27x27.gif) 40px 15px no-repeat #66cccc;
+}

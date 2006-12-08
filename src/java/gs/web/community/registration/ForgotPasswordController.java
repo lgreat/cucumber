@@ -159,7 +159,18 @@ public class ForgotPasswordController extends SimpleFormController {
 
     protected String getEmailHTMLUserExists(HttpServletRequest request, String email, Integer userId) throws NoSuchAlgorithmException {
         StringBuffer emailContent = new StringBuffer();
-        emailContent.append("<html><body>\n");
+        emailContent.append("<html>");
+        emailContent.append("<head><style>p {\n" +
+                "color:#444444; \n" +
+                "font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;\n" +
+                "}\n" +
+                "\n" +
+                "a {\n" +
+                "color: #3399aa;\n" +
+                "text-decoration: underline;\n" +
+                "}\n" +
+                "</style></head>\n");
+        emailContent.append("<body>\n");
         String hash = DigestUtil.hashStringInt(email, userId);
         UrlBuilder builder = new UrlBuilder(UrlBuilder.RESET_PASSWORD, null, hash + userId);
         emailContent.append("<p>Dear GreatSchools member,</p>\n\n");

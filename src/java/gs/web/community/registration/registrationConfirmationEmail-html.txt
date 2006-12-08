@@ -1,27 +1,71 @@
-<p>Welcome to GreatSchools!</p>
+<html>
+<head>
+<style>
+p {
+color:#444444; 
+font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+margin-top: 0;
+margin-bottom: 15px;
+}
 
-<p>Navigating your child's education can be a challenging job in endless ways. But you can give yourself a big pat on the back today!  By signing up for the GreatSchools community, you've joined the more than 33 million parents who turn to GreatSchools each year to help get a great education for their children.</p>
+a {
+color: #3399aa;
+text-decoration: underline;
+}
+
+h3 {
+font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+margin-bottom: 0;
+padding-bottom: 0;
+font-weight: bold;
+color: #777777;
+}
+</style>
+</head>
+<body>
+
+<h3>Welcome to GreatSchools!</h3>
+
+<p>
+Navigating your child's education can be a challenging job in endless ways. But you can give yourself a big pat on
+the back today! By signing up for the GreatSchools community, you've joined the more than 33 million parents who
+turn to GreatSchools each year to help get a great education for their children.
+</p>
 
 <p>GreatSchools offers a rich set of features and content to help you:</p>
 
-<p>CONNECT WITH PARENTS AND ADVOCATE FOR GREAT SCHOOLS</p>
+<h3>Connect with parents and advocate for great schools</h3>
+<p>
+Share success stories and debate education issues on our community message boards.<br/>
+$COMMUNITY_LANDING_PAGE.
+</p>
 
-<p>Share success stories and debate education issues on our community message boards. $COMMUNITY_LANDING_PAGE.</p>
+<h3>Choose the best school for your family</h3>
+<p>
+Let us guide you through the test scores and student stats, the Parent Reviews and GreatSchools Ratings.<br/>
+$TEST_SCORES_PAGE.
+</p>
 
-<p>CHOOSE THE BEST SCHOOL FOR YOUR FAMILY</p>
-
-<p>Let us guide you through the test scores and student stats, the Parent Reviews and GreatSchools ratings. $TEST_SCORES_PAGE.</p>
-
-<p>CHAMPION YOUR CHILD'S EDUCATION</p>
-
-<p>Find out what to expect in the classroom, learn about the most important education issues and get advice from A-Z. $EXPECT_IN_CLASSROOM.</p>
+<h3>Champion your child's education</h3>
+<p>
+Find out what to expect in the classroom, learn about the most important education issues and get advice from
+A-Z.<br/>
+$EXPECT_IN_CLASSROOM.
+</p>
 
 <p>We're sure you'll love it!</p>
 
 <p>Sincerely,</p>
 
-<p>Alison Lingane</p>
+<p>
+Alison Lingane<br/>
+Mom and Senior Product Manager<br/>
+GreatSchools
+</p>
 
-<p>Mom and Senior Product Manager</p>
-
-<p>GreatSchools</p>
+<p>
+301 Howard St., Suite 1440<br/>
+San Francisco, CA 94105
+</p>
+</body>
+</html>

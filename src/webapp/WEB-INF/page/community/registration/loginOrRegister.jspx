@@ -32,6 +32,10 @@
     <div id="reg_intro">
         <h1><span>Join &amp; Sign In</span></h1>
 
+        <c:if test="${param.message ne null and param.message gt ''}">
+            <p class="infomessage">${param.message}</p>
+        </c:if>
+
         <div id="outline"><!-- creates darker blue outer outline -->
             <div id="content">
                 <div id="newuser">
@@ -49,13 +53,6 @@
                     <h2><span>Returning User? Yes! I'm already a member.</span></h2>
 
                     <gsweb:form action="/community/loginOrRegister.page" method="post">
-
-                        <c:if test="${param.message ne null and param.message gt ''}">
-                            <div class="messageBox">
-                                <span class="message">${param.message}</span>
-                            </div>
-                            <br style="clear: right"/>
-                        </c:if>
 
                         <gsml:errorMessage command="loginCmd"/>
                         <p>
