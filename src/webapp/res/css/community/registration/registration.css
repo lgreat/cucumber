@@ -184,6 +184,17 @@ h1 span {
 	float: left;
 }
 
+#reg_intro a.intro {
+	font-size: 14px;
+	color: #888888;
+	margin: 2px 100px 0 0;
+	_margin: 0;
+	width: 245px;
+	float: left;
+    text-decoration: none;
+}
+
+
 #returninguser {
 	height: 347px;
 	width: 260px;
@@ -720,18 +731,9 @@ h1 span {
 
 /* error messages */
 
-#reg_intro .error {
-    color: red;
-    font-size: small;
-    margin-bottom: 15px;
-}
-
-#reg_intro #content .error a {
-    /* undo some page settings for anchors */
-    float: none;
-    margin: 0;
-    color: #3399aa;
-	text-decoration: underline;
+#reg_intro #content .warning {
+    margin: 0 0 10px 0;
+    width: 234px;
 }
 
 #content .warning a {

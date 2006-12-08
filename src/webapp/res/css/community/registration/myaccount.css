@@ -181,7 +181,7 @@ h1 span {
 	line-height: 16px;
 	font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
 	background: url(../../../img/community/registration/icon_editlink_5x9.gif) left 3px no-repeat;
-	width: 180px;
+	width: 200px;
 	float: left;
 	padding: 0 0 0 9px;
 	margin: 0 0 11px 9px;
@@ -212,7 +212,6 @@ h1 span {
 #emailAddress p {
 	margin: 0 8px 9px 18px;
 	line-height: 14px;
-    font-size: 12px;
 }
 
 /* Newsletters */

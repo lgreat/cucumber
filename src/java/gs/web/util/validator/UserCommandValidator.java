@@ -45,6 +45,8 @@ public class UserCommandValidator implements IRequestAwareValidator {
             "We're sorry, that screen name is already taken. Please try another screen name.";
     private static final String ERROR_EMAIL_MISSING =
             "Please enter your email address.";
+    public static final String ERROR_EMAIL_LENGTH = "Your email must be less than 128 characters long.";
+
 //    private static final String ERROR_EMAIL_PROVISIONAL =
 //            "You have already registered with GreatSchools! Please check your email and follow " +
 //                    "the instructions to validate your account.";
@@ -63,7 +65,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
     private static final char[] FIRST_NAME_DISALLOWED_CHARACTERS = {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '<', '>', '&', '\\'
     };
-    private static final String ERROR_FIRST_NAME_BAD = "Your first name contains invalid characters.";
+    private static final String ERROR_FIRST_NAME_BAD = "Please enter your name without numbers or symbols.";
 
     public void validate(HttpServletRequest request, Object object, Errors errors) {
         UserCommand command = (UserCommand)object;
@@ -73,8 +75,10 @@ public class UserCommandValidator implements IRequestAwareValidator {
 
         User user = null;
 
-        if (email.length() > EMAIL_MAXIMUM_LENGTH) {
+        if (StringUtils.isEmpty(email)) {
             errors.rejectValue("email", null, ERROR_EMAIL_MISSING);
+        } else if (email.length() > EMAIL_MAXIMUM_LENGTH) {
+            errors.rejectValue("email", null, ERROR_EMAIL_LENGTH);
         } else {
             user = _userDao.findUserFromEmailIfExists(email);
 

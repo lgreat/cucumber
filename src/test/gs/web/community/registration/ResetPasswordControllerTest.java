@@ -11,6 +11,7 @@ import org.easymock.MockControl;
 import org.easymock.AbstractMatcher;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
 
 /**
  * Provides testing for the reset password controller.
@@ -69,6 +70,44 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         _userControl.verify();
         assertFalse("Unexpected errors on onSubmit", errors.hasErrors());
         assertEquals(mAndV.getViewName(), _controller.getSuccessView());
+    }
+
+    public void testSetUpdated() throws NoSuchAlgorithmException {
+        ResetPasswordController.ResetPasswordCommand command = new ResetPasswordController.ResetPasswordCommand();
+        BindException errors = new BindException(command, "");
+        User user = setupUser();
+
+        // set password on user
+        user.setPlaintextPassword("foobar");
+        assertTrue(user.matchesPassword("foobar"));
+        assertFalse(user.matchesPassword("newPass"));
+        // generate hash for user
+        String userHash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
+        String hashString = userHash + user.getId();
+        getRequest().addParameter("id", hashString);
+
+        // set new password on command
+        command.setNewPassword("newPass");
+        command.setNewPasswordConfirm("newPass");
+        command.setUser(user);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, -1);
+        user.setUpdated(cal.getTime());
+        assertTrue(cal.getTime().equals(user.getUpdated()));
+
+        _userControl.reset();
+        User modifiedUser = new User();
+        modifiedUser.setId(new Integer(99));
+        modifiedUser.setPlaintextPassword("newPass");
+        _userDao.updateUser(modifiedUser);
+        // checks that the user's password has actually changed
+        _userControl.setMatcher(new UserPasswordMatcher());
+        _userControl.replay();
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        _userControl.verify();
+        assertFalse("Unexpected errors on onSubmit", errors.hasErrors());
+        assertEquals(mAndV.getViewName(), _controller.getSuccessView());
+        assertFalse(cal.getTime().equals(user.getUpdated()));
     }
 
     public void testCancel() throws NoSuchAlgorithmException {

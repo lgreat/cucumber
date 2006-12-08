@@ -9,14 +9,14 @@
     <jsp:directive.page contentType="text/html"/><html>
   <head>
       <pageHelper:externalCss file="/res/css/community/registration/myaccount.css"/>
-      <title>Change Email</title>
+      <title>Change Email - GreatSchools</title>
   </head>
   <gsml:body adPageName="changeEmail">
       <div id="myaccount_resetemail">
           <h1><span>My Account</span></h1>
           <div id="outline"><!-- creates darker blue outer outline -->
               <div id="content">
-                  <h2><span>Reset Your Email Address</span></h2>
+                  <h2><span>Change Your Email Address</span></h2>
 
                   <gsweb:form action="/community/changeEmail.page" method="post">
 
@@ -39,7 +39,7 @@
                       </spring:bind>
 
                       <gsml:inputImage src="/res/img/community/registration/submit_resetemail.gif"
-                                       alt="Reset email address" styleClass="resetemail" name="submit"/>
+                                       alt="Change email address" styleClass="resetemail" name="submit"/>
 
                       <gsml:inputImage src="/res/img/community/registration/submit_cancel.gif"
                                        alt="Cancel" styleClass="cancel" name="cancel"/>

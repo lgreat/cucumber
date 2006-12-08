@@ -23,7 +23,7 @@
         <![CDATA[
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
             ]]>
-        <title>Join &amp; Sign In</title>
+        <title>Join &amp; Sign In - GreatSchools</title>
         <pageHelper:externalCss file="/res/css/community/registration/registration.css"/>
     </head>
 
@@ -43,10 +43,13 @@
 
                     <div class="join"><link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}" title="Join the GreatSchools Community"></link:registration></div>
 
-                    <gsml:img src="/res/img/community/registration/join-signin_photo.jpg" alt="Photo of mom and daughter"/>
-
-                    <p class="intro">Join the GreatSchools community<br/>and connect with parents who are<br/>passionate
-                        about education! <strong>It's free!</strong></p>
+                    <link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}">
+                        <gsml:img src="/res/img/community/registration/join-signin_photo.jpg" alt="Photo of mom and daughter"/>
+                    </link:registration>
+                    <link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}" styleClass="intro">
+                        Join the GreatSchools community<br/>and connect with parents who are<br/>
+                        passionate about education! <strong>It's free!</strong>
+                    </link:registration>
                 </div>
                 <!-- end: newuser -->
                 <div id="returninguser">
@@ -54,7 +57,7 @@
 
                     <gsweb:form action="/community/loginOrRegister.page" method="post">
 
-                        <gsml:errorMessage command="loginCmd"/>
+                        <gsml:errorMessage command="loginCmd" styleClass="warning" useImage="true"/>
                         <p>
                             <label>Email address</label>
                             <spring:bind path="loginCmd.email">

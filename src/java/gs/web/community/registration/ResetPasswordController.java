@@ -6,7 +6,6 @@ import org.springframework.validation.BindException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
@@ -20,6 +19,7 @@ import gs.web.util.validator.UserCommandValidator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 /**
  * Provides controller backing for the form that lets a user change their password.
@@ -29,6 +29,8 @@ import java.security.NoSuchAlgorithmException;
 public class ResetPasswordController extends SimpleFormController implements ReadWriteController {
     public static final String BEAN_ID = "/community/resetPassword.page";
     protected final Log _log = LogFactory.getLog(getClass());
+
+    public static final String ERROR_PASSWORD_MISMATCH = "The password you entered is incorrect.";
 
     private IUserDao _userDao;
 
@@ -142,7 +144,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
         if (request.getParameter("oldPassword") != null) {
             String oldPassword = command.getOldPassword();
             if (!user.matchesPassword(oldPassword)) {
-                errors.rejectValue("oldPassword", null, "The old password is incorrect.");
+                errors.rejectValue("oldPassword", null, ERROR_PASSWORD_MISMATCH);
             }
         }
 
@@ -151,6 +153,10 @@ public class ResetPasswordController extends SimpleFormController implements Rea
                 "newPassword", errors);
 
         command.setUser(user); // this is so onSubmit can just grab the user from the command
+        if (errors.hasFieldErrors("newPassword")) {
+            command.setNewPassword("");
+            command.setNewPasswordConfirm("");
+        }
     }
 
     public ModelAndView onSubmit(HttpServletRequest request,
@@ -164,6 +170,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
             User user = command.getUser();
 
             user.setPlaintextPassword(command.getNewPassword());
+            user.setUpdated(new Date());
             getUserDao().updateUser(user);
             // log in user automatically
             PageHelper.setMemberAuthorized(request, response, user);            

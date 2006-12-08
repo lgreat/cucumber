@@ -12,7 +12,7 @@
 <html>
   <head>
       <pageHelper:externalCss file="/res/css/community/registration/myaccount.css"/>
-      <title>GreatSchools Community</title>
+      <title>My Account - GreatSchools</title>
   </head>
   <gsml:body adPageName="accountInfo">
 
@@ -30,17 +30,17 @@
               <!-- begin Email Address module -->
               <div id="emailAddress">
                   <h3>Email Address</h3>
-                  <p>${user.email}</p>
-                  <link:changeEmail>Edit email address</link:changeEmail>
+                  <p>Change your email address</p>
+                  <link:changeEmail>Change email address</link:changeEmail>
               </div>
               <!-- end: Email Address module -->
 
               <!-- begin Newsletters module -->
               <div id="newsletters">
                   <h3>Newsletters</h3>
-                  <p>Add or delete newsletter subscriptions</p>
+                  <p>Change, add or delete your GreatSchools newsletter subscriptions</p>
                   <link:newsletterManagement email="${user.email}">
-                      Manage your GreatSchools newsletter subscriptions
+                      Manage newsletter subscriptions
                   </link:newsletterManagement>
               </div>
               <!-- end: Newsletters module -->
@@ -48,8 +48,8 @@
               <!-- begin Password module -->
               <div id="password">
                   <h3>Password</h3>
-                  <p>Edit Password</p>
-                  <link:resetPassword>Change your password</link:resetPassword>
+                  <p>Change the password for your GreatSchools account</p>
+                  <link:resetPassword>Change password</link:resetPassword>
               </div>
               <!-- end: Password module -->
 
@@ -74,7 +74,7 @@
               <!-- begin Photo module -->
               <div id="photo">
                   <h3>Photo</h3>
-                  <p>Change photo</p>
+                  <p>Change or set your GreatSchools community photo</p>
                   <!-- disable links to community for beta -->
                   <!--<gsweb:toCommunity targetLink="/cmd.txPictureSetUser">Update or change your photo</gsweb:toCommunity>-->
                   <a name="photoComing">Coming soon!</a>

@@ -47,8 +47,15 @@ public class ForgotPasswordController extends SimpleFormController {
     }
 
     protected boolean suppressValidation(HttpServletRequest request) {
-        // don't do validation on a cancel
-        return request.getParameter("cancel") != null || request.getParameter("cancel.x") != null;
+        return isCancel(request);
+    }
+
+    protected boolean suppressValidation(HttpServletRequest request, Object obj) {
+        return isCancel(request) || super.suppressValidation(request, obj);
+    }
+
+    protected boolean isCancel(HttpServletRequest request) {
+        return request.getParameter("cancel.x") != null || request.getParameter("cancel") != null;
     }
 
     /**

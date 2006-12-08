@@ -13,6 +13,7 @@ import org.springframework.validation.BindException;
 import org.easymock.MockControl;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
 
 /**
  * Provides testing for the controller that changes a user's email address.
@@ -52,6 +53,35 @@ public class ChangeEmailControllerTest extends BaseControllerTestCase {
         _controller.onBindAndValidate(getRequest(), command, errors);
         _userControl.verify();
         assertFalse(errors.hasErrors());
+    }
+
+    public void testSetUpdated() throws Exception {
+        ChangeEmailController.ChangeEmailCommand command = new ChangeEmailController.ChangeEmailCommand();
+        BindException errors = new BindException(command, "emailCmd");
+
+        command.setNewEmail("email@address.org");
+        command.setConfirmNewEmail("email@address.org");
+
+        User user = new User();
+        user.setEmail("oldEmail@address.org");
+        user.setId(new Integer(123));
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, -1);
+        user.setUpdated(cal.getTime());
+        assertTrue(user.getUpdated().equals(cal.getTime()));
+        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(getRequest());
+        context.setUser(user);
+
+        _userDao.updateUser(user);
+        _userControl.replay();
+
+        getRequest().setParameter("submit", "submit");
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        _userControl.verify();
+        assertNotNull(mAndV);
+        assertEquals("email@address.org", user.getEmail());
+        assertEquals(_controller.getSuccessView(), mAndV.getViewName());
+        assertFalse(user.getUpdated().equals(cal.getTime()));
     }
 
     public void testMismatchedEmails() throws Exception {

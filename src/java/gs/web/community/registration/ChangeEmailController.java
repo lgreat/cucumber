@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 import java.net.URL;
 import java.net.MalformedURLException;
+import java.util.Date;
 
 /**
  * Provides backing for the change email form, that allows a list_member to update their
@@ -31,7 +32,10 @@ import java.net.MalformedURLException;
 public class ChangeEmailController extends SimpleFormController implements ReadWriteController {
     public static final String BEAN_ID = "/community/changeEmail.page";
     protected final Log _log = LogFactory.getLog(getClass());
-    public static final String NOT_MATCHING_ERROR = "Please enter the same email address into both fields.";
+    public static final String NOT_MATCHING_ERROR = "The two emails don't match.";
+    public static final String EMAIL_TOO_LONG_ERROR = "Your email must be less than 128 characters long.";
+    public static final String EMAIL_IN_USE_ERROR =
+            "The email address you entered has already been registered with GreatSchools.";
 
     private IUserDao _userDao;
     private String _rpcServerUrl;
@@ -65,16 +69,14 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
         ChangeEmailCommand command = (ChangeEmailCommand) objCommand;
 
         if (command.getNewEmail().length() > 127) {
-            errors.rejectValue("newEmail", null,
-                    "We're sorry, your email must be less than 128 characters long.");
+            errors.rejectValue("newEmail", null, EMAIL_TOO_LONG_ERROR);
             return; // other errors are irrelevant
         }
 
         User user = _userDao.findUserFromEmailIfExists(command.getNewEmail());
 
         if (user != null) {
-            errors.rejectValue("newEmail", null,
-                    "We're sorry, that email address is already in use.");
+            errors.rejectValue("newEmail", null, EMAIL_IN_USE_ERROR);
             return; // other errors are irrelevant
         }
 
@@ -94,6 +96,7 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
 
             User user = SessionContextUtil.getSessionContext(request).getUser();
             user.setEmail(command.getNewEmail());
+            user.setUpdated(new Date());
             _userDao.updateUser(user);
             PageHelper.setMemberAuthorized(request, response, user);
             notifyCommunity(user);
