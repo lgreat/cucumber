@@ -94,10 +94,6 @@ public class AuthenticationManager {
         rval.append(WEBCROSSING_FORWARD_URL);
         rval.append(getParameterValue(authInfo));
         rval.append("/redirect.");
-        // TODO: temporary hack ... working with Doug so this isn't necessary
-        if (targetLocation.startsWith("http://")) {
-            targetLocation = targetLocation.substring("http://".length());
-        }
         String encodedParam;
         try {
             encodedParam = URLEncoder.encode(targetLocation, "UTF-8");
