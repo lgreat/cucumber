@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.15 2006/12/07 18:24:28 aroy Exp $
+ * $Id: LoginController.java,v 1.16 2006/12/08 21:47:43 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -55,10 +55,6 @@ public class LoginController extends SimpleFormController {
         }
 
         LoginCommand loginCommand = (LoginCommand) command;
-
-        if (StringUtils.isEmpty(loginCommand.getRedirect())) {
-            loginCommand.setRedirect(LoginController.DEFAULT_REDIRECT_URL);
-        }
 
         if (null == loginCommand.getEmail()) {
             ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -121,10 +117,14 @@ public class LoginController extends SimpleFormController {
 
         ModelAndView mAndV = new ModelAndView();
 
-        if (loginCommand.getRedirect() != null) {
+        if (StringUtils.isNotEmpty(loginCommand.getRedirect())) {
             AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
             loginCommand.setRedirect(_authenticationManager.addParameterIfNecessary
                     (loginCommand.getRedirect(), authInfo));
+        } else {
+            AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
+            String redirect = _authenticationManager.generateRedirectUrl(DEFAULT_REDIRECT_URL, authInfo);
+            _log.info(redirect);
         }
 
         UrlUtil urlUtil = new UrlUtil();

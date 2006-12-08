@@ -157,6 +157,10 @@ public class ResetPasswordController extends SimpleFormController implements Rea
             command.setNewPassword("");
             command.setNewPasswordConfirm("");
         }
+
+        if (errors.hasFieldErrors("oldPassword")) {
+            command.setOldPassword("");
+        }
     }
 
     public ModelAndView onSubmit(HttpServletRequest request,

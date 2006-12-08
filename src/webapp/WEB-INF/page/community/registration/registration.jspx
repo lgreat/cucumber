@@ -201,8 +201,10 @@
 
                     <div id="terms" style="${termsStyle}">
                         <p><label class="terms"><span class="required">*</span>I agree to the
-                            <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">terms of
-                            service</link:termsOfUse></label></p>
+                            <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                    title="GreatSchools Terms of Service"
+                                    href="/cgi-bin/static/terms.html/$STATE">terms of service</gsml:popupWindow>
+                            </label></p>
                         <gsml:radio name="termsStr" value="y" styleId="yesTerms" styleClass="radio"
                                     checked="${userCmd.terms eq true}"/>
                         <label class="radiolabelTerms">Yes</label>

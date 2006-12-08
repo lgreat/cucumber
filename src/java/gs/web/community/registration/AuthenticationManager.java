@@ -89,6 +89,26 @@ public class AuthenticationManager {
         return false;
     }
 
+    public String generateRedirectUrl(String targetLocation, AuthInfo authInfo) {
+        StringBuffer rval = new StringBuffer();
+        rval.append(WEBCROSSING_FORWARD_URL);
+        rval.append(getParameterValue(authInfo));
+        rval.append("/redirect.");
+        // TODO: temporary hack ... working with Doug so this isn't necessary
+        if (targetLocation.startsWith("http://")) {
+            targetLocation = targetLocation.substring("http://".length());
+        }
+        String encodedParam;
+        try {
+            encodedParam = URLEncoder.encode(targetLocation, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            _log.warn("Failed to encode URL parameter " + targetLocation + " because of error: " + e);
+            encodedParam = targetLocation;
+        }
+        rval.append(encodedParam);
+        return rval.toString();
+    }
+
     /**
      * If the original url looks like it belongs to a site that would want proof-of-authentication,
      * add that proof to the end of the URL.
@@ -104,19 +124,8 @@ public class AuthenticationManager {
             rval.append(getParameterValue(authInfo));
             rval.append(originalUrl);
         } else {
-
             // for URLs that look normal
-            rval.append(originalUrl);
-            if (originalUrl.toLowerCase().indexOf("community.greatschools.net") > -1) {
-                if (originalUrl.indexOf("?") > -1) {
-                    rval.append("&");
-                } else {
-                    rval.append("?");
-                }
-                rval.append(getParameterName());
-                rval.append("=");
-                rval.append(getParameterValue(authInfo));
-            }
+            rval.append(generateRedirectUrl(originalUrl, authInfo));
         }
         _log.info("Setting redirect URL to: " + rval.toString());
         return rval.toString();

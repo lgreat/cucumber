@@ -90,7 +90,7 @@ public class AuthenticationManagerSaTest extends TestCase {
         assertFalse(_authManager.verifyAuthInfo(_user, ""));
     }
 
-    public void testNoAddParameter() throws NoSuchAlgorithmException {
+    public void xtestNoAddParameter() throws NoSuchAlgorithmException {
         String url = "http://www.greatschools.net/article.page?id=500";
         String newUrl = _authManager.addParameterIfNecessary(url, _authInfo);
 

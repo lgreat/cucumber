@@ -24,7 +24,7 @@
                           <label for="newEmail">New email address</label>
                           <spring:bind path="emailCmd.newEmail">
                               <input id="newEmail" type="text" name="${status.expression}"
-                                     value="${status.value}"/>
+                                     value="${status.value}" tabindex="1"/>
                           </spring:bind>
                       </p>
                       <!-- hack because the built in email validator rejects the field named "email" -->
@@ -35,14 +35,16 @@
                       <label for="confirmNewEmail">Re-type email address</label>
                       <spring:bind path="emailCmd.confirmNewEmail">
                           <input id="confirmNewEmail" type="text" name="${status.expression}"
-                                 value="${status.value}"/>
+                                 value="${status.value}" tabindex="2"/>
                       </spring:bind>
 
                       <gsml:inputImage src="/res/img/community/registration/submit_resetemail.gif"
-                                       alt="Change email address" styleClass="resetemail" name="submit"/>
+                                       alt="Change email address" styleClass="resetemail" name="submit"
+                                       tabIndex="3"/>
 
                       <gsml:inputImage src="/res/img/community/registration/submit_cancel.gif"
-                                       alt="Cancel" styleClass="cancel" name="cancel"/>
+                                       alt="Cancel" styleClass="cancel" name="cancel"
+                                       tabIndex="4"/>
                   </gsweb:form>
               </div>
               <!-- end: content -->

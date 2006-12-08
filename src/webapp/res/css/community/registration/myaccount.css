@@ -119,6 +119,18 @@ h1 span {
 	border: 2px solid #ddeeee;
 }
 
+#myaccount_resetemail #content {
+    padding-bottom: 260px;
+}
+
+#myaccount_resetpassword #content {
+    padding-bottom: 260px;
+}
+
+#myaccount_forgotpassword #content {
+    padding-bottom: 260px;
+}
+
 #outline { /* creates the darker blue outer outline around #content, contains no other styling */
 	border: 3px solid #66cccc;
 	float: right;
@@ -402,7 +414,7 @@ h1 span {
 
 #myaccount_resetpassword input {
 	width: 230px;
-	margin: 0 0 15px 0;
+	margin: 0 0 8px 0;
 	padding: 0;
 }
 
@@ -439,7 +451,7 @@ p.field {
 
 #myaccount_resetemail input {
 	width: 230px;
-	margin: 0 0 15px 0;
+	margin: 0 0 8px 0;
 	padding: 0;
 }
 
