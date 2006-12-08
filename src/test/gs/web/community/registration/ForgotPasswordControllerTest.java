@@ -7,13 +7,6 @@ import gs.data.community.User;
 import org.springframework.validation.BindException;
 import org.easymock.MockControl;
 
-import javax.mail.internet.MimeMessage;
-import javax.mail.Multipart;
-import javax.mail.Address;
-import javax.mail.MessagingException;
-import java.util.List;
-import java.io.IOException;
-
 /**
  * Provides testing for the controller managing the forgot password page.
  *
@@ -24,16 +17,19 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
 
     private IUserDao _userDao;
     private MockControl _userControl;
-    private MockJavaMailSender _mailSender;
 
     protected void setUp() throws Exception {
         super.setUp();
         _controller = new ForgotPasswordController();
-        _mailSender = new MockJavaMailSender();
+        MockJavaMailSender _mailSender = new MockJavaMailSender();
         // have to set host else the mock mail sender will throw an exception
         // actual value is irrelevant
         _mailSender.setHost("greatschools.net");
-        _controller.setMailSender(_mailSender);
+        ForgotPasswordEmail email = (ForgotPasswordEmail)
+                getApplicationContext().getBean(ForgotPasswordEmail.BEAN_ID);
+        email.getEmailHelperFactory().setMailSender(_mailSender);
+        _controller.setForgotPasswordEmail(email);
+
         _userControl = MockControl.createControl(IUserDao.class);
         _userDao = (IUserDao) _userControl.getMock();
         _controller.setUserDao(_userDao);
@@ -66,9 +62,6 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         _controller.onSubmit(getRequest(), getResponse(), command, errors);
         _userControl.verify();
         assertFalse(errors.hasErrors());
-        verifyEmail(_mailSender.getSentMessages(), email,
-                _controller.getEmailPlainTextUserExists(getRequest(), email, new Integer(123)),
-                _controller.getEmailHTMLUserExists(getRequest(), email, new Integer(123)));
     }
 
     public void testOnSubmitUserNotExist() throws Exception {
@@ -85,25 +78,6 @@ public class ForgotPasswordControllerTest extends BaseControllerTestCase {
         _controller.onBindAndValidate(getRequest(), command, errors);
         _userControl.verify();
         assertTrue(errors.hasErrors());
-    }
-
-    private void verifyEmail(List messages, String email, String plainTextBody, String HTMLBody) throws MessagingException, IOException {
-        assertNotNull("No messages sent.", messages);
-        assertEquals("More than 1 message sent", 1, messages.size());
-        MimeMessage msg = (MimeMessage) messages.get(0);
-        Address[] to = msg.getRecipients(MimeMessage.RecipientType.TO);
-        assertNotNull("Empty to field", to);
-        assertEquals("More than 1 to address", 1, to.length);
-        assertEquals("To field does not equal user's email", email, to[0].toString());
-        Multipart mp = (Multipart) msg.getContent();
-        assertEquals("Email contains more than 2 content types", 2, mp.getCount());
-        for (int x=0; x < mp.getCount(); x++) {
-            if (mp.getBodyPart(x).getContentType().indexOf("text/plain") > -1) {
-                assertEquals(plainTextBody, String.valueOf(mp.getBodyPart(0).getContent()));
-            } else {
-                assertEquals(HTMLBody, String.valueOf(mp.getBodyPart(1).getContent()));
-            }
-        }
     }
 
     public void testNoPasswordUser() throws Exception {

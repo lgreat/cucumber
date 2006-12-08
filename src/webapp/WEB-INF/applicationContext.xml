@@ -38,6 +38,14 @@
         <property name="fromName" value="GreatSchools"/>
     </bean>
 
+    <bean id="forgotPasswordEmail"
+          class="gs.web.community.registration.ForgotPasswordEmail"
+          autowire="byName">
+        <property name="subject" value="GreatSchools reset password link"/>
+        <property name="fromEmail" value="gs-batch@greatschools.net"/>
+        <property name="fromName" value="GreatSchools"/>
+    </bean>
+
     <!-- factory bean for user session information -->
     <bean id="sessionContext"
           class="gs.web.util.context.SessionContext"

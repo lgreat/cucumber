@@ -810,9 +810,6 @@
                 <ref local="emailValidator"/>
             </list>
         </property>
-        <property name="mailSender">
-            <ref bean="mailSender"/>
-        </property>
     </bean>
 
     <bean name="/community/resetPassword.page"

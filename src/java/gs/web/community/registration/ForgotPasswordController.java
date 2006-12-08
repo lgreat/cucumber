@@ -2,9 +2,7 @@ package gs.web.community.registration;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
-import gs.data.util.DigestUtil;
 import gs.web.util.UrlBuilder;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.validation.BindException;
@@ -13,18 +11,10 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMultipart;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.MessagingException;
-import javax.mail.Message;
-import javax.mail.Multipart;
-import javax.mail.BodyPart;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Provides ...
+ * Provides backing for the forgot your password form.
  *
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
@@ -33,7 +23,7 @@ public class ForgotPasswordController extends SimpleFormController {
     protected final Log _log = LogFactory.getLog(getClass());
 
     private IUserDao _userDao;
-    private JavaMailSender _mailSender;
+    private ForgotPasswordEmail _forgotPasswordEmail;
 
     //set up defaults if none supplied
     protected void onBindOnNewForm(HttpServletRequest request,
@@ -100,10 +90,7 @@ public class ForgotPasswordController extends SimpleFormController {
         if (!suppressValidation(request)) {
             UserCommand userCommand = (UserCommand) command;
             User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
-            MimeMessage mm;
-            userCommand.setUser(user);
-            mm = buildMultipartEmail(request, userCommand.getEmail(), user.getId());
-            _mailSender.send(mm);
+            _forgotPasswordEmail.sendToUser(user, request);
             mAndV.setViewName(getSuccessView());
             String msg = "An email has been sent to " + userCommand.getEmail() +
                     " with instructions for selecting a new password.";
@@ -116,80 +103,6 @@ public class ForgotPasswordController extends SimpleFormController {
         return mAndV;
     }
 
-    /**
-     * Builds a multipart email message.
-     * @param request
-     * @param email
-     * @param userId
-     * @return multipart email message
-     * @throws NoSuchAlgorithmException
-     * @throws javax.mail.MessagingException
-     */
-    private MimeMessage buildMultipartEmail(HttpServletRequest request, String email, Integer userId) throws NoSuchAlgorithmException, MessagingException {
-        MimeMessage msg = _mailSender.createMimeMessage();
-
-        msg.setFrom(new InternetAddress("gs-batch@greatschools.net"));
-        msg.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-        msg.setSubject("GreatSchools reset password link");
-
-        // now we construct the body of the email, which is a Multipart.
-        // alternative means the email consists of multiple parts, each of which contains the same content,
-        // but in different formats
-        Multipart mp = new MimeMultipart("alternative");
-
-        // plain text part
-        BodyPart plainTextBodyPart = new MimeBodyPart();
-        plainTextBodyPart.setText(getEmailPlainTextUserExists(request, email, userId));
-        mp.addBodyPart(plainTextBodyPart);
-
-        // HTML part
-        MimeBodyPart htmlBodyPart = new MimeBodyPart();
-        htmlBodyPart.setText(getEmailHTMLUserExists(request, email, userId), "US-ASCII", "html");
-        mp.addBodyPart(htmlBodyPart);
-
-        msg.setContent(mp);
-
-        return msg;
-    }
-
-    protected String getEmailPlainTextUserExists(HttpServletRequest request, String email, Integer userId) throws NoSuchAlgorithmException {
-        StringBuffer emailContent = new StringBuffer();
-        String hash = DigestUtil.hashStringInt(email, userId);
-        UrlBuilder builder = new UrlBuilder(UrlBuilder.RESET_PASSWORD, null, hash + userId);
-        emailContent.append("Dear GreatSchools member,\n\n");
-        emailContent.append("You requested that we reset your password on GreatSchools. ");
-        emailContent.append("Please click on the following link to select a new password: ");
-        emailContent.append(builder.asFullUrl(request)).append("\n\n");
-        emailContent.append("Thanks!\n\nThe GreatSchools Team\n");
-        return emailContent.toString();
-    }
-
-    protected String getEmailHTMLUserExists(HttpServletRequest request, String email, Integer userId) throws NoSuchAlgorithmException {
-        StringBuffer emailContent = new StringBuffer();
-        emailContent.append("<html>");
-        emailContent.append("<head><style>p {\n" +
-                "color:#444444; \n" +
-                "font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;\n" +
-                "}\n" +
-                "\n" +
-                "a {\n" +
-                "color: #3399aa;\n" +
-                "text-decoration: underline;\n" +
-                "}\n" +
-                "</style></head>\n");
-        emailContent.append("<body>\n");
-        String hash = DigestUtil.hashStringInt(email, userId);
-        UrlBuilder builder = new UrlBuilder(UrlBuilder.RESET_PASSWORD, null, hash + userId);
-        emailContent.append("<p>Dear GreatSchools member,</p>\n\n");
-        emailContent.append("<p>You requested that we reset your password on GreatSchools. ");
-        emailContent.append("Please ");
-        emailContent.append(builder.asAbsoluteAnchor(request, "click here to select a new password").asATag());
-        emailContent.append(".</p>\n\n");
-        emailContent.append("<p>Thanks!</p>\n<p>The GreatSchools Team</p>\n");
-        emailContent.append("</body></html>");
-        return emailContent.toString();
-    }
-
     public IUserDao getUserDao() {
         return _userDao;
     }
@@ -198,11 +111,11 @@ public class ForgotPasswordController extends SimpleFormController {
         _userDao = userDao;
     }
 
-    public JavaMailSender getMailSender() {
-        return _mailSender;
+    public ForgotPasswordEmail getForgotPasswordEmail() {
+        return _forgotPasswordEmail;
     }
 
-    public void setMailSender(JavaMailSender mailSender) {
-        _mailSender = mailSender;
+    public void setForgotPasswordEmail(ForgotPasswordEmail forgotPasswordEmail) {
+        _forgotPasswordEmail = forgotPasswordEmail;
     }
 }
