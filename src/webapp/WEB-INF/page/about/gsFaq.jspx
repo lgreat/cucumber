@@ -34,7 +34,7 @@
     <li><a href="#pubdata">School Data: Public &amp; Charter Schools</a></li>
     <li><a href="#pvtdata">School Data: Private Schools</a></li>
     <li><a href="#esps">Enhanced School Profiles</a></li>
-    <li><a href="#ratings">GreatSchools Ratings &amp; Alerts</a></li>
+    <li><a href="#ratings">GreatSchools Ratings</a></li>
     <li><a href="#compare">Comparing Schools</a></li>
     <li><a href="#newsletters">GreatSchools Newsletters</a></li>
     <li><a href="#other">Other Questions About GreatSchools</a></li>
@@ -62,23 +62,14 @@
 
 <h4>What information does a school profile include?</h4>
 
-<p> Public school profiles in every state include most or all of the following information:</p>
+<p>Public school profiles in every state include most or all of the following information:</p>
 <ul>
     <li>Phone number, address, district name, location map</li>
     <li>Grade levels served, school type, enrollment</li>
-    <li>Average class size or student-teacher ratio, student ethnicity breakdown</li>
-    <li>Percentage of students participating in or eligible for the federal free or reduced-price lunch program</li>
-    <li>Test scores from state-mandated standardized tests</li>
+    <li>Detailed academic performance data, including state-mandated standardized test results</li>
+    <li>Student-teacher ratio, student ethnicity breakdown and other important teacher/student stats</li>
     <li>Clear explanations for all data presented</li>
-</ul>
-
-<p> Public school profiles in GreatSchools in-depth states (currently Arizona, California, Colorado, Florida, Illinois,
-    New York, New Jersey, Ohio, Pennsylvania, Texas and Washington) also include the following, where available:</p>
-<ul>
-    <li>Complete academic performance data, including state-mandated standardized test results </li>
-    <li>Teacher experience, professional status and/or credentials</li>
-    <li>Detailed information about the student population</li>
-    <li>GreatSchools Ratings and Alerts </li>
+    <li>GreatSchools Ratings</li>
 </ul>
 
 <p>
@@ -99,21 +90,26 @@
 
 <h4>Why does GreatSchools have more data for some states than others?</h4>
 
-<p> We publish school data for all 50 states and the District of Columbia; however, you will see more in-depth
-    school profiles in some states than others. Our goal is to expand the data we provide for all states by the end
-    of 2006. State Departments of Education vary widely in the amount and type of data they release, so the specific
-    data points we are able to acquire may be slightly different from state to state.
+<p> We publish school data for all 50 states and the District of Columbia; however, you will see more in-depth school
+    profiles in some states than others. State Departments of Education vary widely in the amount and type of data they
+    release, so the specific data points we are able to acquire may be somewhat different from state to state.
+    Additionally, being a small nonprofit, we must allocate our resources wisely, which means putting the most resources
+    into larger states where we can reach the most parents.
+
 </p>
 
 <![CDATA[ <a name="data_sources"></a> ]]>
 <![CDATA[ <a name="data_when"></a> ]]>
 <h4>How often is the school information updated?</h4>
 
-<p> Different types of data are updated at different times throughout the year. Starting in 2006, our goal is to
-    update all data at least once a year in every state, using the most recent available information from our data
-    providers. Information on Enhanced School Profiles is updated as often as principals choose to update it. All
-    test scores and teacher/student data on GreatSchools.net is accompanied by a note indicating the source and
-    school year of the data.
+<p> Different types of data are updated at different times throughout the year. Our goal is to update all data at least
+    once a year in every state, using the most recent available information from either the state Department of Education 
+    or the National Center for Education Statistics (NCES). All test scores and teacher/student data on GreatSchools.net
+    is accompanied by a note indicating the source and school year of the data.
+</p>
+<p>
+    Information on Enhanced School Profiles (ESPs) is updated as often as principals choose to edit their information.
+    Each ESP shows the date the last updates were made.
 </p>
 
 
