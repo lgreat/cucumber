@@ -399,7 +399,7 @@
 
 <h4>What if my email address has changed?</h4>
 
-<p> No problem. Go to the <a href="/cgi-bin/newsletters/$STATE">subscription management page</a>, enter the email
+<p> No problem. Go to the <gsml:a href="/cgi-bin/newsletters/$STATE">subscription management page</gsml:a>, enter the email
     address to which we have been sending your newsletters and click "Continue." On the following page you'll have the
     option to update your email address.
 </p>
