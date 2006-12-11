@@ -284,42 +284,32 @@
 <![CDATA[ <a name="ratings"></a> ]]>
 
 
-<h3>GreatSchools Ratings &amp; Alerts</h3>
+<h3>GreatSchools Ratings</h3>
 
 <h4>How are the GreatSchools Test Score Ratings calculated?</h4>
 
-<p> GreatSchools analyzes each school's performance on state standardized tests and provides a one through ten
-    rating for the school's performance relative to other schools with similar grade levels in the state. Our
-    Ratings allow you to compare particular grade levels and groups of students across multiple academic subjects.
-    Please keep in mind that it's important to factor in information other than Test Score Ratings, including the
-    quality of each school's teachers, the school culture and special programs, when evaluating a school. Also note
-    that GreatSchools Ratings are not linked to any performance ratings given by the state Department of Education.
+<p> GreatSchools analyzes each school's performance on state standardized tests and provides a one through ten rating
+    for the school's performance relative to other schools in the state. Our ratings also allow you to compare the
+    performance of particular grade levels and groups of students to comparable groups in other schools in the state.
+    A rating of "10" means that the group's test scores are in the top 10% compared to scores for the same group across
+    all schools in the state. In other words, that group's test score performance is as good as, or better than, 90% of
+    the scores for that group in the state. A rating of "1" means that the group is in the bottom 10% compared to scores
+    for that group across all schools in the state.
 </p>
-
-
-<h4>How are GreatSchools Student-Teacher Ratio and Class Size Ratings calculated?</h4>
-
-<p> GreatSchools analyzes a school's student-teacher ratio or average class size (whichever is available in a given
-    state) and compares it to other, similar-level schools within the state. In general, a high Student-Teacher
-    Ratio or Class Size Rating indicates that teachers are able to spend more time with individual students, which
-    in turn can lead to increased student achievement, particularly for disadvantaged students in the early grades.
-    However, keep in mind that it's important to factor in other information, including student performance on
-    standardized tests, the school culture and special programs, when evaluating a school.
-
+<p> GreatSchools' Overall Ratings are calculated by averaging the ratings for each grade and subject. A Test Score
+    Rating is not given if fewer than 50 schools have data for a particular group. The different student groups
+    (category, ethnicity and gender) are identified by the state Department of Education; if there is a small number of
+    students in a particular group in a school, data is not reported for that group.
 </p>
-
-
-<h4>What are GreatSchools Alerts?</h4>
-
-<p> GreatSchools provides Alerts for key indicators of school quality, based on the data that is available in each
-    state. Some examples include: high percentage of first-year teachers, low percentage of fully credentialed
-    teachers and low attendance rate.
+<p> Please keep in mind that it's important to factor in information other than Test Score Ratings, including the
+    quality of each school's teachers, the school culture and special programs, when evaluating a school. Also note that
+    GreatSchools Ratings are not linked to any performance ratings given by the state Department of Education.
 </p>
 
 <div style="text-align: right;">
     <p>
         <i>Didn't find the answer you're looking for? <gsml:a
-                href="/cgi-bin/feedback_faq/$STATE?fbtype=profile">Contact us about our Ratings and Alerts.</gsml:a></i>
+                href="/cgi-bin/feedback_faq/$STATE?fbtype=profile">Contact us about our ratings.</gsml:a></i>
     </p></div>
 <![CDATA[ <a name="compare"></a> ]]>
 <h3>Comparing Schools</h3>
@@ -407,45 +397,20 @@
 <p> You can manage your GreatSchools newsletter subscriptions <link:newsletterCenter>here</link:newsletterCenter>.
 </p>
 
+<h4>What if my email address has changed?</h4>
+
+<p> No problem. Go to the <a href="/cgi-bin/newsletters/$STATE">subscription management page</a>, enter the email
+    address to which we have been sending your newsletters and click "Continue." On the following page you'll have the
+    option to update your email address.
+</p>
+
+
 <div style="text-align: right;">
     <p>
         <i>Didn't find the answer you're looking for? <gsml:a
                 href="/cgi-bin/feedback_faq/$STATE?fbtype=newsletter">Contact us about our newsletters.</gsml:a></i></p>
 </div>
 
-
-<h4>What is my login?</h4>
-
-<p>
-    Your login is the email address you provided to us when you signed up for
-    our services.
-</p>
-
-
-<h4>What if my email address has changed?</h4>
-
-<p> No problem. Please <gsml:a href="/cgi-bin/feedback_faq/$STATE?fbtype=subentry">contact us</gsml:a> to update your
-    email
-    address.
-</p>
-
-
-<h4>I'm having trouble logging in. What is the problem?</h4>
-
-<p> Here are the three most common problems:
-</p><ul>
-
-    <li>Make sure that the browser you are using to view our site (Internet Explorer, Firefox, Safari), has cookies
-        enabled. This is necessary to log in.</li>
-    <li>Your login is the email address you provided to us when you signed up for the service. Make sure there are no
-        trailing or leading spaces when you type in your email address.</li>
-</ul>
-
-<div style="text-align: right;">
-    <p>
-        <i>Didn't find the answer you're looking for? <gsml:a
-                href="/cgi-bin/feedback_faq/$STATE?fbtype=gen">Contact us.</gsml:a></i></p>
-</div>
 <![CDATA[ <a name="other"></a> ]]>
 
 <h3>Other Questions About GreatSchools</h3>
