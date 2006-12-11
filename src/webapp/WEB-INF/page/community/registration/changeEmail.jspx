@@ -34,8 +34,9 @@
 
                       <label for="confirmNewEmail">Re-type email address</label>
                       <spring:bind path="emailCmd.confirmNewEmail">
+                          <!-- disable browser auto-complete for this field -->
                           <input id="confirmNewEmail" type="text" name="${status.expression}"
-                                 value="${status.value}" tabindex="2"/>
+                                 value="${status.value}" tabindex="2" autocomplete="off"/>
                       </spring:bind>
 
                       <gsml:inputImage src="/res/img/community/registration/submit_resetemail.gif"

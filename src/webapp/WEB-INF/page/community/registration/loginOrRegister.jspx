@@ -65,7 +65,7 @@
                             </spring:bind>
                         </p>
 
-                        <p>
+                        <p style="clear: left;">
                             <label>Password</label>
                                 <spring:bind path="loginCmd.password">
                                     <input type="password" name="${status.expression}" value="${status.value}"/>
