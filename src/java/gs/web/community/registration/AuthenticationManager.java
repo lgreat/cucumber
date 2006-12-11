@@ -2,6 +2,7 @@ package gs.web.community.registration;
 
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
+import gs.web.util.UrlUtil;
 
 import java.util.Date;
 import java.security.NoSuchAlgorithmException;
@@ -90,6 +91,11 @@ public class AuthenticationManager {
     }
 
     public String generateRedirectUrl(String targetLocation, AuthInfo authInfo) {
+        UrlUtil urlUtil = new UrlUtil();
+        if (!urlUtil.isStagingServer(targetLocation) &&
+                (urlUtil.isDevEnvironment(targetLocation) || urlUtil.isDeveloperWorkstation(targetLocation))) {
+            return targetLocation;
+        }
         StringBuffer rval = new StringBuffer();
         rval.append(WEBCROSSING_FORWARD_URL);
         rval.append(getParameterValue(authInfo));
