@@ -38,7 +38,7 @@ import java.util.Date;
  *         <li>All other users are shown an "ineligible" view</li>
  *         </ol>
  */
-public class ShutterflyCardsController extends AbstractController implements InitializingBean, ReadWriteController {
+public class ShutterflyCardsController extends AbstractController implements ReadWriteController {
 
     public static final String BEAN_ID = "/promo/shutterfly/cards.page";
 
@@ -65,75 +65,13 @@ public class ShutterflyCardsController extends AbstractController implements Ini
     protected static final String INELIGIBLE_PAGE_NAME = "Not Eligible";
     protected static final String REDEEMED_PAGE_NAME = "Already Redeemed";
 
-    private static Promo PROMO;
-
-    private Log _log = LogFactory.getLog(getClass());
-
     private IUserDao _userDao;
     private IPromoDao _promoDao;
     private JavaMailSender _mailSender;
-    private Calendar _calendar;
-    
-    public void afterPropertiesSet() throws Exception {
-        PROMO = _promoDao.findPromoById(1);
-        _calendar = Calendar.getInstance();
-        _calendar.set(2006, Calendar.NOVEMBER, 8);
-        _calendar.clear(Calendar.MILLISECOND);
-        _calendar.clear(Calendar.SECOND);
-        _calendar.clear(Calendar.MINUTE);
-        _calendar.clear(Calendar.HOUR_OF_DAY);
-    }
-
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
-
-        String email = request.getParameter(PARAM_EMAIL);
-
-        //Error checking
-        if (StringUtils.isBlank(email)) {
-            return processInelgibleRequest();
-        }
-
-        User user = null;
-        try {
-            user = _userDao.findUserFromEmail(email);
-        } catch (ObjectRetrievalFailureException e) {
-            _log.warn("Could not find user matching email:" + email);
-        }
-
-        if (user == null) {
-            return processInelgibleRequest();
-        }
-
-        if (!user.getTimeAdded().before(_calendar.getTime()) || user.getTimeAdded().equals(_calendar.getTime())) {
-            return processInelgibleRequest();
-        }
-
-        //start of promo processing
-        PromoCode promoCode = _promoDao.findPromoCode(user, PROMO);
-
-        if (null != promoCode) {
-            return processRequest(REDEEMED_ALT, REDEEMED_SRC, REDEEMED_PAGE_NAME);
-        } else {
-            promoCode = _promoDao.assignPromoCode(user, PROMO);
-
-            //no more promo codes left
-            if (null == promoCode) {
-                _log.error("No more promo codes left for promo: " + PROMO.getName() + " user: " + email);                
-                return processRequest(REDEEMED_ALT, REDEEMED_SRC, REDEEMED_PAGE_NAME);
-            } else {
-                //send email
-                try {
-                    _mailSender.send(createMessage(email, promoCode.getCode()));
-                } catch (MessagingException mess) {
-                    _log.error("User " + email + " did not receive promo code: " + promoCode.getCode() , mess);
-                } catch (MailException me) {
-                    _log.error("User " + email + " did not receive promo code: " + promoCode.getCode() , me);
-                }
-                return processRequest(ELIGIBLE_ALT, ELIGIBLE_SRC, ELIGIBLE_PAGE_NAME);
-            }
-        }
+        return processInelgibleRequest();
     }
 
     private static ModelAndView processInelgibleRequest() {
@@ -148,52 +86,6 @@ public class ShutterflyCardsController extends AbstractController implements Ini
         mv.getModel().put(MODEL_PAGE_NAME, pageName);
         mv.getModel().put(MODEL_IMAGE_LINK, IMAGE_LINK);
         return mv;
-    }
-
-    /**
-     * This is a utility method to created the <code>MimeMessage</code object from a stub
-     * MimeMessage.
-     *
-     * @param email A valid email String
-     * @param promoCode A promo code to be included in the email.
-     * @return a MimeMessage type
-     * @throws javax.mail.MessagingException if there is a problem constructing the message.
-     */
-    MimeMessage createMessage(String email, String promoCode) throws MessagingException {
-
-        MimeMessageHelper helper = new MimeMessageHelper(_mailSender.createMimeMessage(), false, "UTF-8");
-        helper.setTo(email);
-        try {
-            helper.setFrom("noreply@greatschools.net", "GreatSchools");
-        } catch (UnsupportedEncodingException uee) {
-            helper.setFrom("shutterfly@greatschools.net");
-        }
-        helper.setSubject("Your code for 12 free 4x8 Shutterfly Holiday Cards!");
-        helper.setSentDate(new Date());
-
-        String emailText = "<p>Dear GreatSchools Subscriber,</p>\n\n" + 
-                "<p>Thank you for celebrating the holidays with Shutterfly! Your promotional code good for 12 free 4x8 Shutterfly Holiday Cards is:</p>\n" +
-                "\n" +
-                "<p>$PROMO_CODE</p>\n\n" +
-                "<p><a href=\"http://www.shutterfly.com/greatschools?cid=OMQ406GSCHL\">Visit Shutterfly today</a> to enter your unique code and order your holiday cards.<p>\n" +
-                "\n" +
-                "<p>This benefit is a special thanks from GreatSchools just for our newsletter subscribers.  We wish you and your family the best the season has to offer!</p>\n" +
-                "\n" +
-                "<p>- The Shutterfly and GreatSchools teams</p>\n\n" +
-                "<small>\n" +
-                "This special offer is only for GreatSchools.net users who subscribed to a GreatSchools newsletter before\n" +
-                "November 8, 2006. To receive this offer, user must have or create a valid Shutterfly account at <a\n" +
-                "    href=\"http://www.shutterfly.com/greatschools?cid=OMQ406GSCHL\">http://www.shutterfly.com/greatschools</a>. To\n" +
-                "redeem, a unique promotional code must be inserted and used by December 8, 2006. Credit cannot be transferred to\n" +
-                "other products or another account and cannot be combined with other offers, discounts or promotions. Users may\n" +
-                "order additional holiday cards at their own expense. Shipping charges will apply to any card order. Limit one\n" +
-                "per person. Shutterfly reserves the right to modify this offer should it be compromised in any manner including,\n" +
-                "but not limited to, fraudulent activity.\n" +
-                "</small>";
-
-        emailText = emailText.replaceAll("\\$PROMO_CODE", promoCode);
-        helper.setText(emailText, true);
-        return helper.getMimeMessage();
     }
 
     public IUserDao getUserDao() {

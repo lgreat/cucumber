@@ -11,23 +11,19 @@ import org.easymock.MockControl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.mail.Address;
-import javax.mail.internet.MimeMessage;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
     private ShutterflyCardsController _controller;
-    private MockJavaMailSender _sender;
 
     public void setUp() throws Exception {
         super.setUp();
         _controller = (ShutterflyCardsController) getApplicationContext().getBean(ShutterflyCardsController.BEAN_ID);
-        _sender = new MockJavaMailSender();
+        MockJavaMailSender _sender = new MockJavaMailSender();
         _sender.setHost("mail.greatschools.net");
         _controller.setMailSender(_sender);
 
@@ -73,32 +69,9 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
         Date joinDate = calendar.getTime();
 
         testPromoEligibilityByJoinDate(joinDate,
-                ShutterflyCardsController.ELIGIBLE_ALT,
-                ShutterflyCardsController.ELIGIBLE_SRC,
-                ShutterflyCardsController.ELIGIBLE_PAGE_NAME);
-
-        List messages = _sender.getSentMessages();
-        assertEquals(1, messages.size());
-
-        //test user got the email with promocode
-        MimeMessage msg = (MimeMessage) messages.get(0);
-
-        Address[] to = msg.getRecipients(MimeMessage.RecipientType.TO);
-        assertNotNull("Empty to field", to);
-        assertEquals("More than 1 to address", 1, to.length);
-        assertEquals("To field does not equal user's email", "user@greatschools.net", to[0].toString());
-
-        Address[] from = msg.getFrom();
-        assertNotNull("Empty from field", from);
-        assertEquals("More than 1 in from", 1, from.length);
-        assertEquals("From field not right", "GreatSchools <noreply@greatschools.net>", from[0].toString());
-
-        assertEquals("Your code for 12 free 4x8 Shutterfly Holiday Cards!", msg.getSubject());
-
-        String content = msg.getContent().toString();
-        assertTrue(content.indexOf("ABCDEFGHIJKLMN") > -1);
-        assertTrue(content.indexOf("http://www.shutterfly.com/greatschools?cid=OMQ406GSCHL") > -1);
-        assertTrue(content.indexOf("$PROMO_CODE") == -1);
+                ShutterflyCardsController.INELIGIBLE_ALT,
+                ShutterflyCardsController.INELIGIBLE_SRC,
+                ShutterflyCardsController.INELIGIBLE_PAGE_NAME);
     }
 
     //user has never received a promo before
@@ -153,9 +126,9 @@ public class ShutterflyCardsControllerTest extends BaseControllerTestCase {
         ModelAndView mv = _controller.handleRequestInternal(request, getResponse());
         assertEquals("/promo/shutterfly/cards", mv.getViewName());
 
-        assertEquals(ShutterflyCardsController.REDEEMED_ALT,
+        assertEquals(ShutterflyCardsController.INELIGIBLE_ALT,
                 (String) mv.getModel().get(ShutterflyCardsController.MODEL_IMAGE_ALT));
-        assertEquals(ShutterflyCardsController.REDEEMED_SRC,
+        assertEquals(ShutterflyCardsController.INELIGIBLE_SRC,
                 (String) mv.getModel().get(ShutterflyCardsController.MODEL_IMAGE_SRC));
 
     }
