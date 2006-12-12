@@ -14,6 +14,8 @@ import gs.data.util.SpringUtil;
 import gs.data.school.ISchoolDao;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -27,6 +29,62 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
     private String _paragraphTag = "div"; // default
     private String _textClass = "updatesText"; // default
     public static final int ROUND_DOWN_TO_NEAREST = 100;
+    public static final String AMY_RICKERSON = "Amy Rickerson";
+    public static final String ELIZABETH_GARDNER = "Elizabeth Gardner";
+    private static final Map _stateToOwner = new HashMap() {{
+        put(State.AK, ELIZABETH_GARDNER);
+        put(State.AL, AMY_RICKERSON);
+        put(State.AR, ELIZABETH_GARDNER);
+        put(State.AZ, ELIZABETH_GARDNER);
+        put(State.CA, AMY_RICKERSON);
+        put(State.CO, AMY_RICKERSON);
+        put(State.CT, AMY_RICKERSON);
+        put(State.DC, AMY_RICKERSON);
+        put(State.DE, AMY_RICKERSON);
+        put(State.FL, AMY_RICKERSON);
+        put(State.GA, AMY_RICKERSON);
+        put(State.HI, ELIZABETH_GARDNER);
+        put(State.IA, AMY_RICKERSON);
+        put(State.ID, AMY_RICKERSON);
+        put(State.IL, ELIZABETH_GARDNER);
+        put(State.IN, ELIZABETH_GARDNER);
+        put(State.KS, AMY_RICKERSON);
+        put(State.KY, ELIZABETH_GARDNER);
+        put(State.LA, ELIZABETH_GARDNER);
+        put(State.MA, ELIZABETH_GARDNER);
+        put(State.MD, AMY_RICKERSON);
+        put(State.ME, ELIZABETH_GARDNER);
+        put(State.MI, ELIZABETH_GARDNER);
+        put(State.MN, ELIZABETH_GARDNER);
+        put(State.MO, AMY_RICKERSON);
+        put(State.MS, AMY_RICKERSON);
+        put(State.MT, ELIZABETH_GARDNER);
+        put(State.NC, AMY_RICKERSON);
+        put(State.ND, ELIZABETH_GARDNER);
+        put(State.NE, AMY_RICKERSON);
+        put(State.NH, ELIZABETH_GARDNER);
+        put(State.NJ, AMY_RICKERSON);
+        put(State.NM, ELIZABETH_GARDNER);
+        put(State.NV, ELIZABETH_GARDNER);
+        put(State.NY, AMY_RICKERSON);
+        put(State.OH, ELIZABETH_GARDNER);
+        put(State.OK, ELIZABETH_GARDNER);
+        put(State.OR, AMY_RICKERSON);
+        put(State.PA, ELIZABETH_GARDNER);
+        put(State.RI, ELIZABETH_GARDNER);
+        put(State.SC, AMY_RICKERSON);
+        put(State.SD, AMY_RICKERSON);
+        put(State.TN, AMY_RICKERSON);
+        put(State.TX, ELIZABETH_GARDNER);
+        put(State.UT, AMY_RICKERSON);
+        put(State.VA, AMY_RICKERSON);
+        put(State.VT, ELIZABETH_GARDNER);
+        put(State.WA, ELIZABETH_GARDNER);
+        put(State.WI, ELIZABETH_GARDNER);
+        put(State.WV, AMY_RICKERSON);
+        put(State.WY, AMY_RICKERSON);
+    }};
+
 
     public State getState() {
         return _state;
@@ -148,13 +206,8 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
                 out.print("Search our site to find your school's test scores, ");
                 out.print("teacher/student stats and more.");
                 out.println(closeParagraph());
-                //out.print(openParagraph());
-                //out.print("Get monthly email updates about your school's data with our free newsletter:");
-                //out.println(closeParagraph());
 
                 out.print(openParagraph());
-//                out.print("<a href=\"/cgi-bin/newsletters/" + _state.getAbbreviation() + "\">" +
-//                        "Sign up for My School Stats</a>");
                 out.print("<a href=\"/cgi-bin/newsletters/" + _state.getAbbreviation() + "\">" +
                         "Get free monthly email updates about your school</a>");
                 out.println(closeParagraph());
@@ -175,8 +228,9 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
 
     protected void printFooter(JspWriter out) throws IOException {
         out.print(openParagraph());
-        if (_state != null) {
-            out.print("<span class=\"printName\">Amy Rickerson</span>");
+        String owner = (String) _stateToOwner.get(_state);
+        if (StringUtils.isNotBlank(owner)) {
+            out.print("<span class=\"printName\">" + owner + "</span>");
             out.print("<span class=\"italicTitle\">");
             out.print(_state.getLongName());
             out.print(" Data Specialist</span>");

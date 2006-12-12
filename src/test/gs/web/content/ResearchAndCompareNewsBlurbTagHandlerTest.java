@@ -118,4 +118,39 @@ public class ResearchAndCompareNewsBlurbTagHandlerTest extends TestCase {
         assertEquals(216, _tag.roundToNearest(217, 2));
 
     }
+
+    public void testPrintFooterForAmy() throws IOException {
+        _tag.setState(State.CA);
+        MockJspWriter writer = new MockJspWriter();
+        _tag.printFooter(writer);
+
+        StringBuffer output = writer.getOutputBuffer();
+        assertTrue("Expected " + ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON + " for CA",
+                output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON) != -1);
+
+    }
+
+    public void testPrintFooterForElizabeth() throws IOException {
+        _tag.setState(State.AZ);
+        MockJspWriter writer = new MockJspWriter();
+        _tag.printFooter(writer);
+
+        StringBuffer output = writer.getOutputBuffer();
+        assertTrue("Expected " + ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER + " for AZ",
+                output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER) != -1);
+
+    }
+
+    public void testPrintFooterForUnknownState() throws IOException {
+        _tag.setState(null);
+        MockJspWriter writer = new MockJspWriter();
+        _tag.printFooter(writer);
+
+        StringBuffer output = writer.getOutputBuffer();
+        assertTrue("Expected " + ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER + " for null state",
+                output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER) != -1);
+
+        assertTrue("Expected " + ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON + " for null state",
+                output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON) != -1);
+    }
 }
