@@ -7,6 +7,7 @@
           xmlns:gsweb="gstaglib"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0">
     <jsp:directive.page contentType="text/html"/><html>
+  <pageHelper:setPathway pathway="99"/>
   <head>
       <pageHelper:externalCss file="/res/css/community/registration/myaccount.css"/>
       <title>Change Email - GreatSchools</title>

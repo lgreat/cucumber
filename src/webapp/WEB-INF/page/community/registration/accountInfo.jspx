@@ -10,6 +10,7 @@
         >
 <jsp:directive.page contentType="text/html"/>
 <html>
+  <pageHelper:setPathway pathway="99"/>
   <head>
       <pageHelper:externalCss file="/res/css/community/registration/myaccount.css"/>
       <title>My Account - GreatSchools</title>

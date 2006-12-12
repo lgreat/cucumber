@@ -42,15 +42,17 @@ will need to become a graphic.
 
 /* following added 12/1 aroy */
 #topnav .member .account {
-    text-align: left;
+    text-align: center;
     color: #69C5D2;
     padding-left: 6px;
+    padding-right: 6px;
     text-decoration: none;
-    width: 22%;
+    width: 20%;
     border-right-width: 1px;
     border-right-style: solid;
     border-right-color: #CCCCCC;
     margin: 0;
+    white-space: nowrap;
 }
 
 /* following added 12/1 aroy */
