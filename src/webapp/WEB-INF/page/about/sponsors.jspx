@@ -156,15 +156,16 @@
 <![CDATA[ <a name="data"></a> ]]>
 
 <h3>School Data Sponsorships</h3>
-    <gsml:img src="/res/img/about/dqc_logo_200.jpg" alt="Date Quality Campaign" id="dqc_icon"/>
-<ul class="singleSpacedList">
 
-    <li>Data Quality Campaign
-    </li>
-<div id="dqc">
-            Greatschools is an endosing partner of the Data Quality Campaign, to provide our users with the highest quality of
+<gsml:a href="http://www.DataQualityCampaign.org" target="_blank">
+    <gsml:img src="/res/img/about/dqc_logo_200.jpg" alt="Date Quality Campaign" id="dqc_icon"/>
+</gsml:a>
+<ul class="singleSpacedList">
+    <li>Data Quality Campaign</li>
+    <div id="dqc">
+        Greatschools is an endosing partner of the Data Quality Campaign, to provide our users with the highest quality of
         information about schools.
-</div>
+    </div>
 </ul>
 
 </gsml:body>
