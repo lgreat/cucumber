@@ -130,6 +130,7 @@
     <c:choose>
         <c:when test="${total gt 0}">
             <c:set var="rVal" value="Page${(empty param.p ? '1' : param.p)}"/>
+            <c:set var="hVal" value="${rVal}"/>
         </c:when>
         <c:otherwise>
             <c:choose>
@@ -137,9 +138,11 @@
                     <c:choose>
                         <c:when test="${hasDistrictResults}">
                             <c:set var="rVal" value="City and District only"/>
+                            <c:set var="hVal" value="${rVal}"/>
                         </c:when>
                         <c:otherwise>
                             <c:set var="rVal" value="City only"/>
+                            <c:set var="hVal" value="${rVal}"/>
                         </c:otherwise>
                     </c:choose>
                 </c:when>
@@ -147,9 +150,11 @@
                     <c:choose>
                         <c:when test="${hasDistrictResults}">
                             <c:set var="rVal" value="District Only"/>
+                            <c:set var="hVal" value="${rVal}"/>
                         </c:when>
                         <c:otherwise>
-                            <c:set var="rVal" value="Pagenoresults"/>
+                            <c:set var="rVal" value="noresults"/>
+                            <c:set var="hVal" value="Pagenoresults"/>
                         </c:otherwise>
                     </c:choose>
                 </c:otherwise>
@@ -161,7 +166,7 @@
                   pageType="search"
                   constraint="${param.type}"
                   query="${empty param.q ? '[blank]' : fn:toLowerCase(param.q)}"
-                  hier1="Search,${pagename},${rVal}"/>
+                  hier1="Search,${pagename},${hVal}"/>
 </gsml:body>
 </html>
 </jsp:root>
