@@ -21,6 +21,16 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <title>Sponsors and Partners</title>
+
+    <style>
+        #dqc {
+           padding:10px 0px 0px 30px;
+        }
+
+        #dqc_icon {
+           float:right; padding:10px 20px 0px 40px;
+        }
+    </style>
 </head>
 
 <gsml:body adPageName="sponsors" pageLayout="singleTextOnlyColumnLayout">
@@ -40,6 +50,7 @@
     <li><a href="#corporate">Corporate/In-Kind Donations</a></li>
     <li><a href="#realestate">Real Estate/Web Developer Partners</a></li>
     <li><a href="#advertising">Advertising Sponsorships</a></li>
+    <li><a href="#data">School Data Sponsorships</a></li>
 </ul>
 
 <![CDATA[ <a name="foundations"></a> ]]>
@@ -142,6 +153,19 @@
     <li>Zip Realty </li>
 </ul>
 
+<![CDATA[ <a name="data"></a> ]]>
+
+<h3>School Data Sponsorships</h3>
+    <gsml:img src="/res/img/about/dqc_logo_200.jpg" alt="Date Quality Campaign" id="dqc_icon"/>
+<ul class="singleSpacedList">
+
+    <li>Data Quality Campaign
+    </li>
+<div id="dqc">
+            Greatschools is an endosing partner of the Data Quality Campaign, to provide our users with the highest quality of
+        information about schools.
+</div>
+</ul>
 
 </gsml:body>
 </html>
