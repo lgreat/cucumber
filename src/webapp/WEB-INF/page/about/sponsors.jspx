@@ -158,7 +158,7 @@
 <h3>School Data Sponsorships</h3>
 
 <gsml:a href="http://www.DataQualityCampaign.org" target="_blank">
-    <gsml:img src="/res/img/about/dqc_logo_200.jpg" alt="Date Quality Campaign" id="dqc_icon"/>
+    <gsml:img src="/res/img/about/dqc_logo_200.jpg" alt="Data Quality Campaign" id="dqc_icon"/>
 </gsml:a>
 <ul class="singleSpacedList">
     <li>Data Quality Campaign</li>
