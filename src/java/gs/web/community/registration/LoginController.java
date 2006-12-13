@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.17 2006/12/11 23:53:01 aroy Exp $
+ * $Id: LoginController.java,v 1.18 2006/12/13 00:59:10 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -113,7 +113,6 @@ public class LoginController extends SimpleFormController {
         LoginCommand loginCommand = (LoginCommand) command;
         String email = loginCommand.getEmail();
         User user = getUserDao().findUserFromEmail(email);
-        PageHelper.setMemberAuthorized(request, response, user);
 
         ModelAndView mAndV = new ModelAndView();
 
@@ -129,12 +128,14 @@ public class LoginController extends SimpleFormController {
         UrlUtil urlUtil = new UrlUtil();
         String redirectUrl;
         if (user.isPasswordEmpty()) {
+            PageHelper.setMemberCookie(request, response, user);
             // TODO: how to deal with this case and authentication
             // for users who need passwords, send them to the registration page
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null,
                     email, loginCommand.getRedirect());
             redirectUrl = builder.asFullUrl(request);
         } else {
+            PageHelper.setMemberAuthorized(request, response, user);
             if (StringUtils.isEmpty(loginCommand.getRedirect())) {
                 loginCommand.setRedirect(LoginController.DEFAULT_REDIRECT_URL);
             }

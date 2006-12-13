@@ -101,6 +101,9 @@ public class AuthenticationManager {
         rval.append(getParameterValue(authInfo));
         rval.append("/redirect.");
         String encodedParam;
+        if (targetLocation.startsWith("http://")) {
+            targetLocation = targetLocation.substring("http://".length());
+        }
         try {
             encodedParam = URLEncoder.encode(targetLocation, "UTF-8");
         } catch (UnsupportedEncodingException e) {
