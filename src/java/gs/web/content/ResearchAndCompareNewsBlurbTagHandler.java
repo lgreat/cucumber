@@ -66,7 +66,7 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
         put(State.NJ, AMY_RICKERSON);
         put(State.NM, ELIZABETH_GARDNER);
         put(State.NV, ELIZABETH_GARDNER);
-        put(State.NY, AMY_RICKERSON);
+        put(State.NY, ELIZABETH_GARDNER);
         put(State.OH, ELIZABETH_GARDNER);
         put(State.OK, ELIZABETH_GARDNER);
         put(State.OR, AMY_RICKERSON);
