@@ -589,6 +589,50 @@
         </attribute>
     </tag>
     <tag>
+        <name>loginOrRegister</name>
+        <tag-class>gs.web.jsp.link.LoginOrRegisterTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Sign in</display-name>
+        <description>
+            <![CDATA[Log in to community or create a new account.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>redirect</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>url to redirect to after registration</description>
+        </attribute>
+        <attribute>
+            <name>email</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Email address to pre-populate with on registration page</description>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Title attribute</description>
+        </attribute>
+    </tag>
+    <tag>
         <name>forgotPassword</name>
         <tag-class>gs.web.jsp.link.ForgotPasswordTagHandler</tag-class>
         <body-content>JSP</body-content>

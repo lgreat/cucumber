@@ -388,6 +388,14 @@ h1 span {
 	margin: 0 0 15px 0;
 }
 
+#myaccount_forgotpassword a {
+    color: #3399aa;
+    text-decoration: underline;
+    font-size: 13px;
+    line-height: 16px;
+    font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+}
+
 #myaccount_forgotpassword input {
 	width: 230px;
 	margin: 0 0 30px 0;

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.24 2006/11/13 18:55:54 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.25 2006/12/14 18:22:59 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -261,6 +261,23 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/community/registration.page", builder.asSiteRelative(null));
+    }
+
+    public void testLoginOrRegister() {
+        LoginOrRegisterTagHandler tagHandler = new LoginOrRegisterTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/community/loginOrRegister.page", builder.asSiteRelative(null));
+
+        tagHandler.setEmail("email@example.org");
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/community/loginOrRegister.page?email=email%40example.org", builder.asSiteRelative(null));
+
+        tagHandler.setRedirect("/community/accountInfo.page");
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/community/loginOrRegister.page" +
+                "?email=email%40example.org" +
+                "&redirect=%2Fcommunity%2FaccountInfo.page", builder.asSiteRelative(null));
     }
 
     public void testForgotPassword() {
