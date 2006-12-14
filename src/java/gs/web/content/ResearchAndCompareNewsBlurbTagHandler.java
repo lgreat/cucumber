@@ -31,7 +31,7 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
     public static final int ROUND_DOWN_TO_NEAREST = 100;
     public static final String AMY_RICKERSON = "Amy Rickerson";
     public static final String ELIZABETH_GARDNER = "Elizabeth Gardner";
-    private static final Map _stateToOwner = new HashMap() {{
+    private static Map _stateOwners = new HashMap() {{
         put(State.AK, ELIZABETH_GARDNER);
         put(State.AL, AMY_RICKERSON);
         put(State.AR, ELIZABETH_GARDNER);
@@ -85,6 +85,10 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
         put(State.WY, AMY_RICKERSON);
     }};
 
+
+    public static void setStateOwners(Map stateOwners) {
+        ResearchAndCompareNewsBlurbTagHandler._stateOwners = stateOwners;
+    }
 
     public State getState() {
         return _state;
@@ -228,7 +232,7 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
 
     protected void printFooter(JspWriter out) throws IOException {
         out.print(openParagraph());
-        String owner = (String) _stateToOwner.get(_state);
+        String owner = (String) _stateOwners.get(_state);
         if (StringUtils.isNotBlank(owner)) {
             out.print("<span class=\"printName\">" + owner + "</span>");
             out.print("<span class=\"italicTitle\">");

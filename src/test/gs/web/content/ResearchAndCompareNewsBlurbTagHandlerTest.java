@@ -10,6 +10,7 @@ import gs.data.state.State;
 
 import javax.servlet.jsp.PageContext;
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.easymock.MockControl;
 
@@ -119,38 +120,41 @@ public class ResearchAndCompareNewsBlurbTagHandlerTest extends TestCase {
 
     }
 
-    public void testPrintFooterForAmy() throws IOException {
-        _tag.setState(State.CA);
+    public void testPrintFooter() throws IOException {
+        _tag.setStateOwners(new HashMap() {{
+                put(State.AK, ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER);
+                put(State.AL, ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON);
+        }});
+
+        _tag.setState(State.AK);
         MockJspWriter writer = new MockJspWriter();
         _tag.printFooter(writer);
 
         StringBuffer output = writer.getOutputBuffer();
-        assertTrue("Expected " + ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON + " for CA",
+        assertTrue("Expected " + ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER + " for AK",
+                output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER) != -1);
+        assertTrue("Didn't expect " + ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON + " for AK",
+                output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON) == -1);
+
+        _tag.setState(State.AL);
+        writer = new MockJspWriter();
+        _tag.printFooter(writer);
+
+        output = writer.getOutputBuffer();
+        assertTrue("Didn't expect " + ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER + " for AL",
+                output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER) == -1);
+        assertTrue("Expected " + ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON + " for AL",
                 output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON) != -1);
 
-    }
-
-    public void testPrintFooterForElizabeth() throws IOException {
-        _tag.setState(State.AZ);
-        MockJspWriter writer = new MockJspWriter();
-        _tag.printFooter(writer);
-
-        StringBuffer output = writer.getOutputBuffer();
-        assertTrue("Expected " + ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER + " for AZ",
-                output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER) != -1);
-
-    }
-
-    public void testPrintFooterForUnknownState() throws IOException {
         _tag.setState(null);
-        MockJspWriter writer = new MockJspWriter();
+        writer = new MockJspWriter();
         _tag.printFooter(writer);
 
-        StringBuffer output = writer.getOutputBuffer();
+        output = writer.getOutputBuffer();
         assertTrue("Expected " + ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER + " for null state",
                 output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER) != -1);
-
         assertTrue("Expected " + ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON + " for null state",
                 output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON) != -1);
+
     }
 }
