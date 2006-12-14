@@ -24,6 +24,7 @@
         <pattern>*/content/box/*</pattern>
         <pattern>*/search/raw.page*</pattern>
         <pattern>*/gsHeader.page*</pattern>
+        <pattern>*/gsFooter.page*</pattern>
     </excludes>
 
 </decorators>

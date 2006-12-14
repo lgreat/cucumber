@@ -136,6 +136,13 @@
         </property>
     </bean>
 
+    <bean name="/gsFooter.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName">
+            <value>gsFooter</value>
+        </property>
+    </bean>
+
     <bean name="/community/betaUnsubscribe.page" class="gs.web.community.BetaUnsubscribeController"
           autowire="byName" lazy-init="true">
         <property name="commandName">
@@ -906,7 +913,7 @@
             </list>
         </property>
     </bean>
-    
+
     <bean name="/school/rating2.page"
           class="gs.web.test.rating.RatingsController"
           autowire="byName" lazy-init="true">

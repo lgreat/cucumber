@@ -138,7 +138,11 @@
     </filter-mapping>
     <!-- End Sitemesh -->
 
-
+    <filter-mapping>
+        <filter-name>httpcacheheader</filter-name>
+        <url-pattern>/gsFooter.page</url-pattern>
+    </filter-mapping>
+    
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jspx</url-pattern>
