@@ -15,8 +15,9 @@
 
 <div id="footerSearch">
 
+<div id="toggleLinks">
 <c:if test="${not empty requestScope.context.state}">
-<span onclick="toggleById('footerSearchStateSpecific');">${longName} school information (<a href="#bottom">click
+    <span onclick="toggleById('footerSearchStateSpecific');">${longName} school information (<a href="#bottom">click
     to expand</a>)</span>
 </c:if>
 <span onclick="toggleById('footerSearchStates');">School information by state (<a href="#bottom">click
@@ -27,6 +28,7 @@
 <span onclick="toggleById('footerSearchDistricts');">School information by district (<a href="#bottom">click
     to expand</a>)</span>
 </c:if>
+</div>
 
 <div id="footerCopyright">
     &amp;#169;1998-2006 GreatSchools Inc. All Rights Reserved.
