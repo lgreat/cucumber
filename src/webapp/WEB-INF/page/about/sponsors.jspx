@@ -50,7 +50,7 @@
     <li><a href="#corporate">Corporate/In-Kind Donations</a></li>
     <li><a href="#realestate">Real Estate/Web Developer Partners</a></li>
     <li><a href="#advertising">Advertising Sponsorships</a></li>
-    <li><a href="#data">School Data Sponsorships</a></li>
+    <li><a href="#data">School Data Partnerships</a></li>
 </ul>
 
 <![CDATA[ <a name="foundations"></a> ]]>
@@ -155,7 +155,7 @@
 
 <![CDATA[ <a name="data"></a> ]]>
 
-<h3>School Data Sponsorships</h3>
+<h3>School Data Partnerships</h3>
 
 <gsml:a href="http://www.DataQualityCampaign.org" target="_blank">
     <gsml:img src="/res/img/about/dqc_logo_200.jpg" alt="Data Quality Campaign" id="dqc_icon"/>
