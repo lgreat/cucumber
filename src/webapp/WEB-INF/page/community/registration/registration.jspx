@@ -75,6 +75,7 @@
   </head>
   <gsml:body adPageName="registration">
     <pageHelper:addOnLoadHandler handler="insertFormField()"/>
+    <pageHelper:addOnLoadHandler handler="determinePageState()"/>
     <div id="reg_1">
         <h1><span>Join</span></h1>
         <div id="outline"><!-- creates darker blue outer outline -->
