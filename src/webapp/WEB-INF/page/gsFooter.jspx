@@ -19,6 +19,9 @@
         <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
         <style>
             #toggleLinks { display:none; }
+            #footerGS {
+                font-size:xx-small;
+            }
         </style>
     </head>
     <body>
