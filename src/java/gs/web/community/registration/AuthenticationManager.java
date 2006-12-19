@@ -19,7 +19,7 @@ import org.apache.commons.lang.StringUtils;
 public class AuthenticationManager {
     protected final Log _log = LogFactory.getLog(getClass());
 
-    private long _timeout = 1000 * 60 * 5; // 5 minutes
+    private long _timeout = 1000 * 60 * 30; // 30 minutes
     private String _parameterName = "authInfo"; // default
     private int _userIdLength = 10; // default
     public static final String WEBCROSSING_FORWARD_URL = "http://community.greatschools.net/entry/authInfo.";
@@ -132,7 +132,6 @@ public class AuthenticationManager {
             // for URLs that look normal
             rval.append(generateRedirectUrl(originalUrl, authInfo));
         }
-        _log.info("Setting redirect URL to: " + rval.toString());
         return rval.toString();
     }
 

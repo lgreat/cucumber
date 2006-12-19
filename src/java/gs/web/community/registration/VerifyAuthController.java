@@ -37,7 +37,6 @@ public class VerifyAuthController extends AbstractController {
         Map model = new HashMap();
         GetUserProfileController.UserProfileInfo upi = null;
         String authInfo = request.getParameter(_authenticationManager.getParameterName());
-        _log.info("authInfo=" + authInfo);
         if (authInfo != null) {
             Integer id = null;
             try {
@@ -46,7 +45,6 @@ public class VerifyAuthController extends AbstractController {
                 }
                 if (authInfo.indexOf(' ') > -1) {
                     authInfo = authInfo.replace(' ', '+');
-                    _log.info("Replacing spaces with +'s: " + authInfo);
                 }
                 id = _authenticationManager.getUserIdFromParameter(authInfo);
                 User user = _userDao.findUserFromId(id.intValue());

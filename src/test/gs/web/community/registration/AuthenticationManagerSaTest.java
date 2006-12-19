@@ -48,7 +48,7 @@ public class AuthenticationManagerSaTest extends TestCase {
 
         Date origDate = _authInfo.getTimestamp();
         try {
-            _authInfo.setTimestamp(new Date(origDate.getTime() + 5000));
+            _authInfo.setTimestamp(new Date(origDate.getTime() + _authManager.getTimeout()));
             assertFalse(_authManager.verifyAuthInfo(_user, _authInfo));
         } finally {
             _authInfo.setTimestamp(origDate);
