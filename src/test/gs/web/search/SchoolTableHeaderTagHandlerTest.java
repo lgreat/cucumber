@@ -5,47 +5,56 @@ import junit.framework.TestCase;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.JspFragment;
 import java.io.IOException;
-import java.io.Writer;
 
 import gs.web.jsp.MockPageContext;
 import gs.web.jsp.MockJspWriter;
 import gs.web.BaseControllerTestCase;
 import gs.data.state.State;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockServletContext;
 
 /**
  * @author thuss
  */
 public class SchoolTableHeaderTagHandlerTest extends BaseControllerTestCase {
+    private SchoolTableHeaderTagHandlerTestCase _tag;
+    private MockPageContext _jspContext;
 
-    public void testSchoolTableHeaderTag() throws IOException, JspException {
-        // Setup the tag for testing
+    public void setUp() {
         MockPageContext jspContext = new MockPageContext();
-        jspContext.setAttribute(PageContext.PAGECONTEXT, jspContext);
-        SchoolTableHeaderTagHandlerTestCase tag = new SchoolTableHeaderTagHandlerTestCase();
-        tag.setApplicationContext(getApplicationContext());
-        tag.setDistrictId(new Integer(18));
-        tag.setJspContext(jspContext);
+        _jspContext = jspContext;
+        _jspContext.setAttribute(PageContext.PAGECONTEXT, jspContext);
+        _tag = new SchoolTableHeaderTagHandlerTestCase();
+        _tag.setApplicationContext(getApplicationContext());
+
+        _tag.setJspContext(jspContext);
+
+    }
+
+    public void testDistrict() throws IOException, JspException {
+        // Setup the tag for testing
+        _tag.setDistrictId(new Integer(18));
 
         // Execute the tag
-        tag.doTag();
-        String output = ((MockJspWriter) jspContext.getOut()).getOutputBuffer().toString();
+        _tag.doTag();
+        String output = ((MockJspWriter) _jspContext.getOut()).getOutputBuffer().toString();
         assertTrue(output.indexOf("Schools in Anchorage School District") > -1);
         assertTrue(output.indexOf("/cgi-bin/ak/district_profile/") > -1);
         assertTrue(output.indexOf("Elementary") > -1);
         assertTrue(output.indexOf("Middle") > -1);
         assertTrue(output.indexOf("High") > -1);
+    }
 
-        // Try it on a city
-//        tag.setDistrictId(null);
-//        tag.setCityName("Anchorage");
-//        tag.doTag();
-//        output = ((MockJspWriter) jspContext.getOut()).getOutputBuffer().toString();
-//        System.out.println(output);
+    public void testCity() throws IOException, JspException {
+        // Setup the tag for testing
+        _tag.setCityName("Long City Name");
+        _tag.setCityDisplayName("Some City");
 
+        // Execute the tag
+        _tag.doTag();
+        String output = ((MockJspWriter) _jspContext.getOut()).getOutputBuffer().toString();
+        assertTrue(output.indexOf("Some City Schools") > -1);
+        assertTrue(output.indexOf("/city/Long_City_Name/AK") > -1);
+        assertTrue(output.indexOf("public schools") > -1);
     }
 
     /**
