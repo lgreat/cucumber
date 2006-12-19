@@ -144,25 +144,4 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
         }
         return s;
     }
-
-    /**
-     * Writes an <a href> tag which links to the all articles page.
-     *
-     * @throws IOException
-     * @todo rewrite to use UrlBuilder (which needs the request)
-     */
-    protected void writeBrowseAllArticlesLink(JspWriter out) throws IOException {
-        //UrlBuilder builder = new UrlBuilder(UrlBuilder.ARTICLE_LIBRARY, getStateOrDefault());
-        //out.print(builder.asAHref(request, "Browse all articles"));
-
-        out.print("<a href=\"http://");
-        out.print(getHostname());
-        out.print("/content/allArticles.page?state=");
-        out.print(getStateOrDefault().getAbbreviation());
-        out.print("\">Browse all articles</a>");
-    }
-
-    public void setQuery(String q) {
-        _query = Functions.escapeXml(q);
-    }
 }
