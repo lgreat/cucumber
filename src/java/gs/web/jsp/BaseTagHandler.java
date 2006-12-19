@@ -7,7 +7,6 @@ import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.web.util.context.ISessionContext;
 import gs.web.util.context.SessionContext;
-import gs.web.util.context.ISessionContext;
 import org.apache.log4j.Logger;
 import org.apache.taglibs.standard.functions.Functions;
 import org.springframework.context.ApplicationContext;
@@ -43,7 +42,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
     /**
      * Used for unit testing.
      */
-    protected void setApplicationContext(ApplicationContext context) {
+    public void setApplicationContext(ApplicationContext context) {
         _applicationContext = context;
     }
 
@@ -52,25 +51,14 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
      */
     protected ISchoolDao getSchoolDao() {
         if (_schoolDao == null) {
-            try {
-                _schoolDao = (ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID);
-            } catch (Exception e) {
-                _log.warn("problem getting ISchoolDao: ", e);
-            }
+            _schoolDao = (ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID);
         }
         return _schoolDao;
     }
 
     protected IArticleDao getArticleDao() {
         if (_articleDao == null) {
-            try {
-                ISessionContext sc = getSessionContext();
-                if (sc != null) {
-                    _articleDao = (IArticleDao) sc.getApplicationContext().getBean(IArticleDao.BEAN_ID);
-                }
-            } catch (Exception e) {
-                _log.warn("problem getting IArticleDao: ", e);
-            }
+            _articleDao = (IArticleDao) getApplicationContext().getBean(IArticleDao.BEAN_ID);
         }
         return _articleDao;
     }
@@ -99,14 +87,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
      */
     protected IDistrictDao getDistrictDao() {
         if (_districtDao == null) {
-            try {
-                ISessionContext sc = getSessionContext();
-                if (sc != null) {
-                    _districtDao = (IDistrictDao) sc.getApplicationContext().getBean(IDistrictDao.BEAN_ID);
-                }
-            } catch (Exception e) {
-                _log.warn("problem getting IDistrictDao: ", e);
-            }
+            _districtDao = (IDistrictDao) getApplicationContext().getBean(IDistrictDao.BEAN_ID);
         }
         return _districtDao;
     }

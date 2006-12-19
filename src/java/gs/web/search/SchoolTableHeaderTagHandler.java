@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.12 2006/07/03 17:50:14 apeterson Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.13 2006/12/19 18:26:35 thuss Exp $
  */
 
 package gs.web.search;
@@ -45,7 +45,6 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
     private static final Log _log = LogFactory.getLog(SchoolTableHeaderTagHandler.class);
 
     public void doTag() throws IOException {
-
         PageContext pc = (PageContext) getJspContext().findAttribute(PageContext.PAGECONTEXT);
         HttpServletRequest request = (HttpServletRequest) pc.getRequest();
 
