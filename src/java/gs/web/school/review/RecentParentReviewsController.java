@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsController.java,v 1.10 2006/07/13 07:53:59 apeterson Exp $
+ * $Id: RecentParentReviewsController.java,v 1.11 2006/12/19 01:04:17 thuss Exp $
  */
 
 package gs.web.school.review;
@@ -44,6 +44,13 @@ public class RecentParentReviewsController extends AbstractController {
      */
     public static final String PARAM_CITY = "city";
     public static final String PARAM_MAX = "max";
+    public static final String PARAM_MAX_AGE = "maxage"; // in days
+
+    public static int DEFAULT_MAX = 3;
+    public static int DEFAULT_MAX_AGE = 90;
+
+    private IReviewDao _reviewDao;
+    private ISchoolDao _schoolDao;
 
     /**
      * List of IParentReviewModel objects.
@@ -62,25 +69,19 @@ public class RecentParentReviewsController extends AbstractController {
         String getQuip();
     }
 
-
-    public static final int DEFAULT_MAX = 3;
-
-    private IReviewDao _reviewDao;
-    private ISchoolDao _schoolDao;
-
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         ISessionContext sc = SessionContextUtil.getSessionContext(request);
         State state = sc.getState();
 
         String city = request.getParameter(PARAM_CITY);
-        int max = DEFAULT_MAX;
+        int maxReviews = DEFAULT_MAX;
         if (request.getParameter(PARAM_MAX) != null) {
-            max = Integer.parseInt(request.getParameter(PARAM_MAX));
+            maxReviews = Integer.parseInt(request.getParameter(PARAM_MAX));
         }
 
         List reviewIds =
-                _reviewDao.findRecentReviewsInCity(state, city, max, 90);
+                _reviewDao.findRecentReviewsInCity(state, city, maxReviews, DEFAULT_MAX_AGE);
 
 
         List reviews = new ArrayList();
@@ -98,16 +99,8 @@ public class RecentParentReviewsController extends AbstractController {
         return modelAndView;
     }
 
-    public IReviewDao getReviewDao() {
-        return _reviewDao;
-    }
-
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
-    }
-
-    public ISchoolDao getSchoolDao() {
-        return _schoolDao;
     }
 
     public void setSchoolDao(ISchoolDao schoolDao) {

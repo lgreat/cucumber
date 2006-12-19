@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsControllerTest.java,v 1.3 2006/07/13 07:54:00 apeterson Exp $
+ * $Id: RecentParentReviewsControllerTest.java,v 1.4 2006/12/19 01:04:17 thuss Exp $
  */
 
 package gs.web.school.review;
@@ -31,9 +31,9 @@ public class RecentParentReviewsControllerTest extends BaseControllerTestCase {
         _controller.setApplicationContext(getApplicationContext());
         _controller.setReviewDao((IReviewDao) getApplicationContext().getBean(IReviewDao.BEAN_ID));
         _controller.setSchoolDao((ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID));
-
         _sessionContextUtil = (SessionContextUtil) getApplicationContext().
                 getBean(SessionContextUtil.BEAN_ID);
+        RecentParentReviewsController.DEFAULT_MAX_AGE = 99999;
     }
 
     public void testRecentParentReviewsController() throws Exception {
@@ -41,12 +41,15 @@ public class RecentParentReviewsControllerTest extends BaseControllerTestCase {
         GsMockHttpServletRequest request = getRequest();
         request.setParameter("state", "AK");
         request.setParameter("city", "Anchorage");
-        _sessionContextUtil.prepareSessionContext(request, getResponse());
+        request.setParameter(RecentParentReviewsController.PARAM_MAX, "10");
+        _sessionContextUtil.prepareSessionContext(request, getResponse());        
 
         ModelAndView mav = _controller.handleRequestInternal(request, getResponse());
 
         List parentReviewList =
                 (List) mav.getModel().get(RecentParentReviewsController.MODEL_REVIEW_LIST);
+
+        assertTrue(parentReviewList.size() == 10);
 
         for (Iterator iter = parentReviewList.iterator(); iter.hasNext();) {
             RecentParentReviewsController.IParentReviewModel review =
