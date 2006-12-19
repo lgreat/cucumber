@@ -1,8 +1,8 @@
 package gs.web.search;
 
-import gs.web.jsp.BaseTagHandlerTestCase;
 import gs.web.jsp.MockPageContext;
 import gs.web.jsp.MockJspWriter;
+import gs.web.BaseTestCase;
 import gs.data.state.State;
 import gs.data.school.School;
 import gs.data.school.LevelCode;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 /**
  * @author thuss
  */
-public class SchoolTableTagHandlerTest extends BaseTagHandlerTestCase {
+public class SchoolTableTagHandlerTest extends BaseTestCase {
 
     private SchoolTableTagHandlerTestCase _tag;
     private MockPageContext _jspContext;
