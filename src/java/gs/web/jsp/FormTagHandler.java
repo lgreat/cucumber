@@ -72,48 +72,24 @@ public class FormTagHandler extends TagSupport {
         return EVAL_PAGE;
     }
 
-    public String getAction() {
-        return _action;
-    }
-
     public void setAction(String action) {
         this._action = action;
-    }
-
-    public String getMethod() {
-        return _method;
     }
 
     public void setMethod(String method) {
         this._method = method;
     }
 
-    public String getOnsubmit() {
-        return _onsubmit;
-    }
-
     public void setOnsubmit(String onsubmit) {
         this._onsubmit = onsubmit;
-    }
-
-    public String getId() {
-        return _id;
     }
 
     public void setId(String id) {
         this._id = id;
     }
 
-    public String getTarget() {
-        return _target;
-    }
-
     public void setTarget(String target) {
         this._target = target;
-    }
-
-    public String getStyleClass() {
-        return _styleClass;
     }
 
     public void setStyleClass(String styleClass) {

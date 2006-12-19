@@ -56,10 +56,7 @@ public class SchoolTableHeaderTagHandlerTest extends BaseControllerTestCase {
     }
 
     /**
-     * A more easily testable DeferredContentTagHandler that
-     * allows the test to provide a mock or stubbed JspContext,
-     * access the resulting output of the tag, and set what the body of
-     * the tag should evaluate to.
+     * A more easily testable version of the tag handler
      */
     public class SchoolTableHeaderTagHandlerTestCase extends SchoolTableHeaderTagHandler {
 
@@ -78,8 +75,6 @@ public class SchoolTableHeaderTagHandlerTest extends BaseControllerTestCase {
         protected State getState() {
             return State.AK;
         }
-
-
     }
 
 }

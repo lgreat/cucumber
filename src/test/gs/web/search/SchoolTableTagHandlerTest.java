@@ -61,7 +61,6 @@ public class SchoolTableTagHandlerTest extends BaseTagHandlerTestCase {
     }
 
     public void testRefinementFilteredToNone() throws IOException, JspException {
-        List schools = new ArrayList();
         _tag.setLevelCode(LevelCode.ELEMENTARY);
         _tag.setSchoolType(new String[]{"public", "private", "charter"});
         _tag.setJspBodyXhtml("body content");
@@ -75,10 +74,7 @@ public class SchoolTableTagHandlerTest extends BaseTagHandlerTestCase {
     }
 
     /**
-     * A more easily testable DeferredContentTagHandler that
-     * allows the test to provide a mock or stubbed JspContext,
-     * access the resulting output of the tag, and set what the body of
-     * the tag should evaluate to.
+     * A more easily testable version
      */
     public class SchoolTableTagHandlerTestCase extends SchoolTableTagHandler {
 
