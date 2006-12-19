@@ -21,6 +21,12 @@ public class ResponseInterceptor implements HandlerInterceptor {
      */
     public static final String TRNO_COOKIE = "TRNO";
 
+    public static final String HEADER_CACHE_CONTROL = "Cache-Control";
+
+    public static final String HEADER_PRAGMA = "Pragma";
+
+    public static final String HEADER_EXPIRES = "Expires";
+
     private static final Log _log = LogFactory.getLog(ResponseInterceptor.class);
 
 
@@ -87,9 +93,9 @@ public class ResponseInterceptor implements HandlerInterceptor {
         * tag doesn't work due to a sitemesh bug (see gsml:nocache tag for more info) it's here
         * for the time being.
         */
-        response.setHeader("Cache-Control", "no-cache");
-        response.setHeader("Pragma", "no-cache");
-        response.setDateHeader("Expires", 0);
+        response.setHeader(HEADER_CACHE_CONTROL, "no-cache");
+        response.setHeader(HEADER_PRAGMA, "no-cache");
+        response.setDateHeader(HEADER_EXPIRES, 0);
     }
 
 
