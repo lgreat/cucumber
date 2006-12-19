@@ -1,7 +1,5 @@
 package gs.web.search;
 
-import junit.framework.TestCase;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.PageContext;

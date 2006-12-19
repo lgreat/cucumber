@@ -1,7 +1,6 @@
 package gs.web.search;
 
 import gs.data.school.LevelCode;
-import gs.data.school.district.District;
 import gs.web.jsp.Util;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
@@ -34,8 +33,6 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
     private List _schools = null;
     private String _srcQuery = null;
     private Boolean _showAll;
-    private String _cityName;
-    private Integer _districtId;
     private LevelCode _levelCode;
     private String[] _schoolType;
     private static final Log _log = LogFactory.getLog(SchoolTableTagHandler.class);
@@ -58,55 +55,12 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
         boolean showall = _showAll != null && _showAll.booleanValue();
 
-
-        District district = null;
-        if (_districtId != null && _districtId.intValue() != 0) {
-            district = getDistrictDao().findDistrictById(getState(), _districtId);
-        }
-
-
         JspWriter out = getJspContext().getOut();
 
-        StringBuffer filterBuffer = new StringBuffer();
-        if (_levelCode != null) {
-            for (Iterator i = _levelCode.getIterator(); i.hasNext();) {
-                LevelCode.Level level = (LevelCode.Level) i.next();
-                String qs = "";
-                if (filterBuffer.length() > 0) {
-                    filterBuffer.append(" | ");
-                }
-                filterBuffer.append(Util.capitalize(level.getLongName()));
-                qs = qString.replaceAll("\\&lc=" + level.getName(), "");
-                filterBuffer.append(" (<a href=\"");
-                filterBuffer.append(urlUtil.buildUrl("/schools.page?" + qs, request));
-                filterBuffer.append("\">remove</a>)");
-            }
+        boolean filtered = false;
+        if (_levelCode != null || _schoolType != null) {
+            filtered = true;
         }
-
-        if (_schoolType != null) {
-            for (int i = 0; i < _schoolType.length; i++) {
-                String qs = "";
-                if (filterBuffer.length() > 0) {
-                    filterBuffer.append(" | ");
-                }
-                filterBuffer.append(Util.capitalize(_schoolType[i]));
-                if ("public".equals(_schoolType[i])) {
-                    qs = qString.replaceAll("\\&st=public", "");
-                } else if ("private".equals(_schoolType[i])) {
-                    qs = qString.replaceAll("\\&st=private", "");
-                } else if ("charter".equals(_schoolType[i])) {
-                    qs = qString.replaceAll("\\&st=charter", "");
-                }
-
-                StringBuffer urlBuffer = new StringBuffer("/schools.page?");
-                urlBuffer.append(qs);
-                filterBuffer.append(" (<a href=\"");
-                filterBuffer.append(urlUtil.buildUrl(urlBuffer.toString(), request));
-
-                filterBuffer.append("\">remove</a>)");
-            }
-        }
-
 
         out.println("<table class=\"school_results_only\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
 
@@ -134,7 +88,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             out.println("</td><tr><td></td><td align=\"right\" style=\"padding-right:15px;padding-bottom:5px\">");
             if (!showall && (_total > PAGE_SIZE)) {
                 out.print("<a href=\"");
-                String showAllHref = "";
+                String showAllHref;
                 StringBuffer hrefBuffer = new StringBuffer("/schools.page?");
                 hrefBuffer.append(qString);
                 hrefBuffer.append("&amp;showall=true");
@@ -145,7 +99,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             out.println("</td></tr><td>");
 
         } else {
-            if (filterBuffer.length() > 0) {
+            if (filtered) {
                 out.println("<tr><th class=\"left result_title\">Your refinement did not return any results.</th></tr>");
             } else {
                 out.println("<tr><th class=\"left result_title\">No schools found</th></tr>");
@@ -170,22 +124,6 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
     public void setShowAll(Boolean showAll) {
         _showAll = showAll;
-    }
-
-    public String getCityName() {
-        return _cityName;
-    }
-
-    public void setCityName(String cityName) {
-        _cityName = cityName;
-    }
-
-    public Integer getDistrictId() {
-        return _districtId;
-    }
-
-    public void setDistrictId(Integer districtId) {
-        _districtId = districtId;
     }
 
     public LevelCode getLevelCode() {

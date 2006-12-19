@@ -234,8 +234,6 @@
                                total="${results.total}"
                                srcQuery="${pageContext.request.queryString}"
                                showAll="${results.showAll}"
-                               cityName="${cityName}"
-                               districtId="${district}"
                                schoolType="${st}"
                                levelCode="${lc}"
                     >
