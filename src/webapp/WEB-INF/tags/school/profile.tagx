@@ -32,7 +32,13 @@
     } catch (Exception e){}
 </jsp:scriptlet>
 
+<script language="javascript">
+    var deliciousUrl = 'http://del.icio.us/post?v=4;url='+encodeURIComponent(location.href)+';title='+encodeURIComponent(document.title);
 
+    function openDelicious() {
+        alert('popup blocked');
+    }
+</script>
 
 <c:set var="state" value="${school.physicalAddress.state}"/>
 <c:set var="city" value="${school.physicalAddress.city}"/>
@@ -54,10 +60,9 @@
 <div id="schoolProfile">
 <div id="printEmail" class="noprint">
     <gsml:url var="mailToFriendUrl" value="/community/mailToFriend.page?schoolId=${school.id}&amp;refer=${tab}"/>
-    <gsml:url var="deliciousUrl" value="http://del.icio.us/post?v=4;url='+encodeURIComponent(location.href)+';title='+encodeURIComponent(document.title)"/>
     <a href="javascript:window.print();">Print this page</a>&amp;nbsp;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&amp;nbsp;
     <gsml:a href="${mailToFriendUrl}" onClick=" window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email to a friend</gsml:a>&amp;nbsp;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&amp;nbsp;
-    <gsml:a href="${deliciousUrl}" onClick=" window.open('${deliciousUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Add to del.icio.us</gsml:a>
+    <a href="javascript:openDelicious()" onClick="window.open(deliciousUrl, 'win', 'width=600,height=550,scrollbars=yes'); return false;">Add to del.icio.us</a>
 </div>
     <div class="wrap0">
         <div class="wrap1">
