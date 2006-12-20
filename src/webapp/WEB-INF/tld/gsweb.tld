@@ -176,23 +176,23 @@
         </attribute>
     </tag>
 
-    <tag>
-        <name>interestsList</name>
-        <tag-class>gs.web.jsp.link.InterestsListTagHandler</tag-class>
-        <body-content>empty</body-content>
-        <attribute>
-            <name>styleClass</name>
-            <description>CSS class to assign to each checkbox and label.</description>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>interestChoices</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.util.List</type>
-        </attribute>
-    </tag>
+    <!--<tag>-->
+        <!--<name>interestsList</name>-->
+        <!--<tag-class>gs.web.jsp.link.InterestsListTagHandler</tag-class>-->
+        <!--<body-content>empty</body-content>-->
+        <!--<attribute>-->
+            <!--<name>styleClass</name>-->
+            <!--<description>CSS class to assign to each checkbox and label.</description>-->
+            <!--<required>false</required>-->
+            <!--<rtexprvalue>true</rtexprvalue>-->
+        <!--</attribute>-->
+        <!--<attribute>-->
+            <!--<name>interestChoices</name>-->
+            <!--<required>false</required>-->
+            <!--<rtexprvalue>true</rtexprvalue>-->
+            <!--<type>java.util.List</type>-->
+        <!--</attribute>-->
+    <!--</tag>-->
 
     <tag>
         <name>previousSchoolsList</name>

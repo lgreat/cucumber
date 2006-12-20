@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.25 2006/12/14 18:22:59 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.26 2006/12/20 18:20:36 thuss Exp $
  */
 
 package gs.web.jsp.link;
@@ -210,6 +210,21 @@ public class LinkTagHandlerTest extends BaseTestCase {
         assertEquals(refBuilder.asSiteRelative(null), builder.asSiteRelative(null));
     }
 
+    public void testHome() {
+        HomeTagHandler tagHandler = new HomeTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/", builder.asSiteRelative(null));
+    }
+
+    public void testDistricts() {
+        DistrictsTagHandler tagHandler = new DistrictsTagHandler();
+        tagHandler.setState(State.AK);
+        tagHandler.setPageContext(new MockPageContext());
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/modperl/districts/AK", builder.asSiteRelative(null));
+    }
+
     public void testSchools() {
         SchoolsTagHandler tagHandler = new SchoolsTagHandler();
         tagHandler.setCity(new City("New York", State.NY));
@@ -374,5 +389,5 @@ public class LinkTagHandlerTest extends BaseTestCase {
         assertTrue(results.indexOf("<option value=\"KG\">K</option>") > -1);
     }
 
-    
+
 }
