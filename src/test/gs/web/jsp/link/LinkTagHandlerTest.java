@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.26 2006/12/20 18:20:36 thuss Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.27 2006/12/20 18:28:53 thuss Exp $
  */
 
 package gs.web.jsp.link;
@@ -217,6 +217,20 @@ public class LinkTagHandlerTest extends BaseTestCase {
         assertEquals("/", builder.asSiteRelative(null));
     }
 
+    public void testSignIn() {
+        SignInTagHandler tagHandler = new SignInTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/cgi-bin/msl_login/ca", builder.asSiteRelative(null));
+    }
+
+    public void testSignOut() {
+        SignOutTagHandler tagHandler = new SignOutTagHandler();
+        tagHandler.setPageContext(new MockPageContext());
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/cgi-bin/logout/CA", builder.asSiteRelative(null));
+    }
+
     public void testDistricts() {
         DistrictsTagHandler tagHandler = new DistrictsTagHandler();
         tagHandler.setState(State.AK);
@@ -276,6 +290,14 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/community/registration.page", builder.asSiteRelative(null));
+
+        tagHandler.setEmail("test@gs.net");
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/community/registration.page?email=test%40gs.net", builder.asSiteRelative(null));
+
+        tagHandler.setRedirect("/somepage");
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/community/registration.page?email=test%40gs.net&redirect=%2Fsomepage", builder.asSiteRelative(null));
     }
 
     public void testLoginOrRegister() {

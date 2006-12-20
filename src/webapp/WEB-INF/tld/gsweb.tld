@@ -194,41 +194,41 @@
         <!--</attribute>-->
     <!--</tag>-->
 
-    <tag>
-        <name>previousSchoolsList</name>
-        <tag-class>gs.web.jsp.link.PreviousSchoolsListTagHandler</tag-class>
-        <body-content>empty</body-content>
-        <attribute>
-            <name>schoolStyleClass</name>
-            <description>CSS class to assign to the school name input and label.</description>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>stateStyleClass</name>
-            <description>CSS class to assign to the state select and label.</description>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <name>schoolValues</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.util.List</type>
-        </attribute>
-        <attribute>
-            <name>schoolNames</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.util.List</type>
-        </attribute>
-        <attribute>
-            <name>defaultState</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>gs.data.state.State</type>
-        </attribute>
-    </tag>
+    <!--<tag>-->
+        <!--<name>previousSchoolsList</name>-->
+        <!--<tag-class>gs.web.jsp.link.PreviousSchoolsListTagHandler</tag-class>-->
+        <!--<body-content>empty</body-content>-->
+        <!--<attribute>-->
+            <!--<name>schoolStyleClass</name>-->
+            <!--<description>CSS class to assign to the school name input and label.</description>-->
+            <!--<required>false</required>-->
+            <!--<rtexprvalue>true</rtexprvalue>-->
+        <!--</attribute>-->
+        <!--<attribute>-->
+            <!--<name>stateStyleClass</name>-->
+            <!--<description>CSS class to assign to the state select and label.</description>-->
+            <!--<required>false</required>-->
+            <!--<rtexprvalue>true</rtexprvalue>-->
+        <!--</attribute>-->
+        <!--<attribute>-->
+            <!--<name>schoolValues</name>-->
+            <!--<required>false</required>-->
+            <!--<rtexprvalue>true</rtexprvalue>-->
+            <!--<type>java.util.List</type>-->
+        <!--</attribute>-->
+        <!--<attribute>-->
+            <!--<name>schoolNames</name>-->
+            <!--<required>false</required>-->
+            <!--<rtexprvalue>true</rtexprvalue>-->
+            <!--<type>java.util.List</type>-->
+        <!--</attribute>-->
+        <!--<attribute>-->
+            <!--<name>defaultState</name>-->
+            <!--<required>false</required>-->
+            <!--<rtexprvalue>true</rtexprvalue>-->
+            <!--<type>gs.data.state.State</type>-->
+        <!--</attribute>-->
+    <!--</tag>-->
 
     <tag>
         <name>longstate</name>

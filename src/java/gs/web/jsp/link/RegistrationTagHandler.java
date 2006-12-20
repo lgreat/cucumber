@@ -15,16 +15,8 @@ public class RegistrationTagHandler extends LinkTagHandler {
         return new UrlBuilder(UrlBuilder.REGISTRATION, null, _email, _redirect);
     }
 
-    public String getEmail() {
-        return _email;
-    }
-
     public void setEmail(String email) {
         _email = email;
-    }
-
-    public String getRedirect() {
-        return _redirect;
     }
 
     public void setRedirect(String redirect) {
