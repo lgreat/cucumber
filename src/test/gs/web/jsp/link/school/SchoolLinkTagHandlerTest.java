@@ -20,18 +20,32 @@ public class SchoolLinkTagHandlerTest extends BaseTestCase {
         School school = new School();
         school.setDatabaseState(State.WY);
         school.setId(Integer.valueOf("8"));
-        school.setType(SchoolType.PUBLIC);
 
         Address address = new Address("123 way", "CityName", State.WY, "12345");
         school.setLevelCode(LevelCode.ELEMENTARY);
         school.setPhysicalAddress(address);
 
-        BaseSchoolTagHandler tagHandler = new CensusTagHandler();
-        tagHandler.setPageContext(new MockPageContext());
-        tagHandler.setSchool(school);
+        // Tests for private schools
+        school.setType(SchoolType.PRIVATE);
 
+        BaseSchoolTagHandler tagHandler = new CensusTagHandler();
+        tagHandler.setSchool(school);
         UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/cgi-bin/wy/otherprivate/8", builder.asSiteRelative(null));
+
+        tagHandler = new PrivateQuickFactsTagHandler();
+        tagHandler.setSchool(school);
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/modperl/quickprivate/wy/8", builder.asSiteRelative(null));
+
+        // Tests for public schools
+        school.setType(SchoolType.PUBLIC);
+
+        tagHandler = new CensusTagHandler();
+        tagHandler.setSchool(school);
+        builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/wy/other/8", builder.asSiteRelative(null));
+
 
         tagHandler = new OverviewTagHandler();
         tagHandler.setSchool(school);
@@ -86,21 +100,23 @@ public class SchoolLinkTagHandlerTest extends BaseTestCase {
 
         Address address = new Address("123 way", "CityName", State.WY, "12345");
         school.setLevelCode(LevelCode.ELEMENTARY);
-        school.setPhysicalAddress(address);
 
         CompareSchoolTagHandler tagHandler = new CompareSchoolTagHandler();
         tagHandler.setPageContext(new MockPageContext());
 
-        //test defaults
+        // test without an address
         tagHandler.setSchool(school);
         UrlBuilder builder = tagHandler.createUrlBuilder();
-        _log.debug(builder.asSiteRelative(null));
+        assertEquals("/cgi-bin/cs_compare/wy/?area=m&miles=1000&school_selected=8&showall=1&sortby=distance&tab=over",
+                builder.asSiteRelative(null));
+
+        // test defaults with an address
+        school.setPhysicalAddress(address);
+        builder = tagHandler.createUrlBuilder();
         assertEquals("/cgi-bin/cs_compare/wy/?area=m&city=CityName&level=e&miles=1000&school_selected=8&showall=1&sortby=distance&street=123+way&tab=over&zip=12345",
                 builder.asSiteRelative(null));
 
-
-
-        //test setting tab and sortby
+        // test setting tab and sortby
         tagHandler = new CompareSchoolTagHandler();
         tagHandler.setPageContext(new MockPageContext());
         school.setLevelCode(LevelCode.MIDDLE_HIGH);
