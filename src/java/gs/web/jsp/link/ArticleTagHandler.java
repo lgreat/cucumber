@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleTagHandler.java,v 1.4 2006/07/13 07:53:58 apeterson Exp $
+ * $Id: ArticleTagHandler.java,v 1.5 2006/12/20 18:39:58 thuss Exp $
  */
 
 package gs.web.jsp.link;
@@ -24,11 +24,8 @@ public class ArticleTagHandler extends LinkTagHandler {
 
 
     protected UrlBuilder createUrlBuilder() {
-
         Article a= getArticle();
-
         UrlBuilder builder = new UrlBuilder(a, getState(), _featured);
-
         return builder;
     }
 

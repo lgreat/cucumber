@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandler.java,v 1.8 2006/11/21 00:53:49 aroy Exp $
+ * $Id: LinkTagHandler.java,v 1.9 2006/12/20 18:39:58 thuss Exp $
  */
 
 package gs.web.jsp.link;
@@ -176,24 +176,12 @@ public abstract class LinkTagHandler extends TagSupport {
         return state;
     }
 
-    public String getStyleClass() {
-        return _styleClass;
-    }
-
     public void setStyleClass(String styleClass) {
         _styleClass = styleClass;
     }
 
-    public String getTarget() {
-        return _target;
-    }
-
     public void setTarget(String target) {
         _target = target;
-    }
-
-    public String getAnchor() {
-        return _anchor;
     }
 
     /**
@@ -208,10 +196,6 @@ public abstract class LinkTagHandler extends TagSupport {
      */
     public void setAnchor(String anchor) {
         _anchor = anchor;
-    }
-
-    public String getTitle() {
-        return _title;
     }
 
     public void setTitle(String title) {
