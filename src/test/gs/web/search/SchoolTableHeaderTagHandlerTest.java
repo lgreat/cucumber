@@ -60,8 +60,6 @@ public class SchoolTableHeaderTagHandlerTest extends BaseControllerTestCase {
      */
     public class SchoolTableHeaderTagHandlerTestCase extends SchoolTableHeaderTagHandler {
 
-        private final StringBuffer _output = new StringBuffer();
-
         private JspContext _jspContext;
 
         public JspContext getJspContext() {
