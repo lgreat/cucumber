@@ -44,10 +44,6 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
         _stateManager = (StateManager) SpringUtil.getApplicationContext().getBean(StateManager.BEAN_ID);
     }
 
-    public Set getStateSet() {
-        return _stateSet;
-    }
-
     public void setStateSet(Set stateSet) {
         _stateSet = stateSet;
     }
@@ -61,10 +57,6 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
      */
     public void setMultiple(boolean multiple) {
         _multiple = multiple;
-    }
-
-    public int getSize() {
-        return _size;
     }
 
     /**
@@ -174,7 +166,7 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
         if (_useNoState) {
             out.print("<option value=\"\"");
             if (!_multiple || _stateSet == null) {
-                out.print(" selected='selected' ");
+                out.print(" selected=\"selected\"");
             }
             out.println(">" + _noStateLabel +"</option>");
         }
@@ -190,13 +182,13 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
 
             out.print("<option value=\"");
             out.print(state.getAbbreviation());
-            out.print("\" ");
+            out.print("\"");
 
             if (ObjectUtils.equals(_state, state) && !_useNoState && !_multiple) {
-                out.print(" selected='selected' ");
+                out.print(" selected=\"selected\"");
             } else if (_multiple && _stateSet != null) {
                 if (_stateSet.contains(state)) {
-                    out.print(" selected='selected' ");
+                    out.print(" selected=\"selected\"");
                 }
             }
             out.print(">");
