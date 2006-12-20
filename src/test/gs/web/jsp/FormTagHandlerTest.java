@@ -26,6 +26,15 @@ public class FormTagHandlerTest extends TestCase {
 
     public void testDoTag() throws JspException {
         _tag.setAction("/somepage");
+        _tag.doStartTag();
+        _tag.doEndTag();
+        String output = ((MockJspWriter) _jspContext.getOut()).getOutputBuffer().toString();
+        assertEquals("<form accept-charset=\"UTF-8\" " +
+                "action=\"http://dev.greatschools.net/somepage\"></form>", output);
+        
+        _jspContext = new MockPageContext(null, new MockHttpServletRequest());
+        _tag.setJspContext(_jspContext);
+        _tag.setPageContext(_jspContext);
         _tag.setId("id");
         _tag.setMethod("post");
         _tag.setOnsubmit("onsubmit");
@@ -33,7 +42,7 @@ public class FormTagHandlerTest extends TestCase {
         _tag.setStyleClass("style");
         _tag.doStartTag();
         _tag.doEndTag();
-        String output = ((MockJspWriter) _jspContext.getOut()).getOutputBuffer().toString();
+        output = ((MockJspWriter) _jspContext.getOut()).getOutputBuffer().toString();
         assertEquals("<form accept-charset=\"UTF-8\" id=\"id\" " +
                 "action=\"http://dev.greatschools.net/somepage\" method=\"post\" class=\"style\" " +
                 "onsubmit=\"onsubmit\" target=\"target\"></form>", output);
