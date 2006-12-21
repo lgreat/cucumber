@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: BaseControllerTestCase.java,v 1.8 2006/07/13 07:54:00 apeterson Exp $
+ * $Id: BaseControllerTestCase.java,v 1.9 2006/12/21 01:27:36 thuss Exp $
  */
 
 package gs.web;
@@ -16,9 +16,9 @@ import gs.web.util.context.SessionContextUtil;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class BaseControllerTestCase extends BaseTestCase {
-    private GsMockHttpServletRequest _request;
-    private MockHttpServletResponse _response;
-    private SessionContext _sessionContext = null;
+    protected GsMockHttpServletRequest _request;
+    protected MockHttpServletResponse _response;
+    protected SessionContext _sessionContext = null;
     private static final String HOST_NAME = "www.greatschools.net";
 
     protected void setUp() throws Exception {

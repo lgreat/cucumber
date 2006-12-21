@@ -1,13 +1,10 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextInterceptor.java,v 1.2 2006/07/26 22:29:21 thuss Exp $
+ * $Id: SessionContextInterceptor.java,v 1.3 2006/12/21 01:27:37 thuss Exp $
  */
 package gs.web.util.context;
 
 import gs.web.util.PageHelper;
-import gs.web.util.context.SessionContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,8 +26,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SessionContextInterceptor implements HandlerInterceptor {
 
-    private static final Log _log = LogFactory.getLog(SessionContextInterceptor.class);
-
     private SessionContextUtil _sessionContextUtil;
 
     public boolean preHandle(HttpServletRequest request,
@@ -49,10 +44,6 @@ public class SessionContextInterceptor implements HandlerInterceptor {
 
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
         // nothing
-    }
-
-    public SessionContextUtil getSessionContextUtil() {
-        return _sessionContextUtil;
     }
 
     public void setSessionContextUtil(SessionContextUtil sessionContextUtil) {
