@@ -55,7 +55,7 @@
         <h3 id="learnOptions">Learn About Your Options</h3>
         <ul class="plain">
             <gsweb:articlelink articleId="96" wrappingElement="li"/>
-            <li><a href="http://school-choice.greatschools.net">School Choice: One Mom's journey</a></li>
+            <li><a href="http://school-choice.greatschools.net">School Choice: One Mom's Journey</a></li>
             <gsweb:articlelink articleId="197" wrappingElement="li"/>
             <gsweb:articlelink articleId="241" wrappingElement="li"/>
             <gsweb:articlelink articleId="487" wrappingElement="li"/>

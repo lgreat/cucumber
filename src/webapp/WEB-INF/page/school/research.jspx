@@ -66,7 +66,9 @@
                         <gsml:a href="/cgi-bin/showarticle/$STATE/96" styleClass="dearParentsLink"><span class="bold">Choosing a School:<br/>An Overview</span></gsml:a>
                     </li>
                     <li class="dearParentsLI">
-                        <a href="http://school-choice.greatschools.net" class="dearParentsLink"><span class="bold">School Choice: One Mom's journey</span></a>
+                        <a href="http://school-choice.greatschools.net"
+                                onclick="Popup=window.open('http://school-choice.greatschools.net','Popup','toolbar=yes,location=yes,status=no,menubar=yes,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;"
+                                class="dearParentsLink"><span class="bold">School Choice: One Mom's Journey</span></a>
                     </li>
                     <li class="dearParentsLI">
                         <gsml:a href="/content/schoolChoiceCenter.page?state=$STATE" styleClass="dearParentsLink"><span class="bold">All school choice articles &gt;</span></gsml:a>
