@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: OverallRatingDecorator.java,v 1.10 2006/10/19 18:29:20 dlee Exp $
+ * $Id: OverallRatingDecorator.java,v 1.11 2006/12/21 19:58:19 thuss Exp $
  */
 package gs.web.test.rating;
 
@@ -23,7 +23,6 @@ public class OverallRatingDecorator implements IRatingsDisplay {
 
     public OverallRatingDecorator(final SchoolRatingsDisplay schoolRatingsDisplay) {
         List rowGroups = schoolRatingsDisplay.getRowGroups();
-        List subjects = schoolRatingsDisplay.getSubjectGroupLabels();
         _decoratedRowGroups = new ArrayList();
 
         for (Iterator rowGroupIter = rowGroups.iterator(); rowGroupIter.hasNext();) {
@@ -67,10 +66,9 @@ public class OverallRatingDecorator implements IRatingsDisplay {
 
                 decoratedRows.add(new Row(row.getLabel(), averageRating, trend));
             }
-            _decoratedRowGroups.add(new RowGroup(rowGroup.getLabel(), rowGroup.getNumRows(), decoratedRows));
+            _decoratedRowGroups.add(new RowGroup(rowGroup.getLabel(), decoratedRows));
         }
     }
-
 
     public List getSubjectGroupLabels() {
         List subjects = new ArrayList();
@@ -80,30 +78,6 @@ public class OverallRatingDecorator implements IRatingsDisplay {
 
     public List getRowGroups() {
         return _decoratedRowGroups;
-    }
-
-    protected class RowGroup implements IRowGroup {
-        private String _label;
-        private int _numRows;
-        private List _rows;
-
-        RowGroup(String label, int numRows, List rows) {
-            _label = label;
-            _numRows = numRows;
-            _rows = rows;
-        }
-
-        public String getLabel() {
-            return _label;
-        }
-
-        public int getNumRows() {
-            return _numRows;
-        }
-
-        public List getRows() {
-            return _rows;
-        }
     }
 
     protected class Row implements IRowGroup.IRow {

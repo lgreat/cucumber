@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.17 2006/12/06 20:19:00 eddie Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.18 2006/12/21 19:58:19 thuss Exp $
  */
 
 package gs.web.test.rating;
@@ -9,8 +9,6 @@ import gs.data.school.Grade;
 import gs.data.school.Grades;
 import gs.data.school.School;
 import gs.data.test.ITestDataSetDao;
-import gs.data.test.SchoolTestValue;
-import gs.data.test.TestDataSet;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.state.State;
@@ -27,23 +25,16 @@ import java.util.Map;
  */
 public class SchoolRatingsDisplay implements IRatingsDisplay {
 
-    private final School _school;
     private final IRatingsConfig _ratingsConfig;
     private final List _subjectGroupLabels;
     private final List _rowGroups;
-    private ITestDataSetDao _testDataSetDao;
-    private TestManager _testManager;
     private final Map _rawResults;
 
 
-    public SchoolRatingsDisplay(final IRatingsConfig ratingsConfig, School school, final ITestDataSetDao testDataSetDao, TestManager testManager) {
-
-        _school = school;
+    public SchoolRatingsDisplay(final IRatingsConfig ratingsConfig, School school, final ITestDataSetDao testDataSetDao) {
         _ratingsConfig = ratingsConfig;
-        _testDataSetDao = testDataSetDao;
-        _testManager = testManager;
 
-        _rawResults = _testDataSetDao.findAllRawResults(school,
+        _rawResults = testDataSetDao.findAllRawResults(school,
                 new int [] {ratingsConfig.getYear() - 1, ratingsConfig.getYear()}, true);
 
         Grades grades = school.getGradeLevels();
@@ -88,7 +79,7 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                     }  else if(rowLabel.startsWith("Grade All")  ){
 
                         String gradeall = rowLabel.substring(6);
-                        if(_school.getLevelCode().containsSimilarLevelCode(Grade.getLevelCodeFromName(gradeall))){
+                        if(school.getLevelCode().containsSimilarLevelCode(Grade.getLevelCodeFromName(gradeall))){
                             all = row;
                         }
                     }
@@ -106,32 +97,6 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 _rowGroups.add(rowGroup);
             }
 
-        }
-    }
-
-    protected class RowGroup implements IRowGroup {
-        final String _label;
-        final List _rows;
-
-        RowGroup(IRatingsConfig.IRowGroupConfig rowGroupConfig) {
-            _label = rowGroupConfig.getLabel();
-            _rows = new ArrayList();
-        }
-
-        public String getLabel() {
-            return _label;
-        }
-
-        public int getNumRows() {
-            return _rows.size();
-        }
-
-        public List getRows() {
-            return _rows;
-        }
-
-        public void add(IRow row) {
-            _rows.add(row);
         }
     }
 

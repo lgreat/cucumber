@@ -15,6 +15,7 @@ import java.io.IOException;
  * @author thuss
  */
 public class LongstateTagHandlerTest extends TestCase {
+    
     private LongstateTagHandlerTestCase _tag;
     private MockPageContext _jspContext;
 

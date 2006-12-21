@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsController.java,v 1.15 2006/11/07 19:12:03 dlee Exp $
+ * $Id: RatingsController.java,v 1.16 2006/12/21 19:58:19 thuss Exp $
  */
 package gs.web.test.rating;
 
@@ -12,8 +12,6 @@ import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
-import gs.web.util.context.ISessionContext;
-import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -21,7 +19,6 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -122,7 +119,7 @@ public class RatingsController extends AbstractCommandController {
                     ratingsCommand.setOverallRating(overallRatingCell);
 
                     SchoolRatingsDisplay ratingsDisplay =
-                            new SchoolRatingsDisplay(ratingsConfig, ratingsCommand.getSchool(), _testDataSetDao, getTestManager());
+                            new SchoolRatingsDisplay(ratingsConfig, ratingsCommand.getSchool(), _testDataSetDao);
 
                     if (_showingSubjectGroups) {
                         ratingsCommand.setRatingsDisplay(ratingsDisplay);
