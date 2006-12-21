@@ -153,6 +153,16 @@
 </tr>
 </table>
 
+<!--
+     Set the class for the active tab.
+     "active" indicates that tab is the currently selected one
+     "inactive" indicates that tab is not currently selected
+     "lactive" indicates that the border to the left of the tab should be displayed
+     "ractive" indicates that the border to the right of the tab should be displayed
+-->
+<jsp:scriptlet>
+    request.setAttribute("tabs", PageHelper.pageIds);
+</jsp:scriptlet>
 <div class="noprint">
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
@@ -161,30 +171,24 @@
                     <td width="28px">&#160;</td>
                     <c:set var="pw" value="${requestScope.context.pathway}"/>
                     <!--#0--><td><link:home
-                        styleClass="${(pw == 0 ? 'lactive active' : 'inactive')} ${(pw == 1 ? 'ractive' : '')} "
+                        styleClass="${(pw == tabs.HOME ? 'lactive active' : 'inactive')} ${(pw == tabs.RESEARCH_COMPARE ? 'ractive' : '')} "
                         >Home</link:home></td>
                     <!--#1--><td><link:research
-                        styleClass="${(pw == 0 ? 'lactive' : '')} ${(pw == 1 ? 'active' : 'inactive')} ${(pw == 7 ? 'ractive' : '')} "
+                        styleClass="${(pw == tabs.HOME ? 'lactive' : '')} ${(pw == tabs.RESEARCH_COMPARE ? 'active' : 'inactive')} ${(pw == tabs.SEASONAL ? 'ractive' : '')} "
                         state="${requestScope.context.state}"
                         id="topnav_research"
                         >Research &amp;amp; Compare</link:research></td>
-                    <!--#7--><td><gsml:a href="/content/holidayLearning.page"
-                                         styleClass="${(pw == 1 ? 'lactive' : '')} ${(pw == 7 ? 'active' : 'inactive')} ${(pw == 9 ? 'ractive' : '')} "
-                        >Holiday Learning</gsml:a></td>
+                    <!--#7--><td><gsml:a href="/content/schoolChoiceCenter.page"
+                                         styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.SEASONAL ? 'active' : 'inactive')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'ractive' : '')} "
+                        >School Choice Tips</gsml:a></td>
                     <!--#9--><td><gsml:a href="/content/countdownToCollege.page"
-                                         styleClass="${(pw == 7 ? 'lactive' : '')} ${(pw == 9 ? 'active' : 'inactive')} ${(pw == 2 ? 'ractive' : '')} "
+                                         styleClass="${(pw == tabs.SEASONAL ? 'lactive' : '')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'active' : 'inactive')} ${(pw == tabs.LIBRARY ? 'ractive' : '')} "
                         >Countdown to College</gsml:a></td>
                     <!--#2--><td><link:articleLibrary
-                        styleClass="${(pw == 9 ? 'lactive' : '')} ${(pw == 2 ? 'active' : 'inactive')} ${(pw == 6 ? 'ractive' : '')} "
+                        styleClass="${(pw == tabs.COUNTDOWN_COLLEGE ? 'lactive' : '')} ${(pw == tabs.LIBRARY ? 'active' : 'inactive')} ${(pw == tabs.NEWSLETTERS ? 'ractive' : '')} "
                         >Library</link:articleLibrary></td>
-                    <!--#4--><!--td><gsml:a href="/about/aboutUs.page"
-                        styleClass="${(pw == 3 ? 'lactive' : '')} ${(pw == 4 ? 'active' : 'inactive')} ${(pw == 5 ? 'ractive' : '')} "
-                    >About Us</gsml:a></td>-->
-                    <!--#5--><!--<td><link:contactUs
-                    styleClass="${(pw == 4 ? 'lactive' : '')} ${(pw == 5 ? 'active' : 'inactive')} ${(pw == 6 ? 'ractive' : '')} "
-                    >Contact Us</link:contactUs></td-->
                     <!--#6--><td><link:newsletterCenter
-                        styleClass="${(pw == 2 ? 'lactive' : '')} ${(pw == 6 ? 'active ractive' : 'inactive')}"
+                        styleClass="${(pw == tabs.LIBRARY ? 'lactive' : '')} ${(pw == tabs.NEWSLETTERS ? 'active ractive' : 'inactive')}"
                         email="${requestScope.context.email}"
                         >Free Newsletters</link:newsletterCenter></td>
                     <td width="28px">&#160;</td>
