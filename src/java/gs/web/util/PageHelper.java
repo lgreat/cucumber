@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.30 2006/12/04 19:02:24 aroy Exp $
+ * $Id: PageHelper.java,v 1.31 2006/12/21 00:53:37 cpickslay Exp $
  */
 
 package gs.web.util;
@@ -16,9 +16,7 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 import java.security.NoSuchAlgorithmException;
 
 /**
@@ -38,7 +36,16 @@ import java.security.NoSuchAlgorithmException;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class PageHelper {
-
+    public static final Map pageIds = new HashMap() {{
+        put("HOME", "0");
+        put("RESEARCH_COMPARE", "1");
+        put("LIBRARY", "2");
+        put("ABOUT_US", "4");
+        put("CONTACT_US", "5");
+        put("NEWSLETTERS", "6");
+        put("SEASONAL", "7");
+        put("COUNTDOWN_COLLEGE", "9");
+    }};
 
     public static void hideLeaderboard(HttpServletRequest request) {
         PageHelper pageHelper = getInstance(request);
