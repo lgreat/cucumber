@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.18 2006/12/21 19:58:19 thuss Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.19 2006/12/23 22:34:14 droy Exp $
  */
 
 package gs.web.test.rating;
@@ -153,6 +153,9 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 }
                 else if(state.equals(State.MS)){
                     label = "SATP";
+                }
+                else if(state.equals(State.NC)){
+                    label = "EOC";
                 }
                 else if(state.equals(State.UT)){
                     label = "EOC";
