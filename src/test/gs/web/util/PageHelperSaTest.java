@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.22 2006/12/04 19:02:24 aroy Exp $
+ * $Id: PageHelperSaTest.java,v 1.23 2006/12/28 22:01:52 cpickslay Exp $
  */
 
 package gs.web.util;
@@ -14,8 +14,11 @@ import gs.web.util.context.SessionContextUtil;
 import junit.framework.TestCase;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.util.CookieGenerator;
+import org.easymock.classextension.MockClassControl;
+import org.easymock.MockControl;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
 
 /**
@@ -26,6 +29,7 @@ import java.security.NoSuchAlgorithmException;
 public class PageHelperSaTest extends TestCase {
     private MockHttpServletResponse _response;
     private GsMockHttpServletRequest _request;
+    private SessionContext _sessionContext;
 
     public void testMainSite() {
         ISessionContext sessionContext = new MockSessionContext();
@@ -442,6 +446,22 @@ public class PageHelperSaTest extends TestCase {
         assertEquals(true, pageHelper.isAdServedByCobrand());
     }
 
+    public void testSetPathwayCookie() {
+        MockControl mockSessionContextUtil = MockClassControl.createControl(SessionContextUtil.class);
+
+        SessionContextUtil sessionContextUtil = (SessionContextUtil) mockSessionContextUtil.getMock();
+        _sessionContext.setSessionContextUtil(sessionContextUtil);
+
+        sessionContextUtil.changePathway(_sessionContext, _response, (String) PageHelper.pageIds.get("SEASONAL"));
+        mockSessionContextUtil.replay();
+
+        PageHelper pageHelper = new PageHelper(_sessionContext, _request);
+        pageHelper.setPathwayCookie(_request, _response, "SEASONAL");
+
+        mockSessionContextUtil.verify();
+        mockSessionContextUtil.reset();
+    }
+
     protected void setUp() throws Exception {
         super.setUp();
 
@@ -457,9 +477,9 @@ public class PageHelperSaTest extends TestCase {
         sessionCacheCookieGenerator.setCookieName("SESSION_CACHE");
         sessionContextUtil.setSessionCacheCookieGenerator(sessionCacheCookieGenerator);
 
-        SessionContext sessionContext = new SessionContext();
-        sessionContext.setSessionContextUtil(sessionContextUtil);
-        _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, sessionContext);
+        _sessionContext = new MockSessionContext();
+        _sessionContext.setSessionContextUtil(sessionContextUtil);
+        _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
 
     }
 }
