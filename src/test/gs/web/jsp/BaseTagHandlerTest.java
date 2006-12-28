@@ -8,17 +8,21 @@ import gs.data.state.State;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.PageContext;
 
+import org.easymock.MockControl;
+import org.easymock.classextension.MockClassControl;
+
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class BaseTagHandlerTest extends BaseTestCase {
 
     private BaseTagHandlerTestCase _tag;
+    private MockPageContext jspContext;
 
 
     protected void setUp() {
         _tag = new BaseTagHandlerTestCase();
-        MockPageContext jspContext = new MockPageContext();
+        jspContext = new MockPageContext();
         MockSessionContext sessionContext = new MockSessionContext();
         jspContext.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, sessionContext, PageContext.REQUEST_SCOPE);
         _tag.setJspContext(jspContext);
@@ -40,8 +44,19 @@ public class BaseTagHandlerTest extends BaseTestCase {
         assertNull(_tag.getSchool(null, null));
     }
 
-    public void testHostname() {
-        assertEquals("www.greatschools.net", _tag.getHostname());
+    public void testHostnameIsRetrievedFromSessionContext() {
+        String expectedHostname = "www.greatschools.net";
+
+        MockControl mockSessionContext = MockClassControl.createControl(SessionContext.class);
+        SessionContext sessionContext = (SessionContext) mockSessionContext.getMock();
+        sessionContext.getHostName();
+        mockSessionContext.setReturnValue(expectedHostname);
+        mockSessionContext.replay();
+        jspContext.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, sessionContext, PageContext.REQUEST_SCOPE);
+
+        assertEquals("Unexpected hostname", expectedHostname, _tag.getHostname());
+
+        mockSessionContext.verify();
     }
 
     public void testDaoGetters() {
