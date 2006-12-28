@@ -10,6 +10,7 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:gsweb="gstaglib"
         >
+<jsp:directive.page import="gs.web.util.PageHelper"/>
 <html lang="en">
 
 <jsp:output doctype-root-element="html"
@@ -17,7 +18,7 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
-<pageHelper:setPathway pathway="2"/>
+<pageHelper:setPathway pathway="SEASONAL"/>
 
 <head>
     <title>Greatschools.net: School Choice Tips</title>

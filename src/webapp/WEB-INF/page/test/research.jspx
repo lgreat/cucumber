@@ -70,7 +70,7 @@
             margin: 0px 0 10px 0;
         }
     </style>
-    <pageHelper:setPathway pathway="1"/>
+    <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 </head>
 
 <gsml:body adPageName="modal" pageLayout="research">

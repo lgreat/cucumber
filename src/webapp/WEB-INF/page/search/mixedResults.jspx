@@ -27,7 +27,7 @@
 </head>
 
 <gsml:body adPageName="search">
-    <pageHelper:setPathway pathway="1"/>
+    <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
     <pageHelper:externalCss file="/res/css/search/mixedResults.css"/>
     <c:set var="hasCityResults" value="false"/>
     <c:set var="hasDistrictResults" value="false"/>

@@ -16,7 +16,7 @@
 <jsp:directive.page import="gs.web.school.SchoolsController"/>
 
 <html lang="en">
-<pageHelper:setPathway pathway="1" />
+<pageHelper:setPathway pathway="RESEARCH_COMPARE" />
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
@@ -234,6 +234,8 @@
                                total="${results.total}"
                                srcQuery="${pageContext.request.queryString}"
                                showAll="${results.showAll}"
+                               cityName="${cityName}"
+                               districtId="${district}"
                                schoolType="${st}"
                                levelCode="${lc}"
                     >

@@ -12,7 +12,7 @@
         >
 
 <jsp:directive.page import="gs.web.util.PageHelper"/>
-<pageHelper:setPathway pathway="1"/>
+<pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <html lang="en">
 
 <jsp:output doctype-root-element="html"

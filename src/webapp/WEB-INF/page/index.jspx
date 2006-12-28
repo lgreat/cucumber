@@ -29,7 +29,7 @@
     <meta name="description"
           content="Elementary, middle and high school information for public, private and charter schools nationwide. Search and compare schools; view test scores and class sizes; and find advice about going back to school, college prep, No Child Left Behind, summer reading lists and more."/>
 
-    <pageHelper:setPathway pathway="0"/>
+    <pageHelper:setPathway pathway="HOME"/>
 
     <jsp:scriptlet>
         PageHelper.hideLeaderboard(request);

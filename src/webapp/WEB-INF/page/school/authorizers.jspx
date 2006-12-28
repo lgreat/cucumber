@@ -14,7 +14,7 @@
             value="${school.name}&#160;-&#160;${school.physicalAddress.city},&#160;${school.physicalAddress.state.longName}&#160;/&#160;${school.physicalAddress.state.abbreviation}"
             escapeXml="true"/> - school information</title>
 
-    <pageHelper:setPathway pathway="1" />
+    <pageHelper:setPathway pathway="RESEARCH_COMPARE" />
     <pageHelper:externalCss file="/res/css/school/csr.css"/>
 
     <style type="text/css">

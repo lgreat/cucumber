@@ -11,7 +11,7 @@
           xmlns:gsweb="gstaglib"
         >
 
-    <pageHelper:setPathway pathway="1"/>
+    <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
     <html lang="en">
 
     <jsp:output doctype-root-element="html"
