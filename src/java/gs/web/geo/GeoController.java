@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoController.java,v 1.21 2006/08/09 21:25:25 apeterson Exp $
+ * $Id: GeoController.java,v 1.22 2006/12/28 21:07:14 thuss Exp $
  */
 
 package gs.web.geo;
@@ -33,7 +33,6 @@ import java.util.Map;
  */
 public class GeoController implements Controller {
     private IGeoDao _geoDao;
-    private ISchoolDao _schoolDao;
     private String _viewName;
 
     protected final Log _log = LogFactory.getLog(getClass());
@@ -96,33 +95,17 @@ public class GeoController implements Controller {
         model.put(MODEL_US_CENSUS, list.get(0));
 
 
-        ModelAndView modelAndView = new ModelAndView(_viewName, model);
-
-        return modelAndView;
-    }
-
-
-    public IGeoDao getGeoDao() {
-        return _geoDao;
+        return new ModelAndView(_viewName, model);
     }
 
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
     }
 
-    public String getViewName() {
-        return _viewName;
-    }
-
     public void setViewName(String viewName) {
         _viewName = viewName;
     }
 
-    public ISchoolDao getSchoolDao() {
-        return _schoolDao;
-    }
-
     public void setSchoolDao(ISchoolDao schoolDao) {
-        _schoolDao = schoolDao;
     }
 }

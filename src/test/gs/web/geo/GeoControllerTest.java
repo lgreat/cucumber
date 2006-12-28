@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: GeoControllerTest.java,v 1.11 2006/07/13 07:53:59 apeterson Exp $
+ * $Id: GeoControllerTest.java,v 1.12 2006/12/28 21:07:14 thuss Exp $
  */
 
 package gs.web.geo;
@@ -68,6 +68,26 @@ public class GeoControllerTest extends BaseControllerTestCase {
 
         Object city = modelAndView.getModel().get(GeoController.MODEL_LOCAL_CENSUS);
         assertNotNull(city);
+    }
+
+
+    public void testNameOverrides() throws Exception {
+        GeoController c = new GeoController();
+        c.setGeoDao(_geoDao);
+        c.setSchoolDao(_schoolDao);
+        GsMockHttpServletRequest request = getRequest();
+        
+        request.addParameter(GeoController.PARAM_CITY, "New York");
+        request.addParameter("state", "NY");
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+        ModelAndView modelAndView = c.handleRequest(request, getResponse());
+        assertEquals("New York City", modelAndView.getModel().get(GeoController.MODEL_DISPLAY_NAME));
+
+        request.setParameter(GeoController.PARAM_CITY, "Washington");
+        request.setParameter("state", "DC");
+        _sessionContextUtil.prepareSessionContext(getRequest(), getResponse());
+        modelAndView = c.handleRequest(request, getResponse());
+        assertEquals("Washington, DC", modelAndView.getModel().get(GeoController.MODEL_DISPLAY_NAME));
     }
 
 
