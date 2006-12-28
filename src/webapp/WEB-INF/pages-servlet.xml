@@ -488,18 +488,6 @@
         </property>
     </bean>
 
-    <bean name="/school/tests.page"
-          class="gs.web.school.performance.AvailableTestsController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>/test/tests</value>
-        </property>
-        <property name="testDataSetDao" ref="testDataSetDao"/>
-        <property name="subjectDao" ref="subjectDao"/>
-        <property name="testDataTypeDao" ref="testDataTypeDao"/>
-    </bean>
-
-
     <bean name="/selectAState.page"
           class="gs.web.state.SelectAStateController"
           autowire="byName" lazy-init="true">
