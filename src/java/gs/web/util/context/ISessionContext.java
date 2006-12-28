@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ISessionContext.java,v 1.3 2006/10/18 00:32:11 thuss Exp $
+ * $Id: ISessionContext.java,v 1.4 2006/12/28 21:58:32 cpickslay Exp $
  */
 
 package gs.web.util.context;
@@ -10,17 +10,8 @@ import gs.data.state.State;
 import org.springframework.context.ApplicationContext;
 
 /**
- * The purpose is to hold common "global" properties for a user throughout their
- * session. It's a facade over the regular session, provide type safety and
- * whatever integrity guarantees we need to add. This class is wired to always
- * be available to your page (via Spring), so you don't have to defensively check for null.
- * Additionally, we can enforce rules like "the user's current geographic state is available",
- * and not mess with checks to make sure values are in the session. See {@link #getStateOrDefault()} for
- * an example of this.
- * Finally, this class gets called at the beginning of each request, and can
- * perform global operations like changing the user's state, host or cobrand.
- *
- * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
+ * @deprecated This interface has no clear purpose, and is missing several important methods from SessionContext.
+ *             Use SessionContext instead.
  */
 public interface ISessionContext {
     String REQUEST_ATTRIBUTE_NAME = "context";
