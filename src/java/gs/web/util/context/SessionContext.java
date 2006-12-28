@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.6 2006/12/04 19:02:24 aroy Exp $
+ * $Id: SessionContext.java,v 1.7 2006/12/28 21:59:46 cpickslay Exp $
  */
 package gs.web.util.context;
 
@@ -20,8 +20,15 @@ import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Implementation of the ISessionContext interface based on Java servlet
- * sessions.
+ * The purpose is to hold common "global" properties for a user throughout their
+ * session. It's a facade over the regular session, provide type safety and
+ * whatever integrity guarantees we need to add. This class is wired to always
+ * be available to your page (via Spring), so you don't have to defensively check for null.
+ * Additionally, we can enforce rules like "the user's current geographic state is available",
+ * and not mess with checks to make sure values are in the session. See {@link #getStateOrDefault()} for
+ * an example of this.
+ * Finally, this class gets called at the beginning of each request, and can
+ * perform global operations like changing the user's state, host or cobrand.
  *
  * @author Andrew J. Peterson <mailto:apeterson@greatschools.net>
  * @see SessionContextInterceptor
