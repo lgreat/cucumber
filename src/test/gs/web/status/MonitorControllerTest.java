@@ -2,9 +2,11 @@ package gs.web.status;
 
 import gs.web.BaseTestCase;
 import gs.web.BaseControllerTestCase;
+import gs.web.GsMockHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
 
@@ -43,6 +45,15 @@ public class MonitorControllerTest extends BaseControllerTestCase {
         assertNotNull(environment);
         // assertNotNull(environment.get("log4j.configuration"));
         assertNotNull(environment.get("log4j.mailappender"));
+
+        GsMockHttpServletRequest request = getRequest();
+        request.addParameter("logmessage", "test");
+        request.setMethod("POST");
+        // This exercises the logging code and tests hitcount incrementing
+        mv = _controller.handleRequest(getRequest(), getResponse());
+        assertNotNull(mv);
+        HttpSession session = request.getSession(true);
+        assertEquals(new Integer(2), session.getAttribute("hitcount"));
     }
 
 }

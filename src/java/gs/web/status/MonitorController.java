@@ -62,26 +62,24 @@ public class MonitorController implements ReadWriteController {
 
         // This tests the logging system.  Doing it this way seems a lot simpler
         // than creating a FormController, etc.
-        if (request != null) {
-            String method = request.getMethod();
-            if (method != null && method.equalsIgnoreCase("POST")) {
-                String logMessage = request.getParameter("logmessage");
-                _log.debug(logMessage);
-                _log.trace(logMessage);
-                _log.info(logMessage);
-                _log.warn(logMessage);
-                _log.error(logMessage);
-                _log.fatal(logMessage);
-            }
+        String method = request.getMethod();
+        if (method != null && method.equalsIgnoreCase("POST")) {
+            String logMessage = request.getParameter("logmessage");
+            _log.debug(logMessage);
+            _log.trace(logMessage);
+            _log.info(logMessage);
+            _log.warn(logMessage);
+            _log.error(logMessage);
+            _log.fatal(logMessage);
         }
 
         Map model = new HashMap();
 
         // Set the version
         model.put("buildtime",
-                  _versionProperties.getProperty("gsweb.buildtime"));
+                _versionProperties.getProperty("gsweb.buildtime"));
         model.put("version",
-                  _versionProperties.getProperty("gsweb.version"));
+                _versionProperties.getProperty("gsweb.version"));
 
         // Set the hostname
         String hostname = "Unable to resolve hostname";
@@ -107,8 +105,6 @@ public class MonitorController implements ReadWriteController {
             _log.error("Error reading and writing to the main database", e);
             mainError = StackTraceUtil.getStackTrace(e);
         }
-        model.put("mainReadWrite", new Boolean(mainReadWrite));
-        model.put("mainError", mainError);
 
         // Test reading and writing to a state database
         boolean stateReadWrite = false;
@@ -123,11 +119,11 @@ public class MonitorController implements ReadWriteController {
             _log.error("Error reading and writing to the state database", e);
             mainError = StackTraceUtil.getStackTrace(e);
         }
-        model.put("stateReadWrite", new Boolean(stateReadWrite));
+        model.put("mainReadWrite", Boolean.valueOf(mainReadWrite));
+        model.put("mainError", mainError);
+        model.put("stateReadWrite", Boolean.valueOf(stateReadWrite));
         model.put("stateError", stateError);
-        if (request != null) {
-            model.put("environment", getEnvironmentMap());
-        }
+        model.put("environment", getEnvironmentMap());
 
         // Test setting some values in the session to try session replication
         HttpSession session = request.getSession(true);
@@ -150,24 +146,12 @@ public class MonitorController implements ReadWriteController {
         return new ModelAndView(_viewName, model);
     }
 
-    public IPartitionDao getPartitionDao() {
-        return _partitionDao;
-    }
-
     public void setPartitionDao(IPartitionDao partitionDao) {
         this._partitionDao = partitionDao;
     }
 
-    public IDao getDao() {
-        return _dao;
-    }
-
     public void setDao(IDao dao) {
         this._dao = dao;
-    }
-
-    public String getViewName() {
-        return _viewName;
     }
 
     public void setViewName(String viewName) {
@@ -202,7 +186,7 @@ public class MonitorController implements ReadWriteController {
         */
 
         env.put("Java Version", props.getProperty("java.vm.version"));
-        StringBuffer osBuffer = new StringBuffer (props.getProperty("os.name"));
+        StringBuffer osBuffer = new StringBuffer(props.getProperty("os.name"));
         osBuffer.append(" ");
         osBuffer.append(props.getProperty("os.version"));
         env.put("Operating System", osBuffer.toString());
