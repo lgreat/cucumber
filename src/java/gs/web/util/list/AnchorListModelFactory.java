@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.1 2006/07/13 07:52:30 apeterson Exp $
+ * $Id: AnchorListModelFactory.java,v 1.2 2006/12/28 21:13:17 thuss Exp $
  */
 
 package gs.web.util.list;
@@ -15,10 +15,7 @@ import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.geo.NearbyCitiesController;
-import gs.web.school.SchoolsController;
 import gs.web.search.SearchController;
-import gs.web.util.list.Anchor;
-import gs.web.util.list.AnchorListModel;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import org.apache.commons.lang.ObjectUtils;
@@ -27,10 +24,8 @@ import org.apache.lucene.search.Hits;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Generates AnchorListModel objects from all sorts of input. Created to reduce
@@ -45,7 +40,6 @@ public class AnchorListModelFactory {
 
     public static final String BEAN_ID = "anchorListModelFactory";
 
-    private IGeoDao _geoDao;
     private ISchoolDao _schoolDao;
     private IDistrictDao _districtDao;
     private StateManager _stateManager;
@@ -193,50 +187,50 @@ public class AnchorListModelFactory {
      * @param request required
      * @return non-null, but possibly empty map
      */
-    public Map createSchoolsByLevelModel(State state, ICity city, HttpServletRequest request) {
-        // the summaries of schools in a city
-        Map map;
-
-        map = new HashMap();
-
-        UrlBuilder builder = new UrlBuilder(city, UrlBuilder.SCHOOLS_IN_CITY);
-
-        int sc;
-        sc = _schoolDao.countSchools(state, null, LevelCode.ELEMENTARY, city.getName());
-        if (sc > 0) {
-            AnchorListModel m = new AnchorListModel("Elementary Schools (" + sc + ")");
-            builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "e");
-            m.add(builder.asAnchor(request, "List"));
-            builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
-            m.add(builder.asAnchor(request, "Map & List"));
-            builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
-            map.put("e", m);
-        }
-
-        sc = _schoolDao.countSchools(state, null, LevelCode.MIDDLE, city.getName());
-        if (sc > 0) {
-            AnchorListModel m = new AnchorListModel("Middle Schools (" + sc + ")");
-            builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "m");
-            m.add(builder.asAnchor(request, "List"));
-            builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
-            m.add(builder.asAnchor(request, "Map & List"));
-            builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
-            map.put("m", m);
-        }
-
-        sc = _schoolDao.countSchools(state, null, LevelCode.HIGH, city.getName());
-        if (sc > 0) {
-            AnchorListModel m = new AnchorListModel("High Schools (" + sc + ")");
-            builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "h");
-            m.add(builder.asAnchor(request, "List"));
-            builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
-            m.add(builder.asAnchor(request, "Map & List"));
-            builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
-            map.put("h", m);
-        }
-
-        return map;
-    }
+//    public Map createSchoolsByLevelModel(State state, ICity city, HttpServletRequest request) {
+//        // the summaries of schools in a city
+//        Map map;
+//
+//        map = new HashMap();
+//
+//        UrlBuilder builder = new UrlBuilder(city, UrlBuilder.SCHOOLS_IN_CITY);
+//
+//        int sc;
+//        sc = _schoolDao.countSchools(state, null, LevelCode.ELEMENTARY, city.getName());
+//        if (sc > 0) {
+//            AnchorListModel m = new AnchorListModel("Elementary Schools (" + sc + ")");
+//            builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "e");
+//            m.add(builder.asAnchor(request, "List"));
+//            builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
+//            m.add(builder.asAnchor(request, "Map & List"));
+//            builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
+//            map.put("e", m);
+//        }
+//
+//        sc = _schoolDao.countSchools(state, null, LevelCode.MIDDLE, city.getName());
+//        if (sc > 0) {
+//            AnchorListModel m = new AnchorListModel("Middle Schools (" + sc + ")");
+//            builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "m");
+//            m.add(builder.asAnchor(request, "List"));
+//            builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
+//            m.add(builder.asAnchor(request, "Map & List"));
+//            builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
+//            map.put("m", m);
+//        }
+//
+//        sc = _schoolDao.countSchools(state, null, LevelCode.HIGH, city.getName());
+//        if (sc > 0) {
+//            AnchorListModel m = new AnchorListModel("High Schools (" + sc + ")");
+//            builder.setParameter(SchoolsController.PARAM_LEVEL_CODE, "h");
+//            m.add(builder.asAnchor(request, "List"));
+//            builder.setParameter(SchoolsController.PARAM_SHOW_MAP, "1");
+//            m.add(builder.asAnchor(request, "Map & List"));
+//            builder.removeParameter(SchoolsController.PARAM_SHOW_MAP);
+//            map.put("h", m);
+//        }
+//
+//        return map;
+//    }
 
     /**
      * Generates a list of links to schools in the given Hits cities.
@@ -396,33 +390,15 @@ public class AnchorListModelFactory {
         return anchorListModel;
     }
 
-
-    public IGeoDao getGeoDao() {
-        return _geoDao;
-    }
-
     public void setGeoDao(IGeoDao geoDao) {
-        _geoDao = geoDao;
-    }
-
-    public ISchoolDao getSchoolDao() {
-        return _schoolDao;
     }
 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
     }
 
-    public IDistrictDao getDistrictDao() {
-        return _districtDao;
-    }
-
     public void setDistrictDao(IDistrictDao districtDao) {
         _districtDao = districtDao;
-    }
-
-    public StateManager getStateManager() {
-        return _stateManager;
     }
 
     public void setStateManager(StateManager stateManager) {
