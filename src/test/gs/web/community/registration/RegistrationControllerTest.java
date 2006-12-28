@@ -194,6 +194,27 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         }
     }
 
+    public void testOnBind() throws Exception {
+        UserCommand userCommand = new UserCommand();
+        _geoControl.expectAndReturn(_geoDao.findCitiesByState(State.CA), new ArrayList(), 2);
+        _geoControl.replay();
+        getRequest().addParameter("city", "San Francisco");
+        getRequest().addParameter("termsStr", "n");
+        _controller.onBind(getRequest(), userCommand);
+        assertFalse(userCommand.getTerms());
+        getRequest().removeParameter("termsStr");
+        getRequest().addParameter("termsStr", "y");
+        _controller.onBind(getRequest(), userCommand);
+        assertTrue(userCommand.getTerms());
+    }
+
+    public void testOnBindAndValidate() throws Exception {
+        UserCommand userCommand = new UserCommand();
+        BindException errors = new BindException(userCommand, "");
+        _controller.onBindAndValidate(getRequest(), userCommand, errors);
+        assertEquals(8, errors.getErrorCount());
+    }
+
     public void testOnBindOnNewForm() throws Exception {
         UserCommand userCommand = new UserCommand();
         userCommand.setState(null);
