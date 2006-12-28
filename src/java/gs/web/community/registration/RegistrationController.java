@@ -49,13 +49,13 @@ public class RegistrationController extends SimpleFormController implements Read
         loadCityList(request, userCommand);
 
         if (StringUtils.isNotEmpty(userCommand.getEmail())) {
-            User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
+            User user = _userDao.findUserFromEmailIfExists(userCommand.getEmail());
             if (user != null && !user.isEmailValidated()) {
                 // only allow setting the password on people with empty or provisional password
                 // existing users have to authenticate and change account settings through other channels
                 userCommand.setUser(user);
                 // detach user from session so clearing the names has no effect
-                getUserDao().evict(user);
+                _userDao.evict(user);
                 // clear first/last name for existing users
                 userCommand.setFirstName(null);
                 userCommand.setLastName(null);
@@ -104,7 +104,7 @@ public class RegistrationController extends SimpleFormController implements Read
                                  Object command,
                                  BindException errors) throws Exception {
         UserCommand userCommand = (UserCommand) command;
-        User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
+        User user = _userDao.findUserFromEmailIfExists(userCommand.getEmail());
 
         boolean userExists = false;
 
@@ -217,7 +217,7 @@ public class RegistrationController extends SimpleFormController implements Read
             if (StringUtils.isNotEmpty(userCommand.getRedirectUrl())) {
                 mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
             } else {
-                mAndV.setViewName(getCompleteView());
+                mAndV.setViewName(_completeView);
             }
         }
 
@@ -225,48 +225,24 @@ public class RegistrationController extends SimpleFormController implements Read
         return mAndV;
     }
 
-    public IUserDao getUserDao() {
-        return _userDao;
-    }
-
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
-    }
-
-    public IGeoDao getGeoDao() {
-        return _geoDao;
     }
 
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
     }
 
-    public JavaMailSender getMailSender() {
-        return _mailSender;
-    }
-
     public void setMailSender(JavaMailSender mailSender) {
         _mailSender = mailSender;
-    }
-
-    public boolean isRequireEmailValidation() {
-        return _requireEmailValidation;
     }
 
     public void setRequireEmailValidation(boolean requireEmailValidation) {
         this._requireEmailValidation = requireEmailValidation;
     }
 
-    public String getCompleteView() {
-        return _completeView;
-    }
-
     public void setCompleteView(String completeView) {
         _completeView = completeView;
-    }
-
-    public RegistrationConfirmationEmail getRegistrationConfirmationEmail() {
-        return _registrationConfirmationEmail;
     }
 
     public void setRegistrationConfirmationEmail(RegistrationConfirmationEmail registrationConfirmationEmail) {

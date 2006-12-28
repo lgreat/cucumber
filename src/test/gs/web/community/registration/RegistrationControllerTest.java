@@ -5,11 +5,14 @@ import gs.data.community.User;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.data.util.email.MockJavaMailSender;
+import gs.data.geo.IGeoDao;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.easymock.MockControl;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Provides ...
@@ -21,6 +24,8 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 
     private IUserDao _userDao;
     private MockControl _userControl;
+    private IGeoDao _geoDao;
+    private MockControl _geoControl;
     private MockJavaMailSender _mailSender;
 
     private static final String SUCCESS_VIEW = "/community/registration/registrationSuccess";
@@ -33,8 +38,11 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         // actual value is irrelevant
         _mailSender.setHost("greatschools.net");
         _controller.setMailSender(_mailSender);
+        _geoControl = MockControl.createControl(IGeoDao.class);
+        _geoDao = (IGeoDao) _geoControl.getMock();
         _userControl = MockControl.createControl(IUserDao.class);
-        _userDao = (IUserDao)_userControl.getMock();
+        _userDao = (IUserDao) _userControl.getMock();
+        _controller.setGeoDao(_geoDao);
         _controller.setUserDao(_userDao);
         _controller.setSuccessView(SUCCESS_VIEW);
 
@@ -46,6 +54,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 
     /**
      * Test successful registration with a new user
+     *
      * @throws Exception
      */
     public void testRegistration() throws Exception {
@@ -78,6 +87,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 
     /**
      * Test successful registration with an existing user
+     *
      * @throws NoSuchAlgorithmException
      */
     public void testExistingUser() throws NoSuchAlgorithmException {
@@ -182,5 +192,53 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         } finally {
             _mailSender.setThrowOnSendMessage(false);
         }
+    }
+
+    public void testOnBindOnNewForm() throws Exception {
+        UserCommand userCommand = new UserCommand();
+        userCommand.setState(null);
+        BindException errors = new BindException(userCommand, "");
+
+        // Test with no user
+        _geoControl.expectAndReturn(_geoDao.findCitiesByState(State.CA), new ArrayList(), 4);
+        _geoControl.replay();
+        _controller.onBindOnNewForm(getRequest(), userCommand, errors);
+        assertNull(userCommand.getEmail());
+
+        // Test with user found, make sure it clears first
+        String email = "testRegistrationFailureOnExistingUser@greatschools.net";
+        String password = "foobar";
+        Integer userId = new Integer(348);
+        userCommand.setEmail(email);
+        userCommand.setPassword(password);
+        userCommand.setConfirmPassword(password);
+        userCommand.setState(State.CA);
+        userCommand.getUser().setId(userId);
+        userCommand.setFirstName("X");
+        userCommand.setLastName("Y");
+        User user = userCommand.getUser();
+        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email), user, 2);
+        _userControl.expectAndReturn(_userDao.findUserFromEmailIfExists(email), null);
+        _userDao.evict(user);
+        _userControl.setVoidCallable(2);
+        _userDao.updateUser(user);
+        _userControl.replay();
+        _controller.onBindOnNewForm(getRequest(), userCommand, errors);
+        assertNull(userCommand.getFirstName());
+        assertNull(userCommand.getLastName());
+
+        // Test provisional password reset
+        user.setPlaintextPassword("test");
+        user.setEmailProvisional();
+        assertNotNull(user.getPasswordMd5());
+        getRequest().addParameter("reset", "true");
+        _controller.onBindOnNewForm(getRequest(), userCommand, errors);
+        assertNull(user.getPasswordMd5());
+
+        // Test with user not found
+        _controller.onBindOnNewForm(getRequest(), userCommand, errors);
+
+        _userControl.verify();
+        _geoControl.verify();
     }
 }
