@@ -54,4 +54,18 @@ public class AbstractSendEmailBeanTest extends BaseControllerTestCase {
         assertTrue(value.indexOf(">click here</a>") > -1);
     }
 
+    public void testAddLinkReplacementOmniture() {
+        EmailHelper helper = _bean.getEmailHelper();
+        // call
+        _bean.addLinkReplacement(helper, getRequest(), UrlBuilder.COMMUNITY_LANDING, "KEY",
+                "click here", "welcomereg");
+        // verify
+        Map replacements = helper.getInlineReplacements();
+        assertNotNull(replacements);
+        assertEquals(1, replacements.size());
+        String value = (String) replacements.get("KEY");
+        assertNotNull(value);
+        assertTrue(value.indexOf(">click here</a>") > -1);
+        assertTrue(value.indexOf("cpn=welcomereg") > -1);
+    }
 }

@@ -519,5 +519,30 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+
+    <tag>
+        <name>articleForumLink</name>
+        <description>Links to an article's forum</description>
+        <tag-class>gs.web.jsp.link.ArticleForumLinkTagHandler</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>articleId</name>
+            <description>Article id</description>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <description>target window to open result in _top, _parent, _blank, etc...</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <description>CSS class for form</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
 </taglib>
 

@@ -44,11 +44,11 @@ public class RegistrationConfirmationEmail extends AbstractSendEmailBean {
         emailHelper.readPlainTextFromResource(TEXT_EMAIL_LOCATION);
 
         addLinkReplacement(emailHelper, request, UrlBuilder.LOGIN_OR_REGISTER, "COMMUNITY_LANDING_PAGE",
-                "Get started here");
+                "Get started here", "welcomereg");
         addLinkReplacement(emailHelper, request, UrlBuilder.RESEARCH, "TEST_SCORES_PAGE",
-                "Begin your search here");
+                "Begin your search here", "welcomereg");
         addLinkReplacement(emailHelper, request, UrlBuilder.HOME, "EXPECT_IN_CLASSROOM",
-                "Get started here");
+                "Get started here", "welcomereg");
 
         emailHelper.send();
     }

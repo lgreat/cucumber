@@ -45,11 +45,28 @@ public abstract class AbstractSendEmailBean {
      */
     protected void addLinkReplacement(EmailHelper emailHelper, HttpServletRequest request,
                                       UrlBuilder.VPage vpage, String key, String linkText) {
+        addLinkReplacement(emailHelper, request, vpage, key, linkText, null);
+    }
+    
+    /**
+     * Helper method to register an href as a replacement.
+     * @param emailHelper object to register replacement with
+     * @param request for instantiating UrlBuilder
+     * @param vpage location to generate href to
+     * @param key key to register replacement under
+     * @param linkText text of the link (used in UrlBuilder.asAbsoluteAnchor)
+     * @param omnitureValue value for omniture parameter (cpn)
+     */
+    protected void addLinkReplacement(EmailHelper emailHelper, HttpServletRequest request,
+                                      UrlBuilder.VPage vpage, String key, String linkText, String omnitureValue) {
         UrlBuilder builder = new UrlBuilder(vpage, null);
+        if (StringUtils.isNotEmpty(omnitureValue)) {
+            builder.addParameter("cpn", omnitureValue);
+        }
         emailHelper.addInlineReplacement(key,
                 builder.asAbsoluteAnchor(request, linkText).asATag());
     }
-    
+
     public String getSubject() {
         return _subject;
     }
