@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.23 2006/12/28 22:01:52 cpickslay Exp $
+ * $Id: PageHelperSaTest.java,v 1.24 2007/01/02 18:16:47 cpickslay Exp $
  */
 
 package gs.web.util;
@@ -8,7 +8,6 @@ package gs.web.util;
 import gs.data.community.User;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.community.ClientSideSessionCache;
-import gs.web.util.context.ISessionContext;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import junit.framework.TestCase;
@@ -18,7 +17,6 @@ import org.easymock.classextension.MockClassControl;
 import org.easymock.MockControl;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
 
 /**
@@ -32,7 +30,7 @@ public class PageHelperSaTest extends TestCase {
     private SessionContext _sessionContext;
 
     public void testMainSite() {
-        ISessionContext sessionContext = new MockSessionContext();
+        SessionContext sessionContext = new MockSessionContext();
 
         PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
 
@@ -145,7 +143,7 @@ public class PageHelperSaTest extends TestCase {
 
 
     public void testOnload() {
-        ISessionContext sessionContext = new MockSessionContext();
+        SessionContext sessionContext = new MockSessionContext();
         PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
 
         _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
@@ -179,7 +177,7 @@ public class PageHelperSaTest extends TestCase {
 
 
     public void testJavascriptAndCssInclude() {
-        ISessionContext sessionContext = new MockSessionContext();
+        SessionContext sessionContext = new MockSessionContext();
         PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
 
         _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
@@ -215,7 +213,7 @@ public class PageHelperSaTest extends TestCase {
 
     public void testHideFooter() {
 
-        ISessionContext sessionContext = new MockSessionContext();
+        SessionContext sessionContext = new MockSessionContext();
 
         PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
 
@@ -232,7 +230,7 @@ public class PageHelperSaTest extends TestCase {
 
     public void testHideHeader() {
 
-        ISessionContext sessionContext = new MockSessionContext();
+        SessionContext sessionContext = new MockSessionContext();
 
         PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
 
@@ -413,7 +411,7 @@ public class PageHelperSaTest extends TestCase {
     }
 
     public void testAdServerControlledFooterAd() {
-        ISessionContext sessionContext = new MockSessionContext();
+        SessionContext sessionContext = new MockSessionContext();
         PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
 
         _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
