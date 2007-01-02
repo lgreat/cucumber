@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.8 2007/01/02 18:14:14 cpickslay Exp $
+ * $Id: SessionContext.java,v 1.9 2007/01/02 19:54:39 cpickslay Exp $
  */
 package gs.web.util.context;
 
@@ -46,6 +46,12 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
      */
     private String _cobrand;
     private String _hostName;
+    /**
+     * Current user, if known. This does NOT guarantee that this is a subscribed
+     * user. Other tests must be used to protect paid content.
+     * This may be a costly operation. You should use individual fields, like email or
+     * nickname, if they are sufficient.
+     */
     private User _user;
     private String _userHash;
     private String _screenName;
@@ -54,7 +60,13 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
     private String _nickname;
     private int _mslCount;
     private int _mssCount;
+    /**
+     * Current US state
+     */
     private State _state;
+    /**
+     * A pathway of "1", "2" or "3", or null for no pathway.
+     */
     private String _pathway;
     private String _remoteAddress;
     private String _abVersion;
@@ -125,6 +137,9 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
         return _state;
     }
 
+    /**
+     * Guaranteed non-null state.
+     */
     public State getStateOrDefault() {
         return _state == null ? State.CA : _state;
     }
@@ -141,6 +156,11 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
         return _hostName;
     }
 
+    /**
+     * Determine if this is our main website or a cobrand
+     *
+     * @return true if it's a cobrand
+     */
     public boolean isCobranded() {
         return _cobrand != null;
     }
@@ -154,6 +174,10 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
         return "true".equals(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true"));
     }
 
+    /**
+     * Is this the yahoo cobrand?
+     * yahoo cobrands are yahooed and yahoo
+     */
     public boolean isYahooCobrand() {
         boolean sYahooCobrand = false;
         if (_cobrand != null &&
@@ -163,6 +187,10 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
         return sYahooCobrand;
     }
 
+    /**
+     * Is this disney's family cobrand?
+     * family.greatschools.net
+     */
     public boolean isFamilyCobrand() {
         return isCobranded() &&
                 "family".equals(getCobrand());
@@ -339,6 +367,11 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
         _hasSearched = hasSearched;
     }
 
+    /**
+     * Determine if the user is a crawler
+     *
+     * @return true if it's a cobrand
+     */
     public boolean isCrawler() {
         return _crawler;
     }
