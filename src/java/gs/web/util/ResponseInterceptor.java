@@ -9,6 +9,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import gs.web.util.context.SessionContext;
+
 /**
  * Interceptor to set http response headers
  *
@@ -20,6 +22,7 @@ public class ResponseInterceptor implements HandlerInterceptor {
      * Cookie name used to track repeat usage and other stats
      */
     public static final String TRNO_COOKIE = "TRNO";
+    public static final String COBRAND_COOKIE = "COBRAND";
 
     public static final String HEADER_CACHE_CONTROL = "Cache-Control";
 
@@ -31,7 +34,7 @@ public class ResponseInterceptor implements HandlerInterceptor {
 
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
-
+        
         /*
          * Don't create a cookie for this URL.
          * This is somewhat poorly done since it's not configurable. I'd prefer some
@@ -40,6 +43,11 @@ public class ResponseInterceptor implements HandlerInterceptor {
          */
         if (request.getRequestURI().indexOf("/content/box/v1") == -1) {
             setTrnoCookie(request, response);
+        }
+
+        SessionContext sessionContext = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
+        if (sessionContext.isCobranded() && !sessionContext.isFramed()) {
+            response.addCookie(new Cookie(COBRAND_COOKIE, sessionContext.getHostName()));    
         }
 
         return true;
@@ -54,7 +62,7 @@ public class ResponseInterceptor implements HandlerInterceptor {
 
             for (int i = 0; i < cookies.length; i++) {
                 Cookie cookie = cookies[i];
-
+                
                 if (TRNO_COOKIE.equals(cookie.getName())) {
                     hasTrnoCookie = true;
                     break;
