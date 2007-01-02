@@ -1,13 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.32 2006/12/28 22:01:52 cpickslay Exp $
+ * $Id: PageHelper.java,v 1.33 2007/01/02 18:15:34 cpickslay Exp $
  */
 
 package gs.web.util;
 
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
-import gs.web.util.context.ISessionContext;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -46,6 +45,8 @@ public class PageHelper {
         put("SEASONAL", "7");
         put("COUNTDOWN_COLLEGE", "9");
     }};
+
+    private final SessionContext _sessionContext;
 
     public static void hideLeaderboard(HttpServletRequest request) {
         PageHelper pageHelper = getInstance(request);
@@ -143,12 +144,8 @@ public class PageHelper {
     private boolean _showingLeaderboard = true;
     private boolean _showingFooter = true;
     private boolean _showingFooterAd = true;
-    private boolean _advertisingOnline = true;
     private boolean _betaPage = false;
     private boolean _adServerFooterAd = false;
-
-    private final String _cobrand;
-    private final String _hostName;
 
     private static final Log _log = LogFactory.getLog(PageHelper.class);
     private String _onload = "";
@@ -164,10 +161,8 @@ public class PageHelper {
         return (PageHelper) request.getAttribute(REQUEST_ATTRIBUTE_NAME);
     }
 
-    public PageHelper(ISessionContext sessionContext, HttpServletRequest request) {
-        _cobrand = sessionContext.getCobrand();
-        _hostName = sessionContext.getHostName();
-        _advertisingOnline = sessionContext.isAdvertisingOnline();
+    public PageHelper(SessionContext sessionContext, HttpServletRequest request) {
+        _sessionContext = sessionContext;
 
         // a simple-minded way to determine if the page is a beta-related page
         String uri = request.getRequestURI();
@@ -188,8 +183,8 @@ public class PageHelper {
     }
 
     public boolean isShowingBannerAd() {
-        return !isAdFree() && (StringUtils.isEmpty(_cobrand) ||
-                "charterschoolratings".equals(_cobrand));
+        return !isAdFree() && (StringUtils.isEmpty(_sessionContext.getCobrand()) ||
+                "charterschoolratings".equals(_sessionContext.getCobrand()));
     }
 
     public boolean isShowingLogo() {
@@ -237,8 +232,8 @@ public class PageHelper {
     private boolean isYahooCobrand() {
         // don't need to share this function externally.
         boolean sYahooCobrand = false;
-        if (_cobrand != null &&
-                (_cobrand.matches("yahoo|yahooed"))) {
+        if (_sessionContext.getCobrand() != null &&
+                (_sessionContext.getCobrand().matches("yahoo|yahooed"))) {
             sYahooCobrand = true;
         }
         return sYahooCobrand;
@@ -247,15 +242,15 @@ public class PageHelper {
     private boolean isFamilyCobrand() {
         // don't need to share this function externally.
         boolean sFamilyCobrand = false;
-        if (_cobrand != null &&
-                (_cobrand.matches("family"))) {
+        if (_sessionContext.getCobrand() != null &&
+                (_sessionContext.getCobrand().matches("family"))) {
             sFamilyCobrand = true;
         }
         return sFamilyCobrand;
     }
 
     public boolean isLogoLinked() {
-        return StringUtils.isEmpty(_cobrand);
+        return StringUtils.isEmpty(_sessionContext.getCobrand());
     }
 
     /**
@@ -272,7 +267,7 @@ public class PageHelper {
      * @return true if it's ad free
      */
     public boolean isAdFree() {
-        return !_advertisingOnline || isFramed();
+        return !_sessionContext.isAdvertisingOnline() || isFramed();
     }
 
     /**
@@ -281,13 +276,12 @@ public class PageHelper {
      * @return true if it's framed
      */
     public boolean isFramed() {
-        return _cobrand != null &&
-                _cobrand.matches("mcguire|framed|number1expert|vreo|e-agent|homegain|envirian");
+        return _sessionContext.isFramed();
     }
 
     public boolean isAdServedByCobrand() {
-        return _cobrand != null &&
-                _cobrand.matches("yahoo|yahooed|family|encarta");
+        return _sessionContext.getCobrand() != null &&
+                _sessionContext.getCobrand().matches("yahoo|yahooed|family|encarta");
     }
     /**
      * A String of the onload script(s) to be included in the body tag.
@@ -336,11 +330,11 @@ public class PageHelper {
     }
 
     public boolean isDevEnvironment() {
-        return _urlUtil.isDevEnvironment(_hostName);
+        return _urlUtil.isDevEnvironment(_sessionContext.getHostName());
     }
 
     public boolean isStagingServer() {
-        return _urlUtil.isStagingServer(_hostName);
+        return _urlUtil.isStagingServer(_sessionContext.getHostName());
     }
 
     /**
