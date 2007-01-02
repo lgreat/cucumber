@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.42 2006/11/29 01:30:51 thuss Exp $
+ * $Id: CityController.java,v 1.43 2007/01/02 20:09:16 cpickslay Exp $
  */
 
 package gs.web.geo;
@@ -11,7 +11,7 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
@@ -70,7 +70,7 @@ public class CityController extends AbstractController {
                                                  HttpServletResponse response) throws Exception {
 
         // Figure out the inputs
-        final ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        final SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         State state = sessionContext.getStateOrDefault();
         String cityNameParam = request.getParameter(PARAM_CITY);
 

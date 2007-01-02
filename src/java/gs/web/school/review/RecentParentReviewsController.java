@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsController.java,v 1.11 2006/12/19 01:04:17 thuss Exp $
+ * $Id: RecentParentReviewsController.java,v 1.12 2007/01/02 20:09:17 cpickslay Exp $
  */
 
 package gs.web.school.review;
@@ -10,10 +10,10 @@ import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.state.State;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlBuilder;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.web.servlet.ModelAndView;
@@ -71,7 +71,7 @@ public class RecentParentReviewsController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        ISessionContext sc = SessionContextUtil.getSessionContext(request);
+        SessionContext sc = SessionContextUtil.getSessionContext(request);
         State state = sc.getState();
 
         String city = request.getParameter(PARAM_CITY);

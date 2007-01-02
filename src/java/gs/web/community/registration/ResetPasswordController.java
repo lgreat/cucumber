@@ -13,7 +13,7 @@ import gs.web.util.UrlBuilder;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.validator.UserCommandValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,7 +63,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
             // do nothing
         } else if (idString == null) {
             // non-authenticated user, but no string identifying them. Cause error
-            ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
             user = sessionContext.getUser();
             if (user == null) {
                 _log.warn("Reset password request with no user specified.");

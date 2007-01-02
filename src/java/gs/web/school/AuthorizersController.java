@@ -6,7 +6,7 @@ import gs.data.school.census.ICharterSchoolInfoDao;
 import gs.data.school.charter.ICharterSchoolInfo;
 import gs.data.state.State;
 import gs.web.jsp.Util;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.collections.map.ListOrderedMap;
 import org.apache.commons.lang.StringUtils;
@@ -64,7 +64,7 @@ public class AuthorizersController extends AbstractController {
                                                  HttpServletResponse response) throws Exception {
 
         ModelAndView mAndV = new ModelAndView("school/authorizers");
-        ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         String schoolId = request.getParameter(PARAM_SCHOOL);
 
         if (schoolId != null) {

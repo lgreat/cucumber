@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.41 2006/11/07 19:12:02 dlee Exp $
+ * $Id: UrlUtil.java,v 1.42 2007/01/02 20:09:17 cpickslay Exp $
  */
 
 package gs.web.util;
@@ -168,7 +168,7 @@ public final class UrlUtil {
       <li>$LCSTATE - replaced with lowercase state abbreviation</li>
      * </ul>
      * This variable is taken from the request attribute named of the same name,
-     * and if not found there, it uses the ISessionContext available from the
+     * and if not found there, it uses the SessionContext available from the
      * request.
      * It will add the appropriate server name if this is a link to a perl page.
      * This is most helpful in the dev environment, but this bottleneck allows us
@@ -193,7 +193,7 @@ public final class UrlUtil {
 
         // If the URL has a STATE string in it (or more than one), replace it with the
         // user's state.
-        gs.web.util.context.ISessionContext context = SessionContextUtil.getSessionContext(request);
+        gs.web.util.context.SessionContext context = SessionContextUtil.getSessionContext(request);
         if (href.indexOf("STATE") != -1) {
             // Allow a request attribute to override the session facade.
             if (request.getAttribute("STATE") != null &&

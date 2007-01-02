@@ -1,13 +1,13 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MaximumMssValidator.java,v 1.4 2006/07/13 07:53:59 apeterson Exp $
+ * $Id: MaximumMssValidator.java,v 1.5 2007/01/02 20:09:16 cpickslay Exp $
  */
 package gs.web.util.validator;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.state.State;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.logging.Log;
@@ -36,7 +36,7 @@ public class MaximumMssValidator implements IRequestAwareValidator {
 
         User user = (User) object;
         if (user.hasReachedMaximumMssSubscriptions()) {
-            ISessionContext session = SessionContextUtil.getSessionContext(request);
+            SessionContext session = SessionContextUtil.getSessionContext(request);
             State state = session.getStateOrDefault();
 
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.NEWSLETTER_MANAGEMENT, state);

@@ -1,13 +1,13 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.35 2006/11/07 19:12:02 dlee Exp $
+ * $Id: UrlUtilSaTest.java,v 1.36 2007/01/02 20:09:17 cpickslay Exp $
  */
 
 package gs.web.util;
 
 import gs.data.state.State;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import junit.framework.TestCase;
@@ -35,7 +35,7 @@ public class UrlUtilSaTest extends TestCase {
 
         GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
-        request.setAttribute(ISessionContext.REQUEST_ATTRIBUTE_NAME, sessionFacade);
+        request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, sessionFacade);
         request.setMethod("http");
         request.setServerName("localhost");
         request.setServerPort(8080);

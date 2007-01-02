@@ -4,7 +4,7 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.util.UrlBuilder;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -34,7 +34,7 @@ public class MailToFriendController extends SimpleFormController {
                                    BindException errors) {
         MailToFriendCommand mtc = (MailToFriendCommand) command;
 
-        ISessionContext session = SessionContextUtil.getSessionContext(request);
+        SessionContext session = SessionContextUtil.getSessionContext(request);
 
         if (StringUtils.isEmpty(mtc.getUserEmail())) {
             String email = session.getEmail();

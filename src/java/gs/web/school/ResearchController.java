@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlBuilder;
 import gs.data.state.State;
@@ -55,7 +55,7 @@ public class ResearchController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        ISessionContext context = SessionContextUtil.getSessionContext(request);
+        SessionContext context = SessionContextUtil.getSessionContext(request);
         State state = context.getState();
 
         ModelAndView mAndV = new ModelAndView (getViewName());

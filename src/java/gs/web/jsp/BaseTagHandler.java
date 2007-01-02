@@ -5,7 +5,7 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContext;
 import org.apache.log4j.Logger;
 import org.apache.taglibs.standard.functions.Functions;
@@ -33,7 +33,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
 
     private ApplicationContext getApplicationContext() {
         if (_applicationContext == null) {
-            ISessionContext sc = getSessionContext();
+            SessionContext sc = getSessionContext();
             _applicationContext = sc.getApplicationContext();
         }
         return _applicationContext;
@@ -98,11 +98,11 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
         return outString.replaceAll("LONGSTATE", stateString);
     }
 
-    protected ISessionContext getSessionContext() {
+    protected SessionContext getSessionContext() {
         JspContext jspContext = getJspContext();
-        ISessionContext sc = null;
+        SessionContext sc = null;
         if (jspContext != null) {
-            sc = (ISessionContext) jspContext.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, PageContext.REQUEST_SCOPE);
+            sc = (SessionContext) jspContext.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, PageContext.REQUEST_SCOPE);
         }
         return sc;
     }
@@ -113,7 +113,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
      *         is no current location awareness.
      */
     protected State getState() {
-        ISessionContext sc = getSessionContext();
+        SessionContext sc = getSessionContext();
         State state = State.CA;
         if (sc != null) {
             state = sc.getStateOrDefault();
@@ -127,7 +127,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
      * @return <code>String</code>
      */
     protected String getHostname() {
-        ISessionContext sc = getSessionContext();
+        SessionContext sc = getSessionContext();
         if (sc != null) {
             return sc.getHostName();
         }

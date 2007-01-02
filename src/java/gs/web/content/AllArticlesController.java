@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AllArticlesController.java,v 1.10 2006/08/07 19:06:52 apeterson Exp $
+ * $Id: AllArticlesController.java,v 1.11 2007/01/02 20:09:17 cpickslay Exp $
  */
 package gs.web.content;
 
@@ -8,7 +8,7 @@ import gs.data.content.Article;
 import gs.data.content.ArticleCategory;
 import gs.data.content.ArticleManager;
 import gs.data.content.IArticleDao;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,7 +36,7 @@ public class AllArticlesController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse httpServletResponse) throws Exception {
 
-        ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
 
         List articles = _articleDao.getArticlesForState(sessionContext.getStateOrDefault());
 

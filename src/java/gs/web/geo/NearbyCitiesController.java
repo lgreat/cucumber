@@ -1,6 +1,6 @@
 /*
 * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
-* $Id: NearbyCitiesController.java,v 1.23 2006/07/13 07:53:58 apeterson Exp $
+* $Id: NearbyCitiesController.java,v 1.24 2007/01/02 20:09:17 cpickslay Exp $
 */
 
 package gs.web.geo;
@@ -8,11 +8,11 @@ package gs.web.geo;
 import gs.data.geo.ICity;
 import gs.data.geo.IGeoDao;
 import gs.data.state.State;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModelFactory;
 import gs.web.util.list.AnchorListModel;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -71,7 +71,7 @@ public class NearbyCitiesController extends AbstractController {
 
         Map model = new HashMap();
 
-        ISessionContext context = SessionContextUtil.getSessionContext(request);
+        SessionContext context = SessionContextUtil.getSessionContext(request);
         request.getParameter(SessionContextUtil.STATE_PARAM);
 
         State state = context.getStateOrDefault();

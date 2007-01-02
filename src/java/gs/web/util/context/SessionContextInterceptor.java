@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextInterceptor.java,v 1.3 2006/12/21 01:27:37 thuss Exp $
+ * $Id: SessionContextInterceptor.java,v 1.4 2007/01/02 20:09:16 cpickslay Exp $
  */
 package gs.web.util.context;
 
@@ -15,11 +15,11 @@ import javax.servlet.http.HttpServletResponse;
  * The purpose to guarantee that certain values are stuck in the request.
  * It is responsible for:
  * <ul>
- * <li>guaranteeing that there is a ISessionContext implementation available in
+ * <li>guaranteeing that there is a SessionContext implementation available in
  * the request
- * <li>pulling standard cookie values and putting them into the ISessionContext
- * <li>pulling param variables and putting them into the ISessionContext
- * <li>puttting calculated values into the ISessionContext
+ * <li>pulling standard cookie values and putting them into the SessionContext
+ * <li>pulling param variables and putting them into the SessionContext
+ * <li>puttting calculated values into the SessionContext
  * </ul>
  *
  * @author Andrew J. Peterson <mailto:apeterson@greatschools.net>

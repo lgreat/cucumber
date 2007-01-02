@@ -1,12 +1,12 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.5 2006/11/20 23:49:03 dlee Exp $
+ * $Id: AdTagHandler.java,v 1.6 2007/01/02 20:09:17 cpickslay Exp $
  */
 package gs.web.ads;
 
 import gs.web.jsp.AbstractDeferredContentTagHandler;
 import gs.web.util.PageHelper;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -38,7 +38,7 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
     }
 
     public String getDeferredContent() throws IOException, JspException {
-        ISessionContext sc = (ISessionContext) getJspContext().findAttribute(ISessionContext.REQUEST_ATTRIBUTE_NAME);
+        SessionContext sc = (SessionContext) getJspContext().findAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
         PageContext pageContext = (PageContext) getJspContext();
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);

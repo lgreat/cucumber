@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: FeaturedArticlesController.java,v 1.25 2006/08/07 22:51:38 apeterson Exp $
+ * $Id: FeaturedArticlesController.java,v 1.26 2007/01/02 20:09:17 cpickslay Exp $
  */
 package gs.web.content;
 
@@ -9,7 +9,7 @@ import gs.data.content.IArticleDao;
 import gs.data.state.State;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
@@ -99,7 +99,7 @@ public class FeaturedArticlesController extends AbstractController {
     }
 
     private ModelAndView handleSingleArticle(HttpServletRequest request, String posStr) {
-        ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
 
         int subPosition = 0;
         if (StringUtils.isNumeric(request.getParameter(PARAM_SUB_POSITION))) {
@@ -124,7 +124,7 @@ public class FeaturedArticlesController extends AbstractController {
 
     private ModelAndView handleMultipleArticles(HttpServletRequest request, String posStr, int count) {
 
-        ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         final State state = sessionContext.getStateOrDefault();
 
         List items = new ArrayList(count);

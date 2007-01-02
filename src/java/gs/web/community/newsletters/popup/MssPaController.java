@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.19 2006/07/26 22:29:20 thuss Exp $
+ * $Id: MssPaController.java,v 1.20 2007/01/02 20:09:17 cpickslay Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -8,11 +8,11 @@ import gs.data.community.*;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.validator.MaximumMssValidator;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -57,7 +57,7 @@ public class MssPaController extends SimpleFormController implements ReadWriteCo
         }
 
         if (nc.getEmail() == null) {
-            ISessionContext session = SessionContextUtil.getSessionContext(request);
+            SessionContext session = SessionContextUtil.getSessionContext(request);
             String email = session.getEmail();
             if (StringUtils.isNotEmpty(email)) {
                 nc.setEmail(email);

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MySchoolListController.java,v 1.15 2006/07/13 07:53:58 apeterson Exp $
+ * $Id: MySchoolListController.java,v 1.16 2007/01/02 20:09:17 cpickslay Exp $
  */
 
 package gs.web.community;
@@ -12,7 +12,7 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.util.UrlBuilder;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
 import org.apache.commons.lang.StringUtils;
@@ -45,7 +45,7 @@ public class MySchoolListController extends AbstractController {
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        ISessionContext context = SessionContextUtil.getSessionContext(request);
+        SessionContext context = SessionContextUtil.getSessionContext(request);
         String memberId = request.getParameter(SessionContextUtil.MEMBER_PARAM);
         String limitStr = request.getParameter(PARAM_LIMIT);
         int limit = StringUtils.isNumeric(limitStr) ? Integer.valueOf(limitStr).intValue() : DEFAULT_SCHOOL_LIMIT;

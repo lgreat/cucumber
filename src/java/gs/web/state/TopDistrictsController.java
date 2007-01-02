@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: TopDistrictsController.java,v 1.17 2006/07/13 07:53:59 apeterson Exp $
+ * $Id: TopDistrictsController.java,v 1.18 2007/01/02 20:09:16 cpickslay Exp $
  */
 
 package gs.web.state;
@@ -8,11 +8,11 @@ package gs.web.state;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -46,7 +46,7 @@ public class TopDistrictsController extends AbstractController {
      */
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        ISessionContext context = SessionContextUtil.getSessionContext(request);
+        SessionContext context = SessionContextUtil.getSessionContext(request);
         request.getParameter(SessionContextUtil.STATE_PARAM);
 
         State state = context.getStateOrDefault();

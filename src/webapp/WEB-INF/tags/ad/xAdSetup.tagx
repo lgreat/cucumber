@@ -7,7 +7,7 @@
                        description="Generates necessary JavaScript to show the ads on a page. Generally you will not call this directly, but it will be called by the page decorator."/>
     <jsp:directive.tag import="gs.data.state.State"/>
     <jsp:directive.tag import="gs.web.ads.AdPosition"/>
-    <jsp:directive.tag import="gs.web.util.context.ISessionContext"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
     <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
     <jsp:directive.tag import="java.util.Iterator"/>
     <jsp:directive.tag import="java.util.List"/>
@@ -25,7 +25,7 @@
         }
         request.setAttribute("ads", ads.toString());
 
-        ISessionContext context = (ISessionContext) request.getAttribute(ISessionContext.REQUEST_ATTRIBUTE_NAME);
+        SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
 
         String keywords = (String) request.getAttribute("adKeywords");
         String oas_query = "";

@@ -4,7 +4,7 @@
 package gs.web.jsp.link;
 
 import gs.web.util.context.SessionContextUtil;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.UrlBuilder;
 import gs.web.community.registration.AuthenticationManager;
 import gs.web.jsp.BaseTagHandler;
@@ -83,7 +83,7 @@ public class ToCommunityTagHandler extends BaseTagHandler {
 
     protected AuthenticationManager getAuthenticationManager() {
         if (_authenticationManager == null) {
-            ISessionContext sc = getSessionContext();
+            SessionContext sc = getSessionContext();
             ApplicationContext applicationContext = sc.getApplicationContext();
             _authenticationManager = (AuthenticationManager) applicationContext.getBean(AuthenticationManager.BEAN_ID);
         }

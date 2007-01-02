@@ -12,7 +12,7 @@
         >
 <jsp:directive.page import="gs.data.geo.IGeoDao"/>
 <jsp:directive.page import="gs.data.school.ISchoolDao"/>
-<jsp:directive.page import="gs.web.util.context.ISessionContext"/>
+<jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <jsp:directive.page import="org.springframework.context.ApplicationContext"/>
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
@@ -25,7 +25,7 @@
 
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 <jsp:scriptlet>
-    ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+    SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
     ApplicationContext ac = sessionContext.getApplicationContext();
 
     if (sessionContext.getState() != null) {

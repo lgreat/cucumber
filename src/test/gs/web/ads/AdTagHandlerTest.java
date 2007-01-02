@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandlerTest.java,v 1.3 2006/11/20 22:33:54 dlee Exp $
+ * $Id: AdTagHandlerTest.java,v 1.4 2007/01/02 20:09:17 cpickslay Exp $
  */
 package gs.web.ads;
 
@@ -9,7 +9,7 @@ import gs.web.jsp.MockJspWriter;
 import gs.web.jsp.MockPageContext;
 import gs.web.util.MockSessionContext;
 import gs.web.util.PageHelper;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import org.custommonkey.xmlunit.XMLAssert;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -48,7 +48,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
 
         JspContext jspContext = new MockPageContext(new MockServletContext(), _request);
-        jspContext.setAttribute(ISessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+        jspContext.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
 
         _tag.setJspContext(jspContext);
         _tag.setPosition("x22");
@@ -61,7 +61,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
 
         JspContext jspContext = new MockPageContext(new MockServletContext(), _request);
-        jspContext.setAttribute(ISessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+        jspContext.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
 
         _tag.setJspContext(jspContext);
         _tag.setPosition("x22");
@@ -86,7 +86,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
 
         JspContext jspContext = new MockPageContext(new MockServletContext(), _request);
-        jspContext.setAttribute(ISessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+        jspContext.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
 
         _tag.setJspContext(jspContext);
         _tag.setPosition("x40");
@@ -113,7 +113,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
 
         final JspContext jspContext = new MockPageContext(new MockServletContext(), _request);
-        jspContext.setAttribute(ISessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+        jspContext.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
 
         _tag.setJspContext(jspContext);
         _tag.setJspBody( new JspFragment() {
@@ -144,7 +144,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
 
         final JspContext jspContext = new MockPageContext(new MockServletContext(), _request);
-        jspContext.setAttribute(ISessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+        jspContext.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
 
         _tag.setJspContext(jspContext);
         _tag.setJspBody( new JspFragment() {
@@ -175,7 +175,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
 
         final JspContext jspContext = new MockPageContext(new MockServletContext(), _request);
-        jspContext.setAttribute(ISessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+        jspContext.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
 
         _tag.setJspContext(jspContext);
         _tag.setJspBody( new JspFragment() {

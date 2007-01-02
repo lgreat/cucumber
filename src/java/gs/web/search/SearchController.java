@@ -11,7 +11,7 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
 import gs.web.util.list.AnchorListModel;
@@ -147,7 +147,7 @@ public class SearchController extends AbstractFormController {
         }
 
 
-        final ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        final SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         SearchCommand searchCommand = (SearchCommand) command;
 
         boolean debug = false;
@@ -187,7 +187,7 @@ public class SearchController extends AbstractFormController {
         return new ModelAndView(viewName, model);
     }
 
-    protected Map createModel(HttpServletRequest request, SearchCommand searchCommand, ISessionContext sessionContext, boolean debug) throws IOException {
+    protected Map createModel(HttpServletRequest request, SearchCommand searchCommand, SessionContext sessionContext, boolean debug) throws IOException {
         Map model = new HashMap();
         final String queryString = searchCommand.getQueryString();
         model.put(MODEL_QUERY, queryString);
@@ -344,7 +344,7 @@ public class SearchController extends AbstractFormController {
      * @param sessionContext required
      * @param state          optional state
      */
-    protected BooleanQuery createBaseQuery(ISessionContext sessionContext, State state, String queryString) {
+    protected BooleanQuery createBaseQuery(SessionContext sessionContext, State state, String queryString) {
         BooleanQuery baseQuery = new BooleanQuery();
         if (sessionContext.getState() != null) {
             baseQuery.add(new TermQuery(new Term("state", state.getAbbreviationLowerCase())), true, false);

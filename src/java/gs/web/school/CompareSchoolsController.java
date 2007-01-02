@@ -1,9 +1,9 @@
 package gs.web.school;
 
 import gs.data.state.State;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -26,7 +26,7 @@ public class CompareSchoolsController extends AbstractController {
                                               HttpServletResponse response)
             throws Exception {
 
-        ISessionContext sc = SessionContextUtil.getSessionContext(request);
+        SessionContext sc = SessionContextUtil.getSessionContext(request);
         StringBuffer urlBuffer = new StringBuffer(50);
         if (sc != null) {
             urlBuffer.append("http://");

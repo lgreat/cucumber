@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.9 2007/01/02 19:54:39 cpickslay Exp $
+ * $Id: SessionContext.java,v 1.10 2007/01/02 20:09:16 cpickslay Exp $
  */
 package gs.web.util.context;
 
@@ -33,7 +33,8 @@ import java.security.NoSuchAlgorithmException;
  * @author Andrew J. Peterson <mailto:apeterson@greatschools.net>
  * @see SessionContextInterceptor
  */
-public class SessionContext implements ISessionContext, ApplicationContextAware, Serializable {
+public class SessionContext implements ApplicationContextAware, Serializable {
+    public static final String REQUEST_ATTRIBUTE_NAME = "context";
 
     public static final String BEAN_ID = "sessionContext";
 

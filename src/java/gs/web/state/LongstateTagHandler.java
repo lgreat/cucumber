@@ -1,7 +1,7 @@
 package gs.web.state;
 
 import gs.data.state.State;
-import gs.web.util.context.ISessionContext;
+import gs.web.util.context.SessionContext;
 import gs.web.jsp.BaseTagHandler;
 
 import javax.servlet.jsp.JspWriter;
@@ -25,7 +25,7 @@ public class LongstateTagHandler extends BaseTagHandler {
 
         String stateString = " your state ";
 
-        ISessionContext sc = getSessionContext();
+        SessionContext sc = getSessionContext();
         if (sc != null) {
             State s = sc.getState();
             if (s != null) {

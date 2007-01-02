@@ -11,7 +11,7 @@
           xmlns:display="urn:jsptld:http://displaytag.sf.net"
         >
     <jsp:directive.page import="java.util.List"/>
-    <jsp:directive.page import="gs.web.util.context.ISessionContext"/>
+    <jsp:directive.page import="gs.web.util.context.SessionContext"/>
     <jsp:directive.page import="org.springframework.context.ApplicationContext"/>
     <jsp:directive.page import="gs.data.content.INewsItemDao"/>
     <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
@@ -40,7 +40,7 @@
         PageHelper.hideHeader(request);
         PageHelper.hideFooterAd(request);
         PageHelper.hideFooter(request);
-        ISessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         ApplicationContext ac = sessionContext.getApplicationContext();
 
         INewsItemDao schoolDao =  (INewsItemDao) ac.getBean(INewsItemDao.BEAN_ID);
