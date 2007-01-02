@@ -11,11 +11,10 @@
         <property name="interceptors">
             <list>
                 <bean class="gs.web.util.ReadWriteInterceptor"/>
+                <bean class="gs.web.util.context.SessionContextInterceptor"
+                      autowire="byName"/>
                 <bean class="gs.web.util.ResponseInterceptor"
                       autowire="byName"/>
-                <bean class="gs.web.util.context.SessionContextInterceptor"
-                      autowire="byName">
-                </bean>
             </list>
         </property>
         <property name="alwaysUseFullPath" value="true"/>
