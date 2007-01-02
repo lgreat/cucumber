@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.9 2006/12/04 19:02:24 aroy Exp $
+ * $Id: SessionContextUtil.java,v 1.10 2007/01/02 19:47:33 cpickslay Exp $
  */
 
 package gs.web.util.context;
@@ -416,8 +416,8 @@ public class SessionContextUtil implements ApplicationContextAware {
         return new ClientSideSessionCache(null);
     }
 
-    public static ISessionContext getSessionContext(HttpServletRequest request) {
-        return (ISessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
+    public static SessionContext getSessionContext(HttpServletRequest request) {
+        return (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
     }
 
     public void changeUser(SessionContext context, HttpServletResponse response, User user) {
