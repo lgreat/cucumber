@@ -36,7 +36,7 @@
             </div>
         </c:when>
         <c:otherwise>
-            <promo:holidayLearning/>
+            <promo:schoolChoiceTips/>
         </c:otherwise>
     </c:choose>
 </jsp:root>
