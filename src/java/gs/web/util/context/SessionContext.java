@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.7 2006/12/28 21:59:46 cpickslay Exp $
+ * $Id: SessionContext.java,v 1.8 2007/01/02 18:14:14 cpickslay Exp $
  */
 package gs.web.util.context;
 
@@ -168,6 +168,15 @@ public class SessionContext implements ISessionContext, ApplicationContextAware,
                 "family".equals(getCobrand());
     }
 
+    /**
+     * Determine if this site is a framed site, in other words, no ads and no nav
+     *
+     * @return true if it's framed
+     */
+    public boolean isFramed() {
+        return _cobrand != null &&
+               _cobrand.matches("mcguire|framed|number1expert|vreo|e-agent|homegain|envirian");
+    }
 
     public void setHostName(final String hostName) {
         _hostName = hostName;
