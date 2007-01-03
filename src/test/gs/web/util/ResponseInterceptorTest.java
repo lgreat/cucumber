@@ -1,14 +1,16 @@
 package gs.web.util;
 
 import gs.web.BaseControllerTestCase;
-import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextInterceptor;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.SessionContext;
 
 import javax.servlet.http.Cookie;
 
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.easymock.MockControl;
+import org.easymock.classextension.MockClassControl;
 
 /**
  * @author <a href="mailto:thuss@greatschools.net">Todd Huss</a>
@@ -16,10 +18,16 @@ import org.springframework.mock.web.MockHttpServletRequest;
 public class ResponseInterceptorTest extends BaseControllerTestCase {
 
     private ResponseInterceptor _interceptor;
+    private SessionContextInterceptor _sessionContextInterceptor;
+    private MockControl _mockSessionContext;
 
     public void setUp() throws Exception {
-        _interceptor = new ResponseInterceptor();
         super.setUp();
+
+        _interceptor = new ResponseInterceptor();
+        _mockSessionContext = MockClassControl.createControl(SessionContext.class);
+        _sessionContext = (SessionContext) _mockSessionContext.getMock();
+        _request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
     }
 
     public void testPreHandle() throws Exception {
@@ -49,24 +57,15 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
     }
 
 
-    // TODO: this test is fragile. shouldn't depend on sfgate being non-framed cobrand. Mock SessionContext
     public void testPreHandleSetsCobrandCookie() throws Exception {
-        MockHttpServletRequest request = getRequest();
-        MockHttpServletResponse response = getResponse();
-
         String requestedServer = "sfgate.greatschools.net";
-        request.setServerName(requestedServer);
+        _request.setServerName(requestedServer);
+        setUpSessionContext(requestedServer, true, false);
 
-        // set up SessionContext and PageHelper
-        SessionContextUtil ctxUtil = (SessionContextUtil) getApplicationContext().getBean(SessionContextUtil.BEAN_ID);
-        SessionContextInterceptor sessionContextInterceptor = new SessionContextInterceptor();
-        sessionContextInterceptor.setSessionContextUtil(ctxUtil);
-        sessionContextInterceptor.preHandle(request, response, null);
-
-        assertTrue("preHandle should always return true", _interceptor.preHandle(request, response, null));
+        assertTrue("preHandle should always return true", _interceptor.preHandle(_request, _response, null));
 
         Cookie cobrandCookie = null;
-        Cookie cookies[] = response.getCookies();
+        Cookie cookies[] = _response.getCookies();
         assertNotNull("Expected to find cookies in response", cookies);
         for (int i = 0; i < cookies.length; i++) {
             if (ResponseInterceptor.COBRAND_COOKIE.equals(cookies[i].getName())) {
@@ -75,5 +74,18 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
             }
         }
         assertEquals("Unexpected cobrand cookie value", requestedServer, cobrandCookie.getValue());
+
+        _mockSessionContext.verify();
+
+    }
+
+    private void setUpSessionContext(String requestedServer, boolean isCobranded, boolean isFramed) {
+        _sessionContext.isCobranded();
+        _mockSessionContext.setReturnValue(isCobranded);
+        _sessionContext.isFramed();
+        _mockSessionContext.setReturnValue(isFramed);
+        _sessionContext.getHostName();
+        _mockSessionContext.setReturnValue(requestedServer);
+        _mockSessionContext.replay();
     }
 }
