@@ -32,7 +32,7 @@
     } catch (Exception e){}
 </jsp:scriptlet>
 
-<script language="javascript">
+<script type="text/javascript" language="javascript">
     var deliciousUrl = 'http://del.icio.us/post?v=4;url='+encodeURIComponent(location.href)+';title='+encodeURIComponent(document.title);
 
     function openDelicious() {
@@ -63,7 +63,7 @@
     <gsml:url var="mailToFriendUrl" value="/community/mailToFriend.page?schoolId=${school.id}&amp;refer=${tab}"/>
     <a href="javascript:window.print();">Print this page</a>&amp;nbsp;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&amp;nbsp;
     <gsml:a href="${mailToFriendUrl}" onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email to a friend</gsml:a>&amp;nbsp;&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;&amp;nbsp;
-    <a href="javascript:openDelicious()" onClick="window.open(deliciousUrl, 'win', 'width=600,height=550,scrollbars=yes,resize=yes'); return false;">Add to del.icio.us</a>
+    <a href="javascript:openDelicious()" onclick="window.open(deliciousUrl, 'win', 'width=600,height=550,scrollbars=yes,resize=yes'); return false;">Add to del.icio.us</a>
 </div>
     <div class="wrap0">
         <div class="wrap1">
