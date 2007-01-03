@@ -83,16 +83,21 @@ a {
 	height: 24px;
 }
 
+#reg_intro span.headerImage {
+    float: left;
+}
+
+#reg_intro span.headerImage img {
+    margin: 0;
+}
+
+#reg_intro #returninguser span.headerImage {
+    padding-bottom: 35px;
+}
+
 h1 span {
 	display: none;
 }
-
-#reg_intro h2 span {
-    display: none;
-}
-    /* this "span trick" allows the text that appears in the graphic to also appear in the
-	markup. The <span> is styled as such so that the hypertext equivalent does not appear, however
-	it is still present in the markup. */
 
 #reg_1 .intro {
 	margin: 0 100px 0 3px;
@@ -150,10 +155,13 @@ h1 span {
 }
 
 #newuser h2 {
-	background: url(../../../img/community/registration/h2_newuser_126x72.gif) no-repeat;
 	width: 126px;
 	height: 72px;
 	float: left;
+}
+
+#newuser h2 a {
+    text-decoration: none;
 }
 
 #newuser img {
@@ -206,7 +214,6 @@ h1 span {
 }
 
 #returninguser h2 {
-	background: url(../../../img/community/registration/h2_returninguser_171x65.gif) no-repeat;
 	width: 171px;
 	height: 100px;
 }

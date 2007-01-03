@@ -39,7 +39,11 @@
         <div id="outline"><!-- creates darker blue outer outline -->
             <div id="content">
                 <div id="newuser">
-                    <h2><span>New User? Join our community!</span></h2>
+                    <span class="headerImage">
+                        <link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}">
+                            <gsml:img src="/res/img/community/registration/h2_newuser_126x72.gif" alt="New user? Join our community!"/>
+                        </link:registration>
+                    </span>
 
                     <div class="join"><link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}" title="Join the GreatSchools Community"></link:registration></div>
 
@@ -53,7 +57,9 @@
                 </div>
                 <!-- end: newuser -->
                 <div id="returninguser">
-                    <h2><span>Returning User? Yes! I'm already a member.</span></h2>
+                    <span class="headerImage">
+                        <gsml:img src="/res/img/community/registration/h2_returninguser_171x65.gif" alt="Returning user? Yes! I'm already a member"/>
+                    </span>
 
                     <gsweb:form action="/community/loginOrRegister.page" method="post">
 
