@@ -20,7 +20,6 @@
 <jsp:directive.page contentType="text/html"/>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
     <title>
         <c:out value="${title}" escapeXml="false"/>
     </title>
