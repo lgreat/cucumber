@@ -47,7 +47,21 @@ public class ResponseInterceptor implements HandlerInterceptor {
 
         SessionContext sessionContext = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
         if (sessionContext.isCobranded() && !sessionContext.isFramed()) {
-            response.addCookie(new Cookie(COBRAND_COOKIE, sessionContext.getHostName()));    
+            Cookie cobrandCookie = new Cookie(COBRAND_COOKIE, sessionContext.getHostName());
+            cobrandCookie.setPath("/");
+            response.addCookie(cobrandCookie);
+        }
+        else {
+            Cookie cookies[] = request.getCookies();
+            if (cookies != null) {
+                for (int i = 0; i < cookies.length; i++) {
+                    Cookie cookie = cookies[i];
+                    if (COBRAND_COOKIE.equals(cookie.getName())) {
+                        cookie.setMaxAge(0);
+                        response.addCookie(cookie);
+                    }
+                }
+            }
         }
 
         return true;
