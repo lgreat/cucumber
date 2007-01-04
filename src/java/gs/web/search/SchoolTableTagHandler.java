@@ -85,7 +85,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 builder.addParametersFromRequest(request);
                 writePageNumbers(getPage(), request, builder, _total);
             }
-            out.println("</td><tr><td></td><td align=\"right\" style=\"padding-right:15px;padding-bottom:5px\">");
+            out.println("</td></tr><tr><td></td><td align=\"right\" style=\"padding-right:15px;padding-bottom:5px\">");
             if (!showall && (_total > PAGE_SIZE)) {
                 out.print("<a href=\"");
                 String showAllHref;
@@ -96,7 +96,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 out.print(showAllHref);
                 out.print("\"><span class=\"minilink\">Show all</span></a>");
             }
-            out.println("</td></tr><td>");
+            out.println("</td></tr><tr><td>");
 
         } else {
             if (filtered) {

@@ -103,6 +103,7 @@
 
     <![CDATA[
        <script language="javascript" type="text/javascript">
+       <!--
            function checkSelections() {
                var checks = document.getElementsByTagName('input');
 
@@ -117,6 +118,7 @@
                    return false;
                }
            }
+       -->
        </script>
     ]]>
 
@@ -151,11 +153,11 @@
 
         <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
             <c:if test="${param.map ne 1 and results.total gt 0}">
-                <div class="mapIt">
+                <div class="mapIt"><p>
                 <gsml:a href="/schools.page?map=1&amp;${queryStringNoMap}">
                     <gsml:img src="/res/img/geo/btn_map_it.gif" alt="map it"/>
-                    <p>See results on our<br />interactive local map</p>
-                </gsml:a>
+                    <br/><br/>See results on our<br />interactive local map
+                </gsml:a></p>
                 </div>
             </c:if>
             <c:if test="${param.map eq 1 }">
@@ -234,8 +236,6 @@
                                total="${results.total}"
                                srcQuery="${pageContext.request.queryString}"
                                showAll="${results.showAll}"
-                               cityName="${cityName}"
-                               districtId="${district}"
                                schoolType="${st}"
                                levelCode="${lc}"
                     >

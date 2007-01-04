@@ -14,58 +14,66 @@
         >
     <jsp:directive.page import="java.io.StringWriter"/>
     <jsp:directive.page import="java.io.PrintWriter"/>
-<html lang="en">
-<jsp:output doctype-root-element="html"
-            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-<jsp:directive.page contentType="text/html"/>
- <pageHelper:hideFooterAd/>
+    <jsp:directive.page contentType="text/html"/>
+    <pageHelper:hideFooterAd/>
 
-<page:apply-decorator name="cobrandHeaderGsFooter">
+    <page:apply-decorator name="cobrandHeaderGsFooter">
 
-    <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-        <title>Error</title>
-        <jsp:scriptlet>
-            Exception foo = (Exception) request.getAttribute("javax.servlet.error.exception");
-            if (foo != null) {
-                StringWriter sw = new StringWriter();
-                PrintWriter pw = new PrintWriter(sw);
-                foo.printStackTrace(pw);
+        <head>
+            <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+            <title>Error</title>
+            <jsp:scriptlet>
+                Exception foo = (Exception) request.getAttribute("javax.servlet.error.exception");
+                if (foo != null) {
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    foo.printStackTrace(pw);
 
-                request.setAttribute("printme", sw.getBuffer().toString());
-            }
-        </jsp:scriptlet>
-        <style type="text/css">
-            span.stackTrace {
-                display: none;
-            }
-        </style>
-    </head>
+                    request.setAttribute("printme", sw.getBuffer().toString());
+                }
+            </jsp:scriptlet>
+            <c:if test="${requestScope.context.hostName != 'dev.greatschools.net'}">
+                <style type="text/css">
+                    span.stackTrace {
+                        display: none;
+                    }
+                </style>
+            </c:if>
+        </head>
 
-    <gsml:body adPageName="www" pageLayout="singleTextOnlyColumnLayout">
+        <gsml:body adPageName="www" pageLayout="singleTextOnlyColumnLayout">
 
-    <mod:tracking pageType="" pageName="Error:500" hier1="Error,500"/>
+            <mod:tracking pageType="" pageName="Error:500" hier1="Error,500"/>
 
-    <h3>Error</h3>
+            <h3>Error</h3>
 
-    <p>
-    We're sorry.
-    An unexpected error has occurred that prevents us from delivering the page you requested.
-    </p>
-    <p>
-    We are constantly working to improve the information we provide. We have
-    been notified that this occurred, and are working to solve the error.
-    </p>
-    <p>Please accept our apologies.</p>
-    <h3>What now?</h3>
-    <p><a href="javascript:history.back()">Go back</a> and hit refresh to try again, or visit our <gsml:a href="/">Homepage</gsml:a>.</p>
+            <p>
+                We're sorry.
+                An unexpected error has occurred that prevents us from delivering the page you requested.
+            </p>
 
+            <p>
+                We are constantly working to improve the information we provide. We have
+                been notified that this occurred, and are working to solve the error.
+            </p>
+
+            <p>Please accept our apologies.</p>
+
+            <h3>What now?</h3>
+
+            <p><a href="javascript:history.back()">Go back</a> and hit refresh to try again, or visit our
+                <gsml:a href="/">Homepage</gsml:a>
+                .
+            </p>
         <span class="stackTrace">
             <pre>${printme}</pre>
         </span>
-    </gsml:body>
-</page:apply-decorator>
-</html>
+        </gsml:body>
+    </page:apply-decorator>
+    </html>
 </jsp:root>

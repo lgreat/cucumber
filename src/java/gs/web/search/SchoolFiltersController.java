@@ -79,16 +79,16 @@ public class SchoolFiltersController extends AbstractController {
 
     private String createSchoolTypeHtml(String page, String schoolType, boolean hasSchoolType, String qString) {
         final String schoolTypeLabel = StringUtils.capitalize(schoolType);
-        StringBuffer buffer;
-        buffer = new StringBuffer();
+        qString = qString.replaceAll("&", "&amp;");
+        StringBuffer buffer = new StringBuffer();
         if (hasSchoolType) {
             buffer.append(schoolTypeLabel + " (<a href=\"" + page + "?");
-            buffer.append(qString.replaceAll("\\&st=" + schoolType, ""));
+            buffer.append(qString.replaceAll("\\&amp;st=" + schoolType, ""));
             buffer.append("\">remove</a>)");
         } else {
             buffer.append("<a href=\"" + page + "?");
             buffer.append(qString);
-            buffer.append("&st="+schoolType +"\">"+schoolTypeLabel +"</a>");
+            buffer.append("&amp;st="+schoolType +"\">"+schoolTypeLabel +"</a>");
         }
         final String s = buffer.toString();
         return s;
@@ -96,14 +96,15 @@ public class SchoolFiltersController extends AbstractController {
 
     private String createLevelCodeHtml(String page, LevelCode.Level level, String label, boolean hasLevel, String qString) {
         StringBuffer buffer = new StringBuffer();
+        qString = qString.replaceAll("&", "&amp;");
         if (hasLevel) {
             buffer.append(label + " (<a href=\"" + page + "?");
-            buffer.append(qString.replaceAll("\\&lc=" + level.getName(), ""));
+            buffer.append(qString.replaceAll("\\&amp;lc=" + level.getName(), ""));
             buffer.append("\">remove</a>)");
         } else {
             buffer.append("<a href=\"" + page + "?");
             buffer.append(qString);
-            buffer.append("&lc=" + level.getName() + "\">" + label + "</a>");
+            buffer.append("&amp;lc=" + level.getName() + "\">" + label + "</a>");
         }
         final String s = buffer.toString();
         return s;
