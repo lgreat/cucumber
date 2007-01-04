@@ -90,7 +90,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 out.print("<a href=\"");
                 String showAllHref;
                 StringBuffer hrefBuffer = new StringBuffer("/schools.page?");
-                hrefBuffer.append(qString);
+                hrefBuffer.append(qString.replaceAll("&", "&amp;"));
                 hrefBuffer.append("&amp;showall=true");
                 showAllHref = urlUtil.buildUrl(hrefBuffer.toString(), request);
                 out.print(showAllHref);

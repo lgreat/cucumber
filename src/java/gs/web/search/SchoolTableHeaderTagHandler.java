@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.14 2007/01/04 01:06:16 thuss Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.15 2007/01/04 20:21:52 thuss Exp $
  */
 
 package gs.web.search;
@@ -338,6 +338,9 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
     }
 
     public void setSrcQuery(String srcQuery) {
+        if (srcQuery.indexOf("&amp;") < 0) {
+            srcQuery = srcQuery.replaceAll("&", "&amp;");
+        }
         _srcQuery = srcQuery;
     }
 
