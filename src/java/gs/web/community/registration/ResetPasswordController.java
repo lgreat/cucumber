@@ -33,6 +33,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
     public static final String ERROR_PASSWORD_MISMATCH = "The password you entered is incorrect.";
 
     private IUserDao _userDao;
+    private AuthenticationManager _authenticationManager;
 
     protected void createGenericValidationError(HttpServletRequest request, BindException errors) {
         UrlBuilder builder = new UrlBuilder(UrlBuilder.FORGOT_PASSWORD, null);
@@ -178,10 +179,16 @@ public class ResetPasswordController extends SimpleFormController implements Rea
             getUserDao().updateUser(user);
             // log in user automatically
             PageHelper.setMemberAuthorized(request, response, user);            
-            mAndV.getModel().put("message", "Your password has been changed");
-        }
+            //mAndV.getModel().put("message", "Your password has been changed");
 
-        mAndV.setViewName(getSuccessView());
+            AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.ACCOUNT_INFO, null, null);
+            builder.addParameter("message", "Your password has been changed");
+            mAndV.setViewName("redirect:" + _authenticationManager.addParameterIfNecessary
+                (builder.asFullUrl(request), authInfo));
+        } else {
+            mAndV.setViewName(getSuccessView());
+        }
         return mAndV;
     }
 
@@ -195,6 +202,14 @@ public class ResetPasswordController extends SimpleFormController implements Rea
 
     public void setUserDao(IUserDao userDao) {
         _userDao = userDao;
+    }
+
+    public AuthenticationManager getAuthenticationManager() {
+        return _authenticationManager;
+    }
+
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        _authenticationManager = authenticationManager;
     }
 
     public static class ResetPasswordCommand {

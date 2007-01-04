@@ -18,6 +18,7 @@ import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,6 +52,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     private ISchoolDao _schoolDao;
     private IGeoDao _geoDao;
     private RegistrationConfirmationEmail _registrationConfirmationEmail;
+    private AuthenticationManager _authenticationManager;
 
     private Set _contactSubs;
 
@@ -339,11 +341,13 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         }
 
         PageHelper.setMemberAuthorized(request, response, user);
-        if (StringUtils.isNotEmpty(fupCommand.getRedirect())) {
-            mAndV.setViewName("redirect:" + fupCommand.getRedirect());
-        } else {
-            mAndV.setViewName(getSuccessView());
+        AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
+        if (StringUtils.isEmpty(fupCommand.getRedirect())) {
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.ACCOUNT_INFO, null, null);
+            fupCommand.setRedirect(builder.asFullUrl(request));
         }
+        mAndV.setViewName("redirect:" + _authenticationManager.addParameterIfNecessary
+            (fupCommand.getRedirect(), authInfo));
 
         return mAndV;
     }
@@ -440,5 +444,13 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
     public void setRegistrationConfirmationEmail(RegistrationConfirmationEmail registrationConfirmationEmail) {
         _registrationConfirmationEmail = registrationConfirmationEmail;
+    }
+
+    public AuthenticationManager getAuthenticationManager() {
+        return _authenticationManager;
+    }
+
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        _authenticationManager = authenticationManager;
     }
 }

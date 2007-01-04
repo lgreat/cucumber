@@ -30,6 +30,7 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         _userControl = MockControl.createControl(IUserDao.class);
         _userDao = (IUserDao) _userControl.getMock();
         _controller.setUserDao(_userDao);
+        _controller.setAuthenticationManager(new AuthenticationManager());
     }
 
     public void testResetPassword() throws NoSuchAlgorithmException {
@@ -66,10 +67,9 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         // checks that the user's password has actually changed
         _userControl.setMatcher(new UserPasswordMatcher());
         _userControl.replay();
-        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        _controller.onSubmit(getRequest(), getResponse(), command, errors);
         _userControl.verify();
         assertFalse("Unexpected errors on onSubmit", errors.hasErrors());
-        assertEquals(mAndV.getViewName(), _controller.getSuccessView());
     }
 
     public void testSetUpdated() throws NoSuchAlgorithmException {
@@ -103,10 +103,9 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
         // checks that the user's password has actually changed
         _userControl.setMatcher(new UserPasswordMatcher());
         _userControl.replay();
-        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
+        _controller.onSubmit(getRequest(), getResponse(), command, errors);
         _userControl.verify();
         assertFalse("Unexpected errors on onSubmit", errors.hasErrors());
-        assertEquals(mAndV.getViewName(), _controller.getSuccessView());
         assertFalse(cal.getTime().equals(user.getUpdated()));
     }
 
@@ -154,10 +153,9 @@ public class ResetPasswordControllerTest extends BaseControllerTestCase {
             _userControl.setMatcher(new UserPasswordMatcher());
             _userControl.replay();
 
-            ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), command, errors);
+            _controller.onSubmit(getRequest(), getResponse(), command, errors);
             _userControl.verify();
             assertFalse("Unexpected errors on onSubmit", errors.hasErrors());
-            assertEquals(mAndV.getViewName(), _controller.getSuccessView());
 
         } finally {
             getSessionContext().setUser(null);

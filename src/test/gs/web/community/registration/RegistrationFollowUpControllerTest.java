@@ -64,6 +64,8 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         email.getEmailHelperFactory().setMailSender(_mailSender);
         _controller.setRegistrationConfirmationEmail(email);
 
+        _controller.setAuthenticationManager(new AuthenticationManager());
+
         setupBindings();
     }
 

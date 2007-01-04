@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.easymock.MockControl;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 import java.util.ArrayList;
 
 /**

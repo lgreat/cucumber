@@ -9,6 +9,7 @@ import gs.data.geo.City;
 import gs.data.state.State;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlBuilder;
 import gs.web.util.validator.UserCommandValidator;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -38,6 +39,7 @@ public class RegistrationController extends SimpleFormController implements Read
     private RegistrationConfirmationEmail _registrationConfirmationEmail;
     private boolean _requireEmailValidation = true;
     private String _completeView;
+    private AuthenticationManager _authenticationManager;
 
     //set up defaults if none supplied
     protected void onBindOnNewForm(HttpServletRequest request,
@@ -214,11 +216,13 @@ public class RegistrationController extends SimpleFormController implements Read
                 }
             }
             PageHelper.setMemberAuthorized(request, response, user);
-            if (StringUtils.isNotEmpty(userCommand.getRedirectUrl())) {
-                mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
-            } else {
-                mAndV.setViewName(_completeView);
+            AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
+            if (StringUtils.isEmpty(userCommand.getRedirectUrl())) {
+                UrlBuilder builder = new UrlBuilder(UrlBuilder.ACCOUNT_INFO, null, null);
+                userCommand.setRedirectUrl(builder.asFullUrl(request));
             }
+            mAndV.setViewName("redirect:" + _authenticationManager.addParameterIfNecessary
+                (userCommand.getRedirectUrl(), authInfo));
         }
 
         // generate secure hash so if the followup profile page is submitted, we know who it is
@@ -247,5 +251,13 @@ public class RegistrationController extends SimpleFormController implements Read
 
     public void setRegistrationConfirmationEmail(RegistrationConfirmationEmail registrationConfirmationEmail) {
         _registrationConfirmationEmail = registrationConfirmationEmail;
+    }
+
+    public AuthenticationManager getAuthenticationManager() {
+        return _authenticationManager;
+    }
+
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        _authenticationManager = authenticationManager;
     }
 }
