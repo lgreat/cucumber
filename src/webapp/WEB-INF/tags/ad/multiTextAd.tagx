@@ -16,8 +16,8 @@
                 <ad:x49/>
                 <![CDATA[<span class="hr"></span>]]>
                 <ad:x50/>
-                <![CDATA[<span class="hr"></span>]]>
-                <ad:x51/>
+                <!--<![CDATA[<span class="hr"></span>]]>-->
+                <!--<ad:x51/>-->
             </div>
         </c:if>
     </c:if>    
