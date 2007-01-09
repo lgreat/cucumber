@@ -344,7 +344,6 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
         if (StringUtils.isEmpty(fupCommand.getRedirect())) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
-            builder.addParameter("message", "You have successfully registered for the GreatSchools community!");
             fupCommand.setRedirect(builder.asFullUrl(request));
         }
         mAndV.setViewName("redirect:" + _authenticationManager.addParameterIfNecessary

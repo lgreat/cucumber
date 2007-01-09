@@ -226,12 +226,6 @@ h1 span {
 	line-height: 14px;
 }
 
-/* Temporarily disable this link until GetActive problem solved (see GS-2871) */
-#emailAddress a {
-    text-decoration: none;
-}
-
-
 /* Newsletters */
 
 #newsletters {

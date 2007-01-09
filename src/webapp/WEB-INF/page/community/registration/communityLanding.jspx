@@ -48,7 +48,7 @@
                       Get tips from other parents who've been there.
                       <br/><br/>
                       Have you participated in a
-                      <gsweb:articleForumLink articleId="33">successful school fundraiser?</gsweb:articleForumLink>
+                      <gsweb:articleForumLink articleId="33">successful school fundraiser</gsweb:articleForumLink>?
                       Weighed the options of
                       <gsweb:articleForumLink articleId="197" styleClass="link">private vs. public schools</gsweb:articleForumLink>
                       for your family?
@@ -106,7 +106,7 @@
           </td>
       </tr>
       <tr>
-          <td colspan="3"><gsml:img style="height: 10px;" alt="" src="/res/img/header/clear_pix.gif" />
+          <td colspan="3"><gsml:img style="height: 12px;" alt="" src="/res/img/header/clear_pix.gif" />
           </td>
       </tr>
       <tr>
@@ -114,6 +114,10 @@
             <img style="height: 5px;" alt=""
                  src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
         </td>
+      </tr>
+      <tr>
+          <td colspan="3"><gsml:img style="height: 2px;" alt="" src="/res/img/header/clear_pix.gif" />
+          </td>
       </tr>
       <tr>
       <!-- Hot Topics Box -->
