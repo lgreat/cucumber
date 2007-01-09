@@ -32,9 +32,7 @@
               <div id="emailAddress">
                   <h3>Email Address</h3>
                   <p>Change your email address</p>
-                  <!-- disable this link until GetActive problem fixed (see GS-2871) -->
-                  <!-- <link:changeEmail>Change email address</link:changeEmail> -->
-                  <a name="emailComing">Coming soon!</a>
+                   <link:changeEmail>Change email address</link:changeEmail>
               </div>
               <!-- end: Email Address module -->
 
