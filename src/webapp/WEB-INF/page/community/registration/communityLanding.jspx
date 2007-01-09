@@ -40,13 +40,15 @@
                       Welcome to the GreatSchools Community, where you can ask questions and trade tips
                       with other parents to support your child's education!
                       <br/><br/>
-                      Does your child need help with homework?
+                      Does your child need
+                      <gsweb:articleForumLink articleId="769">help with homework</gsweb:articleForumLink>?
                       Is she
                       <gsweb:articleForumLink articleId="215" styleClass="link">plagued by bullies</gsweb:articleForumLink>
                       at school?
                       Get tips from other parents who've been there.
                       <br/><br/>
-                      Have you participated in a successful school fundraiser?
+                      Have you participated in a
+                      <gsweb:articleForumLink articleId="33">successful school fundraiser?</gsweb:articleForumLink>
                       Weighed the options of
                       <gsweb:articleForumLink articleId="197" styleClass="link">private vs. public schools</gsweb:articleForumLink>
                       for your family?
@@ -128,7 +130,7 @@
                       <td valign="top" class="yellowArrow">
                           <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
                       </td>
-                      <td valign="top" class="articleCell">What's wrong with my child?</td>
+                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="614">What's wrong with my child?</gsweb:articleForumLink></td>
                   </tr>
                   <tr>
                       <td valign="top" class="yellowArrow">
@@ -174,7 +176,7 @@
                       <td valign="top" class="yellowArrow">
                           <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
                       </td>
-                      <td valign="top" class="articleCell">Finding the right fit</td>
+                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="96">Finding the right fit</gsweb:articleForumLink></td>
                   </tr>
                   <tr>
                       <td valign="top" class="yellowArrow">

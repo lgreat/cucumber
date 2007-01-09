@@ -340,11 +340,6 @@ h1 span {
 	line-height: 14px;
 }
 
-/* Temporarily disable links to community for beta */
-#emailPreferences a {
-    text-decoration: none;
-}
-
 /* Photo */
 
 #photo {
@@ -370,11 +365,6 @@ h1 span {
 #photo p {
 	margin: 0 8px 9px 18px;
 	line-height: 14px;
-}
-
-/* Temporarily disable links to community for beta */
-#photo a {
-    text-decoration: none;
 }
 
 /* Forgot Your Password? */

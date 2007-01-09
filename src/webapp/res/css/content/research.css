@@ -195,7 +195,7 @@ a.arrowLink:hover {
 }
 
 .blueDot {
-    background-image: url(/res/img/content/research/blue_dot.gif);
+    background-image: url(../../img/content/research/blue_dot.gif);
 	background-repeat: repeat-x;
 }
 
@@ -213,7 +213,7 @@ a.arrowLink:hover {
     text-indent:-50em;
     padding: 0px 0px 0px 0px;
 	margin: 0px 0px 0px 0px;
-    background-image: url(/res/img/content/research/grey_dash2.gif);
+    background-image: url(../../img/content/research/grey_dash2.gif);
 	background-repeat: repeat-x;
 	height: 15px;
 }
@@ -304,7 +304,7 @@ a.arrowLink:hover {
 .billsBlogImg {
     text-indent:-150em;
     padding: 0px 0px 21px 0px;
-	background-image: url(/res/img/content/research/img_bills_blog.jpg);
+	background-image: url(../../img/content/research/img_bills_blog.jpg);
 	background-repeat: no-repeat;
 	margin: 0px auto 0px auto;
 	width: 65px;
@@ -324,7 +324,7 @@ a.arrowLink:hover {
 .healthyKidsImg {
     text-indent:-150em;
     padding: 0px 0px 21px 0px;
-	background-image: url(/res/img/content/research/blueberries.jpg);
+	background-image: url(../../img/content/research/blueberries.jpg);
 	background-repeat: no-repeat;
 	margin: 0px auto 0px auto;
 	width: 65px;
@@ -344,7 +344,7 @@ a.arrowLink:hover {
 .editorsPickImg {
     text-indent:-150em;
     padding: 0px 0px 18px 0px;
-	background-image: url(/res/img/content/research/mmyers.jpg);
+	background-image: url(../../img/content/research/mmyers.jpg);
 	background-repeat: no-repeat;
 	margin: 0px 15px 0px auto;
 	width: 94px;
@@ -372,7 +372,7 @@ a.arrowLink:hover {
 	border: 1px solid #DDEEEE;
 	padding: 2px 2px 2px 2px;
     text-indent:-1000em;
-    background-image: url("/res/img/content/research/lrosenthal.jpg");
+    background-image: url("../../img/content/research/lrosenthal.jpg");
 	background-repeat: no-repeat;
 	background-position: 2px; 2px; 2px; 2px;
 	width: 53px;
@@ -381,7 +381,7 @@ a.arrowLink:hover {
 
 #lisaSignature {
     text-indent:-50em;
-    background-image: url(/res/img/content/research/lisa_signature.gif);
+    background-image: url(../../img/content/research/lisa_signature.gif);
     background-repeat: no-repeat;
     margin:10px 0px 10px 0px;
     width: 147px;
@@ -422,7 +422,7 @@ a.arrowLink:hover {
 
 h2#dearParents {
     margin: 65px 0px 0px 0px;
-	background-image: url(/res/img/content/research/t_dearparents.gif);
+	background-image: url(../../img/content/research/t_dearparents.gif);
 	background-repeat: no-repeat;
 	width: 104px;
     height: 15px;

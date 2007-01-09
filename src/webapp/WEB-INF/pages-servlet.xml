@@ -798,7 +798,7 @@
         <property name="commandName" value="userCmd"/>
         <property name="commandClass" value="gs.web.community.registration.UserCommand"/>
         <property name="formView" value="/community/registration/forgotPassword"/>
-        <property name="successView" value="redirect:/community/forgotPassword.page"/>
+        <property name="successView" value="redirect:/community/communityLanding.page"/>
         <property name="validators">
             <list>
                 <ref local="emailValidator"/>

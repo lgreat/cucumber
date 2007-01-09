@@ -358,7 +358,8 @@ h1 span {
 	font-style: italic;
 	color: #8f8f8f;
 	margin: -4px 0 12px 144px;
-	height: 12px;
+    width: 344px; /* for IE 7 */
+    height: 12px;
 	_margin: -3px 120px 12px 70px; /* for IE 6 */
 }
 

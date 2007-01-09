@@ -1,0 +1,146 @@
+.marian {
+	border: 1px solid #DDEEEE;
+	padding: 2px 2px 2px 2px;
+    text-indent:-1000em;
+    background-image: url("../../../img/community/registration/mwilde.jpg");
+	background-repeat: no-repeat;
+	background-position: 2px; 2px; 2px; 2px;
+	width: 54px;
+	height: 70px;
+}
+
+.marianDashedBorder {
+	padding: 0;
+	margin: 0;
+	border: 1px dashed #DDEEEE;
+    width: 60px;
+    height: 76px;
+}
+
+#marianSignature {
+    text-indent:-50em;
+    background-image: url(../../../img/community/registration/marian_signature.gif);
+    background-repeat: no-repeat;
+    margin:10px 0 10px 0;
+    width: 135px;
+	height: 43px;
+}
+
+.photoName {
+    position: relative;
+    top: 10px;
+    left: -4px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 13px;
+	line-height: 16px;
+	font-weight: bold;
+	color: #55BBCC;
+	letter-spacing: 0;
+}
+
+.photoCaption {
+    position: relative;
+    top: 10px;
+    left: -4px;
+    font-weight: bold;
+    line-height: 14px;
+}
+
+div.articleBox {
+    border: 3px solid #66CCCC;
+    border-top: 0;
+    padding: 24px 11px 0 23px;
+    font-family: "Century Gothic", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 17px;
+    color: #777777;
+    width: 284px;
+    height: 155px;
+    letter-spacing: 0;
+}
+
+div.articleBox table tr td a:link,
+div.articleBox table tr td a:visited,
+div.articleBox table tr td a:hover {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 15px;
+    color: #3399AA;
+    text-decoration: underline;
+    letter-spacing: 0;
+}
+
+a.link:link, a.link:visited, a.link:hover {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 15px;
+	color: #3399AA;
+	text-decoration: underline;
+	letter-spacing: 0;
+}
+
+.greyDot {
+    border-bottom: 0;
+    background: url(../../../img/content/countdownToCollege/mid_dot_line.gif) bottom repeat-x;
+    padding-bottom: 10px;
+}
+
+.middleTitle2 {
+	padding: 10px 0 6px 26px;
+    font-family: "Century Gothic", Arial, sans-serif;
+	font-size: 20px;
+	line-height: 17px;
+	color: #ffffff;
+	background-color: #66CCCC;
+	letter-spacing: 0;
+}
+
+.yellowArrow {
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+	background-image: url("../../../img/content/research/yellow_arrow.gif");
+	background-repeat: no-repeat;
+	background-position: 7px 3px;
+	width: 22px;
+}
+
+.articleCell {
+    width: 100%;
+}
+
+.photoCell {
+    border-bottom: 1px solid #DDEEEE;
+    line-height: 10px;
+}
+
+.firstButton {
+    margin-left: 25px;
+    margin-right: 10px;
+}
+
+h1.communityWelcome {
+	padding: 18px 0 18px 17px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 17px;
+	line-height: 17px;
+	color: #55BBCC;
+	background-color: #DDEEEE;
+	letter-spacing: 0;
+}
+
+span.welcomeText {
+    position: relative;
+    top: -3px;
+}
+
+h1.welcomeInfo {
+    height: 20px;
+    padding: 15px 0 18px 72px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-size: 17px;
+    line-height: 17px;
+    color: #ffffff;
+    letter-spacing: 0;
+    background: url(../../../img/community/registration/icon_infomessage_27x27.gif) 30px 13px no-repeat #66cccc;
+}
+
