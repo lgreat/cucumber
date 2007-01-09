@@ -6,115 +6,499 @@
         xmlns:link="urn:www.greatschools.net/taglib/link"
         xmlns:gsweb="gstaglib"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
+        xmlns:content="urn:www.greatschools.net/taglib/content"
         >
 <jsp:directive.page contentType="text/html"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <html>
+<c:set var="stateOrNull" value="${requestScope.context.state}" />
+<c:set var="stateOrDefault" value="${requestScope.context.stateOrDefault}" />
   <head>
       <title>GreatSchools Community</title>
-      <style type="text/css">
-          h1.welcome {
-              font-size: x-large;
-              color: #99CC67;
-              margin: 15px 0 35px 15px;
-          }
-
-          h2.intro {
-              font-size: large;
-              font-weight: bold;
-              margin-bottom: 15px;
-          }
-
-          div.box {
-              border: groove 4px #99CC67;
-              padding: 25px;
-              margin: 25px 0 25px 15px;
-              width: 13em;
-          }
-
-          div.box a, div.box a:link, div.box a:visited,
-              div.box a:active, div.box a:hover {
-              color: #4DA4B7;
-              text-decoration: none;
-              text-align: center;
-          }
-
-          div.messageBox {
-              border: groove 4px #BBCC45;
-              padding: 25px;
-              margin: 25px 0 15px 15px;
-              display: block;
-              float: left;
-              width: 28em;
-          }
-
-          div.messageBox span.message {
-              color: #99CC67;
-              font-weight: bold;
-              font-style: italic;
-              font-size: medium;
-          }
-
-          div.messageBox span.bang {
-              color: #DD3434;
-              font-weight: bold;
-              font-size: x-large;
-              padding: 0 15px 0 15px;
-          }
-
-          ul.articleList {
-              margin-bottom: 25px;
-          }
-
-          ul.articleList li {
-              padding-top: 10px;
-          }
-
-          ul.articleList li a, ul.articleList li a:link, ul.articleList li a:visited,
-              ul.articleList li a:active, ul.articleList li a:hover {
-              color: #4DA4B7;
-              text-decoration: none;
-              text-align: center;
-          }
-
-          br.clear {
-              clear: both;
-          }
-      </style>
+      <pageHelper:externalCss file="/res/css/content/research.css"/>
+      <pageHelper:externalCss file="/res/css/community/registration/communityLanding.css"/>
   </head>
   <gsml:body adPageName="communityLanding">
-      <c:if test="${param.message ne null and param.message gt ''}">
-          <div class="messageBox">
-              <span class="bang">!</span>
-              <span class="message">${param.message}</span>
-              <span class="bang">!</span>
+      <table cellspacing="0" cellpadding="0" class="content" border="0">
+      <tr>
+      <td valign="top" class="border10">
+
+          <table width="173" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                  <td><div class="marianDashedBorder"><div class="marian">Photo of community moderator Marian Wilde</div></div></td>
+                  <td><span class="photoName">Marian Wilde</span><br/>
+                      <span class="photoCaption">Community Moderator,<br/>Greatschools</span></td>
+              </tr>
+              <tr>
+                  <td colspan="2" class="photoCell">&amp;nbsp;</td>
+              </tr>
+              <tr>
+                  <td colspan="2" id="leftBox">
+                      Welcome to the GreatSchools Community, where you can ask questions and trade tips
+                      with other parents to support your child's education!
+                      <br/><br/>
+                      Does your child need help with homework?
+                      Is she
+                      <gsweb:articleForumLink articleId="215" styleClass="link">plagued by bullies</gsweb:articleForumLink>
+                      at school?
+                      Get tips from other parents who've been there.
+                      <br/><br/>
+                      Have you participated in a successful school fundraiser?
+                      Weighed the options of
+                      <gsweb:articleForumLink articleId="197" styleClass="link">private vs. public schools</gsweb:articleForumLink>
+                      for your family?
+                      Share your stories with parents tackling similar issues today.
+
+
+                      <div id="marianSignature">Marian Wilde</div>
+                   </td>
+              </tr>
+          </table>
+      </td>
+
+      <td style="width: 9px;" valign="top"><img style="width: 9px;" alt=""
+                                                src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+
+      <!-- right -->
+      <td style="width: 651px" valign="top">
+      <table width="651" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+          <td colspan="3">
+              <c:choose>
+                  <c:when test="${param.message ne null}">
+                      <h1 class="welcomeInfo">
+                        ${param.message}
+                      </h1>
+                  </c:when>
+                  <c:when test="${user ne null}">
+                      <h1 class="communityWelcome">
+                          <span class="welcomeText">
+                            ${user.userProfile.screenName}, welcome to the GreatSchools community!
+                          </span>
+                          <link:accountInfo>
+                              <gsml:img src="/res/img/community/registration/b_myAccount.gif" styleClass="firstButton"
+                                        alt="My account button"/>
+                          </link:accountInfo>
+                      </h1>
+                  </c:when>
+                  <c:otherwise>
+                      <h1 class="communityWelcome">
+                          <span class="welcomeText">
+                            Welcome to the GreatSchools Community!
+                          </span>
+                          <span class="welcomeButtons">
+                              <link:registration>
+                                  <gsml:img src="/res/img/community/registration/b_join.gif" styleClass="firstButton"
+                                            alt="Join button"/>
+                              </link:registration>
+                              <link:loginOrRegister>
+                                  <gsml:img src="/res/img/community/registration/b_signIn.gif" alt="Sign in button"/>
+                              </link:loginOrRegister>
+                          </span>
+                      </h1>
+                  </c:otherwise>
+              </c:choose>
+          </td>
+      </tr>
+      <tr>
+          <td colspan="3"><gsml:img style="height: 10px;" alt="" src="/res/img/header/clear_pix.gif" />
+          </td>
+      </tr>
+      <tr>
+        <td valign="top" colspan="3" class="greyDot">
+            <img style="height: 5px;" alt=""
+                 src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+        </td>
+      </tr>
+      <tr>
+      <!-- Hot Topics Box -->
+      <td valign="top">
+          <div class="middleTitle2">
+              <gsml:img src="/res/img/community/registration/t_hotTopics.gif" alt="Hot Topics"/>
           </div>
-          <br class="clear"/>
-      </c:if>
+          <div class="hotTopicsBox articleBox">
+              <table width="274" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                      <td colspan="2" style="padding-bottom: 15px; padding-right: 15px;">What's important in your family and school?</td>
+                  </tr>
+                  <tr>
+                      <td valign="top" class="yellowArrow">
+                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                      </td>
+                      <td valign="top" class="articleCell">What's wrong with my child?</td>
+                  </tr>
+                  <tr>
+                      <td valign="top" class="yellowArrow">
+                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                      </td>
+                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="361">Dress codes</gsweb:articleForumLink></td>
+                  </tr>
+                  <tr>
+                      <td valign="top" class="yellowArrow">
+                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                      </td>
+                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="215">Bullying</gsweb:articleForumLink></td>
+                  </tr>
+                  <tr>
+                      <td colspan="2" align="right">
+                          <gsml:a href="http://community.greatschools.net/Forums/Articles">See all discussions &gt;</gsml:a>
+                      </td>
+                  </tr>
+              </table>
+          </div>
+      </td>
+      <td><img style="width: 6px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+      <!-- Choosing a School Box -->
+      <td valign="top">
+          <div class="middleTitle2">
+              <gsml:img src="/res/img/community/registration/t_choosingSchool.gif" alt="Choosing a School"/>
+          </div>
 
-      <c:if test="${user ne null}">
-          <h1 class="welcome">Welcome, ${user.userProfile.screenName}!</h1>
+          <div class="choosingSchoolBox articleBox">
+              <table width="264" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                      <td colspan="2" style="padding-bottom: 15px;">
+                          Ask questions and share tips during your search for the right K-12 school
+                      </td>
+                  </tr>
+                  <tr>
+                      <td valign="top" class="yellowArrow">
+                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                      </td>
+                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="197">Private vs. public</gsweb:articleForumLink></td>
+                  </tr>
+                  <tr>
+                      <td valign="top" class="yellowArrow">
+                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                      </td>
+                      <td valign="top" class="articleCell">Finding the right fit</td>
+                  </tr>
+                  <tr>
+                      <td valign="top" class="yellowArrow">
+                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                      </td>
+                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="487">7 things to know about charter schools</gsweb:articleForumLink></td>
+                  </tr>
+              </table>
+          </div></td>
+      </tr>
 
-          <h2 class="intro">Top discussions</h2>
-          <ul class="articleList">
-              <li><gsweb:toCommunity targetLink="/loc.598dcc7e">Choosing a school - discussion</gsweb:toCommunity></li>
-          </ul>
-    
-          <hr/>
-      </c:if>
+      <tr>
+        <td><img style="height: 6px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+      </tr>
 
-      <h2 class="intro">Recent top articles</h2>
-      <ul class="articleList">
-          <li><link:article articleId="308">Choosing a school: considering your child's needs</link:article></li>
-          <li><link:article articleId="753">Is your child ready for college math?</link:article></li>
-      </ul>
+      <tr>
+      <!-- K-5 Academic Success Box -->
+      <td valign="top">
+          <div class="middleTitle2">
+              <gsml:img src="/res/img/community/registration/t_k-5Success.gif" alt="K-5 Academic Success"/>
+          </div>
+          <div class="Successk5Box articleBox">
+              <table width="264" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                      <td colspan="2" style="padding-bottom: 15px;">
+                          What's working for your family at home and in the classroom?
+                      </td>
+                  </tr>
+                  <tr>
+                      <td valign="top" class="yellowArrow">
+                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                      </td>
+                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="44">Reading with your child</gsweb:articleForumLink></td>
+                  </tr>
+                  <tr>
+                      <td valign="top" class="yellowArrow">
+                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                      </td>
+                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="209">Getting excited about math</gsweb:articleForumLink></td>
+                  </tr>
+                  <tr>
+                      <td valign="top" class="yellowArrow">
+                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                      </td>
+                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="160">What's up with all these tests?</gsweb:articleForumLink></td>
+                  </tr>
+              </table>
+          </div>
+      </td>
+      <td><img style="width: 6px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+      <!-- 6-12 Academic Success Box -->
+      <td valign="top">
+          <div class="middleTitle2">
+              <gsml:img src="/res/img/community/registration/t_6-12Success.gif" alt="6-12 Academic Success"/>
+          </div>
 
-      <hr/>
-      
-      <div class="box accountSettings">
-          <ul>
-              <li><link:accountInfo>Account Info</link:accountInfo></li>
-          </ul>
-      </div>
+          <div class="Success612Box articleBox">
+              <table width="264" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                      <td colspan="2" style="padding-bottom: 15px;">
+                          What's on your mind about how to help your child?
+                      </td>
+                  </tr>
+                  <tr>
+                      <td valign="top" class="yellowArrow">
+                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                      </td>
+                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="325">Tweens &amp; Teens: how to stay involved</gsweb:articleForumLink></td>
+                  </tr>
+                  <tr>
+                      <td valign="top" class="yellowArrow">
+                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                      </td>
+                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="752">Why is algebra a big deal?</gsweb:articleForumLink></td>
+                  </tr>
+                  <tr>
+                      <td valign="top" class="yellowArrow">
+                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                      </td>
+                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="700">Study skills for middle school</gsweb:articleForumLink></td>
+                  </tr>
+              </table>
+          </div></td>
+      </tr>
+
+      </table>
+
+      </td>
+</tr>
+<tr>
+    <td colspan="2"><img style="height: 42px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+    </td>
+</tr>
+</table>
+
+      <table cellspacing="0" cellpadding="0" class="content" border="0">
+      <tr>
+          <!-- K-12 Success Title -->
+          <td valign="top" colspan="2">
+              <gsml:img src="/res/img/content/research/t_k12_success.gif" alt="K-12 Success"/>
+
+          </td>
+
+          <td valign="top"><img style="width: 8px; height: 19px;" alt=""
+                                src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+          <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1" height="1" alt=""
+                                border="0"/></td>
+
+          <!-- You Might Also Like Title -->
+          <td valign="top"><gsml:img src="/res/img/content/research/t_might_like.gif" alt="You Might Also Like"/></td>
+
+          <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1" height="1" alt=""
+                                border="0"/></td>
+          <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="8" height="1" alt=""/>
+          </td>
+
+          <!-- Editor's Picks Title -->
+          <td valign="top"><gsml:img src="/res/img/content/research/t_editor_pick.gif" alt="Editor's Picks"/>
+          </td>
+
+          <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1" height="1" border="0"
+                                alt=""/></td>
+      </tr>
+
+      <tr>
+          <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                                  height="1" alt="" border="0"/></td>
+          <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="202"
+                                                  height="1" alt="" border="0"/></td>
+          <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="8" height="1" alt=""/>
+          </td>
+          <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                                  height="1" alt="" border="0"/></td>
+          <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="439"
+                                                  height="1" alt="" border="0"/></td>
+          <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                                  height="1" alt="" border="0"/></td>
+          <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="8" height="1" alt=""/>
+          </td>
+          <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="201"
+                                                  height="1" alt="" border="0"/></td>
+          <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                                  height="1" alt="" border="0"/></td>
+      </tr>
+
+      <!-- CONTENT -->
+
+      <tr>
+      <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                              height="1" alt="" border="0"/></td>
+
+      <!-- K-12 Success -->
+      <td valign="top">
+
+          <table width="202" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                  <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="8" height="1"
+                                        alt=""/></td>
+                  <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="194" height="16"
+                                        alt=""/><br/>
+
+                      <div class="k12Success">
+                          <div class="k12SuccessImg">Photo of open notebook with pencil</div>
+                          <ul class="arrowUL">
+                              <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/204" styleClass="arrowLink">5 skills for success</gsml:a></li>
+                              <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/477" styleClass="arrowLink">Homework help online</gsml:a></li>
+                              <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/151" styleClass="arrowLink">Test "de-stress"</gsml:a></li>
+                              <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/44" styleClass="arrowLink">Get kids reading</gsml:a></li>
+                          </ul>
+                      </div>
+
+                      <div class="greyDash">.</div>
+
+                      <div class="k12SuccessSearch">Search more than<br/>
+                          <span class="k12SuccessSearchBold">600 articles</span>
+
+                          <div class="k12SuccessSearchKeyword">Enter a keyword<br/>
+                              <gsweb:form action="/search/search.page" method="get">
+                                  <input type="hidden" name="c" value="topic" />
+                                  <input type="text" name="q" class="keyword formText" style="margin-right:18px;"/>
+                                  <gsml:inputImage src="/res/img/content/research/go_pink.gif" alt="GO"/>
+  
+                              </gsweb:form>
+                          </div>
+                      </div>
+                  </td>
+              </tr>
+          </table>
+
+      </td>
+
+      <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="8" height="1" alt=""/></td>
+      <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                              height="1" alt="" border="0"/></td>
+
+      <!-- You Might Also Like -->
+      <td valign="top">
+          <table width="439" cellpadding="0" cellspacing="0" border="0">
+
+              <tr>
+                  <td valign="top" colspan="5"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                                    height="15" alt="" border="0"/></td>
+              </tr>
+              <tr>
+                  <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="146" height="1"
+                                        alt="" border="0"/><br/>
+
+                      <div class="askExperts">
+                          <div class="askExpertsImg">Photo of stack of books</div>
+
+                          <div class="blueTitleText">Ask the Experts</div>
+                          Q: My child is always
+                          late. How can I help?<br/>
+                          <img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1" height="6" alt=""/>
+                          <br/>
+                          A: One way to get
+                          your child organized
+                          is to design a chart
+                          that breaks down
+                          what she needs
+                          to do ...
+
+
+                          <div class="middleBottom"><gsml:a href="/cgi-bin/showarticle/$STATE/342" styleClass="border10Links">Read more &gt;</gsml:a></div>
+                      </div></td>
+                  <td valign="top" class="redDotVert"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif"
+                                                           width="1" height="312" alt="" border="0"/></td>
+                  <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="146" height="1"
+                                        border="0" alt=""/><br/>
+
+                      <div class="billsBlog">
+                          <div class="billsBlogImg">Photo of Bill Jackson</div>
+
+                          <div class="blueTitleText">Bill's Blog</div>
+
+                          President and founder
+                          of GreatSchools on
+                          school improvement.
+                          <img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1" height="6" alt=""/>
+                          <br/>
+
+                          <cache:cache scope="application" name="blog" key="bill3">
+                              <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
+                                                defaultTitle="Bill's thoughts on education"
+                                                defaultUrl="http://billsblog.greatschools.net"/>
+                          </cache:cache>
+                      </div></td>
+                  <td valign="top" class="redDotVert"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif"
+                                                           width="1" height="1" alt="" border="0"/></td>
+                  <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="145" height="1"
+                                        alt="" border="0"/><br/>
+
+                      <div class="healthyKids">
+                          <div class="healthyKidsImg">Photo of blueberries</div>
+                          <div class="blueTitleText">Healthy Kids</div>
+                          <ul class="arrowUL">
+                              <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/350" styleClass="arrowLink">Creative lunches</gsml:a></li>
+                              <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/571" styleClass="arrowLink">Brain food</gsml:a></li>
+                              <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/256" styleClass="arrowLink">Backpack safety</gsml:a></li>
+                              <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/472" styleClass="arrowLink">Family fitness</gsml:a></li>
+                              <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/621" styleClass="arrowLink">Healthy schools</gsml:a></li>
+                          </ul>
+                          <div class="middleBottom"><gsml:a href="/content/healthyKids.page" styleClass="border10Links">See all &gt;</gsml:a></div>
+                      </div>
+                  </td>
+              </tr>
+          </table>
+      </td>
+
+      <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                              height="1" alt="" border="0"/></td>
+      <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="8" height="1" alt=""/></td>
+
+      <!-- Editor's Picks -->
+      <td valign="top">
+          <table width="201" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                  <td valign="top">
+                      <img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="201" height="25" alt=""/>
+                      <br/>
+                      <div class="editorsPick">
+                          <div class="editorsPickImg">Photo of GreatSchools editor, Miriam Myers</div>
+                          GreatSchools Editor Miriam
+                          Myers shares her favorite
+                          learning tips for:
+                          <ul class="arrowUL">
+                              <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/209" styleClass="arrowLink">Math</gsml:a></li>
+                              <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/320" styleClass="arrowLink">Reluctant readers</gsml:a></li>
+                              <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/502" styleClass="arrowLink">Spelling games</gsml:a></li>
+                          </ul>
+                      </div></td>
+              </tr>
+          </table>
+      </td>
+
+      <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                              height="1" alt="" border="0"/></td>
+      </tr>
+      <tr>
+          <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                                  height="8" alt="" border="0"/></td>
+          <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="202" height="8" alt=""
+                                border="0"/></td>
+          <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="8" height="8" alt=""/>
+          </td>
+          <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                                  height="8" alt="" border="0"/></td>
+          <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="439" height="8"
+                                border="0" alt=""/></td>
+          <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                                  height="8" alt="" border="0"/></td>
+          <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="8" height="8" alt=""/>
+          </td>
+          <td valign="top"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="201" height="8" alt=""
+                                border="0"/></td>
+          <td valign="top" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                                  height="8" alt="" border="0"/></td>
+      </tr>
+      <tr>
+          <td colspan="9" bgcolor="#FFBB00"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1"
+                                                 height="1" alt="" border="0"/></td>
+      </tr>
+  </table>
+
   </gsml:body>
 </html>
 </jsp:root>

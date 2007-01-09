@@ -218,7 +218,8 @@ public class RegistrationController extends SimpleFormController implements Read
             PageHelper.setMemberAuthorized(request, response, user);
             AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
             if (StringUtils.isEmpty(userCommand.getRedirectUrl())) {
-                UrlBuilder builder = new UrlBuilder(UrlBuilder.ACCOUNT_INFO, null, null);
+                UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
+                builder.addParameter("message", "You have successfully registered for the GreatSchools community!");
                 userCommand.setRedirectUrl(builder.asFullUrl(request));
             }
             mAndV.setViewName("redirect:" + _authenticationManager.addParameterIfNecessary

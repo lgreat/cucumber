@@ -30,7 +30,10 @@ public class CommunityLandingController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         User user = SessionContextUtil.getSessionContext(request).getUser();
         Map model = new HashMap();
-        model.put("user", user);
+        if (SessionContextUtil.getSessionContext(request).isUserValid()) {
+            // only populate the user if it is a validated community user
+            model.put("user", user);
+        }
         return new ModelAndView(_viewName, model);
     }
 
