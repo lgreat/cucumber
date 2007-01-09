@@ -6,6 +6,7 @@
         xmlns:link="urn:www.greatschools.net/taglib/link"
         xmlns:gsweb="gstaglib"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
         xmlns:content="urn:www.greatschools.net/taglib/content"
         >
@@ -507,6 +508,9 @@
 
   <img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="600" height="50" border="0" alt=""/>
 
+  <mod:tracking pageName="Community Landing Page"
+                pageType="community"
+                hier1="Community,Landing Page"/>
   </gsml:body>
 </html>
 </jsp:root>

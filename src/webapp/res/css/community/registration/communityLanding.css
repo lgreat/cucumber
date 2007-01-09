@@ -120,9 +120,9 @@ a.link:link, a.link:visited, a.link:hover {
 
 h1.communityWelcome {
     width: 634px;
-	padding: 12px 0 12px 17px;
+	padding: 14px 0 10px 17px;
     font-family: "Trebuchet MS", Arial, sans-serif;
-	font-size: 17px;
+	font-size: 18px;
 	line-height: 17px;
 	color: #55BBCC;
 	background-color: #DDEEEE;
@@ -131,7 +131,7 @@ h1.communityWelcome {
 
 span.welcomeText {
     position: relative;
-    top: -3px;
+    top: -5px;
 }
 
 h1.welcomeInfo {

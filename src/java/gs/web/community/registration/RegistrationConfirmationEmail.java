@@ -43,7 +43,7 @@ public class RegistrationConfirmationEmail extends AbstractSendEmailBean {
         emailHelper.readHtmlFromResource(HTML_EMAIL_LOCATION);
         emailHelper.readPlainTextFromResource(TEXT_EMAIL_LOCATION);
 
-        addLinkReplacement(emailHelper, request, UrlBuilder.LOGIN_OR_REGISTER, "COMMUNITY_LANDING_PAGE",
+        addLinkReplacement(emailHelper, request, UrlBuilder.COMMUNITY_LANDING, "COMMUNITY_LANDING_PAGE",
                 "Get started here", "welcomereg");
         addLinkReplacement(emailHelper, request, UrlBuilder.RESEARCH, "TEST_SCORES_PAGE",
                 "Begin your search here", "welcomereg");
