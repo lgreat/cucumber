@@ -209,5 +209,19 @@
                 </includes>
             </resource>
         </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-idea-plugin</artifactId>
+                <configuration>
+                    <libraries>
+                        <library>
+                            <name>gs-data</name>
+                            <exclude>true</exclude>
+                        </library>
+                    </libraries>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>
