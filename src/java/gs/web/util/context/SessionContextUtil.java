@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.10 2007/01/02 19:47:33 cpickslay Exp $
+ * $Id: SessionContextUtil.java,v 1.11 2007/01/13 00:02:19 cpickslay Exp $
  */
 
 package gs.web.util.context;
@@ -22,7 +22,6 @@ import org.springframework.web.util.CookieGenerator;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.regex.Pattern;
 
 /**
  * Provides...

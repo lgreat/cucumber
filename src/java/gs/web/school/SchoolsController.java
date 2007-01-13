@@ -1,11 +1,10 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.29 2007/01/02 20:09:16 cpickslay Exp $
+ * $Id: SchoolsController.java,v 1.30 2007/01/13 00:00:57 cpickslay Exp $
  */
 
 package gs.web.school;
 
-import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.geo.IGeoDao;
 import gs.data.school.LevelCode;
 import gs.data.school.district.District;
