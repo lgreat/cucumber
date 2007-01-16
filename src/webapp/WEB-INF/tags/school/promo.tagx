@@ -11,8 +11,6 @@
         >
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
-
-
     <c:choose>
         <c:when test="${not empty school.authorizer}">
             <pageHelper:externalCss file="/res/css/school/promo/charterSchoolAuthorizer.css"/>
@@ -25,18 +23,10 @@
                 </link:charterSchoolAuthorizer>
             </div>
         </c:when>
-        <c:when test="${school.type.schoolTypeName != 'private'}">
-            <pageHelper:externalCss file="/res/css/school/promo/mss.css" />
-            <div id="mssPromo">
-                <promo:mssHover referredBy="spp_email_link" school="${school}">
-                    <span class="large">Get Free Updates for</span><br/>
-                    <span class="medium">${school.name}</span>
-                    <span class="signup">Sign up now!</span>
-                </promo:mssHover>
-            </div>
-        </c:when>
         <c:otherwise>
-            <promo:schoolChoiceTips/>
+            <link:healthyKids>
+                <img src="/res/img/content/healthyKids/HouseAd_small_healthy.jpg" alt="Healthy Kids"/>
+            </link:healthyKids>
         </c:otherwise>
     </c:choose>
 </jsp:root>

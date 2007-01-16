@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.55 2006/11/14 22:17:54 aroy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.56 2007/01/16 18:44:06 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -360,7 +360,8 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/community/communityLanding.page", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.ACCOUNT_INFO, null, null);
         assertEquals("/community/accountInfo.page", builder.asSiteRelative(request));
-
+        builder = new UrlBuilder(UrlBuilder.HEALTHY_KIDS, null, null);
+        assertEquals("/content/healthyKids.page", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.DISTRICTS_PAGE, State.CA, null);
         assertEquals("/modperl/districts/CA", builder.asSiteRelative(request));
     }

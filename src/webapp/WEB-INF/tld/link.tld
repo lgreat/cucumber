@@ -1068,5 +1068,23 @@
             <description>School</description>
         </attribute>
     </tag>
+
+    <tag>
+        <name>healthyKids</name>
+        <tag-class>gs.web.jsp.link.HealthyKidsTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Healthy Kids Microsite</display-name>
+        <description>
+            <![CDATA[Link to the Healthy Kids Microsite
+             Currently <code>/content/healthyKids.page</code>.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
 </taglib>
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.68 2006/11/14 22:17:54 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.69 2007/01/16 18:44:06 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -159,6 +159,8 @@ public class UrlBuilder {
      */
     public static final VPage ADD_PARENT_REVIEW_SEARCH = new VPage("vpage:addParentReviewSearch");
 
+    /** Healthy Kids Microsite page */
+    public static final VPage HEALTHY_KIDS = new VPage("vpage:healthyKids");
 
     /**
      * Create a builder to the given site page.
@@ -580,6 +582,9 @@ public class UrlBuilder {
         } else if (DISTRICTS_PAGE.equals(page)) {
             _perlPage = true;
             _path = "/modperl/districts/" + state.getAbbreviation();
+        } else if (HEALTHY_KIDS.equals(page)) {
+            _perlPage = false;
+            _path = "/content/healthyKids.page";            
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
