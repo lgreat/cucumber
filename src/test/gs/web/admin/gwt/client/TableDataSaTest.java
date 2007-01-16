@@ -11,8 +11,8 @@ public class TableDataSaTest extends TestCase {
         tableData.addDatabase("test", Arrays.asList(new String[]{"table1", "table2", "table3"}));
         tableData.addDatabase("another", Arrays.asList(new String[]{"table1", "table2"}));
 
-        assertEquals("Unexpected source database", "dev", tableData.getDirection().source);
-        List databases = tableData.getDatabases();
+        assertEquals("Unexpected source database", "dev", tableData.getDirection().getSource());
+        List databases = tableData.getDatabaseNames();
         assertEquals("Unexpected number of databases", 2, databases.size());
         assertEquals("Unexpected database name", "test", databases.get(0));
         assertEquals("Unexpected database name", "another", databases.get(1));
