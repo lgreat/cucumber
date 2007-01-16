@@ -186,6 +186,30 @@ h1 span {
 
 /* myaccount_info modules */
 
+#myaccount_info #breadcrumb {
+    position: relative;
+    top: -25px;
+    margin-bottom: 5px;
+    font-family: Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+    color: #777777;
+}
+
+#myaccount_info span.breadcrumbSeparator {
+    font-size: 12px;
+    margin: 0 7px 0 7px;
+}
+
+#myaccount_info #breadcrumb a.breadcrumb {
+    font-size: 12px;
+    color: #3399aa;
+    text-decoration: underline;
+    background: none left 0 no-repeat;
+    float: none;
+    width: auto;
+    padding: 0;
+    margin: 0;
+}
+
 #myaccount_info a {
 	color: #3399aa;
 	text-decoration: underline;

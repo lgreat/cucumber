@@ -135,7 +135,7 @@
                       <td valign="top" class="yellowArrow">
                           <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
                       </td>
-                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="614">What's wrong with my child?</gsweb:articleForumLink></td>
+                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="614">Help! My child won't listen</gsweb:articleForumLink></td>
                   </tr>
                   <tr>
                       <td valign="top" class="yellowArrow">
@@ -151,7 +151,8 @@
                   </tr>
                   <tr>
                       <td colspan="2" align="right">
-                          <gsml:a href="http://community.greatschools.net/Forums/Articles">See all discussions &gt;</gsml:a>
+                          <!-- http://community.greatschools.net/.598f033b/ -->
+                          <gsml:a href="http://community.greatschools.net/.598f033b">See all discussions &gt;</gsml:a>
                       </td>
                   </tr>
               </table>

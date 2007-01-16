@@ -26,6 +26,12 @@
 
       <div id="outline"><!-- creates darker blue outer outline -->
           <div id="content">
+              <div id="breadcrumb">
+                  <gsml:a href="communityLanding.page" styleClass="breadcrumb">Community</gsml:a>
+                  <span class="breadcrumbSeparator">&gt;</span>
+                  <gsml:a href="http://community.greatschools.net/.598f033b" styleClass="breadcrumb">Article Discussions</gsml:a>
+              </div>
+
               <h2><span>My Account Info</span></h2>
 
               <!-- begin Email Address module -->
