@@ -68,10 +68,18 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>gs.web.admin.gwt.TableCopy TableCopyService</servlet-name>
+        <servlet-class>gs.web.admin.gwt.server.TableCopyServiceImpl</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>modules</servlet-name>
         <url-pattern>*.module</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>gs.web.admin.gwt.TableCopy TableCopyService</servlet-name>
+        <url-pattern>/gs.web.admin.gwt.TableCopy/TableCopyService</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
