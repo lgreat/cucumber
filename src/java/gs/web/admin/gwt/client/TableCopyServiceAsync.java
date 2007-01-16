@@ -4,5 +4,5 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 
 public interface TableCopyServiceAsync {
-    void getTables(TableData.DatabaseDirection direction, AsyncCallback callback);
+    void getTables(TableData.DatabaseDirection direction, AsyncCallback async);
 }
