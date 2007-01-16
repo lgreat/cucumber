@@ -30,9 +30,9 @@
         <delete dir="${maven.war.webapp.dir}/webapp/WEB-INF/classes"/>
     </preGoal>
 
-    <!--<preGoal name="war:war">-->
-        <!--<attainGoal name="gwt:compile"/>-->
-    <!--</preGoal>-->
+    <preGoal name="war:war">
+        <attainGoal name="gwt:compile"/>
+    </preGoal>
 
     <!-- Create a version.properties file with the build info -->
     <goal name="create-build-version">

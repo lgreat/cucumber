@@ -173,7 +173,28 @@
         <!--<url>http://maven.apache.org/maven-1.x/plugins/ear/</url>-->
         <!--<type>plugin</type>-->
         <!--</dependency>-->
-
+        <!-- GWT dependencies -->
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-servlet</artifactId>
+            <version>1.2.22</version>
+            <type>jar</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <version>1.2.22</version>
+        </dependency>
+        <dependency>
+            <!-- This is in our local repository at  http://maven.dev.greatschools.net. -->
+            <!-- It's included in the GWT distribution and used by the gwt:compile goal -->
+            <groupId>gwt</groupId>
+            <artifactId>gwt-dev-mac</artifactId>
+            <version>1.2.22</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -221,6 +242,13 @@
                         </library>
                     </libraries>
                 </configuration>
+            </plugin>
+        </plugins>
+        <plugins>
+            <plugin>
+                <groupId>com.totsp.gwt.plugins</groupId>
+                <artifactId>maven-googlewebtoolkit-plugin</artifactId>
+                <version>1.0.4</version>
             </plugin>
         </plugins>
     </build>
