@@ -10,9 +10,14 @@ public class TableData extends Object implements IsSerializable {
     private DatabaseDirection direction;
 
     // GWT's JRE emulation library doesn't have LinkedHashMap or sorted maps/sets, so we fake it here
+    /**
+     * @gwt.typeArgs <java.lang.String>
+     */
     private List databaseNames = new ArrayList();
-    private Map databases = new HashMap();
-
+    /**
+     * @gwt.typeArgs <gs.web.admin.gwt.client.TableData.DatabaseTables>
+     */
+    private List databaseTables = new ArrayList();
 
     public TableData() {}
 
@@ -22,19 +27,41 @@ public class TableData extends Object implements IsSerializable {
 
     public void addDatabase(String databaseName, List tableList) {
         databaseNames.add(databaseName);
-        databases.put(databaseName, tableList);
-    }
-
-    public List getDatabases() {
-        return databaseNames;
+        databaseTables.add(new DatabaseTables(databaseName, tableList));
     }
 
     public List getTablesForDatabase(String databaseName) {
-        return (List) databases.get(databaseName);
+        for (Iterator iterator = databaseTables.iterator(); iterator.hasNext();) {
+            DatabaseTables tables = (DatabaseTables) iterator.next();
+            if (databaseName.equals(tables.databaseName)) {
+                return tables.tables;
+            }
+        }
+        return null;
     }
 
     public DatabaseDirection getDirection() {
         return direction;
+    }
+
+    public void setDirection(DatabaseDirection direction) {
+        this.direction = direction;
+    }
+
+    public List getDatabaseNames() {
+        return databaseNames;
+    }
+
+    public void setDatabaseNames(List databaseNames) {
+        this.databaseNames = databaseNames;
+    }
+
+    public List getDatabaseTables() {
+        return databaseTables;
+    }
+
+    public void setDatabaseTables(List databaseTables) {
+        this.databaseTables = databaseTables;
     }
 
     public static class DatabaseDirection implements IsSerializable {
@@ -49,6 +76,65 @@ public class TableData extends Object implements IsSerializable {
             this.source = source;
             this.target = target;
             this.label = display;
+        }
+
+
+        public String getSource() {
+            return source;
+        }
+
+        public void setSource(String source) {
+            this.source = source;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
+        public void setLabel(String label) {
+            this.label = label;
+        }
+
+        public String getTarget() {
+            return target;
+        }
+
+        public void setTarget(String target) {
+            this.target = target;
+        }
+    }
+
+    public static class DatabaseTables implements IsSerializable {
+        public String databaseName;
+
+        /**
+         * @gwt.typeArgs <java.lang.String>
+         */
+        public List tables;
+
+
+        public DatabaseTables() {}
+
+        public DatabaseTables(String databaseName, List tableList) {
+            this.databaseName = databaseName;
+            this.tables = tableList;
+        }
+
+
+        public String getDatabaseName() {
+            return databaseName;
+        }
+
+        public void setDatabaseName(String databaseName) {
+            this.databaseName = databaseName;
+        }
+
+        public List getTables() {
+            return tables;
+        }
+
+        public void setTables(List tables) {
+            this.tables = tables;
         }
     }
 }
