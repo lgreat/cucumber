@@ -143,7 +143,7 @@ public class TableCopy implements EntryPoint {
         selectedTables.clear();
         tableList.setVisibleItemCount(10);
         tableList.setMultipleSelect(true);
-        List databases = tableData.getDatabases();
+        List databases = tableData.getDatabaseNames();
         for (Iterator iterator = databases.iterator(); iterator.hasNext();) {
             String databaseName = (String) iterator.next();
             TreeItem database = new TreeItem(databaseName);
@@ -153,6 +153,7 @@ public class TableCopy implements EntryPoint {
                 TreeItem tableItem = new TreeItem(tableName);
                 database.addItem(tableItem);
             }
+            tableTree.addItem(database);
         }
         submitButton.setText("Copy selected tables from " + tableData.getDirection());
         tableLister.add(tableList);
@@ -225,6 +226,7 @@ public class TableCopy implements EntryPoint {
         public void onFailure(Throwable caught) {
             errorMessage.setText(caught.getMessage());
             errorMessage.setVisible(true);
+            caught.printStackTrace();
         }
 
         public void onSuccess(Object result) {
