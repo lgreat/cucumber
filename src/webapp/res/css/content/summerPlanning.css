@@ -1,0 +1,29 @@
+h3#summerPlanning {
+    text-indent: -5000px;
+    background: url( "../../img/content/summerPlanning/summertext.gif" ) no-repeat;
+    width: 155px;
+    height: 192px;
+    float: left;
+}
+
+h3#greatSummer {
+    text-indent: -5000px;
+    background: url( "../../img/content/summerPlanning/summerplanningtext2.gif" ) no-repeat;
+    width: 365px;
+    height: 26px;
+}
+
+h3#learningFun {
+    text-indent: -5000px;
+    background: url( "../../img/content/summerPlanning/summerplanningtext3.gif" ) no-repeat;
+    width: 365px;
+    height: 26px;
+}
+
+h3#brainDrain {
+    text-indent: -5000px;
+    background: url( "../../img/content/summerPlanning/summerplanningtext4.gif" ) no-repeat;
+    width: 365px;
+    height: 26px;
+}
+
