@@ -12,11 +12,11 @@
 
     <bean id="handlerMapping"
         class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-        <!--<property name="interceptors">-->
-            <!--<list>-->
-                <!--<ref bean="openSessionInViewInterceptor"/>-->
-            <!--</list>-->
-        <!--</property>-->
+        <property name="interceptors">
+            <list>
+                <ref bean="openSessionInViewInterceptor"/>
+            </list>
+        </property>
         <property name="mappings">
             <props>
                 <prop key="/TableCopyService">tableCopyService</prop>
@@ -25,16 +25,18 @@
     </bean>
 
     <bean id="tableCopyService"
-          class="gs.web.admin.gwt.server.TableCopyServiceImpl"/>
+          class="gs.web.admin.gwt.server.TableCopyServiceImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 
-    <!--<bean name="openSessionInViewInterceptor"-->
-          <!--class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">-->
-        <!--<property name="sessionFactory">-->
-            <!--<ref bean="sessionFactory"/>-->
-        <!--</property>-->
-        <!--<property name="flushModeName">-->
-            <!--<value>FLUSH_AUTO</value>-->
-        <!--</property>-->
-    <!--</bean>-->
+    <bean name="openSessionInViewInterceptor"
+          class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+        <property name="flushModeName">
+            <value>FLUSH_AUTO</value>
+        </property>
+    </bean>
 
 </beans>
