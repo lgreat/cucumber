@@ -195,6 +195,12 @@
             <artifactId>gwt-dev-mac</artifactId>
             <version>1.2.22</version>
         </dependency>
+        <dependency>
+            <groupId>com.totsp.gwt</groupId>
+            <artifactId>maven-googlewebtoolkit-plugin</artifactId>
+            <version>1.0.4</version>
+            <type>plugin</type>
+        </dependency>
     </dependencies>
 
     <build>
@@ -243,8 +249,6 @@
                     </libraries>
                 </configuration>
             </plugin>
-        </plugins>
-        <plugins>
             <plugin>
                 <groupId>com.totsp.gwt.plugins</groupId>
                 <artifactId>maven-googlewebtoolkit-plugin</artifactId>
