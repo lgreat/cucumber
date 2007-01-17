@@ -12,6 +12,7 @@ import java.util.Map;
 
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.dao.DataAccessException;
 import org.hibernate.SessionFactory;
 
 
@@ -38,7 +39,8 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     }
 
     public TableData getTables(TableData.DatabaseDirection direction) {
-        return tableData;
+//        return tableData;
+        return lookupTables(direction);
     }
 
 
@@ -57,11 +59,15 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return _sessionFactory;
     }
 
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        _sessionFactory = sessionFactory;
+    }
+
     public TableData lookupTables(TableData.DatabaseDirection direction) {
+        TableData databases = new TableData();
         JdbcOperations jdbcOperations = getJdbcContext();
         List results = jdbcOperations.queryForList(TABLE_LIST_QUERY);
-
-        TableData databases = new TableData();
 
         for (Iterator iterator = results.iterator(); iterator.hasNext();) {
             Map result = (Map) iterator.next();
