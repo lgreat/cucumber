@@ -9,15 +9,12 @@ public class TableData extends Object implements IsSerializable {
     public static final DatabaseDirection PRODUCTION_TO_DEV = new DatabaseDirection("production -> dev", "production", "dev");
     private DatabaseDirection direction;
 
-    // GWT's JRE emulation library doesn't have LinkedHashMap or sorted maps/sets, so we fake it here
-    /**
-     * @gwt.typeArgs <java.lang.String>
-     */
-    private List databaseNames = new ArrayList();
     /**
      * @gwt.typeArgs <gs.web.admin.gwt.client.TableData.DatabaseTables>
      */
     private List databaseTables = new ArrayList();
+
+    private Map databases = new HashMap();
 
     public TableData() {}
 
@@ -26,18 +23,9 @@ public class TableData extends Object implements IsSerializable {
     }
 
     public void addDatabase(String databaseName, List tableList) {
-        databaseNames.add(databaseName);
-        databaseTables.add(new DatabaseTables(databaseName, tableList));
-    }
-
-    public List getTablesForDatabase(String databaseName) {
-        for (Iterator iterator = databaseTables.iterator(); iterator.hasNext();) {
-            DatabaseTables tables = (DatabaseTables) iterator.next();
-            if (databaseName.equals(tables.databaseName)) {
-                return tables.tables;
-            }
-        }
-        return null;
+        DatabaseTables databaseAndTables = new DatabaseTables(databaseName, tableList);
+        databaseTables.add(databaseAndTables);
+        databases.put(databaseName, databaseAndTables);
     }
 
     public DatabaseDirection getDirection() {
@@ -48,20 +36,21 @@ public class TableData extends Object implements IsSerializable {
         this.direction = direction;
     }
 
-    public List getDatabaseNames() {
-        return databaseNames;
-    }
-
-    public void setDatabaseNames(List databaseNames) {
-        this.databaseNames = databaseNames;
-    }
-
     public List getDatabaseTables() {
         return databaseTables;
     }
 
     public void setDatabaseTables(List databaseTables) {
         this.databaseTables = databaseTables;
+    }
+
+    public void addDatabaseAndTable(String database, String table) {
+        DatabaseTables databaseAndTables = (DatabaseTables) databases.get(database);
+        if (databaseAndTables == null) {
+            addDatabase(database, new ArrayList());
+            databaseAndTables = (DatabaseTables) databases.get(database);
+        }
+        databaseAndTables.getTables().add(table);
     }
 
     public static class DatabaseDirection implements IsSerializable {

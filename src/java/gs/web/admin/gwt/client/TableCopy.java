@@ -143,11 +143,12 @@ public class TableCopy implements EntryPoint {
         selectedTables.clear();
         tableList.setVisibleItemCount(10);
         tableList.setMultipleSelect(true);
-        List databases = tableData.getDatabaseNames();
+        List databases = tableData.getDatabaseTables();
         for (Iterator iterator = databases.iterator(); iterator.hasNext();) {
-            String databaseName = (String) iterator.next();
+            TableData.DatabaseTables databaseTables = (TableData.DatabaseTables) iterator.next();
+            String databaseName = databaseTables.getDatabaseName();
             TreeItem database = new TreeItem(databaseName);
-            List tables = tableData.getTablesForDatabase(databaseName);
+            List tables = databaseTables.getTables();
             for (Iterator tableIterator = tables.iterator(); tableIterator.hasNext();) {
                 String tableName = (String) tableIterator.next();
                 TreeItem tableItem = new TreeItem(tableName);

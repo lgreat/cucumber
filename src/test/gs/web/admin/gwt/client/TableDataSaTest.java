@@ -12,16 +12,41 @@ public class TableDataSaTest extends TestCase {
         tableData.addDatabase("another", Arrays.asList(new String[]{"table1", "table2"}));
 
         assertEquals("Unexpected source database", "dev", tableData.getDirection().getSource());
-        List databases = tableData.getDatabaseNames();
+        List databases = tableData.getDatabaseTables();
         assertEquals("Unexpected number of databases", 2, databases.size());
-        assertEquals("Unexpected database name", "test", databases.get(0));
-        assertEquals("Unexpected database name", "another", databases.get(1));
-        List testTableList = tableData.getTablesForDatabase((String) databases.get(0));
-        assertEquals("Unexpected number of tables in test database", 3, testTableList.size());
-        assertEquals("Unexpected first table name", "table1", testTableList.get(0));
-        assertEquals("Unexpected second table name", "table2", testTableList.get(1));
-        assertEquals("Unexpected third table name", "table3", testTableList.get(2));
-        List anotherTableList = tableData.getTablesForDatabase((String) databases.get(1));
-        assertEquals("Unexpected number of tables in another database", 2, anotherTableList.size());
+
+        TableData.DatabaseTables testTableList = (TableData.DatabaseTables) databases.get(0);
+        assertEquals("Unexpected database name", "test", testTableList.getDatabaseName());
+        assertEquals("Unexpected number of tables in test database", 3, testTableList.getTables().size());
+        assertEquals("Unexpected first table name", "table1", testTableList.getTables().get(0));
+        assertEquals("Unexpected second table name", "table2", testTableList.getTables().get(1));
+        assertEquals("Unexpected third table name", "table3", testTableList.getTables().get(2));
+
+        TableData.DatabaseTables anotherTableList = (TableData.DatabaseTables) databases.get(1);
+        assertEquals("Unexpected database name", "another", anotherTableList.getDatabaseName());
+        assertEquals("Unexpected number of tables in another database", 2, anotherTableList.getTables().size());
+    }
+
+    public void testLoadTablesIncrementally() {
+        TableData tableData = new TableData(TableData.DEV_TO_STAGING);
+        tableData.addDatabaseAndTable("test", "table1");
+        tableData.addDatabaseAndTable("test", "table2");
+        tableData.addDatabaseAndTable("test", "table3");
+        tableData.addDatabaseAndTable("another", "table1");
+        tableData.addDatabaseAndTable("another", "table2");
+
+        List databases = tableData.getDatabaseTables();
+        assertEquals("Unexpected number of databases", 2, databases.size());
+
+        TableData.DatabaseTables testTableList = (TableData.DatabaseTables) databases.get(0);
+        assertEquals("Unexpected database name", "test", testTableList.getDatabaseName());
+        assertEquals("Unexpected number of tables in test database", 3, testTableList.getTables().size());
+        assertEquals("Unexpected first table name", "table1", testTableList.getTables().get(0));
+        assertEquals("Unexpected second table name", "table2", testTableList.getTables().get(1));
+        assertEquals("Unexpected third table name", "table3", testTableList.getTables().get(2));
+
+        TableData.DatabaseTables anotherTableList = (TableData.DatabaseTables) databases.get(1);
+        assertEquals("Unexpected database name", "another", anotherTableList.getDatabaseName());
+        assertEquals("Unexpected number of tables in another database", 2, anotherTableList.getTables().size());
     }
 }
