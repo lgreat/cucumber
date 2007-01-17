@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: EditNewsItemController.java,v 1.7 2006/10/06 18:30:00 aroy Exp $
+ * $Id: EditNewsItemController.java,v 1.8 2007/01/17 01:25:19 aroy Exp $
  */
 
 package gs.web.admin.news;
@@ -79,24 +79,25 @@ public class EditNewsItemController extends SimpleFormController implements Read
             } else if (stopSelect.equals(THREE_MONTHS)) {
                 cal.add(Calendar.MONTH, 3);
             }
-            cal.clear(Calendar.MILLISECOND);
-            cal.clear(Calendar.SECOND);
-            cal.clear(Calendar.MINUTE);
-            cal.clear(Calendar.HOUR);
-            cal.clear(Calendar.HOUR_OF_DAY);
+            clearToMidnight(cal);
             newsItem.setStop(cal.getTime());
         }
         if (newsItem.getStart() == null) {
             Calendar cal = Calendar.getInstance();
             cal.setTime(now);
-            cal.clear(Calendar.MILLISECOND);
-            cal.clear(Calendar.SECOND);
-            cal.clear(Calendar.MINUTE);
-            cal.clear(Calendar.HOUR);
-            cal.clear(Calendar.HOUR_OF_DAY);
+            clearToMidnight(cal);
             newsItem.setStart(cal.getTime());
         }
         super.onBind(request, newsItem, errors);
+    }
+
+    protected void clearToMidnight(Calendar cal) {
+        cal.clear(Calendar.MILLISECOND);
+        cal.clear(Calendar.SECOND);
+        cal.clear(Calendar.MINUTE);
+        cal.clear(Calendar.HOUR);
+        cal.clear(Calendar.HOUR_OF_DAY);
+        cal.clear(Calendar.AM_PM);
     }
 
     protected ModelAndView onSubmit(Object command) throws Exception {
