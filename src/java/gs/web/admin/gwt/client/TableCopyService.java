@@ -22,7 +22,8 @@ public interface TableCopyService extends RemoteService {
         public static synchronized TableCopyServiceAsync getInstance() {
             if (ourInstance == null) {
                 ourInstance = (TableCopyServiceAsync) GWT.create(TableCopyService.class);
-                ((ServiceDefTarget) ourInstance).setServiceEntryPoint(GWT.getModuleBaseURL() + "gs.web.admin.gwt.TableCopy/TableCopyService");
+//                ((ServiceDefTarget) ourInstance).setServiceEntryPoint(GWT.getModuleBaseURL() + "gs.web.admin.gwt.TableCopy/TableCopyService");
+                ((ServiceDefTarget) ourInstance).setServiceEntryPoint(GWT.getModuleBaseURL() + "/services/TableCopyService");
             }
             return ourInstance;
         }
