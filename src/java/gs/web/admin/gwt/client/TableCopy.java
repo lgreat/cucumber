@@ -73,6 +73,7 @@ public class TableCopy implements EntryPoint {
     RadioButton selectDev = new RadioButton("source", TableData.DEV_TO_STAGING.label);
     RadioButton selectProd = new RadioButton("source", TableData.PRODUCTION_TO_DEV.label);
     Label errorMessage = new Label();
+    private TableData.DatabaseDirection _direction;
 
     public void onModuleLoad() {
         errorMessage.setVisible(false);
@@ -87,18 +88,17 @@ public class TableCopy implements EntryPoint {
         RootPanel.get().add(mainPanel);
 
         final TableCopyServiceAsync service = TableCopyService.App.getInstance();
-        
 
         selectDev.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
-                service.getTables(TableData.DEV_TO_STAGING, new TableLoadCallback());
-//                addDatabasesToTable(selectDev.getText(), devDatabases);
+                _direction = TableData.DEV_TO_STAGING;
+                service.getTables(_direction, new TableLoadCallback());
             }
         });
         selectProd.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
-                service.getTables(TableData.PRODUCTION_TO_DEV, new TableLoadCallback());
-//                addDatabasesToTable(selectProd.getText(), productionDatabases);
+                _direction = TableData.PRODUCTION_TO_DEV;
+                service.getTables(_direction, new TableLoadCallback());
             }
         });
 
@@ -110,6 +110,24 @@ public class TableCopy implements EntryPoint {
                     }
                 }
                 populateTableList();
+            }
+        });
+
+        submitButton.addClickListener(new ClickListener() {
+            public void onClick(Widget sender) {
+                String[] tables = new String[tableList.getItemCount()];
+                for (int i = 0; i < tables.length; i++) {
+                    tables[i] = tableList.getItemText(i);
+                }
+                service.copyTables(_direction, tables, new AsyncCallback() {
+                    public void onFailure(Throwable caught) {
+                        //To change body of implemented methods use File | Settings | File Templates.
+                    }
+
+                    public void onSuccess(Object result) {
+                        //To change body of implemented methods use File | Settings | File Templates.
+                    }
+                });
             }
         });
 
@@ -156,7 +174,7 @@ public class TableCopy implements EntryPoint {
             }
             tableTree.addItem(database);
         }
-        submitButton.setText("Copy selected tables from " + tableData.getDirection());
+        submitButton.setText("Copy selected tables from " + tableData.getDirection().getLabel());
         tableLister.add(tableList);
         tableLister.add(removeButton);
         tableLister.add(submitButton);
@@ -164,55 +182,6 @@ public class TableCopy implements EntryPoint {
         tableChooser.add(tableTree);
         tableChooser.add(tableLister);
 
-    }
-
-    private void addDatabasesToTable(String direction, Map databases) {
-        // load from specified direction
-        tableChooser.clear();
-        tableLister.remove(tableList);
-        tableLister.remove(submitButton);
-        tableLister.remove(removeButton);
-
-        tableTree = new Tree();
-        tableTree.setWidth("400");
-        tableTree.addTreeListener(new TreeListener() {
-            public void onTreeItemSelected(TreeItem item) {
-                if (item.getChildCount() == 0) {
-                    // must be a leaf
-                    String databaseDotTableName = item.getParentItem().getText() + "." + item.getText();
-                    if (!selectedTables.contains(databaseDotTableName)) {
-                        selectedTables.add(databaseDotTableName);
-                        populateTableList();
-                    }
-                }
-            }
-
-            public void onTreeItemStateChanged(TreeItem item) {}
-        });
-
-        tableList.setWidth("300");
-        tableList.clear();
-        selectedTables.clear();
-        tableList.setVisibleItemCount(10);
-        tableList.setMultipleSelect(true);
-        for (Iterator iterator = databases.keySet().iterator(); iterator.hasNext();) {
-            String key = (String) iterator.next();
-            TreeItem database = new TreeItem(key);
-            List list = (List) databases.get(key);
-            for (Iterator tableIterator = list.iterator(); tableIterator.hasNext();) {
-                String table = (String) tableIterator.next();
-                TreeItem tableItem = new TreeItem(table);
-                database.addItem(tableItem);
-            }
-            tableTree.addItem(database);
-        }
-        submitButton.setText("Copy selected tables from " + direction);
-        tableLister.add(tableList);
-        tableLister.add(removeButton);
-        tableLister.add(submitButton);
-
-        tableChooser.add(tableTree);
-        tableChooser.add(tableLister);
     }
 
     private void populateTableList() {

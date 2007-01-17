@@ -8,6 +8,8 @@ import com.google.gwt.core.client.GWT;
 public interface TableCopyService extends RemoteService {
     public TableData getTables(TableData.DatabaseDirection direction);
 
+    public TableData copyTables(TableData.DatabaseDirection direction, String[] tableList);
+
 
     /**
      * Utility/Convinience class.
