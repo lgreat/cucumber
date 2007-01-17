@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <bean name="simpleServletHandlerAdapter"
+          class="org.springframework.web.servlet.handler.SimpleServletHandlerAdapter">
+    </bean>
+
+    <bean name="simpleServletPostProcessor"
+        class="org.springframework.web.servlet.handler.SimpleServletPostProcessor"/>
+
+    <bean id="handlerMapping"
+        class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <!--<property name="interceptors">-->
+            <!--<list>-->
+                <!--<ref bean="openSessionInViewInterceptor"/>-->
+            <!--</list>-->
+        <!--</property>-->
+        <property name="mappings">
+            <props>
+                <prop key="/TableCopyService">tableCopyService</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="tableCopyService"
+          class="gs.web.admin.gwt.server.TableCopyServiceImpl"/>
+
+    <!--<bean name="openSessionInViewInterceptor"-->
+          <!--class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">-->
+        <!--<property name="sessionFactory">-->
+            <!--<ref bean="sessionFactory"/>-->
+        <!--</property>-->
+        <!--<property name="flushModeName">-->
+            <!--<value>FLUSH_AUTO</value>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+</beans>
