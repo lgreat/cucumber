@@ -98,7 +98,6 @@
         <property name="sessionCacheCookieGenerator">
             <bean class="org.springframework.web.util.CookieGenerator">
                 <property name="cookieName" value="SESSION_CACHE"/>
-                <property name="cookieMaxAge" value="-1"/>
             </bean>
         </property>
     </bean>
