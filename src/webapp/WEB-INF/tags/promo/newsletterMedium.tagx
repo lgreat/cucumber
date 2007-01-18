@@ -57,18 +57,18 @@
             <label>My Third-Grader</label>
             <br/>
             <input class="checkbox" type="checkbox" name="my4" value="my4"/>
-            <label>My Fourth-Grader</label> <span class="smallTeaser">Coming this summer!</span>
+            <label>My Fourth-Grader</label>
             <br/>
             <input class="checkbox" type="checkbox" name="my5" value="my5"/>
-            <label>My Fifth-Grader</label> <span class="smallTeaser">Coming this summer!</span>
+            <label>My Fifth-Grader</label>
             <br/>
 
             <h3>Academics, behavior issues, college prep:</h3>
             <input class="checkbox" type="checkbox" name="myms" value="myms"/>
-            <label>Middle School Matters</label> <span class="smallTeaser">Coming this summer!</span>
+            <label>Middle School Matters</label>
             <br/>
             <input class="checkbox" type="checkbox" name="myhs" value="myhs"/>
-            <label>Countdown to College</label> <span class="smallTeaser">Coming this summer!</span>
+            <label>Countdown to College</label>
 
             <div class="smallform" style="width:50%;">
                 <input type="text"
