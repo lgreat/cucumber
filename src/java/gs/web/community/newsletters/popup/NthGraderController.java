@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.19 2007/01/02 20:09:17 cpickslay Exp $
+ * $Id: NthGraderController.java,v 1.20 2007/01/18 19:33:39 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -52,18 +52,21 @@ public class NthGraderController extends SimpleFormController implements ReadWri
         NewsletterCommand nc = (NewsletterCommand) command;
 
         //state is an optional parameter.
-        //If no state is supplied, defaults to CA else use parameter passed state
         if (null == nc.getState()) {
+            // no longer force state cookie to CA if not specified
             //set state to value from cookie or default state
-            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-            nc.setState(sessionContext.getStateOrDefault());
+            //SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            //nc.setState(sessionContext.getStateOrDefault());
         }
 
         List validators = getOnLoadValidators();
-        for (Iterator iter = validators.iterator(); iter.hasNext();) {
-            Validator val = (Validator) iter.next();
-            if (val.supports(nc.getClass())) {
-                val.validate(nc, errors);
+        // removed the onload state validator, so add a null check here for safety
+        if (validators != null) {
+            for (Iterator iter = validators.iterator(); iter.hasNext();) {
+                Validator val = (Validator) iter.next();
+                if (val.supports(nc.getClass())) {
+                    val.validate(nc, errors);
+                }
             }
         }
 
@@ -97,6 +100,11 @@ public class NthGraderController extends SimpleFormController implements ReadWri
         String email = nc.getEmail();
         User user = getUserDao().findUserFromEmailIfExists(email);
         State state = nc.getState();
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        if (null == state) {
+            // use a default state for setting subscriptions
+            state = sessionContext.getStateOrDefault();
+        }
 
         ModelAndView mAndV = new ModelAndView();
 
@@ -185,7 +193,11 @@ public class NthGraderController extends SimpleFormController implements ReadWri
         getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
 
         mAndV.setViewName(getSuccessView());
-        mAndV.getModel().put("state", state);
+        if (null != nc.getState()) {
+            // do not add state to model (which sets the cookie) if the state
+            // was not there before.
+            mAndV.getModel().put("state", nc.getState());
+        }
         mAndV.getModel().put("email", email);
         mAndV.getModel().put("schoolId", String.valueOf(nc.getSchoolId()));
 

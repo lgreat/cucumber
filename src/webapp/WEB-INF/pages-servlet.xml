@@ -657,11 +657,6 @@
         <property name="commandClass" value="gs.web.community.newsletters.popup.NewsletterCommand"/>
         <property name="formView" value="/community/newsletters/popup/newsletters"/>
         <property name="successView" value="redirect:/community/newsletters/popup/mss/page3.page"/>
-        <property name="onLoadValidators">
-            <list>
-                <ref bean="stateValidator"/>
-            </list>
-        </property>
         <property name="validators">
             <list>
                 <ref bean="emailValidator"/>
@@ -726,7 +721,6 @@
         <property name="onLoadValidators">
             <list>
                 <ref bean="emailValidator"/>
-                <ref bean="stateValidator"/>
             </list>
         </property>
     </bean>

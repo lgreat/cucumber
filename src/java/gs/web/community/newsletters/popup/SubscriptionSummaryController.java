@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryController.java,v 1.8 2006/06/13 22:11:23 dlee Exp $
+ * $Id: SubscriptionSummaryController.java,v 1.9 2007/01/18 19:33:39 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -11,6 +11,7 @@ import gs.data.community.User;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -72,6 +73,10 @@ public class SubscriptionSummaryController extends SimpleFormController {
             } else {
                 Set subcriptions = user.getSubscriptions();
                 State state = nc.getState();
+                if (null == state) {
+                    // set a default state for the query below
+                    state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
+                }
 
                 Set setNth = new HashSet();
                 Set setMsHs = new HashSet();

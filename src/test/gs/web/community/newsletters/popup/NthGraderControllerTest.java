@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderControllerTest.java,v 1.12 2006/09/08 19:13:02 dlee Exp $
+ * $Id: NthGraderControllerTest.java,v 1.13 2007/01/18 19:33:39 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -12,7 +12,6 @@ import gs.web.BaseControllerTestCase;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.validator.EmailValidator;
 import gs.web.util.validator.SchoolIdValidator;
-import gs.web.util.validator.StateValidator;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
@@ -63,7 +62,6 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
 
         List onLoadValidators = new ArrayList();
         onLoadValidators.add(new EmailValidator());
-        onLoadValidators.add(new StateValidator());
         onLoadValidators.add(new SchoolIdValidator());
         _controller.setOnLoadValidators(onLoadValidators);
 
@@ -81,7 +79,6 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
                 new NewsletterCheckBoxValidator(),});
 
         List onLoadValidators = new ArrayList();
-        onLoadValidators.add(new StateValidator());
         _controller.setOnLoadValidators(onLoadValidators);
     }
 
@@ -120,7 +117,7 @@ public class NthGraderControllerTest extends BaseControllerTestCase {
         //don't set a state
         command = new NewsletterCommand();
         assertFalse(hasErrorOnPageLoad(command));
-        assertEquals(State.CA, command.getState());
+        assertEquals(null, command.getState());
         assertEquals("", command.getEmail());
 
 
