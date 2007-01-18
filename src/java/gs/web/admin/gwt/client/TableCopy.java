@@ -9,61 +9,11 @@ import java.util.*;
 
 public class TableCopy implements EntryPoint {
     private List selectedTables = new ArrayList();
+    private TableData.DatabaseDirection _direction;
     VerticalPanel mainPanel = new VerticalPanel();
     VerticalPanel targetChooser = new VerticalPanel();
     HorizontalPanel tableChooser = new HorizontalPanel();
     VerticalPanel tableLister = new VerticalPanel();
-
-    List aa = new ArrayList() {{
-        add("district");
-        add("pq");
-        add("pq_volunteer");
-        add("private");
-        add("school");
-    }};
-    List ak = new ArrayList() {{
-        add("TestDataDistrictValue");
-        add("TestDataSchoolValue");
-        add("TestDataSet");
-        add("TestDataStateValue");
-        add("air");
-        add("air_desc");
-        add("...");
-    }};
-    List gs_schooldb = new ArrayList() {
-        {
-            add("DataFile");
-            add("DataLoad");
-            add("DataSource");
-            add("TestDataBreakdown");
-            add("TestDataSetFile");
-            add("TestDataSubject");
-            add("...");
-        }
-    };
-    List new_database = new ArrayList() {
-        {
-            add("new_table");
-            add("another_new_table");
-        }
-    };
-
-    Map devDatabases = new HashMap() {
-        {
-            put("_aa", aa);
-            put("_ak", ak);
-            put("gs_schooldb", gs_schooldb);
-            put("new_database", new_database);
-        }
-    };
-    Map productionDatabases = new HashMap() {
-        {
-            put("_aa", aa);
-            put("_ak", ak);
-            put("gs_schooldb", gs_schooldb);
-        }
-    };
-
 
     Tree tableTree = new Tree();
     ListBox tableList = new ListBox();
@@ -73,7 +23,7 @@ public class TableCopy implements EntryPoint {
     RadioButton selectDev = new RadioButton("source", TableData.DEV_TO_STAGING.label);
     RadioButton selectProd = new RadioButton("source", TableData.PRODUCTION_TO_DEV.label);
     Label errorMessage = new Label();
-    private TableData.DatabaseDirection _direction;
+    TextArea wikiText = new TextArea();
 
     public void onModuleLoad() {
         errorMessage.setVisible(false);
@@ -119,15 +69,7 @@ public class TableCopy implements EntryPoint {
                 for (int i = 0; i < tables.length; i++) {
                     tables[i] = tableList.getItemText(i);
                 }
-                service.copyTables(_direction, tables, new AsyncCallback() {
-                    public void onFailure(Throwable caught) {
-                        //To change body of implemented methods use File | Settings | File Templates.
-                    }
-
-                    public void onSuccess(Object result) {
-                        //To change body of implemented methods use File | Settings | File Templates.
-                    }
-                });
+                service.copyTables(_direction, tables, new CopyTablesCallback());
             }
         });
 
@@ -201,6 +143,17 @@ public class TableCopy implements EntryPoint {
 
         public void onSuccess(Object result) {
             addDatabasesToTree((TableData) result);
+        }
+    }
+
+    private class CopyTablesCallback implements AsyncCallback {
+        public void onFailure(Throwable caught) {
+            errorMessage.setText(caught.getMessage());
+        }
+
+        public void onSuccess(Object result) {
+            wikiText.setText((String) result);
+            mainPanel.add(wikiText);
         }
     }
 }
