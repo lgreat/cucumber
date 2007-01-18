@@ -2,25 +2,18 @@ package gs.web.admin.gwt.server;
 
 import gs.web.BaseTestCase;
 import gs.web.admin.gwt.client.TableData;
-import gs.data.dao.hibernate.ThreadLocalHibernateDataSource;
-import org.springframework.context.ApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.JdbcOperations;
-import org.hibernate.SessionFactory;
 import org.easymock.MockControl;
 
 import java.util.*;
+import java.io.*;
 
 public class TableCopyServiceSaTest extends BaseTestCase {
-    private SessionFactory _sessionFactory;
     private TableCopyServiceImpl tableCopyService;
     private MockControl jdbcMock;
     private JdbcOperations context;
 
     protected void setUp() throws Exception {
-        ApplicationContext ctx = getApplicationContext();
-        _sessionFactory = (SessionFactory) ctx.getBean("sessionFactory");
-
         tableCopyService = new TableCopyServiceImpl();
         jdbcMock = MockControl.createControl(JdbcOperations.class);
         context = (JdbcOperations) jdbcMock.getMock();
@@ -60,26 +53,24 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         TableData tableData = tableCopyService.lookupTables(TableData.DEV_TO_STAGING);
 
         assertEquals("Expected 2 databases", 2, tableData.getDatabaseTables().size());
+        assertEquals("Unexpected direction", TableData.DEV_TO_STAGING, tableData.getDirection());
 
         jdbcMock.verify();
     }
 
-    public void testCopyTables() {
-        
-    }
 
-    // TODO: how do I get connection to other database?
-//    public void testQuery() {
-//        JdbcTemplate jdbc = new JdbcTemplate(new ThreadLocalHibernateDataSource(_sessionFactory));
-//        List results = jdbc.queryForList(TableCopyServiceImpl.TABLE_LIST_QUERY);
-//
-//        for (Iterator iterator = results.iterator(); iterator.hasNext();) {
-//            Map result = (Map) iterator.next();
-//            for (Iterator iterator1 = result.keySet().iterator(); iterator1.hasNext();) {
-//                String column = (String) iterator1.next();
-//                String value = (String) result.get(column);
-//                System.out.println(column + ": " + value);
-//            }
-//        }
-//    }
+    public void testGenerateCopyCommand() {
+        TableData.DatabaseDirection direction = TableData.DEV_TO_STAGING;
+        String table1 = "gs_schooldb.table1";
+        String table2 = "gs_schooldb.table2";
+        String table3 = "_az.aztable1";
+        String copyCommand = tableCopyService.generateCopyCommand(direction,
+                Arrays.asList(new String[]{table1, table2, table3}));
+        System.out.println("'" + copyCommand + "'");
+        assertTrue("Expected copy command", copyCommand.startsWith(TableCopyServiceImpl.COPY_TABLES_COMMAND));
+        assertTrue("Expected dev as from database", copyCommand.matches(".* --fromhost " + direction.getSource() + " .*"));
+        assertTrue("Expected staging as to database", copyCommand.matches(".* --tohost " + direction.getTarget() + " .*"));
+        String expectedTableList = table1 + "," + table2 + "," + table3;
+        assertTrue("Unexpected table list", copyCommand.matches(".* --tablelist " + expectedTableList + " .*"));
+    }
 }
