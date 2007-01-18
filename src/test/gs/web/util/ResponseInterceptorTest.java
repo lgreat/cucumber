@@ -67,6 +67,7 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
         assertEquals("Unexpected cobrand cookie value", _requestedServer, cobrandCookie.getValue());
         assertEquals("Unexpected cobrand cookie path", "/", cobrandCookie.getPath());
         assertEquals("Unexpected cobrand cookie age", -1, cobrandCookie.getMaxAge());
+        assertEquals("Unexpected cobrand cookie domain", "greatschools.net", cobrandCookie.getDomain());
     }
 
     public void testCobrandCookieNotSetForNonCobrand() throws Exception {

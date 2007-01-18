@@ -49,6 +49,7 @@ public class ResponseInterceptor implements HandlerInterceptor {
         if (sessionContext.isCobranded() && !sessionContext.isFramed()) {
             Cookie cobrandCookie = new Cookie(COBRAND_COOKIE, sessionContext.getHostName());
             cobrandCookie.setPath("/");
+            cobrandCookie.setDomain("greatschools.net");
             response.addCookie(cobrandCookie);
         }
         else {
