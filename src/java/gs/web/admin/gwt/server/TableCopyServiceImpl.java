@@ -68,7 +68,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     public String copyTables(TableData.DatabaseDirection direction, String[] tableList) {
         String copyCommand = generateCopyCommand(direction, Arrays.asList(tableList));
         String copyOutput = executeCopyCommand(copyCommand);
-        return copyOutput;
+        return generateWikiText(direction, Arrays.asList(tableList));
 //        return "success!";
     }
 
@@ -126,5 +126,27 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         tables.append(" ");
         command.append(tables);
         return command.toString();
+    }
+
+    public String generateWikiText(TableData.DatabaseDirection direction, List databasesAndTables) {
+        StringBuffer wikiText = new StringBuffer("|Who/Jira|Db|Table|live -> dev|dev -> staging|staging -> live|Notes|\n");
+        for (Iterator iterator = databasesAndTables.iterator(); iterator.hasNext();) {
+            String databaseAndTable = (String) iterator.next();
+            String[] split = databaseAndTable.split("\\.");
+            wikiText.append("| ??/GS-???? | ");
+            wikiText.append(split[0]);
+            wikiText.append(" | ");
+            wikiText.append(split[1]);
+            wikiText.append(" | ");
+            wikiText.append("done");
+            wikiText.append(" | ");
+            if (direction.equals(TableData.DEV_TO_STAGING)) {
+                wikiText.append("done");
+            }
+            wikiText.append(" | ");
+            wikiText.append(" | ");
+            wikiText.append(" |\n");
+        }
+        return wikiText.toString();
     }
 }

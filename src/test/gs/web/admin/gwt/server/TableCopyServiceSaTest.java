@@ -73,4 +73,36 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         String expectedTableList = table1 + "," + table2 + "," + table3;
         assertTrue("Unexpected table list", copyCommand.matches(".* --tablelist " + expectedTableList + " .*"));
     }
+
+    public void TestGenerateProductionToDevWikiText() {
+        TableData.DatabaseDirection direction = TableData.PRODUCTION_TO_DEV;
+        String table1 = "gs_schooldb.table1";
+        String table2 = "gs_schooldb.table2";
+        String table3 = "_az.aztable1";
+        String wikiText = tableCopyService.generateWikiText(direction,
+                Arrays.asList(new String[]{table1, table2, table3}));
+
+        String expectedWikiText = "|Who/Jira|Db|Table|live -> dev|dev -> staging|staging -> live|Notes|\n" +
+                "| ??/GS-???? | gs_schooldb | table1 | done |  |  |  |\n" +
+                "| ??/GS-???? | gs_schooldb | table2 | done |  |  |  |\n" +
+                "| ??/GS-???? | _az | aztable1 | done |  |  |  |\n";
+
+        assertEquals("Unexpected wiki text for production to dev", expectedWikiText, wikiText);
+    }
+
+    public void TestGenerateDevToStagingWikiText() {
+        TableData.DatabaseDirection direction = TableData.DEV_TO_STAGING;
+        String table1 = "gs_schooldb.table1";
+        String table2 = "gs_schooldb.table2";
+        String table3 = "_az.aztable1";
+        String wikiText = tableCopyService.generateWikiText(direction,
+                Arrays.asList(new String[]{table1, table2, table3}));
+
+        String expectedWikiText = "|Who/Jira|Db|Table|live -> dev|dev -> staging|staging -> live|Notes|\n" +
+                "| ??/GS-???? | gs_schooldb | table1 | done | done |  |  |\n" +
+                "| ??/GS-???? | gs_schooldb | table2 | done | done |  |  |\n" +
+                "| ??/GS-???? | _az | aztable1 | done | done |  |  |\n";
+
+        assertEquals("Unexpected wiki text for dev to staging", expectedWikiText, wikiText);
+    }
 }

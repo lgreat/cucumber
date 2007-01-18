@@ -153,7 +153,7 @@ public class TableCopy implements EntryPoint {
         }
 
         public void onSuccess(Object result) {
-            wikiText.setWidth("500");
+            wikiText.setWidth("700");
             wikiText.setVisibleLines(selectedTables.size());
             wikiText.setText((String) result);
             tableLister.add(wikiText);
