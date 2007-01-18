@@ -43,6 +43,10 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return lookupTables(direction);
     }
 
+    public TableData copyTables(TableData.DatabaseDirection direction, String[] tableList) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
 
     public void setJdbcContext(JdbcOperations context) {
         this._jdbcContext = context;
