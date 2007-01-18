@@ -6,8 +6,19 @@ import com.google.gwt.core.client.GWT;
 
 
 public interface TableCopyService extends RemoteService {
+    /**
+     *
+     * @param direction The direction in which the tables should be copied
+     * @return  A TableData object listing the available databases and tables
+     */
     public TableData getTables(TableData.DatabaseDirection direction);
 
+    /**
+     *
+     * @param direction The direction in which the tables should be copied
+     * @param tableList An array of strings in the format database.table indicating the tables to be copied
+     * @return  The formatted wiki text for the TableToMove page indicating which tables were copied
+     */
     public String copyTables(TableData.DatabaseDirection direction, String[] tableList);
 
 
