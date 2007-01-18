@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.20 2007/01/16 19:29:53 aroy Exp $
+ * $Id: LoginController.java,v 1.21 2007/01/18 18:19:45 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -43,17 +43,16 @@ public class LoginController extends SimpleFormController {
     private IUserDao _userDao;
     private AuthenticationManager _authenticationManager;
 
+    protected void initializeRedirectUrl(HttpServletRequest request) {
+        UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
+        //UrlBuilder builder = new UrlBuilder(UrlBuilder.ACCOUNT_INFO, null, null);
+        DEFAULT_REDIRECT_URL = builder.asFullUrl(request);
+    }
+
     //set up defaults if none supplied
     protected void onBindOnNewForm(HttpServletRequest request,
                                    Object command,
                                    BindException errors) {
-
-        if (DEFAULT_REDIRECT_URL == null) {
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
-            //UrlBuilder builder = new UrlBuilder(UrlBuilder.ACCOUNT_INFO, null, null);
-            DEFAULT_REDIRECT_URL = builder.asFullUrl(request);
-        }
-
         LoginCommand loginCommand = (LoginCommand) command;
 
         if (null == loginCommand.getEmail()) {
@@ -121,6 +120,9 @@ public class LoginController extends SimpleFormController {
             loginCommand.setRedirect(_authenticationManager.addParameterIfNecessary
                     (loginCommand.getRedirect(), authInfo));
         } else {
+            if (DEFAULT_REDIRECT_URL == null) {
+                initializeRedirectUrl(request);
+            }
             loginCommand.setRedirect(_authenticationManager.generateRedirectUrl
                     (DEFAULT_REDIRECT_URL, _authenticationManager.generateAuthInfo(user)));
         }
@@ -136,9 +138,6 @@ public class LoginController extends SimpleFormController {
             redirectUrl = builder.asFullUrl(request);
         } else {
             PageHelper.setMemberAuthorized(request, response, user);
-            if (StringUtils.isEmpty(loginCommand.getRedirect())) {
-                loginCommand.setRedirect(LoginController.DEFAULT_REDIRECT_URL);
-            }
             redirectUrl = urlUtil.buildUrl(loginCommand.getRedirect(), request);
         }
 
