@@ -8,7 +8,7 @@ import com.google.gwt.core.client.GWT;
 public interface TableCopyService extends RemoteService {
     public TableData getTables(TableData.DatabaseDirection direction);
 
-    public TableData copyTables(TableData.DatabaseDirection direction, String[] tableList);
+    public String copyTables(TableData.DatabaseDirection direction, String[] tableList);
 
 
     /**
@@ -17,9 +17,6 @@ public interface TableCopyService extends RemoteService {
      */
     public static class App {
         private static TableCopyServiceAsync ourInstance = null;
-        static void setInstance(TableCopyServiceAsync servlet) {
-            ourInstance = servlet;
-        }
 
         public static synchronized TableCopyServiceAsync getInstance() {
             if (ourInstance == null) {

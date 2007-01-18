@@ -64,6 +64,10 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         jdbcMock.verify();
     }
 
+    public void testCopyTables() {
+        
+    }
+
     // TODO: how do I get connection to other database?
 //    public void testQuery() {
 //        JdbcTemplate jdbc = new JdbcTemplate(new ThreadLocalHibernateDataSource(_sessionFactory));
