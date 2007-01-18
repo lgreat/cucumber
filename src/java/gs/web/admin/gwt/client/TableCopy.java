@@ -77,9 +77,11 @@ public class TableCopy implements EntryPoint {
 
     private void addDatabasesToTree(TableData tableData) {
         tableChooser.clear();
+        wikiText.setText("");
         tableLister.remove(tableList);
         tableLister.remove(submitButton);
         tableLister.remove(removeButton);
+        tableLister.remove(wikiText);
 
         tableTree = new Tree();
         tableTree.setWidth("400");
@@ -123,7 +125,6 @@ public class TableCopy implements EntryPoint {
 
         tableChooser.add(tableTree);
         tableChooser.add(tableLister);
-
     }
 
     private void populateTableList() {
@@ -152,8 +153,10 @@ public class TableCopy implements EntryPoint {
         }
 
         public void onSuccess(Object result) {
+            wikiText.setWidth("500");
+            wikiText.setVisibleLines(selectedTables.size());
             wikiText.setText((String) result);
-            mainPanel.add(wikiText);
+            tableLister.add(wikiText);
         }
     }
 }
