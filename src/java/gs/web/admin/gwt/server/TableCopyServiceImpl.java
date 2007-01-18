@@ -5,21 +5,21 @@ import gs.web.admin.gwt.client.TableCopyService;
 import gs.web.admin.gwt.client.TableData;
 import gs.data.dao.hibernate.ThreadLocalHibernateDataSource;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
+import java.io.IOException;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.dao.DataAccessException;
 import org.hibernate.SessionFactory;
 
 
 public class TableCopyServiceImpl extends RemoteServiceServlet implements TableCopyService {
-    List gsList = new ArrayList();
-    List azList = new ArrayList();
-    TableData tableData = new TableData();
+    List _gsList = new ArrayList();
+    List _azList = new ArrayList();
+    TableData _tableData = new TableData();
     private JdbcOperations _jdbcContext;
     private SessionFactory _sessionFactory;
     public static final String DATABASE_COLUMN = "table_schema";
@@ -27,24 +27,17 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     public static final String TABLE_LIST_QUERY = "select " + DATABASE_COLUMN + ", " + TABLE_COLUMN + " from information_schema.tables " +
             "where table_schema not in ('information_schema', 'mysql') " +
             "order by table_schema, table_name;";
-
+    private Runtime _runtime;
+    public static final String COPY_TABLES_COMMAND = "/usr2/sites/main.dev/scripts/sysadmin/database/dumpcopy  --yes --verbose ";
 
     public TableCopyServiceImpl() {
-        gsList.add("table1");
-        gsList.add("table2");
-        azList.add("az_table1");
-        azList.add("az_table2");
-        tableData.addDatabase("gs_schooldb", gsList);
-        tableData.addDatabase("_az", azList);
-    }
-
-    public TableData getTables(TableData.DatabaseDirection direction) {
-//        return tableData;
-        return lookupTables(direction);
-    }
-
-    public String copyTables(TableData.DatabaseDirection direction, String[] tableList) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        _gsList.add("table1");
+        _gsList.add("table2");
+        _azList.add("az_table1");
+        _azList.add("az_table2");
+        _tableData.addDatabase("gs_schooldb", _gsList);
+        _tableData.addDatabase("_az", _azList);
+        _tableData.setDirection(TableData.DEV_TO_STAGING);
     }
 
 
@@ -63,13 +56,48 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return _sessionFactory;
     }
 
-
     public void setSessionFactory(SessionFactory sessionFactory) {
         _sessionFactory = sessionFactory;
     }
 
+    public TableData getTables(TableData.DatabaseDirection direction) {
+//        return tableData;
+        return lookupTables(direction);
+    }
+
+    public String copyTables(TableData.DatabaseDirection direction, String[] tableList) {
+        String copyCommand = generateCopyCommand(direction, Arrays.asList(tableList));
+        String copyOutput = executeCopyCommand(copyCommand);
+        return copyOutput;
+//        return "success!";
+    }
+
+    private String executeCopyCommand(String copyCommand) {
+        BufferedReader reader = null;
+        try {
+            Process process = Runtime.getRuntime().exec(copyCommand);
+            reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            StringBuffer buffer = new StringBuffer();
+            String line;
+            while((line = reader.readLine()) != null) {
+                buffer.append(line).append("\n");
+            }
+            return buffer.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {}
+        }
+    }
+
     public TableData lookupTables(TableData.DatabaseDirection direction) {
         TableData databases = new TableData();
+        databases.setDirection(direction);
         JdbcOperations jdbcOperations = getJdbcContext();
         List results = jdbcOperations.queryForList(TABLE_LIST_QUERY);
 
@@ -80,5 +108,23 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             databases.addDatabaseAndTable(database, table);
         }
         return databases;
+    }
+
+    public String generateCopyCommand(TableData.DatabaseDirection devToStaging, List databasesAndTables) {
+        StringBuffer command = new StringBuffer();
+        command.append(COPY_TABLES_COMMAND);
+        command.append(" --fromhost " + devToStaging.getSource() + " ");
+        command.append(" --tohost " + devToStaging.getTarget() + " ");
+        StringBuffer tables = new StringBuffer(" --tablelist ");
+        for (Iterator iterator = databasesAndTables.iterator(); iterator.hasNext();) {
+            String databaseAndTable = (String) iterator.next();
+            tables.append(databaseAndTable);
+            if (iterator.hasNext()) {
+                tables.append(",");
+            }
+        }
+        tables.append(" ");
+        command.append(tables);
+        return command.toString();
     }
 }
