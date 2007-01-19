@@ -61,7 +61,8 @@ div.articleBox {
 
 div.articleBox table tr td a:link,
 div.articleBox table tr td a:visited,
-div.articleBox table tr td a:hover {
+div.articleBox table tr td a:hover,
+div.articleBox table tr td a:active {
     font-family: "Trebuchet MS", Arial, sans-serif;
     font-size: 13px;
     line-height: 15px;
@@ -70,7 +71,7 @@ div.articleBox table tr td a:hover {
     letter-spacing: 0;
 }
 
-a.link:link, a.link:visited, a.link:hover {
+a.link:link, a.link:visited, a.link:hover, a.link:active {
 	font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 12px;
 	line-height: 15px;
@@ -129,9 +130,16 @@ h1.communityWelcome {
 	letter-spacing: 0;
 }
 
-span.welcomeText {
+h1.signedInWelcome span.welcomeText {
+    position: relative;
+    top: -3px;
+    font-size: 21px;
+}
+
+h1.signedOutWelcome span.welcomeText {
     position: relative;
     top: -5px;
+    font-size: 17px;
 }
 
 h1.welcomeInfo {
@@ -139,7 +147,6 @@ h1.welcomeInfo {
     height: 20px;
     padding: 15px 0 18px 72px;
     font-family: "Trebuchet MS", Arial, sans-serif;
-    font-size: 17px;
     line-height: 17px;
     color: #ffffff;
     letter-spacing: 0;

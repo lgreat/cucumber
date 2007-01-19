@@ -77,9 +77,9 @@
                       </h1>
                   </c:when>
                   <c:when test="${user ne null}">
-                      <h1 class="communityWelcome">
+                      <h1 class="signedInWelcome communityWelcome">
                           <span class="welcomeText">
-                            ${user.userProfile.screenName}, welcome to the GreatSchools community!
+                            Welcome to the community, ${user.userProfile.screenName}!
                           </span>
                           <link:accountInfo>
                               <gsml:img src="/res/img/community/registration/b_myAccount.gif" styleClass="firstButton"
@@ -88,7 +88,7 @@
                       </h1>
                   </c:when>
                   <c:otherwise>
-                      <h1 class="communityWelcome">
+                      <h1 class="signedOutWelcome communityWelcome">
                           <span class="welcomeText">
                             Welcome to the GreatSchools Community!
                           </span>
