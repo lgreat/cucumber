@@ -624,12 +624,15 @@
         <property name="successView" value="redirect:/admin/news/list.page"/>
     </bean>
 
-    <!--<bean name="/admin/database/copyTables.page"-->
-        <!--class="gs.web.admin.LimitToDevController">-->
-        <!--<property name="viewName">-->
-            <!--<value>admin/database/copyTables</value>-->
-        <!--</property>-->
-    <!--</bean>-->
+    <bean name="/admin/database/copyTables.page"
+        class="gs.web.admin.LimitToDevController">
+        <property name="viewName">
+            <value>admin/database/copyTables</value>
+        </property>
+        <property name="errorViewName">
+            <value>admin/noProductionAccess</value>
+        </property>
+    </bean>
     <!--
         "v1" is here so that we can easily update to newer versions
         of this.
