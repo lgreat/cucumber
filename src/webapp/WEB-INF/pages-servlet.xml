@@ -11,6 +11,7 @@
         <property name="interceptors">
             <list>
                 <bean class="gs.web.util.ReadWriteInterceptor"/>
+                <!-- ResponseInterceptor is dependent on SessionContextInterceptor, and must come after it in config -->
                 <bean class="gs.web.util.context.SessionContextInterceptor"
                       autowire="byName"/>
                 <bean class="gs.web.util.ResponseInterceptor"
@@ -623,6 +624,12 @@
         <property name="successView" value="redirect:/admin/news/list.page"/>
     </bean>
 
+    <!--<bean name="/admin/database/copyTables.page"-->
+        <!--class="gs.web.admin.LimitToDevController">-->
+        <!--<property name="viewName">-->
+            <!--<value>admin/database/copyTables</value>-->
+        <!--</property>-->
+    <!--</bean>-->
     <!--
         "v1" is here so that we can easily update to newer versions
         of this.
