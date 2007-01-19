@@ -7,7 +7,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import java.util.*;
 
 
-public class TableCopy implements EntryPoint {
+public class TableCopyGWTPanel implements EntryPoint {
     private List selectedTables = new ArrayList();
     private TableData.DatabaseDirection _direction;
     VerticalPanel mainPanel = new VerticalPanel();

@@ -2,7 +2,7 @@
 
     <inherits name='com.google.gwt.user.User'/>
 
-    <entry-point class='gs.web.admin.gwt.client.TableCopy'/>
+    <entry-point class='gs.web.admin.gwt.client.TableCopyGWTPanel'/>
 
     <servlet path="/gs.web.admin.gwt.TableCopy/services/TableCopyService"
              class="gs.web.admin.gwt.server.TableCopyServiceImpl"/>
