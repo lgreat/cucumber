@@ -1,0 +1,8 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+<html>
+  <head>
+      <title>No Production Access</title>
+  </head>
+  <body>This page is not accessible from our public servers. Please use a development server.</body>
+</html>
+</jsp:root>
