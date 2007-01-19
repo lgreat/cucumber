@@ -20,7 +20,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         tableCopyService.setJdbcContext(context);
     }
 
-    public void testLookupTables() {
+    public void testGetTables() {
         List resultSet = new ArrayList();
         resultSet.add(new HashMap() {
             {
@@ -50,7 +50,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         jdbcMock.expectAndReturn(context.queryForList(TableCopyServiceImpl.TABLE_LIST_QUERY), resultSet);
         jdbcMock.replay();
 
-        TableData tableData = tableCopyService.lookupTables(TableData.DEV_TO_STAGING);
+        TableData tableData = tableCopyService.getTables(TableData.DEV_TO_STAGING);
 
         assertEquals("Expected 2 databases", 2, tableData.getDatabaseTables().size());
         assertEquals("Unexpected direction", TableData.DEV_TO_STAGING, tableData.getDirection());
@@ -74,7 +74,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         assertTrue("Unexpected table list", copyCommand.matches(".* --tablelist " + expectedTableList + " .*"));
     }
 
-    public void TestGenerateProductionToDevWikiText() {
+    public void testGenerateProductionToDevWikiText() {
         TableData.DatabaseDirection direction = TableData.PRODUCTION_TO_DEV;
         String table1 = "gs_schooldb.table1";
         String table2 = "gs_schooldb.table2";
@@ -90,7 +90,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         assertEquals("Unexpected wiki text for production to dev", expectedWikiText, wikiText);
     }
 
-    public void TestGenerateDevToStagingWikiText() {
+    public void testGenerateDevToStagingWikiText() {
         TableData.DatabaseDirection direction = TableData.DEV_TO_STAGING;
         String table1 = "gs_schooldb.table1";
         String table2 = "gs_schooldb.table2";
@@ -105,4 +105,15 @@ public class TableCopyServiceSaTest extends BaseTestCase {
 
         assertEquals("Unexpected wiki text for dev to staging", expectedWikiText, wikiText);
     }
+//
+//    public void testParseCommandOutput() {
+//        String errors = "Skipping database.table1\n" +
+//                "Skipping database.table2\n";
+//
+//        String expectedErrorText = "The following table(s) failed to copy:\n" +
+//                "\tdatabase.table1\n" +
+//                "\tdatabase.table2\n";
+//
+//        assertEquals("Unexpected error text", expectedErrorText, tableCopyService.parseCommandOutput(errors));
+//    }
 }
