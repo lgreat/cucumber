@@ -24,18 +24,10 @@ public class TableCopy implements EntryPoint {
     RadioButton selectProd = new RadioButton("source", TableData.PRODUCTION_TO_DEV.label);
     Label errorMessage = new Label();
     TextArea wikiText = new TextArea();
+    Image waiting = new Image();
 
     public void onModuleLoad() {
-        errorMessage.setVisible(false);
-        mainPanel.add(errorMessage);
-
-        targetChooser.add(selectDev);
-        targetChooser.add(selectProd);
-        mainPanel.add(targetChooser);
-
-        mainPanel.add(tableChooser);
-
-        RootPanel.get().add(mainPanel);
+        initializeLayout();
 
         final TableCopyServiceAsync service = TableCopyService.App.getInstance();
 
@@ -69,6 +61,8 @@ public class TableCopy implements EntryPoint {
                 for (int i = 0; i < tables.length; i++) {
                     tables[i] = tableList.getItemText(i);
                 }
+                waiting.setUrl("/res/img/admin/waiting_head.gif");
+                tableLister.add(waiting);
                 service.copyTables(_direction, tables, new CopyTablesCallback());
             }
         });
@@ -76,15 +70,8 @@ public class TableCopy implements EntryPoint {
     }
 
     private void addDatabasesToTree(TableData tableData) {
-        tableChooser.clear();
-        wikiText.setText("");
-        tableLister.remove(tableList);
-        tableLister.remove(submitButton);
-        tableLister.remove(removeButton);
-        tableLister.remove(wikiText);
+        resetLayout();
 
-        tableTree = new Tree();
-        tableTree.setWidth("400");
         tableTree.addTreeListener(new TreeListener() {
             public void onTreeItemSelected(TreeItem item) {
                 if (item.getChildCount() == 0) {
@@ -100,10 +87,6 @@ public class TableCopy implements EntryPoint {
             public void onTreeItemStateChanged(TreeItem item) {}
         });
 
-        tableList.setWidth("300");
-        tableList.clear();
-        selectedTables.clear();
-        tableList.setVisibleItemCount(10);
         tableList.setMultipleSelect(true);
         List databases = tableData.getDatabaseTables();
         for (Iterator iterator = databases.iterator(); iterator.hasNext();) {
@@ -135,11 +118,47 @@ public class TableCopy implements EntryPoint {
         }
     }
 
+    private void initializeLayout() {
+        errorMessage.setVisible(false);
+
+        tableList.setWidth("300");
+        tableList.setVisibleItemCount(10);
+
+        wikiText.setWidth("700");
+
+        tableLister.setSpacing(5);
+        
+        mainPanel.add(errorMessage);
+
+        targetChooser.add(selectDev);
+        targetChooser.add(selectProd);
+        mainPanel.add(targetChooser);
+
+        mainPanel.add(tableChooser);
+
+
+        RootPanel.get().add(mainPanel);
+    }
+
+    private void resetLayout() {
+        tableChooser.clear();
+        wikiText.setText("");
+        tableLister.remove(tableList);
+        tableLister.remove(submitButton);
+        tableLister.remove(removeButton);
+        tableLister.remove(wikiText);
+
+        tableList.clear();
+        selectedTables.clear();
+
+        tableTree = new Tree();
+        tableTree.setWidth("400");
+    }
+
     private class TableLoadCallback implements AsyncCallback {
         public void onFailure(Throwable caught) {
             errorMessage.setText(caught.getMessage());
             errorMessage.setVisible(true);
-            caught.printStackTrace();
         }
 
         public void onSuccess(Object result) {
@@ -153,9 +172,10 @@ public class TableCopy implements EntryPoint {
         }
 
         public void onSuccess(Object result) {
-            wikiText.setWidth("700");
-            wikiText.setVisibleLines(selectedTables.size());
+            wikiText.setVisibleLines(selectedTables.size() + 3);
             wikiText.setText((String) result);
+//            wikiText.setTitle("Text to add to http://wiki.greatschools.net/bin/view/Greatschools/TableToMove");
+            tableLister.remove(waiting);
             tableLister.add(wikiText);
         }
     }
