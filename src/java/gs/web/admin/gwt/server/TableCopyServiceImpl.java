@@ -7,7 +7,6 @@ import gs.data.dao.hibernate.ThreadLocalHibernateDataSource;
 
 import java.util.*;
 import java.io.IOException;
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -17,9 +16,6 @@ import org.hibernate.SessionFactory;
 
 
 public class TableCopyServiceImpl extends RemoteServiceServlet implements TableCopyService {
-    List _gsList = new ArrayList();
-    List _azList = new ArrayList();
-    TableData _tableData = new TableData();
     private JdbcOperations _jdbcContext;
     private SessionFactory _sessionFactory;
     public static final String DATABASE_COLUMN = "table_schema";
@@ -27,19 +23,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     public static final String TABLE_LIST_QUERY = "select " + DATABASE_COLUMN + ", " + TABLE_COLUMN + " from information_schema.tables " +
             "where table_schema not in ('information_schema', 'mysql') " +
             "order by table_schema, table_name;";
-    private Runtime _runtime;
-    public static final String COPY_TABLES_COMMAND = "/usr2/sites/main.dev/scripts/sysadmin/database/dumpcopy  --yes --verbose ";
-
-    public TableCopyServiceImpl() {
-        _gsList.add("table1");
-        _gsList.add("table2");
-        _azList.add("az_table1");
-        _azList.add("az_table2");
-        _tableData.addDatabase("gs_schooldb", _gsList);
-        _tableData.addDatabase("_az", _azList);
-        _tableData.setDirection(TableData.DEV_TO_STAGING);
-    }
-
+    public static final String COPY_TABLES_COMMAND = "/usr2/sites/main.dev/scripts/sysadmin/database/dumpcopy --yes ";
 
     public void setJdbcContext(JdbcOperations context) {
         this._jdbcContext = context;
@@ -61,15 +45,26 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     }
 
     public TableData getTables(TableData.DatabaseDirection direction) {
-//        return tableData;
-        return lookupTables(direction);
+//        return populateTestData();
+        TableData databases = new TableData();
+        databases.setDirection(direction);
+        JdbcOperations jdbcOperations = getJdbcContext();
+        List results = jdbcOperations.queryForList(TABLE_LIST_QUERY);
+
+        for (Iterator iterator = results.iterator(); iterator.hasNext();) {
+            Map result = (Map) iterator.next();
+            String database = (String) result.get(DATABASE_COLUMN);
+            String table = (String) result.get(TABLE_COLUMN);
+            databases.addDatabaseAndTable(database, table);
+        }
+        return databases;
     }
 
     public String copyTables(TableData.DatabaseDirection direction, String[] tableList) {
+//        return "success!";
         String copyCommand = generateCopyCommand(direction, Arrays.asList(tableList));
         String copyOutput = executeCopyCommand(copyCommand);
         return generateWikiText(direction, Arrays.asList(tableList));
-//        return "success!";
     }
 
     private String executeCopyCommand(String copyCommand) {
@@ -93,21 +88,6 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
                 }
             } catch (IOException e) {}
         }
-    }
-
-    public TableData lookupTables(TableData.DatabaseDirection direction) {
-        TableData databases = new TableData();
-        databases.setDirection(direction);
-        JdbcOperations jdbcOperations = getJdbcContext();
-        List results = jdbcOperations.queryForList(TABLE_LIST_QUERY);
-
-        for (Iterator iterator = results.iterator(); iterator.hasNext();) {
-            Map result = (Map) iterator.next();
-            String database = (String) result.get(DATABASE_COLUMN);
-            String table = (String) result.get(TABLE_COLUMN);
-            databases.addDatabaseAndTable(database, table);
-        }
-        return databases;
     }
 
     public String generateCopyCommand(TableData.DatabaseDirection devToStaging, List databasesAndTables) {
@@ -149,4 +129,23 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         }
         return wikiText.toString();
     }
+
+    public String parseCommandOutput(String output) {
+        return null;
+    }
+
+    private TableData populateTestData() {
+        List gsList = new ArrayList();
+        List azList = new ArrayList();
+        TableData tableData = new TableData();
+        gsList.add("table1");
+        gsList.add("table2");
+        azList.add("az_table1");
+        azList.add("az_table2");
+        tableData.addDatabase("gs_schooldb", gsList);
+        tableData.addDatabase("_az", azList);
+        tableData.setDirection(TableData.DEV_TO_STAGING);
+        return tableData;
+    }
+
 }
