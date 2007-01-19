@@ -1,9 +1,11 @@
-package gs.web.admin.gwt.client;
+package gs.web.admin.gwt;
 
 import junit.framework.TestCase;
 
 import java.util.Arrays;
 import java.util.List;
+
+import gs.web.admin.gwt.client.TableData;
 
 public class TableDataSaTest extends TestCase {
     public void testLoadTableData() {
