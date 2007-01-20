@@ -4,7 +4,7 @@
 
     <entry-point class='gs.web.admin.gwt.client.TableCopyGWTPanel'/>
 
-    <servlet path="/gs.web.admin.gwt.TableCopy/services/TableCopyService"
+    <servlet path="/gs.web.admin.gwt.TableCopyGWTPanel/services/TableCopyService"
              class="gs.web.admin.gwt.server.TableCopyServiceImpl"/>
     <!--<servlet path="/gs.web.admin.gwt.TableCopy/TableCopyService"-->
              <!--class="gs.web.admin.gwt.server.TableCopyServiceImpl"/>-->
