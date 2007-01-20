@@ -624,7 +624,7 @@
         <property name="successView" value="redirect:/admin/news/list.page"/>
     </bean>
 
-    <bean name="/admin/database/copyTables.page"
+    <bean name="/admin/database/gs.web.admin.gwt.TableCopyGWTPanel/copyTables.page"
         class="gs.web.admin.LimitToDevController">
         <property name="viewName">
             <value>admin/database/copyTables</value>
