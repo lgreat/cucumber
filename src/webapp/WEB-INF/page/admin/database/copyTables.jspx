@@ -1,12 +1,14 @@
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0">
 <html>
   <head>
       <title>Database table copy application</title>
-      <meta name="gwt:module" content="gs.web.admin.gwt.TableCopy"/>
-      <link rel="stylesheet" href="/res/gwt/gs.web.admin.gwt.TableCopy/TableCopy.css"/>
+      <meta name="gwt:module" content="gs.web.admin.gwt.TableCopyGWTPanel"/>
+      <pageHelper:externalCss file="/res/gwt/gs.web.admin.gwt.TableCopyGWTPanel/TableCopy.css"/>
   </head>
   <body>
-      <script language="javascript" src="/res/gwt/gs.web.admin.gwt.TableCopy/gwt.js" type="text/javascript"></script>
+      <pageHelper:externalJavascript file="/res/gwt/gs.web.admin.gwt.TableCopyGWTPanel/gwt.js"/>
       <iframe id="__gwt_historyFrame" style="width:0;height:0;border:0"></iframe>
       <h1>Database table copy application</h1>
   </body>
