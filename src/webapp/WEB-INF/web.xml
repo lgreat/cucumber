@@ -85,7 +85,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>gwt</servlet-name>
-        <url-pattern>/gs.web.admin.gwt.TableCopy/services/*</url-pattern>
+        <url-pattern>/gs.web.admin.gwt.TableCopyGWTPanel/services/*</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
