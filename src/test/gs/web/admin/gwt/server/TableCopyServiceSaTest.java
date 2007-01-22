@@ -6,7 +6,6 @@ import org.springframework.jdbc.core.JdbcOperations;
 import org.easymock.MockControl;
 
 import java.util.*;
-import java.io.*;
 
 public class TableCopyServiceSaTest extends BaseTestCase {
     private TableCopyServiceImpl tableCopyService;
@@ -105,15 +104,15 @@ public class TableCopyServiceSaTest extends BaseTestCase {
 
         assertEquals("Unexpected wiki text for dev to staging", expectedWikiText, wikiText);
     }
-//
-//    public void testParseCommandOutput() {
-//        String errors = "Skipping database.table1\n" +
-//                "Skipping database.table2\n";
-//
-//        String expectedErrorText = "The following table(s) failed to copy:\n" +
-//                "\tdatabase.table1\n" +
-//                "\tdatabase.table2\n";
-//
-//        assertEquals("Unexpected error text", expectedErrorText, tableCopyService.parseCommandOutput(errors));
-//    }
+
+    public void testParseCommandOutput() {
+        String errors = "Skipping database.table1\n" +
+                "Skipping database.table2\n";
+
+        String expectedErrorText = TableCopyServiceImpl.TABLE_COPY_FAILURE_HEADER +
+                "\tdatabase.table1\n" +
+                "\tdatabase.table2\n";
+
+        assertEquals("Unexpected error text", expectedErrorText, tableCopyService.parseCommandOutput(errors));
+    }
 }

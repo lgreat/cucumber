@@ -6,6 +6,8 @@ import gs.web.admin.gwt.client.TableData;
 import gs.data.dao.hibernate.ThreadLocalHibernateDataSource;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -13,6 +15,7 @@ import java.io.InputStreamReader;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.hibernate.SessionFactory;
+import org.apache.oro.text.regex.Perl5Matcher;
 
 
 public class TableCopyServiceImpl extends RemoteServiceServlet implements TableCopyService {
@@ -24,6 +27,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             "where table_schema not in ('information_schema', 'mysql') " +
             "order by table_schema, table_name;";
     public static final String COPY_TABLES_COMMAND = "/usr2/sites/main.dev/scripts/sysadmin/database/dumpcopy --yes ";
+    static final String TABLE_COPY_FAILURE_HEADER = "The following table(s) failed to copy:\n";
 
     public void setJdbcContext(JdbcOperations context) {
         this._jdbcContext = context;
@@ -60,10 +64,15 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return databases;
     }
 
-    public String copyTables(TableData.DatabaseDirection direction, String[] tableList) {
+    public String copyTables(TableData.DatabaseDirection direction, String[] tableList) throws Exception {
 //        return "success!";
         String copyCommand = generateCopyCommand(direction, Arrays.asList(tableList));
         String copyOutput = executeCopyCommand(copyCommand);
+        if (copyOutput != null) {
+            Exception exception = new Exception(copyOutput);
+            System.out.println(exception.getMessage());
+            throw exception;
+        }
         return generateWikiText(direction, Arrays.asList(tableList));
     }
 
@@ -131,7 +140,17 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     }
 
     public String parseCommandOutput(String output) {
-        return null;
+        Pattern pattern = Pattern.compile("Skipping\\s+(.*)\\.(.*)");
+        Matcher matcher = pattern.matcher(output);
+        String error = null;
+        if (matcher.find()) {
+            StringBuffer errorBuffer = new StringBuffer(TABLE_COPY_FAILURE_HEADER);
+            do {
+                errorBuffer.append("\t").append(matcher.group(1)).append(".").append(matcher.group(2)).append("\n");
+            } while (matcher.find());
+            error = errorBuffer.toString();
+        }
+        return error;
     }
 
     private TableData populateTestData() {
