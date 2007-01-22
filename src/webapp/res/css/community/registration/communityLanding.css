@@ -112,8 +112,13 @@ h1.communityWelcome {
 
 h1.signedInWelcome span.welcomeText {
     position: relative;
-    top: -3px;
+    top: -4px;
     font-size: 21px;
+}
+
+h1.communityWelcome img {
+    position: relative;
+    top: -1px;
 }
 
 h1.signedOutWelcome span.welcomeText {
