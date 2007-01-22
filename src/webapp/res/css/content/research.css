@@ -47,12 +47,6 @@ a.arrowLink:hover {
 	text-decoration: underline;
 }
 
-.dashedBorder {
-	padding: 0px 0px 0px 0px;
-	margin: 0px 7px 3px 0px;
-	border: 1px dashed #DDEEEE;
-}
-
 .greyBar {
 	padding: 0px 0px 17px 0px;
 	margin: 0px 0px 0px 0px;
@@ -379,6 +373,13 @@ a.arrowLink:hover {
 	height: 69px;
 }
 
+.lisaDashedBorder {
+	padding: 0px 0px 0px 0px;
+	margin: 0px 7px 3px 0px;
+	border: 1px dashed #DDEEEE;
+    width: 59px;
+}
+
 #lisaSignature {
     text-indent:-50em;
     background-image: url(../../img/content/research/lisa_signature.gif);
@@ -420,12 +421,9 @@ a.arrowLink:hover {
 	width: 172px;
 }
 
-h2#dearParents {
-    margin: 65px 0px 0px 0px;
-	background-image: url(../../img/content/research/t_dearparents.gif);
-	background-repeat: no-repeat;
-	width: 104px;
-    height: 15px;
+td#editorPhoto, td#editorText {
+    padding-bottom:7px;
+    border-bottom:1px solid #DDEEEE;
 }
 
 td#leftBox {
@@ -497,4 +495,24 @@ img#map {
 /* Overrides frame.css */
 body.framed #pageGS {
     width: 900px;
+}
+
+.photoName {
+    position: relative;
+    top: 10px;
+    left: -4px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 13px;
+	line-height: 16px;
+	font-weight: bold;
+	color: #55BBCC;
+	letter-spacing: 0;
+}
+
+.photoCaption {
+    position: relative;
+    top: 10px;
+    left: -4px;
+    font-weight: bold;
+    line-height: 14px;
 }

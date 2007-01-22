@@ -38,8 +38,15 @@
 
     <table width="173" cellpadding="0" cellspacing="0" border="0">
         <tr>
-            <td><div class="dashedBorder"><div class="lisa">Photo of GreatSchools editor, Lisa Rosenthal</div></div></td>
-            <td valign="top"><h2 id="dearParents"></h2></td>
+            <td id="editorPhoto">
+                <div class="lisaDashedBorder">
+                    <div class="lisa">Photo of GreatSchools editor, Lisa Rosenthal</div>
+                </div>
+            </td>
+            <td id="editorText">
+                <span class="photoName">Lisa Rosenthal</span><br />
+                <span class="photoCaption">Editor,<br />GreatSchools</span>
+            </td>
         </tr>
         <tr>
             <td colspan="2" id="leftBox">Looking for a school ${not empty stateOrNull ? 'in' : ''} ${stateOrNull.longName} that's the
@@ -76,8 +83,9 @@
                 </ul>
 
                 <div id="lisaSignature">Lisa Rosenthal</div>
-                <span class="printName">Lisa Rosenthal</span><br/>
-                <span class="italicTitle">Editor</span></td>
+                <!--<span class="printName">Lisa Rosenthal</span><br/>-->
+                <!--<span class="italicTitle">Editor</span>-->
+                </td>
         </tr>
     </table>
 </td>

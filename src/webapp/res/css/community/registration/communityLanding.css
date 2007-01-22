@@ -26,26 +26,6 @@
 	height: 43px;
 }
 
-.photoName {
-    position: relative;
-    top: 10px;
-    left: -4px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
-	font-size: 13px;
-	line-height: 16px;
-	font-weight: bold;
-	color: #55BBCC;
-	letter-spacing: 0;
-}
-
-.photoCaption {
-    position: relative;
-    top: 10px;
-    left: -4px;
-    font-weight: bold;
-    line-height: 14px;
-}
-
 div.articleBox {
     border: 3px solid #66CCCC;
     border-top: 0;
