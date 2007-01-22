@@ -19,7 +19,7 @@
             PageHelper.hideFooter(request);
         </jsp:scriptlet>
         <meta name="gwt:module" content="gs.web.admin.gwt.TableCopyGWTPanel"/>
-        <!--<link rel="stylesheet" type="text/css" href="/gs-web/res/gwt/gs.web.admin.gwt.TableCopyGWTPanel/TableCopy.css"/>-->
+        <link rel="stylesheet" type="text/css" href="TableCopy.css"/>
         <!--<link rel="stylesheet" type="text/css" href="/res/gwt/gs.web.admin.gwt.TableCopyGWTPanel/TableCopy.css"/>    -->
         <!--<pageHelper:externalCss file="/res/gwt/gs.web.admin.gwt.TableCopyGWTPanel/TableCopy.css"/>-->
     </head>
