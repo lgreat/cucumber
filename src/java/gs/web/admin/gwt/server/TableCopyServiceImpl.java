@@ -3,6 +3,7 @@ package gs.web.admin.gwt.server;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import gs.web.admin.gwt.client.TableCopyService;
 import gs.web.admin.gwt.client.TableData;
+import gs.web.admin.gwt.client.ServiceException;
 import gs.data.dao.hibernate.ThreadLocalHibernateDataSource;
 
 import java.util.*;
@@ -15,7 +16,6 @@ import java.io.InputStreamReader;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.hibernate.SessionFactory;
-import org.apache.oro.text.regex.Perl5Matcher;
 
 
 public class TableCopyServiceImpl extends RemoteServiceServlet implements TableCopyService {
@@ -64,19 +64,23 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return databases;
     }
 
-    public String copyTables(TableData.DatabaseDirection direction, String[] tableList) throws Exception {
+    public String copyTables(TableData.DatabaseDirection direction, String[] tableList) throws ServiceException {
 //        return "success!";
         String copyCommand = generateCopyCommand(direction, Arrays.asList(tableList));
-        String copyOutput = executeCopyCommand(copyCommand);
-        if (copyOutput != null) {
-            Exception exception = new Exception(copyOutput);
-            System.out.println(exception.getMessage());
+        String copyOutput = null;
+        try {
+            copyOutput = executeCopyCommand(copyCommand);
+        } catch (IOException e) {
+            throw new ServiceException("Error copying tables: " + e.getMessage());
+        }
+        if (parseCommandOutput(copyOutput) != null) {
+            ServiceException exception = new ServiceException("Error copying tables: " + copyOutput);
             throw exception;
         }
         return generateWikiText(direction, Arrays.asList(tableList));
     }
 
-    private String executeCopyCommand(String copyCommand) {
+    private String executeCopyCommand(String copyCommand) throws IOException {
         BufferedReader reader = null;
         try {
             Process process = Runtime.getRuntime().exec(copyCommand);
@@ -87,9 +91,6 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
                 buffer.append(line).append("\n");
             }
             return buffer.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return e.getMessage();
         } finally {
             try {
                 if (reader != null) {
@@ -140,15 +141,17 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     }
 
     public String parseCommandOutput(String output) {
-        Pattern pattern = Pattern.compile("Skipping\\s+(.*)\\.(.*)");
-        Matcher matcher = pattern.matcher(output);
         String error = null;
-        if (matcher.find()) {
-            StringBuffer errorBuffer = new StringBuffer(TABLE_COPY_FAILURE_HEADER);
-            do {
-                errorBuffer.append("\t").append(matcher.group(1)).append(".").append(matcher.group(2)).append("\n");
-            } while (matcher.find());
-            error = errorBuffer.toString();
+        if (output != null) {
+            Pattern pattern = Pattern.compile("Skipping\\s+(.*)\\.(.*)");
+            Matcher matcher = pattern.matcher(output);
+            if (matcher.find()) {
+                StringBuffer errorBuffer = new StringBuffer(TABLE_COPY_FAILURE_HEADER);
+                do {
+                    errorBuffer.append("\t").append(matcher.group(1)).append(".").append(matcher.group(2)).append("\n");
+                } while (matcher.find());
+                error = errorBuffer.toString();
+            }
         }
         return error;
     }

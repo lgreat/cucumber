@@ -105,7 +105,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         assertEquals("Unexpected wiki text for dev to staging", expectedWikiText, wikiText);
     }
 
-    public void testParseCommandOutput() {
+    public void testParseCommandOutputWithError() {
         String errors = "Skipping database.table1\n" +
                 "Skipping database.table2\n";
 
@@ -114,5 +114,20 @@ public class TableCopyServiceSaTest extends BaseTestCase {
                 "\tdatabase.table2\n";
 
         assertEquals("Unexpected error text", expectedErrorText, tableCopyService.parseCommandOutput(errors));
+    }
+
+    public void testParseCommandOutputWithoutError() {
+        String errors = "Copying database.table1\n" +
+                "Copying database.table2\n";
+
+        assertNull("Expected no error text", tableCopyService.parseCommandOutput(errors));
+    }
+
+    public void testParseEmptyNullCommandOutput() {
+        String errors = null;
+        assertNull("Expected no error text for null output", tableCopyService.parseCommandOutput(errors));
+
+        errors = "";
+        assertNull("Expected no error text for empty output", tableCopyService.parseCommandOutput(errors));
     }
 }
