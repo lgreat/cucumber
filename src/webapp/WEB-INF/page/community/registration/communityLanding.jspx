@@ -86,7 +86,7 @@
                           </span>
                           <link:accountInfo>
                               <gsml:img src="/res/img/community/registration/b_myAccount.gif" styleClass="firstButton"
-                                        alt="My account button"/>
+                                        alt="Manage my account"/>
                           </link:accountInfo>
                       </h1>
                   </c:when>
