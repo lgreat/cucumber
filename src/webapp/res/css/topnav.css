@@ -160,13 +160,14 @@ will need to become a graphic.
     display: block;
     text-align: center;
     text-decoration: none;
+    font-family: Lucinda Grande, Lucida Grande, lucida, verdana,sans-serif;
     font-size: 12px;
-    font-weight: 100;
+    font-weight: 800;
     height: 14px;
     margin: 0px;
     border-right: 1px dashed #99CC67;
     border-left: 1px dashed #99CC67;
-    padding: 8px 16px 8px 16px;
+    padding: 8px 15px 8px 15px;
 }
 
 * html #topnav table#nav td a {
