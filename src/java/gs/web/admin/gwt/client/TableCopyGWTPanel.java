@@ -24,6 +24,7 @@ public class TableCopyGWTPanel implements EntryPoint {
     RadioButton selectProd = new RadioButton("source", TableData.PRODUCTION_TO_DEV.label);
     Label errorMessage = new Label();
     TextArea wikiText = new TextArea();
+    Label wikiLabel = new Label("Success! Add (or overwrite) the following lines to http://wiki.greatschools.net/bin/view/Greatschools/TableToMove");
     Image waiting = new Image();
 
     public void onModuleLoad() {
@@ -169,13 +170,14 @@ public class TableCopyGWTPanel implements EntryPoint {
     private class CopyTablesCallback implements AsyncCallback {
         public void onFailure(Throwable caught) {
             errorMessage.setText(caught.getMessage());
+            errorMessage.setVisible(true);
         }
 
         public void onSuccess(Object result) {
             wikiText.setVisibleLines(selectedTables.size() + 3);
             wikiText.setText((String) result);
-//            wikiText.setTitle("Text to add to http://wiki.greatschools.net/bin/view/Greatschools/TableToMove");
             tableLister.remove(waiting);
+            tableLister.add(wikiLabel);
             tableLister.add(wikiText);
         }
     }
