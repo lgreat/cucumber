@@ -19,7 +19,7 @@ public interface TableCopyService extends RemoteService {
      * @param tableList An array of strings in the format database.table indicating the tables to be copied
      * @return  The formatted wiki text for the TableToMove page indicating which tables were copied
      */
-    public String copyTables(TableData.DatabaseDirection direction, String[] tableList);
+    public String copyTables(TableData.DatabaseDirection direction, String[] tableList) throws Exception;
 
 
     /**
@@ -33,7 +33,8 @@ public interface TableCopyService extends RemoteService {
             if (ourInstance == null) {
                 ourInstance = (TableCopyServiceAsync) GWT.create(TableCopyService.class);
 //                ((ServiceDefTarget) ourInstance).setServiceEntryPoint(GWT.getModuleBaseURL() + "gs.web.admin.gwt.TableCopy/TableCopyService");
-                ((ServiceDefTarget) ourInstance).setServiceEntryPoint("/gs.web.admin.gwt.TableCopyGWTPanel/services/TableCopyService");
+                ((ServiceDefTarget) ourInstance).setServiceEntryPoint("services/TableCopyService");
+//                ((ServiceDefTarget) ourInstance).setServiceEntryPoint("/gs.web.admin.gwt.TableCopyGWTPanel/services/TableCopyService");
             }
             return ourInstance;
         }
