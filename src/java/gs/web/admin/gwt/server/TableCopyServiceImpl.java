@@ -30,7 +30,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             "where table_schema not in ('information_schema', 'mysql') " +
             "order by table_schema, table_name;";
     public static final String COPY_TABLES_COMMAND = "/usr2/sites/main.dev/scripts/sysadmin/database/dumpcopy --yes ";
-    static final String TABLE_COPY_FAILURE_HEADER = "The following table(s) failed to copy:\n";
+    static final String TABLE_COPY_FAILURE_HEADER = "The following table(s) failed to copy:\n<br>";
 
     public void setJdbcContext(JdbcOperations context) {
         this._jdbcContext = context;
@@ -91,7 +91,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         try {
             _log.info("Executing command: " + copyCommand);
             Process process = Runtime.getRuntime().exec(copyCommand);
-            reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
             StringBuffer buffer = new StringBuffer();
             String line;
             while((line = reader.readLine()) != null) {
@@ -150,12 +150,12 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     public String parseCommandOutput(String output) {
         String error = null;
         if (output != null) {
-            Pattern pattern = Pattern.compile("Skipping\\s+(.*)\\.(.*)");
+            Pattern pattern = Pattern.compile("Skipping table\\s+(.*)\\.(.*)");
             Matcher matcher = pattern.matcher(output);
             if (matcher.find()) {
                 StringBuffer errorBuffer = new StringBuffer(TABLE_COPY_FAILURE_HEADER);
                 do {
-                    errorBuffer.append("\t").append(matcher.group(1)).append(".").append(matcher.group(2)).append("\n");
+                    errorBuffer.append("\t&nbsp;&nbsp;&nbsp;").append(matcher.group(1)).append(".").append(matcher.group(2)).append("<br>\n");
                 } while (matcher.find());
                 error = errorBuffer.toString();
             }

@@ -106,12 +106,12 @@ public class TableCopyServiceSaTest extends BaseTestCase {
     }
 
     public void testParseCommandOutputWithError() {
-        String errors = "Skipping database.table1\n" +
-                "Skipping database.table2\n";
+        String errors = "Skipping table database.table1... not found in ditto.\n" +
+                "Skipping table database.table2... not found in ditto.\n";
 
         String expectedErrorText = TableCopyServiceImpl.TABLE_COPY_FAILURE_HEADER +
-                "\tdatabase.table1\n" +
-                "\tdatabase.table2\n";
+                "\t&nbsp;&nbsp;&nbsp;database.table1... not found in ditto.<br>\n" +
+                "\t&nbsp;&nbsp;&nbsp;database.table2... not found in ditto.<br>\n";
 
         assertEquals("Unexpected error text", expectedErrorText, tableCopyService.parseCommandOutput(errors));
     }
