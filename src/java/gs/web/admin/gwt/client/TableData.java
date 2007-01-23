@@ -58,7 +58,6 @@ public class TableData extends Object implements IsSerializable {
         public String label;
         public String target;
 
-
         public DatabaseDirection() {}
 
         public DatabaseDirection(String display, String source, String target) {
@@ -90,6 +89,17 @@ public class TableData extends Object implements IsSerializable {
 
         public void setTarget(String target) {
             this.target = target;
+        }
+
+
+        public boolean equals(Object object) {
+            DatabaseDirection other = (DatabaseDirection) object;
+
+            if (source == null || target == null || label == null) {
+                return false;
+            }
+
+            return source.equals(other.source) && target.equals(other.target) && label.equals(other.label);
         }
     }
 
