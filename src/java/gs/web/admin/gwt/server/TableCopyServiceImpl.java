@@ -16,9 +16,12 @@ import java.io.InputStreamReader;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.hibernate.SessionFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 
 public class TableCopyServiceImpl extends RemoteServiceServlet implements TableCopyService {
+    private static final Log _log = LogFactory.getLog(TableCopyServiceImpl.class);
     private JdbcOperations _jdbcContext;
     private SessionFactory _sessionFactory;
     public static final String DATABASE_COLUMN = "table_schema";
@@ -71,10 +74,13 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         try {
             copyOutput = executeCopyCommand(copyCommand);
         } catch (IOException e) {
+            _log.error("Error executing dumpcopy: " + e.getMessage());
             throw new ServiceException("Error copying tables: " + e.getMessage());
         }
-        if (parseCommandOutput(copyOutput) != null) {
-            ServiceException exception = new ServiceException("Error copying tables: " + copyOutput);
+        String errorText = parseCommandOutput(copyOutput);
+        if (errorText != null) {
+            _log.error("Error executing dumpcopy: " + errorText);
+            ServiceException exception = new ServiceException("Error copying tables: " + errorText);
             throw exception;
         }
         return generateWikiText(direction, Arrays.asList(tableList));
@@ -83,6 +89,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     private String executeCopyCommand(String copyCommand) throws IOException {
         BufferedReader reader = null;
         try {
+            _log.info("Executing command: " + copyCommand);
             Process process = Runtime.getRuntime().exec(copyCommand);
             reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             StringBuffer buffer = new StringBuffer();
