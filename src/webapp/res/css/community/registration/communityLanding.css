@@ -138,3 +138,8 @@ h1.welcomeInfo {
     background: url(../../../img/community/registration/icon_infomessage_27x27.gif) 30px 13px no-repeat #66cccc;
 }
 
+#marianPhotoName, #marianPhotoCaption {
+    position: relative;
+    top: 11px;
+    left: -4px;
+}

@@ -33,8 +33,8 @@
                       <div class="marian" title="Photo of Marian Wilde, GreatSchools Community Manager">Photo of community moderator Marian Wilde</div>
                       </div>
                   </td>
-                  <td><span class="photoName">Marian Wilde</span><br/>
-                      <span class="photoCaption">Community Moderator,<br/>GreatSchools</span></td>
+                  <td><span id="marianPhotoName" class="photoName">Marian Wilde</span><br/>
+                      <span id="marianPhotoCaption" class="photoCaption">Community Moderator,<br/>GreatSchools</span></td>
               </tr>
               <tr>
                   <td colspan="2" class="photoCell">&amp;nbsp;</td>
