@@ -21,7 +21,7 @@
       <h1><span>My Account</span></h1>
 
       <c:if test="${param.message ne null and param.message gt ''}">
-          <p class="infomessage">${param.message}</p>
+          <p class="infomessage">${escapedMessage}</p>
       </c:if>
 
       <div id="outline"><!-- creates darker blue outer outline -->

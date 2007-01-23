@@ -5,6 +5,8 @@ package gs.web.community.registration;
 
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +29,9 @@ public class AccountInfoController extends AbstractController {
         User user = SessionContextUtil.getSessionContext(request).getUser();
         Map model = new HashMap();
         model.put("user", user);
+        if (StringUtils.isNotEmpty(request.getParameter("message"))) {
+            model.put("escapedMessage", StringEscapeUtils.escapeXml(request.getParameter("message")));
+        }
         return new ModelAndView(_viewName, model);
     }
 

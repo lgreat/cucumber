@@ -7,6 +7,8 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,6 +35,9 @@ public class CommunityLandingController extends AbstractController {
         if (SessionContextUtil.getSessionContext(request).isUserValid()) {
             // only populate the user if it is a validated community user
             model.put("user", user);
+        }
+        if (StringUtils.isNotEmpty(request.getParameter("message"))) {
+            model.put("escapedMessage", StringEscapeUtils.escapeXml(request.getParameter("message")));
         }
         return new ModelAndView(_viewName, model);
     }

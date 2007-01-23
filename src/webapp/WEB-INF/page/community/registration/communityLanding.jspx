@@ -76,7 +76,7 @@
               <c:choose>
                   <c:when test="${param.message ne null}">
                       <h1 class="welcomeInfo">
-                        ${param.message}
+                        ${escapedMessage}
                       </h1>
                   </c:when>
                   <c:when test="${user ne null}">
