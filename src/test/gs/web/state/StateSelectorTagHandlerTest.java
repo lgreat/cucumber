@@ -31,9 +31,10 @@ public class StateSelectorTagHandlerTest extends TestCase {
         _tag.setStyleClass("style");
         _tag.setStyleId("id");
         _tag.setUsingLongNames(true);
+        _tag.setTabIndex(15);
         _tag.doTag();
         String output = ((MockJspWriter) _jspContext.getOut()).getOutputBuffer().toString();
-        assertTrue(output.indexOf("<select id=\"id\" name=\"name\" class=\"style\" onchange=\"onchange\" multiple=\"multiple\" size=\"20\">") > -1);
+        assertTrue("Output is not expected: " + output, output.indexOf("<select id=\"id\" name=\"name\" class=\"style\" onchange=\"onchange\" multiple=\"multiple\" size=\"20\" tabindex=\"15\">") > -1);
         assertTrue(output.indexOf("<option value=\"AK\">Alaska</option>") > -1);
 
         // Single select with longnames disabled
@@ -43,7 +44,7 @@ public class StateSelectorTagHandlerTest extends TestCase {
         _tag.setUsingLongNames(false);
         _tag.doTag();
         output = ((MockJspWriter) _jspContext.getOut()).getOutputBuffer().toString();
-        assertTrue(output.indexOf("<select id=\"id\" name=\"name\" class=\"style\" onchange=\"onchange\">") > -1);
+        assertTrue(output.indexOf("<select id=\"id\" name=\"name\" class=\"style\" onchange=\"onchange\" tabindex=\"15\">") > -1);
         assertTrue(output.indexOf("<option value=\"AK\" selected=\"selected\">AK</option>") > -1);
 
         // Single select with no state selected and overriden no state label
@@ -53,7 +54,7 @@ public class StateSelectorTagHandlerTest extends TestCase {
         _tag.setNoStateLabel("XX");
         _tag.doTag();
         output = ((MockJspWriter) _jspContext.getOut()).getOutputBuffer().toString();
-        assertTrue(output.indexOf("<select id=\"id\" name=\"name\" class=\"style\" onchange=\"onchange\">") > -1);
+        assertTrue(output.indexOf("<select id=\"id\" name=\"name\" class=\"style\" onchange=\"onchange\" tabindex=\"15\">") > -1);
         assertTrue(output.indexOf("<option value=\"\" selected=\"selected\">XX</option>") > -1);
         assertTrue(output.indexOf("<option value=\"AK\">AK</option>") > -1);
     }

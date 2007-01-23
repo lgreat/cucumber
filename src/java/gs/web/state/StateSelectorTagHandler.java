@@ -37,6 +37,7 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
     private boolean _multiple = false; // default
     private int _size = 0;
     private Set _stateSet;
+    private int _tabIndex = -1;
 
     private static final StateManager _stateManager;
 
@@ -116,6 +117,14 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
         _onChange = onChange;
     }
 
+    public int getTabIndex() {
+        return _tabIndex;
+    }
+
+    public void setTabIndex(int tabIndex) {
+        _tabIndex = tabIndex;
+    }
+
     /**
      * If true states full names will be displayed.  Otherwise, abbreviations
      * are used as option values.
@@ -160,6 +169,9 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
             if (_size > 0) {
                 out.print(" size=\"" + _size + "\"");
             }
+        }
+        if (_tabIndex > -1) {
+            out.print(" tabindex=\"" + _tabIndex + "\"");
         }
         out.println(">");
 

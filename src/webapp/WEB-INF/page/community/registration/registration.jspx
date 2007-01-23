@@ -96,25 +96,28 @@
                 <gsweb:form action="/community/registration.page" method="post" styleClass="registration" id="reg1Form">
 
                     <p><label><span class="required">*</span>I'm a</label>
-                        <gsml:radio name="gender" value="f" styleId="mom" styleClass="radio" checked="${userCmd.gender eq 'f'}" onclick="determinePageState();"/>
+                        <gsml:radio name="gender" value="f" styleId="mom" styleClass="radio" checked="${userCmd.gender eq 'f'}"
+                                    onclick="determinePageState();" tabIndex="1"/>
                         <label for="mom" class="radiolabel">Mom</label>
-                        <gsml:radio name="gender" value="m" styleId="dad" styleClass="radio" checked="${userCmd.gender eq 'm'}" onclick="determinePageState();"/>
+                        <gsml:radio name="gender" value="m" styleId="dad" styleClass="radio" checked="${userCmd.gender eq 'm'}"
+                                    onclick="determinePageState();" tabIndex="2"/>
                         <label for="dad" class="radiolabel">Dad</label>
-                        <gsml:radio name="gender" value="u" styleId="other" styleClass="radio" checked="${userCmd.gender eq 'u'}" onclick="determinePageState();"/>
+                        <gsml:radio name="gender" value="u" styleId="other" styleClass="radio" checked="${userCmd.gender eq 'u'}"
+                                    onclick="determinePageState();" tabIndex="3"/>
                         <label for="other" class="radiolabel">Other</label>
                     </p>
                     <gsml:errorMessage command="userCmd" field="gender" useImage="true" styleClass="warning"/>
 
                     <p><label><span class="required">*</span>First name<gsml:img src="/res/img/community/registration/icon_private_9x11.gif" alt="Private" styleClass="private"/></label>
                         <spring:bind path="userCmd.user.firstName">
-                            <input id="firstName" type="text" name="${status.expression}" value="${status.value}"/>
+                            <input id="firstName" type="text" name="${status.expression}" value="${status.value}" tabindex="4"/>
                         </spring:bind>
                     </p>
                     <gsml:errorMessage command="userCmd" field="firstName" useImage="true" styleClass="warning"/>
 
                     <p><label><span class="required">*</span>Screen name<br/><span class="details">(6-14 characters)</span></label>
                         <spring:bind path="userCmd.screenName">
-                            <input id="screenName" type="text" name="${status.expression}" value="${status.value}"/>
+                            <input id="screenName" type="text" name="${status.expression}" value="${status.value}" tabindex="5"/>
                         </spring:bind>
                     </p>
                     <gsml:errorMessage command="userCmd" field="screenName" useImage="true" styleClass="warning"/>
@@ -122,26 +125,27 @@
                     <p class="email"><label><span class="required">*</span>Email address<gsml:img src="/res/img/community/registration/icon_private_9x11.gif" alt="Private"
                                                               styleClass="private"/></label>
                         <spring:bind path="userCmd.user.email">
-                            <input id="email" type="text" name="${status.expression}" value="${status.value}"/>
+                            <input id="email" type="text" name="${status.expression}" value="${status.value}" tabindex="6"/>
                         </spring:bind>
                     </p>
                     <gsml:errorMessage command="userCmd" field="email" useImage="true" styleClass="warning"/>
                     <p class="disclaimer">We will NOT share your email.
                         <gsml:popupWindow width="800" height="600" left="50" top="50"
                                 title="GreatSchools Privacy Policy"
-                                href="/about/privacyStatement.page?state=$STATE">Privacy Policy</gsml:popupWindow></p>
+                                href="/about/privacyStatement.page?state=$STATE"
+                                tabIndex="16">Privacy Policy</gsml:popupWindow></p>
 
                     <p><label><span class="required">*</span>Password<gsml:img src="/res/img/community/registration/icon_private_9x11.gif" alt="Private" styleClass="private"/><br/><span
                             class="details">(6-14 characters)</span></label>
                         <spring:bind path="userCmd.password">
-                            <input id="password" type="password" name="${status.expression}" value="${status.value}"/>
+                            <input id="password" type="password" name="${status.expression}" value="${status.value}" tabindex="7"/>
                         </spring:bind>
                     </p>
                     <gsml:errorMessage command="userCmd" field="password" useImage="true" styleClass="warning"/>
 
                     <p><label><span class="required">*</span>Re-type password</label>
                         <spring:bind path="userCmd.confirmPassword">
-                            <input id="confirmPassword" type="password" name="${status.expression}" value="${status.value}"/>
+                            <input id="confirmPassword" type="password" name="${status.expression}" value="${status.value}" tabindex="8"/>
                         </spring:bind>
                     </p>
                     <gsml:errorMessage command="userCmd" field="confirmPassword" useImage="true" styleClass="warning"/>
@@ -149,14 +153,14 @@
                     <p class="whereliveState"><label>Where do you live?</label><label class="selectlabel"><span class="required">*</span>State</label>
                         <spring:bind path="userCmd.state">
                             <gsweb:stateSelector state="${requestScope.context.stateOrDefault}" styleId="userState"
-                                                 styleClass="selectState" onChange="stateChange(this);"/>
+                                                 styleClass="selectState" onChange="stateChange(this);" tabIndex="9"/>
                         </spring:bind>
                     </p>
                     <gsml:errorMessage command="userCmd" field="state" useImage="true" styleClass="warning"/>
 
                     <p class="whereliveCity"><label>&amp;nbsp;</label><label class="selectlabel"><span class="required">*</span>City</label>
                         <span id="city">
-                            <select name="city" class="selectCity">
+                            <select name="city" class="selectCity" tabindex="10">
                                 <c:if test="${userCmd.cityList ne null and (userCmd.city eq null or userCmd.city eq '')}">
                                     <option selected="selected" value="">Choose city</option>
                                 </c:if>
@@ -183,7 +187,7 @@
                         <p><label class="K12"><span class="required">*</span>How many children do you<br/>have in K-12 schools?</label>
                             <spring:bind path="userCmd.numSchoolChildren">
                                 <select name="${status.expression}" id="numSchoolChildren" class="selectK12"
-                                        onchange="determinePageState();">
+                                        onchange="determinePageState();" tabindex="11">
                                     <c:if test="${userCmd.numSchoolChildren eq null or userCmd.numSchoolChildren eq -1}">
                                         <option selected="selected" value="-1">--</option>
                                     </c:if>
@@ -204,25 +208,27 @@
                         <p><label class="terms"><span class="required">*</span>I agree to the
                             <gsml:popupWindow width="800" height="600" left="50" top="50"
                                     title="GreatSchools Terms of Service"
-                                    href="/cgi-bin/static/terms.html/$STATE">terms of service</gsml:popupWindow>
+                                    href="/cgi-bin/static/terms.html/$STATE"
+                                    tabIndex="17">terms of service</gsml:popupWindow>
                             </label></p>
                         <gsml:radio name="termsStr" value="y" styleId="yesTerms" styleClass="radio"
-                                    checked="${userCmd.terms eq true}"/>
+                                    checked="${userCmd.terms eq true}" tabIndex="12"/>
                         <label class="radiolabelTerms">Yes</label>
                         <gsml:radio name="termsStr" value="n" styleId="noTerms" styleClass="radio"
-                                    checked="${userCmd.terms eq false}"/>
+                                    checked="${userCmd.terms eq false}" tabIndex="13"/>
                         <label class="radiolabelTerms">No</label>
                         <gsml:errorMessage command="userCmd" field="terms" useImage="true" styleClass="warning_terms"/>
                     </div>
 
                     <div id="joinButton" class="join" style="${termsStyle}">
-                        <a href="communityLanding.page" title="Join the GreatSchools community" onclick="$('invJoinButton').click(); return false;">&amp;nbsp;</a>
-                        <input id="invJoinButton" type="submit" name="join" value="join" style="display: none" onclick="return doSingleClick(this);"/>
+                        <a href="communityLanding.page" title="Join the GreatSchools community" onclick="$('invJoinButton').click(); return false;" tabindex="14">&amp;nbsp;</a>
+                        <input id="invJoinButton" type="submit" name="join" value="join" style="display: none"
+                               onclick="return doSingleClick(this);"/>
                     </div>
 
                     <div id="nextButton" style="${childrenStyle}">
                         <gsml:inputImage src="/res/img/community/registration/submit_next.gif" alt="next" 
-                                         styleClass="next" name="next" onclick="return doSingleClick(this);"/>
+                                         styleClass="next" name="next" onclick="return doSingleClick(this);" tabIndex="15"/>
                     </div>
 
                     <div class="clear"></div>
