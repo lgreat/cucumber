@@ -6,7 +6,7 @@ import java.util.*;
 
 public class TableData extends Object implements IsSerializable {
     public static final DatabaseDirection DEV_TO_STAGING = new DatabaseDirection("dev -> staging", "dev", "staging");
-    public static final DatabaseDirection PRODUCTION_TO_DEV = new DatabaseDirection("production -> dev", "production", "dev");
+    public static final DatabaseDirection PRODUCTION_TO_DEV = new DatabaseDirection("production -> dev", "ditto", "dev");
     private DatabaseDirection direction;
 
     /**
