@@ -46,9 +46,9 @@ public class TableCopyGWTPanel implements EntryPoint {
     Button removeButton = new Button("Remove selected tables from list");
     RadioButton selectDev = new RadioButton("source", TableData.DEV_TO_STAGING.label);
     RadioButton selectProd = new RadioButton("source", TableData.PRODUCTION_TO_DEV.label);
-    Label errorMessage = new Label();
+    HTML errorMessage = new HTML();
     TextArea wikiText = new TextArea();
-    HTML successText = new HTML("Success! Add (or overwrite) the following lines to <a href=\"http://wiki.greatschools.net/bin/view/Greatschools/TableToMove\" target=\"_blank\">TableToMove</a>");
+    HTML successText = new HTML("Success! Add (or overwrite) the above lines (not including the header line) to <a href=\"http://wiki.greatschools.net/bin/view/Greatschools/TableToMove\" target=\"_blank\">TableToMove</a>");
     Image waiting = new Image("/res/img/admin/waiting_head.gif");
 
     public void onModuleLoad() {
@@ -153,7 +153,7 @@ public class TableCopyGWTPanel implements EntryPoint {
         tableList.setWidth("300");
         tableList.setVisibleItemCount(10);
 
-        wikiText.setWidth("700");
+        wikiText.setCharacterWidth(80);
 
         tableLister.setSpacing(5);
         
@@ -207,12 +207,13 @@ public class TableCopyGWTPanel implements EntryPoint {
     private class CopyTablesCallback implements AsyncCallback {
         public void onFailure(Throwable caught) {
             tableLister.remove(waiting);
-            errorMessage.setText(caught.getMessage());
+            errorMessage.setHTML(caught.getMessage());
             errorMessage.setVisible(true);
         }
 
         public void onSuccess(Object result) {
             tableLister.remove(waiting);
+            errorMessage.setText("");
             wikiText.setVisibleLines(_selectedTables.size() + 3);
             wikiText.setText((String) result);
             tableLister.remove(waiting);
