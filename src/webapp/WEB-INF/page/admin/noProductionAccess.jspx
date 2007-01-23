@@ -1,7 +1,22 @@
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0">
-<html>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns="http://www.w3.org/1999/xhtml" version="1.2">
+    <jsp:directive.page import="gs.web.util.PageHelper"/>
+    <html>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
   <head>
       <title>No Production Access</title>
+      <pageHelper:hideFooterAd />
+      <jsp:scriptlet>
+          PageHelper.hideLeaderboard(request);
+          PageHelper.hideHeader(request);
+          PageHelper.hideFooterAd(request);
+          PageHelper.hideFooter(request);
+      </jsp:scriptlet>
   </head>
   <body>This page is not accessible from our public servers. Please use a development server.</body>
 </html>
