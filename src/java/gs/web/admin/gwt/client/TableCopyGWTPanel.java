@@ -7,14 +7,38 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import java.util.*;
 
 
+/**
+ * The TableCopyGWTPanel is laid out like this:
+ * <verticalPanel name="mainPanel">
+ *   <label name="errorMessage"/>
+ *   <verticalPanel name="targetChooser">
+ *     <radioButton name="selectDev"/>
+ *     <radioButton name="selectProd"/>
+ *   </verticalPanel>
+ *   <horizontalPanel name="tableChooser">
+ *     <tree name="tableTree"/>
+ *     <verticalPanel name="tableLister">
+ *       <listBox name="tableList"/>
+ *       <button name="removeButton"/>
+ *       <button name="submitButton"/>
+ *       <image name="waiting"/>
+ *       <html name="successText"/>
+ *       <textArea name="wikiText"/>
+ *     </verticalPanel>
+ *   </horizontalPanel>
+ * </verticalPanel>
+ */
 public class TableCopyGWTPanel implements EntryPoint {
-    private List selectedTables = new ArrayList();
+    private List _selectedTables = new ArrayList();
     private TableData.DatabaseDirection _direction;
+
+    // gui panels
     VerticalPanel mainPanel = new VerticalPanel();
     VerticalPanel targetChooser = new VerticalPanel();
     HorizontalPanel tableChooser = new HorizontalPanel();
     VerticalPanel tableLister = new VerticalPanel();
 
+    // gui widgets
     Tree tableTree = new Tree();
     ListBox tableList = new ListBox();
     Button addButton = new Button();
@@ -24,8 +48,8 @@ public class TableCopyGWTPanel implements EntryPoint {
     RadioButton selectProd = new RadioButton("source", TableData.PRODUCTION_TO_DEV.label);
     Label errorMessage = new Label();
     TextArea wikiText = new TextArea();
-    HTML successText = new HTML("Success! Add (or overwrite) the following lines to <a href=\"http://wiki.greatschools.net/bin/view/Greatschools/TableToMove\">TableToMove</a>");
-    Image waiting = new Image();
+    HTML successText = new HTML("Success! Add (or overwrite) the following lines to <a href=\"http://wiki.greatschools.net/bin/view/Greatschools/TableToMove\" target=\"_blank\">TableToMove</a>");
+    Image waiting = new Image("/res/img/admin/waiting_head.gif");
 
     public void onModuleLoad() {
         initializeLayout();
@@ -35,13 +59,17 @@ public class TableCopyGWTPanel implements EntryPoint {
         selectDev.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 _direction = TableData.DEV_TO_STAGING;
+                targetChooser.add(waiting);
                 service.getTables(_direction, new TableLoadCallback());
+                targetChooser.remove(waiting);
             }
         });
         selectProd.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 _direction = TableData.PRODUCTION_TO_DEV;
+                targetChooser.add(waiting);
                 service.getTables(_direction, new TableLoadCallback());
+                targetChooser.remove(waiting);
             }
         });
 
@@ -49,7 +77,7 @@ public class TableCopyGWTPanel implements EntryPoint {
             public void onClick(Widget sender) {
                 for (int i=0; i<tableList.getItemCount(); i++) {
                     if (tableList.isItemSelected(i)) {
-                        selectedTables.remove(tableList.getItemText(i));
+                        _selectedTables.remove(tableList.getItemText(i));
                     }
                 }
                 populateTableList();
@@ -78,8 +106,8 @@ public class TableCopyGWTPanel implements EntryPoint {
                 if (item.getChildCount() == 0) {
                     // must be a leaf
                     String databaseDotTableName = item.getParentItem().getText() + "." + item.getText();
-                    if (!selectedTables.contains(databaseDotTableName)) {
-                        selectedTables.add(databaseDotTableName);
+                    if (!_selectedTables.contains(databaseDotTableName)) {
+                        _selectedTables.add(databaseDotTableName);
                         populateTableList();
                     }
                 }
@@ -113,7 +141,7 @@ public class TableCopyGWTPanel implements EntryPoint {
 
     private void populateTableList() {
         tableList.clear();
-        for (Iterator iterator = selectedTables.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = _selectedTables.iterator(); iterator.hasNext();) {
             String table = (String) iterator.next();
             tableList.addItem(table);
         }
@@ -150,7 +178,7 @@ public class TableCopyGWTPanel implements EntryPoint {
         tableLister.remove(wikiText);
 
         tableList.clear();
-        selectedTables.clear();
+        _selectedTables.clear();
 
         tableTree = new Tree();
         tableTree.setWidth("400");
@@ -174,7 +202,7 @@ public class TableCopyGWTPanel implements EntryPoint {
         }
 
         public void onSuccess(Object result) {
-            wikiText.setVisibleLines(selectedTables.size() + 3);
+            wikiText.setVisibleLines(_selectedTables.size() + 3);
             wikiText.setText((String) result);
             tableLister.remove(waiting);
             tableLister.add(successText);
