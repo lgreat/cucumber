@@ -499,8 +499,8 @@ body.framed #pageGS {
 
 .photoName {
     position: relative;
-    top: 10px;
-    left: -4px;
+    top: 16px;
+    left: -11px;
     font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 13px;
 	line-height: 16px;
@@ -511,8 +511,8 @@ body.framed #pageGS {
 
 .photoCaption {
     position: relative;
-    top: 10px;
-    left: -4px;
+    top: 16px;
+    left: -11px;
     font-weight: bold;
     line-height: 14px;
 }
