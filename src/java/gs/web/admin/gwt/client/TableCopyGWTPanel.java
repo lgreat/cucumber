@@ -49,7 +49,7 @@ public class TableCopyGWTPanel implements EntryPoint {
     Label errorMessage = new Label();
     TextArea wikiText = new TextArea();
     HTML successText = new HTML("Success! Add (or overwrite) the following lines to <a href=\"http://wiki.greatschools.net/bin/view/Greatschools/TableToMove\" target=\"_blank\">TableToMove</a>");
-    Image waiting = new Image("/res/img/admin/waiting_head.gif");
+    Image waiting = new Image("/gs-web/res/img/admin/waiting_head.gif");
 
     public void onModuleLoad() {
         initializeLayout();
@@ -59,17 +59,17 @@ public class TableCopyGWTPanel implements EntryPoint {
         selectDev.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 _direction = TableData.DEV_TO_STAGING;
+                clearInputs();
                 targetChooser.add(waiting);
                 service.getTables(_direction, new TableLoadCallback());
-                targetChooser.remove(waiting);
             }
         });
         selectProd.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 _direction = TableData.PRODUCTION_TO_DEV;
+                clearInputs();
                 targetChooser.add(waiting);
                 service.getTables(_direction, new TableLoadCallback());
-                targetChooser.remove(waiting);
             }
         });
 
@@ -90,16 +90,16 @@ public class TableCopyGWTPanel implements EntryPoint {
                 for (int i = 0; i < tables.length; i++) {
                     tables[i] = tableList.getItemText(i);
                 }
-                waiting.setUrl("/res/img/admin/waiting_head.gif");
                 tableLister.add(waiting);
                 service.copyTables(_direction, tables, new CopyTablesCallback());
+//                waiting.setVisible(false);
             }
         });
 
     }
 
     private void addDatabasesToTree(TableData tableData) {
-        resetLayout();
+        clearInputs();
 
         tableTree.addTreeListener(new TreeListener() {
             public void onTreeItemSelected(TreeItem item) {
@@ -169,16 +169,23 @@ public class TableCopyGWTPanel implements EntryPoint {
         RootPanel.get().add(mainPanel);
     }
 
-    private void resetLayout() {
-        tableChooser.clear();
-        wikiText.setText("");
+    private void clearInputs() {
+        // remove widgets
+        tableChooser.remove(tableTree);
+        tableChooser.remove(tableLister);
+
         tableLister.remove(tableList);
         tableLister.remove(submitButton);
         tableLister.remove(removeButton);
         tableLister.remove(wikiText);
 
-        tableList.clear();
+        // reset input values
         _selectedTables.clear();
+
+        // reset widgets
+        tableList.clear();
+        tableTree.clear();
+        wikiText.setText("");
 
         tableTree = new Tree();
         tableTree.setWidth("400");
@@ -186,22 +193,26 @@ public class TableCopyGWTPanel implements EntryPoint {
 
     private class TableLoadCallback implements AsyncCallback {
         public void onFailure(Throwable caught) {
+            targetChooser.remove(waiting);
             errorMessage.setText(caught.getMessage());
             errorMessage.setVisible(true);
         }
 
         public void onSuccess(Object result) {
+            targetChooser.remove(waiting);
             addDatabasesToTree((TableData) result);
         }
     }
 
     private class CopyTablesCallback implements AsyncCallback {
         public void onFailure(Throwable caught) {
+            tableLister.remove(waiting);
             errorMessage.setText(caught.getMessage());
             errorMessage.setVisible(true);
         }
 
         public void onSuccess(Object result) {
+            tableLister.remove(waiting);
             wikiText.setVisibleLines(_selectedTables.size() + 3);
             wikiText.setText((String) result);
             tableLister.remove(waiting);
