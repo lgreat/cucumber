@@ -15,6 +15,7 @@
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <html>
+<pageHelper:setPathway pathway="99"/>
 <c:set var="stateOrNull" value="${requestScope.context.state}" />
 <c:set var="stateOrDefault" value="${requestScope.context.stateOrDefault}" />
   <head>
