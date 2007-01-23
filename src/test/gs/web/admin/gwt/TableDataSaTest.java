@@ -51,4 +51,15 @@ public class TableDataSaTest extends TestCase {
         assertEquals("Unexpected database name", "another", anotherTableList.getDatabaseName());
         assertEquals("Unexpected number of tables in another database", 2, anotherTableList.getTables().size());
     }
+
+    public void testDatabaseDirectionEquals() {
+        TableData.DatabaseDirection first = new TableData.DatabaseDirection("a", "b", "c");
+        TableData.DatabaseDirection second = new TableData.DatabaseDirection("a", "b", "c");
+
+        assertEquals("directions with the same field values should be equal", first, second);
+
+        TableData.DatabaseDirection third = new TableData.DatabaseDirection("a", "b", "cc");
+
+        assertTrue("directions with different field values should not be equal", !first.equals(third));
+    }
 }
