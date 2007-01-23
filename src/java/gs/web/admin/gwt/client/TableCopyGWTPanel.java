@@ -49,7 +49,7 @@ public class TableCopyGWTPanel implements EntryPoint {
     Label errorMessage = new Label();
     TextArea wikiText = new TextArea();
     HTML successText = new HTML("Success! Add (or overwrite) the following lines to <a href=\"http://wiki.greatschools.net/bin/view/Greatschools/TableToMove\" target=\"_blank\">TableToMove</a>");
-    Image waiting = new Image("/gs-web/res/img/admin/waiting_head.gif");
+    Image waiting = new Image("/res/img/admin/waiting_head.gif");
 
     public void onModuleLoad() {
         initializeLayout();
