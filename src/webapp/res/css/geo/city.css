@@ -1,9 +1,4 @@
-#mapContainer {
-    margin: .3em;
-    border: 1px solid #00c;
-    background-color: #eee;
-    padding: .0em;
-}
+@import "cityCommon.css";
 
 #map, #mapContainer {
     width: 230px;
@@ -83,7 +78,6 @@
 #nearbyCities h3 {
     display: inline;
     color: #888;
-    /*color:#666666;*/
     padding-right: 1em;
     font-weight: bold;
     font-size: small;
