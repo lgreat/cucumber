@@ -28,9 +28,6 @@
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <meta name="description" content="Find the top-rated ]]>${cityObject.name}
     <![CDATA[ schools, read recent parent reviews, or browse schools by grade level."/>
-        <style type="text/css">
-
-        </style>
             ]]>
     <title>${displayName} Schools</title>
 </head>
@@ -38,7 +35,7 @@
 <gsml:body adPageName="city" pageLayout="cityPage">
 <pageHelper:externalCss file="/res/css/geo/city.css"/>
 
-<div class="cleanLineBottomBox">
+<div class="headerBox">
     <table width="100%">
         <tr>
             <td style="white-space:nowrap; vertical-align: bottom">
@@ -55,7 +52,7 @@
 <table width="100%">
 <tr>
 <td width="66%" style="vertical-align:top">
-<h2>
+<h2 class="sectionHead">
     <c:if test="${not empty requestScope.topRatedSchools}">
         Top-Rated
     </c:if>
@@ -121,7 +118,7 @@
                             <td class="dottedLineBottomBox"><gsml:a
                                     href="${hrefbase}${s.school.id}">${s.name}</gsml:a></td>
                             <td style="text-align: right" class="dottedLineBottomBox"><gsml:img
-                                    src="/res/img/school/ratings/r${s.rating lt 10 ? '0' : ''}${s.rating}.gif"
+                                    src="/res/img/school/ratings/${s.rating}.gif"
                                     alt="${s.rating}"/></td>
                         </tr>
                     </c:forEach>
@@ -144,7 +141,7 @@
 <c:if test="${not empty requestScope.topRatedSchools}">
 
     <div style="width: 100%" class="cleanLineTopBox">
-        <h2>All ${displayName} Schools</h2>
+        <h2 class="sectionHead">All ${displayName} Schools</h2>
         <table width="100%"><tr>
             <td style="vertical-align: top; width: 50%; padding-right: 1em">
                 <div class="schoolBreakdown">
@@ -166,7 +163,7 @@
 <c:if test="${empty requestScope.topRatedSchools}">
     <div class="featuredArticles cleanLineTopBox">
         <div class=" cleanLineBottomBox">
-            <h2>Most Popular Articles</h2>
+            <h2 class="sectionHead">Most Popular Articles</h2>
             <table width="100%" cellpadding="0" cellspacing="0"><tr><td style="vertical-align: top;">
                 <jsp:include
                         page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;heading=none&amp;state=${stateAbbrev}"/>

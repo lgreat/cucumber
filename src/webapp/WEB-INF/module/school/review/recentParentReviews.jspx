@@ -31,50 +31,30 @@
             </td>
             <td class="stars">
             <c:if test="${review.stars eq 1}">
-                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/1star.gif" alt="star"/>
             </c:if>
             <c:if test="${review.stars eq 2}">
-                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/2star.gif" alt="star"/>
             </c:if>
             <c:if test="${review.stars eq 3}">
-                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/3star.gif" alt="star"/>
             </c:if>
             <c:if test="${review.stars eq 4}">
-                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/WBstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/4star.gif" alt="star"/>
             </c:if>
             <c:if test="${review.stars eq 5}">
-                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
-                <gsml:img src="/res/img/school/review/PRstar.gif" alt="star"/>
+                <gsml:img src="/res/img/school/review/5star.gif" alt="star"/>
             </c:if>
         </td>
-                </tr>
+            </tr>
             <tr>
                 <td colspan="2">
-            <h5>${review.date}</h5>
+                    <h5>${review.date}</h5>
                 </td>
             </tr>
             <tr>
-            <td colspan="2" class="dottedLineBottomBox">
-                <p>${review.quip}</p>
+                <td colspan="2" class="dottedLineBottomBox">
+                    <p>${review.quip}</p>
                 </td>
             </tr>
         </c:forEach>

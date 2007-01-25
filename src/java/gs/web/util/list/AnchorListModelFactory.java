@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.2 2006/12/28 21:13:17 thuss Exp $
+ * $Id: AnchorListModelFactory.java,v 1.3 2007/01/25 00:54:24 chriskimm Exp $
  */
 
 package gs.web.util.list;
@@ -377,7 +377,7 @@ public class AnchorListModelFactory {
             if (!city.getState().equals(State.DC)) {
                 builder.setParameter(NearbyCitiesController.PARAM_ALL, "1");
             }
-            Anchor anchor = builder.asAnchor(request, "More", "more");
+            Anchor anchor = builder.asAnchor(request, "More >", "more");
             anchorListModel.add(anchor);
         }
         if (includeBrowseAllItem && !city.getState().equals(State.DC)) {

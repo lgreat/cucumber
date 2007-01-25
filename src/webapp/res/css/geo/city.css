@@ -23,6 +23,15 @@
     font-weight: 700;
     text-align: left;
 }
+    .cityPage h2.sectionHead, .cityPage div#cityStats h3 {
+        color:#FFFFFF;
+        padding: 4px 0 1px 5px;
+        background-color:#66CCCC;
+    }
+
+    .cityPage td.recentParentReviews h2, .cityPage div.featuredArticles h2 {
+        color:#55BBCC;
+    }
 
 .statsModule {
     font-size: small;
@@ -55,7 +64,6 @@
 
 .statsModule .census thead th {
     text-align: left;
-    font-weight: normal;
     padding: 0 1em .3em 1em;
     color: #555;
     font-size: x-small;
@@ -75,6 +83,7 @@
 #nearbyCities h3 {
     display: inline;
     color: #888;
+    /*color:#666666;*/
     padding-right: 1em;
     font-weight: bold;
     font-size: small;
@@ -98,13 +107,6 @@
     border-right: 1px solid #999;
 }
 
-#nearbyCities .more {
-    background-image: url(../../img/bullet/orange_arrow_right_trans.gif );
-    background-repeat: no-repeat;
-    background-position: center right;
-    padding-right: 16px;
-}
-
 .adSquare {
     clear: both;
     margin-top: 2em;
@@ -114,7 +116,7 @@
     .cleanLineBottomBox,
     .cleanLineLeftBox,
     .cleanLineRightBox {
-    border: 0px solid #999;
+    border: 0 solid #999;
 }
 
 .cleanLineTopBox {
@@ -122,6 +124,24 @@
     padding-top: 6px;
     border-top-width: 1px;
 }
+
+.headerBox {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    background-color:#DDEEEE;
+    margin-bottom: 12px;
+}
+    .headerBox h1 {
+        color:#55BBCC;
+        padding-left:10px;
+    }
+    .headerBox td#nearbyCities {
+        padding-bottom:2px;
+    }
+    .headerBox td#nearbyCities a {
+        color: #888;
+        font-weight: bold;
+        font-size: small;
+    }
 
 .cleanLineBottomBox {
     border-bottom-width: 1px;
@@ -137,7 +157,7 @@
     .dottedLineBottomBox,
     .dottedLineLeftBox,
     .dottedLineRightBox {
-    border: 0px solid #bbb;
+    border: 0 solid #bbb;
 }
 
 .dottedLineTopBox {
@@ -171,7 +191,7 @@ div.topRatedSchools {
     color: #999;
     vertical-align: bottom;
 
-    border: 0px solid #bbb;
+    border: 0 solid #bbb;
     border-bottom-width: 1px;
     padding-bottom: 5px;
     margin-bottom: 5px;
@@ -214,7 +234,7 @@ div.topRatedSchools {
 
 .schoolBreakdown li {
     font-size: small;
-    border: 0px solid #bbb;
+    border: 0 solid #bbb;
     border-bottom-width: 1px;
     padding: .4em .4em .4em 0;
 }
@@ -237,7 +257,6 @@ div.topRatedSchools {
 }
 
 span.mousedOver, span:hover {
-    color: #000;
     background-color: #eee;
     color: red;
 }
@@ -258,13 +277,13 @@ span.mousedOver, span:hover {
     font-size: small;
 }
 .featuredArticles h4 {
-    margin: .5em .5em 0em 0;
+    margin: .5em .5em 0 0;
 }
 
 .featuredArticles p {
     padding: 0 1em .6em 0;
     margin: .3em 0 .3em 0;
-    border: 0px solid #bbb;
+    border: 0 solid #bbb;
     border-bottom-width: 1px;
 }
 
@@ -273,10 +292,19 @@ span.mousedOver, span:hover {
 }
 
 div.statsModule {
-    border: 0px solid #999;
+    border: 0 solid #999;
     margin-top: 3px;
     padding-top: 6px;
     border-top-width: 1px;
     border-bottom-width: 1px;
     margin-bottom: 18px;
+}
+
+.contentGS a:link,
+    .contentGS a:visited,
+    .contentGS a:active {
+    text-decoration: none;
+    color: #3399AA;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-weight:bold;
 }
