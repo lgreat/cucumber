@@ -7,9 +7,21 @@
     <jsp:directive.tag body-content="empty"
                        description="Indicates that the given external CSS file should be included for this page. This tag tells the PageHelper, and then it is sitemesh's reponsibility to include the proper code."/>
     <jsp:directive.attribute name="file" required="true"/>
-        <jsp:scriptlet>
-        gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
-        String s = urlUtil.buildUrl(file, request);
-        gs.web.util.PageHelper.addExternalCss(request, s);
+    <jsp:directive.attribute name="userAgentSubstring" required="false"/>
+    <jsp:scriptlet>
+        boolean includeCss = true;
+        if (userAgentSubstring != null) {
+            String userAgent = request.getHeader("user-agent");
+            if (userAgent != null) {
+                if (userAgent.indexOf(userAgentSubstring) == -1) {
+                    includeCss = false;
+                }
+            }
+        }
+        if (includeCss) {
+            gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
+            String s = urlUtil.buildUrl(file, request);
+            gs.web.util.PageHelper.addExternalCss(request, s);
+        }
     </jsp:scriptlet>
 </jsp:root>

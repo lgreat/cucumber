@@ -22,6 +22,8 @@
       <title>GreatSchools Community</title>
       <pageHelper:externalCss file="/res/css/content/research.css"/>
       <pageHelper:externalCss file="/res/css/community/registration/communityLanding.css"/>
+      <pageHelper:externalCss file="/res/css/community/registration/communityLanding-IE.css" userAgentSubstring="MSIE 7"/>
+      <pageHelper:externalCss file="/res/css/community/registration/communityLanding-IE.css" userAgentSubstring="MSIE 6"/>
   </head>
   <gsml:body adPageName="communityLanding">
       <table cellspacing="0" cellpadding="0" class="content" border="0">
@@ -130,10 +132,14 @@
           <div class="middleTitle2">
               <gsml:img src="/res/img/community/registration/t_hotTopics.gif" alt="Hot Topics"/>
           </div>
+          <gsml:img src="/res/img/community/registration/th_hot-topics.jpg" styleClass="articlebox_th"
+                    alt="Hot Topics" />
           <div class="hotTopicsBox articleBox">
               <table width="274" cellpadding="0" cellspacing="0" border="0">
                   <tr>
-                      <td colspan="2" style="padding-bottom: 15px; padding-right: 15px;">What's important in your family and school?</td>
+                      <td colspan="2" style="padding-bottom: 15px; padding-right: 15px;">
+                          What's important in your family<br/>and school?
+                      </td>
                   </tr>
                   <tr>
                       <td valign="top" class="yellowArrow">
@@ -168,12 +174,13 @@
           <div class="middleTitle2">
               <gsml:img src="/res/img/community/registration/t_choosingSchool.gif" alt="School Choice Tips"/>
           </div>
-
+          <gsml:img src="/res/img/community/registration/th_choosing-a-school.jpg" styleClass="articlebox_th"
+                    alt="Choosing a School" />
           <div class="choosingSchoolBox articleBox">
               <table width="264" cellpadding="0" cellspacing="0" border="0">
                   <tr>
                       <td colspan="2" style="padding-bottom: 15px;">
-                          Ask questions and share tips during your search for the right K-12 school
+                          Ask questions and share tips during<br/>your search for the right K-12 school
                       </td>
                   </tr>
                   <tr>
@@ -208,11 +215,13 @@
           <div class="middleTitle2">
               <gsml:img src="/res/img/community/registration/t_k-5Success.gif" alt="K-5 Academic Success"/>
           </div>
+          <gsml:img src="/res/img/community/registration/th_K-5-Academic-Success.jpg" styleClass="articlebox_th"
+                    alt="K-5 Academic Success" />
           <div class="Successk5Box articleBox">
               <table width="264" cellpadding="0" cellspacing="0" border="0">
                   <tr>
                       <td colspan="2" style="padding-bottom: 15px;">
-                          What's working for your family at home and in the classroom?
+                          What's working for your family at<br/>home and in the classroom?
                       </td>
                   </tr>
                   <tr>
@@ -242,12 +251,13 @@
           <div class="middleTitle2">
               <gsml:img src="/res/img/community/registration/t_6-12Success.gif" alt="6-12 Academic Success"/>
           </div>
-
+          <gsml:img src="/res/img/community/registration/th_6-12-Academic-Success.jpg" styleClass="articlebox_th"
+                    alt="6-12 Academic Success" />          
           <div class="Success612Box articleBox">
               <table width="264" cellpadding="0" cellspacing="0" border="0">
                   <tr>
                       <td colspan="2" style="padding-bottom: 15px;">
-                          What's on your mind about how to help your child?
+                          What's on your mind about how to<br/>help your child?
                       </td>
                   </tr>
                   <tr>

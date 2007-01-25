@@ -26,19 +26,6 @@
 	height: 43px;
 }
 
-div.articleBox {
-    border: 3px solid #66CCCC;
-    border-top: 0;
-    padding: 24px 11px 0 23px;
-    font-family: "Century Gothic", Arial, sans-serif;
-    font-size: 13px;
-    line-height: 17px;
-    color: #777777;
-    width: 283px;
-    height: 155px;
-    letter-spacing: 0;
-}
-
 div.articleBox table tr td a:link,
 div.articleBox table tr td a:visited,
 div.articleBox table tr td a:hover,
@@ -64,16 +51,6 @@ a.link:link, a.link:visited, a.link:hover, a.link:active {
     border-bottom: 0;
     background: url(../../../img/content/countdownToCollege/mid_dot_line.gif) bottom repeat-x;
     padding-bottom: 10px;
-}
-
-.middleTitle2 {
-	padding: 10px 0 6px 26px;
-    font-family: "Century Gothic", Arial, sans-serif;
-	font-size: 20px;
-	line-height: 17px;
-	color: #ffffff;
-	background-color: #66CCCC;
-	letter-spacing: 0;
 }
 
 .yellowArrow {
@@ -144,3 +121,56 @@ h1.welcomeInfo {
     top: 11px;
     left: -4px;
 }
+
+
+/*------------------------------------------------------
+
+Styles for adding thumbnail images to the article boxes
+
+-------------------------------------------------------*/
+
+
+/* adjusts the height of the article box headers */
+
+.middleTitle2 { /* style copied from communityLanding.css */ /* has an IE 7 equivalent */
+	padding: 9px 0 5px 19px;
+	_padding: 7px 0 2px 19px; /* IE 6 hack */
+    font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 20px;
+	line-height: 17px;
+	color: #ffffff;
+	background-color: #66CCCC;
+	letter-spacing: 0;
+}
+
+/* places the thumbnail images in the article box headers */
+
+.articlebox_th { /* has an IE 7 equivalent */
+	float: right;
+	margin: -32px 0 0 0;
+    border-left: 1px solid white;
+}
+
+/* adjusts the article box text (table) to wrap next to the image */
+
+.articleBox table {
+	margin: -15px 0 0 0;
+}
+
+/* adjusted to minimize the padding below the article box table, so whitespace reflects the mockup */
+
+div.articleBox { /* style copied from communityLanding.css */
+    border: 3px solid #66CCCC;
+    border-top: 0;
+    padding: 24px 11px 0 15px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+ 	font-size: 13px;
+    font-weight: bold;
+     /*font-size: 13px;*/
+    line-height: 17px;
+    color: #777777;
+    width: 291px;
+    height: 140px;
+    /*height: 155px;*/
+    letter-spacing: 0;
+}*/
