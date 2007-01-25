@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: NearbyCitiesControllerTest.java,v 1.6 2006/07/13 07:53:59 apeterson Exp $
+ * $Id: NearbyCitiesControllerTest.java,v 1.7 2007/01/25 20:26:04 chriskimm Exp $
  */
 
 package gs.web.geo;
@@ -165,7 +165,7 @@ public class NearbyCitiesControllerTest extends BaseControllerTestCase {
         assertEquals(5, results.size());
 
         Anchor anchor = (Anchor) results.get(results.size() - 1);
-        assertEquals("More", anchor.getContents());
+        assertEquals("More >", anchor.getContents());
         assertEquals("/cities.page?all=1&city=Anchorage&includeState=1&order=alpha&state=AK", anchor.getHref());
     }
 
@@ -216,7 +216,7 @@ public class NearbyCitiesControllerTest extends BaseControllerTestCase {
         assertEquals(6, results.size());
 
         Anchor anchor = (Anchor) results.get(results.size() - 2);
-        assertEquals("More", anchor.getContents());
+        assertEquals("More >", anchor.getContents());
         assertEquals("/cities.page?all=1&city=Anchorage&includeState=1&order=alpha&state=AK", anchor.getHref());
 
          anchor = (Anchor) results.get(results.size() - 1);
