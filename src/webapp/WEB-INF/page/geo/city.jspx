@@ -164,15 +164,18 @@
     <div class="featuredArticles cleanLineTopBox">
         <div class=" cleanLineBottomBox">
             <h2 class="sectionHead">Most Popular Articles</h2>
-            <table width="100%" cellpadding="0" cellspacing="0"><tr><td style="vertical-align: top;">
-                <jsp:include
-                        page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;heading=none&amp;state=${stateAbbrev}"/>
-            </td>
-                <td>&#160;</td>
-                <td style="vertical-align: top;">
-                    <jsp:include
-                            page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;sub=1&amp;heading=none&amp;state=${stateAbbrev}"/>
-                </td></tr>
+            <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td style="vertical-align: top;">
+                        <jsp:include
+                                page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;heading=none&amp;state=${stateAbbrev}"/>
+                    </td>
+                    <td>&#160;</td>
+                    <td style="vertical-align: top;">
+                        <jsp:include
+                                page="/promo/featuredArticles.module?position=PATH2_FEATURE&amp;sub=1&amp;heading=none&amp;state=${stateAbbrev}"/>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
