@@ -25,7 +25,7 @@
         </c:when>
         <c:otherwise>
             <link:healthyKids>
-                <img src="/res/img/content/healthyKids/HouseAd_small_healthy.jpg" alt="Healthy Kids: Family fitness tips, managing TV time and quick, tasty
+                <gsml:img src="/res/img/content/healthyKids/HouseAd_small_healthy.jpg" alt="Healthy Kids: Family fitness tips, managing TV time and quick, tasty
 recipes"/>
             </link:healthyKids>
         </c:otherwise>
