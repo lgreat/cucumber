@@ -205,11 +205,17 @@
                     </div>
 
                     <div id="terms" style="${termsStyle}">
-                        <p><label class="terms"><span class="required">*</span>I agree to the
+                        <p><label class="terms"><span class="required">*</span>
+                            I am over 13 years of age and I agree to the GreatSchools
                             <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                    title="GreatSchools Terms of Service"
+                                    title="GreatSchools Terms of Use"
                                     href="/cgi-bin/static/terms.html/$STATE"
-                                    tabIndex="17">terms of service</gsml:popupWindow>
+                                    tabIndex="17">Terms of Use</gsml:popupWindow>,
+                            including the
+                            <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                    title="GreatSchools Community Standards"
+                                    href="/cgi-bin/static/terms.html/$STATE#communityStandards"
+                                    tabIndex="17">Community Standards</gsml:popupWindow>
                             </label></p>
                         <gsml:radio name="termsStr" value="y" styleId="yesTerms" styleClass="radio"
                                     checked="${userCmd.terms eq true}" tabIndex="12"/>
