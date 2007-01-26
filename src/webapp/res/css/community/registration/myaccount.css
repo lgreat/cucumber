@@ -140,49 +140,37 @@ h1 span {
 /* info message */
 
 #myaccount_info .infomessage {
-	width: 509px; /* 589 true width minus left padding */
+	width: 479px; /* 589 true width minus right/left padding */
 	height: 32px; /* 45 true width minus top padding */
 	float: right;
 	margin: 0 0 4px 0;
-    _margin: 0 0 4px 0;
-    padding: 13px 0 0 80px;
+    padding: 13px 30px 0 80px;
+	color: #fff;
+	font-size: 17px;
+	background: url(../../../img/community/registration/icon_infomessage_27x27.gif) 40px 8px no-repeat #66cccc;
+}
+
+#myaccount_info .infomessageEmail {
+	width: 479px; /* 589 true width minus right/left padding */
+	height: 38px; /* 45 true width minus top padding */
+	float: right;
+	margin: 0 0 4px 0;
+    padding: 7px 30px 0 80px;
 	color: #fff;
 	font-size: 17px;
 	background: url(../../../img/community/registration/icon_infomessage_27x27.gif) 40px 8px no-repeat #66cccc;
 }
 
 #myaccount_forgotpassword .infomessage {
-	width: 509px; /* 589 true width minus left padding */
+	width: 479px; /* 589 true width minus right/left padding */
 	height: 42px; /* 55 true height minus top padding */
 	float: right;
 	margin: 0 0 4px 0;
-    _margin: 0 0 4px 0;
-    padding: 13px 0 0 80px;
+    padding: 13px 30px 0 80px;
 	color: #fff;
 	font-size: 17px;
 	background: url(../../../img/community/registration/icon_infomessage_27x27.gif) 40px 13px no-repeat #66cccc;
 }
-
-/*#infomessage {
-	width: 589px;
-	height: 45px;
-	float: right;
-	margin: 0 0 4px 0;
-	background: #66cccc;
-}
-
-#infomessage p {
-	color: #fff;
-	font-size: 17px;
-	font-weight: bold;
-	float: left;
-	margin: 14px 0 0 12px;
-}
-
-#infomessage img {
-	margin: 8px 0 0 40px;
-	float: left;
-}*/
 
 /* myaccount_info modules */
 

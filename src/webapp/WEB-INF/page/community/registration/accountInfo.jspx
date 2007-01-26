@@ -14,15 +14,36 @@
   <head>
       <pageHelper:externalCss file="/res/css/community/registration/myaccount.css"/>
       <title>My Account - GreatSchools</title>
+      <jsp:scriptlet>
+          String escapedMessage = (String) request.getAttribute("escapedMessage");
+          String emailPrefix = "Your email has been updated to: ";
+          if (escapedMessage != null) {
+              if (escapedMessage.indexOf(emailPrefix) != -1) {
+                  String topline = escapedMessage.substring(0, emailPrefix.length());
+                  String bottomline = escapedMessage.substring(emailPrefix.length());
+                  request.setAttribute("topline", topline);
+                  request.setAttribute("bottomline", bottomline);
+             }
+          }
+      </jsp:scriptlet>
   </head>
   <gsml:body adPageName="accountInfo">
 
   <div id="myaccount_info">
       <h1><span>My Account</span></h1>
 
-      <c:if test="${param.message ne null and param.message gt ''}">
-          <p class="infomessage">${escapedMessage}</p>
-      </c:if>
+      <c:choose>
+          <c:when test="${topline ne null}">
+              <p class="infomessageEmail">
+                ${topline}<br/>${bottomline}
+              </p>
+          </c:when>
+          <c:when test="${escapedMessage ne null and escapedMessage gt ''}">
+              <p class="infomessage">
+                ${escapedMessage}
+              </p>
+          </c:when>
+      </c:choose>
 
       <div id="outline"><!-- creates darker blue outer outline -->
           <div id="content">

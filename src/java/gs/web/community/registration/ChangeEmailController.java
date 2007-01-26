@@ -100,7 +100,7 @@ public class ChangeEmailController extends SimpleFormController implements ReadW
             _userDao.updateUser(user);
             PageHelper.setMemberAuthorized(request, response, user);
             notifyCommunity(user);
-            mAndV.getModel().put("message", "Your email has been updated to " + user.getEmail());
+            mAndV.getModel().put("message", "Your email has been updated to: " + user.getEmail());
         }
 
         mAndV.setViewName(getSuccessView());
