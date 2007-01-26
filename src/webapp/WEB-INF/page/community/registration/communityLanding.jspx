@@ -22,8 +22,35 @@
       <title>GreatSchools Community</title>
       <pageHelper:externalCss file="/res/css/content/research.css"/>
       <pageHelper:externalCss file="/res/css/community/registration/communityLanding.css"/>
-      <pageHelper:externalCss file="/res/css/community/registration/communityLanding-IE.css" userAgentSubstring="MSIE 7"/>
-      <pageHelper:externalCss file="/res/css/community/registration/communityLanding-IE.css" userAgentSubstring="MSIE 6"/>
+      <jsp:scriptlet>
+          String userAgent = request.getHeader("user-agent");
+          if (userAgent != null &amp;&amp; userAgent.indexOf("MSIE") > -1) {
+      </jsp:scriptlet>
+      <style type="text/css">
+        .articlebox_th {
+            position: absolute;
+            margin: -27px 0 0 249px;
+        }
+
+        .middleTitle2 {
+            padding: 7px 0 2px 19px;
+        }
+      </style>
+      <jsp:scriptlet>
+          } else {
+      </jsp:scriptlet>
+      <style type="text/css">
+        .articlebox_th {
+            margin: -32px 0 0 0;
+        }
+
+        .middleTitle2 {
+            padding: 9px 0 5px 19px;
+        }
+      </style>
+      <jsp:scriptlet>
+          }
+      </jsp:scriptlet>
   </head>
   <gsml:body adPageName="communityLanding">
       <table cellspacing="0" cellpadding="0" class="content" border="0">
@@ -133,7 +160,7 @@
               <gsml:img src="/res/img/community/registration/t_hotTopics.gif" alt="Hot Topics"/>
           </div>
           <gsml:img src="/res/img/community/registration/th_hot-topics.jpg" styleClass="articlebox_th"
-                    alt="Hot Topics" />
+                    alt="Photo of two parents in discussion" />
           <div class="hotTopicsBox articleBox">
               <table width="274" cellpadding="0" cellspacing="0" border="0">
                   <tr>
@@ -175,7 +202,7 @@
               <gsml:img src="/res/img/community/registration/t_choosingSchool.gif" alt="School Choice Tips"/>
           </div>
           <gsml:img src="/res/img/community/registration/th_choosing-a-school.jpg" styleClass="articlebox_th"
-                    alt="Choosing a School" />
+                    alt="Photo of children raising hands in a classroom" />
           <div class="choosingSchoolBox articleBox">
               <table width="264" cellpadding="0" cellspacing="0" border="0">
                   <tr>
@@ -216,7 +243,7 @@
               <gsml:img src="/res/img/community/registration/t_k-5Success.gif" alt="K-5 Academic Success"/>
           </div>
           <gsml:img src="/res/img/community/registration/th_K-5-Academic-Success.jpg" styleClass="articlebox_th"
-                    alt="K-5 Academic Success" />
+                    alt="Photo of elementary aged girl writing at desk" />
           <div class="Successk5Box articleBox">
               <table width="264" cellpadding="0" cellspacing="0" border="0">
                   <tr>
@@ -252,7 +279,7 @@
               <gsml:img src="/res/img/community/registration/t_6-12Success.gif" alt="6-12 Academic Success"/>
           </div>
           <gsml:img src="/res/img/community/registration/th_6-12-Academic-Success.jpg" styleClass="articlebox_th"
-                    alt="6-12 Academic Success" />          
+                    alt="Photo of high school aged boy" />          
           <div class="Success612Box articleBox">
               <table width="264" cellpadding="0" cellspacing="0" border="0">
                   <tr>
