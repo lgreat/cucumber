@@ -218,7 +218,7 @@
   </div>
 
   <p><label class="termsLabel"><span class="required">*</span>
-      I am over 13 years of age and I agree to the GreatSchools
+      I am over 13 years of age and I agree to the
       <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">Terms of Use</link:termsOfUse>,
       including the
       <gsml:popupWindow width="800" height="600" left="50" top="50"

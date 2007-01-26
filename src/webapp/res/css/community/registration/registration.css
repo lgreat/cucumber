@@ -452,6 +452,8 @@ h1 span {
 .registration .terms {
 	width: 250px;
 	margin-left: 3px;
+    margin-right: 3px;
+    font-weight: normal;
 }
 
 #content .warning_terms {
@@ -633,7 +635,7 @@ h1 span {
 #reg_3 .registration .termsLabel {
 	width: 290px;
 	margin: 0 0 0 3px;
-	font-weight: bold;
+	font-weight: normal;
 }
 
 #reg_3 .warning_terms {
