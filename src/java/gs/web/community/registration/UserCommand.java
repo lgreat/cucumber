@@ -24,6 +24,7 @@ public class UserCommand implements EmailValidator.IEmail {
     private List _cityList;
     private boolean _recontact;
     private boolean _terms = true;
+    private boolean _newsletter = true;
 
     public UserCommand() {
         _user = new User();
@@ -200,5 +201,13 @@ public class UserCommand implements EmailValidator.IEmail {
 
     public boolean getTerms() {
         return _terms;
+    }
+
+    public boolean getNewsletter() {
+        return _newsletter;
+    }
+
+    public void setNewsletter(boolean newsletter) {
+        _newsletter = newsletter;
     }
 }

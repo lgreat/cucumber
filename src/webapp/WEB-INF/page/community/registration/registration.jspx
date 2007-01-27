@@ -40,6 +40,7 @@
               if (otherGender.checked || numChildren.value == '0') {
                   // show terms and join, hide next
                   hideDiv('nextButton');
+                  showDiv('newsletter');
                   showDiv('terms');
                   showDiv('joinButton');
                   if (otherGender.checked) {
@@ -50,6 +51,7 @@
                   }
               } else {
                   // hide terms and join, show next
+                  hideDiv('newsletter');
                   hideDiv('terms');
                   hideDiv('joinButton');
                   showDiv('numChildren');
@@ -80,12 +82,6 @@
         <h1><span>Join</span></h1>
         <div id="outline"><!-- creates darker blue outer outline -->
             <div id="content">
-                <!-- begin alert box -->
-                <div id="alert_box">
-                    <p>Items with a <gsml:img src="/res/img/community/registration/icon_private_9x11.gif" alt="Private" styleClass="private"/> will be
-                        private and not viewable by other users.</p>
-                </div>
-                <!-- end: alert_box -->
 
                 <h2><span>Welcome to the GreatSchools Community!</span></h2>
 
@@ -133,7 +129,7 @@
                         <gsml:popupWindow width="800" height="600" left="50" top="50"
                                 title="GreatSchools Privacy Policy"
                                 href="/about/privacyStatement.page?state=$STATE"
-                                tabIndex="16">Privacy Policy</gsml:popupWindow></p>
+                                tabIndex="18">Privacy Policy</gsml:popupWindow></p>
 
                     <p><label><span class="required">*</span>Password<gsml:img src="/res/img/community/registration/icon_private_9x11.gif" alt="Private" styleClass="private"/><br/><span
                             class="details">(6-14 characters)</span></label>
@@ -177,9 +173,11 @@
                     <gsml:errorMessage command="userCmd" field="city" useImage="true" styleClass="warning_city"/>
 
                     <c:set var="termsStyle" value="display:none"/>
+                    <c:set var="newsletterStyle" value="display:none"/>
                     <c:set var="childrenStyle" value="display:block"/>
                     <c:if test="${userCmd.gender eq 'u'}">
                         <c:set var="termsStyle" value="display:block"/>
+                        <c:set var="newsletterStyle" value="display:block"/>
                         <c:set var="childrenStyle" value="display:none"/>
                     </c:if>
 
@@ -204,37 +202,56 @@
                         <gsml:errorMessage command="userCmd" field="numSchoolChildren" useImage="true" styleClass="warning_K12"/>
                     </div>
 
+                    <div id="newsletter" style="${newsletterStyle}">
+                        <p><label class="terms"><span class="required">*</span>
+                            <strong>Yes!</strong> Subscribe me to the "Best of GreatSchools Community" newsletter!
+                            </label></p>
+                        <gsml:radio name="newsletterStr" value="y" styleId="yesTerms" styleClass="radio"
+                                    checked="${userCmd.newsletter eq true}" tabIndex="12"/>
+                        <label class="radiolabelTerms">Yes</label>
+                        <gsml:radio name="newsletterStr" value="n" styleId="noTerms" styleClass="radio"
+                                    checked="${userCmd.newsletter eq false}" tabIndex="13"/>
+                        <label class="radiolabelTerms">No</label>
+                    </div>
+
                     <div id="terms" style="${termsStyle}">
                         <p><label class="terms"><span class="required">*</span>
                             I am over 13 years of age and I agree to the
                             <gsml:popupWindow width="800" height="600" left="50" top="50"
                                     title="GreatSchools Terms of Use"
                                     href="/cgi-bin/static/terms.html/$STATE"
-                                    tabIndex="17">Terms of Use</gsml:popupWindow>,
+                                    tabIndex="19">Terms of Use</gsml:popupWindow>,
                             including the
                             <gsml:popupWindow width="800" height="600" left="50" top="50"
                                     title="GreatSchools Community Standards"
                                     href="/cgi-bin/static/terms.html/$STATE#communityStandards"
-                                    tabIndex="17">Community Standards</gsml:popupWindow>
+                                    tabIndex="20">Community Standards</gsml:popupWindow>
                             </label></p>
                         <gsml:radio name="termsStr" value="y" styleId="yesTerms" styleClass="radio"
-                                    checked="${userCmd.terms eq true}" tabIndex="12"/>
+                                    checked="${userCmd.terms eq true}" tabIndex="14"/>
                         <label class="radiolabelTerms">Yes</label>
                         <gsml:radio name="termsStr" value="n" styleId="noTerms" styleClass="radio"
-                                    checked="${userCmd.terms eq false}" tabIndex="13"/>
+                                    checked="${userCmd.terms eq false}" tabIndex="15"/>
                         <label class="radiolabelTerms">No</label>
                         <gsml:errorMessage command="userCmd" field="terms" useImage="true" styleClass="warning_terms"/>
                     </div>
 
+                    <!-- begin alert box -->
+                    <div id="alert_box">
+                        <p>Items with a <gsml:img src="/res/img/community/registration/icon_private_9x11.gif" alt="Private" styleClass="private"/> will be
+                            private and not viewable by other users.</p>
+                    </div>
+                    <!-- end: alert_box -->
+
                     <div id="joinButton" class="join" style="${termsStyle}">
-                        <a href="communityLanding.page" title="Join the GreatSchools community" onclick="$('invJoinButton').click(); return false;" tabindex="14">&amp;nbsp;</a>
+                        <a href="communityLanding.page" title="Join the GreatSchools community" onclick="$('invJoinButton').click(); return false;" tabindex="16">&amp;nbsp;</a>
                         <input id="invJoinButton" type="submit" name="join" value="join" style="display: none"
                                onclick="return doSingleClick(this);"/>
                     </div>
 
                     <div id="nextButton" style="${childrenStyle}">
                         <gsml:inputImage src="/res/img/community/registration/submit_next.gif" alt="next" 
-                                         styleClass="next" name="next" onclick="return doSingleClick(this);" tabIndex="15"/>
+                                         styleClass="next" name="next" onclick="return doSingleClick(this);" tabIndex="17"/>
                     </div>
 
                     <div class="clear"></div>

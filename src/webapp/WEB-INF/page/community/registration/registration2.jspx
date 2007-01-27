@@ -217,6 +217,18 @@
       </div>
   </div>
 
+    <div id="newsletter">
+        <p><label class="termsLabel"><span class="required">*</span>
+            <strong>Yes!</strong> Subscribe me to the "Best of GreatSchools Community" newsletter!
+            </label></p>
+        <gsml:radio name="newsletterStr" value="y" styleId="yesTerms" styleClass="radio"
+                    checked="${followUpCmd.newsletter eq true}" tabIndex="12"/>
+        <label class="radiolabelTerms">Yes</label>
+        <gsml:radio name="newsletterStr" value="n" styleId="noTerms" styleClass="radio"
+                    checked="${followUpCmd.newsletter eq false}" tabIndex="13"/>
+        <label class="radiolabelTerms">No</label>
+    </div>
+
   <p><label class="termsLabel"><span class="required">*</span>
       I am over 13 years of age and I agree to the
       <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">Terms of Use</link:termsOfUse>,

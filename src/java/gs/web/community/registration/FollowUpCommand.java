@@ -30,6 +30,7 @@ public class FollowUpCommand {
     private List _schools;
     private boolean _terms = true;
     private String _redirect;
+    private boolean _newsletter = true;
 
     public FollowUpCommand() {
         _user = new User();
@@ -222,5 +223,14 @@ public class FollowUpCommand {
 
     public void setTerms(boolean terms) {
         _terms = terms;
+    }
+
+
+    public boolean getNewsletter() {
+        return _newsletter;
+    }
+
+    public void setNewsletter(boolean newsletter) {
+        _newsletter = newsletter;
     }
 }
