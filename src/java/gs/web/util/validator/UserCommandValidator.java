@@ -128,8 +128,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
                 sn.length() > SCREEN_NAME_MAXIMUM_LENGTH) {
             errors.rejectValue("screenName", null, ERROR_SCREEN_NAME_LENGTH);
             snError = true;
-        }
-        if (!StringUtils.isAlphanumeric(sn)) { // this method is null-safe
+        } else if (screenNameHasInvalidCharacters(sn)) {
             errors.rejectValue("screenName", null, ERROR_SCREEN_NAME_BAD);
             snError = true;
         }
@@ -172,7 +171,17 @@ public class UserCommandValidator implements IRequestAwareValidator {
             errors.rejectValue("city", null, ERROR_CITY_MISSING);
         }
     }
-     
+
+    /**
+     * Returns true if the screen name has no invalid characters.
+     * @param sn screen name
+     * @return true if screen name contains all valid characters or is null
+     */
+    private boolean screenNameHasInvalidCharacters(String sn) {
+        // valid characters are all alphanumeric, hyphen, underscore
+        return sn != null && !sn.matches("[0-9a-zA-Z\\-\\_]*");
+    }
+
     /**
      * Checks the password field in the UserCommand object. The password must be between
      * 6 and 16 characters long, and must match the confirmPassword field.

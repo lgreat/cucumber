@@ -370,6 +370,16 @@ public class UserCommandValidatorTest extends BaseTestCase {
         _userControl.verify();
         assertTrue(errors.hasErrors());
         assertEquals(1, errors.getErrorCount());
+
+        // test underscore/hyphen
+        errors = new BindException(command, "");
+
+        command.setScreenName("aroy_5-latest");
+        setupUserControl(GOOD_EMAIL, "aroy_5-latest");
+
+        _validator.validate(_request, command, errors);
+        _userControl.verify();
+        assertFalse(errors.hasErrors());
     }
 
     public void testNoGender() {
