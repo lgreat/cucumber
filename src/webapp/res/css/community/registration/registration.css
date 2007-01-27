@@ -450,9 +450,9 @@ h1 span {
 /* Agree to terms? */
 
 .registration .terms {
-	width: 250px;
+	width: 260px;
 	margin-left: 3px;
-    margin-right: 3px;
+    margin-right: 6px;
     font-weight: normal;
 }
 
@@ -484,7 +484,7 @@ h1 span {
 .registration .radiolabelTerms {
 	width: 30px;
 	float: left;
-    margin-right: 14px;
+    margin-right: 9px;
     margin-left: -2px;
     _margin-top: 2px;
 	padding: 0;
@@ -637,14 +637,14 @@ h1 span {
 /* reg_3 Agree to terms? */
 
 #reg_3 .registration .termsLabel {
-	width: 290px;
-	margin: 0 0 0 3px;
+	width: 260px;
+	margin: 0 10px 0 3px;
 	font-weight: normal;
 }
 
 #reg_3 .warning_terms {
-	width: 120px;
-	margin: -13px 5px 0 0;
+	width: 130px;
+	margin: -13px 25px 0 0;
 	float: right;
 	color: #cc5566;
 	font-size: 11px;
