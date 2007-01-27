@@ -211,7 +211,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         UserCommand userCommand = new UserCommand();
         BindException errors = new BindException(userCommand, "");
         _controller.onBindAndValidate(getRequest(), userCommand, errors);
-        assertEquals(8, errors.getErrorCount());
+        assertEquals(7, errors.getErrorCount());
     }
 
     public void testOnBindOnNewForm() throws Exception {
