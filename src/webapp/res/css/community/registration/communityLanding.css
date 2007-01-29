@@ -157,7 +157,7 @@ Styles for adding thumbnail images to the article boxes
 /* adjusted to minimize the padding below the article box table, so whitespace reflects the mockup */
 
 div.articleBox {
-    border: 3px solid #66CCCC;
+    border: 2px solid #66CCCC;
     border-top: 0;
     padding: 24px 11px 0 15px;
     font-family: "Trebuchet MS", Arial, sans-serif;
@@ -165,7 +165,7 @@ div.articleBox {
     font-weight: bold;
     line-height: 17px;
     color: #777777;
-    width: 291px;
+    width: 293px;
     height: 140px;
     letter-spacing: 0;
 }*/
