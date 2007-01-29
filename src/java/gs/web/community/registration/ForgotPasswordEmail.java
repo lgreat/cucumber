@@ -3,18 +3,17 @@
  */
 package gs.web.community.registration;
 
+import gs.data.community.User;
+import gs.data.util.DigestUtil;
+import gs.data.util.email.EmailHelper;
 import gs.web.util.AbstractSendEmailBean;
 import gs.web.util.UrlBuilder;
-import gs.data.community.User;
-import gs.data.util.email.EmailHelper;
-import gs.data.util.DigestUtil;
+import org.springframework.mail.MailException;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-
-import org.springframework.mail.MailException;
 
 /**
  * Represents the forgot your password email.
@@ -57,18 +56,7 @@ public class ForgotPasswordEmail extends AbstractSendEmailBean {
 
     protected String getEmailHTML(HttpServletRequest request, String email, Integer userId) throws NoSuchAlgorithmException {
         StringBuffer emailContent = new StringBuffer();
-        emailContent.append("<html>");
-        emailContent.append("<head><style>p {\n" +
-                "color:#444444; \n" +
-                "font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;\n" +
-                "}\n" +
-                "\n" +
-                "a {\n" +
-                "color: #3399aa;\n" +
-                "text-decoration: underline;\n" +
-                "}\n" +
-                "</style></head>\n");
-        emailContent.append("<body>\n");
+
         String hash = DigestUtil.hashStringInt(email, userId);
         UrlBuilder builder = new UrlBuilder(UrlBuilder.RESET_PASSWORD, null, hash + userId);
         emailContent.append("<p>Dear GreatSchools member,</p>\n\n");
@@ -77,7 +65,6 @@ public class ForgotPasswordEmail extends AbstractSendEmailBean {
         emailContent.append(builder.asAbsoluteAnchor(request, "click here to select a new password").asATag());
         emailContent.append(".</p>\n\n");
         emailContent.append("<p>Thanks!</p>\n<p>The GreatSchools Team</p>\n");
-        emailContent.append("</body></html>");
         return emailContent.toString();
     }
 
