@@ -40,6 +40,7 @@ public class RegistrationController extends SimpleFormController implements Read
     private boolean _requireEmailValidation = true;
     private String _completeView;
     private AuthenticationManager _authenticationManager;
+    public static final String NEWSLETTER_PARAMETER = "newsletterStr";
 
     //set up defaults if none supplied
     protected void onBindOnNewForm(HttpServletRequest request,
@@ -79,6 +80,8 @@ public class RegistrationController extends SimpleFormController implements Read
         if (terms != null) {
             userCommand.setTerms(terms.equals("y"));
         }
+        String newsletter = request.getParameter(NEWSLETTER_PARAMETER);
+        userCommand.setNewsletter("y".equals(newsletter));
         loadCityList(request, userCommand);
     }
 
