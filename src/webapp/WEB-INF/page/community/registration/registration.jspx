@@ -206,12 +206,12 @@
                         <p><label class="terms"><span class="required">*</span>
                             <strong>Yes!</strong> Subscribe me to the "Best of GreatSchools Community" newsletter!
                             </label></p>
-                        <gsml:radio name="newsletterStr" value="y" styleId="yesTerms" styleClass="radio"
+                        <gsml:radio name="newsletterStr" value="y" styleId="yesNewsletter" styleClass="radio"
                                     checked="${userCmd.newsletter eq true}" tabIndex="12"/>
-                        <label class="radiolabelTerms">Yes</label>
-                        <gsml:radio name="newsletterStr" value="n" styleId="noTerms" styleClass="radio"
+                        <label for="yesNewsletter" class="radiolabelTerms">Yes</label>
+                        <gsml:radio name="newsletterStr" value="n" styleId="noNewsletter" styleClass="radio"
                                     checked="${userCmd.newsletter eq false}" tabIndex="13"/>
-                        <label class="radiolabelTerms">No</label>
+                        <label for="noNewsletter" class="radiolabelTerms">No</label>
                     </div>
 
                     <div id="terms" style="${termsStyle}">
@@ -229,10 +229,10 @@
                             </label></p>
                         <gsml:radio name="termsStr" value="y" styleId="yesTerms" styleClass="radio"
                                     checked="${userCmd.terms eq true}" tabIndex="14"/>
-                        <label class="radiolabelTerms">Yes</label>
+                        <label for="yesTerms" class="radiolabelTerms">Yes</label>
                         <gsml:radio name="termsStr" value="n" styleId="noTerms" styleClass="radio"
                                     checked="${userCmd.terms eq false}" tabIndex="15"/>
-                        <label class="radiolabelTerms">No</label>
+                        <label for="noTerms" class="radiolabelTerms">No</label>
                         <gsml:errorMessage command="userCmd" field="terms" useImage="true" styleClass="warning_terms"/>
                     </div>
 
