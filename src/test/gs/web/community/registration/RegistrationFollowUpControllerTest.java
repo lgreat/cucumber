@@ -219,6 +219,32 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         assertEquals(_user.getStudents().iterator().next(), student);
     }
 
+    public void testOnBindSetsTermsAndNewsletter() throws Exception {
+        _geoControl.expectAndReturn(_geoDao.findCitiesByState(State.CA), new ArrayList(), 2);
+        _geoControl.replay();
+        getRequest().setParameter("city", "San Francisco");
+
+        FollowUpCommand followUpCommand = new FollowUpCommand();
+        getRequest().setParameter(RegistrationController.TERMS_PARAMETER, "n");
+        getRequest().setParameter(RegistrationController.NEWSLETTER_PARAMETER, "n");
+        _controller.onBind(getRequest(), followUpCommand, null);
+        assertFalse("Expected terms to be set to false", followUpCommand.getTerms());
+        assertFalse("Expected newsletter to be set to false", followUpCommand.getNewsletter());
+    }
+
+    public void testOnBindSetsTermsAndNewsletterToTrue() throws Exception {
+        _geoControl.expectAndReturn(_geoDao.findCitiesByState(State.CA), new ArrayList(), 2);
+        _geoControl.replay();
+        getRequest().setParameter("city", "San Francisco");
+
+        FollowUpCommand followUpCommand = new FollowUpCommand();
+        getRequest().setParameter(RegistrationController.TERMS_PARAMETER, "y");
+        getRequest().setParameter(RegistrationController.NEWSLETTER_PARAMETER, "y");
+        _controller.onBind(getRequest(), followUpCommand, null);
+        assertTrue("Expected terms to be set to true", followUpCommand.getTerms());
+        assertTrue("Expected newsletter to be set to true", followUpCommand.getNewsletter());
+    }
+
     public void testOnBindAndValidate() {
         _command.setUser(_user);
         _command.setTerms(true);

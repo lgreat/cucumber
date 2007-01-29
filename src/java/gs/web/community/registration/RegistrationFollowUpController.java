@@ -92,8 +92,9 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         String marker = request.getParameter("marker");
         fupCommand.setRecontact(request.getParameter("recontactStr"));
         if (request.getParameter("termsStr") != null) {
-            fupCommand.setTerms("y".equals(request.getParameter("termsStr")));
+            fupCommand.setTerms("y".equals(request.getParameter(RegistrationController.TERMS_PARAMETER)));
         }
+        fupCommand.setNewsletter("y".equals(request.getParameter(RegistrationController.NEWSLETTER_PARAMETER)));
         if (userId != null) {
 
             User user = _userDao.findUserFromId(Integer.parseInt(userId));
