@@ -41,6 +41,7 @@ public class RegistrationController extends SimpleFormController implements Read
     private String _completeView;
     private AuthenticationManager _authenticationManager;
     public static final String NEWSLETTER_PARAMETER = "newsletterStr";
+    public static final String TERMS_PARAMETER = "termsStr";
 
     //set up defaults if none supplied
     protected void onBindOnNewForm(HttpServletRequest request,
@@ -76,7 +77,7 @@ public class RegistrationController extends SimpleFormController implements Read
     public void onBind(HttpServletRequest request, Object command) {
         UserCommand userCommand = (UserCommand) command;
         userCommand.setCity(request.getParameter("city"));
-        String terms = request.getParameter("termsStr");
+        String terms = request.getParameter(TERMS_PARAMETER);
         if (terms != null) {
             userCommand.setTerms(terms.equals("y"));
         }

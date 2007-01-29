@@ -198,15 +198,14 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _geoControl.expectAndReturn(_geoDao.findCitiesByState(State.CA), new ArrayList(), 2);
         _geoControl.replay();
 
-        getRequest().addParameter("city", "San Francisco");
-        getRequest().addParameter("termsStr", "n");
+        getRequest().setParameter("city", "San Francisco");
+        getRequest().setParameter(RegistrationController.TERMS_PARAMETER, "n");
         getRequest().setParameter(RegistrationController.NEWSLETTER_PARAMETER, "n");
         _controller.onBind(getRequest(), userCommand);
         assertFalse(userCommand.getTerms());
         assertFalse("Expected newsletter to be set to false", userCommand.getNewsletter());
 
-        getRequest().removeParameter("termsStr");
-        getRequest().addParameter("termsStr", "y");
+        getRequest().setParameter(RegistrationController.TERMS_PARAMETER, "y");
         getRequest().setParameter(RegistrationController.NEWSLETTER_PARAMETER, "y");
         _controller.onBind(getRequest(), userCommand);
         assertTrue(userCommand.getTerms());
