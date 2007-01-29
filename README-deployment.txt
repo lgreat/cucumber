@@ -60,7 +60,8 @@ Setup:
 a) Do step 2.
 b) Then in IDEA right click on gs-web -> module settings -> paths and change Output path
 to that path of your source tree such as C:\java\greatschools\GSWeb\src\webapp\WEB-INF\classes .
-c) Edit $TOMCAT_HOME\conf\server.xml and add the following modified for your source
+c) go to gs-web -> module settings -> Java EE Build Settings and un-check "Create web module exploded directory"
+d) Edit $TOMCAT_HOME\conf\server.xml and add the following modified for your source
 path one line above the </Host> tag:
 <Context path="/gs-web" docBase="c:/java/greatschools/GSWeb/src/webapp" reloadable="true">
 </Context>
