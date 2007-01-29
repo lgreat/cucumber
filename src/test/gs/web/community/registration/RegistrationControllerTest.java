@@ -1,7 +1,6 @@
 package gs.web.community.registration;
 
-import gs.data.community.IUserDao;
-import gs.data.community.User;
+import gs.data.community.*;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.data.util.email.MockJavaMailSender;
@@ -28,6 +27,8 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     private MockJavaMailSender _mailSender;
 
     private static final String SUCCESS_VIEW = "/community/registration/registrationSuccess";
+    private MockControl _subscriptionDaoMock;
+    private ISubscriptionDao _subscriptionDao;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -41,9 +42,13 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _geoDao = (IGeoDao) _geoControl.getMock();
         _userControl = MockControl.createControl(IUserDao.class);
         _userDao = (IUserDao) _userControl.getMock();
+        _subscriptionDaoMock = MockControl.createControl(ISubscriptionDao.class);
+        _subscriptionDao = (ISubscriptionDao) _subscriptionDaoMock.getMock();
+
         _controller.setGeoDao(_geoDao);
         _controller.setUserDao(_userDao);
         _controller.setSuccessView(SUCCESS_VIEW);
+        _controller.setSubscriptionDao(_subscriptionDao);
 
         RegistrationConfirmationEmail email = (RegistrationConfirmationEmail)
                 getApplicationContext().getBean(RegistrationConfirmationEmail.BEAN_ID);
@@ -82,6 +87,59 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 
         assertEquals("Not getting expected success view",
                 SUCCESS_VIEW, mAndV.getViewName());
+    }
+
+    public void testRegistrationSubscribesToCommunityNewsletter() throws Exception {
+        UserCommand userCommand = new UserCommand();
+        userCommand.setEmail("a");
+        userCommand.getUser().setId(new Integer(345)); // to fake the database save
+        userCommand.setPassword("test");
+        userCommand.setNumSchoolChildren(new Integer(0));
+
+        Subscription newsletterSubscription = new Subscription();
+        newsletterSubscription.setUser(userCommand.getUser());
+        newsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
+
+        _subscriptionDao.saveSubscription(newsletterSubscription);
+        _subscriptionDaoMock.replay();
+
+        // user dao behavior is validated elsewhere
+        setUpNiceUserDao();
+
+        userCommand.setNewsletter(true);
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, null);
+
+        _subscriptionDaoMock.verify();
+    }
+
+    public void testRegistrationDoesNotSubscribeToCommunityNewsletter() throws Exception {
+        UserCommand userCommand = new UserCommand();
+        userCommand.setEmail("a");
+        userCommand.getUser().setId(new Integer(345)); // to fake the database save
+        userCommand.setPassword("test");
+        userCommand.setNumSchoolChildren(new Integer(0));
+
+        Subscription newsletterSubscription = new Subscription();
+        newsletterSubscription.setUser(userCommand.getUser());
+        newsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
+
+        // no calls expected
+        _subscriptionDaoMock.replay();
+
+        // user dao behavior is validated elsewhere
+        setUpNiceUserDao();
+
+        userCommand.setNewsletter(false);
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, null);
+
+        _subscriptionDaoMock.verify();
+    }
+
+    private void setUpNiceUserDao() {
+        _userControl = MockControl.createNiceControl(IUserDao.class);
+        _userDao = (IUserDao) _userControl.getMock();
+        _controller.setUserDao(_userDao);
+        _userControl.replay();
     }
 
     /**

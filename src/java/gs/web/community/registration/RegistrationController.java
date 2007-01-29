@@ -1,8 +1,6 @@
 package gs.web.community.registration;
 
-import gs.data.community.IUserDao;
-import gs.data.community.User;
-import gs.data.community.UserProfile;
+import gs.data.community.*;
 import gs.data.util.DigestUtil;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
@@ -35,6 +33,7 @@ public class RegistrationController extends SimpleFormController implements Read
 
     private IUserDao _userDao;
     private IGeoDao _geoDao;
+    private ISubscriptionDao _subscriptionDao;
     private JavaMailSender _mailSender;
     private RegistrationConfirmationEmail _registrationConfirmationEmail;
     private boolean _requireEmailValidation = true;
@@ -196,6 +195,13 @@ public class RegistrationController extends SimpleFormController implements Read
 
         ModelAndView mAndV = new ModelAndView();
 
+        if (userCommand.getNewsletter()) {
+            Subscription communityNewsletterSubscription = new Subscription();
+            communityNewsletterSubscription.setUser(user);
+            communityNewsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
+            _subscriptionDao.saveSubscription(communityNewsletterSubscription);
+        }
+
         if (request.getParameter("join") == null) {
             mAndV.setViewName(getSuccessView());
             String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
@@ -264,4 +270,9 @@ public class RegistrationController extends SimpleFormController implements Read
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         _authenticationManager = authenticationManager;
     }
+
+    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
+        _subscriptionDao = subscriptionDao;
+    }
+
 }
