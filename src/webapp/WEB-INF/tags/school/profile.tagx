@@ -192,7 +192,39 @@
                             </c:if>
                             <br style="clear:both;"/>
                             <jsp:doBody/>
+                            <br style="clear:both;"/>
 
+                            <!-- breadcrumb start -->
+                                <c:set var="delimiter" value="&amp;gt;"/>
+                                <c:set var="hasDistrict" value="0"/>
+
+                                <div class="breadcrumb">
+                                    <c:if test="${tab ne 'overview'}"><span class="hr">&amp;nbsp;</span></c:if>
+                                    <h2>
+                                        <link:research state="${state}">${state.longName} schools</link:research>
+                                        ${delimiter} <link:city city="${city}" state="${state}">${city} schools</link:city>
+                                        <c:if test="${school.districtId != 0}">
+                                            ${delimiter}
+                                            <link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name} schools</link:allSchoolsInDistrict>
+                                            ${delimiter}<br/>
+                                            <c:set var="hasDistrict" value="1"/>
+                                        </c:if>
+
+                                        <c:if test="${hasDistrict eq 0}">
+                                            ${delimiter}
+                                        </c:if>
+
+                                        <c:choose>
+                                            <c:when test="${tab eq 'overview'}">
+                                                <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>
+                                            </c:when>
+                                            <c:when test="${tab eq 'ratings'}">
+                                                <link:schoolProfileRating school="${school}">${school.name}</link:schoolProfileRating>
+                                            </c:when>
+                                        </c:choose>
+                                    </h2>
+                                </div>
+                            <!-- breadcrumb end -->                            
                         </div>
                         <br style="clear:both;"/>
                     </div>

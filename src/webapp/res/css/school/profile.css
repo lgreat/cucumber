@@ -148,3 +148,20 @@
 #schoolProfile #printEmail a:hover {
     color: #000;
 }
+
+#schoolProfile .breadcrumb {
+    color: #3399aa;
+    font-size: 12px;
+    font-weight: normal;
+    padding:0 10px 0 16px;
+}
+
+#schoolProfile .breadcrumb a {
+    color: #3399aa;
+    text-decoration: underline;
+}
+
+#schoolProfile .breadcrumb .hr {
+    display: block;
+    border-top: 1px solid #ccc;
+}

@@ -1,14 +1,14 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.28 2006/12/20 18:39:58 thuss Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.29 2007/01/30 01:10:29 dlee Exp $
  */
 
 package gs.web.jsp.link;
 
 import gs.data.content.Article;
 import gs.data.geo.City;
-import gs.data.school.LevelCode;
 import gs.data.school.Grade;
+import gs.data.school.LevelCode;
 import gs.data.state.State;
 import gs.web.BaseTestCase;
 import gs.web.jsp.MockJspWriter;
@@ -369,6 +369,14 @@ public class LinkTagHandlerTest extends BaseTestCase {
         assertEquals("/community/changeEmail.page", builder.asSiteRelative(null));
     }
 
+    public void testAllSchoolsInDistrict() {
+        DistrictsAllSchoolsTagHandler tagHandler = new DistrictsAllSchoolsTagHandler();
+        tagHandler.setDistrictId(new Integer(1));
+        tagHandler.setPageContext(new MockPageContext());
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/schools.page?district=1&state=CA", builder.asSiteRelative(null));
+    }
+
     public void testGradeSelector() throws IOException {
         PageContext pc = new MockPageContext();
         MockJspWriter out = (MockJspWriter) pc.getOut();
@@ -410,6 +418,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         assertTrue(results.indexOf("<option value=\"10\" selected=\"selected\">10</option>") > -1);
         assertTrue(results.indexOf("<option value=\"KG\">K</option>") > -1);
     }
+
 
 
 }
