@@ -159,13 +159,6 @@ div.articleBox div.seeAll {
     margin-left: 148px;
 }
 
-/*
-div.articleBox div.seeAll {
-    float: right;
-    margin-right: 19px;
-}
-*/
-
 div.articleBox div.introText {
     white-space: nowrap;
 }
