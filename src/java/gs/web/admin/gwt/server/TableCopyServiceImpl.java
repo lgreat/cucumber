@@ -52,6 +52,8 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     }
 
     public TableData getTables(TableData.DatabaseDirection direction) {
+        _log.info("Retrieving tables");
+        long start = System.currentTimeMillis();
 //        return populateTestData();
         TableData databases = new TableData();
         databases.setDirection(direction);
@@ -64,6 +66,8 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             String table = (String) result.get(TABLE_COLUMN);
             databases.addDatabaseAndTable(database, table);
         }
+        long stop = System.currentTimeMillis();
+        _log.info("Took " + (stop-start) + " milliseconds to retrieve tables");
         return databases;
     }
 
