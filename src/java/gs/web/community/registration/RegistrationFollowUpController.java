@@ -324,6 +324,12 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 user.addStudent(student);
             }
         }
+        if (fupCommand.getNewsletter()) {
+            Subscription subscription = new Subscription();
+            subscription.setUser(user);
+            subscription.setProduct(SubscriptionProduct.COMMUNITY);
+            fupCommand.addSubscription(subscription);
+        }
         saveSubscriptionsForUser(fupCommand, user);
         // save
         if (user.isEmailProvisional()) {

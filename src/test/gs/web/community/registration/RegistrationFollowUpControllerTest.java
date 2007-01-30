@@ -11,6 +11,7 @@ import gs.data.util.email.MockJavaMailSender;
 import gs.data.geo.IGeoDao;
 import gs.web.BaseControllerTestCase;
 import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
 import org.easymock.MockControl;
 import org.easymock.AbstractMatcher;
 
@@ -141,6 +142,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
     public void testRecontact() throws NoSuchAlgorithmException {
         _command.setRecontact("y");
         _command.setUser(_user);
+        _command.setNewsletter(false);
 
         Student student = new Student();
         student.setSchoolId(new Integer(1));
@@ -200,6 +202,8 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         Student student = new Student();
         _command.addStudent(student);
         assertNull(_user.getStudents());
+        _command.setNewsletter(false);
+
 
         _userControl.reset(); // negate default settings from setupBindings
         _userDao.updateUser(_user);
@@ -269,6 +273,62 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         assertFalse(_errors.toString(), _errors.hasErrors());
         assertEquals(1, _command.getSchoolNames().size());
         assertEquals("School", _command.getSchoolNames().get(0).toString());
+    }
+
+    public void testRegistrationSubscribesToCommunityNewsletter() throws Exception {
+        FollowUpCommand followUpCommand = new FollowUpCommand();
+        followUpCommand.getUser().setId(new Integer(345)); // to fake the database save
+        followUpCommand.getUser().setEmail("a");
+        UserProfile userProfile = new UserProfile();
+        userProfile.setNumSchoolChildren(Integer.valueOf("0"));
+        followUpCommand.getUser().setUserProfile(userProfile);
+
+        Subscription newsletterSubscription = new Subscription();
+        newsletterSubscription.setUser(followUpCommand.getUser());
+        newsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
+
+        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.PARENT_CONTACT), null);
+        _subscriptionDao.saveSubscription(newsletterSubscription);
+        _subscriptionControl.replay();
+
+        // user dao behavior is validated elsewhere
+        setUpNiceUserDao();
+
+        followUpCommand.setNewsletter(true);
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), followUpCommand, null);
+
+        _subscriptionControl.verify();
+    }
+
+    public void testRegistrationDoesNotSubscribeToCommunityNewsletter() throws Exception {
+        FollowUpCommand followUpCommand = new FollowUpCommand();
+        followUpCommand.getUser().setId(new Integer(345)); // to fake the database save
+        followUpCommand.getUser().setEmail("a");
+        UserProfile userProfile = new UserProfile();
+        userProfile.setNumSchoolChildren(Integer.valueOf("0"));
+        followUpCommand.getUser().setUserProfile(userProfile);
+        Subscription newsletterSubscription = new Subscription();
+        newsletterSubscription.setUser(followUpCommand.getUser());
+        newsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
+
+        // no call to saveSubscription expected
+        _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.PARENT_CONTACT), null);
+        _subscriptionControl.replay();
+
+        // user dao behavior is validated elsewhere
+        setUpNiceUserDao();
+
+        followUpCommand.setNewsletter(false);
+        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), followUpCommand, null);
+
+        _subscriptionControl.verify();
+    }
+
+    private void setUpNiceUserDao() {
+        _userControl = MockControl.createNiceControl(IUserDao.class);
+        _userDao = (IUserDao) _userControl.getMock();
+        _controller.setUserDao(_userDao);
+        _userControl.replay();
     }
 
     private class SubscriptionMatcher extends AbstractMatcher {
