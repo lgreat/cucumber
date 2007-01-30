@@ -23,6 +23,7 @@ public class ArticleForumLinkTagHandler extends BaseTagHandler {
     private Integer _articleId;
     private String _styleClass;
     private String _target;
+    private String _wrappingElement;
 
     public Integer getArticleId() {
         return _articleId;
@@ -48,6 +49,14 @@ public class ArticleForumLinkTagHandler extends BaseTagHandler {
         _target = target;
     }
 
+    public String getWrappingElement() {
+        return _wrappingElement;
+    }
+
+    public void setWrappingElement(String wrappingElement) {
+        _wrappingElement = wrappingElement;
+    }
+
     public void doTag() throws IOException {
         if (_articleId == null) {
             _log.warn("Called with no article id");
@@ -55,12 +64,23 @@ public class ArticleForumLinkTagHandler extends BaseTagHandler {
         }
         Article article = getArticleDao().getArticleFromId(_articleId);
 
-        if (article == null || StringUtils.isEmpty(article.getForumUrl())) {
+        if (article == null) {
             _log.warn("Cannot find article with id=" + _articleId);
+            return; // early exit
+        } else if (!article.isActive()) {
+            _log.warn("Inactive article with id=" + _articleId);
+            return; // early exit
+        } else if (StringUtils.isEmpty(article.getForumUrl())) {
+            _log.warn("No forum_url found for article with id=" + _articleId);
             return; // early exit
         }
 
         JspWriter out = getJspContext().getOut();
+
+        if (StringUtils.isNotEmpty(_wrappingElement)) {
+            out.print("<" + _wrappingElement + ">");
+        }
+
         out.print("<a");
 
         if (StringUtils.isNotEmpty(_styleClass)) {
@@ -90,6 +110,10 @@ public class ArticleForumLinkTagHandler extends BaseTagHandler {
         }
 
         out.print("</a>");
+
+        if (StringUtils.isNotEmpty(_wrappingElement)) {
+            out.print("</" + _wrappingElement + ">");
+        }
     }
 
     /** For testing class */

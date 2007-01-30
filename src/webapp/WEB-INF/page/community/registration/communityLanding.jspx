@@ -162,41 +162,17 @@
           <gsml:img src="/res/img/community/registration/th_hot-topics.jpg" styleClass="articlebox_th"
                     alt="Photo of two parents in discussion" />
           <div class="hotTopicsBox articleBox">
-              <table width="274" cellpadding="0" cellspacing="0" border="0">
-                  <tr>
-                      <td colspan="2" style="padding-bottom: 15px; padding-right: 15px;">
-                          What's important in your family<br/>and school?
-                      </td>
-                  </tr>
-                  <tr>
-                      <td valign="top" class="yellowArrow">
-                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                      </td>
-                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="614">Help! My child won't listen</gsweb:articleForumLink></td>
-                  </tr>
-                  <tr>
-                      <td valign="top" class="yellowArrow">
-                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                      </td>
-                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="513">Whose science project is it, anyway?</gsweb:articleForumLink></td>
-                  </tr>
-                  <tr>
-                      <td valign="top" class="yellowArrow">
-                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                      </td>
-                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="215">Bullying</gsweb:articleForumLink></td>
-                  </tr>
-                  <tr>
-                      <td colspan="2" align="right">
-                          <!-- http://community.greatschools.net/.598f033b/ -->
-                          <gsml:a href="http://community.greatschools.net/.598f033b">See all discussions &gt;</gsml:a>
-                      </td>
-                  </tr>
-              </table>
+              <div class="introText">What's important in your family<br/>and school?</div>
+              <div class="seeAll"><gsml:a href="http://community.greatschools.net/.598f033b">See all discussions &gt;</gsml:a></div>
+              <ul class="articleList">
+                  <gsweb:articleForumLink articleId="614" wrappingElement="li">Help! My child won't listen</gsweb:articleForumLink>
+                  <gsweb:articleForumLink articleId="513" wrappingElement="li">Whose science project is it, anyway?</gsweb:articleForumLink>
+                  <gsweb:articleForumLink articleId="215" wrappingElement="li">Bullying</gsweb:articleForumLink>
+              </ul>
           </div>
       </td>
       <td><img style="width: 6px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-      <!-- Choosing a School Box -->
+      <!-- School Choice Tips Box -->
       <td valign="top">
           <div class="middleTitle2">
               <gsml:img src="/res/img/community/registration/t_choosingSchool.gif" alt="School Choice Tips"/>
@@ -204,31 +180,12 @@
           <gsml:img src="/res/img/community/registration/th_choosing-a-school.jpg" styleClass="articlebox_th"
                     alt="Photo of children raising hands in a classroom" />
           <div class="choosingSchoolBox articleBox">
-              <table width="264" cellpadding="0" cellspacing="0" border="0">
-                  <tr>
-                      <td colspan="2" style="padding-bottom: 15px;">
-                          Ask questions and share tips during<br/>your search for the right K-12 school.
-                      </td>
-                  </tr>
-                  <tr>
-                      <td valign="top" class="yellowArrow">
-                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                      </td>
-                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="197">Private vs. public</gsweb:articleForumLink></td>
-                  </tr>
-                  <tr>
-                      <td valign="top" class="yellowArrow">
-                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                      </td>
-                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="96">Finding the right fit</gsweb:articleForumLink></td>
-                  </tr>
-                  <tr>
-                      <td valign="top" class="yellowArrow">
-                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                      </td>
-                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="487">7 things to know about charter schools</gsweb:articleForumLink></td>
-                  </tr>
-              </table>
+              <div class="introText">Ask questions and share tips during<br/>your search for the right K-12 school.</div>
+              <ul class="articleList">
+                  <gsweb:articleForumLink articleId="197" wrappingElement="li">Private vs. public</gsweb:articleForumLink>
+                  <gsweb:articleForumLink articleId="96" wrappingElement="li">Finding the right fit</gsweb:articleForumLink>
+                  <gsweb:articleForumLink articleId="487" wrappingElement="li">7 things to know about charter schools</gsweb:articleForumLink>
+              </ul>
           </div></td>
       </tr>
 
@@ -245,31 +202,12 @@
           <gsml:img src="/res/img/community/registration/th_K-5-Academic-Success.jpg" styleClass="articlebox_th"
                     alt="Photo of elementary aged girl writing at desk" />
           <div class="Successk5Box articleBox">
-              <table width="264" cellpadding="0" cellspacing="0" border="0">
-                  <tr>
-                      <td colspan="2" style="padding-bottom: 15px;">
-                          What's working for your family at<br/>home and in the classroom?
-                      </td>
-                  </tr>
-                  <tr>
-                      <td valign="top" class="yellowArrow">
-                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                      </td>
-                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="44">Reading with your child</gsweb:articleForumLink></td>
-                  </tr>
-                  <tr>
-                      <td valign="top" class="yellowArrow">
-                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                      </td>
-                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="209">Getting excited about math</gsweb:articleForumLink></td>
-                  </tr>
-                  <tr>
-                      <td valign="top" class="yellowArrow">
-                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                      </td>
-                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="160">What's up with all these tests?</gsweb:articleForumLink></td>
-                  </tr>
-              </table>
+              <div class="introText">What's working for your family at<br/>home and in the classroom?</div>
+              <ul class="articleList">
+                  <gsweb:articleForumLink articleId="44" wrappingElement="li">Reading with your child</gsweb:articleForumLink>
+                  <gsweb:articleForumLink articleId="209" wrappingElement="li">Getting excited about math</gsweb:articleForumLink>
+                  <gsweb:articleForumLink articleId="160" wrappingElement="li">What's up with all these tests?</gsweb:articleForumLink>
+              </ul>
           </div>
       </td>
       <td><img style="width: 6px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
@@ -281,31 +219,12 @@
           <gsml:img src="/res/img/community/registration/th_6-12-Academic-Success.jpg" styleClass="articlebox_th"
                     alt="Photo of high school aged boy" />          
           <div class="Success612Box articleBox">
-              <table width="264" cellpadding="0" cellspacing="0" border="0">
-                  <tr>
-                      <td colspan="2" style="padding-bottom: 15px;">
-                          What's on your mind about how to<br/>help your child?
-                      </td>
-                  </tr>
-                  <tr>
-                      <td valign="top" class="yellowArrow">
-                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                      </td>
-                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="325">Tweens &amp; teens: how to stay involved</gsweb:articleForumLink></td>
-                  </tr>
-                  <tr>
-                      <td valign="top" class="yellowArrow">
-                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                      </td>
-                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="752">Why is algebra a big deal?</gsweb:articleForumLink></td>
-                  </tr>
-                  <tr>
-                      <td valign="top" class="yellowArrow">
-                          <img style="width: 22px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                      </td>
-                      <td valign="top" class="articleCell"><gsweb:articleForumLink articleId="700">Study skills for middle school</gsweb:articleForumLink></td>
-                  </tr>
-              </table>
+              <div class="introText">What's on your mind about how to<br/>help your child?</div>
+              <ul class="articleList">
+                  <gsweb:articleForumLink articleId="325" wrappingElement="li">Tweens &amp; teens: how to stay involved</gsweb:articleForumLink>
+                  <gsweb:articleForumLink articleId="752" wrappingElement="li">Why is algebra a big deal?</gsweb:articleForumLink>
+                  <gsweb:articleForumLink articleId="700" wrappingElement="li">Study skills for middle school</gsweb:articleForumLink>
+              </ul>
           </div></td>
       </tr>
 

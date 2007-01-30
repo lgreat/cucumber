@@ -45,6 +45,7 @@ public class ArticleForumLinkTagHandlerTest extends BaseTestCase {
         article.setId(new Integer(1));
         article.setForumUrl("http://forum");
         article.setTitle("title");
+        article.setActive(true);
 
         _articleControl.expectAndReturn(_articleDao.getArticleFromId(new Integer(1)), article);
         _articleControl.replay();
@@ -64,6 +65,7 @@ public class ArticleForumLinkTagHandlerTest extends BaseTestCase {
         article.setId(new Integer(1));
         article.setForumUrl("http://forum");
         article.setTitle("title");
+        article.setActive(true);
 
         _articleControl.expectAndReturn(_articleDao.getArticleFromId(new Integer(1)), article);
         _articleControl.replay();
@@ -79,4 +81,52 @@ public class ArticleForumLinkTagHandlerTest extends BaseTestCase {
         _tagHandler.doTag();
         assertEquals("", _out.getOutputBuffer().toString());
     }
+
+    public void testMissingArticleId() throws IOException {
+        _tagHandler.setArticleId(new Integer(15));
+
+        _articleControl.expectAndReturn(_articleDao.getArticleFromId(new Integer(15)), null);
+        _articleControl.replay();
+
+        _tagHandler.doTag();
+        _articleControl.verify();
+        
+        assertEquals("", _out.getOutputBuffer().toString());
+    }
+
+    public void testMissingForumUrl() throws IOException {
+        _tagHandler.setArticleId(new Integer(16));
+
+        Article article = new Article();
+        article.setId(new Integer(16));
+        article.setTitle("title");
+        article.setActive(true);
+
+        _articleControl.expectAndReturn(_articleDao.getArticleFromId(new Integer(16)), article);
+        _articleControl.replay();
+
+        _tagHandler.doTag();
+        _articleControl.verify();
+
+        assertEquals("", _out.getOutputBuffer().toString());
+    }
+
+    public void testInactiveArticle() throws IOException {
+        _tagHandler.setArticleId(new Integer(17));
+
+        Article article = new Article();
+        article.setId(new Integer(17));
+        article.setForumUrl("http://forum");
+        article.setActive(false);
+        article.setTitle("title");
+
+        _articleControl.expectAndReturn(_articleDao.getArticleFromId(new Integer(17)), article);
+        _articleControl.replay();
+
+        _tagHandler.doTag();
+        _articleControl.verify();
+
+        assertEquals("", _out.getOutputBuffer().toString());
+    }
+
 }

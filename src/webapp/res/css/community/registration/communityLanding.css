@@ -26,12 +26,17 @@
 	height: 43px;
 }
 
-div.articleBox table tr td a:link,
-div.articleBox table tr td a:visited,
-div.articleBox table tr td a:hover,
-div.articleBox table tr td a:active {
+div.articleBox div.seeAll a:link,
+div.articleBox div.seeAll a:visited,
+div.articleBox div.seeAll a:hover,
+div.articleBox div.seeAll a:active,
+div.articleBox ul li a:link,
+div.articleBox ul li a:visited,
+div.articleBox ul li a:hover,
+div.articleBox ul li a:active {
     font-family: "Trebuchet MS", Arial, sans-serif;
     font-size: 13px;
+    font-weight: bold;
     line-height: 15px;
     color: #3399AA;
     text-decoration: underline;
@@ -148,10 +153,32 @@ Styles for adding thumbnail images to the article boxes
     border-left: 1px solid white;
 }
 
-/* adjusts the article box text (table) to wrap next to the image */
+div.articleBox div.seeAll {
+    position: absolute;
+    margin-top: 81px;
+    margin-left: 148px;
+}
 
-.articleBox table {
-	margin: -15px 0 0 0;
+/*
+div.articleBox div.seeAll {
+    float: right;
+    margin-right: 19px;
+}
+*/
+
+div.articleBox div.introText {
+    white-space: nowrap;
+}
+
+div.articleBox ul.articleList {
+    margin-top: 15px;
+}
+
+div.articleBox ul.articleList li {
+    list-style: circle url("../../../img/content/research/yellow_arrow.gif");
+    line-height: 0;
+    margin-left: 22px;
+    padding-bottom: 7px;
 }
 
 /* adjusted to minimize the padding below the article box table, so whitespace reflects the mockup */
@@ -159,13 +186,13 @@ Styles for adding thumbnail images to the article boxes
 div.articleBox {
     border: 2px solid #66CCCC;
     border-top: 0;
-    padding: 24px 11px 0 15px;
+    padding: 9px 11px 0 15px;
     font-family: "Trebuchet MS", Arial, sans-serif;
  	font-size: 13px;
     font-weight: bold;
     line-height: 17px;
     color: #777777;
     width: 293px;
-    height: 140px;
+    height: 155px;
     letter-spacing: 0;
-}*/
+}
