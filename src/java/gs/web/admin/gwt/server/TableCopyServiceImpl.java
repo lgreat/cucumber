@@ -73,6 +73,8 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
 
     public String copyTables(TableData.DatabaseDirection direction, String[] tableList) throws ServiceException {
 //        return "success!";
+        _log.info("Copying tables");
+        long start = System.currentTimeMillis();
         String copyCommand = generateCopyCommand(direction, Arrays.asList(tableList));
         String copyOutput = null;
         try {
@@ -87,6 +89,8 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             ServiceException exception = new ServiceException("Error copying tables: " + errorText);
             throw exception;
         }
+        long stop = System.currentTimeMillis();
+        _log.info("Took " + (stop - start) + " milliseconds to copy tables");
         return generateWikiText(direction, Arrays.asList(tableList));
     }
 
