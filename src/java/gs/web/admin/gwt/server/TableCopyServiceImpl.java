@@ -79,6 +79,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         String copyOutput = null;
         try {
             copyOutput = executeCopyCommand(copyCommand);
+            _log.info("Copy command output: " + copyOutput);
         } catch (IOException e) {
             _log.error("Error executing dumpcopy: " + e.getMessage());
             throw new ServiceException("Error copying tables: " + e.getMessage());
