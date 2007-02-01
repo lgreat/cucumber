@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.24 2007/01/02 18:16:47 cpickslay Exp $
+ * $Id: PageHelperSaTest.java,v 1.25 2007/02/01 23:59:04 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -454,7 +454,7 @@ public class PageHelperSaTest extends TestCase {
         mockSessionContextUtil.replay();
 
         PageHelper pageHelper = new PageHelper(_sessionContext, _request);
-        pageHelper.setPathwayCookie(_request, _response, "SEASONAL");
+        pageHelper.setPathway(_request, _response, "SEASONAL");
 
         mockSessionContextUtil.verify();
         mockSessionContextUtil.reset();

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.33 2007/01/02 18:15:34 cpickslay Exp $
+ * $Id: PageHelper.java,v 1.34 2007/02/01 23:59:04 chriskimm Exp $
  */
 
 package gs.web.util;
@@ -374,7 +374,7 @@ public class PageHelper {
         util.changeUser(context, response, user);
     }
 
-    public static void setPathwayCookie(HttpServletRequest request, HttpServletResponse response, String pathway) {
+    public static void setPathway(HttpServletRequest request, HttpServletResponse response, String pathway) {
         SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(request);
         SessionContextUtil util = context.getSessionContextUtil();
         util.changePathway(context, response, (String) pageIds.get(pathway));

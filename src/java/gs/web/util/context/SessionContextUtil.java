@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.11 2007/01/13 00:02:19 cpickslay Exp $
+ * $Id: SessionContextUtil.java,v 1.12 2007/02/01 23:59:04 chriskimm Exp $
  */
 
 package gs.web.util.context;
@@ -75,7 +75,6 @@ public class SessionContextUtil implements ApplicationContextAware {
     private UrlUtil _urlUtil = new UrlUtil();
 
     private CookieGenerator _stateCookieGenerator;
-    private CookieGenerator _pathwayCookieGenerator;
     private CookieGenerator _memberIdCookieGenerator;
     private CookieGenerator _hasSearchedCookieGenerator;
     private CookieGenerator _sessionCacheCookieGenerator;
@@ -116,11 +115,6 @@ public class SessionContextUtil implements ApplicationContextAware {
                         mslId = Integer.parseInt(id);
                     } catch (NumberFormatException e) {
                         // ignore
-                    }
-                } else if (StringUtils.equals(_pathwayCookieGenerator.getCookieName(), thisCookie.getName())) {
-                    String path = thisCookie.getValue();
-                    if (!path.equals(context.getPathway())) {
-                        context.setPathway(path); // TODO validation
                     }
                 } else if (StringUtils.equals(_hasSearchedCookieGenerator.getCookieName(), thisCookie.getName())) {
                     if (StringUtils.isNotBlank(thisCookie.getValue())) {
@@ -260,7 +254,6 @@ public class SessionContextUtil implements ApplicationContextAware {
         final String currPathway = context.getPathway();
         if (currPathway == null ||
                 !currPathway.equals(paramPathwayStr)) {
-            _pathwayCookieGenerator.addCookie(response, paramPathwayStr);
             context.setPathway(paramPathwayStr);
         }
     }
@@ -282,10 +275,6 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     public void setStateCookieGenerator(CookieGenerator stateCookieGenerator) {
         _stateCookieGenerator = stateCookieGenerator;
-    }
-
-    public void setPathwayCookieGenerator(CookieGenerator pathwayCookieGenerator) {
-        _pathwayCookieGenerator = pathwayCookieGenerator;
     }
 
     public void setMemberIdCookieGenerator(CookieGenerator memberIdCookieGenerator) {

@@ -41,8 +41,7 @@ public class SessionContextInterceptorTest extends BaseControllerTestCase {
         Cookie[] cookies = new Cookie[]{
                 new Cookie(SessionContextUtil.MEMBER_ID_COOKIE, "1"),
                 new Cookie("HAS_SEARCHED", "1"),
-                new Cookie("STATE", "OR"),
-                new Cookie("PATHWAY", "pathway2")
+                new Cookie("STATE", "OR")
         };
         _request.setCookies(cookies);
         assertTrue(_sci.preHandle(_request, _response, null));
@@ -55,6 +54,5 @@ public class SessionContextInterceptorTest extends BaseControllerTestCase {
         assertEquals(new Integer(1), sessionContext.getMemberId());
         assertTrue(sessionContext.getHasSearched());
         assertEquals(State.OR, sessionContext.getState());
-        assertEquals("pathway2", sessionContext.getPathway());
     }
 }

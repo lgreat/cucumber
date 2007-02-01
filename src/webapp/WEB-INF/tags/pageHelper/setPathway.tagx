@@ -6,7 +6,7 @@
     <jsp:directive.tag import="gs.web.util.PageHelper"/>
     <jsp:directive.attribute name="pathway" required="true" />
     <jsp:scriptlet>
-        PageHelper.setPathwayCookie(request, response, pathway);
+        PageHelper.setPathway(request, response, pathway);
     </jsp:scriptlet>
 
 </jsp:root>

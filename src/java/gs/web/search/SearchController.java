@@ -177,9 +177,9 @@ public class SearchController extends AbstractFormController {
 
         // Set the pathway: it's Research & Compare unless it's an article search.
         if (searchCommand.isTopicsOnly()) {
-            PageHelper.setPathwayCookie(request, response, "2");
+            PageHelper.setPathway(request, response, "2");
         } else {
-            PageHelper.setPathwayCookie(request, response, "1");
+            PageHelper.setPathway(request, response, "1");
         }
 
         String viewName;
