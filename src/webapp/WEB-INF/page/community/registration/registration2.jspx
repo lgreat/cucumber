@@ -221,12 +221,12 @@
         <p><label class="termsLabel"><span class="required">*</span>
             <strong>Yes!</strong> Subscribe me to the "Best of GreatSchools Community" newsletter!
             </label></p>
-        <gsml:radio name="newsletterStr" value="y" styleId="yesTerms" styleClass="radio"
+        <gsml:radio name="newsletterStr" value="y" styleId="yesNewsletter" styleClass="radio"
                     checked="${followUpCmd.newsletter eq true}" tabIndex="12"/>
-        <label class="radiolabelTerms">Yes</label>
-        <gsml:radio name="newsletterStr" value="n" styleId="noTerms" styleClass="radio"
+        <label class="radiolabelTerms" for="yesNewsletter">Yes</label>
+        <gsml:radio name="newsletterStr" value="n" styleId="noNewsletter" styleClass="radio"
                     checked="${followUpCmd.newsletter eq false}" tabIndex="13"/>
-        <label class="radiolabelTerms">No</label>
+        <label class="radiolabelTerms" for="noNewsletter">No</label>
     </div>
 
   <p><label class="termsLabel"><span class="required">*</span>
