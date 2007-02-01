@@ -3,14 +3,9 @@
  */
 package gs.web.jsp.link;
 
-import gs.web.jsp.BaseTagHandler;
+import gs.web.content.ArticleLinkTagHandler;
 import gs.data.content.Article;
 import gs.data.content.IArticleDao;
-
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.JspFragment;
-import java.io.IOException;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -19,105 +14,21 @@ import org.apache.commons.lang.StringUtils;
  *
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class ArticleForumLinkTagHandler extends BaseTagHandler {
-    private Integer _articleId;
-    private String _styleClass;
-    private String _target;
-    private String _wrappingElement;
+public class ArticleForumLinkTagHandler extends ArticleLinkTagHandler {
 
-    public Integer getArticleId() {
-        return _articleId;
-    }
-
-    public void setArticleId(Integer articleId) {
-        _articleId = articleId;
-    }
-
-    public String getStyleClass() {
-        return _styleClass;
-    }
-
-    public void setStyleClass(String styleClass) {
-        _styleClass = styleClass;
-    }
-
-    public String getTarget() {
-        return _target;
-    }
-
-    public void setTarget(String target) {
-        _target = target;
-    }
-
-    public String getWrappingElement() {
-        return _wrappingElement;
-    }
-
-    public void setWrappingElement(String wrappingElement) {
-        _wrappingElement = wrappingElement;
-    }
-
-    public void doTag() throws IOException {
-        if (_articleId == null) {
-            _log.warn("Called with no article id");
-            return; // early exit
-        }
-        Article article = getArticleDao().getArticleFromId(_articleId);
-
+    protected Article getAndValidateArticle() {
+        Article article = super.getAndValidateArticle();
         if (article == null) {
-            _log.warn("Cannot find article with id=" + _articleId);
-            return; // early exit
-        } else if (!article.isActive()) {
-            _log.warn("Inactive article with id=" + _articleId);
-            return; // early exit
+            return null;
         } else if (StringUtils.isEmpty(article.getForumUrl())) {
-            _log.warn("No forum_url found for article with id=" + _articleId);
-            return; // early exit
+            _log.warn("Missing forum_url for article with id " + article.getId());
+            return null;
         }
 
-        JspWriter out = getJspContext().getOut();
-
-        if (StringUtils.isNotEmpty(_wrappingElement)) {
-            out.print("<" + _wrappingElement + ">");
-        }
-
-        out.print("<a");
-
-        if (StringUtils.isNotEmpty(_styleClass)) {
-            out.print(" class=\"" + _styleClass + "\"");
-        }
-
-        if (StringUtils.isNotEmpty(_target)) {
-            out.print(" target=\"" + _target + "\"");
-        }
-
-        String href=article.getForumUrl();
-
-        out.print(" href=\"");
-        out.print(href);
-        out.print("\"");
-        out.print(">");
-
-        JspFragment jspBody = getJspBody();
-        if (jspBody != null && StringUtils.isNotEmpty(jspBody.toString())) {
-            try {
-                jspBody.invoke(out);
-            } catch (JspException e) {
-                _log.error(e);
-            }
-        } else {
-            out.print(article.getTitle());
-        }
-
-        out.print("</a>");
-
-        if (StringUtils.isNotEmpty(_wrappingElement)) {
-            out.print("</" + _wrappingElement + ">");
-        }
+        return article;
     }
 
-    /** For testing class */
-    protected IArticleDao getArticleDao() {
-        return super.getArticleDao();
+    public String getHref(Article article) {
+        return article.getForumUrl();
     }
 }

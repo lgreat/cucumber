@@ -1,11 +1,10 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.29 2007/01/02 20:09:17 cpickslay Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.30 2007/02/01 19:24:34 aroy Exp $
  */
 package gs.web.content;
 
 import gs.data.content.Article;
-import gs.data.content.IArticleDao;
 import gs.data.state.State;
 import gs.web.jsp.BaseTagHandler;
 import gs.web.util.UrlBuilder;
@@ -28,6 +27,11 @@ import java.io.IOException;
 public class ArticleLinkTagHandler extends BaseTagHandler {
 
     private static UrlUtil _urlUtil = new UrlUtil();
+
+    /**
+     * CSS class to apply to anchor.
+     */
+    private String _styleClass;
 
     /**
      * The article id to link to. Set either this or the article.
@@ -65,56 +69,40 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         SessionContext sc = getSessionContext();
         State s = sc.getStateOrDefault();
 
-        Article article = _article;
-
-        // If no article object, use the Dao to retrieve the article based on the article id.
-        if (article == null) {
-            IArticleDao articleDao = getArticleDao();
-            article = articleDao.getArticleFromId(_articleId);
-            if (article == null) {
-                _log.warn("Cannot find article with id " + _articleId);
-            }
-        }
+        Article article = getAndValidateArticle();
 
         if (article == null) {
-            return; // NOTE: Early exit!
-        }
-
-        if (!article.isActive()) {
-            _log.warn("Inactive article being called: " + article.getId());
-            return;
-        }
-
-        if (!article.isArticleAvailableInState(s)) {
             return; // NOTE: Early exit!
         }
 
         StringBuffer b = new StringBuffer();
 
         if (StringUtils.isNotEmpty(_wrappingElement)) {
-            b.append("<" + _wrappingElement + ">");
+            b.append("<").append(_wrappingElement).append(">");
         }
 
-        PageContext pageContext = (PageContext) getJspContext().findAttribute(PageContext.PAGECONTEXT);
-        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-
         if (_flaggedIfNew && article.isNew()) {
+            PageContext pageContext = (PageContext) getJspContext().findAttribute(PageContext.PAGECONTEXT);
+            HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+
             String img = article.isSpanish() ? "/res/img/content/nuevo.gif" : "/res/img/content/icon_newarticle.gif";
             img = _urlUtil.buildUrl(img, request);
-            b.append("<img src=\"" + img + "\" alt=\"new\" class=\"newarticle\"/>&nbsp;");
+            b.append("<img src=\"").append(img).append("\" alt=\"new\" class=\"newarticle\"/>&nbsp;");
         }
 
         b.append("<a href=\"");
 
-        UrlBuilder builder = new UrlBuilder(article, s, _featured);
-        String link = builder.toString();
+        String link = getHref(article);
         b.append(link);
 
-        b.append("\" ");
+        b.append("\"");
         if (StringUtils.isNotEmpty(_target)) {
             b.append(" target=\"")
                     .append(_target)
                     .append("\"");
+        }
+        if (StringUtils.isNotEmpty(_styleClass)) {
+            b.append(" class=\"").append(_styleClass).append("\"");
         }
         b.append(">");
 
@@ -127,12 +115,10 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
             try {
                 jspBody.invoke(getJspContext().getOut());
             } catch (JspException e) {
-                String title = article.getTitle().replaceAll("\\$LONGSTATE", s.getLongName());
-                getJspContext().getOut().print(title.replaceAll("&", "&amp;"));
+                getJspContext().getOut().print(formatArticleTitle(article, s));
             }
         } else {
-            String title = article.getTitle().replaceAll("\\$LONGSTATE", s.getLongName());
-            getJspContext().getOut().print(title.replaceAll("&", "&amp;"));
+            getJspContext().getOut().print(formatArticleTitle(article, s));
         }
 
         getJspContext().getOut().print("</a>");
@@ -140,6 +126,48 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         if (StringUtils.isNotEmpty(_wrappingElement)) {
             getJspContext().getOut().print("</" + _wrappingElement + ">");
         }
+    }
+
+    /**
+     * Do a substitution on $LONGSTATE with the State's name, and escape ampersands.
+     * @param article Article to get title from
+     * @param s Current State
+     * @return Formatted article title
+     */
+    protected String formatArticleTitle(Article article, State s) {
+        String title = article.getTitle().replaceAll("\\$LONGSTATE", s.getLongName());
+        return title.replaceAll("&", "&amp;");
+    }
+
+    protected Article getAndValidateArticle() {
+        SessionContext sc = getSessionContext();
+        State s = sc.getStateOrDefault();
+        Article article = _article;
+
+        // If no article object, use the Dao to retrieve the article based on the article id.
+        if (article == null) {
+            article = getArticleDao().getArticleFromId(_articleId);
+        }
+
+        if (article == null) {
+            _log.warn("Cannot find article with id " + _articleId);
+            return null;
+        } else if (!article.isActive()) {
+            _log.warn("Inactive article being called: " + article.getId());
+            return null;
+        } else if (!article.isArticleAvailableInState(s)) {
+            _log.warn("Article not available in State " + s.getLongName() + ": " + article.getId());
+            return null;
+        }
+
+        return article;
+    }
+
+    protected String getHref(Article article) {
+        SessionContext sc = getSessionContext();
+        State s = sc.getStateOrDefault();
+        UrlBuilder builder = new UrlBuilder(article, s, _featured);
+        return builder.toString();
     }
 
     public Article getArticle() {
@@ -188,5 +216,13 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
 
     public void setArticleId(Integer articleId) {
         _articleId = articleId;
+    }
+
+    public String getStyleClass() {
+        return _styleClass;
+    }
+
+    public void setStyleClass(String styleClass) {
+        _styleClass = styleClass;
     }
 }

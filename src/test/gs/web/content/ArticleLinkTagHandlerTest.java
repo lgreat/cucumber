@@ -44,6 +44,6 @@ public class ArticleLinkTagHandlerTest extends TestCase {
 
 
         MockJspWriter writer = (MockJspWriter) _pageContext.getOut();
-        assertEquals("<li><a href=\"/cgi-bin/showarticle/ca/1\" >&amp; is the new !</a></li>", writer.getOutputBuffer().toString());
+        assertEquals("<li><a href=\"/cgi-bin/showarticle/ca/1\">&amp; is the new !</a></li>", writer.getOutputBuffer().toString());
     }
 }

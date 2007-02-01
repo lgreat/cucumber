@@ -4,12 +4,16 @@
 package gs.web.jsp.link;
 
 import gs.web.BaseTestCase;
+import gs.web.util.context.SessionContext;
+import gs.web.util.MockSessionContext;
 import gs.web.jsp.MockPageContext;
 import gs.web.jsp.MockJspWriter;
 import gs.data.content.IArticleDao;
 import gs.data.content.Article;
+import gs.data.state.State;
 import org.easymock.MockControl;
 
+import javax.servlet.jsp.PageContext;
 import java.io.IOException;
 
 /**
@@ -29,9 +33,15 @@ public class ArticleForumLinkTagHandlerTest extends BaseTestCase {
             protected IArticleDao getArticleDao() {
                 return _articleDao;
             }
+            protected SessionContext getSessionContext() {
+                MockSessionContext sc = new MockSessionContext();
+                sc.setState(State.CA);
+                return sc;
+            }
         };
         MockPageContext pageContext = new MockPageContext();
         _tagHandler.setJspContext(pageContext);
+        pageContext.setAttribute(PageContext.PAGECONTEXT, pageContext);
         _out = (MockJspWriter) pageContext.getOut();
         _articleControl = MockControl.createControl(IArticleDao.class);
         _articleDao = (IArticleDao) _articleControl.getMock();
@@ -46,6 +56,7 @@ public class ArticleForumLinkTagHandlerTest extends BaseTestCase {
         article.setForumUrl("http://forum");
         article.setTitle("title");
         article.setActive(true);
+        article.setStatesAsString("CA");
 
         _articleControl.expectAndReturn(_articleDao.getArticleFromId(new Integer(1)), article);
         _articleControl.replay();
@@ -66,6 +77,7 @@ public class ArticleForumLinkTagHandlerTest extends BaseTestCase {
         article.setForumUrl("http://forum");
         article.setTitle("title");
         article.setActive(true);
+        article.setStatesAsString("CA");
 
         _articleControl.expectAndReturn(_articleDao.getArticleFromId(new Integer(1)), article);
         _articleControl.replay();
@@ -73,7 +85,7 @@ public class ArticleForumLinkTagHandlerTest extends BaseTestCase {
         _tagHandler.doTag();
         _articleControl.verify();
 
-        assertEquals("<a class=\"class\" target=\"_blank\" href=\"http://forum\">title</a>",
+        assertEquals("<a href=\"http://forum\" target=\"_blank\" class=\"class\">title</a>",
                 _out.getOutputBuffer().toString());
     }
 
@@ -101,6 +113,7 @@ public class ArticleForumLinkTagHandlerTest extends BaseTestCase {
         article.setId(new Integer(16));
         article.setTitle("title");
         article.setActive(true);
+        article.setStatesAsString("CA");
 
         _articleControl.expectAndReturn(_articleDao.getArticleFromId(new Integer(16)), article);
         _articleControl.replay();
