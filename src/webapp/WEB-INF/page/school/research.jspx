@@ -40,7 +40,7 @@
         <tr>
             <td id="editorPhoto">
                 <div class="lisaDashedBorder">
-                    <div class="lisa">Photo of GreatSchools editor, Lisa Rosenthal</div>
+                    <div class="lisa" title="Photo of GreatSchools editor, Lisa Rosenthal">Photo of GreatSchools editor, Lisa Rosenthal</div>
                 </div>
             </td>
             <td id="editorText">
@@ -82,9 +82,7 @@
                     </li>
                 </ul>
 
-                <div id="lisaSignature">Lisa Rosenthal</div>
-                <!--<span class="printName">Lisa Rosenthal</span><br/>-->
-                <!--<span class="italicTitle">Editor</span>-->
+                <div id="lisaSignature" title="Lisa Rosenthal">Lisa Rosenthal</div>
                 </td>
         </tr>
     </table>
