@@ -210,10 +210,10 @@
           <gsml:radio name="recontactStr" value="y" styleId="yesRecontact"
                       styleClass="radio"
                       checked="${followUpCmd.recontact eq null or followUpCmd.recontact eq 'y'}"/>
-          <label for="yesRecontact" class="radiolabel">Yes</label>
+          <label for="yesRecontact" class="radiolabelTerms">Yes</label>
           <gsml:radio name="recontactStr" value="n" styleId="noRecontact"
                       styleClass="radio" checked="${followUpCmd.recontact eq 'n'}"/>
-          <label for="noRecontact" class="radiolabel">No</label>
+          <label for="noRecontact" class="radiolabelTerms">No</label>
       </div>
   </div>
 

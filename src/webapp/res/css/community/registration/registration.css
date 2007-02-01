@@ -630,7 +630,7 @@ h1 span {
 }
 
 .registration .willingRadio {
-	margin: 54px 0 0 0;
+	margin: 54px 0 0 12px;
 	float: left;
 }
 
@@ -642,7 +642,7 @@ h1 span {
 /* reg_3 Agree to terms? */
 
 #reg_3 .registration .termsLabel {
-	width: 260px;
+	width: 290px;
 	margin: 0 10px 0 3px;
 	font-weight: normal;
 }
