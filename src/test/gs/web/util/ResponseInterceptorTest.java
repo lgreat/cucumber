@@ -66,7 +66,7 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
         Cookie cobrandCookie = findCobrandCookie();
         assertEquals("Unexpected cobrand cookie value", _requestedServer, cobrandCookie.getValue());
         assertEquals("Unexpected cobrand cookie path", "/", cobrandCookie.getPath());
-        assertEquals("Unexpected cobrand cookie age", -1, cobrandCookie.getMaxAge());
+        assertEquals("Unexpected cobrand cookie age", ResponseInterceptor.EXPIRE_AT_END_OF_SESSION, cobrandCookie.getMaxAge());
         assertEquals("Unexpected cobrand cookie domain", "greatschools.net", cobrandCookie.getDomain());
     }
 
@@ -98,7 +98,8 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
         assertTrue("preHandle should always return true", _interceptor.preHandle(_request, _response, null));
 
         Cookie cobrandCookie = findCobrandCookie();
-        assertEquals("Expected age 0 (delete) for cobrand cookie", 0, cobrandCookie.getMaxAge());
+        assertEquals("Unexpected cobrand cookie value", "", cobrandCookie.getValue());
+        assertEquals("Expected age 0 (delete) for cobrand cookie", ResponseInterceptor.EXPIRE_NOW, cobrandCookie.getMaxAge());
     }
 
     public void testCobrandCookieUnSetForFramedCobrand() throws Exception {
@@ -109,7 +110,8 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
         assertTrue("preHandle should always return true", _interceptor.preHandle(_request, _response, null));
 
         Cookie cobrandCookie = findCobrandCookie();
-        assertEquals("Expected age 0 (delete) for cobrand cookie", 0, cobrandCookie.getMaxAge());
+        assertEquals("Unexpected cobrand cookie value", "", cobrandCookie.getValue());
+        assertEquals("Expected age 0 (delete) for cobrand cookie", ResponseInterceptor.EXPIRE_NOW, cobrandCookie.getMaxAge());
     }
 
 
@@ -123,7 +125,7 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
         Cookie cobrandCookie = findCobrandCookie();
         assertEquals("Unexpected cobrand cookie value", _requestedServer, cobrandCookie.getValue());
         assertEquals("Unexpected cobrand cookie path", "/", cobrandCookie.getPath());
-        assertEquals("Unexpected cobrand cookie age", -1, cobrandCookie.getMaxAge());
+        assertEquals("Unexpected cobrand cookie age", ResponseInterceptor.EXPIRE_AT_END_OF_SESSION, cobrandCookie.getMaxAge());
     }
 
     private void setUpSessionContext(boolean isCobranded, boolean isFramed) {

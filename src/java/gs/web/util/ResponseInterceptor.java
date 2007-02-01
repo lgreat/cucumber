@@ -31,6 +31,8 @@ public class ResponseInterceptor implements HandlerInterceptor {
     public static final String HEADER_EXPIRES = "Expires";
 
     private static final Log _log = LogFactory.getLog(ResponseInterceptor.class);
+    public static final int EXPIRE_AT_END_OF_SESSION = -1;
+    public static final int EXPIRE_NOW = 0;
 
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
@@ -58,6 +60,7 @@ public class ResponseInterceptor implements HandlerInterceptor {
                 for (int i = 0; i < cookies.length; i++) {
                     Cookie cookie = cookies[i];
                     if (COBRAND_COOKIE.equals(cookie.getName())) {
+                        cookie.setValue("");
                         cookie.setMaxAge(0);
                         response.addCookie(cookie);
                     }
