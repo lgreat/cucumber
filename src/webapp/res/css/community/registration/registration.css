@@ -500,6 +500,11 @@ h1 span {
     top: 15px;
 }
 
+.registration #newsletter .radio, .registration #newsletter .radiolabelTerms {
+    position: relative;
+    top: 10px;
+}
+
 /* reg_3 child modules */
 
 #reg_3 #content .child input, #reg_3 #content .child select {
