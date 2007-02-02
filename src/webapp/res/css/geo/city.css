@@ -1,13 +1,18 @@
 @import "cityCommon.css";
 
+.cityPage {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color:#555555;
+}
+
 #map, #mapContainer {
     width: 230px;
     height: 210px;
 }
 
 .cityPage h1 {
-    font-size: medium;
-    font-weight: bold;
+    font-size: large;
+    font-weight: normal;
     color: #eb7a31;
 }
 .cityPage h2,
@@ -20,11 +25,11 @@
 }
     .cityPage h2.sectionHead, .cityPage div#cityStats h3 {
         color:#FFFFFF;
-        padding: 4px 0 1px 5px;
+        padding: 2px 0 2px 5px;
         background-color:#66CCCC;
     }
 
-    .cityPage td.recentParentReviews h2 {
+    .cityPage td.recentParentReviews h2, .cityPage div.featuredArticles h2 {
         color:#55BBCC;
     }
 
