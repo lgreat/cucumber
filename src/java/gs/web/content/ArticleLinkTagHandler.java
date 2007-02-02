@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.30 2007/02/01 19:24:34 aroy Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.31 2007/02/02 18:22:29 aroy Exp $
  */
 package gs.web.content;
 
@@ -139,6 +139,10 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         return title.replaceAll("&", "&amp;");
     }
 
+    /**
+     * Returns article if it is valid for this tag, null otherwise.
+     * @return valid article or null
+     */
     protected Article getAndValidateArticle() {
         SessionContext sc = getSessionContext();
         State s = sc.getStateOrDefault();
@@ -163,6 +167,11 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         return article;
     }
 
+    /**
+     * returns a url to the article to be used as the href
+     * @param article
+     * @return url for href
+     */
     protected String getHref(Article article) {
         SessionContext sc = getSessionContext();
         State s = sc.getStateOrDefault();
