@@ -200,53 +200,57 @@
   <!-- end: child module -->
 
   <!-- Yes ... willing to answer questions... -->
-  <div class="willing">
-      <p><label class="willingLabel"><span class="required">*</span><strong>Yes!</strong> I am willing to answer questions from other parents
-          interested in learning
-          more about the schools that my children attend. (GreatSchools won’t reveal my name or email
-          address.)</label></p>
+  <div class="yesno">
+      <label><span class="required">*</span><strong>Yes!</strong>
+          I am willing to answer questions from other parents interested in learning
+          more about the schools that my children attend. (GreatSchools won't reveal my name or email
+          address.)</label>
 
-      <div class="willingRadio">
+      <div class="inputs recontact">
           <gsml:radio name="recontactStr" value="y" styleId="yesRecontact"
-                      styleClass="radio"
                       checked="${followUpCmd.recontact eq null or followUpCmd.recontact eq 'y'}"/>
-          <label for="yesRecontact" class="radiolabelTerms">Yes</label>
+          <label for="yesRecontact">Yes</label>
           <gsml:radio name="recontactStr" value="n" styleId="noRecontact"
-                      styleClass="radio" checked="${followUpCmd.recontact eq 'n'}"/>
-          <label for="noRecontact" class="radiolabelTerms">No</label>
+                      checked="${followUpCmd.recontact eq 'n'}"/>
+          <label for="noRecontact">No</label>
       </div>
   </div>
 
-    <div id="newsletter">
-        <p><label class="termsLabel"><span class="required">*</span>
-            <strong>Yes!</strong> Subscribe me to the "Best of GreatSchools Community" newsletter!
-            </label></p>
-        <gsml:radio name="newsletterStr" value="y" styleId="yesNewsletter" styleClass="radio"
-                    checked="${followUpCmd.newsletter eq true}" tabIndex="12"/>
-        <label class="radiolabelTerms" for="yesNewsletter">Yes</label>
-        <gsml:radio name="newsletterStr" value="n" styleId="noNewsletter" styleClass="radio"
-                    checked="${followUpCmd.newsletter eq false}" tabIndex="13"/>
-        <label class="radiolabelTerms" for="noNewsletter">No</label>
-    </div>
+  <div class="yesno">
+      <label><span class="required">*</span><strong>Yes!</strong>
+          Subscribe me to the "Best of GreatSchools Community" newsletter!
+      </label>
 
-  <p><label class="termsLabel"><span class="required">*</span>
-      I am over 13 years of age and I agree to the
-      <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">Terms of Use</link:termsOfUse>,
-      including the
-      <gsml:popupWindow width="800" height="600" left="50" top="50"
-        title="GreatSchools Community Standards"
-        href="/cgi-bin/static/terms.html/$STATE#communityStandards"
-        tabIndex="17">Community Standards</gsml:popupWindow>
-  </label>
-  </p>
-  <div id="terms">
-      <gsml:radio name="termsStr" value="y" styleId="yesTerms" styleClass="radio"
-                  checked="${followUpCmd.terms eq true}"/>
-      <label for="yesTerms" class="radiolabelTerms">Yes</label>
-      <gsml:radio name="termsStr" value="n" styleId="noTerms" styleClass="radio"
-                  checked="${followUpCmd.terms eq false}"/>
-      <label for="noTerms" class="radiolabelTerms">No</label>
-      <gsml:errorMessage command="followUpCmd" field="terms" useImage="true" styleClass="warning_terms"/>
+      <div class="inputs newsletter">
+          <gsml:radio name="newsletterStr" value="y" styleId="yesNewsletter"
+                      checked="${followUpCmd.newsletter eq true}"/>
+          <label for="yesNewsletter">Yes</label>
+          <gsml:radio name="newsletterStr" value="n" styleId="noNewsletter"
+                      checked="${followUpCmd.newsletter eq false}"/>
+          <label for="noNewsletter">No</label>
+      </div>
+  </div>
+
+  <div class="yesno">
+      <label><span class="required">*</span>
+          I am over 13 years of age and I agree to the
+          <link:termsOfUse title="GreatSchools Terms of Service" target="_blank">Terms of Use</link:termsOfUse>,
+          including the
+          <gsml:popupWindow width="800" height="600" left="50" top="50"
+            title="GreatSchools Community Standards"
+            href="/cgi-bin/static/terms.html/$STATE#communityStandards"
+            tabIndex="17">Community Standards</gsml:popupWindow>
+      </label>
+
+      <div class="inputs termsOfUse">
+          <gsml:radio name="termsStr" value="y" styleId="yesTerms"
+                      checked="${followUpCmd.terms eq true}"/>
+          <label for="yesTerms">Yes</label>
+          <gsml:radio name="termsStr" value="n" styleId="noTerms"
+                      checked="${followUpCmd.terms eq false}"/>
+          <label for="noTerms">No</label>
+          <gsml:errorMessage command="followUpCmd" field="terms" useImage="true"/>
+      </div>
   </div>
 
   <div class="divider">&amp;nbsp;</div>

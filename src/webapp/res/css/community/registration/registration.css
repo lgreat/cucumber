@@ -450,9 +450,9 @@ h1 span {
 /* Agree to terms? */
 
 .registration .terms {
-	width: 260px;
+	width: 240px;
 	margin-left: 3px;
-    margin-right: 6px;
+    margin-right: 26px;
     font-weight: normal;
 }
 
@@ -614,6 +614,74 @@ h1 span {
 	margin: 5px 6px 0 0;
 }
 
+
+#reg_3 div.yesno {
+    width: 540px;
+    float: left;
+    margin: 15px 0 20px 0;
+    _margin: 7px 0 20px 0;
+    font: 13px/16px Trebuchet MS, Helvetica, Arial, Verdana, sans-serif;
+    color: #777777;
+}
+
+#reg_3 div.yesno label {
+    width: 240px;
+    margin: 2px 40px 0 3px;
+    font-weight: normal;
+}
+
+#reg_3 div.yesno div.inputs {
+    float: left;
+    display: block;
+    width: 245px;
+}
+
+#reg_3 div.yesno div.recontact {
+    margin-top: 30px;
+}
+
+#reg_3 div.yesno div.newsletter {
+    margin-top: 8px;
+}
+
+#reg_3 div.yesno div.termsOfUse {
+    margin-top: 13px;
+}
+
+#reg_3 div.yesno div.termsOfUse p {
+    width: 130px;
+    margin: 0 0 0 0;
+    float: right;
+    color: #cc5566;
+    font-size: 11px;
+    line-height: 13px;
+    position: relative;
+    top: -10px;
+}
+#reg_3 div.yesno div.termsOfUse img {
+	float: left;
+	margin: 12px 6px 18px 0;
+}
+
+#reg_3 div.yesno div.inputs input {
+    float: left;
+    width: 13px;
+    margin: 0 6px 0 0;
+    font-weight: normal;
+}
+
+#reg_3 div.yesno div.inputs label {
+    float: left;
+    width: 30px;
+    margin: 2px 9px 0 -2px;
+    font-weight: bold;
+}
+
+#reg_3 div.yesno a {
+    color: #3399aa;
+    text-decoration: underline;
+}
+
 /* Yes ... willing to answer questions */
 
 .willing {
@@ -736,9 +804,9 @@ h1 span {
 
 #alert_box {
     clear: left;
-    width: 160px;
+    width: 165px;
 	_width: 164px; /* for IE 6 */
-    height: 30px;
+    height: 40px;
     padding: 8px 11px 8px 11px;
 	_padding: 5px 9px 6px 9px; /* for IE 6 */
     position: relative;
