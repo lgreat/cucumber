@@ -194,31 +194,37 @@
                             <jsp:doBody/>
                             <br style="clear:both;"/>
 
-                            <!-- breadcrumb start -->
+                            <!-- breadcrumb start no breadcrumb on overview page-->
                                 <c:set var="delimiter" value="&amp;gt;"/>
-                                <c:set var="hasDistrict" value="0"/>
 
                                 <div class="breadcrumb">
                                     <c:if test="${tab ne 'overview'}"><span class="hr">&amp;nbsp;</span></c:if>
                                     <h2>
                                         <link:research state="${state}">${state.longName} schools</link:research>
-                                        ${delimiter} <link:city city="${city}" state="${state}">${city} schools</link:city>
-                                        <c:if test="${school.districtId != 0}">
-                                            ${delimiter}
-                                            <link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name}</link:allSchoolsInDistrict>
-                                            ${delimiter}<br/>
-                                            <c:set var="hasDistrict" value="1"/>
-                                        </c:if>
-
-                                        <c:if test="${hasDistrict eq 0}">
-                                            ${delimiter}
-                                        </c:if>
+                                        ${delimiter}
+                                        <link:city city="${city}" state="${state}">${city} schools</link:city>
 
                                         <c:choose>
+                                            <c:when test="${school.districtId != 0}">
+                                                ${delimiter}
+                                                <link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name}</link:allSchoolsInDistrict>
+                                                <c:choose>
+                                                    <c:when test="${tab eq 'ratings'}">
+                                                        ${delimiter}<br/>
+                                                        <link:schoolProfileRating school="${school}">${school.name}</link:schoolProfileRating>
+                                                    </c:when>
+                                                    <c:when test="${tab eq 'authorizer'}">
+                                                        ${delimiter}<br/>
+                                                        <link:charterSchoolAuthorizer school="${school}">${school.name}</link:charterSchoolAuthorizer>
+                                                    </c:when>
+                                                </c:choose>
+                                            </c:when>
                                             <c:when test="${tab eq 'ratings'}">
+                                                ${delimiter}
                                                 <link:schoolProfileRating school="${school}">${school.name}</link:schoolProfileRating>
                                             </c:when>
                                             <c:when test="${tab eq 'authorizer'}">
+                                                ${delimiter}
                                                 <link:charterSchoolAuthorizer school="${school}">${school.name}</link:charterSchoolAuthorizer>
                                             </c:when>
                                         </c:choose>
