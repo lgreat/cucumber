@@ -78,12 +78,6 @@
                 -->
             </bean>
         </property>
-        <property name="pathwayCookieGenerator">
-            <bean class="org.springframework.web.util.CookieGenerator">
-                <property name="cookieName" value="PATHWAY"/>
-                <property name="cookieMaxAge" value="-1"/>
-            </bean>
-        </property>
         <property name="memberIdCookieGenerator">
             <bean class="org.springframework.web.util.CookieGenerator">
                 <property name="cookieName" value="MEMID"/>
