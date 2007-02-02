@@ -155,7 +155,7 @@ Styles for adding thumbnail images to the article boxes
 
 div.articleBox div.seeAll {
     position: absolute;
-    margin-top: 81px;
+    margin-top: 98px;
     margin-left: 148px;
 }
 
@@ -171,7 +171,7 @@ div.articleBox ul.articleList li {
     list-style: circle url("../../../img/content/research/yellow_arrow.gif");
     line-height: 0;
     margin-left: 22px;
-    padding-bottom: 7px;
+    padding-bottom: 11px;
 }
 
 /* adjusted to minimize the padding below the article box table, so whitespace reflects the mockup */
