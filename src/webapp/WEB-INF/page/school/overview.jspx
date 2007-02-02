@@ -13,6 +13,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
+<pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <html lang="en">
 
 <jsp:output doctype-root-element="html"
