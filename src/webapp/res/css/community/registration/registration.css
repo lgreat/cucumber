@@ -804,9 +804,9 @@ h1 span {
 
 #alert_box {
     clear: left;
-    width: 165px;
-	_width: 164px; /* for IE 6 */
-    height: 40px;
+    width: 175px;
+	_width: 174px; /* for IE 6 */
+    height: 30px;
     padding: 8px 11px 8px 11px;
 	_padding: 5px 9px 6px 9px; /* for IE 6 */
     position: relative;
