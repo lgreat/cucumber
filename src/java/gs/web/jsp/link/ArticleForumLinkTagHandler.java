@@ -5,7 +5,6 @@ package gs.web.jsp.link;
 
 import gs.web.content.ArticleLinkTagHandler;
 import gs.data.content.Article;
-import gs.data.content.IArticleDao;
 
 import org.apache.commons.lang.StringUtils;
 
