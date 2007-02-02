@@ -208,24 +208,13 @@
                                             <c:when test="${school.districtId != 0}">
                                                 ${delimiter}
                                                 <link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name}</link:allSchoolsInDistrict>
-                                                <c:choose>
-                                                    <c:when test="${tab eq 'ratings'}">
-                                                        ${delimiter}<br/>
-                                                        <link:schoolProfileRating school="${school}">${school.name}</link:schoolProfileRating>
-                                                    </c:when>
-                                                    <c:when test="${tab eq 'authorizer'}">
-                                                        ${delimiter}<br/>
-                                                        <link:charterSchoolAuthorizer school="${school}">${school.name}</link:charterSchoolAuthorizer>
-                                                    </c:when>
-                                                </c:choose>
+                                                <c:if test="${tab ne 'overview'}">
+                                                    ${delimiter}<br/>
+                                                    <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>
+                                                </c:if>
                                             </c:when>
-                                            <c:when test="${tab eq 'ratings'}">
-                                                ${delimiter}
-                                                <link:schoolProfileRating school="${school}">${school.name}</link:schoolProfileRating>
-                                            </c:when>
-                                            <c:when test="${tab eq 'authorizer'}">
-                                                ${delimiter}
-                                                <link:charterSchoolAuthorizer school="${school}">${school.name}</link:charterSchoolAuthorizer>
+                                            <c:when test="${tab ne 'overview'}">
+                                                ${delimiter} <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>
                                             </c:when>
                                         </c:choose>
                                     </h2>
