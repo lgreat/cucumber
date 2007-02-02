@@ -1,4 +1,9 @@
-@import "cityCommon.css";
+#mapContainer {
+    margin: .3em;
+    border: 1px solid #00c;
+    background-color: #eee;
+    padding: .0em;
+}
 
 #map, #mapContainer {
     width: 550px;
@@ -19,11 +24,14 @@ div#nearbyCities h3 {
     padding-left:10px;
 }
 
-div#nearbyCities li a {
+div#nearbyCities li {
     font-size: small;
     display: list-item;
     border-top: 1px dotted #999;
     padding: 3px 0 3px 15px;
+}
+
+div#nearbyCities li a {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-weight:600;
     color:#44aabb;
@@ -32,7 +40,8 @@ div#nearbyCities li a {
 #nearbyCities .more {
     background-image: url(../../img/bullet/pinkarrow.gif );
     background-repeat: no-repeat;
-    background-position: left;
+    background-position: center left;
+    padding-left: 16px;
 }
 
 .tooltip {
