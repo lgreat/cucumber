@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplayTest.java,v 1.11 2007/02/03 00:53:10 eddie Exp $
+ * $Id: SchoolRatingsDisplayTest.java,v 1.12 2007/02/03 00:59:03 eddie Exp $
  */
 
 package gs.web.test.rating;
@@ -163,8 +163,8 @@ public class SchoolRatingsDisplayTest extends TestCase {
         c[1] = 4;
         c[2] = 5;
 
-        a = SchoolRatingsDisplay.AddIntArrayToList(a,b);
-        a = SchoolRatingsDisplay.AddIntArrayToList(a,c);
+        a = SchoolRatingsDisplay.addIntArrayToList(a,b);
+        a = SchoolRatingsDisplay.addIntArrayToList(a,c);
 
         assertEquals((new Integer(((Integer) a.get(0)).intValue())).intValue(),0);
         assertEquals((new Integer(((Integer) a.get(3)).intValue())).intValue(),3);

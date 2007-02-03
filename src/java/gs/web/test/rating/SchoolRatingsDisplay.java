@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.21 2007/02/03 00:53:10 eddie Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.22 2007/02/03 00:59:03 eddie Exp $
  */
 
 package gs.web.test.rating;
@@ -124,7 +124,7 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
 
                 for (Iterator rowConfigIter = rowConfigs.iterator(); rowConfigIter.hasNext();) {
                     IRatingsConfig.IRowConfig rowConfig = (IRatingsConfig.IRowConfig) rowConfigIter.next();
-                    allIds = AddIntArrayToList(allIds,_ratingsConfig.getDataSetIds(subjects[numSubjectGroups], rowConfig));
+                    allIds = addIntArrayToList(allIds,_ratingsConfig.getDataSetIds(subjects[numSubjectGroups], rowConfig));
                 }
 
                 int count = 0;
@@ -225,9 +225,8 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
     }
 
 
-    public static List AddIntArrayToList(List a,int [] b) {
+    public static List addIntArrayToList(List a,int [] b) {
 
-        int   numElements = 0;
         for (int numInts = 0; numInts < b.length; numInts++) {
             Integer tempInt = new Integer(b[numInts]);
             a.add(tempInt);
