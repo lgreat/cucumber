@@ -19,7 +19,7 @@ import org.apache.commons.lang.StringUtils;
 public class AuthenticationManager {
     protected final Log _log = LogFactory.getLog(getClass());
 
-    private long _timeout = 1000 * 60 * 30; // 30 minutes
+    private long _timeout = 1000 * 60 * 60 * 12; // 12 hours
     private String _parameterName = "authInfo"; // default
     private int _userIdLength = 10; // default
     public static final String WEBCROSSING_FORWARD_URL = "http://community.greatschools.net/entry/authInfo.";
