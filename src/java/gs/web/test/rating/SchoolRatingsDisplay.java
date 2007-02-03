@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.22 2007/02/03 00:59:03 eddie Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.23 2007/02/03 01:09:21 eddie Exp $
  */
 
 package gs.web.test.rating;
@@ -120,11 +120,11 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
             IRatingsConfig.ISubjectGroupConfig [] subjects = _ratingsConfig.getSubjectGroupConfigs();
 
             for (int numSubjectGroups = 0; numSubjectGroups < subjects.length; numSubjectGroups++) {
-                List allIds = new ArrayList();
+                List dataSetIds = new ArrayList();
 
                 for (Iterator rowConfigIter = rowConfigs.iterator(); rowConfigIter.hasNext();) {
                     IRatingsConfig.IRowConfig rowConfig = (IRatingsConfig.IRowConfig) rowConfigIter.next();
-                    allIds = addIntArrayToList(allIds,_ratingsConfig.getDataSetIds(subjects[numSubjectGroups], rowConfig));
+                    dataSetIds = addIntArrayToList(dataSetIds,_ratingsConfig.getDataSetIds(subjects[numSubjectGroups], rowConfig));
                 }
 
                 int count = 0;
@@ -133,7 +133,7 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 int prevCount = 0;
                 int prevTotal = 0;
 
-                int ids[] = getValuesFromIntList(allIds);
+                int ids[] = getValuesFromIntList(dataSetIds);
                 for (int i = 0; i < ids.length; i++) {
                     Integer testDataSetId = new Integer(ids[i]);
                     if (_rawResults.containsKey(testDataSetId)) {
