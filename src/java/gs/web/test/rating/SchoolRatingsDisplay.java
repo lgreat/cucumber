@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.20 2006/12/29 19:03:20 droy Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.21 2007/02/03 00:53:10 eddie Exp $
  */
 
 package gs.web.test.rating;
@@ -61,10 +61,15 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
             }
 
             final IRatingsConfig.IRowConfig[] rowConfigs = rowGroupConfig.getRowConfigs();
-            Row all = null;
+
+            List allRowConfigs = new ArrayList();
+
+            int numAllRow = 0;
             for (int i = 0; i < rowConfigs.length; i++) {
                 final IRatingsConfig.IRowConfig rowConfig = rowConfigs[i];
-                Row row = new Row(rowConfig);
+                List singleRowConfig = new ArrayList();
+                singleRowConfig.add(rowConfig);
+                Row row = new Row(singleRowConfig);
 
                 if ("All Students".equals(row.getLabel())) {
                     continue;
@@ -80,7 +85,8 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
 
                         String gradeall = rowLabel.substring(6);
                         if(school.getLevelCode().containsSimilarLevelCode(Grade.getLevelCodeFromName(gradeall))){
-                            all = row;
+                            allRowConfigs.add(rowConfig);
+                            numAllRow++;
                         }
                     }
                 } else {
@@ -89,7 +95,9 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                     }
                 }
             }
-            if(all != null){
+
+            if(numAllRow > 0){
+                Row all = new Row(allRowConfigs);
                 rowGroup.add(all);
             }
 
@@ -104,20 +112,28 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
         private final IRatingsConfig.IRowConfig _rowConfig;
         private List _cells;
 
-        Row(final IRatingsConfig.IRowConfig rowConfig) {
-            _rowConfig = rowConfig;
+
+        Row(final List rowConfigs) {
+            _rowConfig= (IRatingsConfig.IRowConfig) rowConfigs.get(0);
             _cells = new ArrayList();
 
             IRatingsConfig.ISubjectGroupConfig [] subjects = _ratingsConfig.getSubjectGroupConfigs();
 
             for (int numSubjectGroups = 0; numSubjectGroups < subjects.length; numSubjectGroups++) {
-                int[] ids = _ratingsConfig.getDataSetIds(subjects[numSubjectGroups], _rowConfig);
+                List allIds = new ArrayList();
+
+                for (Iterator rowConfigIter = rowConfigs.iterator(); rowConfigIter.hasNext();) {
+                    IRatingsConfig.IRowConfig rowConfig = (IRatingsConfig.IRowConfig) rowConfigIter.next();
+                    allIds = AddIntArrayToList(allIds,_ratingsConfig.getDataSetIds(subjects[numSubjectGroups], rowConfig));
+                }
+
                 int count = 0;
                 int total = 0;
 
                 int prevCount = 0;
                 int prevTotal = 0;
 
+                int ids[] = getValuesFromIntList(allIds);
                 for (int i = 0; i < ids.length; i++) {
                     Integer testDataSetId = new Integer(ids[i]);
                     if (_rawResults.containsKey(testDataSetId)) {
@@ -143,6 +159,8 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 _cells.add(new Cell(rating, TestManager.calculateRatingTrend(rating, prevRating)));
             }
         }
+
+
 
         public String getLabel() {
             String label = _rowConfig.getLabel();
@@ -175,6 +193,7 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
 
         }
 
+
         public String getConfigLabel() {
             return _rowConfig.getLabel();
 
@@ -203,6 +222,32 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
     public List getRowGroups() {
         // list of IRowGroup objects
         return _rowGroups;
+    }
+
+
+    public static List AddIntArrayToList(List a,int [] b) {
+
+        int   numElements = 0;
+        for (int numInts = 0; numInts < b.length; numInts++) {
+            Integer tempInt = new Integer(b[numInts]);
+            a.add(tempInt);
+        }
+
+        return a;
+    }
+
+    public static int[] getValuesFromIntList(List a) {
+
+        int[] ids = new int[a.size()];
+        int indexInt = 0;
+        for (Iterator iter = a.iterator(); iter.hasNext();) {
+            Integer ID = (Integer) iter.next();
+            int id = ID.intValue();
+            ids[indexInt] = id;
+            indexInt++;
+        }
+
+        return ids;
     }
 
 

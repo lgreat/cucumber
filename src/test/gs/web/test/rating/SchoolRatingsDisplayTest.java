@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplayTest.java,v 1.10 2006/12/21 19:58:19 thuss Exp $
+ * $Id: SchoolRatingsDisplayTest.java,v 1.11 2007/02/03 00:53:10 eddie Exp $
  */
 
 package gs.web.test.rating;
@@ -136,7 +136,7 @@ public class SchoolRatingsDisplayTest extends TestCase {
         assertEquals("By Ethnicity", ((IRatingsDisplay.IRowGroup) decoratedRowGroups.get(2)).getLabel());
         assertEquals(4, ((IRatingsDisplay.IRowGroup) decoratedRowGroups.get(0)).getNumRows());
         assertEquals(1, ((IRatingsDisplay.IRowGroup) decoratedRowGroups.get(1)).getNumRows());
-        assertEquals(4, ((IRatingsDisplay.IRowGroup) decoratedRowGroups.get(2)).getNumRows());        
+        assertEquals(4, ((IRatingsDisplay.IRowGroup) decoratedRowGroups.get(2)).getNumRows());
     }
 
     private ITestDataSetDao.IRawResult createMockedRawResultDao(Integer dataSetId, int decile, TestDataSet testDataSet) {
@@ -150,6 +150,38 @@ public class SchoolRatingsDisplayTest extends TestCase {
         mockControl.replay();
 
         return result;
+    }
+
+    public void testAddIntArrayToList() {
+        List a = new ArrayList();
+        int [] b = new int[3];
+        b[0] = 0;
+        b[1] = 1;
+        b[2] = 2;
+        int [] c = new int[3];
+        c[0] = 3;
+        c[1] = 4;
+        c[2] = 5;
+
+        a = SchoolRatingsDisplay.AddIntArrayToList(a,b);
+        a = SchoolRatingsDisplay.AddIntArrayToList(a,c);
+
+        assertEquals((new Integer(((Integer) a.get(0)).intValue())).intValue(),0);
+        assertEquals((new Integer(((Integer) a.get(3)).intValue())).intValue(),3);
+        assertEquals((new Integer(((Integer) a.get(5)).intValue())).intValue(),5);
+        assertEquals(a.size(),6);
+    }
+
+    public void testgetValuesFromIntList() {
+        List a = new ArrayList();
+        a.add(new Integer(0));
+        a.add(new Integer(1));
+        a.add(new Integer(2));
+
+        int[] ints =  SchoolRatingsDisplay.getValuesFromIntList(a);
+        assertEquals(ints[0],0);
+        assertEquals(ints[1],1);
+        assertEquals(ints[2],2);
     }
 
 }
