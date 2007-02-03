@@ -199,6 +199,7 @@ public class RegistrationController extends SimpleFormController implements Read
             Subscription communityNewsletterSubscription = new Subscription();
             communityNewsletterSubscription.setUser(user);
             communityNewsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
+            communityNewsletterSubscription.setState(userCommand.getState());
             _subscriptionDao.saveSubscription(communityNewsletterSubscription);
         }
 

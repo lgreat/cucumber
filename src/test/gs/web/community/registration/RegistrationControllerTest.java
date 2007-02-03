@@ -95,10 +95,12 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         userCommand.getUser().setId(new Integer(345)); // to fake the database save
         userCommand.setPassword("test");
         userCommand.setNumSchoolChildren(new Integer(0));
+        userCommand.setState(State.GA);
 
         Subscription newsletterSubscription = new Subscription();
         newsletterSubscription.setUser(userCommand.getUser());
         newsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
+        newsletterSubscription.setState(State.GA);
 
         _subscriptionDao.saveSubscription(newsletterSubscription);
         _subscriptionDaoMock.replay();
