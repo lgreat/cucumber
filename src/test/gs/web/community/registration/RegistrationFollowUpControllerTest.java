@@ -126,6 +126,23 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         assertEquals(1, _command.getSchools().size());
     }
 
+    public void testBindRequestDataIgnoresNewsletterNull() throws NoSuchAlgorithmException {
+        _controller.bindRequestData(getRequest(), _command, _errors);
+        assertTrue("Newsletter should be true if no parameter passed", _command.getNewsletter());
+    }
+
+    public void testBindRequestDataCapturesNewsletterTrue() throws NoSuchAlgorithmException {
+        _request.setParameter(RegistrationController.NEWSLETTER_PARAMETER, "y");
+        _controller.bindRequestData(getRequest(), _command, _errors);
+        assertTrue("Expected newsletter to be true when 'y' is passed", _command.getNewsletter());
+    }
+
+    public void testBindRequestDataCapturesNewsletterFalse() throws NoSuchAlgorithmException {
+        _request.setParameter(RegistrationController.NEWSLETTER_PARAMETER, "n");
+        _controller.bindRequestData(getRequest(), _command, _errors);
+        assertFalse("Expected newsletter to be false when 'n' is passed", _command.getNewsletter());
+    }
+
     public void testLoadSchoolList() {
         Student student = new Student();
         student.setState(State.CA);
@@ -282,10 +299,12 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         UserProfile userProfile = new UserProfile();
         userProfile.setNumSchoolChildren(Integer.valueOf("0"));
         followUpCommand.getUser().setUserProfile(userProfile);
+        followUpCommand.getUserProfile().setState(State.GA);
 
         Subscription newsletterSubscription = new Subscription();
         newsletterSubscription.setUser(followUpCommand.getUser());
         newsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
+        newsletterSubscription.setState(State.GA);
 
         _subscriptionControl.expectAndReturn(_subscriptionDao.getUserSubscriptions(followUpCommand.getUser(), SubscriptionProduct.PARENT_CONTACT), null);
         _subscriptionDao.saveSubscription(newsletterSubscription);

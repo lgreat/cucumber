@@ -91,10 +91,12 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         String userId = request.getParameter("id");
         String marker = request.getParameter("marker");
         fupCommand.setRecontact(request.getParameter("recontactStr"));
-        if (request.getParameter("termsStr") != null) {
+        if (request.getParameter(RegistrationController.TERMS_PARAMETER) != null) {
             fupCommand.setTerms("y".equals(request.getParameter(RegistrationController.TERMS_PARAMETER)));
         }
-        fupCommand.setNewsletter("y".equals(request.getParameter(RegistrationController.NEWSLETTER_PARAMETER)));
+        if (request.getParameter(RegistrationController.NEWSLETTER_PARAMETER) != null) {
+            fupCommand.setNewsletter("y".equals(request.getParameter(RegistrationController.NEWSLETTER_PARAMETER)));
+        }
         if (userId != null) {
 
             User user = _userDao.findUserFromId(Integer.parseInt(userId));
@@ -328,6 +330,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             Subscription subscription = new Subscription();
             subscription.setUser(user);
             subscription.setProduct(SubscriptionProduct.COMMUNITY);
+            subscription.setState(fupCommand.getUserProfile().getState());
             fupCommand.addSubscription(subscription);
         }
         saveSubscriptionsForUser(fupCommand, user);
