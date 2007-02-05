@@ -4,6 +4,7 @@ import gs.data.community.User;
 import gs.data.community.UserProfile;
 import gs.data.community.Student;
 import gs.data.community.Subscription;
+import gs.data.state.State;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class FollowUpCommand {
     private boolean _terms = true;
     private String _redirect;
     private boolean _newsletter = true;
+    private State _state;
 
     public FollowUpCommand() {
         _user = new User();
@@ -232,5 +234,13 @@ public class FollowUpCommand {
 
     public void setNewsletter(boolean newsletter) {
         _newsletter = newsletter;
+    }
+
+    public void setState(State state) {
+        _state = state;
+    }
+
+    public State getState() {
+        return _state;
     }
 }
