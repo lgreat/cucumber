@@ -195,14 +195,6 @@ public class RegistrationController extends SimpleFormController implements Read
 
         ModelAndView mAndV = new ModelAndView();
 
-        if (userCommand.getNewsletter()) {
-            Subscription communityNewsletterSubscription = new Subscription();
-            communityNewsletterSubscription.setUser(user);
-            communityNewsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
-            communityNewsletterSubscription.setState(userCommand.getState());
-            _subscriptionDao.saveSubscription(communityNewsletterSubscription);
-        }
-
         if (request.getParameter("join") == null) {
             mAndV.setViewName(getSuccessView());
             String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
@@ -216,6 +208,15 @@ public class RegistrationController extends SimpleFormController implements Read
             // mAndV.getModel().put("followUpCmd", fupCommand);
             mAndV.getModel().put("id", user.getId());
         } else {
+            // only subscribe to newsletter on final step
+            if (userCommand.getNewsletter()) {
+                Subscription communityNewsletterSubscription = new Subscription();
+                communityNewsletterSubscription.setUser(user);
+                communityNewsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
+                communityNewsletterSubscription.setState(userCommand.getState());
+                _subscriptionDao.saveSubscription(communityNewsletterSubscription);
+            }
+
             if (!user.isEmailProvisional()) {
                 try {
                     // registration is done, let's send a confirmation email

@@ -8,6 +8,7 @@ import gs.data.geo.IGeoDao;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.easymock.MockControl;
+import org.easymock.classextension.MockClassControl;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
     private static final String SUCCESS_VIEW = "/community/registration/registrationSuccess";
     private MockControl _subscriptionDaoMock;
     private ISubscriptionDao _subscriptionDao;
+    private MockControl _authenticationManagerMock;
+    private AuthenticationManager _authenticationManager;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -45,10 +48,15 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _subscriptionDaoMock = MockControl.createControl(ISubscriptionDao.class);
         _subscriptionDao = (ISubscriptionDao) _subscriptionDaoMock.getMock();
 
+        _authenticationManagerMock = MockClassControl.createNiceControl(AuthenticationManager.class);
+        _authenticationManager = (AuthenticationManager) _authenticationManagerMock.getMock();
+        _authenticationManagerMock.replay();
+
         _controller.setGeoDao(_geoDao);
         _controller.setUserDao(_userDao);
         _controller.setSuccessView(SUCCESS_VIEW);
         _controller.setSubscriptionDao(_subscriptionDao);
+        _controller.setAuthenticationManager(_authenticationManager);
 
         RegistrationConfirmationEmail email = (RegistrationConfirmationEmail)
                 getApplicationContext().getBean(RegistrationConfirmationEmail.BEAN_ID);
@@ -81,9 +89,14 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _userDao.updateUser(userCommand.getUser());
         _userControl.replay();
 
-        getRequest().addParameter("next", "next"); // submit button
+        getRequest().addParameter("next", "next"); // submit button for 2-step process
+
+        // no calls expected if "next" is clicked
+        _subscriptionDaoMock.replay();
+
         ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), userCommand, errors);
         _userControl.verify();
+        _subscriptionDaoMock.verify();
 
         assertEquals("Not getting expected success view",
                 SUCCESS_VIEW, mAndV.getViewName());
@@ -101,6 +114,8 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         newsletterSubscription.setUser(userCommand.getUser());
         newsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
         newsletterSubscription.setState(State.GA);
+
+        getRequest().addParameter("join", "join"); // submit button
 
         _subscriptionDao.saveSubscription(newsletterSubscription);
         _subscriptionDaoMock.replay();
@@ -121,9 +136,7 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         userCommand.setPassword("test");
         userCommand.setNumSchoolChildren(new Integer(0));
 
-        Subscription newsletterSubscription = new Subscription();
-        newsletterSubscription.setUser(userCommand.getUser());
-        newsletterSubscription.setProduct(SubscriptionProduct.COMMUNITY);
+        getRequest().addParameter("join", "join"); // submit button
 
         // no calls expected
         _subscriptionDaoMock.replay();
@@ -137,12 +150,6 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _subscriptionDaoMock.verify();
     }
 
-    private void setUpNiceUserDao() {
-        _userControl = MockControl.createNiceControl(IUserDao.class);
-        _userDao = (IUserDao) _userControl.getMock();
-        _controller.setUserDao(_userDao);
-        _userControl.replay();
-    }
 
     /**
      * Test successful registration with an existing user
@@ -253,9 +260,9 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         }
     }
 
-    public void testOnBind() throws Exception {
+    public void testOnBindWithoutTermsOrNewsletter() throws Exception {
         UserCommand userCommand = new UserCommand();
-        _geoControl.expectAndReturn(_geoDao.findCitiesByState(State.CA), new ArrayList(), 2);
+        _geoControl.expectAndReturn(_geoDao.findCitiesByState(State.CA), new ArrayList());
         _geoControl.replay();
 
         getRequest().setParameter("city", "San Francisco");
@@ -264,12 +271,27 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
         _controller.onBind(getRequest(), userCommand);
         assertFalse(userCommand.getTerms());
         assertFalse("Expected newsletter to be set to false", userCommand.getNewsletter());
+    }
+
+    public void testOnBindWitTermsAndNewsletter() throws Exception {
+        UserCommand userCommand = new UserCommand();
+        _geoControl.expectAndReturn(_geoDao.findCitiesByState(State.CA), new ArrayList());
+        _geoControl.replay();
 
         getRequest().setParameter(RegistrationController.TERMS_PARAMETER, "y");
         getRequest().setParameter(RegistrationController.NEWSLETTER_PARAMETER, "y");
         _controller.onBind(getRequest(), userCommand);
         assertTrue(userCommand.getTerms());
         assertTrue("Expected newsletter to be set to true", userCommand.getNewsletter());
+    }
+
+    public void testOnBindWithoutNewsletterParameter() throws Exception {
+        UserCommand userCommand = new UserCommand();
+        _geoControl.expectAndReturn(_geoDao.findCitiesByState(State.CA), new ArrayList());
+        _geoControl.replay();
+
+        _controller.onBind(getRequest(), userCommand);
+        assertFalse("Newsletter should be set to false if newsletterStr is not passed", userCommand.getNewsletter());
     }
 
     public void testOnBindAndValidate() throws Exception {
@@ -325,5 +347,12 @@ public class RegistrationControllerTest extends BaseControllerTestCase {
 
         _userControl.verify();
         _geoControl.verify();
+    }
+
+    private void setUpNiceUserDao() {
+        _userControl = MockControl.createNiceControl(IUserDao.class);
+        _userDao = (IUserDao) _userControl.getMock();
+        _controller.setUserDao(_userDao);
+        _userControl.replay();
     }
 }
