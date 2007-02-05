@@ -169,8 +169,7 @@
                                             school</link:schoolCompareSchool>
                                     </li>
                                 </c:if>
-                                <li><gsml:a href="/cgi-bin/msl_confirm/${state.abbreviationLowerCase}/?add_ids=${school.id}">Add to My
-                                    SchoolList</gsml:a></li>
+                                <li><gsml:a href="/cgi-bin/msl_confirm/${state.abbreviationLowerCase}/?add_ids=${school.id}">Add to My School List</gsml:a></li>
                                 <li><link:schoolProfileAddParentReview school="${school}">Rate this
                                     school</link:schoolProfileAddParentReview></li>
 
