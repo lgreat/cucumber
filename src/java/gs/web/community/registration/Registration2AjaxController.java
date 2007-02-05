@@ -4,6 +4,7 @@ import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -81,7 +82,7 @@ public class Registration2AjaxController implements Controller {
         City notListed = new City();
         notListed.setName("My city is not listed");
         cities.add(0, notListed);
-        openSelectTag(out, "city", "citySelect", "selectChildCity", "cityChange(this, " + childNum + ");");
+        openSelectTag(out, "citySelect" + childNum, "citySelect" + childNum, "selectChildCity", "cityChange(this, " + childNum + ");");
         outputOption(out, "", "--", true);
         for (int x=0; x < cities.size(); x++) {
             ICity icity = (ICity) cities.get(x);
@@ -106,13 +107,13 @@ public class Registration2AjaxController implements Controller {
     protected void openSelectTag(PrintWriter out, String name, String cssId, String cssClass, String onChange) {
         out.print("<select");
         out.print(" name=\"" + name + "\"");
-        if (cssId != null) {
+        if (StringUtils.isNotEmpty(cssId)) {
             out.print(" id=\"" + cssId + "\"");
         }
-        if (cssClass != null) {
+        if (StringUtils.isNotEmpty(cssClass)) {
             out.print(" class=\"" + cssClass + "\"");
         }
-        if (onChange != null) {
+        if (StringUtils.isNotEmpty(onChange)) {
             out.print(" onchange=\"" + onChange + "\"");
         }
         out.println(">");

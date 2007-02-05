@@ -6,7 +6,6 @@ package gs.web.community.registration;
 import gs.web.BaseControllerTestCase;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
-import gs.data.geo.bestplaces.BpCounty;
 import gs.data.state.StateManager;
 import gs.data.state.State;
 import org.easymock.MockControl;
@@ -38,55 +37,33 @@ public class RegistrationAjaxControllerTest extends BaseControllerTestCase {
     }
 
     public void testOutputOption() {
+        // test selected attributed added correctly
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
-
         _controller.outputOption(pw, "value", "name", true);
-
         String expected = "<option selected=\"selected\" value=\"value\">name</option>";
         assertEquals(expected, sw.getBuffer().toString());
 
+        // test selected attribute omitted
         sw = new StringWriter();
         pw = new PrintWriter(sw);
         _controller.outputOption(pw, "value", "name", false);
-
         expected = "<option value=\"value\">name</option>";
         assertEquals(expected, sw.getBuffer().toString());
-    }
 
-    public void testOutputCountySelect() {
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-
-        getRequest().addParameter("state", "ca");
-        _geoDao.findCounties(State.CA);
-        List counties = new ArrayList();
-        BpCounty county1 = new BpCounty();
-        county1.setCountyFips("1234");
-        county1.setName("Alameda");
-        counties.add(county1);
-        BpCounty county2 = new BpCounty();
-        county2.setCountyFips("5678");
-        county2.setName("Sacramento");
-        counties.add(county2);
-        _geoControl.setReturnValue(counties);
-        _geoControl.replay();
-
-        _controller.outputCountySelect(getRequest(), pw);
-        _geoControl.verify();
-
-        assertNotNull(sw.getBuffer());
-        assertTrue(sw.getBuffer().length() > 0);
-        assertTrue(sw.getBuffer().indexOf("Alameda") > -1);
-        assertTrue(sw.getBuffer().indexOf("1234") > -1);
-        assertTrue(sw.getBuffer().indexOf("Sacramento") > -1);
-        assertTrue(sw.getBuffer().indexOf("5678") > -1);
+        // test method with fewer options defaults to omitting selected
+        sw = new StringWriter();
+        pw = new PrintWriter(sw);
+        _controller.outputOption(pw, "value", "name");
+        expected = "<option value=\"value\">name</option>";
+        assertEquals(expected, sw.getBuffer().toString());
     }
 
     public void testOutputCitySelect() {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
 
+        // set up data
         getRequest().addParameter("state", "CA");
         _geoDao.findCitiesByState(State.CA);
         List cities = new ArrayList();
@@ -102,9 +79,13 @@ public class RegistrationAjaxControllerTest extends BaseControllerTestCase {
         _controller.outputCitySelect(getRequest(), pw);
         _geoControl.verify();
 
-        assertNotNull(sw.getBuffer());
-        assertTrue(sw.getBuffer().length() > 0);
-        assertTrue(sw.getBuffer().indexOf("Oakland") > -1);
-        assertTrue(sw.getBuffer().indexOf("Fremont") > -1);
+        // I don't do a character-by-character comparison because I feel that would
+        // be too brittle. Instead, I just verify the data is making it through.
+        assertNotNull("Output null", sw.getBuffer());
+        assertTrue("Output empty", sw.getBuffer().length() > 0);
+        assertTrue("Output does not contain expected city name Oakland",
+                sw.getBuffer().indexOf("Oakland") > -1);
+        assertTrue("Output does not contain expected city name Fremont",
+                sw.getBuffer().indexOf("Fremont") > -1);
     }
 }

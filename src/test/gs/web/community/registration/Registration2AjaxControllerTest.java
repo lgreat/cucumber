@@ -48,6 +48,7 @@ public class Registration2AjaxControllerTest extends BaseControllerTestCase {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
 
+        // set up data
         getRequest().addParameter("state", "CA");
         _geoDao.findCitiesByState(State.CA);
         List cities = new ArrayList();
@@ -63,16 +64,17 @@ public class Registration2AjaxControllerTest extends BaseControllerTestCase {
         _controller.outputCitySelect(State.CA, pw, "1");
         _geoControl.verify();
 
-        assertNotNull(sw.getBuffer());
-        assertTrue(sw.getBuffer().length() > 0);
-        assertTrue(sw.getBuffer().indexOf("Oakland") > -1);
-        assertTrue(sw.getBuffer().indexOf("Fremont") > -1);
+        assertNotNull("Output null", sw.getBuffer());
+        assertTrue("Output empty", sw.getBuffer().length() > 0);
+        assertTrue("Output does not contain expected city name Oakland", sw.getBuffer().indexOf("Oakland") > -1);
+        assertTrue("Output does not contain expected city name Fremont", sw.getBuffer().indexOf("Fremont") > -1);
     }
 
     public void testOutputSchoolSelect() {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
 
+        // set up data
         _schoolDao.findSchoolsInCityByGrade(State.CA, "Alameda", Grade.G_12);
         List schools = new ArrayList();
         School school1 = new School();
@@ -89,9 +91,52 @@ public class Registration2AjaxControllerTest extends BaseControllerTestCase {
         _controller.outputSchoolSelect(State.CA, "Alameda", "12", pw, "1");
         _schoolControl.verify();
 
-        assertNotNull(sw.getBuffer());
-        assertTrue(sw.getBuffer().length() > 0);
-        assertTrue(sw.getBuffer().indexOf("Alameda High School") > -1);
-        assertTrue(sw.getBuffer().indexOf("Roy's Home for the Gifted") > -1);
+        assertNotNull("Output null", sw.getBuffer());
+        assertTrue("Output empty", sw.getBuffer().length() > 0);
+        assertTrue("Output does not contain expected high school Alameda High School",
+                sw.getBuffer().indexOf("Alameda High School") > -1);
+        assertTrue("Output does not contain expected high school Roy's Home for the Gifted",
+                sw.getBuffer().indexOf("Roy's Home for the Gifted") > -1);
+    }
+
+    public void testOpenSelectTag() {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        // test with all parameters
+        _controller.openSelectTag(pw, "name", "id", "class", "onChange");
+        assertTrue("Expected output not received",
+                sw.getBuffer().toString().indexOf
+                        ("<select name=\"name\" id=\"id\" class=\"class\" onchange=\"onChange\">") > -1);
+
+        sw = new StringWriter();
+        pw = new PrintWriter(sw);
+        // test with no parameters
+        _controller.openSelectTag(pw, null, null, null, null);
+        assertTrue("Expected output not received",
+                sw.getBuffer().toString().indexOf
+                        ("<select name=\"null\">") > -1);
+    }
+
+    public void testOutputOption() {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        // test with all parameters
+        _controller.outputOption(pw, "value", "name", true);
+        assertEquals("<option selected=\"selected\" value=\"value\">name</option>",
+                sw.getBuffer().toString());
+
+        sw = new StringWriter();
+        pw = new PrintWriter(sw);
+        // test with no parameters
+        _controller.outputOption(pw, null, null, false);
+        assertEquals("<option value=\"null\">null</option>",
+                sw.getBuffer().toString());
+
+        sw = new StringWriter();
+        pw = new PrintWriter(sw);
+        // test shorter method signature with no parameters
+        _controller.outputOption(pw, null, null);
+        assertEquals("<option value=\"null\">null</option>",
+                sw.getBuffer().toString());
     }
 }

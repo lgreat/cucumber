@@ -11,7 +11,6 @@ import java.util.*;
 import java.io.PrintWriter;
 
 import gs.data.geo.IGeoDao;
-import gs.data.geo.ICounty;
 import gs.data.geo.ICity;
 import gs.data.geo.City;
 import gs.data.state.State;
@@ -61,20 +60,6 @@ public class RegistrationAjaxController implements Controller {
             for (int x=0; x < cities.size(); x++) {
                 ICity city = (ICity) cities.get(x);
                 outputOption(out, city.getName(), city.getName());
-            }
-            out.print("</select>");
-        }
-    }
-
-    protected void outputCountySelect(HttpServletRequest request, PrintWriter out) {
-        State state =_stateManager.getState(request.getParameter("state"));
-        List counties = _geoDao.findCounties(state);
-        if (counties != null && counties.size() > 0) {
-            out.print("<select name=\"countyFips\" class=\"form\" onchange=\"countyChange(this);\">");
-            outputOption(out, "", "Choose county", true);
-            for (int x=0; x < counties.size(); x++) {
-                ICounty county = (ICounty) counties.get(x);
-                outputOption(out, county.getCountyFips(), county.getName());
             }
             out.print("</select>");
         }
