@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdPosition.java,v 1.5 2006/10/31 19:05:26 dlee Exp $
+ * $Id: AdPosition.java,v 1.6 2007/02/06 21:23:14 dlee Exp $
  */
 package gs.web.ads;
 
@@ -41,7 +41,7 @@ public class AdPosition extends Enum {
     public static final AdPosition X_40 = new AdPosition("x40");
 
     /**
-     * box ad on school profile pages 300x250
+     * First box ad on school profile pages 300x250
      */
     public static final AdPosition X_48 = new AdPosition("x48");
 
@@ -64,6 +64,12 @@ public class AdPosition extends Enum {
      * box ad on city pages 300x250
      */
     public static final AdPosition X_66 = new AdPosition("x66");
+
+
+    /**
+     * 2nd box ad on school profile pages. See X_48
+     */
+    public static final AdPosition X_67 = new AdPosition("x67");
 
     /**
      * box ad can either be 300x250 or 300x600
