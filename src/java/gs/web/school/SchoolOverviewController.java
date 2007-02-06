@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
+import gs.web.util.UrlBuilder;
+import gs.web.util.context.SessionContextUtil;
+import gs.web.util.context.SessionContext;
+
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +47,43 @@ public class SchoolOverviewController extends AbstractSchoolController {
         Map model = new HashMap();
 
         String schoolIdStr = request.getParameter("id");
+
+        // GS-3044 - number1expert cobrand specific code
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        if (sessionContext.isCobranded() && "number1expert".equals(sessionContext.getCobrand())) {
+            javax.servlet.http.Cookie[] cookies = request.getCookies();
+            String agentId = null;
+            if (cookies != null) {
+                // Collect all the cookies
+                for (int i = 0; cookies.length > i; i++) {
+                    // find the agent id cookie
+                    if ("AGENTID".equals(cookies[i].getName())) {
+                        // store its value
+                        agentId = cookies[i].getValue();
+                    }
+                }
+                // if there's no agent id, no lead gen necessary
+                if (agentId != null) {
+                    boolean foundCookie = false;
+                    String biregCookieName = "BIREG" + agentId;
+                    for (int i=0; cookies.length > i; i++) {
+                        if (biregCookieName.equals(cookies[i].getName())) {
+                            foundCookie = true;
+                        }
+                    }
+                    if (!foundCookie) {
+                        // send to bireg
+                        UrlBuilder urlBuilder = new UrlBuilder
+                                (UrlBuilder.GET_BIREG,
+                                        sessionContext.getStateOrDefault(),
+                                        new Integer(schoolIdStr),
+                                        new Integer(agentId));
+                        response.sendRedirect(urlBuilder.asFullUrl(request));
+                    }
+                } // end if agentId != null
+            } // end if cookies != null
+        } // end if cobranded
+
         if (StringUtils.isNumeric(schoolIdStr)) {
             School school = (School)request.getAttribute(SCHOOL_ATTRIBUTE);
             model.put("school", school);
