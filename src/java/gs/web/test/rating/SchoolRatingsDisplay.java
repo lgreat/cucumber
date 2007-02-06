@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.23 2007/02/03 01:09:21 eddie Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.24 2007/02/06 19:07:00 dlee Exp $
  */
 
 package gs.web.test.rating;
@@ -8,10 +8,9 @@ package gs.web.test.rating;
 import gs.data.school.Grade;
 import gs.data.school.Grades;
 import gs.data.school.School;
-import gs.data.test.ITestDataSetDao;
-import gs.data.test.TestManager;
-import gs.data.test.rating.IRatingsConfig;
 import gs.data.state.State;
+import gs.data.test.ITestDataSetDao;
+import gs.data.test.rating.IRatingsConfig;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -130,9 +129,6 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 int count = 0;
                 int total = 0;
 
-                int prevCount = 0;
-                int prevTotal = 0;
-
                 int ids[] = getValuesFromIntList(dataSetIds);
                 for (int i = 0; i < ids.length; i++) {
                     Integer testDataSetId = new Integer(ids[i]);
@@ -147,16 +143,12 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
                 }
 
                 Integer rating = null;
-                Integer prevRating = null;
 
                 if (count > 0) {
                     rating = new Integer(Math.round((float) total / (float) count));
                 }
-                if (prevCount > 0) {
-                    prevRating = new Integer(Math.round((float) prevTotal / (float) prevCount));
-                }
 
-                _cells.add(new Cell(rating, TestManager.calculateRatingTrend(rating, prevRating)));
+                _cells.add(new Cell(rating));
             }
         }
 

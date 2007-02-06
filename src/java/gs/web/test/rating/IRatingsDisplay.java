@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: IRatingsDisplay.java,v 1.3 2006/09/28 21:04:45 dlee Exp $
+ * $Id: IRatingsDisplay.java,v 1.4 2007/02/06 19:07:00 dlee Exp $
  */
 
 package gs.web.test.rating;
@@ -51,12 +51,6 @@ public interface IRatingsDisplay {
                  * Returns null if there is no rating, otherwise the rating 1 - 10.
                  */
                 Integer getRating();
-
-                /**
-                 * Change from the previous values. Null value means that no trend is available. This is a raw difference
-                 * between the rankings, as high as 9 (10-1).
-                 */
-                Integer getTrend();
             }
         }
     }

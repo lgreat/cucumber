@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RatingsController.java,v 1.16 2006/12/21 19:58:19 thuss Exp $
+ * $Id: RatingsController.java,v 1.17 2007/02/06 19:07:00 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -19,8 +19,8 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.springframework.web.servlet.mvc.AbstractCommandController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractCommandController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -102,20 +102,7 @@ public class RatingsController extends AbstractCommandController {
                         getTestManager().getOverallRating(ratingsCommand.getSchool(), ratingsConfig.getYear());
 
                 if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
-                    //TODO turn back on once we support ratings for previous years
-                    SchoolTestValue previousYearOverallRating = null;
-                            //getTestManager().getOverallRating(ratingsCommand.getSchool(), ratingsConfig.getYear() - 1);
-
-                    Integer currentRating = schoolTestValue.getValueInteger();
-                    Integer previousRating = null;
-
-                    if (previousYearOverallRating != null && previousYearOverallRating.getValueInteger() != null) {
-                        previousRating = previousYearOverallRating.getValueInteger();
-                    }
-
-                    IRatingsDisplay.IRowGroup.IRow.ICell overallRatingCell =
-                            new Cell(schoolTestValue.getValueInteger(),
-                                    TestManager.calculateRatingTrend(currentRating, previousRating));
+                    IRatingsDisplay.IRowGroup.IRow.ICell overallRatingCell = new Cell(schoolTestValue.getValueInteger());
                     ratingsCommand.setOverallRating(overallRatingCell);
 
                     SchoolRatingsDisplay ratingsDisplay =

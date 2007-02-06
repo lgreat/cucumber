@@ -13,29 +13,7 @@
                              type="gs.web.test.rating.Cell"/>
     <c:choose>
         <c:when test="${not empty cell.rating}">
-            <c:choose>
-                <c:when test="${not empty cell.trend}">
-                    <c:set var="trend" value="${cell.trend}"/>
-                    <c:choose>
-                        <c:when test="${trend ge 2}">
-                            ${cell.rating} <gsml:img src="/images/carrowts2.gif" alt="Strong improvement"/>
-                        </c:when>
-                        <c:when test="${trend == 1}">
-                            ${cell.rating} <gsml:img src="/images/carrowts1.gif" alt="Some improvement"/>
-                        </c:when>
-                        <c:when test="${trend == 0}">
-                            ${cell.rating} <gsml:img src="/images/carrowts1right.gif" alt="No change"/>
-                        </c:when>
-                        <c:when test="${trend == -1}">
-                            ${cell.rating} <gsml:img src="/images/carrowts1dn.gif" alt="Some decline"/>
-                        </c:when>
-                        <c:when test="${trend le -2}">
-                            ${cell.rating} <gsml:img src="/images/carrowts2dn.gif" alt="Strong decline"/>
-                        </c:when>
-                        <c:otherwise>${cell.rating}</c:otherwise>
-                    </c:choose>
-                </c:when>
-                <c:otherwise>${cell.rating}</c:otherwise></c:choose>
+                ${cell.rating}
         </c:when>
         <c:otherwise>n/a</c:otherwise>
     </c:choose>

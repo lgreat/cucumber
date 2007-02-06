@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: Cell.java,v 1.1 2006/10/04 01:05:35 dlee Exp $
+ * $Id: Cell.java,v 1.2 2007/02/06 19:07:00 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -11,18 +11,13 @@ package gs.web.test.rating;
  */
 public class Cell implements IRatingsDisplay.IRowGroup.IRow.ICell {
     Integer _rating;
-    Integer _trend;
 
-    public Cell(Integer rating, Integer trend) {
+    public Cell(Integer rating) {
         _rating = rating;
-        _trend = trend;
     }
 
     public Integer getRating() {
         return _rating;
     }
 
-    public Integer getTrend() {
-        return _trend;
-    }
 }

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: OverallRatingDecorator.java,v 1.11 2006/12/21 19:58:19 thuss Exp $
+ * $Id: OverallRatingDecorator.java,v 1.12 2007/02/06 19:07:00 dlee Exp $
  */
 package gs.web.test.rating;
 
@@ -35,9 +35,6 @@ public class OverallRatingDecorator implements IRatingsDisplay {
                 int sumRatings = 0;
                 int subjectsWithRating = 0;
 
-                int sumTrend = 0;
-                int subjectsWithTrend = 0;
-
                 List cells = row.getCells();
 
                 for (Iterator cellIter = cells.iterator(); cellIter.hasNext(); ) {
@@ -47,24 +44,13 @@ public class OverallRatingDecorator implements IRatingsDisplay {
                         sumRatings += rating.intValue();
                         subjectsWithRating++;
                     }
-
-                    Integer trend = cell.getTrend();
-                    if (null != trend) {
-                        sumTrend += trend.intValue();
-                        subjectsWithTrend++;
-                    }
                 }
 
                 Integer averageRating = null;
-                Integer trend = null;
                 if (subjectsWithRating != 0) {
                     averageRating = new Integer(Math.round((float)sumRatings / (float)subjectsWithRating));
                 }
-                if (subjectsWithTrend != 0) {
-                    trend = new Integer(Math.round((float)sumTrend / (float)subjectsWithTrend));
-                }
-
-                decoratedRows.add(new Row(row.getLabel(), averageRating, trend));
+                decoratedRows.add(new Row(row.getLabel(), averageRating));
             }
             _decoratedRowGroups.add(new RowGroup(rowGroup.getLabel(), decoratedRows));
         }
@@ -84,14 +70,10 @@ public class OverallRatingDecorator implements IRatingsDisplay {
         private String _label;
         private List _cells = new ArrayList();
 
-        Row(String label, Integer rating, Integer trend) {
+        Row(String label, Integer rating) {
             _label = label;
 
-            if (null != trend) {
-                trend = new Integer(trend.intValue());
-            }
-
-            _cells.add(new Cell(rating, trend));
+            _cells.add(new Cell(rating));
         }
 
         public String getLabel() {
