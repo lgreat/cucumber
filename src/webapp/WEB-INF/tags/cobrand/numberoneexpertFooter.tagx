@@ -38,6 +38,7 @@
 
                 ]]></jsp:scriptlet>
         <style type="text/css">
+            table.bestImage { }
             a.bestImage:link    {color:#003399;text-decoration:underline;}
             a.bestImage:visited {color:#666666;text-decoration:underline;}
             a.bestImage:hover   {color:#000000;text-decoration:underline;}
@@ -48,7 +49,8 @@
                 color: #000000;
             }
         </style>
-        <table width="600" cellspacing="0" cellpadding="10" border="0" bgcolor="#ffffff">
+        <center>
+        <table class="bestImage" width="600" cellspacing="0" cellpadding="10" border="0" bgcolor="#ffffff">
             <tbody>
                 <tr>
                     <td width="128" valign="top" bgcolor="#ffffff" align="center">
@@ -81,6 +83,7 @@
                 </tr>
             </tbody>
         </table>
+        </center>
         <jsp:scriptlet>
                 } // end if bestImage != null
             } // end if agentId != null
