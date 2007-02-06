@@ -17,7 +17,7 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
-<pageHelper:setPathway pathway="SEASONAL"/>
+<pageHelper:setPathway pathway="LIBRARY"/>
 
 <head>
     <title>Greatschools.net: School Choice Tips</title>
