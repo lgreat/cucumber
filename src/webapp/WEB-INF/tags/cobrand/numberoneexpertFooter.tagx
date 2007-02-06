@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        >
+    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+    <jsp:directive.tag import="org.springframework.context.ApplicationContext"/>
+    <jsp:directive.tag import="gs.data.cobrand.IBestImageDao"/>
+    <jsp:directive.tag import="gs.data.cobrand.BestImage"/>
+
+    <c:if test="${requestScope.context.cobranded and requestScope.context.cobrand eq 'number1expert'}">
+        <jsp:scriptlet><![CDATA[
+            javax.servlet.http.Cookie[] cookies = request.getCookies();
+            String agentId = null;
+            if (cookies != null) {
+                // Collect all the cookies
+                for (int i = 0; cookies.length > i; i++) {
+                    // find the agent id cookie
+                    if ("AGENTID".equals(cookies[i].getName())) {
+                        // store its value
+                        agentId = cookies[i].getValue();
+                    }
+                }
+            }
+            if (agentId != null) {
+                BestImage bestImage = null;
+                try {
+                    ApplicationContext ac = SessionContextUtil.getSessionContext(request).getApplicationContext();
+                    IBestImageDao bestImageDao = (IBestImageDao) ac.getBean(IBestImageDao.BEAN_ID);
+                    bestImage = bestImageDao.findBestImageByAgentId(new Integer(agentId));
+                } catch (Exception e) {
+                    // do nothing
+                }
+
+                if (bestImage != null) {
+                    request.setAttribute("bestImage", bestImage);
+
+                ]]></jsp:scriptlet>
+        <style type="text/css">
+            a.bestImage:link    {color:#003399;text-decoration:underline;}
+            a.bestImage:visited {color:#666666;text-decoration:underline;}
+            a.bestImage:hover   {color:#000000;text-decoration:underline;}
+            td.bestImage {
+                font-family: arial;
+                font-size: 12px;
+                font-style: normal;
+                color: #000000;
+            }
+        </style>
+        <table width="600" cellspacing="0" cellpadding="10" border="0" bgcolor="#ffffff">
+            <tbody>
+                <tr>
+                    <td width="128" valign="top" bgcolor="#ffffff" align="center">
+                        <a target="win" href="http://${bestImage.weburl}">
+                        <img border="0" src="http://${bestImage.photourl}"/>
+                        </a>
+                        <br/>
+                        <gsml:img alt="" src="/images/logo_n1e_sm.gif"/>
+                        <br/>
+                    </td>
+                    <td class="bestImage" width="472" valign="top" bgcolor="#ffffff" align="left">
+                        <b>Brought to you courtesy of:</b>
+                        <br/>
+                        ${bestImage.name}
+                        <br/>
+                        ${bestImage.company}
+                        <br/>
+                        ${bestImage.address1}
+                        <br/>
+                        ${bestImage.address2}
+                        ${bestImage.city}, ${bestImage.state} ${bestImage.zip}
+                        <br/>
+                        ${bestImage.phone}
+                        <br/>
+                        <a class="bestImage" href="mailto:${bestImage.email}">${bestImage.email}</a>
+                        <br/>
+                        <a class="bestImage" target="win" href="http://${bestImage.weburl}">${bestImage.weburl}</a>
+                        <br/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <jsp:scriptlet>
+                } // end if bestImage != null
+            } // end if agentId != null
+        </jsp:scriptlet>
+    </c:if>
+</jsp:root>

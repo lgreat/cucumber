@@ -78,6 +78,8 @@
         <decorator:body/>
         </div>
 
+        <cobrand:numberoneexpertFooter/>
+
             <c:if test="${requestScope.pageHelper.showingFooter}">
                 <div id="footer">
                     <div id="footerAd">
