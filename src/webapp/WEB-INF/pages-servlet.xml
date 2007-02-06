@@ -577,6 +577,12 @@
         <property name="viewName" value="/content/holidayLearning"/>
     </bean>
 
+    <bean name="/content/movingWithKids.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="/content/movingWithKids"/>
+    </bean>
+
     <bean name="/promo/shutterfly/cards.page"
           class="gs.web.promo.ShutterflyCardsController"
           autowire="byName" lazy-init="true">

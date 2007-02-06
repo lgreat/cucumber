@@ -86,6 +86,12 @@
       padding: 3px 3px 3px 0px;
 }
 
+#contentGS .left ul li.seeMore {
+    background-image:none;
+    text-align:right;
+    padding-top:4px;
+}
+
 /* Middle column */
 #contentGS .middle h1 {
     font-family: Rockwell light, courier, courier new;

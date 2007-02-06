@@ -74,27 +74,31 @@
             </table>
         </li>
     </ul>
-    <h3>Learning Games</h3>
+    <h3>School Choice Tips</h3>
     <ul class="plain">
-        <gsweb:articlelink articleId="400" wrappingElement="li"/>
-        <gsweb:articlelink articleId="410" wrappingElement="li"/>
-        <gsweb:articlelink articleId="401" wrappingElement="li"/>
+        <gsweb:articlelink articleId="197" wrappingElement="li"/>
+        <gsweb:articlelink articleId="96" wrappingElement="li"/>
+        <li class="seeMore">
+            <gsml:a href="/content/schoolChoiceCenter.page">See more &gt;</gsml:a>
+        </li>
     </ul>
 
     <h3>Healthy Kids</h3>
     <ul class="plain">
         <gsweb:articlelink articleId="350" wrappingElement="li"/>
         <gsweb:articlelink articleId="253" wrappingElement="li"/>
-        <li style="background-image:none;text-align:right; padding-top:4px;">
+        <li class="seeMore">
             <gsml:a href="/content/healthyKids.page">See more &gt;</gsml:a>
         </li>
     </ul>
 
-    <h3>Get Involved</h3>
+    <h3>Moving With Kids</h3>
     <ul class="plain">
-        <gsweb:articlelink articleId="34" wrappingElement="li"/>
-        <gsweb:articlelink articleId="41" wrappingElement="li"/>
-        <gsweb:articlelink articleId="737" wrappingElement="li"/>
+        <gsweb:articlelink articleId="455" wrappingElement="li"/>
+        <gsweb:articlelink articleId="60" wrappingElement="li"/>
+        <li class="seeMore">
+            <gsml:a href="/content/movingWithKids.page">See more &gt;</gsml:a>
+        </li>
     </ul>
 
     <div id="allArticles">
