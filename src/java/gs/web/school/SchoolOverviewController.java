@@ -67,7 +67,9 @@ public class SchoolOverviewController extends AbstractSchoolController {
                     boolean foundCookie = false;
                     String biregCookieName = "BIREG" + agentId;
                     for (int i=0; cookies.length > i; i++) {
-                        if (biregCookieName.equals(cookies[i].getName())) {
+                        if (biregCookieName.equals(cookies[i].getName()) &&
+                                StringUtils.isNotEmpty(cookies[i].getValue()) && 
+                                !cookies[i].getValue().equals("0")){
                             foundCookie = true;
                         }
                     }
@@ -79,6 +81,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
                                         new Integer(schoolIdStr),
                                         new Integer(agentId));
                         response.sendRedirect(urlBuilder.asFullUrl(request));
+                        return null;
                     }
                 } // end if agentId != null
             } // end if cookies != null

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.56 2007/01/16 18:44:06 chriskimm Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.57 2007/02/08 19:01:01 aroy Exp $
  */
 
 package gs.web.util;
@@ -29,6 +29,16 @@ import java.net.URLEncoder;
 public class UrlBuilderSaTest extends TestCase {
     private static final Log _log = LogFactory.getLog(UrlBuilderSaTest.class);
 
+    private GsMockHttpServletRequest getMockRequest() {
+        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
+        request.setMethod("GET");
+        request.setProtocol("http");
+        request.setServerName("www.myserver.com");
+        request.setServerPort(80);
+        request.setRequestURI("/index.page");
+        return request;
+    }
+
     public void testArticleLinkBuilder() {
         Article article = new Article();
         article.setId(new Integer(5));
@@ -44,23 +54,14 @@ public class UrlBuilderSaTest extends TestCase {
     }
 
     public void testUrlBuilder() {
-        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
-        request.setMethod("GET");
-        request.setProtocol("http");
-        request.setServerName("www.myserver.com");
-        request.setServerPort(80);
-        request.setRequestURI("/index.page");
+        GsMockHttpServletRequest request = getMockRequest();
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
         assertEquals("/index.page", builder.asSiteRelativeXml(null));
         assertEquals("http://www.myserver.com/index.page", builder.asFullUrl(request));
     }
 
     public void testUrlBuilderContext() {
-        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
-        request.setMethod("GET");
-        request.setProtocol("http");
-        request.setServerName("www.myserver.com");
-        request.setServerPort(80);
+        GsMockHttpServletRequest request = getMockRequest();
         request.setContextPath("/gs-web");
         request.setRequestURI("/gs-web/index.page");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
@@ -75,12 +76,7 @@ public class UrlBuilderSaTest extends TestCase {
     }
 
     public void testUrlBuilderParams() {
-        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
-        request.setMethod("GET");
-        request.setProtocol("http");
-        request.setServerName("www.myserver.com");
-        request.setServerPort(80);
-        request.setRequestURI("/index.page");
+        GsMockHttpServletRequest request = getMockRequest();
         request.setParameter("a", "1");
         request.setParameter("b", "2");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
@@ -98,12 +94,8 @@ public class UrlBuilderSaTest extends TestCase {
     }
 
     public void testUrlBuilder8080() {
-        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
-        request.setMethod("GET");
-        request.setProtocol("http");
-        request.setServerName("www.myserver.com");
+        GsMockHttpServletRequest request = getMockRequest();
         request.setServerPort(8080);
-        request.setRequestURI("/index.page");
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
         assertEquals("/index.page", builder.asSiteRelativeXml(null));
         assertEquals("http://www.myserver.com:8080/index.page", builder.asFullUrl(request));
@@ -218,12 +210,7 @@ public class UrlBuilderSaTest extends TestCase {
 
 
     public void testAddParameter() {
-        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
-        request.setMethod("GET");
-        request.setProtocol("http");
-        request.setServerName("www.myserver.com");
-        request.setServerPort(80);
-        request.setRequestURI("/index.page");
+        GsMockHttpServletRequest request = getMockRequest();
 
         // Adding
         UrlBuilder builder = new UrlBuilder(request, "/index.page");
@@ -258,12 +245,7 @@ public class UrlBuilderSaTest extends TestCase {
 
 
     public void testVPages() throws UnsupportedEncodingException {
-        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
-        request.setMethod("GET");
-        request.setProtocol("http");
-        request.setServerName("www.myserver.com");
-        request.setServerPort(80);
-        request.setRequestURI("/index.page");
+        GsMockHttpServletRequest request = getMockRequest();
 
         UrlBuilder builder = new UrlBuilder(UrlBuilder.ARTICLE_LIBRARY, State.WY);
         assertEquals("/content/allArticles.page", builder.asSiteRelative(request));
@@ -367,12 +349,7 @@ public class UrlBuilderSaTest extends TestCase {
     }
 
     public void testAdminPages() {
-        GsMockHttpServletRequest request = new GsMockHttpServletRequest();
-        request.setMethod("GET");
-        request.setProtocol("http");
-        request.setServerName("www.myserver.com");
-        request.setServerPort(80);
-        request.setRequestURI("/index.page");
+        GsMockHttpServletRequest request = getMockRequest();
 
         UrlBuilder builder = new UrlBuilder(UrlBuilder.ADMIN_NEWS_ITEMS, null);
         assertEquals("/admin/news/list.page", builder.asSiteRelative(request));
@@ -382,6 +359,16 @@ public class UrlBuilderSaTest extends TestCase {
 
         builder = new UrlBuilder(UrlBuilder.ADMIN_NEWS_ITEMS_DELETE, null, new Integer(1).toString() );
         assertEquals("/admin/news/delete.page?id=1", builder.asSiteRelative(request));
+    }
+
+    public void testUrlBuilderBiReg() {
+        GsMockHttpServletRequest request = getMockRequest();
+
+        State state = State.CA;
+        Integer schoolId = new Integer(15);
+        Integer agentId = new Integer(321);
+        UrlBuilder builder = new UrlBuilder(UrlBuilder.GET_BIREG, state, schoolId, agentId);
+        assertEquals("/cgi-bin/getBIReg/CA/15/321", builder.asSiteRelative(request));
     }
 
 }
