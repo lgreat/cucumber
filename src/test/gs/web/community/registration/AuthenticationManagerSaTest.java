@@ -20,7 +20,7 @@ public class AuthenticationManagerSaTest extends TestCase {
     public void setUp() throws NoSuchAlgorithmException {
         _user = getUser(new Integer(155803), "AuthenticationManagerSaTest@greatschools.net");
         _authManager = new AuthenticationManager();
-         _authInfo = _authManager.generateAuthInfo(_user);
+        _authInfo = _authManager.generateAuthInfo(_user);
     }
 
     private User getUser(Integer id, String email) {
@@ -38,18 +38,18 @@ public class AuthenticationManagerSaTest extends TestCase {
     }
 
     public void testVerifyAuthInfo() throws NoSuchAlgorithmException {
-        assertTrue(_authManager.verifyAuthInfo(_user, _authInfo));
+        assertTrue("Equivalence failed", _authManager.verifyAuthInfo(_user, _authInfo));
 
         User user2 = getUser(new Integer(_user.getId().intValue()+1), _user.getEmail());
-        assertFalse(_authManager.verifyAuthInfo(user2, _authInfo));
+        assertFalse("Hash validated for wrong user id", _authManager.verifyAuthInfo(user2, _authInfo));
 
         User user3 = getUser(_user.getId(), "a" + _user.getEmail());
-        assertFalse(_authManager.verifyAuthInfo(user3, _authInfo));
+        assertFalse("Hash validated for wrong email", _authManager.verifyAuthInfo(user3, _authInfo));
 
         Date origDate = _authInfo.getTimestamp();
         try {
             _authInfo.setTimestamp(new Date(origDate.getTime() + _authManager.getTimeout()));
-            assertFalse(_authManager.verifyAuthInfo(_user, _authInfo));
+            assertFalse("Hash validated for wrong date", _authManager.verifyAuthInfo(_user, _authInfo));
         } finally {
             _authInfo.setTimestamp(origDate);
         }
@@ -59,7 +59,7 @@ public class AuthenticationManagerSaTest extends TestCase {
 
         try {
             Thread.sleep(100);
-            assertFalse(_authManager.verifyAuthInfo(_user, _authInfo));
+            assertFalse("Hash validated despite timeout", _authManager.verifyAuthInfo(_user, _authInfo));
         } catch (InterruptedException e) {
             fail("Thread sleep interrupted");
         } finally {
@@ -75,34 +75,18 @@ public class AuthenticationManagerSaTest extends TestCase {
         }
 
         Integer id = _authManager.getUserIdFromParameter(value);
-        assertEquals(_user.getId(), id);
+        assertEquals("User id from parameter does not equal user id in object", _user.getId(), id);
     }
 
     public void testVerifyAuthInfoString() throws NoSuchAlgorithmException, UnsupportedEncodingException {
         String paramString = _authManager.getParameterValue(_authInfo);
         if (paramString.indexOf('%') > -1) {
-                paramString = URLDecoder.decode(paramString, "UTF-8");
+            paramString = URLDecoder.decode(paramString, "UTF-8");
         }
 
-        assertTrue(_authManager.verifyAuthInfo(_user, paramString));
+        assertTrue("Equivalence failed", _authManager.verifyAuthInfo(_user, paramString));
 
         assertFalse(_authManager.verifyAuthInfo(_user, (String)null));
         assertFalse(_authManager.verifyAuthInfo(_user, ""));
-    }
-
-    public void xtestNoAddParameter() throws NoSuchAlgorithmException {
-        String url = "http://www.greatschools.net/article.page?id=500";
-        String newUrl = _authManager.addParameterIfNecessary(url, _authInfo);
-
-        assertNotNull(newUrl);
-        assertEquals(url, newUrl);
-    }
-
-    public void testAddParameter() throws NoSuchAlgorithmException {
-        String url = "/?14@@.598dae0f";
-        String newUrl = _authManager.addParameterIfNecessary(url, _authInfo);
-
-        assertNotNull(newUrl);
-        assertFalse(url.equals(newUrl));
     }
 }

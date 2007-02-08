@@ -115,27 +115,6 @@ public class AuthenticationManager {
     }
 
     /**
-     * If the original url looks like it belongs to a site that would want proof-of-authentication,
-     * add that proof to the end of the URL.
-     * @param originalUrl
-     * @param authInfo
-     * @return new url string
-     */
-    public String addParameterIfNecessary(String originalUrl, AuthInfo authInfo) {
-        StringBuffer rval = new StringBuffer();
-        if (!originalUrl.startsWith("http")) {
-            // special case code for webcrossing
-            rval.append(WEBCROSSING_FORWARD_URL);
-            rval.append(getParameterValue(authInfo));
-            rval.append(originalUrl);
-        } else {
-            // for URLs that look normal
-            rval.append(generateRedirectUrl(originalUrl, authInfo));
-        }
-        return rval.toString();
-    }
-
-    /**
      * Converts an AuthInfo object into a parameter string.
      * @param authInfo
      * @return string representing the AuthInfo object

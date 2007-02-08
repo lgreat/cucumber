@@ -184,8 +184,7 @@ public class ResetPasswordController extends SimpleFormController implements Rea
             AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
             UrlBuilder builder = new UrlBuilder(UrlBuilder.ACCOUNT_INFO, null, null);
             builder.addParameter("message", "Your password has been changed");
-            mAndV.setViewName("redirect:" + _authenticationManager.addParameterIfNecessary
-                (builder.asFullUrl(request), authInfo));
+            mAndV.setViewName("redirect:" + builder.asFullUrl(request));
         } else {
             mAndV.setViewName(getSuccessView());
         }

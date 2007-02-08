@@ -356,7 +356,8 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
             fupCommand.setRedirect(builder.asFullUrl(request));
         }
-        mAndV.setViewName("redirect:" + _authenticationManager.addParameterIfNecessary
+        // bounce to webcrossing so they can create user
+        mAndV.setViewName("redirect:" + _authenticationManager.generateRedirectUrl
             (fupCommand.getRedirect(), authInfo));
 
         return mAndV;

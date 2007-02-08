@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.21 2007/01/18 18:19:45 aroy Exp $
+ * $Id: LoginController.java,v 1.22 2007/02/08 19:38:51 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -117,7 +117,7 @@ public class LoginController extends SimpleFormController {
 
         if (StringUtils.isNotEmpty(loginCommand.getRedirect())) {
             AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
-            loginCommand.setRedirect(_authenticationManager.addParameterIfNecessary
+            loginCommand.setRedirect(_authenticationManager.generateRedirectUrl
                     (loginCommand.getRedirect(), authInfo));
         } else {
             if (DEFAULT_REDIRECT_URL == null) {
