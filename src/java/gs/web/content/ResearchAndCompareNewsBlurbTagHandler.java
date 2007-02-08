@@ -16,6 +16,7 @@ import gs.data.school.ISchoolDao;
 import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
+import java.text.NumberFormat;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -200,7 +201,8 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
                 out.print(title.toUpperCase());
                 out.println(closeTitle());
                 out.print(openParagraph());
-                out.print("We have profiles for more than " + roundedNumSchools);
+                out.print("We have profiles for more than " +
+                        NumberFormat.getInstance().format(roundedNumSchools));
                 if (hasCharterSchools) {
                     out.print(" public, private and charter ");
                 } else {
