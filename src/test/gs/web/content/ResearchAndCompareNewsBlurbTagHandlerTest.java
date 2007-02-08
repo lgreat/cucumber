@@ -73,7 +73,8 @@ public class ResearchAndCompareNewsBlurbTagHandlerTest extends TestCase {
         StringBuffer output = writer.getOutputBuffer();
         assertNotNull(output);
         assertTrue(output.length() > 0);
-        assertTrue(output.indexOf("132") > -1);
+        System.out.println(output);
+        assertTrue(output.indexOf("13,200") > -1);
         assertTrue(output.indexOf("charter") > -1);
     }
 
