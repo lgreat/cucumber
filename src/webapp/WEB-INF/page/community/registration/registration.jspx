@@ -18,7 +18,7 @@
           <!--
 
           function insertFormField() {
-             $('reg1Form').innerHTML += '<input type="hidden" name="javascriptEnabled" value="true"/>';
+              new Insertion.Bottom($('reg1Form'), '<input type="hidden" name="javascriptEnabled" value="true"/>');
           }
           function stateChange(stateSelect) {
               var url = 'registrationAjax.page';
@@ -39,35 +39,28 @@
 
               if (otherGender.checked || numChildren.value == '0') {
                   // show terms and join, hide next
-                  hideDiv('nextButton');
-                  showDiv('newsletter');
-                  showDiv('terms');
-                  showDiv('joinButton');
+                  $('nextButton').hide();
+                  $('newsletter').show();
+                  $('terms').show();
+                  $('joinButton').show();
                   if (otherGender.checked) {
                       // hide numChildren
-                      hideDiv('numChildren');
+                      $('numChildren').hide();
                   } else {
-                      showDiv('numChildren');
+                      $('numChildren').show();
                   }
               } else {
                   // hide terms and join, show next
-                  hideDiv('newsletter');
-                  hideDiv('terms');
-                  hideDiv('joinButton');
-                  showDiv('numChildren');
-                  showDiv('nextButton');
+                  $('newsletter').hide();
+                  $('terms').hide();
+                  $('joinButton').hide();
+                  $('numChildren').show();
+                  $('nextButton').show();
               }
           }
 
-          function hideDiv(divId) {
-              $(divId).style.display = 'none';
-          }
-
-          function showDiv(divId) {
-              $(divId).style.display = 'block';
-          }
-
           function doSingleClick(element) {
+              $(element).disable();
               element.onclick = new Function('return false;');
               return true;
           }
@@ -244,7 +237,7 @@
                     <!-- end: alert_box -->
 
                     <div id="joinButton" class="join" style="${termsStyle}">
-                        <a href="communityLanding.page" title="Join the GreatSchools community" onclick="$('invJoinButton').click(); return false;" tabindex="16">&amp;nbsp;</a>
+                        <a href="#" title="Join the GreatSchools community" onclick="$('invJoinButton').click(); return false;" tabindex="16">&amp;nbsp;</a>
                         <input id="invJoinButton" type="submit" name="join" value="join" style="display: none"
                                onclick="return doSingleClick(this);"/>
                     </div>
