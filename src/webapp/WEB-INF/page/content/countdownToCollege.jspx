@@ -164,9 +164,8 @@
         <gsml:a href="/cgi-bin/showarticle/$STATE/832" styleClass="noHover">Get Smart About Tests</gsml:a>
     </div>
     <div class="module">
-
         In the debates about testing, it's easy to forget that tests are supposed to be
-        tools for learning. <gsml:a href="/cgi-bin/showarticle/$STATE/831" styleClass="noHover">
+        tools for learning. <gsml:a href="/cgi-bin/showarticle/$STATE/831" styleClass="inModuleLink">
         Understanding what a test measures -and what it doesn't</gsml:a>
         - enables you to advocate for your child. You can also help by monitoring her
         schoolwork and asking officials how test results are used to improve teaching
@@ -224,7 +223,7 @@
                     <ul class="quickFindLinks" style="padding-top:15px;">
                         <li style="padding-top:0;margin-top:0"><a href="http://apps.collegeboard.com/search/index.jsp"
                                target="_blank">College Search: Find the Right Colleges </a></li>
-                        <li><a href="http://www.collegeboard.com/parents/csearch/find-right-college"
+                        <li><a href="http://www.collegeboard.com/parents/csearch/find-right-college/21174.html"
                                target="_blank">Tips for Finding a College Match </a></li>
                         <li><a href="http://www.collegeboard.com/parents/csearch/explore-colleges/21189.html"
                                target="_blank">Why Visit?</a></li>
@@ -344,8 +343,7 @@
                                Encourage your child to start looking for a summer opportunity-a
                                <a href="http://www.collegeboard.com/parents/plan/hs-steps/21283.html" target="_blank"> job, internship or volunteer position
                                </a>. Real-world experience can give your child a preview
-                               of potential careers. This may help him to focus his
-                               studies in college and when he's selecting a major.
+                               of potential careers.
                            </span><br />
                            <a href="http://www.collegeboard.com/parents/plan/getting-ready/26402.html" target="_blank" class="actionTipsLink">Senior Action Plan</a></td>
                    </tr>

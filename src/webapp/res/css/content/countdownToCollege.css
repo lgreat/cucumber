@@ -318,7 +318,7 @@ h2#adBlurb {
 	text-decoration: underline;
 }
 
-#contentGS span.actionTip a {
+#contentGS span.actionTip a, .module a.inModuleLink {
    color:#3399AA;
 }
 
