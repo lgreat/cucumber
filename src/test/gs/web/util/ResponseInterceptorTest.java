@@ -70,6 +70,17 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
         assertEquals("Unexpected cobrand cookie domain", "greatschools.net", cobrandCookie.getDomain());
     }
 
+    public void testCobrandCookieNotReSetForCobrand() throws Exception {
+        _request.setCookies(new Cookie[]{new Cookie(ResponseInterceptor.COBRAND_COOKIE, _requestedServer)});
+        _request.setServerName(_requestedServer);
+        setUpSessionContext(true, false);
+
+        assertTrue("preHandle should always return true", _interceptor.preHandle(_request, _response, null));
+
+        Cookie cobrandCookie = findCobrandCookie();
+        assertNull("Cobrand cookie should not be set again for cobrand domains", cobrandCookie);
+    }
+
     public void testCobrandCookieNotSetForNonCobrand() throws Exception {
         _request.setServerName(_requestedServer);
         setUpSessionContext(false, false);
@@ -100,6 +111,8 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
         Cookie cobrandCookie = findCobrandCookie();
         assertEquals("Unexpected cobrand cookie value", "", cobrandCookie.getValue());
         assertEquals("Expected age 0 (delete) for cobrand cookie", ResponseInterceptor.EXPIRE_NOW, cobrandCookie.getMaxAge());
+        assertEquals("Unexpected cobrand cookie path", "/", cobrandCookie.getPath());
+        assertEquals("Unexpected cobrand cookie domain", "greatschools.net", cobrandCookie.getDomain());
     }
 
     public void testCobrandCookieUnSetForFramedCobrand() throws Exception {
@@ -112,6 +125,8 @@ public class ResponseInterceptorTest extends BaseControllerTestCase {
         Cookie cobrandCookie = findCobrandCookie();
         assertEquals("Unexpected cobrand cookie value", "", cobrandCookie.getValue());
         assertEquals("Expected age 0 (delete) for cobrand cookie", ResponseInterceptor.EXPIRE_NOW, cobrandCookie.getMaxAge());
+        assertEquals("Unexpected cobrand cookie path", "/", cobrandCookie.getPath());
+        assertEquals("Unexpected cobrand cookie domain", "greatschools.net", cobrandCookie.getDomain());
     }
 
 

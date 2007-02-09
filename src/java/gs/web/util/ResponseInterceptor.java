@@ -48,23 +48,23 @@ public class ResponseInterceptor implements HandlerInterceptor {
         }
 
         SessionContext sessionContext = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
+        Cookie cobrandCookie = findCookie(request, COBRAND_COOKIE);
         if (sessionContext.isCobranded() && !sessionContext.isFramed()) {
-            Cookie cobrandCookie = new Cookie(COBRAND_COOKIE, sessionContext.getHostName());
-            cobrandCookie.setPath("/");
-            cobrandCookie.setDomain("greatschools.net");
-            response.addCookie(cobrandCookie);
+            String hostName = sessionContext.getHostName();
+            if (cobrandCookie == null || !hostName.equals(cobrandCookie.getValue())) {
+                cobrandCookie = new Cookie(COBRAND_COOKIE, hostName);
+                cobrandCookie.setPath("/");
+                cobrandCookie.setDomain("greatschools.net");
+                response.addCookie(cobrandCookie);
+            }
         }
         else {
-            Cookie cookies[] = request.getCookies();
-            if (cookies != null) {
-                for (int i = 0; i < cookies.length; i++) {
-                    Cookie cookie = cookies[i];
-                    if (COBRAND_COOKIE.equals(cookie.getName())) {
-                        cookie.setValue("");
-                        cookie.setMaxAge(0);
-                        response.addCookie(cookie);
-                    }
-                }
+            if (cobrandCookie != null) {
+                cobrandCookie.setValue("");
+                cobrandCookie.setMaxAge(EXPIRE_NOW);
+                cobrandCookie.setPath("/");
+                cobrandCookie.setDomain("greatschools.net");
+                response.addCookie(cobrandCookie);
             }
         }
 
@@ -73,22 +73,7 @@ public class ResponseInterceptor implements HandlerInterceptor {
 
 
     private void setTrnoCookie(HttpServletRequest request, HttpServletResponse response) {
-        boolean hasTrnoCookie = false;
-        Cookie cookies [] = request.getCookies();
-
-        if (cookies != null) {
-
-            for (int i = 0; i < cookies.length; i++) {
-                Cookie cookie = cookies[i];
-                
-                if (TRNO_COOKIE.equals(cookie.getName())) {
-                    hasTrnoCookie = true;
-                    break;
-                }
-            }
-        }
-
-        if (!hasTrnoCookie) {
+        if (findCookie(request, TRNO_COOKIE) == null) {
             Long secondsSinceEpoch = new Long(System.currentTimeMillis() / 1000);
             String ipAddress = request.getHeader("x_forwarded_for");
 
@@ -104,6 +89,19 @@ public class ResponseInterceptor implements HandlerInterceptor {
             c.setMaxAge(63113852);
             response.addCookie(c);
         }
+    }
+
+    private Cookie findCookie(HttpServletRequest request, String cookieName) {
+        Cookie cookies [] = request.getCookies();
+        if (cookies != null) {
+            for (int i = 0; i < cookies.length; i++) {
+                Cookie cookie = cookies[i];
+                if (cookieName.equals(cookie.getName())) {
+                    return cookie;
+                }
+            }
+        }
+        return null;
     }
 
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse response, Object o, ModelAndView modelAndView) throws Exception {
