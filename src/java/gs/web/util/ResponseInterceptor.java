@@ -54,7 +54,7 @@ public class ResponseInterceptor implements HandlerInterceptor {
             if (cobrandCookie == null || !hostName.equals(cobrandCookie.getValue())) {
                 cobrandCookie = new Cookie(COBRAND_COOKIE, hostName);
                 cobrandCookie.setPath("/");
-                cobrandCookie.setDomain("greatschools.net");
+                cobrandCookie.setDomain(".greatschools.net");
                 response.addCookie(cobrandCookie);
             }
         }
@@ -63,7 +63,7 @@ public class ResponseInterceptor implements HandlerInterceptor {
                 cobrandCookie.setValue("");
                 cobrandCookie.setMaxAge(EXPIRE_NOW);
                 cobrandCookie.setPath("/");
-                cobrandCookie.setDomain("greatschools.net");
+                cobrandCookie.setDomain(".greatschools.net");
                 response.addCookie(cobrandCookie);
             }
         }
