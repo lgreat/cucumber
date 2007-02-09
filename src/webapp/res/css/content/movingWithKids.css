@@ -8,28 +8,21 @@ h3#movingWithKids {
 
 h3#learn {
     text-indent: -5000px;
-    background: url( "../../img/content/schoolChoiceTips/identifyWhatMattersMost.gif" ) no-repeat;
+    background: url( "../../img/content/movingWithKids/learnMoving.gif" ) no-repeat;
     width: 365px;
     height: 26px;
 }
 
 h3#choose {
     text-indent: -5000px;
-    background: url( "../../img/content/schoolChoiceTips/learnAboutYourOptions.gif" ) no-repeat;
+    background: url( "../../img/content/movingWithKids/chooseGreatSchool.gif" ) no-repeat;
     width: 365px;
     height: 26px;
 }
 
 h3#ease {
     text-indent: -5000px;
-    background: url( "../../img/content/schoolChoiceTips/makeTheMostofYourVisit.gif" ) no-repeat;
-    width: 365px;
-    height: 26px;
-}
-
-h3#applyAndEnroll {
-    text-indent: -5000px;
-    background: url( "../../img/content/schoolChoiceTips/applyAndEnroll.gif" ) no-repeat;
+    background: url( "../../img/content/movingWithKids/easeTransition.gif" ) no-repeat;
     width: 365px;
     height: 26px;
 }
