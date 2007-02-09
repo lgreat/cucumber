@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.10 2007/01/02 20:09:16 cpickslay Exp $
+ * $Id: SessionContext.java,v 1.11 2007/02/09 00:41:18 cpickslay Exp $
  */
 package gs.web.util.context;
 
@@ -149,6 +149,9 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         _state = state;
     }
 
+    /**
+     * Set by SessionContextUtil.updateFromParams()
+     */
     public String getCobrand() {
         return _cobrand;
     }
