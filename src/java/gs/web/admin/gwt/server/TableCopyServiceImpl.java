@@ -36,6 +36,8 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     public static final String TABLES_TO_MOVE_URL = "http://wiki.greatschools.net/bin/view/Greatschools/TableToMove";
     private HttpClient _httpClient = new HttpClient();
     private GetMethod _request = new GetMethod(TABLES_TO_MOVE_URL);
+    public static final String TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR = "The following tables have already been copied.\n" +
+            "Please check http://wiki.greatschools.net/bin/view/Greatschools/TableToMove before proceeding\n";
 
     public void setJdbcContext(JdbcOperations context) {
         this._jdbcContext = context;
@@ -224,8 +226,10 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return found;
     }
 
-    public boolean tablesAlreadyCopiedToDev(List databaseTablePairs) throws IOException {
+    public List tablesNotYetCopiedToDev(List databaseTablePairs) throws IOException {
         _httpClient.executeMethod(_request);
+
+        List notFound = new ArrayList();
 
         for (Iterator iterator = databaseTablePairs.iterator(); iterator.hasNext();) {
             String databaseTable = (String) iterator.next();
@@ -235,14 +239,28 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             String pageBody = _request.getResponseBodyAsString();
             Matcher matcher = pattern.matcher(pageBody);
             if (!matcher.find()) {
-                return false;
+                notFound.add(databaseTable);
             }
         }
 
-        return true;
+        return notFound;
     }
 
-    
+    public String checkWikiForSelectedTables(TableData.DatabaseDirection direction, List selectedTables) throws IOException {
+        if (TableData.PRODUCTION_TO_DEV.equals(direction)) {
+            List tablesAlreadyMoved = tablesFoundInTablesToMove(selectedTables);
+            if (!tablesAlreadyMoved.isEmpty()) {
+                StringBuffer error = new StringBuffer(TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR);
+                for (Iterator iterator = tablesAlreadyMoved.iterator(); iterator.hasNext();) {
+                    String table = (String) iterator.next();
+                    error.append(table).append("\n");
+                }
+                return error.toString();
+            }
+        }
+        return null;
+    }
+
     public void setHttpClient(HttpClient httpClient) {
         _httpClient = httpClient;
     }
@@ -254,4 +272,5 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     public void setRequest(GetMethod request) {
         _request = request;
     }
+
 }

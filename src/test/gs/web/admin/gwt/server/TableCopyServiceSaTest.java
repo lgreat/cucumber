@@ -19,7 +19,6 @@ public class TableCopyServiceSaTest extends BaseTestCase {
     private JdbcOperations _context;
     private MockControl _httpClientMock;
     private HttpClient _client;
-    private GetMethod _tableToMoveRequest;
 
     protected void setUp() throws Exception {
         _tableCopyService = new TableCopyServiceImpl();
@@ -150,14 +149,14 @@ public class TableCopyServiceSaTest extends BaseTestCase {
     public void testTablesFoundInTablesToMove() throws IOException {
         final List tableList = Arrays.asList(new String[]{"database1.table1", "database2.table2"});
 
-        _tableToMoveRequest = new GetMethod(TableCopyServiceImpl.TABLES_TO_MOVE_URL) {
+        GetMethod tablesFoundRequest = new GetMethod(TableCopyServiceImpl.TABLES_TO_MOVE_URL) {
             public String getResponseBodyAsString() throws IOException {
                 return generateTableToMovePage(tableList, null);
             }
         };
-        _tableCopyService.setRequest(_tableToMoveRequest);
+        _tableCopyService.setRequest(tablesFoundRequest);
 
-        _httpClientMock.expectAndReturn(_client.executeMethod(_tableToMoveRequest),
+        _httpClientMock.expectAndReturn(_client.executeMethod(tablesFoundRequest),
                 HttpStatus.SC_OK);
         _httpClientMock.replay();
 
@@ -172,21 +171,26 @@ public class TableCopyServiceSaTest extends BaseTestCase {
     public void testTablesAlreadyCopiedToDev() throws IOException {
         final List tableList = Arrays.asList(new String[]{"database1.table1", "database2.table2"});
 
-        _tableToMoveRequest = new GetMethod(TableCopyServiceImpl.TABLES_TO_MOVE_URL) {
+        GetMethod oneTableNotDoneRequest = new GetMethod(TableCopyServiceImpl.TABLES_TO_MOVE_URL) {
             public String getResponseBodyAsString() throws IOException {
                 return generateTableToMovePage(tableList, new boolean[]{true, false});
             }
         };
-        _tableCopyService.setRequest(_tableToMoveRequest);
+        _tableCopyService.setRequest(oneTableNotDoneRequest);
 
-        _httpClientMock.expectAndReturn(_client.executeMethod(_tableToMoveRequest),
+        _httpClientMock.expectAndReturn(_client.executeMethod(oneTableNotDoneRequest),
                 HttpStatus.SC_OK, 4);
         _httpClientMock.replay();
 
-        assertTrue("Expeceted database1.table1 to have been copied", _tableCopyService.tablesAlreadyCopiedToDev(Arrays.asList(new String[]{"database1.table1"})));
-        assertFalse("database2.table2 is in list but not copied", _tableCopyService.tablesAlreadyCopiedToDev(Arrays.asList(new String[]{"database2.table2"})));
-        assertFalse("database1.table2 is not in list", _tableCopyService.tablesAlreadyCopiedToDev(Arrays.asList(new String[]{"database1.table2"})));
-        assertFalse("second table in list not copied", _tableCopyService.tablesAlreadyCopiedToDev(Arrays.asList(new String[]{"database1.table1","database2.table2"})));
+        assertEquals("No result expected when table found and marked done", 0,
+                _tableCopyService.tablesNotYetCopiedToDev(Arrays.asList(new String[]{"database1.table1"})).size());
+        assertEquals("Expected database2.table2 in list, as it's not marked done", "database2.table2",
+                _tableCopyService.tablesNotYetCopiedToDev(Arrays.asList(new String[]{"database2.table2"})).get(0));
+        assertEquals("Expected database1.table2 in list, as it's not on wiki page", "database1.table2",
+                _tableCopyService.tablesNotYetCopiedToDev(Arrays.asList(new String[]{"database1.table2"})).get(0));
+        List errorList = _tableCopyService.tablesNotYetCopiedToDev(Arrays.asList(new String[]{"database1.table1", "database2.table2"}));
+        assertEquals("Expected one error, as first table is marked done", 1, errorList.size());
+        assertEquals("Expected database2.table2 in list, as it's not marked done", "database2.table2", errorList.get(0));
 
         _httpClientMock.verify();
     }
@@ -207,7 +211,8 @@ public class TableCopyServiceSaTest extends BaseTestCase {
     public void testGetDatabaseTableCopiedToDevMatcher() {
         String database = "xxx";
         String table = "yyy";
-        assertEquals("Unexpected regular expression to match database and table on one line", "(?m)^.*xxx.*</td>\\s*<td.*?yyy.*?</td>\\s*<td.*?done(.*</td>\\s*<td){3}.*$",
+        assertEquals("Unexpected regular expression to match database and table on one line with live -> dev marked done",
+                "(?m)^.*xxx.*</td>\\s*<td.*?yyy.*?</td>\\s*<td.*?done(.*</td>\\s*<td){3}.*$",
                 _tableCopyService.getDatabaseTableCopiedToDevMatcher(database, table));
 
         String page = generateTableToMovePage(Arrays.asList(new String[]{"database1.table1", "database2.table2"}), new boolean[]{true, false});
@@ -219,6 +224,69 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         assertFalse("Shouldn't match combination not in list",
                 Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database1", "table2")).matcher(page).find());
     }
+
+    public void testCheckWikiForSelectedTablesWhenAlreadyCopied() throws IOException {
+        final List selectedTables = Arrays.asList(new String[]{"database1.table1", "database2.table2"});
+
+        GetMethod tablesFoundRequest = new GetMethod(TableCopyServiceImpl.TABLES_TO_MOVE_URL) {
+            public String getResponseBodyAsString() throws IOException {
+                return generateTableToMovePage(selectedTables, null);
+            }
+        };
+        _tableCopyService.setRequest(tablesFoundRequest);
+
+        _httpClientMock.expectAndReturn(_client.executeMethod(tablesFoundRequest),
+                HttpStatus.SC_OK);
+        _httpClientMock.replay();
+
+
+        String status = _tableCopyService.checkWikiForSelectedTables(TableData.PRODUCTION_TO_DEV, selectedTables);
+
+        assertEquals("Unexpected response when selected tables have already been copied from live -> dev",
+                TableCopyServiceImpl.TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR + selectedTables.get(0) + "\n" + selectedTables.get(1) + "\n",
+                status);
+    }
+
+    public void testCheckWikiForSelectedTablesWhenNotCopied() throws IOException {
+        GetMethod tablesNotFoundRequest = new GetMethod(TableCopyServiceImpl.TABLES_TO_MOVE_URL) {
+            public String getResponseBodyAsString() throws IOException {
+                return generateTableToMovePage(new ArrayList(), null);
+            }
+        };
+        _tableCopyService.setRequest(tablesNotFoundRequest);
+
+        _httpClientMock.expectAndReturn(_client.executeMethod(tablesNotFoundRequest),
+                HttpStatus.SC_OK);
+        _httpClientMock.replay();
+
+
+        String status = _tableCopyService.checkWikiForSelectedTables(TableData.PRODUCTION_TO_DEV, Arrays.asList(new String[]{"database1.table1", "database2.table2"}));
+
+        assertNull("No error expected when selected tables aren't found", status);
+    }
+
+    public void testCheckWikiForSelectedTablesWhenNotCopiedFromLiveToDev() throws IOException {
+        final List selectedTables = Arrays.asList(new String[]{"database1.table1", "database2.table2"});
+
+        GetMethod tablesFoundRequest = new GetMethod(TableCopyServiceImpl.TABLES_TO_MOVE_URL) {
+            public String getResponseBodyAsString() throws IOException {
+                return generateTableToMovePage(selectedTables, new boolean[]{true, false});
+            }
+        };
+        _tableCopyService.setRequest(tablesFoundRequest);
+
+        _httpClientMock.expectAndReturn(_client.executeMethod(tablesFoundRequest),
+                HttpStatus.SC_OK);
+        _httpClientMock.replay();
+
+
+        String status = _tableCopyService.checkWikiForSelectedTables(TableData.PRODUCTION_TO_DEV, selectedTables);
+
+        assertEquals("Unexpected response when selected tables have already been copied from live -> dev",
+                TableCopyServiceImpl.TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR + selectedTables.get(0) + "\n" + selectedTables.get(1) + "\n",
+                status);
+    }
+
 
     private String generateTableToMovePage(List tables, boolean[] liveToDev) {
         StringBuffer tableBuffer = new StringBuffer();
