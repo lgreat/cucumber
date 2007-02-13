@@ -265,6 +265,26 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         assertNull("No error expected when selected tables aren't found", status);
     }
 
+    public void testCheckWikiForSelectedTablesFromLiveToDev() throws IOException {
+        final List selectedTables = Arrays.asList(new String[]{"database1.table1", "database2.table2"});
+
+        GetMethod tablesFoundRequest = new GetMethod(TableCopyServiceImpl.TABLES_TO_MOVE_URL) {
+            public String getResponseBodyAsString() throws IOException {
+                return generateTableToMovePage(selectedTables, new boolean[]{true, true});
+            }
+        };
+        _tableCopyService.setRequest(tablesFoundRequest);
+
+        _httpClientMock.expectAndReturn(_client.executeMethod(tablesFoundRequest),
+                HttpStatus.SC_OK);
+        _httpClientMock.replay();
+
+
+        String status = _tableCopyService.checkWikiForSelectedTables(TableData.DEV_TO_STAGING, selectedTables);
+
+        assertNull("No error expected when selected tables have already been moved from live -> dev", status);
+    }
+
     public void testCheckWikiForSelectedTablesWhenNotCopiedFromLiveToDev() throws IOException {
         final List selectedTables = Arrays.asList(new String[]{"database1.table1", "database2.table2"});
 
@@ -280,10 +300,10 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         _httpClientMock.replay();
 
 
-        String status = _tableCopyService.checkWikiForSelectedTables(TableData.PRODUCTION_TO_DEV, selectedTables);
+        String status = _tableCopyService.checkWikiForSelectedTables(TableData.DEV_TO_STAGING, selectedTables);
 
         assertEquals("Unexpected response when selected tables have already been copied from live -> dev",
-                TableCopyServiceImpl.TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR + selectedTables.get(0) + "\n" + selectedTables.get(1) + "\n",
+                TableCopyServiceImpl.TABLES_NOT_YET_MOVED_ERROR + selectedTables.get(1) + "\n",
                 status);
     }
 

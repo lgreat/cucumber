@@ -38,6 +38,8 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     private GetMethod _request = new GetMethod(TABLES_TO_MOVE_URL);
     public static final String TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR = "The following tables have already been copied.\n" +
             "Please check http://wiki.greatschools.net/bin/view/Greatschools/TableToMove before proceeding\n";
+    public static final String TABLES_NOT_YET_MOVED_ERROR = "The following tables have not yet been copied from live -> dev.\n" +
+            "Please check http://wiki.greatschools.net/bin/view/Greatschools/TableToMove before proceeding\n";
 
     public void setJdbcContext(JdbcOperations context) {
         this._jdbcContext = context;
@@ -249,14 +251,22 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     public String checkWikiForSelectedTables(TableData.DatabaseDirection direction, List selectedTables) throws IOException {
         if (TableData.PRODUCTION_TO_DEV.equals(direction)) {
             List tablesAlreadyMoved = tablesFoundInTablesToMove(selectedTables);
-            if (!tablesAlreadyMoved.isEmpty()) {
-                StringBuffer error = new StringBuffer(TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR);
-                for (Iterator iterator = tablesAlreadyMoved.iterator(); iterator.hasNext();) {
-                    String table = (String) iterator.next();
-                    error.append(table).append("\n");
-                }
-                return error.toString();
+            return generateWarningOutput(tablesAlreadyMoved, TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR);
+        } else if (TableData.DEV_TO_STAGING.equals(direction)) {
+            List tablesNotYetMoved = tablesNotYetCopiedToDev(selectedTables);
+            return generateWarningOutput(tablesNotYetMoved, TABLES_NOT_YET_MOVED_ERROR);
+        }
+        return null;
+    }
+
+    private String generateWarningOutput(List tables, String errorMessage) {
+        if (!tables.isEmpty()) {
+            StringBuffer error = new StringBuffer(errorMessage);
+            for (Iterator iterator = tables.iterator(); iterator.hasNext();) {
+                String table = (String) iterator.next();
+                error.append(table).append("\n");
             }
+            return error.toString();
         }
         return null;
     }
