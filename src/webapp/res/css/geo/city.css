@@ -31,6 +31,8 @@
 
     .cityPage td.recentParentReviews h2, .cityPage div.featuredArticles h2 {
         color:#55BBCC;
+        padding-top:0;
+        padding-bottom:4px;
     }
 
     .cityPage div.featuredArticles h2.sectionHead {
@@ -119,7 +121,7 @@
     .cleanLineBottomBox,
     .cleanLineLeftBox,
     .cleanLineRightBox {
-    border: 0 solid #999;
+    border: 0 solid #DDDDDD;
 }
 
 .cleanLineTopBox {
@@ -160,7 +162,8 @@
     .dottedLineBottomBox,
     .dottedLineLeftBox,
     .dottedLineRightBox {
-    border: 0 solid #bbb;
+    border: 0 solid #DDDDDD;
+    padding-bottom:3px;
 }
 
 .dottedLineTopBox {
@@ -172,6 +175,11 @@
 .dottedLineBottomBox {
     border-bottom-width: 1px;
     margin-bottom: 3px;
+}
+
+.topRatedSchools .dottedLineBottomBox {
+    padding-top:4px;
+    padding-bottom:4px;
 }
 
 .dottedLineLeftBox {
@@ -239,7 +247,7 @@ div.topRatedSchools {
     font-size: small;
     border: 0 solid #bbb;
     border-bottom-width: 1px;
-    padding: .4em .4em .4em 0;
+    padding: 6px 0 7px 0;
 }
 
 .schoolBreakdown li.last {
@@ -248,7 +256,7 @@ div.topRatedSchools {
 
 .districts li {
     font-size: small;
-    padding-bottom: 2px;
+    padding-bottom: 5px;
 }
 
 .topRatedSchools h5,
@@ -296,7 +304,7 @@ span.mousedOver, span:hover {
 }
 
 div.statsModule {
-    border: 0 solid #999;
+    border: 0 solid #DDDDDD;
     margin-top: 3px;
     padding-top: 6px;
     border-top-width: 1px;
