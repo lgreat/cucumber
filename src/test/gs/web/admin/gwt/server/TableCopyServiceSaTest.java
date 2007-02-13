@@ -4,19 +4,31 @@ import gs.web.BaseTestCase;
 import gs.web.admin.gwt.client.TableData;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.easymock.MockControl;
+import org.easymock.classextension.MockClassControl;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.GetMethod;
 
 import java.util.*;
+import java.util.regex.Pattern;
+import java.io.IOException;
 
 public class TableCopyServiceSaTest extends BaseTestCase {
-    private TableCopyServiceImpl tableCopyService;
-    private MockControl jdbcMock;
-    private JdbcOperations context;
+    private TableCopyServiceImpl _tableCopyService;
+    private MockControl _jdbcMock;
+    private JdbcOperations _context;
+    private MockControl _httpClientMock;
+    private HttpClient _client;
+    private GetMethod _tableToMoveRequest;
 
     protected void setUp() throws Exception {
-        tableCopyService = new TableCopyServiceImpl();
-        jdbcMock = MockControl.createControl(JdbcOperations.class);
-        context = (JdbcOperations) jdbcMock.getMock();
-        tableCopyService.setJdbcContext(context);
+        _tableCopyService = new TableCopyServiceImpl();
+        _jdbcMock = MockControl.createControl(JdbcOperations.class);
+        _context = (JdbcOperations) _jdbcMock.getMock();
+        _tableCopyService.setJdbcContext(_context);
+        _httpClientMock = MockClassControl.createControl(HttpClient.class);
+        _client = (HttpClient) _httpClientMock.getMock();
+        _tableCopyService.setHttpClient(_client);
     }
 
     public void testGetTables() {
@@ -46,15 +58,15 @@ public class TableCopyServiceSaTest extends BaseTestCase {
             }
         });
 
-        jdbcMock.expectAndReturn(context.queryForList(TableCopyServiceImpl.TABLE_LIST_QUERY), resultSet);
-        jdbcMock.replay();
+        _jdbcMock.expectAndReturn(_context.queryForList(TableCopyServiceImpl.TABLE_LIST_QUERY), resultSet);
+        _jdbcMock.replay();
 
-        TableData tableData = tableCopyService.getTables(TableData.DEV_TO_STAGING);
+        TableData tableData = _tableCopyService.getTables(TableData.DEV_TO_STAGING);
 
         assertEquals("Expected 2 databases", 2, tableData.getDatabaseTables().size());
         assertEquals("Unexpected direction", TableData.DEV_TO_STAGING, tableData.getDirection());
 
-        jdbcMock.verify();
+        _jdbcMock.verify();
     }
 
 
@@ -63,7 +75,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         String table1 = "gs_schooldb.table1";
         String table2 = "gs_schooldb.table2";
         String table3 = "_az.aztable1";
-        String copyCommand = tableCopyService.generateCopyCommand(direction,
+        String copyCommand = _tableCopyService.generateCopyCommand(direction,
                 Arrays.asList(new String[]{table1, table2, table3}));
         System.out.println("'" + copyCommand + "'");
         assertTrue("Expected copy command", copyCommand.startsWith(TableCopyServiceImpl.COPY_TABLES_COMMAND));
@@ -78,7 +90,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         String table1 = "gs_schooldb.table1";
         String table2 = "gs_schooldb.table2";
         String table3 = "_az.aztable1";
-        String wikiText = tableCopyService.generateWikiText(direction,
+        String wikiText = _tableCopyService.generateWikiText(direction,
                 Arrays.asList(new String[]{table1, table2, table3}));
 
         String expectedWikiText = "|Who/Jira|Db|Table|live -> dev|dev -> staging|staging -> live|Notes|\n" +
@@ -94,7 +106,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         String table1 = "gs_schooldb.table1";
         String table2 = "gs_schooldb.table2";
         String table3 = "_az.aztable1";
-        String wikiText = tableCopyService.generateWikiText(direction,
+        String wikiText = _tableCopyService.generateWikiText(direction,
                 Arrays.asList(new String[]{table1, table2, table3}));
 
         String expectedWikiText = "|Who/Jira|Db|Table|live -> dev|dev -> staging|staging -> live|Notes|\n" +
@@ -113,21 +125,135 @@ public class TableCopyServiceSaTest extends BaseTestCase {
                 "\t&nbsp;&nbsp;&nbsp;database.table1... not found in ditto.<br>\n" +
                 "\t&nbsp;&nbsp;&nbsp;database.table2... not found in ditto.<br>\n";
 
-        assertEquals("Unexpected error text", expectedErrorText, tableCopyService.parseCommandOutput(errors));
+        assertEquals("Unexpected error text", expectedErrorText, _tableCopyService.parseCommandOutput(errors));
     }
 
     public void testParseCommandOutputWithoutError() {
         String errors = "Copying database.table1\n" +
                 "Copying database.table2\n";
 
-        assertNull("Expected no error text", tableCopyService.parseCommandOutput(errors));
+        assertNull("Expected no error text", _tableCopyService.parseCommandOutput(errors));
     }
 
     public void testParseEmptyNullCommandOutput() {
         String errors = null;
-        assertNull("Expected no error text for null output", tableCopyService.parseCommandOutput(errors));
+        assertNull("Expected no error text for null output", _tableCopyService.parseCommandOutput(errors));
 
         errors = "";
-        assertNull("Expected no error text for empty output", tableCopyService.parseCommandOutput(errors));
+        assertNull("Expected no error text for empty output", _tableCopyService.parseCommandOutput(errors));
     }
+
+    public void testGetHttpClient() {
+        assertNotNull("Expected http client to be initialized", _tableCopyService.getHttpClient());
+    }
+
+    public void testTablesFoundInTablesToMove() throws IOException {
+        final List tableList = Arrays.asList(new String[]{"database1.table1", "database2.table2"});
+
+        _tableToMoveRequest = new GetMethod(TableCopyServiceImpl.TABLES_TO_MOVE_URL) {
+            public String getResponseBodyAsString() throws IOException {
+                return generateTableToMovePage(tableList, null);
+            }
+        };
+        _tableCopyService.setRequest(_tableToMoveRequest);
+
+        _httpClientMock.expectAndReturn(_client.executeMethod(_tableToMoveRequest),
+                HttpStatus.SC_OK);
+        _httpClientMock.replay();
+
+        List tablesFound = _tableCopyService.tablesFoundInTablesToMove(tableList);
+        assertEquals("Expected to find 2 tables from list in the page", 2, tablesFound.size());
+        assertTrue("Expected to find database1.table1 in TableToMove", tablesFound.contains("database1.table1"));
+        assertTrue("Expected to find database2.table2 in TableToMove", tablesFound.contains("database2.table2"));
+
+        _httpClientMock.verify();
+    }
+
+    public void testTablesAlreadyCopiedToDev() throws IOException {
+        final List tableList = Arrays.asList(new String[]{"database1.table1", "database2.table2"});
+
+        _tableToMoveRequest = new GetMethod(TableCopyServiceImpl.TABLES_TO_MOVE_URL) {
+            public String getResponseBodyAsString() throws IOException {
+                return generateTableToMovePage(tableList, new boolean[]{true, false});
+            }
+        };
+        _tableCopyService.setRequest(_tableToMoveRequest);
+
+        _httpClientMock.expectAndReturn(_client.executeMethod(_tableToMoveRequest),
+                HttpStatus.SC_OK, 4);
+        _httpClientMock.replay();
+
+        assertTrue("Expeceted database1.table1 to have been copied", _tableCopyService.tablesAlreadyCopiedToDev(Arrays.asList(new String[]{"database1.table1"})));
+        assertFalse("database2.table2 is in list but not copied", _tableCopyService.tablesAlreadyCopiedToDev(Arrays.asList(new String[]{"database2.table2"})));
+        assertFalse("database1.table2 is not in list", _tableCopyService.tablesAlreadyCopiedToDev(Arrays.asList(new String[]{"database1.table2"})));
+        assertFalse("second table in list not copied", _tableCopyService.tablesAlreadyCopiedToDev(Arrays.asList(new String[]{"database1.table1","database2.table2"})));
+
+        _httpClientMock.verify();
+    }
+
+    public void testGetDatabaseTableMatcher() {
+        String database = "xxx";
+        String table = "yyy";
+        assertEquals("Unexpected regular expression to match database and table on one line", "(?m)^.*xxx.*</td>\\s*<td.*yyy.*$",
+                _tableCopyService.getDatabaseTableMatcher(database, table));
+
+        String page = generateTableToMovePage(Arrays.asList(new String[]{"database1.table1", "database2.table2"}), null);
+        assertTrue("Expected to match database1.table1",
+                Pattern.compile(_tableCopyService.getDatabaseTableMatcher("database1", "table1")).matcher(page).find());
+        assertFalse("Shouldn't match database1.table2",
+                Pattern.compile(_tableCopyService.getDatabaseTableMatcher("database1", "table2")).matcher(page).find());
+    }
+
+    public void testGetDatabaseTableCopiedToDevMatcher() {
+        String database = "xxx";
+        String table = "yyy";
+        assertEquals("Unexpected regular expression to match database and table on one line", "(?m)^.*xxx.*</td>\\s*<td.*?yyy.*?</td>\\s*<td.*?done(.*</td>\\s*<td){3}.*$",
+                _tableCopyService.getDatabaseTableCopiedToDevMatcher(database, table));
+
+        String page = generateTableToMovePage(Arrays.asList(new String[]{"database1.table1", "database2.table2"}), new boolean[]{true, false});
+
+        assertTrue("Expected to match database1.table1",
+                Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database1", "table1")).matcher(page).find());
+        assertFalse("Shouldn't match combination not marked done",
+                Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database2", "table2")).matcher(page).find());
+        assertFalse("Shouldn't match combination not in list",
+                Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database1", "table2")).matcher(page).find());
+    }
+
+    private String generateTableToMovePage(List tables, boolean[] liveToDev) {
+        StringBuffer tableBuffer = new StringBuffer();
+        int count = 0;
+        for (Iterator iterator = tables.iterator(); iterator.hasNext(); count++) {
+            String databaseAndTable = (String) iterator.next();
+            String[] databaseTable = databaseAndTable.split("\\.");
+            tableBuffer.append("<tr><td> DR/<a href=\"http://jira.greatschools.net:8080/browse/GS-3033\" TARGET=\"_blank\">GS-3033</a> </td><td> ");
+            tableBuffer.append(databaseTable[0]);
+            tableBuffer.append("  </td><td> <span style='background : #FFFFCE;'><font color=\"#0000FF\">");
+            tableBuffer.append(databaseTable[1]);
+            tableBuffer.append("</font></span><a href=\"/bin/edit/Greatschools/");
+            tableBuffer.append(databaseTable[1]);
+            tableBuffer.append("?topicparent=Greatschools.TableToMove\">?</a>  </td><td>  ");
+            if (liveToDev == null || liveToDev[count]) {
+                tableBuffer.append("done");
+            }
+            tableBuffer.append("</td><td>  done  </td><td>  &nbsp;  </td><td> DSTP  </td></tr>\n\n");
+        }
+
+        return "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
+            "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> \n" +
+            "<head>\n" +
+            " <link href=\"/pub/TWiki/GnuSkin/twikiblue.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
+            " <title> Wiki . Greatschools . TableToMove   </title>\n" +
+            " <meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\" />\n" +
+            "  \n" +
+            " <base href=\"http://wiki.greatschools.net/bin/view/Greatschools/TableToMove\" />\n" +
+            "</head>\n" +
+            "\n" +
+            "<body bgcolor=\"white\" text=\"black\" link=\"blue\" alink=\"aqua\" vlink=\"purple\">\n" +
+            tableBuffer.toString() +
+            "</table>\n" +
+            "</body>\n" +
+            "</html>";
+    }
+
 }

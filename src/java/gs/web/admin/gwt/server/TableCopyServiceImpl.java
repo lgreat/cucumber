@@ -18,6 +18,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.hibernate.SessionFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
 
 
 public class TableCopyServiceImpl extends RemoteServiceServlet implements TableCopyService {
@@ -31,6 +33,9 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             "order by table_schema, table_name;";
     public static final String COPY_TABLES_COMMAND = "/usr2/sites/main.dev/scripts/sysadmin/database/dumpcopy --yes ";
     static final String TABLE_COPY_FAILURE_HEADER = "The following table(s) failed to copy:\n<br>";
+    public static final String TABLES_TO_MOVE_URL = "http://wiki.greatschools.net/bin/view/Greatschools/TableToMove";
+    private HttpClient _httpClient = new HttpClient();
+    private GetMethod _request = new GetMethod(TABLES_TO_MOVE_URL);
 
     public void setJdbcContext(JdbcOperations context) {
         this._jdbcContext = context;
@@ -52,9 +57,9 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     }
 
     public TableData getTables(TableData.DatabaseDirection direction) {
+//        return populateTestData();
         _log.info("Retrieving tables");
         long start = System.currentTimeMillis();
-//        return populateTestData();
         TableData databases = new TableData();
         databases.setDirection(direction);
         JdbcOperations jdbcOperations = getJdbcContext();
@@ -75,6 +80,8 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
 //        return "success!";
         _log.info("Copying tables");
         long start = System.currentTimeMillis();
+
+        
         String copyCommand = generateCopyCommand(direction, Arrays.asList(tableList));
         String copyOutput = null;
         try {
@@ -84,12 +91,14 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             _log.error("Error executing dumpcopy: " + e.getMessage());
             throw new ServiceException("Error copying tables: " + e.getMessage());
         }
+
         String errorText = parseCommandOutput(copyOutput);
         if (errorText != null) {
             _log.error("Error executing dumpcopy: " + errorText);
             ServiceException exception = new ServiceException("Error copying tables: " + errorText);
             throw exception;
         }
+
         long stop = System.currentTimeMillis();
         _log.info("Took " + (stop - start) + " milliseconds to copy tables");
         return generateWikiText(direction, Arrays.asList(tableList));
@@ -186,4 +195,63 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return tableData;
     }
 
+    public String getDatabaseTableMatcher(String database, String table) {
+        // match database and table in separate cells, only on the same line
+        return "(?m)^.*" + database + ".*</td>\\s*<td.*" + table + ".*$";
+    }
+
+    public String getDatabaseTableCopiedToDevMatcher(String database, String table) {
+        // match database and table in separate cells, only on the same line, with "done" followed by at least 3 table cells
+        return "(?m)^.*" + database + ".*</td>\\s*<td.*?" + table + ".*?</td>\\s*<td.*?done(.*</td>\\s*<td){3}.*$";
+    }
+
+    public List tablesFoundInTablesToMove(List databaseTablePairs) throws IOException {
+        _httpClient.executeMethod(_request);
+
+        List found = new ArrayList();
+
+        for (Iterator iterator = databaseTablePairs.iterator(); iterator.hasNext();) {
+            String databaseTable = (String) iterator.next();
+            String[] databaseAndTable = databaseTable.split("\\.");
+            // String.matches() doesn't seem to work with multiline searches
+            Pattern pattern = Pattern.compile(getDatabaseTableMatcher(databaseAndTable[0], databaseAndTable[1]));
+            String pageBody = _request.getResponseBodyAsString();
+            Matcher matcher = pattern.matcher(pageBody);
+            if (matcher.find()) {
+                found.add(databaseTable);
+            }
+        }
+        return found;
+    }
+
+    public boolean tablesAlreadyCopiedToDev(List databaseTablePairs) throws IOException {
+        _httpClient.executeMethod(_request);
+
+        for (Iterator iterator = databaseTablePairs.iterator(); iterator.hasNext();) {
+            String databaseTable = (String) iterator.next();
+            String[] databaseAndTable = databaseTable.split("\\.");
+            // String.matches() doesn't seem to work with multiline searches
+            Pattern pattern = Pattern.compile(getDatabaseTableCopiedToDevMatcher(databaseAndTable[0], databaseAndTable[1]));
+            String pageBody = _request.getResponseBodyAsString();
+            Matcher matcher = pattern.matcher(pageBody);
+            if (!matcher.find()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    
+    public void setHttpClient(HttpClient httpClient) {
+        _httpClient = httpClient;
+    }
+
+    public HttpClient getHttpClient() {
+        return _httpClient;
+    }
+
+    public void setRequest(GetMethod request) {
+        _request = request;
+    }
 }
