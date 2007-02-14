@@ -49,7 +49,10 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         TableData databases = new TableData();
         databases.setDirection(direction);
         JdbcOperations jdbcOperations = getJdbcContext();
+
+        long startQuery = System.currentTimeMillis();
         List results = jdbcOperations.queryForList(TABLE_LIST_QUERY);
+        long endQuery = System.currentTimeMillis();
 
         for (Iterator iterator = results.iterator(); iterator.hasNext();) {
             Map result = (Map) iterator.next();
@@ -57,8 +60,11 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             String table = (String) result.get(TABLE_COLUMN);
             databases.addDatabaseAndTable(database, table);
         }
+
         long stop = System.currentTimeMillis();
-        _log.info("Took " + (stop-start) + " milliseconds to retrieve tables");
+        _log.info("Took " + (stop - start) + " milliseconds to retrieve tables");
+        _log.info("Took " + (endQuery - startQuery) + " milliseconds to execute query");
+        _log.info("Took " + (stop - endQuery) + " milliseconds to process result set");
         return databases;
     }
 
