@@ -81,14 +81,14 @@
 
 
 #schoolProfile #school_promo {
-    float: left;
-    padding-left:28px;
+    float: right;
+    padding-right:20px;
     width:237px;
 }
 
 #schoolProfile #site_promo {
     float: right;
-    padding-right:5px;
+    padding-right:50px;
 }
 
 #schoolProfile .rollmenu {
