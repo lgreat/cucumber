@@ -56,6 +56,32 @@ public class TableCopyGWTPanel implements EntryPoint {
 
         final TableCopyServiceAsync service = TableCopyService.App.getInstance();
 
+        initializeClickListeners(service);
+    }
+
+    private void initializeLayout() {
+        errorMessage.setVisible(false);
+
+        tableList.setWidth("300");
+        tableList.setVisibleItemCount(10);
+
+        wikiText.setCharacterWidth(80);
+
+        tableLister.setSpacing(5);
+
+        mainPanel.add(errorMessage);
+
+        targetChooser.add(selectDev);
+        targetChooser.add(selectProd);
+        mainPanel.add(targetChooser);
+
+        mainPanel.add(tableChooser);
+
+
+        RootPanel.get().add(mainPanel);
+    }
+
+    private void initializeClickListeners(final TableCopyServiceAsync service) {
         selectDev.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 _direction = TableData.DEV_TO_STAGING;
@@ -64,6 +90,7 @@ public class TableCopyGWTPanel implements EntryPoint {
                 service.getTables(_direction, new TableLoadCallback());
             }
         });
+        
         selectProd.addClickListener(new ClickListener() {
             public void onClick(Widget sender) {
                 _direction = TableData.PRODUCTION_TO_DEV;
@@ -90,12 +117,13 @@ public class TableCopyGWTPanel implements EntryPoint {
                 for (int i = 0; i < tables.length; i++) {
                     tables[i] = tableList.getItemText(i);
                 }
+                tableLister.remove(successText);
+                tableLister.remove(wikiText);
                 tableLister.add(waiting);
                 service.copyTables(_direction, tables, new CopyTablesCallback());
 //                waiting.setVisible(false);
             }
         });
-
     }
 
     private void addDatabasesToTree(TableData tableData) {
@@ -145,28 +173,6 @@ public class TableCopyGWTPanel implements EntryPoint {
             String table = (String) iterator.next();
             tableList.addItem(table);
         }
-    }
-
-    private void initializeLayout() {
-        errorMessage.setVisible(false);
-
-        tableList.setWidth("300");
-        tableList.setVisibleItemCount(10);
-
-        wikiText.setCharacterWidth(80);
-
-        tableLister.setSpacing(5);
-        
-        mainPanel.add(errorMessage);
-
-        targetChooser.add(selectDev);
-        targetChooser.add(selectProd);
-        mainPanel.add(targetChooser);
-
-        mainPanel.add(tableChooser);
-
-
-        RootPanel.get().add(mainPanel);
     }
 
     private void clearInputs() {
