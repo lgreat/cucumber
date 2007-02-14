@@ -29,18 +29,19 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     private HttpClient _httpClient = new HttpClient();
     private GetMethod _request = new GetMethod(TABLES_TO_MOVE_URL);
 
+    public static final String LINE_BREAK = "<br />\n";
     public static final String DATABASE_COLUMN = "table_schema";
     public static final String TABLE_COLUMN = "table_name";
     public static final String TABLE_LIST_QUERY = "select " + DATABASE_COLUMN + ", " + TABLE_COLUMN + " from information_schema.tables " +
             "where table_schema not in ('information_schema', 'mysql') " +
             "order by table_schema, table_name;";
     public static final String COPY_TABLES_COMMAND = "/usr2/sites/main.dev/scripts/sysadmin/database/dumpcopy --yes ";
-    public static final String TABLE_COPY_FAILURE_HEADER = "The following table(s) failed to copy:\n<br>";
+    public static final String TABLE_COPY_FAILURE_HEADER = "The following table(s) failed to copy:" + LINE_BREAK;
     public static final String TABLES_TO_MOVE_URL = "http://wiki.greatschools.net/bin/view/Greatschools/TableToMove";
-    public static final String TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR = "The following tables have already been copied.\n" +
-            "Please check http://wiki.greatschools.net/bin/view/Greatschools/TableToMove before proceeding\n";
-    public static final String TABLES_NOT_YET_MOVED_ERROR = "The following tables have not yet been copied from live -> dev.\n" +
-            "Please check http://wiki.greatschools.net/bin/view/Greatschools/TableToMove before proceeding\n";
+    public static final String TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR = "The following tables have already been copied." + LINE_BREAK +
+            "Please check http://wiki.greatschools.net/bin/view/Greatschools/TableToMove before proceeding" + LINE_BREAK;
+    public static final String TABLES_NOT_YET_MOVED_ERROR = "The following tables have not yet been copied from live -> dev." + LINE_BREAK +
+            "Please check http://wiki.greatschools.net/bin/view/Greatschools/TableToMove before proceeding" + LINE_BREAK;
 
     public TableData getTables(TableData.DatabaseDirection direction) {
 //        return populateTestData();
@@ -75,6 +76,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
 
         // check status of tables on wiki
         try {
+            _log.debug("Checking wiki");
             String copyStatus = checkWikiForSelectedTables(direction, Arrays.asList(tableList));
             if (copyStatus != null) {
                 ServiceException exception = new ServiceException(copyStatus);
@@ -178,7 +180,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             if (matcher.find()) {
                 StringBuffer errorBuffer = new StringBuffer(TABLE_COPY_FAILURE_HEADER);
                 do {
-                    errorBuffer.append("\t&nbsp;&nbsp;&nbsp;").append(matcher.group(1)).append(".").append(matcher.group(2)).append("<br>\n");
+                    errorBuffer.append("\t&nbsp;&nbsp;&nbsp;").append(matcher.group(1)).append(".").append(matcher.group(2)).append(LINE_BREAK);
                 } while (matcher.find());
                 error = errorBuffer.toString();
             }
@@ -251,7 +253,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             StringBuffer error = new StringBuffer(errorMessage);
             for (Iterator iterator = tables.iterator(); iterator.hasNext();) {
                 String table = (String) iterator.next();
-                error.append(table).append("\n");
+                error.append(table).append(LINE_BREAK);
             }
             return error.toString();
         }

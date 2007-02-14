@@ -121,8 +121,8 @@ public class TableCopyServiceSaTest extends BaseTestCase {
                 "Skipping table database.table2... not found in ditto.\n";
 
         String expectedErrorText = TableCopyServiceImpl.TABLE_COPY_FAILURE_HEADER +
-                "\t&nbsp;&nbsp;&nbsp;database.table1... not found in ditto.<br>\n" +
-                "\t&nbsp;&nbsp;&nbsp;database.table2... not found in ditto.<br>\n";
+                "\t&nbsp;&nbsp;&nbsp;database.table1... not found in ditto." + TableCopyServiceImpl.LINE_BREAK +
+                "\t&nbsp;&nbsp;&nbsp;database.table2... not found in ditto." + TableCopyServiceImpl.LINE_BREAK;
 
         assertEquals("Unexpected error text", expectedErrorText, _tableCopyService.parseCommandOutput(errors));
     }
@@ -243,7 +243,8 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         String status = _tableCopyService.checkWikiForSelectedTables(TableData.PRODUCTION_TO_DEV, selectedTables);
 
         assertEquals("Unexpected response when selected tables have already been copied from live -> dev",
-                TableCopyServiceImpl.TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR + selectedTables.get(0) + "\n" + selectedTables.get(1) + "\n",
+                TableCopyServiceImpl.TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR + selectedTables.get(0) + TableCopyServiceImpl.LINE_BREAK
+                        + selectedTables.get(1) + TableCopyServiceImpl.LINE_BREAK,
                 status);
     }
 
@@ -303,7 +304,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         String status = _tableCopyService.checkWikiForSelectedTables(TableData.DEV_TO_STAGING, selectedTables);
 
         assertEquals("Unexpected response when selected tables have already been copied from live -> dev",
-                TableCopyServiceImpl.TABLES_NOT_YET_MOVED_ERROR + selectedTables.get(1) + "\n",
+                TableCopyServiceImpl.TABLES_NOT_YET_MOVED_ERROR + selectedTables.get(1) + TableCopyServiceImpl.LINE_BREAK,
                 status);
     }
 
