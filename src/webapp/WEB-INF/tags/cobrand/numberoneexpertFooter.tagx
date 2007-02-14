@@ -47,12 +47,16 @@
                 font-style: normal;
                 color: #888888;
             }
+
+            td.bestImage2 img {
+                margin-bottom: 4px;
+            }
         </style>
         <center>
         <table width="600" cellspacing="0" cellpadding="10" border="0" bgcolor="#ffffff">
             <tbody>
                 <tr>
-                    <td width="128" valign="top" bgcolor="#ffffff" align="center">
+                    <td class="bestImage2" width="128" valign="top" bgcolor="#ffffff" align="center">
                         <a target="win" href="http://${bestImage.weburl}">
                         <img border="0" src="http://${bestImage.photourl}"/>
                         </a>
