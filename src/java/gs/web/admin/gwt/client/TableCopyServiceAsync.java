@@ -7,5 +7,5 @@ public interface TableCopyServiceAsync {
 
     void getTables(TableData.DatabaseDirection direction, AsyncCallback async);
 
-    void copyTables(TableData.DatabaseDirection direction, String[] tableList, AsyncCallback async);
+    void copyTables(TableData.DatabaseDirection direction, String[] tableList, boolean overrideWarnings, AsyncCallback async);
 }

@@ -44,6 +44,7 @@ public class TableCopyGWTPanel implements EntryPoint {
     Button addButton = new Button();
     Button submitButton = new Button("Copy tables");
     Button removeButton = new Button("Remove selected tables from list");
+    Button overrideButton = new Button("Warnings be damned! Copy away!");
     RadioButton selectDev = new RadioButton("source", TableData.DEV_TO_STAGING.label);
     RadioButton selectProd = new RadioButton("source", TableData.PRODUCTION_TO_DEV.label);
     HTML errorMessage = new HTML();
@@ -60,16 +61,17 @@ public class TableCopyGWTPanel implements EntryPoint {
     }
 
     private void initializeLayout() {
-        errorMessage.setVisible(false);
-
-        tableList.setWidth("300");
+        tableList.setSize("300", "300");
         tableList.setVisibleItemCount(10);
 
         wikiText.setCharacterWidth(80);
 
         tableLister.setSpacing(5);
 
+        errorMessage.setVisible(false);
         mainPanel.add(errorMessage);
+        overrideButton.setVisible(false);
+        mainPanel.add(overrideButton);
 
         targetChooser.add(selectDev);
         targetChooser.add(selectProd);
@@ -111,19 +113,9 @@ public class TableCopyGWTPanel implements EntryPoint {
             }
         });
 
-        submitButton.addClickListener(new ClickListener() {
-            public void onClick(Widget sender) {
-                String[] tables = new String[tableList.getItemCount()];
-                for (int i = 0; i < tables.length; i++) {
-                    tables[i] = tableList.getItemText(i);
-                }
-                tableLister.remove(successText);
-                tableLister.remove(wikiText);
-                tableLister.add(waiting);
-                service.copyTables(_direction, tables, new CopyTablesCallback());
-//                waiting.setVisible(false);
-            }
-        });
+        submitButton.addClickListener(new CopyTablesListener(service, false));
+
+        overrideButton.addClickListener(new CopyTablesListener(service, true));
     }
 
     private void addDatabasesToTree(TableData tableData) {
@@ -213,8 +205,14 @@ public class TableCopyGWTPanel implements EntryPoint {
     private class CopyTablesCallback implements AsyncCallback {
         public void onFailure(Throwable caught) {
             tableLister.remove(waiting);
-            errorMessage.setHTML(caught.getMessage());
+            String error = caught.getMessage();
+            errorMessage.setHTML(error);
             errorMessage.setVisible(true);
+            // todo: add button to override error message
+            if (error.startsWith(TableCopyService.TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR) ||
+                    error.startsWith(TableCopyService.TABLES_NOT_YET_MOVED_ERROR)) {
+                overrideButton.setVisible(true);
+            }
         }
 
         public void onSuccess(Object result) {
@@ -225,6 +223,30 @@ public class TableCopyGWTPanel implements EntryPoint {
             tableLister.remove(waiting);
             tableLister.add(successText);
             tableLister.add(wikiText);
+        }
+    }
+
+    private class CopyTablesListener implements ClickListener {
+        private TableCopyServiceAsync _service;
+        private boolean _override;
+
+        public CopyTablesListener(TableCopyServiceAsync service, boolean overrideWarnings) {
+            _service = service;
+            _override = overrideWarnings;
+        }
+
+        public void onClick(Widget sender) {
+            String[] tables = new String[tableList.getItemCount()];
+            for (int i = 0; i < tables.length; i++) {
+                tables[i] = tableList.getItemText(i);
+            }
+            errorMessage.setVisible(false);
+            overrideButton.setVisible(false);
+            tableLister.remove(successText);
+            tableLister.remove(wikiText);
+            tableLister.add(waiting);
+            _service.copyTables(_direction, tables, _override, new CopyTablesCallback());
+//                waiting.setVisible(false);
         }
     }
 }

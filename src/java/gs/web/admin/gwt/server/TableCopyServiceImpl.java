@@ -29,7 +29,6 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     private HttpClient _httpClient = new HttpClient();
     private GetMethod _request = new GetMethod(TABLES_TO_MOVE_URL);
 
-    public static final String LINE_BREAK = "<br />\n";
     public static final String DATABASE_COLUMN = "table_schema";
     public static final String TABLE_COLUMN = "table_name";
     public static final String TABLE_LIST_QUERY = "select " + DATABASE_COLUMN + ", " + TABLE_COLUMN + " from information_schema.tables " +
@@ -37,12 +36,6 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             "order by table_schema, table_name;";
     public static final String COPY_TABLES_COMMAND = "/usr2/sites/main.dev/scripts/sysadmin/database/dumpcopy --yes ";
     public static final String TABLE_COPY_FAILURE_HEADER = "The following table(s) failed to copy:" + LINE_BREAK;
-    public static final String TABLES_TO_MOVE_URL = "http://wiki.greatschools.net/bin/view/Greatschools/TableToMove";
-    public static final String TABLES_TO_MOVE_LINK = "<a href=\"" + TABLES_TO_MOVE_URL + "\" target=\"_blank\">" + TABLES_TO_MOVE_URL + "</a>";
-    public static final String TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR = "The following tables have already been copied." + LINE_BREAK +
-            "Please check " + TABLES_TO_MOVE_LINK + " before proceeding" + LINE_BREAK;
-    public static final String TABLES_NOT_YET_MOVED_ERROR = "The following tables have not yet been copied from live -> dev." + LINE_BREAK +
-            "Please check " + TABLES_TO_MOVE_LINK + " before proceeding" + LINE_BREAK;
 
     public TableData getTables(TableData.DatabaseDirection direction) {
 //        return populateTestData();
@@ -70,22 +63,26 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return databases;
     }
 
-    public String copyTables(TableData.DatabaseDirection direction, String[] tableList) throws ServiceException {
+    public String copyTables(TableData.DatabaseDirection direction, String[] tableList, boolean overrideWarnings) throws ServiceException {
 //        return "success!";
         _log.info("Copying tables");
         long start = System.currentTimeMillis();
 
         // check status of tables on wiki
-        try {
-            _log.debug("Checking wiki");
-            String copyStatus = checkWikiForSelectedTables(direction, Arrays.asList(tableList));
-            if (copyStatus != null) {
-                ServiceException exception = new ServiceException(copyStatus);
-                throw exception;
+        if (!overrideWarnings) {
+            try {
+                _log.debug("Checking wiki");
+                String copyStatus = checkWikiForSelectedTables(direction, Arrays.asList(tableList));
+                if (copyStatus != null) {
+                    ServiceException exception = new ServiceException(copyStatus);
+                    throw exception;
+                }
+            } catch (IOException e) {
+                _log.error("Error getting wiki status", e);
+                throw new ServiceException("Error getting wiki status: " + e.getMessage());
             }
-        } catch (IOException e) {
-            _log.error("Error getting wiki status", e);
-            throw new ServiceException("Error getting wiki status: " + e.getMessage());
+        } else {
+            _log.info("Overriding warnings");
         }
 
         // execute copy command
