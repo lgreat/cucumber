@@ -38,10 +38,11 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
     public static final String COPY_TABLES_COMMAND = "/usr2/sites/main.dev/scripts/sysadmin/database/dumpcopy --yes ";
     public static final String TABLE_COPY_FAILURE_HEADER = "The following table(s) failed to copy:" + LINE_BREAK;
     public static final String TABLES_TO_MOVE_URL = "http://wiki.greatschools.net/bin/view/Greatschools/TableToMove";
+    public static final String TABLES_TO_MOVE_LINK = "<a href=\"" + TABLES_TO_MOVE_URL + "\" target=\"_blank\">" + TABLES_TO_MOVE_URL + "</a>";
     public static final String TABLES_FOUND_IN_TABLES_TO_MOVE_ERROR = "The following tables have already been copied." + LINE_BREAK +
-            "Please check http://wiki.greatschools.net/bin/view/Greatschools/TableToMove before proceeding" + LINE_BREAK;
+            "Please check " + TABLES_TO_MOVE_LINK + " before proceeding" + LINE_BREAK;
     public static final String TABLES_NOT_YET_MOVED_ERROR = "The following tables have not yet been copied from live -> dev." + LINE_BREAK +
-            "Please check http://wiki.greatschools.net/bin/view/Greatschools/TableToMove before proceeding" + LINE_BREAK;
+            "Please check " + TABLES_TO_MOVE_LINK + " before proceeding" + LINE_BREAK;
 
     public TableData getTables(TableData.DatabaseDirection direction) {
 //        return populateTestData();
