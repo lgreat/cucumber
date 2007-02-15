@@ -69,6 +69,7 @@ public class TableCopyGWTPanel implements EntryPoint {
         tableLister.setSpacing(5);
 
         errorMessage.setVisible(false);
+        errorMessage.setStyleName("error");
         mainPanel.add(errorMessage);
         overrideButton.setVisible(false);
         mainPanel.add(overrideButton);

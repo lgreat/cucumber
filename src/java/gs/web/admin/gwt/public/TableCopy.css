@@ -5,3 +5,8 @@ body {
     font-size: small;
     margin: 8px;
 }
+
+.error {
+    color: red;
+    font-weight: bold;
+}
