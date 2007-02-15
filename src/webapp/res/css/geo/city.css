@@ -50,7 +50,7 @@
 
 .statsModule .census td,
     .statsModule .census th {
-    border-bottom: 1px solid #bbb;
+    border-bottom: 1px solid #DDDDDD;
     font-size: small;
     font-weight: normal;
     padding: .4em 1em .5em 1em;
@@ -74,7 +74,7 @@
     color: #555;
     font-size: x-small;
     font-weight: bold;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #DDDDDD;
 }
 
 .statsModule .better,
@@ -202,7 +202,7 @@ div.topRatedSchools {
     color: #999;
     vertical-align: bottom;
 
-    border: 0 solid #bbb;
+    border: 0 solid #DDDDDD;
     border-bottom-width: 1px;
     padding-bottom: 5px;
     margin-bottom: 5px;
@@ -245,7 +245,7 @@ div.topRatedSchools {
 
 .schoolBreakdown li {
     font-size: small;
-    border: 0 solid #bbb;
+    border: 0 solid #DDDDDD;
     border-bottom-width: 1px;
     padding: 6px 0 7px 0;
 }
@@ -295,7 +295,7 @@ span.mousedOver, span:hover {
 .featuredArticles p {
     padding: 0 1em .6em 0;
     margin: .3em 0 .3em 0;
-    border: 0 solid #bbb;
+    border: 0 solid #DDDDDD;
     border-bottom-width: 1px;
 }
 
