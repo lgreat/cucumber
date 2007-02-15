@@ -36,6 +36,27 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             "order by table_schema, table_name;";
     public static final String COPY_TABLES_COMMAND = "/usr2/sites/main.dev/scripts/sysadmin/database/dumpcopy --yes ";
     public static final String TABLE_COPY_FAILURE_HEADER = "The following table(s) failed to copy:" + LINE_BREAK;
+    public static final List PRODUCTION_TO_DEV_BLACKLIST = new ArrayList() {{
+        add("gs_schooldb");
+        add("us_geo");
+    }};
+    public static final Map DEV_TO_STAGING_WHITELIST = new HashMap() {{
+        put("gs_schooldb", new HashSet() {{
+            add("census_data_set_file");
+            add("census_data_type");
+            add("census_group_data_type");
+            add("configuration");
+            add("DataFile");
+            add("DataLoad");
+            add("DataSource");
+            add("TestDataSetFile");
+            add("TestDataSubject");
+            add("TestDataType");
+            add("TestProficiencyBand");
+            add("TestProficiencyBandGroup");
+        }});
+        put("us_geo", new HashSet() {{add("city");}});
+    }};
 
     public TableData getTables(TableData.DatabaseDirection direction) {
 //        return populateTestData();
@@ -56,10 +77,14 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             databases.addDatabaseAndTable(database, table);
         }
 
+        long endPopulate = System.currentTimeMillis();
+        filterDatabases(databases);
         long stop = System.currentTimeMillis();
+
         _log.info("Took " + (stop - start) + " milliseconds to retrieve tables");
         _log.info("Took " + (endQuery - startQuery) + " milliseconds to execute query");
-        _log.info("Took " + (stop - endQuery) + " milliseconds to process result set");
+        _log.info("Took " + (endPopulate - endQuery) + " milliseconds to process result set");
+        _log.info("Took " + (stop - endPopulate) + " milliseconds to filter tables");
         return databases;
     }
 
@@ -246,6 +271,20 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         return null;
     }
 
+    /**
+     * Filter the databases and tables, based on the logic in GS-3018
+     *
+     * @param databases
+     * @return
+     */
+    public void filterDatabases(TableData databases) {
+        if (TableData.PRODUCTION_TO_DEV.equals(databases.getDirection())) {
+            databases.filterDatabases(PRODUCTION_TO_DEV_BLACKLIST);
+        } else if (TableData.DEV_TO_STAGING.equals(databases.getDirection())) {
+            databases.filterTables(DEV_TO_STAGING_WHITELIST);
+        }
+    }
+
     private String generateWarningOutput(List tables, String errorMessage) {
         if (!tables.isEmpty()) {
             StringBuffer error = new StringBuffer(errorMessage);
@@ -302,4 +341,5 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         tableData.setDirection(TableData.DEV_TO_STAGING);
         return tableData;
     }
+
 }

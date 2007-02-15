@@ -12,9 +12,9 @@ public class TableData extends Object implements IsSerializable {
     /**
      * @gwt.typeArgs <gs.web.admin.gwt.client.TableData.DatabaseTables>
      */
-    private List databaseTables = new ArrayList();
+    private List _databasesAndTables = new ArrayList();
 
-    private Map databases = new HashMap();
+    private Map _databases = new HashMap();
 
     public TableData() {}
 
@@ -24,8 +24,8 @@ public class TableData extends Object implements IsSerializable {
 
     public void addDatabase(String databaseName, List tableList) {
         DatabaseTables databaseAndTables = new DatabaseTables(databaseName, tableList);
-        databaseTables.add(databaseAndTables);
-        databases.put(databaseName, databaseAndTables);
+        _databasesAndTables.add(databaseAndTables);
+        _databases.put(databaseName, databaseAndTables);
     }
 
     public DatabaseDirection getDirection() {
@@ -36,21 +36,48 @@ public class TableData extends Object implements IsSerializable {
         this.direction = direction;
     }
 
-    public List getDatabaseTables() {
-        return databaseTables;
+    public List getDatabasesAndTables() {
+        return _databasesAndTables;
     }
 
-    public void setDatabaseTables(List databaseTables) {
-        this.databaseTables = databaseTables;
+    public void setDatabasesAndTables(List databasesAndTables) {
+        this._databasesAndTables = databasesAndTables;
     }
 
     public void addDatabaseAndTable(String database, String table) {
-        DatabaseTables databaseAndTables = (DatabaseTables) databases.get(database);
+        DatabaseTables databaseAndTables = (DatabaseTables) _databases.get(database);
         if (databaseAndTables == null) {
             addDatabase(database, new ArrayList());
-            databaseAndTables = (DatabaseTables) databases.get(database);
+            databaseAndTables = (DatabaseTables) _databases.get(database);
         }
         databaseAndTables.getTables().add(table);
+    }
+
+    public DatabaseTables getDatabase(String databaseName) {
+        return (DatabaseTables) _databases.get(databaseName);
+    }
+
+    public void filterDatabases(List databasesToRemove) {
+        for (Iterator iterator = databasesToRemove.iterator(); iterator.hasNext();) {
+            String database = (String) iterator.next();
+            _databases.remove(database);
+            for (Iterator databaseTablesList = _databasesAndTables.iterator(); databaseTablesList.hasNext();) {
+                DatabaseTables databaseAndTables = (DatabaseTables) databaseTablesList.next();
+                if (database.equals(databaseAndTables.getDatabaseName())) {
+                    databaseTablesList.remove();
+                }
+            }
+        }
+    }
+
+    public void filterTables(Map tablesToKeep) {
+        for (Iterator iterator = tablesToKeep.keySet().iterator(); iterator.hasNext();) {
+            String databaseName = (String) iterator.next();
+            DatabaseTables databaseTables = (DatabaseTables) _databases.get(databaseName);
+            if (databaseTables != null) {
+                databaseTables.getTables().retainAll((Collection) tablesToKeep.get(databaseName));
+            }
+        }
     }
 
     public static class DatabaseDirection implements IsSerializable {

@@ -62,7 +62,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
 
         TableData tableData = _tableCopyService.getTables(TableData.DEV_TO_STAGING);
 
-        assertEquals("Expected 2 databases", 2, tableData.getDatabaseTables().size());
+        assertEquals("Expected 2 databases", 2, tableData.getDatabasesAndTables().size());
         assertEquals("Unexpected direction", TableData.DEV_TO_STAGING, tableData.getDirection());
 
         _jdbcMock.verify();
@@ -308,6 +308,47 @@ public class TableCopyServiceSaTest extends BaseTestCase {
                 status);
     }
 
+    public void testFilterDatabaseListForProductionToDev() {
+        TableData databases = new TableData();
+        databases.setDirection(TableData.PRODUCTION_TO_DEV);
+        databases.addDatabase("test", Arrays.asList(new String[]{"test1", "test2"}));
+        databases.addDatabase("test2", Arrays.asList(new String[]{"test1", "test2"}));
+        databases.addDatabase("gs_schooldb", Arrays.asList(new String[]{"test1", "test2"}));
+        databases.addDatabase("us_geo", Arrays.asList(new String[]{"test1", "test2"}));
+
+        _tableCopyService.filterDatabases(databases);
+        List databasesAndTables = databases.getDatabasesAndTables();
+        assertEquals("Unexpected number of databases in filtered list", 2, databasesAndTables.size());
+        assertNotNull("Expected test database to be in results", databases.getDatabase("test"));
+        assertNotNull("Expected test2 database to be in results", databases.getDatabase("test2"));
+        assertNull("Expected gs_schooldb database to be filtered from results", databases.getDatabase("gs_schooldb"));
+        assertNull("Expected us_geo database to be filtered from results", databases.getDatabase("us_geo"));
+    }
+
+    public void testFilterDatabaseListForDevToStaging() {
+        List gs_schooldbTables = (List) TableCopyServiceImpl.DEV_TO_STAGING_WHITELIST.get("gs_schooldb");
+        List allGs_schooldbTables = new ArrayList() {{add("test1");add("test2");}};
+        allGs_schooldbTables.addAll(gs_schooldbTables);
+
+        List us_geoTables = (List) TableCopyServiceImpl.DEV_TO_STAGING_WHITELIST.get("us_geo");
+        List allUs_geoTables = new ArrayList() {{add("test1");add("test2");}};
+        allUs_geoTables.addAll(us_geoTables);
+
+        TableData databases = new TableData();
+        databases.setDirection(TableData.DEV_TO_STAGING);
+        databases.addDatabase("test", Arrays.asList(new String[]{"test1", "test2"}));
+        databases.addDatabase("test2", Arrays.asList(new String[]{"test1", "test2"}));
+        databases.addDatabase("gs_schooldb", allGs_schooldbTables);
+        databases.addDatabase("us_geo", allUs_geoTables);
+
+        _tableCopyService.filterDatabases(databases);
+        List databasesAndTables = databases.getDatabasesAndTables();
+        assertEquals("Unexpected number of databases in filtered list", 4, databasesAndTables.size());
+        TableData.DatabaseTables gs_schooldb = databases.getDatabase("gs_schooldb");
+        assertEquals("Unexpected number of tables in gsschool_db", gs_schooldbTables.size(), gs_schooldb.getTables().size());
+        TableData.DatabaseTables us_geo = databases.getDatabase("us_geo");
+        assertEquals("Unexpected number of tables in us_geo", us_geoTables.size(), us_geo.getTables().size());
+    }
 
     private String generateTableToMovePage(List tables, boolean[] liveToDev) {
         StringBuffer tableBuffer = new StringBuffer();

@@ -138,7 +138,7 @@ public class TableCopyGWTPanel implements EntryPoint {
         });
 
         tableList.setMultipleSelect(true);
-        List databases = tableData.getDatabaseTables();
+        List databases = tableData.getDatabasesAndTables();
         for (Iterator iterator = databases.iterator(); iterator.hasNext();) {
             TableData.DatabaseTables databaseTables = (TableData.DatabaseTables) iterator.next();
             String databaseName = databaseTables.getDatabaseName();
