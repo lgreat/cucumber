@@ -212,15 +212,20 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         String database = "xxx";
         String table = "yyy";
         assertEquals("Unexpected regular expression to match database and table on one line with live -> dev marked done",
-                "(?m)^.*xxx.*</td>\\s*<td.*?yyy.*?</td>\\s*<td.*?done(.*</td>\\s*<td){3}.*$",
+                "(?m)^.*xxx.*</td>\\s*<td.*?yyy.*?</td>\\s*<td.*?(done|n/a|N/A)(.*</td>\\s*<td){3}.*$",
                 _tableCopyService.getDatabaseTableCopiedToDevMatcher(database, table));
 
-        String page = generateTableToMovePage(Arrays.asList(new String[]{"database1.table1", "database2.table2"}), new String[]{"done", ""});
+        String page = generateTableToMovePage(Arrays.asList(new String[]{"database1.table1", "database2.table2", "database3.table3", "database4.table4"}),
+                new String[]{"done", "N/A", "n/a", ""});
 
-        assertTrue("Expected to match database1.table1",
+        assertTrue("Expected to match database1.table1 marked as done",
                 Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database1", "table1")).matcher(page).find());
-        assertFalse("Shouldn't match combination not marked done",
+        assertTrue("Expected to match database2.table2 marked as N/A",
                 Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database2", "table2")).matcher(page).find());
+        assertTrue("Expected to match database3.table3 marked as n/a",
+                Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database3", "table3")).matcher(page).find());
+        assertFalse("Shouldn't match combination not marked done",
+                Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database4", "table4")).matcher(page).find());
         assertFalse("Shouldn't match combination not in list",
                 Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database1", "table2")).matcher(page).find());
     }
@@ -271,7 +276,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
 
         GetMethod tablesFoundRequest = new GetMethod(TableCopyServiceImpl.TABLES_TO_MOVE_URL) {
             public String getResponseBodyAsString() throws IOException {
-                return generateTableToMovePage(selectedTables, new String[]{"done", "done"});
+                return generateTableToMovePage(selectedTables, new String[]{"done", "N/A"});
             }
         };
         _tableCopyService.setRequest(tablesFoundRequest);
