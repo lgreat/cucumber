@@ -166,7 +166,7 @@
 </div>
 <mod:tracking pageName="Newsletter Promo Hover Nthgrader"
               pageType=""
-              hier1=""
+              hier1="Newsletter, NL hover promo - Nth Grader"
               referringPage="${referrer}"
         />
 </gsml:body>
