@@ -173,7 +173,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
 
         GetMethod oneTableNotDoneRequest = new GetMethod(TableCopyServiceImpl.TABLES_TO_MOVE_URL) {
             public String getResponseBodyAsString() throws IOException {
-                return generateTableToMovePage(tableList, new boolean[]{true, false});
+                return generateTableToMovePage(tableList, new String[]{"done", ""});
             }
         };
         _tableCopyService.setRequest(oneTableNotDoneRequest);
@@ -215,7 +215,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
                 "(?m)^.*xxx.*</td>\\s*<td.*?yyy.*?</td>\\s*<td.*?done(.*</td>\\s*<td){3}.*$",
                 _tableCopyService.getDatabaseTableCopiedToDevMatcher(database, table));
 
-        String page = generateTableToMovePage(Arrays.asList(new String[]{"database1.table1", "database2.table2"}), new boolean[]{true, false});
+        String page = generateTableToMovePage(Arrays.asList(new String[]{"database1.table1", "database2.table2"}), new String[]{"done", ""});
 
         assertTrue("Expected to match database1.table1",
                 Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database1", "table1")).matcher(page).find());
@@ -271,7 +271,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
 
         GetMethod tablesFoundRequest = new GetMethod(TableCopyServiceImpl.TABLES_TO_MOVE_URL) {
             public String getResponseBodyAsString() throws IOException {
-                return generateTableToMovePage(selectedTables, new boolean[]{true, true});
+                return generateTableToMovePage(selectedTables, new String[]{"done", "done"});
             }
         };
         _tableCopyService.setRequest(tablesFoundRequest);
@@ -291,7 +291,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
 
         GetMethod tablesFoundRequest = new GetMethod(TableCopyServiceImpl.TABLES_TO_MOVE_URL) {
             public String getResponseBodyAsString() throws IOException {
-                return generateTableToMovePage(selectedTables, new boolean[]{true, false});
+                return generateTableToMovePage(selectedTables, new String[]{"done", ""});
             }
         };
         _tableCopyService.setRequest(tablesFoundRequest);
@@ -326,11 +326,11 @@ public class TableCopyServiceSaTest extends BaseTestCase {
     }
 
     public void testFilterDatabaseListForDevToStaging() {
-        List gs_schooldbTables = (List) TableCopyServiceImpl.DEV_TO_STAGING_WHITELIST.get("gs_schooldb");
+        Set gs_schooldbTables = (Set) TableCopyServiceImpl.DEV_TO_STAGING_WHITELIST.get("gs_schooldb");
         List allGs_schooldbTables = new ArrayList() {{add("test1");add("test2");}};
         allGs_schooldbTables.addAll(gs_schooldbTables);
 
-        List us_geoTables = (List) TableCopyServiceImpl.DEV_TO_STAGING_WHITELIST.get("us_geo");
+        Set us_geoTables = (Set) TableCopyServiceImpl.DEV_TO_STAGING_WHITELIST.get("us_geo");
         List allUs_geoTables = new ArrayList() {{add("test1");add("test2");}};
         allUs_geoTables.addAll(us_geoTables);
 
@@ -350,7 +350,7 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         assertEquals("Unexpected number of tables in us_geo", us_geoTables.size(), us_geo.getTables().size());
     }
 
-    private String generateTableToMovePage(List tables, boolean[] liveToDev) {
+    private String generateTableToMovePage(List tables, String[] liveToDev) {
         StringBuffer tableBuffer = new StringBuffer();
         int count = 0;
         for (Iterator iterator = tables.iterator(); iterator.hasNext(); count++) {
@@ -363,8 +363,8 @@ public class TableCopyServiceSaTest extends BaseTestCase {
             tableBuffer.append("</font></span><a href=\"/bin/edit/Greatschools/");
             tableBuffer.append(databaseTable[1]);
             tableBuffer.append("?topicparent=Greatschools.TableToMove\">?</a>  </td><td>  ");
-            if (liveToDev == null || liveToDev[count]) {
-                tableBuffer.append("done");
+            if (liveToDev != null) {
+                tableBuffer.append(liveToDev[count]);
             }
             tableBuffer.append("</td><td>  done  </td><td>  &nbsp;  </td><td> DSTP  </td></tr>\n\n");
         }
