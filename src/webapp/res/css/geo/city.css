@@ -61,9 +61,6 @@
     border-width: 0;
 }
 
-.statsModule .census td {
-}
-
 .statsModule .census th {
     padding-left: 0;
 }
@@ -75,6 +72,10 @@
     font-size: x-small;
     font-weight: bold;
     border-bottom: 1px solid #DDDDDD;
+}
+
+.statsModule .census {
+    padding-left:4px;
 }
 
 .statsModule .better,
@@ -240,7 +241,7 @@ div.topRatedSchools {
 
 .schoolBreakdown ul {
     line-height: 1em;
-    padding: 0 0 4px 0;
+    padding: 0 0 4px 3px;
 }
 
 .schoolBreakdown li {
