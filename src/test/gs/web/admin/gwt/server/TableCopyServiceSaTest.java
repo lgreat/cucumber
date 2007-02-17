@@ -147,18 +147,8 @@ public class TableCopyServiceSaTest extends BaseTestCase {
     }
 
     public void testTablesFoundInTablesToMove() throws IOException {
-        final List tableList = Arrays.asList(new String[]{"database1.table1", "database2.table2"});
-
-        GetMethod tablesFoundRequest = new GetMethod(TableCopyServiceImpl.TABLES_TO_MOVE_URL) {
-            public String getResponseBodyAsString() throws IOException {
-                return generateTableToMovePage(tableList, null);
-            }
-        };
-        _tableCopyService.setRequest(tablesFoundRequest);
-
-        _httpClientMock.expectAndReturn(_client.executeMethod(tablesFoundRequest),
-                HttpStatus.SC_OK);
-        _httpClientMock.replay();
+        List tableList = Arrays.asList(new String[]{"database1.table1", "database2.table2"});
+        setUpWikiRequest(tableList, null);
 
         List tablesFound = _tableCopyService.tablesFoundInTablesToMove(tableList);
         assertEquals("Expected to find 2 tables from list in the page", 2, tablesFound.size());
