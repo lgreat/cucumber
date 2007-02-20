@@ -35,6 +35,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             "where table_schema not in ('information_schema', 'mysql') " +
             "order by table_schema, table_name;";
     public static final String COPY_TABLES_COMMAND = "/usr2/sites/main.dev/scripts/sysadmin/database/dumpcopy --yes ";
+    public static final String OUTDIR_FLAG_FOR_BACKUP_COMMAND = "--outdir /var/gsbackups/tablecopy";
     public static final String TABLE_COPY_FAILURE_HEADER = "The following table(s) failed to copy:" + LINE_BREAK;
     public static final List PRODUCTION_TO_DEV_BLACKLIST = new ArrayList() {{
         add("gs_schooldb");
@@ -111,30 +112,38 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         }
 
         // execute copy command
+        String backupCommand = generateBackupCommand(direction, Arrays.asList(tableList));
         String copyCommand = generateCopyCommand(direction, Arrays.asList(tableList));
-        String copyOutput = null;
         try {
-            copyOutput = executeCopyCommand(copyCommand);
+            String backupOutput = executeCommand(backupCommand);
+            _log.info("Backup command output: " + backupOutput);
+            String errorText = parseCommandOutput(backupOutput);
+            if (errorText != null) {
+                _log.error("Error backing up tables with dumpcopy: " + errorText);
+                ServiceException exception = new ServiceException("Error backing up tables: " + errorText);
+                throw exception;
+            }
+
+            String copyOutput = executeCommand(copyCommand);
             _log.info("Copy command output: " + copyOutput);
+            errorText = parseCommandOutput(backupOutput);
+            if (errorText != null) {
+                _log.error("Error copying tables with dumpcopy: " + errorText);
+                ServiceException exception = new ServiceException("Error copying tables: " + errorText);
+                throw exception;
+            }
         } catch (IOException e) {
             _log.error("Error executing dumpcopy", e);
             throw new ServiceException("Error copying tables: " + e.getMessage());
         }
 
-        // process comand output
-        String errorText = parseCommandOutput(copyOutput);
-        if (errorText != null) {
-            _log.error("Error executing dumpcopy: " + errorText);
-            ServiceException exception = new ServiceException("Error copying tables: " + errorText);
-            throw exception;
-        }
 
         long stop = System.currentTimeMillis();
         _log.info("Took " + (stop - start) + " milliseconds to copy tables");
         return generateWikiText(direction, Arrays.asList(tableList));
     }
 
-    private String executeCopyCommand(String copyCommand) throws IOException {
+    private String executeCommand(String copyCommand) throws IOException {
         BufferedReader reader = null;
         try {
             _log.info("Executing command: " + copyCommand);
@@ -155,21 +164,39 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
         }
     }
 
-    public String generateCopyCommand(TableData.DatabaseDirection devToStaging, List databasesAndTables) {
+    public String generateCopyCommand(TableData.DatabaseDirection direction, List tables) {
         StringBuffer command = new StringBuffer();
         command.append(COPY_TABLES_COMMAND);
-        command.append(" --fromhost " + devToStaging.getSource() + " ");
-        command.append(" --tohost " + devToStaging.getTarget() + " ");
-        StringBuffer tables = new StringBuffer(" --tablelist ");
-        for (Iterator iterator = databasesAndTables.iterator(); iterator.hasNext();) {
+        command.append(" --fromhost " + direction.getSource() + " ");
+        command.append(" --tohost " + direction.getTarget() + " ");
+        StringBuffer tableList = new StringBuffer(" --tablelist ");
+        for (Iterator iterator = tables.iterator(); iterator.hasNext();) {
             String databaseAndTable = (String) iterator.next();
-            tables.append(databaseAndTable);
+            tableList.append(databaseAndTable);
             if (iterator.hasNext()) {
-                tables.append(",");
+                tableList.append(",");
             }
         }
-        tables.append(" ");
-        command.append(tables);
+        tableList.append(" ");
+        command.append(tableList);
+        return command.toString();
+    }
+
+    public String generateBackupCommand(TableData.DatabaseDirection direction, List tables) {
+        StringBuffer command = new StringBuffer();
+        command.append(COPY_TABLES_COMMAND);
+        command.append(" --fromhost " + direction.getTarget() + " ");
+        command.append(OUTDIR_FLAG_FOR_BACKUP_COMMAND);
+        StringBuffer tableList = new StringBuffer(" --tablelist ");
+        for (Iterator iterator = tables.iterator(); iterator.hasNext();) {
+            String databaseAndTable = (String) iterator.next();
+            tableList.append(databaseAndTable);
+            if (iterator.hasNext()) {
+                tableList.append(",");
+            }
+        }
+        tableList.append(" ");
+        command.append(tableList);
         return command.toString();
     }
 

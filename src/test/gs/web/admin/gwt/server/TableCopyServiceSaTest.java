@@ -68,7 +68,6 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         _jdbcMock.verify();
     }
 
-
     public void testGenerateCopyCommand() {
         TableData.DatabaseDirection direction = TableData.DEV_TO_STAGING;
         String table1 = "gs_schooldb.table1";
@@ -80,6 +79,21 @@ public class TableCopyServiceSaTest extends BaseTestCase {
         assertTrue("Expected copy command", copyCommand.startsWith(TableCopyServiceImpl.COPY_TABLES_COMMAND));
         assertTrue("Expected dev as from database", copyCommand.matches(".* --fromhost " + direction.getSource() + " .*"));
         assertTrue("Expected staging as to database", copyCommand.matches(".* --tohost " + direction.getTarget() + " .*"));
+        String expectedTableList = table1 + "," + table2 + "," + table3;
+        assertTrue("Unexpected table list", copyCommand.matches(".* --tablelist " + expectedTableList + " .*"));
+    }
+
+    public void testGenerateBackupCommand() {
+        TableData.DatabaseDirection direction = TableData.DEV_TO_STAGING;
+        String table1 = "gs_schooldb.table1";
+        String table2 = "gs_schooldb.table2";
+        String table3 = "_az.aztable1";
+        String copyCommand = _tableCopyService.generateBackupCommand(direction,
+                Arrays.asList(new String[]{table1, table2, table3}));
+        System.out.println("'" + copyCommand + "'");
+        assertTrue("Expected copy command", copyCommand.startsWith(TableCopyServiceImpl.COPY_TABLES_COMMAND));
+        assertTrue("Expected staging as from database", copyCommand.matches(".* --fromhost " + direction.getTarget() + " .*"));
+        assertTrue("Expected outdir to be set", copyCommand.matches(".* " + TableCopyServiceImpl.OUTDIR_FLAG_FOR_BACKUP_COMMAND + " .*"));
         String expectedTableList = table1 + "," + table2 + "," + table3;
         assertTrue("Unexpected table list", copyCommand.matches(".* --tablelist " + expectedTableList + " .*"));
     }
