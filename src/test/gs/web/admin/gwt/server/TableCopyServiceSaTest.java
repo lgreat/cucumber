@@ -202,21 +202,27 @@ public class TableCopyServiceSaTest extends BaseTestCase {
     public void testGetDatabaseTableMatcher() {
         String database = "xxx";
         String table = "yyy";
-        assertEquals("Unexpected regular expression to match database and table on one line", "(?m)^.*xxx.*</td>\\s*<td.*yyy.*$",
+        assertEquals("Unexpected regular expression to match database and table on one line", "(?m)^.*>\\s*xxx\\s*<.*>\\s*yyy\\s*<(.*/td>\\s*<td){4}.*$",
                 _tableCopyService.getDatabaseTableMatcher(database, table));
 
-        String page = generateTableToMovePage(Arrays.asList(new String[]{"database1.table1", "database2.table2"}), null);
+        String page = generateTableToMovePage(Arrays.asList(new String[]{"database1.table1", "database2.census_data_school_file"}), null);
         assertTrue("Expected to match database1.table1",
                 Pattern.compile(_tableCopyService.getDatabaseTableMatcher("database1", "table1")).matcher(page).find());
         assertFalse("Shouldn't match database1.table2",
                 Pattern.compile(_tableCopyService.getDatabaseTableMatcher("database1", "table2")).matcher(page).find());
+        assertTrue("Expected to match database2.census_data_school_file",
+                Pattern.compile(_tableCopyService.getDatabaseTableMatcher("database2", "census_data_school_file")).matcher(page).find());
+        assertFalse("Shouldn't match partial database name",
+                Pattern.compile(_tableCopyService.getDatabaseTableMatcher("database", "census_data_school_file")).matcher(page).find());
+        assertFalse("Shouldn't match partial table name",
+                Pattern.compile(_tableCopyService.getDatabaseTableMatcher("database2", "school")).matcher(page).find());
     }
 
     public void testGetDatabaseTableCopiedToDevMatcher() {
         String database = "xxx";
         String table = "yyy";
         assertEquals("Unexpected regular expression to match database and table on one line with live -> dev marked done",
-                "(?m)^.*xxx.*</td>\\s*<td.*?yyy.*?</td>\\s*<td.*?(done|n/a|N/A)(.*</td>\\s*<td){3}.*$",
+                "(?m)^.*>\\s*xxx\\s*<.*>\\s*yyy\\s*<.*>\\s*(done|n/a|N/A)\\s*<(.*/td>\\s*<td){3}.*$",
                 _tableCopyService.getDatabaseTableCopiedToDevMatcher(database, table));
 
         String page = generateTableToMovePage(Arrays.asList(new String[]{"database1.table1", "database2.table2", "database3.table3", "database4.table4"}),
@@ -232,6 +238,10 @@ public class TableCopyServiceSaTest extends BaseTestCase {
                 Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database4", "table4")).matcher(page).find());
         assertFalse("Shouldn't match combination not in list",
                 Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database1", "table2")).matcher(page).find());
+        assertFalse("Shouldn't match partial database name",
+                Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("base3", "table3")).matcher(page).find());
+        assertFalse("Shouldn't match partial table name",
+                Pattern.compile(_tableCopyService.getDatabaseTableCopiedToDevMatcher("database3", "table")).matcher(page).find());
     }
 
     public void testCheckWikiForSelectedTablesWhenAlreadyCopied() throws IOException {
