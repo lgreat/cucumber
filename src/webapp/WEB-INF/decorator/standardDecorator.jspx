@@ -12,6 +12,7 @@
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
         >
 <c:set var="bodyClass">${requestScope.context.cobranded ? "cobranded" : "www"} ${requestScope.context.cobranded ?  requestScope.context.cobrand : ""} ${requestScope.pageHelper.framed ? 'framed':'unframed'} ${requestScope.pageLayout}</c:set>
 <html lang="en">
@@ -76,6 +77,9 @@
 
         <div id="contentGS" class="contentGS">
         <decorator:body/>
+            <!-- Temporary change for GS-3092: REMOVE AFTER PM FEEDBACK -->
+            <content:editorialFooter/>
+            <!-- End Temporary change for GS-3092 -->
         </div>
 
         <cobrand:numberoneexpertFooter/>
