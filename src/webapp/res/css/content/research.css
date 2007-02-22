@@ -136,14 +136,14 @@ a.arrowLink:hover {
 	font-size: 11px;
 }
 
-.school {
+select.school {
 	padding: 0px 0px 0px 0px;
 	margin: 0px 0px 0px 0px;
 	width: 100px;
 	font-size: 11px;
 }
 
-.district {
+input.district {
 	padding: 0px 0px 0px 0px;
 	margin: 0px 0px 0px 0px;
 	width: 127px;
@@ -305,7 +305,7 @@ a.arrowLink:hover {
 	height: 86px;
 }
 
-.healthyKids {
+div.healthyKids {
 	padding: 2px 19px 0px 11px;
 	width: 115px;
 	font-family: "Trebuchet MS", Arial, sans-serif;
