@@ -123,7 +123,7 @@ public class ResearchAndCompareNewsBlurbTagHandlerTest extends TestCase {
     public void testPrintFooter() throws IOException {
         _tag.setStateOwners(new HashMap() {{
                 put(State.AK, ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER);
-                put(State.AL, ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON);
+                put(State.AL, ResearchAndCompareNewsBlurbTagHandler.ALASTAIR_BROWN);
         }});
 
         _tag.setState(State.AK);
@@ -133,8 +133,8 @@ public class ResearchAndCompareNewsBlurbTagHandlerTest extends TestCase {
         StringBuffer output = writer.getOutputBuffer();
         assertTrue("Expected " + ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER + " for AK",
                 output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER) != -1);
-        assertTrue("Didn't expect " + ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON + " for AK",
-                output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON) == -1);
+        assertTrue("Didn't expect " + ResearchAndCompareNewsBlurbTagHandler.ALASTAIR_BROWN + " for AK",
+                output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.ALASTAIR_BROWN) == -1);
 
         _tag.setState(State.AL);
         writer = new MockJspWriter();
@@ -143,8 +143,8 @@ public class ResearchAndCompareNewsBlurbTagHandlerTest extends TestCase {
         output = writer.getOutputBuffer();
         assertTrue("Didn't expect " + ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER + " for AL",
                 output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER) == -1);
-        assertTrue("Expected " + ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON + " for AL",
-                output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON) != -1);
+        assertTrue("Expected " + ResearchAndCompareNewsBlurbTagHandler.ALASTAIR_BROWN + " for AL",
+                output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.ALASTAIR_BROWN) != -1);
 
         _tag.setState(null);
         writer = new MockJspWriter();
@@ -153,8 +153,8 @@ public class ResearchAndCompareNewsBlurbTagHandlerTest extends TestCase {
         output = writer.getOutputBuffer();
         assertTrue("Expected " + ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER + " for null state",
                 output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.ELIZABETH_GARDNER) != -1);
-        assertTrue("Expected " + ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON + " for null state",
-                output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.AMY_RICKERSON) != -1);
+        assertTrue("Expected " + ResearchAndCompareNewsBlurbTagHandler.ALASTAIR_BROWN + " for null state",
+                output.toString().indexOf(ResearchAndCompareNewsBlurbTagHandler.ALASTAIR_BROWN) != -1);
 
     }
 }
