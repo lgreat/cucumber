@@ -156,6 +156,21 @@ public class ArticleLinkTagHandlerTest extends TestCase {
                 "Tests in California are fun!", output);
     }
 
+    public void testFormatArticleTitleReplacesAmpersandsButNotEntities() {
+        Article article = new Article();
+        article.setTitle("Beyond PB&J: Healthy Lunch Ideas");
+        assertEquals("Expected to replace ampersand with entity", "Beyond PB&amp;J: Healthy Lunch Ideas",
+                _tagHandler.formatArticleTitle(article, State.CA));
+
+        article.setTitle("Beyond PB&amp;J: Healthy Lunch Ideas");
+        assertEquals("Shouldn't replace ampersand in entity", "Beyond PB&amp;J: Healthy Lunch Ideas",
+                _tagHandler.formatArticleTitle(article, State.CA));
+
+        article.setTitle("Beyond PB&J &#8212; Healthy Lunch Ideas");
+        assertEquals("Should replace only ampersands that aren't part of an entity", "Beyond PB&amp;J &#8212; Healthy Lunch Ideas",
+                _tagHandler.formatArticleTitle(article, State.CA));
+    }
+
     public void testGetAndValidateArticle() {
         _tagHandler.setArticleId(new Integer(18));
 
