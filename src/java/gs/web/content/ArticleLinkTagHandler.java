@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.32 2007/02/23 20:44:28 cpickslay Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.33 2007/02/26 23:43:13 cpickslay Exp $
  */
 package gs.web.content;
 
@@ -143,18 +143,16 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         Pattern pattern = Pattern.compile("(&)([a-zA-Z0-9#]*;)?");
         Matcher matcher = pattern.matcher(title);
         StringBuffer newTitle = new StringBuffer();
-        int start = 0;
         while (matcher.find()) {
             if (matcher.group(2) == null) {
                 // replace standalone ampersands
-                newTitle.append(title.substring(start, matcher.start())).append("&amp;");
+                matcher.appendReplacement(newTitle, "&amp;");
             } else {
                 // don't replace entities
-                newTitle.append(title.substring(start, matcher.end()));
+                matcher.appendReplacement(newTitle, "$1$2");
             }
-            start = matcher.end();
         }
-        newTitle.append(title.substring(start, title.length()));
+        matcher.appendTail(newTitle);
         return newTitle.toString();
     }
 
