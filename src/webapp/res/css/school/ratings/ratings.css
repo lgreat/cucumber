@@ -1,27 +1,42 @@
 #schoolProfile .ratingSummaryWrapper {
-    border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
-    padding: 10px 0 10px 0;
-    margin-bottom: 15px;
+    padding: 10px 0 19px 0;
+    margin-bottom: 22px;
 }
 
 #schoolProfile .ratingSummaryContent {
-    background-color: #eee;
+    font-family: Trebuchet MS sans-serif;
     margin: 0 0 0 0;
 }
 
 #schoolProfile .ratingSummaryContent h2 {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 0;
+    padding-bottom: 5px;
     color: #cc5566;
     font-weight: bold;
 }
 
 #schoolProfile .ratingSummaryContent p {
     font-size: 98%;
-    line-height: 110%;
     color: #666;
+    font-weight: normal;
+    line-height: 17px;
 }
+
+#schoolProfile .ratingSummaryContent a,
+    #schoolProfile .ratingSummaryContent a:hover,
+    #schoolProfile .ratingSummaryContent a:active,
+    #schoolProfile .ratingSummaryContent a:link,
+    #schoolProfile .ratingSummaryContent a:visited
+{
+    color: #3399AA;
+    text-decoration: underline;
+}
+
+#schoolProfile .ratingSummaryContent img {
+    margin-top: 3px;
+}
+
 
 #schoolProfile #moreResources {
     border-bottom: dashed 1px #ccc;

@@ -35,7 +35,7 @@
 <c:set var="hasRating" value="false"/>
 <c:set var="overallRating" value="0"/>
 <c:set var="ratingImagePath" value="/res/img/school/ratings/ratings_unavailable.gif"/>
-<c:set var="imageDesc" value="Test Score Rating: We're sorry, the relevant data is unavailable for this school."/>
+<c:set var="imageDesc" value="This school has not been rated because sufficient test score data is not available."/>
 
 <c:choose>
     <c:when test="${not empty school}">
@@ -58,7 +58,7 @@
     <c:set var="overallRating" value="${ratingsCmd.overallRating.rating}"/>
     <c:set var="hasRating" value="true"/>
     <c:set var="ratingImagePath" value="/res/img/school/ratings/ratings_${overallRating}.gif"/>
-    <c:set var="imageDesc" value="GreatSchools Test Score Rating: ${overallRating} out of 10"/>
+    <c:set var="imageDesc" value="GreatSchools Rating: ${overallRating} out of 10"/>
 </c:if>
 
 
@@ -79,51 +79,31 @@
         <c:if test="${hasError eq 'false'}">
             <school:profile school="${school}" tab="ratings">
                 <div style="padding:10px 10px 0 14px;">
-                <div class="ratingSummaryWrapper">
-                    <div class="ratingSummaryContent">
-                        <div style="height:121px;">
-                        <gsml:img src="${ratingImagePath}" alt="${imageDesc}" style="float:left;padding-right:30px;"/>
-
-                        <h2>What do these ratings mean?</h2>
-
-                        <p>These ratings provide a quick overview of how students<br/>
-                            in this school performed on standardized tests.
-                        </p>
-                        <br/>
-
-                        <p>
-                            A "10" means that the group is in the top 10% for test scores<br/>
-                            when compared to students in the same group statewide.<br/>
-                            A "1" means that the group is in the bottom 10%.
-                        </p>
-                            </div>
-                    </div>
-                </div>
-
-
                 <div style="padding-top:15px;">
-                    <c:if test="${hasRating == 'true'}">
-                        <div id="ratingContent">
+                    <div id="ratingContent">
+                        <div class="ratingSummaryWrapper">
+                            <div class="ratingSummaryContent">
+                                <div style="height:121px;">
+                                    <gsml:img src="${ratingImagePath}" alt="${imageDesc}" style="float:left;padding-right:15px;"/>
+
+                                    <h2>About GreatSchools Ratings:</h2>
+                                    <p>
+                                        Our ratings give an overview of this<br/>
+                                        school's test results. They are based<br/>
+                                        on a comparison of test results for all<br/>
+                                        schools in the state.
+                                    </p>
+                                    <p><gsml:a href="/issues/$LCSTATE/ratings.html" onClick="issues();" target="issues">What our ratings tell you &gt;</gsml:a></p>
+                                    <p><link:schoolProfileTestscore school="${school}">See this school's test results &gt;</link:schoolProfileTestscore></p>
+                                </div>
+                            </div>
+                        </div>
+                        <c:if test="${hasRating == 'true'}">
                             <ratings:table ratingsDisplay="${ratingsDisplay}" overallRatingCell="${ratingsCmd.overallRating}"
                                                 year="${ratingsCmd.ratingYear}"/>
-                        </div>
-                    </c:if>
-
-                    <div style="float:right;padding-bottom:20px;">
-                        <ad:x48/>
-                        <div id="moreResources">
-                            <h2>More Resources</h2>
-                            <ul>
-                                <li><gsml:a href="/issues/$LCSTATE/ratings.html" onClick="issues();" target="issues">More about GreatSchools Ratings</gsml:a></li>
-                                <li><link:schoolCompareSchool school="${school}" sortBy="stars_newrating">Compare with GreatSchools Ratings<br/> from nearby schools</link:schoolCompareSchool></li>
-                                <li><link:schoolProfileTestscore school="${school}">See this school's performance
-                                    data</link:schoolProfileTestscore></li>
-                            </ul>
-                        </div>
-
-                        <ad:multiTextAd blurb="Advertiser links"/>
-
+                        </c:if>
                     </div>
+
                 </div>
                 </div>
             </school:profile>
