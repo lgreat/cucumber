@@ -1,19 +1,19 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: RecentParentReviewsController.java,v 1.12 2007/01/02 20:09:17 cpickslay Exp $
+ * $Id: RecentParentReviewsController.java,v 1.13 2007/02/27 18:04:54 dlee Exp $
  */
 
 package gs.web.school.review;
 
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
+import gs.data.school.review.CategoryRating;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.state.State;
-import gs.web.util.context.SessionContext;
-import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.web.servlet.ModelAndView;
@@ -126,16 +126,17 @@ public class RecentParentReviewsController extends AbstractController {
         }
 
         public int getStars() {
-            final String quality = _review.getQuality();
-            if (StringUtils.equals(quality, "1")) {
+            final CategoryRating quality = _review.getQuality();
+
+            if (CategoryRating.RATING_1.equals(quality)) {
                 return 1;
-            } else if (StringUtils.equals(quality, "2")) {
+            } else if (CategoryRating.RATING_2.equals(quality)) {
                 return 2;
-            } else if (StringUtils.equals(quality, "3")) {
+            } else if (CategoryRating.RATING_3.equals(quality)) {
                 return 3;
-            } else if (StringUtils.equals(quality, "4")) {
+            } else if (CategoryRating.RATING_4.equals(quality)) {
                 return 4;
-            } else if (StringUtils.equals(quality, "5")) {
+            } else if (CategoryRating.RATING_5.equals(quality)) {
                 return 5;
             }
             return 0;
