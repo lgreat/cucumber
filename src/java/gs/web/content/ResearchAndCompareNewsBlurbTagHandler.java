@@ -30,7 +30,7 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
     private String _paragraphTag = "div"; // default
     private String _textClass = "updatesText"; // default
     public static final int ROUND_DOWN_TO_NEAREST = 100;
-    public static final String ALASTAIR_BROWN = "Alistair Brown";
+    public static final String ALASTAIR_BROWN = "Alastair Brown";
     public static final String ELIZABETH_GARDNER = "Elizabeth Gardner";
     private static Map _stateOwners = new HashMap() {{
         put(State.AK, ELIZABETH_GARDNER);
@@ -241,7 +241,7 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
             out.print(_state.getLongName());
             out.print(" Data Specialist</span>");
         } else {
-            out.print("<span class=\"printName\">Alistair Brown &amp; Elizabeth Gardner</span>");
+            out.print("<span class=\"printName\">Alastair Brown &amp; Elizabeth Gardner</span>");
             out.print("<span class=\"italicTitle\">");
             out.print("Education Data Specialists</span>");
         }
