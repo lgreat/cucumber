@@ -432,6 +432,7 @@
 </tr>
 </table>
 
+<footer:editorialFooter/>
 
 <c:choose>
     <c:when test="${not empty requestScope.context.state}">

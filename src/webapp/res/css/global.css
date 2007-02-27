@@ -3,10 +3,6 @@
    font-size: see http://www.thenoodleincident.com/tutorials/typography/template.html
 */
 
-/* Temporary changes for GS-3092: REMOVE AFTER PM FEEDBACK */
-@import url("content/research.css");
-/* End Temporary changes for GS-3092 */
-
 /*   General
 ----------------------------------------------- */
 html, body {
@@ -614,28 +610,3 @@ div#printandemail {
     }
 }
 
-/* Temporary changes for GS-3092: REMOVE AFTER PM FEEDBACK */
-a.arrowLink:link, a.arrowLink:visited, a.arrowLink:active {
-	font-family: "Trebuchet MS", Arial, sans-serif;
-	font-size: 12px;
-	line-height: 15px;
-	color: #3399AA;
-	text-decoration: none;
-	letter-spacing: 0px;
-}
-
-a.arrowLink:hover {
-	text-decoration: underline;
-}
-
-a.border10Links:link, a.border10Links:visited, a.border10Links:hover, .contentGS .billsBlog a:link,
-    .contentGS .billsBlog a:visited, .contentGS .billsBlog a:hover{
-	font-family: "Trebuchet MS", Arial, sans-serif;
-	font-size: 12px;
-	line-height: 15px;
-	color: #3399AA;
-	text-decoration: underline;
-	letter-spacing: 0px;
-}
-
-/* END Temporary changes for GS-3092 */
