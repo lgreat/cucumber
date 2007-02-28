@@ -103,7 +103,10 @@
                                                 year="${ratingsCmd.ratingYear}"/>
                         </c:if>
                     </div>
-
+                    <div style="float:right;padding-bottom:20px;">
+                        <ad:x48/>
+                        <ad:multiTextAd blurb="Advertiser links"/>
+                    </div>
                 </div>
                 </div>
             </school:profile>
