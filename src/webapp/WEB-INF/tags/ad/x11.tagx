@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        >
+    <jsp:directive.tag body-content="empty"/>
+    <c:choose>
+        <c:when test="${requestScope.context.cobranded}">
+            <link:healthyKids>
+                <gsml:img src="/res/img/content/healthyKids/HouseAd_small_healthy.jpg" alt="Healthy Kids: Family fitness tips, managing TV time and quick, tasty recipes"/>
+            </link:healthyKids>
+        </c:when>
+        <c:otherwise>
+            <gsweb:adTagGenerator position="x11"/>
+        </c:otherwise>
+    </c:choose>
+</jsp:root>
