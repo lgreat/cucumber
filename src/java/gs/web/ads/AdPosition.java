@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdPosition.java,v 1.6 2007/02/06 21:23:14 dlee Exp $
+ * $Id: AdPosition.java,v 1.7 2007/03/03 00:39:40 dlee Exp $
  */
 package gs.web.ads;
 
@@ -14,6 +14,11 @@ import java.util.List;
  * @author David Lee <mailto:dlee@greatschools.net>
  */
 public class AdPosition extends Enum {
+
+    /**
+     * School profile pages - GreatSchools house ad
+     */
+    public static final AdPosition X_11 = new AdPosition("x11");
 
     /**
      * skyscraper 120x600
