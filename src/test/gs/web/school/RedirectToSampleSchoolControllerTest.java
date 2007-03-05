@@ -1,12 +1,11 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: RedirectToSampleSchoolControllerTest.java,v 1.3 2006/07/13 07:54:00 apeterson Exp $
+ * $Id: RedirectToSampleSchoolControllerTest.java,v 1.4 2007/03/05 23:27:48 dlee Exp $
  */
 package gs.web.school;
 
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContextUtil;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -37,7 +36,7 @@ public class RedirectToSampleSchoolControllerTest extends BaseControllerTestCase
 
         RedirectView view = (RedirectView)mav.getView();
         assertNotNull(view.getUrl());
-        assertEquals("/modperl/browse_school/ca/2/", view.getUrl());
+        assertEquals("/modperl/browse_school/ca/1/", view.getUrl());
    }
 
    public void testGetSampleAKSchool() throws Exception {

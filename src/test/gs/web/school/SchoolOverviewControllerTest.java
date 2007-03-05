@@ -1,14 +1,14 @@
 package gs.web.school;
 
-import gs.web.BaseControllerTestCase;
-import gs.web.GsMockHttpServletRequest;
-import gs.web.util.context.SessionContext;
-import gs.web.util.MockSessionContext;
 import gs.data.school.School;
 import gs.data.state.State;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.mock.web.MockHttpServletResponse;
+import gs.web.BaseControllerTestCase;
+import gs.web.GsMockHttpServletRequest;
+import gs.web.util.MockSessionContext;
+import gs.web.util.context.SessionContext;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 
@@ -32,7 +32,7 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.handleRequest(request, getResponse());
         School school = (School)mAndV.getModel().get("school");
         assertEquals("Alameda High School", school.getName());
-        assertEquals(new Integer(2), mAndV.getModel().get("reviewCount"));
+        assertEquals(new Integer(4), mAndV.getModel().get("reviewCount"));
         assertTrue(StringUtils.isNotBlank((String)mAndV.getModel().get("reviewText")));
     }
 
@@ -60,7 +60,7 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.handleRequest(request, response);
         School school = (School)mAndV.getModel().get("school");
         assertEquals("Alameda High School", school.getName());
-        assertEquals(new Integer(2), mAndV.getModel().get("reviewCount"));
+        assertEquals(new Integer(4), mAndV.getModel().get("reviewCount"));
         assertTrue(StringUtils.isNotBlank((String)mAndV.getModel().get("reviewText")));
         assertNull(response.getRedirectedUrl());
     }
