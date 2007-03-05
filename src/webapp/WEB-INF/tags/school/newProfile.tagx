@@ -130,7 +130,9 @@
             <c:set var="parent_rating" value="0"/>
         </c:if>
         <!-- Change the second class to change how many stars the parent rating displays -->
-        <a href="" class="parent_rating parent_${parent_rating}" title="">&amp;nbsp;</a>
+        <link:schoolProfileAddParentReview school="${school}" styleClass="parent_rating parent_${parent_rating}">
+            &amp;nbsp;
+        </link:schoolProfileAddParentReview>
     </div>
     <!-- end: ratings -->
 
