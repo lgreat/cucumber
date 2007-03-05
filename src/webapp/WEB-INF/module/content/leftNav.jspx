@@ -16,6 +16,15 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <div class="left">
+    <h3>Featured Topics</h3>
+    <ul class="plain">
+        <li><gsml:a href="/content/summerPlanning.page">Summer Planning</gsml:a></li>
+        <li><gsml:a href="/content/schoolChoiceCenter.page">School Choice Tips</gsml:a></li>
+        <li><gsml:a href="/content/movingWithKids.page">Moving With Kids</gsml:a></li>
+        <li><gsml:a href="/content/healthyKids.page">Healthy Kids</gsml:a></li>
+        <li><gsml:a href="/content/countdownToCollege.page">Countdown To College</gsml:a></li>
+    </ul>
+
     <h3>Grade K-5 Success</h3>
     <ul class="plain">
         <gsweb:articlelink articleId="44" wrappingElement="li"/>
@@ -72,33 +81,23 @@
                     <td><gsml:a href="/cgi-bin/showarticle/$STATE/678" styleClass="by_5"></gsml:a></td>
                 </tr>
             </table>
-        </li>
+        </li> 
     </ul>
-    <h3>School Choice Tips</h3>
+
+    <h3>Learning Games</h3>
     <ul class="plain">
-        <gsweb:articlelink articleId="197" wrappingElement="li"/>
-        <gsweb:articlelink articleId="96" wrappingElement="li"/>
-        <li class="seeMore">
-            <gsml:a href="/content/schoolChoiceCenter.page">See more &gt;</gsml:a>
+        <gsweb:articlelink articleId="400" wrappingElement="li"/>
+        <gsweb:articlelink articleId="410" wrappingElement="li"/>
+        <li style="background-image:none;text-align:right; padding-top:4px;">
+            <gsml:a href="/content/holidayLearning.page">See more &gt;</gsml:a>
         </li>
     </ul>
 
-    <h3>Healthy Kids</h3>
+    <h3>Get Involved</h3>
     <ul class="plain">
-        <gsweb:articlelink articleId="350" wrappingElement="li"/>
-        <gsweb:articlelink articleId="253" wrappingElement="li"/>
-        <li class="seeMore">
-            <gsml:a href="/content/healthyKids.page">See more &gt;</gsml:a>
-        </li>
-    </ul>
-
-    <h3>Moving With Kids</h3>
-    <ul class="plain">
-        <gsweb:articlelink articleId="455" wrappingElement="li"/>
-        <gsweb:articlelink articleId="60" wrappingElement="li"/>
-        <li class="seeMore">
-            <gsml:a href="/content/movingWithKids.page">See more &gt;</gsml:a>
-        </li>
+        <gsweb:articlelink articleId="34" wrappingElement="li"/>
+        <gsweb:articlelink articleId="41" wrappingElement="li"/>
+        <gsweb:articlelink articleId="737" wrappingElement="li"/>
     </ul>
 
     <div id="allArticles">
