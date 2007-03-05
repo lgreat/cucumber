@@ -1,0 +1,348 @@
+/*------------------------------------------------------
+
+School Profile header
+
+-------------------------------------------------------*/
+
+
+#schoolProfileHeader {
+	width: 860px;
+	_width: 850px; /* IE 6 hack */
+	float: left;
+	border: 2px solid #dee;
+    border-bottom: 1px dashed #dee;
+}
+
+/* breadcrumbs */
+
+#breadcrumbs {
+	margin: 2px 0 0 24px;
+	_margin: 2px 0 12px 24px; /* IE 6 hack */
+}
+
+#breadcrumbs ul li {
+	font: 11px Trebuchet MS, Arial, sans-serif;
+	color: #888;
+	list-style: none;
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+
+#breadcrumbs ul li a {
+	text-decoration: underline;
+	color: #888;
+}
+
+#breadcrumbs ul li a:hover {
+	text-decoration: none;
+}
+
+
+/* tools */
+
+#tools { /* has IE 7 equivalent */
+	width: 230px;
+	float: right;
+	margin: 2px 20px 0 0;
+	_margin: -10px 5px 0 0; /* IE 6 hack */
+	font: 13px/15px Trebuchet MS, Arial, sans-serif;
+	color: #777;
+}
+
+#tools p {
+	color: #5bc;
+	margin: 0 1px 0 4px;
+	_margin: 0 0 0 3px; /* IE 6 hack */
+	padding: 0;
+	float: left;
+}
+
+#tools .add {
+	background: url(../../img/school/tools_th_add.gif) no-repeat 0 center;
+	padding: 0 0 0 17px;
+	text-decoration: underline;
+	margin: 0;
+	float: left;
+}
+
+#tools .rate {
+	background: url(../../img/school/tools_th_rate.gif) no-repeat 0 center;
+	padding: 0 0 0 17px;
+	text-decoration: underline;
+}
+
+#tools .email {
+    font: bold 12px Trebuchet MS, Arial, sans-serif;
+    background: url(../../img/school/tools_th_email.gif) no-repeat 0 center;
+	padding: 0 0 0 17px;
+	margin: 8px 0 0 0;
+	color: #777;
+	float: none;
+}
+
+#tools a {
+	font: bold 13px/15px Trebuchet MS, Arial, sans-serif;
+	color: #39a;
+}
+
+#tools a:hover {
+	text-decoration: none;
+}
+
+#tools .enterEmail {
+	width: 160px;
+	height: 16px;
+	font: 12px/14px Trebuchet MS, Arial, sans-serif;
+	color: #777;
+	float: left;
+	margin: 5px 6px 0 17px;
+	padding: 1px 0 0 3px;
+}
+
+#tools .go {
+	width: 39px;
+	height: 20px;
+	margin: 5px 0 0 0;
+	border: 0;
+    _float: left;
+}
+
+
+/* school name */
+
+#schoolProfile span#schoolName { /* has IE 7 equivalent */
+    width: 550px;
+    float: left;
+    _float: none; /* IE 6 hack */
+    margin: 12px 0 8px 24px;
+}
+
+#schoolProfile h1 { /* creates the non-linkable school name title */
+    font: bold 24px Trebuchet MS, Arial, sans-serif;
+    color: #5bc;
+}
+
+#schoolProfile a.schoolName { /* creates the linkable school name title */ /* has IE 7 equivalent */
+    font: bold 24px Trebuchet MS, Arial, sans-serif;
+    color: #5bc;
+	text-decoration: none;
+}
+
+
+/* Ratings */
+
+#ratings {
+	margin: 8px 0 0 27px;
+	width: 300px;
+}
+
+.rating_gs {
+	margin: 0 10px 0 0;
+	float: left;
+	padding-right: 10px;
+	border-right: 1px solid #ccc;
+}
+
+a.parent_rating {
+	width: 99px;
+	height: 25px;
+	margin: 0;
+	float: left;
+}
+
+a:hover.parent_rating {
+    text-decoration: none;
+}
+
+/* Parent Ratings rollovers */
+
+.parent_0 { /* displays the "no star" parent rating */
+	background: url(../../img/school/ratings/ratings_parent_head_no.gif) no-repeat;
+}
+
+a:hover.parent_0 { /* displays the "no star" rollover */
+	background: url(../../img/school/ratings/ratings_parent_head_no_roll.gif) no-repeat;
+}
+
+.parent_1 { /* displays the 1 star parent rating */
+	background: url(../../img/school/ratings/ratings_parent_head_1.gif) no-repeat;
+}
+
+.parent_2 { /* displays the 2 star parent rating */
+	background: url(../../img/school/ratings/ratings_parent_head_2.gif) no-repeat;
+}
+
+.parent_3 { /* displays the 3 star parent rating */
+	background: url(../../img/school/ratings/ratings_parent_head_3.gif) no-repeat;
+}
+
+.parent_4 { /* displays the 4 star parent rating */
+	background: url(../../img/school/ratings/ratings_parent_head_4.gif) no-repeat;
+}
+
+.parent_5 { /* displays the 5 star parent rating */
+	background: url(../../img/school/ratings/ratings_parent_head_5.gif) no-repeat;
+}
+
+
+/* main navigation */
+
+#navigation {
+	background: #5bc;
+	text-transform: uppercase;
+	width: 860px;
+	_width: 862px; /* IE 6 hack */
+	height: 30px;
+	float: left;
+	margin: 15px 0 0 0;
+	border-bottom: 1px solid #fff;
+}
+
+#navigation td {
+	font: bold 11px/13px Trebuchet MS, Arial, sans-serif;
+	color: #fff;
+	text-decoration: none;
+	text-align: center;
+	/*border-right: 1px dotted #fff;*/
+	background: url(../../img/school/border_dotted.gif) repeat-y right; /* creates dotted border, necessary for consistency in IE 6 */
+}
+
+#navigation td a {
+	color: #fff;
+    height: 28px;
+    _height: 27px; /* IE 6 hack */
+	display: block;
+	padding: 2px 20px 0 20px;
+	_padding: 3px 20px 0 20px; /* IE 6 hack */
+}
+
+#navigation td a:hover {
+	color: #5bc;
+	text-decoration: none;
+    background: #dee url(../../img/school/border_dotted.gif) repeat-y right; /* creates dotted border, necessary for consistency in IE 6 */
+}
+
+/* Do not add dotted border on right of last cell, even during hover */
+#navigation td.last a:hover {
+    background: #dee;
+}
+
+#navigation .last { /* sets no border for the last tab (far right) */
+	background: 0;
+}
+
+#navigation .on { /* sets the "on" state for the tabs */
+	color: #5bc;
+    background: #dee url(../../img/school/border_dotted.gif) repeat-y right; /* creates dotted border, necessary for consistency in IE 6 */
+}
+
+
+/* secondary (sub) navigation */
+
+#subnav {
+	width: 860px;
+	_width: 862px; /* IE 6 hack */
+	background: #dee;
+	height: 22px;
+    float: left;
+	_float: none; /* IE 6 hack */
+	color: #ccc;
+}
+
+#subnav ul {
+	margin: 2px 8px 0 0;
+	_margin: 2px 5px 0 0; /* IE 6 hack */
+	float: right;
+}
+
+#subnav ul li {
+	display: inline;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#subnav ul li a {
+	color: #5bc;
+	font: 11px/12px Trebuchet MS, Arial, sans-serif;
+	text-decoration: underline;
+	margin: 0;
+	padding: 0 4px 0 4px;
+}
+
+#subnav ul li a:hover {
+	text-decoration: none;
+}
+
+
+/* School Overview page header */
+
+.overview #breadcrumbs { /* has IE 7 equivalent */
+	_margin: 4px 0 0 24px; /* IE 6 hack */
+}
+
+.overview #tools {
+	margin: -2px 20px 0 0;
+	_margin: -3px 5px 0 0; /* IE 6 hack */
+}
+
+.overview #ratings { /* hides the ratings */
+	display: none;
+}
+
+#schoolProfile.overview h1 { /* makes the school name larger, centers it vertically */
+	font: bold 26px Trebuchet MS, Arial, sans-serif;
+	color: #5bc;
+	margin: 21px 0 0 24px;
+	_margin: 21px 0 0 10px; /* IE 6 hack */
+	float: left;
+}
+
+.overview #navigation {
+	margin: 18px 0 0 0;
+	_margin: 24px 0 0 0; /* IE 6 hack */
+	_float: none; /* IE 6 hack */
+}
+
+/**********************
+ *                    *
+ *                    *
+ *                    *
+ **********************
+ * O L D  S T Y L E S *
+ **********************
+ *                    *
+ *                    *
+ *                    *
+ **********************/
+
+#schoolProfile #bodyContents {
+    font-size:12px;
+    text-align:left;
+}
+
+#schoolProfile #bodyContents h1{
+    font-weight:bold;
+    font-size:16px;
+    padding: 10px 0 3px 12px;
+}
+
+#schoolProfile #bodyContents a {
+    text-decoration:underline;
+}
+
+#schoolProfile #bodyContents table {
+    text-align:left;
+}
+
+#schoolProfile #bodyContents #school_promo {
+    float: right;
+    padding-right:20px;
+    width:237px;
+}
+
+#schoolProfile #bodyContents #site_promo {
+    float: right;
+    padding-right:50px;
+}

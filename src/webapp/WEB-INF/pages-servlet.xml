@@ -919,6 +919,20 @@
         </property>
     </bean>
 
+    <bean name="/school/rating3.page"
+          class="gs.web.test.rating.RatingsController"
+          autowire="byName" lazy-init="true">
+        <property name="commandName" value="ratingsCmd"/>
+        <property name="commandClass" value="gs.web.test.rating.RatingsCommand"/>
+        <property name="viewName" value="test/ratings2"/>
+        <property name="onLoadValidators">
+            <list>
+                <ref bean="stateValidator"/>
+                <ref bean="schoolIdValidator"/>
+            </list>
+        </property>
+    </bean>
+
     <bean name="/school/rating2.page"
           class="gs.web.test.rating.RatingsController"
           autowire="byName" lazy-init="true">

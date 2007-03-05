@@ -1,0 +1,15 @@
+/*------------------------------------------------------
+
+School Profile header
+Internet Explorer 7 specific styles
+
+-------------------------------------------------------*/
+
+
+#schoolProfile span#schoolName {
+    margin: 12px 0 0 24px;
+}
+
+#tools { /* has IE 7 equivalent */
+	margin: 3px 20px 0 0;
+}

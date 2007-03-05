@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        >
+<jsp:directive.tag body-content="scriptless"/>
+<jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
+<jsp:directive.attribute name="tab" required="false" description="The Selected Tab" type="java.lang.String"/>
+<jsp:directive.attribute name="gs_rating" required="false" description="GreatSchools Rating" type="java.lang.Integer"/>
+<jsp:directive.attribute name="parent_rating" required="false" description="Parent Rating" type="java.lang.Integer"/>
+<pageHelper:externalCss file="/res/css/school/newProfile.css"/>
+
+<jsp:scriptlet>
+    try {
+        String adPageName = "school/" + school.getType().getSchoolTypeName() + '/' + school.getLevelCode().getCommaSeparatedString().charAt(0);
+        StringBuffer keywordBuffer = new StringBuffer();
+        keywordBuffer.append("type=").append(school.getType().getSchoolTypeName())
+                .append("&amp;")
+                .append("level=").append(school.getLevelCode().getCommaSeparatedString().charAt(0))
+                .append("&amp;")
+                .append("county=").append(school.getCounty())
+                .append("&amp;")
+                .append("school_id=").append(school.getId());
+
+        request.setAttribute("adPageName", adPageName);
+        request.setAttribute("adKeywords", keywordBuffer.toString());
+    } catch (Exception e){}
+</jsp:scriptlet>
+
+<![CDATA[
+<!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" href="/res/css/school/newProfile_ie7.css" />
+<![endif]-->
+]]>
+
+<script type="text/javascript" language="javascript">
+    var deliciousUrl = 'http://del.icio.us/post?v=4;url='+encodeURIComponent(location.href)+';title='+encodeURIComponent(document.title);
+
+    function openDelicious() {
+        // to get around popup blockers
+        location.href=deliciousUrl;
+    }
+</script>
+
+<c:set var="state" value="${school.physicalAddress.state}"/>
+<c:set var="city" value="${school.physicalAddress.city}"/>
+<c:set var="schoolId" value="${school.id}"/>
+
+<c:choose>
+    <c:when test="${school.type.schoolTypeName != 'private'}">
+        <c:set var="schoolType" value="public"/>
+        <pageHelper:externalJavascript file="/cm/mss_modal.js"/>
+        <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}')"/>
+        <!--TODO pagehelper method just for adding hovers so we don;t have to keep track on version numbers in different places-->
+        <pageHelper:externalCss file="/res/css/submodal/submodal.css?v=7"/>
+        <pageHelper:externalJavascript file="/res/js/submodal/submodal.js?v=7"/>
+        <pageHelper:addOnLoadHandler handler="initPopUp('hoverNewsMss')"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="schoolType" value="private"/>
+    </c:otherwise>
+</c:choose>
+<div id="schoolProfile" class="${(tab eq 'overview')? 'overview' : ''}">
+    <div id="schoolProfileHeader">
+
+    <div id="breadcrumbs">
+        <ul>
+            <li><link:research state="${state}">${state.longName}</link:research> &gt; </li>
+            <li><link:city city="${city}" state="${state}">${city}</link:city>&amp;nbsp;</li>
+            <c:if test="${school.districtId != 0}">
+                <li>&gt; <link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name}</link:allSchoolsInDistrict></li>
+            </c:if>
+        </ul>
+    </div>
+    <!-- end: breadcrumbs -->
+
+    <!-- begin tool links -->
+    <div id="tools">
+        <gsml:a href="/cgi-bin/msl_confirm/${state.abbreviationLowerCase}/?add_ids=${school.id}" styleClass="add">
+            Add to Saved Schools
+        </gsml:a>
+
+        <p>&amp;nbsp;|&amp;nbsp;</p><!-- pipe divider as opposed to link border, as per client request -->
+        <link:schoolProfileAddParentReview school="${school}" styleClass="rate">
+            Rate it!
+        </link:schoolProfileAddParentReview>
+
+        <p class="email">Email me updates about this school</p>
+
+        <input value="Enter your email address" class="enterEmail" id="emailAddressForm"/>
+        <promo:mssHover referredBy="schoolProfile" school="${school}"><gsml:img src="/res/img/school/tools_submit_go.gif" alt="Go" styleClass="go"/></promo:mssHover>
+    </div>
+    <!-- end tools -->
+
+    <!-- School name -->
+    <span id="schoolName">
+    <c:choose>
+        <c:when test="${tab ne 'overview'}">
+            <link:schoolProfileOverview school="${school}" styleClass="schoolName">
+                ${school.name}
+            </link:schoolProfileOverview>
+        </c:when>
+        <c:otherwise>
+            <h1>
+                ${school.name}
+            </h1>
+        </c:otherwise>
+    </c:choose>
+    </span>
+    <!-- End School name -->
+
+    <!-- Ratings -->
+    <div id="ratings">
+        <!-- Great Schools Rating -->
+        <c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
+            <gsml:img src="/res/img/school/ratings/ratings_gs_head_${gs_rating}.gif" alt="Great Schools Rating ${gs_rating}" styleClass="rating_gs"/>
+        </c:if>
+
+        <!-- Parent Rating -->
+        <c:if test="${parent_rating eq null or parent_rating lt 0 or parent_rating gt 5}">
+            <c:set var="parent_rating" value="0"/>
+        </c:if>
+        <!-- Change the second class to change how many stars the parent rating displays -->
+        <a href="" class="parent_rating parent_${parent_rating}" title="">&amp;nbsp;</a>
+    </div>
+    <!-- end: ratings -->
+
+
+    <!-- main navigation, client has okayed use of a table here -->
+    <table id="navigation" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <link:schoolProfileOverview school="${school}" styleClass="${(tab eq 'overview') ? 'on' : ''}">
+                    School<br/>
+                    Overview
+                </link:schoolProfileOverview>
+            </td>
+            <c:if test="${schoolType != 'private' and state.ratingsState}">
+                <td>
+                    <link:schoolProfileRating school="${school}" styleClass="${(tab eq 'ratings') ? 'on' : ''}">
+                        GreatSchools<br/>
+                        Ratings
+                    </link:schoolProfileRating>
+                </td>
+            </c:if>
+            
+            <td>
+                <link:schoolProfileParentReview school="${school}">
+                    Parent<br/> 
+                    Reviews
+                </link:schoolProfileParentReview>
+            </td>
+
+            <c:if test="${schoolType != 'private'}" >
+                <td>
+                    <link:schoolProfileTestscore school="${school}">
+                        Academic<br/>
+                        Performance
+                    </link:schoolProfileTestscore>
+                </td>
+            </c:if>
+
+            <!-- This link tag automatically detects private schools and links appropriately -->
+            <td>
+                <link:schoolProfileCensus school="${school}">
+                    School<br/>
+                    Environment
+                </link:schoolProfileCensus>
+            </td>
+
+<!-- Temporarily commented out until destination implementation is complete
+            <td>
+                <a href="" title="">Parent<br/>Community</a>
+            </td>
+-->
+            <td class="last">
+                <link:schoolCompareSchool school="${school}" styleClass="last">
+                    Compare<br/>
+                    Schools
+                </link:schoolCompareSchool>
+            </td>
+        </tr>
+    </table>
+    <!-- end: navigation -->
+
+    <div id="subnav">
+        <ul>
+            <li><a href="javascript:window.print();" title="">Print</a>&amp;nbsp;|&amp;nbsp;</li>
+            <!-- pipe characters used as opposed to li borders, as per client request -->
+            <gsml:url var="mailToFriendUrl" value="/community/mailToFriend.page?schoolId=${school.id}&amp;refer=${tab}"/>
+            <li><gsml:a href="${mailToFriendUrl}"
+                        onClick="window.open('${mailToFriendUrl}', 'win', 'width=600,height=550,scrollbars=yes'); return false;">Email</gsml:a>&amp;nbsp;|&amp;nbsp;</li>
+            <li><a href="javascript:openDelicious()"
+                   onclick="window.open(deliciousUrl, 'win', 'width=600,height=550,scrollbars=yes,resize=yes'); return false;">Add to del.icio.us</a></li>
+        </ul>
+    </div>
+    <!-- end: subnav -->
+
+    </div> <!-- end: schoolProfileHeader -->
+
+    <br style="clear:both;"/>
+    <div id="bodyContents">
+        <jsp:doBody/>
+    </div>
+    <br style="clear:both;"/>
+</div>
+<!-- end schoolProfile -->
+</jsp:root>
