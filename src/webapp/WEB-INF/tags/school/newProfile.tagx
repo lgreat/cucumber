@@ -92,10 +92,12 @@
             Rate it!
         </link:schoolProfileAddParentReview>
 
-        <p class="email">Email me updates about this school</p>
+        <c:if test="${schoolType != 'private'}" >
+            <p class="email">Email me updates about this school</p>
 
-        <input value="Enter your email address" class="enterEmail" id="emailAddressForm"/>
-        <promo:mssHover referredBy="schoolProfile" school="${school}"><gsml:img src="/res/img/school/tools_submit_go.gif" alt="Go" styleClass="go"/></promo:mssHover>
+            <input value="Enter your email address" class="enterEmail" id="emailAddressForm"/>
+            <promo:mssHover referredBy="schoolProfile" school="${school}"><gsml:img src="/res/img/school/tools_submit_go.gif" alt="Go" styleClass="go"/></promo:mssHover>
+        </c:if>
     </div>
     <!-- end tools -->
 
