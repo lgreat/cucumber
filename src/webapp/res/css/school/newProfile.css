@@ -114,13 +114,8 @@ School Profile header
 #schoolProfile span#schoolName { /* has IE 7 equivalent */
     width: 550px;
     float: left;
-    _float: none; /* IE 6 hack */
     margin: 12px 0 8px 24px;
-}
-
-#schoolProfile h1 { /* creates the non-linkable school name title */
-    font: bold 24px Trebuchet MS, Arial, sans-serif;
-    color: #5bc;
+    _margin: 0 0 0 24px;
 }
 
 #schoolProfile a.schoolName { /* creates the linkable school name title */ /* has IE 7 equivalent */
@@ -278,30 +273,23 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 
 /* School Overview page header */
 
-.overview #breadcrumbs { /* has IE 7 equivalent */
-	_margin: 4px 0 0 24px; /* IE 6 hack */
-}
-
-.overview #tools {
-	margin: -2px 20px 0 0;
-	_margin: -3px 5px 0 0; /* IE 6 hack */
-}
-
 .overview #ratings { /* hides the ratings */
 	display: none;
+}
+
+#schoolProfile.overview span#schoolName {
+    margin: 22px 0 8px 24px;
+    _margin: 10px 0 8px 24px;
 }
 
 #schoolProfile.overview h1 { /* makes the school name larger, centers it vertically */
 	font: bold 26px Trebuchet MS, Arial, sans-serif;
 	color: #5bc;
-	margin: 21px 0 0 24px;
-	_margin: 21px 0 0 10px; /* IE 6 hack */
-	float: left;
 }
 
-.overview #navigation {
-	margin: 18px 0 0 0;
-	_margin: 24px 0 0 0; /* IE 6 hack */
+.overview #navigation { /* has IE 7 equivalent */
+	margin: 20px 0 0 0;
+	_margin: 26px 0 0 0; /* IE 6 hack */
 	_float: none; /* IE 6 hack */
 }
 

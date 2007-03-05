@@ -10,6 +10,14 @@ Internet Explorer 7 specific styles
     margin: 12px 0 0 24px;
 }
 
-#tools { /* has IE 7 equivalent */
+#schoolProfile.overview span#schoolName { /* has IE 7 equivalent */
+    margin: 22px 0 8px 24px;
+}
+
+#tools {
 	margin: 3px 20px 0 0;
+}
+
+.overview #navigation {
+	margin: 19px 0 0 0;
 }
