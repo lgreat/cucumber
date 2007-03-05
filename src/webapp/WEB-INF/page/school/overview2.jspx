@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+          xmlns:gsweb="gstaglib"
+          xmlns:display="urn:jsptld:http://displaytag.sf.net"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+        >
+<pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
+<html lang="en">
+
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<jsp:scriptlet>
+    gs.web.util.PageHelper.setAdServerControlledFooterAd(request, true);
+</jsp:scriptlet>
+
+<head>
+
+<c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+<c:set var="sid" value="${school.id}"/>
+<c:set var="addr" value="${school.physicalAddress.city}, ${school.physicalAddress.state.longName} - ${stateAbbrev}" />
+<c:set var="pageName" value="Overview"/>
+<title>${school.name} - ${addr} - school overview</title>
+<meta name="description" content="An overview of ${school.name} located in ${addr}, including school test scores, student-teacher ratio, parent school reviews and teacher stats."/>
+
+<style type="text/css">
+
+h3 {
+    line-height: 110%;
+    font-size: 130%;
+    margin-bottom: 0;
+}
+
+ul.arrow li {
+    font-size: 80%;
+    padding-bottom: 5px;
+    line-height: 115%;
+}
+
+ul.arrow li a {
+    color: #00F;
+}
+
+ul.arrow li a:hover {
+    color: #FF6600;
+}
+
+table#sky td {
+    width: 120px;
+    padding-left: 0;
+    padding-right: 10px;
+    text-align: center;
+    font-size: 10px;
+}
+
+table.module1container td {
+    width: 50%;
+    height: 100%;
+}
+
+table.module1 {
+    height: 100%;
+    width: 100%;
+}
+
+table.module1 td.module1_head {
+    background-color: #6699CC;
+    color: #FFF;
+    font-weight: bold;
+    font-size: 12px;
+    height: 22px;
+    padding-left: 4px;
+}
+
+table.module1 td.module1_body {
+    background-color: #FFFFFF;
+    color: #000;
+    height: 100%;
+    padding-bottom: 10px;
+    padding-left: 4px;
+}
+
+table.module1 td a {
+    line-height: 140%;
+    white-space: normal;
+}
+
+table.module1 td a:hover {
+    color: #CCC;
+}
+
+#featuredArticles h4 a {
+    font-weight:bold;
+    color:black;
+    text-decoration:none;
+    white-space:normal;
+    font-size:90%;
+}
+
+.module1_body {
+    padding-right:4px;
+}
+
+.contentGS td.module1_body a.nolink,
+    .contentGS td.module1_body a.nolink:hover,
+    .contentGS td.module1_body a.nolink:visited {
+    color:#000;
+}
+
+.moreImage {
+    position:relative;
+    top: 3px;
+    left: 0px;
+}
+
+table.module1container {
+    border-spacing:8px;
+    margin-left:4px;
+}
+
+table.module1container tr td.mod {
+    border: 1px solid #ccc;
+    vertical-align:top;
+    height:100%;
+    padding:0px;
+    border-spacing:10px;
+}
+
+table.box_ad {
+    width: 315px;
+    height: 250px;
+}
+
+.multiTextAd {
+    border:none;
+}
+
+</style>
+</head>
+
+<gsml:body adPageName="overview" pageLayout="research">
+<school:newProfile school="${school}" tab="overview">
+<br/>
+<table class="module1container" border="0" cellpadding="5" cellspacing="7" width="100%">
+<tbody>
+<tr>
+    <td valign="top" class="mod">
+        <table class="module1" border="0" cellpadding="2" cellspacing="0" width="100%">
+            <tbody>
+                <tr>
+                    <td class="module1_head">Basic School Information</td>
+                </tr>
+                <tr>
+                    <td class="module1_body" valign="top">
+                        <c:choose>
+                            <c:when test="${school.type.schoolTypeName == 'private'}">
+                                <c:set var="pageName" value="Private School Overview"/>
+                                <b>Teacher/Student Stats</b><br/>
+                                Student-teacher ratio and <a href="/cgi-bin/$LCSTATE/otherprivate/${sid}" style="text-decoration:none;" class="nolink">ethnicity breakdown for ${school.name}.&#160;&#160;</a>
+                                <gsml:a href="/cgi-bin/$LCSTATE/otherprivate/${sid}">
+                                    <img src="/res/img/school/more.gif"
+                                         class="moreImage"
+                                         alt="More"
+                                         onmouseover="this.src='/res/img/school/more_over.gif';"
+                                         onmouseout="this.src='/res/img/school/more.gif';"/>
+                                </gsml:a> <br/><br/>
+                                <b>Quick Facts</b><br/>
+                                Facts about the number of school days per year, library facility, and affiliation at ${school.name}.&#160;&#160;
+                                <gsml:a href="/modperl/quickprivate/$LCSTATE/${sid}">
+                                    <img src="/res/img/school/more.gif"
+                                         class="moreImage"
+                                         alt="More"
+                                         onmouseover="this.src='/res/img/school/more_over.gif';"
+                                         onmouseout="this.src='/res/img/school/more.gif';"/>
+                                </gsml:a> <br/><br/>
+                            </c:when>
+                            <c:otherwise>
+                                <b>Test Scores</b><br/>
+                                State standardized <a href="/modperl/achievement/${state}/${sid}" style="text-decoration:none;" class="nolink">test scores for ${school.name}.&#160;&#160;</a>
+                                <gsml:a href="/modperl/achievement/${state}/${sid}">
+                                    <img src="/res/img/school/more.gif"
+                                         class="moreImage"
+                                         alt="More"
+                                         onmouseover="this.src='/res/img/school/more_over.gif';"
+                                         onmouseout="this.src='/res/img/school/more.gif';"/>
+                                </gsml:a> <br/><br/>
+
+                                <b>Teacher Stats</b><br/>
+                                Learn about classroom environment with <a href="/cgi-bin/${state}/other/${sid}" style="text-decoration:none;" class="nolink">teacher stats for ${school.name}.&#160;&#160;</a>
+                                <gsml:a href="/cgi-bin/${state}/other/${sid}">
+                                    <img src="/res/img/school/more.gif"
+                                         class="moreImage"
+                                         alt="More"
+                                         onmouseover="this.src='/res/img/school/more_over.gif';"
+                                         onmouseout="this.src='/res/img/school/more.gif';"/>
+                                </gsml:a> <br/><br/>
+                                <b>Student Stats</b><br/>
+                                Understand student ethnicity, economic level and more with <a href="/cgi-bin/${state}/other/${sid}" style="text-decoration:none;" class="nolink">student stats for ${school.name}.&#160;&#160;</a>
+
+                                <gsml:a href="/cgi-bin/${state}/other/${sid}">
+                                    <img src="/res/img/school/more.gif"
+                                         class="moreImage"
+                                         alt="More"
+                                         onmouseover="this.src='/res/img/school/more_over.gif';"
+                                         onmouseout="this.src='/res/img/school/more.gif';"/>
+                                </gsml:a> <br/><br/>
+                                <b>Email updates</b><br/>
+                                Get the latest school data about ${school.name} and learn what it means.&#160;&#160;<gsml:a href="/community/newsletters/popup/mss/page1.page?state=${state}&amp;schoolId=${sid}&amp;referrer=spp_email_link"
+                                   styleClass="submodal-480-500" target="mss">Sign me up, it's free</gsml:a>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </td>
+    <td valign="top" class="mod">
+        <table class="module1" border="0" cellpadding="2" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td class="module1_head">Parent Reviews</td>
+                </tr>
+                <tr>
+                    <td class="module1_body" valign="top"><b>The Inside Scoop from Parents</b>
+                        <br/>
+                        <c:choose>
+                            <c:when test="${not empty reviewCount}">
+                                (${reviewCount} <a href="" style="text-decoration:none;" class="nolink">review${reviewCount == 1 ? '' : 's'} of ${school.name}</a> available)
+                                <br /><br />
+                                <c:out value="${reviewText}" escapeXml="true" />
+                                <br />
+                                <gsml:a href="/modperl/parents/${state}/${sid}">Read more...</gsml:a>
+                            </c:when>
+                            <c:otherwise>
+                                <p>Be the first to review ${school.name} - tell other parents what you think. <br/>
+                                    <br/>
+                                </p>
+                            </c:otherwise>
+                        </c:choose>
+                        <br /><br />
+                        <center>
+                            <gsml:a href="/cgi-bin/addcomments/${state}/${sid}"><img alt="Share your views" src="/res/img/school/share_btn.gif" border="0"/></gsml:a>
+                        </center>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </td>
+    <c:if test="${!requestScope.pageHelper.adFree}">
+        <td colspan="2" id="box_ad" align="center" valign="top" class="mod noprint">
+            <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
+                <tbody><tr>
+                    <td valign="top">
+                        <ad:x48 />
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </c:if>
+</tr>
+<tr>
+    <td valign="top" class="mod">
+        <table class="module1" border="0" cellpadding="2" cellspacing="0" width="100%">
+            <tbody>
+                <tr>
+                    <td class="module1_head">Featured This Month</td>
+                </tr>
+                <tr>
+                    <td class="module1_body" id="featuredArticles" valign="top">
+                        <jsp:include
+                                page="/promo/featuredArticles.module?position=SPP&amp;heading=none&amp;state=${stateAbbrev}"/>
+                        <br />
+                        <jsp:include
+                                page="/promo/featuredArticles.module?position=SPP&amp;sub=1&amp;heading=none&amp;state=${stateAbbrev}"/>
+                    </td>
+                </tr>
+            </tbody></table>
+    </td>
+    <td valign="top" class="mod">
+        <table class="module1" border="0" cellpadding="2" cellspacing="0" width="100%">
+            <tbody>
+                <tr>
+                    <td class="module1_head">The Principal's View</td>
+                </tr>
+                <tr>
+                    <td class="module1_body" valign="top"> An opportunity for the principal
+                        at ${school.name} to speak about curriculum, special programs, activities,
+                        goals and more.<br/> <gsml:a href="/cgi-bin/${state}/pqview/${sid}">Learn
+                        more...</gsml:a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </td>
+    <c:if test="${!requestScope.pageHelper.adFree}">
+        <td colspan="2" valign="top" class="mod noprint">
+            <table class="box_ad" border="0" cellpadding="4" cellspacing="2" width="100%">
+                <tbody><tr>
+                    <td valign="top">
+                        <ad:multiTextAd blurb="Advertiser links"/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </c:if>
+</tr>
+</tbody></table>
+</school:newProfile>
+<mod:tracking pageType="school"
+              pageName="${pageName}"
+              hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
+              school="${school}" />
+</gsml:body>
+</html>
+</jsp:root>

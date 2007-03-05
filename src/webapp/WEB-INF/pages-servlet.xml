@@ -919,6 +919,7 @@
         </property>
     </bean>
 
+    <!-- GS-3142 temporary location for ratings page that displays new school profile header -->
     <bean name="/school/rating3.page"
           class="gs.web.test.rating.RatingsController"
           autowire="byName" lazy-init="true">
@@ -961,6 +962,15 @@
           autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>school/overview</value>
+        </property>
+    </bean>
+
+    <!-- GS-3142 temporary location for overview page that displays new school profile header -->
+    <bean name="/school/overview2.page"
+          class="gs.web.school.SchoolOverviewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>school/overview2</value>
         </property>
     </bean>
 
