@@ -10,14 +10,27 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
+<jsp:directive.tag import="org.springframework.context.ApplicationContext"/>
+<jsp:directive.tag import="gs.data.school.review.IReviewDao"/>
+<jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+<jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.tag import="gs.data.school.review.Ratings"/>
 <jsp:directive.tag body-content="scriptless"/>
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 <jsp:directive.attribute name="tab" required="false" description="The Selected Tab" type="java.lang.String"/>
 <jsp:directive.attribute name="gs_rating" required="false" description="GreatSchools Rating" type="java.lang.Integer"/>
 <jsp:directive.attribute name="parent_rating" required="false" description="Parent Rating" type="java.lang.Integer"/>
+<jsp:directive.attribute name="ratings" required="false" description="GS Ratings Object" type="gs.data.school.review.Ratings"/>
 <pageHelper:externalCss file="/res/css/school/newProfile.css"/>
 
 <jsp:scriptlet>
+    if (ratings == null) {
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        ApplicationContext ac = sessionContext.getApplicationContext();
+        IReviewDao reviewDao = (IReviewDao) ac.getBean(IReviewDao.BEAN_ID);
+        ratings = reviewDao.findRatingsBySchool(school);
+        request.setAttribute("ratings", ratings);
+    }
     try {
         String adPageName = "school/" + school.getType().getSchoolTypeName() + '/' + school.getLevelCode().getCommaSeparatedString().charAt(0);
         StringBuffer keywordBuffer = new StringBuffer();
@@ -31,7 +44,8 @@
 
         request.setAttribute("adPageName", adPageName);
         request.setAttribute("adKeywords", keywordBuffer.toString());
-    } catch (Exception e){}
+    } catch (Exception e) {
+    }
 </jsp:scriptlet>
 
 <![CDATA[
@@ -94,7 +108,6 @@
 
         <c:if test="${schoolType != 'private'}" >
             <p class="email">Email me updates about this school</p>
-
             <input value="Enter your email address" class="enterEmail" id="emailAddressForm"/>
             <promo:mssHover referredBy="schoolProfile" school="${school}"><gsml:img src="/res/img/school/tools_submit_go.gif" alt="Go" styleClass="go"/></promo:mssHover>
         </c:if>
@@ -126,9 +139,12 @@
         </c:if>
 
         <!-- Parent Rating -->
-        <c:if test="${parent_rating eq null or parent_rating lt 0 or parent_rating gt 5}">
-            <c:set var="parent_rating" value="0"/>
+        <c:set var="parent_rating" value="0"/>
+        <c:if test="${(ratings ne null) and (ratings.count ge ratings.minRatingsBeforeUsage) and
+                      (ratings.avgQuality lt 6) and (ratings.avgQuality gt 0)}">
+            <c:set var="parent_rating" value="${ratings.avgQuality}"/>
         </c:if>
+
         <!-- Change the second class to change how many stars the parent rating displays -->
         <link:schoolProfileAddParentReview school="${school}" styleClass="parent_rating parent_${parent_rating}">
             &amp;nbsp;
