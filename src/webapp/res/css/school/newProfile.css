@@ -323,14 +323,3 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 #schoolProfile #bodyContents table {
     text-align:left;
 }
-
-#schoolProfile #bodyContents #school_promo {
-    float: right;
-    padding-right:20px;
-    width:237px;
-}
-
-#schoolProfile #bodyContents #site_promo {
-    float: right;
-    padding-right:50px;
-}
