@@ -11,6 +11,10 @@
 <jsp:directive.tag import="gs.web.util.PageHelper"/>
 <jsp:directive.tag body-content="empty"/>
 
+<jsp:scriptlet>
+    request.setAttribute("tabs", PageHelper.pageIds);
+</jsp:scriptlet>
+
 <div id="topnav">
 <table border="0" cellpadding="0" cellspacing="0" style="width: 100%">
 <tr>
@@ -41,12 +45,12 @@
                             <link:accountInfo>My Account</link:accountInfo>
                         </td>
                         <td class="signout"><gsml:a
-                                href="/cgi-bin/logout/$STATE/?email=${requestScope.context.email}&amp;mid=${requestScope.context.memberId}">
+                                href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}">
                             Sign Out</gsml:a></td>
                         <td class="saved">
                             <c:choose>
                                 <c:when test="${not empty requestScope.context.mslCount and requestScope.context.mslCount gt 0}">
-                                    <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.email}">${requestScope.context.mslCount}
+                                    <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.emailUrlEncoded}">${requestScope.context.mslCount}
                                         Saved School${requestScope.context.mslCount gt 1 ? 's':''}</gsml:a>
                                 </c:when>
                                 <c:otherwise>
@@ -58,12 +62,12 @@
                     <c:otherwise>
                         <td class="welcome">Welcome ${requestScope.context.nickname}</td>
                         <td class="signout"><gsml:a
-                                href="/cgi-bin/logout/$STATE/?email=${requestScope.context.email}&amp;mid=${requestScope.context.memberId}">
+                                href="/cgi-bin/logout/$STATE/?email=${requestScope.context.emailUrlEncoded}&amp;mid=${requestScope.context.memberId}">
                             Sign Out</gsml:a></td>
                         <td class="saved">
                             <c:choose>
                                 <c:when test="${not empty requestScope.context.mslCount and requestScope.context.mslCount gt 0}">
-                                    <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.email}">${requestScope.context.mslCount}
+                                    <gsml:a href="/cgi-bin/msl_confirm/$STATE/?emailSubmitted=1&amp;email=${requestScope.context.emailUrlEncoded}">${requestScope.context.mslCount}
                                         Saved School${requestScope.context.mslCount gt 1 ? 's':''}</gsml:a>
                                 </c:when>
                                 <c:otherwise>
@@ -160,9 +164,6 @@
      "lactive" indicates that the border to the left of the tab should be displayed
      "ractive" indicates that the border to the right of the tab should be displayed
 -->
-<jsp:scriptlet>
-    request.setAttribute("tabs", PageHelper.pageIds);
-</jsp:scriptlet>
 <div class="noprint">
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>

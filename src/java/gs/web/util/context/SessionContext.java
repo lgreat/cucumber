@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.11 2007/02/09 00:41:18 cpickslay Exp $
+ * $Id: SessionContext.java,v 1.12 2007/03/08 19:48:08 thuss Exp $
  */
 package gs.web.util.context;
 
@@ -18,6 +18,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
+import java.net.URLEncoder;
 
 /**
  * The purpose is to hold common "global" properties for a user throughout their
@@ -96,7 +97,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         User user = getUser();
         if (user != null && _userHash != null) {
             try {
-                Object[] hashInput = new Object[] {User.SECRET_NUMBER, user.getId(), user.getEmail()};
+                Object[] hashInput = new Object[]{User.SECRET_NUMBER, user.getId(), user.getEmail()};
                 String realHash = DigestUtil.hashObjectArray(hashInput);
                 return realHash.equals(_userHash);
             } catch (NoSuchAlgorithmException e) {
@@ -115,7 +116,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
             if (_memberId != null) {
                 try {
                     _user = _userDao.findUserFromId(_memberId.intValue());
-                }   catch (ObjectRetrievalFailureException e) {
+                } catch (ObjectRetrievalFailureException e) {
                     _log.warn("Cookie pointed to non-existent user with id " + _memberId);
                 }
             }
@@ -207,7 +208,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
      */
     public boolean isFramed() {
         return _cobrand != null &&
-               _cobrand.matches("mcguire|framed|number1expert|vreo|e-agent|homegain|envirian");
+                _cobrand.matches("mcguire|framed|number1expert|vreo|e-agent|homegain|envirian");
     }
 
     public void setHostName(final String hostName) {
@@ -234,6 +235,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     /**
      * Currently this is only used for determining A/B for multivariate testing,
      * therefore there is no accessor method.
+     *
      * @param address ip address for A/B testing
      */
     public void setRemoteAddress(String address) {
@@ -353,6 +355,14 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public void setEmail(String email) {
         _email = email;
+    }
+
+    public String getEmailUrlEncoded() {
+        try {
+            return URLEncoder.encode(_email, "UTF-8");
+        } catch (Exception e) {
+            return _email;
+        }
     }
 
     public void setReadClientSideSessionCache(boolean readIt) {

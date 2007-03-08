@@ -58,6 +58,8 @@ public class SessionContextTest extends BaseTestCase {
         user.setId(new Integer(123));
         user.setEmail("anEmail@greatschools.net");
         _sessionContext.setUser(user);
+        assertEquals("anEmail@greatschools.net", _sessionContext.getEmail());
+        assertEquals("anEmail%40greatschools.net", _sessionContext.getEmailUrlEncoded());
 
         Object[] inputs = {User.SECRET_NUMBER, user.getId(), user.getEmail()};
         _sessionContext.setUserHash(DigestUtil.hashObjectArray(inputs));
