@@ -190,7 +190,7 @@
                         >Library</link:articleLibrary></td>
                     <!--#6--><td><link:newsletterCenter
                         styleClass="${(pw == tabs.LIBRARY ? 'lactive' : '')} ${(pw == tabs.NEWSLETTERS ? 'active ractive' : 'inactive')}"
-                        email="${requestScope.context.email}"
+                        email="${requestScope.context.emailUrlEncoded}"
                         >Free Newsletters</link:newsletterCenter></td>
                     <td width="28px">&#160;</td>
                 </tr></table>
