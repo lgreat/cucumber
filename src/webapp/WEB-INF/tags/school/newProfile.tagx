@@ -14,22 +14,71 @@
 <jsp:directive.tag import="gs.data.school.review.IReviewDao"/>
 <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
-<jsp:directive.tag import="gs.data.school.review.Ratings"/>
+<jsp:directive.tag import="gs.data.test.rating.IRatingsConfig"/>
+<jsp:directive.tag import="gs.data.test.SchoolTestValue"/>
+<jsp:directive.tag import="gs.data.test.rating.IRatingsConfigDao"/>
+<jsp:directive.tag import="gs.web.util.PageHelper"/>
+<jsp:directive.tag import="gs.data.test.TestManager"/>
 <jsp:directive.tag body-content="scriptless"/>
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 <jsp:directive.attribute name="tab" required="false" description="The Selected Tab" type="java.lang.String"/>
-<jsp:directive.attribute name="gs_rating" required="false" description="GreatSchools Rating" type="java.lang.Integer"/>
-<jsp:directive.attribute name="parent_rating" required="false" description="Parent Rating" type="java.lang.Integer"/>
-<jsp:directive.attribute name="ratings" required="false" description="GS Ratings Object" type="gs.data.school.review.Ratings"/>
+<jsp:directive.attribute name="gs_rating" required="false" description="GreatSchools Overall Rating Integer" type="java.lang.Integer"/>
+<jsp:directive.attribute name="parent_ratings" required="false" description="Parent Ratings Object" type="gs.data.school.review.Ratings"/>
 <pageHelper:externalCss file="/res/css/school/newProfile.css"/>
 
-<jsp:scriptlet>
-    if (ratings == null) {
-        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        ApplicationContext ac = sessionContext.getApplicationContext();
-        IReviewDao reviewDao = (IReviewDao) ac.getBean(IReviewDao.BEAN_ID);
-        ratings = reviewDao.findRatingsBySchool(school);
-        request.setAttribute("ratings", ratings);
+<jsp:scriptlet><![CDATA[
+    // do NOT calculate ratings for overview tab ... header does not display them there
+    if (tab == null || !tab.equals("overview")) {
+        SessionContext sessionContext;
+        ApplicationContext ac = null;
+
+        // if parent ratings have not been supplied, retrieve them here
+        if (parent_ratings == null) {
+            out.println("<!-- Calculating parent rating -->");
+            try {
+                sessionContext = SessionContextUtil.getSessionContext(request);
+                ac = sessionContext.getApplicationContext(); // lazy load
+                IReviewDao reviewDao = (IReviewDao) ac.getBean(IReviewDao.BEAN_ID);
+                parent_ratings = reviewDao.findRatingsBySchool(school);
+                request.setAttribute("parent_ratings", parent_ratings);
+            } catch (Exception ex) {
+                // log the error in some way?
+                out.println("<!-- " + ex.getClass().getName() + " getting parent rating: " + ex.getMessage() + " -->");
+            }
+        }
+
+        // if gs rating has not been supplied, retrieve it here
+        if (gs_rating == null) {
+            out.println("<!-- Calculating GS rating -->");
+            try {
+                if (ac == null) { // lazy load
+                    sessionContext = SessionContextUtil.getSessionContext(request);
+                    ac = sessionContext.getApplicationContext();
+                }
+                PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+                boolean isFromCache = true;
+
+                if (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer()) {
+                    isFromCache = false;
+                }
+
+                IRatingsConfigDao ratingsConfigDao = (IRatingsConfigDao) ac.getBean(IRatingsConfigDao.BEAN_ID);
+                IRatingsConfig ratingsConfig = ratingsConfigDao.restoreRatingsConfig(school.getDatabaseState(), isFromCache);
+
+                if (null != ratingsConfig) {
+                    TestManager testManager = (TestManager) ac.getBean(TestManager.BEAN_ID);
+                    SchoolTestValue schoolTestValue =
+                            testManager.getOverallRating(school, ratingsConfig.getYear());
+
+                    if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
+                        request.setAttribute("gs_rating", schoolTestValue.getValueInteger());
+                    }
+                }
+            } catch (Exception ex) {
+                // log the error in some way?
+                out.println("<!-- " + ex.getClass().getName() + " getting GS rating: " + ex.getMessage() + " -->");
+            }
+        }
     }
     try {
         String adPageName = "school/" + school.getType().getSchoolTypeName() + '/' + school.getLevelCode().getCommaSeparatedString().charAt(0);
@@ -46,7 +95,7 @@
         request.setAttribute("adKeywords", keywordBuffer.toString());
     } catch (Exception e) {
     }
-</jsp:scriptlet>
+    ]]></jsp:scriptlet>
 
 <![CDATA[
 <!--[if IE 7]>
@@ -140,9 +189,9 @@
 
         <!-- Parent Rating -->
         <c:set var="parent_rating" value="0"/>
-        <c:if test="${(ratings ne null) and (ratings.count ge ratings.minRatingsBeforeUsage) and
-                      (ratings.avgQuality lt 6) and (ratings.avgQuality gt 0)}">
-            <c:set var="parent_rating" value="${ratings.avgQuality}"/>
+        <c:if test="${(parent_ratings ne null) and (parent_ratings.count ge parent_ratings.minRatingsBeforeUsage) and
+                      (parent_ratings.avgQuality lt 6) and (parent_ratings.avgQuality gt 0)}">
+            <c:set var="parent_rating" value="${parent_ratings.avgQuality}"/>
         </c:if>
 
         <!-- Change the second class to change how many stars the parent rating displays -->
