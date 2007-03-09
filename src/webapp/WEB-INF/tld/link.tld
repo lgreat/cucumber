@@ -1000,6 +1000,13 @@
             <type>gs.data.school.School</type>
             <description>School</description>
         </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Element title (tooltip)</description>
+        </attribute>
     </tag>
     <tag>
         <name>schoolCompareSchool</name>

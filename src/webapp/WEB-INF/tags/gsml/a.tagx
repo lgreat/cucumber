@@ -10,6 +10,7 @@
     <jsp:directive.attribute name="href" required="true" description="context-relative URL, not Xml encoded"/>
     <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
     <jsp:directive.attribute name="target" required="false" description="name of new window this link opens in"/>
+    <jsp:directive.attribute name="title" required="false" description="title attribute (tooltip)"/>
     <jsp:directive.attribute name="onClick" required="false"
                              description="name of javascript function to call when link triggered"/>
 
@@ -33,6 +34,10 @@
 
         if (StringUtils.isNotBlank(target)) {
             buffer.append(" target=\"").append(target).append('"');
+        }
+
+        if (StringUtils.isNotBlank(title)) {
+            buffer.append(" title=\"").append(title).append('"');
         }
 
         if (StringUtils.isNotBlank(onClick)) {

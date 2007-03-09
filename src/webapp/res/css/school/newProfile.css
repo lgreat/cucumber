@@ -34,10 +34,6 @@ School Profile header
 	color: #888;
 }
 
-#breadcrumbs ul li a:hover {
-	text-decoration: none;
-}
-
 
 /* tools */
 
@@ -45,7 +41,7 @@ School Profile header
 	width: 230px;
 	float: right;
 	margin: 2px 20px 0 0;
-	_margin: -10px 5px 0 0; /* IE 6 hack */
+	_margin: -9px 5px 0 0; /* IE 6 hack */
 	font: 13px/15px Trebuchet MS, Arial, sans-serif;
 	color: #777;
 }
@@ -77,7 +73,8 @@ School Profile header
     background: url(../../img/school/tools_th_email.gif) no-repeat 0 center;
 	padding: 0 0 0 17px;
 	margin: 8px 0 0 0;
-	color: #777;
+    _margin: 7px 0 0 0; /* IE 6 hack */
+    color: #777;
 	float: none;
 }
 
@@ -86,24 +83,22 @@ School Profile header
 	color: #39a;
 }
 
-#tools a:hover {
-	text-decoration: none;
-}
-
 #tools .enterEmail {
 	width: 160px;
 	height: 16px;
-	font: 12px/14px Trebuchet MS, Arial, sans-serif;
+	font: 11px/13px Trebuchet MS, Arial, sans-serif;
 	color: #777;
 	float: left;
 	margin: 5px 6px 0 17px;
-	padding: 1px 0 0 3px;
+    _margin: 4px 6px 0 17px; /* IE 6 hack */
+    padding: 1px 0 0 3px;
 }
 
 #tools .go {
 	width: 39px;
 	height: 20px;
 	margin: 5px 0 0 0;
+    _margin: 4px 0 0 0; /* IE 6 hack */
 	border: 0;
     _float: left;
 }
@@ -118,11 +113,22 @@ School Profile header
     _margin: 0 0 0 24px;
 }
 
-#schoolProfile a.schoolName { /* creates the linkable school name title */ /* has IE 7 equivalent */
+#schoolProfile h1 {
     font: bold 24px Trebuchet MS, Arial, sans-serif;
     color: #5bc;
-	text-decoration: none;
 }
+
+#schoolProfile.overview span#schoolName {
+    margin: 22px 0 8px 24px;
+    _margin: 10px 0 8px 24px;
+}
+
+#schoolProfile.overview h1 { /* makes the school name larger, centers it vertically */
+	font: bold 26px Trebuchet MS, Arial, sans-serif;
+	color: #5bc;
+}
+
+
 
 
 /* Ratings */
@@ -195,8 +201,10 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 }
 
 #navigation td {
-	font: bold 11px/13px Trebuchet MS, Arial, sans-serif;
-	color: #fff;
+/*	font: bold 11px/13px Trebuchet MS, Arial, sans-serif; */
+    font: bold 11px/13px Lucinda Grande, Lucida Grande, lucida, verdana, sans-serif;
+    letter-spacing: 0;
+    color: #fff;
 	text-decoration: none;
 	text-align: center;
 	/*border-right: 1px dotted #fff;*/
@@ -206,10 +214,10 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 #navigation td a {
 	color: #fff;
     height: 28px;
-    _height: 27px; /* IE 6 hack */
+    _height: 28px; /* IE 6 hack */
 	display: block;
 	padding: 2px 20px 0 20px;
-	_padding: 3px 20px 0 20px; /* IE 6 hack */
+	_padding: 2px 20px 0 20px; /* IE 6 hack */
 }
 
 #navigation td a:hover {
@@ -266,25 +274,11 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 	padding: 0 4px 0 4px;
 }
 
-#subnav ul li a:hover {
-	text-decoration: none;
-}
-
 
 /* School Overview page header */
 
 .overview #ratings { /* hides the ratings */
 	display: none;
-}
-
-#schoolProfile.overview span#schoolName {
-    margin: 22px 0 8px 24px;
-    _margin: 10px 0 8px 24px;
-}
-
-#schoolProfile.overview h1 { /* makes the school name larger, centers it vertically */
-	font: bold 26px Trebuchet MS, Arial, sans-serif;
-	color: #5bc;
 }
 
 .overview #navigation { /* has IE 7 equivalent */
