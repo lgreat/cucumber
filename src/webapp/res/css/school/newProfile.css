@@ -5,6 +5,10 @@ School Profile header
 -------------------------------------------------------*/
 
 
+#schoolProfile #bodyContents {
+    _width: 99%; /* IE 6 hack see GS-3142 */
+}
+
 #schoolProfileHeader {
 	width: 860px;
 	_width: 850px; /* IE 6 hack */
@@ -214,10 +218,8 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 #navigation td a {
 	color: #fff;
     height: 28px;
-    _height: 28px; /* IE 6 hack */
 	display: block;
 	padding: 2px 20px 0 20px;
-	_padding: 2px 20px 0 20px; /* IE 6 hack */
 }
 
 #navigation td a:hover {
