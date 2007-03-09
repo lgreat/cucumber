@@ -105,6 +105,8 @@ public class AuthorizersController extends AbstractController {
 
     /**
      * GS-1876, GS-2243
+     * @param school: a <code>School</code> type
+     * @return a string URL if the school has a report or null if it doesn't.
      */
     private static String getReport(School school) {
         if (school != null && State.NY.equals(school.getDatabaseState())) {
