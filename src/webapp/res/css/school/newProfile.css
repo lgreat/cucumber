@@ -197,7 +197,6 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 	background: #5bc;
 	text-transform: uppercase;
 	width: 860px;
-	_width: 862px; /* IE 6 hack */
 	height: 30px;
 	float: left;
 	margin: 15px 0 0 0;
@@ -247,7 +246,6 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 
 #subnav {
 	width: 860px;
-	_width: 862px; /* IE 6 hack */
 	background: #dee;
 	height: 22px;
     float: left;
