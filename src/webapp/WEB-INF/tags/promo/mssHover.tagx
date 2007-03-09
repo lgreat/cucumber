@@ -7,13 +7,43 @@
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="referredBy" required="true" description="Omniture page name of page that this hover appears on"/>
     <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
+    <jsp:directive.attribute name="isForm" required="false" description="Use Input form instead of link" type="java.lang.Boolean"/>
     <!--Make sure version numbers match those in Template.pm-->
     <pageHelper:externalCss file="/res/css/submodal/submodal.css?v=7"/>
     <pageHelper:externalJavascript file="/res/js/submodal/submodal.js?v=7"/>
-    <pageHelper:addOnLoadHandler handler="initPopUp('hoverNewsMss')"/>
+    <c:set var="hoverName" value="hoverNewsMss"/>
+    <gsml:url var="url" value="/community/newsletters/popup/mss/page1.page"/>
 
-    <gsml:a href="/community/newsletters/popup/mss/page1.page?state=${school.databaseState}&amp;schoolId=${school.id}&amp;referrer=${referredBy}" styleClass="submodal-480-500" target="mss">
-     <jsp:doBody/>
-    </gsml:a>
-
+    <c:choose>
+        <c:when test="${empty(isForm)}">
+            <pageHelper:addOnLoadHandler handler="initPopUp('${hoverName}')"/>
+            <a href="${url}?state=${school.databaseState}&amp;amp;schoolId=${school.id}&amp;amp;referrer=${referredBy}" class="submodal-480-500" target="mss">
+             <jsp:doBody/>
+            </a>
+        </c:when>
+        <c:otherwise>
+            <![CDATA[
+            <script type="text/javascript">
+                function passToHover(frm) {
+                   if (frm) {
+                        var url = frm.action + '?schoolId=' + frm.schoolId.value + '&referrer=' + frm.referrer.value + '&state=' + frm.state.value;
+                        if (frm.email.value != '' && frm.email.value != frm.defaultEmail.value) {
+                            url += '&email=' + frm.email.value;
+                        }                                
+                        showPopWin(url,480,500,null,'${hoverName}');
+                   }
+                }
+            </script>
+            ]]>
+            <form id="frmMssNews" name="frmMssNews"
+                action="${url}" method="get" onsubmit="passToHover(this);return false;">
+                <input class="enterEmail" name="email" size="40" type="text" value="Enter your email address" onfocus="if(this.value.indexOf('@')==-1){this.value='';}"/>
+                <input name="defaultEmail" type="hidden" value="Enter your email address" />
+                <input name="schoolId" type="hidden" value="${school.id}"/>
+                <input name="referrer" type="hidden" value="${referredBy}"/>
+                <input name="state" type="hidden" value="${school.databaseState}" />
+                <gsml:inputImage src="/res/img/school/tools_submit_go.gif" alt="Go" styleClass="go" />
+            </form>
+        </c:otherwise>
+    </c:choose>
 </jsp:root>

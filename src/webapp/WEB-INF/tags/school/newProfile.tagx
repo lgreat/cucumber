@@ -10,15 +10,15 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
-<jsp:directive.tag import="org.springframework.context.ApplicationContext"/>
 <jsp:directive.tag import="gs.data.school.review.IReviewDao"/>
-<jsp:directive.tag import="gs.web.util.context.SessionContext"/>
-<jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
-<jsp:directive.tag import="gs.data.test.rating.IRatingsConfig"/>
 <jsp:directive.tag import="gs.data.test.SchoolTestValue"/>
+<jsp:directive.tag import="gs.data.test.TestManager"/>
+<jsp:directive.tag import="gs.data.test.rating.IRatingsConfig"/>
 <jsp:directive.tag import="gs.data.test.rating.IRatingsConfigDao"/>
 <jsp:directive.tag import="gs.web.util.PageHelper"/>
-<jsp:directive.tag import="gs.data.test.TestManager"/>
+<jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+<jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.tag import="org.springframework.context.ApplicationContext"/>
 <jsp:directive.tag body-content="scriptless"/>
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 <jsp:directive.attribute name="tab" required="false" description="The Selected Tab" type="java.lang.String"/>
@@ -126,12 +126,11 @@
 <c:choose>
     <c:when test="${school.type.schoolTypeName != 'private'}">
         <c:set var="schoolType" value="public"/>
+        <!-- to trigger MSS modal on exit -->
         <pageHelper:externalJavascript file="/cm/mss_modal.js"/>
-        <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}')"/>
-        <!--TODO pagehelper method just for adding hovers so we don;t have to keep track on version numbers in different places-->
         <pageHelper:externalCss file="/res/css/submodal/submodal.css?v=7"/>
-        <pageHelper:externalJavascript file="/res/js/submodal/submodal.js?v=7"/>
-        <pageHelper:addOnLoadHandler handler="initPopUp('hoverNewsMss')"/>
+        <pageHelper:externalJavascript file="/res/js/submodal/submodal.js?v=7"/>                
+        <pageHelper:addOnLoadHandler handler="DisplayPopUp('${state}','${schoolId}',0,'${tab}')"/>
     </c:when>
     <c:otherwise>
         <c:set var="schoolType" value="private"/>
@@ -164,8 +163,7 @@
 
         <c:if test="${schoolType != 'private'}" >
             <p class="email">Email me updates about this school</p>
-            <input value="Enter your email address" class="enterEmail" id="emailAddressForm" onclick="deleteDefaultText(this);"/>
-            <promo:mssHover referredBy="schoolProfile" school="${school}"><gsml:img src="/res/img/school/tools_submit_go.gif" alt="Go" styleClass="go"/></promo:mssHover>
+            <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="true"></promo:mssHover>
         </c:if>
     </div>
     <!-- end tools -->

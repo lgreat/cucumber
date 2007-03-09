@@ -2,6 +2,8 @@
 <jsp:root version="2.0"
     xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
+    <jsp:directive.tag import="org.apache.taglibs.standard.tag.common.core.Util"/>
     <jsp:directive.tag body-content="empty" description="creates &lt;input type=&quot;image&quot;... tag"/>
     <jsp:directive.attribute name="state" required="false" description="Optional state to override session facade value"/>
     <jsp:directive.attribute name="src" required="true" description="context-relative URL"/>
@@ -10,24 +12,38 @@
     <jsp:directive.attribute name="name" required="false" description="name for input"/>
     <jsp:directive.attribute name="onclick" required="false" description="onclick handling"/>
     <jsp:directive.attribute name="tabIndex" required="false" description="tab index, defaults to 0"/>
-    <jsp:scriptlet>
+
+    <jsp:scriptlet><![CDATA[
         if (state != null) {
             request.setAttribute("STATE", state);
         }
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
         src = urlUtil.buildUrl(src, request);
-        jspContext.setAttribute("src", src);
-    </jsp:scriptlet>
-    <c:if test="${tabIndex eq null or tabIndex eq ''}">
-        <c:set var="tabIndex" value="0"/>
-    </c:if>
-    <jsp:element name="input">
-        <jsp:attribute name="type">image</jsp:attribute>
-        <jsp:attribute name="src">${src}</jsp:attribute>
-        <jsp:attribute name="alt">${alt}</jsp:attribute>
-        <jsp:attribute name="class">${styleClass}</jsp:attribute>
-        <jsp:attribute name="onclick" trim="true">${onclick}</jsp:attribute>
-        <jsp:attribute name="name">${name}</jsp:attribute>
-        <jsp:attribute name="tabindex">${tabIndex}</jsp:attribute>
-    </jsp:element>
+
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("<input type=\"image\"");
+        buffer.append(" src=\"").append(Util.escapeXml(src)).append('"');
+
+        if (StringUtils.isNotBlank(alt)) {
+            buffer.append(" alt=\"").append(alt).append('"');
+        }
+
+        if (StringUtils.isNotBlank(styleClass)) {
+            buffer.append(" class=\"").append(styleClass).append('"');
+        }
+
+        if (StringUtils.isNotBlank(onclick)) {
+            buffer.append(" onclick\"").append(onclick).append('"');
+        }
+
+        if (StringUtils.isNotBlank(name)) {
+            buffer.append(" name=\"").append(name).append('"');
+        }
+        if (StringUtils.isBlank(tabIndex)) {
+            tabIndex = "0";
+        }
+        buffer.append(" tabindex=\"").append(tabIndex).append('"');
+        buffer.append("/>");
+        out.print(buffer);
+        ]]></jsp:scriptlet>
 </jsp:root>
