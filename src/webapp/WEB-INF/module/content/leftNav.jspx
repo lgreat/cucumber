@@ -88,9 +88,7 @@
     <ul class="plain">
         <gsweb:articlelink articleId="400" wrappingElement="li"/>
         <gsweb:articlelink articleId="410" wrappingElement="li"/>
-        <li style="background-image:none;text-align:right; padding-top:4px;">
-            <gsml:a href="/content/holidayLearning.page">See more &gt;</gsml:a>
-        </li>
+        <gsweb:articlelink articleId="401" wrappingElement="li"/>
     </ul>
 
     <h3>Get Involved</h3>
