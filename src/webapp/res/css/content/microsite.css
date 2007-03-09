@@ -72,12 +72,6 @@
     background-position: .8ex 1.4ex;
 }
 
-/* hack for bullet alignement and padding in firefox */
-#contentGS .left ul>li {
-    padding-top: 5px;
-    background-position: .8ex 1.2ex;
-}
-
 #contentGS .left ul li a {
     color: #aaa;
 }
