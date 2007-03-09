@@ -46,7 +46,7 @@
                    defaultsort="${overview?'2':'1'}" defaultorder="${overview?'ascending':'descending'}" export="true" sort="list" pagesize="20" decorator="decorator">
         <display:column property="id" title="ID" sortable="true"></display:column>
         <display:column href="batch.page" paramId="name" paramProperty="name" property="name" title="Name" sortable="true"></display:column>
-        <display:column property="text" title="Text" sortable="true" maxLength="50"></display:column>
+        <display:column property="text" title="Text" sortable="true" maxLength="100"></display:column>
         <display:column property="start" title="Started" sortable="true" sortProperty="start"></display:column>
         <display:column property="finish" title="Finished" sortable="true" sortProperty="finish"></display:column>
     </display:table>
