@@ -89,13 +89,13 @@ School Profile header
 }
 
 #tools .enterEmail {
-	width: 150px;
+	width: 154px;
 	height: 16px;
 	font: 11px/13px Trebuchet MS, Arial, sans-serif;
 	color: #777;
 	float: left;
-	margin: 5px 6px 0 17px;
-    _margin: 4px 6px 0 17px; /* IE 6 hack */
+	margin: 5px 11px 0 17px;
+    _margin: 4px 9px 0 17px; /* IE 6 hack */
     padding: 1px 0 0 3px;
 }
 
