@@ -88,7 +88,7 @@ School Profile header
 }
 
 #tools .enterEmail {
-	width: 160px;
+	width: 150px;
 	height: 16px;
 	font: 11px/13px Trebuchet MS, Arial, sans-serif;
 	color: #777;
@@ -194,7 +194,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 /* main navigation */
 
 #navigation {
-	background: #5bc;
+	background: #6cc;
 	text-transform: uppercase;
 	width: 860px;
 	height: 30px;
@@ -205,8 +205,8 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 
 #navigation td {
 /*	font: bold 11px/13px Trebuchet MS, Arial, sans-serif; */
-    font: bold 11px/13px Lucinda Grande, Lucida Grande, lucida, verdana, sans-serif;
-    letter-spacing: 0;
+    font: bold 10px/11px Lucinda Grande, Lucida Grande, lucida, verdana, sans-serif;
+    letter-spacing: -0.5px;
     color: #fff;
 	text-decoration: none;
 	text-align: center;
@@ -216,9 +216,9 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 
 #navigation td a {
 	color: #fff;
-    height: 28px;
+    height: 26px;
 	display: block;
-	padding: 2px 20px 0 20px;
+	padding: 4px 20px 0 20px;
 }
 
 #navigation td a:hover {

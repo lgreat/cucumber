@@ -189,13 +189,22 @@
         </c:if>
 
         <!-- Change the second class to change how many stars the parent rating displays -->
-        <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
+        <c:choose>
+            <c:when test="${parent_rating eq 0}">
+                <c:set var="parent_rating_title" value="Be the first to rate it"/>
+                <link:schoolProfileAddParentReview school="${school}" styleClass="parent_rating parent_${parent_rating}" title="${parent_rating_title}">
+                    &amp;nbsp;
+                </link:schoolProfileAddParentReview>
+            </c:when>
+            <c:otherwise>
+                <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
+                <link:schoolProfileRating school="${school}" styleClass="parent_rating parent_${parent_rating}" title="${parent_rating_title}">
+                    &amp;nbsp;
+                </link:schoolProfileRating>
+            </c:otherwise>
+        </c:choose>
         <c:if test="${parent_rating eq 0}">
-            <c:set var="parent_rating_title" value="Be the first to rate it"/>
         </c:if>
-        <link:schoolProfileAddParentReview school="${school}" styleClass="parent_rating parent_${parent_rating}" title="${parent_rating_title}">
-            &amp;nbsp;
-        </link:schoolProfileAddParentReview>
     </div>
     <!-- end: ratings -->
 
