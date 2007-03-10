@@ -6,6 +6,11 @@ Internet Explorer 7 specific styles
 -------------------------------------------------------*/
 
 
+#schoolProfileHeader {
+    padding-bottom: 19px;
+    margin-bottom: -19px;
+}
+
 #schoolProfile span#schoolName {
     margin: 12px 0 0 24px;
 }
@@ -16,6 +21,10 @@ Internet Explorer 7 specific styles
 
 #tools {
 	margin: 3px 20px 0 0;
+}
+
+#navigation {
+	margin: 15px 0 0 0;
 }
 
 .overview #navigation {
