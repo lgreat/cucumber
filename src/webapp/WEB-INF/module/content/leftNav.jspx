@@ -18,11 +18,11 @@
 <div class="left">
     <h3>Featured Topics</h3>
     <ul class="plain">
-        <li><gsml:a href="/content/summerPlanning.page">Summer Planning</gsml:a></li>
-        <li><gsml:a href="/content/schoolChoiceCenter.page">School Choice Tips</gsml:a></li>
-        <li><gsml:a href="/content/movingWithKids.page">Moving With Kids</gsml:a></li>
-        <li><gsml:a href="/content/healthyKids.page">Healthy Kids</gsml:a></li>
-        <li><gsml:a href="/content/countdownToCollege.page">Countdown To College</gsml:a></li>
+        <li class="noBullet"><img src="../res/img/content/countdownToCollege/dotOnEee.gif"/>&amp;nbsp;<gsml:a href="/content/summerPlanning.page">Summer Planning</gsml:a></li>
+        <li class="noBullet"><img src="../res/img/content/countdownToCollege/dotOnEee.gif"/>&amp;nbsp;<gsml:a href="/content/schoolChoiceCenter.page">School Choice Tips</gsml:a></li>
+        <li class="noBullet"><img src="../res/img/content/countdownToCollege/dotOnEee.gif"/>&amp;nbsp;<gsml:a href="/content/movingWithKids.page">Moving With Kids</gsml:a></li>
+        <li class="noBullet"><img src="../res/img/content/countdownToCollege/dotOnEee.gif"/>&amp;nbsp;<gsml:a href="/content/healthyKids.page">Healthy Kids</gsml:a></li>
+        <li class="noBullet"><img src="../res/img/content/countdownToCollege/dotOnEee.gif"/>&amp;nbsp;<gsml:a href="/content/countdownToCollege.page">Countdown To College</gsml:a></li>
     </ul>
 
     <h3>Grade K-5 Success</h3>

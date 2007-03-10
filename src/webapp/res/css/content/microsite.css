@@ -72,6 +72,11 @@
     background-position: .8ex 1.4ex;
 }
 
+#contentGS .left ul li.noBullet {
+    background-image: none;
+    padding-left: 6px;
+}
+
 #contentGS .left ul li a {
     color: #aaa;
 }
