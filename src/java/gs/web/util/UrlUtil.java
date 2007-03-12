@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.42 2007/01/02 20:09:17 cpickslay Exp $
+ * $Id: UrlUtil.java,v 1.43 2007/03/12 22:24:29 aroy Exp $
  */
 
 package gs.web.util;
@@ -46,6 +46,8 @@ public final class UrlUtil {
                 && !hostName.startsWith("thuss.dev")
                 && !hostName.startsWith("chriskimm.dev")
                 && !hostName.startsWith("droy.dev")
+                && !hostName.startsWith("aroy.office")
+                && !hostName.startsWith("aroy.dev")
                 && !hostName.startsWith("nuked")
                 && !hostName.equals("127.0.0.1")
                 && hostName.indexOf('.') != -1;

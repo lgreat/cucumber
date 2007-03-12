@@ -1,13 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.36 2007/01/02 20:09:17 cpickslay Exp $
+ * $Id: UrlUtilSaTest.java,v 1.37 2007/03/12 22:24:29 aroy Exp $
  */
 
 package gs.web.util;
 
 import gs.data.state.State;
 import gs.web.GsMockHttpServletRequest;
-import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import junit.framework.TestCase;
@@ -141,6 +140,8 @@ public class UrlUtilSaTest extends TestCase {
 
         assertNull(_urlUtil.cobrandFromUrl("127.0.0.1"));
         assertNull(_urlUtil.cobrandFromUrl("apeterson.office.greatschools.net"));
+        assertNull(_urlUtil.cobrandFromUrl("aroy.office.greatschools.net"));
+        assertNull(_urlUtil.cobrandFromUrl("aroy.dev.greatschools.net"));
 
         // This doesn't work, but it's not a realistic case at this time.
         //assertNull(_urlUtil.cobrandFromUrl("greatschools.net"));
