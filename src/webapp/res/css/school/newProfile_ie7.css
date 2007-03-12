@@ -13,7 +13,7 @@ Internet Explorer 7 specific styles
 
 .overview #schoolProfileHeader {
     padding-bottom: 19px;
-    height: 88px;
+    /*height: 88px;*/
 }
 
 #schoolProfile span#schoolName {

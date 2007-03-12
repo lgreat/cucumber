@@ -11,7 +11,7 @@ School Profile header
 
 #schoolProfileHeader { /* Has IE 7 equivalent */
 	width: 860px;
-    height: 92px;
+    /*height: 92px; */
     float: left;
 	border: 2px solid #dee;
     border-bottom: 0;
@@ -21,8 +21,8 @@ School Profile header
 .overview #schoolProfileHeader { /* Has IE 7 equivalent */
     padding-bottom: 20px;
     _padding-bottom: 21px;
-    height: 87px;
-    _height: 86px;
+    /*height: 87px;
+    _height: 86px; */
 }
 
 /* breadcrumbs */
@@ -216,6 +216,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 /*	font: bold 11px/13px Trebuchet MS, Arial, sans-serif; */
     font: bold 10px/11px Lucinda Grande, Lucida Grande, lucida, verdana, sans-serif;
     letter-spacing: -0.5px;
+    _letter-spacing: -1.5px;
     color: #fff;
 	text-decoration: none;
 	text-align: center;
