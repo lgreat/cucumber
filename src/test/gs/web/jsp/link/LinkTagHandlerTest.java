@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.29 2007/01/30 01:10:29 dlee Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.30 2007/03/12 21:41:29 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -375,6 +375,17 @@ public class LinkTagHandlerTest extends BaseTestCase {
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
         assertEquals("/schools.page?district=1&state=CA", builder.asSiteRelative(null));
+    }
+
+    public void testDistrictProfile() {
+        DistrictProfileTagHandler tagHandler = new DistrictProfileTagHandler();
+        tagHandler.setDistrictId(new Integer(123));
+        tagHandler.setPageContext(new MockPageContext());
+        UrlBuilder builder = tagHandler.createUrlBuilder();
+        assertEquals("/cgi-bin/ca/district_profile/123", builder.asSiteRelative(null));
+        tagHandler.setState(State.AK);
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/cgi-bin/ak/district_profile/123", builder.asSiteRelative(null));
     }
 
     public void testGradeSelector() throws IOException {

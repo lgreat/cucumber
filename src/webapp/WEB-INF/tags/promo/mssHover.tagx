@@ -42,7 +42,7 @@
                 <input name="schoolId" type="hidden" value="${school.id}"/>
                 <input name="referrer" type="hidden" value="${referredBy}"/>
                 <input name="state" type="hidden" value="${school.databaseState}" />
-                <gsml:inputImage src="/res/img/school/tools_submit_go.gif" alt="Go" styleClass="go" />
+                <gsml:inputImage src="/res/img/school/tools_submit_go.gif" alt="GO" styleClass="go" />
             </form>
         </c:otherwise>
     </c:choose>

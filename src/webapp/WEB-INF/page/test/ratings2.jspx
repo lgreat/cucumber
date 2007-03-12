@@ -78,8 +78,8 @@
 
         <c:if test="${hasError eq 'false'}">
             <school:newProfile school="${school}" tab="ratings" gs_rating="${overallRating}">
-                <div style="padding:10px 10px 0 14px;">
-                <div style="padding-top:15px;">
+                <div style="padding:0 10px 0 14px;">
+                <div style="padding-top:8px;">
                     <div id="ratingContent">
                         <div class="ratingSummaryWrapper">
                             <div class="ratingSummaryContent">

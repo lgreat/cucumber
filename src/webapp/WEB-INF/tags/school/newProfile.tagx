@@ -144,7 +144,7 @@
             <li><link:research state="${state}">${state.longName}</link:research> &gt; </li>
             <li><link:city city="${city}" state="${state}">${city}</link:city>&amp;nbsp;</li>
             <c:if test="${school.districtId != 0}">
-                <li>&gt; <link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name}</link:allSchoolsInDistrict></li>
+                <li>&gt; <link:districtProfile districtId="${school.districtId}" state="${state.abbreviationLowerCase}">${school.district.name}</link:districtProfile></li>
             </c:if>
         </ul>
     </div>

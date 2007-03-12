@@ -11,7 +11,6 @@ School Profile header
 
 #schoolProfileHeader { /* Has IE 7 equivalent */
 	width: 860px;
-	_width: 850px; /* IE 6 hack */
 	float: left;
 	border: 2px solid #dee;
     border-bottom: 0;
@@ -48,7 +47,7 @@ School Profile header
 /* tools */
 
 #tools { /* has IE 7 equivalent */
-	width: 230px;
+	width: 240px;
 	float: right;
 	margin: 2px 20px 0 0;
 	_margin: -9px 5px 0 0; /* IE 6 hack */
@@ -78,8 +77,8 @@ School Profile header
 	text-decoration: underline;
 }
 
-#tools .email {
-    font: bold 12px Trebuchet MS, Arial, sans-serif;
+#tools .email { /* has IE 7 equivalent */
+    font: bold 13px Trebuchet MS, Arial, sans-serif;
     background: url(../../img/school/tools_th_email.gif) no-repeat 0 center;
 	padding: 0 0 0 17px;
 	margin: 8px 0 0 0;
@@ -93,15 +92,17 @@ School Profile header
 	color: #39a;
 }
 
-#tools .enterEmail {
+#tools .enterEmail { /* has IE 7 equivalent */
 	width: 154px;
 	height: 16px;
-	font: 11px/13px Trebuchet MS, Arial, sans-serif;
+    _height: 14px;
+    font: 12px/13px Trebuchet MS, Arial, sans-serif;
 	color: #777;
 	float: left;
 	margin: 5px 11px 0 17px;
     _margin: 4px 9px 0 17px; /* IE 6 hack */
     padding: 1px 0 0 3px;
+    _padding: 3px 0 0 3px;
 }
 
 #tools .go {
@@ -203,7 +204,6 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 	background: #6cc;
 	text-transform: uppercase;
 	width: 864px;
-    _width: 854px;
     height: 30px;
 	float: left;
     border-bottom: 1px solid #fff;
@@ -252,7 +252,6 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 
 #subnav { /* Has IE 7 equivalent */
 	width: 864px;
-    _width: 854px;
     background: #dee;
 	height: 22px;
     float: left;
