@@ -9,13 +9,18 @@ School Profile header
     _width: 99%; /* IE 6 hack see GS-3142 */
 }
 
-#schoolProfileHeader {
+#schoolProfileHeader { /* Has IE 7 equivalent */
 	width: 860px;
 	_width: 850px; /* IE 6 hack */
 	float: left;
 	border: 2px solid #dee;
     border-bottom: 0;
     padding-bottom: 15px;
+}
+
+.overview #schoolProfileHeader { /* Has IE 7 equivalent */
+    padding-bottom: 20px;
+    _padding-bottom: 21px;
 }
 
 /* breadcrumbs */
@@ -245,7 +250,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 
 /* secondary (sub) navigation */
 
-#subnav {
+#subnav { /* Has IE 7 equivalent */
 	width: 864px;
     _width: 854px;
     background: #dee;
@@ -254,6 +259,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 	_float: none; /* IE 6 hack */
 	color: #ccc;
     border-bottom: 1px dashed #fff;
+    _border-bottom: 1px dashed #dee;
 }
 
 #subnav ul {
@@ -285,9 +291,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 }
 
 .overview #navigation { /* has IE 7 equivalent */
-	margin: 20px 0 0 0;
-	_margin: 26px 0 0 0; /* IE 6 hack */
-	_float: none; /* IE 6 hack */
+    _float: none; /* IE 6 hack */
 }
 
 /**********************
@@ -319,4 +323,21 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 
 #schoolProfile #bodyContents table {
     text-align:left;
+}
+
+#schoolProfile .breadcrumb {
+    color: #3399aa;
+    font-size: 12px;
+    font-weight: normal;
+    padding:0 10px 0 16px;
+}
+
+#schoolProfile .breadcrumb a {
+    color: #3399aa;
+    text-decoration: underline;
+}
+
+#schoolProfile .breadcrumb .hr {
+    display: block;
+    border-top: 1px solid #ccc;
 }
