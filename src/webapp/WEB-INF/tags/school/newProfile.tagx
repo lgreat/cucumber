@@ -191,7 +191,7 @@
         <!-- Change the second class to change how many stars the parent rating displays -->
         <c:choose>
             <c:when test="${parent_rating eq 0}">
-                <c:set var="parent_rating_title" value="Be the first to rate it"/>
+                <c:set var="parent_rating_title" value="Be the first to rate!"/>
                 <link:schoolProfileAddParentReview school="${school}" styleClass="parent_rating parent_${parent_rating}" title="${parent_rating_title}">
                     &amp;nbsp;
                 </link:schoolProfileAddParentReview>
