@@ -52,7 +52,6 @@ public class SchoolTableHeaderTagHandlerTest extends BaseControllerTestCase {
         String output = ((MockJspWriter) _jspContext.getOut()).getOutputBuffer().toString();
         assertTrue(output.indexOf("Some City Schools") > -1);
         assertTrue(output.indexOf("/city/Long_City_Name/AK") > -1);
-        assertTrue(output.indexOf("public schools") > -1);
     }
 
     /**
