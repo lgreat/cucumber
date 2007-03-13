@@ -213,10 +213,10 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 }
 
 #navigation td {
-/*	font: bold 11px/13px Trebuchet MS, Arial, sans-serif; */
-    font: bold 10px/11px Lucinda Grande, Lucida Grande, lucida, verdana, sans-serif;
-    letter-spacing: -0.5px;
-    _letter-spacing: -1.5px;
+	font: bold 11px/13px Trebuchet MS, Arial, sans-serif;
+    /*font: bold 10px/11px Lucinda Grande, Lucida Grande, lucida, verdana, sans-serif;*/
+    /*letter-spacing: -0.5px;*/
+    /*_letter-spacing: -1.5px;*/
     color: #fff;
 	text-decoration: none;
 	text-align: center;
@@ -226,9 +226,9 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 
 #navigation td a {
 	color: #fff;
-    height: 26px;
+    height: 27px;
 	display: block;
-	padding: 4px 20px 0 20px;
+	padding: 3px 20px 0 20px;
 }
 
 #navigation td a:hover {

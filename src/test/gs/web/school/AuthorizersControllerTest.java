@@ -22,6 +22,7 @@ public class AuthorizersControllerTest extends BaseControllerTestCase {
         _controller.setSchoolDao((ISchoolDao) getApplicationContext().getBean(ISchoolDao.BEAN_ID));
         _mockDao = new MockCharterSchoolInfoDao();
         _controller.setCharterSchoolInfoDao(_mockDao);
+        _controller.setViewName("school/authorizers");
     }
 
     /**

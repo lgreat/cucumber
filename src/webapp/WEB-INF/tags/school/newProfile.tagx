@@ -178,7 +178,16 @@
     <div id="ratings">
         <!-- Great Schools Rating -->
         <c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
-            <gsml:img src="/res/img/school/ratings/ratings_gs_head_${gs_rating}.gif" alt="Great Schools Rating: ${gs_rating} out of 10" styleClass="rating_gs"/>
+            <c:choose>
+                <c:when test="${tab ne 'ratings'}">
+                    <link:schoolProfileRating school="${school}">
+                        <gsml:img src="/res/img/school/ratings/ratings_gs_head_${gs_rating}.gif" alt="Great Schools Rating: ${gs_rating} out of 10" styleClass="rating_gs"/>
+                    </link:schoolProfileRating>
+                </c:when>
+                <c:otherwise>
+                    <gsml:img src="/res/img/school/ratings/ratings_gs_head_${gs_rating}.gif" alt="Great Schools Rating: ${gs_rating} out of 10" styleClass="rating_gs"/>
+                </c:otherwise>
+            </c:choose>
         </c:if>
 
         <!-- Parent Rating -->
@@ -214,14 +223,16 @@
     <table id="navigation" cellpadding="0" cellspacing="0">
         <tr>
             <td>
-                <link:schoolProfileOverview school="${school}" styleClass="${(tab eq 'overview') ? 'on' : ''}">
+                <link:schoolProfileOverview school="${school}" styleClass="${(tab eq 'overview') ? 'on' : ''}"
+                                            title="${school.name}">
                     School<br/>
                     Overview
                 </link:schoolProfileOverview>
             </td>
             <c:if test="${schoolType != 'private' and state.ratingsState}">
                 <td>
-                    <link:schoolProfileRating school="${school}" styleClass="${(tab eq 'ratings') ? 'on' : ''}">
+                    <link:schoolProfileRating school="${school}" styleClass="${(tab eq 'ratings') ? 'on' : ''}"
+                                              title="${school.name} GreatSchools Ratings">
                         GreatSchools<br/>
                         Ratings
                     </link:schoolProfileRating>
@@ -229,7 +240,7 @@
             </c:if>
             
             <td>
-                <link:schoolProfileParentReview school="${school}">
+                <link:schoolProfileParentReview school="${school}" title="${school.name} Parent Reviews">
                     Parent<br/> 
                     Reviews
                 </link:schoolProfileParentReview>
@@ -237,7 +248,7 @@
 
             <c:if test="${schoolType != 'private'}" >
                 <td>
-                    <link:schoolProfileTestscore school="${school}">
+                    <link:schoolProfileTestscore school="${school}" title="${school.name} Academic Performance">
                         Academic<br/>
                         Performance
                     </link:schoolProfileTestscore>
@@ -246,7 +257,7 @@
 
             <!-- This link tag automatically detects private schools and links appropriately -->
             <td>
-                <link:schoolProfileCensus school="${school}">
+                <link:schoolProfileCensus school="${school}" title="${school.name} School Environment">
                     School<br/>
                     Environment
                 </link:schoolProfileCensus>

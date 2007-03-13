@@ -49,6 +49,8 @@ public class AuthorizersController extends AbstractController {
 
     private static final String errorMessage = "Sorry, no school could be found";
 
+    private String _viewName;
+
     /**
      * In addition to passing the school object and a source string to the page, this request handler gathers together
      * <code>java.util.Map</code> objects with the data for the following data groups: School Structure; School Mission
@@ -63,9 +65,15 @@ public class AuthorizersController extends AbstractController {
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
                                                  HttpServletResponse response) throws Exception {
 
-        ModelAndView mAndV = new ModelAndView("school/authorizers");
+        ModelAndView mAndV = new ModelAndView(getViewName());
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         String schoolId = request.getParameter(PARAM_SCHOOL);
+        if (schoolId == null) {
+            // This parameter is not used by any page, but it makes it much easier to switch
+            // from the ratings and overview pages to this one during testing of the new header.
+            // This is because those pages take the school id through a parameter "id" not "school"
+            schoolId = request.getParameter("id");
+        }
 
         if (schoolId != null) {
             try {
@@ -269,5 +277,13 @@ public class AuthorizersController extends AbstractController {
 
     public void setCharterSchoolInfoDao(ICharterSchoolInfoDao charterSchoolInfoDao) {
         _charterSchoolInfoDao = charterSchoolInfoDao;
+    }
+
+    public String getViewName() {
+        return _viewName;
+    }
+
+    public void setViewName(String viewName) {
+        _viewName = viewName;
     }
 }

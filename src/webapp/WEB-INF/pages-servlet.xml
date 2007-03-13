@@ -174,7 +174,19 @@
 
     <bean name="/school/authorizers.page"
           class="gs.web.school.AuthorizersController"
-          autowire="byName" lazy-init="true"/>
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>school/authorizers</value>
+        </property>
+    </bean>
+
+    <bean name="/school/authorizers2.page"
+          class="gs.web.school.AuthorizersController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>school/authorizers2</value>
+        </property>
+    </bean>
 
     <!-- Search begin -->
     <bean name="/search/search.page"

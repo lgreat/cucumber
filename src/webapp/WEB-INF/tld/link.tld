@@ -814,6 +814,13 @@
             <description>target window to open link in</description>
         </attribute>
         <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>title (tool tip)</description>
+        </attribute>
+        <attribute>
             <name>school</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
@@ -874,6 +881,13 @@
             <description>target window to open link in</description>
         </attribute>
         <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>title (tool tip)</description>
+        </attribute>
+        <attribute>
             <name>school</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
@@ -902,6 +916,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>title (tool tip)</description>
         </attribute>
         <attribute>
             <name>school</name>
@@ -999,6 +1020,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>title (tool tip)</description>
         </attribute>
         <attribute>
             <name>school</name>
