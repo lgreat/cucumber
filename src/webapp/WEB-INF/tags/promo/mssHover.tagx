@@ -24,6 +24,7 @@
         <c:otherwise>
             <![CDATA[
             <script type="text/javascript">
+            <!--
                 function passToHover(frm) {
                    if (frm) {
                         var url = frm.action + '?schoolId=' + frm.schoolId.value + '&referrer=' + frm.referrer.value + '&state=' + frm.state.value;
@@ -33,7 +34,8 @@
                         showPopWin(url,480,500,null,'${hoverName}');
                    }
                 }
-            </script>
+            -->
+            </script>            
             ]]>
             <form id="frmMssNews" name="frmMssNews"
                 action="${url}" method="get" onsubmit="passToHover(this);return false;">
