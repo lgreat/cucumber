@@ -214,8 +214,8 @@ public class ResearchAndCompareNewsBlurbTagHandler extends SimpleTagSupport {
                 out.println(closeParagraph());
 
                 out.print(openParagraph());
-                out.print("<a href=\"/cgi-bin/newsletters/" + _state.getAbbreviation() + "\">" +
-                        "Get free monthly email updates about your school</a>");
+                out.print("<a href=\"http://data.greatschools.net/" + _state.getLongName().toLowerCase().replaceAll(" ", "_") + "/index.html\">" +
+                        "Read more about data updates in "+ _state.getLongName() +"</a>");
                 out.println(closeParagraph());
             } else {
                 out.print(openTitle());

@@ -57,12 +57,12 @@ public class ResearchAndCompareNewsBlurbTagHandlerTest extends TestCase {
     }
 
     public void testDoTagNullItem() throws IOException {
-        _tag.setState(State.CA);
-        _newsItemDao.findNewsItemForState(ResearchAndCompareNewsBlurbTagHandler.CATEGORY, State.CA);
+        _tag.setState(State.WV);
+        _newsItemDao.findNewsItemForState(ResearchAndCompareNewsBlurbTagHandler.CATEGORY, State.WV);
         _newsItemControl.setReturnValue(null);
         _newsItemControl.replay();
-        _schoolDao.countSchools(State.CA, null, null, null);
-        _schoolControl.setReturnValue(13224);
+        _schoolDao.countSchools(State.WV, null, null, null);
+        _schoolControl.setReturnValue(2244);
         _schoolControl.replay();
         _tag.doTag();
         _newsItemControl.verify();
@@ -73,8 +73,9 @@ public class ResearchAndCompareNewsBlurbTagHandlerTest extends TestCase {
         StringBuffer output = writer.getOutputBuffer();
         assertNotNull(output);
         assertTrue(output.length() > 0);
-        assertTrue(output.indexOf("13,200") > -1);
-        assertTrue(output.indexOf("charter") > -1);
+        assertTrue(output.indexOf("http://data.greatschools.net/west_virginia/index.html") > -1);
+        assertTrue(output.indexOf("2,200") > -1);
+        assertTrue(output.indexOf("charter") < 0);
     }
 
     public void testDoTag() throws IOException {
