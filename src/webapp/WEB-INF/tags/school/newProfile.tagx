@@ -111,12 +111,6 @@
         // to get around popup blockers
         location.href=deliciousUrl;
     }
-
-    function deleteDefaultText(field) {
-        if (field != null && field.value == 'Enter your email address') {
-            field.value = '';
-        }
-    }
 ]]></script>
 
 <c:set var="state" value="${school.physicalAddress.state}"/>
@@ -169,9 +163,9 @@
     <!-- end tools -->
 
     <!-- School name -->
-    <span id="schoolName">
+    <div id="schoolName">
         <h1>${school.name}</h1>
-    </span>
+    </div>
     <!-- End School name -->
 
     <!-- Ratings -->

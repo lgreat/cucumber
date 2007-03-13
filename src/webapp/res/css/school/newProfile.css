@@ -120,7 +120,7 @@ School Profile header
 
 /* school name */
 
-#schoolProfile span#schoolName { /* has IE 7 equivalent */
+#schoolProfile #schoolName { /* has IE 7 equivalent */
     width: 550px;
     float: left;
     margin: 12px 0 8px 24px;
@@ -132,7 +132,7 @@ School Profile header
     color: #5bc;
 }
 
-#schoolProfile.overview span#schoolName {
+#schoolProfile.overview #schoolName {
     margin: 22px 0 8px 24px;
     _margin: 10px 0 8px 24px;
 }

@@ -16,11 +16,11 @@ Internet Explorer 7 specific styles
     /*height: 88px;*/
 }
 
-#schoolProfile span#schoolName {
+#schoolProfile #schoolName {
     margin: 12px 0 0 24px;
 }
 
-#schoolProfile.overview span#schoolName { /* has IE 7 equivalent */
+#schoolProfile.overview #schoolName { /* has IE 7 equivalent */
     margin: 22px 0 8px 24px;
 }
 
