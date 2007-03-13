@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.43 2007/03/12 22:24:29 aroy Exp $
+ * $Id: UrlUtil.java,v 1.44 2007/03/13 23:59:29 aroy Exp $
  */
 
 package gs.web.util;
@@ -255,7 +255,8 @@ public final class UrlUtil {
     public boolean isDeveloperWorkstation(String hostName) {
         return hostName.indexOf("localhost") > -1 ||
                 hostName.indexOf("127.0.0.1") > -1 ||
-                hostName.indexOf("apeterson.office.greatschools.net") > -1;
+                hostName.indexOf("apeterson.office.greatschools.net") > -1 ||
+                hostName.indexOf("aroy.office.greatschools.net") > -1;
     }
 
     /**
@@ -269,6 +270,7 @@ public final class UrlUtil {
                 hostName.indexOf("staging") != -1 ||
                 hostName.indexOf("clone") != -1 ||
                 hostName.indexOf("apeterson.office") != -1 ||
+                hostName.indexOf("aroy.office") != -1 ||
                 hostName.equals("127.0.0.1") ||
                 hostName.equals("localhost");
     }

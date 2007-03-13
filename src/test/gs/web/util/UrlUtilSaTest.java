@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.37 2007/03/12 22:24:29 aroy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.38 2007/03/13 23:58:58 aroy Exp $
  */
 
 package gs.web.util;
@@ -194,6 +194,8 @@ public class UrlUtilSaTest extends TestCase {
         assertFalse(_urlUtil.isDeveloperWorkstation("staging.greatschools.net"));
         assertFalse(_urlUtil.isDeveloperWorkstation("apeterson.dev.greatschools.net"));
         assertTrue(_urlUtil.isDeveloperWorkstation("apeterson.office.greatschools.net"));
+        assertFalse(_urlUtil.isDeveloperWorkstation("aroy.dev.greatschools.net"));
+        assertTrue(_urlUtil.isDeveloperWorkstation("aroy.office.greatschools.net"));
         assertTrue(_urlUtil.isDeveloperWorkstation("localhost"));
         assertTrue(_urlUtil.isDeveloperWorkstation("127.0.0.1"));
     }
@@ -213,6 +215,8 @@ public class UrlUtilSaTest extends TestCase {
         assertTrue(_urlUtil.isDevEnvironment("staging.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("apeterson.dev.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("apeterson.office.greatschools.net"));
+        assertTrue(_urlUtil.isDevEnvironment("aroy.dev.greatschools.net"));
+        assertTrue(_urlUtil.isDevEnvironment("aroy.office.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("clone.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("azcentral.clone.greatschools.net"));
         assertTrue(_urlUtil.isDevEnvironment("localhost"));
