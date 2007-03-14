@@ -33,7 +33,7 @@
         }
 
         if (StringUtils.isNotBlank(onclick)) {
-            buffer.append(" onclick\"").append(onclick).append('"');
+            buffer.append(" onclick=\"").append(onclick).append('"');
         }
 
         if (StringUtils.isNotBlank(name)) {
