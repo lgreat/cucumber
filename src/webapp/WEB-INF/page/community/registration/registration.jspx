@@ -60,7 +60,6 @@
           }
 
           function doSingleClick(element) {
-              $(element).disable();
               element.onclick = new Function('return false;');
               return true;
           }
