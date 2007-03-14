@@ -251,7 +251,7 @@
 
             <!-- This link tag automatically detects private schools and links appropriately -->
             <td>
-                <link:schoolProfileCensus school="${school}" title="${school.name} School Environment">
+                <link:schoolProfileCensus school="${school}" title="School Environment at ${school.name}">
                     School<br/>
                     Environment
                 </link:schoolProfileCensus>

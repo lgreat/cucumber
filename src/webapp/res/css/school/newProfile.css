@@ -124,7 +124,7 @@ School Profile header
     width: 550px;
     float: left;
     margin: 12px 0 8px 24px;
-    _margin: 0 0 0 24px;
+    _margin: 0 0 0 12px;
 }
 
 #schoolProfile h1 {
@@ -134,7 +134,7 @@ School Profile header
 
 #schoolProfile.overview #schoolName {
     margin: 22px 0 8px 24px;
-    _margin: 10px 0 8px 24px;
+    _margin: 10px 0 8px 12px;
 }
 
 #schoolProfile.overview h1 { /* makes the school name larger, centers it vertically */
