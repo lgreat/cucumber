@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.17 2007/03/13 17:47:27 droy Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.18 2007/03/15 18:25:28 droy Exp $
  */
 
 package gs.web.search;
@@ -231,15 +231,15 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         compareBuilder.setParameter("city", _cityName);
         compareBuilder.setParameter("sortby", "distance");
         if (getSchoolDao().countSchools(getState(),
-                SchoolType.PUBLIC, LevelCode.ELEMENTARY, _cityName) > 0) {
+                null, LevelCode.ELEMENTARY, _cityName) > 0) {
             showElementary = true;
         }
         if (getSchoolDao().countSchools(getState(),
-                SchoolType.PUBLIC, LevelCode.MIDDLE, _cityName) > 0) {
+                null, LevelCode.MIDDLE, _cityName) > 0) {
             showMiddle = true;
         }
         if (getSchoolDao().countSchools(getState(),
-                SchoolType.PUBLIC, LevelCode.HIGH, _cityName) > 0) {
+                null, LevelCode.HIGH, _cityName) > 0) {
             showHigh = true;
         }
 
