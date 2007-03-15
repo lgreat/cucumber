@@ -322,7 +322,13 @@ function showPopWinOnExit(url, width, height, returnFunc, hoverName, forceShow) 
     if (forceShow || showHover()) {
         var arr = getElementsByCondition(
             function(el) {
-                if (el.tagName == "A" && el.href != "" && el.target == "") return el; else return false;
+                if (el.tagName == "A") {
+                    if (el.target || el.onclick)
+                        return false;
+                    if (el.href && el.href != '')
+                        return el;
+                }
+                return false;
             }
         )
 
