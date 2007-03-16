@@ -199,6 +199,10 @@ table.module1container {
     font-size: 11px;
 }
 
+/** Hacks for GS-3148 */
+#schoolProfile #bodyContents div#csrpromo { width:220px; }
+#schoolProfile #bodyContents div#csrpromo a{ text-decoration:none; }
+
 </style>
 </head>
 
