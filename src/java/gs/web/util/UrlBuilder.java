@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.71 2007/03/12 21:41:29 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.72 2007/03/16 17:22:17 aroy Exp $
  */
 
 package gs.web.util;
@@ -744,6 +744,11 @@ public class UrlBuilder {
             sb.append(contextPath);
         }
         sb.append(_path);
+        // Fix by Anthony for case where context path is "/" to prevent the resulting URL
+        // from beginning with "//".
+        if (sb.length() > 2 && sb.substring(0, 2).equals("//")) {
+            sb = sb.deleteCharAt(0);
+        }
 
         // City page's parameters get stuck in the first part of the
         // URL for SEO purposes.

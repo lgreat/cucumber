@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.58 2007/03/12 21:41:29 aroy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.59 2007/03/16 17:22:17 aroy Exp $
  */
 
 package gs.web.util;
@@ -37,6 +37,26 @@ public class UrlBuilderSaTest extends TestCase {
         request.setServerPort(80);
         request.setRequestURI("/index.page");
         return request;
+    }
+
+    /**
+     * Written by Anthony to test a specific case. I modified my webapp to run from the root context
+     * instead of from gs-web, but as a result UrlBuilder was building local absolute urls like
+     * "/index.page" as "//index.page". This is because it prepends the context path. It worked before
+     * because the context path was "/gs-web" and had no trailing slash. But once it became root,
+     * it ended up breaking all local links. So here I test that my fix works and UrlBuilder creates
+     * the appropriate link even for a context path of root.
+     *
+     * Note that I don't test that /gs-web still works since that is already tested in
+     * "testUrlBuilderContext"
+     */
+    public void testContextPath() {
+        GsMockHttpServletRequest request = getMockRequest();
+        request.setContextPath("/");
+        UrlBuilder builder = new UrlBuilder(request, "/index.page");
+        assertEquals("/index.page", builder.asSiteRelativeXml(null));
+        assertEquals("http://www.myserver.com/index.page", builder.asFullUrl(request));
+        assertEquals("/index.page", builder.asSiteRelativeXml(request));
     }
 
     public void testArticleLinkBuilder() {
