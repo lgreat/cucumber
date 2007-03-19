@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * This controller builds handles requests for the School Profile Overview page:
+ * This controller handles requests for the School Profile Overview page:
  * http://www.greatschools.net/school/overview.page?state=tx&id=10683
  * 
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>

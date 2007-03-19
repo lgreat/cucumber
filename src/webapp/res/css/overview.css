@@ -1,0 +1,480 @@
+/*------------------------------------------------------
+
+GreatSchools
+
+School Overview
+
+-------------------------------------------------------*/
+
+
+#schoolOverview {
+	width: 860px;
+	_width: 863px; /* IE 6 hack */
+	float: left;
+	margin: 14px 0 30px 0; /* bottom margin is arbitrary and can be changed once code is implemented */
+}
+
+#schoolOverview p {
+	font: 12px/16px Trebuchet MS, sans-serif;
+	color: #666;
+}
+
+#schoolOverview a, #schoolOverview a:hover {
+	color: #39a;
+	text-decoration: underline;
+}
+
+hr { /* has IE 7 equivalent */
+	width: 177px; /* width of modules plus 2 2px border (4px) */
+	background: #dee;
+	height: 1px;
+	border: 0;
+	margin: 5px 0 5px 0;
+	_margin: 0; /* IE 6 hack */
+	_border: 1px solid #dee; /* IE 6 hack */
+}
+
+
+/* columns
+----------------------------------*/
+
+#col_left {
+	width: 173px;
+	margin: 0 10px 0 0;
+	_margin: 0 7px 0 0; /* IE 6 hack */
+	float: left;
+}
+
+#col_center {
+	width: 356px;
+	float: left;
+	padding-right: 9px;
+	_padding-right: 10px;
+	border-right: 1px solid #dedede;
+}
+
+#col_right {
+	width: 300px;
+	float: right;
+}
+
+
+/* left column modules
+----------------------------------*/
+
+/* Quick Facts
+----------------------------------*/
+
+#quickFacts {
+	width: 173px;
+	border: 2px solid #dee;
+}
+
+#quickFacts h2 {
+	background: url(../img/header_QuickFacts.gif) no-repeat 10px 6px #dee;
+	width: 173px;
+	height: 27px;
+	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
+	margin-bottom: 12px;
+}
+
+#quickFacts h3, #quickFacts address, #quickFacts p {
+	font: 12px/16px Trebuchet MS, sans-serif;
+	color: #666;
+	margin: 0 0 8px 10px;
+}
+
+.phoneFax {
+	text-transform: uppercase;
+}
+
+#quickFacts ul {
+	margin: 14px 8px 10px 10px;
+}
+
+#quickFacts ul li {
+	font: 12px/15px Trebuchet MS, sans-serif;
+	color: #666;
+	background: url(../img/li_yellow-triangle.gif) no-repeat left 2px;
+	list-style: none;
+	margin: 0 0 4px 0;
+	padding: 0 0 0 10px;
+}
+
+
+/* Editor
+----------------------------------*/
+
+#editor {
+	width: 173px;
+	border: 2px solid #dee;
+}
+
+#editor img {
+	margin: 10px 0 0 10px;
+	float: left;
+}
+
+#editor .name {
+	width: 60px;
+	float: right;
+	margin: 30px 30px 0 0;
+	_margin: 30px 15px 0 0; /* IE 6 hack */
+	color: #39a;
+	line-height: 14px;
+	font-weight: bold;
+}
+
+#editor .title {
+	width: 75px;
+	float: right;
+	margin: 0 15px 0 0;
+	_margin: 0 8px 0 0; /* IE 6 hack */
+	line-height: 14px;
+	_text-indent: .1em; /* IE 6 hack */
+}
+
+#editor h3 { /* has IE 7 equivalent */
+	font: bold 13px/16px Trebuchet MS, sans-serif;
+	color: #888;
+	width: 150px;
+	margin: 100px 0 0 10px;
+	_margin: 15px 0 0 10px; /* IE 6 hack */
+	padding: 10px 0 5px 0;
+	float: none;
+	border-top: 1px solid #dee;
+}
+
+#editor ul {
+	width: 150px;
+	margin: 10px 0 5px 10px;
+}
+
+#editor ul li {
+	font: 12px/15px Trebuchet MS, sans-serif;
+	color: #666;
+	list-style: none;
+	margin: 0 0 10px 0;
+	padding: 0;
+}
+
+
+/* Big Picture
+----------------------------------*/
+
+#bigPicture {
+	width: 173px;
+	clear: both;
+	border: 2px solid #dee;
+}
+
+#bigPicture h2 {
+	background: url(../img/header_BigPicture.gif) no-repeat 10px 6px #dee;
+	width: 173px;
+	height: 27px;
+	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
+}
+
+#bigPicture p {
+	font-family: Century Gothic, Trebuchet MS, sans-serif;
+	margin: 10px 0 5px 10px;
+}
+
+#bigPicture h3 {
+	font: 12px/15px Trebuchet MS, sans-serif;
+	color: #666;
+	margin: 0 10px 10px 10px;
+	padding: 0;
+}
+
+
+/* center column modules
+----------------------------------*/
+
+/* Ratings
+----------------------------------*/
+
+#ratingsBox { /* named ratingsBox as the id "ratings" was used in the header */ /* has IE 7 equivalent */
+	width: 352px;
+	float: left;
+	margin: 0 0 15px 0;
+	padding: 0;
+	_padding: 0 0 10px 0; /* IE 6 hack */
+	border: 2px solid #6bcacc;
+}
+
+#ratingsBox h2 {
+	background: url(../img/header_ratingsBox.gif) no-repeat 14px center #6bcacc;
+	height: 27px;
+	_width: 354px; /* IE 6 hack */
+	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
+}
+
+#ratingsBox a {
+	font-size: 13px;
+}
+
+.no_GS, .no_rating {
+	height: 141px;
+}
+
+.no_GS img, .no_rating img {
+	_margin-bottom: -21px; /* IE 6 hack */
+}
+
+#rating_gs {
+	float: left;
+	width: 178px;
+	margin: 14px 0 10px 0;
+	text-align: center;
+	border-right: 1px solid #ccc;
+}
+
+#rating_parent {
+	float: right;
+	text-align: center;
+	margin: 14px 33px 0 0;
+	_margin: 14px 14px 0 0; /* IE 6 hack */
+}
+
+#rating_gs img { /* has IE 7 equivalent */
+	margin-bottom: 7px;
+	_margin-bottom: 4px; /* IE 6 hack */
+}
+
+#rating_parent img { /* has IE 7 equivalent */
+	margin-bottom: 7px;
+	margin-right: 6px;
+	_margin-bottom: 4px; /* IE 6 hack */
+}
+
+/* Latest Parent Reviews
+----------------------------------*/
+
+#parentReviews {
+	width: 356px;
+	float: left;
+	margin: 0 0 25px 0;
+}
+
+#parentReviews h2 {
+	background: url(../img/header_LatestParentsReviews.gif) no-repeat 19px 6px #c5c5c5;
+	height: 25px;
+	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
+}
+
+#parentReviews .rating {
+	margin: 15px 0 0 20px;
+	float: left;
+}
+
+#parentReviews p {
+	margin: 5px 0 0 20px;
+	_margin: 5px 0 0 10px; /* IE 6 hack */
+	width: 160px;
+	float: left;
+	font-size: 12px;
+}
+
+#parentReviews a {
+	float: right;
+	margin: 4px 0 0 0;
+}
+
+#parentReviews .callout {
+	width: 144px;
+	font-size: 14px;
+	line-height: 18px;
+	padding: 7px 8px 0 10px;
+	margin: 18px 0 0 0;
+	float: right;
+	border: 1px solid #ddd;
+}
+
+#parentReviews .callout a {
+	font-size: 12px;
+	margin: 18px 6px 7px 0;
+	float: right;
+}
+
+#parentReviews em {
+	color: #5bc;
+	font-style: normal;
+	font-weight: bold;
+}
+
+/* Learn About This School's
+----------------------------------*/
+
+#learnSchool {
+	width: 356px;
+	margin: 0;
+	float: left;
+}
+
+#learnSchool h2 {
+	background: url(../img/header_LearnAboutThisSchools.gif) no-repeat 19px 6px #c5c5c5;
+	height: 25px;
+	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
+}
+
+#learnSchool img {
+	margin: 12px 0 0 16px;
+}
+
+#learnSchool p {
+	font-size: 11px;
+	margin: 0;
+	_margin: -3px 0 0 0; /* IE 6 hack */
+	padding: 0 0 15px 58px;
+	border-bottom: 1px dashed #ccc;
+}
+
+#learnSchool .last {
+	border: 0; /* removes border from the final item in the list, class must be set in the html */
+}
+
+/* Compare This School To
+----------------------------------*/
+
+#compareSchool {
+	width: 356px;
+	margin: 13px 0 0 0;
+	float: left;
+}
+
+#compareSchool h2 {
+	background: url(../img/header_CompareThisSchoolTo.gif) no-repeat 19px 6px #c5c5c5;
+	height: 25px;
+	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
+}
+
+#compareSchool img {
+	margin: 20px 0 0 0;
+	float: left;
+	border: 1px solid #ddd;
+}
+
+/* form */
+
+#compareSchool form {
+	margin: 20px 0 0 80px;
+	font: 12px/16px Trebuchet MS, sans-serif;
+	color: #666;
+}
+
+#compareSchool form input { /* has IE 7 equivalent */
+	float: left;
+	margin: 0 8px 9px 0;
+	_margin: 0; /* IE 6 hack */
+}
+
+#compareSchool form label {
+	display: block;
+	margin: 0 0 9px 0;
+}
+
+#compareSchool form .submit {
+	float: right;
+	margin: -25px 36px 0 0;
+}
+
+
+/* Learn More
+----------------------------------*/
+
+#learnMore {
+	width: 358px;
+	float: left;
+	margin: 0 0 0 186px;
+	padding: 0;
+	border: 1px solid green;
+}
+
+
+/* right column modules
+----------------------------------*/
+
+/* promotion
+----------------------------------*/
+
+.promotion {
+	margin: 0 0 16px 0;
+	_margin: 0 0 13px 0; /* IE 6 hack */
+	padding: 0;
+	border: 0;
+}
+
+/* ad
+----------------------------------*/
+
+.ad {
+	margin: 0 0 16px 0;
+	padding: 0;
+	border: 0;
+}
+
+/* Nearby Schools
+----------------------------------*/
+
+#nearbySchools {
+	width: 278px; /* right column width 300 - 2 1px borders, -20px padding */
+	padding: 9px;
+	border: 1px solid #f4bc00;
+}
+
+#nearbySchools h2 {
+	background: #6bcacc;
+	color: #fff;
+	padding: 8px 0 8px 8px;
+	font: bold 15px/16px Trebuchet MS, sans-serif;
+}
+
+#nearbySchools a {
+	font: bold 13px/14px Trebuchet MS, sans-serif;
+	_font: bold 13px/16px Trebuchet MS, sans-serif; /* IE 6 hack */
+	color: #39a;
+	text-decoration: none;
+}
+
+#map {
+	width: 276px;
+	height: 128px;
+	margin: 2px 0 0 0;
+	border: 1px solid #cdcdce;
+}
+
+#nearbySchools .head_top {
+	font: 10px/11px Trebuchet MS, sans-serif;
+	color: #888;
+	margin: 18px 0 0 0;
+	float: left;
+	text-transform: uppercase;
+}
+
+#nearbySchools .head_rating {
+	font: 10px/11px Trebuchet MS, sans-serif;
+	color: #888;
+	margin: 12px 0 3px 200px;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+#nearbySchools ul {
+}
+
+#nearbySchools ul li {
+	list-style: none;
+	margin: 0;
+	padding: 6px 0 0 0;
+	height: 31px; /* 40px - paddding-top */
+	font: 11px/11px Trebuchet MS, sans-serif;
+	color: #666;
+	border-top: 1px solid #ccc;
+}
+
+/* ratings classes, adds the GS ratings image to the list item, classes are set in the html */
+
+#nearbySchools .ten {
+	background: url(../img/rating_nearbySchools_10.gif) no-repeat 228px center;
+}

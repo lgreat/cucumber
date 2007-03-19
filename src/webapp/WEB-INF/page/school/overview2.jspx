@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+          xmlns:gsweb="gstaglib"
+          xmlns:display="urn:jsptld:http://displaytag.sf.net"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+        >
+<pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
+<html lang="en">
+
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<jsp:scriptlet>
+    gs.web.util.PageHelper.setAdServerControlledFooterAd(request, true);
+</jsp:scriptlet>
+
+<head>
+
+<c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+<c:set var="sid" value="${school.id}"/>
+<c:set var="addr" value="${school.physicalAddress.city}, ${school.physicalAddress.state.longName} - ${stateAbbrev}" />
+<c:set var="pageName" value="Overview"/>
+<title>${school.name} - ${addr} - school overview</title>
+<meta name="description" content="An overview of ${school.name} located in ${addr}, including school test scores, student-teacher ratio, parent school reviews and teacher stats."/>
+
+</head>
+
+<gsml:body adPageName="overview" pageLayout="research">
+<school:profile school="${school}" tab="overview">
+
+</school:profile>
+<mod:tracking pageType="school"
+              pageName="${pageName}"
+              hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
+              school="${school}" />
+</gsml:body>
+</html>
+</jsp:root>

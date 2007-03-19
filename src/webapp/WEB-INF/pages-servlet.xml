@@ -954,6 +954,14 @@
         </property>
     </bean>
 
+    <bean name="/school/overview2.page"
+          class="gs.web.school.SchoolOverviewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>school/overview2</value>
+        </property>
+    </bean>
+
     <bean name="/community/mailToFriend.page"
           autowire="byName"
           class="gs.web.community.MailToFriendController" lazy-init="true">
