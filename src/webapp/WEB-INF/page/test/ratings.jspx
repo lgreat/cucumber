@@ -12,6 +12,7 @@
           xmlns:display="urn:jsptld:http://displaytag.sf.net"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
           xmlns:spring="http://www.springframework.org/tags"
 
@@ -62,6 +63,7 @@
 </c:if>
 
 
+<pageHelper:externalCss file="/res/css/content/research.css"/>
 <pageHelper:externalCss file="/res/css/school/ratings/ratings.css"/>
 <gsml:body adPageName="ratings" pageLayout="ratings">
 
@@ -77,9 +79,9 @@
         </spring:hasBindErrors>
 
         <c:if test="${hasError eq 'false'}">
-            <school:profile school="${school}" tab="ratings">
-                <div style="padding:10px 10px 0 14px;">
-                <div style="padding-top:15px;">
+            <school:profile school="${school}" tab="ratings" gs_rating="${overallRating}">
+                <div style="padding:0 10px 0 14px; clear: left;">
+                <div style="padding-top:8px;">
                     <div id="ratingContent">
                         <div class="ratingSummaryWrapper">
                             <div class="ratingSummaryContent">
@@ -111,6 +113,9 @@
                 </div>
             </school:profile>
         </c:if>
+
+    <content:editorialFooter/>
+
     <mod:tracking pageType="school"
                   pageName="Ratings"
                   hier1="School,Ratings"

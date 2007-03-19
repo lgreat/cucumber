@@ -11,6 +11,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:display="urn:jsptld:http://displaytag.sf.net"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
@@ -148,11 +149,150 @@ table.box_ad {
     border:none;
 }
 
+#school_info {
+    float:left;
+    width: 230px;
+    font-size: 11px;
+    padding: 0 0 4px 13px;
+    vertical-align: top;
+}
+
+ul#school_links {
+    width: 150px;
+    float:left;
+    padding:0 30px 0 20px;
+}
+
+#site_promo {
+    float:left;
+}
+
+#school_promo {
+    float:right;
+}
+
+div.boxBody {
+    padding:15px 10px 0 4px;
+    height:125px;
+}
+
+table.module1container {
+    float:left;
+}
+
+#schoolProfile #school_links li {
+    padding-bottom: 5px;
+    line-height: 125%;
+    list-style-image: url('http://www.greatschools.net/images/arrow_orange.gif');
+}
+
+#schoolProfile #school_links a {
+    color:#00F;
+}
+
+#schoolProfile #school_links a:hover {
+    color:#FF6600;
+}
+
+#schoolProfile #school_info address {
+    font-style: normal;
+    font-size: 11px;
+}
+
+/** Hacks for GS-3148 */
+#schoolProfile #bodyContents div#csrpromo { width:220px; }
+#schoolProfile #bodyContents div#csrpromo a{ text-decoration:none; }
+
 </style>
 </head>
 
 <gsml:body adPageName="overview" pageLayout="research">
 <school:profile school="${school}" tab="overview">
+
+<div class="boxBody">
+    <div id="school_info">
+        <c:choose>
+            <c:when test="${(not empty school.gradeLevels) and ('' ne school.gradeLevels) and ('ungraded' ne school.gradeLevels)}">
+                Grades: ${school.gradeLevels}<br/>
+            </c:when>
+            <c:otherwise>Grades: n/a<br/></c:otherwise>
+        </c:choose>
+
+        Type: ${school.type.schoolTypeName} <br/>
+        Enrollment:
+        <c:choose>
+            <c:when test="${(not empty school.enrollment) and (school.enrollment > 0) }">
+                ${school.enrollment}
+            </c:when>
+            <c:otherwise>
+                n/a
+            </c:otherwise>
+        </c:choose>
+        <br/>
+
+        <c:if test="${not empty school.physicalAddress}">
+            <address>
+                ${school.physicalAddress.street}<br/>
+                ${school.physicalAddress.city}, ${school.physicalAddress.state} ${school.physicalAddress.zip}<br/>
+                ${school.county} County
+            </address>
+        </c:if>
+
+        <c:if test="${not empty school.phone}">
+            Phone: ${school.phone}<br/>
+        </c:if>
+
+        <c:if test="${not empty school.fax}">
+            Fax: ${school.fax}<br/>
+        </c:if>
+
+        <c:if test="${not empty school.webSite}">
+            <c:choose>
+                <c:when test="${fn:startsWith(school.webSite,'http://')}">
+                    <a href="${school.webSite}" target="_blank">School Web site</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="http://${school.webSite}" target="_blank">School Web site</a>
+                </c:otherwise>
+            </c:choose>
+            <br/>
+        </c:if>
+    </div>
+
+    <ul id="school_links">
+        <c:if test="${school.type.schoolTypeName ne 'private'}">
+            <li>
+                <promo:mssHover referredBy="schoolProfile" school="${school}">Email updates<br/>
+                    about this school</promo:mssHover>
+            </li>
+            <li>
+                <link:schoolCompareSchool school="${school}">Compare this
+                    school</link:schoolCompareSchool>
+            </li>
+        </c:if>
+        <li><gsml:a href="/cgi-bin/msl_confirm/${state}/?add_ids=${school.id}">Add to My School List</gsml:a></li>
+        <li><link:schoolProfileAddParentReview school="${school}">Rate this
+            school</link:schoolProfileAddParentReview></li>
+
+        <c:if test="${not empty school.physicalAddress}">
+            <li>
+                <gsml:a href="http://maps.google.com/maps?oi=map&amp;q=${school.physicalAddress.street},${school.physicalAddress.city} ${school.physicalAddress.state}"
+                   target="_blank">Map</gsml:a>
+            </li>
+        </c:if>
+    </ul>
+
+    <div id="site_promo" class="noprint">
+        <ad:beta/>
+    </div>
+
+    <div id="school_promo" class="noprint">
+        <school:promo school="${school}"/>
+    </div>
+
+</div>
+
+
 <br/>
 <table class="module1container" border="0" cellpadding="5" cellspacing="7" width="100%">
 <tbody>

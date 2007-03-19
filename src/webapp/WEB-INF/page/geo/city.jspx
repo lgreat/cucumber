@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root
         xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-        xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns="http://www.w3.org/1999/xhtml"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         xmlns:fn="http://java.sun.com/jsp/jstl/functions"
@@ -10,6 +10,7 @@
         xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
         xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+        xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
@@ -34,6 +35,7 @@
 </head>
 
 <gsml:body adPageName="city" pageLayout="cityPage">
+<pageHelper:externalCss file="/res/css/content/research.css"/>
 <pageHelper:externalCss file="/res/css/geo/city.css"/>
 
 <div class="headerBox">
@@ -222,6 +224,8 @@
 </td>
 </tr>
 </table>
+
+<content:editorialFooter/>
 
 <mod:tracking pageName="city home"
               locale="${cityObject.name}"

@@ -3,20 +3,56 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-            xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
     <jsp:directive.tag body-content="scriptless"/>
     <jsp:directive.attribute name="referredBy" required="true" description="Omniture page name of page that this hover appears on"/>
     <jsp:directive.attribute name="autocheck" required="false" description="Optional pre-checked newsletter"/>
+    <jsp:directive.attribute name="isForm" required="false" description="Use Input form instead of link.  Only set this attribute if you want a form."/>
     <!--Make sure version numbers match those in Template.pm-->
     <pageHelper:externalCss file="/res/css/submodal/submodal.css?v=7"/>
     <pageHelper:externalJavascript file="/res/js/submodal/submodal.js?v=7"/>
-    <pageHelper:addOnLoadHandler handler="initPopUp('hoverNewsGn')"/>
+    <c:set var="hoverName" value="hoverNewsGn"/>
+    <gsml:url var="url" value="/community/newsletters/popup/newsletter.page"/>
 
-    <gsml:a href="/community/newsletters/popup/newsletter.page?referrer=${referredBy}${(not empty autocheck) ? '&amp;autocheck=' : ''}${autocheck}"
-            onClick="Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=480,height=500,left=50,top=50'); return false;"
-            styleClass="submodal-480-500">
-     <jsp:doBody/>
-    </gsml:a>
+    <c:choose>
+        <c:when test="${empty(isForm)}">
+            <pageHelper:addOnLoadHandler handler="initPopUp('${hoverName}')"/>
 
+            <gsml:a href="${url}?referrer=${referredBy}${(not empty autocheck) ? '&amp;autocheck=' : ''}${autocheck}"
+                    onClick="Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no, width=480,height=500,left=50,top=50'); return false;"
+                    styleClass="submodal-480-500">
+             <jsp:doBody/>
+            </gsml:a>
+        </c:when>
+        <c:otherwise>
+            <![CDATA[
+            <script type="text/javascript">
+            <!--
+                function passToHover(frm) {
+                   if (frm) {
+                        var url = frm.action + '?referrer=' + frm.referrer.value;
+                        if (frm.email.value != '' && frm.email.value != frm.defaultEmail.value) {
+                            url += '&email=' + frm.email.value;
+                        }
+                        if (frm.autocheck.value != '') {
+                            url += '&autocheck=' + frm.autocheck.value;
+                        }
+                        showPopWin(url,480,500,null,'${hoverName}');
+                   }
+                }
+            -->
+            </script>
+            ]]>
+            <form id="frmMssGn" name="frmMssGn"
+                action="${url}" method="get" onsubmit="passToHover(this);return false;">
+                <input class="enterEmail" name="email" size="40" type="text" value="Enter your email address"
+                       onfocus="if(this.value.indexOf('@')==-1){this.value='';}"/>
+                <input name="defaultEmail" type="hidden" value="Enter your email address" />
+                <input name="referrer" type="hidden" value="${referredBy}"/>
+                <input name="autocheck" type="hidden" value="${autocheck}"/>
+                <gsml:inputImage src="/res/img/school/tools_submit_go.gif" alt="GO" styleClass="go" />
+            </form>
+        </c:otherwise>
+    </c:choose>
 
 </jsp:root>

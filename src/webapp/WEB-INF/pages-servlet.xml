@@ -180,14 +180,6 @@
         </property>
     </bean>
 
-    <bean name="/school/authorizers2.page"
-          class="gs.web.school.AuthorizersController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>school/authorizers2</value>
-        </property>
-    </bean>
-
     <!-- Search begin -->
     <bean name="/search/search.page"
           class="gs.web.search.SearchController"
@@ -931,21 +923,6 @@
         </property>
     </bean>
 
-    <!-- GS-3142 temporary location for ratings page that displays new school profile header -->
-    <bean name="/school/rating3.page"
-          class="gs.web.test.rating.RatingsController"
-          autowire="byName" lazy-init="true">
-        <property name="commandName" value="ratingsCmd"/>
-        <property name="commandClass" value="gs.web.test.rating.RatingsCommand"/>
-        <property name="viewName" value="test/ratings2"/>
-        <property name="onLoadValidators">
-            <list>
-                <ref bean="stateValidator"/>
-                <ref bean="schoolIdValidator"/>
-            </list>
-        </property>
-    </bean>
-
     <bean name="/school/rating2.page"
           class="gs.web.test.rating.RatingsController"
           autowire="byName" lazy-init="true">
@@ -974,15 +951,6 @@
           autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>school/overview</value>
-        </property>
-    </bean>
-
-    <!-- GS-3142 temporary location for overview page that displays new school profile header -->
-    <bean name="/school/overview2.page"
-          class="gs.web.school.SchoolOverviewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>school/overview2</value>
         </property>
     </bean>
 
