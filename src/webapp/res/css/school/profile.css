@@ -159,7 +159,7 @@ School Profile header
 	border-right: 1px solid #ccc;
 }
 
-a.parent_rating {
+a.parent_rating, span.parent_rating {
 	width: 99px;
 	height: 25px;
 	margin: 0;
