@@ -137,7 +137,7 @@ School Profile header
     _margin: 10px 0 8px 12px;
 }
 
-#schoolProfile.overview h1 { /* makes the school name larger, centers it vertically */
+#schoolProfile.overview #schoolProfileHeader h1 { /* makes the school name larger, centers it vertically */
 	font: bold 26px Trebuchet MS, Arial, sans-serif;
 	color: #5bc;
 }
