@@ -127,7 +127,7 @@ School Profile header
     _margin: 0 0 0 12px;
 }
 
-#schoolProfile h1 {
+#schoolProfile #schoolProfileHeader h1 {
     font: bold 24px Trebuchet MS, Arial, sans-serif;
     color: #5bc;
 }
