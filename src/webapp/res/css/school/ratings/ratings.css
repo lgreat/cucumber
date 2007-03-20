@@ -1,3 +1,6 @@
+#bodyContents {
+    padding-top:30px;
+}
 #schoolProfile .ratingSummaryWrapper {
     border-bottom: 1px solid #ddd;
     padding: 10px 0 19px 0;
@@ -7,6 +10,7 @@
 #schoolProfile .ratingSummaryContent {
     font-family: "Trebuchet MS", Arial, sans-serif;
     margin: 0 0 0 0;
+    height:121px;
 }
 
 #schoolProfile .ratingSummaryContent h2 {
@@ -37,42 +41,6 @@
     margin-top: 3px;
 }
 
-
-#schoolProfile #moreResources {
-    border-bottom: dashed 1px #ccc;
-    padding-bottom: 20px;
-}
-
-#schoolProfile #moreResources h2 {
-    text-indent: -5000px;
-    background: url( "../../../img/content/moreResources.gif" ) no-repeat;
-    width: 300px;
-    height: 26px;
-}
-
-#schoolProfile #moreResources ul {
-    list-style-type: none;
-    padding: 20px 0 0 20px;
-}
-
-#schoolProfile #moreResources li {
-    background: url( "../../../img/bullet/ffba00_bullet.gif" ) no-repeat 0 20%;
-    padding-left: 10px;
-    padding-bottom: 10px;
-    line-height: 100%;
-    color: #3399aa;
-    font-weight: bold;
-}
-
-#moreResources li a {
-    text-decoration: none;
-    color: #3399aa;
-}
-
-#moreResources li a:hover {
-    text-decoration: underline;
-}
-
 #schoolProfile #ratingContent {
     float: left;
     width: 505px;
@@ -84,6 +52,9 @@
     width: 380px;
 }
 
+#adx11 {
+    padding-bottom:30px;
+}
 #adx48 {
     padding-bottom: 30px;
 }

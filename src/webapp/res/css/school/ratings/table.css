@@ -1,4 +1,4 @@
-#rating {
+.rating {
     border-left: 2px solid #deeeee;
     border-right: 2px solid #deeeee;
     border-bottom: 2px solid #deeeee;
@@ -10,11 +10,11 @@
     font-weight:100;
 }
 
-#rating th.col1 {
+.rating th.col1 {
     padding-left: 40px;
 }
 
-#rating th {
+.rating th {
     padding-top: 5px;
     padding-bottom: 5px;
     border-collapse: collapse;
@@ -24,17 +24,17 @@
     line-height: 13px;
 }
 
-#rating td.col1 {
+.rating td.col1 {
     padding-left: 40px;
 }
 
-#rating td {
+.rating td {
     padding-top: 5px;
     padding-bottom: 5px;
     text-align:center;
 }
 
-#rating td.rowgroup {
+.rating td.rowgroup {
     padding: 20px 0 0 0;
     font-weight: bold;
     color: #777777;
@@ -42,21 +42,21 @@
 
 }
 
-#rating td.row {
+.rating td.row {
     text-align:left;
 }
 
-#rating td.rowgroup div {
+.rating td.rowgroup div {
     margin: 0 15px 0 15px;
     padding: 4px 30px 4px 30px;
     background-color: #dddddd;
     display:block;
 }
 
-td#footerPadding {
+td.footerPadding {
     padding:0 10px 0 10px;
 }
 
-td#footerPadding div {
-    margin: 30px 0 25px 0;
+td.footerPadding div {
+    margin: 14px 0 10px 0;
 }
