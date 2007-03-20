@@ -345,6 +345,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 #schoolProfile #bodyContents {
     font-size:12px;
     text-align:left;
+    clear: both;
 }
 
 #schoolProfile #bodyContents h1{

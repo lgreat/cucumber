@@ -290,7 +290,6 @@
         </ul>
     </div>
     <!-- end: subnav -->
-    <br style="clear:both"/>
     <div id="bodyContents">
         <jsp:doBody/>
     </div>
