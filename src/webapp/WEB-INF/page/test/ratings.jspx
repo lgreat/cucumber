@@ -95,7 +95,9 @@
                                             schools in the state.
                                         </p>
                                         <p><gsml:a href="/issues/$LCSTATE/ratings.html" onClick="issues();" target="issues">What our ratings tell you &gt;</gsml:a></p>
-                                        <p><link:schoolProfileTestscore school="${school}">See this school's test results &gt;</link:schoolProfileTestscore></p>
+                                        <c:if test="${hasRating == 'true'}">
+                                            <p><link:schoolProfileTestscore school="${school}">See this school's test results &gt;</link:schoolProfileTestscore></p>
+                                        </c:if>
                                     </div>
                                 </div>
                                 <c:if test="${hasRating == 'true'}">
