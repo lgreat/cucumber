@@ -5,15 +5,26 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsweb="gstaglib"
           xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           version="2.0">
 
 <jsp:directive.attribute name="topPadding" type="java.lang.Integer"
-                         description="Pixel padding on top of footer" required="false"/>
+                         description="Pixel padding above footer" required="false"/>
+<jsp:directive.attribute name="bottomPadding" type="java.lang.Integer"
+                         description="Pixel padding below footer" required="false"/>
+
+<pageHelper:externalCss file="/res/css/content/editorialFooter.css"/>
 
 <c:if test="${topPadding eq null or topPadding eq ''}">
+    <!-- default value, use attribute to override -->
     <c:set var="topPadding" value="50"/>
 </c:if>
+<c:if test="${bottomPadding eq null or bottomPadding eq ''}">
+    <!-- default value, use attribute to override -->
+    <c:set var="bottomPadding" value="50"/>
+</c:if>
 
+<div id="editorialFooter" style="margin: 0; padding: 0;">
 <img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="600" height="${topPadding}" border="0" alt=""/>
 <table cellspacing="0" cellpadding="0" class="content" border="0">
     <tr>
@@ -247,5 +258,6 @@
                                                height="1" alt="" border="0"/></td>
     </tr>
 </table>
-<img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="600" height="50" border="0" alt=""/>
+<img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="600" height="${bottomPadding}" border="0" alt=""/>
+</div>
 </jsp:root>

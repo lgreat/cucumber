@@ -35,7 +35,6 @@
 </head>
 
 <gsml:body adPageName="city" pageLayout="cityPage">
-<pageHelper:externalCss file="/res/css/content/research.css"/>
 <pageHelper:externalCss file="/res/css/geo/city.css"/>
 
 <div class="headerBox">

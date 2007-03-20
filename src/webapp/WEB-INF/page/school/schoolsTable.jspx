@@ -139,7 +139,6 @@
     ]]>
     </c:if>
 
-    <pageHelper:externalCss file="/res/css/content/research.css"/>
 </head>
 
 <gsml:body adPageName="search">

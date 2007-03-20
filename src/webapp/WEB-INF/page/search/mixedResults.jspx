@@ -24,7 +24,6 @@
     <title>
         <c:out value="${title}" escapeXml="false"/>
     </title>
-    <pageHelper:externalCss file="/res/css/content/research.css"/>
 </head>
 
 <gsml:body adPageName="search">

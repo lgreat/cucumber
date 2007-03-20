@@ -63,7 +63,6 @@
 </c:if>
 
 
-<pageHelper:externalCss file="/res/css/content/research.css"/>
 <pageHelper:externalCss file="/res/css/school/ratings/ratings.css"/>
 <gsml:body adPageName="ratings" pageLayout="ratings">
 
@@ -114,7 +113,7 @@
             </school:profile>
         </c:if>
 
-    <content:editorialFooter/>
+    <content:editorialFooter topPadding="25"/>
 
     <mod:tracking pageType="school"
                   pageName="Ratings"
