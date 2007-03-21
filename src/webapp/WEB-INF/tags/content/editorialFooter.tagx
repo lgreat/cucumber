@@ -17,11 +17,11 @@
 
 <c:if test="${topPadding eq null or topPadding eq ''}">
     <!-- default value, use attribute to override -->
-    <c:set var="topPadding" value="50"/>
+    <c:set var="topPadding" value="25"/>
 </c:if>
 <c:if test="${bottomPadding eq null or bottomPadding eq ''}">
     <!-- default value, use attribute to override -->
-    <c:set var="bottomPadding" value="50"/>
+    <c:set var="bottomPadding" value="25"/>
 </c:if>
 
 <div id="editorialFooter" style="margin: 0; padding: 0;">
