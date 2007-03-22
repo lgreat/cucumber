@@ -224,11 +224,13 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 	background: url(../../img/school/border_dotted.gif) repeat-y right; /* creates dotted border, necessary for consistency in IE 6 */
 }
 
-#navigation td a {
+#navigation td a { /* Has IE 7 equivalent */
 	color: #fff;
-    height: 27px;
-	display: block;
-	padding: 3px 20px 0 20px;
+    height: 28px;
+    _height: 27px;
+    display: block;
+	padding: 2px 20px 0 20px;
+    _padding: 3px 20px 0 20px;
 }
 
 #navigation td a:hover {
