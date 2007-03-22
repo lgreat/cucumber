@@ -22,7 +22,7 @@
     <table class="rating">
         <thead>
             <tr>
-                <th scope="col" style="width:55%;" class="header col1">By Grade</th>
+                <th scope="col" style="width:55%;" class="header col1">BY GRADE</th>
 
                 <c:forEach var="subject" items="${ratingsDisplay.subjectGroupLabels}">
                     <th scope="col" style="text-align:center;" class="header col2">${subject}</th>
@@ -60,7 +60,7 @@
         <table class="rating">
             <thead>
                 <tr>
-                    <th scope="col" style="width:55%;" class="header col1">By Category</th>
+                    <th scope="col" style="width:55%;" class="header col1">BY CATEGORY</th>
 
                     <c:forEach var="subject" items="${ratingsDisplay.subjectGroupLabels}">
                         <th scope="col" style="text-align:center;" class="header col2">${subject}</th>
