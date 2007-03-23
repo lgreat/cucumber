@@ -1,21 +1,21 @@
 package gs.web.util.context;
 
 import gs.data.admin.IPropertyDao;
-import gs.data.state.State;
-import gs.data.state.StateManager;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.state.State;
+import gs.data.state.StateManager;
 import gs.data.util.DigestUtil;
 import gs.web.BaseTestCase;
 import gs.web.GsMockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.web.util.CookieGenerator;
-import org.springframework.orm.ObjectRetrievalFailureException;
 import org.easymock.MockControl;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.web.util.CookieGenerator;
 
 import javax.servlet.http.Cookie;
-import java.util.Date;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 /**
  * Tests for the SessionContext object
@@ -170,6 +170,14 @@ public class SessionContextTest extends BaseTestCase {
         assertEquals("framed.greatschools.net", _sessionContext.getHostName());
         assertTrue(_sessionContext.isCobranded());
         assertEquals("framed", _sessionContext.getCobrand());
+    }
+
+    public void testPassWWWParamToUnsetCobrand() {
+        // Try developer workstation scenario
+        _request.setServerName("desktop-60.greatschools.net");
+        _request.setParameter("cobrand", "www");
+        _sessionContextUtil.updateFromParams(_request, _response, _sessionContext);
+        assertFalse(_sessionContext.isCobranded());
     }
 
     public void testHostCobrandUrlOnDevSite() {

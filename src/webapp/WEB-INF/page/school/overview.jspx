@@ -198,7 +198,9 @@ table.module1container {
     font-style: normal;
     font-size: 11px;
 }
-
+#schoolProfile .breadcrumb {
+    padding-left: 16px;
+}
 /** Hacks for GS-3148 */
 #schoolProfile #bodyContents div#csrpromo { width:220px; }
 #schoolProfile #bodyContents div#csrpromo a{ text-decoration:none; }

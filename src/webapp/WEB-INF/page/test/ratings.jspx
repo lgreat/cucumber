@@ -106,10 +106,13 @@
                             </div>
                         </td>
                         <td valign="top" style="border-left:1px solid #ccc;padding-right:12px;"><br/></td>
-                        <td valign="top" align="right" width="300">
+                        <td valign="top" align="right" width="300" style="padding:0;margin:0;">
+                            test
+                            <div style="width:300px;text-align:right;">
                             <ad:x11/>
                             <ad:x48/>
                             <ad:multiTextAd blurb="Advertiser links"/>
+                            </div>
                         </td>
                     </tr>
                 </table>

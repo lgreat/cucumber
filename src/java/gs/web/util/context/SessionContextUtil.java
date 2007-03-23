@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.12 2007/02/01 23:59:04 chriskimm Exp $
+ * $Id: SessionContextUtil.java,v 1.13 2007/03/23 21:09:33 dlee Exp $
  */
 
 package gs.web.util.context;
@@ -189,10 +189,12 @@ public class SessionContextUtil implements ApplicationContextAware {
         String hostName = StringUtils.isEmpty(paramHost) ? request.getServerName() : paramHost;
 
         // Determine if this is a cobrand
-        String cobrand;
+        String cobrand = null;
         String paramCobrand = request.getParameter(COBRAND_PARAM);
         if (StringUtils.isNotEmpty(paramCobrand)) {
-            cobrand = paramCobrand;
+            if (!paramCobrand.equalsIgnoreCase("www")) {
+                cobrand = paramCobrand;
+            }
         } else {
             cobrand = _urlUtil.cobrandFromUrl(hostName);
         }
