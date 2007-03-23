@@ -3,12 +3,6 @@
 School Profile header
 
 -------------------------------------------------------*/
-
-
-#schoolProfile #bodyContents {
-    _width: 99%; /* IE 6 hack see GS-3142 */
-}
-
 #schoolProfileHeader { /* Has IE 7 equivalent */
 	width: 860px;
     /*height: 92px; */
@@ -368,7 +362,6 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     color: #3399aa;
     font-size: 12px;
     font-weight: normal;
-    padding:0 10px 0 16px;
 }
 
 #schoolProfile .breadcrumb a {

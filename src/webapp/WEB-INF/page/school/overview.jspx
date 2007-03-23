@@ -201,6 +201,10 @@ table.module1container {
 #schoolProfile .breadcrumb {
     padding-left: 16px;
 }
+
+#schoolProfile #bodyContents {
+    _width: 99%;
+}
 /** Hacks for GS-3148 */
 #schoolProfile #bodyContents div#csrpromo { width:220px; }
 #schoolProfile #bodyContents div#csrpromo a{ text-decoration:none; }
