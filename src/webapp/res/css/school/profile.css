@@ -373,3 +373,46 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     display: block;
     border-top: 1px solid #ccc;
 }
+
+/***************************
+ * P R I N T   S T Y L E S *
+ ***************************/
+
+@media print {
+    .search, #adLeaderboard, #footer, .noprint  { 
+        display:none;
+    }
+    .wrap0  {
+        width:75%;
+        background:white;
+    }
+    body, body.unframed #pageGS {
+        background-color: #fff;
+        border: 0 solid   #fff;
+    }
+
+    #schoolProfile #bodyContents {
+        width: 80%;
+    }
+
+    #schoolProfile {
+        width: 80%;
+    }
+    #schoolProfileHeader {
+        border: 0 solid #fff;
+        width: 85%;
+    }
+    #schoolProfile #navigation {
+        display: none;
+        width: 70%;
+    }
+    #schoolProfile #subnav {
+        display: none;
+    }
+    #schoolProfileHeader #tools {
+        display: none;
+    }
+    #editorialFooter {
+        display: none;
+    }
+}
