@@ -43,7 +43,9 @@
 
 #schoolProfile #ratingContent {
     float: left;
-    width: 532px;
+    width: 540px;
+    border-right:1px solid #ccc;
+    padding-right:10px;   
 }
 
 .framed #schoolProfile #ratingContent {
@@ -60,4 +62,9 @@
 
 .multiTextAd {
     margin: 20px 0 0 0;
+}
+
+#promoContent {
+    float:right;
+    width:300px;
 }

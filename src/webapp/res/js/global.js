@@ -2,7 +2,7 @@
 Copyright (c) 2006 GreatSchools.net
 All Rights Reserved.
 
-$Id: global.js,v 1.15 2006/09/20 21:08:00 apeterson Exp $
+$Id: global.js,v 1.16 2007/03/23 23:19:10 dlee Exp $
 */
 
 /*
@@ -183,5 +183,34 @@ function checkSearchStateSelected(theForm, selectorId) {
     }
     return returnVal;
 }
+
+//http://www.thewatchmakerproject.com/journal/308/equal-height-boxes-with-javascript
+var BoxHeights = {
+	maxh: 0,
+	boxes: Array(),
+	num: 0,
+	equalise: function() {
+		this.num = arguments.length;
+		for (var i=0;i<this.num;i++) if (!document.getElementById(arguments[i])) return;
+		this.boxes = arguments;
+		this.maxheight();
+		for (var i=0;i<this.num;i++) document.getElementById(arguments[i]).style.height = this.maxh+"px";
+	},
+	maxheight: function() {
+		var heights = new Array();
+		for (var i=0;i<this.num;i++) {
+			if (navigator.userAgent.toLowerCase().indexOf('opera') == -1) {
+				heights.push(document.getElementById(this.boxes[i]).scrollHeight);
+			} else {
+				heights.push(document.getElementById(this.boxes[i]).offsetHeight);
+			}
+		}
+		heights.sort(this.sortNumeric);
+		this.maxh = heights[this.num-1];
+	},
+	sortNumeric: function(f,s) {
+		return f-s;
+	}
+};
 
 

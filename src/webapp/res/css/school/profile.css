@@ -362,6 +362,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     color: #3399aa;
     font-size: 12px;
     font-weight: normal;
+    padding-top:10px;
 }
 
 #schoolProfile .breadcrumb a {
@@ -379,7 +380,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
  ***************************/
 
 @media print {
-    .search, #adLeaderboard, #footer, .noprint  { 
+    .search, #adLeaderboard, #footer, .noprint  {
         display:none;
     }
     .wrap0  {

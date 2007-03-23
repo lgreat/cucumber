@@ -65,7 +65,6 @@
 
 <pageHelper:externalCss file="/res/css/school/ratings/ratings.css"/>
 <gsml:body adPageName="ratings" pageLayout="ratings">
-
         <spring:hasBindErrors name="ratingsCmd">
             <c:set var="hasError" value="true"/>
             <ul>
@@ -79,40 +78,34 @@
 
         <c:if test="${hasError eq 'false'}">
             <school:profile school="${school}" tab="ratings" gs_rating="${overallRating}">
-                <table cellspacing="0" cellpadding="0" width="100%" border="0">
-                    <tr>
-                        <td valign="top">
-                            <div id="ratingContent">
-                                <div class="ratingSummaryWrapper">
-                                    <div class="ratingSummaryContent">
-                                        <gsml:img src="${ratingImagePath}" alt="${imageDesc}" style="float:left;padding-right:12px;"/>
+                <gsml:equalizeColumns ids="'ratingContent','promoContent'"/>
+                <div id="ratingContent">
+                    <div class="ratingSummaryWrapper">
+                        <div class="ratingSummaryContent">
+                            <gsml:img src="${ratingImagePath}" alt="${imageDesc}" style="float:left;padding-right:12px;"/>
 
-                                        <h2>About GreatSchools Ratings:</h2>
-                                        <p>
-                                            Our ratings give an overview of this<br/>
-                                            school's test results. They are based<br/>
-                                            on a comparison of test results for all<br/>
-                                            schools in the state.
-                                        </p>
-                                        <p><gsml:a href="/issues/$LCSTATE/ratings.html" onClick="issues();" target="issues">What our ratings tell you &gt;</gsml:a></p>
-                                        <c:if test="${hasRating == 'true'}">
-                                            <p><link:schoolProfileTestscore school="${school}">See this school's test results &gt;</link:schoolProfileTestscore></p>
-                                        </c:if>
-                                    </div>
-                                </div>
-                                <c:if test="${hasRating == 'true'}">
-                                    <ratings:table ratingsDisplay="${ratingsDisplay}"/>
-                                </c:if>
-                            </div>
-                        </td>
-                        <td valign="top" style="border-left:1px solid #ccc;padding-right:12px;"><br/></td>
-                        <td valign="top" align="right" width="300">   
-                            <ad:x11/>
-                            <ad:x48/>
-                            <ad:multiTextAd blurb="Advertiser links"/>
-                        </td>
-                    </tr>
-                </table>
+                            <h2>About GreatSchools Ratings:</h2>
+                            <p>
+                                Our ratings give an overview of this<br/>
+                                school's test results. They are based<br/>
+                                on a comparison of test results for all<br/>
+                                schools in the state.
+                            </p>
+                            <p><gsml:a href="/issues/$LCSTATE/ratings.html" onClick="issues();" target="issues">What our ratings tell you &gt;</gsml:a></p>
+                            <c:if test="${hasRating == 'true'}">
+                                <p><link:schoolProfileTestscore school="${school}">See this school's test results &gt;</link:schoolProfileTestscore></p>
+                            </c:if>
+                        </div>
+                    </div>
+                    <c:if test="${hasRating == 'true'}">
+                        <ratings:table ratingsDisplay="${ratingsDisplay}"/>
+                    </c:if>
+                </div>
+                <div id="promoContent">
+                    <ad:x11/>
+                    <ad:x48/>
+                    <ad:multiTextAd blurb="Advertiser links"/>
+                </div>
             </school:profile>
         </c:if>
 
