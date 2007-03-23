@@ -1,5 +1,5 @@
 #bodyContents {
-    padding-top:30px;
+    padding-top:16px;
 }
 #schoolProfile .ratingSummaryWrapper {
     border-bottom: 1px solid #ddd;
@@ -44,7 +44,6 @@
 #schoolProfile #ratingContent {
     float: left;
     width: 532px;
-    padding-bottom: 33px;
 }
 
 .framed #schoolProfile #ratingContent {
