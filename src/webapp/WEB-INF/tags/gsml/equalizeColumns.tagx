@@ -7,7 +7,7 @@
                        description="Call javascript to equalize columns."/>
     <jsp:directive.attribute name="ids" required="true" description="comma separated list of ids to equalize. Ids need to be wrapped in single quote."/>
     <jsp:scriptlet>
-        String functionCall = "BoxHeights.equalise(" + ids + ")";
+        String functionCall = "BoxHeights.equalize(" + ids + ")";
         //call relocate deferred content first so that deferred items will be used in any height calculations.
         gs.web.util.PageHelper.addOnLoadHandler(request, "relocateDeferredContent()");
         gs.web.util.PageHelper.addOnLoadHandler(request, functionCall);

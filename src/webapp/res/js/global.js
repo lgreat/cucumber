@@ -2,7 +2,7 @@
 Copyright (c) 2006 GreatSchools.net
 All Rights Reserved.
 
-$Id: global.js,v 1.16 2007/03/23 23:19:10 dlee Exp $
+$Id: global.js,v 1.17 2007/03/26 19:51:30 dlee Exp $
 */
 
 /*
@@ -184,32 +184,26 @@ function checkSearchStateSelected(theForm, selectorId) {
     return returnVal;
 }
 
-//http://www.thewatchmakerproject.com/journal/308/equal-height-boxes-with-javascript
+//inspired by http://www.thewatchmakerproject.com/journal/308/equal-height-boxes-with-javascript
 var BoxHeights = {
-	maxh: 0,
-	boxes: Array(),
-	num: 0,
-	equalise: function() {
-		this.num = arguments.length;
-		for (var i=0;i<this.num;i++) if (!document.getElementById(arguments[i])) return;
-		this.boxes = arguments;
-		this.maxheight();
-		for (var i=0;i<this.num;i++) document.getElementById(arguments[i]).style.height = this.maxh+"px";
-	},
-	maxheight: function() {
-		var heights = new Array();
-		for (var i=0;i<this.num;i++) {
-			if (navigator.userAgent.toLowerCase().indexOf('opera') == -1) {
-				heights.push(document.getElementById(this.boxes[i]).scrollHeight);
-			} else {
-				heights.push(document.getElementById(this.boxes[i]).offsetHeight);
-			}
-		}
-		heights.sort(this.sortNumeric);
-		this.maxh = heights[this.num-1];
-	},
-	sortNumeric: function(f,s) {
-		return f-s;
+	equalize: function() {
+        var maxH = 0;
+        var numCols = arguments.length;
+        var column = new Array();
+
+        for (var i=0;i<numCols;i++) {
+            var id = document.getElementById(arguments[i]);
+            if (id) {
+                column.push(id);
+                var curHeight = 0;
+                curHeight = (navigator.userAgent.toLowerCase().indexOf('opera') == -1) ? id.scrollHeight : id.offsetHeight;
+                if (curHeight > maxH) maxH = curHeight;
+            } else {
+                return;  //early exit.
+            }
+        }
+        numCols = column.length;
+        for (var i=0;i<numCols;i++) column[i].style.height = maxH+"px";
 	}
 };
 
