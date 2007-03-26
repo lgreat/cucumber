@@ -393,24 +393,14 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     }
 
     #schoolProfile #bodyContents {
-        width: 80%;
     }
 
     #schoolProfile {
-        width: 80%;
     }
     #schoolProfileHeader {
         border: 0 solid #fff;
-        width: 85%;
     }
-    #schoolProfile #navigation {
-        display: none;
-        width: 70%;
-    }
-    #schoolProfile #subnav {
-        display: none;
-    }
-    #schoolProfileHeader #tools {
+    #schoolProfile #navigation, #schoolProfile #subnav, #schoolProfileHeader #tools {
         display: none;
     }
     #editorialFooter {
