@@ -400,6 +400,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     }
     #schoolProfileHeader {
         border: 0 solid #fff;
+        float: none; /* Fix Firefox bug where print truncates after first page, see GS-3241 */
     }
     #schoolProfile #navigation, #schoolProfile #subnav, #schoolProfileHeader #tools {
         display: none;
