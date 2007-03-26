@@ -124,20 +124,7 @@
 		<!-- begin center column -->
 
         <div id="col_center">
-            <div id="ratingsBoth"><!-- use ID "ratingsBoth when both ratings are present -->
-                <h2>Great Schools Rating | Parent Rating</h2>
-                <div id="rating_gs">
-                    <a href="" title=""><img src="/res/img/school/overview/rating_GS_2.gif" alt="GreatSchools Rating 2 out of 10" /></a>
-                    <p><a href="" title="">view all &#62;</a></p>
-                </div><!-- end: rating_gs -->
-
-                <div id="rating_parent">
-                    <img src="/res/img/school/overview/rating_OverallParentRating.gif" alt="Overall Parent Rating" class="parentTitle" />
-                    <img src="/res/img/school/overview/stars_2.gif" alt="2 out of 5 stars" class="stars" />
-                    <a href="" title=""><img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" class="rateIt" /></a>
-                    <p><a href="" title="">view all &#62;</a></p>
-                </div><!-- end: rating_parent -->
-            </div><!-- end: ratings -->
+            <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_rating}"/>
 
             <div id="parentReviews">
                 <h2>Latest Parent Reviews</h2>
@@ -202,7 +189,7 @@
 
 		<!--<div style="clear:both;">&#32;</div>--><!-- corrects float issue in IE 6 -->
         <br style="clear:both;" />
-            
+
         </div><!-- end: compareSchool -->
 
 		</div><!-- end: col_center -->
