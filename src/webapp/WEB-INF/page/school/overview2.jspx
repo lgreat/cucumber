@@ -88,7 +88,7 @@
 
 		<div id="editor">
 
-		<img src="/res/img/school/overview/mug_Rosenthal-Lisa.jpg" alt="Lisa Rosenthal: Editor, GreatSchools" />
+		<gsml:img src="/res/img/school/overview/mug_Rosenthal-Lisa.jpg" alt="Lisa Rosenthal: Editor, GreatSchools" />
 
 		<p class="name">Lisa Rosenthal</p>
 		<p class="title">Editor, GreatSchools</p>
@@ -128,7 +128,7 @@
 
             <div id="parentReviews">
                 <h2>Latest Parent Reviews</h2>
-                <img src="/res/img/school/overview/rating_latestParent_3.gif" alt="" class="rating" />
+                <gsml:img src="/res/img/school/overview/rating_latestParent_3.gif" alt="" styleClass="rating" />
                 <p class="callout">Parents at this school think <em>teacher quality is above average</em>
                     <a href="" title="">Learn more &#62;</a></p>
                 <p>Sheridan is a wonderful school and has a large focus on ethnic diversity. The teachers are the most...
@@ -141,25 +141,25 @@
 
 		<h2>Learn About This School</h2>
 
-		<a href="" title=""><img src="/res/img/school/overview/learn_TestScores.gif" alt="Clover Avenue Elementary School 2005-2006 Test Scores" /></a>
+		<a href="" title=""><gsml:img src="/res/img/school/overview/learn_TestScores.gif" alt="Clover Avenue Elementary School 2005-2006 Test Scores" /></a>
 		<p>Clover Avenue Elementary School test scores</p>
 
-		<a href="" title=""><img src="/res/img/school/overview/learn_APExams.gif" alt="Clover Avenue Elementary School AP Exams" /></a>
+		<a href="" title=""><gsml:img src="/res/img/school/overview/learn_APExams.gif" alt="Clover Avenue Elementary School AP Exams" /></a>
 		<p>Clover Avenue Elementary School AP exams</p>
 
-		<a href="" title=""><img src="/res/img/school/overview/learn_TeacherStats.gif" alt="Clover Avenue Elementary School Teacher Stats" /></a>
+		<a href="" title=""><gsml:img src="/res/img/school/overview/learn_TeacherStats.gif" alt="Clover Avenue Elementary School Teacher Stats" /></a>
 		<p>Clover Avenue Elementary School teachers</p>
 
-		<a href="" title=""><img src="/res/img/school/overview/learn_SchoolFinance.gif" alt="Clover Avenue Elementary School School Finance" /></a>
+		<a href="" title=""><gsml:img src="/res/img/school/overview/learn_SchoolFinance.gif" alt="Clover Avenue Elementary School School Finance" /></a>
 		<p>Clover Avenue Elementary School statistics</p>
 
-		<a href="" title=""><img src="/res/img/school/overview/learn_SchoolsView.gif" alt="Clover Avenue Elementary School The School's View" /></a>
+		<a href="" title=""><gsml:img src="/res/img/school/overview/learn_SchoolsView.gif" alt="Clover Avenue Elementary School The School's View" /></a>
 		<p>Clover Avenue Elementary School statistics</p>
 
-		<a href="" title=""><img src="/res/img/school/overview/learn_StudentStats.gif" alt="Clover Avenue Elementary School Student Stats" /></a>
+		<a href="" title=""><gsml:img src="/res/img/school/overview/learn_StudentStats.gif" alt="Clover Avenue Elementary School Student Stats" /></a>
 		<p>Clover Avenue Elementary School statistics</p>
 
-		<a href="" title=""><img src="/res/img/school/overview/learn_PerformanceOverTime.gif" alt="Clover Avenue Elementary School Performance Over Time" /></a>
+		<a href="" title=""><gsml:img src="/res/img/school/overview/learn_PerformanceOverTime.gif" alt="Clover Avenue Elementary School Performance Over Time" /></a>
 		<!-- add class="last" to final paragraph to remove the dotted divider -->
 		<p class="last">Clover Avenue Elementary School statistics</p>
 
@@ -171,7 +171,7 @@
 
 		<h2>Compare This School To</h2>
 
-		<img src="/res/img/school/overview/compare_magnify.jpg" alt="" />
+		<gsml:img src="/res/img/school/overview/compare_magnify.jpg" alt="" />
 
 		<form action="">
 
@@ -196,12 +196,12 @@
 
 		<!-- begin right column -->
         <div id="col_right">
-            <a href="" title=""><img src="/res/img/school/overview/promotion.jpg" alt="School Choice Tips: Choose a great school for your family" class="promotion" /></a>
-            <a href="" title=""><img src="/res/img/school/overview/ad.jpg" alt="" class="ad" /></a>
+            <a href="" title=""><gsml:img src="/res/img/school/overview/promotion.jpg" alt="School Choice Tips: Choose a great school for your family" styleClass="promotion" /></a>
+            <a href="" title=""><gsml:img src="/res/img/school/overview/ad.jpg" alt="" styleClass="ad" /></a>
             <div id="nearbySchools">
                 <h2>Top-Rated Public Schools Near Clover Avenue Elementary School</h2>
                 <!-- Google Map API code goes here, remove temp image -->
-                <div id="map"><img src="/res/img/school/overview/GoogleMap_temp.gif" alt="" /></div>
+                <div id="map"><gsml:img src="/res/img/school/overview/GoogleMap_temp.gif" alt="" /></div>
                 <p class="head_top">Top-Rated Public School</p>
                 <p class="head_rating">GreatSchools Rating</p>
 
