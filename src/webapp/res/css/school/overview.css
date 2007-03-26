@@ -8,8 +8,8 @@ School Overview
 
 
 #schoolOverview {
-	width: 860px;
-	_width: 863px; /* IE 6 hack */
+	width: 864px;
+	_width: 866px; /* IE 6 hack */
 	float: left;
 	margin: 14px 0 30px 0; /* bottom margin is arbitrary and can be changed once code is implemented */
 }
@@ -40,8 +40,8 @@ hr { /* has IE 7 equivalent */
 
 #col_left {
 	width: 173px;
-	margin: 0 10px 0 0;
-	_margin: 0 7px 0 0; /* IE 6 hack */
+	margin: 0 14px 0 0;
+	_margin: 0 10px 0 0; /* IE 6 hack */
 	float: left;
 }
 
@@ -71,7 +71,7 @@ hr { /* has IE 7 equivalent */
 }
 
 #quickFacts h2 {
-	background: url(../img/header_QuickFacts.gif) no-repeat 10px 6px #dee;
+	background: url(/res/img/school/overview/header_QuickFacts.gif) no-repeat 10px 6px #dee;
 	width: 173px;
 	height: 27px;
 	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
@@ -95,7 +95,7 @@ hr { /* has IE 7 equivalent */
 #quickFacts ul li {
 	font: 12px/15px Trebuchet MS, sans-serif;
 	color: #666;
-	background: url(../img/li_yellow-triangle.gif) no-repeat left 2px;
+	background: url(/res/img/school/overview/li_yellow-triangle.gif) no-repeat left 2px;
 	list-style: none;
 	margin: 0 0 4px 0;
 	padding: 0 0 0 10px;
@@ -169,7 +169,7 @@ hr { /* has IE 7 equivalent */
 }
 
 #bigPicture h2 {
-	background: url(../img/header_BigPicture.gif) no-repeat 10px 6px #dee;
+	background: url(/res/img/school/overview/header_BigPicture.gif) no-repeat 10px 6px #dee;
 	width: 173px;
 	height: 27px;
 	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
@@ -194,59 +194,174 @@ hr { /* has IE 7 equivalent */
 /* Ratings
 ----------------------------------*/
 
-#ratingsBox { /* named ratingsBox as the id "ratings" was used in the header */ /* has IE 7 equivalent */
+.parentTitle {
+	margin: 0;
+	border: 0;
+}
+
+.stars { /* has IE 7 equivalent */
+	margin: 7px 0 0 0;
+	_margin: 6px 0 0 0; /* IE 6 hack */
+	border: 0;
+}
+
+.rateIt { /* has IE 7 equivalent */
+	margin: 15px 0 10px 0;
+	_margin: 10px 0 5px 0;
+	border: 0;
+}
+
+/* ratingsBoth: used when both ratings are present */
+
+#ratingsBoth {
 	width: 352px;
 	float: left;
 	margin: 0 0 15px 0;
 	padding: 0;
-	_padding: 0 0 10px 0; /* IE 6 hack */
 	border: 2px solid #6bcacc;
 }
 
-#ratingsBox h2 {
-	background: url(../img/header_ratingsBox.gif) no-repeat 14px center #6bcacc;
+#ratingsBoth h2 {
+	background: url(/res/img/school/overview/header_ratingsBox.gif) no-repeat 14px center #6bcacc;
 	height: 27px;
 	_width: 354px; /* IE 6 hack */
 	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
 }
 
-#ratingsBox a {
+#ratingsBoth a {
 	font-size: 13px;
 }
 
-.no_GS, .no_rating {
-	height: 141px;
-}
-
-.no_GS img, .no_rating img {
-	_margin-bottom: -21px; /* IE 6 hack */
-}
-
-#rating_gs {
+#ratingsBoth #rating_gs {
 	float: left;
 	width: 178px;
-	margin: 14px 0 10px 0;
+	margin: 14px 0 14px 0;
 	text-align: center;
 	border-right: 1px solid #ccc;
 }
 
-#rating_parent {
+#ratingsBoth #rating_gs img { /* has IE 7 equivalent */
+	margin-bottom: 10px;
+	_margin-bottom: 6px; /* IE 6 hack */
+}
+
+#ratingsBoth #rating_parent { /* has IE 7 equivalent */
 	float: right;
 	text-align: center;
-	margin: 14px 33px 0 0;
-	_margin: 14px 14px 0 0; /* IE 6 hack */
+	margin: 19px 35px 0 0;
+	_margin: 20px 17px 17px 0; /* IE 6 hack */
+	width: 102px;
 }
 
-#rating_gs img { /* has IE 7 equivalent */
-	margin-bottom: 7px;
-	_margin-bottom: 4px; /* IE 6 hack */
+
+/* #ratingsParentOnly: used when there is only a Parent Rating */
+
+#ratingsParentOnly {
+	width: 352px;
+	height: 145px;
+	float: left;
+	margin: 0 0 15px 0;
+	padding: 0;
+	border: 2px solid #6bcacc;
 }
 
-#rating_parent img { /* has IE 7 equivalent */
-	margin-bottom: 7px;
-	margin-right: 6px;
-	_margin-bottom: 4px; /* IE 6 hack */
+#ratingsParentOnly h2 {
+	height: 145px;
+	_height: 147px; /* IE 6 hack */
+	width: 150px;
+	float: left;
+	background: url(/res/img/school/overview/header_ratingsBox_parentOnly.gif) no-repeat 23px 32px #6cc;
+	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
 }
+
+#ratingsParentOnly #rating_parent { /* has IE 7 equivalent */
+	float: right;
+	text-align: center;
+	margin: 19px 45px 0 0;
+	_margin: 18px 25px 15px 0; /* IE 6 hack */
+	width: 102px;
+}
+
+#ratingsParentOnly a {
+	font-size: 13px;
+}
+
+
+/* #ratingsGSOnly: used when there is only a GreatSchools Rating */
+
+#ratingsGSOnly {
+	width: 352px;
+	float: left;
+	margin: 0 0 15px 0;
+	padding: 0;
+	border: 2px solid #6bcacc;
+}
+
+#ratingsGSOnly h2 {
+	background: url(/res/img/school/overview/header_ratingsBox.gif) no-repeat 14px center #6bcacc;
+	height: 27px;
+	_width: 354px; /* IE 6 hack */
+	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
+}
+
+#ratingsGSOnly a {
+	font-size: 13px;
+}
+
+#ratingsGSOnly #rating_gs {
+	float: left;
+	width: 178px;
+	margin: 14px 0 14px 0;
+	text-align: center;
+	border-right: 1px solid #ccc;
+}
+
+#ratingsGSOnly #rating_gs img { /* has IE 7 equivalent */
+	margin-bottom: 10px;
+	_margin-bottom: 7px; /* IE 6 hack */
+}
+
+#ratingsGSOnly #rating_parent { /* has IE 7 equivalent */
+	float: right;
+	text-align: center;
+	margin: 29px 37px 0 0;
+	_margin: 34px 15px 5px 0; /* IE 6 hack */
+	width: 102px;
+	_height: 109px; /* IE 6 hack */
+}
+
+
+/* ratingsNone: is used when there are neither GS or Parent Ratings */
+
+#ratingsNone {
+	width: 352px;
+	height: 145px;
+	float: left;
+	margin: 0 0 15px 0;
+	padding: 0;
+	border: 2px solid #6bcacc;
+}
+
+#ratingsNone h2 {
+	height: 145px;
+	width: 150px;
+	float: left;
+	background: url(/res/img/school/overview/header_ratingsBox_parentOnly.gif) no-repeat 23px 32px #6cc;
+	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
+}
+
+#ratingsNone #rating_parent { /* has IE 7 equivalent */
+	float: right;
+	text-align: center;
+	margin: 32px 45px 0 0;
+	_margin: 30px 23px 15px 0; /* IE 6 hack */
+	width: 102px;
+}
+
+#ratingsNone a {
+	font-size: 13px;
+}
+
 
 /* Latest Parent Reviews
 ----------------------------------*/
@@ -258,7 +373,7 @@ hr { /* has IE 7 equivalent */
 }
 
 #parentReviews h2 {
-	background: url(../img/header_LatestParentsReviews.gif) no-repeat 19px 6px #c5c5c5;
+	background: url(/res/img/school/overview/header_LatestParentsReviews.gif) no-repeat 19px 6px #c5c5c5;
 	height: 25px;
 	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
 }
@@ -274,6 +389,7 @@ hr { /* has IE 7 equivalent */
 	width: 160px;
 	float: left;
 	font-size: 12px;
+	line-height: 15px;
 }
 
 #parentReviews a {
@@ -293,7 +409,8 @@ hr { /* has IE 7 equivalent */
 
 #parentReviews .callout a {
 	font-size: 12px;
-	margin: 18px 6px 7px 0;
+	margin: 16px 6px 7px 0;
+	_margin: 15px 6px 7px 0;
 	float: right;
 }
 
@@ -301,6 +418,7 @@ hr { /* has IE 7 equivalent */
 	color: #5bc;
 	font-style: normal;
 	font-weight: bold;
+	font-size: 14px;
 }
 
 /* Learn About This School's
@@ -313,7 +431,7 @@ hr { /* has IE 7 equivalent */
 }
 
 #learnSchool h2 {
-	background: url(../img/header_LearnAboutThisSchools.gif) no-repeat 19px 6px #c5c5c5;
+	background: url(/res/img/school/overview/header_LearnAboutThisSchool.gif) no-repeat 19px 6px #c5c5c5;
 	height: 25px;
 	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
 }
@@ -324,8 +442,8 @@ hr { /* has IE 7 equivalent */
 
 #learnSchool p {
 	font-size: 11px;
-	margin: 0;
-	_margin: -3px 0 0 0; /* IE 6 hack */
+	margin: -3px 0 0 0;
+	_margin: -6px 0 0 0; /* IE 6 hack */
 	padding: 0 0 15px 58px;
 	border-bottom: 1px dashed #ccc;
 }
@@ -344,7 +462,7 @@ hr { /* has IE 7 equivalent */
 }
 
 #compareSchool h2 {
-	background: url(../img/header_CompareThisSchoolTo.gif) no-repeat 19px 6px #c5c5c5;
+	background: url(/res/img/school/overview/header_CompareThisSchoolTo.gif) no-repeat 19px 6px #c5c5c5;
 	height: 25px;
 	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
 }
@@ -355,28 +473,39 @@ hr { /* has IE 7 equivalent */
 	border: 1px solid #ddd;
 }
 
+#compareForm {
+	width: 150px;
+	height: 75px;
+	float: left;
+}
+
 /* form */
 
 #compareSchool form {
-	margin: 20px 0 0 80px;
+	margin: 11px 0 0 10px;
+	_margin: 10px 0 0 10px; /* IE 6 hack */
+	float: left;
+	height: 75px;
+	width: 250px;
 	font: 12px/16px Trebuchet MS, sans-serif;
 	color: #666;
 }
 
 #compareSchool form input { /* has IE 7 equivalent */
 	float: left;
-	margin: 0 8px 9px 0;
-	_margin: 0; /* IE 6 hack */
+	margin: 8px 8px 0 0;
+	_margin: 6px 0 -5px 0; /* IE 6 hack */
 }
 
-#compareSchool form label {
+#compareSchool form label { /* has IE 7 equivalent */
 	display: block;
-	margin: 0 0 9px 0;
+	margin: 8px 0 0 0;
+	_margin: 7px 0 0 0; /* IE 6 hack */
 }
 
 #compareSchool form .submit {
 	float: right;
-	margin: -25px 36px 0 0;
+	margin: 57px 0 0 0;
 }
 
 
@@ -476,5 +605,9 @@ hr { /* has IE 7 equivalent */
 /* ratings classes, adds the GS ratings image to the list item, classes are set in the html */
 
 #nearbySchools .ten {
-	background: url(../img/rating_nearbySchools_10.gif) no-repeat 228px center;
+	background: url(/res/img/school/overview/rating_nearbySchools_10.gif) no-repeat 228px center;
+}
+
+.clear {
+	clear: both;
 }

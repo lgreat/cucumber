@@ -36,11 +36,205 @@
 <c:set var="pageName" value="Overview"/>
 <title>${school.name} - ${addr} - school overview</title>
 <meta name="description" content="An overview of ${school.name} located in ${addr}, including school test scores, student-teacher ratio, parent school reviews and teacher stats."/>
-
+<pageHelper:externalCss file="/res/css/school/overview.css"/>
 </head>
 
 <gsml:body adPageName="overview" pageLayout="research">
 <school:profile school="${school}" tab="overview">
+
+
+
+		<div id="schoolOverview">
+
+		<!-- being left column -->
+
+		<div id="col_left">
+
+		<!-- Quick Facts -->
+
+		<div id="quickFacts">
+
+		<h2>Quick Facts</h2>
+
+		<h3>Clover Avenue Elementary School</h3>
+
+		<address>
+		2201 Encinal Avenue,<br />
+		Alemeda CA<br />
+		94501 | <a href="" title="">Map &#62;</a>
+		</address>
+
+		<p class="phoneFax">
+		Phone: (510) 337-7022<br />
+		Fax: (510) 521-4740
+		</p>
+
+		<p><a href="" title="">School Website &#62;</a></p>
+
+		<ul>
+		<li><strong>Type:</strong> Private, PK-12, Coed, Nonsectarian</li>
+		<li><strong>Students:</strong> 500</li>
+		<li><strong>Associations:</strong> National Association of Independent Schools (NAIS)</li>
+		<li><strong>School days per year:</strong> 186</li>
+		<li><strong>Hours per day:</strong> 6.5</li>
+		<li><strong>Library:</strong> yes</li>
+		</ul>
+
+		</div><!-- end: quickFacts -->
+
+		<hr />
+
+		<!-- Editor -->
+
+		<div id="editor">
+
+		<img src="/res/img/school/overview/mug_Rosenthal-Lisa.jpg" alt="Lisa Rosenthal: Editor, GreatSchools" />
+
+		<p class="name">Lisa Rosenthal</p>
+		<p class="title">Editor, GreatSchools</p>
+
+		<h3>School Choice<br />Editor's Picks</h3>
+
+		<ul>
+		<li><a href="" title="">Private vs. Public Schools: What's the Difference</a></li>
+		<li><a href="" title="">Choosing a School: An Overview</a></li>
+		<li><a href="" title=""><strong>Visit our guide to School Choice Tips &#62;</strong></a></li>
+		</ul>
+
+		</div><!-- end: editor -->
+
+		<hr />
+
+		<!-- Big Picture -->
+
+		<div id="bigPicture">
+
+		<h2>Big Picture</h2>
+
+		<p>Learn more about:</p>
+
+		<h3><a href="" title="">San Francisco Unified School District Schools &#62;</a></h3>
+		<h3><a href="" title="">San Francisco Schools &#62;</a></h3>
+		<h3><a href="" title="">California Schools &#62;</a></h3>
+
+		</div><!-- end: bigPicture -->
+
+		</div><!-- end: col_left" -->
+
+		<!-- begin center column -->
+
+        <div id="col_center">
+            <div id="ratingsBoth"><!-- use ID "ratingsBoth when both ratings are present -->
+                <h2>Great Schools Rating | Parent Rating</h2>
+                <div id="rating_gs">
+                    <a href="" title=""><img src="/res/img/school/overview/rating_GS_2.gif" alt="GreatSchools Rating 2 out of 10" /></a>
+                    <p><a href="" title="">view all &#62;</a></p>
+                </div><!-- end: rating_gs -->
+
+                <div id="rating_parent">
+                    <img src="/res/img/school/overview/rating_OverallParentRating.gif" alt="Overall Parent Rating" class="parentTitle" />
+                    <img src="/res/img/school/overview/stars_2.gif" alt="2 out of 5 stars" class="stars" />
+                    <a href="" title=""><img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" class="rateIt" /></a>
+                    <p><a href="" title="">view all &#62;</a></p>
+                </div><!-- end: rating_parent -->
+            </div><!-- end: ratings -->
+
+            <div id="parentReviews">
+                <h2>Latest Parent Reviews</h2>
+                <img src="/res/img/school/overview/rating_latestParent_3.gif" alt="" class="rating" />
+                <p class="callout">Parents at this school think <em>teacher quality is above average</em>
+                    <a href="" title="">Learn more &#62;</a></p>
+                <p>Sheridan is a wonderful school and has a large focus on ethnic diversity. The teachers are the most...
+                    <a href="" title="">Read all 12 reviews &#62;</a></p>
+            </div><!--[if !IE]> end: parentReviews <![endif]-->
+
+		<!--[if !IE]> Learn About This School <![endif]-->
+
+		<div id="learnSchool">
+
+		<h2>Learn About This School</h2>
+
+		<a href="" title=""><img src="/res/img/school/overview/learn_TestScores.gif" alt="Clover Avenue Elementary School 2005-2006 Test Scores" /></a>
+		<p>Clover Avenue Elementary School test scores</p>
+
+		<a href="" title=""><img src="/res/img/school/overview/learn_APExams.gif" alt="Clover Avenue Elementary School AP Exams" /></a>
+		<p>Clover Avenue Elementary School AP exams</p>
+
+		<a href="" title=""><img src="/res/img/school/overview/learn_TeacherStats.gif" alt="Clover Avenue Elementary School Teacher Stats" /></a>
+		<p>Clover Avenue Elementary School teachers</p>
+
+		<a href="" title=""><img src="/res/img/school/overview/learn_SchoolFinance.gif" alt="Clover Avenue Elementary School School Finance" /></a>
+		<p>Clover Avenue Elementary School statistics</p>
+
+		<a href="" title=""><img src="/res/img/school/overview/learn_SchoolsView.gif" alt="Clover Avenue Elementary School The School's View" /></a>
+		<p>Clover Avenue Elementary School statistics</p>
+
+		<a href="" title=""><img src="/res/img/school/overview/learn_StudentStats.gif" alt="Clover Avenue Elementary School Student Stats" /></a>
+		<p>Clover Avenue Elementary School statistics</p>
+
+		<a href="" title=""><img src="/res/img/school/overview/learn_PerformanceOverTime.gif" alt="Clover Avenue Elementary School Performance Over Time" /></a>
+		<!-- add class="last" to final paragraph to remove the dotted divider -->
+		<p class="last">Clover Avenue Elementary School statistics</p>
+
+		</div><!--[if !IE]> end: learnSchool <![endif]-->
+
+		<!--[if !IE]> Compare This School To <![endif]-->
+
+		<div id="compareSchool">
+
+		<h2>Compare This School To</h2>
+
+		<img src="/res/img/school/overview/compare_magnify.jpg" alt="" />
+
+		<form action="">
+
+		<table id="compareForm"><tr><td>
+
+		<input type="radio" name="" value="" /><label>Nearby high schools</label>
+		<input type="radio" name="" value="" /><label>District high schools</label>
+		<input type="radio" name="" value="" /><label>City high schools</label>
+
+		</td></tr></table>
+
+		<input type="image" src="/res/img/school/overview/submit_compare.gif" value="Submit" alt="Compare" class="submit" />
+
+		</form>
+
+		<!--<div style="clear:both;">&#32;</div>--><!-- corrects float issue in IE 6 -->
+        <br style="clear:both;" />
+            
+        </div><!-- end: compareSchool -->
+
+		</div><!-- end: col_center -->
+
+		<!-- begin right column -->
+        <div id="col_right">
+            <a href="" title=""><img src="/res/img/school/overview/promotion.jpg" alt="School Choice Tips: Choose a great school for your family" class="promotion" /></a>
+            <a href="" title=""><img src="/res/img/school/overview/ad.jpg" alt="" class="ad" /></a>
+            <div id="nearbySchools">
+                <h2>Top-Rated Public Schools Near Clover Avenue Elementary School</h2>
+                <!-- Google Map API code goes here, remove temp image -->
+                <div id="map"><img src="/res/img/school/overview/GoogleMap_temp.gif" alt="" /></div>
+                <p class="head_top">Top-Rated Public School</p>
+                <p class="head_rating">GreatSchools Rating</p>
+
+                <ul>
+                    <!-- set the li class to place the proper rating graphic -->
+                    <li class="ten"><a href="" title="">Alice Fong Yu Elementary School</a><br />1.7 Miles</li>
+                    <li class="ten"><a href="" title="">Lowell High School</a><br />2.1 Miles</li>
+                    <li class="ten"><a href="" title="">A.P. Giannini Middle School</a><br />1.2 Miles</li>
+                    <li class="ten"><a href="" title="">Alamo Elementary School</a><br />2 Miles</li>
+                    <li class="ten"><a href="" title="">Argonne Elementary School</a><br />1.3 Miles</li>
+                </ul>
+            </div><!-- end: nearbySchools -->
+        </div><!-- end: col_right" -->
+
+        </div><!-- end: schoolOverview -->
+
+
+
+
+
 
 </school:profile>
 <mod:tracking pageType="school"
