@@ -183,7 +183,7 @@
 
 		</td></tr></table>
 
-		<input type="image" src="/res/img/school/overview/submit_compare.gif" value="Submit" alt="Compare" class="submit" />
+		<gsml:inputImage src="/res/img/school/overview/submit_compare.gif" alt="Compare" styleClass="submit" />
 
 		</form>
 
