@@ -380,7 +380,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
  ***************************/
 
 @media print {
-    .search, #adLeaderboard, #footer, .noprint  {
+    .search, #adLeaderboard, #footer, .noprint, #promoContent  {
         display:none;
     }
     .wrap0  {
@@ -396,6 +396,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
         width: 75%;
     }
     #schoolProfile {
+        _width: 72%;
     }
     #schoolProfileHeader {
         border: 0 solid #fff;
