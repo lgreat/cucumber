@@ -393,8 +393,8 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     }
 
     #schoolProfile #bodyContents {
+        width: 75%;
     }
-
     #schoolProfile {
     }
     #schoolProfileHeader {
