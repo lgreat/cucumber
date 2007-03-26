@@ -91,14 +91,14 @@
 		<gsml:img src="/res/img/school/overview/mug_Rosenthal-Lisa.jpg" alt="Lisa Rosenthal: Editor, GreatSchools" />
 
 		<p class="name">Lisa Rosenthal</p>
-		<p class="title">Editor, GreatSchools</p>
+		<p class="title">Senior Editor, GreatSchools</p>
 
 		<h3>School Choice<br />Editor's Picks</h3>
 
 		<ul>
-		<li><a href="" title="">Private vs. Public Schools: What's the Difference</a></li>
-		<li><a href="" title="">Choosing a School: An Overview</a></li>
-		<li><a href="" title=""><strong>Visit our guide to School Choice Tips &#62;</strong></a></li>
+            <gsweb:articlelink articleId="197" wrappingElement="li"/>
+            <gsweb:articlelink articleId="96" wrappingElement="li"/>
+            <li><gsml:a href="/content/schoolChoiceCenter.page">Visit our guide to School Choice Tips &#62;</gsml:a></li>
 		</ul>
 
 		</div><!-- end: editor -->
@@ -124,7 +124,11 @@
 		<!-- begin center column -->
 
         <div id="col_center">
-            <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_rating}"/>
+            <!--Rating: <c:out value="${gs_rating}"/>-->
+            <!--<br />-->
+            <!--Review: <c:out value="${parent_ratings}"/>-->
+            <!--<br />-->
+            <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
 
             <div id="parentReviews">
                 <h2>Latest Parent Reviews</h2>
