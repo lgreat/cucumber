@@ -30,6 +30,7 @@
 <head>
 
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
+<c:set var="stateName" value="${school.databaseState.longName}"/>
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="sid" value="${school.id}"/>
 <c:set var="addr" value="${school.physicalAddress.city}, ${school.physicalAddress.state.longName} - ${stateAbbrev}" />
@@ -117,13 +118,16 @@
 
 		<div id="bigPicture">
 
-		<h2>Big Picture</h2>
+            <h2>Big Picture</h2>
 
-		<p>Learn more about:</p>
+            <p>Learn more about:</p>
 
-		<h3><a href="" title="">San Francisco Unified School District Schools &#62;</a></h3>
-		<h3><a href="" title="">San Francisco Schools &#62;</a></h3>
-		<h3><a href="" title="">California Schools &#62;</a></h3>
+            <c:if test="${school.districtId != 0}">
+                <h3><link:allSchoolsInDistrict districtId="${school.districtId}"
+                                           title="This school's district">${school.district.name} &#62;</link:allSchoolsInDistrict></h3>
+            </c:if>
+            <h3><link:city city="${city}" state="${state}" title="This school's city">${city} Schools &#62;</link:city></h3>
+            <h3><link:research state="${state}" title="${stateName} schools">${stateName} Schools &#62;</link:research></h3>
 
 		</div><!-- end: bigPicture -->
 
