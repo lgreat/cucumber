@@ -367,6 +367,13 @@
             <type>gs.data.state.State</type>
             <description>the name of the city's state</description>
         </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>value of link title attribute, for tooltip</description>
+        </attribute>
     </tag>
     <tag>
         <name>districts</name>
@@ -502,6 +509,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>target window to open link in</description>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>value of link title attribute, for tooltip</description>
         </attribute>
     </tag>
     <tag>
@@ -1139,7 +1153,14 @@
             <type>java.lang.Integer</type>
             <description>Id of district</description>
         </attribute>
-    </tag>  
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>value of link title attribute, for tooltip</description>
+        </attribute>
+    </tag>
     <tag>
         <name>charterSchoolAuthorizer</name>
         <tag-class>gs.web.jsp.link.school.CharterAuthorizerTagHandler</tag-class>
