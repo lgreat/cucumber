@@ -41,7 +41,7 @@
         <c:if test="${gsRating != 0}">
             <div id="rating_gs">
                 <link:schoolProfileRating school="${school}">
-                    <gsml:img src="/res/img/school/overview/rating_GS_${gsRating}.gif" alt="GreatSchools Rating ${gsRating} out of 10" />
+                    <gsml:img src="/res/img/school/overview/ratings_gs_med_${gsRating}.gif" alt="GreatSchools Rating ${gsRating} out of 10" />
                 </link:schoolProfileRating>
                 <p><link:schoolProfileRating school="${school}">view all &#62;</link:schoolProfileRating></p>
             </div><!-- end: rating_gs -->
