@@ -49,7 +49,7 @@
 
         <div id="rating_parent">
             <c:choose>
-                <c:when test="${parentRating == null}">
+                <c:when test="${parentRating == null or parentRating.avgQuality == null}">
                     <link:schoolProfileAddParentReview school="${school}">
                         <gsml:img src="/res/img/school/overview/rating_BeTheFirst.gif" alt="Be the first to rate this school!" styleClass="parentTitle" />
                         <gsml:img src="/res/img/school/overview/stars_0.gif" alt="No Rating" styleClass="stars" />
@@ -64,6 +64,7 @@
                     <link:schoolProfileAddParentReview school="${school}">
                         <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt" />
                     </link:schoolProfileAddParentReview>
+                    <p><link:schoolProfileParentReview school="${school}">view all &#62;</link:schoolProfileParentReview></p>
                 </c:otherwise>
             </c:choose>
 
