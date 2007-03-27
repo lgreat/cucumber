@@ -27,57 +27,54 @@
 <pageHelper:externalCss file="/res/css/school/profile.css"/>
 
 <jsp:scriptlet><![CDATA[
-    // do NOT calculate ratings for overview tab ... header does not display them there
-    if (tab == null || !tab.equals("overview")) {
-        SessionContext sessionContext;
-        ApplicationContext ac = null;
+    SessionContext sessionContext;
+    ApplicationContext ac = null;
 
-        // if parent ratings have not been supplied, retrieve them here
-        if (parent_ratings == null) {
-            out.println("<!-- Calculating parent rating -->");
-            try {
-                sessionContext = SessionContextUtil.getSessionContext(request);
-                ac = sessionContext.getApplicationContext(); // lazy load
-                IReviewDao reviewDao = (IReviewDao) ac.getBean(IReviewDao.BEAN_ID);
-                parent_ratings = reviewDao.findRatingsBySchool(school);
-                request.setAttribute("parent_ratings", parent_ratings);
-            } catch (Exception ex) {
-                // log the error in some way?
-                out.println("<!-- " + ex.getClass().getName() + " getting parent rating: " + ex.getMessage() + " -->");
-            }
+    // if parent ratings have not been supplied, retrieve them here
+    if (parent_ratings == null) {
+        out.println("<!-- Calculating parent rating -->");
+        try {
+            sessionContext = SessionContextUtil.getSessionContext(request);
+            ac = sessionContext.getApplicationContext(); // lazy load
+            IReviewDao reviewDao = (IReviewDao) ac.getBean(IReviewDao.BEAN_ID);
+            parent_ratings = reviewDao.findRatingsBySchool(school);
+            request.setAttribute("parent_ratings", parent_ratings);
+        } catch (Exception ex) {
+            // log the error in some way?
+            out.println("<!-- " + ex.getClass().getName() + " getting parent rating: " + ex.getMessage() + " -->");
         }
+    }
 
-        // if gs rating has not been supplied, retrieve it here
-        if (gs_rating == null) {
-            out.println("<!-- Calculating GS rating -->");
-            try {
-                if (ac == null) { // lazy load
-                    sessionContext = SessionContextUtil.getSessionContext(request);
-                    ac = sessionContext.getApplicationContext();
-                }
-                PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-                boolean isFromCache = true;
-
-                if (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer()) {
-                    isFromCache = false;
-                }
-
-                IRatingsConfigDao ratingsConfigDao = (IRatingsConfigDao) ac.getBean(IRatingsConfigDao.BEAN_ID);
-                IRatingsConfig ratingsConfig = ratingsConfigDao.restoreRatingsConfig(school.getDatabaseState(), isFromCache);
-
-                if (null != ratingsConfig) {
-                    TestManager testManager = (TestManager) ac.getBean(TestManager.BEAN_ID);
-                    SchoolTestValue schoolTestValue =
-                            testManager.getOverallRating(school, ratingsConfig.getYear());
-
-                    if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
-                        request.setAttribute("gs_rating", schoolTestValue.getValueInteger());
-                    }
-                }
-            } catch (Exception ex) {
-                // log the error in some way?
-                out.println("<!-- " + ex.getClass().getName() + " getting GS rating: " + ex.getMessage() + " -->");
+    // if gs rating has not been supplied, retrieve it here
+    if (gs_rating == null) {
+        out.println("<!-- Calculating GS rating -->");
+        try {
+            if (ac == null) { // lazy load
+                sessionContext = SessionContextUtil.getSessionContext(request);
+                ac = sessionContext.getApplicationContext();
             }
+            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+            boolean isFromCache = true;
+
+            if (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer()) {
+                isFromCache = false;
+            }
+
+            IRatingsConfigDao ratingsConfigDao = (IRatingsConfigDao) ac.getBean(IRatingsConfigDao.BEAN_ID);
+            IRatingsConfig ratingsConfig = ratingsConfigDao.restoreRatingsConfig(school.getDatabaseState(), isFromCache);
+
+            if (null != ratingsConfig) {
+                TestManager testManager = (TestManager) ac.getBean(TestManager.BEAN_ID);
+                SchoolTestValue schoolTestValue =
+                        testManager.getOverallRating(school, ratingsConfig.getYear());
+
+                if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
+                    request.setAttribute("gs_rating", schoolTestValue.getValueInteger());
+                }
+            }
+        } catch (Exception ex) {
+            // log the error in some way?
+            out.println("<!-- " + ex.getClass().getName() + " getting GS rating: " + ex.getMessage() + " -->");
         }
     }
     try {
@@ -293,36 +290,6 @@
     <div id="bodyContents">
         <jsp:doBody/>
     </div>
-    <br style="clear:both;"/>
-
-    <!-- breadcrumb start no breadcrumb on overview page-->
-    <c:set var="delimiter" value="&amp;gt;"/>
-
-    <div class="breadcrumb">
-        <c:if test="${tab ne 'overview'}">
-            <span class="hr">&amp;nbsp;</span>
-        </c:if>
-        <h2>
-            <link:research state="${state}">${state.longName} schools</link:research>
-            ${delimiter}
-            <link:city city="${city}" state="${state}">${city} schools</link:city>
-
-            <c:choose>
-                <c:when test="${school.districtId != 0}">
-                    ${delimiter}
-                    <link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name}</link:allSchoolsInDistrict>
-                    <c:if test="${tab ne 'overview'}">
-                        ${delimiter}<br/>
-                        <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>
-                    </c:if>
-                </c:when>
-                <c:when test="${tab ne 'overview'}">
-                    ${delimiter} <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>
-                </c:when>
-            </c:choose>
-        </h2>
-    </div>
-    <!-- breadcrumb end -->
 
     <br style="clear:both;"/>
 </div>
