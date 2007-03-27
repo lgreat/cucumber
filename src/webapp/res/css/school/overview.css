@@ -145,6 +145,10 @@ hr { /* has IE 7 equivalent */
 	border-top: 1px solid #dee;
 }
 
+#editor .secondH3 {
+	margin-top: 12px;
+}
+
 #editor ul {
 	width: 150px;
 	margin: 10px 0 5px 10px;

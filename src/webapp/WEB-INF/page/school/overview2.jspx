@@ -93,13 +93,21 @@
 		<p class="name">Lisa Rosenthal</p>
 		<p class="title">Senior Editor, GreatSchools</p>
 
-		<h3>School Choice<br />Editor's Picks</h3>
+            <h3>School Choice<br />Editor's Picks</h3>
 
-		<ul>
-            <gsweb:articlelink articleId="197" wrappingElement="li"/>
-            <gsweb:articlelink articleId="96" wrappingElement="li"/>
-            <li><gsml:a href="/content/schoolChoiceCenter.page">Visit our guide to School Choice Tips &#62;</gsml:a></li>
-		</ul>
+            <ul>
+                <gsweb:articlelink articleId="197" wrappingElement="li"/>
+                <gsweb:articlelink articleId="96" wrappingElement="li"/>
+                <li><strong><gsml:a href="/content/schoolChoiceCenter.page">Visit our guide to School Choice Tips &#62;</gsml:a></strong></li>
+            </ul>
+
+            <h3 class="secondH3">Featured This Month</h3>
+
+            <ul>
+                <gsweb:articlelink articleId="542" wrappingElement="li"/>
+                <gsweb:articlelink articleId="233" wrappingElement="li"/>
+                <li><strong><gsml:a href="/content/summerPlanning.page">Visit our guide to Summer Planning &#62;</gsml:a></strong></li>
+            </ul>
 
 		</div><!-- end: editor -->
 
