@@ -33,7 +33,7 @@
             <c:set var="divId" value="ratingsBoth"/>
         </c:otherwise>
     </c:choose>
-
+Parent rating: <c:out value="${parentRating}"/><br />
     <div id="${divId}">
 
         <h2><c:out value="${heading}"/></h2>
@@ -43,7 +43,7 @@
                 <link:schoolProfileRating school="${school}">
                     <gsml:img src="/res/img/school/overview/ratings_gs_med_${gsRating}.gif" alt="GreatSchools Rating ${gsRating} out of 10" />
                 </link:schoolProfileRating>
-                <p><link:schoolProfileRating school="${school}">view all &#62;</link:schoolProfileRating></p>
+                <p><link:schoolProfileRating school="${school}">View all &#62;</link:schoolProfileRating></p>
             </div><!-- end: rating_gs -->
         </c:if>
 
@@ -64,7 +64,7 @@
                     <link:schoolProfileAddParentReview school="${school}">
                         <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt" />
                     </link:schoolProfileAddParentReview>
-                    <p><link:schoolProfileParentReview school="${school}">view all &#62;</link:schoolProfileParentReview></p>
+                    <p><link:schoolProfileParentReview school="${school}">View all &#62;</link:schoolProfileParentReview></p>
                 </c:otherwise>
             </c:choose>
 
