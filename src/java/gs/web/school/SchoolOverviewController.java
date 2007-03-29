@@ -213,7 +213,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
                 if (randomRating != null) {
                     latestReviewsModel = new HashMap();
                     latestReviewsModel.put("randomCategory", randomCategory);
-                    latestReviewsModel.put("randomRating", ratingStrings[randomRating.intValue()]);
+                    latestReviewsModel.put("randomRating", ratingStrings[randomRating.intValue()-1]);
                     latestReviewsModel.put("latestRating", review.getQuality().getName());
                     latestReviewsModel.put("total", ratings.getCount());
                     latestReviewsModel.put("comment", abbreviateAtWhitespace(review.getComments(), REVIEW_LENGTH));
@@ -250,7 +250,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
                             s = s.substring(0, ind2);
                         }
                         if (!s.matches(".*[\\.\\?\\!]$")) {
-                            s = s + "...";
+                            s = s.trim() + "...";
                         }
                     }
                 }

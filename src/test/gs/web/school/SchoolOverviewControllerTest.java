@@ -120,7 +120,8 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
 
         assertEquals("a...", _controller.abbreviateAtWhitespace("abcdefgh", 4));
         assertEquals("abc...", _controller.abbreviateAtWhitespace("abcdefgh", 6));
-        assertEquals("abcdefgh", _controller.abbreviateAtWhitespace("abcdefgh", 10));        
+        assertEquals("abcdefgh", _controller.abbreviateAtWhitespace("abcdefgh", 10));
 
+        assertEquals("abc...", _controller.abbreviateAtWhitespace("abc   defgh", 8));
     }
 }

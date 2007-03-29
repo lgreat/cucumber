@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
+    <jsp:directive.tag import="gs.data.school.census.ICensusInfo"/>
+    <jsp:directive.tag import="gs.data.school.census.SchoolCensusValue"/>
+    <jsp:directive.tag import="gs.data.school.School"/>
+    <jsp:directive.tag import="gs.data.school.charter.ICharterSchoolInfo"/>
+    <jsp:directive.tag import="gs.data.school.census.CensusDataType"/>
+    <jsp:directive.tag import="gs.data.school.census.ICharterSchoolInfoDao"/>
+    <jsp:directive.tag import="org.springframework.context.ApplicationContext"/>
+    <jsp:directive.tag import="java.util.Map"/>
+    <jsp:directive.tag import="gs.data.school.SchoolType"/>
+    <jsp:directive.tag import="java.util.HashMap"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+    <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
+
+    <jsp:scriptlet>
+        ICensusInfo info = school.getCensusInfo();
+        SchoolCensusValue v1 = info.getLatestValue(school, CensusDataType.NUMBER_OF_SCHOOL_DAYS);
+        SchoolCensusValue v2 = info.getLatestValue(school, CensusDataType.HOURS_IN_SCHOOL_DAY);
+        SchoolCensusValue v3 = info.getLatestValue(school, CensusDataType.HAS_LIBRARY);
+        SchoolCensusValue v4 = info.getLatestValue(school, CensusDataType.YEAR_OPENED);
+        Map schoolData = new HashMap();
+        if (v1 != null) schoolData.put("schoolDays", v1.getValueInteger());
+        if (v2 != null) schoolData.put("hoursPerDay", v2.getValueInteger());
+        if (v3 != null) schoolData.put("hasLibrary", v3.getValueText());
+        if (v4 != null) schoolData.put("yearOpened", v4.getValueInteger());
+
+        if (school.getType() == SchoolType.CHARTER) {
+            try {
+                SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+                ApplicationContext ac = sessionContext.getApplicationContext(); // lazy load
+                ICharterSchoolInfoDao charterInfoDao =
+                        (ICharterSchoolInfoDao) ac.getBean(ICharterSchoolInfoDao.BEAN_ID);
+                ICharterSchoolInfo csInfo = charterInfoDao.getInfo(school);
+                schoolData.put("operator", csInfo.getOperator());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        request.setAttribute("schoolData", schoolData);
+    </jsp:scriptlet>
+
+
+        <div id="quickFacts">
+            <h2>Quick Facts</h2>
+            <h3>${school.name}</h3>
+            <address>
+                ${school.physicalAddress.street}<br />
+                ${school.physicalAddress.city}, ${school.physicalAddress.state.abbreviation}<br />
+                ${school.physicalAddress.zip} | <a href="http://maps.google.com/maps?oi=maps&amp;q=${school.physicalAddress}">Map &#62;</a>
+            </address>
+
+            <p class="phoneFax">
+                <c:if test="${not empty school.phone}">Phone: ${school.phone}<br /></c:if>
+                <c:if test="${not empty school.fax}">Fax: ${school.fax}</c:if>
+            </p>
+
+            <c:if test="not empty ${school.webSite}">
+                <p><a href="${school.webSite}">School Website &#62;</a></p>
+            </c:if>
+
+            <ul>
+                <li><strong>Grades:</strong> ${school.gradeLevels}</li>
+                <li><strong>Type:</strong> ${school.type.schoolTypeName}</li>
+                <li><strong>Students:</strong> ${school.enrollment}</li>
+                <c:if test="${not empty school.association}">
+                    <li><strong>Associations:</strong> ${school.association}</li>
+                </c:if>
+                <c:set var="schoolData" value="${schoolData}"/>
+                <c:if test="${school.type.schoolTypeName == 'private'}">
+                    <c:if test="${not empty schoolData.schoolDays}">
+                        <li><strong>School days per year:</strong> ${schoolData.schoolDays}</li>
+                    </c:if>
+                    <c:if test="${not empty schoolData.hoursPerDay}">
+                        <li><strong>Hours per day:</strong> ${schoolData.hoursPerDay}</li>
+                    </c:if>
+                    <c:if test="${not empty schoolData.hasLibrary}">
+                        <li><strong>Library:</strong> ${schoolData.hasLibrary}</li>
+                    </c:if>
+                </c:if>
+                <c:if test="${school.type.schoolTypeName == 'charter'}">
+                    <c:if test="${not empty schoolData.yearOpened}">
+                        <li><strong>Year opened:</strong> ${schoolData.yearOpened}</li>
+                    </c:if>
+                    <c:if test="${not empty school.authorizer.name}">
+                        <li><strong>Charter Authorizer:</strong> ${school.authorizer.name}</li>
+                    </c:if>
+                    <c:if test="${not empty school.operatorId}">
+                        <li><strong>Charter Operator:</strong> ${schoolData.operator}</li>
+                    </c:if>
+                </c:if>
+            </ul>
+        </div>
+</jsp:root>

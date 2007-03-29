@@ -14,6 +14,18 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
+<jsp:directive.page import="gs.data.school.School"/>
+<jsp:directive.page import="gs.data.school.census.ICensusInfo"/>
+<jsp:directive.page import="gs.data.school.census.CensusDataType"/>
+<jsp:directive.page import="gs.data.school.census.SchoolCensusValue"/>
+<jsp:directive.page import="java.util.Map"/>
+<jsp:directive.page import="java.util.HashMap"/>
+<jsp:directive.page import="gs.data.school.charter.ICharterSchoolInfo"/>
+<jsp:directive.page import="gs.web.util.context.SessionContext"/>
+<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+<jsp:directive.page import="org.springframework.context.ApplicationContext"/>
+<jsp:directive.page import="gs.data.school.census.ICharterSchoolInfoDao"/>
+<jsp:directive.page import="gs.data.school.SchoolType"/>
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <html lang="en">
 
@@ -28,64 +40,30 @@
 </jsp:scriptlet>
 
 <head>
+    <c:set var="school" value="${school}"/>
+    <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
+    <c:set var="stateName" value="${school.databaseState.longName}"/>
+    <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+    <c:set var="sid" value="${school.id}"/>
+    <c:set var="addr" value="${school.physicalAddress.city}, ${school.physicalAddress.state.longName} - ${stateAbbrev}" />
+    <c:set var="pageName" value="Overview"/>
 
-<c:set var="city" value="${school.physicalAddress.city}"/>
-<c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
-<c:set var="stateName" value="${school.databaseState.longName}"/>
-<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-<c:set var="sid" value="${school.id}"/>
-<c:set var="addr" value="${city}, ${stateName} - ${stateAbbrev}" />
-<c:set var="pageName" value="Overview"/>
-<title>${school.name} - ${addr} - school overview</title>
-<meta name="description" content="An overview of ${school.name} located in ${addr}, including school test scores, student-teacher ratio, parent school reviews and teacher stats."/>
-<pageHelper:externalCss file="/res/css/school/overview.css"/>
+    <title>${school.name} - ${addr} - school overview</title>
+    <meta name="description" content="An overview of ${school.name} located in ${addr}, including school test scores, student-teacher ratio, parent school reviews and teacher stats."/>
+    <pageHelper:externalCss file="/res/css/school/overview.css"/>
 </head>
 
 <gsml:body adPageName="overview" pageLayout="research">
+<c:set var="school" value="${school}"/>
 <school:profile school="${school}" tab="overview">
 
+<div id="schoolOverview">
 
+    <!-- being left column -->
+    <div id="col_left">
 
-		<div id="schoolOverview">
-
-		<!-- being left column -->
-
-		<div id="col_left">
-
-		<!-- Quick Facts -->
-
-		<div id="quickFacts">
-
-		<h2>Quick Facts</h2>
-
-		<h3>Clover Avenue Elementary School</h3>
-
-		<address>
-		2201 Encinal Avenue,<br />
-		Alemeda CA<br />
-		94501 | <a href="" title="">Map &#62;</a>
-		</address>
-
-		<p class="phoneFax">
-		Phone: (510) 337-7022<br />
-		Fax: (510) 521-4740
-		</p>
-
-		<p><a href="" title="">School Website &#62;</a></p>
-
-		<ul>
-		<li><strong>Type:</strong> Private, PK-12, Coed, Nonsectarian</li>
-		<li><strong>Students:</strong> 500</li>
-		<li><strong>Associations:</strong> National Association of Independent Schools (NAIS)</li>
-		<li><strong>School days per year:</strong> 186</li>
-		<li><strong>Hours per day:</strong> 6.5</li>
-		<li><strong>Library:</strong> yes</li>
-		</ul>
-
-		</div><!-- end: quickFacts -->
-
-		<hr />
-
+        <school:quickFacts school="${school}"/>
+        <hr />
 		<!-- Editor -->
 
 		<div id="editor">
@@ -137,22 +115,25 @@
 		<!-- begin center column -->
 
         <div id="col_center">
-            <!--Rating: <c:out value="${gs_rating}"/>-->
-            <!--<br />-->
-            <!--Review: <c:out value="${parent_ratings}"/>-->
-            <!--<br />-->
+
             <school:ratings school="${school}" gsRating="${gs_rating}" parentRating="${parent_ratings}"/>
 
-            <div id="parentReviews">
-                <h2>Latest Parent Reviews</h2>
-                <gsml:img src="/res/img/school/overview/rating_latestParent_3.gif" alt="" styleClass="rating" />
-                <p class="callout">Parents at this school think <em>teacher quality is above average</em>
-                    <a href="" title="">Learn more &#62;</a></p>
-                <p>Sheridan is a wonderful school and has a large focus on ethnic diversity. The teachers are the most...
-                    <a href="" title="">Read all 12 reviews &#62;</a></p>
-            </div><!--[if !IE]> end: parentReviews <![endif]-->
+            <c:set var="latestReviewsModel" value="${latestReviewsModel}"/>
+            <c:if test="${not empty latestReviewsModel}">
+                <div id="parentReviews">
+                    <h2>Latest Parent Reviews</h2>
+                    <gsml:img src="/res/img/school/review/${latestReviewsModel.latestRating}star.gif" alt="" styleClass="rating" />
+                    <p class="callout">Parents at this school think <em>${latestReviewsModel.randomCategory}
+                        ${latestReviewsModel.randomRating}</em>
+                        <a href="" title="">Learn more &#62;</a>
+                    </p>
+                    <p>${latestReviewsModel.comment}
+                        <a href="" title="">Read all ${latestReviewsModel.total} reviews &#62;</a>
+                    </p>
+                </div>
+            </c:if>
 
-		<!--[if !IE]> Learn About This School <![endif]-->
+        <!--[if !IE]> Learn About This School <![endif]-->
 
 		<div id="learnSchool">
 
@@ -185,28 +166,25 @@
 		<!--[if !IE]> Compare This School To <![endif]-->
 
 		<div id="compareSchool">
+            <h2>Compare This School To</h2>
 
-		<h2>Compare This School To</h2>
+            <gsml:img src="/res/img/school/overview/compare_magnify.jpg" alt="" />
 
-		<gsml:img src="/res/img/school/overview/compare_magnify.jpg" alt="" />
-
-		<form action="">
-
-		<table id="compareForm"><tr><td>
-
-		<input type="radio" name="" value="" /><label>Nearby high schools</label>
-		<input type="radio" name="" value="" /><label>District high schools</label>
-		<input type="radio" name="" value="" /><label>City high schools</label>
-
-		</td></tr></table>
-
-		<gsml:inputImage src="/res/img/school/overview/submit_compare.gif" alt="Compare" styleClass="submit" />
-
-		</form>
-
-		<!--<div style="clear:both;">&#32;</div>--><!-- corrects float issue in IE 6 -->
-        <br style="clear:both;" />
-
+            <form action="/school/compareSchool.page" method="get">
+                <table id="compareForm">
+                    <tr><td>
+                        <input type="radio" name="type" value="distance" /><label>Nearby high schools</label>
+                        <input type="radio" name="type" value="district" /><label>District high schools</label>
+                        <input type="radio" name="type" value="city" /><label>City high schools</label>
+                    </td></tr>
+                </table>
+                <input type="hidden" name="id" value="${school.id}"/>
+                <input type="hidden" name="state" value="${state}"/>
+                <input type="hidden" name="city" value="${school.physicalAddress.city}"/>
+                <input type="hidden" name="level" value="${school.levelCode}"/>
+                <gsml:inputImage src="/res/img/school/overview/submit_compare.gif" alt="Compare" styleClass="submit" />
+            </form>
+            <br style="clear:both;" />
         </div><!-- end: compareSchool -->
 
 		</div><!-- end: col_center -->
@@ -232,17 +210,12 @@
                 </ul>
             </div><!-- end: nearbySchools -->
         </div><!-- end: col_right" -->
-
         </div><!-- end: schoolOverview -->
 
-
-
-
-
-
 </school:profile>
+<c:set var="name" value="${requestScope.pageName}" />
 <mod:tracking pageType="school"
-              pageName="${pageName}"
+              pageName="${name}"
               hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
               school="${school}" />
 </gsml:body>

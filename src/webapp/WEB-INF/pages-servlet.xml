@@ -369,6 +369,9 @@
     <bean name="/compareSchools.page" class="gs.web.school.CompareSchoolsController"
           autowire="byName" lazy-init="true"/>
 
+    <bean name="/school/compareSchool.page" class="gs.web.school.CompareSchoolController"
+          autowire="byName" lazy-init="true"/>
+
     <bean name="/schools.page"
           class="gs.web.school.SchoolsController"
           autowire="byName" lazy-init="true"/>
