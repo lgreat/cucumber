@@ -89,4 +89,39 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         _controller.handleRequest(request, response);
         assertNotNull(response.getRedirectedUrl());
     }
+
+    public void testFormatComment() throws Exception {
+
+        try {
+            _controller.abbreviateAtWhitespace("1234123", 2);
+            fail("max length must be greater than 2");
+        } catch (IllegalArgumentException e) {
+            assertTrue(true);
+        }
+
+        // allow null comment args.
+        assertNull(_controller.abbreviateAtWhitespace(null, 123));
+        assertEquals("", _controller.abbreviateAtWhitespace("", 123));
+        assertEquals("Tester test", _controller.abbreviateAtWhitespace("Tester test", 123));
+        String comment = "Now it's time. For all good men to come to the " +
+                "aid of their country, dudes.";
+
+        assertEquals("...", _controller.abbreviateAtWhitespace(comment, 3));
+        assertEquals("...", _controller.abbreviateAtWhitespace(comment, 4));
+        assertEquals("Now...", _controller.abbreviateAtWhitespace(comment, 6));
+        assertEquals("Now...", _controller.abbreviateAtWhitespace(comment, 7));
+        assertEquals("Now...", _controller.abbreviateAtWhitespace(comment, 8));
+        assertEquals("Now it's...", _controller.abbreviateAtWhitespace(comment, 11));
+        assertEquals("Now it's time.", _controller.abbreviateAtWhitespace(comment, 14));
+        assertEquals("Now it's time.", _controller.abbreviateAtWhitespace(comment, 15));
+        assertEquals("Now it's time.", _controller.abbreviateAtWhitespace(comment, 16));
+        assertEquals("Now it's time.", _controller.abbreviateAtWhitespace(comment, 17));
+        assertEquals("Now it's time. For all good...",
+                _controller.abbreviateAtWhitespace(comment, 33));
+
+        assertEquals("a...", _controller.abbreviateAtWhitespace("abcdefgh", 4));
+        assertEquals("abc...", _controller.abbreviateAtWhitespace("abcdefgh", 6));
+        assertEquals("abcdefgh", _controller.abbreviateAtWhitespace("abcdefgh", 10));        
+
+    }
 }
