@@ -137,6 +137,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
                 "above average",
                 "excellent"
         };
+        
         String QUALITY_CAT = "teacher quality is";
         String PRINCIPAL_CAT = "principal leadership is";
         String EXTRA_CAT = "extracurricular activities are";

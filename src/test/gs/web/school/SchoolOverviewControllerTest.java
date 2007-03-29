@@ -90,7 +90,7 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         assertNotNull(response.getRedirectedUrl());
     }
 
-    public void testFormatComment() throws Exception {
+    public void testAbbreviateAtWhitespace() throws Exception {
 
         try {
             _controller.abbreviateAtWhitespace("1234123", 2);
@@ -103,9 +103,8 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         assertNull(_controller.abbreviateAtWhitespace(null, 123));
         assertEquals("", _controller.abbreviateAtWhitespace("", 123));
         assertEquals("Tester test", _controller.abbreviateAtWhitespace("Tester test", 123));
-        String comment = "Now it's time. For all good men to come to the " +
-                "aid of their country, dudes.";
 
+        String comment = "Now it's time. For all good men to come to the ";
         assertEquals("...", _controller.abbreviateAtWhitespace(comment, 3));
         assertEquals("...", _controller.abbreviateAtWhitespace(comment, 4));
         assertEquals("Now...", _controller.abbreviateAtWhitespace(comment, 6));
