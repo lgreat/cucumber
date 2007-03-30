@@ -64,4 +64,37 @@ public class UtilTest extends TestCase {
         assertEquals("A \"quoted\" string", Util.unquote("\"A \"quoted\" string\""));
         assertEquals("'\"inside single quotes\"'", Util.unquote("'\"inside single quotes\"'"));
     }
+
+    public void testAbbreviateAtWhitespace() throws Exception {
+
+        try {
+            Util.abbreviateAtWhitespace("1234123", 2);
+            fail("max length must be greater than 2");
+        } catch (IllegalArgumentException e) {
+            assertTrue(true);
+        }
+
+        // allow null comment args.
+        assertNull(Util.abbreviateAtWhitespace(null, 123));
+        assertEquals("", Util.abbreviateAtWhitespace("", 123));
+        assertEquals("Tester test", Util.abbreviateAtWhitespace("Tester test", 123));
+
+        String comment = "Now it's time. For all good men to come to the ";
+        assertEquals("...", Util.abbreviateAtWhitespace(comment, 3));
+        assertEquals("...", Util.abbreviateAtWhitespace(comment, 4));
+        assertEquals("Now...", Util.abbreviateAtWhitespace(comment, 6));
+        assertEquals("Now...", Util.abbreviateAtWhitespace(comment, 7));
+        assertEquals("Now...", Util.abbreviateAtWhitespace(comment, 8));
+        assertEquals("Now it's...", Util.abbreviateAtWhitespace(comment, 11));
+        assertEquals("Now it's time.", Util.abbreviateAtWhitespace(comment, 14));
+        assertEquals("Now it's time.", Util.abbreviateAtWhitespace(comment, 15));
+        assertEquals("Now it's time.", Util.abbreviateAtWhitespace(comment, 16));
+        assertEquals("Now it's time.", Util.abbreviateAtWhitespace(comment, 17));
+        assertEquals("Now it's time. For all good...",
+                Util.abbreviateAtWhitespace(comment, 33));
+        assertEquals("a...", Util.abbreviateAtWhitespace("abcdefgh", 4));
+        assertEquals("abc...", Util.abbreviateAtWhitespace("abcdefgh", 6));
+        assertEquals("abcdefgh", Util.abbreviateAtWhitespace("abcdefgh", 10));
+        assertEquals("abc...", Util.abbreviateAtWhitespace("abc   defgh", 8));
+    }
 }

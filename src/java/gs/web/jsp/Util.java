@@ -25,6 +25,8 @@ public class Util {
      * objects String values concatinated together.  This method will always
      * return an non-null String.  If the array argument is null or empty, an
      * empty String is returned.
+     * @return a <code>String</code>
+     * @param array An array of objects
      */
     public static String toDelimitedString(Object[] array) {
         StringBuffer buffer = new StringBuffer("");
@@ -47,6 +49,8 @@ public class Util {
      * empty String is returned. The individual String values are capitalized
      * first.
      * @deprecated
+     * @return a <code>String</code>
+     * @param array An array of objects
      */
     public static String toUglyDelimitedString(Object[] array) {
         StringBuffer buffer = new StringBuffer("");
@@ -98,5 +102,41 @@ public class Util {
             s = s.replaceAll("\"$", ""); // remove trailing quote
         }
         return s;
+    }
+
+    /**
+     * Abbreviates a string - if a string is longer than maxLength characters, then
+     * truncate at a word boundary and append "..."  The resulting string will be
+     * no longer than maxLength <em>inlucding</em> the "..."
+     * Null will be returned if a null String is passed as the comment
+     * @param s a comment String
+     * @param maxLength the maximum lenght the comment may be before truncation, must be
+     * 3 or more.
+     * @return a formatted String
+     */
+    public static String abbreviateAtWhitespace(String s, int maxLength) {
+        if (maxLength > 2) {
+            if (StringUtils.isNotBlank(s)) {
+                s = s.trim();
+                if (s.length() > maxLength) {
+                    int ind = s.lastIndexOf(" ", maxLength);
+                    if (ind < 0) ind = maxLength;
+                    s = s.substring(0, ind);
+                    if (!s.matches(".*[\\.\\?\\!]$")) {
+                        if (s.length() > maxLength-3) {
+                            int ind2 = s.lastIndexOf(" ", s.length()-3);
+                            if (ind2 < 0) { ind2 = s.length()-3; }
+                            s = s.substring(0, ind2);
+                        }
+                        if (!s.matches(".*[\\.\\?\\!]$")) {
+                            s = s.trim() + "...";
+                        }
+                    }
+                }
+            }
+            return s;
+        } else {
+            throw new IllegalArgumentException("maxLength must be > 2; now: " + maxLength);
+        }
     }
 }

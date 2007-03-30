@@ -11,6 +11,7 @@ import gs.data.school.review.Ratings;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
+import gs.web.jsp.Util;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -216,49 +217,12 @@ public class SchoolOverviewController extends AbstractSchoolController {
                     latestReviewsModel.put("randomRating", ratingStrings[randomRating.intValue()-1]);
                     latestReviewsModel.put("latestRating", review.getQuality().getName());
                     latestReviewsModel.put("total", ratings.getCount());
-                    latestReviewsModel.put("comment", abbreviateAtWhitespace(review.getComments(), REVIEW_LENGTH));
+                    latestReviewsModel.put("comment",
+                            Util.abbreviateAtWhitespace(review.getComments(), REVIEW_LENGTH));
                 }
             }
         }
-
         return latestReviewsModel;
-    }
-
-
-    /**
-     * Abbreviates a string - if a string is longer than maxLength characters, then
-     * truncate at a word boundary and append "..."  The resulting string will be
-     * no longer than maxLength <em>inlucding</em> the "..."
-     * Null will be returned if a null String is passed as the comment
-     * @param s a comment String
-     * @param maxLength the maximum lenght the comment may be before truncation, must be
-     * 3 or more.
-     * @return a formatted String
-     */
-    String abbreviateAtWhitespace(String s, int maxLength) {
-        if (maxLength > 2) {
-            if (StringUtils.isNotBlank(s)) {
-                s = s.trim();
-                if (s.length() > maxLength) {
-                    int ind = s.lastIndexOf(" ", maxLength);
-                    if (ind < 0) ind = maxLength;
-                    s = s.substring(0, ind);
-                    if (!s.matches(".*[\\.\\?\\!]$")) {
-                        if (s.length() > maxLength-3) {
-                            int ind2 = s.lastIndexOf(" ", s.length()-3);
-                            if (ind2 < 0) { ind2 = s.length()-3; }
-                            s = s.substring(0, ind2);
-                        }
-                        if (!s.matches(".*[\\.\\?\\!]$")) {
-                            s = s.trim() + "...";
-                        }
-                    }
-                }
-            }
-            return s;
-        } else {
-            throw new IllegalArgumentException("maxLength must be > 2; now: " + maxLength);
-        }
     }
 }
 
