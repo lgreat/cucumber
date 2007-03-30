@@ -162,6 +162,14 @@ hr { /* has IE 7 equivalent */
 	padding: 0;
 }
 
+#editor .articleLink {
+    text-decoration: none;
+}
+
+#editor .articleLink  a:hover {
+    text-decoration: underline;
+}
+
 
 /* Big Picture
 ----------------------------------*/
