@@ -40,12 +40,12 @@
 </jsp:scriptlet>
 
 <head>
-    <c:set var="school" value="${school}"/>
+    <c:set var="city" value="${school.physicalAddress.city}"/>
     <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
     <c:set var="stateName" value="${school.databaseState.longName}"/>
     <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
     <c:set var="sid" value="${school.id}"/>
-    <c:set var="addr" value="${school.physicalAddress.city}, ${school.physicalAddress.state.longName} - ${stateAbbrev}" />
+    <c:set var="addr" value="${city}, ${stateName} - ${stateAbbrev}" />
     <c:set var="pageName" value="Overview"/>
 
     <title>${school.name} - ${addr} - school overview</title>
