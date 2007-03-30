@@ -449,6 +449,12 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
+            <name>styleClass</name>
+            <description>CSS class to apply to anchor tag</description>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <name>wrappingElement</name>
             <description>if set, generates a wrapping element around the link to the
                 article. Useful for generating list items dynamically; if the article is
