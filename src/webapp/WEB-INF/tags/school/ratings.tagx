@@ -33,7 +33,6 @@
             <c:set var="divId" value="ratingsBoth"/>
         </c:otherwise>
     </c:choose>
-Parent rating: <c:out value="${parentRating}"/><br />
     <div id="${divId}">
 
         <h2><c:out value="${heading}"/></h2>
