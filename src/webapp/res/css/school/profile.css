@@ -351,10 +351,6 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     padding: 10px 0 3px 12px;
 }
 
-#schoolProfile #bodyContents a {
-    text-decoration:underline;
-}
-
 #schoolProfile #bodyContents table {
     text-align:left;
 }
