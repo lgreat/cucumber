@@ -51,6 +51,9 @@
     <title>${school.name} - ${addr} - school overview</title>
     <meta name="description" content="An overview of ${school.name} located in ${addr}, including school test scores, student-teacher ratio, parent school reviews and teacher stats."/>
     <pageHelper:externalCss file="/res/css/school/overview.css"/>
+    <!--[if IE 7]>
+    <pageHelper:externalCss file="/res/css/school/overview_ie7.css"/>
+    <![endif]-->
 </head>
 
 <gsml:body adPageName="overview" pageLayout="research">

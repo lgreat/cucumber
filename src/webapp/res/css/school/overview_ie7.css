@@ -1,0 +1,107 @@
+/*------------------------------------------------------
+
+GreatSchools
+
+School Overview
+
+Internet Explorer 7 styles
+
+-------------------------------------------------------*/
+
+
+hr {
+	width: 177px; /* width of modules plus 2 2px border (4px) */
+	background: #dee;
+	height: 1px;
+	margin: 0;
+	border: 1px solid #dee;
+}
+
+
+/* Editor
+----------------------------------*/
+
+#editor h3 {
+	font: bold 13px/16px Trebuchet MS, sans-serif;
+	color: #888;
+	width: 150px;
+	margin: 15px 0 0 10px; /* IE 6 hack */
+	padding: 10px 0 5px 0;
+	float: none;
+	border-top: 1px solid #dee;
+}
+
+
+/* Ratings
+----------------------------------*/
+
+.stars {
+	margin: 6px 0 0 0; /* IE 6 hack */
+	border: 0;
+}
+
+.rateIt {
+	margin: 10px 0 6px 0;
+	border: 0;
+}
+
+#ratingsBoth #rating_gs img {
+	margin-bottom: 6px;
+}
+
+#ratingsBoth #rating_parent {
+	float: right;
+	text-align: center;
+	margin: 19px 33px 15px 0;
+	width: 102px;
+}
+
+#ratingsParentOnly #rating_parent {
+	float: right;
+	text-align: center;
+	margin: 15px 45px 0 0;
+	width: 102px;
+}
+
+#ratingsGSOnly #rating_gs img {
+	margin-bottom: 6px;
+}
+
+#ratingsGSOnly #rating_parent {
+	float: right;
+	text-align: center;
+	margin: 29px 33px 0 0;
+	width: 102px;
+	height: 120px;
+}
+
+#ratingsNone #rating_parent {
+	float: right;
+	text-align: center;
+	margin: 30px 47px 0 0;
+	width: 102px;
+}
+
+
+/* Compare This School To
+----------------------------------*/
+
+#compareSchool form input {
+	float: left;
+	margin: 6px 2px -5px 0;
+}
+
+#compareSchool form label {
+	display: block;
+	margin: 7px 0 0 0;
+}
+
+
+/* Ratings
+----------------------------------*/
+
+#rating_parent {
+	float: right;
+	text-align: center;
+	margin: 15px 24px 15px 0;
+}
