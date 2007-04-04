@@ -8,7 +8,7 @@
         >
     <jsp:directive.tag body-content="empty"/>
     <c:choose>
-        <c:when test="${requestScope.context.cobranded}">
+        <c:when test="${requestScope.context.cobranded and !requestScope.pageHelper.adFree}">
             <div id="adx11">
                 <link:healthyKids>
                     <gsml:img src="/res/img/content/healthyKids/healthyKids_300x137.jpg" alt="Healthy Kids: Family fitness tips, managing TV time and quick, tasty recipes"/>
