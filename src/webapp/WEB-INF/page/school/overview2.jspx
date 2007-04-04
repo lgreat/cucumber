@@ -14,18 +14,6 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
-<jsp:directive.page import="gs.data.school.School"/>
-<jsp:directive.page import="gs.data.school.census.ICensusInfo"/>
-<jsp:directive.page import="gs.data.school.census.CensusDataType"/>
-<jsp:directive.page import="gs.data.school.census.SchoolCensusValue"/>
-<jsp:directive.page import="java.util.Map"/>
-<jsp:directive.page import="java.util.HashMap"/>
-<jsp:directive.page import="gs.data.school.charter.ICharterSchoolInfo"/>
-<jsp:directive.page import="gs.web.util.context.SessionContext"/>
-<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
-<jsp:directive.page import="org.springframework.context.ApplicationContext"/>
-<jsp:directive.page import="gs.data.school.census.ICharterSchoolInfoDao"/>
-<jsp:directive.page import="gs.data.school.SchoolType"/>
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <html lang="en">
 
@@ -39,14 +27,17 @@
     gs.web.util.PageHelper.setAdServerControlledFooterAd(request, true);
 </jsp:scriptlet>
 
+<c:set var="school" value="${school}"/>
+<c:set var="city" value="${school.physicalAddress.city}"/>
+<c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
+<c:set var="stateName" value="${school.databaseState.longName}"/>
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+<c:set var="sid" value="${school.id}"/>
+<c:set var="addr" value="${city}, ${stateName} - ${stateAbbrev}" />
+<c:set var="pageName" value="Overview"/>
+<c:set var="pq" value="${hasPrincipalView}"/>
+
 <head>
-    <c:set var="city" value="${school.physicalAddress.city}"/>
-    <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
-    <c:set var="stateName" value="${school.databaseState.longName}"/>
-    <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-    <c:set var="sid" value="${school.id}"/>
-    <c:set var="addr" value="${city}, ${stateName} - ${stateAbbrev}" />
-    <c:set var="pageName" value="Overview"/>
 
     <title>${school.name} - ${addr} - school overview</title>
     <meta name="description" content="An overview of ${school.name} located in ${addr}, including school test scores, student-teacher ratio, parent school reviews and teacher stats."/>
@@ -136,35 +127,37 @@
                 </div>
             </c:if>
 
-        <!--[if !IE]> Learn About This School <![endif]-->
+            <div id="learnSchool">
+                <h2>Learn About ${school.name}</h2>
+                <c:if test="${school.type.schoolTypeName ne 'private'}">
+                    <gsml:a href="/modperl/achievement/${state}/${sid}"><gsml:img src="/res/img/school/overview/learn_TestScores.gif" alt="${school.name} test scores [GO]" /></gsml:a>
+                    <p>Clover Avenue Elementary School test scores</p>
+                </c:if>
 
-		<div id="learnSchool">
+                <gsml:a href="/cgi-bin/${state}/other/${sid}#teachers"><gsml:img src="/res/img/school/overview/learn_TeacherStats.gif" alt="Clover Avenue Elementary School Teacher Stats" /></gsml:a>
+                <p>Clover Avenue Elementary School teachers</p>
 
-		<h2>Learn About This School</h2>
+                <gsml:a href="/cgi-bin/${state}/other/${sid}#students"><gsml:img src="/res/img/school/overview/learn_StudentStats.gif" alt="Clover Avenue Elementary School Student Stats" /></gsml:a>
+                <p>Clover Avenue Elementary School statistics</p>
 
-		<a href="" title=""><gsml:img src="/res/img/school/overview/learn_TestScores.gif" alt="Clover Avenue Elementary School 2005-2006 Test Scores" /></a>
-		<p>Clover Avenue Elementary School test scores</p>
+                <c:if test="${school.type.schoolTypeName ne 'private'}">
+                    <gsml:a href="/cgi-bin/${state}/other/${sid}#finance"><gsml:img src="/res/img/school/overview/learn_SchoolFinance.gif" alt="${school.name} spending per pupil" /></gsml:a>
+                    <p>${school.name} spending per pupil</p>
+                </c:if>
 
-		<a href="" title=""><gsml:img src="/res/img/school/overview/learn_APExams.gif" alt="Clover Avenue Elementary School AP Exams" /></a>
-		<p>Clover Avenue Elementary School AP exams</p>
+                <!--<a href="" title=""><gsml:img src="/res/img/school/overview/learn_APExams.gif" alt="Clover Avenue Elementary School AP Exams" /></a>-->
+                <!--<p>Clover Avenue Elementary School AP exams</p>-->
 
-		<a href="" title=""><gsml:img src="/res/img/school/overview/learn_TeacherStats.gif" alt="Clover Avenue Elementary School Teacher Stats" /></a>
-		<p>Clover Avenue Elementary School teachers</p>
+                <c:if test="${pq}" >
+                    <gsml:a href="/cgi-bin/${state}/pqview/${sid}"><gsml:img src="/res/img/school/overview/learn_SchoolsView.gif" alt="The inside scoop on ${school.name}" /></gsml:a>
+                    <p>The inside scoop on ${school.name}</p>
+                </c:if>
 
-		<a href="" title=""><gsml:img src="/res/img/school/overview/learn_SchoolFinance.gif" alt="Clover Avenue Elementary School School Finance" /></a>
-		<p>Clover Avenue Elementary School statistics</p>
-
-		<a href="" title=""><gsml:img src="/res/img/school/overview/learn_SchoolsView.gif" alt="Clover Avenue Elementary School The School's View" /></a>
-		<p>Clover Avenue Elementary School statistics</p>
-
-		<a href="" title=""><gsml:img src="/res/img/school/overview/learn_StudentStats.gif" alt="Clover Avenue Elementary School Student Stats" /></a>
-		<p>Clover Avenue Elementary School statistics</p>
-
-		<a href="" title=""><gsml:img src="/res/img/school/overview/learn_PerformanceOverTime.gif" alt="Clover Avenue Elementary School Performance Over Time" /></a>
-		<!-- add class="last" to final paragraph to remove the dotted divider -->
-		<p class="last">Clover Avenue Elementary School statistics</p>
-
-		</div><!--[if !IE]> end: learnSchool <![endif]-->
+                <c:if test="${school.type.schoolTypeName eq 'charter'}">
+                    <gsml:a href=""><gsml:img src="/res/img/school/overview/learn_PerformanceOverTime.gif" alt="Download our special report on this school's performance" /></gsml:a>
+                    <p class="last">Download our special report on this school's performance</p>
+                </c:if>
+            </div>
 
 		<!--[if !IE]> Compare This School To <![endif]-->
 

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.14 2006/10/24 23:17:50 aroy Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.15 2007/04/04 19:56:42 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -261,6 +261,10 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
 
         public List findSchoolsInDataLimbo(State state, boolean activeOnly) {
             return null;
+        }
+
+        public boolean hasPrincipalView(School s) {
+            return false;
         }
     }
 }

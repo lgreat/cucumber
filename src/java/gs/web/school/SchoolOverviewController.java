@@ -101,6 +101,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
                 }
             }
             model.put("latestReviewsModel", createLatestReviewsModel(school));
+            model.put("hasPrincipalView", new Boolean(getSchoolDao().hasPrincipalView(school)));
         }
 
         return new ModelAndView(_viewName, model);
