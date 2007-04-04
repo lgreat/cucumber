@@ -20,13 +20,13 @@
     </c:choose>
 
     <c:choose>
-        <c:when test="${gsRating == 0 and parentRating == null}">
+        <c:when test="${gsRating == 0 and parentRating.avgQuality == null}">
             <c:set var="divId" value="ratingsNone"/>
         </c:when>
-        <c:when test="${gsRating == 0 and parentRating != null}">
+        <c:when test="${gsRating == 0 and parentRating.avgQuality != null}">
             <c:set var="divId" value="ratingsParentOnly"/>
         </c:when>
-        <c:when test="${gsRating != 0 and parentRating == null}">
+        <c:when test="${gsRating != 0 and parentRating.avgQuality == null}">
             <c:set var="divId" value="ratingsGSOnly"/>
         </c:when>
         <c:otherwise>
@@ -46,20 +46,25 @@
             </div><!-- end: rating_gs -->
         </c:if>
 
+        <!-- &#32; characters are to force spacing required by style definitions -->
         <div id="rating_parent">
             <c:choose>
                 <c:when test="${parentRating == null or parentRating.avgQuality == null}">
                     <link:schoolProfileAddParentReview school="${school}">
                         <gsml:img src="/res/img/school/overview/rating_BeTheFirst.gif" alt="Be the first to rate this school!" styleClass="parentTitle" />
+                        &#32;
                         <gsml:img src="/res/img/school/overview/stars_0.gif" alt="No Rating" styleClass="stars" />
+                        &#32;
                         <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
                     </link:schoolProfileAddParentReview>
                 </c:when>
                 <c:otherwise>
                     <link:schoolProfileParentReview school="${school}">
                         <gsml:img src="/res/img/school/overview/rating_OverallParentRating.gif" alt="Overall Parent Rating" styleClass="parentTitle" />
+                        &#32;
                         <gsml:img src="/res/img/school/overview/stars_${parentRating.avgQuality}.gif" alt="${parentRating.avgQuality} out of 5 stars" styleClass="stars" />
                     </link:schoolProfileParentReview>
+                    &#32;
                     <link:schoolProfileAddParentReview school="${school}">
                         <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt" />
                     </link:schoolProfileAddParentReview>
