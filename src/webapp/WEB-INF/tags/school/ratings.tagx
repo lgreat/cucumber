@@ -42,7 +42,7 @@
                 <link:schoolProfileRating school="${school}">
                     <gsml:img src="/res/img/school/overview/ratings_gs_med_${gsRating}.gif" alt="GreatSchools Rating ${gsRating} out of 10" />
                 </link:schoolProfileRating>
-                <p><link:schoolProfileRating school="${school}">view all &#62;</link:schoolProfileRating></p>
+                <p><link:schoolProfileRating school="${school}">View all &#62;</link:schoolProfileRating></p>
             </div><!-- end: rating_gs -->
         </c:if>
 
