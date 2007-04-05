@@ -213,13 +213,13 @@ hr { /* has IE 7 equivalent */
 
 .stars { /* has IE 7 equivalent */
 	margin: 7px 0 0 0;
-	_margin: 6px 0 0 0; /* IE 6 hack */
+	_margin: 7px 0 0 0; /* IE 6 hack */
 	border: 0;
 }
 
 .rateIt { /* has IE 7 equivalent */
-	margin: 15px 0 10px 0;
-	_margin: 10px 0 5px 0;
+	margin: 14px 0 10px 0;
+	_margin: 13px 0 6px 0;
 	border: 0;
 }
 
@@ -330,7 +330,7 @@ hr { /* has IE 7 equivalent */
 
 #ratingsGSOnly #rating_gs img { /* has IE 7 equivalent */
 	margin-bottom: 10px;
-	_margin-bottom: 7px; /* IE 6 hack */
+	_margin-bottom: 12px; /* IE 6 hack */
 }
 
 #ratingsGSOnly #rating_parent { /* has IE 7 equivalent */
