@@ -1,5 +1,5 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
@@ -80,9 +80,9 @@
     <ul class="plain">
         <gsweb:articlelink articleId="688" wrappingElement="li"/>
         <gsweb:articlelink articleId="753" wrappingElement="li"/>
-        <gsweb:articlelink articleId="700" wrappingElement="li"/>
+        <gsweb:articlelink articleId="882" wrappingElement="li"/>
         <gsweb:articlelink articleId="716" wrappingElement="li"/>
-        <gsweb:articlelink articleId="816" wrappingElement="li"/>
+        <gsweb:articlelink articleId="684" wrappingElement="li"/>
     </ul>
 
     <h3 id="testTips">Test Tips</h3>
@@ -96,7 +96,7 @@
     <ul class="plain">
         <gsweb:articlelink articleId="846" wrappingElement="li"/>
         <gsweb:articlelink articleId="795" wrappingElement="li"/>
-        <gsweb:articlelink articleId="836" wrappingElement="li"/>
+        <gsweb:articlelink articleId="843" wrappingElement="li"/>
     </ul>
 
     <h3 id="choosingASchool">School Choice Tips</h3>
@@ -161,17 +161,17 @@
     <h2 id="whatYourChildNeeds">What Your Child Needs to Succeed</h2>
 
     <div class="moduleTitle">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/536" styleClass="noHover">An Honest Day's Work: Summer Jobs for Youth</gsml:a>
+        <gsml:a href="/cgi-bin/showarticle/$STATE/946" styleClass="noHover">Don't Know Much About History</gsml:a>
     </div>
     <div class="module">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/536" styleClass="noHover">
-            There's nothing like a summer job to teach real-world skills: responsibility, punctuality,
-            following directions, getting along with others, establishing a good work ethic and
-            managing money.
+        <gsml:a href="/cgi-bin/showarticle/$STATE/946" styleClass="noHover">
+            Test results show we're not successfully teaching students about the national and
+            global events that have shaped their world. But it's knowledge they need. Here's how
+            you can help your child get it.
         </gsml:a>
     </div>
     <div align="right">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/536" styleClass="seeFullArticle">See full article &gt;</gsml:a>
+        <gsml:a href="/cgi-bin/showarticle/$STATE/946" styleClass="seeFullArticle">See full article &gt;</gsml:a>
     </div>
 
     <div class="midDotLine" >
@@ -191,20 +191,19 @@
     <div class="yellowbar"></div>
 
     <div class="moduleTitle">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/882" styleClass="noHover">
-            Choosing Smart Electives
+        <gsml:a href="/cgi-bin/showarticle/$STATE/686" styleClass="noHover">
+            Are Four Years of College Financing Enough?
         </gsml:a>
     </div>
 
     <div class="module">
-        <gsml:a href="/cgi-bin/showarticle/$STATE/882" styleClass="noHover">
-            Many high schools' minimum academic requirements are not rigorous enough to satisfy
-            college admission officials. Make sure your child selects classes that meet
-            college standards.
+        <gsml:a href="/cgi-bin/showarticle/$STATE/686" styleClass="noHover">
+            Does your college financial plan assume that your child will graduate in four years?
+            You may need to think again. Only about 40 percent of students graduate in that time.
         </gsml:a>
     </div>
 
-    <div align="right"><gsml:a href="/cgi-bin/showarticle/$STATE/882" styleClass="seeFullArticle">See full article
+    <div align="right"><gsml:a href="/cgi-bin/showarticle/$STATE/686" styleClass="seeFullArticle">See full article
         &gt;</gsml:a></div>
 
     <div class="midDashLine">
@@ -220,13 +219,16 @@
                 </td>
                 <td valign="top">
                     <ul class="quickFindLinks" style="padding-top:15px;">
-                        <li style="padding-top:0;margin-top:0"><a href="http://www.collegeboard.com/parents/plan/hs-steps/21261.html"
-                               target="_blank">A Balanced Course Load</a></li>
-                        <li><a href="http://www.collegeboard.com/parents/plan/hs-steps/21282.html"
-                               target="_blank">The Extracurricular Edge: Quality over Quantity</a></li>
-                        <li><a href="http://www.greatschools.net/cgi-bin/showarticle/$STATE/881">Volunteer Opportunities</a></li>
-                        <li><a href="http://www.collegeboard.com/parents/plan/hs-steps/21284.html"
-                               target="_blank">Summer Learning Programs</a></li>
+                        <li style="padding-top:0;margin-top:0"><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21414.html"
+                               target="_blank">How to Spend Less and Bring in More</a></li>
+                        <li><a href="http://www.collegeboard.com/parents/pay/scholarships-aid/21420.html"
+                               target="_blank">Your Family's Financing Options</a></li>
+                        <li><a href="http://www.collegeboard.com/parents/csearch/know-the-options/38529.html"
+                               target="_blank">Hidden Costs of a College Education</a></li>
+                        <li><a href="http://apps.collegeboard.com/fincalc/ep/wizard-home.jsp"
+                               target="_blank">Financial Aid EasyPlanner</a></li>
+                        <li><a href="http://www.collegeboard.com/student/pay/add-it-up/401.html"
+                               target="_blank">Financial Aid Calculators</a></li>
                     </ul>
                 </td>
 
@@ -294,11 +296,9 @@
                    <tr>
                        <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_freshman.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Your child can check with his counselor and search online for
-                               <a href="http://www.collegeboard.com/parents/plan/hs-steps/21284.html" target="_blank">summer learning programs</a>
-                               offered at colleges and other institutions. He can study
-                               academic subjects or work on developing skills, such as
-                               playing an instrument or a sport.
+                               Summer is a great time to explore interests. Now is the time for
+                               your child to start looking for a <gsweb:articlelink articleId="536">summer job</gsweb:articlelink>, 
+                               internship or <gsweb:articlelink articleId="881">volunteer opportunity</gsweb:articlelink>.
                            </span><br/>
                            <a href="http://www.collegeboard.com/parents/plan/getting-ready/26177.html" target="_blank" class="actionTipsLink">Freshman Action Plan</a>
                        </td>
@@ -306,11 +306,9 @@
                        <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                        <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_sophomore.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Your child should meet with a school counselor to discuss
-                               possible <a href="http://www.collegeboard.com/parents/tests/meet-tests/21299.html" target="_blank">AP courses</a> to
-                               take during her junior year and find out when to take
-                               <a href="http://www.collegeboard.com/parents/tests/meet-tests/21297.html" target="_blank">SAT Subject Tests</a>.
-                               Many colleges require these for admission or placement.  
+                               Your child can check with a school counselor and search online for
+                               <gsweb:articlelink articleId="537">summer learning programs</gsweb:articlelink>
+                               offered to high school students at colleges and other institutions.
                            </span><br />
                            <a href="http://www.collegeboard.com/parents/plan/getting-ready/26397.html" target="_blank" class="actionTipsLink">Sophomore Action Plan</a></td>
                    </tr>
@@ -320,23 +318,17 @@
                    <tr>
                        <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_junior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               AP Exams are in May. Encourage your child to visit the
-                               <a href="http://www.collegeboard.com/student/testing/ap/prep.html" target="_blank">AP Prep Center</a> for
-                               study help. Talk to the counselor to see if your child
-                               should prepare writing samples, portfolios, audition tapes
-                               or other material for the fall application season. 
+                               Help your child make a resume of her accomplishments, activities,
+                               and work experience. Suggest to your child that he start a
+                               <gsweb:articlelink articleId="847">summer reading list</gsweb:articlelink>.
                            </span><br />
                            <a href="http://www.collegeboard.com/parents/plan/getting-ready/26401.html" target="_blank" class="actionTipsLink">Junior Action Plan</a></td>
                        <td style="width: 24px;" valign="top"><img style="width: 24px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"></img></td>
                        <td valign="top" style="width: 318px;"><img src="/res/img/content/countdownToCollege/t_senior.gif" width="93" height="23" alt="" border="0" /><br />
                            <span class="actionTip">
-                               Most admission decisions letters arrive this month. You
-                               and your child should read each carefully,
-                               <a href="http://apps.collegeboard.com/fincalc/compare_aid.jsp" target="_blank">compare financial
-                               aid awards</a> and note all reply deadlines.
-                               <a href="http://www.collegeboard.com/parents/apply/college-applications/21374.html" target="_blank">If your child
-                               is waitlisted</a>, encourage her to contact the admissions
-                               director to reiterate her interest in the college. 
+                               Your child should AP Exam scores sent to her final-choice college.
+                               She should also send thank-you notes to teachers and other mentors
+                               who wrote recommendations.
                            </span><br />
                            <a href="http://www.collegeboard.com/parents/plan/getting-ready/26402.html" target="_blank" class="actionTipsLink">Senior Action Plan</a></td>
                    </tr>
