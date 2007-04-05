@@ -35,13 +35,8 @@ hr {
 /* Ratings
 ----------------------------------*/
 
-.stars {
-	margin: 6px 0 0 0; /* IE 6 hack */
-	border: 0;
-}
-
 .rateIt {
-	margin: 10px 0 6px 0;
+	margin: 14px 0 6px 0;
 	border: 0;
 }
 

@@ -211,9 +211,8 @@ hr { /* has IE 7 equivalent */
 	border: 0;
 }
 
-.stars { /* has IE 7 equivalent */
+.stars {
 	margin: 7px 0 0 0;
-	_margin: 7px 0 0 0; /* IE 6 hack */
 	border: 0;
 }
 
