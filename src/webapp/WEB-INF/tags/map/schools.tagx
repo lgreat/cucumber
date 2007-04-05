@@ -87,6 +87,11 @@ function ${functionName}() {
     map.setCenter(centerPoint, ${17-scale});
     var bounds = new GLatLngBounds();
     bounds.extend(centerPoint);
+    var schoolLocation;
+    var schInfo;
+    var e;
+    var stInfo;
+    var marker;
     <c:forEach var="s" items="${schools}">
       <c:if test="${not empty s.lon}">
         <c:choose>
@@ -100,15 +105,15 @@ function ${functionName}() {
           </c:otherwise>
         </c:choose>
         <![CDATA[
-        var schoolLocation = new GLatLng(${s.lat},${s.lon});
-        var schInfo = "<br />${s.gradeLevels}, ${s.type.name}";
-        var e = ${not empty s.enrollment?s.enrollment:0};
-        var stInfo = "";
+        schoolLocation = new GLatLng(${s.lat},${s.lon});
+        schInfo = "<br />${s.gradeLevels}, ${s.type.name}";
+        e = ${not empty s.enrollment?s.enrollment:0};
+        stInfo = "";
         if (e > 0) {
           stInfo="<br />"+e+" students";
         }
         ]]>
-        var marker = new GMarker(schoolLocation);
+        marker = new GMarker(schoolLocation);
         map.addOverlay(marker);
         bounds.extend(schoolLocation);
         gMarkers[i++] = marker;
@@ -128,7 +133,7 @@ function ${functionName}() {
       icon.image = "/res/img/school/overview/star.gif";
       icon.iconSize = new GSize(26,25);
       icon.iconAnchor = new GPoint(13,12);
-      var marker = new GMarker(centerPoint, icon);
+      marker = new GMarker(centerPoint, icon);
       map.addOverlay(marker);
       extendBoundsToCenterOnPoint(centerPoint, bounds);
       setTooltipOnMarker(marker, '<span style="white-space:nowrap"><c:out value="${centerSchool.name}" escapeXml="true" /></span>');
