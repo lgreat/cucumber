@@ -42,7 +42,7 @@
                 <link:schoolProfileRating school="${school}">
                     <gsml:img src="/res/img/school/overview/ratings_gs_med_${gsRating}.gif" alt="GreatSchools Rating ${gsRating} out of 10" />
                 </link:schoolProfileRating>
-                <p><link:schoolProfileRating school="${school}">View all &#62;</link:schoolProfileRating></p>
+                <p><link:schoolProfileRating school="${school}">view all &#62;</link:schoolProfileRating></p>
             </div><!-- end: rating_gs -->
         </c:if>
 
@@ -52,19 +52,15 @@
                 <c:when test="${parentRating == null or parentRating.avgQuality == null}">
                     <link:schoolProfileAddParentReview school="${school}">
                         <gsml:img src="/res/img/school/overview/rating_BeTheFirst.gif" alt="Be the first to rate this school!" styleClass="parentTitle" />
-                        &#32;
                         <gsml:img src="/res/img/school/overview/stars_0.gif" alt="No Rating" styleClass="stars" />
-                        &#32;
                         <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt"/>
                     </link:schoolProfileAddParentReview>
                 </c:when>
                 <c:otherwise>
                     <link:schoolProfileParentReview school="${school}">
                         <gsml:img src="/res/img/school/overview/rating_OverallParentRating.gif" alt="Overall Parent Rating" styleClass="parentTitle" />
-                        &#32;
                         <gsml:img src="/res/img/school/overview/stars_${parentRating.avgQuality}.gif" alt="${parentRating.avgQuality} out of 5 stars" styleClass="stars" />
                     </link:schoolProfileParentReview>
-                    &#32;
                     <link:schoolProfileAddParentReview school="${school}">
                         <gsml:img src="/res/img/school/overview/submit_RateIt.gif" alt="Rate It" styleClass="rateIt" />
                     </link:schoolProfileAddParentReview>
