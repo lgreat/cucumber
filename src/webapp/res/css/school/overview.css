@@ -584,6 +584,17 @@ hr { /* has IE 7 equivalent */
 	border: 1px solid #cdcdce;
 }
 
+.tooltip {
+    font-size: small;
+    font-weight: bold;
+    padding: 2px;
+    border-width: 1px 2px 2px 1px;
+    border-color: #000 #666 #666 #000;
+    border-style: solid;
+    background-color: #FF9;
+    color: #000;
+}
+
 #nearbySchools .head_top {
 	font: 10px/11px Trebuchet MS, sans-serif;
 	color: #888;
