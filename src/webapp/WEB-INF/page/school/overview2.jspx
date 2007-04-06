@@ -42,10 +42,11 @@
     <title>${school.name} - ${addr} - school overview</title>
     <meta name="description" content="An overview of ${school.name} located in ${addr}, including school test scores, student-teacher ratio, parent school reviews and teacher stats."/>
     <pageHelper:externalCss file="/res/css/school/overview.css"/>
+
     <![CDATA[
-        <!--[if IE 7]>
-            <link rel="stylesheet" type="text/css" href="/res/css/school/overview_ie7.css"/>
-        <![endif]-->
+    <!--[if IE 7]>
+        <link rel="stylesheet" type="text/css" href="/res/css/school/overview_ie7.css" />
+    <![endif]-->
     ]]>
 </head>
 
@@ -54,7 +55,7 @@
 <school:profile school="${school}" tab="overview">
 
 <div id="schoolOverview">
-
+    <gsml:equalizeColumns ids="'col_left','col_center','col_right'"/>
     <!-- being left column -->
     <div id="col_left">
 
@@ -161,20 +162,20 @@
                 </c:if>
             </div>
 
-		<!--[if !IE]> Compare This School To <![endif]-->
-
-		<div id="compareSchool">
+        <div id="compareSchool">
             <h2>Compare This School To</h2>
 
             <gsml:img src="/res/img/school/overview/compare_magnify.jpg" alt="" />
 
             <form action="/school/compareSchool.page" method="get">
                 <table id="compareForm">
-                    <tr><td>
-                        <input type="radio" name="type" value="distance" /><label>Nearby high schools</label>
-                        <input type="radio" name="type" value="district" /><label>District high schools</label>
-                        <input type="radio" name="type" value="city" /><label>City high schools</label>
-                    </td></tr>
+                    <tr>
+                        <td align="left">
+                            <input type="radio" name="type" value="distance" checked="checked"/><label>Nearby high schools</label>
+                            <input type="radio" name="type" value="district"/><label>District ${school.levelCode} schools</label>
+                            <input type="radio" name="type" value="city" /><label>City high schools</label>
+                        </td>
+                    </tr>
                 </table>
                 <input type="hidden" name="id" value="${school.id}"/>
                 <input type="hidden" name="state" value="${state}"/>
@@ -183,14 +184,17 @@
                 <gsml:inputImage src="/res/img/school/overview/submit_compare.gif" alt="Compare" styleClass="submit" />
             </form>
             <br style="clear:both;" />
-        </div><!-- end: compareSchool -->
+        </div> <!-- end: compareSchool -->
 
-		</div><!-- end: col_center -->
+
+        </div><!-- end: col_center -->
 
 		<!-- begin right column -->
         <div id="col_right">
-            <a href="" title=""><gsml:img src="/res/img/school/overview/promotion.jpg" alt="School Choice Tips: Choose a great school for your family" styleClass="promotion" /></a>
-            <a href="" title=""><gsml:img src="/res/img/school/overview/ad.jpg" alt="" styleClass="ad" /></a>
+            <ad:x11/>
+            <c:if test="${!requestScope.pageHelper.adFree}">
+                <ad:x48 />
+            </c:if>
             <div id="nearbySchools">
                 <h2>Top-Rated Public Schools Near Clover Avenue Elementary School</h2>
                 <!-- Google Map API code goes here, remove temp image -->

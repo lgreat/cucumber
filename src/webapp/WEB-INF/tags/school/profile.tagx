@@ -296,28 +296,30 @@
     <!-- breadcrumb start no breadcrumb on overview page-->
     <c:set var="delimiter" value="&amp;gt;"/>
 
-    <div class="breadcrumb">
-        <c:if test="${tab ne 'overview'}"><span class="hr">&amp;nbsp;</span></c:if>
-        <h2>
-            <link:research state="${state}">${state.longName} schools</link:research>
-            ${delimiter}
-            <link:city city="${city}" state="${state}">${city} schools</link:city>
+    <c:if test="${tab ne 'overview'}">
+        <div class="breadcrumb">
+            <span class="hr">&amp;nbsp;</span>
+            <h2>
+                <link:research state="${state}">${state.longName} schools</link:research>
+                ${delimiter}
+                <link:city city="${city}" state="${state}">${city} schools</link:city>
 
-            <c:choose>
-                <c:when test="${school.districtId != 0}">
-                    ${delimiter}
-                    <link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name}</link:allSchoolsInDistrict>
-                    <c:if test="${tab ne 'overview'}">
-                        ${delimiter}<br/>
-                        <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>
-                    </c:if>
-                </c:when>
-                <c:when test="${tab ne 'overview'}">
-                    ${delimiter} <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>
-                </c:when>
-            </c:choose>
-        </h2>
-    </div>
+                <c:choose>
+                    <c:when test="${school.districtId != 0}">
+                        ${delimiter}
+                        <link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name}</link:allSchoolsInDistrict>
+                        <c:if test="${tab ne 'overview'}">
+                            ${delimiter}<br/>
+                            <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>
+                        </c:if>
+                    </c:when>
+                    <c:when test="${tab ne 'overview'}">
+                        ${delimiter} <link:schoolProfileOverview school="${school}">${school.name}</link:schoolProfileOverview>
+                    </c:when>
+                </c:choose>
+            </h2>
+        </div>
+    </c:if>
     <!-- breadcrumb end -->
 
     <br style="clear:both;"/>

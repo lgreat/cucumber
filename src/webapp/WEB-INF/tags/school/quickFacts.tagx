@@ -54,7 +54,7 @@
             <address>
                 ${school.physicalAddress.street}<br />
                 ${school.physicalAddress.city}, ${school.physicalAddress.state.abbreviation}<br />
-                ${school.physicalAddress.zip} | <a href="http://maps.google.com/maps?oi=maps&amp;q=${school.physicalAddress}">Map &#62;</a>
+                ${school.physicalAddress.zip} | <a href="http://maps.google.com/maps?oi=maps&amp;&amp;q=${school.physicalAddress}">Map &#62;</a>
             </address>
 
             <p class="phoneFax">
@@ -67,33 +67,35 @@
             </c:if>
 
             <ul>
-                <li><strong>Grades:</strong> ${school.gradeLevels}</li>
-                <li><strong>Type:</strong> ${school.type.schoolTypeName}</li>
-                <li><strong>Students:</strong> ${school.enrollment}</li>
+                <li>Grades: ${school.gradeLevels}</li>
+                <li>${school.type.schoolTypeName} school</li>
+                <c:if test="${not empty school.enrollment}">
+                    <li>${school.enrollment} students</li>
+                </c:if>
                 <c:if test="${not empty school.association}">
-                    <li><strong>Associations:</strong> ${school.association}</li>
+                    <li>Associations: ${school.association}</li>
                 </c:if>
                 <c:set var="schoolData" value="${schoolData}"/>
                 <c:if test="${school.type.schoolTypeName == 'private'}">
                     <c:if test="${not empty schoolData.schoolDays}">
-                        <li><strong>School days per year:</strong> ${schoolData.schoolDays}</li>
+                        <li>${schoolData.schoolDays} school days per year</li>
                     </c:if>
                     <c:if test="${not empty schoolData.hoursPerDay}">
-                        <li><strong>Hours per day:</strong> ${schoolData.hoursPerDay}</li>
+                        <li>${schoolData.hoursPerDay} hours per day</li>
                     </c:if>
                     <c:if test="${not empty schoolData.hasLibrary}">
-                        <li><strong>Library:</strong> ${schoolData.hasLibrary}</li>
+                        <li>Library: ${schoolData.hasLibrary}</li>
                     </c:if>
                 </c:if>
                 <c:if test="${school.type.schoolTypeName == 'charter'}">
                     <c:if test="${not empty schoolData.yearOpened}">
-                        <li><strong>Year opened:</strong> ${schoolData.yearOpened}</li>
+                        <li>Year opened: ${schoolData.yearOpened}</li>
                     </c:if>
                     <c:if test="${not empty school.authorizer.name}">
-                        <li><strong>Charter Authorizer:</strong> ${school.authorizer.name}</li>
+                        <li>Charter Authorizer: ${school.authorizer.name}</li>
                     </c:if>
                     <c:if test="${not empty school.operatorId}">
-                        <li><strong>Charter Operator:</strong> ${schoolData.operator}</li>
+                        <li>Charter Operator: ${schoolData.operator}</li>
                     </c:if>
                 </c:if>
             </ul>
