@@ -17,7 +17,7 @@
 <jsp:directive.attribute name="schools" required="true" description="Schools to map" type="java.util.Collection"/>
 <jsp:directive.attribute name="tooltips" required="false" description="Use tooltips?" />
 <jsp:directive.attribute name="bubbles" required="false" description="Use Google's standard thought bubbles" />
-<jsp:directive.attribute name="centerSchool" required="false" type="gs.data.school.School" description="If provided, centers map on school and places star marker. Note lat and lon must also be provided"/>
+<jsp:directive.attribute name="centerSchool" required="false" type="gs.data.school.School" description="If provided, centers map on school and places star marker"/>
 <!--
 NOTES
 The map API must be previously initialized.
@@ -61,8 +61,6 @@ function addBubble(m, link, name, schInfo, stInfo) {
 function extendBoundsToCenterOnPoint(point, bounds) {
   bounds.extend(reflectPoint(point, bounds.getNorthEast()));
   bounds.extend(reflectPoint(point, bounds.getSouthWest()));
-
-  //alert("Center point=" + point + "\nBounds center=" + bounds.getCenter() + "\nDistance=" + point.distanceFrom(bounds.getCenter()) + "m");
 }
 
 // Given points x (outlier) and y (center), returns point z such that the rectangle defined by
@@ -72,63 +70,74 @@ function reflectPoint(centerPoint, outlierPoint) {
                      centerPoint.lng() + (centerPoint.lng() - outlierPoint.lng()));
 }
 
-function ${functionName}() {
-  if (GBrowserIsCompatible()) {
+var displayTooltips = ${not empty tooltips};
+var useBubbles = ${not empty bubbles};
+var centerOnStar = ${not empty centerSchool};
+var centerPoint = new GLatLng(${center.lat}, ${center.lon});
+var schoolArray = new Array();
+function initSchoolInfo() {
+    var mySchool;
+<c:forEach var="school" items="${schools}">
+  // School info for ${school.name}
+  <c:if test="${not empty school.lon}">
+    <c:choose>
+      <c:when test="${'private' == school.type.schoolTypeName}">
+        <gsml:url var="hrefbase"
+                  value="/cgi-bin/${school.databaseState.abbreviationLowerCase}/private/${school.id}"/>
+      </c:when>
+      <c:otherwise>
+        <gsml:url var="hrefbase"
+                  value="/modperl/browse_school/${school.databaseState.abbreviationLowerCase}/${school.id}"/>
+      </c:otherwise>
+    </c:choose>
+    mySchool = new Object();
+    mySchool.link = "${hrefbase}";
+    mySchool.name = "${fn:escapeXml(school.name)}";
+    mySchool.location = new GLatLng(${school.lat},${school.lon});
+    <![CDATA[
+    mySchool.info = "<br />${school.gradeLevels}, ${school.type.name}";
+    mySchool.enrollment = ${not empty school.enrollment?school.enrollment:0};
+    mySchool.stInfo = "";
+    if (mySchool.enrollment > 0) {
+      mySchool.stInfo = "<br />" + mySchool.enrollment + " students";
+    }
+    ]]>
+    schoolArray.push(mySchool);
+  </c:if>
+</c:forEach>
+}
+
+function initMap() {
     var i = 0;
     map = new GMap2(document.getElementById("${id}"));
 
-    <c:if test="${tooltips}">
+    if (displayTooltips) {
       gTooltip = document.createElement("div");
       map.getPane(G_MAP_FLOAT_PANE).appendChild(gTooltip);
       gTooltip.style.visibility = "hidden";
-    </c:if>
-    var centerPoint = new GLatLng(${center.lat}, ${center.lon});
+    }
     map.addControl(new GSmallMapControl());
-    map.setCenter(centerPoint, ${17-scale});
+    map.setCenter(centerPoint, 17);
     var bounds = new GLatLngBounds();
     bounds.extend(centerPoint);
-    var schoolLocation;
-    var schInfo;
-    var e;
-    var stInfo;
-    var marker;
-    <c:forEach var="s" items="${schools}">
-      <c:if test="${not empty s.lon}">
-        <c:choose>
-          <c:when test="${'private' == s.type.schoolTypeName}">
-            <gsml:url var="hrefbase"
-                      value="/cgi-bin/${s.databaseState.abbreviationLowerCase}/private/${s.id}"/>
-          </c:when>
-          <c:otherwise>
-          <gsml:url var="hrefbase"
-                    value="/modperl/browse_school/${s.databaseState.abbreviationLowerCase}/${s.id}"/>
-          </c:otherwise>
-        </c:choose>
-        <![CDATA[
-        schoolLocation = new GLatLng(${s.lat},${s.lon});
-        schInfo = "<br />${s.gradeLevels}, ${s.type.name}";
-        e = ${not empty s.enrollment?s.enrollment:0};
-        stInfo = "";
-        if (e > 0) {
-          stInfo="<br />"+e+" students";
-        }
-        ]]>
-        marker = new GMarker(schoolLocation);
-        map.addOverlay(marker);
-        bounds.extend(schoolLocation);
-        gMarkers[i++] = marker;
-        <c:if test="${tooltips}">
-          setTooltipOnMarker(marker,'<span style="white-space:nowrap"><c:out value="${s.name}" escapeXml="true" /></span>');
-        </c:if>
-        <c:if test="${bubbles}">
-          addBubble(marker, "${hrefbase}", '${fn:escapeXml(s.name)}', schInfo, stInfo);
-        </c:if>
-        <c:if test="${not bubbles}">
-          GEvent.addListener(marker, "click", function() { location = '${hrefbase}'; });
-        </c:if>
-      </c:if>
-    </c:forEach>
-    <c:if test="${not empty centerSchool}">
+    <![CDATA[
+    for (var counter=0; counter < schoolArray.length; counter++) {
+      var curSchool = schoolArray[counter];
+      marker = new GMarker(curSchool.location);
+      map.addOverlay(marker);
+      bounds.extend(curSchool.location);
+      gMarkers[i++] = marker;
+      if (displayTooltips) {
+        setTooltipOnMarker(marker,'<span style="white-space:nowrap">' + curSchool.name + '</span>');
+      }
+      if (useBubbles) {
+        addBubble(marker, curSchool.link, curSchool.name, curSchool.info, curSchool.stInfo);
+      } else {
+        GEvent.addListener(marker, "click", function() { location = curSchool.link; });
+      }
+    }
+    ]]>
+    if (centerOnStar) {
       var icon = new GIcon();
       icon.image = "/res/img/school/overview/star.gif";
       icon.iconSize = new GSize(26,25);
@@ -136,13 +145,22 @@ function ${functionName}() {
       marker = new GMarker(centerPoint, icon);
       map.addOverlay(marker);
       extendBoundsToCenterOnPoint(centerPoint, bounds);
-      setTooltipOnMarker(marker, '<span style="white-space:nowrap"><c:out value="${centerSchool.name}" escapeXml="true" /></span>');
+      var schoolName = "${fn:escapeXml(centerSchool.name)}";
+      <![CDATA[
+      setTooltipOnMarker(marker, '<span style="white-space:nowrap">' + schoolName + '</span>');
+      ]]>
       gMarkers[i++] = marker;
-    </c:if>
+    }
     var zoom = map.getBoundsZoomLevel(bounds);
     if (zoom > 12) zoom = 12;
     if (9 > zoom) zoom = 9;
     map.setZoom(zoom);
+}
+
+function ${functionName}() {
+  if (GBrowserIsCompatible()) {
+      initSchoolInfo();
+      initMap();
   }
 }
 -->
