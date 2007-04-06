@@ -42,15 +42,14 @@
     <title>${school.name} - ${addr} - school overview</title>
     <meta name="description" content="An overview of ${school.name} located in ${addr}, including school test scores, student-teacher ratio, parent school reviews and teacher stats."/>
     <pageHelper:externalCss file="/res/css/school/overview.css"/>
+</head>
 
+<gsml:body adPageName="overview" pageLayout="research">
     <![CDATA[
     <!--[if IE 7]>
         <link rel="stylesheet" type="text/css" href="/res/css/school/overview_ie7.css" />
     <![endif]-->
     ]]>
-</head>
-
-<gsml:body adPageName="overview" pageLayout="research">
 <c:set var="school" value="${school}"/>
 <school:profile school="${school}" tab="overview">
 
@@ -118,30 +117,31 @@
             <c:set var="latestReviewsModel" value="${latestReviewsModel}"/>
             <c:if test="${not empty latestReviewsModel}">
                 <div id="parentReviews">
-                    <h2>Latest Parent Reviews</h2>
+                    <h2>Latest ${school.name} Parent Reviews</h2>
                     <gsml:img src="/res/img/school/review/${latestReviewsModel.latestRating}star.gif" alt="" styleClass="rating" />
                     <p class="callout">Parents at this school think <em>${latestReviewsModel.randomCategory}
                         ${latestReviewsModel.randomRating}</em>
-                        <a href="" title="">Learn more &#62;</a>
+                        <gsml:a href="/modperl/parents/${state}/${sid}" title="Parent Reviews">Learn more &#62;</gsml:a>
                     </p>
                     <p>${latestReviewsModel.comment}
-                        <a href="" title="">Read all ${latestReviewsModel.total} reviews &#62;</a>
+                        <gsml:a href="/modperl/parents/${state}/${sid}" title="Real all reviews">Read all ${latestReviewsModel.total} reviews &#62;</gsml:a>
                     </p>
                 </div>
             </c:if>
 
             <div id="learnSchool">
                 <h2>Learn About ${school.name}</h2>
+
                 <c:if test="${school.type.schoolTypeName ne 'private'}">
                     <gsml:a href="/modperl/achievement/${state}/${sid}"><gsml:img src="/res/img/school/overview/learn_TestScores.gif" alt="${school.name} test scores [GO]" /></gsml:a>
-                    <p>Clover Avenue Elementary School test scores</p>
+                    <p>${school.name} test scores</p>
                 </c:if>
 
                 <gsml:a href="/cgi-bin/${state}/other/${sid}#teachers"><gsml:img src="/res/img/school/overview/learn_TeacherStats.gif" alt="Clover Avenue Elementary School Teacher Stats" /></gsml:a>
-                <p>Clover Avenue Elementary School teachers</p>
+                <p>${school.name} teachers</p>
 
                 <gsml:a href="/cgi-bin/${state}/other/${sid}#students"><gsml:img src="/res/img/school/overview/learn_StudentStats.gif" alt="Clover Avenue Elementary School Student Stats" /></gsml:a>
-                <p>Clover Avenue Elementary School statistics</p>
+                <p>${school.name} students</p>
 
                 <c:if test="${school.type.schoolTypeName ne 'private'}">
                     <gsml:a href="/cgi-bin/${state}/other/${sid}#finance"><gsml:img src="/res/img/school/overview/learn_SchoolFinance.gif" alt="${school.name} spending per pupil" /></gsml:a>
@@ -156,7 +156,7 @@
                     <p>The inside scoop on ${school.name}</p>
                 </c:if>
 
-                <c:if test="${school.type.schoolTypeName eq 'charter'}">
+                <c:if test="${school.type.schoolTypeName eq 'charter' and (state eq 'ca')}">
                     <gsml:a href=""><gsml:img src="/res/img/school/overview/learn_PerformanceOverTime.gif" alt="Download our special report on this school's performance" /></gsml:a>
                     <p class="last">Download our special report on this school's performance</p>
                 </c:if>
@@ -166,14 +166,36 @@
             <h2>Compare This School To</h2>
 
             <gsml:img src="/res/img/school/overview/compare_magnify.jpg" alt="" />
+            <c:choose>
+                <c:when test="${school.levelCode eq 'e'}">
+                    <c:set var="level" value="elementary"/>
+                </c:when>
+                <c:when test="${school.levelCode eq 'm'}">
+                    <c:set var="level" value="middle"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="level" value="high"/>
+                </c:otherwise>
+            </c:choose>
+            <gsweb:form action="/school/compareSchool.page" method="get">
 
-            <form action="/school/compareSchool.page" method="get">
-                <table id="compareForm">
+                <table id="compareForm" cellpadding="0" cellspacing="0">
                     <tr>
                         <td align="left">
-                            <input type="radio" name="type" value="distance" checked="checked"/><label>Nearby high schools</label>
-                            <input type="radio" name="type" value="district"/><label>District ${school.levelCode} schools</label>
-                            <input type="radio" name="type" value="city" /><label>City high schools</label>
+                            <input type="radio" name="type" value="distance" checked="checked"/>
+                            <label>Nearby ${level} schools</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" name="type" value="district"/>
+                            <label>District ${level} schools</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="radio" name="type" value="city" />
+                            <label>City ${level} schools</label>
                         </td>
                     </tr>
                 </table>
@@ -182,7 +204,7 @@
                 <input type="hidden" name="city" value="${school.physicalAddress.city}"/>
                 <input type="hidden" name="level" value="${school.levelCode}"/>
                 <gsml:inputImage src="/res/img/school/overview/submit_compare.gif" alt="Compare" styleClass="submit" />
-            </form>
+            </gsweb:form>
             <br style="clear:both;" />
         </div> <!-- end: compareSchool -->
 

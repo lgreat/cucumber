@@ -485,7 +485,7 @@ hr { /* has IE 7 equivalent */
 }
 
 #compareForm {
-	width: 150px;
+	width: 185px;
 	height: 75px;
 	float: left;
 }
@@ -497,7 +497,7 @@ hr { /* has IE 7 equivalent */
 	_margin: 10px 0 0 10px; /* IE 6 hack */
 	float: left;
 	height: 75px;
-	width: 250px;
+	width: 270px;
 	font: 12px/16px Trebuchet MS, sans-serif;
 	color: #666;
 }
