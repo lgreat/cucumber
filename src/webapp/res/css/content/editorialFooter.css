@@ -29,8 +29,8 @@
 
 #editorialFooter .k12Success {
 	display: block;
-	padding: 3px 27px 0px 13px;
-	width: 154px;
+	padding: 3px 12px 0px 13px;
+	width: 169px;
 	font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 12px;
 	line-height: 16px;
@@ -40,7 +40,7 @@
 
 #editorialFooter .k12SuccessImg {
     text-indent:-50em;
-	padding: 0px 0px 16px 0px;
+	padding: 0px 0px 12px 0px;
 	background-image: url("../../img/content/research/img_pencil.jpg");
 	background-repeat: no-repeat;
 	margin: 0px auto 0px auto;
@@ -71,8 +71,21 @@
 }
 
 #editorialFooter .middleBottom {
-	padding: 0px 0px 8px 0px;
+	padding: 5px 0px 8px 0px;
 	text-align: right;
+}
+
+#editorialFooter div.billsBlog .middleBottom {
+	text-align: left;
+}
+
+#editorialFooter div.billsBlog div.middleBottom a.border10Links{
+	line-height: 18px;
+}
+
+#editorialFooter div.healthyKids .middleBottom {
+	padding-top: 12px;
+    padding-bottom: 12px;
 }
 
 #editorialFooter .blueTitleText {
@@ -86,8 +99,8 @@
 }
 
 #editorialFooter .askExperts {
-	padding: 2px 14px 0px 15px;
-	width: 117px;
+	padding: 2px 9px 0px 15px;
+	width: 122px;
 	font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 12px;
 	line-height: 17px;
@@ -106,8 +119,8 @@
 }
 
 #editorialFooter .billsBlog {
-	padding: 2px 12px 0px 15px;
-	width: 119px;
+	padding: 2px 7px 0px 10px;
+	width: 129px;
 	font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 12px;
 	line-height: 17px;
@@ -126,13 +139,13 @@
 }
 
 #editorialFooter div.healthyKids {
-	padding: 2px 19px 0px 11px;
-	width: 115px;
+	padding: 2px 16px 0px 9px;
+	width: 120px;
 	font-family: "Trebuchet MS", Arial, sans-serif;
 	font-size: 12px;
-	line-height: 16px;
+	line-height: 17px;
 	color: #666666;
-	letter-spacing: -1px;
+	letter-spacing: 0;
 }
 
 #editorialFooter .healthyKidsImg {

@@ -95,11 +95,11 @@
 
                     <div class="k12Success">
                         <div class="k12SuccessImg">Photo of open notebook with pencil</div>
+                        <div class="blueTitleText">Inspire a Love of Reading</div>
                         <ul class="arrowUL">
-                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/204" styleClass="arrowLink">5 skills for success</gsml:a></li>
-                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/477" styleClass="arrowLink">Homework help online</gsml:a></li>
-                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/151" styleClass="arrowLink">Test "de-stress"</gsml:a></li>
-                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/44" styleClass="arrowLink">Get kids reading</gsml:a></li>
+                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/44" styleClass="arrowLink">How to read with your child</gsml:a></li>
+                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/320" styleClass="arrowLink">Tips for reluctant readers</gsml:a></li>
+                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/903" styleClass="arrowLink">Just for tweens &amp; teens</gsml:a></li>
                         </ul>
                     </div>
 
@@ -143,19 +143,10 @@
                         <div class="askExpertsImg">Photo of stack of books</div>
 
                         <div class="blueTitleText">Ask the Experts</div>
-                        Q: My child is always
-                        late. How can I help?<br/>
-                        <img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1" height="6" alt=""/>
-                        <br/>
-                        A: One way to get
-                        your child organized
-                        is to design a chart
-                        that breaks down
-                        what she needs
-                        to do ...
+                        Q: How can I stop my daughter's emotional meltdowns? She
+                        falls apart after she gets home from...<br/>
 
-
-                        <div class="middleBottom"><gsml:a href="/cgi-bin/showarticle/$STATE/342" styleClass="border10Links">Read more &gt;</gsml:a></div>
+                        <div class="middleBottom"><gsml:a href="/cgi-bin/showarticle/$STATE/768" styleClass="border10Links">Read the answer &gt;</gsml:a></div>
                     </div></td>
                 <td valign="top" class="redDotVert"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif"
                                                          width="1" height="312" alt="" border="0"/></td>
@@ -165,15 +156,11 @@
                     <div class="billsBlog">
                         <div class="billsBlogImg">Photo of Bill Jackson</div>
 
-                        <div class="blueTitleText">Bill's Blog</div>
+                        <div class="blueTitleText">Teacher Gift Ideas</div>
 
-                        <img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="1" height="6" alt=""/>
-
-                        <cache:cache scope="application" name="blog" key="bill3">
-                            <content:blogFeed atomUrl="http://billsblog.greatschools.net/atom.xml"
-                                              defaultTitle="Bill's thoughts on education"
-                                              defaultUrl="http://billsblog.greatschools.net"/>
-                        </cache:cache>
+                        You don't have to be Martha Stewart to create a gift that says,
+                        "Thanks for a great year." 
+                        <div class="middleBottom"><gsml:a href="/cgi-bin/showarticle/$STATE/162" styleClass="border10Links">Ideas galore that won't break your budget</gsml:a></div>
                     </div></td>
                 <td valign="top" class="redDotVert"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif"
                                                          width="1" height="1" alt="" border="0"/></td>
@@ -183,14 +170,9 @@
                     <div class="healthyKids">
                         <div class="healthyKidsImg">Photo of blueberries</div>
                         <div class="blueTitleText">Healthy Kids</div>
-                        <ul class="arrowUL">
-                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/350" styleClass="arrowLink">Creative lunches</gsml:a></li>
-                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/571" styleClass="arrowLink">Brain food</gsml:a></li>
-                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/256" styleClass="arrowLink">Backpack safety</gsml:a></li>
-                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/472" styleClass="arrowLink">Family fitness</gsml:a></li>
-                            <!--<li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/621" styleClass="arrowLink">Healthy schools</gsml:a></li>-->
-                        </ul>
-                        <div class="middleBottom"><gsml:a href="/content/healthyKids.page" styleClass="border10Links">See all &gt;</gsml:a></div>
+                        Got the lunchbox blahs?
+                        <gsml:a href="/cgi-bin/showarticle/$STATE/411" styleClass="border10Links">Try these ideas to add pizzazz &gt;</gsml:a>
+                        <div class="middleBottom"><gsml:a href="/content/healthyKids.page" styleClass="border10Links">See more &gt;</gsml:a></div>
                         <center>
                         <span class="granolaBites">
                             <!--BROUGHT TO YOU BY QUAKER OATS -->
@@ -217,14 +199,9 @@
                     <br/>
                     <div class="editorsPick">
                         <div class="editorsPickImg">Photo of GreatSchools editor, Miriam Myers</div>
-                        GreatSchools Editor Miriam
-                        Myers shares her favorite
-                        learning tips for:
-                        <ul class="arrowUL">
-                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/209" styleClass="arrowLink">Math</gsml:a></li>
-                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/320" styleClass="arrowLink">Reluctant readers</gsml:a></li>
-                            <li class="arrowLI"><gsml:a href="/cgi-bin/showarticle/$STATE/502" styleClass="arrowLink">Spelling games</gsml:a></li>
-                        </ul>
+                        Do you have math anxiety? GreatSchools Editor Miriam Myers
+                        tells how you can still
+                        <gsml:a href="/cgi-bin/showarticle/$STATE/769" styleClass="border10Links">help your child with math homework</gsml:a>.
                     </div></td>
             </tr>
         </table>
