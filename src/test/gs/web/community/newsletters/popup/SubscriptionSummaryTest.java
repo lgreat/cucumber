@@ -1,10 +1,13 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.15 2007/04/04 19:56:42 chriskimm Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.16 2007/04/06 23:37:08 dlee Exp $
  */
 package gs.web.community.newsletters.popup;
 
-import gs.data.community.*;
+import gs.data.community.IUserDao;
+import gs.data.community.Subscription;
+import gs.data.community.SubscriptionProduct;
+import gs.data.community.User;
 import gs.data.geo.ICity;
 import gs.data.school.*;
 import gs.data.school.district.District;
@@ -261,6 +264,10 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
 
         public List findSchoolsInDataLimbo(State state, boolean activeOnly) {
             return null;
+        }
+
+        public List findNearbySchools(School school, int limit) {
+            return null;  //To change body of implemented methods use File | Settings | File Templates.
         }
 
         public boolean hasPrincipalView(School s) {
