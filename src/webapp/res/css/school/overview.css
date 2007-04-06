@@ -126,10 +126,10 @@ hr { /* has IE 7 equivalent */
 }
 
 #editor .title {
-	width: 75px;
+	width: 80px;
 	float: right;
-	margin: 0 15px 0 0;
-	_margin: 0 8px 0 0; /* IE 6 hack */
+	margin: 0 10px 0 0;
+	_margin: 0 6px 0 0; /* IE 6 hack */
 	line-height: 14px;
 	_text-indent: .1em; /* IE 6 hack */
 }
