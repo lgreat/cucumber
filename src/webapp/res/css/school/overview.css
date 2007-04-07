@@ -626,8 +626,44 @@ hr { /* has IE 7 equivalent */
 
 /* ratings classes, adds the GS ratings image to the list item, classes are set in the html */
 
-#nearbySchools .ten {
-	background: url(/res/img/school/overview/rating_nearbySchools_10.gif) no-repeat 228px center;
+#nearbySchools .r1 {
+	background: url(../../../res/img/school/ratings/1.gif) no-repeat 228px center;
+}
+
+#nearbySchools .r2 {
+	background: url(../../../res/img/school/ratings/2.gif) no-repeat 228px center;
+}
+
+#nearbySchools .r3 {
+	background: url(../../../res/img/school/ratings/3.gif) no-repeat 228px center;
+}
+
+#nearbySchools .r4 {
+	background: url(../../../res/img/school/ratings/4.gif) no-repeat 228px center;
+}
+
+#nearbySchools .r5 {
+	background: url(../../../res/img/school/ratings/5.gif) no-repeat 228px center;
+}
+
+#nearbySchools .r6 {
+	background: url(../../../res/img/school/ratings/6.gif) no-repeat 228px center;
+}
+
+#nearbySchools .r7 {
+	background: url(../../../res/img/school/ratings/7.gif) no-repeat 228px center;
+}
+
+#nearbySchools .r8 {
+	background: url(../../../res/img/school/ratings/8.gif) no-repeat 228px center;
+}
+
+#nearbySchools .r9 {
+	background: url(../../../res/img/school/ratings/9.gif) no-repeat 228px center;
+}
+
+#nearbySchools .r10 {
+	background: url(../../../res/img/school/ratings/10.gif) no-repeat 228px center;
 }
 
 .clear {

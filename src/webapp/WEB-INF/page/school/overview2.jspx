@@ -217,22 +217,7 @@
             <c:if test="${!requestScope.pageHelper.adFree}">
                 <ad:x48 />
             </c:if>
-            <div id="nearbySchools">
-                <h2>Top-Rated Public Schools Near Clover Avenue Elementary School</h2>
-                <!-- Google Map API code goes here, remove temp image -->
-                <div id="map"><gsml:img src="/res/img/school/overview/GoogleMap_temp.gif" alt="" /></div>
-                <p class="head_top">Top-Rated Public School</p>
-                <p class="head_rating">GreatSchools Rating</p>
-
-                <ul>
-                    <!-- set the li class to place the proper rating graphic -->
-                    <li class="ten"><a href="" title="">Alice Fong Yu Elementary School</a><br />1.7 Miles</li>
-                    <li class="ten"><a href="" title="">Lowell High School</a><br />2.1 Miles</li>
-                    <li class="ten"><a href="" title="">A.P. Giannini Middle School</a><br />1.2 Miles</li>
-                    <li class="ten"><a href="" title="">Alamo Elementary School</a><br />2 Miles</li>
-                    <li class="ten"><a href="" title="">Argonne Elementary School</a><br />1.3 Miles</li>
-                </ul>
-            </div><!-- end: nearbySchools -->
+            <school:nearbySchools school="${school}"/>
         </div><!-- end: col_right" -->
         </div><!-- end: schoolOverview -->
 

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+        >
+    <jsp:directive.tag import="gs.data.school.ISchoolDao"/>
+    <jsp:directive.tag import="gs.data.school.LevelCode"/>
+    <jsp:directive.tag import="gs.data.school.NearbySchool"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+    <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
+    <jsp:directive.tag import="org.springframework.context.ApplicationContext"/>
+    <jsp:directive.tag import="java.util.ArrayList"/>
+    <jsp:directive.tag import="java.util.Iterator"/>
+    <jsp:directive.tag import="java.util.List"/>
+    <jsp:directive.tag body-content="scriptless"/>
+    <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
+
+    <jsp:scriptlet><![CDATA[
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        ApplicationContext ac = sessionContext.getApplicationContext();
+
+        ISchoolDao schoolDao = (ISchoolDao) ac.getBean(ISchoolDao.BEAN_ID);
+        List nearbySchools = schoolDao.findNearbySchools(school, 5);
+        List mapSchools = new ArrayList();
+        for (Iterator nearbyIter = nearbySchools.iterator(); nearbyIter.hasNext();) {
+            mapSchools.add(((NearbySchool)nearbyIter.next()).getNeighbor());
+        }
+        request.setAttribute("mapSchools", mapSchools);
+        request.setAttribute("nearbySchools", nearbySchools);
+        request.setAttribute("hasNearby", Boolean.valueOf(nearbySchools.size() > 0));
+
+        LevelCode.Level level = (LevelCode.Level) school.getLevelCode().getIterator().next();
+        request.setAttribute("levelLongName", level.getLongName());
+
+        ]]></jsp:scriptlet>
+
+    <c:if test="${hasNearby}">
+        <div id="nearbySchools">
+            <h2>${levelLongName} Schools Near ${school.name}</h2>
+
+            <map:schools functionName="initNearbySchools" id="map" schools="${mapSchools}"/>
+
+            <p class="head_top">${levelLongName} School</p>
+
+            <p class="head_rating">GreatSchools Rating</p>
+
+            <ul>
+                <c:forEach items="${nearbySchools}" var="nearbySchool">
+                    <c:set var="rating" value="none"/>
+                    <c:if test="${not empty nearbySchool.rating}">
+                        <c:set var="rating" value="r${nearbySchool.rating}"/>
+                    </c:if>
+                    <li class="${rating}">
+                        <link:schoolProfileOverview school="${nearbySchool.neighbor}" title="${nearbySchool.neighbor.name}">${nearbySchool.neighbor.name}</link:schoolProfileOverview>
+                        <c:if test="${not empty nearbySchool.distance}">
+                            <br/><fmt:formatNumber value="${nearbySchool.distance}" maxFractionDigits="1"/> Miles
+                        </c:if>
+                    </li>
+                </c:forEach>
+            </ul>
+        </div>
+    </c:if>
+</jsp:root>
