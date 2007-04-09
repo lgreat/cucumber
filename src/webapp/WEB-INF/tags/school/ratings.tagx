@@ -65,7 +65,7 @@
         <!-- &#32; characters are to force spacing required by style definitions -->
         <div id="rating_parent">
             <c:choose>
-                <c:when test="${parentRating == null or parentRating.avgQuality == null}">
+                <c:when test="${not hasParentRating}">
                     <link:schoolProfileAddParentReview school="${school}">
                         <gsml:img src="/res/img/school/overview/rating_BeTheFirst.gif" alt="Be the first to rate this school!" styleClass="parentTitle" />
                         <gsml:img src="/res/img/school/overview/stars_0.gif" alt="No Rating" styleClass="stars" />
