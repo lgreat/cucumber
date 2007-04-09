@@ -160,7 +160,7 @@
 
                         You don't have to be Martha Stewart to create a gift that says,
                         "Thanks for a great year." 
-                        <div class="middleBottom"><gsml:a href="/cgi-bin/showarticle/$STATE/162" styleClass="border10Links">Ideas galore that won't break your budget</gsml:a></div>
+                        <div class="middleBottom"><gsml:a href="/cgi-bin/showarticle/$STATE/162" styleClass="border10Links">Ideas galore that won't break your budget &gt;</gsml:a></div>
                     </div></td>
                 <td valign="top" class="redDotVert"><img src="http://www.greatschools.net/res/img/header/clear_pix.gif"
                                                          width="1" height="1" alt="" border="0"/></td>
@@ -195,10 +195,10 @@
         <table width="201" cellpadding="0" cellspacing="0" border="0">
             <tr>
                 <td valign="top">
-                    <img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="201" height="25" alt=""/>
-                    <br/>
+                    <img src="http://www.greatschools.net/res/img/header/clear_pix.gif" width="201" height="18" alt=""/>
                     <div class="editorsPick">
                         <div class="editorsPickImg">Photo of GreatSchools editor, Miriam Myers</div>
+                        <div class="blueTitleText">Homework Help</div>
                         Do you have math anxiety? GreatSchools Editor Miriam Myers
                         tells how you can still
                         <gsml:a href="/cgi-bin/showarticle/$STATE/769" styleClass="border10Links">help your child with math homework</gsml:a>.
