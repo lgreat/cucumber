@@ -9,9 +9,25 @@
     <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
     <jsp:directive.attribute name="gsRating" required="true" description="GreatSchools Overall Rating Integer" type="java.lang.Integer"/>
     <jsp:directive.attribute name="parentRating" required="true" description="Parent Ratings Object" type="gs.data.school.review.Ratings"/>
+    <c:choose>
+            <c:when test="${gsRating == 0}">
+                <c:set var="hasGsRating" value="${false}"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="hasGsRating" value="${true}"/>
+            </c:otherwise>
+    </c:choose>
+    <c:choose>
+            <c:when test="${parentRating.count lt Ratings.MIN_NUM_RATING_SUBMISSIONS_BEFORE_USAGE or parentRating.avgQuality == null}">
+                <c:set var="hasParentRating" value="${false}"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="hasParentRating" value="${true}"/>
+            </c:otherwise>
+    </c:choose>
 
     <c:choose>
-        <c:when test="${gsRating == 0 and parentRating != null}">
+        <c:when test="${not hasGsRating and hasParentRating}">
             <c:set var="heading" value="Parent Rating"/>
         </c:when>
         <c:otherwise>
@@ -20,13 +36,13 @@
     </c:choose>
 
     <c:choose>
-        <c:when test="${gsRating == 0 and parentRating.avgQuality == null}">
+        <c:when test="${not hasGsRating and not hasParentRating}">
             <c:set var="divId" value="ratingsNone"/>
         </c:when>
-        <c:when test="${gsRating == 0 and parentRating.avgQuality != null}">
+        <c:when test="${not hasGsRating and hasParentRating}">
             <c:set var="divId" value="ratingsParentOnly"/>
         </c:when>
-        <c:when test="${gsRating != 0 and parentRating.avgQuality == null}">
+        <c:when test="${hasGsRating and not hasParentRating}">
             <c:set var="divId" value="ratingsGSOnly"/>
         </c:when>
         <c:otherwise>
