@@ -82,6 +82,7 @@ hr { /* has IE 7 equivalent */
 	font: 12px/16px Trebuchet MS, sans-serif;
 	color: #666;
 	margin: 0 0 8px 10px;
+    padding:0 4px 0 0;
 }
 
 .phoneFax {
@@ -461,6 +462,18 @@ hr { /* has IE 7 equivalent */
 
 #learnSchool .last {
 	border: 0; /* removes border from the final item in the list, class must be set in the html */
+}
+
+#insideScoop {
+	width: 356px;
+	float: left;
+	margin: 10px 0 8px 0;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+#insideScoop img {
+    margin:3px 0 0 0;
 }
 
 /* Compare This School To

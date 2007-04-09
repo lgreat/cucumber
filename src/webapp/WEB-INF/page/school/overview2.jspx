@@ -35,7 +35,9 @@
 <c:set var="sid" value="${school.id}"/>
 <c:set var="addr" value="${city}, ${stateName} - ${stateAbbrev}" />
 <c:set var="pageName" value="Overview"/>
-<c:set var="pq" value="${hasPrincipalView}"/>
+<c:set var="hasPrincipalView" value="${hasPrincipalView}"/>
+<c:set var="gs_rating" value="${gs_rating}"/>
+<c:set var="parent_ratings" value="${parent_ratings}"/>
 
 <head>
 
@@ -134,26 +136,38 @@
 
                 <c:if test="${school.type.schoolTypeName ne 'private'}">
                     <gsml:a href="/modperl/achievement/${state}/${sid}"><gsml:img src="/res/img/school/overview/learn_TestScores.gif" alt="${school.name} test scores [GO]" /></gsml:a>
-                    <p>${school.name} test scores</p>
+                    <p class="dashed">${school.name} test scores</p>
                 </c:if>
 
                 <gsml:a href="/cgi-bin/${state}/other/${sid}#teachers"><gsml:img src="/res/img/school/overview/learn_TeacherStats.gif" alt="Clover Avenue Elementary School Teacher Stats" /></gsml:a>
-                <p>${school.name} teachers</p>
+                <p class="dashed">${school.name} teachers</p>
 
                 <gsml:a href="/cgi-bin/${state}/other/${sid}#students"><gsml:img src="/res/img/school/overview/learn_StudentStats.gif" alt="Clover Avenue Elementary School Student Stats" /></gsml:a>
-                <p>${school.name} students</p>
+                <p class="${(hasPrincipalView or school.type.schoolTypeName ne 'private' )? 'dashed' : 'last'}">${school.name} students</p>
 
                 <c:if test="${school.type.schoolTypeName ne 'private'}">
                     <gsml:a href="/cgi-bin/${state}/other/${sid}#finance"><gsml:img src="/res/img/school/overview/learn_SchoolFinance.gif" alt="${school.name} spending per pupil" /></gsml:a>
-                    <p>${school.name} spending per pupil</p>
+                    <p class="${hasPrincipalView ? 'dashed' : 'last'}">${school.name} spending per pupil</p>
                 </c:if>
 
                 <!--<a href="" title=""><gsml:img src="/res/img/school/overview/learn_APExams.gif" alt="Clover Avenue Elementary School AP Exams" /></a>-->
                 <!--<p>Clover Avenue Elementary School AP exams</p>-->
 
-                <c:if test="${pq}" >
-                    <gsml:a href="/cgi-bin/${state}/pqview/${sid}"><gsml:img src="/res/img/school/overview/learn_SchoolsView.gif" alt="The inside scoop on ${school.name}" /></gsml:a>
-                    <p>The inside scoop on ${school.name}</p>
+                <c:choose>
+                    <c:when test="${hasPrincipalView}">
+                        <gsml:a href="/cgi-bin/${state}/pqview/${sid}"><gsml:img src="/res/img/school/overview/learn_SchoolsView.gif" alt="The inside scoop on ${school.name}" /></gsml:a>
+                        <p>The inside scoop on ${school.name}</p>
+                    </c:when>
+                    <c:otherwise>
+                        <div id="insideScoop">
+                            <gsml:a href="/cgi-bin/pq_firsttime.cgi?id=${sid}&amp;state=${state}">
+                                <img src="/res/img/school/overview/InsideScoop.gif" alt="What's the inside scoop on this school? Principals and school officials, Tell us here" />
+                            </gsml:a>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+                <c:if test="${hasPrincipalView}" >
+
                 </c:if>
 
                 <c:if test="${school.type.schoolTypeName eq 'charter' and (state eq 'ca')}">
@@ -164,7 +178,7 @@
 
         <div id="compareSchool">
             <h2>Compare This School To</h2>
-
+            <c:set var="level" value="high"/>
             <gsml:img src="/res/img/school/overview/compare_magnify.jpg" alt="" />
             <c:choose>
                 <c:when test="${school.levelCode eq 'e'}">
@@ -173,9 +187,6 @@
                 <c:when test="${school.levelCode eq 'm'}">
                     <c:set var="level" value="middle"/>
                 </c:when>
-                <c:otherwise>
-                    <c:set var="level" value="high"/>
-                </c:otherwise>
             </c:choose>
             <gsweb:form action="/school/compareSchool.page" method="get">
 
@@ -186,12 +197,14 @@
                             <label>Nearby ${level} schools</label>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <input type="radio" name="type" value="district"/>
-                            <label>District ${level} schools</label>
-                        </td>
-                    </tr>
+                    <c:if test="${school.type.schoolTypeName ne 'private'}">
+                        <tr>
+                            <td>                                                                 
+                                <input type="radio" name="type" value="district"/>
+                                <label>District ${level} schools</label>
+                            </td>
+                        </tr>
+                    </c:if>
                     <tr>
                         <td>
                             <input type="radio" name="type" value="city" />
