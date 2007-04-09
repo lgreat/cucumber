@@ -94,14 +94,17 @@ function initSchoolInfo() {
     mySchool.link = "${hrefbase}";
     mySchool.name = "${fn:escapeXml(school.name)}";
     mySchool.location = new GLatLng(${school.lat},${school.lon});
-    <![CDATA[
-    mySchool.info = "<br />${school.gradeLevels}, ${school.type.name}";
-    mySchool.enrollment = ${not empty school.enrollment?school.enrollment:0};
-    mySchool.stInfo = "";
-    if (mySchool.enrollment > 0) {
-      mySchool.stInfo = "<br />" + mySchool.enrollment + " students";
-    }
-    ]]>
+    <c:if test="${not empty bubbles}">
+      // only for bubbles, accessing enrollment requires an extra DB query per school
+      <![CDATA[
+      mySchool.info = "<br />${school.gradeLevels}, ${school.type.name}";
+      mySchool.enrollment = ${not empty school.enrollment?school.enrollment:0};
+      mySchool.stInfo = "";
+      if (mySchool.enrollment > 0) {
+        mySchool.stInfo = "<br />" + mySchool.enrollment + " students";
+      }
+      ]]>
+    </c:if>
     schoolArray.push(mySchool);
   </c:if>
 </c:forEach>
