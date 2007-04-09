@@ -143,9 +143,7 @@
 
     <!-- begin tool links -->
     <div id="tools">
-        <gsml:a href="/cgi-bin/msl_confirm/${state.abbreviationLowerCase}/?add_ids=${school.id}" styleClass="add" title="Add to Saved Schools">
-            Add to Saved Schools
-        </gsml:a>
+        <link:mySchoolList school="${school}" styleClass="add" title="Add to Saved Schools">Add to Saved Schools</link:mySchoolList>
 
         <p>&amp;nbsp;|&amp;nbsp;</p><!-- pipe divider as opposed to link border, as per client request -->
         <link:schoolProfileAddParentReview school="${school}" styleClass="rate" title="Rate it!">

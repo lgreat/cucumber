@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.30 2007/03/12 21:41:29 aroy Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.31 2007/04/09 20:35:17 dlee Exp $
  */
 
 package gs.web.jsp.link;
@@ -9,6 +9,7 @@ import gs.data.content.Article;
 import gs.data.geo.City;
 import gs.data.school.Grade;
 import gs.data.school.LevelCode;
+import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.BaseTestCase;
 import gs.web.jsp.MockJspWriter;
@@ -46,7 +47,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         handler.doAfterBody();
         handler.doEndTag();
         MockJspWriter out = (MockJspWriter) pc.getOut();
-        assertEquals("<a target=\"theTarget\" href=\"/cgi-bin/msl_confirm/WY/\"></a>",
+        assertEquals("<a target=\"theTarget\" href=\"/cgi-bin/msl_confirm/wy/\"></a>",
                 out.getOutputBuffer().toString());
         handler.setTarget(null);
 
@@ -59,7 +60,7 @@ public class LinkTagHandlerTest extends BaseTestCase {
         handler.doAfterBody();
         handler.doEndTag();
         out = (MockJspWriter) pc.getOut();
-        assertEquals("<a class=\"theStyle\" href=\"/cgi-bin/msl_confirm/WY/\"></a>",
+        assertEquals("<a class=\"theStyle\" href=\"/cgi-bin/msl_confirm/wy/\"></a>",
                 out.getOutputBuffer().toString());
     }
 
@@ -154,7 +155,15 @@ public class LinkTagHandlerTest extends BaseTestCase {
         MySchoolListTagHandler tagHandler = new MySchoolListTagHandler();
         tagHandler.setPageContext(new MockPageContext());
         UrlBuilder builder = tagHandler.createUrlBuilder();
-        assertEquals("/cgi-bin/msl_confirm/CA/", builder.asSiteRelative(null));
+        assertEquals("/cgi-bin/msl_confirm/ca/", builder.asSiteRelative(null));
+
+        School s = new School();
+        s.setId(new Integer(234));
+        s.setDatabaseState(State.AK);
+
+        tagHandler.setSchool(s);
+        builder = tagHandler.createUrlBuilder();
+        assertEquals("/cgi-bin/msl_confirm/ak/?add_ids=234", builder.asSiteRelative(null));
     }
 
     public void testNewsletterCenter() {
@@ -429,7 +438,4 @@ public class LinkTagHandlerTest extends BaseTestCase {
         assertTrue(results.indexOf("<option value=\"10\" selected=\"selected\">10</option>") > -1);
         assertTrue(results.indexOf("<option value=\"KG\">K</option>") > -1);
     }
-
-
-
 }

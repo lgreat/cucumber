@@ -121,13 +121,13 @@
             This page describes what my school list is and provides access to it.
              Currently <code>/cgi-bin/msl_confirm/$STATE"</code>.]]>
         </description>
-        <!--attribute>
-            <name>state</name>
-            <description>Optional state object. Generally not needed. It will be taken from the request when not specified.</description>
+        <attribute>
+            <name>school</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
-            <type>gs.data.state.State</type>
-        </attribute-->
+            <type>gs.data.school.School</type>
+            <description>A school to pass to msl_confirm</description>
+        </attribute>
         <attribute>
             <name>styleClass</name>
             <required>false</required>
@@ -135,6 +135,13 @@
             <type>java.lang.String</type>
             <description>CSS class name(s)</description>
         </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Title attribute</description>
+        </attribute>         
     </tag>
 
     <tag>

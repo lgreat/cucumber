@@ -1,9 +1,7 @@
-/* Nearby Schools
-----------------------------------*/
-
 #nearbySchools {
 	width: 278px; /* right column width 300 - 2 1px borders, -20px padding */
 	padding: 9px;
+	_padding-bottom: 7px; /* IE 6 hack */
 	border: 1px solid #f4bc00;
 }
 
@@ -14,32 +12,11 @@
 	font: bold 15px/16px Trebuchet MS, sans-serif;
 }
 
-#nearbySchools a {
-	font: bold 13px/14px Trebuchet MS, sans-serif;
-	_font: bold 13px/16px Trebuchet MS, sans-serif; /* IE 6 hack */
-	color: #39a;
-    display:block;
-    width:210px;
-    text-decoration: none;
-    padding-bottom:1px;
-}
-
 #map {
 	width: 276px;
-	height: 128px;
+	height: 126px;
 	margin: 2px 0 0 0;
 	border: 1px solid #cdcdce;
-}
-
-.tooltip {
-    font-size: small;
-    font-weight: bold;
-    padding: 2px;
-    border-width: 1px 2px 2px 1px;
-    border-color: #000 #666 #666 #000;
-    border-style: solid;
-    background-color: #FF9;
-    color: #000;
 }
 
 #nearbySchools .head_top {
@@ -59,56 +36,93 @@
 }
 
 #nearbySchools ul {
+	margin: 0;
+	padding: 0;
+    clear:both;
 }
 
 #nearbySchools ul li {
 	list-style: none;
 	margin: 0;
-	padding: 6px 0 2px 0;
-	/*(height: 31px; /* 40px - paddding-top */
+	padding: 5px 60px 5px 0;
 	font: 11px/11px Trebuchet MS, sans-serif;
 	color: #666;
 	border-top: 1px solid #ccc;
 }
 
-/* ratings classes, adds the GS ratings image to the list item, classes are set in the html */
+#nearbySchools a {
+	font: bold 13px/14px Trebuchet MS, sans-serif;
+	_font: bold 13px/15px Trebuchet MS, sans-serif; /* IE 6 hack */
+	color: #39a;
+	text-decoration: none;
+}
 
-#nearbySchools .r1 {
-	background: url(../../../res/img/school/ratings/1.gif) no-repeat 228px center;
+#nearbySchools ul li#nearMore {
+	margin: 0;
+    border-top: none;
+    padding: 3px 5px 0 230px;
+}
+
+li#nearMore a {
+    text-decoration:underline;
+}
+
+#nearbySchools .saveLink {
+	background: url(../../../res/img/bullet/yellow_plus9x9.gif) no-repeat left center;
+	font-size: 11px;
+	line-height: 13px;
+	font-weight: normal;
+	text-decoration: underline;
+	padding: 0 0 0 13px;
+}
+
+/* ratings classes, adds the GS ratings image to the list item, classes are set in the html */
+#nearbySchools .r1 {        
+    background: url(../../../res/img/school/ratings/1.gif) no-repeat 228px center;
+    _background: url(../../../res/img/school/ratings/1.gif) no-repeat 230px center;
 }
 
 #nearbySchools .r2 {
 	background: url(../../../res/img/school/ratings/2.gif) no-repeat 228px center;
+    _background: url(../../../res/img/school/ratings/2.gif) no-repeat 230px center;
 }
 
 #nearbySchools .r3 {
 	background: url(../../../res/img/school/ratings/3.gif) no-repeat 228px center;
+    _background: url(../../../res/img/school/ratings/3.gif) no-repeat 230px center;
 }
 
 #nearbySchools .r4 {
 	background: url(../../../res/img/school/ratings/4.gif) no-repeat 228px center;
+    _background: url(../../../res/img/school/ratings/4.gif) no-repeat 230px center;
 }
 
 #nearbySchools .r5 {
 	background: url(../../../res/img/school/ratings/5.gif) no-repeat 228px center;
+    _background: url(../../../res/img/school/ratings/5.gif) no-repeat 230px center;
 }
 
 #nearbySchools .r6 {
 	background: url(../../../res/img/school/ratings/6.gif) no-repeat 228px center;
+    _background: url(../../../res/img/school/ratings/6.gif) no-repeat 230px center;
 }
 
 #nearbySchools .r7 {
 	background: url(../../../res/img/school/ratings/7.gif) no-repeat 228px center;
+    _background: url(../../../res/img/school/ratings/7.gif) no-repeat 230px center;
 }
 
 #nearbySchools .r8 {
 	background: url(../../../res/img/school/ratings/8.gif) no-repeat 228px center;
+    _background: url(../../../res/img/school/ratings/8.gif) no-repeat 230px center;
 }
 
 #nearbySchools .r9 {
 	background: url(../../../res/img/school/ratings/9.gif) no-repeat 228px center;
+    _background: url(../../../res/img/school/ratings/6.gif) no-repeat 230px center;
 }
 
 #nearbySchools .r10 {
 	background: url(../../../res/img/school/ratings/10.gif) no-repeat 228px center;
+    _background: url(../../../res/img/school/ratings/6.gif) no-repeat 230px center;
 }

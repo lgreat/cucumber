@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.59 2007/03/16 17:22:17 aroy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.60 2007/04/09 20:35:18 dlee Exp $
  */
 
 package gs.web.util;
@@ -271,7 +271,10 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/content/allArticles.page", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST, State.WY);
-        assertEquals("/cgi-bin/msl_confirm/WY/", builder.asSiteRelative(request));
+        assertEquals("/cgi-bin/msl_confirm/wy/", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST, State.WY, "234");
+        assertEquals("/cgi-bin/msl_confirm/wy/?add_ids=234", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.NEWSLETTER_CENTER, State.WY);
         assertEquals("/cgi-bin/newsletters/WY/", builder.asSiteRelative(request));
