@@ -87,12 +87,10 @@
                         </tr>
                     </table>
                 </c:if>
-                <map:setup/>
-                <map:schools functionName="createMap" id="map"
+                <map:schools id="map"
                              lon="${cityObject.lon}" lat="${cityObject.lat}"
                              tooltips="true"
                              schools="${schools}"/>
-                <pageHelper:addOnLoadHandler handler="createMap()"/>
             </c:if>
         </td>
     </c:if>

@@ -5,12 +5,12 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
 <jsp:directive.tag import="gs.data.geo.LatLonRect"/>
 <jsp:directive.tag import="gs.data.geo.LatLon"/>
 <jsp:directive.tag body-content="empty"
                    description="Draw a map of schools." />
-<jsp:directive.attribute name="functionName" required="true" description="Name of the javascript function. Caller must call this in the onload handler."/>
 <jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
 <jsp:directive.attribute name="lon" required="false" type="java.lang.Float" description="Longitude (center of map)"/>
 <jsp:directive.attribute name="lat" required="false" type="java.lang.Float" description="Latitude (center of map)"/>
@@ -28,7 +28,9 @@ I'd like to color the markers or use different icons depending on the level code
    beginnings of this are here.)
 I'd like to use a consistent display of school information in the info window.
 -->
+<map:setup/>
 <pageHelper:externalJavascript file="/res/js/mapTooltips.js" />
+<pageHelper:addOnLoadHandler handler="doMapSchools()"/>
 <jsp:scriptlet>
 <![CDATA[
     if (centerSchool != null && centerSchool.getLat() != null && centerSchool.getLon() != null) {
@@ -160,7 +162,7 @@ function initMap() {
     map.setZoom(zoom);
 }
 
-function ${functionName}() {
+function doMapSchools() {
   if (GBrowserIsCompatible()) {
       initSchoolInfo();
       initMap();

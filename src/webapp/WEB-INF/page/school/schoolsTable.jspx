@@ -202,11 +202,9 @@
                             <script type="text/javascript">document.write('<div id="map" style="height: 400px; width: 100%">&#160;</div>')</script>
                             <noscript>In order to view this map, enable JavaScript in your browser.</noscript>
                         </div>
-                        <map:setup/>
-                        <map:schools functionName="createMap" id="map"
+                        <map:schools id="map"
                                      bubbles="true"
                                      schools="${results.schools}"/>
-                        <pageHelper:addOnLoadHandler handler="createMap()"/>
                     </c:if>
                     <c:if test="${param.map eq 5}">
                         <div style="border: 1px solid #999; border-width: 1px 0 1px 0; font-size: small;">
