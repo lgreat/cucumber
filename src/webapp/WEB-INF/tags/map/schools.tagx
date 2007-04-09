@@ -18,6 +18,8 @@
 <jsp:directive.attribute name="tooltips" required="false" description="Use tooltips?" />
 <jsp:directive.attribute name="bubbles" required="false" description="Use Google's standard thought bubbles" />
 <jsp:directive.attribute name="centerSchool" required="false" type="gs.data.school.School" description="If provided, centers map on school and places star marker"/>
+<jsp:directive.attribute name="minZoom" required="false" type="java.lang.Integer" description="Minimum google zoom, defaults to 9"/>
+<jsp:directive.attribute name="maxZoom" required="false" type="java.lang.Integer" description="Maximum google zoom, defaults to 12"/>
 <!--
 NOTES
 The map API must be previously initialized.
@@ -72,6 +74,8 @@ function reflectPoint(centerPoint, outlierPoint) {
                      centerPoint.lng() + (centerPoint.lng() - outlierPoint.lng()));
 }
 
+var minZoom = ${not empty minZoom?minZoom:9};
+var maxZoom = ${not empty maxZoom?maxZoom:12};
 var displayTooltips = ${not empty tooltips};
 var useBubbles = ${not empty bubbles};
 var centerOnStar = ${not empty centerSchool};
@@ -157,8 +161,8 @@ function initMap() {
       gMarkers[i++] = marker;
     }
     var zoom = map.getBoundsZoomLevel(bounds);
-    if (zoom > 12) zoom = 12;
-    if (9 > zoom) zoom = 9;
+    if (zoom > maxZoom) zoom = maxZoom;
+    if (minZoom > zoom) zoom = minZoom;
     map.setZoom(zoom);
 }
 
