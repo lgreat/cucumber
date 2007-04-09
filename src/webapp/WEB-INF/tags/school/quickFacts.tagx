@@ -55,7 +55,7 @@
             <address>
                 ${school.physicalAddress.street}<br />
                 ${school.physicalAddress.city}, ${school.physicalAddress.state.abbreviation}<br />
-                ${school.physicalAddress.zip} | <a href="http://maps.google.com/maps?oi=maps&amp;&amp;q=${school.physicalAddress}">Map &#62;</a>
+                ${school.physicalAddress.zip} | <a href="http://maps.google.com/maps?oi=maps&amp;amp;q=${school.physicalAddress}">Map &#62;</a>
             </address>
 
             <p class="phoneFax">
