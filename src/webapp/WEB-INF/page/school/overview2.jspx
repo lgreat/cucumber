@@ -227,9 +227,7 @@
 		<!-- begin right column -->
         <div id="col_right">
             <ad:x11/>
-            <c:if test="${!requestScope.pageHelper.adFree}">
-                <ad:x48 />
-            </c:if>
+            <ad:x48 />
             <school:nearbySchools school="${school}"/>
         </div><!-- end: col_right" -->
         </div><!-- end: schoolOverview -->
