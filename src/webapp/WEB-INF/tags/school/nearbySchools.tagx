@@ -46,7 +46,15 @@
         <div id="nearbySchools">
             <h2>${levelLongName} Schools Near ${school.name}</h2>
 
-            <map:schools functionName="initNearbySchools" id="map" schools="${mapSchools}"/>
+            <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its
+                schools.</noscript></div>
+            <map:setup/>
+            <map:schools functionName="initNearbySchools" id="map"
+                         lon="${school.lon}" lat="${school.lat}"
+                         tooltips="true"
+                         schools="${mapSchools}"
+                         centerSchool="${school}"/>
+            <pageHelper:addOnLoadHandler handler="initNearbySchools()"/>
 
             <p class="head_top">${levelLongName} School</p>
 
