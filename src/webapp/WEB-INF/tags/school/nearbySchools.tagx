@@ -63,7 +63,7 @@
 
             <ul>
                 <c:forEach items="${nearbySchools}" var="nearbySchool">
-                    <c:set var="rating" value="none"/>
+                    <c:set var="rating" value="na"/>
                     <c:if test="${not empty nearbySchool.rating}">
                         <c:set var="rating" value="r${nearbySchool.rating}"/>
                     </c:if>
