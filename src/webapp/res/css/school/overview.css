@@ -574,7 +574,10 @@ hr { /* has IE 7 equivalent */
 	font: bold 13px/14px Trebuchet MS, sans-serif;
 	_font: bold 13px/16px Trebuchet MS, sans-serif; /* IE 6 hack */
 	color: #39a;
-	text-decoration: none;
+    display:block;
+    width:210px;
+    text-decoration: none;
+    padding-bottom:1px;
 }
 
 #map {
@@ -617,8 +620,8 @@ hr { /* has IE 7 equivalent */
 #nearbySchools ul li {
 	list-style: none;
 	margin: 0;
-	padding: 6px 0 0 0;
-	height: 31px; /* 40px - paddding-top */
+	padding: 6px 0 2px 0;
+	/*(height: 31px; /* 40px - paddding-top */
 	font: 11px/11px Trebuchet MS, sans-serif;
 	color: #666;
 	border-top: 1px solid #ccc;

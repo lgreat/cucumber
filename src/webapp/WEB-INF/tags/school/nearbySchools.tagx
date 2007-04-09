@@ -46,15 +46,17 @@
         <div id="nearbySchools">
             <h2>${levelLongName} Schools Near ${school.name}</h2>
 
-            <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its
-                schools.</noscript></div>
-            <map:setup/>
-            <map:schools functionName="initNearbySchools" id="map"
-                         lon="${school.lon}" lat="${school.lat}"
-                         tooltips="true"
-                         schools="${mapSchools}"
-                         centerSchool="${school}"/>
-            <pageHelper:addOnLoadHandler handler="initNearbySchools()"/>
+            <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+                <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its
+                    schools.</noscript></div>
+                <map:setup/>
+                <map:schools functionName="initNearbySchools" id="map"
+                             lon="${school.lon}" lat="${school.lat}"
+                             tooltips="true"
+                             schools="${mapSchools}"
+                             centerSchool="${school}"/>
+                <pageHelper:addOnLoadHandler handler="initNearbySchools()"/>
+            </c:if>
 
             <p class="head_top">${levelLongName} School</p>
 
@@ -69,7 +71,7 @@
                     <li class="${rating}">
                         <link:schoolProfileOverview school="${nearbySchool.neighbor}" title="${nearbySchool.neighbor.name}">${nearbySchool.neighbor.name}</link:schoolProfileOverview>
                         <c:if test="${not empty nearbySchool.distance}">
-                            <br/><fmt:formatNumber value="${nearbySchool.distance}" maxFractionDigits="1"/> Miles
+                            <fmt:formatNumber value="${nearbySchool.distance}" maxFractionDigits="1"/> Miles
                         </c:if>
                     </li>
                 </c:forEach>
