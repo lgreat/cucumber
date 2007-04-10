@@ -145,14 +145,18 @@ function initMap() {
     }
     ]]>
     if (centerOnStar) {
-      var icon = new GIcon();
-      icon.image = "/res/img/school/overview/star.gif";
-      icon.iconSize = new GSize(26,25);
-      icon.iconAnchor = new GPoint(13,12);
-      marker = new GMarker(centerPoint, icon);
+      var starIcon = new GIcon();
+      starIcon.image = "/res/img/school/overview/star.gif";
+      starIcon.iconSize = new GSize(26,25);
+      starIcon.iconAnchor = new GPoint(13,12);
+      // for the purposes of stack order, the star marker is treated as if it is
+      // 15 degrees farther south than any of the other markers. This effectively makes it always
+      // on top
+      function addLatitudeOrder(marker, b) {
+        return GOverlay.getZIndex(marker.getPoint().lat() - 15.0);
+      }
+      marker = new GMarker(centerPoint, {icon:starIcon, zIndexProcess: addLatitudeOrder});
       map.addOverlay(marker);
-      marker.zIndex = 1;
-      marker.redraw(true);
       extendBoundsToCenterOnPoint(centerPoint, bounds);
       var schoolName = "${fn:escapeXml(centerSchool.name)}";
       <![CDATA[
