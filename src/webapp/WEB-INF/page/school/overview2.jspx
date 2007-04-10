@@ -97,7 +97,7 @@
 
             <h2>Big Picture</h2>
 
-            <p>Learn more about:</p>
+            <p>Learn more about</p>
 
             <c:if test="${school.districtId != 0}">
                 <h3><link:allSchoolsInDistrict districtId="${school.districtId}"
