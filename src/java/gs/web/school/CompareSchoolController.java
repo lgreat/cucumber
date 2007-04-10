@@ -26,7 +26,9 @@ public class CompareSchoolController extends AbstractController {
         urlBuffer.append((String)request.getParameter("city")).append("&school_selected=");
         urlBuffer.append((String)request.getParameter("id")).append("&level=");
         String levels = (String)request.getParameter("level");
-        urlBuffer.append(levels.substring(0, 1));  // use only the first level        
+        if (levels != null) {
+            urlBuffer.append(levels.substring(0, 1));  // use only the first level
+        }
         return new ModelAndView(new RedirectView(urlBuffer.toString()));
     }
 }
