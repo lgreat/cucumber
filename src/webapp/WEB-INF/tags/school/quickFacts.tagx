@@ -54,9 +54,9 @@
                 "alternative_program, magnet, magnet_program, other_alternative, " +
                 "vocational_technical, continuation, opportunity_community, " +
                 "home_school_program, independent_study, virtual_online, KIPP, " +
-                "Montessori, Waldorf, Core Knowledge, all male, all female, coed, " +
-                "boarding, boarding and day, tribal, religious, nonprofit, " +
-                "year-round, state run");
+                "Montessori, Waldorf, Core_Knowledge, all_male, all_female, coed, " +
+                "boarding, boarding_and_day, tribal, religious, nonprofit, " +
+                "year_round, state_run");
         SchoolSubtype subs = school.getSubtype();
         subs = SchoolSubtype.createWithMask(SchoolSubtype.create(""), mask, subs);
         request.setAttribute("subtypes", subs);
