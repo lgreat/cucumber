@@ -228,7 +228,9 @@
         <div id="col_right">
             <ad:x11/>
             <ad:x48 />
-            <school:nearbySchools school="${school}"/>
+            <c:if test="${empty param.hideMap}">
+                <school:nearbySchools school="${school}"/>
+            </c:if>
         </div><!-- end: col_right" -->
         </div><!-- end: schoolOverview -->
 
