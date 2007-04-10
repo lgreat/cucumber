@@ -358,14 +358,6 @@
         </property>
     </bean>
 
-
-    <bean name="/sorry.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
-        <property name="viewName">
-            <value>fatalError</value>
-        </property>
-    </bean>
-
     <bean name="/compareSchools.page" class="gs.web.school.CompareSchoolsController"
           autowire="byName" lazy-init="true"/>
 
