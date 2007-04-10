@@ -6,9 +6,15 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
+    <jsp:directive.tag import="gs.data.school.review.Ratings"/>
     <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
     <jsp:directive.attribute name="gsRating" required="true" description="GreatSchools Overall Rating Integer" type="java.lang.Integer"/>
     <jsp:directive.attribute name="parentRating" required="true" description="Parent Ratings Object" type="gs.data.school.review.Ratings"/>
+    <jsp:scriptlet>
+        // don't have access to constants in JSTL
+        Integer minRatings = new Integer(Ratings.MIN_NUM_RATING_SUBMISSIONS_BEFORE_USAGE);
+        request.setAttribute("minRatings", minRatings);
+    </jsp:scriptlet>
     <c:choose>
             <c:when test="${gsRating == 0}">
                 <c:set var="hasGsRating" value="${false}"/>
@@ -18,7 +24,7 @@
             </c:otherwise>
     </c:choose>
     <c:choose>
-            <c:when test="${parentRating.count lt Ratings.MIN_NUM_RATING_SUBMISSIONS_BEFORE_USAGE or parentRating.avgQuality == null}">
+            <c:when test="${parentRating.count lt minRatings or parentRating.avgQuality == null}">
                 <c:set var="hasParentRating" value="${false}"/>
             </c:when>
             <c:otherwise>
@@ -50,7 +56,6 @@
         </c:otherwise>
     </c:choose>
     <div id="${divId}">
-
         <h2><c:out value="${heading}"/></h2>
 
         <c:if test="${gsRating != 0}">
