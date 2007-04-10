@@ -151,7 +151,7 @@ function initMap() {
       icon.iconAnchor = new GPoint(13,12);
       marker = new GMarker(centerPoint, icon);
       map.addOverlay(marker);
-      marker.setZIndex(1);
+      marker.zIndex = 1;
       marker.redraw(true);
       extendBoundsToCenterOnPoint(centerPoint, bounds);
       var schoolName = "${fn:escapeXml(centerSchool.name)}";
