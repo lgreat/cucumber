@@ -288,14 +288,9 @@ table.module1container {
         </c:if>
     </ul>
 
-    <div id="site_promo" class="noprint">
-        <ad:beta/>
-    </div>
-
     <div id="school_promo" class="noprint">
         <school:promo school="${school}"/>
     </div>
-
 </div>
 
 

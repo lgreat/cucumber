@@ -24,9 +24,7 @@
             </div>
         </c:when>
         <c:otherwise>
-            <link:healthyKids>
-                <gsml:img src="/res/img/content/healthyKids/HouseAd_small_healthy.jpg" alt="Healthy Kids: Family fitness tips, managing TV time and quick, tasty recipes"/>
-            </link:healthyKids>            
+            <ad:webby/>
         </c:otherwise>
     </c:choose>
 </jsp:root>
