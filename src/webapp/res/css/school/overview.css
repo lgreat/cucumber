@@ -9,7 +9,7 @@ School Overview
 
 #schoolOverview {
 	width: 864px;
-	_width: 866px; /* IE 6 hack */
+	_width: 864px; /* IE 6 hack */
 	float: left;
 	margin: 14px 0 30px 0; /* bottom margin is arbitrary and can be changed once code is implemented */
 }
@@ -49,7 +49,6 @@ hr { /* has IE 7 equivalent */
 	width: 356px;
 	float: left;
 	padding-right: 9px;
-	_padding-right: 10px;
 	border-right: 1px solid #dedede;
 }
 
@@ -237,7 +236,7 @@ hr { /* has IE 7 equivalent */
 #ratingsBoth h2 {
 	background: url(/res/img/school/overview/header_ratingsBox.gif) no-repeat 14px center #6bcacc;
 	height: 27px;
-	_width: 354px; /* IE 6 hack */
+	_width: 352px; /* IE 6 hack */
 	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
 }
 
@@ -313,7 +312,7 @@ hr { /* has IE 7 equivalent */
 #ratingsGSOnly h2 {
 	background: url(/res/img/school/overview/header_ratingsBox.gif) no-repeat 14px center #6bcacc;
 	height: 27px;
-	_width: 354px; /* IE 6 hack */
+	_width: 352 px; /* IE 6 hack */
 	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
 }
 
@@ -549,16 +548,6 @@ hr { /* has IE 7 equivalent */
 
 /* right column modules
 ----------------------------------*/
-
-/* promotion
-----------------------------------*/
-
-.promotion {
-	margin: 0 0 16px 0;
-	_margin: 0 0 13px 0; /* IE 6 hack */
-	padding: 0;
-	border: 0;
-}
 
 /* ad
 ----------------------------------*/
