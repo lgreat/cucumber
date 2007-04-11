@@ -477,6 +477,27 @@ hr { /* has IE 7 equivalent */
     margin:3px 0 0 0;
 }
 
+#learnSchool .dash {
+    padding-bottom:15px;
+    border-bottom: 1px dashed #ccc;
+}
+
+#learnSchool .dash {
+    padding-bottom:15px;
+}
+
+#learnSchool div, #learnSchool div a {
+  	font: 11px Trebuchet MS, sans-serif;
+	color: #666;
+    text-decoration:none;
+}
+
+#learnSchool img#pdficon {
+   float:left;
+   margin:0 5px 0 57px;
+   padding:0;
+}
+
 /* Compare This School To
 ----------------------------------*/
 

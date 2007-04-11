@@ -63,7 +63,7 @@
 
 
         <div id="quickFacts">
-            <h2>Quick Facts</h2>
+            <h2>${school.name} Quick Facts</h2>
             <h3><strong style="font-weight:normal;">${school.name}</strong></h3>
             <address>
                 ${school.physicalAddress.street}<br />
@@ -143,10 +143,10 @@
                         <li>Year opened: ${schoolData.yearOpened}</li>
                     </c:if>
                     <c:if test="${not empty school.authorizer.name}">
-                        <li>Charter authorizer: ${school.authorizer.name}</li>
+                        <li>Charter authorizer:<br/>${school.authorizer.name}</li>
                     </c:if>
                     <c:if test="${not empty school.operatorId}">
-                        <li>Charter operator: ${schoolData.operator}</li>
+                        <li>Charter operator:<br/>${schoolData.operator}</li>
                     </c:if>
                 </c:if>
             </ul>
