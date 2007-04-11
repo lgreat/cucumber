@@ -10,7 +10,6 @@
         >
     <jsp:directive.tag import="gs.data.school.census.ICensusInfo"/>
     <jsp:directive.tag import="gs.data.school.census.SchoolCensusValue"/>
-    <jsp:directive.tag import="gs.data.school.School"/>
     <jsp:directive.tag import="gs.data.school.charter.ICharterSchoolInfo"/>
     <jsp:directive.tag import="gs.data.school.census.CensusDataType"/>
     <jsp:directive.tag import="gs.data.school.census.ICharterSchoolInfoDao"/>
@@ -110,12 +109,15 @@
 
                 <!-- Subtype(s) -->
                 <c:set var="subtypes" value="${subtypes}"/>
-                <c:if test="${not empty subtypes}">
-                    <li>
+                <c:if test="${(not empty subtypes) or (not empty school.affiliation)}">
+                    <c:set var="subs">
                         <c:if test="${not empty school.affiliation}">
                             ${school.affiliation},&#32;
                         </c:if>
                         ${fn:replace(fn:replace(subtypes, "_", " "), ",", ", ")}
+                    </c:set>
+                    <li>
+                        ${gsweb:capitalize(subs)}
                     </li>
                 </c:if>
 

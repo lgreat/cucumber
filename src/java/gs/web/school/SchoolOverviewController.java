@@ -2,8 +2,10 @@ package gs.web.school;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.lang.StringUtils;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
@@ -20,15 +22,19 @@ import java.util.List;
 /**
  * This controller handles requests for the School Profile Overview page:
  * http://www.greatschools.net/school/overview.page?state=tx&id=10683
- * 
+ *
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
 public class SchoolOverviewController extends AbstractSchoolController {
 
-    /** Spring Bean id */
+    /**
+     * Spring Bean id
+     */
     public static final String BEAN_ID = "/school/overview.page";
 
-    /** The allowed length of the parent review blurb */
+    /**
+     * The allowed length of the parent review blurb
+     */
     public static final int REVIEW_LENGTH = 100;
 
     private String _viewName;
@@ -39,7 +45,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
      * is, it must be called by the superclass handleRequest() method in order to
      * assure that a valid school is available with the getSchool() method.
      *
-     * @param request provided by servlet container
+     * @param request  provided by servlet container
      * @param response provided by servlet container
      * @return a ModelAndView
      * @throws Exception
@@ -68,10 +74,10 @@ public class SchoolOverviewController extends AbstractSchoolController {
                 if (agentId != null) {
                     boolean foundCookie = false;
                     String biregCookieName = "BIREG" + agentId;
-                    for (int i=0; cookies.length > i; i++) {
+                    for (int i = 0; cookies.length > i; i++) {
                         if (biregCookieName.equals(cookies[i].getName()) &&
-                                StringUtils.isNotEmpty(cookies[i].getValue()) && 
-                                !cookies[i].getValue().equals("0")){
+                                StringUtils.isNotEmpty(cookies[i].getValue()) &&
+                                !cookies[i].getValue().equals("0")) {
                             foundCookie = true;
                         }
                     }
@@ -90,12 +96,12 @@ public class SchoolOverviewController extends AbstractSchoolController {
         } // end if cobranded
 
         if (StringUtils.isNumeric(schoolIdStr)) {
-            School school = (School)request.getAttribute(SCHOOL_ATTRIBUTE);
+            School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
             model.put("school", school);
             List reviews = _reviewDao.getPublishedReviewsBySchool(school);
             if (reviews != null && reviews.size() > 0) {
                 model.put("reviewCount", new Integer(reviews.size()));
-                Review review = (Review)reviews.get(0);
+                Review review = (Review) reviews.get(0);
                 if (review != null) {
                     model.put("reviewText", StringUtils.abbreviate(review.getComments(), REVIEW_LENGTH));
                 }
@@ -126,9 +132,10 @@ public class SchoolOverviewController extends AbstractSchoolController {
     /**
      * Populates a <code>Map</code> with the fields used by the Latest
      * Parent Reviews box on overview.page
+     *
      * @param school a gs.data.school.School
      * @return a Map containing the fields to display or null if one of the
-     * user story conditions for display is not met. See GS-3204.
+     *         user story conditions for display is not met. See GS-3204.
      */
     Map createLatestReviewsModel(School school) {
 
@@ -139,7 +146,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
                 "above average",
                 "excellent"
         };
-        
+
         String QUALITY_CAT = "teacher quality is";
         String PRINCIPAL_CAT = "principal leadership is";
         String EXTRA_CAT = "extracurricular activities are";
@@ -148,78 +155,79 @@ public class SchoolOverviewController extends AbstractSchoolController {
 
         Map latestReviewsModel = null;
         List reviews = getReviewDao().getPublishedReviewsBySchool(school);
-        if (reviews != null && reviews.size() > 0) {
+        if (reviews != null && reviews.size() > 2) {
             Review review = null;
             for (int i = 0; i < reviews.size(); i++) {
-                review = (Review)reviews.get(i);
+                review = (Review) reviews.get(i);
                 if (review.getQuality() != null && review.getComments() != null) {
                     break;
                 }
             }
 
             if (review != null) {
-
                 Ratings ratings = getReviewDao().findRatingsBySchool(school);
-                Integer randomRating = null;
-                String randomCategory = null;
+                if (ratings.getCount().intValue() > 2) {
+                    Integer randomRating = null;
+                    String randomCategory = null;
 
-                // First try to randomly pick a rating category:
-                int index = (int)(Math.random() * 5);
-                switch (index) {
-                    case 0:
-                        randomCategory = QUALITY_CAT;
-                        randomRating = ratings.getAvgQuality();
-                        break;
-                    case 1:
-                        randomCategory = PRINCIPAL_CAT;
-                        randomRating = ratings.getAvgPrincipal();
-                        break;
-                    case 2:
-                        randomCategory = EXTRA_CAT;
-                        randomRating = ratings.getAvgActivities();
-                        break;
-                    case 3:
-                        randomCategory = PARENT_CAT;
-                        randomRating = ratings.getAvgParents();
-                        break;
-                    case 4:
-                        randomCategory = SAFETY_CAT;
-                        randomRating = ratings.getAvgSafety();
-                        break;
-                }
-
-                // If a rating does not exist for the randomly-selected category, look
-                // in the other categories for a rating.
-                if (randomRating == null) {
-                    randomCategory = QUALITY_CAT;
-                    randomRating = ratings.getAvgQuality();
-                    if (randomRating == null) {
-                        randomCategory = PRINCIPAL_CAT;
-                        randomRating = ratings.getAvgPrincipal();
-                        if (randomRating == null) {
+                    // First try to randomly pick a rating category:
+                    int index = (int) (Math.random() * 5);
+                    switch (index) {
+                        case 0:
+                            randomCategory = QUALITY_CAT;
+                            randomRating = ratings.getAvgQuality();
+                            break;
+                        case 1:
+                            randomCategory = PRINCIPAL_CAT;
+                            randomRating = ratings.getAvgPrincipal();
+                            break;
+                        case 2:
                             randomCategory = EXTRA_CAT;
                             randomRating = ratings.getAvgActivities();
+                            break;
+                        case 3:
+                            randomCategory = PARENT_CAT;
+                            randomRating = ratings.getAvgParents();
+                            break;
+                        case 4:
+                            randomCategory = SAFETY_CAT;
+                            randomRating = ratings.getAvgSafety();
+                            break;
+                    }
+
+                    // If a rating does not exist for the randomly-selected category, look
+                    // in the other categories for a rating.
+                    if (randomRating == null) {
+                        randomCategory = QUALITY_CAT;
+                        randomRating = ratings.getAvgQuality();
+                        if (randomRating == null) {
+                            randomCategory = PRINCIPAL_CAT;
+                            randomRating = ratings.getAvgPrincipal();
                             if (randomRating == null) {
-                                randomCategory = PARENT_CAT;
-                                randomRating = ratings.getAvgParents();
+                                randomCategory = EXTRA_CAT;
+                                randomRating = ratings.getAvgActivities();
                                 if (randomRating == null) {
-                                    randomCategory = SAFETY_CAT;
-                                    randomRating = ratings.getAvgSafety();
+                                    randomCategory = PARENT_CAT;
+                                    randomRating = ratings.getAvgParents();
+                                    if (randomRating == null) {
+                                        randomCategory = SAFETY_CAT;
+                                        randomRating = ratings.getAvgSafety();
+                                    }
                                 }
                             }
                         }
                     }
-                }
 
-                // If we don't find one, return null.
-                if (randomRating != null) {
-                    latestReviewsModel = new HashMap();
-                    latestReviewsModel.put("randomCategory", randomCategory);
-                    latestReviewsModel.put("randomRating", ratingStrings[randomRating.intValue()-1]);
-                    latestReviewsModel.put("latestRating", review.getQuality().getName());
-                    latestReviewsModel.put("total", ratings.getCount());
-                    latestReviewsModel.put("comment",
-                            Util.abbreviateAtWhitespace(review.getComments(), REVIEW_LENGTH));
+                    // If we don't find one, return null.
+                    if (randomRating != null) {
+                        latestReviewsModel = new HashMap();
+                        latestReviewsModel.put("randomCategory", randomCategory);
+                        latestReviewsModel.put("randomRating", ratingStrings[randomRating.intValue() - 1]);
+                        latestReviewsModel.put("latestRating", review.getQuality().getName());
+                        latestReviewsModel.put("total", ratings.getCount());
+                        latestReviewsModel.put("comment",
+                                Util.abbreviateAtWhitespace(review.getComments(), REVIEW_LENGTH));
+                    }
                 }
             }
         }
