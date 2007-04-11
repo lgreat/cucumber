@@ -300,9 +300,11 @@ function getViewportWidth() {
 function hideContainers() {
 var hidden = getElementsByCondition(
     function(el) {
-        if(el.id.indexOf("ad")==0){el.style.display='none';return el}
-        //IE wants select boxes to have highest z-index
-        else if (gHideSelects && el.tagName == "SELECT") {el.style.visibility="hidden";return el}
+        try {
+            if(el.id.indexOf("ad")==0){el.style.display='none';return el}
+            //IE wants select boxes to have highest z-index
+            else if (gHideSelects && el.tagName == "SELECT") {el.style.visibility="hidden";return el}
+        } catch(err) {}
     }
     )
 }
@@ -310,9 +312,11 @@ var hidden = getElementsByCondition(
 function showContainers() {
     var hidden = getElementsByCondition(
         function(el){
-            if(el.id.indexOf("ad")==0){el.style.display='block';return el}
-            //IE wants select boxes to have highest z-index
-            else if (gHideSelects && el.tagName == "SELECT") {el.style.visibility="visible";return el}
+            try {
+                if(el.id.indexOf("ad")==0){el.style.display='block';return el}
+                //IE wants select boxes to have highest z-index
+                else if (gHideSelects && el.tagName == "SELECT") {el.style.visibility="visible";return el}
+            } catch(err) {}
         }
         )
 }
