@@ -18,7 +18,7 @@
         <![CDATA[
         <!-- X -->
 
-        <!-- DESIGNER BEGIN: REMEMBER TO PUT YOUR STYLESHEETS UNDER res/css AND REFERENCE THEM HERE -->
+        <!-- DESIGNER BEGIN: REMEMBER TO PUT YOUR STYLESHEETS UNDER res/css/pagename/*.css AND REFERENCE THEM HERE -->
         <!-- Remove this -->
         ]]>
         <style type="text/css">
@@ -41,7 +41,7 @@
         ]]>
     </head>
     <gsml:body adPageName="designer_template">
-        
+
 <![CDATA[
 <!-- X -->
 
@@ -51,11 +51,11 @@
     <ol>
     <li>Please keep all your work between the <strong>DESIGNER BEGIN</strong> and <strong>DESIGNER END</strong> comments to make it easy for engineers to extract and integrate your work</li>
         <li>Please put your CSS in <strong>res/css/pagename/*.css</strong> and images in <strong>res/img/pagename/*.(gif|jpg)</strong></li>
+        <li>This page W3C validates and all submitted pages must be <strong>W3C validating XHTML</strong> when submitted.</li>
+        <li>If you're not already using it get the <a href="https://addons.mozilla.org/firefox/60/">Firefox Web Developer toolbar</a>. You can use Tools -> Validate Local HTML to regularly XHTML validate your work in progress.</li>
         <li>Notice how we de-style everything by default. This helps us both with cross browser compatability and SEO. It also allows us to write semantic XHTML and then style it using the contentGS div.</li>
-        <li>All coded pages must be <strong>W3C validating XHTML</strong> when submitted</li>
-        <li>CSS should be semantic such as <strong>id="registrationform"</strong>, not id="centeralignedcontent"</li>
-        <li>Tables should be used sparingly and only for layout when absolutely necessary</li>
-        <li>Proper semantic XHTML should be used (for example headers use h1, h2, etc... and lists should use ul or ol with styled li's)</li>
+        <li>CSS should be semantic such as <strong>id="registrationform"</strong>, not id="centeralignedcontent"</li>. For headers use h1, h2, etc... and lists should use ul or ol with styled li's.
+        <li>Tables should be used sparingly and only for layout when absolutely necessary</li>        
         <li>A group of newly coded pages should share a stylesheet (for example a group of registration pages would all depend on one <strong>res/css/community/registration/registration.css</strong> file)</li>
         <li>Pages can also have their own stylesheet for styles specific to the page (e.g. <strong>res/css/community/registration/confirmation.css</strong>) but in general should get their styles from the group stylesheet (e.g. registration.css) or higher level global stylesheet.</li>
         <li>No sloppy HTML such as using 1 pixel images for positioning, unnecessary tables for layout, or using style attributes that really belong in CSS (e.g. width/height/border/align). Even our own header and footer contain some examples of what not to do and we're working on fixing those.</li>
@@ -63,7 +63,6 @@
         <li>References to images in the CSS should always be relative to the location of the stylesheet and not absolute! For example do this <strong>url(../../../img/community/registration/someimage.gif)</strong> but NOT this url(/res/img/community/registration/someimage.gif)</li>
         <li>Images should almost never contain text, text should be text</li>
         <li>Pages should be tested to work properly with Internet Explorer 6 and 7 and Firefox 2</li>
-        <li>If you're not already using it checkout the <a href="https://addons.mozilla.org/firefox/60/">Firefox Web Developer toolbar</a>. You can use Tools -> Validate Local HTML to regularly XHTML validate your work</li>
         <li>Comments on these guidelines should go to thuss@greatschools.net</li>
     </ol>
     <!-- Remove this -->
