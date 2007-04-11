@@ -58,7 +58,7 @@
                 "year_round, state_run");
         SchoolSubtype subs = school.getSubtype();
         subs = SchoolSubtype.createWithMask(SchoolSubtype.create(""), mask, subs);
-        request.setAttribute("subtypes", subs);
+        request.setAttribute("subtypes", subs.asCommaSeparatedString().trim());
     </jsp:scriptlet>
 
 
