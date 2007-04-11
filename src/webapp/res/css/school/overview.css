@@ -212,7 +212,7 @@ hr { /* has IE 7 equivalent */
 	border: 0;
 }
 
-.stars {
+.stars { /* has IE 7 equivalent */
     margin: 7px 0 0 0;
     _margin: 9px 0 0 0;
 	border: 0;

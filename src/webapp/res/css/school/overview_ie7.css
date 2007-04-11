@@ -35,13 +35,18 @@ hr {
 /* Ratings
 ----------------------------------*/
 
+.stars {
+    margin: 9px 0 0 0;
+	border: 0;
+}
+
 .rateIt {
-	margin: 14px 0 6px 0;
+	margin: 12px 0 9px 0;
 	border: 0;
 }
 
 #ratingsBoth #rating_gs img {
-	margin-bottom: 6px;
+	margin-bottom: 9px;
 }
 
 #ratingsBoth #rating_parent {
