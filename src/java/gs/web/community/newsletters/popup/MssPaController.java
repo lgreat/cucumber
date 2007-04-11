@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.20 2007/01/02 20:09:17 cpickslay Exp $
+ * $Id: MssPaController.java,v 1.21 2007/04/11 21:11:48 cpickslay Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -24,9 +24,11 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Cookie;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Date;
 
 /**
  * Form that allows user to sign up for MSS and Parent Advisor
@@ -139,6 +141,16 @@ public class MssPaController extends SimpleFormController implements ReadWriteCo
         mAndV.setViewName(getSuccessView());
 
         return mAndV;
+    }
+
+    protected ModelAndView handleRequestInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+        Cookie hoverCookie = new Cookie("hover", new Date().toString());
+        hoverCookie.setPath("/");
+        hoverCookie.setDomain(".greatschools.net");
+        hoverCookie.setMaxAge(60 * 60 * 24 * 15);
+        httpServletResponse.addCookie(hoverCookie);
+
+        return super.handleRequestInternal(httpServletRequest, httpServletResponse);
     }
 
     public IUserDao getUserDao() {

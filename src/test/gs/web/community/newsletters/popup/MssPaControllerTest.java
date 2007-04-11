@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.14 2006/08/25 23:32:43 aroy Exp $
+ * $Id: MssPaControllerTest.java,v 1.15 2007/04/11 21:11:48 cpickslay Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -23,8 +23,10 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.CookieGenerator;
+import org.springframework.mock.web.MockHttpServletResponse;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
@@ -196,6 +198,15 @@ public class MssPaControllerTest extends BaseControllerTestCase {
             _userDao.removeUser(user.getId());
         }
         assertNull(_userDao.findUserFromEmailIfExists(email));
+    }
+
+    public void testSetHoverCookie() throws Exception {
+        _controller.handleRequestInternal(getRequest(), getResponse());
+        MockHttpServletResponse response = getResponse();
+        Cookie[] cookies = response.getCookies();
+        assertEquals("Expected to find hover cookie", "hover", cookies[0].getName());
+        assertEquals("Expected hover cookie path to be /", "/", cookies[0].getPath());
+        assertEquals("Expected cookie to expire in 15 days", 60 * 60 * 24 * 15, cookies[0].getMaxAge());
     }
 
     private class MockMaxedOutMssUserDao implements IUserDao {
