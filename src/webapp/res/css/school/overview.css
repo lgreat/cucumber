@@ -486,7 +486,7 @@ hr { /* has IE 7 equivalent */
     padding-bottom:15px;
 }
 
-#learnSchool div, #learnSchool div a {
+#learnSchool div, #learnSchool a, #learnSchool a:hover, #learnSchool a:visited {
   	font: 11px Trebuchet MS, sans-serif;
 	color: #666;
     text-decoration:none;

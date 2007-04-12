@@ -135,14 +135,20 @@
                 <h2>Learn About ${school.name}</h2>
 
                 <c:if test="${school.type.schoolTypeName ne 'private'}">
-                    <gsml:a href="/modperl/achievement/${state}/${sid}"><gsml:img src="/res/img/school/overview/learn_TestScores.gif" alt=""/>
-                        <p class="dashed">${school.name} test scores</p>
+                    <gsml:a href="/modperl/achievement/${state}/${sid}">
+                        <gsml:img src="/res/img/school/overview/learn_TestScores.gif" alt=""/>
                     </gsml:a>
+                    <p class="dashed">
+                        <gsml:a href="/modperl/achievement/${state}/${sid}">${school.name} test scores</gsml:a>
+                    </p>
                 </c:if>
 
-                <gsml:a href="/cgi-bin/${state}/other/${sid}#teachers"><gsml:img src="/res/img/school/overview/learn_TeacherStats.gif" alt="" />
-                <p class="dashed">${school.name} teachers</p>
+                <gsml:a href="/cgi-bin/${state}/other/${sid}#teachers">
+                    <gsml:img src="/res/img/school/overview/learn_TeacherStats.gif" alt="" />
                 </gsml:a>
+                <p class="dashed">
+                    <gsml:a href="/cgi-bin/${state}/other/${sid}#teachers">${school.name} teachers</gsml:a>
+                </p>
                 
                 <c:set var="finance" value="hide" />
                 <c:if test="${school.type.schoolTypeName ne 'private' and (state eq 'az' or state eq 'ca' or
@@ -151,25 +157,33 @@
                     <c:set var="finance" value="show" />
                 </c:if>
 
-                <gsml:a href="/cgi-bin/${state}/other/${sid}#students"><gsml:img src="/res/img/school/overview/learn_StudentStats.gif" alt="" />
-                    <p class="${(hasPrincipalView or finance eq 'show' )? 'dashed' : 'last'}">${school.name} students</p>
+                <gsml:a href="/cgi-bin/${state}/other/${sid}#students">
+                    <gsml:img src="/res/img/school/overview/learn_StudentStats.gif" alt="" />
                 </gsml:a>
-
+                <p class="${(hasPrincipalView or finance eq 'show' )? 'dashed' : 'last'}">
+                    <gsml:a href="/cgi-bin/${state}/other/${sid}#students">${school.name} students</gsml:a>
+                </p>
 
                 <c:set var="special" value="hide" />
                 <c:if test="${school.type.schoolTypeName eq 'charter' and (state eq 'ca')}">
                     <c:set var="special" value="show" />
                 </c:if>
                 <c:if test="${finance eq 'show'}">
-                    <gsml:a href="/cgi-bin/${state}/other/${sid}#finance"><gsml:img src="/res/img/school/overview/learn_SchoolFinance.gif" alt="" />
-                        <p class="${(hasPrincipalView or (special eq 'show')) ? 'dashed' : 'last'}">${school.name} spending per pupil</p>
+                    <gsml:a href="/cgi-bin/${state}/other/${sid}#finance">
+                        <gsml:img src="/res/img/school/overview/learn_SchoolFinance.gif" alt="" />
                     </gsml:a>
+                    <p class="${(hasPrincipalView or (special eq 'show')) ? 'dashed' : 'last'}">
+                        <gsml:a href="/cgi-bin/${state}/other/${sid}#finance">${school.name} spending per pupil</gsml:a>
+                    </p>
                 </c:if>
 
                 <c:if test="${hasPrincipalView}">
-                    <gsml:a href="/cgi-bin/${state}/pqview/${sid}"><gsml:img src="/res/img/school/overview/learn_SchoolsView.gif" alt="" />
-                        <p class="${special eq 'show' ? 'dash' : 'last'}">The inside scoop on ${school.name}</p>
+                    <gsml:a href="/cgi-bin/${state}/pqview/${sid}">
+                        <gsml:img src="/res/img/school/overview/learn_SchoolsView.gif" alt="" />
                     </gsml:a>
+                    <p class="${special eq 'show' ? 'dash' : 'last'}">
+                        <gsml:a href="/cgi-bin/${state}/pqview/${sid}">The inside scoop on ${school.name}</gsml:a>
+                    </p>
                 </c:if>
 
                 <c:if test="${special eq 'show'}">
@@ -179,8 +193,10 @@
                     <div class="last">
                         <gsml:a href="/schoolreports/CA/GreatSchools_charter_school_report_${sid}.pdf">
                             <gsml:img id="pdficon" src="/res/img/school/overview/pdficon_small.gif" alt="pdf"/>
-                            <div id="pdf_text">Download our special report on this school</div>
                         </gsml:a>
+                        <div id="pdf_text">
+                            <gsml:a href="/schoolreports/CA/GreatSchools_charter_school_report_${sid}.pdf">Download our special report on this school</gsml:a>
+                        </div>
                     </div>
                 </c:if>
 
