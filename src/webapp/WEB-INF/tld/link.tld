@@ -434,6 +434,13 @@
             <type>java.lang.Integer</type>
             <description>District id</description>
         </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Title attribute (tooltip)</description>
+        </attribute>
     </tag>
     <tag>
         <name>betaSignup</name>

@@ -132,10 +132,10 @@
 
     <div id="breadcrumbs">
         <ul>
-            <li><link:research state="${state}">${state.longName} schools</link:research> &gt; </li>
-            <li><link:city city="${city}" state="${state}">${city} schools</link:city>&amp;nbsp;</li>
+            <li><link:research state="${state}" title="${state.longName} schools">${state.longName} schools</link:research> &gt; </li>
+            <li><link:city city="${city}" state="${state}" title="${city} schools">${city} schools</link:city>&amp;nbsp;</li>
             <c:if test="${school.districtId != 0}">
-                <li>&gt; <link:districtProfile districtId="${school.districtId}" state="${state.abbreviationLowerCase}">${school.district.name}</link:districtProfile></li>
+                <li>&gt; <link:districtProfile districtId="${school.districtId}" state="${state.abbreviationLowerCase}" title="District information">${school.district.name}</link:districtProfile></li>
             </c:if>
         </ul>
     </div>

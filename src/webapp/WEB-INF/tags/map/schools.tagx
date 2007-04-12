@@ -29,7 +29,6 @@ TODO I'd like to color the markers or use different icons depending on the level
 I'd like to use a consistent display of school information in the info window.
 -->
 <map:setup/>
-<pageHelper:externalJavascript file="/res/js/mapTooltips.js" />
 <pageHelper:addOnLoadHandler handler="doMapSchools()"/>
 <jsp:scriptlet>
 <![CDATA[
@@ -116,7 +115,9 @@ function initSchoolInfo() {
 
 function initMap() {
     var i = 0;
-    map = new GMap2(document.getElementById("${id}"));
+    var tooltip = null;
+    var map = new GMap2(document.getElementById("${id}"));
+    var marker;
 
     if (displayTooltips) {
       gTooltip = document.createElement("div");
@@ -130,13 +131,14 @@ function initMap() {
     <![CDATA[
     for (var counter=0; counter < schoolArray.length; counter++) {
       var curSchool = schoolArray[counter];
-      marker = new GMarker(curSchool.location);
+      if (displayTooltips) {
+        tooltip = curSchool.name;
+      } else {
+        tooltip = null;
+      }
+      marker = new GMarker(curSchool.location, {title: tooltip});
       map.addOverlay(marker);
       bounds.extend(curSchool.location);
-      gMarkers[i++] = marker;
-      if (displayTooltips) {
-        setTooltipOnMarker(marker,'<span style="white-space:nowrap">' + curSchool.name + '</span>');
-      }
       if (useBubbles) {
         addBubble(marker, curSchool.link, curSchool.name, curSchool.info, curSchool.stInfo);
       } else {
@@ -152,17 +154,17 @@ function initMap() {
       // for the purposes of stack order, the star marker is treated as if it is
       // just north of the equator. This effectively makes it always on top of any
       // markers placed in the United States
-      function addLatitudeOrder(marker, b) {
+      function fakeLatitudeAtEquatorOrder(marker, b) {
         return GOverlay.getZIndex(1.0);
       }
-      marker = new GMarker(centerPoint, {icon:starIcon, zIndexProcess: addLatitudeOrder});
+      if (displayTooltips) {
+        tooltip = "${fn:escapeXml(centerSchool.name)}";
+      } else {
+        tooltip = null;
+      }
+      marker = new GMarker(centerPoint, {icon:starIcon, zIndexProcess: fakeLatitudeAtEquatorOrder, title: tooltip});
       map.addOverlay(marker);
       extendBoundsToCenterOnPoint(centerPoint, bounds);
-      var schoolName = "${fn:escapeXml(centerSchool.name)}";
-      <![CDATA[
-      setTooltipOnMarker(marker, '<span style="white-space:nowrap">' + schoolName + '</span>');
-      ]]>
-      gMarkers[i++] = marker;
     }
     var zoom = map.getBoundsZoomLevel(bounds);
     if (zoom > maxZoom) zoom = maxZoom;
