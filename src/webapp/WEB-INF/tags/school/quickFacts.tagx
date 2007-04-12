@@ -67,8 +67,8 @@
             <h3><strong style="font-weight:normal;">${school.name}</strong></h3>
             <address>
                 ${school.physicalAddress.street}<br />
-                ${school.physicalAddress.city}, ${school.physicalAddress.state.abbreviation}<br />
-                ${school.physicalAddress.zip} | <a href="http://maps.google.com/maps?oi=maps&amp;amp;q=${school.physicalAddress}" target="_blank">Map &#62;</a>
+                ${school.physicalAddress.city}, ${school.physicalAddress.state.abbreviation}&#32;${school.physicalAddress.zip}<br/>
+                <a href="http://maps.google.com/maps?oi=maps&amp;amp;q=${school.physicalAddress}" target="_blank">Map &#62;</a>
             </address>
 
             <p class="phoneFax">
