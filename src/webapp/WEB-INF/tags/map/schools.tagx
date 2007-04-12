@@ -142,7 +142,7 @@ function initMap() {
       if (useBubbles) {
         addBubble(marker, curSchool.link, curSchool.name, curSchool.info, curSchool.stInfo);
       } else {
-        GEvent.addListener(marker, "click", function() { location = curSchool.link; });
+        addClickListener(marker, curSchool.link); // because of closures, farm this off to another method
       }
     }
     ]]>
@@ -170,6 +170,10 @@ function initMap() {
     if (zoom > maxZoom) zoom = maxZoom;
     if (minZoom > zoom) zoom = minZoom;
     map.setZoom(zoom);
+}
+
+function addClickListener(marker, link) {
+  GEvent.addListener(marker, "click", function() { location = link; });
 }
 
 function doMapSchools() {
