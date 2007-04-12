@@ -95,7 +95,7 @@ function initSchoolInfo() {
     </c:choose>
     mySchool = new Object();
     mySchool.link = "${hrefbase}";
-    mySchool.name = "${fn:escapeXml(school.name)}";
+    mySchool.name = "${school.name}";
     mySchool.location = new GLatLng(${school.lat},${school.lon});
     <c:if test="${not empty bubbles}">
       // only for bubbles, accessing enrollment requires an extra DB query per school
@@ -158,7 +158,7 @@ function initMap() {
         return GOverlay.getZIndex(1.0);
       }
       if (displayTooltips) {
-        tooltip = "${fn:escapeXml(centerSchool.name)}";
+        tooltip = "${centerSchool.name}";
       } else {
         tooltip = null;
       }
