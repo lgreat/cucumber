@@ -224,7 +224,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
                         latestReviewsModel.put("randomCategory", randomCategory);
                         latestReviewsModel.put("randomRating", ratingStrings[randomRating.intValue() - 1]);
                         latestReviewsModel.put("latestRating", review.getQuality().getName());
-                        latestReviewsModel.put("total", ratings.getCount());
+                        latestReviewsModel.put("totalReviews", new Integer(reviews.size()));
                         latestReviewsModel.put("comment",
                                 Util.abbreviateAtWhitespace(review.getComments(), REVIEW_LENGTH));
                     }
