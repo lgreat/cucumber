@@ -11,7 +11,7 @@ School Overview
 	width: 864px;
 	_width: 864px; /* IE 6 hack */
 	float: left;
-	margin: 14px 0 30px 0; /* bottom margin is arbitrary and can be changed once code is implemented */
+	margin: 14px 0 0 0; /* bottom margin is arbitrary and can be changed once code is implemented */
 }
 
 #schoolOverview p {
@@ -145,8 +145,9 @@ hr { /* has IE 7 equivalent */
 	border-top: 1px solid #dee;
 }
 
-#editor .secondH3 {
-	margin-top: 12px;
+#editor hr {
+    width: 150px;
+    margin-left: 10px;
 }
 
 #editor ul {
