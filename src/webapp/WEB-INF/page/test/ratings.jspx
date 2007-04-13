@@ -100,11 +100,14 @@
                     <c:if test="${hasRating == 'true'}">
                         <ratings:table ratingsDisplay="${ratingsDisplay}"/>
                     </c:if>
+                    <school:bigPicture school="${school}"/>
+                    <school:compareSchool school="${school}"/>
                 </div>
                 <div id="promoContent">
                     <ad:x11/>
                     <ad:x48/>
                     <ad:multiTextAd blurb="Advertiser links"/>
+                    <school:nearbySchools school="${school}"/>
                 </div>
             </school:profile>
         </c:if>

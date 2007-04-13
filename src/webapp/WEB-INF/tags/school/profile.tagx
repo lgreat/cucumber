@@ -295,7 +295,7 @@
     <!-- breadcrumb start no breadcrumb on overview page-->
     <c:set var="delimiter" value="&amp;gt;"/>
 
-    <c:if test="${tab ne 'overview'}">
+    <c:if test="${tab ne 'overview' and tab ne 'ratings'}">
         <div class="breadcrumb">
             <span class="hr">&amp;nbsp;</span>
             <h2>
