@@ -71,8 +71,8 @@ function reflectPoint(centerPoint, outlierPoint) {
                      centerPoint.lng() + (centerPoint.lng() - outlierPoint.lng()));
 }
 
-var minZoom = ${not empty minZoom?minZoom:9};
-var maxZoom = ${not empty maxZoom?maxZoom:12};
+var minZoom = ${not empty minZoom?minZoom:6};
+var maxZoom = ${not empty maxZoom?maxZoom:13};
 var displayTooltips = ${not empty tooltips};
 var useBubbles = ${not empty bubbles};
 var centerOnStar = ${not empty centerSchool};
