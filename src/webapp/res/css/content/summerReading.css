@@ -1,0 +1,44 @@
+h1#summerReadingText {
+    text-indent: -5000px;
+    background: url( "../../img/content/summerReading/GS_SRG_text1.gif" ) no-repeat;
+    width: 155px;
+    height: 192px;
+    float: left;
+    margin:0;
+    padding:0;
+}
+
+h2#loveOfReading {
+    text-indent: -5000px;
+    background: url( "../../img/content/summerReading/GS_SRG_text2.gif" ) no-repeat;
+    width: 365px;
+    height: 26px;
+}
+
+h2#parentsShouldKnow {
+    text-indent: -5000px;
+    background: url( "../../img/content/summerReading/GS_SRG_text3.gif" ) no-repeat;
+    width: 365px;
+    height: 26px;
+}
+
+h2#bookPicks {
+    text-indent: -5000px;
+    background: url( "../../img/content/summerReading/GS_SRG_text4.gif" ) no-repeat;
+    width: 365px;
+    height: 26px;
+}
+
+#contentGS .middle h2 {
+    padding:0;
+}
+
+#contentGS .middle h1 {
+    font-family:inherit;
+    font-size:100%;
+    font-weight:normal;
+    padding:0;
+    color: #fff;
+    background-color: #6cc;
+    margin-bottom:0;
+}
