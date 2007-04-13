@@ -145,14 +145,15 @@ hr { /* has IE 7 equivalent */
 	border-top: 1px solid #dee;
 }
 
-#editor hr {
+#editor hr { /* has IE 7 equivalent */
     width: 150px;
     margin-left: 10px;
+    _margin-top: -5px;
 }
 
 #editor ul {
 	width: 150px;
-	margin: 10px 0 5px 10px;
+    margin: 10px 0 5px 10px;
 }
 
 #editor ul li {
