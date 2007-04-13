@@ -214,9 +214,6 @@
                 </td>
             </tr>
         </c:if>
-        <tr>
-            <td><ad:google300x250/></td>
-        </tr>
     </table>
 </td>
 </tr>
