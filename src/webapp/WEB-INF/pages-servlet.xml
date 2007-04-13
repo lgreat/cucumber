@@ -945,7 +945,7 @@
           class="gs.web.school.SchoolOverviewController"
           autowire="byName" lazy-init="true">
         <property name="viewName">
-            <value>school/overview</value>
+            <value>school/overview2</value>
         </property>
     </bean>
 
