@@ -47,6 +47,7 @@ public class TableCopyServiceImpl extends RemoteServiceServlet implements TableC
             add("census_data_type");
             add("census_group_data_type");
             add("configuration");
+            add("operator");
             add("DataFile");
             add("DataLoad");
             add("DataSource");
