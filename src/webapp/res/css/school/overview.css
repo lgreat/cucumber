@@ -566,19 +566,6 @@ hr { /* has IE 7 equivalent */
 	border: 1px solid green;
 }
 
-
-/* right column modules
-----------------------------------*/
-
-/* ad
-----------------------------------*/
-
-.ad {
-	margin: 0 0 16px 0;
-	padding: 0;
-	border: 0;
-}
-
 .clear {
 	clear: both;
 }

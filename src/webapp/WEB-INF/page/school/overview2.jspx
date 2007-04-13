@@ -214,10 +214,10 @@
             <c:set var="level" value="high"/>
             <gsml:img src="/res/img/school/overview/compare_magnify.jpg" alt="Magnifying Glass" />
             <c:choose>
-                <c:when test="${school.levelCode eq 'e'}">
+                <c:when test="${(school.levelCode eq 'e') or (school.levelCode eq 'e,m') or (school.levelCode eq 'e,m,h')}">
                     <c:set var="level" value="elementary"/>
                 </c:when>
-                <c:when test="${school.levelCode eq 'm'}">
+                <c:when test="${(school.levelCode eq 'm') or (school.levelCode eq 'm,h')}">
                     <c:set var="level" value="middle"/>
                 </c:when>
             </c:choose>
@@ -251,7 +251,9 @@
 		<!-- begin right column -->
         <div id="col_right">
             <ad:x11/>
-            <ad:x48 />
+            <div style="padding:16px 0 16px 0;">
+                <ad:x48 />
+            </div>
             <c:if test="${empty param.hideMap}">
                 <school:nearbySchools school="${school}"/>
             </c:if>
