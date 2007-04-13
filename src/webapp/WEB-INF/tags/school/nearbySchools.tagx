@@ -12,7 +12,6 @@
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
     <jsp:directive.tag import="gs.data.school.ISchoolDao"/>
-    <jsp:directive.tag import="gs.data.school.LevelCode"/>
     <jsp:directive.tag import="gs.data.school.NearbySchool"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
@@ -36,9 +35,7 @@
         request.setAttribute("mapSchools", mapSchools);
         request.setAttribute("nearbySchools", nearbySchools);
         request.setAttribute("hasNearby", Boolean.valueOf(nearbySchools.size() > 0));
-
-        LevelCode.Level level = (LevelCode.Level) school.getLevelCode().getIterator().next();
-        request.setAttribute("levelLongName", level.getLongName());
+        request.setAttribute("levelLongName", school.getLevelCode().getLowestLevel().getLongName());
 
         ]]></jsp:scriptlet>
 
@@ -77,6 +74,5 @@
                 <li id="nearMore"><link:schoolCompareSchool school="${school}">More &gt;</link:schoolCompareSchool></li>
             </ul>           
         </div>
-        <br style="clear:both;"/>
     </c:if>
 </jsp:root>
