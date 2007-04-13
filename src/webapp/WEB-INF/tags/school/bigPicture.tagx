@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+        >
+<jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
+<c:set var="city" value="${school.physicalAddress.city}"/>
+<c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
+<c:set var="stateName" value="${school.databaseState.longName}"/>
+
+    <div id="bigPicture">
+        <h2>Big Picture</h2>
+
+        <p>Learn more about</p>
+
+        <c:if test="${school.districtId != 0}">
+            <h3><link:allSchoolsInDistrict districtId="${school.districtId}"
+                                       title="This school's district">${school.district.name}&#160;&#62;</link:allSchoolsInDistrict></h3>
+        </c:if>
+        <h3><link:city city="${city}" state="${state}" title="This school's city">${city} Schools&#160;&#62;</link:city></h3>
+        <h3><link:research state="${state}" title="${stateName} schools">${stateName} Schools&#160;&#62;</link:research></h3>
+    </div><!-- end: bigPicture -->
+</jsp:root>

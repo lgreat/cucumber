@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:gsweb="gstaglib"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+        >
+<jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
+<c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
+
+    <div id="compareSchool">
+        <h2>Compare ${school.name} to</h2>
+        <c:set var="level" value="high"/>
+        <gsml:img src="/res/img/school/overview/compare_magnify.jpg" alt="Magnifying Glass" />
+        <c:choose>
+            <c:when test="${(school.levelCode eq 'e') or (school.levelCode eq 'e,m') or (school.levelCode eq 'e,m,h')}">
+                <c:set var="level" value="elementary"/>
+            </c:when>
+            <c:when test="${(school.levelCode eq 'm') or (school.levelCode eq 'm,h')}">
+                <c:set var="level" value="middle"/>
+            </c:when>
+        </c:choose>
+        <gsweb:form action="/school/compareSchool.page" method="get">
+            <table id="compareForm" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="left">
+                        <input type="radio" name="type" value="distance" checked="checked"/>
+                        <label>Nearby ${level} schools</label>
+                        <c:if test="${school.type.schoolTypeName ne 'private'}">
+                            <input type="radio" name="type" value="district"/>
+                            <label>District ${level} schools</label>
+                        </c:if>
+                        <input type="radio" name="type" value="city" />
+                        <label>City ${level} schools</label>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" name="id" value="${school.id}"/>
+            <input type="hidden" name="state" value="${state}"/>
+            <input type="hidden" name="city" value="${school.physicalAddress.city}"/>
+            <input type="hidden" name="level" value="${school.levelCode}"/>
+            <gsml:inputImage src="/res/img/school/overview/submit_compare.gif" alt="Compare" styleClass="submit" />
+        </gsweb:form>
+        <br style="clear:both;" />
+    </div>
+
+</jsp:root>

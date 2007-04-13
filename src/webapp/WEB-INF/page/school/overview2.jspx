@@ -92,21 +92,7 @@
 		<hr />
 
 		<!-- Big Picture -->
-
-		<div id="bigPicture">
-
-            <h2>Big Picture</h2>
-
-            <p>Learn more about</p>
-
-            <c:if test="${school.districtId != 0}">
-                <h3><link:allSchoolsInDistrict districtId="${school.districtId}"
-                                           title="This school's district">${school.district.name}&#160;&#62;</link:allSchoolsInDistrict></h3>
-            </c:if>
-            <h3><link:city city="${city}" state="${state}" title="This school's city">${city} Schools&#160;&#62;</link:city></h3>
-            <h3><link:research state="${state}" title="${stateName} schools">${stateName} Schools&#160;&#62;</link:research></h3>
-
-		</div><!-- end: bigPicture -->
+        <school:bigPicture school="${school}"/>
 
 		</div><!-- end: col_left" -->
 
@@ -209,41 +195,9 @@
                 </c:if>
             </div>
 
-        <div id="compareSchool">
-            <h2>Compare ${school.name} to</h2>
-            <c:set var="level" value="high"/>
-            <gsml:img src="/res/img/school/overview/compare_magnify.jpg" alt="Magnifying Glass" />
-            <c:choose>
-                <c:when test="${(school.levelCode eq 'e') or (school.levelCode eq 'e,m') or (school.levelCode eq 'e,m,h')}">
-                    <c:set var="level" value="elementary"/>
-                </c:when>
-                <c:when test="${(school.levelCode eq 'm') or (school.levelCode eq 'm,h')}">
-                    <c:set var="level" value="middle"/>
-                </c:when>
-            </c:choose>
-            <gsweb:form action="/school/compareSchool.page" method="get">
-                <table id="compareForm" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td align="left">
-                            <input type="radio" name="type" value="distance" checked="checked"/>
-                            <label>Nearby ${level} schools</label>
-                            <c:if test="${school.type.schoolTypeName ne 'private'}">
-                                <input type="radio" name="type" value="district"/>
-                                <label>District ${level} schools</label>
-                            </c:if>
-                            <input type="radio" name="type" value="city" />
-                            <label>City ${level} schools</label>
-                        </td>
-                    </tr>
-                </table>
-                <input type="hidden" name="id" value="${school.id}"/>
-                <input type="hidden" name="state" value="${state}"/>
-                <input type="hidden" name="city" value="${school.physicalAddress.city}"/>
-                <input type="hidden" name="level" value="${school.levelCode}"/>
-                <gsml:inputImage src="/res/img/school/overview/submit_compare.gif" alt="Compare" styleClass="submit" />
-            </gsweb:form>
-            <br style="clear:both;" />
-        </div> <!-- end: compareSchool -->
+            <!-- compareSchool -->
+            <school:compareSchool school="${school}"/>
+            <!-- end: compareSchool -->
 
 
         </div><!-- end: col_center -->
