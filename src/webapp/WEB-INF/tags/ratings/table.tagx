@@ -57,7 +57,7 @@
         </tbody>
     </table>
 
-    <!--<c:if test="${hasMoreThanByGrade eq 'true'}">-->
+    <c:if test="${hasMoreThanByGrade eq 'true'}">
         <br/>
         <table class="rating tableHead">
             <thead>
@@ -95,7 +95,7 @@
             </tbody>
 
         </table>
-    <!--</c:if>-->
+    </c:if>
 
     <br/>
 </jsp:root>
