@@ -19,7 +19,7 @@
     <c:set var="hasMoreThanByGrade" value="false"/>
 
     <pageHelper:externalCss file="/res/css/school/ratings/table.css"/>
-    <table class="rating">
+    <table class="rating tableHead">
         <thead>
             <tr>
                 <th scope="col" style="width:55%;" class="header col1">BY GRADE</th>
@@ -29,7 +29,9 @@
                 </c:forEach>
             </tr>
         </thead>
+    </table>
 
+    <table class="rating tableBody">
         <c:forEach var="rowGroup" items="${ratingsDisplay.rowGroups}">
             <c:choose>
                 <c:when test="${rowGroup.label eq byGradeLabel}">
@@ -55,9 +57,9 @@
         </tbody>
     </table>
 
-    <c:if test="${hasMoreThanByGrade eq 'true'}">
+    <!--<c:if test="${hasMoreThanByGrade eq 'true'}">-->
         <br/>
-        <table class="rating">
+        <table class="rating tableHead">
             <thead>
                 <tr>
                     <th scope="col" style="width:55%;" class="header col1">BY CATEGORY</th>
@@ -67,7 +69,9 @@
                     </c:forEach>
                 </tr>
             </thead>
+        </table>
 
+        <table class="rating tableBody">
             <c:forEach var="rowGroup" items="${ratingsDisplay.rowGroups}">
                 <c:if test="${rowGroup.label ne byGradeLabel}">
                     <tbody>
@@ -91,7 +95,7 @@
             </tbody>
 
         </table>
-    </c:if>
+    <!--</c:if>-->
 
     <br/>
 </jsp:root>
