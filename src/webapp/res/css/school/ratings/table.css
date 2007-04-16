@@ -9,9 +9,9 @@
 }
 
 table.tableHead {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: bold;
-    font-family: Century Gothic, sans-serif;
+    font-family: Arial, sans-serif;
     border-left: 2px solid #66cccc;
     border-right: 2px solid #66cccc;
 }
