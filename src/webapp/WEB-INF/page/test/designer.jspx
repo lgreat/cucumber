@@ -42,12 +42,6 @@
                 list-style-type: decimal;
                 margin: 0 0 0.25em 3em;
             }
-
-            #contentGS h1 {
-                font-size: 2em;
-                text-align: center;
-                margin: 1em 0 1em 0;
-            }
         </style>
         <![CDATA[
         <!-- End remove this -->
@@ -64,9 +58,9 @@
 
 <!-- DESIGNER BEGIN: REMEMBER TO W3C VALIDATE YOUR XHTML BEFORE SUBMITTING -->
    <!-- Remove this -->
-   <h1>DESIGN GUIDELINES</h1>
+   <h1 style="text-align:center; margin: 1em 0 1em 0;">DESIGN GUIDELINES</h1>
     <ol>
-    <li>Please keep all your work between the <strong>DESIGNER BEGIN</strong> and <strong>DESIGNER END</strong> comments to make it easy for engineers to extract and integrate your work</li>
+        <li>Please keep all your work between the <strong>DESIGNER BEGIN</strong> and <strong>DESIGNER END</strong> comments to make it easy for engineers to extract and integrate your work</li>
         <li>Please put your CSS in <strong>res/css/pagename/*.css</strong> and images in <strong>res/img/pagename/*.(gif|jpg)</strong></li>
         <li>This page W3C validates and all submitted pages must be <strong>W3C validating XHTML</strong> when submitted.</li>
         <li>If you're not already using it get the <a href="https://addons.mozilla.org/firefox/60/">Firefox Web Developer toolbar</a>. You can use Tools -> Validate Local HTML to regularly XHTML validate your work in progress.</li>
