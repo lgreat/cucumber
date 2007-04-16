@@ -4,7 +4,14 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
+    <jsp:directive.page import="gs.web.util.context.SessionContext"/>
+    <jsp:directive.page import="org.springframework.context.ApplicationContext"/>
+    <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+    <jsp:directive.page import="gs.data.school.ISchoolDao"/>
+    <jsp:directive.page import="gs.data.state.State"/>
+    <jsp:directive.page import="gs.data.school.School"/>
     <html lang="en">
 
     <jsp:output doctype-root-element="html"
@@ -12,6 +19,15 @@
                 doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
     <jsp:directive.page contentType="text/html"/>
+
+
+    <jsp:scriptlet>
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        ApplicationContext ac = sessionContext.getApplicationContext();
+        ISchoolDao schoolDao = (ISchoolDao) ac.getBean(ISchoolDao.BEAN_ID);
+        School school = schoolDao.getSchoolById(State.CA, new Integer(1));
+        request.setAttribute("school", school);
+    </jsp:scriptlet>
 
     <head>
         <title>GreatSchools XHTML Designer Template</title>
@@ -40,8 +56,9 @@
 
         ]]>
     </head>
-    <gsml:body adPageName="designer_template">
 
+    <gsml:body adPageName="designer_template">
+        <c:set var="guidelines">
 <![CDATA[
 <!-- X -->
 
@@ -54,7 +71,8 @@
         <li>This page W3C validates and all submitted pages must be <strong>W3C validating XHTML</strong> when submitted.</li>
         <li>If you're not already using it get the <a href="https://addons.mozilla.org/firefox/60/">Firefox Web Developer toolbar</a>. You can use Tools -> Validate Local HTML to regularly XHTML validate your work in progress.</li>
         <li>Notice how we de-style everything by default. This helps us both with cross browser compatability and SEO. It also allows us to write semantic XHTML and then style it using the contentGS div.</li>
-        <li>CSS should be semantic such as <strong>id="registrationform"</strong>, not id="centeralignedcontent"</li>. For headers use h1, h2, etc... and lists should use ul or ol with styled li's.
+        <li>CSS should be semantic such as <strong>id="registrationform"</strong>, not id="centeralignedcontent".</li>
+        <li>For headers use h1, h2, etc... and lists should use ul or ol with styled li's.</li>
         <li>Tables should be used sparingly and only for layout when absolutely necessary</li>        
         <li>A group of newly coded pages should share a stylesheet (for example a group of registration pages would all depend on one <strong>res/css/community/registration/registration.css</strong> file)</li>
         <li>Pages can also have their own stylesheet for styles specific to the page (e.g. <strong>res/css/community/registration/confirmation.css</strong>) but in general should get their styles from the group stylesheet (e.g. registration.css) or higher level global stylesheet.</li>
@@ -70,6 +88,18 @@
 
 
 ]]>
+        </c:set>
+
+        <c:choose>
+        <c:when test="${empty param.spp}">
+            ${guidelines}
+        </c:when>
+        <c:otherwise>
+            <school:profile school="${school}" tab="ratings">
+                ${guidelines}
+            </school:profile>
+        </c:otherwise>
+        </c:choose>
     </gsml:body>
     </html>
 </jsp:root>
