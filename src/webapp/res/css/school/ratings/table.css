@@ -1,13 +1,17 @@
 .rating {
     border-collapse: collapse;
+    font-size: 13px;
+    font-weight: normal;
     font-family: "Trebuchet MS", Arial, sans-serif;
     background-color: #ffffff;
     width:100%;
     color:#666;
-    font-weight:100;
 }
 
 table.tableHead {
+    font-size: 12px;
+    font-weight: bold;
+    font-family: Century Gothic, sans-serif;
     border-left: 2px solid #66cccc;
     border-right: 2px solid #66cccc;
 }
@@ -28,7 +32,7 @@ table.tableBody {
     border-collapse: collapse;
     background-color: #66cccc;
     color: #ffffff;
-    font-size:90%;
+    /*font-size:90%;*/
     line-height: 13px;
 }
 
@@ -48,6 +52,8 @@ table.tableBody {
     font-weight: bold;
     color: #777777;
     text-align:left;
+    font-size: 13px;
+    font-family: "Trebuchet MS", Arial, sans-serif;
 
 }
 

@@ -108,11 +108,11 @@
     height: 160px;
     margin: 0;
 	float: left;
-    border: 2px solid #c5c5c5;
+    border: 2px solid #DDEEEE;
 }
 
 #compareSchool h2 {
-	background: url(/res/img/school/overview/header_CompareThisSchoolTo.gif) no-repeat 20px 6px #c5c5c5;
+	background: url(/res/img/school/overview/compareblue.gif) no-repeat 20px 6px #DDEEEE;
 	height: 27px;
 	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
 }
