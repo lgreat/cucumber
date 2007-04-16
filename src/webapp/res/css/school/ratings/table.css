@@ -1,6 +1,4 @@
 .rating {
-    border-left: 2px solid #deeeee;
-    border-right: 2px solid #deeeee;
     border-bottom: 2px solid #deeeee;
     border-collapse: collapse;
     font-family: arial, sans-serif;
@@ -12,6 +10,16 @@
 
 .rating th.col1 {
     padding-left: 40px;
+}
+
+.rating thead tr {
+    border-left: 2px solid #66cccc;
+    border-right: 2px solid #66cccc;
+}
+
+.rating tbody tr {
+    border-left: 2px solid #deeeee;
+    border-right: 2px solid #deeeee;
 }
 
 .rating th {

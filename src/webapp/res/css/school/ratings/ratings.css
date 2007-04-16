@@ -43,9 +43,9 @@
 
 #schoolProfile #ratingContent {
     float: left;
-    width: 540px;
+    width: 532px;
     border-right:1px solid #dddddd;
-    padding-right:10px;   
+    padding-right:19px;   
 }
 
 #adx11 {
@@ -148,4 +148,11 @@
 #compareSchool form .submit {
     float: right;
     padding: 15px 43px 0 0;
+}
+
+/* Nearby Schools
+----------------------------------*/
+
+#nearbySchools {
+    margin-top: 20px;
 }
