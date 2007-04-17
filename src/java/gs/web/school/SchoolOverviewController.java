@@ -147,7 +147,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
                 "excellent"
         };
 
-        String QUALITY_CAT = "teacher quality is";
+        String TEACHERS_CAT = "teacher quality is";
         String PRINCIPAL_CAT = "principal leadership is";
         String EXTRA_CAT = "extracurricular activities are";
         String PARENT_CAT = "parent involvement is";
@@ -174,8 +174,8 @@ public class SchoolOverviewController extends AbstractSchoolController {
                     int index = (int) (Math.random() * 5);
                     switch (index) {
                         case 0:
-                            randomCategory = QUALITY_CAT;
-                            randomRating = ratings.getAvgQuality();
+                            randomCategory = TEACHERS_CAT;
+                            randomRating = ratings.getAvgTeachers();
                             break;
                         case 1:
                             randomCategory = PRINCIPAL_CAT;
@@ -198,7 +198,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
                     // If a rating does not exist for the randomly-selected category, look
                     // in the other categories for a rating.
                     if (randomRating == null) {
-                        randomCategory = QUALITY_CAT;
+                        randomCategory = TEACHERS_CAT;
                         randomRating = ratings.getAvgQuality();
                         if (randomRating == null) {
                             randomCategory = PRINCIPAL_CAT;
