@@ -112,7 +112,12 @@
                         <gsml:a href="/modperl/parents/${state}/${sid}" title="Parent Reviews">Learn more &#62;</gsml:a>
                     </p>
                     <p>${latestReviewsModel.comment}
-                        <gsml:a href="/modperl/parents/${state}/${sid}" title="Read all reviews">Read all ${latestReviewsModel.totalReviews} reviews &#62;</gsml:a>
+                        <gsml:a href="/modperl/parents/${state}/${sid}" title="Read all reviews">
+                            <c:choose>
+                                <c:when test="${latestReviewsModel.totalReviews eq 1}">Read the full review &#62;</c:when>
+                                <c:otherwise>Read all ${latestReviewsModel.totalReviews} reviews &#62;</c:otherwise>
+                            </c:choose>
+                        </gsml:a>
                     </p>
                 </div>
             </c:if>
