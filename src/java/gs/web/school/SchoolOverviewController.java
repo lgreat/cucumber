@@ -155,7 +155,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
 
         Map latestReviewsModel = null;
         List reviews = getReviewDao().getPublishedReviewsBySchool(school);
-        if (reviews != null && reviews.size() > 2) {
+        if (reviews != null && reviews.size() != 0) {
             Review review = null;
             for (int i = 0; i < reviews.size(); i++) {
                 review = (Review) reviews.get(i);
