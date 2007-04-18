@@ -34,7 +34,7 @@
 <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 <c:set var="sid" value="${school.id}"/>
 <c:set var="addr" value="${city}, ${stateName} - ${stateAbbrev}" />
-<c:set var="pageName" value="Overview"/>
+<c:set var="pageName" value="Overview" scope="request"/>
 <c:set var="hasPrincipalView" value="${hasPrincipalView}"/>
 <c:set var="gs_rating" value="${gs_rating}"/>
 <c:set var="parent_ratings" value="${parent_ratings}"/>
