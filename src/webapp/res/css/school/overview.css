@@ -467,6 +467,10 @@ hr { /* has IE 7 equivalent */
 	border: 0; /* removes border from the final item in the list, class must be set in the html */
 }
 
+#learnSchool div.last {
+    padding-bottom:15px;
+}
+
 #insideScoop {
 	width: 356px;
 	float: left;
