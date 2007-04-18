@@ -134,6 +134,13 @@
                     </p>
                 </c:if>
 
+                <c:if test="${hasAPExams}">
+                    <gsml:a href="/cgi-bin/${state}/other/${sid}#ap">
+                        <gsml:img src="/res/img/school/overview/learn_APExams.gif" alt="" />
+                    </gsml:a>
+                    <gsml:a href="/cgi-bin/${state}/other/${sid}#ap"><p>${school.name} AP exams</p></gsml:a>
+                </c:if>
+
                 <gsml:a href="/cgi-bin/${state}/other/${sid}#teachers">
                     <gsml:img src="/res/img/school/overview/learn_TeacherStats.gif" alt="" />
                 </gsml:a>

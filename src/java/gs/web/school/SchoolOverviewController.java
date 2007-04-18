@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import gs.data.school.School;
+import gs.data.school.census.ICensusInfo;
+import gs.data.school.census.CensusDataType;
+import gs.data.school.census.SchoolCensusValue;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.school.review.Ratings;
@@ -108,8 +111,8 @@ public class SchoolOverviewController extends AbstractSchoolController {
             }
             model.put("latestReviewsModel", createLatestReviewsModel(school));
             model.put("hasPrincipalView", new Boolean(getSchoolDao().hasPrincipalView(school)));
+            model.put("hasAPExams", new Boolean(hasAPExams(school)));
         }
-
         return new ModelAndView(_viewName, model);
     }
 
@@ -127,6 +130,24 @@ public class SchoolOverviewController extends AbstractSchoolController {
 
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
+    }
+
+    /**
+     * Throws NPE if the provided school is null.
+     * @param school a valid <code>School</code>
+     * @return true if the school has AP exams
+     */
+    boolean hasAPExams(School school) {
+        boolean hasAPExams = false;
+        ICensusInfo ci = school.getCensusInfo();
+        SchoolCensusValue value =
+                ci.getLatestValue(school, CensusDataType.ADVANCED_PLACEMENT_EXAMS_OFFERED);
+
+        if (value != null) {
+            hasAPExams = StringUtils.isNotBlank(value.getValueText());
+        }
+        
+        return hasAPExams;
     }
 
     /**

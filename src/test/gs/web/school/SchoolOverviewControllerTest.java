@@ -1,6 +1,7 @@
 package gs.web.school;
 
 import gs.data.school.School;
+import gs.data.school.ISchoolDao;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
@@ -9,8 +10,8 @@ import gs.web.util.context.SessionContext;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.Cookie;
-import java.util.Map;
 
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
@@ -36,6 +37,12 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         assertTrue(StringUtils.isNotBlank((String)mAndV.getModel().get("reviewText")));
     }
 
+    public void testAPExam() throws Exception {
+        ISchoolDao _schoolDao = (ISchoolDao)getApplicationContext().getBean(ISchoolDao.BEAN_ID);
+        School _school = _schoolDao.getSchoolById(State.CA, new Integer(1));
+        assertFalse("School should have no ap exams", _controller.hasAPExams(_school));
+    }
+    
     /*
      * When cobrand is number1expert and cookies set up right, this should behave as above.
      */
