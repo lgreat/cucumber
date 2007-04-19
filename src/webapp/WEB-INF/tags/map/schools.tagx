@@ -119,11 +119,6 @@ function initMap() {
     var map = new GMap2(document.getElementById("${id}"));
     var marker;
 
-    if (displayTooltips) {
-      gTooltip = document.createElement("div");
-      map.getPane(G_MAP_FLOAT_PANE).appendChild(gTooltip);
-      gTooltip.style.visibility = "hidden";
-    }
     map.addControl(new GSmallMapControl());
     map.setCenter(centerPoint, 17);
     var bounds = new GLatLngBounds();
