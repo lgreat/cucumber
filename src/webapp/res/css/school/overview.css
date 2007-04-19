@@ -390,11 +390,10 @@ hr { /* has IE 7 equivalent */
 	background: url(/res/img/school/overview/header_LatestParentsReviews.gif) no-repeat 19px 6px #c5c5c5;
 	height: 25px;
 	text-indent: -1000px;
-    margin-bottom: 15px;
 }
 
 #parentReviews .rating {
-	margin: 0px 0 0 20px;
+	margin: 15px 0 0 20px;
 	float: left;
 }
 
@@ -417,9 +416,9 @@ hr { /* has IE 7 equivalent */
 	font-size: 14px;
 	line-height: 18px;
 	padding: 7px 8px 0 10px;
+	margin: 18px 0 0 0;
 	float: right;
 	border: 1px solid #ddd;
-    margin: 3px 0 0 0;
 }
 
 #parentReviews .callout a {

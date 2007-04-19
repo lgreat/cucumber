@@ -13,6 +13,7 @@ import gs.data.school.census.SchoolCensusValue;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.school.review.Ratings;
+import gs.data.school.review.CategoryRating;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
@@ -134,6 +135,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
 
     /**
      * Throws NPE if the provided school is null.
+     *
      * @param school a valid <code>School</code>
      * @return true if the school has AP exams
      */
@@ -146,7 +148,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
         if (value != null) {
             hasAPExams = StringUtils.isNotBlank(value.getValueText());
         }
-        
+
         return hasAPExams;
     }
 
@@ -179,8 +181,9 @@ public class SchoolOverviewController extends AbstractSchoolController {
         if (reviews != null && reviews.size() != 0) {
             Review review = null;
             for (int i = 0; i < reviews.size(); i++) {
-                review = (Review) reviews.get(i);
-                if (review.getQuality() != null && review.getComments() != null) {
+                Review aReview = (Review) reviews.get(i);
+                if (!CategoryRating.DECLINE_TO_STATE.equals(aReview.getQuality()) && aReview.getComments() != null) {
+                    review = aReview;
                     break;
                 }
             }

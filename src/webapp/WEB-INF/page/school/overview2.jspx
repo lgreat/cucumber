@@ -106,9 +106,7 @@
             <c:if test="${not empty latestReviewsModel}">
                 <div id="parentReviews">
                     <h2>Latest ${school.name} Parent Reviews</h2>
-                    <c:if test="${latestReviewsModel.latestRating ne 'decline'}">
-                            <gsml:img src="/res/img/school/review/${latestReviewsModel.latestRating}star.gif" alt="" styleClass="rating" />
-                    </c:if>
+                    <gsml:img src="/res/img/school/review/${latestReviewsModel.latestRating}star.gif" alt="" styleClass="rating" />
                     <p class="callout">Parents at this school think <em>${latestReviewsModel.randomCategory}
                         ${latestReviewsModel.randomRating}</em>
                         <gsml:a href="/modperl/parents/${state}/${sid}" title="Parent Reviews">Learn more &#62;</gsml:a>
