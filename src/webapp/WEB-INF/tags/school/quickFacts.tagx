@@ -79,7 +79,7 @@
             <c:if test="${not empty school.webSite}">
                 <p>
                     <c:choose>
-                        <c:when test="${fn:startsWith(school.webSite,'http://')}">
+                        <c:when test="${(fn:startsWith(school.webSite,'http://')) or (fn:startsWith(school.webSite,'https://'))}">
                             <a href="${school.webSite}" target="_blank">School Web site &#62;</a>
                         </c:when>
                         <c:otherwise>
