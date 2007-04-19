@@ -245,13 +245,7 @@
 </td>
 
 <td class="right" style="width: 302px" valign="bottom">
-
-    <div style="padding-left:2px;">
-        <gsml:a href="http://pv.webbyawards.com/account/login" target="_blank"><gsml:img src="/res/img/ad/webby_large.gif" alt="Vote for GreatSchools for best Family/Parenting Web site"/></gsml:a>
-        <br />
-        <br />
-    </div>
-    <!--<promo:childOnTrackCollege referredBy="${pageName}"/>-->
+    <promo:childOnTrackCollege referredBy="${pageName}"/>
 
     <table cellspacing="0" cellpadding="0">
         <tr>
