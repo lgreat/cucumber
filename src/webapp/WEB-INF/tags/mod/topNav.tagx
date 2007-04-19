@@ -179,9 +179,9 @@
                         state="${requestScope.context.state}"
                         id="topnav_research"
                         >Research &amp;amp; Compare</link:research></td>
-                    <!--#7--><td><gsml:a href="/content/summerPlanning.page"
+                    <!--#7--><td><gsml:a href="/content/summerReading.page"
                                          styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.SEASONAL ? 'active' : 'inactive')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'ractive' : '')} "
-                        >Summer Planning</gsml:a></td>
+                        >Summer Reading</gsml:a></td>
                     <!--#9--><td><gsml:a href="/content/countdownToCollege.page"
                                          styleClass="${(pw == tabs.SEASONAL ? 'lactive' : '')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'active' : 'inactive')} ${(pw == tabs.LIBRARY ? 'ractive' : '')} "
                         >Countdown to College</gsml:a></td>
