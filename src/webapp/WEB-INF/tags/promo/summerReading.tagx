@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          >
+    <jsp:directive.tag body-content="empty"/>
+
+<gsml:a href="/content/summerReading.page">
+    <gsml:img src="/res/img/content/summerReading/GS_SRG_housead.jpg" alt="Summer Reading Guide"/>
+</gsml:a>
+</jsp:root>
