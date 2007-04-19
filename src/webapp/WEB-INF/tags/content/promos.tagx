@@ -16,10 +16,7 @@
             <gsml:img src="/res/img/content/healthyKids/quakerad.gif" alt="Healthy Kids brought to you by Quaker Snack Bars"/>
         </c:when>
         <c:otherwise>
-            <gsml:a href="http://pv.webbyawards.com/account/login" target="_blank"><gsml:img src="/res/img/ad/webby_large.gif" alt="Vote for GreatSchools for best Family/Parenting Web site"/></gsml:a>
-            <br />
-            <br />
-            <!--<promo:childOnTrack referredBy="${referredBy}"/>-->
+            <promo:summerReading/>
         </c:otherwise>
     </c:choose>
 
