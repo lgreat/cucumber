@@ -106,10 +106,12 @@
             <c:if test="${not empty latestReviewsModel}">
                 <div id="parentReviews">
                     <h2>Latest ${school.name} Parent Reviews</h2>
-                    <gsml:img src="/res/img/school/review/${latestReviewsModel.latestRating}star.gif" alt="" styleClass="rating" />
+                    <c:if test="${latestReviewsModel.latestRating ne 'decline'}">
+                            <gsml:img src="/res/img/school/review/${latestReviewsModel.latestRating}star.gif" alt="" styleClass="rating" />
+                    </c:if>
                     <p class="callout">Parents at this school think <em>${latestReviewsModel.randomCategory}
                         ${latestReviewsModel.randomRating}</em>
-                        <gsml:a href="/modperl/parents/${state}/${sid}" title="Parent Reviews">Learn more &#62;</gsml:a>    
+                        <gsml:a href="/modperl/parents/${state}/${sid}" title="Parent Reviews">Learn more &#62;</gsml:a>
                     </p>
                     <p>${latestReviewsModel.comment}
                         <gsml:a href="/modperl/parents/${state}/${sid}" title="Read all reviews">
@@ -147,7 +149,7 @@
                 <p class="dashed">
                     <gsml:a href="/cgi-bin/${state}/other/${sid}#teachers">${school.name} teachers</gsml:a>
                 </p>
-                
+
                 <c:set var="finance" value="hide" />
                 <c:if test="${school.type.schoolTypeName ne 'private' and (state eq 'az' or state eq 'ca' or
                 state eq 'fl' or state eq 'il' or state eq 'nj' or state eq 'nv' or
