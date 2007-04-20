@@ -241,8 +241,7 @@
                 <tr>
                     <td><img style="width: 199px;height: 14px;" alt=""
                              src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-                    <td><img style="width: 43px;height: 10px;" alt=""
-                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
+                    <td></td>
                 </tr>
             </table>
         </gsweb:form>
@@ -364,19 +363,19 @@
                 </tr>
                 <tr>
                     <td>
-                        <img style="width: 184px;height:33px;" alt=""
+                        <img style="width: 184px;height:15px;" alt=""
                              src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
                     </td>
-                    <td>
-                        <img style="width: 50px;height:34px;" alt=""
-                             src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-                    </td>
+                    <td></td>
                 </tr>
             </table>
         </gsweb:form>
         <div class="middleBottom">
-            <gsml:a href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address" styleClass="underline">Search near an address &#62;</gsml:a><br />
-            <link:districts state="${state}">Browse by district &#62;</link:districts>
+            <c:if test="${stateOrNull != null}">
+                <link:districts styleClass="underline" state="${stateOrNull}">Browse by district &#62;</link:districts>
+            </c:if>
+            &#160;<br />
+            <gsml:a href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address" styleClass="underline">Search near an address &#62;</gsml:a>
         </div>
 
     </div></td>
