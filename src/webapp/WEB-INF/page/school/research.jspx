@@ -9,7 +9,8 @@
           xmlns:gsweb="gstaglib"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
-          version="2.0">
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          version="2.0" >
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 <jsp:output doctype-root-element="html"
@@ -246,7 +247,7 @@
             </table>
         </gsweb:form>
         <div class="middleBottom">
-            <gsml:a href="/cgi-bin/cs_where/${requestScope.context.state.abbreviation}" styleClass="underline">Advanced compare</gsml:a>
+            <gsml:a href="/cgi-bin/cs_where/${requestScope.context.state.abbreviation}" styleClass="underline">Advanced compare &#62;</gsml:a>
         </div>
     </div>
     </td>
@@ -374,7 +375,8 @@
             </table>
         </gsweb:form>
         <div class="middleBottom">
-            <gsml:a href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address" styleClass="underline">Search near an address</gsml:a>
+            <gsml:a href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address" styleClass="underline">Search near an address &#62;</gsml:a><br />
+            <link:districts state="${state}">Browse by district &#62;</link:districts>
         </div>
 
     </div></td>
