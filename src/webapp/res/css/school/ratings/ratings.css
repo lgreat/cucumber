@@ -49,10 +49,12 @@
 }
 
 #adx11 {
-    padding-bottom:30px;
+    padding-bottom:20px;
 }
 #adx48 {
     padding-bottom: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
 }
 
 .multiTextAd {

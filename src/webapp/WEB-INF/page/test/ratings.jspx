@@ -59,7 +59,7 @@
     <c:set var="overallRating" value="${ratingsCmd.overallRating.rating}"/>
     <c:set var="hasRating" value="true"/>
     <c:set var="ratingImagePath" value="/res/img/school/ratings/ratings_${overallRating}.gif"/>
-    <c:set var="imageDesc" value="GreatSchools Rating: ${overallRating} out of 10"/>
+    <c:set var="imageDesc" value="GreatSchools Rating: ${overallRating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>
 </c:if>
 
 
