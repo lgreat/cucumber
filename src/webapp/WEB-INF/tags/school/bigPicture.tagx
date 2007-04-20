@@ -25,7 +25,7 @@
             <h3><link:allSchoolsInDistrict districtId="${school.districtId}"
                                        title="This school's district">${school.district.name}&#160;&#62;</link:allSchoolsInDistrict></h3>
         </c:if>
-        <h3><link:city city="${city}" state="${state}" title="This school's city">${city} Schools&#160;&#62;</link:city></h3>
-        <h3><link:research state="${state}" title="${stateName} schools">${stateName} Schools&#160;&#62;</link:research></h3>
+        <h3><link:city city="${city}" state="${state}" title="This school's city">${city} schools&#160;&#62;</link:city></h3>
+        <h3><link:research state="${state}" title="${stateName} schools">${stateName} schools&#160;&#62;</link:research></h3>
     </div><!-- end: bigPicture -->
 </jsp:root>
