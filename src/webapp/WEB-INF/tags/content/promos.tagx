@@ -16,7 +16,7 @@
             <gsml:img src="/res/img/content/healthyKids/quakerad.gif" alt="Healthy Kids brought to you by Quaker Snack Bars"/>
         </c:when>
         <c:otherwise>
-            <promo:summerReading/>
+            <promo:childOnTrack referredBy="${referredBy}"/>
         </c:otherwise>
     </c:choose>
 
