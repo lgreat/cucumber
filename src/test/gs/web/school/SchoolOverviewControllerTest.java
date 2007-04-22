@@ -37,7 +37,28 @@ public class SchoolOverviewControllerTest extends BaseControllerTestCase {
         assertTrue(StringUtils.isNotBlank((String)mAndV.getModel().get("reviewText")));
     }
 
-    public void testAPExam() throws Exception {
+    public void testHasTestData() throws Exception {
+        ISchoolDao _schoolDao = (ISchoolDao)getApplicationContext().getBean(ISchoolDao.BEAN_ID);
+        School _school = _schoolDao.getSchoolById(State.CA, new Integer(1));
+        assertTrue("School should have test data.", _controller.hasTestData(_school));
+
+        _school = _schoolDao.getSchoolById(State.CA, new Integer(11));
+        assertFalse("School should have no test data.", _controller.hasTestData(_school));
+    }
+
+    public void testHasTeacherData() throws Exception {
+        // todo
+    }
+
+    public void testHasStudentData() throws Exception {
+        // todo
+    }
+
+    public void testHasFinanceData() throws Exception {
+        // todo
+    }
+
+    public void testHasAPExams() throws Exception {
         ISchoolDao _schoolDao = (ISchoolDao)getApplicationContext().getBean(ISchoolDao.BEAN_ID);
         School _school = _schoolDao.getSchoolById(State.CA, new Integer(1));
         assertFalse("School should have no ap exams", _controller.hasAPExams(_school));

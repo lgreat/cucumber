@@ -14,6 +14,7 @@ import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.CategoryRating;
+import gs.data.test.ITestDataSetDao;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
@@ -43,6 +44,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
 
     private String _viewName;
     private IReviewDao _reviewDao;
+    private ITestDataSetDao _testDataSetDao;
 
     /**
      * This method must be called using the standard Spring Controller workflow, that
@@ -111,8 +113,8 @@ public class SchoolOverviewController extends AbstractSchoolController {
                 }
             }
             model.put("latestReviewsModel", createLatestReviewsModel(school));
-            model.put("hasPrincipalView", new Boolean(getSchoolDao().hasPrincipalView(school)));
-            model.put("hasAPExams", new Boolean(hasAPExams(school)));
+            model.put("hasPrincipalView", Boolean.valueOf(getSchoolDao().hasPrincipalView(school)));
+            model.put("hasAPExams", Boolean.valueOf(hasAPExams(school)));
         }
         return new ModelAndView(_viewName, model);
     }
@@ -131,6 +133,26 @@ public class SchoolOverviewController extends AbstractSchoolController {
 
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
+    }
+
+    boolean hasTestData(School s) {
+        List values = _testDataSetDao.findValues(s);
+        return values != null && !values.isEmpty();
+    }
+
+    boolean hasTeacherData(School s) {
+        // todo
+        return false;
+    }
+
+    boolean hasStudentData(School s) {
+        // todo
+        return false;
+    }
+
+    boolean hasFinanceData(School s) {
+        // todo
+        return false;
     }
 
     /**
@@ -256,6 +278,10 @@ public class SchoolOverviewController extends AbstractSchoolController {
             }
         }
         return latestReviewsModel;
+    }
+
+    public void setTestDataSetDao(ITestDataSetDao _testDao) {
+        this._testDataSetDao = _testDao;
     }
 }
 
