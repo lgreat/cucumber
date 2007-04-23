@@ -371,10 +371,12 @@
             </table>
         </gsweb:form>
         <div class="middleBottom">
+            <!-- non-breaking space preserves alignment when districts link isn't shown -->
+            &#160;
             <c:if test="${stateOrNull != null}">
                 <link:districts styleClass="underline" state="${stateOrNull}">Browse by district &#62;</link:districts>
             </c:if>
-            &#160;<br />
+            <br />
             <gsml:a href="/cgi-bin/template_plain/advanced/${requestScope.context.stateOrDefault.abbreviation}/#address" styleClass="underline">Search near an address &#62;</gsml:a>
         </div>
 
