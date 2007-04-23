@@ -52,27 +52,31 @@
             </div>
 
             <div>
-                <h2 id="parentsShouldKnow">What Parents Should Know About Reading</h2>
+                <h2 id="parentsShouldKnow">A Parent's Guide to Reading</h2>
                 <ul class="plain">
                     <gsweb:articlelink articleId="842" wrappingElement="li"/>
                     <gsweb:articlelink articleId="841" wrappingElement="li"/>
                     <gsweb:articlelink articleId="634" wrappingElement="li"/>
                     <gsweb:articlelink articleId="852" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="566" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="733" wrappingElement="li"/>
                 </ul>
             </div>
 
             <div id="lower">
                 <h2 id="bookPicks">Book Picks and Activities for All Ages</h2>
                 <ul class="plain">
-                    <gsweb:articlelink articleId="902" wrappingElement="li"/>
                     <gsweb:articlelink articleId="900" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="902" wrappingElement="li"/>
                     <gsweb:articlelink articleId="901" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="626" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="230" wrappingElement="li"/>
                     <gsweb:articlelink articleId="903" wrappingElement="li"/>
                 </ul>
             </div>
 
             <div style="border-bottom: 1px dashed #ccc;">
-                <h3 id="askTheExperts">Ask an Expert</h3>
+                <h3 id="askTheExperts">Ask the Experts</h3>
                 <p>Q: How can I help my child improve his reading this summer?
                     <gsweb:articlelink articleId="820">Read the answer</gsweb:articlelink>
                 </p>
