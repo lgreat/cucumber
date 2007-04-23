@@ -383,6 +383,29 @@
         </attribute>
     </tag>
     <tag>
+        <name>cities</name>
+        <tag-class>gs.web.jsp.link.CitiesTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>City Page</display-name>
+        <description>
+            <![CDATA[Link to a state's cities page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>state</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>the name of the state</description>
+        </attribute>
+    </tag>
+    <tag>
         <name>districts</name>
         <tag-class>gs.web.jsp.link.DistrictsTagHandler</tag-class>
         <body-content>JSP</body-content>
