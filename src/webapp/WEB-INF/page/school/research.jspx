@@ -292,6 +292,9 @@
                                 <br/>
                             </c:forEach>
                         </c:if>
+                        <noscript>
+                            <link:cities state="${stateOrNull}" styleClass="arrowLink">All ${stateOrNull.longName} cities</link:cities>
+                        </noscript>
                     </td>
 
                     <td valign="top"><input onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
