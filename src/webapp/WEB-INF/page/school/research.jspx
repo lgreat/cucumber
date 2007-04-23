@@ -292,9 +292,11 @@
                                 <br/>
                             </c:forEach>
                         </c:if>
-                        <noscript>
-                            <link:cities state="${stateOrNull}" styleClass="arrowLink">All ${stateOrNull.longName} cities</link:cities>
-                        </noscript>
+                        <c:if test="${stateOrNull ne null}">
+                            <noscript>
+                                <link:cities state="${stateOrNull}" styleClass="arrowLink">All ${stateOrNull.longName} cities</link:cities>
+                            </noscript>
+                        </c:if>
                     </td>
 
                     <td valign="top"><input onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
@@ -376,7 +378,7 @@
         <div class="middleBottom">
             <!-- non-breaking space preserves alignment when districts link isn't shown -->
             &#160;
-            <c:if test="${stateOrNull != null}">
+            <c:if test="${stateOrNull ne null}">
                 <link:districts styleClass="underline" state="${stateOrNull}">Browse by district &#62;</link:districts>
             </c:if>
             <br />
