@@ -145,6 +145,9 @@
 #compareSchool form label {
 	display: block;
 	margin: 8px 0 0 0;
+    position: relative;
+    top: -1px;
+    _top: -2px;
 }
 
 #compareSchool form .submit {
