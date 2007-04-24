@@ -46,7 +46,11 @@
             <input type="hidden" name="state" value="${state}"/>
             <input type="hidden" name="city" value="${school.physicalAddress.city}"/>
             <input type="hidden" name="level" value="${school.levelCode}"/>
-            <gsml:inputImage src="/res/img/school/overview/submit_compare.gif" alt="Compare" styleClass="submit" />
+            <c:set var="submit_normal_img" value="/res/img/school/overview/submit_compare.gif"/>
+            <c:set var="submit_rollover_img" value="/res/img/school/overview/submit_compare_over.gif"/>
+            <gsml:inputImage src="${submit_normal_img}" alt="Compare" styleClass="submit"
+                             onmouseover="this.src='${submit_rollover_img}'"
+                             onmouseout="this.src='${submit_normal_img}'"/>
         </gsweb:form>
         <br style="clear:both;" />
     </div>

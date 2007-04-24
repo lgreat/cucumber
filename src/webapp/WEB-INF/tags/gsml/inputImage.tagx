@@ -11,6 +11,8 @@
     <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
     <jsp:directive.attribute name="name" required="false" description="name for input"/>
     <jsp:directive.attribute name="onclick" required="false" description="onclick handling"/>
+    <jsp:directive.attribute name="onmouseover" required="false" description="onmouseover handling"/>
+    <jsp:directive.attribute name="onmouseout" required="false" description="onmouseout handling"/>
     <jsp:directive.attribute name="tabIndex" required="false" description="tab index, defaults to 0"/>
 
     <jsp:scriptlet><![CDATA[
@@ -34,6 +36,14 @@
 
         if (StringUtils.isNotBlank(onclick)) {
             buffer.append(" onclick=\"").append(onclick).append('"');
+        }
+
+        if (StringUtils.isNotBlank(onmouseover)) {
+            buffer.append(" onmouseover=\"").append(onmouseover).append('"');
+        }
+
+        if (StringUtils.isNotBlank(onmouseout)) {
+            buffer.append(" onmouseout=\"").append(onmouseout).append('"');
         }
 
         if (StringUtils.isNotBlank(name)) {
