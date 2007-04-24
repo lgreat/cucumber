@@ -56,7 +56,7 @@
 <school:profile school="${school}" tab="overview">
 
 <div id="schoolOverview">
-    <gsml:equalizeColumns ids="'col_left','col_center','col_right'"/>
+    <gsml:equalizeColumns ids="'col_center','col_right'"/>
     <!-- being left column -->
     <div id="col_left">
 
@@ -216,8 +216,10 @@
 
 		<!-- begin right column -->
         <div id="col_right">
-            <ad:x11/>
-            <div style="padding:16px 0 16px 0;">
+            <div class="ad_top">
+                <ad:x11/>
+            </div>
+            <div class="ad_middle">
                 <ad:x48 />
             </div>
             <c:if test="${empty param.hideMap}">
