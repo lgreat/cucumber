@@ -19,12 +19,25 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 
 /**
+ * Display a 160x160 PNG image of a pie chart.
+ *
+ * The size and number of pie slices is supplied to this controller
+ * through the PARAM_DELIMITED_PERCENTAGES parameter.
+ *
+ * The maximum number of slices supported is MAX_SLICES.
+ *
+ * Slices are delimited by '_'.
+ *
+ * Example input: BEAN_ID?p=33_33_33
+ * This will return a pie chart with 3 equal slices.
+ *
  * @author <a href="mailto:dlee@greatschools.net">David Lee</a>
  */
 public class PieController implements Controller {
     public static final String BEAN_ID = "/chart/pie.page";
     public static final Log _log = LogFactory.getLog(PieController.class);
 
+    //Html color codes for the slices
     private static final Color [] PIE_COLORS = {
             Color.decode("#55bbcc"),
             Color.decode("#99cc66"),
@@ -48,7 +61,7 @@ public class PieController implements Controller {
 
         final JFreeChart chart = ChartFactory.createPieChart(
                 null,
-                creatDataset(delimPercents),
+                createDataset(delimPercents),
                 false,
                 false,
                 false
@@ -62,8 +75,10 @@ public class PieController implements Controller {
         plot.setShadowYOffset(0);
 
         plot.setShadowPaint(Color.WHITE);
-        plot.setBackgroundPaint(Color.WHITE);
         plot.setOutlinePaint(Color.WHITE);
+
+        //need to set both of these to be the same or else gray borders will appear
+        plot.setBackgroundPaint(Color.WHITE);
         chart.setBackgroundPaint(Color.WHITE);
 
         for (int i=0; i < MAX_SLICES; i++) {
@@ -71,6 +86,11 @@ public class PieController implements Controller {
         }
 
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream(1024*7);
+        /*
+            9 is the maximum compression rate but the latest version of JFreeChart
+            just treats this as a no op for java versions >= 1.4
+            Java version less than 1.4 uses JFreeChart's own PNG renderer
+        */
         ChartUtilities.writeChartAsPNG(outBuffer, chart, 160, 160, true, 9);
 
         byte[] buf = outBuffer.toByteArray();
@@ -88,7 +108,7 @@ public class PieController implements Controller {
         return null;
     }
 
-    protected PieDataset creatDataset(final String delimPcts) {
+    protected PieDataset createDataset(final String delimPcts) {
         String percents [] = delimPcts.split("_");
         final DefaultPieDataset dataset = new DefaultPieDataset();
 
