@@ -42,3 +42,7 @@ h2#bookPicks {
     background-color: #6cc;
     margin-bottom:0;
 }
+
+#contentGS div.question {
+    border-bottom: 1px dashed #ccc;
+}

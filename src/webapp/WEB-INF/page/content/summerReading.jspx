@@ -52,18 +52,6 @@
             </div>
 
             <div>
-                <h2 id="parentsShouldKnow">A Parent's Guide to Reading</h2>
-                <ul class="plain">
-                    <gsweb:articlelink articleId="842" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="841" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="634" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="852" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="566" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="733" wrappingElement="li"/>
-                </ul>
-            </div>
-
-            <div id="lower">
                 <h2 id="bookPicks">Book Picks and Activities for All Ages</h2>
                 <ul class="plain">
                     <gsweb:articlelink articleId="900" wrappingElement="li"/>
@@ -75,10 +63,31 @@
                 </ul>
             </div>
 
-            <div style="border-bottom: 1px dashed #ccc;">
+            <div id="lower">
+                <h2 id="parentsShouldKnow">A Parent's Guide to Reading</h2>
+                <ul class="plain">
+                    <gsweb:articlelink articleId="842" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="841" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="634" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="852" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="566" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="733" wrappingElement="li"/>
+                </ul>
+            </div>
+
+            <div class="question">
                 <h3 id="askTheExperts">Ask the Experts</h3>
                 <p>Q: How can I help my child improve his reading this summer?
                     <gsweb:articlelink articleId="820">Read the answer</gsweb:articlelink>
+                </p>
+            </div>
+
+            <div class="question">
+                <h3 id="freeNewsletters">Free Newsletters</h3>
+                <p>
+                    Is your child on track?
+                    Find out with our free newsletters that parents love!
+                    <promo:nthGraderHover referredBy="${pageName}">Sign me up</promo:nthGraderHover>
                 </p>
             </div>
         </div>
