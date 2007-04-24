@@ -135,6 +135,10 @@
 	color: #666;
 }
 
+#compareSchool table#compareForm {
+    width: 225px;
+}
+
 #compareSchool #compareForm input {
 	float: left;
 	margin: 8px 8px 0 0;
