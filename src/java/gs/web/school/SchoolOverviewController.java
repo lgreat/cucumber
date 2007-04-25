@@ -10,19 +10,20 @@ import gs.data.school.School;
 import gs.data.school.census.ICensusInfo;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.SchoolCensusValue;
+import gs.data.school.census.IGroupDataTypeDao;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.CategoryRating;
 import gs.data.test.ITestDataSetDao;
+import gs.data.test.TestDataSet;
+import gs.data.test.SchoolTestValue;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.jsp.Util;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * This controller handles requests for the School Profile Overview page:
@@ -45,6 +46,7 @@ public class SchoolOverviewController extends AbstractSchoolController {
     private String _viewName;
     private IReviewDao _reviewDao;
     private ITestDataSetDao _testDataSetDao;
+    private IGroupDataTypeDao _groupDataTypeDao;
 
     /**
      * This method must be called using the standard Spring Controller workflow, that
@@ -115,6 +117,10 @@ public class SchoolOverviewController extends AbstractSchoolController {
             model.put("latestReviewsModel", createLatestReviewsModel(school));
             model.put("hasPrincipalView", Boolean.valueOf(getSchoolDao().hasPrincipalView(school)));
             model.put("hasAPExams", Boolean.valueOf(hasAPExams(school)));
+            model.put("hasTestData", Boolean.valueOf(hasTestData(school)));
+            model.put("hasTeacherData", Boolean.valueOf(_groupDataTypeDao.hasTeacherData(school)));
+            model.put("hasStudentData", Boolean.valueOf(_groupDataTypeDao.hasStudentData(school)));
+            model.put("hasFinanceData", Boolean.valueOf(_groupDataTypeDao.hasFinanceData(school)));
         }
         return new ModelAndView(_viewName, model);
     }
@@ -136,22 +142,25 @@ public class SchoolOverviewController extends AbstractSchoolController {
     }
 
     boolean hasTestData(School s) {
+//        Calendar cal = Calendar.getInstance();
+//        int currentYear = cal.get(Calendar.YEAR);
+//        System.out.println ("current year: " + currentYear);
+//        Map _rawResults = _testDataSetDao.findAllRawResults(s, new int[] {currentYear, currentYear-1}, false);
+//        return !_rawResults.isEmpty();
+
+//        TestDataSet tds = _testDataSetDao.findLatestDataSet(s.getDatabaseState(), null, null, null, null, null, true);
+//        System.out.println ("tds year: " + tds.getYear());
+//        SchoolTestValue value = _testDataSetDao.findValue(tds, s);
+//        System.out.println ("value: " + value);
+//        return value != null;
+
         List values = _testDataSetDao.findValues(s);
-        return values != null && !values.isEmpty();
-    }
-
-    boolean hasTeacherData(School s) {
-        // todo
-        return false;
-    }
-
-    boolean hasStudentData(School s) {
-        // todo
-        return false;
-    }
-
-    boolean hasFinanceData(School s) {
-        // todo
+        for (Iterator iter = values.iterator(); iter.hasNext();) {
+            SchoolTestValue value = (SchoolTestValue)iter.next();
+            if (value.getDataSet().isActive()) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -282,6 +291,14 @@ public class SchoolOverviewController extends AbstractSchoolController {
 
     public void setTestDataSetDao(ITestDataSetDao _testDao) {
         this._testDataSetDao = _testDao;
+    }
+
+//    public IGroupDataTypeDao getGroupDataTypeDao() {
+//        return _groupDataTypeDao;
+//    }
+
+    public void setGroupDataTypeDao(IGroupDataTypeDao groupDataTypeDao) {
+        _groupDataTypeDao = groupDataTypeDao;
     }
 }
 

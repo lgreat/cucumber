@@ -123,9 +123,17 @@
             </c:if>
 
             <div id="learnSchool">
-                <h2>Learn About ${school.name}</h2>
 
-                <c:if test="${school.type.schoolTypeName ne 'private'}">
+                <c:set var="hasStudentData" value="${hasStudentData}" />
+                <c:set var="hasTestData" value="${hasTestData}"/>
+                <c:set var="hasAPExams" value="${hasAPExams}"/>
+                <c:set var="hasTeacherData" value="${hasTeacherData}"/>
+                <c:set var="finance" value="hide" />
+                <c:set var="hasFinanceData" value="${hasFinanceData}" />
+                
+                <h2>Learn About ${school.name}</h2>
+                <c:if test="${(school.type.schoolTypeName ne 'private') and hasTestData and (!empty gs_rating)}">
+                    <h1>what the: ${gs_rating}</h1>
                     <gsml:a href="/modperl/achievement/${state}/${sid}">
                         <gsml:img src="/res/img/school/overview/learn_TestScores.gif" alt=""/>
                     </gsml:a>
@@ -141,32 +149,37 @@
                     <gsml:a href="/cgi-bin/${state}/other/${sid}#ap"><p>${school.name} AP exams</p></gsml:a>
                 </c:if>
 
-                <gsml:a href="/cgi-bin/${state}/other/${sid}#teachers">
-                    <gsml:img src="/res/img/school/overview/learn_TeacherStats.gif" alt="" />
-                </gsml:a>
-                <p class="dashed">
-                    <gsml:a href="/cgi-bin/${state}/other/${sid}#teachers">${school.name} teachers</gsml:a>
-                </p>
+                <c:if test="${hasTeacherData}">
+                    <gsml:a href="/cgi-bin/${state}/other/${sid}#teachers">
+                        <gsml:img src="/res/img/school/overview/learn_TeacherStats.gif" alt="" />
+                    </gsml:a>
+                    <p class="${(hasStudentData or hasFinanceData) ? 'dashed' : 'last'}">
+                        <gsml:a href="/cgi-bin/${state}/other/${sid}#teachers">${school.name} teachers</gsml:a>
+                    </p>
+                </c:if>
 
-                <c:set var="finance" value="hide" />
-                <c:if test="${school.type.schoolTypeName ne 'private' and (state eq 'az' or state eq 'ca' or
+                <c:if test="${school.type.schoolTypeName ne 'private'
+                and (state eq 'az' or state eq 'ca' or
                 state eq 'fl' or state eq 'il' or state eq 'nj' or state eq 'nv' or
                 state eq 'oh' or state eq 'tx' )}">
                     <c:set var="finance" value="show" />
                 </c:if>
 
-                <gsml:a href="/cgi-bin/${state}/other/${sid}#students">
-                    <gsml:img src="/res/img/school/overview/learn_StudentStats.gif" alt="" />
-                </gsml:a>
-                <p class="${(hasPrincipalView or finance eq 'show' )? 'dashed' : 'last'}">
-                    <gsml:a href="/cgi-bin/${state}/other/${sid}#students">${school.name} students</gsml:a>
-                </p>
+                <c:if test="${(hasStudentData)}">
+                    <gsml:a href="/cgi-bin/${state}/other/${sid}#students">
+                        <gsml:img src="/res/img/school/overview/learn_StudentStats.gif" alt="" />
+                    </gsml:a>
+                    <p class="${(hasPrincipalView or ((finance eq 'show') and hasFinanceData))? 'dashed' : 'last'}">
+                        <gsml:a href="/cgi-bin/${state}/other/${sid}#students">${school.name} students</gsml:a>
+                    </p>
+                </c:if>
 
                 <c:set var="special" value="hide" />
                 <c:if test="${school.type.schoolTypeName eq 'charter' and (state eq 'ca')}">
                     <c:set var="special" value="show" />
                 </c:if>
-                <c:if test="${finance eq 'show'}">
+
+                <c:if test="${(finance eq 'show') and (hasFinanceData)}">
                     <gsml:a href="/cgi-bin/${state}/other/${sid}#finance">
                         <gsml:img src="/res/img/school/overview/learn_SchoolFinance.gif" alt="" />
                     </gsml:a>
