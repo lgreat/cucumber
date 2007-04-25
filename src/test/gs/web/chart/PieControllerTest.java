@@ -24,31 +24,31 @@ public class PieControllerTest extends BaseControllerTestCase {
 
 
     public void testCreateDataSet() {
-        PieDataset dataset = _controller.creatDataset("34_33_32");
+        PieDataset dataset = _controller.createDataset("34_33_32");
         assertEquals(3, dataset.getItemCount());
         assertEquals(Double.valueOf("34"), dataset.getValue(new Integer(0)));
         assertEquals(Double.valueOf("33"), dataset.getValue(new Integer(1)));
         assertEquals(Double.valueOf("32"), dataset.getValue(new Integer(2)));
 
-        dataset = _controller.creatDataset("90_<10_<10");
+        dataset = _controller.createDataset("90_<10_<10");
         assertEquals(3, dataset.getItemCount());
         assertEquals(Double.valueOf("90"), dataset.getValue(new Integer(0)));
         assertEquals(Double.valueOf("9.9"), dataset.getValue(new Integer(1)));
         assertEquals(Double.valueOf("9.9"), dataset.getValue(new Integer(2)));        
 
-        dataset = _controller.creatDataset("90_<10_<_");
+        dataset = _controller.createDataset("90_<10_<_");
         assertEquals(2, dataset.getItemCount());
         assertEquals(Double.valueOf("90"), dataset.getValue(new Integer(0)));
         assertEquals(Double.valueOf("9.9"), dataset.getValue(new Integer(1)));
 
-        dataset = _controller.creatDataset("90_");
+        dataset = _controller.createDataset("90_");
         assertEquals(1, dataset.getItemCount());
         assertEquals(Double.valueOf("90"), dataset.getValue(new Integer(0)));
 
-        dataset = _controller.creatDataset(" ");
+        dataset = _controller.createDataset(" ");
         assertEquals(0, dataset.getItemCount());
 
-        dataset = _controller.creatDataset(">90_-1");
+        dataset = _controller.createDataset(">90_-1");
         assertEquals(1, dataset.getItemCount());
         assertEquals(Double.valueOf("90.1"), dataset.getValue(new Integer(0)));                
     }
