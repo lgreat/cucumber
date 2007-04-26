@@ -243,8 +243,11 @@
 
 </school:profile>
 <c:set var="name" value="${requestScope.pageName}" />
+<c:if test="${school.type.schoolTypeName == 'private'}">
+    <c:set var="pageName" value="Private School Overview"/>
+</c:if>
 <mod:tracking pageType="school"
-              pageName="${name}"
+              pageName="${pageName}"
               hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
               school="${school}" />
 </gsml:body>
