@@ -242,7 +242,6 @@
         </div><!-- end: schoolOverview -->
 
 </school:profile>
-<c:set var="name" value="${requestScope.pageName}" />
 <c:if test="${school.type.schoolTypeName == 'private'}">
     <c:set var="pageName" value="Private School Overview"/>
 </c:if>
