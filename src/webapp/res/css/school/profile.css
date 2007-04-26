@@ -382,6 +382,10 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     border-top: 1px solid #ccc;
 }
 
+#nearbySchools {
+    border-top: 1px solid #ccc;
+}
+
 /***************************
  * P R I N T   S T Y L E S *
  ***************************/
