@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: BlogFeedTagHandler.java,v 1.5 2006/10/18 01:10:19 chriskimm Exp $
+ * $Id: BlogFeedTagHandler.java,v 1.6 2007/04/26 18:35:39 dlee Exp $
  */
 
 package gs.web.content;
@@ -38,6 +38,8 @@ public class BlogFeedTagHandler extends SimpleTagSupport {
         String title = _defaultTitle;
         URL feedUrl = new URL(_atomUrl);
         try {
+            System.setProperty("sun.net.client.defaultConnectTimeout", "5000");
+            System.setProperty("sun.net.client.defaultReadTimeout", "5000");
             SyndFeedInput input = new SyndFeedInput();
             SyndFeed feed = input.build(new XmlReader(feedUrl));
             SyndEntry entry = (SyndEntry) feed.getEntries().get(0);
