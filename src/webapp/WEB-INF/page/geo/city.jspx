@@ -219,8 +219,6 @@
 </tr>
 </table>
 
-<content:editorialFooter/>
-
 <mod:tracking pageName="city home"
               locale="${cityObject.name}"
               pageType=""

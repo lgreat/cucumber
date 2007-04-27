@@ -247,7 +247,7 @@
     </td>
 </tr>
 </table>
-<content:editorialFooter topPadding="50"/>
+
 <c:choose>
     <c:when test="${not empty param.city}">
         <mod:tracking

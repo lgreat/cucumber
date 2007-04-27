@@ -119,8 +119,6 @@
 
     </table>
 
-    <content:editorialFooter topPadding="50"/>
-
     <c:choose>
         <c:when test="${(param.c eq 'topic') or (param.c eq 'article') or (param.type eq 'topic')}">
            <c:set var="pagename" value="Article Search"/>

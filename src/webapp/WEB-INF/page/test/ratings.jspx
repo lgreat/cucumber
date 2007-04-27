@@ -112,8 +112,6 @@
             </school:profile>
         </c:if>
 
-    <content:editorialFooter topPadding="25"/>
-
     <mod:tracking pageType="school"
                   pageName="Ratings"
                   hier1="School,Ratings"
