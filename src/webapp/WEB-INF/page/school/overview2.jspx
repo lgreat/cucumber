@@ -83,7 +83,7 @@
 
             <ul>
                 <gsweb:articlelink articleId="595" wrappingElement="li" styleClass="articleLink"/>
-                <gsweb:articlelink articleId="320" wrappingElement="li" styleClass="articleLink"/>
+                <gsweb:articlelink articleId="360" wrappingElement="li" styleClass="articleLink"/>
                 <li><strong><gsml:a href="/content/summerReading.page">Summer Reading Guide &#62;</gsml:a></strong></li>
             </ul>
 
@@ -130,7 +130,7 @@
                 <c:set var="hasTeacherData" value="${hasTeacherData}"/>
                 <c:set var="finance" value="hide" />
                 <c:set var="hasFinanceData" value="${hasFinanceData}" />
-                
+
                 <h2>Learn About ${school.name}</h2>
                 <c:if test="${(school.type.schoolTypeName ne 'private') and hasTestData and (!empty gs_rating)}">
                     <gsml:a href="/modperl/achievement/${state}/${sid}">
