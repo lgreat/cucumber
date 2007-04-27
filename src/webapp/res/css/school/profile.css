@@ -372,18 +372,20 @@ a:hover.parent_0 { /* displays the "no star" rollover */
     border-top: 1px solid #ccc;
 }
 
-.ad_top {
-    padding-bottom:20px;
-}
-
-.ad_middle {
-    padding-bottom: 30px;
+#adx47, #adx48, #adx49, #adx50, #adx51, #adx67, #nearbyWrapper, #nthGraderAd {
+    margin-top: 20px;
     padding-top: 15px;
     border-top: 1px solid #ccc;
 }
 
-#nearbySchools {
-    border-top: 1px solid #ccc;
+#adx49, #adx50, #adx51 {
+    padding-left: 32px;
+}
+
+.multiTextAd {
+    border-top: 0;
+    border-bottom: 0;
+    padding-left: 0;
 }
 
 /***************************
