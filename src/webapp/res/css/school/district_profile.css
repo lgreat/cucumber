@@ -1,0 +1,212 @@
+/*------------------------------------------------------
+
+GreatSchools
+
+District Overview
+
+-------------------------------------------------------*/
+
+#districtOverview {
+	width: 864px;
+	_width: 866px; /* IE 6 hack */
+	float: left;
+	margin: 6px 0 30px 0; /* bottom margin is arbitrary and can be changed once code is implemented */
+}
+
+#districtOverview p {
+	font: 12px/16px Trebuchet MS, sans-serif;
+	color: #666;
+}
+
+#districtOverview a, #districtOverview a:hover {
+	color: #39a;
+	text-decoration: underline;
+}
+
+.mainImage {
+	float: left;
+	margin-bottom: 32px;
+	border: 1px solid #ddd;
+}
+
+#districtOverview h2 {
+	color: #5bc;
+	font: bold 16px/20px Trebuchet MS, sans-serif;
+	margin: 14px 10px 16px 184px;
+	padding: 0;
+}
+
+#districtOverview h3 {
+	color: #888;
+	font: 13px/16px Trebuchet MS, sans-serif;
+	text-transform: uppercase;
+	margin: 0 10px 0 184px;
+	padding: 0;
+	height: 24px;
+}
+
+#districtMainList {
+	margin: 0 10px 29px 43px;
+	padding: 0;
+	float: left;
+}
+
+#districtMainList li a, #districtMainList li a:hover {
+	font: bold 13px/22px Trebuchet MS, sans-serif;
+	color: #39a;
+	padding: 0 0 0 12px;
+	margin: 2px 0 0 0;
+	width: 300px;
+	background: url(../../img/school/li_red-triangle.gif) left center no-repeat;
+	list-style: none;
+}
+
+
+/* District Details
+----------------------------------*/
+
+#districtDetails {
+	width: 527px;
+	float: left;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	padding: 15px 0 20px 0;
+	_padding: 15px 0 20px 0; /* IE 6 hack */
+	margin: 0;
+}
+
+#dd_col_left {
+	width: 158px;
+	height: 134px;
+	_height: 135px; /* IE 6 hack */
+	float: left;
+	padding-top: 4px;
+	_padding-top: 3px; /* IE 6 hack */
+	border-right: 1px solid #ddd;
+}
+
+#dd_col_center {
+	width: 165px;
+	height: 134px;
+	margin: 0 0 0 10px;
+	float: left;
+	padding-top: 4px;
+	border-right: 1px solid #ddd;
+}
+
+#dd_col_right {
+	width: 160px;
+	height: 134px;
+	margin: 0 9px 0 0;
+	_margin: 0 6px 0 0; /* IE 6 hack */
+	float: right;
+	padding-top: 4px;
+}
+
+/* left column */
+
+#dd_col_left address, #dd_col_left p {
+	font: 12px/16px Trebuchet MS, sans-serif;
+	color: #666;
+	margin: 0 0 8px 0;
+}
+
+#dd_col_left .districtLink {
+	_margin: 0; /* IE 6 hack */
+}
+
+/* center column */
+
+
+#dd_col_center ul {
+	margin: 0px 8px 10px 10px;
+}
+
+#dd_col_center ul li {
+	font: 12px/15px Trebuchet MS, sans-serif;
+	color: #666;
+	background: url(../../img/school/overview/li_yellow-triangle.gif) no-repeat left 2px;
+	list-style: none;
+	margin: 0 0 4px 0;
+	padding: 0 0 0 10px;
+}
+
+#dd_col_center p {
+	margin: 0px 8px 10px 10px;
+}
+
+/* right column */
+
+#dd_col_right p {
+	font-size: 12px;
+	margin: 0 8px 8px 0;
+	_margin: -1px 8px 8px 0;
+}
+
+#dd_col_right form {
+	margin: 0 0 0 -1px;
+	_margin: 0 0 0 -4px; /* IE 6 hack */
+	height: 75px;
+	width: 150px;
+	font: 12px/16px Trebuchet MS, sans-serif;
+	color: #666;
+}
+
+#dd_col_right form input { /* has IE 7 equivalent */
+	float: left;
+	margin: 1px 8px 0 0;
+	_margin: -2px 2px 0 0; /* IE 6 hack */
+}
+
+#dd_col_right form label { /* has IE 7 equivalent */
+	display: block;
+	font-size: 12px;
+	margin: 3px 0 7px 0;
+	_margin: 1px 0 7px 0; /* IE 6 hack */
+}
+
+#dd_col_right form .submit {
+	float: right;
+	margin: 5px 5px 0 0;
+	_margin: 5px 5px -6px 0; /* IE 6 hack */
+}
+
+
+/* columns
+----------------------------------*/
+
+#col_left {
+	width: 547px;
+	margin: 0;
+	float: left;
+	border-right: 1px solid #dedede;
+}
+
+#col_right {
+	width: 300px;
+	float: right;
+	_margin: 0 2px 0 0; /* IE 6 hack */
+}
+
+.clear {
+	clear: both;
+}
+
+/* promotion
+----------------------------------*/
+
+#districtOverview .promotion {
+	margin: 0 0 16px 0;
+	_margin: 0 0 13px 0; /* IE 6 hack */
+	padding: 0;
+	border: 0;
+}
+
+/* ad
+----------------------------------*/
+
+#districtOverview .ad {
+	margin: 0 0 16px 0;
+	padding: 0;
+	border: 0;
+}
