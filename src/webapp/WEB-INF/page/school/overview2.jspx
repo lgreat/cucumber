@@ -133,7 +133,6 @@
                 
                 <h2>Learn About ${school.name}</h2>
                 <c:if test="${(school.type.schoolTypeName ne 'private') and hasTestData and (!empty gs_rating)}">
-                    <h1>what the: ${gs_rating}</h1>
                     <gsml:a href="/modperl/achievement/${state}/${sid}">
                         <gsml:img src="/res/img/school/overview/learn_TestScores.gif" alt=""/>
                     </gsml:a>
