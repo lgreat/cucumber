@@ -41,38 +41,41 @@
 
     <c:if test="${hasNearby}">
         <pageHelper:externalCss file="/res/css/school/nearby.css"/>
-        <div id="nearbySchools">
-            <h2>${levelLongName} Schools Near ${school.name}</h2>
+        <!-- nearbyWrapper div is for top border styling -->
+        <div id="nearbyWrapper">
+            <div id="nearbySchools">
+                <h2>${levelLongName} Schools Near ${school.name}</h2>
 
-            <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
-                <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its
-                    schools.</noscript></div>
-                <map:schools id="map"
-                             lon="${school.lon}" lat="${school.lat}"
-                             tooltips="true"
-                             schools="${mapSchools}"
-                             centerSchool="${school}"/>
-            </c:if>
+                <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+                    <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its
+                        schools.</noscript></div>
+                    <map:schools id="map"
+                                 lon="${school.lon}" lat="${school.lat}"
+                                 tooltips="true"
+                                 schools="${mapSchools}"
+                                 centerSchool="${school}"/>
+                </c:if>
 
-            <p class="head_top">${levelLongName} School</p>
+                <p class="head_top">${levelLongName} School</p>
 
-            <p class="head_rating">GreatSchools Rating</p>
+                <p class="head_rating">GreatSchools Rating</p>
 
-            <ul>
-                <c:forEach items="${nearbySchools}" var="nearbySchool">
-                    <c:set var="rating" value="na"/>
-                    <c:if test="${not empty nearbySchool.rating}">
-                        <c:set var="rating" value="r${nearbySchool.rating}"/>
-                    </c:if>
-                    <li class="${rating}">
-                        <link:schoolProfileOverview school="${nearbySchool.neighbor}" title="${nearbySchool.neighbor.name}">${nearbySchool.neighbor.name}</link:schoolProfileOverview>
-                        <c:if test="${not empty nearbySchool.distance}">
-                            <br/><fmt:formatNumber value="${nearbySchool.distance}" maxFractionDigits="1" minFractionDigits="1"/> Miles&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;<link:mySchoolList styleClass="saveLink" school="${nearbySchool.neighbor}" title="Save">Save</link:mySchoolList>
+                <ul>
+                    <c:forEach items="${nearbySchools}" var="nearbySchool">
+                        <c:set var="rating" value="na"/>
+                        <c:if test="${not empty nearbySchool.rating}">
+                            <c:set var="rating" value="r${nearbySchool.rating}"/>
                         </c:if>
-                    </li>
-                </c:forEach>
-                <li id="nearMore"><link:schoolCompareSchool school="${school}">More &gt;</link:schoolCompareSchool></li>
-            </ul>           
+                        <li class="${rating}">
+                            <link:schoolProfileOverview school="${nearbySchool.neighbor}" title="${nearbySchool.neighbor.name}">${nearbySchool.neighbor.name}</link:schoolProfileOverview>
+                            <c:if test="${not empty nearbySchool.distance}">
+                                <br/><fmt:formatNumber value="${nearbySchool.distance}" maxFractionDigits="1" minFractionDigits="1"/> Miles&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;<link:mySchoolList styleClass="saveLink" school="${nearbySchool.neighbor}" title="Save">Save</link:mySchoolList>
+                            </c:if>
+                        </li>
+                    </c:forEach>
+                    <li id="nearMore"><link:schoolCompareSchool school="${school}">More &gt;</link:schoolCompareSchool></li>
+                </ul>
+            </div>
         </div>
     </c:if>
 </jsp:root>
