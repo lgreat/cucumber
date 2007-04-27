@@ -72,7 +72,7 @@ District Overview
 	border-bottom: 1px solid #ddd;
 	padding: 15px 0 20px 0;
 	_padding: 15px 0 20px 0; /* IE 6 hack */
-	margin: 0;
+	margin: 0 0 20px 0;
 }
 
 #dd_col_left {
@@ -120,6 +120,7 @@ District Overview
 
 #dd_col_center ul {
 	margin: 0px 8px 10px 10px;
+    padding: 0;
 }
 
 #dd_col_center ul li {
