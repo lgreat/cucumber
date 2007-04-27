@@ -10,13 +10,8 @@
     <c:if test="${!requestScope.pageHelper.adFree}">
         <c:if test='${!requestScope.pageHelper.adServedByCobrand}'>
             <div class="multiTextAd">
-                <c:if test="${not empty blurb}">
-                    <h2>${blurb}</h2>
-                </c:if>
-                <ad:x49/>
-                <![CDATA[<span class="hr"></span>]]>
+                <ad:x49 blurb="${blurb}"/>
                 <ad:x50/>
-                <!--<![CDATA[<span class="hr"></span>]]>-->
                 <!--<ad:x51/>-->
             </div>
         </c:if>
