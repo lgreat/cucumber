@@ -48,15 +48,6 @@
     padding-right:19px;   
 }
 
-#adx11 {
-    padding-bottom:20px;
-}
-#adx48 {
-    padding-bottom: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #ccc;
-}
-
 .multiTextAd {
     margin: 0;
 }
@@ -157,11 +148,4 @@
 #compareSchool form .submit {
     float: right;
     margin: 15px 43px 0 0;
-}
-
-/* Nearby Schools
-----------------------------------*/
-
-#nearbySchools {
-    margin-top: 20px;
 }
