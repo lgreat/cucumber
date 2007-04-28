@@ -292,17 +292,21 @@
                                 <br/>
                             </c:forEach>
                         </c:if>
-                        <c:if test="${stateOrNull ne null}">
-                            <noscript>
-                                <link:cities state="${stateOrNull}" styleClass="arrowLink">All ${stateOrNull.longName} cities</link:cities>
-                            </noscript>
-                        </c:if>
                     </td>
 
                     <td valign="top"><input onmouseout="this.src='http://www.greatschools.net/res/img/splash/go.gif';"
                                             onmouseover="this.src='http://www.greatschools.net/res/img/splash/goOver.gif';"
                                             class="button" style="width:41px;height:26px;" alt="Find ${requestScope.context.state.longName} Schools"
-                                            src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/></td>
+                                            src="http://www.greatschools.net/res/img/splash/go.gif" type="image"/>
+                        <c:if test="${stateOrNull ne null and stateOrDefault.abbreviation ne 'DC'}">
+                            <noscript>
+                                <br />
+                                <img style="height: 5px; width: 70px;" alt=""
+                                     src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                                <link:cities state="${stateOrNull}" styleClass="arrowLink">All ${stateOrNull.longName} cities</link:cities>
+                            </noscript>
+                        </c:if>
+                    </td>
                 </tr>
                 <tr>
                     <c:choose>
