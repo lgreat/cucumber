@@ -385,7 +385,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 .multiTextAd {
     border-top: 0;
     border-bottom: 0;
-    padding-left: 0;
+    padding: 0;
 }
 
 /***************************
