@@ -8,46 +8,46 @@
     <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
     <jsp:directive.attribute name="style" required="false" description="CSS style attribute"/>
     <jsp:directive.attribute name="id" required="false" description="CSS id"/>
+    <jsp:directive.attribute name="rollover" required="false" description="rollover image context-relative URL"/>
     <jsp:scriptlet>
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
         src = urlUtil.buildUrl(src, request);
         jspContext.setAttribute("src", src);
     </jsp:scriptlet>
     <c:choose>
-        <c:when test="${empty id and empty styleClass}">
+        <c:when test="${empty id and empty styleClass and empty rollover}">
             <jsp:element name="img">
-                <jsp:attribute name="src">${src}
-                </jsp:attribute>
-                <jsp:attribute name="alt">${alt}
-                </jsp:attribute>
-                <jsp:attribute name="style">${style}
-                </jsp:attribute>
+                <jsp:attribute name="src">${src}</jsp:attribute>
+                <jsp:attribute name="alt">${alt}</jsp:attribute>
+                <jsp:attribute name="style">${style}</jsp:attribute>
             </jsp:element>
         </c:when>
-        <c:when test="${empty id}">
+        <c:when test="${empty id and empty rollover}">
             <jsp:element name="img">
-                <jsp:attribute name="src">${src}
-                </jsp:attribute>
-                <jsp:attribute name="alt">${alt}
-                </jsp:attribute>
-                <jsp:attribute name="class">${styleClass}
-                </jsp:attribute>
-                <jsp:attribute name="style">${style}
-                </jsp:attribute>
+                <jsp:attribute name="src">${src}</jsp:attribute>
+                <jsp:attribute name="alt">${alt}</jsp:attribute>
+                <jsp:attribute name="class">${styleClass}</jsp:attribute>
+                <jsp:attribute name="style">${style}</jsp:attribute>
+            </jsp:element>
+        </c:when>
+        <c:when test="${empty rollover}">
+            <jsp:element name="img">
+                <jsp:attribute name="src">${src}</jsp:attribute>
+                <jsp:attribute name="alt">${alt}</jsp:attribute>
+                <jsp:attribute name="id">${id}</jsp:attribute>
+                <jsp:attribute name="class">${styleClass}</jsp:attribute>
+                <jsp:attribute name="style">${style}</jsp:attribute>
             </jsp:element>
         </c:when>
         <c:otherwise>
             <jsp:element name="img">
-                <jsp:attribute name="src">${src}
-                </jsp:attribute>
-                <jsp:attribute name="alt">${alt}
-                </jsp:attribute>
-                <jsp:attribute name="id">${id}
-                </jsp:attribute>
-                <jsp:attribute name="class">${styleClass}
-                </jsp:attribute>
-                <jsp:attribute name="style">${style}
-                </jsp:attribute>
+                <jsp:attribute name="src">${src}</jsp:attribute>
+                <jsp:attribute name="alt">${alt}</jsp:attribute>
+                <jsp:attribute name="id">${id}</jsp:attribute>
+                <jsp:attribute name="class">${styleClass}</jsp:attribute>
+                <jsp:attribute name="style">${style}</jsp:attribute>
+                <jsp:attribute name="onmouseover">this.src='${rollover}'</jsp:attribute>
+                <jsp:attribute name="onmouseout">this.src='${src}'</jsp:attribute>
             </jsp:element>
         </c:otherwise>
     </c:choose>
