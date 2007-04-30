@@ -20,7 +20,7 @@
 
     <pageHelper:externalCss file="/res/css/school/ratings/table.css"/>
     <table class="rating tableHead">
-        <thead>
+        <tbody>
             <tr>
                 <th scope="col" style="width:55%;" class="header col1">BY GRADE</th>
 
@@ -28,7 +28,7 @@
                     <th scope="col" style="text-align:center;" class="header col2">${subject}</th>
                 </c:forEach>
             </tr>
-        </thead>
+        </tbody>
     </table>
 
     <table class="rating tableBody">
@@ -60,7 +60,7 @@
     <c:if test="${hasMoreThanByGrade eq 'true'}">
         <br/>
         <table class="rating tableHead">
-            <thead>
+            <tbody>
                 <tr>
                     <th scope="col" style="width:55%;" class="header col1">BY CATEGORY</th>
 
@@ -68,7 +68,7 @@
                         <th scope="col" style="text-align:center;" class="header col2">${subject}</th>
                     </c:forEach>
                 </tr>
-            </thead>
+            </tbody>
         </table>
 
         <table class="rating tableBody">
