@@ -95,6 +95,7 @@
                 <li>
                     <c:choose>
                         <c:when test="${levels eq 'ungraded'}">Grades: n/a</c:when>
+                        <c:when test="${!fn:contains(levels, '-') and !fn:contains(levels,',')}">Grade&#32;${levels}</c:when>
                         <c:otherwise>Grades&#32;${levels}</c:otherwise>
                     </c:choose>
                 </li>
