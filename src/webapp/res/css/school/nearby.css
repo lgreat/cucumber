@@ -1,5 +1,5 @@
 #nearbySchools {
-	width: 278px; /* right column width 300 - 2 1px borders, -20px padding */
+	width: 280px; /* right column width 300 - 2 1px borders, -20px padding */
 	padding: 9px;
 	_padding-bottom: 7px; /* IE 6 hack */
 	border: 1px solid #f4bc00;
