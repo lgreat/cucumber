@@ -20,9 +20,8 @@
         buffer.append("<img");
         buffer.append(" src=\"").append(Util.escapeXml(src)).append('"');
 
-        if (StringUtils.isNotBlank(alt)) {
-            buffer.append(" alt=\"").append(alt).append('"');
-        }
+        // always add alt for XHTML compliance, even if empty
+        buffer.append(" alt=\"").append(alt).append('"');
 
         if (StringUtils.isNotBlank(style)) {
             buffer.append(" style=\"").append(style).append('"');
