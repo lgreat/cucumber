@@ -2,6 +2,8 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
+    <jsp:directive.tag import="org.apache.taglibs.standard.tag.common.core.Util"/>
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="src" required="true" description="context-relative URL"/>
     <jsp:directive.attribute name="alt" required="true" description="alt text"/>
@@ -9,46 +11,38 @@
     <jsp:directive.attribute name="style" required="false" description="CSS style attribute"/>
     <jsp:directive.attribute name="id" required="false" description="CSS id"/>
     <jsp:directive.attribute name="rollover" required="false" description="rollover image context-relative URL"/>
-    <jsp:scriptlet>
+    <jsp:scriptlet><![CDATA[
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
         src = urlUtil.buildUrl(src, request);
         jspContext.setAttribute("src", src);
-    </jsp:scriptlet>
-    <c:choose>
-        <c:when test="${empty id and empty styleClass and empty rollover}">
-            <jsp:element name="img">
-                <jsp:attribute name="src">${src}</jsp:attribute>
-                <jsp:attribute name="alt">${alt}</jsp:attribute>
-                <jsp:attribute name="style">${style}</jsp:attribute>
-            </jsp:element>
-        </c:when>
-        <c:when test="${empty id and empty rollover}">
-            <jsp:element name="img">
-                <jsp:attribute name="src">${src}</jsp:attribute>
-                <jsp:attribute name="alt">${alt}</jsp:attribute>
-                <jsp:attribute name="class">${styleClass}</jsp:attribute>
-                <jsp:attribute name="style">${style}</jsp:attribute>
-            </jsp:element>
-        </c:when>
-        <c:when test="${empty rollover}">
-            <jsp:element name="img">
-                <jsp:attribute name="src">${src}</jsp:attribute>
-                <jsp:attribute name="alt">${alt}</jsp:attribute>
-                <jsp:attribute name="id">${id}</jsp:attribute>
-                <jsp:attribute name="class">${styleClass}</jsp:attribute>
-                <jsp:attribute name="style">${style}</jsp:attribute>
-            </jsp:element>
-        </c:when>
-        <c:otherwise>
-            <jsp:element name="img">
-                <jsp:attribute name="src">${src}</jsp:attribute>
-                <jsp:attribute name="alt">${alt}</jsp:attribute>
-                <jsp:attribute name="id">${id}</jsp:attribute>
-                <jsp:attribute name="class">${styleClass}</jsp:attribute>
-                <jsp:attribute name="style">${style}</jsp:attribute>
-                <jsp:attribute name="onmouseover">this.src='${rollover}'</jsp:attribute>
-                <jsp:attribute name="onmouseout">this.src='${src}'</jsp:attribute>
-            </jsp:element>
-        </c:otherwise>
-    </c:choose>
+
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("<img");
+        buffer.append(" src=\"").append(Util.escapeXml(src)).append('"');
+
+        if (StringUtils.isNotBlank(alt)) {
+            buffer.append(" alt=\"").append(alt).append('"');
+        }
+
+        if (StringUtils.isNotBlank(style)) {
+            buffer.append(" style=\"").append(style).append('"');
+        }
+
+        if (StringUtils.isNotBlank(styleClass)) {
+            buffer.append(" class=\"").append(styleClass).append('"');
+        }
+
+        if (StringUtils.isNotBlank(id)) {
+            buffer.append(" id=\"").append(id).append('"');
+        }
+
+        if (StringUtils.isNotBlank(rollover)) {
+            rollover = urlUtil.buildUrl(rollover, request);
+            buffer.append(" onmouseover=\"this.src='").append(rollover).append("'\"");
+            buffer.append(" onmouseout=\"this.src='").append(src).append("'\"");
+        }
+
+        buffer.append("/>");
+        out.print(buffer);
+        ]]></jsp:scriptlet>
 </jsp:root>
