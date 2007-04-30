@@ -59,15 +59,14 @@
         </c:if>
 
         <div id="rating_parent">
-            <gsml:url var="rateIt" value="/res/img/school/overview/submit_RateIt.gif"/>
-            <gsml:url var="rateItOver" value="/res/img/school/overview/submit_RateIt_rollover.gif"/>
-
             <c:choose>
                 <c:when test="${not hasParentRating}">
                     <link:schoolProfileAddParentReview school="${school}">
-                        <gsml:img src="/res/img/school/overview/rating_BeTheFirst.gif" alt="Be the first to rate this school!" styleClass="parentTitle" />
+                        <gsml:img src="/res/img/school/overview/rating_BeTheFirst.gif" alt="Be the first to rate this school!"
+                                  styleClass="parentTitle" />
                         <gsml:img src="/res/img/school/overview/stars_0.gif" alt="No Rating" styleClass="stars" />
-                        <gsml:img src="${rateIt}" rollover="${rateItOver}" alt="Rate It" styleClass="rateIt"/>
+                        <gsml:img src="/res/img/school/overview/submit_RateIt.gif" rollover="/res/img/school/overview/submit_RateIt_rollover.gif"
+                                  alt="Rate It" styleClass="rateIt"/>
                     </link:schoolProfileAddParentReview>
                 </c:when>
                 <c:otherwise>
@@ -76,7 +75,8 @@
                         <gsml:img src="/res/img/school/overview/stars_${parentRating.avgQuality}.gif" alt="${parentRating.avgQuality} out of 5 stars" styleClass="stars" />
                     </link:schoolProfileParentReview>
                     <link:schoolProfileAddParentReview school="${school}">
-                        <gsml:img src="${rateIt}" alt="Rate It" styleClass="rateIt" />
+                        <gsml:img src="/res/img/school/overview/submit_RateIt.gif" rollover="/res/img/school/overview/submit_RateIt_rollover.gif"
+                                  alt="Rate It" styleClass="rateIt" />
                     </link:schoolProfileAddParentReview>
                     <p><link:schoolProfileParentReview school="${school}">View all &#62;</link:schoolProfileParentReview></p>
                 </c:otherwise>
