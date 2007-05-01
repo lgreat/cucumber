@@ -301,8 +301,7 @@
                         <c:if test="${stateOrNull ne null and stateOrDefault.abbreviation ne 'DC'}">
                             <noscript>
                                 <br />
-                                <img style="height: 5px; width: 70px;" alt=""
-                                     src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
+                                <div style="line-height: 6px;">&#160;</div> 
                                 <link:cities state="${stateOrNull}" styleClass="arrowLink">All ${stateOrNull.longName} cities</link:cities>
                             </noscript>
                         </c:if>
