@@ -10,6 +10,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib">
@@ -243,7 +244,10 @@
         <!--/gsml:box-->
     </td>
     <td class="rightcolumn" align="center">
-        <ad:x33/>
+        <promo:summerReading />
+        <ad:x48/>
+        <ad:x49/>
+        <ad:x50/>
     </td>
 </tr>
 </table>

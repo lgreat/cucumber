@@ -9,30 +9,32 @@
     <jsp:directive.attribute name="schools" required="true"
                              type="java.util.Collection"/>
 
-    <tr class="control_row"><td colspan="5">
-        <table cellpadding="0" cellspacing="0" width="100%">
-            <tr>
-                <td style="padding-top:5px">
-                    <input type="image" name="compare"
-                           onclick="return checkSelections();"
-                           src="/res/img/button/btn_comparechecked_149x21.gif"
-                           alt="Compare checked Schools"/>
-                    <input type="image"
-                           name="save"
-                           onclick="return checkSelections();"
-                           src="/res/img/button/btn_savechecked2msl_173x21.gif"
-                           alt="Save checked to My School List"/>
-                </td>
-                <td class="results_pagenav">
-                </td>
-            </tr>
-        </table>
-    </td></tr>
+    <tr class="control_row">
+        <td colspan="5">
+            <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td style="padding-top:5px">
+                        <input type="image" name="compare"
+                               onclick="return checkSelections();"
+                               src="/res/img/button/btn_comparechecked_149x21.gif"
+                               alt="Compare checked Schools"/>
+                        <input type="image"
+                               name="save"
+                               onclick="return checkSelections();"
+                               src="/res/img/button/btn_savechecked2msl_173x21.gif"
+                               alt="Save checked to My School List"/>
+                    </td>
+                    <td class="results_pagenav">
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
     <tr><th class="result_title" width="1"><c:out value=" " escapeXml="true"/></th>
-        <th align="left" class="result_title">Schools</th>
-        <th align="center" class="result_title">Type</th>
-        <th align="center" class="result_title">Grade</th>
-        <th align="center" class="result_title">Enrollment</th>
+        <th class="result_title">
+            <span id="tableTitle">Schools</span>
+            <span id="pagingInfo"><c:out value="${requestScope.pagingInfo}" escapeXml="false"/></span>
+        </th>
     </tr>
 
     <c:forEach items="${schools}" var="school">
@@ -49,18 +51,20 @@
                            value="/modperl/browse_school/${stateAbbrev}/"/>
                 </c:otherwise>
             </c:choose>
-
             <gsml:url var="schoolhref" value="${hrefbase}${school.id}"/>
-
             <tr class="school">
                 <td class="checkbox" width="1">
-                    <input name="sc" type="checkbox"
-                           value="${stateAbbrev}${school.id}"/>
+                    <input name="sc" type="checkbox" value="${stateAbbrev}${school.id}"/>
                 </td>
                 <td>
-                    <h4><a href="${schoolhref}"><c:out
-                            value="${school.name}"/>
-                    </a></h4>
+                    <h4><a href="${schoolhref}"><c:out value="${school.name}"/></a></h4>
+                    <c:out value="${gsweb:capitalize(school.type.schoolTypeName)}"/> School,
+                    <c:set var="grades" value="${school.gradeLevels.rangeString}"/>
+                    Grades <c:out value="${(empty grades) ? '' : grades}"/>
+                    <c:if test="${not empty school.enrollment}">
+                        <c:out value=",&#32;${school.enrollment} students"/>
+                    </c:if>
+
                     <address><c:out value="${school.physicalAddress}"/></address>
                     <div class="phone"><c:out value="${school.phone}"/></div>
                     <c:if test="${not empty school.district}">
@@ -69,26 +73,7 @@
                         </div>
                     </c:if>
                 </td>
-                <td class="st" >
-                    <c:out value="${school.type.schoolTypeName}"/>
-                </td>
-                <td class="gl">
-                    <c:set var="grades" value="${school.gradeLevels.rangeString}"/>
-                    <c:out value="${(empty grades) ? 'not available' : grades}"/>
-                </td>
-                <td class="enrollment">
-                    <c:choose>
-                        <c:when test="${not empty school.enrollment}">
-                            <c:out value="${school.enrollment}"/>
-                        </c:when>
-                        <c:otherwise>
-                            <c:out value="not available"/>
-                        </c:otherwise>
-                    </c:choose>
-                </td>
             </tr>
         </c:if>
-
     </c:forEach>
-
 </jsp:root>

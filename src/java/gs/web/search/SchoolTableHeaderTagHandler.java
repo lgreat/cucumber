@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.18 2007/03/15 18:25:28 droy Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.19 2007/05/01 01:16:51 chriskimm Exp $
  */
 
 package gs.web.search;
@@ -50,7 +50,6 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
 
         boolean showall = _showAll != null && _showAll.booleanValue();
 
-
         District district = null;
         if (_districtId != null && _districtId.intValue() != 0) {
             district = getDistrictDao().findDistrictById(getState(), _districtId);
@@ -59,8 +58,9 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         if (district != null) {
             printDistrictHeader(district, showall, request);
         } else {
-            printCityHeader(showall, request);
+            printCityHeader(request);
         }
+        request.setAttribute("pagingInfo", getPagingInfo(_showAll, request));
     }
 
     private void printDistrictHeader(District district, boolean showall, HttpServletRequest request) throws IOException {
@@ -74,35 +74,6 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         out.print("</h1>");
 
         out.print("</td><td align=\"right\" style=\"padding-right:15px;white-space:nowrap\">");
-
-        if (_total > 0) {
-            if (!showall) {
-                int page = ((getPage() > 0) ? (getPage() - 1) : 0);
-                out.print(String.valueOf((page * PAGE_SIZE) + 1));
-                out.print(" - ");
-                int x = (page * PAGE_SIZE) + PAGE_SIZE;
-                if (_total > x) {
-                    out.print(String.valueOf(x));
-                } else {
-                    out.print(String.valueOf(_total));
-                }
-            } else {
-                out.print("1 - ");
-                out.print(String.valueOf(_total));
-            }
-            out.print(" of ");
-            out.print(String.valueOf(_total));
-        }
-
-        String showAllHref = "";
-        if (!showall && (_total > PAGE_SIZE)) {
-            StringBuffer hrefBuffer = new StringBuffer("/schools.page?");
-            hrefBuffer.append(getSrcQuery());
-            hrefBuffer.append("&amp;showall=true");
-            showAllHref = SchoolTableHeaderTagHandler.urlUtil.buildUrl(hrefBuffer.toString(), request);
-            out.print("<a href=\"" + showAllHref + "\">");
-            out.println("<span class=\"minilink\" style=\"padding-left:8px;\">Show all</span></a>");
-        }
 
         out.println("</td></tr>");
         out.println("</table>");
@@ -154,18 +125,21 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         // start filter row
 
         StringBuffer filterBuffer = createFilterBuffer(getSrcQuery(), request);
+        printTableClose(out, filterBuffer);
+    }
 
+    private void printTableClose(JspWriter out, StringBuffer buffer) throws IOException {
         out.println("<tr><td id=\"filters\" colspan=\"2\">");
-        if (filterBuffer.length() > 0) {
+        if (buffer != null && buffer.length() > 0) {
             out.print("Filtered: ");
-            out.println(filterBuffer.toString());
+            out.println(buffer.toString());
         } else {
             out.print("To further narrow your list, use the filters on the left.");
         }
         out.println("</td></tr></table>");
     }
 
-    private void printCityHeader(boolean showall, HttpServletRequest request) throws IOException {
+    private void printCityHeader(HttpServletRequest request) throws IOException {
         JspWriter out = getJspContext().getOut();
 
         out.println("<table width=\"100%\"><tr><td>");
@@ -175,35 +149,6 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         out.print("</h1>");
 
         out.print("</td><td align=\"right\" style=\"padding-right:15px;white-space:nowrap\">");
-
-        if (_total > 0) {
-            if (!showall) {
-                int page = ((getPage() > 0) ? (getPage() - 1) : 0);
-                out.print(String.valueOf((page * PAGE_SIZE) + 1));
-                out.print(" - ");
-                int x = (page * PAGE_SIZE) + PAGE_SIZE;
-                if (_total > x) {
-                    out.print(String.valueOf(x));
-                } else {
-                    out.print(String.valueOf(_total));
-                }
-            } else {
-                out.print("1 - ");
-                out.print(String.valueOf(_total));
-            }
-            out.print(" of ");
-            out.print(String.valueOf(_total));
-        }
-
-        String showAllHref = "";
-        if (!showall && (_total > PAGE_SIZE)) {
-            StringBuffer hrefBuffer = new StringBuffer("/schools.page?");
-            hrefBuffer.append(getSrcQuery());
-            hrefBuffer.append("&amp;showall=true");
-            showAllHref = SchoolTableHeaderTagHandler.urlUtil.buildUrl(hrefBuffer.toString(), request);
-            out.print("<a href=\"" + showAllHref + "\">");
-            out.println("<span class=\"minilink\" style=\"padding-left:8px;\">Show all</span></a>");
-        }
 
         out.println("</td></tr>");
         out.println("</table>");
@@ -254,15 +199,40 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         // start filter row
 
         StringBuffer filterBuffer = createFilterBuffer(getSrcQuery(), request);
+        printTableClose(out, filterBuffer);
+    }
 
-        out.println("<tr><td id=\"filters\" colspan=\"2\">");
-        if (filterBuffer.length() > 0) {
-            out.print("Filtered: ");
-            out.println(filterBuffer.toString());
-        } else {
-            out.print("To further narrow your list, use the filters on the left.");
+    private String getPagingInfo(boolean showall, HttpServletRequest request) throws IOException {
+        StringBuffer buffer = new StringBuffer();
+        if (_total > 0) {
+            if (!showall) {
+                int page = ((getPage() > 0) ? (getPage() - 1) : 0);
+                buffer.append(String.valueOf((page * PAGE_SIZE) + 1));
+                buffer.append(" - ");
+                int x = (page * PAGE_SIZE) + PAGE_SIZE;
+                if (_total > x) {
+                    buffer.append(String.valueOf(x));
+                } else {
+                    buffer.append(String.valueOf(_total));
+                }
+            } else {
+                buffer.append("1 - ");
+                buffer.append(String.valueOf(_total));
+            }
+            buffer.append(" of ");
+            buffer.append(String.valueOf(_total));
         }
-        out.println("</td></tr></table>");
+
+        String showAllHref = "";
+        if (!showall && (_total > PAGE_SIZE)) {
+            StringBuffer hrefBuffer = new StringBuffer("/schools.page?");
+            hrefBuffer.append(getSrcQuery());
+            hrefBuffer.append("&amp;showall=true");
+            showAllHref = SchoolTableHeaderTagHandler.urlUtil.buildUrl(hrefBuffer.toString(), request);
+            buffer.append("<a href=\"" + showAllHref + "\">");
+            buffer.append("<span class=\"minilink\" style=\"padding-left:8px;\">Show all</span></a>");
+        }
+        return buffer.toString();
     }
 
     private StringBuffer calcCompareLinks(UrlBuilder compareBuilder, HttpServletRequest request, boolean showElementary, boolean showMiddle, boolean showHigh) {

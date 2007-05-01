@@ -62,8 +62,9 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             filtered = true;
         }
 
-        out.println("<table class=\"school_results_only\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
 
+
+        out.println("<table class=\"school_results_only\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">");
         if (_schools != null && _schools.size() > 0) {
             // writes the list of schools
             try {
@@ -72,21 +73,21 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 _log.warn("could not write school list", e);
             }
 
-            out.print("<tr class=\"last_row\"><td colspan=\"5\">");
-            out.println("</td></tr></table>");
-            out.println("<table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"><tr>");
-            out.println("<td>");
-            out.println("<input type=\"image\" name=\"compare\" onclick=\"return checkSelections();\" src=\"/res/img/button/btn_comparechecked_149x21.gif\" alt=\"Compare checked Schools\"/>");
-            out.println("<input type=\"image\" name=\"save\" onclick=\"return checkSelections();\" src=\"/res/img/button/btn_savechecked2msl_173x21.gif\" alt=\"Save checked to My School List\"/>");
-            out.println("</td><td class=\"results_pagenav\">");
+            // grey bar separator
+            out.println("<tr><td colspan=\"2\" id=\"barseparator\"></td></tr>");
 
+            // page numbers
+            out.println("<tr><td class=\"results_pagenav\" align=\"right\" colspan=\"2\">");
             if (!showall) {
                 UrlBuilder builder = new UrlBuilder(request, "/schools.page");
                 builder.addParametersFromRequest(request);
                 writePageNumbers(getPage(), request, builder, _total);
             }
-            out.println("</td></tr><tr><td></td><td align=\"right\" style=\"padding-right:15px;padding-bottom:5px\">");
+            out.println("</td></tr>");
+
+            // show all
             if (!showall && (_total > PAGE_SIZE)) {
+                out.print("<tr><td align=\"right\" colspan=\"2\" id=\"lowershowall\">");
                 out.print("<a href=\"");
                 String showAllHref;
                 StringBuffer hrefBuffer = new StringBuffer("/schools.page?");
@@ -95,8 +96,17 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
                 showAllHref = urlUtil.buildUrl(hrefBuffer.toString(), request);
                 out.print(showAllHref);
                 out.print("\"><span class=\"minilink\">Show all</span></a>");
+                out.println("</td></tr>");
             }
-            out.println("</td></tr><tr><td>");
+
+            // thin grey separator
+            out.println("<tr><td colspan=\"2\" id=\"lineseparator\"></td></tr>");
+
+            // compare buttons
+            out.println("<tr><td colspan=\"2\" id=\"lowerbuttoms\">");
+            out.println("<input type=\"image\" name=\"compare\" onclick=\"return checkSelections();\" src=\"/res/img/button/btn_comparechecked_149x21.gif\" alt=\"Compare checked Schools\"/>");
+            out.println("<input type=\"image\" name=\"save\" onclick=\"return checkSelections();\" src=\"/res/img/button/btn_savechecked2msl_173x21.gif\" alt=\"Save checked to My School List\"/>");
+            out.println("</td></tr>");
 
         } else {
             if (filtered) {
@@ -104,10 +114,9 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             } else {
                 out.println("<tr><th class=\"left result_title\">No schools found</th></tr>");
             }
-            out.println("<tr><td valign=\"top\" height=\"100\">");
-            out.println("Please try again.");
+            out.println("<tr><td valign=\"top\" height=\"100\">Please try again.</td></tr>");
         }
-        out.println("</td></tr></table>");
+        out.println("</table>");
     }
 
     public String getSrcQuery() {

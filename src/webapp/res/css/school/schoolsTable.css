@@ -48,6 +48,7 @@ TODO: name consistently.
 
 .rightcolumn {
     vertical-align: top;
+    padding-left:10px;
 }
 
 td #searchlinks a {
@@ -109,7 +110,8 @@ tr.control_row td {
 
 td.middleColumn {
     border-left: 1px solid #bbb;
-    padding-left: 10px;
+    border-right: 1px solid #bbb;
+    padding: 0 10px 0 10px;
 }
 
 #suggestion {
@@ -305,6 +307,7 @@ tr td.checkbox {
 .minilink {
 /*font-size:xx-small;*/
     font-size: 11px;
+    font-weight:normal;
     padding-left: 4px;
 }
 
@@ -345,3 +348,40 @@ div.mapIt h4 {
     font-size: small;
 }
 
+th.result_title {
+    vertical-align:bottom;
+    height:40px;
+}
+
+th.result_title span#tableTitle {
+    float:left;
+}
+th.result_title span#pagingInfo {
+    float:right;
+}
+
+td#barseparator {
+    border-bottom:14px solid #BBBBBB;
+    padding-top:22px;
+}
+
+td#lineseparator {
+    padding:0;
+    border-bottom:1px solid #CCCCCC;
+}
+
+td#lowerbuttoms {
+    padding-top:10px;
+}
+
+td.results_pagenav {
+    border-top:4px solid #FFFFFF;
+    text-align: right;
+    font-weight: normal;
+    font-size: 75%;
+    white-space: nowrap;
+}
+
+td#lowershowall {
+    padding:0 10px 4px 0;
+}
