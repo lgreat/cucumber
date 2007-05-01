@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.19 2007/05/01 01:16:51 chriskimm Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.20 2007/05/01 02:04:04 chriskimm Exp $
  */
 
 package gs.web.search;
@@ -60,7 +60,7 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         } else {
             printCityHeader(request);
         }
-        request.setAttribute("pagingInfo", getPagingInfo(_showAll, request));
+        request.setAttribute("pagingInfo", getPagingInfo(showall, request));
     }
 
     private void printDistrictHeader(District district, boolean showall, HttpServletRequest request) throws IOException {
