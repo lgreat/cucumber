@@ -10,7 +10,7 @@ District Overview
 	width: 864px;
 	_width: 866px; /* IE 6 hack */
 	float: left;
-	margin: 6px 0 30px 0; /* bottom margin is arbitrary and can be changed once code is implemented */
+	margin: 1px 0 30px 0; /* bottom margin is arbitrary and can be changed once code is implemented */
 }
 
 #districtOverview p {
