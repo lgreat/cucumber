@@ -77,8 +77,6 @@ District Overview
 
 #dd_col_left {
 	width: 158px;
-	height: 134px;
-	_height: 135px; /* IE 6 hack */
 	float: left;
 	padding-top: 4px;
 	_padding-top: 3px; /* IE 6 hack */
@@ -87,7 +85,6 @@ District Overview
 
 #dd_col_center {
 	width: 165px;
-	height: 134px;
 	margin: 0 0 0 10px;
 	float: left;
 	padding-top: 4px;
@@ -96,7 +93,6 @@ District Overview
 
 #dd_col_right {
 	width: 160px;
-	height: 134px;
 	margin: 0 9px 0 0;
 	_margin: 0 6px 0 0; /* IE 6 hack */
 	float: right;
