@@ -10,7 +10,7 @@
                              type="java.util.Collection"/>
 
     <tr class="control_row">
-        <td colspan="5">
+        <td colspan="2">
             <table cellpadding="0" cellspacing="0" width="100%">
                 <tr>
                     <td style="padding-top:5px">
@@ -30,8 +30,8 @@
             </table>
         </td>
     </tr>
-    <tr><th class="result_title" width="1"><c:out value=" " escapeXml="true"/></th>
-        <th class="result_title">
+    <tr>
+        <th class="result_title" colspan="2">
             <span id="tableTitle">Schools</span>
             <span id="pagingInfo"><c:out value="${requestScope.pagingInfo}" escapeXml="false"/></span>
         </th>
