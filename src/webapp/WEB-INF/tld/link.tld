@@ -458,6 +458,13 @@
             <description>District id</description>
         </attribute>
         <attribute>
+            <name>schoolId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+            <description>School id (optional), if specified the district profile page will add the school profile header</description>
+        </attribute>
+        <attribute>
             <name>title</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

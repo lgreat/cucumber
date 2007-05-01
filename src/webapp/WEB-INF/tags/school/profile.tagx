@@ -261,6 +261,17 @@
                 </link:schoolProfileCensus>
             </td>
 
+
+            <td>
+                <link:districtProfile districtId="${school.districtId}"
+                                      schoolId="${school.id}"
+                                      state="${state.abbreviationLowerCase}"
+                                      title="District information">
+                    District<br/>
+                    Overview
+                </link:districtProfile>
+            </td>
+
 <!-- Temporarily commented out until destination implementation is complete
             <td>
                 <a href="" title="">Parent<br/>Community</a>

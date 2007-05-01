@@ -259,6 +259,7 @@ a:hover.parent_0 { /* displays the "no star" rollover */
 	color: #ccc;
     border-bottom: 1px dashed #fff;
     _border-bottom: 1px dashed #dee;
+    margin-bottom: 9px; /* NOTE: this bottom margin has been added such that the space between the header and the content is consistent regardless of the presence of the header */
 }
 
 #subnav ul {
