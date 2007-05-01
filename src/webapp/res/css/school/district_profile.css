@@ -169,7 +169,6 @@ District Overview
 #dd_col_right form .submit {
 	float: right;
 	margin: 5px 5px 0 0;
-	_margin: 5px 5px -6px 0; /* IE 6 hack */
 }
 
 
