@@ -262,15 +262,17 @@
             </td>
 
 
-            <td>
-                <link:districtProfile districtId="${school.districtId}"
-                                      schoolId="${school.id}"
-                                      state="${state.abbreviationLowerCase}"
-                                      title="District information">
-                    District<br/>
-                    Overview
-                </link:districtProfile>
-            </td>
+            <c:if test="${school.districtId != 0}">
+                <td>
+                    <link:districtProfile districtId="${school.districtId}"
+                                          schoolId="${school.id}"
+                                          state="${state.abbreviationLowerCase}"
+                                          title="District information">
+                        District<br/>
+                        Overview
+                    </link:districtProfile>
+                </td>
+            </c:if>
 
 <!-- Temporarily commented out until destination implementation is complete
             <td>
