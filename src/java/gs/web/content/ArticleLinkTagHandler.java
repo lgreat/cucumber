@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.33 2007/02/26 23:43:13 cpickslay Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.34 2007/05/02 21:58:29 cpickslay Exp $
  */
 package gs.web.content;
 
@@ -17,8 +17,6 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspFragment;
 import java.io.IOException;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 /**
  * Write out an article link.
@@ -140,20 +138,7 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         String title = article.getTitle().replaceAll("\\$LONGSTATE", s.getLongName());
 
         // match ampersands and entities. second capture group holds entity content, if any
-        Pattern pattern = Pattern.compile("(&)([a-zA-Z0-9#]*;)?");
-        Matcher matcher = pattern.matcher(title);
-        StringBuffer newTitle = new StringBuffer();
-        while (matcher.find()) {
-            if (matcher.group(2) == null) {
-                // replace standalone ampersands
-                matcher.appendReplacement(newTitle, "&amp;");
-            } else {
-                // don't replace entities
-                matcher.appendReplacement(newTitle, "$1$2");
-            }
-        }
-        matcher.appendTail(newTitle);
-        return newTitle.toString();
+        return UrlUtil.escapeAmpersands(title);
     }
 
     /**
