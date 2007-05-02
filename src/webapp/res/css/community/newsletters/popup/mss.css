@@ -64,8 +64,13 @@ a:active {
     color: #0066cc;
 }
 
-
 .promo h3 {
+    margin-top:0;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.promo h3.gradebygrade {
     margin-top:0;
     padding:0 0 0 15px;
     font-size: 22px;
