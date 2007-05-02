@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.46 2007/05/02 21:58:29 cpickslay Exp $
+ * $Id: UrlUtil.java,v 1.47 2007/05/02 22:08:55 cpickslay Exp $
  */
 
 package gs.web.util;
@@ -299,25 +299,4 @@ public final class UrlUtil {
         }
     }
 
-    /**
-     * Escape ampersands with html &amp; entity, but not if they're already part of an entity
-     * @param input
-     * @return
-     */
-    public static String escapeAmpersands(String input) {
-        Pattern pattern = Pattern.compile("(&)([a-zA-Z0-9#]*;)?");
-        Matcher matcher = pattern.matcher(input);
-        StringBuffer newTitle = new StringBuffer();
-        while (matcher.find()) {
-            if (matcher.group(2) == null) {
-                // replace standalone ampersands
-                matcher.appendReplacement(newTitle, "&amp;");
-            } else {
-                // don't replace entities
-                matcher.appendReplacement(newTitle, "$1$2");
-            }
-        }
-        matcher.appendTail(newTitle);
-        return newTitle.toString();
-    }
 }

@@ -1,11 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.39 2007/05/02 21:58:29 cpickslay Exp $
+ * $Id: UrlUtilSaTest.java,v 1.40 2007/05/02 22:08:55 cpickslay Exp $
  */
 
 package gs.web.util;
 
 import gs.data.state.State;
+import gs.data.util.HtmlUtil;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -238,10 +239,4 @@ public class UrlUtilSaTest extends TestCase {
         assertEquals("/something.page", _urlUtil.buildHref(null, "/something.page", false, null));
     }
 
-    public void testEscapeAmpersands() {
-        assertEquals("escape standalone ampersands", "test&amp;test", UrlUtil.escapeAmpersands("test&test"));
-        assertEquals("don't double-escape ampersands", "test&amp;test", UrlUtil.escapeAmpersands("test&amp;test"));
-        assertEquals("don't escape ampersands in numeric entities", "test&#123;test", UrlUtil.escapeAmpersands("test&#123;test"));
-        assertEquals("don't escape ampersands in character entities", "test&quot;test", UrlUtil.escapeAmpersands("test&quot;test"));
-    }
 }

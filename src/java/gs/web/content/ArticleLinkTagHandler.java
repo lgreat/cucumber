@@ -1,11 +1,12 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: ArticleLinkTagHandler.java,v 1.34 2007/05/02 21:58:29 cpickslay Exp $
+ * $Id: ArticleLinkTagHandler.java,v 1.35 2007/05/02 22:08:55 cpickslay Exp $
  */
 package gs.web.content;
 
 import gs.data.content.Article;
 import gs.data.state.State;
+import gs.data.util.HtmlUtil;
 import gs.web.jsp.BaseTagHandler;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
@@ -138,7 +139,7 @@ public class ArticleLinkTagHandler extends BaseTagHandler {
         String title = article.getTitle().replaceAll("\\$LONGSTATE", s.getLongName());
 
         // match ampersands and entities. second capture group holds entity content, if any
-        return UrlUtil.escapeAmpersands(title);
+        return HtmlUtil.escapeAmpersands(title);
     }
 
     /**
