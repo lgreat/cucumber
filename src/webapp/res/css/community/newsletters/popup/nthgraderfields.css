@@ -1,0 +1,21 @@
+table#nthgraderfields td{
+   padding:0 7px 8px 0;
+}
+
+table#nthgraderfields td#left, table#nthgraderfields td#right{
+    padding:10px 0 10px 0;
+}
+
+table#nthgraderfields div#ldiv {
+    padding:10px 30px 20px 0;
+    margin:0 30px 0 0px;
+    border-right:1px solid #AAAAAA;
+}
+
+table#nthgraderfields div#rdiv {
+    padding:8px 30px 20px 0;
+}
+
+div.text {
+    font-weight:bold;
+}

@@ -26,6 +26,13 @@
     padding-left:10px;
 }
 
+.subhead {
+   font-size:14px;
+   font-weight:bold;
+   color:#666666;
+   padding:0 0 15px 15px;
+}
+
 a:link,
 a:visited,
 a:active {
@@ -57,9 +64,12 @@ a:active {
     color: #0066cc;
 }
 
+
 .promo h3 {
     margin-top:0;
-    font-size: 15px;
+    padding:0 0 0 15px;
+    font-size: 22px;
+    color:#3399AA;
     font-weight: bold;
 }
 
@@ -99,11 +109,6 @@ a:active {
 
 .grayTop {
     border-top: dotted 1px #666666;
-    /*
-    border-top-style: solid;
-    border-top-color: #666666;
-    border-top-width: 1px;
-    */
     padding-top:0.5em;
     padding-bottom:0.5em;
 }
@@ -160,4 +165,15 @@ li {
 
 .signMeUp {
     padding-top:2em;
+}
+
+div.signupText {
+    padding:10px 0 0 15px;
+    font-size:16px;
+    font-weight:bold;
+    color:#666666;
+}
+
+.greyText, input {
+    color:#666666;
 }

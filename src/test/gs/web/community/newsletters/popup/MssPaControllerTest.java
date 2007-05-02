@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.15 2007/04/11 21:11:48 cpickslay Exp $
+ * $Id: MssPaControllerTest.java,v 1.16 2007/05/02 03:13:19 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -8,6 +8,7 @@ import gs.data.community.*;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
+import gs.data.admin.IPropertyDao;
 import gs.web.BaseControllerTestCase;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.validator.EmailValidator;
@@ -38,12 +39,14 @@ public class MssPaControllerTest extends BaseControllerTestCase {
     private MssPaController _controller;
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
+    private IPropertyDao _propertyDao;
 
     protected void setUp() throws Exception {
         super.setUp();
 
         _userDao = (IUserDao) getApplicationContext().getBean(IUserDao.BEAN_ID);
         _subscriptionDao = (ISubscriptionDao) getApplicationContext().getBean(ISubscriptionDao.BEAN_ID);
+        _propertyDao = (IPropertyDao) getApplicationContext().getBean(IPropertyDao.BEAN_ID);
 
         _controller = new MssPaController();
         _controller.setApplicationContext(getApplicationContext());
@@ -156,6 +159,8 @@ public class MssPaControllerTest extends BaseControllerTestCase {
 
         _log.debug(modelView.getViewName());
         assertEquals(modelView.getViewName(), "redirect:/community/newsletters/popup/mss/page2.page");
+
+        assertEquals(modelView.getModel().get("academicYear"), _propertyDao.getProperty(IPropertyDao.CURRENT_ACADEMIC_YEAR));
 
         ThreadLocalTransactionManager.commitOrRollback();
 

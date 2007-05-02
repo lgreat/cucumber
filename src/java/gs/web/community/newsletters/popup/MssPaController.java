@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaController.java,v 1.21 2007/04/11 21:11:48 cpickslay Exp $
+ * $Id: MssPaController.java,v 1.22 2007/05/02 03:13:18 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -8,6 +8,7 @@ import gs.data.community.*;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.data.admin.IPropertyDao;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.PageHelper;
@@ -42,6 +43,7 @@ public class MssPaController extends SimpleFormController implements ReadWriteCo
 
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
+    private IPropertyDao _propertyDao;
     private ISchoolDao _schoolDao;
     private List _onLoadValidators;
 
@@ -138,6 +140,7 @@ public class MssPaController extends SimpleFormController implements ReadWriteCo
         mAndV.getModel().put("state", nc.getState());
         mAndV.getModel().put("email", nc.getEmail());
         mAndV.getModel().put("schoolId", String.valueOf(nc.getSchoolId()));
+        mAndV.getModel().put("academicYear", getPropertyDao().getProperty(IPropertyDao.CURRENT_ACADEMIC_YEAR));
         mAndV.setViewName(getSuccessView());
 
         return mAndV;
@@ -185,4 +188,12 @@ public class MssPaController extends SimpleFormController implements ReadWriteCo
         _onLoadValidators = onLoadValidators;
     }
 
+
+    public IPropertyDao getPropertyDao() {
+        return _propertyDao;
+    }
+
+    public void setPropertyDao(IPropertyDao propertyDao) {
+        _propertyDao = propertyDao;
+    }
 }

@@ -8,6 +8,7 @@
         xmlns:spring="http://www.springframework.org/tags"
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        xmlns:pop="urn:jsptagdir:/WEB-INF/tags/community/conversion/popup"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         xmlns:gsweb="gstaglib"
         xmlns:link="urn:www.greatschools.net/taglib/link"
@@ -33,6 +34,7 @@
 
 <gsml:body adPageName="newsletter" pageLayout="newsPop">
 <pageHelper:externalCss file="/res/css/community/newsletters/popup/mss.css"/>
+<pageHelper:externalCss file="/res/css/community/newsletters/popup/nthgraderfields.css"/>
 <spring:bind path="newsCmd.email">
     <c:set var="emailExpr" value="${status.expression}"/>
     <c:set var="email" value="${status.value}"/>
@@ -64,74 +66,13 @@
 
     <div class="blueTop">
         <div class="pLR">
-            <p>Send me monthly tips about what to expect in the classroom for:</p>
-            <table width="80%" align="center">
-                <tr>
-                    <td>
-                        <spring:bind path="newsCmd.myk">
-                            <input type="checkbox" name="${status.expression}"/>
-                        </spring:bind>
-                        My Kindergartner
-                    </td>
-                    <td>
-                        <spring:bind path="newsCmd.my3">
-                            <input type="checkbox" name="${status.expression}"/>
-                        </spring:bind>
-                        My Third-Grader
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <spring:bind path="newsCmd.my1">
-                            <input type="checkbox" name="${status.expression}"/>
-                        </spring:bind>
-                        My First-Grader
-                    </td>
-                    <td>
-                        <spring:bind path="newsCmd.my4">
-                            <input type="checkbox" name="${status.expression}"/>
-                        </spring:bind>
-                        My Fourth-Grader
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <spring:bind path="newsCmd.my2">
-                            <input type="checkbox" name="${status.expression}"/>
-                        </spring:bind>
-                        My Second-Grader
-                    </td>
-                    <td>
-                        <spring:bind path="newsCmd.my5">
-                            <input type="checkbox" name="${status.expression}"/>
-                        </spring:bind>
-                        My Fifth-Grader
-                    </td>
-                </tr>
-            </table>
-            <div style="padding:10px 0 10px 48px">Note: Please select your child's grade for the 2005-06 school year.</div>
+            <div class="signupText">Sign me up!  In ${academicYear} my children are in:</div>
+            <pop:nthgraderfields/>
         </div>
     </div>
 
     <div class="grayTop">
         <div class="pLR">
-            <p>Send me free advice about college and academic planning:</p>
-            <table width="80%" align="center">
-                <tr>
-                    <td>
-                        <spring:bind path="newsCmd.myMs">
-                            <input type="checkbox" name="${status.expression}"/>
-                        </spring:bind>
-                        Middle School Matters
-                    </td>
-                    <td>
-                        <spring:bind path="newsCmd.myHs">
-                            <input type="checkbox" name="${status.expression}"/>
-                        </spring:bind>
-                        Countdown to College
-                    </td>
-                </tr>
-            </table>
             <div class="centered">
                 <div class="signMeUp">
                     <gsml:inputImage src="/res/img/button/btn_sign_me_up_6699cc.gif" alt="Sign me up!"/>

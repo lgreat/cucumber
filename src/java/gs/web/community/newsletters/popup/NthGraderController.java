@@ -1,12 +1,13 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: NthGraderController.java,v 1.20 2007/01/18 19:33:39 aroy Exp $
+ * $Id: NthGraderController.java,v 1.21 2007/05/02 03:13:18 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
 import gs.data.community.*;
 import gs.data.school.ISchoolDao;
 import gs.data.state.State;
+import gs.data.admin.IPropertyDao;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteController;
 import gs.web.util.context.SessionContext;
@@ -39,15 +40,23 @@ public class NthGraderController extends SimpleFormController implements ReadWri
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
     private ISchoolDao _schoolDao;
+    private IPropertyDao _propertyDao;
     private List _onLoadValidators;
 
+
+    protected ModelAndView showForm(
+            HttpServletRequest request, HttpServletResponse response, BindException errors)
+            throws Exception {
+        request.setAttribute("academicYear",
+                getPropertyDao().getProperty(IPropertyDao.CURRENT_ACADEMIC_YEAR));
+        return super.showForm(request, response, errors, null);
+    }
 
     protected void onBindOnNewForm(HttpServletRequest request,
                                    Object command,
                                    BindException errors) {
 
         String autocheck = request.getParameter(PARAM_AUTOCHECK);
-
 
         NewsletterCommand nc = (NewsletterCommand) command;
 
@@ -239,4 +248,11 @@ public class NthGraderController extends SimpleFormController implements ReadWri
         _onLoadValidators = onLoadValidators;
     }
 
+    public IPropertyDao getPropertyDao() {
+        return _propertyDao;
+    }
+
+    public void setPropertyDao(IPropertyDao propertyDao) {
+        _propertyDao = propertyDao;
+    }
 }
