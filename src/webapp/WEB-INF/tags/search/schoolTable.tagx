@@ -53,7 +53,7 @@
             </c:choose>
             <gsml:url var="schoolhref" value="${hrefbase}${school.id}"/>
             <tr class="school">
-                <td class="checkbox" width="1">
+                <td class="checkbox">
                     <input name="sc" type="checkbox" value="${stateAbbrev}${school.id}"/>
                 </td>
                 <td>
@@ -64,8 +64,8 @@
                     <c:if test="${not empty school.enrollment}">
                         <c:out value=",&#32;${school.enrollment} students"/>
                     </c:if>
-
-                    <address><c:out value="${school.physicalAddress}"/></address>
+                    <br/>
+                    <div style="padding-right:33px;"><c:out value="${school.physicalAddress}"/></div>
                     <div class="phone"><c:out value="${school.phone}"/></div>
                     <c:if test="${not empty school.district}">
                         <div class="district">

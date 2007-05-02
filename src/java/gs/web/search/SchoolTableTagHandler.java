@@ -74,7 +74,9 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             }
 
             // grey bar separator
-            out.println("<tr><td colspan=\"2\" id=\"barseparator\"></td></tr>");
+            out.print("<tr><td colspan=\"2\" id=\"barseparator\">");
+            out.print("<img src=\"/res/img/pixel.gif\"/>");
+            out.println("</td></tr>");
 
             // page numbers
             out.println("<tr><td class=\"results_pagenav\" align=\"right\" colspan=\"2\">");
@@ -100,7 +102,9 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             }
 
             // thin grey separator
-            out.println("<tr><td colspan=\"2\" id=\"lineseparator\"></td></tr>");
+            out.print("<tr><td colspan=\"2\" id=\"lineseparator\">");
+            out.print("<img src=\"/res/img/pixel.gif\"/>");
+            out.println("</td></tr>");
 
             // compare buttons
             out.println("<tr><td colspan=\"2\" id=\"lowerbuttoms\">");
