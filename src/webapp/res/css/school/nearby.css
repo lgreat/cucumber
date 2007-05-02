@@ -57,13 +57,14 @@
 	text-decoration: none;
 }
 
-#nearbySchools ul li#nearMore {
-	margin: 0;
+#nearbySchools ul li#nearDistrict, #nearbySchools ul li#nearMore {
+    text-align: right;
+    margin: 0;
     border-top: none;
-    padding: 3px 5px 0 230px;
+    padding: 3px 5px 0 0px;
 }
 
-li#nearMore a {
+li#nearDistrict a, li#nearMore a {
     text-decoration:underline;
 }
 
