@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: MssPaControllerTest.java,v 1.16 2007/05/02 03:13:19 chriskimm Exp $
+ * $Id: MssPaControllerTest.java,v 1.17 2007/05/02 16:35:00 chriskimm Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -15,7 +15,6 @@ import gs.web.util.validator.EmailValidator;
 import gs.web.util.validator.MaximumMssValidator;
 import gs.web.util.validator.SchoolIdValidator;
 import gs.web.util.validator.StateValidator;
-import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -27,7 +26,6 @@ import org.springframework.web.util.CookieGenerator;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
@@ -56,7 +54,8 @@ public class MssPaControllerTest extends BaseControllerTestCase {
         _controller.setCommandClass(NewsletterCommand.class);
         _controller.setFormView("/community/newsletters/popup/mss/page1");
         _controller.setSuccessView("redirect:/community/newsletters/popup/mss/page2.page");
-
+        _controller.setPropertyDao(_propertyDao);
+        
         _controller.setValidators(new Validator[]{
                 new SchoolIdValidator(),
                 new EmailValidator(),
