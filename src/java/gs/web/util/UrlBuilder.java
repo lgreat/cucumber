@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.73 2007/04/09 20:35:18 dlee Exp $
+ * $Id: UrlBuilder.java,v 1.74 2007/05/02 16:44:02 cpickslay Exp $
  */
 
 package gs.web.util;
@@ -606,7 +606,12 @@ public class UrlBuilder {
             _path = "/modperl/districts/" + state.getAbbreviation();
         } else if (HEALTHY_KIDS.equals(page)) {
             _perlPage = false;
-            _path = "/content/healthyKids.page";            
+            _path = "/content/healthyKids.page";
+        } else if (CITIES_MORE_NEARBY.equals(page)) {
+            _perlPage = false;
+            _path = "/cities.page";
+            this.setParameter("city", param0);
+            this.setParameter("state", state.getAbbreviation());
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

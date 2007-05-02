@@ -150,7 +150,7 @@
         <body-content>JSP</body-content>
         <display-name>Schools List</display-name>
         <description>
-            <![CDATA[Link to a list of schools  based on a city or a district.]]>
+            <![CDATA[Link to a list of schools in a city.]]>
         </description>
         <attribute>
             <name>state</name>
@@ -403,6 +403,43 @@
             <rtexprvalue>true</rtexprvalue>
             <type>gs.data.state.State</type>
             <description>the name of the state</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>nearbyCities</name>
+        <tag-class>gs.web.jsp.link.NearbyCitiesTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Nearby Cities Page</display-name>
+        <description>
+            <![CDATA[Link to a city's nearby cities page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>city</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>name of the city</description>
+        </attribute>
+        <attribute>
+            <name>state</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.state.State</type>
+            <description>State value object</description>
+        </attribute>
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>value of link title attribute, for tooltip</description>
         </attribute>
     </tag>
     <tag>
