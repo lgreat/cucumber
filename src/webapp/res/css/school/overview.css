@@ -187,6 +187,7 @@ hr { /* has IE 7 equivalent */
 	width: 173px;
 	height: 27px;
 	text-indent: -1000px; /* allows the text to appear in the html, but will not be visible with styles enabled */
+    margin-bottom: 10px;
 }
 
 #bigPicture p {

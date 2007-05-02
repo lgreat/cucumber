@@ -61,6 +61,12 @@
     <div id="col_left">
 
         <school:quickFacts school="${school}"/>
+
+        <hr />
+
+        <!-- Big Picture -->
+        <school:bigPicture school="${school}"/>
+
         <hr />
 		<!-- Editor -->
 
@@ -89,10 +95,6 @@
 
 		</div><!-- end: editor -->
 
-		<hr />
-
-		<!-- Big Picture -->
-        <school:bigPicture school="${school}"/>
 
 		</div><!-- end: col_left" -->
 
