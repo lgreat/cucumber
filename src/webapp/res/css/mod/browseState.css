@@ -21,6 +21,6 @@ div.browseState .refinementlist li {
     font-size: small;
 }
 
-#browseRefine {
-    border-bottom: 1px solid #bbb;
+#searchRefine {
+    border-top: 1px solid #bbb;
 }
