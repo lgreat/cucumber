@@ -156,16 +156,16 @@
 
     <h3>Press Releases</h3>
    <ul class="singleSpacedList">
-       <p><b>5/1/07:</b> Parents Vote GreatSchools the Best Family / Parenting Web Site <gsml:a href="/cgi-bin/static/press20070501.txt">more...</gsml:a></p>
+       <p><b>5/1/07:</b> Parents Vote GreatSchools the Best Family / Parenting Web Site <gsml:a href="/cgi-bin/static/press20070501.txt/$STATE">more...</gsml:a></p>
        
        <p><b>4/4/07:</b> GreatSchools, the nation's premier provider of K-12 school information to parents,
-           today announced <gsml:a href="/cgi-bin/static/press20060404.txt">more...</gsml:a></p>
+           today announced <gsml:a href="/cgi-bin/static/press20060404.txt/$STATE">more...</gsml:a></p>
 
     <p><b>11/28/05:</b> Prudential California Reality, Alan Pinel Realtors, Real Advisor Reality and VREO Choose
-        GreatSchools.net <gsml:a href="/cgi-bin/static/press11.28.05">more...</gsml:a></p>
+        GreatSchools.net <gsml:a href="/cgi-bin/static/press11.28.05/$STATE">more...</gsml:a></p>
 
     <p><b>08/10/05:</b> GreatSchools.net Teams Up With Sperling's Best Places <gsml:a
-            href="/cgi-bin/static/GS_BP_Press_Release_05_08_10.htm">more...</gsml:a></p>
+            href="/cgi-bin/static/GS_BP_Press_Release_05_08_10.htm/$STATE">more...</gsml:a></p>
 
     <p><b>8/20/04:</b> GreatSchools.net Provides Parents with Vital Information About NCLB School Choice and Tutoring
         Options <gsml:a href="/cgi-bin/static/press7.26.04_nclb.html/$STATE">more...</gsml:a></p>
