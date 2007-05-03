@@ -1,3 +1,87 @@
+#col_left {
+    width: 525px;
+    float: left;
+    border-right: 1px solid #bbb;
+    padding: 10px 10px 10px 17px;
+}
+
+#col_right {
+    width: 300px;
+    float: right;
+}
+
+#searchFooter {
+    float: left;
+    width: 495px;
+    margin-top: 3ex;
+    padding: 15px 15px 15px 15px;
+    background-color: #eee;
+    border: 1px solid #bbb;
+    border-width: 1px 0 1px 0;
+}
+
+.cobranded #searchfooter {
+    width: 400px !important;
+}
+
+#searchFooter h4,
+    #searchFooter p {
+    font-size: medium;
+    padding: 5px 0 5px 0;
+}
+
+#searchFooter ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#searchFooter li {
+    padding-bottom: 8px;
+}
+
+#searchFooter .label {
+    color: #666;
+    vertical-align: middle;
+}
+
+#searchFooter .btn {
+    padding-bottom: 5px;
+}
+
+#searchFooter #stateSelector {
+    margin-left: 5px;
+}
+
+#searchFooter #q {
+    margin: 8px 0 8px 0;
+}
+
+#searchFooter #c {
+    margin: 0 0 8px 0;
+}
+
+#searchFooter #sf_col_left {
+    width: 260px;
+    float: left;
+    border-right: 1px solid #bbb;
+}
+
+#searchFooter #sf_col_right {
+    width: 231px;
+    float: right;
+}
+
+
+
+
+
+
+
+
+
+
+
 table#header {
     width: 100%;
     margin: 0px 0px 0px 0px;
@@ -17,10 +101,6 @@ table#header td.stretchycolumn {
     height: 250px;
 }
 
-td.label {
-    color: #666;
-    vertical-align: middle;
-}
 
 .checkbox {
     padding: 0;
@@ -138,35 +218,6 @@ pre.explanation {
     display: block;
 }
 
-#searchFooter {
-    margin-top: 3ex;
-    padding: 10px 10px 20px 18px;
-    background-color: #eee;
-    border: 1px solid #bbb;
-    border-width: 1px 0 1px 0;
-}
-
-
-
-#searchFooter h4,
-    #searchFooter p {
-    font-size: medium;
-    padding: 5px 0 5px 0;
-}
-
-#searchFooter ul {
-    padding-top: 5px;
-    padding-bottom: 15px;
-}
-
-#searchFooter li {
-    padding-left: 20px;
-    padding-bottom: 3px;
-    list-style: disc;
-    list-style-type: disc;
-    list-style-position: inside;
-
-}
 
 /*
    List item
@@ -209,9 +260,6 @@ tr td.checkbox {
     padding-left: 4px;
 }
 
-.cobranded #searchfooter {
-    width: 400px !important;
-}
 
 div#resultsheader {
     font-size: medium;

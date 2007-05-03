@@ -4,6 +4,8 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="rememberQuery" required="false"/>
@@ -25,22 +27,18 @@
 
 
     <div class="globalSearch">
-    <gsweb:form id="searchform" method="get" action="/search/search.page">
-        <table style="padding:0px; margin:0px;">
-            <c:if test="${showStates == 'true'}">
-                <tr>
-                    <td colspan="2" class="label" align="left"
-                        style="white-space:nowrap;">Search again in:
-                        <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.stateOrDefault}"/>
-                    </td>
-               </tr>
-            </c:if>
-            <tr>
-            <c:if test="${showStates != 'true' and (empty showLabel or showLabel) }">
-                <td class="label" width="90" align="right">Search
-                </td>
-            </c:if>
-            <td colspan="1" align="right" style="vertical-align:middle;">
+        <gsml:equalizeColumns ids="'sf_col_left','sf_col_right'"/>
+        <div id="sf_col_left">
+            <gsweb:form id="searchform" method="get" action="/search/search.page">
+                <c:if test="${showStates == 'true'}">
+                    <div>
+                        <span class="label">Search again in:</span>
+                        <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.stateOrDefault}" />
+                    </div>
+                </c:if>
+                <c:if test="${showStates != 'true' and (empty showLabel or showLabel) }">
+                    <span class="label">Search</span>
+                </c:if>
                 <input type="text"
                        id="q"
                        name="q"
@@ -48,47 +46,40 @@
                        style="font-size:small"
                        maxlength="255"
                        value="${(not empty param.q) and (rememberQuery == 'true') and (empty param.city) and (empty param.district) ? fn:escapeXml(param.q) : ''}"/>
-            </td>
                 <c:if test="${(empty showConstraint) or showConstraint}">
-                    <td>
-                        <select name="c">
-                            <option value="school">Schools</option>
-                            <option value="topic">Articles</option>
-                        </select>
-                    </td>
+                    <select name="c" id="c">
+                        <option value="school">Schools</option>
+                        <option value="topic">Articles</option>
+                    </select>
                 </c:if>
                 <c:if test="${not ((empty showConstraint) or showConstraint)}">
                     <input type="hidden" name="type" value="${(not empty constraint) ? (constraint) : 'all'}" />
                 </c:if>
-            <td style="vertical-align:middle;padding-bottom:2px">
                 <gsml:url var="goButton"
                           value="/res/img/button/btn_go_tp.gif"/>
                 <input type="image" src="${goButton}" class="btn" style="height: 18px; width: 21px;"
                        value="go"/>
-            </td>
-        </tr>
-        <c:if test="${showLinks == 'true'}">
-           <tr>
-            <c:if test="${showStates != 'true' and (empty showLabel or showLabel) }">
-                <td></td>
-            </c:if>
-            <td id="searchlinks" colspan="2" align="center">
-                <gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">Search near address</gsml:a>|
-                <gsml:a href="/cgi-bin/static/searchtips.html/$STATE/">Search tips</gsml:a>|
-                <gsml:a href="/search/feedback.page?state=$STATE&amp;q=${param.q}">Help us improve</gsml:a>
-            </td>
-            <td></td>
-        </tr>
-        </c:if>
-        </table>
-        <c:if test="${showStates != 'true'}">
-            <input type="hidden" name="state"
-                   value="${requestScope.context.stateOrDefault}"/>
-        </c:if>
-        <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
-            <input type="hidden" name="st" value="charter"/>
-        </c:if>
-    </gsweb:form>
+                <br />
+                <c:if test="${showLinks == 'true'}">
+                    <ul>
+                        <li><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">Search near address</gsml:a></li>
+                        <li><gsml:a href="/cgi-bin/static/searchtips.html/$STATE/">Search tips</gsml:a></li>
+                        <li><gsml:a href="/search/feedback.page?state=$STATE&amp;q=${param.q}">Help us improve</gsml:a></li>
+                    </ul>
+                </c:if>
+                <c:if test="${showStates != 'true'}">
+                    <input type="hidden" name="state"
+                           value="${requestScope.context.stateOrDefault}"/>
+                </c:if>
+                <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
+                    <input type="hidden" name="st" value="charter"/>
+                </c:if>
+            </gsweb:form>
+        </div>
+        <div id="sf_col_right">
+            <pageHelper:externalCss file="/res/css/mod/browseState.css"/>
+            <mod:browseState state="${requestScope.context.stateOrDefault}"/>
+        </div>
 
     </div>
 </jsp:root>

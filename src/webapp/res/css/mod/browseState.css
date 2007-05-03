@@ -2,15 +2,15 @@
 	BrowseState area
 */
 div.browseState {
+    margin-left: 15px;
     padding: 0 0 0 0;
 }
 
 div.browseState h2 {
     margin-top: 0px;
-    border-top: 1px solid #bbb;
-    padding-top: 5px;
+    padding-top: 8px;
     color: #000;
-    margin-bottom: 3px;
+    margin-bottom: 8px;
 }
 
 div.browseState .refinementlist {
@@ -19,4 +19,8 @@ div.browseState .refinementlist {
 
 div.browseState .refinementlist li {
     font-size: small;
+}
+
+#browseRefine {
+    border-bottom: 1px solid #bbb;
 }
