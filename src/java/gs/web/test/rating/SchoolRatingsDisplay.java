@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolRatingsDisplay.java,v 1.25 2007/03/29 00:00:19 droy Exp $
+ * $Id: SchoolRatingsDisplay.java,v 1.26 2007/05/03 16:45:57 dlee Exp $
  */
 
 package gs.web.test.rating;
@@ -34,7 +34,7 @@ public class SchoolRatingsDisplay implements IRatingsDisplay {
         _ratingsConfig = ratingsConfig;
 
         _rawResults = testDataSetDao.findAllRawResults(school,
-                new int [] {ratingsConfig.getYear() - 1, ratingsConfig.getYear()}, true);
+                new int [] {ratingsConfig.getYear()}, true);
 
         Grades grades = school.getGradeLevels();
 
