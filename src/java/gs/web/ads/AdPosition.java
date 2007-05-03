@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdPosition.java,v 1.7 2007/03/03 00:39:40 dlee Exp $
+ * $Id: AdPosition.java,v 1.8 2007/05/03 00:32:44 dlee Exp $
  */
 package gs.web.ads;
 
@@ -35,6 +35,13 @@ public class AdPosition extends Enum {
      */
     public static final AdPosition X_24 = new AdPosition("x24");
 
+
+    /**
+     * footer 728x90 on perl article pages
+     */
+    public static final AdPosition X_25 = new AdPosition("x25");
+
+
     /**
      * skyscraper 160x600
      */
@@ -44,6 +51,12 @@ public class AdPosition extends Enum {
      * box ad 300x250
      */
     public static final AdPosition X_40 = new AdPosition("x40");
+
+
+    /**
+     * expando ad 300x250 or 600x250
+     */
+    public static final AdPosition X_47 = new AdPosition("x47");
 
     /**
      * First box ad on school profile pages 300x250
