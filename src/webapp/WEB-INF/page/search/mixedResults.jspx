@@ -32,6 +32,7 @@
 <pageHelper:externalCss file="/res/css/search/mixedResults.css"/>
 <c:set var="hasCityResults" value="false"/>
 <c:set var="hasDistrictResults" value="false"/>
+<gsml:equalizeColumns ids="'col_left','col_right'"/>
 <div id="col_left">
     <div id="resultsheader">
         <table width="100%">
@@ -110,6 +111,8 @@
     <ad:x49/>
     <ad:x50/>
 </div>
+
+<br clear="left"/>
 
 <c:choose>
     <c:when test="${(param.c eq 'topic') or (param.c eq 'article') or (param.type eq 'topic')}">
