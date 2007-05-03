@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CityController.java,v 1.43 2007/01/02 20:09:16 cpickslay Exp $
+ * $Id: CityController.java,v 1.44 2007/05/03 00:42:36 dlee Exp $
  */
 
 package gs.web.geo;
@@ -11,7 +11,6 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.data.state.StateManager;
-import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
@@ -139,20 +138,17 @@ public class CityController extends AbstractController {
         AnchorListModel districtAnchorList = _anchorListModelFactory.createDistrictList(state, cityNameParam, request);
         model.put(MODEL_DISTRICTS, districtAnchorList);
 
-        //TODO replace with isRatingState() once all previous old rating states have been converteed to new rating states
-        if (state.isNewRatingsState()) {
-            List topRatedSchools;
-            topRatedSchools = _schoolDao.findTopRatedSchoolsInCity(city, 1, null, 5);
-            if (topRatedSchools.size() > 0) {
-                model.put(MODEL_TOP_RATED_SCHOOLS, topRatedSchools);
+        List topRatedSchools;
+        topRatedSchools = _schoolDao.findTopRatedSchoolsInCity(city, 1, null, 5);
+        if (topRatedSchools.size() > 0) {
+            model.put(MODEL_TOP_RATED_SCHOOLS, topRatedSchools);
 
-                List schools = new ArrayList(topRatedSchools.size());
-                for (ListIterator iter = topRatedSchools.listIterator(); iter.hasNext();) {
-                    ISchoolDao.ITopRatedSchool s = (ISchoolDao.ITopRatedSchool) iter.next();
-                    schools.add(s.getSchool());
-                }
-                model.put(MODEL_SCHOOLS, schools);
+            List schools = new ArrayList(topRatedSchools.size());
+            for (ListIterator iter = topRatedSchools.listIterator(); iter.hasNext();) {
+                ISchoolDao.ITopRatedSchool s = (ISchoolDao.ITopRatedSchool) iter.next();
+                schools.add(s.getSchool());
             }
+            model.put(MODEL_SCHOOLS, schools);
         }
 
 

@@ -227,7 +227,7 @@
                     Overview
                 </link:schoolProfileOverview>
             </td>
-            <c:if test="${schoolType != 'private' and state.ratingsState}">
+            <c:if test="${schoolType != 'private'}">
                 <td>
                     <link:schoolProfileRating school="${school}" styleClass="${(tab eq 'ratings') ? 'on' : ''}"
                                               title="${school.name} GreatSchools Ratings">

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.60 2007/04/09 20:35:18 dlee Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.61 2007/05/03 00:42:36 dlee Exp $
  */
 
 package gs.web.util;
@@ -173,10 +173,6 @@ public class UrlBuilderSaTest extends TestCase {
         builder = new UrlBuilder(school, UrlBuilder.COMPARE_SCHOOL);
         assertEquals("/cgi-bin/cs_compare/wy/",
                 builder.asSiteRelativeXml(null));
-        
-        //wy not a ratings state anymore
-        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_RATINGS);
-        assertEquals("/school/rating.page?id=8&amp;state=WY", builder.asSiteRelativeXml(null));
 
         school.setDatabaseState(State.CA);
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_RATINGS);
