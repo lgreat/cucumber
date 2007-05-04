@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.34 2007/02/01 23:59:04 chriskimm Exp $
+ * $Id: PageHelper.java,v 1.35 2007/05/04 17:00:44 aroy Exp $
  */
 
 package gs.web.util;
@@ -96,6 +96,17 @@ public class PageHelper {
         }
     }
 
+    /**
+     * Adds the given code to the onload script of the body tag.
+     */
+    public static void addOnunloadHandler(HttpServletRequest request, String javascript) {
+        PageHelper pageHelper = getInstance(request);
+        if (pageHelper != null) {
+            pageHelper.addOnunloadHandler(javascript);
+        } else {
+            _log.error("No PageHelper object available.");
+        }
+    }
 
     /**
      * Adds the referenced code file to the list of files to be included at the top of the file. The sitemsh decorator
@@ -149,6 +160,7 @@ public class PageHelper {
 
     private static final Log _log = LogFactory.getLog(PageHelper.class);
     private String _onload = "";
+    private String _onunload = "";
 
     //Insertion order is probably important so we'll used LinkedHashSet
     private Set _javascriptFiles;
@@ -290,6 +302,13 @@ public class PageHelper {
         return _onload;
     }
 
+    /**
+     * @return A String of the onunload script(s) to be included in the body tag.
+     */
+    public String getOnunload() {
+        return _onunload;
+    }
+
     private void setShowingHeader(boolean showingHeader) {
         _showingHeader = showingHeader;
     }
@@ -308,6 +327,19 @@ public class PageHelper {
                 _onload += ";";
             }
             _onload += javascript;
+        }
+    }
+
+    private void addOnunloadHandler(String javascript) {
+        if (javascript.indexOf('\"') != -1) {
+            throw new IllegalArgumentException("Quotes not coded correctly.");
+        }
+
+        if (!StringUtils.contains(_onunload, javascript)) {
+            if (StringUtils.isNotEmpty(_onunload)) {
+                _onunload += ";";
+            }
+            _onunload += javascript;
         }
     }
 

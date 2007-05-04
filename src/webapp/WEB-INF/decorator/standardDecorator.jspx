@@ -60,7 +60,7 @@
 
 </head>
 
-<body onload="${requestScope.pageHelper.onload}" class="${bodyClass}">
+<body onload="${requestScope.pageHelper.onload}" onunload="${requestScope.pageHelper.onunload}" class="${bodyClass}">
 <cobrand:framebuster/>
 <div id="marginGS" class="marginGS">
     <jsp:include page="/header/cobrand.module"/>

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.26 2007/03/13 23:58:58 aroy Exp $
+ * $Id: PageHelperSaTest.java,v 1.27 2007/05/04 17:00:44 aroy Exp $
  */
 
 package gs.web.util;
@@ -175,6 +175,33 @@ public class PageHelperSaTest extends TestCase {
         assertEquals("window.alert('Hi');window.alert('World')", pageHelper.getOnload());
     }
 
+    public void testOnunload() {
+        SessionContext sessionContext = new MockSessionContext();
+        PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+
+        assertEquals("", pageHelper.getOnunload());
+
+        PageHelper.addOnunloadHandler(_request, "window.alert('Hi')");
+        assertEquals("window.alert('Hi')", pageHelper.getOnunload());
+        PageHelper.addOnunloadHandler(_request, "window.alert('World')");
+        assertEquals("window.alert('Hi');window.alert('World')", pageHelper.getOnunload());
+
+        try {
+            PageHelper.addOnunloadHandler(_request, "don't allow \"quotes\"");
+            fail("quotes were allowed to be inserted");
+        } catch (IllegalArgumentException e) {
+            // good, I didn't write code to handle that yet.
+        }
+
+        //add javascript that already exists in the onunload
+        PageHelper.addOnunloadHandler(_request, "window.alert('Hi')");
+        PageHelper.addOnunloadHandler(_request, "window.alert('World')");
+        PageHelper.addOnunloadHandler(_request, "window.alert('Hi')");
+        PageHelper.addOnunloadHandler(_request, "window.alert('World')");
+        assertEquals("window.alert('Hi');window.alert('World')", pageHelper.getOnunload());
+    }
 
     public void testJavascriptAndCssInclude() {
         SessionContext sessionContext = new MockSessionContext();

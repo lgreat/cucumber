@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          >
+    <jsp:directive.tag body-content="empty"
+                       description="Convenience method to add an on-unload handler. It is the sitemesh decorator's reponsibility to include the proper code."/>
+    <jsp:directive.attribute name="handler" required="true"/>
+    <jsp:scriptlet>
+        gs.web.util.PageHelper.addOnunloadHandler(request, handler);
+    </jsp:scriptlet>
+
+</jsp:root>

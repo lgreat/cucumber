@@ -26,5 +26,6 @@
     </jsp:scriptlet>
     <pageHelper:externalJavascript
             file="http://maps.google.com/maps?file=api&amp;v=2&amp;key=${requestScope.key}"/>
+    <pageHelper:addOnunloadHandler handler="try {GUnload();} catch (e) {};"/>
 
 </jsp:root>

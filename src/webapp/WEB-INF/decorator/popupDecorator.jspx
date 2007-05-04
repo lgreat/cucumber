@@ -34,7 +34,7 @@
     ${requestScope.pageHelper.headElements}
 </head>
 
-<body onload="${requestScope.pageHelper.onload}">
+<body onload="${requestScope.pageHelper.onload}" onunload="${requestScope.pageHelper.onunload}">
 <div id="marginGS">
     <decorator:body/>
 </div>
