@@ -5,22 +5,21 @@
 }
 
 .textAd {
+    font-family: "Trebuchet MS", Arial, sans-serif;
     text-align: left;
     font-size: 12px;
 }
 
-.multiTextAd .textAd a {
-    font-family: "Trebuchet MS", Arial, sans-serif;
+.textAd a:link {
     font-weight: bold;
     color: #3399aa;
 }
 
 .multiTextAd {
     color: #666;
-    padding: 5px 0 5px 0;
-    border-top: 1px solid #dddddd;
-    border-bottom: 1px solid #dddddd;
-    padding-left: 32px;
+    border-top: 0;
+    border-bottom: 0;
+    padding: 0;
 }
 
 .multiTextAd .hr {
@@ -51,10 +50,4 @@
 #adx49, #adx50, #adx51 {
     padding-left: 32px;
     width:265px;
-}
-
-.multiTextAd {
-    border-top: 0;
-    border-bottom: 0;
-    padding: 0;
 }
