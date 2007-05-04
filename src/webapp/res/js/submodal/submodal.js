@@ -428,7 +428,7 @@ function modalWindowHtml(title,showCloseWindow) {
         '</div>' +
         '<iframe src="javascript:parent.frameLoading()" style="width:100%;height:100%;background-color:transparent;" scrolling="no" frameborder="0" allowtransparency="true" id="popupFrame" name="popupFrame" width="100%" height="100%"></iframe>';
         if (showCloseWindow) {
-            html += '<div id="popupCloseBtn"><div class="left">All information brought to you by:</div><div class="leftlogo"></div><div class="right"><a onclick="hidePopWin(false);"><span>Close</span></a></div></div>';
+            html += '<div id="popupCloseBtn"><div class="left">All newsletters brought to you by:</div><div class="leftlogo"></div><div class="right"><a onclick="hidePopWin(false);"><span>Close</span></a></div></div>';
         }
         html += '</div>';
     return html;

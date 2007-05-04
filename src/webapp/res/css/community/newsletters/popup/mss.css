@@ -5,6 +5,7 @@
     font-size:12px;
     width: 480px;
     text-align:left;
+    color:#666666;
 }
 
 .header {
@@ -71,7 +72,7 @@ a:active {
 }
 
 .promo h3.gradebygrade {
-    margin-top:0;
+    margin:0 0 5px 0;
     padding:0 0 0 15px;
     font-size: 22px;
     color:#3399AA;
