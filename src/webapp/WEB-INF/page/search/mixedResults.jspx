@@ -35,45 +35,39 @@
 <gsml:equalizeColumns ids="'col_left','col_right'"/>
 <div id="col_left">
     <div id="resultsheader">
-        <table width="100%">
-            <tr>
-                <td align="left">
+        <div id="rh_col_left">
                     ${heading1}
-                </td>
-                <td align="right">
+        </div>
+        <div id="rh_col_right">
                     <c:if test="${total gt 0}">
                         <c:set var="page" value="${(param.p > 0) ? (param.p-1) : 0}"/>
                         <c:set var="px" value="${(page * 10)}"/>
                         <c:out value="${px + 1} - ${(total lt px + 10) ? (total) : (px + 10)} of ${total}"/>
                     </c:if>
-                </td>
-            </tr>
-        </table>
+        </div>
     </div>
-
-    <div class="rollup">
         <c:if test="${not empty filteredCities and not empty filteredCities.results}">
             <c:set var="hasCityResults" value="true"/>
-            <div id="filtered">
+            <div id="filtered" class="rollup">
                 <gsml:list model="${filteredCities}" between="&#160;|&#160;"/>
             </div>
         </c:if>
 
         <c:if test="${not empty cities and not empty cities.results}">
             <c:set var="hasCityResults" value="true"/>
-            <div class="city">
+            <div class="rollup city">
                 <gsml:list model="${cities}" between="&#160;|&#160;"/>
             </div>
         </c:if>
 
         <c:if test="${not empty districts and not empty districts.results}">
             <c:set var="hasDistrictResults" value="true"/>
-            <div class="district">
+            <div class="rollup district">
                 <gsml:list model="${districts}" between="&#160;|&#160;"/>
             </div>
         </c:if>
-    </div>
 
+    <div id="searchResults">
     <gsweb:mainResults results="${mainResults}"
                        total="${total}"
                        debug="${param.debug}">
@@ -103,6 +97,7 @@
             </c:if>
         </div>
     </gsweb:mainResults>
+    </div>
 
 </div>
 <div id="col_right">

@@ -10,6 +10,67 @@
     float: right;
 }
 
+#resultsheader {
+    float: left;
+    font-size: medium;
+    padding: 5px 0 10px 0;
+    border-bottom: 1px solid #bbb;
+    margin-bottom: 5px;
+    width: 525px;
+}
+
+#resultsheader #rh_col_left {
+    width: 400px;
+    float: left;
+}
+
+#resultsheader #rh_col_right {
+    width: 100px;
+    float: right;
+    text-align: right;
+}
+
+/*
+City and district rollups
+*/
+.rollup {
+    float: left;
+    width: 525px;
+    padding-top: 5px;
+    font-size: medium;
+    margin-top: 5px;
+    border-bottom: 1px solid #bbb;
+}
+
+.rollup  h3 {
+    background-image: url( /res/img/bullet/orange_arrow_right_trans.gif );
+    background-repeat: no-repeat;
+    background-position: .1em .4em;
+    padding: 5px 0 0 18px;
+    margin-top: 5px;
+    display: inline;
+}
+
+.rollup ul {
+    margin: 0 0 5px 18px;
+    /*border-bottom: 1px solid #bbb;*/
+    padding-bottom: 5px;
+}
+
+.rollup ul li {
+    padding: 0;
+    display: inline;
+}
+
+.rollup ul li.last {
+    border-right-width: 0;
+}
+
+#searchResults {
+    float: left;
+    width: 495px;
+}
+
 #searchFooter {
     float: left;
     width: 495px;
@@ -261,44 +322,5 @@ tr td.checkbox {
 }
 
 
-div#resultsheader {
-    font-size: medium;
-    padding-bottom: 4px;
-    border-bottom: 1px solid #bbb;
-    margin-bottom: 5px;
-}
 
-/*
-City and district rollups
-*/
-.rollup {
-    padding: 5px;
-    font-size: medium;
-    margin-top: 5px;
-
-}
-
-.rollup  h3 {
-    background-image: url( /res/img/bullet/orange_arrow_right_trans.gif );
-    background-repeat: no-repeat;
-    background-position: .1em .4em;
-    padding: 5px 0 0 18px;
-    margin-top: 5px;
-    display: inline;
-}
-
-.rollup ul {
-    margin: 0 0 5px 18px;
-    border-bottom: 1px solid #bbb;
-    padding-bottom: 5px;
-}
-
-.rollup ul li {
-    padding: 0;
-    display: inline;
-}
-
-.rollup ul li.last {
-    border-right-width: 0;
-}
 
