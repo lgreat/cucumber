@@ -27,7 +27,6 @@
 
 
     <div class="globalSearch">
-        <gsml:equalizeColumns ids="'sf_col_left','sf_col_right'"/>
         <div id="sf_col_left">
             <gsweb:form id="searchform" method="get" action="/search/search.page">
                 <c:if test="${showStates == 'true'}">
