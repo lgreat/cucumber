@@ -63,9 +63,10 @@ City and district rollups
     border-right-width: 0;
 }
 
+/* this is wider than the column because the pagination links have right-padding applied */
 #searchResults {
     float: left;
-    width: 495px;
+    width: 535px;
     padding-top: 10px;
 }
 
