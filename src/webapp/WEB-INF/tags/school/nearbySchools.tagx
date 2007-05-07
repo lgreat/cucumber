@@ -73,10 +73,10 @@
                             </c:if>
                         </li>
                     </c:forEach>
+                    <li id="nearMore"><link:schoolCompareSchool school="${school}">More nearby schools&#160;&#62;</link:schoolCompareSchool></li>
                     <c:if test="${school.type.schoolTypeName != 'private'}">
                         <li id="nearDistrict"><link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name} schools&#160;&#62;</link:allSchoolsInDistrict></li>
                     </c:if>
-                    <li id="nearMore"><link:schoolCompareSchool school="${school}">More nearby schools&#160;&#62;</link:schoolCompareSchool></li>
                 </ul>
             </div>
         </div>
