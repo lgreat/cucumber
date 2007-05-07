@@ -117,9 +117,15 @@
 
                             <td class="dottedLineBottomBox"><gsml:a
                                     href="${hrefbase}${s.school.id}">${s.name}</gsml:a></td>
-                            <td style="text-align: right" class="dottedLineBottomBox"><gsml:img
-                                    src="/res/img/school/ratings/${s.rating}.gif"
-                                    alt="GreatSchools Rating: ${s.rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."/></td>
+                            <td style="text-align: right" class="dottedLineBottomBox">
+                                <c:set var="ratingValue" value="na"/>
+                                <c:if test="${not empty s.rating}">
+                                    <c:set var="ratingValue" value="${s.rating}"/>
+                                </c:if>
+                                <gsml:img
+                                    src="/res/img/school/ratings/${ratingValue}.gif"
+                                    alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                            </td>
                         </tr>
                     </c:forEach>
                 </table>
