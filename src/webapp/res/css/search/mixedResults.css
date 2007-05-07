@@ -73,7 +73,7 @@ City and district rollups
 #searchFooter {
     float: left;
     width: 487px;
-    margin-top: 3ex;
+    margin-top: 1ex;
     padding: 8px 15px 8px 23px;
     background-color: #eee;
     border: 1px solid #bbb;
@@ -90,13 +90,18 @@ City and district rollups
     padding: 5px 0 5px 0;
 }
 
-#searchFooter ul {
+#suggestions h4 {
+    font-size: medium;
+    padding: 0 0 5px 0;
+}
+
+#searchFooter ul, #suggestions ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-#searchFooter li {
+#searchFooter li, #suggestions li {
     padding-bottom: 8px;
 }
 
