@@ -68,30 +68,28 @@
     Schools
 </h2>
 <table width="100%" cellpadding="0" cellspacing="0"><tr>
-    <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+    <c:if test="${requestScope.context.cobrand ne 'yahooed' and not empty cityObject and not empty cityObject.lon and not empty cityObject.lat and not empty schools}">
         <td style="width:230px; vertical-align: top">
             <div id="mapContainer">
                 <div id="map">&#160;<noscript>JavaScript is required in order to view a map of the city and its
                     schools.</noscript></div>
             </div>
 
-            <c:if test="${not empty cityObject and not empty cityObject.lon and not empty cityObject.lat and not empty schools}">
-                <c:if test="${empty requestScope.topRatedSchools}">
-                    <table style="font-size:x-small;width: 100%;margin-top:0;padding-top:0">
-                        <tr><td style="font-weight: normal">Showing 1-${fn:length(schools)} of ${schoolCount}
-                            school${schoolCount > 1 ? 's':''}</td><td
-                                style="font-weight: bold;text-align: right"><gsml:a
-                                href="/schools.page?city=${cityObject.name}&amp;map=1&amp;state=$STATE">View Larger
-                            Map</gsml:a>
-                        </td>
-                        </tr>
-                    </table>
-                </c:if>
-                <map:schools id="map"
-                             lon="${cityObject.lon}" lat="${cityObject.lat}"
-                             tooltips="true"
-                             schools="${schools}"/>
+            <c:if test="${empty requestScope.topRatedSchools}">
+                <table style="font-size:x-small;width: 100%;margin-top:0;padding-top:0">
+                    <tr><td style="font-weight: normal">Showing 1-${fn:length(schools)} of ${schoolCount}
+                        school${schoolCount > 1 ? 's':''}</td><td
+                            style="font-weight: bold;text-align: right"><gsml:a
+                            href="/schools.page?city=${cityObject.name}&amp;map=1&amp;state=$STATE">View Larger
+                        Map</gsml:a>
+                    </td>
+                    </tr>
+                </table>
             </c:if>
+            <map:schools id="map"
+                         lon="${cityObject.lon}" lat="${cityObject.lat}"
+                         tooltips="true"
+                         schools="${schools}"/>
         </td>
     </c:if>
     <td style="vertical-align: top; padding-left: .3em">
