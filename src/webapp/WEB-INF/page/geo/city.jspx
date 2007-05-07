@@ -75,7 +75,7 @@
                     schools.</noscript></div>
             </div>
 
-            <c:if test="${not empty cityObject and not empty cityObject.lon and not empty cityObject.lat}">
+            <c:if test="${not empty cityObject and not empty cityObject.lon and not empty cityObject.lat and not empty schools}">
                 <c:if test="${empty requestScope.topRatedSchools}">
                     <table style="font-size:x-small;width: 100%;margin-top:0;padding-top:0">
                         <tr><td style="font-weight: normal">Showing 1-${fn:length(schools)} of ${schoolCount}
@@ -119,7 +119,8 @@
                                     href="${hrefbase}${s.school.id}">${s.name}</gsml:a></td>
                             <td style="text-align: right" class="dottedLineBottomBox">
                                 <c:set var="ratingValue" value="na"/>
-                                <c:if test="${not empty s.rating}">
+                                <!-- top rated school interface return int, not Integer so we don't check for empty-->
+                                <c:if test="${s.rating > 0}">
                                     <c:set var="ratingValue" value="${s.rating}"/>
                                 </c:if>
                                 <gsml:img
