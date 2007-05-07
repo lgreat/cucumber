@@ -63,10 +63,9 @@ City and district rollups
     border-right-width: 0;
 }
 
-/* this is wider than the column because the pagination links have right-padding applied */
 #searchResults {
     float: left;
-    width: 535px;
+    width: 525px;
     padding-top: 10px;
 }
 
@@ -134,7 +133,14 @@ City and district rollups
     padding-top: 7px;
 }
 
+.results_pagenav a.pad {
+    padding: 0 0 0 10px;
+}
 
+.active {
+    color: #000;
+    padding-left: 10px
+}
 
 
 
@@ -209,11 +215,6 @@ td.results_pagenav {
     font-weight: normal;
     font-size: 80%;
     white-space: nowrap;
-}
-
-.active {
-    color: #000;
-    padding-right: 10px
 }
 
 tr.last_row td {
