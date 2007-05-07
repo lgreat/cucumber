@@ -52,6 +52,10 @@ District Overview
     list-style: none;
 }
 
+#districtMainList li {
+    width: 300px;
+}
+
 #districtMainList li a, #districtMainList li a:hover {
 	font: bold 13px/22px Trebuchet MS, sans-serif;
 	color: #39a;
