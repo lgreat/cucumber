@@ -8,12 +8,11 @@ District Overview
 
 #districtOverview {
 	width: 864px;
-	_width: 866px; /* IE 6 hack */
 	float: left;
-	margin: 1px 0 30px 0; /* bottom margin is arbitrary and can be changed once code is implemented */
+	margin: 5px 0 30px 0; /* bottom margin is arbitrary and can be changed once code is implemented */
 }
 
-#districtOverview p {
+#districtOverview #districtDetails p {
 	font: 12px/16px Trebuchet MS, sans-serif;
 	color: #666;
 }
@@ -31,7 +30,7 @@ District Overview
 
 #districtOverview #col_left h2 {
 	color: #5bc;
-	font: bold 18px/20px Trebuchet MS, sans-serif;
+	font: bold 17px/20px Trebuchet MS, sans-serif;
 	margin: 14px 10px 16px 184px;
 	padding: 0;
 }
@@ -184,7 +183,6 @@ District Overview
 #col_right {
 	width: 300px;
 	float: right;
-	_margin: 0 2px 0 0; /* IE 6 hack */
 }
 
 .clear {
