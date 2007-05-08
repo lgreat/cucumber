@@ -246,7 +246,7 @@
 
             <c:if test="${schoolType != 'private'}" >
                 <td>
-                    <link:schoolProfileTestscore school="${school}" title="${school.name} Academic Performance">
+                    <link:schoolProfileTestscore school="${school}" title="${school.name} Test Scores">
                         Test<br/>
                         Scores
                     </link:schoolProfileTestscore>
