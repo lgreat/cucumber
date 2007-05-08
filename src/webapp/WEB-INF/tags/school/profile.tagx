@@ -146,7 +146,7 @@
 
     <!-- begin tool links -->
     <div id="tools">
-        <link:mySchoolList school="${school}" styleClass="add" title="Add to Saved Schools">Add to Saved Schools</link:mySchoolList>
+        <link:mySchoolList school="${school}" styleClass="add" title="Add to My School List">Add to My School List</link:mySchoolList>
 
         <p>&amp;nbsp;|&amp;nbsp;</p><!-- pipe divider as opposed to link border, as per client request -->
         <link:schoolProfileAddParentReview school="${school}" styleClass="rate" title="Rate it!">
