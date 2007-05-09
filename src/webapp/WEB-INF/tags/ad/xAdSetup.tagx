@@ -63,7 +63,7 @@
 
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         if (null != pageHelper) {
-            List<String> adSlots = pageHelper.getAdSlots();
+            List adSlots = pageHelper.getAdSlots();
             request.setAttribute("adSlots", StringUtils.join(adSlots.toArray(), ","));
         }
         ]]></jsp:scriptlet>
