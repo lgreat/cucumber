@@ -1,8 +1,8 @@
 #col_left {
     width: 525px;
     float: left;
-    border-right: 1px solid #bbb;
-    padding: 10px 10px 10px 17px;
+    border-right: 1px solid #ccc;
+    padding: 0 10px 0 17px;
 }
 
 #col_right {
@@ -13,8 +13,8 @@
 #resultsheader {
     float: left;
     font-size: medium;
-    padding: 5px 0 10px 0;
-    border-bottom: 1px solid #bbb;
+    padding: 15px 0 10px 0;
+    border-bottom: 1px solid #ccc;
     margin-bottom: 5px;
     width: 525px;
 }
@@ -39,7 +39,7 @@ City and district rollups
     padding-left: 5px;
     margin-bottom: 5px;
     font-size: medium;
-    border-bottom: 1px solid #bbb;
+    border-bottom: 1px solid #ccc;
 }
 
 .rollup  h3 {
@@ -76,7 +76,7 @@ City and district rollups
     margin-top: 1ex;
     padding: 8px 15px 8px 23px;
     background-color: #eee;
-    border: 1px solid #bbb;
+    border: 1px solid #ccc;
     border-width: 1px 0 1px 0;
 }
 
@@ -130,7 +130,7 @@ City and district rollups
 #searchFooter #sf_col_left {
     width: 272px;
     float: left;
-    border-right: 1px solid #bbb;
+    border-right: 1px solid #ccc;
     padding: 10px 0 5px 0;
 }
 
@@ -138,6 +138,7 @@ City and district rollups
     width: 170px;
     float: left;
     padding-top: 7px;
+    padding-left: 20px;
 }
 
 .results_pagenav a.pad {
@@ -148,7 +149,6 @@ City and district rollups
     color: #000;
     padding-left: 10px
 }
-
 
 
 
