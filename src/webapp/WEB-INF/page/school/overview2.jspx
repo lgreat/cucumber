@@ -23,9 +23,6 @@
 
 <jsp:directive.page contentType="text/html"/>
 
-<jsp:scriptlet>
-    gs.web.util.PageHelper.setAdServerControlledFooterAd(request, true);
-</jsp:scriptlet>
 
 <c:set var="school" value="${school}"/>
 <c:set var="city" value="${school.physicalAddress.city}"/>

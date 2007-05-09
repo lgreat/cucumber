@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.37 2007/05/09 20:12:48 dlee Exp $
+ * $Id: PageHelper.java,v 1.38 2007/05/09 20:14:36 dlee Exp $
  */
 
 package gs.web.util;
@@ -146,7 +146,6 @@ public class PageHelper {
     private boolean _showingFooter = true;
     private boolean _showingFooterAd = true;
     private boolean _betaPage = false;
-    private boolean _adServerFooterAd = false;
 
     private static final Log _log = LogFactory.getLog(PageHelper.class);
     private String _onload = "";

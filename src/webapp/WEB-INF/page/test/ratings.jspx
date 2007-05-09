@@ -25,9 +25,6 @@
 
 <jsp:directive.page contentType="text/html"/>
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
-<jsp:scriptlet>
-    gs.web.util.PageHelper.setAdServerControlledFooterAd(request, true);
-</jsp:scriptlet>
 
 
 <c:set var="school" value="${ratingsCmd.school}"/>
