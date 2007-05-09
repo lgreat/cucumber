@@ -80,12 +80,12 @@ public class SchoolTableHeaderTagHandlerTest extends BaseControllerTestCase {
         out.clear();
         _tag.possiblyAddLinebreak("Alameda", out);
         assertEquals("linebreak should not be written for short input", "",
-                out.getOutputBuffer().toString());
+                out.getOutputBuffer().toString().trim());
 
         out.clear();
         _tag.possiblyAddLinebreak("Alameda County District Court of Appeals", out);
         assertEquals("linebreak should be written for long input", "<br/>",
-                out.getOutputBuffer().toString());
+                out.getOutputBuffer().toString().trim());
     }
     /**
      * A more easily testable version of the tag handler
