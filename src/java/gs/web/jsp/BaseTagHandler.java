@@ -6,16 +6,12 @@ import gs.data.school.School;
 import gs.data.school.district.IDistrictDao;
 import gs.data.state.State;
 import gs.web.util.context.SessionContext;
-import gs.web.util.context.SessionContext;
 import org.apache.log4j.Logger;
-import org.apache.taglibs.standard.functions.Functions;
 import org.springframework.context.ApplicationContext;
 
 import javax.servlet.jsp.JspContext;
-import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
-import java.io.IOException;
 
 /**
  * This abstract class provides access to varios DAOs.
@@ -41,6 +37,7 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
 
     /**
      * Used for unit testing.
+     * @param context Spring ApplicationContext
      */
     public void setApplicationContext(ApplicationContext context) {
         _applicationContext = context;
@@ -68,6 +65,8 @@ public abstract class BaseTagHandler extends SimpleTagSupport {
      * the state or id parameters are null, null will be returned.  Excepections
      * throws by the schoolDao are swallowed and logged in this method.
      *
+     * @param state a State type
+     * @param id the database id of the school
      * @return a <code>School</code> object or null
      */
     protected School getSchool(State state, Integer id) {
