@@ -41,7 +41,6 @@ Note, main layout table is identified by .leftcol, .col2, .rightcolumn
 TODO: name consistently.
 */
 .leftcol,
-    .rightcolumn,
     .leftcol .main {
     width: 160px;
 }
@@ -129,7 +128,6 @@ td.middleColumn {
     font-weight: 700;
     padding-left: 2px;
 }
-
 
 .resultsheadline {
     display: inline;
