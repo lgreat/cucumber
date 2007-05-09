@@ -9,6 +9,8 @@ import gs.web.jsp.MockPageContext;
 import gs.web.jsp.MockJspWriter;
 import gs.web.BaseControllerTestCase;
 import gs.data.state.State;
+import gs.data.school.LevelCode;
+import gs.data.school.SchoolType;
 
 /**
  * @author thuss
@@ -17,13 +19,13 @@ public class SchoolTableHeaderTagHandlerTest extends BaseControllerTestCase {
     private SchoolTableHeaderTagHandlerTestCase _tag;
     private MockPageContext _jspContext;
 
-    public void setUp() {
+    public void setUp() throws Exception {
+        super.setUp();
         MockPageContext jspContext = new MockPageContext();
         _jspContext = jspContext;
         _jspContext.setAttribute(PageContext.PAGECONTEXT, jspContext);
         _tag = new SchoolTableHeaderTagHandlerTestCase();
         _tag.setApplicationContext(getApplicationContext());
-
         _tag.setJspContext(jspContext);
 
     }
@@ -54,6 +56,24 @@ public class SchoolTableHeaderTagHandlerTest extends BaseControllerTestCase {
         assertTrue(output.indexOf("/city/Long_City_Name/AK") > -1);
     }
 
+    public void testCreateFilterBuffer() throws Exception {
+        String expected = "Elementary (<a href=\"/schools.page?city=Alameda&amp;state=CA\">remove</a>)";
+        _tag.setLevelCode(LevelCode.ELEMENTARY);
+        StringBuffer result = _tag.createFilterBuffer("city=Alameda&amp;state=CA&amp;lc=e", getRequest());
+        assertEquals(expected, result.toString());
+
+        expected = "Elementary (<a href=\"/schools.page?city=Alameda&state=CA\">remove</a>)";
+        result = _tag.createFilterBuffer("city=Alameda&state=CA&lc=e", getRequest());
+        assertEquals(expected, result.toString());
+
+
+        expected = "Public (<a href=\"/schools.page?city=Alameda&amp;state=CA\">remove</a>)";
+        _tag.setLevelCode(null);
+        _tag.setSchoolType(new String[] {SchoolType.PUBLIC.getSchoolTypeName()});
+        result = _tag.createFilterBuffer("city=Alameda&amp;state=CA&amp;st=public", getRequest());
+        assertEquals(expected, result.toString());
+    }
+
     /**
      * A more easily testable version of the tag handler
      */
@@ -73,5 +93,4 @@ public class SchoolTableHeaderTagHandlerTest extends BaseControllerTestCase {
             return State.AK;
         }
     }
-
 }

@@ -145,36 +145,32 @@
 <gsml:body adPageName="search">
 <c:set var="state" value="${requestScope.context.stateOrDefault}"/>
 <pageHelper:externalCss file="/res/css/school/schoolsTable.css"/>
-<table id="main" width="100%"><tr>
+<table id="main" width="100%" cellspacing="0"><tr>
     <td class="leftcol" id="leftsearchcolumn" valign="top">
         <div class="filters">
-            <jsp:include
-                    page="/search/schoolFilters.module?${pageContext.request.queryString}"/>
+            <jsp:include page="/search/schoolFilters.module?${pageContext.request.queryString}"/>
         </div>
 
         <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
             <c:if test="${param.map ne 1 and results.total gt 0}">
                 <div class="mapIt"><p>
-                <gsml:a href="/schools.page?map=1&amp;${queryStringNoMap}">
-                    <gsml:img src="/res/img/geo/btn_map_it.gif" alt="map it"/>
-                    <br/><br/>See results on our<br />interactive local map
-                </gsml:a></p>
+                    <gsml:a href="/schools.page?map=1&amp;${queryStringNoMap}">
+                        <gsml:img src="/res/img/geo/btn_map_it.gif" alt="map it"/>
+                        <br/><br/>See results on our<br />interactive local map
+                    </gsml:a></p>
                 </div>
             </c:if>
             <c:if test="${param.map eq 1 }">
                 <div class="mapIt">
-                <gsml:a href="/schools.page?map=0&amp;${queryStringNoMap}">
-                    <gsml:img src="/res/img/geo/btn_map_it.gif" alt="map it"/>
-
-                    <h4>Hide Map</h4>
-                </gsml:a>
-</div>
+                    <gsml:a href="/schools.page?map=0&amp;${queryStringNoMap}">
+                        <gsml:img src="/res/img/geo/btn_map_it.gif" alt="map it"/>
+                        <h4>Hide Map</h4>
+                    </gsml:a>
+                </div>
             </c:if>
         </c:if>
-
         <pageHelper:externalCss file="/res/css/mod/browseState.css"/>
         <mod:browseState state="${state}"/>
-
     </td>
     <td valign="top" class="middleColumn">
 

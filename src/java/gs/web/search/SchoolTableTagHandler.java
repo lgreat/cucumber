@@ -74,9 +74,11 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
             }
 
             // grey bar separator
-            out.print("<tr><td colspan=\"2\" id=\"barseparator\">");
-            out.print("<img src=\"/res/img/pixel.gif\"/>");
-            out.println("</td></tr>");
+            if (!showall && (_total > PAGE_SIZE)) {
+                out.print("<tr><td colspan=\"2\" id=\"barseparator\">");
+                out.print("<img src=\"/res/img/pixel.gif\" alt=\"pixel\"/>");
+                out.println("</td></tr>");
+            }
 
             // page numbers
             out.println("<tr><td class=\"results_pagenav\" align=\"right\" colspan=\"2\">");
@@ -103,7 +105,7 @@ public class SchoolTableTagHandler extends ResultsTableTagHandler {
 
             // thin grey separator
             out.print("<tr><td colspan=\"2\" id=\"lineseparator\">");
-            out.print("<img src=\"/res/img/pixel.gif\"/>");
+            out.print("<img src=\"/res/img/pixel.gif\" alt=\"pixel\"/>");
             out.println("</td></tr>");
 
             // compare buttons

@@ -58,7 +58,7 @@
                 </td>
                 <td>
                     <h4><a href="${schoolhref}"><c:out value="${school.name}"/></a></h4>
-                    <c:out value="${gsweb:capitalize(school.type.schoolTypeName)}"/> School,
+                    <c:out value="${gsweb:capitalize(school.type.schoolTypeName)}"/> school,
                     <c:set var="grades" value="${school.gradeLevels.rangeString}"/>
                     Grades <c:out value="${(empty grades) ? '' : grades}"/>
                     <c:if test="${not empty school.enrollment}">

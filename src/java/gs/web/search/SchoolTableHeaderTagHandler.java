@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.20 2007/05/01 02:04:04 chriskimm Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.21 2007/05/09 03:21:56 chriskimm Exp $
  */
 
 package gs.web.search;
@@ -256,23 +256,19 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         return sb;
     }
 
-    private StringBuffer createFilterBuffer(String qString, HttpServletRequest request) {
+    StringBuffer createFilterBuffer(String qString, HttpServletRequest request) {
         StringBuffer filterBuffer = new StringBuffer();
 
         if (_levelCode != null) {
             for (Iterator i = _levelCode.getIterator(); i.hasNext();) {
                 LevelCode.Level level = (LevelCode.Level) i.next();
-
                 if (filterBuffer.length() > 0) {
                     filterBuffer.append(" | ");
                 }
-
                 filterBuffer.append(Util.capitalize(level.getLongName()));
                 filterBuffer.append(" (<a href=\"");
-
-                String qs = qString.replaceAll("\\&lc=" + level.getName(), "");
+                String qs = qString.replaceAll("\\&(amp;)?lc=" + level.getName(), "");
                 filterBuffer.append(SchoolTableHeaderTagHandler.urlUtil.buildUrl("/schools.page?" + qs, request));
-
                 filterBuffer.append("\">remove</a>)");
             }
         }
@@ -285,11 +281,11 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
                 }
                 filterBuffer.append(Util.capitalize(_schoolType[i]));
                 if ("public".equals(_schoolType[i])) {
-                    qs = qString.replaceAll("\\&st=public", "");
+                    qs = qString.replaceAll("\\&(amp;)?st=public", "");
                 } else if ("private".equals(_schoolType[i])) {
-                    qs = qString.replaceAll("\\&st=private", "");
+                    qs = qString.replaceAll("\\&(amp;)?st=private", "");
                 } else if ("charter".equals(_schoolType[i])) {
-                    qs = qString.replaceAll("\\&st=charter", "");
+                    qs = qString.replaceAll("\\&(amp;)?st=charter", "");
                 }
 
                 StringBuffer urlBuffer = new StringBuffer("/schools.page?");
@@ -300,6 +296,8 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
                 filterBuffer.append("\">remove</a>)");
             }
         }
+        System.out.println ("qString: " + qString);
+        System.out.println ("buffer: " + filterBuffer.toString());
         return filterBuffer;
     }
 

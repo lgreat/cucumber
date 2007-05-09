@@ -59,7 +59,7 @@ td #searchlinks a {
 
 th.result_title {
     padding: 0px 20px 0px 0px;
-    border-bottom: 1px solid #999;
+    border-bottom: 1px solid #CCCCCC;
     margin-right: 10px;
     font-size: small;
 }
@@ -74,7 +74,7 @@ td.headline {
 
 table.school_results_only th {
     padding: 4px 5px 2px 5px;
-    border-bottom: 1px solid #aaa;
+    border-bottom: 1px solid #CCCCCC;
 }
 
 table.school_results_only td {
@@ -95,13 +95,13 @@ td.results_pagenav {
 }
 
 tr.last_row td {
-    padding: 10px 0px 0px 0px;
-    border-bottom: 0px;
+    padding: 10px 0 0 0;
+    border-bottom: 0;
 }
 
 tr.control_row td {
-    padding: 0px 0px 0px 0px;
-    border-bottom: 1px
+    padding: 0;
+    border-bottom: 1px #CCCCCC;
 }
 
 .highlight {
@@ -109,8 +109,8 @@ tr.control_row td {
 }
 
 td.middleColumn {
-    border-left: 1px solid #bbb;
-    border-right: 1px solid #bbb;
+    border-left: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
     padding: 0 10px 0 10px;
 }
 
@@ -335,7 +335,7 @@ div#comparelinks h1 {
 
 div.mapIt {
     margin-top: 5px;
-    border-top: 1px solid #bbb;
+    border-top: 1px solid #CCCCCC;
     padding-top: 5px;
     padding-bottom: 15px;
 }
@@ -372,7 +372,7 @@ td#lineseparator {
 }
 
 td#lowerbuttoms {
-    padding-top:10px;
+    padding:10px 0 0 0;
 }
 
 td.results_pagenav {
@@ -385,4 +385,8 @@ td.results_pagenav {
 
 td#lowershowall {
     padding:0 10px 4px 0;
+}
+
+td#leftsearchcolumn{
+    padding-right:7px;
 }
