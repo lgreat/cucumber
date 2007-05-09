@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: SchoolTableHeaderTagHandler.java,v 1.21 2007/05/09 03:21:56 chriskimm Exp $
+ * $Id: SchoolTableHeaderTagHandler.java,v 1.22 2007/05/09 16:22:17 chriskimm Exp $
  */
 
 package gs.web.search;
@@ -14,6 +14,7 @@ import gs.web.util.UrlUtil;
 import gs.web.school.SchoolsController;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspWriter;
@@ -167,6 +168,8 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
         out.print(_cityDisplayName);
         out.print(" schools</h1>: ");
 
+        possiblyAddLinebreak(_cityDisplayName, out);
+
         UrlBuilder compareBuilder = new UrlBuilder(request,
                 "/cgi-bin/cs_compare/" + getState().getAbbreviationLowerCase());
         compareBuilder.setParameter("tab", "over");
@@ -200,6 +203,21 @@ public class SchoolTableHeaderTagHandler extends ResultsTableTagHandler {
 
         StringBuffer filterBuffer = createFilterBuffer(getSrcQuery(), request);
         printTableClose(out, filterBuffer);
+    }
+
+    /**
+     * If the provided string is longer than 12 characters write a "<br/>" tag to
+     * the output stream.
+     * @param s a String
+     * @param out a JspWriter - the "output stream"
+     * @throws IOException .
+     */
+    void possiblyAddLinebreak(String s, JspWriter out) throws IOException {
+        if (StringUtils.isNotBlank(s)) {
+            if (s.length() > 12) {
+                out.println("<br/>");
+            }
+        }
     }
 
     private String getPagingInfo(boolean showall, HttpServletRequest request) throws IOException {

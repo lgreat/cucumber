@@ -114,7 +114,7 @@ public class MockJspWriter extends JspWriter {
     }
 
     public void clear() throws IOException {
-        throw new UnsupportedOperationException();
+        _buffer = new StringWriter(1024);
     }
 
     public void clearBuffer() throws IOException {

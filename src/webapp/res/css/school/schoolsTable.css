@@ -390,3 +390,8 @@ td#lowershowall {
 td#leftsearchcolumn{
     padding-right:7px;
 }
+
+/* overrides global.css */
+table#main {
+   margin-top:0;
+}
