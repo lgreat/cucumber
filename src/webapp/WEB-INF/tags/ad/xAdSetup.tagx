@@ -121,7 +121,6 @@
                   GS_googleEnableAllServices();
                 </script>
 
-                <!--
                 <script type="text/javascript">
                     <![CDATA[
                     function setKeywords(keywords) {
@@ -147,7 +146,7 @@
                     setAdSlots('${adSlots}');
                     ]]>
                 </script>
-                -->
+
                 <script type="text/javascript">
                     GA_googleAddSlot("ca-pub-9662012843341888", 'Top_300x137');
                     GA_googleFetchAds();
