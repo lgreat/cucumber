@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.27 2007/05/04 17:00:44 aroy Exp $
+ * $Id: PageHelperSaTest.java,v 1.28 2007/05/09 00:07:25 dlee Exp $
  */
 
 package gs.web.util;
@@ -11,10 +11,10 @@ import gs.web.community.ClientSideSessionCache;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import junit.framework.TestCase;
+import org.easymock.MockControl;
+import org.easymock.classextension.MockClassControl;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.util.CookieGenerator;
-import org.easymock.classextension.MockClassControl;
-import org.easymock.MockControl;
 
 import javax.servlet.http.Cookie;
 import java.security.NoSuchAlgorithmException;
@@ -493,6 +493,26 @@ public class PageHelperSaTest extends TestCase {
 
         mockSessionContextUtil.verify();
         mockSessionContextUtil.reset();
+    }
+
+    public void testAdSlot() {
+        MockSessionContext sessionContext = new MockSessionContext();
+        PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+
+        pageHelper = (PageHelper) _request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        assertEquals(0, pageHelper.getAdSlots().size());
+
+        pageHelper.addAdSlot("ad1");
+        assertEquals(1, pageHelper.getAdSlots().size());
+
+        pageHelper.addAdSlot("ad2");
+        assertEquals(2, pageHelper.getAdSlots().size());
+
+        assertEquals("ad1", pageHelper.getAdSlots().get(0));
+        assertEquals("ad2", pageHelper.getAdSlots().get(1));
+
+
     }
 
     protected void setUp() throws Exception {

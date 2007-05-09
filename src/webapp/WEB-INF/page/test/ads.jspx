@@ -21,13 +21,14 @@
 
         <body>
         <table border="1">
-            <tr><td>footer ad</td><td><ad:footerAd/></td></tr>
+            <!--
             <tr><td>x20</td><td></td><ad:x20/></tr>
-            <tr><td>x24</td><td></td><ad:x24/></tr>
             <tr><td>x33</td><td></td><ad:x33/></tr>
             <tr><td>x40</td><td></td><ad:x40/></tr>
             <tr><td>x48</td><td></td><ad:x48/></tr>
-            <tr><td>x49</td><td></td><ad:x66/></tr>
+            <tr><td>x49</td><td></td><ad:x49/></tr>
+            -->
+            <tr><td>Top_300x137</td><td></td><ad:Top_300x137/></tr>
         </table>
         </body>
     </html>

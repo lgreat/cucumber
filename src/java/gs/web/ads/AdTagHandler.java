@@ -1,12 +1,13 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.6 2007/01/02 20:09:17 cpickslay Exp $
+ * $Id: AdTagHandler.java,v 1.7 2007/05/09 00:07:25 dlee Exp $
  */
 package gs.web.ads;
 
 import gs.web.jsp.AbstractDeferredContentTagHandler;
 import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -26,8 +27,11 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
 
     private String _position;
     private AdPosition _adPosition;
-    private static final Log _log = LogFactory.getLog(AdTagManager.class);
+    private String _slotPrefix;
 
+    private static final Log _log = LogFactory.getLog(AdTagManager.class);
+    private static final String JS_METHOD_NAME_24_7 = "OAS_AD";
+    private static final String JS_METHOD_NAME_GAM = "GA_googleFillSlot";
 
     public String getId() {
         return _adPosition.getName();
@@ -68,7 +72,20 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 request.setAttribute(adPosition, Boolean.TRUE);
             }
 
-            String adCode = "<script type=\"text/javascript\">OAS_AD('" + _adPosition.getName() + "');</script>";
+
+            String jsMethodName;
+            String slotName = _adPosition.getName();
+
+            if (_adPosition.isGAMPosition()) {
+                jsMethodName = JS_METHOD_NAME_GAM;
+                if (StringUtils.isNotEmpty(getSlotPrefix())) {
+                    slotName = getSlotPrefix() + slotName;
+                }
+                pageHelper.addAdSlot(slotName);
+            } else {
+                jsMethodName = JS_METHOD_NAME_24_7;
+            }
+            String adCode = "<script type=\"text/javascript\">"+ jsMethodName +"('" + slotName + "');</script>";
             JspFragment body = getJspBody();
 
             if (null != body) {
@@ -98,5 +115,14 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
     public void setPosition(String position) {
         _position = position;
         _adPosition = AdPosition.getAdPosition(_position);
+    }
+
+
+    public String getSlotPrefix() {
+        return _slotPrefix;
+    }
+
+    public void setSlotPrefix(String slotPrefix) {
+        _slotPrefix = slotPrefix;
     }
 }

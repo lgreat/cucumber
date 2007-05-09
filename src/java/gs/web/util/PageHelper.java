@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.35 2007/05/04 17:00:44 aroy Exp $
+ * $Id: PageHelper.java,v 1.36 2007/05/09 00:07:25 dlee Exp $
  */
 
 package gs.web.util;
@@ -15,8 +15,8 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
 import java.security.NoSuchAlgorithmException;
+import java.util.*;
 
 /**
  * Helper class to render and decorate a JSP page correctly. Provides a place to encapsulate logic about our pages to
@@ -123,7 +123,6 @@ public class PageHelper {
         }
     }
 
-
     /**
      * Adds the referenced css file to the list of files to be included at the top of the file. The sitemsh decorator is
      * responsible for retrieving these and including them.
@@ -165,7 +164,30 @@ public class PageHelper {
     //Insertion order is probably important so we'll used LinkedHashSet
     private Set _javascriptFiles;
     private Set _cssFiles;
+    private List<String> _adSlots;
 
+    /**
+     * Set google ad manager slot that will appear on page
+     * @param slotName name of ad slot
+     */
+    public void addAdSlot(String slotName) {
+        if (_adSlots == null) {
+            _adSlots = new ArrayList<String>();
+        }
+
+        _adSlots.add(slotName);
+    }
+
+    /**
+     * @return Returns a list of google ad manager ad slots that will appear on page
+     */
+    public List<String> getAdSlots() {
+        if (_adSlots == null) {
+            return new ArrayList<String>();
+        } else {
+            return _adSlots;
+        }
+    }
 
     private static UrlUtil _urlUtil = new UrlUtil();
 

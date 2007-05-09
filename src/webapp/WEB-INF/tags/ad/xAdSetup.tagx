@@ -7,6 +7,7 @@
                        description="Generates necessary JavaScript to show the ads on a page. Generally you will not call this directly, but it will be called by the page decorator."/>
     <jsp:directive.tag import="gs.data.state.State"/>
     <jsp:directive.tag import="gs.web.ads.AdPosition"/>
+    <jsp:directive.tag import="gs.web.util.PageHelper"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
     <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
     <jsp:directive.tag import="java.util.Iterator"/>
@@ -19,7 +20,7 @@
             AdPosition ad = (AdPosition) iter.next();
             String adName = ad.getName();
 
-            if (Boolean.TRUE.equals(request.getAttribute(adName))) {
+            if (Boolean.TRUE.equals(request.getAttribute(adName)) && !ad.isGAMPosition()) {
                 ads.append(adName).append(",");
             }
         }
@@ -44,7 +45,7 @@
 
         request.setAttribute("adKeywords", oas_query);
 
-        StringBuffer sitePageBuff  = new StringBuffer(30);
+        StringBuffer sitePageBuff = new StringBuffer(30);
         sitePageBuff.append("www/");
         Boolean pageStartOfHier = (Boolean) request.getAttribute("startAdHierarchyAtPage");
         String adPageName = (String) request.getAttribute("adPageName");
@@ -59,6 +60,12 @@
         }
 
         request.setAttribute("oas_sitepage", sitePageBuff.toString());
+
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (null != pageHelper) {
+            List<String> adSlots = pageHelper.getAdSlots();
+            request.setAttribute("adSlots", StringUtils.join(adSlots.toArray(), ","));
+        }
         ]]></jsp:scriptlet>
     <c:if test="${!requestScope.pageHelper.adFree and !empty ads}">
         <c:if test='${!requestScope.pageHelper.adServedByCobrand}'>
@@ -106,6 +113,46 @@
                 -->
                 ]]>
             </script>
+            <c:if test="${!empty adSlots}">
+                <![CDATA[<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>]]>
+
+                <script type="text/javascript">
+                  GS_googleAddAdSenseService("ca-pub-9662012843341888");
+                  GS_googleEnableAllServices();
+                </script>
+
+                <!--
+                <script type="text/javascript">
+                    <![CDATA[
+                    function setKeywords(keywords) {
+                        if (keywords) {
+                            var pairs = keywords.split('&');
+                            for (var i=0; i<pairs.length;i++) {
+                                var valuepair = pairs[i].split("=");
+                                if (valuepair.length==2) {
+                                    GA_googleAddAttr(valuepair[0],valuepair[1]);
+                                }
+                            }
+                        }
+                    }
+                    function setAdSlots(slotNames) {
+                        if (slotNames) {
+                            var slotName = slotNames.split(',');
+                            for (var i=0;i<slotName.length;i++) {
+                                GA_googleAddSlot("ca-pub-9662012843341888", slotName[i]);
+                            }
+                        }
+                    }
+                    setKeywords('${adKeywords}');
+                    setAdSlots('${adSlots}');
+                    ]]>
+                </script>
+                -->
+                <script type="text/javascript">
+                    GA_googleAddSlot("ca-pub-9662012843341888", 'Top_300x137');
+                    GA_googleFetchAds();
+                </script>
+            </c:if>
         </c:if>
     </c:if>
 </jsp:root>

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandlerTest.java,v 1.4 2007/01/02 20:09:17 cpickslay Exp $
+ * $Id: AdTagHandlerTest.java,v 1.5 2007/05/09 00:07:25 dlee Exp $
  */
 package gs.web.ads;
 
@@ -77,6 +77,53 @@ public class AdTagHandlerTest extends BaseTestCase {
             _tag.setPosition("x22");
             _tag.getDeferredContent();
             fail("x22 already set so we shouldn't allow it to be set again");
+        } catch (IllegalArgumentException e){}
+    }
+
+    public void testBasicGAMDeferWorks() throws Exception {
+        PageHelper pageHelper = new PageHelper(_sessionContext, _request);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+
+        JspContext jspContext = new MockPageContext(new MockServletContext(), _request);
+        jspContext.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+
+        _tag.setJspContext(jspContext);
+        _tag.setPosition("Top_300x137");
+
+        String output = _tag.getDeferredContent();
+        //_log.debug(output);
+
+        assertEquals("<div id=\"adTop_300x137\" class=\"adTop_300x137 ad noprint\"><script type=\"text/javascript\">GA_googleFillSlot('Top_300x137');</script></div>", output);
+        assertEquals(Boolean.TRUE, (Boolean) _request.getAttribute("Top_300x137"));
+
+        //try to set the same ad position
+        try {
+            _tag.setPosition("Top_300x137");
+            _tag.getDeferredContent();
+            fail("Top_300x137 already set so we shouldn't allow it to be set again");
+        } catch (IllegalArgumentException e){}
+    }
+
+    public void testPrefixSlotNameGAMDeferWorks() throws Exception {
+        PageHelper pageHelper = new PageHelper(_sessionContext, _request);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+
+        JspContext jspContext = new MockPageContext(new MockServletContext(), _request);
+        jspContext.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+
+        _tag.setJspContext(jspContext);
+        _tag.setPosition("Top_300x137");
+        _tag.setSlotPrefix("SchoolProfile");
+
+        String output = _tag.getDeferredContent();
+        assertEquals("<div id=\"adTop_300x137\" class=\"adTop_300x137 ad noprint\"><script type=\"text/javascript\">GA_googleFillSlot('SchoolProfileTop_300x137');</script></div>", output);
+        assertEquals(Boolean.TRUE, (Boolean) _request.getAttribute("Top_300x137"));
+
+        //try to set the same ad position
+        try {
+            _tag.setPosition("Top_300x137");
+            _tag.getDeferredContent();
+            fail("Top_300x137 already set so we shouldn't allow it to be set again");
         } catch (IllegalArgumentException e){}
     }
 
