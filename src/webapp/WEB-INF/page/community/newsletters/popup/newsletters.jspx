@@ -58,8 +58,8 @@
 
 <div class="pLR">
 <div class="promo">
-    <div style="padding-top:10px;"></div>
-    <h3 class="gradebygrade">Grade-by-Grade Newletters</h3>
+    <div id="topSpacer" style="padding-top:10px;"></div>
+    <h3 class="gradebygrade">Grade-by-Grade Newsletters</h3>
     <div class="subhead">
         Is your child on track? Find out with grade-by-grade<br/>
         newsletters from GreatSchools that parents rave about!
@@ -71,6 +71,18 @@
                id="frm">
         <div class="error">
             <spring:hasBindErrors name="newsCmd">
+                <style type="text/css">
+                    .subhead {
+                        padding:0 0 0 15px;
+
+                    }
+                    div.signupText {
+                        padding:0 0 0 15px;
+                    }
+                    div#topSpacer {
+                        padding:0;
+                    }
+                </style>
                 <ul>
                     <c:forEach var="errMsgObj" items="${errors.allErrors}">
                         <li>

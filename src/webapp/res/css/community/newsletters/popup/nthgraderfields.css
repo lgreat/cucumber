@@ -4,7 +4,7 @@ table#nthgraderfields td{
 }
 
 table#nthgraderfields td#left, table#nthgraderfields td#right{
-    padding:10px 0 20px 0;
+    padding:10px 0 10px 0;
 }
 
 table#nthgraderfields div#ldiv {
