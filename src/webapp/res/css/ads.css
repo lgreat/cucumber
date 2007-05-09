@@ -10,6 +10,11 @@
     font-size: 12px;
 }
 
+.textAd b {
+    font-weight:bold;
+    color: #666;
+}
+
 .textAd a:link {
     font-weight: bold;
     color: #3399aa;
@@ -48,7 +53,7 @@
 
 /* text ads */
 #adx49, #adx50, #adx51 {
-    padding-left: 32px;
+    width:300px;
 }
 
 #adx47 {
