@@ -2,7 +2,7 @@
 Copyright (c) 2006 GreatSchools.net
 All Rights Reserved.
 
-$Id: global.js,v 1.17 2007/03/26 19:51:30 dlee Exp $
+$Id: global.js,v 1.18 2007/05/09 21:02:34 cpickslay Exp $
 */
 
 /*
@@ -185,6 +185,11 @@ function checkSearchStateSelected(theForm, selectorId) {
 }
 
 //inspired by http://www.thewatchmakerproject.com/journal/308/equal-height-boxes-with-javascript
+// note that the's a bug in this function if one of the divs has top and/or bottom padding
+// the padding is included in scrollHeight, which then is assigned to height, which doesn't include padding
+// as a result, the box ends up too tall by padding-top + padding-bottom
+// in theory, this could be fixed by subtracting id.style.paddingTop and id.style.paddingBottom from curHeight
+// but those properties appear to be write-only
 var BoxHeights = {
 	equalize: function() {
         var maxH = 0;
