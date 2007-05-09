@@ -28,7 +28,12 @@
             <tr><td>x48</td><td></td><ad:x48/></tr>
             <tr><td>x49</td><td></td><ad:x49/></tr>
             -->
-            <tr><td>Top_300x137</td><td></td><ad:Top_300x137/></tr>
+            <tr><td>Top_300x137</td><td></td><ad:Top_300x137 slotPrefix="School_Profile_Page_Overview"/></tr>
+            <tr><td>Footer_728x90</td><td></td><ad:Footer_728x90/></tr>
+            <tr><td>BelowFold_300x250</td><td></td><ad:BelowFold_300x250/></tr>
+            <tr><td>BelowFold_Top_300x125</td><td></td><ad:BelowFold_Top_300x125/></tr>
+            <tr><td>BelowFold_Bottom_300x125</td><td></td><ad:BelowFold_Bottom_300x125/></tr>
+            <tr><td>AboveFold_Right_120x600</td><td></td><ad:AboveFold_Right_120x600/></tr>
         </table>
         </body>
     </html>

@@ -5,5 +5,5 @@
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="slotPrefix" required="false" description="GAM slot prefix"/>
-    <gsweb:adTagGenerator position="Top_300x137" slotPrefix="${slotPrefix}"/>
+    <gsweb:adTagGenerator position="AboveFold_Right_120x600" slotPrefix="${slotPrefix}"/>
 </jsp:root>

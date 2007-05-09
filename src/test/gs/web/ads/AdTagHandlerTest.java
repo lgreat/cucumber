@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandlerTest.java,v 1.5 2007/05/09 00:07:25 dlee Exp $
+ * $Id: AdTagHandlerTest.java,v 1.6 2007/05/09 19:30:55 dlee Exp $
  */
 package gs.web.ads;
 
@@ -116,7 +116,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         _tag.setSlotPrefix("SchoolProfile");
 
         String output = _tag.getDeferredContent();
-        assertEquals("<div id=\"adTop_300x137\" class=\"adTop_300x137 ad noprint\"><script type=\"text/javascript\">GA_googleFillSlot('SchoolProfileTop_300x137');</script></div>", output);
+        assertEquals("<div id=\"adTop_300x137\" class=\"adTop_300x137 ad noprint\"><script type=\"text/javascript\">GA_googleFillSlot('SchoolProfile_Top_300x137');</script></div>", output);
         assertEquals(Boolean.TRUE, (Boolean) _request.getAttribute("Top_300x137"));
 
         //try to set the same ad position
