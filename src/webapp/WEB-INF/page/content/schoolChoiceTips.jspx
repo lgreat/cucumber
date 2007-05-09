@@ -28,6 +28,7 @@
     <pageHelper:externalCss file="/res/css/content/schoolChoiceTips.css"/>
 </head>
 <c:set var="pageName" value="School Choice Tips"/>
+<ad:setSlotPrefix slotPrefix="Library_Microsite_School_Choice_Tips"/>
 <gsml:body adPageName="content/schoolChoiceTips" pageLayout="schoolChoiceTips" startAdHierarchyAtPage="true">
 <div>
 <div class="wrapBorder">

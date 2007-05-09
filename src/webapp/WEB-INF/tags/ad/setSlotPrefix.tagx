@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          >
+    <jsp:directive.tag import="gs.web.ads.AdTagHandler"/>
+    <jsp:directive.tag body-content="empty"
+                       description="Mutes the display of the footer ad." />
+    <jsp:directive.attribute name="slotPrefix" description="Name that will be prefixed before google ad manager tags.  Ask ad team if this is required." required="true"/>
+    <jsp:scriptlet>
+        request.setAttribute(AdTagHandler.REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME, slotPrefix);
+    </jsp:scriptlet>
+</jsp:root>

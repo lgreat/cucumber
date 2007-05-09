@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.8 2007/05/09 19:30:55 dlee Exp $
+ * $Id: AdTagHandler.java,v 1.9 2007/05/09 22:27:12 dlee Exp $
  */
 package gs.web.ads;
 
@@ -32,6 +32,8 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
     private static final Log _log = LogFactory.getLog(AdTagManager.class);
     private static final String JS_METHOD_NAME_24_7 = "OAS_AD";
     private static final String JS_METHOD_NAME_GAM = "GA_googleFillSlot";
+
+    public static final String REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME = "gamSlotPrefix";
 
     public String getId() {
         return _adPosition.getName();
@@ -78,8 +80,9 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
 
             if (_adPosition.isGAMPosition()) {
                 jsMethodName = JS_METHOD_NAME_GAM;
-                if (StringUtils.isNotBlank(getSlotPrefix())) {
-                    slotName = getSlotPrefix() + "_" + slotName;
+                String slotPrefix = (String) request.getAttribute(REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME);
+                if (StringUtils.isNotBlank(slotPrefix)) {
+                    slotName = slotPrefix + "_" + slotName;
                 }
                 pageHelper.addAdSlot(slotName);
             } else {
@@ -115,14 +118,5 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
     public void setPosition(String position) {
         _position = position;
         _adPosition = AdPosition.getAdPosition(_position);
-    }
-
-
-    public String getSlotPrefix() {
-        return _slotPrefix;
-    }
-
-    public void setSlotPrefix(String slotPrefix) {
-        _slotPrefix = slotPrefix;
     }
 }

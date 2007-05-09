@@ -204,6 +204,8 @@
         <tr>
             <td>
                 <ad:x66/>
+                <ad:setSlotPrefix slotPrefix="City_Page"/>
+                <ad:AboveFold_300x250/>
             </td>
         </tr>
         <c:if test="${not empty requestScope.topRatedSchools}">

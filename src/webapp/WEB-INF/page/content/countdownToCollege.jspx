@@ -248,6 +248,8 @@
         <tr>
             <td>
                 <ad:x40/>
+                <ad:setSlotPrefix slotPrefix="Library_Microsite_Countdown_To_College"/>
+                <ad:AboveFold_300x250/>
             </td>
         </tr>
     </table>
@@ -266,6 +268,7 @@
         <c:when test="${!requestScope.pageHelper.adServedByCobrand}">
             <div id="bottomAdd">
                 <ad:x49 blurb="Countdown to College Sponsored By:"/>
+                <ad:BelowFold_Top_300x125/>
             </div>
         </c:when>
         <c:otherwise>

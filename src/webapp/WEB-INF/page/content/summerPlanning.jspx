@@ -28,6 +28,7 @@
     <pageHelper:externalCss file="/res/css/content/summerPlanning.css"/>
 </head>
 <c:set var="pageName" value="Summer Planning"/>
+<ad:setSlotPrefix slotPrefix="Library_Microsite_Summer_Planning"/>
 <gsml:body adPageName="content/summerPlanning" pageLayout="summerPlanning" startAdHierarchyAtPage="true">
 <div>
 <div class="wrapBorder">

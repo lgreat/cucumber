@@ -129,6 +129,7 @@
                             for (var i=0; i<pairs.length;i++) {
                                 var valuepair = pairs[i].split("=");
                                 if (valuepair.length==2) {
+                                    valuepair[0] = valuepair[0].replace('amp;','');
                                     GA_googleAddAttr(valuepair[0],valuepair[1]);
                                 }
                             }

@@ -6,5 +6,6 @@
         >
     <c:if test="${requestScope.pageHelper.showingFooterAd}">
         <ad:x24/>
+        <ad:Footer_728x90/>
     </c:if>
 </jsp:root>

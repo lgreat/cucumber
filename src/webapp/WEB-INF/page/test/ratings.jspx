@@ -101,9 +101,14 @@
                     <school:compareSchool school="${school}"/>
                 </div>
                 <div id="promoContent">
+                    <ad:setSlotPrefix slotPrefix="School_Profile_Page_Ratings"/>
                     <ad:x11/>
+                    <ad:Top_300x137/>
                     <ad:x48/>
+                    <ad:AboveFold_300x250/>
                     <ad:multiTextAd blurb="Advertiser links"/>
+                    <ad:BelowFold_Top_300x125/>
+                    <ad:BelowFold_Bottom_300x125/>
                     <school:nearbySchools school="${school}"/>
                 </div>
             </school:profile>

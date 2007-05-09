@@ -530,12 +530,6 @@
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
-        <attribute>
-            <name>slotPrefix</name>
-            <description>name of GAM slot prefix</description>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>        
     </tag>
 
     <tag>

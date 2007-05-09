@@ -229,9 +229,12 @@
         <div id="col_right">
             <div class="ad_top">
                 <ad:x11/>
+                <ad:setSlotPrefix slotPrefix="School_Profile_Page_Overview"/>
+                <ad:Top_300x137/>
             </div>
             <div class="ad_middle">
                 <ad:x48 />
+                <ad:AboveFold_300x250/>
             </div>
             <c:if test="${empty param.hideMap}">
                 <school:nearbySchools school="${school}"/>

@@ -28,6 +28,7 @@
     <pageHelper:externalCss file="/res/css/content/movingWithKids.css"/>
 </head>
 <c:set var="pageName" value="Moving With Kids"/>
+<ad:setSlotPrefix slotPrefix="Library_Microsite_Moving_With_Kids"/>
 <gsml:body adPageName="content/movingWithKids" pageLayout="movingWithKids" startAdHierarchyAtPage="true">
 <div>
 <div class="wrapBorder">

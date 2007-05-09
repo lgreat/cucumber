@@ -26,6 +26,7 @@
     <pageHelper:externalCss file="/res/css/content/microsite.css"/>  <!--commmon-->
     <pageHelper:externalCss file="/res/css/content/holidayLearning.css"/>
 </head>
+<ad:setSlotPrefix slotPrefix="Library_Microsite_Holiday_Learning"/>
 <gsml:body adPageName="content/holidayLearning" pageLayout="holidayLearning" startAdHierarchyAtPage="true">
 <div>
 <div class="wrapBorder">

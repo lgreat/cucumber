@@ -27,6 +27,7 @@
     <pageHelper:externalCss file="/res/css/content/healthyKids.css"/>
 </head>
 <c:set var="pageName" value="Healthy Kids"/>
+<ad:setSlotPrefix slotPrefix="Library_Microsite_Healthy_Kids"/>
 <gsml:body adPageName="content/healthyKids" pageLayout="healthyKids" startAdHierarchyAtPage="true">
 <div>
 <div class="wrapBorder">
