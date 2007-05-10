@@ -105,6 +105,7 @@
     <promo:summerReading />
     <ad:setSlotPrefix slotPrefix="Search_Site"/>    
     <ad:x47/>
+    <ad:AboveFold_300x600/>
     <ad:multiTextAd blurb="Advertiser Links"/>
 </div>
 

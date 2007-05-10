@@ -247,11 +247,7 @@
         </c:if>
         <ad:setSlotPrefix slotPrefix="${slotPrefix}"/>
         <ad:x47/>
-        <ad:AboveFold_300x600/>
-        <ad:x49/>
-        <ad:BelowFold_Top_300x125/>
-        <ad:x50/>
-        <ad:BelowFold_Bottom_300x125/>
+        <ad:multiTextAd blurb="Advertiser Links"/>
     </td>
 </tr>
 </table>
