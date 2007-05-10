@@ -58,7 +58,7 @@
                 "year_round, state_run");
         SchoolSubtype subs = school.getSubtype();
         subs = SchoolSubtype.createWithMask(SchoolSubtype.NONE, mask, subs);
-        request.setAttribute("subtypes", subs.asCommaSeparatedString().trim());
+        request.setAttribute("subtypes", subs.asPrettyCommaSeparatedString());
     </jsp:scriptlet>
 
 
@@ -122,7 +122,7 @@
                                 </c:otherwise>
                             </c:choose>
                         </c:if>
-                        ${fn:replace(fn:replace(subtypes, "_", " "), ",", ", ")}
+                        ${subtypes}
                     </c:set>
                     <li>
                         ${gsweb:capitalize(subs)}
