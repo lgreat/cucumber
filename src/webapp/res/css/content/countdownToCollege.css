@@ -286,21 +286,6 @@ span.actionTip {
 	background-repeat: repeat-x;
 }
 
-div#bottomAdd {
-    font-size: 12px;
-	margin-top: 20px;
-	color: #000000;
-	text-align: left;
-    padding: 10px 20px 20px 20px;
-    border: 1px solid #CBCBCB;
-	width: 264px;
-}
-
-div#bottomAdd a {
-	color: #39a;
-	text-decoration: none;
-}
-
 h2#adBlurb {
 	font-size: 12px;
 	text-align: center;
