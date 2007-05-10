@@ -123,6 +123,7 @@
 
                 <script type="text/javascript">
                     <![CDATA[
+                    <!--
                     function setKeywords(keywords) {
                         if (keywords) {
                             var pairs = keywords.split('&');
@@ -145,6 +146,7 @@
                     }
                     setKeywords('${adKeywords}');
                     setAdSlots('${adSlots}');
+                    -->
                     ]]>
                 </script>
 
