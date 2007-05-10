@@ -92,7 +92,6 @@
             <ul>
                 <!-- Grade levels -->
                 <c:set var="levels" value="${school.gradeLevels}"/>
-                <li>foo: ${levels}</li>
                 <li>
                     <c:choose>
                         <c:when test="${(levels eq 'ungraded') or (empty levels) or (levels eq '')}">Grades: n/a</c:when>
