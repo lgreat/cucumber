@@ -19,7 +19,7 @@
 
     <gsml:body adPageName="aboutUs" pageLayout="singleTextOnlyColumnLayout">
 
-    <mod:tracking pageType="aboutUs" pageName="aboutUs" hier1="Home,Corporate,AboutUs,AboutUsOverview"/>
+    <mod:tracking pageType="aboutUs" pageName="Editorial Policy" hier1="Home,Corporate,AboutUs,EditorialPolicy"/>
 
         <h3>GreatSchools Editorial and Advertising Policy</h3>
 
