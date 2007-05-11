@@ -94,7 +94,7 @@
                 <search:searchControl rememberQuery="true"
                                       showStates="${showQueryAgain}"
                                       showLinks="true"
-                                      fieldLength="${requestScope.context.cobranded ? 20 : 30}"/>
+                                      fieldLength="30"/>
             </c:if>
         </div>
     </gsweb:mainResults>
