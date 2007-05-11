@@ -26,12 +26,6 @@ td.label {
     vertical-align: middle;
 }
 
-.checkbox {
-    padding: 0;
-    margin: 0;
-    font-size: 90%;
-}
-
 .main, .columns {
     width: 100%;
 }
@@ -77,7 +71,7 @@ table.school_results_only th {
 }
 
 table.school_results_only td {
-    padding: 4px 0px 6px 5px;
+    padding: 4px 0 6px 5px;
     border-bottom: 1px solid #FFF;
 }
 
@@ -244,11 +238,6 @@ tr.school:hover {
     background: #EEE;
 }
 
-tr.school td {
-    padding: 7px 3px 8px 3px;
-    font-size: small;
-}
-
 tr.school td h4 {
     font-size: medium;
 }
@@ -283,13 +272,6 @@ tr.contextrow td {
     padding-right: 40px;
     padding-bottom: 10px;
     font-size: small;
-}
-
-tr td.checkbox {
-    vertical-align: top;
-    padding-top: 8px;
-    padding-left: 4px;
-    padding-right: 7px;
 }
 
 #searchagain {
@@ -391,4 +373,15 @@ td#leftsearchcolumn{
 /* overrides global.css */
 table#main {
    margin-top:0;
+}
+
+tr.school td.data {
+    padding: 7px 3px 8px 3px;
+    font-size: small;
+}
+
+tr.school td.checkbox {
+    vertical-align: top;
+    padding: 8px 7px 0 4px;
+    max-width:8%;
 }
