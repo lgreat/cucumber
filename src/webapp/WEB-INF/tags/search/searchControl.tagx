@@ -32,14 +32,14 @@
                 <c:if test="${showStates == 'true'}">
                     <div>
                         <span class="label">Search again in:</span>
-                        <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.stateOrDefault}" />
+                        <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.stateOrDefault}" styleId="refine_stateSelector"/>
                     </div>
                 </c:if>
                 <c:if test="${showStates != 'true' and (empty showLabel or showLabel) }">
                     <span class="label">Search</span>
                 </c:if>
                 <input type="text"
-                       id="q"
+                       id="refine_q"
                        name="q"
                        size="${(not empty fieldLength) ? (fieldLength) : '50'}"
                        style="font-size:small"
