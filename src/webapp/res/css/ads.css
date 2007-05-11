@@ -53,7 +53,10 @@
 
 /* text ads */
 #adx49, #adx50, #adx51 {
-    width:300px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width:260px;
+    line-height: 15px;
 }
 
 #adx47 {
