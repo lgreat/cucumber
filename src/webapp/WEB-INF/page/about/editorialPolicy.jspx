@@ -1,0 +1,41 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          version="2.0">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+     <pageHelper:setPathway pathway="ABOUT_US"/>
+     <pageHelper:hideFooterAd/>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <title>Editorial and Advertising Policy</title>
+    </head>
+
+    <gsml:body adPageName="aboutUs" pageLayout="singleTextOnlyColumnLayout">
+
+    <mod:tracking pageType="aboutUs" pageName="aboutUs" hier1="Home,Corporate,AboutUs,AboutUsOverview"/>
+
+        <h3>GreatSchools Editorial and Advertising Policy</h3>
+
+        <p>GreatSchools.net has a strict policy of separation between editorial and advertising content.
+            We do not allow advertisers to influence our editorial content.</p>
+
+        <p>We believe you should always know the source of the information you're reading, and we will not accept
+            advertisements that we think are misleading. All advertising is either clearly separated from editorial
+            content or clearly labeled "advertisement" or "from our sponsors."</p>
+
+        <p>Pharmaceutical advertising to consumers must comply with FDA guidelines on direct-to- consumer advertising.
+            GreatSchools will not monitor compliance with applicable laws and regulations, but we reserve the right to
+            review all advertising for compliance. If GreatSchools becomes aware of any breach or potential breach of
+            any applicable law or regulation or of these guidelines, we may remove the advertising.</p>
+
+        <p>We reserve the right to reject an ad based on its appropriateness to our parent audience.</p>
+
+    </gsml:body>
+</jsp:root>
