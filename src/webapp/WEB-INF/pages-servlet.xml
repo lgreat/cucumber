@@ -358,6 +358,14 @@
         </property>
     </bean>
 
+    <bean name="/about/editorialPolicy.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>about/editorialPolicy</value>
+        </property>
+    </bean>
+
     <bean name="/compareSchools.page" class="gs.web.school.CompareSchoolsController"
           autowire="byName" lazy-init="true"/>
 
