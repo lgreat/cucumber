@@ -25,7 +25,7 @@
 }
 
 #resultsheader #rh_col_right {
-    width: 100px;
+    width: 120px;
     float: right;
     text-align: right;
 }
@@ -115,11 +115,11 @@ City and district rollups
     padding-bottom: 5px;
 }
 
-#searchFooter #stateSelector {
+#searchFooter #refine_stateSelector {
     margin-left: 5px;
 }
 
-#searchFooter #q {
+#searchFooter #refine_q {
     margin: 8px 0 8px 0;
 }
 
