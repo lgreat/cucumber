@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.16 2007/04/06 23:37:08 dlee Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.17 2007/05/14 21:54:02 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -266,8 +266,8 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
             return null;
         }
 
-        public List findNearbySchools(School school, int limit) {
-            return null;  //To change body of implemented methods use File | Settings | File Templates.
+        public List<NearbySchool> findNearbySchools(School school, int limit) {
+            return null;
         }
 
         public boolean hasPrincipalView(School s) {
