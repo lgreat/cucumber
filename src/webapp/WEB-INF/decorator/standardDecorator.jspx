@@ -63,7 +63,7 @@
 <body onload="${requestScope.pageHelper.onload}" onunload="${requestScope.pageHelper.onunload}" class="${bodyClass}">
 <cobrand:framebuster/>
 <div id="marginGS" class="marginGS">
-    <jsp:include page="/header/cobrand.module"/>
+    <cobrand:header/>
 
     <c:if test="${requestScope.pageHelper.showingLeaderboard}">
     <ad:x22/>

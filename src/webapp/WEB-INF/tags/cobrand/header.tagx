@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-          xmlns="http://www.w3c.org/1999/xhtml"
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
     <!--
     We check for ad free sites because number1expert, mcguire, and framed don't have cobrand headers
 
-    This pags pull in the static cobrand header as follows. If we're on yahoo.greatschools.net it
+    This tag pulls in the static cobrand header as follows. If we're on yahoo.greatschools.net it
     pulls http://yahoo.greatschools.net/templates/local/nav/topnav.insrt
 
-    Cobrand headers will eventually need to be moved somewhere that we don't have to create a separate
-    http request just to fetch them such as the database.
+    Cobrand headers will eventually need to be moved into a database so we don't have to create a separate
+    http request just to fetch them.
     -->
     <c:if test="${requestScope.context.cobranded and !requestScope.pageHelper.framed}">
         <div id="headerCobrand">
@@ -20,17 +20,21 @@
             </script>
             <!-- We use a table here to box in the header, otherwise poorly written cobrand headers
                 can have very unpredictable interactions with our page body. E.g. azcentral -->
-            <table width="100%"><tr><td align="center">
-                <jsp:scriptlet>
-                    try {
-                </jsp:scriptlet>
-                <c:import url="http://${requestScope.context.hostName}/templates/local/nav/topnav.insrt"/>
-                <jsp:scriptlet>
-                    } catch (Exception e) {
-                        // Do nothing
-                    }
-                </jsp:scriptlet>
-            </td></tr></table>
+            <table width="100%">
+                <tr>
+                    <td align="center">
+                        <jsp:scriptlet>
+                            try {
+                        </jsp:scriptlet>
+                        <c:import url="http://${requestScope.context.hostName}/templates/local/nav/topnav.insrt"/>
+                        <jsp:scriptlet>
+                            } catch (Exception e) {
+                                // Do nothing
+                            }
+                        </jsp:scriptlet>
+                    </td>
+                </tr>
+            </table>
             <!-- Restore the onload function because some cobrands overwrite it -->
             <script type="text/javascript" language="javascript">
                 window.onload = oldonload;

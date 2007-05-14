@@ -40,13 +40,6 @@
         </property>
     </bean>
 
-    <bean name="/header/cobrand.module"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController">
-        <property name="viewName">
-            <value>/header/cobrand</value>
-        </property>
-    </bean>
-
     <bean name="/header/moveChoose.module"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController">
         <property name="viewName">
