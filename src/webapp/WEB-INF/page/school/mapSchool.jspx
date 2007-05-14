@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+        >
+<pageHelper:setPathway pathway=""/>
+<html lang="en">
+
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+
+<c:set var="school" value="${school}"/>
+<c:set var="mapSchools" value="${mapSchools}"/>
+<c:set var="city" value="${school.physicalAddress.city}"/>
+<c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
+<c:set var="stateName" value="${school.databaseState.longName}"/>
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+<c:set var="addr" value="${city}, ${stateName} - ${stateAbbrev}" />
+<c:set var="pageName" value="School Tab - Map" scope="request"/>
+<c:set var="hasPrincipalView" value="${hasPrincipalView}"/>
+<c:set var="gs_rating" value="${gs_rating}"/>
+<c:set var="parent_ratings" value="${parent_ratings}"/>
+
+<head>
+    <title>${school.name} - ${addr} - school map</title>
+    <meta name="description"
+          content="A map of ${school.name} located in ${city}, ${stateName}, including a map of the nearby schools"/>
+    <pageHelper:externalCss file="/res/css/ads.css"/>
+    <pageHelper:externalCss file="/res/css/school/mapSchool.css"/>
+</head>
+
+<gsml:body adPageName="schoolMap">
+
+    <school:profile school="${school}">
+
+    <!-- being large Google map -->
+    <div id="largeMap">
+        <!-- being left column -->
+        <div id="col_left">
+            <div id="nearbySchools">
+                <div class="header">
+                    <h2>${school.name}</h2>
+                    <link:mySchoolList styleClass="save"
+                                       school="${school}"
+                                       title="Save">
+                        Save
+                    </link:mySchoolList>
+                </div><!-- end: header -->
+
+                <p class="head_nearby">Nearby ${levelLongName} Schools</p>
+
+                <!-- DESIGNER NOTE: THE MARKUP FOR THE "NEARBY SCHOOLS" LIST ITEMS BELOW IS THE SAME
+                CODE AS WHEN IT APPEARS IN THE RIGHT COLUMN. I FELT THIS WOULD BE CONVENIENT. THE LI
+                CLASSES (THAT ADD THE RATING IMAGE IN THE RIGHT COLUMN) HAVE BEEN LEFT IN THE MARKUP,
+                BUT HAVE BEEN DISABLED IN THE CSS, AS THEY ARE NOT PRESENT IN THIS INTEFACE. -->
+                <c:if test="${hasNearby}">
+                    <ul>
+                        <c:forEach items="${nearbySchools}" var="nearbySchool">
+                            <li>
+                                <link:schoolProfileOverview school="${nearbySchool.neighbor}"
+                                                            title="${nearbySchool.neighbor.name}">
+                                    ${nearbySchool.neighbor.name}
+                                </link:schoolProfileOverview>
+                                <c:if test="${not empty nearbySchool.distance}">
+                                    <br/>
+                                    <fmt:formatNumber value="${nearbySchool.distance}"
+                                                      maxFractionDigits="1"
+                                                      minFractionDigits="1"/>
+                                    Miles&amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;
+                                </c:if>
+                                <link:mySchoolList styleClass="saveLink"
+                                                   school="${nearbySchool.neighbor}"
+                                                   title="Save">
+                                    Save
+                                </link:mySchoolList>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </c:if>
+            </div><!-- end: nearbySchools -->
+        </div><!-- end: col_left" -->
+
+        <!-- begin center column -->
+        <div id="col_center">
+            <div id="map">
+                &#160;<noscript>JavaScript is required in order to view a map of the city and its
+                        schools.</noscript>
+            </div>
+            <map:school id="map"
+                        tooltips="true"
+                        schools="${mapSchools}"
+                        school="${school}"/>
+        </div><!-- end: col_center -->
+
+        <!-- begin right column -->
+        <div id="col_right">
+            <div id="learnMore">
+                <h2>Learn More About:</h2>
+                <ul>
+                    <li>
+                        <link:allSchoolsInDistrict districtId="${school.districtId}"
+                                                   title="Schools in ${school.district.name}">
+                            Schools in ${school.district.name} &gt;
+                        </link:allSchoolsInDistrict>
+                    </li>
+                    <li>
+                        <link:city city="${city}" state="${state}" title="${city} schools">
+                            Top-rated ${city} schools &gt;
+                        </link:city>
+                    </li>
+                    <li>
+                        <link:nearbyCities city="${city}"
+                                           state="${school.databaseState}"
+                                           title="Cities near ${city}">
+                            Cities near ${city} &gt;
+                        </link:nearbyCities>
+                    </li>
+                </ul>
+            </div><!-- end: learnMore -->
+
+            <!--DESIGNER NOTE: "AD" MARKUP IS THE SAME AS THE EXISTING OVERVIEW INTERFACES -->
+            <div class="ad_middle">
+                <ad:x48 />
+            </div>
+        </div><!-- end: col_right" -->
+    </div><!-- end: largeMap -->
+    <!-- end large Google map -->
+    </school:profile>
+    <mod:tracking pageType="school"
+                  pageName="${pageName}"
+                  hier1="School,Map"
+                  school="${school}" />    
+</gsml:body>
+</html>
+</jsp:root>
