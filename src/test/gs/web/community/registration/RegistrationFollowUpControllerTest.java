@@ -9,6 +9,7 @@ import gs.data.state.StateManager;
 import gs.data.util.DigestUtil;
 import gs.data.util.email.MockJavaMailSender;
 import gs.data.geo.IGeoDao;
+import gs.data.admin.IPropertyDao;
 import gs.web.BaseControllerTestCase;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,6 +28,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
     private IUserDao _userDao;
     private MockControl _userControl;
     private ISchoolDao _schoolDao;
+    private IPropertyDao _propertyDao;
     private MockControl _schoolControl;
     private ISubscriptionDao _subscriptionDao;
     private MockControl _subscriptionControl;
@@ -50,6 +52,11 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _controller = new RegistrationFollowUpController();
         _userDao = (IUserDao)_userControl.getMock();
         _controller.setUserDao(_userDao);
+
+        _propertyDao = (IPropertyDao)
+                getApplicationContext().getBean(IPropertyDao.BEAN_ID);
+        _controller.setPropertyDao(_propertyDao);
+
         _schoolDao = (ISchoolDao)_schoolControl.getMock();
         _controller.setSchoolDao(_schoolDao);
         _subscriptionDao = (ISubscriptionDao)_subscriptionControl.getMock();
@@ -117,6 +124,10 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _userControl.verify();
         _schoolControl.verify();
 
+
+        String year = (String)getRequest().getAttribute("current_academic_year");
+        assertEquals("2006-2007", year);
+        
         assertFalse(_errors.hasErrors());
         assertNotNull(_command.getUser().getId());
         assertTrue("n".equals(_command.getRecontact()));

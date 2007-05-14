@@ -16,6 +16,7 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.geo.IGeoDao;
 import gs.data.geo.City;
+import gs.data.admin.IPropertyDao;
 import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
@@ -50,6 +51,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     private ISubscriptionDao _subscriptionDao;
     private StateManager _stateManager;
     private ISchoolDao _schoolDao;
+    private IPropertyDao _propertyDao;
     private IGeoDao _geoDao;
     private RegistrationConfirmationEmail _registrationConfirmationEmail;
     private AuthenticationManager _authenticationManager;
@@ -121,6 +123,9 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             }
         }
         fupCommand.getCityList().clear();
+
+        request.setAttribute("current_academic_year",
+                _propertyDao.getProperty(IPropertyDao.CURRENT_ACADEMIC_YEAR));
     }
 
     protected void loadCityList(HttpServletRequest request, FollowUpCommand fupCommand, BindException errors, int childNum) {
@@ -447,6 +452,14 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
     public void setGeoDao(IGeoDao geoDao) {
         _geoDao = geoDao;
+    }
+
+    public IPropertyDao getPropertyDao() {
+        return _propertyDao;
+    }
+
+    public void setPropertyDao(IPropertyDao propertyDao) {
+        _propertyDao = propertyDao;
     }
 
     public RegistrationConfirmationEmail getRegistrationConfirmationEmail() {

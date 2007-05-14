@@ -110,7 +110,7 @@
   <p class="intro"><strong>We’ll always keep your name and your email address private to preserve your anonymity on
       our site.</strong></p>
 
-  <p class="lead"><strong>In the 2006-2007 school year, my children attend:</strong></p>
+  <p class="lead"><strong>In the ${current_academic_year} school year, my children attend:</strong></p>
 
   <!-- begin registration form -->
   <gsweb:form id="registration2" action="/community/registration2.page" styleClass="registration" method="post">
