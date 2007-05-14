@@ -1290,5 +1290,30 @@
             <description>CSS class name(s)</description>
         </attribute>
     </tag>
+
+    <tag>
+        <name>mapSchool</name>
+        <tag-class>gs.web.jsp.link.school.MapSchoolTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>School map page</display-name>
+        <description>
+            <![CDATA[Link to the School map page
+             Currently <code>/school/mapSchool.page</code>.]]>
+        </description>
+        <attribute>
+            <name>school</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.school.School</type>
+            <description>School</description>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
 </taglib>
 

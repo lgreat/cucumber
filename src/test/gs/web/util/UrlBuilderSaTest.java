@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.61 2007/05/03 00:42:36 dlee Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.62 2007/05/14 23:14:27 aroy Exp $
  */
 
 package gs.web.util;
@@ -185,6 +185,8 @@ public class UrlBuilderSaTest extends TestCase {
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_AUTHORIZER);
         assertEquals("/school/authorizers.page?school=8&amp;state=NY", builder.asSiteRelativeXml(null));
 
+        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_MAP);
+        assertEquals("/school/mapSchool.page?id=8&amp;state=NY", builder.asSiteRelativeXml(null));
     }
 
     public void testCityPageBuilder() {

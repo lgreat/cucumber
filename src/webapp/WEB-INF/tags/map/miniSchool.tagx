@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+        >
+<jsp:directive.tag import="gs.data.geo.LatLon"/>
+<jsp:directive.tag body-content="empty"
+                   description="Draw a thumbnail map of a school" />
+<jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
+<jsp:directive.attribute name="school" required="true" type="gs.data.school.School" description="The school this map is displaying"/>
+<jsp:directive.attribute name="tooltips" required="false" description="Use tooltips?" />
+<jsp:directive.attribute name="zoomLevel" required="false" type="java.lang.Integer" description="Zoom level"/>
+
+<map:setup/>
+<pageHelper:addOnLoadHandler handler="doMiniMap()"/>
+
+<gsml:url var="mapLink"
+          value="/school/mapSchool.page?state=${school.databaseState.abbreviation}&amp;id=${school.id}"/>
+
+<jsp:scriptlet>
+<![CDATA[
+    if (school.getLat() != null && school.getLon() != null) {
+        // note if school has no latlong then map is centered around nearby schools instead
+        request.setAttribute("center", new LatLon(school.getLat().floatValue(), school.getLon().floatValue()));
+    }
+]]>
+</jsp:scriptlet>
+<script type="text/javascript">
+<![CDATA[
+<!--
+]]>
+
+var zoomLevel = ${not empty zoomLevel?zoomLevel:12};
+var displayTooltips = ${not empty tooltips};
+var centerPoint = new GLatLng(${center.lat}, ${center.lon});
+var schoolName = "${school.name}";
+var mapLink = '${mapLink}';
+
+function initMiniMap() {
+    var i = 0;
+    var tooltip = null;
+    var map = new GMap2(document.getElementById("${id}"));
+    map.disableDragging();
+    addClickListener(map, mapLink);
+
+    var marker;
+
+    map.setCenter(centerPoint, zoomLevel);
+
+    var arrowIcon = new GIcon();
+    arrowIcon.image = "/res/img/map/green_arrow.png";
+    arrowIcon.shadow = "/res/img/map/green_arrow_shadow.png";
+    arrowIcon.transparent = "/res/img/map/green_arrow_transparent.png";
+    arrowIcon.iconSize = new GSize(39,34);
+    arrowIcon.iconAnchor = new GPoint(11,34);
+    arrowIcon.infoWindowAnchor = new GPoint(13,2);
+    arrowIcon.infoShadowAnchor = new GPoint(13,2);
+    arrowIcon.shadowSize = new GSize(39,34);
+
+    if (displayTooltips) {
+      tooltip = "${school.name}";
+    }
+    marker = new GMarker(centerPoint, {icon:arrowIcon, title: tooltip});
+    addClickListener(marker, mapLink);
+    map.addOverlay(marker);
+}
+
+function addClickListener(marker, link) {
+  GEvent.addListener(marker, "click", function() { location = link; });
+}
+
+function doMiniMap() {
+  if (GBrowserIsCompatible()) {
+      initMiniMap();
+  }
+}
+-->
+</script>
+
+</jsp:root>

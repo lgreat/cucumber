@@ -101,6 +101,27 @@ hr { /* has IE 7 equivalent */
 	padding: 0 0 0 10px;
 }
 
+#quickFacts #minimap {
+    margin-left: 10px;
+    width: 150px;
+    height: 83px;
+    cursor: pointer;
+}
+
+#quickFacts #minimap span {
+    font-size: 8px;
+}
+
+#quickFacts #minimap a {
+    font-size: 8px;
+}
+
+#quickFacts div.minimapViewLarger {
+    margin: 5px 0 10px 10px;
+    width: 150px;
+    font: 12px/15px Trebuchet MS, sans-serif;
+}
+
 
 /* Editor
 ----------------------------------*/

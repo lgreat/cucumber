@@ -6,6 +6,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
     <jsp:directive.tag import="gs.data.school.SchoolSubtype"/>
@@ -68,9 +69,17 @@
             <address>
                 ${school.physicalAddress.street}<br />
                 ${school.physicalAddress.city}, ${school.physicalAddress.state.abbreviation}&#32;${school.physicalAddress.zip}<br/>
-                <a href="http://maps.google.com/maps?oi=maps&amp;amp;q=${school.physicalAddress.street},${school.physicalAddress.city} ${school.physicalAddress.state} ${school.physicalAddress.zip}" target="_blank">Map &#62;</a>
             </address>
 
+            <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
+                <div id="minimap">&#160;<noscript>JavaScript is required in order to view a map of this school
+                    </noscript></div>
+                <map:miniSchool id="minimap" school="${school}" zoomLevel="11"/>
+                <div class="minimapViewLarger">
+                    <link:mapSchool school="${school}">View larger map &gt;</link:mapSchool>
+                </div>
+            </c:if>
+            
             <p class="phoneFax">
                 <c:if test="${not empty school.phone}">Phone: ${school.phone}<br /></c:if>
                 <c:if test="${not empty school.fax}">Fax: ${school.fax}</c:if>
