@@ -152,12 +152,14 @@ Large Google Map
 --------------------------------------*/
 
 #map div#schoolInfoWindow {
-    font: 12px/15px Trebuchet MS, sans-serif;    
+    font: 12px/15px Trebuchet MS, sans-serif;
+    width: 210px;
     color: #888;
 }
 
-#map div#schoolInfoWindow span.schoolName {
+#map div#schoolInfoWindow div.schoolName {
     font: bold 14px/17px Trebuchet MS, sans-serif;
+    width: 210px;
 }
 
 #map div#schoolInfoWindow div.schoolRating  {
