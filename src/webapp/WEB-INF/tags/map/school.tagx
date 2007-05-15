@@ -126,8 +126,8 @@ function initSchoolInfo() {
 
 <![CDATA[
 function getSchoolInfoWindowHtml() {
-    var rval = '';
-    rval += '<div class="schoolName">' + schoolName + '</div>';
+    var rval = '<div class="schoolInfoWindow" style="height: 120px;">';
+    rval += '<div class="schoolName" style="width: 210px;">' + schoolName + '</div>';
     rval += schoolRatingHtml;
     rval += schoolParentRatingHtml;
     rval += '<br style="clear: left" />';
@@ -140,6 +140,7 @@ function getSchoolInfoWindowHtml() {
             schoolMapAddr + 
             '" target="_blank">Get directions &gt;</a><br />';
     rval += schoolPhone;
+    rval += '</div>';
     return rval;
 }
 ]]>
@@ -192,13 +193,7 @@ function initMap() {
     }
     marker = new GMarker(centerPoint, {icon:arrowIcon, zIndexProcess: fakeLatitudeAtEquatorOrder, title: tooltip});
     GEvent.addListener(marker, "click", function() {
-        var infoWindowContents = document.createElement('div');
-        infoWindowContents.id = 'schoolInfoWindow';
-        infoWindowContents.style.height = '120px';
-        infoWindowContents.style.width = '200px';
-        infoWindowContents.innerHTML = getSchoolInfoWindowHtml();
-
-        marker.openInfoWindow(infoWindowContents);
+        marker.openInfoWindowHtml(getSchoolInfoWindowHtml());
     });
     map.addOverlay(marker);
     extendBoundsToCenterOnPoint(centerPoint, bounds);
