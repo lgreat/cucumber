@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.76 2007/05/14 23:14:27 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.77 2007/05/15 19:54:00 dlee Exp $
  */
 
 package gs.web.util;
@@ -166,6 +166,9 @@ public class UrlBuilder {
 
     /** number1schools cobrand leadgen page */
     public static final VPage GET_BIREG = new VPage("vpage:getBireg");
+
+    /** webby award thank you page */
+    public static final VPage WEBBY_AWARD_THANKS = new VPage("vpage:webbyAwardThanks");
 
     /**
      * Create a builder to the given site page.
@@ -449,6 +452,9 @@ public class UrlBuilder {
             _path = "/city/";
             setParameter("city", param0);
             setParameter("state", state.getAbbreviation());
+        } else if (WEBBY_AWARD_THANKS.equals(page)) {
+            _perlPage = false;
+            _path = "/promo/webbyAwardWinner.page";
         } else if (CITIES.equals(page)) {
             _perlPage = true;
             _path = "/modperl/cities/" +

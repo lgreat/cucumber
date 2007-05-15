@@ -1315,5 +1315,22 @@
             <description>CSS class name(s)</description>
         </attribute>
     </tag>
+
+    <tag>
+        <name>webbyAwardThanks</name>
+        <tag-class>gs.web.jsp.link.WebbyAwardThanksTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>Webby Award Thank You Page</display-name>
+        <description>
+            <![CDATA[Link to the webby award thank you page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+    </tag>
 </taglib>
 

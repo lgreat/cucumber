@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.62 2007/05/14 23:14:27 aroy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.63 2007/05/15 19:54:00 dlee Exp $
  */
 
 package gs.web.util;
@@ -369,6 +369,8 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/modperl/districts/CA", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.DISTRICT_PROFILE, State.CA, "135");
         assertEquals("/cgi-bin/ca/district_profile/135", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.WEBBY_AWARD_THANKS, null, null);
+        assertEquals("/promo/webbyAwardWinner.page", builder.asSiteRelative(request));
     }
 
     public void testAdminPages() {
