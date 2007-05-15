@@ -175,7 +175,7 @@ Large Google Map
     float: left;
 }
 
-#map div.schoolInfoWindow address, #map div#schoolInfoWindow p, #map div#schoolInfoWindow a {
+#map div.schoolInfoWindow address, #map div.schoolInfoWindow p, #map div.schoolInfoWindow a {
     font: 12px/15px Trebuchet MS, sans-serif;
 }
 
