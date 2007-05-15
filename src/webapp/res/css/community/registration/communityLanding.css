@@ -1,191 +1,46 @@
-.marian {
-	border: 1px solid #DDEEEE;
-	padding: 2px 2px 2px 2px;
-    text-indent:-1000em;
-    background-image: url("../../../img/community/registration/mwilde.jpg");
-	background-repeat: no-repeat;
-	background-position: 2px; 2px; 2px; 2px;
-	width: 54px;
-	height: 70px;
-}
+/* container */
 
-.marianDashedBorder {
-	padding: 0;
+#content {
 	margin: 0;
-	border: 1px dashed #DDEEEE;
-    width: 60px;
-    height: 76px;
+	padding: 10px;
+	border: 2px solid #ddeeee;
+    height: 342px;
 }
 
-#marianSignature {
-    text-indent:-50em;
-    background-image: url(../../../img/community/registration/marian_signature.gif);
-    background-repeat: no-repeat;
-    margin:10px 0 10px 0;
-    width: 135px;
-	height: 43px;
+#outline { /* creates the darker blue outer outline around #content, contains no other styling */
+	border: 3px solid #66cccc;
 }
 
-div.articleBox div.seeAll a:link,
-div.articleBox div.seeAll a:visited,
-div.articleBox div.seeAll a:hover,
-div.articleBox div.seeAll a:active,
-div.articleBox ul li a:link,
-div.articleBox ul li a:visited,
-div.articleBox ul li a:hover,
-div.articleBox ul li a:active {
-    font-family: "Trebuchet MS", Arial, sans-serif;
-    font-size: 13px;
-    font-weight: bold;
-    line-height: 15px;
-    color: #3399AA;
-    text-decoration: underline;
-    letter-spacing: 0;
+#leftSide {
+    float: left;
+    padding-right: 45px;
 }
 
-a.link:link, a.link:visited, a.link:hover, a.link:active {
-	font-family: "Trebuchet MS", Arial, sans-serif;
-	font-size: 12px;
-	line-height: 15px;
-	color: #3399AA;
-	text-decoration: underline;
-	letter-spacing: 0;
+#rightSide {
+    float: left;
+    width: 400px;
 }
 
-.greyDot {
-    border-bottom: 0;
-    background: url(../../../img/content/countdownToCollege/mid_dot_line.gif) bottom repeat-x;
-    padding-bottom: 10px;
-}
-
-.yellowArrow {
-	padding: 0 0 0 0;
-	margin: 0 0 0 0;
-	background-image: url("../../../img/content/research/yellow_arrow.gif");
-	background-repeat: no-repeat;
-	background-position: 7px 3px;
-	width: 22px;
-}
-
-.articleCell {
-    width: 100%;
-}
-
-.photoCell {
-    border-bottom: 1px solid #DDEEEE;
-    line-height: 10px;
-}
-
-.firstButton {
-    margin-left: 25px;
-    margin-right: 10px;
-}
-
-h1.communityWelcome {
-    width: 634px;
-	padding: 14px 0 10px 17px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
-	font-size: 18px;
-	line-height: 17px;
-	color: #55BBCC;
-	background-color: #DDEEEE;
-	letter-spacing: 0;
-}
-
-h1.signedInWelcome span.welcomeText {
-    position: relative;
-    top: -3px;
-    font-size: 21px;
-}
-
-h1.communityWelcome img {
-    position: relative;
-    top: 1px;
-}
-
-h1.signedOutWelcome span.welcomeText {
-    position: relative;
-    top: -5px;
-    font-size: 17px;
-}
-
-h1.welcomeInfo {
-    width: 579px;
-    height: 20px;
-    padding: 15px 0 18px 72px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
-    font-size: 17px;
-    line-height: 17px;
-    color: #ffffff;
-    letter-spacing: 0;
-    background: url(../../../img/community/registration/icon_infomessage_27x27.gif) 30px 13px no-repeat #66cccc;
-}
-
-#marianPhotoName, #marianPhotoCaption {
-    position: relative;
-    top: 11px;
-    left: -4px;
-}
-
-
-/*------------------------------------------------------
-
-Styles for adding thumbnail images to the article boxes
-
--------------------------------------------------------*/
-
-
-/* adjusts the height of the article box headers */
-
-.middleTitle2 { /* see page for additional attributes for this selector */
-    font-family: "Trebuchet MS", Arial, sans-serif;
-	font-size: 20px;
-	line-height: 17px;
-	color: #ffffff;
-	background-color: #66CCCC;
-	letter-spacing: 0;
-}
-
-/* places the thumbnail images in the article box headers */
-
-.articlebox_th { /* see page for additional attributes for this selector */
-	float: right;
-    border-left: 1px solid white;
-}
-
-div.articleBox div.seeAll {
-    position: absolute;
-    margin-top: 98px;
-    margin-left: 148px;
-}
-
-div.articleBox div.introText {
-    white-space: nowrap;
-}
-
-div.articleBox ul.articleList {
-    margin-top: 15px;
-}
-
-div.articleBox ul.articleList li {
-    list-style: circle url("../../../img/content/research/yellow_arrow.gif");
-    line-height: 0;
-    margin-left: 22px;
-    padding-bottom: 11px;
-}
-
-/* adjusted to minimize the padding below the article box table, so whitespace reflects the mockup */
-
-div.articleBox {
-    border: 2px solid #66CCCC;
-    border-top: 0;
-    padding: 9px 11px 0 15px;
-    font-family: "Trebuchet MS", Arial, sans-serif;
- 	font-size: 13px;
-    font-weight: normal;
-    line-height: 17px;
+#rightSide p {
+    font: 14px/18px Trebuchet MS, Arial, sans-serif;
     color: #777777;
-    width: 293px;
-    height: 174px;
-    letter-spacing: 0;
 }
+
+#rightSide p.message {
+    padding: 0 0 15px 0;
+    font-weight: bold;
+}
+
+#rightSide p.announcement {
+    padding: 15px 0 20px 0;
+}
+
+#rightSide p.joinCommunityText {
+    color: #CC5569;
+    padding-bottom: 7px;
+}
+
+#rightSide p.joinBetaText {
+    padding: 20px 0 7px 0;
+}
+

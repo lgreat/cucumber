@@ -80,6 +80,8 @@
                 <p class="intro">You're joining a national network of parents who are passionate about education. We're
                     excited to have you!</p>
 
+                <p class="intro preLaunch">Join now and we'll alert you when we launch!</p>
+
                 <!-- begin registration form -->
                 <gsweb:form action="/community/registration.page" method="post" styleClass="registration" id="reg1Form">
 

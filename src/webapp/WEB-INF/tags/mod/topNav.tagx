@@ -183,23 +183,22 @@
                         styleClass="${(pw == tabs.HOME ? 'lactive active' : 'inactive')} ${(pw == tabs.RESEARCH_COMPARE ? 'ractive' : '')} "
                         >Home</link:home></td>
                     <!--#1--><td><link:research
-                        styleClass="${(pw == tabs.HOME ? 'lactive' : '')} ${(pw == tabs.RESEARCH_COMPARE ? 'active' : 'inactive')} ${(pw == tabs.SEASONAL ? 'ractive' : '')} "
+                        styleClass="${(pw == tabs.HOME ? 'lactive' : '')} ${(pw == tabs.RESEARCH_COMPARE ? 'active' : 'inactive')} ${(pw == tabs.COMMUNITY_LANDING ? 'ractive' : '')} "
                         state="${requestScope.context.state}"
                         id="topnav_research"
                         >Research &amp;amp; Compare</link:research></td>
+                    <!--#10--><td><gsml:a href="/community/communityLanding.page"
+                        styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.COMMUNITY_LANDING ? 'active' : 'inactive')} ${(pw == tabs.SEASONAL ? 'ractive' : '')}"
+                        >Community</gsml:a></td>
                     <!--#7--><td><gsml:a href="/content/summerReading.page"
-                                         styleClass="${(pw == tabs.RESEARCH_COMPARE ? 'lactive' : '')} ${(pw == tabs.SEASONAL ? 'active' : 'inactive')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'ractive' : '')} "
+                                         styleClass="${(pw == tabs.COMMUNITY_LANDING ? 'lactive' : '')} ${(pw == tabs.SEASONAL ? 'active' : 'inactive')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'ractive' : '')} "
                         >Summer Reading</gsml:a></td>
                     <!--#9--><td><gsml:a href="/content/countdownToCollege.page"
                                          styleClass="${(pw == tabs.SEASONAL ? 'lactive' : '')} ${(pw == tabs.COUNTDOWN_COLLEGE ? 'active' : 'inactive')} ${(pw == tabs.LIBRARY ? 'ractive' : '')} "
                         >Countdown to College</gsml:a></td>
                     <!--#2--><td><link:articleLibrary
-                        styleClass="${(pw == tabs.COUNTDOWN_COLLEGE ? 'lactive' : '')} ${(pw == tabs.LIBRARY ? 'active' : 'inactive')} ${(pw == tabs.NEWSLETTERS ? 'ractive' : '')} "
+                        styleClass="${(pw == tabs.COUNTDOWN_COLLEGE ? 'lactive' : '')} ${(pw == tabs.LIBRARY ? 'active ractive' : 'inactive')} "
                         >Library</link:articleLibrary></td>
-                    <!--#6--><td><link:newsletterCenter
-                        styleClass="${(pw == tabs.LIBRARY ? 'lactive' : '')} ${(pw == tabs.NEWSLETTERS ? 'active ractive' : 'inactive')}"
-                        email="${requestScope.context.emailUrlEncoded}"
-                        >Free Newsletters</link:newsletterCenter></td>
                     <td width="28px">&#160;</td>
                 </tr></table>
             </td>

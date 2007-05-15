@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.38 2007/05/09 20:14:36 dlee Exp $
+ * $Id: PageHelper.java,v 1.39 2007/05/15 23:33:53 aroy Exp $
  */
 
 package gs.web.util;
@@ -44,6 +44,7 @@ public class PageHelper {
         put("NEWSLETTERS", "6");
         put("SEASONAL", "7");
         put("COUNTDOWN_COLLEGE", "9");
+        put("COMMUNITY_LANDING", "10");
     }};
 
     private final SessionContext _sessionContext;

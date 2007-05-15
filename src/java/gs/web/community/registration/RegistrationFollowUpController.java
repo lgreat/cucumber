@@ -355,15 +355,18 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             }
         }
 
-        PageHelper.setMemberAuthorized(request, response, user);
-        AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
+        //PageHelper.setMemberAuthorized(request, response, user);
+        PageHelper.setMemberCookie(request, response, user);
+        //AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
         if (StringUtils.isEmpty(fupCommand.getRedirect())) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
+            builder.addParameter("message", "Thank you for joining!");
             fupCommand.setRedirect(builder.asFullUrl(request));
         }
         // bounce to webcrossing so they can create user
-        mAndV.setViewName("redirect:" + _authenticationManager.generateRedirectUrl
-            (fupCommand.getRedirect(), authInfo));
+//        mAndV.setViewName("redirect:" + _authenticationManager.generateRedirectUrl
+//            (fupCommand.getRedirect(), authInfo));
+        mAndV.setViewName("redirect:" + fupCommand.getRedirect());
 
         return mAndV;
     }

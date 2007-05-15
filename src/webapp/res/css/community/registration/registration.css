@@ -277,7 +277,7 @@ h1 span {
 }
 
 .registration {
-	margin: 40px 0 0 0;
+	margin: 20px 0 0 0;
 }
 
 #reg_3 .registration {
@@ -862,4 +862,10 @@ h1 span {
 	color: #fff;
 	font-size: 17px;
 	background: url(../../../img/community/registration/icon_infomessage_27x27.gif) 40px 15px no-repeat #66cccc;
+}
+
+#reg_1 p.preLaunch {
+    color: #cc5566;
+    margin-top: 10px;
+    font-weight: bold;
 }

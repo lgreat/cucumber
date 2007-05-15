@@ -5,6 +5,7 @@ package gs.web.util;
 
 import gs.data.util.email.EmailHelperFactory;
 import gs.data.util.email.EmailHelper;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -59,7 +60,7 @@ public abstract class AbstractSendEmailBean {
      */
     protected void addLinkReplacement(EmailHelper emailHelper, HttpServletRequest request,
                                       UrlBuilder.VPage vpage, String key, String linkText, String omnitureValue) {
-        UrlBuilder builder = new UrlBuilder(vpage, null);
+        UrlBuilder builder = new UrlBuilder(vpage, SessionContextUtil.getSessionContext(request).getStateOrDefault());
         if (StringUtils.isNotEmpty(omnitureValue)) {
             builder.addParameter("cpn", omnitureValue);
         }

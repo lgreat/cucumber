@@ -16,230 +16,50 @@
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <html>
-<pageHelper:setPathway pathway="99"/>
-<c:set var="stateOrNull" value="${requestScope.context.state}" />
-<c:set var="stateOrDefault" value="${requestScope.context.stateOrDefault}" />
-  <head>
-      <title>GreatSchools Community</title>
-      <pageHelper:externalCss file="/res/css/content/research.css"/>
-      <pageHelper:externalCss file="/res/css/community/registration/communityLanding.css"/>
-      <jsp:scriptlet>
-          String userAgent = request.getHeader("user-agent");
-          if (userAgent != null &amp;&amp; userAgent.indexOf("MSIE") > -1) {
-      </jsp:scriptlet>
-      <style type="text/css">
-        .articlebox_th {
-            position: absolute;
-            margin: -27px 0 0 249px;
-        }
+<pageHelper:setPathway pathway="COMMUNITY_LANDING"/>
+<head>
+  <title>GreatSchools Community</title>
+  <pageHelper:externalCss file="/res/css/community/registration/communityLanding.css"/>
+</head>
+<gsml:body adPageName="communityLanding">
 
-        .middleTitle2 {
-            padding: 7px 0 2px 19px;
-        }
-      </style>
-      <jsp:scriptlet>
-          } else {
-      </jsp:scriptlet>
-      <style type="text/css">
-        .articlebox_th {
-            margin: -32px 0 0 0;
-        }
+    <div id="outline"><!-- creates darker blue outer outline -->
+        <div id="content">
+            <div id="leftSide">
+                <gsml:img src="/res/img/community/registration/GS_communityteaser_image.gif" alt="Community teaser"/>
+            </div>
+            <div id="rightSide">
+                <p class="message">
+                    ${escapedMessage} 
+                </p>
+                <gsml:img src="/res/img/community/registration/GS_communityteaser_header.gif" alt="Coming soon: GreatSchools Community!"/>
+                <br/>
+                <p class="announcement">
+                    We're excited to announce that GreatSchools will soon launch a community for parents
+                    who are passionate about education!  Does your child need help with homework? Get
+                    tips from other parents who've been there. Do you have school fundraising tips to
+                    share? Share your stories with parents tackling similar issues. Check back here for 
+                    updates!
+                </p>
+                <p class="joinCommunityText">
+                    Join now and we'll alert you when we launch!
+                </p>
+                <link:registration email="${user.email}">
+                    <gsml:img src="/res/img/community/registration/GS_communityteaser_button1.gif" alt="Join the community"/>
+                </link:registration>
+                <p class="joinBetaText">
+                    Take community for a pre-launch test drive:
+                </p>
+                <link:betaSignup email="${user.email}">
+                    <gsml:img src="/res/img/community/registration/GS_communityteaser_button2.gif" alt="Join our beta group"/>
+                </link:betaSignup>
+            </div>
+        </div>
+    </div>
 
-        .middleTitle2 {
-            padding: 9px 0 5px 19px;
-        }
-      </style>
-      <jsp:scriptlet>
-          }
-      </jsp:scriptlet>
-  </head>
-  <gsml:body adPageName="communityLanding">
-      <table cellspacing="0" cellpadding="0" class="content" border="0">
-      <tr>
-      <td valign="top" class="border10">
-
-          <table width="173" cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                  <td><div class="marianDashedBorder">
-                      <div class="marian" title="Photo of Marian Wilde, GreatSchools Community Manager">Photo of community moderator Marian Wilde</div>
-                      </div>
-                  </td>
-                  <td><span id="marianPhotoName" class="photoName">Marian Wilde</span><br/>
-                      <span id="marianPhotoCaption" class="photoCaption">Community Moderator,<br/>GreatSchools</span></td>
-              </tr>
-              <tr>
-                  <td colspan="2" class="photoCell">&amp;nbsp;</td>
-              </tr>
-              <tr>
-                  <td colspan="2" id="leftBox">
-                      Welcome to the GreatSchools Community, where you can ask questions and trade tips
-                      with other parents to support your child's education!
-                      <br/><br/>
-                      Does your child need
-                      <gsweb:articleForumLink articleId="769" styleClass="link">help with homework</gsweb:articleForumLink>?
-                      Is she
-                      <gsweb:articleForumLink articleId="215" styleClass="link">plagued by bullies</gsweb:articleForumLink>
-                      at school?
-                      Get tips from other parents who've been there.
-                      <br/><br/>
-                      Have you participated in a
-                      <gsweb:articleForumLink articleId="33" styleClass="link">successful school fundraiser</gsweb:articleForumLink>?
-                      Weighed the options of
-                      <gsweb:articleForumLink articleId="197" styleClass="link">private vs. public schools</gsweb:articleForumLink>
-                      for your family?
-                      Share your stories with parents tackling similar issues today.
-
-
-                      <div id="marianSignature" title="Marian Wilde's signature">Marian Wilde</div>
-                   </td>
-              </tr>
-          </table>
-      </td>
-
-      <td style="width: 9px;" valign="top"><img style="width: 9px;" alt=""
-                                                src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-
-      <!-- right -->
-      <td style="width: 651px" valign="top">
-      <table width="651" cellpadding="0" cellspacing="0" border="0">
-      <tr>
-          <td colspan="3">
-              <c:choose>
-                  <c:when test="${param.message ne null}">
-                      <h1 class="welcomeInfo">
-                        ${escapedMessage}
-                      </h1>
-                  </c:when>
-                  <c:when test="${user ne null}">
-                      <h1 class="signedInWelcome communityWelcome">
-                          <span class="welcomeText">
-                            Welcome to the community, ${user.userProfile.screenName}!
-                          </span>
-                          <link:accountInfo>
-                              <gsml:img src="/res/img/community/registration/b_myAccount.gif" styleClass="firstButton"
-                                        alt="Manage my account"/>
-                          </link:accountInfo>
-                      </h1>
-                  </c:when>
-                  <c:otherwise>
-                      <h1 class="signedOutWelcome communityWelcome">
-                          <span class="welcomeText">
-                            Welcome to the GreatSchools Community!
-                          </span>
-                          <span class="welcomeButtons">
-                              <link:registration>
-                                  <gsml:img src="/res/img/community/registration/b_join.gif" styleClass="firstButton"
-                                            alt="Join the GreatSchools Community"/>
-                              </link:registration>
-                              <link:loginOrRegister>
-                                  <gsml:img src="/res/img/community/registration/b_signIn.gif" alt="Sign in to GreatSchools"/>
-                              </link:loginOrRegister>
-                          </span>
-                      </h1>
-                  </c:otherwise>
-              </c:choose>
-          </td>
-      </tr>
-      <tr>
-          <td colspan="3"><gsml:img style="height: 12px;" alt="" src="/res/img/header/clear_pix.gif" />
-          </td>
-      </tr>
-      <tr>
-        <td valign="top" colspan="3" class="greyDot">
-            <img style="height: 5px;" alt=""
-                 src="http://www.greatschools.net/res/img/header/clear_pix.gif"/>
-        </td>
-      </tr>
-      <tr>
-          <td colspan="3"><gsml:img style="height: 2px;" alt="" src="/res/img/header/clear_pix.gif" />
-          </td>
-      </tr>
-      <tr>
-      <!-- Hot Topics Box -->
-      <td valign="top">
-          <div class="middleTitle2">
-              <gsml:img src="/res/img/community/registration/t_hotTopics.gif" alt="Hot Topics"/>
-          </div>
-          <gsml:img src="/res/img/community/registration/th_hot-topics.jpg" styleClass="articlebox_th"
-                    alt="Photo of two parents in discussion" />
-          <div class="hotTopicsBox articleBox">
-              <div class="introText">What's important in your family<br/>and school?</div>
-              <div class="seeAll"><gsml:a href="http://community.greatschools.net/.598f033b">See all discussions &gt;</gsml:a></div>
-              <ul class="articleList">
-                  <gsweb:articleForumLink articleId="614" wrappingElement="li">Help! My child won't listen</gsweb:articleForumLink>
-                  <gsweb:articleForumLink articleId="513" wrappingElement="li">Whose science project is it, anyway?</gsweb:articleForumLink>
-                  <gsweb:articleForumLink articleId="215" wrappingElement="li">Bullying</gsweb:articleForumLink>
-              </ul>
-          </div>
-      </td>
-      <td><img style="width: 6px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-      <!-- School Choice Tips Box -->
-      <td valign="top">
-          <div class="middleTitle2">
-              <gsml:img src="/res/img/community/registration/t_choosingSchool.gif" alt="School Choice Tips"/>
-          </div>
-          <gsml:img src="/res/img/community/registration/th_choosing-a-school.jpg" styleClass="articlebox_th"
-                    alt="Photo of children raising hands in a classroom" />
-          <div class="choosingSchoolBox articleBox">
-              <div class="introText">Ask questions and share tips during<br/>your search for the right K-12 school.</div>
-              <ul class="articleList">
-                  <gsweb:articleForumLink articleId="197" wrappingElement="li">Private vs. public</gsweb:articleForumLink>
-                  <gsweb:articleForumLink articleId="96" wrappingElement="li">Finding the right fit</gsweb:articleForumLink>
-                  <gsweb:articleForumLink articleId="487" wrappingElement="li">7 things to know about charter schools</gsweb:articleForumLink>
-              </ul>
-          </div></td>
-      </tr>
-
-      <tr>
-        <td><img style="height: 6px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-      </tr>
-
-      <tr>
-      <!-- K-5 Academic Success Box -->
-      <td valign="top">
-          <div class="middleTitle2">
-              <gsml:img src="/res/img/community/registration/t_k-5Success.gif" alt="K-5 Academic Success"/>
-          </div>
-          <gsml:img src="/res/img/community/registration/th_K-5-Academic-Success.jpg" styleClass="articlebox_th"
-                    alt="Photo of elementary aged girl writing at desk" />
-          <div class="Successk5Box articleBox">
-              <div class="introText">What's working for your family at<br/>home and in the classroom?</div>
-              <ul class="articleList">
-                  <gsweb:articleForumLink articleId="44" wrappingElement="li">Reading with your child</gsweb:articleForumLink>
-                  <gsweb:articleForumLink articleId="209" wrappingElement="li">Getting excited about math</gsweb:articleForumLink>
-                  <gsweb:articleForumLink articleId="160" wrappingElement="li">What's up with all these tests?</gsweb:articleForumLink>
-              </ul>
-          </div>
-      </td>
-      <td><img style="width: 6px;" alt="" src="http://www.greatschools.net/res/img/header/clear_pix.gif"/></td>
-      <!-- 6-12 Academic Success Box -->
-      <td valign="top">
-          <div class="middleTitle2">
-              <gsml:img src="/res/img/community/registration/t_6-12Success.gif" alt="6-12 Academic Success"/>
-          </div>
-          <gsml:img src="/res/img/community/registration/th_6-12-Academic-Success.jpg" styleClass="articlebox_th"
-                    alt="Photo of high school aged boy" />          
-          <div class="Success612Box articleBox">
-              <div class="introText">What's on your mind about how to<br/>help your child?</div>
-              <ul class="articleList">
-                  <gsweb:articleForumLink articleId="325" wrappingElement="li">Tweens &amp; teens: how to stay involved</gsweb:articleForumLink>
-                  <gsweb:articleForumLink articleId="752" wrappingElement="li">Why is algebra a big deal?</gsweb:articleForumLink>
-                  <gsweb:articleForumLink articleId="700" wrappingElement="li">Study skills for middle school</gsweb:articleForumLink>
-              </ul>
-          </div></td>
-      </tr>
-
-      </table>
-
-      </td>
-</tr>
-</table>
-
-  <footer:editorialFooter/>
-
-  <mod:tracking pageName="Community Landing Page"
-                pageType="community"
-                hier1="Community,Landing Page"/>
-  </gsml:body>
+    <mod:tracking pageName="Community Landing Page"
+                  pageType="community"
+                  hier1="Community,Landing Page"/>
+</gsml:body>
 </html>
 </jsp:root>
