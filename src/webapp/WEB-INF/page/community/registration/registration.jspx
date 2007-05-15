@@ -246,7 +246,7 @@
                                          styleClass="next" name="next" onclick="return doSingleClick(this);" tabIndex="17"/>
                     </div>
 
-                    <div class="clear"></div>
+                    <![CDATA[<div class="clear"></div>]]>
 
                     <spring:bind path="userCmd.redirectUrl">
                         <input id="redirectUrl" type="hidden" name="${status.expression}" value="${status.value}"/>
