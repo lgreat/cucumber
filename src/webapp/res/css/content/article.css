@@ -1,0 +1,66 @@
+div#article {
+    padding:0;
+}
+
+div#articleTitle {
+    color:#56BECC;
+    background:#DBEDEF;
+    width:500px;
+    padding: 10px 10px 10px 20px;
+}
+
+div#articleAbstract {
+    width:520px;
+    padding:10px 0 5px 20px;
+}
+
+div#articleAuthor {
+    width:520px;
+    padding:5px 0 5px 20px;
+}
+
+div#articleText {
+    padding:20px 0px 0px 20px;
+}
+div#rightMatter {
+    float:right;
+    border-left:solid 1px #DDDDDD;
+    padding-left:8px;
+    width:320px;
+    margin:0 0 10px 10px;
+}
+
+div#articleTools {
+    border:solid 2px #66CDCB;
+}
+    div#articleTools h2 {
+        border-bottom:solid 1px #AAAAAA;
+        padding:5px 3px 5px 3px;
+        margin: 0px 3px 10px 3px;
+    }
+
+    div#articleTools li {
+        margin-left:35px;
+    }
+
+    div#articleTools li#print {
+        list-style-image:url("/res/img/content/article/printgrey.gif")
+    }
+
+    div#articleTools li#email {
+        list-style-image:url("/res/img/content/article/emailgrey.gif")
+    }
+
+    div#articleTools li#signup {
+        list-style-image:url("/res/img/content/article/signupgrey.gif")
+    }
+
+    div#articleTools li#discuss {
+        list-style-image:url("/res/img/content/article/discussgrey.gif")
+    }
+
+div#articleText li {
+    list-style:disc;
+    margin-left:30px;
+}
+    div#articleText li .rlbcopy { color:#55BBCA; }

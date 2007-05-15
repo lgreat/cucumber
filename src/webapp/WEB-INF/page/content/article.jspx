@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          version="2.0" >
+    <html lang="en">
+    <jsp:directive.page contentType="text/html"/>
+    <head>
+        <title>${requestScope.article.title}</title>
+        <pageHelper:externalCss file="/res/css/content/article.css"/>
+    </head>
+    <body>
+    <div id="rightMatter">
+        <div id="articleTools">
+            <h2>Article Tools</h2>
+            <ul>
+                <li id="print"><gsml:a href="">Print This Article</gsml:a></li>
+                <li id="email"><gsml:a href="">Email This Article</gsml:a></li>
+                <li id="signup"><gsml:a href="">Sign-up For Newsletters</gsml:a></li>
+                <c:if test="${true}">
+                    <li id="discuss"><gsml:a href="">Discuss This Article</gsml:a></li>
+                </c:if>
+            </ul>
+            <span id="library">
+                <link:articleLibrary>See full library of articles</link:articleLibrary>
+            </span>
+        </div>
+        <ad:x40/>
+    </div>
+    <c:choose>
+        <c:when test="${not empty requestScope.article}">
+            <div id="article">
+                <div id="articleTitle">${requestScope.article.title}</div>
+                <div id="articleAbstract">${requestScope.article.abstract}</div>
+                <div id="articleAuthor">${requestScope.article.author}</div>
+                <div id="articleText">${requestScope.article.articleText}</div>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <h2 class="noarticle">Article not found</h2>
+        </c:otherwise>
+    </c:choose>
+    </body>
+    </html>
+</jsp:root>

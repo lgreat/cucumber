@@ -260,7 +260,13 @@
             <value>status/batch</value>
         </property>
     </bean>
+
     <!-- Status end -->
+
+    <bean name="/content/article.page"
+          class="gs.web.content.ArticleController"
+          autowire="byName" lazy-init="true">
+    </bean>
 
     <bean name="/content/allArticles.page"
           class="gs.web.content.AllArticlesController"
