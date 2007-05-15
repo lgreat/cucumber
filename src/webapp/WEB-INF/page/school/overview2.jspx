@@ -59,14 +59,16 @@
 
         <school:quickFacts school="${school}"/>
 
-        <hr />
-
         <!-- Big Picture -->
-        <school:bigPicture school="${school}"/>
-
         <hr />
-		<!-- Editor -->
+        <school:bigPicture school="${school}"/>
+        
+        <!-- survey link -->
+        <hr />
+        <a href="http://www.surveymonkey.com/s.asp?u=795713770339" target="_blank"><gsml:img src="/res/img/promo/newlook.gif" alt="GreatSchools has a new look. Tell us what you think."/></a>
 
+		<!-- Editor -->
+        <hr />
 		<div id="editor">
 
 		<gsml:img src="/res/img/school/overview/mug_Rosenthal-Lisa.jpg" alt="Photo of GreatSchools Senior Editor, Lisa Rosenthal" />
