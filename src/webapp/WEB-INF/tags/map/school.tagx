@@ -91,7 +91,7 @@ var schoolParentRatingHtml = '<div class="parentRating">';
 <c:choose>
     <c:when test="${parent_rating eq 0}">
         <c:set var="parent_rating_title" value="Be the first to rate!"/>
-        schoolParentRatingHtml += '<link:schoolProfileAddParentReview school="${school}" title="${parent_rating_title}"><gsml:img src="/res/img/map/ratings_parent_city_rateit.gif" alt="Rate it!"/></link:schoolProfileAddParentReview>';
+        schoolParentRatingHtml += '<link:schoolProfileAddParentReview school="${school}" title="${parent_rating_title}"><img src="/res/img/map/ratings_parent_city_0.gif" alt="Be the first to rate!" onmouseover="this.src=\\'/res/img/map/ratings_parent_city_rateit.gif\\'" onmouseout="this.src=\\'/res/img/map/ratings_parent_city_0.gif\\'"/></link:schoolProfileAddParentReview>';
     </c:when>
     <c:otherwise>
         <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
@@ -193,7 +193,7 @@ function initMap() {
     }
     marker = new GMarker(centerPoint, {icon:arrowIcon, zIndexProcess: fakeLatitudeAtEquatorOrder, title: tooltip});
     GEvent.addListener(marker, "click", function() {
-        marker.openInfoWindowHtml(getSchoolInfoWindowHtml());
+        marker.openInfoWindowHtml(getSchoolInfoWindowHtml(), {maxWidth: 200});
     });
     map.addOverlay(marker);
     extendBoundsToCenterOnPoint(centerPoint, bounds);
