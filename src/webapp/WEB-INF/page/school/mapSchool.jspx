@@ -65,8 +65,8 @@
                 CODE AS WHEN IT APPEARS IN THE RIGHT COLUMN. I FELT THIS WOULD BE CONVENIENT. THE LI
                 CLASSES (THAT ADD THE RATING IMAGE IN THE RIGHT COLUMN) HAVE BEEN LEFT IN THE MARKUP,
                 BUT HAVE BEEN DISABLED IN THE CSS, AS THEY ARE NOT PRESENT IN THIS INTEFACE. -->
-                <c:if test="${hasNearby}">
-                    <ul>
+                <ul>
+                    <c:if test="${hasNearby}">
                         <c:forEach items="${nearbySchools}" var="nearbySchool">
                             <li>
                                 <link:schoolProfileOverview school="${nearbySchool.neighbor}"
@@ -87,8 +87,12 @@
                                 </link:mySchoolList>
                             </li>
                         </c:forEach>
-                    </ul>
-                </c:if>
+                        <li id="nearMore"><link:schoolCompareSchool school="${school}">More nearby schools &gt;</link:schoolCompareSchool></li>
+                    </c:if>
+                    <c:if test="${school.type.schoolTypeName != 'private'}">
+                        <li id="nearDistrict"><link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name} schools &gt;</link:allSchoolsInDistrict></li>
+                    </c:if>
+                </ul>
             </div><!-- end: nearbySchools -->
         </div><!-- end: col_left" -->
 
@@ -109,12 +113,14 @@
             <div id="learnMore">
                 <h2>Learn More About:</h2>
                 <ul>
-                    <li>
-                        <link:allSchoolsInDistrict districtId="${school.districtId}"
-                                                   title="Schools in ${school.district.name}">
-                            Schools in ${school.district.name} &gt;
-                        </link:allSchoolsInDistrict>
-                    </li>
+                    <c:if test="${school.type.schoolTypeName != 'private'}">
+                        <li>
+                            <link:allSchoolsInDistrict districtId="${school.districtId}"
+                                                       title="Schools in ${school.district.name}">
+                                Schools in ${school.district.name} &gt;
+                            </link:allSchoolsInDistrict>
+                        </li>
+                    </c:if>
                     <li>
                         <link:city city="${city}" state="${state}" title="${city} schools">
                             Top-rated ${city} schools &gt;
