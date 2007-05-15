@@ -1,0 +1,57 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          version="2.0">
+    <html>
+    <jsp:directive.page contentType="text/html"/>
+    <head>
+        <title>GreatSchools THANKS YOU for your support!</title>
+        <style type="text/css">
+            .webbyContent {
+                font: 13px Trebuchet MS, sans-serif;
+                color: #666;
+                float:left;
+                padding:50px 0 0 45px;
+            }
+            .webbyContent h1 {font-size:25px;font-weight:normal;color:#aaa;}
+            .webbyContent h1 span {color:#97cf64;font-weight:bold;}
+            .webbyContent p {padding-top:20px;font-weight:500;}
+            #links li a {color: #3399aa;text-decoration: underline;}
+        </style>
+    </head>
+<gsml:body adPageName="promo/webbyAwardWinner">
+<div style="width:860px;height:372px;border:2px solid #64cecc;">
+    <div style="width:856px;height:368px;border:2px solid #ddeeee;">
+        <div style="padding:10px;float:left;">
+            <gsml:img src="/res/img/promo/webby/notebookWinner.jpg" alt="People's Voice Winner" style="float:left;"/>
+            <div class="webbyContent">
+                <h1>GreatSchools <span>THANKS YOU</span><br/> for your support!</h1>
+
+                <p style="padding-top:20px;">GreatSchools is the winner of a People's Voice Webby Award,<br/>
+                thanks to the votes of parents like you.  We're honored that you<br/>
+                chose GreatSchools as the best Family/Parenting site in the<br/>
+                awards, known as the "Oscars of the Internet."  More important,<br/>
+                we're proud that you find GreatSchools helpful in guiding your<br/>
+                child's education.  That makes you the real winners!<br/>
+                </p>
+
+                <p style="text-transform:uppercase;color:#CC5566;font-weight:600;font-size:smaller;">Learn More</p>
+                <ul id="links">
+                <li><gsml:a href="/cgi-bin/static/press20070501.txt/$STATE">Read the press release &amp;gt;</gsml:a></li>
+                <li><a href="http://www.webbyawards.com/webbys/current.php?season=11#webby_entry_family">View all Webby award winners &amp;gt;</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<br style="clear:both;"/>
+<div style="width:864px;height:118px;background-color:#ddeeee;margin-top:10px;">&amp;nbsp;</div>
+
+
+<mod:tracking pageType="promo"
+              pageName="Webby Award Winner Thank You"
+              hier1="Promotion,Webby Award Winner"/>
+</gsml:body>
+</html>
+</jsp:root>
