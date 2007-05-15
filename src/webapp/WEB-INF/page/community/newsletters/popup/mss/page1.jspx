@@ -85,7 +85,6 @@
 <div class="pLR">
     <div class="promo">
         <h1>Is ${schoolName} on track?</h1>
-        <h3>Find out with free monthly newsletters from GreatSchools.</h3>
     </div>
 
     <div class="content">
@@ -104,14 +103,23 @@
             <input type="hidden" name="${schoolNameExpr}" value="${schoolName}"/>
             <input type="hidden" name="state" value="${stateAbbrev}"/>
 
-                <div class="cbx">
-                    <input type="checkbox" name="${mssExpr}" checked="checked"/>
-                    Yes, please send me monthly stats and updates about ${schoolName}.
+            <div style="padding-top:10px;">
+                <div style="width:320px;float:left;">
+                    <h3 id="raveText">Find out with the free online newsletters from GreatSchools that parents rave about!</h3>
+                    <table cellpadding="5">
+                        <tr class="cbx">
+                            <td valign="top"><input type="checkbox" name="${mssExpr}" checked="checked"/></td>
+                            <td>Yes, please send me monthly stats and updates about ${schoolName}.</td>
+                        </tr>
+                        <tr class="cbx">
+                            <td valign="top"><input type="checkbox" name="${gnExpr}" checked="checked"/></td>
+                            <td>Please also send me tips and advice in the bi-monthly Parent Advisor.</td>
+                        </tr>
+                    </table>
                 </div>
-
-            <div class="cbx">
-                <input type="checkbox" name="${gnExpr}" checked="checked"/>
-                Please also send me tips and advice in the bi-monthly Parent Advisor.
+                <div style="float:right;padding-right:10px;">
+                    <link:webbyAwardThanks target="_blank"><gsml:img src="/res/img/promo/webby/newsletter_hover.gif" alt="GreatSchools 2007 People's Voice Webby Award"/></link:webbyAwardThanks>
+                </div>
             </div>
 
             <div class="email">

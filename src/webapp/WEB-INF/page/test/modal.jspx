@@ -19,6 +19,7 @@
 
     <gsml:body adPageName="modal">
         <gsml:url var="mss" value="/community/newsletters/popup/mss/page1.page?schoolId=1&amp;state=CA"/>
+        <gsml:url var="nthgrader" value="/community/newsletters/popup/newsletter.page"/>
         <pageHelper:externalJavascript file="/res/js/submodal/submodal.js"/>
         <pageHelper:externalCss file="/res/css/submodal/submodal.css"/>
         <pageHelper:addOnLoadHandler handler="showPopWinOnExit('${mss}', 480, 500, null, 'hoverNewsMss');"/>
@@ -34,7 +35,10 @@
             -->
             <button onclick="showPopWin('${mss}', 480, 500, null, 'hoverNewsMss');">
                 show
-                modal window</button>
+                mss modal</button>
+            <button onclick="showPopWin('${nthgrader}', 480, 500, null, 'hoverNewsNth');">
+                show
+                nthgrader</button>
             <br/><br/>
             Note, the title doesn't show when running on localhost:8080 because of Javascript security. For titles to
             work in submodal the modal page must be on the same host as the parent page.

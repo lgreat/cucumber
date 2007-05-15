@@ -28,7 +28,7 @@
 }
 
 .subhead {
-   font-size:14px;
+   font-size:13px;
    font-weight:bold;
    color:#666666;
    padding:0 0 15px 15px;
@@ -65,7 +65,12 @@ a:active {
     color: #0066cc;
 }
 
-.promo h3 {
+#raveText {
+    padding:0;
+    margin:0 0 5px 0;
+}
+
+#raveText, .promo h3 {
     margin-top:0;
     font-size: 15px;
     font-weight: bold;
@@ -93,6 +98,7 @@ a:active {
 .email {
     padding: 1em 0 1em 1em;
     position:relative;
+    clear:both;
 }
 
 .quote {
@@ -174,7 +180,7 @@ li {
 }
 
 div.signupText {
-    padding:10px 0 0 15px;
+    padding:0 0 0 15px;
     font-size:16px;
     font-weight:bold;
     color:#666666;
