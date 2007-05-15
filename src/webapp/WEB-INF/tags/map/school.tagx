@@ -67,7 +67,7 @@ var displayTooltips = ${not empty tooltips};
 var centerOnStar = true;
 var centerPoint = new GLatLng(${center.lat}, ${center.lon});
 var schoolArray = new Array();
-var schoolName = "${school.name}";
+var schoolName = "${school.name} Plus Some Really Not So Long Extra Words";
 var schoolStreet = "${school.physicalAddress.street}";
 var schoolCity = "${school.physicalAddress.city}";
 var schoolState = "${school.physicalAddress.state.abbreviation}";
@@ -127,7 +127,7 @@ function initSchoolInfo() {
 <![CDATA[
 function getSchoolInfoWindowHtml() {
     var rval = '';
-    rval += '<span class="schoolName">' + schoolName + '</span> <br/>';
+    rval += '<div class="schoolName">' + schoolName + '</div>';
     rval += schoolRatingHtml;
     rval += schoolParentRatingHtml;
     rval += '<br style="clear: left" />';
@@ -195,12 +195,10 @@ function initMap() {
         var infoWindowContents = document.createElement('div');
         infoWindowContents.id = 'schoolInfoWindow';
         infoWindowContents.style.height = '120px';
+        infoWindowContents.style.width = '200px';
         infoWindowContents.innerHTML = getSchoolInfoWindowHtml();
 
         marker.openInfoWindow(infoWindowContents);
-
-        //marker.openInfoWindowHtml('<div style="width: 340px">' + getSchoolInfoWindowHtml() + "</div>");
-        //marker.openInfoWindow(document.createTextNode("Hello, world!"));
     });
     map.addOverlay(marker);
     extendBoundsToCenterOnPoint(centerPoint, bounds);
