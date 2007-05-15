@@ -161,8 +161,8 @@ Large Google Map
 }
 
 #map div.schoolInfoWindow div.schoolRating  {
-    padding: 0 5px 0 0;
-    margin: 0 10px 0 0;
+    padding: 0 8px 0 0;
+    margin: 0;
     height: 22px;
     width: 22px;
     border-right: 1px solid #CCCCCC;
@@ -171,7 +171,7 @@ Large Google Map
 }
 
 #map div.schoolInfoWindow div.parentRating {
-    padding: 2px 0 0 0;
+    padding: 5px 0 0 0;
     float: left;
 }
 
