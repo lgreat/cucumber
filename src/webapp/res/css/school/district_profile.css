@@ -203,3 +203,16 @@ District Overview
 	padding: 0;
 	border: 0;
 }
+
+/* Print styles
+----------------------------------*/
+
+@media print {
+    #col_left {
+        width: 75%;
+        border-right: 0;
+    }
+    #col_right {
+        display: none;
+    }
+}
