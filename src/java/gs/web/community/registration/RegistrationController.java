@@ -232,7 +232,7 @@ public class RegistrationController extends SimpleFormController implements Read
             //AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
             if (StringUtils.isEmpty(userCommand.getRedirectUrl())) {
                 UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
-                builder.addParameter("message", "Thank you for joining!");
+                builder.addParameter("message", "Thank you for joining the GreatSchools Community! You will be among the first to know when we launch.");
                 userCommand.setRedirectUrl(builder.asFullUrl(request));
             }
             // bounce to webcrossing so they can create user

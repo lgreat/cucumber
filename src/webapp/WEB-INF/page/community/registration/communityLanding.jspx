@@ -23,15 +23,18 @@
 </head>
 <gsml:body adPageName="communityLanding">
 
+    <c:if test="${escapedMessage ne null and escapedMessage gt ''}">
+        <div class="infomessage">
+          ${escapedMessage}
+        </div>
+        <br style="clear: both;" />
+    </c:if>
     <div id="outline"><!-- creates darker blue outer outline -->
         <div id="content">
             <div id="leftSide">
                 <gsml:img src="/res/img/community/registration/GS_communityteaser_image.gif" alt="Community teaser"/>
             </div>
             <div id="rightSide">
-                <p class="message">
-                    ${escapedMessage} 
-                </p>
                 <gsml:img src="/res/img/community/registration/GS_communityteaser_header.gif" alt="Coming soon: GreatSchools Community!"/>
                 <br/>
                 <p class="announcement">
@@ -55,6 +58,9 @@
                 </link:betaSignup>
             </div>
         </div>
+    </div>
+    <div id="bottomPadding">
+        &amp;nbsp;
     </div>
 
     <mod:tracking pageName="Community Landing Page"

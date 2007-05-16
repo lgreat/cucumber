@@ -11,6 +11,8 @@
 	border: 3px solid #66cccc;
 }
 
+/* Page content */
+
 #leftSide {
     float: left;
     padding-right: 45px;
@@ -19,16 +21,18 @@
 #rightSide {
     float: left;
     width: 400px;
+    padding-top: 35px;
+}
+
+#bottomPadding {
+    height: 118px;
+    background-color: #DEEFEF;
+    margin: 7px 0 0 0;
 }
 
 #rightSide p {
-    font: 14px/18px Trebuchet MS, Arial, sans-serif;
+    font: 14px/16px Trebuchet MS, Arial, sans-serif;
     color: #777777;
-}
-
-#rightSide p.message {
-    padding: 0 0 15px 0;
-    font-weight: bold;
 }
 
 #rightSide p.announcement {
@@ -38,9 +42,22 @@
 #rightSide p.joinCommunityText {
     color: #CC5569;
     padding-bottom: 7px;
+    font-weight: bold;
 }
 
 #rightSide p.joinBetaText {
     padding: 20px 0 7px 0;
+}
+
+/* info message */
+.infomessage {
+	width: 414px;
+	height: 41px; /* 45 true width minus top padding */
+	float: right;
+	margin: 0 0 4px 0;
+    padding: 4px 230px 0 220px;
+	color: #fff;
+	font: 17px/20px Trebuchet MS, Arial, sans-serif;
+	background: url(../../../img/community/registration/icon_infomessage_27x27.gif) 180px 8px no-repeat #66cccc;
 }
 

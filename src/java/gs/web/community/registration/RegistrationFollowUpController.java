@@ -360,7 +360,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         //AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
         if (StringUtils.isEmpty(fupCommand.getRedirect())) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
-            builder.addParameter("message", "Thank you for joining!");
+            builder.addParameter("message", "Thank you for joining the GreatSchools Community! You will be among the first to know when we launch.");
             fupCommand.setRedirect(builder.asFullUrl(request));
         }
         // bounce to webcrossing so they can create user
