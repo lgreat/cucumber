@@ -15,19 +15,18 @@
                 float:left;
                 padding:50px 0 0 45px;
             }
+            .webbyContent p {margin-top:20px;font-weight:500;}
             .header {font-size:25px;font-weight:normal;}
             .grey {color:#aaa;}
             .green {color:#97cf64;}
-            .webbyContent h1 span {color:#97cf64;font-weight:bold;width:600px;}
-            .webbyContent p {margin-top:20px;font-weight:500;}
-            #links li a {color: #3399aa;text-decoration: underline;}
             .red {color:#cc5566;text-transform:uppercase;}
+            #links li a {color: #3399aa;text-decoration: underline;}            
         </style>
     </head>
 <gsml:body adPageName="promo/webbyAwardWinner">
     <h1>GreatSchools for your support!</h1>
-    <div style="width:860px;height:372px;border:2px solid #64cecc;">
-    <div style="width:856px;height:368px;border:2px solid #ddeeee;">
+    <div style="width:860px;height:366px;border:2px solid #64cecc;">
+    <div style="width:856px;height:362px;border:2px solid #ddeeee;">
         <div style="padding:10px;float:left;">
             <gsml:img src="/res/img/promo/webby/notebookWinner.jpg" alt="People's Voice Winner" style="float:left;"/>
             <div class="webbyContent">
@@ -56,8 +55,8 @@
 <gsml:sifr>
     <gsml:url var="centuryGothic" value="/res/sifr/centuryGothic.swf"/>
     <gsml:url var="centuryGothicBold" value="/res/sifr/centuryGothicBold.swf"/>
-    sIFR.replaceElement(named({sSelector:".grey", sFlashSrc:"${centuryGothic}",sColor:"#aaaaaa"}));
-    sIFR.replaceElement(named({sSelector:".green", sFlashSrc:"${centuryGothicBold}",sColor:"#97cf64"}));
+    sIFR.replaceElement(named({sSelector:".grey", sFlashSrc:"${centuryGothic}", sColor:"#aaaaaa"}));
+    sIFR.replaceElement(named({sSelector:".green", sFlashSrc:"${centuryGothicBold}", sColor:"#97cf64"}));
 </gsml:sifr>
 <mod:tracking pageType="promo"
               pageName="Webby Award Winner Thank You"
