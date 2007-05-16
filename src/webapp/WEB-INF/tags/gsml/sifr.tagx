@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+    >
+    <jsp:directive.tag body-content="scriptless"/>
+    <pageHelper:externalCss file="/res/sifr/sIFR-screen.css"/>
+    <pageHelper:externalCss file="/res/sifr/sIFR-print.css"/>
+    <pageHelper:externalJavascript file="/res/sifr/sifr.js"/>
+    <!--
+    Currently using sIFR version 2.0.2
+    Documentation here:  http://wiki.novemberborn.net/sifr
+    See webbyAwardWinner.jspx for example usage.
+    -->
+    <![CDATA[<script type="text/javascript"><!--]]>
+    if(typeof sIFR == "function"){
+        <jsp:doBody/>
+    }
+    <![CDATA[--></script>]]>
+</jsp:root>

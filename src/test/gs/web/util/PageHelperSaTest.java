@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.29 2007/05/09 20:12:48 dlee Exp $
+ * $Id: PageHelperSaTest.java,v 1.30 2007/05/16 20:40:59 dlee Exp $
  */
 
 package gs.web.util;
@@ -235,7 +235,29 @@ public class PageHelperSaTest extends TestCase {
         assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\">" +
                 "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js\"></script>" +
                 "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css\"></link>",
-                pageHelper.getHeadElements());        
+                pageHelper.getHeadElements());
+
+        //add a print css
+        PageHelper.addExternalCss(_request, "/res/pRint-sifr.css");
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\">" +
+                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js\"></script>" +
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css\"></link>" +
+                "<link rel=\"stylesheet\" type=\"text/css\" media=\"print\" href=\"/res/pRint-sifr.css\"></link>",
+                pageHelper.getHeadElements());
+
+        //add a screen css
+        PageHelper.addExternalCss(_request, "/res/screen-sifr.css");
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js\">" +
+                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js\"></script>" +
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css\"></link>" +
+                "<link rel=\"stylesheet\" type=\"text/css\" media=\"print\" href=\"/res/pRint-sifr.css\"></link>" +
+                "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"/res/screen-sifr.css\"></link>",
+                pageHelper.getHeadElements());
+
+
+
+        PageHelper.addExternalCss(_request, "");
+
     }
 
     public void testHideFooter() {

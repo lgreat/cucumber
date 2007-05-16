@@ -72,8 +72,8 @@
 
 #footerContent {
     float:left;
-    padding-left:35px;
-    width:650px;
+    padding-left:30px;
+    width:660px;
 }
 
 #footerSearchStates, #footerSearchCities, #footerSearchStateSpecific, #footerSearchDistricts {

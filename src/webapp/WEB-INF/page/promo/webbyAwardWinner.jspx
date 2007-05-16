@@ -2,33 +2,38 @@
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           version="2.0">
     <html>
     <jsp:directive.page contentType="text/html"/>
     <head>
         <title>GreatSchools THANKS YOU for your support!</title>
-        <style type="text/css">
+        <style type="text/css">            
             .webbyContent {
                 font: 13px Trebuchet MS, sans-serif;
                 color: #666;
                 float:left;
                 padding:50px 0 0 45px;
             }
-            .webbyContent h1 {font-size:25px;font-weight:normal;color:#aaa;}
-            .webbyContent h1 span {color:#97cf64;font-weight:bold;}
-            .webbyContent p {padding-top:20px;font-weight:500;}
+            .header {font-size:25px;font-weight:normal;}
+            .grey {color:#aaa;}
+            .green {color:#97cf64;}
+            .webbyContent h1 span {color:#97cf64;font-weight:bold;width:600px;}
+            .webbyContent p {margin-top:20px;font-weight:500;}
             #links li a {color: #3399aa;text-decoration: underline;}
+            .red {color:#cc5566;text-transform:uppercase;}
         </style>
     </head>
 <gsml:body adPageName="promo/webbyAwardWinner">
-<div style="width:860px;height:372px;border:2px solid #64cecc;">
+    <h1>GreatSchools for your support!</h1>
+    <div style="width:860px;height:372px;border:2px solid #64cecc;">
     <div style="width:856px;height:368px;border:2px solid #ddeeee;">
         <div style="padding:10px;float:left;">
             <gsml:img src="/res/img/promo/webby/notebookWinner.jpg" alt="People's Voice Winner" style="float:left;"/>
             <div class="webbyContent">
-                <h1>GreatSchools <span>THANKS YOU</span><br/> for your support!</h1>
+                <span class="header grey">GreatSchools</span><span class="header green"> THANKS YOU</span><br/><span class="header grey">for your support!</span>
 
-                <p style="padding-top:20px;">GreatSchools is the winner of a People's Voice Webby Award,<br/>
+                <p>GreatSchools is the winner of a People's Voice Webby Award,<br/>
                 thanks to the votes of parents like you.  We're honored that you<br/>
                 chose GreatSchools as the best Family/Parenting site in the<br/>
                 awards, known as the "Oscars of the Internet."  More important,<br/>
@@ -36,10 +41,11 @@
                 child's education.  That makes you the real winners!<br/>
                 </p>
 
-                <p style="text-transform:uppercase;color:#CC5566;font-weight:600;font-size:smaller;">Learn More</p>
+                <p class="red">Learn More</p>
+                
                 <ul id="links">
-                <li><gsml:a href="/cgi-bin/static/press20070501.txt/$STATE">Read the press release &amp;gt;</gsml:a></li>
-                <li><a href="http://www.webbyawards.com/webbys/current.php?season=11#webby_entry_family">View all Webby award winners &amp;gt;</a></li>
+                    <li><gsml:a href="/cgi-bin/static/press20070501.txt/$STATE">Read the press release &amp;gt;</gsml:a></li>
+                    <li><a href="http://www.webbyawards.com/webbys/current.php?season=11#webby_entry_family">View all Webby award winners &amp;gt;</a></li>
                 </ul>
             </div>
         </div>
@@ -47,8 +53,12 @@
 </div>
 <br style="clear:both;"/>
 <div style="width:864px;height:118px;background-color:#ddeeee;margin-top:10px;">&amp;nbsp;</div>
-
-
+<gsml:sifr>
+    <gsml:url var="centuryGothic" value="/res/sifr/centuryGothic.swf"/>
+    <gsml:url var="centuryGothicBold" value="/res/sifr/centuryGothicBold.swf"/>
+    sIFR.replaceElement(named({sSelector:".grey", sFlashSrc:"${centuryGothic}",sColor:"#aaaaaa"}));
+    sIFR.replaceElement(named({sSelector:".green", sFlashSrc:"${centuryGothicBold}",sColor:"#97cf64"}));
+</gsml:sifr>
 <mod:tracking pageType="promo"
               pageName="Webby Award Winner Thank You"
               hier1="Promotion,Webby Award Winner"/>

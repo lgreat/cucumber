@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.39 2007/05/15 23:33:53 aroy Exp $
+ * $Id: PageHelper.java,v 1.40 2007/05/16 20:40:59 dlee Exp $
  */
 
 package gs.web.util;
@@ -127,6 +127,10 @@ public class PageHelper {
     /**
      * Adds the referenced css file to the list of files to be included at the top of the file. The sitemsh decorator is
      * responsible for retrieving these and including them.
+     *
+     * If cssSrc contains screen, then the media type will be media="screen"
+     * If cssSrc contains print, then the media type will be media="print"
+     * Else no media attribute will appear
      *
      * @param cssSrc exact url to be included
      */
@@ -394,7 +398,17 @@ public class PageHelper {
                 for (Iterator iter = _cssFiles.iterator(); iter.hasNext();) {
                     String src = (String) iter.next();
                     src = StringUtils.replace(src, "&", "&amp;");
-                    sb.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + src + "\"></link>");
+                    String media = "";
+                    if (StringUtils.containsIgnoreCase(src, "screen")) {
+                        media = " media=\"screen\"";
+                    } else if (StringUtils.containsIgnoreCase(src, "print")) {
+                        media = " media=\"print\"";
+                    }
+                    sb.append("<link rel=\"stylesheet\" type=\"text/css\"")
+                            .append(media)
+                            .append(" href=\"")
+                            .append(src)
+                            .append("\"></link>");
                 }
             }
             return sb.toString();
