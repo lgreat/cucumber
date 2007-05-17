@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.12 2007/03/08 19:48:08 thuss Exp $
+ * $Id: SessionContext.java,v 1.13 2007/05/17 20:41:59 dlee Exp $
  */
 package gs.web.util.context;
 
@@ -17,8 +17,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 import java.io.Serializable;
-import java.security.NoSuchAlgorithmException;
 import java.net.URLEncoder;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * The purpose is to hold common "global" properties for a user throughout their
@@ -208,7 +208,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
      */
     public boolean isFramed() {
         return _cobrand != null &&
-                _cobrand.matches("mcguire|framed|number1expert|vreo|e-agent|homegain|envirian");
+                _cobrand.matches("mcguire|framed|number1expert|vreo|e-agent|homegain|envirian|connectingneighbors");
     }
 
     public void setHostName(final String hostName) {
