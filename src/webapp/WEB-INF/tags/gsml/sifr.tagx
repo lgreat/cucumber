@@ -10,7 +10,7 @@
     <pageHelper:externalJavascript file="/res/sifr/sifr.js"/>
     <!--
     Currently using sIFR version 2.0.2
-    Documentation here:  http://wiki.novemberborn.net/sifr
+    Documentation here:  http://wiki.novemberborn.net/sifr/How+to+use
     See webbyAwardWinner.jspx for example usage.
     -->
     <![CDATA[<script type="text/javascript"><!--]]>
