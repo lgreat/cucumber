@@ -98,11 +98,11 @@
                                 'codebase', 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0',
                                 'width', '584',
                                 'height', '291',
-                                'src', '/res/swf/c?path=/res/swf/HouseAd_summerread2.swf',
+                                'src', '/res/swf/c?path=/res/swf/HouseAd_wonwebby.swf',
                                 'quality', 'high',
                                 'wmode', 'transparent',
                                 'pluginspage', 'http://www.macromedia.com/go/getflashplayer',
-                                'movie', '/res/swf/c?path=/res/swf/HouseAd_summerread2.swf');
+                                'movie', '/res/swf/c?path=/res/swf/HouseAd_wonwebby.swf');
                     } else {
                         document.write('<a href="/content/backToSchool.page">');
                         document.write('<img width="584" height="291" alt="Go back to school with GreatSchools!" src="/res/img/splash/backToSchool.jpg" />');
