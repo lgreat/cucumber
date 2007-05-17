@@ -19,13 +19,14 @@ public class BetaControllerTest extends BaseControllerTestCase {
     private BetaController _controller;
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
+    private MockJavaMailSender _sender;
 
     protected void setUp() throws Exception {
         super.setUp();
         _controller = (BetaController)getApplicationContext().getBean(BetaController.BEAN_ID);
-        MockJavaMailSender _sender = new MockJavaMailSender();
+        _sender = new MockJavaMailSender();
         _sender.setHost("mail.greatschools.net");
-        _controller.setMailSender(_sender);
+        _controller.getEmailHelperFactory().setMailSender(_sender);
         _userDao = (IUserDao)getApplicationContext().getBean(IUserDao.BEAN_ID);
         _subscriptionDao = (ISubscriptionDao)getApplicationContext().getBean(ISubscriptionDao.BEAN_ID);
     }
@@ -84,12 +85,12 @@ public class BetaControllerTest extends BaseControllerTestCase {
         _userDao.removeUser(u.getId());
     }
 
-    public void testCreateMessage() throws Exception {
-        JavaMailSender sender = new JavaMailSenderImpl();
+    public void testSendMessage() throws Exception {
         BetaSignupCommand bsc = (BetaSignupCommand)_controller.formBackingObject(getRequest());
         bsc.setEmail("foo@bar.com");
         bsc.setState(State.NY);
-        MimeMessage mm = _controller.createMessage(sender.createMimeMessage(), bsc);
-        assertNotNull(mm.getContent());
+        _controller.sendMessage(bsc);
+        assertNotNull(_sender.getSentMessages());
+        assertEquals(_sender.getSentMessages().size(), 1);
     }
 }

@@ -117,9 +117,6 @@
         <property name="successView">
             <value>community/betaThankyou</value>
         </property>
-        <property name="mailSender">
-            <ref bean="mailSender"/>
-        </property>
     </bean>
 
     <bean name="/community/betaThankyou.page"

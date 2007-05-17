@@ -1,14 +1,15 @@
-<h2>Thanks for joining the GreatSchools Beta Group!</h2>
-Over the next year, we'll be launching new features on GreatSchools, including<br/>
-powerful community features, exclusive school ratings, and more!<br/>
-<br/>
-First we'd like to get to know you better: your interests, how you currently use<br/>
-GreatSchools and your experience with online communities. It only takes a few minutes<br/>
-and would really help us understand how we can build community features to best meet your needs!<br/>
-<br/>
-<a href="http://www.surveymonkey.com/s.asp?u=709332289793&c=$EMAIL$">Fill out the survey</a><br/>
-<br/>
-Here's more detail on how the Beta Group works:<br/>
+<h3>Thanks for joining the GreatSchools Beta Group!</h3>
+
+<p>Over the next year, we'll be launching new features on GreatSchools, including
+powerful community features, exclusive school ratings, and more!</p>
+
+<p>First we'd like to get to know you better: your interests, how you currently use
+GreatSchools and your experience with online communities. It only takes a few minutes
+and would really help us understand how we can build community features to best meet your needs!</p>
+
+<p><a href="http://www.surveymonkey.com/s.asp?u=709332289793&c=$EMAIL">Fill out the survey</a></p>
+
+<p>Here's more detail on how the Beta Group works:</p>
 <ul>
 <li>We'll notify you occasionally about new features before they're released.</li>
 <br/>
@@ -18,30 +19,18 @@ with feedback about your experience after you're done.</li>
 <li>You'll have the opportunity to decide before each beta test<br/>
 whether or not you'd like to participate.</li>
 </ul>
-Also, be sure to register for the GreatSchools community now to be among the first invited<br/>
-to join an exciting community of parents who are passionate about education.<br/>
+
+<p>Also, be sure to register for the GreatSchools community now to be among the first invited<
+to join an exciting community of parents who are passionate about education.</p>
+
+<p><a href="http://www.greatschools.net/community/registration.page?cpn=betawelcome&email=$EMAIL">Join the community</a></p>
+
+<p>Thanks so much for your help! Together, we can help parents shape their children's education
+in innovative and meaningful ways!</p>
+
+<p>-The Team at GreatSchools</p>
 <br/>
-<a href="http://www.greatschools.net/community/registration.page?cpn=betawelcome&email=$EMAIL$">Join the community</a><br/>
 <br/>
-Thanks so much for your help! Together, we can help parents shape their children's education<br/>
-in innovative and meaningful ways!<br/>
-<br/>
--The Team at GreatSchools<br/>
-<br/>
-<hr/>
-<br/>
-GreatSchools is an independent nonprofit organization that has been improving K-12<br/>
-education since 1998 by inspiring parents like you to get involved. Learn more at<br/>
-<a href="http://www.greatschools.net/?cpn=betawelcome">GreatSchools.net</a>.<br/>
-<br/>
-This email was sent to GreatSchools.net subscriber <b>$EMAIL$</b>.<br/>
-<br/>
-GreatSchools<br/>
-301 Howard St., Suite 1440<br/>
-San Francisco, CA 94105<br/>
-<br/>
-<a href="http://www.greatschools.net/community/betaUnsubscribe.page?cpn=betawelcome&state=$STATE$&email=$EMAIL$"><br/>
+<p><a href="http://www.greatschools.net/community/betaUnsubscribe.page?cpn=betawelcome&state=$STATE&email=$EMAIL">
 Remove me from the GreatSchools Beta Group
-</a>
-<br/>
-<br/>
+</a></p>

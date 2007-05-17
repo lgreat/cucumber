@@ -2,22 +2,18 @@ package gs.web.community;
 
 import gs.data.community.*;
 import gs.data.state.StateManager;
+import gs.data.util.email.EmailHelperFactory;
+import gs.data.util.email.EmailHelper;
 import gs.web.util.ReadWriteController;
 import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.mail.MailException;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
-import java.util.Date;
 
 /**
  * This controller handles requests to subscribe to the Beta group
@@ -32,10 +28,10 @@ public class BetaController extends SimpleFormController implements ReadWriteCon
 
     public static final String BEAN_ID = "/community/beta.page";
 
-    private JavaMailSender _mailSender;
     private static final Logger _log = Logger.getLogger(BetaController.class);
     private IUserDao _userDao;
     private ISubscriptionDao _subscriptionDao;
+    private EmailHelperFactory _emailHelperFactory;
 
     /** Form param: an email address */
     private static final String EMAIL_PARAM = "email";
@@ -78,11 +74,13 @@ public class BetaController extends SimpleFormController implements ReadWriteCon
         boolean isNewUser = addToBetaGroup(bsc);
 
         try {
-            _mailSender.send(createMessage(_mailSender.createMimeMessage(), bsc));
+            sendMessage(bsc);
         } catch (MessagingException mess) {
             _log.warn(mess);
         } catch (MailException me) {
             _log.warn(me);
+        } catch (IOException e) {
+            _log.warn(e);
         }
 
         ModelAndView mAndV = new ModelAndView();
@@ -124,57 +122,32 @@ public class BetaController extends SimpleFormController implements ReadWriteCon
      * This is a utility method to created the <code>MimeMessage</code object from a stub
      * MimeMessage.
      *
-     * @param mimeMessage
-     * @return
-     * @throws MessagingException
+     * @param command BetaSignupCommand
+     * @throws javax.mail.MessagingException On error sending message
+     * @throws java.io.IOException On error reading email text
      */
-    MimeMessage createMessage(MimeMessage mimeMessage, BetaSignupCommand command) throws MessagingException {
+    void sendMessage(BetaSignupCommand command) throws MessagingException, IOException {
+        EmailHelper emailHelper = getEmailHelperFactory().getEmailHelper();
+        emailHelper.setSubject("Welcome to the GreatSchools Beta Group!");
+        emailHelper.setFromEmail("beta@greatschools.net");
+        emailHelper.setFromName("GreatSchools");
 
-        Resource resource = new ClassPathResource("gs/web/community/betaConfirmationEmail.txt");
-        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
-        helper.setTo(command.getEmail());
-        try {
-            helper.setFrom("beta@greatschools.net", "GreatSchools");
-        } catch (UnsupportedEncodingException uee) {
-            helper.setFrom("beta@greatschools.net");
-        }
-        helper.setSubject("Welcome to the GreatSchools Beta Group!");
-        helper.setSentDate(new Date());
 
-        StringBuffer buffer = new StringBuffer();
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                buffer.append(line);
-                buffer.append("\n");
-            }
+        emailHelper.setToEmail(command.getEmail());
+        emailHelper.readHtmlFromResource("gs/web/community/betaConfirmationEmail.txt");
 
-        } catch (IOException ioe) {
-            _log.error(ioe);
-        } finally {
-            try {
-                reader.close();
-            } catch (IOException e) {
-                _log.error(e);
-            }
-        }
-        String emailText = buffer.toString();
-        emailText = emailText.replaceAll("\\$EMAIL\\$", command.getEmail());
-        emailText = emailText.replaceAll("\\$STATE\\$", command.getState().getAbbreviation());
+        emailHelper.addInlineReplacement("EMAIL", command.getEmail());
+        emailHelper.addInlineReplacement("STATE", command.getState().getAbbreviation());
 
-         helper.setText(emailText, true);
-        return helper.getMimeMessage();
+        emailHelper.send();
     }
 
-     /**
-     * Spring setter
-     *
-     * @param _mailSender
-     */
-    public void setMailSender(JavaMailSender _mailSender) {
-        this._mailSender = _mailSender;
+    public EmailHelperFactory getEmailHelperFactory() {
+        return _emailHelperFactory;
+    }
+
+    public void setEmailHelperFactory(EmailHelperFactory emailHelperFactory) {
+        _emailHelperFactory = emailHelperFactory;
     }
 
     /**
