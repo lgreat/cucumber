@@ -113,11 +113,11 @@ function initSchoolInfo() {
     <c:if test="${nearbySchool.rating ne null and nearbySchool.rating gt 0 and nearbySchool.rating lt 11}">
         schoolRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${nearbySchool.rating}.gif" alt="GreatSchools Rating: ${nearbySchool.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
 
-        mySchool.ratingHtml = '<div class="schoolRating"><link:schoolProfileRating school="${curSchool}" title="GreatSchools Rating: ${nearbySchool.rating} out of 10. Greatschools Ratings are based on test results. 10 is best.">' +
+        mySchool.ratingHtml = '<div class="schoolRating" style="float: left"><link:schoolProfileRating school="${curSchool}" title="GreatSchools Rating: ${nearbySchool.rating} out of 10. Greatschools Ratings are based on test results. 10 is best.">' +
                            schoolRatingImg +
                            '</link:schoolProfileRating></div>';
     </c:if>
-    mySchool.parentRatingHtml = '<div class="parentRating">';
+    mySchool.parentRatingHtml = '<div class="parentRating" style="float: left">';
     <c:set var="parent_rating" value="0"/>
     <c:if test="${(nearbySchool.parentRatings ne null) and (nearbySchool.parentRatings.count ge nearbySchool.parentRatings.minRatingsBeforeUsage) and
                   (nearbySchool.parentRatings.avgQuality lt 6) and (nearbySchool.parentRatings.avgQuality gt 0)}">
