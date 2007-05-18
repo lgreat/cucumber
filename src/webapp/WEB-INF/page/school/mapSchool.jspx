@@ -61,11 +61,7 @@
 
                 <p class="head_nearby">Nearby ${levelLongName} Schools</p>
                 <ul>
-                    <c:if test="${school.type.schoolTypeName != 'private'}">
-                        <li id="nearDistrict"><link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name} schools &gt;</link:allSchoolsInDistrict></li>
-                    </c:if>
                     <c:if test="${hasNearby}">
-                        <li id="nearMore"><link:schoolCompareSchool school="${school}">More nearby schools &gt;</link:schoolCompareSchool></li>
                         <c:forEach items="${nearbySchools}" var="nearbySchool">
                             <li>
                                 <link:schoolProfileOverview
@@ -136,7 +132,15 @@
             </div>
         </div><!-- end: col_right" -->
     </div><!-- end: largeMap -->
-    <!-- end large Google map -->
+    <br style="clear: left;"/>
+    <ul id="extraLinks">
+        <c:if test="${hasNearby}">
+            <li id="nearMore"><link:schoolCompareSchool school="${school}">More nearby schools &gt;</link:schoolCompareSchool></li>
+        </c:if>
+        <c:if test="${school.type.schoolTypeName != 'private'}">
+            <li id="nearDistrict"><link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name} schools &gt;</link:allSchoolsInDistrict></li>
+        </c:if>
+    </ul>
     </school:profile>
     <mod:tracking pageType="school"
                   pageName="${pageName}"
