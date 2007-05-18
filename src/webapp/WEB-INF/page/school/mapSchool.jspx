@@ -60,11 +60,12 @@
                 </div><!-- end: header -->
 
                 <p class="head_nearby">Nearby ${levelLongName} Schools</p>
-
-                <!-- DESIGNER NOTE: THE MARKUP FOR THE "NEARBY SCHOOLS" LIST ITEMS BELOW IS THE SAME
-                CODE AS WHEN IT APPEARS IN THE RIGHT COLUMN. I FELT THIS WOULD BE CONVENIENT. -->
                 <ul>
+                    <c:if test="${school.type.schoolTypeName != 'private'}">
+                        <li id="nearDistrict"><link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name} schools &gt;</link:allSchoolsInDistrict></li>
+                    </c:if>
                     <c:if test="${hasNearby}">
+                        <li id="nearMore"><link:schoolCompareSchool school="${school}">More nearby schools &gt;</link:schoolCompareSchool></li>
                         <c:forEach items="${nearbySchools}" var="nearbySchool">
                             <li>
                                 <link:schoolProfileOverview
@@ -84,10 +85,6 @@
                                 </link:mySchoolList>
                             </li>
                         </c:forEach>
-                        <li id="nearMore"><link:schoolCompareSchool school="${school}">More nearby schools &gt;</link:schoolCompareSchool></li>
-                    </c:if>
-                    <c:if test="${school.type.schoolTypeName != 'private'}">
-                        <li id="nearDistrict"><link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name} schools &gt;</link:allSchoolsInDistrict></li>
                     </c:if>
                 </ul>
             </div><!-- end: nearbySchools -->

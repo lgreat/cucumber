@@ -29,14 +29,6 @@
 <script type="text/javascript">
 <![CDATA[
 <!--
-function addBubble(m, link, name, schInfo, stInfo) {
-  GEvent.addListener(m, "click", function() {
-    var s = '<div style="font-size:small;width: 200px;height: 20px"><a href="' + link + '">' + name + '</a>' +
-            schInfo + stInfo + '</div>'
-    m.openInfoWindowHtml(s);
-  });
-};
-
 ]]>
 
 function extendBoundsToCenterOnPoint(point, bounds) {
