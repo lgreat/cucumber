@@ -23,7 +23,7 @@
 
 <jsp:scriptlet>
 <![CDATA[
-    request.setAttribute("center", new LatLon(school.getLat().floatValue(), school.getLon().floatValue()));
+    request.setAttribute("center", new LatLon(school.getLat().floatValue() +0.5f, school.getLon().floatValue()+0.5f));
 ]]>
 </jsp:scriptlet>
 <script type="text/javascript">
@@ -145,9 +145,11 @@ function initSchoolInfo() {
 function getSchoolInfoWindowHtml(school) {
     var rval = '<div class="schoolInfoWindow" style="font: 12px/15px Trebuchet MS, sans-serif;">';
     rval += '<div class="schoolName" style="width: 210px;">' + school.name + '</div>';
+    rval += '<div style="height: 22px; width: 150px;">';
     rval += school.ratingHtml;
     rval += school.parentRatingHtml;
-    rval += '<br style="clear: left" />';
+    rval += '</div>';
+    //rval += '<br style="clear: left" />';
     rval += '<address>';
     rval += school.street + '<br />';
     rval += school.city + ', ' + school.state + ' ' + school.zip + '<br/>';

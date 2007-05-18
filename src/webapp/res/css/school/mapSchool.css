@@ -186,7 +186,7 @@ Large Google Map
 }
 
 #map div.schoolInfoWindow div.parentRating {
-    padding: 2px 0 0 0;
+    padding: 3px 0 0 0;
 }
 
 #map div.schoolInfoWindow address, #map div.schoolInfoWindow p, #map div.schoolInfoWindow a {
