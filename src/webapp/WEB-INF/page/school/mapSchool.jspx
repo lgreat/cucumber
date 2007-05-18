@@ -133,6 +133,7 @@
         </div><!-- end: col_right" -->
     </div><!-- end: largeMap -->
     <br style="clear: left;"/>
+    <!-- Two extra links for the nearby box. Placed here and then positioned inside the box -->
     <ul id="extraLinks">
         <c:if test="${hasNearby}">
             <li id="nearMore"><link:schoolCompareSchool school="${school}">More nearby schools &gt;</link:schoolCompareSchool></li>
