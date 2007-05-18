@@ -24,7 +24,7 @@
     <ad:x70/>
     <ad:AboveFold_300x600/>
 
-    <c:if test="${fn:contains(pageContext.request.requestURI,'holidayLearning')}">
+    <c:if test="${fn:contains(pageContext.request.requestURI,'holidayLearning') or fn:contains(pageContext.request.requestURI,'mediaChoices')}">
         <div style="width:295px;text-align:center;padding-left:5px;border-top: 1px dashed #ccc;padding-top:20px;margin-top:10px;">
             <ad:commonSenseMedia/>
         </div>
