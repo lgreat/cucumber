@@ -72,7 +72,7 @@
             </address>
 
             <c:if test="${requestScope.context.cobrand ne 'yahooed'}">
-                <div id="minimap">&#160;<noscript>JavaScript is required in order to view a map of this school
+                <div id="minimap" title="View larger map">&#160;<noscript>JavaScript is required in order to view a map of this school
                     </noscript></div>
                 <map:miniSchool id="minimap" school="${school}" zoomLevel="11"/>
                 <div class="minimapViewLarger">
