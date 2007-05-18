@@ -23,7 +23,7 @@
 
 <jsp:scriptlet>
 <![CDATA[
-    request.setAttribute("center", new LatLon(school.getLat().floatValue() +0.5f, school.getLon().floatValue()+0.5f));
+    request.setAttribute("center", new LatLon(school.getLat().floatValue(), school.getLon().floatValue()));
 ]]>
 </jsp:scriptlet>
 <script type="text/javascript">
