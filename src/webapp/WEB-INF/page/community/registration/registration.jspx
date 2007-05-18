@@ -81,7 +81,7 @@
                     excited to have you!</p>
 
                 <p class="intro preLaunch">Join now and we'll alert you when we launch!</p>
-                <br/>
+                <![CDATA[<div class="clear"></div>]]>
                 <!-- begin registration form -->
                 <gsweb:form action="/community/registration.page" method="post" styleClass="registration" id="reg1Form">
 
