@@ -62,17 +62,14 @@
                 <p class="head_nearby">Nearby ${levelLongName} Schools</p>
 
                 <!-- DESIGNER NOTE: THE MARKUP FOR THE "NEARBY SCHOOLS" LIST ITEMS BELOW IS THE SAME
-                CODE AS WHEN IT APPEARS IN THE RIGHT COLUMN. I FELT THIS WOULD BE CONVENIENT. THE LI
-                CLASSES (THAT ADD THE RATING IMAGE IN THE RIGHT COLUMN) HAVE BEEN LEFT IN THE MARKUP,
-                BUT HAVE BEEN DISABLED IN THE CSS, AS THEY ARE NOT PRESENT IN THIS INTEFACE. -->
+                CODE AS WHEN IT APPEARS IN THE RIGHT COLUMN. I FELT THIS WOULD BE CONVENIENT. -->
                 <ul>
                     <c:if test="${hasNearby}">
                         <c:forEach items="${nearbySchools}" var="nearbySchool">
                             <li>
-                                <link:schoolProfileOverview school="${nearbySchool.neighbor}"
-                                                            title="${nearbySchool.neighbor.name}">
-                                    ${nearbySchool.neighbor.name}
-                                </link:schoolProfileOverview>
+                                <link:schoolProfileOverview
+                                        school="${nearbySchool.neighbor}"
+                                        title="${nearbySchool.neighbor.name}">${nearbySchool.neighbor.name}</link:schoolProfileOverview>
                                 <c:if test="${not empty nearbySchool.distance}">
                                     <br/>
                                     <fmt:formatNumber value="${nearbySchool.distance}"
