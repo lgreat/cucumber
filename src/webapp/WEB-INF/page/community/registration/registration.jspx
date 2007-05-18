@@ -8,7 +8,7 @@
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
           xmlns:gsweb="gstaglib">
     <jsp:directive.page contentType="text/html"/><html>
-    <pageHelper:setPathway pathway="99"/>
+    <pageHelper:setPathway pathway="COMMUNITY_LANDING"/>
   <head>
       <title>Join - GreatSchools</title>
       <pageHelper:externalJavascript file="/res/js/prototype.js"/>
