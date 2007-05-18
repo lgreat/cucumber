@@ -168,7 +168,6 @@ Large Google Map
 --------------------------------------*/
 
 #map div.schoolInfoWindow {
-    font: 12px/15px Trebuchet MS, sans-serif;
     color: #888;
 }
 
@@ -184,12 +183,10 @@ Large Google Map
     width: 22px;
     border-right: 1px solid #CCCCCC;
     text-decoration: none;
-    float: left;
 }
 
 #map div.schoolInfoWindow div.parentRating {
     padding: 2px 0 0 0;
-    float: left;
 }
 
 #map div.schoolInfoWindow address, #map div.schoolInfoWindow p, #map div.schoolInfoWindow a {

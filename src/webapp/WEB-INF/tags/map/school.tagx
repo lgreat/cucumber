@@ -70,11 +70,11 @@ centerSchool.ratingHtml = '';
 <c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
     var schoolRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${gs_rating}.gif" alt="GreatSchools Rating: ${gs_rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
 
-    centerSchool.ratingHtml = '<div class="schoolRating"><link:schoolProfileRating school="${school}" title="GreatSchools Rating: ${gs_rating} out of 10. Greatschools Ratings are based on test results. 10 is best.">' +
+    centerSchool.ratingHtml = '<div class="schoolRating" style="float: left"><link:schoolProfileRating school="${school}" title="GreatSchools Rating: ${gs_rating} out of 10. Greatschools Ratings are based on test results. 10 is best.">' +
                        schoolRatingImg +
                        '</link:schoolProfileRating></div>';
 </c:if>
-centerSchool.parentRatingHtml = '<div class="parentRating">';
+centerSchool.parentRatingHtml = '<div class="parentRating" style="float: left">';
 <c:set var="parent_rating" value="0"/>
 <c:if test="${(parent_ratings ne null) and (parent_ratings.count ge parent_ratings.minRatingsBeforeUsage) and
               (parent_ratings.avgQuality lt 6) and (parent_ratings.avgQuality gt 0)}">
@@ -143,7 +143,7 @@ function initSchoolInfo() {
 
 <![CDATA[
 function getSchoolInfoWindowHtml(school) {
-    var rval = '<div class="schoolInfoWindow" style="height: 120px;">';
+    var rval = '<div class="schoolInfoWindow" style="font: 12px/15px Trebuchet MS, sans-serif;">';
     rval += '<div class="schoolName" style="width: 210px;">' + school.name + '</div>';
     rval += school.ratingHtml;
     rval += school.parentRatingHtml;
@@ -154,9 +154,9 @@ function getSchoolInfoWindowHtml(school) {
     rval += '</address>';
     rval += '<a href="http://maps.google.com/maps?saddr=&amp;daddr=' +
             school.address +
-            '" target="_blank">Get directions &gt;</a><br />';
+            '" target="_blank">Get directions &gt;</a>';
     rval += school.phone;
-    rval += '</div>';
+    rval += '</div>'; // schoolInfoWindow
     return rval;
 }
 ]]>
@@ -196,18 +196,13 @@ function initMap() {
     arrowIcon.infoWindowAnchor = new GPoint(13,2);
     arrowIcon.infoShadowAnchor = new GPoint(13,2);
     arrowIcon.shadowSize = new GSize(39,34);
-    // for the purposes of stack order, the star marker is treated as if it is
-    // just north of the equator. This effectively makes it always on top of any
-    // markers placed in the United States
-    function fakeLatitudeAtEquatorOrder(marker, b) {
-      return GOverlay.getZIndex(1.0);
-    }
+
     if (displayTooltips) {
       tooltip = "${school.name}";
     } else {
       tooltip = null;
     }
-    marker = new GMarker(centerPoint, {icon:arrowIcon, zIndexProcess: fakeLatitudeAtEquatorOrder, title: tooltip});
+    marker = new GMarker(centerPoint, {icon:arrowIcon, title: tooltip});
     addBubbleListener(marker, centerSchool);
     map.addOverlay(marker);
     extendBoundsToCenterOnPoint(centerPoint, bounds);
@@ -220,7 +215,7 @@ function initMap() {
 
 function addBubbleListener(marker, school) {
   GEvent.addListener(marker, "click", function() {
-      marker.openInfoWindowHtml(getSchoolInfoWindowHtml(school), {maxWidth: 200});
+      marker.openInfoWindowHtml(getSchoolInfoWindowHtml(school));
   });
 }
 
