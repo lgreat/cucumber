@@ -29,6 +29,7 @@
                 <gsml:img src="/res/img/community/registration/GS_communityteaser_image.gif" alt="Community teaser"/>
             </div>
             <div id="rightSide">
+                <gsml:img styleClass="comingSoon" src="/res/img/community/registration/GS_communityteaser_header.gif" alt="Coming soon: GreatSchools Community!"/>
                 <c:choose>
                     <c:when test="${escapedMessage ne null and escapedMessage gt ''}">
                         <div class="infomessage">
@@ -36,26 +37,21 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <div class="emptymessage">
-                            &amp;nbsp;
-                        </div>
+                        <p class="announcement">
+                            We're excited to announce that GreatSchools will soon launch a community for parents
+                            who are passionate about education!  Does your child need help with homework? Get
+                            tips from other parents who've been there. Do you have school fundraising tips to
+                            share? Share your stories with parents tackling similar issues. Check back here for
+                            updates!
+                        </p>
+                        <p class="joinCommunityText">
+                            Join now and we'll alert you when we launch!
+                        </p>
+                        <link:registration email="${user.email}">
+                            <gsml:img src="/res/img/community/registration/GS_communityteaser_button1.gif" alt="Join the community"/>
+                        </link:registration>
                     </c:otherwise>
                 </c:choose>
-                <gsml:img src="/res/img/community/registration/GS_communityteaser_header.gif" alt="Coming soon: GreatSchools Community!"/>
-                <br/>
-                <p class="announcement">
-                    We're excited to announce that GreatSchools will soon launch a community for parents
-                    who are passionate about education!  Does your child need help with homework? Get
-                    tips from other parents who've been there. Do you have school fundraising tips to
-                    share? Share your stories with parents tackling similar issues. Check back here for 
-                    updates!
-                </p>
-                <p class="joinCommunityText">
-                    Join now and we'll alert you when we launch!
-                </p>
-                <link:registration email="${user.email}">
-                    <gsml:img src="/res/img/community/registration/GS_communityteaser_button1.gif" alt="Join the community"/>
-                </link:registration>
                 <p class="joinBetaText">
                     Take community for a pre-launch test drive:
                 </p>
