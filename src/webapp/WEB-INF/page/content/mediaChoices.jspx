@@ -1,0 +1,113 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:gsweb="gstaglib"
+        >
+<html lang="en">
+
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+<pageHelper:setPathway pathway="SEASONAL"/>
+<c:set var="pageName" value="Media and Your Child"/>
+<head>
+    <title>Greatschools.net: ${pageName}</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <meta name="Description" content=""/>
+    <pageHelper:externalCss file="/res/css/content/microsite.css"/>  <!--commmon-->
+    <pageHelper:externalCss file="/res/css/content/mediaChoices.css"/>
+</head>
+<ad:setSlotPrefix slotPrefix="Library_Microsite_Media_Choices"/>
+<gsml:body adPageName="content/mediaChoices" pageLayout="mediaChoices" startAdHierarchyAtPage="true">
+<div>
+<div class="wrapBorder">
+<jsp:include page="/content/leftNav.module" />
+
+<div class="middle">
+    <div id="contentHeaderImage">
+        <h1 id="title">${pageName}</h1>
+        <gsml:img src="/res/img/content/mediaChoices/GS_childmedia_image.jpg" alt="Image of father and son looking at a computer" style="float:left;"/>
+    </div>
+
+    <div>
+        <h2 id="subTitle1">Managing Your Child's Media Diet</h2>
+        <ul class="plain">
+            <gsweb:articlelink articleId="650" wrappingElement="li"/>
+            <gsweb:articlelink articleId="651" wrappingElement="li"/>
+            <gsweb:articlelink articleId="970" wrappingElement="li"/>
+            <gsweb:articlelink articleId="971" wrappingElement="li"/>
+            <gsweb:articlelink articleId="972" wrappingElement="li"/>
+        </ul>
+    </div>
+
+    <div id="lower">
+        <h2 id="subTitle2">How Media Matters to Kid's Health</h2>
+        <div id="commonSenseMediaSponsor">
+            <gsml:img src="/res/img/content/common-sense-media.gif" alt="Common Sense Media"
+                      title="Common Sense Media - Movie, TV, Web site, Music, Book and Video Game Reviews for families"/>
+        </div>
+        <ul class="plain">
+            <gsweb:articlelink articleId="973" wrappingElement="li"/>
+            <gsweb:articlelink articleId="974" wrappingElement="li"/>
+            <gsweb:articlelink articleId="975" wrappingElement="li"/>
+            <gsweb:articlelink articleId="976" wrappingElement="li"/>
+        </ul>
+    </div>
+
+    <div id="lower">
+        <h2 id="subTitle3">Tips for Raising a Reader</h2>
+        <ul class="plain">
+            <gsweb:articlelink articleId="902" wrappingElement="li"/>
+            <gsweb:articlelink articleId="44" wrappingElement="li"/>
+            <gsweb:articlelink articleId="320" wrappingElement="li"/>
+            <gsweb:articlelink articleId="595" wrappingElement="li"/>
+            <gsweb:articlelink articleId="626" wrappingElement="li"/>
+        </ul>
+    </div>
+
+    <div id="lower">
+        <h2 id="subTitle4">Your Child and Technology</h2>
+        <ul class="plain">
+            <gsweb:articlelink articleId="777" wrappingElement="li"/>
+            <gsweb:articlelink articleId="551" wrappingElement="li"/>
+            <gsweb:articlelink articleId="674" wrappingElement="li"/>
+            <gsweb:articlelink articleId="381" wrappingElement="li"/>
+            <gsweb:articlelink articleId="388" wrappingElement="li"/>
+        </ul>
+    </div>
+
+    <div style="border-bottom: 1px dashed #ccc;">
+        <h3 id="askTheExperts">Ask the Experts</h3>
+        <p>Q: How can I help my child improve his reading this summer?
+            <gsweb:articlelink articleId="820">Read the answer</gsweb:articlelink>
+            </p>
+    </div>
+    <div style="border-bottom: 1px dashed #ccc;">
+        <h3 id="freeNewsletters">Free Newsletters</h3>
+        <p>Is your child on track?
+            Find out with our free newsletters that parents love! <promo:nthGraderHover referredBy="${pageName}">Sign me up</promo:nthGraderHover>
+        </p>
+    </div>
+</div>
+</div>
+<div id="promos">
+    <content:promos referredBy="${pageName}"/>
+</div>
+
+<br style="clear:both;"/>
+</div>
+<mod:tracking pageType="article"
+              pageName="${pageName}"
+              hier1="Article,Media Choices"/>
+</gsml:body>
+</html>
+</jsp:root>
