@@ -1,0 +1,32 @@
+h1#title {
+    text-indent: -5000px;
+    background: url( "../../img/content/mediaChoices/mediaAndYourChild.gif" ) no-repeat;
+    width: 155px;
+    height: 192px;
+    float: left;
+    margin:0;
+    padding:0;
+}
+
+h2#subTitle1 {
+    background: url( "../../img/content/mediaChoices/managingYourChildsMultimediaDiet.gif" ) no-repeat;
+}
+
+h2#subTitle2 {
+    background: url( "../../img/content/mediaChoices/howMediaMattersToKidsHealth.gif" ) no-repeat;
+}
+
+h2#subTitle3 {
+    background: url( "../../img/content/mediaChoices/tipsForRaisingAReader.gif" ) no-repeat;
+}
+
+h2#subTitle4 {
+    background: url( "../../img/content/mediaChoices/yourChildAndTechnology.gif" ) no-repeat;
+}
+
+#contentGS .middle div#commonSenseMediaSponsor {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #fb0;
+}
