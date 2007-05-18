@@ -8,7 +8,6 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
-<jsp:directive.tag import="gs.data.geo.LatLonRect"/>
 <jsp:directive.tag import="gs.data.geo.LatLon"/>
 <jsp:directive.tag body-content="empty"
                    description="Draw a map of a school with nearby schools marked and extra info in a bubble." />
@@ -24,16 +23,7 @@
 
 <jsp:scriptlet>
 <![CDATA[
-    if (school.getLat() != null && school.getLon() != null) {
-        // note if school has no latlong then map is centered around nearby schools instead
-        request.setAttribute("center", new LatLon(school.getLat().floatValue(), school.getLon().floatValue()));
-    } else {
-        // otherwise calculate the optimal center point
-        LatLonRect r = new LatLonRect(schools);
-        if (r.isCentered()) {
-            request.setAttribute("center", r.getCenter());
-        }
-    }
+    request.setAttribute("center", new LatLon(school.getLat().floatValue(), school.getLon().floatValue()));
 ]]>
 </jsp:scriptlet>
 <script type="text/javascript">
@@ -67,22 +57,24 @@ var displayTooltips = ${not empty tooltips};
 var centerOnStar = true;
 var centerPoint = new GLatLng(${center.lat}, ${center.lon});
 var schoolArray = new Array();
-var schoolName = "${school.name}";
-var schoolStreet = "${school.physicalAddress.street}";
-var schoolCity = "${school.physicalAddress.city}";
-var schoolState = "${school.physicalAddress.state.abbreviation}";
-var schoolZip = "${school.physicalAddress.zip}";
-var schoolPhone = '<c:if test="${not empty school.phone}"><p class="schoolPhone">${school.phone}</p></c:if>';
+var centerSchool = new Object();
+centerSchool.name = "${school.name}";
+centerSchool.street = "${school.physicalAddress.street}";
+centerSchool.city = "${school.physicalAddress.city}";
+centerSchool.state = "${school.physicalAddress.state.abbreviation}";
+centerSchool.zip = "${school.physicalAddress.zip}";
+centerSchool.phone = '<c:if test="${not empty school.phone}"><p class="schoolPhone">${school.phone}</p></c:if>';
+centerSchool.address = centerSchool.street + ' ' + centerSchool.city + ', ' + centerSchool.state + ' ' + centerSchool.zip;
 
-var schoolRatingHtml = '';
+centerSchool.ratingHtml = '';
 <c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
     var schoolRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${gs_rating}.gif" alt="GreatSchools Rating: ${gs_rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
 
-    schoolRatingHtml = '<div class="schoolRating"><link:schoolProfileRating school="${school}" title="GreatSchools Rating: ${gs_rating} out of 10. Greatschools Ratings are based on test results. 10 is best.">' +
+    centerSchool.ratingHtml = '<div class="schoolRating"><link:schoolProfileRating school="${school}" title="GreatSchools Rating: ${gs_rating} out of 10. Greatschools Ratings are based on test results. 10 is best.">' +
                        schoolRatingImg +
                        '</link:schoolProfileRating></div>';
 </c:if>
-var schoolParentRatingHtml = '<div class="parentRating">';
+centerSchool.parentRatingHtml = '<div class="parentRating">';
 <c:set var="parent_rating" value="0"/>
 <c:if test="${(parent_ratings ne null) and (parent_ratings.count ge parent_ratings.minRatingsBeforeUsage) and
               (parent_ratings.avgQuality lt 6) and (parent_ratings.avgQuality gt 0)}">
@@ -91,55 +83,79 @@ var schoolParentRatingHtml = '<div class="parentRating">';
 <c:choose>
     <c:when test="${parent_rating eq 0}">
         <c:set var="parent_rating_title" value="Be the first to rate!"/>
-        schoolParentRatingHtml += '<link:schoolProfileAddParentReview school="${school}" title="${parent_rating_title}"><img src="/res/img/map/ratings_parent_city_0.gif" alt="Be the first to rate!" onmouseover="this.src=\\'/res/img/map/ratings_parent_city_rateit.gif\\'" onmouseout="this.src=\\'/res/img/map/ratings_parent_city_0.gif\\'"/></link:schoolProfileAddParentReview>';
+        centerSchool.parentRatingHtml += '<link:schoolProfileAddParentReview school="${school}"><img src="/res/img/map/ratings_parent_city_0.gif" alt="${parent_rating_title}" onmouseover="this.src=\\'/res/img/map/ratings_parent_city_rateit.gif\\'" onmouseout="this.src=\\'/res/img/map/ratings_parent_city_0.gif\\'"/></link:schoolProfileAddParentReview>';
     </c:when>
     <c:otherwise>
         <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
-        schoolParentRatingHtml += '<link:schoolProfileParentReview school="${school}" title="${parent_rating_title}"><gsml:img src="/res/img/map/ratings_parent_city_${parent_rating}.gif" alt="Parent rating ${parent_rating}"/></link:schoolProfileParentReview>';
+        centerSchool.parentRatingHtml += '<link:schoolProfileParentReview school="${school}"><gsml:img src="/res/img/map/ratings_parent_city_${parent_rating}.gif" alt="${parent_rating_title}"/></link:schoolProfileParentReview>';
     </c:otherwise>
 </c:choose>
-schoolParentRatingHtml += '</div>';
+centerSchool.parentRatingHtml += '</div>';
 
 function initSchoolInfo() {
     var mySchool;
-<c:forEach var="school" items="${schools}">
-  // School info for ${school.name}
-  <c:if test="${not empty school.lon}">
-    <c:choose>
-      <c:when test="${'private' == school.type.schoolTypeName}">
-        <gsml:url var="hrefbase"
-                  value="/cgi-bin/${school.databaseState.abbreviationLowerCase}/private/${school.id}"/>
-      </c:when>
-      <c:otherwise>
-        <gsml:url var="hrefbase"
-                  value="/modperl/browse_school/${school.databaseState.abbreviationLowerCase}/${school.id}"/>
-      </c:otherwise>
-    </c:choose>
+    var schoolRatingImg;
+<c:forEach var="nearbySchool" items="${schools}">
+  <c:set var="curSchool" value="${nearbySchool.neighbor}"/>
+    // School info for ${curSchool.name}
+  <c:if test="${not empty curSchool.lon}">
     mySchool = new Object();
-    mySchool.link = "${hrefbase}";
-    mySchool.name = "${school.name}";
-    mySchool.location = new GLatLng(${school.lat},${school.lon});
+
+    mySchool.name = "${curSchool.name}";
+    mySchool.street = "${curSchool.physicalAddress.street}";
+    mySchool.city = "${curSchool.physicalAddress.city}";
+    mySchool.state = "${curSchool.physicalAddress.state.abbreviation}";
+    mySchool.zip = "${curSchool.physicalAddress.zip}";
+    mySchool.phone = '<c:if test="${not empty curSchool.phone}"><p class="schoolPhone">${curSchool.phone}</p></c:if>';
+    mySchool.address = centerSchool.street + ' ' + centerSchool.city + ', ' + centerSchool.state + ' ' + centerSchool.zip;
+
+    mySchool.ratingHtml = '';
+    <c:if test="${nearbySchool.rating ne null and nearbySchool.rating gt 0 and nearbySchool.rating lt 11}">
+        schoolRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${nearbySchool.rating}.gif" alt="GreatSchools Rating: ${nearbySchool.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
+
+        mySchool.ratingHtml = '<div class="schoolRating"><link:schoolProfileRating school="${curSchool}" title="GreatSchools Rating: ${nearbySchool.rating} out of 10. Greatschools Ratings are based on test results. 10 is best.">' +
+                           schoolRatingImg +
+                           '</link:schoolProfileRating></div>';
+    </c:if>
+    mySchool.parentRatingHtml = '<div class="parentRating">';
+    <c:set var="parent_rating" value="0"/>
+    <c:if test="${(nearbySchool.parentRatings ne null) and (nearbySchool.parentRatings.count ge nearbySchool.parentRatings.minRatingsBeforeUsage) and
+                  (nearbySchool.parentRatings.avgQuality lt 6) and (nearbySchool.parentRatings.avgQuality gt 0)}">
+        <c:set var="parent_rating" value="${nearbySchool.parentRatings.avgQuality}"/>
+    </c:if>
+    <c:choose>
+        <c:when test="${parent_rating eq 0}">
+            <c:set var="parent_rating_title" value="Be the first to rate!"/>
+            mySchool.parentRatingHtml += '<link:schoolProfileAddParentReview school="${curSchool}" title="${parent_rating_title}"><img src="/res/img/map/ratings_parent_city_0.gif" alt="Be the first to rate!" onmouseover="this.src=\\'/res/img/map/ratings_parent_city_rateit.gif\\'" onmouseout="this.src=\\'/res/img/map/ratings_parent_city_0.gif\\'"/></link:schoolProfileAddParentReview>';
+        </c:when>
+        <c:otherwise>
+            <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
+            mySchool.parentRatingHtml += '<link:schoolProfileParentReview school="${curSchool}" title="${parent_rating_title}"><gsml:img src="/res/img/map/ratings_parent_city_${parent_rating}.gif" alt="Parent rating ${parent_rating}"/></link:schoolProfileParentReview>';
+        </c:otherwise>
+    </c:choose>
+    mySchool.parentRatingHtml += '</div>';
+
+    mySchool.location = new GLatLng(${curSchool.lat},${curSchool.lon});
     schoolArray.push(mySchool);
   </c:if>
 </c:forEach>
 }
 
 <![CDATA[
-function getSchoolInfoWindowHtml() {
+function getSchoolInfoWindowHtml(school) {
     var rval = '<div class="schoolInfoWindow" style="height: 120px;">';
-    rval += '<div class="schoolName" style="width: 210px;">' + schoolName + '</div>';
-    rval += schoolRatingHtml;
-    rval += schoolParentRatingHtml;
+    rval += '<div class="schoolName" style="width: 210px;">' + school.name + '</div>';
+    rval += school.ratingHtml;
+    rval += school.parentRatingHtml;
     rval += '<br style="clear: left" />';
     rval += '<address>';
-    rval += schoolStreet + '<br />';
-    rval += schoolCity + ', ' + schoolState + ' ' + schoolZip + '<br/>';
+    rval += school.street + '<br />';
+    rval += school.city + ', ' + school.state + ' ' + school.zip + '<br/>';
     rval += '</address>';
-    var schoolMapAddr = schoolStreet + ' ' + schoolCity + ', ' + schoolState + ' ' + schoolZip;
     rval += '<a href="http://maps.google.com/maps?saddr=&amp;daddr=' +
-            schoolMapAddr + 
+            school.address +
             '" target="_blank">Get directions &gt;</a><br />';
-    rval += schoolPhone;
+    rval += school.phone;
     rval += '</div>';
     return rval;
 }
@@ -165,9 +181,9 @@ function initMap() {
         tooltip = null;
       }
       marker = new GMarker(curSchool.location, {title: tooltip});
+      addBubbleListener(marker, curSchool);
       map.addOverlay(marker);
       bounds.extend(curSchool.location);
-      addClickListener(marker, curSchool.link); // because of closures, farm this off to another method
     }
     ]]>
 
@@ -192,9 +208,7 @@ function initMap() {
       tooltip = null;
     }
     marker = new GMarker(centerPoint, {icon:arrowIcon, zIndexProcess: fakeLatitudeAtEquatorOrder, title: tooltip});
-    GEvent.addListener(marker, "click", function() {
-        marker.openInfoWindowHtml(getSchoolInfoWindowHtml(), {maxWidth: 200});
-    });
+    addBubbleListener(marker, centerSchool);
     map.addOverlay(marker);
     extendBoundsToCenterOnPoint(centerPoint, bounds);
 
@@ -204,8 +218,10 @@ function initMap() {
     map.setZoom(zoom);
 }
 
-function addClickListener(marker, link) {
-  GEvent.addListener(marker, "click", function() { location = link; });
+function addBubbleListener(marker, school) {
+  GEvent.addListener(marker, "click", function() {
+      marker.openInfoWindowHtml(getSchoolInfoWindowHtml(school), {maxWidth: 200});
+  });
 }
 
 function doMapSchools() {
