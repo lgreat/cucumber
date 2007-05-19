@@ -31,8 +31,8 @@
 <div>
 <div class="wrapBorder">
 <jsp:include page="/content/leftNav.module" />
-
-<div class="middle">
+<gsml:equalizeColumns ids="'col_middle','promos'"/>
+<div id="col_middle" class="middle">
     <div id="contentHeaderImage">
         <h1 id="title">${pageName}</h1>
         <gsml:img src="/res/img/content/mediaChoices/GS_childmedia_image.jpg" alt="Image of father and son looking at a computer" style="float:left;"/>
