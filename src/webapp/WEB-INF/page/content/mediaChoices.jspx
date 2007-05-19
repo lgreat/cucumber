@@ -52,8 +52,10 @@
     <div id="lower">
         <h2 id="subTitle2">How Media Matters to Kid's Health</h2>
         <div id="commonSenseMediaSponsor">
-            <gsml:img src="/res/img/content/common-sense-media.gif" alt="Common Sense Media"
-                      title="Common Sense Media - Movie, TV, Web site, Music, Book and Video Game Reviews for families"/>
+            <gsml:a href="http://www.commonsensemedia.org">
+                <gsml:img src="/res/img/content/common-sense-media.gif" alt="Common Sense Media"
+                          title="Common Sense Media - Movie, TV, Web site, Music, Book and Video Game Reviews for families"/>
+            </gsml:a>
         </div>
         <ul class="plain">
             <gsweb:articlelink articleId="973" wrappingElement="li"/>
