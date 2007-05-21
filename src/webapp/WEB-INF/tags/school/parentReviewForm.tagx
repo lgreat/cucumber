@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib">
+
+    <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
+    <pageHelper:externalCss file="/res/css/school/parentReviewForm.css"/>
+    <pageHelper:externalJavascript file="/res/js/parentReviewForm.js"/>
+
+    <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
+    <c:set var="schoolId" value="${school.id}"/>
+
+    <div id="rateReview">
+        <h2>Rate ${school.name}</h2>
+        <div id="rateReview_module">
+            <div id="ratingTitle">Rate this school</div>
+            <div class="starbar active">
+                <div class="outer">
+                    <a id="q_5" title="5 stars out of 5" href=""
+                       onclick=" setQuality('Excellent', '5'); return false;"
+                       onMouseOver="setRatingTitle('Excellent');"
+                       onMouseOut="resetRatingTitle();"
+                       class="s5"><span class="starLink">5</span></a>
+                    <a id="q_4" title="4 stars out of 5" href=""
+                       onclick=" setQuality('Above average', '4'); return false;"
+                       onMouseOver="setRatingTitle('Above average');"
+                       onMouseOut="resetRatingTitle();"
+                       class="s4"><span class="starLink">4</span></a>
+                    <a id="q_3" title="3 stars out of 5" href=""
+                       onclick=" setQuality('Average', '3'); return false;"
+                       onMouseOver="setRatingTitle('Average');"
+                       onMouseOut="resetRatingTitle();"
+                       class="s3"><span class="starLink">3</span></a>
+                    <a id="q_2" title="2 stars out of 5" href=""
+                       onclick=" setQuality('Below average', '2'); return false;"
+                       onMouseOver="setRatingTitle('Below average');"
+                       onMouseOut="resetRatingTitle();"
+                       class="s2"><span class="starLink">2</span></a>
+                    <a id="q_1" title="1 star out of 5" href=""
+                       onclick=" setQuality('Unsatisfactory', '1'); return false;"
+                       onMouseOver="setRatingTitle('Unsatisfactory');"
+                       onMouseOut="resetRatingTitle();"
+                       class="s1"><span class="starLink">1</span></a>
+                </div>
+            </div>
+            
+            <gsweb:form action="/cgi-bin/send_rating/${state}/${schoolId}/" method="post" onsubmit="setHiddenFields();">
+
+                <input type="hidden" name="schoolname" value="${school.name}" />
+                <input type="hidden" name="schooltype" value="${school.type.schoolTypeName}" />
+                <input type="hidden" name="source" value="overview" />
+                <input type="hidden" name="recontact" value="N" />
+                <input id="quality" type="hidden" name="quality" value="decline" />                
+                <input id="confirm" type="hidden" name="confirm" value="" />
+
+                <textarea id="reviewText" onfocus="if(this.value=='Enter your review here'){this.value='';}" name="comments"
+                          rows="" cols="">Enter your review here</textarea>
+                <div id="acceptTerms">
+                    <input name="permit" type="checkbox" checked="checked"/><label>I'm a</label>
+                    <select name="who">
+                        <option value="parent">parent</option>
+                        <option value="student">student</option>
+                        <option value="teacher">teacher</option>
+                        <option value="administrator">principal</option>
+                        <option value="">other</option>
+                    </select>
+                    <label>and I accept the <gsml:a href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></label>
+                </div>
+
+                <c:if test="${school.type.schoolTypeName ne 'private'}">
+                    <div id="acceptUpdates">
+                        <input type="checkbox" name="mssSignup" value="yes" checked="checked"/><label>Email me monthly
+                        updates about this school</label>
+                    </div>
+                </c:if>
+
+                <input type="text" name="email" id="reviewEmail"
+                       onfocus="if(this.value=='Enter your email address'){this.value='';}"
+                       value="Enter your email address" class="emailAddress"/>
+                <input id="submitReview" onmouseout="this.src='/res/img/school/review/submitReview.gif';"
+                       onmouseover="this.src='/res/img/school/review/submitReview_over.gif';"
+                       class="button" alt="GO" src="/res/img/school/review/submitReview.gif" type="image" />
+            </gsweb:form>
+            <p class="privacyPolicy">GreatSchools <gsml:a href="/cgi-bin/static/privacy.inc/${state}" title="Privacy Policy" target="_blank">Privacy Policy</gsml:a></p>
+        </div>
+    </div>
+</jsp:root>

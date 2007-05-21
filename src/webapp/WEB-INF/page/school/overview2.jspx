@@ -47,6 +47,7 @@
     <![CDATA[
     <!--[if IE 7]>
         <link rel="stylesheet" type="text/css" href="/res/css/school/overview_ie7.css" />
+        <link rel="stylesheet" type="text/css" href="/res/css/school/parentReviewForm_ie7.css" />
     <![endif]-->
     ]]>
 <c:set var="school" value="${school}"/>
@@ -122,6 +123,8 @@
                     </p>
                 </div>
             </c:if>
+
+            <school:parentReviewForm school="${school}"/>
 
             <div id="learnSchool">
 
