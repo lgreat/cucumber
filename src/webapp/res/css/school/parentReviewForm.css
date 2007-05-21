@@ -113,91 +113,12 @@ input {
     text-decoration: underline;
 }
 
-
-/* stars
-   thanks: http://komodomedia.com/blog/index.php/2007/01/20/css-star-rating-redux
-----------------------------------------------------------------------------------------*/
-
-.star-rating,
-.star-rating a:hover,
-.star-rating a:active,
-.star-rating a:focus,
-.star-rating .current-rating {
-	background: url(/res/img/school/review/star.gif) left -1000px repeat-x;
-}
-
-.star-rating {
-	position: relative;
-	width: 120px;
-	height: 23px;
-	overflow: hidden;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	background-position: left top;
-}
-
-.star-rating li {
-	display: inline;
-}
-
-.star-rating a,
-.star-rating
-.current-rating {
-	position: absolute;
-	top: 0;
-	left: 0;
-	text-indent: -1000em;
-	height: 23px;
-	line-height: 23px;
-	outline: none;
-	overflow: hidden;
-	border: none;
-}
-
-.star-rating a:hover,
-.star-rating a:active,
-.star-rating a:focus {
-	background-position: left bottom;
-}
-
-.star-rating a.one-star {
-	width: 20%;
-	z-index: 6;
-}
-
-.star-rating a.two-stars {
-	width: 40%;
-	z-index: 5;
-}
-
-.star-rating a.three-stars {
-	width: 60%;
-	z-index: 4;
-
-}
-
-.star-rating a.four-stars {
-	width: 80%;
-	z-index: 3;
-}
-
-.star-rating a.five-stars {
-	width: 100%;
-	z-index: 2;
-}
-
-.star-rating .current-rating {
-	z-index: 1;
-	background-position: left center;
-}
-
-/*****************/
-
+/****** Stars *******/
 
 .starbar {
     position: relative;
     height: 23px;
+    cursor:pointer;
 }
 
 .starbar .outer {
@@ -207,7 +128,7 @@ input {
     background: url(/res/img/school/review/stars.gif) no-repeat 0 0;
 }
 
-.starbar a {
+.starbar div {
     position: absolute;
     display: block;
     left: 0;
@@ -215,14 +136,30 @@ input {
     height: 23px;
 }
 
-.starbar a:hover {
+.starbar div.s1:hover {
     background: url(/res/img/school/review/stars.gif) no-repeat 0 -23px;
 }
 
-.starbar a.s1  { width:  24px; }
-.starbar a.s2  { width:  48px; }
-.starbar a.s3  { width:  72px; }
-.starbar a.s4  { width:  96px; }
-.starbar a.s5  { width:  120px; }
+.starbar div.s2:hover {
+    background: url(/res/img/school/review/stars.gif) no-repeat 0 -23px;
+}
+
+.starbar div.s3:hover {
+    background: url(/res/img/school/review/stars.gif) no-repeat 0 -23px;
+}
+
+.starbar div.s4:hover {
+    background: url(/res/img/school/review/stars.gif) no-repeat 0 -23px;
+}
+
+.starbar div.s5:hover {
+    background: url(/res/img/school/review/stars.gif) no-repeat 0 -23px;
+}
+
+.starbar div.s1  { width:  24px; }
+.starbar div.s2  { width:  48px; }
+.starbar div.s3  { width:  72px; }
+.starbar div.s4  { width:  96px; }
+.starbar div.s5  { width:  120px; }
 
 .starLink { display:none;}
