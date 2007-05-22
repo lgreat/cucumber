@@ -13,10 +13,14 @@ function resetRatingTitle() {
     setRatingTitle(savedTitle);
 }
 
-function setHiddenFields() {
+function setSubmitFields() {
     document.getElementById('confirm').value =
         document.getElementById('reviewEmail').value;
     document.getElementById('quality').value = quality;
+
+    if (document.getElementById('reviewText').value == 'Enter your review here') {
+        document.getElementById('reviewText').value = "";
+    }
 }
 
 function setQuality(title, q) {

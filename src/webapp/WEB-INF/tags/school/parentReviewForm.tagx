@@ -47,7 +47,7 @@
                 </div>
             </div>
             
-            <gsweb:form action="/cgi-bin/send_rating/${state}/${schoolId}/" method="post" onsubmit="setHiddenFields();">
+            <gsweb:form action="/cgi-bin/send_rating/${state}/${schoolId}/" method="post" onsubmit="setSubmitFields();">
 
                 <input type="hidden" name="schoolname" value="${school.name}" />
                 <input type="hidden" name="schooltype" value="${school.type.schoolTypeName}" />
@@ -56,8 +56,9 @@
                 <input id="quality" type="hidden" name="quality" value="decline" />                
                 <input id="confirm" type="hidden" name="confirm" value="" />
 
+                <c:set var="comment" value="${(not empty param.comments) ? param.comments : 'Enter your review here'}" />
                 <textarea id="reviewText" onfocus="if(this.value=='Enter your review here'){this.value='';}" name="comments"
-                          rows="" cols="">Enter your review here</textarea>
+                          rows="" cols="">${comment}</textarea>
                 <div id="acceptTerms">
                     <input name="permit" type="checkbox" checked="checked"/><label>I'm a</label>
                     <select name="who">
