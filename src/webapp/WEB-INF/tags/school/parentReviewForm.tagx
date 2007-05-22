@@ -19,30 +19,30 @@
             <div id="ratingTitle">Rate this school</div>
             <div class="starbar active">
                 <div class="outer">
-                    <div id="q_5" title="5 stars out of 5" href=""
+                    <div id="q_5" title="5 stars out of 5"
                        onclick=" setQuality('Excellent', '5'); return false;"
-                       onMouseOver="setRatingTitle('Excellent');"
-                       onMouseOut="resetRatingTitle();"
+                       onmouseover="setRatingTitle('Excellent');"
+                       onmouseout="resetRatingTitle();"
                        class="s5"><span class="starLink">5</span></div>
-                    <div id="q_4" title="4 stars out of 5" href=""
+                    <div id="q_4" title="4 stars out of 5"
                        onclick=" setQuality('Above average', '4'); return false;"
-                       onMouseOver="setRatingTitle('Above average');"
-                       onMouseOut="resetRatingTitle();"
+                       onmouseover="setRatingTitle('Above average');"
+                       onmouseout="resetRatingTitle();"
                        class="s4"><span class="starLink">4</span></div>
-                    <div id="q_3" title="3 stars out of 5" href=""
+                    <div id="q_3" title="3 stars out of 5"
                        onclick=" setQuality('Average', '3'); return false;"
-                       onMouseOver="setRatingTitle('Average');"
-                       onMouseOut="resetRatingTitle();"
+                       onmouseover="setRatingTitle('Average');"
+                       onmouseout="resetRatingTitle();"
                        class="s3"><span class="starLink">3</span></div>
-                    <div id="q_2" title="2 stars out of 5" href=""
+                    <div id="q_2" title="2 stars out of 5"
                        onclick=" setQuality('Below average', '2'); return false;"
-                       onMouseOver="setRatingTitle('Below average');"
-                       onMouseOut="resetRatingTitle();"
+                       onmouseover="setRatingTitle('Below average');"
+                       onmouseout="resetRatingTitle();"
                        class="s2"><span class="starLink">2</span></div>
-                    <div id="q_1" title="1 star out of 5" href=""
+                    <div id="q_1" title="1 star out of 5"
                        onclick=" setQuality('Unsatisfactory', '1'); return false;"
-                       onMouseOver="setRatingTitle('Unsatisfactory');"
-                       onMouseOut="resetRatingTitle();"
+                       onmouseover="setRatingTitle('Unsatisfactory');"
+                       onmouseout="resetRatingTitle();"
                        class="s1"><span class="starLink">1</span></div>
                 </div>
             </div>
