@@ -16,7 +16,7 @@
             .header {font-size:25px;font-weight:normal;}
             .grey {color:#aaa;}
             .green {color:#97cf64;}
-            #rightSide #learnMore {color:#cc5566;text-transform:uppercase;}
+            #rightSide #learnMore {color:#cc5566;text-transform:uppercase;font-size:smaller;}
             #links li a {color: #3399aa;text-decoration: underline;}            
         </style>
     </head>
