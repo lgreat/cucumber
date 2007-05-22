@@ -149,7 +149,9 @@
                     <gsml:a href="/cgi-bin/${state}/other/${sid}#ap">
                         <gsml:img src="/res/img/school/overview/learn_APExams.gif" alt="" />
                     </gsml:a>
-                    <gsml:a href="/cgi-bin/${state}/other/${sid}#ap"><p>${school.name} AP exams</p></gsml:a>
+                    <p>
+                        <gsml:a href="/cgi-bin/${state}/other/${sid}#ap">${school.name} AP exams</gsml:a>
+                    </p>
                 </c:if>
 
                 <c:if test="${hasTeacherData}">
