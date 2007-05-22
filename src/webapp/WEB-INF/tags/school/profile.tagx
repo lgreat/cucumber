@@ -78,19 +78,19 @@
         }
     }
     try {
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         String levelAbbrev = school.getLevelCode().getLowestLevel().getName();
-        String adPageName = "school/" + school.getType().getSchoolTypeName() + '/' + levelAbbrev;
-        StringBuffer keywordBuffer = new StringBuffer();
-        keywordBuffer.append("type=").append(school.getType().getSchoolTypeName())
-                .append("&amp;")
-                .append("level=").append(levelAbbrev)
-                .append("&amp;")
-                .append("county=").append(school.getCounty())
-                .append("&amp;")
-                .append("school_id=").append(school.getId());
+        String schoolType = school.getType().getSchoolTypeName();
 
+        String adPageName = "school/" + schoolType + '/' + levelAbbrev;
         request.setAttribute("adPageName", adPageName);
-        request.setAttribute("adKeywords", keywordBuffer.toString());
+
+        if (null != pageHelper) {
+            pageHelper.addAdKeyword("type", schoolType);
+            pageHelper.addAdKeyword("level", levelAbbrev);
+            pageHelper.addAdKeyword("county",school.getCounty());
+            pageHelper.addAdKeyword("school_id", school.getId().toString());
+        }
     } catch (Exception e) {
     }
     ]]></jsp:scriptlet>

@@ -6,7 +6,6 @@ import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspFragment;
-
 import java.io.IOException;
 import java.io.Writer;
 
@@ -45,6 +44,31 @@ public class DeferredContentTagHandlerTest extends TestCase {
         assertEquals(expectedDeferredXhtml + expectedDeferredXhtml,
                 jspContext.getAttribute("deferredContent", PageContext.REQUEST_SCOPE));
 
+
+        assertEquals("should always return true.  only ad subclass should override.", tag.isDeferred(), true);
+
+    }
+
+    /**
+     * Test override to not defer works
+     * @throws Exception if any problem occurs
+     */
+    public void testNonDeferralOverride() throws Exception {
+        String divId = "some div";
+        String htmlToDefer = "some html";
+
+        AdNonDeferredTagHandlerTestCase tag = new AdNonDeferredTagHandlerTestCase();
+        JspContext jspContext = new MockPageContext();
+        tag.setJspContext(jspContext);
+        tag.setId(divId);
+        tag.setJspBodyXhtml(htmlToDefer);
+
+        // Execute the tag
+        tag.doTag();
+
+        String expectedMarkerXhtml = "<div id=\"" + divId + "\">"+ htmlToDefer +"</div>";
+        assertEquals(expectedMarkerXhtml, tag.getOutput().toString());
+        assertEquals(null, jspContext.getAttribute("deferredContent", PageContext.REQUEST_SCOPE));
     }
 
     /**
@@ -81,6 +105,10 @@ public class DeferredContentTagHandlerTest extends TestCase {
             _output.append(xhtml);
         }
 
+        public boolean isDeferred() {
+            return true;
+        }
+
         protected JspFragment getJspBody() {
             return new JspFragment() {
                 public void invoke(Writer writer) throws IOException {
@@ -91,6 +119,15 @@ public class DeferredContentTagHandlerTest extends TestCase {
                     return null;
                 }
             };
+        }
+    }
+
+    /**
+     * Test the non deferral case.
+     */
+    private class AdNonDeferredTagHandlerTestCase extends DeferredContentTagHandlerTestCase {
+        public boolean isDeferred() {
+            return false;
         }
     }
 

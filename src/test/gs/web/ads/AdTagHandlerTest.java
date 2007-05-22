@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandlerTest.java,v 1.7 2007/05/09 22:27:12 dlee Exp $
+ * $Id: AdTagHandlerTest.java,v 1.8 2007/05/22 22:03:34 dlee Exp $
  */
 package gs.web.ads;
 
@@ -70,7 +70,7 @@ public class AdTagHandlerTest extends BaseTestCase {
         //_log.debug(output);
 
         assertEquals("<div id=\"adx22\" class=\"adx22 ad noprint\"><script type=\"text/javascript\">OAS_AD('x22');</script></div>", output);
-        assertEquals(Boolean.TRUE, (Boolean) _request.getAttribute("x22"));
+        assertTrue(pageHelper.getAdPositions().contains(AdPosition.X_22));
 
         //try to set the same ad position
         try {
@@ -93,15 +93,16 @@ public class AdTagHandlerTest extends BaseTestCase {
         String output = _tag.getDeferredContent();
         //_log.debug(output);
 
-        assertEquals("<div id=\"adTop_300x137\" class=\"adTop_300x137 ad noprint\"><script type=\"text/javascript\">GA_googleFillSlot('Top_300x137');</script></div>", output);
-        assertEquals(Boolean.TRUE, (Boolean) _request.getAttribute("Top_300x137"));
+        assertEquals("<div id=\"adTop_300x137\" class=\"adTop_300x137 ad noprint\" style=\"display:none;\"><script type=\"text/javascript\">GA_googleFillSlot('Top_300x137');</script></div>", output);
+        assertTrue(pageHelper.getAdPositions().contains(AdPosition.Top_300x137));
 
+        assertEquals(false, _tag.isDeferred());
         //try to set the same ad position
         try {
             _tag.setPosition("Top_300x137");
             _tag.getDeferredContent();
             fail("Top_300x137 already set so we shouldn't allow it to be set again");
-        } catch (IllegalArgumentException e){}
+        } catch (IllegalArgumentException e){}        
     }
 
     public void testPrefixSlotNameGAMDeferWorks() throws Exception {
@@ -113,11 +114,11 @@ public class AdTagHandlerTest extends BaseTestCase {
 
         _tag.setJspContext(jspContext);
         _tag.setPosition("Top_300x137");
-        _request.setAttribute(AdTagHandler.REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME, "SchoolProfile");
+        _request.setAttribute(AdTagHandler.REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME, "SchoolProfile_");
 
         String output = _tag.getDeferredContent();
-        assertEquals("<div id=\"adTop_300x137\" class=\"adTop_300x137 ad noprint\"><script type=\"text/javascript\">GA_googleFillSlot('SchoolProfile_Top_300x137');</script></div>", output);
-        assertEquals(Boolean.TRUE, (Boolean) _request.getAttribute("Top_300x137"));
+        assertEquals("<div id=\"adTop_300x137\" class=\"adTop_300x137 ad noprint\" style=\"display:none;\"><script type=\"text/javascript\">GA_googleFillSlot('SchoolProfile_Top_300x137');</script></div>", output);
+        assertTrue(pageHelper.getAdPositions().contains(AdPosition.Top_300x137));
 
         //try to set the same ad position
         try {

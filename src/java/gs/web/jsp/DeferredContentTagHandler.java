@@ -18,6 +18,10 @@ public class DeferredContentTagHandler extends AbstractDeferredContentTagHandler
      */
     private String _id;
 
+    public boolean isDeferred() {
+        return true;
+    }
+
     public String getId() {
         return _id;
     }

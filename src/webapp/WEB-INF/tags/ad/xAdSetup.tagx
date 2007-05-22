@@ -11,63 +11,43 @@
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
     <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
     <jsp:directive.tag import="java.util.Iterator"/>
-    <jsp:directive.tag import="java.util.List"/>
+    <jsp:directive.tag import="java.util.Set"/>
     <jsp:scriptlet><![CDATA[
-        StringBuffer ads = new StringBuffer(20);
-        List adPositions = AdPosition.getAllAdPositions();
-
-        for (Iterator iter = adPositions.iterator(); iter.hasNext();) {
-            AdPosition ad = (AdPosition) iter.next();
-            String adName = ad.getName();
-
-            if (Boolean.TRUE.equals(request.getAttribute(adName)) && !ad.isGAMPosition()) {
-                ads.append(adName).append(",");
-            }
-        }
-        request.setAttribute("ads", ads.toString());
-
-        SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
-
-        String keywords = (String) request.getAttribute("adKeywords");
-        String oas_query = "";
-
-        State state = context.getState();
-        if (null != state) {
-            oas_query = "state=" + state.getAbbreviationLowerCase();
-        }
-
-        if (null != keywords) {
-            if (null != state) {
-                oas_query += "&";
-            }
-            oas_query += keywords.replaceAll("\\s+", "+");
-        }
-
-        request.setAttribute("adKeywords", oas_query);
-
-        StringBuffer sitePageBuff = new StringBuffer(30);
-        sitePageBuff.append("www/");
-        Boolean pageStartOfHier = (Boolean) request.getAttribute("startAdHierarchyAtPage");
-        String adPageName = (String) request.getAttribute("adPageName");
-        adPageName = StringUtils.isEmpty(adPageName) ? "" : adPageName;
-
-        if (Boolean.TRUE.equals(pageStartOfHier)) {
-            sitePageBuff.append(adPageName);
-        } else if (null != state) {
-            sitePageBuff.append(state.getAbbreviationLowerCase()).append("/").append(adPageName);
-        } else {
-            sitePageBuff.append(adPageName);
-        }
-
-        request.setAttribute("oas_sitepage", sitePageBuff.toString());
-
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         if (null != pageHelper) {
-            List adSlots = pageHelper.getAdSlots();
-            request.setAttribute("adSlots", StringUtils.join(adSlots.toArray(), ","));
+            StringBuffer OASPositions = new StringBuffer(20);
+            Set adPositions = pageHelper.getAdPositions();
+
+            for (Iterator iter = adPositions.iterator(); iter.hasNext(); ) {
+                AdPosition ad = (AdPosition) iter.next();
+
+                if (!ad.isGAMPosition()) {
+                    OASPositions.append(ad.getName()).append(",");
+                }
+            }
+            request.setAttribute("OAS_ads", OASPositions.toString());
+            request.setAttribute("adKeywords", pageHelper.getOASKeywords());
+
+            SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
+            State state = context.getState();
+
+            StringBuffer sitePageBuff = new StringBuffer(30);
+            sitePageBuff.append("www/");
+            Boolean pageStartOfHier = (Boolean) request.getAttribute("startAdHierarchyAtPage");
+            String adPageName = (String) request.getAttribute("adPageName");
+            adPageName = StringUtils.isEmpty(adPageName) ? "" : adPageName;
+
+            if (Boolean.TRUE.equals(pageStartOfHier)) {
+                sitePageBuff.append(adPageName);
+            } else if (null != state) {
+                sitePageBuff.append(state.getAbbreviationLowerCase()).append("/").append(adPageName);
+            } else {
+                sitePageBuff.append(adPageName);
+            }
+            request.setAttribute("oas_sitepage", sitePageBuff.toString());
         }
-        ]]></jsp:scriptlet>
-    <c:if test="${!requestScope.pageHelper.adFree and !empty ads}">
+    ]]></jsp:scriptlet>
+    <c:if test="${!requestScope.pageHelper.adFree and !empty OAS_ads}">
         <c:if test='${!requestScope.pageHelper.adServedByCobrand}'>
             <!-- OAS SETUP begin -->
             <script type="text/javascript">
@@ -76,7 +56,7 @@
                 <!--
                 OAS_url = 'http://oascentral.greatschools.net/RealMedia/ads/';
                 OAS_sitepage = '${oas_sitepage}';
-                OAS_listpos = '${ads}';
+                OAS_listpos = '${OAS_ads}';
                 OAS_query = '${adKeywords}';
                 OAS_target = '_top';
                 OAS_version = 10;
@@ -113,47 +93,6 @@
                 -->
                 ]]>
             </script>
-            <c:if test="${!empty adSlots}">
-                <![CDATA[<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>]]>
-
-                <script type="text/javascript">
-                  GS_googleAddAdSenseService("ca-pub-9662012843341888");
-                  GS_googleEnableAllServices();
-                </script>
-
-                <script type="text/javascript">
-                    <![CDATA[
-                    <!--
-                    function setKeywords(keywords) {
-                        if (keywords) {
-                            var pairs = keywords.split('&');
-                            for (var i=0; i<pairs.length;i++) {
-                                var valuepair = pairs[i].split("=");
-                                if (valuepair.length==2) {
-                                    valuepair[0] = valuepair[0].replace('amp;','');
-                                    GA_googleAddAttr(valuepair[0],valuepair[1]);
-                                }
-                            }
-                        }
-                    }
-                    function setAdSlots(slotNames) {
-                        if (slotNames) {
-                            var slotName = slotNames.split(',');
-                            for (var i=0;i<slotName.length;i++) {
-                                GA_googleAddSlot("ca-pub-9662012843341888", slotName[i]);
-                            }
-                        }
-                    }
-                    setKeywords('${adKeywords}');
-                    setAdSlots('${adSlots}');
-                    -->
-                    ]]>
-                </script>
-
-                <script type="text/javascript">
-                    GA_googleFetchAds();
-                </script>
-            </c:if>
         </c:if>
     </c:if>
 </jsp:root>

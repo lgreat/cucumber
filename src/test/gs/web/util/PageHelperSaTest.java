@@ -1,12 +1,14 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.30 2007/05/16 20:40:59 dlee Exp $
+ * $Id: PageHelperSaTest.java,v 1.31 2007/05/22 22:03:34 dlee Exp $
  */
 
 package gs.web.util;
 
 import gs.data.community.User;
+import gs.data.state.State;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.ads.AdPosition;
 import gs.web.community.ClientSideSessionCache;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -512,18 +514,49 @@ public class PageHelperSaTest extends TestCase {
         _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
 
         pageHelper = (PageHelper) _request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        assertEquals(0, pageHelper.getAdSlots().size());
+        assertEquals(0, pageHelper.getAdPositions().size());
 
-        pageHelper.addAdSlot("ad1");
-        assertEquals(1, pageHelper.getAdSlots().size());
+        pageHelper.addAdPosition(AdPosition.X_11);
+        assertEquals(1, pageHelper.getAdPositions().size());
 
-        pageHelper.addAdSlot("ad2");
-        assertEquals(2, pageHelper.getAdSlots().size());
+        pageHelper.addAdPosition(AdPosition.X_20);
+        assertEquals(2, pageHelper.getAdPositions().size());
 
-        assertEquals("ad1", pageHelper.getAdSlots().get(0));
-        assertEquals("ad2", pageHelper.getAdSlots().get(1));
+        assertTrue(pageHelper.getAdPositions().contains(AdPosition.X_11));
+        assertTrue(pageHelper.getAdPositions().contains(AdPosition.X_20));
+    }
 
+    public void testOasAdKeywords() {
+        MockSessionContext sessionContext = new MockSessionContext();
+        PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+        assertEquals("no keywords set", "", pageHelper.getOASKeywords());
 
+        sessionContext.setState(State.GA);
+        pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+        assertEquals("state keyword set", "state=ga", pageHelper.getOASKeywords());
+
+        pageHelper.addAdKeyword("hello","there");
+        assertEquals("state keyword set", "hello=there&state=ga", pageHelper.getOASKeywords());
+    }
+
+    public void testAdKeywords() {
+        MockSessionContext sessionContext = new MockSessionContext();
+        PageHelper pageHelper = new PageHelper(sessionContext, new GsMockHttpServletRequest());
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+        assertEquals(0, pageHelper.getAdKeywords().size());
+
+        pageHelper.addAdKeyword("hello","there");
+        pageHelper.addAdKeyword("type","private");
+        pageHelper.addAdKeyword("type","private");
+        assertEquals(2, pageHelper.getAdKeywords().size());
+
+        assertTrue(pageHelper.getAdKeywords().containsKey("hello"));
+        assertTrue(pageHelper.getAdKeywords().containsKey("type"));
+
+        assertEquals("there", pageHelper.getAdKeywords().get("hello"));
+        assertEquals("private", pageHelper.getAdKeywords().get("type"));
     }
 
     protected void setUp() throws Exception {

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.9 2007/05/09 22:27:12 dlee Exp $
+ * $Id: AdTagHandler.java,v 1.10 2007/05/22 22:03:34 dlee Exp $
  */
 package gs.web.ads;
 
@@ -17,6 +17,7 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspFragment;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Set;
 
 /**
  * Write an ad
@@ -27,7 +28,6 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
 
     private String _position;
     private AdPosition _adPosition;
-    private String _slotPrefix;
 
     private static final Log _log = LogFactory.getLog(AdTagManager.class);
     private static final String JS_METHOD_NAME_24_7 = "OAS_AD";
@@ -53,27 +53,33 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
             return ""; //early exit
         }
 
-        String adPosition = _adPosition.getName();
         StringBuffer buffer = new StringBuffer();
+
+        //TODO remove once we start serving ads in google ad server
+        String style = (_adPosition.isGAMPosition()) ? " style=\"display:none;\"" : "";
+
         buffer.append("<div id=\"")
                 .append(getAdId())
                 .append("\" class=\"")
                 .append(getAdId()).append(" ")
                 .append("ad").append(" ")
                 .append("noprint")
-                .append("\">");
+                .append("\"")
+                .append(style)
+                .append(">");
 
         if (pageHelper.isAdServedByCobrand()) {
             AdTagManager adManager = AdTagManager.getInstance();
             String customAdTag = adManager.getAdTag(sc.getCobrand(), _adPosition);
             buffer.append(customAdTag);
         } else {
-            if (null != request.getAttribute(adPosition)) {
-                throw new IllegalArgumentException("Ad Position already defined: " + adPosition);
+            //make sure position has not been previously used on this page.
+            Set <AdPosition> adPositions = pageHelper.getAdPositions();
+            if (adPositions.contains(_adPosition)) {
+                throw new IllegalArgumentException("Ad Position already defined: " + _adPosition);
             } else {
-                request.setAttribute(adPosition, Boolean.TRUE);
+                pageHelper.addAdPosition(_adPosition);
             }
-
 
             String jsMethodName;
             String slotName = _adPosition.getName();
@@ -82,9 +88,8 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 jsMethodName = JS_METHOD_NAME_GAM;
                 String slotPrefix = (String) request.getAttribute(REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME);
                 if (StringUtils.isNotBlank(slotPrefix)) {
-                    slotName = slotPrefix + "_" + slotName;
+                    slotName = slotPrefix + slotName;
                 }
-                pageHelper.addAdSlot(slotName);
             } else {
                 jsMethodName = JS_METHOD_NAME_24_7;
             }
@@ -105,9 +110,7 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 buffer.append(adCode);
             }
         }
-
         buffer.append("</div>");
-
         return buffer.toString();
     }
 
@@ -118,5 +121,13 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
     public void setPosition(String position) {
         _position = position;
         _adPosition = AdPosition.getAdPosition(_position);
+    }
+
+    /**
+     * Google Ad manager tags are not deferred.
+     * @return true is ad tag is deferred.  False otherwise.
+     */
+    public boolean isDeferred() {
+        return !_adPosition.isGAMPosition();
     }
 }

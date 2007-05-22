@@ -57,7 +57,7 @@
     <decorator:head/>
 
     ${requestScope.pageHelper.headElements}
-
+    <ad:xGAMSetup/>
 </head>
 
 <body onload="${requestScope.pageHelper.onload}" onunload="${requestScope.pageHelper.onunload}" class="${bodyClass}">
@@ -66,62 +66,62 @@
     <cobrand:header/>
 
     <c:if test="${requestScope.pageHelper.showingLeaderboard}">
-    <ad:x22/>
+        <ad:x22/>
     </c:if>
 
     <div id="pageGS" class="pageGS">
-    <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
-       <mod:topNav />
-    </c:if>
+        <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
+           <mod:topNav />
+        </c:if>
 
         <div id="contentGS" class="contentGS">
-        <decorator:body/>
+            <decorator:body/>
         </div>
 
         <cobrand:numberoneexpertFooter/>
 
-            <c:if test="${requestScope.pageHelper.showingFooter}">
-                <div id="footer">
-                    <div id="footerAd">
-                        <ad:footerAd/>
-                    </div>
-
-
-                    <div id="footerGS">
-                        <div id="footerImg">
-                            <link:webbyAwardThanks><gsml:img src="/res/img/promo/webby/footer.gif" alt="Webby Award Winner - Best Family and Parenting Site"/></link:webbyAwardThanks>                            
-                        </div>
-                        <div id="footerContent">
-                            <div class="lowernavbar">
-
-                                <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-
-                                <gsml:a href="/about/aboutUs.page">About Us</gsml:a> &#124;
-
-                                <gsml:a href="/about/supportUs.page">Support Us</gsml:a> &#124;
-
-                                <link:newsletterCenter>Free Newsletters</link:newsletterCenter> &#124;
-
-                                <gsml:a href="/cgi-bin/static/jobs.inc/${state}">Jobs</gsml:a> &#124;
-
-                                <link:contactUs>Contact Us</link:contactUs> &#124;
-
-                                <gsml:a href="/about/privacyStatement.page">Privacy Policy</gsml:a>
-
-
-                                <div id="footerText">
-                                    GreatSchools.net: Elementary, middle and high school information for public, private and
-                                    charter
-                                    schools
-                                    nationwide.
-                                </div>
-                            </div>
-                            <mod:seoFooter/>
-                        </div>
-                    </div>
-                    <br style="clear:both;"/>
+        <c:if test="${requestScope.pageHelper.showingFooter}">
+            <div id="footer">
+                <div id="footerAd">
+                    <ad:footerAd/>
                 </div>
-            </c:if>
+
+
+                <div id="footerGS">
+                    <div id="footerImg">
+                        <link:webbyAwardThanks><gsml:img src="/res/img/promo/webby/footer.gif" alt="Webby Award Winner - Best Family and Parenting Site"/></link:webbyAwardThanks>
+                    </div>
+                    <div id="footerContent">
+                        <div class="lowernavbar">
+
+                            <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+
+                            <gsml:a href="/about/aboutUs.page">About Us</gsml:a> &#124;
+
+                            <gsml:a href="/about/supportUs.page">Support Us</gsml:a> &#124;
+
+                            <link:newsletterCenter>Free Newsletters</link:newsletterCenter> &#124;
+
+                            <gsml:a href="/cgi-bin/static/jobs.inc/${state}">Jobs</gsml:a> &#124;
+
+                            <link:contactUs>Contact Us</link:contactUs> &#124;
+
+                            <gsml:a href="/about/privacyStatement.page">Privacy Policy</gsml:a>
+
+
+                            <div id="footerText">
+                                GreatSchools.net: Elementary, middle and high school information for public, private and
+                                charter
+                                schools
+                                nationwide.
+                            </div>
+                        </div>
+                        <mod:seoFooter/>
+                    </div>
+                </div>
+                <br style="clear:both;"/>
+            </div>
+        </c:if>
     </div>
     <div id="deferredContent" style="display:none;">
         <ad:xAdSetup />

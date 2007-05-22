@@ -8,6 +8,9 @@
                        description="Mutes the display of the footer ad." />
     <jsp:directive.attribute name="slotPrefix" description="Name that will be prefixed before google ad manager tags.  Ask ad team if this is required." required="true"/>
     <jsp:scriptlet>
+        if (!slotPrefix.endsWith("_")) {
+            slotPrefix += "_";
+        }
         request.setAttribute(AdTagHandler.REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME, slotPrefix);
     </jsp:scriptlet>
 </jsp:root>

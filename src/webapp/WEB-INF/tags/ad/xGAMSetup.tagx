@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib">
+    <jsp:directive.tag body-content="empty"
+                       description="Generates necessary JavaScript to show the ads on a page. Generally you will not call this directly, but it will be called by the page decorator."/>
+    <jsp:directive.tag import="gs.web.ads.AdPosition"/>
+    <jsp:directive.tag import="gs.web.ads.AdTagHandler"/>
+    <jsp:directive.tag import="gs.web.util.PageHelper"/>
+    <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
+    <jsp:directive.tag import="java.util.ArrayList"/>
+    <jsp:directive.tag import="java.util.Iterator"/>
+    <jsp:directive.tag import="java.util.List"/>
+    <jsp:directive.tag import="java.util.Set"/>
+    <jsp:scriptlet><![CDATA[
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (null != pageHelper) {
+            List adNames = new ArrayList();
+            Set adPositions = pageHelper.getAdPositions();
+            String slotPrefix = (String) request.getAttribute(AdTagHandler.REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME);
+
+            if (StringUtils.isEmpty(slotPrefix)) {
+                slotPrefix = "";
+            }
+
+            adNames.add(slotPrefix + AdPosition.Footer_728x90.getName());
+            adNames.add(slotPrefix + AdPosition.Header_728x90.getName());            
+            for (Iterator iter = adPositions.iterator(); iter.hasNext();) {
+                AdPosition ad = (AdPosition) iter.next();
+
+                if (ad.isGAMPosition()) {
+                    adNames.add(slotPrefix + ad.getName());
+                }
+            }
+
+            request.setAttribute("GAMadNames", adNames);
+            request.setAttribute("GAMadKeywords", pageHelper.getAdKeywords());
+        }
+        ]]></jsp:scriptlet>
+        <c:if test="${!empty GAMadNames}">
+            <![CDATA[<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>]]>
+
+            <script type="text/javascript">
+              GS_googleAddAdSenseService("ca-pub-9662012843341888");
+              GS_googleEnableAllServices();
+            </script>
+
+            <![CDATA[<script type="text/javascript">]]>
+            <c:forEach var="keywordEntry" items="${GAMadKeywords}">
+                GA_googleAddAttr('${keywordEntry.key}','${keywordEntry.value}');</c:forEach>
+
+            <c:forEach var="slotName" items="${GAMadNames}">
+                GA_googleAddSlot("ca-pub-9662012843341888", '${slotName}');</c:forEach>
+            <![CDATA[</script>]]>
+
+
+            <script type="text/javascript">
+                GA_googleFetchAds();
+            </script>
+        </c:if>
+</jsp:root>

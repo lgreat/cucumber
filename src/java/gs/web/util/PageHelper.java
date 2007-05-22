@@ -1,12 +1,13 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.40 2007/05/16 20:40:59 dlee Exp $
+ * $Id: PageHelper.java,v 1.41 2007/05/22 22:03:34 dlee Exp $
  */
 
 package gs.web.util;
 
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
+import gs.web.ads.AdPosition;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -143,7 +144,6 @@ public class PageHelper {
         }
     }
 
-
     public static final String REQUEST_ATTRIBUTE_NAME = "pageHelper";
 
     private boolean _showingHeader = true;
@@ -156,32 +156,67 @@ public class PageHelper {
     private String _onload = "";
     private String _onunload = "";
 
-    //Insertion order is probably important so we'll used LinkedHashSet
-    private Set _javascriptFiles;
-    private Set _cssFiles;
-    private List<String> _adSlots;
+
+    private Set _javascriptFiles;   //Insertion order is important so we'll used LinkedHashSet
+    private Set _cssFiles;          //Insertion order is important so we'll used LinkedHashSet
+
+    //ad positions that appear on current page
+    private Set<AdPosition> _adPositions = new HashSet<AdPosition>();
+    //ad keywords for current page
+    private Map<String,String> _adKeywords = new HashMap<String,String>();
 
     /**
-     * Set google ad manager slot that will appear on page
-     * @param slotName name of ad slot
+     * Add a keyword/value pair for current page to be passed on to ad server
+     * @param name name of keyword
+     * @param value value of keyword
      */
-    public void addAdSlot(String slotName) {
-        if (_adSlots == null) {
-            _adSlots = new ArrayList<String>();
+    public void addAdKeyword(String name, String value) {
+        if (null == name || null == value) {
+            throw new IllegalArgumentException("Name value pair cannot be null");
         }
-
-        _adSlots.add(slotName);
+        _adKeywords.put(name,value);
     }
 
     /**
-     * @return Returns a list of google ad manager ad slots that will appear on page
+     * Get a map of the ad keyword/value pairs
+     * @return An empty map or map containing the keyword value pair if they exist
      */
-    public List<String> getAdSlots() {
-        if (_adSlots == null) {
-            return new ArrayList<String>();
-        } else {
-            return _adSlots;
+    public Map<String,String> getAdKeywords() {
+        return _adKeywords;
+    }
+
+    /**
+     * Helper routine that returns OAS ad server formatted keyword value pairs
+     * @return Empty string or
+     */
+    public String getOASKeywords() {
+        StringBuffer buffer = new StringBuffer(_adKeywords.size()*12);
+
+        for (Iterator it = _adKeywords.keySet().iterator(); it.hasNext();) {
+            String key = (String) it.next();
+            buffer.append(key).append("=").append(_adKeywords.get(key));
+            if (it.hasNext()) {
+                buffer.append("&");
+            }
+        }        
+        return buffer.toString();
+    }
+
+    /**
+     * @param ad Ad position that will be added on current page
+     */
+    public void addAdPosition(AdPosition ad) {
+        if (null == ad) {
+            throw new IllegalArgumentException("Ad cannot be null");
         }
+        _adPositions.add(ad);
+    }
+
+    /**
+     * @return Returns a non-null list of ad positions for current page
+     */
+    public Set<AdPosition> getAdPositions() {
+        return _adPositions;
     }
 
     private static UrlUtil _urlUtil = new UrlUtil();
@@ -200,7 +235,9 @@ public class PageHelper {
                 _betaPage = true;
             }
         }
-
+        if (null != _sessionContext.getState()) {
+            _adKeywords.put("state", _sessionContext.getState().getAbbreviationLowerCase());    
+        }
     }
 
     public boolean isShowingBannerAd() {
