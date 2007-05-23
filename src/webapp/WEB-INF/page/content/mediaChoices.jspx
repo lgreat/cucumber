@@ -18,9 +18,9 @@
 
 <jsp:directive.page contentType="text/html"/>
 <pageHelper:setPathway pathway="LIBRARY"/>
-<c:set var="pageName" value="Media and Your Child"/>
+<c:set var="pageName" value="Media Choices"/>
 <head>
-    <title>Greatschools.net: ${pageName}</title>
+    <title>Greatschools.net: Media and Your Child</title>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="Description" content="Media and your child: How parents can help kids think critically and choose wisely"/>
     <pageHelper:externalCss file="/res/css/content/microsite.css"/>  <!--commmon-->
@@ -109,7 +109,7 @@
 </div>
 <mod:tracking pageType="article"
               pageName="${pageName}"
-              hier1="Article,Media Choices"/>
+              hier1="Article,${pageName}"/>
 </gsml:body>
 </html>
 </jsp:root>
