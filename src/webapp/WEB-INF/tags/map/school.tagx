@@ -149,7 +149,11 @@ function getSchoolInfoWindowHtml(school) {
     rval += '<a href="http://maps.google.com/maps?saddr=&amp;daddr=' +
             school.address +
             '" target="_blank">Get directions &gt;</a>';
-    rval += school.phone;
+    if (school.phone == '') {
+        rval += '<br/><br/>';
+    } else {
+        rval += school.phone;
+    }
     rval += '</div>'; // schoolInfoWindow
     return rval;
 }

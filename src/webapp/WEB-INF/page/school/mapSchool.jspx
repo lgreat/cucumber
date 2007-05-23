@@ -106,8 +106,8 @@
                     <c:if test="${school.type.schoolTypeName != 'private'}">
                         <li>
                             <link:allSchoolsInDistrict districtId="${school.districtId}"
-                                                       title="Schools in ${school.district.name}">
-                                Schools in ${school.district.name} &gt;
+                                                       title="${school.district.name}">
+                                Schools in ${school.district.name}&amp;nbsp;&gt;
                             </link:allSchoolsInDistrict>
                         </li>
                     </c:if>
@@ -137,9 +137,6 @@
     <ul id="extraLinks">
         <c:if test="${hasNearby}">
             <li id="nearMore"><link:schoolCompareSchool school="${school}">More nearby schools &gt;</link:schoolCompareSchool></li>
-        </c:if>
-        <c:if test="${school.type.schoolTypeName != 'private'}">
-            <li id="nearDistrict"><link:allSchoolsInDistrict districtId="${school.districtId}">${school.district.name} schools &gt;</link:allSchoolsInDistrict></li>
         </c:if>
     </ul>
     </school:profile>

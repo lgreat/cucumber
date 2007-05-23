@@ -48,6 +48,7 @@ Large Google Map
 	_padding-bottom: 7px; /* IE 6 hack */
 	min-height: 427px;
 	border: 2px solid #dee;
+    color: #888;
 }
 
 #nearbySchools a {
@@ -79,7 +80,6 @@ Large Google Map
 
 #nearbySchools .head_nearby {
 	font: 10px/11px Trebuchet MS, sans-serif;
-	color: #888;
 	margin: 10px 0 8px 2px;
 	text-transform: uppercase;
 }
@@ -118,7 +118,7 @@ Large Google Map
 
 ul#extraLinks {
     position: absolute;
-    margin-top: -56px;
+    margin-top: -33px;
 }
 
 ul#extraLinks li {
@@ -126,11 +126,11 @@ ul#extraLinks li {
     font: 11px/13px Trebuchet MS, sans-serif;
     list-style: none;
     margin: 0;
-    width: 160px;
-    padding: 0 0 2px 0;
+    width: 170px;
+    padding: 0;
 }
 
-ul#extraLinks li#nearDistrict a, ul#extraLinks li#nearMore a {
+ul#extraLinks li#nearMore a {
     color: #3399AA;
     font-size: 11px;
     font-weight: normal;
