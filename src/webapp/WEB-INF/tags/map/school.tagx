@@ -141,8 +141,7 @@ function getSchoolInfoWindowHtml(school) {
     rval += school.ratingHtml;
     rval += school.parentRatingHtml;
     rval += '</div>';
-    //rval += '<br style="clear: left" />';
-    rval += '<address>';
+    rval += '<address style="width: 210px;">';
     rval += school.street + '<br />';
     rval += school.city + ', ' + school.state + ' ' + school.zip + '<br/>';
     rval += '</address>';
