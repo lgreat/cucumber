@@ -40,21 +40,20 @@
         ]]></jsp:scriptlet>
         <c:if test="${!empty GAMadNames}">
             <![CDATA[<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>]]>
-
-            <script type="text/javascript">
+            <script type="text/javascript">                 
               GS_googleAddAdSenseService("ca-pub-9662012843341888");
               GS_googleEnableAllServices();
             </script>
-
-            <![CDATA[<script type="text/javascript">]]>
+            <![CDATA[<script type="text/javascript">
+            <!--]]>
             <c:forEach var="keywordEntry" items="${GAMadKeywords}">
                 GA_googleAddAttr('${keywordEntry.key}','${keywordEntry.value}');</c:forEach>
-
             <c:forEach var="slotName" items="${GAMadNames}">
                 GA_googleAddSlot("ca-pub-9662012843341888", '${slotName}');</c:forEach>
-            <![CDATA[</script>]]>
-
-
+            <![CDATA[
+            -->
+            </script>
+            ]]>
             <script type="text/javascript">
                 GA_googleFetchAds();
             </script>
