@@ -59,7 +59,12 @@ public class SeoCobrandRedirectInterceptorTest extends BaseControllerTestCase {
     }
 
     /**
-     * Since we use apache to rewrite the SPP overview URL we check to make sure the redirect Java is issuing is correct
+     * Since we use Apache to rewrite the SPP overview URL we check to make sure the redirect Java is issuing is correct
+     *
+     * For example http://sfgate.greatschools.net/modperl/browse_school/ca/13933 gets rewritten by Apache to
+     * http://sfgate.greatschools.net/school/overview.page?state=ca&id=13933
+     * but the redirect should go to:
+     * http://www.greatschools.net/modperl/browse_school/ca/13933
      *
      * @throws Exception
      */
