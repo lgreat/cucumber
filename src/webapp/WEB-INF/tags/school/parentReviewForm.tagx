@@ -20,28 +20,28 @@
             <div class="starbar active">
                 <div class="outer">
                     <div id="q_5" title="5 stars out of 5"
-                       onclick=" setQuality('Excellent', '5'); return false;"
-                       onmouseover="setRatingTitle('Excellent');"
+                       onclick=" saveQuality('Excellent', '5'); return false;"
+                       onmouseover="setRatingTitle('Excellent', '5');"
                        onmouseout="resetRatingTitle();"
                        class="s5"><span class="starLink">5</span></div>
                     <div id="q_4" title="4 stars out of 5"
-                       onclick=" setQuality('Above average', '4'); return false;"
-                       onmouseover="setRatingTitle('Above average');"
+                       onclick=" saveQuality('Above average', '4'); return false;"
+                       onmouseover="setRatingTitle('Above average', '4');"
                        onmouseout="resetRatingTitle();"
                        class="s4"><span class="starLink">4</span></div>
                     <div id="q_3" title="3 stars out of 5"
-                       onclick=" setQuality('Average', '3'); return false;"
-                       onmouseover="setRatingTitle('Average');"
+                       onclick=" saveQuality('Average', '3'); return false;"
+                       onmouseover="setRatingTitle('Average', '3');"
                        onmouseout="resetRatingTitle();"
                        class="s3"><span class="starLink">3</span></div>
                     <div id="q_2" title="2 stars out of 5"
-                       onclick=" setQuality('Below average', '2'); return false;"
-                       onmouseover="setRatingTitle('Below average');"
+                       onclick=" saveQuality('Below average', '2'); return false;"
+                       onmouseover="setRatingTitle('Below average', '2');"
                        onmouseout="resetRatingTitle();"
                        class="s2"><span class="starLink">2</span></div>
                     <div id="q_1" title="1 star out of 5"
-                       onclick=" setQuality('Unsatisfactory', '1'); return false;"
-                       onmouseover="setRatingTitle('Unsatisfactory');"
+                       onclick=" saveQuality('Unsatisfactory', '1'); return false;"
+                       onmouseover="setRatingTitle('Unsatisfactory', '1');"
                        onmouseout="resetRatingTitle();"
                        class="s1"><span class="starLink">1</span></div>
                 </div>
@@ -57,7 +57,10 @@
                 <input id="confirm" type="hidden" name="confirm" value="" />
 
                 <c:set var="comment" value="${(not empty param.comments) ? param.comments : 'Enter your review here'}" />
-                <textarea id="reviewText" onfocus="if(this.value=='Enter your review here'){this.value='';}" name="comments"
+                <textarea id="reviewText"
+                          onkeyup="countWords(this)"
+                          onkeydown="countWords(this)"
+                          onfocus="if(this.value=='Enter your review here'){this.value='';}" name="comments"
                           rows="" cols="">${comment}</textarea>
                 <div id="acceptTerms">
                     <input name="permit" type="checkbox" checked="checked"/><label>I'm a</label>

@@ -136,26 +136,6 @@ input {
     height: 23px;
 }
 
-.starbar div.s1:hover {
-    background: url(/res/img/school/review/stars.gif) no-repeat 0 -23px;
-}
-
-.starbar div.s2:hover {
-    background: url(/res/img/school/review/stars.gif) no-repeat 0 -23px;
-}
-
-.starbar div.s3:hover {
-    background: url(/res/img/school/review/stars.gif) no-repeat 0 -23px;
-}
-
-.starbar div.s4:hover {
-    background: url(/res/img/school/review/stars.gif) no-repeat 0 -23px;
-}
-
-.starbar div.s5:hover {
-    background: url(/res/img/school/review/stars.gif) no-repeat 0 -23px;
-}
-
 .starbar div.s1  { width:  24px; }
 .starbar div.s2  { width:  48px; }
 .starbar div.s3  { width:  72px; }
