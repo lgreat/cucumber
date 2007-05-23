@@ -18,15 +18,27 @@ public class SeoCobrandRedirectInterceptor implements HandlerInterceptor {
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         SessionContext sessionContext = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
+
         if (sessionContext.isCobranded() && sessionContext.isCrawler() && "GET".equals(request.getMethod())) {
             // We have to special case Yahoo because as part of our contract Yahoo can crawl their cobrand
             if (!("yahooed".equals(sessionContext.getCobrand()) && request.getHeader("User-Agent").indexOf("Slurp") > -1)) {
-                // Build the new URL
-                StringBuffer url = new StringBuffer("http://www.greatschools.net").append(request.getRequestURI());
-                if (request.getQueryString() != null) url.append("?").append(request.getQueryString());
+                StringBuffer newUrl = new StringBuffer("http://www.greatschools.net");
+                String uri = request.getRequestURI();
+
+                // Handle URL's rewritten behind the scenes by Apache
+                if ("/school/overview.page".equals(uri)) {
+                    newUrl.append("/modperl/browse_school/").append(request.getParameter("state")).append("/").append(request.getParameter("id"));
+                } else if ("/school/research.page".equals(uri)) {
+                    newUrl.append("/modperl/go/").append(request.getParameter("state"));
+                } else {
+                    // Otherwise use the same URI and request parameters
+                    newUrl.append(uri);
+                    if (request.getQueryString() != null) newUrl.append("?").append(request.getQueryString());
+                }
+                
                 // Do the redirect
                 response.setStatus(301);
-                String redirect = response.encodeRedirectURL(url.toString());
+                String redirect = response.encodeRedirectURL(newUrl.toString());
                 response.sendRedirect(redirect);
                 return false;
             }
@@ -34,11 +46,21 @@ public class SeoCobrandRedirectInterceptor implements HandlerInterceptor {
         return true;
     }
 
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView mv) throws Exception {
+    public void postHandle
+            (HttpServletRequest
+                    request, HttpServletResponse
+                    response, Object
+                    o, ModelAndView
+                    mv) throws Exception {
         // do nothing
     }
 
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object o, Exception e) throws Exception {
+    public void afterCompletion
+            (HttpServletRequest
+                    request, HttpServletResponse
+                    response, Object
+                    o, Exception
+                    e) throws Exception {
         // do nothing
     }
 
