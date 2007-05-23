@@ -11,8 +11,10 @@
         <property name="interceptors">
             <list>
                 <bean class="gs.web.util.ReadWriteInterceptor"/>
-                <!-- ResponseInterceptor is dependent on SessionContextInterceptor, and must come after it in config -->
+                <!-- ResponseInterceptor are SeoCobrand... are dependent on SessionContextInterceptor, and must come after it in config -->
                 <bean class="gs.web.util.context.SessionContextInterceptor"
+                      autowire="byName"/>
+                <bean class="gs.web.util.SeoCobrandRedirectInterceptor"
                       autowire="byName"/>
                 <bean class="gs.web.util.ResponseInterceptor"
                       autowire="byName"/>
@@ -653,7 +655,7 @@
     </bean>
 
     <bean name="/res/gwt/gs.web.admin.gwt.TableCopyGWTPanel/copyTables.page"
-        class="gs.web.admin.LimitToDevController">
+          class="gs.web.admin.LimitToDevController">
         <property name="viewName">
             <value>admin/database/copyTables</value>
         </property>
@@ -1001,9 +1003,9 @@
 
 
     <bean name="/chart/pie.page"
-        autowire="byName"
-        class="gs.web.chart.PieController"
-        lazy-init="true" />
+          autowire="byName"
+          class="gs.web.chart.PieController"
+          lazy-init="true"/>
 
     <!-- WEB PAGE DEFINITIONS END -->
 
