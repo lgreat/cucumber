@@ -14,7 +14,7 @@
     <c:set var="schoolId" value="${school.id}"/>
 
     <div id="rateReview">
-        <h2>Rate ${school.name}</h2>
+        <a name="rReview"><h2>Rate ${school.name}</h2></a>
         <div id="rateReview_module">
             <div id="ratingTitle">Rate this school</div>
             <div class="starbar active">
