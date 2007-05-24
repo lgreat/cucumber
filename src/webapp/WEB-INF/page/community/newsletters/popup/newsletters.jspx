@@ -68,7 +68,7 @@
         <div class="signupText">Sign me up! In ${academicYear} my children are in:</div>
     </div>
     <div style="float:right;">
-        <link:webbyAwardThanks target="_blank"><gsml:img src="/res/img/promo/webby/newsletter_hover.gif" alt="The Webby Awards - Best Family &amp; Parenting Site - 2007 People's Voice Award"/></link:webbyAwardThanks>
+        <link:webbyAwardThanks target="_blank"><gsml:img src="/res/img/promo/webby/newsletter_hover.gif" alt="The Webby Awards - Best Family and Parenting Site - 2007 People's Voice Awards"/></link:webbyAwardThanks>
     </div>
 </div>    
 
