@@ -8,7 +8,6 @@
           xmlns:link="urn:www.greatschools.net/taglib/link"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
-<jsp:directive.tag import="gs.data.geo.LatLon"/>
 <jsp:directive.tag body-content="empty"
                    description="Draw a map of a school with nearby schools marked and extra info in a bubble." />
 <jsp:directive.attribute name="id" required="true" description="XML id of the Html div element that holds the map."/>
@@ -21,11 +20,6 @@
 <map:setup/>
 <pageHelper:addOnLoadHandler handler="doMapSchools()"/>
 
-<jsp:scriptlet>
-<![CDATA[
-    request.setAttribute("center", new LatLon(school.getLat().floatValue(), school.getLon().floatValue()));
-]]>
-</jsp:scriptlet>
 <script type="text/javascript">
 <![CDATA[
 <!--
@@ -46,8 +40,6 @@ function reflectPoint(centerPoint, outlierPoint) {
 var minZoom = ${not empty minZoom?minZoom:6};
 var maxZoom = ${not empty maxZoom?maxZoom:13};
 var displayTooltips = ${not empty tooltips};
-var centerOnStar = true;
-var centerPoint = new GLatLng(${center.lat}, ${center.lon});
 var schoolArray = new Array();
 var centerSchool = new Object();
 centerSchool.name = "${school.name}";
@@ -55,8 +47,9 @@ centerSchool.street = "${school.physicalAddress.street}";
 centerSchool.city = "${school.physicalAddress.city}";
 centerSchool.state = "${school.physicalAddress.state.abbreviation}";
 centerSchool.zip = "${school.physicalAddress.zip}";
-centerSchool.phone = '<c:if test="${not empty school.phone}"><p class="schoolPhone">${school.phone}</p></c:if>';
+centerSchool.phone = '<c:if test="${not empty school.phone}">${school.phone}</c:if>';
 centerSchool.address = centerSchool.street + ' ' + centerSchool.city + ', ' + centerSchool.state + ' ' + centerSchool.zip;
+centerSchool.location = new GLatLng(${school.lat}, ${school.lon});
 
 centerSchool.ratingHtml = '';
 <c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
@@ -98,7 +91,7 @@ function initSchoolInfo() {
     mySchool.city = "${curSchool.physicalAddress.city}";
     mySchool.state = "${curSchool.physicalAddress.state.abbreviation}";
     mySchool.zip = "${curSchool.physicalAddress.zip}";
-    mySchool.phone = '<c:if test="${not empty curSchool.phone}"><p class="schoolPhone">${curSchool.phone}</p></c:if>';
+    mySchool.phone = '<c:if test="${not empty curSchool.phone}">${curSchool.phone}</c:if>';
     mySchool.address = centerSchool.street + ' ' + centerSchool.city + ', ' + centerSchool.state + ' ' + centerSchool.zip;
 
     mySchool.ratingHtml = '';
@@ -151,7 +144,7 @@ function getSchoolInfoWindowHtml(school) {
     if (school.phone == '') {
         rval += '<br/><br/>';
     } else {
-        rval += school.phone;
+        rval += '<p class="schoolPhone">' + school.phone + '</p>';
     }
     rval += '</div>'; // schoolInfoWindow
     return rval;
@@ -166,9 +159,9 @@ function initMap() {
 
     map.addControl(new GLargeMapControl());
     map.addControl(new GScaleControl());
-    map.setCenter(centerPoint, 17);
+    map.setCenter(centerSchool.location, 17);
     var bounds = new GLatLngBounds();
-    bounds.extend(centerPoint);
+    bounds.extend(centerSchool.location);
     <![CDATA[
     for (var counter=0; counter < schoolArray.length; counter++) {
       var curSchool = schoolArray[counter];
@@ -195,14 +188,14 @@ function initMap() {
     arrowIcon.shadowSize = new GSize(39,34);
 
     if (displayTooltips) {
-      tooltip = "${school.name}";
+      tooltip = centerSchool.name;
     } else {
       tooltip = null;
     }
-    marker = new GMarker(centerPoint, {icon:arrowIcon, title: tooltip});
+    marker = new GMarker(centerSchool.location, {icon:arrowIcon, title: tooltip});
     addBubbleListener(marker, centerSchool);
     map.addOverlay(marker);
-    extendBoundsToCenterOnPoint(centerPoint, bounds);
+    extendBoundsToCenterOnPoint(centerSchool.location, bounds);
 
     var zoom = map.getBoundsZoomLevel(bounds);
     if (zoom > maxZoom) zoom = maxZoom;
