@@ -65,9 +65,15 @@
         &amp;nbsp;
     </div>
 
+    <c:set var="hier" value="Community,Landing Page"/>
+    <c:if test="${escapedMessage ne null and escapedMessage gt ''}">
+        <c:set var="hier" value="Community,Landing Page,Registration Confirmation"/>
+    </c:if>
+
+
     <mod:tracking pageName="Community Landing Page"
                   pageType="community"
-                  hier1="Community,Landing Page"/>
+                  hier1="${hier}"/>
 </gsml:body>
 </html>
 </jsp:root>

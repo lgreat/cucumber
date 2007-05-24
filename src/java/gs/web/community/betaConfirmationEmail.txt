@@ -20,7 +20,7 @@ with feedback about your experience after you're done.</li>
 whether or not you'd like to participate.</li>
 </ul>
 
-<p>Also, be sure to register for the GreatSchools community now to be among the first invited<
+<p>Also, be sure to register for the GreatSchools community now to be among the first invited
 to join an exciting community of parents who are passionate about education.</p>
 
 <p><a href="http://www.greatschools.net/community/registration.page?cpn=betawelcome&email=$EMAIL">Join the community</a></p>

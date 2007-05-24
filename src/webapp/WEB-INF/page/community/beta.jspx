@@ -38,7 +38,7 @@
                 <div class="formtext">To sign up for our beta group, please enter your email address:</div>
                 <gsweb:form action="/community/beta.page" method="post">
                     <spring:bind path="betaSignupCommand.email">
-                        <input type="text" name="email" size="50"></input>
+                        <input type="text" name="email" size="50" value="${param.email}"></input>
                         <input type="submit" value="Sign me up!" name="submit"/>
                         <c:if test="${status.error}">
                         <span id="errorMessage">
