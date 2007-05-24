@@ -29,9 +29,9 @@ public class CommunityLandingController extends AbstractController {
 
     private String _viewName;
 
-    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
         User user = SessionContextUtil.getSessionContext(request).getUser();
-        Map model = new HashMap();
+        Map<String, Object> model = new HashMap<String, Object>();
         model.put("user", user);
         if (StringUtils.isNotEmpty(request.getParameter("message"))) {
             // Stupid!! the escapeXml method escapes apostrophes to &apos; even though there's

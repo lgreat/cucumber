@@ -11,7 +11,6 @@ import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.state.State;
 import org.easymock.MockControl;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,11 +40,11 @@ public class MapSchoolControllerTest extends BaseControllerTestCase {
 
         _controller.setSchoolDao(_schoolDao);
         _controller.setReviewDao(_reviewDao);
+        _controller.setViewName("/viewName");
 
         _request = getRequest();
 
         SessionContextUtil.getSessionContext(_request).setState(State.CA);
-
     }
 
     public void testHandleRequest() throws Exception {
@@ -77,9 +76,17 @@ public class MapSchoolControllerTest extends BaseControllerTestCase {
         assertEquals(nearbySchools, _request.getAttribute("nearbySchools"));
         assertEquals(false, _request.getAttribute("hasNearby"));
         assertEquals("High", _request.getAttribute("levelLongName"));
+        assertEquals("/viewName", _controller.getViewName());
+        assertEquals(_schoolDao, _controller.getSchoolDao());
+        assertEquals(_reviewDao, _controller.getReviewDao());
     }
 
     public void testLoadRatings() {
+        School dadSchool = new School();
+        dadSchool.setId(99);
+        dadSchool.setLevelCode(LevelCode.HIGH);
+        _request.setAttribute(MapSchoolController.SCHOOL_ATTRIBUTE, dadSchool);
+
         List<NearbySchool> nearbySchools = new ArrayList<NearbySchool>();
         // #1
         School school1 = new School();
@@ -102,12 +109,14 @@ public class MapSchoolControllerTest extends BaseControllerTestCase {
         Ratings ratings2 = new Ratings();
 
         // set expectations
+        _schoolControl.expectAndReturn(_schoolDao.findNearbySchools(dadSchool, 5), nearbySchools);
+        _schoolControl.replay();
         _reviewControl.expectAndReturn(_reviewDao.findRatingsBySchool(school1), ratings1);
         _reviewControl.expectAndReturn(_reviewDao.findRatingsBySchool(school2), ratings2);
         _reviewControl.replay();
 
         // call controller
-        _controller.loadRatings(_request, nearbySchools);
+        _controller.handleRequestInternal(_request, _response);
         // verify expectations
         _reviewControl.verify();
 
