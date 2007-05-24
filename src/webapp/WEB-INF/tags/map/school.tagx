@@ -139,7 +139,7 @@ function getSchoolInfoWindowHtml(school) {
     rval += school.city + ', ' + school.state + ' ' + school.zip + '<br/>';
     rval += '</address>';
     rval += '<a href="http://maps.google.com/maps?saddr=&amp;daddr=' +
-            school.address +
+            encodeURI(school.address) +
             '" target="_blank">Get directions &gt;</a>';
     if (school.phone == '') {
         rval += '<br/><br/>';
