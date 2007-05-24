@@ -51,7 +51,7 @@
 	_height: 22px;
 }
 
-select {
+#rateReview select {
 	height: 20px;
 	color: #666;
 	width: 75px;
@@ -62,7 +62,7 @@ select {
 	_float: left; /* IE 6 hack */
 }
 
-input {
+#rateReview input {
     _padding-top: 8px; /* IE 6 hack */
     _float: left; /* IE 6 hack */
 }
