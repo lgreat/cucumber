@@ -84,7 +84,7 @@
 </table>
 <c:choose>
     <c:when test="${fn:contains(pageContext.request.requestURI,'index')}">
-        <div style="padding:18px 0 0 85px;"><link:webbyAwardThanks><gsml:img src="/res/img/promo/webby/header.gif" alt="Webby Award Winner"/></link:webbyAwardThanks></div>
+        <div style="padding:18px 0 0 85px;"><link:webbyAwardThanks><gsml:img src="/res/img/promo/webby/header.gif" alt="The Webby Awards - Best Family &amp; Parenting Site - 2007 People's Voice Award"/></link:webbyAwardThanks></div>
     </c:when>
     <c:otherwise>
         <div class="search" >

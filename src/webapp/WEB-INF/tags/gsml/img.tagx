@@ -22,7 +22,7 @@
         buffer.append(" src=\"").append(Util.escapeXml(src)).append('"');
 
         // always add alt for XHTML compliance, even if empty
-        buffer.append(" alt=\"").append(alt).append('"');
+        buffer.append(" alt=\"").append(Util.escapeXml(alt)).append('"');
 
         if (StringUtils.isNotBlank(title)) {
             buffer.append(" title=\"").append(title).append('"');
