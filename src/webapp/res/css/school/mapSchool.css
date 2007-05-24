@@ -118,7 +118,8 @@ Large Google Map
 
 ul#extraLinks {
     position: absolute;
-    margin-top: -33px;
+    margin-top: -36px;
+    _margin-top: -34px;
 }
 
 ul#extraLinks li {
