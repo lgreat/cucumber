@@ -183,7 +183,7 @@ ul#extraLinks li#nearMore a {
 }
 
 #map div.schoolInfoWindow div.schoolRating  {
-    padding: 0 8px 0 0;
+    padding: 2px 8px 3px 0;
     margin: 0 10px 0 0;
     height: 22px;
     width: 22px;
@@ -197,10 +197,6 @@ ul#extraLinks li#nearMore a {
 
 #map div.schoolInfoWindow address, #map div.schoolInfoWindow p, #map div.schoolInfoWindow a {
     font: 12px/15px Trebuchet MS, sans-serif;
-}
-
-#map div.schoolInfoWindow address {
-    padding-top: 5px;
 }
 
 #map div.schoolInfoWindow a {

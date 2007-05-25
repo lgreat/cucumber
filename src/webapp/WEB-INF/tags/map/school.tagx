@@ -68,7 +68,7 @@ centerSchool.parentRatingHtml = '<div class="parentRating" style="float: left">'
 <c:choose>
     <c:when test="${parent_rating eq 0}">
         <c:set var="parent_rating_title" value="Be the first to rate!"/>
-        centerSchool.parentRatingHtml += '<link:schoolProfileAddParentReview school="${school}"><img src="/res/img/map/ratings_parent_city_0.gif" alt="${parent_rating_title}" onmouseover="this.src=\\'/res/img/map/ratings_parent_city_rateit.gif\\'" onmouseout="this.src=\\'/res/img/map/ratings_parent_city_0.gif\\'"/></link:schoolProfileAddParentReview>';
+        centerSchool.parentRatingHtml += '<link:schoolProfileAddParentReview school="${school}"><img src="/res/img/school/ratings/ratings_parent_head_no.gif" alt="${parent_rating_title}" onmouseover="this.src=\\'/res/img/school/ratings/ratings_parent_head_no_roll.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/ratings_parent_head_no.gif\\'"/></link:schoolProfileAddParentReview>';
     </c:when>
     <c:otherwise>
         <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
@@ -111,7 +111,7 @@ function initSchoolInfo() {
     <c:choose>
         <c:when test="${parent_rating eq 0}">
             <c:set var="parent_rating_title" value="Be the first to rate!"/>
-            mySchool.parentRatingHtml += '<link:schoolProfileAddParentReview school="${curSchool}" title="${parent_rating_title}"><img src="/res/img/map/ratings_parent_city_0.gif" alt="Be the first to rate!" onmouseover="this.src=\\'/res/img/map/ratings_parent_city_rateit.gif\\'" onmouseout="this.src=\\'/res/img/map/ratings_parent_city_0.gif\\'"/></link:schoolProfileAddParentReview>';
+            mySchool.parentRatingHtml += '<link:schoolProfileAddParentReview school="${curSchool}" title="${parent_rating_title}"><img src="/res/img/school/ratings/ratings_parent_head_no.gif" alt="Be the first to rate!" onmouseover="this.src=\\'/res/img/school/ratings/ratings_parent_head_no_roll.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/ratings_parent_head_no.gif\\'"/></link:schoolProfileAddParentReview>';
         </c:when>
         <c:otherwise>
             <c:set var="parent_rating_title" value="Parent Rating: ${parent_rating} out of 5 stars"/>
@@ -130,11 +130,11 @@ function initSchoolInfo() {
 function getSchoolInfoWindowHtml(school) {
     var rval = '<div class="schoolInfoWindow" style="font: 12px/15px Trebuchet MS, sans-serif;">';
     rval += '<div class="schoolName" style="width: 210px;">' + school.name + '</div>';
-    rval += '<div style="height: 22px; width: 150px;">';
+    rval += '<div style="height: 28px; width: 150px;">';
     rval += school.ratingHtml;
     rval += school.parentRatingHtml;
     rval += '</div>';
-    rval += '<address style="width: 210px;">';
+    rval += '<address style="width: 210px; clear: left; margin-top: 10px; _margin-top: 5px;">';
     rval += school.street + '<br />';
     rval += school.city + ', ' + school.state + ' ' + school.zip + '<br/>';
     rval += '</address>';
