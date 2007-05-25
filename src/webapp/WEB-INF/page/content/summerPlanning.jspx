@@ -36,46 +36,22 @@
 
 <div class="middle">
     <div id="contentHeaderImage">
-        <h3 id="summerPlanning">Summer Planning Guide</h3>
+        <h1 id="summerPlanning" class="pageHeading">Summer Planning Guide</h1>
         <gsml:img src="/res/img/content/summerPlanning/summerplanningimage.jpg" alt="Boy Holding Jar" style="float:left;"/>
     </div>
 
-    <div>
-        <h3 id="greatSummer">How to Plan a Great Summer</h3>
-        <ul class="plain">
-            <gsweb:articlelink articleId="542" wrappingElement="li"/>
-            <gsweb:articlelink articleId="543" wrappingElement="li"/>
-            <gsweb:articlelink articleId="313" wrappingElement="li"/>
-            <gsweb:articlelink articleId="547" wrappingElement="li"/>
-            <gsweb:articlelink articleId="544" wrappingElement="li"/>
-            <gsweb:articlelink articleId="545" wrappingElement="li"/>
-            <gsweb:articlelink articleId="536" wrappingElement="li"/>
-            <gsweb:articlelink articleId="640" wrappingElement="li"/>
-            <gsweb:articlelink articleId="534" wrappingElement="li"/>
-        </ul>
-    </div>
+    <content:micrositeArticleList title="How to Plan a Great Summer"
+                                  headerId="greatSummer"
+                                  articleIds="542,543,313,547,544,545,536,640,534"/>
 
-    <div>
-        <h3 id="learningFun">Learning Fun That Is (Practically) Free</h3>
-        <ul class="plain">
-            <gsweb:articlelink articleId="233" wrappingElement="li"/>
-            <gsweb:articlelink articleId="564" wrappingElement="li"/>
-            <gsweb:articlelink articleId="648" wrappingElement="li"/>
-            <gsweb:articlelink articleId="595" wrappingElement="li"/>
-        </ul>
-    </div>
+    <content:micrositeArticleList title="Learning Fun That Is (Practically) Free"
+                                  headerId="learningFun"
+                                  articleIds="233,564,648,595"/>
 
-    <div>
-        <h3 id="brainDrain">Tips to Beat Summer Brain Drain</h3>
-        <ul class="plain">
-            <gsweb:articlelink articleId="537" wrappingElement="li"/>
-            <gsweb:articlelink articleId="314" wrappingElement="li"/>
-            <gsweb:articlelink articleId="535" wrappingElement="li"/>
-            <gsweb:articlelink articleId="232" wrappingElement="li"/>
-            <gsweb:articlelink articleId="230" wrappingElement="li"/>
-            <gsweb:articlelink articleId="650" wrappingElement="li"/>
-        </ul>
-    </div>
+    <content:micrositeArticleList title="Tips to Beat Summer Brain Drain"
+                                  headerId="brainDrain"
+                                  articleIds="537,314,535,232,230,650"
+                                  lower="true"/>
 
     <div style="border-bottom: 1px dashed #ccc;">
         <h3 id="askTheExperts">Ask an Expert</h3>
@@ -84,14 +60,10 @@
             </p>
     </div>
 
-    <div style="border-bottom: 1px dashed #ccc;">
-        <h3 id="freeNewsletters">Free Newsletters</h3>
-        <p>Is your child on track?
-            Find out with our free newsletters that parents love! <promo:nthGraderHover referredBy="${pageName}">Sign me up</promo:nthGraderHover>
-            </p>
-    </div>
+    <content:micrositeFreeNewsletters pageName="${pageName}"/>
+
 </div>
-    </div>
+</div>
 
 <div id="promos">
     <content:promos referredBy="${pageName}"/>

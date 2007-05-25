@@ -112,12 +112,27 @@
     margin-bottom:0;
 }
 
+#contentGS .middle h1.pageHeading {
+    text-indent: -5000px;
+    width: 155px;
+    height: 192px;
+    float: left;
+    margin:0;
+    padding:0;
+}
+
 #contentGS .middle h2 {
     font-family: century gothic;
     font-weight: normal;
     color: #fff;
     background-color: #fb0;
     padding:0;
+    text-indent: -5000px;
+    width: 365px;
+    height: 26px;
+}
+
+#contentGS .middle h2.sectionHeading {
     text-indent: -5000px;
     width: 365px;
     height: 26px;
@@ -170,7 +185,7 @@
     margin-bottom: 5px;
 }
 
-#contentGS .middle div#lower{
+#contentGS .middle div.question, #contentGS .middle div#lower {
     border-bottom: 1px dashed #ccc;
 }
 
@@ -179,6 +194,10 @@
     border-bottom:none;
     background: url("../../img/content/countdownToCollege/red_dot.gif") bottom repeat-x;
     padding-bottom:10px;
+}
+
+#contentGS .middle div#contentHeaderImage img {
+    float: left;
 }
 
 #contentGS #promos {

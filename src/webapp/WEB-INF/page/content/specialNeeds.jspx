@@ -37,55 +37,29 @@
 
         <div class="middle">
             <div id="contentHeaderImage">
-                <h1 id="specialNeedsText">Special Needs</h1>
-                <gsml:img src="/res/img/content/specialNeeds/specialNeedsPhoto.jpg" alt="Male teacher and boy reading together" style="float:left;"/>
+                <h1 id="specialNeedsText" class="pageHeading">Special Needs</h1>
+                <gsml:img src="/res/img/content/specialNeeds/specialNeedsPhoto.jpg"
+                          alt="Male teacher and boy reading together"/>
             </div>
 
-            <div>
-                <h2 id="identifyLearningProblem">Identify a Learning Problem</h2>
-                <ul class="plain">
-                    <gsweb:articlelink articleId="979" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="980" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="840"  wrappingElement="li"/>
-                    <gsweb:articlelink articleId="981" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="982" wrappingElement="li"/>
-                </ul>
-            </div>
 
-            <div>
-                <h2 id="supportChild">Support Your Child at School</h2>
-                <ul class="plain">
-                    <gsweb:articlelink articleId="22" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="983" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="984" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="985" wrappingElement="li"/>
-                </ul>
-            </div>
+            <content:micrositeArticleList title="Identify a Learning Problem"
+                                          headerId="identifyLearningProblem"
+                                          articleIds="979,980,840,981,982"/>
 
-            <div>
-                <h2 id="knowLegalRights">Know Your Child's Legal Rights</h2>
-                <ul class="plain">
-                    <gsweb:articlelink articleId="978" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="993" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="986" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="987" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="989" wrappingElement="li"/>
-                </ul>
-            </div>
+            <content:micrositeArticleList title="Support Your Child at School"
+                                          headerId="supportChild"
+                                          articleIds="22,983,984,985"/>
 
-            <div id="lower">
-                <h2 id="specificDisabilities">Specific Learning Disabilities</h2>
-                <ul class="plain">
-                    <gsweb:articlelink articleId="988" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="999" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="998" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="389" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="385" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="990" wrappingElement="li"/>
-                </ul>
-            </div>
+            <content:micrositeArticleList title="Know Your Child's Legal Rights"
+                                          headerId="knowLegalRights"
+                                          articleIds="978,993,986,987,989"/>
 
-            <div class="question">
+            <content:micrositeArticleList title="Specific Learning Disabilities"
+                                          headerId="specificDisabilities"
+                                          articleIds="988,999,998,389,385,990" lower="true"/>
+
+            <div class="question multipleQuestions">
                 <h3 id="askTheExperts">Ask the Experts</h3>
 
                 <p class="question">Q: I think My Son May Have Dyslexia</p>
@@ -98,14 +72,7 @@
                 <p class="answer"><gsweb:articlelink articleId="992">Read the answer &gt;</gsweb:articlelink></p>
             </div>
 
-            <div class="question">
-                <h3 id="freeNewsletters">Free Newsletters</h3>
-                <p>
-                    Is your child on track?
-                    Find out with our free newsletters that parents love!
-                    <promo:nthGraderHover referredBy="${pageName}">Sign me up &gt;</promo:nthGraderHover>
-                </p>
-            </div>
+            <content:micrositeFreeNewsletters pageName="${pageName}"/>
         </div>
     </div>
 

@@ -36,44 +36,22 @@
 
         <div class="middle">
             <div id="contentHeaderImage">
-                <h1 id="summerReadingText">Summer Reading</h1>
+                <h1 id="summerReadingText" class="pageHeading">Summer Reading</h1>
                 <gsml:img src="/res/img/content/summerReading/GS_SRG_image1.gif" alt="Photo of girl lying on the grass reading a book" style="float:left;"/>
             </div>
 
-            <div>
-                <h2 id="loveOfReading">Ideas to Inspire a Love of Reading</h2>
-                <ul class="plain">
-                    <gsweb:articlelink articleId="232" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="320" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="44"  wrappingElement="li"/>
-                    <gsweb:articlelink articleId="595" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="360" wrappingElement="li"/>
-                </ul>
-            </div>
+            <content:micrositeArticleList title="Ideas to Inspire a Love of Reading"
+                                          headerId="loveOfReading"
+                                          articleIds="232,320,44,595,360"/>
 
-            <div>
-                <h2 id="bookPicks">Book Picks and Activities for All Ages</h2>
-                <ul class="plain">
-                    <gsweb:articlelink articleId="900" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="902" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="901" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="626" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="230" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="903" wrappingElement="li"/>
-                </ul>
-            </div>
+            <content:micrositeArticleList title="Book Picks and Activities for All Ages"
+                                          headerId="bookPicks"
+                                          articleIds="900,902,901,626,230,903"/>
 
-            <div id="lower">
-                <h2 id="parentsShouldKnow">A Parent's Guide to Reading</h2>
-                <ul class="plain">
-                    <gsweb:articlelink articleId="842" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="841" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="634" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="852" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="566" wrappingElement="li"/>
-                    <gsweb:articlelink articleId="733" wrappingElement="li"/>
-                </ul>
-            </div>
+            <content:micrositeArticleList title="A Parent's Guide to Reading"
+                                          headerId="parentsShouldKnow"
+                                          articleIds="842,841,634,852,566,733"
+                                          lower="true"/>
 
             <div class="question">
                 <h3 id="askTheExperts">Ask the Experts</h3>
@@ -82,14 +60,7 @@
                 </p>
             </div>
 
-            <div class="question">
-                <h3 id="freeNewsletters">Free Newsletters</h3>
-                <p>
-                    Is your child on track?
-                    Find out with our free newsletters that parents love!
-                    <promo:nthGraderHover referredBy="${pageName}">Sign me up</promo:nthGraderHover>
-                </p>
-            </div>
+            <content:micrositeFreeNewsletters pageName="${pageName}"/>
         </div>
     </div>
 

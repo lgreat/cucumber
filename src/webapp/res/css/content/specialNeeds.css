@@ -1,58 +1,26 @@
 h1#specialNeedsText {
-    text-indent: -5000px;
     background: url( "../../img/content/specialNeeds/text_1.gif" ) no-repeat;
-    width: 155px;
-    height: 192px;
-    float: left;
-    margin:0;
-    padding:0;
 }
 
 h2#identifyLearningProblem {
-    text-indent: -5000px;
     background: url( "../../img/content/specialNeeds/text_2.gif" ) no-repeat;
-    width: 365px;
-    height: 26px;
 }
 
 h2#supportChild {
-    text-indent: -5000px;
     background: url( "../../img/content/specialNeeds/text_3.gif" ) no-repeat;
-    width: 365px;
-    height: 26px;
 }
 
 h2#knowLegalRights {
-    text-indent: -5000px;
     background: url( "../../img/content/specialNeeds/text_4.gif" ) no-repeat;
-    width: 365px;
-    height: 26px;
 }
 
 h2#specificDisabilities {
-    text-indent: -5000px;
     background: url( "../../img/content/specialNeeds/text_5.gif" ) no-repeat;
-    width: 365px;
-    height: 26px;
 }
 
-#contentGS .middle h2 {
-    padding:0;
-}
-
-#contentGS .middle h1 {
-    font-family:inherit;
-    font-size:100%;
-    font-weight:normal;
-    padding:0;
-    color: #fff;
-    background-color: #6cc;
-    margin-bottom:0;
-}
-
-#contentGS div.question {
-    border-bottom: 1px dashed #ccc;
+#contentGS div.multipleQuestions {
     margin-bottom: 0;
+    padding-bottom: 13px;
 }
 
 #contentGS div.question p.answer {

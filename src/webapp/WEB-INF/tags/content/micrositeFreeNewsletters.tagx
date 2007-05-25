@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+        >
+    <jsp:directive.tag body-content="scriptless"/>
+    <jsp:directive.attribute name="pageName" required="true" description="Omniture page name of page that this hover appears on"/>
+
+    <div class="question">
+        <h3 id="freeNewsletters">Free Newsletters</h3>
+        <p>
+            Is your child on track?
+            Find out with our free newsletters that parents love!
+            <promo:nthGraderHover referredBy="${pageName}">Sign me up &gt;</promo:nthGraderHover>
+        </p>
+    </div>
+</jsp:root>
