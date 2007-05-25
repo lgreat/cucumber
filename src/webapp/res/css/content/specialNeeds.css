@@ -52,8 +52,9 @@ h2#specificDisabilities {
 
 #contentGS div.question {
     border-bottom: 1px dashed #ccc;
+    margin-bottom: 0;
 }
 
-#contentGS div.question p {
-    margin-bottom: 5px;
+#contentGS div.question p.answer {
+    margin: 0 0 15px 18px;
 }
