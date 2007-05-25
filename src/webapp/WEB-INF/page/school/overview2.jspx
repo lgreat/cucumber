@@ -216,13 +216,13 @@
                     </div>
                 </c:if>
 
-                <!--<c:if test="${!hasPrincipalView}">-->
-                    <!--<div id="insideScoop">-->
-                        <!--<gsml:a href="/cgi-bin/pq_firsttime.cgi?id=${sid}&amp;state=${state}">-->
-                            <!--<img src="/res/img/school/overview/InsideScoop.gif" alt="What's the inside scoop on this school? Principals and school officials, tell us here" />-->
-                        <!--</gsml:a>-->
-                    <!--</div>-->
-                <!--</c:if>-->
+                <c:if test="${!hasPrincipalView}">
+                    <div id="insideScoop">
+                        <gsml:a href="/cgi-bin/pq_firsttime.cgi?id=${sid}&amp;state=${state}">
+                            <gsml:img src="/res/img/school/overview/esp.gif" alt="What's the inside scoop on this school? Principals and school officials, tell us here" />
+                        </gsml:a>
+                    </div>
+                </c:if>
             </div>
 
             <!-- compareSchool -->
