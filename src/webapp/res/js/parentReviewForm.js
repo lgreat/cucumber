@@ -48,7 +48,7 @@ function saveQuality(title, q) {
 }
 
 function countWords(w){
-    var maxwords = 150;
+    var MAXWORDS = 150;
     var y = w.value;
     var r = 0;
     var a = y.replace('\n',' ');
@@ -56,12 +56,12 @@ function countWords(w){
     var z;
     for (z = 0; z < a.length; z++) {
         if (a.charAt(z) == ' ' && a.charAt(z-1) != ' ') { r++; }
- 	    if (r > maxwords) break;
+ 	    if (r > MAXWORDS) break;
     }
 
-    if (r > maxwords) {
+    if (r > MAXWORDS) {
         w.value = w.value.substr(0, z);
-        alert("Please keep your review to "+maxwords+" words or less.");
+        alert("Please keep your review to "+MAXWORDS+" words or less.");
         return false;
     }
     return true;
