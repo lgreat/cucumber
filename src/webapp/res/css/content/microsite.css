@@ -56,6 +56,10 @@
     background-color: #eee;
 }
 
+#contentGS .left #allArticles a {
+    text-decoration: underline;
+}
+
 #contentGS .left ul {
     margin: 5px 0px 6px 0px;
 }
