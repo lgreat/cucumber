@@ -4,6 +4,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.Explanation;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -30,12 +31,12 @@ public class RawSearchController extends AbstractController {
 
     public static final String BEAN_ID = "/search/raw.page";
     private Searcher _searcher;
-    private Map _analyzerMap;
+    private Map<String, Analyzer> _analyzerMap;
     private static final int RESULT_LIMIT = 100;
 
     public RawSearchController() {
         super();
-        _analyzerMap = new HashMap();
+        _analyzerMap = new HashMap<String, Analyzer>();
         _analyzerMap.put("gs", new GSAnalyzer());
         _analyzerMap.put("standard", new StandardAnalyzer());
     }
@@ -53,7 +54,7 @@ public class RawSearchController extends AbstractController {
 
             httpServletRequest.setAttribute("q", URLEncoder.encode(queryString, "UTF-8"));
             Query query = QueryParser.parse(queryString, "text", analyzer);
-            mAndV.getModel().put("query", query.toString());
+//            mAndV.getModel().put("query", query.toString());
             Hits hits = _searcher.search(query, null, null, null);
             if (hits != null) {
                 mAndV.getModel().put("total", String.valueOf(hits.length()));
@@ -72,10 +73,18 @@ public class RawSearchController extends AbstractController {
                 Map result = new HashMap();
                 result.put("number", String.valueOf(i+1)); // start at 1
                 Document d = hits.doc(i);
-                result.put("id", d.get("id"));
+                String id = d.get("id");
+                if (StringUtils.isBlank(id)) {
+                    id = "n/a";
+                }
+                result.put("id", id);
                 String type = d.get("type");
                 result.put("type", type);
-                result.put("state", d.get("state"));
+                String state = d.get("state");
+                if (StringUtils.isBlank(state)) {
+                    state = "n/a";
+                }
+                result.put("state", state);
                 if ("school".equals(type)) {
                     result.put("val", d.get("name"));
                 } else if ("article".equals(type)) {
@@ -89,8 +98,9 @@ public class RawSearchController extends AbstractController {
                 } else {
                     result.put("val", d.get("text"));
                 }
-
-                result.put("explanation", _searcher.explain(q, hits.id(i)).toHtml());
+                Explanation explanation = _searcher.explain(q, hits.id(i));
+                result.put("score", String.valueOf(explanation.getValue()));
+                result.put("explanation", explanation.toHtml());
                 list.add(result);
                 if (i >= RESULT_LIMIT - 1) break;
             }
