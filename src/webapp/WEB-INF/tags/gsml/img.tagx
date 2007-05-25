@@ -11,6 +11,7 @@
     <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
     <jsp:directive.attribute name="style" required="false" description="CSS style attribute"/>
     <jsp:directive.attribute name="id" required="false" description="CSS id"/>
+    <jsp:directive.attribute name="usemap" required="false" description="Id of image map to use"/>
     <jsp:directive.attribute name="rollover" required="false" description="rollover image context-relative URL"/>
     <jsp:scriptlet><![CDATA[
         gs.web.util.UrlUtil urlUtil = new gs.web.util.UrlUtil();
@@ -38,6 +39,10 @@
 
         if (StringUtils.isNotBlank(id)) {
             buffer.append(" id=\"").append(id).append('"');
+        }
+
+        if (StringUtils.isNotBlank(usemap)) {
+            buffer.append(" usemap=\"").append(usemap).append('"');
         }
 
         if (StringUtils.isNotBlank(rollover)) {

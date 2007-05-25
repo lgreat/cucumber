@@ -535,6 +535,14 @@
         </property>
     </bean>
 
+    <bean name="/content/specialNeeds.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>/content/specialNeeds</value>
+        </property>
+    </bean>
+
     <bean name="/school/research.page"
           class="gs.web.school.ResearchController"
           autowire="byName" lazy-init="true">

@@ -23,6 +23,16 @@
 
     <ad:x70/>
     <ad:AboveFold_300x600/>
+    
+    <c:if test="${fn:contains(pageContext.request.requestURI,'specialNeeds')}">
+        <map name="specialNeedsContentProvidedBy">
+            <area shape="rect" href="http://www.schwablearning.com" target="_blank" coords="0,34 299,73"/>
+            <area shape="rect" href="http://www.additudemag.com" target="_blank" coords="0,73 299,116"/>
+        </map>
+        <gsml:img src="/res/img/content/specialNeeds/contentprovidedby.gif"
+                  alt="Content provided by: Schwablearning.org and ADDitude magazine"
+                  usemap="#specialNeedsContentProvidedBy"/>
+    </c:if>
 
     <c:if test="${fn:contains(pageContext.request.requestURI,'holidayLearning') or fn:contains(pageContext.request.requestURI,'mediaChoices')}">
         <div style="width:295px;text-align:center;padding-left:5px;border-top: 1px dashed #ccc;padding-top:20px;margin-top:10px;">

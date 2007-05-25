@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib"
+        >
+<html lang="en">
+<c:set var="stateLongName"
+       value="${requestScope.context.stateOrDefault.longName}"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<jsp:directive.page contentType="text/html"/>
+<pageHelper:setPathway pathway="LIBRARY"/>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <meta name="Description" content="Special needs and learning differences: Tips for how to identify and support your child's special learning needs, navigate special education, and understand your legal rights. Specific information about Asperger's Syndrome, AD/HD, Autism, Dyslexia and math and writing disabilities."/>
+    <title>Greatschools.net: Special Needs</title>
+
+    <pageHelper:externalCss file="/res/css/content/microsite.css"/>  <!--commmon-->
+    <pageHelper:externalCss file="/res/css/content/specialNeeds.css"/>
+</head>
+<c:set var="pageName" value="Special Needs"/>
+<ad:setSlotPrefix slotPrefix="Library_Microsite_Special_Needs"/>
+<gsml:body adPageName="content/specialNeeds" pageLayout="specialNeeds" startAdHierarchyAtPage="true">
+<div>
+    <div class="wrapBorder">
+        <jsp:include page="/content/leftNav.module" />
+
+        <div class="middle">
+            <div id="contentHeaderImage">
+                <h1 id="specialNeedsText">Special Needs</h1>
+                <gsml:img src="/res/img/content/specialNeeds/specialNeedsPhoto.jpg" alt="Male teacher and boy reading together" style="float:left;"/>
+            </div>
+
+            <div>
+                <h2 id="identifyLearningProblem">Identify a Learning Problem</h2>
+                <ul class="plain">
+                    <gsweb:articlelink articleId="979" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="980" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="840"  wrappingElement="li"/>
+                    <gsweb:articlelink articleId="981" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="982" wrappingElement="li"/>
+                </ul>
+            </div>
+
+            <div>
+                <h2 id="supportChild">Support Your Child at School</h2>
+                <ul class="plain">
+                    <gsweb:articlelink articleId="22" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="983" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="984" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="985" wrappingElement="li"/>
+                </ul>
+            </div>
+
+            <div>
+                <h2 id="knowLegalRights">Know Your Child's Legal Rights</h2>
+                <ul class="plain">
+                    <gsweb:articlelink articleId="978" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="993" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="986" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="987" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="989" wrappingElement="li"/>
+                </ul>
+            </div>
+
+            <div id="lower">
+                <h2 id="specificDisabilities">Specific Learning Disabilities</h2>
+                <ul class="plain">
+                    <gsweb:articlelink articleId="988" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="999" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="998" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="389" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="385" wrappingElement="li"/>
+                    <gsweb:articlelink articleId="990" wrappingElement="li"/>
+                </ul>
+            </div>
+
+            <div class="question">
+                <h3 id="askTheExperts">Ask the Experts</h3>
+                <p>Q: I think My Son May Have Dyslexia
+                    <gsweb:articlelink articleId="731">Read the answer</gsweb:articlelink>
+                </p>
+                <p>Q: My Struggling Son Doesn't Qualify for Special Ed
+                    <gsweb:articlelink articleId="671">Read the answer</gsweb:articlelink>
+                </p>
+                <p>Q: Ask the Experts About Special Needs
+                    <gsweb:articlelink articleId="992">Read the answer</gsweb:articlelink>
+                </p>
+            </div>
+
+            <div class="question">
+                <h3 id="freeNewsletters">Free Newsletters</h3>
+                <p>
+                    Is your child on track?
+                    Find out with our free newsletters that parents love!
+                    <promo:nthGraderHover referredBy="${pageName}">Sign me up</promo:nthGraderHover>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="promos">
+        <content:promos referredBy="${pageName}"/>
+    </div>
+    <br style="clear:both;"/>
+</div>
+<mod:tracking pageType="article"
+              pageName="Special Needs"
+              hier1 = "Article,Special Needs"/>
+</gsml:body>
+
+</html>
+</jsp:root>
+
