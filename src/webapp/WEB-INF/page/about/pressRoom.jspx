@@ -16,7 +16,7 @@
             doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
-     <pageHelper:hideFooterAd/>
+<pageHelper:hideFooterAd/>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
@@ -25,141 +25,143 @@
 
 <gsml:body adPageName="pressRoom" pageLayout="singleTextOnlyColumnLayout">
 
-    <mod:tracking pageType="aboutUs" pageName="pressRoom" hier1="Home,Corporate,AboutUs,PressRoom"/>
+<mod:tracking pageType="aboutUs" pageName="pressRoom" hier1="Home,Corporate,AboutUs,PressRoom"/>
 
-    <h3>GreatSchools Press Room</h3>
+<h3>GreatSchools Press Room</h3>
 <ul class="singleSpacedList">
-  <li>  <a href="#news">GreatSchools in the News</a></li>
+    <li>  <a href="#news">GreatSchools in the News</a></li>
 
     <li><a href="#press">Press Releases</a></li>
 
     <li><a href="#kit">Press Kit</a></li>
 
     <li><a href="#contact">Contact GreatSchools</a></li>
-   </ul>
+</ul>
 
-    <![CDATA[ <a name="news"></a> ]]>
-    <h3>GreatSchools in the News</h3>
+<![CDATA[ <a name="news"></a> ]]>
+<h3>GreatSchools in the News</h3>
 
-    <p>
-        GreatSchools has received coverage in major national, state and local newspapers, as well as radio and
-        television broadcasts. Below are some highlights. Click on any title for the complete story. Note that you may
-        have to register for online news stories.</p>
-    <ul class="singleSpacedList">
+<p>
+    GreatSchools has received coverage in major national, state and local newspapers, as well as radio and
+    television broadcasts. Below are some highlights. Click on any title for the complete story. Note that you may
+    have to register for online news stories.</p>
+<ul class="singleSpacedList">
 
-    <li>Sacramento Bee, 12/01/05</li>
-    <li><a href="http://www.sacbee.com/content/business/tech/story/13923881p-14760911c.html">LINKS TO LEARNING</a></li>
+<li>Sacramento Bee, 12/01/05</li>
+<li><a href="http://www.sacbee.com/content/business/tech/story/13923881p-14760911c.html">LINKS TO LEARNING</a></li>
 <p></p>
-    <li>Daily Dayton News, 11/16/05</li>
+<li>Daily Dayton News, 11/16/05</li>
 
-    <li><a href="http://www.daytondailynews.com/opinion/content/opinion/daily/1116great.html">PARENTS NEED GOOD INFO TO
-        CHOOSE WELL</a>
-    </li>
-        <p></p>
+<li><a href="http://www.daytondailynews.com/opinion/content/opinion/daily/1116great.html">PARENTS NEED GOOD INFO TO
+    CHOOSE WELL</a>
+</li>
+<p></p>
 
-    <li>
-        Daily Dayton News, 11/07/05</li>
+<li>
+    Daily Dayton News, 11/07/05</li>
 
-    <li><a href="http://www.daytondailynews.com/localnews/content/localnews/daily/1107schoolrate.html">NEW SITE TO HELP
-        PARENTS WEIGH SCHOOL OPTIONS</a>
-    </li>
-        <p></p>
+<li><a href="http://www.daytondailynews.com/localnews/content/localnews/daily/1107schoolrate.html">NEW SITE TO HELP
+    PARENTS WEIGH SCHOOL OPTIONS</a>
+</li>
+<p></p>
 
-    <li>
-        The San Francisco Examiner, 11/01/05</li>
+<li>
+    The San Francisco Examiner, 11/01/05</li>
 
-    <li><a href="http://www.sfexaminer.com/articles/2005/11/01/news/20051101_ne08_conf.txt">CONFERENCES KEY TO
-        EDUCATION</a>
-    </li>
-        <p></p>
+<li><a href="http://www.sfexaminer.com/articles/2005/11/01/news/20051101_ne08_conf.txt">CONFERENCES KEY TO
+    EDUCATION</a>
+</li>
+<p></p>
 
-    <li>
-        The Charlotte Observer, 10/24/05</li>
+<li>
+    The Charlotte Observer, 10/24/05</li>
 
-    <li>
-        <a href="http://www.charlotte.com/mld/observer/news/opinion/12981787.htm">LARRY BUMGARNER</a>
-    </li>
-        <p></p>
-    <li>
-        The Paly Voice, 10/07/05</li>
+<li>
+    <a href="http://www.charlotte.com/mld/observer/news/opinion/12981787.htm">LARRY BUMGARNER</a>
+</li>
+<p></p>
+<li>
+    The Paly Voice, 10/07/05</li>
 
-    <li><a href="http://voice.paly.net/view_story.php?id=3328">PAUSD CONTINUES KATRINA RELIEF</a>
-    </li>
-        <p></p>
+<li><a href="http://voice.paly.net/view_story.php?id=3328">PAUSD CONTINUES KATRINA RELIEF</a>
+</li>
+<p></p>
 
-    <li>
-        CNN Money, 8/30/04</li>
+<li>
+    CNN Money, 8/30/04</li>
 
-   <li>
-        <a href="http://money.cnn.com/2004/08/27/real_estate/buying_selling/schools/">SCHOOL, WHAT IS IT GOOD FOR?</a>
-    </li>
-        <p></p>
+<li>
+    <a href="http://money.cnn.com/2004/08/27/real_estate/buying_selling/schools/">SCHOOL, WHAT IS IT GOOD FOR?</a>
+</li>
+<p></p>
 
-    <li>
-        Napa Valley Register, 07/11/04</li>
+<li>
+    Napa Valley Register, 07/11/04</li>
 
-    <li>
-        <a href="http://www.napanews.com/templates/index.cfm?template=story_full&amp;id=B91F1D39-CCEE-4197-A24F-52FD7FF92FE3">SCHOOLS
-            DON'T TIE DOWN NEW HOME OWNERS IN NAPA COUNTY</a>
+<li>
+    <a href="http://www.napanews.com/templates/index.cfm?template=story_full&amp;id=B91F1D39-CCEE-4197-A24F-52FD7FF92FE3">SCHOOLS
+        DON'T TIE DOWN NEW HOME OWNERS IN NAPA COUNTY</a>
 
-    </li>
-    <p></p>
+</li>
+<p></p>
 
-    <li>
-        Ocala Star-Banner, 06/21/04</li>
+<li>
+    Ocala Star-Banner, 06/21/04</li>
 
-    <li>
-        <a href="http://www.starbanner.com/apps/pbcs.dll/artikkel?SearchID=73175649913051&amp;Avis=OS&amp;Dato=20040621&amp;Kategori=NEWS&amp;Lopenr=206210357&amp;Ref=AR">PARENTS
-            FACE TOUGH DECISIONS ON SCHOOLS</a>
-    </li>
-    <p></p>
+<li>
+    <a href="http://www.starbanner.com/apps/pbcs.dll/artikkel?SearchID=73175649913051&amp;Avis=OS&amp;Dato=20040621&amp;Kategori=NEWS&amp;Lopenr=206210357&amp;Ref=AR">PARENTS
+        FACE TOUGH DECISIONS ON SCHOOLS</a>
+</li>
+<p></p>
 
-    <li>
-        The Washington Post, 05/25/04</li>
+<li>
+    The Washington Post, 05/25/04</li>
 
-    <li><a href="http://www.washingtonpost.com/wp-dyn/articles/A54305-2004May25.html">LEARNING THE BASIS FOR ADVANCED
-        PLACEMENT COURSES</a>
-    </li>
-    <p></p>
+<li><a href="http://www.washingtonpost.com/wp-dyn/articles/A54305-2004May25.html">LEARNING THE BASIS FOR ADVANCED
+    PLACEMENT COURSES</a>
+</li>
+<p></p>
 
-    <li>
-        CUTigers, 04/22/04</li>
+<li>
+    CUTigers, 04/22/04</li>
 
-    <li><a href="http://clemson.theinsiders.com/2/253551.html">COURT DECISION WILL IMPACT THREE SC HIGH SCHOOLS</a>
-    </li>
-    <p></p>
+<li><a href="http://clemson.theinsiders.com/2/253551.html">COURT DECISION WILL IMPACT THREE SC HIGH SCHOOLS</a>
+</li>
+<p></p>
 
-    <li>
-        District Administration, 04/07/04</li>
+<li>
+    District Administration, 04/07/04</li>
 
-    <li>
-        <a href="http://www.districtadministration.com/page.cfm?p=504">THE ONLINE EDGE: FIXING DISTRICT REPORT CARDS</a>
-    </li>
-    <p></p>
+<li>
+    <a href="http://www.districtadministration.com/page.cfm?p=504">THE ONLINE EDGE: FIXING DISTRICT REPORT CARDS</a>
+</li>
+<p></p>
 
-    <li>
-        Business Wire, 02/26/04</li>
+<li>
+    Business Wire, 02/26/04</li>
 
-    <li><a href="http://articles.findarticles.com/p/articles/mi_m0EIN/is_2004_Feb_26/ai_113638653">PACE OF EDUCATION
-        IMPROVEMENT HELD STEADY IN 2003 IN NINE-COUNTY REGION, NEW BAY AREA COUNCIL STUDY FINDS</a>
-    </li>
-    <p></p>
+<li><a href="http://articles.findarticles.com/p/articles/mi_m0EIN/is_2004_Feb_26/ai_113638653">PACE OF EDUCATION
+    IMPROVEMENT HELD STEADY IN 2003 IN NINE-COUNTY REGION, NEW BAY AREA COUNCIL STUDY FINDS</a>
+</li>
+<p></p>
 
-    <li>
-        The Detroit News, 02/17/04</li>
+<li>
+    The Detroit News, 02/17/04</li>
 
-    <li><a href="http://www.detnews.com/2004/techcolumns/0402/16/techcol-64900.htm">NET RIFE WITH SITES FOR FINDING A
-        HOME</a>
-    </li>
-    </ul>
-    <![CDATA[ <a name="press"></a> ]]>
+<li><a href="http://www.detnews.com/2004/techcolumns/0402/16/techcol-64900.htm">NET RIFE WITH SITES FOR FINDING A
+    HOME</a>
+</li>
+</ul>
+<![CDATA[ <a name="press"></a> ]]>
 
-    <h3>Press Releases</h3>
-   <ul class="singleSpacedList">
-       <p><b>5/1/07:</b> Parents Vote GreatSchools the Best Family / Parenting Web Site <gsml:a href="/cgi-bin/static/press20070501.txt/$STATE">more...</gsml:a></p>
-       
-       <p><b>4/4/07:</b> GreatSchools, the nation's premier provider of K-12 school information to parents,
-           today announced <gsml:a href="/cgi-bin/static/press20060404.txt/$STATE">more...</gsml:a></p>
+<h3>Press Releases</h3>
+<ul class="singleSpacedList">
+    <p><b>5/25/07:</b> GreatSchools Recognized for its K-12 School Ratings<gsml:a href="/cgi-bin/static/press20070501.txt/$STATE">more...</gsml:a></p>
+
+    <p><b>5/1/07:</b> Parents Vote GreatSchools the Best Family / Parenting Web Site <gsml:a href="/cgi-bin/static/press20070501.txt/$STATE">more...</gsml:a></p>
+
+    <p><b>4/4/07:</b> GreatSchools, the nation's premier provider of K-12 school information to parents,
+        today announced <gsml:a href="/cgi-bin/static/press20060404.txt/$STATE">more...</gsml:a></p>
 
     <p><b>11/28/05:</b> Prudential California Reality, Alan Pinel Realtors, Real Advisor Reality and VREO Choose
         GreatSchools.net <gsml:a href="/cgi-bin/static/press11.28.05/$STATE">more...</gsml:a></p>
@@ -202,19 +204,19 @@
 
     <p><b>1/30/01:</b> Tutor.com and GreatSchools.net Partner to Create GreatSchools.net Tutoring Network<gsml:a
             href="/cgi-bin/static/press1.30.01.html/$STATE"> more...</gsml:a></p>
-    </ul>
-    <![CDATA[ <a name="kit"></a> ]]>
+</ul>
+<![CDATA[ <a name="kit"></a> ]]>
 
-    <h3>Press Kit</h3>
+<h3>Press Kit</h3>
 
-    <p>Visit the GreatSchools Press Kit for facts, logos, sample school profiles, executive bios, archived news stories
-        and reader testimonials.</p>
-    <p><gsml:a href="/about/pressKit.page?state=$STATE">GreatSchools Press Kit</gsml:a>   </p>
+<p>Visit the GreatSchools Press Kit for facts, logos, sample school profiles, executive bios, archived news stories
+    and reader testimonials.</p>
+<p><gsml:a href="/about/pressKit.page?state=$STATE">GreatSchools Press Kit</gsml:a>   </p>
 
-    <![CDATA[ <a name="contact"></a> ]]>
+<![CDATA[ <a name="contact"></a> ]]>
 
-    <h3>Contact GreatSchools</h3>
-    <ul class="singleSpacedList">
+<h3>Contact GreatSchools</h3>
+<ul class="singleSpacedList">
     <li>GreatSchools.net</li>
     <li>301 Howard Street, Suite 1440</li>
     <li>San Francisco, CA 94105</li>
