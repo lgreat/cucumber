@@ -46,6 +46,19 @@ public class SeoCobrandRedirectInterceptorTest extends BaseControllerTestCase {
     }
 
     /**
+     * There should never be a redirect on a POST request
+     *
+     * @throws Exception
+     */
+    public void testNoRedirectOnPost() throws Exception {
+        _sessionContext.setCrawler(true);
+        _sessionContext.setCobrand("sfgate");
+        getRequest().setMethod("POST");
+        assertTrue(_interceptor.preHandle(getRequest(), getResponse(), null));
+        assertNull(getResponse().getRedirectedUrl());
+    }
+
+    /**
      * As part of our negotiations with Yahoo we agreed to let them crawl their own cobrand
      *
      * @throws Exception
@@ -60,7 +73,7 @@ public class SeoCobrandRedirectInterceptorTest extends BaseControllerTestCase {
 
     /**
      * Since we use Apache to rewrite the SPP overview URL we check to make sure the redirect Java is issuing is correct
-     *
+     * <p/>
      * For example http://sfgate.greatschools.net/modperl/browse_school/ca/13933 gets rewritten by Apache to
      * http://sfgate.greatschools.net/school/overview.page?state=ca&id=13933
      * but the redirect should go to:
