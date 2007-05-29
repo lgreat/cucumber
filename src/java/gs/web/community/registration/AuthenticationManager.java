@@ -23,14 +23,14 @@ public class AuthenticationManager {
      * @throws NoSuchAlgorithmException On fatal error running the md5 algorithm
      * @return the md5 hash for this user
      */
-    public String generateUserHash(User user) throws NoSuchAlgorithmException {
+    protected static String generateUserHash(User user) throws NoSuchAlgorithmException {
         Integer userId = user.getId();
-        String convertValue = String.valueOf(userId) + String.valueOf(User.SECRET_NUMBER);
+        String convertValue = String.valueOf(User.SECRET_NUMBER) + String.valueOf(userId);
         return DigestUtil.hashString(convertValue);
     }
 
-    public String generateCookieValue(User user) throws NoSuchAlgorithmException {
-        return generateUserHash(user) + String.valueOf(user.getId());
+    public static String generateCookieValue(User user) throws NoSuchAlgorithmException {
+        return AuthenticationManager.generateUserHash(user) + String.valueOf(user.getId());
     }
 
     /**
@@ -39,7 +39,7 @@ public class AuthenticationManager {
      * @return user id
      * @param cookieValue String consisting of an md5 hash concatenated with the user id
      */
-    public Integer getUserIdFromCookieValue(String cookieValue) {
+    public static Integer getUserIdFromCookieValue(String cookieValue) {
         String idString = cookieValue.substring(DigestUtil.MD5_HASH_LENGTH);
         return new Integer(idString);
     }

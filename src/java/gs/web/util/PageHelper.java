@@ -1,15 +1,15 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelper.java,v 1.41 2007/05/22 22:03:34 dlee Exp $
+ * $Id: PageHelper.java,v 1.42 2007/05/29 23:51:44 aroy Exp $
  */
 
 package gs.web.util;
 
 import gs.data.community.User;
-import gs.data.util.DigestUtil;
 import gs.web.ads.AdPosition;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.community.registration.AuthenticationManager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,7 +36,7 @@ import java.util.*;
  * @author <a href="mailto:apeterson@greatschools.net">Andrew J. Peterson</a>
  */
 public class PageHelper {
-    public static final Map pageIds = new HashMap() {{
+    public static final Map pageIds = new HashMap<String, String>() {{
         put("HOME", "0");
         put("RESEARCH_COMPARE", "1");
         put("LIBRARY", "2");
@@ -157,8 +157,8 @@ public class PageHelper {
     private String _onunload = "";
 
 
-    private Set _javascriptFiles;   //Insertion order is important so we'll used LinkedHashSet
-    private Set _cssFiles;          //Insertion order is important so we'll used LinkedHashSet
+    private Set<String> _javascriptFiles;   //Insertion order is important so we'll used LinkedHashSet
+    private Set<String> _cssFiles;          //Insertion order is important so we'll used LinkedHashSet
 
     //ad positions that appear on current page
     private Set<AdPosition> _adPositions = new HashSet<AdPosition>();
@@ -391,7 +391,7 @@ public class PageHelper {
 
     private void addJavascriptSource(String src) {
         if (_javascriptFiles == null) {
-            _javascriptFiles = new LinkedHashSet();
+            _javascriptFiles = new LinkedHashSet<String>();
         }
         if (!_javascriptFiles.contains(src)) {
             _javascriptFiles.add(src);
@@ -400,7 +400,7 @@ public class PageHelper {
 
     private void addCssSource(String src) {
         if (_cssFiles == null) {
-            _cssFiles = new LinkedHashSet();
+            _cssFiles = new LinkedHashSet<String>();
         }
         if (!_cssFiles.contains(src)) {
             _cssFiles.add(src);
@@ -425,15 +425,15 @@ public class PageHelper {
         if (_javascriptFiles != null || _cssFiles != null) {
             StringBuffer sb = new StringBuffer();
             if (_javascriptFiles != null) {
-                for (Iterator iter = _javascriptFiles.iterator(); iter.hasNext();) {
-                    String src = (String) iter.next();
+                for (String _javascriptFile : _javascriptFiles) {
+                    String src = _javascriptFile;
                     src = StringUtils.replace(src, "&", "&amp;");
-                    sb.append("<script type=\"text/javascript\" src=\"" + src + "\"></script>");
+                    sb.append("<script type=\"text/javascript\" src=\"").append(src).append("\"></script>");
                 }
             }
             if (_cssFiles != null) {
-                for (Iterator iter = _cssFiles.iterator(); iter.hasNext();) {
-                    String src = (String) iter.next();
+                for (String _cssFile : _cssFiles) {
+                    String src = _cssFile;
                     src = StringUtils.replace(src, "&", "&amp;");
                     String media = "";
                     if (StringUtils.containsIgnoreCase(src, "screen")) {
@@ -457,19 +457,19 @@ public class PageHelper {
      * Static method to set a user's member cookie
      */
     public static void setMemberCookie(HttpServletRequest request, HttpServletResponse response, User user) {
-        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(request);
+        SessionContext context = SessionContextUtil.getSessionContext(request);
         SessionContextUtil util = context.getSessionContextUtil();
         util.changeUser(context, response, user);
     }
 
     public static void setPathway(HttpServletRequest request, HttpServletResponse response, String pathway) {
-        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(request);
+        SessionContext context = SessionContextUtil.getSessionContext(request);
         SessionContextUtil util = context.getSessionContextUtil();
         util.changePathway(context, response, (String) pageIds.get(pathway));
     }
 
     public static void setHasSearchedCookie(HttpServletRequest request, HttpServletResponse response) {
-        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(request);
+        SessionContext context = SessionContextUtil.getSessionContext(request);
         context.setHasSearched(true);
         SessionContextUtil util = context.getSessionContextUtil();
         util.setHasSearched(response);
@@ -479,16 +479,16 @@ public class PageHelper {
      * Sets a user's member cookie and authentication information. Call when a user needs to be
      * logged in to Community, or their email address has changed.
      *
-     * @param request
-     * @param response
+     * @param request Http request
+     * @param response Http response
      * @param user used to initialize the cookie, should not be null
+     * @throws java.security.NoSuchAlgorithmException On error with md5 algorithm
      */
     public static void setMemberAuthorized(HttpServletRequest request, HttpServletResponse response, User user) throws NoSuchAlgorithmException {
-        Object[] hashInput = new Object[] {User.SECRET_NUMBER, user.getId(), user.getEmail()};
-        String hash = DigestUtil.hashObjectArray(hashInput);
+        String hash = AuthenticationManager.generateCookieValue(user);
 
         setMemberCookie(request, response, user);
-        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(request);
+        SessionContext context = SessionContextUtil.getSessionContext(request);
         SessionContextUtil util = context.getSessionContextUtil();
         util.changeAuthorization(request, response, user, hash);
     }
@@ -500,19 +500,19 @@ public class PageHelper {
      * @return true if the session context contains a member id and a user hash string.
      */
     public static boolean isCommunityCookieSet(HttpServletRequest request) {
-        SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(request);
+        SessionContext context = SessionContextUtil.getSessionContext(request);
         return context.getMemberId() != null && StringUtils.isNotEmpty(context.getUserHash());
     }
 
     /**
      * This method verifies that the session context contains a member id and a user hash, and
      * that the user hash is valid for that member id. This method performs database access.
-     * @param request
-     * @return
+     * @param request Http request
+     * @return True if SessionContext contains a valid member id and hash
      */
     public static boolean isMemberAuthorized(HttpServletRequest request) {
         try {
-            SessionContext context = (SessionContext) SessionContextUtil.getSessionContext(request);
+            SessionContext context = SessionContextUtil.getSessionContext(request);
             Integer memberId = context.getMemberId();
             String storedHash = context.getUserHash();
             return memberId != null && StringUtils.isNotEmpty(storedHash) &&
@@ -525,18 +525,17 @@ public class PageHelper {
 
     /**
      * Verifies that the storedHash is valid for the user.
-     * @param user
-     * @param storedHash
-     * @return
-     * @throws NoSuchAlgorithmException
+     * @param user User to verify authorization for
+     * @param storedHash Hash string
+     * @return True if hash is valid for given user
+     * @throws NoSuchAlgorithmException On error with md5 algorithm
      */
     public static boolean isMemberAuthorized(User user, String storedHash) throws NoSuchAlgorithmException {
         // save time by exiting early
         if (user == null || StringUtils.isEmpty(storedHash)) {
             return false;
         }
-        Object[] hashInput = new Object[] {User.SECRET_NUMBER, user.getId(), user.getEmail()};
-        String realHash = DigestUtil.hashObjectArray(hashInput);
+        String realHash = AuthenticationManager.generateCookieValue(user);
 
         return storedHash != null && realHash.equals(storedHash);
     }

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.31 2007/05/22 22:03:34 dlee Exp $
+ * $Id: PageHelperSaTest.java,v 1.32 2007/05/29 23:51:44 aroy Exp $
  */
 
 package gs.web.util;
@@ -416,9 +416,9 @@ public class PageHelperSaTest extends TestCase {
 
     public void testSetMemberAuthorized() throws NoSuchAlgorithmException {
         User user = new User();
-        user.setId(new Integer(123));
+        user.setId(123);
         user.setEmail("testSetMemberCookie@greatschools.net");
-        String hash = "pdwKOjLbjY5HJtWQLzm5gA==";
+        String hash = "rgTkMapq+oP5MTpxH3lEUQ==123";
         PageHelper.setMemberAuthorized(_request, _response, user);
         Cookie cookie = _response.getCookie("SESSION_CACHE");
         assertNotNull(cookie);
@@ -430,13 +430,13 @@ public class PageHelperSaTest extends TestCase {
         assertFalse(PageHelper.isMemberAuthorized(_request));
         User user = new User();
 
-        user.setId(new Integer(123));
+        user.setId(123);
         user.setEmail("testSetMemberCookie@greatschools.net");
-        String hash = "pdwKOjLbjY5HJtWQLzm5gA==";
+        String hash = "rgTkMapq+oP5MTpxH3lEUQ==123";
         PageHelper.setMemberAuthorized(_request, _response, user);
 
         // this step normally occurs automatically, but for this test must be done programmatically
-        SessionContext sessionContext = (SessionContext) SessionContextUtil.getSessionContext(_request);
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(_request);
         sessionContext.setUserHash(hash);
         sessionContext.setUser(user);
 
@@ -573,6 +573,10 @@ public class PageHelperSaTest extends TestCase {
         final CookieGenerator sessionCacheCookieGenerator = new CookieGenerator();
         sessionCacheCookieGenerator.setCookieName("SESSION_CACHE");
         sessionContextUtil.setSessionCacheCookieGenerator(sessionCacheCookieGenerator);
+
+        final CookieGenerator communityCookieGenerator = new CookieGenerator();
+        communityCookieGenerator.setCookieName("community_dev");
+        sessionContextUtil.setCommunityCookieGenerator(communityCookieGenerator);
 
         _sessionContext = new MockSessionContext();
         _sessionContext.setSessionContextUtil(sessionContextUtil);

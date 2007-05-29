@@ -10,7 +10,7 @@
         >
 <jsp:directive.page contentType="text/html"/>
 <html>
-  <pageHelper:setPathway pathway="99"/>
+  <pageHelper:setPathway pathway="COMMUNITY_LANDING"/>
   <head>
       <pageHelper:externalCss file="/res/css/community/registration/myaccount.css"/>
       <title>My Account - GreatSchools</title>
@@ -47,12 +47,6 @@
 
       <div id="outline"><!-- creates darker blue outer outline -->
           <div id="content">
-              <div id="breadcrumb">
-                  <gsml:a href="communityLanding.page" styleClass="breadcrumb">Community</gsml:a>
-                  <span class="breadcrumbSeparator">&gt;</span>
-                  <gsml:a href="http://community.greatschools.net/.598f033b" styleClass="breadcrumb">Article Discussions</gsml:a>
-              </div>
-
               <h2><span>My Account Info</span></h2>
 
               <!-- begin Email Address module -->
@@ -89,19 +83,19 @@
               </div>
               <!-- end: My Saved Schools module -->
 
-              <!-- begin Email Preferences module -->
+              <!-- begin Email Preferences module
               <div id="emailPreferences">
                   <h3>Email Preferences</h3>
                   <p>Manage how often you receive email updates about discussions you've signed up for.</p>
               </div>
-              <!-- end: Email Preferences module -->
+              end: Email Preferences module -->
 
-              <!-- begin Photo module -->
+              <!-- begin Photo module
               <div id="photo">
                   <h3>Photo</h3>
                   <p>Change or set your GreatSchools community photo</p>
               </div>
-              <!-- end: Photo module -->
+               end: Photo module -->
           </div>
           <!-- end: content -->
       </div>

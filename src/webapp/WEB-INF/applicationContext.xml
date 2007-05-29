@@ -80,6 +80,10 @@
                 <property name="cookieName" value="MEMID"/>
             </bean>
         </property>
+        <property name="communityCookieGenerator">
+            <bean class="org.springframework.web.util.CookieGenerator">
+            </bean>
+        </property>
         <property name="hasSearchedCookieGenerator">
             <!-- has the user searched in a specific state? -->
             <bean class="org.springframework.web.util.CookieGenerator">

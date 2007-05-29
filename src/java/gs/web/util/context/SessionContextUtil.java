@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.13 2007/03/23 21:09:33 dlee Exp $
+ * $Id: SessionContextUtil.java,v 1.14 2007/05/29 23:51:44 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -11,6 +11,7 @@ import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.community.ClientSideSessionCache;
 import gs.web.util.UrlUtil;
+import gs.web.util.PageHelper;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -78,6 +79,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     private CookieGenerator _memberIdCookieGenerator;
     private CookieGenerator _hasSearchedCookieGenerator;
     private CookieGenerator _sessionCacheCookieGenerator;
+    private CookieGenerator _communityCookieGenerator;
 
 
     public SessionContextUtil() {
@@ -291,6 +293,14 @@ public class SessionContextUtil implements ApplicationContextAware {
         _sessionCacheCookieGenerator = sessionCacheCookieGenerator;
     }
 
+    public CookieGenerator getCommunityCookieGenerator() {
+        return _communityCookieGenerator;
+    }
+
+    public void setCommunityCookieGenerator(CookieGenerator communityCookieGenerator) {
+        _communityCookieGenerator = communityCookieGenerator;
+    }
+
     /**
      * Attempt to interpret a state= parameter and save it in the given context and to a cookie.
      * If it can't recognize the state, it just uses what was there before, if anything.
@@ -427,8 +437,24 @@ public class SessionContextUtil implements ApplicationContextAware {
                 cache.setScreenName(user.getUserProfile().getScreenName());
             }
             _sessionCacheCookieGenerator.addCookie(response, cache.getCookieRepresentation());
+            if (StringUtils.isEmpty(_communityCookieGenerator.getCookieName())) {
+                _communityCookieGenerator.setCookieName("community_" + getServerName(request));
+                _communityCookieGenerator.setCookieDomain(".greatschools.net");
+                _communityCookieGenerator.setCookieMaxAge(-1);
+            }
+            _communityCookieGenerator.addCookie(response, hash);
         } else {
             _log.warn("Attempt to change authorization information on null user ignored.");
         }
+    }
+
+    protected String getServerName(HttpServletRequest request) {
+        PageHelper pageHelper = new PageHelper(getSessionContext(request), request);
+        if (pageHelper.isStagingServer()) {
+            return "staging";
+        } else if (pageHelper.isDevEnvironment()) {
+            return "dev";
+        }
+        return "www";
     }
 }
