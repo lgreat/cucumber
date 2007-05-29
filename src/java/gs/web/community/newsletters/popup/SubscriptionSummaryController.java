@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryController.java,v 1.9 2007/01/18 19:33:39 aroy Exp $
+ * $Id: SubscriptionSummaryController.java,v 1.10 2007/05/29 22:42:11 droy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -38,6 +38,7 @@ public class SubscriptionSummaryController extends SimpleFormController {
 
     public static final String MODEL_SCHOOL_NAME = "schoolName";
     public static final String MODEL_PARENT_ADVISOR = "parentAdvisor";
+    public static final String MODEL_COMMUNITY = "community";
     public static final String MODEL_SET_NTH_GRADER = "setNth";
     public static final String MODEL_SET_MS_HS = "setMsHs";
     public static final String MODEL_EMAIL = "email";
@@ -78,7 +79,38 @@ public class SubscriptionSummaryController extends SimpleFormController {
                     state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
                 }
 
-                Set setNth = new HashSet();
+                // Map of SubscriptionProduct names to their proper ordering
+                final Map<String, Integer> orderMap = new HashMap<String, Integer> ();
+                orderMap.put(SubscriptionProduct.MY_KINDERGARTNER.getLongName(), 0);
+                orderMap.put(SubscriptionProduct.MY_FIRST_GRADER.getLongName(), 1);
+                orderMap.put(SubscriptionProduct.MY_SECOND_GRADER.getLongName(), 2);
+                orderMap.put(SubscriptionProduct.MY_THIRD_GRADER.getLongName(), 3);
+                orderMap.put(SubscriptionProduct.MY_FOURTH_GRADER.getLongName(), 4);
+                orderMap.put(SubscriptionProduct.MY_FIFTH_GRADER.getLongName(), 5);
+                orderMap.put(SubscriptionProduct.MY_MS.getLongName(), 6);
+                orderMap.put(SubscriptionProduct.MY_HS.getLongName(), 7);
+
+                Set<String> setNth = new TreeSet<String> (
+                        new Comparator<String>() {
+                            public int compare(String spOne, String spTwo) {
+                                Integer orderOne = (Integer)orderMap.get(spOne);
+                                if (orderOne == null) {
+                                    orderOne = -1;
+                                }
+                                Integer orderTwo = (Integer)orderMap.get(spTwo);
+                                if (orderTwo == null) {
+                                    orderTwo = -1;
+                                }
+
+                                if (orderOne < orderTwo) {
+                                    return -1;
+                                } else if (orderOne == orderTwo) {
+                                    return 0;
+                                } else {
+                                    return 1;
+                                }
+                            }
+                        });
                 Set setMsHs = new HashSet();
 
                 for (Iterator iter = subcriptions.iterator(); iter.hasNext();) {
@@ -96,6 +128,8 @@ public class SubscriptionSummaryController extends SimpleFormController {
 
                         } else if (sp == SubscriptionProduct.PARENT_ADVISOR) {
                             model.put(MODEL_PARENT_ADVISOR, sp.getLongName());
+                        } else if (sp == SubscriptionProduct.COMMUNITY) {
+                            model.put(MODEL_COMMUNITY, sp.getLongName());
                         } else if (sp == SubscriptionProduct.MY_MS
                                 || sp == SubscriptionProduct.MY_HS) {
                             setMsHs.add(sp.getLongName());
@@ -104,6 +138,7 @@ public class SubscriptionSummaryController extends SimpleFormController {
                         }
                     }
                 }
+
                 model.put(MODEL_SET_MS_HS, setMsHs);
                 model.put(MODEL_SET_NTH_GRADER, setNth);
                 model.put(MODEL_EMAIL, email);
