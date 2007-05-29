@@ -83,7 +83,6 @@ public class LoginControllerTest extends BaseControllerTestCase {
         assertFalse("Controller has errors on submit", errors.hasErrors());
 
         assertTrue(mAndV.getViewName().startsWith("redirect:"));
-        assertTrue(mAndV.getViewName().indexOf(_controller.getAuthenticationManager().getParameterName()) > -1);
     }
 
     public void testNonexistantUser() throws NoSuchAlgorithmException {

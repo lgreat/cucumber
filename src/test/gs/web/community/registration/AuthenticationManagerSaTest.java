@@ -2,11 +2,9 @@ package gs.web.community.registration;
 
 import junit.framework.TestCase;
 import gs.data.community.User;
+import gs.data.util.DigestUtil;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.Date;
-import java.net.URLDecoder;
-import java.io.UnsupportedEncodingException;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -15,12 +13,10 @@ public class AuthenticationManagerSaTest extends TestCase {
 
     private User _user;
     private AuthenticationManager _authManager;
-    private AuthenticationManager.AuthInfo _authInfo;
 
     public void setUp() throws NoSuchAlgorithmException {
-        _user = getUser(new Integer(155803), "AuthenticationManagerSaTest@greatschools.net");
+        _user = getUser(155803, "AuthenticationManagerSaTest@greatschools.net");
         _authManager = new AuthenticationManager();
-        _authInfo = _authManager.generateAuthInfo(_user);
     }
 
     private User getUser(Integer id, String email) {
@@ -30,63 +26,26 @@ public class AuthenticationManagerSaTest extends TestCase {
         return user;
     }
 
-    public void testGenerateAuthInfo() throws NoSuchAlgorithmException {
-        assertNotNull(_authInfo);
-        assertEquals(_user.getId(), _authInfo.getUserId());
-        assertNotNull(_authInfo.getHash());
-        assertNotNull(_authInfo.getTimestamp());
+    public void testGenerateUserHash() throws NoSuchAlgorithmException {
+        String hash = _authManager.generateUserHash(_user);
+
+        assertNotNull("Hash should be non-null", hash);
+        assertEquals("Hash (" + hash + ") expected to be of specific length",
+                DigestUtil.MD5_HASH_LENGTH, hash.length());
     }
 
-    public void testVerifyAuthInfo() throws NoSuchAlgorithmException {
-        assertTrue("Equivalence failed", _authManager.verifyAuthInfo(_user, _authInfo));
+    public void testGenerateCookieValue() throws NoSuchAlgorithmException {
+        String cookieValue = _authManager.generateCookieValue(_user);
 
-        User user2 = getUser(new Integer(_user.getId().intValue()+1), _user.getEmail());
-        assertFalse("Hash validated for wrong user id", _authManager.verifyAuthInfo(user2, _authInfo));
-
-        User user3 = getUser(_user.getId(), "a" + _user.getEmail());
-        assertFalse("Hash validated for wrong email", _authManager.verifyAuthInfo(user3, _authInfo));
-
-        Date origDate = _authInfo.getTimestamp();
-        try {
-            _authInfo.setTimestamp(new Date(origDate.getTime() + _authManager.getTimeout()));
-            assertFalse("Hash validated for wrong date", _authManager.verifyAuthInfo(_user, _authInfo));
-        } finally {
-            _authInfo.setTimestamp(origDate);
-        }
-
-        long origTimeout = _authManager.getTimeout();
-        _authManager.setTimeout(50);
-
-        try {
-            Thread.sleep(100);
-            assertFalse("Hash validated despite timeout", _authManager.verifyAuthInfo(_user, _authInfo));
-        } catch (InterruptedException e) {
-            fail("Thread sleep interrupted");
-        } finally {
-            _authManager.setTimeout(origTimeout);
-        }
+        assertNotNull("Cookie value should be non-null", cookieValue);
+        assertEquals("Cookie value (" + cookieValue + ") expected to be of specific length",
+                DigestUtil.MD5_HASH_LENGTH + String.valueOf(_user.getId()).length(), cookieValue.length());
     }
 
-    public void testGetParameterValue() throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        String value = _authManager.getParameterValue(_authInfo);
-        assertNotNull(value);
-        if (value.indexOf('%') > -1) {
-            value = URLDecoder.decode(value, "UTF-8");
-        }
+    public void testGetUserIdFromCookieValue() throws NoSuchAlgorithmException {
+        String cookieValue = _authManager.generateCookieValue(_user);
+        Integer userId = _authManager.getUserIdFromCookieValue(cookieValue);
 
-        Integer id = _authManager.getUserIdFromParameter(value);
-        assertEquals("User id from parameter does not equal user id in object", _user.getId(), id);
-    }
-
-    public void testVerifyAuthInfoString() throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        String paramString = _authManager.getParameterValue(_authInfo);
-        if (paramString.indexOf('%') > -1) {
-            paramString = URLDecoder.decode(paramString, "UTF-8");
-        }
-
-        assertTrue("Equivalence failed", _authManager.verifyAuthInfo(_user, paramString));
-
-        assertFalse(_authManager.verifyAuthInfo(_user, (String)null));
-        assertFalse(_authManager.verifyAuthInfo(_user, ""));
+        assertEquals(_user.getId(), userId);
     }
 }

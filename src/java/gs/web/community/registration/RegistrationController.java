@@ -138,8 +138,7 @@ public class RegistrationController extends SimpleFormController implements Read
         try {
             user.setPlaintextPassword(userCommand.getPassword());
             if (_requireEmailValidation || request.getParameter("join") == null) {
-                // TODO: mark account as provisional until they complete stage 2
-                // mark password as unauthenticated
+                // mark account as provisional until they complete stage 2
                 user.setEmailProvisional();
             }
             _userDao.updateUser(userCommand.getUser());

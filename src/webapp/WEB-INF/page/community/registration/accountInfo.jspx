@@ -93,7 +93,6 @@
               <div id="emailPreferences">
                   <h3>Email Preferences</h3>
                   <p>Manage how often you receive email updates about discussions you've signed up for.</p>
-                  <gsweb:toCommunity targetLink="/cmd.txSetEmailNotifications">Manage email preferences</gsweb:toCommunity>
               </div>
               <!-- end: Email Preferences module -->
 
@@ -101,7 +100,6 @@
               <div id="photo">
                   <h3>Photo</h3>
                   <p>Change or set your GreatSchools community photo</p>
-                  <gsweb:toCommunity targetLink="/cmd.txPictureSetUser">Update or change your photo</gsweb:toCommunity>
               </div>
               <!-- end: Photo module -->
           </div>

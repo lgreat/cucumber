@@ -181,7 +181,6 @@ public class ResetPasswordController extends SimpleFormController implements Rea
             PageHelper.setMemberAuthorized(request, response, user);            
             //mAndV.getModel().put("message", "Your password has been changed");
 
-            AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
             UrlBuilder builder = new UrlBuilder(UrlBuilder.ACCOUNT_INFO, null, null);
             builder.addParameter("message", "Your password has been changed");
             mAndV.setViewName("redirect:" + builder.asFullUrl(request));

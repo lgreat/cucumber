@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: LoginController.java,v 1.22 2007/02/08 19:38:51 aroy Exp $
+ * $Id: LoginController.java,v 1.23 2007/05/29 18:26:08 aroy Exp $
  */
 package gs.web.community.registration;
 
@@ -115,36 +115,29 @@ public class LoginController extends SimpleFormController {
 
         ModelAndView mAndV = new ModelAndView();
 
-        if (StringUtils.isNotEmpty(loginCommand.getRedirect())) {
-            AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
-            loginCommand.setRedirect(_authenticationManager.generateRedirectUrl
-                    (loginCommand.getRedirect(), authInfo));
-        } else {
+        if (StringUtils.isEmpty(loginCommand.getRedirect())) {
             if (DEFAULT_REDIRECT_URL == null) {
                 initializeRedirectUrl(request);
             }
-            loginCommand.setRedirect(_authenticationManager.generateRedirectUrl
-                    (DEFAULT_REDIRECT_URL, _authenticationManager.generateAuthInfo(user)));
+            loginCommand.setRedirect(DEFAULT_REDIRECT_URL);
         }
 
         UrlUtil urlUtil = new UrlUtil();
         String redirectUrl;
         if (user.isPasswordEmpty()) {
+            // Log the user in to MSL
             PageHelper.setMemberCookie(request, response, user);
-            // TODO: how to deal with this case and authentication
-            // for users who need passwords, send them to the registration page
+            // But they don't have a community password, so send them to the registration page
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null,
                     email, loginCommand.getRedirect());
             redirectUrl = builder.asFullUrl(request);
         } else {
+            // The password has validated, so set the cookies and send them onward
             PageHelper.setMemberAuthorized(request, response, user);
             redirectUrl = urlUtil.buildUrl(loginCommand.getRedirect(), request);
         }
 
-        _log.debug(redirectUrl);
-
         mAndV.setViewName("redirect:" + redirectUrl);
-
         return mAndV;
     }
 

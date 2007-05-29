@@ -2,16 +2,11 @@ package gs.web.community.registration;
 
 import gs.data.community.User;
 import gs.data.util.DigestUtil;
-import gs.web.util.UrlUtil;
 
-import java.util.Date;
 import java.security.NoSuchAlgorithmException;
-import java.net.URLEncoder;
-import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -19,191 +14,33 @@ import org.apache.commons.lang.StringUtils;
 public class AuthenticationManager {
     protected final Log _log = LogFactory.getLog(getClass());
 
-    private long _timeout = 1000 * 60 * 60 * 12; // 12 hours
-    private String _parameterName = "authInfo"; // default
-    private int _userIdLength = 10; // default
-    public static final String WEBCROSSING_FORWARD_URL = "http://community.greatschools.net/entry/authInfo.";
     public static final String BEAN_ID = "authenticationManager";
 
     /**
-     * Generates an AuthInfo object for the given user.
-     * @param user
-     * @return AuthInfo object for user
-     * @throws NoSuchAlgorithmException
+     * Generates an md5 hash identifying the given user.
+     *
+     * @param user User to generate hash for
+     * @throws NoSuchAlgorithmException On fatal error running the md5 algorithm
+     * @return the md5 hash for this user
      */
-    public AuthInfo generateAuthInfo(User user) throws NoSuchAlgorithmException {
+    public String generateUserHash(User user) throws NoSuchAlgorithmException {
         Integer userId = user.getId();
-        String email = user.getEmail();
-        Date now = new Date();
-        Object[] hashInput = new Object[] {userId, email, now};
-        String hash = DigestUtil.hashObjectArray(hashInput);
-        return new AuthInfo(userId, hash, now);
+        String convertValue = String.valueOf(userId) + String.valueOf(User.SECRET_NUMBER);
+        return DigestUtil.hashString(convertValue);
+    }
+
+    public String generateCookieValue(User user) throws NoSuchAlgorithmException {
+        return generateUserHash(user) + String.valueOf(user.getId());
     }
 
     /**
-     * Helper method that parses the passed in String into an AuthInfo object, then
-     * delegates to the other verifyAuthInfo method.
-     * @param user
-     * @param authInfo parameter value to be parsed into an AuthInfo object
-     * @return true if the authentication information checks out, false otherwise
-     * @throws NoSuchAlgorithmException
-     * @throws NumberFormatException if the string cannot be parsed into a hash, an id, and a long
-     */
-    public boolean verifyAuthInfo(User user, String authInfo) throws NoSuchAlgorithmException {
-        if (authInfo == null) {
-            return false;
-        } else if (authInfo.length() < DigestUtil.MD5_HASH_LENGTH+11) {
-            return false;
-        }
-        String hash = authInfo.substring(0, DigestUtil.MD5_HASH_LENGTH);
-        String dateString = authInfo.substring(DigestUtil.MD5_HASH_LENGTH+10);
-        Integer id = getUserIdFromParameter(authInfo);
-        Long ms = new Long(dateString);
-        Date timestamp = new Date(ms.longValue());
-        return verifyAuthInfo(user, new AuthInfo(id, hash, timestamp));
-    }
-
-    /**
-     * Verifies that the given AuthInfo object is valid for the given user.
-     * @param user
-     * @param authInfo
-     * @return true if the authentication information checks out, false otherwise
-     * @throws NoSuchAlgorithmException
-     */
-    public boolean verifyAuthInfo(User user, AuthInfo authInfo) throws NoSuchAlgorithmException {
-        String email = user.getEmail();
-        Object[] hashInput = new Object[] {user.getId(), email, authInfo.getTimestamp()};
-        String hash = DigestUtil.hashObjectArray(hashInput);
-        if (hash.equals(authInfo.getHash())) {
-            Date now = new Date();
-            long timeDiff = now.getTime() - authInfo.getTimestamp().getTime();
-            if (timeDiff < getTimeout()) {
-                return true;
-            } else {
-                _log.warn("Authentication request fails timeout check: timeDiff=" + timeDiff +
-                        ", should be less than " + getTimeout());
-            }
-        } else {
-            _log.warn("Authentication request fails hash check: " + email + "(" + authInfo.getUserId() +
-                    ") - " + authInfo.getTimestamp());
-        }
-        return false;
-    }
-
-    public String generateRedirectUrl(String targetLocation, AuthInfo authInfo) {
-        UrlUtil urlUtil = new UrlUtil();
-        if (!urlUtil.isStagingServer(targetLocation) &&
-                (urlUtil.isDevEnvironment(targetLocation) || urlUtil.isDeveloperWorkstation(targetLocation))) {
-            return targetLocation;
-        }
-        StringBuffer rval = new StringBuffer();
-        rval.append(WEBCROSSING_FORWARD_URL);
-        rval.append(getParameterValue(authInfo));
-        rval.append("/redirect.");
-        String encodedParam;
-        if (targetLocation.startsWith("http://")) {
-            targetLocation = targetLocation.substring("http://".length());
-        }
-        try {
-            encodedParam = URLEncoder.encode(targetLocation, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            _log.warn("Failed to encode URL parameter " + targetLocation + " because of error: " + e);
-            encodedParam = targetLocation;
-        }
-        rval.append(encodedParam);
-        return rval.toString();
-    }
-
-    /**
-     * Converts an AuthInfo object into a parameter string.
-     * @param authInfo
-     * @return string representing the AuthInfo object
-     */
-    public String getParameterValue(AuthInfo authInfo) {
-        StringBuffer rval = new StringBuffer();
-        rval.append(authInfo.getHash());
-        rval.append(StringUtils.leftPad(authInfo.getUserId().toString(),getUserIdLength(),'0'));
-        rval.append(authInfo.getTimestamp().getTime());
-
-        String encodedParam;
-        try {
-            encodedParam = URLEncoder.encode(rval.toString(), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            _log.warn("Failed to encode URL parameter " + rval.toString() + " because of error: " + e);
-            encodedParam = rval.toString();
-        }
-
-        return encodedParam;
-    }
-
-    /**
-     * Parses the user id out of the string. If the string is not well-formed, various exceptions
-     * could be thrown.
-     * @param authInfo
+     * Parses the user id out of a string. The string is assumed to begin with an md5 hash
+     * and be immediately followed by the user id.
      * @return user id
+     * @param cookieValue String consisting of an md5 hash concatenated with the user id
      */
-    public Integer getUserIdFromParameter(String authInfo) {
-        String idString = authInfo.substring(DigestUtil.MD5_HASH_LENGTH, DigestUtil.MD5_HASH_LENGTH+10);
+    public Integer getUserIdFromCookieValue(String cookieValue) {
+        String idString = cookieValue.substring(DigestUtil.MD5_HASH_LENGTH);
         return new Integer(idString);
-    }
-
-    public long getTimeout() {
-        return _timeout;
-    }
-
-    public void setTimeout(long timeout) {
-        _timeout = timeout;
-    }
-
-    public String getParameterName() {
-        return _parameterName;
-    }
-
-    public void setParameterName(String parameterName) {
-        _parameterName = parameterName;
-    }
-
-    public int getUserIdLength() {
-        return _userIdLength;
-    }
-
-    public void setUserIdLength(int userIdLength) {
-        _userIdLength = userIdLength;
-    }
-
-    public static class AuthInfo {
-        Integer _userId;
-        String _hash;
-        Date _timestamp;
-
-        public AuthInfo(Integer userId, String hash, Date timestamp) {
-            setUserId(userId);
-            setHash(hash);
-            setTimestamp(timestamp);
-        }
-
-        public Integer getUserId() {
-            return _userId;
-        }
-
-        public void setUserId(Integer userId) {
-            _userId = userId;
-        }
-
-        public String getHash() {
-            return _hash;
-        }
-
-        public void setHash(String hash) {
-            _hash = hash;
-        }
-
-        public Date getTimestamp() {
-            return _timestamp;
-        }
-
-        public void setTimestamp(Date timestamp) {
-            _timestamp = timestamp;
-        }
     }
 }

@@ -25,9 +25,6 @@
 
     <bean id="authenticationManager" class="gs.web.community.registration.AuthenticationManager"
           autowire="byName" lazy-init="true">
-        <property name="timeout" value="300000"/>
-        <property name="parameterName" value="authInfo"/>
-        <property name="userIdLength" value="10"/>
     </bean>
 
     <bean id="registrationConfirmationEmail"

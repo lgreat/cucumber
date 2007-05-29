@@ -896,12 +896,6 @@
     </bean>
     <!--End Registration pages -->
 
-    <bean name="/community/verifyAuth.page"
-          class="gs.web.community.registration.VerifyAuthController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName" value="/community/registration/getUserProfile"/>
-    </bean>
-
     <bean name="/community/getUserProfile.page"
           class="gs.web.community.registration.GetUserProfileController"
           autowire="byName" lazy-init="true">
