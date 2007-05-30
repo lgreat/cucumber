@@ -55,7 +55,7 @@ public class SessionContextTest extends BaseTestCase {
 
     public void testIsUserValid() throws NoSuchAlgorithmException {
         User user = new User();
-        user.setId(new Integer(123));
+        user.setId(123);
         user.setEmail("anEmail@greatschools.net");
         _sessionContext.setUser(user);
         assertEquals("anEmail@greatschools.net", _sessionContext.getEmail());
@@ -313,8 +313,7 @@ public class SessionContextTest extends BaseTestCase {
         Cookie[] cookies = response.getCookies();
         String state = null;
 
-        for (int i = 0; i < cookies.length; i++) {
-            Cookie c = cookies[i];
+        for (Cookie c : cookies) {
             if (STATE_COOKIE.equals(c.getName())) {
                 state = c.getValue();
             }
@@ -335,7 +334,7 @@ public class SessionContextTest extends BaseTestCase {
         GsMockHttpServletRequest request = new GsMockHttpServletRequest();
         request.setRemoteAddr("123.456.789.012");
         util.updateFromRequestAttributes(request, ctx);
-        assertEquals("a", ctx.getABVersion());
+        assertEquals("b", ctx.getABVersion());
 
         GsMockHttpServletRequest bRequest = new GsMockHttpServletRequest();
         bRequest.setRemoteAddr("123.456.789.123");
@@ -355,11 +354,11 @@ public class SessionContextTest extends BaseTestCase {
      */
     public void testBadMemberId() {
 
-        final Integer id = new Integer(-999);
+        final Integer id = -999;
 
         MockControl mockControl = MockControl.createControl(IUserDao.class);
         IUserDao userDao = (IUserDao) mockControl.getMock();
-        mockControl.expectAndThrow(userDao.findUserFromId(id.intValue()), new ObjectRetrievalFailureException("Can't find it", id));
+        mockControl.expectAndThrow(userDao.findUserFromId(id), new ObjectRetrievalFailureException("Can't find it", id));
         mockControl.replay();
 
         _sessionContext.setUserDao(userDao);

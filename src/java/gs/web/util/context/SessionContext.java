@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContext.java,v 1.13 2007/05/17 20:41:59 dlee Exp $
+ * $Id: SessionContext.java,v 1.14 2007/05/30 22:02:00 thuss Exp $
  */
 package gs.web.util.context;
 
@@ -115,7 +115,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         if (_user == null) {
             if (_memberId != null) {
                 try {
-                    _user = _userDao.findUserFromId(_memberId.intValue());
+                    _user = _userDao.findUserFromId(_memberId);
                 } catch (ObjectRetrievalFailureException e) {
                     _log.warn("Cookie pointed to non-existent user with id " + _memberId);
                 }
@@ -263,13 +263,8 @@ public class SessionContext implements ApplicationContextAware, Serializable {
                 String digit =
                         _remoteAddress.substring(_remoteAddress.length() - 1,
                                 _remoteAddress.length());
-                try {
-                    int i = Integer.parseInt(digit);
-                    if (i % 2 != 0) {
-                        version = "b";
-                    }
-                } catch (NumberFormatException nfe) {
-                    // ignore
+                if ("12367".indexOf(digit) > -1) {
+                    version = "b";                    
                 }
             }
             return version;
