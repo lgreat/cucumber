@@ -63,7 +63,6 @@
 }
 
 #rateReview input {
-    _padding-top: 8px; /* IE 6 hack */
     _float: left; /* IE 6 hack */
 }
 
