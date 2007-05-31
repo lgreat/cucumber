@@ -11,7 +11,7 @@
         <property name="interceptors">
             <list>
                 <bean class="gs.web.util.ReadWriteInterceptor"/>
-                <!-- ResponseInterceptor are SeoCobrand... are dependent on SessionContextInterceptor, and must come after it in config -->
+                <!-- ResponseInterceptor and SeoCobrand... are dependent on SessionContextInterceptor, and must come after it in config -->
                 <bean class="gs.web.util.context.SessionContextInterceptor"
                       autowire="byName"/>
                 <bean class="gs.web.util.SeoCobrandRedirectInterceptor"
@@ -29,6 +29,19 @@
         <property name="urlMap">
             <map>
                 <entry key="/city/**" value="/city.page"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean name="noInterceptorsHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"
+          lazy-init="true">
+        <!-- controllers that shouldn't have any interceptors running around them -->
+        <property name="interceptors">
+            <list/>
+        </property>
+        <property name="urlMap">
+            <map>
+                <entry key="/chart/pie.page" value="pieController"/>
             </map>
         </property>
     </bean>
@@ -1004,7 +1017,7 @@
     </bean>
 
 
-    <bean name="/chart/pie.page"
+    <bean name="pieController"
           autowire="byName"
           class="gs.web.chart.PieController"
           lazy-init="true"/>
