@@ -107,4 +107,18 @@ public class SeoCobrandRedirectInterceptorTest extends BaseControllerTestCase {
         assertEquals("http://www.greatschools.net/modperl/go/CA", getResponse().getRedirectedUrl());
     }
 
+    /**
+     * Since we use apache to rewrite the R&C URL we check to make sure the redirect Java is issuing is correct
+     *
+     * @throws Exception
+     */
+    public void testHomePageRedirectExpected() throws Exception {
+        _sessionContext.setCrawler(true);
+        _sessionContext.setCobrand("sfgate");
+        getRequest().setRequestURI("/index.page");
+        assertFalse(_interceptor.preHandle(getRequest(), getResponse(), null));
+        assertEquals(301, getResponse().getStatus());
+        assertEquals("http://www.greatschools.net/", getResponse().getRedirectedUrl());
+    }
+
 }

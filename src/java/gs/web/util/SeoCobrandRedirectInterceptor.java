@@ -4,9 +4,14 @@ import gs.web.util.context.SessionContext;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletRequest;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.Date;
 
 /**
  * Per GS-3281 This code 301 redirects crawlers from cobrands onto our main website
@@ -15,6 +20,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * @author thuss
  */
 public class SeoCobrandRedirectInterceptor implements HandlerInterceptor {
+
+    private static final Log _log = LogFactory.getLog(SeoCobrandRedirectInterceptor.class);
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         SessionContext sessionContext = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
@@ -26,7 +33,9 @@ public class SeoCobrandRedirectInterceptor implements HandlerInterceptor {
                 String uri = request.getRequestURI();
 
                 // Handle URL's rewritten behind the scenes by Apache
-                if ("/school/overview.page".equals(uri)) {
+                if ("/index.page".equals(uri)) {
+                    newUrl.append("/");
+                } else if ("/school/overview.page".equals(uri)) {
                     newUrl.append("/modperl/browse_school/").append(request.getParameter("state")).append("/").append(request.getParameter("id"));
                 } else if ("/school/research.page".equals(uri)) {
                     newUrl.append("/modperl/go/").append(request.getParameter("state"));
@@ -35,15 +44,35 @@ public class SeoCobrandRedirectInterceptor implements HandlerInterceptor {
                     newUrl.append(uri);
                     if (request.getQueryString() != null) newUrl.append("?").append(request.getQueryString());
                 }
-                
+
                 // Do the redirect
                 response.setStatus(301);
-                String redirect = response.encodeRedirectURL(newUrl.toString());
+                String redirectUrl = newUrl.toString();
+                String redirect = response.encodeRedirectURL(redirectUrl);
                 response.sendRedirect(redirect);
+                logRedirect(request, redirectUrl);
                 return false;
             }
         }
         return true;
+    }
+
+    private void logRedirect(ServletRequest r, String redirectUrl) {
+        StringBuffer url = null;
+        String userAgent = null;
+        String remoteIp = null;
+        String referrer = null;
+        if (r instanceof HttpServletRequest) {
+            HttpServletRequest request = (HttpServletRequest) r;
+            // Reconstruct the URL
+            url = request.getRequestURL();
+            if (request.getQueryString() != null) url.append("?").append(request.getQueryString());
+            userAgent = request.getHeader("User-Agent");
+            remoteIp = request.getRemoteAddr();
+            referrer = request.getHeader("Referer");
+        }
+        _log.warn(new Date().toString() + " REDIRECT TO: " + redirectUrl + " REQUEST: " + url + " REFERRER: " + referrer +
+                " REMOTEIP: " + remoteIp + " USER-AGENT: " + userAgent);
     }
 
     public void postHandle

@@ -55,7 +55,7 @@ public class OpenSessionInViewFilter implements Filter {
         }
     }
 
-private void logException(Exception e, ServletRequest r) {
+    private void logException(Exception e, ServletRequest r) {
         StringBuffer url = null;
         String userAgent = null;
         String remoteIp = null;
