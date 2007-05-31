@@ -419,6 +419,9 @@ public class SearchController extends AbstractFormController {
         if (anchorListModel.getResults().size() > 0) {
             Anchor a = (Anchor) anchorListModel.getResults().get(anchorListModel.getResults().size() - 1);
             a.setStyleClass("last");
+
+            a = (Anchor) anchorListModel.getResults().get(0);
+            a.appendStyleClass("first");
         }
         return anchorListModel;
     }

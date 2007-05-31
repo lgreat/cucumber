@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.3 2007/01/25 00:54:24 chriskimm Exp $
+ * $Id: AnchorListModelFactory.java,v 1.4 2007/05/31 19:12:44 droy Exp $
  */
 
 package gs.web.util.list;
@@ -163,7 +163,13 @@ public class AnchorListModelFactory {
         List results = schoolBreakdownAnchorList.getResults();
         Anchor a = (Anchor) results.get(results.size() - 1);
         if (a != null) {
-            a.setStyleClass(a.getStyleClass() + " last");
+            a.appendStyleClass("last");
+        }
+
+        // Add a "first" to the first item
+        a = (Anchor) results.get(0);
+        if (a != null) {
+            a.appendStyleClass("first");
         }
 
         return schoolBreakdownAnchorList;
@@ -271,6 +277,8 @@ public class AnchorListModelFactory {
         if (anchorListModel.getResults().size() > 0) {
             Anchor a = (Anchor) anchorListModel.getResults().get(anchorListModel.getResults().size() - 1);
             a.setStyleClass("last");
+            a = (Anchor) anchorListModel.getResults().get(0);
+            a.appendStyleClass("first");
         }
         return anchorListModel;
     }
@@ -316,6 +324,8 @@ public class AnchorListModelFactory {
         if (anchorListModel.getResults().size() > 0) {
             Anchor a = (Anchor) anchorListModel.getResults().get(anchorListModel.getResults().size() - 1);
             a.setStyleClass("last");
+            a = (Anchor) anchorListModel.getResults().get(0);
+            a.appendStyleClass("first");
         }
         return anchorListModel;
     }

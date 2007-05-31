@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: Anchor.java,v 1.1 2006/07/13 07:52:30 apeterson Exp $
+ * $Id: Anchor.java,v 1.2 2007/05/31 19:12:44 droy Exp $
  */
 
 package gs.web.util.list;
@@ -84,6 +84,14 @@ public class Anchor {
 
     public void setStyleClass(String styleClass) {
         _styleClass = styleClass;
+    }
+
+    public void appendStyleClass(String styleClass) {
+        if (getStyleClass() == null) {
+            setStyleClass(styleClass);
+        } else {
+            setStyleClass(getStyleClass() + " " + styleClass);
+        }
     }
 
     public String getImage() {
