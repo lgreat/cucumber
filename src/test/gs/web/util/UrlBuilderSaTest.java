@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.63 2007/05/15 19:54:00 dlee Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.64 2007/05/31 18:15:27 dlee Exp $
  */
 
 package gs.web.util;
@@ -187,6 +187,9 @@ public class UrlBuilderSaTest extends TestCase {
 
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_MAP);
         assertEquals("/school/mapSchool.page?id=8&amp;state=NY", builder.asSiteRelativeXml(null));
+
+        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ESP_LOGIN);
+        assertEquals("/cgi-bin/pq_start.cgi/ny/8", builder.asSiteRelativeXml(null));
     }
 
     public void testCityPageBuilder() {
@@ -371,6 +374,13 @@ public class UrlBuilderSaTest extends TestCase {
         assertEquals("/cgi-bin/ca/district_profile/135", builder.asSiteRelative(request));
         builder = new UrlBuilder(UrlBuilder.WEBBY_AWARD_THANKS, null, null);
         assertEquals("/promo/webbyAwardWinner.page", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.PARENT_RATING_EXPLAINED, State.CA, null);
+        assertEquals("/cgi-bin/static/what_ratings_mean.html/ca/", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.PARENT_REVIEW_GUIDELINES, State.CA, null);
+        assertEquals("/cgi-bin/static/guidelines.html/ca/", builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.PARENT_REVIEW_LEARN_MORE, State.CA, null);
+        assertEquals("/cgi-bin/static/parentcomments.html/ca/", builder.asSiteRelative(request));
+
     }
 
     public void testAdminPages() {

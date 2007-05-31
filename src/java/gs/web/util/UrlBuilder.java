@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.net. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.77 2007/05/15 19:54:00 dlee Exp $
+ * $Id: UrlBuilder.java,v 1.78 2007/05/31 18:15:27 dlee Exp $
  */
 
 package gs.web.util;
@@ -135,6 +135,7 @@ public class UrlBuilder {
     public static final VPage SCHOOL_PROFILE_PRINCIPAL_VIEW = new VPage("vpage:schoolPrincipalView");
     public static final VPage SCHOOL_PROFILE_RATINGS = new VPage("vpage:schoolRatings");
     public static final VPage SCHOOL_PROFILE_ADD_PARENT_REVIEW = new VPage("vpage:schoolAddParentReview");
+    public static final VPage SCHOOL_PROFILE_ESP_LOGIN = new VPage("vpage:schoolEspLogin");
     public static final VPage SCHOOL_AUTHORIZER = new VPage("vpage:schoolAuthorizer");
 
     public static final VPage SCHOOL_MAP = new VPage("vpage:schoolMap");
@@ -169,6 +170,12 @@ public class UrlBuilder {
 
     /** webby award thank you page */
     public static final VPage WEBBY_AWARD_THANKS = new VPage("vpage:webbyAwardThanks");
+
+    /**parent review info pages**/
+    public static final VPage PARENT_REVIEW_GUIDELINES = new VPage("vpage:parentReviewGuidelines");
+    public static final VPage PARENT_REVIEW_LEARN_MORE = new VPage("vpage:parentReviewLearnMore");
+    public static final VPage PARENT_RATING_EXPLAINED = new VPage("vpage:parentRatingExplained");
+
 
     /**
      * Create a builder to the given site page.
@@ -306,6 +313,11 @@ public class UrlBuilder {
             _path = "/school/mapSchool.page";
             setParameter("id", String.valueOf(school.getId().intValue()));
             setParameter("state", school.getDatabaseState().getAbbreviation());
+        } else if (SCHOOL_PROFILE_ESP_LOGIN.equals(page)) {
+            _perlPage = true;
+            _path = "/cgi-bin/pq_start.cgi/" +
+                    school.getDatabaseState().getAbbreviationLowerCase() +
+                    "/" + school.getId();
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
@@ -617,6 +629,15 @@ public class UrlBuilder {
             _path = "/cities.page";
             this.setParameter("city", param0);
             this.setParameter("state", state.getAbbreviation());
+        } else if (PARENT_REVIEW_LEARN_MORE.equals(page)) {
+            _perlPage = true;
+            _path = "/cgi-bin/static/parentcomments.html/" + state.getAbbreviationLowerCase() +"/";        
+        } else if (PARENT_RATING_EXPLAINED.equals(page)) {
+            _perlPage = true;
+            _path = "/cgi-bin/static/what_ratings_mean.html/" + state.getAbbreviationLowerCase() +"/";
+        } else if (PARENT_REVIEW_GUIDELINES.equals(page)) {
+            _perlPage = true;
+            _path = "/cgi-bin/static/guidelines.html/" + state.getAbbreviationLowerCase() + "/";
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
