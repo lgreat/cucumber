@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:link="urn:www.greatschools.net/taglib/link"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+          xmlns:gsweb="gstaglib"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
+          xmlns:pg="http://jsptags.com/tags/navigation/pager"
+        >
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <jsp:directive.page contentType="text/html"/>
+    <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
+    <c:set var="school" value="${cmd.school}"/>
+    <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+    <c:set var="addr" value="${school.physicalAddress.city},${school.databaseState.longName} - ${stateAbbrev}"/>
+    <head>
+        <title>Parent Reviews of ${school.name} - ${addr}</title>
+        <meta name="description" content="Read parent ratings and reviews of ${school.name} - ${addr}"/>
+        <pageHelper:externalCss file="/res/css/school/overview.css"/>
+            <![CDATA[<script type="text/javascript"><!--]]>
+            function go(box) {
+                option = box.options[box.selectedIndex].value;
+                if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=' + option;
+            }
+            function initSortBy() {
+                var selectedOption = '${cmd.sortBy}';
+                var select = document.getElementById('sltRatingSort');
+                var options = select.options;
+                for (var i=0;i&lt;options.length;i++) {
+                    if (options[i].value == selectedOption) {
+                        options[i].selected = true;
+                        break;
+                    }
+                }
+            }
+        <![CDATA[--></script>]]>
+    </head>
+    <gsml:body adPageName="parentReviews" pageLayout="parentReviews">
+    <pageHelper:externalCss file="/res/css/school/parentReviews/styles.css"/>
+    <![CDATA[
+    <!--[if IE 7]>
+        <link rel="stylesheet" type="text/css" href="/res/css/school/parentReviews/ie7.css" />
+    <![endif]-->
+    ]]>
+        <school:profile school="${school}" tab="parentReviews">
+            <gsml:equalizeColumns ids="'col_left','col_right'"/>
+            <div id="parentReview">
+                <div id="col_left">
+                    <c:if test="${cmd.ratings.count >= cmd.ratings.minRatingsBeforeUsage}">
+                        <div id="showParentRatings">
+                            <div id="rating_parent">
+                                <gsml:img src="/res/img/school/parentReviews/rating_OverallParentRating.gif" alt="Overall Parent Rating" styleClass="parentTitle" />
+                                <gsml:img src="/res/img/school/overview/stars_${cmd.ratings.avgQuality}.gif" alt="${cmd.ratings.avgQuality} out of 5 stars" styleClass="stars" />
+                                <link:schoolProfileAddParentReview school="${school}"><gsml:img src="/res/img/school/parentReviews/submit_RateIt.gif" alt="Rate It" styleClass="rateIt" /></link:schoolProfileAddParentReview>
+
+                                <p class="ratingsNumber">Based on ${cmd.ratings.count} ratings</p>
+                            </div><!-- end: rating_parent -->
+
+                            <ul>
+                                <c:if test="${not empty cmd.ratings.avgPrincipal}">
+                                    <li>Principal leadership<gsml:img src="/res/img/school/parentReviews/stars_sm_${cmd.ratings.avgPrincipal}.gif" alt="${cmd.ratings.avgPrincipal} out of 5 stars" styleClass="sm_stars" /></li>
+                                </c:if>
+                                <c:if test="${not empty cmd.ratings.avgTeachers}">
+                                    <li>Teacher Quality<gsml:img src="/res/img/school/parentReviews/stars_sm_${cmd.ratings.avgTeachers}.gif" alt="${cmd.ratings.avgTeachers} out of 5 stars" styleClass="sm_stars" /></li>
+                                </c:if>
+                                <c:if test="${not empty cmd.ratings.avgActivities}">
+                                    <li>Extracurricular Activities<gsml:img src="/res/img/school/parentReviews/stars_sm_${cmd.ratings.avgActivities}.gif" alt="${cmd.ratings.avgActivities} out of 5 stars" styleClass="sm_stars" /></li>
+                                </c:if>
+                                <c:if test="${not empty cmd.ratings.avgParents}">
+                                    <li>Parent Involvement<gsml:img src="/res/img/school/parentReviews/stars_sm_${cmd.ratings.avgParents}.gif" alt="${cmd.ratings.avgParents} out of 5 stars" styleClass="sm_stars" /></li>
+                                </c:if>
+                                <c:if test="${not empty cmd.ratings.avgSafety}">
+                                    <li>Safety and discipline<gsml:img src="/res/img/school/parentReviews/stars_sm_${cmd.ratings.avgSafety}.gif" alt="${cmd.ratings.avgSafety} out of 5 stars" styleClass="sm_stars" /></li>
+                                </c:if>
+                            </ul>
+
+                            <p class="categoriesMore"><link:parentRatingsExplained>More about these categories &#62;</link:parentRatingsExplained></p>
+                        </div><!-- end: showRatings -->
+                    </c:if>
+
+                    <!--
+                    <school:parentReviewForm school="${school}"/>
+                    -->
+
+
+                    <!-- begin Parent Reviews -->
+                    <c:if test="${cmd.totalReviews gt 0}">
+                        <div id="showParentReviews">
+                        <h2>Parent Reviews <span class="reviewTotal">(${cmd.totalReviews} reviews)</span></h2>
+                        <select id="sltRatingSort" onchange="go(this);" class="sortReviews">
+                            <option value="">Sort by</option>
+                            <option value="dd">Date: newest to oldest</option>
+                            <option value="da">Date: oldest to newest</option>
+                            <option value="rd">Rating: highest to lowest</option>
+                            <option value="ra">Rating: lowest to highest</option>
+                        </select>
+                        <script type="text/javascript">initSortBy();</script>
+                        <pg:pager
+                                maxPageItems="${cmd.maxReviewsPerPage}"
+                                items="${cmd.totalReviews}"
+                                maxItems="${cmd.totalReviews}"
+                                url="/school/parentReviews.page"
+                                export="currentPage=pageNumber"
+                                >
+                            <pg:param name="id" value="${cmd.school.id}"/>
+                            <pg:param name="state" value="${stateAbbrev}"/>
+                            <pg:param name="${param_sortby}" value="${cmd.sortBy}"/>
+
+                            <div class="pageControls">
+                                <pg:last><p class="pageNumber">Page ${currentPage} of ${pageNumber}</p></pg:last>
+                                <pg:next><div class="nextPage"><gsml:a href="${pageUrl}"><gsml:img src="/res/img/school/parentReviews/nextPage.gif" alt="Next page" /></gsml:a></div></pg:next>
+                                <pg:prev><div class="previousPage"><gsml:a href="${pageUrl}"><gsml:img src="/res/img/school/parentReviews/previousPage.gif" alt="Previous page" /></gsml:a></div></pg:prev>
+                            </div>
+                            <c:forEach var="review" items="${cmd.reviews}">
+                                <pg:item>
+                                    <div class="review">
+                                        <c:if test="${review.quality.name ne 'decline'}">
+                                            <gsml:img src="/res/img/school/parentReviews/stars_med_${review.quality.name}.gif" styleClass="stars" alt="${review.quality.name} out of 5 stars" />
+                                        </c:if>
+                                        <p class="author">Posted by a ${review.who} ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}</p>
+                                        <p>${review.comments}</p>
+                                        <p class="respond"><link:schoolProfileAddParentReview school="${school}">Respond by writing a review</link:schoolProfileAddParentReview></p>
+                                    </div><!-- end: review -->
+                                </pg:item>
+                            </c:forEach>
+
+                            <div class="pageControls bottomNav">
+                                <pg:last><p class="pageNumber">Page ${currentPage} of ${pageNumber}</p></pg:last>
+                                <pg:next><div class="nextPage"><gsml:a href="${pageUrl}"><gsml:img src="/res/img/school/parentReviews/nextPage.gif" alt="Next page" /></gsml:a></div></pg:next>
+                                <pg:prev><div class="previousPage"><gsml:a href="${pageUrl}"><gsml:img src="/res/img/school/parentReviews/previousPage.gif" alt="Previous page" /></gsml:a></div></pg:prev>
+                            </div><!-- end: pageControls -->
+                        </pg:pager>
+                        </div><!-- end: showParentReviews -->
+                        <link:schoolProfileAddParentReview school="${school}"><gsml:img src="/res/img/school/parentReviews/promo_DoYouAgree.gif" alt="Do you agree with what parents wrote about this school? Review this school and tell us what you think!" id="reviewPromo" /></link:schoolProfileAddParentReview>                        
+                    </c:if>
+
+                    <!-- begin Callouts -->
+                    <div id="callouts">
+                        <div class="learnMore"><p><link:parentReviewsLearnMore>Learn more</link:parentReviewsLearnMore> about parent reviews and read about the <link:parentReviewGuidelines>types of reviews</link:parentReviewGuidelines> we post.</p></div>
+                        <div class="feedback"><p>Were these ratings and reviews helpful to you? <a href="" title="">Give us feedback &#62;</a></p></div>
+                        <div class="tellUsMore"><p>Principals and school officials, we encourage you to <link:schoolProfileEspLogin school="${school}">tell us more about your school</link:schoolProfileEspLogin></p></div>
+                    </div><!-- end: callouts -->
+
+                    <p class="disclaimer">Parent ratings and review do not represent the views of GreatSchools.net nor does GreatSchools.net check their accuracy or verify the reviewers' identities. Use your discretion when evaluating these reviews.</p>
+                </div><!-- end: col_left" -->
+
+                <div id="col_right">
+                    <ad:setSlotPrefix slotPrefix="School_Profile_Page_Parent_Reviews"/>
+                    <ad:x11/>
+                    <ad:Top_300x137/>
+                    <ad:x48/>
+                    <ad:AboveFold_300x250/>
+                    <ad:multiTextAd blurb="Advertiser links"/>
+                    <school:nearbySchools school="${school}"/>
+                </div><!-- end: col_right -->
+        </div><!-- end: parentReview -->
+        </school:profile>
+        <mod:tracking pageType="school"
+                      pageName="Parent Reviews"
+                      hier1="School,Parent Reviews"
+                      school="${school}"
+                />
+    </gsml:body>
+    </html>
+</jsp:root>

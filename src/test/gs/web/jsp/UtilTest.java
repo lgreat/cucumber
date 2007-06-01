@@ -2,6 +2,9 @@ package gs.web.jsp;
 
 import junit.framework.TestCase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  * @author Chris Kimm <mailto:chriskimm@greatschools.net>
  */
@@ -97,4 +100,54 @@ public class UtilTest extends TestCase {
         assertEquals("abcdefgh", Util.abbreviateAtWhitespace("abcdefgh", 10));
         assertEquals("abc...", Util.abbreviateAtWhitespace("abc   defgh", 8));
     }
+
+    public void testPluralize() throws Exception {
+        assertEquals("cats", Util.pluralize(0, "cat"));
+        assertEquals("cat", Util.pluralize(1, "cat"));
+        assertEquals("cats", Util.pluralize(2, "cat"));
+        assertEquals("too many cats", Util.pluralize(3, "cat", "too many cats"));
+
+        try {
+            Util.pluralize(0, "", null);
+            fail("passed a null plural form");
+        } catch(IllegalArgumentException e) {}
+
+        try {
+            Util.pluralize(0, null);
+            fail("passed a null word");
+        } catch(IllegalArgumentException e) {}
+
+        try {
+            Util.pluralize(0, null);
+            fail("passed a null word and plural word");
+        } catch(IllegalArgumentException e) {}
+    }
+
+    public void testPeriodBetweenDates() throws Exception {
+        assertEquals("", d("2002-1-2", "2002-1-1"));
+        assertEquals("today", d("2002-1-1", "2002-1-1"));
+        assertEquals("one year ago", d("2002-1-1", "2003-1-1"));
+        assertEquals("two years ago", d("2002-1-1", "2004-1-1"));
+        assertEquals("two years and one month ago", d("2002-1-1", "2004-2-1"));
+        assertEquals("two years and one month ago", d("2002-1-1", "2004-2-2"));
+
+        assertEquals("one month ago", d("2002-1-1", "2002-2-2"));
+        assertEquals("thirty days ago", d("2002-1-2", "2002-2-1"));
+        assertEquals("one month ago", d("2002-1-2", "2002-2-2"));
+        assertEquals("two months ago", d("2002-1-1", "2002-3-28"));
+
+        assertEquals("one month ago", d("2003-1-1", "2003-2-28"));
+        assertEquals("twenty two days ago", d("2002-1-29", "2002-2-20"));
+
+        assertEquals("one day ago", d("2002-1-1", "2002-1-2"));
+        assertEquals("two days ago", d("2002-1-1", "2002-1-3"));
+    }
+
+    static String d(String start, String end) throws ParseException {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return Util.periodBetweenDates(df.parse(start), df.parse(end));
+    }
+
+    
+
 }

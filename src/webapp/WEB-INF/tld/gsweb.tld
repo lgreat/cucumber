@@ -50,6 +50,13 @@
             capitalize(java.lang.String)</function-signature>
     </function>
 
+    <function>
+        <name>periodBetweenDates</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>java.lang.String
+            periodBetweenDates(java.util.Date, java.util.Date)</function-signature>        
+    </function>
+
     <tag>
         <name>stateSelector</name>
         <tag-class>gs.web.state.StateSelectorTagHandler</tag-class>

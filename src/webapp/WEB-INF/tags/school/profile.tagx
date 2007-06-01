@@ -236,7 +236,8 @@
             </c:if>
 
             <td>
-                <link:schoolProfileParentReview school="${school}" title="${school.name} Parent Reviews">
+                <link:schoolProfileParentReview school="${school}" styleClass="${(tab eq 'parentReviews') ? 'on' : ''}" 
+                                                title="${school.name} Parent Reviews">
                     Parent<br/>
                     Reviews
                 </link:schoolProfileParentReview>
