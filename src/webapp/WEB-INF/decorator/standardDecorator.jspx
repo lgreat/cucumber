@@ -96,7 +96,7 @@
 
                             <c:set var="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
 
-                            <gsml:a href="/about/aboutUs.page">About Us</gsml:a> &#124;
+                            <a href="/about/aboutUs.page" style="padding-left:0;">About Us</a> &#124;
 
                             <gsml:a href="/about/supportUs.page">Support Us</gsml:a> &#124;
 

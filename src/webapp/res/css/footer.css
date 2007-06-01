@@ -39,7 +39,7 @@
 
 #footerGS .lowernavbar a:link,
     #footerGS .lowernavbar a:visited {
-    padding: 0 10px 0 0;
+    padding: 0 10px 0 10px;
     text-decoration: none;
     text-transform: uppercase;
 }
