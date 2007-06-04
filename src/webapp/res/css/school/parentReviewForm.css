@@ -2,6 +2,7 @@
 	width: 356px;
 	margin: 0 0 6px 0;
 	float: left;
+    font-family: Trebuchet MS, sans-serif;
 }
 
 #rateReview_module {
@@ -77,7 +78,8 @@
 	font-size: 12px;
 	color: #666;
 	margin: 1px 0 10px 6px;
-	_margin: 3px 0 10px 3px; /* IE 6 hack */
+    font-family: Trebuchet MS, sans-serif;
+    _margin: 3px 0 10px 3px; /* IE 6 hack */
     _height: 15px; /* IE 6 hack */
     _float: left; /* IE 6 hack */
 }
