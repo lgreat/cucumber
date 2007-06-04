@@ -47,6 +47,7 @@
     <li><a href="#foundations">Foundations</a></li>
     <li><a href="#media">Major Media Partners</a></li>
     <li><a href="#education">Education Partners</a></li>
+    <li><a href="#outreach">Outreach Partners</a></li>
     <li><a href="#corporate">Corporate/In-Kind Donations</a></li>
     <li><a href="#realestate">Real Estate/Web Developer Partners</a></li>
     <li><a href="#advertising">Advertising Sponsorships</a></li>
@@ -75,7 +76,6 @@
 <h3>Major Media Partners</h3>
 <ul class="singleSpacedList">
 
-    <li>AOL</li>
     <li><a href="http://realestate.yahoo.com">Yahoo! Real Estate</a></li>
     <li>azcentral.com</li>
     <li>BabyCenter.com</li>
@@ -85,6 +85,7 @@
     <li>MSN Encarta</li>
     <li>latimes.com</li>
     <li>MySanAntonio.com</li>
+    <li>New York Times</li>
     <li>OrlandoSentinel.com</li>
     <li><a href="http://www.family.com">Disney Family.com</a></li>
     <li>SFGate.com</li>
@@ -96,14 +97,24 @@
 <h3>Education Partners</h3>
 <ul class="singleSpacedList">
 
-    <li>Denver Public Schools</li>
+    <li>College Board</li>
     <li><i>Education Week</i></li>
     <li>Just for the Kids</li>
-    <li>National Center for Education Statistics</li>
-    <li>New York City Public Schools</li>
+    <li>Fund for Public Schools</li>    
     <li>Partnership for Learning</li>
     <li>Scholastic</li>
     <li>United States Department of Education</li>
+</ul>
+
+<![CDATA[ <a name="outreach"></a> ]]>
+
+<h3>Outreach Partners</h3>
+<ul class="singleSpacedList">
+
+    <li>One Economy Corp.</li>
+    <li>National Council of La Raza</li>
+    <li>National Hispanic Caucus</li>
+    <li>Univision</li>
 </ul>
 
 <![CDATA[ <a name="corporate"></a> ]]>
@@ -130,10 +141,10 @@
     <li>Alan Pinel Realtors</li>
     <li>California Prudential Realty</li>
     <li>Connecting Neighbors</li>
-    <li>E-Agent</li>
+    <li>Cyberhomes.com</li>
+    <li>HomeGain</li>
     <li>OnBoard, LLC</li>
     <li>Realtor Association of Greater Miami</li>
-    <li>RE/Max Greater Atlanta</li>
     <li>Vreo Software, Inc.</li>
 </ul>
 
@@ -142,14 +153,30 @@
 <h3>Advertising Sponsorships</h3>
 <ul class="singleSpacedList">
 
-    <li>Discovery Kids Channel</li>
+    <li>A&amp;E</li> 
+    <li>AOL History Education</li>
+    <li>Century 21</li>
+    <li>Citibank</li>
+    <li>Crayola</li>
     <li>Disney</li>
+    <li>Homegain</li>
     <li>Honda</li>
-    <li>NickJr.com</li>
-    <li>PBS</li>
+    <li>Johnson &amp; Johnson</li>
+    <li>K-12</li>
+    <li>Kaplan</li>
+    <li>Kodak</li>
+    <li>Nissan</li>
+    <li>Quaker</li>
+    <li>SaraLee</li>
+    <li>Scholarshare</li>
+    <li>Scholastic</li> 
     <li><i>SCORE!</i> Educational Centers</li>
+    <li>Shutterfly</li>
     <li>Staples</li>
     <li>Sylvan Learning Systems</li>
+    <li>Target</li>
+    <li>Vonage</li>
+    <li>Verizon</li>
     <li>Zip Realty </li>
 </ul>
 
@@ -166,6 +193,8 @@
         Greatschools is an endorsing partner of the Data Quality Campaign, to provide our users with the highest quality of
         information about schools.
     </div>
+    <li>National Center for Education Statistics</li>
+    <li>State departments of education for all 50 states and Washington, D.C.</li>
 </ul>
 
 </gsml:body>
