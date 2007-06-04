@@ -10,6 +10,9 @@ import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.validator.UserCommandValidator;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.soap.CreateOrUpdateUserRequestBean;
+import gs.web.soap.CreateOrUpdateUserRequest;
+import gs.web.soap.CreateOrUpdateUserRequestException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,7 +40,7 @@ public class RegistrationController extends SimpleFormController implements Read
     private JavaMailSender _mailSender;
     private RegistrationConfirmationEmail _registrationConfirmationEmail;
     private boolean _requireEmailValidation = true;
-    private String _completeView;
+    private String _errorView;
     private AuthenticationManager _authenticationManager;
     public static final String NEWSLETTER_PARAMETER = "newsletterStr";
     public static final String TERMS_PARAMETER = "termsStr";
@@ -186,8 +189,8 @@ public class RegistrationController extends SimpleFormController implements Read
             user.setUserProfile(userProfile);
         }
 
-        if (userProfile.getNumSchoolChildren().intValue() == -1) {
-            userProfile.setNumSchoolChildren(new Integer(0));
+        if (userProfile.getNumSchoolChildren() == -1) {
+            userProfile.setNumSchoolChildren(0);
         }
 
         _userDao.updateUser(user);
@@ -215,6 +218,21 @@ public class RegistrationController extends SimpleFormController implements Read
                 communityNewsletterSubscription.setState(userCommand.getState());
                 _subscriptionDao.saveSubscription(communityNewsletterSubscription);
             }
+            // only notify community on final step
+            CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean
+                    (user.getId(), userProfile.getScreenName(), user.getEmail());
+            CreateOrUpdateUserRequest soapRequest = new CreateOrUpdateUserRequest();
+            try {
+                soapRequest.createOrUpdateUserRequest(bean);
+            } catch (CreateOrUpdateUserRequestException couure) {
+                _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
+                // undo registration
+                user.setEmailProvisional();
+                _userDao.updateUser(user);
+                // send to error page
+                mAndV.setViewName(getErrorView());
+                return mAndV; // early exit!
+            }
 
             if (!user.isEmailProvisional()) {
                 try {
@@ -228,19 +246,14 @@ public class RegistrationController extends SimpleFormController implements Read
             }
             //PageHelper.setMemberAuthorized(request, response, user);
             PageHelper.setMemberCookie(request, response, user);
-            //AuthenticationManager.AuthInfo authInfo = _authenticationManager.generateAuthInfo(user);
             if (StringUtils.isEmpty(userCommand.getRedirectUrl())) {
                 UrlBuilder builder = new UrlBuilder(UrlBuilder.COMMUNITY_LANDING, null, null);
                 builder.addParameter("message", "Thank you for joining the GreatSchools Community! You'll be the first to know when we launch!");
                 userCommand.setRedirectUrl(builder.asFullUrl(request));
             }
-            // bounce to webcrossing so they can create user
-//            mAndV.setViewName("redirect:" + _authenticationManager.generateRedirectUrl
-//                (userCommand.getRedirectUrl(), authInfo));
             mAndV.setViewName("redirect:" + userCommand.getRedirectUrl());
         }
 
-        // generate secure hash so if the followup profile page is submitted, we know who it is
         return mAndV;
     }
 
@@ -260,8 +273,12 @@ public class RegistrationController extends SimpleFormController implements Read
         this._requireEmailValidation = requireEmailValidation;
     }
 
-    public void setCompleteView(String completeView) {
-        _completeView = completeView;
+    public String getErrorView() {
+        return _errorView;
+    }
+
+    public void setErrorView(String errorView) {
+        _errorView = errorView;
     }
 
     public void setRegistrationConfirmationEmail(RegistrationConfirmationEmail registrationConfirmationEmail) {

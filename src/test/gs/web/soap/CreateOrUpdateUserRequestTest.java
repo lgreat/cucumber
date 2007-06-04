@@ -21,6 +21,7 @@ public class CreateOrUpdateUserRequestTest extends BaseTestCase {
      * Test that normal success conditions result in success
      */
     public void testSuccess() {
+        _request.setTarget(CreateOrUpdateUserRequest.DEFAULT_TARGET + "?response=success");
         try {
             _request.createOrUpdateUserRequest(_bean);
         } catch (CreateOrUpdateUserRequestException e) {

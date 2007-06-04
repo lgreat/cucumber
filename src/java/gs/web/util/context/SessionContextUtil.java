@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.15 2007/06/04 17:43:39 thuss Exp $
+ * $Id: SessionContextUtil.java,v 1.16 2007/06/04 21:00:40 aroy Exp $
  */
 
 package gs.web.util.context;
@@ -33,6 +33,8 @@ public class SessionContextUtil implements ApplicationContextAware {
 
     public static final String BEAN_ID = "sessionContextUtil";
 
+    // in seconds: 60 (in a minute) * 60 (in an hour) * 24 (in a day) * 365 (in a year) * 2 = two years
+    public static final int COMMUNITY_COOKIE_MAX_AGE = 60 * 60 * 24 * 365 * 2;
 
     // user can change state by passing a parameter on the command line
     public static final String STATE_PARAM = "state";
@@ -149,9 +151,9 @@ public class SessionContextUtil implements ApplicationContextAware {
                 different user. A member login overrides MSL cookie.
             */
             if (insiderId != -1) {
-                context.setMemberId(new Integer(insiderId));
+                context.setMemberId(insiderId);
             } else if (mslId != -1) {
-                context.setMemberId(new Integer(mslId));
+                context.setMemberId(mslId);
             }
 
             // Bring in the client cache only if it matches the member cookie set above--
@@ -243,8 +245,7 @@ public class SessionContextUtil implements ApplicationContextAware {
             try {
                 id = Integer.parseInt(paramMember);
                 try {
-                    User user = null;
-                    user = _userDao.findUserFromId(id);
+                    User user = _userDao.findUserFromId(id);
                     context.setUser(user);
                 } catch (ObjectRetrievalFailureException e) {
                     _log.warn("HACKER? Bad member id passed as parameter (ignoring): '" +
@@ -276,7 +277,7 @@ public class SessionContextUtil implements ApplicationContextAware {
      * Sets the pathway in both the context and the  pseudo-"session" (the cookie).
      */
     public void setPathway(HttpServletRequest request, HttpServletResponse response, String newPathway) {
-        SessionContext context = (SessionContext) getSessionContext(request);
+        SessionContext context = getSessionContext(request);
         changePathway(context, response, newPathway);
     }
 
@@ -438,8 +439,11 @@ public class SessionContextUtil implements ApplicationContextAware {
         }
 
     }
-
     public void changeAuthorization(HttpServletRequest request, HttpServletResponse response, User user, String hash) {
+        changeAuthorization(request, response, user, hash, false);
+    }
+
+    public void changeAuthorization(HttpServletRequest request, HttpServletResponse response, User user, String hash, boolean rememberMe) {
         if (user != null) {
             ClientSideSessionCache cache = new ClientSideSessionCache(user);
             cache.setUserHash(hash);
@@ -450,7 +454,11 @@ public class SessionContextUtil implements ApplicationContextAware {
             if (StringUtils.isEmpty(_communityCookieGenerator.getCookieName())) {
                 _communityCookieGenerator.setCookieName("community_" + getServerName(request));
                 _communityCookieGenerator.setCookieDomain(".greatschools.net");
-                _communityCookieGenerator.setCookieMaxAge(-1);
+                if (rememberMe) {
+                    _communityCookieGenerator.setCookieMaxAge(COMMUNITY_COOKIE_MAX_AGE);
+                } else {
+                    _communityCookieGenerator.setCookieMaxAge(-1);
+                }
             }
             _communityCookieGenerator.addCookie(response, hash);
         } else {

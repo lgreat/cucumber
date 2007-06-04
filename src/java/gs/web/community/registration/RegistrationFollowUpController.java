@@ -21,6 +21,9 @@ import gs.web.util.ReadWriteController;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
+import gs.web.soap.CreateOrUpdateUserRequestBean;
+import gs.web.soap.CreateOrUpdateUserRequest;
+import gs.web.soap.CreateOrUpdateUserRequestException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,6 +58,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     private IGeoDao _geoDao;
     private RegistrationConfirmationEmail _registrationConfirmationEmail;
     private AuthenticationManager _authenticationManager;
+    private String _errorView;
 
     private Set _contactSubs;
 
@@ -296,6 +300,22 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         // in validation stage above, the command was populated with the actual DB user
         // so this is getting the actual DB user profile
         UserProfile existingProfile = user.getUserProfile();
+
+        // only notify community on final step
+        CreateOrUpdateUserRequestBean bean = new CreateOrUpdateUserRequestBean
+                (user.getId(), existingProfile.getScreenName(), user.getEmail());
+        CreateOrUpdateUserRequest soapRequest = new CreateOrUpdateUserRequest();
+        try {
+            soapRequest.createOrUpdateUserRequest(bean);
+        } catch (CreateOrUpdateUserRequestException couure) {
+            _log.error("SOAP error - " + couure.getErrorCode() + ": " + couure.getErrorMessage());
+            // undo registration
+            // the user is already provisional at this point since they haven't agreed to the terms
+            // send to error page
+            mAndV.setViewName(getErrorView());
+            return mAndV; // early exit!
+        }
+
         if (user.getStudents() != null) {
             user.getStudents().clear();
         }
@@ -479,5 +499,13 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         _authenticationManager = authenticationManager;
+    }
+
+    public String getErrorView() {
+        return _errorView;
+    }
+
+    public void setErrorView(String errorView) {
+        _errorView = errorView;
     }
 }
