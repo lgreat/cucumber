@@ -84,6 +84,19 @@ School Profile header
 	float: none;
 }
 
+#tools p#compare {
+    font: bold 13px "Trebuchet MS", Arial, sans-serif;
+    background: url(../../img/school/tools_compare.gif) no-repeat 0 center;
+    float: left;
+    padding: 0 0 0 17px;
+    margin: 10px 0 0 0;
+    width: 200px;
+}
+
+#tools p#compare a {
+    text-decoration: underline;
+}
+
 #tools a {
 	font: bold 13px/15px "Trebuchet MS", Arial, sans-serif;
 	color: #39a;

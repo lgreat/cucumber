@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: CompareSchoolTagHandler.java,v 1.2 2006/10/17 17:18:52 dlee Exp $
+ * $Id: CompareSchoolTagHandler.java,v 1.3 2007/06/04 21:29:55 chriskimm Exp $
  */
 package gs.web.jsp.link.school;
 
@@ -15,6 +15,7 @@ import gs.web.util.UrlBuilder;
  */
 public class CompareSchoolTagHandler extends BaseSchoolTagHandler {
     private String _sortBy = "distance";
+    private String _from;
 
     protected UrlBuilder createUrlBuilder() {
         School school = getSchool();
@@ -31,6 +32,10 @@ public class CompareSchoolTagHandler extends BaseSchoolTagHandler {
         builder.setParameter("showall", "1");
         builder.setParameter("tab", "over");
 
+        if (_from != null) {
+            builder.setParameter("from", _from);            
+        }
+        
         try {
             Address address = school.getPhysicalAddress();
             if (null != address) {
@@ -51,5 +56,13 @@ public class CompareSchoolTagHandler extends BaseSchoolTagHandler {
 
     public void setSortBy(String sortBy) {
         _sortBy = sortBy;
+    }
+
+    public String getFrom() {
+        return _from;
+    }
+
+    public void setFrom(String from) {
+        _from = from;
     }
 }

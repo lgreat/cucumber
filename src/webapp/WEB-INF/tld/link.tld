@@ -1204,6 +1204,13 @@
             <type>java.lang.String</type>
             <description>The list of schools will be sorted according to the results in this tab</description>
         </attribute>
+        <attribute>
+            <name>from</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>The origin from which the compare page was linked</description>
+        </attribute>
     </tag>
     <tag>
         <name>schoolProfileEspLogin</name>

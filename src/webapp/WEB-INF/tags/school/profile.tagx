@@ -152,15 +152,23 @@
         </link:schoolProfileAddParentReview>
 
         <c:choose>
-            <c:when test="${schoolType != 'private'}">
-                <p class="email">Email me updates about this school</p>
-                <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="true"></promo:mssHover>
+            <c:when test="${requestScope.context.ABVersion eq 'b'}">
+                <p id="compare"><link:schoolCompareSchool school="${school}" from="header">Compare this school</link:schoolCompareSchool></p>
             </c:when>
             <c:otherwise>
-                <p class="email">Email me grade-by-grade updates</p>
-                <promo:nthGraderHover referredBy="schoolProfile" isForm="true"></promo:nthGraderHover>
+                <c:choose>
+                    <c:when test="${schoolType != 'private'}">
+                        <p class="email">Email me updates about this school</p>
+                        <promo:mssHover referredBy="schoolProfile" school="${school}" isForm="true"></promo:mssHover>
+                    </c:when>
+                    <c:otherwise>
+                        <p class="email">Email me grade-by-grade updates</p>
+                        <promo:nthGraderHover referredBy="schoolProfile" isForm="true"></promo:nthGraderHover>
+                    </c:otherwise>
+                </c:choose>
             </c:otherwise>
         </c:choose>
+
     </div>
     <!-- end tools -->
 
@@ -279,7 +287,7 @@
             </td>
 -->
             <td class="last">
-                <link:schoolCompareSchool school="${school}" styleClass="last">
+                <link:schoolCompareSchool school="${school}" styleClass="last" from="tab">
                     Compare<br/>
                     Schools
                 </link:schoolCompareSchool>

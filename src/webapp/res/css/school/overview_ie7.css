@@ -65,8 +65,8 @@ hr {
 #ratingsParentOnly #rating_parent {
 	float: right;
 	text-align: center;
-	margin: 15px 45px 0 0;
-	width: 102px;
+	margin: 15px 40px 0 0;
+	width: 115px;
 }
 
 #ratingsGSOnly #rating_gs img {
