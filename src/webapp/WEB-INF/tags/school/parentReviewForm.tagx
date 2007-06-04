@@ -90,7 +90,7 @@
     </c:set>
 
     <c:if test="${pageName eq 'parentReviews'}">
-        <h2 id="rateReviewH2">Rate &amp; Review This School</h2>
+        <h2 id="rateReviewH2">Rate &amp; Review ${school.name}</h2>
     </c:if>
     <div id="rateReview">
         <c:if test="${pageName ne 'parentReviews'}">
