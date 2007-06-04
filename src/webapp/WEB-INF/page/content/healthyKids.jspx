@@ -57,7 +57,7 @@
         <h2 id="healthyEating">Healthy Eating Made Easy</h2>
         <ul class="plain">
             <gsweb:articlelink articleId="552" wrappingElement="li"/>
-            <gsweb:articlelink articleId="411" wrappingElement="li"/>
+            <gsweb:articlelink articleId="330" wrappingElement="li"/>
             <gsweb:articlelink articleId="721" wrappingElement="li"/>
             <gsweb:articlelink articleId="339" wrappingElement="li"/>
             <gsweb:articlelink articleId="693" wrappingElement="li"/>
