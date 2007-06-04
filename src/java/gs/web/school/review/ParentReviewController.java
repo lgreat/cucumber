@@ -28,6 +28,7 @@ public class ParentReviewController extends AbstractSchoolController {
 
     protected static final int MAX_REVIEWS_PER_PAGE = 4; //number of reviews per page
     protected static final String PARAM_SORT_BY = "sortBy";
+    protected static final String PARAM_PAGER_OFFSET = "pager.offset";
 
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -74,6 +75,13 @@ public class ParentReviewController extends AbstractSchoolController {
                 cmd.setMaxReviewsPerPage(MAX_REVIEWS_PER_PAGE);
             }
 
+            String pagerOffset = (String) request.getParameter(PARAM_PAGER_OFFSET);
+            if (StringUtils.isBlank(pagerOffset) || "0".equals(pagerOffset)) {
+                cmd.setShowParentReviewForm(true);
+            } else {
+                cmd.setShowParentReviewForm(false);
+            }
+                        
             model.put("cmd", cmd);
             model.put("param_sortby", PARAM_SORT_BY);
         }
@@ -89,7 +97,7 @@ public class ParentReviewController extends AbstractSchoolController {
         private String _sortBy;
         private Ratings _ratings;
         private int _maxReviewsPerPage;
-
+        private boolean _showParentReviewForm;
 
         public School getSchool() {
             return _school;
@@ -146,6 +154,14 @@ public class ParentReviewController extends AbstractSchoolController {
 
         public void setMaxReviewsPerPage(int maxReviewsPerPage) {
             _maxReviewsPerPage = maxReviewsPerPage;
+        }
+
+        public boolean isShowParentReviewForm() {
+            return _showParentReviewForm;
+        }
+
+        public void setShowParentReviewForm(boolean showParentReviewForm) {
+            _showParentReviewForm = showParentReviewForm;
         }
     }
 

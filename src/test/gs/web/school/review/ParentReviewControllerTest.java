@@ -165,4 +165,35 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         assertNotNull(cmd);
         assertTrue("crawler should get all ratings on one page", cmd.getMaxReviewsPerPage() > ParentReviewController.MAX_REVIEWS_PER_PAGE);
     }
+
+    public void testShowParentReviewModuleFormOnlyAppearsOnFirstPage() throws Exception {
+        GsMockHttpServletRequest request = getRequest();
+        request.setAttribute("state", State.CA);
+        request.setParameter("id", "1");
+        request.setParameter(ParentReviewController.PARAM_SORT_BY, "ra");
+        request.setMethod("GET");
+        request.setParameter(ParentReviewController.PARAM_PAGER_OFFSET, "1");
+        MockSessionContext context = new MockSessionContext();
+        context.setCrawler(true);
+        context.setState(State.CA);
+        request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, context);
+
+        ModelAndView mAndV = _controller.handleRequest(request, getResponse());
+        ParentReviewController.ParentReviewCommand cmd =
+                (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
+        assertNotNull(cmd);
+        assertFalse("not on first page since offset is not zero so don't show form", cmd.isShowParentReviewForm());
+
+        request.setParameter(ParentReviewController.PARAM_PAGER_OFFSET, "0");
+        mAndV = _controller.handleRequest(request, getResponse());
+        cmd = (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
+        assertNotNull(cmd);
+        assertTrue("on first page since offset is zero so show form", cmd.isShowParentReviewForm());
+
+        request.removeParameter(ParentReviewController.PARAM_PAGER_OFFSET);
+        mAndV = _controller.handleRequest(request, getResponse());
+        cmd = (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
+        assertNotNull(cmd);
+        assertTrue("on first page since offset is not set so show form", cmd.isShowParentReviewForm());
+    }
 }

@@ -7,14 +7,95 @@
           xmlns:gsweb="gstaglib">
 
     <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
+    <jsp:directive.attribute name="pageName" required="false" description="Page this module appears on"/>
     <pageHelper:externalCss file="/res/css/school/parentReviewForm.css"/>
     <pageHelper:externalJavascript file="/res/js/parentReviewForm.js"/>
 
     <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
     <c:set var="schoolId" value="${school.id}"/>
+    <c:set var="commentInputBox">
+        <c:set var="comment" value="${(not empty param.comments) ? param.comments : 'Enter your review here'}" />
+        <textarea id="reviewText"
+                  onkeyup="countWords(this)"
+                  onkeydown="countWords(this)"
+                  onfocus="if(this.value=='Enter your review here'){this.value='';}" name="comments"
+                  rows="" cols="">${comment}</textarea>
+    </c:set>
 
+    <c:set var="defaultLayout">
+        ${commentInputBox}
+        <div id="acceptTerms">
+            <input name="permit" type="checkbox" checked="checked"/><label>I'm a</label>
+            <select name="who">
+                <option value="parent">parent</option>
+                <option value="student">student</option>
+                <option value="teacher">teacher</option>
+                <option value="principal">principal</option>
+                <option value="other">other</option>
+            </select>
+            <label>and I accept the <gsml:a href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></label>
+        </div>
+
+        <c:if test="${school.type.schoolTypeName ne 'private'}">
+            <div id="acceptUpdates">
+                <input type="checkbox" name="mssSignup" value="yes" checked="checked"/><label>Email me monthly
+                updates about this school</label>
+            </div>
+        </c:if>
+
+        <input type="text" name="email" id="reviewEmail"
+               onfocus="if(this.value=='Enter your email address'){this.value='';}"
+               value="Enter your email address" class="emailAddress"/>
+        <input id="submitReview" onmouseout="this.src='/res/img/school/review/submitReview.gif';"
+               onmouseover="this.src='/res/img/school/review/submitReview_over.gif';"
+               class="button" alt="GO" src="/res/img/school/review/submitReview.gif" type="image" />
+    </c:set>
+
+    <c:set var="parentReviewsPageLayout">
+        ${commentInputBox}
+        <table border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td><input checked="checked" type="checkbox" name="permit" /></td>
+                <td>
+                    <!-- added spaces to label, added class to select -->
+                    <label>I'm a&amp;nbsp;</label>
+                    <select name="who" class="select">
+                        <option value="parent">parent</option>
+                        <option value="student">student</option>
+                        <option value="teacher">teacher</option>
+                        <option value="principal">principal</option>
+                        <option value="other">other</option>
+                    </select>
+                    &amp;nbsp;and I accept</td></tr>
+            <tr>
+                <td>&amp;nbsp;</td>
+                <td valign="top">
+                    <span class="label2">the <gsml:a href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></span>
+                </td>
+            </tr>
+            <tr>
+                <td id="acceptUpdates">
+                    <input checked="checked" value="yes" name="mssSignup" type="checkbox"/>
+                </td>
+                <td>
+                    <label>Send me updates about this school</label>
+                </td>
+            </tr>
+        </table>
+        <input type="text" name="email" id="reviewEmail"
+               onfocus="if(this.value=='Enter your email address'){this.value='';}"
+               value="Enter your email address" class="emailAddress"/>
+        <input id="submitReview"
+               class="button" alt="GO" src="/res/img/school/parentReviews/submit.gif" type="image" />
+    </c:set>
+
+    <c:if test="${pageName eq 'parentReviews'}">
+        <h2 id="rateReviewH2">Rate &amp; Review This School</h2>
+    </c:if>
     <div id="rateReview">
-        <h2><a name="rReview">Rate ${school.name}</a></h2>
+        <c:if test="${pageName ne 'parentReviews'}">
+            <h2><a name="rReview">Rate ${school.name}</a></h2>
+        </c:if>
         <div id="rateReview_module">
             <div id="ratingTitle">Rate this school</div>
             <div class="starbar active">
@@ -46,47 +127,21 @@
                        class="s1"><span class="starLink">1</span></div>
                 </div>
             </div>
-            
             <gsweb:form action="/cgi-bin/send_rating/${state}/${schoolId}/" method="post" onsubmit="setSubmitFields();">
-
                 <input type="hidden" name="schoolname" value="${school.name}" />
                 <input type="hidden" name="schooltype" value="${school.type.schoolTypeName}" />
                 <input type="hidden" name="source" value="overview" />
                 <input type="hidden" name="recontact" value="N" />
-                <input id="quality" type="hidden" name="quality" value="decline" />                
+                <input id="quality" type="hidden" name="quality" value="decline" />
                 <input id="confirm" type="hidden" name="confirm" value="" />
-
-                <c:set var="comment" value="${(not empty param.comments) ? param.comments : 'Enter your review here'}" />
-                <textarea id="reviewText"
-                          onkeyup="countWords(this)"
-                          onkeydown="countWords(this)"
-                          onfocus="if(this.value=='Enter your review here'){this.value='';}" name="comments"
-                          rows="" cols="">${comment}</textarea>
-                <div id="acceptTerms">
-                    <input name="permit" type="checkbox" checked="checked"/><label>I'm a</label>
-                    <select name="who">
-                        <option value="parent">parent</option>
-                        <option value="student">student</option>
-                        <option value="teacher">teacher</option>
-                        <option value="principal">principal</option>
-                        <option value="other">other</option>
-                    </select>
-                    <label>and I accept the <gsml:a href="/cgi-bin/static/terms.html/${state}/#permission" title="Terms of Use" target="_blank">Terms of Use</gsml:a></label>
-                </div>
-
-                <c:if test="${school.type.schoolTypeName ne 'private'}">
-                    <div id="acceptUpdates">
-                        <input type="checkbox" name="mssSignup" value="yes" checked="checked"/><label>Email me monthly
-                        updates about this school</label>
-                    </div>
-                </c:if>
-
-                <input type="text" name="email" id="reviewEmail"
-                       onfocus="if(this.value=='Enter your email address'){this.value='';}"
-                       value="Enter your email address" class="emailAddress"/>
-                <input id="submitReview" onmouseout="this.src='/res/img/school/review/submitReview.gif';"
-                       onmouseover="this.src='/res/img/school/review/submitReview_over.gif';"
-                       class="button" alt="GO" src="/res/img/school/review/submitReview.gif" type="image" />
+                <c:choose>
+                    <c:when test="${pageName eq 'parentReviews'}">
+                        ${parentReviewsPageLayout}
+                    </c:when>
+                    <c:otherwise>
+                        ${defaultLayout}
+                    </c:otherwise>
+                </c:choose>
             </gsweb:form>
             <p class="privacyPolicy">GreatSchools <gsml:a href="/cgi-bin/static/privacy.inc/${state}" title="Privacy Policy" target="_blank">Privacy Policy</gsml:a></p>
         </div>
