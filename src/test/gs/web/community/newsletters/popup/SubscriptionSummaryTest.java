@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.net. All Rights Reserved.
- * $Id: SubscriptionSummaryTest.java,v 1.17 2007/05/14 21:54:02 aroy Exp $
+ * $Id: SubscriptionSummaryTest.java,v 1.18 2007/06/04 23:57:09 aroy Exp $
  */
 package gs.web.community.newsletters.popup;
 
@@ -20,6 +20,7 @@ import gs.web.util.validator.StateValidator;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.validation.BindException;
+import org.springframework.validation.Validator;
 
 import java.util.*;
 
@@ -44,7 +45,7 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
         _controller.setSchoolDao(new MockSchoolDao());
         _controller.setUserDao(new MockUserDao());
 
-        List onLoadValidators = new ArrayList();
+        List<Validator> onLoadValidators = new ArrayList<Validator>();
         onLoadValidators.add(new EmailValidator());
         onLoadValidators.add(new StateValidator());
         onLoadValidators.add(new SchoolIdValidator());
@@ -230,7 +231,7 @@ public class SubscriptionSummaryTest extends BaseControllerTestCase {
             return null;
         }
 
-        public List findSchoolsInCityByGrade(State state, String city, Grade gradeLevel) {
+        public List<School> findSchoolsInCityByGrade(State state, String city, Grade gradeLevel) {
             return null;
         }
 

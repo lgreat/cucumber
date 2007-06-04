@@ -12,7 +12,6 @@ import gs.data.geo.IGeoDao;
 import gs.data.admin.IPropertyDao;
 import gs.web.BaseControllerTestCase;
 import org.springframework.validation.BindException;
-import org.springframework.web.servlet.ModelAndView;
 import org.easymock.MockControl;
 import org.easymock.AbstractMatcher;
 
@@ -83,11 +82,11 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _user = new User();
         UserProfile userProfile = new UserProfile();
         _user.setEmail("RegistrationFollowUpControllerTest@greatschools.net");
-        _user.setId(new Integer(456));
+        _user.setId(456);
 
         userProfile.setUser(_user);
         userProfile.setScreenName("screeny");
-        userProfile.setNumSchoolChildren(new Integer(1));
+        userProfile.setNumSchoolChildren(1);
         _user.setUserProfile(userProfile);
         //_command.setUser(_user);
 
@@ -158,7 +157,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         Student student = new Student();
         student.setState(State.CA);
         student.setGrade(Grade.G_6);
-        student.setOrder(new Integer(1));
+        student.setOrder(1);
         String city = "Alameda";
 
         assertEquals(0, _command.getSchools().size());
@@ -173,7 +172,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _command.setNewsletter(false);
 
         Student student = new Student();
-        student.setSchoolId(new Integer(1));
+        student.setSchoolId(1);
         student.setState(State.CA);
         _command.addStudent(student);
         _command.addStudent(student); // second student shares school
@@ -194,7 +193,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         sub.setUser(_user);
         sub.setProduct(SubscriptionProduct.PARENT_CONTACT);
         sub.setState(State.CA);
-        sub.setSchoolId(student.getSchoolId().intValue());
+        sub.setSchoolId(student.getSchoolId());
         // but only one, because 2nd student shares school, and 3rd student has no school listed
         _subscriptionDao.saveSubscription(sub);
         _subscriptionControl.setMatcher(new SubscriptionMatcher());
@@ -282,11 +281,11 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _command.setTerms(true);
         School school = new School();
         school.setName("School");
-        school.setId(new Integer(24));
+        school.setId(24);
 
         Student student = new Student();
         student.setGrade(Grade.G_6);
-        student.setSchoolId(new Integer(24));
+        student.setSchoolId(24);
         student.setState(State.CA);
         _command.addStudent(student);
 
@@ -300,12 +299,12 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         _schoolControl.verify();
         assertFalse(_errors.toString(), _errors.hasErrors());
         assertEquals(1, _command.getSchoolNames().size());
-        assertEquals("School", _command.getSchoolNames().get(0).toString());
+        assertEquals("School", _command.getSchoolNames().get(0));
     }
 
     public void testRegistrationSubscribesToCommunityNewsletter() throws Exception {
         FollowUpCommand followUpCommand = new FollowUpCommand();
-        followUpCommand.getUser().setId(new Integer(345)); // to fake the database save
+        followUpCommand.getUser().setId(345); // to fake the database save
         followUpCommand.getUser().setEmail("a");
         UserProfile userProfile = new UserProfile();
         userProfile.setNumSchoolChildren(Integer.valueOf("0"));
@@ -325,14 +324,14 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         setUpNiceUserDao();
 
         followUpCommand.setNewsletter(true);
-        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), followUpCommand, null);
+        _controller.onSubmit(getRequest(), getResponse(), followUpCommand, null);
 
         _subscriptionControl.verify();
     }
 
     public void testRegistrationDoesNotSubscribeToCommunityNewsletter() throws Exception {
         FollowUpCommand followUpCommand = new FollowUpCommand();
-        followUpCommand.getUser().setId(new Integer(345)); // to fake the database save
+        followUpCommand.getUser().setId(345); // to fake the database save
         followUpCommand.getUser().setEmail("a");
         UserProfile userProfile = new UserProfile();
         userProfile.setNumSchoolChildren(Integer.valueOf("0"));
@@ -349,7 +348,7 @@ public class RegistrationFollowUpControllerTest extends BaseControllerTestCase {
         setUpNiceUserDao();
 
         followUpCommand.setNewsletter(false);
-        ModelAndView mAndV = _controller.onSubmit(getRequest(), getResponse(), followUpCommand, null);
+        _controller.onSubmit(getRequest(), getResponse(), followUpCommand, null);
 
         _subscriptionControl.verify();
     }

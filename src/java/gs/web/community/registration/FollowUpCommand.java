@@ -5,6 +5,8 @@ import gs.data.community.UserProfile;
 import gs.data.community.Student;
 import gs.data.community.Subscription;
 import gs.data.state.State;
+import gs.data.geo.City;
+import gs.data.school.School;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -20,15 +22,15 @@ public class FollowUpCommand {
     protected final Log _log = LogFactory.getLog(getClass());
     private User _user;
     private UserProfile _userProfile;
-    private List _students;
+    private List<Student> _students;
     private String _marker;
-    private List _schoolNames;
-    private List _cityNames;
-    private List _cityList;
-    private List _previousSchoolNames;
-    private List _subscriptions;
+    private List<String> _schoolNames;
+    private List<String> _cityNames;
+    private List<List<City>> _cityList;
+    private List<String> _previousSchoolNames;
+    private List<Subscription> _subscriptions;
     private String _recontact;
-    private List _schools;
+    private List<List<School>> _schools;
     private boolean _terms = true;
     private String _redirect;
     private boolean _newsletter = true;
@@ -37,13 +39,13 @@ public class FollowUpCommand {
     public FollowUpCommand() {
         _user = new User();
         _userProfile = new UserProfile();
-        _students = new ArrayList();
-        _schoolNames = new ArrayList();
-        _schools = new ArrayList();
-        _cityList = new ArrayList();
-        _cityNames = new ArrayList();
-        _previousSchoolNames = new ArrayList();
-        _subscriptions = new ArrayList();
+        _students = new ArrayList<Student>();
+        _schoolNames = new ArrayList<String>();
+        _schools = new ArrayList<List<School>>();
+        _cityList = new ArrayList<List<City>>();
+        _cityNames = new ArrayList<String>();
+        _previousSchoolNames = new ArrayList<String>();
+        _subscriptions = new ArrayList<Subscription>();
     }
 
     public String getRedirect() {
@@ -79,11 +81,11 @@ public class FollowUpCommand {
         return getUser().getId();
     }
 
-    public List getCityNames() {
+    public List<String> getCityNames() {
         return _cityNames;
     }
 
-    public void setCityNames(List cityNames) {
+    public void setCityNames(List<String> cityNames) {
         _cityNames = cityNames;
     }
 
@@ -91,15 +93,15 @@ public class FollowUpCommand {
         _cityNames.add(cityName);
     }
 
-    public List getCityList() {
+    public List<List<City>> getCityList() {
         return _cityList;
     }
 
-    public void addCityList(List list) {
+    public void addCityList(List<City> list) {
         getCityList().add(list);
     }
 
-    public void setCityList(List cityList) {
+    public void setCityList(List<List<City>> cityList) {
         _cityList = cityList;
     }
 
@@ -131,11 +133,11 @@ public class FollowUpCommand {
         _marker = marker;
     }
 
-    public List getStudents() {
+    public List<Student> getStudents() {
         return _students;
     }
 
-    public void setStudents(List students) {
+    public void setStudents(List<Student> students) {
         _students = students;
     }
 
@@ -151,11 +153,11 @@ public class FollowUpCommand {
         // ignore -- this is so JSTL treats this as a bean property
     }
 
-    public List getSchoolNames() {
+    public List<String> getSchoolNames() {
         return _schoolNames;
     }
 
-    public void setSchoolNames(List schoolNames) {
+    public void setSchoolNames(List<String> schoolNames) {
         _schoolNames = schoolNames;
     }
 
@@ -179,11 +181,11 @@ public class FollowUpCommand {
         getSubscriptions().add(sub);
     }
 
-    public List getSubscriptions() {
+    public List<Subscription> getSubscriptions() {
         return _subscriptions;
     }
 
-    public void setSubscriptions(List subscriptions) {
+    public void setSubscriptions(List<Subscription> subscriptions) {
         _subscriptions = subscriptions;
     }
 
@@ -191,11 +193,11 @@ public class FollowUpCommand {
         return getSubscriptions().size();
     }
 
-    public List getPreviousSchoolNames() {
+    public List<String> getPreviousSchoolNames() {
         return _previousSchoolNames;
     }
 
-    public void setPreviousSchoolNames(List previousSchoolNames) {
+    public void setPreviousSchoolNames(List<String> previousSchoolNames) {
         _previousSchoolNames = previousSchoolNames;
     }
 
@@ -211,11 +213,11 @@ public class FollowUpCommand {
         _recontact = recontact;
     }
 
-    public void addSchools(List schools) {
+    public void addSchools(List<School> schools) {
         _schools.add(schools);
     }
 
-    public List getSchools() {
+    public List<List<School>> getSchools() {
         return _schools;
     }
 

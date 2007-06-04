@@ -39,7 +39,6 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     public static final String BEAN_ID = "/community/registration2.page";
     protected final Log _log = LogFactory.getLog(getClass());
 
-    private static final int MAX_CHILDREN = 11;
     public static final int NUMBER_PREVIOUS_SCHOOLS = 3;
     public static final int ABOUT_ME_MAX_LENGTH = 3000;
     public static final int STUDENT_NAME_MAX_LENGTH = 50;
@@ -60,7 +59,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     private AuthenticationManager _authenticationManager;
     private String _errorView;
 
-    private Set _contactSubs;
+    private Set<String> _contactSubs;
 
     protected void onBindOnNewForm(HttpServletRequest request, Object command, BindException errors) throws Exception {
         super.onBindOnNewForm(request, command);
@@ -74,7 +73,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         }
         String city = fupCommand.getUserProfile().getCity();
         for (int x = 0; x < 1 || (fupCommand.getUserProfile().getNumSchoolChildren() != null &&
-                x < fupCommand.getUserProfile().getNumSchoolChildren().intValue()); x++) {
+                x < fupCommand.getUserProfile().getNumSchoolChildren()); x++) {
             Student student = new Student();
             student.setState(state);
             fupCommand.addStudent(student);
@@ -88,7 +87,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         FollowUpCommand fupCommand = (FollowUpCommand) command;
 
         bindRequestData(request, fupCommand, errors);
-        for (int x=0; x < fupCommand.getUserProfile().getNumSchoolChildren().intValue(); x++) {
+        for (int x=0; x < fupCommand.getUserProfile().getNumSchoolChildren(); x++) {
             loadCityList(request, fupCommand, errors, x+1);
         }
     }
@@ -120,7 +119,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         }
 
         for (int x=0; fupCommand.getUserProfile().getNumSchoolChildren() != null &&
-                x < fupCommand.getUserProfile().getNumSchoolChildren().intValue(); x++) {
+                x < fupCommand.getUserProfile().getNumSchoolChildren(); x++) {
             int childNum = x+1;
             if (request.getParameter("grade" + childNum) != null) {
                 parseStudent(request, fupCommand, errors, childNum);
@@ -135,7 +134,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     protected void loadCityList(HttpServletRequest request, FollowUpCommand fupCommand, BindException errors, int childNum) {
         State state;
         if (fupCommand.getNumStudents() >= childNum) {
-            Student student = (Student) fupCommand.getStudents().get(childNum-1);
+            Student student = fupCommand.getStudents().get(childNum-1);
             state = student.getState();
         } else {
             state = fupCommand.getUserProfile().getState();
@@ -143,7 +142,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
             }
         }
-        List cities = _geoDao.findCitiesByState(state);
+        List<City> cities = _geoDao.findCitiesByState(state);
         City city = new City();
         city.setName("My child's city is not listed");
         cities.add(0, city);
@@ -165,7 +164,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
             student.setSchoolId(new Integer(sSchoolId));
         }
         student.setState(state);
-        student.setOrder(new Integer(childNum));
+        student.setOrder(childNum);
 
         fupCommand.addStudent(student);
         fupCommand.addCityName(city);
@@ -176,14 +175,14 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         State state = student.getState();
         Grade grade = student.getGrade();
         if (grade != null) {
-            List schools = _schoolDao.findSchoolsInCityByGrade(state, city, grade);
+            List<School> schools = _schoolDao.findSchoolsInCityByGrade(state, city, grade);
             School school = new School();
-            school.setId(new Integer(-1));
+            school.setId(-1);
             school.setName("My child's school is not listed");
             schools.add(0, school);
             fupCommand.addSchools(schools);
         } else {
-            fupCommand.addSchools(new ArrayList());
+            fupCommand.addSchools(new ArrayList<School>());
         }
         fupCommand.addSchoolName("");
     }
@@ -206,13 +205,13 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         User user = fupCommand.getUser();
 
         fupCommand.getSchoolNames().clear();
-        for (int x=0; x < user.getUserProfile().getNumSchoolChildren().intValue(); x++) {
-            Student student = (Student) fupCommand.getStudents().get(x);
+        for (int x=0; x < user.getUserProfile().getNumSchoolChildren(); x++) {
+            Student student = fupCommand.getStudents().get(x);
             if (student.getGrade() == null) {
                 errors.rejectValue("students[" + x + "]", null, ERROR_GRADE_MISSING);
             }
             School school = null;
-            if (student.getSchoolId() != null && student.getSchoolId().intValue() != -1) {
+            if (student.getSchoolId() != null && student.getSchoolId() != -1) {
                 try {
                     school = _schoolDao.getSchoolById(student.getState(), student.getSchoolId());
                 } catch (ObjectRetrievalFailureException orfe) {
@@ -228,7 +227,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
                 // a list of school names makes persisting the page MUCH easier
                 // (order is preserved for students!!)
                 fupCommand.addSchoolName(school.getName());
-            } else if (student.getSchoolId() != null && student.getSchoolId().intValue() == -1) {
+            } else if (student.getSchoolId() != null && student.getSchoolId() == -1) {
                 fupCommand.addSchoolName("My child's school is not listed");
             } else {
                 // to avoid index out of bounds exceptions, we have to add something to the list
@@ -239,53 +238,6 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         if (!fupCommand.getTerms()) {
             errors.rejectValue("terms", null, ERROR_TERMS);
         }
-
-//        // now check if they are adding/removing children
-//        if (request.getParameter("addChild") != null) {
-//            addChild(user, fupCommand, errors);
-//        } else if (request.getParameter("removeChild") != null) {
-//            removeChild(user, fupCommand, errors);
-//        }
-    }
-
-    protected void removeChild(User user, FollowUpCommand fupCommand, BindException errors) {
-        // remove a child row. See addChild for additional notes
-        UserProfile userProfile = user.getUserProfile();
-        Integer numChildren = userProfile.getNumSchoolChildren();
-        if (numChildren == null || numChildren.intValue() < 1) {
-            numChildren = new Integer(0);
-        } else {
-            numChildren = new Integer(numChildren.intValue() - 1);
-        }
-        userProfile.setNumSchoolChildren(numChildren);
-        _userDao.updateUser(user);
-        fupCommand.getUserProfile().setNumSchoolChildren(numChildren);
-        // see addChild above for why an error is generated
-        errors.rejectValue("userProfile", null, "Removing child");
-    }
-
-    protected void addChild(User user, FollowUpCommand fupCommand, BindException errors) {
-        // they've requested to add a child
-        // refresh the page with an additional child
-        UserProfile userProfile = user.getUserProfile();
-        Integer numChildren = userProfile.getNumSchoolChildren();
-        if (numChildren == null || numChildren.intValue() < 1) {
-            // there is always one row on the page, so the minimum outcome from clicking
-            // add is two rows.
-            numChildren = new Integer(2);
-        } else if (numChildren.intValue() >= MAX_CHILDREN) {
-            numChildren = new Integer(MAX_CHILDREN);
-        } else {
-            numChildren = new Integer(numChildren.intValue() + 1);
-        }
-        userProfile.setNumSchoolChildren(numChildren);
-        _userDao.updateUser(user);
-        fupCommand.getUserProfile().setNumSchoolChildren(numChildren);
-        // now that the numSchoolChildren value has been updated, we need to return to the page
-        // so it will refresh with an additional child row.
-        // I do this by rejecting a non-existant value. No error is displayed, so from the user's
-        // perspective the page simply reloads with an additional child
-        errors.rejectValue("userProfile", null, "Adding child");
     }
 
     public ModelAndView onSubmit(HttpServletRequest request,
@@ -319,38 +271,38 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
         if (user.getStudents() != null) {
             user.getStudents().clear();
         }
-        _contactSubs = new HashSet();
+        _contactSubs = new HashSet<String>();
         deleteSubscriptionsForProduct(user, SubscriptionProduct.PARENT_CONTACT);
-        if (existingProfile.getNumSchoolChildren().intValue() == 0) {
+        if (existingProfile.getNumSchoolChildren() == 0) {
             // there is an odd case where they specified 0 children but then entered
             // a child's info in the default provided field.
             // try to detect this case, and increment their number of children.
             if (fupCommand.getStudents().size() == 1) {
-                Student student = (Student) fupCommand.getStudents().get(0);
+                Student student = fupCommand.getStudents().get(0);
                 // grade and state are automatically set, so only check the child name and
                 // school id fields. If either of those have changed, assume they changed
                 // their mind and actually have one child
                 if (student.getSchoolId() != null ||
                         (student.getName() != null && !student.getName().equals("Child #1"))) {
                     user.addStudent(student);
-                    if (Boolean.valueOf(fupCommand.getRecontact()).booleanValue()) {
+                    if (Boolean.valueOf(fupCommand.getRecontact())) {
                         addContactSubscriptionFromStudent(student, user);
                     }
-                    existingProfile.setNumSchoolChildren(new Integer(1));
+                    existingProfile.setNumSchoolChildren(1);
                 }
             }
         } else {
-            for (int x=0; x < fupCommand.getStudents().size(); x++) {
-                Student student = (Student) fupCommand.getStudents().get(x);
+            for (Student student: fupCommand.getStudents()) {
                 if ("y".equals(fupCommand.getRecontact())) {
                     addContactSubscriptionFromStudent(student, user);
                 }
-                if (student.getSchoolId() != null && student.getSchoolId().intValue() == -1) {
+                if (student.getSchoolId() != null && student.getSchoolId() == -1) {
                     student.setSchoolId(null);
                 }
                 user.addStudent(student);
             }
         }
+        deleteSubscriptionsForProduct(user, SubscriptionProduct.COMMUNITY);
         if (fupCommand.getNewsletter()) {
             Subscription subscription = new Subscription();
             subscription.setUser(user);
@@ -392,21 +344,20 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
     }
 
     private void saveSubscriptionsForUser(FollowUpCommand fupCommand, User user) {
-        for (int x=0; x < fupCommand.getSubscriptions().size(); x++) {
-            Subscription sub = (Subscription)fupCommand.getSubscriptions().get(x);
+        for (Subscription sub: fupCommand.getSubscriptions()) {
             sub.setUser(user);
             _subscriptionDao.saveSubscription(sub);
-            if (Boolean.valueOf(fupCommand.getRecontact()).booleanValue()) {
+            if (Boolean.valueOf(fupCommand.getRecontact())) {
                 addContactSubscriptionFromSubscription(sub);
             }
         }
     }
 
     private void deleteSubscriptionsForProduct(User user, SubscriptionProduct product) {
-        List oldSubs = _subscriptionDao.getUserSubscriptions(user, product);
+        List<Subscription> oldSubs = _subscriptionDao.getUserSubscriptions(user, product);
         if (oldSubs != null) {
-            for (int x=0; x < oldSubs.size(); x++) {
-                _subscriptionDao.removeSubscription(((Subscription)oldSubs.get(x)).getId());
+            for (Subscription oldSub : oldSubs) {
+                _subscriptionDao.removeSubscription(oldSub.getId());
             }
         }
     }
@@ -419,7 +370,7 @@ public class RegistrationFollowUpController extends SimpleFormController impleme
 
     private void addContactSubscriptionFromStudent(Student student, User user) {
         if (student.getSchoolId() != null) {
-            addContactSubscription(user, student.getSchoolId().intValue(), student.getState());
+            addContactSubscription(user, student.getSchoolId(), student.getState());
         }
     }
 
